@@ -28,6 +28,7 @@ using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
+using Bloomlings.Core.Slots;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using Bloomlings.Client.UI.Localization;
@@ -384,23 +385,36 @@ namespace Bloomlings.Client.Gameplay
                     break;
                 case LevelJammed _:
                 case LevelStuck _:
-                    // The recoveries of the current state (the timeline may be behind), owned or affordable (FR-027).
-                    if (_session!.Status == LevelStatus.Jammed || _session.Status == LevelStatus.Stuck)
-                    {
-                        var usable = new List<Recovery>();
-                        foreach (Recovery recovery in _session.EligibleRecoveries())
-                        {
-                            if (Economy == null || Economy.CanAfford(KindOf(recovery)))
-                            {
-                                usable.Add(recovery);
-                            }
-                        }
-
-                        _jam.Show(_session.Status == LevelStatus.Stuck, usable, RecoveryLabel, RescueOffer());
-                    }
-
+                    ShowJamIfBlocked();
                     break;
             }
+        }
+
+        /// <summary>
+        /// Shows the Jam screen while the board is Jammed or Stuck (FR-027): the recoveries of the current state (the
+        /// timeline may be behind) that are unlocked and owned or affordable, the ad rescue and Restart. Also called when
+        /// a recovery started from the Jam screen changed nothing or was cancelled, since no new jam event follows then.
+        /// </summary>
+        private void ShowJamIfBlocked()
+        {
+            LevelSession? session = _session;
+            if (session == null || (session.Status != LevelStatus.Jammed && session.Status != LevelStatus.Stuck))
+            {
+                return;
+            }
+
+            EconomyService? economy = Economy;
+            var usable = new List<Recovery>();
+            foreach (Recovery recovery in session.EligibleRecoveries())
+            {
+                BoosterKind kind = KindOf(recovery);
+                if (economy == null || (economy.IsUnlocked(kind) && economy.CanAfford(kind)))
+                {
+                    usable.Add(recovery);
+                }
+            }
+
+            _jam.Show(session.Status == LevelStatus.Stuck, usable, RecoveryLabel, RescueOffer());
         }
 
         // ---- Boosters (T120, T121) ----
@@ -418,6 +432,7 @@ namespace Bloomlings.Client.Gameplay
             if (_targeting == kind)
             {
                 CancelTargeting();
+                ShowJamIfBlocked();
                 return;
             }
 
@@ -493,6 +508,10 @@ namespace Bloomlings.Client.Gameplay
                 {
                     UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant.Value));
                 }
+                else
+                {
+                    ShowJamIfBlocked();
+                }
             }
         }
 
@@ -508,6 +527,7 @@ namespace Bloomlings.Client.Gameplay
             if (!check.IsAllowed)
             {
                 _hud.Toast(Loc.T("gameplay.booster_useless"));
+                ShowJamIfBlocked();
                 return;
             }
 
@@ -515,6 +535,7 @@ namespace Bloomlings.Client.Gameplay
             if (!free && Economy != null && !Economy.TryTakeCharge(kind))
             {
                 _hud.Toast(Loc.T("gameplay.not_enough_petals"));
+                ShowJamIfBlocked();
                 return;
             }
 
@@ -563,6 +584,7 @@ namespace Bloomlings.Client.Gameplay
             RecordWinIfWon();
             TrackAnalytics();
             RefreshBoosters();
+            ShowJamIfBlocked();
         }
 
         // ---- Rewarded placements (T130); every one is started by the player (FR-052) ----
@@ -573,7 +595,9 @@ namespace Bloomlings.Client.Gameplay
 
         /// <summary>
         /// The jam rescue: a rewarded ad for one free use of a jam-resolving booster, once per attempt (FR-027, FR-048).
-        /// Extra Slot is preferred, then Shuffle; null when neither helps or no ad is ready.
+        /// Only a booster the level accepts in this state is offered, so the rescue always changes the outcome: Extra Slot
+        /// first, then Shuffle (a Stuck board only), then Return on the first slot whose pod can make room. Bloom Burst is
+        /// never given away. Null when none of them helps or is unlocked yet, or no ad is ready.
         /// </summary>
         private (string Label, Action Watch)? RescueOffer()
         {
@@ -584,10 +608,7 @@ namespace Bloomlings.Client.Gameplay
                 return null;
             }
 
-            (BoosterKind Kind, Command Command)? rescue =
-                _session!.Check(new UseExtraSlot()).IsAllowed ? (BoosterKind.ExtraSlot, new UseExtraSlot())
-                : _session.Check(new UseShuffle()).IsAllowed ? (BoosterKind.Shuffle, new UseShuffle())
-                : ((BoosterKind, Command)?)null;
+            (BoosterKind Kind, Command Command)? rescue = RescueBooster(_session!);
             if (rescue == null)
             {
                 return null;
@@ -609,6 +630,33 @@ namespace Bloomlings.Client.Gameplay
                     UseBooster(kind, command, free: true);
                 }
             }));
+        }
+
+        private static (BoosterKind Kind, Command Command)? RescueBooster(LevelSession session)
+        {
+            EconomyService? economy = Economy;
+            bool Usable(BoosterKind kind, Command command) =>
+                (economy == null || economy.IsUnlocked(kind)) && session.Check(command).IsAllowed;
+
+            if (Usable(BoosterKind.ExtraSlot, new UseExtraSlot()))
+            {
+                return (BoosterKind.ExtraSlot, new UseExtraSlot());
+            }
+
+            if (Usable(BoosterKind.Shuffle, new UseShuffle()))
+            {
+                return (BoosterKind.Shuffle, new UseShuffle());
+            }
+
+            for (int slot = 0; slot < WaitingSlots.Capacity; slot++)
+            {
+                if (Usable(BoosterKind.Return, new UseReturn(slot)))
+                {
+                    return (BoosterKind.Return, new UseReturn(slot));
+                }
+            }
+
+            return null;
         }
 
         /// <summary>The doubled win reward: the same Petals again after a rewarded ad (FR-052).</summary>

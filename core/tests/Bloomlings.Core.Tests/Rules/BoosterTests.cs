@@ -83,6 +83,61 @@ namespace Bloomlings.Core.Tests.Rules
         }
 
         [Test]
+        public void Shuffle_IsDisabledOnAJam_BecauseNoOrderFreesASlot()
+        {
+            LevelSession session = Jammed();
+
+            Assert.That(session.Check(new UseShuffle()).Reason, Is.EqualTo(RejectReason.BoosterNotApplicable));
+            Assert.That(session.EligibleRecoveries(), Is.EqualTo(new[] { Recovery.ExtraSlot, Recovery.Return, Recovery.BloomBurst }));
+        }
+
+        [Test]
+        public void Return_OnAJam_NeedsAnotherPodToTakeTheFreedSlot()
+        {
+            // Only the Water pod can help, and it lies under f1's home stack: returning f1 would bury it again.
+            string[] rows = Rows("###f###", "###f###", "###f###", "###f###", "###f###", "##mwm##", ".......");
+            LevelDefinition level = Definition(rows, new[]
+            {
+                Pod("f1", VariantId.Flower, 1), Pod("f2", VariantId.Flower, 1), Pod("f3", VariantId.Flower, 1), Pod("f4", VariantId.Flower, 1), Pod("f5", VariantId.Flower, 1),
+                Pod("water", VariantId.Water, 1), Pod("moss", VariantId.Moss, 2),
+            }, stacks: new[] { new[] { "f1", "water", "moss" }, new[] { "f2" }, new[] { "f3" }, new[] { "f4" }, new[] { "f5" } });
+            LevelSession session = Load(rows, level);
+            foreach (string pod in new[] { "f1", "f2", "f3", "f4", "f5" })
+            {
+                Do(session, "tap:" + pod);
+            }
+
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Jammed));
+            Assert.That(session.Check(new UseReturn(session.View.Pod("f1").SlotIndex)).IsAllowed, Is.False, "f1 would cover the Water pod");
+            Assert.That(session.Check(new UseReturn(session.View.Pod("f2").SlotIndex)).IsAllowed, Is.True);
+
+            Do(session, new UseReturn(session.View.Pod("f2").SlotIndex));
+            Do(session, "tap:water");
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Playing));
+        }
+
+        [Test]
+        public void ExtraSlot_IsDisabledWhenOnlyLockedPodsRemain()
+        {
+            // The Leaf pod's key lies on the Leaf tile itself: once the Moss is gone nothing can move.
+            string[] rows = Rows("##mlm##", ".......");
+            LevelDefinition level = Definition(
+                rows,
+                new[] { new PodDef("leaf", VariantId.Leaf, 1, false, "k1", null), Pod("moss", VariantId.Moss, 2) },
+                stacks: new[] { new[] { "leaf" }, new[] { "moss" } },
+                overlays: new[] { new CellOverlay(new CellPos(3, 1), Array.Empty<VariantId>(), false, false, false, "k1") }) with
+            {
+                Locks = new[] { new LockDef("k1", LockTargetKind.Pod, "leaf") },
+            };
+            LevelSession session = Load(rows, level);
+            Do(session, "tap:moss");
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Stuck));
+
+            Assert.That(session.Check(new UseExtraSlot()).Reason, Is.EqualTo(RejectReason.BoosterNotApplicable));
+            Assert.That(session.EligibleRecoveries(), Is.EqualTo(new[] { Recovery.BloomBurst }));
+        }
+
+        [Test]
         public void Return_PutsThePodOnTopOfItsOriginalStack()
         {
             string[] rows = Rows("###l###", "..mmm..", "...m...");

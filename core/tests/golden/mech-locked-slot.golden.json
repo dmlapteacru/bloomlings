@@ -100,7 +100,7 @@
     }
   },
   "description": "With slot 0 locked, four waiting pods fill the buffer: a jam (FR-039).",
-  "expectedEventsDigest": "929b3bd8e44edb6a",
+  "expectedEventsDigest": "5f6ffc5fa44fb189",
   "expectedStateHash": "bd711ad9eeda3f6f",
   "expectedStatus": "jammed",
   "name": "mech-locked-slot",

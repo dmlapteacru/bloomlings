@@ -25,6 +25,10 @@ namespace Bloomlings.Core.Boosters
     {
         private const int SeededCandidates = 8;
 
+        /// <summary>
+        /// Two or more tray pods are needed. On a Jammed board no order of the tray can free a slot, so Shuffle is
+        /// disabled; on a Stuck board it needs a buried pod that could be committed once exposed (FR-046).
+        /// </summary>
         public static bool CanApply(LevelState state)
         {
             int inTray = 0;
@@ -36,7 +40,17 @@ namespace Bloomlings.Core.Boosters
                 }
             }
 
-            return inTray >= 2;
+            if (inTray < 2)
+            {
+                return false;
+            }
+
+            return state.Status switch
+            {
+                LevelStatus.Jammed => false,
+                LevelStatus.Stuck => RecoveryCheck.BuriedPodFits(state),
+                _ => true,
+            };
         }
 
         /// <summary>The new arrangement: pod indexes per stack, top first.</summary>
