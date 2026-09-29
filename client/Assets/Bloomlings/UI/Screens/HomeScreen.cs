@@ -26,7 +26,8 @@ namespace Bloomlings.Client.UI.Screens
         Color? Background = null,
         bool LevelAvailable = true,
         ProfileLook? Profile = null,
-        Outfit? AvatarOutfit = null);
+        Outfit? AvatarOutfit = null,
+        Color? Accent = null);
 
     /// <summary>The Home buttons of the long-run features (US7); a null action hides its button.</summary>
     public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard, Action? OnProfile = null);
@@ -48,6 +49,7 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _milestone = null!;
         private TextMeshProUGUI _rank = null!;
         private Image _background = null!;
+        private Image _band = null!;
         private GameObject _rankButton = null!;
         private GameObject _daily = null!;
         private TextMeshProUGUI _dailyLabel = null!;
@@ -64,6 +66,10 @@ namespace Bloomlings.Client.UI.Screens
             Image background = UiFactory.CreateImage("Background", root, null, UiTheme.Background);
             UiFactory.Stretch(background.rectTransform);
             screen._background = background;
+
+            // A soft band in the theme's accent behind Level N and Play (FR-066).
+            screen._band = UiFactory.CreateImage("Band", root, ProceduralSprites.RoundedSquare, new Color(1f, 1f, 1f, 0f));
+            UiFactory.Place(screen._band.rectTransform, 0.06f, 0.36f, 0.94f, 0.615f);
 
             TextMeshProUGUI logo = UiFactory.CreateText("Logo", root, Loc.T("home.logo"), 120f, UiTheme.Accent);
             logo.fontStyle = FontStyles.Bold;
@@ -184,6 +190,7 @@ namespace Bloomlings.Client.UI.Screens
 
             _collection.SetActive(model.CollectionAvailable);
             _background.color = model.Background ?? UiTheme.Background;
+            _band.color = model.Accent.HasValue ? new Color(model.Accent.Value.r, model.Accent.Value.g, model.Accent.Value.b, 0.8f) : new Color(1f, 1f, 1f, 0f);
             _milestone.text = model.NextMilestoneLevel.HasValue
                 ? Loc.F("home.milestone_teaser", model.NextMilestoneLevel.Value, model.LevelsToMilestone.GetValueOrDefault())
                 : string.Empty;

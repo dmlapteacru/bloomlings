@@ -88,7 +88,9 @@ namespace Bloomlings.Client.App.Home
                 }
 
                 (int Level, MilestoneCadence Cadence, int WinsToGo)? next = milestones.Next(progression.HighestCompletedLevel);
-                Color? background = ColorUtility.TryParseHtmlString(ThemeRotation.Default.ThemeFor(progression.CurrentLevel).Background, out Color theme) ? theme : (Color?)null;
+                BackgroundTheme band = ThemeRotation.Default.ThemeFor(progression.CurrentLevel);
+                Color? background = ColorUtility.TryParseHtmlString(band.Background, out Color theme) ? theme : (Color?)null;
+                Color? accent = ColorUtility.TryParseHtmlString(band.Accent, out Color accentColor) ? accentColor : (Color?)null;
                 home.Show(new HomeModel(
                     progression.CurrentLevel,
                     economy.Petals,
@@ -104,7 +106,8 @@ namespace Bloomlings.Client.App.Home
                     background,
                     catalog.HasLevel(progression.CurrentLevel),
                     wardrobe.Profile,
-                    wardrobe.OutfitOf(Core.Variants.Family.Bloom)));
+                    wardrobe.OutfitOf(Core.Variants.Family.Bloom),
+                    accent));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.IsOpen)
                 {
