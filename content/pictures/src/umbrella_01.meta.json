@@ -1,0 +1,62 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 10,
+  "id": "umbrella_01",
+  "legend": {
+    "g": "grass",
+    "h": "handle",
+    "s": "sky",
+    "u": "canopy",
+    "v": "rib"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Canopy",
+      "roleId": "canopy"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ribs",
+      "roleId": "rib"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Handle",
+      "roleId": "handle"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Umbrella 1",
+  "tags": {
+    "bands": [
+      "early"
+    ],
+    "themes": [
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 10
+}

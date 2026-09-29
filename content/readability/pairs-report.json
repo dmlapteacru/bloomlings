@@ -1,0 +1,1064 @@
+{
+  "pairs": [
+    {
+      "a": "leaf",
+      "b": "moss",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 43.74,
+        "normal": 42.86,
+        "protanopia": 41.44,
+        "tritanopia": 37.14
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 39.25,
+      "grayscaleFlag": false,
+      "minDeltaE": 37.14,
+      "sameFamily": true
+    },
+    {
+      "a": "leaf",
+      "b": "flower",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 21.17,
+        "normal": 58.98,
+        "protanopia": 33.59,
+        "tritanopia": 38.43
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 8.85,
+      "grayscaleFlag": false,
+      "minDeltaE": 21.17,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "violet_bud",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 74.11,
+        "normal": 88.82,
+        "protanopia": 75.21,
+        "tritanopia": 49.89
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 49.15,
+      "grayscaleFlag": false,
+      "minDeltaE": 49.89,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "water",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 62,
+        "normal": 66.45,
+        "protanopia": 60.71,
+        "tritanopia": 25.88
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 24.02,
+      "grayscaleFlag": false,
+      "minDeltaE": 25.88,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "dew",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 40.16,
+        "normal": 34.88,
+        "protanopia": 35.41,
+        "tritanopia": 23.53
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 12.51,
+      "grayscaleFlag": false,
+      "minDeltaE": 23.53,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "wood",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 57.66,
+        "normal": 71.25,
+        "protanopia": 63.59,
+        "tritanopia": 67.78
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 58.84,
+      "grayscaleFlag": false,
+      "minDeltaE": 57.66,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "acorn",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 22.08,
+        "normal": 47.15,
+        "protanopia": 31.21,
+        "tritanopia": 45.52
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 29.92,
+      "grayscaleFlag": false,
+      "minDeltaE": 22.08,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 12.25,
+        "normal": 14.08,
+        "protanopia": 10.7,
+        "tritanopia": 19.2
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 16.9,
+      "grayscaleFlag": false,
+      "minDeltaE": 10.7,
+      "sameFamily": true
+    },
+    {
+      "a": "leaf",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 33.89,
+        "normal": 63.26,
+        "protanopia": 48.49,
+        "tritanopia": 54.76
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 41.81,
+      "grayscaleFlag": false,
+      "minDeltaE": 33.89,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 48.37,
+        "normal": 52.72,
+        "protanopia": 49.45,
+        "tritanopia": 16.08
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 13.87,
+      "grayscaleFlag": false,
+      "minDeltaE": 16.08,
+      "sameFamily": false
+    },
+    {
+      "a": "leaf",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 11.05,
+        "normal": 17.48,
+        "protanopia": 14.08,
+        "tritanopia": 27.92
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 12.47,
+      "grayscaleFlag": false,
+      "minDeltaE": 11.05,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "flower",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 32.5,
+        "normal": 55.38,
+        "protanopia": 25.88,
+        "tritanopia": 56.97
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 30.39,
+      "grayscaleFlag": false,
+      "minDeltaE": 25.88,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "violet_bud",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 26.73,
+        "normal": 36.2,
+        "protanopia": 32.17,
+        "tritanopia": 22.43
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 9.91,
+      "grayscaleFlag": false,
+      "minDeltaE": 22.43,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "water",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 29.95,
+        "normal": 35.01,
+        "protanopia": 35.05,
+        "tritanopia": 19.98
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 15.22,
+      "grayscaleFlag": false,
+      "minDeltaE": 19.98,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "dew",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 44.18,
+        "normal": 44.08,
+        "protanopia": 44.17,
+        "tritanopia": 44.07
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 51.76,
+      "grayscaleFlag": false,
+      "minDeltaE": 44.07,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "wood",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 20.37,
+        "normal": 40.83,
+        "protanopia": 20.8,
+        "tritanopia": 46.77
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 19.6,
+      "grayscaleFlag": false,
+      "minDeltaE": 20.37,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "acorn",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 26.75,
+        "normal": 40.83,
+        "protanopia": 19.86,
+        "tritanopia": 49.98
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 9.32,
+      "grayscaleFlag": false,
+      "minDeltaE": 19.86,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 53.51,
+        "normal": 54,
+        "protanopia": 50.1,
+        "tritanopia": 51.52
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 56.14,
+      "grayscaleFlag": false,
+      "minDeltaE": 50.1,
+      "sameFamily": true
+    },
+    {
+      "a": "moss",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 21.62,
+        "normal": 45.32,
+        "protanopia": 17.4,
+        "tritanopia": 51.37
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 2.57,
+      "grayscaleFlag": true,
+      "minDeltaE": 17.4,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 31.69,
+        "normal": 36.69,
+        "protanopia": 33.6,
+        "tritanopia": 26.85
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 25.38,
+      "grayscaleFlag": false,
+      "minDeltaE": 26.85,
+      "sameFamily": false
+    },
+    {
+      "a": "moss",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 34.15,
+        "normal": 35.31,
+        "protanopia": 29,
+        "tritanopia": 44.58
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 26.78,
+      "grayscaleFlag": false,
+      "minDeltaE": 29,
+      "sameFamily": false
+    },
+    {
+      "a": "flower",
+      "b": "violet_bud",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 53.55,
+        "normal": 47.18,
+        "protanopia": 39.49,
+        "tritanopia": 49.33
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 40.3,
+      "grayscaleFlag": false,
+      "minDeltaE": 39.49,
+      "sameFamily": true
+    },
+    {
+      "a": "flower",
+      "b": "water",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 37.95,
+        "normal": 38.51,
+        "protanopia": 21.83,
+        "tritanopia": 62.87
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 15.17,
+      "grayscaleFlag": false,
+      "minDeltaE": 21.83,
+      "sameFamily": false
+    },
+    {
+      "a": "flower",
+      "b": "dew",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 22.03,
+        "normal": 63.26,
+        "protanopia": 20.06,
+        "tritanopia": 65.06
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 21.37,
+      "grayscaleFlag": false,
+      "minDeltaE": 20.06,
+      "sameFamily": false
+    },
+    {
+      "a": "flower",
+      "b": "wood",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 50.35,
+        "normal": 50.16,
+        "protanopia": 47.58,
+        "tritanopia": 47.54
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 49.99,
+      "grayscaleFlag": false,
+      "minDeltaE": 47.54,
+      "sameFamily": false
+    },
+    {
+      "a": "flower",
+      "b": "acorn",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 26.33,
+        "normal": 34.37,
+        "protanopia": 35.21,
+        "tritanopia": 19.95
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 21.07,
+      "grayscaleFlag": false,
+      "minDeltaE": 19.95,
+      "sameFamily": false
+    },
+    {
+      "a": "flower",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 28.81,
+        "normal": 60.35,
+        "protanopia": 40.78,
+        "tritanopia": 29.11
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 25.75,
+      "grayscaleFlag": false,
+      "minDeltaE": 28.81,
+      "sameFamily": false
+    },
+    {
+      "a": "flower",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 34.12,
+        "normal": 37.87,
+        "protanopia": 42.45,
+        "tritanopia": 33.04
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 32.96,
+      "grayscaleFlag": false,
+      "minDeltaE": 33.04,
+      "sameFamily": true
+    },
+    {
+      "a": "flower",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 26.21,
+        "normal": 28.39,
+        "protanopia": 13.49,
+        "tritanopia": 40.43
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 5.02,
+      "grayscaleFlag": true,
+      "minDeltaE": 13.49,
+      "sameFamily": false
+    },
+    {
+      "a": "flower",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 15.48,
+        "normal": 40.21,
+        "protanopia": 25.52,
+        "tritanopia": 15.66
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 3.61,
+      "grayscaleFlag": true,
+      "minDeltaE": 15.48,
+      "sameFamily": false
+    },
+    {
+      "a": "violet_bud",
+      "b": "water",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 20.58,
+        "normal": 30.29,
+        "protanopia": 25.3,
+        "tritanopia": 32.68
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 25.13,
+      "grayscaleFlag": false,
+      "minDeltaE": 20.58,
+      "sameFamily": false
+    },
+    {
+      "a": "violet_bud",
+      "b": "dew",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 53.7,
+        "normal": 66.2,
+        "protanopia": 56.63,
+        "tritanopia": 59.02
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 61.66,
+      "grayscaleFlag": false,
+      "minDeltaE": 53.7,
+      "sameFamily": false
+    },
+    {
+      "a": "violet_bud",
+      "b": "wood",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 46.43,
+        "normal": 37.38,
+        "protanopia": 43.84,
+        "tritanopia": 29.46
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 9.69,
+      "grayscaleFlag": false,
+      "minDeltaE": 29.46,
+      "sameFamily": false
+    },
+    {
+      "a": "violet_bud",
+      "b": "acorn",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 59.36,
+        "normal": 50.32,
+        "protanopia": 55.94,
+        "tritanopia": 35.86
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 19.23,
+      "grayscaleFlag": false,
+      "minDeltaE": 35.86,
+      "sameFamily": false
+    },
+    {
+      "a": "violet_bud",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 84.22,
+        "normal": 93.99,
+        "protanopia": 83.54,
+        "tritanopia": 58
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 66.05,
+      "grayscaleFlag": false,
+      "minDeltaE": 58,
+      "sameFamily": false
+    },
+    {
+      "a": "violet_bud",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 54.13,
+        "normal": 40.72,
+        "protanopia": 49.24,
+        "tritanopia": 34.94
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 7.34,
+      "grayscaleFlag": true,
+      "minDeltaE": 34.94,
+      "sameFamily": true
+    },
+    {
+      "a": "violet_bud",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 33.66,
+        "normal": 36.91,
+        "protanopia": 34.87,
+        "tritanopia": 36.98
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 35.28,
+      "grayscaleFlag": false,
+      "minDeltaE": 33.66,
+      "sameFamily": false
+    },
+    {
+      "a": "violet_bud",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 62.78,
+        "normal": 66.87,
+        "protanopia": 61.39,
+        "tritanopia": 40.68
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 36.68,
+      "grayscaleFlag": false,
+      "minDeltaE": 40.68,
+      "sameFamily": false
+    },
+    {
+      "a": "water",
+      "b": "dew",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 31.89,
+        "normal": 39.89,
+        "protanopia": 32.83,
+        "tritanopia": 26.8
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 36.53,
+      "grayscaleFlag": false,
+      "minDeltaE": 26.8,
+      "sameFamily": true
+    },
+    {
+      "a": "water",
+      "b": "wood",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 53.37,
+        "normal": 49.66,
+        "protanopia": 54.36,
+        "tritanopia": 66.43
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 34.82,
+      "grayscaleFlag": false,
+      "minDeltaE": 49.66,
+      "sameFamily": false
+    },
+    {
+      "a": "water",
+      "b": "acorn",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 56.68,
+        "normal": 48.75,
+        "protanopia": 55.34,
+        "tritanopia": 65.23
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 5.9,
+      "grayscaleFlag": true,
+      "minDeltaE": 48.75,
+      "sameFamily": false
+    },
+    {
+      "a": "water",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 71.25,
+        "normal": 75.73,
+        "protanopia": 67.52,
+        "tritanopia": 39.88
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 40.92,
+      "grayscaleFlag": false,
+      "minDeltaE": 39.88,
+      "sameFamily": false
+    },
+    {
+      "a": "water",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 55.18,
+        "normal": 48.5,
+        "protanopia": 54.59,
+        "tritanopia": 70.71
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 17.79,
+      "grayscaleFlag": false,
+      "minDeltaE": 48.5,
+      "sameFamily": false
+    },
+    {
+      "a": "water",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 14.06,
+        "normal": 14.29,
+        "protanopia": 10.83,
+        "tritanopia": 11.64
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 10.15,
+      "grayscaleFlag": false,
+      "minDeltaE": 10.83,
+      "sameFamily": true
+    },
+    {
+      "a": "water",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 53.24,
+        "normal": 51.35,
+        "protanopia": 50.65,
+        "tritanopia": 37.2
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 11.55,
+      "grayscaleFlag": false,
+      "minDeltaE": 37.2,
+      "sameFamily": false
+    },
+    {
+      "a": "dew",
+      "b": "wood",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 70.16,
+        "normal": 80.59,
+        "protanopia": 76.73,
+        "tritanopia": 87.79
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 71.35,
+      "grayscaleFlag": false,
+      "minDeltaE": 70.16,
+      "sameFamily": false
+    },
+    {
+      "a": "dew",
+      "b": "acorn",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 47.91,
+        "normal": 58.12,
+        "protanopia": 49.99,
+        "tritanopia": 71.57
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 42.44,
+      "grayscaleFlag": false,
+      "minDeltaE": 47.91,
+      "sameFamily": false
+    },
+    {
+      "a": "dew",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 46.64,
+        "normal": 39.08,
+        "protanopia": 38.33,
+        "tritanopia": 32.24
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 4.39,
+      "grayscaleFlag": true,
+      "minDeltaE": 32.24,
+      "sameFamily": false
+    },
+    {
+      "a": "dew",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 53.88,
+        "normal": 69.84,
+        "protanopia": 61.05,
+        "tritanopia": 79.75
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 54.33,
+      "grayscaleFlag": false,
+      "minDeltaE": 53.88,
+      "sameFamily": false
+    },
+    {
+      "a": "dew",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 18.96,
+        "normal": 32.58,
+        "protanopia": 23.19,
+        "tritanopia": 24.73
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 26.38,
+      "grayscaleFlag": false,
+      "minDeltaE": 18.96,
+      "sameFamily": true
+    },
+    {
+      "a": "dew",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 37.53,
+        "normal": 37.49,
+        "protanopia": 34.21,
+        "tritanopia": 44.74
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 24.98,
+      "grayscaleFlag": false,
+      "minDeltaE": 34.21,
+      "sameFamily": false
+    },
+    {
+      "a": "wood",
+      "b": "acorn",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 26.87,
+        "normal": 26.03,
+        "protanopia": 24.03,
+        "tritanopia": 24.09
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 28.92,
+      "grayscaleFlag": false,
+      "minDeltaE": 24.03,
+      "sameFamily": true
+    },
+    {
+      "a": "wood",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 67.87,
+        "normal": 79.01,
+        "protanopia": 76.38,
+        "tritanopia": 71.46
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 75.74,
+      "grayscaleFlag": false,
+      "minDeltaE": 67.87,
+      "sameFamily": false
+    },
+    {
+      "a": "wood",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 16.24,
+        "normal": 15.68,
+        "protanopia": 11.44,
+        "tritanopia": 16.1
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 17.03,
+      "grayscaleFlag": false,
+      "minDeltaE": 11.44,
+      "sameFamily": false
+    },
+    {
+      "a": "wood",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 53.49,
+        "normal": 52.07,
+        "protanopia": 55.28,
+        "tritanopia": 57.67
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 44.97,
+      "grayscaleFlag": false,
+      "minDeltaE": 52.07,
+      "sameFamily": false
+    },
+    {
+      "a": "wood",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 42.39,
+        "normal": 48.44,
+        "protanopia": 43.81,
+        "tritanopia": 43.53
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 46.37,
+      "grayscaleFlag": false,
+      "minDeltaE": 42.39,
+      "sameFamily": true
+    },
+    {
+      "a": "acorn",
+      "b": "vine",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 33.03,
+        "normal": 50.13,
+        "protanopia": 40.67,
+        "tritanopia": 42.16
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 46.82,
+      "grayscaleFlag": false,
+      "minDeltaE": 33.03,
+      "sameFamily": false
+    },
+    {
+      "a": "acorn",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 11.03,
+        "normal": 15.42,
+        "protanopia": 12.85,
+        "tritanopia": 10.93
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 11.89,
+      "grayscaleFlag": false,
+      "minDeltaE": 10.93,
+      "sameFamily": false
+    },
+    {
+      "a": "acorn",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 47.17,
+        "normal": 43.31,
+        "protanopia": 48.94,
+        "tritanopia": 46.05
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 16.05,
+      "grayscaleFlag": false,
+      "minDeltaE": 43.31,
+      "sameFamily": false
+    },
+    {
+      "a": "acorn",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 14.62,
+        "normal": 27.66,
+        "protanopia": 20.89,
+        "tritanopia": 22.75
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 17.46,
+      "grayscaleFlag": false,
+      "minDeltaE": 14.62,
+      "sameFamily": true
+    },
+    {
+      "a": "vine",
+      "b": "berry",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 44.34,
+        "normal": 66.79,
+        "protanopia": 56.98,
+        "tritanopia": 53.15
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 58.71,
+      "grayscaleFlag": false,
+      "minDeltaE": 44.34,
+      "sameFamily": false
+    },
+    {
+      "a": "vine",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 59.8,
+        "normal": 60.36,
+        "protanopia": 55.18,
+        "tritanopia": 30.62
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 30.77,
+      "grayscaleFlag": false,
+      "minDeltaE": 30.62,
+      "sameFamily": false
+    },
+    {
+      "a": "vine",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 22.65,
+        "normal": 24.8,
+        "protanopia": 23.96,
+        "tritanopia": 22.06
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 29.37,
+      "grayscaleFlag": false,
+      "minDeltaE": 22.06,
+      "sameFamily": false
+    },
+    {
+      "a": "berry",
+      "b": "mist",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 49.23,
+        "normal": 47.16,
+        "protanopia": 52.79,
+        "tritanopia": 53.89
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 27.95,
+      "grayscaleFlag": false,
+      "minDeltaE": 47.16,
+      "sameFamily": false
+    },
+    {
+      "a": "berry",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 25.64,
+        "normal": 42.57,
+        "protanopia": 34.39,
+        "tritanopia": 34.08
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 29.35,
+      "grayscaleFlag": false,
+      "minDeltaE": 25.64,
+      "sameFamily": false
+    },
+    {
+      "a": "mist",
+      "b": "bark",
+      "candidate": true,
+      "deltaE2000": {
+        "deuteranopia": 41.37,
+        "normal": 41.49,
+        "protanopia": 41.15,
+        "tritanopia": 30.26
+      },
+      "distinctIcons": true,
+      "grayscaleDeltaL": 1.4,
+      "grayscaleFlag": true,
+      "minDeltaE": 30.26,
+      "sameFamily": false
+    }
+  ],
+  "thresholds": {
+    "minDeltaE2000": 10,
+    "minGrayscaleDeltaL": 8
+  }
+}

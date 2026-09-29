@@ -1,0 +1,566 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Bloomlings.Content.Validation;
+using Bloomlings.Core.Boards;
+using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
+using Bloomlings.Core.Simulation;
+using Bloomlings.Core.Variants;
+using Bloomlings.Pipeline.Readability;
+using Bloomlings.Solver;
+
+namespace Bloomlings.Pipeline.Validation
+{
+    /// <summary>One finding of the catalog validator. Errors fail the release (FR-080); warnings are reported.</summary>
+    public sealed record LevelIssue(int Level, string Check, string Message, bool IsError);
+
+    public sealed class CatalogReport
+    {
+        public List<LevelIssue> Issues { get; } = new List<LevelIssue>();
+
+        public SortedDictionary<int, ValidationRecord> Records { get; } = new SortedDictionary<int, ValidationRecord>();
+
+        public bool HasErrors => Issues.Exists(i => i.IsError);
+
+        public int ErrorCount => Issues.Count(i => i.IsError);
+    }
+
+    /// <summary>
+    /// The catalog validator (T080). Per level it checks every FR-080 invariant (winnable without boosters with a
+    /// stored trace, exact accounting, no inaccessible content, no mechanic or variant before its unlock, no hidden-
+    /// information failure, readable variant pairs), FR-081 (losable unless a tutorial level), FR-004/FR-060 (variant
+    /// count per band), FR-008 (board limits and occupancy) and the data-model rules (keys and locks 1:1, at most one
+    /// locked slot and only from L80, layer depth ≤ 2 before L125 and ≤ 3 after, 2–6 stacks, connected members at the
+    /// same depth). Across the catalog it checks the FR-083 repetition rules.
+    /// </summary>
+    public sealed class CatalogValidator
+    {
+        public const int LastTutorialLevel = 10;
+
+        private readonly IReadOnlyDictionary<string, BasePicture> _pictures;
+        private readonly UnlockRoadmap _roadmap;
+        private readonly ApprovedPairs? _pairs;
+        private readonly SolveOptions _options;
+        private readonly Solver.Solver _solver = new Solver.Solver();
+
+        /// <param name="pictures">The picture library by id (latest version per id is enough; versions are checked).</param>
+        public CatalogValidator(IEnumerable<BasePicture> pictures, UnlockRoadmap roadmap, ApprovedPairs? pairs, SolveOptions options)
+        {
+            var byKey = new Dictionary<string, BasePicture>(StringComparer.Ordinal);
+            foreach (BasePicture picture in pictures)
+            {
+                byKey[picture.Id + "@" + picture.Version] = picture;
+            }
+
+            _pictures = byKey;
+            _roadmap = roadmap;
+            _pairs = pairs;
+            _options = options;
+        }
+
+        /// <param name="levels">The catalog (any order); FR-083 checks look at level-number neighbours.</param>
+        /// <param name="solveOnly">When set, only these levels are solved (the others still take part in FR-083).</param>
+        public CatalogReport Validate(IReadOnlyList<LevelDefinition> levels, ISet<int>? solveOnly = null)
+        {
+            var report = new CatalogReport();
+            var sorted = levels.OrderBy(l => l.LevelNumber).ToList();
+            var numbers = new HashSet<int>();
+            foreach (LevelDefinition level in sorted)
+            {
+                if (!numbers.Add(level.LevelNumber))
+                {
+                    Error(report, level.LevelNumber, "catalog", "duplicate level number");
+                }
+            }
+
+            foreach (LevelDefinition level in sorted)
+            {
+                if (solveOnly == null || solveOnly.Contains(level.LevelNumber))
+                {
+                    ValidateLevel(level, report);
+                }
+            }
+
+            ValidateSequences(sorted, report);
+            return report;
+        }
+
+        private void ValidateLevel(LevelDefinition level, CatalogReport report)
+        {
+            int n = level.LevelNumber;
+            var passed = new List<string>();
+            if (!_pictures.TryGetValue(level.Picture.Id + "@" + level.Picture.Version, out BasePicture? picture))
+            {
+                Error(report, n, "picture", $"picture {level.Picture.Id} v{level.Picture.Version} is not in the library");
+                return;
+            }
+
+            if (picture.Review.Status != ReviewStatus.Approved)
+            {
+                Error(report, n, "picture-approved", $"picture {picture.Id} is {picture.Review.Status}, not approved (FR-084)");
+            }
+            else
+            {
+                passed.Add("picture-approved");
+            }
+
+            LevelSession session;
+            try
+            {
+                session = LevelSession.Load(level, picture, new SessionOptions(1, 20000));
+                passed.Add("accounting");
+                passed.Add("board-build");
+            }
+            catch (InvalidLevelException ex)
+            {
+                Error(report, n, "accounting", ex.Message);
+                return;
+            }
+
+            CheckBoard(level, picture, report, passed);
+            CheckVariants(level, report, passed);
+            CheckUnlocks(level, picture, report, passed);
+            CheckDataModel(level, report, passed);
+
+            LevelAnalysis analysis = _solver.Analyze(session, _options);
+            ValidationResult result = analysis.Win.Status switch
+            {
+                SolveStatus.Solvable => ValidationResult.Solvable,
+                SolveStatus.Unsolvable => ValidationResult.Unsolvable,
+                _ => ValidationResult.Unknown,
+            };
+            if (result == ValidationResult.Solvable)
+            {
+                passed.Add("solvable");
+                passed.Add("reachability");
+            }
+            else
+            {
+                Error(report, n, "solvable", $"not winnable without boosters ({result.ToString().ToLowerInvariant()}, {analysis.Win.NodesUsed} nodes)");
+            }
+
+            bool losable = analysis.Jam.Status == SolveStatus.Solvable;
+            if (losable)
+            {
+                passed.Add("losable");
+            }
+            else if (n > LastTutorialLevel)
+            {
+                Error(report, n, "losable", "no tap sequence jams this level (FR-081)");
+            }
+
+            report.Records[n] = new ValidationRecord(
+                n,
+                level.DefinitionVersion,
+                ValidationRecord.HashOf(level),
+                Solver.Solver.Version,
+                _options.NodeBudget,
+                analysis.NodesUsed,
+                result,
+                analysis.Win.Trace,
+                losable ? analysis.Jam.Trace : null,
+                null,
+                analysis.Metrics.ToDictionary(),
+                passed);
+        }
+
+        private static void CheckBoard(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
+        {
+            int n = level.LevelNumber;
+            bool ok = true;
+            if (picture.Width < 7 || picture.Width > 14 || picture.Height < 8 || picture.Height > 16)
+            {
+                Error(report, n, "board", $"board {picture.Width}×{picture.Height} is outside 7×8–14×16 (FR-008)");
+                ok = false;
+            }
+
+            int filled = 0;
+            foreach (IReadOnlyList<int> row in picture.Grid)
+            {
+                foreach (int cell in row)
+                {
+                    if (cell != BasePicture.Empty)
+                    {
+                        filled++;
+                    }
+                }
+            }
+
+            int occupancy = filled * 1000 / (picture.Width * picture.Height);
+            if (occupancy < 750 || occupancy > 950)
+            {
+                Error(report, n, "board", $"occupancy {occupancy / 10.0:0.0}% is outside 75–95% (FR-008)");
+                ok = false;
+            }
+
+            if (ok)
+            {
+                passed.Add("board");
+            }
+        }
+
+        /// <summary>FR-004 and FR-060: the variant count by level band.</summary>
+        public static (int Min, int Max) VariantRange(int level, DifficultyClass difficulty)
+        {
+            if (level == 1)
+            {
+                return (2, 2);
+            }
+
+            if (level <= LastTutorialLevel)
+            {
+                return (2, 3);
+            }
+
+            if (level <= 25)
+            {
+                return (3, 4);
+            }
+
+            if (level < 70)
+            {
+                return (4, 5);
+            }
+
+            if (level < 300)
+            {
+                return (4, difficulty == DifficultyClass.Normal ? 5 : 6);
+            }
+
+            return (4, 6);
+        }
+
+        private void CheckVariants(LevelDefinition level, CatalogReport report, List<string> passed)
+        {
+            int n = level.LevelNumber;
+            var variants = new SortedSet<VariantId>();
+            foreach (PodDef pod in level.Pods)
+            {
+                variants.Add(pod.Variant);
+            }
+
+            (int min, int max) = VariantRange(n, level.Difficulty.Class);
+            if (variants.Count == 7 && n >= 300)
+            {
+                Warning(report, n, "variant-count", "7 variants: exceptional, needs the readability sign-off (FR-004)");
+            }
+            else if (variants.Count < min || variants.Count > max)
+            {
+                Error(report, n, "variant-count", $"{variants.Count} variants; L{n} allows {min}–{max} (FR-004, FR-060)");
+            }
+            else
+            {
+                passed.Add("variant-count");
+            }
+
+            var list = variants.ToList();
+            bool readable = true;
+            for (int a = 0; a < list.Count; a++)
+            {
+                for (int b = a + 1; b < list.Count; b++)
+                {
+                    if (_pairs == null || !_pairs.IsApproved(list[a], list[b]))
+                    {
+                        Error(report, n, "readability", $"{list[a]} and {list[b]} are not an approved pair (FR-005)");
+                        readable = false;
+                    }
+                }
+            }
+
+            if (readable)
+            {
+                passed.Add("readability");
+                if (_pairs != null && _pairs.IsProvisional && list.Count > 1)
+                {
+                    Warning(report, n, "readability", "variant pairs are approved provisionally; needs the human readability sign-off");
+                }
+            }
+        }
+
+        /// <summary>The roadmap unlock each mechanic needs (FR-031).</summary>
+        public static IReadOnlyList<string> MechanicsUsed(LevelDefinition level, BasePicture picture)
+        {
+            var used = new SortedSet<string>(StringComparer.Ordinal);
+            foreach (IReadOnlyList<int> row in picture.Grid)
+            {
+                foreach (int cell in row)
+                {
+                    if (cell == BasePicture.Stone)
+                    {
+                        used.Add("mechanic.stone");
+                    }
+                }
+            }
+
+            foreach (CellOverlay overlay in level.Overlays)
+            {
+                if (overlay.Stone)
+                {
+                    used.Add("mechanic.stone");
+                }
+
+                if (overlay.KeyId != null)
+                {
+                    used.Add("mechanic.key");
+                }
+
+                if (overlay.LayersBelow.Count > 0)
+                {
+                    used.Add("mechanic.layered_tile");
+                }
+
+                if (overlay.LayersBelow.Count > 1)
+                {
+                    used.Add("profile.layers_depth_3");
+                }
+
+                if (overlay.Mystery)
+                {
+                    used.Add("mechanic.mystery_tile");
+                }
+            }
+
+            foreach (PodDef pod in level.Pods)
+            {
+                if (pod.LockKeyId != null)
+                {
+                    used.Add("mechanic.locked_pod");
+                }
+
+                if (pod.ConnectedGroupId != null)
+                {
+                    used.Add("mechanic.connected_pair");
+                }
+
+                if (pod.Mystery)
+                {
+                    used.Add("mechanic.mystery_pod");
+                }
+            }
+
+            if (level.Slots.Locked != null)
+            {
+                used.Add("mechanic.locked_slot");
+            }
+
+            foreach (SpecialDef special in level.Specials)
+            {
+                used.Add(special.Type switch
+                {
+                    SpecialType.Gate => "mechanic.gate",
+                    SpecialType.Fountain => "mechanic.fountain",
+                    SpecialType.Chest => "mechanic.chest",
+                    _ => "mechanic.environment_2",
+                });
+            }
+
+            return used.ToList();
+        }
+
+        private void CheckUnlocks(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
+        {
+            int n = level.LevelNumber;
+            bool ok = true;
+            foreach (string unlock in MechanicsUsed(level, picture))
+            {
+                int? at = _roadmap.LevelOf(unlock);
+                if (at == null)
+                {
+                    Error(report, n, "unlock", $"{unlock} is not on the unlock roadmap");
+                    ok = false;
+                }
+                else if (n < at.Value)
+                {
+                    Error(report, n, "unlock", $"{unlock} is used before its unlock level L{at.Value} (FR-031)");
+                    ok = false;
+                }
+            }
+
+            int? expansion = _roadmap.LevelOf("variant.pool_expansion_1");
+            foreach (PodDef pod in level.Pods)
+            {
+                if (VariantCatalog.Default.Get(pod.Variant).Status == VariantStatus.Expansion && (expansion == null || n < expansion.Value))
+                {
+                    Error(report, n, "unlock", $"expansion variant {pod.Variant} before the pool expansion");
+                    ok = false;
+                    break;
+                }
+            }
+
+            if (ok)
+            {
+                passed.Add("unlock");
+            }
+        }
+
+        private static void CheckDataModel(LevelDefinition level, CatalogReport report, List<string> passed)
+        {
+            int n = level.LevelNumber;
+            bool ok = true;
+            void Fail(string message)
+            {
+                Error(report, n, "data-model", message);
+                ok = false;
+            }
+
+            if (level.Tray.Stacks.Count < 2 || level.Tray.Stacks.Count > 6)
+            {
+                Fail($"{level.Tray.Stacks.Count} stacks; 2–6 are allowed");
+            }
+
+            if (level.Slots.Locked != null && n < 80)
+            {
+                Fail("a locked slot before L80 (FR-039)");
+            }
+
+            int maxBelow = n < 125 ? 1 : 2;
+            foreach (CellOverlay overlay in level.Overlays)
+            {
+                if (overlay.LayersBelow.Count > maxBelow)
+                {
+                    Fail($"cell {overlay.Cell} has depth {overlay.LayersBelow.Count + 1}; the limit is {maxBelow + 1} at L{n} (FR-036)");
+                }
+            }
+
+            var keysOnBoard = level.Overlays.Where(o => o.KeyId != null).Select(o => o.KeyId!).ToList();
+            var lockKeys = level.Locks.Select(l => l.KeyId).ToList();
+            foreach (PodDef pod in level.Pods.Where(p => p.LockKeyId != null))
+            {
+                if (!lockKeys.Contains(pod.LockKeyId!))
+                {
+                    lockKeys.Add(pod.LockKeyId!);
+                }
+            }
+
+            if (level.Slots.Locked != null && !lockKeys.Contains(level.Slots.Locked.KeyId))
+            {
+                lockKeys.Add(level.Slots.Locked.KeyId);
+            }
+
+            if (keysOnBoard.Count != keysOnBoard.Distinct().Count() || level.Locks.Select(l => l.KeyId).Distinct().Count() != level.Locks.Count)
+            {
+                Fail("a key or lock appears twice (FR-033)");
+            }
+
+            if (!new HashSet<string>(keysOnBoard).SetEquals(lockKeys))
+            {
+                Fail("keys and locks do not pair 1:1 (FR-033)");
+            }
+
+            var depthOf = new Dictionary<string, (int Stack, int Depth)>(StringComparer.Ordinal);
+            for (int s = 0; s < level.Tray.Stacks.Count; s++)
+            {
+                for (int d = 0; d < level.Tray.Stacks[s].Count; d++)
+                {
+                    depthOf[level.Tray.Stacks[s][d]] = (s, d);
+                }
+            }
+
+            foreach (IGrouping<string, PodDef> group in level.Pods.Where(p => p.ConnectedGroupId != null).GroupBy(p => p.ConnectedGroupId!))
+            {
+                var places = group.Select(p => depthOf[p.Id]).ToList();
+                if (places.Count < 2 || places.Select(p => p.Depth).Distinct().Count() != 1 || places.Select(p => p.Stack).Distinct().Count() != places.Count)
+                {
+                    Fail($"connected group {group.Key} must have 2+ members at the same depth in different stacks (FR-035)");
+                }
+            }
+
+            if (ok)
+            {
+                passed.Add("data-model");
+            }
+        }
+
+        private void ValidateSequences(List<LevelDefinition> sorted, CatalogReport report)
+        {
+            var byNumber = sorted.GroupBy(l => l.LevelNumber).ToDictionary(g => g.Key, g => g.First());
+            foreach (LevelDefinition level in sorted)
+            {
+                int n = level.LevelNumber;
+                BasePicture? picture = _pictures.TryGetValue(level.Picture.Id + "@" + level.Picture.Version, out BasePicture? p) ? p : null;
+
+                // Pictures: unique in 1–100, no repeat within 50, and a reuse must differ in mapping or mirror and in Source design.
+                foreach (LevelDefinition other in sorted)
+                {
+                    if (other.LevelNumber >= n || other.Picture.Id != level.Picture.Id)
+                    {
+                        continue;
+                    }
+
+                    if (n <= 100 && other.LevelNumber <= 100)
+                    {
+                        Error(report, n, "similarity", $"picture {level.Picture.Id} already used by L{other.LevelNumber}; Levels 1–100 use distinct pictures (FR-083)");
+                    }
+                    else if (n - other.LevelNumber < 50)
+                    {
+                        Error(report, n, "similarity", $"picture {level.Picture.Id} repeats L{other.LevelNumber} within 50 levels (FR-083)");
+                    }
+                    else
+                    {
+                        bool sameLook = level.Picture.Mirror == other.Picture.Mirror && SameMapping(level, other);
+                        bool sameSource = Generator.LevelGenerator.SourceSignature(level) == Generator.LevelGenerator.SourceSignature(other);
+                        if (sameLook || sameSource)
+                        {
+                            Error(report, n, "similarity", $"reuse of {level.Picture.Id} from L{other.LevelNumber} must differ in mapping or mirroring and in Source design (FR-083)");
+                        }
+                    }
+                }
+
+                if (byNumber.TryGetValue(n - 1, out LevelDefinition? a) && byNumber.TryGetValue(n - 2, out LevelDefinition? b))
+                {
+                    var set = Generator.LevelGenerator.VariantSet(level);
+                    if (set.SetEquals(Generator.LevelGenerator.VariantSet(a)) && set.SetEquals(Generator.LevelGenerator.VariantSet(b)))
+                    {
+                        Error(report, n, "similarity", "the same active variant set 3 levels in a row (FR-083)");
+                    }
+
+                    if (picture != null
+                        && _pictures.TryGetValue(a.Picture.Id + "@" + a.Picture.Version, out BasePicture? pa)
+                        && _pictures.TryGetValue(b.Picture.Id + "@" + b.Picture.Version, out BasePicture? pb))
+                    {
+                        string mechanics = string.Join(",", MechanicsUsed(level, picture));
+                        if (mechanics.Length > 0 && mechanics == string.Join(",", MechanicsUsed(a, pa)) && mechanics == string.Join(",", MechanicsUsed(b, pb)))
+                        {
+                            Error(report, n, "similarity", $"the same mechanics ({mechanics}) 3 levels in a row (FR-083)");
+                        }
+                    }
+                }
+
+                string signature = Generator.LevelGenerator.SourceSignature(level);
+                for (int l = n - 49; l < n; l++)
+                {
+                    if (byNumber.TryGetValue(l, out LevelDefinition? other) && Generator.LevelGenerator.SourceSignature(other) == signature)
+                    {
+                        Error(report, n, "similarity", $"Source layout {signature} repeats L{l} within 50 levels (FR-083)");
+                        break;
+                    }
+                }
+            }
+        }
+
+        private static bool SameMapping(LevelDefinition a, LevelDefinition b)
+        {
+            if (a.Mapping.Count != b.Mapping.Count)
+            {
+                return false;
+            }
+
+            foreach (KeyValuePair<string, VariantId> pair in a.Mapping)
+            {
+                if (!b.Mapping.TryGetValue(pair.Key, out VariantId other) || other != pair.Value)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static void Error(CatalogReport report, int level, string check, string message) =>
+            report.Issues.Add(new LevelIssue(level, check, message, true));
+
+        private static void Warning(CatalogReport report, int level, string check, string message) =>
+            report.Issues.Add(new LevelIssue(level, check, message, false));
+    }
+}

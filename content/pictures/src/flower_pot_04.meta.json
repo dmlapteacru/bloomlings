@@ -1,0 +1,63 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 12,
+  "id": "flower_pot_04",
+  "legend": {
+    "c": "center",
+    "l": "leaf",
+    "o": "pot",
+    "p": "petal",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petals",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Center",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pot",
+      "roleId": "pot"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Flower pot 4",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "flowers",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 10
+}

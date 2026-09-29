@@ -13,4 +13,9 @@
   <ItemGroup>
     <ProjectReference Include="../../src/Bloomlings.Solver/Bloomlings.Solver.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <!-- Shared ASCII-art level fixtures. -->
+    <Compile Include="../Bloomlings.Core.Tests/Fixtures/TestContent.cs" Link="Fixtures/TestContent.cs" />
+    <Compile Include="../Bloomlings.Core.Tests/Fixtures/RuleLevels.cs" Link="Fixtures/RuleLevels.cs" />
+  </ItemGroup>
 </Project>

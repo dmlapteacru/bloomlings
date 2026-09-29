@@ -1,0 +1,56 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 10,
+  "id": "grapes_01",
+  "legend": {
+    "b": "background",
+    "g": "grape",
+    "l": "leaf",
+    "t": "stalk"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grapes",
+      "roleId": "grape"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalk",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Grapes 1",
+  "tags": {
+    "bands": [
+      "early"
+    ],
+    "themes": [
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 10
+}

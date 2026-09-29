@@ -1,0 +1,63 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 10,
+  "id": "mushroom_01",
+  "legend": {
+    "c": "cap",
+    "d": "dot",
+    "g": "grass",
+    "s": "sky",
+    "t": "stem"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dots",
+      "roleId": "dot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stem",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mushroom 1",
+  "tags": {
+    "bands": [
+      "early"
+    ],
+    "themes": [
+      "forest",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 10
+}

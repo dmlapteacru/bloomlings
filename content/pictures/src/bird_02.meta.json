@@ -1,0 +1,69 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 10,
+  "id": "bird_02",
+  "legend": {
+    "b": "bird",
+    "k": "beak",
+    "l": "leaves",
+    "n": "wing",
+    "r": "branch",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bird 2",
+  "tags": {
+    "bands": [
+      "early_mid"
+    ],
+    "themes": [
+      "animals",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 10
+}

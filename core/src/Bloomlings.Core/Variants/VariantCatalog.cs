@@ -6,6 +6,9 @@ namespace Bloomlings.Core.Variants
     /// <summary>
     /// One entry of the variant catalog (data-model §1.1).
     /// <see cref="ColorHex"/> and <see cref="IconId"/> are placeholders owned by art; hue alone never carries meaning (FR-005).
+    /// The placeholder colors keep each color group's hue and separate siblings by lightness; every pair is at least
+    /// CIEDE2000 20 (launch) and 10.7 (with expansion) apart under normal vision and simulated protanopia,
+    /// deuteranopia and tritanopia (<c>readability</c> command, T075).
     /// </summary>
     public sealed record VariantInfo(
         VariantId Id,
@@ -62,18 +65,18 @@ namespace Bloomlings.Core.Variants
         /// <summary>The 8 launch variants (2 per family) plus the 4 planned expansion variants (FR-002).</summary>
         public static VariantCatalog Default { get; } = new VariantCatalog(new[]
         {
-            new VariantInfo(VariantId.Leaf, Family.Sprig, ColorGroup.Green, "#5DAE4B", "leaf", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Moss, Family.Sprig, ColorGroup.Green, "#2E9C8F", "moss", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Flower, Family.Bloom, ColorGroup.PinkPurple, "#F07AA8", "flower", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.VioletBud, Family.Bloom, ColorGroup.PinkPurple, "#8E5CC4", "bud", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Water, Family.Drop, ColorGroup.BlueCyan, "#3B7DD8", "drop", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Dew, Family.Drop, ColorGroup.BlueCyan, "#4CC9E0", "dew", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Wood, Family.Twig, ColorGroup.BrownOrange, "#8A5A3C", "log", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Acorn, Family.Twig, ColorGroup.BrownOrange, "#F0913A", "acorn", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Vine, Family.Sprig, ColorGroup.Lime, "#A6D63A", "vine", VariantStatus.Expansion, null),
-            new VariantInfo(VariantId.Berry, Family.Bloom, ColorGroup.Red, "#D83A4A", "berry", VariantStatus.Expansion, null),
-            new VariantInfo(VariantId.Mist, Family.Drop, ColorGroup.Indigo, "#4B4FB0", "mist", VariantStatus.Expansion, null),
-            new VariantInfo(VariantId.Bark, Family.Twig, ColorGroup.Gold, "#D9A53A", "bark", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Leaf, Family.Sprig, ColorGroup.Green, "#ADCF42", "leaf", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Moss, Family.Sprig, ColorGroup.Green, "#356557", "moss", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Flower, Family.Bloom, ColorGroup.PinkPurple, "#EF8DA5", "flower", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.VioletBud, Family.Bloom, ColorGroup.PinkPurple, "#512E97", "bud", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Water, Family.Drop, ColorGroup.BlueCyan, "#3D82E0", "drop", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Dew, Family.Drop, ColorGroup.BlueCyan, "#74F9F9", "dew", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Wood, Family.Twig, ColorGroup.BrownOrange, "#551E0A", "log", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Acorn, Family.Twig, ColorGroup.BrownOrange, "#B55A11", "acorn", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Vine, Family.Sprig, ColorGroup.Lime, "#F7FA2E", "vine", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Berry, Family.Bloom, ColorGroup.Red, "#A02C12", "berry", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Mist, Family.Drop, ColorGroup.Indigo, "#8D9BCC", "mist", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Bark, Family.Twig, ColorGroup.Gold, "#B1A05B", "bark", VariantStatus.Expansion, null),
         });
 
         /// <summary>Entries in catalog order; the position is the stable index used for hashing.</summary>

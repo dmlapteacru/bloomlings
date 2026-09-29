@@ -1,0 +1,57 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 10,
+  "id": "tulip_bed_01",
+  "legend": {
+    "d": "soil",
+    "l": "stem",
+    "p": "tulip",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tulips",
+      "roleId": "tulip"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Soil",
+      "roleId": "soil"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tulip bed 1",
+  "tags": {
+    "bands": [
+      "early"
+    ],
+    "themes": [
+      "flowers",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 9
+}

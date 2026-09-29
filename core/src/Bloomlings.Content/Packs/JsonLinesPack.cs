@@ -34,7 +34,20 @@ namespace Bloomlings.Content.Packs
                 gzip.Write(raw, 0, raw.Length);
             }
 
-            return output.ToArray();
+            byte[] bytes = output.ToArray();
+
+            // Normalize the gzip header (RFC 1952): no modification time, "unknown" OS, so the bytes do not depend on
+            // the machine that published them.
+            if (bytes.Length >= 10)
+            {
+                bytes[4] = 0;
+                bytes[5] = 0;
+                bytes[6] = 0;
+                bytes[7] = 0;
+                bytes[9] = 255;
+            }
+
+            return bytes;
         }
 
         /// <summary>Decompresses a pack and returns its non-empty lines in order.</summary>

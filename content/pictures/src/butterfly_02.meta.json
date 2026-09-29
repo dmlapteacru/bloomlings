@@ -1,0 +1,57 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 14,
+  "id": "butterfly_02",
+  "legend": {
+    "b": "body",
+    "d": "spot",
+    "s": "sky",
+    "w": "wing"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wings",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Spots",
+      "roleId": "spot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Body",
+      "roleId": "body"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Butterfly 2",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "insects",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,57 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 12,
+  "id": "cactus_04",
+  "legend": {
+    "c": "cactus",
+    "f": "flower",
+    "o": "pot",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cactus",
+      "roleId": "cactus"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pot",
+      "roleId": "pot"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cactus 4",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "desert",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 10
+}
