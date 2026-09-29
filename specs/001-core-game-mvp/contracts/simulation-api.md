@@ -43,8 +43,9 @@ public sealed record Restart() : Command;
 public sealed record CommandResult(bool Accepted, RejectReason? Reason, IReadOnlyList<GameEvent> Events);
 ```
 
-`SessionOptions` carries `ContentVersion` (used to salt the PRNG) and `ShuffleNodeBudget`, which is part of the
-content/config contract so that every device uses the same value.
+`SessionOptions` carries `ContentVersion` (used to salt the PRNG) and `ShuffleNodeBudget`. The budget comes from the
+content manifest (`shuffleNodeBudget`) and is fixed per `contentVersion`. It is never read from Remote Config, app
+settings or device capabilities, and every golden case records it.
 
 ## Rejection reasons (no state change)
 

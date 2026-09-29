@@ -101,14 +101,14 @@ balancing choices are listed there under *Deferred decisions* and are non-blocki
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-Checked against the **Bloomlings Constitution v1.0.0** (`.specify/memory/constitution.md`, ratified 2026-09-29).
+Checked against the **Bloomlings Constitution v1.0.1** (`.specify/memory/constitution.md`, ratified 2026-09-29, amended 2026-09-29).
 
 | Principle / section | How the design satisfies it | Pre-research | Post-design |
 |---|---|---|---|
 | **I. Colony Flow Structure, Bloomlings Identity** | Core loop kept as-is: tray → 5 slots → reachable exact-match work → jam, no timer, linear Level N (spec US1, US2). Identity comes from families and variants, picture-first levels and garden mechanics. FR-091 forbids Colony Flow assets | PASS | PASS |
 | **II. Exact Matching on an Unambiguous Board** (NON-NEGOTIABLE) | Allocation is keyed by `VariantId` (R3, [simulation-api](contracts/simulation-api.md)). Family is presentation-only metadata ([data-model §1.1](data-model.md)). Each cell is a single tagged state with exactly one top layer ([data-model §2.1](data-model.md)). Variant readability pairs are enforced by the pipeline (FR-005) | PASS | PASS |
 | **III. Deterministic Simulation** (NON-NEGOTIABLE) | One pure C# rules core shared by the client and all tools (R2). Settle-to-fixpoint model; integer-only logic; sorted collections; a specified seeded PRNG; node budgets (R3, R10). Presentation replays the event log (R4). A golden replay corpus is checked on .NET and IL2CPP (R17) | PASS | PASS |
-| **IV. Validated, Fair Content** (NON-NEGOTIABLE) | Picture-first + solution-first generator (R9). The solver produces a winning trace, a jam witness and a fairness check (R8). The FR-080 invariants run in PR and nightly CI; `publish` refuses failing catalogs, and `diff` refuses unversioned changes ([pipeline-cli](contracts/pipeline-cli.md)) | PASS | PASS |
+| **IV. Validated, Fair Content** (NON-NEGOTIABLE) | Picture-first + solution-first generator (R9); hand-curated levels (L1–100 tier, showcases) start from approved pictures and pass the same validation. The solver produces a winning trace, a jam witness and a fairness check (R8). The FR-080 invariants run in PR and nightly CI; `publish` refuses failing catalogs, and `diff` refuses unversioned changes ([pipeline-cli](contracts/pipeline-cli.md)) | PASS | PASS |
 | **V. Difficulty from Decisions, Not Grind** | No HP, timers, move limits or spawning exist in the model. Layers are distinct exact-variant work units. Difficulty is steered through Source design and structure (R9). Class cadence and waves are enforced by `score` (FR-059) | PASS | PASS |
 | **VI. Fair Monetization, No Power Creep** | Boosters are one-shot commands with fixed semantics, and the core has no stat modifiers (FR-049). No lives (FR-040). AdPolicy enforces the interstitial and rewarded rules (R12, FR-052, FR-053). UMP/ATT consent comes before personalised data use (FR-090) | PASS | PASS |
 | **VII. Simplicity, Readability and Offline-First** | uGUI screens follow the Home → Play → Level → Next flow with no map (FR-057). One-tap input. The bundled catalog and local save give offline play (R6, R15, FR-074) | PASS | PASS |
@@ -204,7 +204,7 @@ The product docs stay in `product/` and the specs in `specs/`.
 
 | Phase | Scope | Stories / requirements | Exit criteria |
 |---|---|---|---|
-| 0 | Gate check. Repo scaffolding (`core/`, `client/`, CI skeleton). The constitution is already ratified (v1.0.0) | Constitution: development gate | Docs locked; CI green on empty projects |
+| 0 | Gate check. Repo scaffolding (`core/`, `client/`, CI skeleton). The constitution is already ratified (v1.0.1) | Constitution: development gate | Docs locked; CI green on empty projects |
 | 1 | Rules core + golden corpus + a minimal Unity board that plays hand-made levels | US1; FR-001 to FR-030 | Quickstart §1 and §5 (steps 1–6) pass |
 | 2 | Content model, picture import, solver, validate/publish; curated levels 1–100 | US3 (part), US2; FR-075 to FR-084 | Quickstart §2 and §4 pass on L1–100 |
 | 3 | Mechanics per the roadmap: keys, locks, connected pods, stones, layers, gates, Fountain, locked slot, mystery (fairness) | US4; FR-031 to FR-039 | Mechanic showcase levels pass; fairness solver in place |

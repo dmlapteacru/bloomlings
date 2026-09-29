@@ -497,6 +497,8 @@ skin. Complete the daily challenge. Open the Collection.
   | Every 100 levels | A major milestone |
   | 250, 500, 1000 and every 250/500/1000 levels after | Prestige: frame, skin, badge or leaderboard marker |
 
+  When a level matches several cadences (for example, L100 is a multiple of 25, 50 and 100), only the reward of the largest cadence is granted.
+
   After about L500, new core mechanics MUST be rare.
 - **FR-062**: The Leaderboard MUST unlock at L10 and rank players globally by highest completed level. Ties are ordered by who completed that level first. Submissions MUST pass sanity checks: progress only moves forward, no impossible jumps, and the content version is compatible.
 - **FR-063**: Wardrobe MUST unlock at L40. It offers cosmetic skins, hats, trails and expressions with no gameplay effect. Cosmetics MUST NOT reduce tile or pod readability.
@@ -525,14 +527,14 @@ skin. Complete the daily challenge. Open the Collection.
 - **FR-076**: Each level number MUST map to one stable, versioned level definition, identified by level number, definition version, seed and content version. The definition MUST be identical for all players and devices. An app or content update MUST NOT change a shipped level unless a fix is deliberately versioned.
 - **FR-077**: The game MUST build each level from its definition. A definition MAY be a compact generation config that the game expands into cells, layers and pods deterministically. The same definition MUST always produce the same level.
 - **FR-078**: The launch catalog MUST be included with the app for offline play. Later content packs and level fixes MUST be deliverable without a new app release.
-- **FR-079**: Levels MUST be generated picture-first and solution-first, in this order:
+- **FR-079**: Generated levels MUST be produced picture-first and solution-first, in this order:
   1. The base picture and its role-to-variant mapping fix the visible top layer of every cell.
   2. The generator derives the dependency structure from the picture's shape, that is, which regions shield others from the Garden Entry.
   3. It MAY add hidden layers, keys and specials.
   4. It splits each variant's demand into pods and arranges the Source Tray around at least one planned solution.
   5. The solver validates the level.
 
-  Random color painting is forbidden. Each generation profile sets: level band, board size, picture pool (by tags), variant count and allowed variants, entry layout, layer depth, allowed mechanics, source stacks, pod sizes, buffer-pressure target, target difficulty, target duration and Hard/Super Hard mode.
+  Random color painting is forbidden. Hand-curated levels (the Levels 1–100 tier and mechanic showcases) MUST also start from an approved base picture and pass the same validation (FR-080). Each generation profile sets: level band, board size, picture pool (by tags), variant count and allowed variants, entry layout, layer depth, allowed mechanics, source stacks, pod sizes, buffer-pressure target, target difficulty, target duration and Hard/Super Hard mode.
 - **FR-080**: Every shipped level MUST satisfy all of the following, and the check MUST fail the release if any level violates them:
   - it is winnable without boosters, with at least one stored solution trace;
   - its per-variant accounting reconciles exactly;
@@ -542,7 +544,7 @@ skin. Complete the daily challenge. Open the Collection.
   - it has no unreadable palette combination.
 - **FR-081**: Every non-tutorial level MUST be losable: at least one sequence of legal taps jams it, so bad choices matter.
 - **FR-082**: Every level MUST receive a difficulty score and a Normal/Hard/Super Hard class. The score is based on structure, buffer pressure, variants, specials and scale. The class MAY be overridden manually during curation.
-- **FR-083**: The catalog MUST avoid repetition. It MUST reject levels that repeat recent pictures, variant sets, topology, mechanics or source arrangements. Levels 1–100 MUST each use a different base picture. The same base picture MUST NOT appear twice within any 50 consecutive levels. When a base picture reappears, the new level MUST differ in role-to-variant mapping or mirroring and in Source design.
+- **FR-083**: The catalog MUST avoid repetition. It MUST reject repetitive sequences: no 3 consecutive levels may share the same active variant set, no 3 consecutive levels may share the same set of mechanics, and the same Source layout signature (stack count plus the ordered pod counts per stack) MUST NOT appear twice within any 50 consecutive levels. Picture and topology repetition is covered by the base-picture rules below. Levels 1–100 MUST each use a different base picture. The same base picture MUST NOT appear twice within any 50 consecutive levels. When a base picture reappears, the new level MUST differ in role-to-variant mapping or mirroring and in Source design.
 - **FR-084**: Quality assurance MUST follow the curation tiers:
 
   | Levels | Required checks |
@@ -574,12 +576,12 @@ skin. Complete the daily challenge. Open the Collection.
 | 5 | Hard label/profile |
 | 6 | Return (+1 free charge) |
 | 7 | Daily Reward |
-| 8 | Mystery Pod preview only if fairness is ready; otherwise the first Key preview |
+| 8 | Key preview: the Key mechanic unlocks here by default. A Mystery Pod may take this slot only once the fairness solver passes; the Key then unlocks at L14 |
 | 9 | Bloom Burst (+1 free charge) |
 | 10 | Leaderboard + Super Hard |
-| 11–25 | Stones appear |
+| 11 | Stones |
 | 12 | Full Store (Petal packs, boosters, Remove Ads) |
-| 14 | Key |
+| 14 | Key practice (Key unlock if L8 went to the Mystery Pod) |
 | 16 | Locked Source Pod |
 | 18 | Connected Pair |
 | 20 | All four families regular |

@@ -126,8 +126,8 @@ One profile per progression band (FR-079, doc 06 §4). It defines:
 ### 1.6 Catalog, UnlockRoadmap and Milestones
 
 - **ContentManifest** ([schema](contracts/content-manifest.schema.json)): `contentVersion`, `minAppVersion`,
-  `pictureLibraryVersion`, and `packs[]`. Each pack has `{id, kind: levels|pictures|daily, levelRange?, path|url,
-  sha256, bytes}`.
+  `pictureLibraryVersion`, `shuffleNodeBudget` (fixed per content version, R10), and `packs[]`. Each pack has
+  `{id, kind: levels|pictures|daily, levelRange?, path|url, sha256, bytes}`.
 - **UnlockEntry**: `{level, unlockId, kind: system|booster|mechanic|variant|profile, demoWithin: 0–2}`. The source is
   the spec's *Unlock Roadmap*.
 - **Milestone**: `{level, rewardBundleId, prestige?: frame|skin|badge|marker}` (FR-061).

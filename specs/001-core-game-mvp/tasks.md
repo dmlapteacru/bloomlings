@@ -210,7 +210,7 @@ story depends on these.
 - [ ] T023 [P] Implement pack reading in `core/src/Bloomlings.Content/Packs/LevelPackReader.cs`,
   `PicturePackReader.cs` and `ContentManifest.cs`:
   - read gzip JSON-Lines packs;
-  - parse `content-manifest.v1`;
+  - parse `content-manifest.v1`, including `shuffleNodeBudget`;
   - verify each pack's SHA-256 and byte length (R5, R6);
   - support a loose-folder "dev" mode with one JSON file per level and picture, used until `publish` exists (US3).
 - [ ] T024 [P] Write content tests in `core/tests/Bloomlings.Content.Tests/DefinitionJsonTests.cs` and
@@ -227,7 +227,10 @@ story depends on these.
   - falls back to `StreamingAssets/content/dev/` loose files in development builds;
   - on Android, reads through `UnityWebRequest`.
 - [ ] T027 [P] Implement `client/Assets/Bloomlings/Services/Clock/IClock.cs` and `SystemClock.cs`: current UTC time and
-  UTC date, injectable for tests. Daily features and ad caps use it.
+  UTC date, injectable for tests. Daily features and ad caps use it. Also define
+  `client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs` and `BundledRemoteConfigService.cs`: typed getters
+  for the keys in `contracts/backend-services.md`, bundled defaults and range clamping, with no network access. US3
+  (T092) uses it; T126 adds the UGS implementation.
 
 **Checkpoint**: The foundation is ready. A board can be built from a definition and a picture, reachability is
 computed deterministically, and content loads in Unity.
@@ -274,6 +277,7 @@ must pass.
   - `definition`;
   - `picture`;
   - `commands[]`;
+  - `shuffleNodeBudget`;
   - `expectedEventsDigest`;
   - `expectedStateHash`;
   - `expectedStatus`.
@@ -441,6 +445,8 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
     system|booster|mechanic|variant|profile, demoWithin: 0–2}`.
   - The pure loader `core/src/Bloomlings.Core/Progression/UnlockRoadmap.cs` is shared by the client and by pipeline
     validation (FR-031).
+  - Defaults: the Key unlocks at L8 (`mechanic.key`), Stones at L11 (`mechanic.stone`). If the Mystery Pod takes L8,
+    `mechanic.key` moves to L14.
 - [ ] T058 [P] [US2] Implement `client/Assets/Bloomlings/Services/Save/PlayerSave.cs` and `SaveSerializer.cs`,
   mirroring `contracts/player-save.schema.json` (data-model §3.1) and using Newtonsoft.
 - [ ] T059 [US2] Implement `client/Assets/Bloomlings/Services/Save/SaveService.cs` (R15):
@@ -481,6 +487,9 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
   - L3, L4, L6 and L9 are easy levels suited to the booster demos;
   - L5 is the first Hard level;
   - L10 is the first Super Hard level.
+
+  Run `validate` on them, have a person playtest each level (FR-084), then copy the accepted definitions and
+  validation records into `content/catalog/` (constitution IV: hand-curated levels pass the same validation).
 
   Each level loads through `LevelSession.Load` (exact accounting) and uses a different base picture (FR-083).
 
@@ -524,8 +533,8 @@ Quickstart §2–§4 must pass.
 - [ ] T071 [P] [US3] Implement `core/src/Bloomlings.Content/Packs/LevelPackWriter.cs` and `ManifestWriter.cs`:
   - write packs of 250 levels in gzip JSON-Lines with a deterministic order;
   - also write the picture pack and the daily pack;
-  - write `content-manifest.v1` with `sha256`, `bytes`, `contentVersion`, `minAppVersion` and
-    `pictureLibraryVersion` (R5).
+  - write `content-manifest.v1` with `sha256`, `bytes`, `contentVersion`, `minAppVersion`, `pictureLibraryVersion`
+    and `shuffleNodeBudget` (R5, R10).
 - [ ] T072 [P] [US3] Implement `core/src/Bloomlings.Pipeline/Pictures/IndexedPngReader.cs`. It reads PNGs with color
   type 3, bit depth 1/2/4/8 and no interlacing, using `System.IO.Compression.ZLibStream`. A palette index `i` below the
   role count maps to role `i`; `roles.length` maps to EMPTY and `roles.length+1` maps to STONE.
@@ -582,6 +591,8 @@ Quickstart §2–§4 must pass.
   - FR-008: board limits;
   - FR-083 similarity: Levels 1–100 use distinct pictures, the same base picture never appears within 50
     consecutive levels, and a reuse differs in mapping or mirroring **and** in Source design;
+  - FR-083 sequences: no 3 consecutive levels share the same active variant set or the same set of mechanics, and
+    no Source layout signature (stack count plus ordered pod counts per stack) repeats within 50 levels;
   - the data-model rules: keys and locks pair 1:1, at most 1 locked slot and only from L80, layer depth ≤ 2 before
     L125 and ≤ 3 after, 2–6 stacks, and connected members at the same depth.
 - [ ] T081 [US3] Implement the CLI in `core/src/Bloomlings.Pipeline/Program.cs` and `Commands/*.cs`, following
@@ -627,7 +638,8 @@ Quickstart §2–§4 must pass.
 - [ ] T091 [US3] Implement the editor menu `client/Assets/Bloomlings/Editor/ImportContentMenu.cs` ("Tools/Bloomlings/
   Import Published Content"). It copies `build/content/` from `publish` into `client/Assets/StreamingAssets/content/`
   and removes the dev folder from release builds (FR-078).
-- [ ] T092 [US3] Implement `client/Assets/Bloomlings/Services/Content/ContentUpdateService.cs` (R6):
+- [ ] T092 [US3] Implement `client/Assets/Bloomlings/Services/Content/IContentUpdateService.cs` and
+  `ContentUpdateService.cs` (R6):
   - read the remote manifest URL from `IRemoteConfigService` (`content.manifestUrl`, default empty, which skips the
     update);
   - download packs over HTTPS and verify their SHA-256;
@@ -748,12 +760,14 @@ acceptance scenarios.
 - [ ] T110 [P] [US4] Add the locked-slot visual and its unlock animation to
   `client/Assets/Bloomlings/Gameplay/Slots/SlotRowView.cs`.
 - [ ] T111 [US4] Author the showcase and practice levels for each mechanic at its roadmap level in `content/curated/`:
-  - L8: mystery preview only if T104 passes, otherwise the Key preview;
-  - L14 Key, L16 Locked Pod, L18 Connected Pair, stones in 11–25, L28 Layered;
+  - L8: Key preview (the Key unlocks here by default); a mystery pod takes L8 only once T104 passes, and the Key then
+    unlocks at L14;
+  - L11 Stones, L14 Key practice, L16 Locked Pod, L18 Connected Pair, L28 Layered;
   - L35 Gate, L60 Fountain, L80 Locked Slot, L90 Mystery Tile.
 
   Add a `DemoScript` entry per unlock in `client/Assets/Bloomlings/UI/Tutorial/Demos/`. Regenerate and re-curate the
-  affected Levels 11–100 from T095.
+  affected Levels 11–100 from T095. Validate every showcase level with `validate`, playtest it, and copy the accepted
+  levels into `content/catalog/`.
 - [ ] T112 [US4] Add a golden case per mechanic in `core/tests/golden/mech-*.golden.json`: layered, key, locked pod,
   connected, gate, Fountain, locked slot, mystery pod and mystery tile.
 
@@ -803,6 +817,8 @@ with Extra Slot.
   3. verify with the normal search;
   4. fall back to the next PRNG candidate, seeded with `hash(seed, contentVersion, shuffleUses, StateHash)`;
   5. as a last resort, use the arrangement that maximizes immediately progressable exposed pods.
+
+  The budget is `SessionOptions.ShuffleNodeBudget`, loaded from the content manifest and never from Remote Config.
 
   Use `SessionOptions.ShuffleNodeBudget` as the budget and emit `TrayShuffled`.
 - [ ] T118 [P] [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs`. It holds the bundled
@@ -862,11 +878,12 @@ with Extra Slot.
 
 ### Implementation for User Story 6
 
-- [ ] T126 [P] [US6] Implement `IRemoteConfigService` as
-  `client/Assets/Bloomlings/Services/Backend/UgsRemoteConfigService.cs` (package `com.unity.remote-config`), with
-  bundled defaults and clamping. Mirror all keys from `contracts/backend-services.md` in
+- [ ] T126 [P] [US6] Implement the UGS-backed `IRemoteConfigService` (interface from T027) as
+  `client/Assets/Bloomlings/Services/Backend/UgsRemoteConfigService.cs` (package `com.unity.remote-config`). It
+  falls back to the `BundledRemoteConfigService` defaults and keeps the clamping. Mirror all keys from `contracts/backend-services.md` in
   `backend/remote-config/defaults.json` (FR-085).
-- [ ] T127 [P] [US6] Implement `client/Assets/Bloomlings/Services/Consent/ConsentService.cs`, using Google UMP and
+- [ ] T127 [P] [US6] Implement `client/Assets/Bloomlings/Services/Consent/IConsentService.cs` and `ConsentService.cs`,
+  using Google UMP and
   Apple ATT through `com.google.ads.mobile` (OpenUPM scoped registry in `client/Packages/manifest.json`). It must run
   before ads or analytics initialize, and it defaults to the most restrictive choice (FR-090).
 - [ ] T128 [US6] Implement `client/Assets/Bloomlings/Services/Ads/IAdsService.cs` and `GoogleMobileAdsService.cs`,
@@ -931,17 +948,20 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
   ranks higher, and the value is exact in a double.
 - [ ] T137 [P] [US7] Write `client/Assets/Bloomlings/Tests/EditMode/MilestoneAndDailyChallengeTests.cs`:
   - each milestone is granted exactly once;
+  - a level that matches several cadences (L100) grants only the largest cadence's reward;
   - the UTC date maps to the same daily-pool index on every device.
 
 ### Implementation for User Story 7
 
-- [ ] T138 [US7] Implement `client/Assets/Bloomlings/Services/Backend/UgsAuthService.cs`
+- [ ] T138 [US7] Implement `client/Assets/Bloomlings/Services/Backend/IAuthService.cs` and `UgsAuthService.cs`
   (`com.unity.services.authentication`). It signs in anonymously on the first launch without blocking play, and
   offers optional Sign in with Apple and Google Play Games linking from Settings (FR-087).
-- [ ] T139 [US7] Implement `client/Assets/Bloomlings/Services/Save/CloudSaveSync.cs` and `SaveMerge.cs`
+- [ ] T139 [US7] Implement `client/Assets/Bloomlings/Services/Save/ICloudSaveService.cs`, `CloudSaveSync.cs` and
+  `SaveMerge.cs`
   (`com.unity.services.cloudsave`, key `player_save_v1`). While offline it queues changes; on reconnect it merges
   following R15.
-- [ ] T140 [US7] Implement `client/Assets/Bloomlings/Services/Backend/UgsLeaderboardService.cs`
+- [ ] T140 [US7] Implement `client/Assets/Bloomlings/Services/Backend/ILeaderboardService.cs` and
+  `UgsLeaderboardService.cs`
   (`com.unity.services.leaderboards`, id `global_highest_level`) with the T136 score encoding. Write the Cloud Code
   script `backend/cloud-code/SubmitProgress.js`, whose sanity checks reject:
   - a non-monotonic level;
@@ -957,7 +977,8 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
   - every 25 levels a bundle;
   - every 50 a cosmetic or profile reward;
   - every 100 a major milestone;
-  - at 250, 500, 1000 and later cadences, a prestige reward.
+  - at 250, 500, 1000 and later cadences, a prestige reward;
+  - when a level matches several cadences, only the largest cadence's reward is granted (FR-061).
 
   Each milestone is granted once, with a short celebration. The service also feeds the Home teaser (FR-061).
 - [ ] T143 [US7] Implement the Wardrobe in `client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs`,
@@ -988,8 +1009,8 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
 final validation.
 
 - [ ] T147 [P] Implement `client/Assets/Bloomlings/Services/Analytics/IAnalyticsService.cs`,
-  `FirebaseAnalyticsService.cs` and `client/Assets/Bloomlings/Services/Analytics/CrashReporter.cs` (Firebase
-  Crashlytics):
+  `FirebaseAnalyticsService.cs`, `client/Assets/Bloomlings/Services/Analytics/ICrashReporter.cs` and
+  `CrashlyticsCrashReporter.cs` (Firebase Crashlytics):
   - emit every event in `contracts/analytics-events.md` with its common parameters;
   - add the crash custom keys `app_version`, `content_version`, `level_number`, `definition_version` and `picture_id`
     (FR-086, R14);
