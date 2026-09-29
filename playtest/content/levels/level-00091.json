@@ -2,111 +2,104 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1305
+    "score": 1766
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 10,
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 8,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 91,
-  "locks": [
-    {
-      "keyId": "k1",
-      "target": {
-        "id": "door1",
-        "kind": "special"
-      }
-    }
-  ],
   "mapping": {
-    "dot": "wood",
-    "head": "acorn",
-    "leaf": "moss",
-    "shell": "violet_bud"
+    "belly": "acorn",
+    "branch": "moss",
+    "eye": "dew",
+    "moon": "dew",
+    "night": "violet_bud",
+    "owl": "wood"
   },
-  "mechanics": ["key", "mystery_tile"],
+  "mechanics": ["mystery_tile"],
   "overlays": {
     "cells": [
       {
         "mystery": true,
-        "x": 4,
-        "y": 3
+        "x": 0,
+        "y": 1
       },
       {
-        "hole": true,
-        "x": 10,
-        "y": 5
-      },
-      {
-        "keyId": "k1",
-        "x": 1,
-        "y": 10
+        "mystery": true,
+        "x": 11,
+        "y": 1
       }
     ]
   },
   "picture": {
-    "id": "ladybug_04",
+    "id": "owl_03",
     "version": 1
   },
   "pods": [
     {
-      "count": 9,
+      "count": 8,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p02",
       "variantId": "violet_bud"
     },
     {
-      "count": 9,
+      "count": 5,
       "id": "p03",
-      "variantId": "moss"
+      "variantId": "violet_bud"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p05",
       "variantId": "moss"
     },
     {
       "count": 6,
-      "id": "p05",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 10,
       "id": "p06",
       "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 5,
       "id": "p07",
-      "variantId": "acorn"
+      "variantId": "moss"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p08",
       "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p09",
-      "variantId": "moss"
+      "variantId": "violet_bud"
     },
     {
-      "count": 10,
+      "count": 6,
       "id": "p10",
-      "variantId": "moss"
+      "variantId": "violet_bud"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p11",
-      "variantId": "moss"
+      "variantId": "violet_bud"
     },
     {
       "count": 6,
@@ -114,62 +107,67 @@
       "variantId": "violet_bud"
     },
     {
-      "count": 6,
+      "count": 7,
       "id": "p13",
       "variantId": "violet_bud"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p14",
       "variantId": "violet_bud"
     },
     {
-      "count": 6,
+      "count": 8,
       "id": "p15",
       "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 6,
       "id": "p16",
-      "variantId": "violet_bud"
+      "variantId": "wood"
     },
     {
-      "count": 4,
+      "count": 5,
       "id": "p17",
       "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p21",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p22",
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "17537759996081728209",
+  "seed": "10146895352485491827",
   "slots": {
     "count": 5
   },
-  "specials": [
-    {
-      "cells": [
-        {
-          "x": 10,
-          "y": 5
-        }
-      ],
-      "condition": {
-        "keyId": "k1",
-        "kind": "key"
-      },
-      "effect": {
-        "kind": "open_cells"
-      },
-      "id": "door1",
-      "type": "gate"
-    }
-  ],
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16"],
-      ["p02", "p07", "p12", "p17"],
-      ["p03", "p08", "p13"],
-      ["p04", "p09", "p14"],
-      ["p05", "p10", "p15"]
+      ["p01", "p05", "p09", "p13", "p17", "p21"],
+      ["p02", "p06", "p10", "p14", "p18", "p22"],
+      ["p03", "p07", "p11", "p15", "p19"],
+      ["p04", "p08", "p12", "p16", "p20"]
     ]
   }
 }

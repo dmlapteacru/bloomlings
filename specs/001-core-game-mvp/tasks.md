@@ -769,7 +769,11 @@ Quickstart §2–§4 must pass.
   `generate --allow-draft`, showcases included, into `content/work/` (gitignored). Last run on 2026-09-29: 84 of 90
   levels generated, all passing every `validate` check except `picture-approved`. L95–L100 failed with 360
   `picture:none-available` rejections: the 107-picture library runs out of pictures that fit the band tags and the
-  no-repeat-within-50 rule, so it needs more pictures (T094). Still needed: picture approval (T094), the readability sign-off (T075), a person playtest of
+  no-repeat-within-50 rule, so it needs more pictures (T094). Rerun on 2026-09-29 with `gen-1.2.0` (band rules and
+  practice levels): 34 of the 67 non-showcase levels in 11–94 were generated; L51+ mostly fail with
+  `mapping:none-for-<picture>`, because Levels 1–100 use distinct pictures (FR-083) and from L51 a level needs 5
+  variants, which only the 44 pictures with 5+ color roles can carry. The library needs about 50 more pictures with 5+
+  color roles before Levels 51–100 can be generated. The playtest APK fills the gaps with older previews. Still needed: picture approval (T094), the readability sign-off (T075), a person playtest of
   every level (FR-084), then regeneration with approved pictures and the commit into `content/catalog/`. For
   playtest builds, `publish --allow-draft` packs draft pictures as marked previews.
 

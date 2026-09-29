@@ -2,104 +2,191 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1485
+    "score": 1849
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 9,
+      "x": 8,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 50,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p13",
+        "kind": "pod"
+      }
+    }
+  ],
   "mapping": {
-    "dot": "acorn",
-    "head": "wood",
-    "leaf": "leaf",
-    "shell": "violet_bud"
+    "background": "water",
+    "cherry": "violet_bud",
+    "leaf": "moss",
+    "stalk": "leaf"
+  },
+  "mechanics": ["layered_tile", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["moss"],
+        "x": 2,
+        "y": 0
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 6,
+        "y": 0
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 4,
+        "y": 1
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 8,
+        "y": 2
+      },
+      {
+        "keyId": "k1",
+        "x": 7,
+        "y": 4
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 9,
+        "y": 4
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 3,
+        "y": 5
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 4,
+        "y": 6
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 3,
+        "y": 8
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 4,
+        "y": 8
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 3,
+        "y": 10
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 4,
+        "y": 10
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 7,
+        "y": 11
+      }
+    ]
   },
   "picture": {
-    "id": "ladybug_02",
+    "id": "cherries_02",
+    "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 12,
+      "count": 6,
       "id": "p01",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p02",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p03",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 10,
-      "id": "p04",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 7,
-      "id": "p05",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 7,
-      "id": "p06",
-      "variantId": "leaf"
-    },
-    {
-      "count": 14,
-      "id": "p07",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 8,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
       "id": "p08",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p09",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 11,
       "id": "p10",
-      "variantId": "leaf"
+      "variantId": "violet_bud"
     },
     {
-      "count": 7,
+      "count": 12,
       "id": "p11",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 8,
       "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "lockKeyId": "k1",
       "variantId": "leaf"
     },
     {
-      "count": 4,
-      "id": "p13",
-      "variantId": "acorn"
+      "count": 8,
+      "id": "p14",
+      "variantId": "moss"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "1610418083975819161",
+  "seed": "8391595652486149376",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10", "p13"],
-      ["p02", "p05", "p08", "p11"],
-      ["p03", "p06", "p09", "p12"]
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
     ]
   }
 }

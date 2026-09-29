@@ -2,100 +2,93 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1216
+    "score": 1163
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 1,
+      "x": 8,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 18,
   "mapping": {
-    "door": "wood",
-    "grass": "moss",
-    "roof": "wood",
-    "sky": "dew",
-    "wall": "flower",
-    "window": "dew"
+    "background": "leaf",
+    "mug": "flower",
+    "steam": "water",
+    "tea": "wood"
   },
   "mechanics": ["connected_pair"],
   "picture": {
-    "id": "cottage_01",
-    "mirror": "horizontal",
+    "id": "mug_01",
     "version": 1
   },
   "pods": [
     {
-      "connectedGroupId": "c1",
-      "count": 9,
+      "count": 13,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 9,
+      "count": 6,
       "id": "p02",
-      "variantId": "wood"
-    },
-    {
-      "count": 9,
-      "id": "p03",
-      "variantId": "moss"
-    },
-    {
-      "count": 9,
-      "id": "p04",
-      "variantId": "dew"
-    },
-    {
-      "count": 5,
-      "id": "p05",
-      "variantId": "moss"
-    },
-    {
-      "count": 6,
-      "id": "p06",
-      "variantId": "moss"
-    },
-    {
-      "count": 7,
-      "id": "p07",
-      "variantId": "flower"
-    },
-    {
-      "count": 6,
-      "id": "p08",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
       "count": 11,
-      "id": "p09",
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 6,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 5,
+      "id": "p08",
       "variantId": "wood"
     },
     {
       "count": 8,
-      "id": "p10",
-      "variantId": "dew"
+      "id": "p09",
+      "variantId": "leaf"
     },
     {
-      "count": 6,
-      "id": "p11",
-      "variantId": "dew"
+      "count": 9,
+      "id": "p10",
+      "variantId": "flower"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "6548407173576913814",
+  "seed": "18133279342196474924",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10"],
-      ["p02", "p05", "p08", "p11"],
-      ["p03", "p06", "p09"]
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07"],
+      ["p04", "p08"]
     ]
   }
 }

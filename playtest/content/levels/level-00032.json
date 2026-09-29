@@ -2,7 +2,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1089
+    "score": 1522
   },
   "entries": [
     {
@@ -11,106 +11,173 @@
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 32,
   "mapping": {
-    "sky": "water",
-    "soil": "wood",
-    "stem": "leaf",
-    "tulip": "violet_bud"
+    "dot": "acorn",
+    "head": "wood",
+    "leaf": "moss",
+    "shell": "flower"
+  },
+  "mechanics": ["layered_tile", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["acorn"],
+        "x": 1,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 1,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 7,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 1,
+        "y": 6
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 5,
+        "y": 6
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 7,
+        "y": 6
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 2,
+        "y": 8
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 5,
+        "y": 8
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 1,
+        "y": 9
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 7,
+        "y": 9
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 4,
+        "y": 10
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 8,
+        "y": 11
+      }
+    ]
   },
   "picture": {
-    "id": "tulip_bed_02",
+    "id": "ladybug_02",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 10,
+      "count": 6,
       "id": "p01",
-      "variantId": "wood"
+      "variantId": "acorn"
     },
     {
       "count": 9,
       "id": "p02",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
-      "count": 4,
+      "count": 9,
       "id": "p03",
-      "variantId": "wood"
+      "variantId": "flower"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p04",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p05",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
-      "id": "p06",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p07",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
       "count": 8,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
       "id": "p08",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
       "count": 7,
       "id": "p09",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
-      "id": "p10",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
       "count": 9,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
       "count": 7,
       "id": "p12",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p13",
-      "variantId": "leaf"
-    },
-    {
-      "count": 5,
-      "id": "p14",
-      "variantId": "violet_bud"
+      "variantId": "flower"
     },
     {
       "count": 6,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
       "id": "p15",
-      "variantId": "violet_bud"
+      "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "5358955151328346227",
+  "seed": "15010596191782307216",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10", "p13"],
-      ["p02", "p05", "p08", "p11", "p14"],
-      ["p03", "p06", "p09", "p12", "p15"]
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
     ]
   }
 }

@@ -8,10 +8,14 @@ the Unity build runs.
 
 ## What it has
 
-- Levels 1–94 in `playtest/content/levels/`:
+- Levels 1–94 in `playtest/content/levels/` (refreshed 2026-09-29):
   - the curated Levels 1–10;
-  - the mechanic showcases;
-  - the Levels 11–94 preview generated with `generate --allow-draft`.
+  - the mechanic showcases and their practice levels (`content/showcase/`);
+  - 34 levels generated with `gen-1.2.0 --allow-draft`, which follows the Level Band Guidelines;
+  - 33 older preview levels (21, 23–25, 42, 55–94 where the new generator found no level). The 107-picture library
+    is too small for the current rules: Levels 1–100 use distinct pictures (FR-083), and from L51 a level needs 5
+    variants, so a picture with 5+ color roles; only 44 pictures have them. These older levels predate the band rules
+    (4 variants, pods under 5 tiles) and some repeat a picture. They are playable, but not catalog levels.
 
   Past L94 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
 - One screen drawn on a canvas:

@@ -2,111 +2,120 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1346
+    "score": 1236
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 8,
+      "x": 1,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 16,
   "locks": [
     {
       "keyId": "k1",
       "target": {
-        "id": "p09",
+        "id": "p06",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "canopy": "flower",
-    "grass": "moss",
-    "handle": "wood",
-    "rib": "flower",
-    "sky": "water"
+    "dot": "acorn",
+    "head": "acorn",
+    "leaf": "moss",
+    "shell": "violet_bud"
   },
   "mechanics": ["locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 2,
-        "y": 0
+        "x": 1,
+        "y": 9
       }
     ]
   },
   "picture": {
-    "id": "umbrella_01",
+    "id": "ladybug_01",
+    "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 10,
+      "count": 6,
       "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p03",
       "variantId": "moss"
     },
     {
-      "count": 7,
-      "id": "p02",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p03",
-      "variantId": "water"
-    },
-    {
-      "count": 13,
+      "count": 5,
       "id": "p04",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 13,
+      "count": 9,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
       "count": 6,
       "id": "p06",
-      "variantId": "water"
+      "lockKeyId": "k1",
+      "variantId": "acorn"
     },
     {
       "count": 8,
       "id": "p07",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 11,
+      "count": 5,
       "id": "p08",
-      "variantId": "flower"
+      "variantId": "moss"
     },
     {
-      "count": 11,
+      "count": 5,
       "id": "p09",
-      "lockKeyId": "k1",
-      "variantId": "flower"
+      "variantId": "moss"
     },
     {
-      "count": 2,
+      "count": 5,
       "id": "p10",
-      "variantId": "wood"
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "moss"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "11882493619705255378",
+  "seed": "2471084213299524899",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09"],
-      ["p02", "p06", "p10"],
-      ["p03", "p07"],
-      ["p04", "p08"]
+      ["p01", "p04", "p07", "p10"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
     ]
   }
 }

@@ -2,127 +2,76 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1115
+    "score": 1612
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 4,
+      "x": 5,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 19,
-  "locks": [
-    {
-      "keyId": "k1",
-      "target": {
-        "id": "door1",
-        "kind": "special"
-      }
-    }
-  ],
   "mapping": {
-    "sky": "water",
-    "soil": "acorn",
-    "stem": "moss",
-    "tulip": "flower"
+    "hull": "wood",
+    "sail": "flower",
+    "sea": "dew",
+    "sky": "water"
   },
-  "mechanics": ["key", "stone"],
-  "overlays": {
-    "cells": [
-      {
-        "keyId": "k1",
-        "x": 2,
-        "y": 1
-      },
-      {
-        "stone": true,
-        "x": 5,
-        "y": 2
-      },
-      {
-        "stone": true,
-        "x": 0,
-        "y": 3
-      },
-      {
-        "hole": true,
-        "x": 3,
-        "y": 3
-      },
-      {
-        "stone": true,
-        "x": 2,
-        "y": 7
-      },
-      {
-        "stone": true,
-        "x": 6,
-        "y": 7
-      }
-    ]
-  },
+  "mechanics": ["connected_pair"],
   "picture": {
-    "id": "tulip_bed_01",
+    "id": "sailboat_01",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 8,
+      "connectedGroupId": "c1",
+      "count": 11,
       "id": "p01",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 4,
+      "connectedGroupId": "c1",
+      "count": 14,
       "id": "p02",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p03",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p04",
       "variantId": "water"
     },
     {
-      "count": 4,
+      "count": 6,
       "id": "p05",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 13,
       "id": "p06",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 11,
       "id": "p07",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 12,
       "id": "p08",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 5,
       "id": "p09",
-      "variantId": "water"
-    },
-    {
-      "count": 4,
-      "id": "p10",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p11",
-      "variantId": "water"
+      "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
@@ -130,29 +79,12 @@
   "slots": {
     "count": 5
   },
-  "specials": [
-    {
-      "cells": [
-        {
-          "x": 3,
-          "y": 3
-        }
-      ],
-      "condition": {
-        "keyId": "k1",
-        "kind": "key"
-      },
-      "effect": {
-        "kind": "open_cells"
-      },
-      "id": "door1",
-      "type": "gate"
-    }
-  ],
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11"],
-      ["p02", "p04", "p06", "p08", "p10"]
+      ["p01", "p05", "p09"],
+      ["p02", "p06"],
+      ["p03", "p07"],
+      ["p04", "p08"]
     ]
   }
 }
