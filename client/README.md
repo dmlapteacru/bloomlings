@@ -85,7 +85,14 @@ the first scene loads. To enable them, add through Package Manager, keeping the 
 | Cloud Save (`com.unity.services.cloudsave` ≥ 3.0) | Cloud copy of the save, merged on reconnect (FR-087, R15) | `Bloomlings.Integrations.Ugs` |
 | Leaderboards (`com.unity.services.leaderboards` ≥ 2.0) and Cloud Code (`com.unity.services.cloudcode` ≥ 2.0) | Global leaderboard with server-side checks (FR-062) | `Bloomlings.Integrations.Ugs` |
 | In-App Purchasing (`com.unity.purchasing` ≥ 5.0) and Cloud Code | Store, validated purchases (FR-051, FR-089) | `Bloomlings.Integrations.Iap` |
+| Firebase Analytics (`com.google.firebase.analytics` ≥ 12.0) and Crashlytics (`com.google.firebase.crashlytics` ≥ 12.0), from the Firebase Unity SDK tarballs | Analytics events and crash reports with the R14 custom keys (FR-086) | `Bloomlings.Integrations.Firebase` |
 | Google Mobile Ads (`com.google.ads.mobile` ≥ 9.0, from the OpenUPM registry already in `manifest.json`) | Rewarded and interstitial ads, UMP consent (FR-052, FR-053, FR-090) | `Bloomlings.Integrations.Ads` |
+
+Analytics and crash reporting start only after consent (FR-090): `GameAnalytics` keeps events on the device until
+then. With Firebase, also turn automatic collection off in the native configuration
+(`firebase_analytics_collection_enabled` and `firebase_crashlytics_collection_enabled` set to `false` in
+`AndroidManifest.xml` and `Info.plist`), and add `google-services.json` / `GoogleService-Info.plist` from the Firebase
+console.
 
 Each UGS package turns on its part of `Bloomlings.Integrations.Ugs` on its own (one `versionDefines` entry per
 package); Authentication is required for all of them. Linking Apple or Google Play Games also needs the platform

@@ -7,6 +7,7 @@ using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services;
 using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Analytics;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
@@ -79,6 +80,10 @@ namespace Bloomlings.Client.App
             services.Register(content);
             var catalog = new CatalogService(content);
             services.Register(catalog);
+
+            // Analytics and crash keys (T147): events wait on the device until consent allows them (FR-090).
+            var analytics = new GameAnalytics(Application.version, () => catalog.ContentVersion, () => save.Progression.CurrentLevel);
+            services.Register(analytics);
             var updates = new ContentUpdateService(services.Get<IRemoteConfigService>(), catalog, cache, Application.version);
             updates.Activated += activated =>
             {
@@ -87,6 +92,18 @@ namespace Bloomlings.Client.App
                 Debug.Log($"[ContentUpdate] {updates.Status}");
             };
             services.Register<IContentUpdateService>(updates);
+            updates.AnalyticsEvent += (name, values) =>
+            {
+                int Int(string key) => int.TryParse(values.TryGetValue(key, out string? v) ? v : null, out int n) ? n : 0;
+                if (name == AnalyticsEvents.ContentUpdate)
+                {
+                    analytics.ContentUpdate(Int("from_version"), Int("to_version"));
+                }
+                else if (name == AnalyticsEvents.ContentError)
+                {
+                    analytics.ContentError(values["pack_id"], Int("level_number"), values["error"]);
+                }
+            };
 
             save.Progression.ContentVersionSeen = Math.Max(save.Progression.ContentVersionSeen, content.ContentVersion);
             // Petals and booster charges (US5); the unlock grants listen before progression replays unlocks.
@@ -107,7 +124,10 @@ namespace Bloomlings.Client.App
             progression.UnlockReached += entry => Debug.Log($"[Progression] Unlocked {entry.UnlockId} at L{entry.Level}.");
             progression.UnlockReached += entry => economy.OnUnlock(entry.UnlockId);
             progression.UnlockReached += entry => wardrobe.OnUnlock(entry.UnlockId);
+            progression.UnlockReached += entry => analytics.Unlock(entry.UnlockId, entry.Kind.ToString().ToLowerInvariant());
             progression.LevelCompleted += level => milestones.OnLevelCompleted(level);
+            milestones.Granted += grant => analytics.MilestoneClaim(grant.Level, grant.Cadence.Tier.ToString().ToLowerInvariant() + "_" + grant.Cadence.Every.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            wardrobe.Equipped += (family, itemId) => analytics.CosmeticEquip(WardrobeService.FamilyKey(family), itemId);
             services.Register(progression);
             progression.Initialize();
 
@@ -118,6 +138,7 @@ namespace Bloomlings.Client.App
             TextAsset? catalogJson = Resources.Load<TextAsset>("ProductCatalog");
             ProductCatalog products = catalogJson != null ? ProductCatalog.Parse(catalogJson.text) : new ProductCatalog(Array.Empty<StoreProduct>());
             var ledger = new PurchaseLedger(save, products, economy, clock, saves.Save);
+            ledger.Granted += purchase => analytics.Purchase(purchase.ProductId, 0, string.Empty, purchase.TransactionId);
             var adPolicy = new AdPolicy(remote, clock.UtcNow);
             services.Register<IConsentService>(consent);
             services.Register(ads);
@@ -167,6 +188,7 @@ namespace Bloomlings.Client.App
                 {
                     ads.ShowInterstitial(() =>
                     {
+                        analytics.AdInterstitial(adPolicy.LevelsSinceLast, adPolicy.SecondsSinceLast(clock.UtcNow));
                         adPolicy.OnInterstitialShown(clock.UtcNow);
                         next();
                     });
@@ -181,7 +203,7 @@ namespace Bloomlings.Client.App
             flow.Begin(firstLaunch);
 
             // Offline-first (FR-074): everything below runs after the game is playable and never blocks it.
-            StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, auth, sync, leaderboard));
+            StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, auth, sync, leaderboard, analytics));
         }
 
         private static IEnumerator OnlineServices(
@@ -194,7 +216,8 @@ namespace Bloomlings.Client.App
             ProductCatalog products,
             IAuthService auth,
             CloudSaveSync sync,
-            LeaderboardClient leaderboard)
+            LeaderboardClient leaderboard,
+            GameAnalytics analytics)
         {
             // Anonymous sign-in first: Remote Config, Cloud Save and the leaderboard use the same player.
             bool signedIn = false;
@@ -211,6 +234,19 @@ namespace Bloomlings.Client.App
 
             // Consent before any ad or analytics initialization (FR-090); the default is the most restrictive.
             yield return consent.Gather();
+            analytics.Consent(consent.State.ToString().ToLowerInvariant(), Application.platform == RuntimePlatform.IPhonePlayer ? (consent.State == ConsentState.Personalized ? "authorized" : "not_authorized") : "not_applicable");
+            if (consent.AnalyticsAllowed)
+            {
+                analytics.Attach(
+                    ServiceProviders.Analytics?.Invoke() ?? new NullAnalyticsService(),
+                    ServiceProviders.Crashes?.Invoke() ?? new NullCrashReporter(),
+                    consent.State == ConsentState.Personalized);
+            }
+            else
+            {
+                analytics.Disable();
+            }
+
             ads.Initialize(consent.State);
             purchases.Initialize(products, ready => Debug.Log(ready ? "[Store] Connected." : "[Store] Unavailable."));
         }

@@ -1,0 +1,35 @@
+{
+  "name": "Bloomlings.Integrations.Firebase",
+  "rootNamespace": "Bloomlings.Integrations.Firebase",
+  "references": [
+    "Bloomlings.Client"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Firebase.App.dll",
+    "Firebase.Platform.dll",
+    "Firebase.TaskExtension.dll",
+    "Firebase.Analytics.dll",
+    "Firebase.Crashlytics.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "BLOOMLINGS_FIREBASE"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.google.firebase.analytics",
+      "expression": "12.0.0",
+      "define": "BLOOMLINGS_FIREBASE"
+    },
+    {
+      "name": "com.google.firebase.crashlytics",
+      "expression": "12.0.0",
+      "define": "BLOOMLINGS_FIREBASE_CRASHLYTICS"
+    }
+  ],
+  "noEngineReferences": false
+}

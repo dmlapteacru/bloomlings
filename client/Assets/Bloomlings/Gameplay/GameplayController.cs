@@ -13,6 +13,7 @@ using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Analytics;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
@@ -66,6 +67,13 @@ namespace Bloomlings.Client.Gameplay
         private BoosterKind? _targeting;
         private LevelReward? _reward;
         private MilestoneGrant? _milestone;
+
+        // Analytics of the current attempt (T147).
+        private float _attemptStart;
+        private int _attemptIndex;
+        private int _peakSlots;
+        private bool _winLogged;
+        private bool _jamLogged;
         private readonly System.Collections.Generic.HashSet<string> _devDemosSeen = new System.Collections.Generic.HashSet<string>();
 
         public LevelSession? Session => _session;
@@ -93,7 +101,7 @@ namespace Bloomlings.Client.Gameplay
             }
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave);
             _win = WinScreen.Create(root, Next);
-            _jam = JamScreen.Create(root, Restart, OnRecovery);
+            _jam = JamScreen.Create(root, () => Restart("jam"), OnRecovery);
             _banner = DifficultyBanner.Create(root);
             _demo = DemoOverlay.Create(root);
 
@@ -117,8 +125,102 @@ namespace Bloomlings.Client.Gameplay
 
             RebuildViews();
             ApplyTheme();
+            BeginAttemptAnalytics();
             ShowLevelIntro();
         }
+
+        private static GameAnalytics? Analytics => Service<GameAnalytics>();
+
+        private LevelInfo? Info => _session == null ? null : LevelInfo.Of(_session.Definition, Flow?.CurrentAttempt?.LevelNumber ?? _session.Definition.LevelNumber);
+
+        private long AttemptMilliseconds => (long)((Time.unscaledTime - _attemptStart) * 1000f);
+
+        /// <summary>A new attempt (level load or restart): <c>level_start</c> and the crash keys of this level (R14).</summary>
+        private void BeginAttemptAnalytics()
+        {
+            _attemptIndex++;
+            _attemptStart = Time.unscaledTime;
+            _peakSlots = 0;
+            _winLogged = false;
+            _jamLogged = false;
+            LevelInfo? info = Info;
+            GameAnalytics? analytics = Analytics;
+            if (info != null && analytics != null)
+            {
+                analytics.SetLevelContext(info);
+                analytics.LevelStart(info, _attemptIndex);
+            }
+        }
+
+        /// <summary>After each accepted command: peak slots, and <c>level_win</c> or <c>level_jam</c> once when they happen.</summary>
+        private void TrackAnalytics()
+        {
+            LevelSession session = _session!;
+            int used = SlotsUsed(session.View);
+            _peakSlots = Math.Max(_peakSlots, used);
+            GameAnalytics? analytics = Analytics;
+            LevelInfo? info = Info;
+            if (analytics == null || info == null)
+            {
+                return;
+            }
+
+            if (session.Status == LevelStatus.Won && !_winLogged)
+            {
+                _winLogged = true;
+                analytics.LevelWin(info, AttemptMilliseconds, TapsThisAttempt(session), session.BoostersUsed, session.BoostersUsed == 0, _peakSlots, _attemptIndex);
+            }
+            else if ((session.Status == LevelStatus.Jammed || session.Status == LevelStatus.Stuck) && !_jamLogged)
+            {
+                _jamLogged = true;
+                analytics.LevelJam(info, session.Status == LevelStatus.Stuck ? "stuck" : "jam", AttemptMilliseconds, TapsThisAttempt(session), used, session.View.RemainingWork);
+            }
+            else if (session.Status == LevelStatus.Playing)
+            {
+                _jamLogged = false;
+            }
+        }
+
+        private static int SlotsUsed(LevelView view)
+        {
+            int used = 0;
+            for (int slot = 0; slot < view.SlotCapacity; slot++)
+            {
+                if (view.PodInSlot(slot) != null)
+                {
+                    used++;
+                }
+            }
+
+            return used;
+        }
+
+        /// <summary>Pod taps since the last restart.</summary>
+        private static int TapsThisAttempt(LevelSession session)
+        {
+            int taps = 0;
+            foreach (Command command in session.CommandLog)
+            {
+                if (command is Restart)
+                {
+                    taps = 0;
+                }
+                else if (command is TapPod)
+                {
+                    taps++;
+                }
+            }
+
+            return taps;
+        }
+
+        private static string MethodName(BoosterKind kind) => kind switch
+        {
+            BoosterKind.ExtraSlot => "extra_slot",
+            BoosterKind.Shuffle => "shuffle",
+            BoosterKind.Return => "return",
+            _ => "bloom_burst",
+        };
 
         private static bool IsDaily => Flow?.CurrentAttempt?.IsDaily ?? false;
 
@@ -186,6 +288,7 @@ namespace Bloomlings.Client.Gameplay
             _demo.NotifyAction();
 
             RecordWinIfWon();
+            TrackAnalytics();
             RefreshBoosters();
         }
 
@@ -206,6 +309,7 @@ namespace Bloomlings.Client.Gameplay
                 if (paid > 0)
                 {
                     _reward = new LevelReward(paid, null);
+                    Analytics?.DailyChallengeComplete(attempt.DailyUtcDate!);
                 }
 
                 return;
@@ -337,6 +441,12 @@ namespace Bloomlings.Client.Gameplay
         private void OnRecovery(Recovery recovery)
         {
             _jam.Hide();
+            LevelInfo? info = Info;
+            if (info != null)
+            {
+                Analytics?.LevelRecover(info, MethodName(KindOf(recovery)));
+            }
+
             OnBoosterPressed(KindOf(recovery));
         }
 
@@ -400,10 +510,17 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
+            string source = free ? "ad" : Economy == null || Economy.Charges(kind) > 0 ? "charge" : "petals";
             if (!free && Economy != null && !Economy.TryTakeCharge(kind))
             {
                 _hud.Toast("Not enough Petals");
                 return;
+            }
+
+            LevelInfo? boosted = Info;
+            if (boosted != null)
+            {
+                Analytics?.BoosterUse(boosted, MethodName(kind), source);
             }
 
             _timeline.Flush();
@@ -443,6 +560,7 @@ namespace Bloomlings.Client.Gameplay
             _tray.Refresh(session.View);
             _timeline.Enqueue(result.Events);
             RecordWinIfWon();
+            TrackAnalytics();
             RefreshBoosters();
         }
 
@@ -480,6 +598,13 @@ namespace Bloomlings.Client.Gameplay
                 if (earned)
                 {
                     policy.OnRescueUsed();
+                    Analytics?.AdRewarded("rescue");
+                    LevelInfo? info = Info;
+                    if (info != null)
+                    {
+                        Analytics?.LevelRecover(info, "ad_rescue");
+                    }
+
                     UseBooster(kind, command, free: true);
                 }
             }));
@@ -499,6 +624,7 @@ namespace Bloomlings.Client.Gameplay
             {
                 if (earned)
                 {
+                    Analytics?.AdRewarded("double_reward");
                     Economy.Grant(reward.Petals, null);
                     update(RewardText(reward with { Petals = reward.Petals * 2 }) + MilestoneText(_milestone));
                 }
@@ -676,20 +802,28 @@ namespace Bloomlings.Client.Gameplay
         private void RestartFromPause()
         {
             ClosePause();
-            Restart();
+            Restart("pause");
         }
 
         /// <summary>Restart rebuilds the same level for free (FR-028, FR-040).</summary>
-        private void Restart()
+        /// <param name="from"><c>pause</c> or <c>jam</c> (the <c>level_restart</c> event).</param>
+        private void Restart(string from)
         {
             if (_session == null)
             {
                 return;
             }
 
+            LevelInfo? info = Info;
+            if (info != null)
+            {
+                Analytics?.LevelRestart(info, from);
+            }
+
             _session.Apply(new Restart());
             Service<AdPolicy>()?.OnAttemptStarted();
             RebuildViews();
+            BeginAttemptAnalytics();
         }
 
         private static GameFlow? Flow => AppServices.Current != null && AppServices.Current.TryGet(out GameFlow? flow) ? flow : null;
@@ -705,20 +839,27 @@ namespace Bloomlings.Client.Gameplay
             }
             else
             {
-                Restart();
+                Restart("pause");
             }
         }
 
         private void Leave()
         {
             ClosePause();
+            LevelInfo? info = Info;
+            if (info != null && _session!.Status != LevelStatus.Won)
+            {
+                Analytics?.LevelQuit(info, AttemptMilliseconds);
+            }
+
+            Analytics?.SetLevelContext(null);
             if (Flow != null)
             {
                 Flow.Leave();
             }
             else
             {
-                Restart();
+                Restart("pause");
             }
         }
 
@@ -735,7 +876,7 @@ namespace Bloomlings.Client.Gameplay
             if (session.Definition.LevelNumber == 1 && !IsDaily && !SeenDemo(DemoScripts.FirstTapId))
             {
                 string? pod = RecommendedFirstPod(session);
-                _demo.Show(DemoScripts.FirstTap(() => pod == null ? null : _tray.RectOf(pod)), OnDemoDone);
+                ShowDemo(DemoScripts.FirstTap(() => pod == null ? null : _tray.RectOf(pod)));
                 return;
             }
 
@@ -747,7 +888,7 @@ namespace Bloomlings.Client.Gameplay
                     DemoScript? demo = BoosterDemos.For(unlockId, () => _boosters.RectOf(kind));
                     if (demo != null)
                     {
-                        _demo.Show(demo, OnDemoDone);
+                        ShowDemo(demo);
                         return;
                     }
                 }
@@ -764,7 +905,7 @@ namespace Bloomlings.Client.Gameplay
                 DemoScript? demo = MechanicDemos.For(unlockId, DemoTargetsFor(session));
                 if (demo != null)
                 {
-                    _demo.Show(demo, OnDemoDone);
+                    ShowDemo(demo);
                     return;
                 }
             }
@@ -774,7 +915,7 @@ namespace Bloomlings.Client.Gameplay
             {
                 VariantVisual first = _visuals != null ? _visuals.Get(siblings.Value.First) : VariantVisualCatalog.Default(siblings.Value.First);
                 VariantVisual second = _visuals != null ? _visuals.Get(siblings.Value.Second) : VariantVisualCatalog.Default(siblings.Value.Second);
-                _demo.Show(DemoScripts.Siblings(first, second), OnDemoDone);
+                ShowDemo(DemoScripts.Siblings(first, second));
             }
         }
 
@@ -843,8 +984,16 @@ namespace Bloomlings.Client.Gameplay
 
         private bool SeenDemo(string demoId) => Progression?.HasSeenDemo(demoId) ?? _devDemosSeen.Contains(demoId);
 
+        /// <summary>Shows a demonstration and reports its <c>tutorial_step</c> (T147).</summary>
+        private void ShowDemo(DemoScript script)
+        {
+            Analytics?.TutorialStep(Info, script.DemoId, 1, false);
+            _demo.Show(script, OnDemoDone);
+        }
+
         private void OnDemoDone(DemoScript script)
         {
+            Analytics?.TutorialStep(Info, script.DemoId, 1, true);
             if (Progression != null)
             {
                 Progression.MarkDemoSeen(script.DemoId);

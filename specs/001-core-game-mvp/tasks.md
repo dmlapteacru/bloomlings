@@ -1178,13 +1178,20 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
 **Purpose**: Analytics, performance, accessibility, localization, device determinism, launch content production and
 final validation.
 
-- [ ] T147 [P] Implement `client/Assets/Bloomlings/Services/Analytics/IAnalyticsService.cs`,
+- [X] T147 [P] Implement `client/Assets/Bloomlings/Services/Analytics/IAnalyticsService.cs`,
   `FirebaseAnalyticsService.cs`, `client/Assets/Bloomlings/Services/Analytics/ICrashReporter.cs` and
   `CrashlyticsCrashReporter.cs` (Firebase Crashlytics):
   - emit every event in `contracts/analytics-events.md` with its common parameters;
   - add the crash custom keys `app_version`, `content_version`, `level_number`, `definition_version` and `picture_id`
     (FR-086, R14);
   - initialize only after consent (T127).
+  Status: `GameAnalytics` is the engine-free facade. It adds the common and level parameters, keeps events on the
+  device until consent allows analytics, and drops them if consent is refused. `AnalyticsContractTests` parses the
+  contract and checks every event and parameter. All 22 events are wired: gameplay, meta, monetization and content.
+  `purchase` reports `price_micros` 0 and an empty `currency` because the purchase service exposes only a formatted price
+  string. The Firebase code lives in `Integrations/Firebase/` (`FirebaseServices.cs`, with the analytics service and
+  the Crashlytics reporter) rather than `Services/Analytics/`, so the game assembly never references an SDK. It has not
+  been compiled against the Firebase SDK yet.
 - [ ] T148 [P] Move all player-facing strings into Unity Localization tables under
   `client/Assets/Bloomlings/UI/Localization/`, starting with the English table (R18).
 - [ ] T149 [P] Run the accessibility pass and write the results to

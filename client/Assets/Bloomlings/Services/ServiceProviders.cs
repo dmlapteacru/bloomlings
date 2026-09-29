@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Analytics;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Purchases;
@@ -22,6 +23,12 @@ namespace Bloomlings.Client.Services
         public static Func<IConsentProvider>? Consent { get; set; }
 
         public static Func<IPurchaseService>? Purchases { get; set; }
+
+        /// <summary>Analytics (Firebase Analytics); started only after consent.</summary>
+        public static Func<IAnalyticsService>? Analytics { get; set; }
+
+        /// <summary>Crash reporting (Firebase Crashlytics); started only after consent.</summary>
+        public static Func<ICrashReporter>? Crashes { get; set; }
 
         /// <summary>Anonymous sign-in and identity linking (UGS Authentication).</summary>
         public static Func<IAuthService>? Auth { get; set; }

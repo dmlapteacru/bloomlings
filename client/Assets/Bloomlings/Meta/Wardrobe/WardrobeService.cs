@@ -34,6 +34,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
 
         public event Action? Changed;
 
+        /// <summary>A family put on an item (the <c>cosmetic_equip</c> event).</summary>
+        public event Action<Family, string>? Equipped;
+
         public static IReadOnlyList<Family> Families { get; } = new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig };
 
         public CosmeticCatalog Catalog => _catalog;
@@ -90,6 +93,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             _save.Cosmetics.Equipped[FamilyKey(family)] = itemId;
             _persist();
             Changed?.Invoke();
+            Equipped?.Invoke(family, itemId);
             return true;
         }
 

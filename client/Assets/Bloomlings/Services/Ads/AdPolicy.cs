@@ -57,6 +57,11 @@ namespace Bloomlings.Client.Services.Ads
                 && (nowUtc - _lastInterstitial).TotalSeconds >= Config.Get(RemoteConfigKeys.InterstitialMinSeconds);
         }
 
+        /// <summary>Levels won since the last interstitial (the <c>ad_interstitial</c> event).</summary>
+        public int LevelsSinceLast => _levelsSince;
+
+        public long SecondsSinceLast(DateTime nowUtc) => (long)Math.Max(0, (nowUtc - _lastInterstitial).TotalSeconds);
+
         /// <summary>A level was won (it counts toward the level cap).</summary>
         public void OnLevelWon() => _levelsSince++;
 

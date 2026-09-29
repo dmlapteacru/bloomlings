@@ -9,6 +9,7 @@ using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Analytics;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
@@ -66,6 +67,7 @@ namespace Bloomlings.Client.App.Home
             IAuthService auth = services.Get<IAuthService>();
             CatalogService catalog = services.Get<CatalogService>();
             services.TryGet(out Boot? boot);
+            services.TryGet(out GameAnalytics? analytics);
 
             Canvas canvas = UiFactory.CreateCanvas("HomeCanvas", 0);
             canvas.transform.SetParent(transform, false);
@@ -131,9 +133,14 @@ namespace Bloomlings.Client.App.Home
             var features = new HomeFeatureActions(
                 () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
                 wardrobeScreen.Show,
-                () => collectionScreen.Show(collection.Entries, entry => RenderCollectionEntry(catalog, entry)),
                 () =>
                 {
+                    analytics?.CollectionOpen(collection.Count);
+                    collectionScreen.Show(collection.Entries, entry => RenderCollectionEntry(catalog, entry));
+                },
+                () =>
+                {
+                    analytics?.LeaderboardView(leaderboard.LastPage?.Player?.Rank ?? 0);
                     board.Show(leaderboard.LastPage, leaderboard.IsStale);
                     RunInBackground(leaderboard.Refresh());
                 });
@@ -142,12 +149,17 @@ namespace Bloomlings.Client.App.Home
                 UiFactory.Stretch(UiFactory.CreateRect("Home", root)),
                 flow.Play,
                 () => settings!.Show(),
-                OpenStore,
+                () =>
+                {
+                    analytics?.StoreOpen("home");
+                    OpenStore();
+                },
                 () => ads.ShowRewarded(AdPlacements.FreeBooster, earned =>
                 {
                     BoosterKind? kind = FreeBoosterKind(economy);
                     if (earned && kind.HasValue)
                     {
+                        analytics?.AdRewarded("free_booster");
                         _freeBoosterTaken = true;
                         economy.Grant(0, Grant(kind.Value));
                     }
@@ -198,6 +210,11 @@ namespace Bloomlings.Client.App.Home
                     () =>
                     {
                         int paid = daily.Claim();
+                        if (paid > 0)
+                        {
+                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
+                        }
+
                         Refresh();
                         return paid;
                     },
@@ -206,6 +223,7 @@ namespace Bloomlings.Client.App.Home
                         int extra = earned ? config.Get(RemoteConfigKeys.DailyRewardPetals) : 0;
                         if (extra > 0)
                         {
+                            analytics?.AdRewarded("daily");
                             economy.Grant(extra, null);
                         }
 

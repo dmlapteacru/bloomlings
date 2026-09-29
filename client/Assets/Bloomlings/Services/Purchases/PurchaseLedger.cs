@@ -33,6 +33,9 @@ namespace Bloomlings.Client.Services.Purchases
 
         public bool RemoveAds => _save.Purchases.RemoveAds;
 
+        /// <summary>A validated purchase was granted for the first time (the <c>purchase</c> event).</summary>
+        public event Action<ValidatedPurchase>? Granted;
+
         /// <summary>Grants a validated purchase; false when this transaction was already granted or the product is unknown.</summary>
         public bool Grant(ValidatedPurchase purchase)
         {
@@ -66,6 +69,7 @@ namespace Bloomlings.Client.Services.Purchases
 
             _economy.Grant(product.Petals, product.Boosters);
             _persist();
+            Granted?.Invoke(purchase);
             return true;
         }
 
