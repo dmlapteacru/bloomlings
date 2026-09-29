@@ -693,8 +693,8 @@ Layout principles:
   - FR-064: the daily challenge is the same for all players.
 
   The picture-first mosaic (FR-006 and FR-079, answer A) replaces the silhouette-first approach in doc 05 §5, doc 06
-  §1, §5 and §7–8, and doc 12 §10. Those documents should be updated to match. Doc 10 already matches the no-lives
-  answer.
+  §1, §5 and §7–8, and doc 12 §10. Those documents were updated on 2026-09-29 to match; each carries a "Revision 2026-09-29" note. Doc 10 already
+  matches the no-lives answer.
 - **Open decisions** in the documents, and the defaults used here:
   - Level 8: Mystery if fair, otherwise Key.
   - Bloom Burst: full variant removal (FR-050).

@@ -48,5 +48,5 @@
   - Added US3 scenarios 6–7, two picture-related edge cases, SC-015 (subject recognition), and the active-vs-restored
     distinction to SC-003.
   - Every item passes.
-- **Follow-up outside this spec**: product docs 05 §5, 06 §1/§5/§7–8 and 12 §10 still describe silhouette-first
-  masks. They should be updated to the picture-first decision (see *Assumptions → Precedence*).
+- **Follow-up outside this spec (done 2026-09-29)**: product docs 05, 06 and 12 were updated to the picture-first
+  decision. See *Assumptions → Precedence* and the revision notes in those documents.
