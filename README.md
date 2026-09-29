@@ -5,13 +5,14 @@ enchanted garden, reveal deeper layers and mechanisms, and never clog the limite
 
 ## Status
 
-Design phase.
+Pre-production. No code has been written yet.
 
-- Gameplay reference: *Colony Flow!* (ABI Games). Bloomlings keeps its core loop, its simplicity, its
-  level progression and its layouts.
-- How Bloomlings differs: [`product/CONCEPT.md`](product/CONCEPT.md). This is a direction, not
-  binding rules.
-- First feature spec: [`specs/001-core-game-mvp/spec.md`](specs/001-core-game-mvp/spec.md).
+- Gameplay reference: *Colony Flow!* (ABI Games). Bloomlings keeps its core loop, its
+  simplicity, its level progression and its layouts.
+- Design documents v0.5: [`product/`](product/). Start with
+  [`LOCKED_CONCEPT_v0.5.md`](product/LOCKED_CONCEPT_v0.5.md).
+- Consolidated feature spec:
+  [`specs/001-core-game-mvp/spec.md`](specs/001-core-game-mvp/spec.md).
 
 ## Workflow
 
@@ -28,7 +29,7 @@ Feature specs are stored in `specs/NNN-<name>/`. See [`CLAUDE.md`](CLAUDE.md) fo
 ## Repository layout
 
 ```
-product/            Game design documents (concept, future design docs)
+product/            Game design documents (v0.5: 01–15, locked concept, changelog)
 specs/              Spec Kit feature specs, plans and tasks (created per feature)
 .specify/           Spec Kit templates, scripts, constitution and workflow
 .claude/skills/     Spec Kit skills for Claude Code (/speckit-*)

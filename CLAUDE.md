@@ -4,22 +4,32 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-**Bloomlings: Garden Puzzle** — a light, minimal 2D buffer-ordering puzzle game. The player
-sends groups of garden spirits (Sprig, Bloom, Drop, Twig) to restore matching cells (Greenery,
-Flowers, Water, Wood) on a dense grid; the main fail state is a jam of the 5-slot staging buffer.
+**Bloomlings** is a light, minimal, strictly 2D mobile puzzle game modeled on the structure of
+*Colony Flow!* (ABI Games). The player taps numbered Spirit Pods from a stacked Source Tray into
+5 Waiting Slots. Bloomlings then automatically clear reachable board tiles of the pod's exact
+target variant. The level is lost when the slots jam. There are 4 character families (Sprig,
+Bloom, Drop, Twig) and 8 exact target variants at launch (Leaf/Moss, Flower/Violet Bud,
+Water/Dew, Wood/Acorn). Progression is a linear sequence of 5000+ levels, with no map.
 
-## Current stage: design, no code yet
+## Current stage: pre-production, no code yet
 
-- **Gameplay reference: Colony Flow! (ABI Games).** Bloomlings is a conceptual re-creation of it.
-  Keep its core gameplay idea, its simplicity, how it paces new levels and mechanics, and how
-  simple and convenient its screen and level layouts are.
-- `product/CONCEPT.md` sets the **direction for how Bloomlings differs**: setting, spirits,
-  restoration reveal, garden map and extra mechanics. It is **not binding rules**. Where it
-  conflicts with the reference gameplay, the reference wins unless a spec says otherwise.
-- The game rules are defined by the feature specs in `specs/`. The first one is
-  `specs/001-core-game-mvp/spec.md`. Do not implement gameplay that is not specified there.
-- No tech stack, build, lint or test tooling has been chosen yet. When one is chosen, add the
-  commands here.
+- **Gameplay reference: Colony Flow! (ABI Games).** Keep its core gameplay idea, its simplicity,
+  how it paces new levels and mechanics, and how simple and convenient its screen and level
+  layouts are.
+- **Design docs: `product/` v0.5** ("draft for lock"). `LOCKED_CONCEPT_v0.5.md` is the summary,
+  and `01`–`15` are the detailed documents: rules, tray/buffer, tiles and variants, mechanics,
+  level structure, generator/solver, difficulty, meta, boosters, economy, UX, art, unlock
+  roadmap, MVP scope and technical architecture. `CONCEPT.md` is the original v0.1 vision. Treat
+  the docs as the current design direction, not as immutable rules, and flag any conflicts to
+  the user.
+- **Consolidated requirements: `specs/001-core-game-mvp/spec.md`.** Do not implement gameplay
+  that is not specified there.
+- **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): do not start full implementation until
+  all of these are locked: the gameplay docs, the unlock roadmap, the generator/solver rules,
+  the launch content strategy and the technical architecture.
+- **Technical direction** (doc 15, not yet locked): Unity + C#, a deterministic data-driven
+  gameplay core, an offline generator and solver, versioned level definitions, and a lightweight
+  backend. No build, lint or test tooling exists yet; when it does, add the commands here.
 
 ## Spec-Driven Development (GitHub Spec Kit)
 
@@ -28,8 +38,8 @@ integration (`.specify/` + `.claude/skills/speckit-*`). Feature work goes throug
 in order:
 
 1. `/speckit-constitution` — project principles → `.specify/memory/constitution.md`
-   (currently an unfilled template; derive it from the reference-game principles and §18
-   "Core Design Principles" of the concept).
+   (currently an unfilled template; derive it from `product/LOCKED_CONCEPT_v0.5.md` and the
+   reference-game principles).
 2. `/speckit-specify <description>` — feature spec → `specs/NNN-<name>/spec.md`
 3. `/speckit-clarify` (optional) — resolve ambiguities before planning
 4. `/speckit-plan` — implementation plan, research, data model, contracts
@@ -59,9 +69,13 @@ To upgrade Spec Kit templates/skills: install the CLI with
 
 ## Design invariants to respect in any spec or code
 
-- Deterministic puzzle rules: spirit type = matching target type; no gameplay power upgrades
-  (progression is cosmetic only).
-- Every gameplay cell is unambiguous (fully one type, empty, special tile, or blocker).
-- Difficulty comes from dependencies and ordering, not tile HP or repetitive tapping.
-- Procedural level generation must be solution-aware: build a valid dependency/solution graph
-  first, then translate it into a board; every level has at least one valid solution.
+- Exact matching: a pod clears only its exact target variant. A family (Sprig, Bloom, Drop,
+  Twig) is never a wildcard.
+- Deterministic rules: the same level definition plus the same tap sequence always gives the
+  same outcome, independent of animation, 2x speed or device.
+- Every gameplay cell is unambiguous: fully one thing, never partially occupied.
+- Difficulty comes from source ordering, dependencies, variants and mechanics, not from tile HP
+  or repetitive tapping.
+- Every shipped level is solver-validated, winnable without boosters, and has an exact
+  per-variant work accounting.
+- There are no gameplay power upgrades; progression rewards are cosmetic or convenience only.
