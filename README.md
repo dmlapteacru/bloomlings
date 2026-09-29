@@ -5,8 +5,13 @@ enchanted garden, reveal deeper layers and mechanisms, and never clog the limite
 
 ## Status
 
-Design phase. The locked baseline concept lives in [`product/CONCEPT.md`](product/CONCEPT.md).
-Implementation starts only after the Core Gameplay v1 rules are fully specified.
+Design phase.
+
+- Gameplay reference: *Colony Flow!* (ABI Games). Bloomlings keeps its core loop, its simplicity, its
+  level progression and its layouts.
+- How Bloomlings differs: [`product/CONCEPT.md`](product/CONCEPT.md). This is a direction, not
+  binding rules.
+- First feature spec: [`specs/001-core-game-mvp/spec.md`](specs/001-core-game-mvp/spec.md).
 
 ## Workflow
 

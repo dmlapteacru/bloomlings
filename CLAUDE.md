@@ -10,11 +10,14 @@ Flowers, Water, Wood) on a dense grid; the main fail state is a jam of the 5-slo
 
 ## Current stage: design, no code yet
 
-- `product/CONCEPT.md` is the **locked baseline concept (v0.1)**. Treat it as the source of truth
-  for game design. Do not change its locked rules without an explicit request.
-- Principle #13 of the concept: *development should not begin before core rules are fully
-  specified.* The next step is a precise **Core Gameplay v1** spec (see §20 of the concept for the
-  list of open questions). Do not start implementing gameplay before that spec exists.
+- **Gameplay reference: Colony Flow! (ABI Games).** Bloomlings is a conceptual re-creation of it.
+  Keep its core gameplay idea, its simplicity, how it paces new levels and mechanics, and how
+  simple and convenient its screen and level layouts are.
+- `product/CONCEPT.md` sets the **direction for how Bloomlings differs**: setting, spirits,
+  restoration reveal, garden map and extra mechanics. It is **not binding rules**. Where it
+  conflicts with the reference gameplay, the reference wins unless a spec says otherwise.
+- The game rules are defined by the feature specs in `specs/`. The first one is
+  `specs/001-core-game-mvp/spec.md`. Do not implement gameplay that is not specified there.
 - No tech stack, build, lint or test tooling has been chosen yet. When one is chosen, add the
   commands here.
 
@@ -25,7 +28,8 @@ integration (`.specify/` + `.claude/skills/speckit-*`). Feature work goes throug
 in order:
 
 1. `/speckit-constitution` — project principles → `.specify/memory/constitution.md`
-   (currently an unfilled template; derive it from §18 "Core Design Principles" of the concept).
+   (currently an unfilled template; derive it from the reference-game principles and §18
+   "Core Design Principles" of the concept).
 2. `/speckit-specify <description>` — feature spec → `specs/NNN-<name>/spec.md`
 3. `/speckit-clarify` (optional) — resolve ambiguities before planning
 4. `/speckit-plan` — implementation plan, research, data model, contracts
@@ -42,8 +46,12 @@ Layout:
 - `.specify/memory/constitution.md` — project constitution
 - `specs/NNN-<short-name>/` — per-feature artifacts (created by `/speckit-specify`)
 
-Features are numbered sequentially (`001-`, `002-`, …). `.specify/feature.json` is machine-local
-state and is gitignored.
+Features are numbered sequentially (`001-`, `002-`, …). `.specify/feature.json` points the
+skills at the current feature. It is machine-local state and is gitignored, so a fresh clone
+(every cloud session) does not have it, and `/speckit-plan`, `/speckit-tasks` and the other skills
+then fail with "Feature directory not found". Recreate the file before running them:
+`echo '{"feature_directory":"specs/001-core-game-mvp"}' > .specify/feature.json`.
+Alternatively, set `SPECIFY_FEATURE_DIRECTORY`.
 
 To upgrade Spec Kit templates/skills: install the CLI with
 `uv tool install specify-cli --from git+https://github.com/github/spec-kit.git`, then run
