@@ -24,6 +24,9 @@ Water/Dew, Wood/Acorn). Progression is a linear sequence of 5000+ levels, with n
   the user.
 - **Consolidated requirements: `specs/001-core-game-mvp/spec.md`.** Do not implement gameplay
   that is not specified there.
+- **Implementation plan: `specs/001-core-game-mvp/plan.md`** (+ `research.md`, `data-model.md`,
+  `contracts/`, `quickstart.md`): monorepo `core/` (pure C# rules, solver, generator, pipeline CLI),
+  `client/` (Unity 6.3 LTS), `content/`, `backend/`.
 - **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): do not start full implementation until
   all of these are locked: the gameplay docs, the unlock roadmap, the generator/solver rules,
   the launch content strategy and the technical architecture.

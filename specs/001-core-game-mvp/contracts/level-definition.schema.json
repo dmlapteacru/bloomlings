@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bloomlings.game/schemas/level-definition.v1.json",
+  "title": "Bloomlings LevelDefinition v1",
+  "description": "Stable, versioned definition of one sequential level (spec FR-006, FR-075..FR-077; research R5). The runtime expands it deterministically: picture grid -> mirror -> role->variant mapping (visible top layer) -> overlays. Solver results live in a separate ValidationRecord and are not shipped.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["levelNumber", "definitionVersion", "seed", "generatorVersion", "picture", "mapping", "entries", "slots", "tray", "pods", "difficulty", "rewardProfile"],
+  "properties": {
+    "levelNumber": { "type": "integer", "minimum": 1 },
+    "definitionVersion": { "type": "integer", "minimum": 1, "description": "Bumped only for deliberate, versioned fixes (FR-076)." },
+    "seed": { "type": "string", "pattern": "^[0-9]{1,20}$", "description": "uint64 as decimal string; also salts the Shuffle PRNG (R3, R10)." },
+    "generatorVersion": { "type": "string" },
+    "picture": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "version"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "version": { "type": "integer", "minimum": 1 },
+        "mirror": { "enum": ["none", "horizontal"], "default": "none" },
+        "backgroundTreatment": { "type": "string", "default": "default" }
+      }
+    },
+    "mapping": {
+      "type": "object",
+      "description": "roleId -> variantId. Each variant must share the role's colorGroup and be allowed in the band; several roles may map to one variant.",
+      "minProperties": 2,
+      "additionalProperties": { "$ref": "#/$defs/variantId" }
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["x", "y", "side"],
+        "properties": {
+          "x": { "type": "integer", "minimum": 0, "maximum": 13 },
+          "y": { "type": "integer", "minimum": 0, "maximum": 15, "description": "Row 0 is the bottom row." },
+          "side": { "enum": ["bottom", "left", "right", "top"] }
+        }
+      }
+    },
+    "overlays": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "cells": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["x", "y"],
+            "properties": {
+              "x": { "type": "integer", "minimum": 0, "maximum": 13 },
+              "y": { "type": "integer", "minimum": 0, "maximum": 15 },
+              "layersBelow": {
+                "type": "array",
+                "maxItems": 3,
+                "items": { "$ref": "#/$defs/variantId" },
+                "description": "Hidden variants under the visible top layer, next-to-top first (FR-036)."
+              },
+              "mystery": { "type": "boolean", "description": "Top-layer variant hidden until reachable (FR-039)." },
+              "stone": { "type": "boolean" },
+              "hole": { "type": "boolean", "description": "Open ground from the start." },
+              "keyId": { "type": "string", "description": "Key lying on this target cell (FR-033)." }
+            }
+          }
+        }
+      }
+    },
+    "specials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "cells", "condition", "effect"],
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "enum": ["gate", "fountain", "chest", "statue", "bridge"] },
+          "cells": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/cell" } },
+          "condition": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind"],
+            "properties": {
+              "kind": { "enum": ["key", "clear_count_adjacent", "clear_region"] },
+              "keyId": { "type": "string" },
+              "variantId": { "$ref": "#/$defs/variantId" },
+              "count": { "type": "integer", "minimum": 1 },
+              "regionCells": { "type": "array", "items": { "$ref": "#/$defs/cell" } }
+            }
+          },
+          "effect": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind"],
+            "properties": {
+              "kind": { "enum": ["open_cells", "reveal_layers", "remove_stones"] },
+              "cells": { "type": "array", "items": { "$ref": "#/$defs/cell" } }
+            }
+          }
+        }
+      }
+    },
+    "locks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["keyId", "target"],
+        "properties": {
+          "keyId": { "type": "string" },
+          "target": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["kind", "id"],
+            "properties": {
+              "kind": { "enum": ["pod", "slot", "special"] },
+              "id": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "slots": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["count"],
+      "properties": {
+        "count": { "const": 5 },
+        "locked": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["slotIndex", "keyId"],
+          "properties": {
+            "slotIndex": { "type": "integer", "minimum": 0, "maximum": 4 },
+            "keyId": { "type": "string" }
+          }
+        }
+      }
+    },
+    "tray": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["stacks"],
+      "properties": {
+        "stacks": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Pod ids, top (exposed) first." }
+        }
+      }
+    },
+    "pods": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "variantId", "count"],
+        "properties": {
+          "id": { "type": "string" },
+          "variantId": { "$ref": "#/$defs/variantId" },
+          "count": { "type": "integer", "minimum": 1 },
+          "mystery": { "type": "boolean", "description": "Shows '? + count' until committed (FR-039)." },
+          "lockKeyId": { "type": "string" },
+          "connectedGroupId": { "type": "string", "description": "Members sit at the same depth in different stacks." }
+        }
+      }
+    },
+    "difficulty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "score"],
+      "properties": {
+        "class": { "enum": ["normal", "hard", "super_hard"] },
+        "score": { "type": "number", "minimum": 0 },
+        "overridden": { "type": "boolean", "default": false }
+      }
+    },
+    "rewardProfile": { "type": "string" },
+    "mechanics": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+  },
+  "$defs": {
+    "variantId": {
+      "enum": ["leaf", "moss", "flower", "violet_bud", "water", "dew", "wood", "acorn", "vine", "berry", "mist", "bark"]
+    },
+    "cell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "integer", "minimum": 0, "maximum": 13 },
+        "y": { "type": "integer", "minimum": 0, "maximum": 15 }
+      }
+    }
+  }
+}

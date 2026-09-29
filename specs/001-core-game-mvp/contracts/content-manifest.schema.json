@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bloomlings.game/schemas/content-manifest.v1.json",
+  "title": "Bloomlings ContentManifest v1",
+  "description": "Describes one content version: bundled in StreamingAssets at launch, later fetched from the URL in Remote Config (spec FR-076, FR-078; research R5, R6). Packs are verified by SHA-256 before activation.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["contentVersion", "minAppVersion", "pictureLibraryVersion", "packs"],
+  "properties": {
+    "contentVersion": { "type": "integer", "minimum": 1 },
+    "minAppVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "pictureLibraryVersion": { "type": "integer", "minimum": 1 },
+    "maxLevel": { "type": "integer", "minimum": 1 },
+    "packs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "kind", "sha256", "bytes"],
+        "oneOf": [{ "required": ["path"] }, { "required": ["url"] }],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "enum": ["levels", "pictures", "daily"] },
+          "levelRange": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 1 },
+            "minItems": 2,
+            "maxItems": 2,
+            "description": "[first, last] inclusive, for kind = levels."
+          },
+          "path": { "type": "string", "description": "Relative path inside StreamingAssets (bundled)." },
+          "url": { "type": "string", "format": "uri", "description": "HTTPS CDN location (downloaded)." },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+          "bytes": { "type": "integer", "minimum": 1 },
+          "format": { "enum": ["jsonl+gzip"], "default": "jsonl+gzip" }
+        }
+      }
+    }
+  }
+}
