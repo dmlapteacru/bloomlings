@@ -33,6 +33,10 @@ settings.speed,Speed: {0}
 settings.link_apple,Link Apple
 settings.link_google,Link Google Play
 settings.restore,Restore Purchases
+settings.restoring,Restoring…
+settings.restore_done,Purchases restored
+settings.restore_failed,"Could not restore, try again online"
+settings.privacy,Privacy options
 account.linked_apple,Linked: Apple
 account.linked_google,Linked: Google Play Games
 account.signed_in,Signed in (anonymous)

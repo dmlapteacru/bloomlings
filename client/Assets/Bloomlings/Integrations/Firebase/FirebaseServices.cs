@@ -81,6 +81,25 @@ namespace Bloomlings.Integrations.Firebase
                 TaskScheduler.FromCurrentSynchronizationContext());
         }
 
+        public void Stop()
+        {
+            _pending.Clear();
+            if (!_ready)
+            {
+                return;
+            }
+
+            _ready = false;
+            FirebaseAnalytics.SetAnalyticsCollectionEnabled(false);
+            FirebaseAnalytics.SetConsent(new Dictionary<ConsentType, ConsentStatus>
+            {
+                [ConsentType.AnalyticsStorage] = ConsentStatus.Denied,
+                [ConsentType.AdStorage] = ConsentStatus.Denied,
+                [ConsentType.AdUserData] = ConsentStatus.Denied,
+                [ConsentType.AdPersonalization] = ConsentStatus.Denied,
+            });
+        }
+
         public void Log(string eventName, IReadOnlyDictionary<string, object> parameters)
         {
             if (_ready)

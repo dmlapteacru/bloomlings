@@ -8,6 +8,7 @@ using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Ads;
 using Bloomlings.Client.Services.Analytics;
 using Bloomlings.Client.Services.Backend;
@@ -185,7 +186,17 @@ namespace Bloomlings.Client.App.Home
 
                     done(ok);
                 })));
-            settings = SettingsScreen.Create(root, save.Settings, saves.Save, () => purchases.Restore(ledger.Grant, ok => Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.")), account);
+            settings = SettingsScreen.Create(
+                root,
+                save.Settings,
+                saves.Save,
+                done => purchases.Restore(ledger.Grant, ok =>
+                {
+                    Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.");
+                    done(ok);
+                }),
+                account,
+                services.TryGet(out IConsentService? consent) ? consent : null);
             store = StoreScreen.Create(root);
             Refresh();
 

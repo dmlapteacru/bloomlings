@@ -2,7 +2,8 @@
   "name": "Bloomlings.Integrations.Ads",
   "rootNamespace": "Bloomlings.Integrations.Ads",
   "references": [
-    "Bloomlings.Client"
+    "Bloomlings.Client",
+    "Unity.Advertisement.IosSupport"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],
@@ -23,6 +24,11 @@
       "name": "com.google.ads.mobile",
       "expression": "9.0.0",
       "define": "BLOOMLINGS_ADMOB"
+    },
+    {
+      "name": "com.unity.ads.ios-support",
+      "expression": "1.0.0",
+      "define": "BLOOMLINGS_ATT"
     }
   ],
   "noEngineReferences": false

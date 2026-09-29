@@ -234,7 +234,7 @@ namespace Bloomlings.Client.App
 
             // Consent before any ad or analytics initialization (FR-090); the default is the most restrictive.
             yield return consent.Gather();
-            analytics.Consent(consent.State.ToString().ToLowerInvariant(), Application.platform == RuntimePlatform.IPhonePlayer ? (consent.State == ConsentState.Personalized ? "authorized" : "not_authorized") : "not_applicable");
+            analytics.Consent(consent.State.ToString().ToLowerInvariant(), AttText(consent.State));
             if (consent.AnalyticsAllowed)
             {
                 analytics.Attach(
@@ -248,7 +248,22 @@ namespace Bloomlings.Client.App
             }
 
             ads.Initialize(consent.State);
+
+            // A change in the privacy options applies at once: analytics stop or start, ads reload or stop.
+            consent.Changed += state =>
+            {
+                analytics.ConsentChanged(
+                    consent.AnalyticsAllowed,
+                    state == ConsentState.Personalized,
+                    () => ServiceProviders.Analytics?.Invoke() ?? new NullAnalyticsService(),
+                    () => ServiceProviders.Crashes?.Invoke() ?? new NullCrashReporter());
+                analytics.Consent(state.ToString().ToLowerInvariant(), AttText(state));
+                ads.Initialize(state);
+            };
             purchases.Initialize(products, ready => Debug.Log(ready ? "[Store] Connected." : "[Store] Unavailable."));
         }
+
+        private static string AttText(ConsentState state) =>
+            Application.platform == RuntimePlatform.IPhonePlayer ? (state == ConsentState.Personalized ? "authorized" : "not_authorized") : "not_applicable";
     }
 }

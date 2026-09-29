@@ -20,7 +20,18 @@ namespace Bloomlings.Client.Tests
 
             public bool Initialized { get; private set; }
 
-            public void Initialize(bool personalized) => Initialized = true;
+            public bool Stopped { get; private set; }
+
+            public bool Personalized { get; private set; }
+
+            public void Initialize(bool personalized)
+            {
+                Initialized = true;
+                Stopped = false;
+                Personalized = personalized;
+            }
+
+            public void Stop() => Stopped = true;
 
             public void Initialize() => Initialized = true;
 
@@ -129,6 +140,31 @@ namespace Bloomlings.Client.Tests
             refused.Attach(never, never, personalized: false);
             Assert.That(never.Events, Is.Empty);
             Assert.That(never.Initialized, Is.False, "refused consent never initializes the SDKs");
+        }
+
+        [Test]
+        public void ConsentChangedInThePrivacyOptions_StopsAndRestartsCollection()
+        {
+            var analytics = new GameAnalytics("1.0.0", () => 1, () => 1);
+            var recorder = new Recorder();
+            analytics.Attach(recorder, recorder, personalized: true);
+
+            analytics.ConsentChanged(false, false, () => recorder, () => recorder);
+            analytics.LevelStart(Level, 1);
+            Assert.That(recorder.Stopped, Is.True);
+            Assert.That(recorder.Events, Is.Empty, "nothing is sent after consent is withdrawn");
+
+            analytics.ConsentChanged(true, false, () => new Recorder(), () => new Recorder());
+            analytics.LevelStart(Level, 2);
+            Assert.That(recorder.Stopped, Is.False);
+            Assert.That(recorder.Personalized, Is.False, "the started backend takes the new personalization");
+            Assert.That(recorder.Events.Select(e => e.Name), Is.EqualTo(new[] { "level_start" }));
+
+            var refused = new GameAnalytics("1.0.0", () => 1, () => 1);
+            refused.Disable();
+            var later = new Recorder();
+            refused.ConsentChanged(true, true, () => later, () => later);
+            Assert.That(later.Initialized, Is.True, "consent given later in the session starts the backends");
         }
     }
 }

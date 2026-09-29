@@ -1,4 +1,5 @@
 using System;
+using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Save;
 using TMPro;
@@ -29,16 +30,28 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _speed = null!;
         private TextMeshProUGUI? _account;
         private Func<string>? _accountStatus;
+        private TextMeshProUGUI _restoreLabel = null!;
+        private Button _privacy = null!;
+        private IConsentService? _consent;
 
         public bool IsOpen => _root.activeSelf;
 
-        public static SettingsScreen Create(Transform parent, SettingsData settings, Action persist, Action? onRestorePurchases = null, AccountActions? account = null)
+        /// <param name="onRestorePurchases">Restores purchases and reports whether the store answered.</param>
+        /// <param name="consent">Shows the privacy options entry when the consent rules require one (FR-090).</param>
+        public static SettingsScreen Create(
+            Transform parent,
+            SettingsData settings,
+            Action persist,
+            Action<Action<bool>>? onRestorePurchases = null,
+            AccountActions? account = null,
+            IConsentService? consent = null)
         {
             RectTransform card = UiFactory.CreateModal("SettingsScreen", parent, 0.62f, out GameObject root);
             var screen = root.AddComponent<SettingsScreen>();
             screen._root = root;
             screen._settings = settings;
             screen._persist = persist;
+            screen._consent = consent;
 
             TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("settings.title"), 72f, UiTheme.Text);
             UiFactory.Place(title.rectTransform, 0f, 0.88f, 1f, 0.97f);
@@ -65,9 +78,24 @@ namespace Bloomlings.Client.UI.Screens
                 }
             }
 
-            Button restore = UiFactory.CreateButton("RestorePurchases", card, Loc.T("settings.restore"), UiTheme.SlotLocked, () => onRestorePurchases?.Invoke(), 40f);
-            UiFactory.Place((RectTransform)restore.transform, 0.15f, 0.15f, 0.85f, 0.24f);
+            Button restore = null!;
+            restore = UiFactory.CreateButton("RestorePurchases", card, Loc.T("settings.restore"), UiTheme.SlotLocked, () =>
+            {
+                restore.interactable = false;
+                screen._restoreLabel.text = Loc.T("settings.restoring");
+                onRestorePurchases?.Invoke(ok =>
+                {
+                    restore.interactable = true;
+                    screen._restoreLabel.text = Loc.T(ok ? "settings.restore_done" : "settings.restore_failed");
+                });
+            }, 36f);
+            UiFactory.Place((RectTransform)restore.transform, 0.08f, 0.15f, 0.48f, 0.24f);
             restore.interactable = onRestorePurchases != null;
+            screen._restoreLabel = restore.GetComponentInChildren<TextMeshProUGUI>();
+
+            screen._privacy = UiFactory.CreateButton("PrivacyOptions", card, Loc.T("settings.privacy"), UiTheme.SlotLocked, () =>
+                screen._consent?.ShowPrivacyOptions(screen.Refresh), 36f);
+            UiFactory.Place((RectTransform)screen._privacy.transform, 0.52f, 0.15f, 0.92f, 0.24f);
 
             Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Accent, screen.Hide);
             UiFactory.Place((RectTransform)close.transform, 0.25f, 0.03f, 0.75f, 0.12f);
@@ -77,6 +105,7 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Show()
         {
+            _restoreLabel.text = Loc.T("settings.restore");
             Refresh();
             _root.SetActive(true);
         }
@@ -89,6 +118,7 @@ namespace Bloomlings.Client.UI.Screens
             _sfx.text = Loc.F("settings.sound", OnOff(_settings.Sfx));
             _haptics.text = Loc.F("settings.haptics", OnOff(_settings.Haptics));
             _speed.text = Loc.F("settings.speed", _settings.Speed2x ? "2×" : "1×");
+            _privacy.gameObject.SetActive(_consent != null && _consent.PrivacyOptionsRequired);
             if (_account != null && _accountStatus != null)
             {
                 _account.text = _accountStatus();

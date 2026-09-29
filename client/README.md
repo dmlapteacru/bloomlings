@@ -99,9 +99,12 @@ package); Authentication is required for all of them. Linking Apple or Google Pl
 sign-in plugins, which register their token sources in `ServiceProviders.AppleIdToken` and
 `ServiceProviders.GooglePlayGamesAuthCode`; without them Settings shows no link buttons.
 
-On iOS, add Unity's iOS 14 Advertising Support package and the `BLOOMLINGS_ATT` scripting define to ask for ATT before
-personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/GoogleMobileAdsService.cs`
-(development builds use Google's test units), set the store product ids to match
+On iOS, add Unity's iOS 14 Advertising Support package (`com.unity.ads.ios-support`; it turns on `BLOOMLINGS_ATT` by
+itself) and an `NSUserTrackingUsageDescription` to ask for ATT after the UMP form. Consent is read from the TCF values the
+UMP form stores (`Services/Consent/TcfConsent.cs`): an EEA refusal is never treated as consent, and Settings shows
+"Privacy options" where the rules require it. Fill the release ad unit ids in
+`Integrations/GoogleMobileAds/GoogleMobileAdsService.cs`: development builds use Google's test units, and a release build
+without its ids shows no ads. Set the store product ids to match
 `Services/Purchases/Resources/ProductCatalog.json`, and deploy `backend/` (see `backend/README.md`). The integration code
 has not been compiled against the SDKs yet: fix any API drift on first open.
 
