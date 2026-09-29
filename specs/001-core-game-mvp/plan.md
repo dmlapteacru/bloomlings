@@ -101,22 +101,21 @@ balancing choices are listed there under *Deferred decisions* and are non-blocki
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-`.specify/memory/constitution.md` is still an **unratified template**. Until `/speckit-constitution` is run, the
-interim gates are the **design invariants in `CLAUDE.md`** and the **development gate in `LOCKED_CONCEPT_v0.5.md`**.
+Checked against the **Bloomlings Constitution v1.0.0** (`.specify/memory/constitution.md`, ratified 2026-09-29).
 
-| # | Gate | How the design satisfies it | Pre-research | Post-design |
-|---|---|---|---|---|
-| G1 | **Exact matching**: a family is never a wildcard | Allocation is keyed by `VariantId` (R3, [simulation-api](contracts/simulation-api.md)). Family is presentation-only metadata ([data-model §1.1](data-model.md)) | PASS | PASS |
-| G2 | **Deterministic rules**: same definition + taps → same outcome | Settle-to-fixpoint; integer-only logic; sorted collections; a specified PRNG; node budgets; a golden replay corpus checked on .NET and IL2CPP (R3, R17) | PASS | PASS |
-| G3 | **Unambiguous cells** | Each cell's content is a single tagged state, and a layer stack exposes exactly one top layer ([data-model §2.1](data-model.md)). The schema forbids mixed states | PASS | PASS |
-| G4 | **Difficulty from ordering, not tile HP** | No HP fields exist. Layers are distinct exact-variant work units. The generator targets difficulty through Source design and structure (R9) | PASS | PASS |
-| G5 | **Every shipped level solver-validated, winnable without boosters, exact accounting** | The FR-080 invariants are enforced by `validate` in PR and nightly CI; `publish` refuses failing catalogs (R8, [pipeline-cli](contracts/pipeline-cli.md)) | PASS | PASS |
-| G6 | **No gameplay power upgrades** | The core has no stat modifiers. Boosters are one-shot commands with fixed semantics; cosmetics touch presentation only (FR-049, FR-063) | PASS | PASS |
-| G7 | **Development gate**: no full implementation before the docs are locked | This command produces design only. `/speckit-tasks` must put a gate-check task first | PASS for planning; implementation BLOCKED until lock | PASS for planning; implementation BLOCKED until lock |
+| Principle / section | How the design satisfies it | Pre-research | Post-design |
+|---|---|---|---|
+| **I. Colony Flow Structure, Bloomlings Identity** | Core loop kept as-is: tray → 5 slots → reachable exact-match work → jam, no timer, linear Level N (spec US1, US2). Identity comes from families and variants, picture-first levels and garden mechanics. FR-091 forbids Colony Flow assets | PASS | PASS |
+| **II. Exact Matching on an Unambiguous Board** (NON-NEGOTIABLE) | Allocation is keyed by `VariantId` (R3, [simulation-api](contracts/simulation-api.md)). Family is presentation-only metadata ([data-model §1.1](data-model.md)). Each cell is a single tagged state with exactly one top layer ([data-model §2.1](data-model.md)). Variant readability pairs are enforced by the pipeline (FR-005) | PASS | PASS |
+| **III. Deterministic Simulation** (NON-NEGOTIABLE) | One pure C# rules core shared by the client and all tools (R2). Settle-to-fixpoint model; integer-only logic; sorted collections; a specified seeded PRNG; node budgets (R3, R10). Presentation replays the event log (R4). A golden replay corpus is checked on .NET and IL2CPP (R17) | PASS | PASS |
+| **IV. Validated, Fair Content** (NON-NEGOTIABLE) | Picture-first + solution-first generator (R9). The solver produces a winning trace, a jam witness and a fairness check (R8). The FR-080 invariants run in PR and nightly CI; `publish` refuses failing catalogs, and `diff` refuses unversioned changes ([pipeline-cli](contracts/pipeline-cli.md)) | PASS | PASS |
+| **V. Difficulty from Decisions, Not Grind** | No HP, timers, move limits or spawning exist in the model. Layers are distinct exact-variant work units. Difficulty is steered through Source design and structure (R9). Class cadence and waves are enforced by `score` (FR-059) | PASS | PASS |
+| **VI. Fair Monetization, No Power Creep** | Boosters are one-shot commands with fixed semantics, and the core has no stat modifiers (FR-049). No lives (FR-040). AdPolicy enforces the interstitial and rewarded rules (R12, FR-052, FR-053). UMP/ATT consent comes before personalised data use (FR-090) | PASS | PASS |
+| **VII. Simplicity, Readability and Offline-First** | uGUI screens follow the Home → Play → Level → Next flow with no map (FR-057). One-tap input. The bundled catalog and local save give offline play (R6, R15, FR-074) | PASS | PASS |
+| **Technical and Content Constraints** | Unity 6.3 LTS for presentation only, with a netstandard2.1 core. Levels are versioned data with hash-verified packs. The backend is limited to meta functions (R11). Every vendor sits behind an interface. Remote Config cannot change rules or definitions | PASS | PASS |
+| **Development Workflow and Quality Gates**: development gate | This command produces design only. `/speckit-tasks` must put a gate-check task first. Rule changes carry tests and golden-corpus updates; content changes pass CI validation (R17) | PASS for planning; implementation BLOCKED until the docs are locked | PASS for planning; implementation BLOCKED until the docs are locked |
 
-Result: **no violations**. G7 is a scheduling constraint, not a design violation.
-
-Recommended follow-up: run `/speckit-constitution` to ratify G1–G7 as the project constitution.
+Result: **no violations**. The development gate is a scheduling constraint, not a design violation.
 
 ## Project Structure
 
@@ -205,7 +204,7 @@ The product docs stay in `product/` and the specs in `specs/`.
 
 | Phase | Scope | Stories / requirements | Exit criteria |
 |---|---|---|---|
-| 0 | Gate check. Repo scaffolding (`core/`, `client/`, CI skeleton). Ratify the constitution | G7 | Docs locked; CI green on empty projects |
+| 0 | Gate check. Repo scaffolding (`core/`, `client/`, CI skeleton). The constitution is already ratified (v1.0.0) | Constitution: development gate | Docs locked; CI green on empty projects |
 | 1 | Rules core + golden corpus + a minimal Unity board that plays hand-made levels | US1; FR-001 to FR-030 | Quickstart §1 and §5 (steps 1–6) pass |
 | 2 | Content model, picture import, solver, validate/publish; curated levels 1–100 | US3 (part), US2; FR-075 to FR-084 | Quickstart §2 and §4 pass on L1–100 |
 | 3 | Mechanics per the roadmap: keys, locks, connected pods, stones, layers, gates, Fountain, locked slot, mystery (fairness) | US4; FR-031 to FR-039 | Mechanic showcase levels pass; fairness solver in place |
@@ -221,4 +220,4 @@ The product docs stay in `product/` and the specs in `specs/`.
 
 | Choice | Why Needed | Simpler Alternative Rejected Because |
 |---|---|---|
-| Rules in separate pure C# libraries (`core/`) consumed by Unity through a local package | The solver, generator, pipeline and CI must run the exact same rules headlessly (G2, G5) | Keeping the code inside Unity would need Editor batch mode for every validation and risk a second rules implementation in the tools |
+| Rules in separate pure C# libraries (`core/`) consumed by Unity through a local package | The solver, generator, pipeline and CI must run the exact same rules headlessly (Constitution III, IV) | Keeping the code inside Unity would need Editor batch mode for every validation and risk a second rules implementation in the tools |
