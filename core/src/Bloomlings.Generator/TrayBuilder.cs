@@ -32,7 +32,7 @@ namespace Bloomlings.Generator
             for (int i = 0; i < order.Count; i++)
             {
                 string id = "p" + (i + 1).ToString("00", CultureInfo.InvariantCulture);
-                pods.Add(new PodDef(id, order[i].Variant, order[i].Count, false, null, null));
+                pods.Add(new PodDef(id, order[i].Variant, order[i].Count, false, order[i].LockKeyId, null));
                 trays[i % stacks].Add(id);
             }
 
@@ -42,7 +42,25 @@ namespace Bloomlings.Generator
                 stackList.Add(stack);
             }
 
-            return skeleton with { Pods = pods, Tray = new TrayDef(stackList) };
+            // Locks name their pod by id, which depends on the order.
+            var locks = new List<LockDef>();
+            foreach (LockDef lockDef in skeleton.Locks)
+            {
+                if (lockDef.TargetKind != LockTargetKind.Pod)
+                {
+                    locks.Add(lockDef);
+                }
+            }
+
+            foreach (PodDef pod in pods)
+            {
+                if (pod.LockKeyId != null)
+                {
+                    locks.Add(new LockDef(pod.LockKeyId, LockTargetKind.Pod, pod.Id));
+                }
+            }
+
+            return skeleton with { Pods = pods, Tray = new TrayDef(stackList), Locks = locks };
         }
 
         public static TrayOutcome? Tune(
@@ -124,6 +142,70 @@ namespace Bloomlings.Generator
 
             DifficultyClass reached = DifficultyScorer.Classify(score, thresholds);
             rejection = reached == target ? "tray:not-losable" : $"tray:class-{reached.ToString().ToLowerInvariant()}-not-{target.ToString().ToLowerInvariant()}";
+            return null;
+        }
+
+        /// <summary>
+        /// Connects two unlocked pods at the same depth in different stacks (FR-035) and keeps the first pair, in a seeded
+        /// order, that leaves the level winnable, losable and in the target class. Null when no pair does.
+        /// </summary>
+        public static TrayOutcome? Connect(TrayOutcome tray, BasePicture picture, DifficultyClass target, DifficultyThresholds thresholds, SolveOptions options, ref Xoshiro256StarStar rng)
+        {
+            LevelDefinition level = tray.Definition;
+            var locked = new HashSet<string>(StringComparer.Ordinal);
+            foreach (PodDef pod in level.Pods)
+            {
+                if (pod.LockKeyId != null)
+                {
+                    locked.Add(pod.Id);
+                }
+            }
+
+            var pairs = new List<(string, string)>();
+            IReadOnlyList<IReadOnlyList<string>> stacks = level.Tray.Stacks;
+            for (int a = 0; a < stacks.Count; a++)
+            {
+                for (int b = a + 1; b < stacks.Count; b++)
+                {
+                    for (int d = 0; d < Math.Min(stacks[a].Count, stacks[b].Count); d++)
+                    {
+                        if (!locked.Contains(stacks[a][d]) && !locked.Contains(stacks[b][d]))
+                        {
+                            pairs.Add((stacks[a][d], stacks[b][d]));
+                        }
+                    }
+                }
+            }
+
+            var solver = new Solver.Solver();
+            for (int attempt = 0; attempt < 6 && pairs.Count > 0; attempt++)
+            {
+                int pick = rng.NextInt(pairs.Count);
+                (string first, string second) = pairs[pick];
+                pairs.RemoveAt(pick);
+                var pods = new List<PodDef>();
+                foreach (PodDef pod in level.Pods)
+                {
+                    pods.Add(pod.Id == first || pod.Id == second ? pod with { ConnectedGroupId = "c1" } : pod);
+                }
+
+                LevelDefinition candidate = level with { Pods = pods };
+                LevelSession session = LevelSession.Load(candidate, picture, new SessionOptions(0, 20000));
+                SolveResult win = solver.Solve(session, options);
+                if (win.Status != SolveStatus.Solvable)
+                {
+                    continue;
+                }
+
+                LevelAnalysis analysis = solver.Analyze(session, options, win);
+                int score = DifficultyScorer.Score(analysis.Metrics, thresholds);
+                DifficultyClass reached = DifficultyScorer.Classify(score, thresholds);
+                if (analysis.Jam.Status == SolveStatus.Solvable && reached == target)
+                {
+                    return new TrayOutcome(candidate, analysis, score, reached, tray.Injections);
+                }
+            }
+
             return null;
         }
 

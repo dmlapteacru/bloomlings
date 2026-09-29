@@ -68,15 +68,73 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
         }
 
+        /// <summary>A mystery pod shows its exact variant on commit (FR-039): the card flips over.</summary>
         public void RevealVariant(string podId, VariantId variant)
         {
             foreach (Slot slot in _slots)
             {
                 if (slot.PodId == podId)
                 {
-                    slot.SetVariant(variant, _visuals);
+                    if (isActiveAndEnabled)
+                    {
+                        StartCoroutine(Flip(slot, variant));
+                    }
+                    else
+                    {
+                        slot.SetVariant(variant, _visuals);
+                    }
                 }
             }
+        }
+
+        /// <summary>World position of a slot, where a key for a locked slot lands (T107).</summary>
+        public Vector3 SlotPosition(int slotIndex) => _slots[slotIndex].Frame.transform.position;
+
+        public RectTransform SlotRect(int slotIndex) => _slots[slotIndex].Frame.rectTransform;
+
+        /// <summary>The locked slot's key arrived (FR-039): the lock pops and the slot turns free.</summary>
+        public void PlayUnlock(int slotIndex, LevelView view)
+        {
+            if (isActiveAndEnabled)
+            {
+                StartCoroutine(Unlock(_slots[slotIndex], view));
+            }
+            else
+            {
+                UpdateStates(view);
+            }
+        }
+
+        private System.Collections.IEnumerator Flip(Slot slot, VariantId variant)
+        {
+            Transform body = slot.Body;
+            for (float t = 0f; t < 0.3f; t += Time.unscaledDeltaTime)
+            {
+                float k = t / 0.3f;
+                if (k >= 0.5f && slot.ShowsQuestion)
+                {
+                    slot.SetVariant(variant, _visuals);
+                }
+
+                body.localScale = new Vector3(Mathf.Abs(1f - (2f * k)), 1f, 1f);
+                yield return null;
+            }
+
+            slot.SetVariant(variant, _visuals);
+            body.localScale = Vector3.one;
+        }
+
+        private System.Collections.IEnumerator Unlock(Slot slot, LevelView view)
+        {
+            Transform icon = slot.LockIcon;
+            for (float t = 0f; t < 0.35f; t += Time.unscaledDeltaTime)
+            {
+                icon.localScale = Vector3.one * (1f + (t / 0.35f));
+                yield return null;
+            }
+
+            icon.localScale = Vector3.one;
+            UpdateStates(view);
         }
 
         /// <summary>A Bloomling of this pod finished one work unit.</summary>
@@ -178,6 +236,12 @@ namespace Bloomlings.Client.Gameplay.Slots
             public string? PodId { get; private set; }
 
             public int Count { get; private set; }
+
+            public Transform Body => _body.transform;
+
+            public Transform LockIcon => _lock.transform;
+
+            public bool ShowsQuestion => _icon.sprite == ProceduralSprites.Question;
 
             public static Slot Create(Transform parent, int index)
             {

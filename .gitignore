@@ -46,3 +46,4 @@ client/*.slnx
 
 # .NET check of the Unity client scripts (client/DotnetCheck)
 client/DotnetCheck/artifacts/
+content/showcase/rejections.json

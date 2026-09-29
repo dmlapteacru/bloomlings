@@ -6,8 +6,8 @@ using Bloomlings.Generator.Profiles;
 
 namespace Bloomlings.Generator
 {
-    /// <summary>A planned pod: its variant, count and the wave it belongs to.</summary>
-    public sealed record PlannedPod(VariantId Variant, int Count, int Wave);
+    /// <summary>A planned pod: its variant, count and the wave it belongs to, and the key that locks it (FR-034).</summary>
+    public sealed record PlannedPod(VariantId Variant, int Count, int Wave, string? LockKeyId = null);
 
     /// <summary>
     /// R9 step 6 (T087): splits each variant's demand along the planned waves into pods. Every wave gives at least one

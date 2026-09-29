@@ -1,0 +1,130 @@
+{
+  "commands": ["tap:mystery", "tap:leaf"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "test",
+    "levelNumber": 1,
+    "mapping": {
+      "dew": "dew",
+      "flower": "flower",
+      "leaf": "leaf",
+      "moss": "moss",
+      "violet": "violet_bud",
+      "water": "water",
+      "wood": "wood"
+    },
+    "picture": {
+      "id": "rules",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 3,
+        "id": "mystery",
+        "mystery": true,
+        "variantId": "moss"
+      },
+      {
+        "count": 1,
+        "id": "leaf",
+        "variantId": "leaf"
+      }
+    ],
+    "rewardProfile": "test",
+    "seed": "42",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["mystery"],
+        ["leaf"]
+      ]
+    }
+  },
+  "description": "A mystery pod shows ? until committed, then reveals its fixed variant (FR-039).",
+  "expectedEventsDigest": "365bfcead454e110",
+  "expectedStateHash": "795fba8a8f16f85e",
+  "expectedStatus": "won",
+  "name": "mech-mystery-pod",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, -1, -1, -1, -1, -1, -1],
+      [-1, -1, 1, 1, 1, -1, -1],
+      [-2, -2, -2, 0, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2]
+    ],
+    "height": 8,
+    "id": "rules",
+    "review": {
+      "reviewer": "test",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "green",
+        "name": "leaf",
+        "roleId": "leaf"
+      },
+      {
+        "colorGroup": "green",
+        "name": "moss",
+        "roleId": "moss"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "water",
+        "roleId": "water"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "dew",
+        "roleId": "dew"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "flower",
+        "roleId": "flower"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "wood",
+        "roleId": "wood"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "violet",
+        "roleId": "violet"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "test"
+    },
+    "subject": "rules",
+    "tags": {},
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

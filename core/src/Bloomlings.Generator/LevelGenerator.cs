@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Bloomlings.Content.Validation;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
 using Bloomlings.Core.Random;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
+using Bloomlings.Generator.Overlays;
 using Bloomlings.Generator.Profiles;
 using Bloomlings.Solver;
 
@@ -46,31 +49,49 @@ namespace Bloomlings.Generator
         private readonly DifficultyThresholds _thresholds;
         private readonly Func<VariantId, VariantId, bool> _readablePair;
         private readonly DifficultySchedule _schedule;
+        private readonly UnlockRoadmap _roadmap;
 
         public LevelGenerator(
             GenerationProfile profile,
             PicturePicker pictures,
             DifficultyThresholds thresholds,
             Func<VariantId, VariantId, bool> readablePair,
-            DifficultySchedule schedule)
+            DifficultySchedule schedule,
+            UnlockRoadmap? roadmap = null)
         {
             _profile = profile;
             _pictures = pictures;
             _thresholds = thresholds;
             _readablePair = readablePair;
             _schedule = schedule;
+            _roadmap = roadmap ?? UnlockRoadmap.Default;
         }
+
+        /// <summary>
+        /// Showcase levels (T111): exactly these mechanics instead of a seeded choice; a candidate that cannot place
+        /// one of them is rejected. Every mechanic must still be allowed by the profile and unlocked at the level.
+        /// </summary>
+        public IReadOnlyList<string>? ForcedMechanics { get; set; }
+
+        /// <summary>A fixed difficulty class instead of the schedule (showcase levels are Normal).</summary>
+        public DifficultyClass? ForcedClass { get; set; }
 
         /// <summary>Called after each level with the level number, the accepted level (null when every candidate failed) and the candidates tried.</summary>
         public Action<int, GeneratedLevel?, int>? Progress { get; set; }
 
         /// <param name="history">Earlier levels by number, for the FR-083 windows; accepted levels are added to it.</param>
-        public GenerationResult Generate(int firstLevel, int lastLevel, ulong seed, IDictionary<int, LevelDefinition> history)
+        /// <param name="keep">Levels that are already fixed (curated or showcase): they stay in the history and are not generated.</param>
+        public GenerationResult Generate(int firstLevel, int lastLevel, ulong seed, IDictionary<int, LevelDefinition> history, ISet<int>? keep = null)
         {
             var result = new GenerationResult();
             var readOnlyHistory = new ReadOnlyHistory(history);
             for (int level = firstLevel; level <= lastLevel; level++)
             {
+                if (keep != null && keep.Contains(level))
+                {
+                    continue;
+                }
+
                 bool accepted = false;
                 int attempt = 0;
                 for (; attempt < _profile.MaxCandidatesPerLevel && !accepted; attempt++)
@@ -102,7 +123,7 @@ namespace Bloomlings.Generator
         private GeneratedLevel? TryGenerate(int level, ulong levelSeed, IReadOnlyDictionary<int, LevelDefinition> history, out string? reason)
         {
             var rng = new Xoshiro256StarStar(levelSeed);
-            DifficultyClass target = _schedule.ClassFor(level);
+            DifficultyClass target = ForcedClass ?? _schedule.ClassFor(level);
 
             // 1. Picture.
             BasePicture? picture = _pictures.Pick(_profile, level, history, ref rng);
@@ -137,16 +158,23 @@ namespace Bloomlings.Generator
                 return null;
             }
 
-            var mechanics = new List<string>();
-            if (PicturePicker.HasStones(picture))
+            // 4a. Mechanics for this level (FR-031) and the board overlays: hidden layers and mystery tiles.
+            List<string> chosen;
+            if (ForcedMechanics != null)
             {
-                mechanics.Add("stone");
+                chosen = new List<string>(ForcedMechanics);
+                foreach (string mechanic in chosen)
+                {
+                    int? at = _roadmap.LevelOf(MechanicNames.UnlockId(mechanic));
+                    if (!_profile.Allows(mechanic) || at == null || at.Value > level)
+                    {
+                        throw new ArgumentException($"{mechanic} is not allowed by {_profile.BandId} or not unlocked at L{level} (FR-031).");
+                    }
+                }
             }
-
-            if (RepeatsMechanics(level, mechanics, history))
+            else
             {
-                reason = "similarity:mechanics-3-in-a-row";
-                return null;
+                chosen = OverlayPlanner.Choose(_profile, level, _roadmap, 2, ref rng);
             }
 
             var skeleton = new LevelDefinition(
@@ -165,8 +193,13 @@ namespace Bloomlings.Generator
                 Array.Empty<PodDef>(),
                 new DifficultyDef(target, 0, false),
                 "standard",
-                mechanics);
+                Array.Empty<string>());
 
+            var active = new List<VariantId>(new SortedSet<VariantId>(mapping.Values));
+            Board plain = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
+            BoardPlan boardPlan = OverlayPlanner.BoardOverlays(plain, BackgroundCells(picture, mirror), chosen, _profile, level, active, ref rng);
+            List<CellOverlay> boardOverlays = boardPlan.Overlays;
+            skeleton = skeleton with { Overlays = boardOverlays };
             Board board = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
             int work = board.CountAllLayers();
             if (!_profile.Work.Contains(work))
@@ -192,26 +225,105 @@ namespace Bloomlings.Generator
 
             // 6. Pods along the waves.
             int extra = target == DifficultyClass.Normal ? 0 : _profile.HardMode.ExtraPods;
-            IReadOnlyList<PlannedPod>? pods = PodPartitioner.Partition(waves, _profile.PodCount, _profile.PodSize, extra, ref rng);
-            if (pods == null)
+            IReadOnlyList<PlannedPod>? planned = PodPartitioner.Partition(waves, _profile.PodCount, _profile.PodSize, extra, ref rng);
+            if (planned == null)
             {
                 reason = $"partition:{waves.Count}-waves-outside-{_profile.PodCount}-pods";
                 return null;
             }
 
-            // 7–8. Tray, difficulty injection, validation and scoring.
+            // 4b. Keys on tiles the plan clears early, locks on what it needs later; key doors, gates and Fountains.
+            LockPlan locks = OverlayPlanner.Locks(board, chosen, waves, planned, boardPlan, ref rng);
+            var pods = new List<PlannedPod>(planned);
+            foreach (KeyValuePair<int, string> locked in locks.LockedPods)
+            {
+                pods[locked.Key] = pods[locked.Key] with { LockKeyId = locked.Value };
+            }
+
+            if (ForcedMechanics != null && locks.Dropped.Count > 0)
+            {
+                reason = "showcase:cannot-place-" + string.Join(",", locks.Dropped);
+                return null;
+            }
+
+            var mechanics = new List<string>(chosen.Where(m => !locks.Dropped.Contains(m)));
+            if (PicturePicker.HasStones(picture) && !mechanics.Contains(MechanicNames.Stone))
+            {
+                mechanics.Add(MechanicNames.Stone);
+            }
+
+            mechanics.Sort(StringComparer.Ordinal);
+            if (RepeatsMechanics(level, mechanics, history))
+            {
+                reason = "similarity:mechanics-3-in-a-row";
+                return null;
+            }
+
+            skeleton = skeleton with
+            {
+                Overlays = MergeOverlays(boardOverlays, locks.KeyOverlays),
+                Specials = locks.Specials,
+                Locks = locks.Locks,
+                Slots = new SlotsDef(SlotsDef.DefaultCount, locks.LockedSlot),
+                Mechanics = mechanics,
+            };
+
+            // 7–8. Tray, difficulty injection, validation and scoring. Tuning uses a smaller budget. The searches are
+            // deterministic depth-first walks, so a trace found within it is the one the full budget finds, and the
+            // metrics walk is capped (Solver.MetricsNodeCap): an accepted level's analysis is identical under the full
+            // profile budget recorded below.
             int stacks = Math.Min(pods.Count, _profile.Stacks.Min + rng.NextInt(_profile.Stacks.Max - _profile.Stacks.Min + 1));
             stacks = Math.Max(2, stacks);
-            // Tuning uses a smaller budget. The searches are deterministic depth-first walks, so a trace found within it is
-            // the one the full budget finds, and the metrics walk is capped (Solver.MetricsNodeCap): an accepted level's
-            // analysis is identical under the full profile budget recorded below.
             var options = new SolveOptions(_profile.SolverNodeBudget);
             var tuning = new SolveOptions(Math.Min(_profile.SolverNodeBudget, TuningNodeBudget));
-            TrayOutcome? tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, _thresholds, tuning, ref rng, out string? trayReason);
-            if (tray == null)
+            TrayOutcome? tray;
+            try
             {
-                reason = trayReason;
+                tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, _thresholds, tuning, ref rng, out string? trayReason);
+                if (tray == null)
+                {
+                    reason = trayReason;
+                    return null;
+                }
+            }
+            catch (InvalidLevelException ex)
+            {
+                reason = "mechanics:" + ex.Message;
                 return null;
+            }
+
+            // 7b. A connected pair at the same depth, if the level uses them and one keeps the level as planned.
+            if (mechanics.Contains(MechanicNames.ConnectedPair))
+            {
+                TrayOutcome? connected = TrayBuilder.Connect(tray, picture, target, _thresholds, tuning, ref rng);
+                if (connected != null)
+                {
+                    tray = connected;
+                }
+                else if (ForcedMechanics != null)
+                {
+                    reason = "showcase:cannot-place-connected_pair";
+                    return null;
+                }
+                else
+                {
+                    mechanics.Remove(MechanicNames.ConnectedPair);
+                    tray = tray with { Definition = tray.Definition with { Mechanics = mechanics } };
+                }
+            }
+
+            // Mystery tiles: no blind guesses (FR-039, R8).
+            bool? playerInfoFair = null;
+            if (mechanics.Contains(MechanicNames.MysteryTile))
+            {
+                FairnessResult fairness = FairnessChecker.Check(tray.Definition, picture, new SessionOptions(1, 20000), tuning.NodeBudget);
+                if (fairness.Status != FairnessStatus.Fair)
+                {
+                    reason = "fairness:" + fairness.Status.ToString().ToLowerInvariant();
+                    return null;
+                }
+
+                playerInfoFair = fairness.PlayerInfoFair;
             }
 
             if (RepeatsSourceLayout(level, tray.Definition, history))
@@ -234,11 +346,49 @@ namespace Bloomlings.Generator
                 ValidationResult.Solvable,
                 analysis.Win.Trace,
                 analysis.Jam.Trace,
-                null,
+                playerInfoFair,
                 analysis.Metrics.ToDictionary(),
-                new[] { "solvable", "losable", "accounting", "board", "picture-approved" });
+                playerInfoFair == null
+                    ? new[] { "solvable", "losable", "accounting", "board", "picture-approved" }
+                    : new[] { "solvable", "losable", "accounting", "board", "picture-approved", "player-info-fair" });
             reason = null;
             return new GeneratedLevel(definition, record);
+        }
+
+        /// <summary>Per board cell (after mirroring): whether the picture has its background role there.</summary>
+        private static bool[] BackgroundCells(BasePicture picture, Mirror mirror)
+        {
+            var background = new bool[picture.Width * picture.Height];
+            for (int y = 0; y < picture.Height; y++)
+            {
+                for (int x = 0; x < picture.Width; x++)
+                {
+                    int sourceX = mirror == Mirror.Horizontal ? picture.Width - 1 - x : x;
+                    int role = picture.CellAt(sourceX, y);
+                    background[(y * picture.Width) + x] = role >= 0 && picture.Roles[role].IsBackground;
+                }
+            }
+
+            return background;
+        }
+
+        /// <summary>The board overlays plus the key overlays, one per cell, sorted by row and column.</summary>
+        private static List<CellOverlay> MergeOverlays(IReadOnlyList<CellOverlay> board, IReadOnlyList<CellOverlay> keys)
+        {
+            var byCell = new Dictionary<CellPos, CellOverlay>();
+            foreach (CellOverlay overlay in board)
+            {
+                byCell[overlay.Cell] = overlay;
+            }
+
+            foreach (CellOverlay key in keys)
+            {
+                byCell[key.Cell] = byCell.TryGetValue(key.Cell, out CellOverlay? existing) ? existing with { KeyId = key.KeyId } : key;
+            }
+
+            var merged = new List<CellOverlay>(byCell.Values);
+            merged.Sort((a, b) => a.Cell.Y != b.Cell.Y ? a.Cell.Y.CompareTo(b.Cell.Y) : a.Cell.X.CompareTo(b.Cell.X));
+            return merged;
         }
 
         /// <summary>FR-083: no 3 consecutive levels share the same active variant set.</summary>

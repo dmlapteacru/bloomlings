@@ -741,7 +741,7 @@ acceptance scenarios.
 
 ### Tests for User Story 4 ⚠️
 
-- [ ] T096 [P] [US4] Write `core/tests/Bloomlings.Core.Tests/Rules/MechanicsTests.cs`, covering the remaining doc 01
+- [X] T096 [P] [US4] Write `core/tests/Bloomlings.Core.Tests/Rules/MechanicsTests.cs`, covering the remaining doc 01
   §20 tests and the US4 scenarios:
   - a layered cross-family reveal (`Leaf → Violet Bud`) wakes an active Violet pod;
   - a key is collected when its supporting layer clears, with no extra work, and opens exactly one lock (pod, slot or
@@ -754,66 +754,87 @@ acceptance scenarios.
   - a locked slot leaves 4 usable slots until its key is collected;
   - a mystery pod reveals its fixed variant on commit;
   - a mystery tile reveals when it becomes reachable.
-- [ ] T097 [P] [US4] Write `core/tests/Bloomlings.Solver.Tests/FairnessTests.cs`. One fixture needs a blind guess and
+  Status: `MechanicsTests` (17 cases) plus property tests whose random levels now carry mystery tiles, keys, a
+  locked slot, a connected pair and a gate; the incremental hash matches the full recompute throughout.
+- [X] T097 [P] [US4] Write `core/tests/Bloomlings.Solver.Tests/FairnessTests.cs`. One fixture needs a blind guess and
   must fail; another is deducible from the visible per-variant accounting and must pass. A mystery load above the cap
   is rejected.
 
 ### Implementation for User Story 4
 
-- [ ] T098 [US4] Implement layered tiles in `core/src/Bloomlings.Core/Mechanics/LayeredTiles.cs`, as an `IRoundHook`
+- [X] T098 [US4] Implement layered tiles in `core/src/Bloomlings.Core/Mechanics/LayeredTiles.cs`, as an `IRoundHook`
   of T035:
   - clearing a top layer reveals the next one (`LayerRevealed`);
   - clearing the last layer opens the cell (`CellOpened`);
   - `LevelView` exposes the next layer's variant for the peek indicator (FR-036);
   - every layer counts in demand.
-- [ ] T099 [US4] Implement keys and locks in `core/src/Bloomlings.Core/Mechanics/KeysAndLocks.cs`:
+  Status: layers were already part of the board and the settle loop (`Board.ClearTopLayer`, `LayerRevealed`,
+  `CellOpened`, `LevelView` peek), so no separate hook is needed; `MechanicsTests` covers the cross-family wake-up.
+- [X] T099 [US4] Implement keys and locks in `core/src/Bloomlings.Core/Mechanics/KeysAndLocks.cs`:
   - a key is collected when its supporting top layer clears (`KeyCollected`);
   - the paired lock opens (`LockOpened`);
   - the lock target is a pod, a slot or a special;
   - "Exactly one lock per key and one key per lock" (FR-033, FR-034).
-- [ ] T100 [US4] Implement connected pods in `core/src/Bloomlings.Core/Tray/SourceTray.cs` and
+- [X] T100 [US4] Implement connected pods in `core/src/Bloomlings.Core/Tray/SourceTray.cs` and
   `Simulation/LevelSession.cs`:
   - tapping any member commits all members when they are all exposed at the same depth and there are enough free
     usable slots;
   - otherwise the tap is refused with `NotEnoughSlotsForGroup`;
   - the link ends after placement (FR-035).
-- [ ] T101 [US4] Implement specials in `core/src/Bloomlings.Core/Mechanics/Specials.cs`, following the schema's
+- [X] T101 [US4] Implement specials in `core/src/Bloomlings.Core/Mechanics/Specials.cs`, following the schema's
   special kinds:
   - gate conditions `key`, `clear_count_adjacent` and `clear_region`;
   - the Fountain condition `clear_count_adjacent` on an exact variant;
   - the effects `open_cells`, `reveal_layers` and `remove_stones`;
   - the events `SpecialProgressed` and `SpecialTriggered` (FR-037, FR-038).
-- [ ] T102 [US4] Implement the locked waiting slot in `core/src/Bloomlings.Core/Slots/WaitingSlots.cs`: the slot is
+  Status: a Gate opens its own cells when it triggers, and a Fountain stays as a landmark. `open_cells` opens listed
+  non-target cells, `remove_stones` opens listed stones, and `reveal_layers` reveals listed mystery tiles. An
+  untriggered special blocks the win. A single-cell gate with a key condition counts as the Key mechanic
+  (`LevelMechanics`): L14 is the "first simple Key tutorial" before keys unlock Source content at L16, while the Garden
+  Gate with a counter is the L35 mechanic.
+- [X] T102 [US4] Implement the locked waiting slot in `core/src/Bloomlings.Core/Slots/WaitingSlots.cs`: the slot is
   `locked` until its key is collected, then it becomes `free` (FR-039).
-- [ ] T103 [US4] Implement the mystery mechanics in `core/src/Bloomlings.Core/Mechanics/Mystery.cs`:
+- [X] T103 [US4] Implement the mystery mechanics in `core/src/Bloomlings.Core/Mechanics/Mystery.cs`:
   - a mystery pod reveals its variant on commit (`MysteryPodRevealed`);
   - a mystery tile reveals its variant when it becomes reachable (`MysteryTileRevealed`);
   - hidden variants are fixed in the data and excluded from `LevelView` until revealed.
-- [ ] T104 [US4] Implement `core/src/Bloomlings.Solver/FairnessChecker.cs` (R8):
+- [X] T104 [US4] Implement `core/src/Bloomlings.Solver/FairnessChecker.cs` (R8):
   - an AND-OR search over mystery reveals;
   - variant assignments must be consistent with the visible per-variant accounting;
   - the cap is at most 2 mystery pods plus 3 mystery tiles.
+  Status: worlds are all assignments of the level's active variants to mystery pods and tiles that keep exact accounting
+  (`LevelSession.LoadHypothesis`) and match the start the player sees. Observation classes are split by the event
+  text. `CatalogValidator` writes `playerInfoFair` and fails unfair, over-cap or budget-exhausted levels.
 
   Wire it into `CatalogValidator` for `playerInfoFair`.
-- [ ] T105 [US4] Implement `core/src/Bloomlings.Generator/Overlays/OverlayPlanner.cs` (R9 step 4), which adds:
+- [X] T105 [US4] Implement `core/src/Bloomlings.Generator/Overlays/OverlayPlanner.cs` (R9 step 4), which adds:
   - layers, within the band's depth limit;
   - keys and locks;
   - connected groups at the same depth;
   - gates, Fountains, locked slots and mystery elements.
+  Status: `OverlayPlanner` chooses 0–2 unlocked mechanics per level (stones and holes on background cells, layers,
+  mystery tiles, keys on early-wave tiles locking later-wave pods, a locked slot, key doors, gates and Fountains). A
+  connected pair is added after tray tuning and kept only if the level stays winnable, losable and in class. The
+  `generate --mechanics … --class normal` showcase mode forces a mechanic set, and `--keep content/showcase` keeps
+  showcase levels fixed.
 
   It adds only mechanics allowed by the band and roadmap, and keeps the visible top layer following the picture.
-- [ ] T106 [P] [US4] Add the layer peek indicator and stone tile to `client/Assets/Bloomlings/Gameplay/Board/TileView.cs`.
+- [X] T106 [P] [US4] Add the layer peek indicator and stone tile to `client/Assets/Bloomlings/Gameplay/Board/TileView.cs`.
   The peek is a small corner marker with the next variant's icon and color.
-- [ ] T107 [P] [US4] Implement `client/Assets/Bloomlings/Gameplay/Board/KeyView.cs`. The key overlay must not hide the
+  Status (T106–T110): written and compiled against the Unity stubs, not yet run in the Editor. The peek badge shows
+  the next variant's color and icon. `SpecialView` shows the condition (key, or the exact variant's icon) and the
+  counter, and animates the trigger. `KeyView` flies the key to its pod, slot or special. The tray draws link lines;
+  a mystery pod's slot card flips when revealed, and a locked slot pops its lock when its key lands.
+- [X] T107 [P] [US4] Implement `client/Assets/Bloomlings/Gameplay/Board/KeyView.cs`. The key overlay must not hide the
   tile's icon or color. On collection it flies to its lock.
-- [ ] T108 [P] [US4] Implement `client/Assets/Bloomlings/Gameplay/Board/SpecialView.cs`. It shows the gate or hedge
+- [X] T108 [P] [US4] Implement `client/Assets/Bloomlings/Gameplay/Board/SpecialView.cs`. It shows the gate or hedge
   seal with its visible condition and counter, and the Fountain with its exact-variant condition. It plays the
   trigger animation.
-- [ ] T109 [P] [US4] Add pod states to `client/Assets/Bloomlings/Gameplay/Tray/PodView.cs` and `TrayView.cs`:
+- [X] T109 [P] [US4] Add pod states to `client/Assets/Bloomlings/Gameplay/Tray/PodView.cs` and `TrayView.cs`:
   - a lock badge, and a key highlight when a locked pod is tapped;
   - the connected link lines;
   - the mystery `? + count` with a flip reveal.
-- [ ] T110 [P] [US4] Add the locked-slot visual and its unlock animation to
+- [X] T110 [P] [US4] Add the locked-slot visual and its unlock animation to
   `client/Assets/Bloomlings/Gameplay/Slots/SlotRowView.cs`.
 - [ ] T111 [US4] Author the showcase and practice levels for each mechanic at its roadmap level in `content/curated/`:
   - L8: Key preview (the Key unlocks here by default); a mystery pod takes L8 only once T104 passes, and the Key then
@@ -824,8 +845,16 @@ acceptance scenarios.
   Add a `DemoScript` entry per unlock in `client/Assets/Bloomlings/UI/Tutorial/Demos/`. Regenerate and re-curate the
   affected Levels 11–100 from T095. Validate every showcase level with `validate`, playtest it, and copy the accepted
   levels into `content/catalog/`.
-- [ ] T112 [US4] Add a golden case per mechanic in `core/tests/golden/mech-*.golden.json`: layered, key, locked pod,
+
+  Status: open (human steps). L8 now carries the Key preview (a key door in the sky; its golden case was
+  regenerated). The other showcases are generated in showcase mode into `content/showcase/` (see its README) and pass
+  every check except `picture-approved`. `MechanicDemos` holds one demo per unlock, shown once when a level first
+  uses an unlocked mechanic. Still needed: picture approval, playtests, then the copy into `content/catalog/`.
+- [X] T112 [US4] Add a golden case per mechanic in `core/tests/golden/mech-*.golden.json`: layered, key, locked pod,
   connected, gate, Fountain, locked slot, mystery pod and mystery tile.
+  Status: 10 cases (`mech-layered`, `mech-key`, `mech-locked-pod`, `mech-connected`, `mech-connected-refused`,
+  `mech-gate`, `mech-fountain`, `mech-locked-slot`, `mech-mystery-pod`, `mech-mystery-tile`) run under .NET and in
+  the client check.
 
 **Checkpoint**: Every launch mechanic works end to end and is validated by the pipeline.
 

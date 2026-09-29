@@ -35,8 +35,11 @@ namespace Bloomlings.Pipeline.Commands
             Option<string> thresholds = Cli.Path("--thresholds", "content/profiles/difficulty-thresholds.json", "Difficulty weights and thresholds.");
             Option<string> pairs = Cli.Path("--pairs", "content/readability/approved-pairs.json", "Approved readability pairs.");
             var extraHistory = new Option<string[]>("--history") { Description = "More batch folders to treat as earlier levels (e.g. an unpublished preview of the previous band).", AllowMultipleArgumentsPerToken = true, DefaultValueFactory = _ => Array.Empty<string>() };
+            var keep = new Option<string[]>("--keep") { Description = "Folders of fixed levels (showcase, curated): kept in the history and not generated.", AllowMultipleArgumentsPerToken = true, DefaultValueFactory = _ => new[] { "content/showcase" } };
+            var forced = new Option<string>("--mechanics") { Description = "Showcase mode: exactly these mechanics, comma-separated (e.g. locked_pod)." };
+            var forcedClass = new Option<string>("--class") { Description = "A fixed difficulty class: normal, hard or super_hard (showcases are normal)." };
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Development preview only: use pictures that are not approved yet. Such levels fail validate." };
-            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, thresholds, pairs, allowDraft })
+            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, keep, forced, forcedClass, thresholds, pairs, allowDraft })
             {
                 command.Options.Add(option);
             }
@@ -44,7 +47,6 @@ namespace Bloomlings.Pipeline.Commands
             command.SetAction(parse => Cli.Run(parse, report =>
             {
                 GenerationProfile band = ProfileLoader.ReadFile(parse.GetValue(profile)!);
-                (int first, int last) = Cli.Range(parse.GetValue(levels)!);
                 List<BasePicture> library = ContentStore.LoadLibrary(parse.GetValue(lib)!);
                 ApprovedPairs? approved = ContentStore.LoadPairs(parse.GetValue(pairs)!);
                 if (approved == null)
@@ -60,6 +62,24 @@ namespace Bloomlings.Pipeline.Commands
                     sources = sources.Concat(ContentStore.LoadLevels(folder));
                 }
 
+                (int first, int last) = Cli.Range(parse.GetValue(levels)!);
+                var kept = new HashSet<int>();
+                foreach (string folder in parse.GetValue(keep) ?? Array.Empty<string>())
+                {
+                    // When generating into the keep folder itself (showcase authoring), the requested levels are redone.
+                    bool intoKeep = Path.GetFullPath(folder) == Path.GetFullPath(parse.GetValue(outDir)!);
+                    foreach ((string file, LevelDefinition level) in ContentStore.LoadLevels(folder))
+                    {
+                        if (intoKeep && level.LevelNumber >= first && level.LevelNumber <= last)
+                        {
+                            continue;
+                        }
+
+                        kept.Add(level.LevelNumber);
+                        sources = sources.Append((file, level));
+                    }
+                }
+
                 foreach ((string _, LevelDefinition level) in sources)
                 {
                     history[level.LevelNumber] = level;
@@ -71,10 +91,26 @@ namespace Bloomlings.Pipeline.Commands
                     difficulty,
                     approved.IsApproved,
                     new DifficultySchedule(0xB100B100UL));
+                if (!string.IsNullOrEmpty(parse.GetValue(forced)))
+                {
+                    generator.ForcedMechanics = parse.GetValue(forced)!.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                }
+
+                if (!string.IsNullOrEmpty(parse.GetValue(forcedClass)))
+                {
+                    generator.ForcedClass = parse.GetValue(forcedClass) switch
+                    {
+                        "normal" => DifficultyClass.Normal,
+                        "hard" => DifficultyClass.Hard,
+                        "super_hard" => DifficultyClass.SuperHard,
+                        var other => throw new ArgumentException($"--class '{other}': use normal, hard or super_hard."),
+                    };
+                }
+
                 generator.Progress = (level, accepted, candidates) => Console.Error.WriteLine(accepted == null
                     ? $"  L{level}: failed after {candidates} candidates"
                     : $"  L{level}: {accepted.Definition.Difficulty.Class} ({accepted.Definition.Difficulty.Score}), {accepted.Definition.Picture.Id}, {accepted.Definition.Pods.Count} pods, candidate {candidates}");
-                GenerationResult result = generator.Generate(first, last, (ulong)parse.GetValue(seed), history);
+                GenerationResult result = generator.Generate(first, last, (ulong)parse.GetValue(seed), history, kept);
 
                 string batch = parse.GetValue(outDir)!;
                 foreach (GeneratedLevel level in result.Accepted)

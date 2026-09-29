@@ -60,6 +60,20 @@ namespace Bloomlings.Client.Art
             return Max(Length(x, y) - (0.62f + teeth), -(Length(x, y) - 0.26f));
         });
 
+        /// <summary>A garden gate / hedge seal: an arch with bars (FR-037).</summary>
+        public static Sprite Gate => Get("gate", IconSize, (x, y) => Max(
+            Min(RoundedBox(x, y, 0f, -0.2f, 0.75f, 0.6f, 0.05f), Length(x, y - 0.4f) - 0.75f),
+            -Min(
+                RoundedBox(x, y, -0.4f, -0.2f, 0.07f, 0.55f, 0.03f),
+                RoundedBox(x, y, 0f, -0.1f, 0.07f, 0.7f, 0.03f),
+                RoundedBox(x, y, 0.4f, -0.2f, 0.07f, 0.55f, 0.03f))));
+
+        /// <summary>A Fountain: a basin, a column and a spray (FR-038).</summary>
+        public static Sprite Fountain => Get("fountain", IconSize, (x, y) => Min(
+            RoundedBox(x, y, 0f, -0.6f, 0.85f, 0.2f, 0.15f),
+            RoundedBox(x, y, 0f, -0.15f, 0.12f, 0.35f, 0.05f),
+            Mathf.Abs(Length(x, y - 0.1f) - 0.55f) - 0.07f + Step(y < 0.3f)));
+
         /// <summary>A pointing hand for tutorials (a palm and one raised finger).</summary>
         public static Sprite Pointer => Get("pointer", IconSize, (x, y) => Min(
             RoundedBox(x, y, 0f, -0.35f, 0.42f, 0.42f, 0.2f),

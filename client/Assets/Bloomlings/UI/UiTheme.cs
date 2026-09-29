@@ -18,6 +18,9 @@ namespace Bloomlings.Client.UI
         public static readonly Color SlotLocked = new Color(0.62f, 0.60f, 0.56f);
         public static readonly Color TileFrame = new Color(0.18f, 0.20f, 0.22f, 0.35f);
         public static readonly Color EntryMarker = new Color(0.98f, 0.80f, 0.25f);
+        public static readonly Color GateColor = new Color(0.36f, 0.50f, 0.30f);
+        public static readonly Color FountainColor = new Color(0.58f, 0.66f, 0.74f);
+        public static readonly Color LinkColor = new Color(0.98f, 0.80f, 0.25f, 0.9f);
 
         /// <summary>Reference resolution of the portrait canvas.</summary>
         public static readonly Vector2 ReferenceResolution = new Vector2(1080f, 1920f);

@@ -24,7 +24,7 @@ namespace Bloomlings.Core.Tests.Fixtures
         {
             var rng = new Xoshiro256StarStar(seed);
             int roleCount = 2 + rng.NextInt(3);
-            List<int> roles = Enumerable.Range(0, RuleLevels.Legend.Length).ToList();
+            List<int> roles = Enumerable.Range(0, Variants.Length).ToList();
             var chosen = new List<int>();
             for (int i = 0; i < roleCount; i++)
             {
@@ -130,7 +130,105 @@ namespace Bloomlings.Core.Tests.Fixtures
                 stacks[stack].Add(pods[i].Id);
             }
 
-            return RuleLevels.Session(rows, pods.ToArray(), stacks.Select(s => s.ToArray()).ToArray(), overlays.ToArray());
+            return AddMechanics(seed, rows, pods, stacks, overlays);
+        }
+
+        /// <summary>
+        /// Adds US4 mechanics on a separate random stream, so the base level stays as it was: mystery tiles, a key that
+        /// locks a pod, a key for a locked slot, a connected pair at the same depth and a gate with a counter.
+        /// </summary>
+        private static LevelSession AddMechanics(ulong seed, string[] rows, List<PodDef> pods, List<string>[] stacks, List<CellOverlay> overlays)
+        {
+            var rng = new Xoshiro256StarStar(seed ^ 0x5EC1A1B0C0FFEEUL);
+            int height = rows.Length;
+            var byCell = overlays.ToDictionary(o => o.Cell);
+            CellOverlay At(CellPos cell) => byCell.TryGetValue(cell, out CellOverlay? o) ? o : TestContent.Overlay(cell.X, cell.Y);
+            var targets = new List<CellPos>();
+            var empties = new List<CellPos>();
+            for (int r = 0; r < height; r++)
+            {
+                for (int x = 0; x < rows[r].Length; x++)
+                {
+                    var cell = new CellPos(x, height - 1 - r);
+                    char c = rows[r][x];
+                    if (c == '.')
+                    {
+                        if (!(cell.Y == 0 && cell.X == rows[r].Length / 2))
+                        {
+                            empties.Add(cell);
+                        }
+                    }
+                    else if (c != '#')
+                    {
+                        targets.Add(cell);
+                    }
+                }
+            }
+
+            foreach (CellPos cell in targets)
+            {
+                if (rng.NextInt(100) < 8)
+                {
+                    byCell[cell] = At(cell) with { Mystery = true };
+                }
+            }
+
+            var locks = new List<LockDef>();
+            LockedSlotDef? lockedSlot = null;
+            var keyCells = targets.OrderBy(_ => rng.NextInt(1000)).ToList();
+            if (rng.NextInt(100) < 40)
+            {
+                int p = rng.NextInt(pods.Count);
+                byCell[keyCells[0]] = At(keyCells[0]) with { KeyId = "k0" };
+                pods[p] = pods[p] with { LockKeyId = "k0" };
+                locks.Add(new LockDef("k0", LockTargetKind.Pod, pods[p].Id));
+            }
+
+            if (rng.NextInt(100) < 25 && keyCells.Count > 1)
+            {
+                int slot = rng.NextInt(5);
+                byCell[keyCells[1]] = At(keyCells[1]) with { KeyId = "k1" };
+                lockedSlot = new LockedSlotDef(slot, "k1");
+                locks.Add(new LockDef("k1", LockTargetKind.Slot, slot.ToString(System.Globalization.CultureInfo.InvariantCulture)));
+            }
+
+            if (rng.NextInt(100) < 30 && stacks.Length >= 2)
+            {
+                int depth = rng.NextInt(2);
+                List<string>[] deep = stacks.Where(st => st.Count > depth).ToArray();
+                if (deep.Length >= 2)
+                {
+                    foreach (string id in new[] { deep[0][depth], deep[1][depth] })
+                    {
+                        int p = pods.FindIndex(pod => pod.Id == id);
+                        pods[p] = pods[p] with { ConnectedGroupId = "g0" };
+                    }
+                }
+            }
+
+            var specials = new List<SpecialDef>();
+            if (rng.NextInt(100) < 25 && empties.Count > 0)
+            {
+                CellPos gate = empties[rng.NextInt(empties.Count)];
+                specials.Add(new SpecialDef(
+                    "gate",
+                    SpecialType.Gate,
+                    new[] { gate },
+                    new SpecialCondition(SpecialConditionKind.ClearCountAdjacent, null, null, 1 + rng.NextInt(3), System.Array.Empty<CellPos>()),
+                    new SpecialEffect(SpecialEffectKind.OpenCells, System.Array.Empty<CellPos>())));
+            }
+
+            LevelDefinition definition = RuleLevels.Definition(
+                rows,
+                pods.ToArray(),
+                stacks.Select(st => st.ToArray()).ToArray(),
+                byCell.Values.OrderBy(o => o.Cell.Y).ThenBy(o => o.Cell.X).ToArray()) with
+            {
+                Locks = locks,
+                Slots = new SlotsDef(SlotsDef.DefaultCount, lockedSlot),
+                Specials = specials,
+            };
+            return LevelSession.Load(definition, RuleLevels.Picture(rows), RuleLevels.Options);
         }
 
         /// <summary>A command sequence: mostly taps on exposed pods, sometimes on buried or finished ones.</summary>

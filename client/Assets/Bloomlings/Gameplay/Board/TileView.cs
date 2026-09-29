@@ -10,8 +10,9 @@ namespace Bloomlings.Client.Gameplay.Board
 {
     /// <summary>
     /// One board cell. A target shows a framed tile in its variant color with the variant icon (never a character
-    /// face); open cells hide the tile so the finished picture shows through; stones show a gray block. A small corner
-    /// marker previews the next hidden layer (FR-036).
+    /// face); open cells hide the tile so the finished picture shows through; stones show a gray block. A corner badge
+    /// with the next variant's color and icon previews the next hidden layer (FR-036). A key sits in the opposite corner
+    /// without hiding the tile's icon or color (FR-033).
     /// </summary>
     public sealed class TileView : MonoBehaviour
     {
@@ -19,6 +20,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private Image _fill = null!;
         private Image _icon = null!;
         private Image _peek = null!;
+        private Image _peekIcon = null!;
         private Image _keyMark = null!;
         private VariantVisualCatalog? _visuals;
 
@@ -40,7 +42,10 @@ namespace Bloomlings.Client.Gameplay.Board
             UiFactory.Place(view._icon.rectTransform, 0.2f, 0.2f, 0.8f, 0.8f);
             view._icon.preserveAspect = true;
             view._peek = UiFactory.CreateImage("NextLayer", frame.transform, ProceduralSprites.Circle, Color.white);
-            UiFactory.Place(view._peek.rectTransform, 0.64f, 0.64f, 0.98f, 0.98f);
+            UiFactory.Place(view._peek.rectTransform, 0.62f, 0.62f, 1f, 1f);
+            view._peekIcon = UiFactory.CreateImage("NextIcon", view._peek.transform, null, new Color(1f, 1f, 1f, 0.95f));
+            view._peekIcon.preserveAspect = true;
+            UiFactory.Place(view._peekIcon.rectTransform, 0.18f, 0.18f, 0.82f, 0.82f);
             view._keyMark = UiFactory.CreateImage("Key", frame.transform, ProceduralSprites.Key, UiTheme.EntryMarker);
             UiFactory.Place(view._keyMark.rectTransform, 0.02f, 0.62f, 0.4f, 0.98f);
             return view;
@@ -67,10 +72,14 @@ namespace Bloomlings.Client.Gameplay.Board
                 _frame.color = UiTheme.TileFrame;
             }
 
+            // The layer peek (FR-036): a corner badge with the next layer's color and icon.
             _peek.enabled = next.HasValue;
+            _peekIcon.enabled = next.HasValue;
             if (next.HasValue)
             {
-                _peek.color = Visual(next.Value).Color;
+                VariantVisual peek = Visual(next.Value);
+                _peek.color = peek.Color;
+                _peekIcon.sprite = peek.Icon;
             }
 
             _keyMark.enabled = keyId != null;
@@ -84,8 +93,36 @@ namespace Bloomlings.Client.Gameplay.Board
             _fill.color = UiTheme.StoneColor;
             _icon.enabled = false;
             _peek.enabled = false;
+            _peekIcon.enabled = false;
             _keyMark.enabled = false;
             Shown = null;
+        }
+
+        /// <summary>The key mark's position, where a collected key starts its flight (T107).</summary>
+        public Vector3 KeyPosition => _keyMark.transform.position;
+
+        public bool HasKey => _keyMark.enabled;
+
+        public void HideKey() => _keyMark.enabled = false;
+
+        /// <summary>Draws attention to this tile's key (a locked pod was tapped, T109).</summary>
+        public void FlashKey()
+        {
+            if (_keyMark.enabled && isActiveAndEnabled)
+            {
+                StartCoroutine(Flash());
+            }
+        }
+
+        private System.Collections.IEnumerator Flash()
+        {
+            for (float t = 0f; t < 0.9f; t += Time.unscaledDeltaTime)
+            {
+                _keyMark.transform.localScale = Vector3.one * (1f + (0.35f * Mathf.Abs(Mathf.Sin(t * 10f))));
+                yield return null;
+            }
+
+            _keyMark.transform.localScale = Vector3.one;
         }
 
         /// <summary>Open ground: the tile disappears and the finished picture shows through.</summary>

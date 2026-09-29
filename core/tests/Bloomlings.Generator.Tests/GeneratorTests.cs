@@ -7,6 +7,7 @@ using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Variants;
+using Bloomlings.Generator.Overlays;
 using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Catalog;
 using Bloomlings.Pipeline.Readability;
@@ -135,6 +136,9 @@ namespace Bloomlings.Generator.Tests
                 LevelDefinition level = generated.Definition;
                 BasePicture picture = pictures[level.Picture.Id];
                 Board board = BoardBuilder.Build(level, picture, VariantCatalog.Default);
+
+                // Stones and holes are gameplay overlays on background cells; every other picture cell keeps its tile.
+                var overlaid = new HashSet<CellPos>(level.Overlays.Where(o => o.Stone || o.Hole).Select(o => o.Cell));
                 for (int y = 0; y < picture.Height; y++)
                 {
                     for (int x = 0; x < picture.Width; x++)
@@ -142,7 +146,11 @@ namespace Bloomlings.Generator.Tests
                         int sourceX = level.Picture.Mirror == Mirror.Horizontal ? picture.Width - 1 - x : x;
                         int role = picture.CellAt(sourceX, y);
                         int index = board.IndexOf(new CellPos(x, y));
-                        if (role >= 0)
+                        if (overlaid.Contains(new CellPos(x, y)))
+                        {
+                            Assert.That(picture.Roles[role].IsBackground, Is.True, $"L{level.LevelNumber} ({x},{y}): stones and holes go on the background");
+                        }
+                        else if (role >= 0)
                         {
                             Assert.That(board.TopLayer(index), Is.EqualTo(level.Mapping[picture.Roles[role].RoleId]), $"L{level.LevelNumber} ({x},{y})");
                         }
@@ -153,6 +161,45 @@ namespace Bloomlings.Generator.Tests
                     }
                 }
             }
+        }
+
+        [TestCase("stone", 11)]
+        [TestCase("key", 14)]
+        [TestCase("locked_pod", 16)]
+        [TestCase("connected_pair", 18)]
+        public void ForcedMechanic_IsPlacedAndTheLevelValidates(string mechanic, int level)
+        {
+            string band = SmallBand.Replace(@"""allowedMechanics"": [""stone""]", @"""allowedMechanics"": [""stone"", ""key"", ""locked_pod"", ""connected_pair""]", StringComparison.Ordinal);
+            var generator = new LevelGenerator(ProfileLoader.Read(band), new PicturePicker(Library), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed))
+            {
+                ForcedMechanics = new[] { mechanic },
+                ForcedClass = DifficultyClass.Normal,
+            };
+            var history = new SortedDictionary<int, LevelDefinition>();
+
+            GenerationResult result = generator.Generate(level, level, Seed, history);
+
+            Assert.That(result.Failed, Is.Empty, string.Join(", ", result.Rejections.Select(r => r.Reason).Distinct()));
+            LevelDefinition generated = result.Accepted.Single().Definition;
+            Assert.That(generated.Mechanics, Does.Contain(mechanic));
+            BasePicture picture = Library.Single(p => p.Id == generated.Picture.Id);
+            Assert.That(LevelMechanics.UnlocksUsed(generated, picture), Does.Contain("mechanic." + mechanic));
+
+            var validator = new CatalogValidator(Library, UnlockRoadmap.Default, Pairs, new SolveOptions(20000));
+            IEnumerable<string> errors = validator.Validate(history.Values.ToList()).Issues.Where(i => i.IsError).Select(i => $"{i.Check}: {i.Message}");
+            Assert.That(errors, Is.Empty);
+        }
+
+        [Test]
+        public void MechanicBeforeItsUnlock_IsRefused()
+        {
+            string band = SmallBand.Replace(@"""allowedMechanics"": [""stone""]", @"""allowedMechanics"": [""stone"", ""locked_pod""]", StringComparison.Ordinal);
+            var generator = new LevelGenerator(ProfileLoader.Read(band), new PicturePicker(Library), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed))
+            {
+                ForcedMechanics = new[] { "locked_pod" },
+            };
+
+            Assert.Throws<ArgumentException>(() => generator.Generate(15, 15, Seed, new SortedDictionary<int, LevelDefinition>()), "locked pods unlock at L16");
         }
 
         [Test]

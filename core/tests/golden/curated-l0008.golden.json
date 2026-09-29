@@ -16,10 +16,34 @@
     ],
     "generatorVersion": "curated",
     "levelNumber": 8,
+    "locks": [
+      {
+        "keyId": "key1",
+        "target": {
+          "id": "door1",
+          "kind": "special"
+        }
+      }
+    ],
     "mapping": {
       "kite": "violet_bud",
       "sky": "water",
       "tail": "acorn"
+    },
+    "mechanics": ["key"],
+    "overlays": {
+      "cells": [
+        {
+          "hole": true,
+          "x": 1,
+          "y": 4
+        },
+        {
+          "keyId": "key1",
+          "x": 2,
+          "y": 1
+        }
+      ]
     },
     "picture": {
       "id": "kite",
@@ -32,7 +56,7 @@
         "variantId": "water"
       },
       {
-        "count": 18,
+        "count": 17,
         "id": "w2",
         "variantId": "water"
       },
@@ -52,6 +76,25 @@
     "slots": {
       "count": 5
     },
+    "specials": [
+      {
+        "cells": [
+          {
+            "x": 1,
+            "y": 4
+          }
+        ],
+        "condition": {
+          "keyId": "key1",
+          "kind": "key"
+        },
+        "effect": {
+          "kind": "open_cells"
+        },
+        "id": "door1",
+        "type": "gate"
+      }
+    ],
     "tray": {
       "stacks": [
         ["k1", "w1"],
@@ -59,9 +102,9 @@
       ]
     }
   },
-  "description": "Curated Level 8 (Kite): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
-  "expectedEventsDigest": "03860242c54310ab",
-  "expectedStateHash": "1faa78d19e034822",
+  "description": "Curated Level 8 (Kite): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011). The key on the tail opens the door in the sky (Key preview, T111).",
+  "expectedEventsDigest": "d908200b85c2d3bf",
+  "expectedStateHash": "893380b3bcdc6354",
   "expectedStatus": "won",
   "name": "curated-l0008",
   "picture": {

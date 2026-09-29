@@ -1,0 +1,161 @@
+{
+  "commands": ["tap:leaf", "tap:dew", "tap:water"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "test",
+    "levelNumber": 1,
+    "mapping": {
+      "dew": "dew",
+      "flower": "flower",
+      "leaf": "leaf",
+      "moss": "moss",
+      "violet": "violet_bud",
+      "water": "water",
+      "wood": "wood"
+    },
+    "picture": {
+      "id": "rules",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 1,
+        "id": "leaf",
+        "variantId": "leaf"
+      },
+      {
+        "count": 1,
+        "id": "dew",
+        "variantId": "dew"
+      },
+      {
+        "count": 8,
+        "id": "water",
+        "variantId": "water"
+      }
+    ],
+    "rewardProfile": "test",
+    "seed": "42",
+    "slots": {
+      "count": 5
+    },
+    "specials": [
+      {
+        "cells": [
+          {
+            "x": 3,
+            "y": 2
+          }
+        ],
+        "condition": {
+          "count": 2,
+          "kind": "clear_count_adjacent",
+          "variantId": "water"
+        },
+        "effect": {
+          "cells": [
+            {
+              "x": 3,
+              "y": 4
+            }
+          ],
+          "kind": "remove_stones"
+        },
+        "id": "fountain",
+        "type": "fountain"
+      }
+    ],
+    "tray": {
+      "stacks": [
+        ["leaf"],
+        ["dew"],
+        ["water"]
+      ]
+    }
+  },
+  "description": "\"Restore 2 Water around it\": Dew does not count; the Fountain then removes a stone (FR-038).",
+  "expectedEventsDigest": "e8bd2d03bb60a71e",
+  "expectedStateHash": "fd7b8caebc6741aa",
+  "expectedStatus": "won",
+  "name": "mech-fountain",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, -1, -1, -1, -1, -1, -1],
+      [-2, 2, 2, 3, 2, 2, -2],
+      [-2, 2, 2, -1, 2, 2, -2],
+      [-2, -1, -1, -1, -1, -1, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, 0, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2]
+    ],
+    "height": 8,
+    "id": "rules",
+    "review": {
+      "reviewer": "test",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "green",
+        "name": "leaf",
+        "roleId": "leaf"
+      },
+      {
+        "colorGroup": "green",
+        "name": "moss",
+        "roleId": "moss"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "water",
+        "roleId": "water"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "dew",
+        "roleId": "dew"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "flower",
+        "roleId": "flower"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "wood",
+        "roleId": "wood"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "violet",
+        "roleId": "violet"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "test"
+    },
+    "subject": "rules",
+    "tags": {},
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

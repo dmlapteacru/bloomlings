@@ -1,0 +1,14 @@
+> tap:moss
+r0 PodCommitted moss slot=0 stack=1 depth=0
+> tap:leaf
+r0 PodCommitted leaf slot=1 stack=0 depth=0
+r1 TileCleared 3,1 leaf by leaf route=3,0>3,1
+r1 CellOpened 3,1
+r1 PodCompleted leaf slot=1
+r1 SlotFreed 1
+r2 MysteryTileRevealed 3,2 moss
+r2 TileCleared 3,2 moss by moss route=3,0>3,1>3,2
+r2 CellOpened 3,2
+r2 PodCompleted moss slot=0
+r2 SlotFreed 0
+r3 LevelWon boosters=0

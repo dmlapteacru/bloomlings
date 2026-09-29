@@ -1,0 +1,115 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1114
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 11,
+  "mapping": {
+    "fish": "acorn",
+    "sand": "acorn",
+    "tail": "wood",
+    "water": "dew",
+    "weed": "moss"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 5,
+        "y": 1
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "fish_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 2,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 1,
+      "id": "p10",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "4523693810654960015",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09"],
+      ["p02", "p04", "p06", "p08", "p10"]
+    ]
+  }
+}

@@ -4,19 +4,21 @@ using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
 using Bloomlings.Core.Simulation;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
     /// The Source Tray (T043): one column per stack; the exposed pod sits on top, highlighted and tappable, with up to
-    /// two buried pods drawn smaller below it. The tray mirrors the logical state directly, because commits are
-    /// immediate feedback (R4). Taps are forwarded to the controller.
+    /// two buried pods drawn smaller below it. Connected pods are joined by a link line. The tray mirrors the logical
+    /// state directly, because commits are immediate feedback (R4). Taps are forwarded to the controller.
     /// </summary>
     public sealed class TrayView : MonoBehaviour
     {
         private const int BuriedShown = 2;
 
         private readonly Dictionary<string, PodView> _pods = new Dictionary<string, PodView>(StringComparer.Ordinal);
+        private readonly List<Image> _links = new List<Image>();
         private RectTransform _area = null!;
         private VariantVisualCatalog? _visuals;
         private Action<string> _onTap = _ => { };
@@ -37,8 +39,14 @@ namespace Bloomlings.Client.Gameplay.Tray
                 pod.Hide();
             }
 
+            foreach (Image link in _links)
+            {
+                link.enabled = false;
+            }
+
             Rect area = _area.rect;
             int stacks = view.StackCount;
+            var positions = new Dictionary<string, (Vector2 Center, float Size)>(StringComparer.Ordinal);
             float columnWidth = area.width / stacks;
             float size = Mathf.Min(columnWidth * 0.82f, area.height * 0.42f);
             for (int s = 0; s < stacks; s++)
@@ -56,6 +64,48 @@ namespace Bloomlings.Client.Gameplay.Tray
                     UiFactory.PlaceAbsolute(pod.Rect, new Vector2(x, y), Vector2.one * size * scale);
                     pod.Show(view.Pod(ids[d]), _visuals, interactive: d == 0, dimmed: d > 0);
                     pod.transform.SetAsLastSibling();
+                    positions[ids[d]] = (new Vector2(x, y), size * scale);
+                }
+            }
+
+            DrawLinks(view, positions);
+        }
+
+        /// <summary>
+        /// Connected pods (FR-035): a link line joins the visible members of each group, so it is clear that they
+        /// commit together. Members sit at the same depth, so the line is horizontal.
+        /// </summary>
+        private void DrawLinks(LevelView view, Dictionary<string, (Vector2 Center, float Size)> positions)
+        {
+            int used = 0;
+            var drawn = new HashSet<string>(StringComparer.Ordinal);
+            foreach (KeyValuePair<string, (Vector2 Center, float Size)> entry in positions)
+            {
+                PodInfo pod = view.Pod(entry.Key);
+                if (pod.ConnectedGroupId == null || !drawn.Add(pod.ConnectedGroupId))
+                {
+                    continue;
+                }
+
+                IReadOnlyList<string> members = view.ConnectedGroup(entry.Key);
+                for (int i = 1; i < members.Count; i++)
+                {
+                    if (!positions.TryGetValue(members[i - 1], out (Vector2 Center, float Size) a) || !positions.TryGetValue(members[i], out (Vector2 Center, float Size) b))
+                    {
+                        continue;
+                    }
+
+                    if (used == _links.Count)
+                    {
+                        _links.Add(UiFactory.CreateImage("Link", _area, null, UiTheme.LinkColor));
+                    }
+
+                    Image link = _links[used++];
+                    link.enabled = true;
+                    float left = Mathf.Min(a.Center.x, b.Center.x);
+                    float right = Mathf.Max(a.Center.x, b.Center.x);
+                    UiFactory.PlaceAbsolute(link.rectTransform, new Vector2((left + right) / 2f, a.Center.y), new Vector2(right - left, Mathf.Max(6f, a.Size * 0.08f)));
+                    link.transform.SetAsFirstSibling();
                 }
             }
         }

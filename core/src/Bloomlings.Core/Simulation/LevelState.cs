@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Hashing;
+using Bloomlings.Core.Mechanics;
 using Bloomlings.Core.Slots;
 using Bloomlings.Core.Tray;
 using Bloomlings.Core.Variants;
@@ -36,6 +37,9 @@ namespace Bloomlings.Core.Simulation
             WaitingSlots slots,
             string[] keyIds,
             bool[] keyCollected,
+            MechanicsData mechanics,
+            int[] specialProgress,
+            bool[] specialTriggered,
             StateHasher hasher)
         {
             Definition = definition;
@@ -50,6 +54,9 @@ namespace Bloomlings.Core.Simulation
             Slots = slots;
             KeyIds = keyIds;
             KeyCollected = keyCollected;
+            Mechanics = mechanics;
+            SpecialProgress = specialProgress;
+            SpecialTriggered = specialTriggered;
             _hasher = hasher;
         }
 
@@ -82,6 +89,15 @@ namespace Bloomlings.Core.Simulation
 
         public bool[] KeyCollected { get; }
 
+        /// <summary>Immutable per-level mechanic tables (locks, groups, specials). Shared between clones.</summary>
+        public MechanicsData Mechanics { get; }
+
+        /// <summary>Progress of each special's condition, in definition order (FR-037, FR-038).</summary>
+        public int[] SpecialProgress { get; }
+
+        /// <summary>Whether each special has triggered.</summary>
+        public bool[] SpecialTriggered { get; }
+
         public bool ExtraSlotUsed { get; private set; }
 
         public int ShuffleUses { get; private set; }
@@ -96,7 +112,7 @@ namespace Bloomlings.Core.Simulation
         /// Builds the start state and checks exact accounting: "for every variant v, the sum of count over pods of v
         /// equals the number of top layers of v plus the number of hidden layers of v" (FR-023).
         /// </summary>
-        public static LevelState Create(LevelDefinition definition, BasePicture picture, SessionOptions options)
+        public static LevelState Create(LevelDefinition definition, BasePicture picture, SessionOptions options, MysteryAssignment? assignment = null)
         {
             if (options == null)
             {
@@ -104,6 +120,10 @@ namespace Bloomlings.Core.Simulation
             }
 
             Board board = BoardBuilder.Build(definition, picture, options.Catalog);
+            if (assignment != null)
+            {
+                definition = assignment.Apply(definition, board);
+            }
 
             if (definition.Slots.Count != SlotsDef.DefaultCount)
             {
@@ -197,6 +217,7 @@ namespace Bloomlings.Core.Simulation
 
             var slots = new WaitingSlots(definition.Slots.Locked?.SlotIndex ?? -1);
             string[] keyIds = CollectKeyIds(definition);
+            MechanicsData mechanics = MechanicsData.Build(definition, board, podDefs, podIndex, tray, keyIds);
             var state = new LevelState(
                 definition,
                 picture,
@@ -210,6 +231,9 @@ namespace Bloomlings.Core.Simulation
                 slots,
                 keyIds,
                 new bool[keyIds.Length],
+                mechanics,
+                new int[mechanics.Specials.Length],
+                new bool[mechanics.Specials.Length],
                 new StateHasher());
             state._hasher.Toggle(state.ComputeIncrementalPart());
             return state;
@@ -230,6 +254,9 @@ namespace Bloomlings.Core.Simulation
                 Slots.Clone(),
                 KeyIds,
                 (bool[])KeyCollected.Clone(),
+                Mechanics,
+                (int[])SpecialProgress.Clone(),
+                (bool[])SpecialTriggered.Clone(),
                 _hasher.Clone());
             clone.ExtraSlotUsed = ExtraSlotUsed;
             clone.ShuffleUses = ShuffleUses;
@@ -259,22 +286,37 @@ namespace Bloomlings.Core.Simulation
 
         /// <summary>
         /// Whether an exposed pod may be committed now; null when it may. The level status is checked by the caller.
+        /// A connected pod commits with its whole group (FR-035): every member must be exposed and unlocked, and there
+        /// must be a free usable slot for each member.
         /// </summary>
         public RejectReason? CanCommit(int pod)
         {
-            if (!Tray.IsExposed(pod))
+            int[] group = Mechanics.GroupOf(pod);
+            foreach (int member in group)
             {
-                return RejectReason.NotExposed;
+                if (!Tray.IsExposed(member))
+                {
+                    return RejectReason.NotExposed;
+                }
             }
 
-            if (IsPodLocked(pod))
+            foreach (int member in group)
             {
-                return RejectReason.Locked;
+                if (IsPodLocked(member))
+                {
+                    return RejectReason.Locked;
+                }
             }
 
-            if (Slots.FreeCount == 0)
+            int free = Slots.FreeCount;
+            if (free == 0)
             {
                 return RejectReason.NoFreeSlot;
+            }
+
+            if (free < group.Length)
+            {
+                return RejectReason.NotEnoughSlotsForGroup;
             }
 
             return null;
@@ -382,6 +424,20 @@ namespace Bloomlings.Core.Simulation
 
         public void UnlockSlot(int slot) => Slots.Unlock(slot);
 
+        public void SetSpecialProgress(int special, int progress)
+        {
+            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            SpecialProgress[special] = progress;
+            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+        }
+
+        public void MarkSpecialTriggered(int special)
+        {
+            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            SpecialTriggered[special] = true;
+            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], 1);
+        }
+
         public void MarkExtraSlotUsed()
         {
             if (!ExtraSlotUsed)
@@ -475,6 +531,11 @@ namespace Bloomlings.Core.Simulation
                 {
                     h.Toggle(ZobristFeature.KeyCollected, k);
                 }
+            }
+
+            for (int i = 0; i < SpecialProgress.Length; i++)
+            {
+                h.Toggle(ZobristFeature.SpecialState, i, SpecialProgress[i], SpecialTriggered[i] ? 1 : 0);
             }
 
             if (ExtraSlotUsed)

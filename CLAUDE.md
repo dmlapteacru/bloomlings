@@ -49,6 +49,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `content/pictures/lib` is mostly `draft` until a person approves it (FR-084): `generate --allow-draft` builds
   previews from drafts, `--history <batch>` chains preview batches, and `validate` still fails such levels on
   `picture-approved`. `content/readability/approved-pairs.json` is `provisional` until the readability sign-off.
+  Mechanic showcase levels live in `content/showcase/` (generated with `generate --mechanics <m> --class normal`);
+  `generate` keeps them fixed (`--keep`).
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
 - CI: `.github/workflows/core-tests.yml` builds and tests `core/` and the client check on every push and pull request.
 

@@ -10,7 +10,7 @@ namespace Bloomlings.Core.Tests.Fixtures
 {
     /// <summary>
     /// Small rule-test levels drawn as ASCII art (top row first): l = Leaf, m = Moss (both Sprig/green), w = Water,
-    /// d = Dew (both Drop/blue), f = Flower, o = Wood, '.' = open, '#' = stone. The entry is bottom-center.
+    /// d = Dew (both Drop/blue), f = Flower, v = Violet Bud (both Bloom/pink), o = Wood, '.' = open, '#' = stone. The entry is bottom-center.
     /// </summary>
     public static class RuleLevels
     {
@@ -22,6 +22,7 @@ namespace Bloomlings.Core.Tests.Fixtures
             ('d', "dew", ColorGroup.BlueCyan),
             ('f', "flower", ColorGroup.PinkPurple),
             ('o', "wood", ColorGroup.BrownOrange),
+            ('v', "violet", ColorGroup.PinkPurple),
         };
 
         public static Dictionary<string, VariantId> Mapping() => new Dictionary<string, VariantId>(StringComparer.Ordinal)
@@ -32,6 +33,7 @@ namespace Bloomlings.Core.Tests.Fixtures
             ["dew"] = VariantId.Dew,
             ["flower"] = VariantId.Flower,
             ["wood"] = VariantId.Wood,
+            ["violet"] = VariantId.VioletBud,
         };
 
         public static SessionOptions Options { get; } = new SessionOptions(1, 20000);

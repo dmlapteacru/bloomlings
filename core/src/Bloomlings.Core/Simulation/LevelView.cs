@@ -74,6 +74,34 @@ namespace Bloomlings.Core.Simulation
         public string? ConnectedGroupId { get; }
     }
 
+    /// <summary>What the player can see of a special object: its visible condition and counter (FR-037, FR-038).</summary>
+    public readonly struct SpecialInfo
+    {
+        public SpecialInfo(SpecialDef definition, int progress, int total, bool triggered)
+        {
+            Definition = definition;
+            Progress = progress;
+            Total = total;
+            Triggered = triggered;
+        }
+
+        public SpecialDef Definition { get; }
+
+        public string Id => Definition.Id;
+
+        public SpecialType Type => Definition.Type;
+
+        public IReadOnlyList<CellPos> Cells => Definition.Cells;
+
+        public SpecialCondition Condition => Definition.Condition;
+
+        public int Progress { get; }
+
+        public int Total { get; }
+
+        public bool Triggered { get; }
+    }
+
     /// <summary>
     /// Read-only access to the current settled state for rendering and queries. It reads the live session, so values
     /// change after each accepted command; the presentation keeps its own visual state from the event log (R4).
@@ -169,6 +197,39 @@ namespace Bloomlings.Core.Simulation
                 State.IsPodLocked(pod),
                 def.Mystery,
                 def.ConnectedGroupId);
+        }
+
+        /// <summary>The special objects in definition order, with their counters.</summary>
+        public IReadOnlyList<SpecialInfo> Specials
+        {
+            get
+            {
+                var result = new SpecialInfo[State.Mechanics.Specials.Length];
+                for (int i = 0; i < result.Length; i++)
+                {
+                    result[i] = new SpecialInfo(State.Mechanics.Specials[i].Def, State.SpecialProgress[i], State.Mechanics.Specials[i].Total, State.SpecialTriggered[i]);
+                }
+
+                return result;
+            }
+        }
+
+        /// <summary>The key→lock pairs of the level (FR-033), for the key's flight to its lock.</summary>
+        public IReadOnlyList<LockDef> Locks => State.Definition.Locks;
+
+        public bool IsKeyCollected(string keyId) => State.IsKeyCollected(keyId);
+
+        /// <summary>The ids of the pod's connected group in definition order (only the pod itself when not connected).</summary>
+        public IReadOnlyList<string> ConnectedGroup(string podId)
+        {
+            int[] group = State.Mechanics.GroupOf(State.PodIndex[podId]);
+            var ids = new string[group.Length];
+            for (int i = 0; i < ids.Length; i++)
+            {
+                ids[i] = State.PodId(group[i]);
+            }
+
+            return ids;
         }
 
         /// <summary>True when the pod is the exposed top of its stack.</summary>

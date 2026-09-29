@@ -33,7 +33,25 @@ namespace Bloomlings.Core.Simulation
         {
             LevelState state = LevelState.Create(definition, picture, options);
             IReadOnlyList<IRoundHook> hooks = CreateHooks(state);
-            state.Status = StatusEvaluator.Evaluate(state, hooks);
+            Start(state, hooks);
+            return new LevelSession(state, new List<Command>(), hooks);
+        }
+
+        /// <summary>
+        /// Loads a hypothetical version of a level in which mystery tiles and mystery pods have other variants (the
+        /// player-information fairness check, R8). Throws <see cref="InvalidLevelException"/> when the assignment breaks
+        /// exact accounting, so only worlds the player cannot rule out load.
+        /// </summary>
+        public static LevelSession LoadHypothesis(LevelDefinition definition, BasePicture picture, SessionOptions options, MysteryAssignment assignment)
+        {
+            if (assignment == null)
+            {
+                throw new ArgumentNullException(nameof(assignment));
+            }
+
+            LevelState state = LevelState.Create(definition, picture, options, assignment);
+            IReadOnlyList<IRoundHook> hooks = CreateHooks(state);
+            Start(state, hooks);
             return new LevelSession(state, new List<Command>(), hooks);
         }
 
@@ -56,7 +74,7 @@ namespace Bloomlings.Core.Simulation
         internal LevelState State { get; private set; }
 
         /// <summary>A deep copy for the solver and Shuffle search.</summary>
-        public LevelSession Clone() => new LevelSession(State.Clone(), new List<Command>(_commandLog), CreateHooks(State));
+        public LevelSession Clone() => new LevelSession(State.Clone(), new List<Command>(_commandLog), _hooks);
 
         /// <summary>The same validation as <see cref="Apply"/>, without changing anything (for button states).</summary>
         public CommandCheck Check(Command command)
@@ -101,7 +119,7 @@ namespace Bloomlings.Core.Simulation
             {
                 case Restart _:
                     State = LevelState.Create(State.Definition, State.Picture, State.Options);
-                    State.Status = StatusEvaluator.Evaluate(State, _hooks);
+                    Start(State, _hooks);
                     _commandLog.Clear();
                     return CommandResult.Accept(Array.Empty<GameEvent>());
                 case TapPod tap:
@@ -172,13 +190,18 @@ namespace Bloomlings.Core.Simulation
         private CommandResult ApplyTap(TapPod tap)
         {
             var events = new List<GameEvent>();
-            int pod = State.PodIndex[tap.PodId];
-            (int stack, int slot) = State.CommitPod(pod);
-            events.Add(new PodCommitted(0, tap.PodId, slot, stack, 0));
-            if (!State.Pods[pod].VariantRevealed)
+
+            // A connected pod commits its whole group, each member into its own slot (FR-035).
+            foreach (int pod in State.Mechanics.CommitOrder(State.PodIndex[tap.PodId]))
             {
-                State.RevealPod(pod);
-                events.Add(new MysteryPodRevealed(0, tap.PodId, State.PodVariant(pod)));
+                string id = State.PodId(pod);
+                (int stack, int slot) = State.CommitPod(pod);
+                events.Add(new PodCommitted(0, id, slot, stack, 0));
+                if (!State.Pods[pod].VariantRevealed)
+                {
+                    State.RevealPod(pod);
+                    events.Add(new MysteryPodRevealed(0, id, State.PodVariant(pod)));
+                }
             }
 
             Settle(events);
@@ -211,7 +234,39 @@ namespace Bloomlings.Core.Simulation
             }
         }
 
-        /// <summary>The round hooks for the mechanics of this level, in a fixed order (US4 adds them).</summary>
-        private static IReadOnlyList<IRoundHook> CreateHooks(LevelState state) => NoHooks;
+        private static void Start(LevelState state, IReadOnlyList<IRoundHook> hooks)
+        {
+            foreach (IRoundHook hook in hooks)
+            {
+                hook.OnStart(state);
+            }
+
+            state.Status = StatusEvaluator.Evaluate(state, hooks);
+        }
+
+        /// <summary>
+        /// The round hooks for the mechanics this level uses, in a fixed order: mystery tiles reveal before allocation,
+        /// keys are collected before specials check their conditions. Hooks are stateless, so clones share them.
+        /// </summary>
+        private static IReadOnlyList<IRoundHook> CreateHooks(LevelState state)
+        {
+            var hooks = new List<IRoundHook>(3);
+            if (state.Mechanics.HasMystery)
+            {
+                hooks.Add(Mechanics.Mystery.Instance);
+            }
+
+            if (state.Mechanics.HasKeys)
+            {
+                hooks.Add(Mechanics.KeysAndLocks.Instance);
+            }
+
+            if (state.Mechanics.Specials.Length > 0)
+            {
+                hooks.Add(Mechanics.Specials.Instance);
+            }
+
+            return hooks.Count == 0 ? NoHooks : hooks.ToArray();
+        }
     }
 }

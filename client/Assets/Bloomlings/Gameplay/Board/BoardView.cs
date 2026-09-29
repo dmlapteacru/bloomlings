@@ -19,6 +19,7 @@ namespace Bloomlings.Client.Gameplay.Board
     {
         private readonly List<TileView> _tiles = new List<TileView>();
         private readonly List<(Image Marker, EntryDef Entry)> _entries = new List<(Image, EntryDef)>();
+        private readonly List<SpecialView> _specials = new List<SpecialView>();
         private RectTransform _area = null!;
         private RectTransform _grid = null!;
         private FinishedPictureRenderer _picture = null!;
@@ -56,6 +57,12 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             _entries.Clear();
+            foreach (SpecialView special in _specials)
+            {
+                Destroy(special.gameObject);
+            }
+
+            _specials.Clear();
             _width = view.Width;
             _height = view.Height;
             Layout();
@@ -76,6 +83,11 @@ namespace Bloomlings.Client.Gameplay.Board
             {
                 Image marker = UiFactory.CreateImage("Entry", _grid, ProceduralSprites.Ring, UiTheme.EntryMarker);
                 _entries.Add((marker, entry));
+            }
+
+            foreach (SpecialInfo special in view.Specials)
+            {
+                _specials.Add(SpecialView.Create(_grid, special, _visuals));
             }
 
             Layout();
@@ -108,8 +120,11 @@ namespace Bloomlings.Client.Gameplay.Board
                     tile.ShowTarget(info.Visible, info.Next, info.KeyId);
                     break;
                 case CellKind.Stone:
-                case CellKind.Special:
                     tile.ShowStone();
+                    break;
+                case CellKind.Special:
+                    // Ground under the special's own view (SpecialView).
+                    tile.ShowOpen();
                     break;
                 default:
                     tile.ShowOpen();
@@ -125,6 +140,81 @@ namespace Bloomlings.Client.Gameplay.Board
         }
 
         public void ShowOpened(CellPos cell) => Tile(cell).ShowOpen();
+
+        /// <summary>World position of a key still lying on the board, or null.</summary>
+        public Vector3? KeyPosition(CellPos cell)
+        {
+            TileView tile = Tile(cell);
+            return tile.HasKey ? tile.KeyPosition : (Vector3?)null;
+        }
+
+        public void HideKey(CellPos cell) => Tile(cell).HideKey();
+
+        /// <summary>Highlights the tile carrying this key (a locked pod or slot was tapped).</summary>
+        public void FlashKey(LevelView view, string keyId)
+        {
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    var cell = new CellPos(x, y);
+                    if (view.Cell(cell).KeyId == keyId)
+                    {
+                        Tile(cell).FlashKey();
+                    }
+                }
+            }
+        }
+
+        public Vector3 CellWorldPosition(CellPos cell) => Tile(cell).transform.position;
+
+        public RectTransform CellRect(CellPos cell) => (RectTransform)Tile(cell).transform;
+
+        /// <summary>The first cell, bottom row first, whose state matches; null when none does (demo pointers).</summary>
+        public RectTransform? FindCell(LevelView view, System.Func<CellInfo, bool> match)
+        {
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    var cell = new CellPos(x, y);
+                    if (match(view.Cell(cell)))
+                    {
+                        return CellRect(cell);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public RectTransform? SpecialRect(string specialId) => Special(specialId) is SpecialView special ? (RectTransform)special.transform : null;
+
+        public RectTransform? SpecialRectOfType(SpecialType type) => _specials.Find(s => s.Type == type) is SpecialView special ? (RectTransform)special.transform : null;
+
+        public Vector3? SpecialPosition(string specialId)
+        {
+            SpecialView? special = Special(specialId);
+            return special != null ? special.transform.position : (Vector3?)null;
+        }
+
+        public void ShowSpecialProgress(string specialId, int progress, int total, SpecialConditionKind kind) => Special(specialId)?.SetProgress(progress, total, kind);
+
+        /// <summary>A special triggered: its animation, then the changed cells (opened ground, removed stones).</summary>
+        public void TriggerSpecial(string specialId, IReadOnlyList<CellPos> cells, LevelView view)
+        {
+            Special(specialId)?.Trigger();
+            foreach (CellPos cell in cells)
+            {
+                // Opened ground and removed stones; revealed mystery tiles arrive as their own event.
+                if (view.Cell(cell).Kind == CellKind.Open)
+                {
+                    Tile(cell).ShowOpen();
+                }
+            }
+        }
+
+        private SpecialView? Special(string specialId) => _specials.Find(s => s.SpecialId == specialId);
 
         public void ShowMysteryRevealed(CellPos cell, Core.Variants.VariantId variant) => Tile(cell).ShowTarget(variant, null, null);
 
@@ -162,6 +252,23 @@ namespace Bloomlings.Client.Gameplay.Board
             foreach ((Image marker, EntryDef entry) in _entries)
             {
                 UiFactory.PlaceAbsolute(marker.rectTransform, EntryPoint(entry), Vector2.one * CellSize * 0.8f);
+            }
+
+            // A special covers the bounding box of its cells.
+            foreach (SpecialView special in _specials)
+            {
+                int minX = int.MaxValue, minY = int.MaxValue, maxX = int.MinValue, maxY = int.MinValue;
+                foreach (CellPos cell in special.Cells)
+                {
+                    minX = Mathf.Min(minX, cell.X);
+                    minY = Mathf.Min(minY, cell.Y);
+                    maxX = Mathf.Max(maxX, cell.X);
+                    maxY = Mathf.Max(maxY, cell.Y);
+                }
+
+                var center = new Vector2((minX + maxX + 1) * 0.5f * CellSize, (minY + maxY + 1) * 0.5f * CellSize);
+                UiFactory.PlaceAbsolute((RectTransform)special.transform, center, new Vector2((maxX - minX + 1) * CellSize, (maxY - minY + 1) * CellSize) * 0.96f);
+                special.transform.SetAsLastSibling();
             }
         }
 

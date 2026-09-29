@@ -1,0 +1,23 @@
+> tap:locked rejected:Locked
+> tap:below rejected:NotExposed
+> tap:water
+r0 PodCommitted water slot=0 stack=1 depth=0
+r1 TileCleared 4,1 water by water route=3,0>4,0>4,1
+r1 CellOpened 4,1
+r1 KeyCollected k1 4,1
+r1 LockOpened Pod locked
+r1 PodCompleted water slot=0
+r1 SlotFreed 0
+> tap:locked
+r0 PodCommitted locked slot=0 stack=0 depth=0
+r1 TileCleared 3,1 leaf by locked route=3,0>3,1
+r1 CellOpened 3,1
+r1 PodCompleted locked slot=0
+r1 SlotFreed 0
+> tap:below
+r0 PodCommitted below slot=0 stack=0 depth=0
+r1 TileCleared 2,1 moss by below route=3,0>2,0>2,1
+r1 CellOpened 2,1
+r1 PodCompleted below slot=0
+r1 SlotFreed 0
+r2 LevelWon boosters=0

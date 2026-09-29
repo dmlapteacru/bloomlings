@@ -225,6 +225,15 @@ namespace Bloomlings.Core.Boards
             return count;
         }
 
+        /// <summary>Replaces the top layer of a target cell before play (a hypothetical mystery assignment).</summary>
+        internal void ReplaceTop(int index, VariantId variant)
+        {
+            EnsureTarget(index);
+            var layers = (VariantId[])_layers[index].Clone();
+            layers[_top[index]] = variant;
+            _layers[index] = layers;
+        }
+
         internal void SetOpen(int index) => _kind[index] = CellKind.Open;
 
         internal void SetStone(int index) => _kind[index] = CellKind.Stone;

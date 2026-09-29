@@ -110,13 +110,30 @@ namespace Bloomlings.Pipeline.Review
                             canvas.Text(px + 7, py + 5, Letter(board.TopLayer(index)), (255, 255, 255));
                             if (board.RemainingLayers(index) > 1)
                             {
+                                // The layer peek: the next layer's color in the top-right corner.
                                 canvas.Fill(px + Cell - 7, py + 2, 5, 5, Hex(VariantCatalog.Default.Get(board.NextLayer(index)!.Value).ColorHex));
+                            }
+
+                            if (board.IsMysteryHidden(index))
+                            {
+                                // A mystery tile: the reviewer sees the hidden variant with a ? frame.
+                                canvas.Fill(px + 1, py + 1, Cell - 2, 3, (0x30, 0x30, 0x30));
+                                canvas.Text(px + Cell - 7, py + Cell - 9, "?", (0x30, 0x30, 0x30));
+                            }
+
+                            if (board.KeyAt(index) != null)
+                            {
+                                canvas.Fill(px + 2, py + Cell - 8, 6, 6, (0xFA, 0xCC, 0x40));
                             }
 
                             break;
                         case CellKind.Stone:
-                        case CellKind.Special:
                             canvas.Fill(px + 1, py + 1, Cell - 2, Cell - 2, (0x8C, 0x8C, 0x94));
+                            break;
+                        case CellKind.Special:
+                            bool fountain = level.Specials.Any(sp => sp.Type == SpecialType.Fountain && sp.Cells.Contains(new CellPos(x, y)));
+                            canvas.Fill(px + 1, py + 1, Cell - 2, Cell - 2, fountain ? ((byte)0x93, (byte)0xA8, (byte)0xBC) : ((byte)0x5C, (byte)0x80, (byte)0x4C));
+                            canvas.Text(px + 7, py + 5, fountain ? "F" : "G", (255, 255, 255));
                             break;
                         default:
                             canvas.Fill(px + 1, py + 1, Cell - 2, Cell - 2, (0xDC, 0xD4, 0xBD));
@@ -175,6 +192,8 @@ namespace Bloomlings.Pipeline.Review
             private static readonly Dictionary<char, string[]> Font = new Dictionary<char, string[]>
             {
                 ['A'] = new[] { " ### ", "#   #", "#   #", "#####", "#   #", "#   #", "#   #" },
+                ['G'] = new[] { " ### ", "#   #", "#    ", "# ###", "#   #", "#   #", " ### " },
+                ['?'] = new[] { " ### ", "#   #", "    #", "   # ", "  #  ", "     ", "  #  " },
                 ['B'] = new[] { "#### ", "#   #", "#   #", "#### ", "#   #", "#   #", "#### " },
                 ['D'] = new[] { "#### ", "#   #", "#   #", "#   #", "#   #", "#   #", "#### " },
                 ['F'] = new[] { "#####", "#    ", "#    ", "#### ", "#    ", "#    ", "#    " },

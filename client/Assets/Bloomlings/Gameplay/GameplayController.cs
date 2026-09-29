@@ -13,9 +13,11 @@ using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Screens;
 using Bloomlings.Client.UI.Tutorial;
+using Bloomlings.Client.UI.Tutorial.Demos;
 using Bloomlings.Client.UI;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
 using UnityEngine;
@@ -40,6 +42,7 @@ namespace Bloomlings.Client.Gameplay
 
         private readonly Dictionary<string, int> _workInFlight = new Dictionary<string, int>(System.StringComparer.Ordinal);
         private LevelSession? _session;
+        private RectTransform _root = null!;
         private GameplayHud _hud = null!;
         private BoardView _board = null!;
         private TrayView _tray = null!;
@@ -60,6 +63,7 @@ namespace Bloomlings.Client.Gameplay
             Canvas canvas = UiFactory.CreateCanvas("GameplayCanvas", 0);
             canvas.transform.SetParent(transform, false);
             var root = (RectTransform)canvas.transform;
+            _root = root;
             _hud = GameplayHud.Create(UiFactory.Stretch(UiFactory.CreateRect("Hud", root)), OpenPause, doubleSpeed => _timeline.Speed = doubleSpeed ? 2f : 1f);
             _board = BoardView.Create(_hud.BoardArea, _visuals);
             _slots = SlotRowView.Create(_hud.SlotArea, _visuals);
@@ -109,6 +113,11 @@ namespace Bloomlings.Client.Gameplay
             {
                 _tray.ShowRefused(podId);
                 _hud.Toast(RefusalText(check.Reason!.Value));
+                if (check.Reason == RejectReason.Locked)
+                {
+                    FlashKeysOf(podId);
+                }
+
                 return;
             }
 
@@ -189,6 +198,15 @@ namespace Bloomlings.Client.Gameplay
                 case MysteryTileRevealed revealed:
                     _board.ShowMysteryRevealed(revealed.Cell, revealed.Variant);
                     break;
+                case KeyCollected key:
+                    FlyKey(key);
+                    break;
+                case SpecialProgressed progressed:
+                    _board.ShowSpecialProgress(progressed.SpecialId, progressed.Progress, progressed.Total, SpecialKind(progressed.SpecialId));
+                    break;
+                case SpecialTriggered triggered:
+                    _board.TriggerSpecial(triggered.SpecialId, triggered.EffectCells, _session!.View);
+                    break;
                 case LevelWon _:
                     _board.RevealAll();
                     _win.Show(this, "Reward: coming with Petals (US5)");
@@ -200,6 +218,77 @@ namespace Bloomlings.Client.Gameplay
                     _jam.Show(stuck: true, stuck.EligibleRecoveries);
                     break;
             }
+        }
+
+        // ---- Keys and locks (T107, T109, T110) ----
+
+        /// <summary>The collected key leaves its tile and flies to its lock, which then plays its opening.</summary>
+        private void FlyKey(KeyCollected key)
+        {
+            LevelView view = _session!.View;
+            Vector3 from = _board.KeyPosition(key.Cell) ?? _board.CellWorldPosition(key.Cell);
+            _board.HideKey(key.Cell);
+            LockDef? lockDef = null;
+            foreach (LockDef candidate in view.Locks)
+            {
+                if (candidate.KeyId == key.KeyId)
+                {
+                    lockDef = candidate;
+                }
+            }
+
+            if (lockDef == null)
+            {
+                return;
+            }
+
+            Vector3 to = lockDef.TargetKind switch
+            {
+                LockTargetKind.Slot => _slots.SlotPosition(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture)),
+                LockTargetKind.Special => _board.SpecialPosition(lockDef.TargetId) ?? from,
+                _ => _tray.RectOf(lockDef.TargetId) is RectTransform pod ? pod.position : _hud.TrayArea.position,
+            };
+
+            KeyView.Fly(_root, from, to, _board.CellSize * 0.8f, () =>
+            {
+                if (lockDef.TargetKind == LockTargetKind.Slot)
+                {
+                    _slots.PlayUnlock(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture), _session!.View);
+                }
+                else if (lockDef.TargetKind == LockTargetKind.Pod)
+                {
+                    _tray.ShowAccepted(lockDef.TargetId);
+                }
+            });
+        }
+
+        /// <summary>A locked pod was tapped: point at the key that opens it (the pod or its group).</summary>
+        private void FlashKeysOf(string podId)
+        {
+            LevelView view = _session!.View;
+            foreach (string member in view.ConnectedGroup(podId))
+            {
+                foreach (PodDef pod in _session.Definition.Pods)
+                {
+                    if (pod.Id == member && pod.LockKeyId != null && !view.IsKeyCollected(pod.LockKeyId))
+                    {
+                        _board.FlashKey(view, pod.LockKeyId);
+                    }
+                }
+            }
+        }
+
+        private SpecialConditionKind SpecialKind(string specialId)
+        {
+            foreach (SpecialInfo special in _session!.View.Specials)
+            {
+                if (special.Id == specialId)
+                {
+                    return special.Condition.Kind;
+                }
+            }
+
+            return SpecialConditionKind.ClearCountAdjacent;
         }
 
         // ---- Flow ----
@@ -281,6 +370,22 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
+            // The first time the player meets an unlocked mechanic, its demo (FR-031, T111).
+            foreach (string unlockId in LevelMechanics.UnlocksUsed(session.Definition, session.Picture))
+            {
+                if (SeenDemo(unlockId) || !(progression?.IsUnlocked(unlockId) ?? true))
+                {
+                    continue;
+                }
+
+                DemoScript? demo = MechanicDemos.For(unlockId, DemoTargetsFor(session));
+                if (demo != null)
+                {
+                    _demo.Show(demo, OnDemoDone);
+                    return;
+                }
+            }
+
             (VariantId First, VariantId Second)? siblings = SiblingPair(session);
             if (siblings.HasValue && !SeenDemo(DemoScripts.SiblingsId))
             {
@@ -288,6 +393,69 @@ namespace Bloomlings.Client.Gameplay
                 VariantVisual second = _visuals != null ? _visuals.Get(siblings.Value.Second) : VariantVisualCatalog.Default(siblings.Value.Second);
                 _demo.Show(DemoScripts.Siblings(first, second), OnDemoDone);
             }
+        }
+
+        /// <summary>Pointer targets for the mechanic demos, resolved from what is on screen when each step starts.</summary>
+        private DemoTargets DemoTargetsFor(LevelSession session)
+        {
+            LevelView view = session.View;
+            string? FirstPod(System.Func<PodInfo, bool> match)
+            {
+                foreach (string id in view.PodIds)
+                {
+                    if (match(view.Pod(id)))
+                    {
+                        return id;
+                    }
+                }
+
+                return null;
+            }
+
+            RectTransform? PodRect(System.Func<PodInfo, bool> match) => FirstPod(match) is string id ? _tray.RectOf(id) : null;
+
+            RectTransform? LockRect()
+            {
+                foreach (LockDef lockDef in view.Locks)
+                {
+                    return lockDef.TargetKind switch
+                    {
+                        LockTargetKind.Pod => _tray.RectOf(lockDef.TargetId),
+                        LockTargetKind.Slot => _slots.SlotRect(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture)),
+                        _ => _board.SpecialRect(lockDef.TargetId),
+                    };
+                }
+
+                return null;
+            }
+
+            RectTransform? LockedSlot()
+            {
+                for (int i = 0; i < view.SlotCapacity; i++)
+                {
+                    if (view.SlotStateOf(i) == Core.Slots.SlotState.Locked)
+                    {
+                        return _slots.SlotRect(i);
+                    }
+                }
+
+                return null;
+            }
+
+            return new DemoTargets
+            {
+                Stone = () => _board.FindCell(view, c => c.Kind == Core.Boards.CellKind.Stone),
+                KeyTile = () => _board.FindCell(view, c => c.KeyId != null),
+                KeyLock = LockRect,
+                LockedPod = () => PodRect(p => p.Locked),
+                ConnectedPod = () => PodRect(p => p.ConnectedGroupId != null && view.IsExposed(p.Id)),
+                LayeredTile = () => _board.FindCell(view, c => c.Next.HasValue),
+                Gate = () => _board.SpecialRectOfType(SpecialType.Gate),
+                Fountain = () => _board.SpecialRectOfType(SpecialType.Fountain),
+                LockedSlot = LockedSlot,
+                MysteryTile = () => _board.FindCell(view, c => c.MysteryHidden),
+                MysteryPod = () => PodRect(p => p.Mystery && p.Variant == null),
+            };
         }
 
         private bool SeenDemo(string demoId) => Progression?.HasSeenDemo(demoId) ?? _devDemosSeen.Contains(demoId);

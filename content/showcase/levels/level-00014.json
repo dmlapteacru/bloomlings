@@ -1,0 +1,134 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1219
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 14,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "can": "moss",
+    "drops": "dew",
+    "grass": "leaf",
+    "handle": "acorn",
+    "sky": "dew"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 6,
+        "y": 0
+      },
+      {
+        "hole": true,
+        "x": 6,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "watering_can_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p10",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "9804590027991533031",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 6,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10"],
+      ["p02", "p05", "p08"],
+      ["p03", "p06", "p09"]
+    ]
+  }
+}

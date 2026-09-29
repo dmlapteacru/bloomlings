@@ -9,6 +9,9 @@ namespace Bloomlings.Core.Simulation
     /// </summary>
     internal interface IRoundHook
     {
+        /// <summary>Once when the level loads or restarts, before any command (mystery tiles reachable at the start reveal).</summary>
+        void OnStart(LevelState state);
+
         /// <summary>After reachability is computed and before allocation (mystery tiles reveal here, FR-039).</summary>
         void BeforeAllocation(RoundContext context);
 
@@ -43,5 +46,8 @@ namespace Bloomlings.Core.Simulation
 
         /// <summary>Set by a hook that changed the state, so the loop runs another round even without claims.</summary>
         public bool Changed { get; set; }
+
+        /// <summary>Special progress at the start of the round, so each changed counter is reported once per round.</summary>
+        public int[]? SpecialProgressAtStart { get; set; }
     }
 }

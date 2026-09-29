@@ -153,6 +153,23 @@ namespace Bloomlings.Pipeline.Validation
                 Error(report, n, "losable", "no tap sequence jams this level (FR-081)");
             }
 
+            // Mystery pods and tiles: no level may force a blind guess (FR-039, FR-080, R8).
+            FairnessResult fairness = FairnessChecker.Check(level, picture, new SessionOptions(1, 20000), _options.NodeBudget);
+            if (fairness.Status == FairnessStatus.Fair)
+            {
+                passed.Add("player-info-fair");
+            }
+            else
+            {
+                string why = fairness.Status switch
+                {
+                    FairnessStatus.OverCap => $"more than {FairnessChecker.MaxMysteryPods} mystery pods or {FairnessChecker.MaxMysteryTiles} mystery tiles",
+                    FairnessStatus.Unknown => $"the fairness search ran out of budget ({fairness.NodesUsed} nodes)",
+                    _ => $"winning needs hidden knowledge in {fairness.Worlds} indistinguishable worlds",
+                };
+                Error(report, n, "player-info-fair", why + " (FR-039)");
+            }
+
             report.Records[n] = new ValidationRecord(
                 n,
                 level.DefinitionVersion,
@@ -163,7 +180,7 @@ namespace Bloomlings.Pipeline.Validation
                 result,
                 analysis.Win.Trace,
                 losable ? analysis.Jam.Trace : null,
-                null,
+                fairness.PlayerInfoFair,
                 analysis.Metrics.ToDictionary(),
                 passed);
         }
@@ -281,85 +298,8 @@ namespace Bloomlings.Pipeline.Validation
             }
         }
 
-        /// <summary>The roadmap unlock each mechanic needs (FR-031).</summary>
-        public static IReadOnlyList<string> MechanicsUsed(LevelDefinition level, BasePicture picture)
-        {
-            var used = new SortedSet<string>(StringComparer.Ordinal);
-            foreach (IReadOnlyList<int> row in picture.Grid)
-            {
-                foreach (int cell in row)
-                {
-                    if (cell == BasePicture.Stone)
-                    {
-                        used.Add("mechanic.stone");
-                    }
-                }
-            }
-
-            foreach (CellOverlay overlay in level.Overlays)
-            {
-                if (overlay.Stone)
-                {
-                    used.Add("mechanic.stone");
-                }
-
-                if (overlay.KeyId != null)
-                {
-                    used.Add("mechanic.key");
-                }
-
-                if (overlay.LayersBelow.Count > 0)
-                {
-                    used.Add("mechanic.layered_tile");
-                }
-
-                if (overlay.LayersBelow.Count > 1)
-                {
-                    used.Add("profile.layers_depth_3");
-                }
-
-                if (overlay.Mystery)
-                {
-                    used.Add("mechanic.mystery_tile");
-                }
-            }
-
-            foreach (PodDef pod in level.Pods)
-            {
-                if (pod.LockKeyId != null)
-                {
-                    used.Add("mechanic.locked_pod");
-                }
-
-                if (pod.ConnectedGroupId != null)
-                {
-                    used.Add("mechanic.connected_pair");
-                }
-
-                if (pod.Mystery)
-                {
-                    used.Add("mechanic.mystery_pod");
-                }
-            }
-
-            if (level.Slots.Locked != null)
-            {
-                used.Add("mechanic.locked_slot");
-            }
-
-            foreach (SpecialDef special in level.Specials)
-            {
-                used.Add(special.Type switch
-                {
-                    SpecialType.Gate => "mechanic.gate",
-                    SpecialType.Fountain => "mechanic.fountain",
-                    SpecialType.Chest => "mechanic.chest",
-                    _ => "mechanic.environment_2",
-                });
-            }
-
-            return used.ToList();
-        }
+        /// <summary>The roadmap unlock each mechanic needs (FR-031); see <see cref="LevelMechanics"/>.</summary>
+        public static IReadOnlyList<string> MechanicsUsed(LevelDefinition level, BasePicture picture) => LevelMechanics.UnlocksUsed(level, picture);
 
         private void CheckUnlocks(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
         {
