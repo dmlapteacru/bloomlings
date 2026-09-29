@@ -1,0 +1,14 @@
+{
+  "name": "com.bloomlings.content",
+  "displayName": "Bloomlings Content",
+  "description": "Level, picture and manifest serialization and content packs (research R5/R6).",
+  "version": "0.1.0",
+  "unity": "6000.3",
+  "author": {
+    "name": "Bloomlings"
+  },
+  "dependencies": {
+    "com.unity.nuget.newtonsoft-json": "3.2.1",
+    "com.bloomlings.core": "0.1.0"
+  }
+}

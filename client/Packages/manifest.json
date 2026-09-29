@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "com.bloomlings.core": "file:../../core/src/Bloomlings.Core",
+    "com.bloomlings.content": "file:../../core/src/Bloomlings.Content",
+    "com.bloomlings.solver": "file:../../core/src/Bloomlings.Solver",
+    "com.unity.nuget.newtonsoft-json": "3.2.1"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "name": "Bloomlings.Client.Editor",
+  "rootNamespace": "Bloomlings.Client.Editor",
+  "references": [
+    "Bloomlings.Client",
+    "Bloomlings.Core",
+    "Bloomlings.Content"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

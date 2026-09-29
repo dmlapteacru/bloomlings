@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Content pipeline CLI (contracts/pipeline-cli.md). -->
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>bloomlings-pipeline</AssemblyName>
+    <RootNamespace>Bloomlings.Pipeline</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Bloomlings.Core/Bloomlings.Core.csproj" />
+    <ProjectReference Include="../Bloomlings.Content/Bloomlings.Content.csproj" />
+    <ProjectReference Include="../Bloomlings.Solver/Bloomlings.Solver.csproj" />
+    <ProjectReference Include="../Bloomlings.Generator/Bloomlings.Generator.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.12" />
+    <PackageReference Include="JsonSchema.Net" Version="9.4.0" />
+  </ItemGroup>
+</Project>

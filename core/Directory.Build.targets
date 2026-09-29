@@ -1,0 +1,13 @@
+<Project>
+  <!--
+    Set after the project file so that $(TargetFramework) is known.
+    Shared libraries (netstandard2.1) are also compiled by Unity 6.3, which supports C# 9.
+    Tools and tests (net10.0) may use the latest language version.
+  -->
+  <PropertyGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+    <LangVersion>9.0</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)' != 'netstandard2.1'">
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+</Project>

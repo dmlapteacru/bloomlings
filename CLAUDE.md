@@ -32,7 +32,18 @@ Water/Dew, Wood/Acorn). Progression is a linear sequence of 5000+ levels, with n
   the launch content strategy and the technical architecture.
 - **Technical direction** (doc 15, not yet locked): Unity + C#, a deterministic data-driven
   gameplay core, an offline generator and solver, versioned level definitions, and a lightweight
-  backend. No build, lint or test tooling exists yet; when it does, add the commands here.
+  backend.
+
+## Build and test commands
+
+Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/artifacts/`).
+
+- `dotnet build core/Bloomlings.sln` builds the shared libraries, tools and tests.
+- `dotnet test core/Bloomlings.sln` runs the core, content, solver and generator tests.
+- `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI
+  (`contracts/pipeline-cli.md`).
+- Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
+- CI: `.github/workflows/core-tests.yml` builds and tests `core/` on every push and pull request.
 
 ## Spec-Driven Development (GitHub Spec Kit)
 
