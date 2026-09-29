@@ -7,6 +7,10 @@
     <ProjectReference Include="../Bloomlings.Core/Bloomlings.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <!-- The contract schemas, unchanged, for tools that validate against them (pipeline `validate`). -->
+    <EmbeddedResource Include="Schemas/*.schema.json" LogicalName="Bloomlings.Content.Schemas.%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
 </Project>

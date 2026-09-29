@@ -134,7 +134,7 @@ story depends on these.
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete, and only after T001 confirms the gate.
 
-- [ ] T013 [P] Implement the target variants in `core/src/Bloomlings.Core/Variants/VariantId.cs`,
+- [X] T013 [P] Implement the target variants in `core/src/Bloomlings.Core/Variants/VariantId.cs`,
   `Family.cs`, `ColorGroup.cs` and `VariantCatalog.cs`, following data-model §1.1:
   - `VariantId` has launch ids `leaf, moss, flower, violet_bud, water, dew, wood, acorn` and expansion ids
     `vine, berry, mist, bark`.
@@ -142,14 +142,14 @@ story depends on these.
   - `ColorGroup` is `green|pink_purple|blue_cyan|brown_orange|lime|red|indigo|gold`.
   - `VariantCatalog` stores family, colorGroup, `introducedAtLevel` and status (`launch|expansion`). Follow the rule "A
     variant catalog of at least 12 entries must be supported without rule changes".
-- [ ] T014 [P] Implement `core/src/Bloomlings.Core/Board/CellPos.cs`:
+- [X] T014 [P] Implement `core/src/Bloomlings.Core/Board/CellPos.cs`:
   - an `x` and `y` value type with row 0 at the bottom;
   - bounds `x ≤ 13`, `y ≤ 15`;
   - a row-major index helper;
   - the 4-neighbourhood iterator (no diagonals, FR-010);
   - a comparer implementing the fixed tie-break of FR-021: route distance ascending, then row ascending (bottom row
     first), then column ascending.
-- [ ] T015 [P] Implement immutable definition records in `core/src/Bloomlings.Core/Definitions/LevelDefinition.cs`,
+- [X] T015 [P] Implement immutable definition records in `core/src/Bloomlings.Core/Definitions/LevelDefinition.cs`,
   `PictureRef.cs`, `EntryDef.cs`, `CellOverlay.cs`, `SpecialDef.cs`, `LockDef.cs`, `SlotsDef.cs`, `TrayDef.cs`,
   `PodDef.cs` and `DifficultyDef.cs`. They mirror `contracts/level-definition.schema.json` and data-model §1.3.
   Document these constraints verbatim in XML docs:
@@ -159,22 +159,22 @@ story depends on these.
   - `tray.stacks`: "2–6 stacks (tuned per band)";
   - pods: "`count ≥ 1`. Connected groups have 2 members (3 only if that mechanic is unlocked). Members of a connected
     group sit at the **same depth** in different stacks".
-- [ ] T016 [P] Implement the `BasePicture` record in `core/src/Bloomlings.Core/Definitions/BasePicture.cs` and
+- [X] T016 [P] Implement the `BasePicture` record in `core/src/Bloomlings.Core/Definitions/BasePicture.cs` and
   `PictureRole.cs`, following data-model §1.2 and `contracts/base-picture.schema.json`:
   - width and height: "7 ≤ width ≤ 14, 8 ≤ height ≤ 16";
   - roles: "At least 2 roles; each role has exactly one color group";
   - grid rows run bottom-first, and each value is a role index, `-1` = EMPTY or `-2` = STONE;
   - `review.status`: "Only `approved` pictures can be used".
-- [ ] T017 [P] Implement `SplitMix64` and `Xoshiro256StarStar` in `core/src/Bloomlings.Core/Random/SplitMix64.cs` and
+- [X] T017 [P] Implement `SplitMix64` and `Xoshiro256StarStar` in `core/src/Bloomlings.Core/Random/SplitMix64.cs` and
   `Xoshiro256StarStar.cs` (R3). Use only integer arithmetic and no `System.Random`. Add known-answer tests from the
   reference implementations in `core/tests/Bloomlings.Core.Tests/Random/PrngVectorTests.cs`.
-- [ ] T018 [P] Implement the Zobrist keys and incremental hasher in `core/src/Bloomlings.Core/Hashing/ZobristKeys.cs`
+- [X] T018 [P] Implement the Zobrist keys and incremental hasher in `core/src/Bloomlings.Core/Hashing/ZobristKeys.cs`
   and `StateHasher.cs`:
   - keys are generated with SplitMix64 from the fixed seed `0xB100B100B100B100`;
   - they cover the cell layer stack and open state, pod remaining and location, tray exposure, slots, collected keys
     and special states;
   - XOR updates are applied incrementally.
-- [ ] T019 Implement `core/src/Bloomlings.Core/Board/Board.cs` and `BoardBuilder.cs` (depends on T013–T016). The
+- [X] T019 Implement `core/src/Bloomlings.Core/Board/Board.cs` and `BoardBuilder.cs` (depends on T013–T016). The
   builder expands a `LevelDefinition` plus `BasePicture` exactly as data-model §1.3 *Derived board* describes:
   1. `cell(x,y)` starts as `grid[y][x']`, where `x' = mirror ? width-1-x : x`;
   2. the top-layer variant is `mapping[role]`;
@@ -184,13 +184,13 @@ story depends on these.
   - a mapping variant's colorGroup differs from the role's colorGroup;
   - a picture's `review.status` is not approved;
   - the board exceeds 14×16.
-- [ ] T020 Implement `core/src/Bloomlings.Core/Board/Reachability.cs` (depends on T014, T019):
+- [X] T020 Implement `core/src/Bloomlings.Core/Board/Reachability.cs` (depends on T014, T019):
   - a BFS from all Garden Entries over open cells, 4-neighbourhood only;
   - the route distance of a target is the number of BFS steps to the adjacent open cell, plus 1;
   - it returns the reachable top layers sorted by the T014 comparer, plus each target's route (the list of cells) for
     `TileCleared.routeFromEntry`;
   - stones are never walkable (FR-010, FR-032).
-- [ ] T021 [P] Write board tests in `core/tests/Bloomlings.Core.Tests/Board/BoardBuilderTests.cs` and
+- [X] T021 [P] Write board tests in `core/tests/Bloomlings.Core.Tests/Board/BoardBuilderTests.cs` and
   `ReachabilityTests.cs`. They cover:
   - mirroring, and mapping onto the top layer;
   - overlays;
@@ -199,7 +199,7 @@ story depends on these.
   - stones block routes;
   - two entries;
   - tie-break ordering.
-- [ ] T022 [P] Implement JSON serialization with Newtonsoft in `core/src/Bloomlings.Content/Json/DefinitionJson.cs` and
+- [X] T022 [P] Implement JSON serialization with Newtonsoft in `core/src/Bloomlings.Content/Json/DefinitionJson.cs` and
   `BasePictureJson.cs`:
   - camelCase property names exactly as in the schemas;
   - the uint64 `seed` is a decimal string;
@@ -207,13 +207,13 @@ story depends on these.
 
   Embed the four schemas from `specs/001-core-game-mvp/contracts/*.schema.json` as resources under
   `core/src/Bloomlings.Content/Schemas/` unchanged (the contract already requires 2–6 stacks).
-- [ ] T023 [P] Implement pack reading in `core/src/Bloomlings.Content/Packs/LevelPackReader.cs`,
+- [X] T023 [P] Implement pack reading in `core/src/Bloomlings.Content/Packs/LevelPackReader.cs`,
   `PicturePackReader.cs` and `ContentManifest.cs`:
   - read gzip JSON-Lines packs;
   - parse `content-manifest.v1`, including `shuffleNodeBudget`;
   - verify each pack's SHA-256 and byte length (R5, R6);
   - support a loose-folder "dev" mode with one JSON file per level and picture, used until `publish` exists (US3).
-- [ ] T024 [P] Write content tests in `core/tests/Bloomlings.Content.Tests/DefinitionJsonTests.cs` and
+- [X] T024 [P] Write content tests in `core/tests/Bloomlings.Content.Tests/DefinitionJsonTests.cs` and
   `PackReaderTests.cs`:
   - a schema-valid sample round-trips unchanged;
   - an invalid document is rejected;
@@ -222,11 +222,15 @@ story depends on these.
   - `client/Assets/Bloomlings/App/Boot.cs` and `AppServices.cs`: a simple service registry, with no third-party DI;
   - scene `client/Assets/Bloomlings/Scenes/Boot.unity`, which loads services and then routes through `GameFlow`
     (stubbed until US2).
-- [ ] T026 [P] Implement `client/Assets/Bloomlings/Services/Content/BundledContentLoader.cs`:
+
+  Status: `Boot.cs`, `AppServices.cs` and the `GameFlow` stub are written. The scene is generated by the editor menu
+  "Tools/Bloomlings/Create Boot Scene" (`client/Assets/Bloomlings/Editor/SceneSetupMenu.cs`). Run it once in the
+  Editor after T008, then check this task.
+- [X] T026 [P] Implement `client/Assets/Bloomlings/Services/Content/BundledContentLoader.cs`:
   - reads `Application.streamingAssetsPath/content/manifest.json` and the packs through `Bloomlings.Content` (T023);
   - falls back to `StreamingAssets/content/dev/` loose files in development builds;
   - on Android, reads through `UnityWebRequest`.
-- [ ] T027 [P] Implement `client/Assets/Bloomlings/Services/Clock/IClock.cs` and `SystemClock.cs`: current UTC time and
+- [X] T027 [P] Implement `client/Assets/Bloomlings/Services/Clock/IClock.cs` and `SystemClock.cs`: current UTC time and
   UTC date, injectable for tests. Daily features and ad caps use it. Also define
   `client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs` and `BundledRemoteConfigService.cs`: typed getters
   for the keys in `contracts/backend-services.md`, bundled defaults and range clamping, with no network access. US3

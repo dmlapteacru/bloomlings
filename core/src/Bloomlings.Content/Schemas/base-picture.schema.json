@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bloomlings.game/schemas/base-picture.v1.json",
+  "title": "Bloomlings BasePicture v1 (sidecar metadata + imported grid)",
+  "description": "A picture of the picture library (spec FR-006/FR-007/FR-083/FR-084; research R7). Authored as an indexed-color PNG (palette index = role) plus this sidecar; the pipeline fills `grid` and `structure` on import.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "version", "subject", "width", "height", "roles", "grid", "finishedLook", "tags", "review", "source"],
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+    "version": { "type": "integer", "minimum": 1 },
+    "subject": { "type": "string", "minLength": 2 },
+    "width": { "type": "integer", "minimum": 7, "maximum": 14 },
+    "height": { "type": "integer", "minimum": 8, "maximum": 16 },
+    "roles": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["roleId", "name", "colorGroup"],
+        "properties": {
+          "roleId": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "name": { "type": "string" },
+          "colorGroup": { "enum": ["green", "pink_purple", "blue_cyan", "brown_orange", "lime", "red", "indigo", "gold"] },
+          "isBackground": { "type": "boolean", "default": false }
+        }
+      }
+    },
+    "grid": {
+      "type": "array",
+      "description": "Rows bottom (index 0) to top; each row has `width` entries: a role index into `roles`, or -1 = EMPTY (hole), -2 = STONE.",
+      "items": { "type": "array", "items": { "type": "integer", "minimum": -2 } }
+    },
+    "finishedLook": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode"],
+      "properties": {
+        "mode": { "enum": ["auto", "illustration"] },
+        "illustrationKey": { "type": "string", "description": "Addressables key when mode = illustration." }
+      }
+    },
+    "tags": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "themes": { "type": "array", "items": { "type": "string" } },
+        "seasons": { "type": "array", "items": { "type": "string" } },
+        "bands": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "structure": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Computed on import.",
+      "properties": {
+        "regionCount": { "type": "integer", "minimum": 1 },
+        "nestingDepth": { "type": "integer", "minimum": 1 },
+        "backgroundShare": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status"],
+      "properties": {
+        "status": { "enum": ["draft", "approved", "rejected"] },
+        "reviewer": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "notes": { "type": "string" }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "licence"],
+      "properties": {
+        "kind": { "enum": ["hand", "generated", "generated_edited"] },
+        "origin": { "type": "string" },
+        "licence": { "type": "string", "description": "Must be owned or licensed; never third-party game art (FR-091)." }
+      }
+    }
+  }
+}
