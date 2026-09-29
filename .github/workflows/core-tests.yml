@@ -30,3 +30,4 @@ jobs:
         with:
           name: core-test-results
           path: core/artifacts/test-results
+          retention-days: 3

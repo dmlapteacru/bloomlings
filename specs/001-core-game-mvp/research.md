@@ -15,7 +15,8 @@ decisions are listed at the end, in *Deferred decisions*. None of them blocks de
 
 **Decision**:
 
-- **Engine**: Unity **6.3 LTS** (`6000.3.x`). The exact patch is pinned in `ProjectSettings/ProjectVersion.txt`.
+- **Engine**: Unity **6.3 LTS** (`6000.3.x`). The exact patch is pinned in `ProjectSettings/ProjectVersion.txt`:
+  `6000.3.25f1` (2026-09-29), the newest 6.3 patch with a GameCI Android image.
 - **Rendering**: URP with the 2D Renderer and sprite atlases.
 - **UI**: uGUI for all screens and the HUD.
 - **Orientation**: portrait only.

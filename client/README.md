@@ -105,6 +105,27 @@ personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/
 `Services/Purchases/Resources/ProductCatalog.json`, and deploy `backend/` (see `backend/README.md`). The integration code
 has not been compiled against the SDKs yet: fix any API drift on first open.
 
+## Android APK from GitHub Actions
+
+`.github/workflows/android-apk.yml` builds the APK with GameCI and Unity `6000.3.25f1` (pinned in
+`ProjectSettings/ProjectVersion.txt`). Run it by hand: **Actions → android-apk → Run workflow**. It never runs on push,
+so commits spend no Actions minutes. It keeps only the newest APK: after each successful run the older artifacts are
+deleted, and each one expires after 7 days. Choose `game` (the playtest APK with the curated Levels 1–10) or
+`golden-replays` (the device determinism player).
+
+One-time setup: add these repository secrets under Settings → Secrets and variables → Actions:
+- `UNITY_EMAIL` and `UNITY_PASSWORD`: the Unity account;
+- `UNITY_LICENSE`: the full contents of the activated `.ulf` file (for a Personal licence, activate once in Unity Hub
+  and copy `Unity_lic.ulf`), or `UNITY_SERIAL` for a Pro licence.
+
+Never paste these into a chat or a commit.
+
+The build method `Bloomlings.Client.Editor.CiBuild.Build` performs the first-open steps the Editor would need:
+- it imports the TextMeshPro essentials;
+- it applies the Android player settings (portrait, IL2CPP ARM64, API 26+, APK);
+- it creates the scenes;
+- it imports the packs the workflow publishes to `build/content/`.
+
 ## Device determinism check
 
 **Tools/Bloomlings/Device Tests/Prepare Golden Replays** copies `core/tests/golden/` into `StreamingAssets/golden/`

@@ -115,7 +115,7 @@ namespace UnityEditor
     public class EditorWindow : UnityEngine.ScriptableObject { public static T GetWindow<T>(bool utility, string title) where T : EditorWindow => default!; }
     public static class EditorGUILayout { public static void LabelField(string s) { } public static int IntField(string l, int v) => v; }
     public static class EditorUtility { public static string OpenFilePanel(string t, string d, string e) => ""; public static void SetDirty(UnityEngine.Object o) { } public static bool DisplayDialog(string title, string message, string ok) => true; }
-    public static class AssetDatabase { public static T? LoadAssetAtPath<T>(string p) where T : UnityEngine.Object => null; public static void CreateAsset(UnityEngine.Object o, string p) { } public static void SaveAssets() { } public static void Refresh() { } }
+    public static class AssetDatabase { public static T? LoadAssetAtPath<T>(string p) where T : UnityEngine.Object => null; public static void CreateAsset(UnityEngine.Object o, string p) { } public static void SaveAssets() { } public static void Refresh() { } public static void ImportPackage(string path, bool interactive) { } }
     public static class Selection { public static UnityEngine.Object? activeObject { get; set; } }
     [Flags] public enum BuildOptions { None = 0, Development = 1 }
     public enum BuildTarget { Android, iOS }
@@ -124,9 +124,23 @@ namespace UnityEditor
     public enum Il2CppCompilerConfiguration { Debug, Release, Master }
     public struct BuildPlayerOptions { public string[] scenes; public BuildTarget target; public BuildTargetGroup targetGroup; public string locationPathName; public BuildOptions options; }
     public static class BuildPipeline { public static UnityEditor.Build.Reporting.BuildReport BuildPlayer(BuildPlayerOptions options) => new UnityEditor.Build.Reporting.BuildReport(); public static BuildTargetGroup GetBuildTargetGroup(BuildTarget target) => default; }
-    public static class EditorUserBuildSettings { public static BuildTarget activeBuildTarget => default; }
+    public static class EditorUserBuildSettings { public static BuildTarget activeBuildTarget => default; public static bool buildAppBundle { get; set; } }
+    public enum UIOrientation { Portrait }
+    [Flags] public enum AndroidArchitecture { None = 0, ARMv7 = 1, ARM64 = 2 }
+    public enum AndroidSdkVersions { AndroidApiLevel26 = 26 }
     public static class PlayerSettings
     {
+        public static string companyName { get; set; } = "";
+        public static string productName { get; set; } = "";
+        public static string bundleVersion { get; set; } = "";
+        public static UIOrientation defaultInterfaceOrientation { get; set; }
+        public static void SetApplicationIdentifier(UnityEditor.Build.NamedBuildTarget target, string id) { }
+        public static class Android
+        {
+            public static AndroidArchitecture targetArchitectures { get; set; }
+            public static AndroidSdkVersions minSdkVersion { get; set; }
+            public static int bundleVersionCode { get; set; }
+        }
         public static ScriptingImplementation GetScriptingBackend(UnityEditor.Build.NamedBuildTarget target) => default;
         public static void SetScriptingBackend(UnityEditor.Build.NamedBuildTarget target, ScriptingImplementation backend) { }
         public static void SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget target, Il2CppCompilerConfiguration configuration) { }
@@ -144,7 +158,7 @@ namespace UnityEditor.Build
     public interface IPreprocessBuildWithReport : IOrderedCallback { void OnPreprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public interface IPostprocessBuildWithReport : IOrderedCallback { void OnPostprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public sealed class BuildFailedException : Exception { public BuildFailedException(string message) : base(message) { } }
-    public readonly struct NamedBuildTarget { public static NamedBuildTarget FromBuildTargetGroup(UnityEditor.BuildTargetGroup group) => default; }
+    public readonly struct NamedBuildTarget { public static NamedBuildTarget Android => default; public static NamedBuildTarget FromBuildTargetGroup(UnityEditor.BuildTargetGroup group) => default; }
 }
 namespace UnityEditor.SceneManagement
 {

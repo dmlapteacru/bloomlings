@@ -39,3 +39,4 @@ jobs:
         with:
           name: catalog-nightly-report
           path: reports
+          retention-days: 3

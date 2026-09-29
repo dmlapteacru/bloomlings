@@ -187,7 +187,7 @@ backend/
 ├── cloud-code/                         # ValidatePurchase, SubmitProgress, GetStarterPackOffer
 └── remote-config/                      # default keys (backend-services.md)
 
-.github/workflows/                      # core-tests, content-validate (PR), catalog-nightly, unity-build (GameCI)
+.github/workflows/                      # core-tests, content-validate (PR), catalog-nightly, android-apk (GameCI, manual)
 ```
 
 **Structure Decision**: The repository is a monorepo with four roots:

@@ -50,7 +50,8 @@ dotnet run --project core/src/Bloomlings.Pipeline -- --help                # con
 - **CI**:
   - `.github/workflows/core-tests.yml` runs on every push;
   - `content-validate.yml` and `catalog-nightly.yml` check content;
-  - `unity-build.yml` builds with GameCI once Unity licence secrets and `client/ProjectSettings` exist.
+  - `android-apk.yml` builds the Android APK, run by hand only (Actions → android-apk → Run workflow). It keeps just
+    the newest APK artifact and needs the Unity licence secrets.
 
 ## Repository layout
 

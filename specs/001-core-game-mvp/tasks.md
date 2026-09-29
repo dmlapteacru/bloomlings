@@ -1236,13 +1236,13 @@ final validation.
   out. Not yet run on devices.
 - [X] T152 [P] Create `.github/workflows/unity-build.yml`, which runs GameCI `unity-builder` for Android and iOS
   (Unity licence secrets) plus the Unity EditMode tests (`unity-test-runner`).
-  Status: the workflow is written and parses. It has three Unity jobs:
-  - EditMode tests;
-  - Android and iOS development players through `Bloomlings.Client.Editor.CiBuild.Build`;
-  - the IL2CPP golden replay APK.
-
-  A preflight job skips them until the `UNITY_LICENSE`, `UNITY_EMAIL` and `UNITY_PASSWORD` secrets and
-  `client/ProjectSettings/` exist (the project has not been opened in Unity yet, T008). Not yet run.
+  Status: replaced by `.github/workflows/android-apk.yml` at the product owner's request (2026-09-29). It builds
+  the Android APK (`game` or `golden-replays`) with GameCI and Unity 6000.3.25f1. It is manual only
+  (`workflow_dispatch`), so no push, pull request or schedule spends Actions minutes. It keeps only the newest APK
+  artifact (older ones are deleted after each successful upload, 7-day expiry). `CiBuild` performs the first-open
+  steps (TMP essentials, Android player settings, scenes, content import). iOS builds and the Unity EditMode test job
+  were dropped to save minutes; the engine-free EditMode tests still run in `core-tests.yml` through
+  `client/DotnetCheck`. Not yet run: it needs the Unity licence secrets.
 - [ ] T153 Produce the launch catalog in `content/catalog/`, publishing to `build/content/` and then
   `client/Assets/StreamingAssets/content/`:
   - run `generate` for Levels 101–5000+ with every band profile;

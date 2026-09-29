@@ -53,8 +53,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `generate` keeps them fixed (`--keep`).
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
 - CI: `.github/workflows/core-tests.yml` builds and tests `core/` and the client check on every push and pull request.
-  `unity-build.yml` (GameCI EditMode tests, Android/iOS builds and the IL2CPP golden replay player) skips itself until
-  the Unity licence secrets and `client/ProjectSettings/` exist.
+  `android-apk.yml` builds the Android APK with Unity (GameCI) and is **manual only** (Actions → Run workflow), so
+  commits spend no Actions minutes; it keeps only the newest APK artifact (older ones are deleted, and each expires
+  after 7 days). It needs the `UNITY_EMAIL`, `UNITY_PASSWORD` and `UNITY_LICENSE` secrets. Keep new workflows manual
+  or cheap, and give every uploaded artifact a short `retention-days`.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
   `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps
