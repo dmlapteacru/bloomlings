@@ -3,6 +3,7 @@
   "rootNamespace": "Bloomlings.Client.Tests",
   "references": [
     "Bloomlings.Client",
+    "Bloomlings.Client.Editor",
     "Bloomlings.Core",
     "Bloomlings.Content",
     "UnityEngine.TestRunner",

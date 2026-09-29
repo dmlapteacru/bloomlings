@@ -60,7 +60,7 @@ namespace Bloomlings.Generator
                     continue;
                 }
 
-                result.Add(picture);
+                result.Add(picture.Review.Status == ReviewStatus.Approved ? picture : AsPreview(picture));
             }
 
             return result;
@@ -71,6 +71,13 @@ namespace Bloomlings.Generator
             IReadOnlyList<BasePicture> candidates = Candidates(profile, level, history);
             return candidates.Count == 0 ? null : candidates[rng.NextInt(candidates.Count)];
         }
+
+        /// <summary>
+        /// A draft picture treated as approved in memory, so a development preview can build its board. The library file
+        /// is unchanged, so <c>validate</c> still fails such levels on <c>picture-approved</c>.
+        /// </summary>
+        public static BasePicture AsPreview(BasePicture picture) =>
+            picture with { Review = picture.Review with { Status = ReviewStatus.Approved } };
 
         public static bool HasStones(BasePicture picture)
         {

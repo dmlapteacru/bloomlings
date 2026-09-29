@@ -38,6 +38,9 @@ namespace Bloomlings.Generator
         /// <summary>Recorded in each definition; bump it when generator behavior changes.</summary>
         public const string Version = "gen-1.0.0";
 
+        /// <summary>Node budget of each search while the tray is tuned.</summary>
+        public const int TuningNodeBudget = 10_000;
+
         private readonly GenerationProfile _profile;
         private readonly PicturePicker _pictures;
         private readonly DifficultyThresholds _thresholds;
@@ -58,6 +61,9 @@ namespace Bloomlings.Generator
             _schedule = schedule;
         }
 
+        /// <summary>Called after each level with the level number, the accepted level (null when every candidate failed) and the candidates tried.</summary>
+        public Action<int, GeneratedLevel?, int>? Progress { get; set; }
+
         /// <param name="history">Earlier levels by number, for the FR-083 windows; accepted levels are added to it.</param>
         public GenerationResult Generate(int firstLevel, int lastLevel, ulong seed, IDictionary<int, LevelDefinition> history)
         {
@@ -66,7 +72,8 @@ namespace Bloomlings.Generator
             for (int level = firstLevel; level <= lastLevel; level++)
             {
                 bool accepted = false;
-                for (int attempt = 0; attempt < _profile.MaxCandidatesPerLevel && !accepted; attempt++)
+                int attempt = 0;
+                for (; attempt < _profile.MaxCandidatesPerLevel && !accepted; attempt++)
                 {
                     ulong levelSeed = SplitMix64.Mix(seed ^ SplitMix64.Mix((ulong)level * 0x9E3779B97F4A7C15UL + (ulong)attempt));
                     GeneratedLevel? generated = TryGenerate(level, levelSeed, readOnlyHistory, out string? reason);
@@ -85,6 +92,8 @@ namespace Bloomlings.Generator
                 {
                     result.Failed.Add(level);
                 }
+
+                Progress?.Invoke(level, accepted ? result.Accepted[result.Accepted.Count - 1] : null, attempt);
             }
 
             return result;
@@ -132,6 +141,12 @@ namespace Bloomlings.Generator
             if (PicturePicker.HasStones(picture))
             {
                 mechanics.Add("stone");
+            }
+
+            if (RepeatsMechanics(level, mechanics, history))
+            {
+                reason = "similarity:mechanics-3-in-a-row";
+                return null;
             }
 
             var skeleton = new LevelDefinition(
@@ -187,8 +202,12 @@ namespace Bloomlings.Generator
             // 7–8. Tray, difficulty injection, validation and scoring.
             int stacks = Math.Min(pods.Count, _profile.Stacks.Min + rng.NextInt(_profile.Stacks.Max - _profile.Stacks.Min + 1));
             stacks = Math.Max(2, stacks);
+            // Tuning uses a smaller budget. The searches are deterministic depth-first walks, so a trace found within it is
+            // the one the full budget finds, and the metrics walk is capped (Solver.MetricsNodeCap): an accepted level's
+            // analysis is identical under the full profile budget recorded below.
             var options = new SolveOptions(_profile.SolverNodeBudget);
-            TrayOutcome? tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, _thresholds, options, ref rng, out string? trayReason);
+            var tuning = new SolveOptions(Math.Min(_profile.SolverNodeBudget, TuningNodeBudget));
+            TrayOutcome? tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, _thresholds, tuning, ref rng, out string? trayReason);
             if (tray == null)
             {
                 reason = trayReason;
@@ -228,6 +247,19 @@ namespace Bloomlings.Generator
             var set = new SortedSet<VariantId>(mapping.Values);
             return history.TryGetValue(level - 1, out LevelDefinition? a) && history.TryGetValue(level - 2, out LevelDefinition? b)
                 && set.SetEquals(VariantSet(a!)) && set.SetEquals(VariantSet(b!));
+        }
+
+        /// <summary>FR-083: no 3 consecutive levels share the same (non-empty) set of mechanics.</summary>
+        private static bool RepeatsMechanics(int level, IReadOnlyList<string> mechanics, IReadOnlyDictionary<int, LevelDefinition> history)
+        {
+            if (mechanics.Count == 0)
+            {
+                return false;
+            }
+
+            var set = new SortedSet<string>(mechanics, StringComparer.Ordinal);
+            return history.TryGetValue(level - 1, out LevelDefinition? a) && history.TryGetValue(level - 2, out LevelDefinition? b)
+                && set.SetEquals(a!.Mechanics) && set.SetEquals(b!.Mechanics);
         }
 
         /// <summary>FR-083: a Source layout signature never repeats within 50 levels.</summary>

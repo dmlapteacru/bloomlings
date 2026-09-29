@@ -49,10 +49,28 @@ namespace Bloomlings.Client.App
                 yield break;
             }
 
-            Debug.Log($"[Boot] Content v{content.ContentVersion}: {content.LevelCount} levels, {content.PictureCount} pictures ({loader.Source}); save from {saves.Source}.");
+            // A downloaded content version newer than the bundled one wins (R6); a damaged cache falls back to the bundle.
+            ContentCache cache = ContentUpdateService.DefaultCache();
+            string source = loader.Source;
+            ContentSet bundled = content;
+            content = ContentUpdater.ChooseStartContent(bundled, cache, Application.version, ex => Debug.LogWarning($"[Boot] Cached content ignored: {ex.Message}"));
+            if (!ReferenceEquals(content, bundled))
+            {
+                source = $"downloaded v{content.ContentVersion}";
+            }
+
+            Debug.Log($"[Boot] Content v{content.ContentVersion}: {content.LevelCount} levels, {content.PictureCount} pictures ({source}); save from {saves.Source}.");
             services.Register(content);
             var catalog = new CatalogService(content);
             services.Register(catalog);
+            var updates = new ContentUpdateService(services.Get<IRemoteConfigService>(), catalog, cache, Application.version);
+            updates.Activated += activated =>
+            {
+                save.Progression.ContentVersionSeen = Math.Max(save.Progression.ContentVersionSeen, activated.ContentVersion);
+                saves.Save();
+                Debug.Log($"[ContentUpdate] {updates.Status}");
+            };
+            services.Register<IContentUpdateService>(updates);
 
             save.Progression.ContentVersionSeen = Math.Max(save.Progression.ContentVersionSeen, content.ContentVersion);
             var progression = new ProgressionService(save, UnlockRoadmap.Default, saves.Save);
@@ -64,6 +82,9 @@ namespace Bloomlings.Client.App
             services.Register(flow);
             AppServices.MakeCurrent(services);
             flow.Begin(firstLaunch);
+
+            // Offline-first (FR-074): the check runs after the game is already playable and never blocks it.
+            StartCoroutine(updates.CheckForUpdate());
         }
     }
 }

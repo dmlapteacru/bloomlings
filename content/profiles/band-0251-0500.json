@@ -1,0 +1,102 @@
+{
+  "allowedMechanics": [
+    "key",
+    "stone",
+    "locked_pod",
+    "connected_pair",
+    "layered_tile",
+    "gate",
+    "fountain",
+    "locked_slot",
+    "mystery_tile",
+    "chest",
+    "environment_2",
+    "connected_triple"
+  ],
+  "allowedVariants": [
+    "acorn",
+    "dew",
+    "flower",
+    "leaf",
+    "moss",
+    "violet_bud",
+    "water",
+    "wood"
+  ],
+  "bandId": "band-0251-0500",
+  "boardSize": {
+    "height": [
+      12,
+      16
+    ],
+    "width": [
+      10,
+      14
+    ]
+  },
+  "bufferPressureTarget": "tense",
+  "durationTarget": [
+    60,
+    240
+  ],
+  "entryLayouts": [
+    "bottom_center",
+    "bottom_left",
+    "bottom_right",
+    "two_bottom",
+    "side_left",
+    "side_right"
+  ],
+  "hardMode": {
+    "extraPods": 3,
+    "hardPressure": "critical",
+    "maxInjections": 16,
+    "superHardPressure": "critical"
+  },
+  "levelRange": [
+    251,
+    500
+  ],
+  "mappingConstraints": {
+    "allowRoleMerge": true
+  },
+  "maxLayerDepth": 2,
+  "note": "Combination band, late: 5–6 variants (6 in Normal from L300), up to 3 layers deep.",
+  "picturePool": {
+    "themes": []
+  },
+  "podCount": [
+    15,
+    30
+  ],
+  "podSize": [
+    5,
+    100
+  ],
+  "solver": {
+    "maxCandidatesPerLevel": 60,
+    "nodeBudget": 600000
+  },
+  "stacks": [
+    3,
+    6
+  ],
+  "structureTargets": {
+    "backgroundSharePermille": [
+      200,
+      650
+    ],
+    "nestingDepth": [
+      2,
+      5
+    ]
+  },
+  "variantCount": [
+    4,
+    6
+  ],
+  "work": [
+    150,
+    320
+  ]
+}

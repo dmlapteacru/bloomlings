@@ -34,8 +34,9 @@ namespace Bloomlings.Pipeline.Commands
             Option<string> curated = Cli.Path("--curated", "content/curated", "Curated levels (history).");
             Option<string> thresholds = Cli.Path("--thresholds", "content/profiles/difficulty-thresholds.json", "Difficulty weights and thresholds.");
             Option<string> pairs = Cli.Path("--pairs", "content/readability/approved-pairs.json", "Approved readability pairs.");
+            var extraHistory = new Option<string[]>("--history") { Description = "More batch folders to treat as earlier levels (e.g. an unpublished preview of the previous band).", AllowMultipleArgumentsPerToken = true, DefaultValueFactory = _ => Array.Empty<string>() };
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Development preview only: use pictures that are not approved yet. Such levels fail validate." };
-            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, thresholds, pairs, allowDraft })
+            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, thresholds, pairs, allowDraft })
             {
                 command.Options.Add(option);
             }
@@ -53,7 +54,13 @@ namespace Bloomlings.Pipeline.Commands
 
                 DifficultyThresholds difficulty = ProfileLoader.ReadThresholds(File.ReadAllText(parse.GetValue(thresholds)!), band.BandId);
                 var history = new SortedDictionary<int, LevelDefinition>();
-                foreach ((string _, LevelDefinition level) in ContentStore.LoadLevels(parse.GetValue(curated)!).Concat(ContentStore.LoadLevels(parse.GetValue(catalog)!)))
+                IEnumerable<(string, LevelDefinition)> sources = ContentStore.LoadLevels(parse.GetValue(curated)!).Concat(ContentStore.LoadLevels(parse.GetValue(catalog)!));
+                foreach (string folder in parse.GetValue(extraHistory) ?? Array.Empty<string>())
+                {
+                    sources = sources.Concat(ContentStore.LoadLevels(folder));
+                }
+
+                foreach ((string _, LevelDefinition level) in sources)
                 {
                     history[level.LevelNumber] = level;
                 }
@@ -64,6 +71,9 @@ namespace Bloomlings.Pipeline.Commands
                     difficulty,
                     approved.IsApproved,
                     new DifficultySchedule(0xB100B100UL));
+                generator.Progress = (level, accepted, candidates) => Console.Error.WriteLine(accepted == null
+                    ? $"  L{level}: failed after {candidates} candidates"
+                    : $"  L{level}: {accepted.Definition.Difficulty.Class} ({accepted.Definition.Difficulty.Score}), {accepted.Definition.Picture.Id}, {accepted.Definition.Pods.Count} pods, candidate {candidates}");
                 GenerationResult result = generator.Generate(first, last, (ulong)parse.GetValue(seed), history);
 
                 string batch = parse.GetValue(outDir)!;

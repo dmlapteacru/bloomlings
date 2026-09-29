@@ -45,7 +45,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
   after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI
-  (`contracts/pipeline-cli.md`).
+  (`contracts/pipeline-cli.md`). Generated batches go to `content/work/` (gitignored). The picture library in
+  `content/pictures/lib` is mostly `draft` until a person approves it (FR-084): `generate --allow-draft` builds
+  previews from drafts, `--history <batch>` chains preview batches, and `validate` still fails such levels on
+  `picture-approved`. `content/readability/approved-pairs.json` is `provisional` until the readability sign-off.
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
 - CI: `.github/workflows/core-tests.yml` builds and tests `core/` and the client check on every push and pull request.
 

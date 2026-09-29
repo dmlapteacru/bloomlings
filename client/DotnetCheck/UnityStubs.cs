@@ -58,7 +58,7 @@ namespace UnityEngine
     public static class ColorUtility { public static bool TryParseHtmlString(string s, out Color c) { c = default; return true; } }
     public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; }
     public enum RuntimePlatform { Android, IPhonePlayer }
-    public static class Application { public static string streamingAssetsPath => ""; public static string dataPath => System.IO.Path.GetFullPath(System.IO.Path.Combine(StubPaths.ProjectDirectory, "..", "Assets")); public static string persistentDataPath => System.IO.Path.GetTempPath(); public static bool isEditor => true; public static RuntimePlatform platform => RuntimePlatform.Android; public static int targetFrameRate { get; set; } public static bool CanStreamedLevelBeLoaded(string name) => false; }
+    public static class Application { public static string streamingAssetsPath => ""; public static string dataPath => System.IO.Path.GetFullPath(System.IO.Path.Combine(StubPaths.ProjectDirectory, "..", "Assets")); public static string persistentDataPath => System.IO.Path.GetTempPath(); public static bool isEditor => true; public static RuntimePlatform platform => RuntimePlatform.Android; public static string version => "0.1.0"; public static int targetFrameRate { get; set; } public static bool CanStreamedLevelBeLoaded(string name) => false; }
     public static class Debug { public static bool isDebugBuild => true; public static void Log(object m) { } public static void LogWarning(object m) { } public static void LogError(object m) { } public static void LogException(Exception e) { } }
     public class CustomYieldInstruction : IEnumerator { public object? Current => null; public bool MoveNext() => false; public void Reset() { } }
     public sealed class WaitUntil : CustomYieldInstruction { public WaitUntil(Func<bool> predicate) { } }
@@ -99,6 +99,7 @@ namespace UnityEngine.Networking
         public Result result => Result.Success;
         public string? error => null;
         public DownloadHandler downloadHandler => new DownloadHandler();
+        public int timeout { get; set; }
         public void Dispose() { }
     }
 }
@@ -111,9 +112,22 @@ namespace UnityEditor
     public static class EditorApplication { public static bool isPlaying { get; set; } }
     public class EditorWindow : UnityEngine.ScriptableObject { public static T GetWindow<T>(bool utility, string title) where T : EditorWindow => default!; }
     public static class EditorGUILayout { public static void LabelField(string s) { } public static int IntField(string l, int v) => v; }
-    public static class EditorUtility { public static string OpenFilePanel(string t, string d, string e) => ""; public static void SetDirty(UnityEngine.Object o) { } }
-    public static class AssetDatabase { public static T? LoadAssetAtPath<T>(string p) where T : UnityEngine.Object => null; public static void CreateAsset(UnityEngine.Object o, string p) { } public static void SaveAssets() { } }
+    public static class EditorUtility { public static string OpenFilePanel(string t, string d, string e) => ""; public static void SetDirty(UnityEngine.Object o) { } public static bool DisplayDialog(string title, string message, string ok) => true; }
+    public static class AssetDatabase { public static T? LoadAssetAtPath<T>(string p) where T : UnityEngine.Object => null; public static void CreateAsset(UnityEngine.Object o, string p) { } public static void SaveAssets() { } public static void Refresh() { } }
     public static class Selection { public static UnityEngine.Object? activeObject { get; set; } }
+    [Flags] public enum BuildOptions { None = 0, Development = 1 }
+}
+namespace UnityEditor.Build.Reporting
+{
+    public sealed class BuildSummary { public UnityEditor.BuildOptions options; }
+    public sealed class BuildReport { public BuildSummary summary = new BuildSummary(); }
+}
+namespace UnityEditor.Build
+{
+    public interface IOrderedCallback { int callbackOrder { get; } }
+    public interface IPreprocessBuildWithReport : IOrderedCallback { void OnPreprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
+    public interface IPostprocessBuildWithReport : IOrderedCallback { void OnPostprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
+    public sealed class BuildFailedException : Exception { public BuildFailedException(string message) : base(message) { } }
 }
 namespace UnityEditor.SceneManagement
 {

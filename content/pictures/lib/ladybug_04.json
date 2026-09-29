@@ -1,0 +1,66 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, -1],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, -1, 0],
+    [-1, 0, 1, 1, 1, 2, 1, 1, 1, 1, 0, -1],
+    [-1, 0, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0],
+    [0, 0, 1, 2, 2, 1, 1, 1, 1, 1, 0, 0],
+    [-1, -1, 1, 1, 1, 1, 1, 1, 2, 1, 0, 0],
+    [0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [-1, -1, -1, 1, 1, 1, 1, 1, 1, 0, 0, -1],
+    [-1, -1, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 13,
+  "id": "ladybug_04",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Shell",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dots",
+      "roleId": "dot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Head",
+      "roleId": "head"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.461,
+    "nestingDepth": 3,
+    "regionCount": 10
+  },
+  "subject": "Ladybug 4",
+  "tags": {
+    "bands": ["core"],
+    "themes": ["insects", "garden"]
+  },
+  "version": 1,
+  "width": 12
+}

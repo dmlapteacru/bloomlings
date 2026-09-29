@@ -1,0 +1,68 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [0, 0, 0, 3, 3, -1, -1, -1, -1],
+    [0, 0, 0, 3, 3, 0, 0, 0, 0],
+    [0, -1, 0, 3, 1, 0, 0, 0, 0],
+    [0, -1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 2, 1, 0],
+    [-1, 1, 1, 1, 2, 2, 1, 1, -1],
+    [-1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 1, 1, 1, 1, 1, -1, -1],
+    [-1, 0, -1, 0, 1, 0, -1, 0, -1]
+  ],
+  "height": 10,
+  "id": "fruit_tree_01",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fruit",
+      "roleId": "fruit"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.311,
+    "nestingDepth": 4,
+    "regionCount": 12
+  },
+  "subject": "Fruit tree 1",
+  "tags": {
+    "bands": ["early"],
+    "themes": ["fruit", "garden"]
+  },
+  "version": 1,
+  "width": 9
+}

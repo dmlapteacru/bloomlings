@@ -1,0 +1,54 @@
+{
+  "bands": {
+    "band-0011-0025": {
+      "hardMin": 2000,
+      "superHardMin": 2800
+    },
+    "band-0026-0050": {
+      "hardMin": 2100,
+      "superHardMin": 2900
+    },
+    "band-0051-0100": {
+      "hardMin": 2200,
+      "superHardMin": 3000
+    },
+    "band-0101-0250": {
+      "hardMin": 2300,
+      "superHardMin": 3100
+    },
+    "band-0251-0500": {
+      "hardMin": 2400,
+      "superHardMin": 3200
+    },
+    "band-0501-1000": {
+      "hardMin": 2300,
+      "superHardMin": 3100
+    },
+    "band-1001-2000": {
+      "hardMin": 2400,
+      "superHardMin": 3200
+    },
+    "band-2001-5000": {
+      "hardMin": 2400,
+      "superHardMin": 3200
+    },
+    "daily": {
+      "hardMin": 2100,
+      "superHardMin": 2900
+    }
+  },
+  "note": "Integer weights applied as value \u00d7 weight / 1000 to the solver metrics (FR-082). Class thresholds are per band because scores grow with level scale. Bands 11\u2013100 were calibrated by trial generation of the draft picture library (Normal levels score about 950\u20131600, tuned levels reach about 3000); later bands are extrapolated. Recalibrate after playtests.",
+  "weights": {
+    "branchingX1000": 20,
+    "crossVariantLayers": 15000,
+    "dependencyDepth": 60000,
+    "meanBufferX1000": 100,
+    "peakBuffer": 150000,
+    "podCount": 20000,
+    "siblingPairs": 60000,
+    "specialLoad": 40000,
+    "totalWork": 1000,
+    "unsafeChoicePermille": 5000,
+    "variantCount": 50000
+  }
+}

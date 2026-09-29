@@ -56,9 +56,20 @@ dev levels (quickstart §5 steps 1–6) before building on top of them.
 ## Content at runtime
 
 `Boot` loads `Assets/StreamingAssets/content/manifest.json` and its packs, verified by SHA-256 (`BundledContentLoader`).
-Until the pipeline's `publish` command exists, the Editor and development builds fall back to loose files in
+To bundle a catalog, run the pipeline's `publish` (it writes `build/content/` at the repository root), then
+**Tools/Bloomlings/Import Published Content**, which verifies the packs and copies them into StreamingAssets. For a
+playtest build of levels whose pictures are not approved yet, publish with `--allow-draft`.
+
+Without a manifest, the Editor and development builds fall back to loose files in
 `Assets/StreamingAssets/content/dev/pictures/*.json` and `dev/levels/*.json` (not on Android, where StreamingAssets
-cannot be listed).
+cannot be listed), and the Editor without that folder reads `content/curated/` from the repository. Release builds
+leave the `dev/` folder out and fail without a manifest (`ReleaseContentBuildStep`; if a build was interrupted, run
+**Tools/Bloomlings/Restore Dev Content Folder**).
+
+Newer content is downloaded when Remote Config sets `content.manifestUrl` (HTTPS): `ContentUpdateService` checks it
+after the game is playable, verifies every pack, installs the version atomically under
+`Application.persistentDataPath/content/`, and activates it for the next attempt. The next launch starts from the
+newest valid version this app can read.
 
 ## Compiler settings
 

@@ -1,0 +1,65 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, -1, 0, 0, 0, 0, 1, 1, -1, 0],
+    [-1, 0, 1, 1, 0, 1, 1, 1, 1, -1],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, -1, 1, 1, 0, 0, 1, 1, -1, 0],
+    [0, 0, -1, 2, 0, 0, 2, 0, 0, -1],
+    [0, 0, 0, 0, 2, 0, 2, 0, 0, -1],
+    [0, 0, 0, 0, 2, 2, 2, 0, -1, 0],
+    [0, -1, 0, 0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 3, 3, 3, 0, 0],
+    [0, 0, 0, 0, 0, 3, 3, 3, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 12,
+  "id": "cherries_02",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherries",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.583,
+    "nestingDepth": 3,
+    "regionCount": 10
+  },
+  "subject": "Cherries 2",
+  "tags": {
+    "bands": ["core"],
+    "themes": ["fruit"]
+  },
+  "version": 1,
+  "width": 10
+}

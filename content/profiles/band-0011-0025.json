@@ -1,0 +1,91 @@
+{
+  "allowedMechanics": [
+    "key",
+    "stone",
+    "locked_pod",
+    "connected_pair"
+  ],
+  "allowedVariants": [
+    "acorn",
+    "dew",
+    "flower",
+    "leaf",
+    "moss",
+    "violet_bud",
+    "water",
+    "wood"
+  ],
+  "bandId": "band-0011-0025",
+  "boardSize": {
+    "height": [
+      10,
+      10
+    ],
+    "width": [
+      9,
+      10
+    ]
+  },
+  "bufferPressureTarget": "normal",
+  "durationTarget": [
+    45,
+    120
+  ],
+  "entryLayouts": [
+    "bottom_center",
+    "bottom_left",
+    "bottom_right"
+  ],
+  "hardMode": {
+    "extraPods": 2,
+    "hardPressure": "tense",
+    "maxInjections": 12,
+    "superHardPressure": "critical"
+  },
+  "levelRange": [
+    11,
+    25
+  ],
+  "mappingConstraints": {
+    "allowRoleMerge": true
+  },
+  "maxLayerDepth": 0,
+  "note": "Early band (spec Level Band Guidelines): 9×10–10×10, 3–4 variants with all four families by L20, 6–12 pods, work 50–100. Mechanics apply only from their roadmap level.",
+  "picturePool": {
+    "themes": []
+  },
+  "podCount": [
+    9,
+    12
+  ],
+  "podSize": [
+    5,
+    40
+  ],
+  "solver": {
+    "maxCandidatesPerLevel": 60,
+    "nodeBudget": 200000
+  },
+  "stacks": [
+    2,
+    4
+  ],
+  "structureTargets": {
+    "backgroundSharePermille": [
+      250,
+      650
+    ],
+    "nestingDepth": [
+      2,
+      4
+    ]
+  },
+  "variantCount": [
+    3,
+    4
+  ],
+  "work": [
+    50,
+    100
+  ]
+}

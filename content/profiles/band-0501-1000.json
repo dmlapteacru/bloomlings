@@ -1,0 +1,102 @@
+{
+  "allowedMechanics": [
+    "key",
+    "stone",
+    "locked_pod",
+    "connected_pair",
+    "layered_tile",
+    "gate",
+    "fountain",
+    "locked_slot",
+    "mystery_tile",
+    "chest",
+    "environment_2",
+    "connected_triple"
+  ],
+  "allowedVariants": [
+    "acorn",
+    "dew",
+    "flower",
+    "leaf",
+    "moss",
+    "violet_bud",
+    "water",
+    "wood"
+  ],
+  "bandId": "band-0501-1000",
+  "boardSize": {
+    "height": [
+      10,
+      16
+    ],
+    "width": [
+      9,
+      14
+    ]
+  },
+  "bufferPressureTarget": "normal",
+  "durationTarget": [
+    45,
+    240
+  ],
+  "entryLayouts": [
+    "bottom_center",
+    "bottom_left",
+    "bottom_right",
+    "two_bottom",
+    "side_left",
+    "side_right"
+  ],
+  "hardMode": {
+    "extraPods": 3,
+    "hardPressure": "tense",
+    "maxInjections": 16,
+    "superHardPressure": "critical"
+  },
+  "levelRange": [
+    501,
+    1000
+  ],
+  "mappingConstraints": {
+    "allowRoleMerge": true
+  },
+  "maxLayerDepth": 2,
+  "note": "Long run: 4–6 variants, 10–30+ pods, work 90–300+, 45 s–4 min. Pace alternates short relief levels with long combination levels.",
+  "picturePool": {
+    "themes": []
+  },
+  "podCount": [
+    10,
+    30
+  ],
+  "podSize": [
+    5,
+    100
+  ],
+  "solver": {
+    "maxCandidatesPerLevel": 60,
+    "nodeBudget": 600000
+  },
+  "stacks": [
+    2,
+    6
+  ],
+  "structureTargets": {
+    "backgroundSharePermille": [
+      200,
+      650
+    ],
+    "nestingDepth": [
+      2,
+      5
+    ]
+  },
+  "variantCount": [
+    4,
+    6
+  ],
+  "work": [
+    90,
+    320
+  ]
+}

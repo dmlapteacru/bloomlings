@@ -8,7 +8,7 @@ namespace Bloomlings.Solver
     /// </summary>
     /// <param name="DependencyDepth">Region shells to pass from the entry to the deepest tile (outer regions shield inner ones).</param>
     /// <param name="BranchingX1000">Mean number of distinct legal taps along the winning line × 1000.</param>
-    /// <param name="UnsafeChoicePermille">Share of legal taps along the winning line after which the level can no longer be won.</param>
+    /// <param name="UnsafeChoicePermille">Share of legal taps in winnable states after which the level can no longer be won (walk capped at <c>Solver.MetricsNodeCap</c> nodes).</param>
     /// <param name="DeadEndDepth">Commits in the jam witness (how deep a losing line runs); 0 when no jam exists.</param>
     /// <param name="PeakBuffer">Most occupied slots right after a commit on the winning line.</param>
     /// <param name="MeanBufferX1000">Mean occupied slots right after each commit on the winning line × 1000.</param>

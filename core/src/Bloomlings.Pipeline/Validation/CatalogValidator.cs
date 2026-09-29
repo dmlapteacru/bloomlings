@@ -99,6 +99,9 @@ namespace Bloomlings.Pipeline.Validation
             if (picture.Review.Status != ReviewStatus.Approved)
             {
                 Error(report, n, "picture-approved", $"picture {picture.Id} is {picture.Review.Status}, not approved (FR-084)");
+
+                // Keep checking the rest of the level on an in-memory copy, so a preview batch reports every issue.
+                picture = picture with { Review = picture.Review with { Status = ReviewStatus.Approved } };
             }
             else
             {

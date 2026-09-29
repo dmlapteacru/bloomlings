@@ -1,0 +1,63 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 3, 3, 3, 3, -1, 0, 0],
+    [-1, 0, 0, 3, 1, 1, 3, 0, 0, -1],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [-1, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 0, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 0, 1, -1, 0],
+    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 0, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 10,
+  "id": "cactus_01",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cactus",
+      "roleId": "cactus"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pot",
+      "roleId": "pot"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.62,
+    "nestingDepth": 2,
+    "regionCount": 5
+  },
+  "subject": "Cactus 1",
+  "tags": {
+    "bands": ["early"],
+    "themes": ["desert", "garden"]
+  },
+  "version": 1,
+  "width": 10
+}

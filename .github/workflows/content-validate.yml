@@ -1,0 +1,41 @@
+name: content-validate
+
+# Gates content changes on pull requests (T093, contracts/pipeline-cli.md "CI usage"): the picture library, the
+# changed levels (FR-080, FR-081; FR-083 still covers the whole catalog) and deliberate definitionVersion bumps (FR-076).
+on:
+  pull_request:
+    paths:
+      - "content/**"
+      - "core/**"
+      - ".github/workflows/content-validate.yml"
+
+jobs:
+  validate-content:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: core/global.json
+
+      - name: Build the pipeline
+        run: dotnet build core/src/Bloomlings.Pipeline -c Release
+
+      - name: Pictures
+        run: dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build -- pictures validate --lib content/pictures/lib
+
+      - name: Curated levels
+        run: dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build -- validate --defs content/curated
+
+      - name: Changed catalog levels
+        run: >
+          dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build --
+          validate --defs content/catalog --changed-only --base "origin/${{ github.base_ref }}"
+
+      - name: Unversioned changes
+        run: >
+          dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build --
+          diff --from "origin/${{ github.base_ref }}" --to content/catalog

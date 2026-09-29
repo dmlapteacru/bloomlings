@@ -1,14 +1,16 @@
-using System;
 using System.Collections.Generic;
 using System.CommandLine;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System;
 using Bloomlings.Content.Json;
 using Bloomlings.Content.Packs;
 using Bloomlings.Content.Validation;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
+using Bloomlings.Generator;
 using Bloomlings.Pipeline.Catalog;
 using Bloomlings.Pipeline.Review;
 using Bloomlings.Pipeline.Validation;
@@ -54,7 +56,7 @@ namespace Bloomlings.Pipeline.Commands
                         continue;
                     }
 
-                    BasePicture picture = pictures[Key(definition.Picture)];
+                    BasePicture picture = Usable(pictures[Key(definition.Picture)], parse, definition.LevelNumber);
                     LevelAnalysis analysis = solver.Analyze(LevelSession.Load(definition, picture, new SessionOptions(1, 20000)), options);
                     unsolved += analysis.Win.Status == SolveStatus.Solvable ? 0 : 1;
                     var metrics = new JObject(analysis.Metrics.ToDictionary().Select(m => new JProperty(m.Key, m.Value)));
@@ -140,12 +142,18 @@ namespace Bloomlings.Pipeline.Commands
 
         public static Command Score()
         {
-            var command = new Command("score", "Report the difficulty class distribution against FR-059.");
+            var command = new Command("score", "Report the difficulty class distribution against FR-059 and the picture similarity statistics (SC-012).");
             Option<string> defs = Defs();
+            Option<string> curated = Cli.Path("--curated", "content/curated", "Curated levels, included in the statistics when not in --defs.");
             command.Options.Add(defs);
+            command.Options.Add(curated);
             command.SetAction(parse => Cli.Run(parse, report =>
             {
                 var levels = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).ToDictionary(l => l.LevelNumber);
+                foreach ((string _, LevelDefinition level) in ContentStore.LoadLevels(parse.GetValue(curated)!))
+                {
+                    levels.TryAdd(level.LevelNumber, level);
+                }
                 var blocks = new JArray();
                 int violations = 0;
                 int max = levels.Count == 0 ? 0 : levels.Keys.Max();
@@ -178,6 +186,39 @@ namespace Bloomlings.Pipeline.Commands
                         Cli.Say(parse, $"  L{level.LevelNumber + 1} follows a Super Hard level but is not Normal (FR-059).");
                     }
                 }
+
+                // SC-012: Levels 1–100 use 100 different pictures; no picture repeats within 50 consecutive levels.
+                var firstHundred = levels.Values.Where(l => l.LevelNumber <= 100).ToList();
+                int distinct = firstHundred.Select(l => l.Picture.Id).Distinct(StringComparer.Ordinal).Count();
+                int repeatsInFirstHundred = firstHundred.Count - distinct;
+                var lastUse = new Dictionary<string, int>(StringComparer.Ordinal);
+                int minGap = int.MaxValue;
+                var closeRepeats = new JArray();
+                foreach (LevelDefinition level in levels.Values.OrderBy(l => l.LevelNumber))
+                {
+                    if (lastUse.TryGetValue(level.Picture.Id, out int previous))
+                    {
+                        int gap = level.LevelNumber - previous;
+                        minGap = Math.Min(minGap, gap);
+                        if (gap < 50)
+                        {
+                            closeRepeats.Add(new JObject { ["picture"] = level.Picture.Id, ["from"] = previous, ["to"] = level.LevelNumber });
+                        }
+                    }
+
+                    lastUse[level.Picture.Id] = level.LevelNumber;
+                }
+
+                violations += repeatsInFirstHundred + closeRepeats.Count;
+                report["similarity"] = new JObject
+                {
+                    ["levelsUpTo100"] = firstHundred.Count,
+                    ["distinctPicturesUpTo100"] = distinct,
+                    ["distinctPictures"] = lastUse.Count,
+                    ["minReuseGap"] = minGap == int.MaxValue ? (JToken)JValue.CreateNull() : minGap,
+                    ["repeatsWithin50"] = closeRepeats,
+                };
+                Cli.Say(parse, $"  similarity: {distinct} distinct pictures in {firstHundred.Count} levels up to L100, {lastUse.Count} pictures overall, smallest reuse gap {(minGap == int.MaxValue ? "none" : minGap.ToString(CultureInfo.InvariantCulture))}, {closeRepeats.Count} repeats within 50 levels (SC-012).");
 
                 report["blocks"] = blocks;
                 report["reliefViolations"] = relief;
@@ -223,21 +264,40 @@ namespace Bloomlings.Pipeline.Commands
             Option<int> pictureVersion = Cli.Int("--picture-library-version", 0, "Picture library version (default: the content version).");
             Option<int> shuffleBudget = Cli.Int("--shuffle-node-budget", 50_000, "Shuffle node budget, fixed for this content version (R10).");
             Option<string> daily = Cli.Path("--daily", string.Empty, "Daily pool folder (optional).");
-            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, shuffleBudget, daily })
+            var allowDraft = new Option<bool>("--allow-draft") { Description = "Playtest builds only: include pictures that are not approved yet, marked as draft previews. Never for release." };
+            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, shuffleBudget, daily, allowDraft })
             {
                 command.Options.Add(option);
             }
 
             command.SetAction(parse => Cli.Run(parse, report =>
             {
-                var levels = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).ToList();
+                var levels = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).OrderBy(l => l.LevelNumber).ToList();
                 if (levels.Count == 0 || levels[0].LevelNumber != 1 || levels.Last().LevelNumber != levels.Count)
                 {
                     throw new IOException("the catalog must hold levels 1..N without gaps.");
                 }
 
                 Dictionary<string, BasePicture> library = Pictures(parse.GetValue(lib)!);
-                var used = levels.Select(l => Key(l.Picture)).Distinct().Select(k => library[k]).ToList();
+                var drafts = new SortedSet<string>(StringComparer.Ordinal);
+                BasePicture Publishable(string key)
+                {
+                    BasePicture picture = library[key];
+                    if (picture.Review.Status == ReviewStatus.Approved)
+                    {
+                        return picture;
+                    }
+
+                    if (!parse.GetValue(allowDraft))
+                    {
+                        throw new IOException($"picture {picture.Id} is {picture.Review.Status.ToString().ToLowerInvariant()}; only approved pictures ship (FR-084). Use --allow-draft for a playtest build.");
+                    }
+
+                    drafts.Add(picture.Id);
+                    return PicturePicker.AsPreview(picture) with { Review = new PictureReview(ReviewStatus.Approved, null, null, "draft preview for playtests, not for release") };
+                }
+
+                var used = levels.Select(l => Key(l.Picture)).Distinct().Select(Publishable).ToList();
                 var pool = new List<DailyPoolEntry>();
                 if (parse.GetValue(daily)!.Length > 0)
                 {
@@ -246,7 +306,7 @@ namespace Bloomlings.Pipeline.Commands
                         pool.Add(new DailyPoolEntry(level.LevelNumber - 1, level));
                         if (!used.Any(p => p.Id == level.Picture.Id))
                         {
-                            used.Add(library[Key(level.Picture)]);
+                            used.Add(Publishable(Key(level.Picture)));
                         }
                     }
                 }
@@ -265,6 +325,11 @@ namespace Bloomlings.Pipeline.Commands
                 report["contentVersion"] = contentVersion;
                 report["levels"] = levels.Count;
                 report["packs"] = manifest.Packs.Count;
+                report["draftPictures"] = new JArray(drafts.ToArray());
+                if (drafts.Count > 0)
+                {
+                    Cli.Say(parse, $"  WARNING: {drafts.Count} draft pictures published as previews; this content is for playtest builds only (FR-084).");
+                }
                 Cli.Say(parse, $"publish v{contentVersion}: {levels.Count} levels, {used.Count} pictures, {pool.Count} daily entries, {manifest.Packs.Count} packs → {parse.GetValue(outDir)}");
                 return ExitCodes.Success;
             }));
@@ -288,7 +353,7 @@ namespace Bloomlings.Pipeline.Commands
             command.SetAction(parse => Cli.Run(parse, report =>
             {
                 LevelDefinition definition = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).Single(l => l.LevelNumber == parse.GetValue(level));
-                BasePicture picture = Pictures(parse.GetValue(lib)!)[Key(definition.Picture)];
+                BasePicture picture = Usable(Pictures(parse.GetValue(lib)!)[Key(definition.Picture)], parse, definition.LevelNumber);
                 LevelSession session = LevelSession.Load(definition, picture, new SessionOptions(parse.GetValue(contentVersion), parse.GetValue(shuffleBudget)));
                 var lines = new JArray();
                 foreach (string line in File.ReadAllLines(parse.GetValue(log)!).Select(l => l.Trim()).Where(l => l.Length > 0 && !l.StartsWith("#", StringComparison.Ordinal)))
@@ -373,6 +438,21 @@ namespace Bloomlings.Pipeline.Commands
             null,
             analysis.Metrics.ToDictionary(),
             analysis.Win.Status == SolveStatus.Solvable ? new[] { "solvable" } : Array.Empty<string>());
+
+        /// <summary>
+        /// Solve, replay and review work on draft pictures too (review is where they get approved): a draft is used
+        /// through an in-memory preview copy, with a note. Certification (<c>validate</c>) and <c>publish</c> still refuse it.
+        /// </summary>
+        private static BasePicture Usable(BasePicture picture, ParseResult parse, int level)
+        {
+            if (picture.Review.Status == ReviewStatus.Approved)
+            {
+                return picture;
+            }
+
+            Cli.Say(parse, $"  note: L{level} uses {picture.Review.Status.ToString().ToLowerInvariant()} picture {picture.Id} (preview only).");
+            return PicturePicker.AsPreview(picture);
+        }
 
         private static Dictionary<string, BasePicture> Pictures(string folder) =>
             ContentStore.LoadLibrary(folder).ToDictionary(p => p.Id + "@" + p.Version, StringComparer.Ordinal);

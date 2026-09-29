@@ -60,12 +60,14 @@ namespace Bloomlings.Generator
         {
             var solver = new Solver.Solver();
             var order = new List<PlannedPod>(plan);
-            (LevelDefinition definition, LevelAnalysis analysis) = Evaluate(skeleton, picture, order, stacks, solver, options);
-            if (analysis.Win.Status != SolveStatus.Solvable)
+            (LevelDefinition definition, LevelAnalysis? first, SolveStatus firstWin) = Evaluate(skeleton, picture, order, stacks, solver, options);
+            if (first == null)
             {
-                rejection = "tray:plan-not-winnable:" + analysis.Win.Status.ToString().ToLowerInvariant();
+                rejection = "tray:plan-not-winnable:" + firstWin.ToString().ToLowerInvariant();
                 return null;
             }
+
+            LevelAnalysis analysis = first;
 
             int score = DifficultyScorer.Score(analysis.Metrics, thresholds);
             int injections = 0;
@@ -90,21 +92,27 @@ namespace Bloomlings.Generator
                     break;
                 }
 
-                int j = 1 + rng.NextInt(order.Count - 1);
-                int i = rng.NextInt(j);
+                // Prefer a pod from the later part of the plan and put it into the earlier part.
+                int late = order.Count / 3;
+                int j = Math.Max(1, late) + rng.NextInt(order.Count - Math.Max(1, late));
+                int i = rng.NextInt(Math.Max(1, Math.Min(j, (order.Count + 1) / 2)));
                 var candidate = new List<PlannedPod>(order);
                 PlannedPod moved = candidate[j];
                 candidate.RemoveAt(j);
                 candidate.Insert(i, moved);
-                (LevelDefinition candidateDefinition, LevelAnalysis candidateAnalysis) = Evaluate(skeleton, picture, candidate, stacks, solver, options);
-                if (candidateAnalysis.Win.Status != SolveStatus.Solvable)
+                (LevelDefinition candidateDefinition, LevelAnalysis? candidateAnalysis, SolveStatus _) = Evaluate(skeleton, picture, candidate, stacks, solver, options);
+                if (candidateAnalysis == null)
                 {
                     continue;
                 }
 
+                // Keep a harder level, or one that becomes losable; while the level cannot be lost yet, an equally hard
+                // step is kept too, so tempting pods can pile up until a jam becomes possible.
                 int candidateScore = DifficultyScorer.Score(candidateAnalysis.Metrics, thresholds);
-                bool gainsLosability = requireLosable && !losable && candidateAnalysis.Jam.Status == SolveStatus.Solvable;
-                if (candidateScore > score || gainsLosability)
+                bool candidateLosable = candidateAnalysis.Jam.Status == SolveStatus.Solvable;
+                bool gainsLosability = requireLosable && !losable && candidateLosable;
+                bool drift = requireLosable && !losable && candidateScore >= score;
+                if (candidateScore > score || gainsLosability || drift)
                 {
                     order = candidate;
                     definition = candidateDefinition;
@@ -119,11 +127,15 @@ namespace Bloomlings.Generator
             return null;
         }
 
-        private static (LevelDefinition, LevelAnalysis) Evaluate(LevelDefinition skeleton, BasePicture picture, IReadOnlyList<PlannedPod> order, int stacks, Solver.Solver solver, SolveOptions options)
+        /// <summary>Lays out and analyzes a pod order; the analysis is null when the level is not winnable (then it is skipped).</summary>
+        private static (LevelDefinition, LevelAnalysis?, SolveStatus) Evaluate(LevelDefinition skeleton, BasePicture picture, IReadOnlyList<PlannedPod> order, int stacks, Solver.Solver solver, SolveOptions options)
         {
             LevelDefinition definition = Layout(skeleton, order, stacks);
             LevelSession session = LevelSession.Load(definition, picture, new SessionOptions(0, 20000));
-            return (definition, solver.Analyze(session, options));
+            SolveResult win = solver.Solve(session, options);
+            return win.Status == SolveStatus.Solvable
+                ? (definition, solver.Analyze(session, options, win), win.Status)
+                : (definition, null, win.Status);
         }
 
         private static int Rank(DifficultyClass c) => c == DifficultyClass.Normal ? 0 : c == DifficultyClass.Hard ? 1 : 2;

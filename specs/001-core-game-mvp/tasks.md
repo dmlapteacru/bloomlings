@@ -515,9 +515,9 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
 
   Status: Levels 1–10 and their 10 pictures are authored. Every tap order was searched exhaustively: all levels are
   winnable without boosters; L5 (Hard) jams in 17% of orders and L10 (Super Hard) in 27%. Their winning logs are the
-  T056 golden cases, and `ContentFolderTests` checks the band rules. Still open: pipeline `validate` and validation
-  records (US3, T079–T081), the person playtest (FR-084), and the copy into `content/catalog/`. The L8 Key showcase
-  follows with US4 (T111).
+  T056 golden cases, and `ContentFolderTests` checks the band rules. `validate --defs content/curated` passes (0
+  errors; the warnings are the provisional readability pairs). Still open: the person playtest (FR-084) and the copy
+  with validation records into `content/catalog/`. The L8 Key showcase follows with US4 (T111).
 
 **Checkpoint**: US1 and US2 give a playable vertical slice from first launch to Level 10.
 
@@ -540,60 +540,65 @@ Quickstart §2–§4 must pass.
 
 ### Tests for User Story 3 ⚠️
 
-- [ ] T068 [P] [US3] Write `core/tests/Bloomlings.Solver.Tests/SolverTests.cs`:
+- [X] T068 [P] [US3] Write `core/tests/Bloomlings.Solver.Tests/SolverTests.cs`:
   - hand-built fixtures that are solvable and unsolvable;
   - a jam witness exists for a non-tutorial fixture;
   - an exhausted node budget returns `unknown`;
   - the result is identical across runs.
-- [ ] T069 [P] [US3] Write `core/tests/Bloomlings.Generator.Tests/GeneratorTests.cs`:
+- [X] T069 [P] [US3] Write `core/tests/Bloomlings.Generator.Tests/GeneratorTests.cs`:
   - the same profile and seed give byte-identical definitions;
   - every accepted level passes `CatalogValidator`;
   - every rejected candidate records a reason;
   - the visible top layer always follows the picture mapping.
-- [ ] T070 [P] [US3] Write `core/tests/Bloomlings.Content.Tests/PackWriterTests.cs`. Write and then read back 600
+- [X] T070 [P] [US3] Write `core/tests/Bloomlings.Content.Tests/PackWriterTests.cs`. Write and then read back 600
   definitions: they fill 3 packs of 250, 250 and 100. The gzip output is byte-stable across runs (mtime 0), and the
   manifest hashes match.
 
 ### Implementation for User Story 3
 
-- [ ] T071 [P] [US3] Implement `core/src/Bloomlings.Content/Packs/LevelPackWriter.cs` and `ManifestWriter.cs`:
+- [X] T071 [P] [US3] Implement `core/src/Bloomlings.Content/Packs/LevelPackWriter.cs` and `ManifestWriter.cs`:
   - write packs of 250 levels in gzip JSON-Lines with a deterministic order;
   - also write the picture pack and the daily pack;
   - write `content-manifest.v1` with `sha256`, `bytes`, `contentVersion`, `minAppVersion`, `pictureLibraryVersion`
     and `shuffleNodeBudget` (R5, R10).
-- [ ] T072 [P] [US3] Implement `core/src/Bloomlings.Pipeline/Pictures/IndexedPngReader.cs`. It reads PNGs with color
+- [X] T072 [P] [US3] Implement `core/src/Bloomlings.Pipeline/Pictures/IndexedPngReader.cs`. It reads PNGs with color
   type 3, bit depth 1/2/4/8 and no interlacing, using `System.IO.Compression.ZLibStream`. A palette index `i` below the
   role count maps to role `i`; `roles.length` maps to EMPTY and `roles.length+1` maps to STONE.
   Also implement `TextGridReader.cs` for `.grid.txt` files: one character per cell with the top row first, mapped
   through a `legend` in the sidecar where `.` means EMPTY and `#` means STONE.
-- [ ] T073 [US3] Implement `core/src/Bloomlings.Pipeline/Pictures/PictureImporter.cs` and `StructureMetrics.cs`:
+- [X] T073 [US3] Implement `core/src/Bloomlings.Pipeline/Pictures/PictureImporter.cs` and `StructureMetrics.cs`:
   - read `content/pictures/src/<id>.png|.grid.txt` plus the sidecar `<id>.meta.json`, which is base-picture.v1
     without `grid` and `structure`, plus an optional `legend`;
   - write `content/pictures/lib/<id>.json`;
   - compute `regionCount`, `nestingDepth` (relative to a bottom-center entry) and `backgroundShare` (R7).
-- [ ] T074 [US3] Implement `core/src/Bloomlings.Pipeline/Pictures/PictureValidator.cs`:
+- [X] T074 [US3] Implement `core/src/Bloomlings.Pipeline/Pictures/PictureValidator.cs`:
   - validate against the embedded `base-picture.schema.json` with JsonSchema.Net;
   - check "7 ≤ width ≤ 14, 8 ≤ height ≤ 16";
   - check "At least 2 roles; each role has exactly one color group";
   - a licence must be present;
   - flag pictures whose review is not `approved` as unusable (FR-084, FR-091).
-- [ ] T075 [US3] Implement a readability tool in `core/src/Bloomlings.Pipeline/Readability/ReadabilityCommand.cs`:
+- [X] T075 [US3] Implement a readability tool in `core/src/Bloomlings.Pipeline/Readability/ReadabilityCommand.cs`:
   - compute pairwise CIEDE2000 color distance for each variant pair, under normal vision and simulated
     protanopia/deuteranopia/tritanopia;
   - add a grayscale-contrast check;
   - write candidates to `content/readability/pairs-report.json`.
 
   A human then records approved pairs in `content/readability/approved-pairs.json`, which FR-005 validation consumes.
-- [ ] T076 [US3] Implement the search engine in `core/src/Bloomlings.Core/Search/StateSearch.cs` and
+
+  Status: the tool is done and the palette was tuned with it (launch variants: minimum CIEDE2000 20 across normal
+  vision and the three simulations; all 12 variants: 10.7). The grayscale check is advisory because 8 hues cannot all
+  differ in lightness. `approved-pairs.json` holds the candidates with status `provisional`, so the pipeline works and
+  `validate` warns on every level until a person runs the in-game readability tests and sets it to `approved`.
+- [X] T076 [US3] Implement the search engine in `core/src/Bloomlings.Core/Search/StateSearch.cs` and
   `TranspositionTable.cs`. It lives in Core so that Shuffle can use it (R10). It provides:
   - DFS over settled states from `LevelSession` clones;
   - a transposition table keyed by `StateHash`;
   - move ordering: progressable pods first;
   - symmetry pruning of identical exposed pods (same variant, count and modifiers, and the same pods below);
   - a node-count budget that is never time-based.
-- [ ] T077 [US3] Implement `core/src/Bloomlings.Solver/Solver.cs` as `ISolver.Solve` and `FindJam`, following
+- [X] T077 [US3] Implement `core/src/Bloomlings.Solver/Solver.cs` as `ISolver.Solve` and `FindJam`, following
   `contracts/simulation-api.md` (R8). It returns `solvable|unsolvable|unknown`, a winning trace and a jam witness.
-- [ ] T078 [US3] Implement `core/src/Bloomlings.Solver/Metrics.cs` and `DifficultyScorer.cs`:
+- [X] T078 [US3] Implement `core/src/Bloomlings.Solver/Metrics.cs` and `DifficultyScorer.cs`:
   - metrics: dependency depth, branching, unsafe-choice density, dead-end depth, peak and mean buffer, connected
     commitments, variant load (count, siblings, similarity, cross-variant layers), special load, total work and
     estimated duration;
@@ -601,10 +606,12 @@ Quickstart §2–§4 must pass.
   - the score is an integer fixed-point value (× 1000) with integer thresholds, so generation is reproducible across
     machines;
   - a manual override flag is supported.
-- [ ] T079 [P] [US3] Implement `core/src/Bloomlings.Content/Validation/ValidationRecord.cs`, following data-model §1.4:
+  Status: the metrics live in `LevelMetrics.cs`. The metrics walk is capped at `Solver.MetricsNodeCap` nodes, so a
+  level's metrics and score are the same under any solve budget.
+- [X] T079 [P] [US3] Implement `core/src/Bloomlings.Content/Validation/ValidationRecord.cs`, following data-model §1.4:
   `result`, `solutionTrace`, `jamWitness`, `playerInfoFair`, `metrics`, `checks[]`, `solverVersion`, `nodeBudget` and
   `nodesUsed`.
-- [ ] T080 [US3] Implement `core/src/Bloomlings.Pipeline/Validation/CatalogValidator.cs`. It checks every FR-080
+- [X] T080 [US3] Implement `core/src/Bloomlings.Pipeline/Validation/CatalogValidator.cs`. It checks every FR-080
   invariant:
   - solvable without boosters, with a stored trace;
   - accounting;
@@ -623,50 +630,56 @@ Quickstart §2–§4 must pass.
     no Source layout signature (stack count plus ordered pod counts per stack) repeats within 50 levels;
   - the data-model rules: keys and locks pair 1:1, at most 1 locked slot and only from L80, layer depth ≤ 2 before
     L125 and ≤ 3 after, 2–6 stacks, and connected members at the same depth.
-- [ ] T081 [US3] Implement the CLI in `core/src/Bloomlings.Pipeline/Program.cs` and `Commands/*.cs`, following
+- [X] T081 [US3] Implement the CLI in `core/src/Bloomlings.Pipeline/Program.cs` and `Commands/*.cs`, following
   `contracts/pipeline-cli.md`:
   - commands: `pictures import`, `pictures validate`, `readability`, `solve`, `validate` (`--changed-only` uses
     `git diff --name-only origin/main`), `score`, `replay`, `diff`, `publish`;
   - exit codes 0/1/2 and `--json` output;
   - `score` reports the per-100-level class counts from L11 (Hard 15–25, Super Hard 6–10) and checks that the level
     after a Super Hard is Normal (FR-059).
-- [ ] T082 [US3] Implement `core/src/Bloomlings.Pipeline/Review/ReviewRenderer.cs` and `PngWriter.cs`. For each level
+- [X] T082 [US3] Implement `core/src/Bloomlings.Pipeline/Review/ReviewRenderer.cs` and `PngWriter.cs`. For each level
   it renders a board PNG (variant colors plus icon letters) and a finished-picture PNG. It builds `index.html` with
   metrics and flags for manual QA tiers (FR-084), for the `review` command.
-- [ ] T083 [P] [US3] Implement `core/src/Bloomlings.Generator/Profiles/GenerationProfile.cs` and
+- [X] T083 [P] [US3] Implement `core/src/Bloomlings.Generator/Profiles/GenerationProfile.cs` and
   `ProfileLoader.cs`, with the fields from data-model §1.5.
-- [ ] T084 [US3] Implement `core/src/Bloomlings.Generator/PicturePicker.cs`. It picks from approved pictures by tags,
+- [X] T084 [US3] Implement `core/src/Bloomlings.Generator/PicturePicker.cs`. It picks from approved pictures by tags,
   size range and structure targets, and skips pictures blocked by the FR-083 windows (R9 step 1).
-- [ ] T085 [US3] Implement `core/src/Bloomlings.Generator/RoleMapper.cs`, which enumerates role→variant mappings
+- [X] T085 [US3] Implement `core/src/Bloomlings.Generator/RoleMapper.cs`, which enumerates role→variant mappings
   (R9 step 2):
   - the mapped variant must be in the same colorGroup as the role;
   - it must be allowed in the band;
   - similar roles may be merged when the band allows fewer variants;
   - only approved readability pairs are used.
-- [ ] T086 [US3] Implement `core/src/Bloomlings.Generator/EntryPlanner.cs` and `SolutionPlanner.cs`. The first chooses
+- [X] T086 [US3] Implement `core/src/Bloomlings.Generator/EntryPlanner.cs` and `SolutionPlanner.cs`. The first chooses
   the entry placement and mirroring toward the structure target. The second simulates a planned good-play policy on
   `LevelSession` and records the order in which each variant's work becomes reachable (R9 steps 3 and 5).
-- [ ] T087 [US3] Implement `core/src/Bloomlings.Generator/PodPartitioner.cs`. It splits each variant's demand along
+- [X] T087 [US3] Implement `core/src/Bloomlings.Generator/PodPartitioner.cs`. It splits each variant's demand along
   the planned waves into pods within the size classes: small 5–15, medium 16–40, large 41–100, exceptional 100+
   (R9 step 6, doc 05 §12).
-- [ ] T088 [US3] Implement `core/src/Bloomlings.Generator/TrayBuilder.cs`:
+- [X] T088 [US3] Implement `core/src/Bloomlings.Generator/TrayBuilder.cs`:
   - place the planned pods round-robin across the stacks;
   - inject difficulty: tempting premature pods and buried needs;
   - re-solve with `Solver` after each injection until `DifficultyScorer` reaches the target class (R9 step 7).
-- [ ] T089 [US3] Implement the orchestrator `core/src/Bloomlings.Generator/Generator.cs`, which runs R9 steps 1–9 with
+- [X] T089 [US3] Implement the orchestrator `core/src/Bloomlings.Generator/Generator.cs`, which runs R9 steps 1–9 with
   a seeded PRNG and records a rejection reason for each discarded candidate. Add the `generate` and `daily generate`
   CLI commands in `core/src/Bloomlings.Pipeline/Commands/GenerateCommand.cs` and `DailyGenerateCommand.cs`.
-- [ ] T090 [US3] Create the generation profiles `content/profiles/band-0011-0025.json`, `band-0026-0050.json`,
+  Status: the orchestrator is `core/src/Bloomlings.Generator/LevelGenerator.cs`. Tray tuning searches with a
+  10k-node budget (a trace found within it is the one the full budget finds). `generate --history <batch>` chains
+  unpublished preview batches for the FR-083 windows, and `--allow-draft` generates previews from draft pictures.
+- [X] T090 [US3] Create the generation profiles `content/profiles/band-0011-0025.json`, `band-0026-0050.json`,
   `band-0051-0100.json`, `band-0101-0250.json`, `band-0251-0500.json`, `band-0501-1000.json`,
   `band-1001-2000.json`, `band-2001-5000.json` and `daily.json`, plus `content/profiles/difficulty-thresholds.json`.
   Take the values from the spec's Level Band Guidelines:
   - board size, active variants, Source Pods, work and duration;
   - buffer-pressure targets;
   - `allowedMechanics` from the unlock roadmap.
-- [ ] T091 [US3] Implement the editor menu `client/Assets/Bloomlings/Editor/ImportContentMenu.cs` ("Tools/Bloomlings/
+  Status: bands 11–25, 26–50 and 51–100 were calibrated by trial generation on the draft library (Normal levels
+  score about 950–1600, tuned levels reach about 3000; pod counts sit in the upper half of the spec ranges so levels
+  can jam). Later bands are extrapolated. Recalibrate the weights and thresholds after playtests.
+- [X] T091 [US3] Implement the editor menu `client/Assets/Bloomlings/Editor/ImportContentMenu.cs` ("Tools/Bloomlings/
   Import Published Content"). It copies `build/content/` from `publish` into `client/Assets/StreamingAssets/content/`
   and removes the dev folder from release builds (FR-078).
-- [ ] T092 [US3] Implement `client/Assets/Bloomlings/Services/Content/IContentUpdateService.cs` and
+- [X] T092 [US3] Implement `client/Assets/Bloomlings/Services/Content/IContentUpdateService.cs` and
   `ContentUpdateService.cs` (R6):
   - read the remote manifest URL from `IRemoteConfigService` (`content.manifestUrl`, default empty, which skips the
     update);
@@ -674,15 +687,24 @@ Quickstart §2–§4 must pass.
   - activate atomically;
   - never change the definition of an attempt in progress;
   - raise analytics hooks `content_update` and `content_error`.
-- [ ] T093 [P] [US3] Create the CI workflows:
+  Status: `ContentCache` (atomic install, verified loads) and `ContentUpdater` (decisions) are engine-free and tested
+  under .NET (`ContentUpdateTests`). Boot starts from a newer valid cached version, and the update check runs after
+  the game is playable. The analytics hooks are an event that the T147 analytics service subscribes to.
+- [X] T093 [P] [US3] Create the CI workflows:
   - `.github/workflows/content-validate.yml` runs on pull requests: `pictures validate`, `validate --changed-only` and
     `diff --from main`.
   - `.github/workflows/catalog-nightly.yml` runs on a nightly cron: full `validate`, `score` and the similarity
     statistics, and uploads a JSON report artifact (SC-004, SC-012).
-- [ ] T094 [US3] Seed the picture library for Levels 11–100 with at least 90 base pictures under
+  Status: `score` also reports the SC-012 similarity statistics (distinct pictures up to L100, the smallest reuse
+  gap, repeats within 50 levels).
+- [X] T094 [US3] Seed the picture library for Levels 11–100 with at least 90 base pictures under
   `content/pictures/src/`, as `.grid.txt` or indexed PNG plus `.meta.json`. They show garden-world subjects:
   flowers, fruit, insects, small animals, garden tools and cozy objects. Import them with `pictures import`. Status
   stays `draft` until a person approves each picture for recognizability (FR-084, SC-015).
+  Status: 94 draft pictures (27 subjects in up to four variations: 16 for 9×10–10×10, 26 for 10×10–12×12, 52 for
+  10×12–14×14) are sketched procedurally by `content/pictures/tools/sketch_pictures.py` and imported (`pictures
+  validate`: 0 errors). They are placeholders for an artist to refine. A person still has to approve each picture
+  for recognizability (FR-084, SC-015); until then `validate` fails every generated level on `picture-approved`.
 - [ ] T095 [US3] Produce the curated Levels 11–100:
   - run `generate` with the band-0011-0025, band-0026-0050 and band-0051-0100 profiles, using only the mechanics
     already implemented;
@@ -690,6 +712,12 @@ Quickstart §2–§4 must pass.
   - commit accepted definitions and validation records to `content/catalog/`.
 
   Levels using US4 mechanics are regenerated after US4.
+
+  Status: open (human steps). A preview of Levels 11–100 was generated from the draft pictures with
+  `generate --allow-draft` into `content/work/` (gitignored). It passes every `validate` check except
+  `picture-approved`. Still needed: picture approval (T094), the readability sign-off (T075), a person playtest of
+  every level (FR-084), then regeneration with approved pictures and the commit into `content/catalog/`. For
+  playtest builds, `publish --allow-draft` packs draft pictures as marked previews.
 
 **Checkpoint**: The pipeline produces and certifies catalogs, the client loads published packs, and CI gates content.
 

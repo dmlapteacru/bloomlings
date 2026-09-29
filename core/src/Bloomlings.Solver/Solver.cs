@@ -18,6 +18,12 @@ namespace Bloomlings.Solver
         /// <summary>Recorded in validation records; bump it when solver behavior changes.</summary>
         public const string Version = "solver-1.0.0";
 
+        /// <summary>
+        /// Node cap of the metrics tree walk (branching and unsafe choices). It is fixed, so the metrics of a level are the
+        /// same under any solve budget of at least this size, and scores do not depend on who ran the solver.
+        /// </summary>
+        public const int MetricsNodeCap = 10_000;
+
         public SolveResult Solve(LevelSession start, SolveOptions options) =>
             ToResult(StateSearch.Find(start, StateSearch.IsWon, MoveOrder.ProgressFirst, options.NodeBudget));
 
@@ -27,9 +33,11 @@ namespace Bloomlings.Solver
         public LevelMetrics Measure(LevelSession start, SolveOptions options) => Analyze(start, options).Metrics;
 
         /// <summary>The winning trace, the jam witness and the metrics in one pass.</summary>
-        public LevelAnalysis Analyze(LevelSession start, SolveOptions options)
+        public LevelAnalysis Analyze(LevelSession start, SolveOptions options) => Analyze(start, options, Solve(start, options));
+
+        /// <summary>As <see cref="Analyze(LevelSession, SolveOptions)"/>, reusing a winning search already run with the same budget.</summary>
+        public LevelAnalysis Analyze(LevelSession start, SolveOptions options, SolveResult win)
         {
-            SolveResult win = Solve(start, options);
             SolveResult jam = FindJam(start, options);
             return new LevelAnalysis(win, jam, Metrics(start, options, win, jam));
         }
@@ -39,18 +47,30 @@ namespace Bloomlings.Solver
             bool complete = true;
             complete &= win.Status != SolveStatus.Unknown && jam.Status != SolveStatus.Unknown;
 
-            // Branching and unsafe choices over every winnable state the budget can reach.
-            var analysis = new TreeAnalysis(options.NodeBudget);
-            analysis.Winnable(start);
-            complete &= !analysis.BudgetExceeded;
+            // Unsafe choices over the winnable states the capped walk reaches. When the jam search proved that no jam
+            // is reachable, every state stays winnable and there are none, so the walk is skipped.
+            var analysis = new TreeAnalysis(Math.Min(options.NodeBudget, MetricsNodeCap));
+            if (jam.Status != SolveStatus.Unsolvable)
+            {
+                analysis.Winnable(start);
+                complete &= !analysis.BudgetExceeded;
+            }
 
-            // Buffer use along the winning line.
+            // Branching and buffer use along the winning line.
             int peak = 0;
             int bufferSum = 0;
             int commits = 0;
+            long choices = 0;
+            int choicePoints = 0;
             LevelSession session = start.Clone();
             foreach (Command step in win.Trace)
             {
+                if (step is TapPod)
+                {
+                    choices += StateSearch.Moves(session, MoveOrder.ProgressFirst).Count;
+                    choicePoints++;
+                }
+
                 int occupiedBefore = OccupiedSlots(session);
                 CommandResult applied = session.Apply(step);
                 int committed = 0;
@@ -100,7 +120,7 @@ namespace Bloomlings.Solver
 
             return new LevelMetrics(
                 DependencyDepth(board),
-                analysis.WinnableStates == 0 ? 0 : (int)((long)analysis.MovesInWinnableStates * 1000 / analysis.WinnableStates),
+                choicePoints == 0 ? 0 : (int)(choices * 1000 / choicePoints),
                 analysis.MovesInWinnableStates == 0 ? 0 : (int)((long)analysis.LosingMovesInWinnableStates * 1000 / analysis.MovesInWinnableStates),
                 jam.Status == SolveStatus.Solvable ? CountCommits(jam.Trace) : 0,
                 peak,

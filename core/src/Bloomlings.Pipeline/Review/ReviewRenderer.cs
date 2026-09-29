@@ -1,14 +1,15 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System;
 using Bloomlings.Content.Validation;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Variants;
+using Bloomlings.Generator;
 
 namespace Bloomlings.Pipeline.Review
 {
@@ -31,8 +32,11 @@ namespace Bloomlings.Pipeline.Review
                 .Append("table{border-collapse:collapse}td,th{border:1px solid #ccc;padding:6px;vertical-align:top;font-size:13px}")
                 .Append("img{image-rendering:pixelated;max-width:240px}.flag{color:#b33;font-weight:bold}</style></head><body><h1>Level review</h1>")
                 .Append("<table><tr><th>Level</th><th>Board</th><th>Finished picture</th><th>Class / score</th><th>Metrics</th><th>QA</th></tr>");
-            foreach ((LevelDefinition level, BasePicture picture, ValidationRecord? record) in batch.OrderBy(b => b.Level.LevelNumber))
+            foreach ((LevelDefinition level, BasePicture original, ValidationRecord? record) in batch.OrderBy(b => b.Level.LevelNumber))
             {
+                // Drafts are reviewed here before approval, so they are rendered through an in-memory preview copy.
+                bool draft = original.Review.Status != ReviewStatus.Approved;
+                BasePicture picture = draft ? PicturePicker.AsPreview(original) : original;
                 string name = "level-" + level.LevelNumber.ToString("00000", CultureInfo.InvariantCulture);
                 File.WriteAllBytes(Path.Combine(outputFolder, name + "-board.png"), RenderBoard(level, picture));
                 File.WriteAllBytes(Path.Combine(outputFolder, name + "-finished.png"), RenderFinished(level, picture));
@@ -52,7 +56,13 @@ namespace Bloomlings.Pipeline.Review
                 }
 
                 html.Append("</small></td><td>").Append(Tier(level.LevelNumber));
-                foreach (string flag in Flags(level))
+                IEnumerable<string> flags = Flags(level);
+                if (draft)
+                {
+                    flags = flags.Prepend($"picture {original.Review.Status.ToString().ToLowerInvariant()}: approve before release (FR-084)");
+                }
+
+                foreach (string flag in flags)
                 {
                     html.Append("<br><span class=\"flag\">").Append(flag).Append("</span>");
                 }
