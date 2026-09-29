@@ -1,0 +1,58 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [2, 2, 2, 2, 2, 2, 2, 2],
+    [2, 2, 2, 2, 1, 2, 2, 2],
+    [2, 2, 2, 1, 1, 2, 2, 2],
+    [3, 2, 2, 1, 1, 2, 2, 3],
+    [3, 3, -1, 1, 1, -1, 3, 3],
+    [3, 3, -1, 1, 1, -1, 3, 3],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1],
+    [-1, -1, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 9,
+  "id": "dev_mushroom",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Development content only (T038); not for release.",
+    "reviewer": "dev",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stem",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Mushroom in the grass",
+  "tags": {
+    "bands": ["dev"],
+    "themes": ["forest", "garden"]
+  },
+  "version": 1,
+  "width": 8
+}

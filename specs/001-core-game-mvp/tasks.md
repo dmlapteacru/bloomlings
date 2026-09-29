@@ -257,7 +257,7 @@ must pass.
 
 ### Tests for User Story 1 ⚠️ (write first; they must fail before implementation)
 
-- [ ] T028 [P] [US1] Write rule tests in `core/tests/Bloomlings.Core.Tests/Rules/CoreLoopTests.cs`, covering the
+- [X] T028 [P] [US1] Write rule tests in `core/tests/Bloomlings.Core.Tests/Rules/CoreLoopTests.cs`, covering the
   doc 01 §20 pre-lock tests that do not need later mechanics:
   - two variants of the same family are active simultaneously;
   - a Leaf pod does not clear a reachable Moss tile;
@@ -269,14 +269,14 @@ must pass.
   - a win takes precedence over a simultaneous jam;
   - `TapPod` is rejected with `NoFreeSlot` or `NotExposed`, with no state change;
   - the slot frees immediately at count 0.
-- [ ] T029 [P] [US1] Write FsCheck properties in `core/tests/Bloomlings.Core.Tests/Properties/InvariantProperties.cs`.
+- [X] T029 [P] [US1] Write FsCheck properties in `core/tests/Bloomlings.Core.Tests/Properties/InvariantProperties.cs`.
   The generator creates random small pictures (7×8), random mappings and exact-accounting pods, then random legal
   command sequences. The properties are:
   - pod counts are never negative;
   - after every settle, the remaining pod count per variant equals the remaining layers per variant;
   - applying the same commands to two fresh sessions gives equal `StateHash`;
   - `Won` and `Jammed` are never both true.
-- [ ] T030 [P] [US1] Create the golden replay harness in `core/tests/Bloomlings.Core.Tests/Golden/GoldenReplayTests.cs`
+- [X] T030 [P] [US1] Create the golden replay harness in `core/tests/Bloomlings.Core.Tests/Golden/GoldenReplayTests.cs`
   and describe the format in `core/tests/golden/README.md`. Each case is a `*.golden.json` file holding:
   - `definition`;
   - `picture`;
@@ -291,26 +291,26 @@ must pass.
 
 ### Implementation for User Story 1
 
-- [ ] T031 [P] [US1] Implement commands, events and results in
+- [X] T031 [P] [US1] Implement commands, events and results in
   `core/src/Bloomlings.Core/Simulation/Commands.cs`, `Events.cs`, `CommandResult.cs`, `RejectReason.cs` and
   `LevelStatus.cs`. They follow the tables in `contracts/simulation-api.md`, and every event carries `Round`.
-- [ ] T032 [P] [US1] Implement `core/src/Bloomlings.Core/Tray/SourceTray.cs` and `PodRuntime.cs`:
+- [X] T032 [P] [US1] Implement `core/src/Bloomlings.Core/Tray/SourceTray.cs` and `PodRuntime.cs`:
   - stacks hold pods top-first, and only the top pod is exposed (FR-011);
   - pod locations are `tray|slot|done|removed`;
   - the tray validates "2–6 stacks";
   - it exposes `Exposed()`, `Take(podId)` and `PushTop(stack, pod)`. `PushTop` is used by Return in US5.
-- [ ] T033 [P] [US1] Implement `core/src/Bloomlings.Core/Slots/WaitingSlots.cs`:
+- [X] T033 [P] [US1] Implement `core/src/Bloomlings.Core/Slots/WaitingSlots.cs`:
   - 5 slots by default (FR-015);
   - slot states `free|occupied|locked|absent`;
   - a newly committed pod takes the leftmost free usable slot (FR-014);
   - each commit stamps a monotonic `ageOrder` counter;
   - pods in slots cannot be reordered manually.
-- [ ] T034 [US1] Implement `core/src/Bloomlings.Core/Simulation/LevelState.cs` and `LevelSession.cs` with
+- [X] T034 [US1] Implement `core/src/Bloomlings.Core/Simulation/LevelState.cs` and `LevelSession.cs` with
   `Load(definition, picture, SessionOptions)`, `View`, `Status`, `StateHash`, `CommandLog` and `Check`. `Load` builds
   the board with `BoardBuilder` and verifies exact accounting. It throws `InvalidLevelException` when "for every
   variant `v`, the sum of `count` over pods of `v` equals the number of top layers of `v` plus the number of hidden
   layers of `v`" does not hold (FR-023). Depends on T019, T031–T033.
-- [ ] T035 [US1] Implement the settle loop in `core/src/Bloomlings.Core/Simulation/Settler.cs`, following research R3:
+- [X] T035 [US1] Implement the settle loop in `core/src/Bloomlings.Core/Simulation/Settler.cs`, following research R3:
   1. compute reachability (T020);
   2. build each active pod's candidates of its exact variant;
   3. allocate in slot-age order, where each pod claims `min(remaining, unclaimed)`;
@@ -319,20 +319,20 @@ must pass.
 
   Repeat until a round claims nothing. Add extension points `IRoundHook` for layers, keys, specials and mystery
   (implemented in US4).
-- [ ] T036 [US1] Implement `core/src/Bloomlings.Core/Simulation/StatusEvaluator.cs`. After each fixpoint it checks, in
+- [X] T036 [US1] Implement `core/src/Bloomlings.Core/Simulation/StatusEvaluator.cs`. After each fixpoint it checks, in
   this order:
   1. Won: all required layers are cleared and the mandatory specials are resolved (FR-025).
   2. Jammed: every usable slot is occupied, no active pod has a candidate, and nothing is pending (FR-026).
   3. Stuck: no pod can progress, no tray pod is committable, and work remains.
 
   Emit `LevelWon`, `LevelJammed` or `LevelStuck`.
-- [ ] T037 [US1] Implement `Apply` for `TapPod` and `Restart` in `core/src/Bloomlings.Core/Simulation/LevelSession.cs`:
+- [X] T037 [US1] Implement `Apply` for `TapPod` and `Restart` in `core/src/Bloomlings.Core/Simulation/LevelSession.cs`:
   - validate first with `NotExposed`, `NoFreeSlot` and `LevelNotPlaying`;
   - on commit, emit `PodCommitted` and then settle;
   - update `StateHash` incrementally (T018);
   - append the command to `CommandLog`;
   - `Restart` rebuilds from the same definition (FR-028).
-- [ ] T038 [US1] Author development content:
+- [X] T038 [US1] Author development content:
   - three base pictures, `content/pictures/lib/dev_tulip_pot.json`, `dev_mushroom.json` and `dev_watering_can.json`,
     each 8×9 with 3–4 roles and `review.status=approved` for dev use only;
   - three levels, `content/curated/dev/level-dev-001.json` to `level-dev-003.json`, with one using Leaf and Moss

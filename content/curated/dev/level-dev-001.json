@@ -1,0 +1,80 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 1,
+  "mapping": {
+    "leaf": "leaf",
+    "petal": "flower",
+    "pot": "wood",
+    "sky": "water"
+  },
+  "picture": {
+    "id": "dev_tulip_pot",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "w3",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "f1",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "f2",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "l1",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "o1",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "o2",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["f1", "o1", "w1"],
+      ["w2", "l1", "o2"],
+      ["f2", "w3"]
+    ]
+  }
+}

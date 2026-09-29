@@ -1,0 +1,12 @@
+> tap:w2
+r0 PodCommitted w2 slot=0 stack=1 depth=0
+> tap:f1
+r0 PodCommitted f1 slot=1 stack=0 depth=0
+> tap:f2
+r0 PodCommitted f2 slot=2 stack=2 depth=0
+> tap:w3
+r0 PodCommitted w3 slot=3 stack=2 depth=0
+> tap:l1
+r0 PodCommitted l1 slot=4 stack=1 depth=0
+r1 LevelJammed recoveries=
+> tap:o1 rejected:NoFreeSlot

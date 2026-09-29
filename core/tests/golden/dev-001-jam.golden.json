@@ -1,0 +1,149 @@
+{
+  "commands": ["tap:w2", "tap:f1", "tap:f2", "tap:w3", "tap:l1", "tap:o1"],
+  "contentVersion": 0,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 1,
+    "mapping": {
+      "leaf": "leaf",
+      "petal": "flower",
+      "pot": "wood",
+      "sky": "water"
+    },
+    "picture": {
+      "id": "dev_tulip_pot",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 10,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 10,
+        "id": "w2",
+        "variantId": "water"
+      },
+      {
+        "count": 10,
+        "id": "w3",
+        "variantId": "water"
+      },
+      {
+        "count": 7,
+        "id": "f1",
+        "variantId": "flower"
+      },
+      {
+        "count": 7,
+        "id": "f2",
+        "variantId": "flower"
+      },
+      {
+        "count": 8,
+        "id": "l1",
+        "variantId": "leaf"
+      },
+      {
+        "count": 8,
+        "id": "o1",
+        "variantId": "wood"
+      },
+      {
+        "count": 7,
+        "id": "o2",
+        "variantId": "wood"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["f1", "o1", "w1"],
+        ["w2", "l1", "o2"],
+        ["f2", "w3"]
+      ]
+    }
+  },
+  "description": "Tulip pot: five pods that cannot reach their tiles fill the buffer and jam; the last tap is refused with NoFreeSlot.",
+  "expectedEventsDigest": "5c7c32d79e2fafd6",
+  "expectedStateHash": "19e0a43296b8b6e9",
+  "expectedStatus": "jammed",
+  "name": "dev-001-jam",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 0, 3, 3, 3, 3, 3, -1],
+      [-1, 0, 3, 3, 3, 3, 0, 0],
+      [0, 3, 3, 3, 3, 3, 3, 0],
+      [0, 0, 0, 2, 2, 0, 0, -1],
+      [0, 0, 2, 2, 2, 2, 0, 0],
+      [0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 0],
+      [-1, 0, 1, 1, 1, 1, 0, 0]
+    ],
+    "height": 9,
+    "id": "dev_tulip_pot",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Development content only (T038); not for release.",
+      "reviewer": "dev",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "Petal",
+        "roleId": "petal"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Leaf",
+        "roleId": "leaf"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "Pot",
+        "roleId": "pot"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Tulip in a pot",
+    "tags": {
+      "bands": ["dev"],
+      "themes": ["flowers", "garden"]
+    },
+    "version": 1,
+    "width": 8
+  },
+  "shuffleNodeBudget": 20000
+}

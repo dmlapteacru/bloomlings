@@ -1,0 +1,70 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 2,
+  "mapping": {
+    "bush": "moss",
+    "cap": "flower",
+    "grass": "leaf",
+    "stem": "wood"
+  },
+  "picture": {
+    "id": "dev_mushroom",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "l1",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "l2",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "m1",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "f1",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "f2",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "o1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["l1", "m1"],
+      ["o1", "f1"],
+      ["l2", "f2"]
+    ]
+  }
+}

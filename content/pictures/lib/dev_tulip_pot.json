@@ -1,0 +1,59 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 3, 3, 3, 3, 3, -1],
+    [-1, 0, 3, 3, 3, 3, 0, 0],
+    [0, 3, 3, 3, 3, 3, 3, 0],
+    [0, 0, 0, 2, 2, 0, 0, -1],
+    [0, 0, 2, 2, 2, 2, 0, 0],
+    [0, 0, 0, 2, 2, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 0],
+    [-1, 0, 1, 1, 1, 1, 0, 0]
+  ],
+  "height": 9,
+  "id": "dev_tulip_pot",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Development content only (T038); not for release.",
+    "reviewer": "dev",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petal",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pot",
+      "roleId": "pot"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Tulip in a pot",
+  "tags": {
+    "bands": ["dev"],
+    "themes": ["flowers", "garden"]
+  },
+  "version": 1,
+  "width": 8
+}

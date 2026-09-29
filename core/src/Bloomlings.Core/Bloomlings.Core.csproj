@@ -3,4 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="Bloomlings.Core.Tests" />
+  </ItemGroup>
 </Project>

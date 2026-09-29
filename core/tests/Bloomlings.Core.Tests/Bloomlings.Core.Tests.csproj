@@ -12,5 +12,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../src/Bloomlings.Core/Bloomlings.Core.csproj" />
+    <ProjectReference Include="../../src/Bloomlings.Content/Bloomlings.Content.csproj" />
   </ItemGroup>
 </Project>

@@ -142,6 +142,12 @@ namespace Bloomlings.Core.Boards
             return _layers[index][_top[index] + 1];
         }
 
+        /// <summary>Number of layers the cell started with (0 for non-target cells at build time).</summary>
+        public int OriginalLayerCount(int index) => _layers[index].Length;
+
+        /// <summary>The layer at <paramref name="depth"/> of the original stack (0 = original top).</summary>
+        public VariantId LayerAt(int index, int depth) => _layers[index][depth];
+
         public bool IsMysteryHidden(int index) => _mysteryHidden[index];
 
         public void RevealMystery(int index) => _mysteryHidden[index] = false;

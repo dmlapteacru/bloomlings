@@ -37,6 +37,12 @@ namespace Bloomlings.Core.Hashing
 
         /// <summary>(shuffle uses).</summary>
         ShuffleUses = 11,
+
+        /// <summary>(pod index) mystery variant revealed.</summary>
+        PodRevealed = 12,
+
+        /// <summary>(slot index, state code, age rank + 1). Recomputed from the at most 6 slots on demand.</summary>
+        SlotOrder = 13,
     }
 
     /// <summary>
