@@ -1,0 +1,221 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2229
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 49,
+  "mapping": {
+    "crown": "moss",
+    "fruit": "violet_bud",
+    "grass": "moss",
+    "sky": "water",
+    "trunk": "wood"
+  },
+  "mechanics": ["layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["water"],
+        "x": 7,
+        "y": 0
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 0,
+        "y": 1
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 8,
+        "y": 3
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 4,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 0,
+        "y": 5
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 1,
+        "y": 5
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 9,
+        "y": 5
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 4,
+        "y": 6
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 7,
+        "y": 7
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 8,
+        "y": 7
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 9,
+        "y": 8
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 0,
+        "y": 9
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 3,
+        "y": 9
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 3,
+        "y": 10
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 6,
+        "y": 10
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 3,
+        "y": 11
+      }
+    ]
+  },
+  "picture": {
+    "id": "fruit_tree_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 7,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 3,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 1,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 4,
+      "id": "p17",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p19",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "4156711872850433707",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
+    ]
+  }
+}

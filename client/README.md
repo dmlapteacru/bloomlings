@@ -105,10 +105,13 @@ personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/
 `Services/Purchases/Resources/ProductCatalog.json`, and deploy `backend/` (see `backend/README.md`). The integration code
 has not been compiled against the SDKs yet: fix any API drift on first open.
 
-## Android APK from GitHub Actions
+## Android APK from GitHub Actions (Unity)
 
-`.github/workflows/android-apk.yml` builds the APK with GameCI and Unity `6000.3.25f1` (pinned in
-`ProjectSettings/ProjectVersion.txt`). Run it by hand: **Actions → android-apk → Run workflow**. It never runs on push,
+For an APK without the Unity licence, `android-apk.yml` builds the temporary playtest client in `playtest/`.
+
+
+`.github/workflows/unity-apk.yml` builds the APK with GameCI and Unity `6000.3.25f1` (pinned in
+`ProjectSettings/ProjectVersion.txt`). Run it by hand: **Actions → unity-apk → Run workflow**. It never runs on push,
 so commits spend no Actions minutes. It keeps only the newest APK: after each successful run the older artifacts are
 deleted, and each one expires after 7 days. Choose `game` (the playtest APK with the curated Levels 1–10) or
 `golden-replays` (the device determinism player).

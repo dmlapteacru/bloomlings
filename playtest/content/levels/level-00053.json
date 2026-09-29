@@ -1,0 +1,138 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1264
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 9,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 53,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p11",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "face": "wood",
+    "grass": "leaf",
+    "sky": "water",
+    "spikes": "acorn"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 9,
+        "y": 0
+      }
+    ]
+  },
+  "picture": {
+    "id": "hedgehog_03",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "lockKeyId": "k1",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3035316032127229690",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10"]
+    ]
+  }
+}

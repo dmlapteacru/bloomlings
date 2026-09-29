@@ -1,0 +1,112 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1346
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 16,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p09",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "canopy": "flower",
+    "grass": "moss",
+    "handle": "wood",
+    "rib": "flower",
+    "sky": "water"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 2,
+        "y": 0
+      }
+    ]
+  },
+  "picture": {
+    "id": "umbrella_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p09",
+      "lockKeyId": "k1",
+      "variantId": "flower"
+    },
+    {
+      "count": 2,
+      "id": "p10",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11882493619705255378",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07"],
+      ["p04", "p08"]
+    ]
+  }
+}

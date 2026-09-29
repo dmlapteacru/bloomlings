@@ -49,3 +49,7 @@ client/DotnetCheck/artifacts/
 content/showcase/rejections.json
 client/Assets/StreamingAssets/golden/
 client/Assets/StreamingAssets/golden.meta
+
+# Temporary .NET Android playtest client (playtest/android)
+playtest/android/bin/
+playtest/android/obj/

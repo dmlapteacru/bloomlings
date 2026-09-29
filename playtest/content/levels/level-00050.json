@@ -1,0 +1,105 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1485
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 9,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 50,
+  "mapping": {
+    "dot": "acorn",
+    "head": "wood",
+    "leaf": "leaf",
+    "shell": "violet_bud"
+  },
+  "picture": {
+    "id": "ladybug_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 4,
+      "id": "p13",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1610418083975819161",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

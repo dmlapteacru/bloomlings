@@ -1,0 +1,113 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1083
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 41,
+  "mapping": {
+    "cap": "violet_bud",
+    "dot": "violet_bud",
+    "grass": "moss",
+    "sky": "dew",
+    "stem": "wood"
+  },
+  "picture": {
+    "id": "mushroom_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 4,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p14",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14480861122371723870",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10"]
+    ]
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1293
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 73,
+  "mapping": {
+    "fish": "wood",
+    "sand": "acorn",
+    "tail": "wood",
+    "water": "water",
+    "weed": "moss"
+  },
+  "picture": {
+    "id": "fish_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "moss"
+    },
+    {
+      "count": 2,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 1,
+      "id": "p20",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11691899218093098034",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

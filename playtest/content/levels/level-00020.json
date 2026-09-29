@@ -1,0 +1,112 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1059
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 20,
+  "mapping": {
+    "crown": "leaf",
+    "fruit": "flower",
+    "grass": "leaf",
+    "sky": "dew",
+    "trunk": "wood"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 0,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 5
+      }
+    ]
+  },
+  "picture": {
+    "id": "fruit_tree_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 3,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 3,
+      "id": "p11",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "206611126024711944",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08"]
+    ]
+  }
+}

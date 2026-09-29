@@ -1,0 +1,219 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1543
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 94,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "background": "leaf",
+    "mug": "flower",
+    "steam": "water",
+    "tea": "acorn"
+  },
+  "mechanics": ["fountain", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 9,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 6
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 7
+      },
+      {
+        "keyId": "k1",
+        "x": 10,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "mug_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 7,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 4,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 4,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p17",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p21",
+      "variantId": "flower"
+    },
+    {
+      "count": 1,
+      "id": "p22",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17266470202666520375",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "leaf"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 9,
+            "y": 5
+          },
+          {
+            "x": 11,
+            "y": 6
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17", "p21"],
+      ["p02", "p06", "p10", "p14", "p18", "p22"],
+      ["p03", "p07", "p11", "p15", "p19"],
+      ["p04", "p08", "p12", "p16", "p20"]
+    ]
+  }
+}

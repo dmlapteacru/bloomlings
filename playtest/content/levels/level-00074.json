@@ -1,0 +1,151 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1408
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 74,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p14",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "apple": "acorn",
+    "background": "water",
+    "leaf": "moss",
+    "stalk": "wood"
+  },
+  "mechanics": ["locked_pod", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 5,
+        "y": 0
+      },
+      {
+        "stone": true,
+        "x": 0,
+        "y": 4
+      },
+      {
+        "stone": true,
+        "x": 1,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 10,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 11
+      }
+    ]
+  },
+  "picture": {
+    "id": "apple_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 15,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 3,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 2,
+      "id": "p14",
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17569652156553066904",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

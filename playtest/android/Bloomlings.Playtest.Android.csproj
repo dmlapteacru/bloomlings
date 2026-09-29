@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Temporary playtest client (not the product client): a plain .NET for Android app on the same deterministic core,
+    so an APK builds on a stock GitHub runner with no licence or secrets. The Unity client in client/ stays the real
+    client (doc 15). See playtest/README.md.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-android</TargetFramework>
+    <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Bloomlings.Playtest</RootNamespace>
+    <ApplicationId>com.bloomlings.playtest</ApplicationId>
+    <ApplicationTitle>Bloomlings Playtest</ApplicationTitle>
+    <ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
+    <ApplicationVersion>$([MSBuild]::ValueOrDefault('$(GITHUB_RUN_NUMBER)', '1'))</ApplicationVersion>
+    <AndroidPackageFormat>apk</AndroidPackageFormat>
+    <RuntimeIdentifiers>android-arm64;android-arm;android-x64</RuntimeIdentifiers>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
+    <ProjectReference Include="../../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Levels 1–94 for playtests (playtest/content/levels) and the picture library they use. -->
+    <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

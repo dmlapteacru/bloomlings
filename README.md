@@ -50,8 +50,9 @@ dotnet run --project core/src/Bloomlings.Pipeline -- --help                # con
 - **CI**:
   - `.github/workflows/core-tests.yml` runs on every push;
   - `content-validate.yml` and `catalog-nightly.yml` check content;
-  - `android-apk.yml` builds the Android APK, run by hand only (Actions → android-apk → Run workflow). It keeps just
-    the newest APK artifact and needs the Unity licence secrets.
+  - `android-apk.yml` builds a playtest APK without Unity or secrets (`playtest/`, Levels 1–94);
+  - `unity-apk.yml` builds the Unity client's APK and needs the Unity licence secrets;
+  - both APK workflows run by hand only (Actions → Run workflow) and keep just the newest APK artifact.
 
 ## Repository layout
 
@@ -60,6 +61,7 @@ core/               Deterministic rules core, solver, generator, content packs, 
 client/             Unity 6.3 client (scripts, Editor tools, EditMode tests, DotnetCheck stub build)
 content/            Pictures, curated levels, generation profiles, roadmap data, readability reports
 backend/            UGS Remote Config defaults and Cloud Code scripts
+playtest/           Temporary Android playtest client without Unity (.NET for Android on the shared core)
 product/            Game design documents (v0.5: 01–15, locked concept, changelog)
 specs/              Spec Kit feature specs, plans, tasks and checklists
 .specify/           Spec Kit templates, scripts, constitution and workflow

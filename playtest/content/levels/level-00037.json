@@ -1,0 +1,102 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1096
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 37,
+  "mapping": {
+    "grass": "moss",
+    "pumpkin": "acorn",
+    "sky": "dew",
+    "stem": "leaf"
+  },
+  "picture": {
+    "id": "pumpkin_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 4,
+      "id": "p12",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "4329969005895147679",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08"],
+      ["p04", "p09"],
+      ["p05", "p10"]
+    ]
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 7,
+  "mapping": {
+    "bush": "moss",
+    "leaves": "leaf",
+    "sky": "water"
+  },
+  "picture": {
+    "id": "bush",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 28,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "m1",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "m2",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "l1",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1007",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["m1", "l1"],
+      ["w1", "m2"]
+    ]
+  }
+}

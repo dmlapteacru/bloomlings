@@ -1,0 +1,165 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2206
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 13,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "canopy": "flower",
+    "grass": "leaf",
+    "handle": "wood",
+    "rib": "flower",
+    "sky": "dew"
+  },
+  "mechanics": ["key", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 7,
+        "y": 0
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 1
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 1,
+        "y": 4
+      },
+      {
+        "hole": true,
+        "x": 5,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 6
+      }
+    ]
+  },
+  "picture": {
+    "id": "umbrella_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 5,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 2,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "8652385351688724825",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 5
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 9,
+  "mapping": {
+    "grass": "leaf",
+    "shell": "acorn",
+    "sky": "dew"
+  },
+  "picture": {
+    "id": "snail",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 26,
+      "id": "d1",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "h1",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "g1",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1009",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["g1", "h1"],
+      ["d1"]
+    ]
+  }
+}

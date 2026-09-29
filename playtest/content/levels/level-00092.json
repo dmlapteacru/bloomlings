@@ -1,0 +1,172 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1245
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 92,
+  "mapping": {
+    "background": "water",
+    "grape": "violet_bud",
+    "leaf": "moss",
+    "stalk": "wood"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 11,
+        "y": 1
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 3
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "grapes_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 1,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 3,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p16",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 4,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p21",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5014020702850882199",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

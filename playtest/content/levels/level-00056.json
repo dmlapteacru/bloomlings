@@ -1,0 +1,171 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 2755
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 56,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "belly": "acorn",
+    "branch": "moss",
+    "eye": "dew",
+    "moon": "dew",
+    "night": "violet_bud",
+    "owl": "wood"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 6,
+        "y": 1
+      },
+      {
+        "hole": true,
+        "x": 10,
+        "y": 5
+      }
+    ]
+  },
+  "picture": {
+    "id": "owl_03",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p17",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7126654853665122913",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 10,
+          "y": 5
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}
