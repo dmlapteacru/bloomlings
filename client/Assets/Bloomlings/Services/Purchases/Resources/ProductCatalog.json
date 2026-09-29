@@ -1,5 +1,5 @@
 {
-  "note": "Store products (research R13). Prices come from the platform stores; this file holds ids and grants only.",
+  "note": "Store products (research R13). Prices come from the platform stores; this file holds ids and grants only. REMOTE-CONFIG-DEFERRED: the offers and grants are local on purpose (the backend's ValidatePurchase answer wins at purchase time); whether they become Remote Config (FR-085) is decided at the end (tasks.md).",
   "products": [
     { "id": "petals_s", "type": "consumable", "petals": 120 },
     { "id": "petals_m", "type": "consumable", "petals": 400 },

@@ -48,6 +48,10 @@ namespace Bloomlings.Client.App.Progression
         /// <summary>Ascending by <see cref="MilestoneCadence.Every"/>.</summary>
         public IReadOnlyList<MilestoneCadence> Cadences { get; }
 
+        /// <summary>
+        /// The milestone rewards. REMOTE-CONFIG-DEFERRED: local on purpose; whether they become Remote Config (FR-085) is
+        /// decided at the end (tasks.md, "Local values, Remote Config decided at the end").
+        /// </summary>
         public static MilestoneTable Default { get; } = new MilestoneTable(new[]
         {
             new MilestoneCadence(25, MilestoneTier.Bundle, 50, 1, 0, Array.Empty<string>()),

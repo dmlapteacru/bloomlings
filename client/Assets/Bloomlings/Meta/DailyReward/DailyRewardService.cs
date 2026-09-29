@@ -91,6 +91,8 @@ namespace Bloomlings.Client.Meta.DailyReward
     /// <summary>
     /// The free-booster rewarded ad on Home (FR-052): once per UTC day, remembered in the save so a relaunch does not
     /// bring it back, and like the Daily Reward it waits for a later day when the device clock is set back.
+    /// REMOTE-CONFIG-DEFERRED: the once-a-day cap (and the daily bonus's, one per claim) is local on purpose; whether it
+    /// becomes Remote Config (FR-085) is decided at the end (tasks.md, "Local values, Remote Config decided at the end").
     /// </summary>
     public sealed class FreeBoosterAd
     {
