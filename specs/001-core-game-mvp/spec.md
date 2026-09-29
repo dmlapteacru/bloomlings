@@ -43,7 +43,7 @@ a default or asks a question.
 |---|---|---|
 | Workers | Ants from a nest hole | Bloomlings of 4 families that emerge from the Garden Entry |
 | Matching colors | Many picture colors | 8 exact target variants at launch (2 per family); 12+ supported |
-| Board | Pixel-art picture that is cleared away | Picture-like mosaic of target tiles; clearing reveals the finished picture beneath |
+| Board | Pixel-art picture that is cleared away | A small garden picture drawn with target tiles; clearing reveals its finished version beneath |
 | Core loop | Tray → 5 slots → workers clear reachable matching cells → jam = fail | Same |
 | Boosters | Extra Slot (L3), Shuffle (L4), Pick Up (L6), Vacuum (L9) | Extra Slot (L3), Shuffle (L4), Return (L6), Bloom Burst (L9) |
 | Progression | Linear levels | Linear Level N (5000+ at launch); no map, no level groupings |
@@ -60,14 +60,28 @@ a default or asks a question.
   Moss. See docs 01, 03, 05, 06, 12 and 14.
 - **Q: What is the scope of the first release?**
   A: Option B. It is the full launch game including the free-to-play layer: store, ads, in-app purchases and daily
-  rewards. Lives are still open; see FR-040.
+  rewards. There are no lives; see the lives question below.
 - **Q: Are levels grouped?**
   A: No. There are no garden areas and no level map, only sequential levels as in Colony Flow.
 - **Q: How many levels, and how are they produced?**
   A: 5000+ levels. We generate them, but each level must be identical for all players. A level may be stored as a
   compact config from which the game builds the cells, as in Colony Flow.
 - **Q: What is a level visually?**
-  A: As in Colony Flow, every level is a picture. The concrete approach is still open; see FR-006.
+  A: As in Colony Flow, every level is a picture.
+- **Q: What exactly makes a level a picture?**
+  A: Option A, a picture-first mosaic.
+  - Each level is a small picture of a garden-world subject, and the tile colors themselves draw it: every cell's
+    visible tile is the exact variant that matches that pixel's color role.
+  - The finished version of the same picture lies beneath the tiles. It is revealed as the board clears and is then
+    saved to the Collection.
+  - One base picture can produce several levels through a different role-to-variant mapping, mirroring, background
+    and Source design.
+  - The generator derives the dependencies from the picture and designs the pods and the tray solution-first.
+
+  See FR-006, FR-007, FR-079 and FR-083.
+- **Q: Are there lives?**
+  A: Option A, no lives, as in doc 10. A failed or abandoned attempt is free, restarts are unlimited, and there is no
+  energy timer. See FR-040.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -76,7 +90,7 @@ a default or asks a question.
 A player starts a level and sees, from top to bottom:
 
 - a top bar;
-- a dense board that looks like a picture, made of target tiles in 3–6 exact variants;
+- a dense board that is a small picture of a garden subject (for example, a flower in a pot), drawn with target tiles in 3–6 exact variants;
 - the Garden Entry and five Waiting Slots below the board;
 - the stacked Source Tray, whose exposed pods show a variant icon, a color and a count.
 
@@ -145,8 +159,9 @@ The content team produces the launch catalog of at least 5000 sequential levels:
 - Levels 101–500 are generated and strongly reviewed.
 - Levels 501–5000+ are generated from progression profiles.
 
-Every level is generated solution-first, checked by the solver, scored and classified as Normal, Hard or Super Hard.
-It is then published as a stable, versioned level definition. The game builds each level from its definition. The
+Every level is built from a base picture in the picture library. It is generated solution-first, checked by the
+solver, scored and classified as Normal, Hard or Super Hard. It is then published as a stable, versioned level
+definition. The game builds each level from its definition. The
 same definition always produces the same level.
 
 **Why this priority**: Without a validated catalog, the product cannot sustain long-run players. The level scale is
@@ -167,6 +182,8 @@ a launch requirement.
 3. **Given** a bug report with app version, level number and content version, **Then** the team can rebuild and replay exactly that level.
 4. **Given** the launch catalog, **Then** all of its 5000+ levels are playable offline right after install.
 5. **Given** a new content pack is published, **Then** players receive the new or fixed levels without installing a new app version.
+6. **Given** a base picture from the library, **When** a level is generated from it, **Then** the visible top layer of every cell follows the picture's color roles mapped to exact variants. The subject is recognizable at level start, and the finished picture is available for the reveal and the Collection.
+7. **Given** a base picture that was already used, **When** it is used again, **Then** the new level differs in role-to-variant mapping or mirroring and in Source design, and it comes at least 50 levels after the previous use.
 
 ---
 
@@ -309,6 +326,8 @@ skin. Complete the daily challenge. Open the Collection.
 - **Bloom Burst is used on a variant that also exists in hidden layers**: see FR-050. Accounting must still reconcile, and the level must stay completable.
 - **Leaderboard submission from a modified client** that jumps levels impossibly or uses an incompatible content version: the submission is rejected by sanity checks.
 - **A generated candidate reaches the solver with an ambiguous palette** (two confusing variants in one board): it is rejected.
+- **Layered tiles, keys or specials inside the picture**: only the visible top layer must follow the picture. Hidden layers, keys and specials may deviate, as long as the subject is still recognizable at level start.
+- **A picture needs a color that no allowed variant can express in its band**: the role is mapped to the closest allowed variant in the color language, or the picture is not used in that band.
 
 ## Requirements *(mandatory)*
 
@@ -345,9 +364,15 @@ skin. Complete the daily challenge. Open the Collection.
   | Advanced | 5–6 |
   | Exceptional | 7, only if readability checks pass |
 - **FR-005**: Each variant MUST be identified by at least hue and icon. Tiles MUST show simple target symbols, never character faces. Two variants of the same family MUST be as easy to tell apart as two unrelated colors. No pair of variants may appear together in a level until it has passed the readability tests: grayscale/icon, small size, color distance, pod, slot and moving character.
-- **FR-006**: Every level MUST be a picture, as in the reference game. [NEEDS CLARIFICATION: what exactly makes a level a picture? (A) Picture-first mosaic: the tile colors themselves draw the subject. (B) Silhouette-first, as in docs 05/06: the board outline is the subject's silhouette, and the inside is generated clusters. (C) Hybrid: picture-first for curated and milestone levels, silhouette-first for the long tail.]
-- **FR-007**: Each cleared cell MUST reveal the matching part of the level's finished picture beneath it (restoration reveal). Open cells MUST stay visually distinct from active target tiles.
-- **FR-008**: Board size MUST range from 7×8 cells in tutorials to at most 14×16 cells. The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the playable silhouette MUST be between 75% and 95%.
+- **FR-006**: Every level MUST be a picture, built as a picture-first mosaic:
+  - The level comes from a **base picture**: a small image of a garden-world subject, drawn at board resolution (at most 14×16 cells). The image uses abstract color roles such as petal, leaf, stem, pot or background. Example subjects: flowers, fruit, insects, small animals, garden tools, cozy objects, seasonal motifs.
+  - The level definition MUST map each color role to one exact target variant that fits the color language. For example, leaves map to Leaf or Moss; petals to Flower, Violet Bud or Acorn; a pot to Wood; the background to Water or Dew.
+  - The visible top layer of every cell MUST follow this mapping, so that the board reads as the subject from the first second.
+  - Stones, empty holes and background regions MAY be part of the picture, as long as all mandatory content stays reachable.
+  - Hidden layers, keys and specials MAY deviate from the picture, as long as the subject is still recognizable at level start.
+  - A base picture MAY be reused in several levels with a different role-to-variant mapping, mirroring, background and Source design, within the limits of FR-083.
+- **FR-007**: Each cleared cell MUST reveal the matching part of the level's finished picture beneath it (restoration reveal). The finished picture is the same subject in its restored look: clean, bright art without tile symbols. It MAY be rendered automatically from the base picture; bespoke illustrations are optional, for example for milestones. Open cells MUST stay visually distinct from active target tiles. On a win, the finished picture MUST be shown in full.
+- **FR-008**: Board size MUST range from 7×8 cells in tutorials to at most 14×16 cells. The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
 - **FR-009**: Each level MUST have at least one Garden Entry, by default at the bottom center. Some levels MAY use two entries or a side entry.
 - **FR-010**: A target MUST count as reachable only when an orthogonally connected route of open cells leads from a Garden Entry to a side of that target. Diagonal contact does not count. Blockers are never walkable.
 
@@ -391,7 +416,7 @@ skin. Complete the daily challenge. Open the Collection.
 - **FR-027**: The Jam screen MUST keep the board visible. It MUST offer eligible boosters, a rewarded-ad rescue limited to one per attempt, and Restart. It MUST never force the Store screen.
 - **FR-028**: Restart MUST rebuild the level from the same definition.
 - **FR-029**: There MUST be no timer and no move limit.
-- **FR-030**: The player MUST be able to pause, restart or leave a level at any time. Whether this has any cost follows the decision in FR-040.
+- **FR-030**: The player MUST be able to pause, restart or leave a level at any time without penalty (FR-040).
 
 #### E. Mechanics and unlock roadmap (docs 03, 04, 07, 13)
 
@@ -425,7 +450,7 @@ skin. Complete the daily challenge. Open the Collection.
 
 #### F. Boosters, Petals and recovery (docs 09, 10)
 
-- **FR-040**: A failed or abandoned attempt MUST [NEEDS CLARIFICATION: either be free, with unlimited restarts and no energy system, as doc 10 "No lives baseline" says; or cost a life, as in Colony Flow, which answer B implied. If lives are used: how many, the refill time, and the refill options.]
+- **FR-040**: A failed or abandoned attempt MUST cost nothing. Restarts MUST be unlimited and free, and there MUST be no lives or energy system (doc 10, "No lives baseline").
 - **FR-041**: Petals (soft currency) MUST be earned per level: a base amount, plus a clean-clear (no-booster) bonus, plus a Hard/Super Hard bonus. Petals MUST also come from milestones and optional rewarded ads. Prices MUST NOT inflate with the level number.
 - **FR-042**: The four boosters MUST unlock at L3 (Extra Slot), L4 (Shuffle), L6 (Return) and L9 (Bloom Burst). Each unlock MUST come with a demonstration and one free charge.
 - **FR-043**: **Extra Slot** MUST add one extra usable slot until the end of the current level. At most one extra slot can be active.
@@ -500,7 +525,14 @@ skin. Complete the daily challenge. Open the Collection.
 - **FR-076**: Each level number MUST map to one stable, versioned level definition, identified by level number, definition version, seed and content version. The definition MUST be identical for all players and devices. An app or content update MUST NOT change a shipped level unless a fix is deliberately versioned.
 - **FR-077**: The game MUST build each level from its definition. A definition MAY be a compact generation config that the game expands into cells, layers and pods deterministically. The same definition MUST always produce the same level.
 - **FR-078**: The launch catalog MUST be included with the app for offline play. Later content packs and level fixes MUST be deliverable without a new app release.
-- **FR-079**: Levels MUST be generated solution-first from progression profiles; random color painting is forbidden. Each profile sets: level band, board size, picture source, variant count and allowed variants, cluster ranges, entry layout, layer depth, allowed mechanics, source stacks, pod sizes, buffer-pressure target, target difficulty, target duration and Hard/Super Hard mode.
+- **FR-079**: Levels MUST be generated picture-first and solution-first, in this order:
+  1. The base picture and its role-to-variant mapping fix the visible top layer of every cell.
+  2. The generator derives the dependency structure from the picture's shape, that is, which regions shield others from the Garden Entry.
+  3. It MAY add hidden layers, keys and specials.
+  4. It splits each variant's demand into pods and arranges the Source Tray around at least one planned solution.
+  5. The solver validates the level.
+
+  Random color painting is forbidden. Each generation profile sets: level band, board size, picture pool (by tags), variant count and allowed variants, entry layout, layer depth, allowed mechanics, source stacks, pod sizes, buffer-pressure target, target difficulty, target duration and Hard/Super Hard mode.
 - **FR-080**: Every shipped level MUST satisfy all of the following, and the check MUST fail the release if any level violates them:
   - it is winnable without boosters, with at least one stored solution trace;
   - its per-variant accounting reconciles exactly;
@@ -510,7 +542,7 @@ skin. Complete the daily challenge. Open the Collection.
   - it has no unreadable palette combination.
 - **FR-081**: Every non-tutorial level MUST be losable: at least one sequence of legal taps jams it, so bad choices matter.
 - **FR-082**: Every level MUST receive a difficulty score and a Normal/Hard/Super Hard class. The score is based on structure, buffer pressure, variants, specials and scale. The class MAY be overridden manually during curation.
-- **FR-083**: The catalog MUST avoid repetition. It MUST reject levels that repeat recent pictures, variant sets, topology, mechanics or source arrangements. The same base picture MUST NOT appear twice within any 50 consecutive levels.
+- **FR-083**: The catalog MUST avoid repetition. It MUST reject levels that repeat recent pictures, variant sets, topology, mechanics or source arrangements. Levels 1–100 MUST each use a different base picture. The same base picture MUST NOT appear twice within any 50 consecutive levels. When a base picture reappears, the new level MUST differ in role-to-variant mapping or mirroring and in Source design.
 - **FR-084**: Quality assurance MUST follow the curation tiers:
 
   | Levels | Required checks |
@@ -519,7 +551,7 @@ skin. Complete the daily challenge. Open the Collection.
   | 101–500 | Solver plus manual review of every level |
   | 501–5000+ | Solver plus automated invariants plus human sampling |
 
-  Milestone, Hard and Super Hard levels MUST get stronger review in every tier.
+  Milestone, Hard and Super Hard levels MUST get stronger review in every tier. Every base picture MUST be reviewed by a person for recognizability and gameplay usability before any level uses it. Pictures may be hand-drawn, generated, or generated and then edited.
 - **FR-085**: Economy values, ad cadence, rewards, feature flags and store offers MUST be tunable remotely without an app release. Core puzzle rules and shipped level definitions MUST NOT be remotely mutable, except through versioned content updates.
 - **FR-086**: The team MUST be able to see per-level start, win, jam and booster-use rates for difficulty tuning. Every crash or error report MUST include the app version, level number and content version.
 
@@ -606,16 +638,16 @@ Buffer-pressure targets (peak number of occupied slots):
 
 Layout principles:
 
-- The board looks full.
-- Matching tiles form organic clusters rather than rectangles: blobs, rings, snakes, pockets, nested shapes and branches.
-- Outer regions shield inner ones, so the order of pods matters.
+- The board looks full and reads as a picture of its subject.
+- The picture's color regions form the tile clusters: the outline, the parts of the subject and the background. Subjects with organic shapes (petals, leaves, rounded objects) are preferred over rectangular blocks.
+- Outer regions shield inner ones, so the order of pods matters. The generator picks pictures and mappings whose nesting fits the band's target difficulty.
 - One variant's demand is usually split into several pods.
 - Difficulty comes from source ordering and dependencies, never from tile hit points.
 
 ### Key Entities
 
-- **Level definition**: level number, definition version, seed, content version, picture, board mask, Garden Entries, active variant set, cells and layers, specials, Source stacks and pods, keys and locks, connections, difficulty class and score, solution trace(s), reward profile.
-- **Picture**: the subject of a level and its finished (restored) image. It may be reused across levels in different forms, subject to FR-006 and FR-083.
+- **Level definition**: level number, definition version, seed, content version, base picture, role-to-variant mapping, mirroring, board mask, Garden Entries, active variant set, cells and layers, specials, Source stacks and pods, keys and locks, connections, difficulty class and score, solution trace(s), reward profile.
+- **Base picture**: a subject with a grid of color roles (at most 14×16), an optional background region, a finished (restored) look, tags (theme, season, suitable bands) and a review status. It may be reused across levels (FR-006, FR-083).
 - **Bloomling family**: Sprig, Bloom, Drop or Twig. A character and animation family.
 - **Target variant**: the exact matching type. It has a family, color, icon, tile art and pod skin.
 - **Cell / tile-layer**: a board position with its content and an ordered stack of layers.
@@ -635,7 +667,7 @@ Layout principles:
 
 - **SC-001**: In playtests, at least 90% of first-time players finish Level 1 within 2 minutes of first launch without outside help.
 - **SC-002**: After Level 10, at least 80% of playtesters can explain in their own words when a level jams.
-- **SC-003**: In a glance test with 6 active variants on a 14×16 board, players identify the exact variant of any tile with at least 95% accuracy, and confuse same-family siblings in under 2% of answers. The same test passes under a colorblind simulation.
+- **SC-003**: In a glance test with 6 active variants on a 14×16 board, players identify the exact variant of any tile with at least 95% accuracy, and confuse same-family siblings in under 2% of answers. They also tell active tiles apart from restored (open) cells with at least 95% accuracy. The same test passes under a colorblind simulation.
 - **SC-004**: 100% of the 5000+ launch levels pass every invariant in FR-080 before release.
 - **SC-005**: Replaying a stored tap sequence gives an identical outcome in 100% of automated replays, across devices and at both 1× and 2× speed.
 - **SC-006**: Median completion times fall within the band targets: tutorial 20–45 s, Normal 45–120 s, Hard 2–4 min.
@@ -644,9 +676,10 @@ Layout principles:
 - **SC-009**: Progress survives app restarts in 100% of test cases. Permanent purchases are restorable in 100% of test cases.
 - **SC-010**: At least 60% of new players reach Level 10 (the Leaderboard unlock) in their first session.
 - **SC-011**: The same level number shows an identical level on every tested device and account (100% match).
-- **SC-012**: No base picture repeats within any 50 consecutive levels of the catalog.
+- **SC-012**: Levels 1–100 use 100 different base pictures, and no base picture repeats within any 50 consecutive levels of the catalog.
 - **SC-013**: In ad-placement tests, no interstitial is ever shown during a level, right after a failure, or before Level 11.
 - **SC-014**: In playtest surveys, the game averages at least 4 out of 5 for "easy to understand" and for "relaxing".
+- **SC-015**: In a recognition test, at least 80% of players correctly name a level's subject from the board at level start, before any tile is cleared.
 
 ## Assumptions
 
@@ -658,6 +691,10 @@ Layout principles:
   - FR-045: Return goes to the top of the original stack;
   - FR-062: leaderboard tie-break by time;
   - FR-064: the daily challenge is the same for all players.
+
+  The picture-first mosaic (FR-006 and FR-079, answer A) replaces the silhouette-first approach in doc 05 §5, doc 06
+  §1, §5 and §7–8, and doc 12 §10. Those documents should be updated to match. Doc 10 already matches the no-lives
+  answer.
 - **Open decisions** in the documents, and the defaults used here:
   - Level 8: Mystery if fair, otherwise Key.
   - Bloom Burst: full variant removal (FR-050).
@@ -667,6 +704,7 @@ Layout principles:
   - Level 40 cosmetic: to be decided.
   - Variants entering at L45/L200: to be decided.
 - **Platforms**: Android and iOS phones, portrait. The high-level technical direction in doc 15 (Unity/C#, deterministic simulation, offline generator and solver, lightweight backend) is input for planning, not part of this spec.
+- **Picture library**: if each base picture is used in at most about 5 levels, a 5000-level catalog needs roughly 1000–1500 base pictures. The exact size and sourcing (drawn, generated, or generated and edited) are decided in planning.
 - **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 coins, a booster costs roughly 40–60.
 - **Out of scope for launch** (doc 14):
   - world map, room builder, PvP, clans, narrative campaign;

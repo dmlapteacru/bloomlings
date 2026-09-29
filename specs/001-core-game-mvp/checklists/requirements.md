@@ -13,13 +13,13 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
 - [x] All acceptance scenarios are defined
 - [x] Edge cases are identified
-- [ ] Scope is clearly bounded
+- [x] Scope is clearly bounded
 - [x] Dependencies and assumptions identified
 
 ## Feature Readiness
@@ -31,17 +31,22 @@
 
 ## Notes
 
-- **Iteration 1** (first draft):
-  - Rewrote the unmeasurable wording in FR-022, FR-026, FR-041, FR-044 and FR-055.
-  - Two questions were open: cell types, and release scope.
-- **Iteration 2** (after the 2026-09-29 answers and the v0.5 product documents 01–15):
-  - The spec was rewritten around the documents: families vs exact target variants, 5000+ deterministic levels, linear Level N with no groupings, the F2P layer, and the unlock roadmap.
-  - The first-draft questions were resolved and recorded under *Clarifications*.
+- **Iteration 1** (first draft): rewrote the unmeasurable wording in FR-022, FR-026, FR-041, FR-044 and FR-055. Two
+  questions were open: cell types, and release scope.
+- **Iteration 2** (after the first answers and the v0.5 product documents 01–15):
+  - The spec was rewritten around the documents.
+  - The first questions were resolved.
   - "About" wording in FR-008 and FR-059 was replaced with measurable ranges.
-  - The Unity/C# technology choice from doc 15 is kept out of the requirements and mentioned only as planning input in *Assumptions*.
-- **Open markers**: two, both waiting for the product owner.
-  - FR-006: what exactly makes a level a picture.
-  - FR-040: lives vs no lives. Answer B conflicts with doc 10's "No lives baseline".
-
-  "Scope is clearly bounded" stays unchecked until FR-040 decides whether a lives/energy system is part of launch.
-- Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`.
+  - The doc 15 technology choice is kept only as planning input in *Assumptions*.
+- **Iteration 3** (answers of 2026-09-29: Q1 = A, Q2 = A):
+  - **FR-006** now defines picture-first mosaic levels: a base picture with color roles, a role-to-variant mapping,
+    the top layer following the picture, and reuse rules.
+  - **FR-007** now defines the finished-picture reveal.
+  - **FR-079**, **FR-083** and **FR-084** now cover picture-first generation, picture repetition limits and picture
+    review.
+  - **FR-040** now fixes "no lives": attempts are free and restarts unlimited.
+  - Added US3 scenarios 6–7, two picture-related edge cases, SC-015 (subject recognition), and the active-vs-restored
+    distinction to SC-003.
+  - Every item passes.
+- **Follow-up outside this spec**: product docs 05 §5, 06 §1/§5/§7–8 and 12 §10 still describe silhouette-first
+  masks. They should be updated to the picture-first decision (see *Assumptions → Precedence*).
