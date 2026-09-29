@@ -1,0 +1,176 @@
+using System.Collections.Generic;
+using Bloomlings.Client.Art;
+using Bloomlings.Client.Art.Variants;
+using Bloomlings.Client.UI;
+using Bloomlings.Core.Boards;
+using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Simulation;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Bloomlings.Client.Gameplay.Board
+{
+    /// <summary>
+    /// The board (T041): fits up to 14×16 cells into the board area without scrolling or zooming (FR-008), draws the
+    /// finished picture under the tiles (T042), and marks the Garden Entries on the board edge. Its visual state
+    /// follows the event timeline, not the logical state, so tiles change when their Bloomling arrives (R4).
+    /// </summary>
+    public sealed class BoardView : MonoBehaviour
+    {
+        private readonly List<TileView> _tiles = new List<TileView>();
+        private readonly List<(Image Marker, EntryDef Entry)> _entries = new List<(Image, EntryDef)>();
+        private RectTransform _area = null!;
+        private RectTransform _grid = null!;
+        private FinishedPictureRenderer _picture = null!;
+        private VariantVisualCatalog? _visuals;
+        private int _width;
+        private int _height;
+
+        /// <summary>Side length of one cell in canvas units.</summary>
+        public float CellSize { get; private set; }
+
+        /// <summary>The rect holding tiles, picture and workers; its origin is the bottom-left cell corner.</summary>
+        public RectTransform Grid => _grid;
+
+        public static BoardView Create(RectTransform area, VariantVisualCatalog? visuals)
+        {
+            var view = area.gameObject.AddComponent<BoardView>();
+            view._area = area;
+            view._visuals = visuals;
+            view._grid = UiFactory.CreateRect("Grid", area);
+            view._picture = view._grid.gameObject.AddComponent<FinishedPictureRenderer>();
+            return view;
+        }
+
+        public void Build(LevelView view, LevelDefinition definition, BasePicture picture)
+        {
+            foreach (TileView tile in _tiles)
+            {
+                Destroy(tile.gameObject);
+            }
+
+            _tiles.Clear();
+            foreach ((Image marker, EntryDef _) in _entries)
+            {
+                Destroy(marker.gameObject);
+            }
+
+            _entries.Clear();
+            _width = view.Width;
+            _height = view.Height;
+            Layout();
+            _picture.Build(definition, picture, _visuals, _grid);
+
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    var cell = new CellPos(x, y);
+                    TileView tile = TileView.Create(_grid, cell, _visuals);
+                    _tiles.Add(tile);
+                    Refresh(view, cell);
+                }
+            }
+
+            foreach (EntryDef entry in view.Entries)
+            {
+                Image marker = UiFactory.CreateImage("Entry", _grid, ProceduralSprites.Ring, UiTheme.EntryMarker);
+                _entries.Add((marker, entry));
+            }
+
+            Layout();
+        }
+
+        /// <summary>Canvas position of a cell center inside <see cref="Grid"/>.</summary>
+        public Vector2 CellCenter(CellPos cell) => new Vector2((cell.X + 0.5f) * CellSize, (cell.Y + 0.5f) * CellSize);
+
+        /// <summary>Where Bloomlings emerge: just outside the board edge next to the entry cell.</summary>
+        public Vector2 EntryPoint(EntryDef entry)
+        {
+            Vector2 c = CellCenter(entry.Cell);
+            return entry.Side switch
+            {
+                EntrySide.Bottom => c + new Vector2(0f, -CellSize * 0.85f),
+                EntrySide.Top => c + new Vector2(0f, CellSize * 0.85f),
+                EntrySide.Left => c + new Vector2(-CellSize * 0.85f, 0f),
+                _ => c + new Vector2(CellSize * 0.85f, 0f),
+            };
+        }
+
+        /// <summary>Redraws one cell from the logical state (used on build and restart).</summary>
+        public void Refresh(LevelView view, CellPos cell)
+        {
+            TileView tile = Tile(cell);
+            CellInfo info = view.Cell(cell);
+            switch (info.Kind)
+            {
+                case CellKind.Target:
+                    tile.ShowTarget(info.Visible, info.Next, info.KeyId);
+                    break;
+                case CellKind.Stone:
+                case CellKind.Special:
+                    tile.ShowStone();
+                    break;
+                default:
+                    tile.ShowOpen();
+                    break;
+            }
+        }
+
+        /// <summary>A layer was cleared and the next one is visible (applied when the worker arrives).</summary>
+        public void ShowLayer(CellPos cell, Core.Variants.VariantId newTop, LevelView view)
+        {
+            CellInfo info = view.Cell(cell);
+            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop ? info.Next : null, null);
+        }
+
+        public void ShowOpened(CellPos cell) => Tile(cell).ShowOpen();
+
+        public void ShowMysteryRevealed(CellPos cell, Core.Variants.VariantId variant) => Tile(cell).ShowTarget(variant, null, null);
+
+        public void RevealAll()
+        {
+            foreach (TileView tile in _tiles)
+            {
+                if (tile.Shown.HasValue)
+                {
+                    tile.ShowOpen();
+                }
+            }
+
+            _picture.RevealAll();
+        }
+
+        private TileView Tile(CellPos cell) => _tiles[(cell.Y * _width) + cell.X];
+
+        private void Layout()
+        {
+            Rect area = _area.rect;
+
+            // One cell of margin below for the entry markers; the rest fits the board by its aspect ratio.
+            CellSize = Mathf.Floor(Mathf.Min(area.width / _width, area.height / (_height + 1f)));
+            _grid.anchorMin = new Vector2(0.5f, 0.5f);
+            _grid.anchorMax = new Vector2(0.5f, 0.5f);
+            _grid.pivot = new Vector2(0.5f, 0.5f);
+            _grid.sizeDelta = new Vector2(_width * CellSize, _height * CellSize);
+            _grid.anchoredPosition = new Vector2(0f, CellSize * 0.5f);
+            foreach (TileView tile in _tiles)
+            {
+                UiFactory.PlaceAbsolute((RectTransform)tile.transform, CellCenter(tile.Cell), Vector2.one * CellSize * 0.96f);
+            }
+
+            foreach ((Image marker, EntryDef entry) in _entries)
+            {
+                UiFactory.PlaceAbsolute(marker.rectTransform, EntryPoint(entry), Vector2.one * CellSize * 0.8f);
+            }
+        }
+
+        private void OnRectTransformDimensionsChange()
+        {
+            if (_width > 0 && _grid != null)
+            {
+                Layout();
+            }
+        }
+    }
+}

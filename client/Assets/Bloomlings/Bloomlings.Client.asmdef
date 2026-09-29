@@ -6,7 +6,8 @@
     "Bloomlings.Content",
     "Bloomlings.Solver",
     "Unity.TextMeshPro",
-    "Unity.Localization"
+    "Unity.Localization",
+    "Unity.InputSystem"
   ],
   "includePlatforms": [],
   "excludePlatforms": [],

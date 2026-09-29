@@ -8,9 +8,9 @@ using Bloomlings.Core.Variants;
 namespace Bloomlings.Core.Simulation
 {
     /// <summary>What the player can see of one cell. Hidden mystery variants are never exposed (FR-039).</summary>
-    public readonly struct CellView
+    public readonly struct CellInfo
     {
-        public CellView(CellKind kind, VariantId? visible, VariantId? next, int remainingLayers, bool mysteryHidden, string? keyId, string? specialId, bool isEntry)
+        public CellInfo(CellKind kind, VariantId? visible, VariantId? next, int remainingLayers, bool mysteryHidden, string? keyId, string? specialId, bool isEntry)
         {
             Kind = kind;
             Visible = visible;
@@ -42,9 +42,9 @@ namespace Bloomlings.Core.Simulation
     }
 
     /// <summary>What the player can see of one pod (FR-012, FR-013).</summary>
-    public readonly struct PodView
+    public readonly struct PodInfo
     {
-        public PodView(string id, VariantId? variant, int remaining, PodLocation location, int slotIndex, bool locked, bool mystery, string? connectedGroupId)
+        public PodInfo(string id, VariantId? variant, int remaining, PodLocation location, int slotIndex, bool locked, bool mystery, string? connectedGroupId)
         {
             Id = id;
             Variant = variant;
@@ -102,16 +102,16 @@ namespace Bloomlings.Core.Simulation
         /// <summary>Remaining tile-layers on the whole board, visible and hidden.</summary>
         public int RemainingWork => State.Board.CountAllLayers();
 
-        public CellView Cell(CellPos pos) => Cell(State.Board.IndexOf(pos));
+        public CellInfo Cell(CellPos pos) => Cell(State.Board.IndexOf(pos));
 
-        public CellView Cell(int index)
+        public CellInfo Cell(int index)
         {
             Board board = State.Board;
             CellKind kind = board.KindAt(index);
             bool hidden = board.IsMysteryHidden(index);
             VariantId? visible = kind == CellKind.Target && !hidden ? board.TopLayer(index) : (VariantId?)null;
             VariantId? next = kind == CellKind.Target && !hidden ? board.NextLayer(index) : null;
-            return new CellView(kind, visible, next, board.RemainingLayers(index), hidden, board.KeyAt(index), board.SpecialAt(index), board.IsEntryCell(index));
+            return new CellInfo(kind, visible, next, board.RemainingLayers(index), hidden, board.KeyAt(index), board.SpecialAt(index), board.IsEntryCell(index));
         }
 
         public int SlotCapacity => WaitingSlots.Capacity;
@@ -155,12 +155,12 @@ namespace Bloomlings.Core.Simulation
             }
         }
 
-        public PodView Pod(string podId)
+        public PodInfo Pod(string podId)
         {
             int pod = State.PodIndex[podId];
             PodDef def = State.PodDefs[pod];
             PodRuntime runtime = State.Pods[pod];
-            return new PodView(
+            return new PodInfo(
                 def.Id,
                 runtime.VariantRevealed ? def.Variant : (VariantId?)null,
                 runtime.Remaining,

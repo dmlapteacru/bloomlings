@@ -1,0 +1,67 @@
+using System;
+using System.Collections.Generic;
+using Bloomlings.Client.UI;
+using Bloomlings.Core.Simulation;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Bloomlings.Client.UI.Screens
+{
+    /// <summary>
+    /// The Jam screen (FR-027, T051). It covers only the bottom of the screen, so the board stays visible. It lists the
+    /// eligible recoveries (boosters with US5, the rewarded rescue with US6) and Restart. It never opens the Store.
+    /// </summary>
+    public sealed class JamScreen : MonoBehaviour
+    {
+        private GameObject _root = null!;
+        private TextMeshProUGUI _title = null!;
+        private RectTransform _options = null!;
+        private Action<Recovery> _onRecovery = _ => { };
+
+        public static JamScreen Create(Transform parent, Action onRestart, Action<Recovery> onRecovery)
+        {
+            Image panel = UiFactory.CreateImage("JamScreen", parent, Art.ProceduralSprites.RoundedSquare, UiTheme.Panel, raycast: true);
+            UiFactory.Place(panel.rectTransform, 0.05f, 0.03f, 0.95f, 0.30f);
+            var screen = panel.gameObject.AddComponent<JamScreen>();
+            screen._root = panel.gameObject;
+            screen._onRecovery = onRecovery;
+            screen._title = UiFactory.CreateText("Title", panel.transform, "No room left!", 64f, UiTheme.Warning);
+            UiFactory.Place(screen._title.rectTransform, 0f, 0.74f, 1f, 0.96f);
+            screen._options = UiFactory.Place(UiFactory.CreateRect("Recoveries", panel.transform), 0.05f, 0.40f, 0.95f, 0.72f);
+            Button restart = UiFactory.CreateButton("Restart", panel.transform, "Restart", UiTheme.Text, onRestart);
+            UiFactory.Place((RectTransform)restart.transform, 0.25f, 0.06f, 0.75f, 0.34f);
+            panel.gameObject.SetActive(false);
+            return screen;
+        }
+
+        public void Show(bool stuck, IReadOnlyList<Recovery> recoveries)
+        {
+            _title.text = stuck ? "No pod can move!" : "No room left!";
+            for (int i = _options.childCount - 1; i >= 0; i--)
+            {
+                Destroy(_options.GetChild(i).gameObject);
+            }
+
+            float width = recoveries.Count == 0 ? 0f : 1f / recoveries.Count;
+            for (int i = 0; i < recoveries.Count; i++)
+            {
+                Recovery recovery = recoveries[i];
+                Button button = UiFactory.CreateButton(recovery.ToString(), _options, Label(recovery), UiTheme.Accent, () => _onRecovery(recovery), 40f);
+                UiFactory.Place((RectTransform)button.transform, (i * width) + 0.01f, 0f, ((i + 1) * width) - 0.01f, 1f);
+            }
+
+            _root.SetActive(true);
+        }
+
+        public void Hide() => _root.SetActive(false);
+
+        private static string Label(Recovery recovery) => recovery switch
+        {
+            Recovery.ExtraSlot => "Extra Slot",
+            Recovery.Shuffle => "Shuffle",
+            Recovery.Return => "Return",
+            _ => "Bloom Burst",
+        };
+    }
+}

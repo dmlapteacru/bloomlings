@@ -108,7 +108,7 @@ namespace Bloomlings.Core.Tests.Properties
             var remaining = new Dictionary<VariantId, int>();
             foreach (PodDef pod in session.Definition.Pods)
             {
-                PodView view = session.View.Pod(pod.Id);
+                PodInfo view = session.View.Pod(pod.Id);
                 if (view.Location == PodLocation.Tray || view.Location == PodLocation.Slot)
                 {
                     remaining[pod.Variant] = (remaining.TryGetValue(pod.Variant, out int n) ? n : 0) + view.Remaining;

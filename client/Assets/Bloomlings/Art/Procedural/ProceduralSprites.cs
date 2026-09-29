@@ -1,0 +1,164 @@
+using System;
+using System.Collections.Generic;
+using Bloomlings.Core.Variants;
+using UnityEngine;
+
+namespace Bloomlings.Client.Art
+{
+    /// <summary>
+    /// Placeholder flat art generated at runtime from signed distance functions: tile and panel shapes, one distinct
+    /// icon per variant (leaf, moss tuft, flower, bud, wave, dew droplet, log, acorn, …) and one silhouette per family.
+    /// Every variant has its own shape, so hue never carries meaning alone (FR-005, FR-072). Final art replaces these
+    /// through <see cref="Variants.VariantVisualCatalog"/>.
+    /// </summary>
+    public static class ProceduralSprites
+    {
+        private const int IconSize = 96;
+        private static readonly Dictionary<string, Sprite> Cache = new Dictionary<string, Sprite>(StringComparer.Ordinal);
+
+        /// <summary>A white rounded square with a 9-slice border.</summary>
+        public static Sprite RoundedSquare => Get("rounded", 64, (x, y) => RoundedBox(x, y, 0f, 0f, 1f, 1f, 0.35f), border: 22f);
+
+        public static Sprite Circle => Get("circle", 64, (x, y) => Length(x, y) - 1f);
+
+        /// <summary>A soft ring used for the Garden Entry marker and highlights.</summary>
+        public static Sprite Ring => Get("ring", 64, (x, y) => Mathf.Abs(Length(x, y) - 0.8f) - 0.14f);
+
+        public static Sprite Lock => Get("lock", IconSize, (x, y) => Min(
+            RoundedBox(x, y, 0f, -0.3f, 0.62f, 0.5f, 0.12f),
+            Mathf.Abs(Length(x, y - 0.25f) - 0.36f) - 0.1f + Step(y < 0.2f)));
+
+        public static Sprite Key => Get("key", IconSize, (x, y) => Min(
+            Mathf.Abs(Length(x + 0.45f, y) - 0.32f) - 0.1f,
+            RoundedBox(x, y, 0.3f, 0f, 0.55f, 0.09f, 0.02f),
+            RoundedBox(x, y, 0.7f, -0.16f, 0.08f, 0.14f, 0.02f)));
+
+        public static Sprite Question => Get("question", IconSize, (x, y) => Min(
+            Mathf.Abs(Length(x, y - 0.3f) - 0.36f) - 0.1f + Step(y < 0.15f && x < 0.05f),
+            RoundedBox(x, y, 0f, -0.2f, 0.09f, 0.18f, 0.04f),
+            Length(x, y + 0.65f) - 0.12f));
+
+        /// <summary>The icon for a variant's <see cref="VariantInfo.IconId"/>.</summary>
+        public static Sprite Icon(string iconId) => iconId switch
+        {
+            "leaf" => Get("icon_leaf", IconSize, Leaf),
+            "moss" => Get("icon_moss", IconSize, (x, y) => Min(Length(x + 0.42f, y + 0.25f) - 0.36f, Length(x - 0.42f, y + 0.25f) - 0.36f, Length(x, y + 0.2f) - 0.42f, Length(x, y - 0.35f) - 0.3f)),
+            "flower" => Get("icon_flower", IconSize, Flower),
+            "bud" => Get("icon_bud", IconSize, (x, y) => Min(Length(x, y + 0.2f) - 0.5f, Triangle(x, y, 0.5f))),
+            "drop" => Get("icon_wave", IconSize, (x, y) => Min(Wave(x, y - 0.3f), Wave(x, y + 0.3f))),
+            "dew" => Get("icon_dew", IconSize, (x, y) => Max(Min(Length(x, y + 0.3f) - 0.45f, Triangle(x, y + 0.1f, 0.45f)), -(Length(x + 0.15f, y + 0.35f) - 0.12f))),
+            "log" => Get("icon_log", IconSize, (x, y) => Max(RoundedBox(x, y, 0f, 0f, 0.85f, 0.42f, 0.4f), -(Mathf.Abs(Length(x - 0.55f, y) - 0.2f) - 0.05f))),
+            "acorn" => Get("icon_acorn", IconSize, (x, y) => Min(Length(x, y + 0.2f) - 0.5f, RoundedBox(x, y, 0f, 0.35f, 0.6f, 0.2f, 0.18f), RoundedBox(x, y, 0f, 0.62f, 0.06f, 0.14f, 0.03f))),
+            "vine" => Get("icon_vine", IconSize, (x, y) => Mathf.Abs(Length(x, y) - 0.55f) - 0.12f + Step(x > 0.2f && y > 0f)),
+            "berry" => Get("icon_berry", IconSize, (x, y) => Min(Length(x + 0.3f, y + 0.2f) - 0.35f, Length(x - 0.3f, y + 0.2f) - 0.35f, Length(x, y - 0.3f) - 0.35f)),
+            "mist" => Get("icon_mist", IconSize, (x, y) => Min(RoundedBox(x, y, 0f, 0.45f, 0.8f, 0.1f, 0.1f), RoundedBox(x, y, 0.1f, 0f, 0.7f, 0.1f, 0.1f), RoundedBox(x, y, -0.1f, -0.45f, 0.7f, 0.1f, 0.1f))),
+            "bark" => Get("icon_bark", IconSize, (x, y) => Max(RoundedBox(x, y, 0f, 0f, 0.6f, 0.85f, 0.15f), -Min(RoundedBox(x, y, -0.25f, 0f, 0.05f, 0.6f, 0.03f), RoundedBox(x, y, 0.2f, 0.1f, 0.05f, 0.5f, 0.03f)))),
+            _ => Question,
+        };
+
+        /// <summary>The body silhouette of a Bloomling family (placeholder worker art, doc 12 §2).</summary>
+        public static Sprite Silhouette(Family family) => family switch
+        {
+            Family.Sprig => Get("fam_sprig", IconSize, (x, y) => Min(Length(x, y + 0.25f) - 0.55f, Leaf((x - 0.15f) * 2.2f, (y - 0.55f) * 2.2f) / 2.2f)),
+            Family.Bloom => Get("fam_bloom", IconSize, (x, y) => Min(Length(x, y + 0.25f) - 0.55f, Flower(x * 2.4f, (y - 0.5f) * 2.4f) / 2.4f)),
+            Family.Drop => Get("fam_drop", IconSize, (x, y) => Min(Length(x, y + 0.2f) - 0.58f, Triangle(x, y + 0.05f, 0.58f))),
+            _ => Get("fam_twig", IconSize, (x, y) => Min(RoundedBox(x, y, 0f, -0.15f, 0.42f, 0.7f, 0.35f), RoundedBox(x, y, 0.3f, 0.55f, 0.25f, 0.06f, 0.03f))),
+        };
+
+        private static float Leaf(float x, float y)
+        {
+            // A lens (two intersecting circles), tilted 45°.
+            const float c = 0.70710678f;
+            float u = (c * x) + (c * y);
+            float v = (-c * x) + (c * y);
+            return Max(Length(u - 0.5f, v) - 0.9f, Length(u + 0.5f, v) - 0.9f);
+        }
+
+        private static float Flower(float x, float y)
+        {
+            float d = float.MaxValue;
+            for (int i = 0; i < 5; i++)
+            {
+                float a = (Mathf.PI / 2f) + (i * 2f * Mathf.PI / 5f);
+                d = Mathf.Min(d, Length(x - (0.45f * Mathf.Cos(a)), y - (0.45f * Mathf.Sin(a))) - 0.35f);
+            }
+
+            return Max(d, -(Length(x, y) - 0.18f));
+        }
+
+        private static float Wave(float x, float y) => Mathf.Abs(y - (0.12f * Mathf.Sin(x * 5f))) - 0.12f + Step(Mathf.Abs(x) > 0.85f);
+
+        /// <summary>An upward-pointing triangle on top of a circle of radius r at the origin (a droplet tip).</summary>
+        private static float Triangle(float x, float y, float r) => Max(y - (r * 1.9f), Mathf.Abs(x) * 1.6f + y - (r * 1.9f), -y);
+
+        private static float RoundedBox(float x, float y, float cx, float cy, float hx, float hy, float radius)
+        {
+            float qx = Mathf.Abs(x - cx) - hx + radius;
+            float qy = Mathf.Abs(y - cy) - hy + radius;
+            return Length(Mathf.Max(qx, 0f), Mathf.Max(qy, 0f)) + Mathf.Min(Mathf.Max(qx, qy), 0f) - radius;
+        }
+
+        private static float Length(float x, float y) => Mathf.Sqrt((x * x) + (y * y));
+
+        private static float Min(params float[] values)
+        {
+            float m = float.MaxValue;
+            foreach (float v in values)
+            {
+                m = Mathf.Min(m, v);
+            }
+
+            return m;
+        }
+
+        private static float Max(params float[] values)
+        {
+            float m = float.MinValue;
+            foreach (float v in values)
+            {
+                m = Mathf.Max(m, v);
+            }
+
+            return m;
+        }
+
+        /// <summary>Pushes a region outside a shape (used to cut shapes).</summary>
+        private static float Step(bool outside) => outside ? 10f : 0f;
+
+        private static Sprite Get(string key, int size, Func<float, float, float> sdf, float border = 0f)
+        {
+            if (Cache.TryGetValue(key, out Sprite sprite))
+            {
+                return sprite;
+            }
+
+            var texture = new Texture2D(size, size, TextureFormat.RGBA32, false)
+            {
+                name = key,
+                filterMode = FilterMode.Bilinear,
+                wrapMode = TextureWrapMode.Clamp,
+                hideFlags = HideFlags.DontSave,
+            };
+            var pixels = new Color32[size * size];
+            float pixel = 2f / size;
+            for (int py = 0; py < size; py++)
+            {
+                for (int px = 0; px < size; px++)
+                {
+                    float x = ((px + 0.5f) * pixel) - 1f;
+                    float y = ((py + 0.5f) * pixel) - 1f;
+                    float d = sdf(x * 1.08f, y * 1.08f);
+                    float alpha = Mathf.Clamp01(0.5f - (d / pixel));
+                    pixels[(py * size) + px] = new Color32(255, 255, 255, (byte)(alpha * 255f));
+                }
+            }
+
+            texture.SetPixels32(pixels);
+            texture.Apply(false, true);
+            sprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, new Vector4(border, border, border, border));
+            sprite.name = key;
+            Cache[key] = sprite;
+            return sprite;
+        }
+    }
+}
