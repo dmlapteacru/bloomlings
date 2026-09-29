@@ -61,10 +61,17 @@ namespace Bloomlings.Pipeline.Validation
         }
 
         /// <summary>
-        /// Whether the Level Band Guidelines are checked (board, pods, work, pod size, families; default on). Only test
-        /// fixtures built on small pictures turn it off; the variant count and layer depth rules always apply.
+        /// Whether the Level Band Guidelines are checked (variant count, board, pods, work, pod size, families; default
+        /// on). Off only for test fixtures built on small pictures and for the Daily Challenge pool, whose numbers are
+        /// pool indexes; the readability and layer depth rules always apply.
         /// </summary>
         public bool CheckBandGuidelines { get; set; } = true;
+
+        /// <summary>
+        /// Whether the level-sequence rules run (FR-083 similarity, the families window; default on). Off for the Daily
+        /// Challenge pool, whose numbers are pool indexes, not Level N.
+        /// </summary>
+        public bool CheckSequences { get; set; } = true;
 
         /// <param name="levels">The catalog (any order); FR-083 checks look at level-number neighbours.</param>
         /// <param name="solveOnly">When set, only these levels are solved (the others still take part in FR-083).</param>
@@ -89,7 +96,11 @@ namespace Bloomlings.Pipeline.Validation
                 }
             }
 
-            ValidateSequences(sorted, report);
+            if (CheckSequences)
+            {
+                ValidateSequences(sorted, report);
+            }
+
             return report;
         }
 
@@ -303,7 +314,11 @@ namespace Bloomlings.Pipeline.Validation
             }
 
             (int min, int max) = VariantRange(n, level.Difficulty.Class);
-            if (variants.Count == 7 && n > 500)
+            if (!CheckBandGuidelines)
+            {
+                passed.Add("variant-count");
+            }
+            else if (variants.Count == 7 && n > 500)
             {
                 Warning(report, n, "variant-count", "7 variants: exceptional, needs the readability sign-off (FR-004)");
             }

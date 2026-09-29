@@ -66,8 +66,9 @@ jobs:
         with:
           global-json-file: core/global.json
 
-      # Android reads levels only from published packs. Playtest content: the curated Levels 1–10 (later levels repeat
-      # them until the catalog grows); draft pictures are packed as marked previews.
+      # Android reads levels only from published packs. Playtest content: the curated Levels 1–10; publish validates
+      # them first (the release gate), and a build with packs is a release build, so it stops after Level 10 ("More
+      # levels soon") until the catalog grows. Draft pictures are packed as marked previews.
       - name: Publish playtest content
         if: inputs.target == 'game'
         run: dotnet run --project core/src/Bloomlings.Pipeline -c Release -- publish --catalog content/curated --content-version 1 --allow-draft --out build/content

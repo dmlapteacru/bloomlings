@@ -10,6 +10,7 @@ using Bloomlings.Core.Variants;
 using Bloomlings.Generator;
 using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Catalog;
+using Bloomlings.Pipeline.Commands;
 using Bloomlings.Pipeline.Validation;
 using Bloomlings.Solver;
 using NUnit.Framework;
@@ -167,6 +168,29 @@ namespace Bloomlings.Generator.Tests
 
             // As L51 its 3 variants are too few (5 in the core completion band).
             Assert.That(Validate(three with { LevelNumber = 51 }).Any(i => i.IsError && i.Check == "variant-count"), Is.True);
+        }
+
+        [Test]
+        public void ThePublishGate_RefusesAnInvalidCatalog_AndChecksTheDailyPoolByItself()
+        {
+            string lib = Path.Combine(RepoRoot, "content", "pictures", "lib");
+            string pairs = Path.Combine(RepoRoot, "content", "readability", "approved-pairs.json");
+            List<LevelDefinition> curated = ContentStore.LoadLevels(Path.Combine(RepoRoot, "content", "curated")).Select(l => l.Level).ToList();
+
+            Assert.That(CatalogCommands.GateIssues(lib, pairs, 20000, curated, Array.Empty<LevelDefinition>()).Where(i => i.IsError), Is.Empty);
+
+            // One Water tile too many in a pod: exact accounting fails, so the gate stops the publish.
+            LevelDefinition three = curated[2];
+            PodDef first = three.Pods[0];
+            var broken = curated.Select(l => l.LevelNumber == 3 ? three with { Pods = three.Pods.Select(p => p == first ? p with { Count = p.Count + 1 } : p).ToList() } : l).ToList();
+            Assert.That(CatalogCommands.GateIssues(lib, pairs, 20000, broken, Array.Empty<LevelDefinition>()).Any(i => i.IsError && i.Level == 3 && i.Check == "accounting"), Is.True);
+
+            // A daily pool numbered by pool index is not held to Level N's band rules or FR-083 windows: L3 three times
+            // as entries 1–3 would repeat its picture and have 3 variants at "L1" in the catalog.
+            List<LevelDefinition> pool = Enumerable.Range(1, 3).Select(i => three with { LevelNumber = i }).ToList();
+            Assert.That(Validate(pool.ToArray()).Any(i => i.IsError && (i.Check == "similarity" || i.Check == "variant-count")), Is.True, "as catalog levels");
+            List<LevelIssue> daily = CatalogCommands.GateIssues(lib, pairs, 20000, curated, pool);
+            Assert.That(daily.Where(i => i.IsError), Is.Empty, string.Join("; ", daily.Where(i => i.IsError).Select(i => $"L{i.Level} {i.Check}: {i.Message}")));
         }
 
         [Test]

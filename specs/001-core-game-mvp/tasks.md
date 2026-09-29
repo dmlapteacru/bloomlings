@@ -33,6 +33,8 @@ has actually run, not just been written:
   not change it and a Jam screen that did not come back (T113–T121, T130), consent mapping (T127), IAP orders confirmed
   without a grant and receipt replay across accounts (T131, T132), a player-writable leaderboard state (T140), the
   daily reward clock exploit and repeatable ad bonuses (T130, T134), and Level N+1 replaying Level 1 in release builds.
+- Completed by the audit: the generator and validator follow the Level Band Guidelines (T080, T087, T089; the 9
+  showcases were regenerated), and `publish` validates the whole catalog before it writes anything (T081).
 - Not in the plan and never implemented: sound, music and haptics (the Settings toggles had nothing to control).
 - The 13 pictures marked `approved` were approved by the implementing agent, not by a person (see T067).
 - Known deviations from plan.md and research.md: uGUI instead of the URP 2D renderer (R1), no Addressables (R6), no
@@ -657,6 +659,10 @@ Quickstart §2–§4 must pass.
     no Source layout signature (stack count plus ordered pod counts per stack) repeats within 50 levels;
   - the data-model rules: keys and locks pair 1:1, at most 1 locked slot and only from L80, layer depth ≤ 2 before
     L125 and ≤ 3 after, 2–6 stacks, and connected members at the same depth.
+  Fixed (Audit 2026-09-29): the Level Band Guidelines were only partly checked (variant counts, and not as the roadmap moves
+  them). Now `BandGuidelines` drives the variant count (L26–31 4, L51–100 5 with 6 in Hard from L70, …), and the
+  validator checks board size, Source Pod count, work by class and pods of 5+ tiles by band, and all four families in
+  any 5 levels from L20. The typical duration is not checked: the solver's estimate is uncalibrated until playtests.
 - [X] T081 [US3] Implement the CLI in `core/src/Bloomlings.Pipeline/Program.cs` and `Commands/*.cs`, following
   `contracts/pipeline-cli.md`:
   - commands: `pictures import`, `pictures validate`, `readability`, `solve`, `validate` (`--changed-only` uses
@@ -664,6 +670,9 @@ Quickstart §2–§4 must pass.
   - exit codes 0/1/2 and `--json` output;
   - `score` reports the per-100-level class counts from L11 (Hard 15–25, Super Hard 6–10) and checks that the level
     after a Super Hard is Normal (FR-059).
+  Fixed (Audit 2026-09-29): `publish` wrote packs without validating, although plan.md says it refuses failing
+  catalogs. It now runs the validator over the whole catalog (the daily pool level by level) and exits 1 on any
+  error; `--allow-draft` tolerates only unapproved pictures.
 - [X] T082 [US3] Implement `core/src/Bloomlings.Pipeline/Review/ReviewRenderer.cs` and `PngWriter.cs`. For each level
   it renders a board PNG (variant colors plus icon letters) and a finished-picture PNG. It builds `index.html` with
   metrics and flags for manual QA tiers (FR-084), for the `review` command.
@@ -683,6 +692,8 @@ Quickstart §2–§4 must pass.
 - [X] T087 [US3] Implement `core/src/Bloomlings.Generator/PodPartitioner.cs`. It splits each variant's demand along
   the planned waves into pods within the size classes: small 5–15, medium 16–40, large 41–100, exceptional 100+
   (R9 step 6, doc 05 §12).
+  Fixed (Audit 2026-09-29): pods of 1–4 tiles were produced (66 of 841 in the previews). A small wave now joins the nearest pod of
+  its variant, and splits never go under 5.
 - [X] T088 [US3] Implement `core/src/Bloomlings.Generator/TrayBuilder.cs`:
   - place the planned pods round-robin across the stacks;
   - inject difficulty: tempting premature pods and buried needs;
@@ -693,6 +704,12 @@ Quickstart §2–§4 must pass.
   Status: the orchestrator is `core/src/Bloomlings.Generator/LevelGenerator.cs`. Tray tuning searches with a
   10k-node budget (a trace found within it is the one the full budget finds). `generate --history <batch>` chains
   unpublished preview batches for the FR-083 windows, and `--allow-draft` generates previews from draft pictures.
+  Fixed (Audit 2026-09-29): the profiles' buffer-pressure and Hard pressure targets were loaded but never used, work ranges
+  ignored the class, and the roadmap's L70 (6-variant Hard), L125 (depth 3), L175 (advanced combinations), L225
+  (advanced Hard) and L20 (all four families) rows had no effect. The generator (gen-1.1.0) now applies the profile
+  and the guidelines together per level and class, checks the winning line's peak slot use against the pressure
+  target, allows 3 mechanics from L175, and presses Hard levels critically from L225. The 9 showcase levels were
+  regenerated with it. The playtest levels in `playtest/content/levels` predate it.
 - [X] T090 [US3] Create the generation profiles `content/profiles/band-0011-0025.json`, `band-0026-0050.json`,
   `band-0051-0100.json`, `band-0101-0250.json`, `band-0251-0500.json`, `band-0501-1000.json`,
   `band-1001-2000.json`, `band-2001-5000.json` and `daily.json`, plus `content/profiles/difficulty-thresholds.json`.

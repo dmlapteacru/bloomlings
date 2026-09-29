@@ -15,7 +15,9 @@ combination). The Key preview is curated Level 8 (`content/curated/level-0008.js
 | 80 | Locked slot | band-0051-0100 |
 | 90 | Mystery tile (optional) | band-0051-0100 |
 
-They were produced with the generator in showcase mode (only the new mechanic, Normal class), for example:
+They were produced with the generator in showcase mode (only the new mechanic, Normal class), and regenerated on
+2026-09-29 with `gen-1.1.0`, which follows the Level Band Guidelines (5+ tile pods, 5 variants from L51), for
+example:
 
 ```sh
 dotnet run --project core/src/Bloomlings.Pipeline -- generate --profile content/profiles/band-0011-0025.json \
