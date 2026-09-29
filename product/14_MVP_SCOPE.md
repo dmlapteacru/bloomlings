@@ -1,6 +1,6 @@
 # 14 — Launch / MVP Scope
 
-**Status:** DRAFT FOR LOCK  
+**Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** picture-first levels and picture library (§4, §8, §9; spec `001` FR-006).
 
 > v0.4 changes the content requirement substantially: the launch build must support **5000+ levels**, even though only the early portion is heavily handcrafted.

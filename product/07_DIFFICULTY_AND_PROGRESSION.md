@@ -1,6 +1,6 @@
 # 07 — Difficulty & Global Level Progression
 
-**Status:** DRAFT FOR LOCK  
+**Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** §4 aligned with the unlock roadmap in doc 13 and spec `001` (Hard label L5, Key L8, Stones L11).
 
 ## 1. Progression model

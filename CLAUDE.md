@@ -11,12 +11,12 @@ target variant. The level is lost when the slots jam. There are 4 character fami
 Bloom, Drop, Twig) and 8 exact target variants at launch (Leaf/Moss, Flower/Violet Bud,
 Water/Dew, Wood/Acorn). Progression is a linear sequence of 5000+ levels, with no map.
 
-## Current stage: pre-production, no code yet
+## Current stage: implementation of spec 001 (development gate open)
 
 - **Gameplay reference: Colony Flow! (ABI Games).** Keep its core gameplay idea, its simplicity,
   how it paces new levels and mechanics, and how simple and convenient its screen and level
   layouts are.
-- **Design docs: `product/` v0.5** ("draft for lock"). `LOCKED_CONCEPT_v0.5.md` is the summary,
+- **Design docs: `product/` v0.5** (LOCKED on 2026-09-29, see `specs/001-core-game-mvp/gate.md`). `LOCKED_CONCEPT_v0.5.md` is the summary,
   and `01`–`15` are the detailed documents: rules, tray/buffer, tiles and variants, mechanics,
   level structure, generator/solver, difficulty, meta, boosters, economy, UX, art, unlock
   roadmap, MVP scope and technical architecture. `CONCEPT.md` is the original v0.1 vision. Treat
@@ -27,10 +27,9 @@ Water/Dew, Wood/Acorn). Progression is a linear sequence of 5000+ levels, with n
 - **Implementation plan: `specs/001-core-game-mvp/plan.md`** (+ `research.md`, `data-model.md`,
   `contracts/`, `quickstart.md`): monorepo `core/` (pure C# rules, solver, generator, pipeline CLI),
   `client/` (Unity 6.3 LTS), `content/`, `backend/`.
-- **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): do not start full implementation until
-  all of these are locked: the gameplay docs, the unlock roadmap, the generator/solver rules,
-  the launch content strategy and the technical architecture.
-- **Technical direction** (doc 15, not yet locked): Unity + C#, a deterministic data-driven
+- **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): passed on 2026-09-29, all docs are locked. Changes to
+  locked docs now go through the product owner.
+- **Technical direction** (doc 15, locked): Unity + C#, a deterministic data-driven
   gameplay core, an offline generator and solver, versioned level definitions, and a lightweight
   backend.
 

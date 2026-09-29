@@ -23,7 +23,14 @@ Consequences:
 - Only **Phase 1 (Setup)** is executed: repository scaffolding, which the constitution allows before the lock.
 - Phase 2 (Foundational) and every later phase stay **blocked**.
 
-## How to unblock
+## Check of 2026-09-29 (second)
+
+**LOCKED.** The product owner confirmed in writing that the documents are locked. Every required document (`product/01`–`15`)
+now carries `**Status:** LOCKED (2026-09-29)`.
+
+Consequence: the development gate is open. `/speckit-implement` continues from Phase 2 (T013).
+
+## How to unblock (historical)
 
 1. The product owner locks the documents. For each document, change `**Status:** DRAFT FOR LOCK` to
    `**Status:** LOCKED` (or confirm the lock in writing).
@@ -35,3 +42,4 @@ Consequences:
 | Date | Decision | By |
 |---|---|---|
 | 2026-09-29 | NOT LOCKED: Phase 1 only | Automated check during `/speckit-implement`; product owner confirmation pending |
+| 2026-09-29 | LOCKED: gate open, Phase 2+ allowed | Product owner, written confirmation in session |

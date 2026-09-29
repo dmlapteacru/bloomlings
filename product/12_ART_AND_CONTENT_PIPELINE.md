@@ -1,6 +1,6 @@
 # 12 — Art & Content Pipeline
 
-**Status:** DRAFT FOR LOCK  
+**Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** picture library and finished-picture reveal (§7, §10, §12–§14; spec `001` FR-006/FR-007).
 
 ## 1. Locked visual direction

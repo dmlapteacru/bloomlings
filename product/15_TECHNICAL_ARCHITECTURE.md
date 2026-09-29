@@ -1,6 +1,6 @@
 # 15 — Technical Architecture
 
-**Status:** DRAFT FOR LOCK  
+**Status:** LOCKED (2026-09-29)  
 **Scope:** conceptual technology and system architecture only.  
 **Out of scope:** low-level class design, folder structure, dependency injection, exact interfaces, frame-by-frame implementation details.  
 **Revision 2026-09-29:** picture-first level data and picture library (§4, §6, §7, §8, §17; spec `001` FR-006/FR-077).

@@ -1,6 +1,6 @@
 # 09 — Boosters & Recovery
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)
 
 ## 1. Booster philosophy
 

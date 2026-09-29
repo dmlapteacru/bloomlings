@@ -1,6 +1,6 @@
 # 04 — Mechanic Catalog
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)
 
 ## A. Reference-core mechanics
 

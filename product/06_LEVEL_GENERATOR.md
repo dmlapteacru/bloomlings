@@ -1,6 +1,6 @@
 # 06 — Level Generator, Solver & 5000-Level Content Pipeline
 
-**Status:** DRAFT FOR LOCK  
+**Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** picture-first generation (§1, §3–§10, §19–§23; spec `001` FR-079).
 
 ## 1. Principle

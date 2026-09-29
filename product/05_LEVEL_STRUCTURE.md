@@ -1,6 +1,6 @@
 # 05 — Level Structure
 
-**Status:** DRAFT FOR LOCK  
+**Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** levels are picture-first mosaics (§1, §4, §5, §6, §11, §18; spec `001` FR-006).
 
 ## 1. Core structural goal
