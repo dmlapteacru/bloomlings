@@ -1,5 +1,5 @@
 {
-  "commands": ["tap:f1", "tap:f2", "tap:f3", "tap:f4"],
+  "commands": ["tap:flower", "tap:moss", "tap:dew", "shuffle", "tap:water", "tap:leaf", "tap:wood"],
   "contentVersion": 1,
   "definition": {
     "definitionVersion": 1,
@@ -16,15 +16,6 @@
     ],
     "generatorVersion": "test",
     "levelNumber": 1,
-    "locks": [
-      {
-        "keyId": "sk",
-        "target": {
-          "id": "0",
-          "kind": "slot"
-        }
-      }
-    ],
     "mapping": {
       "dew": "dew",
       "flower": "flower",
@@ -34,15 +25,6 @@
       "water": "water",
       "wood": "wood"
     },
-    "overlays": {
-      "cells": [
-        {
-          "keyId": "sk",
-          "x": 2,
-          "y": 1
-        }
-      ]
-    },
     "picture": {
       "id": "rules",
       "version": 1
@@ -50,70 +32,62 @@
     "pods": [
       {
         "count": 1,
-        "id": "f1",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
-        "id": "f2",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
-        "id": "f3",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
-        "id": "f4",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
         "id": "water",
         "variantId": "water"
       },
       {
         "count": 2,
+        "id": "leaf",
+        "variantId": "leaf"
+      },
+      {
+        "count": 1,
         "id": "moss",
         "variantId": "moss"
+      },
+      {
+        "count": 1,
+        "id": "wood",
+        "variantId": "wood"
+      },
+      {
+        "count": 1,
+        "id": "dew",
+        "variantId": "dew"
+      },
+      {
+        "count": 1,
+        "id": "flower",
+        "variantId": "flower"
       }
     ],
     "rewardProfile": "test",
     "seed": "42",
     "slots": {
-      "count": 5,
-      "locked": {
-        "keyId": "sk",
-        "slotIndex": 0
-      }
+      "count": 5
     },
     "tray": {
       "stacks": [
-        ["f1"],
-        ["f2"],
-        ["f3"],
-        ["f4"],
-        ["water"],
-        ["moss"]
+        ["flower", "dew", "wood"],
+        ["moss", "leaf", "water"]
       ]
     }
   },
-  "description": "With slot 0 locked, four waiting pods fill the buffer: a jam (FR-039).",
-  "expectedEventsDigest": "929b3bd8e44edb6a",
-  "expectedStateHash": "bd711ad9eeda3f6f",
-  "expectedStatus": "jammed",
-  "name": "mech-locked-slot",
+  "description": "The tray buries the column upside down; Shuffle lays the remaining pods out in a winnable order, the same on every run (FR-044, R10).",
+  "expectedEventsDigest": "ace98b1c24beb382",
+  "expectedStateHash": "1d7eb9c7c06d5207",
+  "expectedStatus": "won",
+  "name": "boost-shuffle",
   "picture": {
     "finishedLook": {
       "mode": "auto"
     },
     "grid": [
       [-1, -1, -1, -1, -1, -1, -1],
-      [-2, -2, 1, 2, 1, -2, -2],
-      [-2, -2, -2, 4, -2, -2, -2],
-      [-2, -2, -2, 4, -2, -2, -2],
-      [-2, -2, -2, 4, -2, -2, -2],
+      [-2, -2, 0, 2, 0, -2, -2],
+      [-2, -2, -2, 1, -2, -2, -2],
+      [-2, -2, -2, 5, -2, -2, -2],
+      [-2, -2, -2, 3, -2, -2, -2],
       [-2, -2, -2, 4, -2, -2, -2],
       [-2, -2, -2, -2, -2, -2, -2],
       [-2, -2, -2, -2, -2, -2, -2]

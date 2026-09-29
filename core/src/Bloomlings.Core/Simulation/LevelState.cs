@@ -291,7 +291,7 @@ namespace Bloomlings.Core.Simulation
         /// </summary>
         public RejectReason? CanCommit(int pod)
         {
-            int[] group = Mechanics.GroupOf(pod);
+            int[] group = ActiveGroup(pod);
             foreach (int member in group)
             {
                 if (!Tray.IsExposed(member))
@@ -320,6 +320,133 @@ namespace Bloomlings.Core.Simulation
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// The members of a pod's connected group that are still in the tray, in definition order. A member sent back by
+        /// Return, or whose partner is gone, acts alone (FR-035: after placement each member is independent).
+        /// </summary>
+        public int[] ActiveGroup(int pod)
+        {
+            int[] group = Mechanics.GroupOf(pod);
+            if (group.Length == 1)
+            {
+                return group;
+            }
+
+            int inTray = 0;
+            foreach (int member in group)
+            {
+                if (Pods[member].Location == PodLocation.Tray)
+                {
+                    inTray++;
+                }
+            }
+
+            if (inTray == group.Length)
+            {
+                return group;
+            }
+
+            if (inTray <= 1)
+            {
+                return new[] { pod };
+            }
+
+            var active = new int[inTray];
+            int n = 0;
+            foreach (int member in group)
+            {
+                if (Pods[member].Location == PodLocation.Tray)
+                {
+                    active[n++] = member;
+                }
+            }
+
+            return active;
+        }
+
+        /// <summary>The relaxed-problem check of Shuffle: every member unlocked and a free usable slot for each.</summary>
+        public bool CanCommitRelaxed(int[] unit)
+        {
+            foreach (int member in unit)
+            {
+                if (IsPodLocked(member))
+                {
+                    return false;
+                }
+            }
+
+            return Slots.FreeCount >= unit.Length;
+        }
+
+        /// <summary>
+        /// The state hash without the tray arrangement (which pods are in the tray still counts): equal for states the
+        /// relaxed problem of Shuffle cannot tell apart.
+        /// </summary>
+        public ulong RelaxedHash()
+        {
+            ulong h = StateHash;
+            for (int p = 0; p < Pods.Length; p++)
+            {
+                if (Pods[p].Location == PodLocation.Tray)
+                {
+                    h ^= LocationKey(p) ^ ZobristKeys.Key(ZobristFeature.TrayDepth, p, Tray.DepthFromBottom(p)) ^ ZobristKeys.Key(ZobristFeature.PodLocation, p, 99);
+                }
+            }
+
+            return h;
+        }
+
+        /// <summary>Moves a tray pod to the top of its stack (the relaxed problem of Shuffle).</summary>
+        public void MoveToTop(int pod)
+        {
+            if (Tray.IsExposed(pod))
+            {
+                return;
+            }
+
+            int stack = Tray.StackOf(pod);
+            for (int p = 0; p < Pods.Length; p++)
+            {
+                if (Pods[p].Location == PodLocation.Tray && Tray.StackOf(p) == stack)
+                {
+                    ToggleLocation(p);
+                }
+            }
+
+            Tray.Remove(pod);
+            Tray.PushTop(stack, pod);
+            for (int p = 0; p < Pods.Length; p++)
+            {
+                if (Pods[p].Location == PodLocation.Tray && Tray.StackOf(p) == stack)
+                {
+                    ToggleLocation(p);
+                }
+            }
+        }
+
+        /// <summary>The order in which a tap commits: the tapped pod first, then its active group in definition order.</summary>
+        public int[] CommitOrder(int tappedPod)
+        {
+            int[] group = ActiveGroup(tappedPod);
+            if (group.Length == 1)
+            {
+                return group;
+            }
+
+            var order = new int[group.Length];
+            order[0] = tappedPod;
+            int n = 1;
+            foreach (int member in group)
+            {
+                if (member != tappedPod)
+                {
+                    order[n++] = member;
+                }
+            }
+
+            return order;
         }
 
         // ---- Mutations (each keeps the hash in step) ----
@@ -398,6 +525,83 @@ namespace Bloomlings.Core.Simulation
             return slot;
         }
 
+        /// <summary>Return (FR-045): the pod in a slot goes back on top of its original stack with its remaining count.</summary>
+        public int ReturnPod(int pod)
+        {
+            int slot = Pods[pod].SlotIndex;
+            ToggleLocation(pod);
+            Slots.Release(slot);
+            Tray.PushTop(Pods[pod].HomeStack, pod);
+            Pods[pod].Location = PodLocation.Tray;
+            Pods[pod].SlotIndex = -1;
+            ToggleLocation(pod);
+            return slot;
+        }
+
+        /// <summary>Bloom Burst (FR-050): the pod leaves the tray or its slot for good, with nothing left to do.</summary>
+        public void RemovePod(int pod)
+        {
+            ToggleLocation(pod);
+            if (Pods[pod].Location == PodLocation.Slot)
+            {
+                Slots.Release(Pods[pod].SlotIndex);
+                Pods[pod].SlotIndex = -1;
+            }
+            else if (Pods[pod].Location == PodLocation.Tray)
+            {
+                // The pods above it move down one place, so their depth keys change too.
+                int stack = Tray.StackOf(pod);
+                IReadOnlyList<int> above = Tray.StackTopFirst(stack);
+                int depth = Tray.DepthFromTop(pod);
+                for (int i = 0; i < depth; i++)
+                {
+                    _hasher.Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
+                }
+
+                Tray.Remove(pod);
+                for (int i = 0; i < depth; i++)
+                {
+                    _hasher.Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
+                }
+            }
+
+            Pods[pod].Location = PodLocation.Removed;
+            ToggleLocation(pod);
+            SetRemaining(pod, 0);
+        }
+
+        /// <summary>Bloom Burst: removes every layer of a variant from a cell; returns how many were removed.</summary>
+        public int BurstCell(int cell, VariantId variant)
+        {
+            ToggleCell(cell);
+            int removed = Board.RemoveVariant(cell, variant);
+            ToggleCell(cell);
+            return removed;
+        }
+
+        /// <summary>Shuffle (FR-044): a new arrangement of the tray pods, stacks given top first.</summary>
+        public void RearrangeTray(IReadOnlyList<IReadOnlyList<int>> stacksTopFirst)
+        {
+            for (int p = 0; p < Pods.Length; p++)
+            {
+                if (Pods[p].Location == PodLocation.Tray)
+                {
+                    ToggleLocation(p);
+                }
+            }
+
+            Tray.Rearrange(stacksTopFirst);
+            for (int p = 0; p < Pods.Length; p++)
+            {
+                if (Pods[p].Location == PodLocation.Tray)
+                {
+                    ToggleLocation(p);
+                }
+            }
+        }
+
+        public void AddExtraSlot() => Slots.AddExtra();
+
         public void RevealPod(int pod)
         {
             if (!Pods[pod].VariantRevealed)
@@ -459,6 +663,29 @@ namespace Bloomlings.Core.Simulation
         }
 
         // ---- Hashing ----
+
+        /// <summary>Toggles every hash key of one cell (its kind, layers and mystery flag); call before and after a change.</summary>
+        private void ToggleCell(int cell)
+        {
+            switch (Board.KindAt(cell))
+            {
+                case CellKind.Open:
+                    _hasher.Toggle(ZobristFeature.CellOpen, cell);
+                    break;
+                case CellKind.Target:
+                    for (int d = Board.TopDepth(cell); d < Board.OriginalLayerCount(cell); d++)
+                    {
+                        _hasher.Toggle(ZobristFeature.CellLayer, cell, d, Catalog.IndexOf(Board.LayerAt(cell, d)));
+                    }
+
+                    if (Board.IsMysteryHidden(cell))
+                    {
+                        _hasher.Toggle(ZobristFeature.CellMysteryHidden, cell);
+                    }
+
+                    break;
+            }
+        }
 
         private void ToggleLocation(int pod)
         {

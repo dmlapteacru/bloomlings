@@ -130,6 +130,50 @@ namespace Bloomlings.Client.Gameplay.Timeline
             }
         }
 
+        /// <summary>
+        /// Plays everything pending at once, without walkers (before a booster changes the state, so the board, slots and
+        /// tray start from the settled picture). The caller recalls the walkers.
+        /// </summary>
+        public void Flush()
+        {
+            if (_sink == null)
+            {
+                return;
+            }
+
+            if (_current != null)
+            {
+                DeliverArrivals(_current, all: true);
+                foreach (GameEvent e in _current.End)
+                {
+                    _sink.OnEvent(e);
+                }
+
+                _current = null;
+            }
+
+            while (_waves.Count > 0)
+            {
+                Wave wave = _waves.Dequeue();
+                foreach (GameEvent e in wave.Start)
+                {
+                    _sink.OnEvent(e);
+                }
+
+                foreach (WorkUnit unit in wave.Work)
+                {
+                    _sink.OnWorkArrived(unit);
+                }
+
+                foreach (GameEvent e in wave.End)
+                {
+                    _sink.OnEvent(e);
+                }
+            }
+
+            _time = 0f;
+        }
+
         /// <summary>Drops everything pending (restart, leaving the level).</summary>
         public void Clear()
         {

@@ -27,6 +27,9 @@ namespace Bloomlings.Client.Gameplay.Board
         private int _width;
         private int _height;
 
+        /// <summary>A tile was tapped while targeting (Bloom Burst).</summary>
+        public event System.Action<CellPos>? CellTapped;
+
         /// <summary>Side length of one cell in canvas units.</summary>
         public float CellSize { get; private set; }
 
@@ -74,6 +77,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 {
                     var cell = new CellPos(x, y);
                     TileView tile = TileView.Create(_grid, cell, _visuals);
+                    tile.Tapped += c => CellTapped?.Invoke(c);
                     _tiles.Add(tile);
                     Refresh(view, cell);
                 }
@@ -169,6 +173,15 @@ namespace Bloomlings.Client.Gameplay.Board
         public Vector3 CellWorldPosition(CellPos cell) => Tile(cell).transform.position;
 
         public RectTransform CellRect(CellPos cell) => (RectTransform)Tile(cell).transform;
+
+        /// <summary>Lets the visible tiles take taps (Bloom Burst's target) or stops it.</summary>
+        public void SetTargeting(bool on)
+        {
+            foreach (TileView tile in _tiles)
+            {
+                tile.SetTappable(on && tile.Shown.HasValue);
+            }
+        }
 
         /// <summary>The first cell, bottom row first, whose state matches; null when none does (demo pointers).</summary>
         public RectTransform? FindCell(LevelView view, System.Func<CellInfo, bool> match)

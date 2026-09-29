@@ -9,8 +9,9 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The Jam screen (FR-027, T051). It covers only the bottom of the screen, so the board stays visible. It lists the
-    /// eligible recoveries (boosters with US5, the rewarded rescue with US6) and Restart. It never opens the Store.
+    /// The Jam screen (FR-027, T051, T121). It covers only the bottom of the screen, so the board stays visible. It lists
+    /// the eligible boosters the player owns or can afford with Petals (the rewarded rescue joins with US6) and
+    /// Restart. It never opens the Store.
     /// </summary>
     public sealed class JamScreen : MonoBehaviour
     {
@@ -35,8 +36,11 @@ namespace Bloomlings.Client.UI.Screens
             return screen;
         }
 
-        public void Show(bool stuck, IReadOnlyList<Recovery> recoveries)
+        /// <param name="recoveries">Only the recoveries the player can use now: owned, or affordable with Petals (FR-027).</param>
+        /// <param name="label">The button text, e.g. "Extra Slot ×1" or "Shuffle 40 ✿".</param>
+        public void Show(bool stuck, IReadOnlyList<Recovery> recoveries, Func<Recovery, string>? label = null)
         {
+            label ??= Label;
             _title.text = stuck ? "No pod can move!" : "No room left!";
             for (int i = _options.childCount - 1; i >= 0; i--)
             {
@@ -47,7 +51,7 @@ namespace Bloomlings.Client.UI.Screens
             for (int i = 0; i < recoveries.Count; i++)
             {
                 Recovery recovery = recoveries[i];
-                Button button = UiFactory.CreateButton(recovery.ToString(), _options, Label(recovery), UiTheme.Accent, () => _onRecovery(recovery), 40f);
+                Button button = UiFactory.CreateButton(recovery.ToString(), _options, label(recovery), UiTheme.Accent, () => _onRecovery(recovery), 40f);
                 UiFactory.Place((RectTransform)button.transform, (i * width) + 0.01f, 0f, ((i + 1) * width) - 0.01f, 1f);
             }
 
@@ -56,7 +60,7 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Hide() => _root.SetActive(false);
 
-        private static string Label(Recovery recovery) => recovery switch
+        public static string Label(Recovery recovery) => recovery switch
         {
             Recovery.ExtraSlot => "Extra Slot",
             Recovery.Shuffle => "Shuffle",

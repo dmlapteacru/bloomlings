@@ -24,6 +24,9 @@ namespace Bloomlings.Client.Gameplay.Board
         private Image _keyMark = null!;
         private VariantVisualCatalog? _visuals;
 
+        /// <summary>Raised when the tile is tapped while it is tappable (Bloom Burst picks its variant, T120).</summary>
+        public event System.Action<CellPos>? Tapped;
+
         public CellPos Cell { get; private set; }
 
         /// <summary>The variant currently shown, or null when the tile is hidden.</summary>
@@ -48,6 +51,10 @@ namespace Bloomlings.Client.Gameplay.Board
             UiFactory.Place(view._peekIcon.rectTransform, 0.18f, 0.18f, 0.82f, 0.82f);
             view._keyMark = UiFactory.CreateImage("Key", frame.transform, ProceduralSprites.Key, UiTheme.EntryMarker);
             UiFactory.Place(view._keyMark.rectTransform, 0.02f, 0.62f, 0.4f, 0.98f);
+            Button button = frame.gameObject.AddComponent<Button>();
+            button.targetGraphic = frame;
+            button.onClick.AddListener(() => view.Tapped?.Invoke(view.Cell));
+            frame.raycastTarget = false;
             return view;
         }
 
@@ -102,6 +109,9 @@ namespace Bloomlings.Client.Gameplay.Board
         public Vector3 KeyPosition => _keyMark.transform.position;
 
         public bool HasKey => _keyMark.enabled;
+
+        /// <summary>Tiles take taps only while a booster waits for a target.</summary>
+        public void SetTappable(bool tappable) => _frame.raycastTarget = tappable;
 
         public void HideKey() => _keyMark.enabled = false;
 

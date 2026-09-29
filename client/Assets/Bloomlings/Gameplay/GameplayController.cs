@@ -10,7 +10,9 @@ using Bloomlings.Client.Gameplay.Tray;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
+using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Gameplay;
 using Bloomlings.Client.UI.Screens;
 using Bloomlings.Client.UI.Tutorial;
 using Bloomlings.Client.UI.Tutorial.Demos;
@@ -54,6 +56,9 @@ namespace Bloomlings.Client.Gameplay
         private JamScreen _jam = null!;
         private DifficultyBanner _banner = null!;
         private DemoOverlay _demo = null!;
+        private BoosterBar _boosters = null!;
+        private BoosterKind? _targeting;
+        private LevelReward? _reward;
         private readonly System.Collections.Generic.HashSet<string> _devDemosSeen = new System.Collections.Generic.HashSet<string>();
 
         public LevelSession? Session => _session;
@@ -68,12 +73,15 @@ namespace Bloomlings.Client.Gameplay
             _board = BoardView.Create(_hud.BoardArea, _visuals);
             _slots = SlotRowView.Create(_hud.SlotArea, _visuals);
             _tray = TrayView.Create(_hud.TrayArea, _visuals, OnPodTapped);
+            _boosters = BoosterBar.Create(_hud.BoosterArea, OnBoosterPressed);
+            _slots.SlotTapped += OnSlotTapped;
+            _board.CellTapped += OnCellTapped;
             _timeline = gameObject.AddComponent<EventTimeline>();
             _timeline.Bind(this);
             _workers = WorkerPool.Create(gameObject, _board, _timeline, _visuals, _workerCapacity);
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave);
             _win = WinScreen.Create(root, Next);
-            _jam = JamScreen.Create(root, Restart, _ => { });
+            _jam = JamScreen.Create(root, Restart, OnRecovery);
             _banner = DifficultyBanner.Create(root);
             _demo = DemoOverlay.Create(root);
 
@@ -105,6 +113,11 @@ namespace Bloomlings.Client.Gameplay
             if (_session == null || _pause.IsOpen)
             {
                 return;
+            }
+
+            if (_targeting != null)
+            {
+                CancelTargeting();
             }
 
             var tap = new TapPod(podId);
@@ -146,10 +159,21 @@ namespace Bloomlings.Client.Gameplay
             _timeline.Enqueue(result.Events);
             _demo.NotifyAction();
 
-            // Record a win as soon as it happens logically, so a kill during the win animation keeps it (R15).
-            if (_session.Status == LevelStatus.Won && Flow != null && Flow.CurrentAttempt != null)
+            RecordWinIfWon();
+            RefreshBoosters();
+        }
+
+        /// <summary>Records a win as soon as it happens logically, so a kill during the win animation keeps it (R15), and pays it.</summary>
+        private void RecordWinIfWon()
+        {
+            if (_session!.Status != LevelStatus.Won || Flow == null || Flow.CurrentAttempt == null)
             {
-                Flow.OnLevelWon(Flow.CurrentAttempt.LevelNumber);
+                return;
+            }
+
+            if (Flow.OnLevelWon(Flow.CurrentAttempt.LevelNumber) && Economy != null)
+            {
+                _reward = Economy.GrantLevelReward(Flow.CurrentAttempt.LevelNumber, _session.Definition.Difficulty.Class, _session.BoostersUsed);
             }
         }
 
@@ -209,16 +233,235 @@ namespace Bloomlings.Client.Gameplay
                     break;
                 case LevelWon _:
                     _board.RevealAll();
-                    _win.Show(this, "Reward: coming with Petals (US5)");
+                    _win.Show(this, RewardText(_reward));
                     break;
-                case LevelJammed jammed:
-                    _jam.Show(stuck: false, jammed.EligibleRecoveries);
-                    break;
-                case LevelStuck stuck:
-                    _jam.Show(stuck: true, stuck.EligibleRecoveries);
+                case LevelJammed _:
+                case LevelStuck _:
+                    // The recoveries of the current state (the timeline may be behind), owned or affordable (FR-027).
+                    if (_session!.Status == LevelStatus.Jammed || _session.Status == LevelStatus.Stuck)
+                    {
+                        var usable = new List<Recovery>();
+                        foreach (Recovery recovery in _session.EligibleRecoveries())
+                        {
+                            if (Economy == null || Economy.CanAfford(KindOf(recovery)))
+                            {
+                                usable.Add(recovery);
+                            }
+                        }
+
+                        _jam.Show(_session.Status == LevelStatus.Stuck, usable, RecoveryLabel);
+                    }
+
                     break;
             }
         }
+
+        // ---- Boosters (T120, T121) ----
+
+        private static EconomyService? Economy =>
+            AppServices.Current != null && AppServices.Current.TryGet(out EconomyService? economy) ? economy : null;
+
+        private void OnBoosterPressed(BoosterKind kind)
+        {
+            if (_session == null || _pause.IsOpen)
+            {
+                return;
+            }
+
+            if (_targeting == kind)
+            {
+                CancelTargeting();
+                return;
+            }
+
+            CancelTargeting();
+            switch (kind)
+            {
+                case BoosterKind.ExtraSlot:
+                    UseBooster(kind, new UseExtraSlot());
+                    break;
+                case BoosterKind.Shuffle:
+                    UseBooster(kind, new UseShuffle());
+                    break;
+                case BoosterKind.Return:
+                    StartTargeting(kind, "Tap a waiting pod to send it back");
+                    break;
+                default:
+                    StartTargeting(kind, "Tap a tile to clear its symbol everywhere");
+                    break;
+            }
+        }
+
+        private void OnRecovery(Recovery recovery)
+        {
+            _jam.Hide();
+            OnBoosterPressed(KindOf(recovery));
+        }
+
+        private void StartTargeting(BoosterKind kind, string hint)
+        {
+            _targeting = kind;
+            _boosters.SetTargeting(kind);
+            _hud.Toast(hint);
+            if (kind == BoosterKind.Return)
+            {
+                _slots.SetTargeting(true);
+            }
+            else
+            {
+                _board.SetTargeting(true);
+            }
+        }
+
+        private void CancelTargeting()
+        {
+            _targeting = null;
+            _boosters.SetTargeting(null);
+            _slots.SetTargeting(false);
+            _board.SetTargeting(false);
+        }
+
+        private void OnSlotTapped(int slot)
+        {
+            if (_targeting == BoosterKind.Return)
+            {
+                CancelTargeting();
+                UseBooster(BoosterKind.Return, new UseReturn(slot));
+            }
+        }
+
+        private void OnCellTapped(Core.Boards.CellPos cell)
+        {
+            if (_targeting == BoosterKind.BloomBurst && _session != null)
+            {
+                VariantId? variant = _session.View.Cell(cell).Visible;
+                CancelTargeting();
+                if (variant.HasValue)
+                {
+                    UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant.Value));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Uses a booster: the level checks it first (FR-046), then a charge is taken, or bought with Petals; without
+        /// either, the player is told, and the Store is never forced (FR-027). The pending animation is played out first,
+        /// so the slots and tray are rebuilt from the settled state.
+        /// </summary>
+        private void UseBooster(BoosterKind kind, Command command)
+        {
+            LevelSession session = _session!;
+            CommandCheck check = session.Check(command);
+            if (!check.IsAllowed)
+            {
+                _hud.Toast("That booster can't help here");
+                return;
+            }
+
+            if (Economy != null && !Economy.TryTakeCharge(kind))
+            {
+                _hud.Toast("Not enough Petals");
+                return;
+            }
+
+            _timeline.Flush();
+            _workers.RecallAll();
+            _workInFlight.Clear();
+            CommandResult result = session.Apply(command);
+            _jam.Hide();
+            _boosters.Pulse(kind);
+            foreach (GameEvent e in result.Events)
+            {
+                if (e.Round != 0)
+                {
+                    continue;
+                }
+
+                switch (e)
+                {
+                    case VariantBurst burst:
+                        foreach (Core.Boards.CellPos cell in burst.Cells)
+                        {
+                            _board.Refresh(session.View, cell);
+                        }
+
+                        break;
+                    case ExtraSlotAdded _:
+                    case PodReturned _:
+                    case TrayShuffled _:
+                        break;
+                    default:
+                        // Keys, locks and specials a burst resolved.
+                        OnEvent(e);
+                        break;
+                }
+            }
+
+            _slots.Reset(session.View);
+            _tray.Refresh(session.View);
+            _timeline.Enqueue(result.Events);
+            RecordWinIfWon();
+            RefreshBoosters();
+        }
+
+        private void RefreshBoosters()
+        {
+            if (_session == null)
+            {
+                return;
+            }
+
+            var eligible = new HashSet<Recovery>(_session.EligibleRecoveries());
+            EconomyService? economy = Economy;
+            _boosters.Refresh(kind => new BoosterButtonState(
+                economy == null || economy.IsUnlocked(kind),
+                eligible.Contains(RecoveryOf(kind)),
+                economy?.Charges(kind) ?? 1,
+                economy?.Price(kind) ?? 0,
+                economy == null || economy.Petals >= economy.Price(kind)));
+        }
+
+        private string RecoveryLabel(Recovery recovery)
+        {
+            string name = JamScreen.Label(recovery);
+            EconomyService? economy = Economy;
+            if (economy == null)
+            {
+                return name;
+            }
+
+            BoosterKind kind = KindOf(recovery);
+            return economy.Charges(kind) > 0
+                ? name + " ×" + economy.Charges(kind).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                : name + " " + economy.Price(kind).ToString(System.Globalization.CultureInfo.InvariantCulture) + " ✿";
+        }
+
+        private static string RewardText(LevelReward? reward)
+        {
+            if (reward == null)
+            {
+                return string.Empty;
+            }
+
+            string text = "+" + reward.Petals.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Petals";
+            return reward.DroppedBooster.HasValue ? text + "  +1 " + JamScreen.Label(RecoveryOf(reward.DroppedBooster.Value)) : text;
+        }
+
+        private static BoosterKind KindOf(Recovery recovery) => recovery switch
+        {
+            Recovery.ExtraSlot => BoosterKind.ExtraSlot,
+            Recovery.Shuffle => BoosterKind.Shuffle,
+            Recovery.Return => BoosterKind.Return,
+            _ => BoosterKind.BloomBurst,
+        };
+
+        private static Recovery RecoveryOf(BoosterKind kind) => kind switch
+        {
+            BoosterKind.ExtraSlot => Recovery.ExtraSlot,
+            BoosterKind.Shuffle => Recovery.Shuffle,
+            BoosterKind.Return => Recovery.Return,
+            _ => Recovery.BloomBurst,
+        };
 
         // ---- Keys and locks (T107, T109, T110) ----
 
@@ -368,6 +611,20 @@ namespace Bloomlings.Client.Gameplay
                 string? pod = RecommendedFirstPod(session);
                 _demo.Show(DemoScripts.FirstTap(() => pod == null ? null : _tray.RectOf(pod)), OnDemoDone);
                 return;
+            }
+
+            // A booster unlocked on the way here: its demo and free charge (FR-042, T122).
+            foreach ((string unlockId, BoosterKind kind) in EconomyService.BoosterUnlocks)
+            {
+                if (progression != null && progression.IsUnlocked(unlockId) && !SeenDemo(unlockId))
+                {
+                    DemoScript? demo = BoosterDemos.For(unlockId, () => _boosters.RectOf(kind));
+                    if (demo != null)
+                    {
+                        _demo.Show(demo, OnDemoDone);
+                        return;
+                    }
+                }
             }
 
             // The first time the player meets an unlocked mechanic, its demo (FR-031, T111).
@@ -526,6 +783,9 @@ namespace Bloomlings.Client.Gameplay
             _workers.SetEntries(session.View.Entries);
             _slots.Reset(session.View);
             _tray.Refresh(session.View);
+            _reward = null;
+            CancelTargeting();
+            RefreshBoosters();
         }
 
         /// <summary>Pauses with the app and resumes exactly where the timeline stopped.</summary>

@@ -42,14 +42,15 @@ namespace Bloomlings.Core.Boards
 
     /// <summary>
     /// Mutable runtime board built by <see cref="BoardBuilder"/>. Row 0 is the bottom row. Layer stacks are shared
-    /// between clones because only the top pointer changes during play.
+    /// between clones because play normally moves only the top pointer; a change to a stack itself copies first.
     /// </summary>
     public sealed class Board
     {
         private static readonly VariantId[] NoLayers = new VariantId[0];
 
         private readonly CellKind[] _kind;
-        private readonly VariantId[][] _layers;
+        private VariantId[][] _layers;
+        private bool _ownsLayers;
         private readonly int[] _top;
         private readonly bool[] _mysteryHidden;
         private readonly string?[] _keyId;
@@ -64,6 +65,7 @@ namespace Bloomlings.Core.Boards
             int n = width * height;
             _kind = new CellKind[n];
             _layers = new VariantId[n][];
+            _ownsLayers = true;
             for (int i = 0; i < n; i++)
             {
                 _layers[i] = NoLayers;
@@ -86,7 +88,10 @@ namespace Bloomlings.Core.Boards
             Width = source.Width;
             Height = source.Height;
             _kind = (CellKind[])source._kind.Clone();
-            _layers = source._layers; // immutable per cell; only _top changes
+            // Shared until one side rewrites a cell's stack (Bloom Burst); then that side copies (see OwnLayers).
+            _layers = source._layers;
+            source._ownsLayers = false;
+            _ownsLayers = false;
             _top = (int[])source._top.Clone();
             _mysteryHidden = (bool[])source._mysteryHidden.Clone();
             _keyId = (string?[])source._keyId.Clone();
@@ -225,10 +230,50 @@ namespace Bloomlings.Core.Boards
             return count;
         }
 
+        /// <summary>
+        /// Removes every remaining layer of <paramref name="variant"/> from a target cell (Bloom Burst, FR-050) and returns
+        /// how many were removed. The remaining layers keep their order; a cell with none left opens.
+        /// </summary>
+        internal int RemoveVariant(int index, VariantId variant)
+        {
+            EnsureTarget(index);
+            OwnLayers();
+            VariantId[] layers = _layers[index];
+            var kept = new List<VariantId>(layers.Length);
+            for (int d = _top[index]; d < layers.Length; d++)
+            {
+                if (layers[d] != variant)
+                {
+                    kept.Add(layers[d]);
+                }
+            }
+
+            int removed = layers.Length - _top[index] - kept.Count;
+            if (removed == 0)
+            {
+                return 0;
+            }
+
+            if (kept.Count == 0)
+            {
+                _kind[index] = CellKind.Open;
+                _mysteryHidden[index] = false;
+                _layers[index] = NoLayers;
+            }
+            else
+            {
+                _layers[index] = kept.ToArray();
+            }
+
+            _top[index] = 0;
+            return removed;
+        }
+
         /// <summary>Replaces the top layer of a target cell before play (a hypothetical mystery assignment).</summary>
         internal void ReplaceTop(int index, VariantId variant)
         {
             EnsureTarget(index);
+            OwnLayers();
             var layers = (VariantId[])_layers[index].Clone();
             layers[_top[index]] = variant;
             _layers[index] = layers;
@@ -240,6 +285,7 @@ namespace Bloomlings.Core.Boards
 
         internal void SetTarget(int index, VariantId[] layersTopFirst, bool mysteryHidden, string? keyId)
         {
+            OwnLayers();
             _kind[index] = CellKind.Target;
             _layers[index] = layersTopFirst;
             _top[index] = 0;
@@ -251,6 +297,16 @@ namespace Bloomlings.Core.Boards
         {
             _kind[index] = CellKind.Special;
             _specialId[index] = specialId;
+        }
+
+        /// <summary>Copies the shared outer array of layer stacks before this board changes one.</summary>
+        private void OwnLayers()
+        {
+            if (!_ownsLayers)
+            {
+                _layers = (VariantId[][])_layers.Clone();
+                _ownsLayers = true;
+            }
         }
 
         private void EnsureTarget(int index)

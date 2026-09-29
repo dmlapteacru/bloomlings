@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Search;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Tests.Fixtures;
 using Bloomlings.Core.Tray;
@@ -51,6 +52,33 @@ namespace Bloomlings.Core.Tests.Properties
                 bool lost = result.Events.OfType<LevelJammed>().Any() || result.Events.OfType<LevelStuck>().Any();
                 return !(won && lost) && (!won || session.Status == LevelStatus.Won);
             });
+
+        /// <summary>
+        /// FR-044: if the tray as it is can still be won, some arrangement can, so the shuffled tray must be winnable.
+        /// </summary>
+        [Property(MaxTest = 150)]
+        public bool Shuffle_NeverTurnsAWinnableTrayIntoALosingOne(ulong seed)
+        {
+            LevelSession session = RandomLevels.Create(seed);
+            foreach (Command command in RandomLevels.Commands(seed, session).OfType<TapPod>().Take(3))
+            {
+                session.Apply(command);
+            }
+
+            if (!session.Check(new UseShuffle()).IsAllowed)
+            {
+                return true;
+            }
+
+            SearchResult before = StateSearch.Find(session, StateSearch.IsWon, MoveOrder.ProgressFirst, 20_000);
+            if (before.Outcome != SearchOutcome.Found)
+            {
+                return true;
+            }
+
+            session.Apply(new UseShuffle());
+            return StateSearch.Find(session, StateSearch.IsWon, MoveOrder.ProgressFirst, 20_000).Outcome != SearchOutcome.NotFound;
+        }
 
         [Property(MaxTest = Runs)]
         public bool IncrementalHash_EqualsFullRecompute(ulong seed) =>

@@ -8,8 +8,8 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The win sequence (FR-025, T050): the finished picture is revealed in full first, then a reward panel (a
-    /// placeholder until the economy of US5), then Next.
+    /// The win sequence (FR-025, T050, T122): the finished picture is revealed in full first, then the reward (the Petals
+    /// earned and any booster drop), then Next.
     /// </summary>
     public sealed class WinScreen : MonoBehaviour
     {

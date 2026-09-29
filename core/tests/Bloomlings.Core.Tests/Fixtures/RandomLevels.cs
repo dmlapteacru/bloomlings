@@ -235,11 +235,27 @@ namespace Bloomlings.Core.Tests.Fixtures
         public static List<Command> Commands(ulong seed, LevelSession session, int maxSteps = 60)
         {
             var rng = new Xoshiro256StarStar(seed ^ 0xC0FFEEUL);
+            var boosterRng = new Xoshiro256StarStar(seed ^ 0xB0057E25UL);
             LevelSession probe = session.Clone();
             var commands = new List<Command>();
             IReadOnlyList<string> ids = probe.View.PodIds;
             for (int step = 0; step < maxSteps; step++)
             {
+                // Now and then a booster, drawn from its own stream so the tap sequence stays as it was (US5).
+                int booster = boosterRng.NextInt(100);
+                if (booster < 12)
+                {
+                    Command boost = (booster % 4) switch
+                    {
+                        0 => new UseExtraSlot(),
+                        1 => new UseShuffle(),
+                        2 => new UseReturn(boosterRng.NextInt(6)),
+                        _ => new UseBloomBurst(Variants[boosterRng.NextInt(Variants.Length)]),
+                    };
+                    commands.Add(boost);
+                    probe.Apply(boost);
+                }
+
                 string pick;
                 if (rng.NextInt(100) < 80)
                 {

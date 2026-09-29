@@ -74,6 +74,26 @@ namespace Bloomlings.Client.Art
             RoundedBox(x, y, 0f, -0.15f, 0.12f, 0.35f, 0.05f),
             Mathf.Abs(Length(x, y - 0.1f) - 0.55f) - 0.07f + Step(y < 0.3f)));
 
+        /// <summary>Extra Slot: a slot with a plus.</summary>
+        public static Sprite PlusSlot => Get("b_extra", IconSize, (x, y) => Max(
+            RoundedBox(x, y, 0f, 0f, 0.8f, 0.8f, 0.2f),
+            -Min(RoundedBox(x, y, 0f, 0f, 0.5f, 0.12f, 0.05f), RoundedBox(x, y, 0f, 0f, 0.12f, 0.5f, 0.05f))));
+
+        /// <summary>Shuffle: two crossing arrows.</summary>
+        public static Sprite ShuffleArrows => Get("b_shuffle", IconSize, (x, y) => Min(
+            RoundedBox(x - y, y, 0f, 0f, 0.1f, 0.6f, 0.05f),
+            RoundedBox(x + y, y, 0f, 0f, 0.1f, 0.6f, 0.05f),
+            Max(Length(x - 0.6f, y - 0.6f) - 0.25f, -(x - 0.45f) - (y - 0.45f)),
+            Max(Length(x - 0.6f, y + 0.6f) - 0.25f, -(x - 0.45f) + (y + 0.45f))));
+
+        /// <summary>Return: a curved arrow back.</summary>
+        public static Sprite ReturnArrow => Get("b_return", IconSize, (x, y) => Min(
+            Mathf.Abs(Length(x, y) - 0.55f) - 0.12f + Step(x < 0f && y < 0f),
+            Max(Max(-(x + 0.3f), y + 0.2f), (x - 0.1f) - (y + 0.75f))));
+
+        /// <summary>Bloom Burst: a burst of petals.</summary>
+        public static Sprite Burst => Get("b_burst", IconSize, (x, y) => Min(StarShape(x, y, 0.95f), Length(x, y) - 0.3f));
+
         /// <summary>A pointing hand for tutorials (a palm and one raised finger).</summary>
         public static Sprite Pointer => Get("pointer", IconSize, (x, y) => Min(
             RoundedBox(x, y, 0f, -0.35f, 0.42f, 0.42f, 0.2f),

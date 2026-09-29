@@ -874,7 +874,7 @@ with Extra Slot.
 
 ### Tests for User Story 5 ⚠️
 
-- [ ] T113 [P] [US5] Write `core/tests/Bloomlings.Core.Tests/Rules/BoosterTests.cs`:
+- [X] T113 [P] [US5] Write `core/tests/Bloomlings.Core.Tests/Rules/BoosterTests.cs`:
   - Extra Slot works at most once per level;
   - Return puts the pod on top of its original stack with its remaining count, and cleared tiles stay cleared;
   - Return on a pod committed as part of a connected group moves only that pod; the other members stay in their slots;
@@ -884,7 +884,11 @@ with Extra Slot.
     arrangement whenever the relaxed problem is solvable;
   - Shuffle is deterministic for the same state and use index;
   - `BoosterNotApplicable` is returned in each disabled case (FR-043 to FR-050).
-- [ ] T114 [P] [US5] Write `client/Assets/Bloomlings/Tests/EditMode/EconomyServiceTests.cs`:
+  Status: `BoosterTests` (11 cases), plus property tests whose random command sequences now mix in all four
+  boosters (hash, accounting, determinism) and a property that Shuffle never turns a winnable tray into a losing one.
+  They found and fixed a real bug: board clones shared their layer stacks, which Bloom Burst rewrites (now
+  copy-on-write).
+- [X] T114 [P] [US5] Write `client/Assets/Bloomlings/Tests/EditMode/EconomyServiceTests.cs`:
   - a win pays base, plus the clean-clear bonus, plus the Hard/Super Hard bonus;
   - buying a booster with Petals works;
   - "Petals and charges are never negative";
@@ -893,24 +897,31 @@ with Extra Slot.
 
 ### Implementation for User Story 5
 
-- [ ] T115 [US5] Implement `core/src/Bloomlings.Core/Boosters/ExtraSlot.cs` and `Return.cs`, emitting
+- [X] T115 [US5] Implement `core/src/Bloomlings.Core/Boosters/ExtraSlot.cs` and `Return.cs`, emitting
   `ExtraSlotAdded` and `PodReturned` (FR-043, FR-045).
-- [ ] T116 [US5] Implement `core/src/Bloomlings.Core/Boosters/BloomBurst.cs`, emitting `VariantBurst` (FR-050 default semantics; see research.md *Deferred decisions*).
-- [ ] T117 [US5] Implement `core/src/Bloomlings.Core/Boosters/ShufflePlanner.cs` (R10):
+  Status: boosters run on a Jammed or Stuck board too (they are the recoveries), count in `BoostersUsed`, and settle
+  afterwards. A returned member of a connected group commits alone: only members still in the tray form the group.
+- [X] T116 [US5] Implement `core/src/Bloomlings.Core/Boosters/BloomBurst.cs`, emitting `VariantBurst` (FR-050 default semantics; see research.md *Deferred decisions*).
+  Status: only a removed visible top layer counts as a clear (its key is collected and special counters advance);
+  removed hidden layers do not, as the player never saw them.
+- [X] T117 [US5] Implement `core/src/Bloomlings.Core/Boosters/ShufflePlanner.cs` (R10):
   1. search the relaxed problem with `Search/StateSearch.cs`, where any eligible pod may be committed at any time;
   2. lay the found order out round-robin (pod `i` goes to stack `i mod k` at depth `⌊i/k⌋`, connected members at the
      same depth);
   3. verify with the normal search;
   4. fall back to the next PRNG candidate, seeded with `hash(seed, contentVersion, shuffleUses, StateHash)`;
   5. as a last resort, use the arrangement that maximizes immediately progressable exposed pods.
+  Status: `ShufflePlanner` runs the relaxed search (any tray unit, locks and groups respected), a round-robin layout
+  that puts group members at equal heights, verification, 8 seeded candidates, then a progress-first layout, all
+  within `ShuffleNodeBudget`.
 
   The budget is `SessionOptions.ShuffleNodeBudget`, loaded from the content manifest and never from Remote Config.
 
   Use `SessionOptions.ShuffleNodeBudget` as the budget and emit `TrayShuffled`.
-- [ ] T118 [P] [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs`. It holds the bundled
+- [X] T118 [P] [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs`. It holds the bundled
   defaults and clamping ranges for the `economy.*` keys in `contracts/backend-services.md`, for example
   `economy.petals.base` 12 (5–50), `economy.price.bloomBurst` 60 (10–500) and `economy.drop.everyLevels` 5 (2–20).
-- [ ] T119 [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyService.cs`:
+- [X] T119 [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyService.cs`:
   - the Petals wallet;
   - level rewards (FR-041);
   - booster purchases with Petals;
@@ -919,16 +930,19 @@ with Extra Slot.
     unlocked boosters, with no randomness (FR-047);
   - a milestone grant hook (FR-047);
   - each booster use consumes a charge (FR-048).
-- [ ] T120 [US5] Implement `client/Assets/Bloomlings/UI/Gameplay/BoosterBar.cs`:
+- [X] T120 [US5] Implement `client/Assets/Bloomlings/UI/Gameplay/BoosterBar.cs`:
   - four buttons showing the owned count or the price;
   - disabled when `LevelSession.Check` rejects (FR-051);
   - Return picks its target slot, and Bloom Burst picks a visible variant;
   - Shuffle plays the tray animation.
-- [ ] T121 [US5] Wire recovery into `client/Assets/Bloomlings/UI/Screens/JamScreen.cs`. List the eligible boosters,
+  Status (T118–T122): written and compiled against the Unity stubs, not yet run in the Editor. Before a booster, the
+  timeline plays out what is pending, so slots and tray are rebuilt from the settled state. Return targets a slot
+  and Bloom Burst a tile. Without Petals or a charge the player gets a message; the Store is never forced.
+- [X] T121 [US5] Wire recovery into `client/Assets/Bloomlings/UI/Screens/JamScreen.cs`. List the eligible boosters,
   owned or affordable with Petals, plus Restart. Never force the Store (FR-027).
-- [ ] T122 [US5] Add booster demos in `client/Assets/Bloomlings/UI/Tutorial/Demos/` for L3, L4, L6 and L9, and replace
+- [X] T122 [US5] Add booster demos in `client/Assets/Bloomlings/UI/Tutorial/Demos/` for L3, L4, L6 and L9, and replace
   the WinScreen reward placeholder with real Petals in `client/Assets/Bloomlings/UI/Screens/WinScreen.cs`.
-- [ ] T123 [US5] Add booster golden cases `core/tests/golden/boost-extra-slot.golden.json`,
+- [X] T123 [US5] Add booster golden cases `core/tests/golden/boost-extra-slot.golden.json`,
   `boost-return.golden.json`, `boost-bloom-burst.golden.json` and `boost-shuffle.golden.json`. The shuffle case must
   prove the same result on every run.
 

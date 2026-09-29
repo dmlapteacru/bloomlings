@@ -65,6 +65,9 @@ namespace Bloomlings.Core.Simulation
 
         public LevelStatus Status => State.Status;
 
+        /// <summary>Boosters used in this attempt: the clean-clear bonus needs none (FR-041).</summary>
+        public int BoostersUsed => State.BoostersUsed;
+
         /// <summary>Zobrist hash of the logical state; equal states have equal hashes whatever the path.</summary>
         public ulong StateHash => State.StateHash;
 
@@ -94,13 +97,21 @@ namespace Bloomlings.Core.Simulation
                 case UseShuffle _:
                 case UseReturn _:
                 case UseBloomBurst _:
+                    // Boosters also work on a Jammed or Stuck board: they are the recoveries (FR-027).
                     if (State.Status == LevelStatus.Won)
                     {
                         return CommandCheck.Refused(RejectReason.LevelNotPlaying);
                     }
 
-                    // Boosters are implemented with US5 (T115–T117).
-                    return CommandCheck.Refused(RejectReason.BoosterNotApplicable);
+                    bool applicable = command switch
+                    {
+                        UseExtraSlot _ => Boosters.ExtraSlot.CanApply(State),
+                        UseShuffle _ => Boosters.ShufflePlanner.CanApply(State),
+                        UseReturn r => Boosters.Return.CanApply(State, r.SlotIndex),
+                        UseBloomBurst b => Boosters.BloomBurst.CanApply(State, b.Variant),
+                        _ => false,
+                    };
+                    return applicable ? CommandCheck.Allowed : CommandCheck.Refused(RejectReason.BoosterNotApplicable);
                 default:
                     throw new NotSupportedException($"Unknown command {command.GetType().Name}.");
             }
@@ -125,7 +136,7 @@ namespace Bloomlings.Core.Simulation
                 case TapPod tap:
                     return ApplyTap(tap);
                 default:
-                    throw new NotSupportedException($"Unknown command {command.GetType().Name}.");
+                    return ApplyBooster(command);
             }
         }
 
@@ -192,7 +203,7 @@ namespace Bloomlings.Core.Simulation
             var events = new List<GameEvent>();
 
             // A connected pod commits its whole group, each member into its own slot (FR-035).
-            foreach (int pod in State.Mechanics.CommitOrder(State.PodIndex[tap.PodId]))
+            foreach (int pod in State.CommitOrder(State.PodIndex[tap.PodId]))
             {
                 string id = State.PodId(pod);
                 (int stack, int slot) = State.CommitPod(pod);
@@ -207,6 +218,75 @@ namespace Bloomlings.Core.Simulation
             Settle(events);
             _commandLog.Add(tap);
             return CommandResult.Accept(events);
+        }
+
+        /// <summary>Applies a checked booster (FR-043 to FR-050); the charge itself is the client's economy (FR-048).</summary>
+        private CommandResult ApplyBooster(Command command)
+        {
+            var events = new List<GameEvent>();
+            switch (command)
+            {
+                case UseExtraSlot _:
+                    Boosters.ExtraSlot.Apply(State, events);
+                    break;
+                case UseReturn r:
+                    Boosters.Return.Apply(State, r.SlotIndex, events);
+                    break;
+                case UseBloomBurst b:
+                    Boosters.BloomBurst.Apply(State, b.Variant, _hooks, events);
+                    break;
+                case UseShuffle _:
+                    IReadOnlyList<IReadOnlyList<int>> layout = Boosters.ShufflePlanner.Plan(this);
+                    State.RearrangeTray(layout);
+                    State.IncrementShuffleUses();
+                    var stacks = new List<IReadOnlyList<string>>();
+                    for (int s = 0; s < State.Tray.StackCount; s++)
+                    {
+                        stacks.Add(View.Stack(s));
+                    }
+
+                    events.Add(new TrayShuffled(0, stacks));
+                    break;
+                default:
+                    throw new NotSupportedException($"Unknown command {command.GetType().Name}.");
+            }
+
+            State.BoostersUsed++;
+            Settle(events);
+            _commandLog.Add(command);
+            return CommandResult.Accept(events);
+        }
+
+        /// <summary>Shuffle's relaxed problem: commit a tray unit from any depth, then settle.</summary>
+        internal LevelSession RelaxedChild(int[] unit)
+        {
+            LevelSession child = Clone();
+            foreach (int pod in unit)
+            {
+                child.State.MoveToTop(pod);
+            }
+
+            var events = new List<GameEvent>();
+            foreach (int pod in child.State.CommitOrder(unit[0]))
+            {
+                child.State.CommitPod(pod);
+                if (!child.State.Pods[pod].VariantRevealed)
+                {
+                    child.State.RevealPod(pod);
+                }
+            }
+
+            child.Settle(events);
+            return child;
+        }
+
+        /// <summary>A copy with the tray rearranged (Shuffle verification); its status is evaluated again.</summary>
+        internal LevelSession WithTray(IReadOnlyList<IReadOnlyList<int>> stacksTopFirst)
+        {
+            LevelSession child = Clone();
+            child.State.RearrangeTray(stacksTopFirst);
+            child.State.Status = StatusEvaluator.Evaluate(child.State, _hooks);
+            return child;
         }
 
         private void Settle(List<GameEvent> events)

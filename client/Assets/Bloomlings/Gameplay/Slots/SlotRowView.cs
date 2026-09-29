@@ -23,6 +23,9 @@ namespace Bloomlings.Client.Gameplay.Slots
         private RectTransform _area = null!;
         private VariantVisualCatalog? _visuals;
 
+        /// <summary>A slot was tapped while targeting (Return picks the pod to send back, T120).</summary>
+        public event System.Action<int>? SlotTapped;
+
         public static SlotRowView Create(RectTransform area, VariantVisualCatalog? visuals)
         {
             var view = area.gameObject.AddComponent<SlotRowView>();
@@ -30,10 +33,26 @@ namespace Bloomlings.Client.Gameplay.Slots
             view._visuals = visuals;
             for (int i = 0; i < WaitingSlots.Capacity; i++)
             {
-                view._slots[i] = Slot.Create(area, i);
+                Slot slot = Slot.Create(area, i);
+                view._slots[i] = slot;
+                Button button = slot.Frame.gameObject.AddComponent<Button>();
+                button.targetGraphic = slot.Frame;
+                int index = i;
+                button.onClick.AddListener(() => view.SlotTapped?.Invoke(index));
+                slot.Frame.raycastTarget = false;
             }
 
             return view;
+        }
+
+        /// <summary>Lets occupied slots take taps (Return's target) or stops it.</summary>
+        public void SetTargeting(bool on)
+        {
+            foreach (Slot slot in _slots)
+            {
+                slot.Frame.raycastTarget = on && slot.PodId != null;
+                slot.SetJamRisk(on && slot.PodId != null);
+            }
         }
 
         /// <summary>Resets every slot to the logical state (level start and restart).</summary>

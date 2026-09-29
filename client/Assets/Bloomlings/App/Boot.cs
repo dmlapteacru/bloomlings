@@ -4,6 +4,7 @@ using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
+using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Progression;
@@ -73,8 +74,13 @@ namespace Bloomlings.Client.App
             services.Register<IContentUpdateService>(updates);
 
             save.Progression.ContentVersionSeen = Math.Max(save.Progression.ContentVersionSeen, content.ContentVersion);
+            // Petals and booster charges (US5); the unlock grants listen before progression replays unlocks.
+            var economy = new EconomyService(save, EconomyConfig.From(services.Get<IRemoteConfigService>()), saves.Save);
+            services.Register(economy);
+
             var progression = new ProgressionService(save, UnlockRoadmap.Default, saves.Save);
             progression.UnlockReached += entry => Debug.Log($"[Progression] Unlocked {entry.UnlockId} at L{entry.Level}.");
+            progression.UnlockReached += entry => economy.OnUnlock(entry.UnlockId);
             services.Register(progression);
             progression.Initialize();
 

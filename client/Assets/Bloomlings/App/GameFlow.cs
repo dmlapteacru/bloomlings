@@ -46,8 +46,11 @@ namespace Bloomlings.Client.App
             Load(GameplayScene);
         }
 
-        /// <summary>Records the win at once (it survives a kill during the win animation) and saves.</summary>
-        public void OnLevelWon(int levelNumber) => _progression.CompleteLevel(levelNumber);
+        /// <summary>
+        /// Records the win at once (it survives a kill during the win animation) and saves; true when the level was newly
+        /// completed, so its reward is due.
+        /// </summary>
+        public bool OnLevelWon(int levelNumber) => _progression.CompleteLevel(levelNumber);
 
         /// <summary>The Win screen's Next: the following level starts directly.</summary>
         public void Next() => Play();

@@ -8,5 +8,5 @@ r0 PodCommitted f2 slot=2 stack=2 depth=0
 r0 PodCommitted w3 slot=3 stack=2 depth=0
 > tap:l1
 r0 PodCommitted l1 slot=4 stack=1 depth=0
-r1 LevelJammed recoveries=
+r1 LevelJammed recoveries=ExtraSlot,Shuffle,Return,BloomBurst
 > tap:o1 rejected:NoFreeSlot

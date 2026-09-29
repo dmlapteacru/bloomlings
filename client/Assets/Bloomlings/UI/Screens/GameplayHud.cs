@@ -8,7 +8,8 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// The gameplay layout (FR-068, T048): a top bar with Pause, "Level N" and the 2× speed toggle; the board in the
-    /// center; the Garden Entry and the slots below the board; the tray at the bottom. There is no goals panel.
+    /// center; the Garden Entry and the slots below the board; the booster bar; the tray at the bottom. There is no goals
+    /// panel.
     /// </summary>
     public sealed class GameplayHud : MonoBehaviour
     {
@@ -22,6 +23,9 @@ namespace Bloomlings.Client.UI.Screens
         public RectTransform SlotArea { get; private set; } = null!;
 
         public RectTransform TrayArea { get; private set; } = null!;
+
+        /// <summary>The booster bar, between the slots and the tray (US5).</summary>
+        public RectTransform BoosterArea { get; private set; } = null!;
 
         public bool DoubleSpeed { get; private set; }
 
@@ -47,7 +51,8 @@ namespace Bloomlings.Client.UI.Screens
 
             hud.BoardArea = UiFactory.Place(UiFactory.CreateRect("BoardArea", root), 0.03f, 0.40f, 0.97f, 0.915f);
             hud.SlotArea = UiFactory.Place(UiFactory.CreateRect("SlotArea", root), 0.05f, 0.30f, 0.95f, 0.39f);
-            hud.TrayArea = UiFactory.Place(UiFactory.CreateRect("TrayArea", root), 0.03f, 0.02f, 0.97f, 0.29f);
+            hud.BoosterArea = UiFactory.Place(UiFactory.CreateRect("BoosterArea", root), 0.05f, 0.245f, 0.95f, 0.295f);
+            hud.TrayArea = UiFactory.Place(UiFactory.CreateRect("TrayArea", root), 0.03f, 0.02f, 0.97f, 0.24f);
 
             hud._toast = UiFactory.CreateText("Toast", root, string.Empty, 44f, UiTheme.Warning);
             UiFactory.Place(hud._toast.rectTransform, 0.1f, 0.39f, 0.9f, 0.42f);

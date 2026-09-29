@@ -1,5 +1,5 @@
 {
-  "commands": ["tap:f1", "tap:f2", "tap:f3", "tap:f4"],
+  "commands": ["tap:leafA", "burst:leaf", "tap:moss"],
   "contentVersion": 1,
   "definition": {
     "definitionVersion": 1,
@@ -16,15 +16,6 @@
     ],
     "generatorVersion": "test",
     "levelNumber": 1,
-    "locks": [
-      {
-        "keyId": "sk",
-        "target": {
-          "id": "0",
-          "kind": "slot"
-        }
-      }
-    ],
     "mapping": {
       "dew": "dew",
       "flower": "flower",
@@ -37,9 +28,9 @@
     "overlays": {
       "cells": [
         {
-          "keyId": "sk",
-          "x": 2,
-          "y": 1
+          "layersBelow": ["leaf"],
+          "x": 4,
+          "y": 0
         }
       ]
     },
@@ -49,32 +40,17 @@
     },
     "pods": [
       {
-        "count": 1,
-        "id": "f1",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
-        "id": "f2",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
-        "id": "f3",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
-        "id": "f4",
-        "variantId": "flower"
-      },
-      {
-        "count": 1,
-        "id": "water",
-        "variantId": "water"
+        "count": 2,
+        "id": "leafA",
+        "variantId": "leaf"
       },
       {
         "count": 2,
+        "id": "leafB",
+        "variantId": "leaf"
+      },
+      {
+        "count": 3,
         "id": "moss",
         "variantId": "moss"
       }
@@ -82,39 +58,31 @@
     "rewardProfile": "test",
     "seed": "42",
     "slots": {
-      "count": 5,
-      "locked": {
-        "keyId": "sk",
-        "slotIndex": 0
-      }
+      "count": 5
     },
     "tray": {
       "stacks": [
-        ["f1"],
-        ["f2"],
-        ["f3"],
-        ["f4"],
-        ["water"],
-        ["moss"]
+        ["moss", "leafB"],
+        ["leafA"]
       ]
     }
   },
-  "description": "With slot 0 locked, four waiting pods fill the buffer: a jam (FR-039).",
-  "expectedEventsDigest": "929b3bd8e44edb6a",
-  "expectedStateHash": "bd711ad9eeda3f6f",
-  "expectedStatus": "jammed",
-  "name": "mech-locked-slot",
+  "description": "Bloom Burst on Leaf removes three visible Leaf tiles, a hidden Leaf layer and both Leaf pods (FR-050).",
+  "expectedEventsDigest": "7d1ac55ce4534d80",
+  "expectedStateHash": "6036d38efb5eb2bc",
+  "expectedStatus": "won",
+  "name": "boost-bloom-burst",
   "picture": {
     "finishedLook": {
       "mode": "auto"
     },
     "grid": [
-      [-1, -1, -1, -1, -1, -1, -1],
-      [-2, -2, 1, 2, 1, -2, -2],
-      [-2, -2, -2, 4, -2, -2, -2],
-      [-2, -2, -2, 4, -2, -2, -2],
-      [-2, -2, -2, 4, -2, -2, -2],
-      [-2, -2, -2, 4, -2, -2, -2],
+      [-1, 0, 1, 0, 1, -1, -1],
+      [-2, -2, -2, 1, -2, -2, -2],
+      [-2, -2, -2, 0, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
       [-2, -2, -2, -2, -2, -2, -2],
       [-2, -2, -2, -2, -2, -2, -2]
     ],

@@ -139,6 +139,19 @@ namespace Bloomlings.Core.Tray
             return stack;
         }
 
+        /// <summary>Removes a pod from any depth of its stack (Bloom Burst, FR-050); the pods above it move down.</summary>
+        public void Remove(int pod)
+        {
+            int stack = _stackOf[pod];
+            if (stack < 0)
+            {
+                throw new InvalidOperationException($"Pod index {pod} is not in the tray.");
+            }
+
+            _stacks[stack].Remove(pod);
+            _stackOf[pod] = -1;
+        }
+
         /// <summary>Puts a pod on top of a stack (Return, FR-045).</summary>
         public void PushTop(int stack, int pod)
         {

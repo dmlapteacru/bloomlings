@@ -80,7 +80,7 @@
     }
   },
   "description": "With four slots taken, the connected pair is refused and the level is stuck (FR-035).",
-  "expectedEventsDigest": "4454e5f77544760c",
+  "expectedEventsDigest": "f75cd11497e3e28e",
   "expectedStateHash": "b0d71d52575b50ed",
   "expectedStatus": "stuck",
   "name": "mech-connected-refused",
