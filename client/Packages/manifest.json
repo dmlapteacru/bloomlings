@@ -4,5 +4,15 @@
     "com.bloomlings.content": "file:../../core/src/Bloomlings.Content",
     "com.bloomlings.solver": "file:../../core/src/Bloomlings.Solver",
     "com.unity.nuget.newtonsoft-json": "3.2.1"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.google.ads.mobile",
+        "com.google.external-dependency-manager"
+      ]
+    }
+  ]
 }

@@ -71,6 +71,25 @@ after the game is playable, verifies every pack, installs the version atomically
 `Application.persistentDataPath/content/`, and activates it for the next attempt. The next launch starts from the
 newest valid version this app can read.
 
+## Online services (US6)
+
+Store, ads, consent and Remote Config sit behind interfaces with offline fallbacks, so the game runs without any of
+them (FR-074). Each SDK integration is its own assembly under `Assets/Bloomlings/Integrations/`, compiled only when its
+package is installed (asmdef `versionDefines` + `defineConstraints`), and registers itself in `ServiceProviders` before
+the first scene loads. To enable them, add through Package Manager, keeping the versions it proposes:
+
+| Package | Enables | Assembly |
+|---|---|---|
+| Remote Config (`com.unity.remote-config` ≥ 4.0) with Authentication | Remote tuning (FR-085) | `Bloomlings.Integrations.Ugs` |
+| In-App Purchasing (`com.unity.purchasing` ≥ 5.0) and Cloud Code | Store, validated purchases (FR-051, FR-089) | `Bloomlings.Integrations.Iap` |
+| Google Mobile Ads (`com.google.ads.mobile` ≥ 9.0, from the OpenUPM registry already in `manifest.json`) | Rewarded and interstitial ads, UMP consent (FR-052, FR-053, FR-090) | `Bloomlings.Integrations.Ads` |
+
+On iOS, add Unity's iOS 14 Advertising Support package and the `BLOOMLINGS_ATT` scripting define to ask for ATT before
+personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/GoogleMobileAdsService.cs`
+(development builds use Google's test units), set the store product ids to match
+`Services/Purchases/Resources/ProductCatalog.json`, and deploy `backend/` (see `backend/README.md`). The integration code
+has not been compiled against the SDKs yet: fix any API drift on first open.
+
 ## Compiler settings
 
 Each assembly folder, including the shared packages under `core/src/`, has a `csc.rsp` with `-nullable:enable`, so

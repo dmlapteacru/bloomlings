@@ -1,0 +1,29 @@
+{
+  "name": "Bloomlings.Integrations.Ugs",
+  "rootNamespace": "Bloomlings.Integrations.Ugs",
+  "references": [
+    "Bloomlings.Client",
+    "Unity.Services.Core",
+    "Unity.Services.Authentication",
+    "Unity.Services.RemoteConfig"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "BLOOMLINGS_UGS"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.remote-config",
+      "expression": "4.0.0",
+      "define": "BLOOMLINGS_UGS"
+    }
+  ],
+  "noEngineReferences": false
+}

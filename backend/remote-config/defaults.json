@@ -1,0 +1,129 @@
+{
+  "keys": {
+    "ads.interstitial.firstLevel": {
+      "default": 11,
+      "max": 100,
+      "min": 11,
+      "type": "int"
+    },
+    "ads.interstitial.minLevels": {
+      "default": 3,
+      "max": 10,
+      "min": 1,
+      "type": "int"
+    },
+    "ads.interstitial.minSeconds": {
+      "default": 180,
+      "max": 1800,
+      "min": 60,
+      "type": "int"
+    },
+    "ads.rescue.perAttempt": {
+      "default": 1,
+      "max": 1,
+      "min": 0,
+      "type": "int"
+    },
+    "content.manifestUrl": {
+      "default": "",
+      "type": "string"
+    },
+    "daily.reward.petals": {
+      "default": 20,
+      "max": 200,
+      "min": 5,
+      "type": "int"
+    },
+    "daily.reward.streakBonusPetals": {
+      "default": 5,
+      "max": 50,
+      "min": 0,
+      "type": "int"
+    },
+    "daily.reward.streakMaxDays": {
+      "default": 7,
+      "max": 30,
+      "min": 1,
+      "type": "int"
+    },
+    "economy.drop.everyLevels": {
+      "default": 5,
+      "max": 20,
+      "min": 2,
+      "type": "int"
+    },
+    "economy.petals.base": {
+      "default": 12,
+      "max": 50,
+      "min": 5,
+      "type": "int"
+    },
+    "economy.petals.cleanBonus": {
+      "default": 8,
+      "max": 50,
+      "min": 0,
+      "type": "int"
+    },
+    "economy.petals.hardBonus": {
+      "default": 10,
+      "max": 100,
+      "min": 0,
+      "type": "int"
+    },
+    "economy.petals.superHardBonus": {
+      "default": 20,
+      "max": 100,
+      "min": 0,
+      "type": "int"
+    },
+    "economy.price.bloomBurst": {
+      "default": 60,
+      "max": 500,
+      "min": 10,
+      "type": "int"
+    },
+    "economy.price.extraSlot": {
+      "default": 40,
+      "max": 500,
+      "min": 10,
+      "type": "int"
+    },
+    "economy.price.return": {
+      "default": 50,
+      "max": 500,
+      "min": 10,
+      "type": "int"
+    },
+    "economy.price.shuffle": {
+      "default": 40,
+      "max": 500,
+      "min": 10,
+      "type": "int"
+    },
+    "economy.unlockGrant": {
+      "default": 1,
+      "max": 3,
+      "min": 1,
+      "type": "int"
+    },
+    "feature.dailyChallenge": {
+      "default": true,
+      "type": "bool"
+    },
+    "feature.leaderboard": {
+      "default": true,
+      "type": "bool"
+    },
+    "feature.wardrobe": {
+      "default": true,
+      "type": "bool"
+    },
+    "fx.backlogThresholdMs": {
+      "default": 1500,
+      "max": 5000,
+      "min": 500,
+      "type": "int"
+    }
+  },
+  "note": "Remote Config defaults mirrored from client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs (contracts/backend-services.md, FR-085). The client clamps every value to its range; RemoteConfigDefaultsTests keeps this file in step."
+}

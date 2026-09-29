@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Collections;
 using Bloomlings.Client.App.Progression;
@@ -8,6 +9,7 @@ using Bloomlings.Client.Gameplay.Slots;
 using Bloomlings.Client.Gameplay.Timeline;
 using Bloomlings.Client.Gameplay.Tray;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Services.Ads;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
@@ -96,6 +98,7 @@ namespace Bloomlings.Client.Gameplay
 
             (LevelDefinition level, BasePicture picture, SessionOptions options) = ResolveLevel();
             _session = LevelSession.Load(level, picture, options);
+            Service<AdPolicy>()?.OnAttemptStarted();
             if (AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && save!.Settings.Speed2x)
             {
                 _hud.SetDoubleSpeed(true);
@@ -233,7 +236,7 @@ namespace Bloomlings.Client.Gameplay
                     break;
                 case LevelWon _:
                     _board.RevealAll();
-                    _win.Show(this, RewardText(_reward));
+                    _win.Show(this, RewardText(_reward), DoubleRewardOffer());
                     break;
                 case LevelJammed _:
                 case LevelStuck _:
@@ -249,7 +252,7 @@ namespace Bloomlings.Client.Gameplay
                             }
                         }
 
-                        _jam.Show(_session.Status == LevelStatus.Stuck, usable, RecoveryLabel);
+                        _jam.Show(_session.Status == LevelStatus.Stuck, usable, RecoveryLabel, RescueOffer());
                     }
 
                     break;
@@ -348,7 +351,7 @@ namespace Bloomlings.Client.Gameplay
         /// either, the player is told, and the Store is never forced (FR-027). The pending animation is played out first,
         /// so the slots and tray are rebuilt from the settled state.
         /// </summary>
-        private void UseBooster(BoosterKind kind, Command command)
+        private void UseBooster(BoosterKind kind, Command command, bool free = false)
         {
             LevelSession session = _session!;
             CommandCheck check = session.Check(command);
@@ -358,7 +361,7 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
-            if (Economy != null && !Economy.TryTakeCharge(kind))
+            if (!free && Economy != null && !Economy.TryTakeCharge(kind))
             {
                 _hud.Toast("Not enough Petals");
                 return;
@@ -402,6 +405,65 @@ namespace Bloomlings.Client.Gameplay
             _timeline.Enqueue(result.Events);
             RecordWinIfWon();
             RefreshBoosters();
+        }
+
+        // ---- Rewarded placements (T130); every one is started by the player (FR-052) ----
+
+        private static T? Service<T>()
+            where T : class =>
+            AppServices.Current != null && AppServices.Current.TryGet(out T? service) ? service : null;
+
+        /// <summary>
+        /// The jam rescue: a rewarded ad for one free use of a jam-resolving booster, once per attempt (FR-027, FR-048).
+        /// Extra Slot is preferred, then Shuffle; null when neither helps or no ad is ready.
+        /// </summary>
+        private (string Label, Action Watch)? RescueOffer()
+        {
+            IAdsService? ads = Service<IAdsService>();
+            AdPolicy? policy = Service<AdPolicy>();
+            if (ads == null || policy == null || !ads.IsRewardedReady || !policy.MayOfferRescue)
+            {
+                return null;
+            }
+
+            (BoosterKind Kind, Command Command)? rescue =
+                _session!.Check(new UseExtraSlot()).IsAllowed ? (BoosterKind.ExtraSlot, new UseExtraSlot())
+                : _session.Check(new UseShuffle()).IsAllowed ? (BoosterKind.Shuffle, new UseShuffle())
+                : ((BoosterKind, Command)?)null;
+            if (rescue == null)
+            {
+                return null;
+            }
+
+            (BoosterKind kind, Command command) = rescue.Value;
+            return ("Free " + JamScreen.Label(RecoveryOf(kind)) + " ▶", () => ads.ShowRewarded(AdPlacements.JamRescue, earned =>
+            {
+                if (earned)
+                {
+                    policy.OnRescueUsed();
+                    UseBooster(kind, command, free: true);
+                }
+            }));
+        }
+
+        /// <summary>The doubled win reward: the same Petals again after a rewarded ad (FR-052).</summary>
+        private Action<Action<string>>? DoubleRewardOffer()
+        {
+            IAdsService? ads = Service<IAdsService>();
+            LevelReward? reward = _reward;
+            if (ads == null || reward == null || !ads.IsRewardedReady || Economy == null)
+            {
+                return null;
+            }
+
+            return update => ads.ShowRewarded(AdPlacements.DoubleWin, earned =>
+            {
+                if (earned)
+                {
+                    Economy.Grant(reward.Petals, null);
+                    update(RewardText(reward with { Petals = reward.Petals * 2 }));
+                }
+            });
         }
 
         private void RefreshBoosters()
@@ -563,6 +625,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             _session.Apply(new Restart());
+            Service<AdPolicy>()?.OnAttemptStarted();
             RebuildViews();
         }
 

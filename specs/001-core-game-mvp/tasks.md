@@ -235,6 +235,10 @@ story depends on these.
   `client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs` and `BundledRemoteConfigService.cs`: typed getters
   for the keys in `contracts/backend-services.md`, bundled defaults and range clamping, with no network access. US3
   (T092) uses it; T126 adds the UGS implementation.
+  Status: `UgsRemoteConfigService` reads through `BundledRemoteConfigService`, so values fall back and clamp. The UGS
+  fetch lives in the `Bloomlings.Integrations.Ugs` assembly, compiled only with the package installed. A client test
+  keeps `backend/remote-config/defaults.json` in step with `RemoteConfigKeys`. The UGS code is not yet compiled against
+  the SDK.
 
 **Checkpoint**: The foundation is ready. A board can be built from a definition and a picture, reachability is
 computed deterministically, and content loads in Unity.
@@ -967,12 +971,12 @@ with Extra Slot.
 
 ### Tests for User Story 6 ⚠️
 
-- [ ] T124 [P] [US6] Write `client/Assets/Bloomlings/Tests/EditMode/AdPolicyTests.cs` (SC-013):
+- [X] T124 [P] [US6] Write `client/Assets/Bloomlings/Tests/EditMode/AdPolicyTests.cs` (SC-013):
   - no interstitial before `ads.interstitial.firstLevel` (11), during a level, or right after a fail;
   - `minSeconds` and `minLevels` caps apply;
   - none when Remove Ads is owned;
   - a rescue happens at most `ads.rescue.perAttempt` (1) times per attempt.
-- [ ] T125 [P] [US6] Write `client/Assets/Bloomlings/Tests/EditMode/PurchaseLedgerTests.cs` and
+- [X] T125 [P] [US6] Write `client/Assets/Bloomlings/Tests/EditMode/PurchaseLedgerTests.cs` and
   `DailyRewardTests.cs`:
   - grants are idempotent by `transactionId`;
   - Remove Ads is restored;
@@ -980,43 +984,60 @@ with Extra Slot.
 
 ### Implementation for User Story 6
 
-- [ ] T126 [P] [US6] Implement the UGS-backed `IRemoteConfigService` (interface from T027) as
+- [X] T126 [P] [US6] Implement the UGS-backed `IRemoteConfigService` (interface from T027) as
   `client/Assets/Bloomlings/Services/Backend/UgsRemoteConfigService.cs` (package `com.unity.remote-config`). It
   falls back to the `BundledRemoteConfigService` defaults and keeps the clamping. Mirror all keys from `contracts/backend-services.md` in
   `backend/remote-config/defaults.json` (FR-085).
-- [ ] T127 [P] [US6] Implement `client/Assets/Bloomlings/Services/Consent/IConsentService.cs` and `ConsentService.cs`,
+- [X] T127 [P] [US6] Implement `client/Assets/Bloomlings/Services/Consent/IConsentService.cs` and `ConsentService.cs`,
   using Google UMP and
   Apple ATT through `com.google.ads.mobile` (OpenUPM scoped registry in `client/Packages/manifest.json`). It must run
   before ads or analytics initialize, and it defaults to the most restrictive choice (FR-090).
-- [ ] T128 [US6] Implement `client/Assets/Bloomlings/Services/Ads/IAdsService.cs` and `GoogleMobileAdsService.cs`,
+  Status: `ConsentService` stays `Unknown` (no ads, no analytics) until a provider answers. The UMP provider (with ATT
+  under `BLOOMLINGS_ATT`) lives in the ads integration assembly. The OpenUPM registry is in `manifest.json`; the
+  package is added through Package Manager (client README). Not yet compiled against the SDK.
+- [X] T128 [US6] Implement `client/Assets/Bloomlings/Services/Ads/IAdsService.cs` and `GoogleMobileAdsService.cs`,
   covering rewarded and interstitial load and show with mediation-ready ad unit config per environment.
-- [ ] T129 [US6] Implement `client/Assets/Bloomlings/Services/Ads/AdPolicy.cs`, enforcing FR-052 and FR-053 with the
+  Status: `IAdsService` and the offline `UnavailableAdsService` are in the client. `GoogleMobileAdsService` (Google
+  test units in development, release ids to fill) lives in `Integrations/GoogleMobileAds/` rather than
+  `Services/Ads/`, so the game assembly never references an SDK. Not yet compiled against the SDK.
+- [X] T129 [US6] Implement `client/Assets/Bloomlings/Services/Ads/AdPolicy.cs`, enforcing FR-052 and FR-053 with the
   T124 rules and `IClock`, and hook it at the post-win transition in `client/Assets/Bloomlings/App/GameFlow.cs`.
-- [ ] T130 [US6] Add the rewarded placements:
+  Status: `GameFlow.PostWinTransition`, set by Boot, asks `AdPolicy` before Next loads the following level.
+- [X] T130 [US6] Add the rewarded placements:
   - jam rescue in `JamScreen.cs`: grants a free use of an eligible jam-resolving booster, once per attempt;
   - free booster offer on `HomeScreen.cs`;
   - doubled win reward on `WinScreen.cs`;
   - daily bonus in `client/Assets/Bloomlings/Meta/DailyReward/DailyRewardPopup.cs`.
+  Status: the jam rescue grants a free Extra Slot (else Shuffle) use; the free booster on Home goes to the unlocked
+  booster with the fewest charges, once per session; the doubled win reward and the daily bonus follow the same
+  pattern. Every offer shows only when an ad is ready.
 
   Every placement is started by the player.
-- [ ] T131 [US6] Implement `client/Assets/Bloomlings/Services/Purchases/IPurchaseService.cs` and
+- [X] T131 [US6] Implement `client/Assets/Bloomlings/Services/Purchases/IPurchaseService.cs` and
   `UnityIapPurchaseService.cs` (`com.unity.purchasing` v5), with the product catalog in
   `client/Assets/Bloomlings/Services/Purchases/ProductCatalog.json`:
   - `petals_s|m|l`: consumable;
   - `boosters_bundle_*`: consumable;
   - `starter_pack`: consumable, offered once;
   - `remove_ads`: non-consumable.
+  Status: `IPurchaseService`, `PurchaseLedger` (idempotent by transaction id, restores Remove Ads) and the Settings
+  Restore wiring are in the client. The catalog moved to `Services/Purchases/Resources/ProductCatalog.json` so it can
+  load at runtime. `UnityIapPurchaseService` (IAP 5; validate through Cloud Code, then grant, then confirm) lives in
+  `Integrations/UnityIap/`. Not yet compiled against the SDK.
 
   Grants go through the purchase ledger, idempotent by `transactionId`. Restore Purchases is wired to
   `SettingsScreen.cs` (FR-073).
-- [ ] T132 [P] [US6] Write the UGS Cloud Code scripts `backend/cloud-code/ValidatePurchase.js` and
+- [X] T132 [P] [US6] Write the UGS Cloud Code scripts `backend/cloud-code/ValidatePurchase.js` and
   `backend/cloud-code/GetStarterPackOffer.js`, following the Cloud Code functions table in
   `contracts/backend-services.md`. `ValidatePurchase` is idempotent by `transactionId` (FR-089).
-- [ ] T133 [US6] Implement `client/Assets/Bloomlings/UI/Screens/StoreScreen.cs`:
+  Status: syntax-checked with Node, not yet deployed. Google receipts are checked by signature with the Play license
+  key, Apple transactions through the App Store Server API; secrets come from the UGS Secret Manager (see
+  `backend/README.md`).
+- [X] T133 [US6] Implement `client/Assets/Bloomlings/UI/Screens/StoreScreen.cs`:
   - unlocks at L12 (FR-051);
   - sells Petal packs, boosters for Petals, Remove Ads and the starter pack;
   - shows an "unavailable" state when offline (FR-074).
-- [ ] T134 [US6] Implement `client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs` and
+- [X] T134 [US6] Implement `client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs` and
   `DailyRewardPopup.cs`. It unlocks at L7 and allows one claim per UTC calendar day through `IClock`, persisted in the
   save's `daily` section (FR-055). The claim pays `daily.reward.petals` plus `daily.reward.streakBonusPetals` per
   consecutive day, capped at `daily.reward.streakMaxDays`.

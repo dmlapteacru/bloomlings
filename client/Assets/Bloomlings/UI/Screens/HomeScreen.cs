@@ -29,8 +29,9 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _milestone = null!;
         private TextMeshProUGUI _rank = null!;
         private GameObject _store = null!;
+        private GameObject _freeBooster = null!;
 
-        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore)
+        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null)
         {
             var screen = root.gameObject.AddComponent<HomeScreen>();
             Image background = UiFactory.CreateImage("Background", root, null, UiTheme.Background);
@@ -68,8 +69,16 @@ namespace Bloomlings.Client.UI.Screens
             Button store = UiFactory.CreateButton("Store", root, "Store", UiTheme.Warning, onStore, 56f);
             UiFactory.Place((RectTransform)store.transform, 0.3f, 0.08f, 0.7f, 0.15f);
             screen._store = store.gameObject;
+
+            // The optional rewarded offer: a free booster, started only by the player (FR-052).
+            Button free = UiFactory.CreateButton("FreeBooster", root, "Free booster ▶", UiTheme.Accent, () => onFreeBooster?.Invoke(), 40f);
+            UiFactory.Place((RectTransform)free.transform, 0.3f, 0.17f, 0.7f, 0.23f);
+            screen._freeBooster = free.gameObject;
+            screen._freeBooster.SetActive(false);
             return screen;
         }
+
+        public void SetFreeBoosterOffer(bool visible) => _freeBooster.SetActive(visible);
 
         public void Show(HomeModel model)
         {

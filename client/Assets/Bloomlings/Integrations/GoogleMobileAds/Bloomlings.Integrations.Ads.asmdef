@@ -1,0 +1,29 @@
+{
+  "name": "Bloomlings.Integrations.Ads",
+  "rootNamespace": "Bloomlings.Integrations.Ads",
+  "references": [
+    "Bloomlings.Client"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "GoogleMobileAds.dll",
+    "GoogleMobileAds.Core.dll",
+    "GoogleMobileAds.Common.dll",
+    "GoogleMobileAds.Ump.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "BLOOMLINGS_ADMOB"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.google.ads.mobile",
+      "expression": "9.0.0",
+      "define": "BLOOMLINGS_ADMOB"
+    }
+  ],
+  "noEngineReferences": false
+}

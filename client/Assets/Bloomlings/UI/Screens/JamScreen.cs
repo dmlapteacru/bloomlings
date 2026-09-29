@@ -38,7 +38,8 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <param name="recoveries">Only the recoveries the player can use now: owned, or affordable with Petals (FR-027).</param>
         /// <param name="label">The button text, e.g. "Extra Slot ×1" or "Shuffle 40 ✿".</param>
-        public void Show(bool stuck, IReadOnlyList<Recovery> recoveries, Func<Recovery, string>? label = null)
+        /// <param name="rescue">The rewarded rescue (a free booster use, once per attempt), or null when not offered.</param>
+        public void Show(bool stuck, IReadOnlyList<Recovery> recoveries, Func<Recovery, string>? label = null, (string Label, Action Watch)? rescue = null)
         {
             label ??= Label;
             _title.text = stuck ? "No pod can move!" : "No room left!";
@@ -47,12 +48,19 @@ namespace Bloomlings.Client.UI.Screens
                 Destroy(_options.GetChild(i).gameObject);
             }
 
-            float width = recoveries.Count == 0 ? 0f : 1f / recoveries.Count;
+            int count = recoveries.Count + (rescue.HasValue ? 1 : 0);
+            float width = count == 0 ? 0f : 1f / count;
             for (int i = 0; i < recoveries.Count; i++)
             {
                 Recovery recovery = recoveries[i];
                 Button button = UiFactory.CreateButton(recovery.ToString(), _options, label(recovery), UiTheme.Accent, () => _onRecovery(recovery), 40f);
                 UiFactory.Place((RectTransform)button.transform, (i * width) + 0.01f, 0f, ((i + 1) * width) - 0.01f, 1f);
+            }
+
+            if (rescue.HasValue)
+            {
+                Button watch = UiFactory.CreateButton("Rescue", _options, rescue.Value.Label, UiTheme.Warning, rescue.Value.Watch, 36f);
+                UiFactory.Place((RectTransform)watch.transform, (recoveries.Count * width) + 0.01f, 0f, 0.99f, 1f);
             }
 
             _root.SetActive(true);

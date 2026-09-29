@@ -58,6 +58,8 @@ namespace UnityEngine
     public static class ColorUtility { public static bool TryParseHtmlString(string s, out Color c) { c = default; return true; } }
     public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; }
     public enum RuntimePlatform { Android, IPhonePlayer }
+    public class TextAsset : Object { public string text => string.Empty; }
+    public static class Resources { public static T? Load<T>(string path) where T : Object => null; }
     public static class Application { public static string streamingAssetsPath => ""; public static string dataPath => System.IO.Path.GetFullPath(System.IO.Path.Combine(StubPaths.ProjectDirectory, "..", "Assets")); public static string persistentDataPath => System.IO.Path.GetTempPath(); public static bool isEditor => true; public static RuntimePlatform platform => RuntimePlatform.Android; public static string version => "0.1.0"; public static int targetFrameRate { get; set; } public static bool CanStreamedLevelBeLoaded(string name) => false; }
     public static class Debug { public static bool isDebugBuild => true; public static void Log(object m) { } public static void LogWarning(object m) { } public static void LogError(object m) { } public static void LogException(Exception e) { } }
     public class CustomYieldInstruction : IEnumerator { public object? Current => null; public bool MoveNext() => false; public void Reset() { } }
@@ -68,7 +70,7 @@ namespace UnityEngine
     public sealed class Canvas : Behaviour { public RenderMode renderMode; public int sortingOrder; public static void ForceUpdateCanvases() { } }
 }
 namespace UnityEngine { public static class GUILayout { public static bool Button(string text) => false; } }
-namespace UnityEngine.Events { public delegate void UnityAction(); public class UnityEvent { public void AddListener(UnityAction a) { } } }
+namespace UnityEngine.Events { public delegate void UnityAction(); public class UnityEvent { public void AddListener(UnityAction a) { } public void RemoveAllListeners() { } } }
 namespace UnityEngine.UI
 {
     public class Graphic : Behaviour { public Color color { get; set; } public bool raycastTarget { get; set; } public RectTransform rectTransform => null!; }

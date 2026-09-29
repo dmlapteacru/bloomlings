@@ -17,6 +17,7 @@ namespace Bloomlings.Client.UI.Screens
 
         private GameObject _root = null!;
         private TextMeshProUGUI _reward = null!;
+        private Button _double = null!;
 
         public static WinScreen Create(Transform parent, Action onNext)
         {
@@ -29,15 +30,29 @@ namespace Bloomlings.Client.UI.Screens
             screen._reward = UiFactory.CreateText("Reward", panel.transform, string.Empty, 52f, UiTheme.Text);
             UiFactory.Place(screen._reward.rectTransform, 0f, 0.42f, 1f, 0.66f);
             Button next = UiFactory.CreateButton("Next", panel.transform, "Next", UiTheme.Accent, onNext);
-            UiFactory.Place((RectTransform)next.transform, 0.25f, 0.08f, 0.75f, 0.36f);
+            UiFactory.Place((RectTransform)next.transform, 0.05f, 0.08f, 0.47f, 0.36f);
+            screen._double = UiFactory.CreateButton("Double", panel.transform, "Double ▶", UiTheme.Warning, () => { }, 40f);
+            UiFactory.Place((RectTransform)screen._double.transform, 0.53f, 0.08f, 0.95f, 0.36f);
             panel.gameObject.SetActive(false);
             return screen;
         }
 
         /// <summary>Waits for the picture reveal, then shows the panel.</summary>
-        public void Show(MonoBehaviour host, string rewardText)
+        /// <param name="doubleReward">The optional rewarded ad that doubles the Petals (FR-052); null hides it.</param>
+        public void Show(MonoBehaviour host, string rewardText, Action<Action<string>>? doubleReward = null)
         {
             _reward.text = rewardText;
+            _double.gameObject.SetActive(doubleReward != null);
+            _double.onClick.RemoveAllListeners();
+            if (doubleReward != null)
+            {
+                _double.onClick.AddListener(() => doubleReward(text =>
+                {
+                    _reward.text = text;
+                    _double.gameObject.SetActive(false);
+                }));
+            }
+
             host.StartCoroutine(ShowAfterReveal());
         }
 
