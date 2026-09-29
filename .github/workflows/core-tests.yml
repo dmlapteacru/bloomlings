@@ -24,6 +24,9 @@ jobs:
       - name: Client scripts (stub compile and engine-free EditMode tests)
         run: dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj -c Release --logger trx --results-directory core/artifacts/test-results
 
+      - name: Cloud Code scripts (in-memory UGS stand-ins)
+        run: node --test backend/tests/*.test.js
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4

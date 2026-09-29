@@ -203,7 +203,7 @@ namespace Bloomlings.Client.App
             flow.Begin(firstLaunch);
 
             // Offline-first (FR-074): everything below runs after the game is playable and never blocks it.
-            StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, auth, sync, leaderboard, analytics));
+            StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, ledger, auth, sync, leaderboard, analytics));
         }
 
         private static IEnumerator OnlineServices(
@@ -214,6 +214,7 @@ namespace Bloomlings.Client.App
             IAdsService ads,
             IPurchaseService purchases,
             ProductCatalog products,
+            PurchaseLedger ledger,
             IAuthService auth,
             CloudSaveSync sync,
             LeaderboardClient leaderboard,
@@ -260,7 +261,15 @@ namespace Bloomlings.Client.App
                 analytics.Consent(state.ToString().ToLowerInvariant(), AttText(state));
                 ads.Initialize(state);
             };
-            purchases.Initialize(products, ready => Debug.Log(ready ? "[Store] Connected." : "[Store] Unavailable."));
+            purchases.Initialize(products, ledger.Grant, ready =>
+            {
+                Debug.Log(ready ? "[Store] Connected." : "[Store] Unavailable.");
+                if (ready)
+                {
+                    // The starter pack is once per player, not per install: the backend remembers a purchase.
+                    purchases.CheckStarterPackOffer(eligible => ledger.OnStarterPackOffer(eligible));
+                }
+            });
         }
 
         private static string AttText(ConsentState state) =>

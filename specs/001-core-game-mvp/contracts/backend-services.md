@@ -39,9 +39,9 @@ only.
 
 | Function | Input | Output | Notes |
 |---|---|---|---|
-| `ValidatePurchase` | platform, receipt, productId | `{valid, transactionId, grants}` | Idempotent by `transactionId`, which the client ledger also uses (R13) |
+| `ValidatePurchase` | platform, receipt, productId | `{valid, transactionId, grants, reason}` | Idempotent by `transactionId` across all players (a consumable's receipt cannot be replayed on another account; Remove Ads may be restored on one), which the client ledger also uses (R13). The client grants `grants`. A second starter pack is refused (`offer-already-used`). Server state lives in custom data and protected player data, written with the service token |
 | `SubmitProgress` | level, contentVersion, commandLogHash | `{accepted, rank?}` | Sanity checks as above |
-| `GetStarterPackOffer` | – | `{eligible}` | One-time offer flag |
+| `GetStarterPackOffer` | – | `{eligible}` | One-time offer flag, in protected player data; asked when the store connects |
 
 ## Remote Config keys (defaults bundled; the client clamps to the ranges)
 

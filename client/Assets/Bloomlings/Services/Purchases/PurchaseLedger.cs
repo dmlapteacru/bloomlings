@@ -6,8 +6,11 @@ using Bloomlings.Client.Services.Save;
 
 namespace Bloomlings.Client.Services.Purchases
 {
-    /// <summary>A purchase the backend validated (Cloud Code <c>ValidatePurchase</c>, FR-089).</summary>
-    public sealed record ValidatedPurchase(string TransactionId, string ProductId);
+    /// <summary>
+    /// A purchase the backend validated (Cloud Code <c>ValidatePurchase</c>, FR-089). <paramref name="Petals"/> and
+    /// <paramref name="Boosters"/> are the grants the backend answered, when it did; they win over the bundled catalog.
+    /// </summary>
+    public sealed record ValidatedPurchase(string TransactionId, string ProductId, int? Petals = null, BoosterGrant? Boosters = null);
 
     /// <summary>
     /// Grants purchases exactly once (research R13, T131). Every grant is recorded in the save's ledger under its
@@ -44,7 +47,9 @@ namespace Bloomlings.Client.Services.Purchases
                 return false;
             }
 
-            var entry = new LedgerEntry(purchase.TransactionId, product.Id, PlayerSave.FormatTime(_clock.UtcNow), product.Petals, product.Boosters);
+            int petals = purchase.Petals ?? product.Petals;
+            BoosterGrant? boosters = purchase.Petals.HasValue || purchase.Boosters != null ? purchase.Boosters : product.Boosters;
+            var entry = new LedgerEntry(purchase.TransactionId, product.Id, PlayerSave.FormatTime(_clock.UtcNow), petals, boosters);
             if (!_save.Purchases.TryAdd(entry))
             {
                 // Already granted; a non-consumable still makes sure its entitlement is on.
@@ -67,10 +72,23 @@ namespace Bloomlings.Client.Services.Purchases
                 _save.Purchases.StarterPackOffered = true;
             }
 
-            _economy.Grant(product.Petals, product.Boosters);
+            _economy.Grant(petals, boosters);
             _persist();
             Granted?.Invoke(purchase);
             return true;
+        }
+
+        /// <summary>
+        /// The backend's answer on the once-only starter pack: when this player already bought it (on another install),
+        /// the Store stops offering it here too. Unknown (offline) changes nothing.
+        /// </summary>
+        public void OnStarterPackOffer(bool? eligible)
+        {
+            if (eligible == false && !_save.Purchases.StarterPackOffered)
+            {
+                _save.Purchases.StarterPackOffered = true;
+                _persist();
+            }
         }
 
         /// <summary>

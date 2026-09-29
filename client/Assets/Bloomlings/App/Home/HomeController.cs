@@ -190,7 +190,7 @@ namespace Bloomlings.Client.App.Home
                 root,
                 save.Settings,
                 saves.Save,
-                done => purchases.Restore(ledger.Grant, ok =>
+                done => purchases.Restore(ok =>
                 {
                     Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.");
                     done(ok);
@@ -287,7 +287,7 @@ namespace Bloomlings.Client.App.Home
                     Title(product),
                     purchases.PriceOf(id) ?? (purchases.IsAvailable ? "…" : "—"),
                     purchases.IsAvailable,
-                    () => purchases.Buy(id, ledger.Grant, _ =>
+                    () => purchases.Buy(id, _ =>
                     {
                         reopen();
                         refreshHome();

@@ -19,7 +19,8 @@ namespace Bloomlings.Client.Services.Purchases
     /// <summary>
     /// In-app purchases (FR-051, FR-054, FR-089, research R13; T131): Unity IAP v5, with every receipt validated by the
     /// Cloud Code function <c>ValidatePurchase</c> before the ledger grants it. Consumables are confirmed to the store only
-    /// after the grant is saved.
+    /// after the grant is saved. The grant callback is known from <see cref="Initialize"/> on, so an order the store
+    /// delivers at startup (a purchase interrupted in an earlier session) is granted too, never confirmed unpaid-out.
     /// </summary>
     public interface IPurchaseService
     {
@@ -28,13 +29,19 @@ namespace Bloomlings.Client.Services.Purchases
         /// <summary>The store's localized price text, or null while unknown.</summary>
         string? PriceOf(string productId);
 
-        void Initialize(ProductCatalog catalog, Action<bool> onReady);
+        /// <summary>Connects; every validated purchase, whenever it arrives, is handed to <paramref name="grant"/> (the ledger).</summary>
+        void Initialize(ProductCatalog catalog, Func<ValidatedPurchase, bool> grant, Action<bool> onReady);
 
-        /// <summary>Buys a product; validated purchases are handed to <paramref name="grant"/> (the ledger).</summary>
-        void Buy(string productId, Func<ValidatedPurchase, bool> grant, Action<PurchaseResult> onDone);
+        void Buy(string productId, Action<PurchaseResult> onDone);
 
-        /// <summary>Restore Purchases (FR-073): every owned purchase, validated, goes to <paramref name="grant"/>.</summary>
-        void Restore(Func<ValidatedPurchase, bool> grant, Action<bool> onDone);
+        /// <summary>Restore Purchases (FR-073): every owned purchase is validated again and granted if missing.</summary>
+        void Restore(Action<bool> onDone);
+
+        /// <summary>
+        /// Asks the backend whether the once-only starter pack can still be bought by this player (Cloud Code
+        /// <c>GetStarterPackOffer</c>); null when it cannot tell (offline).
+        /// </summary>
+        void CheckStarterPackOffer(Action<bool?> onAnswer);
     }
 
     /// <summary>No store: offline, in the Editor without IAP, or when the store failed to connect.</summary>
@@ -44,10 +51,12 @@ namespace Bloomlings.Client.Services.Purchases
 
         public string? PriceOf(string productId) => null;
 
-        public void Initialize(ProductCatalog catalog, Action<bool> onReady) => onReady(false);
+        public void Initialize(ProductCatalog catalog, Func<ValidatedPurchase, bool> grant, Action<bool> onReady) => onReady(false);
 
-        public void Buy(string productId, Func<ValidatedPurchase, bool> grant, Action<PurchaseResult> onDone) => onDone(PurchaseResult.Unavailable);
+        public void Buy(string productId, Action<PurchaseResult> onDone) => onDone(PurchaseResult.Unavailable);
 
-        public void Restore(Func<ValidatedPurchase, bool> grant, Action<bool> onDone) => onDone(false);
+        public void Restore(Action<bool> onDone) => onDone(false);
+
+        public void CheckStarterPackOffer(Action<bool?> onAnswer) => onAnswer(null);
     }
 }
