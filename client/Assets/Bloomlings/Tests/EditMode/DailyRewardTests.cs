@@ -70,5 +70,40 @@ namespace Bloomlings.Client.Tests
             _clock.UtcNow = _clock.UtcNow.AddDays(1);
             Assert.That(_daily.Claim(), Is.EqualTo(20), "a missed day restarts the streak");
         }
+
+        [Test]
+        public void SettingTheClockBackAndForth_GivesNoExtraClaims()
+        {
+            _save.Unlocks.Flags[DailyRewardService.UnlockId] = true;
+            DateTime today = _clock.UtcNow;
+            Assert.That(_daily.Claim(), Is.EqualTo(20));
+
+            _clock.UtcNow = today.AddDays(1);
+            Assert.That(_daily.Claim(), Is.EqualTo(25), "the clock moved to tomorrow: one claim");
+
+            _clock.UtcNow = today;
+            Assert.That(_daily.CanClaim, Is.False, "back to today: already claimed a later day");
+            _clock.UtcNow = today.AddDays(-3);
+            Assert.That(_daily.CanClaim, Is.False);
+            _clock.UtcNow = today.AddDays(1);
+            Assert.That(_daily.CanClaim, Is.False, "and forward again: that day was claimed");
+            Assert.That(_economy.Petals, Is.EqualTo(45));
+        }
+
+        [Test]
+        public void TheFreeBoosterAd_IsOnceADay_AndSurvivesARelaunch()
+        {
+            var offer = new FreeBoosterAd(_save, _clock, () => { });
+            Assert.That(offer.IsAvailable, Is.True);
+            offer.MarkTaken();
+
+            var relaunched = new FreeBoosterAd(SaveMerge.Clone(_save), _clock, () => { });
+            Assert.That(relaunched.IsAvailable, Is.False, "the date is in the save");
+
+            _clock.UtcNow = _clock.UtcNow.AddDays(-1);
+            Assert.That(offer.IsAvailable, Is.False, "a clock set back waits for a later day");
+            _clock.UtcNow = _clock.UtcNow.AddDays(2);
+            Assert.That(offer.IsAvailable, Is.True);
+        }
     }
 }

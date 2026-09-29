@@ -99,6 +99,7 @@ namespace Bloomlings.Client.Services.Save
             Daily.RewardLastClaimUtcDate = source.Daily.RewardLastClaimUtcDate;
             Daily.RewardStreak = source.Daily.RewardStreak;
             Daily.ChallengeLastCompletedUtcDate = source.Daily.ChallengeLastCompletedUtcDate;
+            Daily.FreeBoosterAdUtcDate = source.Daily.FreeBoosterAdUtcDate;
             Collection.Clear();
             Collection.AddRange(source.Collection);
             Settings.Music = source.Settings.Music;
@@ -309,6 +310,9 @@ namespace Bloomlings.Client.Services.Save
         public int RewardStreak { get; set; }
 
         public string? ChallengeLastCompletedUtcDate { get; set; }
+
+        /// <summary>UTC date <c>yyyy-MM-dd</c> of the last free-booster rewarded ad on Home, or null.</summary>
+        public string? FreeBoosterAdUtcDate { get; set; }
     }
 
     public sealed record CollectionEntry(string PictureId, int PictureVersion, string MappingHash, int LevelNumber);

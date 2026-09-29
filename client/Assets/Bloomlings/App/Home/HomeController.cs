@@ -59,6 +59,7 @@ namespace Bloomlings.Client.App.Home
             PurchaseLedger ledger = services.Get<PurchaseLedger>();
             ProductCatalog products = services.Get<ProductCatalog>();
             DailyRewardService daily = services.Get<DailyRewardService>();
+            FreeBoosterAd freeBooster = services.Get<FreeBoosterAd>();
             IRemoteConfigService config = services.Get<IRemoteConfigService>();
             MilestoneService milestones = services.Get<MilestoneService>();
             WardrobeService wardrobe = services.Get<WardrobeService>();
@@ -100,7 +101,7 @@ namespace Bloomlings.Client.App.Home
                     wardrobe.IsAvailable,
                     collection.Count > 0,
                     background));
-                home.SetFreeBoosterOffer(ads.IsRewardedReady && !_freeBoosterTaken && FreeBoosterKind(economy).HasValue);
+                home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.IsOpen)
                 {
                     board.Show(leaderboard.LastPage, leaderboard.IsStale);
@@ -159,10 +160,10 @@ namespace Bloomlings.Client.App.Home
                 () => ads.ShowRewarded(AdPlacements.FreeBooster, earned =>
                 {
                     BoosterKind? kind = FreeBoosterKind(economy);
-                    if (earned && kind.HasValue)
+                    if (earned && kind.HasValue && freeBooster.IsAvailable)
                     {
                         analytics?.AdRewarded("free_booster");
-                        _freeBoosterTaken = true;
+                        freeBooster.MarkTaken();
                         economy.Grant(0, Grant(kind.Value));
                     }
 
@@ -213,7 +214,8 @@ namespace Bloomlings.Client.App.Home
             RunInBackground(sync.Sync());
             RunInBackground(leaderboard.Refresh());
 
-            // The Daily Reward pops up once a day while a claim is due (FR-055).
+            // The Daily Reward pops up once a day while a claim is due (FR-055). The ad bonus claims the reward with its
+            // extra Petals, so it can be earned once a day: the popup does not come back after a claim.
             if (daily.CanClaim)
             {
                 DailyRewardPopup popup = DailyRewardPopup.Create(root);
@@ -234,11 +236,15 @@ namespace Bloomlings.Client.App.Home
                     },
                     done => ads.ShowRewarded(AdPlacements.DailyBonus, earned =>
                     {
-                        int extra = earned ? config.Get(RemoteConfigKeys.DailyRewardPetals) : 0;
-                        if (extra > 0)
+                        int extra = 0;
+                        if (earned && daily.CanClaim)
                         {
+                            int paid = daily.Claim();
+                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
+                            extra = config.Get(RemoteConfigKeys.DailyRewardPetals);
                             analytics?.AdRewarded("daily");
                             economy.Grant(extra, null);
+                            extra += paid;
                         }
 
                         done(extra);
@@ -247,9 +253,7 @@ namespace Bloomlings.Client.App.Home
             }
         }
 
-        private static bool _freeBoosterTaken;
-
-        /// <summary>The unlocked booster with the fewest charges, for the free-booster offer (one per session).</summary>
+        /// <summary>The unlocked booster with the fewest charges, for the free-booster offer (once a day).</summary>
         private static BoosterKind? FreeBoosterKind(EconomyService economy)
         {
             BoosterKind? best = null;

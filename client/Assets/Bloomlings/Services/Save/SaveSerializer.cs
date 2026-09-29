@@ -136,11 +136,12 @@ namespace Bloomlings.Client.Services.Save
                 save.Cosmetics.Equipped[family.Name] = JsonDoc.String(family.Value, "cosmetics.equipped." + family.Name);
             }
 
-            JObject daily = Obj(root, "daily", "rewardLastClaimUtcDate", "rewardStreak", "challengeLastCompletedUtcDate");
+            JObject daily = Obj(root, "daily", "rewardLastClaimUtcDate", "rewardStreak", "challengeLastCompletedUtcDate", "freeBoosterAdUtcDate");
             save.Daily.RewardLastClaimUtcDate = OptionalString(daily, "daily", "rewardLastClaimUtcDate");
             JToken? streak = JsonDoc.Optional(daily, "rewardStreak");
             save.Daily.RewardStreak = streak == null ? 0 : JsonDoc.Int(streak, "daily.rewardStreak", min: 0);
             save.Daily.ChallengeLastCompletedUtcDate = OptionalString(daily, "daily", "challengeLastCompletedUtcDate");
+            save.Daily.FreeBoosterAdUtcDate = OptionalString(daily, "daily", "freeBoosterAdUtcDate");
 
             JArray collection = JsonDoc.Array(JsonDoc.Required(root, p, "collection"), "collection");
             for (int i = 0; i < collection.Count; i++)
@@ -250,6 +251,7 @@ namespace Bloomlings.Client.Services.Save
                 ["rewardLastClaimUtcDate"] = save.Daily.RewardLastClaimUtcDate,
                 ["rewardStreak"] = save.Daily.RewardStreak,
                 ["challengeLastCompletedUtcDate"] = save.Daily.ChallengeLastCompletedUtcDate,
+                ["freeBoosterAdUtcDate"] = save.Daily.FreeBoosterAdUtcDate,
             };
 
             var root = new JObject

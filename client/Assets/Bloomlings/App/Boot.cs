@@ -147,6 +147,7 @@ namespace Bloomlings.Client.App
             services.Register(ledger);
             services.Register(adPolicy);
             services.Register(new DailyRewardService(save, clock, remote, economy, saves.Save));
+            services.Register(new FreeBoosterAd(save, clock, saves.Save));
             services.Register(new DailyChallengeService(save, clock, remote, catalog, economy, saves.Save));
 
             // Identity, cloud save and leaderboard (US7): anonymous, in the background, never blocking play (FR-087).

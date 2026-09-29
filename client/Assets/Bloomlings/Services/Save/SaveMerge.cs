@@ -113,6 +113,11 @@ namespace Bloomlings.Client.Services.Save
             {
                 merged.ChallengeLastCompletedUtcDate = other.ChallengeLastCompletedUtcDate;
             }
+
+            if (string.CompareOrdinal(other.FreeBoosterAdUtcDate ?? string.Empty, merged.FreeBoosterAdUtcDate ?? string.Empty) > 0)
+            {
+                merged.FreeBoosterAdUtcDate = other.FreeBoosterAdUtcDate;
+            }
         }
 
         private static void MergeCollection(List<CollectionEntry> merged, IReadOnlyList<CollectionEntry> other)

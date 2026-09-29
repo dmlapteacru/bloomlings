@@ -10,7 +10,8 @@ namespace Bloomlings.Client.Meta.DailyReward
 {
     /// <summary>
     /// The Daily Reward popup on Home (FR-055, T134): today's Petals and streak, one Claim, and an optional rewarded-ad
-    /// bonus the player may start (FR-052). It opens by itself once a day while a claim is due.
+    /// bonus the player may start (FR-052). The bonus claims the reward together with its extra Petals, so it is earned
+    /// at most once a day. It opens by itself once a day while a claim is due.
     /// </summary>
     public sealed class DailyRewardPopup : MonoBehaviour
     {
@@ -37,6 +38,7 @@ namespace Bloomlings.Client.Meta.DailyReward
         }
 
         /// <param name="bonusAvailable">A rewarded ad is ready and today's bonus is unused.</param>
+        /// <param name="watchBonus">Shows the ad; reports the Petals paid (claim and bonus), 0 when nothing was earned.</param>
         public void Show(int petals, int streak, bool bonusAvailable, Func<int> claim, Action<Action<int>> watchBonus)
         {
             _text.text = Loc.F("common.petals_plus", petals) + "\n" + Loc.F("daily_reward.day", streak);
@@ -48,14 +50,16 @@ namespace Bloomlings.Client.Meta.DailyReward
             });
             _bonus.gameObject.SetActive(bonusAvailable);
             _bonus.onClick.RemoveAllListeners();
-            _bonus.onClick.AddListener(() => watchBonus(extra =>
+            _bonus.onClick.AddListener(() => watchBonus(total =>
             {
-                _bonus.gameObject.SetActive(false);
-                if (extra > 0)
+                if (total > 0)
                 {
-                    _text.text += "\n" + Loc.F("daily_reward.bonus", extra);
+                    _bonus.gameObject.SetActive(false);
+                    _text.text = Loc.F("daily_reward.claimed_bonus", total) + "\n" + Loc.F("daily_reward.day", streak);
+                    _claim.GetComponentInChildren<TextMeshProUGUI>().text = Loc.T("common.close");
                 }
             }));
+            _claim.GetComponentInChildren<TextMeshProUGUI>().text = Loc.T("daily_reward.claim");
             _root.SetActive(true);
         }
 

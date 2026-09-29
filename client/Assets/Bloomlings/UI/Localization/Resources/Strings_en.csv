@@ -72,7 +72,7 @@ daily_reward.title,Daily reward
 daily_reward.claim,Claim
 daily_reward.watch,Watch for more
 daily_reward.day,Day {0}
-daily_reward.bonus,+{0} bonus
+daily_reward.claimed_bonus,+{0} Petals with the bonus
 leaderboard.title,Leaderboard
 leaderboard.refresh,Refresh
 leaderboard.offline_empty,Offline: the leaderboard will update when you reconnect
