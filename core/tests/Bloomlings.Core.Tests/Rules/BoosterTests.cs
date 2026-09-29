@@ -178,6 +178,57 @@ namespace Bloomlings.Core.Tests.Rules
             Assert.That(session.Check(new UseBloomBurst(VariantId.Leaf)).IsAllowed, Is.True, "the Leaf tile is visible though not reachable");
         }
 
+        [Test]
+        public void BloomBurst_CountsHiddenLayersForSpecials_SoTheLevelStaysWinnable()
+        {
+            // The Fountain needs all 3 Water layers around it; (2,1) holds two of them, one hidden.
+            string[] rows = Rows("#######", "##w.w##", ".......");
+            LevelDefinition level = Definition(
+                rows,
+                new[] { Pod("water", VariantId.Water, 2), Pod("water2", VariantId.Water, 1) },
+                overlays: new[] { new CellOverlay(new CellPos(2, 1), new[] { VariantId.Water }, false, false, false, null) }) with
+            {
+                Specials = new[]
+                {
+                    new SpecialDef(
+                        "fountain",
+                        SpecialType.Fountain,
+                        new[] { new CellPos(3, 1) },
+                        new SpecialCondition(SpecialConditionKind.ClearCountAdjacent, null, VariantId.Water, 3, Array.Empty<CellPos>()),
+                        new SpecialEffect(SpecialEffectKind.RemoveStones, new[] { new CellPos(3, 2) })),
+                },
+            };
+            LevelSession session = Load(rows, level);
+
+            CommandResult result = Do(session, new UseBloomBurst(VariantId.Water));
+
+            Assert.That(result.Events.OfType<SpecialProgressed>().Last(), Is.EqualTo(new SpecialProgressed(0, "fountain", 3, 3)));
+            Assert.That(result.Events.OfType<SpecialTriggered>().Single().SpecialId, Is.EqualTo("fountain"));
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Won), "a burst never leaves a special counter short for good");
+        }
+
+        [Test]
+        public void BloomBurst_KeepsAHiddenMysteryTileSecret()
+        {
+            // (3,2) is a hidden mystery tile: Water over Moss. The burst takes its Water but must not say so.
+            string[] rows = Rows("###w###", ".w.l...", ".......");
+            LevelDefinition level = Definition(
+                rows,
+                new[] { Pod("water", VariantId.Water, 2), Pod("leaf", VariantId.Leaf, 1), Pod("moss", VariantId.Moss, 1) },
+                overlays: new[] { new CellOverlay(new CellPos(3, 2), new[] { VariantId.Moss }, true, false, false, null) });
+            LevelSession session = Load(rows, level);
+            Assert.That(session.View.Cell(new CellPos(3, 2)).MysteryHidden, Is.True);
+
+            CommandResult burst = Do(session, new UseBloomBurst(VariantId.Water));
+
+            Assert.That(burst.Events.OfType<VariantBurst>().Single().Cells, Is.EqualTo(new[] { new CellPos(1, 1) }));
+            Assert.That(session.View.Cell(new CellPos(3, 2)).MysteryHidden, Is.True, "still a ? tile");
+            CommandResult leaf = Do(session, "tap:leaf");
+            Assert.That(leaf.Events.OfType<MysteryTileRevealed>().Single().Variant, Is.EqualTo(VariantId.Moss));
+            Do(session, "tap:moss");
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Won));
+        }
+
         private static readonly string[] ShuffleBoard = Rows("###f###", "###d###", "###o###", "###m###", "##lwl##", ".......");
 
         /// <summary>A column to dig from the bottom: Water, then Moss, Wood, Dew and Flower; the tray buries it upside down.</summary>
