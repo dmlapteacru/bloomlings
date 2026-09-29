@@ -1,0 +1,97 @@
+{
+  "allowedMechanics": [
+    "key",
+    "stone",
+    "locked_pod",
+    "connected_pair",
+    "layered_tile",
+    "gate",
+    "fountain",
+    "locked_slot",
+    "mystery_tile"
+  ],
+  "allowedVariants": [
+    "acorn",
+    "dew",
+    "flower",
+    "leaf",
+    "moss",
+    "violet_bud",
+    "water",
+    "wood"
+  ],
+  "bandId": "band-0051-0100",
+  "boardSize": {
+    "height": [
+      12,
+      14
+    ],
+    "width": [
+      10,
+      14
+    ]
+  },
+  "bufferPressureTarget": "normal",
+  "durationTarget": [
+    45,
+    240
+  ],
+  "entryLayouts": [
+    "bottom_center",
+    "bottom_left",
+    "bottom_right",
+    "two_bottom"
+  ],
+  "hardMode": {
+    "extraPods": 3,
+    "hardPressure": "tense",
+    "maxInjections": 16,
+    "superHardPressure": "critical"
+  },
+  "levelRange": [
+    51,
+    100
+  ],
+  "mappingConstraints": {
+    "allowRoleMerge": true
+  },
+  "maxLayerDepth": 1,
+  "note": "Core completion band: 10×12–14×14, 5 variants (6 only in Hard from L70), 10–24 pods, work 90–180 (Hard 150–300). Fountain from L60, locked slot from L80, mystery tile (optional) from L90.",
+  "picturePool": {
+    "themes": []
+  },
+  "podCount": [
+    14,
+    24
+  ],
+  "podSize": [
+    5,
+    60
+  ],
+  "solver": {
+    "maxCandidatesPerLevel": 60,
+    "nodeBudget": 400000
+  },
+  "stacks": [
+    3,
+    5
+  ],
+  "structureTargets": {
+    "backgroundSharePermille": [
+      250,
+      650
+    ],
+    "nestingDepth": [
+      2,
+      4
+    ]
+  },
+  "variantCount": [
+    4,
+    5
+  ],
+  "work": [
+    90,
+    300
+  ]
+}

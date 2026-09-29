@@ -1,6 +1,7 @@
 # 14 — Launch / MVP Scope
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)  
+**Revision 2026-09-29:** picture-first levels and picture library (§4, §8, §9; spec `001` FR-006).
 
 > v0.4 changes the content requirement substantially: the launch build must support **5000+ levels**, even though only the early portion is heavily handcrafted.
 
@@ -43,6 +44,7 @@ This is a content-system requirement, not a requirement for 5000 handmade design
 ## 4. Core gameplay required
 
 - dense large 2D board;
+- every level is a picture: a picture-first mosaic built from a base picture (`05_LEVEL_STRUCTURE.md` §5);
 - many full target cells;
 - 4 Bloomling families;
 - 8 launch target variants;
@@ -58,7 +60,7 @@ This is a content-system requirement, not a requirement for 5000 handmade design
 - Jam;
 - no timer;
 - 2× speed;
-- restoration reveal;
+- restoration reveal of the finished picture;
 - Next Level.
 
 ## 5. Launch boosters
@@ -124,7 +126,8 @@ Required:
 - five-slot UI;
 - special-object assets;
 - quiet background themes;
-- large reusable/generated board-mask library.
+- picture library: 100 different base pictures for Levels 1–100, roughly 1000–1500 for the 5000-level catalog (`06_LEVEL_GENERATOR.md` §23);
+- automatic finished-picture rendering, with bespoke illustrations only where chosen (e.g. milestones).
 
 5000 levels do not require 5000 bespoke illustrations.
 
@@ -136,6 +139,8 @@ Before release:
 - exact target accounting passes;
 - mechanic unlock constraints pass;
 - palette/readability constraints pass;
+- every base picture reviewed; subject recognizable at level start;
+- picture reuse limits pass (Levels 1–100 unique, no repeat within 50 levels);
 - no booster-required solutions;
 - no invalid hidden-information dependencies.
 

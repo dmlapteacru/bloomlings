@@ -1,0 +1,119 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1310
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 5,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 77,
+  "mapping": {
+    "body": "acorn",
+    "sky": "water",
+    "stripe": "wood",
+    "wing": "dew"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "bee_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "connectedGroupId": "c1",
+      "count": 9,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 6,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 4,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13308109871799333261",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

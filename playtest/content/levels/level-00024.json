@@ -1,0 +1,139 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1278
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 24,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "beak": "acorn",
+    "bird": "water",
+    "branch": "acorn",
+    "leaves": "moss",
+    "sky": "water",
+    "wing": "flower"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 1,
+        "y": 1
+      },
+      {
+        "hole": true,
+        "x": 4,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "bird_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 3,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 1,
+      "id": "p11",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7753118322605440385",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 4,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11"],
+      ["p02", "p04", "p06", "p08", "p10"]
+    ]
+  }
+}

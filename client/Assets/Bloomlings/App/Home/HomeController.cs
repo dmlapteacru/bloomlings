@@ -1,0 +1,371 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Gameplay.Board;
+using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Meta.Collection;
+using Bloomlings.Client.Meta.DailyChallenge;
+using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Analytics;
+using Bloomlings.Client.Services.Backend;
+using Bloomlings.Client.Services.Config;
+using Bloomlings.Client.Services.Content;
+using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.Services.Purchases;
+using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Screens;
+using Bloomlings.Content.Packs;
+using Bloomlings.Core.Definitions;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using Bloomlings.Client.UI.Localization;
+
+namespace Bloomlings.Client.App.Home
+{
+    /// <summary>
+    /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (with Restore Purchases
+    /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, and
+    /// the long-run features (US7): the leaderboard rank (L10), the Wardrobe (L40), the Daily Challenge (L50), the
+    /// Collection, the milestone teaser and the band's background theme. Opening Home syncs the cloud save and refreshes
+    /// the rank in the background. Opened without Boot (in the Editor), it loads Boot first.
+    /// </summary>
+    public sealed class HomeController : MonoBehaviour
+    {
+        private Action? _unsubscribe;
+
+        private void OnDestroy() => _unsubscribe?.Invoke();
+
+        private void Start()
+        {
+            AppServices? services = AppServices.Current;
+            if (services == null)
+            {
+                SceneManager.LoadScene(0);
+                return;
+            }
+
+            PlayerSave save = services.Get<PlayerSave>();
+            SaveService saves = services.Get<SaveService>();
+            ProgressionService progression = services.Get<ProgressionService>();
+            GameFlow flow = services.Get<GameFlow>();
+            EconomyService economy = services.Get<EconomyService>();
+            IAdsService ads = services.Get<IAdsService>();
+            IPurchaseService purchases = services.Get<IPurchaseService>();
+            PurchaseLedger ledger = services.Get<PurchaseLedger>();
+            ProductCatalog products = services.Get<ProductCatalog>();
+            DailyRewardService daily = services.Get<DailyRewardService>();
+            IRemoteConfigService config = services.Get<IRemoteConfigService>();
+            MilestoneService milestones = services.Get<MilestoneService>();
+            WardrobeService wardrobe = services.Get<WardrobeService>();
+            CollectionService collection = services.Get<CollectionService>();
+            DailyChallengeService dailyChallenge = services.Get<DailyChallengeService>();
+            LeaderboardClient leaderboard = services.Get<LeaderboardClient>();
+            CloudSaveSync sync = services.Get<CloudSaveSync>();
+            IAuthService auth = services.Get<IAuthService>();
+            CatalogService catalog = services.Get<CatalogService>();
+            services.TryGet(out Boot? boot);
+            services.TryGet(out GameAnalytics? analytics);
+
+            Canvas canvas = UiFactory.CreateCanvas("HomeCanvas", 0);
+            canvas.transform.SetParent(transform, false);
+            var root = (RectTransform)canvas.transform;
+            SettingsScreen? settings = null;
+            StoreScreen? store = null;
+            HomeScreen? home = null;
+            LeaderboardScreen? board = null;
+            void Refresh()
+            {
+                if (!this || home == null)
+                {
+                    return; // A background callback after Home was left.
+                }
+
+                (int Level, MilestoneCadence Cadence, int WinsToGo)? next = milestones.Next(progression.HighestCompletedLevel);
+                Color? background = ColorUtility.TryParseHtmlString(ThemeRotation.Default.ThemeFor(progression.CurrentLevel).Background, out Color theme) ? theme : (Color?)null;
+                home.Show(new HomeModel(
+                    progression.CurrentLevel,
+                    economy.Petals,
+                    progression.IsUnlocked("system.store"),
+                    leaderboard.IsUnlocked,
+                    RankText(leaderboard),
+                    next?.Level,
+                    next?.WinsToGo,
+                    dailyChallenge.IsAvailable,
+                    dailyChallenge.CompletedToday,
+                    wardrobe.IsAvailable,
+                    collection.Count > 0,
+                    background));
+                home.SetFreeBoosterOffer(ads.IsRewardedReady && !_freeBoosterTaken && FreeBoosterKind(economy).HasValue);
+                if (board != null && board.IsOpen)
+                {
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale);
+                }
+            }
+
+            void RunInBackground(System.Collections.IEnumerator routine)
+            {
+                if (boot != null)
+                {
+                    boot.Run(routine);
+                }
+                else
+                {
+                    StartCoroutine(routine);
+                }
+            }
+
+            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, OpenStore, Refresh), economy.Petals, purchases.IsAvailable);
+
+            WardrobeScreen wardrobeScreen = WardrobeScreen.Create(root, wardrobe);
+            CollectionScreen collectionScreen = CollectionScreen.Create(root);
+            DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
+            {
+                LevelAttempt? attempt = dailyChallenge.BeginAttempt();
+                if (attempt != null)
+                {
+                    flow.PlayDaily(attempt);
+                }
+            });
+            board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()));
+            var features = new HomeFeatureActions(
+                () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
+                wardrobeScreen.Show,
+                () =>
+                {
+                    analytics?.CollectionOpen(collection.Count);
+                    collectionScreen.Show(collection.Entries, entry => RenderCollectionEntry(catalog, entry));
+                },
+                () =>
+                {
+                    analytics?.LeaderboardView(leaderboard.LastPage?.Player?.Rank ?? 0);
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale);
+                    RunInBackground(leaderboard.Refresh());
+                });
+
+            home = HomeScreen.Create(
+                UiFactory.Stretch(UiFactory.CreateRect("Home", root)),
+                flow.Play,
+                () => settings!.Show(),
+                () =>
+                {
+                    analytics?.StoreOpen("home");
+                    OpenStore();
+                },
+                () => ads.ShowRewarded(AdPlacements.FreeBooster, earned =>
+                {
+                    BoosterKind? kind = FreeBoosterKind(economy);
+                    if (earned && kind.HasValue)
+                    {
+                        analytics?.AdRewarded("free_booster");
+                        _freeBoosterTaken = true;
+                        economy.Grant(0, Grant(kind.Value));
+                    }
+
+                    Refresh();
+                }),
+                features);
+            var account = new AccountActions(
+                () => save.LinkedIdentity != null
+                    ? Loc.T(save.LinkedIdentity == "apple" ? "account.linked_apple" : "account.linked_google")
+                    : Loc.T(auth.IsSignedIn ? "account.signed_in" : "account.local"),
+                auth.CanLink(LinkProvider.Apple),
+                auth.CanLink(LinkProvider.GooglePlayGames),
+                (provider, done) => RunInBackground(auth.Link(provider, ok =>
+                {
+                    if (ok)
+                    {
+                        save.LinkedIdentity = LinkedIdentities.Name(provider);
+                        saves.Save();
+                        RunInBackground(sync.Sync(_ => Refresh()));
+                    }
+
+                    done(ok);
+                })));
+            settings = SettingsScreen.Create(root, save.Settings, saves.Save, () => purchases.Restore(ledger.Grant, ok => Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.")), account);
+            store = StoreScreen.Create(root);
+            Refresh();
+
+            // Background refresh: a cloud merge or a new rank updates Home when it arrives (never blocking it).
+            Action onMerged = Refresh;
+            Action onRank = Refresh;
+            sync.Merged += onMerged;
+            leaderboard.Updated += onRank;
+            _unsubscribe = () =>
+            {
+                sync.Merged -= onMerged;
+                leaderboard.Updated -= onRank;
+            };
+            RunInBackground(sync.Sync());
+            RunInBackground(leaderboard.Refresh());
+
+            // The Daily Reward pops up once a day while a claim is due (FR-055).
+            if (daily.CanClaim)
+            {
+                DailyRewardPopup popup = DailyRewardPopup.Create(root);
+                popup.Show(
+                    daily.NextPetals,
+                    daily.NextStreak,
+                    ads.IsRewardedReady,
+                    () =>
+                    {
+                        int paid = daily.Claim();
+                        if (paid > 0)
+                        {
+                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
+                        }
+
+                        Refresh();
+                        return paid;
+                    },
+                    done => ads.ShowRewarded(AdPlacements.DailyBonus, earned =>
+                    {
+                        int extra = earned ? config.Get(RemoteConfigKeys.DailyRewardPetals) : 0;
+                        if (extra > 0)
+                        {
+                            analytics?.AdRewarded("daily");
+                            economy.Grant(extra, null);
+                        }
+
+                        done(extra);
+                        Refresh();
+                    }));
+            }
+        }
+
+        private static bool _freeBoosterTaken;
+
+        /// <summary>The unlocked booster with the fewest charges, for the free-booster offer (one per session).</summary>
+        private static BoosterKind? FreeBoosterKind(EconomyService economy)
+        {
+            BoosterKind? best = null;
+            foreach ((string _, BoosterKind kind) in EconomyService.BoosterUnlocks)
+            {
+                if (economy.IsUnlocked(kind) && (!best.HasValue || economy.Charges(kind) < economy.Charges(best.Value)))
+                {
+                    best = kind;
+                }
+            }
+
+            return best;
+        }
+
+        private static BoosterGrant Grant(BoosterKind kind) => new BoosterGrant(
+            kind == BoosterKind.ExtraSlot ? 1 : 0,
+            kind == BoosterKind.Shuffle ? 1 : 0,
+            kind == BoosterKind.Return ? 1 : 0,
+            kind == BoosterKind.BloomBurst ? 1 : 0);
+
+        /// <summary>The Store rows (FR-051): Petal packs, boosters for Petals, the starter pack once, Remove Ads until owned.</summary>
+        private static List<StoreItem> StoreItems(EconomyService economy, IPurchaseService purchases, PurchaseLedger ledger, ProductCatalog products, PlayerSave save, Action reopen, Action refreshHome)
+        {
+            var items = new List<StoreItem>();
+            foreach (StoreProduct product in products.Products)
+            {
+                if ((product.OfferedOnce && save.Purchases.StarterPackOffered) || (product.RemoveAds && ledger.RemoveAds))
+                {
+                    continue;
+                }
+
+                string id = product.Id;
+                items.Add(new StoreItem(
+                    id,
+                    Title(product),
+                    purchases.PriceOf(id) ?? (purchases.IsAvailable ? "…" : "—"),
+                    purchases.IsAvailable,
+                    () => purchases.Buy(id, ledger.Grant, _ =>
+                    {
+                        reopen();
+                        refreshHome();
+                    })));
+            }
+
+            foreach ((string _, BoosterKind kind) in EconomyService.BoosterUnlocks)
+            {
+                if (!economy.IsUnlocked(kind))
+                {
+                    continue;
+                }
+
+                BoosterKind k = kind;
+                items.Add(new StoreItem(
+                    "booster_" + kind,
+                    Loc.F("store.booster_owned", BoosterName(kind), economy.Charges(kind)),
+                    economy.Price(kind).ToString(CultureInfo.InvariantCulture) + " ✿",
+                    economy.Petals >= economy.Price(kind),
+                    () =>
+                    {
+                        economy.TryBuy(k);
+                        reopen();
+                        refreshHome();
+                    }));
+            }
+
+            return items;
+        }
+
+        private static string Title(StoreProduct product)
+        {
+            if (product.RemoveAds)
+            {
+                return Loc.T("store.remove_ads");
+            }
+
+            if (product.OfferedOnce)
+            {
+                return Loc.T("store.starter_pack");
+            }
+
+            return product.Petals > 0 && product.Boosters == null
+                ? Loc.F("common.petals", product.Petals)
+                : Loc.T("store.booster_bundle");
+        }
+
+        private static string BoosterName(BoosterKind kind) => kind switch
+        {
+            BoosterKind.ExtraSlot => Loc.T("booster.extra_slot"),
+            BoosterKind.Shuffle => Loc.T("booster.shuffle"),
+            BoosterKind.Return => Loc.T("booster.return"),
+            _ => Loc.T("booster.bloom_burst"),
+        };
+
+        /// <summary>The Home rank slot (FR-058): null before the unlock; a stale rank says so.</summary>
+        private static string? RankText(LeaderboardClient leaderboard)
+        {
+            if (!leaderboard.IsUnlocked)
+            {
+                return null;
+            }
+
+            int? rank = leaderboard.LastPage?.Player?.Rank;
+            if (!rank.HasValue)
+            {
+                return Loc.T(leaderboard.IsStale ? "home.rank_unknown_offline" : "home.rank_unknown");
+            }
+
+            string number = rank.Value.ToString("N0", CultureInfo.InvariantCulture);
+            return leaderboard.IsStale ? Loc.F("home.rank_offline", number) : Loc.F("home.rank", number);
+        }
+
+        /// <summary>
+        /// Redraws a Collection entry with the current content when its level still has the same picture and colors;
+        /// otherwise the entry shows its level number only.
+        /// </summary>
+        private static Texture2D? RenderCollectionEntry(CatalogService catalog, CollectionEntry entry)
+        {
+            ContentSet content = catalog.Content;
+            if (!content.TryGetLevel(entry.LevelNumber, out LevelDefinition level)
+                || level.Picture.Id != entry.PictureId
+                || level.Picture.Version != entry.PictureVersion
+                || CollectionService.MappingHash(level.Mapping) != entry.MappingHash)
+            {
+                return null;
+            }
+
+            return FinishedPictureRenderer.Render(level, content.GetPicture(level.Picture), null);
+        }
+    }
+}

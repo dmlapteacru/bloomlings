@@ -1,0 +1,101 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1216
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 18,
+  "mapping": {
+    "door": "wood",
+    "grass": "moss",
+    "roof": "wood",
+    "sky": "dew",
+    "wall": "flower",
+    "window": "dew"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "cottage_01",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "connectedGroupId": "c1",
+      "count": 9,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 9,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p11",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6548407173576913814",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09"]
+    ]
+  }
+}

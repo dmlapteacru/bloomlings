@@ -1,0 +1,164 @@
+{
+  "commands": ["tap:t1", "tap:w2", "tap:k1", "tap:w1"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 8,
+    "locks": [
+      {
+        "keyId": "key1",
+        "target": {
+          "id": "door1",
+          "kind": "special"
+        }
+      }
+    ],
+    "mapping": {
+      "kite": "violet_bud",
+      "sky": "water",
+      "tail": "acorn"
+    },
+    "mechanics": ["key"],
+    "overlays": {
+      "cells": [
+        {
+          "hole": true,
+          "x": 1,
+          "y": 4
+        },
+        {
+          "keyId": "key1",
+          "x": 2,
+          "y": 1
+        }
+      ]
+    },
+    "picture": {
+      "id": "kite",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 18,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 17,
+        "id": "w2",
+        "variantId": "water"
+      },
+      {
+        "count": 12,
+        "id": "k1",
+        "variantId": "violet_bud"
+      },
+      {
+        "count": 4,
+        "id": "t1",
+        "variantId": "acorn"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1008",
+    "slots": {
+      "count": 5
+    },
+    "specials": [
+      {
+        "cells": [
+          {
+            "x": 1,
+            "y": 4
+          }
+        ],
+        "condition": {
+          "keyId": "key1",
+          "kind": "key"
+        },
+        "effect": {
+          "kind": "open_cells"
+        },
+        "id": "door1",
+        "type": "gate"
+      }
+    ],
+    "tray": {
+      "stacks": [
+        ["k1", "w1"],
+        ["t1", "w2"]
+      ]
+    }
+  },
+  "description": "Curated Level 8 (Kite): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011). The key on the tail opens the door in the sky (Key preview, T111).",
+  "expectedEventsDigest": "d908200b85c2d3bf",
+  "expectedStateHash": "893380b3bcdc6354",
+  "expectedStatus": "won",
+  "name": "curated-l0008",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 0, 0, 2, 0, 0, -1],
+      [0, 0, 2, 0, 0, 0, 0],
+      [0, 0, 0, 2, 0, 0, -1],
+      [0, 0, 0, 0, 2, 0, 0],
+      [0, 0, 0, 1, 1, 1, 0],
+      [0, 0, 1, 1, 1, 1, 1],
+      [0, 0, 0, 1, 1, 1, 0],
+      [-1, 0, 0, 0, 1, 0, 0]
+    ],
+    "height": 8,
+    "id": "kite",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "Kite",
+        "roleId": "kite"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "Tail",
+        "roleId": "tail"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Kite",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["sky"]
+    },
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Bloomlings.Client.Tests.EditMode",
+  "rootNamespace": "Bloomlings.Client.Tests",
+  "references": [
+    "Bloomlings.Client",
+    "Bloomlings.Client.Editor",
+    "Bloomlings.Core",
+    "Bloomlings.Content",
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "Bloomlings.Client.DeviceTests"
+  ],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

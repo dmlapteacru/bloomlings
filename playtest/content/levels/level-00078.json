@@ -1,0 +1,273 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2105
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 78,
+  "mapping": {
+    "grass": "moss",
+    "house": "wood",
+    "pole": "wood",
+    "roof": "flower",
+    "sky": "dew"
+  },
+  "mechanics": ["layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["dew"],
+        "x": 1,
+        "y": 0
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 2,
+        "y": 0
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 4,
+        "y": 0
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 7,
+        "y": 1
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 8,
+        "y": 1
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 6,
+        "y": 2
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 8,
+        "y": 2
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 9,
+        "y": 2
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 2,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 4,
+        "y": 5
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 6,
+        "y": 5
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 9,
+        "y": 5
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 2,
+        "y": 7
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 5,
+        "y": 7
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 3,
+        "y": 9
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 6,
+        "y": 9
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 8,
+        "y": 9
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 1,
+        "y": 10
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 3,
+        "y": 10
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 5,
+        "y": 10
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 7,
+        "y": 10
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 9,
+        "y": 10
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 2,
+        "y": 11
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 7,
+        "y": 11
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 8,
+        "y": 11
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 5,
+        "y": 12
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 8,
+        "y": 12
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 6,
+        "y": 13
+      }
+    ]
+  },
+  "picture": {
+    "id": "birdhouse_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 1,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 4,
+      "id": "p17",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14778625366844981908",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

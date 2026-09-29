@@ -1,0 +1,181 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2334
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 65,
+  "mapping": {
+    "can": "moss",
+    "drops": "dew",
+    "grass": "moss",
+    "handle": "acorn",
+    "sky": "water"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 5,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 7,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "watering_can_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 4,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 4,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 2,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "18357914681224036258",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 3,
+            "y": 10
+          },
+          {
+            "x": 7,
+            "y": 10
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
+    ]
+  }
+}

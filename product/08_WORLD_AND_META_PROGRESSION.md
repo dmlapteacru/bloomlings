@@ -1,6 +1,6 @@
 # 08 — Linear Meta Progression
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)
 
 > There are no user-facing Garden Areas or level-map progression.
 

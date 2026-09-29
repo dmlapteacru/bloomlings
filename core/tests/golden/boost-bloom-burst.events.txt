@@ -1,0 +1,17 @@
+> tap:leafA
+r0 PodCommitted leafA slot=0 stack=1 depth=0
+r1 TileCleared 3,0 leaf by leafA route=3,0
+r1 CellOpened 3,0
+> burst:leaf
+r0 VariantBurst leaf cells=1,0>4,0>3,2 pods=leafA,leafB
+> tap:moss
+r0 PodCommitted moss slot=0 stack=0 depth=0
+r1 TileCleared 2,0 moss by moss route=3,0>2,0
+r1 CellOpened 2,0
+r1 TileCleared 4,0 moss by moss route=3,0>4,0
+r1 CellOpened 4,0
+r1 TileCleared 3,1 moss by moss route=3,0>3,1
+r1 CellOpened 3,1
+r1 PodCompleted moss slot=0
+r1 SlotFreed 0
+r2 LevelWon boosters=1

@@ -1,0 +1,63 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 10,
+  "id": "fish_01",
+  "legend": {
+    "d": "sand",
+    "f": "fish",
+    "k": "weed",
+    "t": "tail",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Fish 1",
+  "tags": {
+    "bands": [
+      "early"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 9
+}

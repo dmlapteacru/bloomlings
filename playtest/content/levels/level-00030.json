@@ -1,0 +1,106 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1396
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 30,
+  "mapping": {
+    "center": "wood",
+    "grass": "leaf",
+    "petal": "flower",
+    "sky": "dew",
+    "stem": "leaf"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "daisy_field_03",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 8,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 15,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 3,
+      "id": "p12",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14158406582671426128",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

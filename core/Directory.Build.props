@@ -1,0 +1,16 @@
+<Project>
+  <!--
+    Shared build settings for the pure C# core (spec 001, research R2).
+    LangVersion depends on TargetFramework and is therefore set in Directory.Build.targets.
+  -->
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!-- Keep bin/obj out of the source folders: Unity imports these folders as local UPM packages. -->
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+  </PropertyGroup>
+</Project>

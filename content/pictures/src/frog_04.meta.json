@@ -1,0 +1,57 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 14,
+  "id": "frog_04",
+  "legend": {
+    "f": "frog",
+    "o": "blossom",
+    "p": "pad",
+    "w": "pond"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Pond",
+      "roleId": "pond"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lily pad",
+      "roleId": "pad"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Frog",
+      "roleId": "frog"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blossom",
+      "roleId": "blossom"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Frog 4",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "animals",
+      "pond"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

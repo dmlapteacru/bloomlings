@@ -1,0 +1,76 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "overridden": true,
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 10,
+  "mapping": {
+    "bed": "flower",
+    "sky": "water",
+    "spot": "flower",
+    "wing": "violet_bud"
+  },
+  "picture": {
+    "id": "butterfly",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "f1",
+      "variantId": "flower"
+    },
+    {
+      "count": 4,
+      "id": "f2",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "w3",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "v1",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "v2",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1010",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["w1", "v1", "f1"],
+      ["v2", "w2", "f2"],
+      ["w3"]
+    ]
+  }
+}

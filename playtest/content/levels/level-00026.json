@@ -1,0 +1,138 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1433
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 26,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p11",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "grass": "leaf",
+    "house": "wood",
+    "pole": "wood",
+    "roof": "violet_bud",
+    "sky": "water"
+  },
+  "mechanics": ["connected_pair", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 1,
+        "y": 0
+      }
+    ]
+  },
+  "picture": {
+    "id": "birdhouse_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 8,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 8,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1792408782060003898",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}

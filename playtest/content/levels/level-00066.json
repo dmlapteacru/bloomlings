@@ -1,0 +1,148 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1299
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 9,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 66,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p11",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "grass": "moss",
+    "pumpkin": "wood",
+    "rib": "wood",
+    "sky": "dew",
+    "stem": "leaf"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 2,
+        "y": 1
+      }
+    ]
+  },
+  "picture": {
+    "id": "pumpkin_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "lockKeyId": "k1",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 4,
+      "id": "p16",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17537727805496660772",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

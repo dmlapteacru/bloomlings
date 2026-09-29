@@ -1,0 +1,199 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1898
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 5,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 28,
+  "mapping": {
+    "center": "acorn",
+    "grass": "leaf",
+    "petal": "violet_bud",
+    "sky": "water",
+    "stem": "moss"
+  },
+  "mechanics": ["layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 3,
+        "y": 0
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 4,
+        "y": 0
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 10,
+        "y": 0
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 2,
+        "y": 2
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 9,
+        "y": 2
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 10,
+        "y": 3
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 4,
+        "y": 5
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 7,
+        "y": 5
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 1,
+        "y": 6
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 5,
+        "y": 6
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 7,
+        "y": 7
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 0,
+        "y": 8
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 10,
+        "y": 9
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 6,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "daisy_field_02",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 3,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 1,
+      "id": "p16",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11947269484243655200",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

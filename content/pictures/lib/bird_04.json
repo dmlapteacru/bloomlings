@@ -1,0 +1,70 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [4, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0],
+    [3, 4, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, -1],
+    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [-1, 0, 1, 2, 2, 2, 1, 1, -1, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, -1, -1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1],
+    [-1, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, -1]
+  ],
+  "height": 12,
+  "id": "bird_04",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.513,
+    "nestingDepth": 4,
+    "regionCount": 7
+  },
+  "subject": "Bird 4",
+  "tags": {
+    "bands": ["core"],
+    "themes": ["animals", "garden"]
+  },
+  "version": 1,
+  "width": 12
+}

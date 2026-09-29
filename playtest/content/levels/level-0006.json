@@ -1,0 +1,53 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 6,
+  "mapping": {
+    "hull": "wood",
+    "sail": "flower",
+    "sky": "water"
+  },
+  "picture": {
+    "id": "sailboat",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 31,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "a1",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "h1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1006",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["h1", "a1"],
+      ["w1"]
+    ]
+  }
+}

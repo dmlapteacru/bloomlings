@@ -1,0 +1,53 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 2, 2, 0, 0, 0],
+    [0, 0, 0, 2, 2, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 1, 1, 1, 0],
+    [-1, 0, 1, 1, 1, 1, 0, -1]
+  ],
+  "height": 8,
+  "id": "tree",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Curated onboarding picture (T067); pending playtest.",
+    "reviewer": "content",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk",
+      "roleId": "trunk"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Round tree",
+  "tags": {
+    "bands": ["onboarding"],
+    "themes": ["garden"]
+  },
+  "version": 1,
+  "width": 8
+}

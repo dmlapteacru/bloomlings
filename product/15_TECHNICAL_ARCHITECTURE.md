@@ -1,8 +1,9 @@
 # 15 — Technical Architecture
 
-**Status:** DRAFT FOR LOCK  
+**Status:** LOCKED (2026-09-29)  
 **Scope:** conceptual technology and system architecture only.  
-**Out of scope:** low-level class design, folder structure, dependency injection, exact interfaces, frame-by-frame implementation details.
+**Out of scope:** low-level class design, folder structure, dependency injection, exact interfaces, frame-by-frame implementation details.  
+**Revision 2026-09-29:** picture-first level data and picture library (§4, §6, §7, §8, §17; spec `001` FR-006/FR-077).
 
 ---
 
@@ -97,7 +98,10 @@ There is one reusable gameplay runtime.
 
 A level definition contains the data required to construct:
 
-- board mask;
+- base picture reference (id + picture version);
+- role → variant mapping;
+- transform (mirroring, background treatment);
+- board mask (derived from the picture);
 - tile/layer layout;
 - target variants;
 - Source Pod stacks;
@@ -108,6 +112,10 @@ A level definition contains the data required to construct:
 - difficulty profile;
 - rewards;
 - deterministic seed/version.
+
+Levels are picture-first (`05_LEVEL_STRUCTURE.md` §5): the base picture and its mapping fix the visible top layer of every cell.
+
+A definition may be stored fully materialized or as a compact config (picture reference + mapping + seed + parameters) that the runtime expands deterministically. Either way, the constructed level must be identical on every device.
 
 The game should not contain thousands of Unity scenes such as:
 
@@ -150,7 +158,8 @@ They should be implemented as reusable C# logic with minimal dependency on Unity
 Conceptually:
 
 ### Generator
-Creates candidate level definitions based on:
+Creates candidate level definitions picture-first and solution-first (`06_LEVEL_GENERATOR.md` §1), based on:
+- base picture pool and role → variant mapping constraints;
 - progression band;
 - allowed mechanics;
 - target difficulty;
@@ -168,8 +177,13 @@ Validates:
 - hidden-information fairness;
 - difficulty metrics.
 
+### Picture library
+Base pictures (color-role grids + metadata, `06_LEVEL_GENERATOR.md` §23) are a pipeline input with their own review status and versioning.
+
+The finished (restored) look is rendered automatically from the grid by default. Bespoke illustrations are optional assets.
+
 ### Content pipeline
-`Generation → Validation → Scoring → Review → Publish`
+`Picture library → Generation → Validation → Scoring → Review → Publish`
 
 This pipeline is required to make 5000+ levels economically feasible.
 
@@ -183,6 +197,7 @@ Recommended concepts:
 
 - level number;
 - level definition version;
+- base picture id + picture version;
 - generation seed;
 - content-pack version.
 
@@ -201,7 +216,7 @@ This matters for:
 
 ## Launch
 
-The initial 5000+ level catalog can be bundled with the application as compact level data.
+The initial 5000+ level catalog can be bundled with the application as compact level data, together with the picture library it references.
 
 This ensures:
 - offline play;
@@ -210,7 +225,7 @@ This ensures:
 
 ## Future
 
-Additional level packs/configuration may be delivered through:
+Additional level packs, new base pictures and configuration may be delivered through:
 
 - remote content bundles;
 - CDN/object storage;
@@ -431,12 +446,14 @@ Separate conceptually:
 - common backgrounds.
 
 ### Level data
-- masks;
+- base picture references, role → variant mappings, transforms;
+- picture library (color-role grids + metadata);
 - tile definitions;
 - Source Pods;
 - mechanic parameters.
 
 ### Optional downloadable content
+- new base pictures and bespoke finished illustrations;
 - new background themes;
 - cosmetic sets;
 - additional target variants;

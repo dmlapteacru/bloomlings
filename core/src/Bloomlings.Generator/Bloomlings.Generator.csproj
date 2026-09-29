@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!-- Picture-first, solution-first level generator (tools only). -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Bloomlings.Core/Bloomlings.Core.csproj" />
+    <ProjectReference Include="../Bloomlings.Content/Bloomlings.Content.csproj" />
+    <ProjectReference Include="../Bloomlings.Solver/Bloomlings.Solver.csproj" />
+  </ItemGroup>
+</Project>

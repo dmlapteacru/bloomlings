@@ -1,0 +1,52 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 1,
+  "mapping": {
+    "sky": "water",
+    "sprout": "leaf"
+  },
+  "picture": {
+    "id": "sprout",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 20,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "l1",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1001",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["w1", "l1"],
+      ["w2"]
+    ]
+  }
+}

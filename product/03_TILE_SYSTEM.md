@@ -1,6 +1,6 @@
 # 03 — Tile & Target Variant System
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)
 
 ## 1. Core rule
 

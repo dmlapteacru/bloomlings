@@ -1,0 +1,42 @@
+name: catalog-nightly
+
+# Full catalog certification (T093; SC-004, SC-012): solves every level, checks every invariant, reports the
+# difficulty distribution (FR-059) and the picture similarity statistics, and uploads the JSON reports.
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  certify-catalog:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: core/global.json
+
+      - name: Build the pipeline
+        run: dotnet build core/src/Bloomlings.Pipeline -c Release
+
+      - name: Validate, score and report
+        run: |
+          mkdir -p reports
+          pipeline() { dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build -- "$@"; }
+          status=0
+          pipeline pictures validate --lib content/pictures/lib --json > reports/pictures.json || status=1
+          pipeline validate --defs content/curated --json > reports/validate-curated.json || status=1
+          pipeline validate --defs content/catalog --json > reports/validate-catalog.json || status=1
+          pipeline score --defs content/catalog --curated content/curated --json > reports/score.json || status=1
+          echo "pipeline exit status: $status"
+          exit $status
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalog-nightly-report
+          path: reports
+          retention-days: 3

@@ -1,0 +1,111 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1320
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 79,
+  "mapping": {
+    "background": "flower",
+    "leaf": "leaf",
+    "pear": "moss",
+    "stalk": "acorn"
+  },
+  "picture": {
+    "id": "pear_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 4,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 3,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "16573830992077894727",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

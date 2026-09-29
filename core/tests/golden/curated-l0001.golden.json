@@ -1,0 +1,110 @@
+{
+  "commands": ["tap:w1", "tap:l1", "tap:w2"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 1,
+    "mapping": {
+      "sky": "water",
+      "sprout": "leaf"
+    },
+    "picture": {
+      "id": "sprout",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 20,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 21,
+        "id": "w2",
+        "variantId": "water"
+      },
+      {
+        "count": 11,
+        "id": "l1",
+        "variantId": "leaf"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1001",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["w1", "l1"],
+        ["w2"]
+      ]
+    }
+  },
+  "description": "Curated Level 1 (Sprout): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
+  "expectedEventsDigest": "aaf9b714bc097485",
+  "expectedStateHash": "5cc3175c01f42eab",
+  "expectedStatus": "won",
+  "name": "curated-l0001",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 0, 0, 0, 0, 0, -1],
+      [0, 0, 0, 1, 0, 0, 0],
+      [0, 0, 0, 1, 0, 0, 0],
+      [0, 1, 1, 0, 1, 1, 0],
+      [0, 0, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0],
+      [-1, 0, 0, 0, 0, 0, -1]
+    ],
+    "height": 8,
+    "id": "sprout",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Sprout",
+        "roleId": "sprout"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Sprout",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["garden"]
+    },
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

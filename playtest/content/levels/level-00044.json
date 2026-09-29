@@ -1,0 +1,130 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2013
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 5,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 44,
+  "mapping": {
+    "belly": "wood",
+    "branch": "leaf",
+    "eye": "dew",
+    "moon": "water",
+    "night": "flower",
+    "owl": "wood"
+  },
+  "picture": {
+    "id": "owl_01",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 2,
+      "id": "p17",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11334844188281805251",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "definitionVersion": 2,
+  "difficulty": {
+    "class": "hard",
+    "overridden": true,
+    "score": 1250
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "left",
+      "x": 0,
+      "y": 4
+    }
+  ],
+  "generatorVersion": "gen-0.1.0",
+  "levelNumber": 12,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p4",
+        "kind": "pod"
+      }
+    },
+    {
+      "keyId": "k2",
+      "target": {
+        "id": "gate1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "bg": "water",
+    "leaf": "moss",
+    "petal": "flower",
+    "stem": "leaf"
+  },
+  "mechanics": ["keys", "layers", "gate"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["dew", "water"],
+        "x": 2,
+        "y": 3
+      },
+      {
+        "keyId": "k1",
+        "mystery": true,
+        "x": 4,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 3,
+        "y": 1
+      }
+    ]
+  },
+  "picture": {
+    "backgroundTreatment": "soft_sky",
+    "id": "sample_tulip",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p1",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "g1",
+      "count": 3,
+      "id": "p2",
+      "variantId": "leaf"
+    },
+    {
+      "connectedGroupId": "g1",
+      "count": 3,
+      "id": "p3",
+      "variantId": "moss"
+    },
+    {
+      "count": 4,
+      "id": "p4",
+      "lockKeyId": "k1",
+      "mystery": true,
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "18446744073709551615",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k2",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 5
+        },
+        {
+          "x": 6,
+          "y": 5
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent",
+        "regionCells": [
+          {
+            "x": 5,
+            "y": 4
+          }
+        ],
+        "variantId": "water"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 5,
+            "y": 6
+          }
+        ],
+        "kind": "open_cells"
+      },
+      "id": "gate1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p1", "p2"],
+      ["p3", "p4"]
+    ]
+  }
+}

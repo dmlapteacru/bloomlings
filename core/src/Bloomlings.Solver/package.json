@@ -1,0 +1,13 @@
+{
+  "name": "com.bloomlings.solver",
+  "displayName": "Bloomlings Solver",
+  "description": "Solver, fairness checker and difficulty metrics; used at runtime by Shuffle (research R8/R10).",
+  "version": "0.1.0",
+  "unity": "6000.3",
+  "author": {
+    "name": "Bloomlings"
+  },
+  "dependencies": {
+    "com.bloomlings.core": "0.1.0"
+  }
+}

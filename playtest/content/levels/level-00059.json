@@ -1,0 +1,176 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2217
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 59,
+  "mapping": {
+    "body": "acorn",
+    "sky": "dew",
+    "spot": "violet_bud",
+    "wing": "flower"
+  },
+  "mechanics": ["gate"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 10,
+        "y": 5
+      }
+    ]
+  },
+  "picture": {
+    "id": "butterfly_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 7,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 4,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 4,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 4,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p20",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p21",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1616572680981522960",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 10,
+          "y": 5
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

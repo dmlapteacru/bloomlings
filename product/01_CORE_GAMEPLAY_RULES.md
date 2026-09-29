@@ -1,6 +1,6 @@
 # 01 — Core Gameplay Rules
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)
 
 ## 1. Objective
 

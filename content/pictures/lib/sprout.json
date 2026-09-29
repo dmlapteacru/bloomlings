@@ -1,0 +1,48 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 1, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 0],
+    [0, 1, 1, 0, 1, 1, 0],
+    [0, 0, 1, 1, 1, 0, 0],
+    [0, 0, 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 8,
+  "id": "sprout",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Curated onboarding picture (T067); pending playtest.",
+    "reviewer": "content",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sprout",
+      "roleId": "sprout"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Sprout",
+  "tags": {
+    "bands": ["onboarding"],
+    "themes": ["garden"]
+  },
+  "version": 1,
+  "width": 7
+}

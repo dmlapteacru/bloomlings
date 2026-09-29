@@ -1,6 +1,6 @@
 # 02 — Source Tray + Waiting Buffer
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)
 
 ## 1. Reference model
 

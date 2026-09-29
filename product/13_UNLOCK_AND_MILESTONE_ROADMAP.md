@@ -1,6 +1,6 @@
 # 13 — Unlock & Milestone Roadmap
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)
 
 This document defines **what the player unlocks as the global level number increases**.
 

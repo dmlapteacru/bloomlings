@@ -1,0 +1,53 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 0],
+    [1, 1, 2, 1, 1, 2, 1, 1],
+    [1, 1, 2, 2, 2, 2, 1, 1],
+    [0, 1, 1, 2, 2, 1, 1, 0],
+    [0, 0, 1, 1, 1, 1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 8,
+  "id": "bush",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Curated onboarding picture (T067); pending playtest.",
+    "reviewer": "content",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Berry bush",
+  "tags": {
+    "bands": ["onboarding"],
+    "themes": ["garden"]
+  },
+  "version": 1,
+  "width": 8
+}

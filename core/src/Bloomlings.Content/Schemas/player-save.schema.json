@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bloomlings.game/schemas/player-save.v1.json",
+  "title": "Bloomlings PlayerSave v1",
+  "description": "Local save document, mirrored to Cloud Save (spec FR-087, FR-088; research R15). Written atomically; never mid-level.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "localPlayerId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "localPlayerId": { "type": "string" },
+    "linkedIdentity": { "enum": ["apple", "google_play_games", null] },
+    "deviceId": { "type": "string" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "progression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["highestCompletedLevel", "contentVersionSeen"],
+      "properties": {
+        "highestCompletedLevel": { "type": "integer", "minimum": 0 },
+        "contentVersionSeen": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "wallet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["petals"],
+      "properties": { "petals": { "type": "integer", "minimum": 0 } }
+    },
+    "purchases": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["ledger", "entitlements"],
+      "properties": {
+        "ledger": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["transactionId", "productId", "grantedAt"],
+            "properties": {
+              "transactionId": { "type": "string" },
+              "productId": { "type": "string" },
+              "grantedAt": { "type": "string", "format": "date-time" },
+              "grants": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "petals": { "type": "integer", "minimum": 0 },
+                  "boosters": { "$ref": "#/$defs/boosterCounts" }
+                }
+              }
+            }
+          }
+        },
+        "entitlements": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["removeAds"],
+          "properties": { "removeAds": { "type": "boolean" } }
+        },
+        "starterPackOffered": { "type": "boolean", "default": false }
+      }
+    },
+    "boosters": { "$ref": "#/$defs/boosterCounts" },
+    "unlocks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["flags", "demosSeen"],
+      "properties": {
+        "flags": { "type": "object", "additionalProperties": { "type": "boolean" } },
+        "demosSeen": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+      }
+    },
+    "milestones": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["claimed"],
+      "properties": { "claimed": { "type": "array", "items": { "type": "integer", "minimum": 1 }, "uniqueItems": true } }
+    },
+    "cosmetics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["owned", "equipped"],
+      "properties": {
+        "owned": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+        "equipped": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "sprig": { "type": "string" },
+            "bloom": { "type": "string" },
+            "drop": { "type": "string" },
+            "twig": { "type": "string" }
+          }
+        }
+      }
+    },
+    "daily": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "rewardLastClaimUtcDate": { "type": ["string", "null"], "format": "date" },
+        "rewardStreak": { "type": "integer", "minimum": 0 },
+        "challengeLastCompletedUtcDate": { "type": ["string", "null"], "format": "date" }
+      }
+    },
+    "collection": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pictureId", "pictureVersion", "mappingHash", "levelNumber"],
+        "properties": {
+          "pictureId": { "type": "string" },
+          "pictureVersion": { "type": "integer", "minimum": 1 },
+          "mappingHash": { "type": "string" },
+          "levelNumber": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["music", "sfx", "haptics", "speed2x"],
+      "properties": {
+        "music": { "type": "boolean" },
+        "sfx": { "type": "boolean" },
+        "haptics": { "type": "boolean" },
+        "speed2x": { "type": "boolean" },
+        "language": { "type": "string", "default": "en" }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "additionalProperties": { "type": ["integer", "object"] }
+    }
+  },
+  "$defs": {
+    "boosterCounts": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "extraSlot": { "type": "integer", "minimum": 0 },
+        "shuffle": { "type": "integer", "minimum": 0 },
+        "return": { "type": "integer", "minimum": 0 },
+        "bloomBurst": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

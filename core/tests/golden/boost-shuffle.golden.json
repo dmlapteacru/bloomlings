@@ -1,0 +1,149 @@
+{
+  "commands": ["tap:flower", "tap:moss", "tap:dew", "shuffle", "tap:water", "tap:leaf", "tap:wood"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "test",
+    "levelNumber": 1,
+    "mapping": {
+      "dew": "dew",
+      "flower": "flower",
+      "leaf": "leaf",
+      "moss": "moss",
+      "violet": "violet_bud",
+      "water": "water",
+      "wood": "wood"
+    },
+    "picture": {
+      "id": "rules",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 1,
+        "id": "water",
+        "variantId": "water"
+      },
+      {
+        "count": 2,
+        "id": "leaf",
+        "variantId": "leaf"
+      },
+      {
+        "count": 1,
+        "id": "moss",
+        "variantId": "moss"
+      },
+      {
+        "count": 1,
+        "id": "wood",
+        "variantId": "wood"
+      },
+      {
+        "count": 1,
+        "id": "dew",
+        "variantId": "dew"
+      },
+      {
+        "count": 1,
+        "id": "flower",
+        "variantId": "flower"
+      }
+    ],
+    "rewardProfile": "test",
+    "seed": "42",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["flower", "dew", "wood"],
+        ["moss", "leaf", "water"]
+      ]
+    }
+  },
+  "description": "The tray buries the column upside down; Shuffle lays the remaining pods out in a winnable order, the same on every run (FR-044, R10).",
+  "expectedEventsDigest": "ace98b1c24beb382",
+  "expectedStateHash": "1d7eb9c7c06d5207",
+  "expectedStatus": "won",
+  "name": "boost-shuffle",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, -1, -1, -1, -1, -1, -1],
+      [-2, -2, 0, 2, 0, -2, -2],
+      [-2, -2, -2, 1, -2, -2, -2],
+      [-2, -2, -2, 5, -2, -2, -2],
+      [-2, -2, -2, 3, -2, -2, -2],
+      [-2, -2, -2, 4, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2]
+    ],
+    "height": 8,
+    "id": "rules",
+    "review": {
+      "reviewer": "test",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "green",
+        "name": "leaf",
+        "roleId": "leaf"
+      },
+      {
+        "colorGroup": "green",
+        "name": "moss",
+        "roleId": "moss"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "water",
+        "roleId": "water"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "dew",
+        "roleId": "dew"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "flower",
+        "roleId": "flower"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "wood",
+        "roleId": "wood"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "violet",
+        "roleId": "violet"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "test"
+    },
+    "subject": "rules",
+    "tags": {},
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

@@ -1,0 +1,188 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 2728
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 5,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 42,
+  "mapping": {
+    "door": "acorn",
+    "grass": "leaf",
+    "roof": "acorn",
+    "sky": "water",
+    "wall": "violet_bud",
+    "window": "water"
+  },
+  "mechanics": ["layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["acorn"],
+        "x": 5,
+        "y": 0
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 2,
+        "y": 1
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 4,
+        "y": 1
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 8,
+        "y": 1
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 9,
+        "y": 1
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 4,
+        "y": 2
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 2,
+        "y": 4
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 4,
+        "y": 4
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 5,
+        "y": 5
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 2,
+        "y": 7
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 7,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "cottage_02",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 1,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 1,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 1,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p16",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 2,
+      "id": "p17",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13079376526800671235",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}

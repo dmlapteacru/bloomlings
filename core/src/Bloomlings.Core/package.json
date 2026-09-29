@@ -1,0 +1,10 @@
+{
+  "name": "com.bloomlings.core",
+  "displayName": "Bloomlings Core",
+  "description": "Deterministic rules core shared by the Unity client and the .NET tools (spec 001, research R2/R3).",
+  "version": "0.1.0",
+  "unity": "6000.3",
+  "author": {
+    "name": "Bloomlings"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "note": "Store products (research R13). Prices come from the platform stores; this file holds ids and grants only.",
+  "products": [
+    { "id": "petals_s", "type": "consumable", "petals": 120 },
+    { "id": "petals_m", "type": "consumable", "petals": 400 },
+    { "id": "petals_l", "type": "consumable", "petals": 1000 },
+    { "id": "boosters_bundle_small", "type": "consumable", "boosters": { "extraSlot": 2, "shuffle": 2, "return": 2, "bloomBurst": 1 } },
+    { "id": "boosters_bundle_large", "type": "consumable", "boosters": { "extraSlot": 5, "shuffle": 5, "return": 5, "bloomBurst": 3 } },
+    { "id": "starter_pack", "type": "consumable", "petals": 300, "boosters": { "extraSlot": 2, "shuffle": 2, "return": 2, "bloomBurst": 2 }, "offeredOnce": true },
+    { "id": "remove_ads", "type": "non_consumable", "removeAds": true }
+  ]
+}

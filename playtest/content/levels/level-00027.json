@@ -1,0 +1,120 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1574
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 27,
+  "mapping": {
+    "bird": "dew",
+    "branch": "wood",
+    "leaves": "moss",
+    "sky": "water",
+    "wing": "violet_bud"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "bird_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 7,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 10,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 3,
+      "id": "p15",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13628457282814082300",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

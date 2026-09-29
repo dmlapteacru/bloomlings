@@ -1,0 +1,70 @@
+name: android-apk
+
+# Builds the temporary playtest APK (playtest/android: .NET for Android on the shared C# core, Levels 1–94) and uploads
+# it as an artifact. It needs no secrets: the .NET Android workload and the runner's Android SDK are free.
+# Manual only (Actions → android-apk → Run workflow): it never runs on push, pull request or a schedule, so commits
+# spend no Actions minutes. Only the newest APK is kept: after a successful upload every older artifact with the same
+# name is deleted, and each artifact also expires after 7 days.
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write # to delete the older APK artifacts
+
+concurrency:
+  group: android-apk
+  cancel-in-progress: true
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ARTIFACT: bloomlings-playtest-apk
+      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: core/global.json
+
+      - name: Install the .NET Android workload
+        working-directory: playtest/android
+        run: dotnet workload install android
+
+      - name: Install missing Android SDK packages
+        working-directory: playtest/android
+        run: dotnet build -t:InstallAndroidDependencies -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME" -p:AcceptAndroidSDKLicenses=True
+
+      - name: Build the APK
+        working-directory: playtest/android
+        run: dotnet publish -c Release -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME"
+
+      - uses: actions/upload-artifact@v4
+        id: upload
+        with:
+          name: ${{ env.ARTIFACT }}
+          path: playtest/android/bin/Release/**/*-Signed.apk
+          if-no-files-found: error
+          retention-days: 7
+          compression-level: 0
+
+      - name: Delete older APK artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+          KEEP: ${{ steps.upload.outputs.artifact-id }}
+        run: |
+          gh api --paginate "repos/${GITHUB_REPOSITORY}/actions/artifacts?name=${ARTIFACT}&per_page=100" \
+            --jq ".artifacts[] | select(.id != ${KEEP}) | .id" |
+          while read -r id; do
+            echo "Deleting artifact ${id}"
+            gh api -X DELETE "repos/${GITHUB_REPOSITORY}/actions/artifacts/${id}"
+          done

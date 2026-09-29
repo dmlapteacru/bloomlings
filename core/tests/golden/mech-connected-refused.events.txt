@@ -1,0 +1,10 @@
+> tap:f1
+r0 PodCommitted f1 slot=0 stack=0 depth=0
+> tap:f2
+r0 PodCommitted f2 slot=1 stack=1 depth=0
+> tap:f3
+r0 PodCommitted f3 slot=2 stack=2 depth=0
+> tap:f4
+r0 PodCommitted f4 slot=3 stack=3 depth=0
+r1 LevelStuck recoveries=ExtraSlot,Shuffle,Return,BloomBurst
+> tap:cLeaf rejected:NotEnoughSlotsForGroup

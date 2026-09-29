@@ -1,0 +1,75 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 3,
+  "mapping": {
+    "can": "leaf",
+    "drops": "dew",
+    "handle": "wood",
+    "sky": "water"
+  },
+  "picture": {
+    "id": "dev_watering_can",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "w3",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "c1",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "c2",
+      "variantId": "leaf"
+    },
+    {
+      "count": 3,
+      "id": "d1",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "h1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["w1", "c1", "h1"],
+      ["w2", "d1"],
+      ["c2", "w3"]
+    ]
+  }
+}

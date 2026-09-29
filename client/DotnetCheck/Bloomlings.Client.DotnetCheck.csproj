@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Compiles the Unity client scripts outside Unity against minimal API stubs (UnityStubs.cs) and runs the
+    engine-free EditMode tests (save, progression, golden replays) under .NET. It catches compile and logic errors in
+    CI; it does not replace the Unity Editor and Test Runner. Unity ignores this folder (it is outside Assets/).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DefineConstants>UNITY_EDITOR;UNITY_INCLUDE_TESTS</DefineConstants>
+    <!-- CS0649: Unity suppresses it for [SerializeField] fields. -->
+    <NoWarn>CS0649;NU1701</NoWarn>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="UnityStubs.cs" />
+    <Compile Include="../Assets/Bloomlings/**/*.cs" />
+    <!-- Unity's test framework ships NUnit 3; NUnit 4 has no netstandard build. -->
+    <PackageReference Include="NUnit" Version="3.14.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.6.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <ProjectReference Include="../../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
+  </ItemGroup>
+</Project>

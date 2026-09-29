@@ -1,0 +1,59 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 1, 1, 0, 0, 0, -1],
+    [0, 1, 1, 1, 1, 0, 0, 0],
+    [0, 1, 1, 1, 1, 0, 2, 0],
+    [0, 1, 1, 1, 1, 1, 2, 0],
+    [0, 1, 1, 1, 1, 1, 1, 0],
+    [0, 3, 1, 1, 1, 1, 0, 2],
+    [0, 3, 0, 0, 0, 3, 0, 0],
+    [-1, 0, 3, 3, 3, 3, 0, -1]
+  ],
+  "height": 9,
+  "id": "dev_watering_can",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Development content only (T038); not for release.",
+    "reviewer": "dev",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Can",
+      "roleId": "can"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Drops",
+      "roleId": "drops"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Handle",
+      "roleId": "handle"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Watering can",
+  "tags": {
+    "bands": ["dev"],
+    "themes": ["tools", "garden"]
+  },
+  "version": 1,
+  "width": 8
+}

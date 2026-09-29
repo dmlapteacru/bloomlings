@@ -1,0 +1,65 @@
+{
+  "finishedLook": {
+    "illustrationKey": "illus_sample_tulip",
+    "mode": "illustration"
+  },
+  "grid": [
+    [0, 0, 0, 3, 0, 0, 0],
+    [0, 0, 0, 3, 0, 0, 0],
+    [0, 2, 0, 3, 0, 2, 0],
+    [0, 2, 2, 3, 2, 2, 0],
+    [0, 0, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 0],
+    [-1, 0, 1, 0, 1, 0, -2]
+  ],
+  "height": 8,
+  "id": "sample_tulip",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Sample for tests.",
+    "reviewer": "art_lead",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "bg"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petal",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stem",
+      "roleId": "stem"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "studio"
+  },
+  "structure": {
+    "backgroundShare": 0.482,
+    "nestingDepth": 2,
+    "regionCount": 5
+  },
+  "subject": "Tulip",
+  "tags": {
+    "bands": ["onboarding"],
+    "seasons": ["spring"],
+    "themes": ["garden", "flowers"]
+  },
+  "version": 1,
+  "width": 7
+}

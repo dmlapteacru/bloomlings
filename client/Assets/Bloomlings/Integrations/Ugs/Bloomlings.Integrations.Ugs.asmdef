@@ -1,0 +1,52 @@
+{
+  "name": "Bloomlings.Integrations.Ugs",
+  "rootNamespace": "Bloomlings.Integrations.Ugs",
+  "references": [
+    "Bloomlings.Client",
+    "Unity.Services.Core",
+    "Unity.Services.Authentication",
+    "Unity.Services.RemoteConfig",
+    "Unity.Services.CloudSave",
+    "Unity.Services.Leaderboards",
+    "Unity.Services.CloudCode"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "BLOOMLINGS_UGS"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.services.authentication",
+      "expression": "3.0.0",
+      "define": "BLOOMLINGS_UGS"
+    },
+    {
+      "name": "com.unity.remote-config",
+      "expression": "4.0.0",
+      "define": "BLOOMLINGS_UGS_REMOTECONFIG"
+    },
+    {
+      "name": "com.unity.services.cloudsave",
+      "expression": "3.0.0",
+      "define": "BLOOMLINGS_UGS_CLOUDSAVE"
+    },
+    {
+      "name": "com.unity.services.leaderboards",
+      "expression": "2.0.0",
+      "define": "BLOOMLINGS_UGS_LEADERBOARDS"
+    },
+    {
+      "name": "com.unity.services.cloudcode",
+      "expression": "2.0.0",
+      "define": "BLOOMLINGS_UGS_CLOUDCODE"
+    }
+  ],
+  "noEngineReferences": false
+}

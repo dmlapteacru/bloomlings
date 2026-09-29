@@ -1,0 +1,142 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1423
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 75,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p15",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "background": "moss",
+    "mug": "flower",
+    "steam": "dew",
+    "tea": "acorn"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 1,
+        "y": 2
+      }
+    ]
+  },
+  "picture": {
+    "id": "mug_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 2,
+      "id": "p15",
+      "lockKeyId": "k1",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "10422588253752609948",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

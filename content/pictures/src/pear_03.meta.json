@@ -1,0 +1,56 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 14,
+  "id": "pear_03",
+  "legend": {
+    "b": "background",
+    "l": "leaf",
+    "p": "pear",
+    "t": "stalk"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pear",
+      "roleId": "pear"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalk",
+      "roleId": "stalk"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pear 3",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

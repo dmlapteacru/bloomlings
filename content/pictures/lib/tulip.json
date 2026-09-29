@@ -1,0 +1,53 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 2, 0, 0, -1],
+    [0, 0, 0, 2, 0, 0, 0],
+    [0, 2, 2, 2, 2, 0, 0],
+    [0, 0, 0, 2, 0, 0, 0],
+    [0, 0, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 0, 1, 1, 0],
+    [-1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 8,
+  "id": "tulip",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Curated onboarding picture (T067); pending playtest.",
+    "reviewer": "content",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petal",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stem",
+      "roleId": "stem"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Tulip",
+  "tags": {
+    "bands": ["onboarding"],
+    "themes": ["flowers"]
+  },
+  "version": 1,
+  "width": 7
+}

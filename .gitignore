@@ -18,3 +18,38 @@ CLAUDE.local.md
 # Logs / temp
 *.log
 tmp/
+
+# Build outputs (content pipeline, publish)
+content/work/
+build/
+
+# .NET (core/): artifacts output is redirected by core/Directory.Build.props
+core/artifacts/
+core/**/bin/
+core/**/obj/
+*.user
+*.suo
+.vs/
+
+# Unity (client/)
+client/Library/
+client/Temp/
+client/Obj/
+client/Build/
+client/Builds/
+client/Logs/
+client/UserSettings/
+client/MemoryCaptures/
+client/*.csproj
+client/*.sln
+client/*.slnx
+
+# .NET check of the Unity client scripts (client/DotnetCheck)
+client/DotnetCheck/artifacts/
+content/showcase/rejections.json
+client/Assets/StreamingAssets/golden/
+client/Assets/StreamingAssets/golden.meta
+
+# Temporary .NET Android playtest client (playtest/android)
+playtest/android/bin/
+playtest/android/obj/

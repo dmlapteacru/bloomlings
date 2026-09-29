@@ -1,0 +1,132 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1615
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 62,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p14",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "beak": "wood",
+    "bird": "dew",
+    "branch": "acorn",
+    "leaves": "leaf",
+    "sky": "dew",
+    "wing": "flower"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 6,
+        "y": 2
+      }
+    ]
+  },
+  "picture": {
+    "id": "bird_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 1,
+      "id": "p14",
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3867492884380488949",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

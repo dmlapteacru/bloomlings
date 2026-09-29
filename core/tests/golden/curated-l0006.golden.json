@@ -1,0 +1,116 @@
+{
+  "commands": ["tap:w1", "tap:h1", "tap:a1"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 6,
+    "mapping": {
+      "hull": "wood",
+      "sail": "flower",
+      "sky": "water"
+    },
+    "picture": {
+      "id": "sailboat",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 31,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 10,
+        "id": "a1",
+        "variantId": "flower"
+      },
+      {
+        "count": 12,
+        "id": "h1",
+        "variantId": "wood"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1006",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["h1", "a1"],
+        ["w1"]
+      ]
+    }
+  },
+  "description": "Curated Level 6 (Sailboat): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
+  "expectedEventsDigest": "95dc87ae400385cd",
+  "expectedStateHash": "5cc3175c01f42eab",
+  "expectedStatus": "won",
+  "name": "curated-l0006",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [0, 0, 0, 0, 0, 0, 0],
+      [0, 2, 2, 2, 2, 2, 0],
+      [2, 2, 2, 2, 2, 2, 2],
+      [0, 0, 0, 0, 0, 0, -1],
+      [0, 1, 1, 1, 1, 0, 0],
+      [0, 0, 1, 1, 1, 0, 0],
+      [0, 0, 1, 1, 0, 0, 0],
+      [-1, 0, 1, 0, 0, 0, -1]
+    ],
+    "height": 8,
+    "id": "sailboat",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "Sail",
+        "roleId": "sail"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "Hull",
+        "roleId": "hull"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Sailboat",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["sea"]
+    },
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

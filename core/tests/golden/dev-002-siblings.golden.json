@@ -1,0 +1,138 @@
+{
+  "commands": ["tap:l1", "tap:m1", "tap:l2", "tap:f2", "tap:o1", "tap:f1"],
+  "contentVersion": 0,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 2,
+    "mapping": {
+      "bush": "moss",
+      "cap": "flower",
+      "grass": "leaf",
+      "stem": "wood"
+    },
+    "picture": {
+      "id": "dev_mushroom",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 13,
+        "id": "l1",
+        "variantId": "leaf"
+      },
+      {
+        "count": 12,
+        "id": "l2",
+        "variantId": "leaf"
+      },
+      {
+        "count": 10,
+        "id": "m1",
+        "variantId": "moss"
+      },
+      {
+        "count": 9,
+        "id": "f1",
+        "variantId": "flower"
+      },
+      {
+        "count": 9,
+        "id": "f2",
+        "variantId": "flower"
+      },
+      {
+        "count": 9,
+        "id": "o1",
+        "variantId": "wood"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "2",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["l1", "m1"],
+        ["o1", "f1"],
+        ["l2", "f2"]
+      ]
+    }
+  },
+  "description": "Mushroom: Leaf and Moss (same family) work side by side; a Leaf pod never clears Moss.",
+  "expectedEventsDigest": "97e559f5c3bb86f2",
+  "expectedStateHash": "3787486e499cb9ed",
+  "expectedStatus": "won",
+  "name": "dev-002-siblings",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [2, 2, 2, 2, 2, 2, 2, 2],
+      [2, 2, 2, 2, 1, 2, 2, 2],
+      [2, 2, 2, 1, 1, 2, 2, 2],
+      [3, 2, 2, 1, 1, 2, 2, 3],
+      [3, 3, -1, 1, 1, -1, 3, 3],
+      [3, 3, -1, 1, 1, -1, 3, 3],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [-1, 0, 0, 0, 0, 0, 0, -1],
+      [-1, -1, 0, 0, 0, 0, -1, -1]
+    ],
+    "height": 9,
+    "id": "dev_mushroom",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Development content only (T038); not for release.",
+      "reviewer": "dev",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "pink_purple",
+        "name": "Cap",
+        "roleId": "cap"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "Stem",
+        "roleId": "stem"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Grass",
+        "roleId": "grass"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Bush",
+        "roleId": "bush"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Mushroom in the grass",
+    "tags": {
+      "bands": ["dev"],
+      "themes": ["forest", "garden"]
+    },
+    "version": 1,
+    "width": 8
+  },
+  "shuffleNodeBudget": 20000
+}

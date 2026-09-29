@@ -1,0 +1,93 @@
+{
+  "allowedMechanics": [
+    "stone",
+    "key",
+    "locked_pod",
+    "connected_pair",
+    "layered_tile",
+    "gate"
+  ],
+  "allowedVariants": [
+    "acorn",
+    "dew",
+    "flower",
+    "leaf",
+    "moss",
+    "violet_bud",
+    "water",
+    "wood"
+  ],
+  "bandId": "daily",
+  "boardSize": {
+    "height": [
+      10,
+      14
+    ],
+    "width": [
+      10,
+      12
+    ]
+  },
+  "bufferPressureTarget": "normal",
+  "durationTarget": [
+    60,
+    180
+  ],
+  "entryLayouts": [
+    "bottom_center",
+    "bottom_left",
+    "bottom_right"
+  ],
+  "hardMode": {
+    "extraPods": 2,
+    "hardPressure": "tense",
+    "maxInjections": 12,
+    "superHardPressure": "tense"
+  },
+  "levelRange": [
+    1,
+    366
+  ],
+  "mappingConstraints": {
+    "allowRoleMerge": true
+  },
+  "maxLayerDepth": 1,
+  "note": "Daily Challenge pool (R19): mid-difficulty, early-mid mechanics only, so every player past the daily unlock can play it. levelRange is the day index.",
+  "picturePool": {
+    "themes": []
+  },
+  "podCount": [
+    12,
+    18
+  ],
+  "podSize": [
+    5,
+    40
+  ],
+  "solver": {
+    "maxCandidatesPerLevel": 60,
+    "nodeBudget": 300000
+  },
+  "stacks": [
+    3,
+    5
+  ],
+  "structureTargets": {
+    "backgroundSharePermille": [
+      250,
+      650
+    ],
+    "nestingDepth": [
+      2,
+      4
+    ]
+  },
+  "variantCount": [
+    4,
+    5
+  ],
+  "work": [
+    90,
+    180
+  ]
+}

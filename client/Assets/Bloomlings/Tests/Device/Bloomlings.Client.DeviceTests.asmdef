@@ -1,0 +1,21 @@
+{
+  "name": "Bloomlings.Client.DeviceTests",
+  "rootNamespace": "Bloomlings.Client.Tests.Device",
+  "references": [
+    "Bloomlings.Client",
+    "Bloomlings.Core",
+    "Bloomlings.Content",
+    "Unity.TextMeshPro"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": false,
+  "defineConstraints": [],
+  "versionDefines": [],
+  "noEngineReferences": false
+}

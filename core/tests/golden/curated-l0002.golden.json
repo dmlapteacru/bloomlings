@@ -1,0 +1,121 @@
+{
+  "commands": ["tap:l1", "tap:w1", "tap:w2", "tap:f1"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 2,
+    "mapping": {
+      "petal": "flower",
+      "sky": "water",
+      "stem": "leaf"
+    },
+    "picture": {
+      "id": "tulip",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 14,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 19,
+        "id": "w2",
+        "variantId": "water"
+      },
+      {
+        "count": 12,
+        "id": "f1",
+        "variantId": "flower"
+      },
+      {
+        "count": 7,
+        "id": "l1",
+        "variantId": "leaf"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1002",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["w1", "f1"],
+        ["l1", "w2"]
+      ]
+    }
+  },
+  "description": "Curated Level 2 (Tulip): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
+  "expectedEventsDigest": "fdfcdb3c5d9a27ff",
+  "expectedStateHash": "1faa78d19e034822",
+  "expectedStatus": "won",
+  "name": "curated-l0002",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 0, 0, 2, 0, 0, -1],
+      [0, 0, 0, 2, 0, 0, 0],
+      [0, 2, 2, 2, 2, 0, 0],
+      [0, 0, 0, 2, 0, 0, 0],
+      [0, 0, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0],
+      [0, 1, 1, 0, 1, 1, 0],
+      [-1, 0, 0, 0, 0, 0, -1]
+    ],
+    "height": 8,
+    "id": "tulip",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "Petal",
+        "roleId": "petal"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Stem",
+        "roleId": "stem"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Tulip",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["flowers"]
+    },
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

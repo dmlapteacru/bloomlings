@@ -1,0 +1,67 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [0, 2, 0, 0, 0, 2, 0, 0, 2, 0, 0, 0, 2, 0],
+    [0, 2, -1, -1, 0, 2, 0, 0, 2, 0, 0, 0, 2, 0],
+    [0, 2, 0, 0, -1, 2, 0, -1, 2, 0, 0, 0, 2, 0],
+    [0, 2, -1, 0, 0, 2, 0, -1, 2, 0, 0, 0, 2, -1],
+    [0, 2, -1, 0, -1, 2, 0, 0, 2, 0, 0, -1, 2, 0],
+    [0, 1, 1, 0, 0, 2, 0, -1, 2, 0, 0, 0, 2, 0],
+    [-1, 0, 1, 0, 1, 1, -1, 0, 1, 1, 0, 1, 1, 0],
+    [-1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -1, 1, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0],
+    [-1, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 14,
+  "id": "tulip_bed_04",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tulips",
+      "roleId": "tulip"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Soil",
+      "roleId": "soil"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.52,
+    "nestingDepth": 3,
+    "regionCount": 15
+  },
+  "subject": "Tulip bed 4",
+  "tags": {
+    "bands": ["core"],
+    "themes": ["flowers", "garden"]
+  },
+  "version": 1,
+  "width": 14
+}

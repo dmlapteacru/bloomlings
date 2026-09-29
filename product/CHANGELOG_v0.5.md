@@ -28,3 +28,42 @@ v0.5 contains only the latest active documentation plus:
 - current Locked Concept;
 - current Changelog;
 - new Technical Architecture document.
+
+## Revision 2026-09-29 — picture-first levels
+
+Source: clarifications recorded in `specs/001-core-game-mvp/spec.md` (session 2026-09-29).
+
+### Decisions
+
+1. Every level is a **picture-first mosaic**:
+   - built from a reviewed base picture made of color roles (max ~14×16 cells);
+   - the role → variant mapping fixes the visible top layer of every cell, so the board reads as the subject;
+   - hidden layers, keys and specials may deviate while the subject stays recognizable.
+2. Cleared cells reveal the **finished version of the same picture**:
+   - it is rendered automatically by default;
+   - bespoke illustrations are optional;
+   - on Win the picture goes to the Collection.
+3. The generator is **picture-first + solution-first**:
+   - the dependency graph is derived from the picture, which replaces the earlier "graph first, then spatialize" step;
+   - pods and the Source Tray are designed around at least one planned solution;
+   - the solver validates every level.
+4. **Picture reuse** is allowed through remapping, mirroring, background and Source design, within these limits:
+   - Levels 1–100 each use a different base picture;
+   - the same base picture never appears within 50 consecutive levels;
+   - estimated library size is roughly 1000–1500 base pictures for 5000 levels.
+5. **No lives**: failed or abandoned attempts are free and restarts are unlimited. This confirms `10_ECONOMY_AND_MONETIZATION.md` §3.
+
+### Updated documents
+
+- `05_LEVEL_STRUCTURE.md` — §1, §4, §5 (Base picture), §6, §11, §18.
+- `06_LEVEL_GENERATOR.md` — §1, §3–§10, §19–§22, new §23 (Picture library).
+- `12_ART_AND_CONTENT_PIPELINE.md` — §7, §10 (Picture library), §12–§14.
+- `14_MVP_SCOPE.md` — §4, §8, §9.
+- `15_TECHNICAL_ARCHITECTURE.md` — §4, §6, §7, §8, §17.
+
+Each updated document carries a `Revision 2026-09-29` note under its status line.
+
+### Analysis follow-up (same day)
+
+- `07_DIFFICULTY_AND_PROGRESSION.md` §4 now matches doc 13 and spec `001`: the Hard label unlocks at L5, the Key
+  preview at L8, and Stones at L11.

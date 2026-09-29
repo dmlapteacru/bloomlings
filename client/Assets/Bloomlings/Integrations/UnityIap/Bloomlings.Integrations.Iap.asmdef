@@ -1,0 +1,28 @@
+{
+  "name": "Bloomlings.Integrations.Iap",
+  "rootNamespace": "Bloomlings.Integrations.Iap",
+  "references": [
+    "Bloomlings.Client",
+    "UnityEngine.Purchasing",
+    "Unity.Services.Core",
+    "Unity.Services.Authentication",
+    "Unity.Services.CloudCode"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "autoReferenced": false,
+  "defineConstraints": [
+    "BLOOMLINGS_IAP"
+  ],
+  "versionDefines": [
+    {
+      "name": "com.unity.purchasing",
+      "expression": "5.0.0",
+      "define": "BLOOMLINGS_IAP"
+    }
+  ],
+  "noEngineReferences": false
+}

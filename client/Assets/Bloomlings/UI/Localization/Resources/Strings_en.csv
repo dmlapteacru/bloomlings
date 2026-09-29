@@ -1,0 +1,146 @@
+key,en
+common.close,Close
+common.play,Play
+common.restart,Restart
+common.next,Next
+common.level,Level {0}
+common.petals,{0} Petals
+common.petals_plus,+{0} Petals
+common.on,On
+common.off,Off
+booster.extra_slot,Extra Slot
+booster.shuffle,Shuffle
+booster.return,Return
+booster.bloom_burst,Bloom Burst
+home.logo,Bloomlings
+home.continue,Continue
+home.store,Store
+home.free_booster,Free booster ▶
+home.milestone_teaser,Level {0} reward in {1}
+home.rank,Rank #{0}
+home.rank_offline,Rank #{0} (offline)
+home.rank_unknown,Rank: —
+home.rank_unknown_offline,Rank: offline
+home.daily,Daily
+home.daily_done,Daily ✓
+home.wardrobe,Wardrobe
+home.collection,Collection
+settings.title,Settings
+settings.music,Music: {0}
+settings.sound,Sound: {0}
+settings.haptics,Haptics: {0}
+settings.speed,Speed: {0}
+settings.link_apple,Link Apple
+settings.link_google,Link Google Play
+settings.restore,Restore Purchases
+account.linked_apple,Linked: Apple
+account.linked_google,Linked: Google Play Games
+account.signed_in,Signed in (anonymous)
+account.local,Local profile
+store.title,Store
+store.offline,Purchases are unavailable offline
+store.remove_ads,Remove Ads
+store.starter_pack,Starter pack
+store.booster_bundle,Booster bundle
+store.booster_owned,{0} (owned {1})
+pause.title,Paused
+pause.resume,Resume
+pause.leave,Leave
+win.title,Restored!
+win.double,Double ▶
+win.drop,+1 {0}
+win.milestone,Milestone! +{0} Petals
+win.boosters_one,+1 booster
+win.boosters_many,+{0} boosters
+win.item,+ {0}
+jam.title,No room left!
+jam.stuck,No pod can move!
+jam.free_rescue,Free {0} ▶
+difficulty.hard,Hard
+difficulty.super_hard,Super Hard
+hud.pause,II
+daily.title,Daily Challenge
+daily.date,{0} (UTC)
+daily.done,Done for today! A new puzzle arrives at midnight UTC.
+daily.body,"One puzzle, the same for everyone today. Reward: {0} Petals."
+daily.play_again,Play again
+daily_reward.title,Daily reward
+daily_reward.claim,Claim
+daily_reward.watch,Watch for more
+daily_reward.day,Day {0}
+daily_reward.bonus,+{0} bonus
+leaderboard.title,Leaderboard
+leaderboard.refresh,Refresh
+leaderboard.offline_empty,Offline: the leaderboard will update when you reconnect
+leaderboard.empty,No ranks yet
+leaderboard.offline,Offline: showing the last known ranks
+leaderboard.you,You
+leaderboard.anonymous,Gardener
+leaderboard.rank,#{0}
+wardrobe.title,Wardrobe
+wardrobe.none,None
+wardrobe.more,Milestones unlock more items
+wardrobe.profile,Profile: {0}
+collection.title,Collection
+collection.count_one,{0} picture
+collection.count_many,{0} pictures
+demo.skip,Skip
+demo.first_tap,Tap a pod to send its Bloomlings
+demo.exact_symbol,Match the exact symbol
+demo.extra_slot.1,Extra Slot: one more slot for this level
+demo.extra_slot.2,Here is a free one
+demo.shuffle.1,Shuffle rearranges the pods in the tray
+demo.shuffle.2,It always leaves a way to win
+demo.return.1,Return sends a waiting pod back to the tray
+demo.return.2,Then tap the slot to send back
+demo.bloom_burst.1,Bloom Burst clears one symbol from the whole garden
+demo.bloom_burst.2,Then tap a tile with that symbol
+demo.stone,Stones never move. Bloomlings walk around them
+demo.key.1,Clear the tile under the key to collect it
+demo.key.2,The key opens its lock
+demo.locked_pod.1,This pod is locked
+demo.locked_pod.2,Collect its key on the board to open it
+demo.connected_pair.1,Linked pods go to the slots together
+demo.connected_pair.2,They need a free slot each
+demo.layered_tile.1,Some tiles hide another tile underneath
+demo.layered_tile.2,The corner shows the symbol that comes next
+demo.gate,The gate opens when its counter is full
+demo.fountain.1,Restore the shown tiles around the Fountain
+demo.fountain.2,Then it changes the garden
+demo.locked_slot,One slot is locked until you collect its key
+demo.mystery_tile,A ? tile shows its symbol when Bloomlings can reach it
+demo.mystery_pod,A ? pod shows its symbol when it goes to a slot
+gameplay.hint_return,Tap a waiting pod to send it back
+gameplay.hint_burst,Tap a tile to clear its symbol everywhere
+gameplay.booster_useless,That booster can't help here
+gameplay.not_enough_petals,Not enough Petals
+refusal.no_free_slot,No free slot
+refusal.not_exposed,Take the top pod first
+refusal.locked,Locked: collect its key
+refusal.group,Needs more free slots
+cosmetic.hat.sprout_cap,Sprout Cap
+cosmetic.hat.leaf_cap,Leaf Cap
+cosmetic.trail.petal_sparkle,Petal Sparkle
+cosmetic.expression.wink,Wink
+cosmetic.frame.daisy,Daisy Frame
+cosmetic.hat.acorn_cap,Acorn Cap
+cosmetic.trail.dew_sparkle,Dew Sparkle
+cosmetic.expression.smile,Big Smile
+cosmetic.badge.sprout,Sprout Badge
+cosmetic.hat.straw_hat,Straw Hat
+cosmetic.hat.flower_crown,Flower Crown
+cosmetic.expression.starry_eyes,Starry Eyes
+cosmetic.trail.leaf_swirl,Leaf Swirl
+cosmetic.hat.mushroom_cap,Mushroom Cap
+cosmetic.frame.ivy,Ivy Frame
+cosmetic.hat.night_cap,Night Cap
+cosmetic.trail.moon_dust,Moon Dust
+cosmetic.frame.silver_vine,Silver Vine Frame
+cosmetic.marker.silver_leaf,Silver Leaf Marker
+cosmetic.frame.silver_bloom,Silver Bloom Frame
+cosmetic.badge.golden_leaf,Golden Leaf Badge
+cosmetic.hat.golden_crown,Golden Crown
+cosmetic.badge.golden_bloom,Golden Bloom Badge
+cosmetic.marker.crown,Crown Marker
+cosmetic.frame.aurora,Aurora Frame
+cosmetic.hat.star_crown,Star Crown

@@ -1,0 +1,106 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1119
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 22,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p02",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "blossom": "violet_bud",
+    "frog": "leaf",
+    "pad": "moss",
+    "pond": "water"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 3,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "frog_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 2,
+      "id": "p02",
+      "lockKeyId": "k1",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "9663606156434189251",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06"],
+      ["p03", "p07"],
+      ["p04", "p08"]
+    ]
+  }
+}

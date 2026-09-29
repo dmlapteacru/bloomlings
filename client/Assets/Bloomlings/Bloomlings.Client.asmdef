@@ -1,0 +1,29 @@
+{
+  "name": "Bloomlings.Client",
+  "rootNamespace": "Bloomlings.Client",
+  "references": [
+    "Bloomlings.Core",
+    "Bloomlings.Content",
+    "Bloomlings.Solver",
+    "Unity.TextMeshPro",
+    "Unity.Localization",
+    "Unity.InputSystem"
+  ],
+  "includePlatforms": [],
+  "excludePlatforms": [],
+  "allowUnsafeCode": false,
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "Newtonsoft.Json.dll"
+  ],
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "versionDefines": [
+    {
+      "name": "com.unity.localization",
+      "expression": "1.4.0",
+      "define": "BLOOMLINGS_LOCALIZATION"
+    }
+  ],
+  "noEngineReferences": false
+}

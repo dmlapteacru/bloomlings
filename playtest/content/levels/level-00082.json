@@ -1,0 +1,176 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 2762
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 2,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 82,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p08",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "cactus": "moss",
+    "flower": "flower",
+    "pot": "wood",
+    "sky": "water"
+  },
+  "mechanics": ["gate", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 3,
+        "y": 6
+      },
+      {
+        "keyId": "k1",
+        "x": 0,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "cactus_04",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 4,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 4,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 4,
+      "id": "p17",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1526425989404331777",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 3,
+          "y": 6
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12", "p16"]
+    ]
+  }
+}

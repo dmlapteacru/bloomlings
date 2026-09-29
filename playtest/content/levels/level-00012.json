@@ -1,0 +1,102 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1247
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.0.0",
+  "levelNumber": 12,
+  "mapping": {
+    "grass": "moss",
+    "house": "acorn",
+    "pole": "acorn",
+    "roof": "violet_bud",
+    "sky": "water"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 8,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "birdhouse_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p09",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "15410079228395205201",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06"],
+      ["p03", "p07"],
+      ["p04", "p08"]
+    ]
+  }
+}

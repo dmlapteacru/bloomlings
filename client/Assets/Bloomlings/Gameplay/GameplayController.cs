@@ -1,0 +1,1116 @@
+using System;
+using System.Collections.Generic;
+using System.Collections;
+using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.App;
+using Bloomlings.Client.Art.Variants;
+using Bloomlings.Client.Gameplay.Board;
+using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Gameplay.Slots;
+using Bloomlings.Client.Gameplay.Timeline;
+using Bloomlings.Client.Gameplay.Tray;
+using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.DailyChallenge;
+using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Analytics;
+using Bloomlings.Client.Services.Backend;
+using Bloomlings.Client.Services.Config;
+using Bloomlings.Client.Services.Content;
+using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Gameplay;
+using Bloomlings.Client.UI.Screens;
+using Bloomlings.Client.UI.Tutorial;
+using Bloomlings.Client.UI.Tutorial.Demos;
+using Bloomlings.Client.UI;
+using Bloomlings.Content.Packs;
+using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
+using Bloomlings.Core.Simulation;
+using Bloomlings.Core.Variants;
+using UnityEngine;
+using Bloomlings.Client.UI.Localization;
+
+namespace Bloomlings.Client.Gameplay
+{
+    /// <summary>
+    /// Runs one level (T047). It owns the <see cref="LevelSession"/>: a tap is checked and applied at once against
+    /// the logical state, with feedback in the same frame even while the timeline is behind (SC-008); the events go to
+    /// the <see cref="EventTimeline"/>, which drives the board, slots and workers (R4). Won, Jammed and Stuck open
+    /// their screens when their wave plays. There is no mid-level save: a killed app restarts the level.
+    /// </summary>
+    public sealed class GameplayController : MonoBehaviour, ITimelineSink
+    {
+        [SerializeField]
+        [Tooltip("Optional art overrides; empty uses the placeholder visuals.")]
+        private VariantVisualCatalog? _visuals;
+
+        [SerializeField]
+        [Tooltip("Active worker cap; 60 on low-end devices (R4).")]
+        private int _workerCapacity = 60;
+
+        private readonly Dictionary<string, int> _workInFlight = new Dictionary<string, int>(System.StringComparer.Ordinal);
+        private LevelSession? _session;
+        private RectTransform _root = null!;
+        private GameplayHud _hud = null!;
+        private BoardView _board = null!;
+        private TrayView _tray = null!;
+        private SlotRowView _slots = null!;
+        private EventTimeline _timeline = null!;
+        private WorkerPool _workers = null!;
+        private PauseScreen _pause = null!;
+        private WinScreen _win = null!;
+        private JamScreen _jam = null!;
+        private DifficultyBanner _banner = null!;
+        private DemoOverlay _demo = null!;
+        private BoosterBar _boosters = null!;
+        private BoosterKind? _targeting;
+        private LevelReward? _reward;
+        private MilestoneGrant? _milestone;
+
+        // Analytics of the current attempt (T147).
+        private float _attemptStart;
+        private int _attemptIndex;
+        private int _peakSlots;
+        private bool _winLogged;
+        private bool _jamLogged;
+        private readonly System.Collections.Generic.HashSet<string> _devDemosSeen = new System.Collections.Generic.HashSet<string>();
+
+        public LevelSession? Session => _session;
+
+        private IEnumerator Start()
+        {
+            Canvas canvas = UiFactory.CreateCanvas("GameplayCanvas", 0);
+            canvas.transform.SetParent(transform, false);
+            var root = (RectTransform)canvas.transform;
+            _root = root;
+            _hud = GameplayHud.Create(UiFactory.Stretch(UiFactory.CreateRect("Hud", root)), OpenPause, doubleSpeed => _timeline.Speed = doubleSpeed ? 2f : 1f);
+            _board = BoardView.Create(_hud.BoardArea, _visuals);
+            _slots = SlotRowView.Create(_hud.SlotArea, _visuals);
+            _tray = TrayView.Create(_hud.TrayArea, _visuals, OnPodTapped);
+            _boosters = BoosterBar.Create(_hud.BoosterArea, OnBoosterPressed);
+            _slots.SlotTapped += OnSlotTapped;
+            _board.CellTapped += OnCellTapped;
+            _timeline = gameObject.AddComponent<EventTimeline>();
+            _timeline.Bind(this);
+            _workers = WorkerPool.Create(gameObject, _board, _timeline, _visuals, _workerCapacity);
+            WardrobeService? wardrobe = Service<WardrobeService>();
+            if (wardrobe != null)
+            {
+                _workers.Cosmetics = wardrobe.EquippedFor;
+            }
+            _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave);
+            _win = WinScreen.Create(root, Next);
+            _jam = JamScreen.Create(root, () => Restart("jam"), OnRecovery);
+            _banner = DifficultyBanner.Create(root);
+            _demo = DemoOverlay.Create(root);
+
+            if (AppServices.Current != null && AppServices.Current.TryGet(out IRemoteConfigService? config))
+            {
+                _timeline.BacklogThresholdSeconds = config!.Get(RemoteConfigKeys.FxBacklogThresholdMs) / 1000f;
+            }
+
+            // Let the canvas scaler size the layout before the board measures its area.
+            yield return null;
+            Canvas.ForceUpdateCanvases();
+
+            (LevelDefinition level, BasePicture picture, SessionOptions options) = ResolveLevel();
+            _session = LevelSession.Load(level, picture, options);
+            Service<AdPolicy>()?.OnAttemptStarted();
+            if (AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && save!.Settings.Speed2x)
+            {
+                _hud.SetDoubleSpeed(true);
+                _timeline.Speed = 2f;
+            }
+
+            RebuildViews();
+            ApplyTheme();
+            BeginAttemptAnalytics();
+            ShowLevelIntro();
+        }
+
+        private static GameAnalytics? Analytics => Service<GameAnalytics>();
+
+        private LevelInfo? Info => _session == null ? null : LevelInfo.Of(_session.Definition, Flow?.CurrentAttempt?.LevelNumber ?? _session.Definition.LevelNumber);
+
+        private long AttemptMilliseconds => (long)((Time.unscaledTime - _attemptStart) * 1000f);
+
+        /// <summary>A new attempt (level load or restart): <c>level_start</c> and the crash keys of this level (R14).</summary>
+        private void BeginAttemptAnalytics()
+        {
+            _attemptIndex++;
+            _attemptStart = Time.unscaledTime;
+            _peakSlots = 0;
+            _winLogged = false;
+            _jamLogged = false;
+            LevelInfo? info = Info;
+            GameAnalytics? analytics = Analytics;
+            if (info != null && analytics != null)
+            {
+                analytics.SetLevelContext(info);
+                analytics.LevelStart(info, _attemptIndex);
+            }
+        }
+
+        /// <summary>After each accepted command: peak slots, and <c>level_win</c> or <c>level_jam</c> once when they happen.</summary>
+        private void TrackAnalytics()
+        {
+            LevelSession session = _session!;
+            int used = SlotsUsed(session.View);
+            _peakSlots = Math.Max(_peakSlots, used);
+            GameAnalytics? analytics = Analytics;
+            LevelInfo? info = Info;
+            if (analytics == null || info == null)
+            {
+                return;
+            }
+
+            if (session.Status == LevelStatus.Won && !_winLogged)
+            {
+                _winLogged = true;
+                analytics.LevelWin(info, AttemptMilliseconds, TapsThisAttempt(session), session.BoostersUsed, session.BoostersUsed == 0, _peakSlots, _attemptIndex);
+            }
+            else if ((session.Status == LevelStatus.Jammed || session.Status == LevelStatus.Stuck) && !_jamLogged)
+            {
+                _jamLogged = true;
+                analytics.LevelJam(info, session.Status == LevelStatus.Stuck ? "stuck" : "jam", AttemptMilliseconds, TapsThisAttempt(session), used, session.View.RemainingWork);
+            }
+            else if (session.Status == LevelStatus.Playing)
+            {
+                _jamLogged = false;
+            }
+        }
+
+        private static int SlotsUsed(LevelView view)
+        {
+            int used = 0;
+            for (int slot = 0; slot < view.SlotCapacity; slot++)
+            {
+                if (view.PodInSlot(slot) != null)
+                {
+                    used++;
+                }
+            }
+
+            return used;
+        }
+
+        /// <summary>Pod taps since the last restart.</summary>
+        private static int TapsThisAttempt(LevelSession session)
+        {
+            int taps = 0;
+            foreach (Command command in session.CommandLog)
+            {
+                if (command is Restart)
+                {
+                    taps = 0;
+                }
+                else if (command is TapPod)
+                {
+                    taps++;
+                }
+            }
+
+            return taps;
+        }
+
+        private static string MethodName(BoosterKind kind) => kind switch
+        {
+            BoosterKind.ExtraSlot => "extra_slot",
+            BoosterKind.Shuffle => "shuffle",
+            BoosterKind.Return => "return",
+            _ => "bloom_burst",
+        };
+
+        private static bool IsDaily => Flow?.CurrentAttempt?.IsDaily ?? false;
+
+        /// <summary>The background of the level band (FR-066); the Daily Challenge uses the player's current band.</summary>
+        private void ApplyTheme()
+        {
+            int level = IsDaily ? Progression?.CurrentLevel ?? 1 : Flow?.CurrentAttempt?.LevelNumber ?? _session!.Definition.LevelNumber;
+            if (Progression != null && ColorUtility.TryParseHtmlString(ThemeRotation.Default.ThemeFor(level).Background, out Color color))
+            {
+                _hud.SetBackground(color);
+            }
+        }
+
+        // ---- Input ----
+
+        private void OnPodTapped(string podId)
+        {
+            if (_session == null || _pause.IsOpen)
+            {
+                return;
+            }
+
+            if (_targeting != null)
+            {
+                CancelTargeting();
+            }
+
+            var tap = new TapPod(podId);
+            CommandCheck check = _session.Check(tap);
+            if (!check.IsAllowed)
+            {
+                _tray.ShowRefused(podId);
+                _hud.Toast(RefusalText(check.Reason!.Value));
+                if (check.Reason == RejectReason.Locked)
+                {
+                    FlashKeysOf(podId);
+                }
+
+                return;
+            }
+
+            int countBefore = _session.View.Pod(podId).Remaining;
+            CommandResult result = _session.Apply(tap);
+            foreach (GameEvent e in result.Events)
+            {
+                if (e.Round != 0)
+                {
+                    break;
+                }
+
+                switch (e)
+                {
+                    case PodCommitted committed:
+                        _slots.Commit(committed.SlotIndex, committed.PodId, _session.View.Pod(committed.PodId).Variant, countBefore);
+                        break;
+                    case MysteryPodRevealed revealed:
+                        _slots.RevealVariant(revealed.PodId, revealed.Variant);
+                        break;
+                }
+            }
+
+            _tray.Refresh(_session.View);
+            _slots.UpdateStates(_session.View);
+            _timeline.Enqueue(result.Events);
+            _demo.NotifyAction();
+
+            RecordWinIfWon();
+            TrackAnalytics();
+            RefreshBoosters();
+        }
+
+        /// <summary>Records a win as soon as it happens logically, so a kill during the win animation keeps it (R15), and pays it.</summary>
+        private void RecordWinIfWon()
+        {
+            if (_session!.Status != LevelStatus.Won || Flow == null || Flow.CurrentAttempt == null)
+            {
+                return;
+            }
+
+            LevelAttempt attempt = Flow.CurrentAttempt;
+            if (attempt.IsDaily)
+            {
+                // The Daily Challenge pays its own reward once per day and never changes Level N (FR-064).
+                DailyChallengeService? daily = Service<DailyChallengeService>();
+                int paid = _reward == null && daily != null ? daily.Complete(attempt) : 0;
+                if (paid > 0)
+                {
+                    _reward = new LevelReward(paid, null);
+                    Analytics?.DailyChallengeComplete(attempt.DailyUtcDate!);
+                }
+
+                return;
+            }
+
+            if (Flow.OnLevelWon(attempt.LevelNumber, LeaderboardClient.CommandLogHash(_session.CommandLog)) && Economy != null)
+            {
+                _reward = Economy.GrantLevelReward(attempt.LevelNumber, _session.Definition.Difficulty.Class, _session.BoostersUsed);
+                MilestoneGrant? grant = Service<MilestoneService>()?.LastGrant;
+                _milestone = grant != null && grant.Level == attempt.LevelNumber ? grant : null;
+            }
+        }
+
+        // ---- Timeline sink ----
+
+        public void OnWorkStarted(IReadOnlyList<WorkUnit> batch, float travelSeconds)
+        {
+            _workers.Launch(batch, travelSeconds);
+            foreach (WorkUnit unit in batch)
+            {
+                string pod = unit.Clear.PodId;
+                _workInFlight[pod] = (_workInFlight.TryGetValue(pod, out int n) ? n : 0) + 1;
+                _slots.SetWorking(pod, true);
+            }
+        }
+
+        public void OnWorkArrived(WorkUnit unit)
+        {
+            switch (unit.Reveal)
+            {
+                case CellOpened opened:
+                    _board.ShowOpened(opened.Cell);
+                    break;
+                case LayerRevealed layer:
+                    _board.ShowLayer(layer.Cell, layer.NewTopVariant, _session!.View);
+                    break;
+            }
+
+            string pod = unit.Clear.PodId;
+            _slots.Decrement(pod);
+            int left = (_workInFlight.TryGetValue(pod, out int n) ? n : 1) - 1;
+            _workInFlight[pod] = left;
+            if (left <= 0)
+            {
+                _slots.SetWorking(pod, false);
+            }
+        }
+
+        public void OnEvent(GameEvent e)
+        {
+            switch (e)
+            {
+                case PodCompleted completed:
+                    _slots.Complete(completed.PodId);
+                    break;
+                case MysteryTileRevealed revealed:
+                    _board.ShowMysteryRevealed(revealed.Cell, revealed.Variant);
+                    break;
+                case KeyCollected key:
+                    FlyKey(key);
+                    break;
+                case SpecialProgressed progressed:
+                    _board.ShowSpecialProgress(progressed.SpecialId, progressed.Progress, progressed.Total, SpecialKind(progressed.SpecialId));
+                    break;
+                case SpecialTriggered triggered:
+                    _board.TriggerSpecial(triggered.SpecialId, triggered.EffectCells, _session!.View);
+                    break;
+                case LevelWon _:
+                    _board.RevealAll();
+                    _win.Show(this, RewardText(_reward) + MilestoneText(_milestone), DoubleRewardOffer());
+                    break;
+                case LevelJammed _:
+                case LevelStuck _:
+                    // The recoveries of the current state (the timeline may be behind), owned or affordable (FR-027).
+                    if (_session!.Status == LevelStatus.Jammed || _session.Status == LevelStatus.Stuck)
+                    {
+                        var usable = new List<Recovery>();
+                        foreach (Recovery recovery in _session.EligibleRecoveries())
+                        {
+                            if (Economy == null || Economy.CanAfford(KindOf(recovery)))
+                            {
+                                usable.Add(recovery);
+                            }
+                        }
+
+                        _jam.Show(_session.Status == LevelStatus.Stuck, usable, RecoveryLabel, RescueOffer());
+                    }
+
+                    break;
+            }
+        }
+
+        // ---- Boosters (T120, T121) ----
+
+        private static EconomyService? Economy =>
+            AppServices.Current != null && AppServices.Current.TryGet(out EconomyService? economy) ? economy : null;
+
+        private void OnBoosterPressed(BoosterKind kind)
+        {
+            if (_session == null || _pause.IsOpen)
+            {
+                return;
+            }
+
+            if (_targeting == kind)
+            {
+                CancelTargeting();
+                return;
+            }
+
+            CancelTargeting();
+            switch (kind)
+            {
+                case BoosterKind.ExtraSlot:
+                    UseBooster(kind, new UseExtraSlot());
+                    break;
+                case BoosterKind.Shuffle:
+                    UseBooster(kind, new UseShuffle());
+                    break;
+                case BoosterKind.Return:
+                    StartTargeting(kind, Loc.T("gameplay.hint_return"));
+                    break;
+                default:
+                    StartTargeting(kind, Loc.T("gameplay.hint_burst"));
+                    break;
+            }
+        }
+
+        private void OnRecovery(Recovery recovery)
+        {
+            _jam.Hide();
+            LevelInfo? info = Info;
+            if (info != null)
+            {
+                Analytics?.LevelRecover(info, MethodName(KindOf(recovery)));
+            }
+
+            OnBoosterPressed(KindOf(recovery));
+        }
+
+        private void StartTargeting(BoosterKind kind, string hint)
+        {
+            _targeting = kind;
+            _boosters.SetTargeting(kind);
+            _hud.Toast(hint);
+            if (kind == BoosterKind.Return)
+            {
+                _slots.SetTargeting(true);
+            }
+            else
+            {
+                _board.SetTargeting(true);
+            }
+        }
+
+        private void CancelTargeting()
+        {
+            _targeting = null;
+            _boosters.SetTargeting(null);
+            _slots.SetTargeting(false);
+            _board.SetTargeting(false);
+        }
+
+        private void OnSlotTapped(int slot)
+        {
+            if (_targeting == BoosterKind.Return)
+            {
+                CancelTargeting();
+                UseBooster(BoosterKind.Return, new UseReturn(slot));
+            }
+        }
+
+        private void OnCellTapped(Core.Boards.CellPos cell)
+        {
+            if (_targeting == BoosterKind.BloomBurst && _session != null)
+            {
+                VariantId? variant = _session.View.Cell(cell).Visible;
+                CancelTargeting();
+                if (variant.HasValue)
+                {
+                    UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant.Value));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Uses a booster: the level checks it first (FR-046), then a charge is taken, or bought with Petals; without
+        /// either, the player is told, and the Store is never forced (FR-027). The pending animation is played out first,
+        /// so the slots and tray are rebuilt from the settled state.
+        /// </summary>
+        private void UseBooster(BoosterKind kind, Command command, bool free = false)
+        {
+            LevelSession session = _session!;
+            CommandCheck check = session.Check(command);
+            if (!check.IsAllowed)
+            {
+                _hud.Toast(Loc.T("gameplay.booster_useless"));
+                return;
+            }
+
+            string source = free ? "ad" : Economy == null || Economy.Charges(kind) > 0 ? "charge" : "petals";
+            if (!free && Economy != null && !Economy.TryTakeCharge(kind))
+            {
+                _hud.Toast(Loc.T("gameplay.not_enough_petals"));
+                return;
+            }
+
+            LevelInfo? boosted = Info;
+            if (boosted != null)
+            {
+                Analytics?.BoosterUse(boosted, MethodName(kind), source);
+            }
+
+            _timeline.Flush();
+            _workers.RecallAll();
+            _workInFlight.Clear();
+            CommandResult result = session.Apply(command);
+            _jam.Hide();
+            _boosters.Pulse(kind);
+            foreach (GameEvent e in result.Events)
+            {
+                if (e.Round != 0)
+                {
+                    continue;
+                }
+
+                switch (e)
+                {
+                    case VariantBurst burst:
+                        foreach (Core.Boards.CellPos cell in burst.Cells)
+                        {
+                            _board.Refresh(session.View, cell);
+                        }
+
+                        break;
+                    case ExtraSlotAdded _:
+                    case PodReturned _:
+                    case TrayShuffled _:
+                        break;
+                    default:
+                        // Keys, locks and specials a burst resolved.
+                        OnEvent(e);
+                        break;
+                }
+            }
+
+            _slots.Reset(session.View);
+            _tray.Refresh(session.View);
+            _timeline.Enqueue(result.Events);
+            RecordWinIfWon();
+            TrackAnalytics();
+            RefreshBoosters();
+        }
+
+        // ---- Rewarded placements (T130); every one is started by the player (FR-052) ----
+
+        private static T? Service<T>()
+            where T : class =>
+            AppServices.Current != null && AppServices.Current.TryGet(out T? service) ? service : null;
+
+        /// <summary>
+        /// The jam rescue: a rewarded ad for one free use of a jam-resolving booster, once per attempt (FR-027, FR-048).
+        /// Extra Slot is preferred, then Shuffle; null when neither helps or no ad is ready.
+        /// </summary>
+        private (string Label, Action Watch)? RescueOffer()
+        {
+            IAdsService? ads = Service<IAdsService>();
+            AdPolicy? policy = Service<AdPolicy>();
+            if (ads == null || policy == null || !ads.IsRewardedReady || !policy.MayOfferRescue)
+            {
+                return null;
+            }
+
+            (BoosterKind Kind, Command Command)? rescue =
+                _session!.Check(new UseExtraSlot()).IsAllowed ? (BoosterKind.ExtraSlot, new UseExtraSlot())
+                : _session.Check(new UseShuffle()).IsAllowed ? (BoosterKind.Shuffle, new UseShuffle())
+                : ((BoosterKind, Command)?)null;
+            if (rescue == null)
+            {
+                return null;
+            }
+
+            (BoosterKind kind, Command command) = rescue.Value;
+            return (Loc.F("jam.free_rescue", JamScreen.Label(RecoveryOf(kind))), () => ads.ShowRewarded(AdPlacements.JamRescue, earned =>
+            {
+                if (earned)
+                {
+                    policy.OnRescueUsed();
+                    Analytics?.AdRewarded("rescue");
+                    LevelInfo? info = Info;
+                    if (info != null)
+                    {
+                        Analytics?.LevelRecover(info, "ad_rescue");
+                    }
+
+                    UseBooster(kind, command, free: true);
+                }
+            }));
+        }
+
+        /// <summary>The doubled win reward: the same Petals again after a rewarded ad (FR-052).</summary>
+        private Action<Action<string>>? DoubleRewardOffer()
+        {
+            IAdsService? ads = Service<IAdsService>();
+            LevelReward? reward = _reward;
+            if (ads == null || reward == null || !ads.IsRewardedReady || Economy == null)
+            {
+                return null;
+            }
+
+            return update => ads.ShowRewarded(AdPlacements.DoubleWin, earned =>
+            {
+                if (earned)
+                {
+                    Analytics?.AdRewarded("double_reward");
+                    Economy.Grant(reward.Petals, null);
+                    update(RewardText(reward with { Petals = reward.Petals * 2 }) + MilestoneText(_milestone));
+                }
+            });
+        }
+
+        private void RefreshBoosters()
+        {
+            if (_session == null)
+            {
+                return;
+            }
+
+            var eligible = new HashSet<Recovery>(_session.EligibleRecoveries());
+            EconomyService? economy = Economy;
+            _boosters.Refresh(kind => new BoosterButtonState(
+                economy == null || economy.IsUnlocked(kind),
+                eligible.Contains(RecoveryOf(kind)),
+                economy?.Charges(kind) ?? 1,
+                economy?.Price(kind) ?? 0,
+                economy == null || economy.Petals >= economy.Price(kind)));
+        }
+
+        private string RecoveryLabel(Recovery recovery)
+        {
+            string name = JamScreen.Label(recovery);
+            EconomyService? economy = Economy;
+            if (economy == null)
+            {
+                return name;
+            }
+
+            BoosterKind kind = KindOf(recovery);
+            return economy.Charges(kind) > 0
+                ? name + " ×" + economy.Charges(kind).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                : name + " " + economy.Price(kind).ToString(System.Globalization.CultureInfo.InvariantCulture) + " ✿";
+        }
+
+        private static string RewardText(LevelReward? reward)
+        {
+            if (reward == null)
+            {
+                return string.Empty;
+            }
+
+            string text = Loc.F("common.petals_plus", reward.Petals);
+            return reward.DroppedBooster.HasValue ? text + "  " + Loc.F("win.drop", JamScreen.Label(RecoveryOf(reward.DroppedBooster.Value))) : text;
+        }
+
+        /// <summary>The milestone celebration line on the Win screen (FR-061).</summary>
+        private static string MilestoneText(MilestoneGrant? grant)
+        {
+            if (grant == null)
+            {
+                return string.Empty;
+            }
+
+            string text = "\n" + Loc.F("win.milestone", grant.Petals);
+            if (grant.Boosters != null)
+            {
+                int charges = grant.Boosters.ExtraSlot + grant.Boosters.Shuffle + grant.Boosters.Return + grant.Boosters.BloomBurst;
+                text += "  " + (charges == 1 ? Loc.T("win.boosters_one") : Loc.F("win.boosters_many", charges));
+            }
+
+            if (grant.Item != null)
+            {
+                WardrobeService? wardrobe = Service<WardrobeService>();
+                text += "  " + Loc.F("win.item", wardrobe != null && wardrobe.Catalog.TryGet(grant.Item, out CosmeticItem? item) ? WardrobeScreen.Name(item!) : grant.Item);
+            }
+
+            return text;
+        }
+
+        private static BoosterKind KindOf(Recovery recovery) => recovery switch
+        {
+            Recovery.ExtraSlot => BoosterKind.ExtraSlot,
+            Recovery.Shuffle => BoosterKind.Shuffle,
+            Recovery.Return => BoosterKind.Return,
+            _ => BoosterKind.BloomBurst,
+        };
+
+        private static Recovery RecoveryOf(BoosterKind kind) => kind switch
+        {
+            BoosterKind.ExtraSlot => Recovery.ExtraSlot,
+            BoosterKind.Shuffle => Recovery.Shuffle,
+            BoosterKind.Return => Recovery.Return,
+            _ => Recovery.BloomBurst,
+        };
+
+        // ---- Keys and locks (T107, T109, T110) ----
+
+        /// <summary>The collected key leaves its tile and flies to its lock, which then plays its opening.</summary>
+        private void FlyKey(KeyCollected key)
+        {
+            LevelView view = _session!.View;
+            Vector3 from = _board.KeyPosition(key.Cell) ?? _board.CellWorldPosition(key.Cell);
+            _board.HideKey(key.Cell);
+            LockDef? lockDef = null;
+            foreach (LockDef candidate in view.Locks)
+            {
+                if (candidate.KeyId == key.KeyId)
+                {
+                    lockDef = candidate;
+                }
+            }
+
+            if (lockDef == null)
+            {
+                return;
+            }
+
+            Vector3 to = lockDef.TargetKind switch
+            {
+                LockTargetKind.Slot => _slots.SlotPosition(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture)),
+                LockTargetKind.Special => _board.SpecialPosition(lockDef.TargetId) ?? from,
+                _ => _tray.RectOf(lockDef.TargetId) is RectTransform pod ? pod.position : _hud.TrayArea.position,
+            };
+
+            KeyView.Fly(_root, from, to, _board.CellSize * 0.8f, () =>
+            {
+                if (lockDef.TargetKind == LockTargetKind.Slot)
+                {
+                    _slots.PlayUnlock(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture), _session!.View);
+                }
+                else if (lockDef.TargetKind == LockTargetKind.Pod)
+                {
+                    _tray.ShowAccepted(lockDef.TargetId);
+                }
+            });
+        }
+
+        /// <summary>A locked pod was tapped: point at the key that opens it (the pod or its group).</summary>
+        private void FlashKeysOf(string podId)
+        {
+            LevelView view = _session!.View;
+            foreach (string member in view.ConnectedGroup(podId))
+            {
+                foreach (PodDef pod in _session.Definition.Pods)
+                {
+                    if (pod.Id == member && pod.LockKeyId != null && !view.IsKeyCollected(pod.LockKeyId))
+                    {
+                        _board.FlashKey(view, pod.LockKeyId);
+                    }
+                }
+            }
+        }
+
+        private SpecialConditionKind SpecialKind(string specialId)
+        {
+            foreach (SpecialInfo special in _session!.View.Specials)
+            {
+                if (special.Id == specialId)
+                {
+                    return special.Condition.Kind;
+                }
+            }
+
+            return SpecialConditionKind.ClearCountAdjacent;
+        }
+
+        // ---- Flow ----
+
+        private void OpenPause()
+        {
+            _timeline.Paused = true;
+            _pause.Show();
+        }
+
+        private void ClosePause()
+        {
+            _pause.Hide();
+            _timeline.Paused = false;
+        }
+
+        private void RestartFromPause()
+        {
+            ClosePause();
+            Restart("pause");
+        }
+
+        /// <summary>Restart rebuilds the same level for free (FR-028, FR-040).</summary>
+        /// <param name="from"><c>pause</c> or <c>jam</c> (the <c>level_restart</c> event).</param>
+        private void Restart(string from)
+        {
+            if (_session == null)
+            {
+                return;
+            }
+
+            LevelInfo? info = Info;
+            if (info != null)
+            {
+                Analytics?.LevelRestart(info, from);
+            }
+
+            _session.Apply(new Restart());
+            Service<AdPolicy>()?.OnAttemptStarted();
+            RebuildViews();
+            BeginAttemptAnalytics();
+        }
+
+        private static GameFlow? Flow => AppServices.Current != null && AppServices.Current.TryGet(out GameFlow? flow) ? flow : null;
+
+        private static ProgressionService? Progression =>
+            AppServices.Current != null && AppServices.Current.TryGet(out ProgressionService? progression) ? progression : null;
+
+        private void Next()
+        {
+            if (Flow != null)
+            {
+                Flow.Next();
+            }
+            else
+            {
+                Restart("pause");
+            }
+        }
+
+        private void Leave()
+        {
+            ClosePause();
+            LevelInfo? info = Info;
+            if (info != null && _session!.Status != LevelStatus.Won)
+            {
+                Analytics?.LevelQuit(info, AttemptMilliseconds);
+            }
+
+            Analytics?.SetLevelContext(null);
+            if (Flow != null)
+            {
+                Flow.Leave();
+            }
+            else
+            {
+                Restart("pause");
+            }
+        }
+
+        /// <summary>Before play: the difficulty label (FR-059), then at most one demo (FR-031, FR-071).</summary>
+        private void ShowLevelIntro()
+        {
+            LevelSession session = _session!;
+            ProgressionService? progression = Progression;
+            _banner.TryShow(
+                session.Definition.Difficulty.Class,
+                progression?.IsUnlocked("profile.hard") ?? true,
+                progression?.IsUnlocked("profile.super_hard") ?? true);
+
+            if (session.Definition.LevelNumber == 1 && !IsDaily && !SeenDemo(DemoScripts.FirstTapId))
+            {
+                string? pod = RecommendedFirstPod(session);
+                ShowDemo(DemoScripts.FirstTap(() => pod == null ? null : _tray.RectOf(pod)));
+                return;
+            }
+
+            // A booster unlocked on the way here: its demo and free charge (FR-042, T122).
+            foreach ((string unlockId, BoosterKind kind) in EconomyService.BoosterUnlocks)
+            {
+                if (progression != null && progression.IsUnlocked(unlockId) && !SeenDemo(unlockId))
+                {
+                    DemoScript? demo = BoosterDemos.For(unlockId, () => _boosters.RectOf(kind));
+                    if (demo != null)
+                    {
+                        ShowDemo(demo);
+                        return;
+                    }
+                }
+            }
+
+            // The first time the player meets an unlocked mechanic, its demo (FR-031, T111).
+            foreach (string unlockId in LevelMechanics.UnlocksUsed(session.Definition, session.Picture))
+            {
+                if (SeenDemo(unlockId) || !(progression?.IsUnlocked(unlockId) ?? true))
+                {
+                    continue;
+                }
+
+                DemoScript? demo = MechanicDemos.For(unlockId, DemoTargetsFor(session));
+                if (demo != null)
+                {
+                    ShowDemo(demo);
+                    return;
+                }
+            }
+
+            (VariantId First, VariantId Second)? siblings = SiblingPair(session);
+            if (siblings.HasValue && !SeenDemo(DemoScripts.SiblingsId))
+            {
+                VariantVisual first = _visuals != null ? _visuals.Get(siblings.Value.First) : VariantVisualCatalog.Default(siblings.Value.First);
+                VariantVisual second = _visuals != null ? _visuals.Get(siblings.Value.Second) : VariantVisualCatalog.Default(siblings.Value.Second);
+                ShowDemo(DemoScripts.Siblings(first, second));
+            }
+        }
+
+        /// <summary>Pointer targets for the mechanic demos, resolved from what is on screen when each step starts.</summary>
+        private DemoTargets DemoTargetsFor(LevelSession session)
+        {
+            LevelView view = session.View;
+            string? FirstPod(System.Func<PodInfo, bool> match)
+            {
+                foreach (string id in view.PodIds)
+                {
+                    if (match(view.Pod(id)))
+                    {
+                        return id;
+                    }
+                }
+
+                return null;
+            }
+
+            RectTransform? PodRect(System.Func<PodInfo, bool> match) => FirstPod(match) is string id ? _tray.RectOf(id) : null;
+
+            RectTransform? LockRect()
+            {
+                foreach (LockDef lockDef in view.Locks)
+                {
+                    return lockDef.TargetKind switch
+                    {
+                        LockTargetKind.Pod => _tray.RectOf(lockDef.TargetId),
+                        LockTargetKind.Slot => _slots.SlotRect(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture)),
+                        _ => _board.SpecialRect(lockDef.TargetId),
+                    };
+                }
+
+                return null;
+            }
+
+            RectTransform? LockedSlot()
+            {
+                for (int i = 0; i < view.SlotCapacity; i++)
+                {
+                    if (view.SlotStateOf(i) == Core.Slots.SlotState.Locked)
+                    {
+                        return _slots.SlotRect(i);
+                    }
+                }
+
+                return null;
+            }
+
+            return new DemoTargets
+            {
+                Stone = () => _board.FindCell(view, c => c.Kind == Core.Boards.CellKind.Stone),
+                KeyTile = () => _board.FindCell(view, c => c.KeyId != null),
+                KeyLock = LockRect,
+                LockedPod = () => PodRect(p => p.Locked),
+                ConnectedPod = () => PodRect(p => p.ConnectedGroupId != null && view.IsExposed(p.Id)),
+                LayeredTile = () => _board.FindCell(view, c => c.Next.HasValue),
+                Gate = () => _board.SpecialRectOfType(SpecialType.Gate),
+                Fountain = () => _board.SpecialRectOfType(SpecialType.Fountain),
+                LockedSlot = LockedSlot,
+                MysteryTile = () => _board.FindCell(view, c => c.MysteryHidden),
+                MysteryPod = () => PodRect(p => p.Mystery && p.Variant == null),
+            };
+        }
+
+        private bool SeenDemo(string demoId) => Progression?.HasSeenDemo(demoId) ?? _devDemosSeen.Contains(demoId);
+
+        /// <summary>Shows a demonstration and reports its <c>tutorial_step</c> (T147).</summary>
+        private void ShowDemo(DemoScript script)
+        {
+            Analytics?.TutorialStep(Info, script.DemoId, 1, false);
+            _demo.Show(script, OnDemoDone);
+        }
+
+        private void OnDemoDone(DemoScript script)
+        {
+            Analytics?.TutorialStep(Info, script.DemoId, 1, true);
+            if (Progression != null)
+            {
+                Progression.MarkDemoSeen(script.DemoId);
+            }
+            else
+            {
+                _devDemosSeen.Add(script.DemoId);
+            }
+        }
+
+        /// <summary>An exposed pod that clears tiles at once: the target of the guided first tap.</summary>
+        private static string? RecommendedFirstPod(LevelSession session)
+        {
+            foreach (string id in session.View.PodIds)
+            {
+                if (!session.View.IsExposed(id))
+                {
+                    continue;
+                }
+
+                LevelSession probe = session.Clone();
+                foreach (GameEvent e in probe.Apply(new TapPod(id)).Events)
+                {
+                    if (e is TileCleared)
+                    {
+                        return id;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>Two variants of one family among the level's pods, for the sibling demo (FR-071).</summary>
+        private static (VariantId First, VariantId Second)? SiblingPair(LevelSession session)
+        {
+            var byFamily = new System.Collections.Generic.Dictionary<Family, VariantId>();
+            foreach (PodDef pod in session.Definition.Pods)
+            {
+                Family family = VariantCatalog.Default.Get(pod.Variant).Family;
+                if (byFamily.TryGetValue(family, out VariantId other) && other != pod.Variant)
+                {
+                    return (other, pod.Variant);
+                }
+
+                byFamily[family] = pod.Variant;
+            }
+
+            return null;
+        }
+
+        private void RebuildViews()
+        {
+            LevelSession session = _session!;
+            _timeline.Clear();
+            _workers.RecallAll();
+            _workInFlight.Clear();
+            _win.Hide();
+            _jam.Hide();
+            if (IsDaily)
+            {
+                _hud.SetTitle(Loc.T("daily.title"));
+            }
+            else
+            {
+                _hud.SetLevel(Flow?.CurrentAttempt?.LevelNumber ?? session.Definition.LevelNumber);
+            }
+
+            _board.Build(session.View, session.Definition, session.Picture);
+            _workers.SetEntries(session.View.Entries);
+            _slots.Reset(session.View);
+            _tray.Refresh(session.View);
+            _reward = null;
+            _milestone = null;
+            CancelTargeting();
+            RefreshBoosters();
+        }
+
+        /// <summary>Pauses with the app and resumes exactly where the timeline stopped.</summary>
+        private void OnApplicationPause(bool paused)
+        {
+            if (_timeline == null)
+            {
+                return;
+            }
+
+            if (paused)
+            {
+                _timeline.Paused = true;
+            }
+            else if (!_pause.IsOpen)
+            {
+                _timeline.Paused = false;
+            }
+        }
+
+        private static (LevelDefinition, BasePicture, SessionOptions) ResolveLevel()
+        {
+            LevelAttempt? attempt = Flow?.CurrentAttempt;
+            if (attempt != null)
+            {
+                return (attempt.Definition, attempt.Picture, attempt.Options);
+            }
+
+            // Played directly in the Editor: the level picked in Tools/Bloomlings/Play Dev Level.
+            (LevelDefinition devLevel, BasePicture devPicture) = DevContent.LoadSelected();
+            return (devLevel, devPicture, new SessionOptions(LooseContentFolder.DevContentVersion, LooseContentFolder.DevShuffleNodeBudget));
+        }
+
+        private static string RefusalText(RejectReason reason) => reason switch
+        {
+            RejectReason.NoFreeSlot => Loc.T("refusal.no_free_slot"),
+            RejectReason.NotExposed => Loc.T("refusal.not_exposed"),
+            RejectReason.Locked => Loc.T("refusal.locked"),
+            RejectReason.NotEnoughSlotsForGroup => Loc.T("refusal.group"),
+            _ => string.Empty,
+        };
+    }
+}

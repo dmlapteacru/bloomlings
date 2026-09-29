@@ -1,0 +1,68 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 3, 4, 4, 4, 4, 4, 3, 4],
+    [3, -1, 0, 0, 0, 0, 0, 3, 0],
+    [3, 0, 0, 0, 0, 0, 0, 0, 3],
+    [3, 0, 0, 0, -1, 0, 0, 0, 3],
+    [0, -1, 1, 1, 1, 1, 0, 2, 2],
+    [0, 1, 1, 1, 1, 1, 2, 2, 2],
+    [0, -1, 1, 1, 1, 1, 0, 2, 2],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, -1, 0, 0, -1, 0, 0, 0, -1]
+  ],
+  "height": 10,
+  "id": "fish_01",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.511,
+    "nestingDepth": 3,
+    "regionCount": 12
+  },
+  "subject": "Fish 1",
+  "tags": {
+    "bands": ["early"],
+    "themes": ["animals", "sea"]
+  },
+  "version": 1,
+  "width": 9
+}

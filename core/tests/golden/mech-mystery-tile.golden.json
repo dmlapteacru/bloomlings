@@ -1,0 +1,143 @@
+{
+  "commands": ["tap:moss", "tap:leaf"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "test",
+    "levelNumber": 1,
+    "mapping": {
+      "dew": "dew",
+      "flower": "flower",
+      "leaf": "leaf",
+      "moss": "moss",
+      "violet": "violet_bud",
+      "water": "water",
+      "wood": "wood"
+    },
+    "overlays": {
+      "cells": [
+        {
+          "mystery": true,
+          "x": 3,
+          "y": 1
+        },
+        {
+          "mystery": true,
+          "x": 3,
+          "y": 2
+        }
+      ]
+    },
+    "picture": {
+      "id": "rules",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 1,
+        "id": "leaf",
+        "variantId": "leaf"
+      },
+      {
+        "count": 1,
+        "id": "moss",
+        "variantId": "moss"
+      }
+    ],
+    "rewardProfile": "test",
+    "seed": "42",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["leaf"],
+        ["moss"]
+      ]
+    }
+  },
+  "description": "Mystery tiles reveal when reachable: one at the start, one when the Leaf tile opens (FR-039).",
+  "expectedEventsDigest": "28eab92966ee9fd3",
+  "expectedStateHash": "2a42d08773dfe204",
+  "expectedStatus": "won",
+  "name": "mech-mystery-tile",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, -1, -1, -1, -1, -1, -1],
+      [-2, -2, -2, 0, -2, -2, -2],
+      [-2, -2, -2, 1, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2]
+    ],
+    "height": 8,
+    "id": "rules",
+    "review": {
+      "reviewer": "test",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "green",
+        "name": "leaf",
+        "roleId": "leaf"
+      },
+      {
+        "colorGroup": "green",
+        "name": "moss",
+        "roleId": "moss"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "water",
+        "roleId": "water"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "dew",
+        "roleId": "dew"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "flower",
+        "roleId": "flower"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "wood",
+        "roleId": "wood"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "violet",
+        "roleId": "violet"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "test"
+    },
+    "subject": "rules",
+    "tags": {},
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}

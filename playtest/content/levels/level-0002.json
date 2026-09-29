@@ -1,0 +1,58 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 2,
+  "mapping": {
+    "petal": "flower",
+    "sky": "water",
+    "stem": "leaf"
+  },
+  "picture": {
+    "id": "tulip",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "f1",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "l1",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1002",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["w1", "f1"],
+      ["l1", "w2"]
+    ]
+  }
+}

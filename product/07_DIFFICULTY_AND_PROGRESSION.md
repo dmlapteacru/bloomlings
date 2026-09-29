@@ -1,6 +1,7 @@
 # 07 — Difficulty & Global Level Progression
 
-**Status:** DRAFT FOR LOCK
+**Status:** LOCKED (2026-09-29)  
+**Revision 2026-09-29:** §4 aligned with the unlock roadmap in doc 13 and spec `001` (Hard label L5, Key L8, Stones L11).
 
 ## 1. Progression model
 
@@ -54,9 +55,9 @@ Leaderboard unlocks at Level 10 in our current roadmap.
 - all four families represented;
 - 3–4 target variants;
 - source depth;
-- Stone blockers;
-- keys start appearing;
-- first Hard levels.
+- Stone blockers (from L11);
+- keys are practised (the Key preview unlocks at L8, see doc 13);
+- Hard levels become regular (the Hard label unlocks at L5, see doc 13).
 
 ## 5. Levels 26–50
 

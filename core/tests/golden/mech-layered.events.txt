@@ -1,0 +1,13 @@
+> tap:violet
+r0 PodCommitted violet slot=0 stack=0 depth=0
+> tap:leaf
+r0 PodCommitted leaf slot=1 stack=1 depth=0
+r1 TileCleared 3,1 leaf by leaf route=3,0>3,1
+r1 LayerRevealed 3,1 violet_bud
+r1 PodCompleted leaf slot=1
+r1 SlotFreed 1
+r2 TileCleared 3,1 violet_bud by violet route=3,0>3,1
+r2 CellOpened 3,1
+r2 PodCompleted violet slot=0
+r2 SlotFreed 0
+r3 LevelWon boosters=0

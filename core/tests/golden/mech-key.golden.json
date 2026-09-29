@@ -1,0 +1,170 @@
+{
+  "commands": ["tap:locked", "tap:leaf", "tap:locked", "tap:water"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 3,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "test",
+    "levelNumber": 1,
+    "locks": [
+      {
+        "keyId": "k1",
+        "target": {
+          "id": "locked",
+          "kind": "pod"
+        }
+      },
+      {
+        "keyId": "k2",
+        "target": {
+          "id": "4",
+          "kind": "slot"
+        }
+      }
+    ],
+    "mapping": {
+      "dew": "dew",
+      "flower": "flower",
+      "leaf": "leaf",
+      "moss": "moss",
+      "violet": "violet_bud",
+      "water": "water",
+      "wood": "wood"
+    },
+    "overlays": {
+      "cells": [
+        {
+          "keyId": "k1",
+          "x": 3,
+          "y": 1
+        },
+        {
+          "keyId": "k2",
+          "x": 4,
+          "y": 1
+        }
+      ]
+    },
+    "picture": {
+      "id": "rules",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 1,
+        "id": "leaf",
+        "variantId": "leaf"
+      },
+      {
+        "count": 1,
+        "id": "water",
+        "variantId": "water"
+      },
+      {
+        "count": 1,
+        "id": "locked",
+        "lockKeyId": "k1",
+        "variantId": "moss"
+      }
+    ],
+    "rewardProfile": "test",
+    "seed": "42",
+    "slots": {
+      "count": 5,
+      "locked": {
+        "keyId": "k2",
+        "slotIndex": 4
+      }
+    },
+    "tray": {
+      "stacks": [
+        ["leaf"],
+        ["water"],
+        ["locked"]
+      ]
+    }
+  },
+  "description": "Keys are collected with their tile's layer: k1 opens a locked pod, k2 the locked slot 4 (FR-033, FR-034, FR-039).",
+  "expectedEventsDigest": "415dcbbdc8452daf",
+  "expectedStateHash": "9430b0d718fa96cd",
+  "expectedStatus": "won",
+  "name": "mech-key",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, -1, -1, -1, -1, -1, -1],
+      [-2, -2, 1, 0, 2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2],
+      [-2, -2, -2, -2, -2, -2, -2]
+    ],
+    "height": 8,
+    "id": "rules",
+    "review": {
+      "reviewer": "test",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "green",
+        "name": "leaf",
+        "roleId": "leaf"
+      },
+      {
+        "colorGroup": "green",
+        "name": "moss",
+        "roleId": "moss"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "water",
+        "roleId": "water"
+      },
+      {
+        "colorGroup": "blue_cyan",
+        "name": "dew",
+        "roleId": "dew"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "flower",
+        "roleId": "flower"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "wood",
+        "roleId": "wood"
+      },
+      {
+        "colorGroup": "pink_purple",
+        "name": "violet",
+        "roleId": "violet"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "test"
+    },
+    "subject": "rules",
+    "tags": {},
+    "version": 1,
+    "width": 7
+  },
+  "shuffleNodeBudget": 20000
+}
