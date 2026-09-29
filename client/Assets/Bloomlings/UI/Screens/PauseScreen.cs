@@ -2,6 +2,7 @@ using System;
 using Bloomlings.Client.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -17,13 +18,13 @@ namespace Bloomlings.Client.UI.Screens
             RectTransform card = UiFactory.CreateModal("PauseScreen", parent, 0.34f, out GameObject root);
             var screen = root.AddComponent<PauseScreen>();
             screen._root = root;
-            TMPro.TextMeshProUGUI title = UiFactory.CreateText("Title", card, "Paused", 72f, UiTheme.Text);
+            TMPro.TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("pause.title"), 72f, UiTheme.Text);
             UiFactory.Place(title.rectTransform, 0f, 0.78f, 1f, 0.95f);
-            Button resume = UiFactory.CreateButton("Resume", card, "Resume", UiTheme.Accent, onResume);
+            Button resume = UiFactory.CreateButton("Resume", card, Loc.T("pause.resume"), UiTheme.Accent, onResume);
             UiFactory.Place((RectTransform)resume.transform, 0.15f, 0.54f, 0.85f, 0.72f);
-            Button restart = UiFactory.CreateButton("Restart", card, "Restart", UiTheme.Text, onRestart);
+            Button restart = UiFactory.CreateButton("Restart", card, Loc.T("common.restart"), UiTheme.Text, onRestart);
             UiFactory.Place((RectTransform)restart.transform, 0.15f, 0.30f, 0.85f, 0.48f);
-            Button leave = UiFactory.CreateButton("Leave", card, "Leave", UiTheme.SlotLocked, onLeave);
+            Button leave = UiFactory.CreateButton("Leave", card, Loc.T("pause.leave"), UiTheme.SlotLocked, onLeave);
             UiFactory.Place((RectTransform)leave.transform, 0.15f, 0.06f, 0.85f, 0.24f);
             root.SetActive(false);
             return screen;

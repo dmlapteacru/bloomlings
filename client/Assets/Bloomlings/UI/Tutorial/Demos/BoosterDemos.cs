@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Tutorial.Demos
 {
@@ -13,20 +14,20 @@ namespace Bloomlings.Client.UI.Tutorial.Demos
         {
             "booster.extra_slot" => new DemoScript(
                 unlockId,
-                new DemoStep("Extra Slot: one more slot for this level") { PointAt = button },
-                new DemoStep("Here is a free one")),
+                new DemoStep(Loc.T("demo.extra_slot.1")) { PointAt = button },
+                new DemoStep(Loc.T("demo.extra_slot.2"))),
             "booster.shuffle" => new DemoScript(
                 unlockId,
-                new DemoStep("Shuffle rearranges the pods in the tray") { PointAt = button },
-                new DemoStep("It always leaves a way to win")),
+                new DemoStep(Loc.T("demo.shuffle.1")) { PointAt = button },
+                new DemoStep(Loc.T("demo.shuffle.2"))),
             "booster.return" => new DemoScript(
                 unlockId,
-                new DemoStep("Return sends a waiting pod back to the tray") { PointAt = button },
-                new DemoStep("Then tap the slot to send back")),
+                new DemoStep(Loc.T("demo.return.1")) { PointAt = button },
+                new DemoStep(Loc.T("demo.return.2"))),
             "booster.bloom_burst" => new DemoScript(
                 unlockId,
-                new DemoStep("Bloom Burst clears one symbol from the whole garden") { PointAt = button },
-                new DemoStep("Then tap a tile with that symbol")),
+                new DemoStep(Loc.T("demo.bloom_burst.1")) { PointAt = button },
+                new DemoStep(Loc.T("demo.bloom_burst.2"))),
             _ => null,
         };
     }

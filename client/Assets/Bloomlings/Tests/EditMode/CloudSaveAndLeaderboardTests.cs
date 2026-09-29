@@ -169,24 +169,24 @@ namespace Bloomlings.Client.Tests
             var board = new FakeBoard();
             var client = new LeaderboardClient(save, board, new BundledRemoteConfigService(), new FixedClock(), () => { });
             save.Progression.HighestCompletedLevel = 9;
-            Assert.That(client.RankText, Is.Null, "hidden before L10");
+            Assert.That(client.IsUnlocked, Is.False, "hidden before L10");
 
             save.Unlocks.Flags[LeaderboardClient.UnlockId] = true;
             save.Progression.HighestCompletedLevel = 14;
             client.OnLevelWon(1, "abc");
             Run(client.Refresh());
             Assert.That(client.HasPendingSubmission, Is.True, "queued while offline");
-            Assert.That(client.RankText, Is.EqualTo("Rank: offline"));
+            Assert.That((client.IsStale, client.LastPage), Is.EqualTo((true, (LeaderboardPage?)null)));
 
             board.IsAvailable = true;
             Run(client.Refresh());
             Assert.That(board.Submitted, Is.EqualTo(14));
             Assert.That(client.HasPendingSubmission, Is.False);
-            Assert.That(client.RankText, Is.EqualTo("Rank #1,234"));
+            Assert.That((client.IsStale, client.LastPage!.Player!.Rank), Is.EqualTo((false, 1234)));
 
             board.IsAvailable = false;
             Run(client.Refresh());
-            Assert.That(client.RankText, Is.EqualTo("Rank #1,234 (offline)"), "the last rank stays with a stale label");
+            Assert.That((client.IsStale, client.LastPage!.Player!.Rank), Is.EqualTo((true, 1234)), "the last rank stays, marked stale");
         }
 
         [Test]

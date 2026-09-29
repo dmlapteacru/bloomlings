@@ -6,6 +6,7 @@ using Bloomlings.Client.Services.Save;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -35,7 +36,7 @@ namespace Bloomlings.Client.UI.Screens
             RectTransform card = UiFactory.CreateModal("Collection", parent, 0.85f, out GameObject root);
             var screen = root.AddComponent<CollectionScreen>();
             screen._root = root;
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, "Collection", 72f, UiTheme.Accent);
+            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("collection.title"), 72f, UiTheme.Accent);
             UiFactory.Place(title.rectTransform, 0f, 0.91f, 1f, 0.98f);
             screen._count = UiFactory.CreateText("Count", card, string.Empty, 40f, UiTheme.Text);
             UiFactory.Place(screen._count.rectTransform, 0f, 0.86f, 1f, 0.91f);
@@ -46,7 +47,7 @@ namespace Bloomlings.Client.UI.Screens
             UiFactory.Place(screen._page.rectTransform, 0.25f, 0.08f, 0.75f, 0.15f);
             Button next = UiFactory.CreateButton("Next", card, "›", UiTheme.SlotLocked, () => screen.Turn(1), 56f);
             UiFactory.Place((RectTransform)next.transform, 0.78f, 0.08f, 0.95f, 0.15f);
-            Button close = UiFactory.CreateButton("Close", card, "Close", UiTheme.Text, screen.Hide, 44f);
+            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Text, screen.Hide, 44f);
             UiFactory.Place((RectTransform)close.transform, 0.3f, 0.01f, 0.7f, 0.07f);
             root.SetActive(false);
             return screen;
@@ -58,7 +59,7 @@ namespace Bloomlings.Client.UI.Screens
             _entries = entries;
             _render = render;
             _pageIndex = 0;
-            _count.text = entries.Count.ToString(CultureInfo.InvariantCulture) + (entries.Count == 1 ? " picture" : " pictures");
+            _count.text = entries.Count == 1 ? Loc.F("collection.count_one", 1) : Loc.F("collection.count_many", entries.Count);
             BuildPage();
             _root.SetActive(true);
         }
@@ -112,7 +113,7 @@ namespace Bloomlings.Client.UI.Screens
                     image.raycastTarget = false;
                 }
 
-                TextMeshProUGUI label = UiFactory.CreateText("Level", frame.transform, "Level " + entry.LevelNumber.ToString(CultureInfo.InvariantCulture), 30f, UiTheme.Text);
+                TextMeshProUGUI label = UiFactory.CreateText("Level", frame.transform, Loc.F("common.level", entry.LevelNumber), 30f, UiTheme.Text);
                 UiFactory.Place(label.rectTransform, 0f, 0.02f, 1f, 0.2f);
             }
         }

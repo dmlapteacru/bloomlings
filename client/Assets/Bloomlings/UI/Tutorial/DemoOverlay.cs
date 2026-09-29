@@ -5,6 +5,7 @@ using Bloomlings.Client.Art.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Tutorial
 {
@@ -54,7 +55,7 @@ namespace Bloomlings.Client.UI.Tutorial
             overlay._hand.preserveAspect = true;
             overlay._hand.rectTransform.sizeDelta = new Vector2(140f, 140f);
 
-            Button skip = UiFactory.CreateButton("Skip", shade.transform, "Skip", UiTheme.Text, overlay.Finish, 40f);
+            Button skip = UiFactory.CreateButton("Skip", shade.transform, Loc.T("demo.skip"), UiTheme.Text, overlay.Finish, 40f);
             UiFactory.Place((RectTransform)skip.transform, 0.78f, 0.92f, 0.97f, 0.97f);
             shade.gameObject.SetActive(false);
             return overlay;

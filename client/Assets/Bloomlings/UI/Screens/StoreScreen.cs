@@ -4,6 +4,7 @@ using Bloomlings.Client.Art;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -29,14 +30,14 @@ namespace Bloomlings.Client.UI.Screens
             RectTransform card = UiFactory.CreateModal("Store", parent, 0.8f, out GameObject root);
             var screen = root.AddComponent<StoreScreen>();
             screen._root = root;
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, "Store", 72f, UiTheme.Accent);
+            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("store.title"), 72f, UiTheme.Accent);
             UiFactory.Place(title.rectTransform, 0f, 0.9f, 1f, 0.98f);
             screen._petals = UiFactory.CreateText("Petals", card, string.Empty, 44f, UiTheme.Text);
             UiFactory.Place(screen._petals.rectTransform, 0f, 0.85f, 1f, 0.9f);
             screen._status = UiFactory.CreateText("Status", card, string.Empty, 36f, UiTheme.Warning);
             UiFactory.Place(screen._status.rectTransform, 0f, 0.8f, 1f, 0.85f);
             screen._list = UiFactory.Place(UiFactory.CreateRect("Items", card), 0.05f, 0.12f, 0.95f, 0.8f);
-            Button close = UiFactory.CreateButton("Close", card, "Close", UiTheme.Text, screen.Hide);
+            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Text, screen.Hide);
             UiFactory.Place((RectTransform)close.transform, 0.3f, 0.02f, 0.7f, 0.1f);
             root.SetActive(false);
             return screen;
@@ -50,8 +51,8 @@ namespace Bloomlings.Client.UI.Screens
                 Destroy(_list.GetChild(i).gameObject);
             }
 
-            _petals.text = petals.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Petals";
-            _status.text = storeAvailable ? string.Empty : "Purchases are unavailable offline";
+            _petals.text = Loc.F("common.petals", petals);
+            _status.text = storeAvailable ? string.Empty : Loc.T("store.offline");
             float row = 1f / Mathf.Max(items.Count, 1);
             for (int i = 0; i < items.Count; i++)
             {

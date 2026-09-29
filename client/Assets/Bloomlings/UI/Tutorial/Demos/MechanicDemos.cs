@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Tutorial.Demos
 {
@@ -40,39 +41,39 @@ namespace Bloomlings.Client.UI.Tutorial.Demos
         {
             "mechanic.stone" => new DemoScript(
                 unlockId,
-                new DemoStep("Stones never move. Bloomlings walk around them") { PointAt = at.Stone }),
+                new DemoStep(Loc.T("demo.stone")) { PointAt = at.Stone }),
             "mechanic.key" => new DemoScript(
                 unlockId,
-                new DemoStep("Clear the tile under the key to collect it") { PointAt = at.KeyTile },
-                new DemoStep("The key opens its lock") { PointAt = at.KeyLock }),
+                new DemoStep(Loc.T("demo.key.1")) { PointAt = at.KeyTile },
+                new DemoStep(Loc.T("demo.key.2")) { PointAt = at.KeyLock }),
             "mechanic.locked_pod" => new DemoScript(
                 unlockId,
-                new DemoStep("This pod is locked") { PointAt = at.LockedPod },
-                new DemoStep("Collect its key on the board to open it") { PointAt = at.KeyTile }),
+                new DemoStep(Loc.T("demo.locked_pod.1")) { PointAt = at.LockedPod },
+                new DemoStep(Loc.T("demo.locked_pod.2")) { PointAt = at.KeyTile }),
             "mechanic.connected_pair" => new DemoScript(
                 unlockId,
-                new DemoStep("Linked pods go to the slots together") { PointAt = at.ConnectedPod },
-                new DemoStep("They need a free slot each")),
+                new DemoStep(Loc.T("demo.connected_pair.1")) { PointAt = at.ConnectedPod },
+                new DemoStep(Loc.T("demo.connected_pair.2"))),
             "mechanic.layered_tile" => new DemoScript(
                 unlockId,
-                new DemoStep("Some tiles hide another tile underneath") { PointAt = at.LayeredTile },
-                new DemoStep("The corner shows the symbol that comes next") { PointAt = at.LayeredTile }),
+                new DemoStep(Loc.T("demo.layered_tile.1")) { PointAt = at.LayeredTile },
+                new DemoStep(Loc.T("demo.layered_tile.2")) { PointAt = at.LayeredTile }),
             "mechanic.gate" => new DemoScript(
                 unlockId,
-                new DemoStep("The gate opens when its counter is full") { PointAt = at.Gate }),
+                new DemoStep(Loc.T("demo.gate")) { PointAt = at.Gate }),
             "mechanic.fountain" => new DemoScript(
                 unlockId,
-                new DemoStep("Restore the shown tiles around the Fountain") { PointAt = at.Fountain },
-                new DemoStep("Then it changes the garden")),
+                new DemoStep(Loc.T("demo.fountain.1")) { PointAt = at.Fountain },
+                new DemoStep(Loc.T("demo.fountain.2"))),
             "mechanic.locked_slot" => new DemoScript(
                 unlockId,
-                new DemoStep("One slot is locked until you collect its key") { PointAt = at.LockedSlot }),
+                new DemoStep(Loc.T("demo.locked_slot")) { PointAt = at.LockedSlot }),
             "mechanic.mystery_tile" => new DemoScript(
                 unlockId,
-                new DemoStep("A ? tile shows its symbol when Bloomlings can reach it") { PointAt = at.MysteryTile }),
+                new DemoStep(Loc.T("demo.mystery_tile")) { PointAt = at.MysteryTile }),
             "mechanic.mystery_pod" => new DemoScript(
                 unlockId,
-                new DemoStep("A ? pod shows its symbol when it goes to a slot") { PointAt = at.MysteryPod }),
+                new DemoStep(Loc.T("demo.mystery_pod")) { PointAt = at.MysteryPod }),
             _ => null,
         };
     }

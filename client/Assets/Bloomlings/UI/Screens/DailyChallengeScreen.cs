@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -26,19 +27,19 @@ namespace Bloomlings.Client.UI.Screens
             RectTransform card = UiFactory.CreateModal("DailyChallenge", parent, 0.42f, out GameObject root);
             var screen = root.AddComponent<DailyChallengeScreen>();
             screen._root = root;
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, "Daily Challenge", 68f, UiTheme.Accent);
+            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("daily.title"), 68f, UiTheme.Accent);
             UiFactory.Place(title.rectTransform, 0f, 0.8f, 1f, 0.96f);
             screen._date = UiFactory.CreateText("Date", card, string.Empty, 40f, UiTheme.Text);
             UiFactory.Place(screen._date.rectTransform, 0f, 0.68f, 1f, 0.8f);
             screen._body = UiFactory.CreateText("Body", card, string.Empty, 40f, UiTheme.Text);
             UiFactory.Place(screen._body.rectTransform, 0.05f, 0.42f, 0.95f, 0.66f);
-            screen._play = UiFactory.CreateButton("Play", card, "Play", UiTheme.Accent, () =>
+            screen._play = UiFactory.CreateButton("Play", card, Loc.T("common.play"), UiTheme.Accent, () =>
             {
                 screen.Hide();
                 onPlay();
             }, 56f);
             UiFactory.Place((RectTransform)screen._play.transform, 0.2f, 0.2f, 0.8f, 0.38f);
-            Button close = UiFactory.CreateButton("Close", card, "Close", UiTheme.Text, screen.Hide, 40f);
+            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Text, screen.Hide, 40f);
             UiFactory.Place((RectTransform)close.transform, 0.3f, 0.03f, 0.7f, 0.17f);
             root.SetActive(false);
             return screen;
@@ -46,11 +47,11 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Show(DailyChallengeModel model)
         {
-            _date.text = model.UtcDate + " (UTC)";
+            _date.text = Loc.F("daily.date", model.UtcDate);
             _body.text = model.CompletedToday
-                ? "Done for today! A new puzzle arrives at midnight UTC."
-                : "One puzzle, the same for everyone today. Reward: " + model.RewardPetals.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Petals.";
-            _play.GetComponentInChildren<TextMeshProUGUI>().text = model.CompletedToday ? "Play again" : "Play";
+                ? Loc.T("daily.done")
+                : Loc.F("daily.body", model.RewardPetals);
+            _play.GetComponentInChildren<TextMeshProUGUI>().text = model.CompletedToday ? Loc.T("daily.play_again") : Loc.T("common.play");
             _root.SetActive(true);
         }
 

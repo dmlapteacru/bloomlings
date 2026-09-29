@@ -22,6 +22,7 @@ using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.App.Home
 {
@@ -90,7 +91,7 @@ namespace Bloomlings.Client.App.Home
                     economy.Petals,
                     progression.IsUnlocked("system.store"),
                     leaderboard.IsUnlocked,
-                    leaderboard.RankText,
+                    RankText(leaderboard),
                     next?.Level,
                     next?.WinsToGo,
                     dailyChallenge.IsAvailable,
@@ -168,7 +169,9 @@ namespace Bloomlings.Client.App.Home
                 }),
                 features);
             var account = new AccountActions(
-                () => save.LinkedIdentity != null ? "Linked: " + (save.LinkedIdentity == "apple" ? "Apple" : "Google Play Games") : (auth.IsSignedIn ? "Signed in (anonymous)" : "Local profile"),
+                () => save.LinkedIdentity != null
+                    ? Loc.T(save.LinkedIdentity == "apple" ? "account.linked_apple" : "account.linked_google")
+                    : Loc.T(auth.IsSignedIn ? "account.signed_in" : "account.local"),
                 auth.CanLink(LinkProvider.Apple),
                 auth.CanLink(LinkProvider.GooglePlayGames),
                 (provider, done) => RunInBackground(auth.Link(provider, ok =>
@@ -290,7 +293,7 @@ namespace Bloomlings.Client.App.Home
                 BoosterKind k = kind;
                 items.Add(new StoreItem(
                     "booster_" + kind,
-                    BoosterName(kind) + " (owned " + economy.Charges(kind).ToString(CultureInfo.InvariantCulture) + ")",
+                    Loc.F("store.booster_owned", BoosterName(kind), economy.Charges(kind)),
                     economy.Price(kind).ToString(CultureInfo.InvariantCulture) + " ✿",
                     economy.Petals >= economy.Price(kind),
                     () =>
@@ -308,26 +311,44 @@ namespace Bloomlings.Client.App.Home
         {
             if (product.RemoveAds)
             {
-                return "Remove Ads";
+                return Loc.T("store.remove_ads");
             }
 
             if (product.OfferedOnce)
             {
-                return "Starter pack";
+                return Loc.T("store.starter_pack");
             }
 
             return product.Petals > 0 && product.Boosters == null
-                ? product.Petals.ToString(CultureInfo.InvariantCulture) + " Petals"
-                : "Booster bundle";
+                ? Loc.F("common.petals", product.Petals)
+                : Loc.T("store.booster_bundle");
         }
 
         private static string BoosterName(BoosterKind kind) => kind switch
         {
-            BoosterKind.ExtraSlot => "Extra Slot",
-            BoosterKind.Shuffle => "Shuffle",
-            BoosterKind.Return => "Return",
-            _ => "Bloom Burst",
+            BoosterKind.ExtraSlot => Loc.T("booster.extra_slot"),
+            BoosterKind.Shuffle => Loc.T("booster.shuffle"),
+            BoosterKind.Return => Loc.T("booster.return"),
+            _ => Loc.T("booster.bloom_burst"),
         };
+
+        /// <summary>The Home rank slot (FR-058): null before the unlock; a stale rank says so.</summary>
+        private static string? RankText(LeaderboardClient leaderboard)
+        {
+            if (!leaderboard.IsUnlocked)
+            {
+                return null;
+            }
+
+            int? rank = leaderboard.LastPage?.Player?.Rank;
+            if (!rank.HasValue)
+            {
+                return Loc.T(leaderboard.IsStale ? "home.rank_unknown_offline" : "home.rank_unknown");
+            }
+
+            string number = rank.Value.ToString("N0", CultureInfo.InvariantCulture);
+            return leaderboard.IsStale ? Loc.F("home.rank_offline", number) : Loc.F("home.rank", number);
+        }
 
         /// <summary>
         /// Redraws a Collection entry with the current content when its level still has the same picture and colors;

@@ -4,6 +4,7 @@ using Bloomlings.Client.Services.Save;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -39,7 +40,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._settings = settings;
             screen._persist = persist;
 
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, "Settings", 72f, UiTheme.Text);
+            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("settings.title"), 72f, UiTheme.Text);
             UiFactory.Place(title.rectTransform, 0f, 0.88f, 1f, 0.97f);
             screen._music = Toggle(card, "Music", 0.77f, () => settings.Music = !settings.Music, screen);
             screen._sfx = Toggle(card, "Sound", 0.66f, () => settings.Sfx = !settings.Sfx, screen);
@@ -53,22 +54,22 @@ namespace Bloomlings.Client.UI.Screens
                 UiFactory.Place(screen._account.rectTransform, 0.05f, 0.365f, 0.95f, 0.425f);
                 if (account.CanLinkApple)
                 {
-                    Button apple = UiFactory.CreateButton("LinkApple", card, "Link Apple", UiTheme.Text, () => account.Link(LinkProvider.Apple, _ => screen.Refresh()), 36f);
+                    Button apple = UiFactory.CreateButton("LinkApple", card, Loc.T("settings.link_apple"), UiTheme.Text, () => account.Link(LinkProvider.Apple, _ => screen.Refresh()), 36f);
                     UiFactory.Place((RectTransform)apple.transform, 0.08f, 0.265f, account.CanLinkGooglePlayGames ? 0.48f : 0.92f, 0.355f);
                 }
 
                 if (account.CanLinkGooglePlayGames)
                 {
-                    Button google = UiFactory.CreateButton("LinkGoogle", card, "Link Google Play", UiTheme.Text, () => account.Link(LinkProvider.GooglePlayGames, _ => screen.Refresh()), 36f);
+                    Button google = UiFactory.CreateButton("LinkGoogle", card, Loc.T("settings.link_google"), UiTheme.Text, () => account.Link(LinkProvider.GooglePlayGames, _ => screen.Refresh()), 36f);
                     UiFactory.Place((RectTransform)google.transform, account.CanLinkApple ? 0.52f : 0.08f, 0.265f, 0.92f, 0.355f);
                 }
             }
 
-            Button restore = UiFactory.CreateButton("RestorePurchases", card, "Restore Purchases", UiTheme.SlotLocked, () => onRestorePurchases?.Invoke(), 40f);
+            Button restore = UiFactory.CreateButton("RestorePurchases", card, Loc.T("settings.restore"), UiTheme.SlotLocked, () => onRestorePurchases?.Invoke(), 40f);
             UiFactory.Place((RectTransform)restore.transform, 0.15f, 0.15f, 0.85f, 0.24f);
             restore.interactable = onRestorePurchases != null;
 
-            Button close = UiFactory.CreateButton("Close", card, "Close", UiTheme.Accent, screen.Hide);
+            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Accent, screen.Hide);
             UiFactory.Place((RectTransform)close.transform, 0.25f, 0.03f, 0.75f, 0.12f);
             root.SetActive(false);
             return screen;
@@ -84,10 +85,10 @@ namespace Bloomlings.Client.UI.Screens
 
         private void Refresh()
         {
-            _music.text = "Music: " + OnOff(_settings.Music);
-            _sfx.text = "Sound: " + OnOff(_settings.Sfx);
-            _haptics.text = "Haptics: " + OnOff(_settings.Haptics);
-            _speed.text = "Speed: " + (_settings.Speed2x ? "2×" : "1×");
+            _music.text = Loc.F("settings.music", OnOff(_settings.Music));
+            _sfx.text = Loc.F("settings.sound", OnOff(_settings.Sfx));
+            _haptics.text = Loc.F("settings.haptics", OnOff(_settings.Haptics));
+            _speed.text = Loc.F("settings.speed", _settings.Speed2x ? "2×" : "1×");
             if (_account != null && _accountStatus != null)
             {
                 _account.text = _accountStatus();
@@ -106,6 +107,6 @@ namespace Bloomlings.Client.UI.Screens
             return button.GetComponentInChildren<TextMeshProUGUI>();
         }
 
-        private static string OnOff(bool value) => value ? "On" : "Off";
+        private static string OnOff(bool value) => value ? Loc.T("common.on") : Loc.T("common.off");
     }
 }

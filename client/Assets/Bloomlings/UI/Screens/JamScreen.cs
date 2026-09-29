@@ -5,6 +5,7 @@ using Bloomlings.Core.Simulation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -27,10 +28,10 @@ namespace Bloomlings.Client.UI.Screens
             var screen = panel.gameObject.AddComponent<JamScreen>();
             screen._root = panel.gameObject;
             screen._onRecovery = onRecovery;
-            screen._title = UiFactory.CreateText("Title", panel.transform, "No room left!", 64f, UiTheme.Warning);
+            screen._title = UiFactory.CreateText("Title", panel.transform, Loc.T("jam.title"), 64f, UiTheme.Warning);
             UiFactory.Place(screen._title.rectTransform, 0f, 0.74f, 1f, 0.96f);
             screen._options = UiFactory.Place(UiFactory.CreateRect("Recoveries", panel.transform), 0.05f, 0.40f, 0.95f, 0.72f);
-            Button restart = UiFactory.CreateButton("Restart", panel.transform, "Restart", UiTheme.Text, onRestart);
+            Button restart = UiFactory.CreateButton("Restart", panel.transform, Loc.T("common.restart"), UiTheme.Text, onRestart);
             UiFactory.Place((RectTransform)restart.transform, 0.25f, 0.06f, 0.75f, 0.34f);
             panel.gameObject.SetActive(false);
             return screen;
@@ -42,7 +43,7 @@ namespace Bloomlings.Client.UI.Screens
         public void Show(bool stuck, IReadOnlyList<Recovery> recoveries, Func<Recovery, string>? label = null, (string Label, Action Watch)? rescue = null)
         {
             label ??= Label;
-            _title.text = stuck ? "No pod can move!" : "No room left!";
+            _title.text = stuck ? Loc.T("jam.stuck") : Loc.T("jam.title");
             for (int i = _options.childCount - 1; i >= 0; i--)
             {
                 Destroy(_options.GetChild(i).gameObject);
@@ -70,10 +71,10 @@ namespace Bloomlings.Client.UI.Screens
 
         public static string Label(Recovery recovery) => recovery switch
         {
-            Recovery.ExtraSlot => "Extra Slot",
-            Recovery.Shuffle => "Shuffle",
-            Recovery.Return => "Return",
-            _ => "Bloom Burst",
+            Recovery.ExtraSlot => Loc.T("booster.extra_slot"),
+            Recovery.Shuffle => Loc.T("booster.shuffle"),
+            Recovery.Return => Loc.T("booster.return"),
+            _ => Loc.T("booster.bloom_burst"),
         };
     }
 }

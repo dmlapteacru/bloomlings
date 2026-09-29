@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
@@ -56,27 +55,6 @@ namespace Bloomlings.Client.Services.Backend
         public int SubmittedLevel => (int)(_save.Stats.Counters.TryGetValue(SubmittedCounter, out long level) ? level : 0);
 
         public bool HasPendingSubmission => _save.Progression.HighestCompletedLevel > SubmittedLevel;
-
-        /// <summary>The Home rank slot (FR-058): null before the unlock; a stale rank says so.</summary>
-        public string? RankText
-        {
-            get
-            {
-                if (!IsUnlocked)
-                {
-                    return null;
-                }
-
-                LeaderboardEntry? player = LastPage?.Player;
-                if (player == null)
-                {
-                    return IsStale ? "Rank: offline" : "Rank: —";
-                }
-
-                string rank = "Rank #" + player.Rank.ToString("N0", CultureInfo.InvariantCulture);
-                return IsStale ? rank + " (offline)" : rank;
-            }
-        }
 
         /// <summary>The SHA-256 of a winning command log (one <see cref="CommandText"/> line per command).</summary>
         public static string CommandLogHash(IEnumerable<Command> commands)

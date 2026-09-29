@@ -4,6 +4,7 @@ using Bloomlings.Core.Definitions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -55,7 +56,7 @@ namespace Bloomlings.Client.UI.Screens
             bool super = difficulty == DifficultyClass.SuperHard;
             _panel.color = super ? SuperHardColor : HardColor;
             _icon.sprite = super ? ProceduralSprites.DoubleStar : ProceduralSprites.Star;
-            _label.text = super ? "Super Hard" : "Hard";
+            _label.text = super ? Loc.T("difficulty.super_hard") : Loc.T("difficulty.hard");
             _root.SetActive(true);
             StartCoroutine(AutoHide());
             return true;

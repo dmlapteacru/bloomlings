@@ -3,6 +3,7 @@ using Bloomlings.Client.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -38,9 +39,9 @@ namespace Bloomlings.Client.UI.Screens
             hud._background = background;
 
             RectTransform top = UiFactory.Place(UiFactory.CreateRect("TopBar", root), 0.03f, 0.925f, 0.97f, 0.99f);
-            Button pause = UiFactory.CreateButton("Pause", top, "II", UiTheme.Text, onPause);
+            Button pause = UiFactory.CreateButton("Pause", top, Loc.T("hud.pause"), UiTheme.Text, onPause);
             UiFactory.Place((RectTransform)pause.transform, 0f, 0.05f, 0.14f, 0.95f);
-            hud._level = UiFactory.CreateText("Level", top, "Level 1", 64f, UiTheme.Text);
+            hud._level = UiFactory.CreateText("Level", top, Loc.F("common.level", 1), 64f, UiTheme.Text);
             UiFactory.Place(hud._level.rectTransform, 0.2f, 0f, 0.8f, 1f);
             Button speed = UiFactory.CreateButton("Speed", top, "1×", UiTheme.Accent, () =>
             {
@@ -68,7 +69,7 @@ namespace Bloomlings.Client.UI.Screens
             _speedLabel.text = on ? "2×" : "1×";
         }
 
-        public void SetLevel(int levelNumber) => _level.text = "Level " + levelNumber.ToString(System.Globalization.CultureInfo.InvariantCulture);
+        public void SetLevel(int levelNumber) => _level.text = Loc.F("common.level", levelNumber);
 
         /// <summary>A title in place of "Level N" (the Daily Challenge).</summary>
         public void SetTitle(string title) => _level.text = title;

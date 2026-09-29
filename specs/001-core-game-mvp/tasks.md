@@ -1192,8 +1192,16 @@ final validation.
   string. The Firebase code lives in `Integrations/Firebase/` (`FirebaseServices.cs`, with the analytics service and
   the Crashlytics reporter) rather than `Services/Analytics/`, so the game assembly never references an SDK. It has not
   been compiled against the Firebase SDK yet.
-- [ ] T148 [P] Move all player-facing strings into Unity Localization tables under
+- [X] T148 [P] Move all player-facing strings into Unity Localization tables under
   `client/Assets/Bloomlings/UI/Localization/`, starting with the English table (R18).
+  Status: every player-facing string is looked up by key through `Loc`:
+  - the English source is `UI/Localization/Resources/Strings_en.csv` (145 keys, including cosmetic names);
+  - at runtime the selected locale's Unity Localization table `UI` is checked first, then English;
+  - **Tools/Bloomlings/Localization/Import English Strings** builds the Unity string table collection from the CSV;
+  - `LocalizationTests` fails on any literal left in the UI and on any key missing from the table.
+
+  Open: the Unity table assets are created by that menu, which has not been run yet (Editor step). The Unity
+  Localization code compiles only with the package (`BLOOMLINGS_LOCALIZATION`) and has not been compiled against it yet.
 - [ ] T149 [P] Run the accessibility pass and write the results to
   `specs/001-core-game-mvp/checklists/accessibility.md`:
   - run the readability tool (T075) on every variant pair that can share a level;

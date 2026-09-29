@@ -105,6 +105,14 @@ personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/
 `Services/Purchases/Resources/ProductCatalog.json`, and deploy `backend/` (see `backend/README.md`). The integration code
 has not been compiled against the SDKs yet: fix any API drift on first open.
 
+## Localization
+
+Player-facing text is table-driven (R18): code asks `Loc.T("key")`. The English source is
+`Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv`. With the Localization package installed, run
+**Tools/Bloomlings/Localization/Import English Strings** to build the `UI` string table collection from it, then add
+locales there. At runtime the selected locale's table is used first, then the bundled English. `LocalizationTests`
+fails on any literal left in the UI and on any key missing from the CSV.
+
 ## Compiler settings
 
 Each assembly folder, including the shared packages under `core/src/`, has a `csc.rsp` with `-nullable:enable`, so

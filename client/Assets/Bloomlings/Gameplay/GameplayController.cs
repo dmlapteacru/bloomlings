@@ -30,6 +30,7 @@ using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
 using UnityEngine;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.Gameplay
 {
@@ -430,10 +431,10 @@ namespace Bloomlings.Client.Gameplay
                     UseBooster(kind, new UseShuffle());
                     break;
                 case BoosterKind.Return:
-                    StartTargeting(kind, "Tap a waiting pod to send it back");
+                    StartTargeting(kind, Loc.T("gameplay.hint_return"));
                     break;
                 default:
-                    StartTargeting(kind, "Tap a tile to clear its symbol everywhere");
+                    StartTargeting(kind, Loc.T("gameplay.hint_burst"));
                     break;
             }
         }
@@ -506,14 +507,14 @@ namespace Bloomlings.Client.Gameplay
             CommandCheck check = session.Check(command);
             if (!check.IsAllowed)
             {
-                _hud.Toast("That booster can't help here");
+                _hud.Toast(Loc.T("gameplay.booster_useless"));
                 return;
             }
 
             string source = free ? "ad" : Economy == null || Economy.Charges(kind) > 0 ? "charge" : "petals";
             if (!free && Economy != null && !Economy.TryTakeCharge(kind))
             {
-                _hud.Toast("Not enough Petals");
+                _hud.Toast(Loc.T("gameplay.not_enough_petals"));
                 return;
             }
 
@@ -593,7 +594,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             (BoosterKind kind, Command command) = rescue.Value;
-            return ("Free " + JamScreen.Label(RecoveryOf(kind)) + " ▶", () => ads.ShowRewarded(AdPlacements.JamRescue, earned =>
+            return (Loc.F("jam.free_rescue", JamScreen.Label(RecoveryOf(kind))), () => ads.ShowRewarded(AdPlacements.JamRescue, earned =>
             {
                 if (earned)
                 {
@@ -670,8 +671,8 @@ namespace Bloomlings.Client.Gameplay
                 return string.Empty;
             }
 
-            string text = "+" + reward.Petals.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Petals";
-            return reward.DroppedBooster.HasValue ? text + "  +1 " + JamScreen.Label(RecoveryOf(reward.DroppedBooster.Value)) : text;
+            string text = Loc.F("common.petals_plus", reward.Petals);
+            return reward.DroppedBooster.HasValue ? text + "  " + Loc.F("win.drop", JamScreen.Label(RecoveryOf(reward.DroppedBooster.Value))) : text;
         }
 
         /// <summary>The milestone celebration line on the Win screen (FR-061).</summary>
@@ -682,17 +683,17 @@ namespace Bloomlings.Client.Gameplay
                 return string.Empty;
             }
 
-            string text = "\nMilestone! +" + grant.Petals.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Petals";
+            string text = "\n" + Loc.F("win.milestone", grant.Petals);
             if (grant.Boosters != null)
             {
                 int charges = grant.Boosters.ExtraSlot + grant.Boosters.Shuffle + grant.Boosters.Return + grant.Boosters.BloomBurst;
-                text += "  +" + charges.ToString(System.Globalization.CultureInfo.InvariantCulture) + (charges == 1 ? " booster" : " boosters");
+                text += "  " + (charges == 1 ? Loc.T("win.boosters_one") : Loc.F("win.boosters_many", charges));
             }
 
             if (grant.Item != null)
             {
                 WardrobeService? wardrobe = Service<WardrobeService>();
-                text += "  + " + (wardrobe != null && wardrobe.Catalog.TryGet(grant.Item, out CosmeticItem? item) ? item!.Name : grant.Item);
+                text += "  " + Loc.F("win.item", wardrobe != null && wardrobe.Catalog.TryGet(grant.Item, out CosmeticItem? item) ? WardrobeScreen.Name(item!) : grant.Item);
             }
 
             return text;
@@ -1055,7 +1056,7 @@ namespace Bloomlings.Client.Gameplay
             _jam.Hide();
             if (IsDaily)
             {
-                _hud.SetTitle("Daily Challenge");
+                _hud.SetTitle(Loc.T("daily.title"));
             }
             else
             {
@@ -1105,10 +1106,10 @@ namespace Bloomlings.Client.Gameplay
 
         private static string RefusalText(RejectReason reason) => reason switch
         {
-            RejectReason.NoFreeSlot => "No free slot",
-            RejectReason.NotExposed => "Take the top pod first",
-            RejectReason.Locked => "Locked: collect its key",
-            RejectReason.NotEnoughSlotsForGroup => "Needs more free slots",
+            RejectReason.NoFreeSlot => Loc.T("refusal.no_free_slot"),
+            RejectReason.NotExposed => Loc.T("refusal.not_exposed"),
+            RejectReason.Locked => Loc.T("refusal.locked"),
+            RejectReason.NotEnoughSlotsForGroup => Loc.T("refusal.group"),
             _ => string.Empty,
         };
     }

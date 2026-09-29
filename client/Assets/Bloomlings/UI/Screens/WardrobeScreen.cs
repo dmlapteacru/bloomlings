@@ -5,6 +5,7 @@ using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -32,7 +33,7 @@ namespace Bloomlings.Client.UI.Screens
             var screen = root.AddComponent<WardrobeScreen>();
             screen._root = root;
             screen._wardrobe = wardrobe;
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, "Wardrobe", 72f, UiTheme.Accent);
+            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("wardrobe.title"), 72f, UiTheme.Accent);
             UiFactory.Place(title.rectTransform, 0f, 0.9f, 1f, 0.98f);
 
             IReadOnlyList<Family> families = WardrobeService.Families;
@@ -54,7 +55,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._items = UiFactory.Place(UiFactory.CreateRect("Items", card), 0.04f, 0.2f, 0.96f, 0.7f);
             screen._profile = UiFactory.CreateText("Profile", card, string.Empty, 36f, UiTheme.Text);
             UiFactory.Place(screen._profile.rectTransform, 0f, 0.12f, 1f, 0.19f);
-            Button close = UiFactory.CreateButton("Close", card, "Close", UiTheme.Text, screen.Hide, 44f);
+            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Text, screen.Hide, 44f);
             UiFactory.Place((RectTransform)close.transform, 0.3f, 0.02f, 0.7f, 0.1f);
             root.SetActive(false);
             return screen;
@@ -126,12 +127,12 @@ namespace Bloomlings.Client.UI.Screens
                     UiFactory.Place(icon.rectTransform, 0.3f, 0.35f, 0.7f, 0.92f);
                 }
 
-                TextMeshProUGUI label = UiFactory.CreateText("Name", button.transform, item?.Name ?? "None", 28f, UiTheme.Text);
+                TextMeshProUGUI label = UiFactory.CreateText("Name", button.transform, item == null ? Loc.T("wardrobe.none") : Name(item), 28f, UiTheme.Text);
                 UiFactory.Place(label.rectTransform, 0.02f, 0.02f, 0.98f, item == null ? 0.98f : 0.34f);
             }
 
             CosmeticItem? decoration = _wardrobe.ProfileDecoration();
-            _profile.text = decoration == null ? "Milestones unlock more items" : "Profile: " + decoration.Name;
+            _profile.text = decoration == null ? Loc.T("wardrobe.more") : Loc.F("wardrobe.profile", Name(decoration));
         }
 
         private static void Show(Image image, CosmeticItem? item)
@@ -159,6 +160,9 @@ namespace Bloomlings.Client.UI.Screens
 
             image.gameObject.SetActive(true);
         }
+
+        /// <summary>A cosmetic's display name: its localized entry, else the catalog name.</summary>
+        public static string Name(CosmeticItem item) => Loc.T("cosmetic." + item.Id, item.Name);
 
         private static Color Tint(CosmeticItem item) => ColorUtility.TryParseHtmlString(item.Tint, out Color color) ? color : Color.white;
     }

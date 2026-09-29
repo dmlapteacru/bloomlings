@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Art.Variants;
 using UnityEngine;
+using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Tutorial
 {
@@ -54,11 +55,11 @@ namespace Bloomlings.Client.UI.Tutorial
 
         public static DemoScript FirstTap(Func<RectTransform?> pod) => new DemoScript(
             FirstTapId,
-            new DemoStep("Tap a pod to send its Bloomlings") { PointAt = pod, WaitForAction = true });
+            new DemoStep(Loc.T("demo.first_tap")) { PointAt = pod, WaitForAction = true });
 
         public static DemoScript Siblings(VariantVisual first, VariantVisual second) => new DemoScript(
             SiblingsId,
-            new DemoStep("Match the exact symbol") { SideBySide = new[] { first, second } },
-            new DemoStep("Match the exact symbol") { SideBySide = new[] { first, second }, ShowIgnore = true });
+            new DemoStep(Loc.T("demo.exact_symbol")) { SideBySide = new[] { first, second } },
+            new DemoStep(Loc.T("demo.exact_symbol")) { SideBySide = new[] { first, second }, ShowIgnore = true });
     }
 }
