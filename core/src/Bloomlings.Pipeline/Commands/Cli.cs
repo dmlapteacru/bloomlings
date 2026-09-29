@@ -19,8 +19,8 @@ namespace Bloomlings.Pipeline.Commands
     {
         public static readonly Option<bool> Json = new Option<bool>("--json") { Description = "Write a machine-readable JSON report to stdout.", Recursive = true };
 
-        public static Option<string> Path(string name, string defaultValue, string description) =>
-            new Option<string>(name) { Description = description, DefaultValueFactory = _ => defaultValue };
+        public static Option<string> Path(string name, string defaultValue, string description, params string[] aliases) =>
+            new Option<string>(name, aliases) { Description = description, DefaultValueFactory = _ => defaultValue };
 
         public static Option<string> Required(string name, string description) =>
             new Option<string>(name) { Description = description, Required = true };

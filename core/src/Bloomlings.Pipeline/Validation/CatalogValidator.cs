@@ -75,10 +75,15 @@ namespace Bloomlings.Pipeline.Validation
 
         /// <param name="levels">The catalog (any order); FR-083 checks look at level-number neighbours.</param>
         /// <param name="solveOnly">When set, only these levels are solved (the others still take part in FR-083).</param>
-        public CatalogReport Validate(IReadOnlyList<LevelDefinition> levels, ISet<int>? solveOnly = null)
+        /// <param name="context">
+        /// Neighbouring levels that are validated elsewhere (the curated L1–10 next to the catalog): they take part in
+        /// the FR-083 windows and the families window, so those cross the boundary, but they are not checked here.
+        /// </param>
+        public CatalogReport Validate(IReadOnlyList<LevelDefinition> levels, ISet<int>? solveOnly = null, IReadOnlyList<LevelDefinition>? context = null)
         {
             var report = new CatalogReport();
             var sorted = levels.OrderBy(l => l.LevelNumber).ToList();
+            var own = new HashSet<int>(sorted.Select(l => l.LevelNumber));
             var numbers = new HashSet<int>();
             foreach (LevelDefinition level in sorted)
             {
@@ -98,7 +103,8 @@ namespace Bloomlings.Pipeline.Validation
 
             if (CheckSequences)
             {
-                ValidateSequences(sorted, report);
+                var neighbours = (context ?? Array.Empty<LevelDefinition>()).Where(l => !own.Contains(l.LevelNumber));
+                ValidateSequences(sorted.Concat(neighbours).OrderBy(l => l.LevelNumber).ToList(), own, report);
             }
 
             return report;
@@ -472,12 +478,18 @@ namespace Bloomlings.Pipeline.Validation
             }
         }
 
-        private void ValidateSequences(List<LevelDefinition> sorted, CatalogReport report)
+        /// <param name="own">The levels issues are reported for; the others are context.</param>
+        private void ValidateSequences(List<LevelDefinition> sorted, ISet<int> own, CatalogReport report)
         {
             var byNumber = sorted.GroupBy(l => l.LevelNumber).ToDictionary(g => g.Key, g => g.First());
             foreach (LevelDefinition level in sorted)
             {
                 int n = level.LevelNumber;
+                if (!own.Contains(n))
+                {
+                    continue;
+                }
+
                 BasePicture? picture = _pictures.TryGetValue(level.Picture.Id + "@" + level.Picture.Version, out BasePicture? p) ? p : null;
 
                 // Pictures: unique in 1–100, no repeat within 50, and a reuse must differ in mapping or mirror and in Source design.
@@ -519,10 +531,11 @@ namespace Bloomlings.Pipeline.Validation
                         && _pictures.TryGetValue(a.Picture.Id + "@" + a.Picture.Version, out BasePicture? pa)
                         && _pictures.TryGetValue(b.Picture.Id + "@" + b.Picture.Version, out BasePicture? pb))
                     {
+                        // An empty set is a set too, once mechanics exist (from L11; the tutorial levels have none).
                         string mechanics = string.Join(",", MechanicsUsed(level, picture));
-                        if (mechanics.Length > 0 && mechanics == string.Join(",", MechanicsUsed(a, pa)) && mechanics == string.Join(",", MechanicsUsed(b, pb)))
+                        if ((mechanics.Length > 0 || n > LastTutorialLevel) && mechanics == string.Join(",", MechanicsUsed(a, pa)) && mechanics == string.Join(",", MechanicsUsed(b, pb)))
                         {
-                            Error(report, n, "similarity", $"the same mechanics ({mechanics}) 3 levels in a row (FR-083)");
+                            Error(report, n, "similarity", $"the same mechanics ({(mechanics.Length > 0 ? mechanics : "none")}) 3 levels in a row (FR-083)");
                         }
                     }
                 }

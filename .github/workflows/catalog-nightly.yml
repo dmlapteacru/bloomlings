@@ -28,7 +28,7 @@ jobs:
           status=0
           pipeline pictures validate --lib content/pictures/lib --json > reports/pictures.json || status=1
           pipeline validate --defs content/curated --json > reports/validate-curated.json || status=1
-          pipeline validate --defs content/catalog --json > reports/validate-catalog.json || status=1
+          pipeline validate --defs content/catalog --context content/curated --json > reports/validate-catalog.json || status=1
           pipeline score --defs content/catalog --curated content/curated --json > reports/score.json || status=1
           echo "pipeline exit status: $status"
           exit $status

@@ -488,10 +488,10 @@ namespace Bloomlings.Generator
                 && set.SetEquals(VariantSet(a!)) && set.SetEquals(VariantSet(b!));
         }
 
-        /// <summary>FR-083: no 3 consecutive levels share the same (non-empty) set of mechanics.</summary>
+        /// <summary>FR-083: no 3 consecutive levels share the same set of mechanics; from L11 the empty set counts too.</summary>
         private static bool RepeatsMechanics(int level, IReadOnlyList<string> mechanics, IReadOnlyDictionary<int, LevelDefinition> history)
         {
-            if (mechanics.Count == 0)
+            if (mechanics.Count == 0 && level <= 10)
             {
                 return false;
             }

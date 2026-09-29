@@ -36,10 +36,12 @@ namespace Bloomlings.Solver
     /// </summary>
     public static class DifficultyScorer
     {
-        public static int Score(LevelMetrics metrics, DifficultyThresholds thresholds)
+        public static int Score(LevelMetrics metrics, DifficultyThresholds thresholds) => Score(metrics.ToDictionary(), thresholds);
+
+        /// <summary>The score from metrics by wire name, as stored in validation records.</summary>
+        public static int Score(IReadOnlyDictionary<string, int> values, DifficultyThresholds thresholds)
         {
             long score = 0;
-            IReadOnlyDictionary<string, int> values = metrics.ToDictionary();
             foreach (KeyValuePair<string, int> weight in thresholds.Weights)
             {
                 if (!values.TryGetValue(weight.Key, out int value))

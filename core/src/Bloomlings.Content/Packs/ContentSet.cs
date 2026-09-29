@@ -92,6 +92,9 @@ namespace Bloomlings.Content.Packs
 
         public int PictureCount => _pictures.Count;
 
+        /// <summary>Every picture of the content set, in no particular order.</summary>
+        public IEnumerable<BasePicture> Pictures => _pictures.Values;
+
         /// <summary>The Daily Challenge pool by index (R19); empty when the content has no daily pack.</summary>
         public IReadOnlyList<DailyPoolEntry> DailyPool => _daily;
 
