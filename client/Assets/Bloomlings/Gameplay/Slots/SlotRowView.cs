@@ -69,11 +69,13 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
         }
 
-        /// <summary>Resets every slot to the logical state (level start, restart, boosters).</summary>
+        /// <summary>Forgets locks held for flying keys (level start and restart).</summary>
+        public void ReleaseLocks() => _heldLocks.Clear();
+
+        /// <summary>Resets every slot to the logical state (level start, restart, boosters); locks held for a flying key stay.</summary>
         public void Reset(LevelView view)
         {
             StopAllCoroutines();
-            _heldLocks.Clear();
             foreach (Slot slot in _slots)
             {
                 slot.Clear();

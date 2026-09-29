@@ -1324,6 +1324,7 @@ namespace Bloomlings.Client.Gameplay
             _keyFlights.Clear();
             _heldTriggers.Clear();
             _tray.ReleaseLocks();
+            _slots.ReleaseLocks();
             _board.Build(session.View, session.Definition, session.Picture);
             _hasCountedSpecials = false;
             foreach (SpecialInfo special in session.View.Specials)

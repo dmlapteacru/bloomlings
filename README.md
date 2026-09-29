@@ -49,7 +49,8 @@ dotnet run --project core/src/Bloomlings.Pipeline -- --help                # con
 - **Backend**: see [`backend/README.md`](backend/README.md) for Remote Config defaults and the Cloud Code scripts.
 - **CI**:
   - `.github/workflows/core-tests.yml` runs on every push;
-  - `content-validate.yml` and `catalog-nightly.yml` check content;
+  - `content-validate.yml` checks content on pull requests, and `catalog-nightly.yml` certifies the whole catalog when
+    run by hand;
   - `android-apk.yml` builds a playtest APK without Unity or secrets (`playtest/`, Levels 1–94);
   - `unity-apk.yml` builds the Unity client's APK and needs the Unity licence secrets;
   - both APK workflows run by hand only (Actions → Run workflow) and keep just the newest APK artifact.

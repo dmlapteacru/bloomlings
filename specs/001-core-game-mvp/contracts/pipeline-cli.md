@@ -47,7 +47,7 @@ content/
   - `pictures validate`
   - `validate --changed-only`
   - `diff --from <main> --to <branch>`
-- **Nightly**:
+- **Nightly** (`catalog-nightly.yml`, run by hand until the launch catalog exists):
   - `validate --catalog content/catalog`, the full solve (SC-004)
   - `score`
   - the similarity statistics (SC-012)
