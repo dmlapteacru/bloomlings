@@ -19,6 +19,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private const int PixelsPerCell = 24;
 
         private RawImage? _image;
+        private Image? _shine;
         private Texture2D? _texture;
 
         public void Build(LevelDefinition definition, BasePicture picture, VariantVisualCatalog? visuals, RectTransform container)
@@ -40,15 +41,44 @@ namespace Bloomlings.Client.Gameplay.Board
             _texture = Render(definition, picture, visuals);
             _image.texture = _texture;
             _image.color = Color.white;
+            _image.transform.localScale = Vector3.one;
+            if (_shine != null)
+            {
+                _shine.color = new Color(1f, 1f, 1f, 0f);
+            }
         }
 
-        /// <summary>The final full reveal on a win: the picture brightens slightly to mark the restoration.</summary>
+        /// <summary>The final full reveal on a win (FR-025, doc 12 §12): a soft white shine passes over the picture.</summary>
         public void RevealAll()
         {
-            if (_image != null)
+            if (_image == null || !isActiveAndEnabled)
             {
-                _image.color = new Color(1.05f, 1.05f, 1.05f, 1f);
+                return;
             }
+
+            if (_shine == null)
+            {
+                _shine = UiFactory.CreateImage("Shine", _image.transform, null, new Color(1f, 1f, 1f, 0f));
+                _shine.raycastTarget = false;
+                UiFactory.Stretch(_shine.rectTransform);
+            }
+
+            StartCoroutine(Shine());
+        }
+
+        private System.Collections.IEnumerator Shine()
+        {
+            Transform picture = _image!.transform;
+            for (float t = 0f; t < 0.9f; t += Time.unscaledDeltaTime)
+            {
+                float k = t / 0.9f;
+                _shine!.color = new Color(1f, 1f, 1f, 0.55f * Mathf.Sin(k * Mathf.PI));
+                picture.localScale = Vector3.one * (1f + (0.03f * Mathf.Sin(k * Mathf.PI)));
+                yield return null;
+            }
+
+            _shine!.color = new Color(1f, 1f, 1f, 0f);
+            picture.localScale = Vector3.one;
         }
 
         private void OnDestroy()

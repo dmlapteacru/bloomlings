@@ -1382,6 +1382,34 @@ final validation.
   `checklists/quickstart-validation.md`. Sections 5–8 need Unity, devices, live services and players. `CLAUDE.md`,
   the root `README.md` and `client/README.md` list the final build, test, pipeline, localization, device-test and CI
   commands.
+- [X] T157 Placeholder visuals and animations pass (docs 11 and 12, FR-015, FR-025, FR-031, FR-036–FR-039, FR-070,
+  FR-071), added 2026-09-29 after the visual audit:
+  - slots: a committed pod flies from the tray and pops in; a mystery pod shows "?" and flips over (the commit used to
+    pass the revealed variant, so the flip never showed); counts bump as work lands; a finished pod puffs away before
+    a queued one moves in; a waiting pod shows an hourglass; the last free slot shows a "!" with its outline (never
+    color alone); on a jam the occupied slots shake; the sixth slot carries a plus and pops in; an unlocked slot
+    returns to the empty color;
+  - keys: a pod or slot keeps its lock, and a key door stays shut, until the flying key lands (the rules open them
+    at once, so the lock used to vanish first);
+  - tray: a "+N" under deep stacks; link bars over the gap between cards, one color per connected group; Shuffle
+    spins the cards; Return flies the pod back;
+  - board: a restored tile shrinks away with a small sparkle; a revealed layer or mystery tile flips in; Bloom Burst
+    bursts each tile of the variant and its targets breathe while it waits for a tap; the cells that count toward a
+    special are outlined in its color; ClearRegion shows a dashed-square icon; Chest, Statue and Bridge have their own
+    placeholder sprites and triggers (chest pops open, statue glows away, bridge is repaired and stays, the Fountain
+    sprays droplets);
+  - win: the finished picture shines, confetti falls, and one Bloomling per variant hops below the board; a milestone
+    adds a ribbon and more confetti;
+  - workers: hop along the route, face the way they walk, carry their variant icon, wear the outfit (T143);
+  - icons and counts on tiles, pods and slots use a contrasting ink (dark on Leaf, Flower, Dew), and the bespoke
+    `Tile` and `PodSkin` art of the visual catalog is used when set;
+  - demos: Chest, Statue/Bridge and Connected Triple; a new variant from a pool expansion is shown beside its family
+    once; the sibling demo now animates the pod turning back at the cross; Home demonstrates the Leaderboard, Store,
+    first milestone, Wardrobe, Daily Challenge and theme rotation on their buttons once (a test keeps every roadmap
+    mechanic, booster and Home system covered);
+  - the theme accent colors the play-area band; the Collection keeps each picture's proportions; the 2× toggle in the
+    HUD becomes the saved default.
+  Status: code done and compiled against the Unity API stubs; none of it has been seen in the Unity Editor yet.
 
 ---
 

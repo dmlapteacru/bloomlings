@@ -19,6 +19,7 @@ using Bloomlings.Client.Services.Purchases;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Screens;
+using Bloomlings.Client.UI.Tutorial;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
 using UnityEngine;
@@ -219,6 +220,32 @@ namespace Bloomlings.Client.App.Home
             };
             RunInBackground(sync.Sync());
             RunInBackground(leaderboard.Refresh());
+
+            // A system reached since the last visit is demonstrated once, on its button (FR-031: "demonstrated at that
+            // level or within the next 1–2 levels"; Home is where these systems live). Not over the Daily Reward popup.
+            if (!daily.CanClaim)
+            {
+                foreach (string unlockId in DemoScripts.HomeSystems)
+                {
+                    if (!progression.IsUnlocked(unlockId) || progression.HasSeenDemo(unlockId) || !home.CanDemo(unlockId))
+                    {
+                        continue;
+                    }
+
+                    string id = unlockId;
+                    DemoScript? demo = DemoScripts.HomeSystem(id, () => home.DemoTarget(id));
+                    if (demo != null)
+                    {
+                        analytics?.TutorialStep(null, id, 1, false);
+                        DemoOverlay.Create(root).Show(demo, _ =>
+                        {
+                            analytics?.TutorialStep(null, id, 1, true);
+                            progression.MarkDemoSeen(id);
+                        });
+                        break;
+                    }
+                }
+            }
 
             // The Daily Reward pops up once a day while a claim is due (FR-055). The ad bonus claims the reward with its
             // extra Petals, so it can be earned once a day: the popup does not come back after a claim.

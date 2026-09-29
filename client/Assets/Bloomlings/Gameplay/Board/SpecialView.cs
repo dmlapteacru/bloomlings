@@ -14,10 +14,11 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Board
 {
     /// <summary>
-    /// A special object on the board (T108): the Garden Gate / hedge seal or the Fountain, drawn over its cells. Its
-    /// condition is always visible (FR-037, FR-038): a key for a key door, the exact variant's icon for "restore N
-    /// &lt;variant&gt; around it", and the counter. When it triggers, a gate swings open and fades; a Fountain sprays and
-    /// stays as a landmark.
+    /// A special object on the board (T108): the Garden Gate / hedge seal, the Fountain, the Chest (L150), and the Statue
+    /// or Bridge (L250), drawn over its cells. Its condition is always visible (FR-037, FR-038): a key for a key door,
+    /// the exact variant's icon for "restore N &lt;variant&gt; around it", a dashed square for "restore this region",
+    /// and the counter. When it triggers: a gate swings open and fades; a chest pops open with a sparkle and fades; a
+    /// statue glows and fades; a Fountain sprays droplets and stays as a landmark; a bridge is repaired and stays.
     /// </summary>
     public sealed class SpecialView : MonoBehaviour
     {
@@ -34,8 +35,7 @@ namespace Bloomlings.Client.Gameplay.Board
 
         public static SpecialView Create(Transform parent, SpecialInfo special, VariantVisualCatalog? visuals)
         {
-            bool fountain = special.Type == SpecialType.Fountain;
-            Image body = UiFactory.CreateImage("Special " + special.Id, parent, fountain ? ProceduralSprites.Fountain : ProceduralSprites.Gate, fountain ? UiTheme.FountainColor : UiTheme.GateColor);
+            Image body = UiFactory.CreateImage("Special " + special.Id, parent, SpriteOf(special.Type, triggered: false), ColorOf(special.Type));
             body.preserveAspect = true;
             var view = body.gameObject.AddComponent<SpecialView>();
             view._body = body;
@@ -46,8 +46,10 @@ namespace Bloomlings.Client.Gameplay.Board
             SpecialCondition condition = special.Condition;
             Sprite? conditionSprite = condition.Kind == SpecialConditionKind.Key
                 ? ProceduralSprites.Key
-                : condition.Variant.HasValue ? Visual(visuals, condition.Variant.Value).Icon : null;
-            Color conditionColor = condition.Variant.HasValue ? Visual(visuals, condition.Variant.Value).Color : UiTheme.EntryMarker;
+                : condition.Variant.HasValue ? Visual(visuals, condition.Variant.Value).Icon
+                : condition.Kind == SpecialConditionKind.ClearRegion ? ProceduralSprites.Region : null;
+            Color conditionColor = condition.Variant.HasValue ? Visual(visuals, condition.Variant.Value).Color
+                : condition.Kind == SpecialConditionKind.ClearRegion ? UiTheme.Dark(ColorOf(special.Type)) : UiTheme.EntryMarker;
             view._condition = UiFactory.CreateImage("Condition", body.transform, conditionSprite, conditionColor);
             view._condition.preserveAspect = true;
             view._condition.enabled = conditionSprite != null;
@@ -74,18 +76,61 @@ namespace Bloomlings.Client.Gameplay.Board
             }
         }
 
-        /// <summary>The trigger animation; a gate then disappears (its cells are open ground now).</summary>
-        public void Trigger()
+        /// <summary>The color a special is drawn in; its counted cells are outlined in it too.</summary>
+        public static Color ColorOf(SpecialType type) => type switch
+        {
+            SpecialType.Fountain => UiTheme.FountainColor,
+            SpecialType.Chest => new Color(0.66f, 0.47f, 0.30f),
+            SpecialType.Statue => new Color(0.62f, 0.62f, 0.68f),
+            SpecialType.Bridge => new Color(0.55f, 0.40f, 0.28f),
+            _ => UiTheme.GateColor,
+        };
+
+        /// <summary>Whether the object stays on the board after it triggers (a landmark) or its cells turn to open ground.</summary>
+        public static bool StaysAfterTrigger(SpecialType type) => type == SpecialType.Fountain || type == SpecialType.Bridge;
+
+        private static Sprite SpriteOf(SpecialType type, bool triggered) => type switch
+        {
+            SpecialType.Fountain => ProceduralSprites.Fountain,
+            SpecialType.Chest => ProceduralSprites.Chest,
+            SpecialType.Statue => ProceduralSprites.Statue,
+            SpecialType.Bridge => triggered ? ProceduralSprites.Bridge : ProceduralSprites.BridgeBroken,
+            _ => ProceduralSprites.Gate,
+        };
+
+        /// <summary>The trigger animation; a gate, chest or statue then disappears (its cells are open ground now).</summary>
+        /// <param name="overlay">Where the droplets and sparkles are drawn.</param>
+        public void Trigger(RectTransform overlay, float cellSize)
         {
             _counter.text = string.Empty;
             _condition.enabled = false;
-            if (isActiveAndEnabled)
-            {
-                Play(Type == SpecialType.Fountain ? Spray() : SwingOpen());
-            }
-            else
+            if (!isActiveAndEnabled)
             {
                 ShowTriggered();
+                return;
+            }
+
+            switch (Type)
+            {
+                case SpecialType.Fountain:
+                    Effects.UiFx.Puff(overlay, transform.position, new Color(0.62f, 0.82f, 0.95f, 0.9f), 10, cellSize * 1.8f, cellSize * 0.25f, 0.7f);
+                    Play(Spray());
+                    break;
+                case SpecialType.Chest:
+                    Effects.UiFx.Puff(overlay, transform.position, UiTheme.EntryMarker, 8, cellSize * 1.4f, cellSize * 0.3f, 0.5f, ProceduralSprites.Star);
+                    Play(PopOpen());
+                    break;
+                case SpecialType.Statue:
+                    Effects.UiFx.Puff(overlay, transform.position, Color.white, 8, cellSize * 1.2f, cellSize * 0.25f, 0.5f, ProceduralSprites.Star);
+                    Play(Glow());
+                    break;
+                case SpecialType.Bridge:
+                    _body.sprite = SpriteOf(Type, triggered: true);
+                    Play(Bump());
+                    break;
+                default:
+                    Play(SwingOpen());
+                    break;
             }
         }
 
@@ -93,7 +138,8 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             _counter.text = string.Empty;
             _condition.enabled = false;
-            if (Type != SpecialType.Fountain)
+            _body.sprite = SpriteOf(Type, triggered: true);
+            if (!StaysAfterTrigger(Type))
             {
                 gameObject.SetActive(false);
             }
@@ -130,6 +176,36 @@ namespace Bloomlings.Client.Gameplay.Board
                 float k = t / 0.5f;
                 transform.localScale = new Vector3(1f - (0.9f * k), 1f + (0.1f * k), 1f);
                 _body.color = new Color(start.r, start.g, start.b, 1f - k);
+                yield return null;
+            }
+
+            gameObject.SetActive(false);
+            _animation = null;
+        }
+
+        private IEnumerator PopOpen()
+        {
+            Color start = _body.color;
+            for (float t = 0f; t < 0.45f; t += Time.unscaledDeltaTime)
+            {
+                float k = t / 0.45f;
+                transform.localScale = new Vector3(1f + (0.15f * Mathf.Sin(k * Mathf.PI)), 1f + (0.35f * k), 1f);
+                _body.color = new Color(start.r, start.g, start.b, 1f - (k * k));
+                yield return null;
+            }
+
+            gameObject.SetActive(false);
+            _animation = null;
+        }
+
+        private IEnumerator Glow()
+        {
+            Color start = _body.color;
+            for (float t = 0f; t < 0.5f; t += Time.unscaledDeltaTime)
+            {
+                float k = t / 0.5f;
+                _body.color = Color.Lerp(start, new Color(1f, 1f, 1f, 0f), k);
+                transform.localScale = Vector3.one * (1f + (0.1f * k));
                 yield return null;
             }
 

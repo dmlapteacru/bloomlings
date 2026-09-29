@@ -74,6 +74,46 @@ namespace Bloomlings.Client.Art
             RoundedBox(x, y, 0f, -0.15f, 0.12f, 0.35f, 0.05f),
             Mathf.Abs(Length(x, y - 0.1f) - 0.55f) - 0.07f + Step(y < 0.3f)));
 
+        /// <summary>A sealed garden Chest: a box with a domed lid and a clasp (roadmap L150).</summary>
+        public static Sprite Chest => Get("chest", IconSize, (x, y) => Max(
+            Min(RoundedBox(x, y, 0f, -0.3f, 0.8f, 0.42f, 0.08f), Max(Length(x, y - 0.12f) - 0.8f, -(y - 0.12f), Mathf.Abs(x) - 0.8f)),
+            -Min(RoundedBox(x, y, 0f, 0.1f, 0.85f, 0.04f, 0.01f), RoundedBox(x, y, 0f, -0.05f, 0.1f, 0.14f, 0.03f))));
+
+        /// <summary>A garden Statue on a plinth (the L250 environmental object).</summary>
+        public static Sprite Statue => Get("statue", IconSize, (x, y) => Min(
+            RoundedBox(x, y, 0f, -0.72f, 0.7f, 0.16f, 0.05f),
+            RoundedBox(x, y, 0f, -0.18f, 0.32f, 0.42f, 0.18f),
+            Length(x, y - 0.5f) - 0.26f));
+
+        /// <summary>A Bridge with missing planks (the L250 environmental object, before it is repaired).</summary>
+        public static Sprite BridgeBroken => Get("bridge_broken", IconSize, (x, y) => Min(
+            RoundedBox(x, y, -0.55f, 0f, 0.28f, 0.7f, 0.06f),
+            RoundedBox(x, y, 0.55f, 0f, 0.28f, 0.7f, 0.06f),
+            RoundedBox(x, y, 0f, 0.62f, 0.9f, 0.06f, 0.03f),
+            RoundedBox(x, y, 0f, -0.62f, 0.9f, 0.06f, 0.03f)));
+
+        /// <summary>The repaired Bridge: whole planks across.</summary>
+        public static Sprite Bridge => Get("bridge", IconSize, (x, y) => Min(
+            Max(RoundedBox(x, y, 0f, 0f, 0.85f, 0.7f, 0.06f), -Min(RoundedBox(x, y, 0f, 0.24f, 0.9f, 0.025f, 0.01f), RoundedBox(x, y, 0f, -0.24f, 0.9f, 0.025f, 0.01f))),
+            RoundedBox(x, y, 0f, 0.8f, 0.95f, 0.06f, 0.03f),
+            RoundedBox(x, y, 0f, -0.8f, 0.95f, 0.06f, 0.03f)));
+
+        /// <summary>A dashed square: "restore this whole region" (a Statue's condition).</summary>
+        public static Sprite Region => Get("region", IconSize, (x, y) => Max(
+            Mathf.Abs(RoundedBox(x, y, 0f, 0f, 0.72f, 0.72f, 0.15f)) - 0.08f,
+            -Min(RoundedBox(x, y, 0f, 0f, 0.12f, 0.95f, 0.01f), RoundedBox(x, y, 0f, 0f, 0.95f, 0.12f, 0.01f))));
+
+        /// <summary>An hourglass: a waiting pod (no reachable tile of its variant yet, FR-019, FR-070).</summary>
+        public static Sprite Hourglass => Get("hourglass", IconSize, (x, y) => Min(
+            RoundedBox(x, y, 0f, 0.75f, 0.55f, 0.08f, 0.04f),
+            RoundedBox(x, y, 0f, -0.75f, 0.55f, 0.08f, 0.04f),
+            Max(Mathf.Abs(x) - (0.12f + (0.38f * Mathf.Abs(y) / 0.68f)), Mathf.Abs(y) - 0.68f)));
+
+        /// <summary>An exclamation mark: jam risk (one usable slot left, FR-070).</summary>
+        public static Sprite Exclamation => Get("exclamation", IconSize, (x, y) => Min(
+            RoundedBox(x, y, 0f, 0.2f, 0.13f, 0.55f, 0.1f),
+            Length(x, y + 0.65f) - 0.15f));
+
         /// <summary>Extra Slot: a slot with a plus.</summary>
         public static Sprite PlusSlot => Get("b_extra", IconSize, (x, y) => Max(
             RoundedBox(x, y, 0f, 0f, 0.8f, 0.8f, 0.2f),

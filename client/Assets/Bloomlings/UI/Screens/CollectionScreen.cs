@@ -107,10 +107,15 @@ namespace Bloomlings.Client.UI.Screens
                 if (texture != null)
                 {
                     _textures.Add(texture);
-                    RectTransform holder = UiFactory.Place(UiFactory.CreateRect("Image", frame.transform), 0.08f, 0.2f, 0.92f, 0.95f);
+                    // The picture keeps its own proportions inside the card (boards are up to 14×16, not square).
+                    RectTransform area = UiFactory.Place(UiFactory.CreateRect("Area", frame.transform), 0.08f, 0.2f, 0.92f, 0.95f);
+                    RectTransform holder = UiFactory.Stretch(UiFactory.CreateRect("Image", area));
                     RawImage image = holder.gameObject.AddComponent<RawImage>();
                     image.texture = texture;
                     image.raycastTarget = false;
+                    AspectRatioFitter fitter = holder.gameObject.AddComponent<AspectRatioFitter>();
+                    fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+                    fitter.aspectRatio = texture.width / (float)Mathf.Max(1, texture.height);
                 }
 
                 TextMeshProUGUI label = UiFactory.CreateText("Level", frame.transform, Loc.F("common.level", entry.LevelNumber), 30f, UiTheme.Text);

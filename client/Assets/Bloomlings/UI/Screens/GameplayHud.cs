@@ -1,4 +1,5 @@
 using System;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.UI;
 using TMPro;
 using UnityEngine;
@@ -9,12 +10,13 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// The gameplay layout (FR-068, T048): a top bar with Pause, "Level N" and the 2× speed toggle; the board in the
-    /// center; the Garden Entry and the slots below the board; the booster bar; the tray at the bottom. There is no goals
-    /// panel.
+    /// center; the Garden Entry and the slots below the board; the booster bar; the tray at the bottom, on a soft band in
+    /// the theme's accent. There is no goals panel.
     /// </summary>
     public sealed class GameplayHud : MonoBehaviour
     {
         private Image _background = null!;
+        private Image _ground = null!;
         private TextMeshProUGUI _level = null!;
         private TextMeshProUGUI _speedLabel = null!;
         private TextMeshProUGUI _toast = null!;
@@ -37,6 +39,10 @@ namespace Bloomlings.Client.UI.Screens
             Image background = UiFactory.CreateImage("Background", root, null, UiTheme.Background);
             UiFactory.Stretch(background.rectTransform);
             hud._background = background;
+
+            // A soft band behind the slots, boosters and tray in the theme's accent (FR-066): the play area below the board.
+            hud._ground = UiFactory.CreateImage("Ground", root, ProceduralSprites.RoundedSquare, new Color(1f, 1f, 1f, 0f));
+            UiFactory.Place(hud._ground.rectTransform, 0.01f, 0.005f, 0.99f, 0.395f);
 
             RectTransform top = UiFactory.Place(UiFactory.CreateRect("TopBar", root), 0.03f, 0.925f, 0.97f, 0.99f);
             Button pause = UiFactory.CreateButton("Pause", top, Loc.T("hud.pause"), UiTheme.Text, onPause);
@@ -75,7 +81,12 @@ namespace Bloomlings.Client.UI.Screens
         public void SetTitle(string title) => _level.text = title;
 
         /// <summary>The background theme of the level band (FR-066); visual only.</summary>
-        public void SetBackground(Color color) => _background.color = color;
+        /// <param name="accent">The theme's accent, used for the play-area band; null hides it.</param>
+        public void SetBackground(Color color, Color? accent = null)
+        {
+            _background.color = color;
+            _ground.color = accent.HasValue ? new Color(accent.Value.r, accent.Value.g, accent.Value.b, 0.7f) : new Color(1f, 1f, 1f, 0f);
+        }
 
         /// <summary>A short message for a refused tap, shown at once (SC-008).</summary>
         public void Toast(string message)

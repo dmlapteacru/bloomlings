@@ -5,6 +5,7 @@ using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.App;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Board;
+using Bloomlings.Client.Gameplay.Effects;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Slots;
 using Bloomlings.Client.Gameplay.Timeline;
@@ -53,6 +54,10 @@ namespace Bloomlings.Client.Gameplay
         private int _workerCapacity = 60;
 
         private readonly Dictionary<string, int> _workInFlight = new Dictionary<string, int>(System.StringComparer.Ordinal);
+
+        // Key-door specials whose key is still flying, and their trigger waiting for it to land (T107).
+        private readonly HashSet<string> _keyFlights = new HashSet<string>(System.StringComparer.Ordinal);
+        private readonly Dictionary<string, SpecialTriggered> _heldTriggers = new Dictionary<string, SpecialTriggered>(System.StringComparer.Ordinal);
         private LevelSession? _session;
         private RectTransform _root = null!;
         private GameplayHud _hud = null!;
@@ -70,6 +75,7 @@ namespace Bloomlings.Client.Gameplay
         private BoosterKind? _targeting;
         private LevelReward? _reward;
         private MilestoneGrant? _milestone;
+        private bool _hasCountedSpecials;
 
         // Analytics of the current attempt (T147).
         private float _attemptStart;
@@ -87,7 +93,7 @@ namespace Bloomlings.Client.Gameplay
             canvas.transform.SetParent(transform, false);
             var root = (RectTransform)canvas.transform;
             _root = root;
-            _hud = GameplayHud.Create(UiFactory.Stretch(UiFactory.CreateRect("Hud", root)), OpenPause, doubleSpeed => _timeline.Speed = doubleSpeed ? 2f : 1f);
+            _hud = GameplayHud.Create(UiFactory.Stretch(UiFactory.CreateRect("Hud", root)), OpenPause, OnSpeedChanged);
             _board = BoardView.Create(_hud.BoardArea, _visuals);
             _slots = SlotRowView.Create(_hud.SlotArea, _visuals);
             _tray = TrayView.Create(_hud.TrayArea, _visuals, OnPodTapped);
@@ -231,9 +237,10 @@ namespace Bloomlings.Client.Gameplay
         private void ApplyTheme()
         {
             int level = IsDaily ? Progression?.CurrentLevel ?? 1 : Flow?.CurrentAttempt?.LevelNumber ?? _session!.Definition.LevelNumber;
-            if (Progression != null && ColorUtility.TryParseHtmlString(ThemeRotation.Default.ThemeFor(level).Background, out Color color))
+            BackgroundTheme theme = ThemeRotation.Default.ThemeFor(level);
+            if (Progression != null && ColorUtility.TryParseHtmlString(theme.Background, out Color color))
             {
-                _hud.SetBackground(color);
+                _hud.SetBackground(color, ColorUtility.TryParseHtmlString(theme.Accent, out Color accent) ? accent : (Color?)null);
             }
         }
 
@@ -266,9 +273,24 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
-            int countBefore = _session.View.Pod(podId).Remaining;
+            // What the tray shows before the commit: each group member's count, shown variant ("?" for a hidden mystery
+            // pod) and card position, where it flies from.
+            var before = new Dictionary<string, (int Count, VariantId? Variant, Vector3? From)>(System.StringComparer.Ordinal);
+            foreach (string member in _session.View.ConnectedGroup(podId))
+            {
+                PodInfo info = _session.View.Pod(member);
+                before[member] = (info.Remaining, info.Variant, _tray.RectOf(member)?.position);
+            }
+
+            if (!before.ContainsKey(podId))
+            {
+                PodInfo info = _session.View.Pod(podId);
+                before[podId] = (info.Remaining, info.Variant, _tray.RectOf(podId)?.position);
+            }
+
             CommandResult result = _session.Apply(tap);
             Feedback?.Play(SoundCue.Tap);
+            HoldLocksOpenedBy(result.Events);
             foreach (GameEvent e in result.Events)
             {
                 if (e.Round != 0)
@@ -279,7 +301,15 @@ namespace Bloomlings.Client.Gameplay
                 switch (e)
                 {
                     case PodCommitted committed:
-                        _slots.Commit(committed.SlotIndex, committed.PodId, _session.View.Pod(committed.PodId).Variant, countBefore);
+                        (int count, VariantId? shown, Vector3? from) = before.TryGetValue(committed.PodId, out var seen)
+                            ? seen
+                            : (_session.View.Pod(committed.PodId).Remaining, _session.View.Pod(committed.PodId).Variant, (Vector3?)null);
+                        _slots.Commit(committed.SlotIndex, committed.PodId, shown, count);
+                        if (from.HasValue)
+                        {
+                            FlyCard(shown, from.Value, _slots.SlotPosition(committed.SlotIndex));
+                        }
+
                         break;
                     case MysteryPodRevealed revealed:
                         _slots.RevealVariant(revealed.PodId, revealed.Variant);
@@ -355,6 +385,11 @@ namespace Bloomlings.Client.Gameplay
                     break;
             }
 
+            if (_hasCountedSpecials)
+            {
+                _board.UpdateCounted(_session!.View);
+            }
+
             string pod = unit.Clear.PodId;
             _slots.Decrement(pod);
             int left = (_workInFlight.TryGetValue(pod, out int n) ? n : 1) - 1;
@@ -384,17 +419,28 @@ namespace Bloomlings.Client.Gameplay
                     _board.ShowSpecialProgress(progressed.SpecialId, progressed.Progress, progressed.Total, SpecialKind(progressed.SpecialId));
                     break;
                 case SpecialTriggered triggered:
-                    Feedback?.Play(SoundCue.Special);
-                    _board.TriggerSpecial(triggered.SpecialId, triggered.EffectCells, _session!.View);
+                    if (_keyFlights.Contains(triggered.SpecialId))
+                    {
+                        // A key door opens when its key lands, not before (T107).
+                        _heldTriggers[triggered.SpecialId] = triggered;
+                    }
+                    else
+                    {
+                        PlayTrigger(triggered);
+                    }
+
                     break;
                 case LevelWon _:
                     Feedback?.Play(SoundCue.Win);
                     _board.RevealAll();
-                    _win.Show(this, RewardText(_reward) + MilestoneText(_milestone), DoubleRewardOffer());
+                    _workers.Celebrate(LevelVariants(_session!.Definition));
+                    UiFx.Confetti(_root, ConfettiColors(_session.Definition), _milestone != null ? 80 : 40, _milestone != null ? 2.6f : 1.8f);
+                    _win.Show(this, RewardText(_reward) + MilestoneText(_milestone), DoubleRewardOffer(), _milestone != null);
                     break;
                 case LevelJammed _:
                 case LevelStuck _:
                     Feedback?.Play(SoundCue.Jam);
+                    _slots.ShowBlocked();
                     ShowJamIfBlocked();
                     break;
             }
@@ -560,7 +606,14 @@ namespace Bloomlings.Client.Gameplay
             _timeline.Flush();
             _workers.RecallAll();
             _workInFlight.Clear();
+            (string PodId, Vector3 From, VariantId? Variant)? returning = null;
+            if (command is UseReturn back && session.View.PodInSlot(back.SlotIndex) is string returned)
+            {
+                returning = (returned, _slots.SlotPosition(back.SlotIndex), session.View.Pod(returned).Variant);
+            }
+
             CommandResult result = session.Apply(command);
+            HoldLocksOpenedBy(result.Events);
             Feedback?.Play(SoundCue.Booster);
             _jam.Hide();
             _boosters.Pulse(kind);
@@ -574,11 +627,7 @@ namespace Bloomlings.Client.Gameplay
                 switch (e)
                 {
                     case VariantBurst burst:
-                        foreach (Core.Boards.CellPos cell in burst.Cells)
-                        {
-                            _board.Refresh(session.View, cell);
-                        }
-
+                        _board.ShowBurst(burst.Cells, session.View);
                         break;
                     case ExtraSlotAdded _:
                     case PodReturned _:
@@ -593,6 +642,16 @@ namespace Bloomlings.Client.Gameplay
 
             _slots.Reset(session.View);
             _tray.Refresh(session.View);
+            if (kind == BoosterKind.Shuffle)
+            {
+                _tray.PlayShuffle();
+            }
+            else if (returning.HasValue && _tray.RectOf(returning.Value.PodId) is RectTransform back2)
+            {
+                FlyCard(returning.Value.Variant, returning.Value.From, back2.position);
+                _tray.PlayReturned(returning.Value.PodId);
+            }
+
             _timeline.Enqueue(result.Events);
             RecordWinIfWon();
             TrackAnalytics();
@@ -805,8 +864,19 @@ namespace Bloomlings.Client.Gameplay
                 _ => _tray.RectOf(lockDef.TargetId) is RectTransform pod ? pod.position : _hud.TrayArea.position,
             };
 
+            if (lockDef.TargetKind == LockTargetKind.Special)
+            {
+                _keyFlights.Add(lockDef.TargetId);
+            }
+
+            LevelSession flightSession = _session;
             KeyView.Fly(_root, from, to, _board.CellSize * 0.8f, () =>
             {
+                if (_session != flightSession || !this)
+                {
+                    return; // The level was left or rebuilt meanwhile.
+                }
+
                 if (lockDef.TargetKind == LockTargetKind.Slot)
                 {
                     _slots.PlayUnlock(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture), _session!.View);
@@ -815,7 +885,109 @@ namespace Bloomlings.Client.Gameplay
                 {
                     _tray.ShowAccepted(lockDef.TargetId);
                 }
+                else
+                {
+                    _keyFlights.Remove(lockDef.TargetId);
+                    if (_heldTriggers.TryGetValue(lockDef.TargetId, out SpecialTriggered? held))
+                    {
+                        _heldTriggers.Remove(lockDef.TargetId);
+                        PlayTrigger(held);
+                    }
+                }
             });
+        }
+
+        /// <summary>
+        /// The rules open a lock as soon as its key is collected, but the key still has to fly there on the timeline: the
+        /// pods and slots it opens keep their lock drawn until it lands (T107).
+        /// </summary>
+        private void HoldLocksOpenedBy(IReadOnlyList<GameEvent> events)
+        {
+            foreach (GameEvent e in events)
+            {
+                if (!(e is KeyCollected key))
+                {
+                    continue;
+                }
+
+                foreach (LockDef lockDef in _session!.View.Locks)
+                {
+                    if (lockDef.KeyId != key.KeyId)
+                    {
+                        continue;
+                    }
+
+                    if (lockDef.TargetKind == LockTargetKind.Pod)
+                    {
+                        _tray.HoldLock(lockDef.TargetId);
+                    }
+                    else if (lockDef.TargetKind == LockTargetKind.Slot)
+                    {
+                        _slots.HoldLock(int.Parse(lockDef.TargetId, System.Globalization.CultureInfo.InvariantCulture));
+                    }
+                }
+            }
+        }
+
+        private void PlayTrigger(SpecialTriggered triggered)
+        {
+            Feedback?.Play(SoundCue.Special);
+            _board.TriggerSpecial(triggered.SpecialId, triggered.EffectCells, _session!.View);
+        }
+
+        /// <summary>A pod card flying between the tray and a slot (commit or Return); decorative only.</summary>
+        private void FlyCard(VariantId? variant, Vector3 from, Vector3 to)
+        {
+            Color body = UiTheme.SlotLocked;
+            Sprite? icon = Art.ProceduralSprites.Question;
+            Color ink = Color.white;
+            if (variant.HasValue)
+            {
+                VariantVisual visual = _visuals != null ? _visuals.Get(variant.Value) : VariantVisualCatalog.Default(variant.Value);
+                body = visual.Color;
+                icon = visual.Icon;
+                ink = visual.Ink;
+            }
+
+            UiFx.Fly(_root, body, icon, ink, from, to, _slots.SlotSize * 0.8f, 0.16f);
+        }
+
+        /// <summary>The exact variants of a level, in pod order (the win celebration).</summary>
+        private static List<VariantId> LevelVariants(LevelDefinition definition)
+        {
+            var variants = new List<VariantId>();
+            foreach (PodDef pod in definition.Pods)
+            {
+                if (!variants.Contains(pod.Variant))
+                {
+                    variants.Add(pod.Variant);
+                }
+            }
+
+            return variants;
+        }
+
+        private Color[] ConfettiColors(LevelDefinition definition)
+        {
+            var colors = new List<Color> { UiTheme.EntryMarker, Color.white };
+            foreach (VariantId variant in LevelVariants(definition))
+            {
+                colors.Add(UiTheme.Light(_visuals != null ? _visuals.Get(variant).Color : VariantVisualCatalog.Default(variant).Color));
+            }
+
+            return colors.ToArray();
+        }
+
+        /// <summary>The 2× toggle (FR-069) also becomes the default for the next levels.</summary>
+        private void OnSpeedChanged(bool doubleSpeed)
+        {
+            _timeline.Speed = doubleSpeed ? 2f : 1f;
+            PlayerSave? save = Service<PlayerSave>();
+            if (save != null && save.Settings.Speed2x != doubleSpeed)
+            {
+                save.Settings.Speed2x = doubleSpeed;
+                Service<SaveService>()?.Save();
+            }
         }
 
         /// <summary>A locked pod was tapped: point at the key that opens it (the pod or its group).</summary>
@@ -972,6 +1144,28 @@ namespace Bloomlings.Client.Gameplay
                 }
             }
 
+            // A variant from a pool expansion (L45, L200) seen for the first time: shown beside its family (roadmap).
+            foreach (VariantId variant in LevelVariants(session.Definition))
+            {
+                VariantInfo info = VariantCatalog.Default.Get(variant);
+                if (info.Status != VariantStatus.Expansion || SeenDemo(DemoScripts.NewVariantId(variant.Key)))
+                {
+                    continue;
+                }
+
+                var family = new List<VariantVisual>();
+                foreach (VariantInfo member in VariantCatalog.Default.All)
+                {
+                    if (member.Family == info.Family && (member.Status == VariantStatus.Launch || member.Id == variant))
+                    {
+                        family.Add(_visuals != null ? _visuals.Get(member.Id) : VariantVisualCatalog.Default(member.Id));
+                    }
+                }
+
+                ShowDemo(DemoScripts.NewVariant(variant.Key, family));
+                return;
+            }
+
             (VariantId First, VariantId Second)? siblings = SiblingPair(session);
             if (siblings.HasValue && !SeenDemo(DemoScripts.SiblingsId))
             {
@@ -1041,6 +1235,9 @@ namespace Bloomlings.Client.Gameplay
                 LockedSlot = LockedSlot,
                 MysteryTile = () => _board.FindCell(view, c => c.MysteryHidden),
                 MysteryPod = () => PodRect(p => p.Mystery && p.Variant == null),
+                Chest = () => _board.SpecialRectOfType(SpecialType.Chest),
+                Environment2 = () => _board.SpecialRectOfType(SpecialType.Statue) ?? _board.SpecialRectOfType(SpecialType.Bridge),
+                TriplePod = () => PodRect(p => p.ConnectedGroupId != null && view.ConnectedGroup(p.Id).Count >= 3 && view.IsExposed(p.Id)),
             };
         }
 
@@ -1124,7 +1321,16 @@ namespace Bloomlings.Client.Gameplay
                 _hud.SetLevel(Flow?.CurrentAttempt?.LevelNumber ?? session.Definition.LevelNumber);
             }
 
+            _keyFlights.Clear();
+            _heldTriggers.Clear();
+            _tray.ReleaseLocks();
             _board.Build(session.View, session.Definition, session.Picture);
+            _hasCountedSpecials = false;
+            foreach (SpecialInfo special in session.View.Specials)
+            {
+                _hasCountedSpecials |= special.Condition.Kind != SpecialConditionKind.Key;
+            }
+
             _workers.SetEntries(session.View.Entries);
             _slots.Reset(session.View);
             _tray.Refresh(session.View);

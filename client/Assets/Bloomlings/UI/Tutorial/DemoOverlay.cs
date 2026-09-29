@@ -28,6 +28,7 @@ namespace Bloomlings.Client.UI.Tutorial
         private Action<DemoScript> _onDone = _ => { };
         private RectTransform? _target;
         private float _time;
+        private bool _ignoring;
 
         public bool IsShowing => _root.activeSelf;
 
@@ -126,17 +127,22 @@ namespace Bloomlings.Client.UI.Tutorial
             IReadOnlyList<VariantVisual>? visuals = step.SideBySide;
             if (visuals != null)
             {
+                float width = visuals.Count <= 2 ? 0.3f : 0.9f / visuals.Count;
                 for (int i = 0; i < visuals.Count; i++)
                 {
-                    float x = visuals.Count == 1 ? 0.35f : i == 0 ? 0.05f : 0.65f;
+                    float x = visuals.Count == 1 ? 0.35f
+                        : visuals.Count == 2 ? (i == 0 ? 0.05f : 0.65f)
+                        : 0.05f + (i * 0.9f / visuals.Count);
                     Image tile = UiFactory.CreateImage("Variant", _iconRow, ProceduralSprites.RoundedSquare, visuals[i].Color);
-                    UiFactory.Place(tile.rectTransform, x, 0f, x + 0.3f, 1f);
-                    Image icon = UiFactory.CreateImage("Icon", tile.transform, visuals[i].Icon, Color.white);
+                    UiFactory.Place(tile.rectTransform, x, 0f, x + width - 0.02f, 1f);
+                    Image icon = UiFactory.CreateImage("Icon", tile.transform, visuals[i].Icon, visuals[i].Ink);
                     icon.preserveAspect = true;
                     UiFactory.Place(icon.rectTransform, 0.15f, 0.15f, 0.85f, 0.85f);
                     _icons.Add(tile);
                 }
             }
+
+            _ignoring = step.ShowIgnore && _icons.Count >= 2;
 
             _cross.gameObject.SetActive(step.ShowIgnore);
             _cross.transform.SetAsLastSibling();
@@ -147,12 +153,26 @@ namespace Bloomlings.Client.UI.Tutorial
 
         private void Update()
         {
-            if (!IsShowing || _target == null)
+            if (!IsShowing)
             {
                 return;
             }
 
             _time += Time.unscaledDeltaTime;
+            if (_ignoring)
+            {
+                // FR-071: the first variant's pod walks toward the sibling's tile, meets the cross and turns back.
+                float gap = _iconRow.rect.width * 0.3f;
+                float k = Mathf.PingPong(_time * 0.9f, 1f);
+                _icons[0].rectTransform.anchoredPosition = new Vector2(gap * Mathf.SmoothStep(0f, 1f, k), 0f);
+                _cross.transform.localScale = Vector3.one * (k > 0.85f ? 1.2f : 1f);
+            }
+
+            if (_target == null)
+            {
+                return;
+            }
+
             _hand.transform.position = _target.position;
             _hand.rectTransform.anchoredPosition += new Vector2(40f, -60f - (18f * Mathf.Sin(_time * 6f)));
         }

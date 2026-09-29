@@ -59,6 +59,7 @@ win.title,Restored!
 win.double,Double ▶
 win.drop,+1 {0}
 win.milestone,Milestone! +{0} Petals
+win.milestone_title,Milestone reward!
 win.boosters_one,+1 booster
 win.boosters_many,+{0} boosters
 win.item,+ {0}
@@ -127,6 +128,18 @@ demo.fountain.2,Then it changes the garden
 demo.locked_slot,One slot is locked until you collect its key
 demo.mystery_tile,A ? tile shows its symbol when Bloomlings can reach it
 demo.mystery_pod,A ? pod shows its symbol when it goes to a slot
+demo.chest.1,Restore the outlined tiles to open the Chest
+demo.chest.2,It clears the stones around it
+demo.environment_2,Restore the outlined tiles to open this path
+demo.connected_triple.1,Three linked pods go to the slots together
+demo.connected_triple.2,They need three free slots
+demo.new_variant,A new symbol joins its family. Match the exact symbol
+demo.leaderboard,Your rank among all gardeners
+demo.store,The Store is open: Petals and boosters
+demo.milestones,Every 25 levels bring a reward
+demo.wardrobe,Dress up your Bloomlings in the Wardrobe
+demo.daily_challenge,A new puzzle every day
+demo.themes,The garden changes its colors as you go
 gameplay.hint_return,Tap a waiting pod to send it back
 gameplay.hint_burst,Tap a tile to clear its symbol everywhere
 gameplay.booster_useless,That booster can't help here

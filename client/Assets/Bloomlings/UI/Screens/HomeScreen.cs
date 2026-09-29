@@ -129,6 +129,22 @@ namespace Bloomlings.Client.UI.Screens
 
         public void SetFreeBoosterOffer(bool visible) => _freeBooster.SetActive(visible);
 
+        /// <summary>What a system's Home demo points at (roadmap L10–L100), or null while it is not on screen.</summary>
+        public RectTransform? DemoTarget(string unlockId) => unlockId switch
+        {
+            "system.leaderboard" => Visible(_rankButton),
+            "system.store" => Visible(_store),
+            "system.wardrobe" => Visible(_wardrobe),
+            "system.daily_challenge" => Visible(_daily),
+            "system.milestone_25" => _milestone.rectTransform,
+            _ => null,
+        };
+
+        /// <summary>Whether a system's demo can play now: its button is shown (the theme demo needs none).</summary>
+        public bool CanDemo(string unlockId) => unlockId == "system.theme_rotation" || DemoTarget(unlockId) != null;
+
+        private static RectTransform? Visible(GameObject button) => button.activeSelf ? (RectTransform)button.transform : null;
+
         private static GameObject Feature(RectTransform root, string name, string label, float x0, Action? onClick)
         {
             Button button = UiFactory.CreateButton(name, root, label, UiTheme.SlotLocked, () => onClick?.Invoke(), 40f);

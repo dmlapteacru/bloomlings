@@ -4,6 +4,7 @@ using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Variants;
 using Bloomlings.Core.Simulation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,7 +14,9 @@ namespace Bloomlings.Client.Gameplay.Board
     /// <summary>
     /// The board (T041): fits up to 14×16 cells into the board area without scrolling or zooming (FR-008), draws the
     /// finished picture under the tiles (T042), and marks the Garden Entries on the board edge. Its visual state
-    /// follows the event timeline, not the logical state, so tiles change when their Bloomling arrives (R4).
+    /// follows the event timeline, not the logical state, so tiles change when their Bloomling arrives (R4): a restored
+    /// tile shrinks away with a small sparkle, and on a win the finished picture shines. The cells that count toward a
+    /// special's condition are outlined in that special's color.
     /// </summary>
     public sealed class BoardView : MonoBehaviour
     {
@@ -95,6 +98,72 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             Layout();
+            UpdateCounted(view);
+        }
+
+        /// <summary>
+        /// Outlines the cells that count toward each unresolved special (FR-037, FR-038): for "restore N &lt;variant&gt;
+        /// around it", the target tiles next to it that hold that variant; for "restore this region", the region's
+        /// remaining tiles.
+        /// </summary>
+        public void UpdateCounted(LevelView view)
+        {
+            foreach (TileView tile in _tiles)
+            {
+                tile.SetCounted(null);
+            }
+
+            foreach (SpecialInfo special in view.Specials)
+            {
+                if (special.Triggered || special.Condition.Kind == SpecialConditionKind.Key)
+                {
+                    continue;
+                }
+
+                Color color = SpecialView.ColorOf(special.Type);
+                foreach (CellPos cell in CountedCells(view, special))
+                {
+                    if (Tile(cell).Shown.HasValue || view.Cell(cell).MysteryHidden)
+                    {
+                        Tile(cell).SetCounted(color);
+                    }
+                }
+            }
+        }
+
+        private IEnumerable<CellPos> CountedCells(LevelView view, SpecialInfo special)
+        {
+            if (special.Condition.Kind == SpecialConditionKind.ClearRegion)
+            {
+                foreach (CellPos cell in special.Condition.RegionCells)
+                {
+                    if (view.Cell(cell).Kind == CellKind.Target)
+                    {
+                        yield return cell;
+                    }
+                }
+
+                yield break;
+            }
+
+            var own = new HashSet<CellPos>(special.Cells);
+            var seen = new HashSet<CellPos>();
+            foreach (CellPos cell in special.Cells)
+            {
+                for (int dir = 0; dir < CellPos.NeighbourCount; dir++)
+                {
+                    if (!cell.TryGetNeighbour(dir, _width, _height, out CellPos next) || own.Contains(next) || !seen.Add(next))
+                    {
+                        continue;
+                    }
+
+                    CellInfo info = view.Cell(next);
+                    if (info.Kind == CellKind.Target && (special.Condition.Variant == null || info.Visible == special.Condition.Variant))
+                    {
+                        yield return next;
+                    }
+                }
+            }
         }
 
         /// <summary>Canvas position of a cell center inside <see cref="Grid"/>.</summary>
@@ -136,14 +205,63 @@ namespace Bloomlings.Client.Gameplay.Board
             }
         }
 
-        /// <summary>A layer was cleared and the next one is visible (applied when the worker arrives).</summary>
+        /// <summary>A layer was cleared and the next one is visible (applied when the worker arrives): the tile flips over.</summary>
         public void ShowLayer(CellPos cell, Core.Variants.VariantId newTop, LevelView view)
         {
             CellInfo info = view.Cell(cell);
-            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop ? info.Next : null, null);
+            Sparkle(cell);
+            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop ? info.Next : null, null, animate: true);
         }
 
-        public void ShowOpened(CellPos cell) => Tile(cell).ShowOpen();
+        /// <summary>Bloom Burst removed a variant (FR-050): each of its tiles bursts in a puff, then shows what is left.</summary>
+        public void ShowBurst(IReadOnlyList<CellPos> cells, LevelView view)
+        {
+            foreach (CellPos cell in cells)
+            {
+                TileView tile = Tile(cell);
+                if (tile.Shown.HasValue && isActiveAndEnabled)
+                {
+                    VariantVisual visual = _visuals != null ? _visuals.Get(tile.Shown.Value) : VariantVisualCatalog.Default(tile.Shown.Value);
+                    Effects.UiFx.Puff(_grid, tile.transform.position, visual.Color, 7, CellSize * 0.9f, CellSize * 0.28f, 0.4f, ProceduralSprites.Star);
+                }
+
+                CellInfo info = view.Cell(cell);
+                if (info.Kind == CellKind.Target)
+                {
+                    tile.ShowTarget(info.Visible, info.Next, info.KeyId, animate: true);
+                }
+                else if (info.Kind == CellKind.Stone)
+                {
+                    tile.ShowStone();
+                }
+                else
+                {
+                    tile.ShowOpen(animate: true);
+                }
+            }
+
+            UpdateCounted(view);
+        }
+
+        /// <summary>A Bloomling restored the tile: it shrinks away with a small sparkle.</summary>
+        public void ShowOpened(CellPos cell)
+        {
+            Sparkle(cell);
+            Tile(cell).ShowOpen(animate: true);
+        }
+
+        /// <summary>A small puff in the light color of the tile's variant (decorative only).</summary>
+        private void Sparkle(CellPos cell)
+        {
+            TileView tile = Tile(cell);
+            if (!tile.Shown.HasValue || !isActiveAndEnabled)
+            {
+                return;
+            }
+
+            VariantVisual visual = _visuals != null ? _visuals.Get(tile.Shown.Value) : VariantVisualCatalog.Default(tile.Shown.Value);
+            Effects.UiFx.Puff(_grid, tile.transform.position, UiTheme.Light(visual.Color), 5, CellSize * 0.6f, CellSize * 0.22f, 0.3f);
+        }
 
         /// <summary>World position of a key still lying on the board, or null.</summary>
         public Vector3? KeyPosition(CellPos cell)
@@ -216,28 +334,32 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>A special triggered: its animation, then the changed cells (opened ground, removed stones).</summary>
         public void TriggerSpecial(string specialId, IReadOnlyList<CellPos> cells, LevelView view)
         {
-            Special(specialId)?.Trigger();
+            SpecialView? special = Special(specialId);
+            special?.Trigger(_grid, CellSize);
             foreach (CellPos cell in cells)
             {
                 // Opened ground and removed stones; revealed mystery tiles arrive as their own event.
                 if (view.Cell(cell).Kind == CellKind.Open)
                 {
-                    Tile(cell).ShowOpen();
+                    Tile(cell).ShowOpen(animate: true);
                 }
             }
+
+            UpdateCounted(view);
         }
 
         private SpecialView? Special(string specialId) => _specials.Find(s => s.SpecialId == specialId);
 
-        public void ShowMysteryRevealed(CellPos cell, Core.Variants.VariantId variant) => Tile(cell).ShowTarget(variant, null, null);
+        public void ShowMysteryRevealed(CellPos cell, Core.Variants.VariantId variant) => Tile(cell).ShowTarget(variant, null, null, animate: true);
 
+        /// <summary>The win (FR-025): the last tiles shrink away and the finished picture shines.</summary>
         public void RevealAll()
         {
             foreach (TileView tile in _tiles)
             {
                 if (tile.Shown.HasValue)
                 {
-                    tile.ShowOpen();
+                    tile.ShowOpen(animate: true);
                 }
             }
 

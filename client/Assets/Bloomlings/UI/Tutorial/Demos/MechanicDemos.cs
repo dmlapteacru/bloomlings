@@ -28,6 +28,13 @@ namespace Bloomlings.Client.UI.Tutorial.Demos
         public Func<RectTransform?> MysteryTile { get; set; } = () => null;
 
         public Func<RectTransform?> MysteryPod { get; set; } = () => null;
+
+        public Func<RectTransform?> Chest { get; set; } = () => null;
+
+        /// <summary>The Statue or Bridge (the L250 environmental object).</summary>
+        public Func<RectTransform?> Environment2 { get; set; } = () => null;
+
+        public Func<RectTransform?> TriplePod { get; set; } = () => null;
     }
 
     /// <summary>
@@ -74,6 +81,17 @@ namespace Bloomlings.Client.UI.Tutorial.Demos
             "mechanic.mystery_pod" => new DemoScript(
                 unlockId,
                 new DemoStep(Loc.T("demo.mystery_pod")) { PointAt = at.MysteryPod }),
+            "mechanic.chest" => new DemoScript(
+                unlockId,
+                new DemoStep(Loc.T("demo.chest.1")) { PointAt = at.Chest },
+                new DemoStep(Loc.T("demo.chest.2")) { PointAt = at.Chest }),
+            "mechanic.environment_2" => new DemoScript(
+                unlockId,
+                new DemoStep(Loc.T("demo.environment_2")) { PointAt = at.Environment2 }),
+            "mechanic.connected_triple" => new DemoScript(
+                unlockId,
+                new DemoStep(Loc.T("demo.connected_triple.1")) { PointAt = at.TriplePod },
+                new DemoStep(Loc.T("demo.connected_triple.2"))),
             _ => null,
         };
     }

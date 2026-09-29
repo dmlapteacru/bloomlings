@@ -57,29 +57,44 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         /// <param name="interactive">Only exposed pods take taps (FR-011).</param>
         /// <param name="dimmed">Buried pods are drawn dimmer and smaller behind the exposed one.</param>
-        public void Show(PodInfo pod, VariantVisualCatalog? visuals, bool interactive, bool dimmed)
+        /// <param name="lockShown">The lock is drawn (locked, or its key is still in flight).</param>
+        /// <param name="linkColor">The connected group's color, or null when the pod is not connected.</param>
+        public void Show(PodInfo pod, VariantVisualCatalog? visuals, bool interactive, bool dimmed, bool lockShown, Color? linkColor)
         {
             PodId = pod.Id;
             gameObject.SetActive(true);
             _button.interactable = interactive;
+            Color ink;
             if (pod.Variant.HasValue)
             {
                 VariantVisual visual = visuals != null ? visuals.Get(pod.Variant.Value) : VariantVisualCatalog.Default(pod.Variant.Value);
+                _body.sprite = visual.PodSkin ?? ProceduralSprites.RoundedSquare;
                 _body.color = Dim(visual.Color, dimmed);
                 _icon.sprite = visual.Icon;
                 _family.sprite = ProceduralSprites.Silhouette(visual.Family);
                 _family.enabled = true;
+                ink = visual.Ink;
             }
             else
             {
+                _body.sprite = ProceduralSprites.RoundedSquare;
                 _body.color = Dim(UiTheme.SlotLocked, dimmed);
                 _icon.sprite = ProceduralSprites.Question;
                 _family.enabled = false;
+                ink = Color.white;
             }
 
+            _icon.color = ink;
+            _count.color = ink;
+            _family.color = new Color(ink.r, ink.g, ink.b, 0.75f);
             _count.text = pod.Remaining.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            _lock.enabled = pod.Locked;
-            _link.enabled = pod.ConnectedGroupId != null;
+            _lock.enabled = lockShown;
+            _lock.transform.localScale = Vector3.one;
+            _link.enabled = linkColor.HasValue;
+            if (linkColor.HasValue)
+            {
+                _link.color = linkColor.Value;
+            }
         }
 
         public void Hide() => gameObject.SetActive(false);
@@ -89,6 +104,12 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         /// <summary>Accepted tap: a quick press pulse.</summary>
         public void Pulse() => Play(PulseRoutine());
+
+        /// <summary>Its key landed: the lock grows and fades, then the card pulses.</summary>
+        public void Unlock() => Play(UnlockRoutine());
+
+        /// <summary>Shuffle: the card turns over once in place.</summary>
+        public void Spin() => Play(SpinRoutine());
 
         private void Play(IEnumerator routine)
         {
@@ -101,6 +122,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             {
                 StopCoroutine(_feedback);
                 transform.localScale = Vector3.one;
+                _lock.transform.localScale = Vector3.one;
             }
 
             _feedback = StartCoroutine(routine);
@@ -125,6 +147,31 @@ namespace Bloomlings.Client.Gameplay.Tray
             for (float t = 0f; t < 0.15f; t += Time.unscaledDeltaTime)
             {
                 transform.localScale = Vector3.one * (1f - (0.12f * Mathf.Sin(t / 0.15f * Mathf.PI)));
+                yield return null;
+            }
+
+            transform.localScale = Vector3.one;
+            _feedback = null;
+        }
+
+        private IEnumerator UnlockRoutine()
+        {
+            for (float t = 0f; t < 0.3f; t += Time.unscaledDeltaTime)
+            {
+                _lock.transform.localScale = Vector3.one * (1f + (t / 0.3f));
+                yield return null;
+            }
+
+            _lock.enabled = false;
+            _lock.transform.localScale = Vector3.one;
+            yield return PulseRoutine();
+        }
+
+        private IEnumerator SpinRoutine()
+        {
+            for (float t = 0f; t < 0.35f; t += Time.unscaledDeltaTime)
+            {
+                transform.localScale = new Vector3(Mathf.Cos(t / 0.35f * Mathf.PI * 2f), 1f, 1f);
                 yield return null;
             }
 
