@@ -27,7 +27,7 @@ Profile a development build with the Unity Profiler, then confirm on a release b
 
 | Metric | Target | Android reference | iPhone SE 2 | Notes |
 |---|---|---|---|---|
-| Frame rate on the largest board (16×20, 6 variants, full backlog) | 30 fps floor | | | |
+| Frame rate on the largest board (14×16, 6 variants, full backlog) | 30 fps floor | | | |
 | Hitches | none over 100 ms | | | |
 | Tap feedback | ≤ 0.1 s | | | |
 | Level load | ≤ 1 s | | | |

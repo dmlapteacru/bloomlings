@@ -5,7 +5,14 @@ using System.Collections.Generic;
 namespace Bloomlings.Client.Services.Backend
 {
     /// <summary>One row of the leaderboard: the rank is 1-based; the level is decoded from the score.</summary>
-    public sealed record LeaderboardEntry(int Rank, string Name, int Level, bool IsPlayer);
+    /// <summary>
+    /// One leaderboard row (data-model §3.2). <paramref name="Score"/> is the time-encoded score
+    /// (<see cref="LeaderboardScore"/>), 0 when unknown; <see cref="ReachedAtUtc"/> is decoded from it.
+    /// </summary>
+    public sealed record LeaderboardEntry(int Rank, string Name, int Level, bool IsPlayer, double Score = 0)
+    {
+        public System.DateTime? ReachedAtUtc => Score > 0 ? LeaderboardScore.CompletedAt(Score) : (System.DateTime?)null;
+    }
 
     /// <summary>The player's row and a small window of neighbours around it.</summary>
     public sealed record LeaderboardPage(IReadOnlyList<LeaderboardEntry> Entries, LeaderboardEntry? Player);

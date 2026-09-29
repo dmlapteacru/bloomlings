@@ -29,6 +29,9 @@ namespace Bloomlings.Client.Services.Purchases
         /// <summary>The store's localized price text, or null while unknown.</summary>
         string? PriceOf(string productId);
 
+        /// <summary>The store's price in micros (price × 1,000,000) and its ISO 4217 currency, or null while unknown.</summary>
+        (long Micros, string Currency)? PriceDetailsOf(string productId);
+
         /// <summary>Connects; every validated purchase, whenever it arrives, is handed to <paramref name="grant"/> (the ledger).</summary>
         void Initialize(ProductCatalog catalog, Func<ValidatedPurchase, bool> grant, Action<bool> onReady);
 
@@ -50,6 +53,8 @@ namespace Bloomlings.Client.Services.Purchases
         public bool IsAvailable => false;
 
         public string? PriceOf(string productId) => null;
+
+        public (long Micros, string Currency)? PriceDetailsOf(string productId) => null;
 
         public void Initialize(ProductCatalog catalog, Func<ValidatedPurchase, bool> grant, Action<bool> onReady) => onReady(false);
 

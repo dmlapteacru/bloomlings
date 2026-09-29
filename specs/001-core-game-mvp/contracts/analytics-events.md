@@ -15,7 +15,7 @@ These events feed difficulty tuning and business metrics (FR-086, SC-006, SC-007
 | `level_start` | Level loaded and playable | `attempt_index` |
 | `level_win` | `LevelWon` | `duration_ms`, `taps`, `boosters_used`, `clean_clear`, `peak_slots`, `attempt_index` |
 | `level_jam` | `LevelJammed` or `LevelStuck` | `kind` (`jam`/`stuck`), `duration_ms`, `taps`, `slots_used`, `remaining_work` |
-| `level_recover` | Recovery used at a jam | `method` (`extra_slot`/`return`/`bloom_burst`/`ad_rescue`) |
+| `level_recover` | Recovery used at a jam | `method` (`extra_slot`/`shuffle`/`return`/`bloom_burst`/`ad_rescue`; Shuffle recovers a stuck board) |
 | `level_restart` | Restart | `from` (`pause`/`jam`) |
 | `level_quit` | Leave the level from pause | `duration_ms` |
 | `booster_use` | Booster command accepted | `booster`, `source` (`charge`/`petals`/`ad`) |

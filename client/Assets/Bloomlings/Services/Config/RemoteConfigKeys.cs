@@ -74,7 +74,8 @@ namespace Bloomlings.Client.Services.Config
         public static readonly IntKey PriceExtraSlot = new IntKey("economy.price.extraSlot", 40, 10, 500);
         public static readonly IntKey PriceShuffle = new IntKey("economy.price.shuffle", 40, 10, 500);
         public static readonly IntKey PriceReturn = new IntKey("economy.price.return", 50, 10, 500);
-        public static readonly IntKey PriceBloomBurst = new IntKey("economy.price.bloomBurst", 60, 10, 500);
+        /// <summary>Up to 1000, so it can always stay above the other prices (at most 500) as FR-048 asks.</summary>
+        public static readonly IntKey PriceBloomBurst = new IntKey("economy.price.bloomBurst", 60, 10, 1000);
         public static readonly IntKey UnlockGrant = new IntKey("economy.unlockGrant", 1, 1, 3);
         public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 5, 2, 20);
 

@@ -70,7 +70,7 @@ namespace Bloomlings.Integrations.Ugs
                 LeaderboardScoresPage range = await LeaderboardsService.Instance.GetPlayerRangeAsync(LeaderboardId, new GetPlayerRangeOptions { RangeLimit = neighbours });
                 foreach (Unity.Services.Leaderboards.Models.LeaderboardEntry row in range.Results)
                 {
-                    var entry = new Entry(row.Rank + 1, row.PlayerName, LeaderboardScore.LevelOf(row.Score), row.PlayerId == playerId);
+                    var entry = new Entry(row.Rank + 1, row.PlayerName, LeaderboardScore.LevelOf(row.Score), row.PlayerId == playerId, row.Score);
                     entries.Add(entry);
                     if (entry.IsPlayer)
                     {
@@ -84,7 +84,7 @@ namespace Bloomlings.Integrations.Ugs
                 LeaderboardScoresPage top = await LeaderboardsService.Instance.GetScoresAsync(LeaderboardId, new GetScoresOptions { Limit = (2 * neighbours) + 1 });
                 foreach (Unity.Services.Leaderboards.Models.LeaderboardEntry row in top.Results)
                 {
-                    entries.Add(new Entry(row.Rank + 1, row.PlayerName, LeaderboardScore.LevelOf(row.Score), false));
+                    entries.Add(new Entry(row.Rank + 1, row.PlayerName, LeaderboardScore.LevelOf(row.Score), false, row.Score));
                 }
             }
 

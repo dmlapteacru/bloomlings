@@ -143,7 +143,11 @@ namespace Bloomlings.Client.App
             TextAsset? catalogJson = Resources.Load<TextAsset>("ProductCatalog");
             ProductCatalog products = catalogJson != null ? ProductCatalog.Parse(catalogJson.text) : new ProductCatalog(Array.Empty<StoreProduct>());
             var ledger = new PurchaseLedger(save, products, economy, clock, saves.Save);
-            ledger.Granted += purchase => analytics.Purchase(purchase.ProductId, 0, string.Empty, purchase.TransactionId);
+            ledger.Granted += purchase =>
+            {
+                (long Micros, string Currency)? price = purchases.PriceDetailsOf(purchase.ProductId);
+                analytics.Purchase(purchase.ProductId, price?.Micros ?? 0, price?.Currency ?? string.Empty, purchase.TransactionId);
+            };
             var adPolicy = new AdPolicy(remote, clock.UtcNow);
             services.Register<IConsentService>(consent);
             services.Register(ads);

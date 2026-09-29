@@ -41,6 +41,12 @@ namespace Bloomlings.Integrations.Iap
 
         public string? PriceOf(string productId) => _store?.GetProducts().FirstOrDefault(p => p.definition.id == productId)?.metadata.localizedPriceString;
 
+        public (long Micros, string Currency)? PriceDetailsOf(string productId)
+        {
+            Product? product = _store?.GetProducts().FirstOrDefault(p => p.definition.id == productId);
+            return product == null ? null : ((long)(product.metadata.localizedPrice * 1_000_000m), product.metadata.isoCurrencyCode);
+        }
+
         public async void Initialize(ProductCatalog catalog, Func<ValidatedPurchase, bool> grant, Action<bool> onReady)
         {
             _catalog = catalog;

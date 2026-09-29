@@ -78,7 +78,7 @@
     },
     "economy.price.bloomBurst": {
       "default": 60,
-      "max": 500,
+      "max": 1000,
       "min": 10,
       "type": "int"
     },
