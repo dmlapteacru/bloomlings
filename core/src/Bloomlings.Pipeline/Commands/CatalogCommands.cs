@@ -96,7 +96,8 @@ namespace Bloomlings.Pipeline.Commands
             Option<string> baseRef = Cli.Path("--base", "origin/main", "Git ref for --changed-only.");
             var writeRecords = new Option<bool>("--write-records") { Description = "Write the validation records next to the levels." };
             Option<string> context = Cli.Path("--context", string.Empty, "Neighbouring levels validated elsewhere (e.g. content/curated next to the catalog): they join the FR-083 and families windows but are not checked.");
-            foreach (Option option in new Option[] { defs, lib, pairs, budget, changedOnly, baseRef, writeRecords, context })
+            Option<string> level8 = Cli.Level8();
+            foreach (Option option in new Option[] { defs, lib, pairs, budget, changedOnly, baseRef, writeRecords, context, level8 })
             {
                 command.Options.Add(option);
             }
@@ -114,7 +115,7 @@ namespace Bloomlings.Pipeline.Commands
 
                 var validator = new CatalogValidator(
                     ContentStore.LoadLibrary(parse.GetValue(lib)!),
-                    UnlockRoadmap.Default,
+                    UnlockRoadmap.ForLevel8(parse.GetValue(level8)!),
                     ContentStore.LoadPairs(parse.GetValue(pairs)!),
                     new SolveOptions(parse.GetValue(budget)));
                 List<LevelDefinition>? neighbours = parse.GetValue(context)!.Length > 0
@@ -357,7 +358,8 @@ namespace Bloomlings.Pipeline.Commands
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Playtest builds only: include pictures that are not approved yet, marked as draft previews. Never for release." };
             Option<string> pairs = Cli.Path("--pairs", "content/readability/approved-pairs.json", "Approved readability pairs.");
             Option<int> budget = Budget();
-            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, shuffleBudget, daily, allowDraft, pairs, budget })
+            Option<string> level8 = Cli.Level8();
+            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, shuffleBudget, daily, allowDraft, pairs, budget, level8 })
             {
                 command.Options.Add(option);
             }
@@ -378,7 +380,7 @@ namespace Bloomlings.Pipeline.Commands
                 // The release gate (FR-080, FR-081, FR-083): the whole catalog is validated again, and any error stops the
                 // publish. The daily pool is checked level by level (its numbers are pool indexes, not Level N). With
                 // --allow-draft only unapproved pictures are tolerated, never an unsolvable or otherwise invalid level.
-                List<LevelIssue> issues = GateIssues(parse.GetValue(lib)!, parse.GetValue(pairs)!, parse.GetValue(budget), levels, dailyLevels);
+                List<LevelIssue> issues = GateIssues(parse.GetValue(lib)!, parse.GetValue(pairs)!, parse.GetValue(budget), levels, dailyLevels, UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
                 var blocking = issues.Where(i => i.IsError && !(parse.GetValue(allowDraft) && i.Check == "picture-approved")).ToList();
                 report["gateErrors"] = new JArray(blocking.Select(i => new JObject { ["level"] = i.Level, ["check"] = i.Check, ["message"] = i.Message }).ToArray());
                 if (blocking.Count > 0)
@@ -450,14 +452,15 @@ namespace Bloomlings.Pipeline.Commands
         }
 
         /// <summary>The validation issues of a catalog and its daily pool, for the publish gate.</summary>
-        public static List<LevelIssue> GateIssues(string lib, string pairsPath, int budget, IReadOnlyList<LevelDefinition> levels, IReadOnlyList<LevelDefinition> dailyLevels)
+        public static List<LevelIssue> GateIssues(string lib, string pairsPath, int budget, IReadOnlyList<LevelDefinition> levels, IReadOnlyList<LevelDefinition> dailyLevels, UnlockRoadmap? roadmap = null)
         {
             List<BasePicture> library = ContentStore.LoadLibrary(lib);
             ApprovedPairs? pairs = ContentStore.LoadPairs(pairsPath);
-            var issues = new CatalogValidator(library, UnlockRoadmap.Default, pairs, new SolveOptions(budget)).Validate(levels).Issues;
+            roadmap ??= UnlockRoadmap.Default;
+            var issues = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)).Validate(levels).Issues;
             if (dailyLevels.Count > 0)
             {
-                var daily = new CatalogValidator(library, UnlockRoadmap.Default, pairs, new SolveOptions(budget)) { CheckBandGuidelines = false, CheckSequences = false };
+                var daily = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)) { CheckBandGuidelines = false, CheckSequences = false };
                 issues.AddRange(daily.Validate(dailyLevels).Issues.Select(i => i with { Check = "daily-" + i.Check }));
             }
 

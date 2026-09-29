@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Random;
 using Bloomlings.Core.Simulation;
@@ -146,10 +147,11 @@ namespace Bloomlings.Generator
         }
 
         /// <summary>
-        /// Connects two unlocked pods at the same depth in different stacks (FR-035) and keeps the first pair, in a seeded
-        /// order, that leaves the level winnable, losable and in the target class. Null when no pair does.
+        /// Connects <paramref name="size"/> unlocked pods at the same depth in different stacks (FR-035: a pair, or the
+        /// optional triple) and keeps the first group, in a seeded order, that leaves the level winnable, losable and in
+        /// the target class. Null when no group does.
         /// </summary>
-        public static TrayOutcome? Connect(TrayOutcome tray, BasePicture picture, DifficultyClass target, DifficultyThresholds thresholds, SolveOptions options, ref Xoshiro256StarStar rng)
+        public static TrayOutcome? Connect(TrayOutcome tray, BasePicture picture, DifficultyClass target, DifficultyThresholds thresholds, SolveOptions options, ref Xoshiro256StarStar rng, int size = 2)
         {
             LevelDefinition level = tray.Definition;
             var locked = new HashSet<string>(StringComparer.Ordinal);
@@ -161,32 +163,29 @@ namespace Bloomlings.Generator
                 }
             }
 
-            var pairs = new List<(string, string)>();
+            // Every set of `size` stacks that all hold an unlocked pod at the same depth.
+            var groups = new List<string[]>();
             IReadOnlyList<IReadOnlyList<string>> stacks = level.Tray.Stacks;
-            for (int a = 0; a < stacks.Count; a++)
+            int deepest = stacks.Count == 0 ? 0 : stacks.Max(s => s.Count);
+            for (int d = 0; d < deepest; d++)
             {
-                for (int b = a + 1; b < stacks.Count; b++)
+                List<string> atDepth = stacks.Where(s => s.Count > d && !locked.Contains(s[d])).Select(s => s[d]).ToList();
+                foreach (string[] group in Combinations(atDepth, size))
                 {
-                    for (int d = 0; d < Math.Min(stacks[a].Count, stacks[b].Count); d++)
-                    {
-                        if (!locked.Contains(stacks[a][d]) && !locked.Contains(stacks[b][d]))
-                        {
-                            pairs.Add((stacks[a][d], stacks[b][d]));
-                        }
-                    }
+                    groups.Add(group);
                 }
             }
 
             var solver = new Solver.Solver();
-            for (int attempt = 0; attempt < 6 && pairs.Count > 0; attempt++)
+            for (int attempt = 0; attempt < 6 && groups.Count > 0; attempt++)
             {
-                int pick = rng.NextInt(pairs.Count);
-                (string first, string second) = pairs[pick];
-                pairs.RemoveAt(pick);
+                int pick = rng.NextInt(groups.Count);
+                var members = new HashSet<string>(groups[pick], StringComparer.Ordinal);
+                groups.RemoveAt(pick);
                 var pods = new List<PodDef>();
                 foreach (PodDef pod in level.Pods)
                 {
-                    pods.Add(pod.Id == first || pod.Id == second ? pod with { ConnectedGroupId = "c1" } : pod);
+                    pods.Add(members.Contains(pod.Id) ? pod with { ConnectedGroupId = "c1" } : pod);
                 }
 
                 LevelDefinition candidate = level with { Pods = pods };
@@ -207,6 +206,79 @@ namespace Bloomlings.Generator
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Mystery pods (FR-039; the roadmap's L8 alternative): one pod that is buried at the start shows only "? ×n"
+        /// until it is committed. The first candidate, in a seeded order, that keeps the level winnable, losable, in its
+        /// class and fair (no blind guess, <see cref="FairnessChecker"/>) is kept. Null when none does.
+        /// </summary>
+        public static TrayOutcome? HidePod(TrayOutcome tray, BasePicture picture, DifficultyClass target, DifficultyThresholds thresholds, SolveOptions options, ref Xoshiro256StarStar rng)
+        {
+            LevelDefinition level = tray.Definition;
+            var candidates = new List<string>();
+            foreach (IReadOnlyList<string> stack in level.Tray.Stacks)
+            {
+                for (int d = 1; d < stack.Count; d++)
+                {
+                    PodDef pod = level.Pods.First(p => p.Id == stack[d]);
+                    if (pod.LockKeyId == null && pod.ConnectedGroupId == null)
+                    {
+                        candidates.Add(pod.Id);
+                    }
+                }
+            }
+
+            var solver = new Solver.Solver();
+            for (int attempt = 0; attempt < 6 && candidates.Count > 0; attempt++)
+            {
+                int pick = rng.NextInt(candidates.Count);
+                string hidden = candidates[pick];
+                candidates.RemoveAt(pick);
+                LevelDefinition candidate = level with { Pods = level.Pods.Select(p => p.Id == hidden ? p with { Mystery = true } : p).ToList() };
+                LevelSession session = LevelSession.Load(candidate, picture, new SessionOptions(0, 20000));
+                SolveResult win = solver.Solve(session, options);
+                if (win.Status != SolveStatus.Solvable)
+                {
+                    continue;
+                }
+
+                LevelAnalysis analysis = solver.Analyze(session, options, win);
+                int score = DifficultyScorer.Score(analysis.Metrics, thresholds);
+                DifficultyClass reached = DifficultyScorer.Classify(score, thresholds);
+                if (analysis.Jam.Status == SolveStatus.Solvable && reached == target
+                    && FairnessChecker.Check(candidate, picture, new SessionOptions(1, 20000), options.NodeBudget).Status == FairnessStatus.Fair)
+                {
+                    return new TrayOutcome(candidate, analysis, score, reached, tray.Injections);
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>Every <paramref name="size"/>-element subset of <paramref name="items"/>, in order.</summary>
+        private static IEnumerable<string[]> Combinations(IReadOnlyList<string> items, int size)
+        {
+            var chosen = new int[size];
+            IEnumerable<string[]> From(int start, int depth)
+            {
+                if (depth == size)
+                {
+                    yield return chosen.Select(i => items[i]).ToArray();
+                    yield break;
+                }
+
+                for (int i = start; i <= items.Count - (size - depth); i++)
+                {
+                    chosen[depth] = i;
+                    foreach (string[] group in From(i + 1, depth + 1))
+                    {
+                        yield return group;
+                    }
+                }
+            }
+
+            return size < 1 || size > items.Count ? Enumerable.Empty<string[]>() : From(0, 0);
         }
 
         /// <summary>Lays out and analyzes a pod order; the analysis is null when the level is not winnable (then it is skipped).</summary>

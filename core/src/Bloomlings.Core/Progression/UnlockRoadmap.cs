@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bloomlings.Core.Progression
 {
@@ -150,6 +151,26 @@ namespace Bloomlings.Core.Progression
             new UnlockEntry(400, "mechanic.connected_triple", UnlockKind.Mechanic, 0, true),
             new UnlockEntry(500, "system.milestone_500", UnlockKind.System, 0, false),
         });
+
+        /// <summary>
+        /// The roadmap's Level 8 alternative (spec roadmap L8 and L14, open decision "Level 8: Mystery if fair, otherwise
+        /// Key"): the Mystery Pod takes L8, and the Key unlocks at L14 instead of its practice row. Use it only once the
+        /// fairness solver passes the Mystery Pod levels.
+        /// </summary>
+        public static UnlockRoadmap MysteryPodAtLevel8 { get; } = new UnlockRoadmap(Default._entries.Select(entry => entry.UnlockId switch
+        {
+            "mechanic.key" => entry with { UnlockId = "mechanic.mystery_pod", Optional = true },
+            "profile.key_practice" => entry with { UnlockId = "mechanic.key", Kind = UnlockKind.Mechanic },
+            _ => entry,
+        }));
+
+        /// <summary>The roadmap for a Level 8 choice: <c>key</c> (default) or <c>mystery_pod</c>.</summary>
+        public static UnlockRoadmap ForLevel8(string choice) => choice switch
+        {
+            "key" => Default,
+            "mystery_pod" => MysteryPodAtLevel8,
+            _ => throw new ArgumentException($"Level 8 is 'key' or 'mystery_pod', not '{choice}'.", nameof(choice)),
+        };
 
         private static bool IsValidId(string id)
         {

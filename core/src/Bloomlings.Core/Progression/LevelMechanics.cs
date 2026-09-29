@@ -13,7 +13,8 @@ namespace Bloomlings.Core.Progression
     {
         /// <summary>
         /// The roadmap unlock ids of the mechanics a level uses (FR-031), sorted: stones from the picture or overlays, keys,
-        /// layers (and depth 3), mystery tiles and pods, locked and connected pods, a locked slot and specials. A single
+        /// layers (and depth 3), mystery tiles and pods, locked pods, connected pairs and triples, a locked slot and specials
+        /// (a Statue or Bridge is the L250 environmental object, <c>mechanic.environment_2</c>). A single
         /// locked cell that opens with a key is the Key mechanic (L8/L14, before keys unlock Source content at L16); a
         /// Garden Gate with a counter is the L35 mechanic.
         /// </summary>
@@ -59,6 +60,7 @@ namespace Bloomlings.Core.Progression
                 }
             }
 
+            var groupSizes = new Dictionary<string, int>(StringComparer.Ordinal);
             foreach (PodDef pod in level.Pods)
             {
                 if (pod.LockKeyId != null)
@@ -68,13 +70,19 @@ namespace Bloomlings.Core.Progression
 
                 if (pod.ConnectedGroupId != null)
                 {
-                    used.Add("mechanic.connected_pair");
+                    groupSizes[pod.ConnectedGroupId] = (groupSizes.TryGetValue(pod.ConnectedGroupId, out int size) ? size : 0) + 1;
                 }
 
                 if (pod.Mystery)
                 {
                     used.Add("mechanic.mystery_pod");
                 }
+            }
+
+            foreach (int size in groupSizes.Values)
+            {
+                // Pairs unlock first; a group of three or more is the optional Connected Triple (FR-035, roadmap L400).
+                used.Add(size >= 3 ? "mechanic.connected_triple" : "mechanic.connected_pair");
             }
 
             if (level.Slots.Locked != null)

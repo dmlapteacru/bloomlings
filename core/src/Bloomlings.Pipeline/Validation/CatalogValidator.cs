@@ -73,6 +73,9 @@ namespace Bloomlings.Pipeline.Validation
         /// </summary>
         public bool CheckSequences { get; set; } = true;
 
+        /// <summary>Which expansion variants join the pool, and when (FR-060).</summary>
+        public VariantPool Pool { get; set; } = VariantPool.Default;
+
         /// <param name="levels">The catalog (any order); FR-083 checks look at level-number neighbours.</param>
         /// <param name="solveOnly">When set, only these levels are solved (the others still take part in FR-083).</param>
         /// <param name="context">
@@ -383,14 +386,15 @@ namespace Bloomlings.Pipeline.Validation
                 }
             }
 
-            int? expansion = _roadmap.LevelOf("variant.pool_expansion_1");
-            foreach (PodDef pod in level.Pods)
+            foreach (VariantId variant in level.Pods.Select(p => p.Variant).Distinct())
             {
-                if (VariantCatalog.Default.Get(pod.Variant).Status == VariantStatus.Expansion && (expansion == null || n < expansion.Value))
+                if (!Pool.IsAvailable(variant, n, _roadmap))
                 {
-                    Error(report, n, "unlock", $"expansion variant {pod.Variant} before the pool expansion");
+                    int? at = Pool.IntroducedAt(variant, _roadmap);
+                    Error(report, n, "unlock", at == null
+                        ? $"variant {variant} is not in the pool (FR-060)"
+                        : $"variant {variant} is used before it joins the pool at L{at.Value} (FR-060)");
                     ok = false;
-                    break;
                 }
             }
 
@@ -565,6 +569,69 @@ namespace Bloomlings.Pipeline.Validation
                     }
                 }
 
+                // FR-031 showcase → practice: the unlock level and the practice level use the mechanic, and no other
+                // (stones aside, and the key that a locked pod or slot needs). An optional mechanic (mystery tile, chest, statue/bridge, triple) is checked only when
+                // the catalog uses it somewhere.
+                if (picture != null)
+                {
+                    IReadOnlyList<string> used = MechanicsUsed(level, picture);
+                    foreach (string mechanic in Generator.Overlays.MechanicNames.All)
+                    {
+                        string unlock = Generator.Overlays.MechanicNames.UnlockId(mechanic);
+                        int? showcase = _roadmap.LevelOf(unlock);
+                        int? practice = Generator.Overlays.MechanicNames.PracticeLevel(mechanic, _roadmap, l => byNumber.TryGetValue(l, out LevelDefinition? d) ? d.Difficulty.Class : DifficultyClass.Normal);
+                        bool isShowcase = showcase == n;
+                        if (!isShowcase && practice != n)
+                        {
+                            continue;
+                        }
+
+                        UnlockEntry? entry = _roadmap.Entries.FirstOrDefault(e => e.UnlockId == unlock);
+                        if (entry != null && entry.Optional && !UsedAnywhere(sorted, unlock))
+                        {
+                            continue;
+                        }
+
+                        string role = isShowcase ? "showcase" : "practice";
+                        if (!used.Contains(unlock))
+                        {
+                            Error(report, n, role, $"L{n} is the {role} of {mechanic}: it must use it (FR-031)");
+                        }
+                        else if (used.Any(u => u != unlock && u.StartsWith("mechanic.", StringComparison.Ordinal) && !Companion(mechanic, u)))
+                        {
+                            Error(report, n, role, $"L{n} is the {role} of {mechanic}: no other mechanic may join it (FR-031)");
+                        }
+                    }
+                }
+
+                // FR-031: a variant joining the pool gets one clean level (it is used, no mechanic is), then one mixed
+                // level (it is used again). Without any picture of its color group it cannot be shown yet: a warning.
+                foreach ((int joinedAt, bool clean) in new[] { (n, true), (n - 1, false) })
+                {
+                    foreach (VariantId variant in Pool.JoiningAt(joinedAt, _roadmap))
+                    {
+                        bool used = Generator.LevelGenerator.VariantSet(level).Contains(variant);
+                        bool quiet = picture == null || MechanicsUsed(level, picture).All(m => m == "mechanic.stone");
+                        if (used && (!clean || quiet))
+                        {
+                            continue;
+                        }
+
+                        string message = clean
+                            ? $"{variant} joins the pool here: this level must use it, with no mechanic (FR-031 clean level)"
+                            : $"{variant} joined the pool at L{joinedAt}: this level must use it again (FR-031 mixed level)";
+                        bool drawable = _pictures.Values.Any(p => p.Roles.Any(r => r.ColorGroup == VariantCatalog.Default.Get(variant).ColorGroup));
+                        if (drawable)
+                        {
+                            Error(report, n, "variant-intro", message);
+                        }
+                        else
+                        {
+                            Warning(report, n, "variant-intro", message + $"; no picture has a {VariantCatalog.Default.Get(variant).ColorGroup} role yet");
+                        }
+                    }
+                }
+
                 string signature = Generator.LevelGenerator.SourceSignature(level);
                 for (int l = n - 49; l < n; l++)
                 {
@@ -576,6 +643,14 @@ namespace Bloomlings.Pipeline.Validation
                 }
             }
         }
+
+        /// <summary>Mechanics that come with another on its showcase and practice: stones anywhere, keys with locks.</summary>
+        private static bool Companion(string mechanic, string unlock) =>
+            unlock == "mechanic.stone"
+            || (unlock == "mechanic.key" && (mechanic == Generator.Overlays.MechanicNames.LockedPod || mechanic == Generator.Overlays.MechanicNames.LockedSlot));
+
+        private bool UsedAnywhere(IEnumerable<LevelDefinition> levels, string unlock) =>
+            levels.Any(l => _pictures.TryGetValue(l.Picture.Id + "@" + l.Picture.Version, out BasePicture? p) && MechanicsUsed(l, p).Contains(unlock));
 
         private static bool SameMapping(LevelDefinition a, LevelDefinition b)
         {

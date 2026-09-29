@@ -38,8 +38,9 @@ namespace Bloomlings.Pipeline.Commands
             var keep = new Option<string[]>("--keep") { Description = "Folders of fixed levels (showcase, curated): kept in the history and not generated.", AllowMultipleArgumentsPerToken = true, DefaultValueFactory = _ => new[] { "content/showcase" } };
             var forced = new Option<string>("--mechanics") { Description = "Showcase mode: exactly these mechanics, comma-separated (e.g. locked_pod)." };
             var forcedClass = new Option<string>("--class") { Description = "A fixed difficulty class: normal, hard or super_hard (showcases are normal)." };
+            Option<string> level8 = Cli.Level8();
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Development preview only: use pictures that are not approved yet. Such levels fail validate." };
-            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, keep, forced, forcedClass, thresholds, pairs, allowDraft })
+            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, keep, forced, forcedClass, thresholds, pairs, allowDraft, level8 })
             {
                 command.Options.Add(option);
             }
@@ -90,7 +91,8 @@ namespace Bloomlings.Pipeline.Commands
                     new PicturePicker(library, parse.GetValue(allowDraft)),
                     difficulty,
                     approved.IsApproved,
-                    new DifficultySchedule(0xB100B100UL));
+                    new DifficultySchedule(0xB100B100UL),
+                    UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
                 if (!string.IsNullOrEmpty(parse.GetValue(forced)))
                 {
                     generator.ForcedMechanics = parse.GetValue(forced)!.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
@@ -123,7 +125,7 @@ namespace Bloomlings.Pipeline.Commands
                 File.WriteAllText(Path.Combine(batch, "rejections.json"), CanonicalJson.Write(new JObject { ["rejections"] = rejections }, indented: true));
 
                 // Validate the accepted levels in the context of the catalog (FR-080, FR-081, FR-083).
-                var validator = new CatalogValidator(library, UnlockRoadmap.Default, approved, new SolveOptions(band.SolverNodeBudget));
+                var validator = new CatalogValidator(library, UnlockRoadmap.ForLevel8(parse.GetValue(level8)!), approved, new SolveOptions(band.SolverNodeBudget));
                 var accepted = new HashSet<int>(result.Accepted.Select(a => a.Definition.LevelNumber));
                 CatalogReport validation = validator.Validate(history.Values.ToList(), accepted);
                 var issues = validation.Issues.Where(i => accepted.Contains(i.Level)).ToList();
