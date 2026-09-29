@@ -1,4 +1,4 @@
-# Specification Quality Checklist: Bloomlings Core Game (Colony Flow–style buffer puzzle)
+# Specification Quality Checklist: Bloomlings Launch Game (Colony Flow–style buffer puzzle)
 
 **Purpose**: Validate specification completeness and quality before proceeding to planning
 **Created**: 2026-09-29
@@ -31,12 +31,17 @@
 
 ## Notes
 
-- Iteration 1: several requirements used unmeasurable wording ("short celebration", "easier than the levels around
-  it", "clear warning", "roughly every 5–10 levels"). They were rewritten as checkable rules: FR-022, FR-026, FR-041,
-  FR-044 and FR-055.
-- Two [NEEDS CLARIFICATION] markers are still open and are waiting for the product owner:
-  - FR-002: the set of cell types and spirits.
-  - FR-069: the content volume, and whether the free-to-play layer is part of this release.
+- **Iteration 1** (first draft):
+  - Rewrote the unmeasurable wording in FR-022, FR-026, FR-041, FR-044 and FR-055.
+  - Two questions were open: cell types, and release scope.
+- **Iteration 2** (after the 2026-09-29 answers and the v0.5 product documents 01–15):
+  - The spec was rewritten around the documents: families vs exact target variants, 5000+ deterministic levels, linear Level N with no groupings, the F2P layer, and the unlock roadmap.
+  - The first-draft questions were resolved and recorded under *Clarifications*.
+  - "About" wording in FR-008 and FR-059 was replaced with measurable ranges.
+  - The Unity/C# technology choice from doc 15 is kept out of the requirements and mentioned only as planning input in *Assumptions*.
+- **Open markers**: two, both waiting for the product owner.
+  - FR-006: what exactly makes a level a picture.
+  - FR-040: lives vs no lives. Answer B conflicts with doc 10's "No lives baseline".
 
-  "Scope is clearly bounded" stays unchecked until FR-069 is answered.
+  "Scope is clearly bounded" stays unchecked until FR-040 decides whether a lives/energy system is part of launch.
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`.

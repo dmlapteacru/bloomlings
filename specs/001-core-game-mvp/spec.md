@@ -1,4 +1,4 @@
-# Feature Specification: Bloomlings Core Game (Colony Flow–style buffer puzzle)
+# Feature Specification: Bloomlings Launch Game (Colony Flow–style buffer puzzle)
 
 **Feature Branch**: `001-core-game-mvp`
 
@@ -10,388 +10,669 @@
 
 ## Overview
 
-Bloomlings is a conceptual re-creation of **Colony Flow!** (ABI Games, iOS/Android). Like the original, it is a
-relaxing puzzle with one-tap controls and no time pressure. The player sends groups of small workers from a tray
-into five waiting slots. The workers clear the matching cells they can reach on the board. The player wins by
-clearing the board and loses if the waiting slots jam.
+Bloomlings is a conceptual re-creation of **Colony Flow!** (ABI Games, iOS/Android). Colony Flow is the
+structural reference. From it Bloomlings takes:
 
-**We keep from the reference game**: the core loop and its rules, simple controls and screens, the pace at which
-levels get harder and new mechanics appear, and simple, readable level layouts.
+- a dense board that looks like a picture;
+- numbered source groups in a stacked tray;
+- five waiting slots;
+- workers that match automatically;
+- partial completion;
+- the risk of a jam;
+- no timer;
+- sequential "Level N" progression;
+- a minimal Home screen and a Play → Level → Next flow.
 
-**What makes Bloomlings different** comes from the direction in `product/CONCEPT.md`. That document is a direction,
-not binding rules. The differences:
+**What makes Bloomlings different**:
 
-- an enchanted-garden setting, with garden spirits instead of ants;
-- clearing an overgrown layer reveals a restored garden scene underneath;
-- progress through garden areas on a map;
-- a guarantee that every level can be won without boosters;
-- a few extra mechanics taken from the concept.
+- Four Bloomling character families (Sprig, Bloom, Drop, Twig) replace the ants.
+- Each family contains several *exact target variants*, which are the real matching colors.
+- Clearing the board reveals the finished picture underneath.
+- Bloomlings-specific mechanics: layered tiles, the Fountain and garden gates.
+- Every level can be won without boosters.
+
+**Source documents**:
+
+- `product/LOCKED_CONCEPT_v0.5.md` and `product/01`–`15` (v0.5, "draft for lock") are the detailed design.
+- `product/CONCEPT.md` (v0.1) is the original vision.
+
+This spec turns them into testable requirements. Where the documents leave a decision open, the spec either records
+a default or asks a question.
 
 | Aspect | Colony Flow (reference) | Bloomlings |
 |---|---|---|
-| Workers | Ants that leave a nest hole | Garden spirits (Sprig, Bloom, Drop, Twig) that enter through a garden gate |
-| Board | A pixel-art picture that is cleared away | Overgrown garden cells; clearing them reveals a restored scene underneath |
-| Core loop | Tray → 5 waiting slots → workers clear reachable matching cells → jam = fail | Same |
-| Mechanics | Hidden boxes, locked boxes + keys, connected boxes, a second nest | Same, plus layered cells, mystery cells, stones and a locked slot |
-| Boosters | Extra Slot, Shuffle, Pick Up, Vacuum | The same four roles: Extra Slot, Shuffle, Return, Clear Type |
-| Meta | A collection of finished pictures | Garden areas restored step by step on a garden map |
-| Hard levels | Hard / Super Hard; players report that some need boosters | Hard / Super Hard; every level can be won without boosters |
+| Workers | Ants from a nest hole | Bloomlings of 4 families that emerge from the Garden Entry |
+| Matching colors | Many picture colors | 8 exact target variants at launch (2 per family); 12+ supported |
+| Board | Pixel-art picture that is cleared away | Picture-like mosaic of target tiles; clearing reveals the finished picture beneath |
+| Core loop | Tray → 5 slots → workers clear reachable matching cells → jam = fail | Same |
+| Boosters | Extra Slot (L3), Shuffle (L4), Pick Up (L6), Vacuum (L9) | Extra Slot (L3), Shuffle (L4), Return (L6), Bloom Burst (L9) |
+| Progression | Linear levels | Linear Level N (5000+ at launch); no map, no level groupings |
+| Hard levels | Hard / Super Hard; players report that some need boosters | Hard (from L5) / Super Hard (from L10); none need boosters |
+| Meta | Collection of finished pictures | Milestones, Leaderboard (L10), Wardrobe (L40), Daily Challenge (L50), Collection |
+
+## Clarifications
+
+### Session 2026-09-29
+
+- **Q: Should the release keep only four cell types, or expand the palette?**
+  A: Families ≠ gameplay types. There are 4 Bloomling families and 8 launch target variants (2 per family). The
+  model supports 12+ variants, and a level typically uses 3–6. Matching is exact: a Leaf Sprig pod cannot clear
+  Moss. See docs 01, 03, 05, 06, 12 and 14.
+- **Q: What is the scope of the first release?**
+  A: Option B. It is the full launch game including the free-to-play layer: store, ads, in-app purchases and daily
+  rewards. Lives are still open; see FR-040.
+- **Q: Are levels grouped?**
+  A: No. There are no garden areas and no level map, only sequential levels as in Colony Flow.
+- **Q: How many levels, and how are they produced?**
+  A: 5000+ levels. We generate them, but each level must be identical for all players. A level may be stored as a
+  compact config from which the game builds the cells, as in Colony Flow.
+- **Q: What is a level visually?**
+  A: As in Colony Flow, every level is a picture. The concrete approach is still open; see FR-006.
 
 ## User Scenarios & Testing *(mandatory)*
 
-### User Story 1 - Play a level: send spirits, restore the garden, avoid the jam (Priority: P1)
+### User Story 1 - Play a level: commit pods, restore the picture, avoid the jam (Priority: P1)
 
-A player opens a level and sees three parts, from top to bottom:
+A player starts a level and sees, from top to bottom:
 
-- the overgrown board, with a garden gate on its bottom edge;
-- a row of five empty waiting slots;
-- the tray of spirit groups. Each group shows its spirit type and a number.
+- a top bar;
+- a dense board that looks like a picture, made of target tiles in 3–6 exact variants;
+- the Garden Entry and five Waiting Slots below the board;
+- the stacked Source Tray, whose exposed pods show a variant icon, a color and a count.
 
-The player taps a group in the front row of the tray, and the group moves into a free slot. Its spirits walk out of
-the gate to the nearest reachable cells of their type and clear them one by one. The group's number counts down
-with each cleared cell. Clearing outer cells opens the way to deeper cells. When the number reaches zero, the group
-leaves and its slot is free again. Each cleared cell uncovers a piece of a restored garden scene.
+The player taps an exposed Spirit Pod. It moves into the first free slot, and Bloomlings of its family and variant
+run out of the Garden Entry. They clear reachable tiles of that exact variant, one work unit per tile-layer, while
+the pod's count goes down. Clearing tiles opens routes to deeper tiles and reveals the finished picture beneath.
 
-The player wins when every clearable cell is gone. The player loses when all slots are full and none of the waiting
-groups can reach a cell of its type.
+When a pod's count reaches zero, it leaves and its slot frees up. The player wins when every required tile-layer is
+cleared. The player loses when every usable slot holds a pod that cannot reach its variant and nothing else can
+change.
 
-**Why this priority**: This loop is the game. Every other story builds on it, and on its own it is enough to test
-whether the design is fun and clear.
+**Why this priority**: This loop is the game. It alone is enough to test clarity, fun and fairness.
 
-**Independent Test**: Play one hand-made level with 3 cell types and about 8 groups from start to win. Then replay
-it in a deliberately bad order until it jams.
+**Independent Test**: Play a curated level with 4 variants, including two from the same family, from start to win.
+Replay it in a deliberately bad order until it jams.
 
 **Acceptance Scenarios**:
 
-1. **Given** a level has just started, **When** the player taps a group in the front row of the tray while a slot is free, **Then** the group moves into the leftmost free slot. Its spirits start clearing reachable cells of its type, and its number goes down by one for each cleared cell.
-2. **Given** a group in a slot needs more cells than are currently reachable, **When** it has cleared all reachable matching cells, **Then** it stays in its slot with its remaining number shown. It resumes on its own as soon as more matching cells become reachable.
-3. **Given** a group's number reaches zero, **When** its last cell is cleared, **Then** the group leaves and its slot is at once available for the next selection.
-4. **Given** every usable slot is occupied, **When** the player taps a group in the tray, **Then** the selection is refused with clear feedback and nothing else changes.
-5. **Given** every usable slot is occupied and no waiting group can reach a cell of its type, **When** all spirit movement has finished, **Then** the level ends in a jam. The player is offered to continue with a booster or to retry.
-6. **Given** the last clearable cell is cleared, **Then** the level is won. The full restored scene is shown with a short celebration, followed by the rewards and a button to go to the next level.
-7. **Given** the player retries a level, **Then** the level restarts with exactly the same board and tray as the first attempt.
-8. **Given** only one usable slot is still free, **Then** the slot row shows a clear warning that the next selection could cause a jam.
+1. **Given** a level has started, **When** the player taps an exposed pod while a usable slot is free, **Then** the pod moves into the first free slot. Its Bloomlings clear reachable tiles of its exact variant, and the count drops by one per cleared tile-layer.
+2. **Given** a Leaf Sprig pod is active and a Moss tile is reachable, **Then** the Moss tile is not cleared, because the family is not a wildcard.
+3. **Given** a `Moss Sprig ×20` pod with only 12 reachable Moss tiles, **When** those 12 are cleared, **Then** the pod shows `×8` and stays in its slot. It resumes on its own when more Moss becomes reachable.
+4. **Given** two active pods of the same exact variant, **Then** the pod in the older slot receives tiles first.
+5. **Given** a pod's count reaches zero, **Then** it leaves and its slot is free at once for the next tap.
+6. **Given** every usable slot is occupied, **When** the player taps a pod, **Then** the tap is refused with visible feedback and nothing changes.
+7. **Given** every usable slot is occupied but at least one pod is still clearing tiles, **Then** there is no jam.
+8. **Given** every usable slot is occupied, every pod has zero reachable matching tiles, and no automatic event is pending, **Then** the Jam screen appears with the board still visible. It offers the eligible recovery options and Restart.
+9. **Given** the last required tile-layer is cleared and all mandatory specials are resolved, **Then** the finished picture is fully revealed, the reward is shown, and "Next" leads to the next level.
+10. **Given** the player restarts a level, **Then** it restarts from exactly the same definition: same board, same tray and same pods.
 
 ---
 
-### User Story 2 - Progress through levels with a gentle learning curve (Priority: P2)
+### User Story 2 - Endless linear progression: Home → Play → Level N → Next (Priority: P1)
 
-A new player launches the game and goes straight into level 1, where a pointer shows which group to tap. Each win
-unlocks the next level. Early levels are small and teach one idea at a time. At most one new mechanic or booster appears per level,
-always on a Normal level and with a short visual demonstration. Some levels are announced as
-Hard or Super Hard before they start. Progress is saved automatically. On later launches, the player lands on the
-garden map with one big button to play the next level.
+A new player launches the game and goes straight into Level 1. After that, the Home screen shows:
 
-**Why this priority**: Progression and onboarding turn a single puzzle into a game players come back to. They also
-reproduce the reference game's gradual rise in difficulty.
+- the current Level N;
+- a big Play button;
+- the player's Petals;
+- a teaser for the next milestone.
 
-**Independent Test**: A new player installs the game and completes levels 1–10 without outside help. They close the
-game, reopen it, and continue from level 11.
+Winning always leads to the next level. There is no map and no level chooser. Early levels unlock new systems
+quickly: boosters at L3, L4, L6 and L9, the Hard label at L5, Daily Reward at L7, and Leaderboard plus Super Hard at
+L10. Difficulty rises and falls in waves. Level N is the same level for every player on every device.
+
+**Why this priority**: Sequential Level N progression is the product's backbone, just as in the reference game.
+
+**Independent Test**: A new player completes Levels 1–10 without outside help. Along the way they meet every unlock
+in the roadmap. They restart the app and continue from Level 11. A second device shows the same Level 11 board.
 
 **Acceptance Scenarios**:
 
-1. **Given** the game is launched for the first time, **When** it finishes loading, **Then** level 1 starts directly, with no sign-in and no menus, and the first tap is guided.
-2. **Given** the player wins level N, **When** they tap "Next", **Then** level N+1 starts.
-3. **Given** a level introduces a new mechanic or booster, **When** it starts, **Then** a short, mostly visual demonstration explains it, and the level contains no other new element.
-4. **Given** the next level is Hard or Super Hard, **When** it is about to start, **Then** the player sees its difficulty label with a distinct visual treatment.
-5. **Given** the player has played before, **When** they launch the game, **Then** they land on the garden map, which has one prominent Play button for their next level.
-6. **Given** the player closes the game at any moment, **When** they reopen it, **Then** their current level, coins, boosters and settings are restored. A level left unfinished starts again from the beginning, without penalty.
+1. **Given** the game is launched for the first time, **When** it finishes loading, **Then** Level 1 starts directly, with no sign-in and no menus, and the first tap is guided.
+2. **Given** the player wins Level N, **When** they tap "Next", **Then** Level N+1 starts. The Home screen always shows the current Level N with one Play button.
+3. **Given** two players on different devices reach Level N, **Then** both play the identical level: same picture, board, tray, pods and mechanics.
+4. **Given** the player reaches a level listed in the unlock roadmap, **Then** the new system is demonstrated at that level or within the next 1–2 levels. A booster unlock grants one free charge.
+5. **Given** the next level is Hard or Super Hard, **When** it is about to start, **Then** its label is shown with a distinct visual treatment.
+6. **Given** the player closes the app at any moment, **When** they reopen it, **Then** their progress, Petals, boosters, unlocks, cosmetics and settings are restored.
 
 ---
 
-### User Story 3 - Advanced mechanics keep levels fresh (Priority: P3)
+### User Story 3 - 5000+ deterministic levels built from a validated catalog (Priority: P2)
 
-As the player advances, levels combine new elements:
+The content team produces the launch catalog of at least 5000 sequential levels:
 
-- mystery groups, whose type is revealed only when they reach the front of the tray;
-- locked groups, which open with a key found on the board;
-- linked groups, which must be placed together;
-- a second garden gate;
-- layered cells, which reveal another type underneath;
-- mystery cells;
-- stones, which can never be cleared;
-- a waiting slot that starts locked.
+- Levels 1–100 are heavily curated.
+- Levels 101–500 are generated and strongly reviewed.
+- Levels 501–5000+ are generated from progression profiles.
 
-**Why this priority**: The core loop is complete without these elements. They provide the long-term variety and the
-rise in difficulty that the reference game relies on.
+Every level is generated solution-first, checked by the solver, scored and classified as Normal, Hard or Super Hard.
+It is then published as a stable, versioned level definition. The game builds each level from its definition. The
+same definition always produces the same level.
 
-**Independent Test**: For each mechanic, play a dedicated level that uses only the core loop plus that mechanic.
-Check every acceptance scenario below.
+**Why this priority**: Without a validated catalog, the product cannot sustain long-run players. The level scale is
+a launch requirement.
+
+**Independent Test**:
+
+1. Generate a batch of levels for one progression band.
+2. Run the validation suite and check that invalid candidates are rejected.
+3. Publish the batch.
+4. On two devices, check that the published levels build identically.
+5. Change the content version and check that already-shipped levels do not change silently.
 
 **Acceptance Scenarios**:
 
-1. **Given** a mystery group is not in the front row, **Then** its type is hidden and its number is visible. **When** it reaches the front row, **Then** its type is revealed before the player can select it.
-2. **Given** a locked group is in the front row, **When** the player taps it, **Then** it is not selected and the game highlights the key it needs. **When** the cell that carries that key is cleared, **Then** the key flies to the lock and the group becomes selectable.
-3. **Given** two linked groups are in the front row and at least two usable slots are free, **When** the player taps either of them, **Then** both move into slots at the same time. **Given** there are fewer free usable slots than linked groups, **Then** the selection is refused with clear feedback.
-4. **Given** a level has two gates, **Then** a cell counts as reachable if it touches open ground connected to either gate.
-5. **Given** a layered cell, **Then** it shows its current type and signals what lies beneath. **When** its top layer is cleared, **Then** the next type appears in the same cell and can be cleared by its own spirits.
-6. **Given** a mystery cell becomes reachable, **Then** its type is revealed and stays revealed.
-7. **Given** a stone cell, **Then** it can never be cleared or walked through, and it is not required to win.
-8. **Given** a level starts with a locked slot, **Then** only four slots are usable until the slot's key is collected from the board.
+1. **Given** a generation profile for a level band, **When** a batch is generated, **Then** every accepted level passes all invariants and every rejected candidate records the reason. The invariants are: solvable without boosters, exact per-variant accounting, no mechanic before its unlock level, no unavoidable hidden-information failure, and a readable palette.
+2. **Given** a published catalog, **When** the app or the content is updated, **Then** no shipped level number silently gets a different level unless the change is a deliberate, versioned content fix.
+3. **Given** a bug report with app version, level number and content version, **Then** the team can rebuild and replay exactly that level.
+4. **Given** the launch catalog, **Then** all of its 5000+ levels are playable offline right after install.
+5. **Given** a new content pack is published, **Then** players receive the new or fixed levels without installing a new app version.
 
 ---
 
-### User Story 4 - Boosters and coins help recover from mistakes (Priority: P4)
+### User Story 4 - Mechanics expand on a planned roadmap (Priority: P3)
 
-The player earns coins for each win. Harder levels pay more, and winning without boosters adds a bonus. Four
-boosters unlock one by one during the first levels. Each comes with a demonstration and free uses:
+As Level N grows, new board and source mechanics appear one at a time. Each follows the same pattern: showcase,
+then practice, then combination. The main ones are:
 
-- **Extra Slot**: a sixth slot for the rest of the level.
-- **Shuffle**: rearranges the remaining tray.
-- **Return**: sends a group from a slot back to the tray.
-- **Clear Type**: removes one type from the level.
+- stones;
+- keys and locked pods;
+- connected pods;
+- layered tiles;
+- garden gates (heavy blockers);
+- the Fountain;
+- a locked waiting slot;
+- mystery pods and mystery tiles, only if their fairness validation passes.
 
-When the slots jam, the player can continue by using a booster that resolves the jam.
+After about Level 500, new core mechanics become rare. Variety then comes from pictures, variant sets, source layouts
+and difficulty profiles.
 
-**Why this priority**: Boosters soften frustration on hard levels and give coins a purpose. The game is fully
-playable without them.
+**Why this priority**: The core loop is complete without these mechanics. They provide long-run depth and variety.
 
-**Independent Test**: Win levels to earn coins, buy each booster, and use each booster in a level. Then continue a
-jammed level with Extra Slot.
+**Independent Test**: For each mechanic, play its showcase level and one combination level. Check every acceptance
+scenario below.
 
 **Acceptance Scenarios**:
 
-1. **Given** the player wins a level without boosters, **Then** they receive the level's base coins plus the no-booster bonus.
-2. **Given** the player reaches a booster's unlock level, **Then** its demonstration plays and the player receives its free uses.
-3. **Given** the player owns an Extra Slot, **When** they use it, **Then** a sixth usable slot appears until the end of the level. Extra Slot cannot be used twice in the same level.
-4. **Given** the player uses Return on a group in a slot, **Then** the group goes back to the front of its tray column with its remaining number, and the slot becomes free.
-5. **Given** the player uses Shuffle, **Then** the groups left in the tray are rearranged. Locked groups stay locked and linked groups stay together. If any tray group has a reachable matching cell, at least one such group ends up selectable.
-6. **Given** the player uses Clear Type on a type, **Then** every cell and layer of that type and every group of that type, in the tray and in the slots, are removed from the level.
-7. **Given** a level has jammed, **When** the player owns or can afford a booster that resolves the jam, **Then** they can use it and continue. Otherwise, only Retry is offered.
-8. **Given** a booster can have no effect in the current state, **Then** its button is disabled.
+1. **Given** a key lies on a target tile, **When** that tile's supporting layer is cleared, **Then** the key is collected without costing extra work, and its paired lock opens. The lock can be on a pod, a slot or a gate.
+2. **Given** a locked pod is exposed, **When** the player taps it, **Then** it is not committed and the game highlights the key it needs. Pods behind it stay buried until it leaves.
+3. **Given** connected pods are exposed and there are enough free usable slots, **When** either is tapped, **Then** all of them are committed together, each to its own slot. **Given** there are not enough free usable slots, **Then** the tap is refused with feedback.
+4. **Given** a layered tile `Leaf → Violet Bud`, **When** its Leaf layer is cleared, **Then** Violet Bud appears in the same cell and an active Violet pod starts on it automatically.
+5. **Given** a Fountain requires, for example, 6 Water tiles around it to be restored, **When** the condition is met, **Then** a visible board change happens, such as a route opening or a layer being revealed.
+6. **Given** a level with a locked waiting slot, **Then** only four slots are usable until its key is collected.
+7. **Given** a mystery pod (`? ×12`) is committed, **Then** its exact variant is revealed. The variant is fixed in the level data, and the level never forces a blind guess.
+8. **Given** a mystery tile becomes reachable, **Then** its exact variant is revealed.
 
 ---
 
-### User Story 5 - Restore the enchanted garden (Priority: P5)
+### User Story 5 - Boosters and Petals help recover from mistakes (Priority: P3)
 
-Levels belong to garden areas, for example Forgotten Courtyard, Lily Ponds, Old Orchard and Ancient Greenhouse. A
-garden map shows the areas in order and where the player is. Each win restores a visible part of the current area.
-Finishing an area shows it fully restored and opens the next one.
+Four boosters unlock during onboarding, each with one free charge:
 
-**Why this priority**: This is the long-term emotional payoff that sets Bloomlings apart from the reference game.
-It is not needed to play and enjoy the levels.
+- **Extra Slot** (L3) adds a sixth slot for the level.
+- **Shuffle** (L4) rearranges the Source Tray.
+- **Return** (L6) sends a waiting pod back to the Source Tray.
+- **Bloom Burst** (L9) clears one exact variant.
 
-**Independent Test**: Complete every level of the first area. Check that the map fills in step by step and that the
-second area opens with a celebration.
+Petals are earned from wins and milestones and are spent on boosters. When a level jams, the player can use an
+eligible booster or a limited rewarded-ad rescue, or restart.
+
+**Why this priority**: Boosters turn tactical mistakes into recoverable moments and drive the economy. No level
+requires them.
+
+**Independent Test**: Reach L9 and use each booster's free charge in a level. Earn Petals and buy a booster. Jam a
+level and recover it with Extra Slot and then with the ad rescue.
 
 **Acceptance Scenarios**:
 
-1. **Given** the player opens the garden map, **Then** they see all areas in order. The map shows which areas are restored, which is in progress (with the number of levels left) and which are still locked.
-2. **Given** the player wins a level, **When** they return to the map, **Then** the part of the area that matches that level appears restored.
-3. **Given** the player wins the last level of an area, **Then** a short celebration shows the fully restored area, and the next area unlocks.
-4. **Given** an area is fully restored, **Then** the player can view its restored scene at any time.
+1. **Given** the player uses Extra Slot, **Then** a sixth usable slot appears until the level ends. No second Extra Slot can be active in the same level.
+2. **Given** the player uses Shuffle, **Then** only the remaining eligible Source Pods are rearranged; waiting pods are unaffected, locks stay attached to their pods, and connected pods stay connected. If any arrangement can still be won, the result can be won.
+3. **Given** the player uses Return on an unfinished waiting pod, **Then** its remaining count goes back to the top of its original Source stack, and the slot frees up. Tiles already cleared stay cleared.
+4. **Given** the player uses Bloom Burst on a visible exact variant, **Then** that variant is removed from the level consistently (see FR-050), and per-variant accounting still reconciles.
+5. **Given** a jam, **When** the player watches a rewarded ad for a rescue, **Then** they receive the rescue effect. The rescue is available at most once per attempt.
+6. **Given** a booster could have no effect in the current state, **Then** its button is disabled.
+7. **Given** the player wins without boosters, **Then** they earn the clean-clear bonus on top of the base Petals.
+
+---
+
+### User Story 6 - Store, ads and daily rewards (Priority: P4)
+
+- **Daily Reward** unlocks at L7: the player claims a small reward once a day.
+- **The full Store** opens at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics
+  join after the Wardrobe unlock.
+- **Rewarded ads** are always optional and started by the player. They offer a jam rescue, a free booster, a doubled
+  win reward or a daily bonus.
+- **Interstitial ads** appear only at natural post-win transitions, outside onboarding, with a frequency cap. Remove
+  Ads turns them off.
+- **Purchases** can be restored on a new device.
+
+**Why this priority**: This is the business layer the user chose for launch (answer B). It must never block or break
+the puzzle.
+
+**Independent Test**:
+
+1. Play through L12.
+2. Claim the daily reward on two different days.
+3. Buy Remove Ads and check that no interstitial appears afterwards.
+4. Reinstall on another device and restore the purchase.
+5. Play 30 levels without Remove Ads and check that interstitials follow the placement and frequency rules.
+
+**Acceptance Scenarios**:
+
+1. **Given** a level is in progress or the player has just failed, **Then** no interstitial ad is ever shown.
+2. **Given** the player owns Remove Ads, **Then** interstitials never appear, while optional rewarded ads stay available.
+3. **Given** the player reinstalls or changes device, **When** they restore purchases, **Then** permanent entitlements such as Remove Ads return.
+4. **Given** the player is offline, **Then** gameplay, progression and owned boosters work, while store purchases and ads are unavailable and clearly marked as such.
+5. **Given** any level, **Then** it can be completed without spending money or watching ads.
+
+---
+
+### User Story 7 - Long-run motivation: leaderboard, milestones, cosmetics, collection (Priority: P5)
+
+- **Leaderboard** (L10): the player sees their rank by highest completed level.
+- **Milestones**: every 25 levels bring a bundle, every 50 a cosmetic or profile reward, every 100 a major
+  milestone, and larger prestige rewards come at 250, 500, 1000 and so on.
+- **Wardrobe** (L40): cosmetic skins for Bloomlings.
+- **Daily Challenge** (L50, may be cut from launch): one optional puzzle a day with its own reward.
+- **Collection**: every finished picture is stored and can be viewed.
+- **Background themes** rotate automatically by level band, for example daylight garden, pond, orchard and moonlit
+  garden.
+
+**Why this priority**: These features keep players at Level 1000–5000 motivated without changing the core rules.
+
+**Independent Test**: Reach L50 and check each unlock. Check the leaderboard rank after completing levels. Equip a
+skin. Complete the daily challenge. Open the Collection.
+
+**Acceptance Scenarios**:
+
+1. **Given** the player completes a level after L10, **Then** the leaderboard reflects their new highest completed level once online.
+2. **Given** the player reaches a milestone level such as 25, 50 or 100, **Then** its reward is granted once, with a short celebration.
+3. **Given** the player equips a skin, **Then** Bloomlings look different but gameplay and tile readability are unchanged.
+4. **Given** the player completes the daily challenge, **Then** they get its reward and their main Level N is unchanged.
+5. **Given** the player wins a level, **Then** its finished picture appears in the Collection. The Collection is never a level selector.
 
 ---
 
 ### Edge Cases
 
-- **Tap on a group outside the front row**: nothing is selected. A subtle hint shows that only front-row groups can be selected.
-- **Fast taps while spirits are still moving**: each accepted tap is applied in order. The result is the same as with slow taps.
-- **Two groups of the same type in slots at the same time**: the group placed earlier gets cells first, and the later group takes what remains.
-- **Group selected while its type has no reachable cells**: allowed. The group waits in its slot; managing this risk is the core of the game.
-- **Last free slot filled while spirits are still opening new paths**: a jam is checked only after all movement has settled. If the new paths let a waiting group work, there is no jam.
-- **Cleared layered cell reveals a type that a group is already waiting for**: that group starts clearing it on its own.
-- **Key collected while its locked group is still behind other groups**: the group is unlocked. It becomes selectable once it reaches the front row.
-- **Locked group blocks the front of its column and its key can never be reached**: level validation prevents this. Every key must be collectable in at least one winning sequence.
-- **Tray empty or unselectable, groups waiting in slots, none can work, and clearable cells remain**: the level is lost as "stuck". This can only happen with locks or linked groups. It offers the same continue and retry options as a jam.
-- **Win and jam at the same moment** (the last cell is cleared while the slots are full): the win takes precedence.
-- **App sent to the background or interrupted** (a call, a notification): the level pauses and resumes exactly where it was. If the app is closed, the level restarts from the beginning next time.
-- **Jam with no boosters and not enough coins**: only Retry is offered, without any penalty.
-- **Return used on a group that belonged to a linked set**: only that group returns. Once the groups are placed, the link no longer exists.
-- **Clear Type removes the cell that carries a key**: the key is collected.
-- **Level needs a group larger than the remaining cells of its type, or has cells that can never be reached**: level validation rejects it before release.
+- **Fast taps while Bloomlings are moving**: every accepted tap is applied in order against the current logical state. The same sequence of accepted taps always produces the same outcome.
+- **A pod is committed while its variant has no reachable tiles**: this is allowed. The pod waits; this is the core risk the player manages.
+- **The last free slot is filled while routes are still opening**: a jam is checked only once no automatic event is pending.
+- **Two variants of the same family are in the buffer together**: they stay visually distinct, and each responds only to its own tiles.
+- **A layered tile reveals a variant for which a pod is waiting**: that pod starts automatically.
+- **A key is collected while its locked pod is still buried**: the pod is unlocked and becomes selectable once exposed.
+- **No waiting pod can progress, and no Source Pod can be committed** (for example, only locked pods remain, or connected pods need more slots than are free), **while required work remains**: this is treated as a jam, with the same recovery options.
+- **Win and jam conditions are met at the same moment**: the win takes precedence.
+- **The app goes to the background or is interrupted during a level**: the level pauses and resumes exactly where it was. If the app is killed, the level restarts from its beginning.
+- **A content update changes the level the player is currently on** (a deliberate fix): the player's level number is kept, and the new version applies from the next attempt.
+- **Offline at a jam**: ad rescue and store purchases are unavailable. Owned boosters and Restart still work.
+- **Bloom Burst is used on a variant that also exists in hidden layers**: see FR-050. Accounting must still reconcile, and the level must stay completable.
+- **Leaderboard submission from a modified client** that jumps levels impossibly or uses an incompatible content version: the submission is rejected by sanity checks.
+- **A generated candidate reaches the solver with an ambiguous palette** (two confusing variants in one board): it is rejected.
 
 ## Requirements *(mandatory)*
 
 ### Functional Requirements
 
-#### Board and cells
+#### A. Board, target variants and pictures (docs 01, 03, 05, 12)
 
-- **FR-001**: Each level MUST have a board of square cells in which every cell is exactly one thing: open ground, a clearable garden cell of a single type, a special cell (layered or mystery), or a stone. No cell may ever look partially occupied.
-- **FR-002**: The game MUST launch with four cell types, each cleared only by its own spirit: Greenery (leaf) by Sprig, Flowers by Bloom, Water by Drop, and Wood by Twig. [NEEDS CLARIFICATION: should the release keep only these four types, or add new garden types with their own spirits in later areas, to come closer to the reference game's color variety?]
-- **FR-003**: Every cell type and every spirit MUST be recognizable by its shape or icon, not by color alone.
-- **FR-004**: Each board MUST have at least one garden gate on its edge, usually at the bottom. Spirits enter the board only through gates.
-- **FR-005**: A clearable cell MUST count as reachable only when it is orthogonally adjacent to a gate, or to open ground that connects to a gate through orthogonally adjacent open ground. Diagonal contact does not count.
-- **FR-006**: Spirits MUST never clear an unreachable cell, even when a matching group is waiting.
-- **FR-007**: A cleared cell MUST become open ground, unless it is a layered cell with layers left. It MUST reveal the part of the level's restored garden scene that lies beneath it.
+- **FR-001**: The board MUST be a dense grid of full cells. Each cell MUST be exactly one thing:
+  - open (restored) ground;
+  - a target tile of one exact variant, possibly with layers beneath;
+  - a mystery tile;
+  - a blocker (stone, heavy blocker or gate);
+  - part of an environmental object (for example, the Fountain).
 
-#### Tray and selection
+  A key may lie on a target tile. No cell may look partially occupied.
+- **FR-002**: The four Bloomling families (Sprig, Bloom, Drop, Twig) MUST be character families only. The gameplay type MUST be the exact target variant. The launch pool MUST contain these 8 variants:
 
-- **FR-008**: The tray MUST show every remaining group, arranged in columns, with its spirit type and number. The type of a mystery group stays hidden until it reaches the front row.
-- **FR-009**: Only the group at the front of each column MUST be selectable. When it leaves, the next group in that column moves to the front.
-- **FR-010**: Selecting a group MUST take a single tap. Gameplay MUST use no dragging, swiping, timing or multi-touch.
-- **FR-011**: A selected group MUST move to the leftmost free usable slot. If no usable slot is free, the selection MUST be refused with visible feedback and no change to the game state.
+  | Family | Variants |
+  |---|---|
+  | Sprig | Leaf (green), Moss (teal) |
+  | Bloom | Flower (pink), Violet Bud (purple) |
+  | Drop | Water (blue), Dew (cyan) |
+  | Twig | Wood (brown), Acorn (orange) |
 
-#### Waiting slots and spirit behavior
+  The game MUST support at least 12 variants without new rules. Examples of future variants: Vine (lime), Berry (red), Mist (indigo), Bark (gold).
+- **FR-003**: A pod MUST clear only tiles of its exact target variant. A family is never a wildcard.
+- **FR-004**: Active variants per level MUST follow these ranges:
 
-- **FR-012**: A level MUST start with five usable waiting slots, unless it uses the locked-slot mechanic.
-- **FR-013**: A group in a slot MUST automatically send its spirits to reachable cells of its type. Each cleared cell lowers the group's number by one.
-- **FR-014**: When fewer matching cells are reachable than the group's number, the group MUST clear what it can and stay in its slot. It MUST resume on its own when new matching cells become reachable.
-- **FR-015**: When a group's number reaches zero, the group MUST leave and its slot MUST become free at once.
-- **FR-016**: When several waiting groups share a type, cells MUST go first to the group placed earliest.
-- **FR-017**: When more matching cells are reachable than a group needs, spirits MUST pick cells by a fixed rule that players can anticipate: nearest to a gate by walking distance first, then a fixed tie-break order.
-- **FR-018**: Groups in different slots MUST work at the same time.
-- **FR-019**: The same sequence of accepted selections and booster uses MUST always give the same result. The result MUST never depend on tap speed, animation speed, device or frame rate. The Shuffle booster is the only random element.
-- **FR-020**: The player MUST be able to make the next selection while spirits are still moving.
-- **FR-021**: In every level, the group numbers of each type MUST add up to the number of cells of that type, counting layers and hidden cells.
+  | Level type | Active variants |
+  |---|---|
+  | Tutorial | 2–3 |
+  | Early | 3–4 |
+  | Standard | 4–5 |
+  | Advanced | 5–6 |
+  | Exceptional | 7, only if readability checks pass |
+- **FR-005**: Each variant MUST be identified by at least hue and icon. Tiles MUST show simple target symbols, never character faces. Two variants of the same family MUST be as easy to tell apart as two unrelated colors. No pair of variants may appear together in a level until it has passed the readability tests: grayscale/icon, small size, color distance, pod, slot and moving character.
+- **FR-006**: Every level MUST be a picture, as in the reference game. [NEEDS CLARIFICATION: what exactly makes a level a picture? (A) Picture-first mosaic: the tile colors themselves draw the subject. (B) Silhouette-first, as in docs 05/06: the board outline is the subject's silhouette, and the inside is generated clusters. (C) Hybrid: picture-first for curated and milestone levels, silhouette-first for the long tail.]
+- **FR-007**: Each cleared cell MUST reveal the matching part of the level's finished picture beneath it (restoration reveal). Open cells MUST stay visually distinct from active target tiles.
+- **FR-008**: Board size MUST range from 7×8 cells in tutorials to at most 14×16 cells. The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the playable silhouette MUST be between 75% and 95%.
+- **FR-009**: Each level MUST have at least one Garden Entry, by default at the bottom center. Some levels MAY use two entries or a side entry.
+- **FR-010**: A target MUST count as reachable only when an orthogonally connected route of open cells leads from a Garden Entry to a side of that target. Diagonal contact does not count. Blockers are never walkable.
 
-#### Win, jam and retry
+#### B. Source Tray and Waiting Buffer (doc 02)
 
-- **FR-022**: A level MUST be won when every clearable cell has been cleared; stones do not count. A win MUST show the fully restored scene with a celebration of at most 5 seconds that a tap can skip, followed by the rewards.
-- **FR-023**: A level MUST be lost by jam when, after all spirit movement has settled, every usable slot is occupied and no waiting group can clear a cell.
-- **FR-024**: A level MUST be lost as stuck when, after all movement has settled, all three hold: no waiting group can clear a cell, no tray group can be selected, and clearable cells remain.
-- **FR-025**: Jam or stuck MUST never be declared while spirits are still working.
-- **FR-026**: When only one usable slot remains free, the slot row MUST show a visible warning until a second slot frees up.
-- **FR-027**: On jam or stuck, the player MUST be offered two choices: use a booster that can resolve the situation, whether owned or bought with coins, or Retry. Declining ends the attempt.
-- **FR-028**: Retry MUST restart the level with the same initial board and tray. Retries MUST be unlimited and free.
-- **FR-029**: There MUST be no time limit and no move limit. Jam and stuck are the only ways to lose.
-- **FR-030**: The player MUST be able to pause, restart or leave a level at any time without penalty.
+- **FR-011**: The Source Tray MUST consist of stacks of Spirit Pods. Only the exposed pod of each stack is selectable, and removing it exposes the next one. The number of stacks varies by level.
+- **FR-012**: Each pod MUST show, in this order of prominence: exact variant icon, exact variant color, count, and family silhouette. It MUST also show any state: connected, locked or mystery.
+- **FR-013**: Visibility MUST follow these rules:
 
-#### Mechanics introduced over time
+  | Pod type | What is visible |
+  |---|---|
+  | Ordinary | Variant and count |
+  | Locked | Variant, count and lock |
+  | Mystery | `?` and count |
+  | Connected | A visible link across all members |
+- **FR-014**: Tapping an exposed, selectable pod MUST move it to the first free usable slot. If no usable slot is free, the tap MUST be refused with feedback and no state change.
+- **FR-015**: The Waiting Buffer MUST have exactly 5 slots by default. Slots show the pod's variant, remaining count and waiting/active state. Pods in slots cannot be reordered manually.
+- **FR-016**: The player MUST be able to commit more pods while Bloomlings are working. The player MUST never tap target cells.
 
-- **FR-031**: **Mystery group**: its type MUST stay hidden, with the number visible, until it reaches the front row. There it is revealed before it can be selected.
-- **FR-032**: **Locked group and key**: a locked group MUST stay unselectable until its matching key is collected. Each key MUST be clearly paired with exactly one lock by the same color or symbol. A key sits on a clearable cell and is collected automatically when that cell, or its top layer, is cleared.
-- **FR-033**: **Linked groups**: two groups (three in later levels) are visibly linked in the tray. Tapping any of them MUST select them all together, each taking its own slot. If there are not enough free usable slots, the selection MUST be refused. Once placed, each group behaves on its own.
-- **FR-034**: **Multiple gates**: a level MAY have two or more gates. Reachability is counted from all of them.
-- **FR-035**: **Layered cell**: MUST show its current type and signal how many layers lie beneath and the type of the next one. Clearing the top layer reveals the next type in the same cell. The cell becomes open ground only after its last layer is cleared. Each layer counts as one cell of its type.
-- **FR-036**: **Mystery cell**: its type MUST stay hidden until the cell becomes reachable, then stay revealed.
-- **FR-037**: **Stone**: MUST never be cleared or passed through, and is not required to win.
-- **FR-038**: **Locked slot**: a level MAY start with one slot locked. The slot becomes usable when its key is collected.
+#### C. Work rules (doc 01)
 
-#### Progression, difficulty and onboarding
+- **FR-017**: One work unit MUST clear exactly one visible tile-layer of the pod's exact variant and lower the pod's count by 1.
+- **FR-018**: Active pods MUST work automatically and at the same time on reachable tiles of their exact variants.
+- **FR-019**: When fewer matching tiles are reachable than the pod's count, the pod MUST clear what it can, stay in its slot, and resume automatically when more tiles become reachable.
+- **FR-020**: When several active pods share an exact variant, the oldest slot MUST get priority. Pods of different variants of the same family are independent.
+- **FR-021**: When more matching tiles are reachable than a pod needs, the tiles MUST be chosen by a fixed rule that players can anticipate: nearest to a Garden Entry by route distance first, then a fixed tie-break order.
+- **FR-022**: A pod MUST leave only when its count reaches 0. Its slot MUST become free at once.
+- **FR-023**: For each exact variant, the pod counts MUST add up to the visible plus hidden tile-layers of that variant. Accounting is never per family.
+- **FR-024**: The same level definition and the same sequence of accepted taps and booster uses MUST always give the same logical outcome. The outcome MUST never depend on animation timing, the 2× speed setting or the device. Mystery values are fixed in the level data.
 
-- **FR-039**: Levels MUST be played in a fixed, linear order. Winning a level unlocks the next.
-- **FR-040**: Levels MUST be grouped into garden areas of 20–30 levels each.
-- **FR-041**: A level MUST introduce at most one new mechanic or booster. The level that introduces it MUST be labeled Normal and MUST include a skippable, mostly visual demonstration with at most one short sentence of text.
-- **FR-042**: New elements MUST be introduced in the order given in *Level Progression Guidelines* below. Exact level numbers may shift by a few levels during tuning.
-- **FR-043**: Every level MUST carry a difficulty label, Normal, Hard or Super Hard, shown before the level starts. Hard and Super Hard MUST have a distinct visual treatment and higher rewards.
-- **FR-044**: From level 10 onward, any 10 consecutive levels MUST contain at least one Hard or Super Hard level and at most one Super Hard level. The level right after a Super Hard MUST be Normal.
-- **FR-045**: The first launch MUST go straight into level 1 with a guided first tap, without sign-in or menus.
-- **FR-046**: Later launches MUST open on the garden map, with one prominent button to play the next level.
-- **FR-047**: Progress MUST be saved automatically on the device and restored on the next launch: current level, restored areas, coins, boosters and settings. An unfinished level restarts from the beginning.
+#### D. Win, jam and restart (docs 01, 09, 11)
 
-#### Boosters and coins
+- **FR-025**: A level MUST be won when all required target layers are cleared and all mandatory specials are resolved. The win sequence is: reveal of the finished picture → reward → Next.
+- **FR-026**: A level MUST jam only when all of the following hold:
+  - the level is incomplete;
+  - every usable slot is occupied;
+  - every active pod has zero reachable matching tiles;
+  - no automatic event is pending.
 
-- **FR-048**: Winning MUST award coins: a base amount, more for Hard and Super Hard levels, and a bonus for winning without boosters.
-- **FR-049**: The game MUST offer four boosters. Each one unlocks at a set early level with a demonstration and two free uses:
-  - **Extra Slot**: adds a sixth usable slot until the end of the level. It can be used once per level.
-  - **Shuffle**: rearranges the groups remaining in the tray. Locked groups stay locked and linked groups stay together. If any tray group has a reachable matching cell, at least one such group MUST end up selectable.
-  - **Return**: moves one chosen group from a slot back to the front of its tray column, keeping its remaining number.
-  - **Clear Type**: removes one chosen type from the level. This covers all its cells and layers, including hidden ones, and all its groups in the tray and in the slots.
-- **FR-050**: Boosters MUST be purchasable with coins at fixed prices. The booster bar MUST show, for each booster, how many the player owns or its price.
-- **FR-051**: A booster that can have no effect in the current state MUST be disabled.
-- **FR-052**: No booster or progression reward may change the matching rule or give spirits extra power.
+  A full buffer in which any pod is still progressing is not a jam. The situation where no pod can progress and no Source Pod can be committed MUST be treated as a jam.
+- **FR-027**: The Jam screen MUST keep the board visible. It MUST offer eligible boosters, a rewarded-ad rescue limited to one per attempt, and Restart. It MUST never force the Store screen.
+- **FR-028**: Restart MUST rebuild the level from the same definition.
+- **FR-029**: There MUST be no timer and no move limit.
+- **FR-030**: The player MUST be able to pause, restart or leave a level at any time. Whether this has any cost follows the decision in FR-040.
 
-#### Garden map and restoration
+#### E. Mechanics and unlock roadmap (docs 03, 04, 07, 13)
 
-- **FR-053**: Each level MUST have a restored garden scene. The scene is revealed step by step as cells are cleared and shown in full on a win. Each level's scene is a part of its garden area.
-- **FR-054**: A garden map MUST show all areas in order: which are restored, which is in progress (with the number of levels left) and which are locked.
-- **FR-055**: Each win MUST visibly restore the matching part of the current area on the map. Completing an area MUST play a celebration that a tap can skip, then unlock the next area.
-- **FR-056**: The player MUST be able to view any fully restored area.
+- **FR-031**: Systems, boosters, mechanics and new variants MUST unlock at the levels in the *Unlock Roadmap* below. A level MUST NOT contain a mechanic before its unlock level. Two major mechanics MUST NOT unlock at the same level. Each new system MUST be demonstrated at its unlock level or within 1–2 levels. Each new mechanic MUST follow showcase → practice → combination. A new variant needs only one clean level, then one mixed level.
+- **FR-032**: **Stone**: MUST be permanent, not clearable and not walkable.
+- **FR-033**: **Key**:
+  - A key MUST lie over a target tile without hiding its icon or color.
+  - It MUST be collected when that supporting layer is cleared, at no extra work.
+  - It MUST resolve exactly one paired lock: a locked pod, a locked slot or a gate.
+- **FR-034**: **Locked pod**: MUST stay unselectable until its key is collected, and MAY bury the pods behind it.
+- **FR-035**: **Connected pods**:
+  - Tapping any member MUST commit all members together, each into its own slot.
+  - If there are not enough free usable slots, the tap MUST be refused.
+  - Members MAY mix families and variants.
+  - After placement, each member behaves independently.
+  - Pairs unlock first; triples are an optional late candidate.
+- **FR-036**: **Layered tile**:
+  - It shows its current variant plus a clear indicator of the next layer's variant.
+  - Clearing the top layer reveals the next variant, which may belong to another family, and MAY wake an active pod.
+  - Allowed depth is 2 at first and 3 later; deeper stacks are exceptional only.
+  - Every layer counts in per-variant demand.
+- **FR-037**: **Garden Gate / heavy blocker**: MUST block a route until a clearly visible condition or counter is met. It then opens, making cells walkable or revealing targets.
+- **FR-038**: **Fountain**: MUST show a visible exact-variant condition, for example "restore 6 Water around it". Meeting the condition MUST produce a visible board change.
+- **FR-039**: **Locked slot**: one of the five slots MUST stay unusable until its key is collected. **Mystery pod** and **mystery tile**:
+  - A mystery pod MUST reveal its exact variant when committed.
+  - A mystery tile MUST reveal its exact variant when it becomes reachable.
+  - Both MAY ship only if the player-information solver shows that no level forces a blind guess.
+  - Otherwise the roadmap substitutes another validated mechanic.
 
-#### Screen layout and ease of use
+  Other late mechanics (chest, statue, bridge, connected triple) ship only if validated before launch. The game MUST NOT contain combat, timers, random spawning, manual path drawing or permanent hero power upgrades.
 
-- **FR-057**: The game MUST be playable with one hand in portrait orientation.
-- **FR-058**: The level screen MUST be laid out from top to bottom as follows. The booster bar sits next to the tray, within thumb reach.
-  1. Top bar: level number, difficulty label and pause.
-  2. Board: the largest element, with its gate or gates on the bottom edge.
-  3. Row of waiting slots.
-  4. Tray.
-- **FR-059**: The whole board MUST be visible without scrolling or zooming. Boards MUST be at most 14 columns × 18 rows, so that every cell can be recognized at a glance on phone screens.
-- **FR-060**: Every tap MUST give immediate visual feedback. Sound and haptic feedback are optional.
-- **FR-061**: Spirit animations MUST be paced so that the player never waits long. A single group's work MUST play out in no more than 3 seconds, however large its number.
-- **FR-062**: The game MUST show every state visually, with minimal text: selectable, locked, waiting, jam warning, win and jam.
-- **FR-063**: Settings MUST let the player turn music, sound effects and haptics on and off.
-- **FR-064**: The game MUST be fully playable without an internet connection.
+#### F. Boosters, Petals and recovery (docs 09, 10)
 
-#### Level quality
+- **FR-040**: A failed or abandoned attempt MUST [NEEDS CLARIFICATION: either be free, with unlimited restarts and no energy system, as doc 10 "No lives baseline" says; or cost a life, as in Colony Flow, which answer B implied. If lives are used: how many, the refill time, and the refill options.]
+- **FR-041**: Petals (soft currency) MUST be earned per level: a base amount, plus a clean-clear (no-booster) bonus, plus a Hard/Super Hard bonus. Petals MUST also come from milestones and optional rewarded ads. Prices MUST NOT inflate with the level number.
+- **FR-042**: The four boosters MUST unlock at L3 (Extra Slot), L4 (Shuffle), L6 (Return) and L9 (Bloom Burst). Each unlock MUST come with a demonstration and one free charge.
+- **FR-043**: **Extra Slot** MUST add one extra usable slot until the end of the current level. At most one extra slot can be active.
+- **FR-044**: **Shuffle** MUST rearrange only the remaining eligible Source Pods. Waiting pods are unaffected, locks stay attached to their pods, and connected pods stay connected. If any arrangement can still be won without further boosters, the result MUST be winnable. Each use consumes a charge.
+- **FR-045**: **Return** MUST move one unfinished waiting pod, with its remaining count, back to the top of its original Source stack. Cleared tiles stay cleared.
+- **FR-046**: Every level MUST be winnable without boosters. A booster that can have no effect MUST be disabled.
+- **FR-047**: Boosters MUST be obtainable through unlock grants, level-completion drops, milestone rewards, Petal purchases, rewarded ads and in-app purchase bundles.
+- **FR-048**: Recovery MUST stay limited: at most one extra slot at a time, each booster use consumes a charge, Bloom Burst is the most expensive booster, and the ad rescue is available once per attempt.
+- **FR-049**: No booster, cosmetic or reward may change the exact-matching rule or give Bloomlings extra power.
+- **FR-050**: **Bloom Burst** MUST let the player choose one visible exact variant. It then removes every remaining layer of that variant, visible and hidden, and every pod of that variant from the tray and the slots. Accounting stays reconciled. This default follows the doc 09 main proposal; the "limited number of cells" alternative in doc 09 may replace it after solver and economy review.
 
-- **FR-065**: Every released level MUST be verified to have at least one winning sequence without boosters.
-- **FR-066**: Every released level except tutorial levels MUST be verified to be losable, meaning that at least one sequence of choices jams.
-- **FR-067**: Every released level MUST pass these consistency checks:
-  - group numbers per type match cells per type (FR-021);
-  - every clearable cell and every key can become reachable;
-  - each lock has exactly one key;
-  - linked groups are valid;
-  - the board fits the size limit in FR-059.
-- **FR-068**: Levels MUST follow the layout principles in *Level Progression Guidelines*.
+#### G. Store, ads and daily reward (doc 10)
 
-#### Release scope and originality
+- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock.
+- **FR-052**: Rewarded ads MUST always be started by the player and optional. They MAY be used for: jam rescue, a free booster, an extra win reward, and an optional daily bonus.
+- **FR-053**: Interstitial ads MUST appear only at post-win transitions. They MUST never appear during a level, immediately after a fail, or during onboarding (Levels 1–10). They MUST be capped by both time and level count.
+- **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage.
+- **FR-055**: Daily Reward MUST unlock at L7, with one claim per calendar day.
+- **FR-056**: No level may require spending money or watching ads.
 
-- **FR-069**: This release MUST include [NEEDS CLARIFICATION: how much content (number of garden areas and levels), and is the free-to-play layer (lives, ads, in-app purchases, daily rewards) part of this release or a later feature?]
-- **FR-070**: The game MUST NOT reuse Colony Flow's name, characters, art, audio, level pictures or interface graphics. The similarity is limited to gameplay rules and structure.
+#### H. Progression, Home and long-run motivation (docs 07, 08, 11, 13)
 
-### Level Progression Guidelines (indicative)
+- **FR-057**: Progression MUST be one linear sequence of levels, Level 1 → 2 → … → 5000+. Each win unlocks the next level. There MUST be no level map, no level chooser and no level groupings. The flow is Launch → Home → Play → Level N → Win → Next.
+- **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10).
+- **FR-059**: Every level MUST have a class: Normal, Hard (label from L5) or Super Hard (label from L10). The class is shown before the level starts, with a distinct visual treatment and higher rewards. From L11 on, every 100 consecutive levels MUST contain 15–25 Hard and 6–10 Super Hard levels, spaced irregularly (tuning targets from doc 07: Hard every 4–6 levels, Super Hard every 10–15). The level after a Super Hard is a relief level. Difficulty moves in waves and does not rise monotonically.
+- **FR-060**: The number of active variants MUST grow gradually:
 
-| Stage | Levels | Board size (cells) | Types per level | Groups per level | Tray columns | New elements (at level) |
+  | Level | Active variants |
+  |---|---|
+  | L1 | 2 |
+  | L2 | 3 |
+  | L11–25 | 3–4, with all four families present by L20 |
+  | from L32 | 5 is normal |
+  | from L70 | 6 in Hard levels |
+  | from ~L300 | 6 in advanced profiles |
+
+  New variants join the global pool at milestones (for example L45 and L200) without any player choice.
+- **FR-061**: Milestone rewards MUST be granted exactly once each:
+
+  | Cadence | Reward |
+  |---|---|
+  | Every 25 levels | A bundle |
+  | Every 50 levels | A cosmetic or profile reward |
+  | Every 100 levels | A major milestone |
+  | 250, 500, 1000 and every 250/500/1000 levels after | Prestige: frame, skin, badge or leaderboard marker |
+
+  After about L500, new core mechanics MUST be rare.
+- **FR-062**: The Leaderboard MUST unlock at L10 and rank players globally by highest completed level. Ties are ordered by who completed that level first. Submissions MUST pass sanity checks: progress only moves forward, no impossible jumps, and the content version is compatible.
+- **FR-063**: Wardrobe MUST unlock at L40. It offers cosmetic skins, hats, trails and expressions with no gameplay effect. Cosmetics MUST NOT reduce tile or pod readability.
+- **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50.
+- **FR-065**: Every finished picture MUST be added to a Collection that the player can view. The Collection is never a level selector.
+- **FR-066**: Background themes MUST rotate automatically by level band. This is visual only; there are no navigable areas.
+
+#### I. Screen layout and ease of use (doc 11)
+
+- **FR-067**: The game MUST be playable one-handed in portrait orientation on phones.
+- **FR-068**: The gameplay screen MUST be laid out as follows, with no goals panel (the board itself shows the remaining work):
+  - Top: Pause, Level N, 2× speed.
+  - Center: the board.
+  - Below the board: the Garden Entry and the Waiting Slots.
+  - Bottom: the stacked Source Tray, with a compact booster bar.
+- **FR-069**: The 2× speed setting MUST change only animation speed, never the outcome.
+- **FR-070**: Every tap MUST get immediate feedback. Selectable, locked, waiting, active, stuck and jam-risk states MUST be communicated visually, with minimal text. Bloomlings MUST stay small enough not to hide tile state.
+- **FR-071**: When the second variant of a family first appears, the game MUST show both side by side with one short message, for example "Match the exact symbol". It MUST then show the first variant's pod ignoring the sibling's tile. The explanation is not repeated later.
+- **FR-072**: Accessibility: every variant MUST have its own icon, with enough color distance and readable counts. Palettes MUST be tested for colorblind safety. Hue alone MUST never carry meaning.
+- **FR-073**: Settings MUST offer music, sound effects and haptics toggles, plus restore purchases.
+- **FR-074**: Gameplay, progression, owned boosters, locally earned rewards and settings MUST work offline. Leaderboard, cloud sync, ads, purchases and remote tuning MAY require a connection.
+
+#### J. Level catalog and content pipeline (docs 06, 14, 15)
+
+- **FR-075**: The launch catalog MUST contain at least 5000 sequential levels. Each level MUST be deterministic and verified by the solver.
+- **FR-076**: Each level number MUST map to one stable, versioned level definition, identified by level number, definition version, seed and content version. The definition MUST be identical for all players and devices. An app or content update MUST NOT change a shipped level unless a fix is deliberately versioned.
+- **FR-077**: The game MUST build each level from its definition. A definition MAY be a compact generation config that the game expands into cells, layers and pods deterministically. The same definition MUST always produce the same level.
+- **FR-078**: The launch catalog MUST be included with the app for offline play. Later content packs and level fixes MUST be deliverable without a new app release.
+- **FR-079**: Levels MUST be generated solution-first from progression profiles; random color painting is forbidden. Each profile sets: level band, board size, picture source, variant count and allowed variants, cluster ranges, entry layout, layer depth, allowed mechanics, source stacks, pod sizes, buffer-pressure target, target difficulty, target duration and Hard/Super Hard mode.
+- **FR-080**: Every shipped level MUST satisfy all of the following, and the check MUST fail the release if any level violates them:
+  - it is winnable without boosters, with at least one stored solution trace;
+  - its per-variant accounting reconciles exactly;
+  - it has no inaccessible mandatory content;
+  - it has no mechanic before its unlock level;
+  - it has no unavoidable hidden-information failure;
+  - it has no unreadable palette combination.
+- **FR-081**: Every non-tutorial level MUST be losable: at least one sequence of legal taps jams it, so bad choices matter.
+- **FR-082**: Every level MUST receive a difficulty score and a Normal/Hard/Super Hard class. The score is based on structure, buffer pressure, variants, specials and scale. The class MAY be overridden manually during curation.
+- **FR-083**: The catalog MUST avoid repetition. It MUST reject levels that repeat recent pictures, variant sets, topology, mechanics or source arrangements. The same base picture MUST NOT appear twice within any 50 consecutive levels.
+- **FR-084**: Quality assurance MUST follow the curation tiers:
+
+  | Levels | Required checks |
+  |---|---|
+  | 1–100 | Manual playtest of every level |
+  | 101–500 | Solver plus manual review of every level |
+  | 501–5000+ | Solver plus automated invariants plus human sampling |
+
+  Milestone, Hard and Super Hard levels MUST get stronger review in every tier.
+- **FR-085**: Economy values, ad cadence, rewards, feature flags and store offers MUST be tunable remotely without an app release. Core puzzle rules and shipped level definitions MUST NOT be remotely mutable, except through versioned content updates.
+- **FR-086**: The team MUST be able to see per-level start, win, jam and booster-use rates for difficulty tuning. Every crash or error report MUST include the app version, level number and content version.
+
+#### K. Profile, save, security and compliance (doc 15)
+
+- **FR-087**: A local player profile MUST be created automatically on first launch, with no sign-in. Signing in with a platform identity (Apple / Google) is optional and enables cloud sync. Sync conflicts MUST preserve the furthest valid progression and all purchased entitlements.
+- **FR-088**: The saved state MUST include: highest completed level, Petals, booster inventory, unlock flags, cosmetics, milestone rewards claimed, settings and basic statistics.
+- **FR-089**: Purchases MUST be validated. Leaderboard submissions and premium currency MUST be protected in proportion to their abuse risk. Core gameplay MUST NOT require an always-online connection.
+- **FR-090**: The game MUST obtain the user consents that platform policies and regional privacy laws require for ads and analytics before using personal data for them.
+- **FR-091**: The game MUST NOT reuse Colony Flow's name, characters, art, audio, level pictures or interface graphics. The similarity is limited to gameplay rules and structure.
+
+### Unlock Roadmap (from doc 13; indicative level numbers)
+
+| Level | Unlock |
+|---|---|
+| 1 | Core play: Source Pods, 5 Waiting Slots, 2 variants, Win → Next |
+| 2 | Third active variant |
+| 3 | Extra Slot (+1 free charge) |
+| 4 | Shuffle (+1 free charge) |
+| 5 | Hard label/profile |
+| 6 | Return (+1 free charge) |
+| 7 | Daily Reward |
+| 8 | Mystery Pod preview only if fairness is ready; otherwise the first Key preview |
+| 9 | Bloom Burst (+1 free charge) |
+| 10 | Leaderboard + Super Hard |
+| 11–25 | Stones appear |
+| 12 | Full Store (Petal packs, boosters, Remove Ads) |
+| 14 | Key |
+| 16 | Locked Source Pod |
+| 18 | Connected Pair |
+| 20 | All four families regular |
+| 25 | Milestone reward |
+| 28 | Layered Tile (depth 2) |
+| 32 | 5-variant levels routine |
+| 35 | Garden Gate / heavy blocker |
+| 40 | Wardrobe / skins |
+| 45 | Additional variant enters pool |
+| 50 | Daily Challenge (or substitute) |
+| 60 | Fountain |
+| 70 | 6-variant Hard levels |
+| 75 | Cosmetic/profile milestone |
+| 80 | Locked Waiting Slot |
+| 90 | Mystery Tile if fair, otherwise a substitute |
+| 100 | Major milestone + theme rotation |
+| 125 | Depth-3 layers |
+| 150 | Chest (optional) |
+| 175 | Advanced connected/locked combinations (profile only) |
+| 200 | Major milestone + new variant |
+| 225 | Advanced Hard profile |
+| 250 | Environmental object #2 (e.g., Statue / Bridge / Seal) |
+| 300 | 6 variants normal in advanced profiles |
+| 400 | Connected Triple (optional) |
+| 500 | Core-system completion milestone; new mechanics rare afterwards |
+| 600+ | Prestige every 250/500/1000 levels; occasional new variant/theme |
+
+### Level Band Guidelines (docs 02, 05, 06, 07)
+
+| Band | Levels | Board (cells) | Active variants | Source Pods | Work (tile-layers) | Typical duration |
 |---|---|---|---|---|---|---|
-| Onboarding | 1–5 | about 7×8 | 2–3 | 4–8 | 2–3 | Core loop (1), Extra Slot (3), Shuffle (4) |
-| Early | 6–20 | about 9×11 | 3–4 | 8–14 | 3–4 | Return (6), Mystery group (8), Clear Type (9), Locked group + key (12), Second gate (18) |
-| Early-mid | 21–50 | about 10×13 | 4 | 12–20 | 4 | Linked pair, Stones, Mystery cells |
-| Mid | 51–100 | up to 14×18 | 4+ | 16–30 | 4–5 | Layered cells, Locked slot, Linked triple, combinations of mechanics |
+| Onboarding | 1–10 | 7×8–8×8 | 2–3 | 3–7 | 30–60 | 20–45 s |
+| Early | 11–25 | 9×10–10×10 | 3–4 | 6–12 | 50–100 | 45–120 s |
+| Early-mid | 26–50 | 10×10–12×12 | 4–5 | 10–20 | 90–180 | 45–120 s |
+| Core completion | 51–100 | 10×12–14×14 | 5 (6 in Hard) | 10–24 | 90–180 (Hard 150–300) | 45 s–4 min |
+| Combination | 101–500 | up to 14×16 | 5–6 | 15–30 | 150–300+ | 1–4 min |
+| Long run | 501–5000+ | up to 14×16 | 4–6 (7 rare) | 10–30+ | 90–300+ | 45 s–4 min |
 
-Layout principles, from the reference game and the concept:
+Pod sizes:
 
-- The board looks full: about 65–80% of cells are occupied.
-- Matching cells form organic clusters, such as blobs, rings, snakes, islands and layered shells, rather than rectangles.
-- Outer shells of one type protect inner cells of other types, so the order of groups matters.
-- Difficulty grows by combining mechanics and tray order, never by making cells need several hits.
+| Size | Tiles |
+|---|---|
+| Small | 5–15 |
+| Medium | 16–40 |
+| Large | 41–100 |
+| Exceptional | 100+ |
+
+Buffer-pressure targets (peak number of occupied slots):
+
+| Pressure | Peak occupied slots |
+|---|---|
+| Relaxed | 1–2 |
+| Normal | 2–3 |
+| Tense | 3–4 |
+| Critical | 4–5 |
+
+Layout principles:
+
+- The board looks full.
+- Matching tiles form organic clusters rather than rectangles: blobs, rings, snakes, pockets, nested shapes and branches.
+- Outer regions shield inner ones, so the order of pods matters.
+- One variant's demand is usually split into several pods.
+- Difficulty comes from source ordering and dependencies, never from tile hit points.
 
 ### Key Entities
 
-- **Level**: its number, garden area, difficulty label, board, gates, tray, number of usable slots, the new element it introduces (if any), restored scene and rewards.
-- **Board cell**: its position and its content: open ground, a garden cell of one type, a layered cell with an ordered list of types, a mystery cell, or a stone. A key may lie on it.
-- **Cell type / spirit**: a garden type (Greenery, Flowers, Water, Wood, …) and the spirit that clears it, with an icon and a color.
-- **Garden gate**: a position on the board edge where spirits enter.
-- **Spirit group**: its spirit type, its number (the cells it will clear), its tray column and position, and any modifiers: mystery, locked (with a key identity), or part of a linked set.
-- **Waiting slot**: its position and state: free, occupied by a group, locked (with a key identity), or extra.
-- **Key**: its identity (color or symbol), the cell it lies on, and the lock it opens (a group or a slot).
-- **Booster**: its kind, unlock level, price and owned count.
-- **Garden area**: its name, ordered levels, restored scene pieces and status (locked, in progress or restored).
-- **Player progress**: current level, completed levels, coins, owned boosters and settings.
+- **Level definition**: level number, definition version, seed, content version, picture, board mask, Garden Entries, active variant set, cells and layers, specials, Source stacks and pods, keys and locks, connections, difficulty class and score, solution trace(s), reward profile.
+- **Picture**: the subject of a level and its finished (restored) image. It may be reused across levels in different forms, subject to FR-006 and FR-083.
+- **Bloomling family**: Sprig, Bloom, Drop or Twig. A character and animation family.
+- **Target variant**: the exact matching type. It has a family, color, icon, tile art and pod skin.
+- **Cell / tile-layer**: a board position with its content and an ordered stack of layers.
+- **Special object**: stone, key, gate or heavy blocker, Fountain, and later chest, statue or bridge. Each has its own visible condition and effect.
+- **Spirit Pod**: an exact variant, a remaining count, a stack position, and a state: ordinary, locked, mystery, connected, waiting, active or stuck.
+- **Waiting Slot**: its state: free, occupied, locked or extra.
+- **Booster**: Extra Slot, Shuffle, Return or Bloom Burst, with unlock level, charges and price.
+- **Player profile / save**: progression, Petals, inventory, unlocks, cosmetics, milestones, settings, statistics and linked identity.
+- **Milestone**: level number and reward, granted once.
+- **Leaderboard entry**: player, highest completed level, and the time it was reached.
+- **Generation profile**: the parameters of a level band (FR-079).
+- **Content pack**: a version and a set of level definitions and assets.
 
 ## Success Criteria *(mandatory)*
 
 ### Measurable Outcomes
 
-- **SC-001**: In playtests, at least 90% of first-time players finish level 1 within 2 minutes of first launch without outside help.
-- **SC-002**: After level 5, at least 80% of playtesters can explain in their own words why a level is lost (all slots full and no group can work).
-- **SC-003**: In a 5-second glance test, players name the type of any cell and the spirit that clears it with at least 95% accuracy, on the largest allowed board.
-- **SC-004**: 100% of released levels are verified winnable without boosters. 100% of non-tutorial levels are verified losable through a wrong order.
-- **SC-005**: Replaying the same sequence of selections gives the same outcome in 100% of automated replays, across supported devices and animation speeds.
-- **SC-006**: The median time to finish a Normal level is between 1 and 4 minutes.
-- **SC-007**: First-attempt win rates in playtests meet these targets: Normal at least 70%, Hard 35–60%, Super Hard 15–40%.
-- **SC-008**: Every tap shows feedback within 0.1 s, and no single group's clearing takes more than 3 s to play out.
-- **SC-009**: Progress (level, coins, boosters, restored areas) survives app restarts in 100% of test cases.
-- **SC-010**: At least 60% of new players reach level 10 in their first session.
-- **SC-011**: In playtest surveys, the game averages at least 4 out of 5 for "easy to understand" and for "relaxing".
+- **SC-001**: In playtests, at least 90% of first-time players finish Level 1 within 2 minutes of first launch without outside help.
+- **SC-002**: After Level 10, at least 80% of playtesters can explain in their own words when a level jams.
+- **SC-003**: In a glance test with 6 active variants on a 14×16 board, players identify the exact variant of any tile with at least 95% accuracy, and confuse same-family siblings in under 2% of answers. The same test passes under a colorblind simulation.
+- **SC-004**: 100% of the 5000+ launch levels pass every invariant in FR-080 before release.
+- **SC-005**: Replaying a stored tap sequence gives an identical outcome in 100% of automated replays, across devices and at both 1× and 2× speed.
+- **SC-006**: Median completion times fall within the band targets: tutorial 20–45 s, Normal 45–120 s, Hard 2–4 min.
+- **SC-007**: First-attempt win rates meet the targets (tunable): Normal at least 70%, Hard 35–60%, Super Hard 15–40%.
+- **SC-008**: Every tap shows feedback within 0.1 s. Animation stays smooth, with no visible stutter, on the lowest supported devices with the largest boards.
+- **SC-009**: Progress survives app restarts in 100% of test cases. Permanent purchases are restorable in 100% of test cases.
+- **SC-010**: At least 60% of new players reach Level 10 (the Leaderboard unlock) in their first session.
+- **SC-011**: The same level number shows an identical level on every tested device and account (100% match).
+- **SC-012**: No base picture repeats within any 50 consecutive levels of the catalog.
+- **SC-013**: In ad-placement tests, no interstitial is ever shown during a level, right after a failure, or before Level 11.
+- **SC-014**: In playtest surveys, the game averages at least 4 out of 5 for "easy to understand" and for "relaxing".
 
 ## Assumptions
 
-- **Reference game**: Colony Flow! by ABI Games ([App Store](https://apps.apple.com/us/app/colony-flow/id6779167923), [Google Play](https://play.google.com/store/apps/details?id=com.abi.colony.flow)) is the gameplay benchmark. Its public description and community guides were the source for:
-  - the core loop;
-  - the five slots;
-  - the tray with a front row;
-  - the mechanics;
-  - the early pacing: hidden boxes around level 8, locks and keys around level 12, a second nest around level 18, and boosters at levels 3, 4, 6 and 9.
-
-  Where the reference game's exact behavior is unknown, the rules in this spec apply.
-- **Concept document**: `product/CONCEPT.md` is a direction for how to differ from the reference game: setting, spirits, restoration reveal, garden map and extra mechanics. It is not binding. Where it differs from the reference gameplay, this spec follows the reference:
-  - mystery groups are revealed when they reach the front row, not when selected;
-  - Return takes any group from a slot, not only the last one placed.
-- **Platform**: smartphones in portrait orientation with touch input. Tablets are supported by scaling. The exact platform list is decided during planning.
-- **Single player, offline**: no accounts, cloud saves, social features or leaderboards in this release.
-- **Out of scope for this feature** (future features):
-  - chests, and doors or gates as board objects;
-  - environmental objects such as fountains and statues;
-  - the Wild Spirit and Reveal boosters;
-  - spirit cosmetics;
-  - live events, streaks and card collections;
-  - the procedural level generator;
-  - depending on FR-069: lives, ads and in-app purchases.
-- **Economy values** are tuning parameters: coins per win, bonuses, booster prices and free uses. Starting targets follow the reference game: a win pays roughly 12–30 coins, and a booster costs roughly 40–60 coins.
-- **Level production**: levels for this release may be made by hand. Each level must pass the automated checks in FR-065 to FR-067.
-- **Reachability** uses orthogonal (4-direction) adjacency. Spirits never move diagonally.
-- **Replaying** completed levels is not required in this release.
-- **Language**: English first. The interface uses minimal text so that localization is cheap later.
-- **Art and audio**: flat, calm, minimal 2D art as described in the concept (§2), with soothing music and soft sound effects.
+- **Precedence**: the product documents v0.5 (`product/01`–`15`, `LOCKED_CONCEPT_v0.5.md`) are the detailed design. Colony Flow is the structural reference. This spec consolidates both, and where the documents are silent, the spec's own rules apply. The spec adds:
+  - FR-021: the deterministic tile-choice rule;
+  - FR-026: jam-like "stuck" handling;
+  - FR-036: the layer peek indicator;
+  - FR-044: the Shuffle winnability rule;
+  - FR-045: Return goes to the top of the original stack;
+  - FR-062: leaderboard tie-break by time;
+  - FR-064: the daily challenge is the same for all players.
+- **Open decisions** in the documents, and the defaults used here:
+  - Level 8: Mystery if fair, otherwise Key.
+  - Bloom Burst: full variant removal (FR-050).
+  - Daily Challenge: desired at launch, may be cut.
+  - Hard/Super Hard cadence: tunable.
+  - Leaderboard: global only.
+  - Level 40 cosmetic: to be decided.
+  - Variants entering at L45/L200: to be decided.
+- **Platforms**: Android and iOS phones, portrait. The high-level technical direction in doc 15 (Unity/C#, deterministic simulation, offline generator and solver, lightweight backend) is input for planning, not part of this spec.
+- **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 coins, a booster costs roughly 40–60.
+- **Out of scope for launch** (doc 14):
+  - world map, room builder, PvP, clans, narrative campaign;
+  - permanent hero power upgrades;
+  - battle pass;
+  - 5000 hand-crafted scenes;
+  - live events other than the Daily Challenge.
+- **Language**: English first. The minimal-text UI keeps localization cheap.
+- **Art**: strict flat 2D, calm and minimal, with 4 reusable family animation rigs. A new variant needs an icon, a palette, a tile skin, a pod skin and a small character accent, not a new character (doc 12).
