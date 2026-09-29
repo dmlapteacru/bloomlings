@@ -150,6 +150,18 @@ namespace Bloomlings.Client.Services.Economy
             return true;
         }
 
+        /// <summary>Spends Petals on something else the Store sells (a cosmetic); false when they are short.</summary>
+        public bool TrySpend(int petals)
+        {
+            if (petals <= 0 || !_save.Wallet.TrySpendPetals(petals))
+            {
+                return false;
+            }
+
+            Save();
+            return true;
+        }
+
         /// <summary>Takes a charge for one use, buying it first if needed; false when neither is possible.</summary>
         public bool TryTakeCharge(BoosterKind kind)
         {

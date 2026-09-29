@@ -133,6 +133,11 @@ namespace Bloomlings.Client.Art
             "wink" => Get("acc_wink", IconSize, (x, y) => Min(RoundedBox(x, y, -0.4f, 0.15f, 0.22f, 0.06f, 0.05f), Length(x - 0.4f, y - 0.15f) - 0.14f, Max(Mathf.Abs(Length(x, y + 0.05f) - 0.4f) - 0.06f, y + 0.25f))),
             "smile" => Get("acc_smile", IconSize, (x, y) => Min(Length(x + 0.4f, y - 0.2f) - 0.12f, Length(x - 0.4f, y - 0.2f) - 0.12f, Max(Mathf.Abs(Length(x, y + 0.05f) - 0.45f) - 0.07f, y + 0.2f))),
             "stars" => Get("acc_stars", IconSize, (x, y) => Min(StarShape((x + 0.42f) * 2.4f, (y - 0.1f) * 2.4f, 0.9f) / 2.4f, StarShape((x - 0.42f) * 2.4f, (y - 0.1f) * 2.4f, 0.9f) / 2.4f)),
+            "sleepy" => Get("acc_sleepy", IconSize, (x, y) => Min(
+                Max(Mathf.Abs(Length(x + 0.4f, y - 0.3f) - 0.2f) - 0.05f, y - 0.3f),
+                Max(Mathf.Abs(Length(x - 0.4f, y - 0.3f) - 0.2f) - 0.05f, y - 0.3f),
+                Length(x, y + 0.3f) - 0.1f)),
+            "spots" or "stripes" or "petals" or "speckles" => Get("acc_" + shape, IconSize, (x, y) => Max(Length(x, y) - 0.9f, SkinPatternSdf(shape, x, y))),
             "frame" => Ring,
             "badge" => Star,
             "marker" => DoubleStar,
@@ -140,13 +145,43 @@ namespace Bloomlings.Client.Art
         };
 
         /// <summary>The body silhouette of a Bloomling family (placeholder worker art, doc 12 §2).</summary>
-        public static Sprite Silhouette(Family family) => family switch
+        public static Sprite Silhouette(Family family) => Get("fam_" + family, IconSize, (x, y) => SilhouetteSdf(family, x, y));
+
+        /// <summary>
+        /// A skin pattern (spots, stripes, petals, speckles) cut to a family's body, laid over the variant-colored
+        /// silhouette at <c>CosmeticCatalog.SkinOpacity</c> so the variant color still shows between the marks (FR-063).
+        /// </summary>
+        public static Sprite SkinPattern(Family family, string shape) =>
+            Get("skin_" + family + "_" + shape, IconSize, (x, y) => Max(SilhouetteSdf(family, x, y) + 0.04f, SkinPatternSdf(shape, x, y)));
+
+        private static float SilhouetteSdf(Family family, float x, float y) => family switch
         {
-            Family.Sprig => Get("fam_sprig", IconSize, (x, y) => Min(Length(x, y + 0.25f) - 0.55f, Leaf((x - 0.15f) * 2.2f, (y - 0.55f) * 2.2f) / 2.2f)),
-            Family.Bloom => Get("fam_bloom", IconSize, (x, y) => Min(Length(x, y + 0.25f) - 0.55f, Flower(x * 2.4f, (y - 0.5f) * 2.4f) / 2.4f)),
-            Family.Drop => Get("fam_drop", IconSize, (x, y) => Min(Length(x, y + 0.2f) - 0.58f, Triangle(x, y + 0.05f, 0.58f))),
-            _ => Get("fam_twig", IconSize, (x, y) => Min(RoundedBox(x, y, 0f, -0.15f, 0.42f, 0.7f, 0.35f), RoundedBox(x, y, 0.3f, 0.55f, 0.25f, 0.06f, 0.03f))),
+            Family.Sprig => Min(Length(x, y + 0.25f) - 0.55f, Leaf((x - 0.15f) * 2.2f, (y - 0.55f) * 2.2f) / 2.2f),
+            Family.Bloom => Min(Length(x, y + 0.25f) - 0.55f, Flower(x * 2.4f, (y - 0.5f) * 2.4f) / 2.4f),
+            Family.Drop => Min(Length(x, y + 0.2f) - 0.58f, Triangle(x, y + 0.05f, 0.58f)),
+            _ => Min(RoundedBox(x, y, 0f, -0.15f, 0.42f, 0.7f, 0.35f), RoundedBox(x, y, 0.3f, 0.55f, 0.25f, 0.06f, 0.03f)),
         };
+
+        /// <summary>A repeating pattern over the whole square (negative inside a mark).</summary>
+        private static float SkinPatternSdf(string shape, float x, float y)
+        {
+            switch (shape)
+            {
+                case "spots":
+                    return Length(Repeat(x, 0.5f), Repeat(y + (0.25f * Mathf.Floor((x / 0.5f) + 0.5f)), 0.5f)) - 0.12f;
+                case "stripes":
+                    return Mathf.Abs(Repeat(y + (0.35f * x), 0.34f)) - 0.07f;
+                case "petals":
+                    float px = Repeat(x, 0.6f);
+                    float py = Repeat(y, 0.6f);
+                    return Flower(px * 4.5f, py * 4.5f) / 4.5f;
+                default:
+                    return Length(Repeat(x + (0.13f * Mathf.Floor((y / 0.28f) + 0.5f)), 0.28f), Repeat(y, 0.28f)) - 0.05f;
+            }
+        }
+
+        /// <summary>The offset of a coordinate from its nearest multiple of a period (in −period/2..period/2).</summary>
+        private static float Repeat(float v, float period) => v - (period * Mathf.Floor((v / period) + 0.5f));
 
         private static float StarShape(float x, float y, float r)
         {

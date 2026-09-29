@@ -18,7 +18,7 @@ namespace Bloomlings.Client.App.Progression
     /// <summary>
     /// One milestone cadence: every <see cref="Every"/> levels, <see cref="Petals"/>, <see cref="BoosterCharges"/> of
     /// the unlocked booster with the fewest charges, <see cref="EachBooster"/> charges of every booster, and the first
-    /// item of <see cref="Items"/> the player does not own yet (none once all are owned).
+    /// item of <see cref="Items"/> the player does not own yet (a generated level badge or marker once all are owned).
     /// </summary>
     public sealed record MilestoneCadence(int Every, MilestoneTier Tier, int Petals, int BoosterCharges, int EachBooster, IReadOnlyList<string> Items);
 
@@ -65,8 +65,8 @@ namespace Bloomlings.Client.App.Progression
                 "hat.straw_hat", "hat.flower_crown", "expression.starry_eyes", "trail.leaf_swirl", "hat.mushroom_cap",
                 "frame.ivy", "hat.night_cap", "trail.moon_dust",
             }),
-            new MilestoneCadence(250, MilestoneTier.Prestige, 500, 0, 0, new[] { "frame.silver_vine", "marker.silver_leaf", "frame.silver_bloom" }),
-            new MilestoneCadence(500, MilestoneTier.Prestige, 500, 0, 0, new[] { "badge.golden_leaf", "hat.golden_crown", "badge.golden_bloom" }),
+            new MilestoneCadence(250, MilestoneTier.Prestige, 500, 0, 0, new[] { "frame.silver_vine", "skin.moon_frost", "marker.silver_leaf", "frame.silver_bloom" }),
+            new MilestoneCadence(500, MilestoneTier.Prestige, 500, 0, 0, new[] { "badge.golden_leaf", "skin.golden_petals", "hat.golden_crown", "badge.golden_bloom" }),
             new MilestoneCadence(1000, MilestoneTier.Prestige, 500, 0, 0, new[] { "marker.crown", "frame.aurora", "hat.star_crown" }),
         });
 

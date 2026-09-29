@@ -1,6 +1,8 @@
 using System;
 using System.Globalization;
 using Bloomlings.Client.Art;
+using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.Wardrobe;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,16 +24,20 @@ namespace Bloomlings.Client.UI.Screens
         bool WardrobeAvailable = false,
         bool CollectionAvailable = false,
         Color? Background = null,
-        bool LevelAvailable = true);
+        bool LevelAvailable = true,
+        ProfileLook? Profile = null,
+        Outfit? AvatarOutfit = null);
 
     /// <summary>The Home buttons of the long-run features (US7); a null action hides its button.</summary>
-    public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard);
+    public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard, Action? OnProfile = null);
 
     /// <summary>
     /// Home (FR-058, T063): the logo, Level N, one Play/Continue button and Petals; Settings; the Store button once
     /// unlocked (L12); the next-milestone teaser; the leaderboard rank once unlocked (L10), which opens the board. A
     /// row of small buttons opens the Daily Challenge (L50), the Wardrobe (L40) and the Collection. There is no level
-    /// map, and none of these buttons chooses a level: Play always continues Level N.
+    /// map, and none of these buttons chooses a level: Play always continues Level N. Once the Wardrobe is open, the
+    /// profile avatar shows the chosen frame and badge (it opens the Wardrobe's Profile tab), and the rank button
+    /// carries the leaderboard marker (FR-061 prestige rewards).
     /// </summary>
     public sealed class HomeScreen : MonoBehaviour
     {
@@ -49,6 +55,8 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _collection = null!;
         private GameObject _store = null!;
         private GameObject _freeBooster = null!;
+        private ProfileAvatar _avatar = null!;
+        private Image _rankMarker = null!;
 
         public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null, HomeFeatureActions? features = null)
         {
@@ -89,6 +97,17 @@ namespace Bloomlings.Client.UI.Screens
             screen._rank = rank.GetComponentInChildren<TextMeshProUGUI>();
             screen._rank.color = UiTheme.Text;
             screen._rankButton = rank.gameObject;
+            screen._rankMarker = UiFactory.CreateImage("Marker", rank.transform, ProceduralSprites.DoubleStar, Color.white);
+            screen._rankMarker.preserveAspect = true;
+            UiFactory.Place(screen._rankMarker.rectTransform, 0.02f, 0.1f, 0.14f, 0.9f);
+            screen._rankMarker.gameObject.SetActive(false);
+
+            // The profile avatar (next to Settings): frame, badge and marker, once the Wardrobe is open.
+            Button profile = UiFactory.CreateButton("Profile", root, string.Empty, new Color(1f, 1f, 1f, 0f), () => features?.OnProfile?.Invoke());
+            UiFactory.Place((RectTransform)profile.transform, 0.17f, 0.915f, 0.3f, 0.99f);
+            screen._avatar = ProfileAvatar.Create("Avatar", profile.transform);
+            UiFactory.Stretch(screen._avatar.Rect);
+            profile.gameObject.SetActive(false);
 
             // Long-run features (US7): small buttons between the logo and Level N.
             screen._daily = Feature(root, "Daily", Loc.T("home.daily"), 0.05f, features?.OnDailyChallenge);
@@ -133,6 +152,20 @@ namespace Bloomlings.Client.UI.Screens
             _daily.SetActive(model.DailyChallengeAvailable);
             _dailyLabel.text = model.DailyChallengeDone ? Loc.T("home.daily_done") : Loc.T("home.daily");
             _wardrobe.SetActive(model.WardrobeAvailable);
+            GameObject profile = _avatar.Rect.parent.gameObject;
+            profile.SetActive(model.WardrobeAvailable);
+            if (model.WardrobeAvailable)
+            {
+                _avatar.Show(model.Profile, model.AvatarOutfit);
+            }
+
+            CosmeticItem? marker = model.Profile?.Marker;
+            _rankMarker.gameObject.SetActive(marker != null);
+            if (marker != null)
+            {
+                _rankMarker.color = BloomlingFigure.Tint(marker);
+            }
+
             _collection.SetActive(model.CollectionAvailable);
             _background.color = model.Background ?? UiTheme.Background;
             _milestone.text = model.NextMilestoneLevel.HasValue

@@ -1104,6 +1104,7 @@ with Extra Slot.
   - unlocks at L12 (FR-051);
   - sells Petal packs, boosters for Petals, Remove Ads and the starter pack;
   - shows an "unavailable" state when offline (FR-074).
+  Added 2026-09-29: a Cosmetics tab after the Wardrobe unlock (T143), and pages of 7 rows.
 - [X] T134 [US6] Implement `client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs` and
   `DailyRewardPopup.cs`. It unlocks at L7 and allows one claim per UTC calendar day through `IClock`, persisted in the
   save's `daily` section (FR-055). The claim pays `daily.reward.petals` plus `daily.reward.streakBonusPetals` per
@@ -1212,6 +1213,10 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
   Status: `MilestoneTable.Default` mirrors the JSON, and a test keeps the two equal. The single booster charge of the
   25-level bundle goes to the unlocked booster with the fewest charges. Items come from the cadence's list: the first
   one not yet owned. The Win screen shows a short milestone line.
+  Added 2026-09-29: rewards never run out. Once a cadence's list is all owned, it grants a generated level badge
+  (`badge.level_N`, a profile reward) or, for prestige cadences, a leaderboard marker (`marker.level_N`); the catalog
+  resolves those ids without listing them. The prestige lists now hold skins too (`skin.moon_frost` at 250,
+  `skin.golden_petals` at 500).
 - [X] T143 [US7] Implement the Wardrobe in `client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs`,
   `CosmeticCatalog.asset` and `client/Assets/Bloomlings/UI/Screens/WardrobeScreen.cs`:
   - unlocks at L40;
@@ -1222,6 +1227,20 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
   (tested): worn items are small accessories in neutral tints (HSV saturation ≤ 0.3) and never change the variant tint
   or icon. Frames, badges and markers decorate the profile only. The accessory art is procedural placeholder art, not
   yet checked in the Editor.
+  Added 2026-09-29:
+  - skins (FR-063, US7 "cosmetic skins"): a neutral pattern (spots, stripes, petals, speckles) cut to the family's
+    silhouette and laid over the variant-colored body at 45% opacity, so the variant color and icon still read;
+  - each family wears one skin, hat, trail and expression at once, and the profile shows one frame, badge and marker
+    (the newest owned by default). The save's `cosmetics.equipped` holds `{family → {kind → id}, profile → {kind →
+    id}}`; the early one-item-per-family form is still read (contract and data-model updated);
+  - Store cosmetics for Petals (FR-051 "cosmetics join after the Wardrobe unlock", doc 10 §2): items with a `price`
+    in the catalog, on their own Store tab once the Wardrobe is open. Milestone and prestige items are never sold
+    (tested). Prices are fixed, never tied to the level (doc 10 §11);
+  - the profile avatar on Home (frame and badge; it opens the Wardrobe's Profile tab), the marker on the Home rank
+    button, and the frame, badge and marker on the player's own leaderboard row. Other players' decorations need the
+    server (deferred);
+  - workers draw the outfit through `BloomlingFigure`, hop along their route, face the way they walk, and carry their
+    variant icon in a contrasting ink (doc 12 §6 moving-character test).
 - [X] T144 [US7] Implement the Daily Challenge in `client/Assets/Bloomlings/Meta/DailyChallenge/DailyChallengeService.cs`
   and `client/Assets/Bloomlings/UI/Screens/DailyChallengeScreen.cs`:
   - the daily pack from `publish` provides the puzzles;

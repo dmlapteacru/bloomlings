@@ -101,11 +101,13 @@ namespace Bloomlings.Client.App.Home
                     wardrobe.IsAvailable,
                     collection.Count > 0,
                     background,
-                    catalog.HasLevel(progression.CurrentLevel)));
+                    catalog.HasLevel(progression.CurrentLevel),
+                    wardrobe.Profile,
+                    wardrobe.OutfitOf(Core.Variants.Family.Bloom)));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.IsOpen)
                 {
-                    board.Show(leaderboard.LastPage, leaderboard.IsStale);
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
                 }
             }
 
@@ -121,9 +123,10 @@ namespace Bloomlings.Client.App.Home
                 }
             }
 
-            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, OpenStore, Refresh), economy.Petals, purchases.IsAvailable);
+            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable);
 
             WardrobeScreen wardrobeScreen = WardrobeScreen.Create(root, wardrobe);
+            wardrobe.Changed += Refresh;
             CollectionScreen collectionScreen = CollectionScreen.Create(root);
             DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
             {
@@ -145,9 +148,10 @@ namespace Bloomlings.Client.App.Home
                 () =>
                 {
                     analytics?.LeaderboardView(leaderboard.LastPage?.Player?.Rank ?? 0);
-                    board.Show(leaderboard.LastPage, leaderboard.IsStale);
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
                     RunInBackground(leaderboard.Refresh());
-                });
+                },
+                wardrobeScreen.ShowProfile);
 
             home = HomeScreen.Create(
                 UiFactory.Stretch(UiFactory.CreateRect("Home", root)),
@@ -211,6 +215,7 @@ namespace Bloomlings.Client.App.Home
             {
                 sync.Merged -= onMerged;
                 leaderboard.Updated -= onRank;
+                wardrobe.Changed -= Refresh;
             };
             RunInBackground(sync.Sync());
             RunInBackground(leaderboard.Refresh());
@@ -275,8 +280,11 @@ namespace Bloomlings.Client.App.Home
             kind == BoosterKind.Return ? 1 : 0,
             kind == BoosterKind.BloomBurst ? 1 : 0);
 
-        /// <summary>The Store rows (FR-051): Petal packs, boosters for Petals, the starter pack once, Remove Ads until owned.</summary>
-        private static List<StoreItem> StoreItems(EconomyService economy, IPurchaseService purchases, PurchaseLedger ledger, ProductCatalog products, PlayerSave save, Action reopen, Action refreshHome)
+        /// <summary>
+        /// The Store rows (FR-051): Petal packs, boosters for Petals, the starter pack once, Remove Ads until owned; and,
+        /// once the Wardrobe is open, the cosmetics for Petals on their own tab.
+        /// </summary>
+        private static List<StoreItem> StoreItems(EconomyService economy, IPurchaseService purchases, PurchaseLedger ledger, ProductCatalog products, PlayerSave save, WardrobeService wardrobe, Action reopen, Action refreshHome)
         {
             var items = new List<StoreItem>();
             foreach (StoreProduct product in products.Products)
@@ -318,6 +326,28 @@ namespace Bloomlings.Client.App.Home
                         reopen();
                         refreshHome();
                     }));
+            }
+
+            if (wardrobe.IsAvailable)
+            {
+                foreach (CosmeticItem cosmetic in wardrobe.ForSale)
+                {
+                    string id = cosmetic.Id;
+                    items.Add(new StoreItem(
+                        id,
+                        Loc.F("store.cosmetic", WardrobeScreen.Name(cosmetic), WardrobeScreen.KindLabel(cosmetic.Kind)),
+                        cosmetic.Price.ToString(CultureInfo.InvariantCulture) + " ✿",
+                        wardrobe.IsBuyable(cosmetic) && economy.Petals >= cosmetic.Price,
+                        () =>
+                        {
+                            wardrobe.TryBuy(id);
+                            reopen();
+                            refreshHome();
+                        },
+                        StoreTab.Cosmetics,
+                        WardrobeScreen.Icon(cosmetic),
+                        Gameplay.Workers.BloomlingFigure.Tint(cosmetic)));
+                }
             }
 
             return items;

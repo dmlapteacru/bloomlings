@@ -296,10 +296,23 @@ namespace Bloomlings.Client.Services.Save
 
     public sealed class CosmeticsData
     {
+        /// <summary>The owner of the profile slots (frame, badge, marker) in <see cref="Equipped"/>.</summary>
+        public const string ProfileOwner = "profile";
+
+        /// <summary>The kinds of slot each owner has (the family slots are worn, the profile slots are shown).</summary>
+        public static string[] KindsOf(string owner) => owner == ProfileOwner
+            ? new[] { "frame", "badge", "marker" }
+            : new[] { "skin", "hat", "trail", "expression" };
+
         public SortedSet<string> Owned { get; } = new SortedSet<string>(StringComparer.Ordinal);
 
-        /// <summary>Family (sprig, bloom, drop, twig) → equipped skin id.</summary>
+        /// <summary>
+        /// Slot → item id. A slot is <c>owner.kind</c>: a family wears one skin, hat, trail and expression
+        /// (<c>drop.hat</c>), and the profile shows one frame, badge and marker (<c>profile.frame</c>).
+        /// </summary>
         public SortedDictionary<string, string> Equipped { get; } = new SortedDictionary<string, string>(StringComparer.Ordinal);
+
+        public static string Slot(string owner, string kind) => owner + "." + kind;
     }
 
     public sealed class DailyData

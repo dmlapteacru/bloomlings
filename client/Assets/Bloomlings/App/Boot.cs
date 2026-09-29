@@ -118,7 +118,7 @@ namespace Bloomlings.Client.App
             // Long-run motivation (US7): milestones, Wardrobe, Collection; all local and offline-first.
             TextAsset? cosmeticsJson = Resources.Load<TextAsset>("CosmeticCatalog");
             CosmeticCatalog cosmetics = cosmeticsJson != null ? CosmeticCatalog.Parse(cosmeticsJson.text) : new CosmeticCatalog(Array.Empty<CosmeticItem>());
-            var wardrobe = new WardrobeService(save, cosmetics, remote, saves.Save);
+            var wardrobe = new WardrobeService(save, cosmetics, remote, saves.Save, economy);
             var milestones = new MilestoneService(save, MilestoneTable.Default, economy, saves.Save);
             var collection = new CollectionService(save, saves.Save);
             services.Register(wardrobe);

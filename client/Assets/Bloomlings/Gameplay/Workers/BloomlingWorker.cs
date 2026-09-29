@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Bloomlings.Client.Art;
+using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Timeline;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
@@ -9,10 +9,11 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Workers
 {
     /// <summary>
-    /// One Bloomling on the board (T046): it emerges at the Garden Entry, walks its route over open cells, plays a
-    /// short restore at the target, then despawns. The states idle, emerge, move, restore and despawn are driven in
-    /// code by the timeline's clock, so 2× speed and backlog compression apply. Workers are small and drawn above the
-    /// tiles without covering them (doc 12 §8).
+    /// One Bloomling on the board (T046): it emerges at the Garden Entry, hops along its route over open cells facing
+    /// the way it walks, plays a short restore at the target, then despawns. The states idle, emerge, move, restore
+    /// and despawn are driven in code by the timeline's clock, so 2× speed and backlog compression apply. Workers are
+    /// small and drawn above the tiles without covering them (doc 12 §8). Each carries its variant's icon, so the
+    /// target reads without color (doc 12 §6, "moving-character test"), and wears its family's outfit (FR-063).
     /// </summary>
     public sealed class BloomlingWorker : MonoBehaviour
     {
@@ -28,43 +29,53 @@ namespace Bloomlings.Client.Gameplay.Workers
         private const float EmergeSeconds = 0.12f;
         private const float DespawnSeconds = 0.12f;
 
+        /// <summary>Hops per route cell, and the hop height as a share of the worker size.</summary>
+        private const float HopsPerCell = 1f;
+        private const float HopHeight = 0.14f;
+
         private readonly List<Vector2> _path = new List<Vector2>();
-        private Image _image = null!;
-        private Image _accessory = null!;
+        private BloomlingFigure _figure = null!;
+        private Image _mark = null!;
         private EventTimeline _timeline = null!;
         private WorkerPool _pool = null!;
         private float _travel;
         private float _time;
+        private float _size;
+        private float _facing = 1f;
 
         public State Current { get; private set; } = State.Idle;
 
         public static BloomlingWorker Create(Transform parent, WorkerPool pool, EventTimeline timeline)
         {
-            Image image = UiFactory.CreateImage("Bloomling", parent, null, Color.white);
-            image.preserveAspect = true;
-            var worker = image.gameObject.AddComponent<BloomlingWorker>();
-            worker._image = image;
-            worker._accessory = UiFactory.CreateImage("Accessory", image.transform, null, Color.white);
-            worker._accessory.preserveAspect = true;
-            worker._accessory.gameObject.SetActive(false);
+            BloomlingFigure figure = BloomlingFigure.Create("Bloomling", parent);
+            GameObject host = figure.Body.gameObject;
+            var worker = host.AddComponent<BloomlingWorker>();
+            worker._figure = figure;
+            worker._mark = UiFactory.CreateImage("Mark", figure.Body.transform, null, Color.white);
+            worker._mark.preserveAspect = true;
+            worker._mark.raycastTarget = false;
+            UiFactory.Place(worker._mark.rectTransform, 0.3f, 0.08f, 0.7f, 0.48f);
             worker._pool = pool;
             worker._timeline = timeline;
-            image.gameObject.SetActive(false);
+            host.SetActive(false);
             return worker;
         }
 
+        /// <param name="visual">The variant it clears: body color, family and icon.</param>
         /// <param name="path">Canvas positions: the entry point, then the route cells ending at the target.</param>
-        /// <param name="cosmetic">
-        /// The family's equipped cosmetic (FR-063), drawn as a small neutral accessory: a hat above the worker, an
-        /// expression on its face, a trail behind it. The variant tint of the body is never changed.
+        /// <param name="outfit">
+        /// What its family wears (FR-063): a thin skin pattern, a hat, an expression, a trail. The variant color of the
+        /// body and its icon are never changed.
         /// </param>
-        public void Launch(Sprite silhouette, Color tint, IReadOnlyList<Vector2> path, float size, float travelSeconds, CosmeticItem? cosmetic = null)
+        public void Launch(VariantVisual visual, IReadOnlyList<Vector2> path, float size, float travelSeconds, Outfit? outfit = null)
         {
-            ShowCosmetic(cosmetic);
+            _figure.Show(visual.Family, visual.Color, outfit);
+            _mark.sprite = visual.Icon;
+            _mark.color = visual.Ink;
             _path.Clear();
             _path.AddRange(path);
-            _image.sprite = silhouette;
-            _image.color = tint;
+            _size = size;
+            _facing = 1f;
             var rect = (RectTransform)transform;
             UiFactory.PlaceAbsolute(rect, _path[0], Vector2.one * size);
             transform.localScale = Vector3.zero;
@@ -73,33 +84,6 @@ namespace Bloomlings.Client.Gameplay.Workers
             _time = 0f;
             Current = State.Emerge;
             gameObject.SetActive(true);
-        }
-
-        private void ShowCosmetic(CosmeticItem? cosmetic)
-        {
-            if (cosmetic == null || !cosmetic.IsWorn || !ColorUtility.TryParseHtmlString(cosmetic.Tint, out Color tint))
-            {
-                _accessory.gameObject.SetActive(false);
-                return;
-            }
-
-            _accessory.sprite = ProceduralSprites.Accessory(cosmetic.Shape);
-            _accessory.color = tint;
-            RectTransform rect = _accessory.rectTransform;
-            switch (cosmetic.Kind)
-            {
-                case CosmeticKind.Hat:
-                    UiFactory.Place(rect, 0.2f, 0.72f, 0.8f, 1.22f);
-                    break;
-                case CosmeticKind.Expression:
-                    UiFactory.Place(rect, 0.33f, 0.3f, 0.67f, 0.55f);
-                    break;
-                default:
-                    UiFactory.Place(rect, -0.3f, -0.05f, 0.05f, 0.3f);
-                    break;
-            }
-
-            _accessory.gameObject.SetActive(true);
         }
 
         /// <summary>Immediately returns to the pool (restart).</summary>
@@ -121,7 +105,7 @@ namespace Bloomlings.Client.Gameplay.Workers
             switch (Current)
             {
                 case State.Emerge:
-                    transform.localScale = Vector3.one * Mathf.Clamp01(_time / EmergeSeconds);
+                    Scale(Mathf.Clamp01(_time / EmergeSeconds));
                     Move(rect);
                     if (_time >= EmergeSeconds)
                     {
@@ -130,7 +114,7 @@ namespace Bloomlings.Client.Gameplay.Workers
 
                     break;
                 case State.Move:
-                    transform.localScale = Vector3.one;
+                    Scale(1f);
                     Move(rect);
                     if (_time >= _travel)
                     {
@@ -140,7 +124,7 @@ namespace Bloomlings.Client.Gameplay.Workers
 
                     break;
                 case State.Restore:
-                    transform.localScale = Vector3.one * (1f + (0.25f * Mathf.Sin(Mathf.Clamp01(_time / EventTimeline.RestoreSeconds) * Mathf.PI)));
+                    Scale(1f + (0.25f * Mathf.Sin(Mathf.Clamp01(_time / EventTimeline.RestoreSeconds) * Mathf.PI)));
                     if (_time >= EventTimeline.RestoreSeconds)
                     {
                         Current = State.Despawn;
@@ -149,7 +133,7 @@ namespace Bloomlings.Client.Gameplay.Workers
 
                     break;
                 case State.Despawn:
-                    transform.localScale = Vector3.one * (1f - Mathf.Clamp01(_time / DespawnSeconds));
+                    Scale(1f - Mathf.Clamp01(_time / DespawnSeconds));
                     if (_time >= DespawnSeconds)
                     {
                         Current = State.Idle;
@@ -161,11 +145,28 @@ namespace Bloomlings.Client.Gameplay.Workers
             }
         }
 
+        /// <summary>Walks the route: a small hop per cell, turned toward the next cell (the trail sways behind).</summary>
         private void Move(RectTransform rect)
         {
+            if (_path.Count == 1)
+            {
+                rect.anchoredPosition = _path[0];
+                return;
+            }
+
             float t = Mathf.Clamp01(_time / _travel) * (_path.Count - 1);
             int i = Mathf.Min(Mathf.FloorToInt(t), _path.Count - 2);
-            rect.anchoredPosition = _path.Count == 1 ? _path[0] : Vector2.Lerp(_path[i], _path[i + 1], t - i);
+            Vector2 step = _path[i + 1] - _path[i];
+            if (Mathf.Abs(step.x) > 0.01f)
+            {
+                _facing = step.x < 0f ? -1f : 1f;
+            }
+
+            float hop = Mathf.Abs(Mathf.Sin((t - i) * Mathf.PI * HopsPerCell)) * HopHeight * _size;
+            rect.anchoredPosition = Vector2.Lerp(_path[i], _path[i + 1], t - i) + new Vector2(0f, hop);
+            _figure.Trail.localEulerAngles = new Vector3(0f, 0f, 12f * Mathf.Sin(_time * 18f));
         }
+
+        private void Scale(float scale) => transform.localScale = new Vector3(scale * _facing, scale, 1f);
     }
 }

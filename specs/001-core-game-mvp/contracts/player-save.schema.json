@@ -85,13 +85,23 @@
       "properties": {
         "owned": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
         "equipped": {
+          "description": "Each family wears one skin, hat, trail and expression; the profile shows one frame, badge and marker. A bare string per family (one item) is the early form and is still read.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "sprig": { "type": "string" },
-            "bloom": { "type": "string" },
-            "drop": { "type": "string" },
-            "twig": { "type": "string" }
+            "sprig": { "$ref": "#/$defs/worn" },
+            "bloom": { "$ref": "#/$defs/worn" },
+            "drop": { "$ref": "#/$defs/worn" },
+            "twig": { "$ref": "#/$defs/worn" },
+            "profile": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "frame": { "type": "string" },
+                "badge": { "type": "string" },
+                "marker": { "type": "string" }
+              }
+            }
           }
         }
       }
@@ -147,6 +157,21 @@
         "return": { "type": "integer", "minimum": 0 },
         "bloomBurst": { "type": "integer", "minimum": 0 }
       }
+    },
+    "worn": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "skin": { "type": "string" },
+            "hat": { "type": "string" },
+            "trail": { "type": "string" },
+            "expression": { "type": "string" }
+          }
+        },
+        { "type": "string", "pattern": "^(hat|trail|expression)\\." }
+      ]
     }
   }
 }

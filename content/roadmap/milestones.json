@@ -1,5 +1,5 @@
 {
-  "note": "Milestone cadences (FR-061, T142). A level that matches several cadences gets only the largest one. boosterCharges go to the unlocked booster with the fewest charges; eachBooster to every booster; items grant the first one not yet owned. Mirrored by MilestoneTable.Default in the client (MilestoneAndDailyChallengeTests).",
+  "note": "Milestone cadences (FR-061, T142). A level that matches several cadences gets only the largest one. boosterCharges go to the unlocked booster with the fewest charges; eachBooster to every booster; items grant the first one not yet owned, and once all are owned a generated level badge (badge.level_N; a level marker, marker.level_N, for prestige) so the rewards never run out. Mirrored by MilestoneTable.Default in the client (MilestoneAndDailyChallengeTests).",
   "cadences": [
     { "every": 25, "tier": "bundle", "petals": 50, "boosterCharges": 1, "eachBooster": 0, "items": [] },
     {
@@ -18,8 +18,8 @@
       "eachBooster": 1,
       "items": ["hat.straw_hat", "hat.flower_crown", "expression.starry_eyes", "trail.leaf_swirl", "hat.mushroom_cap", "frame.ivy", "hat.night_cap", "trail.moon_dust"]
     },
-    { "every": 250, "tier": "prestige", "petals": 500, "boosterCharges": 0, "eachBooster": 0, "items": ["frame.silver_vine", "marker.silver_leaf", "frame.silver_bloom"] },
-    { "every": 500, "tier": "prestige", "petals": 500, "boosterCharges": 0, "eachBooster": 0, "items": ["badge.golden_leaf", "hat.golden_crown", "badge.golden_bloom"] },
+    { "every": 250, "tier": "prestige", "petals": 500, "boosterCharges": 0, "eachBooster": 0, "items": ["frame.silver_vine", "skin.moon_frost", "marker.silver_leaf", "frame.silver_bloom"] },
+    { "every": 500, "tier": "prestige", "petals": 500, "boosterCharges": 0, "eachBooster": 0, "items": ["badge.golden_leaf", "skin.golden_petals", "hat.golden_crown", "badge.golden_bloom"] },
     { "every": 1000, "tier": "prestige", "petals": 500, "boosterCharges": 0, "eachBooster": 0, "items": ["marker.crown", "frame.aurora", "hat.star_crown"] }
   ]
 }

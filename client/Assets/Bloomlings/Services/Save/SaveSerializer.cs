@@ -55,6 +55,8 @@ namespace Bloomlings.Client.Services.Save
     {
         private static readonly string[] BoosterNames = { "extraSlot", "shuffle", "return", "bloomBurst" };
 
+        private static readonly string[] CosmeticsOwners = { "sprig", "bloom", "drop", "twig", CosmeticsData.ProfileOwner };
+
         public static PlayerSave Read(string json, SaveMigrations? migrations = null) =>
             Read(JsonDoc.ParseObject(json, "save"), migrations);
 
@@ -130,10 +132,31 @@ namespace Bloomlings.Client.Services.Save
             }
 
             JObject equipped = JsonDoc.Object(JsonDoc.Required(cosmetics, "cosmetics", "equipped"), "cosmetics.equipped");
-            JsonDoc.AllowOnly(equipped, "cosmetics.equipped", "sprig", "bloom", "drop", "twig");
-            foreach (JProperty family in equipped.Properties())
+            JsonDoc.AllowOnly(equipped, "cosmetics.equipped", CosmeticsOwners);
+            foreach (JProperty owner in equipped.Properties())
             {
-                save.Cosmetics.Equipped[family.Name] = JsonDoc.String(family.Value, "cosmetics.equipped." + family.Name);
+                string path = "cosmetics.equipped." + owner.Name;
+                if (owner.Value.Type == JTokenType.String && owner.Name != CosmeticsData.ProfileOwner)
+                {
+                    // Early saves held one item per family: its slot is the kind its id names.
+                    string id = JsonDoc.String(owner.Value, path);
+                    int dot = id.IndexOf('.');
+                    string kind = dot > 0 ? id.Substring(0, dot) : string.Empty;
+                    if (Array.IndexOf(CosmeticsData.KindsOf(owner.Name), kind) < 0)
+                    {
+                        throw new ContentFormatException(path, $"'{id}' is not a worn cosmetic");
+                    }
+
+                    save.Cosmetics.Equipped[CosmeticsData.Slot(owner.Name, kind)] = id;
+                    continue;
+                }
+
+                JObject slots = JsonDoc.Object(owner.Value, path);
+                JsonDoc.AllowOnly(slots, path, CosmeticsData.KindsOf(owner.Name));
+                foreach (JProperty slot in slots.Properties())
+                {
+                    save.Cosmetics.Equipped[CosmeticsData.Slot(owner.Name, slot.Name)] = JsonDoc.String(slot.Value, JsonDoc.Join(path, slot.Name));
+                }
             }
 
             JObject daily = Obj(root, "daily", "rewardLastClaimUtcDate", "rewardStreak", "challengeLastCompletedUtcDate", "freeBoosterAdUtcDate");
@@ -231,7 +254,15 @@ namespace Bloomlings.Client.Services.Save
             var equipped = new JObject();
             foreach (KeyValuePair<string, string> pair in save.Cosmetics.Equipped)
             {
-                equipped[pair.Key] = pair.Value;
+                int dot = pair.Key.IndexOf('.');
+                string owner = pair.Key.Substring(0, dot);
+                if (!(equipped[owner] is JObject slots))
+                {
+                    slots = new JObject();
+                    equipped[owner] = slots;
+                }
+
+                slots[pair.Key.Substring(dot + 1)] = pair.Value;
             }
 
             var collection = new JArray();

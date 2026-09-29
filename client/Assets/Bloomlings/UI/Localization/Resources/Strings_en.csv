@@ -48,6 +48,10 @@ store.remove_ads,Remove Ads
 store.starter_pack,Starter pack
 store.booster_bundle,Booster bundle
 store.booster_owned,{0} (owned {1})
+store.tab_shop,Shop
+store.tab_cosmetics,Cosmetics
+store.cosmetic,{0} ({1})
+store.all_owned,You own everything here
 pause.title,Paused
 pause.resume,Resume
 pause.leave,Leave
@@ -85,7 +89,15 @@ leaderboard.rank,#{0}
 wardrobe.title,Wardrobe
 wardrobe.none,None
 wardrobe.more,Milestones unlock more items
-wardrobe.profile,Profile: {0}
+wardrobe.tab_bloomlings,Bloomlings
+wardrobe.tab_profile,Profile
+wardrobe.kind_skin,Skins
+wardrobe.kind_hat,Hats
+wardrobe.kind_trail,Trails
+wardrobe.kind_expression,Faces
+wardrobe.kind_frame,Frames
+wardrobe.kind_badge,Badges
+wardrobe.kind_marker,Markers
 collection.title,Collection
 collection.count_one,{0} picture
 collection.count_many,{0} pictures
@@ -149,3 +161,19 @@ cosmetic.badge.golden_bloom,Golden Bloom Badge
 cosmetic.marker.crown,Crown Marker
 cosmetic.frame.aurora,Aurora Frame
 cosmetic.hat.star_crown,Star Crown
+common.page,{0} / {1}
+cosmetic.level_badge,Level {0} Badge
+cosmetic.level_marker,Level {0} Marker
+cosmetic.skin.speckles,Speckles
+cosmetic.skin.moon_frost,Moon Frost
+cosmetic.skin.golden_petals,Golden Petals
+cosmetic.skin.spots,Spots
+cosmetic.skin.stripes,Stripes
+cosmetic.skin.petal_print,Petal Print
+cosmetic.hat.bucket_hat,Bucket Hat
+cosmetic.hat.bell_cap,Bell Cap
+cosmetic.trail.pollen,Pollen Trail
+cosmetic.trail.breeze,Breeze
+cosmetic.expression.sleepy,Sleepy
+cosmetic.frame.bramble,Bramble Frame
+cosmetic.badge.watering_can,Watering Can Badge

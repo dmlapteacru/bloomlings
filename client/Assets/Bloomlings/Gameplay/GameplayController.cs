@@ -100,7 +100,7 @@ namespace Bloomlings.Client.Gameplay
             WardrobeService? wardrobe = Service<WardrobeService>();
             if (wardrobe != null)
             {
-                _workers.Cosmetics = wardrobe.EquippedFor;
+                _workers.Outfits = wardrobe.OutfitOf;
             }
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave);
             _win = WinScreen.Create(root, Next);
