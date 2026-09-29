@@ -202,6 +202,9 @@ The product docs stay in `product/` and the specs in `specs/`.
 
 ## Delivery Phasing (input for `/speckit-tasks`)
 
+> `tasks.md` regroups this phasing by user-story priority (US3 comes before US4 and US5 there). For execution order,
+> `tasks.md` is authoritative.
+
 | Phase | Scope | Stories / requirements | Exit criteria |
 |---|---|---|---|
 | 0 | Gate check. Repo scaffolding (`core/`, `client/`, CI skeleton). The constitution is already ratified (v1.0.1) | Constitution: development gate | Docs locked; CI green on empty projects |

@@ -62,3 +62,8 @@ Source: clarifications recorded in `specs/001-core-game-mvp/spec.md` (session 20
 - `15_TECHNICAL_ARCHITECTURE.md` — §4, §6, §7, §8, §17.
 
 Each updated document carries a `Revision 2026-09-29` note under its status line.
+
+### Analysis follow-up (same day)
+
+- `07_DIFFICULTY_AND_PROGRESSION.md` §4 now matches doc 13 and spec `001`: the Hard label unlocks at L5, the Key
+  preview at L8, and Stones at L11.

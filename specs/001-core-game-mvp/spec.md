@@ -456,7 +456,7 @@ skin. Complete the daily challenge. Open the Collection.
 - **FR-043**: **Extra Slot** MUST add one extra usable slot until the end of the current level. At most one extra slot can be active.
 - **FR-044**: **Shuffle** MUST rearrange only the remaining eligible Source Pods. Waiting pods are unaffected, locks stay attached to their pods, and connected pods stay connected. If any arrangement can still be won without further boosters, the result MUST be winnable. Each use consumes a charge.
 - **FR-045**: **Return** MUST move one unfinished waiting pod, with its remaining count, back to the top of its original Source stack. Cleared tiles stay cleared.
-- **FR-046**: Every level MUST be winnable without boosters. A booster that can have no effect MUST be disabled.
+- **FR-046**: Every level MUST be winnable without boosters; FR-080 validates this. A booster that can have no effect MUST be disabled.
 - **FR-047**: Boosters MUST be obtainable through unlock grants, level-completion drops, milestone rewards, Petal purchases, rewarded ads and in-app purchase bundles.
 - **FR-048**: Recovery MUST stay limited: at most one extra slot at a time, each booster use consumes a charge, Bloom Burst is the most expensive booster, and the ad rescue is available once per attempt.
 - **FR-049**: No booster, cosmetic or reward may change the exact-matching rule or give Bloomlings extra power.
@@ -469,7 +469,7 @@ skin. Complete the daily challenge. Open the Collection.
 - **FR-053**: Interstitial ads MUST appear only at post-win transitions. They MUST never appear during a level, immediately after a fail, or during onboarding (Levels 1–10). They MUST be capped by both time and level count.
 - **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage.
 - **FR-055**: Daily Reward MUST unlock at L7, with one claim per calendar day.
-- **FR-056**: No level may require spending money or watching ads.
+- **FR-056**: No level may require spending money or watching ads. This follows from FR-046 and FR-080.
 
 #### H. Progression, Home and long-run motivation (docs 07, 08, 11, 13)
 
@@ -674,7 +674,7 @@ Layout principles:
 - **SC-005**: Replaying a stored tap sequence gives an identical outcome in 100% of automated replays, across devices and at both 1× and 2× speed.
 - **SC-006**: Median completion times fall within the band targets: tutorial 20–45 s, Normal 45–120 s, Hard 2–4 min.
 - **SC-007**: First-attempt win rates meet the targets (tunable): Normal at least 70%, Hard 35–60%, Super Hard 15–40%.
-- **SC-008**: Every tap shows feedback within 0.1 s. Animation stays smooth, with no visible stutter, on the lowest supported devices with the largest boards.
+- **SC-008**: Every tap shows feedback within 0.1 s. Animation stays smooth on the lowest supported devices with the largest boards: at least 30 fps, with no frame hitch longer than 100 ms.
 - **SC-009**: Progress survives app restarts in 100% of test cases. Permanent purchases are restorable in 100% of test cases.
 - **SC-010**: At least 60% of new players reach Level 10 (the Leaderboard unlock) in their first session.
 - **SC-011**: The same level number shows an identical level on every tested device and account (100% match).
@@ -707,7 +707,7 @@ Layout principles:
   - Variants entering at L45/L200: to be decided.
 - **Platforms**: Android and iOS phones, portrait. The high-level technical direction in doc 15 (Unity/C#, deterministic simulation, offline generator and solver, lightweight backend) is input for planning, not part of this spec.
 - **Picture library**: if each base picture is used in at most about 5 levels, a 5000-level catalog needs roughly 1000–1500 base pictures. The exact size and sourcing (drawn, generated, or generated and edited) are decided in planning.
-- **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 coins, a booster costs roughly 40–60.
+- **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 Petals, a booster costs roughly 40–60 Petals.
 - **Out of scope for launch** (doc 14):
   - world map, room builder, PvP, clans, narrative campaign;
   - permanent hero power upgrades;

@@ -68,7 +68,7 @@ One per level number (FR-075 to FR-077). Wire format:
 | `slots` | `{count: 5, locked?: {slotIndex, keyId}}` | At most 1 locked slot, and only from L80 (FR-039) |
 | `tray.stacks[]` | ordered pod ids, top first | 2–6 stacks (tuned per band) |
 | `pods[]` | list of `{id, variantId, count, mystery?, lockKeyId?, connectedGroupId?}` | `count ≥ 1`. Connected groups have 2 members (3 only if that mechanic is unlocked). Members of a connected group sit at the **same depth** in different stacks |
-| `difficulty` | `{class: normal\|hard\|super_hard, score, overridden}` | FR-082 |
+| `difficulty` | `{class: normal\|hard\|super_hard, score, overridden}` | FR-082. `score` is an integer fixed-point value (× 1000) |
 | `rewardProfile` | string | Links to an economy config entry |
 | `mechanics[]` | list of strings | Derived; used by unlock validation |
 

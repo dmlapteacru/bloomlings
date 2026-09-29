@@ -24,7 +24,8 @@ only.
 - **Id**: `global_highest_level`. It is sorted descending and ranks the whole world (FR-062).
 - **Score encoding**: `level × 10_000_000 + (9_999_999 − minutesSince(2026-01-01T00:00Z))`. UGS breaks ties by
   PlayerID, so the earlier completion must be encoded in the score to rank higher. The value fits exactly in a double
-  up to about level 900 million.
+  up to about level 900 million. Two completions of the same level within the same minute still tie and fall back to
+  the PlayerID order; this is accepted.
 - **Submission** happens through Cloud Code function `SubmitProgress(level, contentVersion, commandLogHash)`. The
   sanity checks reject a submission when:
   - the level does not increase monotonically;
@@ -51,6 +52,9 @@ only.
 | `economy.petals.hardBonus` / `superHardBonus` | 10 / 20 | 0–100 | FR-041 |
 | `economy.price.extraSlot` / `shuffle` / `return` / `bloomBurst` | 40 / 40 / 50 / 60 | 10–500 | FR-047, FR-048 |
 | `economy.unlockGrant` | 1 | 1–3 | FR-042 |
+| `economy.drop.everyLevels` | 5 | 2–20 | FR-047: every Nth completed level grants 1 charge, rotating through the unlocked boosters (no randomness) |
+| `daily.reward.petals` | 20 | 5–200 | FR-055 |
+| `daily.reward.streakBonusPetals` / `streakMaxDays` | 5 / 7 | 0–50 / 1–30 | FR-055: bonus per consecutive day, capped |
 | `ads.interstitial.firstLevel` | 11 | 11–100 | FR-053, SC-013 |
 | `ads.interstitial.minSeconds` / `minLevels` | 180 / 3 | 60–1800 / 1–10 | FR-053 |
 | `ads.rescue.perAttempt` | 1 | 0–1 | FR-027, FR-048 |

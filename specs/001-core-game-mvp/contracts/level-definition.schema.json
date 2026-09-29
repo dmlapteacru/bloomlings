@@ -149,7 +149,7 @@
       "properties": {
         "stacks": {
           "type": "array",
-          "minItems": 1,
+          "minItems": 2,
           "maxItems": 6,
           "items": { "type": "array", "minItems": 1, "items": { "type": "string" }, "description": "Pod ids, top (exposed) first." }
         }
@@ -178,7 +178,7 @@
       "required": ["class", "score"],
       "properties": {
         "class": { "enum": ["normal", "hard", "super_hard"] },
-        "score": { "type": "number", "minimum": 0 },
+        "score": { "type": "integer", "minimum": 0, "description": "Fixed-point difficulty score (value x 1000). Integer so that generation is reproducible across machines." },
         "overridden": { "type": "boolean", "default": false }
       }
     },

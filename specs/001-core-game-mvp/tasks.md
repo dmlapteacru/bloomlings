@@ -206,7 +206,7 @@ story depends on these.
   - a round-trip must be byte-stable, with sorted keys and no trailing whitespace.
 
   Embed the four schemas from `specs/001-core-game-mvp/contracts/*.schema.json` as resources under
-  `core/src/Bloomlings.Content/Schemas/`. Tighten `tray.stacks` `minItems` to 2 so that it matches data-model §1.3.
+  `core/src/Bloomlings.Content/Schemas/` unchanged (the contract already requires 2–6 stacks).
 - [ ] T023 [P] Implement pack reading in `core/src/Bloomlings.Content/Packs/LevelPackReader.cs`,
   `PicturePackReader.cs` and `ContentManifest.cs`:
   - read gzip JSON-Lines packs;
@@ -458,6 +458,10 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
   - on a win, advances and saves;
   - raises `UnlockReached(unlockId)` from T057;
   - tracks `demosSeen`.
+
+  Also add the editor-only menu `client/Assets/Bloomlings/Editor/FastProgressMenu.cs` ("Tools/Bloomlings/Fast
+  Progress"). It sets the highest completed level to a chosen N and fires every unlock passed on the way. Quickstart
+  §5 step 7 uses it.
 - [ ] T061 [US2] Implement `client/Assets/Bloomlings/Services/Content/CatalogService.cs`. It maps a level number to
   its `LevelDefinition` and `BasePicture` through `BundledContentLoader`. The content version used for an attempt is
   pinned until that attempt ends (R6).
@@ -572,6 +576,8 @@ Quickstart §2–§4 must pass.
     commitments, variant load (count, siblings, similarity, cross-variant layers), special load, total work and
     estimated duration;
   - score and class thresholds come from `content/profiles/difficulty-thresholds.json` (FR-082);
+  - the score is an integer fixed-point value (× 1000) with integer thresholds, so generation is reproducible across
+    machines;
   - a manual override flag is supported.
 - [ ] T079 [P] [US3] Implement `core/src/Bloomlings.Content/Validation/ValidationRecord.cs`, following data-model §1.4:
   `result`, `solutionTrace`, `jamWitness`, `playerInfoFair`, `metrics`, `checks[]`, `solverVersion`, `nodeBudget` and
@@ -792,6 +798,7 @@ with Extra Slot.
 - [ ] T113 [P] [US5] Write `core/tests/Bloomlings.Core.Tests/Rules/BoosterTests.cs`:
   - Extra Slot works at most once per level;
   - Return puts the pod on top of its original stack with its remaining count, and cleared tiles stay cleared;
+  - Return on a pod committed as part of a connected group moves only that pod; the other members stay in their slots;
   - Bloom Burst removes every layer of the variant (visible and hidden) and every pod of the variant, and accounting
     still reconciles;
   - Shuffle leaves waiting pods untouched, keeps locks attached and connected pods together, and yields a winnable
@@ -823,13 +830,15 @@ with Extra Slot.
   Use `SessionOptions.ShuffleNodeBudget` as the budget and emit `TrayShuffled`.
 - [ ] T118 [P] [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs`. It holds the bundled
   defaults and clamping ranges for the `economy.*` keys in `contracts/backend-services.md`, for example
-  `economy.petals.base` 12 (5–50) and `economy.price.bloomBurst` 60 (10–500).
+  `economy.petals.base` 12 (5–50), `economy.price.bloomBurst` 60 (10–500) and `economy.drop.everyLevels` 5 (2–20).
 - [ ] T119 [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyService.cs`:
   - the Petals wallet;
   - level rewards (FR-041);
   - booster purchases with Petals;
   - unlock grants at L3, L4, L6 and L9 with one charge each (FR-042);
-  - a level-completion drop hook and a milestone grant hook (FR-047);
+  - level-completion drops: every `economy.drop.everyLevels`-th completed level grants 1 charge, rotating through the
+    unlocked boosters, with no randomness (FR-047);
+  - a milestone grant hook (FR-047);
   - each booster use consumes a charge (FR-048).
 - [ ] T120 [US5] Implement `client/Assets/Bloomlings/UI/Gameplay/BoosterBar.cs`:
   - four buttons showing the owned count or the price;
@@ -916,7 +925,8 @@ with Extra Slot.
   - shows an "unavailable" state when offline (FR-074).
 - [ ] T134 [US6] Implement `client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs` and
   `DailyRewardPopup.cs`. It unlocks at L7 and allows one claim per UTC calendar day through `IClock`, persisted in the
-  save's `daily` section (FR-055).
+  save's `daily` section (FR-055). The claim pays `daily.reward.petals` plus `daily.reward.streakBonusPetals` per
+  consecutive day, capped at `daily.reward.streakMaxDays`.
 
 **Checkpoint**: Monetization works and never blocks or breaks the puzzle (FR-056).
 
@@ -981,6 +991,14 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
   - when a level matches several cadences, only the largest cadence's reward is granted (FR-061).
 
   Each milestone is granted once, with a short celebration. The service also feeds the Home teaser (FR-061).
+  Default contents of `milestones.json`, tuned later:
+
+  | Cadence | Default bundle |
+  |---|---|
+  | 25 | 50 Petals + 1 booster charge |
+  | 50 | 100 Petals + 1 cosmetic or profile item |
+  | 100 | 300 Petals + 1 charge of each booster + 1 cosmetic |
+  | 250 / 500 / 1000 and later | 500 Petals + prestige frame, skin, badge or leaderboard marker |
 - [ ] T143 [US7] Implement the Wardrobe in `client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs`,
   `CosmeticCatalog.asset` and `client/Assets/Bloomlings/UI/Screens/WardrobeScreen.cs`:
   - unlocks at L40;
@@ -1021,7 +1039,9 @@ final validation.
   `specs/001-core-game-mvp/checklists/accessibility.md`:
   - run the readability tool (T075) on every variant pair that can share a level;
   - take colorblind-simulation screenshots of 6-variant boards;
-  - check pod counts at the smallest supported screen (FR-072, SC-003).
+  - check pod counts at the smallest supported screen (FR-072, SC-003);
+  - run the manual FR-005 checks for every approved pair: tell the two variants apart on a pod in the tray, in a
+    Waiting Slot, and on moving Bloomling characters, at 1× and 2× speed.
 - [ ] T150 Profile and optimize on the reference low-end devices (R16) and record the results in
   `specs/001-core-game-mvp/checklists/performance.md`:
   - sprite atlases and pooled workers (T046);
