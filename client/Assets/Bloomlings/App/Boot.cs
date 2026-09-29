@@ -1,17 +1,20 @@
 using System;
 using System.Collections;
+using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
+using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Packs;
+using Bloomlings.Core.Progression;
 using UnityEngine;
 
 namespace Bloomlings.Client.App
 {
     /// <summary>
-    /// Composition root in the Boot scene (build index 0): creates the services, loads the bundled content, then
-    /// hands over to <see cref="GameFlow"/>. Everything works offline (FR-074); online services are added by later
-    /// stories behind their interfaces.
+    /// Composition root in the Boot scene (build index 0): loads the save, the bundled content and the roadmap,
+    /// creates the services, then hands over to <see cref="GameFlow"/>. Everything works offline (FR-074); online
+    /// services are added by later stories behind their interfaces.
     /// </summary>
     [DefaultExecutionOrder(-1000)]
     public sealed class Boot : MonoBehaviour
@@ -26,8 +29,15 @@ namespace Bloomlings.Client.App
             Application.targetFrameRate = _targetFrameRate;
 
             var services = new AppServices();
-            services.Register<IClock>(new SystemClock());
+            var clock = new SystemClock();
+            services.Register<IClock>(clock);
             services.Register<IRemoteConfigService>(new BundledRemoteConfigService());
+
+            SaveService saves = SaveService.CreateDefault(clock);
+            PlayerSave save = saves.Load();
+            bool firstLaunch = saves.IsFirstLaunch;
+            services.Register(saves);
+            services.Register(save);
 
             ContentSet? content = null;
             Exception? error = null;
@@ -39,13 +49,21 @@ namespace Bloomlings.Client.App
                 yield break;
             }
 
-            Debug.Log($"[Boot] Content v{content.ContentVersion}: {content.LevelCount} levels, {content.PictureCount} pictures ({loader.Source}).");
+            Debug.Log($"[Boot] Content v{content.ContentVersion}: {content.LevelCount} levels, {content.PictureCount} pictures ({loader.Source}); save from {saves.Source}.");
             services.Register(content);
+            var catalog = new CatalogService(content);
+            services.Register(catalog);
 
-            var flow = new GameFlow(services);
+            save.Progression.ContentVersionSeen = Math.Max(save.Progression.ContentVersionSeen, content.ContentVersion);
+            var progression = new ProgressionService(save, UnlockRoadmap.Default, saves.Save);
+            progression.UnlockReached += entry => Debug.Log($"[Progression] Unlocked {entry.UnlockId} at L{entry.Level}.");
+            services.Register(progression);
+            progression.Initialize();
+
+            var flow = new GameFlow(progression, catalog);
             services.Register(flow);
             AppServices.MakeCurrent(services);
-            flow.Begin();
+            flow.Begin(firstLaunch);
         }
     }
 }

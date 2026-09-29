@@ -43,3 +43,6 @@ client/MemoryCaptures/
 client/*.csproj
 client/*.sln
 client/*.slnx
+
+# .NET check of the Unity client scripts (client/DotnetCheck)
+client/DotnetCheck/artifacts/

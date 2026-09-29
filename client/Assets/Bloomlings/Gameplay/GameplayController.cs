@@ -1,5 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
+using System.Collections;
+using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.App;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Board;
@@ -9,11 +10,14 @@ using Bloomlings.Client.Gameplay.Tray;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
-using Bloomlings.Client.UI;
+using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Screens;
+using Bloomlings.Client.UI.Tutorial;
+using Bloomlings.Client.UI;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Simulation;
+using Bloomlings.Core.Variants;
 using UnityEngine;
 
 namespace Bloomlings.Client.Gameplay
@@ -45,6 +49,9 @@ namespace Bloomlings.Client.Gameplay
         private PauseScreen _pause = null!;
         private WinScreen _win = null!;
         private JamScreen _jam = null!;
+        private DifficultyBanner _banner = null!;
+        private DemoOverlay _demo = null!;
+        private readonly System.Collections.Generic.HashSet<string> _devDemosSeen = new System.Collections.Generic.HashSet<string>();
 
         public LevelSession? Session => _session;
 
@@ -63,6 +70,8 @@ namespace Bloomlings.Client.Gameplay
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave);
             _win = WinScreen.Create(root, Next);
             _jam = JamScreen.Create(root, Restart, _ => { });
+            _banner = DifficultyBanner.Create(root);
+            _demo = DemoOverlay.Create(root);
 
             if (AppServices.Current != null && AppServices.Current.TryGet(out IRemoteConfigService? config))
             {
@@ -75,7 +84,14 @@ namespace Bloomlings.Client.Gameplay
 
             (LevelDefinition level, BasePicture picture, SessionOptions options) = ResolveLevel();
             _session = LevelSession.Load(level, picture, options);
+            if (AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && save!.Settings.Speed2x)
+            {
+                _hud.SetDoubleSpeed(true);
+                _timeline.Speed = 2f;
+            }
+
             RebuildViews();
+            ShowLevelIntro();
         }
 
         // ---- Input ----
@@ -119,6 +135,13 @@ namespace Bloomlings.Client.Gameplay
             _tray.Refresh(_session.View);
             _slots.UpdateStates(_session.View);
             _timeline.Enqueue(result.Events);
+            _demo.NotifyAction();
+
+            // Record a win as soon as it happens logically, so a kill during the win animation keeps it (R15).
+            if (_session.Status == LevelStatus.Won && Flow != null && Flow.CurrentAttempt != null)
+            {
+                Flow.OnLevelWon(Flow.CurrentAttempt.LevelNumber);
+            }
         }
 
         // ---- Timeline sink ----
@@ -211,11 +234,16 @@ namespace Bloomlings.Client.Gameplay
             RebuildViews();
         }
 
+        private static GameFlow? Flow => AppServices.Current != null && AppServices.Current.TryGet(out GameFlow? flow) ? flow : null;
+
+        private static ProgressionService? Progression =>
+            AppServices.Current != null && AppServices.Current.TryGet(out ProgressionService? progression) ? progression : null;
+
         private void Next()
         {
-            if (AppServices.Current != null && AppServices.Current.TryGet(out GameFlow? flow))
+            if (Flow != null)
             {
-                flow!.Next();
+                Flow.Next();
             }
             else
             {
@@ -226,14 +254,95 @@ namespace Bloomlings.Client.Gameplay
         private void Leave()
         {
             ClosePause();
-            if (AppServices.Current != null && AppServices.Current.TryGet(out GameFlow? flow))
+            if (Flow != null)
             {
-                flow!.Leave();
+                Flow.Leave();
             }
             else
             {
                 Restart();
             }
+        }
+
+        /// <summary>Before play: the difficulty label (FR-059), then at most one demo (FR-031, FR-071).</summary>
+        private void ShowLevelIntro()
+        {
+            LevelSession session = _session!;
+            ProgressionService? progression = Progression;
+            _banner.TryShow(
+                session.Definition.Difficulty.Class,
+                progression?.IsUnlocked("profile.hard") ?? true,
+                progression?.IsUnlocked("profile.super_hard") ?? true);
+
+            if (session.Definition.LevelNumber == 1 && !SeenDemo(DemoScripts.FirstTapId))
+            {
+                string? pod = RecommendedFirstPod(session);
+                _demo.Show(DemoScripts.FirstTap(() => pod == null ? null : _tray.RectOf(pod)), OnDemoDone);
+                return;
+            }
+
+            (VariantId First, VariantId Second)? siblings = SiblingPair(session);
+            if (siblings.HasValue && !SeenDemo(DemoScripts.SiblingsId))
+            {
+                VariantVisual first = _visuals != null ? _visuals.Get(siblings.Value.First) : VariantVisualCatalog.Default(siblings.Value.First);
+                VariantVisual second = _visuals != null ? _visuals.Get(siblings.Value.Second) : VariantVisualCatalog.Default(siblings.Value.Second);
+                _demo.Show(DemoScripts.Siblings(first, second), OnDemoDone);
+            }
+        }
+
+        private bool SeenDemo(string demoId) => Progression?.HasSeenDemo(demoId) ?? _devDemosSeen.Contains(demoId);
+
+        private void OnDemoDone(DemoScript script)
+        {
+            if (Progression != null)
+            {
+                Progression.MarkDemoSeen(script.DemoId);
+            }
+            else
+            {
+                _devDemosSeen.Add(script.DemoId);
+            }
+        }
+
+        /// <summary>An exposed pod that clears tiles at once: the target of the guided first tap.</summary>
+        private static string? RecommendedFirstPod(LevelSession session)
+        {
+            foreach (string id in session.View.PodIds)
+            {
+                if (!session.View.IsExposed(id))
+                {
+                    continue;
+                }
+
+                LevelSession probe = session.Clone();
+                foreach (GameEvent e in probe.Apply(new TapPod(id)).Events)
+                {
+                    if (e is TileCleared)
+                    {
+                        return id;
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>Two variants of one family among the level's pods, for the sibling demo (FR-071).</summary>
+        private static (VariantId First, VariantId Second)? SiblingPair(LevelSession session)
+        {
+            var byFamily = new System.Collections.Generic.Dictionary<Family, VariantId>();
+            foreach (PodDef pod in session.Definition.Pods)
+            {
+                Family family = VariantCatalog.Default.Get(pod.Variant).Family;
+                if (byFamily.TryGetValue(family, out VariantId other) && other != pod.Variant)
+                {
+                    return (other, pod.Variant);
+                }
+
+                byFamily[family] = pod.Variant;
+            }
+
+            return null;
         }
 
         private void RebuildViews()
@@ -271,11 +380,10 @@ namespace Bloomlings.Client.Gameplay
 
         private static (LevelDefinition, BasePicture, SessionOptions) ResolveLevel()
         {
-            AppServices? services = AppServices.Current;
-            if (services != null && services.TryGet(out ContentSet? content) && services.TryGet(out GameFlow? flow))
+            LevelAttempt? attempt = Flow?.CurrentAttempt;
+            if (attempt != null)
             {
-                LevelDefinition level = content!.GetLevel(flow!.CurrentLevel);
-                return (level, content.GetPicture(level.Picture), new SessionOptions(content.ContentVersion, content.ShuffleNodeBudget));
+                return (attempt.Definition, attempt.Picture, attempt.Options);
             }
 
             // Played directly in the Editor: the level picked in Tools/Bloomlings/Play Dev Level.

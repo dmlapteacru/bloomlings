@@ -8,11 +8,11 @@ using Newtonsoft.Json.Linq;
 namespace Bloomlings.Content.Json
 {
     /// <summary>
-    /// Strict reading helpers over Newtonsoft's JObject. Documents are parsed without date or float conversion, unknown
+    /// Strict reading helpers (shared with the client save serializer) over Newtonsoft's JObject. Documents are parsed without date or float conversion, unknown
     /// properties are rejected (the schemas use <c>additionalProperties: false</c>) and every error names its JSON path.
     /// No reflection is used, which keeps the code safe under IL2CPP stripping.
     /// </summary>
-    internal static class JsonDoc
+    public static class JsonDoc
     {
         private static readonly JsonLoadSettings LoadSettings = new JsonLoadSettings
         {

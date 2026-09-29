@@ -21,6 +21,9 @@ jobs:
       - name: Test
         run: dotnet test core/Bloomlings.sln -c Release --no-build --logger trx --results-directory core/artifacts/test-results
 
+      - name: Client scripts (stub compile and engine-free EditMode tests)
+        run: dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj -c Release --logger trx --results-directory core/artifacts/test-results
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4

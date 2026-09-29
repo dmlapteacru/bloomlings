@@ -15,7 +15,8 @@ namespace Bloomlings.Client.Services.Content
     /// <list type="bullet">
     /// <item><c>manifest.json</c> and the packs it lists, verified by SHA-256 before use;</item>
     /// <item>in the Editor and development builds without a manifest, the loose <c>dev/</c> folder
-    /// (one JSON file per level and picture, until <c>publish</c> exists).</item>
+    /// (one JSON file per level and picture, until <c>publish</c> exists); in the Editor without it, the curated
+    /// levels in the repository's <c>content/</c> folder.</item>
     /// </list>
     /// On Android StreamingAssets sit inside the APK, so files are read through <see cref="UnityWebRequest"/>; other
     /// platforms read the file system directly. Parsing runs on a worker thread to keep the first frame responsive.
@@ -109,13 +110,15 @@ namespace Bloomlings.Client.Services.Content
         private IEnumerator LoadDevFolder(Action<ContentSet> onLoaded, Action<Exception> onError)
         {
             string devRoot = Path.Combine(ContentRoot, DevFolder);
-            if (!Directory.Exists(devRoot))
+            bool devFolder = Directory.Exists(devRoot);
+            if (!devFolder && !Application.isEditor)
             {
                 onError(new DirectoryNotFoundException($"No bundled manifest and no dev content folder at {devRoot}."));
                 yield break;
             }
 
-            Task<ContentSet> parse = Task.Run(() => LooseContentFolder.Load(devRoot));
+            // In the Editor without a dev folder, the curated levels are read straight from the repository.
+            Task<ContentSet> parse = Task.Run(() => devFolder ? LooseContentFolder.Load(devRoot) : DevContent.LoadCurated());
             yield return new WaitUntil(() => parse.IsCompleted);
             if (parse.IsFaulted || parse.IsCanceled)
             {
@@ -123,7 +126,7 @@ namespace Bloomlings.Client.Services.Content
                 yield break;
             }
 
-            Source = "dev folder";
+            Source = devFolder ? "dev folder" : "repository content/curated";
             onLoaded(parse.Result);
         }
 

@@ -38,6 +38,33 @@ namespace Bloomlings.Client.Art
             RoundedBox(x, y, 0f, -0.2f, 0.09f, 0.18f, 0.04f),
             Length(x, y + 0.65f) - 0.12f));
 
+        /// <summary>A five-point star (Hard label).</summary>
+        public static Sprite Star => Get("star", IconSize, (x, y) => StarShape(x, y, 0.9f));
+
+        /// <summary>Two stars (Super Hard label).</summary>
+        public static Sprite DoubleStar => Get("star2", IconSize, (x, y) => Min(StarShape((x + 0.42f) * 1.7f, y * 1.7f, 0.9f) / 1.7f, StarShape((x - 0.42f) * 1.7f, y * 1.7f, 0.9f) / 1.7f));
+
+        /// <summary>A cross, used to show that a pod ignores a tile of another variant (FR-071).</summary>
+        public static Sprite Cross => Get("cross", IconSize, (x, y) =>
+        {
+            const float c = 0.70710678f;
+            float u = (c * x) + (c * y);
+            float v = (-c * x) + (c * y);
+            return Min(RoundedBox(u, v, 0f, 0f, 0.85f, 0.14f, 0.1f), RoundedBox(u, v, 0f, 0f, 0.14f, 0.85f, 0.1f));
+        });
+
+        /// <summary>A gear for the Settings button (no font glyph needed).</summary>
+        public static Sprite Gear => Get("gear", IconSize, (x, y) =>
+        {
+            float teeth = Mathf.Cos(8f * Mathf.Atan2(y, x)) > 0f ? 0.16f : 0f;
+            return Max(Length(x, y) - (0.62f + teeth), -(Length(x, y) - 0.26f));
+        });
+
+        /// <summary>A pointing hand for tutorials (a palm and one raised finger).</summary>
+        public static Sprite Pointer => Get("pointer", IconSize, (x, y) => Min(
+            RoundedBox(x, y, 0f, -0.35f, 0.42f, 0.42f, 0.2f),
+            RoundedBox(x, y, -0.12f, 0.3f, 0.13f, 0.5f, 0.12f)));
+
         /// <summary>The icon for a variant's <see cref="VariantInfo.IconId"/>.</summary>
         public static Sprite Icon(string iconId) => iconId switch
         {
@@ -64,6 +91,13 @@ namespace Bloomlings.Client.Art
             Family.Drop => Get("fam_drop", IconSize, (x, y) => Min(Length(x, y + 0.2f) - 0.58f, Triangle(x, y + 0.05f, 0.58f))),
             _ => Get("fam_twig", IconSize, (x, y) => Min(RoundedBox(x, y, 0f, -0.15f, 0.42f, 0.7f, 0.35f), RoundedBox(x, y, 0.3f, 0.55f, 0.25f, 0.06f, 0.03f))),
         };
+
+        private static float StarShape(float x, float y, float r)
+        {
+            float angle = Mathf.Atan2(y, x) - (Mathf.PI / 2f);
+            float radius = r * (0.62f + (0.38f * Mathf.Cos(5f * angle)));
+            return Length(x, y) - (radius * 0.85f);
+        }
 
         private static float Leaf(float x, float y)
         {
@@ -127,9 +161,9 @@ namespace Bloomlings.Client.Art
 
         private static Sprite Get(string key, int size, Func<float, float, float> sdf, float border = 0f)
         {
-            if (Cache.TryGetValue(key, out Sprite sprite))
+            if (Cache.TryGetValue(key, out Sprite? cached))
             {
-                return sprite;
+                return cached;
             }
 
             var texture = new Texture2D(size, size, TextureFormat.RGBA32, false)
@@ -155,7 +189,7 @@ namespace Bloomlings.Client.Art
 
             texture.SetPixels32(pixels);
             texture.Apply(false, true);
-            sprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, new Vector4(border, border, border, border));
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, new Vector4(border, border, border, border));
             sprite.name = key;
             Cache[key] = sprite;
             return sprite;

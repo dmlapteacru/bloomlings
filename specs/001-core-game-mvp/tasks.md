@@ -439,36 +439,36 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
 
 ### Tests for User Story 2 ⚠️
 
-- [ ] T054 [P] [US2] Write `client/Assets/Bloomlings/Tests/EditMode/SaveServiceTests.cs`:
+- [X] T054 [P] [US2] Write `client/Assets/Bloomlings/Tests/EditMode/SaveServiceTests.cs`:
   - the atomic write survives a simulated crash between the temp write and the rename;
   - a corrupt main file falls back to the backup;
   - the `schemaVersion` migration hook runs;
   - "Petals and charges are never negative";
   - "`claimed` and `ledger.transactionId` are unique".
-- [ ] T055 [P] [US2] Write `client/Assets/Bloomlings/Tests/EditMode/ProgressionServiceTests.cs`:
+- [X] T055 [P] [US2] Write `client/Assets/Bloomlings/Tests/EditMode/ProgressionServiceTests.cs`:
   - a win at N sets `highestCompletedLevel=N` and the current level to N+1;
   - unlock events fire exactly at the roadmap levels;
   - a demo is shown within 0–2 levels of its unlock (FR-031).
-- [ ] T056 [P] [US2] Add golden cases for the curated Levels 1–10 in `core/tests/golden/curated-l0001.golden.json` to
+- [X] T056 [P] [US2] Add golden cases for the curated Levels 1–10 in `core/tests/golden/curated-l0001.golden.json` to
   `curated-l0010.golden.json`, each with a winning command log. They prove that the same definition gives the same
   result everywhere (SC-011).
 
 ### Implementation for User Story 2
 
-- [ ] T057 [P] [US2] Create the unlock roadmap table:
+- [X] T057 [P] [US2] Create the unlock roadmap table:
   - `content/roadmap/unlock-roadmap.json` mirrors the spec's Unlock Roadmap. Each entry is `{level, unlockId, kind:
     system|booster|mechanic|variant|profile, demoWithin: 0–2}`.
   - The pure loader `core/src/Bloomlings.Core/Progression/UnlockRoadmap.cs` is shared by the client and by pipeline
     validation (FR-031).
   - Defaults: the Key unlocks at L8 (`mechanic.key`), Stones at L11 (`mechanic.stone`). If the Mystery Pod takes L8,
     `mechanic.key` moves to L14.
-- [ ] T058 [P] [US2] Implement `client/Assets/Bloomlings/Services/Save/PlayerSave.cs` and `SaveSerializer.cs`,
+- [X] T058 [P] [US2] Implement `client/Assets/Bloomlings/Services/Save/PlayerSave.cs` and `SaveSerializer.cs`,
   mirroring `contracts/player-save.schema.json` (data-model §3.1) and using Newtonsoft.
-- [ ] T059 [US2] Implement `client/Assets/Bloomlings/Services/Save/SaveService.cs` (R15):
+- [X] T059 [US2] Implement `client/Assets/Bloomlings/Services/Save/SaveService.cs` (R15):
   - the save lives at `Application.persistentDataPath/save/player_save_v1.json`;
   - writes are atomic (temp file plus rename) and keep a `.bak`, with a checksum field;
   - it saves after a win, a purchase, a claim, a settings change or a booster use, and never mid-level.
-- [ ] T060 [US2] Implement `client/Assets/Bloomlings/App/Progression/ProgressionService.cs`:
+- [X] T060 [US2] Implement `client/Assets/Bloomlings/App/Progression/ProgressionService.cs`:
   - tracks `highestCompletedLevel` and the current level (= highest + 1);
   - on a win, advances and saves;
   - raises `UnlockReached(unlockId)` from T057;
@@ -477,28 +477,28 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
   Also add the editor-only menu `client/Assets/Bloomlings/Editor/FastProgressMenu.cs` ("Tools/Bloomlings/Fast
   Progress"). It sets the highest completed level to a chosen N and fires every unlock passed on the way. Quickstart
   §5 step 7 uses it.
-- [ ] T061 [US2] Implement `client/Assets/Bloomlings/Services/Content/CatalogService.cs`. It maps a level number to
+- [X] T061 [US2] Implement `client/Assets/Bloomlings/Services/Content/CatalogService.cs`. It maps a level number to
   its `LevelDefinition` and `BasePicture` through `BundledContentLoader`. The content version used for an attempt is
   pinned until that attempt ends (R6).
-- [ ] T062 [US2] Implement `client/Assets/Bloomlings/App/GameFlow.cs`:
+- [X] T062 [US2] Implement `client/Assets/Bloomlings/App/GameFlow.cs`:
   - on the first launch (no save), start Level 1 directly with no menus or sign-in (FR-045);
   - on later launches, open Home (FR-046);
   - on a win, go to WinScreen, then Next, then Level N+1;
   - there is no level map or chooser (FR-057).
-- [ ] T063 [P] [US2] Implement `client/Assets/Bloomlings/UI/Screens/HomeScreen.cs` (FR-058):
+- [X] T063 [P] [US2] Implement `client/Assets/Bloomlings/UI/Screens/HomeScreen.cs` (FR-058):
   - logo, Level N, a single Play/Continue button and Petals;
   - Settings;
   - the Store button, hidden until L12;
   - the milestone teaser, e.g. "Level 100 reward in 12";
   - a leaderboard rank slot, hidden until L10.
-- [ ] T064 [P] [US2] Implement `client/Assets/Bloomlings/UI/Tutorial/DemoOverlay.cs` and `DemoScript.cs`:
+- [X] T064 [P] [US2] Implement `client/Assets/Bloomlings/UI/Tutorial/DemoOverlay.cs` and `DemoScript.cs`:
   - a pointer hand, at most one short message, skippable;
   - the Level 1 guided first tap (FR-045);
   - the same-family sibling demo "Match the exact symbol", which shows the Leaf pod ignoring a Moss tile, shown once
     (FR-071).
-- [ ] T065 [P] [US2] Implement `client/Assets/Bloomlings/UI/Screens/DifficultyBanner.cs`. Before a level starts it
+- [X] T065 [P] [US2] Implement `client/Assets/Bloomlings/UI/Screens/DifficultyBanner.cs`. Before a level starts it
   shows Hard (from L5) or Super Hard (from L10) with a distinct color and icon treatment (FR-059).
-- [ ] T066 [P] [US2] Implement `client/Assets/Bloomlings/UI/Screens/SettingsScreen.cs` with toggles for music, sound
+- [X] T066 [P] [US2] Implement `client/Assets/Bloomlings/UI/Screens/SettingsScreen.cs` with toggles for music, sound
   effects, haptics and the 2× default, persisted in the save. The Restore Purchases button is wired in US6.
 - [ ] T067 [US2] Author the curated tutorial Levels 1–10 as `content/curated/level-0001.json` to `level-0010.json`,
   with approved base pictures `content/pictures/lib/*.json`, following the roadmap:
@@ -511,6 +511,13 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
   validation records into `content/catalog/` (constitution IV: hand-curated levels pass the same validation).
 
   Each level loads through `LevelSession.Load` (exact accounting) and uses a different base picture (FR-083).
+
+
+  Status: Levels 1–10 and their 10 pictures are authored. Every tap order was searched exhaustively: all levels are
+  winnable without boosters; L5 (Hard) jams in 17% of orders and L10 (Super Hard) in 27%. Their winning logs are the
+  T056 golden cases, and `ContentFolderTests` checks the band rules. Still open: pipeline `validate` and validation
+  records (US3, T079–T081), the person playtest (FR-084), and the copy into `content/catalog/`. The L8 Key showcase
+  follows with US4 (T111).
 
 **Checkpoint**: US1 and US2 give a playable vertical slice from first launch to Level 10.
 

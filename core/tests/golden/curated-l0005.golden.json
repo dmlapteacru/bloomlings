@@ -1,0 +1,138 @@
+{
+  "commands": ["tap:w2", "tap:o2", "tap:c1", "tap:w1", "tap:w3", "tap:o1", "tap:c2"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "hard",
+      "overridden": true,
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 5,
+    "mapping": {
+      "cactus": "leaf",
+      "pot": "wood",
+      "sky": "water"
+    },
+    "picture": {
+      "id": "cactus",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 10,
+        "id": "o1",
+        "variantId": "wood"
+      },
+      {
+        "count": 8,
+        "id": "o2",
+        "variantId": "wood"
+      },
+      {
+        "count": 8,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 8,
+        "id": "w2",
+        "variantId": "water"
+      },
+      {
+        "count": 9,
+        "id": "w3",
+        "variantId": "water"
+      },
+      {
+        "count": 8,
+        "id": "c1",
+        "variantId": "leaf"
+      },
+      {
+        "count": 9,
+        "id": "c2",
+        "variantId": "leaf"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1005",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["c1", "w3", "o1"],
+        ["w1", "c2"],
+        ["w2", "o2"]
+      ]
+    }
+  },
+  "description": "Curated Level 5 (Cactus in a pot): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
+  "expectedEventsDigest": "e08b3c9de62751c1",
+  "expectedStateHash": "9fcf2e504167ba8d",
+  "expectedStatus": "won",
+  "name": "curated-l0005",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 0, 2, 2, 2, 2, 0, -1],
+      [0, 2, 2, 2, 2, 2, 2, 0],
+      [2, 2, 2, 2, 2, 2, 2, 2],
+      [0, 0, 0, 1, 1, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 0, 0],
+      [0, 1, 0, 1, 1, 0, 1, 0],
+      [0, 1, 0, 1, 1, 0, 1, 0],
+      [-1, 0, 0, 1, 1, 0, 0, -1]
+    ],
+    "height": 8,
+    "id": "cactus",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Cactus",
+        "roleId": "cactus"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "Pot",
+        "roleId": "pot"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Cactus in a pot",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["desert", "garden"]
+    },
+    "version": 1,
+    "width": 8
+  },
+  "shuffleNodeBudget": 20000
+}

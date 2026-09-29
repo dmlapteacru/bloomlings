@@ -21,13 +21,19 @@ The repository only contains what can be written without the Editor. On the firs
    They give the shared packages stable GUIDs.
 6. Import the TextMeshPro essentials (**Window > TextMeshPro > Import TMP Essential Resources**); all UI text uses
    TextMeshPro.
-7. Run **Tools/Bloomlings/Create Boot Scene** and **Tools/Bloomlings/Create Gameplay Scene**. They write
-   `Assets/Bloomlings/Scenes/Boot.unity` (build index 0) and `Gameplay.unity` (build index 1). This completes T025
-   and the scene part of T052.
+7. Run **Tools/Bloomlings/Create All Scenes**. It writes `Assets/Bloomlings/Scenes/Boot.unity`, `Home.unity` and
+   `Gameplay.unity` as build indexes 0, 1 and 2. This completes T025 and the scene part of T052.
 8. Optionally run **Tools/Bloomlings/Create Variant Visuals Asset** (T039) to get an editable
    `Art/Variants/VariantVisuals.asset`; without it the placeholder visuals are used.
 
-## Playing a level in the Editor
+## Playing in the Editor
+
+Press Play in the Boot scene for the real flow: the first launch (no save) starts Level 1 directly with the guided
+first tap; later launches open Home (Level N, Play/Continue). Without published packs, Boot reads the curated levels
+straight from the repository's `content/curated/` folder. The save lives in
+`Application.persistentDataPath/save/player_save_v1.json`; delete it to replay the first launch.
+**Tools/Bloomlings/Fast Progress** sets the highest completed level and fires every unlock on the way.
+
 
 **Tools/Bloomlings/Play Dev Level** opens the Gameplay scene and plays a level straight from the repository's
 `content/curated/dev/` folder (or any level file you choose), without going through Boot. All screens, tiles, pods
@@ -36,7 +42,14 @@ no prefab or sprite asset is needed yet.
 
 ## Verification status
 
-The client scripts are type-checked outside Unity against API stubs, but they have not been compiled or run in the
+`client/DotnetCheck` compiles every client script against minimal Unity API stubs and runs the engine-free EditMode
+tests (save, progression, golden replays) under .NET; CI runs it with the core tests:
+
+```sh
+dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj
+```
+
+Extend `UnityStubs.cs` when the client starts using a new Unity API. The scripts have not been compiled or run in the
 Editor yet. On first open, run the EditMode tests (`GoldenReplayEditModeTests` must pass: SC-005) and play the three
 dev levels (quickstart §5 steps 1–6) before building on top of them.
 

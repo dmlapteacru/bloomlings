@@ -24,7 +24,7 @@ namespace Bloomlings.Client.Services.Config
 
         public int Get(IntKey key)
         {
-            if (_overrides.TryGetValue(key.Name, out string raw)
+            if (_overrides.TryGetValue(key.Name, out string? raw)
                 && int.TryParse(raw, NumberStyles.Integer, CultureInfo.InvariantCulture, out int value))
             {
                 return key.Clamp(value);
@@ -35,7 +35,7 @@ namespace Bloomlings.Client.Services.Config
 
         public bool Get(BoolKey key)
         {
-            if (_overrides.TryGetValue(key.Name, out string raw))
+            if (_overrides.TryGetValue(key.Name, out string? raw))
             {
                 if (raw == "true")
                 {
@@ -53,7 +53,7 @@ namespace Bloomlings.Client.Services.Config
 
         public string Get(StringKey key)
         {
-            if (_overrides.TryGetValue(key.Name, out string raw) && key.Validate(raw))
+            if (_overrides.TryGetValue(key.Name, out string? raw) && key.Validate(raw))
             {
                 return raw;
             }

@@ -1,0 +1,58 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 3, 3, 3, 3, 3, 3, -1],
+    [3, 3, 3, 3, 3, 3, 3, 3],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 2, 0, 0, 2, 1, 0],
+    [0, 1, 1, 0, 0, 1, 1, 0],
+    [1, 1, 1, 0, 0, 1, 1, 1],
+    [1, 2, 1, 0, 0, 1, 2, 1],
+    [-1, 1, 1, 0, 0, 1, 1, -1]
+  ],
+  "height": 8,
+  "id": "butterfly",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Curated onboarding picture (T067); pending playtest.",
+    "reviewer": "content",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Spot",
+      "roleId": "spot"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower bed",
+      "roleId": "bed"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Butterfly over a flower bed",
+  "tags": {
+    "bands": ["onboarding"],
+    "themes": ["garden", "insects"]
+  },
+  "version": 1,
+  "width": 8
+}

@@ -46,7 +46,7 @@ namespace Bloomlings.Client.App
         public bool TryGet<T>(out T? service)
             where T : class
         {
-            if (_services.TryGetValue(typeof(T), out object value))
+            if (_services.TryGetValue(typeof(T), out object? value) && value != null)
             {
                 service = (T)value;
                 return true;

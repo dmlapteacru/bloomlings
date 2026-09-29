@@ -1,0 +1,121 @@
+{
+  "commands": ["tap:w1", "tap:m1", "tap:m2", "tap:l1"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 7,
+    "mapping": {
+      "bush": "moss",
+      "leaves": "leaf",
+      "sky": "water"
+    },
+    "picture": {
+      "id": "bush",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 28,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 12,
+        "id": "m1",
+        "variantId": "moss"
+      },
+      {
+        "count": 12,
+        "id": "m2",
+        "variantId": "moss"
+      },
+      {
+        "count": 8,
+        "id": "l1",
+        "variantId": "leaf"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1007",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["m1", "l1"],
+        ["w1", "m2"]
+      ]
+    }
+  },
+  "description": "Curated Level 7 (Berry bush): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
+  "expectedEventsDigest": "f617aed900371826",
+  "expectedStateHash": "027c6fd9df860bb0",
+  "expectedStatus": "won",
+  "name": "curated-l0007",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 0, 0, 0, 0, 0, 0, -1],
+      [0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 0],
+      [1, 1, 2, 1, 1, 2, 1, 1],
+      [1, 1, 2, 2, 2, 2, 1, 1],
+      [0, 1, 1, 2, 2, 1, 1, 0],
+      [0, 0, 1, 1, 1, 1, 0, 0],
+      [-1, 0, 0, 0, 0, 0, 0, -1]
+    ],
+    "height": 8,
+    "id": "bush",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Bush",
+        "roleId": "bush"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Leaves",
+        "roleId": "leaves"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Berry bush",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["garden"]
+    },
+    "version": 1,
+    "width": 8
+  },
+  "shuffleNodeBudget": 20000
+}

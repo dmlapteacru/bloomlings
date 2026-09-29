@@ -1,0 +1,116 @@
+{
+  "commands": ["tap:g1", "tap:h1", "tap:d1"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 9,
+    "mapping": {
+      "grass": "leaf",
+      "shell": "acorn",
+      "sky": "dew"
+    },
+    "picture": {
+      "id": "snail",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 26,
+        "id": "d1",
+        "variantId": "dew"
+      },
+      {
+        "count": 17,
+        "id": "h1",
+        "variantId": "acorn"
+      },
+      {
+        "count": 17,
+        "id": "g1",
+        "variantId": "leaf"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1009",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["g1", "h1"],
+        ["d1"]
+      ]
+    }
+  },
+  "description": "Curated Level 9 (Snail): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
+  "expectedEventsDigest": "1dbd1c22305158a5",
+  "expectedStateHash": "4115005440716d39",
+  "expectedStatus": "won",
+  "name": "curated-l0009",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 2, 2, 2, 2, 2, 2, -1],
+      [2, 2, 2, 2, 2, 2, 2, 2],
+      [0, 0, 1, 1, 2, 2, 0, 0],
+      [0, 1, 1, 1, 1, 2, 0, 0],
+      [0, 1, 0, 1, 1, 1, 0, 0],
+      [0, 1, 1, 0, 1, 1, 0, 0],
+      [0, 0, 1, 1, 1, 0, 0, 0],
+      [-1, 0, 0, 0, 0, 0, 0, -1]
+    ],
+    "height": 8,
+    "id": "snail",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "Shell",
+        "roleId": "shell"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Grass",
+        "roleId": "grass"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Snail",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["garden"]
+    },
+    "version": 1,
+    "width": 8
+  },
+  "shuffleNodeBudget": 20000
+}

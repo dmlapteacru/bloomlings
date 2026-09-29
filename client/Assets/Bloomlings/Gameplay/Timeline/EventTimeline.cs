@@ -197,7 +197,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
             var batches = new Dictionary<string, List<WorkUnit>>();
             foreach (WorkUnit unit in wave.Work)
             {
-                if (!batches.TryGetValue(unit.Clear.PodId, out List<WorkUnit> batch) || batch.Count >= perWalker)
+                if (!batches.TryGetValue(unit.Clear.PodId, out List<WorkUnit>? batch) || batch.Count >= perWalker)
                 {
                     batch = new List<WorkUnit>();
                     batches[unit.Clear.PodId] = batch;

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using Bloomlings.Content.Json;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using NUnit.Framework;
 
@@ -51,6 +52,47 @@ namespace Bloomlings.Content.Tests
             Assert.That(DefinitionJson.Write(level), Is.EqualTo(text));
             Assert.That(picture.Version, Is.EqualTo(level.Picture.Version));
             Assert.DoesNotThrow(() => LevelSession.Load(level, picture, new SessionOptions(0, 20000)));
+        }
+
+        /// <summary>
+        /// The onboarding band (Levels 1–10): file names match level numbers, each level has its own picture (FR-083),
+        /// L1 has 2 variants and L2 adds a third (FR-060), boards are at most 8×8 with 2–3 variants, 3–7 pods and 30–60
+        /// work; L5 is the first Hard and L10 the first Super Hard level (roadmap).
+        /// </summary>
+        [Test]
+        public void CuratedOnboardingLevels_FollowTheBandGuidelines()
+        {
+            var pictures = new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);
+            for (int n = 1; n <= 10; n++)
+            {
+                string file = Path.Combine(ContentRoot, "curated", $"level-{n:0000}.json");
+                LevelDefinition level = DefinitionJson.Read(File.ReadAllText(file));
+                BasePicture picture = BasePictureJson.Read(File.ReadAllText(Path.Combine(ContentRoot, "pictures", "lib", level.Picture.Id + ".json")));
+                int variants = level.Pods.Select(p => p.Variant).Distinct().Count();
+                int work = level.Pods.Sum(p => p.Count);
+
+                Assert.Multiple(() =>
+                {
+                    Assert.That(level.LevelNumber, Is.EqualTo(n), file);
+                    Assert.That(pictures.Add(level.Picture.Id), Is.True, $"L{n} reuses picture {level.Picture.Id}");
+                    Assert.That(picture.Width, Is.InRange(7, 8), $"L{n} width");
+                    Assert.That(picture.Height, Is.EqualTo(8), $"L{n} height");
+                    Assert.That(variants, Is.EqualTo(n == 1 ? 2 : n == 2 ? 3 : variants).And.InRange(2, 3), $"L{n} variants");
+                    Assert.That(level.Pods.Count, Is.InRange(3, 7), $"L{n} pods");
+                    Assert.That(work, Is.InRange(30, 60), $"L{n} work");
+                    DifficultyClass expected = n == 5 ? DifficultyClass.Hard : n == 10 ? DifficultyClass.SuperHard : DifficultyClass.Normal;
+                    Assert.That(level.Difficulty.Class, Is.EqualTo(expected), $"L{n} class");
+                });
+            }
+        }
+
+        [Test]
+        public void UnlockRoadmapFile_EqualsTheRuntimeRoadmap()
+        {
+            string text = File.ReadAllText(Path.Combine(ContentRoot, "roadmap", "unlock-roadmap.json"));
+
+            Assert.That(RoadmapJson.Write(RoadmapJson.Read(text)), Is.EqualTo(text), "canonical");
+            Assert.That(text, Is.EqualTo(RoadmapJson.Write(UnlockRoadmap.Default)), "content/roadmap mirrors UnlockRoadmap.Default");
         }
 
         private static string[] Files(string folder)

@@ -70,7 +70,7 @@ namespace Bloomlings.Content.Json
             (PictureSourceKind.GeneratedEdited, "generated_edited"));
     }
 
-    internal sealed class EnumNames<T>
+    public sealed class EnumNames<T>
         where T : struct, Enum
     {
         private readonly Dictionary<T, string> _toWire = new Dictionary<T, string>();

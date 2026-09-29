@@ -16,7 +16,7 @@ namespace Bloomlings.Client.Tests
         private static string GoldenFolder => Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "core", "tests", "golden"));
 
         private static string[] Cases() => Directory.Exists(GoldenFolder)
-            ? Directory.GetFiles(GoldenFolder, "*.golden.json").Select(Path.GetFileName).OrderBy(n => n, StringComparer.Ordinal).ToArray()!
+            ? Directory.GetFiles(GoldenFolder, "*.golden.json").Select(f => Path.GetFileName(f)!).OrderBy(n => n, StringComparer.Ordinal).ToArray()
             : Array.Empty<string>();
 
         [Test]

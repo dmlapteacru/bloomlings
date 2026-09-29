@@ -39,10 +39,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 
 - `dotnet build core/Bloomlings.sln` builds the shared libraries, tools and tests.
 - `dotnet test core/Bloomlings.sln` runs the core, content, solver and generator tests.
+- `dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj` compiles the Unity client scripts against
+  API stubs and runs the engine-free EditMode tests under .NET (extend `client/DotnetCheck/UnityStubs.cs` when the
+  client uses a new Unity API).
+- `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
+  after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI
   (`contracts/pipeline-cli.md`).
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
-- CI: `.github/workflows/core-tests.yml` builds and tests `core/` on every push and pull request.
+- CI: `.github/workflows/core-tests.yml` builds and tests `core/` and the client check on every push and pull request.
 
 ## Spec-Driven Development (GitHub Spec Kit)
 

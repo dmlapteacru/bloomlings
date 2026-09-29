@@ -1,0 +1,254 @@
+{
+  "entries": [
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 1,
+      "unlockId": "system.core"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 2,
+      "unlockId": "profile.third_variant"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "booster",
+      "level": 3,
+      "unlockId": "booster.extra_slot"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "booster",
+      "level": 4,
+      "unlockId": "booster.shuffle"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 5,
+      "unlockId": "profile.hard"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "booster",
+      "level": 6,
+      "unlockId": "booster.return"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 7,
+      "unlockId": "system.daily_reward"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 8,
+      "unlockId": "mechanic.key"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "booster",
+      "level": 9,
+      "unlockId": "booster.bloom_burst"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 10,
+      "unlockId": "system.leaderboard"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 10,
+      "unlockId": "profile.super_hard"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 11,
+      "unlockId": "mechanic.stone"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 12,
+      "unlockId": "system.store"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 14,
+      "unlockId": "profile.key_practice"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 16,
+      "unlockId": "mechanic.locked_pod"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 18,
+      "unlockId": "mechanic.connected_pair"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 20,
+      "unlockId": "profile.four_families"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 25,
+      "unlockId": "system.milestone_25"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 28,
+      "unlockId": "mechanic.layered_tile"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 32,
+      "unlockId": "profile.five_variants"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 35,
+      "unlockId": "mechanic.gate"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 40,
+      "unlockId": "system.wardrobe"
+    },
+    {
+      "demoWithin": 1,
+      "kind": "variant",
+      "level": 45,
+      "unlockId": "variant.pool_expansion_1"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 50,
+      "unlockId": "system.daily_challenge"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 60,
+      "unlockId": "mechanic.fountain"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 70,
+      "unlockId": "profile.six_variants_hard"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 75,
+      "unlockId": "system.milestone_75"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 80,
+      "unlockId": "mechanic.locked_slot"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 90,
+      "optional": true,
+      "unlockId": "mechanic.mystery_tile"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 100,
+      "unlockId": "system.milestone_100"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 100,
+      "unlockId": "system.theme_rotation"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 125,
+      "unlockId": "profile.layers_depth_3"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 150,
+      "optional": true,
+      "unlockId": "mechanic.chest"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 175,
+      "unlockId": "profile.advanced_combinations"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 200,
+      "unlockId": "system.milestone_200"
+    },
+    {
+      "demoWithin": 1,
+      "kind": "variant",
+      "level": 200,
+      "unlockId": "variant.pool_expansion_2"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 225,
+      "unlockId": "profile.advanced_hard"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 250,
+      "optional": true,
+      "unlockId": "mechanic.environment_2"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "profile",
+      "level": 300,
+      "unlockId": "profile.six_variants_normal"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "mechanic",
+      "level": 400,
+      "optional": true,
+      "unlockId": "mechanic.connected_triple"
+    },
+    {
+      "demoWithin": 0,
+      "kind": "system",
+      "level": 500,
+      "unlockId": "system.milestone_500"
+    }
+  ]
+}

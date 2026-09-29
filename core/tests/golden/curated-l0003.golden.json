@@ -1,0 +1,121 @@
+{
+  "commands": ["tap:w1", "tap:c1", "tap:t1", "tap:c2"],
+  "contentVersion": 1,
+  "definition": {
+    "definitionVersion": 1,
+    "difficulty": {
+      "class": "normal",
+      "score": 0
+    },
+    "entries": [
+      {
+        "side": "bottom",
+        "x": 4,
+        "y": 0
+      }
+    ],
+    "generatorVersion": "curated",
+    "levelNumber": 3,
+    "mapping": {
+      "crown": "leaf",
+      "sky": "water",
+      "trunk": "wood"
+    },
+    "picture": {
+      "id": "tree",
+      "version": 1
+    },
+    "pods": [
+      {
+        "count": 28,
+        "id": "w1",
+        "variantId": "water"
+      },
+      {
+        "count": 15,
+        "id": "c1",
+        "variantId": "leaf"
+      },
+      {
+        "count": 13,
+        "id": "c2",
+        "variantId": "leaf"
+      },
+      {
+        "count": 4,
+        "id": "t1",
+        "variantId": "wood"
+      }
+    ],
+    "rewardProfile": "standard",
+    "seed": "1003",
+    "slots": {
+      "count": 5
+    },
+    "tray": {
+      "stacks": [
+        ["w1", "c1"],
+        ["t1", "c2"]
+      ]
+    }
+  },
+  "description": "Curated Level 3 (Round tree): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
+  "expectedEventsDigest": "4aedc922eec3ca18",
+  "expectedStateHash": "027c6fd9df860bb0",
+  "expectedStatus": "won",
+  "name": "curated-l0003",
+  "picture": {
+    "finishedLook": {
+      "mode": "auto"
+    },
+    "grid": [
+      [-1, 0, 0, 0, 0, 0, 0, -1],
+      [0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 0, 2, 2, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 0],
+      [1, 1, 1, 1, 1, 1, 1, 1],
+      [0, 1, 1, 1, 1, 1, 1, 0],
+      [-1, 0, 1, 1, 1, 1, 0, -1]
+    ],
+    "height": 8,
+    "id": "tree",
+    "review": {
+      "date": "2026-09-29",
+      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "reviewer": "content",
+      "status": "approved"
+    },
+    "roles": [
+      {
+        "colorGroup": "blue_cyan",
+        "isBackground": true,
+        "name": "Sky",
+        "roleId": "sky"
+      },
+      {
+        "colorGroup": "green",
+        "name": "Crown",
+        "roleId": "crown"
+      },
+      {
+        "colorGroup": "brown_orange",
+        "name": "Trunk",
+        "roleId": "trunk"
+      }
+    ],
+    "source": {
+      "kind": "hand",
+      "licence": "owned",
+      "origin": "bloomlings team"
+    },
+    "subject": "Round tree",
+    "tags": {
+      "bands": ["onboarding"],
+      "themes": ["garden"]
+    },
+    "version": 1,
+    "width": 8
+  },
+  "shuffleNodeBudget": 20000
+}

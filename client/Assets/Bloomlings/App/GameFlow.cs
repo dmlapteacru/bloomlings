@@ -1,57 +1,75 @@
-using Bloomlings.Content.Packs;
+using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Services.Content;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Bloomlings.Client.App
 {
     /// <summary>
-    /// Routes between screens. This is the T025 stub: it starts Level 1 in the Gameplay scene, Next goes to the
-    /// following level, and Leave replays the current one. T062 (US2) adds the real flow: first launch straight into
-    /// Level 1 (FR-045), Home on later launches (FR-046) and Win → Next → Level N+1, with no level map (FR-057).
+    /// The linear flow (FR-057, T062): Launch → Home → Play → Level N → Win → Next → Level N+1. On the first launch
+    /// (no save) Level 1 starts directly with no menus or sign-in (US2 scenario 1); later launches open Home. There is
+    /// no level map or chooser.
     /// </summary>
     public sealed class GameFlow
     {
+        public const string HomeScene = "Home";
         public const string GameplayScene = "Gameplay";
 
-        private readonly AppServices _services;
+        private readonly ProgressionService _progression;
+        private readonly CatalogService _catalog;
 
-        public GameFlow(AppServices services)
+        public GameFlow(ProgressionService progression, CatalogService catalog)
         {
-            _services = services;
+            _progression = progression;
+            _catalog = catalog;
         }
 
-        /// <summary>The level the Gameplay scene should play.</summary>
-        public int CurrentLevel { get; private set; } = 1;
+        /// <summary>The attempt the Gameplay scene plays, pinned to its content version (R6).</summary>
+        public LevelAttempt? CurrentAttempt { get; private set; }
 
-        public void Begin()
+        public void Begin(bool firstLaunch)
         {
-            CurrentLevel = 1;
-            LoadGameplay();
-        }
-
-        /// <summary>After a win: the next level if the content has it (FR-057), otherwise the same one again.</summary>
-        public void Next()
-        {
-            if (_services.TryGet(out ContentSet? content) && content!.TryGetLevel(CurrentLevel + 1, out _))
+            if (firstLaunch)
             {
-                CurrentLevel++;
-            }
-
-            LoadGameplay();
-        }
-
-        /// <summary>Leaving a level costs nothing (FR-030); until Home exists (T063) it reloads the level.</summary>
-        public void Leave() => LoadGameplay();
-
-        private static void LoadGameplay()
-        {
-            if (Application.CanStreamedLevelBeLoaded(GameplayScene))
-            {
-                SceneManager.LoadScene(GameplayScene);
+                Play();
             }
             else
             {
-                Debug.LogWarning($"[GameFlow] Scene '{GameplayScene}' is not in the build settings yet (T052).");
+                GoHome();
+            }
+        }
+
+        /// <summary>Home's Play/Continue: always the current level.</summary>
+        public void Play()
+        {
+            CurrentAttempt = _catalog.BeginAttempt(_progression.CurrentLevel);
+            Load(GameplayScene);
+        }
+
+        /// <summary>Records the win at once (it survives a kill during the win animation) and saves.</summary>
+        public void OnLevelWon(int levelNumber) => _progression.CompleteLevel(levelNumber);
+
+        /// <summary>The Win screen's Next: the following level starts directly.</summary>
+        public void Next() => Play();
+
+        /// <summary>Leaving a level costs nothing (FR-030, FR-040).</summary>
+        public void Leave()
+        {
+            CurrentAttempt = null;
+            GoHome();
+        }
+
+        public void GoHome() => Load(HomeScene);
+
+        private static void Load(string scene)
+        {
+            if (Application.CanStreamedLevelBeLoaded(scene))
+            {
+                SceneManager.LoadScene(scene);
+            }
+            else
+            {
+                Debug.LogWarning($"[GameFlow] Scene '{scene}' is not in the build settings (Tools/Bloomlings/Create ... Scene).");
             }
         }
     }

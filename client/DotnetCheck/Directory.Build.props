@@ -1,0 +1,7 @@
+<Project>
+  <!-- Keep bin/obj out of the Unity project folder. -->
+  <PropertyGroup>
+    <UseArtifactsOutput>true</UseArtifactsOutput>
+    <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
+  </PropertyGroup>
+</Project>

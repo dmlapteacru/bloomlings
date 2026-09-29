@@ -62,7 +62,7 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         public void ShowRefused(string podId)
         {
-            if (_pods.TryGetValue(podId, out PodView pod))
+            if (_pods.TryGetValue(podId, out PodView? pod))
             {
                 pod.Shake();
             }
@@ -70,11 +70,14 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         public void ShowAccepted(string podId)
         {
-            if (_pods.TryGetValue(podId, out PodView pod))
+            if (_pods.TryGetValue(podId, out PodView? pod))
             {
                 pod.Pulse();
             }
         }
+
+        /// <summary>The on-screen rect of a pod card, for tutorial pointers.</summary>
+        public RectTransform? RectOf(string podId) => _pods.TryGetValue(podId, out PodView? pod) && pod.gameObject.activeSelf ? pod.Rect : null;
 
         public void Clear()
         {
@@ -88,7 +91,7 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         private PodView Get(string podId)
         {
-            if (!_pods.TryGetValue(podId, out PodView pod))
+            if (!_pods.TryGetValue(podId, out PodView? pod))
             {
                 pod = PodView.Create(_area, _onTap);
                 _pods.Add(podId, pod);

@@ -54,6 +54,13 @@ namespace Bloomlings.Client.UI.Screens
             return hud;
         }
 
+        /// <summary>Sets the 2× toggle without raising its callback (the saved default, FR-069).</summary>
+        public void SetDoubleSpeed(bool on)
+        {
+            DoubleSpeed = on;
+            _speedLabel.text = on ? "2×" : "1×";
+        }
+
         public void SetLevel(int levelNumber) => _level.text = "Level " + levelNumber.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         /// <summary>A short message for a refused tap, shown at once (SC-008).</summary>

@@ -1,0 +1,53 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 2, 0, 0, -1],
+    [0, 0, 2, 0, 0, 0, 0],
+    [0, 0, 0, 2, 0, 0, -1],
+    [0, 0, 0, 0, 2, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0],
+    [0, 0, 1, 1, 1, 1, 1],
+    [0, 0, 0, 1, 1, 1, 0],
+    [-1, 0, 0, 0, 1, 0, 0]
+  ],
+  "height": 8,
+  "id": "kite",
+  "review": {
+    "date": "2026-09-29",
+    "notes": "Curated onboarding picture (T067); pending playtest.",
+    "reviewer": "content",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Kite",
+      "roleId": "kite"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail",
+      "roleId": "tail"
+    }
+  ],
+  "source": {
+    "kind": "hand",
+    "licence": "owned",
+    "origin": "bloomlings team"
+  },
+  "subject": "Kite",
+  "tags": {
+    "bands": ["onboarding"],
+    "themes": ["sky"]
+  },
+  "version": 1,
+  "width": 7
+}
