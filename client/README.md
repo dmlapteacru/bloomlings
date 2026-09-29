@@ -105,6 +105,14 @@ personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/
 `Services/Purchases/Resources/ProductCatalog.json`, and deploy `backend/` (see `backend/README.md`). The integration code
 has not been compiled against the SDKs yet: fix any API drift on first open.
 
+## Device determinism check
+
+**Tools/Bloomlings/Device Tests/Prepare Golden Replays** copies `core/tests/golden/` into `StreamingAssets/golden/`
+(gitignored, left out of release builds) and creates `Assets/Bloomlings/Tests/Device/RunGoldenReplays.unity`. **Build
+Golden Replays (Android/iOS)** builds that scene alone with IL2CPP. On each reference device the player logs
+`[GoldenReplay] RESULT PASS n/n corpus=<digest> …`. Every case must pass, and the corpus digest must be the same on
+every device (SC-005, SC-011).
+
 ## Localization
 
 Player-facing text is table-driven (R18): code asks `Loc.T("key")`. The English source is

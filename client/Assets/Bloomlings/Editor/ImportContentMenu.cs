@@ -94,6 +94,8 @@ namespace Bloomlings.Client.Editor
 
         private static string ParkedFolder => Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Temp", "bloomlings-dev-content"));
 
+        private static string ParkedGoldenFolder => Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Temp", "bloomlings-golden"));
+
         public int callbackOrder => 0;
 
         public void OnPreprocessBuild(BuildReport report)
@@ -108,17 +110,26 @@ namespace Bloomlings.Client.Editor
                 throw new BuildFailedException("Release builds need published content: run `publish`, then Tools/Bloomlings/Import Published Content.");
             }
 
-            if (Directory.Exists(DevFolder))
-            {
-                if (Directory.Exists(ParkedFolder))
-                {
-                    Directory.Delete(ParkedFolder, true);
-                }
+            // The dev levels and the device-test golden corpus never ship in a release build.
+            Park(DevFolder, ParkedFolder);
+            Park(DeviceTestMenu.CorpusFolder, ParkedGoldenFolder);
+        }
 
-                Directory.CreateDirectory(Path.GetDirectoryName(ParkedFolder)!);
-                Directory.Move(DevFolder, ParkedFolder);
-                AssetDatabase.Refresh();
+        private static void Park(string folder, string parked)
+        {
+            if (!Directory.Exists(folder))
+            {
+                return;
             }
+
+            if (Directory.Exists(parked))
+            {
+                Directory.Delete(parked, true);
+            }
+
+            Directory.CreateDirectory(Path.GetDirectoryName(parked)!);
+            Directory.Move(folder, parked);
+            AssetDatabase.Refresh();
         }
 
         public void OnPostprocessBuild(BuildReport report) => Restore();
@@ -127,10 +138,13 @@ namespace Bloomlings.Client.Editor
         [MenuItem("Tools/Bloomlings/Restore Dev Content Folder")]
         public static void Restore()
         {
-            if (Directory.Exists(ParkedFolder) && !Directory.Exists(DevFolder))
+            foreach ((string parked, string folder) in new[] { (ParkedFolder, DevFolder), (ParkedGoldenFolder, DeviceTestMenu.CorpusFolder) })
             {
-                Directory.Move(ParkedFolder, DevFolder);
-                AssetDatabase.Refresh();
+                if (Directory.Exists(parked) && !Directory.Exists(folder))
+                {
+                    Directory.Move(parked, folder);
+                    AssetDatabase.Refresh();
+                }
             }
         }
     }

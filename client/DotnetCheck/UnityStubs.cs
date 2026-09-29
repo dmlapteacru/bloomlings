@@ -60,7 +60,7 @@ namespace UnityEngine
     public enum RuntimePlatform { Android, IPhonePlayer }
     public class TextAsset : Object { public string text => string.Empty; }
     public static class Resources { public static T? Load<T>(string path) where T : Object => null; }
-    public static class Application { public static string streamingAssetsPath => ""; public static string dataPath => System.IO.Path.GetFullPath(System.IO.Path.Combine(StubPaths.ProjectDirectory, "..", "Assets")); public static string persistentDataPath => System.IO.Path.GetTempPath(); public static bool isEditor => true; public static RuntimePlatform platform => RuntimePlatform.Android; public static string version => "0.1.0"; public static int targetFrameRate { get; set; } public static bool CanStreamedLevelBeLoaded(string name) => false; }
+    public static class Application { public static string streamingAssetsPath => ""; public static string dataPath => System.IO.Path.GetFullPath(System.IO.Path.Combine(StubPaths.ProjectDirectory, "..", "Assets")); public static string persistentDataPath => System.IO.Path.GetTempPath(); public static bool isEditor => true; public static RuntimePlatform platform => RuntimePlatform.Android; public static string version => "0.1.0"; public static bool isBatchMode => true; public static int targetFrameRate { get; set; } public static bool CanStreamedLevelBeLoaded(string name) => false; }
     public static class Debug { public static bool isDebugBuild => true; public static void Log(object m) { } public static void LogWarning(object m) { } public static void LogError(object m) { } public static void LogException(Exception e) { } }
     public class CustomYieldInstruction : IEnumerator { public object? Current => null; public bool MoveNext() => false; public void Reset() { } }
     public sealed class WaitUntil : CustomYieldInstruction { public WaitUntil(Func<bool> predicate) { } }
@@ -111,17 +111,31 @@ namespace UnityEditor
     public sealed class EditorBuildSettingsScene { public EditorBuildSettingsScene(string path, bool enabled) { this.path = path; } public string path; }
     public static class EditorBuildSettings { public static EditorBuildSettingsScene[] scenes { get; set; } = Array.Empty<EditorBuildSettingsScene>(); }
     public static class EditorPrefs { public static string GetString(string k, string d) => d; public static void SetString(string k, string v) { } }
-    public static class EditorApplication { public static bool isPlaying { get; set; } }
+    public static class EditorApplication { public static bool isPlaying { get; set; } public static void Exit(int code) { } }
     public class EditorWindow : UnityEngine.ScriptableObject { public static T GetWindow<T>(bool utility, string title) where T : EditorWindow => default!; }
     public static class EditorGUILayout { public static void LabelField(string s) { } public static int IntField(string l, int v) => v; }
     public static class EditorUtility { public static string OpenFilePanel(string t, string d, string e) => ""; public static void SetDirty(UnityEngine.Object o) { } public static bool DisplayDialog(string title, string message, string ok) => true; }
     public static class AssetDatabase { public static T? LoadAssetAtPath<T>(string p) where T : UnityEngine.Object => null; public static void CreateAsset(UnityEngine.Object o, string p) { } public static void SaveAssets() { } public static void Refresh() { } }
     public static class Selection { public static UnityEngine.Object? activeObject { get; set; } }
     [Flags] public enum BuildOptions { None = 0, Development = 1 }
+    public enum BuildTarget { Android, iOS }
+    public enum BuildTargetGroup { Android, iOS }
+    public enum ScriptingImplementation { Mono2x, IL2CPP }
+    public enum Il2CppCompilerConfiguration { Debug, Release, Master }
+    public struct BuildPlayerOptions { public string[] scenes; public BuildTarget target; public BuildTargetGroup targetGroup; public string locationPathName; public BuildOptions options; }
+    public static class BuildPipeline { public static UnityEditor.Build.Reporting.BuildReport BuildPlayer(BuildPlayerOptions options) => new UnityEditor.Build.Reporting.BuildReport(); public static BuildTargetGroup GetBuildTargetGroup(BuildTarget target) => default; }
+    public static class EditorUserBuildSettings { public static BuildTarget activeBuildTarget => default; }
+    public static class PlayerSettings
+    {
+        public static ScriptingImplementation GetScriptingBackend(UnityEditor.Build.NamedBuildTarget target) => default;
+        public static void SetScriptingBackend(UnityEditor.Build.NamedBuildTarget target, ScriptingImplementation backend) { }
+        public static void SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget target, Il2CppCompilerConfiguration configuration) { }
+    }
 }
 namespace UnityEditor.Build.Reporting
 {
-    public sealed class BuildSummary { public UnityEditor.BuildOptions options; }
+    public enum BuildResult { Unknown, Succeeded, Failed, Cancelled }
+    public sealed class BuildSummary { public UnityEditor.BuildOptions options; public BuildResult result; }
     public sealed class BuildReport { public BuildSummary summary = new BuildSummary(); }
 }
 namespace UnityEditor.Build
@@ -130,6 +144,7 @@ namespace UnityEditor.Build
     public interface IPreprocessBuildWithReport : IOrderedCallback { void OnPreprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public interface IPostprocessBuildWithReport : IOrderedCallback { void OnPostprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public sealed class BuildFailedException : Exception { public BuildFailedException(string message) : base(message) { } }
+    public readonly struct NamedBuildTarget { public static NamedBuildTarget FromBuildTargetGroup(UnityEditor.BuildTargetGroup group) => default; }
 }
 namespace UnityEditor.SceneManagement
 {

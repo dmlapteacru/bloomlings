@@ -126,7 +126,8 @@ namespace Bloomlings.Client.Services.Content
         }
 
         /// <summary>Reads a StreamingAssets file: <see cref="UnityWebRequest"/> for URL paths (Android), File IO otherwise.</summary>
-        private static IEnumerator ReadBytes(string path, Action<byte[]> onRead, Action<string> onError)
+        /// <summary>Reads a StreamingAssets file: through <see cref="UnityWebRequest"/> for URLs (Android), else from disk.</summary>
+        public static IEnumerator ReadBytes(string path, Action<byte[]> onRead, Action<string> onError)
         {
             if (path.Contains("://"))
             {

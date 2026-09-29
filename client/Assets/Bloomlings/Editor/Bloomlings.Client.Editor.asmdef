@@ -6,7 +6,8 @@
     "Bloomlings.Core",
     "Bloomlings.Content",
     "Unity.Localization",
-    "Unity.Localization.Editor"
+    "Unity.Localization.Editor",
+    "Bloomlings.Client.DeviceTests"
   ],
   "includePlatforms": [
     "Editor"

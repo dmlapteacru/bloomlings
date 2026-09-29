@@ -7,7 +7,8 @@
     "Bloomlings.Core",
     "Bloomlings.Content",
     "UnityEngine.TestRunner",
-    "UnityEditor.TestRunner"
+    "UnityEditor.TestRunner",
+    "Bloomlings.Client.DeviceTests"
   ],
   "includePlatforms": [
     "Editor"

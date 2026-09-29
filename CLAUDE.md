@@ -53,6 +53,14 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `generate` keeps them fixed (`--keep`).
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
 - CI: `.github/workflows/core-tests.yml` builds and tests `core/` and the client check on every push and pull request.
+  `unity-build.yml` (GameCI EditMode tests, Android/iOS builds and the IL2CPP golden replay player) skips itself until
+  the Unity licence secrets and `client/ProjectSettings/` exist.
+- Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
+  `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
+- Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps
+  the event catalog equal to the contract.
+- Checklists for the human, Editor and device steps (accessibility, performance, originality, playtests, quickstart
+  run) are in `specs/001-core-game-mvp/checklists/`.
 
 ## Spec-Driven Development (GitHub Spec Kit)
 
