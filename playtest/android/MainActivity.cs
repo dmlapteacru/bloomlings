@@ -2,6 +2,9 @@ using Android.App;
 using Android.Content.PM;
 using Android.OS;
 
+// Short vibration pulses with the sound cues (PlaytestSound).
+[assembly: UsesPermission(Android.Manifest.Permission.Vibrate)]
+
 namespace Bloomlings.Playtest
 {
     /// <summary>The single screen of the playtest client.</summary>

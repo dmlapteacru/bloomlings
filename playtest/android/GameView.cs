@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
+using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
@@ -47,6 +48,7 @@ namespace Bloomlings.Playtest
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias);
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias) { TextAlign = Paint.Align.Center };
         private readonly List<(RectF Rect, Action Action)> _hits = new List<(RectF, Action)>();
+        private readonly PlaytestSound _sound;
         private LevelSession _session = null!;
         private int _level;
         private string? _toast;
@@ -62,6 +64,7 @@ namespace Bloomlings.Playtest
             _content = PlaytestContent.Load();
             _prefs = context.GetSharedPreferences(PrefsName, FileCreationMode.Private)!;
             _text.SetTypeface(Typeface.DefaultBold);
+            _sound = new PlaytestSound(context) { Enabled = _prefs.GetBoolean("sound", true) };
             LoadLevel(_prefs.GetInt("level", 1));
         }
 
@@ -156,17 +159,77 @@ namespace Bloomlings.Playtest
             CommandCheck check = _session.Check(command);
             if (!check.IsAllowed)
             {
+                _sound.Play(SoundCue.Refused);
                 Toast(RefusalText(check.Reason));
                 Invalidate();
                 return;
             }
 
-            _session.Apply(command);
+            CommandResult result = _session.Apply(command);
             if (_session.Status == LevelStatus.Won)
             {
                 _prefs.Edit()!.PutInt("level", _level + 1)!.Apply();
             }
 
+            PlaySounds(command, result.Events);
+            Invalidate();
+        }
+
+        /// <summary>The command's own cue at once, then the most notable outcome a moment later (there is no timeline here).</summary>
+        private void PlaySounds(Command command, IReadOnlyList<GameEvent> events)
+        {
+            _sound.Play(command switch
+            {
+                TapPod => SoundCue.Tap,
+                Restart => SoundCue.Click,
+                _ => SoundCue.Booster,
+            });
+
+            SoundCue? outcome = _session.Status switch
+            {
+                LevelStatus.Won => SoundCue.Win,
+                LevelStatus.Jammed or LevelStatus.Stuck => SoundCue.Jam,
+                _ => null,
+            };
+            foreach (GameEvent e in events)
+            {
+                SoundCue? cue = e switch
+                {
+                    SpecialTriggered => SoundCue.Special,
+                    KeyCollected => SoundCue.Key,
+                    PodCompleted => SoundCue.PodDone,
+                    TileCleared => SoundCue.Clear,
+                    _ => null,
+                };
+                if (cue.HasValue && (!outcome.HasValue || Rank(cue.Value) > Rank(outcome.Value)))
+                {
+                    outcome = cue;
+                }
+            }
+
+            if (outcome.HasValue)
+            {
+                SoundCue later = outcome.Value;
+                PostDelayed(() => _sound.Play(later), 160);
+            }
+        }
+
+        private static int Rank(SoundCue cue) => cue switch
+        {
+            SoundCue.Win => 6,
+            SoundCue.Jam => 5,
+            SoundCue.Special => 4,
+            SoundCue.Key => 3,
+            SoundCue.PodDone => 2,
+            SoundCue.Clear => 1,
+            _ => 0,
+        };
+
+        private void ToggleSound()
+        {
+            _sound.Enabled = !_sound.Enabled;
+            _prefs.Edit()!.PutBoolean("sound", _sound.Enabled)!.Apply();
+            Toast(_sound.Enabled ? "Sound and vibration on" : "Sound and vibration off");
             Invalidate();
         }
 
@@ -212,6 +275,7 @@ namespace Bloomlings.Playtest
         {
             float h = bar.Height();
             Button(canvas, new RectF(bar.Left, bar.Top, bar.Left + (h * 1.2f), bar.Bottom), "◀", Locked, () => LoadLevel(_level - 1));
+            Button(canvas, new RectF(bar.Left + (h * 1.3f), bar.Top, bar.Left + (h * 2.5f), bar.Bottom), _sound.Enabled ? "♪" : "×", _sound.Enabled ? Accent : Locked, ToggleSound);
             Button(canvas, new RectF(bar.Right - (h * 2.5f), bar.Top, bar.Right - (h * 1.3f), bar.Bottom), "▶", Locked, () => LoadLevel(_level + 1));
             Button(canvas, new RectF(bar.Right - (h * 1.2f), bar.Top, bar.Right, bar.Bottom), "↻", TextColor, () => Run(new Restart()));
 

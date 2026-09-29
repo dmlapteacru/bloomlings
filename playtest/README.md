@@ -19,12 +19,14 @@ the Unity build runs.
   - the Waiting Slots, the Source Tray and free boosters (+Slot, Shuffle, Return, Burst);
   - the win and jam overlays.
   Taps apply at once, exactly as the core resolves them; there are no walker animations.
-- Tester controls: ◀ ▶ skip levels, ↻ restarts. Progress is kept on the device.
+- Tester controls: ◀ ▶ skip levels, ↻ restarts, ♪ mutes sound and vibration. Progress is kept on the device.
+- Sound and vibration: the Unity client's synthesized cues (`ToneSynth`, linked from `client/`), a tap cue at once and
+  the most notable outcome (clear, pod done, key, special, jam, win) a moment later, with short vibration pulses.
 - Variants show a two-letter code: Lf Leaf, Ms Moss, Fl Flower, Vb Violet Bud, Wa Water, Dw Dew, Wd Wood, Ac Acorn.
   A small square in a tile's corner shows the next layer's variant, 🔑 marks a key tile, 🔒 a locked pod or slot, and ∞
   a connected pod.
 
-There is no store, ads, meta, sign-in or analytics.
+There is no store, ads, meta, sign-in, analytics or walker animation.
 
 ## Build
 

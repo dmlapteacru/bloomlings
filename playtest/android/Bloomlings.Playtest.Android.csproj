@@ -27,6 +27,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- The Unity client's engine-free sound synthesizer, shared so the playtest sounds the same. -->
+    <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" Link="Shared/ToneSynth.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <!-- Levels 1–94 for playtests (playtest/content/levels) and the picture library they use. -->
     <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
