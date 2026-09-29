@@ -1,6 +1,6 @@
 {
   "checks": ["accounting", "board", "losable", "picture-approved", "solvable"],
-  "definitionHash": "30a70ab9916ec4d07f2337b83e8e56200a09b1f9d787e89f730f1d63533a2775",
+  "definitionHash": "c3ba0399ccdba7d1b103091458d935ed270826989bb69971540c0645e0baa672",
   "definitionVersion": 1,
   "jamWitness": ["tap:p01", "tap:p05", "tap:p09", "tap:p04", "tap:p08"],
   "levelNumber": 11,

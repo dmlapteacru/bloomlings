@@ -747,7 +747,8 @@ Quickstart §2–§4 must pass.
   - `.github/workflows/catalog-nightly.yml` runs on a nightly cron: full `validate`, `score` and the similarity
     statistics, and uploads a JSON report artifact (SC-004, SC-012).
   Status: `score` also reports the SC-012 similarity statistics (distinct pictures up to L100, the smallest reuse
-  gap, repeats within 50 levels).
+  gap, repeats within 50 levels). Changed 2026-09-29: `catalog-nightly.yml` runs by hand only (the owner's Actions
+  budget rule); its cron can come back once the launch catalog exists (T153).
 - [X] T094 [US3] Seed the picture library for Levels 11–100 with at least 90 base pictures under
   `content/pictures/src/`, as `.grid.txt` or indexed PNG plus `.meta.json`. They show garden-world subjects:
   flowers, fruit, insects, small animals, garden tools and cozy objects. Import them with `pictures import`. Status
@@ -900,9 +901,11 @@ acceptance scenarios.
   levels into `content/catalog/`.
 
   Status: open (human steps). L8 now carries the Key preview (a key door in the sky; its golden case was
-  regenerated). The other showcases are generated in showcase mode into `content/showcase/` (see its README) and pass
-  every check except `picture-approved`. `MechanicDemos` holds one demo per unlock, shown once when a level first
-  uses an unlocked mechanic. Still needed: picture approval, playtests, then the copy into `content/catalog/`.
+  regenerated). The other showcases, and since 2026-09-29 their practice levels (L12, L14, L17, L19, L29, L36, L61,
+  L81, L91) and the late showcases and practices (L150–151 Chest, L250–251 Statue/Bridge, L400 Connected Triple; its
+  practice L401 is being regenerated, since the first one lacked the triple), are generated with `gen-1.2.0` into `content/showcase/` (see its README) and pass every check except
+  `picture-approved`. `MechanicDemos` holds one demo per unlock, shown once when a level first uses an unlocked
+  mechanic. Still needed: picture approval, playtests, then the copy into `content/catalog/`.
 - [X] T112 [US4] Add a golden case per mechanic in `core/tests/golden/mech-*.golden.json`: layered, key, locked pod,
   connected, gate, Fountain, locked slot, mystery pod and mystery tile.
   Status: 10 cases (`mech-layered`, `mech-key`, `mech-locked-pod`, `mech-connected`, `mech-connected-refused`,
@@ -1410,6 +1413,24 @@ final validation.
   - the theme accent colors the play-area band; the Collection keeps each picture's proportions; the 2× toggle in the
     HUD becomes the saved default.
   Status: code done and compiled against the Unity API stubs; none of it has been seen in the Unity Editor yet.
+- [X] T158 Late roadmap mechanics and progression rules (spec roadmap, FR-031, FR-035, FR-039, FR-060), added
+  2026-09-29:
+  - Chest (L150, optional): a sealed special that restores all adjacent layers and then removes the stones near it;
+    Statue or Bridge (L250 `environment_2`, optional): a Statue opens when a region is restored, a Bridge when N tiles
+    of an exact variant next to it are restored. All three use the data-model special condition and effect; these
+    conditions are chosen defaults (the docs name the objects, not their rules) and need the product owner's review;
+  - Connected Triple (L400, optional, Hard and Super Hard only): three pods at the same depth commit together and need
+    three free slots (`LevelMechanics` maps a group of 3+ to it; a test covers the commit rule);
+  - the Level 8 choice: `UnlockRoadmap.MysteryPodAtLevel8` (CLI `--level8 mystery_pod`) moves the Key to L14; the Key
+    stays the default until the fairness review of Mystery Pod levels;
+  - the variant pool: `VariantPool.Default` adds Vine at `variant.pool_expansion_1` (L45) and Berry at
+    `variant.pool_expansion_2` (L200), a proposal (the spec leaves the order open). No picture in the library has a
+    lime, red, indigo or gold role yet, so the generator cannot introduce them; the validator warns;
+  - practice levels (FR-031 showcase → practice → combination): the level after each showcase uses its mechanic again,
+    alone; the Key's practice is the roadmap row at L14; the triple's is the first Hard or Super Hard level after L400.
+    The generator places them, rejects a practice candidate that cannot carry its mechanic, and the validator checks
+    them;
+  - `generate`, `validate` and `publish` take `--level8`.
 
 ---
 
