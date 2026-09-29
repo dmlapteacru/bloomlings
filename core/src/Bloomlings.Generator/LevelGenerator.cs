@@ -368,6 +368,12 @@ namespace Bloomlings.Generator
                     reason = "showcase:cannot-place-" + mechanic;
                     return null;
                 }
+                else if (IsPracticeOf(level, mechanic))
+                {
+                    // FR-031: the practice level must use its mechanic; another candidate may fit it.
+                    reason = "practice:cannot-place-" + mechanic;
+                    return null;
+                }
                 else
                 {
                     mechanics.Remove(mechanic);
@@ -385,6 +391,11 @@ namespace Bloomlings.Generator
                 else if (ForcedMechanics != null)
                 {
                     reason = "showcase:cannot-place-mystery_pod";
+                    return null;
+                }
+                else if (IsPracticeOf(level, MechanicNames.MysteryPod))
+                {
+                    reason = "practice:cannot-place-mystery_pod";
                     return null;
                 }
                 else
@@ -481,6 +492,8 @@ namespace Bloomlings.Generator
             merged.Sort((a, b) => a.Cell.Y != b.Cell.Y ? a.Cell.Y.CompareTo(b.Cell.Y) : a.Cell.X.CompareTo(b.Cell.X));
             return merged;
         }
+
+        private bool IsPracticeOf(int level, string mechanic) => UseBandGuidelines && ForcedMechanics == null && PracticeAt(level) == mechanic;
 
         /// <summary>The mechanic whose practice level this is (FR-031), when the profile allows it.</summary>
         private string? PracticeAt(int level)

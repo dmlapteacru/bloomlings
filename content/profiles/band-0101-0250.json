@@ -9,7 +9,7 @@
     "fountain",
     "locked_slot",
     "mystery_tile",
-    "chest"
+    "chest", "environment_2"
   ],
   "allowedVariants": [
     "acorn",
