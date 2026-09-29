@@ -17,7 +17,7 @@ the others live here:
 | 90 | 91 | Mystery tile (optional) | band-0051-0100 |
 | 150 | 151 | Chest (optional) | band-0101-0250 |
 | 250 | 251 | Statue or Bridge, `environment_2` (optional) | band-0101-0250, band-0251-0500 |
-| 400 | 401 (being regenerated) | Connected triple (optional, Hard and Super Hard only) | band-0251-0500 |
+| 400 | 401 | Connected triple (optional, Hard and Super Hard only) | band-0251-0500 |
 
 A showcase is generated in showcase mode (only the new mechanic, Normal class; the triple's is Hard). A practice level
 is generated in band mode: the generator gives the practice level its mechanic alone and keeps the level's scheduled

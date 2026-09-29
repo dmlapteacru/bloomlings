@@ -906,8 +906,8 @@ acceptance scenarios.
 
   Status: open (human steps). L8 now carries the Key preview (a key door in the sky; its golden case was
   regenerated). The other showcases, and since 2026-09-29 their practice levels (L12, L14, L17, L19, L29, L36, L61,
-  L81, L91) and the late showcases and practices (L150–151 Chest, L250–251 Statue/Bridge, L400 Connected Triple; its
-  practice L401 is being regenerated, since the first one lacked the triple), are generated with `gen-1.2.0` into `content/showcase/` (see its README) and pass every check except
+  L81, L91) and the late showcases and practices (L150–151 Chest, L250–251 Statue/Bridge, L400–401 Connected
+  Triple, both Hard), are generated with `gen-1.2.0` into `content/showcase/` (see its README) and pass every check except
   `picture-approved`. `MechanicDemos` holds one demo per unlock, shown once when a level first uses an unlocked
   mechanic. Still needed: picture approval, playtests, then the copy into `content/catalog/`.
 - [X] T112 [US4] Add a golden case per mechanic in `core/tests/golden/mech-*.golden.json`: layered, key, locked pod,
