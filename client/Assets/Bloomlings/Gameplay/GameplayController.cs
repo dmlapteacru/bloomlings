@@ -18,6 +18,7 @@ using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Gameplay;
 using Bloomlings.Client.UI.Screens;
@@ -254,6 +255,7 @@ namespace Bloomlings.Client.Gameplay
             CommandCheck check = _session.Check(tap);
             if (!check.IsAllowed)
             {
+                Feedback?.Play(SoundCue.Refused);
                 _tray.ShowRefused(podId);
                 _hud.Toast(RefusalText(check.Reason!.Value));
                 if (check.Reason == RejectReason.Locked)
@@ -266,6 +268,7 @@ namespace Bloomlings.Client.Gameplay
 
             int countBefore = _session.View.Pod(podId).Remaining;
             CommandResult result = _session.Apply(tap);
+            Feedback?.Play(SoundCue.Tap);
             foreach (GameEvent e in result.Events)
             {
                 if (e.Round != 0)
@@ -340,6 +343,8 @@ namespace Bloomlings.Client.Gameplay
 
         public void OnWorkArrived(WorkUnit unit)
         {
+            // A slightly different pitch per cell, so a run of clears does not drone.
+            Feedback?.Play(SoundCue.Clear, 1f + (((unit.Clear.Cell.X + unit.Clear.Cell.Y) % 5) * 0.04f));
             switch (unit.Reveal)
             {
                 case CellOpened opened:
@@ -365,26 +370,31 @@ namespace Bloomlings.Client.Gameplay
             switch (e)
             {
                 case PodCompleted completed:
+                    Feedback?.Play(SoundCue.PodDone);
                     _slots.Complete(completed.PodId);
                     break;
                 case MysteryTileRevealed revealed:
                     _board.ShowMysteryRevealed(revealed.Cell, revealed.Variant);
                     break;
                 case KeyCollected key:
+                    Feedback?.Play(SoundCue.Key);
                     FlyKey(key);
                     break;
                 case SpecialProgressed progressed:
                     _board.ShowSpecialProgress(progressed.SpecialId, progressed.Progress, progressed.Total, SpecialKind(progressed.SpecialId));
                     break;
                 case SpecialTriggered triggered:
+                    Feedback?.Play(SoundCue.Special);
                     _board.TriggerSpecial(triggered.SpecialId, triggered.EffectCells, _session!.View);
                     break;
                 case LevelWon _:
+                    Feedback?.Play(SoundCue.Win);
                     _board.RevealAll();
                     _win.Show(this, RewardText(_reward) + MilestoneText(_milestone), DoubleRewardOffer());
                     break;
                 case LevelJammed _:
                 case LevelStuck _:
+                    Feedback?.Play(SoundCue.Jam);
                     ShowJamIfBlocked();
                     break;
             }
@@ -418,6 +428,8 @@ namespace Bloomlings.Client.Gameplay
         }
 
         // ---- Boosters (T120, T121) ----
+
+        private static GameFeedback? Feedback => GameFeedback.Current;
 
         private static EconomyService? Economy =>
             AppServices.Current != null && AppServices.Current.TryGet(out EconomyService? economy) ? economy : null;
@@ -549,6 +561,7 @@ namespace Bloomlings.Client.Gameplay
             _workers.RecallAll();
             _workInFlight.Clear();
             CommandResult result = session.Apply(command);
+            Feedback?.Play(SoundCue.Booster);
             _jam.Hide();
             _boosters.Pulse(kind);
             foreach (GameEvent e in result.Events)

@@ -31,6 +31,8 @@ namespace UnityEngine
     public class Behaviour : Component { public bool enabled { get; set; } public bool isActiveAndEnabled => true; }
     public class MonoBehaviour : Behaviour { public Coroutine StartCoroutine(IEnumerator r) => null!; public void StopCoroutine(Coroutine c) { } }
     public sealed class Coroutine { }
+    public sealed class AudioSource : Behaviour { public AudioClip? clip { get; set; } public bool loop { get; set; } public bool playOnAwake { get; set; } public float volume { get; set; } public float pitch { get; set; } public bool isPlaying => false; public void Play() { } public void Stop() { } public void PlayOneShot(AudioClip clip, float volumeScale) { } }
+    public sealed class AudioClip : Object { public static AudioClip Create(string name, int lengthSamples, int channels, int frequency, bool stream) => new AudioClip(); public bool SetData(float[] data, int offsetSamples) => true; }
     public class Transform : Component, IEnumerable { public Vector3 position { get; set; } public Vector3 localScale { get; set; } public void SetParent(Transform p, bool w) { } public int childCount => 0; public Transform GetChild(int i) => null!; public void SetAsFirstSibling() { } public void SetAsLastSibling() { } public Transform parent => null!; public IEnumerator GetEnumerator() => null!; }
     public sealed class RectTransform : Transform { public Vector2 anchorMin, anchorMax, offsetMin, offsetMax, pivot, sizeDelta, anchoredPosition; public Rect rect => default; }
     public class Camera : Behaviour { public bool orthographic; public CameraClearFlags clearFlags; public Color backgroundColor; }

@@ -14,6 +14,7 @@ using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Purchases;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Packs;
@@ -55,6 +56,9 @@ namespace Bloomlings.Client.App
             bool firstLaunch = saves.IsFirstLaunch;
             services.Register(saves);
             services.Register(save);
+
+            // Sound, music and haptics follow the Settings toggles from the first frame (FR-073).
+            services.Register(GameFeedback.Create(save.Settings));
 
             ContentSet? content = null;
             Exception? error = null;

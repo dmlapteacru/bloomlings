@@ -35,7 +35,9 @@ has actually run, not just been written:
   daily reward clock exploit and repeatable ad bonuses (T130, T134), and Level N+1 replaying Level 1 in release builds.
 - Completed by the audit: the generator and validator follow the Level Band Guidelines (T080, T087, T089; the 9
   showcases were regenerated), and `publish` validates the whole catalog before it writes anything (T081).
-- Not in the plan and never implemented: sound, music and haptics (the Settings toggles had nothing to control).
+- Not in the plan, added by the audit: sound, music and haptics (the Settings toggles had nothing to control). The
+  cues and a music loop are synthesized in code (`Services/Feedback/ToneSynth.cs`, no audio assets yet), Android
+  vibrates in short pulses and iOS only for strong events, and each follows its toggle at once (see T066).
 - The 13 pictures marked `approved` were approved by the implementing agent, not by a person (see T067).
 - Known deviations from plan.md and research.md: uGUI instead of the URP 2D renderer (R1), no Addressables (R6), no
   Unity Test Framework, Input System or Localization package in `manifest.json` (R17, R18), no iOS build path, and
@@ -526,6 +528,11 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
   shows Hard (from L5) or Super Hard (from L10) with a distinct color and icon treatment (FR-059).
 - [X] T066 [P] [US2] Implement `client/Assets/Bloomlings/UI/Screens/SettingsScreen.cs` with toggles for music, sound
   effects, haptics and the 2× default, persisted in the save. The Restore Purchases button is wired in US6.
+  Fixed (Audit 2026-09-29): the music, sound and haptics toggles were saved but controlled nothing, because the client
+  had no audio or haptics at all. `GameFeedback` now plays synthesized cues (tap, refused tap, tile clear, pod done,
+  key, special, booster, jam, win, button click) and a pentatonic music loop, and pulses haptics; `FeedbackPolicy`
+  applies the toggles (tested in `FeedbackTests`). Placeholder sounds until real audio exists; never heard on a device
+  yet. Settings also gained Privacy options and Restore feedback (T127, T131).
 - [ ] T067 [US2] Author the curated tutorial Levels 1–10 as `content/curated/level-0001.json` to `level-0010.json`,
   with approved base pictures `content/pictures/lib/*.json`, following the roadmap:
   - L1 uses 2 variants and L2 adds a third;

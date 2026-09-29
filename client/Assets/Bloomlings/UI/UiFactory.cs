@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Bloomlings.Client.Services.Feedback;
 
 namespace Bloomlings.Client.UI
 {
@@ -107,7 +108,11 @@ namespace Bloomlings.Client.UI
             Image background = CreateImage(name, parent, ProceduralSprites.RoundedSquare, color, raycast: true);
             var button = background.gameObject.AddComponent<Button>();
             button.targetGraphic = background;
-            button.onClick.AddListener(() => onClick());
+            button.onClick.AddListener(() =>
+            {
+                GameFeedback.Current?.Play(SoundCue.Click);
+                onClick();
+            });
             TextMeshProUGUI text = CreateText("Label", background.transform, label, fontSize, UiTheme.TextOnColor);
             Stretch(text.rectTransform);
             return button;
