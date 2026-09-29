@@ -7,6 +7,7 @@ using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
+using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Readability;
 using Bloomlings.Solver;
 
@@ -58,6 +59,12 @@ namespace Bloomlings.Pipeline.Validation
             _pairs = pairs;
             _options = options;
         }
+
+        /// <summary>
+        /// Whether the Level Band Guidelines are checked (board, pods, work, pod size, families; default on). Only test
+        /// fixtures built on small pictures turn it off; the variant count and layer depth rules always apply.
+        /// </summary>
+        public bool CheckBandGuidelines { get; set; } = true;
 
         /// <param name="levels">The catalog (any order); FR-083 checks look at level-number neighbours.</param>
         /// <param name="solveOnly">When set, only these levels are solved (the others still take part in FR-083).</param>
@@ -122,6 +129,11 @@ namespace Bloomlings.Pipeline.Validation
             }
 
             CheckBoard(level, picture, report, passed);
+            if (CheckBandGuidelines)
+            {
+                CheckBand(level, picture, report, passed);
+            }
+
             CheckVariants(level, report, passed);
             CheckUnlocks(level, picture, report, passed);
             CheckDataModel(level, report, passed);
@@ -220,35 +232,65 @@ namespace Bloomlings.Pipeline.Validation
             }
         }
 
-        /// <summary>FR-004 and FR-060: the variant count by level band.</summary>
+        /// <summary>FR-004 and FR-060: the variant count by level band (<see cref="BandGuidelines.Variants"/>).</summary>
         public static (int Min, int Max) VariantRange(int level, DifficultyClass difficulty)
         {
-            if (level == 1)
+            IntRange range = BandGuidelines.Variants(level, difficulty);
+            return (range.Min, range.Max);
+        }
+
+        /// <summary>
+        /// The spec's Level Band Guidelines (<see cref="BandGuidelines"/>): board size, Source Pod count and work by band
+        /// and class, and the minimum pod size. The hand-curated tutorial levels (L1–10) only warn on small pods.
+        /// The typical duration is not checked: the solver's estimate (<c>estimatedDurationMs</c>) is not calibrated yet
+        /// and runs at about half the spec's durations (L1–10 estimate 10–17 s for 20–45 s); playtests calibrate it
+        /// (T155), and the check follows then.
+        /// </summary>
+        private static void CheckBand(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
+        {
+            int n = level.LevelNumber;
+            GuidelineBand band = BandGuidelines.BandOf(n);
+            bool ok = true;
+            void Fail(string message)
             {
-                return (2, 2);
+                Error(report, n, "band", message + $" ({band.Name} band, Level Band Guidelines)");
+                ok = false;
             }
 
-            if (level <= LastTutorialLevel)
+            if (!band.BoardWidth.Contains(picture.Width) || !band.BoardHeight.Contains(picture.Height))
             {
-                return (2, 3);
+                Fail($"board {picture.Width}×{picture.Height} is outside {band.BoardWidth}×{band.BoardHeight}");
             }
 
-            if (level <= 25)
+            if (!band.Pods.Contains(level.Pods.Count))
             {
-                return (3, 4);
+                Fail($"{level.Pods.Count} Source Pods; the band allows {band.Pods}");
             }
 
-            if (level < 70)
+            IntRange work = BandGuidelines.Work(n, level.Difficulty.Class);
+            int total = level.Pods.Sum(p => p.Count);
+            if (!work.Contains(total))
             {
-                return (4, 5);
+                Fail($"work {total} is outside {work} for a {level.Difficulty.Class} level");
             }
 
-            if (level < 300)
+            foreach (PodDef pod in level.Pods.Where(p => p.Count < BandGuidelines.MinPodSize))
             {
-                return (4, difficulty == DifficultyClass.Normal ? 5 : 6);
+                string message = $"pod {pod.Id} has {pod.Count} tiles; the smallest pod class is {BandGuidelines.MinPodSize}–15";
+                if (n <= LastTutorialLevel)
+                {
+                    Warning(report, n, "band", message + " (hand-curated tutorial level)");
+                }
+                else
+                {
+                    Fail(message);
+                }
             }
 
-            return (4, 6);
+            if (ok)
+            {
+                passed.Add("band");
+            }
         }
 
         private void CheckVariants(LevelDefinition level, CatalogReport report, List<string> passed)
@@ -261,7 +303,7 @@ namespace Bloomlings.Pipeline.Validation
             }
 
             (int min, int max) = VariantRange(n, level.Difficulty.Class);
-            if (variants.Count == 7 && n >= 300)
+            if (variants.Count == 7 && n > 500)
             {
                 Warning(report, n, "variant-count", "7 variants: exceptional, needs the readability sign-off (FR-004)");
             }
@@ -357,7 +399,7 @@ namespace Bloomlings.Pipeline.Validation
                 Fail("a locked slot before L80 (FR-039)");
             }
 
-            int maxBelow = n < 125 ? 1 : 2;
+            int maxBelow = BandGuidelines.MaxLayersBelow(n);
             foreach (CellOverlay overlay in level.Overlays)
             {
                 if (overlay.LayersBelow.Count > maxBelow)
@@ -467,6 +509,31 @@ namespace Bloomlings.Pipeline.Validation
                         {
                             Error(report, n, "similarity", $"the same mechanics ({mechanics}) 3 levels in a row (FR-083)");
                         }
+                    }
+                }
+
+                // From L20 all four families are regular: every window of levels uses all four.
+                if (CheckBandGuidelines && n >= BandGuidelines.AllFamiliesFrom + BandGuidelines.FamilyWindow - 1)
+                {
+                    var families = new HashSet<Family>();
+                    bool complete = true;
+                    for (int l = n - BandGuidelines.FamilyWindow + 1; l <= n && complete; l++)
+                    {
+                        if (!byNumber.TryGetValue(l, out LevelDefinition? windowLevel))
+                        {
+                            complete = false;
+                            break;
+                        }
+
+                        foreach (VariantId variant in Generator.LevelGenerator.VariantSet(windowLevel))
+                        {
+                            families.Add(VariantCatalog.Default.Get(variant).Family);
+                        }
+                    }
+
+                    if (complete && families.Count < 4)
+                    {
+                        Error(report, n, "families", $"L{n - BandGuidelines.FamilyWindow + 1}–{n} use {families.Count} of the 4 families; all four are regular from L{BandGuidelines.AllFamiliesFrom}");
                     }
                 }
 

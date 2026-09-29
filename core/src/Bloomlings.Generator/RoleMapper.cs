@@ -14,12 +14,15 @@ namespace Bloomlings.Generator
     /// </summary>
     public static class RoleMapper
     {
+        /// <param name="variantCount">The allowed number of distinct variants (the profile's range when null).</param>
         public static IReadOnlyList<SortedDictionary<string, VariantId>> Mappings(
             BasePicture picture,
             GenerationProfile profile,
             Func<VariantId, VariantId, bool> readablePair,
-            int limit = 256)
+            int limit = 256,
+            IntRange? variantCount = null)
         {
+            IntRange distinctRange = variantCount ?? profile.VariantCount;
             var used = new bool[picture.Roles.Count];
             foreach (IReadOnlyList<int> row in picture.Grid)
             {
@@ -74,7 +77,7 @@ namespace Bloomlings.Generator
                 if (index == roles.Count)
                 {
                     var distinct = new SortedSet<VariantId>(current);
-                    if (!profile.VariantCount.Contains(distinct.Count))
+                    if (!distinctRange.Contains(distinct.Count))
                     {
                         return;
                     }

@@ -83,8 +83,9 @@ namespace Bloomlings.Generator.Overlays
                 }
             }
 
+            // Up to two mechanics; a third from the advanced combinations profile (roadmap L175) when max allows it.
             int roll = rng.NextInt(100);
-            int count = Math.Min(candidates.Count, Math.Min(max, roll < 25 ? 0 : roll < 75 ? 1 : 2));
+            int count = Math.Min(candidates.Count, Math.Min(max, roll < 25 ? 0 : roll < 75 ? 1 : max >= 3 && roll >= 90 ? 3 : 2));
             var chosen = new List<string>();
             for (int i = 0; i < count; i++)
             {
@@ -184,7 +185,7 @@ namespace Bloomlings.Generator.Overlays
             if (mechanics.Contains(MechanicNames.LayeredTile) && active.Count > 1)
             {
                 // FR-036: depth 2 (1 below) first, depth 3 from L125, within the band's limit.
-                int maxBelow = Math.Min(profile.MaxLayerDepth, level < 125 ? 1 : 2);
+                int maxBelow = Math.Min(profile.MaxLayerDepth, BandGuidelines.MaxLayersBelow(level));
                 List<int> free = targets.Where(c => !taken.Contains(c)).ToList();
                 int count = Math.Max(2, free.Count * (8 + rng.NextInt(10)) / 100);
                 foreach (int cell in Pick(free, count, ref rng))
