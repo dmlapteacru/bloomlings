@@ -2,26 +2,41 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Gameplay.Board;
+using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Meta.Collection;
+using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Config;
+using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Purchases;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Screens;
+using Bloomlings.Content.Packs;
+using Bloomlings.Core.Definitions;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Bloomlings.Client.App.Home
 {
     /// <summary>
-    /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (with Restore Purchases),
-    /// the Store (from L12), the Daily Reward popup (from L7) and the optional free-booster ad from the save and the
-    /// services. Opened without Boot (in the Editor), it loads Boot first.
+    /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (with Restore Purchases
+    /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, and
+    /// the long-run features (US7): the leaderboard rank (L10), the Wardrobe (L40), the Daily Challenge (L50), the
+    /// Collection, the milestone teaser and the band's background theme. Opening Home syncs the cloud save and refreshes
+    /// the rank in the background. Opened without Boot (in the Editor), it loads Boot first.
     /// </summary>
     public sealed class HomeController : MonoBehaviour
     {
+        private Action? _unsubscribe;
+
+        private void OnDestroy() => _unsubscribe?.Invoke();
+
         private void Start()
         {
             AppServices? services = AppServices.Current;
@@ -42,6 +57,15 @@ namespace Bloomlings.Client.App.Home
             ProductCatalog products = services.Get<ProductCatalog>();
             DailyRewardService daily = services.Get<DailyRewardService>();
             IRemoteConfigService config = services.Get<IRemoteConfigService>();
+            MilestoneService milestones = services.Get<MilestoneService>();
+            WardrobeService wardrobe = services.Get<WardrobeService>();
+            CollectionService collection = services.Get<CollectionService>();
+            DailyChallengeService dailyChallenge = services.Get<DailyChallengeService>();
+            LeaderboardClient leaderboard = services.Get<LeaderboardClient>();
+            CloudSaveSync sync = services.Get<CloudSaveSync>();
+            IAuthService auth = services.Get<IAuthService>();
+            CatalogService catalog = services.Get<CatalogService>();
+            services.TryGet(out Boot? boot);
 
             Canvas canvas = UiFactory.CreateCanvas("HomeCanvas", 0);
             canvas.transform.SetParent(transform, false);
@@ -49,21 +73,70 @@ namespace Bloomlings.Client.App.Home
             SettingsScreen? settings = null;
             StoreScreen? store = null;
             HomeScreen? home = null;
+            LeaderboardScreen? board = null;
             void Refresh()
             {
-                (int? milestone, int? toGo) = NextMilestone(progression);
-                home!.Show(new HomeModel(
+                if (!this || home == null)
+                {
+                    return; // A background callback after Home was left.
+                }
+
+                (int Level, MilestoneCadence Cadence, int WinsToGo)? next = milestones.Next(progression.HighestCompletedLevel);
+                Color? background = ColorUtility.TryParseHtmlString(ThemeRotation.Default.ThemeFor(progression.CurrentLevel).Background, out Color theme) ? theme : (Color?)null;
+                home.Show(new HomeModel(
                     progression.CurrentLevel,
                     economy.Petals,
                     progression.IsUnlocked("system.store"),
-                    progression.IsUnlocked("system.leaderboard"),
-                    null,
-                    milestone,
-                    toGo));
+                    leaderboard.IsUnlocked,
+                    leaderboard.RankText,
+                    next?.Level,
+                    next?.WinsToGo,
+                    dailyChallenge.IsAvailable,
+                    dailyChallenge.CompletedToday,
+                    wardrobe.IsAvailable,
+                    collection.Count > 0,
+                    background));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && !_freeBoosterTaken && FreeBoosterKind(economy).HasValue);
+                if (board != null && board.IsOpen)
+                {
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale);
+                }
+            }
+
+            void RunInBackground(System.Collections.IEnumerator routine)
+            {
+                if (boot != null)
+                {
+                    boot.Run(routine);
+                }
+                else
+                {
+                    StartCoroutine(routine);
+                }
             }
 
             void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, OpenStore, Refresh), economy.Petals, purchases.IsAvailable);
+
+            WardrobeScreen wardrobeScreen = WardrobeScreen.Create(root, wardrobe);
+            CollectionScreen collectionScreen = CollectionScreen.Create(root);
+            DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
+            {
+                LevelAttempt? attempt = dailyChallenge.BeginAttempt();
+                if (attempt != null)
+                {
+                    flow.PlayDaily(attempt);
+                }
+            });
+            board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()));
+            var features = new HomeFeatureActions(
+                () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
+                wardrobeScreen.Show,
+                () => collectionScreen.Show(collection.Entries, entry => RenderCollectionEntry(catalog, entry)),
+                () =>
+                {
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale);
+                    RunInBackground(leaderboard.Refresh());
+                });
 
             home = HomeScreen.Create(
                 UiFactory.Stretch(UiFactory.CreateRect("Home", root)),
@@ -80,10 +153,39 @@ namespace Bloomlings.Client.App.Home
                     }
 
                     Refresh();
-                }));
-            settings = SettingsScreen.Create(root, save.Settings, saves.Save, () => purchases.Restore(ledger.Grant, ok => Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.")));
+                }),
+                features);
+            var account = new AccountActions(
+                () => save.LinkedIdentity != null ? "Linked: " + (save.LinkedIdentity == "apple" ? "Apple" : "Google Play Games") : (auth.IsSignedIn ? "Signed in (anonymous)" : "Local profile"),
+                auth.CanLink(LinkProvider.Apple),
+                auth.CanLink(LinkProvider.GooglePlayGames),
+                (provider, done) => RunInBackground(auth.Link(provider, ok =>
+                {
+                    if (ok)
+                    {
+                        save.LinkedIdentity = LinkedIdentities.Name(provider);
+                        saves.Save();
+                        RunInBackground(sync.Sync(_ => Refresh()));
+                    }
+
+                    done(ok);
+                })));
+            settings = SettingsScreen.Create(root, save.Settings, saves.Save, () => purchases.Restore(ledger.Grant, ok => Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.")), account);
             store = StoreScreen.Create(root);
             Refresh();
+
+            // Background refresh: a cloud merge or a new rank updates Home when it arrives (never blocking it).
+            Action onMerged = Refresh;
+            Action onRank = Refresh;
+            sync.Merged += onMerged;
+            leaderboard.Updated += onRank;
+            _unsubscribe = () =>
+            {
+                sync.Merged -= onMerged;
+                leaderboard.Updated -= onRank;
+            };
+            RunInBackground(sync.Sync());
+            RunInBackground(leaderboard.Refresh());
 
             // The Daily Reward pops up once a day while a claim is due (FR-055).
             if (daily.CanClaim)
@@ -209,15 +311,22 @@ namespace Bloomlings.Client.App.Home
             _ => "Bloom Burst",
         };
 
-        /// <summary>Milestones come every 25 levels (FR-061).</summary>
-        public const int MilestoneCadence = 25;
-
-        /// <summary>The next milestone level and the number of wins still needed to reach it (FR-058 teaser).</summary>
-        public static (int? Level, int? WinsToGo) NextMilestone(ProgressionService progression)
+        /// <summary>
+        /// Redraws a Collection entry with the current content when its level still has the same picture and colors;
+        /// otherwise the entry shows its level number only.
+        /// </summary>
+        private static Texture2D? RenderCollectionEntry(CatalogService catalog, CollectionEntry entry)
         {
-            int highest = progression.HighestCompletedLevel;
-            int next = ((highest / MilestoneCadence) + 1) * MilestoneCadence;
-            return (next, next - highest);
+            ContentSet content = catalog.Content;
+            if (!content.TryGetLevel(entry.LevelNumber, out LevelDefinition level)
+                || level.Picture.Id != entry.PictureId
+                || level.Picture.Version != entry.PictureVersion
+                || CollectionService.MappingHash(level.Mapping) != entry.MappingHash)
+            {
+                return null;
+            }
+
+            return FinishedPictureRenderer.Render(level, content.GetPicture(level.Picture), null);
         }
     }
 }

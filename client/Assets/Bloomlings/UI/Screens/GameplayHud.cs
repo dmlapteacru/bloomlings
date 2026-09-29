@@ -13,6 +13,7 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed class GameplayHud : MonoBehaviour
     {
+        private Image _background = null!;
         private TextMeshProUGUI _level = null!;
         private TextMeshProUGUI _speedLabel = null!;
         private TextMeshProUGUI _toast = null!;
@@ -34,6 +35,7 @@ namespace Bloomlings.Client.UI.Screens
             var hud = root.gameObject.AddComponent<GameplayHud>();
             Image background = UiFactory.CreateImage("Background", root, null, UiTheme.Background);
             UiFactory.Stretch(background.rectTransform);
+            hud._background = background;
 
             RectTransform top = UiFactory.Place(UiFactory.CreateRect("TopBar", root), 0.03f, 0.925f, 0.97f, 0.99f);
             Button pause = UiFactory.CreateButton("Pause", top, "II", UiTheme.Text, onPause);
@@ -67,6 +69,12 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         public void SetLevel(int levelNumber) => _level.text = "Level " + levelNumber.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+        /// <summary>A title in place of "Level N" (the Daily Challenge).</summary>
+        public void SetTitle(string title) => _level.text = title;
+
+        /// <summary>The background theme of the level band (FR-066); visual only.</summary>
+        public void SetBackground(Color color) => _background.color = color;
 
         /// <summary>A short message for a refused tap, shown at once (SC-008).</summary>
         public void Toast(string message)

@@ -38,6 +38,9 @@ namespace Bloomlings.Client.App
         /// <summary>The attempt the Gameplay scene plays, pinned to its content version (R6).</summary>
         public LevelAttempt? CurrentAttempt { get; private set; }
 
+        /// <summary>The SHA-256 of the last winning command log, submitted with the leaderboard progress (FR-062).</summary>
+        public string LastCommandLogHash { get; private set; } = string.Empty;
+
         public void Begin(bool firstLaunch)
         {
             if (firstLaunch)
@@ -61,8 +64,14 @@ namespace Bloomlings.Client.App
         /// Records the win at once (it survives a kill during the win animation) and saves; true when the level was newly
         /// completed, so its reward is due.
         /// </summary>
-        public bool OnLevelWon(int levelNumber)
+        public bool OnLevelWon(int levelNumber, string commandLogHash = "")
         {
+            if (CurrentAttempt != null && CurrentAttempt.IsDaily)
+            {
+                return false; // The Daily Challenge never changes Level N (FR-064).
+            }
+
+            LastCommandLogHash = commandLogHash;
             if (!_progression.CompleteLevel(levelNumber))
             {
                 return false;
@@ -73,9 +82,22 @@ namespace Bloomlings.Client.App
             return true;
         }
 
+        /// <summary>Plays today's Daily Challenge (FR-064); Next and Leave return Home.</summary>
+        public void PlayDaily(LevelAttempt attempt)
+        {
+            CurrentAttempt = attempt;
+            Load(GameplayScene);
+        }
+
         /// <summary>The Win screen's Next: the following level starts, after the post-win transition if one is set.</summary>
         public void Next()
         {
+            if (CurrentAttempt != null && CurrentAttempt.IsDaily)
+            {
+                Leave();
+                return;
+            }
+
             if (PostWinTransition != null)
             {
                 PostWinTransition(_lastWon, Play);

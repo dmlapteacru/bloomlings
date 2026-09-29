@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Bloomlings.Client.UI.Screens
 {
-    /// <summary>What Home shows (FR-058).</summary>
+    /// <summary>What Home shows (FR-058), with the long-run features once unlocked (US7).</summary>
     public sealed record HomeModel(
         int CurrentLevel,
         int Petals,
@@ -15,11 +15,21 @@ namespace Bloomlings.Client.UI.Screens
         bool LeaderboardUnlocked,
         string? RankText,
         int? NextMilestoneLevel,
-        int? LevelsToMilestone);
+        int? LevelsToMilestone,
+        bool DailyChallengeAvailable = false,
+        bool DailyChallengeDone = false,
+        bool WardrobeAvailable = false,
+        bool CollectionAvailable = false,
+        Color? Background = null);
+
+    /// <summary>The Home buttons of the long-run features (US7); a null action hides its button.</summary>
+    public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard);
 
     /// <summary>
     /// Home (FR-058, T063): the logo, Level N, one Play/Continue button and Petals; Settings; the Store button once
-    /// unlocked (L12); the next-milestone teaser; the leaderboard rank once unlocked (L10). There is no level map.
+    /// unlocked (L12); the next-milestone teaser; the leaderboard rank once unlocked (L10), which opens the board. A
+    /// row of small buttons opens the Daily Challenge (L50), the Wardrobe (L40) and the Collection. There is no level
+    /// map, and none of these buttons chooses a level: Play always continues Level N.
     /// </summary>
     public sealed class HomeScreen : MonoBehaviour
     {
@@ -28,14 +38,21 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _playLabel = null!;
         private TextMeshProUGUI _milestone = null!;
         private TextMeshProUGUI _rank = null!;
+        private Image _background = null!;
+        private GameObject _rankButton = null!;
+        private GameObject _daily = null!;
+        private TextMeshProUGUI _dailyLabel = null!;
+        private GameObject _wardrobe = null!;
+        private GameObject _collection = null!;
         private GameObject _store = null!;
         private GameObject _freeBooster = null!;
 
-        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null)
+        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null, HomeFeatureActions? features = null)
         {
             var screen = root.gameObject.AddComponent<HomeScreen>();
             Image background = UiFactory.CreateImage("Background", root, null, UiTheme.Background);
             UiFactory.Stretch(background.rectTransform);
+            screen._background = background;
 
             TextMeshProUGUI logo = UiFactory.CreateText("Logo", root, "Bloomlings", 120f, UiTheme.Accent);
             logo.fontStyle = FontStyles.Bold;
@@ -63,8 +80,17 @@ namespace Bloomlings.Client.UI.Screens
             screen._milestone = UiFactory.CreateText("Milestone", root, string.Empty, 44f, UiTheme.Text);
             UiFactory.Place(screen._milestone.rectTransform, 0.05f, 0.31f, 0.95f, 0.36f);
 
-            screen._rank = UiFactory.CreateText("Rank", root, string.Empty, 44f, UiTheme.Text);
-            UiFactory.Place(screen._rank.rectTransform, 0.05f, 0.25f, 0.95f, 0.3f);
+            Button rank = UiFactory.CreateButton("Rank", root, string.Empty, UiTheme.Panel, () => features?.OnLeaderboard?.Invoke(), 44f);
+            UiFactory.Place((RectTransform)rank.transform, 0.2f, 0.245f, 0.8f, 0.305f);
+            screen._rank = rank.GetComponentInChildren<TextMeshProUGUI>();
+            screen._rank.color = UiTheme.Text;
+            screen._rankButton = rank.gameObject;
+
+            // Long-run features (US7): small buttons between the logo and Level N.
+            screen._daily = Feature(root, "Daily", 0.05f, features?.OnDailyChallenge);
+            screen._dailyLabel = screen._daily.GetComponentInChildren<TextMeshProUGUI>();
+            screen._wardrobe = Feature(root, "Wardrobe", 0.36f, features?.OnWardrobe);
+            screen._collection = Feature(root, "Collection", 0.67f, features?.OnCollection);
 
             Button store = UiFactory.CreateButton("Store", root, "Store", UiTheme.Warning, onStore, 56f);
             UiFactory.Place((RectTransform)store.transform, 0.3f, 0.08f, 0.7f, 0.15f);
@@ -80,6 +106,14 @@ namespace Bloomlings.Client.UI.Screens
 
         public void SetFreeBoosterOffer(bool visible) => _freeBooster.SetActive(visible);
 
+        private static GameObject Feature(RectTransform root, string label, float x0, Action? onClick)
+        {
+            Button button = UiFactory.CreateButton(label, root, label, UiTheme.SlotLocked, () => onClick?.Invoke(), 40f);
+            UiFactory.Place((RectTransform)button.transform, x0, 0.625f, x0 + 0.28f, 0.685f);
+            button.gameObject.SetActive(false);
+            return button.gameObject;
+        }
+
         public void Show(HomeModel model)
         {
             string level = model.CurrentLevel.ToString(CultureInfo.InvariantCulture);
@@ -87,8 +121,13 @@ namespace Bloomlings.Client.UI.Screens
             _playLabel.text = model.CurrentLevel == 1 ? "Play" : "Continue";
             _petals.text = model.Petals.ToString(CultureInfo.InvariantCulture);
             _store.SetActive(model.StoreUnlocked);
-            _rank.gameObject.SetActive(model.LeaderboardUnlocked);
+            _rankButton.SetActive(model.LeaderboardUnlocked);
             _rank.text = model.RankText ?? "Rank: —";
+            _daily.SetActive(model.DailyChallengeAvailable);
+            _dailyLabel.text = model.DailyChallengeDone ? "Daily ✓" : "Daily";
+            _wardrobe.SetActive(model.WardrobeAvailable);
+            _collection.SetActive(model.CollectionAvailable);
+            _background.color = model.Background ?? UiTheme.Background;
             _milestone.text = model.NextMilestoneLevel.HasValue
                 ? $"Level {model.NextMilestoneLevel.Value.ToString(CultureInfo.InvariantCulture)} reward in {model.LevelsToMilestone.GetValueOrDefault().ToString(CultureInfo.InvariantCulture)}"
                 : string.Empty;

@@ -71,18 +71,26 @@ after the game is playable, verifies every pack, installs the version atomically
 `Application.persistentDataPath/content/`, and activates it for the next attempt. The next launch starts from the
 newest valid version this app can read.
 
-## Online services (US6)
+## Online services (US6, US7)
 
-Store, ads, consent and Remote Config sit behind interfaces with offline fallbacks, so the game runs without any of
-them (FR-074). Each SDK integration is its own assembly under `Assets/Bloomlings/Integrations/`, compiled only when its
+Store, ads, consent, Remote Config, sign-in, cloud save and the leaderboard sit behind interfaces with offline
+fallbacks, so the game runs without any of them (FR-074). Each SDK integration is its own assembly under `Assets/Bloomlings/Integrations/`, compiled only when its
 package is installed (asmdef `versionDefines` + `defineConstraints`), and registers itself in `ServiceProviders` before
 the first scene loads. To enable them, add through Package Manager, keeping the versions it proposes:
 
 | Package | Enables | Assembly |
 |---|---|---|
-| Remote Config (`com.unity.remote-config` ≥ 4.0) with Authentication | Remote tuning (FR-085) | `Bloomlings.Integrations.Ugs` |
+| Authentication (`com.unity.services.authentication` ≥ 3.0) | Anonymous sign-in in the background, optional Apple / Google Play Games linking (FR-087) | `Bloomlings.Integrations.Ugs` |
+| Remote Config (`com.unity.remote-config` ≥ 4.0) | Remote tuning (FR-085) | `Bloomlings.Integrations.Ugs` |
+| Cloud Save (`com.unity.services.cloudsave` ≥ 3.0) | Cloud copy of the save, merged on reconnect (FR-087, R15) | `Bloomlings.Integrations.Ugs` |
+| Leaderboards (`com.unity.services.leaderboards` ≥ 2.0) and Cloud Code (`com.unity.services.cloudcode` ≥ 2.0) | Global leaderboard with server-side checks (FR-062) | `Bloomlings.Integrations.Ugs` |
 | In-App Purchasing (`com.unity.purchasing` ≥ 5.0) and Cloud Code | Store, validated purchases (FR-051, FR-089) | `Bloomlings.Integrations.Iap` |
 | Google Mobile Ads (`com.google.ads.mobile` ≥ 9.0, from the OpenUPM registry already in `manifest.json`) | Rewarded and interstitial ads, UMP consent (FR-052, FR-053, FR-090) | `Bloomlings.Integrations.Ads` |
+
+Each UGS package turns on its part of `Bloomlings.Integrations.Ugs` on its own (one `versionDefines` entry per
+package); Authentication is required for all of them. Linking Apple or Google Play Games also needs the platform
+sign-in plugins, which register their token sources in `ServiceProviders.AppleIdToken` and
+`ServiceProviders.GooglePlayGamesAuthCode`; without them Settings shows no link buttons.
 
 On iOS, add Unity's iOS 14 Advertising Support package and the `BLOOMLINGS_ATT` scripting define to ask for ATT before
 personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/GoogleMobileAdsService.cs`

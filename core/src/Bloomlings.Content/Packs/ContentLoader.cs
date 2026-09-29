@@ -16,6 +16,7 @@ namespace Bloomlings.Content.Packs
         {
             var levels = new List<LevelDefinition>();
             var pictures = new List<BasePicture>();
+            var daily = new List<DailyPoolEntry>();
             foreach (PackEntry entry in manifest.Packs)
             {
                 switch (entry.Kind)
@@ -27,12 +28,13 @@ namespace Bloomlings.Content.Packs
                         pictures.AddRange(PicturePackReader.Read(entry, readPack(entry)));
                         break;
                     case PackKind.Daily:
-                        // The daily challenge pool is read by the daily feature (R19), not by the main catalog.
+                        // The Daily Challenge pool (R19); it never changes the main level sequence.
+                        daily.AddRange(LevelPackWriter.ReadDaily(entry, readPack(entry)));
                         break;
                 }
             }
 
-            var set = new ContentSet(manifest.ContentVersion, manifest.ShuffleNodeBudget, levels, pictures);
+            var set = new ContentSet(manifest.ContentVersion, manifest.ShuffleNodeBudget, levels, pictures, daily);
             if (manifest.MaxLevel.HasValue && set.MaxLevel != manifest.MaxLevel.Value)
             {
                 throw new ContentIntegrityException("manifest", $"maxLevel is {manifest.MaxLevel.Value}, the packs end at {set.MaxLevel}");

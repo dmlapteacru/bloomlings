@@ -1,0 +1,31 @@
+{
+  "note": "Cosmetics (FR-063, T143). No gameplay effect. Worn items (hat, trail, expression) use neutral tints (HSV saturation <= 0.3) so they never read as a variant color; frames, badges and markers decorate the profile only. Milestone items come from content/roadmap/milestones.json.",
+  "items": [
+    { "id": "hat.sprout_cap", "kind": "hat", "name": "Sprout Cap", "shape": "sprout", "tint": "#A8B59A", "starter": true },
+    { "id": "hat.leaf_cap", "kind": "hat", "name": "Leaf Cap", "shape": "cap", "tint": "#9C9480" },
+    { "id": "trail.petal_sparkle", "kind": "trail", "name": "Petal Sparkle", "shape": "sparkle", "tint": "#E8E1D6" },
+    { "id": "expression.wink", "kind": "expression", "name": "Wink", "shape": "wink", "tint": "#4A4540" },
+    { "id": "frame.daisy", "kind": "frame", "name": "Daisy Frame", "shape": "frame", "tint": "#F0E9DA" },
+    { "id": "hat.acorn_cap", "kind": "hat", "name": "Acorn Cap", "shape": "cap", "tint": "#8C7C6A" },
+    { "id": "trail.dew_sparkle", "kind": "trail", "name": "Dew Sparkle", "shape": "sparkle", "tint": "#DCE3E6" },
+    { "id": "expression.smile", "kind": "expression", "name": "Big Smile", "shape": "smile", "tint": "#4A4540" },
+    { "id": "badge.sprout", "kind": "badge", "name": "Sprout Badge", "shape": "badge", "tint": "#B8C4A8" },
+    { "id": "hat.straw_hat", "kind": "hat", "name": "Straw Hat", "shape": "brim", "tint": "#D8CCA8" },
+    { "id": "hat.flower_crown", "kind": "hat", "name": "Flower Crown", "shape": "crown", "tint": "#E6D8DE" },
+    { "id": "expression.starry_eyes", "kind": "expression", "name": "Starry Eyes", "shape": "stars", "tint": "#5A5550" },
+    { "id": "trail.leaf_swirl", "kind": "trail", "name": "Leaf Swirl", "shape": "swirl", "tint": "#B5BCA8" },
+    { "id": "hat.mushroom_cap", "kind": "hat", "name": "Mushroom Cap", "shape": "cap", "tint": "#D6C8C0" },
+    { "id": "frame.ivy", "kind": "frame", "name": "Ivy Frame", "shape": "frame", "tint": "#A9B89C" },
+    { "id": "hat.night_cap", "kind": "hat", "name": "Night Cap", "shape": "nightcap", "tint": "#B8B8CC" },
+    { "id": "trail.moon_dust", "kind": "trail", "name": "Moon Dust", "shape": "sparkle", "tint": "#D8D8E6" },
+    { "id": "frame.silver_vine", "kind": "frame", "name": "Silver Vine Frame", "shape": "frame", "tint": "#C0C4C8" },
+    { "id": "marker.silver_leaf", "kind": "marker", "name": "Silver Leaf Marker", "shape": "marker", "tint": "#C0C4C8" },
+    { "id": "frame.silver_bloom", "kind": "frame", "name": "Silver Bloom Frame", "shape": "frame", "tint": "#C8CCD0" },
+    { "id": "badge.golden_leaf", "kind": "badge", "name": "Golden Leaf Badge", "shape": "badge", "tint": "#D9C27A" },
+    { "id": "hat.golden_crown", "kind": "hat", "name": "Golden Crown", "shape": "crown", "tint": "#D9CFA8" },
+    { "id": "badge.golden_bloom", "kind": "badge", "name": "Golden Bloom Badge", "shape": "badge", "tint": "#E0C878" },
+    { "id": "marker.crown", "kind": "marker", "name": "Crown Marker", "shape": "marker", "tint": "#D9C27A" },
+    { "id": "frame.aurora", "kind": "frame", "name": "Aurora Frame", "shape": "frame", "tint": "#C8D8E8" },
+    { "id": "hat.star_crown", "kind": "hat", "name": "Star Crown", "shape": "crown", "tint": "#DCD8C8" }
+  ]
+}

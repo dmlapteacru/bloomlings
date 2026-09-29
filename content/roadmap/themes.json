@@ -1,0 +1,11 @@
+{
+  "note": "Background themes by level band (FR-066, T146). Visual only: no navigable areas. Before startLevel every level uses the first theme; from startLevel the next theme starts every bandLength levels (L100 pond, L150 orchard, L200 moonlit garden, L250 daylight garden again). Mirrored by ThemeRotation.Default in the client.",
+  "startLevel": 100,
+  "bandLength": 50,
+  "themes": [
+    { "id": "daylight_garden", "name": "Daylight Garden", "background": "#F5F2E6", "accent": "#DDEBCF" },
+    { "id": "pond", "name": "Pond", "background": "#E8F1F2", "accent": "#CFE3E8" },
+    { "id": "orchard", "name": "Orchard", "background": "#F6EDE2", "accent": "#EAD8C3" },
+    { "id": "moonlit_garden", "name": "Moonlit Garden", "background": "#E3E3F0", "accent": "#CACBE3" }
+  ]
+}

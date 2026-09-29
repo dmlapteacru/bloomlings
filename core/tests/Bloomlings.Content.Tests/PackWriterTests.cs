@@ -68,6 +68,7 @@ namespace Bloomlings.Content.Tests
 
                 ContentSet set = ContentLoader.FromPacks(manifest, e => File.ReadAllBytes(Path.Combine(folder, e.Path!)));
                 Assert.That(set.LevelCount, Is.EqualTo(600));
+                Assert.That(set.DailyPool.Select(d => d.Level.LevelNumber), Is.EqualTo(new[] { 1, 2 }), "The loader reads the daily pool.");
                 Assert.That(written.Packs.Count, Is.EqualTo(5), "3 level packs, the picture pack and the daily pack.");
 
                 PackEntry daily = manifest.Packs.Single(p => p.Kind == PackKind.Daily);
@@ -80,6 +81,12 @@ namespace Bloomlings.Content.Tests
                     Directory.Delete(folder, recursive: true);
                 }
             }
+        }
+
+        [Test]
+        public void GapsInTheDailyPool_AreRejected()
+        {
+            Assert.Throws<ContentIntegrityException>(() => new ContentSet(1, 20000, new[] { Level(1) }, new[] { Picture }, new[] { new DailyPoolEntry(1, Level(2)) }));
         }
 
         [Test]

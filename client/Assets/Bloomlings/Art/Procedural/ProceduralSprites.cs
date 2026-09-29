@@ -117,6 +117,28 @@ namespace Bloomlings.Client.Art
             _ => Question,
         };
 
+        /// <summary>
+        /// Placeholder cosmetic art (T143) by <c>CosmeticCatalog</c> shape: hats sit above the worker, expressions on its
+        /// face, trails behind it; frames, badges and markers decorate the profile.
+        /// </summary>
+        public static Sprite Accessory(string shape) => shape switch
+        {
+            "sprout" => Get("acc_sprout", IconSize, (x, y) => Min(RoundedBox(x, y, 0f, -0.45f, 0.06f, 0.4f, 0.04f), Leaf((x + 0.3f) * 2f, (y - 0.1f) * 2f) / 2f, Leaf((-x + 0.3f) * 2f, (y - 0.1f) * 2f) / 2f)),
+            "cap" => Get("acc_cap", IconSize, (x, y) => Min(Max(Length(x, y + 0.3f) - 0.7f, -(y + 0.3f)), RoundedBox(x, y, 0.15f, -0.38f, 0.85f, 0.08f, 0.06f))),
+            "brim" => Get("acc_brim", IconSize, (x, y) => Min(Max(Length(x, y + 0.25f) - 0.48f, -(y + 0.25f)), RoundedBox(x, y, 0f, -0.3f, 0.95f, 0.08f, 0.07f))),
+            "crown" => Get("acc_crown", IconSize, (x, y) => Min(RoundedBox(x, y, 0f, -0.35f, 0.75f, 0.18f, 0.06f), Length(x + 0.52f, y - 0.05f) - 0.17f, Length(x, y - 0.22f) - 0.2f, Length(x - 0.52f, y - 0.05f) - 0.17f)),
+            "nightcap" => Get("acc_nightcap", IconSize, (x, y) => Min(RoundedBox(x, y, 0f, -0.5f, 0.7f, 0.12f, 0.08f), Max(-(y + 0.4f), (Mathf.Abs(x + (0.35f * (y + 0.4f))) * 1.3f) + (y * 0.55f) - 0.45f), Length(x - 0.45f, y - 0.62f) - 0.16f)),
+            "sparkle" => Get("acc_sparkle", IconSize, (x, y) => Min(StarShape(x * 1.4f, y * 1.4f, 0.9f) / 1.4f, StarShape((x - 0.55f) * 3f, (y + 0.5f) * 3f, 0.9f) / 3f)),
+            "swirl" => Get("acc_swirl", IconSize, (x, y) => Mathf.Abs(Length(x, y) - 0.55f) - 0.1f + Step(x < 0f && y < 0f)),
+            "wink" => Get("acc_wink", IconSize, (x, y) => Min(RoundedBox(x, y, -0.4f, 0.15f, 0.22f, 0.06f, 0.05f), Length(x - 0.4f, y - 0.15f) - 0.14f, Max(Mathf.Abs(Length(x, y + 0.05f) - 0.4f) - 0.06f, y + 0.25f))),
+            "smile" => Get("acc_smile", IconSize, (x, y) => Min(Length(x + 0.4f, y - 0.2f) - 0.12f, Length(x - 0.4f, y - 0.2f) - 0.12f, Max(Mathf.Abs(Length(x, y + 0.05f) - 0.45f) - 0.07f, y + 0.2f))),
+            "stars" => Get("acc_stars", IconSize, (x, y) => Min(StarShape((x + 0.42f) * 2.4f, (y - 0.1f) * 2.4f, 0.9f) / 2.4f, StarShape((x - 0.42f) * 2.4f, (y - 0.1f) * 2.4f, 0.9f) / 2.4f)),
+            "frame" => Ring,
+            "badge" => Star,
+            "marker" => DoubleStar,
+            _ => Circle,
+        };
+
         /// <summary>The body silhouette of a Bloomling family (placeholder worker art, doc 12 §2).</summary>
         public static Sprite Silhouette(Family family) => family switch
         {

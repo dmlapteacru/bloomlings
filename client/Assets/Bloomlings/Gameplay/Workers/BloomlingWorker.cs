@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Timeline;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -29,6 +30,7 @@ namespace Bloomlings.Client.Gameplay.Workers
 
         private readonly List<Vector2> _path = new List<Vector2>();
         private Image _image = null!;
+        private Image _accessory = null!;
         private EventTimeline _timeline = null!;
         private WorkerPool _pool = null!;
         private float _travel;
@@ -42,6 +44,9 @@ namespace Bloomlings.Client.Gameplay.Workers
             image.preserveAspect = true;
             var worker = image.gameObject.AddComponent<BloomlingWorker>();
             worker._image = image;
+            worker._accessory = UiFactory.CreateImage("Accessory", image.transform, null, Color.white);
+            worker._accessory.preserveAspect = true;
+            worker._accessory.gameObject.SetActive(false);
             worker._pool = pool;
             worker._timeline = timeline;
             image.gameObject.SetActive(false);
@@ -49,8 +54,13 @@ namespace Bloomlings.Client.Gameplay.Workers
         }
 
         /// <param name="path">Canvas positions: the entry point, then the route cells ending at the target.</param>
-        public void Launch(Sprite silhouette, Color tint, IReadOnlyList<Vector2> path, float size, float travelSeconds)
+        /// <param name="cosmetic">
+        /// The family's equipped cosmetic (FR-063), drawn as a small neutral accessory: a hat above the worker, an
+        /// expression on its face, a trail behind it. The variant tint of the body is never changed.
+        /// </param>
+        public void Launch(Sprite silhouette, Color tint, IReadOnlyList<Vector2> path, float size, float travelSeconds, CosmeticItem? cosmetic = null)
         {
+            ShowCosmetic(cosmetic);
             _path.Clear();
             _path.AddRange(path);
             _image.sprite = silhouette;
@@ -63,6 +73,33 @@ namespace Bloomlings.Client.Gameplay.Workers
             _time = 0f;
             Current = State.Emerge;
             gameObject.SetActive(true);
+        }
+
+        private void ShowCosmetic(CosmeticItem? cosmetic)
+        {
+            if (cosmetic == null || !cosmetic.IsWorn || !ColorUtility.TryParseHtmlString(cosmetic.Tint, out Color tint))
+            {
+                _accessory.gameObject.SetActive(false);
+                return;
+            }
+
+            _accessory.sprite = ProceduralSprites.Accessory(cosmetic.Shape);
+            _accessory.color = tint;
+            RectTransform rect = _accessory.rectTransform;
+            switch (cosmetic.Kind)
+            {
+                case CosmeticKind.Hat:
+                    UiFactory.Place(rect, 0.2f, 0.72f, 0.8f, 1.22f);
+                    break;
+                case CosmeticKind.Expression:
+                    UiFactory.Place(rect, 0.33f, 0.3f, 0.67f, 0.55f);
+                    break;
+                default:
+                    UiFactory.Place(rect, -0.3f, -0.05f, 0.05f, 0.3f);
+                    break;
+            }
+
+            _accessory.gameObject.SetActive(true);
         }
 
         /// <summary>Immediately returns to the pool (restart).</summary>

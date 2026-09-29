@@ -304,7 +304,7 @@ namespace Bloomlings.Pipeline.Commands
                     foreach ((string _, LevelDefinition level) in ContentStore.LoadLevels(parse.GetValue(daily)!))
                     {
                         pool.Add(new DailyPoolEntry(level.LevelNumber - 1, level));
-                        if (!used.Any(p => p.Id == level.Picture.Id))
+                        if (!used.Any(p => p.Id == level.Picture.Id && p.Version == level.Picture.Version))
                         {
                             used.Add(Publishable(Key(level.Picture)));
                         }

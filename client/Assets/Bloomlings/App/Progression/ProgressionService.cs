@@ -25,6 +25,9 @@ namespace Bloomlings.Client.App.Progression
 
         public event Action<UnlockEntry>? UnlockReached;
 
+        /// <summary>A level was newly completed (milestones, T142); raised after its unlocks and before the save.</summary>
+        public event Action<int>? LevelCompleted;
+
         public UnlockRoadmap Roadmap => _roadmap;
 
         public int HighestCompletedLevel => _save.Progression.HighestCompletedLevel;
@@ -52,6 +55,7 @@ namespace Bloomlings.Client.App.Progression
             _save.Progression.HighestCompletedLevel = level;
             _save.Stats.Increment("levelsWon");
             RaiseUnlocks(before, CurrentLevel);
+            LevelCompleted?.Invoke(level);
             _persist();
             return true;
         }

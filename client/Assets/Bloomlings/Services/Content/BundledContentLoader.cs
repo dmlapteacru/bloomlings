@@ -75,11 +75,6 @@ namespace Bloomlings.Client.Services.Content
             var packs = new Dictionary<string, byte[]>(StringComparer.Ordinal);
             foreach (PackEntry entry in manifest.Packs)
             {
-                if (entry.Kind == PackKind.Daily)
-                {
-                    continue; // Read by the daily challenge feature (R19).
-                }
-
                 if (entry.Path == null)
                 {
                     onError(new InvalidDataException($"Bundled pack '{entry.Id}' has no path; URL packs are downloaded by the content update service."));

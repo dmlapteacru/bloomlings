@@ -14,14 +14,17 @@ namespace Bloomlings.Content.Packs
         private readonly Dictionary<int, LevelDefinition> _levels = new Dictionary<int, LevelDefinition>();
         private readonly Dictionary<string, BasePicture> _pictures = new Dictionary<string, BasePicture>(StringComparer.Ordinal);
         private readonly int[] _levelNumbers;
+        private readonly DailyPoolEntry[] _daily;
 
         /// <param name="contentVersion">The manifest's content version; 0 for loose development content.</param>
         /// <param name="shuffleNodeBudget">Fixed per content version (research R10).</param>
+        /// <param name="daily">The Daily Challenge pool (R19), if the content has one.</param>
         public ContentSet(
             int contentVersion,
             int shuffleNodeBudget,
             IEnumerable<LevelDefinition> levels,
-            IEnumerable<BasePicture> pictures)
+            IEnumerable<BasePicture> pictures,
+            IEnumerable<DailyPoolEntry>? daily = null)
         {
             ContentVersion = contentVersion;
             ShuffleNodeBudget = shuffleNodeBudget;
@@ -57,6 +60,25 @@ namespace Bloomlings.Content.Packs
             _levelNumbers = new int[_levels.Count];
             _levels.Keys.CopyTo(_levelNumbers, 0);
             Array.Sort(_levelNumbers);
+
+            var pool = new List<DailyPoolEntry>(daily ?? Array.Empty<DailyPoolEntry>());
+            pool.Sort((a, b) => a.Index.CompareTo(b.Index));
+            for (int i = 0; i < pool.Count; i++)
+            {
+                // Indices are 0..n-1 without gaps, so every device maps a date to the same entry (R19).
+                if (pool[i].Index != i)
+                {
+                    throw new ContentIntegrityException("daily", $"the daily pool indices must be 0..{pool.Count - 1}; found {pool[i].Index} at position {i}");
+                }
+
+                PictureRef picture = pool[i].Level.Picture;
+                if (!_pictures.ContainsKey(PictureKey(picture.Id, picture.Version)))
+                {
+                    throw new ContentIntegrityException("daily", $"daily entry {i} uses missing picture {picture.Id} v{picture.Version}");
+                }
+            }
+
+            _daily = pool.ToArray();
         }
 
         public int ContentVersion { get; }
@@ -69,6 +91,9 @@ namespace Bloomlings.Content.Packs
         public int LevelCount => _levelNumbers.Length;
 
         public int PictureCount => _pictures.Count;
+
+        /// <summary>The Daily Challenge pool by index (R19); empty when the content has no daily pack.</summary>
+        public IReadOnlyList<DailyPoolEntry> DailyPool => _daily;
 
         /// <summary>The highest level number, or 0 when the set is empty.</summary>
         public int MaxLevel => _levelNumbers.Length == 0 ? 0 : _levelNumbers[_levelNumbers.Length - 1];

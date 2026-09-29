@@ -59,6 +59,9 @@ namespace Bloomlings.Client.Services.Save
 
         public string TempPath => MainPath + ".tmp";
 
+        /// <summary>Raised after every successful write (the cloud sync queues the change).</summary>
+        public event Action? Saved;
+
         /// <summary>Test seam: runs between the temp write and the swap, to simulate a crash.</summary>
         internal Action? AfterTempWrite { get; set; }
 
@@ -120,6 +123,8 @@ namespace Bloomlings.Client.Services.Save
             {
                 File.Move(TempPath, MainPath);
             }
+
+            Saved?.Invoke();
         }
 
         /// <summary>The envelope text written to disk.</summary>

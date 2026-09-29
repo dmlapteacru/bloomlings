@@ -5,11 +5,15 @@ using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.App;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Board;
+using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Slots;
 using Bloomlings.Client.Gameplay.Timeline;
 using Bloomlings.Client.Gameplay.Tray;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.DailyChallenge;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Ads;
+using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
@@ -61,6 +65,7 @@ namespace Bloomlings.Client.Gameplay
         private BoosterBar _boosters = null!;
         private BoosterKind? _targeting;
         private LevelReward? _reward;
+        private MilestoneGrant? _milestone;
         private readonly System.Collections.Generic.HashSet<string> _devDemosSeen = new System.Collections.Generic.HashSet<string>();
 
         public LevelSession? Session => _session;
@@ -81,6 +86,11 @@ namespace Bloomlings.Client.Gameplay
             _timeline = gameObject.AddComponent<EventTimeline>();
             _timeline.Bind(this);
             _workers = WorkerPool.Create(gameObject, _board, _timeline, _visuals, _workerCapacity);
+            WardrobeService? wardrobe = Service<WardrobeService>();
+            if (wardrobe != null)
+            {
+                _workers.Cosmetics = wardrobe.EquippedFor;
+            }
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave);
             _win = WinScreen.Create(root, Next);
             _jam = JamScreen.Create(root, Restart, OnRecovery);
@@ -106,7 +116,20 @@ namespace Bloomlings.Client.Gameplay
             }
 
             RebuildViews();
+            ApplyTheme();
             ShowLevelIntro();
+        }
+
+        private static bool IsDaily => Flow?.CurrentAttempt?.IsDaily ?? false;
+
+        /// <summary>The background of the level band (FR-066); the Daily Challenge uses the player's current band.</summary>
+        private void ApplyTheme()
+        {
+            int level = IsDaily ? Progression?.CurrentLevel ?? 1 : Flow?.CurrentAttempt?.LevelNumber ?? _session!.Definition.LevelNumber;
+            if (Progression != null && ColorUtility.TryParseHtmlString(ThemeRotation.Default.ThemeFor(level).Background, out Color color))
+            {
+                _hud.SetBackground(color);
+            }
         }
 
         // ---- Input ----
@@ -174,9 +197,25 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
-            if (Flow.OnLevelWon(Flow.CurrentAttempt.LevelNumber) && Economy != null)
+            LevelAttempt attempt = Flow.CurrentAttempt;
+            if (attempt.IsDaily)
             {
-                _reward = Economy.GrantLevelReward(Flow.CurrentAttempt.LevelNumber, _session.Definition.Difficulty.Class, _session.BoostersUsed);
+                // The Daily Challenge pays its own reward once per day and never changes Level N (FR-064).
+                DailyChallengeService? daily = Service<DailyChallengeService>();
+                int paid = _reward == null && daily != null ? daily.Complete(attempt) : 0;
+                if (paid > 0)
+                {
+                    _reward = new LevelReward(paid, null);
+                }
+
+                return;
+            }
+
+            if (Flow.OnLevelWon(attempt.LevelNumber, LeaderboardClient.CommandLogHash(_session.CommandLog)) && Economy != null)
+            {
+                _reward = Economy.GrantLevelReward(attempt.LevelNumber, _session.Definition.Difficulty.Class, _session.BoostersUsed);
+                MilestoneGrant? grant = Service<MilestoneService>()?.LastGrant;
+                _milestone = grant != null && grant.Level == attempt.LevelNumber ? grant : null;
             }
         }
 
@@ -236,7 +275,7 @@ namespace Bloomlings.Client.Gameplay
                     break;
                 case LevelWon _:
                     _board.RevealAll();
-                    _win.Show(this, RewardText(_reward), DoubleRewardOffer());
+                    _win.Show(this, RewardText(_reward) + MilestoneText(_milestone), DoubleRewardOffer());
                     break;
                 case LevelJammed _:
                 case LevelStuck _:
@@ -461,7 +500,7 @@ namespace Bloomlings.Client.Gameplay
                 if (earned)
                 {
                     Economy.Grant(reward.Petals, null);
-                    update(RewardText(reward with { Petals = reward.Petals * 2 }));
+                    update(RewardText(reward with { Petals = reward.Petals * 2 }) + MilestoneText(_milestone));
                 }
             });
         }
@@ -507,6 +546,30 @@ namespace Bloomlings.Client.Gameplay
 
             string text = "+" + reward.Petals.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Petals";
             return reward.DroppedBooster.HasValue ? text + "  +1 " + JamScreen.Label(RecoveryOf(reward.DroppedBooster.Value)) : text;
+        }
+
+        /// <summary>The milestone celebration line on the Win screen (FR-061).</summary>
+        private static string MilestoneText(MilestoneGrant? grant)
+        {
+            if (grant == null)
+            {
+                return string.Empty;
+            }
+
+            string text = "\nMilestone! +" + grant.Petals.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Petals";
+            if (grant.Boosters != null)
+            {
+                int charges = grant.Boosters.ExtraSlot + grant.Boosters.Shuffle + grant.Boosters.Return + grant.Boosters.BloomBurst;
+                text += "  +" + charges.ToString(System.Globalization.CultureInfo.InvariantCulture) + (charges == 1 ? " booster" : " boosters");
+            }
+
+            if (grant.Item != null)
+            {
+                WardrobeService? wardrobe = Service<WardrobeService>();
+                text += "  + " + (wardrobe != null && wardrobe.Catalog.TryGet(grant.Item, out CosmeticItem? item) ? item!.Name : grant.Item);
+            }
+
+            return text;
         }
 
         private static BoosterKind KindOf(Recovery recovery) => recovery switch
@@ -669,7 +732,7 @@ namespace Bloomlings.Client.Gameplay
                 progression?.IsUnlocked("profile.hard") ?? true,
                 progression?.IsUnlocked("profile.super_hard") ?? true);
 
-            if (session.Definition.LevelNumber == 1 && !SeenDemo(DemoScripts.FirstTapId))
+            if (session.Definition.LevelNumber == 1 && !IsDaily && !SeenDemo(DemoScripts.FirstTapId))
             {
                 string? pod = RecommendedFirstPod(session);
                 _demo.Show(DemoScripts.FirstTap(() => pod == null ? null : _tray.RectOf(pod)), OnDemoDone);
@@ -841,12 +904,21 @@ namespace Bloomlings.Client.Gameplay
             _workInFlight.Clear();
             _win.Hide();
             _jam.Hide();
-            _hud.SetLevel(session.Definition.LevelNumber);
+            if (IsDaily)
+            {
+                _hud.SetTitle("Daily Challenge");
+            }
+            else
+            {
+                _hud.SetLevel(Flow?.CurrentAttempt?.LevelNumber ?? session.Definition.LevelNumber);
+            }
+
             _board.Build(session.View, session.Definition, session.Picture);
             _workers.SetEntries(session.View.Entries);
             _slots.Reset(session.View);
             _tray.Refresh(session.View);
             _reward = null;
+            _milestone = null;
             CancelTargeting();
             RefreshBoosters();
         }

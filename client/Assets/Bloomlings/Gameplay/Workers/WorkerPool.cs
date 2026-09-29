@@ -3,8 +3,10 @@ using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Board;
 using Bloomlings.Client.Gameplay.Timeline;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Variants;
 using UnityEngine;
 
 namespace Bloomlings.Client.Gameplay.Workers
@@ -26,6 +28,9 @@ namespace Bloomlings.Client.Gameplay.Workers
         public int Capacity { get; private set; } = 60;
 
         public int Active => _all.Count - _free.Count;
+
+        /// <summary>The cosmetic each family wears (the Wardrobe, FR-063); presentation only.</summary>
+        public System.Func<Family, CosmeticItem?>? Cosmetics { get; set; }
 
         public static WorkerPool Create(GameObject host, BoardView board, EventTimeline timeline, VariantVisualCatalog? visuals, int capacity)
         {
@@ -62,7 +67,7 @@ namespace Bloomlings.Client.Gameplay.Workers
                 path.Add(_board.CellCenter(cell));
             }
 
-            worker.Launch(ProceduralSprites.Silhouette(visual.Family), visual.Color, path, _board.CellSize * 0.62f, travelSeconds);
+            worker.Launch(ProceduralSprites.Silhouette(visual.Family), visual.Color, path, _board.CellSize * 0.62f, travelSeconds, Cosmetics?.Invoke(visual.Family));
         }
 
         public void Release(BloomlingWorker worker) => _free.Push(worker);

@@ -41,7 +41,7 @@ namespace UnityEngine
     public struct Vector2 { public float x, y; public Vector2(float x, float y) { this.x = x; this.y = y; } public static Vector2 zero => default; public static Vector2 one => default; public static Vector2 operator +(Vector2 a, Vector2 b) => a; public static Vector2 operator *(Vector2 a, float b) => a; public static Vector2 Lerp(Vector2 a, Vector2 b, float t) => a; }
     public struct Vector3 { public Vector3(float x, float y, float z) { } public static Vector3 zero => default; public static Vector3 one => default; public static Vector3 up => default; public static Vector3 operator *(Vector3 a, float b) => a; public static Vector3 operator +(Vector3 a, Vector3 b) => a; public static Vector3 Lerp(Vector3 a, Vector3 b, float t) => a; }
     public struct Vector4 { public Vector4(float x, float y, float z, float w) { } public static Vector4 zero => default; public static bool operator ==(Vector4 a, Vector4 b) => true; public static bool operator !=(Vector4 a, Vector4 b) => false; public override bool Equals(object? o) => true; public override int GetHashCode() => 0; }
-    public static class Mathf { public const float PI = 3.14f; public static float Atan2(float y, float x) => 0; public static float Min(float a, float b) => a; public static int Min(int a, int b) => a; public static float Max(float a, float b) => a; public static int Max(int a, int b) => a; public static float Clamp01(float v) => v; public static float Clamp(float v, float a, float b) => v; public static float Abs(float v) => v; public static float Sqrt(float v) => v; public static float Sin(float v) => v; public static float Cos(float v) => v; public static float Floor(float v) => v; public static int FloorToInt(float v) => 0; public static int CeilToInt(float v) => 0; public static float SmoothStep(float a, float b, float t) => t; }
+    public static class Mathf { public const float PI = 3.14f; public static float Atan2(float y, float x) => 0; public static float Min(float a, float b) => a; public static int Min(int a, int b) => a; public static float Max(float a, float b) => a; public static int Max(int a, int b) => a; public static float Clamp01(float v) => v; public static float Clamp(float v, float a, float b) => v; public static int Clamp(int v, int a, int b) => v; public static float Abs(float v) => v; public static float Sqrt(float v) => v; public static float Sin(float v) => v; public static float Cos(float v) => v; public static float Floor(float v) => v; public static int FloorToInt(float v) => 0; public static int CeilToInt(float v) => 0; public static float SmoothStep(float a, float b, float t) => t; }
     public class Texture { public FilterMode filterMode { get; set; } public TextureWrapMode wrapMode { get; set; } public string name { get; set; } = ""; public HideFlags hideFlags { get; set; } }
     public sealed class Texture2D : Texture { public Texture2D(int w, int h, TextureFormat f, bool mip) { } public void SetPixels32(Color32[] p) { } public void Apply(bool a, bool b) { } public static implicit operator Object(Texture2D t) => null!; }
     public enum TextureFormat { RGBA32 }
@@ -56,7 +56,7 @@ namespace UnityEngine
     public sealed class DefaultExecutionOrder : Attribute { public DefaultExecutionOrder(int order) { } }
     public static class Time { public static float unscaledDeltaTime => 0; public static float unscaledTime => 0; }
     public static class ColorUtility { public static bool TryParseHtmlString(string s, out Color c) { c = default; return true; } }
-    public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; }
+    public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public T GetComponent<T>() => default!; public T GetComponentInChildren<T>() => default!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; }
     public enum RuntimePlatform { Android, IPhonePlayer }
     public class TextAsset : Object { public string text => string.Empty; }
     public static class Resources { public static T? Load<T>(string path) where T : Object => null; }
@@ -84,7 +84,7 @@ namespace UnityEngine.UI
 namespace UnityEngine.EventSystems { public sealed class EventSystem : Behaviour { public static EventSystem? current => null; } public sealed class StandaloneInputModule : Behaviour { } }
 namespace TMPro
 {
-    public enum TextAlignmentOptions { Center, Left }
+    public enum TextAlignmentOptions { Center, Left, Right }
     public enum TextWrappingModes { NoWrap }
     [Flags] public enum FontStyles { Normal = 0, Bold = 1 }
     public class TextMeshProUGUI : UnityEngine.UI.Graphic { public string text { get; set; } = ""; public float fontSize { get; set; } public TextAlignmentOptions alignment { get; set; } public TextWrappingModes textWrappingMode { get; set; } public FontStyles fontStyle { get; set; } }

@@ -4,28 +4,73 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Bloomlings.Client.Services;
-using Newtonsoft.Json.Linq;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
-using Unity.Services.RemoteConfig;
 using UnityEngine;
+#if BLOOMLINGS_UGS_REMOTECONFIG
+using Newtonsoft.Json.Linq;
+using Unity.Services.RemoteConfig;
+#endif
 
 namespace Bloomlings.Integrations.Ugs
 {
     /// <summary>
-    /// Unity Gaming Services (research R11; T126). Compiled only when the Remote Config package is installed; registers
-    /// the Remote Config fetch before the first scene. Sign-in is anonymous and never blocks play (FR-087).
+    /// Unity Gaming Services (research R11; T126, T138–T140). Compiled when the Authentication package is installed;
+    /// each further package (Remote Config, Cloud Save, Leaderboards with Cloud Code) adds its service. Everything is
+    /// registered in <see cref="ServiceProviders"/> before the first scene. Sign-in is anonymous and never blocks play
+    /// (FR-087).
     /// </summary>
     internal static class UgsBootstrap
     {
+        private static Task? _signIn;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Register()
         {
+            ServiceProviders.Auth = () => new UgsAuthService();
+#if BLOOMLINGS_UGS_REMOTECONFIG
             ServiceProviders.RemoteConfigFetch = FetchRemoteConfig;
+#endif
+#if BLOOMLINGS_UGS_CLOUDSAVE
+            ServiceProviders.CloudSave = () => new UgsCloudSaveService();
+#endif
+#if BLOOMLINGS_UGS_LEADERBOARDS && BLOOMLINGS_UGS_CLOUDCODE
+            ServiceProviders.Leaderboard = () => new UgsLeaderboardService();
+#endif
         }
 
-        /// <summary>Initializes UGS and signs in anonymously if needed.</summary>
-        internal static async Task EnsureSignedInAsync()
+        /// <summary>True when UGS is initialized and a player is signed in.</summary>
+        internal static bool IsSignedIn =>
+            UnityServices.State == ServicesInitializationState.Initialized && AuthenticationService.Instance.IsSignedIn;
+
+        /// <summary>Initializes UGS and signs in anonymously (or restores the cached player); concurrent callers share one attempt.</summary>
+        internal static Task EnsureSignedInAsync()
+        {
+            if (IsSignedIn)
+            {
+                return Task.CompletedTask;
+            }
+
+            if (_signIn == null || _signIn.IsCompleted)
+            {
+                _signIn = SignInAsync();
+            }
+
+            return _signIn;
+        }
+
+        /// <summary>Runs a task as a coroutine; <paramref name="done"/> gets the faulted exception or null.</summary>
+        internal static IEnumerator Await(Task task, Action<Exception?> done)
+        {
+            while (!task.IsCompleted)
+            {
+                yield return null;
+            }
+
+            done(task.IsFaulted || task.IsCanceled ? (Exception?)task.Exception?.GetBaseException() ?? new OperationCanceledException() : null);
+        }
+
+        private static async Task SignInAsync()
         {
             if (UnityServices.State != ServicesInitializationState.Initialized)
             {
@@ -38,6 +83,7 @@ namespace Bloomlings.Integrations.Ugs
             }
         }
 
+#if BLOOMLINGS_UGS_REMOTECONFIG
         private static IEnumerator FetchRemoteConfig(Action<IReadOnlyDictionary<string, string>> onValues)
         {
             Task<RuntimeConfig> fetch = FetchAsync();
@@ -77,6 +123,7 @@ namespace Bloomlings.Integrations.Ugs
         private struct AppAttributes
         {
         }
+#endif
     }
 }
 #endif

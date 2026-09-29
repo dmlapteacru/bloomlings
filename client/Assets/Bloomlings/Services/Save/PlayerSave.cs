@@ -65,6 +65,59 @@ namespace Bloomlings.Client.Services.Save
         public static string FormatTime(DateTime utc) => utc.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", System.Globalization.CultureInfo.InvariantCulture);
 
         internal void Touch(DateTime utcNow) => UpdatedAt = FormatTime(utcNow);
+
+        /// <summary>
+        /// Copies every field of <paramref name="source"/> into this save, keeping this instance: the services hold it,
+        /// so a cloud merge (R15) replaces its contents rather than the object.
+        /// </summary>
+        internal void Assign(PlayerSave source)
+        {
+            SchemaVersion = source.SchemaVersion;
+            LocalPlayerId = source.LocalPlayerId;
+            LinkedIdentity = source.LinkedIdentity;
+            DeviceId = source.DeviceId;
+            UpdatedAt = source.UpdatedAt;
+            Progression.HighestCompletedLevel = source.Progression.HighestCompletedLevel;
+            Progression.ContentVersionSeen = source.Progression.ContentVersionSeen;
+            Wallet.SetPetals(source.Wallet.Petals);
+            foreach (BoosterKind kind in new[] { BoosterKind.ExtraSlot, BoosterKind.Shuffle, BoosterKind.Return, BoosterKind.BloomBurst })
+            {
+                Boosters.Set(kind, source.Boosters.Get(kind));
+            }
+
+            Purchases.Assign(source.Purchases);
+            Unlocks.Assign(source.Unlocks);
+            Milestones.Assign(source.Milestones);
+            Cosmetics.Owned.Clear();
+            Cosmetics.Owned.UnionWith(source.Cosmetics.Owned);
+            Cosmetics.Equipped.Clear();
+            foreach (KeyValuePair<string, string> pair in source.Cosmetics.Equipped)
+            {
+                Cosmetics.Equipped[pair.Key] = pair.Value;
+            }
+
+            Daily.RewardLastClaimUtcDate = source.Daily.RewardLastClaimUtcDate;
+            Daily.RewardStreak = source.Daily.RewardStreak;
+            Daily.ChallengeLastCompletedUtcDate = source.Daily.ChallengeLastCompletedUtcDate;
+            Collection.Clear();
+            Collection.AddRange(source.Collection);
+            Settings.Music = source.Settings.Music;
+            Settings.Sfx = source.Settings.Sfx;
+            Settings.Haptics = source.Settings.Haptics;
+            Settings.Speed2x = source.Settings.Speed2x;
+            Settings.Language = source.Settings.Language;
+            Stats.Counters.Clear();
+            foreach (KeyValuePair<string, long> pair in source.Stats.Counters)
+            {
+                Stats.Counters[pair.Key] = pair.Value;
+            }
+
+            Stats.Groups.Clear();
+            foreach (KeyValuePair<string, SortedDictionary<string, long>> group in source.Stats.Groups)
+            {
+                Stats.Groups[group.Key] = new SortedDictionary<string, long>(group.Value, StringComparer.Ordinal);
+            }
+        }
     }
 
     public sealed class ProgressionData
@@ -164,6 +217,14 @@ namespace Bloomlings.Client.Services.Save
 
         public bool Contains(string transactionId) => _ledger.Exists(e => e.TransactionId == transactionId);
 
+        internal void Assign(PurchasesData source)
+        {
+            _ledger.Clear();
+            _ledger.AddRange(source._ledger);
+            RemoveAds = source.RemoveAds;
+            StarterPackOffered = source.StarterPackOffered;
+        }
+
         /// <summary>Adds a ledger entry once per transaction id (idempotent grants, R13).</summary>
         public bool TryAdd(LedgerEntry entry)
         {
@@ -190,6 +251,18 @@ namespace Bloomlings.Client.Services.Save
 
         public bool HasSeenDemo(string demoId) => _demosSeen.Contains(demoId);
 
+        internal void Assign(UnlocksData source)
+        {
+            Flags.Clear();
+            foreach (KeyValuePair<string, bool> pair in source.Flags)
+            {
+                Flags[pair.Key] = pair.Value;
+            }
+
+            _demosSeen.Clear();
+            _demosSeen.AddRange(source._demosSeen);
+        }
+
         public bool MarkDemoSeen(string demoId)
         {
             if (_demosSeen.Contains(demoId))
@@ -212,6 +285,12 @@ namespace Bloomlings.Client.Services.Save
         public bool TryClaim(int level) => level >= 1 && _claimed.Add(level);
 
         public bool IsClaimed(int level) => _claimed.Contains(level);
+
+        internal void Assign(MilestonesData source)
+        {
+            _claimed.Clear();
+            _claimed.UnionWith(source._claimed);
+        }
     }
 
     public sealed class CosmeticsData

@@ -1063,28 +1063,42 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
 
 ### Tests for User Story 7 ⚠️
 
-- [ ] T135 [P] [US7] Write `client/Assets/Bloomlings/Tests/EditMode/SaveMergeTests.cs`, following R15:
+- [X] T135 [P] [US7] Write `client/Assets/Bloomlings/Tests/EditMode/SaveMergeTests.cs`, following R15:
   - the base is the save with the higher `highestCompletedLevel`, then the later `updatedAt`;
   - entitlements, cosmetics and milestones are unioned;
   - missing ledger entries are re-applied idempotently.
-- [ ] T136 [P] [US7] Write `client/Assets/Bloomlings/Tests/EditMode/LeaderboardScoreTests.cs` for the score
+  Status: 4 merge tests plus 3 sync tests in `CloudSaveAndLeaderboardTests.cs` (offline queue, merge on reconnect,
+  empty cloud, failed upload, unreadable cloud document never overwritten), all passing under `client/DotnetCheck`.
+- [X] T136 [P] [US7] Write `client/Assets/Bloomlings/Tests/EditMode/LeaderboardScoreTests.cs` for the score
   `level × 10_000_000 + (9_999_999 − minutesSince(2026-01-01T00:00Z))`: for the same level, the earlier completion
   ranks higher, and the value is exact in a double.
-- [ ] T137 [P] [US7] Write `client/Assets/Bloomlings/Tests/EditMode/MilestoneAndDailyChallengeTests.cs`:
+  Status: passing under `client/DotnetCheck` (formula, tie-break, exactness up to level 900 million, UTC handling).
+- [X] T137 [P] [US7] Write `client/Assets/Bloomlings/Tests/EditMode/MilestoneAndDailyChallengeTests.cs`:
   - each milestone is granted exactly once;
   - a level that matches several cadences (L100) grants only the largest cadence's reward;
   - the UTC date maps to the same daily-pool index on every device.
+  Status: passing under `client/DotnetCheck`; also checks that `MilestoneTable.Default` mirrors
+  `content/roadmap/milestones.json` and that the Daily Challenge pays once per day without touching Level N.
 
 ### Implementation for User Story 7
 
-- [ ] T138 [US7] Implement `client/Assets/Bloomlings/Services/Backend/IAuthService.cs` and `UgsAuthService.cs`
+- [X] T138 [US7] Implement `client/Assets/Bloomlings/Services/Backend/IAuthService.cs` and `UgsAuthService.cs`
   (`com.unity.services.authentication`). It signs in anonymously on the first launch without blocking play, and
   offers optional Sign in with Apple and Google Play Games linking from Settings (FR-087).
-- [ ] T139 [US7] Implement `client/Assets/Bloomlings/Services/Save/ICloudSaveService.cs`, `CloudSaveSync.cs` and
+  Status: `IAuthService` and the offline `LocalOnlyAuthService` are in `Services/Backend/IAuthService.cs`. The UGS
+  implementation lives in `Integrations/Ugs/UgsAuthService.cs` (as with T128, so the game assembly never references an
+  SDK). Boot signs in after the game is playable. Settings shows the link buttons only when a platform token source is
+  registered (`ServiceProviders.AppleIdToken` / `GooglePlayGamesAuthCode`). The Sign in with Apple and Google Play Games
+  plugins that provide those tokens are not in the repository yet. Not yet compiled against the SDKs.
+- [X] T139 [US7] Implement `client/Assets/Bloomlings/Services/Save/ICloudSaveService.cs`, `CloudSaveSync.cs` and
   `SaveMerge.cs`
   (`com.unity.services.cloudsave`, key `player_save_v1`). While offline it queues changes; on reconnect it merges
   following R15.
-- [ ] T140 [US7] Implement `client/Assets/Bloomlings/Services/Backend/ILeaderboardService.cs` and
+  Status: `SaveMerge` merges out of place and `PlayerSave.Assign` applies the result in place, because the services
+  hold the save instance. `CloudSaveSync` runs at sign-in, when Home opens and after a win, never mid-level. A cloud
+  document this app cannot read is left untouched. `UgsCloudSaveService` is in `Integrations/Ugs/`. Not yet compiled
+  against the SDK.
+- [X] T140 [US7] Implement `client/Assets/Bloomlings/Services/Backend/ILeaderboardService.cs` and
   `UgsLeaderboardService.cs`
   (`com.unity.services.leaderboards`, id `global_highest_level`) with the T136 score encoding. Write the Cloud Code
   script `backend/cloud-code/SubmitProgress.js`, whose sanity checks reject:
@@ -1093,10 +1107,16 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
   - an unsupported content version.
 
   Rejections are logged, not banned.
-- [ ] T141 [P] [US7] Implement `client/Assets/Bloomlings/UI/Screens/LeaderboardScreen.cs`. It unlocks at L10 and
+
+  Status: `ILeaderboardService` and the offline fallback are done. `LeaderboardClient` keeps the queue in the stats
+  counter `leaderboard.submittedLevel`, so no schema change was needed. `UgsLeaderboardService` is in
+  `Integrations/Ugs/`. `backend/cloud-code/SubmitProgress.js` computes the score with server time, which is harder to
+  tamper with than a client timestamp. Neither the client code nor the script has been run against a live UGS project.
+- [X] T141 [P] [US7] Implement `client/Assets/Bloomlings/UI/Screens/LeaderboardScreen.cs`. It unlocks at L10 and
   shows the player's rank and neighbours, with a stale label when offline. Also fill the Home rank slot (FR-058,
   FR-062).
-- [ ] T142 [US7] Implement `client/Assets/Bloomlings/App/Progression/MilestoneService.cs`, with its data in
+  Status: code done; the layout has not been checked in the Unity Editor yet.
+- [X] T142 [US7] Implement `client/Assets/Bloomlings/App/Progression/MilestoneService.cs`, with its data in
   `content/roadmap/milestones.json`:
   - every 25 levels a bundle;
   - every 50 a cosmetic or profile reward;
@@ -1113,23 +1133,41 @@ the Collection. Quickstart §7 rows "Cloud merge", "Leaderboard" and "Daily Chal
   | 50 | 100 Petals + 1 cosmetic or profile item |
   | 100 | 300 Petals + 1 charge of each booster + 1 cosmetic |
   | 250 / 500 / 1000 and later | 500 Petals + prestige frame, skin, badge or leaderboard marker |
-- [ ] T143 [US7] Implement the Wardrobe in `client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs`,
+
+  Status: `MilestoneTable.Default` mirrors the JSON, and a test keeps the two equal. The single booster charge of the
+  25-level bundle goes to the unlocked booster with the fewest charges. Items come from the cadence's list: the first
+  one not yet owned. The Win screen shows a short milestone line.
+- [X] T143 [US7] Implement the Wardrobe in `client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs`,
   `CosmeticCatalog.asset` and `client/Assets/Bloomlings/UI/Screens/WardrobeScreen.cs`:
   - unlocks at L40;
   - one equipped skin per family, affecting presentation only;
   - a check that cosmetics do not reduce readability (FR-063).
-- [ ] T144 [US7] Implement the Daily Challenge in `client/Assets/Bloomlings/Meta/DailyChallenge/DailyChallengeService.cs`
+  Status: the catalog is `Meta/Wardrobe/Resources/CosmeticCatalog.json` rather than `CosmeticCatalog.asset`. The
+  repository does not track `.meta` files, so a hand-written asset could not reference its script. Readability check
+  (tested): worn items are small accessories in neutral tints (HSV saturation ≤ 0.3) and never change the variant tint
+  or icon. Frames, badges and markers decorate the profile only. The accessory art is procedural placeholder art, not
+  yet checked in the Editor.
+- [X] T144 [US7] Implement the Daily Challenge in `client/Assets/Bloomlings/Meta/DailyChallenge/DailyChallengeService.cs`
   and `client/Assets/Bloomlings/UI/Screens/DailyChallengeScreen.cs`:
   - the daily pack from `publish` provides the puzzles;
   - the UTC date maps to a pool index;
   - flag `feature.dailyChallenge`, unlock L50;
   - it has a separate reward and never changes Level N (FR-064, R19).
-- [ ] T145 [US7] Implement the Collection in `client/Assets/Bloomlings/Meta/Collection/CollectionService.cs` and
+  Status: `ContentSet.DailyPool` now reads the daily pack in `ContentLoader`, and the bundled loader no longer skips
+  it. The pool index is whole UTC days since 2026-01-01 modulo the pool size. The reward is a constant 30 Petals
+  (`DailyChallengeService.RewardPetals`); it is not a Remote Config key because the contract lists none. Dev content
+  without a daily pack hides the button.
+- [X] T145 [US7] Implement the Collection in `client/Assets/Bloomlings/Meta/Collection/CollectionService.cs` and
   `client/Assets/Bloomlings/UI/Screens/CollectionScreen.cs`. Each win adds `{pictureId, pictureVersion, mappingHash,
   levelNumber}`, and the screen shows the finished pictures. It is never a level selector (FR-065).
-- [ ] T146 [US7] Implement `client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs` with its data in
+  Status: entries are added when a level is won, and the mapping hash is the first 16 hex digits of the SHA-256 of the
+  sorted `role=variant` pairs. The screen redraws a picture only when the current content still has the same picture
+  and colors for that level; otherwise it shows the level number.
+- [X] T146 [US7] Implement `client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs` with its data in
   `content/roadmap/themes.json`. It picks the background theme by level band (daylight garden, pond, orchard, moonlit
   garden). This is visual only (FR-066).
+  Status: the rotation starts at L100 (`system.theme_rotation`) with the pond theme and changes every 50 levels. All
+  themes keep light backgrounds (tested). Applied to Home and to the gameplay background.
 
 **Checkpoint**: All user stories are complete.
 

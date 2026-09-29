@@ -4,8 +4,14 @@ using Bloomlings.Core.Simulation;
 
 namespace Bloomlings.Client.Services.Content
 {
-    /// <summary>One attempt at a level, pinned to the content version it started with (R6).</summary>
-    public sealed record LevelAttempt(int LevelNumber, LevelDefinition Definition, BasePicture Picture, SessionOptions Options);
+    /// <summary>
+    /// One attempt at a level, pinned to the content version it started with (R6). A Daily Challenge attempt carries
+    /// its UTC date (<c>yyyy-MM-dd</c>); it never changes Level N (FR-064).
+    /// </summary>
+    public sealed record LevelAttempt(int LevelNumber, LevelDefinition Definition, BasePicture Picture, SessionOptions Options, string? DailyUtcDate = null)
+    {
+        public bool IsDaily => DailyUtcDate != null;
+    }
 
     /// <summary>
     /// Maps a level number to its definition and picture (T061). Level N is the same for every player because it comes
