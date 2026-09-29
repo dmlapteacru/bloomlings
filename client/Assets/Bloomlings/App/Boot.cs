@@ -78,7 +78,8 @@ namespace Bloomlings.Client.App
 
             Debug.Log($"[Boot] Content v{content.ContentVersion}: {content.LevelCount} levels, {content.PictureCount} pictures ({source}); save from {saves.Source}.");
             services.Register(content);
-            var catalog = new CatalogService(content);
+            // Past the end of the catalog only development builds repeat it; a release build says more levels are coming.
+            var catalog = new CatalogService(content, repeatPastEnd: Debug.isDebugBuild);
             services.Register(catalog);
 
             // Analytics and crash keys (T147): events wait on the device until consent allows them (FR-090).

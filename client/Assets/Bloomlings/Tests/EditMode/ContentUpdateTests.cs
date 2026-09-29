@@ -160,11 +160,25 @@ namespace Bloomlings.Client.Tests.EditMode
             ContentSet v2 = ContentUpdater.Parse(Version(2).Manifest, Version(2).Packs);
             var catalog = new CatalogService(v1);
 
-            LevelAttempt attempt = catalog.BeginAttempt(3);
+            LevelAttempt attempt = catalog.BeginAttempt(3)!;
             catalog.Activate(v2);
 
             Assert.That(attempt.Options.ContentVersion, Is.EqualTo(1));
-            Assert.That(catalog.BeginAttempt(3).Options.ContentVersion, Is.EqualTo(2));
+            Assert.That(catalog.BeginAttempt(3)!.Options.ContentVersion, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void PastTheEndOfTheCatalog_OnlyDevelopmentBuildsRepeatIt()
+        {
+            ContentSet content = ContentUpdater.Parse(Version(1).Manifest, Version(1).Packs);
+            int past = content.LevelNumbers[content.LevelCount - 1] + 1;
+
+            var release = new CatalogService(content);
+            Assert.That(release.HasLevel(past), Is.False);
+            Assert.That(release.BeginAttempt(past), Is.Null, "a release build never replays old levels as new ones");
+
+            var development = new CatalogService(content, repeatPastEnd: true);
+            Assert.That(development.BeginAttempt(past)!.Definition, Is.SameAs(content.GetLevel(content.LevelNumbers[0])));
         }
 
         [Test]

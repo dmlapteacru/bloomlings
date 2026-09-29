@@ -46,6 +46,8 @@ client/*.slnx
 
 # .NET check of the Unity client scripts (client/DotnetCheck)
 client/DotnetCheck/artifacts/
+client/DotnetCheck/obj/
+client/DotnetCheck/bin/
 content/showcase/rejections.json
 client/Assets/StreamingAssets/golden/
 client/Assets/StreamingAssets/golden.meta

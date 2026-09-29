@@ -100,7 +100,8 @@ namespace Bloomlings.Client.App.Home
                     dailyChallenge.CompletedToday,
                     wardrobe.IsAvailable,
                     collection.Count > 0,
-                    background));
+                    background,
+                    catalog.HasLevel(progression.CurrentLevel)));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.IsOpen)
                 {

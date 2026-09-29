@@ -9,7 +9,7 @@ using UnityEngine;
 namespace Bloomlings.Client.Editor
 {
     /// <summary>
-    /// Build entry points for CI (<c>.github/workflows/android-apk.yml</c>, run by hand), called with
+    /// Build entry points for CI (<c>.github/workflows/unity-apk.yml</c>, run by hand), called with
     /// <c>-executeMethod</c>. GameCI passes <c>-customBuildPath</c>. Before building, the project is prepared the way the
     /// first-open steps of client/README.md describe, so a fresh checkout builds without the Editor UI:
     /// <list type="bullet">

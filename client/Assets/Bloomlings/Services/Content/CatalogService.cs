@@ -17,23 +17,39 @@ namespace Bloomlings.Client.Services.Content
     /// Maps a level number to its definition and picture (T061). Level N is the same for every player because it comes
     /// from the same versioned definition (SC-011). An attempt keeps the content it started with even if a newer
     /// catalog is activated meanwhile; the new content applies from the next attempt (R6).
+    /// Past the end of the catalog there is no level: Home says more levels are coming, until a content update extends
+    /// the catalog. Only development builds may repeat the catalog from the start (<paramref name="repeatPastEnd"/>),
+    /// so a short test catalog can be played on.
     /// </summary>
     public sealed class CatalogService
     {
-        public CatalogService(ContentSet content)
+        private readonly bool _repeatPastEnd;
+
+        public CatalogService(ContentSet content, bool repeatPastEnd = false)
         {
             Content = content;
+            _repeatPastEnd = repeatPastEnd;
         }
 
         public ContentSet Content { get; private set; }
+
+        /// <summary>Whether Level N can be played with the active catalog.</summary>
+        public bool HasLevel(int levelNumber) =>
+            Content.TryGetLevel(levelNumber, out _) || (_repeatPastEnd && Content.LevelCount > 0 && levelNumber >= 1);
 
         public int ContentVersion => Content.ContentVersion;
 
         /// <summary>Activates a newer catalog for future attempts (content updates, T092).</summary>
         public void Activate(ContentSet content) => Content = content;
 
-        public LevelAttempt BeginAttempt(int levelNumber)
+        /// <summary>An attempt at Level N, or null past the end of the catalog (see <see cref="HasLevel"/>).</summary>
+        public LevelAttempt? BeginAttempt(int levelNumber)
         {
+            if (!HasLevel(levelNumber))
+            {
+                return null;
+            }
+
             ContentSet content = Content;
             LevelDefinition definition = content.GetLevel(Resolve(content, levelNumber));
             return new LevelAttempt(
@@ -44,8 +60,8 @@ namespace Bloomlings.Client.Services.Content
         }
 
         /// <summary>
-        /// The definition used for a level number. Past the end of the catalog (only possible with development
-        /// content) the levels repeat from the start, deterministically, until a content update extends the catalog.
+        /// The definition used for a level number. Past the end of the catalog (development builds only, see
+        /// <see cref="HasLevel"/>) the levels repeat from the start, deterministically.
         /// </summary>
         public static int Resolve(ContentSet content, int levelNumber)
         {

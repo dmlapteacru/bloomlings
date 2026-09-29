@@ -53,10 +53,17 @@ namespace Bloomlings.Client.App
             }
         }
 
-        /// <summary>Home's Play/Continue: always the current level.</summary>
+        /// <summary>Home's Play/Continue: always the current level. Past the end of the catalog Home stays, saying more levels are coming.</summary>
         public void Play()
         {
-            CurrentAttempt = _catalog.BeginAttempt(_progression.CurrentLevel);
+            LevelAttempt? attempt = _catalog.BeginAttempt(_progression.CurrentLevel);
+            if (attempt == null)
+            {
+                GoHome();
+                return;
+            }
+
+            CurrentAttempt = attempt;
             Load(GameplayScene);
         }
 

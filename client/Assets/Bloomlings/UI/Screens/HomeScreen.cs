@@ -21,7 +21,8 @@ namespace Bloomlings.Client.UI.Screens
         bool DailyChallengeDone = false,
         bool WardrobeAvailable = false,
         bool CollectionAvailable = false,
-        Color? Background = null);
+        Color? Background = null,
+        bool LevelAvailable = true);
 
     /// <summary>The Home buttons of the long-run features (US7); a null action hides its button.</summary>
     public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard);
@@ -37,6 +38,7 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _level = null!;
         private TextMeshProUGUI _petals = null!;
         private TextMeshProUGUI _playLabel = null!;
+        private Button _playButton = null!;
         private TextMeshProUGUI _milestone = null!;
         private TextMeshProUGUI _rank = null!;
         private Image _background = null!;
@@ -77,6 +79,7 @@ namespace Bloomlings.Client.UI.Screens
             Button play = UiFactory.CreateButton("Play", root, Loc.T("common.play"), UiTheme.Accent, onPlay, 84f);
             UiFactory.Place((RectTransform)play.transform, 0.2f, 0.38f, 0.8f, 0.49f);
             screen._playLabel = play.GetComponentInChildren<TextMeshProUGUI>();
+            screen._playButton = play;
 
             screen._milestone = UiFactory.CreateText("Milestone", root, string.Empty, 44f, UiTheme.Text);
             UiFactory.Place(screen._milestone.rectTransform, 0.05f, 0.31f, 0.95f, 0.36f);
@@ -119,7 +122,10 @@ namespace Bloomlings.Client.UI.Screens
         {
             string level = model.CurrentLevel.ToString(CultureInfo.InvariantCulture);
             _level.text = Loc.F("common.level", level);
-            _playLabel.text = model.CurrentLevel == 1 ? Loc.T("common.play") : Loc.T("home.continue");
+            _playLabel.text = !model.LevelAvailable ? Loc.T("home.more_levels_soon")
+                : model.CurrentLevel == 1 ? Loc.T("common.play")
+                : Loc.T("home.continue");
+            _playButton.interactable = model.LevelAvailable;
             _petals.text = model.Petals.ToString(CultureInfo.InvariantCulture);
             _store.SetActive(model.StoreUnlocked);
             _rankButton.SetActive(model.LeaderboardUnlocked);
