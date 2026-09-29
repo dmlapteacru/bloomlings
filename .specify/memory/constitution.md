@@ -76,7 +76,9 @@ Every shipped level MUST have all of the following:
 In addition:
 
 - Every non-tutorial level MUST be losable through bad choices.
-- Levels MUST be generated picture-first and solution-first; random painting is forbidden.
+- Every level MUST be built picture-first from an approved base picture and certified solution-first by the
+  solver. Generated levels MUST NOT use random color painting. Hand-curated levels (onboarding, mechanic
+  showcases) are allowed and pass the same validation.
 - Publishing MUST fail if any level violates these rules.
 - A shipped level MUST NOT change unless the fix is deliberate and versioned.
 
@@ -223,4 +225,4 @@ existing content migrates.
 
 Non-compliant changes MUST NOT be merged.
 
-**Version**: 1.0.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-09-29
+**Version**: 1.0.1 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-09-29

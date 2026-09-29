@@ -41,7 +41,7 @@ integration (`.specify/` + `.claude/skills/speckit-*`). Feature work goes throug
 in order:
 
 1. `/speckit-constitution` — project principles → `.specify/memory/constitution.md`
-   (ratified **v1.0.0**, 2026-09-29; amend only via PR with a version bump — see its Governance).
+   (ratified 2026-09-29, current **v1.0.1**; amend only via PR with a version bump — see its Governance).
 2. `/speckit-specify <description>` — feature spec → `specs/NNN-<name>/spec.md`
 3. `/speckit-clarify` (optional) — resolve ambiguities before planning
 4. `/speckit-plan` — implementation plan, research, data model, contracts
@@ -71,7 +71,7 @@ To upgrade Spec Kit templates/skills: install the CLI with
 
 ## Design invariants to respect in any spec or code
 
-Summary of the constitution (`.specify/memory/constitution.md` v1.0.0, principles I–VII). The
+Summary of the constitution (`.specify/memory/constitution.md` v1.0.1, principles I–VII). The
 constitution is authoritative; it adds the Colony Flow structure, fair monetization (no lives,
 no pay-to-win), simplicity/offline-first and the workflow gates.
 
