@@ -292,7 +292,7 @@ find where the game uses it.
   - it is hidden before the first booster unlocks;
   - each booster appears at its spec 001 unlock level as a round icon button;
   - a count badge shows the booster's charges;
-  - with no charge left, the button MUST still show the booster's Petal price, so buying stays clear (spec 001 FR-048).
+  - with no charge left, the button MUST still show the booster's Petal price, so buying stays clear (spec 001 FR-047).
 - **FR-015**: Stones, keys, locks, layered tiles, mystery tiles and specials (Gate, Fountain, Chest, Statue, Bridge)
   MUST use placeholder garden-object shapes in the board's style (frame 9), and MUST never cover the tile's symbol or
   count.
