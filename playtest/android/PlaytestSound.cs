@@ -33,6 +33,9 @@ namespace Bloomlings.Playtest
 
         public bool Enabled { get; set; } = true;
 
+        /// <summary>Short vibration pulses with the cues (the Settings haptics toggle).</summary>
+        public bool Haptics { get; set; } = true;
+
         public void Play(SoundCue cue)
         {
             if (!Enabled)
@@ -67,7 +70,7 @@ namespace Bloomlings.Playtest
                 SoundCue.Jam or SoundCue.Win => (60L, 255),
                 _ => null,
             };
-            if (pulse.HasValue && _vibrator != null && _vibrator.HasVibrator)
+            if (Haptics && pulse.HasValue && _vibrator != null && _vibrator.HasVibrator)
             {
                 _vibrator.Vibrate(VibrationEffect.CreateOneShot(pulse.Value.Milliseconds, pulse.Value.Amplitude));
             }

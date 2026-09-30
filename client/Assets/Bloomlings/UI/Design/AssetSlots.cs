@@ -1,0 +1,353 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Bloomlings.Client.UI.Design
+{
+    /// <summary>The asset categories of FR-029.</summary>
+    public enum AssetCategory
+    {
+        Brand,
+        Background,
+        Character,
+        VariantSymbol,
+        BoardTile,
+        Special,
+        PodSlot,
+        Booster,
+        UiKit,
+        Currency,
+        CollectionFrame,
+        Cosmetic,
+        Effect,
+        Typography,
+        Audio,
+    }
+
+    /// <summary>The size class of an asset (data-model "AssetSlot").</summary>
+    public enum SizeClass
+    {
+        /// <summary>Up to 96 px.</summary>
+        Icon,
+
+        /// <summary>Up to 192 px.</summary>
+        Small,
+
+        /// <summary>Up to 512 px.</summary>
+        Medium,
+
+        /// <summary>Up to 1024 px.</summary>
+        Large,
+
+        /// <summary>Full screen.</summary>
+        Screen,
+
+        /// <summary>A sound or music file.</summary>
+        Audio,
+    }
+
+    /// <summary>Whether an asset is needed for launch.</summary>
+    public enum AssetPriority
+    {
+        Launch,
+        Later,
+    }
+
+    /// <summary>How the game stands in for the asset today.</summary>
+    public enum PlaceholderKind
+    {
+        /// <summary>A <see cref="ShapeLibrary"/> shape with the slot's id.</summary>
+        Shape,
+
+        /// <summary>Drawn in code from tokens (backdrops, tile shading, cards, effects).</summary>
+        Procedural,
+
+        /// <summary>Text in the system font (the wordmark).</summary>
+        Text,
+
+        /// <summary>A synthesized sound (<c>ToneSynth</c>).</summary>
+        Synth,
+
+        /// <summary>The platform's bold or regular sans-serif.</summary>
+        SystemFont,
+
+        /// <summary>Not drawn inside the game (the app icon): the platform default for now.</summary>
+        External,
+    }
+
+    /// <summary>
+    /// One needed art or audio asset and the placeholder standing in for it (contracts/asset-slots.md). The inventory
+    /// document is generated from these entries.
+    /// </summary>
+    public sealed record AssetSlot(
+        string Id,
+        AssetCategory Category,
+        string Title,
+        IReadOnlyList<int> Frames,
+        IReadOnlyList<string> UsedIn,
+        IReadOnlyList<string> States,
+        SizeClass Size,
+        bool Readability,
+        AssetPriority Priority,
+        PlaceholderKind Kind,
+        string Placeholder);
+
+    /// <summary>
+    /// The registry of every asset slot (research R10, FR-029, FR-030). Every placeholder the Unity client or the full
+    /// playtest draws or plays resolves to a slot here, and every slot is used somewhere (SC-003, both ways): the
+    /// client tests and the preview tool check this. <c>dotnet run --project playtest/preview -- --inventory</c> writes
+    /// <c>specs/002-ux-design-board/asset-inventory.md</c> from it. Engine-free.
+    /// </summary>
+    public static class AssetSlots
+    {
+        // Declared before All: static initializers run in order, and Build() reads these.
+        private static readonly int[] Gameplay = { 7, 8, 9 };
+
+        /// <summary>The sound cues (<c>SoundCue</c>, lowercase) and where they play.</summary>
+        public static IReadOnlyList<(string Cue, string Title, string Use)> Cues { get; } = new[]
+        {
+            ("click", "button click", "Every button"),
+            ("tap", "pod committed", "Tray"),
+            ("refused", "refused tap", "Tray"),
+            ("clear", "tile restored", "Board"),
+            ("poddone", "pod finished", "Slots"),
+            ("key", "key collected", "Board"),
+            ("special", "special triggered", "Board"),
+            ("booster", "booster used", "Booster bar"),
+            ("jam", "jam", "Jam sheet"),
+            ("win", "win", "Win"),
+        };
+
+        /// <summary>The id prefixes of each category (contracts/asset-slots.md, "Id scheme").</summary>
+        public static IReadOnlyDictionary<string, AssetCategory> Prefixes { get; } = new Dictionary<string, AssetCategory>(StringComparer.Ordinal)
+        {
+            ["brand."] = AssetCategory.Brand,
+            ["bg."] = AssetCategory.Background,
+            ["char."] = AssetCategory.Character,
+            ["symbol."] = AssetCategory.VariantSymbol,
+            ["tile."] = AssetCategory.BoardTile,
+            ["special."] = AssetCategory.Special,
+            ["pod."] = AssetCategory.PodSlot,
+            ["slot."] = AssetCategory.PodSlot,
+            ["booster."] = AssetCategory.Booster,
+            ["ui."] = AssetCategory.UiKit,
+            ["currency."] = AssetCategory.Currency,
+            ["collection."] = AssetCategory.CollectionFrame,
+            ["cosmetic."] = AssetCategory.Cosmetic,
+            ["fx."] = AssetCategory.Effect,
+            ["font."] = AssetCategory.Typography,
+            ["audio."] = AssetCategory.Audio,
+        };
+
+        public static IReadOnlyList<AssetSlot> All { get; } = Build();
+
+        private static readonly Dictionary<string, AssetSlot> ById = All.ToDictionary(s => s.Id, StringComparer.Ordinal);
+
+        public static bool Has(string id) => ById.ContainsKey(id);
+
+        public static AssetSlot? Find(string id) => ById.TryGetValue(id, out AssetSlot? slot) ? slot : null;
+
+        /// <summary>The category an id's prefix belongs to, or null for an unknown prefix.</summary>
+        public static AssetCategory? CategoryOf(string id)
+        {
+            foreach (KeyValuePair<string, AssetCategory> prefix in Prefixes)
+            {
+                if (id.StartsWith(prefix.Key, StringComparison.Ordinal))
+                {
+                    return prefix.Value;
+                }
+            }
+
+            return null;
+        }
+
+        private static List<AssetSlot> Build()
+        {
+            var list = new List<AssetSlot>();
+
+            void Add(string id, string title, int[] frames, string usedIn, string states, SizeClass size, bool readability, AssetPriority priority, PlaceholderKind kind, string placeholder)
+            {
+                AssetCategory category = CategoryOf(id) ?? throw new InvalidOperationException("Unknown asset slot prefix: " + id);
+                list.Add(new AssetSlot(id, category, title, frames, Split(usedIn), Split(states), size, readability, priority, kind, placeholder));
+            }
+
+            void Shape(string id, string title, int[] frames, string usedIn, string states, SizeClass size = SizeClass.Icon, bool readability = false, AssetPriority priority = AssetPriority.Launch) =>
+                Add(id, title, frames, usedIn, states, size, readability, priority, PlaceholderKind.Shape, "shape `" + id + "`");
+
+            const AssetPriority Launch = AssetPriority.Launch;
+            const AssetPriority Later = AssetPriority.Later;
+
+            // ---- Brand ----
+            Add("brand.wordmark", "Bloomlings wordmark (logo)", new[] { 1, 2, 3 }, "Splash; Home", "full; compact", SizeClass.Large, false, Launch, PlaceholderKind.Text, "bold outlined text with a Petal on the i");
+            Add("brand.splash_art", "Splash illustration: Bloomlings of the four families in the garden", new[] { 1 }, "Splash", "portrait; tall-phone crop", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "garden backdrop and family silhouettes with faces");
+            Add("brand.app_icon", "App icon", Array.Empty<int>(), "Launcher; store listing", "Android adaptive (foreground, background); iOS set", SizeClass.Medium, false, Launch, PlaceholderKind.External, "platform default icon");
+
+            // ---- Backgrounds ----
+            Add("bg.theme.daylight_garden", "Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "sky gradient, hills, bushes, blossoms, arches in theme tints");
+            Add("bg.theme.pond", "Gameplay backdrop: Pond (from L100)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, pond tint");
+            Add("bg.theme.orchard", "Gameplay backdrop: Orchard (from L150)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, orchard tint");
+            Add("bg.theme.moonlit_garden", "Gameplay backdrop: Moonlit Garden (from L200)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, moonlit tint");
+            Add("bg.home", "Home scene: garden with stone arches and the stone the Bloomlings sit on", new[] { 2, 3 }, "Home", "early (two Bloomlings); progressed (hero)", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural backdrop with arches and a stone");
+            Add("bg.splash", "Splash backdrop", new[] { 1 }, "Splash", "portrait", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop");
+
+            // ---- Characters ----
+            Shape("char.sprig", "Sprig family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.bloom", "Bloom family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.drop", "Drop family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.twig", "Twig family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.face", "Bloomling face and expressions", new[] { 2, 3, 12, 13 }, "Pods; slots; walkers; Home hero", "neutral; happy; sleepy; worried (stuck)", SizeClass.Small);
+            Add("char.hero.home", "Home hero: a large Bloomling in the player's outfit", new[] { 3 }, "Home", "idle; wave; each family; outfit layers", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "family silhouette with face, scaled, with worn cosmetics");
+            Add("char.accent", "Variant accent on a Bloomling (the symbol it carries)", new[] { 7, 8, 9, 12, 13 }, "Pods; slots; walkers", "8 launch; 4 expansion", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "variant symbol in ink on the body");
+
+            // ---- Variant symbols ----
+            string[] launch = { "leaf", "moss", "flower", "bud", "drop", "dew", "log", "acorn" };
+            string[] names = { "Leaf", "Moss", "Flower", "Violet Bud", "Water", "Dew", "Wood", "Acorn" };
+            for (int i = 0; i < launch.Length; i++)
+            {
+                Shape("symbol." + launch[i], "Variant symbol: " + names[i], new[] { 7, 8, 9, 12, 13 }, "Tiles; pods; slots; walkers; demos; jam sheet", "tile; pod; slot; small", SizeClass.Icon, readability: true);
+            }
+
+            string[] expansion = { "vine", "berry", "mist", "bark" };
+            string[] expansionNames = { "Vine", "Berry", "Mist", "Bark" };
+            for (int i = 0; i < expansion.Length; i++)
+            {
+                Shape("symbol." + expansion[i], "Variant symbol: " + expansionNames[i] + " (expansion)", new[] { 7, 8, 9 }, "Tiles; pods; slots; walkers", "tile; pod; slot; small", SizeClass.Icon, readability: true, priority: Later);
+            }
+
+            // ---- Board tiles and overlays ----
+            Add("tile.base", "Board tile (raised, rounded, in the variant color)", Gameplay, "Board", "normal; target (breathing); counted; clearing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "rounded rectangle with lighter top and darker edge");
+            Add("tile.layer_peek", "Layered tile: the next layer peeking", Gameplay, "Board", "2 layers; 3 layers", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a strip of the next layer's color and symbol");
+            Shape("tile.mystery", "Mystery tile and mystery pod mark (?)", new[] { 9, 12 }, "Board; pods; slots", "hidden; revealing", SizeClass.Small, readability: true);
+            Shape("tile.stone", "Stone blocker", new[] { 9 }, "Board", "whole; cracking", SizeClass.Small, readability: true);
+            Shape("tile.key", "Key", new[] { 9 }, "Board; flights to locks", "on tile; flying", SizeClass.Icon, readability: true);
+            Add("tile.ground", "Open ground (restored or empty cell)", Gameplay, "Board", "empty; restored", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "flat rounded cell in the ground token");
+            Add("tile.entry", "Garden Entry marker (where Bloomlings come in)", Gameplay, "Board", "idle; active", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a ring in the entry color");
+            Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells in light variant colors");
+
+            // ---- Specials ----
+            Shape("special.gate", "Garden Gate (hedge seal)", new[] { 9 }, "Board", "closed; opening", SizeClass.Small, readability: true);
+            Shape("special.fountain", "Fountain", new[] { 9 }, "Board", "dry; flowing", SizeClass.Small, readability: true);
+            Shape("special.chest", "Sealed Chest", new[] { 9 }, "Board", "sealed; open", SizeClass.Small, readability: true);
+            Shape("special.statue", "Statue", new[] { 9 }, "Board", "waiting; restored", SizeClass.Small, readability: true);
+            Shape("special.bridge", "Bridge (repaired)", new[] { 9 }, "Board", "repaired", SizeClass.Small, readability: true);
+            Shape("special.bridge_broken", "Bridge (broken)", new[] { 9 }, "Board", "broken", SizeClass.Small, readability: true);
+            Shape("special.region", "Region marker (restore this whole area)", new[] { 9 }, "Board", "pending; done", SizeClass.Small, readability: true);
+
+            // ---- Pods and slots ----
+            Add("pod.card", "Spirit Pod card", new[] { 7, 8, 9, 12 }, "Tray; flights", "exposed; next in stack; pressed; working", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "rounded card in the variant tint with the family body, symbol and count pill");
+            Add("pod.state.locked", "Locked pod", new[] { 12 }, "Tray", "locked; unlocking", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "grey card with a padlock");
+            Add("pod.state.mystery", "Mystery pod", new[] { 12 }, "Tray; slots", "hidden; revealing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "pink card with ? and its count");
+            Add("pod.link", "Connected pods link", new[] { 12 }, "Tray", "pair; triple", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a teal bar joining the cards");
+            Add("pod.count", "Pod count pill", new[] { 7, 12, 13 }, "Pods; slots", "normal; dropping", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "dark pill with the count");
+            Add("slot.empty", "Empty Waiting Slot", new[] { 7, 13 }, "Slots", "empty", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "soft sunk tile");
+            Add("slot.state.working", "Working pod in a slot", new[] { 13 }, "Slots", "working; finishing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "bright pod card");
+            Add("slot.state.stuck", "Stuck (waiting) pod in a slot", new[] { 13 }, "Slots", "stuck", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "greyed pod card with the hourglass");
+            Shape("slot.state.waiting", "Waiting mark (hourglass)", new[] { 13 }, "Slots", "waiting", SizeClass.Icon, readability: true);
+            Shape("slot.state.jam_risk", "Jam-risk mark (!)", new[] { 13 }, "Slots", "risk", SizeClass.Icon, readability: true);
+            Add("slot.state.locked", "Locked slot", new[] { 13 }, "Slots", "locked; opening", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "grey tile with a padlock");
+            Add("slot.state.danger", "Danger slot (the last free usable slot)", new[] { 13 }, "Slots", "danger (4/5 used)", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "red dashed frame");
+            Add("slot.extra", "Extra slot (from the Extra Slot booster)", new[] { 13 }, "Slots", "added", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "slot with a green plus corner");
+
+            // ---- Boosters ----
+            Shape("booster.extra_slot", "Booster: Extra Slot", new[] { 7, 8, 9, 10, 14, 16, 17 }, "Booster bar; jam sheet; Store; rewards; demos", "available; count; price; disabled", SizeClass.Small);
+            Shape("booster.shuffle", "Booster: Shuffle", new[] { 7, 8, 9, 10, 14, 16, 17 }, "Booster bar; jam sheet; Store; rewards; demos", "available; count; price; disabled", SizeClass.Small);
+            Shape("booster.return", "Booster: Return", new[] { 7, 8, 9, 10, 14, 17 }, "Booster bar; jam sheet; Store; demos", "available; count; price; disabled; targeting", SizeClass.Small);
+            Shape("booster.bloom_burst", "Booster: Bloom Burst", new[] { 9, 14, 17 }, "Booster bar; jam sheet; Store; demos", "available; count; price; disabled; targeting", SizeClass.Small);
+
+            // ---- UI kit ----
+            Shape("ui.panel", "Rounded panel base (9-slice)", new[] { 4, 5, 6, 10, 11, 15, 16, 17 }, "Every card, button, pill and tile", "any tint", SizeClass.Small);
+            Shape("ui.circle", "Disc (round buttons, badges, avatars)", new[] { 2, 3, 5, 7, 14 }, "Round buttons; badges; medals; avatars", "any tint", SizeClass.Icon);
+            Shape("ui.ring", "Ring (highlights, profile frame)", new[] { 3, 7 }, "Highlights; entry marker; avatar frame", "any tint", SizeClass.Icon);
+            Add("ui.button.primary", "Primary button (green, darker lower edge)", new[] { 2, 3, 4, 10, 11, 15, 16 }, "PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "rounded pill in the primary tokens");
+            Add("ui.button.secondary", "Secondary button (cream)", new[] { 4, 10, 11, 15 }, "RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "rounded pill in the secondary tokens");
+            Add("ui.button.round", "Round icon button (white)", new[] { 2, 3, 7, 11 }, "Settings; Pause; close; Wardrobe; Collection", "normal; pressed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "white disc with a rim and a glyph");
+            Add("ui.pill.level", "Level pill", Gameplay, "Gameplay top bar", "normal; super hard", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "sky-blue pill with LEVEL N");
+            Add("ui.pill.speed", "2× speed pill", Gameplay, "Gameplay top bar", "1×; 2×", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "dark pill with the speed");
+            Add("ui.pill.petals", "Petals balance pill", new[] { 2, 3, 17 }, "Home; Store", "with +; without +", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "white pill with the Petal symbol, balance and green +");
+            Add("ui.badge.hard", "HARD badge", new[] { 8 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "red pill with HARD");
+            Add("ui.badge.super_hard", "SUPER HARD badge", new[] { 9 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "purple pill with SUPER HARD");
+            Add("ui.badge.count", "Count badge (booster charges)", new[] { 7, 14 }, "Booster bar", "count; price", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "dark disc with the number");
+            Add("ui.card", "Popup card frame", new[] { 4, 5, 6, 11, 16, 17 }, "Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe", "with close; without close", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "cream rounded card with a soft shadow over a scrim");
+            Add("ui.sheet", "Bottom sheet frame", new[] { 10 }, "Jam", "rising; open", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "cream sheet with a grip, rising from the bottom");
+            Add("ui.row", "List row (Store, Leaderboard)", new[] { 5, 17 }, "Store; Leaderboard", "normal; highlighted (You); unavailable", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "rounded row in the panel tokens");
+            Add("ui.tab", "Tab", new[] { 17 }, "Store; Wardrobe", "selected; unselected", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "rounded pill in the sunk or primary tokens");
+            Add("ui.toggle", "Toggle switch", Array.Empty<int>(), "Settings", "on; off", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "pill switch in the primary and sunk tokens");
+            Shape("ui.close", "Close glyph", new[] { 4, 5, 6, 11 }, "Cards", "normal");
+            Shape("ui.pause", "Pause glyph", Gameplay, "Gameplay top bar", "normal");
+            Shape("ui.restart", "Restart glyph", new[] { 10, 11 }, "Pause card; jam sheet", "normal");
+            Shape("ui.settings", "Settings glyph (gear)", new[] { 2, 3, 11 }, "Home; Pause card", "normal");
+            Shape("ui.chevron", "Chevron (opens a screen)", new[] { 3 }, "Home rank row; Daily Challenge card", "normal");
+            Shape("ui.plus", "Plus glyph", new[] { 2, 3, 17 }, "Petals pill; + Slot", "normal");
+            Shape("ui.gift", "Gift (milestone teaser)", new[] { 3 }, "Home", "normal; ready", SizeClass.Small);
+            Shape("ui.trophy", "Trophy (rank row, Get +N)", new[] { 3, 4 }, "Home rank row; Daily Reward", "normal", SizeClass.Small);
+            Shape("ui.medal", "Medal (ranks 1–3)", new[] { 5 }, "Leaderboard", "gold; silver; bronze", SizeClass.Small);
+            Shape("ui.ad", "Rewarded-ad mark (video)", new[] { 4, 10, 15 }, "Get +N; Free rescue; ×2 reward; free booster", "normal");
+            Shape("ui.shirt", "Wardrobe glyph", new[] { 3 }, "Home", "normal");
+            Shape("ui.grid", "Collection glyph", new[] { 3 }, "Home", "normal");
+            Shape("ui.sun", "Daily Challenge glyph", new[] { 3 }, "Home Daily Challenge card", "normal; done", SizeClass.Small);
+            Shape("ui.person", "Player avatar placeholder", new[] { 5 }, "Leaderboard; profile", "any tint", SizeClass.Small);
+            Shape("ui.lock", "Padlock", new[] { 9, 12, 13, 14 }, "Locked pods, slots and cells; locked boosters", "closed; opening", readability: true);
+            Shape("ui.star", "Star (Hard label, badge)", new[] { 8 }, "Difficulty intro; badges", "normal");
+            Shape("ui.star2", "Double star (Super Hard label, marker)", new[] { 9 }, "Difficulty intro; markers", "normal");
+            Shape("ui.cross", "Ignore mark (a pod ignores another variant)", Array.Empty<int>(), "Variant demo (spec 001 FR-071)", "normal");
+            Shape("ui.pointer", "Tutorial pointing hand", Array.Empty<int>(), "Demos", "tap; hold", SizeClass.Small);
+
+            // ---- Currency and rewards ----
+            Shape("currency.petal", "Petal symbol (soft currency)", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Petals pill; rewards; costs; prices; badges", "small; large", SizeClass.Icon);
+            Shape("currency.reward_basket", "Reward basket (Daily Reward)", new[] { 4 }, "Daily Reward", "day 1–7", SizeClass.Medium);
+            Add("currency.petal_pile", "Pile of Petals (big rewards)", new[] { 4, 16 }, "Daily Reward; Milestone", "small; large", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "a cluster of Petal symbols");
+
+            // ---- Collection ----
+            Add("collection.frame", "Collection picture frame", new[] { 6 }, "Collection grid", "normal; new", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "cream rounded frame with a soft edge");
+            Add("collection.detail_frame", "Collection detail frame", new[] { 6 }, "Collection detail", "normal", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "large rounded frame with the name and level");
+
+            // ---- Cosmetics ----
+            Shape("cosmetic.sprout", "Hat: Sprout", new[] { 16 }, "Wardrobe; walkers; Home hero; milestone rewards", "worn; preview");
+            Shape("cosmetic.cap", "Hat: Cap", new[] { 16 }, "Wardrobe; walkers; Home hero; milestone rewards", "worn; preview");
+            Shape("cosmetic.brim", "Hat: Brim hat", new[] { 16 }, "Wardrobe; walkers; Home hero; milestone rewards", "worn; preview");
+            Shape("cosmetic.crown", "Hat: Crown", Array.Empty<int>(), "Wardrobe; walkers; Home hero", "worn; preview", priority: Later);
+            Shape("cosmetic.nightcap", "Hat: Nightcap", Array.Empty<int>(), "Wardrobe; walkers; Home hero", "worn; preview", priority: Later);
+            Shape("cosmetic.sparkle", "Trail: Sparkle", Array.Empty<int>(), "Wardrobe; walkers", "worn; preview", priority: Later);
+            Shape("cosmetic.swirl", "Trail: Swirl", Array.Empty<int>(), "Wardrobe; walkers", "worn; preview", priority: Later);
+            Shape("cosmetic.wink", "Expression: Wink", Array.Empty<int>(), "Wardrobe; walkers", "worn; preview", priority: Later);
+            Shape("cosmetic.smile", "Expression: Smile", Array.Empty<int>(), "Wardrobe; walkers", "worn; preview", priority: Later);
+            Shape("cosmetic.stars", "Expression: Star eyes", Array.Empty<int>(), "Wardrobe; walkers", "worn; preview", priority: Later);
+            Shape("cosmetic.sleepy", "Expression: Sleepy", Array.Empty<int>(), "Wardrobe; walkers; stuck pods", "worn; preview");
+            Shape("cosmetic.spots", "Skin: Spots", Array.Empty<int>(), "Wardrobe; pods; walkers", "on each family", priority: Later);
+            Shape("cosmetic.stripes", "Skin: Stripes", Array.Empty<int>(), "Wardrobe; pods; walkers", "on each family", priority: Later);
+            Shape("cosmetic.petals", "Skin: Petals", Array.Empty<int>(), "Wardrobe; pods; walkers", "on each family", priority: Later);
+            Shape("cosmetic.speckles", "Skin: Speckles", Array.Empty<int>(), "Wardrobe; pods; walkers", "on each family", priority: Later);
+            Shape("cosmetic.frame", "Profile frame", new[] { 3, 5 }, "Home avatar; own leaderboard row; Wardrobe", "each frame item", SizeClass.Small);
+            Shape("cosmetic.badge", "Profile badge (incl. level badges)", new[] { 3, 5 }, "Home avatar; Wardrobe", "each badge item; level N", SizeClass.Small);
+            Shape("cosmetic.marker", "Leaderboard marker (incl. level markers)", new[] { 3, 5 }, "Home rank row; own leaderboard row; Wardrobe", "each marker item; level N", SizeClass.Small);
+
+            // ---- Effects ----
+            Shape("fx.sparkle", "Sparkle", new[] { 7, 15 }, "Clears; win shine; burst", "small; large", SizeClass.Icon);
+            Shape("fx.petal_burst", "Petal burst", new[] { 15, 16 }, "Win; milestone; rewards", "burst", SizeClass.Icon);
+            Add("fx.confetti", "Confetti", new[] { 15, 16 }, "Win; milestone", "fall", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "small rotating squares in level colors");
+            Add("fx.puff", "Puff (a pod leaves its slot)", new[] { 13 }, "Slots", "puff", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "expanding fading discs");
+            Add("fx.shuffle_swirl", "Shuffle swirl", new[] { 14 }, "Tray", "swirl", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "pods spinning in place");
+            Add("fx.burst", "Bloom Burst blast", new[] { 9, 14 }, "Board", "blast", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "pulsing targets and sparkles");
+            Add("fx.win_shine", "Finished picture shine", new[] { 15 }, "Win", "sweep", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "a light band sweeping the picture");
+
+            // ---- Typography ----
+            Add("font.display", "Display font (rounded, bold): titles, buttons, pills, wordmark", new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17 }, "Every screen", "bold; outlined", SizeClass.Icon, true, Launch, PlaceholderKind.SystemFont, "platform bold sans-serif");
+            Add("font.body", "Body font: rows, captions, numbers", new[] { 3, 4, 5, 6, 10, 17 }, "Every screen", "regular; bold digits", SizeClass.Icon, true, Launch, PlaceholderKind.SystemFont, "platform sans-serif");
+
+            // ---- Audio ----
+            Add("audio.music.daylight_garden", "Music: Daylight Garden", Gameplay, "Gameplay; Home", "loop", SizeClass.Audio, false, Launch, PlaceholderKind.Synth, "none (silence); cues only");
+            Add("audio.music.pond", "Music: Pond", Gameplay, "Gameplay", "loop", SizeClass.Audio, false, Later, PlaceholderKind.Synth, "none (silence); cues only");
+            Add("audio.music.orchard", "Music: Orchard", Gameplay, "Gameplay", "loop", SizeClass.Audio, false, Later, PlaceholderKind.Synth, "none (silence); cues only");
+            Add("audio.music.moonlit_garden", "Music: Moonlit Garden", Gameplay, "Gameplay", "loop", SizeClass.Audio, false, Later, PlaceholderKind.Synth, "none (silence); cues only");
+            foreach ((string cue, string title, string use) in Cues)
+            {
+                Add("audio.cue." + cue, "Sound: " + title, Array.Empty<int>(), use, "one-shot", SizeClass.Audio, false, Launch, PlaceholderKind.Synth, "synthesized tone");
+            }
+
+            return list;
+        }
+
+        private static IReadOnlyList<string> Split(string text) =>
+            text.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim()).Where(s => s.Length > 0).ToArray();
+    }
+}

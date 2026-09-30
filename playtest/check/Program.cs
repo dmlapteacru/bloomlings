@@ -105,8 +105,17 @@ Check(meta.CompleteLevel(5, DifficultyClass.Normal, 0) == null, "only the curren
 meta.SkipTo(24);
 WinPayout? payout = meta.CompleteLevel(25, DifficultyClass.Normal, 0);
 Check(payout?.Milestone != null && payout.Milestone.Level == 25, "L25 pays its milestone");
+Check(meta.DailyReward.IsUnlocked && meta.DailyReward.CanClaim, "the Daily Reward opens at L7 and can be claimed");
+int petalsBefore = meta.Economy.Petals;
+int claimed = meta.DailyReward.Claim();
+Check(claimed > 0 && meta.Economy.Petals == petalsBefore + claimed && !meta.DailyReward.CanClaim, "claiming pays once a day");
+LevelDefinition level26 = runs.First(r => r.Level.LevelNumber > 0).Level;
+meta.CompleteLevel(26, DifficultyClass.Normal, 0, level26);
+Check(meta.Collection.Count == 1 && meta.Collection.Entries[0].LevelNumber == 26, "a won picture joins the Collection");
+meta.SkipTo(40);
+Check(meta.Wardrobe.IsAvailable, "the Wardrobe opens at L40");
 var reloaded = new PlaytestMeta(temp);
-Check(!reloaded.FirstLaunch && reloaded.CurrentLevel == 26 && reloaded.Economy.Petals == meta.Economy.Petals, "progress survives a restart");
+Check(!reloaded.FirstLaunch && reloaded.CurrentLevel == 41 && reloaded.Economy.Petals == meta.Economy.Petals && reloaded.Collection.Count == 1, "progress survives a restart");
 var fresh = PlaytestMeta.ResetProfile(temp);
 Check(fresh.CurrentLevel == 1 && fresh.Economy.Petals == 0, "reset starts over");
 Directory.Delete(temp, true);

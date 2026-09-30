@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Renders the full playtest's designed screens (playtest/design) to PNG without Android, with SkiaSharp in place of
+    Android's canvas: one image per design board frame (1-17) at three phone shapes, a contact sheet, and render checks
+    (every drawn shape and slot is registered, no overlapping or undersized touch targets, nothing outside the safe
+    area). With inventory it writes the asset inventory from the slot registry (spec 002 US4). Local tool only: it never
+    ships in an APK. Run: dotnet run, project playtest/preview (exit code 1 on a failed check).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Bloomlings.Playtest.Preview</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../design/*.cs" />
+    <Compile Include="../android/LevelAnimator.cs" />
+    <Compile Include="../android/PlaytestText.cs" />
+    <Compile Include="../android/PlaytestContent.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveSerializer.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/IClock.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/SystemClock.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/ProgressionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneTable.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/CosmeticCatalog.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" />
+    <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
+    <ProjectReference Include="../../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
+    <ProjectReference Include="../../core/src/Bloomlings.Solver/Bloomlings.Solver.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv" LogicalName="strings/Strings_en.csv" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
+    <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

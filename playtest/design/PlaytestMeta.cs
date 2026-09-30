@@ -1,7 +1,12 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Meta.Collection;
+using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Clock;
+using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Core.Definitions;
@@ -13,31 +18,52 @@ namespace Bloomlings.Playtest
     public sealed record WinPayout(LevelReward? Reward, MilestoneGrant? Milestone);
 
     /// <summary>
-    /// The playtest's meta layer on the Unity client's engine-free services (linked, not copied): the save file,
-    /// linear progression with the roadmap's unlocks, Petals and booster charges, and milestone rewards. The playtest
-    /// only calls them; their rules live in <c>client/</c>.
+    /// The playtest's meta layer on the Unity client's engine-free services (linked, not copied):
+    /// <list type="bullet">
+    /// <item><description>the save file;</description></item>
+    /// <item><description>linear progression with the roadmap's unlocks;</description></item>
+    /// <item><description>Petals and booster charges;</description></item>
+    /// <item><description>milestone rewards;</description></item>
+    /// <item><description>the Daily Reward;</description></item>
+    /// <item><description>the Collection;</description></item>
+    /// <item><description>the Wardrobe.</description></item>
+    /// </list>
+    /// The playtest only calls them; their rules live in <c>client/</c>.
     /// </summary>
     public sealed class PlaytestMeta
     {
         private readonly SaveService _saves;
 
         public PlaytestMeta(string dataFolder)
+            : this(dataFolder, new SystemClock())
         {
-            _saves = new SaveService(Path.Combine(dataFolder, SaveService.FolderName), new SystemClock());
+        }
+
+        public PlaytestMeta(string dataFolder, IClock clock)
+        {
+            _saves = new SaveService(Path.Combine(dataFolder, SaveService.FolderName), clock);
             Save = _saves.Load();
             FirstLaunch = _saves.IsFirstLaunch;
+            var config = new BundledRemoteConfigService();
             Economy = new EconomyService(Save, EconomyConfig.Bundled, _saves.Save);
             Milestones = new MilestoneService(Save, MilestoneTable.Default, Economy, _saves.Save);
+            DailyReward = new DailyRewardService(Save, clock, config, Economy, _saves.Save);
+            Collection = new CollectionService(Save, _saves.Save);
+            Wardrobe = new WardrobeService(Save, Cosmetics, config, _saves.Save, Economy);
             Progression = new ProgressionService(Save, UnlockRoadmap.Default, _saves.Save);
             Progression.UnlockReached += entry =>
             {
                 Economy.OnUnlock(entry.UnlockId);
+                Wardrobe.OnUnlock(entry.UnlockId);
                 NewUnlocks.Add(entry);
             };
             Progression.LevelCompleted += level => Milestones.OnLevelCompleted(level);
             Progression.Initialize();
             NewUnlocks.Clear();
         }
+
+        /// <summary>The cosmetic catalog the Unity client ships (embedded from <c>Meta/Wardrobe/Resources</c>).</summary>
+        public static CosmeticCatalog Cosmetics { get; } = LoadCosmetics();
 
         public PlayerSave Save { get; }
 
@@ -50,18 +76,30 @@ namespace Bloomlings.Playtest
 
         public MilestoneService Milestones { get; }
 
+        public DailyRewardService DailyReward { get; }
+
+        public CollectionService Collection { get; }
+
+        public WardrobeService Wardrobe { get; }
+
         /// <summary>Unlocks reached by the last win (the Home and win card mention them).</summary>
         public List<UnlockEntry> NewUnlocks { get; } = new List<UnlockEntry>();
 
         public int CurrentLevel => Progression.CurrentLevel;
 
         /// <summary>Records a win of the current level and pays it; null when the level was not the current one.</summary>
-        public WinPayout? CompleteLevel(int level, DifficultyClass difficulty, int boostersUsed)
+        /// <param name="definition">The level played: its finished picture joins the Collection (FR-065).</param>
+        public WinPayout? CompleteLevel(int level, DifficultyClass difficulty, int boostersUsed, LevelDefinition? definition = null)
         {
             NewUnlocks.Clear();
             if (!Progression.CompleteLevel(level))
             {
                 return null;
+            }
+
+            if (definition != null)
+            {
+                Collection.Add(definition, level);
             }
 
             LevelReward reward = Economy.GrantLevelReward(level, difficulty, boostersUsed);
@@ -102,6 +140,18 @@ namespace Bloomlings.Playtest
             }
 
             return new PlaytestMeta(dataFolder);
+        }
+
+        private static CosmeticCatalog LoadCosmetics()
+        {
+            using Stream? stream = typeof(PlaytestMeta).Assembly.GetManifestResourceStream("cosmetics/CosmeticCatalog.json");
+            if (stream == null)
+            {
+                return new CosmeticCatalog(Array.Empty<CosmeticItem>());
+            }
+
+            using var reader = new StreamReader(stream);
+            return CosmeticCatalog.Parse(reader.ReadToEnd());
         }
     }
 }

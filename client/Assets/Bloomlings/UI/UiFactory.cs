@@ -23,7 +23,8 @@ namespace Bloomlings.Client.UI
             var scaler = go.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = UiTheme.ReferenceResolution;
-            scaler.matchWidthOrHeight = 0.5f;
+            // Match the width: the canvas is always 1080 units wide, so design-token sizes map one to one (spec 002).
+            scaler.matchWidthOrHeight = 0f;
             go.AddComponent<GraphicRaycaster>();
             EnsureEventSystem();
             return canvas;

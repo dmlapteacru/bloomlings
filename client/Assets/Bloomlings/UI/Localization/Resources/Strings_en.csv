@@ -26,6 +26,9 @@ home.daily,Daily
 home.daily_done,Daily ✓
 home.wardrobe,Wardrobe
 home.collection,Collection
+home.levels_to_reward,{0} levels to reward
+home.level_to_reward,1 level to reward
+home.daily_new,New today · +{0}
 settings.title,Settings
 settings.music,Music: {0}
 settings.sound,Sound: {0}
@@ -52,20 +55,27 @@ store.tab_shop,Shop
 store.tab_cosmetics,Cosmetics
 store.cosmetic,{0} ({1})
 store.all_owned,You own everything here
+store.unavailable,Unavailable
 pause.title,Paused
 pause.resume,Resume
 pause.leave,Leave
+pause.settings,Settings
+pause.home,Home
 win.title,Restored!
-win.double,Double ▶
+win.double,×2 reward
 win.drop,+1 {0}
 win.milestone,Milestone! +{0} Petals
 win.milestone_title,Milestone reward!
 win.boosters_one,+1 booster
 win.boosters_many,+{0} boosters
 win.item,+ {0}
-jam.title,No room left!
+milestone.reached,Milestone reached!
+milestone.continue,Continue
+jam.title,No moves left
 jam.stuck,No pod can move!
 jam.free_rescue,Free {0} ▶
+jam.subtitle,Use a booster to continue
+jam.rescue,Free rescue
 difficulty.hard,Hard
 difficulty.super_hard,Super Hard
 hud.pause,II
@@ -74,11 +84,12 @@ daily.date,{0} (UTC)
 daily.done,Done for today! A new puzzle arrives at midnight UTC.
 daily.body,"One puzzle, the same for everyone today. Reward: {0} Petals."
 daily.play_again,Play again
-daily_reward.title,Daily reward
+daily_reward.title,Daily Rewards
 daily_reward.claim,Claim
 daily_reward.watch,Watch for more
 daily_reward.day,Day {0}
 daily_reward.claimed_bonus,+{0} Petals with the bonus
+daily_reward.bonus,Get +{0}
 leaderboard.title,Leaderboard
 leaderboard.refresh,Refresh
 leaderboard.offline_empty,Offline: the leaderboard will update when you reconnect
@@ -102,6 +113,7 @@ wardrobe.kind_marker,Markers
 collection.title,Collection
 collection.count_one,{0} picture
 collection.count_many,{0} pictures
+collection.completed,Completed at Level {0}
 demo.skip,Skip
 demo.first_tap,Tap a pod to send its Bloomlings
 demo.exact_symbol,Match the exact symbol

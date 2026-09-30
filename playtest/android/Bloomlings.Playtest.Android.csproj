@@ -2,8 +2,10 @@
   <!--
     Temporary playtest client (not the product client): a plain .NET for Android app on the same deterministic core,
     so an APK builds on a stock GitHub runner with no licence or secrets. The Unity client in client/ stays the real
-    client (doc 15). This is the full playtest: Home, progression, economy, demos and animations. The level tester
-    (playtest/tester) builds the same sources in tester mode. See playtest/README.md.
+    client (doc 15). This is the full playtest, in the design board's look (spec 002): Home, progression, economy,
+    the Daily Reward, the Collection, the Store, demos and animations, drawn by the engine-free screens of
+    playtest/design through AndroidPainter. The level tester (playtest/tester) builds android/*.cs only, in its minimal
+    look. See playtest/README.md.
   -->
   <Import Project="../Playtest.Shared.props" />
 
@@ -11,4 +13,16 @@
     <ApplicationId>com.bloomlings.playtest</ApplicationId>
     <ApplicationTitle>Bloomlings Playtest</ApplicationTitle>
   </PropertyGroup>
+
+  <ItemGroup>
+    <!-- The designed screens (engine-free, also rendered by playtest/preview) and the Unity client's design kit. -->
+    <Compile Include="../design/*.cs" Link="Design/Screens/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" Link="Shared/Design/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" Link="Shared/BundledRemoteConfigService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" Link="Shared/WardrobeService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" Link="Shared/DailyRewardService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" Link="Shared/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" Link="Shared/ThemeRotation.cs" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
+  </ItemGroup>
 </Project>

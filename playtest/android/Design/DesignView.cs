@@ -1,0 +1,125 @@
+using System;
+using Android.Content;
+using Android.Graphics;
+using Android.OS;
+using Android.Views;
+using Bloomlings.Client.Services.Feedback;
+using Bloomlings.Playtest.Design;
+
+namespace Bloomlings.Playtest.Droid
+{
+    /// <summary>
+    /// The full playtest's view (spec 002 FR-003): it hosts the engine-free <see cref="DesignApp"/> on an Android canvas
+    /// through <see cref="AndroidPainter"/>. It passes the safe-area insets, the finger (for pressed looks) and taps,
+    /// draws frames while something animates, and plays the sound cues and haptics (<see cref="PlaytestSound"/>). The
+    /// level tester keeps its own minimal <see cref="TesterView"/>.
+    /// </summary>
+    public sealed class DesignView : View
+    {
+        private readonly AndroidPainter _painter = new AndroidPainter();
+        private readonly DesignApp _app;
+        private long _lastFrame;
+        private int _insetTop;
+        private int _insetBottom;
+
+        public DesignView(Context context)
+            : base(context)
+        {
+            var sound = new PlaytestSound(context);
+            var output = new SoundOut(sound);
+            _app = new DesignApp(context.FilesDir!.AbsolutePath, PlaytestContent.Load(), output);
+            output.App = _app;
+            sound.Enabled = _app.Meta.Save.Settings.Sfx;
+        }
+
+        public override WindowInsets OnApplyWindowInsets(WindowInsets? insets)
+        {
+            if (insets != null)
+            {
+                if (OperatingSystem.IsAndroidVersionAtLeast(30))
+                {
+                    Insets bars = insets.GetInsets(WindowInsets.Type.SystemBars());
+                    _insetTop = bars.Top;
+                    _insetBottom = bars.Bottom;
+                }
+                else
+                {
+#pragma warning disable CA1422, CS0618 // The pre-Android 11 inset API.
+                    _insetTop = insets.SystemWindowInsetTop;
+                    _insetBottom = insets.SystemWindowInsetBottom;
+#pragma warning restore CA1422, CS0618
+                }
+
+                Invalidate();
+            }
+
+            return base.OnApplyWindowInsets(insets)!;
+        }
+
+        protected override void OnDraw(Canvas canvas)
+        {
+            base.OnDraw(canvas);
+            long now = SystemClock.UptimeMillis();
+            float dt = _lastFrame == 0 ? 0f : Math.Min(0.1f, (now - _lastFrame) / 1000f);
+            _lastFrame = now;
+            _painter.Begin(canvas, Width, Height, new Client.UI.Design.Insets(_insetTop, _insetBottom));
+            _app.Draw(_painter, dt);
+            if (_app.NeedsFrames)
+            {
+                PostInvalidateOnAnimation();
+            }
+            else
+            {
+                _lastFrame = 0;
+            }
+        }
+
+        public override bool OnTouchEvent(MotionEvent? e)
+        {
+            if (e == null)
+            {
+                return false;
+            }
+
+            switch (e.Action)
+            {
+                case MotionEventActions.Down:
+                case MotionEventActions.Move:
+                    _painter.Finger = (e.GetX(), e.GetY());
+                    break;
+                case MotionEventActions.Up:
+                    _painter.Finger = null;
+                    _painter.Dispatch(e.GetX(), e.GetY());
+                    break;
+                case MotionEventActions.Cancel:
+                    _painter.Finger = null;
+                    break;
+            }
+
+            Invalidate();
+            return true;
+        }
+
+        /// <summary>The screens' sounds, with the Settings haptics toggle.</summary>
+        private sealed class SoundOut : ISoundOut
+        {
+            private readonly PlaytestSound _sound;
+
+            public SoundOut(PlaytestSound sound) => _sound = sound;
+
+            public DesignApp? App { get; set; }
+
+            public bool Enabled
+            {
+                get => _sound.Enabled;
+                set => _sound.Enabled = value;
+            }
+
+            public void Play(SoundCue cue)
+            {
+                _sound.Haptics = App?.Meta.Save.Settings.Haptics ?? true;
+                _sound.Play(cue);
+            }
+        }
+    }
+}
