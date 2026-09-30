@@ -30,6 +30,13 @@ until the choice is made. A 3D or hybrid choice conflicts with doc 12 §1 ("flat
 constitution VII ("strictly flat 2D"). It would need a constitution amendment (a MAJOR version bump through a PR) and
 a doc 12 change before this spec could adopt it.
 
+**Owner's lean (2026-09-30, not final)**: the garden direction, built like the owner's reference button: a flat cream
+plate with a thin brown outline, and a slightly raised button with its own lip and highlight laid on it; a rounded font
+and sentence-case labels ("Play ▶"); leaves and white flowers on the main buttons only. The board, its cells and the
+pods are volumetric but stay 2D (a thick lip, a bevel and a highlight). Pods must not be 3D, so they read well in the
+tray. A 3D-rendered board is shown for comparison only. See the canvas page "Садовый" and
+[`garden-direction.jpg`](garden-direction.jpg).
+
 **Inspiration, not copying**: *Colony Flow!* (ABI Games) is the gameplay reference (constitution I). Its interface, like
 most casual puzzle games of its kind, uses:
 - chunky buttons with a thick darker lip;
