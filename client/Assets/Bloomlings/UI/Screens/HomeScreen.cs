@@ -1,8 +1,10 @@
 using System;
-using System.Globalization;
 using Bloomlings.Client.Art;
+using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.UI.Design;
+using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,158 +29,240 @@ namespace Bloomlings.Client.UI.Screens
         bool LevelAvailable = true,
         ProfileLook? Profile = null,
         Outfit? AvatarOutfit = null,
-        Color? Accent = null);
+        Color? Accent = null,
+        BackgroundTheme? Theme = null,
+        int DailyChallengePetals = 0);
 
     /// <summary>The Home buttons of the long-run features (US7); a null action hides its button.</summary>
     public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard, Action? OnProfile = null);
 
     /// <summary>
-    /// Home (FR-058, T063): the logo, Level N, one Play/Continue button and Petals; Settings; the Store button once
-    /// unlocked (L12); the next-milestone teaser; the leaderboard rank once unlocked (L10), which opens the board. A
-    /// row of small buttons opens the Daily Challenge (L50), the Wardrobe (L40) and the Collection. There is no level
-    /// map, and none of these buttons chooses a level: Play always continues Level N. Once the Wardrobe is open, the
-    /// profile avatar shows the chosen frame and badge (it opens the Wardrobe's Profile tab), and the rank button
-    /// carries the leaderboard marker (FR-061 prestige rewards).
+    /// Home of the design board's frames 2 and 3 (spec 002 FR-017; FR-058, T063).
+    /// <list type="bullet">
+    /// <item><description>Always shown: the Petals pill (its green "+" opens the Store once unlocked, L12), the round
+    /// Settings button, "LEVEL N" and the big PLAY button.</description></item>
+    /// <item><description>Early on, two Bloomlings sit on a stone under the wordmark.</description></item>
+    /// <item><description>Once the Wardrobe is open (L40), the player's hero stands there, with round Wardrobe and
+    /// Collection buttons beside it and the profile avatar (frame, badge) at the top.</description></item>
+    /// <item><description>The milestone teaser reads "N levels to reward" with a gift.</description></item>
+    /// <item><description>The rank row "Rank #N >" (L10) opens the Leaderboard and carries the marker.</description></item>
+    /// <item><description>The Daily Challenge card (L50) shows "New today" and its reward.</description></item>
+    /// <item><description>The optional free-booster ad offer is a small secondary button.</description></item>
+    /// </list>
+    /// Regions come from <see cref="ScreenLayout.Home"/> and <see cref="HomeLook"/>, shared with the playtest. There is
+    /// no level map, and no button chooses a level: PLAY always continues Level N.
     /// </summary>
     public sealed class HomeScreen : MonoBehaviour
     {
+        private RectTransform _root = null!;
+        private BackdropView _backdrop = null!;
+        private RectTransform _topBar = null!;
+        private RectTransform _settings = null!;
+        private PetalsPill _petals = null!;
+        private RectTransform _hero = null!;
+        private GameObject _early = null!;
+        private GameObject _progressed = null!;
+        private BloomlingFigure _heroFigure = null!;
         private TextMeshProUGUI _level = null!;
-        private TextMeshProUGUI _petals = null!;
         private TextMeshProUGUI _playLabel = null!;
         private Button _playButton = null!;
+        private Image _teaser = null!;
         private TextMeshProUGUI _milestone = null!;
+        private Image _rankRow = null!;
         private TextMeshProUGUI _rank = null!;
-        private Image _background = null!;
-        private Image _band = null!;
-        private GameObject _rankButton = null!;
-        private GameObject _daily = null!;
-        private TextMeshProUGUI _dailyLabel = null!;
+        private Image _rankMarker = null!;
+        private Image _daily = null!;
+        private TextMeshProUGUI _dailyTitle = null!;
+        private TextMeshProUGUI _dailyReward = null!;
         private GameObject _wardrobe = null!;
         private GameObject _collection = null!;
-        private GameObject _store = null!;
         private GameObject _freeBooster = null!;
         private ProfileAvatar _avatar = null!;
-        private Image _rankMarker = null!;
+        private GameObject _profile = null!;
+        private bool _freeBoosterShown;
+        private HomeModel? _model;
 
         public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null, HomeFeatureActions? features = null)
         {
             var screen = root.gameObject.AddComponent<HomeScreen>();
-            Image background = UiFactory.CreateImage("Background", root, null, UiTheme.Background);
-            UiFactory.Stretch(background.rectTransform);
-            screen._background = background;
+            screen._root = root;
+            screen._backdrop = BackdropView.Create(root, BackdropScene.Home);
 
-            // A soft band in the theme's accent behind Level N and Play (FR-066).
-            screen._band = UiFactory.CreateImage("Band", root, ProceduralSprites.RoundedSquare, new Color(1f, 1f, 1f, 0f));
-            UiFactory.Place(screen._band.rectTransform, 0.06f, 0.36f, 0.94f, 0.615f);
-
-            TextMeshProUGUI logo = UiFactory.CreateText("Logo", root, Loc.T("home.logo"), 120f, UiTheme.Accent);
-            logo.fontStyle = FontStyles.Bold;
-            UiFactory.Place(logo.rectTransform, 0.05f, 0.72f, 0.95f, 0.84f);
-
-            Image petalIcon = UiFactory.CreateImage("PetalIcon", root, ProceduralSprites.Icon("flower"), UiTheme.Warning);
-            petalIcon.preserveAspect = true;
-            UiFactory.Place(petalIcon.rectTransform, 0.62f, 0.93f, 0.7f, 0.98f);
-            screen._petals = UiFactory.CreateText("Petals", root, "0", 56f, UiTheme.Text, TextAlignmentOptions.Left);
-            UiFactory.Place(screen._petals.rectTransform, 0.71f, 0.93f, 0.97f, 0.98f);
-
-            Button settings = UiFactory.CreateButton("Settings", root, string.Empty, UiTheme.Text, onSettings);
-            UiFactory.Place((RectTransform)settings.transform, 0.03f, 0.925f, 0.15f, 0.985f);
-            Image gear = UiFactory.CreateImage("Gear", settings.transform, ProceduralSprites.Gear, Color.white);
-            gear.preserveAspect = true;
-            UiFactory.Place(gear.rectTransform, 0.15f, 0.15f, 0.85f, 0.85f);
-
-            screen._level = UiFactory.CreateText("Level", root, Loc.F("common.level", 1), 84f, UiTheme.Text);
-            UiFactory.Place(screen._level.rectTransform, 0.05f, 0.52f, 0.95f, 0.6f);
-
-            Button play = UiFactory.CreateButton("Play", root, Loc.T("common.play"), UiTheme.Accent, onPlay, 84f);
-            UiFactory.Place((RectTransform)play.transform, 0.2f, 0.38f, 0.8f, 0.49f);
-            screen._playLabel = play.GetComponentInChildren<TextMeshProUGUI>();
-            screen._playButton = play;
-
-            screen._milestone = UiFactory.CreateText("Milestone", root, string.Empty, 44f, UiTheme.Text);
-            UiFactory.Place(screen._milestone.rectTransform, 0.05f, 0.31f, 0.95f, 0.36f);
-
-            Button rank = UiFactory.CreateButton("Rank", root, string.Empty, UiTheme.Panel, () => features?.OnLeaderboard?.Invoke(), 44f);
-            UiFactory.Place((RectTransform)rank.transform, 0.2f, 0.245f, 0.8f, 0.305f);
-            screen._rank = rank.GetComponentInChildren<TextMeshProUGUI>();
-            screen._rank.color = UiTheme.Text;
-            screen._rankButton = rank.gameObject;
-            screen._rankMarker = UiFactory.CreateImage("Marker", rank.transform, ProceduralSprites.DoubleStar, Color.white);
-            screen._rankMarker.preserveAspect = true;
-            UiFactory.Place(screen._rankMarker.rectTransform, 0.02f, 0.1f, 0.14f, 0.9f);
-            screen._rankMarker.gameObject.SetActive(false);
-
-            // The profile avatar (next to Settings): frame, badge and marker, once the Wardrobe is open.
-            Button profile = UiFactory.CreateButton("Profile", root, string.Empty, new Color(1f, 1f, 1f, 0f), () => features?.OnProfile?.Invoke());
-            UiFactory.Place((RectTransform)profile.transform, 0.17f, 0.915f, 0.3f, 0.99f);
+            screen._topBar = UiFactory.CreateRect("TopBar", root);
+            screen._settings = (RectTransform)UiKit.RoundIconButton("Settings", screen._topBar, "ui.settings", onSettings).transform;
+            screen._petals = UiKit.PetalsPill("Petals", screen._topBar, onStore);
+            Button profile = UiFactory.CreateButton("Profile", screen._topBar, string.Empty, new Color(1f, 1f, 1f, 0f), () => features?.OnProfile?.Invoke());
             screen._avatar = ProfileAvatar.Create("Avatar", profile.transform);
             UiFactory.Stretch(screen._avatar.Rect);
-            profile.gameObject.SetActive(false);
+            screen._profile = profile.gameObject;
 
-            // Long-run features (US7): small buttons between the logo and Level N.
-            screen._daily = Feature(root, "Daily", Loc.T("home.daily"), 0.05f, features?.OnDailyChallenge);
-            screen._dailyLabel = screen._daily.GetComponentInChildren<TextMeshProUGUI>();
-            screen._wardrobe = Feature(root, "Wardrobe", Loc.T("home.wardrobe"), 0.36f, features?.OnWardrobe);
-            screen._collection = Feature(root, "Collection", Loc.T("home.collection"), 0.67f, features?.OnCollection);
+            // The hero area: the early scene (frame 2) or the player's hero with its feature buttons (frame 3).
+            screen._hero = UiFactory.CreateRect("Hero", root);
+            RectTransform early = UiFactory.Stretch(UiFactory.CreateRect("Early", screen._hero));
+            screen._early = early.gameObject;
+            TextMeshProUGUI wordmark = UiKit.Label("Wordmark", early, Loc.T("home.logo"), DesignTokens.Type.Wordmark, UiTheme.Of(DesignTokens.Colors.WordmarkFill));
+            wordmark.outlineColor = UiTheme.Of(DesignTokens.Colors.WordmarkOutline);
+            UiFactory.Place(wordmark.rectTransform, 0.08f, 0.6f, 0.92f, 0.86f);
+            Sitter(early, Family.Sprig, UiTheme.Light(UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(VariantId.Acorn).ColorHex))), 0.22f);
+            Sitter(early, Family.Drop, UiTheme.Light(UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(VariantId.Water).ColorHex))), 0.52f);
 
-            Button store = UiFactory.CreateButton("Store", root, Loc.T("home.store"), UiTheme.Warning, onStore, 56f);
-            UiFactory.Place((RectTransform)store.transform, 0.3f, 0.08f, 0.7f, 0.15f);
-            screen._store = store.gameObject;
+            RectTransform progressed = UiFactory.Stretch(UiFactory.CreateRect("Progressed", screen._hero));
+            screen._progressed = progressed.gameObject;
+            screen._heroFigure = BloomlingFigure.Create("HeroFigure", progressed);
+            UiFactory.Place(screen._heroFigure.Rect, 0.25f, 0.1f, 0.75f, 0.9f);
+            screen._heroFigure.Body.preserveAspect = true;
+            screen._wardrobe = UiKit.RoundIconButton("Wardrobe", screen._hero, "ui.shirt", () => features?.OnWardrobe?.Invoke()).gameObject;
+            screen._collection = UiKit.RoundIconButton("Collection", screen._hero, "ui.grid", () => features?.OnCollection?.Invoke()).gameObject;
+
+            screen._level = UiKit.Label("Level", root, Loc.F("common.level", 1), DesignTokens.Type.LevelHome, UiTheme.Text);
+            screen._teaser = UiKit.Pill("Teaser", root, new Color(UiTheme.Panel.r, UiTheme.Panel.g, UiTheme.Panel.b, 0.92f));
+            screen._milestone = UiKit.Label("Text", screen._teaser.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Text);
+            UiFactory.Place(screen._milestone.rectTransform, 0.06f, 0.08f, 0.82f, 0.92f);
+            Image gift = UiFactory.CreateImage("Gift", screen._teaser.transform, ProceduralSprites.Shape("ui.gift"), UiTheme.Of(DesignTokens.Colors.BoosterBloomBurst));
+            gift.preserveAspect = true;
+            UiFactory.Place(gift.rectTransform, 0.84f, 0.14f, 0.96f, 0.86f);
+
+            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, DesignTokens.Type.ButtonLarge);
+            screen._playLabel = screen._playButton.GetComponentInChildren<TextMeshProUGUI>();
+
+            screen._rankRow = UiKit.Pill("Rank", root, new Color(1f, 1f, 1f, 0f), raycast: true);
+            var rankButton = screen._rankRow.gameObject.AddComponent<Button>();
+            rankButton.targetGraphic = screen._rankRow;
+            rankButton.onClick.AddListener(() => features?.OnLeaderboard?.Invoke());
+            Image trophy = UiFactory.CreateImage("Trophy", screen._rankRow.transform, ProceduralSprites.Shape("ui.trophy"), UiTheme.Of(DesignTokens.Colors.MedalGold));
+            trophy.preserveAspect = true;
+            UiFactory.Place(trophy.rectTransform, 0.02f, 0.12f, 0.16f, 0.88f);
+            screen._rank = UiKit.Label("Text", screen._rankRow.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Text);
+            UiFactory.Place(screen._rank.rectTransform, 0.18f, 0.05f, 0.86f, 0.95f);
+            Image chevron = UiFactory.CreateImage("Chevron", screen._rankRow.transform, ProceduralSprites.Shape("ui.chevron"), UiTheme.TextSecondary);
+            chevron.preserveAspect = true;
+            UiFactory.Place(chevron.rectTransform, 0.88f, 0.25f, 0.98f, 0.75f);
+            screen._rankMarker = UiFactory.CreateImage("Marker", trophy.transform, ProceduralSprites.DoubleStar, Color.white);
+            screen._rankMarker.preserveAspect = true;
+            UiFactory.Place(screen._rankMarker.rectTransform, 0.5f, -0.2f, 1.2f, 0.5f);
+            screen._rankMarker.gameObject.SetActive(false);
+
+            // The Daily Challenge card (frame 3): sun, title, "New today · +N" with the Petal symbol, chevron.
+            screen._daily = UiKit.Rounded("Daily", root, UiTheme.Panel, 40f, raycast: true);
+            UiKit.CardShadow(screen._daily);
+            var dailyButton = screen._daily.gameObject.AddComponent<Button>();
+            dailyButton.targetGraphic = screen._daily;
+            dailyButton.onClick.AddListener(() => features?.OnDailyChallenge?.Invoke());
+            Image sun = UiFactory.CreateImage("Sun", screen._daily.transform, ProceduralSprites.Shape("ui.sun"), UiTheme.PetalCenter);
+            sun.preserveAspect = true;
+            UiFactory.Place(sun.rectTransform, 0.03f, 0.18f, 0.15f, 0.82f);
+            screen._dailyTitle = UiKit.Label("Title", screen._daily.transform, Loc.T("daily.title"), DesignTokens.Type.Body, UiTheme.Text, TextAlignmentOptions.Left);
+            UiFactory.Place(screen._dailyTitle.rectTransform, 0.18f, 0.5f, 0.86f, 0.92f);
+            screen._dailyReward = UiKit.Label("Reward", screen._daily.transform, string.Empty, DesignTokens.Type.Caption, UiTheme.TextSecondary, TextAlignmentOptions.Left);
+            UiFactory.Place(screen._dailyReward.rectTransform, 0.18f, 0.08f, 0.8f, 0.5f);
+            Image dailyChevron = UiFactory.CreateImage("Chevron", screen._daily.transform, ProceduralSprites.Shape("ui.chevron"), UiTheme.TextSecondary);
+            dailyChevron.preserveAspect = true;
+            UiFactory.Place(dailyChevron.rectTransform, 0.88f, 0.3f, 0.96f, 0.7f);
 
             // The optional rewarded offer: a free booster, started only by the player (FR-052).
-            Button free = UiFactory.CreateButton("FreeBooster", root, Loc.T("home.free_booster"), UiTheme.Accent, () => onFreeBooster?.Invoke(), 40f);
-            UiFactory.Place((RectTransform)free.transform, 0.3f, 0.17f, 0.7f, 0.23f);
-            screen._freeBooster = free.gameObject;
+            screen._freeBooster = UiKit.SecondaryButton("FreeBooster", root, Loc.T("home.free_booster"), () => onFreeBooster?.Invoke(), "ui.ad").gameObject;
             screen._freeBooster.SetActive(false);
             return screen;
         }
 
-        public void SetFreeBoosterOffer(bool visible) => _freeBooster.SetActive(visible);
+        /// <summary>A Bloomling sitting on the Home stone (frame 2), at <paramref name="x"/> across the hero area.</summary>
+        private static void Sitter(RectTransform parent, Family family, Color color, float x)
+        {
+            Image body = UiFactory.CreateImage(family.ToString(), parent, ProceduralSprites.Silhouette(family), color);
+            body.preserveAspect = true;
+            UiFactory.Place(body.rectTransform, x, 0.12f, x + 0.26f, 0.5f);
+            Image face = UiFactory.CreateImage("Face", body.transform, ProceduralSprites.Shape("char.face"), UiTheme.Text);
+            face.preserveAspect = true;
+            UiFactory.Place(face.rectTransform, 0.32f, 0.28f, 0.68f, 0.64f);
+        }
+
+        public void SetFreeBoosterOffer(bool visible)
+        {
+            _freeBoosterShown = visible;
+            _freeBooster.SetActive(visible);
+            if (_model != null)
+            {
+                Layout(_model);
+            }
+        }
 
         /// <summary>What a system's Home demo points at (roadmap L10–L100), or null while it is not on screen.</summary>
         public RectTransform? DemoTarget(string unlockId) => unlockId switch
         {
-            "system.leaderboard" => Visible(_rankButton),
-            "system.store" => Visible(_store),
+            "system.leaderboard" => Visible(_rankRow.gameObject),
+            "system.store" => Visible(_petals.Plus),
             "system.wardrobe" => Visible(_wardrobe),
-            "system.daily_challenge" => Visible(_daily),
-            "system.milestone_25" => _milestone.rectTransform,
+            "system.daily_challenge" => Visible(_daily.gameObject),
+            "system.milestone_25" => Visible(_teaser.gameObject),
             _ => null,
         };
 
         /// <summary>Whether a system's demo can play now: its button is shown (the theme demo needs none).</summary>
         public bool CanDemo(string unlockId) => unlockId == "system.theme_rotation" || DemoTarget(unlockId) != null;
 
-        private static RectTransform? Visible(GameObject button) => button.activeSelf ? (RectTransform)button.transform : null;
+        private static RectTransform? Visible(GameObject target) => target.activeSelf ? (RectTransform)target.transform : null;
 
-        private static GameObject Feature(RectTransform root, string name, string label, float x0, Action? onClick)
+        private HomeLook LookOf(HomeModel model) => new HomeLook(
+            Store: model.StoreUnlocked,
+            Teaser: model.NextMilestoneLevel.HasValue,
+            Hero: model.WardrobeAvailable,
+            Wardrobe: model.WardrobeAvailable,
+            Collection: model.CollectionAvailable,
+            Rank: model.LeaderboardUnlocked,
+            DailyChallenge: model.DailyChallengeAvailable,
+            FreeBoosterOffer: _freeBoosterShown);
+
+        /// <summary>Places the regions of frame 2 or 3 for this look (data-model rule 4: locked features collapse).</summary>
+        private void Layout(HomeModel model)
         {
-            Button button = UiFactory.CreateButton(name, root, label, UiTheme.SlotLocked, () => onClick?.Invoke(), 40f);
-            UiFactory.Place((RectTransform)button.transform, x0, 0.625f, x0 + 0.28f, 0.685f);
-            button.gameObject.SetActive(false);
-            return button.gameObject;
+            (float w, float h, Insets insets) = UiKit.ScreenFrame();
+            HomeLook look = LookOf(model);
+            HomeRegions r = ScreenLayout.Home(w, h, insets, look);
+            var screen = new Box(0f, 0f, w, h);
+            float u = DesignTokens.ScaleFor(w, h);
+            UiKit.PlaceBox(_topBar, r.TopBar, screen);
+            float bar = r.TopBar.Height;
+            UiKit.PlaceBox(_settings, new Box(r.TopBar.Right - bar, r.TopBar.Top, r.TopBar.Right, r.TopBar.Bottom), r.TopBar);
+            UiKit.PlaceBox((RectTransform)_petals.transform, new Box(r.TopBar.Right - bar - (24f * u) - (330f * u), r.TopBar.CenterY - (bar * 0.36f), r.TopBar.Right - bar - (24f * u), r.TopBar.CenterY + (bar * 0.36f)), r.TopBar);
+            UiKit.PlaceBox((RectTransform)_profile.transform, new Box(r.TopBar.Left, r.TopBar.Top, r.TopBar.Left + bar, r.TopBar.Bottom), r.TopBar);
+            UiKit.PlaceBox(_hero, r.Hero, screen);
+            if (!r.Features.IsEmpty)
+            {
+                float button = DesignTokens.Size.IconButton * u;
+                var first = new Box(r.Features.Left, r.Features.Top, r.Features.Right, r.Features.Top + button);
+                UiKit.PlaceBox((RectTransform)_wardrobe.transform, first, r.Hero);
+                UiKit.PlaceBox((RectTransform)_collection.transform, look.Wardrobe ? first.Offset(0f, button * 1.25f) : first, r.Hero);
+            }
+
+            UiKit.PlaceBox(_level.rectTransform, r.Level, screen);
+            UiKit.PlaceBox(_teaser.rectTransform, r.Teaser, screen);
+            UiKit.PlaceBox((RectTransform)_playButton.transform, r.Play, screen);
+            UiKit.PlaceBox(_rankRow.rectTransform, r.Rank, screen);
+            UiKit.PlaceBox(_daily.rectTransform, r.Daily, screen);
+            UiKit.PlaceBox((RectTransform)_freeBooster.transform, Box.FromCenter(r.Extra.CenterX, r.Extra.CenterY, Mathf.Min(r.Extra.Width, 560f * u), r.Extra.Height), screen);
         }
 
         public void Show(HomeModel model)
         {
-            string level = model.CurrentLevel.ToString(CultureInfo.InvariantCulture);
-            _level.text = Loc.F("common.level", level);
-            _playLabel.text = !model.LevelAvailable ? Loc.T("home.more_levels_soon")
-                : model.CurrentLevel == 1 ? Loc.T("common.play")
-                : Loc.T("home.continue");
+            _model = model;
+            Layout(model);
+            _level.text = Loc.F("common.level", NumberText.Group(model.CurrentLevel));
+            _playLabel.text = !model.LevelAvailable ? Loc.T("home.more_levels_soon") : Loc.T("common.play");
             _playButton.interactable = model.LevelAvailable;
-            _petals.text = model.Petals.ToString(CultureInfo.InvariantCulture);
-            _store.SetActive(model.StoreUnlocked);
-            _rankButton.SetActive(model.LeaderboardUnlocked);
+            _petals.Show(model.Petals, model.StoreUnlocked);
+            _rankRow.gameObject.SetActive(model.LeaderboardUnlocked);
             _rank.text = model.RankText ?? Loc.T("home.rank_unknown");
-            _daily.SetActive(model.DailyChallengeAvailable);
-            _dailyLabel.text = model.DailyChallengeDone ? Loc.T("home.daily_done") : Loc.T("home.daily");
+            _daily.gameObject.SetActive(model.DailyChallengeAvailable);
+            _dailyReward.text = model.DailyChallengeDone ? Loc.T("home.daily_done") : Loc.F("home.daily_new", model.DailyChallengePetals);
+            _early.SetActive(!model.WardrobeAvailable);
+            _progressed.SetActive(model.WardrobeAvailable);
             _wardrobe.SetActive(model.WardrobeAvailable);
-            GameObject profile = _avatar.Rect.parent.gameObject;
-            profile.SetActive(model.WardrobeAvailable);
+            _collection.SetActive(model.CollectionAvailable);
+            _profile.SetActive(model.WardrobeAvailable);
             if (model.WardrobeAvailable)
             {
                 _avatar.Show(model.Profile, model.AvatarOutfit);
+                _heroFigure.Show(Family.Bloom, UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(VariantId.Flower).ColorHex)), model.AvatarOutfit);
             }
 
             CosmeticItem? marker = model.Profile?.Marker;
@@ -188,12 +272,13 @@ namespace Bloomlings.Client.UI.Screens
                 _rankMarker.color = BloomlingFigure.Tint(marker);
             }
 
-            _collection.SetActive(model.CollectionAvailable);
-            _background.color = model.Background ?? UiTheme.Background;
-            _band.color = model.Accent.HasValue ? new Color(model.Accent.Value.r, model.Accent.Value.g, model.Accent.Value.b, 0.8f) : new Color(1f, 1f, 1f, 0f);
-            _milestone.text = model.NextMilestoneLevel.HasValue
-                ? Loc.F("home.milestone_teaser", model.NextMilestoneLevel.Value, model.LevelsToMilestone.GetValueOrDefault())
-                : string.Empty;
+            _backdrop.Show(model.Theme);
+            _teaser.gameObject.SetActive(model.NextMilestoneLevel.HasValue);
+            if (model.NextMilestoneLevel.HasValue)
+            {
+                int toGo = model.LevelsToMilestone.GetValueOrDefault();
+                _milestone.text = toGo == 1 ? Loc.T("home.level_to_reward") : Loc.F("home.levels_to_reward", toGo);
+            }
         }
     }
 }

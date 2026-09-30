@@ -1,6 +1,7 @@
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Variants;
 using UnityEngine;
@@ -9,8 +10,9 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Board
 {
     /// <summary>
-    /// One board cell. A target shows a framed tile in its variant color with the variant icon in a contrasting ink
-    /// (never a character face); open cells hide the tile so the finished picture shows through; stones show a gray
+    /// One board cell. A target shows a raised rounded tile in its variant color (the design board's frames 7–9: a
+    /// lighter top and a darker lower edge) with the variant icon in a contrasting ink (never a character face, spec 002
+    /// FR-011); open cells hide the tile so the finished picture shows through; stones show a gray
     /// block. A corner badge with the next variant's color and icon previews the next hidden layer (FR-036). A key sits
     /// in the opposite corner without hiding the tile's icon or color (FR-033). A cell that counts toward a special's
     /// condition carries a thin outline in the special's color (FR-037, FR-038). Changes animate: a cleared tile shrinks
@@ -20,6 +22,7 @@ namespace Bloomlings.Client.Gameplay.Board
     {
         private Image _frame = null!;
         private Image _fill = null!;
+        private Image _shine = null!;
         private Image _icon = null!;
         private Image _peek = null!;
         private Image _peekIcon = null!;
@@ -45,10 +48,13 @@ namespace Bloomlings.Client.Gameplay.Board
             view._frame = frame;
             view._visuals = visuals;
             view.Cell = cell;
+            // The raised look: the frame shows as the darker lower edge, the fill sits on it with a lighter top half.
             view._fill = UiFactory.CreateImage("Fill", frame.transform, ProceduralSprites.RoundedSquare, Color.white);
-            UiFactory.Place(view._fill.rectTransform, 0.06f, 0.06f, 0.94f, 0.94f);
+            UiFactory.Place(view._fill.rectTransform, 0f, 0.09f, 1f, 1f);
+            view._shine = UiFactory.CreateImage("Shine", view._fill.transform, ProceduralSprites.RoundedSquare, new Color(1f, 1f, 1f, 0f));
+            UiFactory.Place(view._shine.rectTransform, 0.03f, 0.5f, 0.97f, 0.97f);
             view._icon = UiFactory.CreateImage("Icon", frame.transform, null, new Color(1f, 1f, 1f, 0.92f));
-            UiFactory.Place(view._icon.rectTransform, 0.2f, 0.2f, 0.8f, 0.8f);
+            UiFactory.Place(view._icon.rectTransform, 0.2f, 0.25f, 0.8f, 0.85f);
             view._icon.preserveAspect = true;
             view._peek = UiFactory.CreateImage("NextLayer", frame.transform, ProceduralSprites.Circle, Color.white);
             UiFactory.Place(view._peek.rectTransform, 0.62f, 0.62f, 1f, 1f);
@@ -79,20 +85,24 @@ namespace Bloomlings.Client.Gameplay.Board
                 VariantVisual visual = Visual(visible.Value);
                 _fill.sprite = visual.Tile ?? ProceduralSprites.RoundedSquare;
                 _fill.color = visual.Color;
+                Rgba color = UiTheme.ToRgba(visual.Color);
+                _shine.color = WithAlpha(UiTheme.Of(DesignTokens.TileTop(color)), visual.Tile == null ? 0.7f : 0f);
                 _icon.sprite = visual.Icon;
                 _icon.color = WithAlpha(visual.Ink, 0.92f);
                 _icon.enabled = true;
-                _frame.color = UiTheme.Dark(visual.Color);
+                _frame.color = UiTheme.Of(DesignTokens.TileEdge(color));
             }
             else
             {
                 // A hidden mystery tile (FR-039): neutral tile with a question mark.
+                Color mystery = UiTheme.Of(DesignTokens.Colors.TileMystery);
                 _fill.sprite = ProceduralSprites.RoundedSquare;
-                _fill.color = UiTheme.SlotLocked;
+                _fill.color = mystery;
+                _shine.color = new Color(1f, 1f, 1f, 0.18f);
                 _icon.sprite = ProceduralSprites.Question;
                 _icon.color = new Color(1f, 1f, 1f, 0.92f);
                 _icon.enabled = true;
-                _frame.color = UiTheme.TileFrame;
+                _frame.color = UiTheme.Dark(mystery);
             }
 
             // The layer peek (FR-036): a corner badge with the next layer's color and icon.
@@ -118,8 +128,11 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             StopAnimation();
             gameObject.SetActive(true);
-            _frame.color = UiTheme.Dark(UiTheme.StoneColor);
+            // A garden stone (frame 9): the stone shape, lit on top, sitting on its own shadow.
+            _frame.color = Color.clear;
+            _fill.sprite = ProceduralSprites.Shape("tile.stone");
             _fill.color = UiTheme.StoneColor;
+            _shine.color = new Color(1f, 1f, 1f, 0f);
             _icon.enabled = false;
             _peek.enabled = false;
             _peekIcon.enabled = false;

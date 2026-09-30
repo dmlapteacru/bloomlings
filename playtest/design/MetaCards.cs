@@ -42,7 +42,7 @@ namespace Bloomlings.Playtest.Design
                 Kit.Petal(p, Box.FromCenter(art.CenterX + (hx * art.Width), art.CenterY + (hy * art.Height), size, size));
             }
 
-            p.Shape("currency.reward_basket", Box.FromCenter(art.CenterX, art.CenterY + (art.Height * 0.2f), art.Width * 0.8f, art.Width * 0.6f), Rgba.FromHex("#B87B4B"));
+            p.Shape("currency.reward_basket", Box.FromCenter(art.CenterX, art.CenterY + (art.Height * 0.2f), art.Width * 0.8f, art.Width * 0.6f), C.RewardBasket);
             y = art.Bottom + p.U(10f);
 
             string amount = NumberText.Plus(daily.NextPetals);

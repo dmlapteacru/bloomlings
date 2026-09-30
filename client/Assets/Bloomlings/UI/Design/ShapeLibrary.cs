@@ -187,6 +187,9 @@ namespace Bloomlings.Client.UI.Design
                     RoundedBox(x, y, 0f, 0.75f, 0.55f, 0.08f, 0.04f),
                     RoundedBox(x, y, 0f, -0.75f, 0.55f, 0.08f, 0.04f),
                     Max(MathF.Abs(x) - (0.12f + (0.38f * MathF.Abs(y) / 0.68f)), MathF.Abs(y) - 0.68f)),
+                ["slot.state.danger"] = (x, y) => Max(
+                    MathF.Abs(RoundedBox(x, y, 0f, 0f, 0.9f, 0.9f, 0.26f)) - 0.05f,
+                    (MathF.Sin(MathF.Atan2(y, x) * 14f) - 0.1f) * 0.2f),
                 ["slot.state.jam_risk"] = (x, y) => Min(
                     RoundedBox(x, y, 0f, 0.2f, 0.13f, 0.55f, 0.1f),
                     Length(x, y + 0.65f) - 0.15f),

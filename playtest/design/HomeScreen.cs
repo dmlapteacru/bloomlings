@@ -185,10 +185,8 @@ namespace Bloomlings.Playtest.Design
             p.Shape("ui.sun", Box.FromCenter(box.Left + (box.Height * 0.55f), box.CenterY, icon, icon), C.PetalCenter.Darken(0.1f));
             float left = box.Left + box.Height;
             p.TextLeft(PlaytestText.T("daily.title"), left, box.Top + (box.Height * 0.36f), T.Body, C.TextPrimary, box.Width - (box.Height * 2f));
-            string reward = PlaytestText.F("home.daily_new", 40);
-            p.TextLeft(reward, left, box.Top + (box.Height * 0.7f), T.Caption, C.TextSecondary, box.Width - (box.Height * 2.4f));
-            float rw = p.MeasureText(reward, T.Caption);
-            Kit.Petal(p, Box.FromCenter(left + rw + p.U(26f), box.Top + (box.Height * 0.7f), p.U(36f), p.U(36f)));
+            // The playtest has no Daily Challenge content, so its reward is not shown.
+            p.TextLeft(PlaytestText.T("home.daily_new_plain"), left, box.Top + (box.Height * 0.7f), T.Caption, C.TextSecondary, box.Width - (box.Height * 2.4f));
             p.Shape("ui.chevron", Box.FromCenter(box.Right - (box.Height * 0.4f), box.CenterY, icon * 0.5f, icon * 0.5f), C.TextSecondary);
             p.Hit(box, () => app.HomeToast("Daily Challenge: not in the playtest yet"));
         }

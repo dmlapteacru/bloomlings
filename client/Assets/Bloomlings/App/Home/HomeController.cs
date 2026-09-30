@@ -107,7 +107,9 @@ namespace Bloomlings.Client.App.Home
                     catalog.HasLevel(progression.CurrentLevel),
                     wardrobe.Profile,
                     wardrobe.OutfitOf(Core.Variants.Family.Bloom),
-                    accent));
+                    accent,
+                    Theme: band,
+                    DailyChallengePetals: DailyChallengeService.RewardPetals));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.IsOpen)
                 {

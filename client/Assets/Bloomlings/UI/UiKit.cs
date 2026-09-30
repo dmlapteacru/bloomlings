@@ -326,7 +326,8 @@ namespace Bloomlings.Client.UI
             SheetRegions regions = ScreenLayout.Sheet(w, h, insets, contentHeight);
             Box screen = new Box(0f, 0f, w, h);
 
-            Image shade = UiFactory.CreateImage(name, parent, null, new Color(UiTheme.PanelShade.r, UiTheme.PanelShade.g, UiTheme.PanelShade.b, 0.3f), raycast: true);
+            // A light shade that takes no taps: the board stays visible and the top bar (Pause) stays usable.
+            Image shade = UiFactory.CreateImage(name, parent, null, new Color(UiTheme.PanelShade.r, UiTheme.PanelShade.g, UiTheme.PanelShade.b, 0.3f), raycast: false);
             UiFactory.Stretch(shade.rectTransform);
             Image sheet = Rounded("Sheet", shade.transform, UiTheme.Panel, 64f, raycast: true);
             CardShadow(sheet);

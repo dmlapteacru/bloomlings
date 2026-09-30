@@ -142,7 +142,7 @@ namespace Bloomlings.Playtest.Design
             p.PushAlpha(alpha);
             if (info.MysteryHidden || !info.Visible.HasValue)
             {
-                Rgba mystery = Rgba.FromHex("#B8AFCB");
+                Rgba mystery = C.TileMystery;
                 Kit.Raised(p, box, mystery, mystery.Darken(0.25f), radius, top: mystery.Lighten(0.15f));
                 p.Shape("tile.mystery", Box.FromCenter(box.CenterX, box.CenterY - (box.Height * 0.03f), box.Width * 0.6f, box.Width * 0.6f), Rgba.White);
                 p.PopAlpha();
@@ -201,11 +201,11 @@ namespace Bloomlings.Playtest.Design
 
             (Rgba color, string shape) = type switch
             {
-                SpecialType.Fountain => (Rgba.FromHex("#8FB4D6"), "special.fountain"),
-                SpecialType.Chest => (Rgba.FromHex("#C08A57"), "special.chest"),
-                SpecialType.Statue => (Rgba.FromHex("#A7A9BA"), "special.statue"),
-                SpecialType.Bridge => (Rgba.FromHex("#A57C58"), triggered ? "special.bridge" : "special.bridge_broken"),
-                _ => (Rgba.FromHex("#6E9A5B"), "special.gate"),
+                SpecialType.Fountain => (C.SpecialFountain, "special.fountain"),
+                SpecialType.Chest => (C.SpecialChest, "special.chest"),
+                SpecialType.Statue => (C.SpecialStatue, "special.statue"),
+                SpecialType.Bridge => (C.SpecialBridge, triggered ? "special.bridge" : "special.bridge_broken"),
+                _ => (C.SpecialGate, "special.gate"),
             };
             Box box = full.Inset(cell * 0.05f);
             Box face = Kit.Raised(p, box, color, color.Darken(0.28f), box.Width * 0.18f, top: color.Lighten(0.12f));

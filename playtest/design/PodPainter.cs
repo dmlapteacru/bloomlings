@@ -153,9 +153,9 @@ namespace Bloomlings.Playtest.Design
             if (hidden || !pod.Variant.HasValue)
             {
                 p.Mark("pod.state.mystery");
-                Rgba card = Rgba.FromHex("#F7D6E6");
+                Rgba card = C.PodMystery;
                 Box face = Kit.Raised(p, box, look == PodLook.Next ? card.Grey().Lighten(0.2f) : card, card.Darken(0.18f), radius, look == PodLook.Pressed);
-                p.Shape("tile.mystery", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.42f), face.Width * 0.5f, face.Width * 0.5f), look == PodLook.Next ? C.StateStuck : Rgba.FromHex("#C0508A"));
+                p.Shape("tile.mystery", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.42f), face.Width * 0.5f, face.Width * 0.5f), look == PodLook.Next ? C.StateStuck : C.PodMysteryMark);
                 CountPill(p, face, pod.Remaining, look == PodLook.Next);
                 return;
             }
@@ -227,8 +227,8 @@ namespace Bloomlings.Playtest.Design
                 }
                 else
                 {
-                    p.FillRound(box, size * DesignTokens.Radius.Pod, Rgba.FromHex("#F7D6E6"));
-                    p.Shape("tile.mystery", box.Inset(size * 0.22f), Rgba.FromHex("#C0508A"));
+                    p.FillRound(box, size * DesignTokens.Radius.Pod, C.PodMystery);
+                    p.Shape("tile.mystery", box.Inset(size * 0.22f), C.PodMysteryMark);
                 }
             }
         }

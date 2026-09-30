@@ -4,6 +4,7 @@ using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Effects;
 using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Slots;
 using Bloomlings.Core.Variants;
@@ -392,12 +393,17 @@ namespace Bloomlings.Client.Gameplay.Slots
             public readonly Queue<(string PodId, VariantId? Variant, int Count)> Pending = new Queue<(string, VariantId?, int)>();
 
             private Image _body = null!;
+            private Image _figure = null!;
             private Image _icon = null!;
+            private Image _countPill = null!;
             private TextMeshProUGUI _count = null!;
             private Image _lock = null!;
             private Image _waiting = null!;
             private Image _risk = null!;
+            private Image _danger = null!;
             private Color _ink = Color.white;
+            private Color _tint = UiTheme.SlotEmpty;
+            private Color _color = Color.white;
             private bool _working;
 
             public int Index { get; private set; }
@@ -425,28 +431,39 @@ namespace Bloomlings.Client.Gameplay.Slots
             public static Slot Create(Transform parent, int index, bool extra)
             {
                 var slot = new Slot { Index = index, IsExtra = extra };
-                slot.Frame = UiFactory.CreateImage($"Slot {index}", parent, ProceduralSprites.RoundedSquare, Color.clear);
-                slot._body = UiFactory.CreateImage("Body", slot.Frame.transform, ProceduralSprites.RoundedSquare, UiTheme.SlotEmpty);
+                slot.Frame = UiKit.Rounded($"Slot {index}", parent, Color.clear, 44f);
+                slot._body = UiKit.Rounded("Body", slot.Frame.transform, UiTheme.SlotEmpty, 40f);
                 UiFactory.Place(slot._body.rectTransform, 0.07f, 0.07f, 0.93f, 0.93f);
+                slot._figure = UiFactory.CreateImage("Bloomling", slot._body.transform, null, Color.white);
+                slot._figure.preserveAspect = true;
+                UiFactory.Place(slot._figure.rectTransform, 0.12f, 0.2f, 0.88f, 0.98f);
                 slot._icon = UiFactory.CreateImage("Icon", slot._body.transform, null, Color.white);
                 slot._icon.preserveAspect = true;
-                UiFactory.Place(slot._icon.rectTransform, 0.15f, 0.38f, 0.85f, 0.92f);
-                slot._count = UiFactory.CreateText("Count", slot._body.transform, string.Empty, 52f, UiTheme.TextOnColor);
-                slot._count.fontStyle = FontStyles.Bold;
-                UiFactory.Place(slot._count.rectTransform, 0f, 0.02f, 1f, 0.4f);
-                slot._lock = UiFactory.CreateImage("Lock", slot._body.transform, ProceduralSprites.Lock, UiTheme.Text);
+                UiFactory.Place(slot._icon.rectTransform, 0.3f, 0.26f, 0.7f, 0.62f);
+                slot._countPill = UiKit.Pill("CountPill", slot._body.transform, UiTheme.Of(DesignTokens.Colors.BadgeCount));
+                UiFactory.Place(slot._countPill.rectTransform, 0.22f, 0.02f, 0.78f, 0.28f);
+                slot._count = UiKit.Label("Count", slot._countPill.transform, string.Empty, DesignTokens.Type.Count, UiTheme.TextOnColor);
+                UiFactory.Place(slot._count.rectTransform, 0.06f, 0.04f, 0.94f, 0.96f);
+                slot._lock = UiFactory.CreateImage("Lock", slot._body.transform, ProceduralSprites.Lock, UiTheme.LockGlyph);
+                slot._lock.preserveAspect = true;
                 UiFactory.Place(slot._lock.rectTransform, 0.25f, 0.25f, 0.75f, 0.75f);
-                slot._waiting = UiFactory.CreateImage("Waiting", slot.Frame.transform, ProceduralSprites.Hourglass, UiTheme.Text);
+                slot._waiting = UiFactory.CreateImage("Waiting", slot.Frame.transform, ProceduralSprites.Hourglass, UiTheme.TextSecondary);
                 slot._waiting.preserveAspect = true;
                 UiFactory.Place(slot._waiting.rectTransform, 0.7f, 0.7f, 1.02f, 1.02f);
+                slot._danger = UiFactory.CreateImage("Danger", slot.Frame.transform, ProceduralSprites.Shape("slot.state.danger"), UiTheme.Warning);
+                UiFactory.Stretch(slot._danger.rectTransform);
+                slot._danger.enabled = false;
                 slot._risk = UiFactory.CreateImage("JamRisk", slot.Frame.transform, ProceduralSprites.Exclamation, UiTheme.Warning);
                 slot._risk.preserveAspect = true;
                 UiFactory.Place(slot._risk.rectTransform, 0.3f, 0.3f, 0.7f, 0.7f);
                 if (extra)
                 {
-                    Image plus = UiFactory.CreateImage("Extra", slot.Frame.transform, ProceduralSprites.PlusSlot, UiTheme.Accent);
+                    Image plus = UiFactory.CreateImage("Extra", slot.Frame.transform, ProceduralSprites.Circle, UiTheme.Accent);
                     plus.preserveAspect = true;
-                    UiFactory.Place(plus.rectTransform, -0.04f, 0.72f, 0.28f, 1.04f);
+                    UiFactory.Place(plus.rectTransform, -0.06f, 0.74f, 0.26f, 1.06f);
+                    Image glyph = UiFactory.CreateImage("Plus", plus.transform, ProceduralSprites.Shape("ui.plus"), Color.white);
+                    glyph.preserveAspect = true;
+                    UiFactory.Place(glyph.rectTransform, 0.2f, 0.2f, 0.8f, 0.8f);
                 }
 
                 slot.Clear();
@@ -463,26 +480,32 @@ namespace Bloomlings.Client.Gameplay.Slots
                 _risk.enabled = false;
             }
 
+            /// <summary>The pod's card (frame 13): its Bloomling in the variant color carrying the symbol, on a light tint.</summary>
             public void SetVariant(VariantId? variant, VariantVisualCatalog? visuals)
             {
                 if (variant.HasValue)
                 {
                     VariantVisual visual = visuals != null ? visuals.Get(variant.Value) : VariantVisualCatalog.Default(variant.Value);
                     _body.sprite = visual.PodSkin ?? ProceduralSprites.RoundedSquare;
-                    _body.color = visual.Color;
+                    _color = visual.Color;
+                    _tint = UiTheme.Of(DesignTokens.PodCard(UiTheme.ToRgba(visual.Color)));
+                    _figure.sprite = ProceduralSprites.Silhouette(visual.Family);
+                    _figure.enabled = true;
                     _icon.sprite = visual.Icon;
                     _ink = visual.Ink;
                 }
                 else
                 {
                     _body.sprite = ProceduralSprites.RoundedSquare;
-                    _body.color = UiTheme.SlotLocked;
+                    _color = UiTheme.Of(DesignTokens.Colors.PodMysteryMark);
+                    _tint = UiTheme.Of(DesignTokens.Colors.PodMystery);
+                    _figure.enabled = false;
                     _icon.sprite = ProceduralSprites.Question;
-                    _ink = Color.white;
+                    _ink = _color;
                 }
 
                 _icon.enabled = true;
-                _count.color = _ink;
+                _countPill.enabled = true;
                 SetWorking(_working);
             }
 
@@ -492,22 +515,40 @@ namespace Bloomlings.Client.Gameplay.Slots
                 _count.text = count.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            /// <summary>Working pods are drawn full size; waiting pods are smaller, fainter and show an hourglass.</summary>
+            /// <summary>Working pods are bright; stuck (waiting) pods are greyed, smaller, and show an hourglass (frame 13).</summary>
             public void SetWorking(bool working)
             {
                 _working = working;
-                _body.transform.localScale = Vector3.one * (working || PodId == null ? 1f : 0.9f);
-                _icon.color = new Color(_ink.r, _ink.g, _ink.b, working ? 1f : 0.75f);
-                _waiting.enabled = PodId != null && !working && Count > 0;
+                bool stuck = PodId != null && !working;
+                _body.transform.localScale = Vector3.one * (working || PodId == null ? 1f : 0.92f);
+                if (PodId != null)
+                {
+                    _body.color = stuck ? Grey(_tint) : _tint;
+                    _figure.color = stuck ? Color.Lerp(Grey(_color), UiTheme.Stuck, 0.35f) : _color;
+                    _countPill.color = stuck ? UiTheme.Stuck : UiTheme.Of(DesignTokens.Colors.BadgeCount);
+                }
+
+                _icon.color = new Color(_ink.r, _ink.g, _ink.b, working ? 1f : 0.8f);
+                _waiting.enabled = stuck && Count > 0;
             }
 
             public void SetAlpha(float alpha)
             {
                 Color body = _body.color;
                 _body.color = new Color(body.r, body.g, body.b, alpha);
+                Color figure = _figure.color;
+                _figure.color = new Color(figure.r, figure.g, figure.b, alpha);
                 Color icon = _icon.color;
-                _icon.color = new Color(icon.r, icon.g, icon.b, alpha * (_working ? 1f : 0.75f));
+                _icon.color = new Color(icon.r, icon.g, icon.b, alpha * (_working ? 1f : 0.8f));
+                Color pill = _countPill.color;
+                _countPill.color = new Color(pill.r, pill.g, pill.b, alpha);
                 _count.alpha = alpha;
+            }
+
+            private static Color Grey(Color c)
+            {
+                float l = (0.299f * c.r) + (0.587f * c.g) + (0.114f * c.b);
+                return new Color(l, l, l, c.a);
             }
 
             public void Clear()
@@ -517,7 +558,9 @@ namespace Bloomlings.Client.Gameplay.Slots
                 _working = false;
                 _body.sprite = ProceduralSprites.RoundedSquare;
                 _body.color = UiTheme.SlotEmpty;
+                _figure.enabled = false;
                 _icon.enabled = false;
+                _countPill.enabled = false;
                 _count.text = string.Empty;
                 _count.alpha = 1f;
                 _waiting.enabled = false;
@@ -538,11 +581,11 @@ namespace Bloomlings.Client.Gameplay.Slots
                 }
             }
 
-            /// <summary>The last free usable slot: a warning outline and a "!" mark (never color alone, FR-070).</summary>
+            /// <summary>The last free usable slot: the red dashed danger frame and a "!" mark (frame 13; never color alone, FR-070).</summary>
             public void SetJamRisk(bool risk)
             {
                 _risk.enabled = risk;
-                SetHighlight(risk ? UiTheme.Warning : (Color?)null);
+                _danger.enabled = risk;
             }
 
             public void SetHighlight(Color? color) => Frame.color = color ?? Color.clear;

@@ -143,9 +143,9 @@ namespace Bloomlings.Playtest.Design
             if (hidden)
             {
                 p.Mark("pod.state.mystery");
-                Rgba card = Rgba.FromHex("#F7D6E6");
+                Rgba card = C.PodMystery;
                 Box face = Kit.Raised(p, b, card, card.Darken(0.18f), radius);
-                p.Shape("tile.mystery", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.4f), face.Width * 0.46f, face.Width * 0.46f), Rgba.FromHex("#C0508A"));
+                p.Shape("tile.mystery", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.4f), face.Width * 0.46f, face.Width * 0.46f), C.PodMysteryMark);
                 PodPainter.CountPill(p, face, look.Count, false);
                 p.PopAlpha();
                 return;

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Globalization;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -34,18 +35,30 @@ namespace Bloomlings.Client.UI.Gameplay
     }
 
     /// <summary>
-    /// The four booster buttons under the slots (T120). Each shows its owned count, or its Petal price when none is
-    /// owned; a booster the level cannot use now is disabled (FR-046), and a locked one shows a lock until its unlock
-    /// level (FR-042). Return and Bloom Burst then ask for a target (a slot, a tile); the controller runs that step.
+    /// The booster bar of the design board's frame 14 (spec 002 FR-014, T120).
+    /// <list type="bullet">
+    /// <item><description>Each booster appears at its unlock level as a round button in its own color (FR-042); a
+    /// locked booster is not shown.</description></item>
+    /// <item><description>A dark badge shows the owned charges. With none left, a Petal price shows instead.</description></item>
+    /// <item><description>A booster the level cannot use now is greyed (FR-046).</description></item>
+    /// <item><description>The booster whose target is being chosen is ringed. Return and Bloom Burst then ask for a
+    /// target (a slot, a tile), and the controller runs that step.</description></item>
+    /// </list>
+    /// The HUD hides the whole bar before the first unlock.
     /// </summary>
     public sealed class BoosterBar : MonoBehaviour
     {
         private static readonly BoosterKind[] Order = { BoosterKind.ExtraSlot, BoosterKind.Shuffle, BoosterKind.Return, BoosterKind.BloomBurst };
+        private static readonly string[] Ids = { "extra_slot", "shuffle", "return", "bloom_burst" };
 
         private readonly Button[] _buttons = new Button[4];
-        private readonly Image[] _icons = new Image[4];
-        private readonly TextMeshProUGUI[] _badges = new TextMeshProUGUI[4];
-        private readonly Image[] _locks = new Image[4];
+        private readonly Image[] _faces = new Image[4];
+        private readonly Image[] _rings = new Image[4];
+        private readonly TextMeshProUGUI[] _counts = new TextMeshProUGUI[4];
+        private readonly GameObject[] _countBadges = new GameObject[4];
+        private readonly TextMeshProUGUI[] _prices = new TextMeshProUGUI[4];
+        private readonly GameObject[] _priceBadges = new GameObject[4];
+        private readonly CanvasGroupLike[] _fade = new CanvasGroupLike[4];
 
         public static BoosterBar Create(RectTransform area, Action<BoosterKind> onPress)
         {
@@ -53,17 +66,42 @@ namespace Bloomlings.Client.UI.Gameplay
             for (int i = 0; i < Order.Length; i++)
             {
                 BoosterKind kind = Order[i];
-                Button button = UiFactory.CreateButton(kind.ToString(), area, string.Empty, UiTheme.Panel, () => onPress(kind));
-                UiFactory.Place((RectTransform)button.transform, (i * 0.25f) + 0.02f, 0.05f, ((i + 1) * 0.25f) - 0.02f, 0.95f);
+                Color color = UiTheme.Of(DesignTokens.BoosterColor(Ids[i]));
+                RectTransform place = UiFactory.Place(UiFactory.CreateRect(kind.ToString(), area), (i * 0.25f) + 0.02f, 0f, ((i + 1) * 0.25f) - 0.02f, 1f);
+                bar._rings[i] = UiFactory.CreateImage("Targeting", place, ProceduralSprites.Circle, new Color(color.r, color.g, color.b, 0.3f));
+                bar._rings[i].preserveAspect = true;
+                UiFactory.Place(bar._rings[i].rectTransform, -0.05f, -0.1f, 1.05f, 1.1f);
+                bar._rings[i].enabled = false;
+
+                Image edge = UiFactory.CreateImage("Button", place, ProceduralSprites.Circle, UiTheme.Dark(color), raycast: true);
+                edge.preserveAspect = true;
+                UiFactory.Stretch(edge.rectTransform);
+                Image face = UiFactory.CreateImage("Face", edge.transform, ProceduralSprites.Circle, color);
+                face.preserveAspect = true;
+                RectTransform faceRect = UiFactory.Stretch(face.rectTransform);
+                faceRect.offsetMin = new Vector2(0f, UiKit.Units(7f));
+                Image glyph = UiFactory.CreateImage("Glyph", face.transform, ProceduralSprites.Shape("booster." + Ids[i]), i == 3 ? UiTheme.PetalCenter : Color.white);
+                glyph.preserveAspect = true;
+                UiFactory.Place(glyph.rectTransform, 0.22f, 0.22f, 0.78f, 0.78f);
+                var button = edge.gameObject.AddComponent<Button>();
+                button.targetGraphic = face;
+                button.onClick.AddListener(() => onPress(kind));
+                edge.gameObject.AddComponent<PressMotion>();
                 bar._buttons[i] = button;
-                bar._icons[i] = UiFactory.CreateImage("Icon", button.transform, Icon(kind), UiTheme.Accent);
-                bar._icons[i].preserveAspect = true;
-                UiFactory.Place(bar._icons[i].rectTransform, 0.05f, 0.1f, 0.45f, 0.9f);
-                bar._badges[i] = UiFactory.CreateText("Badge", button.transform, string.Empty, 36f, UiTheme.Text);
-                UiFactory.Place(bar._badges[i].rectTransform, 0.45f, 0f, 1f, 1f);
-                bar._locks[i] = UiFactory.CreateImage("Lock", button.transform, ProceduralSprites.Lock, UiTheme.Text);
-                bar._locks[i].preserveAspect = true;
-                UiFactory.Place(bar._locks[i].rectTransform, 0.3f, 0.15f, 0.7f, 0.85f);
+                bar._faces[i] = face;
+                bar._fade[i] = new CanvasGroupLike(edge, face, glyph);
+
+                bar._counts[i] = UiKit.CountBadge("Count", place, out Image countDisc);
+                UiFactory.Place(countDisc.rectTransform, 0.62f, -0.02f, 0.92f, 0.3f);
+                bar._countBadges[i] = countDisc.gameObject;
+
+                Image pricePill = UiKit.Pill("Price", place, UiTheme.Of(DesignTokens.Colors.BadgeCount));
+                UiFactory.Place(pricePill.rectTransform, 0.44f, -0.02f, 1.02f, 0.3f);
+                Image petal = UiKit.PetalIcon("Petal", pricePill.transform);
+                UiFactory.Place(petal.rectTransform, 0.04f, 0.1f, 0.36f, 0.9f);
+                bar._prices[i] = UiKit.Label("Amount", pricePill.transform, string.Empty, DesignTokens.Type.Badge, Color.white);
+                UiFactory.Place(bar._prices[i].rectTransform, 0.36f, 0.05f, 0.96f, 0.95f);
+                bar._priceBadges[i] = pricePill.gameObject;
             }
 
             return bar;
@@ -77,21 +115,24 @@ namespace Bloomlings.Client.UI.Gameplay
             for (int i = 0; i < Order.Length; i++)
             {
                 BoosterButtonState s = state(Order[i]);
-                _locks[i].enabled = !s.Unlocked;
-                _icons[i].enabled = s.Unlocked;
-                _badges[i].text = !s.Unlocked ? string.Empty
-                    : s.Charges > 0 ? "×" + s.Charges.ToString(CultureInfo.InvariantCulture)
-                    : s.Price.ToString(CultureInfo.InvariantCulture) + " ✿";
-                _buttons[i].interactable = s.Unlocked && s.Applicable && (s.Charges > 0 || s.Affordable);
+                Transform place = _buttons[i].transform.parent;
+                place.gameObject.SetActive(s.Unlocked);
+                bool enabled = s.Applicable && (s.Charges > 0 || s.Affordable);
+                _buttons[i].interactable = enabled;
+                _fade[i].SetAlpha(enabled ? 1f : 0.45f);
+                _countBadges[i].SetActive(s.Charges > 0);
+                _counts[i].text = s.Charges.ToString(CultureInfo.InvariantCulture);
+                _priceBadges[i].SetActive(s.Charges <= 0);
+                _prices[i].text = NumberText.Group(s.Price);
             }
         }
 
-        /// <summary>Highlights the button whose target the player is choosing (Return, Bloom Burst).</summary>
+        /// <summary>Rings the button whose target the player is choosing (Return, Bloom Burst).</summary>
         public void SetTargeting(BoosterKind? kind)
         {
             for (int i = 0; i < Order.Length; i++)
             {
-                _icons[i].color = kind == Order[i] ? UiTheme.Warning : UiTheme.Accent;
+                _rings[i].enabled = kind == Order[i];
             }
         }
 
@@ -115,12 +156,30 @@ namespace Bloomlings.Client.UI.Gameplay
             target.localScale = Vector3.one;
         }
 
-        private static Sprite Icon(BoosterKind kind) => kind switch
+        /// <summary>Fades a button's graphics together (a disabled booster is greyed, not hidden).</summary>
+        private readonly struct CanvasGroupLike
         {
-            BoosterKind.ExtraSlot => ProceduralSprites.PlusSlot,
-            BoosterKind.Shuffle => ProceduralSprites.ShuffleArrows,
-            BoosterKind.Return => ProceduralSprites.ReturnArrow,
-            _ => ProceduralSprites.Burst,
-        };
+            private readonly Graphic[] _graphics;
+            private readonly float[] _alphas;
+
+            public CanvasGroupLike(params Graphic[] graphics)
+            {
+                _graphics = graphics;
+                _alphas = new float[graphics.Length];
+                for (int i = 0; i < graphics.Length; i++)
+                {
+                    _alphas[i] = graphics[i].color.a;
+                }
+            }
+
+            public void SetAlpha(float alpha)
+            {
+                for (int i = 0; i < _graphics.Length; i++)
+                {
+                    Color c = _graphics[i].color;
+                    _graphics[i].color = new Color(c.r, c.g, c.b, _alphas[i] * alpha);
+                }
+            }
+        }
     }
 }

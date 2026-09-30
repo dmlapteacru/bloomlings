@@ -10,14 +10,15 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// Shown before a Hard (label from L5) or Super Hard (label from L10) level starts, with its own color and icon
-    /// treatment (FR-059, T065). Tap to dismiss; it also fades out by itself.
+    /// treatment (FR-059, T065), in the badge colors of the design board (spec 002 FR-010). The level pill keeps the
+    /// badge during play. Tap to dismiss; it also fades out by itself.
     /// </summary>
     public sealed class DifficultyBanner : MonoBehaviour
     {
         private const float ShowSeconds = 1.6f;
 
-        private static readonly Color HardColor = new Color(0.93f, 0.55f, 0.18f);
-        private static readonly Color SuperHardColor = new Color(0.78f, 0.22f, 0.36f);
+        private static readonly Color HardColor = UiTheme.Of(Design.DesignTokens.Colors.BadgeHard);
+        private static readonly Color SuperHardColor = UiTheme.Of(Design.DesignTokens.Colors.BadgeSuperHard);
 
         private GameObject _root = null!;
         private Image _panel = null!;
@@ -32,13 +33,12 @@ namespace Bloomlings.Client.UI.Screens
             banner._root = shade.gameObject;
             Button dismiss = shade.gameObject.AddComponent<Button>();
             dismiss.onClick.AddListener(banner.Hide);
-            banner._panel = UiFactory.CreateImage("Panel", shade.transform, ProceduralSprites.RoundedSquare, HardColor);
+            banner._panel = UiKit.Pill("Panel", shade.transform, HardColor);
             UiFactory.Place(banner._panel.rectTransform, 0.08f, 0.55f, 0.92f, 0.7f);
             banner._icon = UiFactory.CreateImage("Icon", banner._panel.transform, ProceduralSprites.Star, Color.white);
             banner._icon.preserveAspect = true;
             UiFactory.Place(banner._icon.rectTransform, 0.04f, 0.15f, 0.24f, 0.85f);
-            banner._label = UiFactory.CreateText("Label", banner._panel.transform, string.Empty, 88f, Color.white);
-            banner._label.fontStyle = FontStyles.Bold;
+            banner._label = UiKit.Label("Label", banner._panel.transform, string.Empty, Design.DesignTokens.Type.Title, Color.white);
             UiFactory.Place(banner._label.rectTransform, 0.26f, 0f, 0.98f, 1f);
             shade.gameObject.SetActive(false);
             return banner;

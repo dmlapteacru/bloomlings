@@ -82,6 +82,15 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba TileGround = Rgba.FromHex("#EFE6D2");
             public static readonly Rgba TileStone = Rgba.FromHex("#A3A6AE");
             public static readonly Rgba TileStoneEdge = Rgba.FromHex("#7D818B");
+            public static readonly Rgba TileMystery = Rgba.FromHex("#B8AFCB");
+            public static readonly Rgba PodMystery = Rgba.FromHex("#F7D6E6");
+            public static readonly Rgba PodMysteryMark = Rgba.FromHex("#C0508A");
+            public static readonly Rgba SpecialGate = Rgba.FromHex("#6E9A5B");
+            public static readonly Rgba SpecialFountain = Rgba.FromHex("#8FB4D6");
+            public static readonly Rgba SpecialChest = Rgba.FromHex("#C08A57");
+            public static readonly Rgba SpecialStatue = Rgba.FromHex("#A7A9BA");
+            public static readonly Rgba SpecialBridge = Rgba.FromHex("#A57C58");
+            public static readonly Rgba RewardBasket = Rgba.FromHex("#B87B4B");
 
             /// <summary>Every color token by its contract name (tests and docs).</summary>
             public static IReadOnlyDictionary<string, Rgba> All { get; } = new Dictionary<string, Rgba>(StringComparer.Ordinal)
@@ -140,6 +149,15 @@ namespace Bloomlings.Client.UI.Design
                 ["tile.ground"] = TileGround,
                 ["tile.stone"] = TileStone,
                 ["tile.stone_edge"] = TileStoneEdge,
+                ["tile.mystery"] = TileMystery,
+                ["pod.mystery"] = PodMystery,
+                ["pod.mystery_mark"] = PodMysteryMark,
+                ["special.gate"] = SpecialGate,
+                ["special.fountain"] = SpecialFountain,
+                ["special.chest"] = SpecialChest,
+                ["special.statue"] = SpecialStatue,
+                ["special.bridge"] = SpecialBridge,
+                ["currency.reward_basket"] = RewardBasket,
             };
 
             /// <summary>The medal color of ranks 1–3, or null for other ranks.</summary>

@@ -79,11 +79,11 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>The color a special is drawn in; its counted cells are outlined in it too.</summary>
         public static Color ColorOf(SpecialType type) => type switch
         {
-            SpecialType.Fountain => UiTheme.FountainColor,
-            SpecialType.Chest => new Color(0.66f, 0.47f, 0.30f),
-            SpecialType.Statue => new Color(0.62f, 0.62f, 0.68f),
-            SpecialType.Bridge => new Color(0.55f, 0.40f, 0.28f),
-            _ => UiTheme.GateColor,
+            SpecialType.Fountain => UiTheme.Of(UI.Design.DesignTokens.Colors.SpecialFountain),
+            SpecialType.Chest => UiTheme.Of(UI.Design.DesignTokens.Colors.SpecialChest),
+            SpecialType.Statue => UiTheme.Of(UI.Design.DesignTokens.Colors.SpecialStatue),
+            SpecialType.Bridge => UiTheme.Of(UI.Design.DesignTokens.Colors.SpecialBridge),
+            _ => UiTheme.Of(UI.Design.DesignTokens.Colors.SpecialGate),
         };
 
         /// <summary>Whether the object stays on the board after it triggers (a landmark) or its cells turn to open ground.</summary>

@@ -75,6 +75,9 @@ namespace Bloomlings.Client.Gameplay
         private BoosterKind? _targeting;
         private LevelReward? _reward;
         private MilestoneGrant? _milestone;
+        private SettingsScreen? _settings;
+        private MilestoneCard _milestoneCard = null!;
+        private bool _milestoneShown;
         private bool _hasCountedSpecials;
 
         // Analytics of the current attempt (T147).
@@ -108,8 +111,9 @@ namespace Bloomlings.Client.Gameplay
             {
                 _workers.Outfits = wardrobe.OutfitOf;
             }
-            _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave);
+            _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave, OpenSettings);
             _win = WinScreen.Create(root, Next);
+            _milestoneCard = MilestoneCard.Create(root, Next);
             _jam = JamScreen.Create(root, () => Restart("jam"), OnRecovery);
             _banner = DifficultyBanner.Create(root);
             _demo = DemoOverlay.Create(root);
@@ -125,6 +129,7 @@ namespace Bloomlings.Client.Gameplay
 
             (LevelDefinition level, BasePicture picture, SessionOptions options) = ResolveLevel();
             _session = LevelSession.Load(level, picture, options);
+            LayoutForLevel(_session);
             Service<AdPolicy>()?.OnAttemptStarted();
             if (AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && save!.Settings.Speed2x)
             {
@@ -233,15 +238,33 @@ namespace Bloomlings.Client.Gameplay
 
         private static bool IsDaily => Flow?.CurrentAttempt?.IsDaily ?? false;
 
-        /// <summary>The background of the level band (FR-066); the Daily Challenge uses the player's current band.</summary>
+        /// <summary>The garden backdrop of the level band (FR-066); the Daily Challenge uses the player's current band.</summary>
         private void ApplyTheme()
         {
             int level = IsDaily ? Progression?.CurrentLevel ?? 1 : Flow?.CurrentAttempt?.LevelNumber ?? _session!.Definition.LevelNumber;
-            BackgroundTheme theme = ThemeRotation.Default.ThemeFor(level);
-            if (Progression != null && ColorUtility.TryParseHtmlString(theme.Background, out Color color))
+            _hud.SetTheme(Progression != null ? ThemeRotation.Default.ThemeFor(level) : null);
+        }
+
+        /// <summary>
+        /// The screen regions for this level (spec 002 FR-009, FR-010, FR-014): the badge line of a labelled Hard or
+        /// Super Hard level, and the booster bar once a booster is unlocked. Laid out before the views are built.
+        /// </summary>
+        private void LayoutForLevel(LevelSession session)
+        {
+            ProgressionService? progression = Progression;
+            DifficultyClass difficulty = session.Definition.Difficulty.Class;
+            bool labelled = difficulty == DifficultyClass.Hard ? progression?.IsUnlocked("profile.hard") ?? true
+                : difficulty == DifficultyClass.SuperHard && (progression?.IsUnlocked("profile.super_hard") ?? true);
+            EconomyService? economy = Economy;
+            bool boosters = economy == null;
+            foreach ((string _, BoosterKind kind) in EconomyService.BoosterUnlocks)
             {
-                _hud.SetBackground(color, ColorUtility.TryParseHtmlString(theme.Accent, out Color accent) ? accent : (Color?)null);
+                boosters |= economy != null && economy.IsUnlocked(kind);
             }
+
+            _hud.Layout(labelled, boosters);
+            _hud.SetDifficulty(difficulty, labelled);
+            Canvas.ForceUpdateCanvases();
         }
 
         // ---- Input ----
@@ -435,7 +458,7 @@ namespace Bloomlings.Client.Gameplay
                     _board.RevealAll();
                     _workers.Celebrate(LevelVariants(_session!.Definition));
                     UiFx.Confetti(_root, ConfettiColors(_session.Definition), _milestone != null ? 80 : 40, _milestone != null ? 2.6f : 1.8f);
-                    _win.Show(this, RewardText(_reward) + MilestoneText(_milestone), DoubleRewardOffer(), _milestone != null);
+                    _win.Show(this, RewardText(_reward), DoubleRewardOffer(), _milestone != null);
                     break;
                 case LevelJammed _:
                 case LevelStuck _:
@@ -747,7 +770,7 @@ namespace Bloomlings.Client.Gameplay
                 {
                     Analytics?.AdRewarded("double_reward");
                     Economy.Grant(reward.Petals, null);
-                    update(RewardText(reward with { Petals = reward.Petals * 2 }) + MilestoneText(_milestone));
+                    update(RewardText(reward with { Petals = reward.Petals * 2 }));
                 }
             });
         }
@@ -793,30 +816,6 @@ namespace Bloomlings.Client.Gameplay
 
             string text = Loc.F("common.petals_plus", reward.Petals);
             return reward.DroppedBooster.HasValue ? text + "  " + Loc.F("win.drop", JamScreen.Label(RecoveryOf(reward.DroppedBooster.Value))) : text;
-        }
-
-        /// <summary>The milestone celebration line on the Win screen (FR-061).</summary>
-        private static string MilestoneText(MilestoneGrant? grant)
-        {
-            if (grant == null)
-            {
-                return string.Empty;
-            }
-
-            string text = "\n" + Loc.F("win.milestone", grant.Petals);
-            if (grant.Boosters != null)
-            {
-                int charges = grant.Boosters.ExtraSlot + grant.Boosters.Shuffle + grant.Boosters.Return + grant.Boosters.BloomBurst;
-                text += "  " + (charges == 1 ? Loc.T("win.boosters_one") : Loc.F("win.boosters_many", charges));
-            }
-
-            if (grant.Item != null)
-            {
-                WardrobeService? wardrobe = Service<WardrobeService>();
-                text += "  " + Loc.F("win.item", wardrobe != null && wardrobe.Catalog.TryGet(grant.Item, out CosmeticItem? item) ? WardrobeScreen.Name(item!) : grant.Item);
-            }
-
-            return text;
         }
 
         private static BoosterKind KindOf(Recovery recovery) => recovery switch
@@ -1027,6 +1026,17 @@ namespace Bloomlings.Client.Gameplay
             _pause.Show();
         }
 
+        /// <summary>Settings from the pause card (spec 002 FR-018): the same toggles as on Home.</summary>
+        private void OpenSettings()
+        {
+            if (_settings == null && AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && AppServices.Current.TryGet(out SaveService? saves))
+            {
+                _settings = SettingsScreen.Create(_root, save!.Settings, saves!.Save);
+            }
+
+            _settings?.Show();
+        }
+
         private void ClosePause()
         {
             _pause.Hide();
@@ -1067,6 +1077,16 @@ namespace Bloomlings.Client.Gameplay
 
         private void Next()
         {
+            // A milestone win shows its milestone card first (spec 002 FR-021), then CONTINUE goes on.
+            if (_milestone != null && !_milestoneShown)
+            {
+                _milestoneShown = true;
+                _win.Hide();
+                _milestoneCard.Show(_milestone, Service<WardrobeService>()?.Catalog);
+                return;
+            }
+
+            _milestoneCard.Hide();
             if (Flow != null)
             {
                 Flow.Next();
@@ -1337,6 +1357,8 @@ namespace Bloomlings.Client.Gameplay
             _tray.Refresh(session.View);
             _reward = null;
             _milestone = null;
+            _milestoneShown = false;
+            _milestoneCard.Hide();
             CancelTargeting();
             RefreshBoosters();
         }

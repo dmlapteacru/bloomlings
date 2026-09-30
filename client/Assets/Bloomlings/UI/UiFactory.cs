@@ -104,30 +104,58 @@ namespace Bloomlings.Client.UI
             return label;
         }
 
+        /// <summary>
+        /// A raised pill button in the design board's style (spec 002 FR-005): the face in <paramref name="color"/> over
+        /// a darker lower edge, with a bold label in the color's ink. The dark text color gives the cream secondary
+        /// button, and the accent gives the green primary one.
+        /// </summary>
         public static Button CreateButton(string name, Transform parent, string label, Color color, Action onClick, float fontSize = 48f)
         {
-            Image background = CreateImage(name, parent, ProceduralSprites.RoundedSquare, color, raycast: true);
-            var button = background.gameObject.AddComponent<Button>();
-            button.targetGraphic = background;
+            bool secondary = color == UiTheme.Text || color == UiTheme.SlotLocked;
+            Color face = secondary ? UiTheme.Secondary : color;
+            Color edge = secondary ? UiTheme.SecondaryEdge : color == UiTheme.Accent ? UiTheme.AccentEdge : Color.Lerp(color, Color.black, 0.28f);
+            Image edgeImage = UiKit.Pill(name, parent, edge, raycast: true);
+            Image faceImage = UiKit.Pill("Face", edgeImage.transform, face);
+            RectTransform faceRect = Stretch(faceImage.rectTransform);
+            faceRect.offsetMin = new Vector2(0f, UiKit.Units(Design.DesignTokens.Elevation.RaisedEdge));
+            if (color == UiTheme.Accent)
+            {
+                Image shine = UiKit.Pill("Shine", faceImage.transform, new Color(UiTheme.AccentTop.r, UiTheme.AccentTop.g, UiTheme.AccentTop.b, 0.75f));
+                Place(shine.rectTransform, 0.03f, 0.5f, 0.97f, 0.94f);
+            }
+
+            var button = edgeImage.gameObject.AddComponent<Button>();
+            button.targetGraphic = faceImage;
             button.onClick.AddListener(() =>
             {
                 GameFeedback.Current?.Play(SoundCue.Click);
                 onClick();
             });
-            TextMeshProUGUI text = CreateText("Label", background.transform, label, fontSize, UiTheme.TextOnColor);
-            Stretch(text.rectTransform);
+            edgeImage.gameObject.AddComponent<PressMotion>();
+            Color ink = face.a < 0.5f ? UiTheme.Text : UiTheme.Of(UiTheme.ToRgba(face).Ink);
+            TextMeshProUGUI text = CreateText("Label", faceImage.transform, label, fontSize, ink);
+            text.fontStyle = FontStyles.Bold;
+            text.enableAutoSizing = true;
+            text.fontSizeMax = fontSize;
+            text.fontSizeMin = fontSize * 0.6f;
+            Place(text.rectTransform, 0.06f, 0.06f, 0.94f, 0.94f);
             return button;
         }
 
-        /// <summary>A full-screen shade with a centered white card; returns the card.</summary>
+        /// <summary>
+        /// A full-screen shade with a centered cream card in the design board's popup style (spec 002 FR-007): rounded,
+        /// with a soft shadow, popping in. Returns the card.
+        /// </summary>
         public static RectTransform CreateModal(string name, Transform parent, float cardHeight01, out GameObject root)
         {
             Image shade = CreateImage(name, parent, null, UiTheme.PanelShade, raycast: true);
             Stretch(shade.rectTransform);
             root = shade.gameObject;
-            Image card = CreateImage("Card", shade.transform, ProceduralSprites.RoundedSquare, UiTheme.Panel, raycast: true);
+            Image card = UiKit.Rounded("Card", shade.transform, UiTheme.Panel, 56f, raycast: true);
+            UiKit.CardShadow(card);
+            card.gameObject.AddComponent<PopMotion>();
             float half = cardHeight01 / 2f;
-            Place(card.rectTransform, 0.1f, 0.5f - half, 0.9f, 0.5f + half);
+            Place(card.rectTransform, 0.08f, 0.5f - half, 0.92f, 0.5f + half);
             return card.rectTransform;
         }
     }

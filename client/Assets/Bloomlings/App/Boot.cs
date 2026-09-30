@@ -19,6 +19,7 @@ using Bloomlings.Client.Services.Purchases;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Progression;
+using Bloomlings.Client.UI.Screens;
 using UnityEngine;
 
 namespace Bloomlings.Client.App
@@ -43,6 +44,10 @@ namespace Bloomlings.Client.App
         {
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = _targetFrameRate;
+
+            // The splash (spec 002 frame 1) shows while services and content load; it needs no tap.
+            SplashScreen splash = SplashScreen.Create(transform);
+            yield return null;
 
             var services = new AppServices();
             var clock = new SystemClock();
@@ -211,6 +216,7 @@ namespace Bloomlings.Client.App
             services.Register(flow);
             AppServices.MakeCurrent(services);
             flow.Begin(firstLaunch);
+            splash.FadeOut(0.6f);
 
             // Offline-first (FR-074): everything below runs after the game is playable and never blocks it.
             StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, ledger, auth, sync, leaderboard, analytics));

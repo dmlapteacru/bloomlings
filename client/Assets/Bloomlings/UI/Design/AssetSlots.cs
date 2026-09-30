@@ -245,7 +245,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("slot.state.waiting", "Waiting mark (hourglass)", new[] { 13 }, "Slots", "waiting", SizeClass.Icon, readability: true);
             Shape("slot.state.jam_risk", "Jam-risk mark (!)", new[] { 13 }, "Slots", "risk", SizeClass.Icon, readability: true);
             Add("slot.state.locked", "Locked slot", new[] { 13 }, "Slots", "locked; opening", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "grey tile with a padlock");
-            Add("slot.state.danger", "Danger slot (the last free usable slot)", new[] { 13 }, "Slots", "danger (4/5 used)", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "red dashed frame");
+            Shape("slot.state.danger", "Danger slot frame (the last free usable slot)", new[] { 13 }, "Slots", "danger (4/5 used)", SizeClass.Small, readability: true);
             Add("slot.extra", "Extra slot (from the Extra Slot booster)", new[] { 13 }, "Slots", "added", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "slot with a green plus corner");
 
             // ---- Boosters ----
