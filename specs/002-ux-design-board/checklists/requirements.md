@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -32,7 +32,10 @@
 ## Notes
 
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`.
-- Iteration 1 (2026-09-30): two markers remain, both questions for the product owner:
+- Iteration 1 (2026-09-30): two markers remained, both questions for the product owner:
   - FR-003: which builds get the new design.
   - FR-011: Bloomling faces on board tiles, against spec 001 FR-005 and the locked docs 11 §6 and 12 §7.
+- Iteration 2 (2026-09-30): both answered (Clarifications, Session 2026-09-30). FR-003: the Unity client and the full
+  playtest APK; the tester stays minimal. FR-011: symbols on tiles, faces only on pods, slots and walkers. All items
+  pass.
 - FR-003 names builds (game client, playtest APKs) only to bound the scope; it prescribes no technology.

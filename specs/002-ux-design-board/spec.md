@@ -31,7 +31,13 @@ economy values and unlock roadmap stay those of spec 001 (`specs/001-core-game-m
 
 ## Clarifications
 
-*None yet. Two questions are open under Requirements (FR-003 and FR-011).*
+### Session 2026-09-30
+
+- Q: Which builds get the new design? → A: The Unity game client and the full playtest APK. The level tester APK
+  keeps its minimal look.
+- Q: The board draws some tiles with Bloomling faces, while spec 001 FR-005 forbids character faces on tiles. Keep
+  symbols or allow faces? → A: Keep simple variant symbols on tiles. Faces appear only on pods, slots and walking
+  Bloomlings. Spec 001 FR-005 and the locked docs stay unchanged.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -224,8 +230,9 @@ find where the game uses it.
 - **FR-002**: The design MUST be built without art or audio asset files for now. Every visual is drawn from shapes,
   gradients, outlines, text and the existing synthesized sounds. Each placeholder MUST be replaceable later by an asset
   without changing layout or behavior.
-- **FR-003**: The design MUST apply to [NEEDS CLARIFICATION: which builds get the new design — the Unity game client
-  only; the Unity client and the full playtest APK (the level tester APK stays as it is); or all three builds?].
+- **FR-003**: The design MUST apply to the Unity game client and to the full playtest APK. The level tester APK keeps
+  its minimal look. In both builds the design stays presentation only: rules, progression and economy keep coming from
+  the shared core and client services.
 - **FR-004**: The design MUST NOT change any rule, level, economy value, unlock level or reward of spec 001, and MUST
   NOT add gameplay. Numbers shown on the board (for example "+200 Petals" at Level 100, Return at Level 5) are
   illustrative; the game shows its real values.
@@ -261,9 +268,9 @@ find where the game uses it.
 - **FR-010**: Hard and Super Hard levels MUST show a small badge under the level pill: "HARD" in red, "SUPER HARD" in
   purple (frames 8, 9). Normal levels show none.
 - **FR-011**: Board tiles MUST keep the picture-first mosaic of spec 001 FR-006, in the board's rounded tile style.
-  Tiles MUST show [NEEDS CLARIFICATION: the design board draws some tiles with Bloomling faces, while spec 001 FR-005
-  and the locked docs 11 §6 and 12 §7 require simple variant symbols and never character faces on tiles — keep
-  symbols (faces only on pods, slots and walkers), or change FR-005 to allow faces on tiles?].
+  Tiles MUST show simple variant symbols, never character faces (spec 001 FR-005, docs 11 §6 and 12 §7). Bloomling
+  faces appear only on pods, in slots and on walking Bloomlings. Where the board draws faces on tiles, this is a
+  recorded deviation (see Assumptions).
 - **FR-012**: Pods MUST show the frame 12 states:
   - **exposed:** bright and raised;
   - **next in stack:** greyed, smaller;
@@ -427,4 +434,6 @@ find where the game uses it.
 - The splash is shown while the game loads. It is not an extra screen to tap through.
 - Placeholders use the synthesized sounds already in the game until audio assets exist.
 - The asset inventory is delivered after the placeholder implementation, as its own document next to this spec.
-- The level tester APK keeps its minimal look unless FR-003 decides otherwise.
+- The level tester APK keeps its minimal look (FR-003).
+- The board's faces on some tiles are not applied: tiles keep variant symbols (FR-011). Faces stay on pods, slots and
+  walking Bloomlings.
