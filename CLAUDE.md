@@ -59,12 +59,14 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Actions minutes (the owner's budget rule). Run the tests above locally before every push instead.
   `core-tests.yml` builds and tests `core/` and the client check; `content-validate.yml` validates content and diffs
   it against `main`; `catalog-nightly.yml` certifies the whole catalog. `android-apk.yml` builds the temporary
-  playtest APK (`playtest/android`, .NET for Android on the shared core, no secrets); `unity-apk.yml` builds the Unity
+  playtest APKs (.NET for Android on the shared core, no secrets): the full playtest (`playtest/android`) and the level
+  tester (`playtest/tester`), both or one of them; `unity-apk.yml` builds the Unity
   client's APK and needs the `UNITY_EMAIL`, `UNITY_PASSWORD` and `UNITY_LICENSE` secrets. Both APK workflows keep only
   the newest APK artifact (older ones are deleted, and each expires after 7 days). Do not add push, pull_request or
   schedule triggers until the owner allows it, and give every uploaded artifact a short `retention-days`.
 - `playtest/` is a temporary playtest client, not the product client (see `playtest/README.md`), kept so an APK builds
-  without Unity secrets. Never let gameplay or meta rules live there: it draws `LevelView`, plays the core's events
+  without Unity secrets. It builds two APKs from the same sources: the full playtest and the level tester
+  (`PLAYTEST_TESTER`: ◀ ▶ between levels, free boosters, instant results). Never let gameplay or meta rules live there: it draws `LevelView`, plays the core's events
   (`LevelAnimator`) and calls the Unity client's engine-free services, linked from `client/` (save, progression,
   economy, milestones, sound). Keep those client files engine-free so the link keeps compiling.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with

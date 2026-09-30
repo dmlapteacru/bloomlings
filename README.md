@@ -50,7 +50,8 @@ dotnet run --project core/src/Bloomlings.Pipeline -- --help                # con
 - **CI** (every workflow runs by hand only for now, Actions → Run workflow; run the tests locally before pushing):
   - `.github/workflows/core-tests.yml` builds and tests `core/` and the client check;
   - `content-validate.yml` validates content, and `catalog-nightly.yml` certifies the whole catalog;
-  - `android-apk.yml` builds a playtest APK without Unity or secrets (`playtest/`, Levels 1–94);
+  - `android-apk.yml` builds, without Unity or secrets, the full playtest APK and the level tester APK (`playtest/`,
+    Levels 1–94);
   - `unity-apk.yml` builds the Unity client's APK and needs the Unity licence secrets;
   - both APK workflows keep just the newest APK artifact.
 

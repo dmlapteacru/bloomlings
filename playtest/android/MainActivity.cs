@@ -7,9 +7,9 @@ using Android.OS;
 
 namespace Bloomlings.Playtest
 {
-    /// <summary>The single screen of the playtest client.</summary>
+    /// <summary>The single activity of the playtest APKs (the full playtest or the level tester).</summary>
     [Activity(
-        Label = "Bloomlings Playtest",
+        Label = PlaytestFlavor.Title,
         MainLauncher = true,
         ScreenOrientation = ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.Material.Light.NoActionBar",

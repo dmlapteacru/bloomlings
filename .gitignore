@@ -57,3 +57,5 @@ playtest/android/bin/
 playtest/android/obj/
 playtest/check/bin/
 playtest/check/obj/
+playtest/tester/bin/
+playtest/tester/obj/

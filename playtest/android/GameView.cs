@@ -26,6 +26,10 @@ namespace Bloomlings.Playtest
     /// Bloomlings, tiles shrinking away and counts dropping. Progress, Petals, booster unlocks and charges and milestones
     /// come from the Unity client's engine-free services (<see cref="PlaytestMeta"/>). The very first launch goes
     /// straight into Level 1; later launches open Home.
+    /// <para>
+    /// The level tester build (<see cref="PlaytestFlavor.Tester"/>) keeps the first playtest's quick loop: levels open
+    /// straight away, ◀ ▶ move between them, every booster is free, and a tap shows its result at once.
+    /// </para>
     /// </summary>
     public sealed class GameView : View
     {
@@ -96,7 +100,12 @@ namespace Bloomlings.Playtest
             _animator.Speed = _meta.Save.Settings.Speed2x ? 2f : 1f;
             _animator.Arrived += OnArrived;
             _animator.Shown += OnShown;
-            if (_meta.FirstLaunch)
+            if (PlaytestFlavor.Tester)
+            {
+                _animator.Speed = 1f;
+                LoadLevel(_prefs.GetInt("level", 1));
+            }
+            else if (_meta.FirstLaunch)
             {
                 StartLevel();
             }
@@ -201,10 +210,18 @@ namespace Bloomlings.Playtest
         // ---- Screens and levels ----
 
         /// <summary>Plays the current level (the progression's Level N; the playtest levels repeat past the last one).</summary>
-        private void StartLevel()
+        private void StartLevel() => LoadLevel(_meta.CurrentLevel);
+
+        /// <summary>Plays a level; the tester remembers it, the full playtest follows the progression.</summary>
+        private void LoadLevel(int levelNumber)
         {
             _home = false;
-            _level = _meta.CurrentLevel;
+            _level = Math.Max(1, levelNumber);
+            if (PlaytestFlavor.Tester)
+            {
+                _prefs.Edit()!.PutInt("level", _level)!.Apply();
+            }
+
             LevelDefinition definition = _content.GetLevel(Resolve(_level));
             _session = LevelSession.Load(definition, _content.GetPicture(definition.Picture), new SessionOptions(_content.ContentVersion, _content.ShuffleNodeBudget));
             _animator.Reset(_session.View);
@@ -230,9 +247,14 @@ namespace Bloomlings.Playtest
         private void ShowLevelIntro()
         {
             DifficultyClass difficulty = _session.Definition.Difficulty.Class;
-            if (difficulty != DifficultyClass.Normal && _meta.Progression.IsUnlocked(difficulty == DifficultyClass.Hard ? "profile.hard" : "profile.super_hard"))
+            if (difficulty != DifficultyClass.Normal && (PlaytestFlavor.Tester || _meta.Progression.IsUnlocked(difficulty == DifficultyClass.Hard ? "profile.hard" : "profile.super_hard")))
             {
                 Toast(PlaytestText.T(difficulty == DifficultyClass.Hard ? "difficulty.hard" : "difficulty.super_hard"));
+            }
+
+            if (PlaytestFlavor.Tester)
+            {
+                return; // The tester shows no demos.
             }
 
             _firstTapHint = _level == 1 && !_meta.HasSeenDemo("system.core");
@@ -366,7 +388,15 @@ namespace Bloomlings.Playtest
                 _meta.MarkDemoSeen("system.core");
             }
 
-            _animator.Tapped(result, _session.View, before);
+            if (PlaytestFlavor.Tester)
+            {
+                ShowAtOnce(result);
+            }
+            else
+            {
+                _animator.Tapped(result, _session.View, before);
+            }
+
             AfterCommand();
         }
 
@@ -381,7 +411,7 @@ namespace Bloomlings.Playtest
                 return;
             }
 
-            if (!_meta.Economy.TryTakeCharge(kind))
+            if (!PlaytestFlavor.Tester && !_meta.Economy.TryTakeCharge(kind))
             {
                 Toast(PlaytestText.T("gameplay.not_enough_petals"));
                 Invalidate();
@@ -391,7 +421,15 @@ namespace Bloomlings.Playtest
             _animator.Flush(_session.View);
             CommandResult result = _session.Apply(command);
             _sound.Play(SoundCue.Booster);
-            _animator.Boosted(result, _session.View);
+            if (PlaytestFlavor.Tester)
+            {
+                ShowAtOnce(result);
+            }
+            else
+            {
+                _animator.Boosted(result, _session.View);
+            }
+
             AfterCommand();
         }
 
@@ -402,7 +440,7 @@ namespace Bloomlings.Playtest
                 return;
             }
 
-            if (!_meta.Economy.IsUnlocked(kind))
+            if (!PlaytestFlavor.Tester && !_meta.Economy.IsUnlocked(kind))
             {
                 Toast("Opens at Level " + UnlockLevel(kind));
                 Invalidate();
@@ -426,7 +464,7 @@ namespace Bloomlings.Playtest
                     UseBooster(kind, new UseShuffle());
                     break;
                 default:
-                    if (!_meta.Economy.CanAfford(kind))
+                    if (!PlaytestFlavor.Tester && !_meta.Economy.CanAfford(kind))
                     {
                         Toast(PlaytestText.T("gameplay.not_enough_petals"));
                         Invalidate();
@@ -454,13 +492,64 @@ namespace Bloomlings.Playtest
         /// <summary>A won level is recorded and paid at once, so closing the app during the animation keeps it (R15).</summary>
         private void AfterCommand()
         {
-            if (_session.Status == LevelStatus.Won && _payout == null)
+            if (PlaytestFlavor.Tester)
+            {
+                if (_session.Status == LevelStatus.Won)
+                {
+                    _prefs.Edit()!.PutInt("level", _level + 1)!.Apply();
+                }
+            }
+            else if (_session.Status == LevelStatus.Won && _payout == null)
             {
                 _payout = _meta.CompleteLevel(_level, _session.Definition.Difficulty.Class, _session.BoostersUsed) ?? new WinPayout(null, null);
             }
 
             Invalidate();
         }
+
+        /// <summary>The tester: the result shows at once, with the command's cue and then its most notable outcome.</summary>
+        private void ShowAtOnce(CommandResult result)
+        {
+            _animator.Reset(_session.View);
+            SoundCue? outcome = _session.Status switch
+            {
+                LevelStatus.Won => SoundCue.Win,
+                LevelStatus.Jammed or LevelStatus.Stuck => SoundCue.Jam,
+                _ => null,
+            };
+            foreach (GameEvent e in result.Events)
+            {
+                SoundCue? cue = e switch
+                {
+                    SpecialTriggered => SoundCue.Special,
+                    KeyCollected => SoundCue.Key,
+                    PodCompleted => SoundCue.PodDone,
+                    TileCleared => SoundCue.Clear,
+                    _ => null,
+                };
+                if (cue.HasValue && (!outcome.HasValue || Rank(cue.Value) > Rank(outcome.Value)))
+                {
+                    outcome = cue;
+                }
+            }
+
+            if (outcome.HasValue)
+            {
+                SoundCue later = outcome.Value;
+                PostDelayed(() => _sound.Play(later), 160);
+            }
+        }
+
+        private static int Rank(SoundCue cue) => cue switch
+        {
+            SoundCue.Win => 6,
+            SoundCue.Jam => 5,
+            SoundCue.Special => 4,
+            SoundCue.Key => 3,
+            SoundCue.PodDone => 2,
+            SoundCue.Clear => 1,
+            _ => 0,
+        };
 
         private void OnArrived(TileCleared clear)
         {
@@ -628,17 +717,28 @@ namespace Bloomlings.Playtest
         private void DrawTopBar(Canvas canvas, RectF bar)
         {
             float h = bar.Height();
-            Button(canvas, new RectF(bar.Left, bar.Top, bar.Left + (h * 1.2f), bar.Bottom), "⌂", TextColor, GoHome);
+            if (PlaytestFlavor.Tester)
+            {
+                // The tester's quick loop: ◀ ▶ move between levels.
+                Button(canvas, new RectF(bar.Left, bar.Top, bar.Left + (h * 1.2f), bar.Bottom), "◀", Locked, () => LoadLevel(_level - 1));
+                Button(canvas, new RectF(bar.Right - (h * 2.5f), bar.Top, bar.Right - (h * 1.3f), bar.Bottom), "▶", Locked, () => LoadLevel(_level + 1));
+            }
+            else
+            {
+                Button(canvas, new RectF(bar.Left, bar.Top, bar.Left + (h * 1.2f), bar.Bottom), "⌂", TextColor, GoHome);
+                Button(canvas, new RectF(bar.Right - (h * 2.5f), bar.Top, bar.Right - (h * 1.3f), bar.Bottom), _animator.Speed > 1f ? "2×" : "1×", Accent, ToggleSpeed);
+            }
+
             Button(canvas, new RectF(bar.Left + (h * 1.3f), bar.Top, bar.Left + (h * 2.5f), bar.Bottom), _sound.Enabled ? "♪" : "×", _sound.Enabled ? Accent : Locked, ToggleSound);
-            Button(canvas, new RectF(bar.Right - (h * 2.5f), bar.Top, bar.Right - (h * 1.3f), bar.Bottom), _animator.Speed > 1f ? "2×" : "1×", Accent, ToggleSpeed);
             Button(canvas, new RectF(bar.Right - (h * 1.2f), bar.Top, bar.Right, bar.Bottom), "↻", TextColor, Restart);
 
             DifficultyClass difficulty = _session.Definition.Difficulty.Class;
             int resolved = Resolve(_level);
             string title = PlaytestText.F("common.level", _level) + (resolved != _level ? " (= L" + resolved + ")" : string.Empty);
             Text(canvas, title, bar.CenterX(), bar.Top + (h * 0.42f), h * 0.42f, TextColor);
-            string subtitle = difficulty == DifficultyClass.Normal ? "✿ " + _meta.Economy.Petals
-                : PlaytestText.T(difficulty == DifficultyClass.Hard ? "difficulty.hard" : "difficulty.super_hard") + " · ✿ " + _meta.Economy.Petals;
+            string tail = PlaytestFlavor.Tester ? "tester" : "✿ " + _meta.Economy.Petals;
+            string subtitle = difficulty == DifficultyClass.Normal ? tail
+                : PlaytestText.T(difficulty == DifficultyClass.Hard ? "difficulty.hard" : "difficulty.super_hard") + " · " + tail;
             Text(canvas, subtitle, bar.CenterX(), bar.Top + (h * 0.85f), h * 0.26f, difficulty == DifficultyClass.Normal ? Locked : Warning);
         }
 
@@ -953,8 +1053,9 @@ namespace Bloomlings.Playtest
             {
                 (BoosterKind kind, Recovery recovery, string _) = Boosters[i];
                 var rect = new RectF(area.Left + (i * (w + gap)), area.Top, area.Left + (i * (w + gap)) + w, area.Bottom);
-                bool unlocked = _meta.Economy.IsUnlocked(kind);
-                string label = !unlocked ? ShortName(kind) + " L" + UnlockLevel(kind)
+                bool unlocked = PlaytestFlavor.Tester || _meta.Economy.IsUnlocked(kind);
+                string label = PlaytestFlavor.Tester ? ShortName(kind)
+                    : !unlocked ? ShortName(kind) + " L" + UnlockLevel(kind)
                     : _meta.Economy.Charges(kind) > 0 ? ShortName(kind) + " ×" + _meta.Economy.Charges(kind)
                     : ShortName(kind) + " " + _meta.Economy.Price(kind) + "✿";
                 Color color = !unlocked ? Locked : _targeting == recovery ? Warning : Accent;
@@ -1095,6 +1196,12 @@ namespace Bloomlings.Playtest
                 }
 
                 float buttonTop = card.Top + (card.Height() * 0.62f);
+                if (PlaytestFlavor.Tester)
+                {
+                    Button(canvas, new RectF(card.Left + (w * 0.1f), buttonTop, card.Right - (w * 0.1f), card.Bottom - (card.Height() * 0.1f)), PlaytestText.T("common.next") + " ▶", Accent, () => LoadLevel(_level + 1));
+                    return;
+                }
+
                 Button(canvas, new RectF(card.Left + (w * 0.05f), buttonTop, card.CenterX() - (w * 0.02f), card.Bottom - (card.Height() * 0.1f)), "⌂", TextColor, GoHome);
                 Button(canvas, new RectF(card.CenterX() + (w * 0.02f), buttonTop, card.Right - (w * 0.05f), card.Bottom - (card.Height() * 0.1f)), PlaytestText.T("common.next") + " ▶", Accent, StartLevel);
                 return;
@@ -1106,7 +1213,11 @@ namespace Bloomlings.Playtest
             {
                 foreach ((BoosterKind kind, Recovery r, string _) in Boosters)
                 {
-                    if (r == recovery && _meta.Economy.IsUnlocked(kind) && _meta.Economy.CanAfford(kind))
+                    if (r == recovery && PlaytestFlavor.Tester)
+                    {
+                        options.Add((ShortName(kind), Accent, () => PressBooster(kind, r)));
+                    }
+                    else if (r == recovery && _meta.Economy.IsUnlocked(kind) && _meta.Economy.CanAfford(kind))
                     {
                         string cost = _meta.Economy.Charges(kind) > 0 ? "×" + _meta.Economy.Charges(kind) : _meta.Economy.Price(kind) + "✿";
                         options.Add((ShortName(kind) + " " + cost, Accent, () => PressBooster(kind, r)));
@@ -1114,7 +1225,11 @@ namespace Bloomlings.Playtest
                 }
             }
 
-            options.Add(("⌂", Locked, GoHome));
+            if (!PlaytestFlavor.Tester)
+            {
+                options.Add(("⌂", Locked, GoHome));
+            }
+
             float rowTop = card.Top + (card.Height() * 0.3f);
             int rows = Math.Max(1, (options.Count + 1) / 2);
             float rowHeight = (card.Bottom - rowTop - (card.Height() * 0.05f)) / rows;

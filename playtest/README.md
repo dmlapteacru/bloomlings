@@ -6,7 +6,16 @@ the .NET Android workload and the runner's Android SDK are free, while the Unity
 licence. The Unity client stays the product client (doc 15). This one is for playtesting the rules and levels until
 the Unity build runs.
 
-## What it has
+The same sources build two APKs, which install side by side:
+
+| APK | Project | For |
+|---|---|---|
+| **Bloomlings Playtest** (`com.bloomlings.playtest`) | `playtest/android` | the game as a player meets it: Home, progression and unlocks, Petals and booster charges, milestones, demos, animations |
+| **Bloomlings Tester** (`com.bloomlings.playtest.tester`) | `playtest/tester` (`PLAYTEST_TESTER`) | quick level testing: levels open straight away, ◀ ▶ move between them, every booster is free, a tap shows its result at once, no Home, progression, economy or demos |
+
+`PlaytestFlavor` holds the difference; `playtest/Playtest.Shared.props` holds everything the two share.
+
+## What the full playtest has
 
 - Levels 1–94 in `playtest/content/levels/` (refreshed 2026-09-29):
   - the curated Levels 1–10;
@@ -44,10 +53,12 @@ There is no store, ads, sign-in, analytics, Wardrobe or Collection; those live i
 
 ## Build
 
-- **GitHub**: Actions → **android-apk** → Run workflow. The APK is the `bloomlings-playtest-apk` artifact of the run.
-  The workflow is manual only and keeps only the newest APK.
-- **Locally** (needs the Android SDK and JDK 17):
-  `dotnet workload install android`, then `dotnet publish playtest/android -c Release -f net10.0-android`.
+- **GitHub**: Actions → **android-apk** → Run workflow, and pick `both`, `playtest` or `tester`. The APKs are the
+  `bloomlings-playtest-apk` and `bloomlings-tester-apk` artifacts of the run. The workflow is manual only and keeps
+  only the newest APK of each kind.
+- **Locally** (needs the Android SDK and JDK 17): `dotnet workload install android`, then
+  `dotnet publish playtest/android -c Release -f net10.0-android` or the same for `playtest/tester`.
+- `dotnet run --project playtest/check` checks the animator and the meta layer without Android.
 
 To refresh the preview levels after regenerating them, copy the batch files into `playtest/content/levels/`. Keep
 exactly one file per level number, and keep Levels 1–10 from `content/curated/`.

@@ -2,56 +2,13 @@
   <!--
     Temporary playtest client (not the product client): a plain .NET for Android app on the same deterministic core,
     so an APK builds on a stock GitHub runner with no licence or secrets. The Unity client in client/ stays the real
-    client (doc 15). See playtest/README.md.
+    client (doc 15). This is the full playtest: Home, progression, economy, demos and animations. The level tester
+    (playtest/tester) builds the same sources in tester mode. See playtest/README.md.
   -->
+  <Import Project="../Playtest.Shared.props" />
+
   <PropertyGroup>
-    <TargetFramework>net10.0-android</TargetFramework>
-    <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
-    <OutputType>Exe</OutputType>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <LangVersion>latest</LangVersion>
-    <RootNamespace>Bloomlings.Playtest</RootNamespace>
     <ApplicationId>com.bloomlings.playtest</ApplicationId>
     <ApplicationTitle>Bloomlings Playtest</ApplicationTitle>
-    <ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
-    <ApplicationVersion>$([MSBuild]::ValueOrDefault('$(GITHUB_RUN_NUMBER)', '1'))</ApplicationVersion>
-    <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <RuntimeIdentifiers>android-arm64;android-arm;android-x64</RuntimeIdentifiers>
-    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
-    <ProjectReference Include="../../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!--
-      The Unity client's engine-free logic, linked (never copied): sound synthesis, the save file, progression and
-      unlocks, Petals and booster charges, milestones, and the ink contrast rule. The playtest only draws and calls it.
-    -->
-    <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" Link="Shared/ToneSynth.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" Link="Shared/PlayerSave.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveSerializer.cs" Link="Shared/SaveSerializer.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveService.cs" Link="Shared/SaveService.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/IClock.cs" Link="Shared/IClock.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/SystemClock.cs" Link="Shared/SystemClock.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/App/Progression/ProgressionService.cs" Link="Shared/ProgressionService.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneService.cs" Link="Shared/MilestoneService.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneTable.cs" Link="Shared/MilestoneTable.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyService.cs" Link="Shared/EconomyService.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" Link="Shared/EconomyConfig.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" Link="Shared/IRemoteConfigService.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" Link="Shared/RemoteConfigKeys.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/CosmeticCatalog.cs" Link="Shared/CosmeticCatalog.cs" />
-    <Compile Include="../../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" Link="Shared/InkContrast.cs" />
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv" LogicalName="strings/Strings_en.csv" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Levels 1–94 for playtests (playtest/content/levels) and the picture library they use. -->
-    <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
-    <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
-  </ItemGroup>
 </Project>
