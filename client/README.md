@@ -43,7 +43,8 @@ no prefab or sprite asset is needed yet.
 ## Verification status
 
 `client/DotnetCheck` compiles every client script against minimal Unity API stubs and runs the engine-free EditMode
-tests (save, progression, golden replays) under .NET; CI runs it with the core tests:
+tests (save, progression, golden replays) under .NET; `core-tests.yml` runs it with the core tests when started by
+hand:
 
 ```sh
 dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj

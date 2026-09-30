@@ -747,8 +747,10 @@ Quickstart §2–§4 must pass.
   - `.github/workflows/catalog-nightly.yml` runs on a nightly cron: full `validate`, `score` and the similarity
     statistics, and uploads a JSON report artifact (SC-004, SC-012).
   Status: `score` also reports the SC-012 similarity statistics (distinct pictures up to L100, the smallest reuse
-  gap, repeats within 50 levels). Changed 2026-09-29: `catalog-nightly.yml` runs by hand only (the owner's Actions
-  budget rule); its cron can come back once the launch catalog exists (T153).
+  gap, repeats within 50 levels). Changed 2026-09-29/30: every workflow runs by hand only (the owner's Actions budget
+  rule): `catalog-nightly.yml` lost its cron, `core-tests.yml` its push and pull_request triggers, and
+  `content-validate.yml` its pull_request trigger (a `base` input replaces the pull request's base branch). The tests
+  run locally before each push; the triggers come back when the budget allows.
 - [X] T094 [US3] Seed the picture library for Levels 11–100 with at least 90 base pictures under
   `content/pictures/src/`, as `.grid.txt` or indexed PNG plus `.meta.json`. They show garden-world subjects:
   flowers, fruit, insects, small animals, garden tools and cozy objects. Import them with `pictures import`. Status

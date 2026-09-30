@@ -47,13 +47,12 @@ dotnet run --project core/src/Bloomlings.Pipeline -- --help                # con
 - **Client**: open `client/` with Unity 6.3 LTS and see [`client/README.md`](client/README.md). The first-open steps
   cover the scenes, the content import, the SDK packages, localization and the device determinism player.
 - **Backend**: see [`backend/README.md`](backend/README.md) for Remote Config defaults and the Cloud Code scripts.
-- **CI**:
-  - `.github/workflows/core-tests.yml` runs on every push;
-  - `content-validate.yml` checks content on pull requests, and `catalog-nightly.yml` certifies the whole catalog when
-    run by hand;
+- **CI** (every workflow runs by hand only for now, Actions → Run workflow; run the tests locally before pushing):
+  - `.github/workflows/core-tests.yml` builds and tests `core/` and the client check;
+  - `content-validate.yml` validates content, and `catalog-nightly.yml` certifies the whole catalog;
   - `android-apk.yml` builds a playtest APK without Unity or secrets (`playtest/`, Levels 1–94);
   - `unity-apk.yml` builds the Unity client's APK and needs the Unity licence secrets;
-  - both APK workflows run by hand only (Actions → Run workflow) and keep just the newest APK artifact.
+  - both APK workflows keep just the newest APK artifact.
 
 ## Repository layout
 

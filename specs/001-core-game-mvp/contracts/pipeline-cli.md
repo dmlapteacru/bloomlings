@@ -43,7 +43,10 @@ content/
 
 ## CI usage
 
-- **Pull request**:
+Every workflow runs by hand only for now (Actions → Run workflow), to spend no Actions minutes; the same commands run
+locally before each push.
+
+- **Pull request** (`content-validate.yml`):
   - `pictures validate`
   - `validate --changed-only`
   - `diff --from <main> --to <branch>`

@@ -1,9 +1,10 @@
 name: core-tests
 
+# Manual only for now (Actions → Run workflow), so pushes and pull requests spend no Actions minutes; the tests are run
+# locally before each push (CLAUDE.md "Build and test commands"). Restore the push and pull_request triggers when the
+# budget allows.
 on:
-  pull_request:
-  push:
-    branches: ["**"]
+  workflow_dispatch:
 
 jobs:
   build-and-test:

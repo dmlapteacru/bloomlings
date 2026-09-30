@@ -53,12 +53,14 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Mechanic showcase levels live in `content/showcase/` (generated with `generate --mechanics <m> --class normal`);
   `generate` keeps them fixed (`--keep`).
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
-- CI: `.github/workflows/core-tests.yml` builds and tests `core/` and the client check on every push and pull request.
-  `android-apk.yml` builds the temporary playtest APK (`playtest/android`, .NET for Android on the shared core, no
-  secrets); `unity-apk.yml` builds the Unity client's APK and needs the `UNITY_EMAIL`, `UNITY_PASSWORD` and
-  `UNITY_LICENSE` secrets. Both are **manual only** (Actions → Run workflow), so commits spend no Actions minutes, and
-  both keep only the newest APK artifact (older ones are deleted, and each expires after 7 days). Keep new workflows
-  manual or cheap, and give every uploaded artifact a short `retention-days`.
+- CI: **every workflow is manual only for now** (Actions → Run workflow), so pushes and pull requests spend no
+  Actions minutes (the owner's budget rule). Run the tests above locally before every push instead.
+  `core-tests.yml` builds and tests `core/` and the client check; `content-validate.yml` validates content and diffs
+  it against `main`; `catalog-nightly.yml` certifies the whole catalog. `android-apk.yml` builds the temporary
+  playtest APK (`playtest/android`, .NET for Android on the shared core, no secrets); `unity-apk.yml` builds the Unity
+  client's APK and needs the `UNITY_EMAIL`, `UNITY_PASSWORD` and `UNITY_LICENSE` secrets. Both APK workflows keep only
+  the newest APK artifact (older ones are deleted, and each expires after 7 days). Do not add push, pull_request or
+  schedule triggers until the owner allows it, and give every uploaded artifact a short `retention-days`.
 - `playtest/` is a temporary playtest client, not the product client (see `playtest/README.md`): keep it minimal and
   never let gameplay logic live there; it only draws `LevelView` and sends commands to the core.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with

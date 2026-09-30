@@ -2,12 +2,18 @@ name: content-validate
 
 # Gates content changes on pull requests (T093, contracts/pipeline-cli.md "CI usage"): the picture library, the
 # changed levels (FR-080, FR-081; FR-083 still covers the whole catalog) and deliberate definitionVersion bumps (FR-076).
+# Manual only for now (Actions → Run workflow), so pull requests spend no Actions minutes; `validate` is run locally
+# before content is pushed. Restore the pull_request trigger (paths content/**, core/**) when the budget allows.
 on:
-  pull_request:
-    paths:
-      - "content/**"
-      - "core/**"
-      - ".github/workflows/content-validate.yml"
+  workflow_dispatch:
+    inputs:
+      base:
+        description: Branch to compare against (changed levels, unversioned changes)
+        type: string
+        default: main
+
+env:
+  BASE_REF: ${{ github.base_ref || inputs.base }}
 
 jobs:
   validate-content:
@@ -33,15 +39,15 @@ jobs:
       - name: Changed catalog levels
         run: >
           dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build --
-          validate --defs content/catalog --context content/curated --changed-only --base "origin/${{ github.base_ref }}"
+          validate --defs content/catalog --context content/curated --changed-only --base "origin/${{ env.BASE_REF }}"
 
       # FR-076: a shipped level or picture changes only with a version bump (curated levels ship too).
       - name: Unversioned changes (catalog and pictures)
         run: >
           dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build --
-          diff --from "origin/${{ github.base_ref }}" --to content/catalog
+          diff --from "origin/${{ env.BASE_REF }}" --to content/catalog
 
       - name: Unversioned changes (curated levels)
         run: >
           dotnet run --project core/src/Bloomlings.Pipeline -c Release --no-build --
-          diff --from "origin/${{ github.base_ref }}" --to content/curated
+          diff --from "origin/${{ env.BASE_REF }}" --to content/curated
