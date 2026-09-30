@@ -73,9 +73,31 @@ namespace Bloomlings.Client.Gameplay.Slots
         public void ReleaseLocks() => _heldLocks.Clear();
 
         /// <summary>Resets every slot to the logical state (level start, restart, boosters); locks held for a flying key stay.</summary>
-        public void Reset(LevelView view)
+        /// <param name="settling">
+        /// The events of a booster whose settle rounds are still to play: the counts are shown before that work lands, and
+        /// a pod that finishes in those rounds stays in its slot until its wave, so the timeline's decrements end at the
+        /// logical counts.
+        /// </param>
+        public void Reset(LevelView view, IReadOnlyList<GameEvent>? settling = null)
         {
             StopAllCoroutines();
+            var pending = new Dictionary<string, int>(System.StringComparer.Ordinal);
+            var finishing = new List<PodCompleted>();
+            if (settling != null)
+            {
+                foreach (GameEvent e in settling)
+                {
+                    if (e.Round > 0 && e is TileCleared clear)
+                    {
+                        pending[clear.PodId] = (pending.TryGetValue(clear.PodId, out int n) ? n : 0) + 1;
+                    }
+                    else if (e.Round > 0 && e is PodCompleted done)
+                    {
+                        finishing.Add(done);
+                    }
+                }
+            }
+
             foreach (Slot slot in _slots)
             {
                 slot.Clear();
@@ -84,7 +106,16 @@ namespace Bloomlings.Client.Gameplay.Slots
                 if (podId != null)
                 {
                     PodInfo pod = view.Pod(podId);
-                    slot.Occupy(podId, pod.Variant, pod.Remaining, _visuals);
+                    slot.Occupy(podId, pod.Variant, pod.Remaining + (pending.TryGetValue(podId, out int n) ? n : 0), _visuals);
+                }
+            }
+
+            foreach (PodCompleted done in finishing)
+            {
+                Slot slot = _slots[done.SlotIndex];
+                if (slot.PodId == null)
+                {
+                    slot.Occupy(done.PodId, view.Pod(done.PodId).Variant, pending.TryGetValue(done.PodId, out int n) ? n : 0, _visuals);
                 }
             }
 

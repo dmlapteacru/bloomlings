@@ -18,19 +18,29 @@ the Unity build runs.
     (4 variants, pods under 5 tiles) and some repeat a picture. They are playable, but not catalog levels.
 
   Past L94 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
-- One screen drawn on a canvas:
-  - the board, where restored cells show the finished picture's colors;
-  - the Waiting Slots, the Source Tray and free boosters (+Slot, Shuffle, Return, Burst);
-  - the win and jam overlays.
-  Taps apply at once, exactly as the core resolves them; there are no walker animations.
-- Tester controls: ◀ ▶ skip levels, ↻ restarts, ♪ mutes sound and vibration. Progress is kept on the device.
-- Sound and vibration: the Unity client's synthesized cues (`ToneSynth`, linked from `client/`), a tap cue at once and
-  the most notable outcome (clear, pod done, key, special, jam, win) a moment later, with short vibration pulses.
+- Two screens drawn on a canvas:
+  - **Home**: Level N, Play/Continue, Petals, booster charges (or the level each booster opens at), the next milestone,
+    and tester controls (◀ −1 and +1 ▶ move the progression, Reset starts a new profile). The very first launch goes
+    straight into Level 1; later launches open Home, and ⌂ returns to it from a level.
+  - **Level**: the board (restored cells show the finished picture), the Waiting Slots, the boosters, the Source Tray,
+    and the demo, win and jam cards.
+- Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):
+  the save file, the unlock roadmap (boosters open at L3, L4, L6 and L9 with a free charge; mechanics, Hard and Super
+  Hard as in the spec), Petals for wins, booster charges bought with Petals, level drops and milestone rewards.
+- Animation: the rules resolve a tap at once in the core; `LevelAnimator` then plays the events round by round, like
+  the Unity client's timeline: a pod flies from the tray to its slot, Bloomlings walk from the Garden Entry to their
+  tiles, each tile shrinks away when its Bloomling arrives, slot counts drop, a finished pod leaves, locks stay until
+  their key's wave, and the win or jam card waits for the last wave. 2× speed and backlog compression change only the
+  pace. A harness replays every golden case and every showcase solution, with pauses and with rapid taps, and checks
+  that the settled screen equals the rules state.
+- Demos once each, with the Unity client's texts (`Strings_en.csv`, embedded): the Level 1 tap hint, each booster at
+  its unlock, each mechanic the first time a level uses it, a new variant, and "Match the exact symbol".
+- Tester controls in a level: ⌂ Home, ♪ sound and vibration, 1×/2× speed (saved), ↻ restart.
 - Variants show a two-letter code: Lf Leaf, Ms Moss, Fl Flower, Vb Violet Bud, Wa Water, Dw Dew, Wd Wood, Ac Acorn.
-  A small square in a tile's corner shows the next layer's variant, 🔑 marks a key tile, 🔒 a locked pod or slot, and ∞
-  a connected pod.
+  A small square in a tile's corner shows the next layer's variant, 🔑 marks a key tile, 🔒 a locked pod or slot, ∞
+  a connected pod, ⌛ a waiting pod and ! the last free slot.
 
-There is no store, ads, meta, sign-in, analytics or walker animation.
+There is no store, ads, sign-in, analytics, Wardrobe or Collection; those live in the Unity client.
 
 ## Build
 

@@ -51,7 +51,7 @@ namespace Bloomlings.Client.App
             var remote = new UgsRemoteConfigService();
             services.Register<IRemoteConfigService>(remote);
 
-            SaveService saves = SaveService.CreateDefault(clock);
+            SaveService saves = new SaveService(System.IO.Path.Combine(Application.persistentDataPath, SaveService.FolderName), clock);
             PlayerSave save = saves.Load();
             bool firstLaunch = saves.IsFirstLaunch;
             services.Register(saves);

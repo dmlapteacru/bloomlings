@@ -640,7 +640,7 @@ namespace Bloomlings.Client.Gameplay
                 }
             }
 
-            _slots.Reset(session.View);
+            _slots.Reset(session.View, result.Events);
             _tray.Refresh(session.View);
             if (kind == BoosterKind.Shuffle)
             {

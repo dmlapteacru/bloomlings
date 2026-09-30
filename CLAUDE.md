@@ -43,6 +43,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   API stubs and runs the engine-free EditMode tests under .NET (extend `client/DotnetCheck/UnityStubs.cs` when the
   client uses a new Unity API).
 - `node --test backend/tests/*.test.js` runs the Cloud Code script tests (in-memory stand-ins for the UGS modules).
+- `dotnet run --project playtest/check` checks the playtest client without Android: its animator replays every golden
+  case and showcase solution and must end on the rules state, and its meta layer runs progression and economy.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
   after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI
@@ -61,8 +63,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   client's APK and needs the `UNITY_EMAIL`, `UNITY_PASSWORD` and `UNITY_LICENSE` secrets. Both APK workflows keep only
   the newest APK artifact (older ones are deleted, and each expires after 7 days). Do not add push, pull_request or
   schedule triggers until the owner allows it, and give every uploaded artifact a short `retention-days`.
-- `playtest/` is a temporary playtest client, not the product client (see `playtest/README.md`): keep it minimal and
-  never let gameplay logic live there; it only draws `LevelView` and sends commands to the core.
+- `playtest/` is a temporary playtest client, not the product client (see `playtest/README.md`), kept so an APK builds
+  without Unity secrets. Never let gameplay or meta rules live there: it draws `LevelView`, plays the core's events
+  (`LevelAnimator`) and calls the Unity client's engine-free services, linked from `client/` (save, progression,
+  economy, milestones, sound). Keep those client files engine-free so the link keeps compiling.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
   `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps

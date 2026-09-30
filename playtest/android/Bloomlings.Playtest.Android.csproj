@@ -27,8 +27,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- The Unity client's engine-free sound synthesizer, shared so the playtest sounds the same. -->
+    <!--
+      The Unity client's engine-free logic, linked (never copied): sound synthesis, the save file, progression and
+      unlocks, Petals and booster charges, milestones, and the ink contrast rule. The playtest only draws and calls it.
+    -->
     <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" Link="Shared/ToneSynth.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" Link="Shared/PlayerSave.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveSerializer.cs" Link="Shared/SaveSerializer.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveService.cs" Link="Shared/SaveService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/IClock.cs" Link="Shared/IClock.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/SystemClock.cs" Link="Shared/SystemClock.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/ProgressionService.cs" Link="Shared/ProgressionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneService.cs" Link="Shared/MilestoneService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneTable.cs" Link="Shared/MilestoneTable.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyService.cs" Link="Shared/EconomyService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" Link="Shared/EconomyConfig.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" Link="Shared/IRemoteConfigService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" Link="Shared/RemoteConfigKeys.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/CosmeticCatalog.cs" Link="Shared/CosmeticCatalog.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" Link="Shared/InkContrast.cs" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv" LogicalName="strings/Strings_en.csv" />
   </ItemGroup>
 
   <ItemGroup>

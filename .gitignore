@@ -55,3 +55,5 @@ client/Assets/StreamingAssets/golden.meta
 # Temporary .NET Android playtest client (playtest/android)
 playtest/android/bin/
 playtest/android/obj/
+playtest/check/bin/
+playtest/check/obj/

@@ -41,7 +41,7 @@ namespace Bloomlings.Client.Editor
             }
             else
             {
-                saves = SaveService.CreateDefault(new SystemClock());
+                saves = new SaveService(System.IO.Path.Combine(Application.persistentDataPath, SaveService.FolderName), new SystemClock());
                 save = saves.Load();
             }
 
