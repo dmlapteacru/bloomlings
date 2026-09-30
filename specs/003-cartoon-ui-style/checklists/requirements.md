@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -31,10 +31,10 @@
 
 ## Notes
 
-- Two markers are open. The product owner decides both:
-  - User Story 3: which gameplay elements get the cartoon style;
-  - FR-005: whether drawn depth (lip, gloss, shadow) fits the locked "flat 2D" direction of doc 12 §1 and
-    constitution VII.
+- Both open questions were answered on 2026-09-30 (spec Clarifications):
+  - Q1 B: menus, cards, pods, slots, booster buttons and the top bar get the style; board tiles get only a thin
+    outline;
+  - Q2 A: drawn depth in the plane counts as flat 2D; doc 12 and the constitution stay unchanged.
 - The spec names the builds (the Unity client, the full playtest APK and the level tester APK). These are product
   scope, as in spec 002, not implementation choices.
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`.

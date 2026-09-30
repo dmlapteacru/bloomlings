@@ -27,6 +27,19 @@ most casual puzzle games of its kind, uses:
 This feature takes those general genre conventions and applies them to Bloomlings' own palette, shapes and garden
 theme. It MUST NOT reuse Colony Flow's graphics, icons, colors as a scheme, or layouts (constitution I).
 
+## Clarifications
+
+### Session 2026-09-30
+
+- Q: Which gameplay elements get the cartoon style? → A: The menus and cards, plus the pods, the Waiting Slots, the
+  booster buttons and the top bar. Board tiles get only a thin outline (User Story 3, FR-022, FR-023).
+- Q: Does drawn depth (lip, gloss, drop shadow) fit the locked "flat 2D" direction of doc 12 §1 and constitution VII?
+  → A: Yes. Depth drawn in the plane, with no perspective, 3D or isometric view, counts as flat 2D. The documents stay
+  unchanged, and the reading is recorded in FR-005.
+- Before implementation, the product owner reviews an interactive mockup of the style and may adjust it. The mockup
+  shows the components and the main screens, lets them tap to feel the motion, and lets them tune the recipe
+  (outline, lip, gloss, shadow, bounce) and compare it with the spec 002 look.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Buttons and controls feel like a game (Priority: P1)
@@ -106,10 +119,8 @@ A player plays a level. The touchable gameplay pieces match the cartoon style of
 - the booster buttons;
 - the top-bar pills.
 
-The board itself stays calm and readable, because it is where the player looks all the time. The extent of the
-styling on the board is [NEEDS CLARIFICATION: which gameplay elements get the cartoon treatment — (A) none, only
-menus and cards; (B) pods, slots, booster buttons and the top bar get it, board tiles get only a thin outline; (C)
-everything, board tiles included?].
+The board itself stays calm and readable, because it is where the player looks all the time. Board tiles get only
+a thin outline in a darker shade of their own color: no gloss, no drop shadow and no deeper lip.
 
 **Why this priority**: The gameplay screen is where players spend most of their time, but it carries the readability
 rules. It is styled last, and only as far as readability allows.
@@ -184,15 +195,14 @@ in spec 002.
   Only general genre conventions are taken from Colony Flow. No Colony Flow graphic, icon, color scheme or layout is
   reused (constitution I).
 - **FR-005**: The style MUST stay within the locked visual direction: 2D, light, calm, minimal, low eye strain,
-  board-dominant, and no 3D or isometric drift (doc 12 §1, constitution VII). How the drawn depth (lip, gloss,
-  shadow) fits "flat 2D" is [NEEDS CLARIFICATION: is drawn depth — lip, gloss band and drop shadow drawn in 2D, with
-  no perspective — acceptable under the locked "flat 2D" direction, or must the look stay strictly flat (outlines and
-  motion only)?].
+  board-dominant, and no 3D or isometric drift (doc 12 §1, constitution VII). Drawn depth counts as flat 2D, as long
+  as it is drawn in the plane with no perspective, no 3D models and no isometric view. This covers the lip, the
+  gloss band and the drop shadow. Doc 12 and the constitution stay unchanged.
 
 #### B. The cartoon recipe (all styled elements)
 
 - **FR-006 Outline**: Every styled element MUST have an outline in a darker shade of its own color, never pure black.
-  This covers buttons, pills, badges, cards, the sheet, tabs, toggles, and the gameplay pieces in scope. The outline
+  This covers buttons, pills, badges, cards, the sheet, tabs, toggles, and the gameplay pieces of FR-022. The outline
   has a thick width for large elements and a thin width for small ones.
 - **FR-007 Depth**: Every raised element MUST have:
   - a lower lip in a darker shade, deeper than today's edge;
@@ -264,11 +274,12 @@ in spec 002.
 
 #### E. Gameplay pieces (User Story 3)
 
-- **FR-022**: The gameplay elements in scope (see User Story 3) MUST follow the recipe. They keep:
+- **FR-022**: The pods, the Waiting Slots, the booster buttons and the top-bar pills MUST follow the recipe. They keep:
   - the states of spec 002 FR-012 (pods) and FR-013 (slots);
   - spec 001 FR-012's order of prominence: variant symbol, variant color, count, family silhouette.
-- **FR-023**: Board tiles MUST stay calm and board-dominant. No outline, gloss or shadow may cover a tile's symbol or
-  make neighboring tiles look joined or partially occupied (constitution II).
+- **FR-023**: Board tiles MUST stay calm and board-dominant. They get only a thin outline in a darker shade of their
+  own color, with no gloss, no drop shadow and no deeper lip. The outline MUST NOT cover a tile's symbol, and MUST
+  NOT make neighboring tiles look joined or partially occupied (constitution II).
 
 #### F. Readability, accessibility and performance
 
@@ -302,7 +313,7 @@ in spec 002.
 - **Color set**: the face, top, lip, outline and gloss shades derived from one base color.
 - **Motion curve**: a named press, pop, sheet, idle or count-up motion, with its duration, overshoot and scale.
 - **Component family**: a group of elements that share the recipe: buttons, pills, badges, cards and the sheet, tabs,
-  toggles, rows, and the gameplay pieces in scope.
+  toggles, rows, and the gameplay pieces (pods, slots, booster buttons, top-bar pills).
 - **Comparison sheet**: the before/after images of every frame, used for the review.
 
 ## Success Criteria *(mandatory)*
@@ -311,8 +322,8 @@ in spec 002.
 
 - **SC-001**: In the before/after review, the product owner rates the new look "more game-like" for every component
   family, and accepts it for at least 90% of the spec 002 frames.
-- **SC-002**: 100% of the component families of FR-012 to FR-016 (and FR-022, as far as in scope) show every part of
-  the recipe in the comparison sheet.
+- **SC-002**: 100% of the component families of FR-012 to FR-016 and FR-022 show every part of the recipe in the
+  comparison sheet, and board tiles show only their thin outline (FR-023).
 - **SC-003**: The readability results of spec 002 still hold:
   - symbols and counts reach at least 3:1 contrast on every variant color;
   - every label reaches the FR-025 contrast against its outline;
