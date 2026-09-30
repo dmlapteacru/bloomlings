@@ -22,6 +22,14 @@ glossy, bouncy look of casual mobile games.
 has the Tweaks of the recipe (outline, lip, gloss, shadow, bounce, breathing, tile outline, font) and a "как сейчас"
 switch, and shows the current look under each screen.
 
+**Open decision — style direction**: before the recipe is fixed, the product owner compares five 2D directions
+(Мармелад, Наклейка, Мягкий пластилин, Игрушка, Садовый) and, for comparison only, 3D buttons and two 2D + 3D hybrids
+(a 3D board with a 2D interface; all gameplay objects in 3D with 2D menus). They are on the canvas page "Варианты
+стиля" and in [`style-variants.jpg`](style-variants.jpg). This spec's recipe (FR-006 to FR-011) matches direction 1
+until the choice is made. A 3D or hybrid choice conflicts with doc 12 §1 ("flat 2D … no 3D/isometric drift") and
+constitution VII ("strictly flat 2D"). It would need a constitution amendment (a MAJOR version bump through a PR) and
+a doc 12 change before this spec could adopt it.
+
 **Inspiration, not copying**: *Colony Flow!* (ABI Games) is the gameplay reference (constitution I). Its interface, like
 most casual puzzle games of its kind, uses:
 - chunky buttons with a thick darker lip;
