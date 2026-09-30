@@ -51,7 +51,8 @@ Expected:
   - no hit targets overlap;
   - no text or target leaves the safe area;
   - every target is at least `size.touch_min`.
-- **Review (SC-001).** Open `board-sheet.png` next to `specs/002-ux-design-board/ux-design-board.webp`. Each frame
+- **Review (SC-001).** Open `board-sheet.png` next to `specs/002-ux-design-board/ux-design-board.webp`. A copy of the
+  latest sheet is kept at `specs/002-ux-design-board/preview-board-sheet.png`. Each frame
   should match in layout, element order and hierarchy, apart from the deviations recorded in
   [`contracts/screen-map.md`](contracts/screen-map.md).
 

@@ -21,9 +21,9 @@ in `client/Assets/Bloomlings/UI/Design/AssetSlots.cs` (engine-free). A slot has 
 | `bg.` | Background | `bg.theme.daylight_garden`, `bg.theme.pond`, `bg.home`, `bg.splash` |
 | `char.` | Character | `char.sprig.idle`, `char.bloom.walk`, `char.hero.home`, `char.face` |
 | `symbol.` | VariantSymbol | `symbol.leaf`, `symbol.moss`, …, `symbol.bark` (8 launch + 4 expansion) |
-| `tile.` | BoardTile | `tile.base`, `tile.layer_peek`, `tile.mystery`, `tile.stone`, `tile.key`, `tile.lock`, `tile.ground`, `tile.entry` |
+| `tile.` | BoardTile | `tile.base`, `tile.layer_peek`, `tile.mystery`, `tile.stone`, `tile.key`, `tile.ground`, `tile.entry`, `tile.picture` |
 | `special.` | Special | `special.gate`, `special.fountain`, `special.chest`, `special.statue`, `special.bridge`, `special.bridge_broken` |
-| `pod.` / `slot.` | PodSlot | `pod.card`, `pod.state.locked`, `pod.state.mystery`, `pod.link`, `slot.empty`, `slot.state.danger`, `slot.extra` |
+| `pod.` / `slot.` | PodSlot | `pod.card`, `pod.state.locked`, `pod.state.mystery`, `pod.link`, `pod.count`, `slot.empty`, `slot.state.danger`, `slot.extra` |
 | `booster.` | Booster | `booster.extra_slot`, `booster.shuffle`, `booster.return`, `booster.bloom_burst` |
 | `ui.` | UiKit | `ui.button.primary`, `ui.pill.level`, `ui.badge.hard`, `ui.card`, `ui.sheet`, `ui.close`, `ui.pause`, `ui.medal.gold`, `ui.ad`, `ui.gift`, `ui.check` |
 | `currency.` | Currency | `currency.petal`, `currency.reward_basket`, `currency.milestone.skin` |
@@ -50,7 +50,9 @@ The fields are those of `AssetSlot` in [`../data-model.md`](../data-model.md):
    - The client tests enumerate the shapes the clients reference.
    - The preview tool records every slot the screens draw while rendering frames 1–17.
 3. **Every slot has a use.** Every registered slot is referenced by at least one client or by the preview recording.
-   This makes SC-003 hold both ways.
+   Sound cues count as used, since the synthesizer plays every `SoundCue`. Slots with no placeholder in the game yet
+   (`External`, such as the app icon, and silent music tracks) are listed as "not in the game yet". This makes SC-003
+   hold both ways.
 4. **Readability.** Every `VariantSymbol`, `PodSlot` and `BoardTile` slot has `Readability = true`. Its inventory entry
    says that it must pass spec 001's readability checks (grayscale and icon, small size, color distance, pod, slot and
    moving character).

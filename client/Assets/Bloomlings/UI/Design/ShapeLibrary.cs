@@ -83,6 +83,7 @@ namespace Bloomlings.Client.UI.Design
                     Max(-(x - 0.02f), (0.6f * (x - 0.45f)) + (0.8f * (y - 0.55f)), (0.6f * (x - 0.45f)) - (0.8f * (y - 0.55f)))),
                 ["ui.chevron"] = (x, y) => Min(Segment(x, y, -0.2f, 0.5f, 0.22f, 0f), Segment(x, y, 0.22f, 0f, -0.2f, -0.5f)) - 0.13f,
                 ["ui.plus"] = (x, y) => Min(RoundedBox(x, y, 0f, 0f, 0.58f, 0.15f, 0.08f), RoundedBox(x, y, 0f, 0f, 0.15f, 0.58f, 0.08f)),
+                ["ui.check"] = (x, y) => Min(Segment(x, y, -0.52f, 0.02f, -0.12f, -0.4f), Segment(x, y, -0.12f, -0.4f, 0.55f, 0.45f)) - 0.13f,
                 ["ui.gift"] = (x, y) => Min(
                     Max(Min(RoundedBox(x, y, 0f, -0.32f, 0.68f, 0.45f, 0.08f), RoundedBox(x, y, 0f, 0.3f, 0.8f, 0.13f, 0.05f)), -(MathF.Abs(x) - 0.06f)),
                     MathF.Abs(Length(x + 0.22f, y - 0.62f) - 0.16f) - 0.07f + Step(y < 0.5f),
@@ -230,6 +231,7 @@ namespace Bloomlings.Client.UI.Design
                 // ---- Effects ----
                 ["fx.sparkle"] = (x, y) => (Sq(MathF.Sqrt(MathF.Abs(x)) + MathF.Sqrt(MathF.Abs(y))) - 0.9f) * 0.5f,
                 ["fx.petal_burst"] = (x, y) => PetalFlower(x * 1.2f, y * 1.2f) / 1.2f,
+                ["fx.droplet"] = (x, y) => Min(Length(x, y + 0.25f) - 0.45f, Triangle(x, y + 0.05f, 0.45f)),
             };
 
             foreach (string skin in new[] { "spots", "stripes", "petals", "speckles" })

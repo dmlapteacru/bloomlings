@@ -47,6 +47,7 @@ namespace Bloomlings.Client.Tests
             var patterns = new[]
             {
                 new Regex(@"Create(Text|Button)\(""[^""]*"", [^,]+, \$?""[^""]*[A-Za-z][^""]*"""),
+                new Regex(@"UiKit\.(Label|PrimaryButton|SecondaryButton|DarkPill|Badge|Card|Sheet)\(""[^""]*"", [^,]+, \$?""[^""]*[A-Za-z][^""]*"""),
                 new Regex(@"new DemoStep\(\$?"""),
                 new Regex(@"(Toast|SetTitle)\(\$?""[^""]*[A-Za-z]"),
                 new Regex(@"StartTargeting\([^,]+, \$?""[^""]*[A-Za-z]"),

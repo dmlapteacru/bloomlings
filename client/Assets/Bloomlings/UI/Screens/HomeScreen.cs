@@ -74,6 +74,8 @@ namespace Bloomlings.Client.UI.Screens
         private Image _daily = null!;
         private TextMeshProUGUI _dailyTitle = null!;
         private TextMeshProUGUI _dailyReward = null!;
+        private Image _dailyChevron = null!;
+        private Image _dailyDone = null!;
         private GameObject _wardrobe = null!;
         private GameObject _collection = null!;
         private GameObject _freeBooster = null!;
@@ -155,9 +157,12 @@ namespace Bloomlings.Client.UI.Screens
             UiFactory.Place(screen._dailyTitle.rectTransform, 0.18f, 0.5f, 0.86f, 0.92f);
             screen._dailyReward = UiKit.Label("Reward", screen._daily.transform, string.Empty, DesignTokens.Type.Caption, UiTheme.TextSecondary, TextAlignmentOptions.Left);
             UiFactory.Place(screen._dailyReward.rectTransform, 0.18f, 0.08f, 0.8f, 0.5f);
-            Image dailyChevron = UiFactory.CreateImage("Chevron", screen._daily.transform, ProceduralSprites.Shape("ui.chevron"), UiTheme.TextSecondary);
-            dailyChevron.preserveAspect = true;
-            UiFactory.Place(dailyChevron.rectTransform, 0.88f, 0.3f, 0.96f, 0.7f);
+            screen._dailyChevron = UiFactory.CreateImage("Chevron", screen._daily.transform, ProceduralSprites.Shape("ui.chevron"), UiTheme.TextSecondary);
+            screen._dailyChevron.preserveAspect = true;
+            UiFactory.Place(screen._dailyChevron.rectTransform, 0.88f, 0.3f, 0.96f, 0.7f);
+            screen._dailyDone = UiFactory.CreateImage("Done", screen._daily.transform, ProceduralSprites.Shape("ui.check"), UiTheme.Accent);
+            screen._dailyDone.preserveAspect = true;
+            UiFactory.Place(screen._dailyDone.rectTransform, 0.86f, 0.25f, 0.97f, 0.75f);
 
             // The optional rewarded offer: a free booster, started only by the player (FR-052).
             screen._freeBooster = UiKit.SecondaryButton("FreeBooster", root, Loc.T("home.free_booster"), () => onFreeBooster?.Invoke(), "ui.ad").gameObject;
@@ -254,6 +259,8 @@ namespace Bloomlings.Client.UI.Screens
             _rank.text = model.RankText ?? Loc.T("home.rank_unknown");
             _daily.gameObject.SetActive(model.DailyChallengeAvailable);
             _dailyReward.text = model.DailyChallengeDone ? Loc.T("home.daily_done") : Loc.F("home.daily_new", model.DailyChallengePetals);
+            _dailyDone.enabled = model.DailyChallengeDone;
+            _dailyChevron.enabled = !model.DailyChallengeDone;
             _early.SetActive(!model.WardrobeAvailable);
             _progressed.SetActive(model.WardrobeAvailable);
             _wardrobe.SetActive(model.WardrobeAvailable);

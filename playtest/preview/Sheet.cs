@@ -32,7 +32,14 @@ namespace Bloomlings.Playtest.Preview
                 canvas.DrawCircle(x + 14, y + 16, 14, badge);
                 string number = frames[i].Number.ToString();
                 canvas.DrawText(number, x + 14 - (font.MeasureText(number) / 2f), y + 23, font, white);
-                canvas.DrawText(frames[i].Title, x + 36, y + 24, font, text);
+                string title = frames[i].Title;
+                while (title.Length > 4 && font.MeasureText(title) > thumbWidth - 40)
+                {
+                    title = title.Substring(0, title.Length - 2) + "…";
+                    title = title.Replace("……", "…");
+                }
+
+                canvas.DrawText(title, x + 36, y + 24, font, text);
                 var rect = new SKRect(x, y + label, x + thumbWidth, y + label + thumbHeight);
                 canvas.DrawRoundRect(new SKRect(rect.Left - 2, rect.Top - 2, rect.Right + 2, rect.Bottom + 2), 18, 18, frame);
                 canvas.Save();

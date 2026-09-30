@@ -23,13 +23,21 @@ Coordinates are in pixels of the target surface. Colors are `Rgba` from `DesignT
 | `StrokeCircle(cx, cy, r, width, color)` | a ring |
 | `Line(x0, y0, x1, y1, width, color)` | a line with round caps (links, tick marks) |
 | `Shape(id, rect, color)` | the `ShapeLibrary` mask of `id` fitted into `rect`, tinted |
+| `ShapeOf(key, sdf, rect, color)` | a composite mask (a skin on a family body), cached by `key` |
 | `Text(text, cx, cy, style, color, maxWidth?, outline?)` | centered text in a `TypeToken` style; shrinks to `maxWidth` down to the style's minimum |
 | `TextLeft(text, x, cy, style, color, maxWidth?)` | left-aligned text |
 | `MeasureText(text, style)` | its width at the style's size |
 | `PushClip(rect)`, `PopClip()` | clip to a rectangle |
 | `PushAlpha(a)`, `PopAlpha()` | multiply alpha for faded elements |
 | `PushTransform(dx, dy, scale, cx, cy)`, `PopTransform()` | translate and scale about a point (press and pop motion) |
-| `Picture(level, rect)` | the finished picture of the level (win screen, Collection), drawn from the level's tile colors |
+| `Backdrop(rect, colors, scene, key)` | the garden backdrop of a theme (`BackdropRaster`), cached as an image by `key` |
+| `Hit(rect, action)` | a touch target (in the current transform) |
+| `Pressed(rect)` | whether a finger is down inside `rect` (pressed looks) |
+| `Mark(slotId)` | records that an asset slot is drawn procedurally here (preview only; a no-op on the phone) |
+
+The finished picture (win card, Collection) is drawn by `BoardPainter.Picture` from the level's cells with
+`FillRound`; it needs no painter operation. `PainterBase` holds the bookkeeping both painters share: targets, the
+finger, the alpha and transform stacks, and dispatch to the topmost target.
 
 ## Input
 

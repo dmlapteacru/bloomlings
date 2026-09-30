@@ -10,10 +10,12 @@ The same sources build two APKs, which install side by side:
 
 | APK | Project | For |
 |---|---|---|
-| **Bloomlings Playtest** (`com.bloomlings.playtest`) | `playtest/android` | the game as a player meets it: Home, progression and unlocks, Petals and booster charges, milestones, demos, animations |
-| **Bloomlings Tester** (`com.bloomlings.playtest.tester`) | `playtest/tester` (`PLAYTEST_TESTER`) | quick level testing: levels open straight away, ◀ ▶ move between them, every booster is free, a tap shows its result at once, no Home, progression, economy or demos |
+| **Bloomlings Playtest** (`com.bloomlings.playtest`) | `playtest/android` + `playtest/design` | the game as a player meets it, in the look of the UX design board (spec 002): splash, Home, progression and unlocks, Petals and booster charges, milestones, Daily Reward, Collection, Store, demos, animations |
+| **Bloomlings Tester** (`com.bloomlings.playtest.tester`) | `playtest/tester` (`PLAYTEST_TESTER`) | quick level testing in the first playtest's minimal look (`TesterView`): levels open straight away, ◀ ▶ move between them, every booster is free, a tap shows its result at once, no Home, progression, economy or demos |
 
-`PlaytestFlavor` holds the difference; `playtest/Playtest.Shared.props` holds everything the two share.
+`PlaytestFlavor` holds the difference, and `MainActivity` picks `Droid.DesignView` or `TesterView`.
+`playtest/Playtest.Shared.props` holds everything the two share. The tester compiles only `playtest/android/*.cs`; the
+full playtest also compiles the designed screens of `playtest/design/` and the host of `playtest/android/Design/`.
 
 ## What the full playtest has
 
@@ -27,15 +29,26 @@ The same sources build two APKs, which install side by side:
     (4 variants, pods under 5 tiles) and some repeat a picture. They are playable, but not catalog levels.
 
   Past L94 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
-- Two screens drawn on a canvas:
-  - **Home**: Level N, Play/Continue, Petals, booster charges (or the level each booster opens at), the next milestone,
-    and tester controls (◀ −1 and +1 ▶ move the progression, Reset starts a new profile). The very first launch goes
-    straight into Level 1; later launches open Home, and ⌂ returns to it from a level.
-  - **Level**: the board (restored cells show the finished picture), the Waiting Slots, the boosters, the Source Tray,
-    and the demo, win and jam cards.
+- The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
+  screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):
+  - a splash (frame 1), then Level 1 on the very first launch and Home later;
+  - Home in its early look (frame 2) and, once the features unlock, the progressed look (frame 3): hero, Wardrobe and
+    Collection buttons, "N levels to reward", the rank row (offline) and the Daily Challenge card;
+  - the level (frames 7–9): round Pause, the LEVEL pill with the HARD or SUPER HARD badge, 2×, the board with raised
+    tiles and variant symbols, the Waiting Slots, the Source Tray and the booster bar, with the pod, slot and booster
+    states of frames 12–14;
+  - cards: pause and Settings (frame 11), the jam bottom sheet (frame 10), the win card (frame 15), the milestone card
+    (frame 16), the Daily Reward (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and
+    the Store (frame 17).
+
+  The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
+  `client/Assets/Bloomlings/UI/Design/`, linked. There are no ads or real-money purchases here, so those buttons show
+  as unavailable, and the jam rescue is granted without an ad. A small dev row on Home (−1, +1, +10, Reset) moves the
+  progression for testing.
 - Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):
   the save file, the unlock roadmap (boosters open at L3, L4, L6 and L9 with a free charge; mechanics, Hard and Super
-  Hard as in the spec), Petals for wins, booster charges bought with Petals, level drops and milestone rewards.
+  Hard as in the spec), Petals for wins, booster charges bought with Petals, level drops, milestone rewards, the Daily
+  Reward, the Collection and the Wardrobe's cosmetics for sale.
 - Animation: the rules resolve a tap at once in the core; `LevelAnimator` then plays the events round by round, like
   the Unity client's timeline: a pod flies from the tray to its slot, Bloomlings walk from the Garden Entry to their
   tiles, each tile shrinks away when its Bloomling arrives, slot counts drop, a finished pod leaves, locks stay until
@@ -44,12 +57,18 @@ The same sources build two APKs, which install side by side:
   that the settled screen equals the rules state.
 - Demos once each, with the Unity client's texts (`Strings_en.csv`, embedded): the Level 1 tap hint, each booster at
   its unlock, each mechanic the first time a level uses it, a new variant, and "Match the exact symbol".
-- Tester controls in a level: ⌂ Home, ♪ sound and vibration, 1×/2× speed (saved), ↻ restart.
-- Variants show a two-letter code: Lf Leaf, Ms Moss, Fl Flower, Vb Violet Bud, Wa Water, Dw Dew, Wd Wood, Ac Acorn.
-  A small square in a tile's corner shows the next layer's variant, 🔑 marks a key tile, 🔒 a locked pod or slot, ∞
-  a connected pod, ⌛ a waiting pod and ! the last free slot.
 
-There is no store, ads, sign-in, analytics, Wardrobe or Collection; those live in the Unity client.
+The Wardrobe screen and the Daily Challenge are not in the playtest (their Home buttons say so); sign-in, cloud save,
+ads and analytics live in the Unity client.
+
+## Preview without a phone
+
+`dotnet run --project playtest/preview` renders the full playtest's screens with SkiaSharp. It writes one PNG per
+design board frame (1–17) plus extras (themes, Settings, a Collection picture, a demo, boosters in use) at 16:9,
+19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
+when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the
+safe area. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset slot registry.
+
 
 ## Build
 

@@ -278,6 +278,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.settings", "Settings glyph (gear)", new[] { 2, 3, 11 }, "Home; Pause card", "normal");
             Shape("ui.chevron", "Chevron (opens a screen)", new[] { 3 }, "Home rank row; Daily Challenge card", "normal");
             Shape("ui.plus", "Plus glyph", new[] { 2, 3, 17 }, "Petals pill; + Slot", "normal");
+            Shape("ui.check", "Check mark (done)", new[] { 3 }, "Home Daily Challenge card (done today)", "normal");
             Shape("ui.gift", "Gift (milestone teaser)", new[] { 3 }, "Home", "normal; ready", SizeClass.Small);
             Shape("ui.trophy", "Trophy (rank row, Get +N)", new[] { 3, 4 }, "Home rank row; Daily Reward", "normal", SizeClass.Small);
             Shape("ui.medal", "Medal (ranks 1–3)", new[] { 5 }, "Leaderboard", "gold; silver; bronze", SizeClass.Small);
@@ -324,6 +325,7 @@ namespace Bloomlings.Client.UI.Design
             // ---- Effects ----
             Shape("fx.sparkle", "Sparkle", new[] { 7, 15 }, "Clears; win shine; burst", "small; large", SizeClass.Icon);
             Shape("fx.petal_burst", "Petal burst", new[] { 15, 16 }, "Win; milestone; rewards", "burst", SizeClass.Icon);
+            Shape("fx.droplet", "Droplets (Drop-family clears)", new[] { 7, 8, 9 }, "Board: tiles restored by Drop Bloomlings", "splash", SizeClass.Icon);
             Add("fx.confetti", "Confetti", new[] { 15, 16 }, "Win; milestone", "fall", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "small rotating squares in level colors");
             Add("fx.puff", "Puff (a pod leaves its slot)", new[] { 13 }, "Slots", "puff", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "expanding fading discs");
             Add("fx.shuffle_swirl", "Shuffle swirl", new[] { 14 }, "Tray", "swirl", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "pods spinning in place");

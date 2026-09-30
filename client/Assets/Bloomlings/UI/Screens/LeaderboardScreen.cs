@@ -4,6 +4,7 @@ using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Backend;
+using Bloomlings.Client.UI.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,9 +13,15 @@ using Bloomlings.Client.UI.Localization;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The Leaderboard (FR-062, T141): open from L10, it shows the player's global rank by highest completed level and
-    /// a few neighbours above and below. Offline, the last rank read stays on screen with a stale label. The player's
-    /// own row carries their frame, badge and marker (FR-061 prestige rewards).
+    /// The Leaderboard of the design board's frame 5 (spec 002 FR-023; FR-062, T141). Open from L10, it shows the
+    /// player's global rank by highest completed level:
+    /// <list type="bullet">
+    /// <item><description>the top ranks with gold, silver and bronze medals;</description></item>
+    /// <item><description>avatar circles and names, with each row's score (the highest completed level);</description></item>
+    /// <item><description>a gap marker, then the player's neighbours, with the player's own row highlighted as "You".</description></item>
+    /// </list>
+    /// Offline, the last rank read stays on screen with a notice. The player's own row carries their frame, badge and
+    /// marker (FR-061 prestige rewards).
     /// </summary>
     public sealed class LeaderboardScreen : MonoBehaviour
     {
@@ -26,19 +33,17 @@ namespace Bloomlings.Client.UI.Screens
 
         public static LeaderboardScreen Create(Transform parent, Action onRefresh)
         {
-            RectTransform card = UiFactory.CreateModal("Leaderboard", parent, 0.75f, out GameObject root);
-            var screen = root.AddComponent<LeaderboardScreen>();
-            screen._root = root;
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("leaderboard.title"), 72f, UiTheme.Accent);
-            UiFactory.Place(title.rectTransform, 0f, 0.89f, 1f, 0.98f);
-            screen._status = UiFactory.CreateText("Status", card, string.Empty, 36f, UiTheme.Warning);
-            UiFactory.Place(screen._status.rectTransform, 0f, 0.83f, 1f, 0.89f);
-            screen._list = UiFactory.Place(UiFactory.CreateRect("Rows", card), 0.05f, 0.14f, 0.95f, 0.82f);
-            Button refresh = UiFactory.CreateButton("Refresh", card, Loc.T("leaderboard.refresh"), UiTheme.SlotLocked, onRefresh, 40f);
-            UiFactory.Place((RectTransform)refresh.transform, 0.08f, 0.02f, 0.46f, 0.11f);
-            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Text, screen.Hide);
-            UiFactory.Place((RectTransform)close.transform, 0.54f, 0.02f, 0.92f, 0.11f);
-            root.SetActive(false);
+            CardView card = UiKit.Card("Leaderboard", parent, Loc.T("leaderboard.title"), 1100f, null);
+            var screen = card.Root.AddComponent<LeaderboardScreen>();
+            screen._root = card.Root;
+            Button close = UiKit.RoundIconButton("Close", card.CardRect, "ui.close", screen.Hide);
+            UiKit.PlaceBox((RectTransform)close.transform, card.Regions.Close, card.Regions.Card);
+            screen._list = UiFactory.Place(UiFactory.CreateRect("Rows", card.Body), 0f, 0.16f, 1f, 1f);
+            screen._status = UiKit.Label("Status", card.Body, string.Empty, DesignTokens.Type.Caption, UiTheme.TextSecondary);
+            UiFactory.Place(screen._status.rectTransform, 0f, 0.1f, 1f, 0.16f);
+            Button refresh = UiKit.SecondaryButton("Refresh", card.Body, Loc.T("leaderboard.refresh"), onRefresh, "ui.restart");
+            UiFactory.Place((RectTransform)refresh.transform, 0.25f, 0f, 0.75f, 0.09f);
+            card.Root.SetActive(false);
             return screen;
         }
 
@@ -58,21 +63,45 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _status.text = stale ? Loc.T("leaderboard.offline") : string.Empty;
-            float row = 1f / Mathf.Max(7, page.Entries.Count);
-            for (int i = 0; i < page.Entries.Count; i++)
+            int slots = page.Entries.Count + 1;
+            float row = 1f / Mathf.Max(9, slots);
+            int line = 0;
+            int previous = 0;
+            foreach (LeaderboardEntry entry in page.Entries)
             {
-                LeaderboardEntry entry = page.Entries[i];
-                float top = 1f - (i * row);
-                Image background = UiFactory.CreateImage("Row", _list, ProceduralSprites.RoundedSquare, entry.IsPlayer ? UiTheme.Light(UiTheme.Accent) : UiTheme.Panel);
-                UiFactory.Place(background.rectTransform, 0f, top - row + 0.01f, 1f, top - 0.01f);
-                TextMeshProUGUI rank = UiFactory.CreateText("Rank", background.transform, Loc.F("leaderboard.rank", entry.Rank.ToString("N0", CultureInfo.InvariantCulture)), 40f, UiTheme.Text, TextAlignmentOptions.Left);
-                UiFactory.Place(rank.rectTransform, 0.04f, 0f, 0.3f, 1f);
-                TextMeshProUGUI name = UiFactory.CreateText("Name", background.transform, entry.IsPlayer ? Loc.T("leaderboard.you") : Short(entry.Name), 40f, UiTheme.Text, TextAlignmentOptions.Left);
-                UiFactory.Place(name.rectTransform, 0.3f, 0f, 0.7f, 1f);
+                if (previous > 0 && entry.Rank > previous + 1)
+                {
+                    // The gap between the top ranks and the player's neighbourhood.
+                    TextMeshProUGUI gap = UiKit.Label("Gap", _list, "…", DesignTokens.Type.Title, UiTheme.TextSecondary);
+                    float gapTop = 1f - (line * row);
+                    UiFactory.Place(gap.rectTransform, 0f, gapTop - row, 1f, gapTop);
+                    line++;
+                }
+
+                previous = entry.Rank;
+                float top = 1f - (line * row);
+                line++;
+                Image background = UiKit.Rounded("Row", _list, entry.IsPlayer ? UiTheme.Of(DesignTokens.Colors.SurfaceRowHighlight) : Color.white, 28f);
+                UiFactory.Place(background.rectTransform, 0f, top - row + 0.008f, 1f, top - 0.008f);
+                Rgba? medal = DesignTokens.Colors.Medal(entry.Rank);
+                if (medal.HasValue)
+                {
+                    Image badge = UiFactory.CreateImage("Medal", background.transform, ProceduralSprites.Shape("ui.medal"), UiTheme.Of(medal.Value));
+                    badge.preserveAspect = true;
+                    UiFactory.Place(badge.rectTransform, 0.02f, 0.08f, 0.14f, 0.92f);
+                }
+
+                TextMeshProUGUI rank = UiKit.Label("Rank", background.transform, NumberText.Group(entry.Rank), DesignTokens.Type.Body, UiTheme.Text);
+                UiFactory.Place(rank.rectTransform, medal.HasValue ? 0.02f : 0.01f, 0f, medal.HasValue ? 0.14f : 0.16f, medal.HasValue ? 0.6f : 1f);
+                Image avatar = UiFactory.CreateImage("Avatar", background.transform, ProceduralSprites.Shape("ui.person"), UiTheme.Stuck);
+                avatar.preserveAspect = true;
+                UiFactory.Place(avatar.rectTransform, 0.17f, 0.12f, 0.27f, 0.88f);
+                TextMeshProUGUI name = UiKit.Label("Name", background.transform, entry.IsPlayer ? Loc.T("leaderboard.you") : Short(entry.Name), DesignTokens.Type.Body, UiTheme.Text, TextAlignmentOptions.Left);
+                UiFactory.Place(name.rectTransform, 0.3f, 0f, 0.62f, 1f);
                 if (entry.IsPlayer && own != null)
                 {
-                    Decorate(background.transform, own.Marker, 0.52f);
-                    Decorate(background.transform, own.Badge, 0.6f);
+                    Decorate(background.transform, own.Marker, 0.62f);
+                    Decorate(background.transform, own.Badge, 0.7f);
                     if (own.Frame != null)
                     {
                         Image frame = UiFactory.CreateImage("Frame", background.transform, ProceduralSprites.RoundedSquare, BloomlingFigure.Tint(own.Frame));
@@ -81,8 +110,10 @@ namespace Bloomlings.Client.UI.Screens
                         UiFactory.Stretch(frame.rectTransform);
                     }
                 }
-                TextMeshProUGUI level = UiFactory.CreateText("Level", background.transform, Loc.F("common.level", entry.Level), 40f, UiTheme.Text, TextAlignmentOptions.Right);
-                UiFactory.Place(level.rectTransform, 0.7f, 0f, 0.96f, 1f);
+
+                TextMeshProUGUI level = UiKit.Label("Score", background.transform, NumberText.Group(entry.Level), DesignTokens.Type.Count, UiTheme.Text, TextAlignmentOptions.Right);
+                level.outlineWidth = 0f;
+                UiFactory.Place(level.rectTransform, 0.78f, 0f, 0.96f, 1f);
             }
 
             _root.SetActive(true);

@@ -11,8 +11,9 @@ using Bloomlings.Client.UI.Localization;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The Collection (FR-065, T145): every finished picture, newest first, a page at a time. It only shows pictures:
-    /// there is no way to open or replay a level from here (it is never a level selector).
+    /// The Collection of the design board's frame 6 (spec 002 FR-024; FR-065, T145): every finished picture as a framed
+    /// tile, newest first, a page at a time. Tapping a tile shows it larger with its name and "Completed at Level N". It
+    /// only shows pictures: there is no way to open or replay a level from here (it is never a level selector).
     /// </summary>
     public sealed class CollectionScreen : MonoBehaviour
     {
@@ -31,26 +32,68 @@ namespace Bloomlings.Client.UI.Screens
 
         public bool IsOpen => _root.activeSelf;
 
+        private static readonly Color FrameColor = UiTheme.Of(Design.Rgba.FromHex("#F3E3C3"));
+
+        private GameObject _detail = null!;
+        private RawImage _detailImage = null!;
+        private AspectRatioFitter _detailFitter = null!;
+        private TextMeshProUGUI _detailName = null!;
+        private TextMeshProUGUI _detailLevel = null!;
+
         public static CollectionScreen Create(Transform parent)
         {
-            RectTransform card = UiFactory.CreateModal("Collection", parent, 0.85f, out GameObject root);
-            var screen = root.AddComponent<CollectionScreen>();
-            screen._root = root;
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("collection.title"), 72f, UiTheme.Accent);
-            UiFactory.Place(title.rectTransform, 0f, 0.91f, 1f, 0.98f);
-            screen._count = UiFactory.CreateText("Count", card, string.Empty, 40f, UiTheme.Text);
-            UiFactory.Place(screen._count.rectTransform, 0f, 0.86f, 1f, 0.91f);
-            screen._grid = UiFactory.Place(UiFactory.CreateRect("Grid", card), 0.04f, 0.16f, 0.96f, 0.85f);
-            Button previous = UiFactory.CreateButton("Previous", card, "‹", UiTheme.SlotLocked, () => screen.Turn(-1), 56f);
-            UiFactory.Place((RectTransform)previous.transform, 0.05f, 0.08f, 0.22f, 0.15f);
-            screen._page = UiFactory.CreateText("Page", card, string.Empty, 36f, UiTheme.Text);
-            UiFactory.Place(screen._page.rectTransform, 0.25f, 0.08f, 0.75f, 0.15f);
-            Button next = UiFactory.CreateButton("Next", card, "›", UiTheme.SlotLocked, () => screen.Turn(1), 56f);
-            UiFactory.Place((RectTransform)next.transform, 0.78f, 0.08f, 0.95f, 0.15f);
-            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Text, screen.Hide, 44f);
-            UiFactory.Place((RectTransform)close.transform, 0.3f, 0.01f, 0.7f, 0.07f);
-            root.SetActive(false);
+            CardView card = UiKit.Card("Collection", parent, Loc.T("collection.title"), 1300f, null);
+            var screen = card.Root.AddComponent<CollectionScreen>();
+            screen._root = card.Root;
+            Button close = UiKit.RoundIconButton("Close", card.CardRect, "ui.close", screen.Hide);
+            UiKit.PlaceBox((RectTransform)close.transform, card.Regions.Close, card.Regions.Card);
+            RectTransform body = card.Body;
+            screen._count = UiKit.Label("Count", body, string.Empty, Design.DesignTokens.Type.Caption, UiTheme.TextSecondary);
+            UiFactory.Place(screen._count.rectTransform, 0f, 0.94f, 1f, 1f);
+            screen._grid = UiFactory.Place(UiFactory.CreateRect("Grid", body), 0f, 0.1f, 1f, 0.93f);
+            Button previous = UiKit.SecondaryButton("Previous", body, "‹", () => screen.Turn(-1));
+            UiFactory.Place((RectTransform)previous.transform, 0.02f, 0f, 0.22f, 0.08f);
+            screen._page = UiKit.Label("Page", body, string.Empty, Design.DesignTokens.Type.Caption, UiTheme.TextSecondary);
+            UiFactory.Place(screen._page.rectTransform, 0.25f, 0f, 0.75f, 0.08f);
+            Button next = UiKit.SecondaryButton("Next", body, "›", () => screen.Turn(1));
+            UiFactory.Place((RectTransform)next.transform, 0.78f, 0f, 0.98f, 0.08f);
+
+            // The detail view: one picture larger, with its name and level.
+            Image detail = UiKit.Rounded("Detail", body, UiTheme.Panel, 40f, raycast: true);
+            UiFactory.Stretch(detail.rectTransform);
+            screen._detail = detail.gameObject;
+            Image frame = UiKit.Rounded("Frame", detail.transform, FrameColor, 44f);
+            UiFactory.Place(frame.rectTransform, 0.08f, 0.3f, 0.92f, 0.96f);
+            Image mat = UiKit.Rounded("Mat", frame.transform, Color.white, 34f);
+            UiFactory.Place(mat.rectTransform, 0.05f, 0.05f, 0.95f, 0.95f);
+            RectTransform holder = UiFactory.Place(UiFactory.CreateRect("Image", mat.transform), 0.06f, 0.06f, 0.94f, 0.94f);
+            screen._detailImage = holder.gameObject.AddComponent<RawImage>();
+            screen._detailImage.raycastTarget = false;
+            screen._detailFitter = holder.gameObject.AddComponent<AspectRatioFitter>();
+            screen._detailFitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            screen._detailName = UiKit.Label("Name", detail.transform, string.Empty, Design.DesignTokens.Type.Title, UiTheme.Text);
+            UiFactory.Place(screen._detailName.rectTransform, 0.05f, 0.19f, 0.95f, 0.28f);
+            screen._detailLevel = UiKit.Label("Completed", detail.transform, string.Empty, Design.DesignTokens.Type.Caption, UiTheme.TextSecondary);
+            UiFactory.Place(screen._detailLevel.rectTransform, 0.05f, 0.13f, 0.95f, 0.19f);
+            Button back = UiKit.SecondaryButton("Back", detail.transform, Loc.T("common.close"), () => screen._detail.SetActive(false));
+            UiFactory.Place((RectTransform)back.transform, 0.25f, 0.01f, 0.75f, 0.1f);
+            screen._detail.SetActive(false);
+            card.Root.SetActive(false);
             return screen;
+        }
+
+        private void OpenDetail(CollectionEntry entry, Texture2D? texture)
+        {
+            _detailImage.texture = texture;
+            _detailImage.enabled = texture != null;
+            if (texture != null)
+            {
+                _detailFitter.aspectRatio = texture.width / (float)Mathf.Max(1, texture.height);
+            }
+
+            _detailName.text = entry.PictureId.Replace('_', ' ');
+            _detailLevel.text = Loc.F("collection.completed", Design.NumberText.Group(entry.LevelNumber));
+            _detail.SetActive(true);
         }
 
         /// <param name="render">Draws an entry's finished picture, or null when this content version cannot redraw it.</param>
@@ -59,6 +102,7 @@ namespace Bloomlings.Client.UI.Screens
             _entries = entries;
             _render = render;
             _pageIndex = 0;
+            _detail.SetActive(false);
             _count.text = entries.Count == 1 ? Loc.F("collection.count_one", 1) : Loc.F("collection.count_many", entries.Count);
             BuildPage();
             _root.SetActive(true);
@@ -66,6 +110,7 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Hide()
         {
+            _detail.SetActive(false);
             ReleaseTextures();
             _root.SetActive(false);
         }
@@ -101,14 +146,19 @@ namespace Bloomlings.Client.UI.Screens
                 int row = slot / Columns;
                 float x0 = column / (float)Columns;
                 float y1 = 1f - (row / (float)Rows);
-                Image frame = UiFactory.CreateImage("Picture", _grid, ProceduralSprites.RoundedSquare, UiTheme.Panel);
-                UiFactory.Place(frame.rectTransform, x0 + 0.01f, y1 - (1f / Rows) + 0.01f, x0 + (1f / Columns) - 0.01f, y1 - 0.01f);
+                Image frame = UiKit.Rounded("Picture", _grid, FrameColor, 30f, raycast: true);
+                UiFactory.Place(frame.rectTransform, x0 + 0.015f, y1 - (1f / Rows) + 0.015f, x0 + (1f / Columns) - 0.015f, y1 - 0.015f);
+                Image mat = UiKit.Rounded("Mat", frame.transform, Color.white, 22f);
+                UiFactory.Place(mat.rectTransform, 0.06f, 0.18f, 0.94f, 0.94f);
                 Texture2D? texture = _render(entry);
+                var open = frame.gameObject.AddComponent<Button>();
+                open.targetGraphic = frame;
+                open.onClick.AddListener(() => OpenDetail(entry, texture));
                 if (texture != null)
                 {
                     _textures.Add(texture);
                     // The picture keeps its own proportions inside the card (boards are up to 14×16, not square).
-                    RectTransform area = UiFactory.Place(UiFactory.CreateRect("Area", frame.transform), 0.08f, 0.2f, 0.92f, 0.95f);
+                    RectTransform area = UiFactory.Place(UiFactory.CreateRect("Area", mat.transform), 0.06f, 0.06f, 0.94f, 0.94f);
                     RectTransform holder = UiFactory.Stretch(UiFactory.CreateRect("Image", area));
                     RawImage image = holder.gameObject.AddComponent<RawImage>();
                     image.texture = texture;
@@ -118,8 +168,8 @@ namespace Bloomlings.Client.UI.Screens
                     fitter.aspectRatio = texture.width / (float)Mathf.Max(1, texture.height);
                 }
 
-                TextMeshProUGUI label = UiFactory.CreateText("Level", frame.transform, Loc.F("common.level", entry.LevelNumber), 30f, UiTheme.Text);
-                UiFactory.Place(label.rectTransform, 0f, 0.02f, 1f, 0.2f);
+                TextMeshProUGUI label = UiKit.Label("Level", frame.transform, Loc.F("common.level", Design.NumberText.Group(entry.LevelNumber)), Design.DesignTokens.Type.Badge, UiTheme.TextSecondary);
+                UiFactory.Place(label.rectTransform, 0f, 0.02f, 1f, 0.17f);
             }
         }
 

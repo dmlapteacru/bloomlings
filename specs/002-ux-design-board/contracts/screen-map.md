@@ -8,23 +8,26 @@ Unity paths are under `client/Assets/Bloomlings/`. Playtest paths are under `pla
 
 | # | Frame | Unity client | Full playtest | States to show |
 |---|---|---|---|---|
-| 1 | Splash | `UI/Screens/SplashScreen.cs` (new), shown by `App/Boot.cs` while loading | `design/SplashScreen.cs` | wordmark over the backdrop; no tap |
+| 1 | Splash | `UI/Screens/SplashScreen.cs`, shown by `App/Boot.cs` while loading | `design/HomeScreen.cs` (`SplashScreen`) | wordmark over the backdrop, the four families; no tap |
 | 2 | Home (early levels) | `UI/Screens/HomeScreen.cs` | `design/HomeScreen.cs` | Petals pill, Settings, LEVEL N, PLAY; two Bloomlings on a stone |
-| 3 | Home (progressed) | same, `HomeLook` with the unlocked features | same | hero, Wardrobe, "N levels to reward" + gift, "Rank #N >", Daily Challenge card |
-| 4 | Daily Reward (popup) | `Meta/DailyReward/DailyRewardPopup.cs` | `design/DailyRewardCard.cs` | Day N, reward basket, +N Petals, CLAIM, "Get +N" (ad) |
-| 5 | Leaderboard | `UI/Screens/LeaderboardScreen.cs` | `design/LeaderboardCard.cs` | top 5 with medals, gap, neighbours, "You" row; offline notice |
-| 6 | Collection | `UI/Screens/CollectionScreen.cs` | `design/CollectionCard.cs` | framed grid, detail with name and "Completed at Level N" |
-| 7 | Gameplay (normal) | `UI/Screens/GameplayHud.cs` + `Gameplay/*` views | `design/LevelScreen.cs` | top bar, board, 5 slots, tray, booster bar |
-| 8 | Gameplay (hard) | same + `UI/Screens/DifficultyBanner.cs` → badge | same | red HARD badge under the level pill |
-| 9 | Gameplay (super hard) | same | same | SUPER HARD badge, purple pill, stones, specials, locks |
-| 10 | Jam (bottom sheet) | `UI/Screens/JamScreen.cs` | `design/JamSheet.cs` | NO MOVES LEFT, booster options with costs, Free rescue, Restart |
-| 11 | Pause menu | `UI/Screens/PauseScreen.cs` | `design/PauseCard.cs` | RESUME, RESTART, SETTINGS, HOME, close |
+| 3 | Home (progressed) | same, via `HomeLook` | same | hero, Wardrobe, Collection, "N levels to reward" + gift, "Rank #N >", Daily Challenge card |
+| 4 | Daily Reward (popup) | `Meta/DailyReward/DailyRewardPopup.cs` | `design/MetaCards.cs` (`DailyReward`) | Day N, reward basket, +N Petals, CLAIM, ad bonus |
+| 5 | Leaderboard | `UI/Screens/LeaderboardScreen.cs` | `design/MetaCards.cs` (`Leaderboard`) | medals for 1–3, gap, neighbours, "You" row; offline notice |
+| 6 | Collection | `UI/Screens/CollectionScreen.cs` | `design/MetaCards.cs` (`Collection`) | framed grid, detail with name and "Completed at Level N" |
+| 7 | Gameplay (normal) | `UI/Screens/GameplayHud.cs` + `Gameplay/*` views | `design/LevelScreen.cs`, `design/BoardPainter.cs` | top bar, board, 5 slots, tray, booster bar |
+| 8 | Gameplay (hard) | same + the HUD badge (`SetDifficulty`) and `DifficultyBanner.cs` | same | red HARD badge under the level pill |
+| 9 | Gameplay (super hard) | same | same | SUPER HARD badge, lilac pill, stones, specials |
+| 10 | Jam (bottom sheet) | `UI/Screens/JamScreen.cs` | `design/EndCards.cs` (`Jam`) | NO MOVES LEFT, booster tiles with costs, Free rescue, Restart |
+| 11 | Pause menu | `UI/Screens/PauseScreen.cs` | `design/MenuCards.cs` (`Pause`, `Settings`) | RESUME, RESTART, SETTINGS, HOME, close |
 | 12 | Pod states | `Gameplay/Tray/PodView.cs` | `design/PodPainter.cs` | exposed, next in stack, pressed, locked, mystery, connected |
 | 13 | Waiting slot states | `Gameplay/Slots/SlotRowView.cs` | `design/SlotPainter.cs` | empty, working, stuck, locked, danger (4/5), extra |
 | 14 | Booster bar | `UI/Gameplay/BoosterBar.cs` | `design/BoosterBarPainter.cs` | hidden < L3; appears per unlock; count badge; price when empty |
-| 15 | Win screen | `UI/Screens/WinScreen.cs` | `design/WinCard.cs` | picture, +N Petals, NEXT, "×2 reward" |
-| 16 | Milestone win | `UI/Screens/MilestoneCard.cs` (new) | `design/MilestoneCard.cs` | LEVEL N, "Milestone reached!", reward icons, CONTINUE |
-| 17 | Store | `UI/Screens/StoreScreen.cs` | `design/StoreCard.cs` | Petals pill with +, rows: icon, name, price with Petal |
+| 15 | Win screen | `UI/Screens/WinScreen.cs` | `design/EndCards.cs` (`Win`) | picture, +N Petals, NEXT, "×2 reward" |
+| 16 | Milestone win | `UI/Screens/MilestoneCard.cs` | `design/EndCards.cs` (`Milestone`) | LEVEL N, "Milestone reached!", reward icons, CONTINUE |
+| 17 | Store | `UI/Screens/StoreScreen.cs` | `design/MetaCards.cs` (`Store`) | Petals pill, rows: icon, name, price with the Petal symbol |
+
+The preview tool renders each playtest frame to `playtest/preview/out/NN-<frame>-<shape>.png` and a contact sheet
+(`board-sheet.png`) for the side-by-side review.
 
 ## Recorded deviations (FR-001)
 
@@ -57,3 +60,13 @@ Unity paths are under `client/Assets/Bloomlings/`. Playtest paths are under `pla
    - The Store keeps spec 001's content: Petal packs, boosters, Remove Ads, the starter pack and cosmetics after L40.
    - It keeps two tabs, Shop and Cosmetics, in the board's row style.
 9. **Tester.** The level tester APK keeps its minimal look (FR-003).
+10. **Win card in Unity.** The Unity win card rises at the bottom, under the finished picture, which is revealed on the
+    board itself (spec 001 FR-025). The playtest card shows a small copy of the picture, as frame 15 does.
+11. **Playtest without a server, ads or real money.**
+    - The Leaderboard shows placeholder rows and the player's own row, not invented players.
+    - Ad and real-money buttons show as unavailable.
+    - The jam rescue is granted without an ad.
+    - The Wardrobe screen and the Daily Challenge are not in the playtest; their Home buttons say so.
+12. **PLAY label.** Home shows PLAY at every level, as on the board (the earlier Continue label is gone).
+13. **Hero family.** The Home hero is a Bloom Bloomling in the Unity client and a Sprig in the playtest, both in the
+    player's outfit. Final art picks the hero.

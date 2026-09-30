@@ -65,6 +65,15 @@ Sizes are in **reference units**: 1 unit = 1 px on a 1080-px-wide portrait scree
 | `tile.ground` | `#EFE6D2` | open ground (restored cells of the finished picture use the light variant color) |
 | `tile.stone` | `#A3A6AE` | stone blocker |
 | `tile.stone_edge` | `#7D818B` | its lower edge |
+| `tile.mystery` | `#B8AFCB` | a hidden mystery tile |
+| `pod.mystery` | `#F7D6E6` | the mystery pod card |
+| `pod.mystery_mark` | `#C0508A` | its "?" |
+| `special.gate` | `#6E9A5B` | Garden Gate |
+| `special.fountain` | `#8FB4D6` | Fountain |
+| `special.chest` | `#C08A57` | Chest |
+| `special.statue` | `#A7A9BA` | Statue |
+| `special.bridge` | `#A57C58` | Bridge |
+| `currency.reward_basket` | `#B87B4B` | the Daily Reward basket |
 
 Rules:
 
@@ -72,7 +81,8 @@ Rules:
   FR-066).
 - **Tile shading.**
   - Tiles use the variant color from the core's `VariantCatalog`, unchanged (research R7).
-  - The raised look adds `variant` lightened 18% on the top half and `variant` darkened 28% on the lower edge.
+  - The raised look adds `variant` lightened 10% on the top half (more would drop Water's symbol below 3:1) and
+    `variant` darkened 28% on the lower edge.
   - Symbols use `InkContrast` ink.
 - **Pod cards.** They use `variant` mixed 70% toward `#FFFFFF` as the card, and the full variant color for the body.
 

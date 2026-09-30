@@ -45,6 +45,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - `node --test backend/tests/*.test.js` runs the Cloud Code script tests (in-memory stand-ins for the UGS modules).
 - `dotnet run --project playtest/check` checks the playtest client without Android: its animator replays every golden
   case and showcase solution and must end on the rules state, and its meta layer runs progression and economy.
+- `dotnet run --project playtest/preview` renders the full playtest's designed screens (spec 002) for every design
+  board frame to PNG in `playtest/preview/out/` (gitignored) and checks slots, touch targets and the safe area;
+  `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md` from the asset slot registry.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
   after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI
@@ -69,6 +72,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (`PLAYTEST_TESTER`: ◀ ▶ between levels, free boosters, instant results). Never let gameplay or meta rules live there: it draws `LevelView`, plays the core's events
   (`LevelAnimator`) and calls the Unity client's engine-free services, linked from `client/` (save, progression,
   economy, milestones, sound). Keep those client files engine-free so the link keeps compiling.
+- The look comes from the design board (`specs/002-ux-design-board/`): its tokens, shapes, garden backdrop, layouts and
+  asset slot registry are one engine-free kit in `client/Assets/Bloomlings/UI/Design/`, linked into the playtest. Use
+  token names, never literal colors or sizes; every placeholder shape or procedural visual is a registered asset slot
+  (`AssetSlots`), which the asset inventory is generated from.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
   `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps

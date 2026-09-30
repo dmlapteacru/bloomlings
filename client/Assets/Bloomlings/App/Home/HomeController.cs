@@ -347,6 +347,13 @@ namespace Bloomlings.Client.App.Home
                 }
 
                 BoosterKind k = kind;
+                string boosterId = kind switch
+                {
+                    BoosterKind.ExtraSlot => "extra_slot",
+                    BoosterKind.Shuffle => "shuffle",
+                    BoosterKind.Return => "return",
+                    _ => "bloom_burst",
+                };
                 items.Add(new StoreItem(
                     "booster_" + kind,
                     Loc.F("store.booster_owned", BoosterName(kind), economy.Charges(kind)),
@@ -357,7 +364,10 @@ namespace Bloomlings.Client.App.Home
                         economy.TryBuy(k);
                         reopen();
                         refreshHome();
-                    }));
+                    },
+                    Icon: Art.ProceduralSprites.Shape("booster." + boosterId),
+                    IconTint: UiTheme.Of(UI.Design.DesignTokens.BoosterColor(boosterId)),
+                    PetalPrice: economy.Price(kind)));
             }
 
             if (wardrobe.IsAvailable)
@@ -378,7 +388,8 @@ namespace Bloomlings.Client.App.Home
                         },
                         StoreTab.Cosmetics,
                         WardrobeScreen.Icon(cosmetic),
-                        Gameplay.Workers.BloomlingFigure.Tint(cosmetic)));
+                        Gameplay.Workers.BloomlingFigure.Tint(cosmetic),
+                        cosmetic.Price));
                 }
             }
 

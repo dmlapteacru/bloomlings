@@ -81,10 +81,20 @@ namespace Bloomlings.Playtest.Design
                     Box at = CellBox(s, fade.Cell);
                     Tile(p, fade.Look, at, cell, 1f - (0.5f * k), 1f - k);
 
-                    // A sparkle as the tile is restored.
+                    // A sparkle as the tile is restored; droplets for the Drop family.
                     p.PushAlpha(1f - k);
                     float spark = cell * (0.35f + (0.4f * k));
-                    p.Shape("fx.sparkle", Box.FromCenter(at.CenterX + (cell * 0.18f), at.CenterY - (cell * 0.18f), spark, spark), Rgba.White);
+                    bool drop = fade.Look.Visible.HasValue && Visuals.FamilyOf(fade.Look.Visible.Value) == Family.Drop;
+                    if (drop)
+                    {
+                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX - (cell * 0.2f), at.CenterY - (cell * 0.1f) - (cell * 0.3f * k), spark * 0.6f, spark * 0.6f), Rgba.FromHex("#DDF1FF"));
+                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX + (cell * 0.22f), at.CenterY - (cell * 0.2f) - (cell * 0.3f * k), spark * 0.5f, spark * 0.5f), Rgba.FromHex("#DDF1FF"));
+                    }
+                    else
+                    {
+                        p.Shape("fx.sparkle", Box.FromCenter(at.CenterX + (cell * 0.18f), at.CenterY - (cell * 0.18f), spark, spark), Rgba.White);
+                    }
+
                     p.PopAlpha();
                 }
             }

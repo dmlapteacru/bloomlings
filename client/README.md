@@ -141,6 +141,20 @@ Golden Replays (Android/iOS)** builds that scene alone with IL2CPP. On each refe
 `[GoldenReplay] RESULT PASS n/n corpus=<digest> …`. Every case must pass, and the corpus digest must be the same on
 every device (SC-005, SC-011).
 
+## Design (spec 002)
+
+The screens follow the UX design board (`specs/002-ux-design-board/ux-design-board.webp`), built without art assets.
+The engine-free kit in `Assets/Bloomlings/UI/Design/` holds everything that defines the look, and the playtest links it:
+- `DesignTokens`: colors, radii, type, spacing, elevation and motion (`contracts/design-tokens.md`);
+- `ShapeLibrary` and `ShapeRaster`: every placeholder shape as a signed distance function, keyed by its asset slot id;
+- `BackdropRaster`: the garden backdrop per level band theme;
+- `ScreenLayout` and `HomeLook`: the regions of the gameplay screen, Home, cards and the jam sheet;
+- `AssetSlots`: the registry the asset inventory (`specs/002-ux-design-board/asset-inventory.md`) is generated from.
+
+Unity wraps the kit in `ProceduralSprites` (sprites), `UiTheme` (Unity colors), `UiKit` (the board's pills, raised
+buttons, round icon buttons, badges, cards and bottom sheet) and `BackdropView`. The canvas matches the screen width at
+1080 units, so token sizes map one to one. Final art replaces a placeholder by its slot id without layout changes.
+
 ## Localization
 
 Player-facing text is table-driven (R18): code asks `Loc.T("key")`. The English source is
