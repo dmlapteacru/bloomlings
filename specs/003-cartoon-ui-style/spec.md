@@ -16,6 +16,12 @@ language of the design board, all drawn without art assets. This feature keeps e
 and state of spec 002. It changes how the elements are drawn and how they move: from a soft, flat look to the chunky,
 glossy, bouncy look of casual mobile games.
 
+**Mockup** (for review before implementation): the interactive Design canvas
+[Bloomlings Cartoon UI](https://claude.ai/artifact/DcKztGLXTntBcooCuJGqik) (private to the owner) and its still
+[`mockup-before-after.jpg`](mockup-before-after.jpg). The canvas redraws the recorded spec 002 screens in the new style,
+has the Tweaks of the recipe (outline, lip, gloss, shadow, bounce, breathing, tile outline, font) and a "как сейчас"
+switch, and shows the current look under each screen.
+
 **Inspiration, not copying**: *Colony Flow!* (ABI Games) is the gameplay reference (constitution I). Its interface, like
 most casual puzzle games of its kind, uses:
 - chunky buttons with a thick darker lip;
