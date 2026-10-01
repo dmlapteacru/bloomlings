@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [x] No [NEEDS CLARIFICATION] markers remain
+- [ ] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -37,4 +37,11 @@
   - Q2 A: drawn depth in the plane counts as flat 2D; doc 12 and the constitution stay unchanged.
 - The spec names the builds (the Unity client, the full playtest APK and the level tester APK). These are product
   scope, as in spec 002, not implementation choices.
+- 2026-10-01: the spec now describes the chosen "Garden" direction:
+  - the plate and the raised button;
+  - a volumetric 2D board, cells and pods;
+  - booster tiles.
+
+  Two markers are open in FR-009: whether to add a rounded font file (with Cyrillic), and whether to switch to sentence
+  case.
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`.
