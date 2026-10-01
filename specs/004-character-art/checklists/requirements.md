@@ -37,8 +37,7 @@
   "xN" count, one 3D hero per family, expansion characters at lower priority.
 - "Generator tools kept in the repository" (FR-019) and "asset slot" (FR-020) name a process, not a technology. The
   plan chooses the tools.
-- **Constitution VII ("strictly flat 2D")** is read as covering the played and navigated product (no 3D scene, camera
-  or perspective view). Pre-rendered 3D pictures on meta screens are illustrations under that reading. If the owner
-  wants it explicit, a PATCH amendment of the constitution is needed. Flagged to the owner before planning.
+- **Constitution VII** was amended to v1.0.2 (2026-10-01, owner's approval): flat 2D covers what is played and
+  navigated, and pre-rendered 3D illustrations are allowed on meta screens only. The spec follows it.
 - Deviations from locked documents (doc 12 §1 and §7, spec 001 FR-005's "never character faces" on tiles, spec 002
   FR-011) are owner decisions and are listed in FR-012 and Assumptions.

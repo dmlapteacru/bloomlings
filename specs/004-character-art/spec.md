@@ -337,11 +337,9 @@ heroes, the screens keep their layout and buttons, and a worn hat or skin still 
   per-variant 3D heroes. Gameplay already shows each variant as its 2D character.
 - **Expansion variants.** Their 2D characters are made now with the launch set, as lower priority. Their 3D look is not
   needed, because 3D heroes are per family.
-- **Constitution VII.** The constitution says "strictly flat 2D". This spec reads it as covering what the player plays
-  and navigates: the game has no 3D scene, camera or perspective view, and every screen is a flat 2D layout. Under
-  that reading, pre-rendered 3D pictures shown as flat images on meta screens are illustrations. The owner approved
-  them as an exception to doc 12 §1. If the owner wants the rule stated, the constitution gets a PATCH amendment
-  through its governance (a PR with a version bump).
+- **Constitution VII.** Amended to v1.0.2 on 2026-10-01 with the owner's approval. What the player plays and
+  navigates stays flat 2D, with no 3D scene, camera or perspective view. Pre-rendered 3D illustrations may appear as
+  flat pictures on meta screens only, never inside a level (FR-003, FR-017, FR-018).
 - **Doc 12.** Doc 12 §1 (flat 2D) and §7 (no faces on target tiles) change for this feature, by the owner's decisions
   above. The locked document itself changes only through the owner.
 - **Own art.** The tools and their output are the project's own work. The owner's reference images are a style
