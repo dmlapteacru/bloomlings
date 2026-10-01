@@ -122,6 +122,66 @@ namespace Bloomlings.Client.Art
         public static Sprite SkinPattern(Family family, string shape) =>
             Get("skin_" + family + "_" + shape, IconSize, ShapeLibrary.SkinOn(family, shape));
 
+        /// <summary>A composite or grown shape under its own cache key (outlines, the decoration's parts).</summary>
+        public static Sprite Composite(string key, Func<float, float, float> sdf, int size = IconSize) => Get(key, size, sdf);
+
+        /// <summary>
+        /// The leaves-and-flower decoration of the main buttons (spec 003 FR-011a), baked once into one colored sprite per
+        /// corner: each part's outline, then its fill, back to front.
+        /// </summary>
+        public static Sprite Decoration(bool flipped)
+        {
+            string cacheKey = "ui.deco.garden" + (flipped ? "/flipped" : string.Empty);
+            if (Cache.TryGetValue(cacheKey, out Sprite? cached))
+            {
+                return cached;
+            }
+
+            const int size = 128;
+            var pixels = new Color32[size * size];
+            foreach (DecorationPart part in GardenLook.DecorationParts)
+            {
+                (Rgba fill, Rgba line) = GardenLook.DecorationColors(part);
+                bool leaf = part != DecorationPart.Petals && part != DecorationPart.Center;
+                float stroke = leaf ? 0.032f : 0.02f;
+                Over(pixels, ShapeRaster.Mask(ShapeLibrary.DecorationPartSdf(part, stroke, flipped), size, topDown: false), line);
+                Over(pixels, ShapeRaster.Mask(ShapeLibrary.DecorationPartSdf(part, -stroke * 0.6f, flipped), size, topDown: false), fill);
+            }
+
+            var texture = new Texture2D(size, size, TextureFormat.RGBA32, false)
+            {
+                name = cacheKey,
+                filterMode = FilterMode.Bilinear,
+                wrapMode = TextureWrapMode.Clamp,
+                hideFlags = HideFlags.DontSave,
+            };
+            texture.SetPixels32(pixels);
+            texture.Apply(false, true);
+            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, Vector4.zero);
+            sprite.name = cacheKey;
+            Cache[cacheKey] = sprite;
+            return sprite;
+        }
+
+        /// <summary>Paints a color through a mask over the pixels (straight alpha).</summary>
+        private static void Over(Color32[] pixels, byte[] mask, Rgba color)
+        {
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                float a = mask[i] / 255f;
+                if (a <= 0f)
+                {
+                    continue;
+                }
+
+                Color32 under = pixels[i];
+                float ua = under.a / 255f;
+                float outA = a + (ua * (1f - a));
+                byte Mix(byte top, byte bottom) => (byte)Mathf.Clamp(Mathf.RoundToInt(((top * a) + (bottom * ua * (1f - a))) / Mathf.Max(0.0001f, outA)), 0, 255);
+                pixels[i] = new Color32(Mix(color.R, under.r), Mix(color.G, under.g), Mix(color.B, under.b), (byte)Mathf.RoundToInt(outA * 255f));
+            }
+        }
+
         private static Sprite Get(string id, int size, float border = 0f) => Get(id, size, ShapeLibrary.Get(id), border);
 
         private static Sprite Get(string key, int size, Func<float, float, float> sdf, float border = 0f)

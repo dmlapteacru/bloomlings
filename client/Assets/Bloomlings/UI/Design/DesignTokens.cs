@@ -92,6 +92,34 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba SpecialBridge = Rgba.FromHex("#A57C58");
             public static readonly Rgba RewardBasket = Rgba.FromHex("#B87B4B");
 
+            // ---- The Garden look (spec 003 contracts/garden-tokens.md) ----
+            public static readonly Rgba GardenPlateTop = Rgba.FromHex("#FCF5E4");
+            public static readonly Rgba GardenPlateBottom = Rgba.FromHex("#EBDDBE");
+            public static readonly Rgba GardenPlateDepth = Rgba.FromHex("#A88A5C");
+            public static readonly Rgba GardenOutline = Rgba.FromHex("#8C6B45");
+            public static readonly Rgba GardenWood = Rgba.FromHex("#8C6B45");
+            public static readonly Rgba GardenWoodDepth = Rgba.FromHex("#A88A5C");
+            public static readonly Rgba GardenPaperTop = Rgba.FromHex("#FFF9EC");
+            public static readonly Rgba GardenPaperBottom = Rgba.FromHex("#F6EBD3");
+            public static readonly Rgba GardenWell = Rgba.FromHex("#E6D6B3");
+            public static readonly Rgba GardenWellEdge = Rgba.FromHex("#B39668");
+            public static readonly Rgba GardenTabSunk = Rgba.FromHex("#E9D9B7");
+            public static readonly Rgba GardenBadge = Rgba.FromHex("#3B2A1A");
+            public static readonly Rgba GardenBadgeRing = Rgba.FromHex("#FBF3E1");
+            public static readonly Rgba GardenShadow = Rgba.FromHex("#3C2814");
+            public static readonly Rgba GardenLabelFillTop = Rgba.FromHex("#FFFFFF");
+            public static readonly Rgba GardenLabelFillBottom = Rgba.FromHex("#EEF2DA");
+            public static readonly Rgba GardenLabelPlain = Rgba.FromHex("#5A3F24");
+            public static readonly Rgba GardenLeaf1 = Rgba.FromHex("#6DBE45");
+            public static readonly Rgba GardenLeaf2 = Rgba.FromHex("#8BD35A");
+            public static readonly Rgba GardenLeaf3 = Rgba.FromHex("#5BAA3A");
+            public static readonly Rgba GardenLeafLine = Rgba.FromHex("#2F6B22");
+            public static readonly Rgba GardenFlower = Rgba.FromHex("#FFFFFF");
+            public static readonly Rgba GardenFlowerLine = Rgba.FromHex("#B9B09A");
+            public static readonly Rgba GardenFlowerCenter = Rgba.FromHex("#FFD35C");
+            public static readonly Rgba GardenFlowerCenterLine = Rgba.FromHex("#D29B2E");
+            public static readonly Rgba GardenGlow = Rgba.FromHex("#FFD54A");
+
             /// <summary>Every color token by its contract name (tests and docs).</summary>
             public static IReadOnlyDictionary<string, Rgba> All { get; } = new Dictionary<string, Rgba>(StringComparer.Ordinal)
             {
@@ -158,6 +186,32 @@ namespace Bloomlings.Client.UI.Design
                 ["special.statue"] = SpecialStatue,
                 ["special.bridge"] = SpecialBridge,
                 ["currency.reward_basket"] = RewardBasket,
+                ["garden.plate_top"] = GardenPlateTop,
+                ["garden.plate_bottom"] = GardenPlateBottom,
+                ["garden.plate_depth_color"] = GardenPlateDepth,
+                ["garden.outline"] = GardenOutline,
+                ["garden.wood"] = GardenWood,
+                ["garden.wood_depth"] = GardenWoodDepth,
+                ["garden.paper_top"] = GardenPaperTop,
+                ["garden.paper_bottom"] = GardenPaperBottom,
+                ["garden.well"] = GardenWell,
+                ["garden.well_edge"] = GardenWellEdge,
+                ["garden.tab_sunk"] = GardenTabSunk,
+                ["garden.badge"] = GardenBadge,
+                ["garden.badge_ring"] = GardenBadgeRing,
+                ["garden.shadow"] = GardenShadow,
+                ["garden.label_fill_top"] = GardenLabelFillTop,
+                ["garden.label_fill_bottom"] = GardenLabelFillBottom,
+                ["garden.label_plain"] = GardenLabelPlain,
+                ["garden.leaf_1"] = GardenLeaf1,
+                ["garden.leaf_2"] = GardenLeaf2,
+                ["garden.leaf_3"] = GardenLeaf3,
+                ["garden.leaf_line"] = GardenLeafLine,
+                ["garden.flower"] = GardenFlower,
+                ["garden.flower_line"] = GardenFlowerLine,
+                ["garden.flower_center"] = GardenFlowerCenter,
+                ["garden.flower_center_line"] = GardenFlowerCenterLine,
+                ["garden.glow"] = GardenGlow,
             };
 
             /// <summary>The medal color of ranks 1–3, or null for other ranks.</summary>
@@ -182,16 +236,21 @@ namespace Bloomlings.Client.UI.Design
             public const float Row = 0.25f;
         }
 
+        /// <summary>
+        /// The board's text styles. Since spec 003 (Clarifications, 2A) every label is sentence case ("Play"); only
+        /// <see cref="Badge"/> (HARD, SUPER HARD) stays uppercase. Bold styles use Nunito ExtraBold, the others Nunito
+        /// SemiBold (spec 003 contracts/fonts.md).
+        /// </summary>
         public static class Type
         {
             public static readonly TypeStyle Wordmark = new TypeStyle("type.wordmark", 170f, true, false, 12f, 110f);
             public static readonly TypeStyle Title = new TypeStyle("type.title", 64f, true, false, 0f, 44f);
-            public static readonly TypeStyle TitleCaps = new TypeStyle("type.title_caps", 60f, true, true, 0f, 42f);
-            public static readonly TypeStyle LevelHome = new TypeStyle("type.level_home", 84f, true, true, 0f, 60f);
-            public static readonly TypeStyle LevelPill = new TypeStyle("type.level_pill", 52f, true, true, 3f, 38f);
-            public static readonly TypeStyle ButtonLarge = new TypeStyle("type.button_large", 76f, true, true, 4f, 52f);
-            public static readonly TypeStyle Button = new TypeStyle("type.button", 54f, true, true, 3f, 38f);
-            public static readonly TypeStyle ButtonSecondary = new TypeStyle("type.button_secondary", 44f, true, true, 0f, 32f);
+            public static readonly TypeStyle TitleCaps = new TypeStyle("type.title_caps", 60f, true, false, 0f, 42f);
+            public static readonly TypeStyle LevelHome = new TypeStyle("type.level_home", 84f, true, false, 0f, 60f);
+            public static readonly TypeStyle LevelPill = new TypeStyle("type.level_pill", 52f, true, false, 3f, 38f);
+            public static readonly TypeStyle ButtonLarge = new TypeStyle("type.button_large", 92f, true, false, 4f, 60f);
+            public static readonly TypeStyle Button = new TypeStyle("type.button", 60f, true, false, 3f, 40f);
+            public static readonly TypeStyle ButtonSecondary = new TypeStyle("type.button_secondary", 48f, true, false, 0f, 34f);
             public static readonly TypeStyle Body = new TypeStyle("type.body", 40f, false, false, 0f, 30f);
             public static readonly TypeStyle Caption = new TypeStyle("type.caption", 32f, false, false, 0f, 26f);
             public static readonly TypeStyle Count = new TypeStyle("type.count", 40f, true, false, 3f, 30f);
@@ -222,6 +281,24 @@ namespace Bloomlings.Client.UI.Design
             public const float PrimaryHeightSmall = 126f;
             public const float SecondaryHeight = 110f;
             public const float Margin = 44f;
+
+            /// <summary>PLAY on Home: shorter and taller than spec 002, about 2.6 : 1 (spec 003 FR-011).</summary>
+            public const float PlayWidth = 540f;
+
+            public const float PlayHeight = 204f;
+
+            /// <summary>The main button of a card (NEXT, RESUME, CLAIM, CONTINUE), narrower and centered.</summary>
+            public const float CardPrimaryWidth = 620f;
+
+            public const float CardPrimaryHeight = 140f;
+
+            /// <summary>The secondary buttons of a card (HOME, RESTART, SETTINGS).</summary>
+            public const float CardSecondaryWidth = 580f;
+
+            /// <summary>A booster tile of the booster bar (spec 003 FR-031, contracts/booster-tile.md).</summary>
+            public const float BoosterTileWidth = 152f;
+
+            public const float BoosterTileHeight = 156f;
         }
 
         public static class Elevation
@@ -235,10 +312,104 @@ namespace Bloomlings.Client.UI.Design
 
         public static class Motion
         {
-            public static readonly MotionToken Press = new MotionToken("motion.press", 0.09f, 0.94f);
+            /// <summary>The press: down within a frame, then a 0.36 s spring back with one overshoot (spec 003 FR-017).</summary>
+            public static readonly MotionToken Press = new MotionToken("motion.press", 0.36f, 0.95f);
+
+            /// <summary>The idle breath of the one waiting button (spec 003 FR-019): at most 4%, at least 1.2 s.</summary>
+            public static readonly MotionToken Breathe = new MotionToken("motion.breathe", 1.6f, 1.03f);
+
+            /// <summary>Earned Petals count up to their value (spec 003 FR-020).</summary>
+            public static readonly MotionToken CountUp = new MotionToken("motion.count_up", 0.8f, 1f);
             public static readonly MotionToken Pop = new MotionToken("motion.pop", 0.22f, 0.85f);
             public static readonly MotionToken Sheet = new MotionToken("motion.sheet", 0.26f, 1f);
             public static readonly MotionToken Reward = new MotionToken("motion.reward", 0.3f, 1f);
+
+            /// <summary>The pulse of a selected booster's glow (spec 003 FR-031).</summary>
+            public static readonly MotionToken Glow = new MotionToken("motion.glow", 1.2f, 1f);
+        }
+
+        /// <summary>
+        /// The Garden recipe's geometry in reference units (spec 003 FR-006 to FR-008, FR-022, FR-023, FR-028;
+        /// contracts/garden-tokens.md). The colors are in <see cref="Colors"/> (<c>garden.*</c>) and the color sets in
+        /// <see cref="GardenLook"/>.
+        /// </summary>
+        public static class Garden
+        {
+            /// <summary>The outline of plates and buttons; small elements use <see cref="OutlineWidthSmall"/>.</summary>
+            public const float OutlineWidth = 3f;
+
+            public const float OutlineWidthSmall = 2f;
+
+            /// <summary>How far the button sits inside its plate, by element size.</summary>
+            public const float PlateInsetLarge = 11f;
+
+            public const float PlateInsetMedium = 8f;
+
+            public const float PlateInsetSmall = 5f;
+
+            /// <summary>The plate's visible thickness below it.</summary>
+            public const float PlateDepth = 6f;
+
+            public const float PlateDepthSmall = 3f;
+
+            /// <summary>The darker band along a button's bottom edge, by element size.</summary>
+            public const float LipLarge = 13f;
+
+            public const float LipMedium = 10f;
+
+            public const float LipSmall = 6f;
+
+            /// <summary>The white highlight band across a button's upper part.</summary>
+            public const float HighlightAlpha = 0.5f;
+
+            public const float HighlightHeight = 0.36f;
+
+            /// <summary>The wooden frame of cards and the board, and of the slot row.</summary>
+            public const float FrameWidth = 6f;
+
+            public const float FrameWidthSlots = 5f;
+
+            public const float FrameDepthCard = 12f;
+
+            public const float FrameDepthBoard = 10f;
+
+            public const float FrameDepthSlots = 8f;
+
+            /// <summary>The volumetric board cells (FR-023).</summary>
+            public const float CellLip = 14f;
+
+            public const float CellHighlightAlpha = 0.4f;
+
+            /// <summary>The volumetric pods (FR-022).</summary>
+            public const float PodLip = 20f;
+
+            /// <summary>The soft drop shadow under plates and frames.</summary>
+            public const float ShadowAlpha = 0.28f;
+
+            /// <summary>The leaves and flowers on the main buttons (FR-011a), as a fraction of the button height.</summary>
+            public const float DecorationSize = 0.75f;
+
+            /// <summary>Whether main buttons carry the leaves and flowers (one switch, FR-011a).</summary>
+            public static bool Decorations { get; set; } = true;
+
+            /// <summary>The label look (FR-009): outline, extrusion and shadow, as fractions of the font size.</summary>
+            public const float LabelOutlineEm = 0.036f;
+
+            public const float LabelExtrudeEm = 0.09f;
+
+            public const float LabelShadowAlpha = 0.3f;
+
+            /// <summary>The plate inset of an element of this height (large ≥ 140, medium ≥ 90, small below).</summary>
+            public static float PlateInset(float heightUnits) => heightUnits >= 140f ? PlateInsetLarge : heightUnits >= 90f ? PlateInsetMedium : PlateInsetSmall;
+
+            /// <summary>The lip of an element of this height.</summary>
+            public static float Lip(float heightUnits) => heightUnits >= 140f ? LipLarge : heightUnits >= 90f ? LipMedium : LipSmall;
+
+            /// <summary>The outline width of an element of this height.</summary>
+            public static float Outline(float heightUnits) => heightUnits >= 90f ? OutlineWidth : OutlineWidthSmall;
+
+            /// <summary>The plate thickness of an element of this height.</summary>
+            public static float Depth(float heightUnits) => heightUnits >= 90f ? PlateDepth : PlateDepthSmall;
         }
 
         /// <summary>The backdrop of a level band, mixed 35% toward its theme (FR-008, FR-066); null theme colors keep the defaults.</summary>

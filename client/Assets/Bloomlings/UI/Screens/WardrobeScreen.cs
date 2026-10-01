@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
@@ -22,9 +23,9 @@ namespace Bloomlings.Client.UI.Screens
         private const int Rows = 3;
         private const int PerPage = Columns * Rows;
 
-        private readonly List<Image> _familyFrames = new List<Image>();
+        private readonly List<GardenButton> _familyFrames = new List<GardenButton>();
         private readonly List<BloomlingFigure> _familyFigures = new List<BloomlingFigure>();
-        private readonly List<Image> _modeTabs = new List<Image>();
+        private readonly List<GardenButton> _modeTabs = new List<GardenButton>();
         private readonly List<Button> _kindTabs = new List<Button>();
         private GameObject _root = null!;
         private GameObject _familyRow = null!;
@@ -56,7 +57,7 @@ namespace Bloomlings.Client.UI.Screens
                 bool profile = i == 1;
                 Button tab = UiFactory.CreateButton(profile ? "ProfileTab" : "BloomlingsTab", card, modes[i], UiTheme.SlotLocked, () => screen.SetMode(profile), 40f);
                 UiFactory.Place((RectTransform)tab.transform, 0.06f + (i * 0.45f), 0.845f, 0.49f + (i * 0.45f), 0.9f);
-                screen._modeTabs.Add(tab.GetComponent<Image>());
+                screen._modeTabs.Add(tab.GetComponent<GardenButton>());
             }
 
             RectTransform familyRow = UiFactory.Place(UiFactory.CreateRect("Families", card), 0.04f, 0.66f, 0.96f, 0.83f);
@@ -68,7 +69,7 @@ namespace Bloomlings.Client.UI.Screens
                 float x0 = i * 0.25f;
                 Button button = UiFactory.CreateButton(family.ToString(), familyRow, string.Empty, UiTheme.Panel, () => screen.Select(family));
                 UiFactory.Place((RectTransform)button.transform, x0 + 0.01f, 0f, x0 + 0.24f, 1f);
-                screen._familyFrames.Add(button.GetComponent<Image>());
+                screen._familyFrames.Add(button.GetComponent<GardenButton>());
                 BloomlingFigure figure = BloomlingFigure.Create("Figure", button.transform);
                 UiFactory.Place(figure.Rect, 0.2f, 0.1f, 0.8f, 0.7f);
                 screen._familyFigures.Add(figure);
@@ -172,8 +173,9 @@ namespace Bloomlings.Client.UI.Screens
 
         private void Refresh()
         {
-            _modeTabs[0].color = _profileMode ? UiTheme.SlotLocked : UiTheme.Accent;
-            _modeTabs[1].color = _profileMode ? UiTheme.Accent : UiTheme.SlotLocked;
+            // The selected tab is green, the others cream (spec 003 FR-016).
+            _modeTabs[0].SetColors(_profileMode ? GardenLook.Cream : GardenLook.Green);
+            _modeTabs[1].SetColors(_profileMode ? GardenLook.Green : GardenLook.Cream);
             _familyRow.SetActive(!_profileMode);
             _avatar.Rect.gameObject.SetActive(_profileMode);
             _avatar.Show(_wardrobe.Profile, _wardrobe.OutfitOf(Family.Bloom));
@@ -181,7 +183,7 @@ namespace Bloomlings.Client.UI.Screens
             IReadOnlyList<Family> families = WardrobeService.Families;
             for (int i = 0; i < families.Count; i++)
             {
-                _familyFrames[i].color = families[i] == _selected ? UiTheme.Light(UiTheme.Accent) : UiTheme.Panel;
+                _familyFrames[i].SetColors(families[i] == _selected ? GardenLook.Green : GardenLook.Cream);
                 _familyFigures[i].Show(families[i], UiTheme.SlotLocked, _wardrobe.OutfitOf(families[i]));
             }
 
@@ -192,10 +194,8 @@ namespace Bloomlings.Client.UI.Screens
                 _kindTabs[i].gameObject.SetActive(used);
                 if (used)
                 {
-                    _kindTabs[i].GetComponent<Image>().color = kinds[i] == _kind ? UiTheme.Light(UiTheme.Accent) : UiTheme.Panel;
-                    TextMeshProUGUI label = _kindTabs[i].GetComponentInChildren<TextMeshProUGUI>();
-                    label.text = KindLabel(kinds[i]);
-                    label.color = UiTheme.Text;
+                    _kindTabs[i].GetComponent<GardenButton>().SetColors(kinds[i] == _kind ? GardenLook.Green : GardenLook.Cream);
+                    _kindTabs[i].GetComponentInChildren<TextMeshProUGUI>().text = KindLabel(kinds[i]);
                 }
             }
 

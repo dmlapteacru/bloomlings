@@ -24,15 +24,14 @@ namespace Bloomlings.Playtest.Design
         public static void Win(IPainter p, LevelScreen s, float since)
         {
             LevelReward? reward = s.Payout?.Reward;
-            float content = 470f + 130f + (reward?.DroppedBooster != null ? 60f : 0f) + DesignTokens.Size.PrimaryHeightSmall + DesignTokens.Size.SecondaryHeight + 90f;
+            float content = 470f + 130f + (reward?.DroppedBooster != null ? 60f : 0f) + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 100f;
             CardRegions r = Kit.Card(p, content, PlaytestText.T("win.title"), null, Kit.Pop(since));
             float y = r.Body.Top;
 
             // The finished picture in a frame.
             p.Mark("fx.win_shine");
             var frame = new Box(r.Body.Left + p.U(30f), y, r.Body.Right - p.U(30f), y + p.U(470f));
-            p.FillRound(frame.Offset(0f, p.U(6f)), p.U(40f), C.SurfacePanelEdge);
-            p.FillRound(frame, p.U(40f), Rgba.White);
+            Kit.Paper(p, frame, p.U(40f), DesignTokens.Garden.FrameWidthSlots, DesignTokens.Garden.FrameDepthSlots);
             BoardPainter.Picture(p, frame.Inset(p.U(24f)), s.Session.Definition, s.Session.Picture);
             if (since < 1.2f)
             {
@@ -51,11 +50,13 @@ namespace Bloomlings.Playtest.Design
             p.PushTransform(0f, (1f - rise) * p.U(30f), 1f, 0f, 0f);
             if (reward != null)
             {
-                string amount = NumberText.Plus(reward.Petals);
-                float w = p.MeasureText(amount, T.Reward);
+                // The earned Petals count up from 0 (spec 003 FR-020); NEXT works at once.
+                string amount = NumberText.Plus(GardenLook.CountUp(reward.Petals, since - 0.15f));
+                float w = p.MeasureText(NumberText.Plus(reward.Petals), T.Reward);
                 float icon = p.U(80f);
                 float cx = r.Body.CenterX - ((icon + p.U(12f)) / 2f);
-                p.Text(amount, cx, y + p.U(56f), T.Reward, C.TextPrimary);
+                p.Text(amount, cx, y + p.U(56f), T.Reward, C.GardenLabelPlain, look: TextLook.Plain(C.GardenLabelPlain));
+                Kit.SparkleBurst(p, cx + (w / 2f) + p.U(12f) + (icon / 2f), y + p.U(56f), icon * 1.4f, since - 0.15f);
                 Kit.Petal(p, Box.FromCenter(cx + (w / 2f) + p.U(12f) + (icon / 2f), y + p.U(56f), icon, icon));
                 if (since < 1.4f)
                 {
@@ -82,9 +83,9 @@ namespace Bloomlings.Playtest.Design
             p.PopTransform();
             p.PopAlpha();
 
-            var next = new Box(r.Body.Left + p.U(60f), y + p.U(10f), r.Body.Right - p.U(60f), y + p.U(10f) + p.U(DesignTokens.Size.PrimaryHeightSmall));
-            Kit.PrimaryButton(p, next, PlaytestText.T("common.next"), s.Next);
-            var twice = new Box(r.Body.Left + p.U(160f), next.Bottom + p.U(24f), r.Body.Right - p.U(160f), next.Bottom + p.U(24f) + p.U(DesignTokens.Size.SecondaryHeight));
+            Box next = ScreenLayout.CardButton(r.Body, y + p.U(16f), true, p.Scale);
+            Kit.PrimaryButton(p, next, PlaytestText.T("common.next"), s.Next, decorate: true);
+            Box twice = ScreenLayout.CardButton(r.Body, next.Bottom + p.U(24f), false, p.Scale).Inset(p.U(60f), 0f);
             Kit.SecondaryButton(p, twice, PlaytestText.T("win.double"), null, "ui.ad");
             p.Text("no ads in the playtest", r.Body.CenterX, twice.Bottom + p.U(34f), T.Caption, C.TextSecondary);
             Kit.EndCard(p);
@@ -96,7 +97,7 @@ namespace Bloomlings.Playtest.Design
         public static void Milestone(IPainter p, LevelScreen s, float since)
         {
             MilestoneGrant grant = s.Payout!.Milestone!;
-            CardRegions r = Kit.Card(p, 60f + 300f + DesignTokens.Size.PrimaryHeightSmall + 60f, PlaytestText.F("common.level", NumberText.Group(grant.Level)), null, Kit.Pop(since), T.TitleCaps);
+            CardRegions r = Kit.Card(p, 60f + 300f + DesignTokens.Size.CardPrimaryHeight + 70f, PlaytestText.F("common.level", NumberText.Group(grant.Level)), null, Kit.Pop(since), T.TitleCaps);
             p.Text(PlaytestText.T("milestone.reached"), r.Body.CenterX, r.Body.Top + p.U(20f), T.Body, C.TextSecondary);
 
             var items = new List<(string Shape, Rgba Color, string Amount, bool Petal)>();
@@ -144,11 +145,11 @@ namespace Bloomlings.Playtest.Design
                     p.Shape(shape, iconBox, color);
                 }
 
-                p.Text(amount, cell.CenterX, iconBox.Bottom + p.U(40f), T.Count, C.TextPrimary, cell.Width);
+                p.Text(amount, cell.CenterX, iconBox.Bottom + p.U(40f), T.Count, C.GardenLabelPlain, cell.Width);
             }
 
-            var go = new Box(r.Body.Left + p.U(60f), r.Body.Bottom - p.U(DesignTokens.Size.PrimaryHeightSmall) - p.U(10f), r.Body.Right - p.U(60f), r.Body.Bottom - p.U(10f));
-            Kit.PrimaryButton(p, go, PlaytestText.T("milestone.continue"), s.Next);
+            Box go = ScreenLayout.CardButton(r.Body, r.Body.Bottom - p.U(DesignTokens.Size.CardPrimaryHeight) - p.U(16f), true, p.Scale);
+            Kit.PrimaryButton(p, go, PlaytestText.T("milestone.continue"), s.Next, decorate: true, breathe: true);
             Kit.EndCard(p);
             Confetti(p, s, since);
         }
@@ -172,9 +173,9 @@ namespace Bloomlings.Playtest.Design
             }
 
             (BoosterKind Kind, Command Command)? rescue = s.RescueOffer();
-            float content = (options.Count > 0 ? 250f + 30f : 0f) + (rescue.HasValue ? DesignTokens.Size.PrimaryHeightSmall + 24f : 0f) + DesignTokens.Size.SecondaryHeight + 20f;
+            float content = (options.Count > 0 ? 250f + 30f : 0f) + (rescue.HasValue ? DesignTokens.Size.CardPrimaryHeight + 24f : 0f) + DesignTokens.Size.SecondaryHeight + 30f;
             string title = PlaytestText.T(s.Session.Status == LevelStatus.Stuck ? "jam.stuck" : "jam.title");
-            SheetRegions sheet = Kit.Sheet(p, content, title, PlaytestText.T("jam.subtitle"), Kit.Ease(since / DesignTokens.Motion.Sheet.Seconds));
+            SheetRegions sheet = Kit.Sheet(p, content, title, PlaytestText.T("jam.subtitle"), Kit.SheetRise(since));
             float y = sheet.Body.Top;
             if (options.Count > 0)
             {
@@ -190,18 +191,18 @@ namespace Bloomlings.Playtest.Design
                     Rgba color = DesignTokens.BoosterColor(id);
                     p.FillCircle(face.CenterX, face.Top + p.U(70f), icon / 2f, color);
                     p.Shape("booster." + id, Box.FromCenter(face.CenterX, face.Top + p.U(70f), icon * 0.56f, icon * 0.56f), id == "bloom_burst" ? C.PetalCenter : Rgba.White);
-                    p.Text(BoosterName(kind), face.CenterX, face.Top + p.U(150f), T.Caption, C.TextPrimary, face.Width * 0.92f);
+                    p.Text(BoosterName(kind), face.CenterX, face.Top + p.U(150f), T.Caption, C.GardenLabelPlain, face.Width * 0.92f);
                     int charges = s.Meta.Economy.Charges(kind);
                     if (charges > 0)
                     {
-                        p.Text("×" + charges, face.CenterX, face.Top + p.U(198f), T.Count, C.TextPrimary);
+                        p.Text("×" + charges, face.CenterX, face.Top + p.U(198f), T.Count, C.GardenLabelPlain);
                     }
                     else
                     {
                         string price = NumberText.Group(s.Meta.Economy.Price(kind));
                         float w = p.MeasureText(price, T.Count);
                         Kit.Petal(p, Box.FromCenter(face.CenterX - (w / 2f) - p.U(8f), face.Top + p.U(198f), p.U(40f), p.U(40f)));
-                        p.Text(price, face.CenterX + p.U(16f), face.Top + p.U(198f), T.Count, C.TextPrimary);
+                        p.Text(price, face.CenterX + p.U(16f), face.Top + p.U(198f), T.Count, C.GardenLabelPlain);
                     }
 
                     p.Hit(cell, () => s.PressBooster(kind, recovery));
@@ -212,12 +213,12 @@ namespace Bloomlings.Playtest.Design
 
             if (rescue.HasValue)
             {
-                var free = new Box(sheet.Body.Left + p.U(20f), y, sheet.Body.Right - p.U(20f), y + p.U(DesignTokens.Size.PrimaryHeightSmall));
+                Box free = ScreenLayout.CardButton(sheet.Body, y, true, p.Scale);
                 Kit.PrimaryButton(p, free, PlaytestText.T("jam.rescue"), s.UseRescue, iconId: "ui.ad");
                 y = free.Bottom + p.U(24f);
             }
 
-            var restart = new Box(sheet.Body.Left + p.U(20f), y, sheet.Body.Right - p.U(20f), y + p.U(DesignTokens.Size.SecondaryHeight));
+            Box restart = ScreenLayout.CardButton(sheet.Body, y, false, p.Scale);
             Kit.SecondaryButton(p, restart, PlaytestText.T("common.restart"), s.Restart, "ui.restart");
             Kit.EndSheet(p);
         }
@@ -231,7 +232,7 @@ namespace Bloomlings.Playtest.Design
             float y = r.Card.Top + p.U(70f);
             foreach (string line in demo.Lines)
             {
-                p.Text(line, r.Body.CenterX, y, T.Body, C.TextPrimary, r.Body.Width);
+                p.Text(line, r.Body.CenterX, y, T.Body, C.GardenLabelPlain, r.Body.Width);
                 y += p.U(70f);
             }
 

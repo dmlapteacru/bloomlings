@@ -67,6 +67,26 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void Play_IsShorterAndTaller_AndCardButtonsAreNarrower()
+        {
+            // Spec 003 FR-011: PLAY about 2.6 : 1; a card's main button narrower than PLAY's row, its others narrower still.
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                HomeRegions r = ScreenLayout.Home(w, h, insets, HomeLook.Early);
+                string at = w + "x" + h;
+                Assert.That(r.Play.Width / r.Play.Height, Is.InRange(2.4f, 2.8f), at);
+                float u = DesignTokens.ScaleFor(w, h);
+                CardRegions card = ScreenLayout.Card(w, h, insets, 700f);
+                Box primary = ScreenLayout.CardButton(card.Body, card.Body.Top, true, u);
+                Box secondary = ScreenLayout.CardButton(card.Body, primary.Bottom, false, u);
+                Assert.That(primary.Width, Is.LessThan(card.Body.Width + 0.5f), at);
+                Assert.That(secondary.Width, Is.LessThan(primary.Width), at);
+                Assert.That(primary.CenterX, Is.EqualTo(card.Body.CenterX).Within(0.5f), at);
+                Assert.That(primary.Within(card.Card), Is.True, at);
+            }
+        }
+
+        [Test]
         public void Cards_AndSheets_StayOnScreen_AndKeepTheBoardVisible()
         {
             foreach ((float w, float h, Insets insets) in Phones())

@@ -83,12 +83,17 @@ namespace Bloomlings.Playtest.Design
 
         public IReadOnlyList<(Overlay Overlay, float OpenedAt)> Overlays => _overlays;
 
-        /// <summary>Whether the host should draw another frame soon (animations, the splash, toasts).</summary>
+        /// <summary>
+        /// Whether the host should draw another frame soon: animations, the splash, toasts, and the one breathing button
+        /// (PLAY on Home, CLAIM on the Daily Reward; spec 003 FR-019).
+        /// </summary>
         public bool NeedsFrames =>
             Screen == Screen.Splash
             || (Level != null && Screen == Screen.Level && Level.NeedsFrames)
             || (_overlays.Count > 0 && Now - _overlays[_overlays.Count - 1].OpenedAt < 0.4f)
-            || (_homeToastUntil > Now);
+            || (_homeToastUntil > Now)
+            || (Screen == Screen.Home && _overlays.Count == 0)
+            || IsOpen(Overlay.DailyReward);
 
         private string? _homeToast;
         private float _homeToastUntil;
@@ -162,6 +167,34 @@ namespace Bloomlings.Playtest.Design
 
             return false;
         }
+
+        /// <summary>
+        /// A claimed reward (spec 003 FR-020): the Petals pill counts up from <paramref name="before"/> and sparkles burst
+        /// around it.
+        /// </summary>
+        public void RewardBurst(long before)
+        {
+            _burstAt = Now;
+            _burstFrom = before;
+        }
+
+        /// <summary>Seconds since the last <see cref="RewardBurst"/>.</summary>
+        public float SinceRewardBurst => Now - _burstAt;
+
+        /// <summary>The Petals balance as shown: counting up after a claim.</summary>
+        public long ShownPetals
+        {
+            get
+            {
+                long now = Meta.Economy.Petals;
+                return SinceRewardBurst < DesignTokens.Motion.CountUp.Seconds && now > _burstFrom
+                    ? _burstFrom + GardenLook.CountUp(now - _burstFrom, SinceRewardBurst)
+                    : now;
+            }
+        }
+
+        private float _burstAt = -10f;
+        private long _burstFrom;
 
         public void HomeToast(string message)
         {

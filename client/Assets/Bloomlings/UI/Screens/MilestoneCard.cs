@@ -31,14 +31,16 @@ namespace Bloomlings.Client.UI.Screens
 
         public static MilestoneCard Create(Transform parent, Action onContinue)
         {
-            CardView card = UiKit.Card("MilestoneCard", parent, string.Empty, 60f + 300f + DesignTokens.Size.PrimaryHeightSmall + 60f, null, DesignTokens.Type.TitleCaps);
+            CardView card = UiKit.Card("MilestoneCard", parent, string.Empty, 60f + 300f + DesignTokens.Size.CardPrimaryHeight + 70f, null, DesignTokens.Type.TitleCaps);
             var screen = card.Root.AddComponent<MilestoneCard>();
             screen._card = card;
             TextMeshProUGUI reached = UiKit.Label("Reached", card.Body, Loc.T("milestone.reached"), DesignTokens.Type.Body, UiTheme.TextSecondary);
             UiFactory.Place(reached.rectTransform, 0f, 0.86f, 1f, 1f);
             screen._row = UiFactory.Place(UiFactory.CreateRect("Rewards", card.Body), 0f, 0.3f, 1f, 0.84f);
-            Button go = UiKit.PrimaryButton("Continue", card.Body, Loc.T("milestone.continue"), onContinue);
-            UiFactory.Place((RectTransform)go.transform, 0.08f, 0.02f, 0.92f, 0.26f);
+            // CONTINUE: the card's narrower main button, decorated and breathing while it waits (spec 003 FR-011a, FR-019).
+            Button go = UiKit.PrimaryButton("Continue", card.Body, Loc.T("milestone.continue"), onContinue, decorate: true);
+            go.GetComponent<GardenButton>().Breathe = true;
+            UiFactory.Place((RectTransform)go.transform, 0.16f, 0.02f, 0.84f, 0.26f);
             card.Root.SetActive(false);
             return screen;
         }

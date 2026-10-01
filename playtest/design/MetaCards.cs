@@ -21,7 +21,7 @@ namespace Bloomlings.Playtest.Design
         public static void DailyReward(IPainter p, DesignApp app, float since)
         {
             var daily = app.Meta.DailyReward;
-            CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.PrimaryHeightSmall + DesignTokens.Size.SecondaryHeight + 70f, PlaytestText.T("daily_reward.title"), app.CloseOverlay, Kit.Pop(since));
+            CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 90f, PlaytestText.T("daily_reward.title"), app.CloseOverlay, Kit.Pop(since));
             float y = r.Body.Top;
             p.Text(PlaytestText.F("daily_reward.day", daily.NextStreak), r.Body.CenterX, y + p.U(20f), T.Body, C.TextSecondary);
             y += p.U(60f);
@@ -47,18 +47,21 @@ namespace Bloomlings.Playtest.Design
 
             string amount = NumberText.Plus(daily.NextPetals);
             float w = p.MeasureText(amount, T.Reward);
-            p.Text(amount, r.Body.CenterX - p.U(40f), y + p.U(50f), T.Reward, C.TextPrimary);
+            p.Text(amount, r.Body.CenterX - p.U(40f), y + p.U(50f), T.Reward, C.GardenLabelPlain);
             Kit.Petal(p, Box.FromCenter(r.Body.CenterX - p.U(40f) + (w / 2f) + p.U(50f), y + p.U(50f), p.U(76f), p.U(76f)));
             y += p.U(110f);
 
-            var claim = new Box(r.Body.Left + p.U(60f), y, r.Body.Right - p.U(60f), y + p.U(DesignTokens.Size.PrimaryHeightSmall));
+            // CLAIM breathes while it waits, and the claim bursts sparkles over the Petals pill (spec 003 FR-019, FR-020).
+            Box claim = ScreenLayout.CardButton(r.Body, y + p.U(10f), true, p.Scale);
+            long before = app.Meta.Economy.Petals;
             Kit.PrimaryButton(p, claim, PlaytestText.T("daily_reward.claim"), daily.CanClaim ? () =>
             {
                 int paid = daily.Claim();
                 app.CloseOverlay();
+                app.RewardBurst(before);
                 app.HomeToast(PlaytestText.F("common.petals_plus", paid));
-            } : (Action?)null);
-            var bonus = new Box(r.Body.Left + p.U(120f), claim.Bottom + p.U(24f), r.Body.Right - p.U(120f), claim.Bottom + p.U(24f) + p.U(DesignTokens.Size.SecondaryHeight));
+            } : (Action?)null, decorate: true, breathe: true);
+            Box bonus = ScreenLayout.CardButton(r.Body, claim.Bottom + p.U(24f), false, p.Scale).Inset(p.U(40f), 0f);
             Kit.SecondaryButton(p, bonus, PlaytestText.F("daily_reward.bonus", 20), null, "ui.ad");
             p.Text("no ads in the playtest", r.Body.CenterX, bonus.Bottom + p.U(34f), T.Caption, C.TextSecondary);
             Kit.EndCard(p);
@@ -87,11 +90,11 @@ namespace Bloomlings.Playtest.Design
 
             Box you = rows[6];
             Kit.Row(p, you, highlighted: true);
-            p.Text("—", you.Left + p.U(70f), you.CenterY, T.Body, C.TextPrimary);
+            p.Text("—", you.Left + p.U(70f), you.CenterY, T.Body, C.GardenLabelPlain);
             p.FillCircle(you.Left + p.U(170f), you.CenterY, p.U(36f), Rgba.White);
             Visuals.Bloomling(p, Box.FromCenter(you.Left + p.U(170f), you.CenterY, p.U(60f), p.U(60f)), Core.Variants.Family.Sprig, Visuals.ColorOf(Core.Variants.VariantId.Leaf), null);
-            p.TextLeft(PlaytestText.T("leaderboard.you"), you.Left + p.U(230f), you.CenterY, T.Body, C.TextPrimary);
-            p.Text(NumberText.Group(app.Meta.Progression.HighestCompletedLevel), you.Right - p.U(90f), you.CenterY, T.Count, C.TextPrimary);
+            p.TextLeft(PlaytestText.T("leaderboard.you"), you.Left + p.U(230f), you.CenterY, T.Body, C.GardenLabelPlain);
+            p.Text(NumberText.Group(app.Meta.Progression.HighestCompletedLevel), you.Right - p.U(90f), you.CenterY, T.Count, C.GardenLabelPlain);
 
             p.Text(PlaytestText.T("leaderboard.offline_empty"), r.Body.CenterX, rows[7].CenterY + p.U(30f), T.Caption, C.TextSecondary, r.Body.Width);
             Kit.EndCard(p);
@@ -108,7 +111,7 @@ namespace Bloomlings.Playtest.Design
             }
             else
             {
-                p.Text(rank.ToString(System.Globalization.CultureInfo.InvariantCulture), cx, line.CenterY, T.Body, C.TextPrimary);
+                p.Text(rank.ToString(System.Globalization.CultureInfo.InvariantCulture), cx, line.CenterY, T.Body, C.GardenLabelPlain);
             }
         }
 
@@ -148,7 +151,7 @@ namespace Bloomlings.Playtest.Design
             CardRegions r = Kit.Card(p, 700f, PlaytestText.T("collection.title"), () => app.CollectionDetail = -1, Kit.Pop(since));
             var frame = new Box(r.Body.Left + p.U(60f), r.Body.Top, r.Body.Right - p.U(60f), r.Body.Top + p.U(540f));
             Frame(p, frame, entry, app);
-            p.Text(entry.PictureId.Replace('_', ' '), r.Body.CenterX, frame.Bottom + p.U(50f), T.Title, C.TextPrimary, r.Body.Width);
+            p.Text(entry.PictureId.Replace('_', ' '), r.Body.CenterX, frame.Bottom + p.U(50f), T.Title, C.GardenLabelPlain, r.Body.Width);
             p.Text(PlaytestText.F("collection.completed", NumberText.Group(entry.LevelNumber)), r.Body.CenterX, frame.Bottom + p.U(110f), T.Caption, C.TextSecondary);
             Kit.EndCard(p);
         }
@@ -210,7 +213,7 @@ namespace Bloomlings.Playtest.Design
                 p.FillCircle(line.Left + p.U(60f), line.CenterY, p.U(38f), color);
                 p.Shape("booster." + id, Box.FromCenter(line.Left + p.U(60f), line.CenterY, p.U(44f), p.U(44f)), id == "bloom_burst" ? C.PetalCenter : Rgba.White);
                 string name = EndCards.BoosterName(kind) + " · ×" + app.Meta.Economy.Charges(kind);
-                p.TextLeft(name, line.Left + p.U(120f), line.CenterY, T.Body, C.TextPrimary, line.Width * 0.5f);
+                p.TextLeft(name, line.Left + p.U(120f), line.CenterY, T.Body, C.GardenLabelPlain, line.Width * 0.5f);
                 p.PopAlpha();
                 Price(p, line, app.Meta.Economy.Price(kind), unlocked ? () =>
                 {
@@ -227,7 +230,7 @@ namespace Bloomlings.Playtest.Design
                 Kit.Row(p, line, false);
                 p.PushAlpha(0.5f);
                 Kit.Petal(p, Box.FromCenter(line.Left + p.U(60f), line.CenterY, p.U(64f), p.U(64f)));
-                p.TextLeft(PlaytestText.T(key), line.Left + p.U(120f), line.CenterY, T.Body, C.TextPrimary, line.Width * 0.5f);
+                p.TextLeft(PlaytestText.T(key), line.Left + p.U(120f), line.CenterY, T.Body, C.GardenLabelPlain, line.Width * 0.5f);
                 p.Text(PlaytestText.T("store.unavailable"), line.Right - p.U(120f), line.CenterY, T.Caption, C.TextSecondary);
                 p.PopAlpha();
             }
@@ -250,7 +253,7 @@ namespace Bloomlings.Playtest.Design
                 Kit.Row(p, line, false);
                 string shape = ShapeLibrary.CosmeticId(item.Shape);
                 p.Shape(ShapeLibrary.Has(shape) ? shape : "ui.star", Box.FromCenter(line.Left + p.U(60f), line.CenterY, p.U(70f), p.U(70f)), item.Tint.StartsWith("#", StringComparison.Ordinal) ? Rgba.FromHex(item.Tint) : C.MedalGold);
-                p.TextLeft(item.Name, line.Left + p.U(120f), line.CenterY, T.Body, C.TextPrimary, line.Width * 0.5f);
+                p.TextLeft(item.Name, line.Left + p.U(120f), line.CenterY, T.Body, C.GardenLabelPlain, line.Width * 0.5f);
                 string id = item.Id;
                 Price(p, line, item.Price, () =>
                 {
@@ -270,7 +273,7 @@ namespace Bloomlings.Playtest.Design
             var pill = new Box(line.Right - w - p.U(110f), line.CenterY - p.U(34f), line.Right - p.U(18f), line.CenterY + p.U(34f));
             p.PushAlpha(buy != null ? 1f : 0.45f);
             p.FillRound(pill, pill.Height / 2f, C.SurfaceSunk);
-            p.Text(text, pill.Left + p.U(22f) + (w / 2f), pill.CenterY, T.Count, C.TextPrimary);
+            p.Text(text, pill.Left + p.U(22f) + (w / 2f), pill.CenterY, T.Count, C.GardenLabelPlain);
             Kit.Petal(p, Box.FromCenter(pill.Right - p.U(38f), pill.CenterY, p.U(48f), p.U(48f)));
             p.PopAlpha();
             if (buy != null)

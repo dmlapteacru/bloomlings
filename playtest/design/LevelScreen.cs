@@ -105,7 +105,7 @@ namespace Bloomlings.Playtest.Design
 
         public bool Blocked => Session.Status == LevelStatus.Jammed || Session.Status == LevelStatus.Stuck;
 
-        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && _app.Now - EndShownAt < 0.5f) || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && _app.Now - EndShownAt < 2.3f) || ShowingMilestone || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
 
         public void Advance(float dt) => Animator.Advance(dt, Session.View);
 

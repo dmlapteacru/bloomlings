@@ -10,7 +10,9 @@ namespace Bloomlings.Playtest.Droid
     /// <summary>
     /// <see cref="IPainter"/> over <see cref="Canvas"/> (spec 002 research R3): the full playtest APK's drawing of the
     /// designed screens. Shape masks become cached ALPHA_8 bitmaps tinted by the paint color. The garden backdrop
-    /// becomes a cached bitmap scaled with filtering. Text uses the bold or regular system typeface with an outline.
+    /// becomes a cached bitmap scaled with filtering. Text uses the bundled Nunito faces (spec 003 contracts/fonts.md),
+    /// falling back to the system typeface, and labels with a look get their shadow, extrusion, outline and gradient
+    /// fill (contracts/painter-text.md).
     /// </summary>
     public sealed class AndroidPainter : PainterBase
     {
@@ -19,8 +21,10 @@ namespace Bloomlings.Playtest.Droid
 
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias);
-        private readonly Typeface _bold = Typeface.Create(Typeface.Default, TypefaceStyle.Bold)!;
-        private readonly Typeface _regular = Typeface.Default!;
+        private static Typeface? s_bold;
+        private static Typeface? s_regular;
+        private readonly Typeface _bold = s_bold ??= LoadFont(true) ?? Typeface.Create(Typeface.Default, TypefaceStyle.Bold)!;
+        private readonly Typeface _regular = s_regular ??= LoadFont(false) ?? Typeface.Default!;
         private readonly RectF _rect = new RectF();
         private readonly Rect _source = new Rect();
         private Canvas _canvas = null!;
@@ -41,11 +45,46 @@ namespace Bloomlings.Playtest.Droid
             BeginFrame();
         }
 
-        protected override void ApplyTransform(float dx, float dy, float scale, float cx, float cy)
+        protected override void ApplyTransform(float dx, float dy, float sx, float sy, float cx, float cy)
         {
             _canvas.Save();
             _canvas.Translate(dx, dy);
-            _canvas.Scale(scale, scale, cx, cy);
+            _canvas.Scale(sx, sy, cx, cy);
+        }
+
+        /// <summary>
+        /// A bundled Nunito face: the embedded file is written to the cache folder once, then loaded from there. Null
+        /// (logged once) keeps the system typeface, so text never disappears.
+        /// </summary>
+        private static Typeface? LoadFont(bool bold)
+        {
+            string resource = FontResource(bold);
+            try
+            {
+                string folder = Android.App.Application.Context.CacheDir!.AbsolutePath;
+                string path = System.IO.Path.Combine(folder, System.IO.Path.GetFileName(resource));
+                using (System.IO.Stream? stream = typeof(AndroidPainter).Assembly.GetManifestResourceStream(resource))
+                {
+                    if (stream == null)
+                    {
+                        Android.Util.Log.Warn("Bloomlings", resource + " is not embedded; using the system font");
+                        return null;
+                    }
+
+                    if (!System.IO.File.Exists(path) || new System.IO.FileInfo(path).Length != stream.Length)
+                    {
+                        using System.IO.FileStream file = System.IO.File.Create(path);
+                        stream.CopyTo(file);
+                    }
+                }
+
+                return Typeface.CreateFromFile(path);
+            }
+            catch (Exception e)
+            {
+                Android.Util.Log.Warn("Bloomlings", "Could not load " + resource + ": " + e.Message);
+                return null;
+            }
         }
 
         protected override void RestoreTransform() => _canvas.Restore();
@@ -147,13 +186,13 @@ namespace Bloomlings.Playtest.Droid
         public override float MeasureText(string text, TypeStyle style, float sizeScale = 1f) =>
             MeasureAt(Cased(text, style), style, style.Size * Scale * sizeScale);
 
-        public override void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f) =>
-            DrawText(text, cx, cy, style, color, maxWidth, sizeScale, centered: true);
+        public override void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null) =>
+            DrawText(text, cx, cy, style, color, maxWidth, sizeScale, centered: true, look);
 
-        public override void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f) =>
-            DrawText(text, x, cy, style, color, maxWidth, sizeScale, centered: false);
+        public override void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null) =>
+            DrawText(text, x, cy, style, color, maxWidth, sizeScale, centered: false, look);
 
-        private void DrawText(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth, float sizeScale, bool centered)
+        private void DrawText(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth, float sizeScale, bool centered, TextLook? look)
         {
             if (text.Length == 0)
             {
@@ -169,6 +208,12 @@ namespace Bloomlings.Playtest.Droid
             float width = _text.MeasureText(shown);
             float left = centered ? x - (width / 2f) : x;
             float baseline = cy - ((_text.Descent() + _text.Ascent()) / 2f);
+            if (look != null)
+            {
+                DrawLook(shown, left, baseline, size, look);
+                return;
+            }
+
             if (style.Outline > 0f)
             {
                 _text.SetStyle(Paint.Style.Stroke);
@@ -181,6 +226,50 @@ namespace Bloomlings.Playtest.Droid
             _text.SetStyle(Paint.Style.Fill);
             _text.Color = ToColor(Faded(color, Alpha));
             _canvas.DrawText(shown, left, baseline, _text);
+        }
+
+        /// <summary>A label with volume (contracts/painter-text.md): shadow, extrusion, outline, gradient fill.</summary>
+        private void DrawLook(string shown, float left, float baseline, float size, TextLook look)
+        {
+            float stroke = look.OutlineEm * size * 2f;
+            (int count, float step) = Extrusion(look, size);
+            _text.StrokeJoin = Paint.Join.Round;
+            if (look.ShadowAlpha > 0f)
+            {
+                _text.SetStyle(Paint.Style.FillAndStroke);
+                _text.StrokeWidth = stroke;
+                _text.Color = ToColor(Faded(DesignTokens.Colors.GardenShadow.WithAlpha(look.ShadowAlpha), Alpha));
+                using var blur = new BlurMaskFilter(Math.Max(1f, 0.06f * size), BlurMaskFilter.Blur.Normal!);
+                _text.SetMaskFilter(blur);
+                _canvas.DrawText(shown, left, baseline + ((look.ExtrudeEm + 0.05f) * size), _text);
+                _text.SetMaskFilter(null);
+            }
+
+            if (look.Emboss.HasValue)
+            {
+                _text.SetStyle(Paint.Style.Fill);
+                _text.Color = ToColor(Faded(look.Emboss.Value, Alpha));
+                _canvas.DrawText(shown, left, baseline + (0.05f * size), _text);
+            }
+
+            if (stroke > 0f)
+            {
+                _text.SetStyle(Paint.Style.FillAndStroke);
+                _text.StrokeWidth = stroke;
+                _text.Color = ToColor(Faded(look.Outline, Alpha));
+                for (int k = count; k >= 0; k--)
+                {
+                    _canvas.DrawText(shown, left, baseline + (k * step), _text);
+                }
+            }
+
+            _text.SetStyle(Paint.Style.Fill);
+            _text.Color = ToColor(Faded(look.FillTop, Alpha));
+            float top = baseline - (size * 0.7f);
+            using var shader = new LinearGradient(0f, top, 0f, baseline, new int[] { ToColor(Faded(look.FillTop, Alpha)).ToArgb(), ToColor(Faded(look.FillBottom, Alpha)).ToArgb() }, new[] { 0.3f, 1f }, Shader.TileMode.Clamp!);
+            _text.SetShader(shader);
+            _canvas.DrawText(shown, left, baseline, _text);
+            _text.SetShader(null);
         }
 
         public override void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey)

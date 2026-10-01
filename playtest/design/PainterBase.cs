@@ -19,7 +19,8 @@ namespace Bloomlings.Playtest.Design
     {
         private readonly List<(Box Box, Action Action)> _hits = new List<(Box, Action)>();
         private readonly List<float> _alpha = new List<float>();
-        private readonly List<(float Dx, float Dy, float Scale, float Cx, float Cy)> _transforms = new List<(float, float, float, float, float)>();
+        private readonly List<(float Dx, float Dy, float Sx, float Sy, float Cx, float Cy)> _transforms = new List<(float, float, float, float, float, float)>();
+        private (float X, float Y, float At)? _release;
 
         public abstract float Width { get; }
 
@@ -31,6 +32,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>Where a finger is down, or null.</summary>
         public (float X, float Y)? Finger { get; set; }
+
+        /// <summary>The host's clock in seconds; set before each frame and each touch.</summary>
+        public float Now { get; set; }
+
+        /// <summary>Whether a press is still springing back (the host keeps drawing frames).</summary>
+        public bool Springing => _release.HasValue && Now - _release.Value.At < DesignTokens.Motion.Press.Seconds;
 
         public IReadOnlyList<(Box Box, Action Action)> Hits => _hits;
 
@@ -44,9 +51,10 @@ namespace Bloomlings.Playtest.Design
             _transforms.Clear();
         }
 
-        /// <summary>Runs the topmost target under a tap; false when none was hit.</summary>
+        /// <summary>Runs the topmost target under a tap; false when none was hit. The lift starts the spring-back.</summary>
         public bool Dispatch(float x, float y)
         {
+            _release = (x, y, Now);
             for (int i = _hits.Count - 1; i >= 0; i--)
             {
                 if (_hits[i].Box.Contains(x, y))
@@ -68,6 +76,17 @@ namespace Bloomlings.Playtest.Design
 
         public bool Pressed(Box box) => Finger.HasValue && ToScreen(box).Contains(Finger.Value.X, Finger.Value.Y);
 
+        public float Released(Box box)
+        {
+            if (!_release.HasValue || Finger.HasValue)
+            {
+                return -1f;
+            }
+
+            (float x, float y, float at) = _release.Value;
+            return ToScreen(box).Contains(x, y) ? Math.Max(0f, Now - at) : -1f;
+        }
+
         public void PushAlpha(float alpha) => _alpha.Add(Alpha * Math.Max(0f, Math.Min(1f, alpha)));
 
         public void PopAlpha()
@@ -80,8 +99,14 @@ namespace Bloomlings.Playtest.Design
 
         public void PushTransform(float dx, float dy, float scale, float cx, float cy)
         {
-            _transforms.Add((dx, dy, scale, cx, cy));
-            ApplyTransform(dx, dy, scale, cx, cy);
+            _transforms.Add((dx, dy, scale, scale, cx, cy));
+            ApplyTransform(dx, dy, scale, scale, cx, cy);
+        }
+
+        public void PushSquash(float sx, float sy, float cx, float cy)
+        {
+            _transforms.Add((0f, 0f, sx, sy, cx, cy));
+            ApplyTransform(0f, 0f, sx, sy, cx, cy);
         }
 
         public void PopTransform()
@@ -106,11 +131,11 @@ namespace Bloomlings.Playtest.Design
             float b = box.Bottom;
             for (int i = _transforms.Count - 1; i >= 0; i--)
             {
-                (float dx, float dy, float s, float cx, float cy) = _transforms[i];
-                l = ((l - cx) * s) + cx + dx;
-                r = ((r - cx) * s) + cx + dx;
-                t = ((t - cy) * s) + cy + dy;
-                b = ((b - cy) * s) + cy + dy;
+                (float dx, float dy, float sx, float sy, float cx, float cy) = _transforms[i];
+                l = ((l - cx) * sx) + cx + dx;
+                r = ((r - cx) * sx) + cx + dx;
+                t = ((t - cy) * sy) + cy + dy;
+                b = ((b - cy) * sy) + cy + dy;
             }
 
             return new Box(l, t, r, b);
@@ -121,7 +146,7 @@ namespace Bloomlings.Playtest.Design
         {
         }
 
-        protected abstract void ApplyTransform(float dx, float dy, float scale, float cx, float cy);
+        protected abstract void ApplyTransform(float dx, float dy, float sx, float sy, float cx, float cy);
 
         protected abstract void RestoreTransform();
 
@@ -145,9 +170,9 @@ namespace Bloomlings.Playtest.Design
 
         public abstract void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color);
 
-        public abstract void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f);
+        public abstract void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null);
 
-        public abstract void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f);
+        public abstract void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null);
 
         public abstract float MeasureText(string text, TypeStyle style, float sizeScale = 1f);
 
@@ -178,5 +203,20 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The text as drawn: uppercase when the style says so.</summary>
         protected static string Cased(string text, TypeStyle style) => style.Upper ? text.ToUpperInvariant() : text;
+
+        /// <summary>The bundled font file of a style (spec 003 contracts/fonts.md): ExtraBold for bold styles, else SemiBold.</summary>
+        public static string FontResource(bool bold) => bold ? "fonts/Nunito-ExtraBold.ttf" : "fonts/Nunito-SemiBold.ttf";
+
+        /// <summary>The steps of a label's extrusion (contracts/painter-text.md): 4 copies, each at least one pixel apart.</summary>
+        protected static (int Count, float Step) Extrusion(TextLook look, float size)
+        {
+            if (look.ExtrudeEm <= 0f)
+            {
+                return (0, 0f);
+            }
+
+            const int count = 4;
+            return (count, Math.Max(1f, look.ExtrudeEm * size / count));
+        }
     }
 }

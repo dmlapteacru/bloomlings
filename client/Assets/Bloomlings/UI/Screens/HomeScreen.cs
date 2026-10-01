@@ -118,13 +118,15 @@ namespace Bloomlings.Client.UI.Screens
 
             screen._level = UiKit.Label("Level", root, Loc.F("common.level", 1), DesignTokens.Type.LevelHome, UiTheme.Text);
             screen._teaser = UiKit.Pill("Teaser", root, new Color(UiTheme.Panel.r, UiTheme.Panel.g, UiTheme.Panel.b, 0.92f));
-            screen._milestone = UiKit.Label("Text", screen._teaser.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Text);
+            screen._milestone = UiKit.Label("Text", screen._teaser.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain));
             UiFactory.Place(screen._milestone.rectTransform, 0.06f, 0.08f, 0.82f, 0.92f);
             Image gift = UiFactory.CreateImage("Gift", screen._teaser.transform, ProceduralSprites.Shape("ui.gift"), UiTheme.Of(DesignTokens.Colors.BoosterBloomBurst));
             gift.preserveAspect = true;
             UiFactory.Place(gift.rectTransform, 0.84f, 0.14f, 0.96f, 0.86f);
 
-            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, DesignTokens.Type.ButtonLarge);
+            // PLAY: shorter and taller, with its ▶, leaves and flowers, breathing while it waits (spec 003 FR-010, FR-011a, FR-019).
+            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, DesignTokens.Type.ButtonLarge, decorate: true, playArrow: true);
+            screen._playButton.GetComponent<GardenButton>().Breathe = true;
             screen._playLabel = screen._playButton.GetComponentInChildren<TextMeshProUGUI>();
 
             screen._rankRow = UiKit.Pill("Rank", root, new Color(1f, 1f, 1f, 0f), raycast: true);

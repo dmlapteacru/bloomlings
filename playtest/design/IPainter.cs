@@ -50,12 +50,13 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// Centered text in a board type style: bold, uppercase and outlined as the style says. It is
         /// <paramref name="sizeScale"/> times the style size, and shrinks to <paramref name="maxWidth"/> down to the
-        /// style's minimum.
+        /// style's minimum. With a <paramref name="look"/>, <paramref name="color"/> is ignored and the label is drawn
+        /// with volume: shadow, extrusion, outline, then a gradient fill (spec 003 contracts/painter-text.md).
         /// </summary>
-        void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f);
+        void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null);
 
         /// <summary>Left-aligned text, vertically centered on <paramref name="cy"/>.</summary>
-        void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f);
+        void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null);
 
         /// <summary>The width of a text at the style's size times <paramref name="sizeScale"/>.</summary>
         float MeasureText(string text, TypeStyle style, float sizeScale = 1f);
@@ -75,6 +76,9 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Translates by (dx, dy), then scales by <paramref name="scale"/> about (cx, cy), until <see cref="PopTransform"/>.</summary>
         void PushTransform(float dx, float dy, float scale, float cx, float cy);
 
+        /// <summary>Scales by (<paramref name="sx"/>, <paramref name="sy"/>) about (cx, cy) until <see cref="PopTransform"/> (the press squash).</summary>
+        void PushSquash(float sx, float sy, float cx, float cy);
+
         void PopTransform();
 
         /// <summary>A touch target; the topmost target under the finger gets the tap (FR-027: at least <c>size.touch_min</c>).</summary>
@@ -82,6 +86,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>Whether a finger is down inside <paramref name="box"/> (the pressed look of buttons and pods).</summary>
         bool Pressed(Box box);
+
+        /// <summary>Seconds since a finger lifted inside <paramref name="box"/>, or −1 (the spring-back, spec 003 FR-017).</summary>
+        float Released(Box box);
+
+        /// <summary>The host's clock in seconds (presses, breathing, glows).</summary>
+        float Now { get; }
 
         /// <summary>Records that an asset slot is drawn procedurally here (the preview's inventory check; a no-op on a device).</summary>
         void Mark(string slotId);

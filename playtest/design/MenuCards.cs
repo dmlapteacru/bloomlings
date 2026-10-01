@@ -14,25 +14,26 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Pause(IPainter p, DesignApp app, float since)
         {
-            float buttons = DesignTokens.Size.PrimaryHeightSmall + (3f * DesignTokens.Size.SecondaryHeight) + (4f * 26f) + 8f;
-            CardRegions r = Kit.Card(p, buttons, PlaytestText.T("pause.title"), app.CloseOverlay, Kit.Pop(since), T.TitleCaps);
+            float buttons = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.SecondaryHeight) + (4f * 26f) + 24f;
+            CardRegions r = Kit.Card(p, buttons, PlaytestText.T("pause.title"), app.CloseOverlay, Kit.Pop(since), T.TitleCaps, GardenLook.Blue);
             float gap = p.U(26f);
-            float y = r.Body.Top + p.U(16f);
-            Box Take(float h)
+            float y = r.Body.Top + p.U(28f);
+            Box Take(bool primary)
             {
-                var b = new Box(r.Body.Left + p.U(20f), y, r.Body.Right - p.U(20f), y + p.U(h));
+                Box b = ScreenLayout.CardButton(r.Body, y, primary, p.Scale);
                 y = b.Bottom + gap;
                 return b;
             }
 
-            Kit.PrimaryButton(p, Take(DesignTokens.Size.PrimaryHeightSmall), PlaytestText.T("pause.resume"), app.CloseOverlay);
-            Kit.SecondaryButton(p, Take(DesignTokens.Size.SecondaryHeight), PlaytestText.T("common.restart"), () =>
+            // RESUME, then the card's narrower secondary buttons (spec 003 FR-011, FR-011a).
+            Kit.PrimaryButton(p, Take(true), PlaytestText.T("pause.resume"), app.CloseOverlay, decorate: true);
+            Kit.SecondaryButton(p, Take(false), PlaytestText.T("common.restart"), () =>
             {
                 app.CloseOverlay();
                 app.Level?.Restart();
             });
-            Kit.SecondaryButton(p, Take(DesignTokens.Size.SecondaryHeight), PlaytestText.T("pause.settings"), () => app.OpenOverlay(Overlay.Settings));
-            Kit.SecondaryButton(p, Take(DesignTokens.Size.SecondaryHeight), PlaytestText.T("pause.home"), app.GoHome);
+            Kit.SecondaryButton(p, Take(false), PlaytestText.T("pause.settings"), () => app.OpenOverlay(Overlay.Settings));
+            Kit.SecondaryButton(p, Take(false), PlaytestText.T("pause.home"), app.GoHome);
             Kit.EndCard(p);
         }
 
@@ -72,7 +73,7 @@ namespace Bloomlings.Playtest.Design
                 Box line = lines[i];
                 Kit.Row(p, line, false);
                 string value = key == "settings.speed" ? (on ? "2×" : "1×") : PlaytestText.T(on ? "common.on" : "common.off");
-                p.TextLeft(PlaytestText.F(key, value), line.Left + p.U(30f), line.CenterY, T.Body, C.TextPrimary, line.Width * 0.6f);
+                p.TextLeft(PlaytestText.F(key, value), line.Left + p.U(30f), line.CenterY, T.Body, C.GardenLabelPlain, line.Width * 0.6f);
                 Kit.Toggle(p, Box.FromCenter(line.Right - p.U(90f), line.CenterY, p.U(120f), p.U(64f)), on, toggle);
             }
 

@@ -29,7 +29,7 @@ namespace Bloomlings.Client.Meta.DailyReward
 
         public static DailyRewardPopup Create(Transform parent)
         {
-            CardView card = UiKit.Card("DailyReward", parent, Loc.T("daily_reward.title"), 60f + 330f + 110f + DesignTokens.Size.PrimaryHeightSmall + DesignTokens.Size.SecondaryHeight + 50f, null);
+            CardView card = UiKit.Card("DailyReward", parent, Loc.T("daily_reward.title"), 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 70f, null);
             var popup = card.Root.AddComponent<DailyRewardPopup>();
             popup._card = card;
             Button close = UiKit.RoundIconButton("Close", card.CardRect, "ui.close", popup.Hide);
@@ -51,16 +51,17 @@ namespace Bloomlings.Client.Meta.DailyReward
             basket.preserveAspect = true;
             UiFactory.Place(basket.rectTransform, 0.05f, -0.05f, 0.95f, 0.5f);
 
-            popup._amount = UiKit.Label("Amount", body, string.Empty, DesignTokens.Type.Reward, UiTheme.Text);
-            popup._amount.outlineWidth = 0f;
+            popup._amount = UiKit.Label("Amount", body, string.Empty, DesignTokens.Type.Reward, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain), look: TextLook.Plain(DesignTokens.Colors.GardenLabelPlain));
             UiFactory.Place(popup._amount.rectTransform, 0.1f, 0.37f, 0.78f, 0.5f);
             Image symbol = UiKit.PetalIcon("Petal", body);
             UiFactory.Place(symbol.rectTransform, 0.72f, 0.38f, 0.84f, 0.49f);
 
-            popup._claim = UiKit.PrimaryButton("Claim", body, Loc.T("daily_reward.claim"), () => { });
-            UiFactory.Place((RectTransform)popup._claim.transform, 0.08f, 0.18f, 0.92f, 0.34f);
+            // CLAIM: narrower, decorated and breathing while it waits (spec 003 FR-011, FR-011a, FR-019).
+            popup._claim = UiKit.PrimaryButton("Claim", body, Loc.T("daily_reward.claim"), () => { }, decorate: true);
+            popup._claim.GetComponent<GardenButton>().Breathe = true;
+            UiFactory.Place((RectTransform)popup._claim.transform, 0.16f, 0.18f, 0.84f, 0.34f);
             popup._bonus = UiKit.SecondaryButton("Bonus", body, Loc.T("daily_reward.watch"), () => { }, "ui.ad");
-            UiFactory.Place((RectTransform)popup._bonus.transform, 0.18f, 0.02f, 0.82f, 0.15f);
+            UiFactory.Place((RectTransform)popup._bonus.transform, 0.2f, 0.02f, 0.8f, 0.15f);
             card.Root.SetActive(false);
             return popup;
         }
@@ -76,6 +77,13 @@ namespace Bloomlings.Client.Meta.DailyReward
             _claim.onClick.AddListener(() =>
             {
                 claim();
+
+                // A short sparkle burst where the reward was claimed (spec 003 FR-020); the Petals pill counts up.
+                if (_card.Root.transform.parent is RectTransform overlay)
+                {
+                    Bloomlings.Client.Gameplay.Effects.UiFx.Puff(overlay, _claim.transform.position, UiTheme.Of(DesignTokens.Colors.PetalCenter), 8, UiKit.Units(140f), UiKit.Units(36f), 0.8f, ProceduralSprites.Shape("fx.sparkle"));
+                }
+
                 Hide();
             });
             _bonus.gameObject.SetActive(bonusAvailable);

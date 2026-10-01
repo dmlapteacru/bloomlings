@@ -15,8 +15,10 @@ namespace Bloomlings.Playtest.Preview
     {
         private static readonly Dictionary<string, SKImage> Masks = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
-        private static readonly SKTypeface Bold = SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Bold) ?? SKTypeface.Default;
-        private static readonly SKTypeface Regular = SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Normal) ?? SKTypeface.Default;
+        // Declared before the faces: static initializers run in order, and LoadFont reads it.
+        private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
+        private static readonly SKTypeface Bold = LoadFont(true) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Bold) ?? SKTypeface.Default;
+        private static readonly SKTypeface Regular = LoadFont(false) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Normal) ?? SKTypeface.Default;
 
         private readonly SKSurface _surface;
         private readonly SKPaint _paint = new SKPaint { IsAntialias = true };
@@ -30,6 +32,9 @@ namespace Bloomlings.Playtest.Preview
             Insets = insets;
             _surface = SKSurface.Create(new SKImageInfo(width, height));
         }
+
+        /// <summary>Whether the bundled Nunito files were loaded (else the DejaVu fallback draws).</summary>
+        public static bool BundledFonts => LoadFont(true) != null && LoadFont(false) != null;
 
         public override float Width => _width;
 
@@ -76,11 +81,32 @@ namespace Bloomlings.Playtest.Preview
 
         protected override void OnHit(Box screenBox) => Targets.Add(screenBox);
 
-        protected override void ApplyTransform(float dx, float dy, float scale, float cx, float cy)
+        protected override void ApplyTransform(float dx, float dy, float sx, float sy, float cx, float cy)
         {
             Canvas.Save();
             Canvas.Translate(dx, dy);
-            Canvas.Scale(scale, scale, cx, cy);
+            Canvas.Scale(sx, sy, cx, cy);
+        }
+
+        /// <summary>A bundled Nunito face from the embedded resources (contracts/fonts.md), or null.</summary>
+        private static SKTypeface? LoadFont(bool bold)
+        {
+            lock (Fonts)
+            {
+                if (!Fonts.TryGetValue(bold, out SKTypeface? face))
+                {
+                    using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(FontResource(bold));
+                    face = stream != null ? SKTypeface.FromStream(stream) : null;
+                    if (face == null)
+                    {
+                        Console.Error.WriteLine("preview: " + FontResource(bold) + " not found, using DejaVu Sans");
+                    }
+
+                    Fonts[bold] = face;
+                }
+
+                return face;
+            }
         }
 
         protected override void RestoreTransform() => Canvas.Restore();
@@ -184,13 +210,13 @@ namespace Bloomlings.Playtest.Preview
         public override float MeasureText(string text, TypeStyle style, float sizeScale = 1f) =>
             MeasureAt(Cased(text, style), style, style.Size * Scale * sizeScale);
 
-        public override void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f) =>
-            DrawText(text, cx, cy, style, color, maxWidth, sizeScale, centered: true);
+        public override void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null) =>
+            DrawText(text, cx, cy, style, color, maxWidth, sizeScale, centered: true, look);
 
-        public override void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f) =>
-            DrawText(text, x, cy, style, color, maxWidth, sizeScale, centered: false);
+        public override void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null) =>
+            DrawText(text, x, cy, style, color, maxWidth, sizeScale, centered: false, look);
 
-        private void DrawText(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth, float sizeScale, bool centered)
+        private void DrawText(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth, float sizeScale, bool centered, TextLook? look)
         {
             if (text.Length == 0)
             {
@@ -206,6 +232,12 @@ namespace Bloomlings.Playtest.Preview
             SKFontMetrics metrics = font.Metrics;
             float baseline = cy - ((metrics.Ascent + metrics.Descent) / 2f);
             Texts.Add((ToScreen(new Box(left, cy - (size / 2f), left + width, cy + (size / 2f))), shown));
+            if (look != null)
+            {
+                DrawLook(shown, left, baseline, font, size, look, metrics);
+                return;
+            }
+
             if (style.Outline > 0f)
             {
                 SKPaint stroke = Fill(DesignTokens.Colors.TextOutline);
@@ -216,6 +248,48 @@ namespace Bloomlings.Playtest.Preview
             }
 
             Canvas.DrawText(shown, left, baseline, font, Fill(color));
+        }
+
+        /// <summary>A label with volume (contracts/painter-text.md): shadow, extrusion, outline, gradient fill.</summary>
+        private void DrawLook(string shown, float left, float baseline, SKFont font, float size, TextLook look, SKFontMetrics metrics)
+        {
+            float stroke = look.OutlineEm * size * 2f;
+            (int count, float step) = Extrusion(look, size);
+            if (look.ShadowAlpha > 0f)
+            {
+                SKPaint shadow = Fill(DesignTokens.Colors.GardenShadow.WithAlpha(look.ShadowAlpha));
+                shadow.Style = SKPaintStyle.StrokeAndFill;
+                shadow.StrokeWidth = stroke;
+                shadow.StrokeJoin = SKStrokeJoin.Round;
+                using SKMaskFilter blur = SKMaskFilter.CreateBlur(SKBlurStyle.Normal, 0.06f * size);
+                shadow.MaskFilter = blur;
+                Canvas.DrawText(shown, left, baseline + ((look.ExtrudeEm + 0.05f) * size), font, shadow);
+                shadow.MaskFilter = null;
+            }
+
+            if (look.Emboss.HasValue)
+            {
+                Canvas.DrawText(shown, left, baseline + (0.05f * size), font, Fill(look.Emboss.Value));
+            }
+
+            if (stroke > 0f)
+            {
+                SKPaint line = Fill(look.Outline);
+                line.Style = SKPaintStyle.StrokeAndFill;
+                line.StrokeWidth = stroke;
+                line.StrokeJoin = SKStrokeJoin.Round;
+                for (int k = count; k >= 0; k--)
+                {
+                    Canvas.DrawText(shown, left, baseline + (k * step), font, line);
+                }
+            }
+
+            SKPaint fill = Fill(look.FillTop);
+            float top = baseline + metrics.CapHeight * -1f;
+            using SKShader shader = SKShader.CreateLinearGradient(new SKPoint(0, top), new SKPoint(0, baseline), new[] { Sk(Faded(look.FillTop, Alpha)), Sk(Faded(look.FillBottom, Alpha)) }, new[] { 0.3f, 1f }, SKShaderTileMode.Clamp);
+            fill.Shader = shader;
+            Canvas.DrawText(shown, left, baseline, font, fill);
+            fill.Shader = null;
         }
 
         public override void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey)

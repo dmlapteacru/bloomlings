@@ -17,11 +17,8 @@ namespace Bloomlings.Client.UI.Screens
     {
         private const float ShowSeconds = 1.6f;
 
-        private static readonly Color HardColor = UiTheme.Of(Design.DesignTokens.Colors.BadgeHard);
-        private static readonly Color SuperHardColor = UiTheme.Of(Design.DesignTokens.Colors.BadgeSuperHard);
-
         private GameObject _root = null!;
-        private Image _panel = null!;
+        private GardenButton _panel = null!;
         private Image _icon = null!;
         private TextMeshProUGUI _label = null!;
 
@@ -33,12 +30,12 @@ namespace Bloomlings.Client.UI.Screens
             banner._root = shade.gameObject;
             Button dismiss = shade.gameObject.AddComponent<Button>();
             dismiss.onClick.AddListener(banner.Hide);
-            banner._panel = UiKit.Pill("Panel", shade.transform, HardColor);
-            UiFactory.Place(banner._panel.rectTransform, 0.08f, 0.55f, 0.92f, 0.7f);
-            banner._icon = UiFactory.CreateImage("Icon", banner._panel.transform, ProceduralSprites.Star, Color.white);
-            banner._icon.preserveAspect = true;
+            // An outlined sticker on a plate, red for Hard and purple for Super Hard (spec 003 FR-014).
+            banner._panel = UiKit.Garden("Panel", shade.transform, Design.GardenLook.Red, 200f, raycast: false);
+            UiFactory.Place((RectTransform)banner._panel.transform, 0.08f, 0.55f, 0.92f, 0.7f);
+            banner._icon = UiKit.GardenGlyph(banner._panel, banner._panel.Content, "ui.star");
             UiFactory.Place(banner._icon.rectTransform, 0.04f, 0.15f, 0.24f, 0.85f);
-            banner._label = UiKit.Label("Label", banner._panel.transform, string.Empty, Design.DesignTokens.Type.Title, Color.white);
+            banner._label = UiKit.GardenLabel(banner._panel, string.Empty, Design.DesignTokens.Type.Title);
             UiFactory.Place(banner._label.rectTransform, 0.26f, 0f, 0.98f, 1f);
             shade.gameObject.SetActive(false);
             return banner;
@@ -54,7 +51,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             bool super = difficulty == DifficultyClass.SuperHard;
-            _panel.color = super ? SuperHardColor : HardColor;
+            _panel.SetColors(super ? Design.GardenLook.Purple : Design.GardenLook.Red);
             _icon.sprite = super ? ProceduralSprites.DoubleStar : ProceduralSprites.Star;
             _label.text = super ? Loc.T("difficulty.super_hard") : Loc.T("difficulty.hard");
             _root.SetActive(true);

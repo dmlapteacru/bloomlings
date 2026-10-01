@@ -109,7 +109,7 @@ The look is derived from these fields:
 |---|---|
 | `Corners` | top-left and bottom-right of the button box |
 | `Size` | `garden.deco_size` × the button height |
-| `Shapes` | 3 × `deco.leaf` (rotated −40°, 15°, 70°), 1 × `deco.flower` |
+| `Parts` | three leaves (fanning up-left, up and right) and a white flower with a yellow center, each with its own outline (`DecorationPart`, `ShapeLibrary.DecorationPartSdf`) |
 | Applied to | PLAY, and the primary button of the pause, win, milestone and Daily Reward cards |
 
 The decoration never takes touch input, and is drawn after the button so it may overlap the plate's corner.
@@ -118,6 +118,6 @@ The decoration never takes touch input, and is drawn after the button so it may 
 
 | Id | Category | Placeholder | Readability |
 |---|---|---|---|
-| `ui.deco.garden` | UI kit | Shape (`deco.leaf`, `deco.flower`) | no |
+| `ui.deco.garden` | UI kit | Shape (the whole cluster; its parts are drawn one by one in their colors) | no |
 
 The `ui.play` triangle is a shape of the existing `ui.*` family, and gets its own slot (`ui.play`, UI kit, Shape).

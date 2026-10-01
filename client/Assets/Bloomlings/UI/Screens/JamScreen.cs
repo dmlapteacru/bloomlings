@@ -31,7 +31,7 @@ namespace Bloomlings.Client.UI.Screens
 
         public static JamScreen Create(Transform parent, Action onRestart, Action<Recovery> onRecovery)
         {
-            float content = 250f + 30f + DesignTokens.Size.PrimaryHeightSmall + 24f + DesignTokens.Size.SecondaryHeight + 20f;
+            float content = 250f + 30f + DesignTokens.Size.CardPrimaryHeight + 24f + DesignTokens.Size.SecondaryHeight + 30f;
             SheetView sheet = UiKit.Sheet("JamScreen", parent, Loc.T("jam.title"), Loc.T("jam.subtitle"), content);
             var screen = sheet.Root.AddComponent<JamScreen>();
             screen._sheet = sheet;
@@ -41,10 +41,10 @@ namespace Bloomlings.Client.UI.Screens
             screen._options = UiKit.PlaceBox(UiFactory.CreateRect("Recoveries", sheet.Body), new Box(body.Left, body.Top, body.Right, body.Top + (250f * u)), body);
             float y = body.Top + (280f * u);
             screen._rescue = UiKit.PrimaryButton("Rescue", sheet.Body, Loc.T("jam.rescue"), () => screen._watch?.Invoke());
-            UiKit.PlaceBox((RectTransform)screen._rescue.transform, new Box(body.Left + (20f * u), y, body.Right - (20f * u), y + (DesignTokens.Size.PrimaryHeightSmall * u)), body);
-            y += (DesignTokens.Size.PrimaryHeightSmall + 24f) * u;
+            UiKit.PlaceBox((RectTransform)screen._rescue.transform, ScreenLayout.CardButton(body, y, true, u), body);
+            y += (DesignTokens.Size.CardPrimaryHeight + 24f) * u;
             Button restart = UiKit.SecondaryButton("Restart", sheet.Body, Loc.T("common.restart"), onRestart, "ui.restart");
-            UiKit.PlaceBox((RectTransform)restart.transform, new Box(body.Left + (20f * u), y, body.Right - (20f * u), y + (DesignTokens.Size.SecondaryHeight * u)), body);
+            UiKit.PlaceBox((RectTransform)restart.transform, ScreenLayout.CardButton(body, y, false, u), body);
             sheet.Root.SetActive(false);
             return screen;
         }

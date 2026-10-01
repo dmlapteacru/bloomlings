@@ -134,7 +134,8 @@ namespace Bloomlings.Playtest.Preview
                 SolveResult win = new Solver.Solver().Solve(Session(content, 12), SolveOptions.Default);
                 Play(app, p, win.Trace, win.Trace.Count);
                 Settle(app, p);
-                Run(app, p, 0.6f);
+                // Long enough for the Petals to finish counting up (spec 003 FR-020), still within the confetti.
+                Run(app, p, 1.1f);
             });
 
             yield return new Fixture(16, "milestone", "Milestone win", (p, data) =>
@@ -247,6 +248,7 @@ namespace Bloomlings.Playtest.Preview
             int frames = Math.Max(1, (int)(seconds / Frame));
             for (int i = 0; i < frames; i++)
             {
+                p.Now += Frame;
                 p.BeginFrame();
                 app.Draw(p, Frame);
             }
@@ -257,6 +259,7 @@ namespace Bloomlings.Playtest.Preview
         {
             for (int i = 0; i < 1800 && app.Level != null && !app.Level.Animator.Settled; i++)
             {
+                p.Now += Frame;
                 p.BeginFrame();
                 app.Draw(p, Frame);
             }

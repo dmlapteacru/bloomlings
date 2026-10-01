@@ -201,11 +201,13 @@ namespace Bloomlings.Client.UI.Design
             Box extra = Take(96f, look.FreeBoosterOffer);
             Box daily = Take(150f, look.DailyChallenge, 22f);
             Box rank = Take(96f, look.Rank, 22f);
-            Box playRow = Take(DesignTokens.Size.PrimaryHeight, true, 26f);
+            // PLAY is shorter and taller (spec 003 FR-011); its leaves reach above and below it, so it keeps more room.
+            bottom -= 20f * u;
+            Box playRow = Take(DesignTokens.Size.PlayHeight, true, 48f);
             Box teaser = Take(78f, look.Teaser, 20f);
             Box level = Take(110f, true, 10f);
 
-            float playWidth = Math.Min(playRow.Width, 700f * u);
+            float playWidth = Math.Min(playRow.Width, DesignTokens.Size.PlayWidth * u);
             Box play = Box.FromCenter(playRow.CenterX, playRow.CenterY, playWidth, playRow.Height);
             Box teaserPill = look.Teaser ? Box.FromCenter(teaser.CenterX, teaser.CenterY, Math.Min(teaser.Width, 640f * u), teaser.Height) : teaser;
             Box rankRow = look.Rank ? Box.FromCenter(rank.CenterX, rank.CenterY, Math.Min(rank.Width, 520f * u), rank.Height) : rank;
@@ -214,6 +216,17 @@ namespace Bloomlings.Client.UI.Design
             float featureWidth = look.Wardrobe || look.Collection ? DesignTokens.Size.IconButton * u : 0f;
             var features = new Box(left, hero.Top + (40f * u), left + featureWidth, hero.Bottom - (40f * u));
             return new HomeRegions(safe, top, hero, features, level, teaserPill, play, rankRow, daily, extra);
+        }
+
+        /// <summary>
+        /// A card's button centered in its body from <paramref name="top"/> (spec 003 FR-011): the primary one at
+        /// <c>size.card_primary</c>, the secondary ones at <c>size.card_secondary_width</c> and <c>size.secondary_height</c>.
+        /// </summary>
+        public static Box CardButton(Box body, float top, bool primary, float scale)
+        {
+            float width = Math.Min(body.Width, (primary ? DesignTokens.Size.CardPrimaryWidth : DesignTokens.Size.CardSecondaryWidth) * scale);
+            float height = (primary ? DesignTokens.Size.CardPrimaryHeight : DesignTokens.Size.SecondaryHeight) * scale;
+            return new Box(body.CenterX - (width / 2f), top, body.CenterX + (width / 2f), top + height);
         }
 
         /// <param name="contentHeight">The card's content height in reference units (title and close excluded).</param>

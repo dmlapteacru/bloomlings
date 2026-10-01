@@ -12,7 +12,8 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void TokenNames_AreUnique_AndMatchTheContract()
         {
-            Assert.That(DesignTokens.Colors.All.Count, Is.EqualTo(63));
+            // 63 of spec 002 and 26 garden colors of spec 003 (contracts/garden-tokens.md).
+            Assert.That(DesignTokens.Colors.All.Count, Is.EqualTo(89));
             Assert.That(DesignTokens.Type.All.Select(t => t.Name).Distinct().Count(), Is.EqualTo(DesignTokens.Type.All.Count));
             Assert.That(DesignTokens.Type.All.All(t => t.Min > 0f && t.Min <= t.Size), Is.True);
         }

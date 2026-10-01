@@ -30,10 +30,10 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _pause = null!;
         private RectTransform _speed = null!;
         private RectTransform _levelPill = null!;
-        private Image _levelFace = null!;
+        private GardenButton _levelFace = null!;
         private TextMeshProUGUI _level = null!;
         private TextMeshProUGUI _speedLabel = null!;
-        private Image _badge = null!;
+        private GardenButton _badge = null!;
         private TextMeshProUGUI _badgeLabel = null!;
         private Image _boardPanel = null!;
         private Image _slotBand = null!;
@@ -58,14 +58,15 @@ namespace Bloomlings.Client.UI.Screens
             hud._root = root;
             hud._backdrop = BackdropView.Create(root, BackdropScene.Gameplay);
 
-            hud._boardPanel = UiKit.Rounded("BoardPanel", root, new Color(UiTheme.Panel.r, UiTheme.Panel.g, UiTheme.Panel.b, 0.72f), 48f);
-            hud._slotBand = UiKit.Rounded("SlotBand", root, new Color(UiTheme.Panel.r, UiTheme.Panel.g, UiTheme.Panel.b, 0.55f), 36f);
+            // The board and the slot row sit on paper in a wooden frame (spec 003 FR-022, FR-023).
+            hud._boardPanel = UiKit.Paper("BoardPanel", root, 48f, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthBoard, raycast: false);
+            hud._slotBand = UiKit.Paper("SlotBand", root, 36f, DesignTokens.Garden.FrameWidthSlots, DesignTokens.Garden.FrameDepthSlots, raycast: false);
 
             hud._topBar = UiFactory.CreateRect("TopBar", root);
             hud._pause = (RectTransform)UiKit.RoundIconButton("Pause", hud._topBar, "ui.pause", onPause).transform;
             hud._level = UiKit.LevelPill("Level", hud._topBar, out hud._levelFace);
             hud._level.text = Loc.F("common.level", 1);
-            hud._levelPill = (RectTransform)hud._levelFace.transform.parent;
+            hud._levelPill = (RectTransform)hud._levelFace.transform;
             Button speed = UiKit.DarkPill("Speed", hud._topBar, "1×", () =>
             {
                 hud.DoubleSpeed = !hud.DoubleSpeed;
@@ -75,7 +76,7 @@ namespace Bloomlings.Client.UI.Screens
             hud._speed = (RectTransform)speed.transform;
             hud._speedLabel = speed.GetComponentInChildren<TextMeshProUGUI>();
 
-            hud._badgeLabel = UiKit.Badge("Badge", root, string.Empty, UiTheme.Of(DesignTokens.Colors.BadgeHard), out hud._badge);
+            hud._badgeLabel = UiKit.Badge("Badge", root, string.Empty, GardenLook.Red, out hud._badge);
             hud._badge.gameObject.SetActive(false);
 
             hud.BoardArea = UiFactory.CreateRect("BoardArea", root);
@@ -83,8 +84,8 @@ namespace Bloomlings.Client.UI.Screens
             hud.TrayArea = UiFactory.CreateRect("TrayArea", root);
             hud.BoosterArea = UiFactory.CreateRect("BoosterArea", root);
 
-            hud._toastPill = UiKit.Pill("Toast", root, UiTheme.Panel);
-            hud._toast = UiKit.Label("Text", hud._toastPill.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Text);
+            hud._toastPill = UiKit.Paper("Toast", root, 48f, DesignTokens.Garden.OutlineWidth, 5f, raycast: false);
+            hud._toast = UiKit.Label("Text", hud._toastPill.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain));
             UiFactory.Place(hud._toast.rectTransform, 0.05f, 0.1f, 0.95f, 0.9f);
             hud._toastPill.gameObject.SetActive(false);
             hud.Layout(hasBadge: false, hasBoosters: true);
@@ -106,7 +107,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(_pause, new Box(r.TopBar.Left, r.TopBar.Top, r.TopBar.Left + bar, r.TopBar.Bottom), r.TopBar);
             UiKit.PlaceBox(_levelPill, Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Mathf.Min(420f * DesignTokens.ScaleFor(w, h), r.TopBar.Width - (bar * 3.4f)), bar * 0.82f), r.TopBar);
             UiKit.PlaceBox(_speed, new Box(r.TopBar.Right - (bar * 1.3f), r.TopBar.CenterY - (bar * 0.36f), r.TopBar.Right, r.TopBar.CenterY + (bar * 0.36f)), r.TopBar);
-            UiKit.PlaceBox(_badge.rectTransform, r.Badge.IsEmpty ? r.Badge : r.Badge.Offset(0f, -10f * DesignTokens.ScaleFor(w, h)), screen);
+            UiKit.PlaceBox((RectTransform)_badge.transform, r.Badge.IsEmpty ? r.Badge : r.Badge.Offset(0f, -10f * DesignTokens.ScaleFor(w, h)), screen);
             UiKit.PlaceBox(BoardArea, r.Board, screen);
             UiKit.PlaceBox(_boardPanel.rectTransform, r.Board.Inset(-12f), screen);
             UiKit.PlaceBox(SlotArea, r.Slots, screen);
@@ -124,10 +125,10 @@ namespace Bloomlings.Client.UI.Screens
             bool show = labelUnlocked && difficulty != DifficultyClass.Normal;
             _badge.gameObject.SetActive(show);
             bool super = difficulty == DifficultyClass.SuperHard;
-            _levelFace.color = UiTheme.Of(show && super ? DesignTokens.Colors.PillLevelSuperHard : DesignTokens.Colors.PillLevel);
+            _levelFace.SetColors(show && super ? GardenLook.Lilac : GardenLook.Blue);
             if (show)
             {
-                _badge.color = UiTheme.Of(super ? DesignTokens.Colors.BadgeSuperHard : DesignTokens.Colors.BadgeHard);
+                _badge.SetColors(super ? GardenLook.Purple : GardenLook.Red);
                 _badgeLabel.text = super ? Loc.T("difficulty.super_hard") : Loc.T("difficulty.hard");
             }
         }

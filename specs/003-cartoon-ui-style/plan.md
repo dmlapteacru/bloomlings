@@ -50,7 +50,7 @@ The approach extends the spec 002 kit rather than replacing it:
 **Primary Dependencies**:
 - the existing ones: Unity uGUI and TextMeshPro, `Android.Graphics`, and SkiaSharp 3.119 (preview only);
 - new: the Nunito font files (SIL OFL 1.1), taken from the npm package `@expo-google-fonts/nunito` 0.4.2, with the
-  license text from `@fontsource/nunito`.
+  package's own OFL text (`LICENSE_FONT`).
 
 **Storage**: N/A. No save, content or economy change.
 
@@ -132,7 +132,7 @@ client/Assets/Bloomlings/
 │   ├── DesignTokens.cs              # + Garden (plate, frame, lip, highlight, decoration), sentence-case type styles,
 │   │                                #   ColorSet sets, TextLook looks, booster tile sizes
 │   ├── GardenLook.cs                # NEW: ColorSet, TextLook, BoosterTileState, decoration placement (engine-free)
-│   ├── ShapeLibrary.cs              # + deco.leaf, deco.flower, ui.play
+│   ├── ShapeLibrary.cs              # + ui.deco.garden (leaves and flower, by part), ui.play
 │   ├── ScreenLayout.cs              # main-button proportions (PLAY 540×204), card buttons narrower
 │   └── AssetSlots.cs                # + ui.deco.garden (FR-030)
 ├── UI/Fonts/Resources/              # NEW: Nunito-SemiBold.ttf, Nunito-ExtraBold.ttf, OFL.txt

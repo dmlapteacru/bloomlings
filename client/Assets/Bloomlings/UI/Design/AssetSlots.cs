@@ -71,6 +71,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The platform's bold or regular sans-serif.</summary>
         SystemFont,
 
+        /// <summary>A font file bundled with the game (spec 003: Nunito, SIL OFL 1.1).</summary>
+        BundledFont,
+
         /// <summary>Not drawn inside the game (the app icon): the platform default for now.</summary>
         External,
     }
@@ -258,20 +261,20 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.panel", "Rounded panel base (9-slice)", new[] { 4, 5, 6, 10, 11, 15, 16, 17 }, "Every card, button, pill and tile", "any tint", SizeClass.Small);
             Shape("ui.circle", "Disc (round buttons, badges, avatars)", new[] { 2, 3, 5, 7, 14 }, "Round buttons; badges; medals; avatars", "any tint", SizeClass.Icon);
             Shape("ui.ring", "Ring (highlights, profile frame)", new[] { 3, 7 }, "Highlights; entry marker; avatar frame", "any tint", SizeClass.Icon);
-            Add("ui.button.primary", "Primary button (green, darker lower edge)", new[] { 2, 3, 4, 10, 11, 15, 16 }, "PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "rounded pill in the primary tokens");
-            Add("ui.button.secondary", "Secondary button (cream)", new[] { 4, 10, 11, 15 }, "RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "rounded pill in the secondary tokens");
-            Add("ui.button.round", "Round icon button (white)", new[] { 2, 3, 7, 11 }, "Settings; Pause; close; Wardrobe; Collection", "normal; pressed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "white disc with a rim and a glyph");
-            Add("ui.pill.level", "Level pill", Gameplay, "Gameplay top bar", "normal; super hard", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "sky-blue pill with LEVEL N");
-            Add("ui.pill.speed", "2× speed pill", Gameplay, "Gameplay top bar", "1×; 2×", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "dark pill with the speed");
-            Add("ui.pill.petals", "Petals balance pill", new[] { 2, 3, 17 }, "Home; Store", "with +; without +", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "white pill with the Petal symbol, balance and green +");
-            Add("ui.badge.hard", "HARD badge", new[] { 8 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "red pill with HARD");
-            Add("ui.badge.super_hard", "SUPER HARD badge", new[] { 9 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "purple pill with SUPER HARD");
-            Add("ui.badge.count", "Count badge (booster charges)", new[] { 7, 14 }, "Booster bar", "count; price", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "dark disc with the number");
-            Add("ui.card", "Popup card frame", new[] { 4, 5, 6, 11, 16, 17 }, "Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe", "with close; without close", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "cream rounded card with a soft shadow over a scrim");
-            Add("ui.sheet", "Bottom sheet frame", new[] { 10 }, "Jam", "rising; open", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "cream sheet with a grip, rising from the bottom");
-            Add("ui.row", "List row (Store, Leaderboard)", new[] { 5, 17 }, "Store; Leaderboard", "normal; highlighted (You); unavailable", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "rounded row in the panel tokens");
-            Add("ui.tab", "Tab", new[] { 17 }, "Store; Wardrobe", "selected; unselected", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "rounded pill in the sunk or primary tokens");
-            Add("ui.toggle", "Toggle switch", Array.Empty<int>(), "Settings", "on; off", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "pill switch in the primary and sunk tokens");
+            Add("ui.button.primary", "Primary button (green, darker lower edge)", new[] { 2, 3, 4, 10, 11, 15, 16 }, "PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "green raised pill on a cream plate: outline, lip, highlight, volumetric label");
+            Add("ui.button.secondary", "Secondary button (cream)", new[] { 4, 10, 11, 15 }, "RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "cream raised pill on a cream plate, brown outline, dark brown label");
+            Add("ui.button.round", "Round icon button (white)", new[] { 2, 3, 7, 11 }, "Settings; Pause; close; Wardrobe; Collection", "normal; pressed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "raised disc on a round plate: outline, lip, highlight, glyph");
+            Add("ui.pill.level", "Level pill", Gameplay, "Gameplay top bar", "normal; super hard", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "sky-blue raised pill on a plate with the volumetric \"Level N\"");
+            Add("ui.pill.speed", "2× speed pill", Gameplay, "Gameplay top bar", "1×; 2×", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "dark raised pill on a plate");
+            Add("ui.pill.petals", "Petals balance pill", new[] { 2, 3, 17 }, "Home; Store", "with +; without +", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "white raised pill on a plate with the Petal symbol, balance and a round green + on its own plate");
+            Add("ui.badge.hard", "HARD badge", new[] { 8 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "red raised sticker pill on a plate");
+            Add("ui.badge.super_hard", "SUPER HARD badge", new[] { 9 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "purple raised sticker pill on a plate");
+            Add("ui.badge.count", "Count badge (booster charges)", new[] { 7, 14 }, "Booster bar", "count; price", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "dark brown disc with a cream ring and a brown outline; price: cream tag with the Petal");
+            Add("ui.card", "Popup card frame", new[] { 4, 5, 6, 11, 16, 17 }, "Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe", "with close; without close", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "paper card in a wooden frame with a header band shaped like a button on a plate, over a scrim");
+            Add("ui.sheet", "Bottom sheet frame", new[] { 10 }, "Jam", "rising; open", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "paper sheet in a wooden frame with a grip, rising and settling with a bounce");
+            Add("ui.row", "List row (Store, Leaderboard)", new[] { 5, 17 }, "Store; Leaderboard", "normal; highlighted (You); unavailable", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "outlined rounded panel; the own row raised");
+            Add("ui.tab", "Tab", new[] { 17 }, "Store; Wardrobe", "selected; unselected", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "selected: green raised pill on a plate; others: sunk");
+            Add("ui.toggle", "Toggle switch", Array.Empty<int>(), "Settings", "on; off", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "chunky outlined track with a raised knob");
             Shape("ui.close", "Close glyph", new[] { 4, 5, 6, 11 }, "Cards", "normal");
             Shape("ui.pause", "Pause glyph", Gameplay, "Gameplay top bar", "normal");
             Shape("ui.restart", "Restart glyph", new[] { 10, 11 }, "Pause card; jam sheet", "normal");
@@ -279,6 +282,8 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.chevron", "Chevron (opens a screen)", new[] { 3 }, "Home rank row; Daily Challenge card", "normal");
             Shape("ui.plus", "Plus glyph", new[] { 2, 3, 17 }, "Petals pill; + Slot", "normal");
             Shape("ui.check", "Check mark (done)", new[] { 3 }, "Home Daily Challenge card (done today)", "normal");
+            Shape("ui.play", "Play triangle, as tall as the letters (spec 003 FR-010)", new[] { 2, 3 }, "PLAY on Home", "normal; pressed");
+            Shape("ui.deco.garden", "Leaves and a white flower on the main buttons (spec 003 FR-011a)", new[] { 2, 3, 11, 15, 16 }, "PLAY; RESUME; NEXT; CONTINUE; CLAIM", "top-left; bottom-right (turned)", SizeClass.Small);
             Shape("ui.gift", "Gift (milestone teaser)", new[] { 3 }, "Home", "normal; ready", SizeClass.Small);
             Shape("ui.trophy", "Trophy (rank row, Get +N)", new[] { 3, 4 }, "Home rank row; Daily Reward", "normal", SizeClass.Small);
             Shape("ui.medal", "Medal (ranks 1–3)", new[] { 5 }, "Leaderboard", "gold; silver; bronze", SizeClass.Small);
@@ -333,8 +338,8 @@ namespace Bloomlings.Client.UI.Design
             Add("fx.win_shine", "Finished picture shine", new[] { 15 }, "Win", "sweep", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "a light band sweeping the picture");
 
             // ---- Typography ----
-            Add("font.display", "Display font (rounded, bold): titles, buttons, pills, wordmark", new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17 }, "Every screen", "bold; outlined", SizeClass.Icon, true, Launch, PlaceholderKind.SystemFont, "platform bold sans-serif");
-            Add("font.body", "Body font: rows, captions, numbers", new[] { 3, 4, 5, 6, 10, 17 }, "Every screen", "regular; bold digits", SizeClass.Icon, true, Launch, PlaceholderKind.SystemFont, "platform sans-serif");
+            Add("font.display", "Display font (rounded, bold): titles, buttons, pills, wordmark", new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17 }, "Every screen", "bold; outlined; volumetric on colored faces", SizeClass.Icon, true, Launch, PlaceholderKind.BundledFont, "Nunito ExtraBold (SIL OFL 1.1), `UI/Fonts/Resources/Nunito-ExtraBold.ttf`");
+            Add("font.body", "Body font: rows, captions, numbers", new[] { 3, 4, 5, 6, 10, 17 }, "Every screen", "regular; bold digits", SizeClass.Icon, true, Launch, PlaceholderKind.BundledFont, "Nunito SemiBold (SIL OFL 1.1), `UI/Fonts/Resources/Nunito-SemiBold.ttf`");
 
             // ---- Audio ----
             Add("audio.music.daylight_garden", "Music: Daylight Garden", Gameplay, "Gameplay; Home", "loop", SizeClass.Audio, false, Launch, PlaceholderKind.Synth, "none (silence); cues only");

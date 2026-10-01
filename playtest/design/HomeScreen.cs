@@ -65,7 +65,8 @@ namespace Bloomlings.Playtest.Design
             float bar = r.TopBar.Height;
             Kit.RoundButton(p, r.TopBar.Right - (bar / 2f), r.TopBar.CenterY, bar, "ui.settings", () => app.OpenOverlay(Overlay.Settings));
             Box petals = new Box(r.TopBar.Right - bar - p.U(24f) - p.U(330f), r.TopBar.CenterY - (bar * 0.36f), r.TopBar.Right - bar - p.U(24f), r.TopBar.CenterY + (bar * 0.36f));
-            Kit.PetalsPill(p, petals, meta.Economy.Petals, look.Store ? () => app.OpenOverlay(Overlay.Store) : (Action?)null);
+            Kit.PetalsPill(p, petals, app.ShownPetals, look.Store ? () => app.OpenOverlay(Overlay.Store) : (Action?)null);
+            Kit.SparkleBurst(p, petals.Left + (petals.Height * 0.5f), petals.CenterY, petals.Height, app.SinceRewardBurst);
             if (look.Wardrobe)
             {
                 Avatar(p, r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, meta.Wardrobe.Profile);
@@ -86,7 +87,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             bool available = app.Content.LevelCount > 0;
-            Kit.PrimaryButton(p, r.Play, PlaytestText.T("common.play"), available ? app.StartLevel : (Action?)null, T.ButtonLarge);
+            Kit.PrimaryButton(p, r.Play, PlaytestText.T("common.play"), available ? app.StartLevel : (Action?)null, T.ButtonLarge, decorate: true, playArrow: true, breathe: app.Overlays.Count == 0);
 
             if (look.Rank)
             {

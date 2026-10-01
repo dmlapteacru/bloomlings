@@ -8,8 +8,8 @@ Decisions behind [plan.md](plan.md). Each decision gives what was chosen, why, a
   - Ship `Nunito-SemiBold.ttf` (600) for body and caption text, and `Nunito-ExtraBold.ttf` (800) for every bold style:
     buttons, titles, pills, counts, the level text.
   - Put them in `client/Assets/Bloomlings/UI/Fonts/Resources/`, with `OFL.txt` next to them.
-  - Take the files from the npm package `@expo-google-fonts/nunito` 0.4.2, and the OFL text from `@fontsource/nunito`
-    5.3.0.
+  - Take the files from the npm package `@expo-google-fonts/nunito` 0.4.2, with the OFL text that ships in the same
+    package (`LICENSE_FONT`).
   - The playtest and the preview embed the same two files.
 - **Why.**
   - The owner chose Nunito (spec Clarifications, 1A): rounded letters, OFL, and Latin plus Cyrillic.
@@ -102,7 +102,8 @@ Decisions behind [plan.md](plan.md). Each decision gives what was chosen, why, a
 ## R7. Decoration: leaves and flowers as shapes
 
 - **Decision.**
-  - Two new shapes, `deco.leaf` (a lens) and `deco.flower` (5 petals), and the `ui.play` triangle.
+  - One new shape cluster, `ui.deco.garden` (three lens-shaped leaves and a 5-petal flower, drawn part by part in their
+    colors), and the `ui.play` triangle. Every shape is a registered slot, so the cluster is one slot.
   - A cluster is three leaves and one flower, at the top-left and bottom-right corners of a main action button.
   - The cluster's box is `garden.deco_size`, about 0.75 of the button height. It never takes touch input and never
     covers the label.

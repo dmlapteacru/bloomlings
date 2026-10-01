@@ -6,7 +6,7 @@
 |---|---|---|---|
 | `client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-ExtraBold.ttf` | 800 | display: every `TypeStyle` with `Bold = true` | `@expo-google-fonts/nunito` 0.4.2, `800ExtraBold/Nunito_800ExtraBold.ttf` |
 | `client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf` | 600 | body: every `TypeStyle` with `Bold = false` | same package, `600SemiBold/Nunito_600SemiBold.ttf` |
-| `client/Assets/Bloomlings/UI/Fonts/Resources/OFL.txt` | — | license (SIL OFL 1.1, "Copyright 2014 The Nunito Project Authors") | `@fontsource/nunito` 5.3.0 `LICENSE` |
+| `client/Assets/Bloomlings/UI/Fonts/Resources/OFL.txt` | — | license (SIL OFL 1.1, "Copyright 2014 The Nunito Project Authors") | the same package, `LICENSE_FONT` |
 
 Rules:
 

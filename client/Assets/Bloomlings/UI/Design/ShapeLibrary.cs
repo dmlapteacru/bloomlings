@@ -52,6 +52,83 @@ namespace Bloomlings.Client.UI.Design
         public static Func<float, float, float> SkinOn(Family family, string shape) =>
             (x, y) => Max(SilhouetteSdf(family, x, y) + 0.04f, SkinPatternSdf(shape, x, y));
 
+        /// <summary>
+        /// One part of the <c>ui.deco.garden</c> cluster, grown by <paramref name="grow"/> (positive: its outline ring),
+        /// turned half way when <paramref name="flipped"/> (the bottom-right corner).
+        /// </summary>
+        public static Func<float, float, float> DecorationPartSdf(DecorationPart part, float grow, bool flipped) =>
+            flipped ? (x, y) => DecorationSdf(part, -x, -y) - grow : (Func<float, float, float>)((x, y) => DecorationSdf(part, x, y) - grow);
+
+        /// <summary>A part of the decoration in the cluster's square (the mockup's 120 × 100 SVG, centered, 60 per unit).</summary>
+        private static float DecorationSdf(DecorationPart part, float x, float y)
+        {
+            // The leaves fan out from (0, −0.13) to the upper left, up, and right.
+            const float bx = 0f;
+            const float by = -0.13f;
+            switch (part)
+            {
+                case DecorationPart.LeafA:
+                    return LensSdf(x, y, bx, by, -0.95f, 0.25f, 0.23f);
+                case DecorationPart.LeafB:
+                    return LensSdf(x, y, bx, by, 0.45f, 0.8f, 0.23f);
+                case DecorationPart.LeafC:
+                    return LensSdf(x, y, bx, by, 0.97f, -0.2f, 0.21f);
+                case DecorationPart.Petals:
+                {
+                    float d = float.MaxValue;
+                    for (int i = 0; i < 5; i++)
+                    {
+                        float a = (MathF.PI / 2f) + (i * 2f * MathF.PI / 5f);
+                        float c = MathF.Cos(a);
+                        float sn = MathF.Sin(a);
+                        float u = ((x - bx) * c) + ((y - by + 0.03f) * sn) - 0.2f;
+                        float v = (-(x - bx) * sn) + ((y - by + 0.03f) * c);
+                        d = MathF.Min(d, (Length(u / 0.21f, v / 0.15f) - 1f) * 0.15f);
+                    }
+
+                    return d;
+                }
+
+                default:
+                    return Length(x - bx, y - by + 0.03f) - 0.12f;
+            }
+        }
+
+        /// <summary>A leaf: a lens from (ax, ay) to (bx, by) with half-width <paramref name="half"/>.</summary>
+        private static float LensSdf(float x, float y, float ax, float ay, float bx, float by, float half)
+        {
+            float dx = bx - ax;
+            float dy = by - ay;
+            float length = MathF.Sqrt((dx * dx) + (dy * dy));
+            float along = ((((x - ax) * dx) + ((y - ay) * dy)) / length) - (length / 2f);
+            float across = (((x - ax) * -dy) + ((y - ay) * dx)) / length;
+            float l = length / 2f;
+            float radius = ((l * l) + (half * half)) / (2f * half);
+            float offset = radius - half;
+            return Max(Length(along, across - offset) - radius, Length(along, across + offset) - radius);
+        }
+
+        /// <summary>The signed distance to a triangle (a, b, c).</summary>
+        private static float TriangleSdf(float px, float py, float ax, float ay, float bx, float by, float cx, float cy)
+        {
+            float e0x = bx - ax, e0y = by - ay, e1x = cx - bx, e1y = cy - by, e2x = ax - cx, e2y = ay - cy;
+            float v0x = px - ax, v0y = py - ay, v1x = px - bx, v1y = py - by, v2x = px - cx, v2y = py - cy;
+            float Clamp01(float t) => MathF.Max(0f, MathF.Min(1f, t));
+            float t0 = Clamp01(((v0x * e0x) + (v0y * e0y)) / ((e0x * e0x) + (e0y * e0y)));
+            float t1 = Clamp01(((v1x * e1x) + (v1y * e1y)) / ((e1x * e1x) + (e1y * e1y)));
+            float t2 = Clamp01(((v2x * e2x) + (v2y * e2y)) / ((e2x * e2x) + (e2y * e2y)));
+            float q0x = v0x - (e0x * t0), q0y = v0y - (e0y * t0);
+            float q1x = v1x - (e1x * t1), q1y = v1y - (e1y * t1);
+            float q2x = v2x - (e2x * t2), q2y = v2y - (e2y * t2);
+            float sign = MathF.Sign((e0x * e2y) - (e0y * e2x));
+            float d0 = (q0x * q0x) + (q0y * q0y), s0 = sign * ((v0x * e0y) - (v0y * e0x));
+            float d1 = (q1x * q1x) + (q1y * q1y), s1 = sign * ((v1x * e1y) - (v1y * e1x));
+            float d2 = (q2x * q2x) + (q2y * q2y), s2 = sign * ((v2x * e2y) - (v2y * e2x));
+            float d = MathF.Min(d0, MathF.Min(d1, d2));
+            float s = MathF.Min(s0, MathF.Min(s1, s2));
+            return -MathF.Sqrt(d) * MathF.Sign(s);
+        }
+
         private static Dictionary<string, Func<float, float, float>> Build()
         {
             var s = new Dictionary<string, Func<float, float, float>>(StringComparer.Ordinal)
@@ -106,6 +183,17 @@ namespace Bloomlings.Client.UI.Design
                     RoundedBox(x, y, -0.42f, -0.42f, 0.33f, 0.33f, 0.1f), RoundedBox(x, y, 0.42f, -0.42f, 0.33f, 0.33f, 0.1f)),
                 ["ui.sun"] = (x, y) => Min(Length(x, y) - 0.4f, Max(MathF.Abs(Length(x, y) - 0.74f) - 0.14f, (0.5f - MathF.Cos(8f * MathF.Atan2(y, x))) * 0.35f)),
                 ["ui.person"] = (x, y) => Min(Length(x, y - 0.32f) - 0.3f, Max(Length(x, y + 0.9f) - 0.72f, -(y + 0.9f))),
+
+                // ---- UI kit: the Garden look (spec 003) ----
+                // PLAY's rounded triangle, as tall as the letters (FR-010).
+                ["ui.play"] = (x, y) => TriangleSdf(x + 0.04f, y, -0.3f, 0.66f, 0.66f, 0f, -0.3f, -0.66f) - 0.1f,
+                // The leaves and white flower of the main buttons (FR-011a): the whole cluster; its parts are drawn
+                // one by one in their own colors (DecorationPartSdf).
+                ["ui.deco.garden"] = (x, y) => Min(
+                    DecorationSdf(DecorationPart.LeafA, x, y),
+                    DecorationSdf(DecorationPart.LeafB, x, y),
+                    DecorationSdf(DecorationPart.LeafC, x, y),
+                    DecorationSdf(DecorationPart.Petals, x, y)),
 
                 // ---- Currency and rewards ----
                 ["currency.petal"] = (x, y) => Max(PetalFlower(x, y), -(Length(x, y) - 0.22f)),

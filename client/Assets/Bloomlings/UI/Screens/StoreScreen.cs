@@ -29,7 +29,7 @@ namespace Bloomlings.Client.UI.Screens
     {
         private const int RowsPerPage = 7;
 
-        private readonly List<Image> _tabs = new List<Image>();
+        private TabsView _tabs = null!;
         private GameObject _root = null!;
         private GameObject _tabRow = null!;
         private RectTransform _list = null!;
@@ -59,19 +59,9 @@ namespace Bloomlings.Client.UI.Screens
             screen._petals = screen._balance.Balance;
             RectTransform tabs = UiFactory.Place(UiFactory.CreateRect("Tabs", body), 0.04f, 0.845f, 0.96f, 0.905f);
             screen._tabRow = tabs.gameObject;
+            // The selected tab is a raised green button on a plate, the other sunk (spec 003 FR-016).
             string[] labels = { Loc.T("store.tab_shop"), Loc.T("store.tab_cosmetics") };
-            for (int i = 0; i < labels.Length; i++)
-            {
-                StoreTab tab = (StoreTab)i;
-                Image pill = UiKit.Pill(tab.ToString(), tabs, UiTheme.Sunk, raycast: true);
-                UiFactory.Place(pill.rectTransform, (i * 0.5f) + 0.01f, 0f, (i * 0.5f) + 0.49f, 1f);
-                var button = pill.gameObject.AddComponent<Button>();
-                button.targetGraphic = pill;
-                button.onClick.AddListener(() => screen.SetTab(tab));
-                TextMeshProUGUI text = UiKit.Label("Label", pill.transform, labels[i], Design.DesignTokens.Type.ButtonSecondary, UiTheme.Text);
-                UiFactory.Place(text.rectTransform, 0.06f, 0.06f, 0.94f, 0.94f);
-                screen._tabs.Add(pill);
-            }
+            screen._tabs = UiKit.Tabs("TabRow", tabs, labels, i => screen.SetTab((StoreTab)i));
 
             screen._status = UiKit.Label("Status", body, string.Empty, Design.DesignTokens.Type.Caption, UiTheme.TextSecondary);
             UiFactory.Place(screen._status.rectTransform, 0f, 0.8f, 1f, 0.84f);
@@ -130,12 +120,7 @@ namespace Bloomlings.Client.UI.Screens
                 Destroy(_list.GetChild(i).gameObject);
             }
 
-            for (int i = 0; i < _tabs.Count; i++)
-            {
-                bool selected = (StoreTab)i == _tab;
-                _tabs[i].color = selected ? UiTheme.Accent : UiTheme.Sunk;
-                _tabs[i].GetComponentInChildren<TextMeshProUGUI>().color = selected ? UiTheme.TextOnColor : UiTheme.Text;
-            }
+            _tabs.Select((int)_tab);
 
             var shown = new List<StoreItem>();
             foreach (StoreItem item in _items)

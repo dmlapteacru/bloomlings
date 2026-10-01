@@ -24,5 +24,8 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" Link="Shared/CollectionService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" Link="Shared/ThemeRotation.cs" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
+    <!-- The Garden look's font (spec 003 contracts/fonts.md); AndroidPainter loads it, the level tester does not. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-ExtraBold.ttf" LogicalName="fonts/Nunito-ExtraBold.ttf" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
   </ItemGroup>
 </Project>

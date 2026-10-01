@@ -16,14 +16,14 @@ home.logo,Bloomlings
 home.continue,Continue
 home.more_levels_soon,More levels soon
 home.store,Store
-home.free_booster,Free booster ▶
+home.free_booster,Free booster
 home.milestone_teaser,Level {0} reward in {1}
 home.rank,Rank #{0}
 home.rank_offline,Rank #{0} (offline)
 home.rank_unknown,Rank: —
 home.rank_unknown_offline,Rank: offline
 home.daily,Daily
-home.daily_done,Daily ✓
+home.daily_done,Done today
 home.wardrobe,Wardrobe
 home.collection,Collection
 home.levels_to_reward,{0} levels to reward
@@ -74,7 +74,7 @@ milestone.reached,Milestone reached!
 milestone.continue,Continue
 jam.title,No moves left
 jam.stuck,No pod can move!
-jam.free_rescue,Free {0} ▶
+jam.free_rescue,Free {0}
 jam.subtitle,Use a booster to continue
 jam.rescue,Free rescue
 difficulty.hard,Hard

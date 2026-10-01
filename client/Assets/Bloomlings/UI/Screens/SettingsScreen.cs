@@ -2,6 +2,7 @@ using System;
 using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -24,6 +25,7 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _root = null!;
         private SettingsData _settings = null!;
         private Action _persist = () => { };
+        private readonly System.Collections.Generic.List<(ToggleView View, Func<bool> On)> _toggles = new System.Collections.Generic.List<(ToggleView, Func<bool>)>();
         private TextMeshProUGUI _music = null!;
         private TextMeshProUGUI _sfx = null!;
         private TextMeshProUGUI _haptics = null!;
@@ -46,19 +48,21 @@ namespace Bloomlings.Client.UI.Screens
             AccountActions? account = null,
             IConsentService? consent = null)
         {
-            RectTransform card = UiFactory.CreateModal("SettingsScreen", parent, 0.62f, out GameObject root);
-            var screen = root.AddComponent<SettingsScreen>();
+            // A garden card with its header band; the rows keep their places on the card (spec 003 FR-015, FR-016).
+            SettingsScreen screen = null!;
+            CardView view = UiKit.Card("SettingsScreen", parent, Loc.T("settings.title"), 1240f, () => screen.Hide());
+            RectTransform card = view.CardRect;
+            GameObject root = view.Root;
+            screen = root.AddComponent<SettingsScreen>();
             screen._root = root;
             screen._settings = settings;
             screen._persist = persist;
             screen._consent = consent;
 
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("settings.title"), 72f, UiTheme.Text);
-            UiFactory.Place(title.rectTransform, 0f, 0.88f, 1f, 0.97f);
-            screen._music = Toggle(card, "Music", 0.77f, () => settings.Music = !settings.Music, screen);
-            screen._sfx = Toggle(card, "Sound", 0.66f, () => settings.Sfx = !settings.Sfx, screen);
-            screen._haptics = Toggle(card, "Haptics", 0.55f, () => settings.Haptics = !settings.Haptics, screen);
-            screen._speed = Toggle(card, "Speed", 0.44f, () => settings.Speed2x = !settings.Speed2x, screen);
+            screen._music = Toggle(card, "Music", 0.77f, () => settings.Music, () => settings.Music = !settings.Music, screen);
+            screen._sfx = Toggle(card, "Sound", 0.66f, () => settings.Sfx, () => settings.Sfx = !settings.Sfx, screen);
+            screen._haptics = Toggle(card, "Haptics", 0.55f, () => settings.Haptics, () => settings.Haptics = !settings.Haptics, screen);
+            screen._speed = Toggle(card, "Speed", 0.44f, () => settings.Speed2x, () => settings.Speed2x = !settings.Speed2x, screen);
 
             if (account != null)
             {
@@ -97,8 +101,6 @@ namespace Bloomlings.Client.UI.Screens
                 screen._consent?.ShowPrivacyOptions(screen.Refresh), 36f);
             UiFactory.Place((RectTransform)screen._privacy.transform, 0.52f, 0.15f, 0.92f, 0.24f);
 
-            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Accent, screen.Hide);
-            UiFactory.Place((RectTransform)close.transform, 0.25f, 0.03f, 0.75f, 0.12f);
             root.SetActive(false);
             return screen;
         }
@@ -118,6 +120,11 @@ namespace Bloomlings.Client.UI.Screens
             _sfx.text = Loc.F("settings.sound", OnOff(_settings.Sfx));
             _haptics.text = Loc.F("settings.haptics", OnOff(_settings.Haptics));
             _speed.text = Loc.F("settings.speed", _settings.Speed2x ? "2×" : "1×");
+            foreach ((ToggleView view, Func<bool> on) in _toggles)
+            {
+                view.Show(on());
+            }
+
             _privacy.gameObject.SetActive(_consent != null && _consent.PrivacyOptionsRequired);
             if (_account != null && _accountStatus != null)
             {
@@ -125,16 +132,22 @@ namespace Bloomlings.Client.UI.Screens
             }
         }
 
-        private static TextMeshProUGUI Toggle(RectTransform card, string name, float y, Action flip, SettingsScreen screen)
+        /// <summary>A settings row: an outlined panel with its label and a garden switch (spec 003 FR-016).</summary>
+        private static TextMeshProUGUI Toggle(RectTransform card, string name, float y, Func<bool> on, Action flip, SettingsScreen screen)
         {
-            Button button = UiFactory.CreateButton(name, card, name, UiTheme.Text, () =>
+            Image row = UiKit.Row(name, card, highlighted: false);
+            UiFactory.Place(row.rectTransform, 0.08f, y, 0.92f, y + 0.095f);
+            TextMeshProUGUI label = UiKit.Label("Label", row.transform, name, DesignTokens.Type.Body, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain), TextAlignmentOptions.Left);
+            UiFactory.Place(label.rectTransform, 0.06f, 0.1f, 0.68f, 0.9f);
+            ToggleView toggle = UiKit.Toggle("Switch", row.transform, () =>
             {
                 flip();
                 screen._persist();
                 screen.Refresh();
-            }, 48f);
-            UiFactory.Place((RectTransform)button.transform, 0.15f, y, 0.85f, y + 0.095f);
-            return button.GetComponentInChildren<TextMeshProUGUI>();
+            });
+            UiFactory.Place((RectTransform)toggle.transform, 0.72f, 0.24f, 0.94f, 0.76f);
+            screen._toggles.Add((toggle, on));
+            return label;
         }
 
         private static string OnOff(bool value) => value ? Loc.T("common.on") : Loc.T("common.off");

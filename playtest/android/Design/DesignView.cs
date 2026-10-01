@@ -62,9 +62,10 @@ namespace Bloomlings.Playtest.Droid
             long now = SystemClock.UptimeMillis();
             float dt = _lastFrame == 0 ? 0f : Math.Min(0.1f, (now - _lastFrame) / 1000f);
             _lastFrame = now;
+            _painter.Now = now / 1000f;
             _painter.Begin(canvas, Width, Height, new Client.UI.Design.Insets(_insetTop, _insetBottom));
             _app.Draw(_painter, dt);
-            if (_app.NeedsFrames)
+            if (_app.NeedsFrames || _painter.Springing || _painter.Finger.HasValue)
             {
                 PostInvalidateOnAnimation();
             }
@@ -81,6 +82,7 @@ namespace Bloomlings.Playtest.Droid
                 return false;
             }
 
+            _painter.Now = SystemClock.UptimeMillis() / 1000f;
             switch (e.Action)
             {
                 case MotionEventActions.Down:
