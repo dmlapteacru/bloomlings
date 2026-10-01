@@ -196,7 +196,7 @@ checks still pass.
 - [X] T046 [P] Update `CLAUDE.md`, `playtest/README.md`, `client/README.md` and
   `specs/002-ux-design-board/contracts/design-tokens.md` (sentence case, the Garden tokens, the font), and add the
   font's licence record to `client/THIRD_PARTY_NOTICES.md`, which `OriginalityTests` now reads
-- [ ] T047 Run the quickstart checks 1–5 (`client/DotnetCheck`, `playtest/preview`, `--inventory`, `playtest/check`,
+- [X] T047 Run the quickstart checks 1–5 (`client/DotnetCheck`, `playtest/preview`, `--inventory`, `playtest/check`,
   `core`, `backend`) and type-check the full playtest and the tester against `Mono.Android`
 
 ---
