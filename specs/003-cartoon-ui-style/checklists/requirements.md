@@ -13,7 +13,7 @@
 
 ## Requirement Completeness
 
-- [ ] No [NEEDS CLARIFICATION] markers remain
+- [x] No [NEEDS CLARIFICATION] markers remain
 - [x] Requirements are testable and unambiguous
 - [x] Success criteria are measurable
 - [x] Success criteria are technology-agnostic (no implementation details)
@@ -42,6 +42,7 @@
   - a volumetric 2D board, cells and pods;
   - booster tiles.
 
-  Two markers are open in FR-009: whether to add a rounded font file (with Cyrillic), and whether to switch to sentence
-  case.
+  The two FR-009 questions were answered (1A, 2A):
+  - Nunito (OFL, with Cyrillic) is the one font file;
+  - labels use sentence case.
 - Items marked incomplete require spec updates before `/speckit-clarify` or `/speckit-plan`.

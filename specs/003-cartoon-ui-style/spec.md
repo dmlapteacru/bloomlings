@@ -71,6 +71,10 @@ theme. It MUST NOT reuse Colony Flow's graphics, icons, colors as a scheme, or l
 - Q: Motion? → A: The press and spring-back of the mockup are approved as they are (FR-017).
 - Q: Booster buttons? → A: The tile shape (FR-031): a rounded-square plate, a colored tile with a large icon, and the
   charges in a round dark badge in the corner.
+- Q: Add a rounded font file, and which one? → A: Yes, Nunito (OFL, with Cyrillic), one font for every language
+  (FR-001, FR-009, SC-006).
+- Q: Uppercase titles (spec 002 FR-005) or sentence case as on the reference button? → A: Sentence case ("Play",
+  "Resume"). This feature replaces spec 002 FR-005's uppercase titles; small badges such as HARD stay uppercase (FR-009).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -218,8 +222,8 @@ in spec 002.
 #### A. Scope and principles
 
 - **FR-001**: The game's interface elements MUST take on a cartoony, casual-game look, drawn from shapes, gradients,
-  outlines and text alone. The feature MUST add no art or audio asset files, and no font file unless FR-009 allows
-  one. Every styled element MUST stay
+  outlines and text alone. The feature MUST add no art or audio asset files. Its only new file is the rounded font of
+  FR-009. Every styled element MUST stay
   replaceable by final art later, with no change of layout or behavior (spec 002 FR-002).
 - **FR-002**: The style MUST apply to the same builds as spec 002: the Unity game client and the full playtest APK. The
   level tester APK keeps its minimal look.
@@ -256,10 +260,9 @@ in spec 002.
   Every set is derived the same way from one base color. The cream of the plates, the brown of the outlines and the
   wood of the frames MUST also be named values, so the whole style can be tuned in one place.
 - **FR-009 Labels**:
-  - **Font and case.** Labels use rounded bold letters and sentence case ("Play", "Resume").
-    [NEEDS CLARIFICATION: a rounded font is a font file, which FR-001 does not allow yet, and Fredoka has no Cyrillic.
-    Add a rounded font with Cyrillic, and which one?]
-    [NEEDS CLARIFICATION: spec 002 FR-005 asks for uppercase titles. Switch to sentence case as on the reference button?]
+  - **Font and case.** Labels MUST use one rounded font with Cyrillic, Nunito (OFL), in its heaviest weights, for
+    every language. They MUST use sentence case ("Play", "Resume", "No moves left"). This replaces spec 002 FR-005's
+    uppercase titles (see Clarifications). Badges such as HARD and SUPER HARD stay uppercase.
   - **On colored faces.** Labels MUST have a little volume, kept balanced:
     - a light fill with a slight vertical gradient;
     - a thin outline in the face's dark hue;
@@ -422,8 +425,8 @@ in spec 002.
   lost or delayed in a test of 20 rapid taps.
 - **SC-005**: Gameplay stays at 30 frames per second or more, with no hitch longer than 100 ms, on the reference
   low-end device (spec 002 SC-005).
-- **SC-006**: No new art or audio asset files are added. At most one rounded font family is added, if FR-009's font
-  question is answered yes.
+- **SC-006**: No new art or audio asset files are added. The only new file is one rounded font family (Nunito,
+  FR-009). Every player-facing string of every shipped language renders in it, with no missing glyphs.
 - **SC-007**: No screen shows a cut-off or overlapping element, and every touch target keeps its minimum size, on three
   aspect ratios from 16:9 to 21:9.
 - **SC-008**: A first-time player still finds and taps PLAY within 3 seconds of Home appearing, in 9 of 10 attempts.
@@ -435,8 +438,9 @@ in spec 002.
 - **No screenshots.** Colony Flow's store pages could not be viewed from the session where this spec was written: the
   network policy blocks them. The style follows the general conventions of casual puzzle games of its kind. The product
   owner may share screenshots during clarification to steer the details.
-- **Font.** "Programmatically" means no art files. The reference look depends on a rounded font. Whether a font file
-  is added is the open question in FR-009. Until it is answered, the system bold font is the fallback.
+- **Font.** "Programmatically" means no art files. The reference look depends on a rounded font, so the owner allowed
+  one font file: Nunito, free under the OFL, with Latin and Cyrillic. Fredoka, used in the mockup, has no Cyrillic. The
+  font's license is kept next to it. The system font stays the fallback if the file fails to load.
 - **No 3D.** The 3D buttons and the 2D + 3D hybrids were compared and not adopted. Doc 12 §1 and constitution VII stay
   unchanged.
 - **Same builds.** The Unity client and the full playtest APK get the style; the tester stays minimal. This follows the
@@ -450,6 +454,8 @@ in spec 002.
 - **Board faces.** Tiles keep variant symbols, never faces (spec 001 FR-005, spec 002 FR-011).
 - **Header bands.** The colored header band on cards is still "a title at the top" (spec 002 FR-007), so it is not a
   deviation.
+- **Spec 002 deviation.** Sentence case replaces spec 002 FR-005's "bold, rounded, uppercase titles" (owner's decision,
+  2026-10-01). Bold and rounded still hold.
 - **Booster selection.** The selected state follows the existing rules: Return chooses a waiting pod (spec 001
   FR-045), and Bloom Burst chooses a visible variant (spec 001 FR-050). The other boosters act at once.
 - **Existing effects.** Sparkles and the other effects use the existing placeholder effects, with no new effect
