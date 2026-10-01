@@ -440,6 +440,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The lower edge of a pod card.</summary>
         public static Rgba PodCardEdge(Rgba variant) => variant.Lighten(0.35f);
 
+        /// <summary>
+        /// A pod still waiting in its stack (spec 003 FR-022a): its variant color muted toward grey, so the player can read
+        /// what comes next while the exposed pods stay the bright, tappable ones.
+        /// </summary>
+        public static Rgba PodQueued(Rgba variant) => variant.Mix(Colors.StateStuck, 0.38f);
+
         /// <summary>The theme color of a booster's round button.</summary>
         public static Rgba BoosterColor(string boosterId) => boosterId switch
         {

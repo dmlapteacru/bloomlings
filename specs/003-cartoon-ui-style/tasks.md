@@ -201,6 +201,24 @@ checks still pass.
 
 ---
 
+## Phase 7: Owner's playtest feedback — the tray grid (FR-022a)
+
+**Goal**: The queued pods never overlap: each stack is a column with the exposed pod on top and the next two below,
+fully visible, smaller, so the player sees what each choice uncovers.
+
+**Independent Test**: Preview frames 7–9: three rows per stack, no overlap, "+N" on deeper stacks; the layout,
+touch-target and safe-area checks pass.
+
+- [X] T048 Add `ScreenLayout.Tray` / `TrayGrid` and `ScreenLayout.TrayRows = 3` in `K/ScreenLayout.cs`, grow the tray band
+  to 440 units, and add `DesignTokens.PodQueued` (the muted variant color) in `K/DesignTokens.cs`
+- [X] T049 Draw the tray as the grid in `P/design/PodPainter.cs` (queued pods muted, not grey; "+N" count badge; only
+  exposed pods take taps, grown to the touch minimum)
+- [X] T050 Lay out `U/Gameplay/Tray/TrayView.cs` with the same grid, and mute queued pods in `U/Gameplay/Tray/PodView.cs`
+- [X] T051 Add `ScreenLayoutTests.TheTray_ShowsThreeRowsPerStack_WithoutOverlap` (16:9 to 21:9, 2–5 stacks)
+- [X] T052 Run the local checks, then build the playtest APK (manual workflow)
+
+---
+
 ## Dependencies and execution order
 
 - **Setup (T001–T002)** → **Foundational (T003–T019)** → the stories.

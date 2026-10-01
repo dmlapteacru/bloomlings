@@ -101,6 +101,18 @@ namespace Bloomlings.Client.UI.Design
         };
     }
 
+    /// <summary>The Source Tray's grid (<see cref="ScreenLayout.Tray"/>): square pods in columns and rows, never overlapping.</summary>
+    public sealed record TrayGrid(float Left, float Top, float PodSize, float ColumnGap, float RowGap)
+    {
+        /// <summary>The box of the pod at <paramref name="depth"/> (0 = exposed) in <paramref name="stack"/>.</summary>
+        public Box Cell(int stack, int depth)
+        {
+            float x = Left + (stack * (PodSize + ColumnGap));
+            float y = Top + (depth * (PodSize + RowGap));
+            return new Box(x, y, x + PodSize, y + PodSize);
+        }
+    }
+
     /// <summary>A centered popup card (frames 4, 5, 6, 11, 16, 17; FR-007).</summary>
     public sealed record CardRegions(Box Card, Box Title, Box Close, Box Body);
 
@@ -136,7 +148,8 @@ namespace Bloomlings.Client.UI.Design
             float badge = hasBadge ? 46f : 0f;
             float gap = 20f;
             float slots = 170f;
-            float tray = 340f;
+            // The tray shows each stack as a column of TrayRows pods that never overlap (spec 003 FR-022a).
+            float tray = 440f;
             float boosters = hasBoosters ? DesignTokens.Size.BoosterButton : 0f;
             float bottomPad = 20f;
             float fixedBands = (slots + tray + boosters) * u;
@@ -216,6 +229,28 @@ namespace Bloomlings.Client.UI.Design
             float featureWidth = look.Wardrobe || look.Collection ? DesignTokens.Size.IconButton * u : 0f;
             var features = new Box(left, hero.Top + (40f * u), left + featureWidth, hero.Bottom - (40f * u));
             return new HomeRegions(safe, top, hero, features, level, teaserPill, play, rankRow, daily, extra);
+        }
+
+        /// <summary>How many pods of each Source stack the tray shows: the exposed one and the next two (spec 003 FR-022a).</summary>
+        public const int TrayRows = 3;
+
+        /// <summary>
+        /// The Source Tray as a grid (spec 003 FR-022a, like the reference game's source area): one column per stack, the
+        /// exposed pod in the top row and the pods that follow it below, each fully visible and never overlapping, so the
+        /// player can read what comes next before choosing. Returns the pod size and the box of a pod at a stack and a
+        /// depth (0 = exposed); depths from <see cref="TrayRows"/> on are not shown.
+        /// </summary>
+        public static TrayGrid Tray(Box area, int stacks, float scale)
+        {
+            int columns = Math.Max(1, stacks);
+            float columnGap = 16f * scale;
+            float rowGap = 12f * scale;
+            float columnWidth = (area.Width - (columnGap * (columns - 1))) / columns;
+            float size = Math.Min(Math.Min(columnWidth, 230f * scale), (area.Height - (rowGap * (TrayRows - 1))) / TrayRows);
+            float total = (size * columns) + (columnGap * (columns - 1));
+            float left = area.CenterX - (total / 2f);
+            float top = area.Top + ((area.Height - ((size * TrayRows) + (rowGap * (TrayRows - 1)))) / 2f);
+            return new TrayGrid(left, top, size, columnGap, rowGap);
         }
 
         /// <summary>

@@ -90,7 +90,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         }
 
         /// <param name="interactive">Only exposed pods take taps (FR-011).</param>
-        /// <param name="dimmed">Buried pods are drawn greyed and smaller behind the exposed one.</param>
+        /// <param name="dimmed">A pod still in its stack, shown below the exposed one in its muted variant color (spec 003 FR-022a).</param>
         /// <param name="lockShown">The lock is drawn (locked, or its key is still in flight).</param>
         /// <param name="linkColor">The connected group's color, or null when the pod is not connected.</param>
         public void Show(PodInfo pod, VariantVisualCatalog? visuals, bool interactive, bool dimmed, bool lockShown, Color? linkColor)
@@ -119,12 +119,14 @@ namespace Bloomlings.Client.Gameplay.Tray
             {
                 VariantVisual visual = visuals != null ? visuals.Get(pod.Variant!.Value) : VariantVisualCatalog.Default(pod.Variant!.Value);
                 Rgba color = UiTheme.ToRgba(visual.Color);
-                Color card = UiTheme.Of(DesignTokens.PodCard(color));
-                Tint(dimmed ? Grey(card) : card);
+                // A pod still in its stack keeps its variant color, muted, so what comes next reads at a glance
+                // (spec 003 FR-022a).
+                Rgba shown = dimmed ? DesignTokens.PodQueued(color) : color;
+                Tint(UiTheme.Of(DesignTokens.PodCard(shown)));
                 _card.sprite = visual.PodSkin ?? ProceduralSprites.RoundedSquare;
                 _body.enabled = true;
                 _body.sprite = ProceduralSprites.Silhouette(visual.Family);
-                _body.color = dimmed ? Color.Lerp(Grey(visual.Color), UiTheme.Stuck, 0.4f) : visual.Color;
+                _body.color = dimmed ? UiTheme.Of(shown) : visual.Color;
                 _icon.enabled = true;
                 _icon.sprite = visual.Icon;
                 _icon.color = visual.Ink;

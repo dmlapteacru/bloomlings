@@ -21,7 +21,8 @@ namespace Bloomlings.Playtest.Design
     /// The Source Tray and its pods, in the states of frame 12 (spec 002 FR-012):
     /// <list type="bullet">
     /// <item><description>exposed: bright and raised;</description></item>
-    /// <item><description>next in stack: grey and smaller, peeking below;</description></item>
+    /// <item><description>next in stack: in its variant color, muted, fully visible below the exposed one (spec 003
+    /// FR-022a);</description></item>
     /// <item><description>pressed;</description></item>
     /// <item><description>locked: a padlock;</description></item>
     /// <item><description>mystery: "?" with its count;</description></item>
@@ -32,9 +33,6 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static class PodPainter
     {
-        /// <summary>How many buried pods peek below the exposed one.</summary>
-        private const int Peeks = 2;
-
         public static void DrawTray(IPainter p, Box area, LevelScreen s)
         {
             LevelView view = s.Session.View;
@@ -45,12 +43,9 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            float gap = p.U(20f);
-            float columnWidth = (area.Width - (gap * (stacks - 1))) / stacks;
-            float peek = p.U(34f);
-            float size = Math.Min(Math.Min(columnWidth, p.U(250f)), area.Height - (peek * Peeks) - p.U(10f));
-            float totalWidth = (size * stacks) + (gap * (stacks - 1));
-            float x0 = area.CenterX - (totalWidth / 2f);
+            // A grid like the reference game's source area (spec 003 FR-022a): one column per stack, the exposed pod on
+            // top and the pods that follow it below, never overlapping, so the player sees what each choice uncovers.
+            TrayGrid grid = ScreenLayout.Tray(area, stacks, p.Scale);
             var linked = new Dictionary<string, List<Box>>(StringComparer.Ordinal);
 
             // Shuffle: the pods swirl in place for a moment.
@@ -63,59 +58,61 @@ namespace Bloomlings.Playtest.Design
             for (int st = 0; st < stacks; st++)
             {
                 IReadOnlyList<string> stack = view.Stack(st);
-                float left = x0 + (st * (size + gap));
-                float top = area.Top;
-                // Buried pods first (behind), from the deepest shown.
-                int shown = Math.Min(stack.Count - 1, Peeks);
-                for (int i = shown; i >= 1; i--)
-                {
-                    float shrink = 1f - (0.08f * i);
-                    Box back = new Box(left + (size * (1f - shrink) / 2f), top + (peek * i), left + (size * (1f + shrink) / 2f), top + (peek * i) + (size * shrink));
-                    Pod(p, back, view.Pod(stack[i]), PodLook.Next, s);
-                }
-
-                if (stack.Count > Peeks + 1)
-                {
-                    Box more = Box.FromCenter(left + (size / 2f), top + size + (peek * Peeks) + p.U(2f), p.U(80f), p.U(40f));
-                    p.FillRound(more, more.Height / 2f, C.BadgeCount.WithAlpha(0.7f));
-                    p.Text("+" + (stack.Count - Peeks - 1), more.CenterX, more.CenterY, T.Badge, C.TextOnColor, more.Width * 0.9f);
-                }
-
                 if (stack.Count == 0)
                 {
-                    p.FillRound(new Box(left, top, left + size, top + size), size * DesignTokens.Radius.Pod, C.SurfaceSunk.WithAlpha(0.6f));
+                    Box empty = grid.Cell(st, 0);
+                    p.FillRound(empty, empty.Width * DesignTokens.Radius.Pod, C.SurfaceSunk.WithAlpha(0.6f));
                     continue;
                 }
 
-                string id = stack[0];
-                PodInfo pod = view.Pod(id);
-                var box = new Box(left, top, left + size, top + size);
-                s.PodBoxes[id] = box;
-                bool locked = pod.Locked || s.Animator.HeldPodLocks.Contains(id);
-                bool pressed = !locked && p.Pressed(box) && view.IsExposed(id);
-                if (swirl < 1f)
+                int shown = Math.Min(stack.Count, ScreenLayout.TrayRows);
+                for (int depth = 0; depth < shown; depth++)
                 {
-                    p.StrokeCircle(box.CenterX, box.CenterY, box.Width * (0.4f + (0.3f * swirl)), p.U(8f), C.BoosterShuffle.WithAlpha(1f - swirl));
-                    p.PushTransform(0f, 0f, 0.75f + (0.25f * Kit.Ease(swirl)), box.CenterX, box.CenterY);
-                }
-
-                Pod(p, box, pod, locked ? PodLook.Locked : pressed ? PodLook.Pressed : view.IsExposed(id) ? PodLook.Exposed : PodLook.Next, s);
-                if (swirl < 1f)
-                {
-                    p.PopTransform();
-                }
-
-                if (pod.ConnectedGroupId != null)
-                {
-                    if (!linked.TryGetValue(pod.ConnectedGroupId, out List<Box>? boxes))
+                    string id = stack[depth];
+                    PodInfo pod = view.Pod(id);
+                    Box box = grid.Cell(st, depth);
+                    s.PodBoxes[id] = box;
+                    bool exposed = depth == 0 && view.IsExposed(id);
+                    bool locked = pod.Locked || s.Animator.HeldPodLocks.Contains(id);
+                    bool pressed = exposed && !locked && p.Pressed(box);
+                    if (swirl < 1f)
                     {
-                        linked[pod.ConnectedGroupId] = boxes = new List<Box>();
+                        p.StrokeCircle(box.CenterX, box.CenterY, box.Width * (0.4f + (0.3f * swirl)), p.U(6f), C.BoosterShuffle.WithAlpha(1f - swirl));
+                        p.PushTransform(0f, 0f, 0.75f + (0.25f * Kit.Ease(swirl)), box.CenterX, box.CenterY);
                     }
 
-                    boxes.Add(box);
+                    Pod(p, box, pod, locked ? PodLook.Locked : pressed ? PodLook.Pressed : exposed ? PodLook.Exposed : PodLook.Next, s);
+                    if (swirl < 1f)
+                    {
+                        p.PopTransform();
+                    }
+
+                    if (pod.ConnectedGroupId != null)
+                    {
+                        if (!linked.TryGetValue(pod.ConnectedGroupId, out List<Box>? boxes))
+                        {
+                            linked[pod.ConnectedGroupId] = boxes = new List<Box>();
+                        }
+
+                        boxes.Add(box);
+                    }
+
+                    if (exposed)
+                    {
+                        // The exposed pod takes the tap; its target grows to the touch minimum over the row below,
+                        // which takes no taps (FR-027).
+                        p.Hit(Kit.Touch(p, box), () => s.Tap(id));
+                    }
                 }
 
-                p.Hit(box, () => s.Tap(id));
+                // Deeper pods are not drawn; a "+N" badge on the last shown pod says how many more wait there.
+                if (stack.Count > shown)
+                {
+                    Box last = grid.Cell(st, shown - 1);
+                    float h = last.Height * 0.3f;
+                    string more = "+" + (stack.Count - shown).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    Kit.CountBadge(p, last.Right - (h * 0.4f), last.Bottom - (h * 0.4f), h, more);
+                }
             }
 
             // Connected pods: a teal link between the members' cards.
@@ -163,11 +160,14 @@ namespace Bloomlings.Playtest.Design
             VariantId variant = pod.Variant.Value;
             Rgba color = Visuals.ColorOf(variant);
             bool next = look == PodLook.Next;
-            Rgba tint = next ? DesignTokens.PodCard(color).Grey() : DesignTokens.PodCard(color);
-            Rgba edge = next ? DesignTokens.PodCardEdge(color).Grey() : DesignTokens.PodCardEdge(color);
+
+            // A pod still in its stack keeps its variant color, muted, so what comes next reads at a glance (FR-022a).
+            Rgba shown = next ? DesignTokens.PodQueued(color) : color;
+            Rgba tint = DesignTokens.PodCard(shown);
+            Rgba edge = DesignTokens.PodCardEdge(shown);
             // A volumetric 2D card (spec 003 FR-022): a thick lip, a bevel and a highlight; never 3D.
             Box f = Kit.Block(p, box, tint, edge, radius, Kit.PodLip(p, box.Height), next ? 0.25f : 0.55f, look == PodLook.Pressed);
-            Rgba body = next ? color.Grey().Mix(C.StateStuck, 0.4f) : color;
+            Rgba body = shown;
             Box figure = Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.42f), f.Width * 0.78f, f.Width * 0.78f);
             Visuals.Bloomling(p, figure, Visuals.FamilyOf(variant), body, Visuals.SymbolOf(variant), face: !next, symbolScale: 0.52f);
             CountPill(p, f, pod.Remaining, next);

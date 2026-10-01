@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Simulation;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,19 +11,19 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
-    /// The Source Tray (T043): one column per stack; the exposed pod sits on top, highlighted and tappable, with up to
-    /// two buried pods drawn smaller below it and a "+N" for the deeper ones. Connected pods are joined by a link bar in
+    /// The Source Tray (T043): one column per stack; the exposed pod sits on top, highlighted and tappable, with the next
+    /// two pods of the stack fully visible below it in their muted variant colors, never overlapping, and a "+N" badge for
+    /// the deeper ones (spec 003 FR-022a, <see cref="ScreenLayout.Tray"/>). Connected pods are joined by a link bar in
     /// their group's color, drawn over the gap between the cards. The tray mirrors the logical state directly, because
     /// commits are immediate feedback (R4), except that a pod whose key is still in flight keeps its lock until the key
     /// lands. Taps are forwarded to the controller.
     /// </summary>
     public sealed class TrayView : MonoBehaviour
     {
-        private const int BuriedShown = 2;
-
         private readonly Dictionary<string, PodView> _pods = new Dictionary<string, PodView>(StringComparer.Ordinal);
         private readonly List<Image> _links = new List<Image>();
         private readonly List<TMPro.TextMeshProUGUI> _more = new List<TMPro.TextMeshProUGUI>();
+        private readonly List<Image> _moreDiscs = new List<Image>();
         private readonly HashSet<string> _heldLocks = new HashSet<string>(StringComparer.Ordinal);
         private RectTransform _area = null!;
         private VariantVisualCatalog? _visuals;
@@ -49,44 +50,45 @@ namespace Bloomlings.Client.Gameplay.Tray
                 link.enabled = false;
             }
 
-            foreach (TMPro.TextMeshProUGUI more in _more)
+            foreach (Image disc in _moreDiscs)
             {
-                more.enabled = false;
+                disc.gameObject.SetActive(false);
             }
 
             Rect area = _area.rect;
             int stacks = view.StackCount;
             var positions = new Dictionary<string, (Vector2 Center, float Size)>(StringComparer.Ordinal);
-            float columnWidth = area.width / stacks;
-            float size = Mathf.Min(columnWidth * 0.82f, area.height * 0.42f);
+
+            // A grid like the reference game's source area (spec 003 FR-022a): one column per stack, the exposed pod on
+            // top and the pods that follow it below, never overlapping, so the player sees what each choice uncovers.
+            // The grid is laid out top-down in the area's own units, then turned into bottom-up anchored positions.
+            TrayGrid grid = ScreenLayout.Tray(new Box(0f, 0f, area.width, area.height), stacks, UiKit.Units(1f));
             for (int s = 0; s < stacks; s++)
             {
                 IReadOnlyList<string> ids = view.Stack(s);
-                float x = (s + 0.5f) * columnWidth;
-
-                // Draw buried pods first so the exposed one is on top.
-                int shown = Mathf.Min(ids.Count, 1 + BuriedShown);
-                for (int d = shown - 1; d >= 0; d--)
+                int shown = Mathf.Min(ids.Count, ScreenLayout.TrayRows);
+                for (int d = 0; d < shown; d++)
                 {
                     PodView pod = Get(ids[d]);
-                    float scale = d == 0 ? 1f : 0.78f - (0.08f * (d - 1));
-                    float y = area.height - (size * 0.55f) - (d * size * 0.62f);
-                    UiFactory.PlaceAbsolute(pod.Rect, new Vector2(x, y), Vector2.one * size * scale);
+                    Box cell = grid.Cell(s, d);
+                    var center = new Vector2(cell.CenterX, area.height - cell.CenterY);
+                    UiFactory.PlaceAbsolute(pod.Rect, center, Vector2.one * cell.Width);
                     PodInfo info = view.Pod(ids[d]);
                     pod.Show(info, _visuals, interactive: d == 0, dimmed: d > 0, lockShown: info.Locked || _heldLocks.Contains(info.Id), linkColor: LinkColorOf(view, info));
                     pod.transform.SetAsLastSibling();
-                    positions[ids[d]] = (new Vector2(x, y), size * scale);
+                    positions[ids[d]] = (center, cell.Width);
                 }
 
-                // Deeper pods are not drawn; a "+N" under the column says how many wait there.
+                // Deeper pods are not drawn; a "+N" badge on the last shown pod says how many more wait there.
                 if (ids.Count > shown)
                 {
                     TMPro.TextMeshProUGUI more = More(s);
-                    more.enabled = true;
                     more.text = "+" + (ids.Count - shown).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    float y = area.height - (size * 0.55f) - (shown * size * 0.62f) + (size * 0.2f);
-                    UiFactory.PlaceAbsolute(more.rectTransform, new Vector2(x, Mathf.Max(size * 0.15f, y)), new Vector2(columnWidth, size * 0.3f));
-                    more.transform.SetAsLastSibling();
+                    Box last = grid.Cell(s, shown - 1);
+                    float badge = last.Height * 0.3f;
+                    Image disc = _moreDiscs[s];
+                    UiFactory.PlaceAbsolute(disc.rectTransform, new Vector2(last.Right - (badge * 0.4f), area.height - last.Bottom + (badge * 0.4f)), new Vector2(badge * 1.6f, badge));
+                    disc.transform.SetAsLastSibling();
                 }
             }
 
@@ -189,15 +191,17 @@ namespace Bloomlings.Client.Gameplay.Tray
             new Color(0.96f, 0.66f, 0.80f, 0.95f),
         };
 
+        /// <summary>The "+N" count badge of a stack (a dark brown disc with a cream ring, spec 003 FR-014).</summary>
         private TMPro.TextMeshProUGUI More(int stack)
         {
             while (_more.Count <= stack)
             {
-                TMPro.TextMeshProUGUI label = UiFactory.CreateText("More", _area, string.Empty, 40f, UiTheme.Text);
-                label.fontStyle = TMPro.FontStyles.Bold;
+                TMPro.TextMeshProUGUI label = UiKit.CountBadge("More", _area, out Image disc);
                 _more.Add(label);
+                _moreDiscs.Add(disc);
             }
 
+            _moreDiscs[stack].gameObject.SetActive(true);
             return _more[stack];
         }
 

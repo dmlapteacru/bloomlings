@@ -75,6 +75,10 @@ theme. It MUST NOT reuse Colony Flow's graphics, icons, colors as a scheme, or l
   (FR-001, FR-009, SC-006).
 - Q: Uppercase titles (spec 002 FR-005) or sentence case as on the reference button? → A: Sentence case ("Play",
   "Resume"). This feature replaces spec 002 FR-005's uppercase titles; small badges such as HARD stay uppercase (FR-009).
+- Owner's playtest feedback (after the first Garden APK): the pods queued in the tray must not overlap. The player
+  must see what follows each choice (left, middle, right) before choosing, at least two or three rows, as in the
+  reference game; the tray pods get smaller to make room. This replaces spec 002 FR-012's "next in stack: greyed,
+  smaller, peeking below" (FR-022a).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -335,6 +339,12 @@ in spec 002.
   - spec 001 FR-012's order of prominence: variant symbol, variant color, count, family silhouette.
 
   The top-bar pills follow the recipe of FR-006 and FR-007.
+- **FR-022a Tray grid**: The Source Tray MUST show each stack as a column of pods that never overlap: the exposed pod in
+  the top row and the next two pods of the stack in the rows below, each fully visible, so the player can read what
+  each choice uncovers. Pods still in their stack keep their variant color, muted, with their symbol and count; only
+  the exposed pods are bright and take taps. Deeper pods are not drawn; a "+N" count badge on the last shown pod says
+  how many more wait there. Tray pods are smaller than before to fit three rows, and the board keeps its share of the
+  screen (spec 002 data-model rule 3).
 - **FR-023**: The board and its cells MUST be volumetric but drawn in 2D:
   - the board sits in a wooden frame;
   - each cell is a raised block in its own color, with a thicker lip, a bevel and a soft highlight.
@@ -456,6 +466,9 @@ in spec 002.
   deviation.
 - **Spec 002 deviation.** Sentence case replaces spec 002 FR-005's "bold, rounded, uppercase titles" (owner's decision,
   2026-10-01). Bold and rounded still hold.
+- **Spec 002 deviation (tray).** The tray grid of FR-022a replaces spec 002 FR-012's peeking, greyed buried pods
+  (owner's playtest feedback, 2026-10-01). It shows what spec 001 FR-013 already allows for ordinary pods (variant and
+  count); mystery pods still show only "?" and the count.
 - **Booster selection.** The selected state follows the existing rules: Return chooses a waiting pod (spec 001
   FR-045), and Bloom Burst chooses a visible variant (spec 001 FR-050). The other boosters act at once.
 - **Existing effects.** Sparkles and the other effects use the existing placeholder effects, with no new effect

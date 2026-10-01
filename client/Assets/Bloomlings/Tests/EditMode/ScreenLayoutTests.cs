@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Bloomlings.Client.UI.Design;
 using NUnit.Framework;
 
@@ -62,6 +63,35 @@ namespace Bloomlings.Client.Tests
                     Assert.That(r.Hero.Height, Is.GreaterThan(h * 0.2f), at + " the hero or scene keeps room");
                     Assert.That(r.Rank.IsEmpty, Is.EqualTo(!look.Rank), at);
                     Assert.That(r.Daily.IsEmpty, Is.EqualTo(!look.DailyChallenge), at);
+                }
+            }
+        }
+
+        [Test]
+        public void TheTray_ShowsThreeRowsPerStack_WithoutOverlap()
+        {
+            // Spec 003 FR-022a: the exposed pod and the next two of every stack are fully visible, inside the tray band.
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                GameplayRegions r = ScreenLayout.Gameplay(w, h, insets, hasBadge: true, hasBoosters: true);
+                float u = DesignTokens.ScaleFor(w, h);
+                foreach (int stacks in new[] { 2, 3, 4, 5 })
+                {
+                    TrayGrid grid = ScreenLayout.Tray(r.Tray, stacks, u);
+                    string at = w + "x" + h + " " + stacks + " stacks";
+                    var cells = new List<Box>();
+                    for (int s = 0; s < stacks; s++)
+                    {
+                        for (int d = 0; d < ScreenLayout.TrayRows; d++)
+                        {
+                            Box cell = grid.Cell(s, d);
+                            Assert.That(cell.Within(r.Tray), Is.True, at + " cell inside the tray");
+                            Assert.That(cells.Any(c => c.Overlaps(cell)), Is.False, at + " no overlap");
+                            cells.Add(cell);
+                        }
+                    }
+
+                    Assert.That(grid.PodSize, Is.GreaterThanOrEqualTo(110f * u), at + " pods stay readable");
                 }
             }
         }
