@@ -26,8 +26,8 @@ One per `VariantInfo` (12).
 | `Pictures` | `2d/{IconId}-{mood}.png`, 256 × 256, one per `CharacterMood` |
 
 Rules:
-- Within a family, the two launch characters differ in shape. At 48 px their alpha masks differ in at least 10% of
-  pixels.
+- Every two launch characters differ in shape, same-family pairs included. At 48 px, at least 15% of their joined
+  silhouette (alpha ≥ 128) is covered by only one of them.
 - A character never carries a separate badge or symbol (FR-006).
 - Every picture keeps a transparent border of at least 2%.
 
@@ -77,15 +77,15 @@ Derived values, no stored data:
 
 Rules:
 - The character box stays inside the face (FR-015).
-- Two launch variants' tile tints differ by at least the same distance as their open-cell picture colors (the picture
-  stays readable, FR-013).
+- Two launch variants' tile tints differ by an RGB distance of at least 20 (the closest pair, Moss and Violet Bud, is
+  27), so the board still separates them around the characters (FR-013, tested).
 
 ## PodCount
 
 | Value | Rule |
 |---|---|
 | text | `pod.count` = `x{0}` (localized) |
-| style | `type.count`, `garden.label_plain` fill, white outline of 0.08 em; muted pods use `text.secondary` |
+| style | `type.count`, `garden.label_plain` fill, white outline of 0.08 em, on every card (`text.secondary` would fall under 4.5:1 on muted cards: 2.7:1 on a stuck Wood slot) |
 | place | the bottom-right corner of the card face, inset 6% |
 | contrast | at least 4.5:1 against the card face (tested), at least 3:1 required (FR-008) |
 

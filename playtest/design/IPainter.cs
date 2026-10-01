@@ -48,13 +48,6 @@ namespace Bloomlings.Playtest.Design
         void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color);
 
         /// <summary>
-        /// A full-color picture fitted into <paramref name="box"/> (the kawaii Bloomlings, spec 003 FR-032):
-        /// <paramref name="render"/> gives size × size RGBA bytes, rows from the top, premultiplied alpha. The painter
-        /// caches it by key and size.
-        /// </summary>
-        void Picture(string key, Func<int, byte[]> render, Box box);
-
-        /// <summary>
         /// Centered text in a board type style: bold, uppercase and outlined as the style says. It is
         /// <paramref name="sizeScale"/> times the style size, and shrinks to <paramref name="maxWidth"/> down to the
         /// style's minimum. With a <paramref name="look"/>, <paramref name="color"/> is ignored and the label is drawn
@@ -67,6 +60,22 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The width of a text at the style's size times <paramref name="sizeScale"/>.</summary>
         float MeasureText(string text, TypeStyle style, float sizeScale = 1f);
+
+        /// <summary>
+        /// A generated character picture (spec 004 contracts/hosts.md), by its name in the art set (<c>2d/leaf-happy</c>,
+        /// <c>3d/group</c>), fitted into <paramref name="box"/> with its aspect kept and centered. It follows the alpha
+        /// and transform stacks. Pictures are decoded once and cached.
+        /// </summary>
+        void Sprite(string name, Box box);
+
+        /// <summary>Whether the picture is embedded and decodes (else callers draw the spec 002 fallback, FR-021).</summary>
+        bool HasSprite(string name);
+
+        /// <summary>
+        /// A cosmetic skin pattern (<see cref="ShapeLibrary.SkinPattern"/>) in <paramref name="tint"/>, drawn only where the
+        /// picture <paramref name="name"/>, fitted as by <see cref="Sprite"/>, is opaque: the picture masks the pattern.
+        /// </summary>
+        void SpriteSkin(string name, Box box, string skinShape, Rgba tint);
 
         /// <summary>The garden backdrop of a theme over a box (<see cref="BackdropRaster"/>, cached by the painter).</summary>
         void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey);

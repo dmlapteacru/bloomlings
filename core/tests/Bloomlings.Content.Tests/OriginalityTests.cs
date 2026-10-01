@@ -60,17 +60,30 @@ namespace Bloomlings.Content.Tests
                     .ToArray()
                 : Array.Empty<string>();
 
-            // Every visual is procedural placeholder art (ProceduralSprites); an imported file needs a licence record first:
-            // a row of client/THIRD_PARTY_NOTICES.md naming the file and its licence file, which must exist.
+            // Every visual is procedural placeholder art (ProceduralSprites) or the project's own generated art; any other
+            // file needs a licence record first: a row of client/THIRD_PARTY_NOTICES.md naming the file and its licence
+            // file, which must exist. A row for a folder covers the files its manifest.json lists (spec 004 research R15).
             string notices = Path.Combine(RepositoryRoot, "client", "THIRD_PARTY_NOTICES.md");
             string[] records = File.Exists(notices)
                 ? File.ReadAllLines(notices).Where(l => l.StartsWith("| `", StringComparison.Ordinal)).ToArray()
                 : Array.Empty<string>();
             string[] unrecorded = media
                 .Select(m => m.Replace('\\', '/'))
-                .Where(m => !records.Any(r => r.StartsWith("| `" + m + "`", StringComparison.Ordinal) && HasLicenceFile(r)))
+                .Where(m => !records.Any(r => HasLicenceFile(r) && (r.StartsWith("| `" + m + "`", StringComparison.Ordinal) || ListedByFolder(r, m))))
                 .ToArray();
             Assert.That(unrecorded, Is.Empty);
+        }
+
+        /// <summary>Whether a folder record (<c>| `path/` |</c>) covers a file: its <c>manifest.json</c> lists it.</summary>
+        private static bool ListedByFolder(string record, string file)
+        {
+            string folder = record.Split('`')[1];
+            if (!folder.EndsWith("/", StringComparison.Ordinal) || !file.StartsWith(folder, StringComparison.Ordinal))
+            {
+                return false;
+            }
+
+            return CharacterArtTests.ListedFiles(Path.Combine(RepositoryRoot, folder)).Contains(file.Substring(folder.Length));
         }
 
         /// <summary>Whether a licence record's last column names an existing licence file.</summary>

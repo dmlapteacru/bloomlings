@@ -10,9 +10,9 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Board
 {
     /// <summary>
-    /// One board cell. A target shows a raised rounded tile in its variant color (the design board's frames 7–9: a
-    /// lighter top and a darker lower edge) with the variant icon in a contrasting ink (never a character face, spec 002
-    /// FR-011); open cells hide the tile so the finished picture shows through; stones show a gray
+    /// One board cell. A target shows a raised rounded tile in a light tint of its variant color (a lighter top and a
+    /// darker lower edge) with the variant's 2D character on its face (spec 004 FR-012, FR-013: the character's shape is
+    /// the variant's symbol); open cells hide the tile so the finished picture shows through; stones show a gray
     /// block. A corner badge with the next variant's color and icon previews the next hidden layer (FR-036). A key sits
     /// in the opposite corner without hiding the tile's icon or color (FR-033). A cell that counts toward a special's
     /// condition carries a thin outline in the special's color (FR-037, FR-038). Changes animate: a cleared tile shrinks
@@ -63,8 +63,9 @@ namespace Bloomlings.Client.Gameplay.Board
             UiFactory.Place(highlight.rectTransform, 0.1f, 0.67f, 0.9f, 0.93f);
             UiKit.Gradient(highlight, new Color(1f, 1f, 1f, DesignTokens.Garden.CellHighlightAlpha), new Color(1f, 1f, 1f, 0f));
             view._highlight = highlight;
-            view._icon = UiFactory.CreateImage("Icon", frame.transform, null, new Color(1f, 1f, 1f, 0.92f));
-            UiFactory.Place(view._icon.rectTransform, 0.18f, CellLip + 0.1f, 0.82f, 0.92f);
+            view._icon = UiFactory.CreateImage("Character", frame.transform, null, Color.white);
+            (float x0, float y0, float x1, float y1) = CharacterArt.Anchors(CharacterArt.OnTile(new Box(0f, 0f, 1f, 1f - CellLip)), new Box(0f, 0f, 1f, 1f));
+            UiFactory.Place(view._icon.rectTransform, x0, y0, x1, y1);
             view._icon.preserveAspect = true;
             view._peek = UiFactory.CreateImage("NextLayer", frame.transform, ProceduralSprites.Circle, Color.white);
             UiFactory.Place(view._peek.rectTransform, 0.62f, 0.62f, 1f, 1f);
@@ -94,14 +95,15 @@ namespace Bloomlings.Client.Gameplay.Board
             if (visible.HasValue)
             {
                 VariantVisual visual = Visual(visible.Value);
+                Rgba tint = DesignTokens.CharacterTile(UiTheme.ToRgba(visual.Color));
                 _fill.sprite = visual.Tile ?? ProceduralSprites.RoundedSquare;
-                _fill.color = visual.Color;
-                Rgba color = UiTheme.ToRgba(visual.Color);
-                _shine.color = WithAlpha(UiTheme.Of(DesignTokens.TileTop(color)), visual.Tile == null ? 0.7f : 0f);
-                _icon.sprite = visual.Icon;
-                _icon.color = WithAlpha(visual.Ink, 0.92f);
+                _fill.color = UiTheme.Of(tint);
+                _shine.color = WithAlpha(UiTheme.Of(DesignTokens.TileTop(tint)), visual.Tile == null ? 0.7f : 0f);
+                Sprite? character = CharacterSprites.Character(visible.Value, CharacterMood.Happy);
+                _icon.sprite = character ?? visual.Icon;
+                _icon.color = character != null ? Color.white : WithAlpha(UiTheme.Of(tint.Ink), 0.92f);
                 _icon.enabled = true;
-                _frame.color = UiTheme.Of(DesignTokens.TileEdge(color));
+                _frame.color = UiTheme.Of(DesignTokens.TileEdge(tint));
             }
             else
             {

@@ -8,7 +8,7 @@ namespace Bloomlings.Playtest.Preview
     /// <summary>
     /// The render checks of one frame (spec 002 FR-027, SC-007; contracts/painter.md, "Recording"):
     /// <list type="bullet">
-    /// <item><description>every drawn shape is in the shape library;</description></item>
+    /// <item><description>every drawn shape is in the shape library, and every character picture is embedded;</description></item>
     /// <item><description>every marked slot is registered;</description></item>
     /// <item><description>touch targets meet the minimum size and do not overlap;</description></item>
     /// <item><description>text and targets stay inside the safe area.</description></item>
@@ -24,6 +24,11 @@ namespace Bloomlings.Playtest.Preview
             foreach (string id in p.UnknownShapes)
             {
                 yield return at + "unknown shape " + id;
+            }
+
+            foreach (string name in p.MissingSprites)
+            {
+                yield return at + "character picture " + name + " is not embedded (run tools/artgen build)";
             }
 
             foreach (string id in p.Slots.Where(s => !AssetSlots.Has(s)))

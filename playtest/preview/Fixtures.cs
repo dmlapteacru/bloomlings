@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
@@ -240,39 +241,7 @@ namespace Bloomlings.Playtest.Preview
                 app.Level.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant), free: true);
                 Run(app, p, 0.2f);
             });
-
-            yield return new Fixture(24, "bloomlings", "Extra: Bloomlings (spec 003 FR-032)", (p, data) => Bloomlings(p));
-        }
-
-        /// <summary>
-        /// Every variant's kawaii Bloomling (spec 003 FR-032): awake with its badge, then asleep (queued pod), worried
-        /// (stuck slot) and as a walker with its halo on a tile of another color.
-        /// </summary>
-        private static void Bloomlings(SkiaPainter p)
-        {
-            Sheet(p, "Bloomlings", out Box body);
-            IReadOnlyList<VariantInfo> variants = VariantCatalog.Default.All;
-            Box[] cells = Grid(body, p, variants.Count, 3, body.Height / ((variants.Count + 2) / 3));
-            for (int i = 0; i < variants.Count; i++)
-            {
-                VariantInfo variant = variants[i];
-                Box cell = cells[i];
-                Rgba color = Rgba.FromHex(variant.ColorHex);
-                float big = Math.Min(cell.Width * 0.46f, cell.Height * 0.62f);
-                Box hero = Box.FromCenter(cell.Left + (cell.Width * 0.3f), cell.Top + (cell.Height * 0.42f), big, big);
-                Visuals.Bloomling(p, hero, variant.Family, color, variant.IconId);
-                p.Text(variant.Id.Key, hero.CenterX, cell.Bottom - p.U(34f), T.Caption, C.TextSecondary, cell.Width * 0.6f);
-
-                float small = big * 0.48f;
-                float x = cell.Left + (cell.Width * 0.72f);
-                Visuals.Bloomling(p, Box.FromCenter(x - (small * 0.55f), cell.Top + (cell.Height * 0.25f), small, small), variant.Family, DesignTokens.PodQueued(color), variant.IconId, BloomlingMood.Sleepy);
-                Visuals.Bloomling(p, Box.FromCenter(x + (small * 0.55f), cell.Top + (cell.Height * 0.25f), small, small), variant.Family, color.Grey().Mix(C.StateStuck, 0.35f), variant.IconId, BloomlingMood.Worried);
-                Box tile = Box.FromCenter(x, cell.Top + (cell.Height * 0.66f), small * 1.15f, small * 1.15f);
-                Rgba other = Rgba.FromHex(variants[(i + 3) % variants.Count].ColorHex);
-                p.Mark("tile.base");
-                p.FillRound(tile, tile.Width * DesignTokens.Radius.Tile, other);
-                Visuals.Bloomling(p, tile.Inset(tile.Width * 0.1f), variant.Family, color, variant.IconId, halo: true);
-            }
+            yield return new Fixture(24, "bloomlings", "Extra: Bloomlings", (p, data) => Bloomlings(p));
         }
 
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>
@@ -440,6 +409,42 @@ namespace Bloomlings.Playtest.Preview
                 }
 
                 p.Text(states[i].Label, cell.CenterX, cell.Top + p.U(40f), T.Caption, C.TextSecondary);
+            }
+        }
+
+        /// <summary>
+        /// Every variant character (spec 004): its board tile, then each mood (happy, asleep, worried, blank), and the four
+        /// 3D heroes of the meta screens below.
+        /// </summary>
+        private static void Bloomlings(SkiaPainter p)
+        {
+            Sheet(p, "Bloomlings", out Box body);
+            VariantInfo[] variants = VariantCatalog.Default.All.ToArray();
+            int columns = 1 + CharacterArt.Moods.Count;
+            float w = body.Width / columns;
+            float heroes = Math.Min(p.U(300f), body.Height * 0.2f);
+            float row = Math.Min(p.U(110f), (body.Height - heroes - p.U(70f)) / variants.Length);
+            string[] headers = { "tile", "happy", "asleep", "worried", "blank" };
+            for (int c = 0; c < columns; c++)
+            {
+                p.Text(headers[c], body.Left + ((c + 0.5f) * w), body.Top + p.U(20f), T.Caption, C.TextSecondary);
+            }
+
+            for (int v = 0; v < variants.Length; v++)
+            {
+                float cy = body.Top + p.U(60f) + ((v + 0.5f) * row);
+                float size = Math.Min(row * 0.92f, w * 0.8f);
+                BoardPainter.CharacterBlock(p, Box.FromCenter(body.Left + (0.5f * w), cy, size, size), variants[v].Id);
+                for (int m = 0; m < CharacterArt.Moods.Count; m++)
+                {
+                    Visuals.Character(p, Box.FromCenter(body.Left + ((m + 1.5f) * w), cy, size, size), variants[v].Id, CharacterArt.Moods[m]);
+                }
+            }
+
+            float hw = body.Width / CharacterArt.Families.Count;
+            for (int f = 0; f < CharacterArt.Families.Count; f++)
+            {
+                Visuals.Hero(p, Box.FromCenter(body.Left + ((f + 0.5f) * hw), body.Bottom - (heroes / 2f), hw * 0.92f, heroes), CharacterArt.Families[f], null);
             }
         }
 

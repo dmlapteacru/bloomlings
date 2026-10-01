@@ -165,7 +165,7 @@ playtest/
 ├── design/IPainter.cs, PainterBase.cs         # + Sprite, HasSprite, SpriteSkin; − Picture
 ├── design/Visuals.cs                          # Character, Hero, Group, GroundShadow, fallback
 ├── design/PodPainter.cs, SlotPainter.cs, BoardPainter.cs, HomeScreen.cs, EndCards.cs, MetaCards.cs
-├── android/Design/AndroidPainter.cs           # bitmap decode + cache, source-atop skins
+├── android/Design/AndroidPainter.cs           # bitmap decode + cache, skins masked by the picture (DstIn)
 ├── android/*.csproj                           # embed Characters/**/*.png (full playtest only)
 ├── preview/SkiaPainter.cs, Fixtures.cs        # decode + cache; frame 24 shows every character and mood
 └── preview/*.csproj                           # embed Characters/**/*.png

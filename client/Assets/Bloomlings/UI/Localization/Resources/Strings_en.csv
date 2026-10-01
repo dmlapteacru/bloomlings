@@ -154,6 +154,7 @@ demo.wardrobe,Dress up your Bloomlings in the Wardrobe
 demo.daily_challenge,A new puzzle every day
 demo.themes,The garden changes its colors as you go
 gameplay.hint_return,Tap a waiting pod to send it back
+pod.count,x{0}
 gameplay.hint_burst,Tap a tile to clear its symbol everywhere
 gameplay.booster_useless,That booster can't help here
 gameplay.not_enough_petals,Not enough Petals

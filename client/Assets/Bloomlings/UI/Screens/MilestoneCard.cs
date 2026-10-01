@@ -34,6 +34,7 @@ namespace Bloomlings.Client.UI.Screens
             CardView card = UiKit.Card("MilestoneCard", parent, string.Empty, 60f + 300f + DesignTokens.Size.CardPrimaryHeight + 70f, null, DesignTokens.Type.TitleCaps);
             var screen = card.Root.AddComponent<MilestoneCard>();
             screen._card = card;
+            HeroPictures.OnCard(card.CardRect, card.Regions.Card, 0.9f);
             TextMeshProUGUI reached = UiKit.Label("Reached", card.Body, Loc.T("milestone.reached"), DesignTokens.Type.Body, UiTheme.TextSecondary);
             UiFactory.Place(reached.rectTransform, 0f, 0.86f, 1f, 1f);
             screen._row = UiFactory.Place(UiFactory.CreateRect("Rewards", card.Body), 0f, 0.3f, 1f, 0.84f);

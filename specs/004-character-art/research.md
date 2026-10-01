@@ -70,7 +70,7 @@ Pictures:
 **Why.**
 - The concept renders already match the owner's first reference closely enough to be approved.
 - A CPU port keeps one toolchain (R1) and is deterministic.
-- At about 3 M rays the group takes well under a minute on a laptop.
+- The full 3D set takes about 10 minutes on 4 cores (the group about 5); the art check re-renders every fourth row.
 
 **Alternatives.**
 - **WebGL in Chromium (the concept).** See R1.
@@ -106,7 +106,7 @@ embeds the same files as resources (`characters/...`). The manifest makes the se
     painter decodes the file once (`BitmapFactory` on Android, `SKBitmap.Decode` in the preview), caches it and
     honors the alpha stack.
   - `IPainter` also gains `SpriteSkin(string name, Box box, string skinShape, Rgba tint)`. It draws a skin pattern
-    only where the picture is opaque: a layer with source-atop blending.
+    only where the picture is opaque: a layer with the pattern, then the picture with destination-in blending.
   - `bool HasSprite(string name)` lets screens fall back.
 - **Unity.** `CharacterSprites` (in `Art/Characters/`) loads a `Texture2D` from Resources, makes a `Sprite` once
   (`Sprite.Create`) and caches it. The skin image becomes a child of the figure image with a UI `Mask`, so the pattern
@@ -146,9 +146,11 @@ These stay as they are:
 **Decision.**
 - **Text:** the count is the localized string `pod.count` = `x{0}`, drawn in the corner of the card face (bottom right
   for pods and slots). It uses the `type.count` style in `garden.label_plain` with a white outline (`TextLook`, 0.08 em).
-- **Muted pods:** the count is drawn in `text.secondary`.
-- **Character:** centered at 40% of the face height, at 84% of its width. The count sits over the character's lower
-  right edge, as in the reference, and never covers the face.
+- **Muted pods:** the count keeps `garden.label_plain`; the muted card already shows the state, and `text.secondary`
+  falls under 4.5:1 on muted cards.
+- **Character:** 84% of the face width (at most 80% of its height), 3% below the top. The count sits over the
+  character's lower right edge, as in the reference, and never covers the face.
+- **Stack badge:** the "+N" badge of a stack's hidden pods moves to the bottom-left corner, clear of "xN".
 
 **Why.** It matches the owner's reference. Dark brown on the light card reaches more than 4.5:1 (tested). The white
 outline keeps it readable where it overlaps the character.
@@ -206,9 +208,15 @@ the committed file. A picture passes when:
 - no channel differs by more than 2;
 - at most 0.1% of pixels differ at all.
 
-The tolerance covers `MathF` differences between CPUs. The check also verifies:
-- **Readability (FR-022, SC-003):** at 48 px, the alpha masks of every pair of launch characters differ in at least
-  10% of pixels. Same-family pairs are included.
+The tolerance covers `Math` differences between CPUs. A 3D picture takes minutes to render, so the check re-renders
+every fourth row of it; rows render independently, so those rows equal what `build` wrote. The check also verifies:
+- **Readability (FR-022, SC-003):** at 48 px, at least 15% of the joined silhouette (alpha ≥ 128) of every pair of
+  launch characters is covered by only one of them. Same-family pairs are included. A share of the joined silhouette,
+  not of the whole picture, so that two compact shapes that clearly differ (a round dew and a pointed drop) are not
+  flagged just for being small. The first build had the leaf at 13% from the drop (both upright teardrops), so the
+  leaf now leans its tip to the right and has a stalk.
+- **Hero faces:** `CharacterArt.FaceCenterHero` lies within 2% of where the renderer draws each hero's face, so worn
+  expressions sit on the face.
 - **Margins:** every picture has a transparent border of at least 2% (nothing is clipped).
 - **Manifest:** `manifest.json` matches the files (sha256, sizes).
 

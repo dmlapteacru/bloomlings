@@ -71,7 +71,8 @@ namespace Bloomlings.Client.UI.Screens
                 UiFactory.Place((RectTransform)button.transform, x0 + 0.01f, 0f, x0 + 0.24f, 1f);
                 screen._familyFrames.Add(button.GetComponent<GardenButton>());
                 BloomlingFigure figure = BloomlingFigure.Create("Figure", button.transform);
-                UiFactory.Place(figure.Rect, 0.2f, 0.1f, 0.8f, 0.7f);
+                UiFactory.Place(figure.Rect, 0.1f, 0.06f, 0.9f, 0.94f);
+                figure.Body.raycastTarget = false;
                 screen._familyFigures.Add(figure);
             }
 
@@ -184,7 +185,7 @@ namespace Bloomlings.Client.UI.Screens
             for (int i = 0; i < families.Count; i++)
             {
                 _familyFrames[i].SetColors(families[i] == _selected ? GardenLook.Green : GardenLook.Cream);
-                _familyFigures[i].Show(families[i], UiTheme.SlotLocked, _wardrobe.OutfitOf(families[i]));
+                _familyFigures[i].ShowHero(families[i], _wardrobe.OutfitOf(families[i]));
             }
 
             IReadOnlyList<CosmeticKind> kinds = Kinds;
@@ -254,7 +255,8 @@ namespace Bloomlings.Client.UI.Screens
                     {
                         BloomlingFigure swatch = BloomlingFigure.Create("Swatch", button.transform);
                         UiFactory.Place(swatch.Rect, 0.3f, 0.35f, 0.7f, 0.92f);
-                        swatch.Show(_selected, UiTheme.SlotLocked, new Outfit(item, null, null, null));
+                        swatch.Body.raycastTarget = false;
+                        swatch.ShowHero(_selected, new Outfit(item, null, null, null));
                     }
                     else
                     {

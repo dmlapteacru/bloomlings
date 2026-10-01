@@ -23,7 +23,7 @@ Shapes (centers in the design square):
 
 | Icon | Shape | Face center | Details |
 |---|---|---|---|
-| `leaf` | a leaf-drop: pointed top (50, 9), round bottom, width 62 | (50, 64) | a separate leaf (darker green, light midrib) springing from the upper right |
+| `leaf` | a leaf blade: round bottom, its tip leaning up and to the right (78, 7), width 64 | (50, 64) | a stalk at the lower left; a light midrib with two side veins near the tip (the first build's upright leaf-drop was only 13% from the drop's silhouette) |
 | `moss` | a cushion: the union of 6 circles (a large lower body and five bumps on top) | (50, 62) | a tiny two-leaf sprout on top; faint highlights on the bumps |
 | `flower` | five petals (radius 19.5 at 25 from the center) around a center disc | (50, 54) | petal gap lines; a lighter center disc behind the face |
 | `bud` | a tulip bud: a round cup with three pointed petal tips | (50, 66) | two green sepals at the bottom sides; two petal folds |
@@ -57,7 +57,8 @@ Rendering:
 - **Light:** a warm key light from the upper left with soft shadows; ambient occlusion; a golden back light wrapping
   the edges; translucency for leaves, petals and water.
 - **Output:** gamma-corrected, with a mild tone curve; transparent background with the contact shadow in the alpha.
-- **Solo framing:** the hero centered, feet at 85% of the height.
+- **Solo framing:** the camera looks at (0, 0.76, 0) from 6 units away and 0.4 up, zoom 3.0, so the tallest hero (the
+  flower) keeps the 2% margin; the heroes keep their slight turn, so their faces sit off center (`FaceCenterHero`).
 - **Group:** the four on a round stone pedestal (worn edge, tile lines), seen from slightly above, in the order Sprig,
   Bloom, Drop, Twig, the outer two turned toward the middle.
 - **Blank versions:** the same render without eye and mouth decals; blush stays.

@@ -62,3 +62,8 @@ playtest/tester/obj/
 playtest/preview/bin/
 playtest/preview/obj/
 playtest/preview/out/
+
+# Character art generator (spec 004): build outputs and the review sheet
+tools/artgen/bin/
+tools/artgen/obj/
+tools/artgen/out/

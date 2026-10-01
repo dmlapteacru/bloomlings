@@ -158,12 +158,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            VariantId variant = info.Visible.Value;
-            Rgba color = Visuals.ColorOf(variant);
-            // A volumetric 2D block: lip, bevel and highlight never reach the symbol on its face (spec 003 FR-023).
-            Box face = Kit.Block(p, box, color, DesignTokens.TileEdge(color), radius, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: DesignTokens.TileTop(color));
-            float symbol = Math.Min(face.Width, face.Height) * 0.66f;
-            p.Shape(Visuals.SymbolOf(variant), Box.FromCenter(face.CenterX, face.CenterY, symbol, symbol), color.Ink);
+            Box face = CharacterBlock(p, box, info.Visible.Value);
 
             // The next layer peeks in the top-right corner (never over the symbol).
             if (info.RemainingLayers > 1 && info.Next.HasValue)
@@ -187,6 +182,18 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.PopAlpha();
+        }
+
+        /// <summary>
+        /// A target tile: a light block tinted toward the variant color with the variant's character on it (spec 004
+        /// FR-012, FR-013). The lip, bevel and highlight never reach the character (spec 003 FR-023). Returns the face.
+        /// </summary>
+        public static Box CharacterBlock(IPainter p, Box box, VariantId variant)
+        {
+            Rgba tint = DesignTokens.CharacterTile(Visuals.ColorOf(variant));
+            Box face = Kit.Block(p, box, tint, DesignTokens.TileEdge(tint), box.Width * DesignTokens.Radius.Tile, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: DesignTokens.TileTop(tint));
+            Visuals.Character(p, CharacterArt.OnTile(face), variant, CharacterMood.Happy);
+            return face;
         }
 
         private static void Stone(IPainter p, Box full, float cell)
@@ -267,11 +274,11 @@ namespace Bloomlings.Playtest.Design
                 float f = points.Count == 1 ? 0f : t - i;
                 float x = points.Count == 1 ? points[0].X : points[i].X + ((points[i + 1].X - points[i].X) * f);
                 float y = points.Count == 1 ? points[0].Y : points[i].Y + ((points[i + 1].Y - points[i].Y) * f);
-                float hop = Math.Abs((float)Math.Sin(f * Math.PI)) * cell * 0.2f;
-                float size = cell * 0.78f;
-                Box body = Box.FromCenter(x, y - hop - (size * 0.1f), size, size);
-                Visuals.GroundShadow(p, Box.FromCenter(x, y - (size * 0.1f), size, size), 0.18f);
-                Visuals.Bloomling(p, body, Visuals.FamilyOf(walker.Variant), Visuals.ColorOf(walker.Variant), Visuals.IconOf(walker.Variant), halo: true);
+                y -= Math.Abs((float)Math.Sin(f * Math.PI)) * cell * 0.2f;
+                float size = cell * 0.82f;
+                Box body = Box.FromCenter(x, y - (size * 0.1f), size, size);
+                Visuals.GroundShadow(p, Box.FromCenter(x, y - (size * 0.04f), size, size));
+                Visuals.Character(p, body, walker.Variant, CharacterMood.Happy);
             }
         }
 

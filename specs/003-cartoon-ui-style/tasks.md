@@ -221,6 +221,11 @@ touch-target and safe-area checks pass.
 
 ## Phase 8: Owner's choice — kawaii Bloomlings (FR-032)
 
+> **Replaced by spec 004 (2026-10-01).** The owner rejected the kawaii look. Spec 004 (`specs/004-character-art/`)
+> replaces FR-032 with generated 2D characters whose shape is the variant symbol, and SC-006 with generated art files
+> recorded as the project's own. The kawaii code (`BloomlingArt`) is removed.
+
+
 **Goal**: Every Bloomling is a kawaii figure (style B of the owner's character sheet): a round body per family with a
 pastel gradient and an outline, a crest per variant, big sparkly eyes, blush, tiny feet, and the variant symbol on a
 white belly badge that the count pill never covers.

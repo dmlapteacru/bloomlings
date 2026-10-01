@@ -12,13 +12,14 @@ namespace Bloomlings.Playtest.Droid
     /// designed screens. Shape masks become cached ALPHA_8 bitmaps tinted by the paint color. The garden backdrop
     /// becomes a cached bitmap scaled with filtering. Text uses the bundled Nunito faces (spec 003 contracts/fonts.md),
     /// falling back to the system typeface, and labels with a look get their shadow, extrusion, outline and gradient
-    /// fill (contracts/painter-text.md).
+    /// fill (contracts/painter-text.md). The generated character pictures (spec 004) are embedded PNG files, decoded once
+    /// with <see cref="BitmapFactory"/>.
     /// </summary>
     public sealed class AndroidPainter : PainterBase
     {
         private static readonly Dictionary<string, Bitmap> Masks = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
         private static readonly Dictionary<string, Bitmap> Backdrops = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
-        private static readonly Dictionary<string, Bitmap> Pictures = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, Bitmap?> Sprites = new Dictionary<string, Bitmap?>(StringComparer.Ordinal);
 
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias);
@@ -161,23 +162,6 @@ namespace Bloomlings.Playtest.Droid
 
         public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask("composite/" + key, () => sdf, box, color);
 
-        public override void Picture(string key, Func<int, byte[]> render, Box box)
-        {
-            int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
-            string cacheKey = key + "@" + size;
-            if (!Pictures.TryGetValue(cacheKey, out Bitmap? bitmap))
-            {
-                // ARGB_8888 keeps premultiplied bytes in R, G, B, A order, as BloomlingArt renders them.
-                byte[] rgba = render(size);
-                bitmap = Bitmap.CreateBitmap(size, size, Bitmap.Config.Argb8888!)!;
-                bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(rgba));
-                Pictures[cacheKey] = bitmap;
-            }
-
-            _source.Set(0, 0, size, size);
-            _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
-        }
-
         private void DrawMask(string key, Func<Func<float, float, float>> sdf, Box box, Rgba color)
         {
             int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
@@ -305,6 +289,58 @@ namespace Bloomlings.Playtest.Droid
 
             _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
+        }
+
+        public override bool HasSprite(string name) => LoadSprite(name) != null;
+
+        public override void Sprite(string name, Box box)
+        {
+            Bitmap? bitmap = LoadSprite(name);
+            if (bitmap == null)
+            {
+                return;
+            }
+
+            _source.Set(0, 0, bitmap.Width, bitmap.Height);
+            _canvas.DrawBitmap(bitmap, _source, R(Fit(box, bitmap.Width, bitmap.Height)), Fill(Rgba.White));
+        }
+
+        public override void SpriteSkin(string name, Box box, string skinShape, Rgba tint)
+        {
+            Bitmap? bitmap = LoadSprite(name);
+            if (bitmap == null)
+            {
+                return;
+            }
+
+            // A layer: the pattern, then the picture with DST_IN, so the pattern stays only on the picture.
+            Box fitted = Fit(box, bitmap.Width, bitmap.Height);
+            int layer = _canvas.SaveLayer(R(fitted), null);
+            DrawMask("skin/" + skinShape, () => ShapeLibrary.SkinPattern(skinShape), fitted, tint);
+            using var mask = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
+            using var mode = new PorterDuffXfermode(PorterDuff.Mode.DstIn!);
+            mask.SetXfermode(mode);
+            _source.Set(0, 0, bitmap.Width, bitmap.Height);
+            _canvas.DrawBitmap(bitmap, _source, R(fitted), mask);
+            _canvas.RestoreToCount(layer);
+        }
+
+        /// <summary>An embedded character picture, decoded once; null (logged once) when it is missing.</summary>
+        private static Bitmap? LoadSprite(string name)
+        {
+            if (!Sprites.TryGetValue(name, out Bitmap? bitmap))
+            {
+                using System.IO.Stream? stream = typeof(AndroidPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
+                bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
+                if (bitmap == null)
+                {
+                    Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not embedded; drawing the fallback figure");
+                }
+
+                Sprites[name] = bitmap;
+            }
+
+            return bitmap;
         }
 
         public override void PushClip(Box box)

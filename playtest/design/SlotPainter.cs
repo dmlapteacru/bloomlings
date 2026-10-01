@@ -162,12 +162,12 @@ namespace Bloomlings.Playtest.Design
 
             Rgba tint = working ? DesignTokens.PodCard(color) : DesignTokens.PodCard(color).Grey();
             Box f = Kit.Block(p, b, tint, working ? DesignTokens.PodCardEdge(color) : DesignTokens.PodCardEdge(color).Grey(), radius, Kit.PodLip(p, b.Height), working ? 0.55f : 0.25f);
-            Rgba body = working ? color : color.Grey().Mix(C.StateStuck, 0.35f);
-            Box figure = BloomlingArt.OnCard(f);
-            Visuals.Bloomling(p, figure, Visuals.FamilyOf(look.Variant.Value), body, Visuals.IconOf(look.Variant.Value), working ? BloomlingMood.Happy : BloomlingMood.Worried);
+            // The pod's character works happily, or waits worried and greyed when no tile it can clear is reachable.
+            Visuals.Character(p, CharacterArt.OnCard(f), look.Variant.Value, working ? CharacterMood.Happy : CharacterMood.Worried);
             float bump = now - look.BumpedAt < 0.15f ? 1f + (0.25f * (float)Math.Sin((now - look.BumpedAt) / 0.15f * Math.PI)) : 1f;
-            p.PushTransform(0f, 0f, bump, f.CenterX, f.Bottom);
-            PodPainter.CountPill(p, f, look.Count, !working);
+            Box count = CharacterArt.CountBox(f);
+            p.PushTransform(0f, 0f, bump, count.CenterX, count.Bottom);
+            PodPainter.Count(p, f, look.Count);
             p.PopTransform();
             if (!working && look.Count > 0)
             {

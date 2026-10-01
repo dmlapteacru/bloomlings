@@ -9,7 +9,10 @@
 | `CharacterArt.Hero(Family family, bool blank)` | `"3d/{family}"` or `"3d/{family}-blank"` |
 | `CharacterArt.Group` | `"3d/group"` |
 | `CharacterArt.Slot2D(iconId)`, `HeroSlot(family)`, `GroupSlot` | the asset slot ids |
-| `CharacterArt.OnCard(Box face)` | the character box on a pod or slot face: 84% of the width, centered at 40% of the height |
+| `CharacterArt.OnCard(Box face)` | the character box on a pod or slot face: 84% of the width (at most 80% of the height), centered across, 3% below the top |
+| `CharacterArt.CountLook`, `CountColor` | the "xN" look: `garden.label_plain` with a white outline of 0.08 em, on every card |
+| `CharacterArt.GroupOnCard(card, safe, scale, widthShare)` | the 3D group standing on a card's top edge, or null when the room above is under 160 units |
+| `CharacterArt.FaceCenter2D(icon)`, `FaceCenterHero(family)` | where a picture's face is (worn expressions go there); the art check keeps the hero values within 2% of the render |
 | `CharacterArt.CountBox(Box face)` | where "xN" goes: the bottom-right corner, inset 6% |
 | `CharacterArt.OnTile(Box face)` | the board character box: 86% of the face, centered, 3% low |
 | `CharacterArt.HatBox(Box picture)`, `ExpressionBox(Box picture)`, `TrailBox(Box picture)` | the cosmetic overlay places |
@@ -25,7 +28,7 @@ The playtest names are prefixed with `characters/` and suffixed with `.png`. Uni
   the alpha stack and the transform stack. Pictures are decoded once and cached.
 - **Added: `bool HasSprite(string name)`.** Whether the picture exists (embedded) and decodes.
 - **Added: `void SpriteSkin(string name, Box box, string skinShape, Rgba tint)`.** Draws the cosmetic skin pattern
-  only where the picture is opaque (a layer with source-atop blending).
+  only where the picture is opaque (a layer: the pattern, then the picture with destination-in blending).
 - **Removed: `Picture(...)`.** It was the code-drawn kawaii figure of spec 003 FR-032.
 
 `Visuals` changes:
@@ -69,7 +72,6 @@ The playtest names are prefixed with `characters/` and suffixed with `.png`. Uni
 ## Readability guarantees (tested)
 
 - "xN" reaches at least 4.5:1 against every card face: exposed, queued and stuck tints.
-- The tile tints of the launch variants differ pairwise by at least the minimum color distance of the readability
-  tool.
+- The tile tints of the launch variants differ pairwise by an RGB distance of at least 20.
 - The character boxes stay inside the pod face and the tile face.
 - Mystery pods and tiles never draw a character picture.

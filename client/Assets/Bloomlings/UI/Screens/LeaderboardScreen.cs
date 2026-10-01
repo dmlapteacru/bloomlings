@@ -5,6 +5,7 @@ using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -93,7 +94,9 @@ namespace Bloomlings.Client.UI.Screens
 
                 TextMeshProUGUI rank = UiKit.Label("Rank", background.transform, NumberText.Group(entry.Rank), DesignTokens.Type.Body, UiTheme.Text);
                 UiFactory.Place(rank.rectTransform, medal.HasValue ? 0.02f : 0.01f, 0f, medal.HasValue ? 0.14f : 0.16f, medal.HasValue ? 0.6f : 1f);
-                Image avatar = UiFactory.CreateImage("Avatar", background.transform, ProceduralSprites.Shape("ui.person"), UiTheme.Stuck);
+                // The player's own row shows their family's 3D hero, small (spec 004 FR-017); other gardeners a person.
+                Sprite? hero = entry.IsPlayer ? CharacterSprites.Hero(Family.Bloom, blank: false) : null;
+                Image avatar = UiFactory.CreateImage("Avatar", background.transform, hero ?? ProceduralSprites.Shape("ui.person"), hero != null ? Color.white : UiTheme.Stuck);
                 avatar.preserveAspect = true;
                 UiFactory.Place(avatar.rectTransform, 0.17f, 0.12f, 0.27f, 0.88f);
                 TextMeshProUGUI name = UiKit.Label("Name", background.transform, entry.IsPlayer ? Loc.T("leaderboard.you") : Short(entry.Name), DesignTokens.Type.Body, UiTheme.Text, TextAlignmentOptions.Left);

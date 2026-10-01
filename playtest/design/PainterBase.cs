@@ -122,6 +122,22 @@ namespace Bloomlings.Playtest.Design
         {
         }
 
+        public abstract void Sprite(string name, Box box);
+
+        public abstract bool HasSprite(string name);
+
+        public abstract void SpriteSkin(string name, Box box, string skinShape, Rgba tint);
+
+        /// <summary>The embedded resource name of a character picture (contracts/art-files.md "Loading").</summary>
+        public static string SpriteResource(string name) => "characters/" + name + ".png";
+
+        /// <summary>A picture of <paramref name="width"/> × <paramref name="height"/> fitted into a box: aspect kept, centered.</summary>
+        public static Box Fit(Box box, float width, float height)
+        {
+            float scale = Math.Min(box.Width / Math.Max(1f, width), box.Height / Math.Max(1f, height));
+            return Box.FromCenter(box.CenterX, box.CenterY, width * scale, height * scale);
+        }
+
         /// <summary>A box in the current transform, in screen pixels.</summary>
         protected Box ToScreen(Box box)
         {
@@ -169,8 +185,6 @@ namespace Bloomlings.Playtest.Design
         public abstract void Shape(string id, Box box, Rgba color);
 
         public abstract void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color);
-
-        public abstract void Picture(string key, Func<int, byte[]> render, Box box);
 
         public abstract void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null);
 

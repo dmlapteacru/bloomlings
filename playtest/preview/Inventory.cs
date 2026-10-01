@@ -66,6 +66,15 @@ namespace Bloomlings.Playtest.Preview
                     md.AppendLine("`ui.deco.garden`. Cards and the sheet are paper in a wooden frame with a header band.");
                     md.AppendLine();
                 }
+                else if (group.Key == AssetCategory.Character)
+                {
+                    // Spec 004: the characters are generated pictures, the project's own art.
+                    md.AppendLine("The characters are generated pictures of spec 004, made by `tools/artgen` and committed in");
+                    md.AppendLine("`client/Assets/Bloomlings/Art/Characters/Resources/Characters/` with a manifest: each variant is a 2D character");
+                    md.AppendLine("whose whole shape is its symbol, and each family a 3D hero for the meta screens only. The family bodies stay as");
+                    md.AppendLine("the fallback when a picture is missing.");
+                    md.AppendLine();
+                }
                 else if (group.Key == AssetCategory.Typography)
                 {
                     md.AppendLine("The fonts are bundled files, the only new files of spec 003: Nunito ExtraBold and SemiBold (SIL OFL 1.1, with");

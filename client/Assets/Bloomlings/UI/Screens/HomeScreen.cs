@@ -105,14 +105,12 @@ namespace Bloomlings.Client.UI.Screens
             TextMeshProUGUI wordmark = UiKit.Label("Wordmark", early, Loc.T("home.logo"), DesignTokens.Type.Wordmark, UiTheme.Of(DesignTokens.Colors.WordmarkFill));
             wordmark.outlineColor = UiTheme.Of(DesignTokens.Colors.WordmarkOutline);
             UiFactory.Place(wordmark.rectTransform, 0.08f, 0.6f, 0.92f, 0.86f);
-            Sitter(early, Family.Sprig, UiTheme.Light(UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(VariantId.Acorn).ColorHex))), 0.22f);
-            Sitter(early, Family.Drop, UiTheme.Light(UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(VariantId.Water).ColorHex))), 0.52f);
+            UiFactory.Place(HeroPictures.Group("Heroes", early), 0.02f, 0f, 0.98f, 0.6f);
 
             RectTransform progressed = UiFactory.Stretch(UiFactory.CreateRect("Progressed", screen._hero));
             screen._progressed = progressed.gameObject;
             screen._heroFigure = BloomlingFigure.Create("HeroFigure", progressed);
-            UiFactory.Place(screen._heroFigure.Rect, 0.25f, 0.1f, 0.75f, 0.9f);
-            screen._heroFigure.Body.preserveAspect = true;
+            UiFactory.Place(screen._heroFigure.Rect, 0.2f, 0.04f, 0.8f, 0.96f);
             screen._wardrobe = UiKit.RoundIconButton("Wardrobe", screen._hero, "ui.shirt", () => features?.OnWardrobe?.Invoke()).gameObject;
             screen._collection = UiKit.RoundIconButton("Collection", screen._hero, "ui.grid", () => features?.OnCollection?.Invoke()).gameObject;
 
@@ -170,14 +168,6 @@ namespace Bloomlings.Client.UI.Screens
             screen._freeBooster = UiKit.SecondaryButton("FreeBooster", root, Loc.T("home.free_booster"), () => onFreeBooster?.Invoke(), "ui.ad").gameObject;
             screen._freeBooster.SetActive(false);
             return screen;
-        }
-
-        /// <summary>A kawaii Bloomling sitting on the Home stone (frame 2), at <paramref name="x"/> across the hero area.</summary>
-        private static void Sitter(RectTransform parent, Family family, Color color, float x)
-        {
-            Image body = UiFactory.CreateImage(family.ToString(), parent, ProceduralSprites.Bloomling(new BloomlingLook(family, UiTheme.ToRgba(color))), Color.white);
-            body.preserveAspect = true;
-            UiFactory.Place(body.rectTransform, x, 0.12f, x + 0.26f, 0.5f);
         }
 
         public void SetFreeBoosterOffer(bool visible)
@@ -268,7 +258,7 @@ namespace Bloomlings.Client.UI.Screens
             if (model.WardrobeAvailable)
             {
                 _avatar.Show(model.Profile, model.AvatarOutfit);
-                _heroFigure.Show(Family.Bloom, UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(VariantId.Flower).ColorHex)), model.AvatarOutfit);
+                _heroFigure.ShowHero(Family.Bloom, model.AvatarOutfit);
             }
 
             CosmeticItem? marker = model.Profile?.Marker;

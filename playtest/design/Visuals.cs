@@ -1,11 +1,15 @@
 using System;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Playtest.Design
 {
-    /// <summary>How a variant and a family look: color, symbol and body from the core's catalog and the shape library.</summary>
+    /// <summary>
+    /// How a variant and a family look: color and symbol from the core's catalog, the generated 2D characters and 3D
+    /// heroes of spec 004, and the shape library's family bodies when a picture is missing.
+    /// </summary>
     public static class Visuals
     {
         public static Rgba ColorOf(VariantId variant) =>
@@ -17,39 +21,121 @@ namespace Bloomlings.Playtest.Design
         public static Family FamilyOf(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.Family : Family.Sprig;
 
-        /// <summary>The variant's icon id (its crest and belly symbol): <c>leaf</c>, <c>bud</c>, …</summary>
-        public static string? IconOf(VariantId variant) =>
-            VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.IconId : null;
+        /// <summary>
+        /// A variant's 2D character (spec 004 FR-005 to FR-007): the generated picture whose whole shape is the variant's
+        /// symbol, with a face in <paramref name="mood"/>. Without the picture it draws the spec 002 figure: the family
+        /// body in the variant color with the symbol in ink (FR-021).
+        /// </summary>
+        public static void Character(IPainter p, Box box, VariantId variant, CharacterMood mood)
+        {
+            Family family = FamilyOf(variant);
+            p.Mark(ShapeLibrary.SilhouetteId(family));
+            if (VariantCatalog.Default.TryGet(variant, out VariantInfo info))
+            {
+                p.Mark(CharacterArt.Slot2D(info.IconId));
+                string name = CharacterArt.Picture2D(info.IconId, mood);
+                if (p.HasSprite(name))
+                {
+                    p.Sprite(name, box);
+                    return;
+                }
+            }
+
+            Rgba color = mood switch
+            {
+                CharacterMood.Asleep => DesignTokens.PodQueued(ColorOf(variant)),
+                CharacterMood.Worried => ColorOf(variant).Grey().Mix(C.StateStuck, 0.35f),
+                _ => ColorOf(variant),
+            };
+            p.Shape(ShapeLibrary.SilhouetteId(family), box, color);
+            float s = box.Width * 0.46f;
+            p.Shape(SymbolOf(variant), Box.FromCenter(box.CenterX, box.Top + (box.Height * 0.62f), s, s), color.Ink);
+        }
+
+        /// <summary>A soft flat shadow under a character standing in <paramref name="box"/> (part of the character's look).</summary>
+        public static void GroundShadow(IPainter p, Box box)
+        {
+            float cx = box.CenterX;
+            float cy = box.Bottom - (box.Height * 0.05f);
+            p.PushSquash(1f, 0.3f, cx, cy);
+            p.FillCircle(cx, cy, box.Width * 0.3f, Rgba.Black.WithAlpha(0.13f));
+            p.PopTransform();
+        }
 
         /// <summary>
-        /// A kawaii Bloomling (spec 003 FR-032): the figure from <see cref="BloomlingArt"/> in the variant color, and the
-        /// variant symbol on its white belly badge (pods, slots, walkers; spec 001 FR-012 prominence: symbol, color,
-        /// then silhouette). Without an icon id it has no badge (Home, the leaderboard). Walkers get the white halo.
+        /// A family's 3D hero (meta screens only, FR-016 and FR-017) in its outfit: the skin masked by the picture, the
+        /// hat on top, and a worn expression over the blank face. Without the pictures it draws the family body.
         /// </summary>
-        public static void Bloomling(IPainter p, Box box, Family family, Rgba color, string? iconId, BloomlingMood mood = BloomlingMood.Happy, bool halo = false)
+        public static void Hero(IPainter p, Box box, Family family, Outfit? outfit)
         {
-            var look = new BloomlingLook(family, color, iconId, mood, Badge: true, Halo: halo);
-            p.Mark(ShapeLibrary.SilhouetteId(family));
-            if (mood != BloomlingMood.None)
+            p.Mark(CharacterArt.HeroSlot(family));
+            bool expression = outfit?.Expression != null;
+            string name = CharacterArt.Hero(family, blank: expression);
+            if (!p.HasSprite(name))
             {
-                p.Mark("char.face");
+                p.Mark(ShapeLibrary.SilhouetteId(family));
+                p.Shape(ShapeLibrary.SilhouetteId(family), box.Inset(box.Width * 0.12f), ColorOf(HeroVariant(family)));
+                return;
             }
 
-            p.Picture(look.Key, size => BloomlingArt.Render(look, size, topDown: true, premultiplied: true), box);
-            if (look.ShowsBadge)
+            Box picture = PainterBase.Fit(box, CharacterArt.HeroWidth, CharacterArt.HeroHeight);
+            if (outfit?.Trail != null)
             {
-                p.Mark("char.accent");
-                p.Shape(ShapeLibrary.SymbolId(iconId!), BloomlingArt.SymbolBox(box), BloomlingArt.SymbolColor(color));
+                p.Shape(ShapeLibrary.CosmeticId(outfit.Trail.Shape), CharacterArt.TrailBox(picture), Tint(outfit.Trail));
+            }
+
+            p.Sprite(name, picture);
+            if (outfit?.Skin != null)
+            {
+                p.Mark(ShapeLibrary.CosmeticId(outfit.Skin.Shape));
+                p.SpriteSkin(name, picture, outfit.Skin.Shape, Rgba.White.WithAlpha(CosmeticCatalog.SkinOpacity));
+            }
+
+            if (outfit?.Expression != null)
+            {
+                (float x, float y) = CharacterArt.FaceCenterHero(family);
+                p.Shape(ShapeLibrary.CosmeticId(outfit.Expression.Shape), CharacterArt.ExpressionBox(picture, (x, y)), C.TextPrimary);
+            }
+
+            if (outfit?.Hat != null)
+            {
+                p.Shape(ShapeLibrary.CosmeticId(outfit.Hat.Shape), CharacterArt.HatBox(picture), Tint(outfit.Hat));
             }
         }
 
-        /// <summary>A soft flat shadow under the feet of a Bloomling drawn into <paramref name="box"/>.</summary>
-        public static void GroundShadow(IPainter p, Box box, float alpha = 0.12f)
+        /// <summary>The four 3D heroes on the stone pedestal (splash, Home early, win and milestone cards).</summary>
+        public static void Group(IPainter p, Box box)
         {
-            float feet = box.CenterY - (BloomlingArt.FeetY * BloomlingArt.Fit / ShapeRaster.Margin * box.Height / 2f);
-            Box shadow = Box.FromCenter(box.CenterX, feet, box.Width * 0.56f, box.Height * 0.09f);
-            p.FillRound(shadow, shadow.Height / 2f, C.GardenShadow.WithAlpha(alpha));
+            p.Mark(CharacterArt.GroupSlot);
+            if (p.HasSprite(CharacterArt.Group))
+            {
+                p.Sprite(CharacterArt.Group, box);
+                return;
+            }
+
+            // Fallback: the four family bodies in a row.
+            Box fitted = PainterBase.Fit(box, CharacterArt.GroupWidth, CharacterArt.GroupHeight);
+            float size = fitted.Width / 5f;
+            for (int i = 0; i < CharacterArt.Families.Count; i++)
+            {
+                Family family = CharacterArt.Families[i];
+                p.Mark(ShapeLibrary.SilhouetteId(family));
+                float x = fitted.CenterX + ((i - 1.5f) * size * 1.1f);
+                p.Shape(ShapeLibrary.SilhouetteId(family), Box.FromCenter(x, fitted.CenterY, size, size), ColorOf(HeroVariant(family)));
+            }
         }
+
+        /// <summary>The variant whose color a family's fallback hero body takes.</summary>
+        private static VariantId HeroVariant(Family family) => family switch
+        {
+            Family.Bloom => VariantId.Flower,
+            Family.Drop => VariantId.Water,
+            Family.Twig => VariantId.Wood,
+            _ => VariantId.Leaf,
+        };
+
+        /// <summary>A cosmetic's tint: its own color, or gold.</summary>
+        public static Rgba Tint(CosmeticItem item) => item.Tint.StartsWith("#", StringComparison.Ordinal) ? Rgba.FromHex(item.Tint) : C.MedalGold;
 
         /// <summary>A variant tile as in demos and legends: a raised rounded tile with its symbol.</summary>
         public static void VariantTile(IPainter p, Box box, VariantId variant)

@@ -1,0 +1,239 @@
+using System;
+using System.Collections.Generic;
+using Bloomlings.Core.Variants;
+
+namespace Bloomlings.Client.UI.Design
+{
+    /// <summary>A variant character's face (spec 004 FR-007, data-model.md "CharacterMood").</summary>
+    public enum CharacterMood
+    {
+        /// <summary>Open eyes and a smile: exposed pods, working slots, walkers, board tiles.</summary>
+        Happy,
+
+        /// <summary>Closed eyes, muted colors: pods still queued in their stack.</summary>
+        Asleep,
+
+        /// <summary>A small frown, greyed colors: a stuck pod in a Waiting Slot.</summary>
+        Worried,
+
+        /// <summary>No eyes and no mouth: a worn cosmetic expression draws the face.</summary>
+        Blank,
+    }
+
+    /// <summary>
+    /// The generated character art of spec 004 (contracts/hosts.md "Shared kit"): the picture names the hosts load, their
+    /// asset slots, and where a picture goes on a pod, a slot, a board tile and around it (cosmetics). The pictures come
+    /// from <c>tools/artgen</c>, which uses these names too (contracts/art-files.md):
+    /// <list type="bullet">
+    /// <item><description><c>2d/{icon}-{mood}</c>: a variant's 2D character, whose shape is its symbol;</description></item>
+    /// <item><description><c>3d/{family}</c> and <c>3d/{family}-blank</c>: a family's 3D hero (meta screens only);</description></item>
+    /// <item><description><c>3d/group</c>: the four heroes on the stone pedestal.</description></item>
+    /// </list>
+    /// Engine-free.
+    /// </summary>
+    public static class CharacterArt
+    {
+        /// <summary>The side of a 2D character picture in pixels.</summary>
+        public const int Size2D = 256;
+
+        /// <summary>The 2D drawing's design square (0..100) lies inside this margin of the picture on each side.</summary>
+        public const float Margin2D = 0.04f;
+
+        public const int HeroWidth = 512;
+
+        public const int HeroHeight = 576;
+
+        public const int GroupWidth = 1200;
+
+        public const int GroupHeight = 720;
+
+        /// <summary>The group picture's name.</summary>
+        public const string Group = "3d/group";
+
+        /// <summary>The group picture's asset slot.</summary>
+        public const string GroupSlot = "char.hero3d.group";
+
+        /// <summary>Every mood, in file order.</summary>
+        public static IReadOnlyList<CharacterMood> Moods { get; } = new[] { CharacterMood.Happy, CharacterMood.Asleep, CharacterMood.Worried, CharacterMood.Blank };
+
+        /// <summary>The four families, in the order the group picture shows them.</summary>
+        public static IReadOnlyList<Family> Families { get; } = new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig };
+
+        public static string MoodName(CharacterMood mood) => mood switch
+        {
+            CharacterMood.Happy => "happy",
+            CharacterMood.Asleep => "asleep",
+            CharacterMood.Worried => "worried",
+            _ => "blank",
+        };
+
+        public static string FamilyName(Family family) => family.ToString().ToLowerInvariant();
+
+        /// <summary>A variant's 2D character picture: <c>2d/leaf-happy</c>.</summary>
+        public static string Picture2D(string iconId, CharacterMood mood) => "2d/" + iconId + "-" + MoodName(mood);
+
+        /// <summary>A family's 3D hero: <c>3d/bloom</c>, or <c>3d/bloom-blank</c> without eyes and mouth.</summary>
+        public static string Hero(Family family, bool blank = false) => "3d/" + FamilyName(family) + (blank ? "-blank" : string.Empty);
+
+        public static string Slot2D(string iconId) => "char.v." + iconId;
+
+        public static string HeroSlot(Family family) => "char.hero3d." + FamilyName(family);
+
+        /// <summary>The asset slot a picture name belongs to.</summary>
+        public static string SlotOf(string picture)
+        {
+            if (picture == Group)
+            {
+                return GroupSlot;
+            }
+
+            if (picture.StartsWith("2d/", StringComparison.Ordinal))
+            {
+                string stem = picture.Substring(3);
+                int dash = stem.LastIndexOf('-');
+                return Slot2D(dash > 0 ? stem.Substring(0, dash) : stem);
+            }
+
+            string name = picture.Substring(3);
+            int blank = name.IndexOf('-');
+            return "char.hero3d." + (blank > 0 ? name.Substring(0, blank) : name);
+        }
+
+        /// <summary>Every picture of the set (57): 12 icons × 4 moods, 4 heroes × 2, and the group.</summary>
+        public static IReadOnlyList<string> AllPictures(IEnumerable<VariantInfo> variants)
+        {
+            var names = new List<string>();
+            foreach (VariantInfo variant in variants)
+            {
+                foreach (CharacterMood mood in Moods)
+                {
+                    names.Add(Picture2D(variant.IconId, mood));
+                }
+            }
+
+            foreach (Family family in Families)
+            {
+                names.Add(Hero(family));
+                names.Add(Hero(family, blank: true));
+            }
+
+            names.Add(Group);
+            return names;
+        }
+
+        /// <summary>The pixel size of a picture.</summary>
+        public static (int Width, int Height) SizeOf(string picture) =>
+            picture.StartsWith("2d/", StringComparison.Ordinal) ? (Size2D, Size2D) : picture == Group ? (GroupWidth, GroupHeight) : (HeroWidth, HeroHeight);
+
+        // ---- Placement (y down) ----
+
+        /// <summary>
+        /// The character's box on a pod or slot card face: 84% of its width (at most 80% of its height), centered across,
+        /// 3% below the top, so the "xN" in the bottom-right corner only meets the picture's transparent margin.
+        /// </summary>
+        public static Box OnCard(Box face)
+        {
+            float side = Math.Min(face.Width * 0.84f, face.Height * 0.8f);
+            return Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.03f) + (side / 2f), side, side);
+        }
+
+        /// <summary>A box inside <paramref name="parent"/> as Unity anchors (x0, y0, x1, y1), y up.</summary>
+        public static (float X0, float Y0, float X1, float Y1) Anchors(Box box, Box parent) =>
+            ((box.Left - parent.Left) / parent.Width, 1f - ((box.Bottom - parent.Top) / parent.Height), (box.Right - parent.Left) / parent.Width, 1f - ((box.Top - parent.Top) / parent.Height));
+
+        /// <summary>Where the "xN" count goes on a pod or slot face: the bottom-right corner, inset 6%.</summary>
+        public static Box CountBox(Box face)
+        {
+            float right = face.Right - (face.Width * 0.06f);
+            float bottom = face.Bottom - (face.Height * 0.04f);
+            return new Box(right - (face.Width * 0.56f), bottom - (face.Height * 0.3f), right, bottom);
+        }
+
+        /// <summary>The white outline around "xN", as a share of its size.</summary>
+        public const float CountOutlineEm = 0.08f;
+
+        /// <summary>
+        /// The "xN" count's look (data-model.md "PodCount"): dark brown letters with a thin white outline, the same on every
+        /// card (the queued and stuck cards are muted already, and a grey count would fall under 4.5:1 there). The text is
+        /// the localized <c>pod.count</c>.
+        /// </summary>
+        public static TextLook CountLook => new TextLook(CountColor, CountColor, Rgba.White, CountOutlineEm, 0f, 0f);
+
+        /// <summary>The "xN" letters: <c>garden.label_plain</c>.</summary>
+        public static Rgba CountColor => DesignTokens.Colors.GardenLabelPlain;
+
+        /// <summary>The character's box on a board tile face: 86% of the face, centered, 3% low.</summary>
+        public static Box OnTile(Box face)
+        {
+            float side = Math.Min(face.Width, face.Height) * 0.86f;
+            return Box.FromCenter(face.CenterX, face.CenterY + (face.Height * 0.03f), side, side);
+        }
+
+        /// <summary>Where a 2D character's face is drawn, in the drawing's 0..100 design square (y down).</summary>
+        public static (float X, float Y) FaceDesign2D(string iconId) => iconId switch
+        {
+            "leaf" => (50f, 64f),
+            "moss" => (50f, 62f),
+            "flower" => (50f, 54f),
+            "bud" => (50f, 66f),
+            "drop" => (52f, 66f),
+            "dew" => (50f, 60f),
+            "log" => (50f, 60f),
+            "acorn" => (50f, 72f),
+            "vine" => (50f, 64f),
+            "berry" => (50f, 62f),
+            "mist" => (50f, 63f),
+            _ => (50f, 60f),
+        };
+
+        /// <summary>Where a 2D character's face is, as a share of its picture.</summary>
+        public static (float X, float Y) FaceCenter2D(string iconId)
+        {
+            (float x, float y) = FaceDesign2D(iconId);
+            return (Margin2D + ((1f - (2f * Margin2D)) * x / 100f), Margin2D + ((1f - (2f * Margin2D)) * y / 100f));
+        }
+
+        /// <summary>
+        /// Where a 3D hero's face is, as a share of its solo picture: where tools/artgen draws it (<c>-- faces</c> prints
+        /// it, and its art check keeps these within 2%). The heroes stand slightly turned, so the faces are off center.
+        /// </summary>
+        public static (float X, float Y) FaceCenterHero(Family family) => family switch
+        {
+            Family.Sprig => (0.41f, 0.65f),
+            Family.Bloom => (0.49f, 0.38f),
+            Family.Drop => (0.52f, 0.62f),
+            _ => (0.59f, 0.64f),
+        };
+
+        /// <summary>
+        /// The 3D group standing on a card's top edge (the win and milestone cards, FR-017): at most
+        /// <paramref name="widthShare"/> of the card's width, its pedestal overlapping the edge by 18 units, in the room
+        /// above the card inside the safe area. Null when that room is under 160 units (a short phone): the card never moves.
+        /// </summary>
+        public static Box? GroupOnCard(Box card, Box safe, float scale, float widthShare)
+        {
+            float overlap = 18f * scale;
+            float room = card.Top - safe.Top - (8f * scale) + overlap;
+            float height = Math.Min(room, card.Width * widthShare * GroupHeight / GroupWidth);
+            if (height < 160f * scale)
+            {
+                return null;
+            }
+
+            float width = height * GroupWidth / GroupHeight;
+            return new Box(card.CenterX - (width / 2f), card.Top + overlap - height, card.CenterX + (width / 2f), card.Top + overlap);
+        }
+
+        /// <summary>A worn expression's box over a face at (fx, fy) of a picture box.</summary>
+        public static Box ExpressionBox(Box picture, (float X, float Y) face) =>
+            Box.FromCenter(picture.Left + (picture.Width * face.X), picture.Top + (picture.Height * face.Y), picture.Width * 0.36f, picture.Width * 0.24f);
+
+        /// <summary>A worn hat's box: over the top of the picture.</summary>
+        public static Box HatBox(Box picture) =>
+            Box.FromCenter(picture.CenterX, picture.Top + (picture.Height * 0.12f), picture.Width * 0.5f, picture.Width * 0.5f);
+
+        /// <summary>A worn trail's box: behind the picture's lower left.</summary>
+        public static Box TrailBox(Box picture) =>
+            new Box(picture.Left - (picture.Width * 0.22f), picture.Top + (picture.Height * 0.5f), picture.Left + (picture.Width * 0.2f), picture.Top + (picture.Height * 0.9f));
+    }
+}

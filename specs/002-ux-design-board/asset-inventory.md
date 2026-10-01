@@ -28,7 +28,7 @@ How to read the columns:
 |---|---|---|---|
 | Brand | 3 | 0 | 3 |
 | Backgrounds | 6 | 0 | 6 |
-| Bloomling characters | 7 | 0 | 7 |
+| Bloomling characters | 18 | 4 | 22 |
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 8 | 0 | 8 |
 | Specials | 7 | 0 | 7 |
@@ -41,14 +41,14 @@ How to read the columns:
 | Visual effects | 8 | 0 | 8 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **128** | **18** | **146** |
+| **All** | **139** | **22** | **161** |
 
 ## Brand
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
 | `brand.wordmark` | Bloomlings wordmark (logo) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | bold outlined text with a Petal on the i |
-| `brand.splash_art` | Splash illustration: Bloomlings of the four families in the garden | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | garden backdrop and the four families as kawaii Bloomlings |
+| `brand.splash_art` | Splash illustration: Bloomlings of the four families in the garden | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | garden backdrop and the 3D group picture `3d/group` |
 | `brand.app_icon` | App icon | — | Launcher; store listing | Android adaptive (foreground, background); iOS set | Medium | no | Launch | platform default icon (not in the game yet) |
 
 ## Backgrounds
@@ -59,20 +59,40 @@ How to read the columns:
 | `bg.theme.pond` | Gameplay backdrop: Pond (from L100) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, pond tint |
 | `bg.theme.orchard` | Gameplay backdrop: Orchard (from L150) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, orchard tint |
 | `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, moonlit tint |
-| `bg.home` | Home scene: garden with stone arches and the stone the Bloomlings sit on | 2, 3 | Home | early (two Bloomlings); progressed (hero) | Screen | no | Launch | procedural backdrop with arches and a stone |
+| `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop |
 
 ## Bloomling characters
 
+The characters are generated pictures of spec 004, made by `tools/artgen` and committed in
+`client/Assets/Bloomlings/Art/Characters/Resources/Characters/` with a manifest: each variant is a 2D character
+whose whole shape is its symbol, and each family a 3D hero for the meta screens only. The family bodies stay as
+the fallback when a picture is missing.
+
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `char.sprig` | Sprig family Bloomling: kawaii egg body with a sprout (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.sprig` |
-| `char.bloom` | Bloom family Bloomling: kawaii round body with petals, a bud or a calyx (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.bloom` |
-| `char.drop` | Drop family Bloomling: kawaii droplet body (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.drop` |
-| `char.twig` | Twig family Bloomling: kawaii stump body with a sprout or an acorn cap (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.twig` |
-| `char.face` | Bloomling face: big sparkly eyes, blush, a small mouth (spec 003 FR-032) | 2, 3, 12, 13 | Pods; slots; walkers; Home hero | happy; sleepy (queued pod); worried (stuck slot) | Small | no | Launch | shape `char.face` |
-| `char.hero.home` | Home hero: a large Bloomling in the player's outfit | 3 | Home | idle; wave; each family; outfit layers | Large | no | Launch | the kawaii figure (BloomlingArt), scaled, with worn cosmetics |
-| `char.accent` | Variant symbol on a Bloomling's white belly badge (spec 003 FR-032) | 7, 8, 9, 12, 13 | Pods; slots; walkers | 8 launch; 4 expansion | Icon | yes | Launch | variant symbol in a 3:1 shade of its color on a white badge |
+| `char.sprig` | Sprig family body (the fallback figure when a picture is missing) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.sprig` |
+| `char.bloom` | Bloom family body (the fallback figure when a picture is missing) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.bloom` |
+| `char.drop` | Drop family body (the fallback figure when a picture is missing) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.drop` |
+| `char.twig` | Twig family body (the fallback figure when a picture is missing) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.twig` |
+| `char.hero.home` | Home hero: a large Bloomling in the player's outfit | 3 | Home | idle; wave; each family; outfit layers | Large | no | Launch | the family's 3D solo hero `3d/{family}` with worn cosmetics |
+| `char.v.leaf` | Variant character: leaf (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/leaf-{mood}.png` |
+| `char.v.moss` | Variant character: moss (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/moss-{mood}.png` |
+| `char.v.flower` | Variant character: flower (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/flower-{mood}.png` |
+| `char.v.bud` | Variant character: violet_bud (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/bud-{mood}.png` |
+| `char.v.drop` | Variant character: water (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/drop-{mood}.png` |
+| `char.v.dew` | Variant character: dew (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/dew-{mood}.png` |
+| `char.v.log` | Variant character: wood (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/log-{mood}.png` |
+| `char.v.acorn` | Variant character: acorn (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/acorn-{mood}.png` |
+| `char.v.vine` | Variant character: vine (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Later | `2d/vine-{mood}.png` |
+| `char.v.berry` | Variant character: berry (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Later | `2d/berry-{mood}.png` |
+| `char.v.mist` | Variant character: mist (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Later | `2d/mist-{mood}.png` |
+| `char.v.bark` | Variant character: bark (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Later | `2d/bark-{mood}.png` |
+| `char.hero3d.sprig` | 3D hero: Sprig | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/sprig.png` |
+| `char.hero3d.bloom` | 3D hero: Bloom | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/bloom.png` |
+| `char.hero3d.drop` | 3D hero: Drop | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/drop.png` |
+| `char.hero3d.twig` | 3D hero: Twig | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/twig.png` |
+| `char.hero3d.group` | 3D heroes: the four families on a stone pedestal | 1, 2, 15, 16 | Splash; Home; win; milestone | warm garden light | Large | no | Launch | `3d/group.png` |
 
 ## Variant symbols
 

@@ -79,7 +79,8 @@ namespace Bloomlings.Client.Gameplay.Tray
                     positions[ids[d]] = (center, cell.Width);
                 }
 
-                // Deeper pods are not drawn; a "+N" badge on the last shown pod says how many more wait there.
+                // Deeper pods are not drawn; a "+N" badge on the last shown pod says how many more wait there. It sits in
+                // the bottom-left corner, clear of the pod's "xN" (spec 004 FR-008).
                 if (ids.Count > shown)
                 {
                     TMPro.TextMeshProUGUI more = More(s);
@@ -87,7 +88,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     Box last = grid.Cell(s, shown - 1);
                     float badge = last.Height * 0.3f;
                     Image disc = _moreDiscs[s];
-                    UiFactory.PlaceAbsolute(disc.rectTransform, new Vector2(last.Right - (badge * 0.4f), area.height - last.Bottom + (badge * 0.4f)), new Vector2(badge * 1.6f, badge));
+                    UiFactory.PlaceAbsolute(disc.rectTransform, new Vector2(last.Left + (badge * 0.4f), area.height - last.Bottom + (badge * 0.4f)), new Vector2(badge * 1.6f, badge));
                     disc.transform.SetAsLastSibling();
                 }
             }

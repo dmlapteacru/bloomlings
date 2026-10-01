@@ -67,7 +67,7 @@ namespace Bloomlings.Client.Gameplay.Workers
                 path.Add(_board.CellCenter(cell));
             }
 
-            worker.Launch(visual, path, _board.CellSize * 0.62f, travelSeconds, Outfits?.Invoke(visual.Family));
+            worker.Launch(visual, path, _board.CellSize * 0.8f, travelSeconds, Outfits?.Invoke(visual.Family));
         }
 
         public void Release(BloomlingWorker worker) => _free.Push(worker);
@@ -88,8 +88,8 @@ namespace Bloomlings.Client.Gameplay.Workers
                 figure.Body.raycastTarget = false;
                 var at = new Vector2(center + ((i - ((count - 1) / 2f)) * size * 1.15f), -size * 0.55f);
                 UiFactory.PlaceAbsolute(figure.Rect, at, Vector2.one * size);
-                figure.Show(visual.Family, visual.Color, Outfits?.Invoke(visual.Family), VariantCatalog.Default.Get(visual.Id).IconId, badge: false);
-                figure.Body.gameObject.AddComponent<Cheer>().Begin(at, size, i * 0.7f);
+                figure.ShowCharacter(visual.Id, Outfits?.Invoke(visual.Family));
+                figure.Rect.gameObject.AddComponent<Cheer>().Begin(at, size, i * 0.7f);
             }
         }
 

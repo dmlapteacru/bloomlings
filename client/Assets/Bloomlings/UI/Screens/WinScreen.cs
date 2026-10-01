@@ -59,6 +59,10 @@ namespace Bloomlings.Client.UI.Screens
             screen._double = UiKit.SecondaryButton("Double", panel.transform, Loc.T("win.double"), () => { }, "ui.ad");
             UiFactory.Place((RectTransform)screen._double.transform, 0.22f, 0.06f, 0.78f, 0.22f);
 
+            // The four 3D heroes celebrate on the card's top edge, small enough to keep the finished picture in view
+            // (spec 004 FR-017).
+            HeroPictures.OnCard(panel.rectTransform, box, 0.56f);
+
             Image mark = UiKit.Pill("Milestone", panel.transform, UiTheme.Of(DesignTokens.Colors.MedalGold));
             UiFactory.Place(mark.rectTransform, 0.3f, 0.96f, 0.7f, 1.06f);
             TextMeshProUGUI markText = UiKit.Label("Text", mark.transform, Loc.T("milestone.reached"), DesignTokens.Type.Badge, UiTheme.Text);

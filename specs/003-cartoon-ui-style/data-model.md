@@ -120,6 +120,11 @@ The decoration never takes touch input, and is drawn after the button so it may 
 
 ## BloomlingLook (FR-032)
 
+> **Replaced by spec 004 (2026-10-01).** The owner rejected the kawaii look. Spec 004 (`specs/004-character-art/`)
+> replaces FR-032 with generated 2D characters whose shape is the variant symbol, and SC-006 with generated art files
+> recorded as the project's own. The kawaii code (`BloomlingArt`) is removed.
+
+
 One kawaii Bloomling picture (contracts/bloomling-look.md).
 
 | Field | Meaning |

@@ -14,8 +14,8 @@ namespace Bloomlings.Playtest.Preview
     public sealed class SkiaPainter : PainterBase, IDisposable
     {
         private static readonly Dictionary<string, SKImage> Masks = new Dictionary<string, SKImage>(StringComparer.Ordinal);
-        private static readonly Dictionary<string, SKImage> Pictures = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, SKImage?> Sprites = new Dictionary<string, SKImage?>(StringComparer.Ordinal);
         // Declared before the faces: static initializers run in order, and LoadFont reads it.
         private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
         private static readonly SKTypeface Bold = LoadFont(true) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Bold) ?? SKTypeface.Default;
@@ -48,6 +48,9 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>Shape ids drawn that are not in the shape library (a check failure).</summary>
         public HashSet<string> UnknownShapes { get; } = new HashSet<string>(StringComparer.Ordinal);
+
+        /// <summary>Character pictures asked for that are not embedded (a check failure).</summary>
+        public HashSet<string> MissingSprites { get; } = new HashSet<string>(StringComparer.Ordinal);
 
         /// <summary>Every touch target of the frame, in screen pixels.</summary>
         public List<Box> Targets { get; } = new List<Box>();
@@ -182,23 +185,6 @@ namespace Bloomlings.Playtest.Preview
 
         public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask("composite/" + key, () => sdf, box, color);
 
-        public override void Picture(string key, Func<int, byte[]> render, Box box)
-        {
-            int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
-            string cacheKey = key + "@" + size;
-            if (!Pictures.TryGetValue(cacheKey, out SKImage? image))
-            {
-                byte[] rgba = render(size);
-                var info = new SKImageInfo(size, size, SKColorType.Rgba8888, SKAlphaType.Premul);
-                using var bitmap = new SKBitmap(info);
-                System.Runtime.InteropServices.Marshal.Copy(rgba, 0, bitmap.GetPixels(), rgba.Length);
-                image = SKImage.FromBitmap(bitmap);
-                Pictures[cacheKey] = image;
-            }
-
-            Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
-        }
-
         private void DrawMask(string key, Func<Func<float, float, float>> sdf, Box box, Rgba color)
         {
             int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
@@ -326,6 +312,54 @@ namespace Bloomlings.Playtest.Preview
             }
 
             Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
+        }
+
+        public override bool HasSprite(string name) => LoadSprite(name) != null;
+
+        public override void Sprite(string name, Box box)
+        {
+            SKImage? image = LoadSprite(name);
+            if (image == null)
+            {
+                MissingSprites.Add(name);
+                return;
+            }
+
+            Canvas.DrawImage(image, Rect(Fit(box, image.Width, image.Height)), new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear), Fill(Rgba.White));
+        }
+
+        public override void SpriteSkin(string name, Box box, string skinShape, Rgba tint)
+        {
+            SKImage? image = LoadSprite(name);
+            if (image == null)
+            {
+                MissingSprites.Add(name);
+                return;
+            }
+
+            // A layer: the pattern, then the picture with destination-in, so the pattern stays only on the picture.
+            SKRect rect = Rect(Fit(box, image.Width, image.Height));
+            Canvas.SaveLayer(rect, null);
+            DrawMask("skin/" + skinShape, () => ShapeLibrary.SkinPattern(skinShape), new Box(rect.Left, rect.Top, rect.Right, rect.Bottom), tint);
+            using var mask = new SKPaint { BlendMode = SKBlendMode.DstIn };
+            Canvas.DrawImage(image, rect, new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear), mask);
+            Canvas.Restore();
+        }
+
+        /// <summary>A character picture from the embedded resources, decoded once (null when missing).</summary>
+        private static SKImage? LoadSprite(string name)
+        {
+            lock (Sprites)
+            {
+                if (!Sprites.TryGetValue(name, out SKImage? image))
+                {
+                    using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
+                    image = stream != null ? SKImage.FromEncodedData(stream)?.ToRasterImage(ensurePixelData: true) : null;
+                    Sprites[name] = image;
+                }
+
+                return image;
+            }
         }
 
         public override void PushClip(Box box)

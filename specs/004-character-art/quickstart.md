@@ -16,7 +16,8 @@ dotnet run --project tools/artgen -- check
 
 Expected: exit code 0.
 - **Files:** every picture re-renders within the tolerance of [contracts/art-files.md](contracts/art-files.md).
-- **Readability:** at 48 px, every pair of launch characters differs in at least 10% of alpha pixels.
+- **Readability:** at 48 px, at least 15% of the joined silhouette of every pair of launch characters is covered by
+  only one of them.
 - **Margins:** every picture keeps a transparent border.
 - **Manifest:** `manifest.json` matches the 57 files.
 

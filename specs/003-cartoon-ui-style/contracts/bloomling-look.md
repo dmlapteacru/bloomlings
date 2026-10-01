@@ -1,5 +1,10 @@
 # Contract: the kawaii Bloomlings (FR-032)
 
+> **Replaced by spec 004 (2026-10-01).** The owner rejected the kawaii look. Spec 004 (`specs/004-character-art/`)
+> replaces FR-032 with generated 2D characters whose shape is the variant symbol, and SC-006 with generated art files
+> recorded as the project's own. The kawaii code (`BloomlingArt`) is removed.
+
+
 The owner chose style B ("Kawaii") from a character sheet of six styles (Garden, Kawaii, Flat, Sticker, Storybook,
 Plush) on 2026-10-01. This contract fixes how both builds draw it. The code is the engine-free
 `client/Assets/Bloomlings/UI/Design/BloomlingArt.cs`, linked into the playtest.

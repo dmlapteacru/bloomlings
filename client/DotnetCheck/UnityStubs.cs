@@ -44,8 +44,8 @@ namespace UnityEngine
     public struct Vector3 { public float x, y, z; public Vector3(float x, float y, float z) { this.x = x; this.y = y; this.z = z; } public static Vector3 zero => default; public static Vector3 one => default; public static Vector3 up => default; public static Vector3 operator *(Vector3 a, float b) => a; public static Vector3 operator +(Vector3 a, Vector3 b) => a; public static Vector3 Lerp(Vector3 a, Vector3 b, float t) => a; }
     public struct Vector4 { public Vector4(float x, float y, float z, float w) { } public static Vector4 zero => default; public static bool operator ==(Vector4 a, Vector4 b) => true; public static bool operator !=(Vector4 a, Vector4 b) => false; public override bool Equals(object? o) => true; public override int GetHashCode() => 0; }
     public static class Mathf { public const float PI = 3.14f; public static float Atan2(float y, float x) => 0; public static float Min(float a, float b) => a; public static int Min(int a, int b) => a; public static float Max(float a, float b) => a; public static int Max(int a, int b) => a; public static float Clamp01(float v) => v; public static float Clamp(float v, float a, float b) => v; public static int Clamp(int v, int a, int b) => v; public static float Abs(float v) => v; public static float Sqrt(float v) => v; public static float Sin(float v) => v; public static float Cos(float v) => v; public static float Floor(float v) => v; public static int FloorToInt(float v) => 0; public static int CeilToInt(float v) => 0; public static float SmoothStep(float a, float b, float t) => t; public static float PingPong(float t, float length) => t; public static float Lerp(float a, float b, float t) => a; public static int RoundToInt(float v) => 0; }
-    public class Texture { public int width => 0; public int height => 0; public FilterMode filterMode { get; set; } public TextureWrapMode wrapMode { get; set; } public string name { get; set; } = ""; public HideFlags hideFlags { get; set; } }
-    public sealed class Texture2D : Texture { public Texture2D(int w, int h, TextureFormat f, bool mip) { } public void SetPixels32(Color32[] p) { } public void Apply(bool a, bool b) { } public static implicit operator Object(Texture2D t) => null!; }
+    public class Texture : Object { public int width => 0; public int height => 0; public FilterMode filterMode { get; set; } public TextureWrapMode wrapMode { get; set; } }
+    public sealed class Texture2D : Texture { public Texture2D(int w, int h, TextureFormat f, bool mip) { } public void SetPixels32(Color32[] p) { } public void Apply(bool a, bool b) { } }
     public enum TextureFormat { RGBA32 }
     public enum FilterMode { Bilinear }
     public enum TextureWrapMode { Clamp }
@@ -87,6 +87,7 @@ namespace UnityEngine.UI
     public class AspectRatioFitter : UnityEngine.MonoBehaviour { public enum AspectMode { None, WidthControlsHeight, HeightControlsWidth, FitInParent, EnvelopeParent } public AspectMode aspectMode { get; set; } public float aspectRatio { get; set; } }
     public class Image : Graphic { public enum Type { Simple, Sliced, Filled } public enum FillMethod { Horizontal, Vertical, Radial90, Radial180, Radial360 } public Sprite? sprite { get; set; } public Type type { get; set; } public bool preserveAspect { get; set; } public bool fillCenter { get; set; } public float fillAmount { get; set; } public FillMethod fillMethod { get; set; } public float pixelsPerUnitMultiplier { get; set; } }
     public sealed class RawImage : Graphic { public Texture? texture { get; set; } public Rect uvRect { get; set; } }
+    public sealed class Mask : UnityEngine.MonoBehaviour { public bool showMaskGraphic { get; set; } }
     public class Shadow : UnityEngine.MonoBehaviour { public Color effectColor { get; set; } public Vector2 effectDistance { get; set; } public bool useGraphicAlpha { get; set; } }
     public class Outline : Shadow { }
     public class Selectable : Behaviour { public bool interactable { get; set; } public Graphic? targetGraphic { get; set; } }
@@ -133,6 +134,13 @@ namespace UnityEditor
     public static class EditorUtility { public static string OpenFilePanel(string t, string d, string e) => ""; public static void SetDirty(UnityEngine.Object o) { } public static bool DisplayDialog(string title, string message, string ok) => true; }
     public static class AssetDatabase { public static T? LoadAssetAtPath<T>(string p) where T : UnityEngine.Object => null; public static void CreateAsset(UnityEngine.Object o, string p) { } public static void SaveAssets() { } public static void Refresh() { } public static void ImportPackage(string path, bool interactive) { } }
     public static class Selection { public static UnityEngine.Object? activeObject { get; set; } }
+    public class AssetImporter : UnityEngine.Object { }
+    public enum TextureImporterType { Default, Sprite }
+    public enum TextureImporterAlphaSource { None, FromInput, FromGrayScale }
+    public enum TextureImporterNPOTScale { None, ToNearest, ToLarger, ToSmaller }
+    public enum TextureImporterCompression { Uncompressed, Compressed, CompressedHQ, CompressedLQ }
+    public sealed class TextureImporter : AssetImporter { public TextureImporterType textureType { get; set; } public bool sRGBTexture { get; set; } public TextureImporterAlphaSource alphaSource { get; set; } public bool alphaIsTransparency { get; set; } public bool mipmapEnabled { get; set; } public UnityEngine.TextureWrapMode wrapMode { get; set; } public TextureImporterNPOTScale npotScale { get; set; } public bool isReadable { get; set; } public TextureImporterCompression textureCompression { get; set; } }
+    public class AssetPostprocessor { public string assetPath { get; set; } = ""; public AssetImporter assetImporter => null!; }
     [Flags] public enum BuildOptions { None = 0, Development = 1 }
     public enum BuildTarget { Android, iOS }
     public enum BuildTargetGroup { Android, iOS }

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The player's profile picture (FR-061, FR-063): a Bloomling in its outfit inside the shown frame, with the shown
+    /// The player's profile picture (FR-061, FR-063): a 3D hero in its outfit inside the shown frame, with the shown
     /// badge at its foot and the leaderboard marker at its shoulder. Home, the Wardrobe and the leaderboard row use it.
     /// </summary>
     public sealed class ProfileAvatar
@@ -26,7 +26,8 @@ namespace Bloomlings.Client.UI.Screens
             UiFactory.Place(disc.rectTransform, 0.08f, 0.08f, 0.92f, 0.92f);
             _figure = BloomlingFigure.Create("Figure", root);
             _figure.Body.raycastTarget = false;
-            UiFactory.Place(_figure.Rect, 0.22f, 0.16f, 0.78f, 0.72f);
+            // The family's 3D hero (spec 004 FR-017), in its picture's 512:576 shape.
+            UiFactory.Place(_figure.Rect, 0.24f, 0.12f, 0.76f, 0.705f);
             _frame = UiFactory.CreateImage("Frame", root, ProceduralSprites.Ring, UiTheme.SlotLocked);
             _frame.raycastTarget = false;
             UiFactory.Stretch(_frame.rectTransform);
@@ -42,7 +43,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="outfit">What the pictured Bloomling (a Bloom) wears.</param>
         public void Show(ProfileLook? look, Outfit? outfit)
         {
-            _figure.Show(Family.Bloom, UiTheme.Accent, outfit);
+            _figure.ShowHero(Family.Bloom, outfit);
             _frame.color = look?.Frame != null ? BloomlingFigure.Tint(look.Frame) : UiTheme.SlotLocked;
             Show(_badge, look?.Badge);
             Show(_marker, look?.Marker);

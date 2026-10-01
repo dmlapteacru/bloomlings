@@ -8,7 +8,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Gameplay: bushes frame the sides, arches far away, the board covers the middle (frames 7–9).</summary>
         Gameplay,
 
-        /// <summary>Home: arches in the middle distance and a flat stone the Bloomlings sit on (frames 2 and 3).</summary>
+        /// <summary>Home: arches in the middle distance (frames 2 and 3). The 3D heroes bring their own pedestal and shadow (spec 004).</summary>
         Home,
 
         /// <summary>Splash: the Home scene with more blossoms (frame 1).</summary>
@@ -83,15 +83,6 @@ namespace Bloomlings.Client.UI.Design
             float near = ((horizon + 0.12f) * aspect) + (0.05f * (float)Math.Sin((x * 4.3f) + 2.4f));
             c = c.Mix(colors.HillNear, Edge(y - near, 0.004f));
             c = c.Mix(colors.HillNear.Darken(0.06f), Edge(y - (near + (0.35f * aspect)), 0.2f) * 0.6f);
-
-            // Home and splash: the flat stone the Bloomlings sit on.
-            if (scene != BackdropScene.Gameplay)
-            {
-                float stone = Ellipse(x, y, 0.5f, (horizon + 0.2f) * aspect, 0.3f, 0.07f);
-                c = c.Mix(DesignTokens.Colors.TileStone.Lighten(0.35f), Edge(-stone, 0.01f));
-                float top = Ellipse(x, y, 0.5f, ((horizon + 0.2f) * aspect) - 0.02f, 0.26f, 0.045f);
-                c = c.Mix(DesignTokens.Colors.TileStone.Lighten(0.55f), Edge(-top, 0.01f));
-            }
 
             // Hedges of round bushes framing the sides, shaded below and lit above, with blossom dots.
             float bushes = 0f;

@@ -4,6 +4,7 @@ using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.UI.Localization;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
 using TMPro;
@@ -21,9 +22,10 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// <item><description>mystery: pink with "?";</description></item>
     /// <item><description>connected: a teal link mark.</description></item>
     /// </list>
-    /// The card shows the kawaii Bloomling of its family in the variant color (spec 003 FR-032), asleep while it waits
-    /// in its stack, with the variant symbol on its white belly badge above the count's dark pill. That keeps spec 001
-    /// FR-012's order of prominence: the exact variant icon, the variant color, the count, then the family silhouette.
+    /// The card shows the variant's character (spec 004 FR-008): its whole shape is the variant's symbol, in the variant's
+    /// colors, awake on an exposed pod and asleep in the stack, with "xN" in the bottom-right corner. That keeps spec 001
+    /// FR-012's order of prominence: the character (icon and color in one), the count, then the family. Locked and
+    /// mystery pods keep their padlock or "?" and the count pill.
     /// </summary>
     public sealed class PodView : MonoBehaviour
     {
@@ -35,6 +37,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         private Image _body = null!;
         private Image _icon = null!;
         private Image _countPill = null!;
+        private TextMeshProUGUI _pillCount = null!;
         private Image _lock = null!;
         private Image _link = null!;
         private TextMeshProUGUI _count = null!;
@@ -62,17 +65,24 @@ namespace Bloomlings.Client.Gameplay.Tray
             view._button.onClick.AddListener(() => onTap(view.PodId));
             edge.gameObject.AddComponent<PressMotion>();
 
-            view._body = UiFactory.CreateImage("Bloomling", view._card.transform, null, Color.white);
+            // The character and its "xN" (spec 004 FR-008), placed by the kit on a square face.
+            var face = new Box(0f, 0f, 1f, 1f);
+            view._body = UiFactory.CreateImage("Character", view._card.transform, null, Color.white);
             view._body.preserveAspect = true;
-            (float bx0, float by0, float bx1, float by1) = BloomlingArt.OnCardAnchors;
+            (float bx0, float by0, float bx1, float by1) = CharacterArt.Anchors(CharacterArt.OnCard(face), face);
             UiFactory.Place(view._body.rectTransform, bx0, by0, bx1, by1);
             view._icon = UiFactory.CreateImage("Icon", view._card.transform, null, Color.white);
             view._icon.preserveAspect = true;
+            UiFactory.Place(view._icon.rectTransform, 0.3f, 0.26f, 0.7f, 0.62f);
+            view._count = UiKit.Label("Count", view._card.transform, string.Empty, DesignTokens.Type.Count, UiTheme.Of(CharacterArt.CountColor), TextAlignmentOptions.Right, CharacterArt.CountLook);
+            (float cx0, float cy0, float cx1, float cy1) = CharacterArt.Anchors(CharacterArt.CountBox(face), face);
+            UiFactory.Place(view._count.rectTransform, cx0, cy0, cx1, cy1);
 
+            // Locked and mystery pods keep the count in a pill (spec 002 FR-012).
             view._countPill = UiKit.Pill("CountPill", view._card.transform, UiTheme.Of(DesignTokens.Colors.BadgeCount));
             UiFactory.Place(view._countPill.rectTransform, 0.24f, 0.02f, 0.76f, 0.28f);
-            view._count = UiKit.Label("Count", view._countPill.transform, string.Empty, DesignTokens.Type.Count, Color.white);
-            UiFactory.Place(view._count.rectTransform, 0.06f, 0.04f, 0.94f, 0.96f);
+            view._pillCount = UiKit.Label("Count", view._countPill.transform, string.Empty, DesignTokens.Type.Count, Color.white);
+            UiFactory.Place(view._pillCount.rectTransform, 0.06f, 0.04f, 0.94f, 0.96f);
 
             view._lock = UiFactory.CreateImage("Lock", view._card.transform, ProceduralSprites.Lock, UiTheme.LockGlyph);
             view._lock.preserveAspect = true;
@@ -93,6 +103,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             gameObject.SetActive(true);
             _button.interactable = interactive;
             bool hidden = !pod.Variant.HasValue;
+            bool character = !lockShown && !hidden;
             if (lockShown)
             {
                 Tint(UiTheme.SlotLocked);
@@ -106,7 +117,6 @@ namespace Bloomlings.Client.Gameplay.Tray
                 _icon.enabled = true;
                 _icon.sprite = ProceduralSprites.Question;
                 _icon.color = dimmed ? UiTheme.Stuck : MysteryMark;
-                UiFactory.Place(_icon.rectTransform, 0.3f, 0.36f, 0.7f, 0.8f);
             }
             else
             {
@@ -117,19 +127,15 @@ namespace Bloomlings.Client.Gameplay.Tray
                 Rgba shown = dimmed ? DesignTokens.PodQueued(color) : color;
                 Tint(UiTheme.Of(DesignTokens.PodCard(shown)));
                 _card.sprite = visual.PodSkin ?? ProceduralSprites.RoundedSquare;
-                _body.enabled = true;
-                string iconId = VariantCatalog.Default.Get(visual.Id).IconId;
-                _body.sprite = ProceduralSprites.Bloomling(new BloomlingLook(visual.Family, shown, iconId, dimmed ? BloomlingMood.Sleepy : BloomlingMood.Happy));
-                _body.color = Color.white;
-                _icon.enabled = true;
-                _icon.sprite = visual.Icon;
-                _icon.color = UiTheme.Of(BloomlingArt.SymbolColor(shown));
-                (float sx0, float sy0, float sx1, float sy1) = BloomlingArt.SymbolOnCardAnchors;
-                UiFactory.Place(_icon.rectTransform, sx0, sy0, sx1, sy1);
+                ShowCharacter(_body, _icon, visual, dimmed ? CharacterMood.Asleep : CharacterMood.Happy);
             }
 
+            // "xN" on a character pod; the count pill on a locked or mystery one.
+            _count.gameObject.SetActive(character);
+            _countPill.gameObject.SetActive(!character);
+            _count.text = Loc.F("pod.count", pod.Remaining);
             _countPill.color = dimmed || lockShown ? UiTheme.Stuck : UiTheme.Of(DesignTokens.Colors.BadgeCount);
-            _count.text = pod.Remaining.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            _pillCount.text = pod.Remaining.ToString(System.Globalization.CultureInfo.InvariantCulture);
             _lock.enabled = lockShown;
             _lock.transform.localScale = Vector3.one;
             _link.enabled = linkColor.HasValue;
@@ -144,6 +150,31 @@ namespace Bloomlings.Client.Gameplay.Tray
             _card.sprite = ProceduralSprites.RoundedSquare;
             _card.color = card;
             _edge.color = Color.Lerp(card, Color.black, 0.18f);
+        }
+
+        /// <summary>
+        /// A variant's 2D character on a card (spec 004), or, without its picture, the spec 002 family silhouette in the
+        /// variant color with the symbol in ink (FR-021). Shared by the pods and the Waiting Slots.
+        /// </summary>
+        public static void ShowCharacter(Image body, Image icon, VariantVisual visual, CharacterMood mood)
+        {
+            Sprite? picture = CharacterSprites.Character(visual.Id, mood);
+            body.enabled = true;
+            if (picture != null)
+            {
+                body.sprite = picture;
+                body.color = Color.white;
+                icon.enabled = false;
+                return;
+            }
+
+            Rgba color = UiTheme.ToRgba(visual.Color);
+            Rgba shown = mood == CharacterMood.Asleep ? DesignTokens.PodQueued(color) : mood == CharacterMood.Worried ? color.Grey().Mix(DesignTokens.Colors.StateStuck, 0.35f) : color;
+            body.sprite = ProceduralSprites.Silhouette(visual.Family);
+            body.color = UiTheme.Of(shown);
+            icon.enabled = true;
+            icon.sprite = visual.Icon;
+            icon.color = UiTheme.Of(shown.Ink);
         }
 
         private static Color Grey(Color c)

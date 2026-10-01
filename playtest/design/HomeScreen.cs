@@ -22,19 +22,14 @@ namespace Bloomlings.Playtest.Design
             HomeScreen.Wordmark(p, safe.CenterX, safe.Top + (safe.Height * 0.3f), Math.Min(safe.Width * 0.84f, p.U(900f)));
             p.PopAlpha();
 
-            float size = Math.Min(safe.Width / 5f, p.U(200f));
-            float y = safe.Top + (safe.Height * 0.62f);
-            Family[] families = { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig };
-            VariantId[] variants = { VariantId.Leaf, VariantId.Flower, VariantId.Water, VariantId.Acorn };
-            for (int i = 0; i < 4; i++)
-            {
-                float hop = (float)Math.Abs(Math.Sin((app.Now * 3f) + i)) * p.U(14f);
-                float x = safe.CenterX + ((i - 1.5f) * size * 1.08f);
-                Box body = Box.FromCenter(x, y - hop, size, size);
-                Visuals.GroundShadow(p, Box.FromCenter(x, y, size, size));
-                Visuals.Bloomling(p, body, families[i], Visuals.ColorOf(variants[i]), Visuals.IconOf(variants[i]));
-            }
-
+            // The four families as 3D heroes on their stone (spec 004 FR-017), rising in with the wordmark.
+            float width = Math.Min(safe.Width * 0.96f, p.U(1000f));
+            float height = width * CharacterArt.GroupHeight / CharacterArt.GroupWidth;
+            p.PushAlpha(appear);
+            p.PushTransform(0f, (1f - appear) * p.U(40f), 1f, 0f, 0f);
+            Visuals.Group(p, Box.FromCenter(safe.CenterX, safe.Top + (safe.Height * 0.64f), width, height));
+            p.PopTransform();
+            p.PopAlpha();
             p.Mark("brand.splash_art");
         }
     }
@@ -131,37 +126,23 @@ namespace Bloomlings.Playtest.Design
             Kit.Petal(p, Box.FromCenter(cx + (width * 0.08f), cy - (style.Size * p.Scale * scale * 0.62f), petal, petal));
         }
 
-        /// <summary>The hero area: two Bloomlings on the stone early on (frame 2), the player's hero later (frame 3).</summary>
+        /// <summary>The hero area: the four 3D heroes on their stone early on (frame 2), the player's hero later (frame 3).</summary>
         private static void Hero(IPainter p, HomeRegions r, HomeLook look, PlaytestMeta meta, DesignApp app)
         {
             Box hero = r.Hero;
             if (!look.Hero)
             {
                 Wordmark(p, hero.CenterX, hero.Top + (hero.Height * 0.22f), Math.Min(hero.Width * 0.8f, p.U(760f)));
-                float size = Math.Min(hero.Height * 0.36f, p.U(260f));
-                float baseY = hero.Top + (hero.Height * 0.72f);
-                Visuals.Bloomling(p, Box.FromCenter(hero.CenterX - (size * 0.55f), baseY - (size * 0.5f), size, size), Family.Sprig, Visuals.ColorOf(VariantId.Acorn).Lighten(0.2f), null);
-                Visuals.Bloomling(p, Box.FromCenter(hero.CenterX + (size * 0.55f), baseY - (size * 0.5f), size * 1.08f, size * 1.08f), Family.Drop, Visuals.ColorOf(VariantId.Water).Lighten(0.25f), null);
+                var stage = new Box(hero.Left, hero.Top + (hero.Height * 0.36f), hero.Right, hero.Bottom);
+                Visuals.Group(p, PainterBase.Fit(stage, CharacterArt.GroupWidth, CharacterArt.GroupHeight));
                 return;
             }
 
-            // Frame 3: one large Bloomling in its outfit, with the Wardrobe and Collection buttons beside it.
+            // Frame 3: the player's family as a large 3D hero in its outfit, with the Wardrobe and Collection buttons.
             p.Mark("char.hero.home");
-            float heroSize = Math.Min(hero.Height * 0.72f, hero.Width * 0.6f);
-            Box body = Box.FromCenter(hero.CenterX, hero.CenterY + (hero.Height * 0.02f), heroSize, heroSize);
-            Visuals.GroundShadow(p, body);
-            Outfit outfit = meta.Wardrobe.OutfitOf(Family.Sprig);
-            Rgba color = Visuals.ColorOf(VariantId.Leaf);
-            Visuals.Bloomling(p, body, Family.Sprig, color, null);
-            if (outfit.Skin != null)
-            {
-                p.ShapeOf("skin/" + outfit.Skin.Shape, ShapeLibrary.SkinOn(Family.Sprig, outfit.Skin.Shape), body, Rgba.White.WithAlpha(CosmeticCatalog.SkinOpacity));
-            }
-
-            if (outfit.Hat != null)
-            {
-                p.Shape(ShapeLibrary.CosmeticId(outfit.Hat.Shape), Box.FromCenter(body.CenterX, body.Top + (heroSize * 0.1f), heroSize * 0.5f, heroSize * 0.5f), Tint(outfit.Hat));
-            }
+            float heroHeight = Math.Min(hero.Height * 0.9f, hero.Width * 0.62f * CharacterArt.HeroHeight / CharacterArt.HeroWidth);
+            Box body = Box.FromCenter(hero.CenterX, hero.CenterY, heroHeight * CharacterArt.HeroWidth / CharacterArt.HeroHeight, heroHeight);
+            Visuals.Hero(p, body, Family.Sprig, meta.Wardrobe.OutfitOf(Family.Sprig));
 
             float button = p.U(DesignTokens.Size.IconButton);
             float y = r.Features.Top + (button * 0.6f);
@@ -197,7 +178,7 @@ namespace Bloomlings.Playtest.Design
         {
             p.FillCircle(cx, cy, size / 2f, Rgba.White);
             p.FillCircle(cx, cy, (size / 2f) - p.U(8f), C.PillLevel.Lighten(0.4f));
-            Visuals.Bloomling(p, Box.FromCenter(cx, cy + (size * 0.04f), size * 0.66f, size * 0.66f), Family.Sprig, Visuals.ColorOf(VariantId.Leaf), null);
+            Visuals.Hero(p, Box.FromCenter(cx, cy + (size * 0.02f), size * 0.74f, size * 0.74f), Family.Sprig, null);
             if (look.Frame != null)
             {
                 p.Shape("cosmetic.frame", Box.FromCenter(cx, cy, size * 1.08f, size * 1.08f), Tint(look.Frame));
@@ -209,7 +190,7 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        private static Rgba Tint(CosmeticItem item) => item.Tint.StartsWith("#", StringComparison.Ordinal) ? Rgba.FromHex(item.Tint) : C.MedalGold;
+        private static Rgba Tint(CosmeticItem item) => Visuals.Tint(item);
 
         /// <summary>The playtest's own controls (not the product): step back, skip one or ten levels, start a new profile.</summary>
         private static void DevRow(IPainter p, DesignApp app, Box row)

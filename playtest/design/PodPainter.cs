@@ -105,13 +105,14 @@ namespace Bloomlings.Playtest.Design
                     }
                 }
 
-                // Deeper pods are not drawn; a "+N" badge on the last shown pod says how many more wait there.
+                // Deeper pods are not drawn; a "+N" badge on the last shown pod says how many more wait there. It sits in
+                // the bottom-left corner, clear of the pod's "xN" (spec 004 FR-008).
                 if (stack.Count > shown)
                 {
                     Box last = grid.Cell(st, shown - 1);
                     float h = last.Height * 0.3f;
                     string more = "+" + (stack.Count - shown).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    Kit.CountBadge(p, last.Right - (h * 0.4f), last.Bottom - (h * 0.4f), h, more);
+                    Kit.CountBadge(p, last.Left + (h * 0.4f), last.Bottom - (h * 0.4f), h, more);
                 }
             }
 
@@ -167,10 +168,22 @@ namespace Bloomlings.Playtest.Design
             Rgba edge = DesignTokens.PodCardEdge(shown);
             // A volumetric 2D card (spec 003 FR-022): a thick lip, a bevel and a highlight; never 3D.
             Box f = Kit.Block(p, box, tint, edge, radius, Kit.PodLip(p, box.Height), next ? 0.25f : 0.55f, look == PodLook.Pressed);
-            Rgba body = shown;
-            Box figure = BloomlingArt.OnCard(f);
-            Visuals.Bloomling(p, figure, Visuals.FamilyOf(variant), body, Visuals.IconOf(variant), next ? BloomlingMood.Sleepy : BloomlingMood.Happy);
-            CountPill(p, f, pod.Remaining, next);
+            // The variant's character (spec 004 FR-008): awake on an exposed pod, asleep in the stack, and "xN" in the corner.
+            Visuals.Character(p, CharacterArt.OnCard(f), variant, next ? CharacterMood.Asleep : CharacterMood.Happy);
+            Count(p, f, pod.Remaining);
+        }
+
+        /// <summary>"xN" in the card face's bottom-right corner (spec 004 FR-008, data-model.md "PodCount").</summary>
+        public static void Count(IPainter p, Box face, int count)
+        {
+            p.Mark("pod.count");
+            Box box = CharacterArt.CountBox(face);
+            string text = PlaytestText.F("pod.count", count);
+            float scale = box.Height * 0.9f / p.U(T.Count.Size);
+            float width = p.MeasureText(text, T.Count, scale);
+            float right = box.Right;
+            float shown = Math.Min(width, box.Width);
+            p.Text(text, right - (shown / 2f), box.CenterY, T.Count, CharacterArt.CountColor, box.Width, scale, CharacterArt.CountLook);
         }
 
         /// <summary>The count in a dark pill on the card's lower edge.</summary>
@@ -224,7 +237,7 @@ namespace Bloomlings.Playtest.Design
                 {
                     Rgba color = Visuals.ColorOf(flight.Variant.Value);
                     p.FillRound(box, size * DesignTokens.Radius.Pod, DesignTokens.PodCard(color));
-                    Visuals.Bloomling(p, box.Inset(size * 0.1f), Visuals.FamilyOf(flight.Variant.Value), color, Visuals.IconOf(flight.Variant.Value));
+                    Visuals.Character(p, CharacterArt.OnCard(box), flight.Variant.Value, CharacterMood.Happy);
                 }
                 else
                 {

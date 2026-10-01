@@ -1,10 +1,9 @@
 using System.Collections.Generic;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Timeline;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
-using Bloomlings.Client.UI.Design;
-using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +13,9 @@ namespace Bloomlings.Client.Gameplay.Workers
     /// One Bloomling on the board (T046): it emerges at the Garden Entry, hops along its route over open cells facing
     /// the way it walks, plays a short restore at the target, then despawns. The states idle, emerge, move, restore
     /// and despawn are driven in code by the timeline's clock, so 2× speed and backlog compression apply. Workers are
-    /// small and drawn above the tiles without covering them (doc 12 §8). Each carries its variant's icon, so the
-    /// target reads without color (doc 12 §6, "moving-character test"), and wears its family's outfit (FR-063).
+    /// drawn above the tiles (doc 12 §8). Each is its variant's 2D character, whose shape is the variant's symbol, so the
+    /// target reads without color (doc 12 §6, "moving-character test"; spec 004 FR-010), with a flat shadow under it, and
+    /// it wears its family's outfit (FR-063).
     /// </summary>
     public sealed class BloomlingWorker : MonoBehaviour
     {
@@ -37,7 +37,6 @@ namespace Bloomlings.Client.Gameplay.Workers
 
         private readonly List<Vector2> _path = new List<Vector2>();
         private BloomlingFigure _figure = null!;
-        private Image _mark = null!;
         private EventTimeline _timeline = null!;
         private WorkerPool _pool = null!;
         private float _travel;
@@ -50,32 +49,30 @@ namespace Bloomlings.Client.Gameplay.Workers
         public static BloomlingWorker Create(Transform parent, WorkerPool pool, EventTimeline timeline)
         {
             BloomlingFigure figure = BloomlingFigure.Create("Bloomling", parent);
-            GameObject host = figure.Body.gameObject;
+            GameObject host = figure.Rect.gameObject;
             var worker = host.AddComponent<BloomlingWorker>();
             worker._figure = figure;
-            worker._mark = UiFactory.CreateImage("Mark", figure.Body.transform, null, Color.white);
-            worker._mark.preserveAspect = true;
-            worker._mark.raycastTarget = false;
-            (float x0, float y0, float x1, float y1) = BloomlingArt.SymbolAnchors;
-            UiFactory.Place(worker._mark.rectTransform, x0, y0, x1, y1);
+
+            // A flat ground shadow just below the feet (the picture's transparent margin), so it never darkens them.
+            Image shadow = UiFactory.CreateImage("Shadow", figure.Body.transform, ProceduralSprites.Circle, new Color(0f, 0f, 0f, 0.13f));
+            shadow.raycastTarget = false;
+            shadow.transform.SetAsFirstSibling();
+            UiFactory.Place(shadow.rectTransform, 0.2f, -0.06f, 0.8f, 0.08f);
             worker._pool = pool;
             worker._timeline = timeline;
             host.SetActive(false);
             return worker;
         }
 
-        /// <param name="visual">The variant it clears: body color, family and icon.</param>
+        /// <param name="visual">The variant it clears: its character and family.</param>
         /// <param name="path">Canvas positions: the entry point, then the route cells ending at the target.</param>
         /// <param name="outfit">
-        /// What its family wears (FR-063): a thin skin pattern, a hat, an expression, a trail. The variant color of the
-        /// body and its icon are never changed.
+        /// What its family wears (FR-063): a thin skin pattern, a hat, an expression, a trail. The character's colors
+        /// and shape are never changed.
         /// </param>
         public void Launch(VariantVisual visual, IReadOnlyList<Vector2> path, float size, float travelSeconds, Outfit? outfit = null)
         {
-            // The kawaii walker with its white halo, the variant symbol on its belly badge (spec 003 FR-032).
-            _figure.Show(visual.Family, visual.Color, outfit, VariantCatalog.Default.Get(visual.Id).IconId, halo: true);
-            _mark.sprite = visual.Icon;
-            _mark.color = UiTheme.Of(BloomlingArt.SymbolColor(UiTheme.ToRgba(visual.Color)));
+            _figure.ShowCharacter(visual.Id, outfit);
             _path.Clear();
             _path.AddRange(path);
             _size = size;

@@ -11,8 +11,8 @@ using Bloomlings.Client.UI.Localization;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The splash of the design board's frame 1 (spec 002 FR-016): the Bloomlings wordmark over the garden, with a
-    /// Bloomling of each family on the stone. It shows from the first frame while services and content load, and
+    /// The splash of the design board's frame 1 (spec 002 FR-016): the Bloomlings wordmark over the garden, with the
+    /// four families as 3D heroes on their stone (spec 004). It shows from the first frame while services and content load, and
     /// fades once the first screen is up. It never waits for a tap: the first launch still goes straight into
     /// Level 1 (spec 001 US2).
     /// </summary>
@@ -37,21 +37,8 @@ namespace Bloomlings.Client.UI.Screens
             Image petal = UiKit.PetalIcon("Petal", root);
             UiFactory.Place(petal.rectTransform, 0.5f, 0.73f, 0.58f, 0.775f);
 
-            (Family Family, VariantId Variant)[] friends = { (Family.Sprig, VariantId.Leaf), (Family.Bloom, VariantId.Flower), (Family.Drop, VariantId.Water), (Family.Twig, VariantId.Acorn) };
-            for (int i = 0; i < friends.Length; i++)
-            {
-                float x = 0.14f + (i * 0.19f);
-                // The four families as kawaii Bloomlings, each with its variant's symbol on its belly (spec 003 FR-032).
-                VariantInfo info = VariantCatalog.Default.Get(friends[i].Variant);
-                Rgba color = Rgba.FromHex(info.ColorHex);
-                Image body = UiFactory.CreateImage(friends[i].Family.ToString(), root, ProceduralSprites.Bloomling(new BloomlingLook(friends[i].Family, color, info.IconId)), Color.white);
-                body.preserveAspect = true;
-                UiFactory.Place(body.rectTransform, x, 0.3f, x + 0.16f, 0.4f);
-                Image symbol = UiFactory.CreateImage("Symbol", body.transform, ProceduralSprites.Icon(info.IconId), UiTheme.Of(BloomlingArt.SymbolColor(color)));
-                symbol.preserveAspect = true;
-                (float sx0, float sy0, float sx1, float sy1) = BloomlingArt.SymbolAnchors;
-                UiFactory.Place(symbol.rectTransform, sx0, sy0, sx1, sy1);
-            }
+            // The four families as 3D heroes on their stone (spec 004 FR-017; "brand.splash_art").
+            UiFactory.Place(HeroPictures.Group("Heroes", root), 0.02f, 0.22f, 0.98f, 0.52f);
 
             return screen;
         }

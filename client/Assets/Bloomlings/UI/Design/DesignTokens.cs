@@ -120,15 +120,6 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba GardenFlowerCenterLine = Rgba.FromHex("#D29B2E");
             public static readonly Rgba GardenGlow = Rgba.FromHex("#FFD54A");
 
-            // ---- The kawaii Bloomlings (spec 003 FR-032, contracts/bloomling-look.md) ----
-            public static readonly Rgba CharInk = Rgba.FromHex("#2B2420");
-            public static readonly Rgba CharSparkle = Rgba.FromHex("#FFFFFF");
-            public static readonly Rgba CharBlush = Rgba.FromHex("#FF8FA3");
-            public static readonly Rgba CharBadge = Rgba.FromHex("#FFFDF7");
-            public static readonly Rgba CharCap = Rgba.FromHex("#8A5A30");
-            public static readonly Rgba CharCapLine = Rgba.FromHex("#4A2E16");
-            public static readonly Rgba CharHalo = Rgba.FromHex("#FFFFFF");
-
             /// <summary>Every color token by its contract name (tests and docs).</summary>
             public static IReadOnlyDictionary<string, Rgba> All { get; } = new Dictionary<string, Rgba>(StringComparer.Ordinal)
             {
@@ -221,13 +212,6 @@ namespace Bloomlings.Client.UI.Design
                 ["garden.flower_center"] = GardenFlowerCenter,
                 ["garden.flower_center_line"] = GardenFlowerCenterLine,
                 ["garden.glow"] = GardenGlow,
-                ["char.ink"] = CharInk,
-                ["char.sparkle"] = CharSparkle,
-                ["char.blush"] = CharBlush,
-                ["char.badge"] = CharBadge,
-                ["char.cap"] = CharCap,
-                ["char.cap_line"] = CharCapLine,
-                ["char.halo"] = CharHalo,
             };
 
             /// <summary>The medal color of ranks 1–3, or null for other ranks.</summary>
@@ -461,6 +445,15 @@ namespace Bloomlings.Client.UI.Design
         /// what comes next while the exposed pods stay the bright, tappable ones.
         /// </summary>
         public static Rgba PodQueued(Rgba variant) => variant.Mix(Colors.StateStuck, 0.38f);
+
+        /// <summary>
+        /// How far a board tile's face is lightened toward <c>garden.paper_top</c> under its character (spec 004 FR-012,
+        /// FR-013): 0 is the full variant color, 1 a plain cream tile as in the owner's reference.
+        /// </summary>
+        public const float CharacterTileMix = 0.7f;
+
+        /// <summary>A target tile's face under its character: the variant color lightened toward the paper (spec 004 R6).</summary>
+        public static Rgba CharacterTile(Rgba variant) => variant.Mix(Colors.GardenPaperTop, CharacterTileMix);
 
         /// <summary>The theme color of a booster's round button.</summary>
         public static Rgba BoosterColor(string boosterId) => boosterId switch

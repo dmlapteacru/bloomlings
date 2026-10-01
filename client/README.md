@@ -37,8 +37,10 @@ straight from the repository's `content/curated/` folder. The save lives in
 
 **Tools/Bloomlings/Play Dev Level** opens the Gameplay scene and plays a level straight from the repository's
 `content/curated/dev/` folder (or any level file you choose), without going through Boot. All screens, tiles, pods
-and Bloomling workers are built from code with procedural placeholder art (`Art/Procedural/ProceduralSprites.cs`), so
-no prefab or sprite asset is needed yet.
+and Bloomling workers are built from code with procedural placeholder art (`Art/Procedural/ProceduralSprites.cs`) and
+the generated character pictures of spec 004 (`Art/Characters/Resources/Characters/`, made by `tools/artgen`, loaded by
+`Art/Characters/CharacterSprites.cs`; `Editor/CharacterArtImporter.cs` sets their import settings), so no prefab is
+needed yet.
 
 ## Verification status
 

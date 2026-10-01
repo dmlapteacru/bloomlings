@@ -49,11 +49,11 @@ namespace Bloomlings.Client.UI.Design
         };
 
         /// <summary>A skin pattern cut to a family's body (FR-063): a composite of a <c>char.*</c> and a <c>cosmetic.*</c> slot.</summary>
-        public static Func<float, float, float> SkinOn(Family family, string shape)
-        {
-            Func<float, float, float> body = BloomlingArt.Silhouette(family);
-            return (x, y) => Max(body(x, y) + 0.04f, SkinPatternSdf(shape, x, y));
-        }
+        public static Func<float, float, float> SkinOn(Family family, string shape) =>
+            (x, y) => Max(SilhouetteSdf(family, x, y) + 0.04f, SkinPatternSdf(shape, x, y));
+
+        /// <summary>A skin pattern over its whole box, for a picture to mask (spec 004: skins on the character pictures).</summary>
+        public static Func<float, float, float> SkinPattern(string shape) => (x, y) => SkinPatternSdf(shape, x, y);
 
         /// <summary>
         /// One part of the <c>ui.deco.garden</c> cluster, grown by <paramref name="grow"/> (positive: its outline ring),
@@ -205,15 +205,10 @@ namespace Bloomlings.Client.UI.Design
                     RoundedBox(x, y, 0f, -0.02f, 0.95f, 0.1f, 0.08f)),
 
                 // ---- Characters ----
-                // The outer edge of the kawaii figures (BloomlingArt), which draws them in full.
-                ["char.sprig"] = BloomlingArt.Silhouette(Family.Sprig),
-                ["char.bloom"] = BloomlingArt.Silhouette(Family.Bloom),
-                ["char.drop"] = BloomlingArt.Silhouette(Family.Drop),
-                ["char.twig"] = BloomlingArt.Silhouette(Family.Twig),
-                ["char.face"] = (x, y) => Min(
-                    Length(x + 0.3f, y - 0.14f) - 0.12f,
-                    Length(x - 0.3f, y - 0.14f) - 0.12f,
-                    Max(MathF.Abs(Length(x, y + 0.02f) - 0.3f) - 0.06f, y + 0.12f)),
+                ["char.sprig"] = (x, y) => SilhouetteSdf(Family.Sprig, x, y),
+                ["char.bloom"] = (x, y) => SilhouetteSdf(Family.Bloom, x, y),
+                ["char.drop"] = (x, y) => SilhouetteSdf(Family.Drop, x, y),
+                ["char.twig"] = (x, y) => SilhouetteSdf(Family.Twig, x, y),
 
                 // ---- Variant symbols (8 launch + 4 expansion) ----
                 ["symbol.leaf"] = Leaf,
@@ -337,6 +332,14 @@ namespace Bloomlings.Client.UI.Design
 
         // ---- Composite pieces ----
 
+        private static float SilhouetteSdf(Family family, float x, float y) => family switch
+        {
+            Family.Sprig => Min(Length(x, y + 0.25f) - 0.55f, Leaf((x - 0.15f) * 2.2f, (y - 0.55f) * 2.2f) / 2.2f),
+            Family.Bloom => Min(Length(x, y + 0.25f) - 0.55f, Flower(x * 2.4f, (y - 0.5f) * 2.4f) / 2.4f),
+            Family.Drop => Min(Length(x, y + 0.2f) - 0.58f, Triangle(x, y + 0.05f, 0.58f)),
+            _ => Min(RoundedBox(x, y, 0f, -0.15f, 0.42f, 0.7f, 0.35f), RoundedBox(x, y, 0.3f, 0.55f, 0.25f, 0.06f, 0.03f)),
+        };
+
         /// <summary>A repeating pattern over the whole square (negative inside a mark).</summary>
         private static float SkinPatternSdf(string shape, float x, float y)
         {
@@ -416,7 +419,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>An upward-pointing triangle on top of a circle of radius r at the origin (a droplet tip).</summary>
         private static float Triangle(float x, float y, float r) => Max(y - (r * 1.9f), (MathF.Abs(x) * 1.6f) + y - (r * 1.9f), -y);
 
-        internal static float RoundedBox(float x, float y, float cx, float cy, float hx, float hy, float radius)
+        private static float RoundedBox(float x, float y, float cx, float cy, float hx, float hy, float radius)
         {
             float qx = MathF.Abs(x - cx) - hx + radius;
             float qy = MathF.Abs(y - cy) - hy + radius;
@@ -424,7 +427,7 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>The distance to the segment a–b.</summary>
-        internal static float Segment(float px, float py, float ax, float ay, float bx, float by)
+        private static float Segment(float px, float py, float ax, float ay, float bx, float by)
         {
             float dx = bx - ax;
             float dy = by - ay;
@@ -432,7 +435,7 @@ namespace Bloomlings.Client.UI.Design
             return Length(px - (ax + (t * dx)), py - (ay + (t * dy)));
         }
 
-        internal static float Length(float x, float y) => MathF.Sqrt((x * x) + (y * y));
+        private static float Length(float x, float y) => MathF.Sqrt((x * x) + (y * y));
 
         private static float Sq(float v) => v * v;
 

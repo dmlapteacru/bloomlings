@@ -26,6 +26,7 @@ namespace Bloomlings.Playtest.Design
             LevelReward? reward = s.Payout?.Reward;
             float content = 470f + 130f + (reward?.DroppedBooster != null ? 60f : 0f) + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 100f;
             CardRegions r = Kit.Card(p, content, PlaytestText.T("win.title"), null, Kit.Pop(since));
+            Heroes(p, r);
             float y = r.Body.Top;
 
             // The finished picture in a frame.
@@ -98,6 +99,7 @@ namespace Bloomlings.Playtest.Design
         {
             MilestoneGrant grant = s.Payout!.Milestone!;
             CardRegions r = Kit.Card(p, 60f + 300f + DesignTokens.Size.CardPrimaryHeight + 70f, PlaytestText.F("common.level", NumberText.Group(grant.Level)), null, Kit.Pop(since), T.TitleCaps);
+            Heroes(p, r);
             p.Text(PlaytestText.T("milestone.reached"), r.Body.CenterX, r.Body.Top + p.U(20f), T.Body, C.TextSecondary);
 
             var items = new List<(string Shape, Rgba Color, string Amount, bool Petal)>();
@@ -152,6 +154,19 @@ namespace Bloomlings.Playtest.Design
             Kit.PrimaryButton(p, go, PlaytestText.T("milestone.continue"), s.Next, decorate: true, breathe: true);
             Kit.EndCard(p);
             Confetti(p, s, since);
+        }
+
+        /// <summary>
+        /// The four 3D heroes celebrating on the card's top edge (spec 004 FR-017), in the room above the card. On a phone
+        /// too short for them they are left out, so the card never moves.
+        /// </summary>
+        private static void Heroes(IPainter p, CardRegions r)
+        {
+            Box? group = CharacterArt.GroupOnCard(r.Card, ScreenLayout.SafeArea(p.Width, p.Height, p.Insets), p.Scale, 0.9f);
+            if (group.HasValue)
+            {
+                Visuals.Group(p, group.Value);
+            }
         }
 
         /// <summary>

@@ -92,7 +92,7 @@ namespace Bloomlings.Playtest.Design
             Kit.Row(p, you, highlighted: true);
             p.Text("—", you.Left + p.U(70f), you.CenterY, T.Body, C.GardenLabelPlain);
             p.FillCircle(you.Left + p.U(170f), you.CenterY, p.U(36f), Rgba.White);
-            Visuals.Bloomling(p, Box.FromCenter(you.Left + p.U(170f), you.CenterY, p.U(60f), p.U(60f)), Core.Variants.Family.Sprig, Visuals.ColorOf(Core.Variants.VariantId.Leaf), null);
+            Visuals.Hero(p, Box.FromCenter(you.Left + p.U(170f), you.CenterY, p.U(64f), p.U(64f)), Core.Variants.Family.Sprig, null);
             p.TextLeft(PlaytestText.T("leaderboard.you"), you.Left + p.U(230f), you.CenterY, T.Body, C.GardenLabelPlain);
             p.Text(NumberText.Group(app.Meta.Progression.HighestCompletedLevel), you.Right - p.U(90f), you.CenterY, T.Count, C.GardenLabelPlain);
 

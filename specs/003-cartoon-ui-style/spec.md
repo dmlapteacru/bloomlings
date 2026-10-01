@@ -363,7 +363,8 @@ in spec 002.
     pod, spec 001 FR-045) and Bloom Burst (a visible variant, spec 001 FR-050) have one;
   - **disabled:** greyed and not pressable when it can have no effect (spec 001 FR-046);
   - **pressed:** squashed, as in FR-017.
-- **FR-032 Kawaii Bloomlings**: Every Bloomling MUST be drawn as a kawaii figure, in 2D. This covers pods, Waiting
+- **FR-032 Kawaii Bloomlings** *(replaced by spec 004 FR-001 to FR-011: generated 2D characters whose shape is the
+  variant symbol; kept here as history)*: Every Bloomling MUST be drawn as a kawaii figure, in 2D. This covers pods, Waiting
   Slots, walkers on the board, Home, the splash, the Wardrobe and the win cheer. The figure has:
   - one round body per family, head and body in one:
     - Sprig: an egg with a sprout;
@@ -461,7 +462,8 @@ in spec 002.
   lost or delayed in a test of 20 rapid taps.
 - **SC-005**: Gameplay stays at 30 frames per second or more, with no hitch longer than 100 ms, on the reference
   low-end device (spec 002 SC-005).
-- **SC-006**: No new art or audio asset files are added. The only new file is one rounded font family (Nunito,
+- **SC-006** *(replaced by spec 004 SC-008: the character art is generated files, recorded as the project's own)*: No new
+  art or audio asset files are added. The only new file is one rounded font family (Nunito,
   FR-009). Every player-facing string of every shipped language renders in it, with no missing glyphs.
 - **SC-007**: No screen shows a cut-off or overlapping element, and every touch target keeps its minimum size, on three
   aspect ratios from 16:9 to 21:9.

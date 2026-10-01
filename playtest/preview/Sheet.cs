@@ -71,14 +71,14 @@ namespace Bloomlings.Playtest.Preview
             using var font = new SKFont(SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Bold), 34);
             using var text = new SKPaint { Color = new SKColor(0x2E, 0x34, 0x40), IsAntialias = true };
             var sampling = new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear);
-            canvas.DrawText("Before: the design board look (spec 002)", 24, 48, font, text);
+            canvas.DrawText("Before: the given contact sheet (--before)", 24, 48, font, text);
             using (SKImage image = SKImage.FromBitmap(before))
             {
                 canvas.DrawImage(image, new SKRect(0, heading, width, heading + beforeHeight), sampling);
             }
 
             float top = heading + beforeHeight;
-            canvas.DrawText("After: the Garden look (spec 003)", 24, top + 48, font, text);
+            canvas.DrawText("After: this build", 24, top + 48, font, text);
             using (SKImage image = SKImage.FromBitmap(after))
             {
                 canvas.DrawImage(image, new SKRect(0, top + heading, width, top + heading + afterHeight), sampling);
