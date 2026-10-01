@@ -31,8 +31,8 @@ namespace Bloomlings.Playtest.Design
                 float hop = (float)Math.Abs(Math.Sin((app.Now * 3f) + i)) * p.U(14f);
                 float x = safe.CenterX + ((i - 1.5f) * size * 1.08f);
                 Box body = Box.FromCenter(x, y - hop, size, size);
-                p.FillCircle(x, y + (size * 0.46f), size * 0.3f, Rgba.Black.WithAlpha(0.1f));
-                Visuals.Bloomling(p, body, families[i], Visuals.ColorOf(variants[i]), Visuals.SymbolOf(variants[i]), face: true, symbolScale: 0.4f);
+                Visuals.GroundShadow(p, Box.FromCenter(x, y, size, size));
+                Visuals.Bloomling(p, body, families[i], Visuals.ColorOf(variants[i]), Visuals.IconOf(variants[i]));
             }
 
             p.Mark("brand.splash_art");
@@ -149,10 +149,10 @@ namespace Bloomlings.Playtest.Design
             p.Mark("char.hero.home");
             float heroSize = Math.Min(hero.Height * 0.72f, hero.Width * 0.6f);
             Box body = Box.FromCenter(hero.CenterX, hero.CenterY + (hero.Height * 0.02f), heroSize, heroSize);
-            p.FillCircle(body.CenterX, body.Bottom - (heroSize * 0.04f), heroSize * 0.3f, Rgba.Black.WithAlpha(0.1f));
+            Visuals.GroundShadow(p, body);
             Outfit outfit = meta.Wardrobe.OutfitOf(Family.Sprig);
             Rgba color = Visuals.ColorOf(VariantId.Leaf);
-            Visuals.Bloomling(p, body, Family.Sprig, color, null, face: true);
+            Visuals.Bloomling(p, body, Family.Sprig, color, null);
             if (outfit.Skin != null)
             {
                 p.ShapeOf("skin/" + outfit.Skin.Shape, ShapeLibrary.SkinOn(Family.Sprig, outfit.Skin.Shape), body, Rgba.White.WithAlpha(CosmeticCatalog.SkinOpacity));

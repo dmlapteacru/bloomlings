@@ -41,13 +41,16 @@ namespace Bloomlings.Client.UI.Screens
             for (int i = 0; i < friends.Length; i++)
             {
                 float x = 0.14f + (i * 0.19f);
-                Color color = UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(friends[i].Variant).ColorHex));
-                Image body = UiFactory.CreateImage(friends[i].Family.ToString(), root, ProceduralSprites.Silhouette(friends[i].Family), color);
+                // The four families as kawaii Bloomlings, each with its variant's symbol on its belly (spec 003 FR-032).
+                VariantInfo info = VariantCatalog.Default.Get(friends[i].Variant);
+                Rgba color = Rgba.FromHex(info.ColorHex);
+                Image body = UiFactory.CreateImage(friends[i].Family.ToString(), root, ProceduralSprites.Bloomling(new BloomlingLook(friends[i].Family, color, info.IconId)), Color.white);
                 body.preserveAspect = true;
                 UiFactory.Place(body.rectTransform, x, 0.3f, x + 0.16f, 0.4f);
-                Image face = UiFactory.CreateImage("Face", body.transform, ProceduralSprites.Shape("char.face"), UiTheme.Of(UiTheme.ToRgba(color).Ink));
-                face.preserveAspect = true;
-                UiFactory.Place(face.rectTransform, 0.32f, 0.28f, 0.68f, 0.64f);
+                Image symbol = UiFactory.CreateImage("Symbol", body.transform, ProceduralSprites.Icon(info.IconId), UiTheme.Of(BloomlingArt.SymbolColor(color)));
+                symbol.preserveAspect = true;
+                (float sx0, float sy0, float sx1, float sy1) = BloomlingArt.SymbolAnchors;
+                UiFactory.Place(symbol.rectTransform, sx0, sy0, sx1, sy1);
             }
 
             return screen;

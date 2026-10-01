@@ -21,9 +21,9 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// <item><description>mystery: pink with "?";</description></item>
     /// <item><description>connected: a teal link mark.</description></item>
     /// </list>
-    /// The card shows the Bloomling of its family in the variant color, with eyes, carrying the variant symbol in ink,
-    /// and the count in a dark pill. That keeps spec 001 FR-012's order of prominence: the exact variant icon, the
-    /// variant color, the count, then the family silhouette.
+    /// The card shows the kawaii Bloomling of its family in the variant color (spec 003 FR-032), asleep while it waits
+    /// in its stack, with the variant symbol on its white belly badge above the count's dark pill. That keeps spec 001
+    /// FR-012's order of prominence: the exact variant icon, the variant color, the count, then the family silhouette.
     /// </summary>
     public sealed class PodView : MonoBehaviour
     {
@@ -33,8 +33,6 @@ namespace Bloomlings.Client.Gameplay.Tray
         private Image _edge = null!;
         private Image _card = null!;
         private Image _body = null!;
-        private Image _eyeLeft = null!;
-        private Image _eyeRight = null!;
         private Image _icon = null!;
         private Image _countPill = null!;
         private Image _lock = null!;
@@ -66,14 +64,10 @@ namespace Bloomlings.Client.Gameplay.Tray
 
             view._body = UiFactory.CreateImage("Bloomling", view._card.transform, null, Color.white);
             view._body.preserveAspect = true;
-            UiFactory.Place(view._body.rectTransform, 0.11f, 0.2f, 0.89f, 0.98f);
-            view._eyeLeft = UiFactory.CreateImage("EyeL", view._body.transform, ProceduralSprites.Circle, UiTheme.Text);
-            UiFactory.Place(view._eyeLeft.rectTransform, 0.34f, 0.5f, 0.43f, 0.59f);
-            view._eyeRight = UiFactory.CreateImage("EyeR", view._body.transform, ProceduralSprites.Circle, UiTheme.Text);
-            UiFactory.Place(view._eyeRight.rectTransform, 0.57f, 0.5f, 0.66f, 0.59f);
+            (float bx0, float by0, float bx1, float by1) = BloomlingArt.OnCardAnchors;
+            UiFactory.Place(view._body.rectTransform, bx0, by0, bx1, by1);
             view._icon = UiFactory.CreateImage("Icon", view._card.transform, null, Color.white);
             view._icon.preserveAspect = true;
-            UiFactory.Place(view._icon.rectTransform, 0.3f, 0.26f, 0.7f, 0.62f);
 
             view._countPill = UiKit.Pill("CountPill", view._card.transform, UiTheme.Of(DesignTokens.Colors.BadgeCount));
             UiFactory.Place(view._countPill.rectTransform, 0.24f, 0.02f, 0.76f, 0.28f);
@@ -104,7 +98,6 @@ namespace Bloomlings.Client.Gameplay.Tray
                 Tint(UiTheme.SlotLocked);
                 _body.enabled = false;
                 _icon.enabled = false;
-                SetEyes(false, Color.clear);
             }
             else if (hidden)
             {
@@ -113,7 +106,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                 _icon.enabled = true;
                 _icon.sprite = ProceduralSprites.Question;
                 _icon.color = dimmed ? UiTheme.Stuck : MysteryMark;
-                SetEyes(false, Color.clear);
+                UiFactory.Place(_icon.rectTransform, 0.3f, 0.36f, 0.7f, 0.8f);
             }
             else
             {
@@ -125,12 +118,14 @@ namespace Bloomlings.Client.Gameplay.Tray
                 Tint(UiTheme.Of(DesignTokens.PodCard(shown)));
                 _card.sprite = visual.PodSkin ?? ProceduralSprites.RoundedSquare;
                 _body.enabled = true;
-                _body.sprite = ProceduralSprites.Silhouette(visual.Family);
-                _body.color = dimmed ? UiTheme.Of(shown) : visual.Color;
+                string iconId = VariantCatalog.Default.Get(visual.Id).IconId;
+                _body.sprite = ProceduralSprites.Bloomling(new BloomlingLook(visual.Family, shown, iconId, dimmed ? BloomlingMood.Sleepy : BloomlingMood.Happy));
+                _body.color = Color.white;
                 _icon.enabled = true;
                 _icon.sprite = visual.Icon;
-                _icon.color = visual.Ink;
-                SetEyes(!dimmed, visual.Ink);
+                _icon.color = UiTheme.Of(BloomlingArt.SymbolColor(shown));
+                (float sx0, float sy0, float sx1, float sy1) = BloomlingArt.SymbolOnCardAnchors;
+                UiFactory.Place(_icon.rectTransform, sx0, sy0, sx1, sy1);
             }
 
             _countPill.color = dimmed || lockShown ? UiTheme.Stuck : UiTheme.Of(DesignTokens.Colors.BadgeCount);
@@ -149,14 +144,6 @@ namespace Bloomlings.Client.Gameplay.Tray
             _card.sprite = ProceduralSprites.RoundedSquare;
             _card.color = card;
             _edge.color = Color.Lerp(card, Color.black, 0.18f);
-        }
-
-        private void SetEyes(bool shown, Color ink)
-        {
-            _eyeLeft.enabled = shown;
-            _eyeRight.enabled = shown;
-            _eyeLeft.color = ink;
-            _eyeRight.color = ink;
         }
 
         private static Color Grey(Color c)

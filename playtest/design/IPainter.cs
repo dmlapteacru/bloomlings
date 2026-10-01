@@ -48,6 +48,13 @@ namespace Bloomlings.Playtest.Design
         void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color);
 
         /// <summary>
+        /// A full-color picture fitted into <paramref name="box"/> (the kawaii Bloomlings, spec 003 FR-032):
+        /// <paramref name="render"/> gives size × size RGBA bytes, rows from the top, premultiplied alpha. The painter
+        /// caches it by key and size.
+        /// </summary>
+        void Picture(string key, Func<int, byte[]> render, Box box);
+
+        /// <summary>
         /// Centered text in a board type style: bold, uppercase and outlined as the style says. It is
         /// <paramref name="sizeScale"/> times the style size, and shrinks to <paramref name="maxWidth"/> down to the
         /// style's minimum. With a <paramref name="look"/>, <paramref name="color"/> is ignored and the label is drawn

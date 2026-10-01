@@ -45,7 +45,8 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the cartoon "Garden" look of spec 003
   (`specs/003-cartoon-ui-style/`): buttons on cream plates with sentence-case labels in Nunito (embedded from
   `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL), cards in wooden frames, a volumetric 2D board, pods and
-  slots, and booster tiles. The level tester keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show
+  slots, booster tiles, and kawaii Bloomlings with the variant symbol on a white belly badge (asleep while queued,
+  worried when stuck). The level tester keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show
   as unavailable, and the jam rescue is granted without an ad. A small dev row on Home (−1, +1, +10, Reset) moves the
   progression for testing.
 - Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):

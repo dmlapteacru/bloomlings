@@ -172,15 +172,12 @@ namespace Bloomlings.Client.UI.Screens
             return screen;
         }
 
-        /// <summary>A Bloomling sitting on the Home stone (frame 2), at <paramref name="x"/> across the hero area.</summary>
+        /// <summary>A kawaii Bloomling sitting on the Home stone (frame 2), at <paramref name="x"/> across the hero area.</summary>
         private static void Sitter(RectTransform parent, Family family, Color color, float x)
         {
-            Image body = UiFactory.CreateImage(family.ToString(), parent, ProceduralSprites.Silhouette(family), color);
+            Image body = UiFactory.CreateImage(family.ToString(), parent, ProceduralSprites.Bloomling(new BloomlingLook(family, UiTheme.ToRgba(color))), Color.white);
             body.preserveAspect = true;
             UiFactory.Place(body.rectTransform, x, 0.12f, x + 0.26f, 0.5f);
-            Image face = UiFactory.CreateImage("Face", body.transform, ProceduralSprites.Shape("char.face"), UiTheme.Text);
-            face.preserveAspect = true;
-            UiFactory.Place(face.rectTransform, 0.32f, 0.28f, 0.68f, 0.64f);
         }
 
         public void SetFreeBoosterOffer(bool visible)

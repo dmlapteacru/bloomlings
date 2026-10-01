@@ -79,6 +79,9 @@ theme. It MUST NOT reuse Colony Flow's graphics, icons, colors as a scheme, or l
   must see what follows each choice (left, middle, right) before choosing, at least two or three rows, as in the
   reference game; the tray pods get smaller to make room. This replaces spec 002 FR-012's "next in stack: greyed,
   smaller, peeking below" (FR-022a).
+- Q: Which character style? → A: Kawaii (style B), chosen from a sheet of six styles: Garden, Kawaii, Flat, Sticker,
+  Storybook and Plush. The Bloomlings become kawaii figures: head and body in one, big sparkly eyes, blush, tiny feet,
+  a soft pastel gradient, a crest per variant, and the variant symbol on a white belly badge (FR-032).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -360,6 +363,27 @@ in spec 002.
     pod, spec 001 FR-045) and Bloom Burst (a visible variant, spec 001 FR-050) have one;
   - **disabled:** greyed and not pressable when it can have no effect (spec 001 FR-046);
   - **pressed:** squashed, as in FR-017.
+- **FR-032 Kawaii Bloomlings**: Every Bloomling MUST be drawn as a kawaii figure, in 2D. This covers pods, Waiting
+  Slots, walkers on the board, Home, the splash, the Wardrobe and the win cheer. The figure has:
+  - one round body per family, head and body in one:
+    - Sprig: an egg with a sprout;
+    - Bloom: a round bulb with a crown of petals (Violet Bud: a closed bud; Berry: a green calyx);
+    - Drop: a droplet (Dew: a sparkle; Mist: a small cloud);
+    - Twig: a stump with a sprout (Acorn: an acorn cap);
+  - a body in the variant color (dark colors a little lighter), with a soft light-to-dark gradient and an outline in a
+    darker shade of the body, never black;
+  - big dark eyes with two white sparkles, pink blush, a small mouth and tiny feet;
+  - a white badge on the belly with the variant symbol, in a shade of the variant color that reaches 3:1 on the badge.
+
+  The face shows the state:
+  - happy: exposed pods, working slots, walkers and Home;
+  - asleep: pods still in their stack;
+  - worried: a stuck pod in a slot.
+
+  A worn cosmetic expression replaces the drawn face. Walkers get a white sticker edge, so they read on any tile. On
+  pod and slot cards the figure sits above the count pill, which never covers the badge. So spec 001 FR-012's order of
+  prominence holds: symbol, color, count, silhouette. Both builds draw the same picture from the shared design values
+  (FR-028), and no art files are added (SC-006). Board tiles keep their symbols without faces (spec 001 FR-005).
 
 #### F. Readability, accessibility and performance
 
@@ -415,6 +439,8 @@ in spec 002.
   - tabs, toggles and rows;
   - the gameplay pieces: pods, slots, booster tiles, top-bar pills, and the board with its cells.
 - **Comparison sheet**: the before/after images of every frame, used for the review.
+- **Bloomling look**: a family, a variant color and icon, a face (happy, asleep, worried or none), the belly badge and
+  the walkers' halo. One look always gives the same picture.
 
 ## Success Criteria *(mandatory)*
 
@@ -442,6 +468,8 @@ in spec 002.
 - **SC-008**: A first-time player still finds and taps PLAY within 3 seconds of Home appearing, in 9 of 10 attempts.
 - **SC-009**: The same tap sequences end in the same rules state as before the feature (0 differences in the playtest
   replay check).
+- **SC-010**: Every launch and expansion variant's Bloomling shows its badge symbol at 3:1 or more, uncovered by the
+  count pill. The four families have distinct silhouettes, and the crest tells apart the two variants of a family.
 
 ## Assumptions
 
@@ -469,6 +497,10 @@ in spec 002.
 - **Spec 002 deviation (tray).** The tray grid of FR-022a replaces spec 002 FR-012's peeking, greyed buried pods
   (owner's playtest feedback, 2026-10-01). It shows what spec 001 FR-013 already allows for ordinary pods (variant and
   count); mystery pods still show only "?" and the count.
+- **Spec 002 deviation (characters).** The kawaii Bloomlings of FR-032 replace spec 002's flat family silhouettes
+  with dot eyes. The variant symbol moves from ink across the body onto a white belly badge: it is smaller than before,
+  but it sits on white at 3:1 or more and the count never covers it. Whether it still reads first is checked on the
+  device. The badge size is one shared value, so it can grow.
 - **Booster selection.** The selected state follows the existing rules: Return chooses a waiting pod (spec 001
   FR-045), and Bloom Burst chooses a visible variant (spec 001 FR-050). The other boosters act at once.
 - **Existing effects.** Sparkles and the other effects use the existing placeholder effects, with no new effect

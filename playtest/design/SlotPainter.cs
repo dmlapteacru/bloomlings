@@ -163,8 +163,8 @@ namespace Bloomlings.Playtest.Design
             Rgba tint = working ? DesignTokens.PodCard(color) : DesignTokens.PodCard(color).Grey();
             Box f = Kit.Block(p, b, tint, working ? DesignTokens.PodCardEdge(color) : DesignTokens.PodCardEdge(color).Grey(), radius, Kit.PodLip(p, b.Height), working ? 0.55f : 0.25f);
             Rgba body = working ? color : color.Grey().Mix(C.StateStuck, 0.35f);
-            Box figure = Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.4f), f.Width * 0.76f, f.Width * 0.76f);
-            Visuals.Bloomling(p, figure, Visuals.FamilyOf(look.Variant.Value), body, Visuals.SymbolOf(look.Variant.Value), face: working, symbolScale: 0.52f);
+            Box figure = BloomlingArt.OnCard(f);
+            Visuals.Bloomling(p, figure, Visuals.FamilyOf(look.Variant.Value), body, Visuals.IconOf(look.Variant.Value), working ? BloomlingMood.Happy : BloomlingMood.Worried);
             float bump = now - look.BumpedAt < 0.15f ? 1f + (0.25f * (float)Math.Sin((now - look.BumpedAt) / 0.15f * Math.PI)) : 1f;
             p.PushTransform(0f, 0f, bump, f.CenterX, f.Bottom);
             PodPainter.CountPill(p, f, look.Count, !working);

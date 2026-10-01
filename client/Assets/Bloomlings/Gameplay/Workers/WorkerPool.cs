@@ -88,7 +88,7 @@ namespace Bloomlings.Client.Gameplay.Workers
                 figure.Body.raycastTarget = false;
                 var at = new Vector2(center + ((i - ((count - 1) / 2f)) * size * 1.15f), -size * 0.55f);
                 UiFactory.PlaceAbsolute(figure.Rect, at, Vector2.one * size);
-                figure.Show(visual.Family, visual.Color, Outfits?.Invoke(visual.Family));
+                figure.Show(visual.Family, visual.Color, Outfits?.Invoke(visual.Family), VariantCatalog.Default.Get(visual.Id).IconId, badge: false);
                 figure.Body.gameObject.AddComponent<Cheer>().Begin(at, size, i * 0.7f);
             }
         }

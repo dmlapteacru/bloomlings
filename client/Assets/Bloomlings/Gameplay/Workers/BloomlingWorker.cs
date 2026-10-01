@@ -3,6 +3,8 @@ using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Timeline;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Design;
+using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,7 +56,8 @@ namespace Bloomlings.Client.Gameplay.Workers
             worker._mark = UiFactory.CreateImage("Mark", figure.Body.transform, null, Color.white);
             worker._mark.preserveAspect = true;
             worker._mark.raycastTarget = false;
-            UiFactory.Place(worker._mark.rectTransform, 0.3f, 0.08f, 0.7f, 0.48f);
+            (float x0, float y0, float x1, float y1) = BloomlingArt.SymbolAnchors;
+            UiFactory.Place(worker._mark.rectTransform, x0, y0, x1, y1);
             worker._pool = pool;
             worker._timeline = timeline;
             host.SetActive(false);
@@ -69,9 +72,10 @@ namespace Bloomlings.Client.Gameplay.Workers
         /// </param>
         public void Launch(VariantVisual visual, IReadOnlyList<Vector2> path, float size, float travelSeconds, Outfit? outfit = null)
         {
-            _figure.Show(visual.Family, visual.Color, outfit);
+            // The kawaii walker with its white halo, the variant symbol on its belly badge (spec 003 FR-032).
+            _figure.Show(visual.Family, visual.Color, outfit, VariantCatalog.Default.Get(visual.Id).IconId, halo: true);
             _mark.sprite = visual.Icon;
-            _mark.color = visual.Ink;
+            _mark.color = UiTheme.Of(BloomlingArt.SymbolColor(UiTheme.ToRgba(visual.Color)));
             _path.Clear();
             _path.AddRange(path);
             _size = size;

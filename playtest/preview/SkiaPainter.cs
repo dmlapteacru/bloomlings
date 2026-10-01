@@ -14,6 +14,7 @@ namespace Bloomlings.Playtest.Preview
     public sealed class SkiaPainter : PainterBase, IDisposable
     {
         private static readonly Dictionary<string, SKImage> Masks = new Dictionary<string, SKImage>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, SKImage> Pictures = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         // Declared before the faces: static initializers run in order, and LoadFont reads it.
         private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
@@ -180,6 +181,23 @@ namespace Bloomlings.Playtest.Preview
         }
 
         public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask("composite/" + key, () => sdf, box, color);
+
+        public override void Picture(string key, Func<int, byte[]> render, Box box)
+        {
+            int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
+            string cacheKey = key + "@" + size;
+            if (!Pictures.TryGetValue(cacheKey, out SKImage? image))
+            {
+                byte[] rgba = render(size);
+                var info = new SKImageInfo(size, size, SKColorType.Rgba8888, SKAlphaType.Premul);
+                using var bitmap = new SKBitmap(info);
+                System.Runtime.InteropServices.Marshal.Copy(rgba, 0, bitmap.GetPixels(), rgba.Length);
+                image = SKImage.FromBitmap(bitmap);
+                Pictures[cacheKey] = image;
+            }
+
+            Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
+        }
 
         private void DrawMask(string key, Func<Func<float, float, float>> sdf, Box box, Rgba color)
         {

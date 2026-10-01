@@ -1,6 +1,7 @@
 # Contract: Garden tokens (additions to spec 002 `contracts/design-tokens.md`)
 
-Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens.ScaleFor`. Colors are sRGB hex.
+Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens.ScaleFor`. Colors are sRGB hex. The 7
+`char.*` colors of the kawaii Bloomlings (FR-032) are in [bloomling-look.md](bloomling-look.md#colors).
 
 ## Colors
 

@@ -33,6 +33,9 @@ Expected: the spec 002 kit tests still pass (`DesignTokensTests`, `ShapeLibraryT
   safe area at 16:9, 18:9, 19.5:9, 20:9 and 21:9.
 - **Fonts:** both files exist, and their `cmap` covers Basic Latin, Latin-1, Cyrillic, "×", "−" and the no-break
   space (SC-006). `OFL.txt` ships next to them.
+- **Kawaii Bloomlings** (FR-032, [contracts/bloomling-look.md](contracts/bloomling-look.md#tests-bloomlingarttests)):
+  every variant renders inside its square, every badge symbol reaches 3:1, the moods show, the families and crests
+  differ, and on a card the badge clears the count pill.
 - **Unity scripts:** the client compiles against the stubs with the new `UiFonts` and kit code.
 
 ## 2. Previews in the Garden look
@@ -55,7 +58,9 @@ Expected:
   - sentence-case labels with volume;
   - cards in a wooden frame on paper;
   - the volumetric board, cells, pods and slot wells;
-  - the booster tiles with the ×N badges and the price tags.
+  - the booster tiles with the ×N badges and the price tags;
+  - frame 24 ("Extra: Bloomlings"): every variant's kawaii Bloomling happy, asleep, worried, and as a walker with its
+    white edge on a tile of another color.
 
 ## 3. Asset inventory
 
@@ -94,7 +99,9 @@ Expected: all green with the same test counts as before. No rules, content or ec
   4. Reach the boosters (L3+): check the ×N badges, the price tag with "+", the golden ring while Return or Bloom
      Burst waits for a target, and the grey disabled tile when a booster can do nothing (FR-031).
   5. Pause, jam and win a level: the cards have the paper face, the wooden frame and the red close button.
-  6. Look for any box-shaped "missing glyph" in numbers, "×", prices and the level text. Cyrillic is covered by the
+  6. Watch the Bloomlings (FR-032): exposed pods are awake, queued pods asleep, a stuck slot looks worried, walkers
+     have a white edge, and every badge symbol shows above the count.
+  7. Look for any box-shaped "missing glyph" in numbers, "×", prices and the level text. Cyrillic is covered by the
      `cmap` test, because only English strings exist today.
 - **Level tester.** `apks: tester`. It looks and behaves as before (◀ ▶, free boosters, instant results, the system
   font).

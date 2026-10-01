@@ -17,45 +17,39 @@ namespace Bloomlings.Playtest.Design
         public static Family FamilyOf(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.Family : Family.Sprig;
 
+        /// <summary>The variant's icon id (its crest and belly symbol): <c>leaf</c>, <c>bud</c>, …</summary>
+        public static string? IconOf(VariantId variant) =>
+            VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.IconId : null;
+
         /// <summary>
-        /// A Bloomling: the family body in the variant color with a small face, carrying the variant symbol in ink
-        /// (pods, slots, walkers, Home; spec 001 FR-012 prominence: symbol, color, then silhouette).
+        /// A kawaii Bloomling (spec 003 FR-032): the figure from <see cref="BloomlingArt"/> in the variant color, and the
+        /// variant symbol on its white belly badge (pods, slots, walkers; spec 001 FR-012 prominence: symbol, color,
+        /// then silhouette). Without an icon id it has no badge (Home, the leaderboard). Walkers get the white halo.
         /// </summary>
-        public static void Bloomling(IPainter p, Box box, Family family, Rgba color, string? symbolId, bool face = true, float symbolScale = 0.5f)
+        public static void Bloomling(IPainter p, Box box, Family family, Rgba color, string? iconId, BloomlingMood mood = BloomlingMood.Happy, bool halo = false)
         {
-            p.Shape(ShapeLibrary.SilhouetteId(family), box, color);
-            Rgba ink = color.Ink;
-            if (face && symbolId == null)
+            var look = new BloomlingLook(family, color, iconId, mood, Badge: true, Halo: halo);
+            p.Mark(ShapeLibrary.SilhouetteId(family));
+            if (mood != BloomlingMood.None)
             {
-                // A whole face on figures without a symbol (Home, the splash).
-                Box faceBox = Box.FromCenter(box.CenterX, box.Top + (box.Height * FaceY(family)), box.Width * 0.34f, box.Height * 0.34f);
-                p.Shape("char.face", faceBox, ink.WithAlpha(0.85f));
-            }
-            else if (face)
-            {
-                // Just the eyes above the symbol, so the symbol stays clear (FR-012 prominence).
                 p.Mark("char.face");
-                float eyeY = box.Top + (box.Height * (FaceY(family) - 0.06f));
-                float r = box.Width * 0.045f;
-                p.FillCircle(box.CenterX - (box.Width * 0.11f), eyeY, r, ink.WithAlpha(0.85f));
-                p.FillCircle(box.CenterX + (box.Width * 0.11f), eyeY, r, ink.WithAlpha(0.85f));
             }
 
-            if (symbolId != null)
+            p.Picture(look.Key, size => BloomlingArt.Render(look, size, topDown: true, premultiplied: true), box);
+            if (look.ShowsBadge)
             {
                 p.Mark("char.accent");
-                float s = box.Width * symbolScale;
-                p.Shape(symbolId, Box.FromCenter(box.CenterX, box.Top + (box.Height * 0.68f), s, s), ink);
+                p.Shape(ShapeLibrary.SymbolId(iconId!), BloomlingArt.SymbolBox(box), BloomlingArt.SymbolColor(color));
             }
         }
 
-        /// <summary>Where a family's eyes sit, as a share of the body box from its top.</summary>
-        private static float FaceY(Family family) => family switch
+        /// <summary>A soft flat shadow under the feet of a Bloomling drawn into <paramref name="box"/>.</summary>
+        public static void GroundShadow(IPainter p, Box box, float alpha = 0.12f)
         {
-            Family.Twig => 0.36f,
-            Family.Drop => 0.5f,
-            _ => 0.5f,
-        };
+            float feet = box.CenterY - (BloomlingArt.FeetY * BloomlingArt.Fit / ShapeRaster.Margin * box.Height / 2f);
+            Box shadow = Box.FromCenter(box.CenterX, feet, box.Width * 0.56f, box.Height * 0.09f);
+            p.FillRound(shadow, shadow.Height / 2f, C.GardenShadow.WithAlpha(alpha));
+        }
 
         /// <summary>A variant tile as in demos and legends: a raised rounded tile with its symbol.</summary>
         public static void VariantTile(IPainter p, Box box, VariantId variant)

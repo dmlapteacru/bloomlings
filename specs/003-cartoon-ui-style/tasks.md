@@ -219,6 +219,37 @@ touch-target and safe-area checks pass.
 
 ---
 
+## Phase 8: Owner's choice — kawaii Bloomlings (FR-032)
+
+**Goal**: Every Bloomling is a kawaii figure (style B of the owner's character sheet): a round body per family with a
+pastel gradient and an outline, a crest per variant, big sparkly eyes, blush, tiny feet, and the variant symbol on a
+white belly badge that the count pill never covers.
+
+**Independent Test**: Preview frame 24 ("Extra: Bloomlings") shows all 12 variants happy, asleep, worried and as
+walkers with the halo; frames 1, 2, 3, 7–9, 12 and 13 show them in place. `BloomlingArtTests` pass.
+
+- [X] T053 Add the 7 `char.*` colors to `K/DesignTokens.cs` (contracts/bloomling-look.md "Colors"; 96 tokens) and
+  expose `ShapeLibrary.Length`, `RoundedBox` and `Segment` to the kit
+- [X] T054 Add `K/BloomlingArt.cs`: `BloomlingMood`, `BloomlingLook` and `BloomlingArt` (parts back to front, the
+  gradient body, the moods, the badge, the halo; `Render` to RGBA; `SymbolBox`, `OnCard`, the anchors, `SymbolColor`,
+  `Silhouette`), and make the `char.*` shapes and `SkinOn` use `BloomlingArt.Silhouette` in `K/ShapeLibrary.cs`
+- [X] T055 Add `IPainter.Picture` in `P/design/IPainter.cs` and `P/design/PainterBase.cs`, with cached bitmaps in
+  `P/android/Design/AndroidPainter.cs` and `P/preview/SkiaPainter.cs`
+- [X] T056 Draw the kawaii figures in `P/design/Visuals.cs` (`Bloomling`, `IconOf`, `GroundShadow`) and use them in
+  `PodPainter.cs` (sleepy when queued, `OnCard`), `SlotPainter.cs` (worried when stuck), `BoardPainter.cs` (walkers
+  with the halo) and `HomeScreen.cs` (splash, Home)
+- [X] T057 Add the review frame 24 "Extra: Bloomlings" in `P/preview/Fixtures.cs`
+- [X] T058 Bake the figures in `U/Art/Procedural/ProceduralSprites.cs` (`Bloomling`) and use them in
+  `U/Gameplay/Tray/PodView.cs`, `U/Gameplay/Slots/SlotRowView.cs`, `U/Gameplay/Workers/BloomlingFigure.cs`,
+  `BloomlingWorker.cs`, `WorkerPool.cs`, `U/UI/Screens/HomeScreen.cs` and `SplashScreen.cs`
+- [X] T059 Add `U/Tests/EditMode/BloomlingArtTests.cs` (contracts/bloomling-look.md "Tests") and update the token count
+  in `DesignTokensTests`
+- [X] T060 Update the `char.*` slot descriptions in `K/AssetSlots.cs`, regenerate
+  `specs/002-ux-design-board/asset-inventory.md` and the before/after sheet, and run the local checks and the
+  Mono.Android type-checks
+
+---
+
 ## Dependencies and execution order
 
 - **Setup (T001–T002)** → **Foundational (T003–T019)** → the stories.

@@ -182,7 +182,7 @@ namespace Bloomlings.Client.UI.Design
 
             // ---- Brand ----
             Add("brand.wordmark", "Bloomlings wordmark (logo)", new[] { 1, 2, 3 }, "Splash; Home", "full; compact", SizeClass.Large, false, Launch, PlaceholderKind.Text, "bold outlined text with a Petal on the i");
-            Add("brand.splash_art", "Splash illustration: Bloomlings of the four families in the garden", new[] { 1 }, "Splash", "portrait; tall-phone crop", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "garden backdrop and family silhouettes with faces");
+            Add("brand.splash_art", "Splash illustration: Bloomlings of the four families in the garden", new[] { 1 }, "Splash", "portrait; tall-phone crop", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "garden backdrop and the four families as kawaii Bloomlings");
             Add("brand.app_icon", "App icon", Array.Empty<int>(), "Launcher; store listing", "Android adaptive (foreground, background); iOS set", SizeClass.Medium, false, Launch, PlaceholderKind.External, "platform default icon");
 
             // ---- Backgrounds ----
@@ -194,13 +194,13 @@ namespace Bloomlings.Client.UI.Design
             Add("bg.splash", "Splash backdrop", new[] { 1 }, "Splash", "portrait", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop");
 
             // ---- Characters ----
-            Shape("char.sprig", "Sprig family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
-            Shape("char.bloom", "Bloom family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
-            Shape("char.drop", "Drop family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
-            Shape("char.twig", "Twig family Bloomling (body)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
-            Shape("char.face", "Bloomling face and expressions", new[] { 2, 3, 12, 13 }, "Pods; slots; walkers; Home hero", "neutral; happy; sleepy; worried (stuck)", SizeClass.Small);
-            Add("char.hero.home", "Home hero: a large Bloomling in the player's outfit", new[] { 3 }, "Home", "idle; wave; each family; outfit layers", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "family silhouette with face, scaled, with worn cosmetics");
-            Add("char.accent", "Variant accent on a Bloomling (the symbol it carries)", new[] { 7, 8, 9, 12, 13 }, "Pods; slots; walkers", "8 launch; 4 expansion", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "variant symbol in ink on the body");
+            Shape("char.sprig", "Sprig family Bloomling: kawaii egg body with a sprout (spec 003 FR-032)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.bloom", "Bloom family Bloomling: kawaii round body with petals, a bud or a calyx (spec 003 FR-032)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.drop", "Drop family Bloomling: kawaii droplet body (spec 003 FR-032)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.twig", "Twig family Bloomling: kawaii stump body with a sprout or an acorn cap (spec 003 FR-032)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
+            Shape("char.face", "Bloomling face: big sparkly eyes, blush, a small mouth (spec 003 FR-032)", new[] { 2, 3, 12, 13 }, "Pods; slots; walkers; Home hero", "happy; sleepy (queued pod); worried (stuck slot)", SizeClass.Small);
+            Add("char.hero.home", "Home hero: a large Bloomling in the player's outfit", new[] { 3 }, "Home", "idle; wave; each family; outfit layers", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "the kawaii figure (BloomlingArt), scaled, with worn cosmetics");
+            Add("char.accent", "Variant symbol on a Bloomling's white belly badge (spec 003 FR-032)", new[] { 7, 8, 9, 12, 13 }, "Pods; slots; walkers", "8 launch; 4 expansion", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "variant symbol in a 3:1 shade of its color on a white badge");
 
             // ---- Variant symbols ----
             string[] launch = { "leaf", "moss", "flower", "bud", "drop", "dew", "log", "acorn" };

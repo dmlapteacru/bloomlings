@@ -1,6 +1,7 @@
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,9 +9,10 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Workers
 {
     /// <summary>
-    /// A Bloomling drawn from its family silhouette in a body color, with what it wears (FR-063): a skin pattern laid
-    /// thinly over the body, a hat above it, an expression on its face and a trail behind it. The body color is never
-    /// changed by a cosmetic, so on the board it stays the variant color. Used by the workers, the Wardrobe and Home.
+    /// A kawaii Bloomling of a family in a body color (spec 003 FR-032), with what it wears (FR-063): a skin pattern laid
+    /// thinly over the body, a hat above it, an expression on its face (it then replaces the drawn eyes and mouth) and a
+    /// trail behind it. The body color is never changed by a cosmetic, so on the board it stays the variant color. Used
+    /// by the workers, the Wardrobe and Home.
     /// </summary>
     public sealed class BloomlingFigure
     {
@@ -25,7 +27,7 @@ namespace Bloomlings.Client.Gameplay.Workers
             _body = body;
             _skin = Part("Skin", 0f, 0f, 1f, 1f);
             _trail = Part("Trail", -0.3f, -0.05f, 0.05f, 0.3f);
-            _expression = Part("Expression", 0.33f, 0.3f, 0.67f, 0.55f);
+            _expression = Part("Expression", 0.3f, 0.36f, 0.7f, 0.6f);
             _hat = Part("Hat", 0.2f, 0.72f, 0.8f, 1.22f);
         }
 
@@ -46,11 +48,16 @@ namespace Bloomlings.Client.Gameplay.Workers
             return new BloomlingFigure(body);
         }
 
-        /// <summary>Draws the family in <paramref name="bodyColor"/> wearing <paramref name="outfit"/> (null: nothing).</summary>
-        public void Show(Family family, Color bodyColor, Outfit? outfit)
+        /// <summary>
+        /// Draws the family in <paramref name="bodyColor"/> wearing <paramref name="outfit"/> (null: nothing). With an
+        /// <paramref name="iconId"/> it wears that variant's crest and, with <paramref name="badge"/>, the belly badge the
+        /// caller puts the symbol on; <paramref name="halo"/> adds the white sticker edge of walkers on the board.
+        /// </summary>
+        public void Show(Family family, Color bodyColor, Outfit? outfit, string? iconId = null, bool badge = true, bool halo = false)
         {
-            _body.sprite = ProceduralSprites.Silhouette(family);
-            _body.color = bodyColor;
+            BloomlingMood mood = outfit?.Expression != null ? BloomlingMood.None : BloomlingMood.Happy;
+            _body.sprite = ProceduralSprites.Bloomling(new BloomlingLook(family, UiTheme.ToRgba(bodyColor), iconId, mood, badge, halo));
+            _body.color = Color.white;
             ShowSkin(family, outfit?.Skin);
             ShowAccessory(_trail, outfit?.Trail);
             ShowAccessory(_expression, outfit?.Expression);

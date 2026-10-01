@@ -48,7 +48,7 @@ How to read the columns:
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
 | `brand.wordmark` | Bloomlings wordmark (logo) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | bold outlined text with a Petal on the i |
-| `brand.splash_art` | Splash illustration: Bloomlings of the four families in the garden | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | garden backdrop and family silhouettes with faces |
+| `brand.splash_art` | Splash illustration: Bloomlings of the four families in the garden | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | garden backdrop and the four families as kawaii Bloomlings |
 | `brand.app_icon` | App icon | — | Launcher; store listing | Android adaptive (foreground, background); iOS set | Medium | no | Launch | platform default icon (not in the game yet) |
 
 ## Backgrounds
@@ -66,13 +66,13 @@ How to read the columns:
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `char.sprig` | Sprig family Bloomling (body) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.sprig` |
-| `char.bloom` | Bloom family Bloomling (body) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.bloom` |
-| `char.drop` | Drop family Bloomling (body) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.drop` |
-| `char.twig` | Twig family Bloomling (body) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.twig` |
-| `char.face` | Bloomling face and expressions | 2, 3, 12, 13 | Pods; slots; walkers; Home hero | neutral; happy; sleepy; worried (stuck) | Small | no | Launch | shape `char.face` |
-| `char.hero.home` | Home hero: a large Bloomling in the player's outfit | 3 | Home | idle; wave; each family; outfit layers | Large | no | Launch | family silhouette with face, scaled, with worn cosmetics |
-| `char.accent` | Variant accent on a Bloomling (the symbol it carries) | 7, 8, 9, 12, 13 | Pods; slots; walkers | 8 launch; 4 expansion | Icon | yes | Launch | variant symbol in ink on the body |
+| `char.sprig` | Sprig family Bloomling: kawaii egg body with a sprout (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.sprig` |
+| `char.bloom` | Bloom family Bloomling: kawaii round body with petals, a bud or a calyx (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.bloom` |
+| `char.drop` | Drop family Bloomling: kawaii droplet body (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.drop` |
+| `char.twig` | Twig family Bloomling: kawaii stump body with a sprout or an acorn cap (spec 003 FR-032) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.twig` |
+| `char.face` | Bloomling face: big sparkly eyes, blush, a small mouth (spec 003 FR-032) | 2, 3, 12, 13 | Pods; slots; walkers; Home hero | happy; sleepy (queued pod); worried (stuck slot) | Small | no | Launch | shape `char.face` |
+| `char.hero.home` | Home hero: a large Bloomling in the player's outfit | 3 | Home | idle; wave; each family; outfit layers | Large | no | Launch | the kawaii figure (BloomlingArt), scaled, with worn cosmetics |
+| `char.accent` | Variant symbol on a Bloomling's white belly badge (spec 003 FR-032) | 7, 8, 9, 12, 13 | Pods; slots; walkers | 8 launch; 4 expansion | Icon | yes | Launch | variant symbol in a 3:1 shade of its color on a white badge |
 
 ## Variant symbols
 

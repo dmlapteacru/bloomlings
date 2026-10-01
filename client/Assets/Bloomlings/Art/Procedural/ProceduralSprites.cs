@@ -112,8 +112,33 @@ namespace Bloomlings.Client.Art
             return ShapeLibrary.Has(id) ? Shape(id) : Circle;
         }
 
-        /// <summary>The body silhouette of a Bloomling family (placeholder worker art, doc 12 §2).</summary>
+        /// <summary>The body silhouette of a Bloomling family (its outer edge, for masks and hit areas; doc 12 §2).</summary>
         public static Sprite Silhouette(Family family) => Shape(ShapeLibrary.SilhouetteId(family));
+
+        /// <summary>
+        /// A kawaii Bloomling in full color (spec 003 FR-032), baked once per look and size from the engine-free
+        /// <see cref="BloomlingArt"/>, so it matches the playtest pixel for pixel. Draw it with a white image color; the
+        /// variant symbol goes on top at <see cref="BloomlingArt.SymbolAnchors"/>.
+        /// </summary>
+        public static Sprite Bloomling(BloomlingLook look, int size = 128)
+        {
+            string cacheKey = look.Key + "@" + size;
+            if (Cache.TryGetValue(cacheKey, out Sprite? cached))
+            {
+                return cached;
+            }
+
+            byte[] rgba = BloomlingArt.Render(look, size, topDown: false, premultiplied: false);
+            var pixels = new Color32[size * size];
+            for (int i = 0; i < pixels.Length; i++)
+            {
+                pixels[i] = new Color32(rgba[i * 4], rgba[i * 4 + 1], rgba[i * 4 + 2], rgba[i * 4 + 3]);
+            }
+
+            Sprite sprite = Bake(cacheKey, size, pixels);
+            Cache[cacheKey] = sprite;
+            return sprite;
+        }
 
         /// <summary>
         /// A skin pattern (spots, stripes, petals, speckles) cut to a family's body, laid over the variant-colored
@@ -148,9 +173,17 @@ namespace Bloomlings.Client.Art
                 Over(pixels, ShapeRaster.Mask(ShapeLibrary.DecorationPartSdf(part, -stroke * 0.6f, flipped), size, topDown: false), fill);
             }
 
+            Sprite sprite = Bake(cacheKey, size, pixels);
+            Cache[cacheKey] = sprite;
+            return sprite;
+        }
+
+        /// <summary>A sprite of colored pixels (rows from the bottom, straight alpha).</summary>
+        private static Sprite Bake(string name, int size, Color32[] pixels)
+        {
             var texture = new Texture2D(size, size, TextureFormat.RGBA32, false)
             {
-                name = cacheKey,
+                name = name,
                 filterMode = FilterMode.Bilinear,
                 wrapMode = TextureWrapMode.Clamp,
                 hideFlags = HideFlags.DontSave,
@@ -158,8 +191,7 @@ namespace Bloomlings.Client.Art
             texture.SetPixels32(pixels);
             texture.Apply(false, true);
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, Vector4.zero);
-            sprite.name = cacheKey;
-            Cache[cacheKey] = sprite;
+            sprite.name = name;
             return sprite;
         }
 

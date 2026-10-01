@@ -267,12 +267,11 @@ namespace Bloomlings.Playtest.Design
                 float f = points.Count == 1 ? 0f : t - i;
                 float x = points.Count == 1 ? points[0].X : points[i].X + ((points[i + 1].X - points[i].X) * f);
                 float y = points.Count == 1 ? points[0].Y : points[i].Y + ((points[i + 1].Y - points[i].Y) * f);
-                y -= Math.Abs((float)Math.Sin(f * Math.PI)) * cell * 0.2f;
+                float hop = Math.Abs((float)Math.Sin(f * Math.PI)) * cell * 0.2f;
                 float size = cell * 0.78f;
-                Box body = Box.FromCenter(x, y - (size * 0.1f), size, size);
-                p.FillCircle(x, y + (size * 0.42f), size * 0.28f, Rgba.Black.WithAlpha(0.12f));
-                p.Shape(Client.UI.Design.ShapeLibrary.SilhouetteId(Visuals.FamilyOf(walker.Variant)), body.Inset(-p.U(3f)), Rgba.White);
-                Visuals.Bloomling(p, body, Visuals.FamilyOf(walker.Variant), Visuals.ColorOf(walker.Variant), Visuals.SymbolOf(walker.Variant), face: true, symbolScale: 0.42f);
+                Box body = Box.FromCenter(x, y - hop - (size * 0.1f), size, size);
+                Visuals.GroundShadow(p, Box.FromCenter(x, y - (size * 0.1f), size, size), 0.18f);
+                Visuals.Bloomling(p, body, Visuals.FamilyOf(walker.Variant), Visuals.ColorOf(walker.Variant), Visuals.IconOf(walker.Variant), halo: true);
             }
         }
 

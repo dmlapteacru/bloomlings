@@ -18,6 +18,7 @@ namespace Bloomlings.Playtest.Droid
     {
         private static readonly Dictionary<string, Bitmap> Masks = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
         private static readonly Dictionary<string, Bitmap> Backdrops = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, Bitmap> Pictures = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
 
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias);
@@ -159,6 +160,23 @@ namespace Bloomlings.Playtest.Droid
         public override void Shape(string id, Box box, Rgba color) => DrawMask(id, () => ShapeLibrary.Get(id), box, color);
 
         public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask("composite/" + key, () => sdf, box, color);
+
+        public override void Picture(string key, Func<int, byte[]> render, Box box)
+        {
+            int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
+            string cacheKey = key + "@" + size;
+            if (!Pictures.TryGetValue(cacheKey, out Bitmap? bitmap))
+            {
+                // ARGB_8888 keeps premultiplied bytes in R, G, B, A order, as BloomlingArt renders them.
+                byte[] rgba = render(size);
+                bitmap = Bitmap.CreateBitmap(size, size, Bitmap.Config.Argb8888!)!;
+                bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(rgba));
+                Pictures[cacheKey] = bitmap;
+            }
+
+            _source.Set(0, 0, size, size);
+            _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
+        }
 
         private void DrawMask(string key, Func<Func<float, float, float>> sdf, Box box, Rgba color)
         {

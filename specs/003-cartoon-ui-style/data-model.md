@@ -118,6 +118,28 @@ The look is derived from these fields:
 
 The decoration never takes touch input, and is drawn after the button so it may overlap the plate's corner.
 
+## BloomlingLook (FR-032)
+
+One kawaii Bloomling picture (contracts/bloomling-look.md).
+
+| Field | Meaning |
+|---|---|
+| `Family` | the body shape: Sprig egg, Bloom bulb, Drop droplet, Twig stump |
+| `Color` | the variant color, or its muted (queued) or stuck shade |
+| `IconId` | the variant's icon id: picks the crest and turns the belly badge on; null for the family's own crest without a badge |
+| `Mood` | `Happy`, `Sleepy`, `Worried` or `None` |
+| `Badge` | draw the belly badge when there is an icon |
+| `Halo` | the walkers' white sticker edge |
+| `Key` (derived) | every field above; the same key always renders the same pixels |
+
+Rules:
+
+- The body color is the variant color, lightened 0.18 when its luminance is below 0.5. The outline is a darker shade
+  of the body, never black.
+- The symbol on the badge is the variant color darkened until it reaches 3:1 on `char.badge`.
+- On a card the figure fits between the card top and the count pill, so the pill never covers the badge.
+- The `char.*` shapes are the figure's outer edge, so skins and hit areas follow it.
+
 ## Asset slot (new)
 
 | Id | Category | Placeholder | Readability |

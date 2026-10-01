@@ -170,6 +170,8 @@ namespace Bloomlings.Playtest.Design
 
         public abstract void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color);
 
+        public abstract void Picture(string key, Func<int, byte[]> render, Box box);
+
         public abstract void Text(string text, float cx, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null);
 
         public abstract void TextLeft(string text, float x, float cy, TypeStyle style, Rgba color, float maxWidth = 0f, float sizeScale = 1f, TextLook? look = null);

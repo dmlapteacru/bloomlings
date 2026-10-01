@@ -105,7 +105,8 @@ smallest auto-fit size.
 > **Changed by spec 003** (the Garden look, `specs/003-cartoon-ui-style/`): every style is sentence case except
 > `type.badge`; bold styles use Nunito ExtraBold and the others Nunito SemiBold; `type.button_large` is 92 (min 60),
 > `type.button` 60 (min 40) and `type.button_secondary` 48 (min 34). The garden tokens are in spec 003
-> `contracts/garden-tokens.md`. The table below is the spec 002 original.
+> `contracts/garden-tokens.md`, and the Bloomling colors in `contracts/bloomling-look.md`. The table below is the spec 002
+> original.
 
 | Token | Size | Bold | Upper | Outline | Min | Use |
 |---|---|---|---|---|---|---|

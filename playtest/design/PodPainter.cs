@@ -168,8 +168,8 @@ namespace Bloomlings.Playtest.Design
             // A volumetric 2D card (spec 003 FR-022): a thick lip, a bevel and a highlight; never 3D.
             Box f = Kit.Block(p, box, tint, edge, radius, Kit.PodLip(p, box.Height), next ? 0.25f : 0.55f, look == PodLook.Pressed);
             Rgba body = shown;
-            Box figure = Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.42f), f.Width * 0.78f, f.Width * 0.78f);
-            Visuals.Bloomling(p, figure, Visuals.FamilyOf(variant), body, Visuals.SymbolOf(variant), face: !next, symbolScale: 0.52f);
+            Box figure = BloomlingArt.OnCard(f);
+            Visuals.Bloomling(p, figure, Visuals.FamilyOf(variant), body, Visuals.IconOf(variant), next ? BloomlingMood.Sleepy : BloomlingMood.Happy);
             CountPill(p, f, pod.Remaining, next);
         }
 
@@ -224,7 +224,7 @@ namespace Bloomlings.Playtest.Design
                 {
                     Rgba color = Visuals.ColorOf(flight.Variant.Value);
                     p.FillRound(box, size * DesignTokens.Radius.Pod, DesignTokens.PodCard(color));
-                    Visuals.Bloomling(p, box.Inset(size * 0.12f), Visuals.FamilyOf(flight.Variant.Value), color, Visuals.SymbolOf(flight.Variant.Value));
+                    Visuals.Bloomling(p, box.Inset(size * 0.1f), Visuals.FamilyOf(flight.Variant.Value), color, Visuals.IconOf(flight.Variant.Value));
                 }
                 else
                 {

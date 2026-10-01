@@ -118,6 +118,7 @@ specs/003-cartoon-ui-style/
 │   ├── garden-tokens.md    # the new token names and values
 │   ├── painter-text.md     # the painter's label look (delta to spec 002 contracts/painter.md)
 │   ├── booster-tile.md     # booster states → drawing, both clients
+│   ├── bloomling-look.md   # the kawaii Bloomlings (FR-032): parts, colors, geometry, host API
 │   └── fonts.md            # files, license, loading in Unity / Android / Skia, fallback
 ├── *.jpg, *.png            # the mockup stills the owner reviewed
 ├── checklists/requirements.md
@@ -132,6 +133,7 @@ client/Assets/Bloomlings/
 │   ├── DesignTokens.cs              # + Garden (plate, frame, lip, highlight, decoration), sentence-case type styles,
 │   │                                #   ColorSet sets, TextLook looks, booster tile sizes
 │   ├── GardenLook.cs                # NEW: ColorSet, TextLook, BoosterTileState, decoration placement (engine-free)
+│   ├── BloomlingArt.cs              # NEW (FR-032): BloomlingLook, the kawaii figure rendered to RGBA (engine-free)
 │   ├── ShapeLibrary.cs              # + ui.deco.garden (leaves and flower, by part), ui.play
 │   ├── ScreenLayout.cs              # main-button proportions (PLAY 540×204), card buttons narrower
 │   └── AssetSlots.cs                # + ui.deco.garden (FR-030)
@@ -149,7 +151,8 @@ client/DotnetCheck/UnityStubs.cs     # + Font, Resources.Load<Font>, TMP_FontAss
 
 playtest/
 ├── design/
-│   ├── IPainter.cs                  # Text / TextLeft gain an optional TextLook (contracts/painter-text.md)
+│   ├── IPainter.cs                  # Text / TextLeft gain an optional TextLook (contracts/painter-text.md);
+│   │                                #   Picture draws the kawaii Bloomlings (contracts/bloomling-look.md)
 │   ├── PainterBase.cs               # font loading hook
 │   ├── Kit.cs                       # Plate, Raised (garden), buttons, pills, badges, cards, tabs, toggles, Decoration
 │   ├── BoardPainter.cs              # volumetric cells, wooden frame

@@ -81,6 +81,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   decoration). Buttons are a raised face on a cream plate (`Kit.GardenButton` / `UiKit.Garden`), labels are sentence
   case in the bundled Nunito font (`client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL; only `type.badge` stays
   uppercase), and the board, pods and slots are volumetric 2D, never 3D. The level tester keeps its minimal look.
+  The Bloomlings are kawaii figures (FR-032): `BloomlingArt` renders one RGBA picture per `BloomlingLook` for both
+  hosts (`IPainter.Picture`, `ProceduralSprites.Bloomling`), and the host draws the variant symbol on its belly badge.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
   `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps
