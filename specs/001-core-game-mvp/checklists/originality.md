@@ -25,6 +25,7 @@ the gameplay rules and structure are similar.
 - [ ] Compare the 107 pictures, especially the 94 generated drafts still in picture review (T094), with the level
   pictures of the reference game. No picture may reproduce one of its levels. Record the reviewer and date here.
 - [ ] Final art, audio, fonts and the store listing, when they arrive: check each source and licence, and add a
-  licence record before any file lands in `client/Assets/`. `OriginalityTests.Client_HasNoImportedArtAudioOrFonts` fails
-  until the record exists.
+  licence record to `client/THIRD_PARTY_NOTICES.md` before any file lands in `client/Assets/`.
+  `OriginalityTests.Client_HasNoImportedArtAudioOrFonts` fails until the record and its licence file exist. Recorded so
+  far: the Nunito font (spec 003, SIL OFL 1.1, approved by the owner on 2026-10-01).
 - [ ] Legal sign-off on the name and the store listing before launch.

@@ -438,17 +438,34 @@ namespace Bloomlings.Playtest.Preview
             (string Label, int Shown)[] steps = { ("Level 1–2 (hidden)", 0), ("Level 3", 1), ("Level 4", 2), ("Level 6", 3), ("Level 9+", 4) };
             string[] ids = { "extra_slot", "shuffle", "return", "bloom_burst" };
             int[] charges = { 2, 2, 1, 0 };
-            float rowHeight = p.U(290f);
+            float rowHeight = p.U(240f);
             for (int s = 0; s < steps.Length; s++)
             {
                 var row = new Box(body.Left, body.Top + (s * rowHeight), body.Right, body.Top + (s * rowHeight) + rowHeight);
-                p.TextLeft(steps[s].Label, row.Left, row.Top + p.U(36f), T.Caption, C.TextSecondary);
-                var bar = new Box(row.Left, row.Top + p.U(70f), row.Right, row.Top + p.U(70f) + p.U(DesignTokens.Size.BoosterButton));
+                p.TextLeft(steps[s].Label, row.Left, row.Top + p.U(30f), T.Caption, C.TextSecondary);
+                var bar = new Box(row.Left, row.Top + p.U(56f), row.Right, row.Top + p.U(56f) + p.U(DesignTokens.Size.BoosterButton));
                 Box[] places = ScreenLayout.Row(bar, 4, p.U(24f), p.U(220f), square: false);
                 for (int i = 0; i < steps[s].Shown; i++)
                 {
-                    BoosterBarPainter.Button(p, places[i].CenterX, bar.CenterY, p.U(DesignTokens.Size.BoosterButton), ids[i], true, false, charges[i], 60, null);
+                    BoosterBarPainter.Tile(p, BoosterBarPainter.Fit(p, places[i], bar), ids[i], new BoosterTileState(charges[i], 60, false, true, true), null);
                 }
+            }
+
+            // Every tile state of spec 003 FR-031: charges, price, selected (Return), disabled.
+            var states = new (string Label, string Id, BoosterTileState State)[]
+            {
+                ("Charges", "extra_slot", new BoosterTileState(3, 40, false, true, true)),
+                ("Price", "shuffle", new BoosterTileState(0, 40, false, true, true)),
+                ("Selected", "return", new BoosterTileState(1, 50, true, true, true)),
+                ("Disabled", "bloom_burst", new BoosterTileState(0, 60, false, true, false)),
+            };
+            var stateRow = new Box(body.Left, body.Top + (steps.Length * rowHeight), body.Right, body.Top + ((steps.Length + 1) * rowHeight));
+            var stateBar = new Box(stateRow.Left, stateRow.Top + p.U(56f), stateRow.Right, stateRow.Top + p.U(56f) + p.U(DesignTokens.Size.BoosterButton));
+            Box[] statePlaces = ScreenLayout.Row(stateBar, 4, p.U(24f), p.U(220f), square: false);
+            for (int i = 0; i < states.Length; i++)
+            {
+                p.Text(states[i].Label, statePlaces[i].CenterX, stateRow.Top + p.U(24f), T.Caption, C.TextSecondary);
+                BoosterBarPainter.Tile(p, BoosterBarPainter.Fit(p, statePlaces[i], stateBar), states[i].Id, states[i].State, null);
             }
         }
     }

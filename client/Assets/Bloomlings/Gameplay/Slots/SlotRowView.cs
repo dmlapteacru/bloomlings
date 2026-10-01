@@ -432,6 +432,10 @@ namespace Bloomlings.Client.Gameplay.Slots
             {
                 var slot = new Slot { Index = index, IsExtra = extra };
                 slot.Frame = UiKit.Rounded($"Slot {index}", parent, Color.clear, 44f);
+
+                // The sunk well's brown edge (spec 003 FR-022); the body inside is the well, or the pod's card.
+                Image wellEdge = UiKit.Rounded("WellEdge", slot.Frame.transform, UiTheme.Of(DesignTokens.Colors.GardenWellEdge), 42f);
+                UiFactory.Place(wellEdge.rectTransform, 0.055f, 0.055f, 0.945f, 0.945f);
                 slot._body = UiKit.Rounded("Body", slot.Frame.transform, UiTheme.SlotEmpty, 40f);
                 UiFactory.Place(slot._body.rectTransform, 0.07f, 0.07f, 0.93f, 0.93f);
                 slot._figure = UiFactory.CreateImage("Bloomling", slot._body.transform, null, Color.white);

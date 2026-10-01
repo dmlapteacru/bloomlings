@@ -212,6 +212,37 @@ namespace Bloomlings.Playtest.Design
             p.PopAlpha();
         }
 
+        /// <summary>
+        /// A volumetric 2D block (board cells, pods, slot pods; spec 003 FR-022, FR-023): its darker lip along the bottom,
+        /// the face with a lighter top, a soft highlight band and a thin translucent outline, drawn in the plane. Returns
+        /// the face above the lip; <paramref name="pressed"/> sinks the face into its lip.
+        /// </summary>
+        public static Box Block(IPainter p, Box box, Rgba face, Rgba lip, float radius, float lipPx, float highlightAlpha, bool pressed = false, Rgba? top = null)
+        {
+            float line = Math.Max(1f, p.U(2f));
+            float sink = pressed ? Math.Max(0f, lipPx - p.U(3f)) : 0f;
+            Box whole = new Box(box.Left, box.Top + sink, box.Right, box.Bottom);
+            float r = Math.Min(radius, whole.Height / 2f);
+            p.FillRound(whole, r, lip);
+            var faceBox = new Box(box.Left, box.Top + sink, box.Right, box.Bottom - lipPx + sink);
+            p.FillRoundGradient(faceBox, Math.Min(r, faceBox.Height / 2f), top ?? face.Lighten(0.1f), face);
+            if (highlightAlpha > 0f)
+            {
+                float inset = faceBox.Width * 0.1f;
+                var band = new Box(faceBox.Left + inset, faceBox.Top + (faceBox.Height * 0.07f), faceBox.Right - inset, faceBox.Top + (faceBox.Height * 0.33f));
+                p.FillRoundGradient(band, Math.Min(band.Height / 2f, r * 0.7f), Rgba.White.WithAlpha(highlightAlpha), Rgba.White.WithAlpha(0f));
+            }
+
+            p.StrokeRound(whole.Inset(line / 2f), r - (line / 2f), line, C.GardenShadow.WithAlpha(0.3f));
+            return faceBox;
+        }
+
+        /// <summary>A board cell's lip: <c>garden.cell_lip</c>, but never more than 18% of a small cell.</summary>
+        public static float CellLip(IPainter p, float cellHeight) => Math.Min(p.U(DesignTokens.Garden.CellLip), cellHeight * 0.18f);
+
+        /// <summary>A pod's lip: <c>garden.pod_lip</c>, but never more than 12% of a small pod.</summary>
+        public static float PodLip(IPainter p, float podHeight) => Math.Min(p.U(DesignTokens.Garden.PodLip), podHeight * 0.12f);
+
         // ---- Buttons ----
 
         /// <summary>

@@ -57,6 +57,22 @@ namespace Bloomlings.Playtest.Preview
             {
                 md.AppendLine("## " + Name(group.Key));
                 md.AppendLine();
+                if (group.Key == AssetCategory.UiKit)
+                {
+                    // Spec 003 FR-030: the final UI art follows the Garden look.
+                    md.AppendLine("Final art for every entry here follows the Garden look of spec 003: a flat cream plate with a thin brown");
+                    md.AppendLine("outline, a slightly raised face in its color set with a darker lip and a soft highlight, volumetric");
+                    md.AppendLine("sentence-case labels in Nunito, and, on the main buttons only, the leaves and white flowers of");
+                    md.AppendLine("`ui.deco.garden`. Cards and the sheet are paper in a wooden frame with a header band.");
+                    md.AppendLine();
+                }
+                else if (group.Key == AssetCategory.Typography)
+                {
+                    md.AppendLine("The fonts are bundled files, the only new files of spec 003: Nunito ExtraBold and SemiBold (SIL OFL 1.1, with");
+                    md.AppendLine("`OFL.txt`) in `client/Assets/Bloomlings/UI/Fonts/Resources/`, covering Latin and Cyrillic.");
+                    md.AppendLine();
+                }
+
                 md.AppendLine("| Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |");
                 md.AppendLine("|---|---|---|---|---|---|---|---|---|");
                 foreach (AssetSlot slot in group)

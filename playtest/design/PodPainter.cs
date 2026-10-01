@@ -144,7 +144,7 @@ namespace Bloomlings.Playtest.Design
             if (look == PodLook.Locked)
             {
                 p.Mark("pod.state.locked");
-                Box face = Kit.Raised(p, box, C.StateLockBg, C.StateLockBg.Darken(0.2f), radius);
+                Box face = Kit.Block(p, box, C.StateLockBg, C.StateLockBg.Darken(0.2f), radius, Kit.PodLip(p, box.Height), 0.35f);
                 p.Shape("ui.lock", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.42f), face.Width * 0.46f, face.Width * 0.46f), C.StateLock.Darken(0.2f));
                 CountPill(p, face, pod.Remaining, dim: true);
                 return;
@@ -154,7 +154,7 @@ namespace Bloomlings.Playtest.Design
             {
                 p.Mark("pod.state.mystery");
                 Rgba card = C.PodMystery;
-                Box face = Kit.Raised(p, box, look == PodLook.Next ? card.Grey().Lighten(0.2f) : card, card.Darken(0.18f), radius, look == PodLook.Pressed);
+                Box face = Kit.Block(p, box, look == PodLook.Next ? card.Grey().Lighten(0.2f) : card, card.Darken(0.18f), radius, Kit.PodLip(p, box.Height), look == PodLook.Next ? 0.25f : 0.55f, look == PodLook.Pressed);
                 p.Shape("tile.mystery", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.42f), face.Width * 0.5f, face.Width * 0.5f), look == PodLook.Next ? C.StateStuck : C.PodMysteryMark);
                 CountPill(p, face, pod.Remaining, look == PodLook.Next);
                 return;
@@ -165,7 +165,8 @@ namespace Bloomlings.Playtest.Design
             bool next = look == PodLook.Next;
             Rgba tint = next ? DesignTokens.PodCard(color).Grey() : DesignTokens.PodCard(color);
             Rgba edge = next ? DesignTokens.PodCardEdge(color).Grey() : DesignTokens.PodCardEdge(color);
-            Box f = Kit.Raised(p, box, tint, edge, radius, look == PodLook.Pressed);
+            // A volumetric 2D card (spec 003 FR-022): a thick lip, a bevel and a highlight; never 3D.
+            Box f = Kit.Block(p, box, tint, edge, radius, Kit.PodLip(p, box.Height), next ? 0.25f : 0.55f, look == PodLook.Pressed);
             Rgba body = next ? color.Grey().Mix(C.StateStuck, 0.4f) : color;
             Box figure = Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.42f), f.Width * 0.78f, f.Width * 0.78f);
             Visuals.Bloomling(p, figure, Visuals.FamilyOf(variant), body, Visuals.SymbolOf(variant), face: !next, symbolScale: 0.52f);

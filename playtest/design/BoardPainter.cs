@@ -34,10 +34,9 @@ namespace Bloomlings.Playtest.Design
             float oy = area.Top + ((area.Height - (cell * (h + 0.7f))) / 2f);
             s.Board = (ox, oy, cell, h);
 
-            // A soft light panel behind the board keeps its contrast over the garden (FR-008).
+            // The board sits on paper in a wooden frame (spec 003 FR-023), which keeps its contrast over the garden (FR-008).
             Box panel = new Box(ox - (cell * 0.18f), oy - (cell * 0.18f), ox + (cell * w) + (cell * 0.18f), oy + (cell * h) + (cell * 0.18f));
-            p.FillRound(panel.Offset(0f, p.U(6f)), cell * 0.4f, Rgba.Black.WithAlpha(0.06f));
-            p.FillRound(panel, cell * 0.4f, C.SurfacePanel.WithAlpha(0.72f));
+            Kit.Paper(p, panel, cell * 0.4f, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthBoard);
 
             for (int y = 0; y < h; y++)
             {
@@ -153,16 +152,17 @@ namespace Bloomlings.Playtest.Design
             if (info.MysteryHidden || !info.Visible.HasValue)
             {
                 Rgba mystery = C.TileMystery;
-                Kit.Raised(p, box, mystery, mystery.Darken(0.25f), radius, top: mystery.Lighten(0.15f));
-                p.Shape("tile.mystery", Box.FromCenter(box.CenterX, box.CenterY - (box.Height * 0.03f), box.Width * 0.6f, box.Width * 0.6f), Rgba.White);
+                Box mysteryFace = Kit.Block(p, box, mystery, mystery.Darken(0.25f), radius, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: mystery.Lighten(0.15f));
+                p.Shape("tile.mystery", Box.FromCenter(mysteryFace.CenterX, mysteryFace.CenterY, box.Width * 0.56f, box.Width * 0.56f), Rgba.White);
                 p.PopAlpha();
                 return;
             }
 
             VariantId variant = info.Visible.Value;
             Rgba color = Visuals.ColorOf(variant);
-            Box face = Kit.Raised(p, box, color, DesignTokens.TileEdge(color), radius, top: DesignTokens.TileTop(color));
-            float symbol = face.Width * 0.6f;
+            // A volumetric 2D block: lip, bevel and highlight never reach the symbol on its face (spec 003 FR-023).
+            Box face = Kit.Block(p, box, color, DesignTokens.TileEdge(color), radius, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: DesignTokens.TileTop(color));
+            float symbol = Math.Min(face.Width, face.Height) * 0.66f;
             p.Shape(Visuals.SymbolOf(variant), Box.FromCenter(face.CenterX, face.CenterY, symbol, symbol), color.Ink);
 
             // The next layer peeks in the top-right corner (never over the symbol).
@@ -218,8 +218,9 @@ namespace Bloomlings.Playtest.Design
                 _ => (C.SpecialGate, "special.gate"),
             };
             Box box = full.Inset(cell * 0.05f);
-            Box face = Kit.Raised(p, box, color, color.Darken(0.28f), box.Width * 0.18f, top: color.Lighten(0.12f));
-            p.Shape(shape, face.Inset(face.Width * 0.16f), Rgba.White.WithAlpha(0.95f));
+            Box face = Kit.Block(p, box, color, color.Darken(0.28f), box.Width * 0.18f, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: color.Lighten(0.12f));
+            float glyph = Math.Min(face.Width, face.Height) * 0.7f;
+            p.Shape(shape, Box.FromCenter(face.CenterX, face.CenterY, glyph, glyph), Rgba.White.WithAlpha(0.95f));
             if (!triggered && total > 1)
             {
                 Box count = Box.FromCenter(face.CenterX, face.Bottom - (face.Height * 0.12f), face.Width * 0.9f, face.Height * 0.34f);

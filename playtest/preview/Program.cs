@@ -1,5 +1,6 @@
 // Renders the full playtest's designed screens for each design board frame, checks them, and writes the asset inventory.
 // See the project file. Usage: dotnet run --project playtest/preview [-- --out <dir>] [--inventory] [--frames 7,8,9]
+// [--before <sheet.png>] (also writes before-after.jpg: that sheet above the new one, spec 003 FR-029)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,6 +17,7 @@ using SkiaSharp;
 string root = FindRoot();
 string outDir = Path.Combine(root, "playtest", "preview", "out");
 bool inventory = false;
+string? before = null;
 HashSet<int>? only = null;
 for (int i = 0; i < args.Length; i++)
 {
@@ -26,6 +28,10 @@ for (int i = 0; i < args.Length; i++)
     else if (args[i] == "--inventory")
     {
         inventory = true;
+    }
+    else if (args[i] == "--before" && i + 1 < args.Length)
+    {
+        before = Path.GetFullPath(args[++i]);
     }
     else if (args[i] == "--frames" && i + 1 < args.Length)
     {
@@ -85,7 +91,12 @@ foreach (Fixture frame in Fixtures.All(content, root).Concat(Fixtures.Extras(con
 
 if (sheetImages.Count > 0)
 {
-    File.WriteAllBytes(Path.Combine(outDir, "board-sheet.png"), Sheet.Render(sheetImages));
+    byte[] sheet = Sheet.Render(sheetImages);
+    File.WriteAllBytes(Path.Combine(outDir, "board-sheet.png"), sheet);
+    if (before != null)
+    {
+        File.WriteAllBytes(Path.Combine(outDir, "before-after.jpg"), Sheet.BeforeAfter(File.ReadAllBytes(before), sheet));
+    }
 }
 
 Console.WriteLine($"frames: {sheetImages.Count}, images in {outDir}");

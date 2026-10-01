@@ -38,7 +38,7 @@ Expected: the spec 002 kit tests still pass (`DesignTokensTests`, `ShapeLibraryT
 ## 2. Previews in the Garden look
 
 ```bash
-dotnet run --project playtest/preview -- --out playtest/preview/out
+dotnet run --project playtest/preview -- --out playtest/preview/out --before specs/002-ux-design-board/preview-board-sheet.png
 ```
 
 Expected:
@@ -47,6 +47,8 @@ Expected:
 - **Checks.** Exit code 0: every drawn shape is a registered slot, no hit targets overlap, no text or target leaves
   the safe area, and every target is at least `size.touch_min`.
 - **Font.** The run logs that Nunito was loaded (no DejaVu fallback).
+- **Before/after (FR-029).** `before-after.jpg` puts the spec 002 sheet above the new one; a copy is kept at
+  `specs/003-cartoon-ui-style/preview-before-after.jpg`.
 - **Review (SC-001).** Compare the sheet with the mockup stills in this folder (`garden-direction.jpg`,
   `garden-play-button.png`, `booster-variants.jpg`):
   - PLAY on its plate, with the full-height ▶, leaves and a flower;

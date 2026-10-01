@@ -16,7 +16,10 @@ Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens
 | `garden.paper_bottom` | `#F6EBD3` | card and board surface bottom |
 | `garden.well` | `#E6D6B3` | empty slot well |
 | `garden.well_edge` | `#B39668` | empty slot well outline |
+| `garden.tab_sunk` | `#E9D9B7` | unselected tabs, the off toggle track |
 | `garden.badge` | `#3B2A1A` | count badge |
+| `garden.badge_ring` | `#FBF3E1` | the cream ring of a count badge |
+| `garden.shadow` | `#3C2814` | soft shadows and block outlines, always with an alpha |
 | `garden.label_fill_top` | `#FFFFFF` | label gradient top on colored faces |
 | `garden.label_fill_bottom` | `#EEF2DA` | label gradient bottom on colored faces |
 | `garden.label_plain` | `#5A3F24` | labels on cream faces |
@@ -25,6 +28,7 @@ Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens
 | `garden.flower` | `#FFFFFF` | flower petals |
 | `garden.flower_line` | `#B9B09A` | flower outline |
 | `garden.flower_center` | `#FFD35C` | flower center |
+| `garden.flower_center_line` | `#D29B2E` | flower center outline |
 | `garden.glow` | `#FFD54A` | booster selected ring and glow |
 
 ## Color sets (base colors, derived per data-model.md)
@@ -35,6 +39,7 @@ Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens
 | `set.cream` | `#F7EDD6` | secondary buttons; `Line` = `garden.outline` |
 | `set.white` | `#F4EFE4` | round icon buttons, Petals pill; `Line` = `#7A6E58` |
 | `set.blue` | `#8FC6F0` | level pill, pause header |
+| `set.lilac` | `#B59AF0` | level pill on Super Hard |
 | `set.dark` | `#3A4050` | 2× pill |
 | `set.red` | `#E5484D` | close button, HARD |
 | `set.purple` | `#8E4FD8` | SUPER HARD |
@@ -72,5 +77,13 @@ Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens
 
 ## Motion (unchanged from spec 002, approved on the mockup)
 
-`motion.press` (0.06 s down, 0.36 s spring back with one overshoot), `motion.pop`, `motion.sheet`, `motion.reward`.
-The booster glow pulse is 1.2 s, and is the screen's one idle loop when shown (FR-019).
+`motion.press` (down within the frame, 0.36 s spring back with one overshoot), `motion.pop`, `motion.sheet` (now
+with one small bounce), `motion.reward`, and three new ones:
+
+| Token | Value |
+|---|---|
+| `motion.breathe` | 1.6 s period, scale up to 1.03 (FR-019) |
+| `motion.count_up` | 0.8 s, easing out (FR-020) |
+| `motion.glow` | 1.2 s, 55% to 100% alpha (FR-031) |
+
+The booster glow is the screen's one idle loop when shown (FR-019).

@@ -35,14 +35,16 @@ namespace Bloomlings.Client.UI.Gameplay
     }
 
     /// <summary>
-    /// The booster bar of the design board's frame 14 (spec 002 FR-014, T120).
+    /// The booster bar of the design board's frame 14 (spec 002 FR-014, T120) as booster tiles (spec 003 FR-031,
+    /// contracts/booster-tile.md).
     /// <list type="bullet">
-    /// <item><description>Each booster appears at its unlock level as a round button in its own color (FR-042); a
-    /// locked booster is not shown.</description></item>
-    /// <item><description>A dark badge shows the owned charges. With none left, a Petal price shows instead.</description></item>
-    /// <item><description>A booster the level cannot use now is greyed (FR-046).</description></item>
-    /// <item><description>The booster whose target is being chosen is ringed. Return and Bloom Burst then ask for a
-    /// target (a slot, a tile), and the controller runs that step.</description></item>
+    /// <item><description>Each booster appears at its unlock level as a tile: a cream plate, a raised tile in its color
+    /// and a large light icon (FR-042); a locked booster is not shown.</description></item>
+    /// <item><description>A "×N" badge shows the owned charges. With none left, a price tag and a green "+" show
+    /// instead.</description></item>
+    /// <item><description>A booster the level cannot use now is greyed and not pressable (FR-046).</description></item>
+    /// <item><description>The booster whose target is being chosen is raised with a pulsing golden ring. Return and
+    /// Bloom Burst then ask for a target (a slot, a tile), and the controller runs that step.</description></item>
     /// </list>
     /// The HUD hides the whole bar before the first unlock.
     /// </summary>
@@ -52,13 +54,15 @@ namespace Bloomlings.Client.UI.Gameplay
         private static readonly string[] Ids = { "extra_slot", "shuffle", "return", "bloom_burst" };
 
         private readonly Button[] _buttons = new Button[4];
-        private readonly Image[] _faces = new Image[4];
-        private readonly Image[] _rings = new Image[4];
+        private readonly RectTransform[] _tiles = new RectTransform[4];
+        private readonly GameObject[] _glows = new GameObject[4];
         private readonly TextMeshProUGUI[] _counts = new TextMeshProUGUI[4];
         private readonly GameObject[] _countBadges = new GameObject[4];
         private readonly TextMeshProUGUI[] _prices = new TextMeshProUGUI[4];
         private readonly GameObject[] _priceBadges = new GameObject[4];
-        private readonly CanvasGroupLike[] _fade = new CanvasGroupLike[4];
+        private readonly CanvasGroup[] _fade = new CanvasGroup[4];
+        private readonly BoosterTileState[] _states = new BoosterTileState[4];
+        private BoosterKind? _targeting;
 
         public static BoosterBar Create(RectTransform area, Action<BoosterKind> onPress)
         {
@@ -66,42 +70,66 @@ namespace Bloomlings.Client.UI.Gameplay
             for (int i = 0; i < Order.Length; i++)
             {
                 BoosterKind kind = Order[i];
-                Color color = UiTheme.Of(DesignTokens.BoosterColor(Ids[i]));
                 RectTransform place = UiFactory.Place(UiFactory.CreateRect(kind.ToString(), area), (i * 0.25f) + 0.02f, 0f, ((i + 1) * 0.25f) - 0.02f, 1f);
-                bar._rings[i] = UiFactory.CreateImage("Targeting", place, ProceduralSprites.Circle, new Color(color.r, color.g, color.b, 0.3f));
-                bar._rings[i].preserveAspect = true;
-                UiFactory.Place(bar._rings[i].rectTransform, -0.05f, -0.1f, 1.05f, 1.1f);
-                bar._rings[i].enabled = false;
+                RectTransform tile = UiFactory.Place(UiFactory.CreateRect("Tile", place), 0.06f, 0.08f, 0.94f, 0.96f);
+                var fitter = tile.gameObject.AddComponent<AspectRatioFitter>();
+                fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+                fitter.aspectRatio = DesignTokens.Size.BoosterTileWidth / DesignTokens.Size.BoosterTileHeight;
+                bar._tiles[i] = tile;
+                bar._fade[i] = tile.gameObject.AddComponent<CanvasGroup>();
 
-                Image edge = UiFactory.CreateImage("Button", place, ProceduralSprites.Circle, UiTheme.Dark(color), raycast: true);
-                edge.preserveAspect = true;
-                UiFactory.Stretch(edge.rectTransform);
-                Image face = UiFactory.CreateImage("Face", edge.transform, ProceduralSprites.Circle, color);
-                face.preserveAspect = true;
-                RectTransform faceRect = UiFactory.Stretch(face.rectTransform);
-                faceRect.offsetMin = new Vector2(0f, UiKit.Units(7f));
-                Image glyph = UiFactory.CreateImage("Glyph", face.transform, ProceduralSprites.Shape("booster." + Ids[i]), i == 3 ? UiTheme.PetalCenter : Color.white);
-                glyph.preserveAspect = true;
-                UiFactory.Place(glyph.rectTransform, 0.22f, 0.22f, 0.78f, 0.78f);
-                var button = edge.gameObject.AddComponent<Button>();
-                button.targetGraphic = face;
+                // The selected glow behind the tile: a golden halo and ring, pulsing (contracts/booster-tile.md layer 1).
+                RectTransform glow = UiFactory.Stretch(UiFactory.CreateRect("Glow", tile));
+                Image halo = UiKit.Rounded("Halo", glow, UiTheme.Of(DesignTokens.Colors.GardenGlow.WithAlpha(0.3f)), 60f);
+                UiFactory.Place(halo.rectTransform, -0.18f, -0.18f, 1.18f, 1.18f);
+                Image ring = UiKit.Rounded("Ring", glow, UiTheme.Of(DesignTokens.Colors.GardenGlow), 46f);
+                UiFactory.Place(ring.rectTransform, -0.04f, -0.04f, 1.04f, 1.04f);
+                glow.gameObject.AddComponent<GlowPulse>();
+                glow.gameObject.SetActive(false);
+                bar._glows[i] = glow.gameObject;
+
+                // The plate and the raised tile in the booster's color, with its icon (layers 2–5).
+                GardenButton view = UiKit.Garden("Button", tile, GardenLook.Booster(Ids[i]), DesignTokens.Size.BoosterTileHeight, radiusUnits: 40f);
+                view.TileSquash = true;
+                Image glyph = UiKit.GardenGlyph(view, view.Content, "booster." + Ids[i]);
+                UiFactory.Place(glyph.rectTransform, 0.16f, 0.12f, 0.84f, 0.88f);
+                if (Ids[i] == "bloom_burst")
+                {
+                    glyph.color = UiTheme.PetalCenter;
+                }
+
+                var button = view.gameObject.AddComponent<Button>();
+                button.targetGraphic = view.Top;
                 button.onClick.AddListener(() => onPress(kind));
-                edge.gameObject.AddComponent<PressMotion>();
+                view.Button = button;
                 bar._buttons[i] = button;
-                bar._faces[i] = face;
-                bar._fade[i] = new CanvasGroupLike(edge, face, glyph);
 
-                bar._counts[i] = UiKit.CountBadge("Count", place, out Image countDisc);
-                UiFactory.Place(countDisc.rectTransform, 0.62f, -0.02f, 0.92f, 0.3f);
+                // The tags (layer 6): the charges badge at the top-right corner, or the price tag below with a green plus.
+                bar._counts[i] = UiKit.CountBadge("Count", tile, out Image countDisc);
+                UiFactory.Place(countDisc.rectTransform, 0.66f, 0.72f, 1.08f, 1.08f);
                 bar._countBadges[i] = countDisc.gameObject;
 
-                Image pricePill = UiKit.Pill("Price", place, UiTheme.Of(DesignTokens.Colors.BadgeCount));
-                UiFactory.Place(pricePill.rectTransform, 0.44f, -0.02f, 1.02f, 0.3f);
-                Image petal = UiKit.PetalIcon("Petal", pricePill.transform);
-                UiFactory.Place(petal.rectTransform, 0.04f, 0.1f, 0.36f, 0.9f);
-                bar._prices[i] = UiKit.Label("Amount", pricePill.transform, string.Empty, DesignTokens.Type.Badge, Color.white);
+                RectTransform price = UiFactory.Stretch(UiFactory.CreateRect("Price", tile));
+                Image tagLine = UiKit.Pill("Tag", price, UiTheme.Of(DesignTokens.Colors.GardenOutline));
+                UiFactory.Place(tagLine.rectTransform, 0.18f, -0.16f, 0.82f, 0.14f);
+                Image tagFace = UiKit.Pill("Face", tagLine.transform, UiTheme.Of(GardenLook.Cream.Face));
+                UiFactory.Stretch(tagFace.rectTransform);
+                tagFace.rectTransform.offsetMin = new Vector2(UiKit.Units(3f), UiKit.Units(3f));
+                tagFace.rectTransform.offsetMax = new Vector2(-UiKit.Units(3f), -UiKit.Units(3f));
+                Image petal = UiKit.PetalIcon("Petal", tagFace.transform);
+                UiFactory.Place(petal.rectTransform, 0.04f, 0.08f, 0.38f, 0.92f);
+                bar._prices[i] = UiKit.Label("Amount", tagFace.transform, string.Empty, DesignTokens.Type.Badge, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain));
                 UiFactory.Place(bar._prices[i].rectTransform, 0.36f, 0.05f, 0.96f, 0.95f);
-                bar._priceBadges[i] = pricePill.gameObject;
+                Image plusLine = UiFactory.CreateImage("PlusLine", price, ProceduralSprites.Circle, UiTheme.Of(GardenLook.Green.Line));
+                plusLine.preserveAspect = true;
+                UiFactory.Place(plusLine.rectTransform, 0.72f, 0.72f, 1.04f, 1.04f);
+                Image plusFace = UiFactory.CreateImage("Plus", plusLine.transform, ProceduralSprites.Circle, UiTheme.Of(GardenLook.Green.Face));
+                plusFace.preserveAspect = true;
+                UiFactory.Place(plusFace.rectTransform, 0.06f, 0.1f, 0.94f, 0.98f);
+                Image plusGlyph = UiFactory.CreateImage("Glyph", plusFace.transform, ProceduralSprites.Shape("ui.plus"), Color.white);
+                plusGlyph.preserveAspect = true;
+                UiFactory.Place(plusGlyph.rectTransform, 0.22f, 0.22f, 0.78f, 0.78f);
+                bar._priceBadges[i] = price.gameObject;
             }
 
             return bar;
@@ -115,25 +143,37 @@ namespace Bloomlings.Client.UI.Gameplay
             for (int i = 0; i < Order.Length; i++)
             {
                 BoosterButtonState s = state(Order[i]);
-                Transform place = _buttons[i].transform.parent;
+                Transform place = _tiles[i].parent;
                 place.gameObject.SetActive(s.Unlocked);
-                bool enabled = s.Applicable && (s.Charges > 0 || s.Affordable);
-                _buttons[i].interactable = enabled;
-                _fade[i].SetAlpha(enabled ? 1f : 0.45f);
-                _countBadges[i].SetActive(s.Charges > 0);
-                _counts[i].text = s.Charges.ToString(CultureInfo.InvariantCulture);
-                _priceBadges[i].SetActive(s.Charges <= 0);
+                _states[i] = new BoosterTileState(s.Charges, s.Price, _targeting == Order[i], s.Applicable, s.Charges > 0 || s.Affordable);
+                Show(i);
+                _counts[i].text = "×" + s.Charges.ToString(CultureInfo.InvariantCulture);
                 _prices[i].text = NumberText.Group(s.Price);
             }
         }
 
-        /// <summary>Rings the button whose target the player is choosing (Return, Bloom Burst).</summary>
+        /// <summary>Raises and rings the tile whose target the player is choosing (Return, Bloom Burst).</summary>
         public void SetTargeting(BoosterKind? kind)
         {
+            _targeting = kind;
             for (int i = 0; i < Order.Length; i++)
             {
-                _rings[i].enabled = kind == Order[i];
+                BoosterTileState s = _states[i];
+                _states[i] = new BoosterTileState(s.Charges, s.Price, kind == Order[i], s.Usable, s.Affordable);
+                Show(i);
             }
+        }
+
+        /// <summary>Draws a tile in its state (contracts/booster-tile.md "States").</summary>
+        private void Show(int i)
+        {
+            BoosterTileState s = _states[i];
+            _buttons[i].interactable = !s.Disabled;
+            _fade[i].alpha = s.Disabled ? 0.45f : 1f;
+            _glows[i].SetActive(s.Selected);
+            _tiles[i].anchoredPosition = new Vector2(0f, s.Selected ? UiKit.Units(12f) : 0f);
+            _countBadges[i].SetActive(s.ShowsCharges);
+            _priceBadges[i].SetActive(s.ShowsPrice);
         }
 
         /// <summary>A short pulse when a booster is used.</summary>
@@ -141,7 +181,7 @@ namespace Bloomlings.Client.UI.Gameplay
         {
             if (isActiveAndEnabled)
             {
-                StartCoroutine(PulseRoutine(_buttons[Array.IndexOf(Order, kind)].transform));
+                StartCoroutine(PulseRoutine(_tiles[Array.IndexOf(Order, kind)]));
             }
         }
 
@@ -156,28 +196,18 @@ namespace Bloomlings.Client.UI.Gameplay
             target.localScale = Vector3.one;
         }
 
-        /// <summary>Fades a button's graphics together (a disabled booster is greyed, not hidden).</summary>
-        private readonly struct CanvasGroupLike
+        /// <summary>The selected glow's pulse: 55% to 100% every <c>motion.glow</c>, on unscaled time.</summary>
+        private sealed class GlowPulse : MonoBehaviour
         {
-            private readonly Graphic[] _graphics;
-            private readonly float[] _alphas;
+            private CanvasGroup? _group;
 
-            public CanvasGroupLike(params Graphic[] graphics)
-            {
-                _graphics = graphics;
-                _alphas = new float[graphics.Length];
-                for (int i = 0; i < graphics.Length; i++)
-                {
-                    _alphas[i] = graphics[i].color.a;
-                }
-            }
+            private void OnEnable() => _group ??= gameObject.AddComponent<CanvasGroup>();
 
-            public void SetAlpha(float alpha)
+            private void Update()
             {
-                for (int i = 0; i < _graphics.Length; i++)
+                if (_group != null)
                 {
-                    Color c = _graphics[i].color;
-                    _graphics[i].color = new Color(c.r, c.g, c.b, _alphas[i] * alpha);
+                    _group.alpha = GardenLook.Glow(Time.unscaledTime);
                 }
             }
         }

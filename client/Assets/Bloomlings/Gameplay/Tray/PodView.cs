@@ -53,8 +53,12 @@ namespace Bloomlings.Client.Gameplay.Tray
             var view = edge.gameObject.AddComponent<PodView>();
             view._edge = edge;
             view._card = UiKit.Rounded("Card", edge.transform, Color.white, 44f);
+            // A volumetric 2D card (spec 003 FR-022): a thick lip below the card and a highlight band; never 3D.
             RectTransform card = UiFactory.Stretch(view._card.rectTransform);
-            card.offsetMin = new Vector2(0f, UiKit.Units(DesignTokens.Elevation.RaisedEdge));
+            card.offsetMin = new Vector2(0f, UiKit.Units(DesignTokens.Garden.PodLip));
+            Image highlight = UiFactory.CreateImage("Highlight", view._card.transform, ProceduralSprites.PillSprite, Color.white);
+            UiFactory.Place(highlight.rectTransform, 0.09f, 0.75f, 0.91f, 0.95f);
+            UiKit.Gradient(highlight, new Color(1f, 1f, 1f, 0.55f), new Color(1f, 1f, 1f, 0f));
             view._button = edge.gameObject.AddComponent<Button>();
             view._button.targetGraphic = view._card;
             view._button.onClick.AddListener(() => onTap(view.PodId));

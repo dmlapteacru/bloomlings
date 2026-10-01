@@ -116,7 +116,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._wardrobe = UiKit.RoundIconButton("Wardrobe", screen._hero, "ui.shirt", () => features?.OnWardrobe?.Invoke()).gameObject;
             screen._collection = UiKit.RoundIconButton("Collection", screen._hero, "ui.grid", () => features?.OnCollection?.Invoke()).gameObject;
 
-            screen._level = UiKit.Label("Level", root, Loc.F("common.level", 1), DesignTokens.Type.LevelHome, UiTheme.Text);
+            screen._level = UiKit.Label("Level", root, Loc.F("common.level", 1), DesignTokens.Type.LevelHome, UiTheme.TextOnColor, look: TextLook.Headline);
             screen._teaser = UiKit.Pill("Teaser", root, new Color(UiTheme.Panel.r, UiTheme.Panel.g, UiTheme.Panel.b, 0.92f));
             screen._milestone = UiKit.Label("Text", screen._teaser.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain));
             UiFactory.Place(screen._milestone.rectTransform, 0.06f, 0.08f, 0.82f, 0.92f);

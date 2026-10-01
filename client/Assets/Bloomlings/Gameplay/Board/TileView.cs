@@ -38,6 +38,11 @@ namespace Bloomlings.Client.Gameplay.Board
 
         public CellPos Cell { get; private set; }
 
+        /// <summary>The lip of a cell as a fraction of its height: <c>garden.cell_lip</c> on a typical cell (spec 003 FR-023).</summary>
+        private const float CellLip = 0.16f;
+
+        private Image _highlight = null!;
+
         /// <summary>The variant currently shown, or null when the tile is hidden.</summary>
         public VariantId? Shown { get; private set; }
 
@@ -48,13 +53,18 @@ namespace Bloomlings.Client.Gameplay.Board
             view._frame = frame;
             view._visuals = visuals;
             view.Cell = cell;
-            // The raised look: the frame shows as the darker lower edge, the fill sits on it with a lighter top half.
+            // A volumetric 2D block (spec 003 FR-023): the frame shows as the thicker darker lip, the fill sits on it with a
+            // lighter top half and a soft highlight band; the icon stays on the face, above the lip.
             view._fill = UiFactory.CreateImage("Fill", frame.transform, ProceduralSprites.RoundedSquare, Color.white);
-            UiFactory.Place(view._fill.rectTransform, 0f, 0.09f, 1f, 1f);
+            UiFactory.Place(view._fill.rectTransform, 0f, CellLip, 1f, 1f);
             view._shine = UiFactory.CreateImage("Shine", view._fill.transform, ProceduralSprites.RoundedSquare, new Color(1f, 1f, 1f, 0f));
             UiFactory.Place(view._shine.rectTransform, 0.03f, 0.5f, 0.97f, 0.97f);
+            Image highlight = UiFactory.CreateImage("Highlight", view._fill.transform, ProceduralSprites.PillSprite, Color.white);
+            UiFactory.Place(highlight.rectTransform, 0.1f, 0.67f, 0.9f, 0.93f);
+            UiKit.Gradient(highlight, new Color(1f, 1f, 1f, DesignTokens.Garden.CellHighlightAlpha), new Color(1f, 1f, 1f, 0f));
+            view._highlight = highlight;
             view._icon = UiFactory.CreateImage("Icon", frame.transform, null, new Color(1f, 1f, 1f, 0.92f));
-            UiFactory.Place(view._icon.rectTransform, 0.2f, 0.25f, 0.8f, 0.85f);
+            UiFactory.Place(view._icon.rectTransform, 0.18f, CellLip + 0.1f, 0.82f, 0.92f);
             view._icon.preserveAspect = true;
             view._peek = UiFactory.CreateImage("NextLayer", frame.transform, ProceduralSprites.Circle, Color.white);
             UiFactory.Place(view._peek.rectTransform, 0.62f, 0.62f, 1f, 1f);
@@ -80,6 +90,7 @@ namespace Bloomlings.Client.Gameplay.Board
             StopAnimation();
             gameObject.SetActive(true);
             _frame.enabled = true;
+            _highlight.enabled = true;
             if (visible.HasValue)
             {
                 VariantVisual visual = Visual(visible.Value);
@@ -128,6 +139,7 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             StopAnimation();
             gameObject.SetActive(true);
+            _highlight.enabled = false;
             // A garden stone (frame 9): the stone shape, lit on top, sitting on its own shadow.
             _frame.color = Color.clear;
             _fill.sprite = ProceduralSprites.Shape("tile.stone");

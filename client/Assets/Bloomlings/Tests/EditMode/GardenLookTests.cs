@@ -59,6 +59,14 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void TheHeadline_ReachesThreeToOne_AgainstItsOutline()
+        {
+            TextLook look = TextLook.Headline;
+            Assert.That(Rgba.Contrast(look.FillTop, look.Outline), Is.GreaterThanOrEqualTo(3.0));
+            Assert.That(Rgba.Contrast(look.FillBottom, look.Outline), Is.GreaterThanOrEqualTo(3.0));
+        }
+
+        [Test]
         public void TheLabelLook_KeepsItsBalancedVolume()
         {
             TextLook look = TextLook.OnColor(GardenLook.Green);

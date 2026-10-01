@@ -75,7 +75,7 @@ namespace Bloomlings.Playtest.Design
             Hero(p, r, look, meta, app);
 
             // LEVEL N, the milestone teaser, PLAY.
-            p.Text(PlaytestText.F("common.level", NumberText.Group(level)), r.Level.CenterX, r.Level.CenterY, T.LevelHome, C.TextPrimary, r.Level.Width);
+            p.Text(PlaytestText.F("common.level", NumberText.Group(level)), r.Level.CenterX, r.Level.CenterY, T.LevelHome, C.TextPrimary, r.Level.Width, look: TextLook.Headline);
             if (look.Teaser && next.HasValue)
             {
                 p.Mark("ui.gift");

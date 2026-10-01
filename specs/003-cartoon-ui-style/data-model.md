@@ -57,12 +57,16 @@ How a label is drawn (FR-009, FR-025).
 | `OutlineEm` | float | outline width as a fraction of the font size (0.036) |
 | `ExtrudeEm` | float | extrusion depth below the letters (0.09) |
 | `ShadowAlpha` | float | soft shadow under the extrusion (0.3); Unity draws none (one underlay only) |
+| `Emboss` | color or none | a light line just under plain labels on cream faces (white at 70%) |
 
-Two kinds:
+Three kinds:
 
 - **`TextLook.OnColor(ColorSet)`.** For green, blue, red, dark, booster, header and HUD faces: a cream-white gradient,
   the outline and extrusion in the set's `Line`.
-- **`TextLook.Plain(color)`.** For cream and white faces and body text: one color, no outline, no extrusion.
+- **`TextLook.Plain(color)`.** For cream and white faces and body text: one color, no outline, no extrusion, the light
+  emboss.
+- **`TextLook.Headline`.** Home's "Level N" over the garden: the cream-white gradient outlined and extruded in dark
+  brown, as on the approved mockup.
 
 ## Font
 

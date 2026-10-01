@@ -1,6 +1,6 @@
 # Contract: Painter labels with volume (delta to spec 002 `contracts/painter.md`)
 
-The playtest painter keeps every operation of spec 002. Two things change.
+The playtest painter keeps every operation of spec 002. Three things change.
 
 ## 1. Text gains an optional look
 
@@ -29,6 +29,16 @@ The playtest painter keeps every operation of spec 002. Two things change.
   cache directory and calling `Typeface.CreateFromFile`. `SkiaPainter` loads them with `SKTypeface.FromStream`.
 - **Fallback.** If a font cannot be loaded, the host uses its previous system typeface and logs once. Text never
   disappears.
+
+## 3. Press and time
+
+| Member | Meaning |
+|---|---|
+| `PushSquash(sx, sy, cx, cy)` | a non-uniform scale about a point until `PopTransform` (the press squash); hit boxes follow it |
+| `Released(box)` | seconds since a finger lifted inside the box, or −1 (the spring-back of `GardenLook.PressDepth`) |
+| `Now` | the host's clock in seconds (breath, glow); the APK sets it before each frame and each touch |
+
+A plain look (`TextLook.Plain`) draws its light emboss 0.05 em under the text, then the fill.
 
 ## Recording
 

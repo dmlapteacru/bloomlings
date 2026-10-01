@@ -76,6 +76,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   asset slot registry are one engine-free kit in `client/Assets/Bloomlings/UI/Design/`, linked into the playtest. Use
   token names, never literal colors or sizes; every placeholder shape or procedural visual is a registered asset slot
   (`AssetSlots`), which the asset inventory is generated from.
+- The cartoon "Garden" look (`specs/003-cartoon-ui-style/`) lives in the same kit: `DesignTokens.Garden` and the
+  `garden.*` colors, `GardenLook` (color sets, label looks, press/breath/count-up/glow curves, booster tile states,
+  decoration). Buttons are a raised face on a cream plate (`Kit.GardenButton` / `UiKit.Garden`), labels are sentence
+  case in the bundled Nunito font (`client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL; only `type.badge` stays
+  uppercase), and the board, pods and slots are volumetric 2D, never 3D. The level tester keeps its minimal look.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
   `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps

@@ -31,7 +31,8 @@ namespace Bloomlings.Client.UI
         public static readonly Color IconGlyph = Of(DesignTokens.Colors.ButtonIconGlyph);
         public static readonly Color DarkButton = Of(DesignTokens.Colors.ButtonDark);
         public static readonly Color Warning = Of(DesignTokens.Colors.StateDanger);
-        public static readonly Color SlotEmpty = Of(DesignTokens.Colors.SurfaceSunk);
+        /// <summary>An empty Waiting Slot: a sunk well (spec 003 FR-022).</summary>
+        public static readonly Color SlotEmpty = Of(DesignTokens.Colors.GardenWell);
         public static readonly Color SlotLocked = Of(DesignTokens.Colors.StateLockBg);
         public static readonly Color LockGlyph = Of(DesignTokens.Colors.StateLock);
         public static readonly Color Stuck = Of(DesignTokens.Colors.StateStuck);

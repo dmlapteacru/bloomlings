@@ -32,6 +32,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A label on a cream or white face: one dark color, no outline, no extrusion, a light emboss below.</summary>
         public static TextLook Plain(Rgba color) => new TextLook(color, color, color, 0f, 0f, 0f, Rgba.White.WithAlpha(0.7f));
 
+        /// <summary>A headline over the garden backdrop (Home's "Level N"): cream-white letters outlined in dark brown.</summary>
+        public static TextLook Headline => new TextLook(C.GardenLabelFillTop, C.GardenLabelFillBottom, C.GardenLabelPlain, G.LabelOutlineEm, G.LabelExtrudeEm, G.LabelShadowAlpha);
+
         /// <summary>Whether the look draws an outline and an extrusion.</summary>
         public bool Volumetric => OutlineEm > 0f || ExtrudeEm > 0f;
     }

@@ -43,8 +43,8 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // A soft band behind the row.
-            p.FillRound(area.Inset(-p.U(10f), -p.U(8f)), p.U(36f), C.SurfacePanel.WithAlpha(0.55f));
+            // The row sits on paper in a wooden frame, like the board (spec 003 FR-022).
+            Kit.Paper(p, area.Inset(-p.U(10f), -p.U(8f)), p.U(36f), DesignTokens.Garden.FrameWidthSlots, DesignTokens.Garden.FrameDepthSlots);
             Box[] cells = ScreenLayout.Row(area.Inset(p.U(6f), p.U(6f)), slots.Count, p.U(16f), p.U(170f), square: true);
             for (int n = 0; n < slots.Count; n++)
             {
@@ -71,8 +71,8 @@ namespace Bloomlings.Playtest.Design
             if (locked)
             {
                 p.Mark("slot.state.locked");
-                Kit.Raised(p, box, C.StateLockBg, C.StateLockBg.Darken(0.2f), radius);
-                p.Shape("ui.lock", box.Inset(box.Width * 0.28f).Offset(0f, -p.U(3f)), C.StateLock.Darken(0.15f));
+                Box lockFace = Kit.Block(p, box, C.StateLockBg, C.StateLockBg.Darken(0.2f), radius, Kit.PodLip(p, box.Height), 0.35f);
+                p.Shape("ui.lock", Box.FromCenter(lockFace.CenterX, lockFace.CenterY, box.Width * 0.44f, box.Width * 0.44f), C.StateLock.Darken(0.15f));
                 return;
             }
 
@@ -83,10 +83,9 @@ namespace Bloomlings.Playtest.Design
 
             if (look.PodId == null)
             {
+                // An empty slot is a sunk well (spec 003 FR-022).
                 p.Mark("slot.empty");
-                p.FillRound(box, radius, C.SurfaceSunk);
-                p.FillRound(new Box(box.Left, box.Top, box.Right, box.Top + (box.Height * 0.2f)), radius, C.SurfacePanelEdge.WithAlpha(0.5f));
-                p.FillRound(box.Inset(0f, 0f).Offset(0f, box.Height * 0.06f).Inset(p.U(2f)), radius, C.SurfaceSunk);
+                Kit.Well(p, box, radius, C.GardenWell);
                 if (danger)
                 {
                     p.Mark("slot.state.danger");
@@ -144,7 +143,7 @@ namespace Bloomlings.Playtest.Design
             {
                 p.Mark("pod.state.mystery");
                 Rgba card = C.PodMystery;
-                Box face = Kit.Raised(p, b, card, card.Darken(0.18f), radius);
+                Box face = Kit.Block(p, b, card, card.Darken(0.18f), radius, Kit.PodLip(p, b.Height), 0.55f);
                 p.Shape("tile.mystery", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.4f), face.Width * 0.46f, face.Width * 0.46f), C.PodMysteryMark);
                 PodPainter.CountPill(p, face, look.Count, false);
                 p.PopAlpha();
@@ -162,7 +161,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             Rgba tint = working ? DesignTokens.PodCard(color) : DesignTokens.PodCard(color).Grey();
-            Box f = Kit.Raised(p, b, tint, working ? DesignTokens.PodCardEdge(color) : DesignTokens.PodCardEdge(color).Grey(), radius);
+            Box f = Kit.Block(p, b, tint, working ? DesignTokens.PodCardEdge(color) : DesignTokens.PodCardEdge(color).Grey(), radius, Kit.PodLip(p, b.Height), working ? 0.55f : 0.25f);
             Rgba body = working ? color : color.Grey().Mix(C.StateStuck, 0.35f);
             Box figure = Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.4f), f.Width * 0.76f, f.Width * 0.76f);
             Visuals.Bloomling(p, figure, Visuals.FamilyOf(look.Variant.Value), body, Visuals.SymbolOf(look.Variant.Value), face: working, symbolScale: 0.52f);

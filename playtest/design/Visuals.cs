@@ -61,7 +61,7 @@ namespace Bloomlings.Playtest.Design
         public static void VariantTile(IPainter p, Box box, VariantId variant)
         {
             Rgba color = ColorOf(variant);
-            Box face = Kit.Raised(p, box, color, DesignTokens.TileEdge(color), box.Width * DesignTokens.Radius.Tile, top: DesignTokens.TileTop(color));
+            Box face = Kit.Block(p, box, color, DesignTokens.TileEdge(color), box.Width * DesignTokens.Radius.Tile, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: DesignTokens.TileTop(color));
             float s = face.Width * 0.62f;
             p.Shape(SymbolOf(variant), Box.FromCenter(face.CenterX, face.CenterY, s, s), color.Ink);
         }

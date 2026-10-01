@@ -42,7 +42,10 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     the Store (frame 17).
 
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
-  `client/Assets/Bloomlings/UI/Design/`, linked. There are no ads or real-money purchases here, so those buttons show
+  `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the cartoon "Garden" look of spec 003
+  (`specs/003-cartoon-ui-style/`): buttons on cream plates with sentence-case labels in Nunito (embedded from
+  `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL), cards in wooden frames, a volumetric 2D board, pods and
+  slots, and booster tiles. The level tester keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show
   as unavailable, and the jam rescue is granted without an ad. A small dev row on Home (−1, +1, +10, Reset) moves the
   progression for testing.
 - Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):
@@ -68,6 +71,7 @@ design board frame (1–17) plus extras (themes, Settings, a Collection picture,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the
 safe area. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset slot registry.
+`-- --before <sheet.png>` also writes `before-after.jpg`, that older sheet above the new one (the spec 003 review).
 
 
 ## Build

@@ -9,7 +9,8 @@ namespace Bloomlings.Content.Tests
 {
     /// <summary>
     /// The automated part of the originality review (FR-091, T154): no reference game's name in the shipped client or
-    /// the picture library, no imported art, audio or font files in the client, and every picture owned or licensed.
+    /// the picture library, no imported art, audio or font files in the client without a licence record, and every
+    /// picture owned or licensed.
     /// The visual comparison of the pictures with the reference game's levels stays a human review.
     /// </summary>
     public class OriginalityTests
@@ -59,8 +60,25 @@ namespace Bloomlings.Content.Tests
                     .ToArray()
                 : Array.Empty<string>();
 
-            // Every visual is procedural placeholder art (ProceduralSprites); imported assets need a licence record first.
-            Assert.That(media, Is.Empty);
+            // Every visual is procedural placeholder art (ProceduralSprites); an imported file needs a licence record first:
+            // a row of client/THIRD_PARTY_NOTICES.md naming the file and its licence file, which must exist.
+            string notices = Path.Combine(RepositoryRoot, "client", "THIRD_PARTY_NOTICES.md");
+            string[] records = File.Exists(notices)
+                ? File.ReadAllLines(notices).Where(l => l.StartsWith("| `", StringComparison.Ordinal)).ToArray()
+                : Array.Empty<string>();
+            string[] unrecorded = media
+                .Select(m => m.Replace('\\', '/'))
+                .Where(m => !records.Any(r => r.StartsWith("| `" + m + "`", StringComparison.Ordinal) && HasLicenceFile(r)))
+                .ToArray();
+            Assert.That(unrecorded, Is.Empty);
+        }
+
+        /// <summary>Whether a licence record's last column names an existing licence file.</summary>
+        private static bool HasLicenceFile(string record)
+        {
+            string[] cells = record.Split('|', StringSplitOptions.RemoveEmptyEntries);
+            string licence = cells[cells.Length - 1].Trim().Trim('`');
+            return licence.Length > 0 && File.Exists(Path.Combine(RepositoryRoot, licence));
         }
 
         [Test]

@@ -10,14 +10,15 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Playtest.Design
 {
     /// <summary>
-    /// The booster bar of frame 14 (spec 002 FR-014).
+    /// The booster bar of frame 14 (spec 002 FR-014) as booster tiles (spec 003 FR-031, contracts/booster-tile.md).
     /// <list type="bullet">
     /// <item><description>It is hidden before the first booster unlocks.</description></item>
-    /// <item><description>Each booster appears at its unlock level as a round button in its color.</description></item>
-    /// <item><description>A dark badge shows the charges. With none left, a Petal price shows instead, so buying stays
-    /// clear.</description></item>
+    /// <item><description>Each booster appears at its unlock level as a tile: a cream plate, a raised tile in its color
+    /// and a large light icon.</description></item>
+    /// <item><description>A "×N" badge shows the charges. With none left, a price tag and a green "+" show instead, so
+    /// buying stays clear.</description></item>
     /// <item><description>A booster the level cannot use now is greyed (spec 001 FR-046).</description></item>
-    /// <item><description>The booster whose target is being chosen is ringed.</description></item>
+    /// <item><description>The booster whose target is being chosen is raised, with a pulsing golden ring.</description></item>
     /// </list>
     /// </summary>
     public static class BoosterBarPainter
@@ -39,63 +40,87 @@ namespace Bloomlings.Playtest.Design
             }
 
             IReadOnlyList<Recovery> eligible = s.Session.EligibleRecoveries();
-            float size = Math.Min(area.Height, p.U(DesignTokens.Size.BoosterButton));
             // Four places across the bar; unlocked boosters take theirs in order (frame 14).
             Box[] places = ScreenLayout.Row(area, 4, p.U(24f), p.U(220f), square: false);
             for (int i = 0; i < shown.Count; i++)
             {
                 (BoosterKind kind, Recovery recovery, string id) = shown[i];
-                Box place = places[i];
-                float cx = place.CenterX;
-                float cy = area.CenterY;
-                bool applicable = Applicable(s, recovery, eligible);
                 int charges = s.Meta.Economy.Charges(kind);
-                bool affordable = charges > 0 || s.Meta.Economy.CanAfford(kind);
-                bool enabled = applicable && affordable && s.Session.Status != LevelStatus.Won;
-                Button(p, cx, cy, size, id, enabled, s.Targeting == recovery, charges, s.Meta.Economy.Price(kind), enabled ? () => s.PressBooster(kind, recovery) : (Action?)null);
+                var state = new BoosterTileState(
+                    charges,
+                    s.Meta.Economy.Price(kind),
+                    selected: s.Targeting == recovery,
+                    usable: Applicable(s, recovery, eligible) && s.Session.Status != LevelStatus.Won,
+                    affordable: charges > 0 || s.Meta.Economy.CanAfford(kind));
+                Tile(p, Fit(p, places[i], area), id, state, state.Disabled ? (Action?)null : () => s.PressBooster(kind, recovery));
             }
         }
 
-        /// <summary>One round booster button with its count or price (also used by the Store and the jam sheet).</summary>
-        public static void Button(IPainter p, float cx, float cy, float size, string id, bool enabled, bool targeting, int charges, int price, Action? action)
+        /// <summary>The tile box at a bar place: <c>size.booster_tile</c>, shrunk to fit the bar.</summary>
+        public static Box Fit(IPainter p, Box place, Box area)
         {
-            Rgba color = DesignTokens.BoosterColor(id);
-            p.PushAlpha(enabled ? 1f : 0.45f);
-            Box box = Box.FromCenter(cx, cy, size, size);
-            bool pressed = action != null && p.Pressed(box);
-            float lift = p.U(7f);
-            if (targeting)
+            float k = Math.Min(1f, Math.Min(place.Width / p.U(DesignTokens.Size.BoosterTileWidth + 24f), area.Height / p.U(DesignTokens.Size.BoosterTileHeight + 16f)));
+            return Box.FromCenter(place.CenterX, area.CenterY - p.U(6f), p.U(DesignTokens.Size.BoosterTileWidth) * k, p.U(DesignTokens.Size.BoosterTileHeight) * k);
+        }
+
+        /// <summary>One booster tile in its state (contracts/booster-tile.md "Layers").</summary>
+        public static void Tile(IPainter p, Box box, string id, BoosterTileState state, Action? action)
+        {
+            p.Mark("booster." + id);
+            float k = box.Width / p.U(DesignTokens.Size.BoosterTileWidth);
+            ColorSet set = GardenLook.Booster(id);
+            if (state.Disabled)
             {
-                p.FillCircle(cx, cy, (size / 2f) + p.U(10f), color.WithAlpha(0.3f));
+                set = set.Disabled();
             }
 
-            if (!pressed)
+            float depth = Kit.Press(p, box, action != null);
+            Box tile = state.Selected ? box.Offset(0f, -p.U(12f) * k) : box;
+            p.PushAlpha(state.Disabled ? 0.45f : 1f);
+            if (state.Selected)
             {
-                p.FillCircle(cx, cy + (lift / 2f), size / 2f, color.Darken(0.3f));
+                // The selected glow: a golden halo pulsing every motion.glow, and a ring around the plate.
+                float glow = GardenLook.Glow(p.Now);
+                float radius = p.U(40f) * k;
+                for (int ring = 3; ring >= 1; ring--)
+                {
+                    float grow = p.U(28f) * k * ring / 3f;
+                    p.FillRound(tile.Inset(-grow), radius + grow, C.GardenGlow.WithAlpha(0.22f * glow));
+                }
+
+                p.StrokeRound(tile.Inset(-p.U(5f) * k), radius + (p.U(5f) * k), p.U(5f) * k, C.GardenGlow.WithAlpha(glow));
             }
 
-            float faceY = pressed ? cy + (lift / 2f) : cy - (lift / 2f);
-            p.FillCircle(cx, faceY, (size / 2f) - p.U(2f), color);
-            p.FillCircle(cx, faceY, (size / 2f) - p.U(8f), color.Lighten(0.08f));
-            p.Shape("booster." + id, Box.FromCenter(cx, faceY, size * 0.54f, size * 0.54f), id == "bloom_burst" ? C.PetalCenter : Rgba.White);
-            p.PopAlpha();
-
-            float badge = size * 0.36f;
-            if (charges > 0)
+            Kit.Squash(p, tile, depth, tile: true);
+            Box plate = Kit.Plate(p, tile, p.U(40f) * k);
+            Box face = Kit.Face(p, plate.Inset(p.U(10f) * k), set, p.U(30f) * k, depth, highlight: !state.Disabled, lipUnits: 14f * k);
+            float icon = Math.Min(face.Width, face.Height) * 0.72f;
+            Box iconBox = Box.FromCenter(face.CenterX, face.CenterY, icon, icon);
+            if (!state.Disabled)
             {
-                Kit.CountBadge(p, cx + (size * 0.36f), cy + (size * 0.34f), badge, charges.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                p.Shape("booster." + id, iconBox.Offset(0f, icon * 0.06f), set.Line);
+            }
+
+            p.Shape("booster." + id, iconBox, id == "bloom_burst" && !state.Disabled ? C.PetalCenter : Rgba.FromHex("#FFFBEF"));
+            p.PopTransform();
+
+            if (state.ShowsCharges)
+            {
+                float badge = p.U(54f) * k;
+                Kit.CountBadge(p, tile.Right - (badge * 0.5f) + (p.U(12f) * k), tile.Top + (badge * 0.5f) - (p.U(12f) * k), badge, "×" + state.Charges.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
             else
             {
-                string text = NumberText.Group(price);
-                float w = p.MeasureText(text, T.Badge, badge / p.U(48f)) + (badge * 1.3f);
-                Box pill = Box.FromCenter(cx + (size * 0.3f), cy + (size * 0.36f), w, badge);
-                p.FillRound(pill.Inset(-p.U(3f)), (badge / 2f) + p.U(3f), Rgba.White);
-                p.FillRound(pill, badge / 2f, C.BadgeCount);
-                Kit.Petal(p, Box.FromCenter(pill.Left + (badge * 0.5f), pill.CenterY, badge * 0.8f, badge * 0.8f));
-                p.Text(text, pill.Left + (badge * 0.95f) + ((pill.Width - (badge * 1.1f)) / 2f), pill.CenterY, T.Badge, C.TextOnColor, pill.Width - badge, sizeScale: badge / p.U(48f));
+                var tag = Box.FromCenter(tile.CenterX, tile.Bottom + (p.U(10f) * k), p.U(96f) * k, p.U(46f) * k);
+                Kit.PriceTag(p, tag, state.Price);
+                float plus = p.U(46f) * k;
+                Box plusBox = Box.FromCenter(tile.Right - (plus * 0.5f) + (p.U(10f) * k), tile.Top + (plus * 0.5f) - (p.U(10f) * k), plus, plus);
+                p.FillCircle(plusBox.CenterX, plusBox.CenterY + (plus * 0.06f), (plus / 2f) + p.U(2f), GardenLook.Green.Line);
+                p.FillCircle(plusBox.CenterX, plusBox.CenterY, plus / 2f, GardenLook.Green.Face);
+                p.Shape("ui.plus", plusBox.Inset(plus * 0.22f), Rgba.White);
             }
 
+            p.PopAlpha();
             if (action != null)
             {
                 p.Hit(Kit.Touch(p, box), action);

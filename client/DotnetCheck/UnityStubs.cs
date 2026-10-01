@@ -63,6 +63,7 @@ namespace UnityEngine
     public enum RuntimePlatform { Android, IPhonePlayer }
     public class TextAsset : Object { public string text => string.Empty; }
     public sealed class Font : Object { }
+    public sealed class CanvasGroup : Behaviour { public float alpha { get; set; } public bool interactable { get; set; } public bool blocksRaycasts { get; set; } }
     public class Material : Object { public Material(Material source) { } public Material(Shader shader) { } public void SetColor(string name, Color value) { } public void SetFloat(string name, float value) { } public void EnableKeyword(string keyword) { } public void DisableKeyword(string keyword) { } }
     public sealed class Shader : Object { public static Shader? Find(string name) => null; }
     public static class Resources { public static T? Load<T>(string path) where T : Object => null; }

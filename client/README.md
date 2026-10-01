@@ -155,6 +155,23 @@ Unity wraps the kit in `ProceduralSprites` (sprites), `UiTheme` (Unity colors), 
 buttons, round icon buttons, badges, cards and bottom sheet) and `BackdropView`. The canvas matches the screen width at
 1080 units, so token sizes map one to one. Final art replaces a placeholder by its slot id without layout changes.
 
+## Garden look (spec 003)
+
+The cartoon look of `specs/003-cartoon-ui-style/` extends the same kit (`DesignTokens.Garden`, `GardenLook`):
+- `UiKit.Garden` builds a button as layered images: the cream plate (shadow, thickness, brown outline, gradient) and
+  the raised face (outline, lip, gradient top, highlight). Its `GardenButton` component presses into the lip and
+  springs back with one overshoot, breathes when it is the screen's waiting button, and greys out when not
+  interactable; `VerticalGradient` draws the gradients, `DecorationLayout` places the leaves and flowers on PLAY and
+  the main card buttons.
+- `UiFonts` makes runtime TextMeshPro font assets from `UI/Fonts/Resources/Nunito-ExtraBold.ttf` and
+  `Nunito-SemiBold.ttf` (SIL OFL, `OFL.txt` beside them), and one shared material per font and label look (outline
+  plus a hard underlay for the extrusion). If a font cannot be loaded, labels keep the TextMeshPro default font.
+- Cards and the jam sheet are paper in a wooden frame (`UiKit.Paper`) with a header band; the board cells, pods and
+  slot wells are volumetric 2D; the booster bar shows booster tiles with every state.
+
+Check on a device that the labels use Nunito with their outline and extrusion, and that the profiler shows no new
+material per label.
+
 ## Localization
 
 Player-facing text is table-driven (R18): code asks `Loc.T("key")`. The English source is

@@ -168,20 +168,20 @@ with every spec 002 state still readable.
 **Independent Test**: Preview frames 7–9 and 12–14 and compare with `booster-variants.jpg`; the readability and layout
 checks still pass.
 
-- [ ] T037 [US3] Draw the board's wooden frame (`frame_width`, `frame_depth`) and volumetric cells (lip
+- [X] T037 [US3] Draw the board's wooden frame (`frame_width`, `frame_depth`) and volumetric cells (lip
   `cell_lip`, highlight `cell_highlight_alpha`, 2-unit outline in the cell's `Line`, the symbol on the face above the
   lip) in `P/design/BoardPainter.cs` and `P/design/Visuals.cs` (FR-023, FR-024)
-- [ ] T038 [US3] Draw volumetric pods (lip `pod_lip`, bevel, highlight, outline) and stacked layers in
+- [X] T038 [US3] Draw volumetric pods (lip `pod_lip`, bevel, highlight, outline) and stacked layers in
   `P/design/PodPainter.cs`, keeping every frame 12 state (FR-022)
-- [ ] T039 [US3] Draw the slot row in a wooden frame with sunk wells (`well`, `well_edge`) and volumetric slot pods in
+- [X] T039 [US3] Draw the slot row in a wooden frame with sunk wells (`well`, `well_edge`) and volumetric slot pods in
   `P/design/SlotPainter.cs`, keeping every frame 13 state and the red dashed danger frame (FR-022)
-- [ ] T040 [US3] Replace the round booster buttons with booster tiles in `P/design/BoosterBarPainter.cs`
+- [X] T040 [US3] Replace the round booster buttons with booster tiles in `P/design/BoosterBarPainter.cs`
   (contracts/booster-tile.md): plate, tile, highlight, icon, ×N badge or price tag with "+", selected glow and ring
   with a 1.2 s pulse, disabled grey, squash on press; keep the jam sheet and Store users working (FR-031)
-- [ ] T041 [US3] Volumetric cells and the board frame in `U/Gameplay/Board/TileView.cs` and `BoardView.cs`
-- [ ] T042 [US3] Volumetric pods in `U/Gameplay/Tray/PodView.cs` and `TrayView.cs`; sunk wells and the slot frame in
+- [X] T041 [US3] Volumetric cells and the board frame in `U/Gameplay/Board/TileView.cs` and `BoardView.cs`
+- [X] T042 [US3] Volumetric pods in `U/Gameplay/Tray/PodView.cs` and `TrayView.cs`; sunk wells and the slot frame in
   `U/Gameplay/Slots/SlotRowView.cs`
-- [ ] T043 [US3] Booster tiles with every state in `U/UI/Gameplay/BoosterBar.cs`, driven by `BoosterTileLook`
+- [X] T043 [US3] Booster tiles with every state in `U/UI/Gameplay/BoosterBar.cs`, driven by `BoosterTileLook`
 
 **Checkpoint**: frames 7–9 and 12–14 show the Garden pieces; readability and layout checks pass.
 
@@ -189,12 +189,13 @@ checks still pass.
 
 ## Phase 6: Polish and cross-cutting
 
-- [ ] T044 [P] Regenerate `specs/002-ux-design-board/asset-inventory.md` (`playtest/preview -- --inventory`) and note
+- [X] T044 [P] Regenerate `specs/002-ux-design-board/asset-inventory.md` (`playtest/preview -- --inventory`) and note
   the Garden recipe on each UI entry (FR-030)
-- [ ] T045 [P] Add a before/after sheet to the preview tool (`--before <png>`), and commit
-  `specs/003-cartoon-ui-style/preview-before-after.png` from the spec 002 sheet and the new one (FR-029)
-- [ ] T046 [P] Update `CLAUDE.md`, `playtest/README.md`, `client/README.md` and
-  `specs/002-ux-design-board/contracts/design-tokens.md` (sentence case, the Garden tokens, the font)
+- [X] T045 [P] Add a before/after sheet to the preview tool (`--before <png>`), and commit
+  `specs/003-cartoon-ui-style/preview-before-after.jpg` from the spec 002 sheet and the new one (FR-029)
+- [X] T046 [P] Update `CLAUDE.md`, `playtest/README.md`, `client/README.md` and
+  `specs/002-ux-design-board/contracts/design-tokens.md` (sentence case, the Garden tokens, the font), and add the
+  font's licence record to `client/THIRD_PARTY_NOTICES.md`, which `OriginalityTests` now reads
 - [ ] T047 Run the quickstart checks 1–5 (`client/DotnetCheck`, `playtest/preview`, `--inventory`, `playtest/check`,
   `core`, `backend`) and type-check the full playtest and the tester against `Mono.Android`
 

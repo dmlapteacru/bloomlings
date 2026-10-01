@@ -751,9 +751,18 @@ namespace Bloomlings.Client.UI
             }
         }
 
+        private float _applied = float.NaN;
+
         private void Update()
         {
+            // Only touch the transform when the press changes, so idle elements never dirty the canvas (FR-027).
             float depth = GardenLook.PressDepth(_down, Time.unscaledTime - _releasedAt);
+            if (depth == _applied)
+            {
+                return;
+            }
+
+            _applied = depth;
             (float sx, float sy) = GardenLook.Squash(depth, Tile);
             transform.localScale = new Vector3(sx, sy, 1f);
         }
@@ -787,6 +796,8 @@ namespace Bloomlings.Client.UI
         private bool _down;
         private float _releasedAt = -10f;
         private bool? _shownEnabled;
+        private float _appliedDepth = float.NaN;
+        private float _appliedBreath = float.NaN;
 
         /// <summary>The element's color set.</summary>
         public ColorSet Set { get; private set; } = GardenLook.Green;
@@ -802,6 +813,9 @@ namespace Bloomlings.Client.UI
 
         /// <summary>Whether this is the screen's one waiting button, breathing gently (FR-019).</summary>
         public bool Breathe { get; set; }
+
+        /// <summary>Booster tiles squash a little more (contracts/booster-tile.md "States").</summary>
+        public bool TileSquash { get; set; }
 
         public void Init(ColorSet set, Image line, Image lip, Image top, Image shine, RectTransform content, float travel)
         {
@@ -884,6 +898,16 @@ namespace Bloomlings.Client.UI
             }
 
             float depth = enabled ? GardenLook.PressDepth(_down, Time.unscaledTime - _releasedAt) : 0f;
+            float breath = Breathe && enabled && depth == 0f ? GardenLook.Breathe(Time.unscaledTime) : 1f;
+
+            // Only touch the rects when the press or the breath changes, so idle buttons never dirty the canvas (FR-027).
+            if (depth == _appliedDepth && breath == _appliedBreath)
+            {
+                return;
+            }
+
+            _appliedDepth = depth;
+            _appliedBreath = breath;
             float shift = _travel * Mathf.Clamp(depth, -0.25f, 1f);
             Top.rectTransform.offsetMin = _topMin - new Vector2(0f, shift);
             Top.rectTransform.offsetMax = _topMax - new Vector2(0f, shift);
@@ -891,8 +915,7 @@ namespace Bloomlings.Client.UI
             _content.offsetMax = _contentMax - new Vector2(0f, shift);
             _lip.rectTransform.offsetMax = _lipMax - new Vector2(0f, Mathf.Max(0f, shift));
             _line.rectTransform.offsetMax = _lineMax - new Vector2(0f, Mathf.Max(0f, shift));
-            (float sx, float sy) = GardenLook.Squash(depth);
-            float breath = Breathe && enabled && depth == 0f ? GardenLook.Breathe(Time.unscaledTime) : 1f;
+            (float sx, float sy) = GardenLook.Squash(depth, TileSquash);
             transform.localScale = new Vector3(sx * breath, sy * breath, 1f);
         }
     }

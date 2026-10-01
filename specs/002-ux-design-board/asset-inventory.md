@@ -34,14 +34,14 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 13 | 0 | 13 |
 | Booster icons | 4 | 0 | 4 |
-| UI kit | 37 | 0 | 37 |
+| UI kit | 39 | 0 | 39 |
 | Currency and rewards | 3 | 0 | 3 |
 | Collection frames | 2 | 0 | 2 |
 | Cosmetics | 7 | 11 | 18 |
 | Visual effects | 8 | 0 | 8 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **126** | **18** | **144** |
+| **All** | **128** | **18** | **146** |
 
 ## Brand
 
@@ -145,25 +145,30 @@ How to read the columns:
 
 ## UI kit
 
+Final art for every entry here follows the Garden look of spec 003: a flat cream plate with a thin brown
+outline, a slightly raised face in its color set with a darker lip and a soft highlight, volumetric
+sentence-case labels in Nunito, and, on the main buttons only, the leaves and white flowers of
+`ui.deco.garden`. Cards and the sheet are paper in a wooden frame with a header band.
+
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
 | `ui.panel` | Rounded panel base (9-slice) | 4, 5, 6, 10, 11, 15, 16, 17 | Every card, button, pill and tile | any tint | Small | no | Launch | shape `ui.panel` |
 | `ui.circle` | Disc (round buttons, badges, avatars) | 2, 3, 5, 7, 14 | Round buttons; badges; medals; avatars | any tint | Icon | no | Launch | shape `ui.circle` |
 | `ui.ring` | Ring (highlights, profile frame) | 3, 7 | Highlights; entry marker; avatar frame | any tint | Icon | no | Launch | shape `ui.ring` |
-| `ui.button.primary` | Primary button (green, darker lower edge) | 2, 3, 4, 10, 11, 15, 16 | PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue | normal; pressed; disabled | Medium | no | Launch | rounded pill in the primary tokens |
-| `ui.button.secondary` | Secondary button (cream) | 4, 10, 11, 15 | RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N | normal; pressed; disabled | Medium | no | Launch | rounded pill in the secondary tokens |
-| `ui.button.round` | Round icon button (white) | 2, 3, 7, 11 | Settings; Pause; close; Wardrobe; Collection | normal; pressed | Small | no | Launch | white disc with a rim and a glyph |
-| `ui.pill.level` | Level pill | 7, 8, 9 | Gameplay top bar | normal; super hard | Medium | no | Launch | sky-blue pill with LEVEL N |
-| `ui.pill.speed` | 2× speed pill | 7, 8, 9 | Gameplay top bar | 1×; 2× | Small | no | Launch | dark pill with the speed |
-| `ui.pill.petals` | Petals balance pill | 2, 3, 17 | Home; Store | with +; without + | Medium | no | Launch | white pill with the Petal symbol, balance and green + |
-| `ui.badge.hard` | HARD badge | 8 | Gameplay | intro; steady | Small | no | Launch | red pill with HARD |
-| `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple pill with SUPER HARD |
-| `ui.badge.count` | Count badge (booster charges) | 7, 14 | Booster bar | count; price | Icon | no | Launch | dark disc with the number |
-| `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | cream rounded card with a soft shadow over a scrim |
-| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | cream sheet with a grip, rising from the bottom |
-| `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | rounded row in the panel tokens |
-| `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | rounded pill in the sunk or primary tokens |
-| `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | pill switch in the primary and sunk tokens |
+| `ui.button.primary` | Primary button (green, darker lower edge) | 2, 3, 4, 10, 11, 15, 16 | PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue | normal; pressed; disabled | Medium | no | Launch | green raised pill on a cream plate: outline, lip, highlight, volumetric label |
+| `ui.button.secondary` | Secondary button (cream) | 4, 10, 11, 15 | RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N | normal; pressed; disabled | Medium | no | Launch | cream raised pill on a cream plate, brown outline, dark brown label |
+| `ui.button.round` | Round icon button (white) | 2, 3, 7, 11 | Settings; Pause; close; Wardrobe; Collection | normal; pressed | Small | no | Launch | raised disc on a round plate: outline, lip, highlight, glyph |
+| `ui.pill.level` | Level pill | 7, 8, 9 | Gameplay top bar | normal; super hard | Medium | no | Launch | sky-blue raised pill on a plate with the volumetric "Level N" |
+| `ui.pill.speed` | 2× speed pill | 7, 8, 9 | Gameplay top bar | 1×; 2× | Small | no | Launch | dark raised pill on a plate |
+| `ui.pill.petals` | Petals balance pill | 2, 3, 17 | Home; Store | with +; without + | Medium | no | Launch | white raised pill on a plate with the Petal symbol, balance and a round green + on its own plate |
+| `ui.badge.hard` | HARD badge | 8 | Gameplay | intro; steady | Small | no | Launch | red raised sticker pill on a plate |
+| `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
+| `ui.badge.count` | Count badge (booster charges) | 7, 14 | Booster bar | count; price | Icon | no | Launch | dark brown disc with a cream ring and a brown outline; price: cream tag with the Petal |
+| `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | paper card in a wooden frame with a header band shaped like a button on a plate, over a scrim |
+| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | paper sheet in a wooden frame with a grip, rising and settling with a bounce |
+| `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | outlined rounded panel; the own row raised |
+| `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: green raised pill on a plate; others: sunk |
+| `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | chunky outlined track with a raised knob |
 | `ui.close` | Close glyph | 4, 5, 6, 11 | Cards | normal | Icon | no | Launch | shape `ui.close` |
 | `ui.pause` | Pause glyph | 7, 8, 9 | Gameplay top bar | normal | Icon | no | Launch | shape `ui.pause` |
 | `ui.restart` | Restart glyph | 10, 11 | Pause card; jam sheet | normal | Icon | no | Launch | shape `ui.restart` |
@@ -171,6 +176,8 @@ How to read the columns:
 | `ui.chevron` | Chevron (opens a screen) | 3 | Home rank row; Daily Challenge card | normal | Icon | no | Launch | shape `ui.chevron` |
 | `ui.plus` | Plus glyph | 2, 3, 17 | Petals pill; + Slot | normal | Icon | no | Launch | shape `ui.plus` |
 | `ui.check` | Check mark (done) | 3 | Home Daily Challenge card (done today) | normal | Icon | no | Launch | shape `ui.check` |
+| `ui.play` | Play triangle, as tall as the letters (spec 003 FR-010) | 2, 3 | PLAY on Home | normal; pressed | Icon | no | Launch | shape `ui.play` |
+| `ui.deco.garden` | Leaves and a white flower on the main buttons (spec 003 FR-011a) | 2, 3, 11, 15, 16 | PLAY; RESUME; NEXT; CONTINUE; CLAIM | top-left; bottom-right (turned) | Small | no | Launch | shape `ui.deco.garden` |
 | `ui.gift` | Gift (milestone teaser) | 3 | Home | normal; ready | Small | no | Launch | shape `ui.gift` |
 | `ui.trophy` | Trophy (rank row, Get +N) | 3, 4 | Home rank row; Daily Reward | normal | Small | no | Launch | shape `ui.trophy` |
 | `ui.medal` | Medal (ranks 1–3) | 5 | Leaderboard | gold; silver; bronze | Small | no | Launch | shape `ui.medal` |
@@ -238,10 +245,13 @@ How to read the columns:
 
 ## Typography
 
+The fonts are bundled files, the only new files of spec 003: Nunito ExtraBold and SemiBold (SIL OFL 1.1, with
+`OFL.txt`) in `client/Assets/Bloomlings/UI/Fonts/Resources/`, covering Latin and Cyrillic.
+
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `font.display` | Display font (rounded, bold): titles, buttons, pills, wordmark | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17 | Every screen | bold; outlined | Icon | yes | Launch | platform bold sans-serif |
-| `font.body` | Body font: rows, captions, numbers | 3, 4, 5, 6, 10, 17 | Every screen | regular; bold digits | Icon | yes | Launch | platform sans-serif |
+| `font.display` | Display font (rounded, bold): titles, buttons, pills, wordmark | 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 14, 15, 16, 17 | Every screen | bold; outlined; volumetric on colored faces | Icon | yes | Launch | Nunito ExtraBold (SIL OFL 1.1), `UI/Fonts/Resources/Nunito-ExtraBold.ttf` |
+| `font.body` | Body font: rows, captions, numbers | 3, 4, 5, 6, 10, 17 | Every screen | regular; bold digits | Icon | yes | Launch | Nunito SemiBold (SIL OFL 1.1), `UI/Fonts/Resources/Nunito-SemiBold.ttf` |
 
 ## Audio
 

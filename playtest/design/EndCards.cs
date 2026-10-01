@@ -185,26 +185,30 @@ namespace Bloomlings.Playtest.Design
                 {
                     (BoosterKind kind, Recovery recovery, string id) = options[i];
                     Box cell = cells[i];
-                    bool pressed = p.Pressed(cell);
-                    Box face = Kit.Raised(p, cell, Rgba.White, C.SurfacePanelEdge, p.U(36f), pressed);
-                    float icon = p.U(100f);
+                    // A white garden card on its plate (spec 003 FR-012), pressed like every button.
+                    float depth = Kit.Press(p, cell, true);
+                    Kit.Squash(p, cell, depth);
+                    Box face = Kit.GardenButton(p, cell, GardenLook.White, p.U(36f), depth);
+                    float icon = Math.Min(p.U(100f), face.Height * 0.44f);
+                    float iconY = face.Top + (face.Height * 0.28f);
                     Rgba color = DesignTokens.BoosterColor(id);
-                    p.FillCircle(face.CenterX, face.Top + p.U(70f), icon / 2f, color);
-                    p.Shape("booster." + id, Box.FromCenter(face.CenterX, face.Top + p.U(70f), icon * 0.56f, icon * 0.56f), id == "bloom_burst" ? C.PetalCenter : Rgba.White);
-                    p.Text(BoosterName(kind), face.CenterX, face.Top + p.U(150f), T.Caption, C.GardenLabelPlain, face.Width * 0.92f);
+                    p.FillCircle(face.CenterX, iconY, icon / 2f, color);
+                    p.Shape("booster." + id, Box.FromCenter(face.CenterX, iconY, icon * 0.56f, icon * 0.56f), id == "bloom_burst" ? C.PetalCenter : Rgba.White);
+                    p.Text(BoosterName(kind), face.CenterX, face.Top + (face.Height * 0.64f), T.Caption, C.GardenLabelPlain, face.Width * 0.92f);
                     int charges = s.Meta.Economy.Charges(kind);
                     if (charges > 0)
                     {
-                        p.Text("×" + charges, face.CenterX, face.Top + p.U(198f), T.Count, C.GardenLabelPlain);
+                        p.Text("×" + charges, face.CenterX, face.Top + (face.Height * 0.87f), T.Count, C.GardenLabelPlain);
                     }
                     else
                     {
                         string price = NumberText.Group(s.Meta.Economy.Price(kind));
                         float w = p.MeasureText(price, T.Count);
-                        Kit.Petal(p, Box.FromCenter(face.CenterX - (w / 2f) - p.U(8f), face.Top + p.U(198f), p.U(40f), p.U(40f)));
-                        p.Text(price, face.CenterX + p.U(16f), face.Top + p.U(198f), T.Count, C.GardenLabelPlain);
+                        Kit.Petal(p, Box.FromCenter(face.CenterX - (w / 2f) - p.U(8f), face.Top + (face.Height * 0.87f), p.U(40f), p.U(40f)));
+                        p.Text(price, face.CenterX + p.U(16f), face.Top + (face.Height * 0.87f), T.Count, C.GardenLabelPlain);
                     }
 
+                    p.PopTransform();
                     p.Hit(cell, () => s.PressBooster(kind, recovery));
                 }
 
