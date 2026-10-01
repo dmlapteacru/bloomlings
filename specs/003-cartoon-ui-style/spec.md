@@ -37,6 +37,11 @@ pods are volumetric but stay 2D (a thick lip, a bevel and a highlight). Pods mus
 tray. A 3D-rendered board is shown for comparison only. See the canvas page "Садовый" and
 [`garden-direction.jpg`](garden-direction.jpg).
 
+**Booster buttons (open, 2026-10-01)**: the owner wants the feature/item/boost buttons reworked. Six garden-style
+experiments are on the canvas page "Бустеры" and in [`booster-variants.jpg`](booster-variants.jpg): token, tile, seed
+packet, bubble, capsule and leaf. Each is shown in every state: charges, no charges with the Petal price, selected,
+not usable now and pressed.
+
 **Inspiration, not copying**: *Colony Flow!* (ABI Games) is the gameplay reference (constitution I). Its interface, like
 most casual puzzle games of its kind, uses:
 - chunky buttons with a thick darker lip;
