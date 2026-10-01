@@ -125,6 +125,16 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
+        /// <summary>The Leafling experiment, a guest on Home (spec 004 research R17); nothing when its picture is missing.</summary>
+        public static void Guest(IPainter p, Box box)
+        {
+            p.Mark(CharacterArt.LeaflingSlot);
+            if (p.HasSprite(CharacterArt.Leafling))
+            {
+                p.Sprite(CharacterArt.Leafling, box);
+            }
+        }
+
         /// <summary>The variant whose color a family's fallback hero body takes.</summary>
         private static VariantId HeroVariant(Family family) => family switch
         {

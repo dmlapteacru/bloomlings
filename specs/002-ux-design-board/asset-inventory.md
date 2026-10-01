@@ -28,7 +28,7 @@ How to read the columns:
 |---|---|---|---|
 | Brand | 3 | 0 | 3 |
 | Backgrounds | 6 | 0 | 6 |
-| Bloomling characters | 18 | 4 | 22 |
+| Bloomling characters | 18 | 5 | 23 |
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 8 | 0 | 8 |
 | Specials | 7 | 0 | 7 |
@@ -41,7 +41,7 @@ How to read the columns:
 | Visual effects | 8 | 0 | 8 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **139** | **22** | **161** |
+| **All** | **139** | **23** | **162** |
 
 ## Brand
 
@@ -93,6 +93,7 @@ the fallback when a picture is missing.
 | `char.hero3d.drop` | 3D hero: Drop | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/drop.png` |
 | `char.hero3d.twig` | 3D hero: Twig | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/twig.png` |
 | `char.hero3d.group` | 3D heroes: the four families on a stone pedestal | 1, 2, 15, 16 | Splash; Home; win; milestone | warm garden light | Large | no | Launch | `3d/group.png` |
+| `char.experiment.leafling` | Experiment: the Leafling, a guest on Home (the owner's Meshy model) | 2, 3 | Home | beside the group early on; beside the hero later | Medium | no | Later | `experiments/leafling.png`, painted and rendered by tools/artgen from `tools/artgen/models/leafling.fbx` |
 
 ## Variant symbols
 

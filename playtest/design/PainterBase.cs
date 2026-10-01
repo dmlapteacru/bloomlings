@@ -132,11 +132,7 @@ namespace Bloomlings.Playtest.Design
         public static string SpriteResource(string name) => "characters/" + name + ".png";
 
         /// <summary>A picture of <paramref name="width"/> × <paramref name="height"/> fitted into a box: aspect kept, centered.</summary>
-        public static Box Fit(Box box, float width, float height)
-        {
-            float scale = Math.Min(box.Width / Math.Max(1f, width), box.Height / Math.Max(1f, height));
-            return Box.FromCenter(box.CenterX, box.CenterY, width * scale, height * scale);
-        }
+        public static Box Fit(Box box, float width, float height) => CharacterArt.FitBox(box, width, height);
 
         /// <summary>A box in the current transform, in screen pixels.</summary>
         protected Box ToScreen(Box box)

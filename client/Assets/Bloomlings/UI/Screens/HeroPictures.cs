@@ -41,6 +41,20 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
+        /// The Leafling experiment, a guest on Home (spec 004 research R17): the owner's Meshy model as a pre-rendered
+        /// picture. Hidden when the picture is missing.
+        /// </summary>
+        public static Image Guest(string name, Transform parent)
+        {
+            Sprite? picture = CharacterSprites.Get(CharacterArt.Leafling);
+            Image image = UiFactory.CreateImage(name, parent, picture, Color.white);
+            image.preserveAspect = true;
+            image.raycastTarget = false;
+            image.gameObject.SetActive(picture != null);
+            return image;
+        }
+
+        /// <summary>
         /// The group standing on a card's top edge (<see cref="CharacterArt.GroupOnCard"/>), as a child of the card so it
         /// shows and pops with it. Nothing on a phone too short for it.
         /// </summary>

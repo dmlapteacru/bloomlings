@@ -53,6 +53,15 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The group picture's asset slot.</summary>
         public const string GroupSlot = "char.hero3d.group";
 
+        /// <summary>
+        /// The Leafling experiment (spec 004 research R17): the owner's Meshy model, rendered by tools/artgen to a flat
+        /// picture (512 × 576) and shown on Home as a guest. Its file lives apart from the project's own art, in
+        /// <c>Art/Experiments/Resources/Characters/experiments/</c>, under the same <c>Characters/</c> resource names.
+        /// </summary>
+        public const string Leafling = "experiments/leafling";
+
+        public const string LeaflingSlot = "char.experiment.leafling";
+
         /// <summary>Every mood, in file order.</summary>
         public static IReadOnlyList<CharacterMood> Moods { get; } = new[] { CharacterMood.Happy, CharacterMood.Asleep, CharacterMood.Worried, CharacterMood.Blank };
 
@@ -85,6 +94,11 @@ namespace Bloomlings.Client.UI.Design
             if (picture == Group)
             {
                 return GroupSlot;
+            }
+
+            if (picture == Leafling)
+            {
+                return LeaflingSlot;
             }
 
             if (picture.StartsWith("2d/", StringComparison.Ordinal))
@@ -222,6 +236,36 @@ namespace Bloomlings.Client.UI.Design
 
             float width = height * GroupWidth / GroupHeight;
             return new Box(card.CenterX - (width / 2f), card.Top + overlap - height, card.CenterX + (width / 2f), card.Top + overlap);
+        }
+
+        /// <summary>
+        /// Home early on with the guest (the Leafling): the group fitted into the left 80% of the stage, and the guest
+        /// standing on the grass at the right, its feet level with the pedestal's front edge.
+        /// </summary>
+        public static (Box Group, Box Guest) GroupWithGuest(Box stage)
+        {
+            Box group = FitBox(new Box(stage.Left, stage.Top, stage.Left + (stage.Width * 0.8f), stage.Bottom), GroupWidth, GroupHeight);
+            float height = group.Height * 0.62f;
+            float width = height * HeroWidth / HeroHeight;
+            float bottom = group.Bottom - (group.Height * 0.02f);
+            float right = Math.Min(stage.Right, group.Right + (width * 0.7f));
+            return (group, new Box(right - width, bottom - height, right, bottom));
+        }
+
+        /// <summary>Home later with the guest: half the hero's height, standing at the hero's right, on the same ground.</summary>
+        public static Box GuestBesideHero(Box hero, Box area)
+        {
+            float height = hero.Height * 0.5f;
+            float width = height * HeroWidth / HeroHeight;
+            float right = Math.Min(area.Right, hero.Right + (width * 0.75f));
+            return new Box(right - width, hero.Bottom - height, right, hero.Bottom);
+        }
+
+        /// <summary>A picture of <paramref name="width"/> × <paramref name="height"/> fitted into a box: aspect kept, centered.</summary>
+        public static Box FitBox(Box box, float width, float height)
+        {
+            float scale = Math.Min(box.Width / Math.Max(1f, width), box.Height / Math.Max(1f, height));
+            return Box.FromCenter(box.CenterX, box.CenterY, width * scale, height * scale);
         }
 
         /// <summary>A worn expression's box over a face at (fx, fy) of a picture box.</summary>

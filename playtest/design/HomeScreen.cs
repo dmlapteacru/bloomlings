@@ -134,7 +134,9 @@ namespace Bloomlings.Playtest.Design
             {
                 Wordmark(p, hero.CenterX, hero.Top + (hero.Height * 0.22f), Math.Min(hero.Width * 0.8f, p.U(760f)));
                 var stage = new Box(hero.Left, hero.Top + (hero.Height * 0.36f), hero.Right, hero.Bottom);
-                Visuals.Group(p, PainterBase.Fit(stage, CharacterArt.GroupWidth, CharacterArt.GroupHeight));
+                (Box group, Box guest) = CharacterArt.GroupWithGuest(stage);
+                Visuals.Group(p, group);
+                Visuals.Guest(p, guest);
                 return;
             }
 
@@ -143,6 +145,7 @@ namespace Bloomlings.Playtest.Design
             float heroHeight = Math.Min(hero.Height * 0.9f, hero.Width * 0.62f * CharacterArt.HeroHeight / CharacterArt.HeroWidth);
             Box body = Box.FromCenter(hero.CenterX, hero.CenterY, heroHeight * CharacterArt.HeroWidth / CharacterArt.HeroHeight, heroHeight);
             Visuals.Hero(p, body, Family.Sprig, meta.Wardrobe.OutfitOf(Family.Sprig));
+            Visuals.Guest(p, CharacterArt.GuestBesideHero(PainterBase.Fit(body, CharacterArt.HeroWidth, CharacterArt.HeroHeight), hero));
 
             float button = p.U(DesignTokens.Size.IconButton);
             float y = r.Features.Top + (button * 0.6f);

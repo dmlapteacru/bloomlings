@@ -63,6 +63,9 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _early = null!;
         private GameObject _progressed = null!;
         private BloomlingFigure _heroFigure = null!;
+        private RectTransform _earlyGroup = null!;
+        private Image _guestEarly = null!;
+        private Image _guestLater = null!;
         private TextMeshProUGUI _level = null!;
         private TextMeshProUGUI _playLabel = null!;
         private Button _playButton = null!;
@@ -105,12 +108,14 @@ namespace Bloomlings.Client.UI.Screens
             TextMeshProUGUI wordmark = UiKit.Label("Wordmark", early, Loc.T("home.logo"), DesignTokens.Type.Wordmark, UiTheme.Of(DesignTokens.Colors.WordmarkFill));
             wordmark.outlineColor = UiTheme.Of(DesignTokens.Colors.WordmarkOutline);
             UiFactory.Place(wordmark.rectTransform, 0.08f, 0.6f, 0.92f, 0.86f);
-            UiFactory.Place(HeroPictures.Group("Heroes", early), 0.02f, 0f, 0.98f, 0.6f);
+            screen._earlyGroup = HeroPictures.Group("Heroes", early);
+            screen._guestEarly = HeroPictures.Guest("Leafling", early);
 
             RectTransform progressed = UiFactory.Stretch(UiFactory.CreateRect("Progressed", screen._hero));
             screen._progressed = progressed.gameObject;
             screen._heroFigure = BloomlingFigure.Create("HeroFigure", progressed);
             UiFactory.Place(screen._heroFigure.Rect, 0.2f, 0.04f, 0.8f, 0.96f);
+            screen._guestLater = HeroPictures.Guest("Leafling", progressed);
             screen._wardrobe = UiKit.RoundIconButton("Wardrobe", screen._hero, "ui.shirt", () => features?.OnWardrobe?.Invoke()).gameObject;
             screen._collection = UiKit.RoundIconButton("Collection", screen._hero, "ui.grid", () => features?.OnCollection?.Invoke()).gameObject;
 
@@ -220,6 +225,14 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox((RectTransform)_petals.transform, new Box(r.TopBar.Right - bar - (24f * u) - (330f * u), r.TopBar.CenterY - (bar * 0.36f), r.TopBar.Right - bar - (24f * u), r.TopBar.CenterY + (bar * 0.36f)), r.TopBar);
             UiKit.PlaceBox((RectTransform)_profile.transform, new Box(r.TopBar.Left, r.TopBar.Top, r.TopBar.Left + bar, r.TopBar.Bottom), r.TopBar);
             UiKit.PlaceBox(_hero, r.Hero, screen);
+
+            // The group with the Leafling guest early on, the guest beside the player's hero later (spec 004 R17).
+            Box hero = r.Hero;
+            (Box group, Box guest) = CharacterArt.GroupWithGuest(new Box(hero.Left, hero.Top + (hero.Height * 0.36f), hero.Right, hero.Bottom));
+            UiKit.PlaceBox(_earlyGroup, group, hero);
+            UiKit.PlaceBox(_guestEarly.rectTransform, guest, hero);
+            var figure = new Box(hero.Left + (hero.Width * 0.2f), hero.Top + (hero.Height * 0.04f), hero.Left + (hero.Width * 0.8f), hero.Top + (hero.Height * 0.96f));
+            UiKit.PlaceBox(_guestLater.rectTransform, CharacterArt.GuestBesideHero(CharacterArt.FitBox(figure, CharacterArt.HeroWidth, CharacterArt.HeroHeight), hero), hero);
             if (!r.Features.IsEmpty)
             {
                 float button = DesignTokens.Size.IconButton * u;

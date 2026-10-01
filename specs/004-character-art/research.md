@@ -277,3 +277,31 @@ New slots, all `PlaceholderKind.Generated` (a new kind: "generated picture, `too
 
 `char.face` and `char.accent` are retired: faces and symbols are now part of the pictures. `char.<family>` stays (the
 fallback shape). `char.hero.home` stays and points to the 3D solo hero. The inventory is regenerated.
+
+## R17. Experiment: the owner's Meshy model on Home (2026-10-01)
+
+The owner asked to try a model made with Meshy AI (an FBX file) in the game, as a character on Home.
+
+**Decision.**
+- **Pre-rendered, not live.** The model is rendered to a flat picture by `tools/artgen`, like the 3D heroes. A live
+  FBX in Unity would need a 3D camera on Home, which constitution VII does not allow on the screens the player
+  navigates (only pre-rendered 3D illustrations on meta screens). The picture also works in the playtest APK, which
+  cannot load FBX files.
+- **Source.** `tools/artgen/models/leafling.fbx`, read by a minimal binary FBX reader (`Fbx.cs`: vertices, polygons,
+  normals). It has no texture or colors, so `Leafling.cs` paints it: pale green skin on a body core of ellipsoids and
+  capsules, green leaves elsewhere, and eyes, mouth, brows and blush as decals measured on the sculpted face. It
+  rasterizes 660 thousand triangles at 3 × 3 samples per pixel with a soft shadow map, screen-space ambient occlusion
+  and the heroes' warm key and golden back light (about 5 seconds).
+- **Where.** Home only, as a guest: early on beside the group's pedestal (the group takes the left 80% of the stage),
+  later beside the player's hero (`CharacterArt.GroupWithGuest`, `GuestBesideHero`). Slot `char.experiment.leafling`.
+- **Files.** The picture lives apart from the project's own art, in
+  `client/Assets/Bloomlings/Art/Experiments/Resources/Characters/experiments/leafling.png` (loaded as
+  `Characters/experiments/leafling`), with its own notices row and source record (`tools/artgen/models/leafling.md`).
+  `artgen build|check --only experiments` regenerate and check it.
+- **Licence.** Meshy's terms for the owner's plan; the owner confirms them before any release (originality checklist).
+
+**Alternatives.**
+- **The FBX in Unity with a camera and a RenderTexture.** It would show the real model and let it turn, but it breaks
+  constitution VII, misses the playtest APK, and puts a 660 thousand triangle mesh on a phone. It needs a constitution
+  amendment first.
+- **Replacing a family hero with it.** Not asked; the four heroes stay as approved.

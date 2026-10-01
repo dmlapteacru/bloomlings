@@ -90,7 +90,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (about 10 minutes for the 3D set; `--only 2d` takes a second), `-- check` (must pass before committing art changes),
   `-- sheet` (review sheet in `tools/artgen/out/`). Names and placements come from the kit's `CharacterArt`; Unity loads
   them with `CharacterSprites`, the playtest and preview embed them (`IPainter.Sprite`). A missing picture falls back
-  to the spec 002 family silhouette. The art is the project's own work (`tools/artgen/OWNERSHIP.md`).
+  to the spec 002 family silhouette. The art is the project's own work (`tools/artgen/OWNERSHIP.md`). An experiment
+  (research R17) adds the owner's Meshy model (`tools/artgen/models/leafling.fbx`) as a pre-rendered guest on Home:
+  `build|check --only experiments`, picture in `Art/Experiments/`, licence to confirm (`models/leafling.md`).
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
   `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps

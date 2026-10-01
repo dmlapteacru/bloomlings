@@ -35,4 +35,7 @@ the gameplay rules and structure are similar.
   licence record to `client/THIRD_PARTY_NOTICES.md` before any file lands in `client/Assets/`.
   `OriginalityTests.Client_HasNoImportedArtAudioOrFonts` fails until the record and its licence file exist. Recorded so
   far: the Nunito font (spec 003, SIL OFL 1.1, approved by the owner on 2026-10-01).
+- [ ] The Leafling experiment (spec 004 research R17): confirm the Meshy plan the model was made under and its terms
+  (`tools/artgen/models/leafling.md`); on the free plan (CC BY 4.0) add the credit to Meshy, or remove the experiment
+  before release.
 - [ ] Legal sign-off on the name and the store listing before launch.

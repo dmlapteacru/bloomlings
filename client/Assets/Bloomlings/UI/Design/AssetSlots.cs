@@ -218,6 +218,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             Add(CharacterArt.GroupSlot, "3D heroes: the four families on a stone pedestal", new[] { 1, 2, 15, 16 }, "Splash; Home; win; milestone", "warm garden light", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "`" + CharacterArt.Group + ".png`");
+            Add(CharacterArt.LeaflingSlot, "Experiment: the Leafling, a guest on Home (the owner's Meshy model)", new[] { 2, 3 }, "Home", "beside the group early on; beside the hero later", SizeClass.Medium, false, Later, PlaceholderKind.Generated, "`" + CharacterArt.Leafling + ".png`, painted and rendered by tools/artgen from `tools/artgen/models/leafling.fbx`");
 
             // ---- Variant symbols ----
             string[] launch = { "leaf", "moss", "flower", "bud", "drop", "dew", "log", "acorn" };

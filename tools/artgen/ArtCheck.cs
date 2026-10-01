@@ -81,57 +81,9 @@ namespace Bloomlings.ArtGen
                     continue;
                 }
 
-                (int w, int h, byte[] committed) = Png.Decode(File.ReadAllBytes(path));
-                int stride = name.StartsWith("2d/", StringComparison.Ordinal) ? 1 : RowStride3D;
-                (int fw, int fh, byte[] fresh) = ArtSet.Pixels(name, stride);
                 (int ew, int eh) = CharacterArt.SizeOf(name);
-                if (w != ew || h != eh)
-                {
-                    problems.Add($"{name}: {w} × {h}, expected {ew} × {eh}");
-                }
-
-                if (fw != w || fh != h)
-                {
-                    problems.Add($"{name}: a fresh render is {fw} × {fh}");
-                    continue;
-                }
-
-                int differing = 0;
-                int compared = 0;
-                int worst = 0;
-                for (int y = 0; y < h; y += stride)
-                {
-                    for (int i = y * w * 4; i < (y + 1) * w * 4; i += 4)
-                    {
-                        int d = Math.Max(Math.Max(Math.Abs(committed[i] - fresh[i]), Math.Abs(committed[i + 1] - fresh[i + 1])), Math.Max(Math.Abs(committed[i + 2] - fresh[i + 2]), Math.Abs(committed[i + 3] - fresh[i + 3])));
-                        worst = Math.Max(worst, d);
-                        compared++;
-                        if (d > ChannelTolerance)
-                        {
-                            differing++;
-                        }
-                    }
-                }
-
-                if (differing > PixelTolerance * compared)
-                {
-                    problems.Add($"{name}: {differing} pixels differ from a fresh render (worst {worst}); run build or review the tool change");
-                }
-
-                int border = (int)Math.Ceiling(Margin * Math.Min(w, h));
-                for (int y = 0; y < h; y++)
-                {
-                    for (int x = 0; x < w; x++)
-                    {
-                        bool edge = x < border || y < border || x >= w - border || y >= h - border;
-                        if (edge && committed[(((y * w) + x) * 4) + 3] > 8)
-                        {
-                            problems.Add($"{name}: not transparent at ({x}, {y}) inside the {Margin:P0} margin");
-                            y = h;
-                            break;
-                        }
-                    }
-                }
+                int stride = name.StartsWith("2d/", StringComparison.Ordinal) ? 1 : RowStride3D;
+                Compare(name, path, ew, eh, ArtSet.Pixels(name, stride), stride, problems);
             }
 
             // The launch characters differ in shape at small size, same-family pairs included (FR-022, SC-003).
@@ -157,6 +109,61 @@ namespace Bloomlings.ArtGen
             }
 
             return problems;
+        }
+
+        /// <summary>
+        /// Compares a committed picture with a fresh render (every <paramref name="stride"/>-th row) within the tolerance,
+        /// and checks its size and transparent margin.
+        /// </summary>
+        public static void Compare(string name, string path, int ew, int eh, (int Width, int Height, byte[] Rgba) fresh, int stride, List<string> problems)
+        {
+            (int w, int h, byte[] committed) = Png.Decode(File.ReadAllBytes(path));
+            if (w != ew || h != eh)
+            {
+                problems.Add($"{name}: {w} × {h}, expected {ew} × {eh}");
+            }
+
+            if (fresh.Width != w || fresh.Height != h)
+            {
+                problems.Add($"{name}: a fresh render is {fresh.Width} × {fresh.Height}");
+                return;
+            }
+
+            int differing = 0;
+            int compared = 0;
+            int worst = 0;
+            for (int y = 0; y < h; y += stride)
+            {
+                for (int i = y * w * 4; i < (y + 1) * w * 4; i += 4)
+                {
+                    int d = Math.Max(Math.Max(Math.Abs(committed[i] - fresh.Rgba[i]), Math.Abs(committed[i + 1] - fresh.Rgba[i + 1])), Math.Max(Math.Abs(committed[i + 2] - fresh.Rgba[i + 2]), Math.Abs(committed[i + 3] - fresh.Rgba[i + 3])));
+                    worst = Math.Max(worst, d);
+                    compared++;
+                    if (d > ChannelTolerance)
+                    {
+                        differing++;
+                    }
+                }
+            }
+
+            if (differing > PixelTolerance * compared)
+            {
+                problems.Add($"{name}: {differing} pixels differ from a fresh render (worst {worst}); run build or review the tool change");
+            }
+
+            int border = (int)Math.Ceiling(Margin * Math.Min(w, h));
+            for (int y = 0; y < h; y++)
+            {
+                for (int x = 0; x < w; x++)
+                {
+                    bool edge = x < border || y < border || x >= w - border || y >= h - border;
+                    if (edge && committed[(((y * w) + x) * 4) + 3] > 8)
+                    {
+                        problems.Add($"{name}: not transparent at ({x}, {y}) inside the {Margin:P0} margin");
+                        return;
+                    }
+                }
+            }
         }
 
         /// <summary>The shape difference of every launch pair: the share of the joined silhouette only one covers.</summary>
