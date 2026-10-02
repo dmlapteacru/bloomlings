@@ -33,6 +33,9 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>The picture's rect; place it with <see cref="Show"/>.</summary>
         public RectTransform Rect => _root;
 
+        /// <summary>The shown picture's outer box with its stone frame, in screen pixels (empty before <see cref="Show"/>).</summary>
+        public Box Frame { get; private set; }
+
         public static WinPictureView Create(string name, Transform parent)
         {
             RectTransform root = UiFactory.CreateRect(name, parent);
@@ -48,9 +51,10 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>
         /// Builds the picture of <paramref name="definition"/> (its mapping and mirror) over <paramref name="picture"/>,
         /// fitted and centered in <paramref name="box"/> (screen pixels) of a parent whose screen box is
-        /// <paramref name="parent"/>; <paramref name="scale"/> is the screen's reference scale.
+        /// <paramref name="parent"/>, or with its frame on the box's top edge when <paramref name="alignTop"/> (the
+        /// full-screen win, contracts/look.md §6.3); <paramref name="scale"/> is the screen's reference scale.
         /// </summary>
-        public void Show(LevelDefinition definition, BasePicture picture, Box box, Box parent, float scale)
+        public void Show(LevelDefinition definition, BasePicture picture, Box box, Box parent, float scale, bool alignTop = false)
         {
             UiKit.PlaceBox(_root, box, parent);
             if (_grid != null)
@@ -68,9 +72,11 @@ namespace Bloomlings.Client.UI.Screens
                 cell = Mathf.Min(box.Width / w, box.Height / h);
             }
 
+            float frame = framed ? cell * rim : 0f;
             float ox = box.CenterX - (cell * w / 2f);
-            float oy = box.CenterY - (cell * h / 2f);
+            float oy = alignTop ? box.Top + frame : box.CenterY - (cell * h / 2f);
             _gridBox = new Box(ox, oy, ox + (cell * w), oy + (cell * h));
+            Frame = _gridBox.Inset(-frame);
             _grid = UiFactory.CreateRect("Grid", _root);
             _grid.SetAsFirstSibling();
             UiKit.PlaceBox(_grid, _gridBox, box);
