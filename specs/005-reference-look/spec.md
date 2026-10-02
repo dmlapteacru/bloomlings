@@ -185,7 +185,9 @@ inventory.
 #### A. Scope
 
 - **FR-001**: The feature restyles every element of both builds that draw the designed screens: the Unity client and
-  the full playtest. The level tester keeps its minimal look.
+  the full playtest. The level tester keeps its minimal look. It amends the looks (never the states) of spec 003
+  FR-006, FR-009 (titles), FR-013, FR-014, FR-015, FR-022, FR-023 and FR-031, and replaces spec 004 FR-008, FR-009
+  and FR-012; those specs carry the marks.
 - **FR-002**: The feature is presentation only. It MUST NOT change any rule, level, mapping, economy value, unlock,
   reward or tap outcome, nor the position and order of elements on any screen (spec 002 frames), except where this
   spec changes what an element shows (FR-010, FR-013).
@@ -241,6 +243,7 @@ inventory.
   contents, the recovery choices as big colored buttons with cost pills, the free rescue and Restart.
 - **FR-016**: The win card MUST show the wooden sign with flowers, the finished picture as full-color tiles in a stone
   frame, the heroes on a stone pedestal with light rays and falling petals, the reward pill and Next in a wooden rim.
+  Pause MUST stay usable over it, so Home, Restart and Settings stay reachable as before (FR-002).
 - **FR-017**: Home MUST show the wooden logo letters with leaves, the level on a wooden plaque and the big Play button;
   the Wardrobe, Store and the other meta cards use the same signs, parchment, tabs and cards.
 - **FR-018**: The Petals symbol MUST be the pink lotus everywhere it appears.

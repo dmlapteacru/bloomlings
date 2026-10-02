@@ -129,6 +129,10 @@ decision records what the reference shows, what we do and why, so the owner can 
 - **Decision**: 3D heroes (poses), backgrounds and the logo are the owner's pictures (`pictures.md`), each with a slot
   and a drawn stand-in. Until they arrive, the drawn stand-ins (lawn, sky with arches, stone pedestal, wooden logo
   letters) show.
+- **Review round**: the 3D heroes share `tools/artgen`'s folder, whose check rejects any file it did not render. An
+  owner flag in its `manifest.json` (`"source": "owner"`, set by `artgen -- adopt` with a source record) lets the owner's
+  pictures in under the same names: `build` keeps them, `check` verifies their hash, size, margin and record. A separate
+  owner folder was the alternative; it would have needed a second lookup in both builds' picture loaders.
 
 ## D17. The constitution and locked docs
 

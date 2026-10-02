@@ -271,20 +271,23 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   `CreamFace`; queued, locked and mystery pods keep the plain `CreamTop` → `CreamFace`); the candy tile (sticker) at
   62% of the inner width, 3% below its top; the count below it, `type.count` `InkBrown` scaled to 1.05 of the room left
   (its digits about 17% of the pod tall, as the reference's), no "x". Pressed: the pod sinks (its shadow 1% of the width
-  below it), darkens (`GardenShadow` at 0.08) and its sticker sinks into its lip. A short wooden handle
-  (`WoodDark`, 22% × 7% of the box) on top of the exposed pod. Queued pods (the ones below in a column) draw the same
-  frame at 55% brightness mixed toward `ParchmentBottom` and a dimmed tile. Locked: the frame with `StateLockBg` inner
-  and the lock glyph; mystery: the lilac mystery tile; connected: the link bar between frames as now. The "+N" depth
-  badge stays (count badge style, §3.4).
+  below it), darkens (`GardenShadow` at 0.08) and its sticker sinks into its lip. A short wooden handle (a dark
+  `UiRaster.Plank`, 34% × 15% of the box's width, on a small `WoodDarkLine` stem) on top of the exposed pod. Queued
+  pods (the ones below in a column) draw the same frame at 55% brightness mixed toward `ParchmentBottom` and a dimmed
+  tile. Locked: the frame with `StateLockBg` inner and the lock glyph; mystery: the lilac mystery tile; connected: the
+  link bar between frames as now, one color per connected group of the tray (`state.link`, then `state.link_2` and
+  `state.link_3`). The "+N" depth badge stays (count badge style, §3.4).
 - **Waiting Slot** (`Kit.SlotPlate`): a cream plate (raised: `CreamTop`→`CreamFace`, `CreamLip`, `CreamLine`, radius
-  20%); filled: the sticker tile at 70% of the width near the top and the count below it; empty: a dashed rounded inner
+  20%); filled: the sticker tile at 72% of the face's width (at most 58% of its height), 10% below the face's top, and
+  the count below it; empty: a dashed rounded inner
   outline (`CreamLine` alpha 0.8, dash 9%/6% of the side) on a slightly sunk face; stuck: grey tile + the hourglass
   badge; danger: the dashed outline in `StateDanger` with "!"; extra slot: the green "+" badge; locked: grey face with
   the lock.
 - **Booster tile** (`Kit.BoosterTile`): a cream squircle (radius 26%) in a cream-white bezel with a faint silver tint
   (`GardenLook.BoosterRim` = `CreamTop.Mix(StateStuck, 0.25)`), a cream lip (`GardenLook.BoosterLip` =
   `CreamLip.Mix(StateStuck, 0.3)`) and a soft tan outline (`GardenLook.BoosterLine` = `CreamLine.Mix(StateStuck,
-  0.35).Darken(0.1)`), never a grey keycap; the booster icon (§3.8) at 62%, the count badge or the cost pill; selected:
+  0.35).Darken(0.1)`), never a grey keycap; the booster icon (§3.8) in a box of 74% of the tile (the icon itself
+  about two thirds of it), the count badge or the cost pill; selected:
   the existing glow ring and lift; disabled: greyed. The Store's row tiles use the same colors.
 
 ### 3.8 Icons (`ShapeLibrary`, multi-part icons drawn by `Kit.BoosterIcon`)
@@ -381,11 +384,11 @@ B2–B5 replace the lawn).
 
 ### 4.4 Win (frame 15)
 
-- `WoodSign` (Flowers) "Level complete!" (`type.level_home`, 146 units tall, at most 80% of the card wide) across the
-  card's top edge, its center 30 units below it.
+- `WoodSign` (Flowers) "Level complete!" (`type.level_home`, `size.win_sign_height` = 146 units tall, at most 80% of
+  the card wide) across the card's top edge, its center 30 units below it.
 - The finished picture in full color: each picture cell as a flat candy tile (no lip, small gloss, board-style symbol
-  of its role's variant) inside a `StoneBorder` (thin, 0.3 cell); 520 units tall (24% of the safe height on a shorter
-  phone, at least 400), with the light sweep once. A milestone level adds a cream pill with the gold medal and
+  of its role's variant) inside a `StoneBorder` (thin, 0.3 cell); `size.win_picture_height` = 520 units tall (24% of the
+  safe height on a shorter phone, at least 400), with the light sweep once. A milestone level adds a cream pill with the gold medal and
   "Milestone reached!" over the picture's top edge.
 - The heroes group on a `StonePedestal` above the sign, in the room up to the safe area's top (left out under 150
   units), laid out by `HomeStage.Celebration` (the pedestal 80% of the group's width at the stage's bottom, the group
@@ -394,11 +397,13 @@ B2–B5 replace the lawn).
   above the card, fading in, alpha 0.85) and falling petals around. The group picture has no base of its own. When the
   owner's celebrating hero of the level's main family exists (pictures.md A7, `char.hero3d.cheer.*`; the family of the
   variant with the most work), it stands alone on the pedestal instead of the group. A light sprinkle of confetti falls
-  for 2.2 s only above the card, so the picture, the reward and Next stay clean. The top bar fades out in 0.3 s and takes
-  no taps while the card shows. The card keeps the screen redrawing for as long as it is open (rays, petals, Next
-  breathing; a host may drop to about 30 frames a second once only that motion is left).
-- The reward as a cream pill (`CostPill` style, 104 units tall, `ui.pill.reward`) "+N" with the lotus, counting up, a
-  sparkle at the lotus and petals bursting out; a dropped booster charge below it as its icon and "+1 Name".
+  for 2.2 s only above the card, so the picture, the reward and Next stay clean. Pause stays visible and usable over the
+  win card in both builds (FR-002: the card changes no tap outcome, so Home, Restart and Settings stay reachable from
+  it, as before spec 005). The celebration (rays, petals, Next breathing) animates for about
+  8 s after the card shows, then rests on its last frame until the next input, so an idle win card costs no frames.
+- The reward as a cream pill (`CostPill` style, `size.reward_pill_height` = 104 units tall, `ui.pill.reward`) "+N"
+  with the lotus, counting up, a sparkle at the lotus and petals bursting out; a dropped booster charge below it as its
+  icon and "+1 Name".
 - Next: `PrimaryButton` (wood rim, decorated, breathing). ×2: cream secondary with the ad glyph.
 - Milestone (frame 16): the same sign ("Level N"), heroes, rays and petals; "Milestone reached!" in `InkBrownSoft`;
   each reward's icon on a cream tile with its amount in a cream pill over the tile's bottom edge; Continue (primary,
@@ -455,11 +460,15 @@ B2–B5 replace the lawn).
 
 New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked where drawn:
 `mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment`, `tile.candy`, `tile.candy.sticker`,
-`ui.sign.wood`, `ui.sign.ivy`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
+`ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch`, the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.entry`, `tile.layer_peek` and `tile.picture` restyled), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
 `ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn), `ui.sign.ivy`
-(kind `Shape`: the clover cluster), `ui.jam.slots` (the jam's slot row), `ui.pill.reward` (the win's and the milestone's reward pills). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (kind `Picture`, research
-D16 and `pictures.md`) keep or add their `bg.*`, `char.hero.*` and `ui.logo` slots with the drawn stand-in as fallback;
-the optional celebrating heroes (A7) are `char.hero3d.cheer.sprig|bloom|drop|twig` (`CharacterArt.CheerSlot`, picture
-`CharacterArt.Cheer(family)` = `3d/{family}-cheer`), with the group picture standing in until they exist.
+(kind `Shape`: the clover cluster), `ui.jam.slots` (the jam's slot row), `ui.pill.reward` (the win's and the milestone's reward pills). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (research D16 and
+`pictures.md`) keep or add their `bg.*`, `char.hero3d.*` and `brand.wordmark` slots, whose kind is their stand-in's
+(`Procedural` backdrops, the `Text` wordmark, the `Generated` heroes), with the drawn or generated stand-in as fallback:
+`bg.home`, `bg.splash`, `bg.wardrobe` (Unity's Wardrobe) and `bg.theme.*` (`OwnerPictures.SlotOf`); the optional
+tagline is `brand.tagline` (kind `External`, not drawn yet); the optional celebrating heroes (A7) are
+`char.hero3d.cheer.sprig|bloom|drop|twig` (`CharacterArt.CheerSlot`, picture `CharacterArt.Cheer(family)` =
+`3d/{family}-cheer`), with the group picture standing in until they exist. The owner's 3D pictures share the
+`tools/artgen` folder: `adopt` marks them `"source": "owner"` in its `manifest.json` (`tools/artgen/README.md`).

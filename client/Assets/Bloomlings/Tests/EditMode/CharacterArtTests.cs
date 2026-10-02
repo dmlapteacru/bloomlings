@@ -27,7 +27,20 @@ namespace Bloomlings.Client.Tests
             Assert.That(OwnerPictures.Background(BackdropScene.Home, "pond"), Is.EqualTo(OwnerPictures.Home));
             Assert.That(OwnerPictures.Background(BackdropScene.Splash, "pond"), Is.EqualTo(OwnerPictures.Splash));
             Assert.That(OwnerPictures.Background(BackdropScene.Gameplay, "moonlit_garden"), Is.EqualTo("gameplay-moonlit"));
-            Assert.That(AssetSlots.Has("bg.home") && AssetSlots.Has("bg.splash") && AssetSlots.Has("brand.wordmark"), Is.True);
+
+            // Every picture of sections B and C fills a registered slot (FR-019): the themes', Home, the splash, the
+            // Wardrobe, the logo and the tagline.
+            foreach (Gameplay.Themes.BackgroundTheme theme in Gameplay.Themes.ThemeRotation.Default.Themes)
+            {
+                Assert.That(OwnerPictures.SlotOf(OwnerPictures.Gameplay(theme.Id)), Is.EqualTo("bg.theme." + theme.Id), theme.Id);
+            }
+
+            foreach (string picture in new[] { OwnerPictures.Home, OwnerPictures.Splash, OwnerPictures.Wardrobe, OwnerPictures.Logo, OwnerPictures.Tagline })
+            {
+                Assert.That(AssetSlots.Has(OwnerPictures.SlotOf(picture)), Is.True, picture);
+            }
+
+            Assert.That(OwnerPictures.SlotOf(OwnerPictures.Logo), Is.EqualTo("brand.wordmark"));
         }
 
         [Test]

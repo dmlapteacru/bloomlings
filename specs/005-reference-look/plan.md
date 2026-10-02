@@ -24,7 +24,7 @@ fallbacks (`pictures.md`).
   `Art/Procedural/ProceduralSprites.cs`; checked by `client/DotnetCheck` against `UnityStubs.cs`.
 - **Core**: only `VariantCatalog` colors change (art placeholders); `content/readability/pairs-report.json` refreshed.
 - **Art**: `tools/artgen -- build --only 2d` re-renders the 2D characters (their body colors come from the catalog).
-- **Testing**: core, client DotnetCheck, backend, `playtest/check`, `playtest/preview` (24 frames + checks), artgen
+- **Testing**: core, client DotnetCheck, backend, `playtest/check`, `playtest/preview` (26 frames + checks), artgen
   `check`, the Mono.Android type-check projects.
 
 ## Constitution Check

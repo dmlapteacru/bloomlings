@@ -7,10 +7,11 @@ not in `core/Bloomlings.sln`.
 
 | Command | Does |
 |---|---|
-| `dotnet run --project tools/artgen -- build` | Renders every picture and writes the files and `manifest.json` into the client folder below. Overwrites the set. |
+| `dotnet run --project tools/artgen -- build` | Renders every picture and writes the files and `manifest.json` into the client folder below. Overwrites the set, except the owner's pictures and files changed since the last build (spec 005). |
 | `dotnet run --project tools/artgen -- check` | Renders in memory and compares each picture with its committed file: at most 2 per channel and at most 0.1% of pixels differ. Also checks the readability masks, the transparent margins and the manifest. Exits non-zero on any failure. |
 | `dotnet run --project tools/artgen -- sheet` | Writes the review sheet (every character in every mood, the 3D heroes) to `tools/artgen/out/sheet.png`. The `out/` folder is gitignored. |
 | `... -- build --only 2d` / `--only 3d` | Renders just one set (for iterating). |
+| `... -- adopt <picture> [--record <file>]` | *(spec 005)* Records an owner picture of `3d/` in the manifest (`"source": "owner"`); `build` then keeps it and `check` verifies it as adopted (`tools/artgen/README.md`, data-model.md "ArtManifest"). |
 
 The tool is deterministic: no randomness, no time, no GPU. It renders rows in parallel, and each row is written
 independently.

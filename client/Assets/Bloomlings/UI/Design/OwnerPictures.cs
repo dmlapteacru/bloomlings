@@ -24,14 +24,31 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>B6: the splash garden.</summary>
         public const string Splash = "splash";
 
-        /// <summary>B7: the Wardrobe's garden arches.</summary>
+        /// <summary>B7: the Wardrobe's garden arches (Unity only: the playtest has no Wardrobe screen).</summary>
         public const string Wardrobe = "wardrobe";
 
         /// <summary>C1: the wooden "Bloomlings" letters with leaves and flowers.</summary>
         public const string Logo = "logo";
 
-        /// <summary>C2: the optional tagline.</summary>
+        /// <summary>C2: the optional tagline. Neither build shows it yet (its slot <c>brand.tagline</c> is kept for later).</summary>
         public const string Tagline = "tagline";
+
+        /// <summary>
+        /// The asset slot a picture of <c>pictures.md</c> B or C fills (<c>home</c> → <c>bg.home</c>,
+        /// <c>gameplay-pond</c> → <c>bg.theme.pond</c>, <c>logo</c> → <c>brand.wordmark</c>).
+        /// </summary>
+        public static string SlotOf(string picture) => picture switch
+        {
+            Home => "bg.home",
+            Splash => "bg.splash",
+            Wardrobe => "bg.wardrobe",
+            Logo => "brand.wordmark",
+            Tagline => "brand.tagline",
+            "gameplay-daylight" => "bg.theme.daylight_garden",
+            "gameplay-moonlit" => "bg.theme.moonlit_garden",
+            _ when picture.StartsWith("gameplay-", System.StringComparison.Ordinal) => "bg.theme." + picture.Substring("gameplay-".Length),
+            _ => throw new System.ArgumentException("Not an owner picture of pictures.md B or C: " + picture, nameof(picture)),
+        };
 
         /// <summary>The gameplay background of a theme (B2 to B5): <c>gameplay-daylight</c>, <c>gameplay-pond</c>, …</summary>
         public static string Gameplay(string themeId) => "gameplay-" + (themeId switch

@@ -3,7 +3,8 @@
 Every imported art, audio or font file under `client/Assets/` needs a licence record here before it lands
 (`specs/001-core-game-mvp/checklists/originality.md`). `OriginalityTests.Client_HasNoImportedArtAudioOrFonts` fails
 for any such file that is not listed below with its licence file. A row for a folder (ending in `/`) covers exactly the
-files its `manifest.json` lists: the project's own generated art.
+files its `manifest.json` lists: the project's own generated art, and an owner picture marked `"source": "owner"` only
+while the source record its `"record"` names exists (`tools/artgen/README.md`, "The owner's pictures").
 
 | File | What | Source | Licence | Licence file |
 |---|---|---|---|---|

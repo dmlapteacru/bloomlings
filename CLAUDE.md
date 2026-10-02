@@ -46,8 +46,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - `dotnet run --project playtest/check` checks the playtest client without Android: its animator replays every golden
   case and showcase solution and must end on the rules state, and its meta layer runs progression and economy.
 - `dotnet run --project playtest/preview` renders the full playtest's designed screens (spec 002) for every design
-  board frame to PNG in `playtest/preview/out/` (gitignored) and checks slots, touch targets and the safe area;
-  `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md` from the asset slot registry.
+  board frame (1–17, plus extras 18–26: themes, Settings, Collection picture, demo, boosters in use, the Bloomlings
+  sheet, 25 the reference-look kit, 26 the Store cosmetics) to PNG in `playtest/preview/out/` (gitignored) and checks
+  slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
+  from the asset slot registry.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
   after an intended, reviewed rules change (`core/tests/golden/README.md`).
 - `dotnet run --project core/src/Bloomlings.Pipeline -- <command>` runs the content pipeline CLI
@@ -78,23 +80,43 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (`AssetSlots`), which the asset inventory is generated from.
 - The cartoon "Garden" look (`specs/003-cartoon-ui-style/`) lives in the same kit: `DesignTokens.Garden` and the
   `garden.*` colors, `GardenLook` (color sets, label looks, press/breath/count-up/glow curves, booster tile states,
-  decoration). Buttons are a raised face on a cream plate (`Kit.GardenButton` / `UiKit.Garden`), labels are sentence
-  case in the bundled Nunito font (`client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL; only `type.badge` stays
-  uppercase), and the board, pods and slots are volumetric 2D, never 3D. The level tester keeps its minimal look.
+  decoration). Buttons are a raised face on a cream plate (`Kit.GardenButton` / `UiKit.Garden`; main buttons sit in a
+  light wood rim since spec 005), labels are sentence case in the bundled Nunito font
+  (`client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL; only `type.badge` stays uppercase), and the board, pods and
+  slots are volumetric 2D, never 3D. The level tester keeps its minimal look.
 - The characters are generated art (`specs/004-character-art/`, replacing spec 003's kawaii figures): each variant is a
   2D character whose whole shape is its symbol, with a face (happy, asleep in the stack, worried when stuck, blank under
-  a worn expression), on pods and slots with "xN", as walkers and on light tinted board tiles; the four families are 3D
-  heroes on the meta screens only (splash, Home, win and milestone cards, Wardrobe, profile). `tools/artgen` (SkiaSharp
+  a worn expression), as the walking Bloomlings and on the Bloomlings sheet (since spec 005, pods, slots and board
+  tiles show candy tiles instead); the four families are 3D heroes on the meta screens only (splash, Home, win and
+  milestone cards, Wardrobe, profile). `tools/artgen` (SkiaSharp
   vector drawing and a CPU raymarcher, not in the solution) writes them as PNG files with a `manifest.json` into
   `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: `dotnet run --project tools/artgen -- build`
   (about 10 minutes for the 3D set; `--only 2d` takes a second), `-- check` (must pass before committing art changes),
-  `-- sheet` (review sheet in `tools/artgen/out/`). Names and placements come from the kit's `CharacterArt`; Unity loads
-  them with `CharacterSprites`, the playtest and preview embed them (`IPainter.Sprite`). A missing picture falls back
+  `-- sheet` (review sheet in `tools/artgen/out/`), `-- adopt 3d/<file>.png` (records an owner picture as
+  `"source": "owner"` with its source record: `build` keeps it, `check` verifies its hash, size and margin instead of
+  re-rendering it). Names and placements come from the kit's `CharacterArt`; Unity loads them with `CharacterSprites`,
+  the playtest and preview embed them (`IPainter.Sprite`). A missing picture falls back
   to the spec 002 family silhouette. The art is the project's own work (`tools/artgen/OWNERSHIP.md`). An experiment
   (research R17) adds the owner's Meshy model (`tools/artgen/models/leafling.fbx`) as a pre-rendered guest on Home:
   `build|check --only experiments`, picture in `Art/Experiments/`, licence to confirm (`models/leafling.md`).
+- The reference look (`specs/005-reference-look/`, after the owner's `reference.jpg`; recipes in `contracts/look.md`)
+  restyles every element of the Unity client and the full playtest, presentation only: layouts, order, rules and tap
+  outcomes stay (FR-002). It adds the saturated variant palette (`VariantCatalog`, readability-checked) and the
+  material tokens (`wood.*`, `stone.*`, `parchment.*`, `cream.*`, `ink.*`, `lotus.*`, `lawn.*`, `ivy.*`). `UiRaster`
+  (kit) renders engine-free material pictures (planks, pod frames, stones, arch, pedestal, candy tiles; deterministic,
+  straight alpha), drawn through `IPainter.Picture` (playtest) and `ProceduralSprites.Picture` (Unity), each cached by
+  key and size. `BoardLayout` places the grid, the stone border and the arch entries. The board is candy tiles in a
+  stone border on a lawn; pods are wooden frames and Waiting Slots cream plates, both holding the variant's candy tile
+  and its plain count; cards are parchment; Petals is a pink lotus. Components are `Kit.*` with same-named `UiKit*`
+  twins.
+- The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
+  `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
+  `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with
+  `artgen -- adopt`). The drawn stand-in shows while a file is missing; every picture needs a source record for the
+  originality test.
 - Player-facing text lives in `client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv` and is read with
-  `Loc.T("key")`; `LocalizationTests` fails on UI literals and unknown keys.
+  `Loc.T("key")` (the playtest: `PlaytestText.T`); `LocalizationTests` fails on UI literals and on unknown keys in
+  either build.
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps
   the event catalog equal to the contract.
 - Checklists for the human, Editor and device steps (accessibility, performance, originality, playtests, quickstart

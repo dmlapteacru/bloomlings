@@ -26,8 +26,8 @@ How to read the columns:
 
 | Category | Launch | Later | Total |
 |---|---|---|---|
-| Brand | 3 | 0 | 3 |
-| Backgrounds | 6 | 0 | 6 |
+| Brand | 3 | 1 | 4 |
+| Backgrounds | 7 | 0 | 7 |
 | Bloomling characters | 18 | 9 | 27 |
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 12 | 0 | 12 |
@@ -42,13 +42,14 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **174** | **27** | **201** |
+| **All** | **175** | **28** | **203** |
 
 ## Brand
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
 | `brand.wordmark` | Bloomlings wordmark (logo): the owner's picture `Brand/logo.png` (spec 005 pictures.md C1) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | the wooden letters `ui.logo.wood` until the picture exists |
+| `brand.tagline` | Tagline "Small friends. Big gardens." (the owner's optional picture `Brand/tagline.png`, spec 005 pictures.md C2) | — | Splash; Home | full | Medium | no | Later | none yet: neither build shows a tagline; the slot keeps the picture's place for later (not in the game yet) |
 | `brand.splash_art` | Splash illustration: Bloomlings of the four families in the garden | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | garden backdrop and the 3D group picture `3d/group` |
 | `brand.app_icon` | App icon | — | Launcher; store listing | Android adaptive (foreground, background); iOS set | Medium | no | Launch | platform default icon (not in the game yet) |
 
@@ -62,6 +63,7 @@ How to read the columns:
 | `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn, dusky and blue-green for the moonlit theme, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5) |
 | `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6) |
+| `bg.wardrobe` | Wardrobe backdrop: the garden arches behind the hero on its pedestal (Unity; the playtest has no Wardrobe) | — | Wardrobe | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7) |
 
 ## Bloomling characters
 
@@ -94,10 +96,10 @@ the fallback when a picture is missing.
 | `char.hero3d.drop` | 3D hero: Drop | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/drop.png` |
 | `char.hero3d.twig` | 3D hero: Twig | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/twig.png` |
 | `char.hero3d.group` | 3D heroes: the four families side by side (the hosts stand them on a stone pedestal) | 1, 2, 15, 16 | Splash; Home; win; milestone | warm garden light | Large | no | Launch | `3d/group.png` |
-| `char.hero3d.cheer.sprig` | 3D hero celebrating: Sprig (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/sprig-cheer.png` exists (not in the game yet) |
-| `char.hero3d.cheer.bloom` | 3D hero celebrating: Bloom (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/bloom-cheer.png` exists (not in the game yet) |
-| `char.hero3d.cheer.drop` | 3D hero celebrating: Drop (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/drop-cheer.png` exists (not in the game yet) |
-| `char.hero3d.cheer.twig` | 3D hero celebrating: Twig (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/twig-cheer.png` exists (not in the game yet) |
+| `char.hero3d.cheer.sprig` | 3D hero celebrating: Sprig (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/sprig-cheer.png` exists (not in the game yet) |
+| `char.hero3d.cheer.bloom` | 3D hero celebrating: Bloom (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/bloom-cheer.png` exists (not in the game yet) |
+| `char.hero3d.cheer.drop` | 3D hero celebrating: Drop (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/drop-cheer.png` exists (not in the game yet) |
+| `char.hero3d.cheer.twig` | 3D hero celebrating: Twig (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/twig-cheer.png` exists (not in the game yet) |
 | `char.experiment.leafling` | Experiment: the Leafling, a guest on Home (the owner's Meshy model) | 2, 3 | Home | beside the group early on; beside the hero later | Medium | no | Later | `experiments/leafling.png`, painted and rendered by tools/artgen from `tools/artgen/models/leafling.fbx` |
 
 ## Variant symbols

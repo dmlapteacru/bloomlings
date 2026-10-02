@@ -36,7 +36,7 @@ Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens
 
 | Set | Base | Notes |
 |---|---|---|
-| `set.green` | `#5DBB46` | primary buttons, selected tab, the "+" |
+| `set.green` | `#62B83A` (spec 005 look.md §1.3; was `#5DBB46`) | primary buttons, selected tab, the "+" |
 | `set.cream` | `#F7EDD6` | secondary buttons; `Line` = `garden.outline` |
 | `set.white` | `#F4EFE4` | round icon buttons, Petals pill; `Line` = `#7A6E58` |
 | `set.blue` | `#8FC6F0` | level pill, pause header |

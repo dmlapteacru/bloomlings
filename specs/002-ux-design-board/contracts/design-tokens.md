@@ -20,9 +20,9 @@ Sizes are in **reference units**: 1 unit = 1 px on a 1080-px-wide portrait scree
 | `text.secondary` | `#6B7280` | captions ("Completed at Level 10", "New today") |
 | `text.on_color` | `#FFFFFF` | text on green buttons, pills and badges |
 | `text.outline` | `#2E3440` at 35% | soft outline of text on color |
-| `button.primary` | `#5DBB46` | PLAY, NEXT, CLAIM, RESUME, CONTINUE, Free rescue |
-| `button.primary_top` | `#7ED35F` | the lighter top half of primary buttons |
-| `button.primary_edge` | `#3D8B2F` | the darker lower edge of primary buttons |
+| `button.primary` | `#62B83A` (spec 005; was `#5DBB46`) | PLAY, NEXT, CLAIM, RESUME, CONTINUE, Free rescue |
+| `button.primary_top` | `#ADE162` (spec 005; was `#7ED35F`) | the lighter top of primary buttons |
+| `button.primary_edge` | `#378F24` (spec 005; was `#3D8B2F`) | the darker lower edge of primary buttons |
 | `button.secondary` | `#F4EAD5` | RESTART, SETTINGS, HOME, Restart, "×2 reward", "Get +N" |
 | `button.secondary_edge` | `#D9C9A6` | the lower edge of secondary buttons |
 | `button.icon` | `#FFFFFF` | round Settings, Pause and close buttons |
@@ -46,6 +46,8 @@ Sizes are in **reference units**: 1 unit = 1 px on a 1080-px-wide portrait scree
 | `state.lock_bg` | `#C4C7CF` | the locked slot and locked pod card |
 | `state.stuck` | `#9AA0AA` | greying of stuck pods and next-in-stack pods |
 | `state.link` | `#6CC4B8` | the bar joining connected pods |
+| `state.link_2` | `#6FB6E8` | the second connected group's bar, when a tray has more than one (spec 005) |
+| `state.link_3` | `#E67FB0` | the third connected group's bar (spec 005) |
 | `medal.gold` | `#F5C542` | rank 1 |
 | `medal.silver` | `#C9D1DC` | rank 2 |
 | `medal.bronze` | `#DA9A62` | rank 3 |
@@ -142,6 +144,15 @@ Numbers are grouped with a no-break space every three digits: "1 240", "12 345".
 | `size.primary_height` | 150 | PLAY; 126 for other primary buttons |
 | `size.secondary_height` | 110 | secondary buttons |
 | `size.margin` | 44 | screen side margin |
+| `size.win_sign_height` | 146 | the wooden sign over the win and milestone cards (spec 005 look.md §4.4; `Size.WinSignHeight`) |
+| `size.win_picture_height` | 520 | the finished picture on the win card (spec 005 §4.4; `Size.WinPictureHeight`) |
+| `size.reward_pill_height` | 104 | the reward pill of the win and milestone cards (spec 005 §4.4; `Size.RewardPillHeight`) |
+
+> **Added by specs 003 and 005**: PLAY (`Size.PlayWidth` × `PlayHeight`, 540 × 204), the card buttons
+> (`CardPrimaryWidth` × `CardPrimaryHeight`, 620 × 140; `CardSecondaryWidth` 580) and the booster tile (152 × 156) come
+> from spec 003; the last three sizes above from spec 005. The material and UI colors of spec 005
+> (`wood.*`, `stone.*`, `parchment.*`, `cream.*`, `ink.*`, `lotus.*`, `badge.green`, `lawn.*`, `ivy.*`, `button.blue`,
+> `button.orange`, `ray.light`) are listed in `specs/005-reference-look/contracts/look.md` §1.2.
 
 ## Elevation
 
