@@ -16,20 +16,21 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The Wardrobe (FR-063, T143), open from L40, in the reference Wardrobe's look (spec 005 contracts/look.md §4.6), laid
-    /// out by <see cref="WardrobeLayout"/>:
+    /// The Wardrobe (FR-063, T143), open from L40, in the reference Wardrobe's look and layout (spec 005 FR-025,
+    /// contracts/look.md §4.6 and §6.5), every element placed from <see cref="ScreenLayout.ReferenceWardrobe"/>:
     /// <list type="bullet">
-    /// <item><description>a cream round back button, the wooden "Wardrobe" banner with ivy and the Petals pill (its "+"
-    /// opens the Store);</description></item>
-    /// <item><description>the chosen family's 3D hero in its outfit on a stone pedestal, with cream ‹ › arrows to the
-    /// other families;</description></item>
-    /// <item><description>a parchment name card: the name and the family's role on a cream tab, and a line about
-    /// it;</description></item>
+    /// <item><description>a cream round back button at the top left, the wooden "Wardrobe" banner with ivy and the Petals
+    /// pill at the top right (its "+" opens the Store);</description></item>
+    /// <item><description>the chosen family's 3D hero in its outfit standing on a stone pedestal, with cream ‹ › arrows
+    /// to the other families at the screen's sides;</description></item>
+    /// <item><description>a parchment name card: the name on a raised cream tab, the family's role under it and two lines
+    /// about it;</description></item>
     /// <item><description>tabs with each family's hero and name, and a last one for the profile (the Home avatar), joined
     /// to the lighter panel below;</description></item>
-    /// <item><description>on the panel, the kinds as chips (skin, hat, trail, face; or frame, badge, marker), then the
-    /// owned items of the kind as outfit cards, the worn one green with a check, the "Default" look (none of the kind)
-    /// first; a tap wears an item, and each family wears one of each kind;</description></item>
+    /// <item><description>on the panel to the bottom of the screen, the kinds as chips (skin, hat, trail, face; or frame,
+    /// badge, marker), then the owned items of the kind as outfit cards, three to a page, the worn one green with a
+    /// check, the "Default" look (none of the kind) first; a tap wears an item, and each family wears one of each
+    /// kind;</description></item>
     /// <item><description>the footer "Earn special outfits as you play!" between the page arrows.</description></item>
     /// </list>
     /// Cosmetics only change how Bloomlings look; the variant colors and icons stay as they are.
@@ -58,6 +59,7 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _name = null!;
         private TextMeshProUGUI _role = null!;
         private TextMeshProUGUI _about = null!;
+        private TextMeshProUGUI _probe = null!;
         private Image _panel = null!;
         private Image _panelLine = null!;
         private RectTransform _chips = null!;
@@ -68,7 +70,7 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _footer = null!;
         private Button _pagePrevious = null!;
         private Button _pageNext = null!;
-        private WardrobeRegions _regions = null!;
+        private ReferenceWardrobeRegions _regions = null!;
         private Family _selected = Family.Sprig;
         private bool _profileMode;
         private CosmeticKind _kind = CosmeticKind.Skin;
@@ -96,14 +98,18 @@ namespace Bloomlings.Client.UI.Screens
             screen._hero = BloomlingFigure.Create("Hero", root);
             screen._hero.Body.raycastTarget = false;
             screen._avatar = ProfileAvatar.Create("Avatar", root);
-            screen._previous = UiKit.ArrowButton("Previous", root, next: false, () => screen.Turn(-1));
-            screen._next = UiKit.ArrowButton("Next", root, next: true, () => screen.Turn(1));
+            // The ‹ › arrows: a 0.09 W cushion in a touch-sized square (size.touch_min).
+            screen._previous = UiKit.PageArrow("Previous", root, next: false, () => screen.Turn(-1));
+            screen._next = UiKit.PageArrow("Next", root, next: true, () => screen.Turn(1));
 
-            // The name card: parchment, with the name and the role on a cream tab and a line about the family below.
+            // The name card: parchment under a raised cream tab with the name, the role under the tab and two lines about
+            // the family below it.
             screen._nameCard = UiKit.Paper("NameCard", root, b => b.Height * 0.16f, DesignTokens.Garden.FrameWidth, 8f, raycast: false);
-            (screen._nameTab, screen._name, screen._role) = NameTab(root);
+            (screen._nameTab, screen._name) = NameTab(root);
+            screen._role = UiKit.Label("Role", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             screen._about = UiKit.Label("About", root, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             screen._about.textWrappingMode = TextWrappingModes.Normal;
+            screen._probe = UiKit.Label("Probe", root, string.Empty, T.Body, Color.clear);
 
             // The lighter panel, then the tabs over its top edge (the selected one flows into it).
             screen._panel = UiKit.RoundGradient("Panel", root, C.ParchmentTop, C.CreamTop, _ => UiKit.Units(26f));
@@ -132,8 +138,8 @@ namespace Bloomlings.Client.UI.Screens
             screen._items = UiFactory.CreateRect("Items", root);
             screen._empty = UiKit.Label("Empty", root, Loc.T("wardrobe.more"), T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             screen._footer = UiKit.Label("Footer", root, Loc.T("wardrobe.footer"), T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
-            screen._pagePrevious = UiKit.ArrowButton("PagePrevious", root, next: false, () => screen.TurnPage(-1));
-            screen._pageNext = UiKit.ArrowButton("PageNext", root, next: true, () => screen.TurnPage(1));
+            screen._pagePrevious = UiKit.PageArrow("PagePrevious", root, next: false, () => screen.TurnPage(-1));
+            screen._pageNext = UiKit.PageArrow("PageNext", root, next: true, () => screen.TurnPage(1));
 
             // The top bar last: the back button, the banner with ivy, the Petals pill.
             screen._back = (RectTransform)UiKit.RoundIconButton("Back", root, "ui.back", screen.Hide).transform;
@@ -231,10 +237,11 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// The name tab (§4.6): a raised cream plate (a soft shadow, the <c>cream.lip</c>, the <c>cream.top</c> to
-        /// <c>parchment.bottom</c> face, a <c>cream.line</c> outline) with the name in <c>type.title</c> and the role below.
+        /// The name tab (§4.6, §6.5): a raised cream plate (a soft shadow, the <c>cream.lip</c>, the <c>cream.top</c> to
+        /// <c>parchment.bottom</c> face, a <c>cream.line</c> outline) rising over the name card's top edge, with the name in
+        /// <c>type.title</c>.
         /// </summary>
-        private static (RectTransform Tab, TextMeshProUGUI Name, TextMeshProUGUI Role) NameTab(Transform parent)
+        private static (RectTransform Tab, TextMeshProUGUI Name) NameTab(Transform parent)
         {
             (RectTransform tab, BoxLayout layout) = UiKit.Element("NameTab", parent);
             float R(Box b) => b.Height * 0.3f;
@@ -246,13 +253,11 @@ namespace Bloomlings.Client.UI.Screens
             layout.Add(face.rectTransform, b => b);
             layout.Add(line.rectTransform, b => b);
             TextMeshProUGUI name = UiKit.KitLabel("Name", tab, string.Empty, T.Title, TextLook.Plain(C.InkBrown));
-            TextMeshProUGUI role = UiKit.KitLabel("Role", tab, string.Empty, T.Body, TextLook.Plain(C.InkBrownSoft));
-            layout.Watch(name).Watch(role).Then(b =>
+            layout.Watch(name).Then(b =>
             {
-                KitText.Place(name, T.Title, b.CenterX, b.Top + (b.Height * 0.36f), Mathf.Min(UiKit.Units(T.Title.Size), b.Height * 0.46f), b.Width * 0.86f);
-                KitText.Place(role, T.Body, b.CenterX, b.Top + (b.Height * 0.76f), Mathf.Min(UiKit.Units(T.Body.Size), b.Height * 0.3f), b.Width * 0.86f);
+                KitText.Place(name, T.Title, b.CenterX, b.CenterY - (b.Height * 0.02f), Mathf.Min(UiKit.Units(T.Title.Size), b.Height * 0.62f), b.Width * 0.86f);
             });
-            return (tab, name, role);
+            return (tab, name);
         }
 
         private void SetMode(bool profile)
@@ -323,13 +328,15 @@ namespace Bloomlings.Client.UI.Screens
             }
         }
 
-        /// <summary>Places every region for the screen's shape (<see cref="WardrobeLayout"/>).</summary>
+        /// <summary>Places every element on the reference regions for the screen's shape (contracts/look.md §6.5).</summary>
         private void Layout()
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            WardrobeRegions r = WardrobeLayout.Wardrobe(w, h, insets);
+            ReferenceWardrobeRegions r = ScreenLayout.ReferenceWardrobe(w, h, insets, hasChips: true);
             _regions = r;
             float u = DesignTokens.ScaleFor(w, h);
+            float touch = DesignTokens.Size.TouchMin * u;
+            Box Touch(Box b) => Box.FromCenter(b.CenterX, b.CenterY, Mathf.Max(b.Width, touch), Mathf.Max(b.Height, touch));
             UiKit.PlaceScreen(_back, r.Back);
             UiKit.PlaceScreen(_banner, r.Banner);
             if (_petals != null)
@@ -337,26 +344,36 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.PlaceScreen((RectTransform)_petals.transform, r.Petals);
             }
 
+            // The hero stands on the pedestal's top ellipse (its feet at 90% of its picture), its picture from the hero
+            // box's top; on the Profile tab the avatar stands there instead.
             UiKit.PlaceScreen(_pedestal, r.Pedestal);
-            UiKit.PlaceScreen(_hero.Rect, r.Hero);
-            Box top = UiKit.PedestalTop(r.Pedestal);
-            float avatar = Mathf.Min(r.Hero.Width, r.Hero.Height) * 0.9f;
-            UiKit.PlaceScreen(_avatar.Rect, Box.FromCenter(r.Hero.CenterX, top.CenterY - (avatar * 0.5f), avatar, avatar));
-            UiKit.PlaceScreen((RectTransform)_previous.transform, r.Previous);
-            UiKit.PlaceScreen((RectTransform)_next.transform, r.Next);
-            UiKit.PlaceScreen(_nameCard.rectTransform, r.NameCard);
+            float feet = UiKit.PedestalTop(r.Pedestal).CenterY;
+            Box hero = HomeStage.Figure(r.Hero.CenterX, feet, Mathf.Max(1f, (feet - r.Hero.Top) / HomeStage.FeetShare));
+            UiKit.PlaceScreen(_hero.Rect, hero);
+            float avatar = Mathf.Min(r.Hero.Width, feet - r.Hero.Top) * 0.84f;
+            UiKit.PlaceScreen(_avatar.Rect, Box.FromCenter(r.Hero.CenterX, feet - (avatar * 0.52f), avatar, avatar));
+
+            // The ‹ › arrows: their 0.09 W cushions centered in touch-sized squares.
+            UiKit.PlaceScreen((RectTransform)_previous.transform, Touch(r.Previous));
+            UiKit.PlaceScreen((RectTransform)_next.transform, Touch(r.Next));
+
+            // The name card's parchment starts a little under its tab's top, so the tab rises over its edge.
+            UiKit.PlaceScreen(_nameCard.rectTransform, new Box(r.NameCard.Left, r.NameTab.Top + (r.NameTab.Height * 0.36f), r.NameCard.Right, r.NameCard.Bottom));
             UiKit.PlaceScreen(_nameTab, r.NameTab);
+            UiKit.PlaceScreen(_role.rectTransform, r.Role);
             UiKit.PlaceScreen(_about.rectTransform, r.About);
-            UiKit.PlaceScreen(_panel.rectTransform, r.Panel);
-            UiKit.PlaceScreen(_panelLine.rectTransform, r.Panel);
+
+            // The panel runs to the bottom of the screen: its bottom corners go past the edge.
+            var panel = new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + (60f * u));
+            UiKit.PlaceScreen(_panel.rectTransform, panel);
+            UiKit.PlaceScreen(_panelLine.rectTransform, panel);
 
             // The tabs: the others a little lower, the selected one flowing into the panel.
             int selected = _profileMode ? _tabs.Count - 1 : IndexOf(_selected);
-            Box[] cells = ScreenLayout.Row(r.Tabs, _tabs.Count, 10f * u, float.MaxValue, square: false);
-            float sunk = r.Tabs.Height * 0.07f;
             for (int i = 0; i < _tabs.Count; i++)
             {
-                Box cell = cells[i];
+                Box cell = r.Tab(i, _tabs.Count);
+                float sunk = cell.Height * 0.07f;
                 UiKit.PlaceScreen((RectTransform)_tabs[i].transform, i == selected ? cell : new Box(cell.Left, cell.Top + sunk, cell.Right, cell.Bottom));
                 _tabs[i].Select(i == selected);
             }
@@ -364,10 +381,9 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_chips, r.Chips);
             UiKit.PlaceScreen(_items, r.Grid);
             UiKit.PlaceScreen(_empty.rectTransform, r.Grid);
-            float room = r.Footer.Height + (12f * u);
-            UiKit.PlaceScreen(_footer.rectTransform, new Box(r.Footer.Left + room, r.Footer.Top, r.Footer.Right - room, r.Footer.Bottom));
-            UiKit.PlaceScreen((RectTransform)_pagePrevious.transform, r.PagePrevious);
-            UiKit.PlaceScreen((RectTransform)_pageNext.transform, r.PageNext);
+            UiKit.PlaceScreen(_footer.rectTransform, r.Footer);
+            UiKit.PlaceScreen((RectTransform)_pagePrevious.transform, Touch(r.PagePrevious));
+            UiKit.PlaceScreen((RectTransform)_pageNext.transform, Touch(r.PageNext));
         }
 
         private static int IndexOf(Family family)
@@ -397,7 +413,10 @@ namespace Bloomlings.Client.UI.Screens
             _tabAvatar.Show(_wardrobe.Profile, _wardrobe.OutfitOf(Family.Bloom));
             _name.text = _profileMode ? Loc.T("wardrobe.tab_profile") : Loc.T("family." + key);
             _role.text = _profileMode ? Loc.T("wardrobe.role.profile") : Loc.T("wardrobe.role." + key);
-            _about.text = _profileMode ? Loc.T("wardrobe.about.profile") : Loc.T("wardrobe.about." + key);
+            // The description in two balanced lines, as the reference's (§6.5).
+            string about = _profileMode ? Loc.T("wardrobe.about.profile") : Loc.T("wardrobe.about." + key);
+            float aboutWidth = _regions.About.Width * 0.7f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
+            _about.text = string.Join("\n", UiKit.BalancedLines(_probe, about, UiKit.Units(T.Body.Size), aboutWidth));
 
             IReadOnlyList<Family> families = WardrobeService.Families;
             for (int i = 0; i < families.Count && i < _tabHeroes.Count; i++)
@@ -442,7 +461,7 @@ namespace Bloomlings.Client.UI.Screens
                 options.Add(item);
             }
 
-            int perPage = _regions.PerPage;
+            int perPage = ReferenceWardrobeRegions.Columns;
             int pages = Mathf.Max(1, (options.Count + perPage - 1) / perPage);
             _pageIndex = Mathf.Clamp(_pageIndex, 0, pages - 1);
             _pagePrevious.gameObject.SetActive(pages > 1);
