@@ -173,6 +173,7 @@ namespace Bloomlings.Playtest.Preview
                 p.BeginFrame();
                 (int Level, string Name)[] themes = { (1, "Daylight Garden"), (100, "Pond"), (150, "Orchard"), (200, "Moonlit Garden") };
                 float w = p.Width / themes.Length;
+                Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
                 for (int i = 0; i < themes.Length; i++)
                 {
                     var column = new Box(i * w, 0f, (i + 1) * w, p.Height);
@@ -181,9 +182,20 @@ namespace Bloomlings.Playtest.Preview
                     p.PushClip(column);
                     p.Backdrop(new Box(column.CenterX - (p.Width / 2f), 0f, column.CenterX + (p.Width / 2f), p.Height), DesignTokens.Backdrop(theme.Background, theme.Accent), BackdropScene.Gameplay, theme.Id + "/wide");
                     p.PopClip();
-                    Box label = Box.FromCenter(column.CenterX, p.Height * 0.5f, w * 0.9f, p.U(90f));
-                    p.FillRound(label, label.Height / 2f, C.SurfacePanel.WithAlpha(0.9f));
-                    p.Text(themes[i].Name, label.CenterX, label.CenterY, T.Caption, C.TextPrimary, label.Width * 0.9f);
+
+                    // The theme's name on a small wooden plaque, and a corner of a board on its lawn: candy tiles in the
+                    // stone border (spec 005 §4.1, §4.2).
+                    Kit.WoodSign(p, Box.FromCenter(column.CenterX, safe.Top + p.U(90f), w * 0.9f, p.U(84f)), themes[i].Name, T.Caption);
+                    float cell = Math.Min(w * 0.22f, p.U(64f));
+                    var grid = Box.FromCenter(column.CenterX, p.Height * 0.5f, cell * 3f, cell * 3f);
+                    Kit.StoneBorder(p, grid, cell);
+                    for (int c = 0; c < 9; c++)
+                    {
+                        VariantId variant = ThemeTiles[(c + (i * 2)) % ThemeTiles.Length];
+                        float x = grid.Left + ((c % 3) * cell);
+                        float y = grid.Top + ((c / 3) * cell);
+                        Kit.CandyTile(p, new Box(x, y, x + cell, y + cell).Inset(cell * 0.02f), variant, TileStyle.Board);
+                    }
                 }
             });
 
@@ -242,6 +254,14 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.2f);
             });
             yield return new Fixture(24, "bloomlings", "Extra: Bloomlings", (p, data) => Bloomlings(p));
+            yield return new Fixture(26, "store-cosmetics", "Extra: Store cosmetics (the Wardrobe look)", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 49);
+                CloseAll(app);
+                app.OpenOverlay(Overlay.Store);
+                app.StoreTab = 1;
+                Run(app, p, 0.5f);
+            });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
         }
 
@@ -413,39 +433,56 @@ namespace Bloomlings.Playtest.Preview
             }
         }
 
+        /// <summary>The variants shown on the themes frame's board corners.</summary>
+        private static readonly VariantId[] ThemeTiles = { VariantId.Leaf, VariantId.Flower, VariantId.Water, VariantId.Acorn, VariantId.Moss, VariantId.VioletBud, VariantId.Dew, VariantId.Wood };
+
         /// <summary>
-        /// Every variant character (spec 004): its board tile, then each mood (happy, asleep, worried, blank), and the four
-        /// 3D heroes of the meta screens below.
+        /// Every variant (spec 005 §3.1, spec 004): its candy tile in the board and sticker styles next to its 2D character
+        /// in each mood (happy, asleep, worried, blank), on parchment over the lawn, and the four 3D heroes of the meta
+        /// screens below, each on its stone pedestal.
         /// </summary>
         private static void Bloomlings(SkiaPainter p)
         {
-            Sheet(p, "Bloomlings", out Box body);
+            p.BeginFrame();
+            DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, 1);
+            Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
+            Box sheet = safe.Inset(p.U(24f));
+            Kit.Paper(p, sheet, p.U(48f), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.WoodSign(p, Box.FromCenter(sheet.CenterX, sheet.Top + p.U(84f), p.U(470f), p.U(104f)), "Bloomlings", T.Title, SignDecor.Ivy);
+            var body = new Box(sheet.Left + p.U(36f), sheet.Top + p.U(170f), sheet.Right - p.U(36f), sheet.Bottom - p.U(30f));
+
             VariantInfo[] variants = VariantCatalog.Default.All.ToArray();
-            int columns = 1 + CharacterArt.Moods.Count;
+            int columns = 2 + CharacterArt.Moods.Count;
             float w = body.Width / columns;
-            float heroes = Math.Min(p.U(300f), body.Height * 0.2f);
-            float row = Math.Min(p.U(110f), (body.Height - heroes - p.U(70f)) / variants.Length);
-            string[] headers = { "tile", "happy", "asleep", "worried", "blank" };
+            float heroes = Math.Min(p.U(330f), body.Height * 0.22f);
+            float row = Math.Min(p.U(126f), (body.Height - heroes - p.U(60f)) / variants.Length);
+            string[] headers = { "board", "sticker", "happy", "asleep", "worried", "blank" };
             for (int c = 0; c < columns; c++)
             {
-                p.Text(headers[c], body.Left + ((c + 0.5f) * w), body.Top + p.U(20f), T.Caption, C.TextSecondary);
+                p.Text(headers[c], body.Left + ((c + 0.5f) * w), body.Top + p.U(16f), T.Caption, C.InkBrownSoft, w);
             }
 
             for (int v = 0; v < variants.Length; v++)
             {
-                float cy = body.Top + p.U(60f) + ((v + 0.5f) * row);
-                float size = Math.Min(row * 0.92f, w * 0.8f);
-                BoardPainter.CharacterBlock(p, Box.FromCenter(body.Left + (0.5f * w), cy, size, size), variants[v].Id);
+                float cy = body.Top + p.U(50f) + ((v + 0.5f) * row);
+                float size = Math.Min(row * 0.86f, w * 0.8f);
+                Kit.CandyTile(p, Box.FromCenter(body.Left + (0.5f * w), cy, size, size), variants[v].Id, TileStyle.Board);
+                Kit.CandyTile(p, Box.FromCenter(body.Left + (1.5f * w), cy, size, size), variants[v].Id, TileStyle.Sticker);
                 for (int m = 0; m < CharacterArt.Moods.Count; m++)
                 {
-                    Visuals.Character(p, Box.FromCenter(body.Left + ((m + 1.5f) * w), cy, size, size), variants[v].Id, CharacterArt.Moods[m]);
+                    Visuals.Character(p, Box.FromCenter(body.Left + ((m + 2.5f) * w), cy, size, size), variants[v].Id, CharacterArt.Moods[m]);
                 }
             }
 
+            // The four heroes, each on its stone pedestal, feet on the pedestal's top.
             float hw = body.Width / CharacterArt.Families.Count;
             for (int f = 0; f < CharacterArt.Families.Count; f++)
             {
-                Visuals.Hero(p, Box.FromCenter(body.Left + ((f + 0.5f) * hw), body.Bottom - (heroes / 2f), hw * 0.92f, heroes), CharacterArt.Families[f], null);
+                float cx = body.Left + ((f + 0.5f) * hw);
+                var pedestal = Box.FromCenter(cx, body.Bottom - (heroes * 0.13f), hw * 0.78f, heroes * 0.26f);
+                Kit.StonePedestal(p, pedestal);
+                float top = HomeStage.PedestalTop(pedestal).CenterY;
+                Visuals.Hero(p, HomeStage.Figure(cx, top, heroes * 0.86f), CharacterArt.Families[f], null);
             }
         }
 

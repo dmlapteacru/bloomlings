@@ -81,6 +81,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The Store's selected tab (0 shop, 1 cosmetics).</summary>
         public int StoreTab { get; set; }
 
+        /// <summary>The Store cosmetics' selected family tab (an index into the four families, spec 005 §4.6).</summary>
+        public int StoreFamily { get; set; }
+
+        /// <summary>The Store cosmetics' page of outfit cards.</summary>
+        public int StorePage { get; set; }
+
         public IReadOnlyList<(Overlay Overlay, float OpenedAt)> Overlays => _overlays;
 
         /// <summary>
@@ -270,9 +276,16 @@ namespace Bloomlings.Playtest.Design
             BackgroundTheme theme = ThemeRotation.Default.ThemeFor(Math.Max(1, level));
             p.Mark(scene == BackdropScene.Gameplay ? "bg.theme." + theme.Id : scene == BackdropScene.Home ? "bg.home" : "bg.splash");
             var screen = new Box(0f, 0f, p.Width, p.Height);
-            // The owner's picture when it is embedded (spec 005 pictures.md B), else the code-drawn garden.
+            // The owner's picture when it is embedded (spec 005 pictures.md B), else the code-drawn garden; Home and the
+            // splash in the warmer garden colors (spec 005 §4.2).
+            BackdropColors colors = DesignTokens.Backdrop(theme.Background, theme.Accent);
+            if (scene != BackdropScene.Gameplay)
+            {
+                colors = HomeStage.Garden(colors);
+            }
+
             Visuals.Background(p, screen, OwnerPictures.Background(scene, theme.Id), () =>
-                p.Backdrop(screen, DesignTokens.Backdrop(theme.Background, theme.Accent), scene, theme.Id + "/" + scene));
+                p.Backdrop(screen, colors, scene, theme.Id + "/" + scene + (scene != BackdropScene.Gameplay ? "/warm" : string.Empty)));
         }
     }
 }

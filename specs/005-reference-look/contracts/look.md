@@ -327,10 +327,22 @@ Home and Splash keep the sky, arches and hills but warmer (until the owner's pic
 ### 4.5 Home, Splash (frames 1–3)
 
 - Logo: "Bloomlings" in `type.wordmark` with a wooden look: pale cream-yellow fill `#FFF0C8` → `#E9B874`, outline
-  `WoodLine`, a darker extrusion, two ivy clusters (1 em) and a small pink flower over the letters' ends.
-- Level: a `WoodSign` (None) plaque with "Level N".
+  `WoodLine`, a darker extrusion, inside the reference's olive moss band (`IvyLine` mixed 35% toward `WoodLine`,
+  lightened 12%; 0.14 em with its own extrusion), broad leaves (the win sign's cluster leaves, 1.7 em) behind both ends
+  and two small pink flowers over them.
+- Level: a `WoodSign` (None) plaque with "Level N", as tall as its row and as wide as the letters plus 1.5 × its height.
 - Play: the big primary button in its wood rim.
-- Settings, Petals pill per §3.3–3.4; heroes on a `StonePedestal` until the owner's diorama.
+- Settings, Petals pill per §3.3–3.4.
+- Heroes, until the owner's Home picture (pictures.md B1): the drawn stage `HomeStage.Diorama` (kit `HomeLook.cs`): a
+  `StonePedestal` 0.84 of the stage wide, the lotus fountain on it (`Kit.LotusFountain`, `ui.fountain`: a small pedestal
+  as its basin, water, two lily pads, the lotus) and the four heroes in an arc as in the reference (Sprig at the left,
+  Bloom raised behind the fountain, Drop, Twig in front at the right edge), the guest (spec 004 R17) at the left front.
+  Over the owner's picture the group picture stands in front with no drawn pedestal. Progressed: the player's hero on a
+  `StonePedestal` (`HomeStage.HeroOnPedestal`), the guest at its right. The splash shows the same stage without the guest.
+- The milestone teaser and the rank row are parchment pills (`Kit.ParchmentPill`) with the outlined pink gift or gold
+  trophy and `InkBrown` text; the Daily Challenge card is parchment with the sun on a cream disc; the avatar a cream disc.
+- Backdrop: `HomeStage.Garden` warms the Home and splash colors (a clearer blue sky, sunlit horizon and hills, lush
+  bushes with pink blossoms, sandy arches; 15% of the band's theme tint stays).
 
 ### 4.6 Wardrobe (Unity) and the Store's cosmetics (playtest)
 
@@ -343,6 +355,12 @@ Home and Splash keep the sky, arches and hills but warmer (until the owner's pic
 - Outfit cards: cream cards with a beige picture well, the name below; the worn one has a green face tint, a 4 px green
   (`GardenLook.Green.Face`) border and a green check badge.
 - Footer: "Earn special outfits as you play!" (`InkBrownSoft`).
+- The playtest's Store cosmetics (preview frame 26): the Store card's `WoodSign` (Ivy) header, `Kit.FamilyTabs`
+  (`ui.tab.family`) over the lighter panel, and `Kit.OutfitCard`s (`ui.card.outfit`) six to a page (3 × 2): "Default",
+  worn while the family wears nothing, then each item for sale shown on the chosen family's hero (a frame, badge or
+  marker as its shape) with its cost pill on the card's bottom edge (a tap buys); the footer between cream ‹ › page
+  arrows (`Kit.ArrowButton`). The Shop tab's rows are cream rows with the booster tile and its count badge, the name and
+  a cost pill; the Daily Reward, Leaderboard and Collection cards carry a `WoodSign` (None) header.
 
 ## 5. Asset slots
 
