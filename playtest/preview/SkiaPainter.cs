@@ -10,13 +10,13 @@ namespace Bloomlings.Playtest.Preview
     /// <see cref="IPainter"/> over SkiaSharp, for PNG previews of the playtest's designed screens (spec 002 research R3).
     /// It also records every shape, asset slot and text drawn, and every touch target, so the preview can check them
     /// (contracts/painter.md, "Recording"). The kit's material pictures (spec 005 <c>UiRaster</c>) are cached as
-    /// straight-alpha images.
+    /// straight-alpha images, in a cache bounded by bytes as on the device (<see cref="PictureCache{T}"/>).
     /// </summary>
     public sealed class SkiaPainter : PainterBase, IDisposable
     {
-        private static readonly Dictionary<string, SKImage> Masks = new Dictionary<string, SKImage>(StringComparer.Ordinal);
+        private static readonly Dictionary<(MaskKind Kind, string Key, int Size), SKImage> Masks = new Dictionary<(MaskKind, string, int), SKImage>();
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
-        private static readonly Dictionary<string, SKImage> Pictures = new Dictionary<string, SKImage>(StringComparer.Ordinal);
+        private static readonly PictureCache<SKImage> Pictures = new PictureCache<SKImage>(PictureCacheBytes, image => image.Dispose());
         private static readonly Dictionary<string, SKImage?> Sprites = new Dictionary<string, SKImage?>(StringComparer.Ordinal);
         // Declared before the faces: static initializers run in order, and LoadFont reads it.
         private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
@@ -60,8 +60,21 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>Every text drawn: its screen box and its text.</summary>
         public List<(Box Box, string Text)> Texts { get; } = new List<(Box, string)>();
 
+        /// <summary>What a cached mask was made from.</summary>
+        private enum MaskKind
+        {
+            Shape,
+            Composite,
+            Skin,
+        }
+
         public override void BeginFrame()
         {
+            lock (Pictures)
+            {
+                Pictures.NextFrame();
+            }
+
             base.BeginFrame();
             Targets.Clear();
             Texts.Clear();
@@ -182,23 +195,28 @@ namespace Bloomlings.Playtest.Preview
             }
 
             Slots.Add(id);
-            DrawMask(id, () => ShapeLibrary.Get(id), box, color);
+            DrawMask(MaskKind.Shape, id, null, box, color);
         }
 
-        public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask("composite/" + key, () => sdf, box, color);
+        public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask(MaskKind.Composite, key, sdf, box, color);
 
-        private void DrawMask(string key, Func<Func<float, float, float>> sdf, Box box, Rgba color)
+        private void DrawMask(MaskKind kind, string key, Func<float, float, float>? sdf, Box box, Rgba color)
         {
             int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
-            string cacheKey = key + "@" + size;
-            if (!Masks.TryGetValue(cacheKey, out SKImage? image))
+            if (!Masks.TryGetValue((kind, key, size), out SKImage? image))
             {
-                byte[] mask = ShapeRaster.Mask(sdf(), size, topDown: true);
+                Func<float, float, float> shape = kind switch
+                {
+                    MaskKind.Shape => ShapeLibrary.Get(key),
+                    MaskKind.Skin => ShapeLibrary.SkinPattern(key),
+                    _ => sdf!,
+                };
+                byte[] mask = ShapeRaster.Mask(shape, size, topDown: true);
                 var info = new SKImageInfo(size, size, SKColorType.Alpha8, SKAlphaType.Premul);
                 using var bitmap = new SKBitmap(info);
                 System.Runtime.InteropServices.Marshal.Copy(mask, 0, bitmap.GetPixels(), mask.Length);
                 image = SKImage.FromBitmap(bitmap);
-                Masks[cacheKey] = image;
+                Masks[(kind, key, size)] = image;
             }
 
             SKPaint paint = Fill(color);
@@ -326,26 +344,15 @@ namespace Bloomlings.Playtest.Preview
 
             int w = PictureSize(box.Width);
             int h = PictureSize(box.Height);
-            string cacheKey = UiRaster.CacheKey(key, w, h);
-            SKImage? image;
+            SKImage image;
             lock (Pictures)
             {
-                if (!Pictures.TryGetValue(cacheKey, out image))
+                if (!Pictures.TryGet(key, w, h, out image))
                 {
                     byte[] rgba = render(w, h);
                     if (rgba.Length != w * h * 4)
                     {
-                        throw new ArgumentException("Picture " + cacheKey + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
-                    }
-
-                    if (Pictures.Count >= PictureCacheLimit)
-                    {
-                        foreach (SKImage old in Pictures.Values)
-                        {
-                            old.Dispose();
-                        }
-
-                        Pictures.Clear();
+                        throw new ArgumentException("Picture " + UiRaster.CacheKey(key, w, h) + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
                     }
 
                     // Straight alpha, as UiRaster renders it.
@@ -353,7 +360,7 @@ namespace Bloomlings.Playtest.Preview
                     using var bitmap = new SKBitmap(info);
                     System.Runtime.InteropServices.Marshal.Copy(rgba, 0, bitmap.GetPixels(), rgba.Length);
                     image = SKImage.FromBitmap(bitmap);
-                    Pictures[cacheKey] = image;
+                    Pictures.Add(key, w, h, image, rgba.Length);
                 }
             }
 
@@ -392,7 +399,7 @@ namespace Bloomlings.Playtest.Preview
             // A layer: the pattern, then the picture with destination-in, so the pattern stays only on the picture.
             SKRect rect = Rect(Fit(box, image.Width, image.Height));
             Canvas.SaveLayer(rect, null);
-            DrawMask("skin/" + skinShape, () => ShapeLibrary.SkinPattern(skinShape), new Box(rect.Left, rect.Top, rect.Right, rect.Bottom), tint);
+            DrawMask(MaskKind.Skin, skinShape, null, new Box(rect.Left, rect.Top, rect.Right, rect.Bottom), tint);
             using var mask = new SKPaint { BlendMode = SKBlendMode.DstIn };
             Canvas.DrawImage(image, rect, new SKSamplingOptions(SKFilterMode.Linear, SKMipmapMode.Linear), mask);
             Canvas.Restore();

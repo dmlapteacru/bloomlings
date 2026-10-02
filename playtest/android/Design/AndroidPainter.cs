@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Android.Graphics;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Playtest.Design;
@@ -13,14 +15,20 @@ namespace Bloomlings.Playtest.Droid
     /// becomes a cached bitmap scaled with filtering. Text uses the bundled Nunito faces (spec 003 contracts/fonts.md),
     /// falling back to the system typeface, and labels with a look get their shadow, extrusion, outline and gradient
     /// fill (contracts/painter-text.md). The generated character pictures (spec 004) are embedded PNG files, decoded once
-    /// with <see cref="BitmapFactory"/>. The kit's material pictures (spec 005 <c>UiRaster</c>) become cached, premultiplied
-    /// ARGB_8888 bitmaps drawn with filtering.
+    /// with <see cref="BitmapFactory"/>. The kit's material pictures (spec 005 <c>UiRaster</c>) become premultiplied
+    /// ARGB_8888 bitmaps drawn with filtering, in a cache bounded by bytes (<see cref="PictureCache{T}"/>). The gameplay
+    /// lawn renders on a worker thread; until it is ready the lawn's flat gradient shows, then the view redraws.
     /// </summary>
     public sealed class AndroidPainter : PainterBase
     {
-        private static readonly Dictionary<string, Bitmap> Masks = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
+        /// <summary>How many vertical gradients are kept before they are all made again.</summary>
+        private const int GradientCacheLimit = 256;
+
+        private static readonly Dictionary<(MaskKind Kind, string Key, int Size), Bitmap> Masks = new Dictionary<(MaskKind, string, int), Bitmap>();
         private static readonly Dictionary<string, Bitmap> Backdrops = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
-        private static readonly Dictionary<string, Bitmap> Pictures = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, Task<byte[]>> PendingBackdrops = new Dictionary<string, Task<byte[]>>(StringComparer.Ordinal);
+        private static readonly PictureCache<Bitmap> Pictures = new PictureCache<Bitmap>(PictureCacheBytes, bitmap => bitmap.Dispose());
+        private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
         private static readonly Dictionary<string, Bitmap?> Sprites = new Dictionary<string, Bitmap?>(StringComparer.Ordinal);
 
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
@@ -35,9 +43,26 @@ namespace Bloomlings.Playtest.Droid
         private float _width;
         private float _height;
 
+        /// <summary>The <see cref="Redraw"/> of the painter that drew last: a lawn finished on a worker thread asks it for a frame.</summary>
+        private static Action? s_redraw;
+
         public override float Width => _width;
 
         public override float Height => _height;
+
+        /// <summary>
+        /// Asks the host view for another frame, from any thread (<c>View.PostInvalidate</c>): a lawn rendered on a worker
+        /// thread is ready.
+        /// </summary>
+        public Action? Redraw { get; set; }
+
+        /// <summary>What a cached mask was made from.</summary>
+        private enum MaskKind
+        {
+            Shape,
+            Composite,
+            Skin,
+        }
 
         /// <summary>Starts a frame on a view's canvas.</summary>
         public void Begin(Canvas canvas, float width, float height, Client.UI.Design.Insets insets)
@@ -46,6 +71,8 @@ namespace Bloomlings.Playtest.Droid
             _width = width;
             _height = height;
             Insets = insets;
+            Volatile.Write(ref s_redraw, Redraw);
+            Pictures.NextFrame();
             BeginFrame();
         }
 
@@ -121,11 +148,39 @@ namespace Bloomlings.Playtest.Droid
 
         public override void FillRoundGradient(Box box, float radius, Rgba top, Rgba bottom)
         {
+            if (box.Height <= 0f)
+            {
+                return;
+            }
+
             Paint paint = Fill(top);
-            using var shader = new LinearGradient(0f, box.Top, 0f, box.Bottom, ToColor(Faded(top, Alpha)), ToColor(Faded(bottom, Alpha)), Shader.TileMode.Clamp!);
+            // One gradient per pair of colors and height, from 0 down to the height; the box is drawn moved up to 0.
+            Color from = ToColor(Faded(top, Alpha));
+            Color to = ToColor(Faded(bottom, Alpha));
+            (int, int, float) key = (from.ToArgb(), to.ToArgb(), box.Height);
+            if (!Gradients.TryGetValue(key, out LinearGradient? shader))
+            {
+                if (Gradients.Count >= GradientCacheLimit)
+                {
+                    foreach (LinearGradient old in Gradients.Values)
+                    {
+                        old.Dispose();
+                    }
+
+                    Gradients.Clear();
+                }
+
+                shader = new LinearGradient(0f, 0f, 0f, box.Height, from, to, Shader.TileMode.Clamp!);
+                Gradients[key] = shader;
+            }
+
             paint.SetShader(shader);
             float r = Math.Min(radius, box.Height / 2f);
-            _canvas.DrawRoundRect(R(box), r, r, paint);
+            _canvas.Save();
+            _canvas.Translate(0f, box.Top);
+            _rect.Set(box.Left, 0f, box.Right, box.Height);
+            _canvas.DrawRoundRect(_rect, r, r, paint);
+            _canvas.Restore();
             paint.SetShader(null);
         }
 
@@ -160,20 +215,25 @@ namespace Bloomlings.Playtest.Droid
             _canvas.DrawLine(x0, y0, x1, y1, paint);
         }
 
-        public override void Shape(string id, Box box, Rgba color) => DrawMask(id, () => ShapeLibrary.Get(id), box, color);
+        public override void Shape(string id, Box box, Rgba color) => DrawMask(MaskKind.Shape, id, null, box, color);
 
-        public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask("composite/" + key, () => sdf, box, color);
+        public override void ShapeOf(string key, Func<float, float, float> sdf, Box box, Rgba color) => DrawMask(MaskKind.Composite, key, sdf, box, color);
 
-        private void DrawMask(string key, Func<Func<float, float, float>> sdf, Box box, Rgba color)
+        private void DrawMask(MaskKind kind, string key, Func<float, float, float>? sdf, Box box, Rgba color)
         {
             int size = ShapeRaster.Quantize(Math.Max(box.Width, box.Height));
-            string cacheKey = key + "@" + size;
-            if (!Masks.TryGetValue(cacheKey, out Bitmap? bitmap))
+            if (!Masks.TryGetValue((kind, key, size), out Bitmap? bitmap))
             {
-                byte[] mask = ShapeRaster.Mask(sdf(), size, topDown: true);
+                Func<float, float, float> shape = kind switch
+                {
+                    MaskKind.Shape => ShapeLibrary.Get(key),
+                    MaskKind.Skin => ShapeLibrary.SkinPattern(key),
+                    _ => sdf!,
+                };
+                byte[] mask = ShapeRaster.Mask(shape, size, topDown: true);
                 bitmap = Bitmap.CreateBitmap(size, size, Bitmap.Config.Alpha8!)!;
                 bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(mask));
-                Masks[cacheKey] = bitmap;
+                Masks[(kind, key, size)] = bitmap;
             }
 
             _source.Set(0, 0, size, size);
@@ -276,6 +336,12 @@ namespace Bloomlings.Playtest.Droid
             _text.SetShader(null);
         }
 
+        /// <summary>
+        /// The garden backdrop, cached per theme and size. The Home and splash skies render at once. The gameplay lawn is
+        /// heavier (a third of the screen's resolution), so it renders on a worker thread (<see cref="BackdropRaster.Render"/>
+        /// is pure) while the lawn's flat gradient (<c>lawn.light</c> to <c>lawn.dark</c>) shows; its bitmap is made here,
+        /// on the UI thread, in the first frame after it is ready (<see cref="Redraw"/> asks for that frame).
+        /// </summary>
         public override void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey)
         {
             float step = BackdropRaster.Downscale(scene);
@@ -284,7 +350,13 @@ namespace Bloomlings.Playtest.Droid
             string key = cacheKey + "@" + w + "x" + h;
             if (!Backdrops.TryGetValue(key, out Bitmap? bitmap))
             {
-                byte[] rgba = BackdropRaster.Render(w, h, colors, scene);
+                byte[]? rgba = scene == BackdropScene.Gameplay ? RenderedAside(key, w, h, colors, scene) : BackdropRaster.Render(w, h, colors, scene);
+                if (rgba == null)
+                {
+                    FillRoundGradient(box, 0f, DesignTokens.Colors.LawnLight, DesignTokens.Colors.LawnDark);
+                    return;
+                }
+
                 bitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
                 bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(rgba));
                 Backdrops[key] = bitmap;
@@ -292,6 +364,35 @@ namespace Bloomlings.Playtest.Droid
 
             _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
+        }
+
+        /// <summary>
+        /// A backdrop rendered on a worker thread: its pixels once they are ready, else null (the first call starts the
+        /// render). A render that failed runs again here, so its error still shows.
+        /// </summary>
+        private byte[]? RenderedAside(string key, int w, int h, BackdropColors colors, BackdropScene scene)
+        {
+            if (!PendingBackdrops.TryGetValue(key, out Task<byte[]>? task))
+            {
+                task = Task.Run(() => BackdropRaster.Render(w, h, colors, scene));
+                // The view drawing by then (a recreated activity's, too) shows it.
+                task.ContinueWith(_ => Volatile.Read(ref s_redraw)?.Invoke(), TaskScheduler.Default);
+                PendingBackdrops[key] = task;
+            }
+
+            if (!task.IsCompleted)
+            {
+                return null;
+            }
+
+            PendingBackdrops.Remove(key);
+            if (task.Status == TaskStatus.RanToCompletion)
+            {
+                return task.Result;
+            }
+
+            Android.Util.Log.Warn("Bloomlings", "The lawn did not render aside (" + task.Exception?.GetBaseException().Message + "); rendering it here");
+            return BackdropRaster.Render(w, h, colors, scene);
         }
 
         public override void Picture(string key, Box box, Func<int, int, byte[]> render)
@@ -303,26 +404,20 @@ namespace Bloomlings.Playtest.Droid
 
             int w = PictureSize(box.Width);
             int h = PictureSize(box.Height);
-            string cacheKey = UiRaster.CacheKey(key, w, h);
-            if (!Pictures.TryGetValue(cacheKey, out Bitmap? bitmap))
+            if (!Pictures.TryGet(key, w, h, out Bitmap bitmap))
             {
                 byte[] rgba = render(w, h);
                 if (rgba.Length != w * h * 4)
                 {
-                    throw new ArgumentException("Picture " + cacheKey + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
-                }
-
-                if (Pictures.Count >= PictureCacheLimit)
-                {
-                    // Not recycled: a hardware canvas may still hold this frame's draws of them; the GC frees them.
-                    Pictures.Clear();
+                    throw new ArgumentException("Picture " + UiRaster.CacheKey(key, w, h) + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
                 }
 
                 // ARGB_8888 holds premultiplied RGBA bytes; UiRaster renders straight alpha.
                 Premultiply(rgba);
                 bitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
                 bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(rgba));
-                Pictures[cacheKey] = bitmap;
+                // Dropped bitmaps are disposed, not recycled: a hardware canvas may still hold a recent frame's draws of them.
+                Pictures.Add(key, w, h, bitmap, rgba.Length);
             }
 
             _source.Set(0, 0, w, h);
@@ -377,7 +472,7 @@ namespace Bloomlings.Playtest.Droid
             // A layer: the pattern, then the picture with DST_IN, so the pattern stays only on the picture.
             Box fitted = Fit(box, bitmap.Width, bitmap.Height);
             int layer = _canvas.SaveLayer(R(fitted), null);
-            DrawMask("skin/" + skinShape, () => ShapeLibrary.SkinPattern(skinShape), fitted, tint);
+            DrawMask(MaskKind.Skin, skinShape, null, fitted, tint);
             using var mask = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
             using var mode = new PorterDuffXfermode(PorterDuff.Mode.DstIn!);
             mask.SetXfermode(mode);

@@ -190,28 +190,40 @@ namespace Bloomlings.Playtest.Design
         public static void Tile(IPainter p, CellInfo info, Box full, float cell, float scale, float alpha)
         {
             p.Mark("tile.base");
-            Box box = full.Inset(cell * TileInset).Scale(scale, scale);
+            // Drawn at its rest size and shrunk with the canvas (a fading tile), so its picture is the one the board
+            // already has, not a new size every frame.
+            Box box = full.Inset(cell * TileInset);
+            bool shrinking = scale != 1f;
+            if (shrinking)
+            {
+                p.PushTransform(0f, 0f, scale, box.CenterX, box.CenterY);
+            }
+
             p.PushAlpha(alpha);
             if (info.MysteryHidden || !info.Visible.HasValue)
             {
                 Kit.CandyTile(p, box, (VariantId?)null, TileStyle.Board);
-                p.PopAlpha();
-                return;
             }
-
-            Kit.CandyTile(p, box, info.Visible.Value, TileStyle.Board);
-
-            if (info.RemainingLayers > 1 && info.Next.HasValue)
+            else
             {
-                LayerPeek(p, box, info.Next.Value);
-            }
+                Kit.CandyTile(p, box, info.Visible.Value, TileStyle.Board);
 
-            if (info.KeyId != null)
-            {
-                KeyCorner(p, box);
+                if (info.RemainingLayers > 1 && info.Next.HasValue)
+                {
+                    LayerPeek(p, box, info.Next.Value);
+                }
+
+                if (info.KeyId != null)
+                {
+                    KeyCorner(p, box);
+                }
             }
 
             p.PopAlpha();
+            if (shrinking)
+            {
+                p.PopTransform();
+            }
         }
 
         /// <summary>

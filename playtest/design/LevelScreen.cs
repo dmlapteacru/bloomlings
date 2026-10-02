@@ -105,18 +105,28 @@ namespace Bloomlings.Playtest.Design
 
         public bool Blocked => Session.Status == LevelStatus.Jammed || Session.Status == LevelStatus.Stuck;
 
+        /// <summary>How long the jam sheet's rise and settle animate (seconds after it shows).</summary>
+        public const float EndCardSeconds = 2.3f;
+
+        /// <summary>
+        /// How long the win and milestone cards' celebration animates after the card shows (rays turning, petals falling,
+        /// Next breathing). Then the screen holds still until the next input, so a card left open does not keep redrawing
+        /// the whole level.
+        /// </summary>
+        public const float CelebrationSeconds = 8f;
+
         /// <summary>
         /// Whether the screen still moves: animations, a toast, a demo opening, booster targeting, and the end cards (the
-        /// jam's rise for 2.3 s; the win and milestone cards for as long as they show, since their rays turn, their petals
-        /// fall and Next breathes).
+        /// jam's rise for <see cref="EndCardSeconds"/>; the win and milestone cards' celebration for
+        /// <see cref="CelebrationSeconds"/>).
         /// </summary>
-        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (Won || _app.Now - EndShownAt < 2.3f)) || ShowingMilestone || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && _app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds)) || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
 
         /// <summary>
         /// Whether only the win's own motion moves the screen (the win or milestone card is open and every other animation
         /// is done): a host may then redraw at a lower frame rate to save battery.
         /// </summary>
-        public bool OnlyCelebrating => Won && EndShownAt >= 0f && _app.Now - EndShownAt >= 2.3f && Animator.Idle && Targeting == null && Demo == null && (_toast == null || _app.Now >= _toastUntil);
+        public bool OnlyCelebrating => Won && EndShownAt >= 0f && _app.Now - EndShownAt >= EndCardSeconds && Animator.Idle && Targeting == null && Demo == null && (_toast == null || _app.Now >= _toastUntil);
 
         public void Advance(float dt) => Animator.Advance(dt, Session.View);
 
@@ -583,28 +593,22 @@ namespace Bloomlings.Playtest.Design
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, Level);
 
             // Top bar (frame 7, spec 005 §3.3, §4.1): the cream Pause squircle, the level on a wide wooden sign with ivy,
-            // and the cream speed pill, sized like the reference's. Once the win card shows it fades out in 0.3 s and takes
-            // no taps, so the sign, the heroes and the rays own the top.
-            float topBar = Won && EndShownAt >= 0f ? 1f - Kit.Ease((_app.Now - EndShownAt) / 0.3f) : 1f;
-            if (topBar > 0f)
+            // and the cream speed pill, sized like the reference's. It stays while the win and milestone cards show, under
+            // their scrim and celebration, and Pause and the speed pill keep their taps (see below; spec 005 FR-002).
+            float bar = r.TopBar.Height;
+            Action openPause = () => _app.OpenOverlay(Overlay.Pause);
+            var pause = Box.FromCenter(r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, bar);
+            Kit.RoundButton(p, pause.CenterX, pause.CenterY, bar, "ui.pause", openPause, squircle: true);
+            p.Mark("ui.pause");
+            Box sign = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(bar * SignWidth, r.TopBar.Width - (bar * 4f)), bar * SignHeight);
+            Kit.LevelPill(p, sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
+            // The speed pill is as tall as Pause and half as wide again.
+            var speed = new Box(r.TopBar.Right - (bar * SpeedWidth), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
+            Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
+            if (badge.HasValue)
             {
-                bool live = topBar >= 1f;
-                p.PushAlpha(topBar);
-                float bar = r.TopBar.Height;
-                Kit.RoundButton(p, r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, "ui.pause", live ? () => _app.OpenOverlay(Overlay.Pause) : (Action?)null, squircle: true);
-                p.Mark("ui.pause");
-                Box sign = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(bar * SignWidth, r.TopBar.Width - (bar * 4f)), bar * SignHeight);
-                Kit.LevelPill(p, sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
-                // The speed pill is as tall as Pause and half as wide again.
-                var speed = new Box(r.TopBar.Right - (bar * SpeedWidth), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
-                Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", live ? ToggleSpeed : (Action?)null);
-                if (badge.HasValue)
-                {
-                    // HARD or SUPER HARD hangs from the sign's lower edge.
-                    Kit.Badge(p, r.Badge.Inset(0f, p.U(2f)).Offset(0f, -p.U(10f)), badge.Value.Text, badge.Value.Color, badge.Value.Slot);
-                }
-
-                p.PopAlpha();
+                // HARD or SUPER HARD hangs from the sign's lower edge.
+                Kit.Badge(p, r.Badge.Inset(0f, p.U(2f)).Offset(0f, -p.U(10f)), badge.Value.Text, badge.Value.Color, badge.Value.Slot);
             }
 
             BoardPainter.Draw(p, r.Board, this);
@@ -648,6 +652,15 @@ namespace Bloomlings.Playtest.Design
                 else
                 {
                     EndCards.Jam(p, this, since);
+                }
+
+                if (Won)
+                {
+                    // The win and milestone cards' scrim takes every tap off the card; Pause and the speed pill take theirs
+                    // through it, as in the Unity client (FR-002), so Home, Restart and Settings stay reachable from the
+                    // win. (The jam sheet's light scrim takes no taps, so the top bar works above it anyway.)
+                    p.Hit(Kit.Touch(p, pause), openPause);
+                    p.Hit(Kit.Touch(p, speed), ToggleSpeed);
                 }
             }
 
