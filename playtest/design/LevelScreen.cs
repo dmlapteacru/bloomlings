@@ -652,6 +652,12 @@ namespace Bloomlings.Playtest.Design
 
         public void Draw(IPainter p)
         {
+            if (DrawEndScreen(p))
+            {
+                // The full-screen win or milestone replaced the gameplay (spec 005 FR-023).
+                return;
+            }
+
             LevelView view = Session.View;
             bool hasBoosters = false;
             foreach ((BoosterKind kind, Recovery _, string _) in Boosters)
@@ -746,6 +752,37 @@ namespace Bloomlings.Playtest.Design
             {
                 EndCards.Demo(p, this, _app.Now - DemoOpenedAt);
             }
+        }
+
+        /// <summary>
+        /// The full-screen win and milestone (spec 005 FR-023, <see cref="EndCards"/>): once the win has faded in over the
+        /// gameplay (<see cref="EndCards.WinFadeSeconds"/>, drawn by <see cref="Draw"/>'s end cards), the celebration
+        /// replaces the whole gameplay screen, its top bar included; the milestone that follows it is full screen at once.
+        /// Returns whether it drew the screen.
+        /// </summary>
+        private bool DrawEndScreen(IPainter p)
+        {
+            if (!Won || !Animator.Settled || EndShownAt < 0f || (!ShowingMilestone && _app.Now - EndShownAt < EndCards.WinFadeSeconds))
+            {
+                return false;
+            }
+
+            float since = _app.Now - EndShownAt;
+            if (ShowingMilestone)
+            {
+                EndCards.Milestone(p, this, since);
+            }
+            else
+            {
+                EndCards.Win(p, this, since);
+            }
+
+            if (Demo != null)
+            {
+                EndCards.Demo(p, this, _app.Now - DemoOpenedAt);
+            }
+
+            return true;
         }
 
         internal DesignApp App => _app;

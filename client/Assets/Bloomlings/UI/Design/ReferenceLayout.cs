@@ -254,7 +254,14 @@ namespace Bloomlings.Client.UI.Design
         Box Next)
     {
         /// <summary>Everything a finger can press.</summary>
-        public IReadOnlyList<(string Name, Box Box)> Buttons => new[] { ("Double", Double), ("Next", Next) };
+        public IReadOnlyList<(string Name, Box Box)> Buttons => new[] { ("Pause", Pause), ("Double", Double), ("Next", Next) };
+
+        /// <summary>
+        /// The cream Pause button in the top-left corner, beside the sign's end: 0.11 W square, 0.03 W from the left and
+        /// 0.015 W under the top inset. The win shows no top bar (FR-023), but Pause stays usable over it (spec 005
+        /// FR-016), so Home, Restart and Settings stay reachable.
+        /// </summary>
+        public Box Pause => new Box(Safe.Left + (0.03f * W), Safe.Top + (0.015f * W), Safe.Left + (0.14f * W), Safe.Top + (0.125f * W));
     }
 
     /// <summary>

@@ -64,7 +64,7 @@ How to read the columns:
 | `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6) |
 | `bg.wardrobe` | Wardrobe backdrop: the garden arches behind the hero on its pedestal (Unity; the playtest has no Wardrobe) | — | Wardrobe | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7) |
-| `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15 | Win | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
+| `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15, 16 | Win; milestone | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
 
 ## Bloomling characters
 
@@ -208,7 +208,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
 | `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim |
-| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | parchment sheet with a grip, a brown title and a soft brown subtitle (two lines when long), rising and settling with a bounce |
+| `ui.sheet` | Jam card frame (spec 005 FR-022) | 10 | Jam | popping in; open | Large | no | Launch | a parchment card in the middle of the screen over the warm scrim, with a brown title and a soft brown subtitle (two lines when long), popping in |
 | `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | cream rounded panel with a cream outline; the own row raised and green-tinted |
 | `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: glossy green raised pill on a plate; others: parchment wells |
 | `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | a track pressed into the parchment (on: the glossy green face with a white check; off: a parchment well) and a domed cream knob |
