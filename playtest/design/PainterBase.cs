@@ -131,7 +131,8 @@ namespace Bloomlings.Playtest.Design
         public abstract void SpriteSkin(string name, Box box, string skinShape, Rgba tint);
 
         /// <summary>
-        /// The embedded resource name of a picture: <c>bg/{name}</c> is an owner background, <c>brand/{name}</c> the
+        /// The embedded resource name of a picture: <c>bg/{name}</c> is an owner background (embedded without its extension,
+        /// so a PNG or a JPEG works), <c>brand/{name}</c> the
         /// logo, <c>icon/{name}</c> a booster icon and <c>decor/{name}</c> a leaf decoration (spec 005 pictures.md B, C and
         /// D, <see cref="OwnerPictures"/>); every other name is a character picture (spec 004 contracts/art-files.md
         /// "Loading").
@@ -140,7 +141,7 @@ namespace Bloomlings.Playtest.Design
         {
             if (name.StartsWith(BackgroundPrefix, StringComparison.Ordinal))
             {
-                return "backgrounds/" + name.Substring(BackgroundPrefix.Length) + ".png";
+                return "backgrounds/" + name.Substring(BackgroundPrefix.Length);
             }
 
             if (name.StartsWith(BrandPrefix, StringComparison.Ordinal))

@@ -32,7 +32,7 @@ How to read the columns:
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 13 | 0 | 13 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 14 | 0 | 14 |
+| Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
 | UI kit | 54 | 0 | 54 |
 | Materials | 4 | 0 | 4 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **177** | **28** | **205** |
+| **All** | **178** | **28** | **206** |
 
 ## Brand
 
@@ -64,7 +64,7 @@ How to read the columns:
 | `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6) |
 | `bg.wardrobe` | Wardrobe backdrop: the garden arches behind the hero on its pedestal (both builds) | — | Wardrobe | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7) |
-| `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15 | Win | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
+| `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15, 16 | Win; milestone | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
 
 ## Bloomling characters
 
@@ -158,6 +158,7 @@ the fallback when a picture is missing.
 | `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | the wooden frame around a grey panel with a padlock and the softer count |
 | `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
 | `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame |
+| `pod.deck` | Source stack deck (spec 005 FR-021) | 7, 8, 9, 12 | Tray | buried pods (one or two); more below (+N); emptied stack | Small | yes | Launch | the wooden frames of the next two pods peeking above the front pod, each showing a band of its variant color with its small symbol as a dark silhouette (a lilac band with a white ? for a hidden mystery pod, a grey one with the padlock when locked); a sunk parchment well for an emptied stack |
 | `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | plain brown digits below the tile, no "x" |
 | `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline |
 | `slot.state.working` | Working pod in a slot | 13 | Slots | working; finishing | Small | yes | Launch | a raised cream plate with the variant's sticker tile and the plain count below it |
@@ -207,7 +208,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
 | `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim |
-| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | parchment sheet with a grip, a brown title and a soft brown subtitle (two lines when long), rising and settling with a bounce |
+| `ui.sheet` | Jam card frame (spec 005 FR-022) | 10 | Jam | popping in; open | Large | no | Launch | a parchment card in the middle of the screen over the warm scrim, with a brown title and a soft brown subtitle (two lines when long), popping in |
 | `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | cream rounded panel with a cream outline; the own row raised and green-tinted |
 | `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: glossy green raised pill on a plate; others: parchment wells |
 | `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | a track pressed into the parchment (on: the glossy green face with a white check; off: a parchment well) and a domed cream knob |

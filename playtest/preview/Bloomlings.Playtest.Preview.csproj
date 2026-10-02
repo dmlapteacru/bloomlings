@@ -58,7 +58,7 @@
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" LogicalName="characters/2d/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" LogicalName="characters/3d/%(Filename)%(Extension)" />
     <!-- The owner's pictures (spec 005 pictures.md B and C): backgrounds and the logo, drawn when present (PainterBase.SpriteResource). -->
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.png" LogicalName="backgrounds/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.png;../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.jpg" LogicalName="backgrounds/%(Filename)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Brand/Resources/Brand/*.png" LogicalName="brand/%(Filename)%(Extension)" />
     <!-- The owner's booster icons and leaf decorations (spec 005 pictures.md D), drawn instead of the drawn ones when present. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" LogicalName="icons/%(Filename)%(Extension)" />
