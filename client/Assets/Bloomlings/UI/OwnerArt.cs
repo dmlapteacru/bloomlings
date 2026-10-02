@@ -1,0 +1,74 @@
+using System.Collections.Generic;
+using Bloomlings.Client.Art;
+using Bloomlings.Client.UI.Design;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Bloomlings.Client.UI
+{
+    /// <summary>
+    /// The owner's pictures in Unity (spec 005 <c>pictures.md</c> B and C, research D16): the backgrounds from
+    /// <c>Resources/Backgrounds/{name}</c> and the logo from <c>Resources/Brand/logo</c>, by the names of
+    /// <see cref="OwnerPictures"/>. Each loader returns null while the picture is missing, and the hooks then draw the
+    /// code-drawn stand-in (the <see cref="BackdropRaster"/> backdrop, the wooden wordmark letters). Pictures are loaded
+    /// once.
+    /// </summary>
+    public static class OwnerArt
+    {
+        private static readonly Dictionary<string, Texture2D?> Textures = new Dictionary<string, Texture2D?>();
+
+        /// <summary>An owner background (<c>home</c>, <c>gameplay-pond</c>, …), or null while it is missing.</summary>
+        public static Texture2D? Background(string name) => Load(OwnerPictures.BackgroundFolder + "/" + name);
+
+        /// <summary>The owner's logo picture, or null while it is missing.</summary>
+        public static Texture2D? LogoPicture() => Load(OwnerPictures.BrandFolder + "/" + OwnerPictures.Logo);
+
+        /// <summary>
+        /// The Home wordmark (spec 005 §4.5, pictures.md C1): the owner's logo picture fitted into the rect with its aspect
+        /// kept, or while it is missing the wooden wordmark letters with ivy and a flower (<see cref="UiKit.WoodLogo"/>)
+        /// spelling <paramref name="text"/>. Never a touch target; the caller places the returned rect.
+        /// </summary>
+        public static RectTransform Logo(string name, Transform parent, string text)
+        {
+            Texture2D? picture = LogoPicture();
+            if (picture == null)
+            {
+                return UiKit.WoodLogo(name, parent, text);
+            }
+
+            // The caller places the box; the picture fits inside it with its aspect kept.
+            RectTransform box = UiFactory.CreateRect(name, parent);
+            var image = UiFactory.CreateRect("Logo", box).gameObject.AddComponent<RawImage>();
+            image.texture = picture;
+            image.raycastTarget = false;
+            var fitter = image.gameObject.AddComponent<AspectRatioFitter>();
+            fitter.aspectMode = AspectRatioFitter.AspectMode.FitInParent;
+            fitter.aspectRatio = picture.width / (float)Mathf.Max(1, picture.height);
+            return box;
+        }
+
+        /// <summary>Shows a picture cover-fitted on a raw image of the given size in canvas units (the overflow cropped).</summary>
+        public static void Cover(RawImage image, Texture texture, float width, float height)
+        {
+            image.texture = texture;
+            (float x, float y, float w, float h) = PicturePixels.CoverUv(texture.width, texture.height, width, height);
+            image.uvRect = new Rect(x, y, w, h);
+        }
+
+        private static Texture2D? Load(string path)
+        {
+            if (!Textures.TryGetValue(path, out Texture2D? texture))
+            {
+                texture = Resources.Load<Texture2D>(path);
+                if (texture != null)
+                {
+                    texture.wrapMode = TextureWrapMode.Clamp;
+                }
+
+                Textures[path] = texture;
+            }
+
+            return texture;
+        }
+    }
+}

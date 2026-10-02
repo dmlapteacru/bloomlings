@@ -7,10 +7,12 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Themes
 {
     /// <summary>
-    /// The procedural garden backdrop in Unity (spec 002 FR-008, research R8): <see cref="BackdropRaster"/> pixels
-    /// in a texture stretched over the screen, tinted by the level band's theme (<see cref="ThemeRotation"/>). It is
-    /// rendered at a fifth of the screen resolution, smoothed by bilinear filtering, and cached per theme and scene. It
-    /// stands in for the <c>bg.*</c> asset slots until final art exists.
+    /// The garden backdrop in Unity (spec 002 FR-008, research R8; spec 005 §4.2, pictures.md B). The owner's background
+    /// picture of the scene (<c>Resources/Backgrounds/{name}</c>, names from <see cref="OwnerPictures"/>: <c>home</c>,
+    /// <c>splash</c>, <c>gameplay-daylight</c>, …) is cover-fitted over the screen when it exists. While it is missing,
+    /// <see cref="BackdropRaster"/> pixels (the lawn in gameplay, the sky with arches on Home and the splash) are rendered
+    /// at a fifth of the screen resolution, smoothed by bilinear filtering, cached per theme and scene, tinted by the level
+    /// band's theme (<see cref="ThemeRotation"/>). It stands in for the <c>bg.*</c> asset slots.
     /// </summary>
     public sealed class BackdropView : MonoBehaviour
     {
@@ -19,8 +21,29 @@ namespace Bloomlings.Client.Gameplay.Themes
 
         private RawImage _image = null!;
         private BackdropScene _scene;
+        private string? _picture;
+        private Texture2D? _owner;
 
         public static BackdropView Create(RectTransform parent, BackdropScene scene)
+        {
+            BackdropView view = NewView(parent, scene);
+            view.Show(null);
+            return view;
+        }
+
+        /// <summary>
+        /// A backdrop that shows the owner's picture <paramref name="picture"/> (for example <see cref="OwnerPictures.Wardrobe"/>),
+        /// or the code-drawn <paramref name="fallback"/> scene while it is missing.
+        /// </summary>
+        public static BackdropView Create(RectTransform parent, string picture, BackdropScene fallback)
+        {
+            BackdropView view = NewView(parent, fallback);
+            view._picture = picture;
+            view.Show(null);
+            return view;
+        }
+
+        private static BackdropView NewView(RectTransform parent, BackdropScene scene)
         {
             var image = UiFactory.CreateRect("Backdrop", parent).gameObject.AddComponent<RawImage>();
             image.raycastTarget = false;
@@ -29,13 +52,27 @@ namespace Bloomlings.Client.Gameplay.Themes
             var view = image.gameObject.AddComponent<BackdropView>();
             view._image = image;
             view._scene = scene;
-            view.Show(null);
             return view;
         }
 
-        /// <summary>Shows the backdrop of a theme; null shows the first theme (levels before the rotation starts).</summary>
+        /// <summary>Whether the owner's picture shows (else the code-drawn backdrop).</summary>
+        public bool ShowsPicture => _owner != null;
+
+        /// <summary>
+        /// Shows the backdrop of a theme: the owner's picture for the scene and theme when it exists, else the code-drawn
+        /// one; null shows the first theme (levels before the rotation starts).
+        /// </summary>
         public void Show(BackgroundTheme? theme)
         {
+            string name = _picture ?? OwnerPictures.Background(_scene, theme?.Id ?? ThemeRotation.Default.Themes[0].Id);
+            _owner = OwnerArt.Background(name);
+            if (_owner != null)
+            {
+                _image.color = Color.white;
+                Fit();
+                return;
+            }
+
             (float w, float h, Insets _) = UiKit.ScreenFrame();
             int width = Mathf.Max(32, (int)w / Downscale);
             int height = Mathf.Max(32, (int)h / Downscale);
@@ -47,7 +84,23 @@ namespace Bloomlings.Client.Gameplay.Themes
             }
 
             _image.texture = texture;
+            _image.uvRect = new Rect(0f, 0f, 1f, 1f);
             _image.color = Color.white;
+        }
+
+        private void OnRectTransformDimensionsChange() => Fit();
+
+        /// <summary>Cover-fits the owner's picture over the backdrop's rect (the screen).</summary>
+        private void Fit()
+        {
+            if (_owner == null || _image == null)
+            {
+                return;
+            }
+
+            Rect rect = _image.rectTransform.rect;
+            (float w, float h, Insets _) = UiKit.ScreenFrame();
+            OwnerArt.Cover(_image, _owner, rect.width > 0f ? rect.width : w, rect.height > 0f ? rect.height : h);
         }
 
         private static Texture2D Render(int width, int height, BackdropColors colors, BackdropScene scene, string name)
