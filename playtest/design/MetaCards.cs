@@ -62,16 +62,24 @@ namespace Bloomlings.Playtest.Design
             Kit.EndCard(p);
         }
 
-        /// <summary>The reward basket: woven dark wood with a lighter rim, outlined like the reference's objects.</summary>
+        /// <summary>The reward basket: woven wood (darker weave lines) with a lighter rim, outlined like the reference's objects.</summary>
         private static void Basket(IPainter p, Box box)
         {
             p.Mark("currency.reward_basket");
             Func<float, float, float> sdf = ShapeLibrary.Get("currency.reward_basket");
             p.ShapeOf("currency.reward_basket/line", (x, y) => sdf(x, y) - 0.05f, box, C.WoodDarkLine);
             p.Shape("currency.reward_basket", box, C.RewardBasket);
+            p.ShapeOf("currency.reward_basket/weave", (x, y) => Math.Max(sdf(x, y) + 0.05f, Math.Min(Weave(y, 7f), Weave(x + (0.07f * (float)Math.Floor(y * 7f)), 9f))), box, C.WoodDarkLine.WithAlpha(0.35f));
             p.PushClip(new Box(box.Left, box.Top, box.Right, box.CenterY));
             p.ShapeOf("currency.reward_basket/light", (x, y) => sdf(x, y) + 0.04f, box, C.RewardBasket.Lighten(0.25f));
             p.PopClip();
+        }
+
+        /// <summary>Thin lines across <paramref name="v"/> every 1/<paramref name="count"/> (negative on a line).</summary>
+        private static float Weave(float v, float count)
+        {
+            float t = (v * count) - (float)Math.Floor(v * count);
+            return (0.42f - Math.Abs(t - 0.5f)) / count;
         }
 
         /// <summary>A reward "+N" on a cream pill with the lotus (the cost pill's look, larger).</summary>
@@ -206,7 +214,8 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("collection.detail_frame");
             CardRegions r = Kit.Card(p, 700f, PlaytestText.T("collection.title"), () => app.CollectionDetail = -1, Kit.Pop(since), sign: SignDecor.None);
-            var frame = new Box(r.Body.Left + p.U(60f), r.Body.Top + p.U(10f), r.Body.Right - p.U(60f), r.Body.Top + p.U(550f));
+            float side = Math.Min(r.Body.Width - p.U(120f), p.U(540f));
+            var frame = new Box(r.Body.CenterX - (side / 2f), r.Body.Top + p.U(10f), r.Body.CenterX + (side / 2f), r.Body.Top + p.U(10f) + side);
             Frame(p, frame, entry, app);
             p.Text(PictureName(entry.PictureId), r.Body.CenterX, frame.Bottom + p.U(56f), T.Title, C.InkBrown, r.Body.Width, look: TextLook.Plain(C.InkBrown));
             p.Text(PlaytestText.F("collection.completed", NumberText.Group(entry.LevelNumber)), r.Body.CenterX, frame.Bottom + p.U(114f), T.Body, C.InkBrownSoft);
