@@ -131,7 +131,11 @@ namespace Bloomlings.Client.App.Home
 
             void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable, wardrobe);
 
-            WardrobeScreen wardrobeScreen = WardrobeScreen.Create(root, wardrobe);
+            WardrobeScreen wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () =>
+            {
+                analytics?.StoreOpen("wardrobe");
+                OpenStore();
+            });
             wardrobe.Changed += Refresh;
             CollectionScreen collectionScreen = CollectionScreen.Create(root);
             DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>

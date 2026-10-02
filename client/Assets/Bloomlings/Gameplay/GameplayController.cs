@@ -459,7 +459,7 @@ namespace Bloomlings.Client.Gameplay
                     _workers.Celebrate(LevelVariants(_session!.Definition));
                     UiFx.Confetti(_root, ConfettiColors(_session.Definition), _milestone != null ? 80 : 40, _milestone != null ? 2.6f : 1.8f);
                     LevelReward? earned = _reward;
-                    _win.Show(this, RewardText(earned), DoubleRewardOffer(), _milestone != null, earned != null && earned.Petals > 0 ? (earned.Petals, n => RewardText(earned with { Petals = (int)n })) : null);
+                    _win.Show(this, RewardText(earned), DoubleRewardOffer(), _milestone != null, earned != null && earned.Petals > 0 ? (earned.Petals, n => RewardText(earned with { Petals = (int)n })) : null, earned, _session);
                     break;
                 case LevelJammed _:
                 case LevelStuck _:
