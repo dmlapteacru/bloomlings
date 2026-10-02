@@ -8,9 +8,10 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// The splash of the design board's frame 1 (spec 002 FR-016) in the reference look of spec 005 (contracts/look.md
-    /// §4.5; the playtest's <c>SplashScreen</c>): the wooden logo (the owner's logo picture when it exists) over the warm
-    /// garden, with the four families as 3D heroes around the lotus fountain on the stone pedestal (spec 004), fading and
-    /// rising in, both where Home shows them (<see cref="ScreenLayout.ReferenceHome"/>'s logo and diorama, §6.4). It
+    /// §4.5; the playtest's <c>SplashScreen</c>): the wooden logo (the owner's logo picture when it exists) over the
+    /// garden (the owner's splash picture, else the Home garden, <see cref="OwnerPictures.Resolve"/>), with the four
+    /// families as 3D heroes around its lotus fountain (spec 004), fading and rising in, both where Home shows them
+    /// (<see cref="ScreenLayout.ReferenceHome"/>'s logo, <see cref="HomeStage.AroundFountain"/>, §6.4). It
     /// shows from the first frame while services and content load, and goes once the first screen is up. It never waits
     /// for a tap: the first launch still goes straight into Level 1 (spec 001 US2).
     /// </summary>
@@ -36,14 +37,14 @@ namespace Bloomlings.Client.UI.Screens
             ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets);
             var screenBox = new Box(0f, 0f, w, h);
 
-            // The four families on their stone around the lotus fountain ("brand.splash_art"), without the guest.
+            // The four families around the lotus fountain ("brand.splash_art"), without the guest, as Home shows them.
             screen._stage = UiFactory.Stretch(UiFactory.CreateRect("Heroes", root));
             UiKit.FadeInOnShow(screen._stage.gameObject, 1f, AppearSeconds);
-            HeroPictures.Stage("Stage", screen._stage).Place(r.Diorama, screenBox, BackdropScene.Splash, guest: false);
+            HeroPictures.Stage("Stage", screen._stage).Place(r.Diorama, screenBox, BackdropScene.Splash, guest: false, ceiling: r.Logo.Bottom);
 
-            // The logo across the top ("brand.wordmark").
+            // The logo across the top ("brand.wordmark"), where Home shows it.
             RectTransform logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
-            UiKit.PlaceBox(logo, r.Logo, screenBox);
+            UiKit.PlaceBox(logo, OwnerArt.LogoBox(r), screenBox);
             UiKit.FadeInOnShow(logo.gameObject, 1f, AppearSeconds);
             return screen;
         }

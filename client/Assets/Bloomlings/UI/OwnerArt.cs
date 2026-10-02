@@ -22,8 +22,25 @@ namespace Bloomlings.Client.UI
         /// <summary>An owner background (<c>home</c>, <c>gameplay-pond</c>, …), or null while it is missing.</summary>
         public static Texture2D? Background(string name) => Load(OwnerPictures.BackgroundFolder + "/" + name);
 
+        /// <summary>
+        /// The owner background a scene shows (<see cref="OwnerPictures.Resolve"/>: the splash takes the Home garden while
+        /// its own picture is missing), or null while it is missing too.
+        /// </summary>
+        public static Texture2D? BackgroundOf(BackdropScene scene, string themeId = "") =>
+            Background(OwnerPictures.Resolve(scene, themeId, name => Background(name) != null));
+
         /// <summary>The owner's logo picture, or null while it is missing.</summary>
         public static Texture2D? LogoPicture() => Load(OwnerPictures.BrandFolder + "/" + OwnerPictures.Logo);
+
+        /// <summary>
+        /// Where the Home (and splash) wordmark goes: the owner's logo picture sized by width
+        /// (<see cref="ReferenceHomeRegions.LogoPicture"/>, its letters about 0.8 W), or Home's logo box for the drawn letters.
+        /// </summary>
+        public static Box LogoBox(ReferenceHomeRegions r)
+        {
+            Texture2D? picture = LogoPicture();
+            return picture == null ? r.Logo : r.LogoPicture(picture.width, picture.height);
+        }
 
         /// <summary>An owner icon (<c>booster-shuffle</c>, pictures.md D1–D4) as a sprite, or null while it is missing.</summary>
         public static Sprite? Icon(string name) => SpriteOf(OwnerPictures.IconFolder + "/" + name);
@@ -73,6 +90,24 @@ namespace Bloomlings.Client.UI
             image.texture = texture;
             (float x, float y, float w, float h) = PicturePixels.CoverUv(texture.width, texture.height, width, height);
             image.uvRect = new Rect(x, y, w, h);
+        }
+
+        /// <summary>
+        /// Shows a picture on a raw image of the given size, <paramref name="zoom"/> times its cover-fitted size, centered
+        /// across and anchored at the top (the full-screen win: its painted disc under the layout's pedestal,
+        /// <see cref="OwnerPictures.WinZoom"/>).
+        /// </summary>
+        public static void CoverTop(RawImage image, Texture texture, float width, float height, float zoom)
+        {
+            image.texture = texture;
+            float tw = Mathf.Max(1f, texture.width);
+            float th = Mathf.Max(1f, texture.height);
+            float scale = Mathf.Max(width / tw, height / th) * Mathf.Max(1f, zoom);
+            float w = Mathf.Min(1f, width / (tw * scale));
+            float h = Mathf.Min(1f, height / (th * scale));
+
+            // Texture coordinates start at the bottom: the top of the picture shows.
+            image.uvRect = new Rect((1f - w) / 2f, 1f - h, w, h);
         }
 
         private static Sprite? SpriteOf(string path)

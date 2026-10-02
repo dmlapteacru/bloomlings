@@ -207,6 +207,67 @@ namespace Bloomlings.Client.UI.Design
             float width = height * CharacterArt.HeroWidth / CharacterArt.HeroHeight;
             return new Box(x - (width / 2f), feet - (height * FeetShare), x + (width / 2f), feet + (height * (1f - FeetShare)));
         }
+
+        /// <summary>The lotus fountain's middle in the owner's Home picture (pictures.md B1), as shares of its width and height.</summary>
+        public const float FountainX = 0.5f;
+
+        /// <summary><see cref="FountainX"/>'s height share.</summary>
+        public const float FountainY = 0.455f;
+
+        /// <summary>The lotus's width as a share of the owner's Home picture's width: the unit of <see cref="AroundFountain"/>.</summary>
+        public const float LotusShare = 0.3f;
+
+        /// <summary>A hero's head top below its picture box's top, as a share of the box's height (the owner's heroes).</summary>
+        public const float HeadTopShare = 0.12f;
+
+        /// <summary>
+        /// The four solo heroes around the lotus fountain of the owner's Home picture (pictures.md B1; the reference's Home),
+        /// drawn back to front: Bloom raised behind the lotus, Drop at the right back, Sprig large at the left front and Twig
+        /// at the right front. The picture (<paramref name="picW"/> × <paramref name="picH"/>) is cover-fitted and centered
+        /// on <paramref name="screen"/> as the backdrop draws it; the anchor F is the lotus's middle
+        /// (<see cref="FountainX"/>, <see cref="FountainY"/>) and the unit L the lotus's width (<see cref="LotusShare"/> of the
+        /// drawn picture). Each box is a <see cref="Figure"/> (feet x, feet y, height): Bloom (F.x, F.y − 0.27 L, 1.47 L),
+        /// Drop (F.x + 0.70 L, F.y + 0.55 L, 1.30 L), Sprig (F.x − 0.97 L, F.y + 0.86 L, 1.81 L), Twig (F.x + 1.13 L,
+        /// F.y + 1.05 L, 1.40 L). When a head top (<see cref="HeadTopShare"/> below a box's top) would rise above
+        /// <paramref name="ceiling"/> (the logo's bottom), all four boxes shrink about F until it does not.
+        /// </summary>
+        public static IReadOnlyList<(Family Family, Box Box)> AroundFountain(Box screen, int picW = 852, int picH = 1846, float? ceiling = null)
+        {
+            float s = Math.Max(screen.Width / Math.Max(1f, picW), screen.Height / Math.Max(1f, picH));
+            float width = picW * s;
+            float height = picH * s;
+            float fx = screen.CenterX - (width / 2f) + (FountainX * width);
+            float fy = screen.CenterY - (height / 2f) + (FountainY * height);
+            float l = LotusShare * width;
+            var heroes = new List<(Family Family, Box Box)>
+            {
+                (Family.Bloom, Figure(fx, fy - (0.27f * l), 1.47f * l)),
+                (Family.Drop, Figure(fx + (0.7f * l), fy + (0.55f * l), 1.3f * l)),
+                (Family.Sprig, Figure(fx - (0.97f * l), fy + (0.86f * l), 1.81f * l)),
+                (Family.Twig, Figure(fx + (1.13f * l), fy + (1.05f * l), 1.4f * l)),
+            };
+
+            if (ceiling.HasValue)
+            {
+                float top = float.MaxValue;
+                foreach ((Family _, Box box) in heroes)
+                {
+                    top = Math.Min(top, box.Top + (box.Height * HeadTopShare));
+                }
+
+                if (top < ceiling.Value && fy > ceiling.Value)
+                {
+                    float k = (fy - ceiling.Value) / Math.Max(1f, fy - top);
+                    for (int i = 0; i < heroes.Count; i++)
+                    {
+                        Box b = heroes[i].Box;
+                        heroes[i] = (heroes[i].Family, new Box(fx + ((b.Left - fx) * k), fy + ((b.Top - fy) * k), fx + ((b.Right - fx) * k), fy + ((b.Bottom - fy) * k)));
+                    }
+                }
+            }
+
+            return heroes;
+        }
     }
 
     /// <summary>The drawn early Home stage (<see cref="HomeStage.Diorama"/>): heroes in drawing order, back to front.</summary>

@@ -948,7 +948,17 @@ namespace Bloomlings.Client.UI
                 float right = showsPlus ? b.Right - (h * 0.75f) : b.Right - (h * 0.3f);
                 float left = b.Left + (h * 0.95f);
                 float faceCenter = (b.Top + b.Bottom - (h * 0.09f)) / 2f;
-                KitText.Place(balance, DesignTokens.Type.Count, (left + right) / 2f, faceCenter, h * 0.5f, right - left);
+                if (showsPlus)
+                {
+                    KitText.Place(balance, DesignTokens.Type.Count, (left + right) / 2f, faceCenter, h * 0.5f, right - left);
+                    return;
+                }
+
+                // Without the "+" (the Store still locked) the amount starts right after the lotus, as on the reference,
+                // instead of floating in the pill's middle.
+                float measured = KitText.Measure(balance, h * 0.5f);
+                float width = Mathf.Min(measured > 0f ? measured : right - left, right - left);
+                KitText.Place(balance, DesignTokens.Type.Count, left + (width / 2f), faceCenter, h * 0.5f, width + 1f);
             });
             view.Plus = plus.gameObject;
             view.Relayout = layout.Apply;

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Localization;
 using TMPro;
@@ -32,8 +33,8 @@ namespace Bloomlings.Client.UI
         /// The celebration's wooden sign (§6.3, <c>ui.sign.wood</c> with <c>ui.sign.flowers</c>): <see cref="WoodSign"/>
         /// filling the rect, its letters in <c>ink.title</c> with the light emboss, and the flower clusters
         /// (<see cref="FlowerCluster"/>, <see cref="CelebrationFlowerShare"/> of the height; the owner's <c>flowers</c>
-        /// picture, mirrored for the second) placed as on the reference: one over the left end a little below its middle,
-        /// the other turned half way over the top-right corner, its leaves running down the right end. As on the
+        /// picture, mirrored for the second) placed as on the reference: on the plank's top corners, the left one a little
+        /// lower than the right, so the letters between them stay clear (<see cref="CelebrationLetterRoom"/>). As on the
         /// reference, a title too long for one line at <see cref="CelebrationSignTwoLines"/> of the plank's height breaks
         /// into two balanced lines ("Level / complete!"); a short one ("Level 25") takes one bigger line. The letters lie
         /// between the plank and the flowers. Never a touch target.
@@ -57,14 +58,52 @@ namespace Bloomlings.Client.UI
             layout.Add(FlowerCluster("FlowersLeft", sign.transform, flipped: false).rectTransform, b =>
             {
                 float size = CelebrationFlowerSize(b);
-                return Box.FromCenter(b.Left + (size * 0.02f), b.CenterY + (size * 0.1f), size, size);
+                return Box.FromCenter(b.Left + (size * 0.04f), b.Top + (b.Height * 0.18f), size, size);
             });
             layout.Add(FlowerCluster("FlowersRight", sign.transform, flipped: true).rectTransform, b =>
             {
                 float size = CelebrationFlowerSize(b);
-                return Box.FromCenter(b.Right - (size * 0.02f), b.CenterY - (size * 0.14f), size, size);
+                return Box.FromCenter(b.Right - (size * 0.04f), b.Top + (b.Height * 0.1f), size, size);
             });
             return view;
+        }
+
+        /// <summary>
+        /// The gold medal of "Milestone reached!" (§6.3; the leaderboard's rank medal without a number): two ribbon tails
+        /// in <c>#E0A21A</c> under a <c>#FFC83D</c> disc, all outlined in <c>#B7790F</c>, with a small white star and a gloss
+        /// on the disc. Square; place it at about 70% of its pill's height. Never a touch target.
+        /// </summary>
+        public static Image GoldMedal(string name, Transform parent)
+        {
+            Rgba line = Rgba.FromHex("#B7790F");
+            Rgba ribbon = Rgba.FromHex("#E0A21A");
+            Rgba gold = Rgba.FromHex("#FFC83D");
+            Func<float, float, float> star = ShapeLibrary.Get("ui.star");
+            float Disc(float x, float y) => Length(x, y + 0.22f) - 0.56f;
+            float Ribbons(float x, float y) => Mathf.Min(Segment(x, y, -0.34f, 0.86f, -0.06f, 0.28f), Segment(x, y, 0.34f, 0.86f, 0.06f, 0.28f)) - 0.15f;
+            var layers = new List<(Func<float, float, float> Sdf, Rgba Color)>
+            {
+                ((x, y) => Ribbons(x, y) - 0.08f, line),
+                (Ribbons, ribbon),
+                ((x, y) => Disc(x, y) - 0.08f, line),
+                (Disc, gold),
+                ((x, y) => star(x / 0.3f, (y + 0.22f) / 0.3f) * 0.3f, Rgba.White.WithAlpha(0.92f)),
+                ((x, y) => Length(x + 0.24f, y + 0.5f) - 0.09f, Rgba.White.WithAlpha(0.55f)),
+            };
+            Image image = UiFactory.CreateImage(name, parent, ProceduralSprites.Baked("ui.medal/gold_rosette", 128, layers), Color.white);
+            image.preserveAspect = true;
+            image.raycastTarget = false;
+            return image;
+        }
+
+        private static float Length(float x, float y) => Mathf.Sqrt((x * x) + (y * y));
+
+        private static float Segment(float px, float py, float ax, float ay, float bx, float by)
+        {
+            float dx = bx - ax;
+            float dy = by - ay;
+            float t = Mathf.Clamp01((((px - ax) * dx) + ((py - ay) * dy)) / Mathf.Max(1e-6f, (dx * dx) + (dy * dy)));
+            return Length(px - (ax + (t * dx)), py - (ay + (t * dy)));
         }
 
         /// <summary>
@@ -73,10 +112,10 @@ namespace Bloomlings.Client.UI
         /// </summary>
         public static float CelebrationFlowerSize(Box b) => Mathf.Min(b.Height * CelebrationFlowerShare, b.Width * 0.4f);
 
-        /// <summary>The width the celebration sign's letters may take: 82% of the plank, clear of the flowers' inner parts.</summary>
+        /// <summary>The width the celebration sign's letters may take: 82% of the plank, between the two flower clusters.</summary>
         public static float CelebrationLetterRoom(Box b)
         {
-            return Mathf.Min(b.Width * 0.82f, b.Width - (0.8f * CelebrationFlowerSize(b)));
+            return Mathf.Min(b.Width * 0.82f, b.Width - (0.9f * CelebrationFlowerSize(b)));
         }
 
         /// <summary>

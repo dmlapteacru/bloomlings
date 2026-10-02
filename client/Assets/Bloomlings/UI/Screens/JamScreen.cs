@@ -44,6 +44,9 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public sealed class JamScreen : MonoBehaviour
     {
+        /// <summary>The title's letters fill at most this share of its box's height (the playtest's <c>EndCards.TitleFill</c>).</summary>
+        private const float TitleFill = 0.68f;
+
         private RectTransform _host = null!;
         private TextMeshProUGUI _probe = null!;
         private GameObject? _card;
@@ -168,10 +171,11 @@ namespace Bloomlings.Client.UI.Screens
             card.gameObject.AddComponent<PopMotion>();
             _card = card.gameObject;
 
-            // The title in ink.title, and the subtitle in up to two balanced lines.
+            // The title in ink.title (its letters about 0.68 of its box tall, as the reference's "No More Space!"), and the
+            // subtitle in up to two balanced lines.
             Box title = UiKit.ToLocal(r.Title, cardBox);
             TextMeshProUGUI titleLabel = UiKit.KitLabel("Title", card.transform, stuck ? Loc.T("jam.stuck") : Loc.T("jam.title"), T.Title, TextLook.Plain(C.InkTitle));
-            KitText.Place(titleLabel, T.Title, title.CenterX, title.CenterY, Mathf.Min(UiKit.Units(T.Title.Size) * k, title.Height * 0.8f), title.Width);
+            KitText.Place(titleLabel, T.Title, title.CenterX, title.CenterY, Mathf.Min(UiKit.Units(T.Title.Size) * k, title.Height * TitleFill), title.Width);
 
             Box subtitle = UiKit.ToLocal(r.Subtitle, cardBox);
             float bodySize = UiKit.Units(T.Body.Size) * k;

@@ -94,7 +94,7 @@ namespace Bloomlings.Client.UI.Screens
 
             // A milestone level: a cream pill with the gold medal over the picture's top edge.
             screen._mark = UiKit.TextPill("Milestone", t, CostKind.Charges, Loc.T("milestone.reached"));
-            screen._medal = UiKit.ShapeImage("Medal", screen._mark.transform, "ui.medal", C.MedalGold).rectTransform;
+            screen._medal = UiKit.GoldMedal("Medal", screen._mark.transform).rectTransform;
 
             // The reward rises in after the fade (motion.reward): the lotus plate counting up on the pedestal's front, a
             // dropped booster on its left.
@@ -222,7 +222,11 @@ namespace Bloomlings.Client.UI.Screens
             WinRegions r = ScreenLayout.WinScreen(w, h, insets);
 
             UiKit.PlaceBox((RectTransform)_sign.transform, r.Sign, screen);
-            _celebration.Place(r, screen);
+
+            // The owner's win garden paints its own round stone stage: anchored at the top and zoomed so that stage lies
+            // under the hero's feet, it replaces the drawn pedestal (one stage, as on the reference).
+            bool painted = _backdrop != null && _backdrop.StandOnPicture(screen, r.Hero.Top + (r.Hero.Height * HomeStage.FeetShare));
+            _celebration.Place(r, screen, pedestal: !painted);
 
             // The finished picture in full color, its frame on the region's top edge.
             _picture.Rect.gameObject.SetActive(session != null);
@@ -237,7 +241,7 @@ namespace Bloomlings.Client.UI.Screens
             float markWidth = MeasurePx(UiKit.PillText(_mark), mh * 0.56f) + (mh * 1.9f);
             Box mark = Box.FromCenter(frame.CenterX, frame.Top + (mh * 0.2f), markWidth, mh);
             UiKit.PlaceBox((RectTransform)_mark.transform, mark, screen);
-            UiKit.PlaceBox(_medal, Box.FromCenter(mark.Left + (mh * 0.62f), mark.CenterY, mh * 0.8f, mh * 0.8f), mark);
+            UiKit.PlaceBox(_medal, Box.FromCenter(mark.Left + (mh * 0.62f), mark.CenterY, mh * 0.7f, mh * 0.7f), mark);
 
             // The plate on the pedestal's front; the sparkle and the petal burst start at its lotus.
             Box plate = r.Reward;

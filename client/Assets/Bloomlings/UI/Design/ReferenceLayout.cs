@@ -294,6 +294,26 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The gap between two side buttons of a column, as a share of <see cref="W"/>.</summary>
         public const float SideGapShare = 0.03f;
 
+        /// <summary>Play's label size as a share of its button's height (the reference's big "PLAY").</summary>
+        public const float PlayLabelShare = 0.5f;
+
+        /// <summary>The owner's logo picture's width as a share of <see cref="W"/> (its letters about 0.8 W).</summary>
+        public const float LogoPictureShare = 0.82f;
+
+        /// <summary>
+        /// The owner's logo picture (<paramref name="picW"/> × <paramref name="picH"/>, transparent margins included) sized
+        /// by width: <see cref="LogoPictureShare"/> of W, centered on <see cref="Logo"/>, its top no higher than a tenth of
+        /// its height above Settings' bottom.
+        /// </summary>
+        public Box LogoPicture(int picW = 1200, int picH = 440)
+        {
+            float width = LogoPictureShare * W;
+            float height = width * picH / System.Math.Max(1f, picW);
+            Box picture = Box.FromCenter(Logo.CenterX, Logo.CenterY, width, height);
+            float top = Settings.Bottom - (0.1f * height);
+            return picture.Top < top ? picture.Offset(0f, top - picture.Top) : picture;
+        }
+
         /// <summary>The bands in their screen order.</summary>
         public IReadOnlyList<(string Name, Box Box)> Ordered => new[]
         {

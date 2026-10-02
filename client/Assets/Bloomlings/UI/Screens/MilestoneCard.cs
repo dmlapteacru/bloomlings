@@ -67,7 +67,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._sign = UiKit.CelebrationSign("Title", t, string.Empty);
             screen._sign.gameObject.AddComponent<PopMotion>();
             screen._reached = UiKit.TextPill("Reached", t, CostKind.Charges, Loc.T("milestone.reached"));
-            screen._medal = UiKit.ShapeImage("Medal", screen._reached.transform, "ui.medal", C.MedalGold).rectTransform;
+            screen._medal = UiKit.GoldMedal("Medal", screen._reached.transform).rectTransform;
             screen._row = UiFactory.Stretch(UiFactory.CreateRect("Rewards", t));
             screen._rowFade = screen._row.gameObject.AddComponent<CanvasGroup>();
             screen._rowFade.blocksRaycasts = false;
@@ -166,7 +166,10 @@ namespace Bloomlings.Client.UI.Screens
             var screen = new Box(0f, 0f, w, h);
             WinRegions r = ScreenLayout.WinScreen(w, h, insets);
             UiKit.PlaceBox((RectTransform)_sign.transform, r.Sign, screen);
-            _celebration.Place(r, screen);
+
+            // The owner's win garden paints the stage under the hero (as on the win), so no drawn pedestal then.
+            bool painted = _backdrop != null && _backdrop.StandOnPicture(screen, r.Hero.Top + (r.Hero.Height * HomeStage.FeetShare));
+            _celebration.Place(r, screen, pedestal: !painted);
 
             // "Milestone reached!" on a cream pill with the medal, where the win's picture starts.
             float mh = 70f * u;
@@ -175,7 +178,7 @@ namespace Bloomlings.Client.UI.Screens
             float markWidth = Mathf.Min(r.Picture.Width, (measured > 0f ? measured : mh * 0.3f * Loc.T("milestone.reached").Length) + (mh * 1.9f));
             Box mark = Box.FromCenter(r.Picture.CenterX, r.Picture.Top + (mh * 0.7f), markWidth, mh);
             UiKit.PlaceBox((RectTransform)_reached.transform, mark, screen);
-            UiKit.PlaceBox(_medal, Box.FromCenter(mark.Left + (mh * 0.62f), mark.CenterY, mh * 0.8f, mh * 0.8f), mark);
+            UiKit.PlaceBox(_medal, Box.FromCenter(mark.Left + (mh * 0.62f), mark.CenterY, mh * 0.7f, mh * 0.7f), mark);
 
             // Each reward on a cream tile with its amount in a pill, in the room between the mark and the hero's head.
             float room = r.Hero.Top - mark.Bottom;

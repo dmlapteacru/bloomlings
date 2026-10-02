@@ -258,8 +258,9 @@ namespace Bloomlings.Client.UI.Screens
                 row.gameObject.AddComponent<CanvasGroup>().alpha = 0.5f;
             }
 
-            // The item's tile: the booster tile's cream squircle in its cream-white bezel (§3.7).
-            float size = line.Height * 0.76f;
+            // The item's tile: the booster tile's cream squircle in its cream-white bezel (§3.7), 0.12 W as the reference's
+            // booster boxes (at most the row's height less a little), its icon 74% of it as on a booster box.
+            float size = Mathf.Min(0.12f * UiKit.ScreenFrame().Width, line.Height * 0.94f);
             Box tile = Box.FromCenter(line.Left + (22f * u) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
             var set = new ColorSet("set.cream.booster_tile", C.CreamFace, GardenLook.BoosterRim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
             GardenButton face = UiKit.IconFace("Tile", row.transform, set, b => Mathf.Min(b.Width, b.Height) * 0.26f, square: true);
@@ -267,10 +268,10 @@ namespace Bloomlings.Client.UI.Screens
             if (item.BoosterId != null)
             {
                 Image icon = UiKit.BoosterIcon("Icon", row.transform, item.BoosterId);
-                UiKit.PlaceBox(icon.rectTransform, Box.FromCenter(tile.CenterX, tile.CenterY, size * 0.66f, size * 0.66f), line);
+                UiKit.PlaceBox(icon.rectTransform, Box.FromCenter(tile.CenterX, tile.CenterY, size * 0.74f, size * 0.74f), line);
                 if (item.Charges.HasValue)
                 {
-                    float badge = size * 0.38f;
+                    float badge = size * 0.3f;
                     TextMeshProUGUI count = UiKit.CountBadge("Charges", row.transform, out Image disc);
                     count.text = item.Charges.Value.ToString(CultureInfo.InvariantCulture);
                     UiKit.PlaceBox(disc.rectTransform, Box.FromCenter(tile.Right - (badge * 0.1f), tile.Bottom - (badge * 0.1f), badge * 1.26f, badge * 1.26f), line);

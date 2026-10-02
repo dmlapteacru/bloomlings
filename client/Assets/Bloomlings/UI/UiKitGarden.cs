@@ -130,7 +130,7 @@ namespace Bloomlings.Client.UI
             // The win's flower sign titles a card: its letters in ink.title (the playtest's Kit.WoodSign).
             TextMeshProUGUI label = KitLabel("Label", root, text, style, GardenLook.SignLetters(letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown)));
             view.Init(label, plank, style);
-            layout.Watch(label).Then(b => KitText.Place(label, style, b.CenterX, b.CenterY - (b.Height * 0.04f), Mathf.Min(Units(style.Size), b.Height * 0.62f), b.Width * 0.82f));
+            layout.Watch(label).Then(b => KitText.Place(label, style, b.CenterX, b.CenterY - (b.Height * 0.04f), Mathf.Min(Units(style.Size), b.Height * 0.62f), SignLetterRoom(b, decor)));
             switch (decor)
             {
                 case SignDecor.Ivy:
@@ -144,6 +144,22 @@ namespace Bloomlings.Client.UI
             }
 
             return view;
+        }
+
+        /// <summary>
+        /// The width a wooden sign's letters may take: 82% of the plank, and clear of the owner's ivy clusters (pictures.md
+        /// D5, 1.25 × the height over both ends, so the plank less 0.625 × the height each side) or of the flower clusters
+        /// (0.68 × the height each side), as the reference's "Level 88" between its clover ends.
+        /// </summary>
+        public static float SignLetterRoom(Box b, SignDecor decor)
+        {
+            float room = b.Width * 0.82f;
+            if (decor == SignDecor.Ivy && OwnerArt.Decor(OwnerPictures.Ivy) != null)
+            {
+                return Mathf.Max(1f, Mathf.Min(room, b.Width - (b.Height * 1.25f)));
+            }
+
+            return decor == SignDecor.Flowers ? Mathf.Max(1f, Mathf.Min(room, b.Width - (b.Height * 1.35f * 0.95f))) : room;
         }
 
         /// <summary>The box of a sign end's ivy cluster: 1.25 × the sign's height, centered just inside its end.</summary>
@@ -1250,16 +1266,17 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_dashed.rectTransform, box);
             BoxLayout.Place(_dangerMark.rectTransform, box.Inset(s * 0.32f));
 
-            // The filled plate: a lip of 5.5% of the shorter side; the tile near the top (about 70% of a portrait plate's
-            // width, less on a square one), so the count below it keeps about a quarter of the face.
+            // The filled plate: a lip of 5.5% of the shorter side; the tile 8% of the face below its top (74% of a
+            // portrait plate's width, at most 66% of the face's height, as the reference's), so the count below it keeps
+            // about a quarter of the face.
             float lip = s * 0.055f;
             var face = new Box(box.Left, box.Top, box.Right, box.Bottom - lip);
             BoxLayout.Place(_lip.rectTransform, box);
             BoxLayout.Place(_face.rectTransform, face);
             BoxLayout.Place(_line.rectTransform, box);
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(face.CenterX, face.CenterY, s * 0.44f, s * 0.44f));
-            float tile = Mathf.Min(face.Width * 0.72f, face.Height * 0.58f);
-            Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.1f) + (tile / 2f), tile, tile);
+            float tile = Mathf.Min(face.Width * 0.74f, face.Height * 0.66f);
+            Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.08f) + (tile / 2f), tile, tile);
             BoxLayout.Place((RectTransform)_tile.transform, tileBox);
             UiKit.PlaceCount(_count, new Box(face.Left, tileBox.Bottom, face.Right, face.Bottom - (face.Height * 0.03f)), State == SlotPlateState.Stuck);
 
