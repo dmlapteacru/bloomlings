@@ -61,12 +61,13 @@ Folder: `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`. The n
 | # | File | Where | What | Slot |
 |---|---|---|---|---|
 | B1 | `home.png` | Home | the garden diorama of the reference: ruins with stone arches, a round stone well with the lotus fountain in the middle, flowers and bushes, soft sunlight; **without the heroes** (they stand in front, wearing their outfits); empty space at the top for the logo and at the bottom for the level plaque and Play | `bg.home` |
-| B2 | `gameplay-daylight.png` | levels 1–99 and every fourth band | a lawn seen from above with flowers and bushes at the edges, the middle calm (the board covers 90% of the width between 14% and 70% of the height) | `bg.theme.daylight_garden` |
+| B2 | `gameplay-daylight.png` | levels 1–99 and every fourth band | a lush garden seen from above: grass, bushes and flowers at the edges, the middle calm (the board covers 86% of the width between 8% and 53% of the height, the tray the bottom 38%) | `bg.theme.daylight_garden` |
 | B3 | `gameplay-pond.png` | from level 100 | the same lawn with water lilies and a pond edge | `bg.theme.pond` |
 | B4 | `gameplay-orchard.png` | from level 150 | the lawn with fruit trees' shade and fallen fruit | `bg.theme.orchard` |
 | B5 | `gameplay-moonlit.png` | from level 200 | the lawn at dusk with fireflies | `bg.theme.moonlit_garden` |
 | B6 | `splash.png` | splash | the Home garden, more blossoms | `bg.splash` |
-| B7 | `wardrobe.png` | Wardrobe (Unity; the playtest has no Wardrobe screen) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal | `bg.wardrobe` |
+| B7 | `wardrobe.png` | Wardrobe (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal | `bg.wardrobe` |
+| B8 | `win.png` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened | `bg.win` |
 
 ## C. Logo
 
@@ -77,9 +78,41 @@ Folder: `client/Assets/Bloomlings/Art/Brand/Resources/Brand/` (names `OwnerPictu
 | C1 | `logo.png` | 1200 × 440, transparent | the reference's wooden "Bloomlings" letters with leaves and small flowers | `brand.wordmark` |
 | C2 | `tagline.png` | 1000 × 80, transparent | "SMALL FRIENDS. BIG GARDENS." (optional, for later: neither build shows a tagline yet, so the slot is registered as not drawn) | `brand.tagline` |
 
-## D. Optional painted UI (only if the code-drawn versions should be replaced)
+## D. Owner pictures that replace drawn icons and leaves (owner's review, spec 005 FR-027)
 
-All of these are drawn in code today (contracts/look.md) and need no picture. If the owner prefers painted art, these
-are the pieces, each transparent, at 2× the size it appears on a 1080-wide screen: the wooden sign plank (9-slice,
-512 × 128), the dark wooden pod frame (9-slice, 256 × 256), a stone block (128 × 64), the four booster icons (256 ×
-256), the eight variant sticker icons (256 × 256), the lotus (128 × 128), the ivy and flower clusters (256 × 256).
+The owner supplies these ("картинки я тебе дам, листочков, иконки бафов"). Until a file exists, the drawn version
+shows. Each is transparent, sRGB, drawn in the reference's style (soft light from the upper left, a darker outline,
+gloss). Any size with the given proportions works: the session resizes delivered files to these sizes.
+
+Folder `client/Assets/Bloomlings/Art/Icons/Resources/Icons/` (both builds embed or load it):
+
+| # | File | Size | What | Slot |
+|---|---|---|---|---|
+| D1 | `booster-extra_slot.png` | 512 × 512 | Extra Slot: a white "+" on a blue disc; the icon only, no box (the game draws the cream box, the badge and the price); about 6% margin | `booster.extra_slot` |
+| D2 | `booster-shuffle.png` | 512 × 512 | Shuffle: two turning arrows | `booster.shuffle` |
+| D3 | `booster-return.png` | 512 × 512 | Return: a yellow arrow pointing back | `booster.return` |
+| D4 | `booster-bloom_burst.png` | 512 × 512 | Bloom Burst: a pink flower | `booster.bloom_burst` |
+
+Folder `client/Assets/Bloomlings/Art/Decor/Resources/Decor/`:
+
+| # | File | Size | What | Slot |
+|---|---|---|---|---|
+| D5 | `ivy.png` | 512 × 512 | the clover/ivy cluster on the LEFT end of a wooden sign (the level sign, the Wardrobe and Store banners); the game mirrors it for the right end; the cluster's middle sits on the plank's end | `ui.sign.ivy` |
+| D6 | `flowers.png` | 512 × 512 | the leaves with white flowers on the top-left of the "Level complete!" sign; mirrored for the other end | `ui.sign.flowers` |
+| D7 | `button-leaves.png` | 256 × 256 | the small sprig with a white flower on the top-left corner of the Play and Next buttons; mirrored and turned for the bottom-right corner | `ui.deco.garden` |
+| D8 | `logo-leaves.png` | 512 × 512 | only if the logo picture (C1) does not come: the leaf cluster at the left end of the drawn wordmark; mirrored for the right | `ui.logo.wood` |
+
+## E. Optional painted UI (only if the code-drawn versions should be replaced)
+
+All of these are drawn in code today (contracts/look.md) and need no picture: the wooden sign plank (9-slice,
+512 × 128), the dark wooden pod frame (9-slice, 256 × 256), a stone block (128 × 64), the eight variant icons
+(256 × 256), the lotus (128 × 128).
+
+## F. What the owner sends, in priority order
+
+1. The four booster icons (D1–D4) and the leaves (D5–D7).
+2. The Home garden without the heroes (B1) and the gameplay garden (B2; B3–B5 for the other themes).
+3. The 3D heroes: idle (A1–A4), celebrating (A7) and the group (A6); any size with the 8:9 and 5:3 proportions.
+4. The logo (C1).
+5. Optionally: the win garden (B8), the Wardrobe garden (B7), the splash (B6), the faceless heroes (A5).
+Files may be sent in the chat; the session places, resizes and records them (source record, notices, `adopt`).

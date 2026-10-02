@@ -68,6 +68,19 @@ The owner asked for no further questions. These decisions were taken from the re
   Bloom Burst. → A: We use the jam card's four icons everywhere (they are our four boosters).
 - Q: The reference writes "PLAY" and "LEVEL 88" in capitals. → A: Labels stay in sentence case (spec 003 FR-025).
 
+### Session 2026-10-02 (owner review of the first result)
+
+The owner compared the first result with the reference ("но оно очень сильно отличается") and decided:
+- Q: Do the layouts stay ours? → A: No. Win, Home and gameplay MUST also take the reference's **layout**, not only the
+  look of the elements: "лэйаут в win, home, в геймплее". This replaces the "layouts stay" part of FR-002 for these
+  screens (FR-020 to FR-025).
+- Q: Where does the jam card go? → A: In the middle of the screen, as in the reference ("jam по середине экрана").
+- Q: Is the gameplay colorful enough? → A: No ("не такое красочное все"): the board, the tray and the background must
+  be as rich as the reference.
+- Q: Item and booster icons, board icons? → A: They differ from the reference. The owner will supply pictures of the
+  leaves and of the booster icons ("картинки я тебе дам, листочков, иконки бафов"); everything else — every button,
+  the layouts, the board and its icons, the boxes the boosters sit in — is ours to build in code (FR-026, FR-027).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - The board and the tray look like the reference (Priority: P1)
@@ -189,8 +202,9 @@ inventory.
   FR-006, FR-009 (titles), FR-013, FR-014, FR-015, FR-022, FR-023 and FR-031, and replaces spec 004 FR-008, FR-009
   and FR-012; those specs carry the marks.
 - **FR-002**: The feature is presentation only. It MUST NOT change any rule, level, mapping, economy value, unlock,
-  reward or tap outcome, nor the position and order of elements on any screen (spec 002 frames), except where this
-  spec changes what an element shows (FR-010, FR-013).
+  reward or tap outcome. Screens keep the spec 002 layouts, except where this spec changes what an element shows
+  (FR-010, FR-013) and except the gameplay, jam, win, Home and Wardrobe layouts, which follow the reference
+  (FR-020 to FR-025, owner's decision of 2026-10-02).
 - **FR-003**: Every color and size MUST come from design tokens (no literal colors in screens), and every drawn
   stand-in MUST be a registered asset slot (CLAUDE.md, spec 002 FR-005).
 - **FR-004**: Gameplay stays flat 2D (constitution VII). 3D pictures appear only on Home, the win and milestone
@@ -253,6 +267,38 @@ inventory.
 - **FR-019**: `pictures.md` MUST list every picture the owner makes (3D heroes and poses, backgrounds, logo), each
   with its slot id, size, format and screens. Each listed slot MUST exist in the asset slot registry with the drawn
   stand-in used until the picture arrives.
+
+#### G. Reference layouts (owner's review, 2026-10-02)
+
+- **FR-020**: The gameplay screen MUST follow the reference layout (contracts/look.md §6.1): the top bar; the board in
+  its stone border on the lawn, wide and full of color; the lawn strip with the Garden Entry arch below it; then one
+  parchment tray to the bottom of the screen holding, in this order, the row of five Waiting Slots, the row of four
+  big booster boxes, and the row of Source stacks. This keeps spec 001 FR-068 (board in the center, entry and slots
+  below it, the stacked tray with its booster bar at the bottom).
+- **FR-021**: Each Source stack MUST be drawn as one big pod in a single row, as a deck: the exposed pod in front with
+  its tile and count, and up to two buried pods as wooden frames peeking above it, each showing a band of its variant
+  color with its small symbol (identity never by hue alone, spec 001 FR-072); deeper stacks show a "+N" badge. Only the
+  exposed pod is selectable (spec 001 FR-011).
+- **FR-022**: The jam card MUST be a centered modal card over the dimmed gameplay (contracts/look.md §6.2): the cream
+  round close button over its top-right corner when the rules allow closing, the title, the subtitle, the well with the
+  slot contents, the choices as a two-column grid of big colored buttons with cost pills below them, and the Restart
+  button.
+- **FR-023**: The win screen MUST be the reference's full-screen celebration (contracts/look.md §6.3), not a card: the
+  wooden sign with flowers at the top, the finished picture large in its stone frame, the celebrating hero (or the
+  group) on a stone pedestal overlapping the picture's foot with rays and petals, the reward pill on the pedestal,
+  and the big Next button in its wood rim at the bottom. The gameplay top bar is not shown on it.
+- **FR-024**: Home MUST follow the reference layout (contracts/look.md §6.4): settings at the top left, the Petals pill
+  at the top right, the logo across the top, the diorama (the owner's Home picture, or the heroes on a pedestal with
+  the lotus fountain) in the middle, the wooden level plaque, and the big Play button below it. Our other Home entries
+  (Wardrobe, Collection, Daily Challenge, rank, milestone teaser, free booster) stay reachable as small cream round
+  buttons and pills along the sides and the bottom.
+- **FR-025**: The Wardrobe MUST follow the reference layout (contracts/look.md §6.5) in both builds; the playtest gets
+  a Wardrobe screen (equipping through the shared `WardrobeService`) instead of only the Store's cosmetics tab.
+- **FR-026**: Board tile icons MUST be the reference's "gem" icons: the variant symbol about 56% of the tile with a
+  thick dark outline, a glossy fill in a shade of the tile color and a highlight (contracts/look.md §3.1.2).
+- **FR-027**: The booster icons and the leaf decorations (sign ivy, win-sign flowers, button corner leaves, logo
+  leaves) MUST be replaceable by the owner's pictures (pictures.md E): when a picture file exists, both builds draw it
+  instead of the drawn icon or leaves.
 
 ### Key Entities
 

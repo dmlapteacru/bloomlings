@@ -159,6 +159,18 @@ deep notches), bud (a chunky rounded bud with three short tips and two sepals, n
 (round droplet, its sparkle as a separate part), wood (stump: a short cylinder with a ringed top), acorn (cap and nut).
 The mask difference between any two symbols at 48 px stays above 0.08 (`ShapeLibraryTests`).
 
+#### 3.1.2 Board gem icons (owner's review, spec 005 FR-026)
+
+The reference's board icons are bold "gems" (crops `zz-tiles1.png`, `zz-tiles2.png`): on every board tile the symbol
+sits at about 56% of the tile, centered, with
+- a thick dark outline: the symbol grown by 7% of the tile in `color.Darken(0.5)`;
+- a fill in a shade of the tile color, darker than the face on light tiles and lighter on dark ones (`color.Darken(0.12)`
+  when the color's lightness is above 0.55, else `color.Lighten(0.18)`), with a vertical gradient lighter at the top;
+- a soft white highlight on its upper left (alpha 0.45) and a tiny specular dot;
+- no light copy or bead.
+The symbols keep their distinct silhouettes (research D10), drawn simple and rounded so they read as gems at 40 px.
+The finished picture (`TileStyle.Flat`) uses the same gem icons.
+
 ### 3.2 Wooden sign — `Kit.WoodSign(p, box, text, TypeStyle style, SignDecor decor)`
 
 Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, the Home "LEVEL 88" plaque.
@@ -472,3 +484,84 @@ tagline is `brand.tagline` (kind `External`, not drawn yet); the optional celebr
 `char.hero3d.cheer.sprig|bloom|drop|twig` (`CharacterArt.CheerSlot`, picture `CharacterArt.Cheer(family)` =
 `3d/{family}-cheer`), with the group picture standing in until they exist. The owner's 3D pictures share the
 `tools/artgen` folder: `adopt` marks them `"source": "owner"` in its `manifest.json` (`tools/artgen/README.md`).
+
+## 6. Reference layouts (owner's review, spec 005 FR-020 to FR-025)
+
+Measured on the reference's phone screens (crops `g-game.png`, `g-jam.png`, `g-win.png`, `g-home.png`,
+`g-ward.png` with a 5% grid). `W` and `H` are the safe area's width and height; positions are fractions of them
+unless given in `W` units. The engine-free `ScreenLayout` computes every region for both builds; screens place
+elements only from those regions. On screens shorter than 19.5:9 the tray rows scale down by
+`k = clamp((H / W) / 2.17, 0.8, 1)` and the board takes what is left.
+
+### 6.1 Gameplay
+
+| Region | Box |
+|---|---|
+| Top bar | top `0.012W`, height `0.13W`: Pause squircle `0.13W` at the left edge + `0.04W`; the level sign `0.42W × 0.115W` centered, with ivy over its ends; the speed pill `0.2W × 0.115W` at the right edge − `0.04W` |
+| Board | between the top bar (+ `0.02W`) and the entry strip: the stone border's outer box at most `0.86W` wide, centered; the grid inside it (border 0.42 cell + gap 0.04 cell); cells as large as fit |
+| Entry strip | under the board, `0.17W` tall: lawn with the arch for bottom entries (the arch `0.24W` wide, its door on the board's edge); `0.04W` when no entry is at the bottom (side and top entries keep their arches beside the board) |
+| Tray | from the entry strip to the bottom of the screen (under the bottom inset too), full width, parchment with rounded top corners (radius `0.06W`) and a soft top shadow; inner padding `0.035W` at the sides, `0.025W` at the top, the bottom inset + `0.02W` at the bottom |
+| Slots row | `0.19W·k` tall: five plates `0.165W` wide each (portrait, height = row), spread evenly across `0.92W`; the extra slot (sixth) narrows them to fit |
+| Separator | a thin `ParchmentEdge` line with a light line under it, `0.02W·k` gap above and below |
+| Booster row | `0.23W·k` tall: four cream squircle boxes `0.195W` square, spread evenly across `0.9W` (centers at 14.5%, 37.5%, 61.5%, 84.5% of W), the green badge on each box's bottom-right |
+| Separator | as above |
+| Pods row | `0.31W·k` tall: one deck per Source stack, up to 4 at `0.23W` wide spread evenly across `0.96W`; 5 or more shrink to fit one row (never below `0.17W`, then a second row) |
+
+**Pod deck** (§3.7, FR-021): the deck box is the pod row cell. The front pod fills its bottom 78% (frame, cream panel,
+the sticker tile at 62% of the frame's width in the upper part, the count below it in `type.count` ×1.3, dark
+`InkBrown`). Up to two buried pods are frames of the same width stacked behind it, each raised by 9% of the deck height
+over the one in front; the visible band of each shows the frame's top edge and a strip of its variant color with the
+variant's small sticker symbol (at most 70% of the band's height) in its middle. A "+N" count badge on the deck's
+top-right counts the pods beyond the two shown. Empty stacks show a sunk parchment well.
+
+### 6.2 Jam (centered modal)
+
+The gameplay stays visible under a warm scrim (alpha 0.5). The card: `0.92W` wide, centered horizontally, its center
+at 51% of H, height from its content: top padding `0.06W`; the title (`type.title`, `ink.title`); `0.02W`; the subtitle
+in up to two lines (`type.body`, `InkBrownSoft`); `0.035W`; the well with the slot contents `0.8W × 0.21W` (tiles
+`0.11W` with counts below); `0.04W`; the choice grid — two columns `0.4W` wide with a `0.05W` gap, rows `0.205W` (the
+button) + `0.075W` (its cost pill overlapping the button's bottom edge by half), `0.03W` between rows; `0.045W`; Restart
+`0.7W × 0.14W` (cream, ⟳); bottom padding `0.06W`. The close button (cream round `0.13W`) over the top-right corner when
+the sheet may be closed. The card pops in (motion.pop).
+
+### 6.3 Win (full screen)
+
+The gameplay is replaced by the celebration over the win garden (`bg.win`, else the gameplay garden blurred and
+lightened); no top bar.
+
+| Element | Box |
+|---|---|
+| Sign | `0.66W × 0.13H`, centered, top at 7.5% of H (flower clusters over both ends, out to `0.04W` from the edges) |
+| Picture | the finished picture in its stone frame, at most `0.8W` wide, top at 21.5% and bottom at most at 58% of H |
+| Rays and petals | centered on the hero, radius `0.6W`, behind the hero; petals over the whole screen |
+| Hero | the celebrating hero of the level's main family (or the group), centered, from 50% to 76% of H, overlapping the picture's foot |
+| Pedestal | `0.8W` wide, top ellipse at 74%, foot at 83% of H |
+| Reward pill | `0.47W × 0.09H`, centered, from 76% to 85% of H (on the pedestal's front) |
+| Next | the primary button in its wood rim, `0.84W` wide, from 86% to 96% of H; ×2 reward as a small cream pill under it when offered, or beside the reward pill |
+
+### 6.4 Home
+
+| Element | Box |
+|---|---|
+| Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
+| Petals pill | `0.38W × 0.095W`, right edge − `0.02W`, top 2.5% of H |
+| Logo | `0.8W` wide centered, from 10% to 20.5% of H |
+| Diorama | from 22% to 70% of H: the owner's Home picture behind everything; else the drawn garden with the heroes (group or the player's hero) on a pedestal with the lotus fountain, centered at 50% |
+| Side buttons | Wardrobe, Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill under the Petals pill |
+| Level plaque | wooden sign `0.5W × 0.085H`, centered, from 64% to 72.5% of H |
+| Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H |
+| Teaser | the milestone teaser as a small parchment pill centered under Play (89.5%–93.5%); the free booster as a cream pill beside it when offered |
+
+### 6.5 Wardrobe (both builds)
+
+| Element | Box |
+|---|---|
+| Back | cream round `0.12W`, left `0.04W`, top 2.5% of H |
+| Banner | wooden sign with ivy `0.46W × 0.055H`, from 24% to 70% of W, top 4.5% |
+| Petals pill | `0.32W`, right edge − `0.02W`, top 3.5% |
+| Hero | the selected family's hero in the worn outfit, from 11% to 37% of H, on a pedestal `0.6W` wide (35%–43%) |
+| Arrows | cream round ‹ › `0.09W` at 8% and 92% of W, 28% of H (previous/next family) |
+| Name card | parchment from 42% to 57% of H, `0.92W`; a sign-like tab `0.5W` with the name (`type.title`), the role line, the description in two lines |
+| Family tabs | from 56% to 68.5% of H, four tabs `0.24W` with the family's hero head and name; the selected one lighter and joined to the panel below |
+| Outfit panel | parchment from 67% to the bottom: three cards per row `0.29W × 0.18H` with the hero wearing the item and its name; the worn one green with a check badge; pages or scroll for more |
+| Footer | "Earn special outfits as you play!" at 93% of H |
