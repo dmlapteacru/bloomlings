@@ -202,7 +202,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A jam choice (§3.3): a glossy rounded rectangle in <paramref name="set"/> (green or blue, radius 22% of its
-        /// height) with the icon (44% of the height) in its upper half, the smaller white outlined label below it, and the cost
+        /// height) with the icon (its box half the height) in its upper half, the white outlined label below it, and the cost
         /// pill centered on its bottom edge, overlapping by 40% of the pill's height. <paramref name="box"/> holds the
         /// button and the pill below it; the whole box is the touch target.
         /// </summary>
@@ -220,14 +220,16 @@ namespace Bloomlings.Playtest.Design
             float radius = buttonHeight * 0.22f;
             SoftShadow(p, button, radius, 0.24f, 0.05f);
             Box f = Face(p, button, colors, radius, depth, enabled, (buttonHeight / p.Scale) * 0.075f, gloss: true);
-            float iconSize = buttonHeight * 0.44f;
+            // As measured on the reference's jam card: the icon about 44% of the face (its box a little more, for the
+            // shapes' margins), the label's letters about 21% of the button's height.
+            float iconSize = buttonHeight * 0.5f;
             if (icon != null)
             {
-                IconParts(p, Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.34f), iconSize, iconSize), icon, grey: !enabled);
+                IconParts(p, Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.36f), iconSize, iconSize), icon, grey: !enabled);
             }
 
-            float labelY = icon != null ? f.Top + (f.Height * 0.76f) : f.CenterY;
-            float scale = Math.Min(1f, (buttonHeight * 0.17f) / p.U(T.ButtonSecondary.Size));
+            float labelY = icon != null ? f.Top + (f.Height * 0.78f) : f.CenterY;
+            float scale = Math.Min(1f, (buttonHeight * 0.21f) / p.U(T.ButtonSecondary.Size));
             p.Text(label, f.CenterX, labelY, T.ButtonSecondary, C.TextOnColor, f.Width * 0.88f, scale, TextLook.OnGloss(colors));
             p.PopTransform();
             if (cost.HasValue)

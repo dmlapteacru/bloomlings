@@ -191,10 +191,12 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   speed text ("1×" or "2×", `InkBrown`) and the `ui.fast` glyph (▶▶: a solid triangle and a notched chevron, about 42%
   of the pill tall, as tall as the digits) after it, in the cream halo.
 - **Choice button** (`Kit.ChoiceButton(p, box, ColorSet set, iconDraw, label, cost)`, jam): a rounded rectangle
-  (radius 22% of its height) in the green or blue set with the glossy face, the icon (44% of the height, its center at
-  34% of the face) in the upper half, the white outlined label below it (font scaled to 17% of the button's height,
-  centered at 76% of the face, `TextLook.OnGloss`), and a cost pill (§3.4) centered on its bottom edge, overlapping by 40%
-  of the pill's height.
+  (radius 22% of its height) in the green or blue set with the glossy face, the icon (its box 50% of the height, so the
+  icon itself is about 44% of the face as on the reference; its center at 36% of the face) in the upper half, the white
+  outlined label below it (font scaled to 21% of the button's height, centered at 78% of the face, `TextLook.OnGloss`),
+  and a cost pill (§3.4) centered on its bottom edge, overlapping by 40% of the pill's height.
+- **Secondary button glyph**: the brown glyph's box is 70% of the face's height, so the glyph stands a little taller than
+  the letters, as the reference's ⟳ on "Restart Level".
 - Orange (`GardenLook.Orange`) is available for a highlighted secondary call to action.
 - Disabled buttons use `ColorSet.Disabled()` and alpha 0.55 as before.
 
@@ -334,23 +336,42 @@ B2–B5 replace the lawn).
 
 ### 4.3 Popups and cards (frames 10, 11, 17–20)
 
-- Jam sheet: parchment sheet; title "No more space!" (`InkBrown`, `type.title`); subtitle "All Waiting Slots are full.
-  Choose a way to continue." (`InkBrownSoft`); an inset `Well` with the slot contents (sticker tiles with counts); one
-  `ChoiceButton` per recovery booster (Extra Slot green, Return blue, Bloom Burst blue; Shuffle green if offered) with
-  its cost pill (×N charges, or lotus + price); the free rescue as a `ChoiceButton`-wide green button with "▶ Free"
-  pill, or the primary button with the ad glyph; Restart as a cream secondary button with ⟳.
+- Jam sheet: parchment sheet; title "No more space!" (`InkBrown`, `type.title`; "No pod can move!" when stuck); subtitle
+  "All Waiting Slots are full. Choose a way to continue." (`InkBrownSoft`, broken after the first sentence into two
+  lines; "Choose a way to continue." when stuck, since the slots are not full then); an inset `Well` with the slot
+  contents (`ui.jam.slots`: sticker tiles with counts, free slots as small dashed plates, locked ones with the padlock);
+  one `ChoiceButton` per recovery booster the player can use now (Extra Slot green, Return blue, Bloom Burst blue;
+  Shuffle green if offered) with its cost pill (×N charges, or lotus + price); the free rescue (once per attempt) as one
+  more green `ChoiceButton` with the rescue booster's icon and name and the "▶ Free" pill; the choices in one row of up
+  to three, a 2 × 2 grid of four (as on the reference) or rows of three; Restart as a cream secondary button with ⟳ at
+  the size of a card's main button. A short phone shrinks the well, the choices and the gaps together.
 - Pause, Settings, Store, Daily reward, Collection, Leaderboard, Themes, Milestone: `Card` per §3.5; the Store and
-  milestone use a `WoodSign` header.
+  milestone use a `WoodSign` header. Pause: brown title, the cream close, Resume (primary, decorated), Restart (⟳),
+  Settings (gear) and Home (`ui.back`) as cream secondaries with their glyphs. Settings: cream rows with brown labels and
+  the garden toggle (on: the green set's glossy track with a white ✓ and the knob right; off: a parchment well; the knob
+  a domed cream cushion like the round buttons).
+- Demo and unlock cards: parchment, no title; a booster's card shows its colored icon on a cream tile; the first line in
+  `type.button_secondary` `InkBrown`, the others in `type.body` `InkBrownSoft`, each wrapped to the card; variant cards
+  show sticker tiles; "Tap to continue" in `InkBrownSoft`.
 
 ### 4.4 Win (frame 15)
 
-- `WoodSign` (Flowers) "Level complete!" as the header above the card.
+- `WoodSign` (Flowers) "Level complete!" (`type.level_home`, 146 units tall, at most 80% of the card wide) across the
+  card's top edge, its center 30 units below it.
 - The finished picture in full color: each picture cell as a flat candy tile (no lip, small gloss, board-style symbol
-  of its role's variant) inside a `StoneBorder` (thin, 0.3 cell).
-- The heroes group on a `StonePedestal` with light rays and falling petals behind and around (3D pictures; the owner's
-  celebrating hero later).
-- The reward as a cream pill (`CostPill` style, bigger) "+N" with the lotus, counting up.
+  of its role's variant) inside a `StoneBorder` (thin, 0.3 cell); 520 units tall (24% of the safe height on a shorter
+  phone, at least 400), with the light sweep once. A milestone level adds a cream pill with the gold medal and
+  "Milestone reached!" over the picture's top edge.
+- The heroes group on a `StonePedestal` above the sign, in the room up to the safe area's top (left out under 150
+  units), with light rays behind (clipped above the card, fading in, alpha 0.85) and falling petals around (3D pictures;
+  the owner's celebrating hero later). The generated group still carries its own round base, which then stands on the
+  pedestal's top like a plinth.
+- The reward as a cream pill (`CostPill` style, 104 units tall, `ui.pill.reward`) "+N" with the lotus, counting up, a
+  sparkle at the lotus and petals bursting out; a dropped booster charge below it as its icon and "+1 Name".
 - Next: `PrimaryButton` (wood rim, decorated, breathing). ×2: cream secondary with the ad glyph.
+- Milestone (frame 16): the same sign ("Level N"), heroes, rays and petals; "Milestone reached!" in `InkBrownSoft`;
+  each reward's icon on a cream tile with its amount in a cream pill over the tile's bottom edge; Continue (primary,
+  decorated, breathing).
 
 ### 4.5 Home, Splash (frames 1–3)
 
@@ -380,5 +401,5 @@ New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch`, the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.entry`, `tile.layer_peek` and `tile.picture` restyled), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
 `ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn), `ui.sign.ivy`
-(kind `Shape`: the clover cluster). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (kind `Picture`, research
+(kind `Shape`: the clover cluster), `ui.jam.slots` (the jam's slot row), `ui.pill.reward` (the win's and the milestone's reward pills). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (kind `Picture`, research
 D16 and `pictures.md`) keep or add their `bg.*`, `char.hero.*` and `ui.logo` slots with the drawn stand-in as fallback.

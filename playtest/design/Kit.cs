@@ -400,8 +400,9 @@ namespace Bloomlings.Playtest.Design
             TextLook look = GardenLook.LabelOn(GardenLook.Cream);
             if (iconId != null)
             {
-                float icon = f.Height * 0.5f;
-                float textWidth = Math.Min(p.MeasureText(label, s), f.Width - (f.Height * 1.4f));
+                // The glyph a little taller than the letters, as the reference's ⟳ on "Restart Level".
+                float icon = f.Height * 0.7f;
+                float textWidth = Math.Min(p.MeasureText(label, s), f.Width - (f.Height * 1.6f));
                 float start = f.CenterX - ((icon + p.U(16f) + textWidth) / 2f);
                 Glyph(p, iconId, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), GardenLook.Cream);
                 p.Text(label, start + icon + p.U(16f) + (textWidth / 2f), f.CenterY, s, C.InkBrown, textWidth, look: look);
@@ -593,8 +594,10 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A cost pill (spec 005 §3.4; jam choices, booster tiles, the Store): a cream pill with a <c>cream.line</c> outline
         /// and a soft shadow holding the lotus and a brown price, a green ▶ square and "Free", or "×N" charges.
+        /// <paramref name="text"/> replaces the amount's text next to the same icon (the win's reward pill: the lotus and
+        /// "+N" counting up).
         /// </summary>
-        public static void CostPill(IPainter p, Box box, Cost cost)
+        public static void CostPill(IPainter p, Box box, Cost cost, string? text = null)
         {
             p.Mark("ui.pill.cost");
             float h = box.Height;
@@ -605,7 +608,7 @@ namespace Bloomlings.Playtest.Design
             p.FillRoundGradient(box, r, C.CreamTop, C.ParchmentBottom);
             p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
 
-            string text = cost.Kind switch
+            text ??= cost.Kind switch
             {
                 CostKind.Petals => NumberText.Group(cost.Amount),
                 CostKind.Free => PlaytestText.T("common.free"),
@@ -869,28 +872,38 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>A switch (Settings): a chunky outlined track with a raised cream knob (FR-016); on is green with the knob right.</summary>
+        /// <summary>
+        /// A switch (Settings; spec 005 §3.3, §3.5): a track pressed into the parchment and a domed cream knob like the round
+        /// buttons. On, the track is the green set's glossy face with a white check where the knob was (so the state never
+        /// rests on the hue alone) and the knob is right; off, it is a parchment well with the knob left.
+        /// </summary>
         public static void Toggle(IPainter p, Box box, bool on, Action action)
         {
             p.Mark("ui.toggle");
-            float line = p.U(DesignTokens.Garden.OutlineWidth);
+            float r = box.Height / 2f;
+            float line = Math.Max(p.U(2f), box.Height * 0.04f);
             if (on)
             {
-                p.FillRoundGradient(box, box.Height / 2f, GardenLook.Green.Face.Darken(0.08f), GardenLook.Green.Face);
+                ColorSet green = GardenLook.Green;
+                p.FillRoundGradient(box, r, green.Lip, green.Face);
                 p.PushClip(box);
-                p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + (box.Height * 0.45f)), box.Height / 2f, C.GardenShadow.WithAlpha(0.18f), C.GardenShadow.WithAlpha(0f));
+                p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + (box.Height * 0.5f)), r, C.GardenShadow.WithAlpha(0.22f), C.GardenShadow.WithAlpha(0f));
                 p.PopClip();
-                p.StrokeRound(box.Inset(line / 2f), (box.Height / 2f) - (line / 2f), line, GardenLook.Green.Line);
+                var shine = new Box(box.Left + (box.Height * 0.3f), box.Bottom - (box.Height * 0.34f), box.Right - (box.Height * 0.3f), box.Bottom - (box.Height * 0.12f));
+                p.FillRoundGradient(shine, shine.Height / 2f, green.Top.WithAlpha(0f), green.Top.WithAlpha(0.55f));
+                p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, green.Line);
+                float check = box.Height * 0.5f;
+                p.Shape("ui.check", Box.FromCenter(box.Left + r + (box.Height * 0.06f), box.CenterY, check, check), Rgba.White);
             }
             else
             {
-                Well(p, box, box.Height / 2f);
+                Well(p, box, r);
             }
 
-            float knob = box.Height + p.U(8f);
-            float cx = on ? box.Right - (box.Height / 2f) : box.Left + (box.Height / 2f);
+            float knob = box.Height + p.U(10f);
+            float cx = on ? box.Right - r : box.Left + r;
             Box knobBox = Box.FromCenter(cx, box.CenterY - p.U(2f), knob, knob);
-            Face(p, knobBox, GardenLook.White, knob / 2f, Press(p, box, true), lipUnits: 8f);
+            IconFace(p, knobBox, GardenLook.White, knob / 2f, Press(p, box, true));
             p.Hit(Touch(p, box), action);
         }
 
