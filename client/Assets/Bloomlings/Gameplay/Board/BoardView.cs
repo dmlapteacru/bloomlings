@@ -48,6 +48,14 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>A tile was tapped while targeting (Bloom Burst).</summary>
         public event System.Action<CellPos>? CellTapped;
 
+        /// <summary>
+        /// Lays the board out in its area's top-down canvas units (the area's box, the board's width and height, its
+        /// entries): the HUD's <c>GameplayHud.FitBoard</c>, the stone border at most 0.86 of the safe width with a bottom
+        /// entry's arch in the entry strip (spec 005 FR-020, contracts/look.md §6.1); null fits the whole area
+        /// (<see cref="BoardLayout.Fit"/>).
+        /// </summary>
+        public System.Func<Box, int, int, IReadOnlyList<EntryDef>, BoardLayout>? Fit { get; set; }
+
         /// <summary>Side length of one cell in canvas units.</summary>
         public float CellSize { get; private set; }
 
@@ -487,13 +495,15 @@ namespace Bloomlings.Client.Gameplay.Board
         }
 
         /// <summary>
-        /// Lays the board out in its area (<see cref="BoardLayout.Fit"/>, in the area's top-down canvas units): the grid of
-        /// cells, the stone border around it, one arch per entry; tiles take whole cells, specials their cells' box.
+        /// Lays the board out in its area (<see cref="Fit"/>, else <see cref="BoardLayout.Fit"/>, in the area's top-down
+        /// canvas units): the grid of cells, the stone border around it, one arch per entry; tiles take whole cells,
+        /// specials their cells' box.
         /// </summary>
         private void Layout()
         {
             Rect area = _area.rect;
-            _layout = BoardLayout.Fit(new Box(0f, 0f, Mathf.Max(1f, area.width), Mathf.Max(1f, area.height)), _width, _height, _entryDefs);
+            var box = new Box(0f, 0f, Mathf.Max(1f, area.width), Mathf.Max(1f, area.height));
+            _layout = Fit?.Invoke(box, _width, _height, _entryDefs) ?? BoardLayout.Fit(box, _width, _height, _entryDefs);
             CellSize = _layout.Cell;
             BoxLayout.Place(_grid, _layout.Grid);
             foreach (TileView tile in _tiles)

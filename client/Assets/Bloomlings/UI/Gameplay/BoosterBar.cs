@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using UnityEngine;
@@ -31,9 +32,10 @@ namespace Bloomlings.Client.UI.Gameplay
     }
 
     /// <summary>
-    /// The booster bar of the design board's frame 14 (spec 002 FR-014, T120) as the reference's booster tiles on the
-    /// tray's parchment (spec 005 contracts/look.md §3.7, §3.8; the playtest's <c>BoosterBarPainter</c>,
-    /// <see cref="UiKit.BoosterTile"/>; spec 003 FR-031, contracts/booster-tile.md).
+    /// The booster bar of the design board's frame 14 (spec 002 FR-014, T120) as the reference's row of four big cream
+    /// booster boxes on the tray's parchment, between the Waiting Slots and the decks (spec 005 FR-020, contracts/look.md
+    /// §3.7, §3.8, §6.1; the playtest's <c>BoosterBarPainter</c>, <see cref="UiKit.BoosterTile"/>; spec 003 FR-031,
+    /// contracts/booster-tile.md).
     /// <list type="bullet">
     /// <item><description>Each booster appears at its unlock level as a cream tile in a silver rim with its colored icon:
     /// Extra Slot a white "+" on a blue disc, Shuffle two chasing arrows, Return a yellow arrow, Bloom Burst a pink flower
@@ -116,7 +118,13 @@ namespace Bloomlings.Client.UI.Gameplay
         }
 
         /// <summary>
-        /// The bar's four places (frame 14, the playtest's <c>BoosterBarPainter.Places</c> and <c>Fit</c>): square tiles of
+        /// The four booster boxes in the bar's top-down canvas units (the HUD's <c>GameplayHud.BoosterCells</c>: cream
+        /// squircles 0.195 W spread across 0.9 W, spec 005 FR-020, §6.1); null lays them out from the bar's own box.
+        /// </summary>
+        public Func<IReadOnlyList<Box>>? Places { get; set; }
+
+        /// <summary>
+        /// The bar's four places (frame 14; spec 005 §6.1): the boxes <see cref="Places"/> gives, or else square tiles of
         /// <c>size.booster_tile</c> (at most the bar's height less 6 units, and four fitting across), <see cref="Gap"/>
         /// apart and centered, each 4 units above the bar's middle so its cost pill fits below; the unlocked boosters take
         /// them in order.
@@ -125,15 +133,16 @@ namespace Bloomlings.Client.UI.Gameplay
         {
             Rect rect = _area.rect;
             var area = new Box(0f, 0f, rect.width, rect.height);
+            IReadOnlyList<Box>? given = Places?.Invoke();
             float side = Mathf.Min(UiKit.Units(DesignTokens.Size.BoosterTileWidth), Mathf.Min(area.Height - UiKit.Units(6f), area.Width / (4f + (3f * Gap))));
-            if (side <= 0f)
+            if (given == null && side <= 0f)
             {
                 return;
             }
 
-            Box[] places = ScreenLayout.Row(area, 4, side * Gap, side, square: false);
+            IReadOnlyList<Box> places = given ?? ScreenLayout.Row(area, 4, side * Gap, side, square: false);
             int place = 0;
-            for (int i = 0; i < Order.Length; i++)
+            for (int i = 0; i < Order.Length && place < places.Count; i++)
             {
                 if (!_unlocked[i])
                 {
@@ -141,6 +150,12 @@ namespace Bloomlings.Client.UI.Gameplay
                 }
 
                 Box at = places[place++];
+                if (given != null)
+                {
+                    BoxLayout.Place((RectTransform)_tiles[i].transform, at);
+                    continue;
+                }
+
                 float s = Mathf.Min(side, at.Width);
                 BoxLayout.Place((RectTransform)_tiles[i].transform, Box.FromCenter(at.CenterX, area.CenterY - UiKit.Units(4f), s, s));
             }

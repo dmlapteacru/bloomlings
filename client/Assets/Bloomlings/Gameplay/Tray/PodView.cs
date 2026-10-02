@@ -12,23 +12,23 @@ using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
-    /// A Spirit Pod in the states of the design board's frame 12 (spec 002 FR-012) as the reference's wooden pod (spec 005
-    /// contracts/look.md §3.7; the playtest's <c>PodPainter</c>, <see cref="UiKit.Pod"/>):
+    /// The front pod of a Source stack's deck in the states of the design board's frame 12 (spec 002 FR-012) as the
+    /// reference's wooden pod (spec 005 FR-021, contracts/look.md §3.7, §6.1; the playtest's <c>PodPainter.Front</c>,
+    /// <see cref="UiKit.DeckPod"/>):
     /// <list type="bullet">
-    /// <item><description>exposed: a dark wooden frame with its handle on top, a panel tinted by the variant, the variant's
-    /// sticker tile and the plain count below it;</description></item>
-    /// <item><description>next in stack: the same pod dimmed toward the parchment, fully visible below the exposed one
-    /// (spec 003 FR-022a);</description></item>
+    /// <item><description>exposed: a dark wooden frame, its panel in the variant's color lightened, the variant's sticker
+    /// tile and the big plain count below it;</description></item>
+    /// <item><description>not exposed: the same pod dimmed toward the parchment, taking no tap;</description></item>
     /// <item><description>pressed: the frame sinks and squashes under the finger, and springs back;</description></item>
     /// <item><description>locked: the padlock on a grey panel;</description></item>
     /// <item><description>mystery: the lilac "?" tile with its count.</description></item>
     /// </list>
-    /// Connected pods are joined by the tray's link bar (<see cref="TrayView"/>). The variant reads first from its tile
-    /// (color and symbol), then from the panel's tint, then from the count (spec 001 FR-012).
+    /// The buried pods peek above it (<see cref="TrayView"/>); connected pods are joined by the tray's link bar. The variant
+    /// reads first from its tile (color and symbol), then from the panel's tint, then from the count (spec 001 FR-012).
     /// </summary>
     public sealed class PodView : MonoBehaviour
     {
-        private KitPodView _pod = null!;
+        private DeckPodView _pod = null!;
         private Image? _veil;
         private Button _button = null!;
         private PressMotion _press = null!;
@@ -37,18 +37,20 @@ namespace Bloomlings.Client.Gameplay.Tray
         private int _count;
         private bool _dimmed;
         private bool _locked;
-        private bool _handle;
         private bool _pressedShown;
 
         public string PodId { get; private set; } = string.Empty;
 
         public RectTransform Rect => (RectTransform)transform;
 
+        /// <summary>The pod's sticker tile (committed pods fly from there).</summary>
+        public RectTransform TileRect => (RectTransform)_pod.Tile.transform;
+
         public static PodView Create(Transform parent, Action<string> onTap)
         {
             Image root = UiFactory.CreateImage("Pod", parent, null, Color.clear, raycast: true);
             var view = root.gameObject.AddComponent<PodView>();
-            view._pod = UiKit.Pod("Frame", root.transform);
+            view._pod = UiKit.DeckPod("Frame", root.transform);
             UiFactory.Stretch((RectTransform)view._pod.transform);
             view._button = root.gameObject.AddComponent<Button>();
             view._button.transition = Selectable.Transition.None;
@@ -60,7 +62,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         }
 
         /// <param name="interactive">Only exposed pods take taps (FR-011).</param>
-        /// <param name="dimmed">A pod still in its stack, shown below the exposed one, dimmed toward the parchment (spec 003 FR-022a).</param>
+        /// <param name="dimmed">A pod not exposed yet, dimmed toward the parchment.</param>
         /// <param name="lockShown">The lock is drawn (locked, or its key is still in flight).</param>
         /// <param name="linkColor">The connected group's color, or null; the tray draws the link bar between the frames.</param>
         public void Show(PodInfo pod, VariantVisualCatalog? visuals, bool interactive, bool dimmed, bool lockShown, Color? linkColor)
@@ -72,9 +74,6 @@ namespace Bloomlings.Client.Gameplay.Tray
             _count = pod.Remaining;
             _dimmed = dimmed;
             _locked = lockShown;
-
-            // The wooden handle sits on the pod at the top of its column (exposed, pressed or locked), never on queued ones.
-            _handle = !dimmed;
             _pressedShown = false;
             Redraw();
             _pod.Lock.transform.localScale = Vector3.one;
@@ -85,7 +84,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         private void Redraw()
         {
             PodLook look = Look;
-            _pod.Show(_variant, _count, look, _handle);
+            _pod.Show(_variant, _count, look);
 
             // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
             bool veil = look == PodLook.Next && !_variant.HasValue;

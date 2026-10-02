@@ -102,6 +102,12 @@ namespace Bloomlings.Client.Gameplay
             _slots = SlotRowView.Create(_hud.SlotArea, _visuals);
             _tray = TrayView.Create(_hud.TrayArea, _visuals, OnPodTapped);
             _boosters = BoosterBar.Create(_hud.BoosterArea, OnBoosterPressed);
+
+            // The views take their places from the reference layout's regions (spec 005 FR-020, contracts/look.md §6.1).
+            _board.Fit = _hud.FitBoard;
+            _slots.CellsFor = _hud.SlotCells;
+            _tray.Decks = _hud.DeckCells;
+            _boosters.Places = _hud.BoosterCells;
             _slots.SlotTapped += OnSlotTapped;
             _board.CellTapped += OnCellTapped;
             _timeline = gameObject.AddComponent<EventTimeline>();
@@ -250,8 +256,9 @@ namespace Bloomlings.Client.Gameplay
         }
 
         /// <summary>
-        /// The screen regions for this level (spec 002 FR-009, FR-010, FR-014): the badge line of a labelled Hard or
-        /// Super Hard level, and the booster bar once a booster is unlocked. Laid out before the views are built.
+        /// The screen regions for this level (spec 002 FR-009, FR-010, FR-014; spec 005 §6.1): the badge line of a labelled
+        /// Hard or Super Hard level, the booster row once a booster is unlocked, the entry strip under the board for a
+        /// bottom Garden Entry, and one deck per Source stack. Laid out before the views are built.
         /// </summary>
         private void LayoutForLevel(LevelSession session)
         {
@@ -266,7 +273,13 @@ namespace Bloomlings.Client.Gameplay
                 boosters |= economy != null && economy.IsUnlocked(kind);
             }
 
-            _hud.Layout(labelled, boosters);
+            var sides = new List<EntrySide>();
+            foreach (EntryDef entry in session.View.Entries)
+            {
+                sides.Add(entry.Side);
+            }
+
+            _hud.Layout(labelled, boosters, sides, session.View.StackCount);
             _hud.SetDifficulty(difficulty, labelled);
             Canvas.ForceUpdateCanvases();
         }
@@ -301,18 +314,18 @@ namespace Bloomlings.Client.Gameplay
             }
 
             // What the tray shows before the commit: each group member's count, shown variant ("?" for a hidden mystery
-            // pod) and card position, where it flies from.
+            // pod) and the position of its tile on its deck, where it flies from (spec 005 §6.1).
             var before = new Dictionary<string, (int Count, VariantId? Variant, Vector3? From)>(System.StringComparer.Ordinal);
             foreach (string member in _session.View.ConnectedGroup(podId))
             {
                 PodInfo info = _session.View.Pod(member);
-                before[member] = (info.Remaining, info.Variant, _tray.RectOf(member)?.position);
+                before[member] = (info.Remaining, info.Variant, _tray.TilePosition(member));
             }
 
             if (!before.ContainsKey(podId))
             {
                 PodInfo info = _session.View.Pod(podId);
-                before[podId] = (info.Remaining, info.Variant, _tray.RectOf(podId)?.position);
+                before[podId] = (info.Remaining, info.Variant, _tray.TilePosition(podId));
             }
 
             CommandResult result = _session.Apply(tap);
@@ -334,7 +347,7 @@ namespace Bloomlings.Client.Gameplay
                         _slots.Commit(committed.SlotIndex, committed.PodId, shown, count);
                         if (from.HasValue)
                         {
-                            FlyCard(shown, from.Value, _slots.SlotPosition(committed.SlotIndex));
+                            FlyCard(shown, from.Value, _slots.TilePosition(committed.SlotIndex), _tray.TileSize(committed.PodId), _slots.TileSize);
                         }
 
                         break;
@@ -642,7 +655,7 @@ namespace Bloomlings.Client.Gameplay
             (string PodId, Vector3 From, VariantId? Variant)? returning = null;
             if (command is UseReturn back && session.View.PodInSlot(back.SlotIndex) is string returned)
             {
-                returning = (returned, _slots.SlotPosition(back.SlotIndex), session.View.Pod(returned).Variant);
+                returning = (returned, _slots.TilePosition(back.SlotIndex), session.View.Pod(returned).Variant);
             }
 
             CommandResult result = session.Apply(command);
@@ -679,9 +692,9 @@ namespace Bloomlings.Client.Gameplay
             {
                 _tray.PlayShuffle();
             }
-            else if (returning.HasValue && _tray.RectOf(returning.Value.PodId) is RectTransform back2)
+            else if (returning.HasValue && _tray.TilePosition(returning.Value.PodId) is Vector3 back2)
             {
-                FlyCard(returning.Value.Variant, returning.Value.From, back2.position);
+                FlyCard(returning.Value.Variant, returning.Value.From, back2, _slots.TileSize, _tray.TileSize(returning.Value.PodId));
                 _tray.PlayReturned(returning.Value.PodId);
             }
 
@@ -953,14 +966,18 @@ namespace Bloomlings.Client.Gameplay
 
         /// <summary>
         /// A pod's sticker tile flying between the tray and a slot (commit or Return; the playtest's
-        /// <c>PodPainter.DrawFlights</c>): the variant's candy tile (the lilac "?" for a mystery pod) at the slot tile's
-        /// size, arcing 40% of a slot's height over the straight line; decorative only.
+        /// <c>PodPainter.DrawFlights</c>): the variant's candy tile (the lilac "?" for a mystery pod) leaving one tile at its
+        /// size (<paramref name="fromSize"/>: the deck's tile or the slot's) and growing or shrinking to the other's
+        /// (<paramref name="toSize"/>), arcing 40% of a slot's height over the straight line; decorative only. A size of 0
+        /// (a tile not shown) falls back to the slot's.
         /// </summary>
-        private void FlyCard(VariantId? variant, Vector3 from, Vector3 to)
+        private void FlyCard(VariantId? variant, Vector3 from, Vector3 to, float fromSize, float toSize)
         {
             float slot = _slots.SlotSize;
-            Sprite tile = Art.ProceduralSprites.CandyTile(variant, TileStyle.Sticker, TileState.Normal, ShapeRaster.Quantize(slot * UiKit.PixelsPerUnit));
-            UiFx.FlyTile(_root, tile, from, to, slot * 0.56f, slot * 0.64f, slot * 0.4f, 0.16f);
+            float start = fromSize > 0f ? fromSize : slot * 0.64f;
+            float end = toSize > 0f ? toSize : slot * 0.64f;
+            Sprite tile = Art.ProceduralSprites.CandyTile(variant, TileStyle.Sticker, TileState.Normal, ShapeRaster.Quantize(Mathf.Max(start, end) * UiKit.PixelsPerUnit));
+            UiFx.FlyTile(_root, tile, from, to, start, end, slot * 0.4f, 0.16f);
         }
 
         /// <summary>The exact variants of a level, in pod order (the win celebration).</summary>
