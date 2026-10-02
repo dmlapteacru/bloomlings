@@ -14,10 +14,10 @@ using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 namespace Bloomlings.Client.Gameplay.Slots
 {
     /// <summary>
-    /// The Waiting Slots (T044) as the reference's cream plates on the tray's parchment (spec 005 contracts/look.md §3.7,
-    /// §4.1; the playtest's <c>SlotPainter</c>, <see cref="UiKit.SlotPlate"/>): 5 slots, plus the sixth when Extra Slot adds
-    /// it (US5), marked with a green "+". Each shows its pod's variant tile and remaining count and its state (FR-015,
-    /// FR-070):
+    /// The Waiting Slots (T044) as the reference's cream portrait plates in the first row of the tray (spec 005 FR-020,
+    /// contracts/look.md §3.7, §4.1, §6.1; the playtest's <c>SlotPainter</c>, <see cref="UiKit.SlotPlate"/>), placed in the
+    /// boxes <see cref="CellsFor"/> gives: 5 slots, plus the sixth when Extra Slot adds it (US5), marked with a green "+",
+    /// which narrows the others. Each shows its pod's variant tile and remaining count and its state (FR-015, FR-070):
     /// <list type="bullet">
     /// <item><description>empty: a slightly sunk plate with a dashed inner outline;</description></item>
     /// <item><description>working: a raised plate with the variant's sticker tile and its plain count below;</description></item>
@@ -33,8 +33,11 @@ namespace Bloomlings.Client.Gameplay.Slots
     /// </summary>
     public sealed class SlotRowView : MonoBehaviour
     {
-        /// <summary>A plate's width for its height: a little taller than wide, like the reference's slots.</summary>
-        public const float PlateAspect = 0.82f;
+        /// <summary>
+        /// A plate's width for its height: the reference's portrait plates, 0.165 W wide in a 0.19 W row (spec 005
+        /// contracts/look.md §6.1).
+        /// </summary>
+        public const float PlateAspect = 0.165f / 0.19f;
 
         private const float ExitSeconds = 0.22f;
 
@@ -46,6 +49,13 @@ namespace Bloomlings.Client.Gameplay.Slots
 
         /// <summary>A slot was tapped while targeting (Return picks the pod to send back, T120).</summary>
         public event System.Action<int>? SlotTapped;
+
+        /// <summary>
+        /// The plates for a number of Waiting Slots, in the slot row's top-down canvas units (the HUD's
+        /// <c>GameplayHud.SlotCells</c>: the reference's portrait plates spread across the row, spec 005 §6.1); null lays
+        /// them out with <see cref="Cells"/>.
+        /// </summary>
+        public System.Func<int, IReadOnlyList<Box>>? CellsFor { get; set; }
 
         public static SlotRowView Create(RectTransform area, VariantVisualCatalog? visuals)
         {
@@ -194,6 +204,12 @@ namespace Bloomlings.Client.Gameplay.Slots
         /// <summary>The width of a slot's plate, for the flying pod.</summary>
         public float SlotSize => _slots[0].Frame.rectTransform.sizeDelta.x;
 
+        /// <summary>World position of the tile on a working slot's plate: a committed pod's tile lands there.</summary>
+        public Vector3 TilePosition(int slotIndex) => _slots[slotIndex].TileTransform.position;
+
+        /// <summary>The side of the tile on a working slot's plate, in canvas units (the flying tile ends at it).</summary>
+        public float TileSize => ((RectTransform)_slots[0].TileTransform).rect.width;
+
         /// <summary>Keeps a slot drawn locked until its key lands (the rules opened it already).</summary>
         public void HoldLock(int slotIndex) => _heldLocks.Add(slotIndex);
 
@@ -290,15 +306,15 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
 
             Rect area = _area.rect;
-            Box[] cells = Cells(new Box(0f, 0f, area.width, area.height), present, UiKit.Units(1f));
+            IReadOnlyList<Box> cells = CellsFor?.Invoke(present) ?? Cells(new Box(0f, 0f, area.width, area.height), present, UiKit.Units(1f));
             int column = 0;
             for (int i = 0; i < WaitingSlots.Capacity; i++)
             {
                 Slot slot = _slots[i];
                 SlotState state = view.SlotStateOf(i);
                 bool wasAbsent = !slot.Frame.gameObject.activeSelf;
-                slot.Frame.gameObject.SetActive(state != SlotState.Absent);
-                if (state == SlotState.Absent)
+                slot.Frame.gameObject.SetActive(state != SlotState.Absent && column < cells.Count);
+                if (state == SlotState.Absent || column >= cells.Count)
                 {
                     continue;
                 }
@@ -317,7 +333,7 @@ namespace Bloomlings.Client.Gameplay.Slots
         }
 
         /// <summary>
-        /// The plates of the slot row (the playtest's <c>SlotPainter.Cells</c>), in the area's top-down coordinates: as tall
+        /// The plates of the slot row when no <see cref="CellsFor"/> is given, in the area's top-down coordinates: as tall
         /// as the band allows (less 12 units for their shadows), <see cref="PlateAspect"/> as wide, a quarter of a plate
         /// apart and centered; narrower when they do not fit. <paramref name="unit"/> is one reference unit.
         /// </summary>

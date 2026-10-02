@@ -394,6 +394,17 @@ Positions and order stay as in spec 002; only the looks change.
 - Slot row: on a parchment band, `SlotPlate`s.
 - Tray: parchment panel behind the columns; pods per §3.7.
 - Booster bar: on the parchment, `BoosterTile`s.
+- Since the owner's review the rows sit in the reference layout of §6.1 (the slots, the four booster boxes and one deck
+  per Source stack on one parchment tray). Unity twin: `GameplayHud.Layout(hasBadge, hasBoosters, entrySides,
+  stackCount)` places every region from `ScreenLayout.ReferenceGameplay` and gives the views their boxes in their own
+  canvas units (`SlotCells`, `DeckCells`, `BoosterCells`, and `FitBoard` for `BoardView.Fit`, all wired by
+  `GameplayController`); `UiKit.TrayPanel` (the frame and its bands), `UiKit.DeckPod` (the front pod, `PodView`) and
+  `UiKit.BuriedPod` (`pod.deck`) in `UiKitDeck.cs` draw the playtest's recipe of §6.1 "Drawn"; `TrayView` lays out
+  the decks, their "+N" badges, the wells and the links. A connected group whose shown members lie at different depths
+  (connected pods do not always share one), on two rows of decks, or that shows a single member marks each shown member
+  with a ring of its link color (0.07 of the deck's width, a white rim 30% wider, at 0.11 of the width from the front
+  pod's top-left corner or in the middle of a buried pod's band). Flights start at the deck's tile
+  (`TrayView.TilePosition`, `TileSize`) and land on the slot's tile (`SlotRowView.TilePosition`, `TileSize`).
 
 ### 4.2 Backdrop
 

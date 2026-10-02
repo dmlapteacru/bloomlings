@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Slots;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,32 +14,25 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// The gameplay screen of the design board's frames 7–9 (spec 002 FR-009, FR-010; spec 001 FR-068) in the reference
-    /// look (spec 005 contracts/look.md §4.1, the playtest's <c>LevelScreen</c>), top to bottom:
+    /// layout (spec 005 FR-020, FR-021, contracts/look.md §6.1; the playtest's <c>LevelScreen</c>), top to bottom:
     /// <list type="bullet">
-    /// <item><description>the top bar: the cream Pause squircle, the level on a wide wooden sign with ivy at both ends,
-    /// and the cream speed pill, as tall as Pause and half as wide again;</description></item>
-    /// <item><description>the HARD or SUPER HARD badge hanging from the sign (a Super Hard level also tints the sign's
+    /// <item><description>the top bar: the cream Pause squircle (0.13 W), the level on a wide wooden sign with ivy at both
+    /// ends (0.42 W × 0.115 W) and the cream speed pill (0.2 W × 0.115 W);</description></item>
+    /// <item><description>the HARD or SUPER HARD badge under the sign (a Super Hard level also tints the sign's
     /// letters);</description></item>
-    /// <item><description>the board on the lawn, inside its stone border;</description></item>
-    /// <item><description>the tray's parchment from just below the board to past the bottom of the screen: one band for
-    /// the Waiting Slots, one for the Source Tray and one for the booster bar, parted by grooves;</description></item>
-    /// <item><description>the booster bar at the bottom, hidden before the first booster unlocks.</description></item>
+    /// <item><description>the board on the lawn inside its stone border, at most 0.86 W wide, with the entry strip under it
+    /// for a bottom entry's arch (<see cref="FitBoard"/>);</description></item>
+    /// <item><description>one parchment tray from the entry strip to the bottom of the screen, its rows on bands parted by
+    /// grooves: the Waiting Slots, the four booster boxes (left out before the first booster unlocks) and one deck per
+    /// Source stack.</description></item>
     /// </list>
-    /// Everything sits over the level band's lawn. The regions come from the shared <see cref="ScreenLayout.Gameplay"/>,
-    /// so the playtest and this client lay out alike. There is no goals panel.
+    /// Everything sits over the level band's lawn. The regions come from the shared
+    /// <see cref="ScreenLayout.ReferenceGameplay"/>, so the playtest and this client lay out alike; the views take their
+    /// places from <see cref="SlotCells"/>, <see cref="DeckCells"/>, <see cref="BoosterCells"/> and <see cref="FitBoard"/>.
+    /// There is no goals panel.
     /// </summary>
     public sealed class GameplayHud : MonoBehaviour
     {
-        /// <summary>The level sign's width in top bar heights (the reference's plank is about 2.9 Pause buttons wide).</summary>
-        public const float SignWidth = 2.9f;
-
-        /// <summary>The level sign's height in top bar heights.</summary>
-        public const float SignHeight = 0.9f;
-
-        /// <summary>The speed pill's width in top bar heights.</summary>
-        public const float SpeedWidth = 1.5f;
-
-        private RectTransform _root = null!;
         private BackdropView _backdrop = null!;
         private RectTransform _topBar = null!;
         private RectTransform _pause = null!;
@@ -48,12 +43,14 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _speedLabel = null!;
         private GardenButton _badge = null!;
         private TextMeshProUGUI _badgeLabel = null!;
-        private RectTransform _trayFrame = null!;
-        private RectTransform _slotBand = null!;
-        private RectTransform _trayBand = null!;
-        private RectTransform _boosterBand = null!;
+        private TrayPanelView _tray = null!;
         private TextMeshProUGUI _toast = null!;
         private Image _toastPill = null!;
+        private ReferenceGameplayRegions? _regions;
+        private IReadOnlyCollection<EntrySide> _entrySides = Array.Empty<EntrySide>();
+        private int _stackCount = 4;
+        private bool _hasBadge;
+        private bool _hasBoosters = true;
         private Box _boardBox;
         private float _toastUntil;
 
@@ -63,21 +60,26 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         public RectTransform TopBar => _topBar;
 
+        /// <summary>The lawn from the board's top to the entry strip's bottom across the safe width: the board and its arches.</summary>
         public RectTransform BoardArea { get; private set; } = null!;
 
+        /// <summary>The Waiting Slots' row on the tray.</summary>
         public RectTransform SlotArea { get; private set; } = null!;
 
+        /// <summary>The row of decks at the bottom of the tray, one per Source stack.</summary>
         public RectTransform TrayArea { get; private set; } = null!;
 
-        /// <summary>The booster bar at the bottom (frame 14).</summary>
+        /// <summary>The row of the four booster boxes (frame 14).</summary>
         public RectTransform BoosterArea { get; private set; } = null!;
+
+        /// <summary>The regions the screen was last laid out with (screen pixels, y down).</summary>
+        public ReferenceGameplayRegions? Regions => _regions;
 
         public bool DoubleSpeed { get; private set; }
 
         public static GameplayHud Create(RectTransform root, Action onPause, Action<bool> onSpeedChanged)
         {
             var hud = root.gameObject.AddComponent<GameplayHud>();
-            hud._root = root;
             hud._backdrop = BackdropView.Create(root, BackdropScene.Gameplay);
 
             hud._topBar = UiFactory.CreateRect("TopBar", root);
@@ -106,16 +108,14 @@ namespace Bloomlings.Client.UI.Screens
 
             hud.BoardArea = UiFactory.CreateRect("BoardArea", root);
 
-            // The tray's parchment (spec 005 FR-012, §4.1): a frame with one band per region, behind the slots, the tray and
-            // the booster bar.
-            hud._trayFrame = UiKit.TrayFrame("TrayFrame", root);
-            hud._slotBand = UiKit.TrayBand("SlotBand", root, 34f);
-            hud._trayBand = UiKit.TrayBand("TrayBand", root, 22f);
-            hud._boosterBand = UiKit.TrayBand("BoosterBand", root, 22f);
+            // The tray (spec 005 FR-020, §6.1): one parchment tray across the screen behind the slots, the booster boxes and
+            // the decks; it takes no taps.
+            hud._tray = UiKit.TrayPanel("Tray", root);
+            hud._tray.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
 
             hud.SlotArea = UiFactory.CreateRect("SlotArea", root);
-            hud.TrayArea = UiFactory.CreateRect("TrayArea", root);
             hud.BoosterArea = UiFactory.CreateRect("BoosterArea", root);
+            hud.TrayArea = UiFactory.CreateRect("TrayArea", root);
 
             // A short message over the board's lower edge (a refused tap, a hint): a parchment pill with brown text.
             hud._toastPill = UiKit.Paper("Toast", root, b => b.Height / 2f, DesignTokens.Garden.OutlineWidth, 5f, raycast: false);
@@ -127,61 +127,137 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// Places every region for the coming level (data-model rules 1–3). A Hard or Super Hard badge takes a line
-        /// under the sign, and the booster bar (and its band of parchment) is left out before any booster unlocks. Call it
-        /// before the board, slots and tray are built.
+        /// Places every region with the last level's entries and stacks (four stacks and no entry under the board before
+        /// the first level); see <see cref="Layout(bool, bool, IReadOnlyCollection{EntrySide}, int)"/>.
         /// </summary>
-        public void Layout(bool hasBadge, bool hasBoosters)
+        public void Layout(bool hasBadge, bool hasBoosters) => Layout(hasBadge, hasBoosters, _entrySides, _stackCount);
+
+        /// <summary>
+        /// Places every region for the coming level (data-model rules 1–3; spec 005 §6.1): a Hard or Super Hard badge takes
+        /// a line under the sign; the booster row and its band of parchment are left out before any booster unlocks; a
+        /// bottom Garden Entry among <paramref name="entrySides"/> gets the entry strip under the board for its arch; the pod
+        /// row holds one deck per Source stack (<paramref name="stackCount"/>). Call it before the board, slots and tray
+        /// are built.
+        /// </summary>
+        public void Layout(bool hasBadge, bool hasBoosters, IReadOnlyCollection<EntrySide> entrySides, int stackCount)
         {
-            (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            GameplayRegions r = ScreenLayout.Gameplay(w, h, insets, hasBadge, hasBoosters);
-            float u = DesignTokens.ScaleFor(w, h);
+            _hasBadge = hasBadge;
+            _hasBoosters = hasBoosters;
+            _entrySides = entrySides;
+            _stackCount = Mathf.Max(0, stackCount);
+            ReferenceGameplayRegions r = Compute(WaitingSlots.DefaultCount);
+            _regions = r;
+            (float w, float h, Insets _) = UiKit.ScreenFrame();
             var screen = new Box(0f, 0f, w, h);
 
-            // The top bar (frame 7, §3.3, §4.1): Pause, the sign and the speed pill, sized like the reference's.
+            // The top bar (§6.1): Pause, the sign and the speed pill at the reference's sizes.
             UiKit.PlaceBox(_topBar, r.TopBar, screen);
-            float bar = r.TopBar.Height;
-            UiKit.PlaceBox(_pause, new Box(r.TopBar.Left, r.TopBar.Top, r.TopBar.Left + bar, r.TopBar.Bottom), r.TopBar);
-            UiKit.PlaceBox(_levelPill, Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Mathf.Min(bar * SignWidth, r.TopBar.Width - (bar * 4f)), bar * SignHeight), r.TopBar);
-            UiKit.PlaceBox(_speed, new Box(r.TopBar.Right - (bar * SpeedWidth), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f)), r.TopBar);
+            UiKit.PlaceBox(_pause, r.Pause, r.TopBar);
+            UiKit.PlaceBox(_levelPill, r.Sign, r.TopBar);
+            UiKit.PlaceBox(_speed, r.Speed, r.TopBar);
 
-            // HARD or SUPER HARD hangs from the sign's lower edge.
-            UiKit.PlaceBox((RectTransform)_badge.transform, r.Badge.IsEmpty ? r.Badge : r.Badge.Inset(0f, 2f * u).Offset(0f, -10f * u), screen);
-            UiKit.PlaceBox(BoardArea, r.Board, screen);
+            // HARD or SUPER HARD under the sign; the board's lawn and its entry strip.
+            UiKit.PlaceBox((RectTransform)_badge.transform, r.Badge, screen);
+            UiKit.PlaceBox(BoardArea, r.BoardArea, screen);
             _boardBox = r.Board;
-            LayTray(r, hasBoosters, u, h, screen);
-            UiKit.PlaceBox(SlotArea, r.Slots, screen);
-            UiKit.PlaceBox(TrayArea, r.Tray, screen);
-            UiKit.PlaceBox(BoosterArea, r.Boosters, screen);
+
+            // The tray from the entry strip to past the bottom of the screen, with a groove at each separator's middle.
+            var frame = new Box(r.Tray.Left, r.Tray.Top, r.Tray.Right, r.Tray.Bottom + r.TrayRadius);
+            UiKit.PlaceBox((RectTransform)_tray.transform, frame, screen);
+            var cuts = new List<float>();
+            foreach (Box line in new[] { r.SeparatorTop, r.SeparatorBottom })
+            {
+                if (!line.IsEmpty)
+                {
+                    cuts.Add(line.CenterY);
+                }
+            }
+
+            _tray.Set(frame, r.W, r.TrayRadius, cuts);
+            UiKit.PlaceBox(SlotArea, r.SlotRow, screen);
+            UiKit.PlaceBox(TrayArea, r.PodRow, screen);
+            UiKit.PlaceBox(BoosterArea, hasBoosters ? r.BoosterRow : r.SlotRow, screen);
             BoosterArea.gameObject.SetActive(hasBoosters);
             LayToast();
         }
 
-        /// <summary>
-        /// The tray's parchment (the playtest's <c>LevelScreen.TrayBoard</c>): the frame from 14 units above the slots to
-        /// past the bottom of the screen, 8 units in from the safe area's sides; inside it, 7 units in, the slot band down to
-        /// 30% of the gap between slots and tray, then the tray band and the booster band, parted by 8-unit grooves.
-        /// </summary>
-        private void LayTray(GameplayRegions r, bool hasBoosters, float u, float screenHeight, Box screen)
+        /// <summary>The reference regions for this level's badge, boosters, entries and stacks with <paramref name="slotCount"/> Waiting Slots.</summary>
+        private ReferenceGameplayRegions Compute(int slotCount)
         {
-            float margin = 7f * u;
-            float groove = 4f * u;
-            var board = new Box(r.Safe.Left + (8f * u), r.Slots.Top - (14f * u), r.Safe.Right - (8f * u), screenHeight + (80f * u));
-            UiKit.PlaceBox(_trayFrame, board, screen);
-            float left = board.Left + margin;
-            float right = board.Right - margin;
-            float seam = r.Slots.Bottom + ((r.Tray.Top - r.Slots.Bottom) * 0.3f);
-            UiKit.PlaceBox(_slotBand, new Box(left, board.Top + margin, right, seam - groove), screen);
-            _boosterBand.gameObject.SetActive(hasBoosters);
-            if (!hasBoosters)
+            (float w, float h, Insets insets) = UiKit.ScreenFrame();
+            return ScreenLayout.ReferenceGameplay(w, h, insets, _entrySides, _stackCount, slotCount, _hasBoosters, _hasBadge);
+        }
+
+        /// <summary>
+        /// The plates of <paramref name="count"/> Waiting Slots (the sixth one too once Extra Slot opened it) in
+        /// <see cref="SlotArea"/>'s top-down canvas units: portrait plates spread evenly across the row (§6.1).
+        /// </summary>
+        public IReadOnlyList<Box> SlotCells(int count)
+        {
+            ReferenceGameplayRegions r = Compute(Mathf.Max(1, count));
+            return Local(r.Slots, r.SlotRow);
+        }
+
+        /// <summary>One deck box per Source stack in <see cref="TrayArea"/>'s top-down canvas units (§6.1).</summary>
+        public IReadOnlyList<Box> DeckCells(int stackCount)
+        {
+            if (_regions == null || stackCount != _stackCount)
             {
-                UiKit.PlaceBox(_trayBand, new Box(left, seam + groove, right, board.Bottom), screen);
-                return;
+                // A level laid out without its stacks: the decks for this many, in the same pod row.
+                _stackCount = Mathf.Max(0, stackCount);
+                _regions = Compute(WaitingSlots.DefaultCount);
             }
 
-            float seam2 = r.Tray.Bottom + ((r.Boosters.Top - r.Tray.Bottom) * 0.5f);
-            UiKit.PlaceBox(_trayBand, new Box(left, seam + groove, right, seam2 - groove), screen);
-            UiKit.PlaceBox(_boosterBand, new Box(left, seam2 + groove, right, board.Bottom), screen);
+            return Local(_regions.Decks, _regions.PodRow);
+        }
+
+        /// <summary>The four booster boxes in <see cref="BoosterArea"/>'s top-down canvas units (§6.1); none without boosters.</summary>
+        public IReadOnlyList<Box> BoosterCells()
+        {
+            if (_regions == null || !_hasBoosters)
+            {
+                return Array.Empty<Box>();
+            }
+
+            return Local(_regions.Boosters, _regions.BoosterRow);
+        }
+
+        /// <summary>
+        /// The board's layout in <see cref="BoardArea"/>'s own top-down canvas units (<paramref name="local"/> is its box):
+        /// <see cref="ReferenceGameplayRegions.FitBoard"/>, the stone border at most 0.86 W wide and a bottom entry's arch
+        /// in the entry strip (§6.1).
+        /// </summary>
+        public BoardLayout FitBoard(Box local, int width, int height, IReadOnlyList<EntryDef> entries)
+        {
+            if (_regions == null || _regions.BoardArea.Width <= 0f)
+            {
+                return BoardLayout.Fit(local, width, height, entries);
+            }
+
+            // FitBoard reads only the board area (the safe width from the board's top to the entry strip's bottom) and W:
+            // the same regions in the board area's own units.
+            ReferenceGameplayRegions r = _regions;
+            float scale = local.Width / r.BoardArea.Width;
+            ReferenceGameplayRegions inArea = r with
+            {
+                Safe = local,
+                W = r.W * scale,
+                Board = new Box(local.Left, local.Top, local.Right, local.Top),
+                EntryStrip = new Box(local.Left, local.Bottom, local.Right, local.Bottom),
+            };
+            return inArea.FitBoard(width, height, entries);
+        }
+
+        /// <summary>Screen boxes in the top-down canvas units of a rect placed at <paramref name="area"/>.</summary>
+        private static IReadOnlyList<Box> Local(IReadOnlyList<Box> boxes, Box area)
+        {
+            var local = new Box[boxes.Count];
+            for (int i = 0; i < boxes.Count; i++)
+            {
+                local[i] = UiKit.ToLocal(boxes[i], area);
+            }
+
+            return local;
         }
 
         /// <summary>The toast: 96 units tall, as wide as its text plus 80 units (at most the board), 16 units above the board's bottom.</summary>
