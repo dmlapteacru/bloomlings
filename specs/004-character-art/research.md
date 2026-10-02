@@ -289,7 +289,13 @@ The owner asked to try a model made with Meshy AI (an FBX file) in the game, as 
   cannot load FBX files.
 - **Source.** `tools/artgen/models/leafling.fbx`, read by a minimal binary FBX reader (`Fbx.cs`: vertices, polygons,
   normals). It has no texture or colors, so `Leafling.cs` paints it: pale green skin on a body core of ellipsoids and
-  capsules, green leaves elsewhere, and eyes, mouth, brows and blush as decals measured on the sculpted face. It
+  capsules, and green leaves elsewhere.
+- **A level face.** The sculpted face is lopsided: Meshy put the left eye about a third of an eye higher and larger
+  than the right, and the eyes, brows and mouth left of the head's center, while the head and body are level (the
+  owner asked why the face looked crooked, 2026-10-02). The tool smooths the sculpted features onto a quadratic fitted
+  to the rest of the face (the head is flattened in front and turned a little to its left), then sculpts and paints a
+  level face centered on the head: raised glossy eyes at x = ±0.115, a recessed open smile with a tongue, short brows
+  and blush. The render turn is 0.16 rad. It
   rasterizes 660 thousand triangles at 3 × 3 samples per pixel with a soft shadow map, screen-space ambient occlusion
   and the heroes' warm key and golden back light (about 5 seconds).
 - **Where.** Home only, as a guest: early on beside the group's pedestal (the group takes the left 80% of the stage),

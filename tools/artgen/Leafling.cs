@@ -22,7 +22,7 @@ namespace Bloomlings.ArtGen
 
         private static readonly V3 Key = new V3(-0.45, 0.7, 0.7).Normalized;
         private static readonly V3 Back = new V3(0.25, 0.45, -1).Normalized;
-        private static readonly Rotation Turn = new Rotation(0.22);
+        private static readonly Rotation Turn = new Rotation(0.16);
 
         /// <summary>The model file, relative to the repository root.</summary>
         public const string ModelPath = "tools/artgen/models/leafling.fbx";
@@ -143,8 +143,242 @@ namespace Bloomlings.ArtGen
                 model.N[i] = new V3(n.X, n.Z, -n.Y).Normalized;
             }
 
+            Reface(model);
             cached = model;
             return model;
+        }
+
+        // ---- The face ----
+        //
+        // The sculpted face is lopsided: Meshy put the left eye higher and larger than the right, and the eyes, brows and
+        // mouth left of the head's center, while the head and body are level. So the tool smooths the sculpted features
+        // away along the head's own curve and gives the Leafling a level face, centered on the head: two raised glossy
+        // eyes, a recessed open smile, short brows and blush (Paint draws their colors on the same places).
+
+        /// <summary>The old sculpted features (front view): eyes, mouth and brows, each smoothed away.</summary>
+        private static readonly (double X, double Y, double Rx, double Ry)[] OldFeatures =
+        {
+            (-0.145, 0.47, 0.07, 0.074),
+            (0.083, 0.432, 0.066, 0.08),
+            (-0.026, 0.36, 0.092, 0.064),
+            (-0.15, 0.577, 0.065, 0.035),
+            (0.06, 0.548, 0.058, 0.042),
+        };
+
+        /// <summary>The head's front (front view), where the smooth face surface is fitted.</summary>
+        private static readonly (double X, double Y, double Rx, double Ry) FaceArea = (-0.03, 0.45, 0.3, 0.19);
+
+        /// <summary>The new eyes: centers and radii (front view), mirrored about the head's center line x = 0.</summary>
+        private static readonly (double X, double Y, double Rx, double Ry)[] Eyes = { (-0.115, 0.452, 0.06, 0.068), (0.115, 0.452, 0.06, 0.068) };
+
+        private const double MouthX = 0;
+        private const double MouthY = 0.355;
+
+        /// <summary>Whether a point (front view) is inside the open mouth: a smile, flat-curved on top and round below.</summary>
+        private static bool InMouth(double x, double y) =>
+            Ellipse(x - MouthX, y - MouthY, 0.058, 0.042) < 1 && y < 0.37 + (3 * (x - MouthX) * (x - MouthX));
+
+        /// <summary>The new face's relief over the smooth head surface: raised eyes and a recessed mouth.</summary>
+        private static double Relief(double x, double y)
+        {
+            double z = 0;
+            foreach ((double ex, double ey, double rx, double ry) in Eyes)
+            {
+                double e = Ellipse(x - ex, y - ey, rx, ry);
+                if (e < 1)
+                {
+                    double k = 1 - (e * e);
+                    z += 0.012 * k * k;
+                }
+            }
+
+            // The mouth: recessed in its own smile shape, with soft edges.
+            double m = Ellipse(x - MouthX, y - MouthY, 0.058, 0.042);
+            double top = y - (0.37 + (3 * (x - MouthX) * (x - MouthX)));
+            if (m < 1.1 && top < 0.006)
+            {
+                z -= 0.014 * (1 - Sdf.Smoothstep(0.8, 1.1, m)) * (1 - Sdf.Smoothstep(-0.008, 0.006, top));
+            }
+
+            return z;
+        }
+
+        /// <summary>How much of a point (front view) lies on an old sculpted feature: 1 inside one, 0 clear of them all.</summary>
+        private static double OnOldFeature(double x, double y)
+        {
+            double w = 0;
+            foreach ((double fx, double fy, double rx, double ry) in OldFeatures)
+            {
+                w = Math.Max(w, 1 - Sdf.Smoothstep(1, 1.3, Ellipse(x - fx, y - fy, rx, ry)));
+            }
+
+            return w;
+        }
+
+        private static void Reface(Model m)
+        {
+            var vertexNormal = new V3[m.P.Length];
+            for (int i = 0; i < m.T.Length; i++)
+            {
+                vertexNormal[m.T[i]] = vertexNormal[m.T[i]] + m.N[i];
+            }
+
+            // The head's front as a height map: the front-most skin in 0.01 cells (one sample per cell, so dense areas do
+            // not outweigh sparse ones). A quadratic height z = f(x, y) is fitted to the cells of the face clear of the old
+            // features: the head is flattened in front and turned a little to its left, and the fit follows it.
+            const double cell = 0.01;
+            const int cols = 70;
+            const int rows = 40;
+            var front = new double[cols * rows];
+            Array.Fill(front, double.NegativeInfinity);
+            for (int i = 0; i < m.P.Length; i++)
+            {
+                V3 p = m.P[i];
+                int cx = (int)Math.Floor((p.X + 0.35) / cell);
+                int cy = (int)Math.Floor((p.Y - 0.25) / cell);
+                if (cx >= 0 && cy >= 0 && cx < cols && cy < rows && p.Z > 0 && Core(p) <= 0.01)
+                {
+                    front[(cy * cols) + cx] = Math.Max(front[(cy * cols) + cx], p.Z);
+                }
+            }
+
+            var ata = new double[6, 6];
+            var atb = new double[6];
+            var basis = new double[6];
+            for (int cy = 0; cy < rows; cy++)
+            {
+                for (int cx = 0; cx < cols; cx++)
+                {
+                    double z = front[(cy * cols) + cx];
+                    double x = -0.35 + ((cx + 0.5) * cell);
+                    double y = 0.25 + ((cy + 0.5) * cell);
+                    if (double.IsNegativeInfinity(z) || z < 0.1 || Ellipse(x - FaceArea.X, y - FaceArea.Y, FaceArea.Rx, FaceArea.Ry) > 1 || OnOldFeature(x, y) > 0)
+                    {
+                        continue;
+                    }
+
+                    Quadratic(x, y, basis);
+                    for (int a = 0; a < 6; a++)
+                    {
+                        atb[a] += basis[a] * z;
+                        for (int b = 0; b < 6; b++)
+                        {
+                            ata[a, b] += basis[a] * basis[b];
+                        }
+                    }
+                }
+            }
+
+            double[] q = Solve(ata, atb);
+            double Smooth(double x, double y)
+            {
+                Quadratic(x, y, basis);
+                double z = 0;
+                for (int a = 0; a < 6; a++)
+                {
+                    z += q[a] * basis[a];
+                }
+
+                return z;
+            }
+
+            // The face skin: the old features flattened onto the smooth surface, then the new relief added.
+            const double h = 0.002;
+            var moved = new V3?[m.P.Length];
+            for (int i = 0; i < m.P.Length; i++)
+            {
+                V3 p = m.P[i];
+                if (Ellipse(p.X - FaceArea.X, p.Y - FaceArea.Y, FaceArea.Rx, FaceArea.Ry) > 1.1 || Core(p) > 0.03 || p.Z < Smooth(p.X, p.Y) - 0.1)
+                {
+                    continue;
+                }
+
+                double w = OnOldFeature(p.X, p.Y);
+                double relief = Relief(p.X, p.Y);
+                if (w <= 0 && relief == 0)
+                {
+                    continue;
+                }
+
+                double smooth = Smooth(p.X, p.Y);
+                m.P[i] = new V3(p.X, p.Y, Sdf.Mix(p.Z, smooth, w) + relief);
+                var smoothNormal = new V3(-(Smooth(p.X + h, p.Y) - Smooth(p.X - h, p.Y)) / (2 * h), -(Smooth(p.X, p.Y + h) - Smooth(p.X, p.Y - h)) / (2 * h), 1).Normalized;
+                V3 n = V3.Mix(vertexNormal[i].Normalized, smoothNormal, w).Normalized;
+                double rx = (Relief(p.X + h, p.Y) - Relief(p.X - h, p.Y)) / (2 * h);
+                double ry = (Relief(p.X, p.Y + h) - Relief(p.X, p.Y - h)) / (2 * h);
+                moved[i] = (n - new V3(rx, ry, 0)).Normalized;
+            }
+
+            for (int i = 0; i < m.T.Length; i++)
+            {
+                if (moved[m.T[i]] is V3 normal)
+                {
+                    m.N[i] = normal;
+                }
+            }
+        }
+
+        /// <summary>The terms of a quadratic height in (x, y), centered on the face.</summary>
+        private static void Quadratic(double x, double y, double[] b)
+        {
+            double u = (x - FaceArea.X) / FaceArea.Rx;
+            double v = (y - FaceArea.Y) / FaceArea.Ry;
+            b[0] = 1;
+            b[1] = u;
+            b[2] = v;
+            b[3] = u * u;
+            b[4] = u * v;
+            b[5] = v * v;
+        }
+
+        /// <summary>Solves a small linear system by Gaussian elimination with partial pivoting.</summary>
+        private static double[] Solve(double[,] a, double[] b)
+        {
+            int n = b.Length;
+            var m = (double[,])a.Clone();
+            var r = (double[])b.Clone();
+            for (int col = 0; col < n; col++)
+            {
+                int pivot = col;
+                for (int row = col + 1; row < n; row++)
+                {
+                    if (Math.Abs(m[row, col]) > Math.Abs(m[pivot, col]))
+                    {
+                        pivot = row;
+                    }
+                }
+
+                for (int k = 0; k < n; k++)
+                {
+                    (m[col, k], m[pivot, k]) = (m[pivot, k], m[col, k]);
+                }
+
+                (r[col], r[pivot]) = (r[pivot], r[col]);
+                for (int row = col + 1; row < n; row++)
+                {
+                    double f = m[row, col] / m[col, col];
+                    for (int k = col; k < n; k++)
+                    {
+                        m[row, k] -= f * m[col, k];
+                    }
+
+                    r[row] -= f * r[col];
+                }
+            }
+
+            var x = new double[n];
+            for (int row = n - 1; row >= 0; row--)
+            {
+                double s = r[row];
+                for (int k = row + 1; k < n; k++)
+                {
+                    s -= m[row, k] * x[k];
+                }
+
+                x[row] = s / m[row, row];
+            }
+
+            return x;
         }
 
         /// <summary>Model space to view space: turned about the vertical, tilted 6° toward the viewer (z toward the camera).</summary>
@@ -152,6 +386,7 @@ namespace Bloomlings.ArtGen
         {
             (double x, double z) = Turn.Apply(p.X, p.Z);
             const double tilt = 0.105;
+
             double y = (p.Y * Math.Cos(tilt)) - (z * Math.Sin(tilt));
             double zz = (p.Y * Math.Sin(tilt)) + (z * Math.Cos(tilt));
             return new V3(x, y, zz);
@@ -361,25 +596,25 @@ namespace Bloomlings.ArtGen
             double gloss = Sdf.Mix(0.18, 0.3, leafiness);
 
             // The face: only on the front of the head (the mouth's inner surfaces face any way).
-            bool face = p.Z > 0.12 && p.Y > 0.25 && p.Y < 0.62;
+            bool face = p.Z > 0.05 && p.Y > 0.25 && p.Y < 0.62 && Ellipse(p.X - FaceArea.X, p.Y - FaceArea.Y, FaceArea.Rx, FaceArea.Ry) < 1.1;
             bool front = face && n.Z > 0.1;
             if (face)
             {
-                // Blush on the cheeks. The sculpted face is turned a little to its left, so its features are not mirrored.
-                foreach ((double cx, double cy) in new[] { (-0.215, 0.37), (0.15, 0.355) })
+                // Blush on the cheeks.
+                foreach (double sx in new[] { -1.0, 1.0 })
                 {
-                    double d = Ellipse(p.X - cx, p.Y - cy, 0.045, 0.03);
-                    c = V3.Mix(c, Sdf.Linear(1, 0.6, 0.6), front ? 0.55 * (1 - Sdf.Smoothstep(0.4, 1, d)) : 0);
+                    double d = Ellipse(p.X - (sx * 0.19), p.Y - 0.372, 0.042, 0.028);
+                    c = V3.Mix(c, Sdf.Linear(1, 0.6, 0.6), front ? 0.55 * (1 - Sdf.Smoothstep(0.4, 1, d)) * (1 - leafiness) : 0);
                 }
 
-                // Brows: the sculpted ridges above the eyes.
-                if (front && (Tilted(p.X + 0.15, p.Y - 0.577, 0.25, 0.04, 0.009) < 1 || Tilted(p.X - 0.06, p.Y - 0.551, -0.62, 0.032, 0.008) < 1))
+                // Short brows above the eyes, their outer ends a little lower.
+                if (front && (Tilted(p.X + 0.115, p.Y - 0.556, 0.15, 0.036, 0.008) < 1 || Tilted(p.X - 0.115, p.Y - 0.556, -0.15, 0.036, 0.008) < 1))
                 {
                     c = Sdf.Linear(0.3, 0.45, 0.18);
                 }
 
-                // Eyes: dark, with two highlights each.
-                foreach ((double cx, double cy, double rx, double ry) in new[] { (-0.145, 0.47, 0.055, 0.058), (0.083, 0.432, 0.05, 0.063) })
+                // Eyes: dark and glossy, with two highlights each (the light comes from the upper left).
+                foreach ((double cx, double cy, double rx, double ry) in Eyes)
                 {
                     double ex = p.X - cx;
                     double ey = p.Y - cy;
@@ -387,19 +622,19 @@ namespace Bloomlings.ArtGen
                     {
                         c = Sdf.Linear(0.16, 0.1, 0.08);
                         gloss = 0.45;
-                        if (Ellipse(ex + (rx * 0.32), ey - (ry * 0.32), rx * 0.3, rx * 0.3) < 1 || Ellipse(ex - (rx * 0.3), ey + (ry * 0.38), rx * 0.13, rx * 0.13) < 1)
+                        if (Ellipse(ex + (rx * 0.34), ey - (ry * 0.36), rx * 0.32, rx * 0.32) < 1 || Ellipse(ex - (rx * 0.38), ey + (ry * 0.36), rx * 0.14, rx * 0.14) < 1)
                         {
                             c = new V3(1, 1, 1);
                         }
                     }
                 }
 
-                // The open smiling mouth, under its curved upper lip, with a tongue.
-                if (Ellipse(p.X + 0.024, p.Y - 0.36, 0.066, 0.044) < 1 && p.Y < 0.386 + (5 * (p.X + 0.03) * (p.X + 0.03)))
+                // The open smile, with a tongue.
+                if (InMouth(p.X, p.Y))
                 {
                     c = Sdf.Linear(0.36, 0.1, 0.12);
                     gloss = 0.1;
-                    if (Ellipse(p.X + 0.04, p.Y - 0.337, 0.036, 0.019) < 1)
+                    if (Ellipse(p.X - MouthX, p.Y - (MouthY - 0.024), 0.036, 0.017) < 1)
                     {
                         c = Sdf.Linear(0.95, 0.47, 0.53);
                     }
