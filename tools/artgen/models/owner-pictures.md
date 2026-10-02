@@ -14,7 +14,7 @@
 | `client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/sprig.png`, `bloom.png`, `drop.png`, `twig.png` | the sheet's top row (standard poses) |
 | `client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/sprig-cheer.png`, `bloom-cheer.png`, `drop-cheer.png`, `twig-cheer.png` | the sheet's middle row (celebration poses) |
 | `client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/group.png` | the sheet's bottom row (the group) |
-| `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/home.jpg` | `02_Home_Background_Garden_Diorama.png` |
+| `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/home.jpg` | was `02_Home_Background_Garden_Diorama.png`; since the owner's layered Home (2026-10-02, `bloomlings_home_assets.zip`) it is that pack's garden layer, recorded with the other layers and the animated heroes in `tools/heroanim/SOURCE.md` |
 | `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/gameplay-daylight.jpg` | `03_Gameplay_Background_Day_Garden.png` |
 | `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/gameplay-pond.jpg` | `04_Gameplay_Background_Lily_Pond.png` |
 | `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/gameplay-orchard.jpg` | `05_Gameplay_Background_Fruit_Orchard.png` |

@@ -67,3 +67,6 @@ playtest/preview/out/
 tools/artgen/bin/
 tools/artgen/obj/
 tools/artgen/out/
+
+# tools/heroanim (npm packages; `npm ci` restores them)
+tools/heroanim/node_modules/

@@ -1,0 +1,85 @@
+{
+ "inputs": {
+  "01_home_bg_back.png": "efdd5c3d5e1b9e7acf1a6ec2582b86876997f4a5bf971840b85b66e0104ed3c4",
+  "02_home_fountain_back.png": "f617241da585f02a7746439664e70a158039a61ef43e7bb72c0e558591e00645",
+  "03_home_fountain_front.png": "c6a04ac7705fcb1b1b03b70730f0500263ed8d90f9f70f78f00d736c77f17767",
+  "04_home_soft_shadow.png": "842696d90d0b83b6f8dd3b578691e469436df4a22224c65034833c72f308130f",
+  "05_home_petals_overlay.png": "91f7a470ab4feb0171c53dec8358eec0fc1b1d1900bc5c619fd03ae84063c71d"
+ },
+ "data": "client/Assets/Bloomlings/UI/Design/HomeLayersData.cs",
+ "dataSha256": "8d9731d6bfa37a65a8af1dd6c25342d6ef0ed75e6833caac5f97d3ffc8db3343",
+ "outputs": [
+  {
+   "name": "home.jpg",
+   "box": {
+    "x": 0,
+    "y": 0,
+    "w": 852,
+    "h": 1846
+   },
+   "from": "01_home_bg_back.png",
+   "sha256": "27df5cb4f64c17ddf91ef8910454ac8edef5da15b8669298e8acc2d9173ba3db",
+   "bytes": 480694
+  },
+  {
+   "name": "home-fountain-back.png",
+   "box": {
+    "x": 0,
+    "y": 700,
+    "w": 852,
+    "h": 540
+   },
+   "from": "02_home_fountain_back.png",
+   "sha256": "110abacc314a87f240cfc8c03445f8704616e9a6f7fcf3212b5bc79c3f025ed6",
+   "bytes": 748864
+  },
+  {
+   "name": "home-fountain-front.png",
+   "box": {
+    "x": 0,
+    "y": 987,
+    "w": 852,
+    "h": 342
+   },
+   "from": "03_home_fountain_front.png",
+   "sha256": "7dbbea2046584e2cdfd187b577262c0abce57ba51bfeb0d5188f1f7234629190",
+   "bytes": 447480
+  },
+  {
+   "name": "home-petals.png",
+   "box": {
+    "x": 13,
+    "y": 166,
+    "w": 827,
+    "h": 1048
+   },
+   "from": "05_home_petals_overlay.png",
+   "sha256": "ed14d480944de3e64cc3b179cf49677e2758f9f3ddf23b5e1f1bcd78ac83a655",
+   "bytes": 348337
+  },
+  {
+   "name": "home-lotus.png",
+   "box": {
+    "x": 294,
+    "y": 835,
+    "w": 269,
+    "h": 159
+   },
+   "from": "02_home_fountain_back.png (the lotus)",
+   "sha256": "c9300a808592792bc0a8d25221f9be56279d4e13490395f15beaa39489d71b8b",
+   "bytes": 76413
+  },
+  {
+   "name": "home-shadow.png",
+   "box": {
+    "x": 0,
+    "y": 918,
+    "w": 410,
+    "h": 175
+   },
+   "from": "04_home_soft_shadow.png (the front left shadow)",
+   "sha256": "b5f9826dbdefb6e3c70e8eac93afd306c23844fd669f6a4f7aadb5225b03e345",
+   "bytes": 103064
+  }
+ ]
+}

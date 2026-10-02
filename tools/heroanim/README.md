@@ -1,0 +1,36 @@
+# tools/heroanim
+
+Pre-renders the owner's animated FBX heroes into flat frame pictures for Home and the win, and prepares the owner's
+layered Home picture (spec 005 FR-028). The game never loads a 3D model (constitution VII): both builds play the frames
+(`HeroMotion`, `HomeLayers` in the design kit). Source record and processing: `SOURCE.md`.
+
+Requires Node 22 and Chromium for Playwright (`PLAYWRIGHT_BROWSERS_PATH`; the cloud sessions have it in
+`/opt/pw-browsers`).
+
+```sh
+cd tools/heroanim
+npm ci                               # three 0.160.0, playwright-core 1.56.1, pngjs, jpeg-js
+node bake.mjs                        # all four heroes, about 2.5 minutes; --only <family> re-bakes one
+node layers.mjs <folder>             # the owner's Home layers (01_home_bg_back.png … 05_home_petals_overlay.png)
+node check.mjs                       # must pass before committing hero frames or Home layers (no npm packages needed)
+```
+
+| File | What |
+|---|---|
+| `heroes.json` | the bake: cell, foot line, frames per second, camera, light, blend times, and per hero its model, its two clips and its turn |
+| `models/*.fbx` | the owner's models (`SOURCE.md`) |
+| `bake.mjs`, `page.html`, `serve.mjs`, `png8.mjs` | the renderer (three.js in headless Chromium), the fit and crop, the palette PNG writer |
+| `layers.mjs` | the Home layers: crops, the lotus cut-out, the shadow, the JPEG garden |
+| `check.mjs` | hashes of every output against `manifest.json` and `layers.json`, the generated kit files, the models and `heroes.json` |
+| `manifest.json`, `layers.json` | what the last bake and the last layer run wrote |
+
+Outputs:
+- `client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/<family>-<idle|react>-<NN>.png` and the folder's
+  `manifest.json` (the originality test's list, `client/THIRD_PARTY_NOTICES.md`);
+- `client/Assets/Bloomlings/UI/Design/HeroMotionData.cs` (per frame: its crop in the 448 × 504 cell and the head points
+  the hats follow);
+- `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/home*.{jpg,png}` and
+  `client/Assets/Bloomlings/UI/Design/HomeLayersData.cs` (the layers' boxes).
+
+The bake is deterministic on one machine (the same hashes twice); another GPU emulation may differ in the last bits, so
+`check.mjs` compares the committed files with the manifest rather than re-rendering them.
