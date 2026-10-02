@@ -103,6 +103,39 @@ Folder `client/Assets/Bloomlings/Art/Decor/Resources/Decor/`:
 | D7 | `button-leaves.png` | 256 × 256 | the small sprig with a white flower on the top-left corner of the Play and Next buttons; mirrored and turned for the bottom-right corner | `ui.deco.garden` |
 | D8 | `logo-leaves.png` | 512 × 512 | only if the logo picture (C1) does not come: the leaf cluster at the left end of the drawn wordmark; mirrored for the right | `ui.logo.wood` |
 
+## G. Gameplay characters and variant icons (owner's request, 2026-10-02)
+
+The owner makes these next, in the style of their heroes (soft 3D volume, gloss, light from the upper left), as
+transparent PNG files sent in the chat; the session cuts, sizes and wires them.
+
+**G1–G8: the eight variant characters** — the small Bloomlings that walk from the arch to their tiles (spec 004
+walkers) and fill the Bloomlings sheet. One per variant (not one per family): the two variants of a family differ in
+**shape**, not only color (spec 001 FR-005, research D10). 512 × 512, full body, facing the viewer, happy, feet about
+90% down, no ground or shadow. Optional: a second "step" pose for a walk cycle.
+
+| # | Variant | Family | Look | Body color |
+|---|---|---|---|---|
+| G1 | Leaf | Sprig | Sprig with a fresh leaf, bright lime | `#99D323` |
+| G2 | Moss | Sprig | a puffy moss-cushion Sprig, teal | `#0FB198` |
+| G3 | Flower | Bloom | Bloom, hot pink, five petals | `#FF3B89` |
+| G4 | Violet Bud | Bloom | a closed tulip bud with green sepals, purple | `#7F3CC4` |
+| G5 | Water | Drop | a pointed drop, blue | `#3485E7` |
+| G6 | Dew | Drop | a round dewdrop with a sparkle, light cyan | `#61DAE1` |
+| G7 | Wood | Twig | a little stump with rings on its top, brown | `#9B4904` |
+| G8 | Acorn | Twig | an acorn in its cap, amber | `#CF7F20` |
+
+**G9–G16: the eight variant icons** — on pods, Waiting Slots and the jam card (the reference's "Target Variants"
+strip). 512 × 512, the icon only (the game draws the colored tile), glossy with a dark outline like the booster icons,
+in a shade of its tile color: Leaf a leaf with a vein, Moss a round moss cap, Flower a pink flower with a yellow
+center, Violet Bud a purple bud, Water a pointed blue drop, Dew a light round droplet with a sparkle, Wood a stump or
+log slice with rings, Acorn an acorn.
+
+**G17–G24 (optional): simplified board gems** — the same eight shapes as flat gems with a thick dark outline and a
+highlight, 256 × 256, for the small board tiles (40–60 px on a phone). Without them the drawn gems stay.
+
+**Later (optional):** the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects
+(stone obstacle, gate, fountain, chest, statue, bridge, key, lock, the "?" mystery tile), all drawn in code today.
+
 ## E. Optional painted UI (only if the code-drawn versions should be replaced)
 
 All of these are drawn in code today (contracts/look.md) and need no picture: the wooden sign plank (9-slice,
