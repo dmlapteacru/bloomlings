@@ -156,7 +156,7 @@ namespace Bloomlings.Client.Gameplay.Workers
             }
             if (hero && picture != null && outfit?.Hat != null)
             {
-                ShowHat(outfit.Hat, CharacterArt.HatOnHero(frame, family), frame);
+                ShowHat(outfit.Hat, CharacterArt.HatOnHero(frame, family, outfit.Hat.Shape), frame);
             }
             else
             {
@@ -164,17 +164,28 @@ namespace Bloomlings.Client.Gameplay.Workers
             }
         }
 
-        /// <summary>
-        /// A hat on a 3D hero's head in full color (the playtest's <c>Visuals.Hero</c>): a darker outline of its own tint
-        /// (darkened 0.45), the fill, and a light top-left (lightened 0.35, at half alpha), baked into one sprite.
-        /// </summary>
+        /// <summary>A hat on a 3D hero's head in full color (<see cref="HeroHat"/>) in its box of the picture.</summary>
         private void ShowHat(CosmeticItem hat, Box box, Box frame)
+        {
+            (Sprite sprite, Color color) = HeroHat(hat);
+            _hat.sprite = sprite;
+            _hat.color = color;
+            UiFactory.Place(_hat.rectTransform, box.Left / frame.Width, 1f - (box.Bottom / frame.Height), box.Right / frame.Width, 1f - (box.Top / frame.Height));
+            _hat.gameObject.SetActive(true);
+        }
+
+        /// <summary>
+        /// The picture of a hat worn on a 3D hero (the still heroes and the animated ones, the playtest's
+        /// <c>Visuals.Hero</c>) and the color to draw it in: in full color, a darker outline of its own tint (darkened 0.45),
+        /// the fill, and a light top-left (lightened 0.35, at half alpha), baked into one sprite drawn in white; a shape
+        /// without a distance field is its plain accessory picture in its tint.
+        /// </summary>
+        public static (Sprite Sprite, Color Color) HeroHat(CosmeticItem hat)
         {
             string id = ShapeLibrary.CosmeticId(hat.Shape);
             if (!ShapeLibrary.Has(id))
             {
-                ShowAccessory(_hat, hat, box, frame);
-                return;
+                return (ProceduralSprites.Accessory(hat.Shape), Tint(hat));
             }
 
             Rgba tint = UiTheme.ToRgba(Tint(hat));
@@ -185,14 +196,11 @@ namespace Bloomlings.Client.Gameplay.Workers
                 (sdf, tint),
                 ((x, y) => Math.Max(sdf(x + 0.05f, y - 0.06f) + 0.07f, sdf(x, y) + 0.03f), tint.Lighten(0.35f).WithAlpha(0.5f)),
             };
-            _hat.sprite = ProceduralSprites.Baked(id + "/on_hero/" + tint.Hex, 128, layers);
-            _hat.color = Color.white;
-            UiFactory.Place(_hat.rectTransform, box.Left / frame.Width, 1f - (box.Bottom / frame.Height), box.Right / frame.Width, 1f - (box.Top / frame.Height));
-            _hat.gameObject.SetActive(true);
+            return (ProceduralSprites.Baked(id + "/on_hero/" + tint.Hex, 128, layers), Color.white);
         }
 
         /// <summary>The expression badge's disc: the cream of the round buttons with a <c>cream.line</c> outline.</summary>
-        private static Sprite BadgeDisc
+        internal static Sprite BadgeDisc
         {
             get
             {

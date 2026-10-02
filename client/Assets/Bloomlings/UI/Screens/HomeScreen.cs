@@ -49,11 +49,13 @@ namespace Bloomlings.Client.UI.Screens
     /// <item><description>Always shown: the cream round Settings button at the top left, the Petals pill at the top right
     /// (its green "+" opens the Store once unlocked, L12), the wooden logo across the top (the owner's logo picture when
     /// it exists), "Level N" on the wooden plaque and the big Play button in its wooden rim below it.</description></item>
-    /// <item><description>The diorama in the middle: the owner's Home picture alone, without heroes for now (the owner
-    /// deferred them on 2026-10-02, <see cref="HomeStage.ShowsHeroes"/>; they come back animated later); without the
-    /// picture, the drawn diorama (the stone ring, the lotus fountain and the four heroes), where once the Wardrobe is open
-    /// (L40) each wears its outfit and the player's hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left
-    /// front.</description></item>
+    /// <item><description>The diorama in the middle (<see cref="HeroPictures.Stage"/>): over the owner's Home picture,
+    /// its layered fountain with the four animated heroes where the reference stands them (spec 005 FR-028,
+    /// <see cref="HomeLayersView"/>: Sprig at the left, Bloom behind the lotus, Drop at the right back, Twig at the right
+    /// front), each idling and taking turns to react, reacting at once to a tap, with petals drifting over them; without
+    /// the picture, the drawn diorama (the stone ring, the lotus fountain and the four still heroes), where the player's
+    /// hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left front. Once the Wardrobe is open (L40) each hero
+    /// wears its outfit.</description></item>
     /// <item><description>Small cream round side buttons, each once unlocked, packed from the top of their column:
     /// Wardrobe, Collection and the profile avatar (frame, badge) at the left; the Daily Challenge (the sun, with a green
     /// check when done today, L50) and the Store (the lotus) at the right, with the rank pill "Rank #N >" and its gold
@@ -102,7 +104,9 @@ namespace Bloomlings.Client.UI.Screens
             root.SetAsFirstSibling();
             screen._backdrop = BackdropView.Create(root, BackdropScene.Home);
 
-            // The heroes of the drawn diorama (frames 2 and 3); none over the owner's Home picture for now.
+            // The heroes (frames 2 and 3): the owner's layered fountain with the animated heroes, or the drawn diorama.
+            // Everything built after it (the logo, the buttons, the plaque, Play, the pills) lies above it and keeps its
+            // taps; a tap on a hero elsewhere makes it react.
             screen._stage = HeroPictures.Stage("Stage", root);
 
             // The logo across the top, over the garden in both looks.
@@ -254,8 +258,8 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox((RectTransform)_petals.transform, r.Petals, screen);
             UiKit.PlaceBox(_logo, OwnerArt.LogoBox(r), screen);
 
-            // The drawn diorama's four heroes around the lotus fountain (frames 2 and 3; none over the owner's Home picture
-            // for now); once the Wardrobe is open each in its outfit, the player's hero at the left front.
+            // The four heroes (frames 2 and 3): on the owner's layered fountain, or around the drawn diorama's lotus
+            // fountain with the player's hero at the left front; once the Wardrobe is open each in its outfit.
             _stage.Place(r.Diorama, screen, BackdropScene.Home, outfitOf: look.Hero ? model.OutfitOf : null, front: look.Hero ? ProfileAvatar.HeroFamily : Family.Sprig);
 
             // The side columns, packed from the top: Wardrobe, Collection, the avatar; the Daily Challenge, the Store.

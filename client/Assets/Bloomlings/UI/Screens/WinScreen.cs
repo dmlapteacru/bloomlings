@@ -29,9 +29,11 @@ namespace Bloomlings.Client.UI.Screens
     /// it).</description></item>
     /// <item><description>Top to bottom: the wooden "Level / complete!" sign with white flower clusters, the finished
     /// picture large in its stone frame (a milestone level adds the "Milestone reached!" mark over its top edge), the
-    /// celebrating hero of the level's main family (pictures.md A7; else the group) on a stone pedestal overlapping the
-    /// picture's foot, with slowly turning light rays behind it, pink petals falling over the screen and, for the first
-    /// seconds, a light sprinkle of confetti in the level's colors around the sign.</description></item>
+    /// hero of the level's main family on a stone pedestal overlapping the picture's foot: the owner's animated hero
+    /// (spec 005 FR-028, <see cref="HeroMotionView"/>), its reaction playing from the moment the celebration shows and
+    /// then its idle for as long as it shows, else its still celebrating picture (pictures.md A7), else the group; with
+    /// slowly turning light rays behind it, pink petals falling over the screen and, for the first seconds, a light
+    /// sprinkle of confetti in the level's colors around the sign.</description></item>
     /// <item><description>On the pedestal's front, the Petals earned counting up on a cream plate with the lotus, a dropped
     /// booster on a cream tile at its left and the optional "×2" rewarded ad at its right; at the bottom, Next in its
     /// wooden rim, decorated and breathing.</description></item>

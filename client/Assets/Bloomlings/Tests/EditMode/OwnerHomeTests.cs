@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.UI.Screens;
 using Bloomlings.Core.Variants;
 using NUnit.Framework;
 using UnityEngine;
@@ -9,9 +10,9 @@ using UnityEngine;
 namespace Bloomlings.Client.Tests
 {
     /// <summary>
-    /// Home, the splash and the win over the owner's pictures (spec 005 FR-024, contracts/look.md §6.3, §6.4): no heroes
-    /// over the owner's Home picture for now, the logo picture sized by width, the splash taking the Home garden, the win's
-    /// painted stage under the hero, and the blank-faced twins used only when they match the hero.
+    /// Home, the splash and the win over the owner's pictures (spec 005 FR-024, FR-028, contracts/look.md §6.3, §6.4): the
+    /// animated heroes on the owner's layered Home, the logo picture sized by width, the splash taking the Home garden, the
+    /// win's painted stage under the hero, and the blank-faced twins used only when they match the hero.
     /// </summary>
     public class OwnerHomeTests
     {
@@ -23,12 +24,15 @@ namespace Bloomlings.Client.Tests
         };
 
         [Test]
-        public void OverTheOwnersHomePicture_HomeAndTheSplashShowNoHeroes_ForNow()
+        public void OverTheOwnersLayeredHome_HomeAndTheSplashStandTheAnimatedHeroes()
         {
-            // The owner deferred the heroes on Home on 2026-10-02 (they come back animated later): the owner's garden
-            // shows alone, and only the drawn stand-in keeps its heroes.
-            Assert.That(HomeStage.ShowsHeroes(ownerPicture: true), Is.False);
-            Assert.That(HomeStage.ShowsHeroes(ownerPicture: false), Is.True);
+            // The owner's Home layer pack (2026-10-02): over the garden with its fountain layers the animated heroes stand
+            // on the fountain; over an owner picture without them (a splash picture of its own) none; without the owner's
+            // picture the drawn stand-in keeps its still heroes.
+            Assert.That(HeroPictures.StageOf(ownerPicture: true, layered: true), Is.EqualTo(HomeHeroes.Layered));
+            Assert.That(HeroPictures.StageOf(ownerPicture: true, layered: false), Is.EqualTo(HomeHeroes.None));
+            Assert.That(HeroPictures.StageOf(ownerPicture: false, layered: false), Is.EqualTo(HomeHeroes.Drawn));
+            Assert.That(HeroPictures.StageOf(ownerPicture: false, layered: true), Is.EqualTo(HomeHeroes.Drawn));
         }
 
         [Test]

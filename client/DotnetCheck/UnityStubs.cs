@@ -53,7 +53,8 @@ namespace UnityEngine
     public enum TextureFormat { RGBA32 }
     public enum FilterMode { Bilinear, Trilinear }
     public enum TextureWrapMode { Clamp }
-    public enum SpriteMeshType { FullRect }
+    public enum SpriteMeshType { FullRect, Tight }
+    public enum SpriteAlignment { Center, TopLeft, TopCenter, TopRight, LeftCenter, RightCenter, BottomLeft, BottomCenter, BottomRight, Custom }
     public sealed class Sprite : Object { public Vector4 border => default; public Texture2D texture => null!; public static Sprite Create(Texture2D t, Rect r, Vector2 p, float ppu, uint ex, SpriteMeshType m, Vector4 b) => null!; }
     public class ScriptableObject : Object { public static T CreateInstance<T>() where T : ScriptableObject => default!; }
     public sealed class CreateAssetMenuAttribute : Attribute { public string menuName = ""; public string fileName = ""; }
@@ -70,7 +71,7 @@ namespace UnityEngine
     public sealed class CanvasGroup : Behaviour { public float alpha { get; set; } public bool interactable { get; set; } public bool blocksRaycasts { get; set; } }
     public class Material : Object { public Material(Material source) { } public Material(Shader shader) { } public void SetColor(string name, Color value) { } public void SetFloat(string name, float value) { } public void EnableKeyword(string keyword) { } public void DisableKeyword(string keyword) { } }
     public sealed class Shader : Object { public static Shader? Find(string name) => null; }
-    public static class Resources { public static T? Load<T>(string path) where T : Object => null; }
+    public static class Resources { public static T? Load<T>(string path) where T : Object => null; public static void UnloadAsset(Object assetToUnload) { } }
     public static class Application { public static string streamingAssetsPath => ""; public static string dataPath => System.IO.Path.GetFullPath(System.IO.Path.Combine(StubPaths.ProjectDirectory, "..", "Assets")); public static string persistentDataPath => System.IO.Path.GetTempPath(); public static bool isEditor => true; public static RuntimePlatform platform => RuntimePlatform.Android; public static string version => "0.1.0"; public static bool isBatchMode => true; public static int targetFrameRate { get; set; } public static bool CanStreamedLevelBeLoaded(string name) => false; }
     public static class Debug { public static bool isDebugBuild => true; public static void Log(object m) { } public static void LogWarning(object m) { } public static void LogError(object m) { } public static void LogException(Exception e) { } }
     public class CustomYieldInstruction : IEnumerator { public object? Current => null; public bool MoveNext() => false; public void Reset() { } }
@@ -145,7 +146,9 @@ namespace UnityEditor
     public enum TextureImporterAlphaSource { None, FromInput, FromGrayScale }
     public enum TextureImporterNPOTScale { None, ToNearest, ToLarger, ToSmaller }
     public enum TextureImporterCompression { Uncompressed, Compressed, CompressedHQ, CompressedLQ }
-    public sealed class TextureImporter : AssetImporter { public TextureImporterType textureType { get; set; } public bool sRGBTexture { get; set; } public TextureImporterAlphaSource alphaSource { get; set; } public bool alphaIsTransparency { get; set; } public bool mipmapEnabled { get; set; } public UnityEngine.TextureWrapMode wrapMode { get; set; } public TextureImporterNPOTScale npotScale { get; set; } public bool isReadable { get; set; } public TextureImporterCompression textureCompression { get; set; } }
+    public enum SpriteImportMode { None, Single, Multiple, Polygon }
+    public sealed class TextureImporterSettings { public UnityEngine.SpriteMeshType spriteMeshType { get; set; } public int spriteAlignment { get; set; } }
+    public sealed class TextureImporter : AssetImporter { public TextureImporterType textureType { get; set; } public bool sRGBTexture { get; set; } public TextureImporterAlphaSource alphaSource { get; set; } public bool alphaIsTransparency { get; set; } public bool mipmapEnabled { get; set; } public UnityEngine.TextureWrapMode wrapMode { get; set; } public UnityEngine.FilterMode filterMode { get; set; } public TextureImporterNPOTScale npotScale { get; set; } public bool isReadable { get; set; } public TextureImporterCompression textureCompression { get; set; } public SpriteImportMode spriteImportMode { get; set; } public float spritePixelsPerUnit { get; set; } public void ReadTextureSettings(TextureImporterSettings dest) { } public void SetTextureSettings(TextureImporterSettings src) { } }
     public class AssetPostprocessor { public string assetPath { get; set; } = ""; public AssetImporter assetImporter => null!; }
     [Flags] public enum BuildOptions { None = 0, Development = 1 }
     public enum BuildTarget { Android, iOS }

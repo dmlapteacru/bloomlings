@@ -10,11 +10,25 @@ using UnityEngine.UI;
 
 namespace Bloomlings.Client.UI.Screens
 {
+    /// <summary>What Home and the splash stand their heroes in (<see cref="HeroPictures.StageOf"/>).</summary>
+    public enum HomeHeroes
+    {
+        /// <summary>No heroes: an owner picture without the layered fountain (a splash picture of its own).</summary>
+        None,
+
+        /// <summary>The drawn stand-in: the stone ring, the lotus fountain and the four still heroes around it.</summary>
+        Drawn,
+
+        /// <summary>The owner's layered Home: the animated heroes on the painted fountain (<see cref="HomeLayersView"/>).</summary>
+        Layered,
+    }
+
     /// <summary>
     /// The 3D heroes of spec 004 (FR-017) on the meta screens only, in the reference look of spec 005 (contracts/look.md
     /// §4.4, §4.5): the group picture, the celebration of the win and milestone cards (light rays, a stone pedestal and
-    /// the heroes on it) and the drawn Home stage (the heroes around the lotus fountain on a stone pedestal, only without
-    /// the owner's Home picture for now). Without the pictures it shows the four family silhouettes (FR-021).
+    /// the heroes on it; the owner's animated hero when its frames are there, FR-028) and the Home stage (the owner's
+    /// layered Home with the animated heroes, or the drawn stand-in: the heroes around the lotus fountain on a stone
+    /// pedestal). Without the pictures it shows the four family silhouettes (FR-021).
     /// </summary>
     public static class HeroPictures
     {
@@ -118,12 +132,28 @@ namespace Bloomlings.Client.UI.Screens
         public static CelebrationView Celebration(RectTransform card) => new CelebrationView(card);
 
         /// <summary>
-        /// The Home and splash heroes (spec 005 FR-024, §4.5, §6.4; the playtest's <c>HomeScreen.Stage</c>) under
-        /// <paramref name="parent"/>: over the owner's garden picture, none for now (<see cref="HomeStage.ShowsHeroes"/>);
-        /// without it, the drawn diorama (the stone ring, the lotus fountain and the heroes around it). Place it with
-        /// <see cref="HomeStageView.Place"/>.
+        /// The Home and splash heroes (spec 005 FR-024, FR-028, §4.5, §6.4; the playtest's <c>HomeScreen.Stage</c>) under
+        /// <paramref name="parent"/> (<see cref="StageOf"/>): over the owner's garden picture, its layered fountain with
+        /// the animated heroes (<see cref="HomeLayersView"/>; a tap on a hero makes it react when
+        /// <paramref name="tappable"/>); without it, the drawn diorama (the stone ring, the lotus fountain and the heroes
+        /// around it). Place it with <see cref="HomeStageView.Place"/>.
         /// </summary>
-        public static HomeStageView Stage(string name, Transform parent) => new HomeStageView(UiFactory.CreateRect(name, parent));
+        public static HomeStageView Stage(string name, Transform parent, bool tappable = true) => new HomeStageView(UiFactory.CreateRect(name, parent), tappable);
+
+        /// <summary>
+        /// What Home and the splash stand their heroes in (spec 005 FR-024, FR-028): over the owner's garden picture
+        /// (<paramref name="ownerPicture"/>) the layered Home with the animated heroes when its layers are there
+        /// (<paramref name="layered"/>), else none; without the owner's picture the drawn stand-in with the still heroes.
+        /// </summary>
+        public static HomeHeroes StageOf(bool ownerPicture, bool layered) =>
+            !ownerPicture ? HomeHeroes.Drawn : layered ? HomeHeroes.Layered : HomeHeroes.None;
+
+        /// <summary>
+        /// Whether the win and the milestone show <paramref name="family"/>'s animated hero (spec 005 FR-028): its frames
+        /// are baked and there (<see cref="HeroFrames.Has"/>). Else they show its still celebrating picture
+        /// (<see cref="Cheer"/>), or the group while that is missing too.
+        /// </summary>
+        public static bool Animated(Family family) => HeroFrames.Has(family);
     }
 
     /// <summary>The celebration of the win and milestone cards (<see cref="HeroPictures.Celebration"/>).</summary>
@@ -134,6 +164,7 @@ namespace Bloomlings.Client.UI.Screens
         private readonly RectTransform _pedestal;
         private readonly RectTransform _group;
         private readonly Image _cheer;
+        private readonly HeroMotionView _motion;
         private Family? _family;
 
         internal CelebrationView(RectTransform card)
@@ -149,14 +180,51 @@ namespace Bloomlings.Client.UI.Screens
             _cheer.preserveAspect = true;
             _cheer.raycastTarget = false;
             _cheer.gameObject.SetActive(false);
+
+            // The owner's animated hero ("char.hero3d.motion.{family}", FR-028), where the cheer picture would stand.
+            _motion = HeroMotionView.Create("Motion", card);
+            _motion.Rect.gameObject.SetActive(false);
         }
 
         /// <summary>
-        /// Shows the owner's celebrating hero of <paramref name="family"/> (pictures.md A7) instead of the group when that
-        /// picture exists; null shows the group. Call <see cref="Place(Box, Box, float, float)"/> or
-        /// <see cref="Place(WinRegions, Box)"/> after it.
+        /// Shows <paramref name="family"/>'s hero instead of the group: its animated hero when its frames are there
+        /// (<see cref="HeroPictures.Animated"/>: the reaction from the moment it shows, then the idle for as long as it
+        /// shows), else the owner's celebrating picture (pictures.md A7) when it exists; null shows the group. Call
+        /// <see cref="Place(Box, Box, float, float)"/> or <see cref="Place(WinRegions, Box, bool)"/> after it.
         /// </summary>
         public void ShowHero(Family? family) => _family = family;
+
+        /// <summary>
+        /// What stands on the pedestal for the family shown: the animated hero, else the still cheer picture, else (both
+        /// none) the group.
+        /// </summary>
+        private (bool Animated, Sprite? Cheer) HeroOf()
+        {
+            if (!_family.HasValue)
+            {
+                return (false, null);
+            }
+
+            bool animated = HeroPictures.Animated(_family.Value);
+            return (animated, animated ? null : HeroPictures.Cheer(_family.Value));
+        }
+
+        /// <summary>
+        /// Shows the animated hero in the frame cell fitted into <paramref name="box"/> (screen pixels, the card or screen
+        /// lying at <paramref name="parent"/>), reacting from the moment it shows, or hides it.
+        /// </summary>
+        private void ShowMotion(bool shown, Box box, Box parent)
+        {
+            if (!shown || !_family.HasValue)
+            {
+                _motion.Rect.gameObject.SetActive(false);
+                return;
+            }
+
+            UiKit.PlaceBox(_motion.Rect, HeroMotion.Cell(box), parent);
+            _motion.Rect.gameObject.SetActive(true);
+            _motion.Celebrate(_family.Value);
+        }
 
         /// <summary>
         /// Brings the pedestal and the heroes in front of everything built after the celebration so far (the full-screen
@@ -167,26 +235,34 @@ namespace Bloomlings.Client.UI.Screens
             _pedestal.SetAsLastSibling();
             _group.SetAsLastSibling();
             _cheer.rectTransform.SetAsLastSibling();
+            _motion.Rect.SetAsLastSibling();
         }
 
         /// <summary>
         /// Lays the celebration out on the full-screen win or milestone (spec 005 FR-023, contracts/look.md §6.3) whose
         /// screen box is <paramref name="parent"/>: the stone pedestal in <see cref="WinRegions.Pedestal"/> (left out with
         /// <paramref name="pedestal"/> false, when the owner's win picture paints the stage there), the owner's
-        /// celebrating hero in the 8:9 <see cref="WinRegions.Hero"/> box, or else the group standing with its feet where
-        /// the hero's stand (<see cref="HomeStage.FeetShare"/> of the box), as wide as the pedestal over 0.8 (its heads
-        /// inside the box), and the rays (radius <see cref="WinRegions.RaysRadius"/>) turning around the hero, unclipped.
+        /// celebrating hero in the 8:9 <see cref="WinRegions.Hero"/> box (animated in the frame cell fitted into it,
+        /// <see cref="HeroMotion.Cell"/>, when its frames are there), or else the group standing with its feet where the
+        /// hero's stand (<see cref="HomeStage.FeetShare"/> of the box), as wide as the pedestal over 0.8 (its heads inside
+        /// the box), and the rays (radius <see cref="WinRegions.RaysRadius"/>) turning around the hero, unclipped.
         /// </summary>
         public void Place(WinRegions r, Box parent, bool pedestal = true)
         {
-            Sprite? cheer = _family.HasValue ? HeroPictures.Cheer(_family.Value) : null;
+            (bool animated, Sprite? cheer) = HeroOf();
             _clip.gameObject.SetActive(true);
             _pedestal.gameObject.SetActive(pedestal);
-            _group.gameObject.SetActive(cheer == null);
+            _group.gameObject.SetActive(!animated && cheer == null);
             _cheer.gameObject.SetActive(cheer != null);
             UiKit.PlaceBox(_clip, parent, parent);
             UiKit.PlaceBox(_rays, Box.FromCenter(r.RaysX, r.RaysY, r.RaysRadius * 2f, r.RaysRadius * 2f), parent);
             UiKit.PlaceBox(_pedestal, r.Pedestal, parent);
+            ShowMotion(animated, r.Hero, parent);
+            if (animated)
+            {
+                return;
+            }
+
             if (cheer != null)
             {
                 _cheer.sprite = cheer;
@@ -210,11 +286,12 @@ namespace Bloomlings.Client.UI.Screens
             bool fits = stage.Height >= 150f * scale;
             _clip.gameObject.SetActive(fits);
             _pedestal.gameObject.SetActive(fits);
-            Sprite? cheer = _family.HasValue ? HeroPictures.Cheer(_family.Value) : null;
-            _group.gameObject.SetActive(fits && cheer == null);
+            (bool animated, Sprite? cheer) = fits ? HeroOf() : (false, null);
+            _group.gameObject.SetActive(fits && !animated && cheer == null);
             _cheer.gameObject.SetActive(fits && cheer != null);
             if (!fits)
             {
+                ShowMotion(false, stage, cardBox);
                 return;
             }
 
@@ -227,17 +304,23 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(_clip, clip, cardBox);
             float radius = Mathf.Max(screenWidth * 0.62f, stage.Height);
             UiKit.PlaceBox(_rays, Box.FromCenter(raysX, raysY, radius * 2f, radius * 2f), clip);
-            if (cheer == null)
+            if (!animated && cheer == null)
             {
+                ShowMotion(false, stage, cardBox);
                 UiKit.PlaceBox(_group, group, cardBox);
                 return;
             }
 
             // One celebrating hero, as on the reference's win card: its feet where the group's stand.
-            _cheer.sprite = cheer;
             float feet = group.Top + (group.Height * CharacterArt.GroupFeetShare);
             float height = Mathf.Min((feet - stage.Top) / HomeStage.FeetShare, pedestal.Width * 0.75f * CharacterArt.HeroHeight / CharacterArt.HeroWidth);
-            UiKit.PlaceBox(_cheer.rectTransform, HomeStage.Figure(stage.CenterX, feet, height), cardBox);
+            Box hero = HomeStage.Figure(stage.CenterX, feet, height);
+            ShowMotion(animated, hero, cardBox);
+            if (cheer != null)
+            {
+                _cheer.sprite = cheer;
+                UiKit.PlaceBox(_cheer.rectTransform, hero, cardBox);
+            }
         }
     }
 
@@ -245,43 +328,74 @@ namespace Bloomlings.Client.UI.Screens
     public sealed class HomeStageView
     {
         private readonly RectTransform _root;
+        private readonly RectTransform _drawn;
         private readonly RectTransform _pedestal;
         private readonly BloomlingFigure[] _heroes = new BloomlingFigure[4];
         private readonly RectTransform _fountain;
+        private readonly bool _tappable;
+        private HomeLayersView? _layers;
 
-        internal HomeStageView(RectTransform root)
+        internal HomeStageView(RectTransform root, bool tappable)
         {
             _root = root;
+            _tappable = tappable;
             UiFactory.Stretch(root);
-            _pedestal = UiKit.StonePedestal("Pedestal", root);
 
-            // Drawing order as the playtest's: the back row (Bloom, Drop, Sprig), the fountain, Twig in front.
+            // The drawn stand-in, in the playtest's drawing order: the back row (Bloom, Drop, Sprig), the fountain, Twig
+            // in front. The owner's layered Home is built the first time it shows (Place).
+            _drawn = UiFactory.Stretch(UiFactory.CreateRect("Diorama", root));
+            _pedestal = UiKit.StonePedestal("Pedestal", _drawn);
             for (int i = 0; i < 3; i++)
             {
                 _heroes[i] = Figure("Hero" + i);
             }
 
-            _fountain = UiKit.LotusFountain("Fountain", root);
+            _fountain = UiKit.LotusFountain("Fountain", _drawn);
             _heroes[3] = Figure("Hero3");
         }
 
         /// <summary>The stage's rect (it stretches over its parent).</summary>
         public RectTransform Rect => _root;
 
+        /// <summary>The owner's layered Home while it shows (the splash fades its heroes in), else null.</summary>
+        public HomeLayersView? Layers => _layers != null && _root.gameObject.activeSelf && _layers.gameObject.activeSelf ? _layers : null;
+
         /// <summary>
         /// Lays the heroes out on Home or the splash, whose parent's screen box is <paramref name="parent"/> (the whole
-        /// screen, as the backdrop). Over the owner's garden picture of <paramref name="scene"/> (pictures.md B1; the splash
-        /// takes it while its own is missing) nothing shows for now: the owner deferred the heroes on Home on 2026-10-02
-        /// (<see cref="HomeStage.ShowsHeroes"/>; they come back animated later). Without it, the drawn diorama in
-        /// <paramref name="stage"/> (<see cref="HomeStage.ReferenceDiorama"/>: the stone ring, the lotus fountain and the
-        /// four heroes). Each hero wears <paramref name="outfitOf"/>'s outfit (null: nothing), and <paramref name="front"/>
-        /// (the player's hero) swaps places with Sprig at the left front.
+        /// screen, as the backdrop; <see cref="HeroPictures.StageOf"/>). Over the owner's garden picture of
+        /// <paramref name="scene"/> (pictures.md B1; the splash takes it while its own is missing) with its fountain
+        /// layers, the layered Home with the four animated heroes where the reference stands them
+        /// (<see cref="HomeLayersView"/>, over the whole screen); over an owner picture without the layers, none. Without
+        /// the owner's picture, the drawn diorama in <paramref name="stage"/> (<see cref="HomeStage.ReferenceDiorama"/>:
+        /// the stone ring, the lotus fountain and the four still heroes), where <paramref name="front"/> (the player's
+        /// hero) swaps places with Sprig at the left front. Each hero wears <paramref name="outfitOf"/>'s outfit (null:
+        /// nothing).
         /// </summary>
         public void Place(Box stage, Box parent, BackdropScene scene, Func<Family, Outfit?>? outfitOf = null, Family front = Family.Sprig)
         {
-            bool shown = HomeStage.ShowsHeroes(ownerPicture: OwnerArt.BackgroundOf(scene) != null);
-            _root.gameObject.SetActive(shown);
-            if (!shown)
+            bool owner = OwnerArt.BackgroundOf(scene) != null;
+            HomeHeroes kind = HeroPictures.StageOf(owner, owner && HomeLayersView.Shows(scene));
+            _root.gameObject.SetActive(kind != HomeHeroes.None);
+            _drawn.gameObject.SetActive(kind == HomeHeroes.Drawn);
+            if (kind == HomeHeroes.Layered)
+            {
+                // The layered Home lies over the whole screen: the box the backdrop cover-fits the garden into.
+                if (_layers == null)
+                {
+                    _layers = HomeLayersView.Create("Layers", _root, _tappable);
+                }
+
+                _layers.gameObject.SetActive(true);
+                _layers.Place(parent, parent, outfitOf);
+                return;
+            }
+
+            if (_layers != null)
+            {
+                _layers.gameObject.SetActive(false);
+            }
+
+            if (kind == HomeHeroes.None)
             {
                 return;
             }
@@ -313,7 +427,7 @@ namespace Bloomlings.Client.UI.Screens
 
         private BloomlingFigure Figure(string name)
         {
-            BloomlingFigure figure = BloomlingFigure.Create(name, _root);
+            BloomlingFigure figure = BloomlingFigure.Create(name, _drawn);
             figure.Body.raycastTarget = false;
             return figure;
         }

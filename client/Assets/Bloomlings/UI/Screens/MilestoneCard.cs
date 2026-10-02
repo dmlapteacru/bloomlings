@@ -28,7 +28,8 @@ namespace Bloomlings.Client.UI.Screens
     /// with the gold medal;</description></item>
     /// <item><description>each reward (the cosmetic item, the Petals, each booster) as its icon on a cream tile with its
     /// amount in a cream pill over the tile's bottom edge, rising in, where the win shows its picture;</description></item>
-    /// <item><description>the level's celebrating hero (else the group) on the stone pedestal in light rays, petals falling
+    /// <item><description>the level's hero as on the win (its animated hero reacting from the moment the screen shows, then
+    /// idling; else its still celebrating picture; else the group) on the stone pedestal in light rays, petals falling
     /// and, for the first seconds, confetti in the level's colors around the sign;</description></item>
     /// <item><description>Continue in its wooden rim, decorated and breathing, where the win shows Next.</description></item>
     /// </list>
@@ -100,8 +101,9 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <param name="catalog">The cosmetic catalog, to draw a granted item's shape; null draws a generic star.</param>
         /// <param name="level">
-        /// The won level: its main family celebrates (the owner's cheering hero when it exists, pictures.md A7) and its
-        /// colors make the confetti; null shows the group and no confetti.
+        /// The won level: its main family celebrates (the owner's animated hero when its frames are there, else the
+        /// cheering hero picture when it exists, pictures.md A7) and its colors make the confetti; null shows the group
+        /// and no confetti.
         /// </param>
         public void Show(MilestoneGrant grant, CosmeticCatalog? catalog, LevelDefinition? level = null)
         {
