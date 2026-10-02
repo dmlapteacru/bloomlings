@@ -33,8 +33,10 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):
   - a splash (frame 1), then Level 1 on the very first launch and Home later;
   - Home in the reference layout (spec 005 FR-024, `contracts/look.md` §6.4) in its early look (frame 2) and, once the
-    features unlock, the progressed look (frame 3): Settings and the Petals pill on top, the wooden logo, the four heroes
-    around the lotus fountain (in their outfits), the level plaque, the big Play, "N levels to reward", and cream round
+    features unlock, the progressed look (frame 3): Settings and the Petals pill on top, the wooden logo, the owner's
+    garden picture without heroes for now (the owner, 2026-10-02: animated heroes later; without the picture the drawn
+    stand-in's four heroes around the lotus fountain, in their outfits), the level plaque, the big Play, "N levels to
+    reward", and cream round
     side buttons for the Wardrobe, the Collection, the profile avatar, the Daily Challenge and the Store, with the rank
     pill (offline) under them;
   - the Wardrobe (frame 27, spec 005 FR-025, §6.5), opened from Home: the hero on its pedestal between ‹ › family

@@ -17,7 +17,6 @@ Run from the repository root (needs the .NET 10 SDK):
 | `dotnet run --project tools/artgen -- check` | Compares every committed picture with a fresh render (at most 2 per channel, at most 0.1% of pixels; every fourth row of the 3D pictures), checks the 2% transparent margins, the shape difference of the launch characters at 48 px, the hero face places of the kit, and the manifest. Owner pictures are checked as adopted instead (below). Exits non-zero on a problem. About 3 minutes. |
 | `dotnet run --project tools/artgen -- sheet` | Writes the review sheet to `tools/artgen/out/sheet.png` (gitignored): every character in every mood, the launch characters at play size with their shape differences, the heroes and the group. |
 | `dotnet run --project tools/artgen -- faces` | Prints where each hero's face lands in its solo picture (`CharacterArt.FaceCenterHero`). |
-| `... -- build --only experiments` / `check --only experiments` | The Leafling experiment only (about 5 seconds): the owner's Meshy model `models/leafling.fbx`, painted and rendered to `client/Assets/Bloomlings/Art/Experiments/Resources/Characters/experiments/leafling.png`. A plain `build` or `check` includes it. |
 
 ## Files
 
@@ -27,9 +26,6 @@ Run from the repository root (needs the .NET 10 SDK):
 | `3d/{family}.png`, `3d/{family}-blank.png` | the four heroes, with a face and without (for worn expressions); 512 × 576 |
 | `3d/group.png` | the four heroes side by side with their soft contact shadows, no base of their own (the hosts stand them on their stone pedestal); 1200 × 720 |
 | `manifest.json` | every file with its size, SHA-256 and asset slot; an owner picture also has `"source": "owner"` and its `"record"` |
-
-The Leafling experiment (spec 004 research R17) is not part of the set or its manifest: its picture lives in
-`Art/Experiments/` with its own source record, `models/leafling.md`.
 
 Names, sizes and placements come from the shared kit, `client/Assets/Bloomlings/UI/Design/CharacterArt.cs`, which this
 tool links.
@@ -52,7 +48,7 @@ section A: `3d/{family}.png`, `3d/{family}-blank.png`, `3d/group.png`, `3d/{fami
 folder under the same names, so both builds load them with no code change. The tool keeps them apart from its own art:
 
 1. Write the source record first: a Markdown file in the repository with, per picture, the tool, the author, the date
-   and the licence (by default `tools/artgen/models/owner-pictures.md`; `models/leafling.md` is an example). For instance:
+   and the licence (by default `tools/artgen/models/owner-pictures.md`). For instance:
 
    | File | Made with | By | Licence |
    |---|---|---|---|

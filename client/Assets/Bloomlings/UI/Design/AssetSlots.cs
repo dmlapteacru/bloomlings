@@ -192,7 +192,7 @@ namespace Bloomlings.Client.UI.Design
             // ---- Brand ----
             Add("brand.wordmark", "Bloomlings wordmark (logo): the owner's picture `Brand/logo.png` (spec 005 pictures.md C1)", new[] { 1, 2, 3 }, "Splash; Home", "full; compact", SizeClass.Large, false, Launch, PlaceholderKind.Text, "the wooden letters `ui.logo.wood` until the picture exists");
             Add("brand.tagline", "Tagline \"Small friends. Big gardens.\" (the owner's optional picture `Brand/tagline.png`, spec 005 pictures.md C2)", Array.Empty<int>(), "Splash; Home", "full", SizeClass.Medium, false, Later, PlaceholderKind.External, "none yet: neither build shows a tagline; the slot keeps the picture's place for later");
-            Add("brand.splash_art", "Splash illustration: Bloomlings of the four families in the garden", new[] { 1 }, "Splash", "portrait; tall-phone crop", SizeClass.Screen, false, Launch, PlaceholderKind.Generated, "garden backdrop and the 3D group picture `3d/group`");
+            Add("brand.splash_art", "Splash illustration: the garden with the logo (Bloomlings of the four families on the drawn stand-in)", new[] { 1 }, "Splash", "portrait; tall-phone crop", SizeClass.Screen, false, Launch, PlaceholderKind.Generated, "the owner's Home garden with the logo and no heroes for now (spec 005 FR-024); without the picture, the drawn garden with the four 3D heroes around the lotus fountain");
             Add("brand.app_icon", "App icon", Array.Empty<int>(), "Launcher; store listing", "Android adaptive (foreground, background); iOS set", SizeClass.Medium, false, Launch, PlaceholderKind.External, "platform default icon");
 
             // ---- Backgrounds ----
@@ -200,7 +200,7 @@ namespace Bloomlings.Client.UI.Design
             Add("bg.theme.pond", "Gameplay backdrop: Pond (from L100)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural lawn tilted toward teal by the pond theme until `Backgrounds/gameplay-pond.png` exists (pictures.md B3)");
             Add("bg.theme.orchard", "Gameplay backdrop: Orchard (from L150)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural lawn tilted warm by the orchard theme until `Backgrounds/gameplay-orchard.png` exists (pictures.md B4)");
             Add("bg.theme.moonlit_garden", "Gameplay backdrop: Moonlit Garden (from L200)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural lawn, dusky and blue-green for the moonlit theme, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5)");
-            Add("bg.home", "Home scene: garden with stone arches behind the heroes", new[] { 2, 3 }, "Home", "early (the four heroes on their pedestal); progressed (the hero)", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1)");
+            Add("bg.home", "Home scene: the garden diorama with the lotus fountain (no heroes over it for now, spec 005 FR-024)", new[] { 2, 3 }, "Home", "early; progressed", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1)");
             Add("bg.splash", "Splash backdrop", new[] { 1 }, "Splash", "portrait", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "the owner's Home garden (`Backgrounds/home.jpg`, `OwnerPictures.Resolve`; the procedural garden without it) until `Backgrounds/splash.png` exists (pictures.md B6)");
             Add("bg.wardrobe", "Wardrobe backdrop: the garden arches behind the hero on its pedestal (both builds)", Array.Empty<int>(), "Wardrobe", "portrait", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7)");
             Add("bg.win", "Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023)", new[] { 15, 16 }, "Win; milestone", "portrait", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8)");
@@ -210,7 +210,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("char.bloom", "Bloom family body (the fallback figure when a picture is missing)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
             Shape("char.drop", "Drop family body (the fallback figure when a picture is missing)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
             Shape("char.twig", "Twig family body (the fallback figure when a picture is missing)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
-            Add("char.hero.home", "Home hero: a large Bloomling in the player's outfit", new[] { 3 }, "Home", "idle; wave; each family; outfit layers", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "the family's 3D solo hero `3d/{family}` with worn cosmetics");
+            Add("char.hero.home", "Home hero: a large Bloomling in the player's outfit", new[] { 3 }, "Home", "idle; wave; each family; outfit layers", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "the family's 3D solo hero `3d/{family}` with worn cosmetics on the drawn stand-in; no heroes over the owner's Home picture for now (deferred by the owner on 2026-10-02: animated heroes later)");
 
             // Spec 004: each variant is a 2D character whose whole shape is its symbol, and each family a 3D hero for the
             // meta screens. The pictures are generated by tools/artgen (contracts/art-files.md).
@@ -225,12 +225,11 @@ namespace Bloomlings.Client.UI.Design
                 Add(CharacterArt.HeroSlot(family), "3D hero: " + family, new[] { 3, 5 }, "Home; Wardrobe; profile; leaderboard", "face; blank (worn expression)", SizeClass.Medium, false, Launch, PlaceholderKind.Generated, "`" + CharacterArt.Hero(family) + ".png`");
             }
 
-            Add(CharacterArt.GroupSlot, "3D heroes: the four families side by side (the hosts stand them on a stone pedestal)", new[] { 1, 2, 15, 16 }, "Splash; Home; win; milestone", "warm garden light", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "`" + CharacterArt.Group + ".png`");
+            Add(CharacterArt.GroupSlot, "3D heroes: the four families side by side (the hosts stand them on a stone pedestal)", new[] { 15, 16 }, "Win; milestone", "warm garden light", SizeClass.Large, false, Launch, PlaceholderKind.Generated, "`" + CharacterArt.Group + ".png`");
             foreach (Family family in CharacterArt.Families)
             {
                 Add(CharacterArt.CheerSlot(family), "3D hero celebrating: " + family + " (the owner's picture, spec 005 pictures.md A7)", new[] { 15, 16 }, "Win; milestone (the level's main family)", "arms up, eyes closed with joy", SizeClass.Large, false, Later, PlaceholderKind.Generated, "none yet: the win card shows the group picture `" + CharacterArt.Group + ".png` until `" + CharacterArt.Cheer(family) + ".png` exists");
             }
-            Add(CharacterArt.LeaflingSlot, "Experiment: the Leafling, a guest on Home (the owner's Meshy model)", new[] { 2, 3 }, "Home", "beside the group early on; beside the hero later", SizeClass.Medium, false, Later, PlaceholderKind.Generated, "`" + CharacterArt.Leafling + ".png`, painted and rendered by tools/artgen from `tools/artgen/models/leafling.fbx`");
 
             // ---- Variant symbols ----
             string[] launch = { "leaf", "moss", "flower", "bud", "drop", "dew", "log", "acorn" };

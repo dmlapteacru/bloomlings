@@ -96,9 +96,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `"source": "owner"` with its source record: `build` keeps it, `check` verifies its hash, size and margin instead of
   re-rendering it). Names and placements come from the kit's `CharacterArt`; Unity loads them with `CharacterSprites`,
   the playtest and preview embed them (`IPainter.Sprite`). A missing picture falls back
-  to the spec 002 family silhouette. The art is the project's own work (`tools/artgen/OWNERSHIP.md`). An experiment
-  (research R17) adds the owner's Meshy model (`tools/artgen/models/leafling.fbx`) as a pre-rendered guest on Home:
-  `build|check --only experiments`, picture in `Art/Experiments/`, licence to confirm (`models/leafling.md`).
+  to the spec 002 family silhouette. The art is the project's own work (`tools/artgen/OWNERSHIP.md`). Over the owner's
+  Home picture, Home and the splash show no heroes for now (the owner, 2026-10-02: animated heroes later;
+  `HomeStage.ShowsHeroes`); only the drawn stand-in keeps them.
 - The reference look (`specs/005-reference-look/`, after the owner's `reference.jpg`; recipes in `contracts/look.md`)
   restyles every element of the Unity client and the full playtest, presentation only: layouts, order, rules and tap
   outcomes stay (FR-002). It adds the saturated variant palette (`VariantCatalog`, readability-checked) and the

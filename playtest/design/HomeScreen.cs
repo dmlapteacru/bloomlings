@@ -8,10 +8,10 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Playtest.Design
 {
     /// <summary>
-    /// The splash of frame 1 (spec 002 FR-016, spec 005 §4.5) in Home's reference layout (§6.4): the wooden wordmark in
-    /// Home's logo box over the warm garden, and the four families around the lotus fountain on the stone in Home's
-    /// diorama box, so the splash turns into Home without anything jumping. It shows while the game starts and never
-    /// waits for a tap.
+    /// The splash of frame 1 (spec 002 FR-016, spec 005 §4.5) in Home's reference layout (§6.4): the wordmark in Home's
+    /// logo box over the garden, so the splash turns into Home without anything jumping. Over the owner's garden picture
+    /// it shows no heroes for now (<see cref="HomeStage.ShowsHeroes"/>); the drawn stand-in keeps the four families around
+    /// the lotus fountain on the stone in Home's diorama box. It shows while the game starts and never waits for a tap.
     /// </summary>
     public static class SplashScreen
     {
@@ -24,10 +24,11 @@ namespace Bloomlings.Playtest.Design
             HomeScreen.Wordmark(p, r);
             p.PopAlpha();
 
-            // The four families as 3D heroes around the fountain (spec 004 FR-017), rising in with the wordmark.
+            // On the drawn stand-in, the four families as 3D heroes around the fountain (spec 004 FR-017), rising in with
+            // the wordmark; over the owner's garden picture, none for now.
             p.PushAlpha(appear);
             p.PushTransform(0f, (1f - appear) * r.W * 0.04f, 1f, 0f, 0f);
-            HomeScreen.Stage(p, r, BackdropScene.Splash, guest: false);
+            HomeScreen.Stage(p, r, BackdropScene.Splash);
             p.PopTransform();
 
             // Three lotus buds pulsing in turn where Play will be, while the game loads.
@@ -49,9 +50,9 @@ namespace Bloomlings.Playtest.Design
     /// contracts/look.md §6.4, <see cref="ScreenLayout.ReferenceHome"/>):
     /// <list type="bullet">
     /// <item><description>Always shown: Settings at the top left, the Petals pill at the top right, the wooden logo across
-    /// the top, the diorama (the owner's Home picture, or the four heroes around the lotus fountain on the stone, in their
-    /// outfits once the Wardrobe is open), the level on a wooden plaque and the big Play button in its wooden
-    /// rim.</description></item>
+    /// the top, the diorama (the owner's Home picture alone, without heroes for now; or the drawn stand-in's four heroes
+    /// around the lotus fountain on the stone, in their outfits once the Wardrobe is open), the level on a wooden plaque
+    /// and the big Play button in its wooden rim.</description></item>
     /// <item><description>Shown once unlocked, as cream round buttons along the sides: the Wardrobe, the Collection and the
     /// profile avatar at the left, the Daily Challenge and the Store at the right, with the rank as a parchment pill under
     /// the right column; "N levels to reward" with the gift as a parchment pill under Play.</description></item>
@@ -77,15 +78,14 @@ namespace Bloomlings.Playtest.Design
             ReferenceHomeRegions r = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, DevReserve(p));
             DesignApp.DrawBackdrop(p, BackdropScene.Home, level);
 
-            // The logo across the top and the diorama: the four heroes around the lotus fountain, in their outfits once
-            // the Wardrobe is open.
+            // The logo across the top and the diorama: the owner's Home picture alone (no heroes for now), or the drawn
+            // stand-in's four heroes around the lotus fountain, in their outfits once the Wardrobe is open.
             Wordmark(p, r);
-            if (look.Hero)
+            bool heroes = Stage(p, r, BackdropScene.Home, look.Wardrobe ? meta.Wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
+            if (heroes && look.Hero)
             {
                 p.Mark("char.hero.home");
             }
-
-            Stage(p, r, BackdropScene.Home, guest: true, look.Wardrobe ? meta.Wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
 
             // A few pink petals drifting through the garden, as on the reference's Home (Home redraws for Play's breath).
             Kit.FallingPetals(p, new Box(r.Safe.Left, r.Logo.Bottom, r.Safe.Right, r.Plaque.Top), app.Now);
@@ -140,48 +140,36 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The four heroes on Home and the splash (spec 005 §4.5, §6.4), each in <paramref name="outfitOf"/>'s outfit. Over
-        /// the owner's garden picture (pictures.md B1, which has the well and the lotus fountain; the splash shows it too
-        /// until its own exists), the four solo heroes stand around the fountain as the reference's
-        /// (<see cref="HomeStage.AroundFountain"/>, Bloom's head under the logo's letters) and the guest stays away. Until
-        /// then the drawn stage (<see cref="HomeStage.ReferenceDiorama"/>) in the diorama box: the stone ring, Bloom, Drop
-        /// and Sprig behind the lotus fountain, Twig and the guest (when <paramref name="guest"/>) in front.
+        /// The heroes on Home and the splash (spec 005 FR-024, §4.5, §6.4), each in <paramref name="outfitOf"/>'s outfit.
+        /// Over the owner's garden picture (pictures.md B1; the splash shows it too until its own, B6, exists) there are
+        /// none for now (<see cref="HomeStage.ShowsHeroes"/>: the owner deferred them on 2026-10-02, they come back
+        /// animated later). Without it, the drawn stage (<see cref="HomeStage.ReferenceDiorama"/>) in the diorama box: the
+        /// stone ring, Bloom, Drop and Sprig behind the lotus fountain, Twig in front. Returns whether heroes were drawn.
         /// </summary>
-        public static void Stage(IPainter p, ReferenceHomeRegions r, BackdropScene scene, bool guest, Func<Family, Outfit>? outfitOf = null)
+        public static bool Stage(IPainter p, ReferenceHomeRegions r, BackdropScene scene, Func<Family, Outfit>? outfitOf = null)
         {
             string picture = PainterBase.BackgroundPrefix + OwnerPictures.Resolve(scene, string.Empty, DesignApp.HasBackground(p));
             (int Width, int Height)? size = p.HasSprite(picture) ? p.SpriteSize(picture) : null;
-            if (picture == PainterBase.BackgroundPrefix + OwnerPictures.Home && size.HasValue && size.Value.Width > 0 && size.Value.Height > 0)
+            if (!HomeStage.ShowsHeroes(ownerPicture: size.HasValue && size.Value.Width > 0 && size.Value.Height > 0))
             {
-                // The logo picture's letters end a tenth of its height above its bottom (its transparent margin).
-                Box logo = LogoBox(p, r);
-                float letters = logo.Bottom - (logo.Height * 0.1f);
-                var screen = new Box(0f, 0f, p.Width, p.Height);
-                foreach ((Family family, Box box) in HomeStage.AroundFountain(screen, letters, Family.Sprig, size.Value.Width, size.Value.Height))
-                {
-                    Visuals.Hero(p, box, family, outfitOf?.Invoke(family));
-                }
-
-                return;
+                return false;
             }
 
-            HomeDiorama diorama = HomeStage.ReferenceDiorama(r.Diorama, guest);
+            HomeDiorama diorama = HomeStage.ReferenceDiorama(r.Diorama);
             Kit.StonePedestal(p, diorama.Pedestal);
             for (int i = 0; i < diorama.Heroes.Count; i++)
             {
-                // The fountain and the guest stand between the back row (Bloom, Drop, Sprig) and Twig in front.
+                // The fountain stands between the back row (Bloom, Drop, Sprig) and Twig in front.
                 if (i == 3)
                 {
                     Kit.LotusFountain(p, diorama.Fountain);
-                    if (guest)
-                    {
-                        Visuals.Guest(p, diorama.Guest);
-                    }
                 }
 
                 (Family family, Box box) = diorama.Heroes[i];
                 Visuals.Hero(p, box, family, outfitOf?.Invoke(family));
             }
+
+            return true;
         }
 
         /// <summary>

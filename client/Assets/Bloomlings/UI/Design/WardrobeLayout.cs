@@ -119,7 +119,7 @@ namespace Bloomlings.Client.UI.Design
             // The hero on the pedestal, as large as the stage allows (the pedestal's foot reaches a little behind the name
             // tab, as in the reference), the arrows at its sides.
             var stage = new Box(safe.Left, stageTop, safe.Right, card.Top);
-            (Box pedestal, Box hero, Box _) = HomeStage.HeroOnPedestal(new Box(stage.Left, stage.Top, stage.Right, stage.Bottom + (18f * u)));
+            (Box pedestal, Box hero) = HomeStage.HeroOnPedestal(new Box(stage.Left, stage.Top, stage.Right, stage.Bottom + (18f * u)));
             float arrowY = (hero.Top + pedestal.Top) / 2f;
             Box previous = Box.FromCenter(left + (arrow * 0.7f), arrowY, footer, footer);
             Box next = Box.FromCenter(right - (arrow * 0.7f), arrowY, footer, footer);

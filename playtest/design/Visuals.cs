@@ -160,7 +160,7 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The four 3D heroes on the stone pedestal (splash, Home early, win and milestone cards).</summary>
+        /// <summary>The four 3D heroes on the stone pedestal (the win and milestone cards).</summary>
         public static void Group(IPainter p, Box box)
         {
             p.Mark(CharacterArt.GroupSlot);
@@ -179,16 +179,6 @@ namespace Bloomlings.Playtest.Design
                 p.Mark(ShapeLibrary.SilhouetteId(family));
                 float x = fitted.CenterX + ((i - 1.5f) * size * 1.1f);
                 p.Shape(ShapeLibrary.SilhouetteId(family), Box.FromCenter(x, fitted.CenterY, size, size), ColorOf(HeroVariant(family)));
-            }
-        }
-
-        /// <summary>The Leafling experiment, a guest on Home (spec 004 research R17); nothing when its picture is missing.</summary>
-        public static void Guest(IPainter p, Box box)
-        {
-            p.Mark(CharacterArt.LeaflingSlot);
-            if (p.HasSprite(CharacterArt.Leafling))
-            {
-                p.Sprite(CharacterArt.Leafling, box);
             }
         }
 
