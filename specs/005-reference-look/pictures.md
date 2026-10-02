@@ -133,14 +133,22 @@ log slice with rings, Acorn an acorn.
 **G17–G24 (optional): simplified board gems** — the same eight shapes as flat gems with a thick dark outline and a
 highlight, 256 × 256, for the small board tiles (40–60 px on a phone). Without them the drawn gems stay.
 
+**Delivered (2026-10-02, `bloomlings_all_icons_assets.zip`):** G9–G24 and the currency lotus, in
+`client/Assets/Bloomlings/Art/Icons/Resources/Icons/` (record `tools/artgen/models/owner-pictures.md`):
+`variant-{leaf,moss,flower,bud,drop,dew,log,acorn}.png` (G9–G16, 512 × 512; `OwnerPictures.VariantIcon`, slots
+`tile.icon.{id}`), `field-{…}.png` (G17–G24, 256 × 256; `OwnerPictures.FieldIcon`, slots `tile.gem.{id}`) and
+`currency-lotus.png` (256 × 256; `OwnerPictures.CurrencyLotus`, slot `currency.petal`). Both builds draw the candy tile's
+face and the icon over it (contracts/look.md §3.11): the field icon on the board and the finished picture, the detailed
+one on pods, slots, the jam row, flights and every other sticker tile; the lotus wherever the Petals show.
+
 **Later (optional):** the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects
 (stone obstacle, gate, fountain, chest, statue, bridge, key, lock, the "?" mystery tile), all drawn in code today.
 
 ## E. Optional painted UI (only if the code-drawn versions should be replaced)
 
 All of these are drawn in code today (contracts/look.md) and need no picture: the wooden sign plank (9-slice,
-512 × 128), the dark wooden pod frame (9-slice, 256 × 256), a stone block (128 × 64), the eight variant icons
-(256 × 256), the lotus (128 × 128).
+512 × 128), the dark wooden pod frame (9-slice, 256 × 256), a stone block (128 × 64). (The eight variant icons and the
+lotus came as G9–G24 and `currency-lotus.png`, above.)
 
 ## F. What the owner sends, in priority order
 

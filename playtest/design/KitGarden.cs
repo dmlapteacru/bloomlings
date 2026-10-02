@@ -54,8 +54,8 @@ namespace Bloomlings.Playtest.Design
         private static readonly Dictionary<(float Radius, int Seed), (string, Func<int, int, byte[]>)> Stones =
             new Dictionary<(float, int), (string, Func<int, int, byte[]>)>();
 
-        private static readonly Dictionary<(TileStyle Style, TileState State, string Icon, Rgba Color), (string Key, Func<int, int, byte[]> Render, string Slot)> Tiles =
-            new Dictionary<(TileStyle, TileState, string, Rgba), (string, Func<int, int, byte[]>, string)>();
+        private static readonly Dictionary<(TileStyle Style, TileState State, string Icon, Rgba Color), TileRecipe> Tiles =
+            new Dictionary<(TileStyle, TileState, string, Rgba), TileRecipe>();
 
         private static readonly Dictionary<int, (string, Func<int, int, byte[]>)> Arches = new Dictionary<int, (string, Func<int, int, byte[]>)>();
 
@@ -101,15 +101,21 @@ namespace Bloomlings.Playtest.Design
             CandyTile(p, box, Visuals.ColorOf(variant.Value), info.IconId, style, state, pressed);
         }
 
-        /// <summary>A candy tile of any color and variant icon (the win picture draws its roles' colors this way).</summary>
+        /// <summary>
+        /// A candy tile of any color and variant icon (the win picture draws its roles' colors this way). With the owner's
+        /// icon picture of <paramref name="iconId"/> embedded (spec 005 pictures.md G9–G24,
+        /// <see cref="OwnerPictures.TileIcon"/>), the tile is its drawn face (<see cref="UiRaster.TileFace"/>) with the
+        /// picture over it (<see cref="OwnerPictures.TileIconBox"/>): faded on a queued pod, a grey copy on a stuck slot,
+        /// sinking with the face when pressed. The mystery tile keeps its "?".
+        /// </summary>
         public static void CandyTile(IPainter p, Box box, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal, bool pressed = false)
         {
-            (string key, Func<int, int, byte[]> render, string slot) = Recipe(Tiles, (Style: style, State: state, Icon: iconId, Color: color), k =>
-                ("tile.candy/" + (k.Style == TileStyle.Board ? "board" : k.Style == TileStyle.Flat ? "flat" : "sticker") + "/" + k.State + "/" + k.Icon + "/" + k.Color.Hex,
-                    (w, h) => UiRaster.Tile(Math.Min(w, h), k.Color, k.Icon, k.Style, k.State),
-                    k.State == TileState.Mystery ? "tile.mystery" : ShapeLibrary.SymbolId(k.Icon)));
+            TileRecipe tile = Recipe(Tiles, (Style: style, State: state, Icon: iconId, Color: color), k => new TileRecipe(k.Style, k.State, k.Icon, k.Color));
+            bool owner = tile.Picture != null && p.HasSprite(tile.Picture);
+            string key = owner ? tile.FaceKey : tile.Key;
+            Func<int, int, byte[]> render = owner ? tile.Face : tile.Render;
             p.Mark(style == TileStyle.Sticker ? "tile.candy.sticker" : "tile.candy");
-            p.Mark(slot);
+            p.Mark(owner ? tile.PictureSlot! : tile.Slot);
             float s = Math.Min(box.Width, box.Height);
             if (s < 1f)
             {
@@ -117,21 +123,74 @@ namespace Bloomlings.Playtest.Design
             }
 
             Box square = Box.FromCenter(box.CenterX, box.CenterY, s, s);
+            float sink = 0f;
             if (!pressed)
             {
                 p.Picture(key, square, render);
-                return;
+            }
+            else
+            {
+                // Pressed: the lower part of the lip stays, the face slides down over the rest of it.
+                float lip = s * UiRaster.TileLipShare(style);
+                sink = lip * 0.7f;
+                p.PushClip(new Box(square.Left, square.Bottom - lip + sink, square.Right, square.Bottom));
+                p.Picture(key, square, render);
+                p.PopClip();
+                p.PushClip(new Box(square.Left, square.Top + sink, square.Right, square.Bottom - lip + sink));
+                p.Picture(key, square.Offset(0f, sink), render);
+                p.PopClip();
             }
 
-            // Pressed: the lower part of the lip stays, the face slides down over the rest of it.
-            float lip = s * UiRaster.TileLipShare(style);
-            float sink = lip * 0.7f;
-            p.PushClip(new Box(square.Left, square.Bottom - lip + sink, square.Right, square.Bottom));
-            p.Picture(key, square, render);
-            p.PopClip();
-            p.PushClip(new Box(square.Left, square.Top + sink, square.Right, square.Bottom - lip + sink));
-            p.Picture(key, square.Offset(0f, sink), render);
-            p.PopClip();
+            if (owner)
+            {
+                // One picture over the face's middle: faded when queued, its grey copy when stuck.
+                p.PushAlpha(OwnerPictures.TileIconAlpha(state));
+                p.Sprite(state == TileState.Grey ? tile.GreyPicture! : tile.Picture!, OwnerPictures.TileIconBox(square.Offset(0f, sink), style));
+                p.PopAlpha();
+            }
+        }
+
+        /// <summary>
+        /// A candy tile's picture recipes, made once per style, state, icon and color: the drawn tile, its face alone for
+        /// the owner's icon picture, the picture's painter names (with its grey copy) and the slots each marks.
+        /// </summary>
+        private sealed class TileRecipe
+        {
+            public TileRecipe(TileStyle style, TileState state, string icon, Rgba color)
+            {
+                string kind = style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker";
+                Key = "tile.candy/" + kind + "/" + state + "/" + icon + "/" + color.Hex;
+                Render = (w, h) => UiRaster.Tile(Math.Min(w, h), color, icon, style, state);
+                Slot = state == TileState.Mystery ? "tile.mystery" : ShapeLibrary.SymbolId(icon);
+                FaceKey = "tile.face/" + kind + "/" + state + "/" + color.Hex;
+                Face = (w, h) => UiRaster.TileFace(Math.Min(w, h), color, style, state);
+                string? picture = OwnerPictures.TileIcon(icon, style, state);
+                if (picture != null)
+                {
+                    Picture = PainterBase.IconPrefix + picture;
+                    GreyPicture = Picture + PainterBase.GreySuffix;
+                    PictureSlot = style == TileStyle.Sticker ? OwnerPictures.IconSlot(icon) : OwnerPictures.GemSlot(icon);
+                }
+            }
+
+            public string Key { get; }
+
+            public Func<int, int, byte[]> Render { get; }
+
+            public string Slot { get; }
+
+            public string FaceKey { get; }
+
+            public Func<int, int, byte[]> Face { get; }
+
+            /// <summary>The owner's icon picture's painter name (<c>icon/variant-leaf</c>), or null for the mystery tile.</summary>
+            public string? Picture { get; }
+
+            /// <summary>The painter name of the picture's grey copy (a stuck slot's tile).</summary>
+            public string? GreyPicture { get; }
+
+            /// <summary>The slot the owner's picture fills (<c>tile.icon.leaf</c>, <c>tile.gem.leaf</c>).</summary>
+            public string? PictureSlot { get; }
         }
 
         // ---- Wooden signs (§3.2) ----

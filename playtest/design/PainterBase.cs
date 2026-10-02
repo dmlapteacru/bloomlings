@@ -133,12 +133,19 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// The embedded resource name of a picture: <c>bg/{name}</c> is an owner background (embedded without its extension,
         /// so a PNG or a JPEG works), <c>brand/{name}</c> the
-        /// logo, <c>icon/{name}</c> a booster icon and <c>decor/{name}</c> a leaf decoration (spec 005 pictures.md B, C and
-        /// D, <see cref="OwnerPictures"/>); every other name is a character picture (spec 004 contracts/art-files.md
-        /// "Loading").
+        /// logo, <c>icon/{name}</c> a booster icon, a variant icon or the lotus and <c>decor/{name}</c> a leaf decoration
+        /// (spec 005 pictures.md B, C, D and G, <see cref="OwnerPictures"/>); every other name is a character picture (spec
+        /// 004 contracts/art-files.md "Loading"). A grey copy (<see cref="GreySuffix"/>) comes from its picture's resource.
         /// </summary>
         public static string SpriteResource(string name)
         {
+            string? grey = GreySource(name);
+            if (grey != null)
+            {
+                // A grey copy is made from its picture's resource.
+                return SpriteResource(grey);
+            }
+
             if (name.StartsWith(BackgroundPrefix, StringComparison.Ordinal))
             {
                 return "backgrounds/" + name.Substring(BackgroundPrefix.Length);
@@ -173,6 +180,16 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The name prefix of the owner's leaf pictures (<c>decor/ivy</c>, spec 005 pictures.md D).</summary>
         public const string DecorPrefix = "decor/";
+
+        /// <summary>
+        /// The suffix of a picture's grey copy (<c>icon/variant-leaf#grey</c>: a stuck slot's tile icon, spec 005
+        /// pictures.md G): the painter makes it once from the picture (<see cref="OwnerPictures.GreyPixels"/>) and caches it.
+        /// </summary>
+        public const string GreySuffix = "#grey";
+
+        /// <summary>The picture a grey copy is made from (<see cref="GreySuffix"/>), or null for any other name.</summary>
+        public static string? GreySource(string name) =>
+            name.EndsWith(GreySuffix, StringComparison.Ordinal) ? name.Substring(0, name.Length - GreySuffix.Length) : null;
 
         /// <summary>A picture of <paramref name="width"/> × <paramref name="height"/> fitted into a box: aspect kept, centered.</summary>
         public static Box Fit(Box box, float width, float height) => CharacterArt.FitBox(box, width, height);

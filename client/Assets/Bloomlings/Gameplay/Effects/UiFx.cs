@@ -21,9 +21,11 @@ namespace Bloomlings.Client.Gameplay.Effects
         /// <c>PodPainter.DrawFlights</c>): <paramref name="tile"/> (the variant's candy tile) over a soft shadow, rising on
         /// an arc <paramref name="lift"/> canvas units high at its middle, its size going from <paramref name="fromSize"/>
         /// to <paramref name="toSize"/> and 12% larger at the top of the arc, the shadow falling further and fading as it
-        /// rises.
+        /// rises. With the owner's <paramref name="icon"/> picture (spec 005 pictures.md G9–G16), <paramref name="tile"/> is
+        /// the tile's face (<see cref="ProceduralSprites.CandyFace"/>) and the picture flies on its middle
+        /// (<see cref="OwnerPictures.TileIconBox"/>).
         /// </summary>
-        public static void FlyTile(RectTransform overlay, Sprite tile, Vector3 from, Vector3 to, float fromSize, float toSize, float lift, float seconds, Action? onLanded = null)
+        public static void FlyTile(RectTransform overlay, Sprite tile, Vector3 from, Vector3 to, float fromSize, float toSize, float lift, float seconds, Action? onLanded = null, Sprite? icon = null)
         {
             RectTransform host = UiFactory.CreateRect("FlyingTile", overlay);
             float size = Mathf.Max(1f, toSize);
@@ -34,6 +36,16 @@ namespace Bloomlings.Client.Gameplay.Effects
             image.raycastTarget = false;
             image.preserveAspect = true;
             image.rectTransform.sizeDelta = Vector2.one * size;
+            if (icon != null)
+            {
+                // The picture's box on the sticker tile, from the tile's top-down square to the host's centered pivot.
+                Box box = OwnerPictures.TileIconBox(new Box(0f, 0f, size, size), TileStyle.Sticker);
+                Image picture = UiFactory.CreateImage("Icon", host, icon, Color.white);
+                picture.raycastTarget = false;
+                picture.preserveAspect = true;
+                picture.rectTransform.sizeDelta = new Vector2(box.Width, box.Height);
+                picture.rectTransform.anchoredPosition = new Vector2(box.CenterX - (size / 2f), (size / 2f) - box.CenterY);
+            }
             var fx = host.gameObject.AddComponent<UiFx>();
             fx.StartCoroutine(fx.FlyTileRoutine(shadow, from, to, fromSize / size, lift, seconds, onLanded));
         }

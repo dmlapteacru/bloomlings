@@ -266,6 +266,8 @@ namespace Bloomlings.Client.Art
         {
             "tile.candy/board/",
             "tile.candy/flat/",
+            "tile.face/board/",
+            "tile.face/flat/",
             "tile.grass/",
             "tile.stone/",
             "mat.stone/block/",
@@ -345,9 +347,21 @@ namespace Bloomlings.Client.Art
         /// <summary>A candy tile of any color and variant icon (the win picture draws its roles' colors this way).</summary>
         public static Sprite CandyTile(Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal, int size = 128)
         {
-            string key = "tile.candy/" + (style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker") + "/" + state + "/" + iconId + "/" + color.Hex;
+            string key = "tile.candy/" + StyleKey(style) + "/" + state + "/" + iconId + "/" + color.Hex;
             return Picture(key, size, size, (w, h) => UiRaster.Tile(Math.Min(w, h), color, iconId, style, state));
         }
+
+        /// <summary>
+        /// A candy tile's face without its symbol (<see cref="UiRaster.TileFace"/>), for the owner's icon picture over it
+        /// (spec 005 pictures.md G9–G24, <c>CandyTileView</c>). The same key as the playtest's <c>Kit.CandyTile</c> face.
+        /// </summary>
+        public static Sprite CandyFace(Rgba color, TileStyle style, TileState state = TileState.Normal, int size = 128)
+        {
+            string key = "tile.face/" + StyleKey(style) + "/" + state + "/" + color.Hex;
+            return Picture(key, size, size, (w, h) => UiRaster.TileFace(Math.Min(w, h), color, style, state));
+        }
+
+        private static string StyleKey(TileStyle style) => style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker";
 
         /// <summary>
         /// A wooden plank (spec 005 §2, <c>mat.wood.light</c> or <c>mat.wood.dark</c>) of

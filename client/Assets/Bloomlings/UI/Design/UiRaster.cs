@@ -580,17 +580,30 @@ namespace Bloomlings.Client.UI.Design
         /// one mosaic), or a bigger, detailed sticker with a dark outline in its own tone (<see cref="TileStyle.Sticker"/>,
         /// <see cref="ShapeLibrary.SymbolId"/>, §3.1.1). Below 28 px the gem is a flat dark silhouette.
         /// </summary>
-        public static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal)
+        public static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal) =>
+            Tile(size, color, iconId, style, state, true);
+
+        /// <summary>
+        /// A candy tile's face without its symbol (spec 005 pictures.md G9–G24): the same satin square, bevel, gloss band,
+        /// lip and outline as <see cref="Tile"/> in <paramref name="color"/> and <paramref name="state"/> (grey, or dimmed
+        /// 45% toward <c>parchment.bottom</c>), for the owner's icon picture drawn over it
+        /// (<see cref="OwnerPictures.TileIconBox"/>). A mystery tile keeps its "?".
+        /// </summary>
+        public static byte[] TileFace(int size, Rgba color, TileStyle style, TileState state = TileState.Normal) =>
+            Tile(size, color, "mystery", style, state, state == TileState.Mystery);
+
+        private static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state, bool withSymbol)
         {
             Check(size, size);
             bool board = style != TileStyle.Sticker;
             bool mystery = state == TileState.Mystery;
             bool grey = state == TileState.Grey;
+            bool drawn = withSymbol && !mystery;
             Rgba col = mystery ? C.TileMystery : grey ? color.Grey() : color;
-            Sticker sticker = Sticker.Of(iconId, color, grey);
-            Func<float, float, float> symbol = mystery ? ShapeLibrary.Get("tile.mystery") : ShapeLibrary.Get(ShapeLibrary.SymbolId(iconId));
-            Func<float, float, float> solid = mystery ? symbol : ShapeLibrary.SolidSymbol(iconId);
-            Gem gem = board && !mystery ? Gem.Of(iconId, col, size) : default;
+            Sticker sticker = drawn ? Sticker.Of(iconId, color, grey) : default;
+            Func<float, float, float>? symbol = mystery ? ShapeLibrary.Get("tile.mystery") : drawn ? ShapeLibrary.Get(ShapeLibrary.SymbolId(iconId)) : null;
+            Func<float, float, float>? solid = mystery ? symbol : drawn ? ShapeLibrary.SolidSymbol(iconId) : null;
+            Gem gem = board && drawn ? Gem.Of(iconId, col, size) : default;
             float s = size;
 
             // At least 3 px of corner, so small tiles stay rounded (and their corner pixels clear).
@@ -657,7 +670,7 @@ namespace Bloomlings.Client.UI.Design
                     // The symbol, in shape units (y up).
                     float u = (x - sx) / unit;
                     float v = -(y - sy) / unit;
-                    if (Math.Abs(u) < 1.3f && Math.Abs(v) < 1.3f)
+                    if (symbol != null && Math.Abs(u) < 1.3f && Math.Abs(v) < 1.3f)
                     {
                         float ds = symbol(u, v) * unit;
                         if (board)
@@ -672,13 +685,13 @@ namespace Bloomlings.Client.UI.Design
                             c.Mix(col.Darken(0.35f), Coverage(ds - iconLine));
                             c.Mix(Rgba.White, Coverage(ds));
                         }
-                        else
+                        else if (solid != null)
                         {
                             sticker.Draw(ref c, u, v, ds, solid(u, v) * unit, unit, iconLine, sy, box, y);
                         }
                     }
 
-                    if (board && !mystery)
+                    if (board && drawn)
                     {
                         gem.Draw(ref c, x, y, s / 2f, faceH / 2f, small, beadFlat);
                     }
@@ -1255,6 +1268,85 @@ namespace Bloomlings.Client.UI.Design
         }
 
         private static byte Byte(float v) => (byte)Math.Max(0, Math.Min(255, (int)Math.Round(v)));
+
+        /// <summary>
+        /// Draws a straight-alpha RGBA picture (<paramref name="source"/>, <paramref name="sourceWidth"/> ×
+        /// <paramref name="sourceHeight"/>, rows from the top) over another (<paramref name="target"/>) into
+        /// <paramref name="box"/> (target pixels, top-down), its aspect kept and centered: each target pixel averages the
+        /// source pixels it covers (premultiplied), so a 256 px icon stays smooth on a 30 px tile, and the edges of the box
+        /// blend by their coverage. The finished picture bakes the owner's field icons into its flat tiles this way
+        /// (spec 005 pictures.md G17–G24).
+        /// </summary>
+        public static void DrawOver(byte[] target, int width, int height, byte[] source, int sourceWidth, int sourceHeight, Box box)
+        {
+            if (sourceWidth < 1 || sourceHeight < 1 || box.Width <= 0f || box.Height <= 0f || source.Length < sourceWidth * sourceHeight * 4)
+            {
+                return;
+            }
+
+            float scale = Math.Min(box.Width / sourceWidth, box.Height / sourceHeight);
+            float w = sourceWidth * scale;
+            float h = sourceHeight * scale;
+            float left = box.CenterX - (w / 2f);
+            float top = box.CenterY - (h / 2f);
+            int x0 = Math.Max(0, (int)Math.Floor(left));
+            int x1 = Math.Min(width, (int)Math.Ceiling(left + w));
+            int y0 = Math.Max(0, (int)Math.Floor(top));
+            int y1 = Math.Min(height, (int)Math.Ceiling(top + h));
+            for (int py = y0; py < y1; py++)
+            {
+                float sy0 = Math.Max(0f, (py - top) / scale);
+                float sy1 = Math.Min(sourceHeight, (py + 1 - top) / scale);
+                float coverY = Math.Min(py + 1f, top + h) - Math.Max(py, top);
+                for (int px = x0; px < x1; px++)
+                {
+                    float sx0 = Math.Max(0f, (px - left) / scale);
+                    float sx1 = Math.Min(sourceWidth, (px + 1 - left) / scale);
+                    float area = (sx1 - sx0) * (sy1 - sy0);
+                    if (area <= 0f)
+                    {
+                        continue;
+                    }
+
+                    // The premultiplied average of the source pixels under this target pixel.
+                    float r = 0f;
+                    float g = 0f;
+                    float b = 0f;
+                    float a = 0f;
+                    for (int iy = (int)sy0; iy < sy1; iy++)
+                    {
+                        float wy = Math.Min(iy + 1f, sy1) - Math.Max(iy, sy0);
+                        for (int ix = (int)sx0; ix < sx1; ix++)
+                        {
+                            float weight = wy * (Math.Min(ix + 1f, sx1) - Math.Max(ix, sx0));
+                            int s = ((iy * sourceWidth) + ix) * 4;
+                            float sa = source[s + 3] * weight;
+                            r += source[s] * sa;
+                            g += source[s + 1] * sa;
+                            b += source[s + 2] * sa;
+                            a += sa;
+                        }
+                    }
+
+                    float cover = coverY * (Math.Min(px + 1f, left + w) - Math.Max(px, left));
+                    float alpha = Clamp01(a / area / 255f * cover);
+                    if (alpha <= 0f)
+                    {
+                        continue;
+                    }
+
+                    // Source over target, in straight alpha.
+                    int t = ((py * width) + px) * 4;
+                    float ta = target[t + 3] / 255f;
+                    float outA = alpha + (ta * (1f - alpha));
+                    float keep = ta * (1f - alpha);
+                    target[t] = Byte(((r / a * alpha) + (target[t] * keep)) / outA);
+                    target[t + 1] = Byte(((g / a * alpha) + (target[t + 1] * keep)) / outA);
+                    target[t + 2] = Byte(((b / a * alpha) + (target[t + 2] * keep)) / outA);
+                    target[t + 3] = Byte(outA * 255f);
+                }
+            }
+        }
 
         private static void Check(int width, int height)
         {

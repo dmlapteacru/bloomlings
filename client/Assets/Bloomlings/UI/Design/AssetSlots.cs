@@ -257,11 +257,23 @@ namespace Bloomlings.Client.UI.Design
             Add("tile.grass", "Grass cell: a board cell of the picture's background (no role), so the board reads as garden (spec 005 FR-020)", new[] { 7, 8, 9, 15 }, "Board; finished picture (win, Collection)", "open; background", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Grass picture: a muted lawn square with a soft mottle, short blades, a faint top shadow and a deeper rim (four variants)");
             Add("tile.entry", "Garden Entry (where Bloomlings come in)", Gameplay, "Board", "bottom; left; right; top; several per level", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the stone arch `board.arch` beyond the border on the entry's side, sized to the room the layout leaves; the walkers appear in its opening");
             // Spec 005 §3.1, §3.6: the candy tiles (UiRaster.Tile) and the stone furniture around the board.
-            Add("tile.candy", "Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a bold gem (spec 005 FR-026: a thick dark outline, a fill in a shade of the tile, a white highlight)", Gameplay, "Board; demos", "normal; pressed; dimmed; grey; mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (board style, `ShapeLibrary.GemSymbol`)");
-            Add("tile.candy.sticker", "Candy tile, sticker style: a detailed symbol with a dark outline in its own tone", new[] { 7, 10, 12, 13 }, "Pods; slots; jam sheet; Collection", "normal; dimmed (queued); grey (stuck); mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (sticker style)");
+            Add("tile.candy", "Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a bold gem (spec 005 FR-026: a thick dark outline, a fill in a shade of the tile, a white highlight); the owner's field icon (`tile.gem.*`) replaces the drawn gem", Gameplay, "Board; demos", "normal; pressed; dimmed; grey; mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (board style, `ShapeLibrary.GemSymbol`); with the owner's icon the face alone (`UiRaster.TileFace`) under the picture");
+            Add("tile.candy.sticker", "Candy tile, sticker style: a detailed symbol with a dark outline in its own tone; the owner's detailed icon (`tile.icon.*`) replaces the drawn symbol", new[] { 7, 10, 12, 13 }, "Pods; slots; jam sheet; Collection", "normal; dimmed (queued); grey (stuck); mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (sticker style); with the owner's icon the face alone (`UiRaster.TileFace`) under the picture");
+
+            // Spec 005 pictures.md G9–G24: the owner's variant icons over the candy tile's face (OwnerPictures.TileIcon).
+            for (int i = 0; i < launch.Length; i++)
+            {
+                Add(OwnerPictures.IconSlot(launch[i]), "Variant icon, detailed: " + names[i] + " (the owner's picture `Icons/" + OwnerPictures.VariantIcon(launch[i]) + ".png`, spec 005 pictures.md G" + (9 + i) + ")", new[] { 7, 10, 12, 13 }, "Pods; slots; jam sheet; flights; demos; kit sheet", "normal; dimmed (queued, faded); grey (stuck, a grey copy); pressed", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the drawn sticker symbol `symbol." + launch[i] + "` (UiRaster.Tile, sticker style) until the picture exists; it covers about 70% of the tile");
+            }
+
+            for (int i = 0; i < launch.Length; i++)
+            {
+                Add(OwnerPictures.GemSlot(launch[i]), "Variant icon, simplified for the board: " + names[i] + " (the owner's picture `Icons/" + OwnerPictures.FieldIcon(launch[i]) + ".png`, spec 005 pictures.md G" + (17 + i) + ")", new[] { 7, 8, 9, 15 }, "Board tiles; layer peeks; specials; finished picture (win, Collection)", "normal; flat (finished picture)", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile");
+            }
+
             Add("board.border.stone", "Stone border around the board", Gameplay, "Board; win picture", "normal; thin (win)", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles");
             Add("board.arch", "Garden Entry stone arch", Gameplay, "Board", "bottom; left; right; top", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Arch picture: a big half ring of nine sandy stone blocks around an opening that shows the lawn");
-            Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells as flat full-color candy tiles (`tile.candy`, no lip) of each role's variant in a thin stone border (spec 005 D14)");
+            Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells as flat full-color candy tiles (`tile.candy`, no lip, with the owner's field icons `tile.gem.*`) of each role's variant in a thin stone border (spec 005 D14)");
 
             // ---- Specials ----
             Shape("special.gate", "Garden Gate (hedge seal)", new[] { 9 }, "Board", "closed; opening", SizeClass.Small, readability: true);
@@ -369,7 +381,7 @@ namespace Bloomlings.Client.UI.Design
             Add("mat.parchment", "Parchment (cards, sheet, tray, slot band)", new[] { 4, 5, 6, 10, 11, 17 }, "Cards; jam sheet; tray; slot band; toasts", "any size", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "parchment gradient with a warm aged edge band, a thin brown outline and a thin inner line");
 
             // ---- Currency and rewards ----
-            Shape("currency.petal", "Petals symbol (soft currency): a pink lotus bud (spec 005)", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Petals pill; rewards; costs; prices; badges", "small; large", SizeClass.Icon);
+            Shape("currency.petal", "Petals symbol (soft currency): a pink lotus (spec 005; the owner's picture `Icons/" + OwnerPictures.CurrencyLotus + ".png` replaces the drawn lotus)", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Petals pill; rewards; costs; prices; badges", "small; large", SizeClass.Icon);
             Shape("currency.petal.front", "Lotus part: the front petals (center and sides) and the base", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Wherever the lotus shows", "small; large", SizeClass.Icon);
             Shape("currency.petal.tips", "Lotus part: the near-white petal middles", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Wherever the lotus shows", "small; large", SizeClass.Icon);
             Shape("currency.reward_basket", "Reward basket (Daily Reward)", new[] { 4 }, "Daily Reward", "day 1–7", SizeClass.Medium);

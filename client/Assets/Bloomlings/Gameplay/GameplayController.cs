@@ -981,8 +981,22 @@ namespace Bloomlings.Client.Gameplay
             float slot = _slots.SlotSize;
             float start = fromSize > 0f ? fromSize : slot * 0.64f;
             float end = toSize > 0f ? toSize : slot * 0.64f;
-            Sprite tile = Art.ProceduralSprites.CandyTile(variant, TileStyle.Sticker, TileState.Normal, ShapeRaster.Quantize(Mathf.Max(start, end) * UiKit.PixelsPerUnit));
-            UiFx.FlyTile(_root, tile, from, to, start, end, slot * 0.4f, 0.16f);
+            int pixels = ShapeRaster.Quantize(Mathf.Max(start, end) * UiKit.PixelsPerUnit);
+
+            // With the owner's icon picture (spec 005 pictures.md G9–G16) the face flies with the picture on it.
+            Sprite? icon = null;
+            Sprite tile;
+            if (variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info)
+                && (icon = OwnerArt.TileIcon(info.IconId, TileStyle.Sticker, TileState.Normal)) != null)
+            {
+                tile = Art.ProceduralSprites.CandyFace(Rgba.FromHex(info.ColorHex), TileStyle.Sticker, TileState.Normal, pixels);
+            }
+            else
+            {
+                tile = Art.ProceduralSprites.CandyTile(variant, TileStyle.Sticker, TileState.Normal, pixels);
+            }
+
+            UiFx.FlyTile(_root, tile, from, to, start, end, slot * 0.4f, 0.16f, icon: icon);
         }
 
         /// <summary>The exact variants of a level, in pod order (the win celebration).</summary>

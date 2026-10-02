@@ -656,8 +656,22 @@ namespace Bloomlings.Playtest.Design
             p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
         }
 
-        /// <summary>The Petals symbol: the pink lotus with its outline and light tips (FR-006; spec 005 contracts/look.md §3.4).</summary>
-        public static void Petal(IPainter p, Box box) => IconParts(p, box, GardenLook.Lotus);
+        /// <summary>
+        /// The Petals symbol: the owner's lotus picture (<see cref="OwnerPictures.CurrencyLotus"/>) when it is embedded, else
+        /// the drawn pink lotus with its outline and light tips (FR-006; spec 005 contracts/look.md §3.4).
+        /// </summary>
+        public static void Petal(IPainter p, Box box)
+        {
+            if (OwnerPicture(p, LotusPicture, box))
+            {
+                p.Mark("currency.petal");
+                return;
+            }
+
+            IconParts(p, box, GardenLook.Lotus);
+        }
+
+        private const string LotusPicture = PainterBase.IconPrefix + OwnerPictures.CurrencyLotus;
 
         /// <summary>
         /// A multi-part icon (spec 005 contracts/look.md §3.4, §3.8: the lotus, the colored booster icons): each part's

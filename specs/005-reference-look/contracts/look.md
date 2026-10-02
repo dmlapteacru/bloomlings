@@ -382,6 +382,34 @@ box (aspect kept), and the drawn stand-in while it is missing. Names: `OwnerPict
   top-left corner, turned half way for the bottom-right one. `logo-leaves`: the drawn wordmark's leaves, mirrored for the
   right end.
 
+### 3.11 The owner's variant icons and lotus (owner's request, pictures.md G9–G24)
+
+Names in `OwnerPictures.IconFolder`, for the eight launch variants (`OwnerPictures.Variants`): the detailed
+`OwnerPictures.VariantIcon(iconId)` = `variant-{id}` (512 × 512, slot `tile.icon.{id}`), the simplified
+`OwnerPictures.FieldIcon(iconId)` = `field-{id}` (256 × 256, slot `tile.gem.{id}`) and `OwnerPictures.CurrencyLotus` =
+`currency-lotus` (256 × 256, slot `currency.petal`). The expansion variants keep their drawn symbols.
+
+- A candy tile (§3.1) with its picture (`OwnerPictures.TileIcon(iconId, style, state)`: the field icon on `Board` and
+  `Flat`, the detailed one on `Sticker`, none on `Mystery`) is its face alone (`UiRaster.TileFace`: the same square,
+  gradient, gloss, bevel, lip and outline, no symbol; picture keys `tile.face/{style}/{state}/{hex}`) and one sprite of
+  the picture over it, in `OwnerPictures.TileIconBox(tile, style)`: a square of `FieldIconBox` (0.66: the icon itself
+  about 62% of the tile) or `StickerIconBox` (0.76: about 70%) of the tile's width, centered across and on the face's
+  middle above the lip.
+- States: `Dimmed` draws the picture at `OwnerPictures.TileIconAlpha` 0.55 over the dimmed face; `Grey` draws a grey
+  copy of the picture (`OwnerPictures.GreyPixels`, the luma of `Rgba.Grey`, made once per picture by the host) at 0.8
+  over the grey face; `Pressed` sinks the picture with the face; `Mystery` keeps the "?" tile; `Flat` (the finished
+  picture) is the field icon on the flat face.
+- Playtest: `Kit.CandyTile` (its recipes cached per style, state, icon and color); the grey copy is the painter name
+  `icon/variant-{id}#grey` (`PainterBase.GreySuffix`), which both painters make once from the picture. The Android
+  painter decodes the icons with mipmaps.
+- Unity: `CandyTileView` (an `Icon` image over the face, placed by its layout), `OwnerArt.TileIcon` (the sprite or its
+  grey copy, cached), the flying pod (`UiFx.FlyTile(…, icon)`) and the finished picture's texture
+  (`BoardPictures.Finished(…, icons)`, which bakes the field icons into the flat tiles with `UiRaster.DrawOver` from
+  `OwnerArt.IconPixels`). The imported icons keep no readable copy (`OwnerIconImporter`: mipmaps, high-quality
+  compression): the grey copies and the baked pixels are read back once through a render texture.
+- The lotus: `Kit.Petal` and `UiKit.PetalIcon` (`UiKit.SetIconParts` with `GardenLook.Lotus`) draw the picture in the
+  drawn lotus's box wherever the Petals show, faded like a booster picture when grey.
+
 ## 4. Screens
 
 Positions and order stay as in spec 002; only the looks change.
@@ -568,7 +596,9 @@ restyled, §4.2; `tile.base`, `tile.ground`, `tile.entry`, `tile.layer_peek` and
 `ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
 icon pictures replace them, §3.10), `tile.grass` (the picture's background cells, §4.1), `bg.win` (the win's garden,
 §4.2), `ui.sign.ivy`
-(kind `Shape`: the clover cluster), `ui.jam.slots` (the jam's slot row), `ui.pill.reward` (the win's and the milestone's reward pills). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (research D16 and
+(kind `Shape`: the clover cluster), `ui.jam.slots` (the jam's slot row), `ui.pill.reward` (the win's and the milestone's reward pills),
+`tile.icon.{id}` and `tile.gem.{id}` (the owner's detailed and simplified variant icons, §3.11; `OwnerPictures.IconSlot`,
+`GemSlot`). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (research D16 and
 `pictures.md`) keep or add their `bg.*`, `char.hero3d.*` and `brand.wordmark` slots, whose kind is their stand-in's
 (`Procedural` backdrops, the `Text` wordmark, the `Generated` heroes), with the drawn or generated stand-in as fallback:
 `bg.home`, `bg.splash`, `bg.wardrobe` (Unity's Wardrobe) and `bg.theme.*` (`OwnerPictures.SlotOf`); the optional

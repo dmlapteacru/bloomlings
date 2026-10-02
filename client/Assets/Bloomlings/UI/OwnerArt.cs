@@ -7,17 +7,20 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.UI
 {
     /// <summary>
-    /// The owner's pictures in Unity (spec 005 <c>pictures.md</c> B, C and D, research D16): the backgrounds from
-    /// <c>Resources/Backgrounds/{name}</c>, the logo from <c>Resources/Brand/logo</c>, the booster icons from
-    /// <c>Resources/Icons/booster-{id}</c> and the leaf decorations from <c>Resources/Decor/{name}</c>, by the names of
+    /// The owner's pictures in Unity (spec 005 <c>pictures.md</c> B, C, D and G, research D16): the backgrounds from
+    /// <c>Resources/Backgrounds/{name}</c>, the logo from <c>Resources/Brand/logo</c>, the booster icons, the variant icons
+    /// and the lotus from <c>Resources/Icons/</c> (<c>booster-{id}</c>, <c>variant-{id}</c>, <c>field-{id}</c>,
+    /// <c>currency-lotus</c>) and the leaf decorations from <c>Resources/Decor/{name}</c>, by the names of
     /// <see cref="OwnerPictures"/>. Each loader returns null while the picture is missing, and the hooks then draw the
-    /// code-drawn stand-in (the <see cref="BackdropRaster"/> backdrop, the wooden wordmark letters, the drawn icons and
-    /// leaves). Pictures are loaded once.
+    /// code-drawn stand-in (the <see cref="BackdropRaster"/> backdrop, the wooden wordmark letters, the drawn icons, symbols
+    /// and leaves). Pictures are loaded once.
     /// </summary>
     public static class OwnerArt
     {
         private static readonly Dictionary<string, Texture2D?> Textures = new Dictionary<string, Texture2D?>();
         private static readonly Dictionary<string, Sprite?> Sprites = new Dictionary<string, Sprite?>();
+        private static readonly Dictionary<(string Icon, bool Sticker, bool Grey), Sprite?> TileIcons = new Dictionary<(string, bool, bool), Sprite?>();
+        private static readonly Dictionary<string, (byte[] Rgba, int Width, int Height)?> Pixels = new Dictionary<string, (byte[], int, int)?>();
 
         /// <summary>An owner background (<c>home</c>, <c>gameplay-pond</c>, …), or null while it is missing.</summary>
         public static Texture2D? Background(string name) => Load(OwnerPictures.BackgroundFolder + "/" + name);
@@ -42,8 +45,128 @@ namespace Bloomlings.Client.UI
             return picture == null ? r.Logo : r.LogoPicture(picture.width, picture.height);
         }
 
-        /// <summary>An owner icon (<c>booster-shuffle</c>, pictures.md D1–D4) as a sprite, or null while it is missing.</summary>
+        /// <summary>
+        /// An owner icon (<c>booster-shuffle</c>, pictures.md D1–D4; <c>variant-leaf</c>, <c>field-leaf</c> and
+        /// <c>currency-lotus</c>, G9–G24) as a sprite, or null while it is missing.
+        /// </summary>
         public static Sprite? Icon(string name) => SpriteOf(OwnerPictures.IconFolder + "/" + name);
+
+        /// <summary>
+        /// The owner's icon picture a candy tile of <paramref name="iconId"/> shows over its face
+        /// (<see cref="OwnerPictures.TileIcon"/>: the field icon on board and flat tiles, the detailed one on stickers), its
+        /// grey copy on a stuck tile (<see cref="TileState.Grey"/>), or null: the mystery tile, or the picture missing (the
+        /// tile then keeps its drawn symbol). Looked up once per icon, style and greyness.
+        /// </summary>
+        public static Sprite? TileIcon(string iconId, TileStyle style, TileState state)
+        {
+            bool sticker = style == TileStyle.Sticker;
+            bool grey = state == TileState.Grey;
+            if (state == TileState.Mystery)
+            {
+                return null;
+            }
+
+            if (!TileIcons.TryGetValue((iconId, sticker, grey), out Sprite? sprite))
+            {
+                string? name = OwnerPictures.TileIcon(iconId, style, state);
+                sprite = name == null ? null : grey ? GreyIcon(name) : Icon(name);
+                TileIcons[(iconId, sticker, grey)] = sprite;
+            }
+
+            return sprite;
+        }
+
+        /// <summary>
+        /// The pixels of an owner icon (<paramref name="name"/>, in the Icons folder) as straight-alpha RGBA bytes, rows
+        /// from the top, with its size, or null while it is missing: the finished picture bakes the field icons into its
+        /// texture (<c>BoardPictures.Finished</c>). The imported texture keeps no readable copy, so its pixels are read
+        /// back once through a render texture and kept.
+        /// </summary>
+        public static (byte[] Rgba, int Width, int Height)? IconPixels(string name)
+        {
+            string path = OwnerPictures.IconFolder + "/" + name;
+            if (!Pixels.TryGetValue(path, out (byte[] Rgba, int Width, int Height)? pixels))
+            {
+                Texture2D? texture = Load(path);
+                byte[]? rows = texture == null ? null : ReadBack(texture);
+                pixels = rows == null ? ((byte[], int, int)?)null : (FlipRows(rows, texture!.width, texture.height), texture.width, texture.height);
+                Pixels[path] = pixels;
+            }
+
+            return pixels;
+        }
+
+        /// <summary>
+        /// The grey copy of an owner icon (a stuck slot's tile, <see cref="OwnerPictures.GreyPixels"/>), with mipmaps, or
+        /// null while the picture is missing. Made once from the picture's pixels.
+        /// </summary>
+        private static Sprite? GreyIcon(string name)
+        {
+            string path = OwnerPictures.IconFolder + "/" + name;
+            Texture2D? texture = Load(path);
+            byte[]? rows = texture == null ? null : ReadBack(texture);
+            if (rows == null)
+            {
+                // No read-back on this device: the colored picture, faded by the tile's alpha.
+                return Icon(name);
+            }
+
+            OwnerPictures.GreyPixels(rows);
+            var grey = new Texture2D(texture!.width, texture.height, TextureFormat.RGBA32, true)
+            {
+                name = name + "#grey",
+                filterMode = FilterMode.Trilinear,
+                wrapMode = TextureWrapMode.Clamp,
+            };
+            grey.SetPixelData(rows, 0);
+            grey.Apply(true, true);
+            return Sprite.Create(grey, new Rect(0f, 0f, grey.width, grey.height), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, Vector4.zero);
+        }
+
+        /// <summary>
+        /// A texture's pixels as RGBA bytes in Unity's row order (from the bottom), read back through a temporary render
+        /// texture (the imported texture is not readable); null when it fails.
+        /// </summary>
+        private static byte[]? ReadBack(Texture2D texture)
+        {
+            int w = texture.width;
+            int h = texture.height;
+            if (w < 1 || h < 1)
+            {
+                return null;
+            }
+
+            RenderTexture target = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.ARGB32, RenderTextureReadWrite.Default);
+            RenderTexture? previous = RenderTexture.active;
+            try
+            {
+                Graphics.Blit(texture, target);
+                RenderTexture.active = target;
+                var copy = new Texture2D(w, h, TextureFormat.RGBA32, false);
+                copy.ReadPixels(new Rect(0f, 0f, w, h), 0, 0, false);
+                byte[] rows = copy.GetRawTextureData();
+                Object.Destroy(copy);
+                return rows.Length == w * h * 4 ? rows : null;
+            }
+            finally
+            {
+                RenderTexture.active = previous;
+                RenderTexture.ReleaseTemporary(target);
+            }
+        }
+
+        /// <summary>RGBA rows from the bottom (Unity's order) to rows from the top (the engine-free pictures'), as a new array.</summary>
+        private static byte[] FlipRows(byte[] rows, int width, int height)
+        {
+            var flipped = new byte[rows.Length];
+            int stride = width * 4;
+            for (int y = 0; y < height; y++)
+            {
+                System.Buffer.BlockCopy(rows, (height - 1 - y) * stride, flipped, y * stride, stride);
+            }
+
+            return flipped;
+        }
 
         /// <summary>An owner leaf picture (<c>ivy</c>, <c>flowers</c>, …, pictures.md D5–D8) as a sprite, or null while it is missing.</summary>
         public static Sprite? Decor(string name) => SpriteOf(OwnerPictures.DecorFolder + "/" + name);

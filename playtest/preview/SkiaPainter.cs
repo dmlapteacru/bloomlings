@@ -412,12 +412,45 @@ namespace Bloomlings.Playtest.Preview
             {
                 if (!Sprites.TryGetValue(name, out SKImage? image))
                 {
-                    using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
-                    image = stream != null ? SKImage.FromEncodedData(stream)?.ToRasterImage(ensurePixelData: true) : null;
+                    string? grey = GreySource(name);
+                    if (grey != null)
+                    {
+                        // A grey copy (a stuck slot's tile icon), made once from its picture.
+                        SKImage? source = LoadSprite(grey);
+                        image = source != null ? Greyed(source) : null;
+                    }
+                    else
+                    {
+                        using System.IO.Stream? stream = typeof(SkiaPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
+                        image = stream != null ? SKImage.FromEncodedData(stream)?.ToRasterImage(ensurePixelData: true) : null;
+                    }
+
                     Sprites[name] = image;
                 }
 
                 return image;
+            }
+        }
+
+        /// <summary>A grey copy of a picture (<see cref="OwnerPictures.GreyPixels"/>; the luma works on premultiplied pixels too).</summary>
+        private static SKImage? Greyed(SKImage source)
+        {
+            var info = new SKImageInfo(source.Width, source.Height, SKColorType.Rgba8888, SKAlphaType.Premul);
+            var pixels = new byte[info.BytesSize];
+            var handle = System.Runtime.InteropServices.GCHandle.Alloc(pixels, System.Runtime.InteropServices.GCHandleType.Pinned);
+            try
+            {
+                if (!source.ReadPixels(info, handle.AddrOfPinnedObject(), info.RowBytes, 0, 0))
+                {
+                    return null;
+                }
+
+                OwnerPictures.GreyPixels(pixels);
+                return SKImage.FromPixelCopy(info, handle.AddrOfPinnedObject(), info.RowBytes);
+            }
+            finally
+            {
+                handle.Free();
             }
         }
 

@@ -900,7 +900,10 @@ namespace Bloomlings.Client.UI
             return text;
         }
 
-        /// <summary>The Petals symbol: the pink lotus with its outline and light tips (FR-006; spec 005 contracts/look.md §3.4).</summary>
+        /// <summary>
+        /// The Petals symbol: the owner's lotus picture (<see cref="OwnerPictures.CurrencyLotus"/>) when it exists, else the
+        /// drawn pink lotus with its outline and light tips (FR-006; spec 005 contracts/look.md §3.4; <see cref="SetIconParts"/>).
+        /// </summary>
         public static Image PetalIcon(string name, Transform parent) => IconParts(name, parent, GardenLook.Lotus);
 
         /// <summary>

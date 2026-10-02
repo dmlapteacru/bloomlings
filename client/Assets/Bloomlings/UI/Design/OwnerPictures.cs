@@ -1,9 +1,9 @@
 namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
-    /// The names of the pictures the owner makes (spec 005 <c>pictures.md</c> B, C and D): backgrounds, the logo, the
-    /// booster icons and the leaf decorations. Each build looks for the picture by its name and draws the code-drawn
-    /// stand-in while it is missing (FR-019, FR-027):
+    /// The names of the pictures the owner makes (spec 005 <c>pictures.md</c> B, C, D and G): backgrounds, the logo, the
+    /// booster icons, the leaf decorations, the variant icons and the currency lotus. Each build looks for the picture by
+    /// its name and draws the code-drawn stand-in while it is missing (FR-019, FR-027):
     /// <list type="bullet">
     /// <item><description>Unity loads <c>Resources/Backgrounds/{name}</c>, <c>Resources/Brand/{name}</c>,
     /// <c>Resources/Icons/{name}</c> and <c>Resources/Decor/{name}</c> (<c>OwnerArt</c>).</description></item>
@@ -21,7 +21,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The Resources folder of the logo (<c>Art/Brand/Resources/Brand/</c>).</summary>
         public const string BrandFolder = "Brand";
 
-        /// <summary>The Resources folder of the booster icons (<c>Art/Icons/Resources/Icons/</c>).</summary>
+        /// <summary>The Resources folder of the booster icons, the variant icons and the lotus (<c>Art/Icons/Resources/Icons/</c>).</summary>
         public const string IconFolder = "Icons";
 
         /// <summary>The Resources folder of the leaf decorations (<c>Art/Decor/Resources/Decor/</c>).</summary>
@@ -66,10 +66,29 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>D1 to D4: a booster's icon (<c>booster-extra_slot</c>, <c>booster-shuffle</c>, …), in the Icons folder.</summary>
         public static string BoosterIcon(string boosterId) => "booster-" + boosterId;
 
+        /// <summary>The variant icon ids with icon pictures (G9–G24): the eight launch variants (the expansion keeps its drawn symbols).</summary>
+        public static readonly string[] Variants = { "leaf", "moss", "flower", "bud", "drop", "dew", "log", "acorn" };
+
         /// <summary>
-        /// The asset slot a picture of <c>pictures.md</c> B, C or D fills (<c>home</c> → <c>bg.home</c>,
+        /// G9–G16: a variant's detailed icon (<c>variant-leaf</c>, …), in the Icons folder: the sticker tiles of the pods,
+        /// the Waiting Slots, the jam row, the kit sheet and the demos.
+        /// </summary>
+        public static string VariantIcon(string iconId) => "variant-" + iconId;
+
+        /// <summary>
+        /// G17–G24: a variant's simplified icon (<c>field-leaf</c>, …), in the Icons folder: the small board tiles and the
+        /// finished picture's flat tiles.
+        /// </summary>
+        public static string FieldIcon(string iconId) => "field-" + iconId;
+
+        /// <summary>The Petals currency's lotus, in the Icons folder: wherever the lotus shows (the stand-in is <c>GardenLook.Lotus</c>).</summary>
+        public const string CurrencyLotus = "currency-lotus";
+
+        /// <summary>
+        /// The asset slot a picture of <c>pictures.md</c> B, C, D or G fills (<c>home</c> → <c>bg.home</c>,
         /// <c>gameplay-pond</c> → <c>bg.theme.pond</c>, <c>logo</c> → <c>brand.wordmark</c>, <c>booster-shuffle</c> →
-        /// <c>booster.shuffle</c>, <c>ivy</c> → <c>ui.sign.ivy</c>).
+        /// <c>booster.shuffle</c>, <c>ivy</c> → <c>ui.sign.ivy</c>, <c>variant-leaf</c> → <c>tile.icon.leaf</c>,
+        /// <c>field-leaf</c> → <c>tile.gem.leaf</c>, <c>currency-lotus</c> → <c>currency.petal</c>).
         /// </summary>
         public static string SlotOf(string picture) => picture switch
         {
@@ -83,11 +102,14 @@ namespace Bloomlings.Client.UI.Design
             Flowers => "ui.sign.flowers",
             ButtonLeaves => "ui.deco.garden",
             LogoLeaves => "ui.logo.wood",
+            CurrencyLotus => "currency.petal",
             "gameplay-daylight" => "bg.theme.daylight_garden",
             "gameplay-moonlit" => "bg.theme.moonlit_garden",
             _ when picture.StartsWith("gameplay-", System.StringComparison.Ordinal) => "bg.theme." + picture.Substring("gameplay-".Length),
             _ when picture.StartsWith("booster-", System.StringComparison.Ordinal) => "booster." + picture.Substring("booster-".Length),
-            _ => throw new System.ArgumentException("Not an owner picture of pictures.md B, C or D: " + picture, nameof(picture)),
+            _ when picture.StartsWith("variant-", System.StringComparison.Ordinal) => IconSlot(picture.Substring("variant-".Length)),
+            _ when picture.StartsWith("field-", System.StringComparison.Ordinal) => GemSlot(picture.Substring("field-".Length)),
+            _ => throw new System.ArgumentException("Not an owner picture of pictures.md B, C, D or G: " + picture, nameof(picture)),
         };
 
         /// <summary>The gameplay background of a theme (B2 to B5): <c>gameplay-daylight</c>, <c>gameplay-pond</c>, …</summary>
@@ -153,6 +175,71 @@ namespace Bloomlings.Client.UI.Design
         {
             float cover = System.Math.Max(screen.Width / System.Math.Max(1f, picW), screen.Height / System.Math.Max(1f, picH));
             return System.Math.Max(1f, (stageY - screen.Top) / System.Math.Max(1f, WinDiscShare * picH * cover));
+        }
+
+        // ---- Variant icons on candy tiles (pictures.md G9–G24) ----
+
+        /// <summary>The slot of a variant's detailed icon picture (<see cref="VariantIcon"/>): <c>tile.icon.leaf</c>, …</summary>
+        public static string IconSlot(string iconId) => "tile.icon." + iconId;
+
+        /// <summary>The slot of a variant's simplified board icon picture (<see cref="FieldIcon"/>): <c>tile.gem.leaf</c>, …</summary>
+        public static string GemSlot(string iconId) => "tile.gem." + iconId;
+
+        /// <summary>
+        /// The icon picture a candy tile of <paramref name="iconId"/> draws over its face (spec 005 contracts/look.md §3.1):
+        /// the simplified field icon on board and flat tiles (G17–G24), the detailed icon on sticker tiles (G9–G16); null
+        /// for the mystery tile, whose "?" stays drawn. Whether the file exists is the host's question: without it the tile
+        /// keeps its drawn symbol.
+        /// </summary>
+        public static string? TileIcon(string iconId, TileStyle style, TileState state) =>
+            state == TileState.Mystery || iconId == "mystery" ? null : style == TileStyle.Sticker ? VariantIcon(iconId) : FieldIcon(iconId);
+
+        /// <summary>
+        /// The share of a board or flat tile's side that its field icon picture's box takes: the pictures keep about 4% of
+        /// margin, so the icon itself spans about 62% of the tile.
+        /// </summary>
+        public const float FieldIconBox = 0.66f;
+
+        /// <summary>
+        /// The share of a sticker tile's side that its detailed icon picture's box takes: the pictures keep about 5% of
+        /// margin, so the icon itself spans about 70% of the tile.
+        /// </summary>
+        public const float StickerIconBox = 0.76f;
+
+        /// <summary>
+        /// Where a tile's icon picture goes on the box the tile's picture is drawn in (<paramref name="tile"/>, top-down; a
+        /// square, or a pressed tile's shorter box): a square of <see cref="FieldIconBox"/> or <see cref="StickerIconBox"/>
+        /// of its width, centered across and on the face's middle (the picture's top part above its lip,
+        /// <see cref="UiRaster.TileLipShare"/>).
+        /// </summary>
+        public static Box TileIconBox(Box tile, TileStyle style)
+        {
+            float face = tile.Height * (1f - UiRaster.TileLipShare(style));
+            float side = tile.Width * (style == TileStyle.Sticker ? StickerIconBox : FieldIconBox);
+            return Box.FromCenter(tile.CenterX, tile.Top + (face / 2f), side, side);
+        }
+
+        /// <summary>
+        /// How opaque a tile's icon picture is over its face: a queued pod's (<see cref="TileState.Dimmed"/>) 0.55, so it
+        /// mixes with the face dimmed 45% toward <c>parchment.bottom</c> as the drawn symbol does; a stuck slot's
+        /// (<see cref="TileState.Grey"/>) grey copy (<see cref="GreyPixels"/>) 0.8 over the grey face; else 1.
+        /// </summary>
+        public static float TileIconAlpha(TileState state) => state == TileState.Dimmed ? 0.55f : state == TileState.Grey ? 0.8f : 1f;
+
+        /// <summary>
+        /// Turns RGBA bytes (straight or premultiplied alpha: the luma is linear) grey in place, with the luma of
+        /// <see cref="Rgba.Grey"/>: the stuck tile's icon picture (the hosts make the grey copy once per picture).
+        /// </summary>
+        public static void GreyPixels(byte[] rgba)
+        {
+            for (int i = 0; i + 3 < rgba.Length; i += 4)
+            {
+                int l = ((299 * rgba[i]) + (587 * rgba[i + 1]) + (114 * rgba[i + 2]) + 500) / 1000;
+                byte g = (byte)(l > 255 ? 255 : l);
+                rgba[i] = g;
+                rgba[i + 1] = g;
+                rgba[i + 2] = g;
+            }
         }
     }
 }

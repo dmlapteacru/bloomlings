@@ -522,12 +522,14 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// Changes an <see cref="IconParts"/> image's parts or greyness. A booster's icon is the owner's picture when it
-        /// exists (pictures.md D1–D4), faded to <see cref="GardenLook.PictureDisabledAlpha"/> when grey.
+        /// exists (pictures.md D1–D4), and so is the lotus (<see cref="GardenLook.Lotus"/>, <see cref="OwnerPictures.CurrencyLotus"/>),
+        /// faded to <see cref="GardenLook.PictureDisabledAlpha"/> when grey.
         /// </summary>
         public static void SetIconParts(Image image, IReadOnlyList<IconPart> parts, bool grey)
         {
             string? booster = GardenLook.BoosterOf(parts);
-            Sprite? picture = booster == null ? null : OwnerArt.Icon(OwnerPictures.BoosterIcon(booster));
+            Sprite? picture = booster != null ? OwnerArt.Icon(OwnerPictures.BoosterIcon(booster))
+                : ReferenceEquals(parts, GardenLook.Lotus) ? OwnerArt.Icon(OwnerPictures.CurrencyLotus) : null;
             if (picture != null)
             {
                 OwnerArt.Show(image, picture);
@@ -739,12 +741,19 @@ namespace Bloomlings.Client.UI
         internal static float Fraction(float v) => Frac(v);
     }
 
-    /// <summary>A candy tile built by <see cref="UiKit.CandyTile(string, Transform, VariantId?, TileStyle, TileState)"/>.</summary>
+    /// <summary>
+    /// A candy tile built by <see cref="UiKit.CandyTile(string, Transform, VariantId?, TileStyle, TileState)"/>. With the
+    /// owner's icon picture of its variant (spec 005 pictures.md G9–G24, <see cref="OwnerArt.TileIcon"/>) the tile picture is
+    /// the drawn face alone (<see cref="ProceduralSprites.CandyFace"/>) and the picture lies over its middle
+    /// (<see cref="OwnerPictures.TileIconBox"/>): faded on a queued pod, its grey copy on a stuck slot, sinking with the
+    /// face when pressed; the playtest's <c>Kit.CandyTile</c>. Without it the drawn symbol stays.
+    /// </summary>
     public sealed class CandyTileView : MonoBehaviour
     {
         private BoxLayout _layout = null!;
         private TileStyle _style;
         private bool _pressed;
+        private Image? _icon;
 
         /// <summary>The tile picture.</summary>
         public Image Image { get; private set; } = null!;
@@ -774,15 +783,44 @@ namespace Bloomlings.Client.UI
         /// <summary>Shows a variant (null: the mystery tile) in a state.</summary>
         public void Show(VariantId? variant, TileState state = TileState.Normal)
         {
-            TileStyle style = _style;
-            PictureFit.On(Image, (w, h) => ProceduralSprites.CandyTile(variant, style, state, w), false, PictureShape.SquareByWidth);
+            if (!variant.HasValue || !VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info))
+            {
+                Show(DesignTokens.Colors.TileMystery, "mystery", TileState.Mystery);
+                return;
+            }
+
+            Show(Rgba.FromHex(info.ColorHex), info.IconId, state);
         }
 
         /// <summary>Shows any color with a variant icon in a state.</summary>
         public void Show(Rgba color, string iconId, TileState state = TileState.Normal)
         {
             TileStyle style = _style;
-            PictureFit.On(Image, (w, h) => ProceduralSprites.CandyTile(color, iconId, style, state, w), false, PictureShape.SquareByWidth);
+            Sprite? picture = OwnerArt.TileIcon(iconId, style, state);
+            if (picture == null)
+            {
+                PictureFit.On(Image, (w, h) => ProceduralSprites.CandyTile(color, iconId, style, state, w), false, PictureShape.SquareByWidth);
+                if (_icon != null)
+                {
+                    _icon.enabled = false;
+                }
+
+                return;
+            }
+
+            PictureFit.On(Image, (w, h) => ProceduralSprites.CandyFace(color, style, state, w), false, PictureShape.SquareByWidth);
+            if (_icon == null)
+            {
+                // Over the tile picture (a later sibling), placed on the face's middle.
+                _icon = UiFactory.CreateImage("Icon", transform, picture, Color.white);
+                _icon.raycastTarget = false;
+                _icon.preserveAspect = true;
+                _layout.Add(_icon.rectTransform, b => OwnerPictures.TileIconBox(TileBox(b), _style));
+            }
+
+            _icon.sprite = picture;
+            _icon.color = new Color(1f, 1f, 1f, OwnerPictures.TileIconAlpha(state));
+            _icon.enabled = true;
         }
 
         /// <summary>

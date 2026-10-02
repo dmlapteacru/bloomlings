@@ -486,17 +486,63 @@ namespace Bloomlings.Playtest.Droid
         {
             if (!Sprites.TryGetValue(name, out Bitmap? bitmap))
             {
-                using System.IO.Stream? stream = typeof(AndroidPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
-                bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
-                if (bitmap == null)
+                string? grey = GreySource(name);
+                if (grey != null)
                 {
-                    Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not embedded; drawing the stand-in");
+                    // A grey copy (a stuck slot's tile icon), made once from its picture.
+                    Bitmap? source = LoadSprite(grey);
+                    bitmap = source != null ? Greyed(source) : null;
+                }
+                else
+                {
+                    using System.IO.Stream? stream = typeof(AndroidPainter).Assembly.GetManifestResourceStream(SpriteResource(name));
+                    bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
+                    if (bitmap == null)
+                    {
+                        Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not embedded; drawing the stand-in");
+                    }
+                    else if (name.StartsWith(IconPrefix, StringComparison.Ordinal))
+                    {
+                        // The owner's icons are drawn far below their size (a 512 px icon on a 60 px tile): mipmaps keep
+                        // them smooth.
+                        bitmap.HasMipMap = true;
+                    }
                 }
 
                 Sprites[name] = bitmap;
             }
 
             return bitmap;
+        }
+
+        /// <summary>A grey copy of a picture (<see cref="OwnerPictures.GreyPixels"/>), with mipmaps as its picture.</summary>
+        private static Bitmap Greyed(Bitmap source)
+        {
+            int w = source.Width;
+            int h = source.Height;
+            var colors = new int[w * h];
+
+            // GetPixels gives straight-alpha ARGB colors; CreateBitmap takes them the same way.
+            source.GetPixels(colors, 0, w, 0, 0, w, h);
+            var rgba = new byte[colors.Length * 4];
+            for (int i = 0; i < colors.Length; i++)
+            {
+                int c = colors[i];
+                rgba[(i * 4) + 0] = (byte)(c >> 16);
+                rgba[(i * 4) + 1] = (byte)(c >> 8);
+                rgba[(i * 4) + 2] = (byte)c;
+                rgba[(i * 4) + 3] = (byte)(c >> 24);
+            }
+
+            OwnerPictures.GreyPixels(rgba);
+            for (int i = 0; i < colors.Length; i++)
+            {
+                colors[i] = (rgba[(i * 4) + 3] << 24) | (rgba[i * 4] << 16) | (rgba[(i * 4) + 1] << 8) | rgba[(i * 4) + 2];
+            }
+
+            Bitmap grey = Bitmap.CreateBitmap(colors, w, h, Bitmap.Config.Argb8888!)!;
+            grey.HasMipMap = source.HasMipMap;
+            return grey;
         }
 
         public override void PushClip(Box box)
