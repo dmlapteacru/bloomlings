@@ -21,7 +21,9 @@ namespace Bloomlings.Client.UI.Screens
     /// The win card of the design board's frame 15 (spec 002 FR-020; FR-025, T050, T122) in the reference look of spec
     /// 005 (contracts/look.md §4.4; the playtest's <c>EndCards.Win</c>).
     /// <list type="bullet">
-    /// <item><description>The finished picture is revealed on the board first; then the card pops up over a scrim.</description></item>
+    /// <item><description>The finished picture is revealed on the board first; then the card pops up over a scrim. The
+    /// gameplay top bar stays as it is and takes taps through the scrim, so Pause and the speed pill work as before
+    /// (FR-002).</description></item>
     /// <item><description>A wooden "Level complete!" sign with white flower clusters lies across the card's top edge,
     /// and above it the heroes celebrate on a stone pedestal in slowly turning light rays, with pink petals falling and,
     /// for the first seconds, a light sprinkle of confetti in the level's colors above the card (the owner's celebrating
@@ -37,17 +39,8 @@ namespace Bloomlings.Client.UI.Screens
     {
         private const float RevealSeconds = 1.2f;
 
-        /// <summary>The finished picture's height on the card (units), on a phone of 19.5:9 or taller.</summary>
-        private const float PictureUnits = 520f;
-
         /// <summary>The reward row's height (units).</summary>
         private const float RewardUnits = 118f;
-
-        /// <summary>The reward pill's height (units).</summary>
-        private const float RewardPillUnits = 104f;
-
-        /// <summary>The wooden sign's height (units).</summary>
-        private const float SignUnits = 146f;
 
         private GameObject _root = null!;
         private RectTransform _card = null!;
@@ -75,14 +68,17 @@ namespace Bloomlings.Client.UI.Screens
         private Vector3 _lotusAt;
         private Vector3 _pillAt;
         private float _pillWidth;
+        private int _shows;
 
-        /// <summary>Raised when the card shows after the picture reveal (the gameplay top bar then fades out).</summary>
-        public event Action? Shown;
-
-        public static WinScreen Create(Transform parent, Action onNext)
+        /// <param name="tapThrough">
+        /// The gameplay top bar: the shade lets taps through over it, so Pause and the speed pill stay usable while the
+        /// card shows (FR-002); null: the shade takes every tap.
+        /// </param>
+        public static WinScreen Create(Transform parent, Action onNext, RectTransform? tapThrough = null)
         {
             Image shade = UiFactory.CreateImage("WinScreen", parent, null, UiTheme.PanelShade, raycast: true);
             UiFactory.Stretch(shade.rectTransform);
+            shade.gameObject.AddComponent<RaycastHole>().Hole = tapThrough;
             var screen = shade.gameObject.AddComponent<WinScreen>();
             screen._root = shade.gameObject;
 
@@ -186,7 +182,7 @@ namespace Bloomlings.Client.UI.Screens
             {
                 string id = BoosterId(drop.Value);
                 UiKit.SetBoosterIcon(_dropIcon, id, false);
-                _dropText.text = Loc.F("win.drop", Loc.T("booster." + id));
+                _dropText.text = Loc.F("win.drop", BoosterName(drop.Value));
             }
 
             _celebration.ShowHero(session != null ? HeroPictures.MainFamily(session.Definition.Pods) : (Family?)null);
@@ -197,10 +193,15 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             Layout(hasReward, drop.HasValue, doubleReward != null, session);
-            host.StartCoroutine(ShowAfterReveal());
+            host.StartCoroutine(ShowAfterReveal(++_shows));
         }
 
-        public void Hide() => _root.SetActive(false);
+        /// <summary>Hides the card, and keeps a reveal still waiting (a restart from Pause) from showing it.</summary>
+        public void Hide()
+        {
+            _shows++;
+            _root.SetActive(false);
+        }
 
         /// <summary>The card's regions as the playtest's <c>EndCards.Win</c> computes them, in screen pixels.</summary>
         private void Layout(bool hasReward, bool drop, bool offerDouble, LevelSession? session)
@@ -210,14 +211,14 @@ namespace Bloomlings.Client.UI.Screens
             Box safe = ScreenLayout.SafeArea(w, h, insets);
 
             // The finished picture is a little smaller on a short phone, so the heroes keep their room above the card.
-            float pictureUnits = Mathf.Max(400f, Mathf.Min(PictureUnits, safe.Height / u * 0.24f));
+            float pictureUnits = Mathf.Max(400f, Mathf.Min(DesignTokens.Size.WinPictureHeight, safe.Height / u * 0.24f));
             float content = pictureUnits + 26f + (hasReward ? RewardUnits : 0f) + (drop ? 64f : 0f) + 22f + DesignTokens.Size.CardPrimaryHeight + (offerDouble ? 26f + DesignTokens.Size.SecondaryHeight : 0f) + 34f;
             CardRegions r = ScreenLayout.Card(w, h, insets, content);
             Box card = r.Card;
             UiKit.PlaceScreen(_card, card);
 
             // The sign across the card's top edge, as wide as its letters need; the heroes above it.
-            float sh = SignUnits * u;
+            float sh = DesignTokens.Size.WinSignHeight * u;
             float signWidth = Mathf.Min(card.Width * 0.8f, MeasurePx(_sign.Label, T.LevelHome.Size * u) + (sh * 1.5f));
             Box sign = Box.FromCenter(card.CenterX, card.Top + (30f * u), signWidth, sh);
             UiKit.PlaceBox((RectTransform)_sign.transform, sign, card);
@@ -242,7 +243,7 @@ namespace Bloomlings.Client.UI.Screens
             if (hasReward)
             {
                 // The pill is as wide as its final amount needs: the lotus, a gap, the digits and its rounded ends.
-                float ph = RewardPillUnits * u;
+                float ph = DesignTokens.Size.RewardPillHeight * u;
                 float textWidth = MeasurePx(_rewardText, ph * 0.56f);
                 bool lotus = _reward.Cost.Kind == CostKind.Petals;
                 float icon = lotus ? ph * 0.86f : 0f;
@@ -278,11 +279,15 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_confettiClip, new Box(0f, 0f, w, card.Top));
         }
 
-        private IEnumerator ShowAfterReveal()
+        private IEnumerator ShowAfterReveal(int show)
         {
             yield return new WaitForSecondsRealtime(RevealSeconds);
+            if (show != _shows)
+            {
+                yield break;
+            }
+
             _root.SetActive(true);
-            Shown?.Invoke();
             _riseFade.alpha = 0f;
             if (_pendingCount.HasValue && _model != null && _reward.gameObject.activeSelf)
             {
@@ -330,6 +335,15 @@ namespace Bloomlings.Client.UI.Screens
             BoosterKind.Shuffle => "shuffle",
             BoosterKind.Return => "return",
             _ => "bloom_burst",
+        };
+
+        /// <summary>A booster's name, each key written out so the localization check sees it.</summary>
+        private static string BoosterName(BoosterKind kind) => kind switch
+        {
+            BoosterKind.ExtraSlot => Loc.T("booster.extra_slot"),
+            BoosterKind.Shuffle => Loc.T("booster.shuffle"),
+            BoosterKind.Return => Loc.T("booster.return"),
+            _ => Loc.T("booster.bloom_burst"),
         };
     }
 }

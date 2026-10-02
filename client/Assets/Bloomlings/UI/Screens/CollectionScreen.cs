@@ -34,8 +34,9 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _host = null!;
         private CardView? _grid;
         private CardView? _detail;
+        private Texture2D? _detailTexture;
         private IReadOnlyList<CollectionEntry> _entries = Array.Empty<CollectionEntry>();
-        private Func<CollectionEntry, Texture2D?> _render = _ => null;
+        private Func<CollectionEntry, int, Texture2D?> _render = (_, _) => null;
         private int _pageIndex;
 
         public bool IsOpen => _host.gameObject.activeSelf;
@@ -50,8 +51,11 @@ namespace Bloomlings.Client.UI.Screens
             return screen;
         }
 
-        /// <param name="render">Draws an entry's finished picture, or null when this content version cannot redraw it.</param>
-        public void Show(IReadOnlyList<CollectionEntry> entries, Func<CollectionEntry, Texture2D?> render)
+        /// <param name="render">
+        /// Draws an entry's finished picture to fit a side in pixels (0: at full detail), or null when this content version
+        /// cannot redraw it. The grid draws each picture at its frame's own resolution, the detail at full detail.
+        /// </param>
+        public void Show(IReadOnlyList<CollectionEntry> entries, Func<CollectionEntry, int, Texture2D?> render)
         {
             _entries = entries;
             _render = render;
@@ -108,6 +112,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(count.rectTransform, Box.FromCenter(body.CenterX, body.Top + (22f * u), body.Width, 44f * u), body);
 
             float cell = Mathf.Min((body.Width - (40f * u)) / Columns, CellUnits * u);
+            int framePixels = Mathf.Max(1, Mathf.CeilToInt(cell - (24f * u)));
             float x0 = body.CenterX - (cell * Columns / 2f);
             float y0 = body.Top + (60f * u);
             for (int slot = 0; slot < onPage; slot++)
@@ -116,13 +121,13 @@ namespace Bloomlings.Client.UI.Screens
                 CollectionEntry entry = _entries[_entries.Count - 1 - (first + slot)];
                 float x = x0 + ((slot % Columns) * cell);
                 float y = y0 + ((slot / Columns) * cell);
-                Texture2D? texture = _render(entry);
+                Texture2D? texture = _render(entry, framePixels);
                 if (texture != null)
                 {
                     _textures.Add(texture);
                 }
 
-                RectTransform frame = Frame("Picture", card.Body, texture, () => OpenDetail(entry, texture));
+                RectTransform frame = Frame("Picture", card.Body, texture, () => OpenDetail(entry, texture != null));
                 UiKit.PlaceBox(frame, new Box(x, y, x + cell, y + cell).Inset(12f * u), body);
             }
 
@@ -147,11 +152,14 @@ namespace Bloomlings.Client.UI.Screens
         /// The detail card (frame 20): the picture larger in its frame (at most 540 units), its name in brown and
         /// "Completed at Level N" below it; the close goes back to the grid.
         /// </summary>
-        private void OpenDetail(CollectionEntry entry, Texture2D? texture)
+        private void OpenDetail(CollectionEntry entry, bool drawn)
         {
-            // The grid only hides, so its pictures (this one among them) stay until the Collection closes or turns a page.
+            // The grid only hides, so its thumbnails stay until the Collection closes or turns a page; the detail draws its
+            // picture at full detail and releases it when it closes.
             CloseDetail(showGrid: false);
             _grid?.Root.SetActive(false);
+            Texture2D? texture = drawn ? _render(entry, 0) : null;
+            _detailTexture = texture;
             CardView card = UiKit.Card("Detail", _host, Loc.T("collection.title"), 700f, () => CloseDetail(showGrid: true), sign: SignDecor.None);
             _detail = card;
             Box body = card.Regions.Body;
@@ -169,6 +177,12 @@ namespace Bloomlings.Client.UI.Screens
         private void CloseDetail(bool showGrid)
         {
             DestroyCard(ref _detail);
+            if (_detailTexture != null)
+            {
+                Destroy(_detailTexture);
+                _detailTexture = null;
+            }
+
             if (showGrid)
             {
                 _grid?.Root.SetActive(true);

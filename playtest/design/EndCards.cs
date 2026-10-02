@@ -38,7 +38,7 @@ namespace Bloomlings.Playtest.Design
             LevelReward? reward = s.Payout?.Reward;
             bool drop = reward?.DroppedBooster != null;
             // The finished picture is a little smaller on a short phone, so the heroes keep their room above the card.
-            float pictureUnits = Math.Max(400f, Math.Min(PictureUnits, ScreenLayout.SafeArea(p.Width, p.Height, p.Insets).Height / p.Scale * 0.24f));
+            float pictureUnits = Math.Max(400f, Math.Min(DesignTokens.Size.WinPictureHeight, ScreenLayout.SafeArea(p.Width, p.Height, p.Insets).Height / p.Scale * 0.24f));
             float content = pictureUnits + 26f + (reward != null ? RewardUnits : 0f) + (drop ? 64f : 0f) + 22f + DesignTokens.Size.CardPrimaryHeight + 26f + DesignTokens.Size.SecondaryHeight + 60f;
             CardRegions r = Kit.Card(p, content, string.Empty, null, Kit.Pop(since));
             Box sign = Header(p, r, PlaytestText.T("win.title"), since, celebrate: true, Visuals.MainFamily(s.Session.Definition));
@@ -387,9 +387,6 @@ namespace Bloomlings.Playtest.Design
 
         // ---- The celebration (spec 005 §4.4) ----
 
-        /// <summary>The finished picture's height on the win card (units), on a phone of 19.5:9 or taller.</summary>
-        private const float PictureUnits = 520f;
-
         private const float RewardUnits = 118f;
 
         /// <summary>
@@ -398,7 +395,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         private static Box Header(IPainter p, CardRegions r, string title, float since, bool celebrate, Family family = Family.Bloom)
         {
-            float h = p.U(146f);
+            float h = p.U(DesignTokens.Size.WinSignHeight);
             TypeStyle style = T.LevelHome;
             float width = Math.Min(r.Card.Width * 0.8f, p.MeasureText(title, style) + (h * 1.5f));
             Box sign = Box.FromCenter(r.Card.CenterX, r.Card.Top + p.U(30f), width, h);
@@ -464,7 +461,7 @@ namespace Bloomlings.Playtest.Design
         private static Box RewardPill(IPainter p, float cx, float cy, int petals, float since)
         {
             p.Mark("ui.pill.reward");
-            float h = p.U(104f);
+            float h = p.U(DesignTokens.Size.RewardPillHeight);
             float scale = h * 0.56f / p.U(T.Count.Size);
             string final = NumberText.Plus(petals);
             float icon = h * 0.86f;

@@ -122,7 +122,7 @@ namespace Bloomlings.Client.UI.Screens
                 onRestorePurchases?.Invoke(ok =>
                 {
                     restore.interactable = true;
-                    screen._restoreLabel.text = Loc.T(ok ? "settings.restore_done" : "settings.restore_failed");
+                    screen._restoreLabel.text = ok ? Loc.T("settings.restore_done") : Loc.T("settings.restore_failed");
                 });
             });
             UiKit.PlaceBox((RectTransform)restore.transform, buttons[0], body);

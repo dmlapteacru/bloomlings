@@ -154,7 +154,7 @@ namespace Bloomlings.Client.UI.Screens
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
             float u = DesignTokens.ScaleFor(w, h);
             float subtitleWidth = ScreenLayout.Sheet(w, h, insets, 0f).Subtitle.Width / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
-            List<string> subtitle = UiKit.BalancedLines(_probe, Loc.T(stuck ? "jam.stuck_subtitle" : "jam.subtitle"), UiKit.Units(T.Body.Size), subtitleWidth * 0.94f);
+            List<string> subtitle = UiKit.BalancedLines(_probe, stuck ? Loc.T("jam.stuck_subtitle") : Loc.T("jam.subtitle"), UiKit.Units(T.Body.Size), subtitleWidth * 0.94f);
 
             // Wanted heights (units): the subtitle's second line, the well, the rows of choices (a button and its pill's
             // overhang), Restart. A short phone shrinks the well, the choices and the gaps together.
@@ -165,7 +165,7 @@ namespace Bloomlings.Client.UI.Screens
             const float gap = 34f;
             float flexible = wellUnits + gap + (rows * rowUnits) + (Math.Max(0, rows - 1) * rowGap) + (rows > 0 ? gap : 0f);
             float fixedUnits = lineUnits + DesignTokens.Size.CardPrimaryHeight + 34f;
-            SheetView sheet = UiKit.Sheet("Sheet", _host, Loc.T(stuck ? "jam.stuck" : "jam.title"), subtitle[0], flexible + fixedUnits + 10f);
+            SheetView sheet = UiKit.Sheet("Sheet", _host, stuck ? Loc.T("jam.stuck") : Loc.T("jam.title"), subtitle[0], flexible + fixedUnits + 10f);
             _sheet = sheet;
             SheetRegions regions = sheet.Regions;
             Box body = regions.Body;

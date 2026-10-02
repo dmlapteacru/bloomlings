@@ -41,6 +41,18 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>Room around a stone obstacle's cell for its shadow, in cells (each side).</summary>
         public const float ObstacleMargin = 0.12f;
 
+        /// <summary>
+        /// The most pixels per cell (at least 8, <see cref="Finished"/>'s smallest) at which the finished picture of a
+        /// <paramref name="width"/> × <paramref name="height"/> board, framed or not, fits into <paramref name="maxSide"/>
+        /// pixels each way.
+        /// </summary>
+        public static int CellPixelsToFit(int width, int height, int maxSide, bool framed)
+        {
+            float rim = framed ? BoardLayout.Gap + PictureBorder + PictureMargin : 0f;
+            float cells = Math.Max(1, Math.Max(width, height)) + (2f * rim);
+            return Math.Max(8, (int)Math.Floor(maxSide / cells));
+        }
+
         /// <summary>A variant's color from the core catalog (the candy tiles' color).</summary>
         public static Rgba ColorOf(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : C.StateStuck;

@@ -112,11 +112,13 @@ namespace Bloomlings.Client.Gameplay
             {
                 _workers.Outfits = wardrobe.OutfitOf;
             }
-            _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave, OpenSettings);
-            _win = WinScreen.Create(root, Next);
-            _win.Shown += _hud.FadeOutTopBar;
+            // The end cards first, then the pause card over them: Pause stays usable under the win card (its shade lets
+            // taps through over the top bar) and during a jam, so its card must cover both (Settings, built when first
+            // opened, comes above it).
+            _win = WinScreen.Create(root, Next, _hud.TopBar);
             _milestoneCard = MilestoneCard.Create(root, Next);
-            _jam = JamScreen.Create(root, () => Restart("jam"), OnRecovery);
+            _jam = JamScreen.Create(root, RestartFromJam, OnRecovery);
+            _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave, OpenSettings);
             _banner = DifficultyBanner.Create(root);
             _demo = DemoOverlay.Create(root);
 
@@ -539,6 +541,12 @@ namespace Bloomlings.Client.Gameplay
 
         private void OnRecovery(Recovery recovery)
         {
+            // The jam's choices are inert while the pause card is open over the sheet.
+            if (_pause.IsOpen)
+            {
+                return;
+            }
+
             _jam.Hide();
             LevelInfo? info = Info;
             if (info != null)
@@ -712,21 +720,30 @@ namespace Bloomlings.Client.Gameplay
             }
 
             (BoosterKind kind, Command command) = rescue.Value;
-            return (RecoveryOf(kind), () => ads.ShowRewarded(AdPlacements.JamRescue, earned =>
+            return (RecoveryOf(kind), () =>
             {
-                if (earned)
+                // Inert while the pause card is open over the jam sheet.
+                if (_pause.IsOpen)
                 {
-                    policy.OnRescueUsed();
-                    Analytics?.AdRewarded("rescue");
-                    LevelInfo? info = Info;
-                    if (info != null)
-                    {
-                        Analytics?.LevelRecover(info, "ad_rescue");
-                    }
-
-                    UseBooster(kind, command, free: true);
+                    return;
                 }
-            }));
+
+                ads.ShowRewarded(AdPlacements.JamRescue, earned =>
+                {
+                    if (earned)
+                    {
+                        policy.OnRescueUsed();
+                        Analytics?.AdRewarded("rescue");
+                        LevelInfo? info = Info;
+                        if (info != null)
+                        {
+                            Analytics?.LevelRecover(info, "ad_rescue");
+                        }
+
+                        UseBooster(kind, command, free: true);
+                    }
+                });
+            });
         }
 
         private static (BoosterKind Kind, Command Command)? RescueBooster(LevelSession session)
@@ -1033,6 +1050,15 @@ namespace Bloomlings.Client.Gameplay
             Restart("pause");
         }
 
+        /// <summary>The jam sheet's Restart; inert while the pause card is open over the sheet.</summary>
+        private void RestartFromJam()
+        {
+            if (!_pause.IsOpen)
+            {
+                Restart("jam");
+            }
+        }
+
         /// <summary>Restart rebuilds the same level for free (FR-028, FR-040).</summary>
         /// <param name="from"><c>pause</c> or <c>jam</c> (the <c>level_restart</c> event).</param>
         private void Restart(string from)
@@ -1316,7 +1342,6 @@ namespace Bloomlings.Client.Gameplay
             _workInFlight.Clear();
             _win.Hide();
             _jam.Hide();
-            _hud.ShowTopBar();
             if (IsDaily)
             {
                 _hud.SetTitle(Loc.T("daily.title"));
@@ -1330,6 +1355,9 @@ namespace Bloomlings.Client.Gameplay
             _heldTriggers.Clear();
             _tray.ReleaseLocks();
             _slots.ReleaseLocks();
+
+            // The board pictures of earlier levels at other cell sizes go; the last level's, still shown, stay for this one.
+            Art.ProceduralSprites.ReleaseUnused(Art.ProceduralSprites.BoardFamilies);
             _board.Build(session.View, session.Definition, session.Picture);
             _hasCountedSpecials = false;
             foreach (SpecialInfo special in session.View.Specials)

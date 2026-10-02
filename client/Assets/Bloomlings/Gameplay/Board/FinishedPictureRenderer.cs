@@ -26,6 +26,12 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>Pixels per cell of the full-color picture (<see cref="Render"/>).</summary>
         public const int PicturePixelsPerCell = 48;
 
+        /// <summary>
+        /// The most pixels per cell of the restored ground: its cells are flat pale colors with a soft shade along their
+        /// top, so a larger board stretches it under bilinear filtering without showing it.
+        /// </summary>
+        public const int GroundPixelsPerCell = 48;
+
         private RawImage? _image;
         private Image? _shine;
         private Texture2D? _texture;
@@ -57,6 +63,9 @@ namespace Bloomlings.Client.Gameplay.Board
             _picture = picture;
             _width = Mathf.Max(1, width);
             _height = Mathf.Max(1, height);
+
+            // A new level always draws its own ground, even at the cell size of the last one.
+            _cellPixels = 0;
             Redraw(cellPixels);
             _image.color = Color.white;
             _image.transform.localScale = Vector3.one;
@@ -66,10 +75,13 @@ namespace Bloomlings.Client.Gameplay.Board
             }
         }
 
-        /// <summary>Draws the ground again at another cell size (the board was laid out at a new size); same size: nothing.</summary>
+        /// <summary>
+        /// Draws the ground again at another cell size (the board was laid out at a new size), at most
+        /// <see cref="GroundPixelsPerCell"/>; same size: nothing.
+        /// </summary>
         public void Redraw(int cellPixels)
         {
-            int cell = Mathf.Clamp(cellPixels, 16, 128);
+            int cell = Mathf.Clamp(cellPixels, 16, GroundPixelsPerCell);
             if (_image == null || _definition == null || _picture == null || (cell == _cellPixels && _texture != null))
             {
                 return;
@@ -141,25 +153,28 @@ namespace Bloomlings.Client.Gameplay.Board
             return ToTexture(rgba, width, height, "FinishedPicture_" + picture.Id);
         }
 
-        /// <summary>A texture of top-down RGBA bytes (rows flipped for Unity, edges bled), bilinear and clamped.</summary>
+        /// <summary>
+        /// The pixels per cell that fit the finished picture (framed or not) into <paramref name="maxSide"/> pixels, from
+        /// 8 to <see cref="PicturePixelsPerCell"/>: a Collection thumbnail at its frame's own resolution.
+        /// </summary>
+        public static int CellPixelsToFit(BasePicture picture, int maxSide, bool framed = true) =>
+            Mathf.Min(PicturePixelsPerCell, BoardPictures.CellPixelsToFit(picture.Width, picture.Height, maxSide, framed));
+
+        /// <summary>
+        /// A texture of top-down RGBA bytes (rows flipped for Unity, edges bled), bilinear and clamped. The bytes go up
+        /// as they are and the texture keeps no readable copy.
+        /// </summary>
         private static Texture2D ToTexture(byte[] rgba, int width, int height, string name)
         {
             byte[] rows = PicturePixels.ForTexture(rgba, width, height);
-            var pixels = new Color32[width * height];
-            for (int i = 0; i < pixels.Length; i++)
-            {
-                int k = i * 4;
-                pixels[i] = new Color32(rows[k], rows[k + 1], rows[k + 2], rows[k + 3]);
-            }
-
             var texture = new Texture2D(width, height, TextureFormat.RGBA32, false)
             {
                 name = name,
                 filterMode = FilterMode.Bilinear,
                 wrapMode = TextureWrapMode.Clamp,
             };
-            texture.SetPixels32(pixels);
-            texture.Apply(false, false);
+            texture.SetPixelData(rows, 0);
+            texture.Apply(false, true);
             return texture;
         }
     }

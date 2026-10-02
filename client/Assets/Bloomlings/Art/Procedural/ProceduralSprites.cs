@@ -23,6 +23,12 @@ namespace Bloomlings.Client.Art
         private static readonly Dictionary<string, Sprite> Cache = new Dictionary<string, Sprite>(StringComparer.Ordinal);
         private static readonly Dictionary<string, Sprite> Pictures = new Dictionary<string, Sprite>(StringComparer.Ordinal);
 
+        // The pictures the PictureFits show, by cache key: how many show each. A picture asked for outside a fit (a sprite
+        // its caller keeps) is pinned for the session; only pictures neither shown nor pinned are released.
+        private static readonly Dictionary<string, int> Shown = new Dictionary<string, int>(StringComparer.Ordinal);
+        private static readonly HashSet<string> Pinned = new HashSet<string>(StringComparer.Ordinal);
+        private static int _fitting;
+
         /// <summary>A white rounded square with a 9-slice border.</summary>
         public static Sprite RoundedSquare => Get("ui.panel", 64, border: 22f);
 
@@ -160,7 +166,8 @@ namespace Bloomlings.Client.Art
         /// shows no dark fringe. The texture is RGBA32, bilinear, clamped and <c>DontSave</c>; the sprite has 100 pixels
         /// per unit, a center pivot, a full-rect mesh and <paramref name="border"/> (left, bottom, right, top in pixels)
         /// for 9-slicing. Pictures are cached by <c>key@WxH</c> (and the border), so a key must always render the same
-        /// picture at the same size.
+        /// picture at the same size. A picture asked for by a <c>PictureFit</c> (<see cref="Fit"/>) can be released once no
+        /// fit shows it (<see cref="ReleaseUnused"/>); any other is kept for the session.
         /// </summary>
         public static Sprite Picture(string key, int width, int height, Func<int, int, byte[]> render, Vector4 border = default)
         {
@@ -170,6 +177,11 @@ namespace Bloomlings.Client.Art
             }
 
             string cacheKey = PicturePixels.CacheKey(key, width, height, border.x, border.y, border.z, border.w);
+            if (_fitting == 0)
+            {
+                Pinned.Add(cacheKey);
+            }
+
             if (Pictures.TryGetValue(cacheKey, out Sprite? cached) && cached != null)
             {
                 return cached;
@@ -181,14 +193,8 @@ namespace Bloomlings.Client.Art
                 throw new ArgumentException("Picture " + cacheKey + " rendered " + rgba.Length + " bytes, expected " + (width * height * 4) + ".");
             }
 
+            // The flipped, bled rows go up as they are (RGBA32), and the texture keeps no readable copy.
             byte[] rows = PicturePixels.ForTexture(rgba, width, height);
-            var pixels = new Color32[width * height];
-            for (int i = 0; i < pixels.Length; i++)
-            {
-                int k = i * 4;
-                pixels[i] = new Color32(rows[k], rows[k + 1], rows[k + 2], rows[k + 3]);
-            }
-
             var texture = new Texture2D(width, height, TextureFormat.RGBA32, false)
             {
                 name = cacheKey,
@@ -196,13 +202,117 @@ namespace Bloomlings.Client.Art
                 wrapMode = TextureWrapMode.Clamp,
                 hideFlags = HideFlags.DontSave,
             };
-            texture.SetPixels32(pixels);
+            texture.SetPixelData(rows, 0);
             texture.Apply(false, true);
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, width, height), new Vector2(0.5f, 0.5f), 100f, 0, SpriteMeshType.FullRect, border);
             sprite.name = cacheKey;
             sprite.hideFlags = HideFlags.DontSave;
             Pictures[cacheKey] = sprite;
             return sprite;
+        }
+
+        /// <summary>
+        /// A <c>PictureFit</c>'s picture: runs <paramref name="source"/> at <paramref name="width"/> ×
+        /// <paramref name="height"/> pixels and counts the cached picture it returns as shown, in place of
+        /// <paramref name="shown"/> (the key of the one the fit showed before, released here; null for none).
+        /// </summary>
+        public static Sprite Fit(Func<int, int, Sprite> source, int width, int height, ref string? shown)
+        {
+            Sprite sprite;
+            _fitting++;
+            try
+            {
+                sprite = source(width, height);
+            }
+            finally
+            {
+                _fitting--;
+            }
+
+            string? key = sprite != null && Pictures.TryGetValue(sprite.name, out Sprite? cached) && ReferenceEquals(cached, sprite) ? sprite.name : null;
+            if (key != null)
+            {
+                Shown[key] = Shown.TryGetValue(key, out int count) ? count + 1 : 1;
+            }
+
+            Unshow(shown);
+            shown = key;
+            return sprite!;
+        }
+
+        /// <summary>A <c>PictureFit</c> no longer shows the picture of <paramref name="key"/> (it was destroyed).</summary>
+        public static void Unshow(string? key)
+        {
+            if (key == null || !Shown.TryGetValue(key, out int count))
+            {
+                return;
+            }
+
+            if (count <= 1)
+            {
+                Shown.Remove(key);
+            }
+            else
+            {
+                Shown[key] = count - 1;
+            }
+        }
+
+        /// <summary>
+        /// The picture families whose sizes follow a board's cell size: the board's candy tiles, stone obstacles, stone
+        /// border and arches, and the win picture's flat tiles and stones. Each level of another size adds its own.
+        /// </summary>
+        public static readonly IReadOnlyList<string> BoardFamilies = new[]
+        {
+            "tile.candy/board/",
+            "tile.candy/flat/",
+            "tile.stone/",
+            "mat.stone/block/",
+            "board.arch/",
+        };
+
+        /// <summary>
+        /// Destroys the cached pictures of the given families (key prefixes) that no <c>PictureFit</c> shows any more and
+        /// no other caller asked for: with <see cref="BoardFamilies"/>, the tiles, stones and arches of earlier levels at
+        /// their cell sizes. A new level calls it before it builds its board, so the last level's pictures, still shown,
+        /// stay for the new one when its cells are the same size. Returns how many it released.
+        /// </summary>
+        public static int ReleaseUnused(IReadOnlyList<string> families)
+        {
+            var unused = new List<string>();
+            foreach (KeyValuePair<string, Sprite> entry in Pictures)
+            {
+                if (!Pinned.Contains(entry.Key) && !Shown.ContainsKey(entry.Key) && InFamily(entry.Key, families))
+                {
+                    unused.Add(entry.Key);
+                }
+            }
+
+            foreach (string key in unused)
+            {
+                Sprite sprite = Pictures[key];
+                Pictures.Remove(key);
+                if (sprite != null)
+                {
+                    UnityEngine.Object.Destroy(sprite.texture);
+                    UnityEngine.Object.Destroy(sprite);
+                }
+            }
+
+            return unused.Count;
+        }
+
+        private static bool InFamily(string key, IReadOnlyList<string> families)
+        {
+            for (int i = 0; i < families.Count; i++)
+            {
+                if (key.StartsWith(families[i], StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>

@@ -163,12 +163,41 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Hide() => _root.SetActive(false);
 
+        // While open, the screen follows the wardrobe: a choice here, or a cosmetic bought in the Store opened from the
+        // Petals pill's "+", shows at once.
+        private void OnEnable()
+        {
+            if (_wardrobe != null)
+            {
+                _wardrobe.Changed -= OnWardrobeChanged;
+                _wardrobe.Changed += OnWardrobeChanged;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (_wardrobe != null)
+            {
+                _wardrobe.Changed -= OnWardrobeChanged;
+            }
+        }
+
+        private void OnDestroy() => OnDisable();
+
+        private void OnWardrobeChanged()
+        {
+            if (_root != null && _root.activeSelf)
+            {
+                Refresh();
+            }
+        }
+
         /// <summary>A cosmetic's display name: its localized entry (a level badge or marker names its level), else the catalog name.</summary>
         public static string Name(CosmeticItem item)
         {
             if (item.MilestoneLevel.HasValue)
             {
-                return Loc.F(item.Kind == CosmeticKind.Marker ? "cosmetic.level_marker" : "cosmetic.level_badge", item.MilestoneLevel.Value);
+                return item.Kind == CosmeticKind.Marker ? Loc.F("cosmetic.level_marker", item.MilestoneLevel.Value) : Loc.F("cosmetic.level_badge", item.MilestoneLevel.Value);
             }
 
             return Loc.T("cosmetic." + item.Id, item.Name);
@@ -509,7 +538,7 @@ namespace Bloomlings.Client.UI.Screens
                 _wardrobe.Equip(_selected, item.Id);
             }
 
-            Refresh();
+            // A change raises the wardrobe's Changed, which refreshes the screen (OnWardrobeChanged); no change, nothing to redraw.
         }
     }
 }

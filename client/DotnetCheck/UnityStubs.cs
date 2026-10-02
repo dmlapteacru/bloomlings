@@ -45,12 +45,12 @@ namespace UnityEngine
     public struct Vector4 { public float x, y, z, w; public Vector4(float x, float y, float z, float w) { this.x = x; this.y = y; this.z = z; this.w = w; } public static Vector4 zero => default; public static bool operator ==(Vector4 a, Vector4 b) => a.x == b.x && a.y == b.y && a.z == b.z && a.w == b.w; public static bool operator !=(Vector4 a, Vector4 b) => !(a == b); public override bool Equals(object? o) => o is Vector4 v && v == this; public override int GetHashCode() => 0; }
     public static class Mathf { public const float PI = 3.14f; public const float Rad2Deg = 57.29578f; public static float Atan2(float y, float x) => 0; public static float Min(float a, float b) => a; public static int Min(int a, int b) => a; public static float Max(float a, float b) => a; public static int Max(int a, int b) => a; public static float Clamp01(float v) => v; public static float Clamp(float v, float a, float b) => v; public static int Clamp(int v, int a, int b) => v; public static float Abs(float v) => v; public static float Sqrt(float v) => v; public static float Sin(float v) => v; public static float Cos(float v) => v; public static float Floor(float v) => v; public static int FloorToInt(float v) => 0; public static int CeilToInt(float v) => 0; public static float SmoothStep(float a, float b, float t) => t; public static float PingPong(float t, float length) => t; public static float Lerp(float a, float b, float t) => a; public static int RoundToInt(float v) => 0; }
     public class Texture : Object { public int width => 0; public int height => 0; public FilterMode filterMode { get; set; } public TextureWrapMode wrapMode { get; set; } }
-    public sealed class Texture2D : Texture { public Texture2D(int w, int h, TextureFormat f, bool mip) { } public void SetPixels32(Color32[] p) { } public void Apply(bool a, bool b) { } }
+    public sealed class Texture2D : Texture { public Texture2D(int w, int h, TextureFormat f, bool mip) { } public void SetPixels32(Color32[] p) { } public void SetPixelData<T>(T[] data, int mipLevel, int sourceDataStartIndex = 0) { } public void Apply(bool a, bool b) { } }
     public enum TextureFormat { RGBA32 }
     public enum FilterMode { Bilinear }
     public enum TextureWrapMode { Clamp }
     public enum SpriteMeshType { FullRect }
-    public sealed class Sprite : Object { public Vector4 border => default; public static Sprite Create(Texture2D t, Rect r, Vector2 p, float ppu, uint ex, SpriteMeshType m, Vector4 b) => null!; }
+    public sealed class Sprite : Object { public Vector4 border => default; public Texture2D texture => null!; public static Sprite Create(Texture2D t, Rect r, Vector2 p, float ppu, uint ex, SpriteMeshType m, Vector4 b) => null!; }
     public class ScriptableObject : Object { public static T CreateInstance<T>() where T : ScriptableObject => default!; }
     public sealed class CreateAssetMenuAttribute : Attribute { public string menuName = ""; public string fileName = ""; }
     public sealed class TooltipAttribute : Attribute { public TooltipAttribute(string t) { } }
@@ -59,7 +59,7 @@ namespace UnityEngine
     public static class Screen { public static int width => 1080; public static int height => 2340; public static Rect safeArea => new Rect(0, 0, 1080, 2340); }
     public static class Time { public static float unscaledDeltaTime => 0; public static float unscaledTime => 0; }
     public static class ColorUtility { public static bool TryParseHtmlString(string s, out Color c) { c = default; return true; } }
-    public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public T GetComponent<T>() => default!; public T GetComponentInChildren<T>() => default!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; }
+    public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public T GetComponent<T>() => default!; public T GetComponentInChildren<T>() => default!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; public bool activeInHierarchy => true; }
     public enum RuntimePlatform { Android, IPhonePlayer }
     public class TextAsset : Object { public string text => string.Empty; }
     public sealed class Font : Object { }
@@ -77,6 +77,7 @@ namespace UnityEngine
     public sealed class Canvas : Behaviour { public RenderMode renderMode; public int sortingOrder; public static void ForceUpdateCanvases() { } }
 }
 namespace UnityEngine { public static class GUILayout { public static bool Button(string text) => false; } }
+namespace UnityEngine { public interface ICanvasRaycastFilter { bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera); } public static class RectTransformUtility { public static bool RectangleContainsScreenPoint(RectTransform rect, Vector2 screenPoint, Camera cam) => false; } }
 namespace UnityEngine.Events { public delegate void UnityAction(); public class UnityEvent { public void AddListener(UnityAction a) { } public void RemoveAllListeners() { } } }
 namespace UnityEngine.UI
 {

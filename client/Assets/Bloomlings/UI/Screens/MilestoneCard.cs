@@ -34,7 +34,6 @@ namespace Bloomlings.Client.UI.Screens
     public sealed class MilestoneCard : MonoBehaviour
     {
         private const float RowUnits = 270f;
-        private const float SignUnits = 146f;
 
         private readonly List<GameObject> _items = new List<GameObject>();
         private GameObject _root = null!;
@@ -143,7 +142,7 @@ namespace Bloomlings.Client.UI.Screens
             Box card = r.Card;
             UiKit.PlaceScreen(_card, card);
 
-            float sh = SignUnits * u;
+            float sh = DesignTokens.Size.WinSignHeight * u;
             float ppu = Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
             float signWidth = Mathf.Min(card.Width * 0.8f, (KitText.Measure(_sign.Label, T.LevelHome.Size * u / ppu) * ppu) + (sh * 1.5f));
             Box sign = Box.FromCenter(card.CenterX, card.Top + (30f * u), signWidth, sh);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Localization;
+using Bloomlings.Core.Variants;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -94,6 +95,26 @@ namespace Bloomlings.Client.Tests
             {
                 Assert.That(english.ContainsKey("cosmetic." + item.Id), Is.True, item.Id);
             }
+        }
+
+        /// <summary>
+        /// The Wardrobe and the Store build these keys from <see cref="WardrobeService.FamilyKey"/>, so the key check above
+        /// cannot see them: every family has its name, its role and its line, and the profile tab its role and line.
+        /// </summary>
+        [Test]
+        public void EnglishTable_NamesEveryFamily_AndTheProfile()
+        {
+            Dictionary<string, string> english = English;
+            var keys = new List<string> { "wardrobe.role.profile", "wardrobe.about.profile" };
+            foreach (Family family in (Family[])System.Enum.GetValues(typeof(Family)))
+            {
+                string key = WardrobeService.FamilyKey(family);
+                keys.Add("family." + key);
+                keys.Add("wardrobe.role." + key);
+                keys.Add("wardrobe.about." + key);
+            }
+
+            Assert.That(keys.Where(k => !english.ContainsKey(k)), Is.Empty);
         }
 
         [Test]

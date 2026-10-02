@@ -29,8 +29,8 @@ namespace Bloomlings.Client.Gameplay.Tray
         private static readonly Rgba[] LinkPalette =
         {
             C.StateLink,
-            Rgba.FromHex("#6FB6E8"),
-            Rgba.FromHex("#E67FB0"),
+            C.StateLink2,
+            C.StateLink3,
         };
 
         private readonly Dictionary<string, PodView> _pods = new Dictionary<string, PodView>(StringComparer.Ordinal);

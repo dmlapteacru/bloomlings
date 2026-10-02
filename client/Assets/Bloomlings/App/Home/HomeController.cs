@@ -153,7 +153,7 @@ namespace Bloomlings.Client.App.Home
                 () =>
                 {
                     analytics?.CollectionOpen(collection.Count);
-                    collectionScreen.Show(collection.Entries, entry => RenderCollectionEntry(catalog, entry));
+                    collectionScreen.Show(collection.Entries, (entry, side) => RenderCollectionEntry(catalog, entry, side));
                 },
                 () =>
                 {
@@ -187,8 +187,8 @@ namespace Bloomlings.Client.App.Home
                 features);
             var account = new AccountActions(
                 () => save.LinkedIdentity != null
-                    ? Loc.T(save.LinkedIdentity == "apple" ? "account.linked_apple" : "account.linked_google")
-                    : Loc.T(auth.IsSignedIn ? "account.signed_in" : "account.local"),
+                    ? (save.LinkedIdentity == "apple" ? Loc.T("account.linked_apple") : Loc.T("account.linked_google"))
+                    : (auth.IsSignedIn ? Loc.T("account.signed_in") : Loc.T("account.local")),
                 auth.CanLink(LinkProvider.Apple),
                 auth.CanLink(LinkProvider.GooglePlayGames),
                 (provider, done) => RunInBackground(auth.Link(provider, ok =>
@@ -441,7 +441,7 @@ namespace Bloomlings.Client.App.Home
             int? rank = leaderboard.LastPage?.Player?.Rank;
             if (!rank.HasValue)
             {
-                return Loc.T(leaderboard.IsStale ? "home.rank_unknown_offline" : "home.rank_unknown");
+                return leaderboard.IsStale ? Loc.T("home.rank_unknown_offline") : Loc.T("home.rank_unknown");
             }
 
             string number = rank.Value.ToString("N0", CultureInfo.InvariantCulture);
@@ -449,10 +449,10 @@ namespace Bloomlings.Client.App.Home
         }
 
         /// <summary>
-        /// Redraws a Collection entry with the current content when its level still has the same picture and colors;
-        /// otherwise the entry shows its level number only.
+        /// Redraws a Collection entry with the current content when its level still has the same picture and colors, to fit
+        /// <paramref name="side"/> pixels (0: at full detail); otherwise the entry shows its level number only.
         /// </summary>
-        private static Texture2D? RenderCollectionEntry(CatalogService catalog, CollectionEntry entry)
+        private static Texture2D? RenderCollectionEntry(CatalogService catalog, CollectionEntry entry, int side)
         {
             ContentSet content = catalog.Content;
             if (!content.TryGetLevel(entry.LevelNumber, out LevelDefinition level)
@@ -463,7 +463,9 @@ namespace Bloomlings.Client.App.Home
                 return null;
             }
 
-            return FinishedPictureRenderer.Render(level, content.GetPicture(level.Picture), null);
+            BasePicture picture = content.GetPicture(level.Picture);
+            int cell = side > 0 ? FinishedPictureRenderer.CellPixelsToFit(picture, side) : FinishedPictureRenderer.PicturePixelsPerCell;
+            return FinishedPictureRenderer.Render(level, picture, null, cellPixels: cell);
         }
     }
 }

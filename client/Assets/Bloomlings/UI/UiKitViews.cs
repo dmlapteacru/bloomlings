@@ -180,7 +180,8 @@ namespace Bloomlings.Client.UI
     /// <c>IPainter.Picture</c>): on every size change the rect's size in screen pixels, each side rounded up to a
     /// multiple of 8 (<see cref="UiRaster.Quantize"/>), asks the source for its sprite (cached by key and size). A sliced
     /// picture (planks, frames) gets the pixels-per-unit multiplier that maps its pixels one to one onto the rect's
-    /// height, so its ends keep their shape.
+    /// height, so its ends keep their shape. The fit counts the cached picture it shows
+    /// (<see cref="ProceduralSprites.Fit"/>), so the pictures no fit shows any more can be released.
     /// </summary>
     public sealed class PictureFit : MonoBehaviour
     {
@@ -193,6 +194,7 @@ namespace Bloomlings.Client.UI
         private PictureShape _shape;
         private int _width;
         private int _height;
+        private string? _shown;
 
         /// <summary>Fits <paramref name="image"/>'s picture from <paramref name="source"/> (pixel width, height → sprite).</summary>
         public static PictureFit On(Image image, Func<int, int, Sprite> source, bool sliced = false, bool square = false) =>
@@ -246,6 +248,12 @@ namespace Bloomlings.Client.UI
 
         private void OnRectTransformDimensionsChange() => Apply();
 
+        private void OnDestroy()
+        {
+            ProceduralSprites.Unshow(_shown);
+            _shown = null;
+        }
+
         private void Apply()
         {
             if (_image == null || _source == null)
@@ -264,7 +272,7 @@ namespace Bloomlings.Client.UI
             {
                 _width = w;
                 _height = h;
-                _image.sprite = _source(w, h);
+                _image.sprite = ProceduralSprites.Fit(_source, w, h, ref _shown);
                 _image.type = _sliced ? Image.Type.Sliced : Image.Type.Simple;
             }
 
@@ -410,6 +418,19 @@ namespace Bloomlings.Client.UI
         public void OnPointerUp(PointerEventData e) => Target?.OnPointerUp(e);
 
         public void OnPointerExit(PointerEventData e) => Target?.OnPointerExit(e);
+    }
+
+    /// <summary>
+    /// Lets taps through a raycasting image (and its children) where another rect lies: the win card's shade over the
+    /// gameplay top bar, so Pause and the speed pill stay usable while the card shows (spec 005 FR-002).
+    /// </summary>
+    public sealed class RaycastHole : MonoBehaviour, ICanvasRaycastFilter
+    {
+        /// <summary>The rect the taps go through to; null or inactive: the image takes every tap.</summary>
+        public RectTransform? Hole { get; set; }
+
+        public bool IsRaycastLocationValid(Vector2 screenPoint, Camera eventCamera) =>
+            Hole == null || !Hole.gameObject.activeInHierarchy || !RectTransformUtility.RectangleContainsScreenPoint(Hole, screenPoint, eventCamera);
     }
 
     /// <summary>Text measured by the kit's layouts (the playtest's <c>MeasureText</c> and its shrink to a width).</summary>

@@ -70,7 +70,10 @@ namespace Bloomlings.Client.Art
         public static void BleedEdges(byte[] rgba, int width, int height)
         {
             Check(rgba, width, height);
-            var source = (byte[])rgba.Clone();
+
+            // No copy is needed: only clear pixels change, and only their color, while the colors read are those of
+            // visible pixels, which never change.
+            byte[] source = rgba;
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)

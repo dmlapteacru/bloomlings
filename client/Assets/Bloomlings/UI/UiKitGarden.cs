@@ -478,15 +478,19 @@ namespace Bloomlings.Client.UI
 
         // ---- Celebration (§3.9) ----
 
+        /// <summary>The largest side in pixels of the light rays' picture (<see cref="LightRays"/>).</summary>
+        public const int LightRaysMaxPixels = 256;
+
         /// <summary>
         /// Light rays behind the celebrating heroes (§3.9, <c>fx.rays</c>): ten soft <c>ray.light</c> wedges from the
         /// rect's center to its edge (place a square of twice the rays' radius), turning 0.05 turn per second on unscaled
-        /// time. Never a touch target.
+        /// time. Never a touch target. The picture is at most <see cref="LightRaysMaxPixels"/> wide and the image stretches it:
+        /// the soft wedges keep their look under bilinear filtering, at a sixteenth of a screen-sized render's cost.
         /// </summary>
         public static LightRaysView LightRays(string name, Transform parent)
         {
             Image image = UiFactory.CreateImage(name, parent, null, Color.white);
-            PictureFit.On(image, (w, h) => ProceduralSprites.LightRays(Mathf.Min(w, h)), square: true);
+            PictureFit.On(image, (w, h) => ProceduralSprites.LightRays(Mathf.Min(LightRaysMaxPixels, Mathf.Min(w, h))), square: true);
             return image.gameObject.AddComponent<LightRaysView>();
         }
 

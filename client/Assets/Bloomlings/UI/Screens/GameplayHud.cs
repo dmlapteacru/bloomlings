@@ -56,12 +56,12 @@ namespace Bloomlings.Client.UI.Screens
         private Image _toastPill = null!;
         private Box _boardBox;
         private float _toastUntil;
-        private CanvasGroup _topFade = null!;
-        private CanvasGroup _badgeFade = null!;
-        private float _topBarFadingSince = -1f;
 
-        /// <summary>How long the top bar takes to fade out once the win card shows.</summary>
-        public const float TopBarFadeSeconds = 0.3f;
+        /// <summary>
+        /// The top bar (Pause, the level sign and the speed pill). It stays live under the win card: the card's shade lets
+        /// taps through over it (FR-002).
+        /// </summary>
+        public RectTransform TopBar => _topBar;
 
         public RectTransform BoardArea { get; private set; } = null!;
 
@@ -94,13 +94,11 @@ namespace Bloomlings.Client.UI.Screens
             hud._speed = (RectTransform)speed.transform;
             hud._speedLabel = speed.GetComponentInChildren<TextMeshProUGUI>();
 
-            // The badge sits in a holder over the whole screen, so it fades with the top bar.
+            // The badge sits in a holder over the whole screen that takes no taps.
             RectTransform badgeHolder = UiFactory.Stretch(UiFactory.CreateRect("BadgeHolder", root));
             hud._badgeLabel = UiKit.Badge("Badge", badgeHolder, string.Empty, GardenLook.Red, out hud._badge);
             hud._badge.gameObject.SetActive(false);
-            hud._topFade = hud._topBar.gameObject.AddComponent<CanvasGroup>();
-            hud._badgeFade = badgeHolder.gameObject.AddComponent<CanvasGroup>();
-            hud._badgeFade.blocksRaycasts = false;
+            badgeHolder.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
 
             // The badge's letters at type.badge, centered on its face (at most 86% of it wide), as the playtest's Kit.Badge.
             TextMeshProUGUI badgeLabel = hud._badgeLabel;
@@ -227,28 +225,6 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>A title in place of "Level N" (the Daily Challenge).</summary>
         public void SetTitle(string title) => _level.text = title;
 
-        /// <summary>
-        /// Fades the top bar (Pause, the level sign, the speed pill and the badge) out over
-        /// <see cref="TopBarFadeSeconds"/> and stops its taps, so the win card's sign, heroes and rays own the top (the
-        /// playtest's <c>LevelScreen</c>). <see cref="ShowTopBar"/> brings it back for the next level.
-        /// </summary>
-        public void FadeOutTopBar()
-        {
-            _topBarFadingSince = Time.unscaledTime;
-            _topFade.interactable = false;
-            _topFade.blocksRaycasts = false;
-        }
-
-        /// <summary>Shows the top bar again at once, taking taps (a new level or a restart).</summary>
-        public void ShowTopBar()
-        {
-            _topBarFadingSince = -1f;
-            _topFade.alpha = 1f;
-            _topFade.interactable = true;
-            _topFade.blocksRaycasts = true;
-            _badgeFade.alpha = 1f;
-        }
-
         /// <summary>The level band's lawn (FR-066, spec 002 FR-008, spec 005 §4.2); visual only.</summary>
         public void SetTheme(BackgroundTheme? theme) => _backdrop.Show(theme);
 
@@ -263,13 +239,6 @@ namespace Bloomlings.Client.UI.Screens
 
         private void Update()
         {
-            if (_topBarFadingSince >= 0f)
-            {
-                float alpha = 1f - FadeIn.Ease((Time.unscaledTime - _topBarFadingSince) / TopBarFadeSeconds);
-                _topFade.alpha = alpha;
-                _badgeFade.alpha = alpha;
-            }
-
             if (_toastPill.gameObject.activeSelf && Time.unscaledTime > _toastUntil)
             {
                 _toastPill.gameObject.SetActive(false);

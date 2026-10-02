@@ -94,6 +94,23 @@ namespace Bloomlings.Client.Tests
             Assert.That(flat.Length, Is.EqualTo(w * h * 4));
         }
 
+        /// <summary>A Collection thumbnail is drawn at its frame's own resolution: the largest cell that still fits.</summary>
+        [Test]
+        public void TheCellToFit_IsTheLargestThatFits_AndAtLeastEight()
+        {
+            (LevelDefinition level, BasePicture picture) = FirstLevel();
+            foreach (int side in new[] { 180, 226, 540 })
+            {
+                int cell = BoardPictures.CellPixelsToFit(picture.Width, picture.Height, side, true);
+                BoardPictures.Finished(level, picture, cell, true, out int w, out int h);
+                Assert.That(Math.Max(w, h), Is.LessThanOrEqualTo(side), side.ToString());
+                BoardPictures.Finished(level, picture, cell + 1, true, out int w1, out int h1);
+                Assert.That(Math.Max(w1, h1), Is.GreaterThan(side), side.ToString());
+            }
+
+            Assert.That(BoardPictures.CellPixelsToFit(14, 16, 20, true), Is.EqualTo(8));
+        }
+
         [Test]
         public void TheFinishedPicture_ShowsEachRoleInItsFullColor()
         {
