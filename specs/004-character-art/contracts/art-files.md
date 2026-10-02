@@ -24,7 +24,7 @@ Root: `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`
 | `2d/{icon}-{mood}.png` | 48 | 256 × 256 | `icon` ∈ leaf, moss, flower, bud, drop, dew, log, acorn, vine, berry, mist, bark; `mood` ∈ happy, asleep, worried, blank |
 | `3d/{family}.png` | 4 | 512 × 576 | `family` ∈ sprig, bloom, drop, twig; the hero with its face |
 | `3d/{family}-blank.png` | 4 | 512 × 576 | the same hero without eyes or mouth |
-| `3d/group.png` | 1 | 1200 × 720 | the four heroes on the stone pedestal |
+| `3d/group.png` | 1 | 1200 × 720 | the four heroes side by side with their contact shadows, no base (spec 005: the hosts' stone pedestal carries them) |
 | `manifest.json` | 1 | | see data-model.md |
 
 Format:

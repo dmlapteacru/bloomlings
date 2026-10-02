@@ -22,6 +22,26 @@ namespace Bloomlings.Playtest.Design
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.Family : Family.Sprig;
 
         /// <summary>
+        /// A level's main family (the win card's celebrating hero, spec 005 pictures.md A7): the family of the variant with
+        /// the most work in its pods, the first such pod's on a tie.
+        /// </summary>
+        public static Family MainFamily(Core.Definitions.LevelDefinition level)
+        {
+            var work = new System.Collections.Generic.Dictionary<VariantId, int>();
+            VariantId? best = null;
+            foreach (Core.Definitions.PodDef pod in level.Pods)
+            {
+                work[pod.Variant] = (work.TryGetValue(pod.Variant, out int w) ? w : 0) + pod.Count;
+                if (!best.HasValue || work[pod.Variant] > work[best.Value])
+                {
+                    best = pod.Variant;
+                }
+            }
+
+            return best.HasValue ? FamilyOf(best.Value) : Family.Bloom;
+        }
+
+        /// <summary>
         /// A variant's 2D character (spec 004 FR-005 to FR-007): the generated picture whose whole shape is the variant's
         /// symbol, with a face in <paramref name="mood"/>. Without the picture it draws the spec 002 figure: the family
         /// body in the variant color with the symbol in ink (FR-021).
@@ -99,7 +119,21 @@ namespace Bloomlings.Playtest.Design
 
             if (outfit?.Hat != null)
             {
-                p.Shape(ShapeLibrary.CosmeticId(outfit.Hat.Shape), CharacterArt.HatBox(picture), Tint(outfit.Hat));
+                // The hat sits on the head in full color: a darker outline of its own tint, the fill, a light top-left.
+                string hat = ShapeLibrary.CosmeticId(outfit.Hat.Shape);
+                Box hatBox = CharacterArt.HatOnHero(picture, family);
+                Rgba tint = Tint(outfit.Hat);
+                if (ShapeLibrary.Has(hat))
+                {
+                    Func<float, float, float> sdf = ShapeLibrary.Get(hat);
+                    p.ShapeOf(hat + "/line", (x, y) => sdf(x, y) - 0.06f, hatBox, tint.Darken(0.45f));
+                    p.Shape(hat, hatBox, tint);
+                    p.ShapeOf(hat + "/light", (x, y) => Math.Max(sdf(x + 0.05f, y - 0.06f) + 0.07f, sdf(x, y) + 0.03f), hatBox, tint.Lighten(0.35f).WithAlpha(0.5f));
+                }
+                else
+                {
+                    p.Shape(hat, hatBox, tint);
+                }
             }
         }
 

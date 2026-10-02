@@ -28,7 +28,7 @@ How to read the columns:
 |---|---|---|---|
 | Brand | 3 | 0 | 3 |
 | Backgrounds | 6 | 0 | 6 |
-| Bloomling characters | 18 | 5 | 23 |
+| Bloomling characters | 18 | 9 | 27 |
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 12 | 0 | 12 |
 | Specials | 7 | 0 | 7 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **174** | **23** | **197** |
+| **All** | **174** | **27** | **201** |
 
 ## Brand
 
@@ -93,7 +93,11 @@ the fallback when a picture is missing.
 | `char.hero3d.bloom` | 3D hero: Bloom | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/bloom.png` |
 | `char.hero3d.drop` | 3D hero: Drop | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/drop.png` |
 | `char.hero3d.twig` | 3D hero: Twig | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/twig.png` |
-| `char.hero3d.group` | 3D heroes: the four families on a stone pedestal | 1, 2, 15, 16 | Splash; Home; win; milestone | warm garden light | Large | no | Launch | `3d/group.png` |
+| `char.hero3d.group` | 3D heroes: the four families side by side (the hosts stand them on a stone pedestal) | 1, 2, 15, 16 | Splash; Home; win; milestone | warm garden light | Large | no | Launch | `3d/group.png` |
+| `char.hero3d.cheer.sprig` | 3D hero celebrating: Sprig (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/sprig-cheer.png` exists (not in the game yet) |
+| `char.hero3d.cheer.bloom` | 3D hero celebrating: Bloom (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/bloom-cheer.png` exists (not in the game yet) |
+| `char.hero3d.cheer.drop` | 3D hero celebrating: Drop (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/drop-cheer.png` exists (not in the game yet) |
+| `char.hero3d.cheer.twig` | 3D hero celebrating: Twig (the owner's picture, spec 005 pictures.md A7) | 15 | Win (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/twig-cheer.png` exists (not in the game yet) |
 | `char.experiment.leafling` | Experiment: the Leafling, a guest on Home (the owner's Meshy model) | 2, 3 | Home | beside the group early on; beside the hero later | Medium | no | Later | `experiments/leafling.png`, painted and rendered by tools/artgen from `tools/artgen/models/leafling.fbx` |
 
 ## Variant symbols

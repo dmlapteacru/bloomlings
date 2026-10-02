@@ -89,7 +89,7 @@ daily.date,{0} (UTC)
 daily.done,Done for today! A new puzzle arrives at midnight UTC.
 daily.body,"One puzzle, the same for everyone today. Reward: {0} Petals."
 daily.play_again,Play again
-daily_reward.title,Daily Rewards
+daily_reward.title,Daily rewards
 daily_reward.claim,Claim
 daily_reward.watch,Watch for more
 daily_reward.day,Day {0}

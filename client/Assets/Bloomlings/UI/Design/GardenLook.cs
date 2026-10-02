@@ -248,8 +248,25 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static TextLook WoodLetters { get; } = new TextLook(Rgba.FromHex("#FFF0C8"), Rgba.FromHex("#E9B874"), C.WoodLine, 0.05f, 0.11f, 0.32f);
 
-        /// <summary>The booster tile's cool silver-grey rim (§3.7).</summary>
-        public static Rgba BoosterRim => C.CreamLine.Mix(C.StateStuck, 0.8f);
+        /// <summary>The booster tile's cream-white bezel with a faint silver tint (§3.7).</summary>
+        public static Rgba BoosterRim => C.CreamTop.Mix(C.StateStuck, 0.25f);
+
+        /// <summary>The booster tile's lower lip under its bezel: cream, faintly silver, never a grey band (§3.7).</summary>
+        public static Rgba BoosterLip => C.CreamLip.Mix(C.StateStuck, 0.3f);
+
+        /// <summary>The booster tile's soft tan outline (§3.7).</summary>
+        public static Rgba BoosterLine => C.CreamLine.Mix(C.StateStuck, 0.35f).Darken(0.1f);
+
+        /// <summary>
+        /// A special's candy block color (§4.1): its <c>special.*</c> token made vivid (twice as far from its own grey) and
+        /// lightened 0.05, so the block reads as candy-bright beside the tiles.
+        /// </summary>
+        public static Rgba SpecialFace(Rgba token)
+        {
+            Rgba grey = token.Grey();
+            byte Push(byte c, byte g) => (byte)Math.Max(0, Math.Min(255, c + (c - g)));
+            return new Rgba(Push(token.R, grey.R), Push(token.G, grey.G), Push(token.B, grey.B), token.A).Lighten(0.05f);
+        }
 
         /// <summary>The dark lines between a board's tiles and around them, inside the stone border (§3.6).</summary>
         public static Rgba BoardGap => C.LawnDark.Darken(0.55f);

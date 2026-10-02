@@ -164,7 +164,7 @@ namespace Bloomlings.Playtest.Design
             };
         }
 
-        /// <summary>A Garden Entry: its stone arch (<c>board.arch</c>) on its side of the board, over a soft ground shadow.</summary>
+        /// <summary>A Garden Entry: its stone arch (<c>board.arch</c>) on its piers on its side of the board, over a soft ground shadow.</summary>
         private static void Arch(IPainter p, EntryArch arch)
         {
             p.Mark("tile.entry");
@@ -179,7 +179,7 @@ namespace Bloomlings.Playtest.Design
             bool across = arch.Side == EntrySide.Left || arch.Side == EntrySide.Right;
             Box shadow = Box.FromCenter(arch.BaseX - (sx * 0.86f) + (r * 0.04f), arch.BaseY - (sy * 0.86f) + (r * 0.08f), across ? r * 1.16f : r * 2.14f, across ? r * 2.14f : r * 1.16f);
             Kit.SoftShadow(p, shadow, r, 0.18f, 0.02f);
-            Kit.StoneArch(p, arch.BaseX, arch.BaseY, r / 1.5f, arch.Side);
+            Kit.StoneArch(p, arch);
         }
 
         /// <summary>
@@ -326,17 +326,19 @@ namespace Bloomlings.Playtest.Design
                 _ => (C.SpecialGate, "special.gate"),
             };
             Box box = full.Inset(cell * TileInset);
+            color = GardenLook.SpecialFace(color);
             Box face = CandyBlock(p, box, color);
             bool counter = !triggered && total > 1;
-            float glyph = Math.Min(face.Width, face.Height) * (counter ? 0.5f : 0.62f);
-            Box g = Box.FromCenter(face.CenterX, face.CenterY - (face.Height * (counter ? 0.13f : 0f)), glyph, glyph);
+            float glyph = Math.Min(face.Width, face.Height) * (counter ? 0.56f : 0.66f);
+            Box g = Box.FromCenter(face.CenterX, face.CenterY - (face.Height * (counter ? 0.1f : 0f)), glyph, glyph);
             Func<float, float, float> sdf = ShapeLibrary.Get(shape);
             p.ShapeOf(shape + "/line", (x, y) => sdf(x, y) - 0.08f, g, color.Darken(0.45f));
             p.Shape(shape, g, Rgba.White);
             if (counter)
             {
-                float badge = cell * 0.25f;
-                Kit.CountBadge(p, face.CenterX, face.Bottom - (badge * 0.62f), badge, progress + "/" + total);
+                // The counter on a count badge over the block's bottom edge, big enough to read at a glance.
+                float badge = cell * 0.36f;
+                Kit.CountBadge(p, face.CenterX, face.Bottom - (badge * 0.12f), badge, progress + "/" + total);
             }
         }
 

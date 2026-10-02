@@ -33,7 +33,7 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba SurfacePanelEdge = Rgba.FromHex("#E8DCC4");
             public static readonly Rgba SurfaceSunk = Rgba.FromHex("#F1E8D6");
             public static readonly Rgba SurfaceRowHighlight = Rgba.FromHex("#DDF2CF");
-            public static readonly Rgba SurfaceScrim = Rgba.FromHex("#1E2430").WithAlpha(0.55f);
+            public static readonly Rgba SurfaceScrim = Rgba.FromHex("#2A1708").WithAlpha(0.5f);
             public static readonly Rgba TextPrimary = Rgba.FromHex("#2E3440");
             public static readonly Rgba TextSecondary = Rgba.FromHex("#6B7280");
             public static readonly Rgba TextOnColor = Rgba.FromHex("#FFFFFF");
@@ -148,13 +148,13 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba WoodDarkLine = Rgba.FromHex("#4A2A14");
 
             /// <summary>Stone block top light.</summary>
-            public static readonly Rgba StoneTop = Rgba.FromHex("#F6DDB2");
+            public static readonly Rgba StoneTop = Rgba.FromHex("#FCE8C6");
 
             /// <summary>Stone block face.</summary>
-            public static readonly Rgba StoneFace = Rgba.FromHex("#E8C99A");
+            public static readonly Rgba StoneFace = Rgba.FromHex("#F1D5A8");
 
             /// <summary>Stone block lower edge.</summary>
-            public static readonly Rgba StoneLip = Rgba.FromHex("#CDA877");
+            public static readonly Rgba StoneLip = Rgba.FromHex("#D9B585");
 
             /// <summary>Stone outline and joints.</summary>
             public static readonly Rgba StoneLine = Rgba.FromHex("#7E6844");
@@ -189,8 +189,11 @@ namespace Bloomlings.Client.UI.Design
             /// <summary>Cream outline.</summary>
             public static readonly Rgba CreamLine = Rgba.FromHex("#C79F6F");
 
-            /// <summary>Titles, sign letters, counts, glyphs on cream.</summary>
-            public static readonly Rgba InkBrown = Rgba.FromHex("#5A3418");
+            /// <summary>Sign letters, counts, glyphs on cream, row labels: a near-black warm brown.</summary>
+            public static readonly Rgba InkBrown = Rgba.FromHex("#3A2416");
+
+            /// <summary>Big card and sheet titles and the win and milestone signs: a warmer red-brown.</summary>
+            public static readonly Rgba InkTitle = Rgba.FromHex("#6E3416");
 
             /// <summary>Body text on parchment.</summary>
             public static readonly Rgba InkBrownSoft = Rgba.FromHex("#7B5A3A");
@@ -208,10 +211,10 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba BadgeGreen = Rgba.FromHex("#245C34");
 
             /// <summary>Gameplay lawn.</summary>
-            public static readonly Rgba LawnLight = Rgba.FromHex("#93CC5B");
+            public static readonly Rgba LawnLight = Rgba.FromHex("#A2C447");
 
             /// <summary>Lawn shade, grass strokes.</summary>
-            public static readonly Rgba LawnDark = Rgba.FromHex("#5E9E3D");
+            public static readonly Rgba LawnDark = Rgba.FromHex("#6E9530");
 
             /// <summary>Ivy / clover leaves on signs.</summary>
             public static readonly Rgba IvyLeaf = Rgba.FromHex("#96D03C");
@@ -343,6 +346,7 @@ namespace Bloomlings.Client.UI.Design
                 ["cream.lip"] = CreamLip,
                 ["cream.line"] = CreamLine,
                 ["ink.brown"] = InkBrown,
+                ["ink.title"] = InkTitle,
                 ["ink.brown_soft"] = InkBrownSoft,
                 ["lotus.fill"] = LotusFill,
                 ["lotus.tip"] = LotusTip,

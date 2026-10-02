@@ -145,6 +145,33 @@ namespace Bloomlings.Client.UI.Design
             return (pedestal.Top + ry + 1f, ry);
         }
 
+        /// <summary>
+        /// The win and milestone celebration (spec 005 §4.4) in <paramref name="stage"/>: a stone pedestal at its bottom,
+        /// 80% of the group's width, and the group picture standing on its top (the heroes' feet just below the middle of
+        /// the top ellipse), as large as the stage allows from the heroes' heads to the pedestal's foot (at most 98% of the
+        /// stage's width). Returns the pedestal, the group's picture box and where the light rays turn (behind the heroes'
+        /// bodies).
+        /// </summary>
+        public static (Box Pedestal, Box Group, float RaysX, float RaysY) Celebration(Box stage)
+        {
+            const float pedestalShare = 0.8f;
+            const float pedestalAspect = 0.3f;
+            float groupAspect = (float)CharacterArt.GroupHeight / CharacterArt.GroupWidth;
+
+            // From the heads to the feet, then from the feet to the pedestal's foot: the top ellipse's half height is 9% of
+            // the pedestal's width (PedestalTop), the feet stand a tenth of it below its middle.
+            float feetToFoot = pedestalAspect - (0.09f * 1.1f);
+            float span = ((CharacterArt.GroupFeetShare - CharacterArt.GroupHeadShare) * groupAspect) + (pedestalShare * feetToFoot);
+            float width = Math.Min(stage.Width * 0.98f, stage.Height / span);
+            float pw = width * pedestalShare;
+            float ph = pw * pedestalAspect;
+            var pedestal = new Box(stage.CenterX - (pw / 2f), stage.Bottom - ph, stage.CenterX + (pw / 2f), stage.Bottom);
+            (float topY, float ry) = PedestalTop(pedestal);
+            float feet = topY + (ry * 0.1f);
+            Box group = CharacterArt.GroupStanding(stage.CenterX, feet, width);
+            return (pedestal, group, stage.CenterX, feet - (group.Height * 0.22f));
+        }
+
         /// <summary>A hero picture box whose feet stand at (<paramref name="x"/>, <paramref name="feet"/>).</summary>
         public static Box Figure(float x, float feet, float height)
         {

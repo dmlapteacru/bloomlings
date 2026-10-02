@@ -24,7 +24,6 @@ namespace Bloomlings.ArtGen
         private const int Water = 7;
         private const int Bark = 8;
         private const int WoodTop = 9;
-        private const int Stone = 10;
         private const int BeanFeet = 12;
         private const int BackPetal = 13;
 
@@ -90,7 +89,7 @@ namespace Bloomlings.ArtGen
         public static byte[] Solo(Family family, bool blank, int rowStride = 1) =>
             Render(new Scene(Index(family), blank), CharacterArt.HeroWidth, CharacterArt.HeroHeight, rowStride);
 
-        /// <summary>The four heroes on the round stone pedestal (rows as in <see cref="Solo"/>).</summary>
+        /// <summary>The four heroes standing side by side on the ground, without a base of their own (rows as in <see cref="Solo"/>).</summary>
         public static byte[] Group(int rowStride = 1) => Render(new Scene(-1, blank: false), CharacterArt.GroupWidth, CharacterArt.GroupHeight, rowStride);
 
         /// <summary>Where a hero's face center lands in its solo picture, as a share of the picture (y down).</summary>
@@ -399,7 +398,7 @@ namespace Bloomlings.ArtGen
             }
         }
 
-        /// <summary>One scene: a single hero (<c>solo</c> ≥ 0) or the four on the pedestal (−1).</summary>
+        /// <summary>One scene: a single hero (<c>solo</c> ≥ 0) or the four together (−1).</summary>
         private sealed class Scene
         {
             private readonly int solo;
@@ -416,8 +415,11 @@ namespace Bloomlings.ArtGen
 
             public Camera Camera { get; }
 
-            /// <summary>The ground under the scene, where the soft contact shadow falls.</summary>
-            private double GroundY => solo >= 0 ? 0 : -0.44;
+            /// <summary>
+            /// The ground under the heroes' feet, where the soft contact shadow falls. The group has no pedestal of its own
+            /// (spec 005 pictures.md): the hosts stand it on their stone pedestal.
+            /// </summary>
+            private const double GroundY = 0;
 
             private V3 Local(int i, V3 p)
             {
@@ -467,19 +469,6 @@ namespace Bloomlings.ArtGen
                     }
 
                     r = U(r, Hero(i, Local(i, p)));
-                }
-
-                if (solo < 0)
-                {
-                    // A round stone pedestal with a worn edge.
-                    V3 q = p - new V3(0, -0.22, 0.05);
-                    double d = Sdf.RoundCylinder(q, 2.25, 0.22, 0.06);
-                    if (d < 0.1)
-                    {
-                        d += 0.02 * Sdf.Fbm(p * 6);
-                    }
-
-                    r = U(r, (d, Stone));
                 }
 
                 return r;
@@ -537,18 +526,19 @@ namespace Bloomlings.ArtGen
 
                 double t = (GroundY - ro.Y) / rd.Y;
                 V3 p = ro + (rd * t);
-                double alpha;
-                if (solo >= 0)
+                // Each hero casts the same soft ellipse under its feet; the group keeps the darkest of the four.
+                double alpha = 0;
+                for (int i = 0; i < 4; i++)
                 {
-                    double ex = p.X / 0.62;
-                    double ez = (p.Z - 0.05) / 0.4;
-                    alpha = 0.34 * (1 - Sdf.Smoothstep(0.25, 1, Math.Sqrt((ex * ex) + (ez * ez))));
-                }
-                else
-                {
-                    double ex = p.X / 2.55;
-                    double ez = (p.Z - 0.12) / 1.1;
-                    alpha = 0.3 * (1 - Sdf.Smoothstep(0.7, 1, Math.Sqrt((ex * ex) + (ez * ez))));
+                    if (solo >= 0 && solo != i)
+                    {
+                        continue;
+                    }
+
+                    V3 h = solo >= 0 ? new V3(0, 0, 0) : HeroPos(i);
+                    double ex = (p.X - h.X) / 0.62;
+                    double ez = (p.Z - h.Z - 0.05) / 0.4;
+                    alpha = Math.Max(alpha, 0.34 * (1 - Sdf.Smoothstep(0.25, 1, Math.Sqrt((ex * ex) + (ez * ez)))));
                 }
 
                 return (new V3(0.24, 0.16, 0.1), alpha);
@@ -676,17 +666,6 @@ namespace Bloomlings.ArtGen
                         break;
                     }
 
-                    case Stone:
-                    {
-                        double tiles = Math.Abs(Sdf.Fract(Math.Atan2(p.Z - 0.05, p.X) * 6 / Math.PI) - 0.5);
-                        double dx = p.X;
-                        double dz = p.Z - 0.05;
-                        double ring = Math.Abs(Sdf.Fract(Math.Sqrt((dx * dx) + (dz * dz)) * 1.3) - 0.5);
-                        b = Sdf.Linear(0.82, 0.74, 0.62) * (0.78 + (0.3 * Sdf.Fbm(p * 3)));
-                        b = b * (1 - (0.25 * (1 - Sdf.Smoothstep(0, 0.03, Math.Min(tiles * 0.5, ring)))));
-                        gloss = 0.05;
-                        break;
-                    }
                 }
 
                 double sh = SoftShadow(p + (n * 0.004), Key);
@@ -699,7 +678,7 @@ namespace Bloomlings.ArtGen
 
                 // A warm golden back light wraps the edges (the sun behind them).
                 double rim = Math.Pow(Sdf.Clamp(1 - V3.Dot(n, -rd), 0, 1), 2.5) * Sdf.Clamp((V3.Dot(n, Back) * 0.5) + 0.6, 0, 1);
-                col = col + (new V3(1, 0.78, 0.45) * (rim * (hit == Stone ? 0.15 : 0.75)));
+                col = col + (new V3(1, 0.78, 0.45) * (rim * 0.75));
                 V3 h = (Key - rd).Normalized;
                 col = col + (new V3(1, 0.95, 0.85) * (gloss * Math.Pow(Sdf.Clamp(V3.Dot(n, h), 0, 1), spow) * sh));
 

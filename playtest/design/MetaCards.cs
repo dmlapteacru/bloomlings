@@ -24,7 +24,7 @@ namespace Bloomlings.Playtest.Design
         public static void DailyReward(IPainter p, DesignApp app, float since)
         {
             var daily = app.Meta.DailyReward;
-            CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 90f, PlaytestText.T("daily_reward.title"), app.CloseOverlay, Kit.Pop(since), sign: SignDecor.None);
+            CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 90f, PlaytestText.T("daily_reward.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
             float y = r.Body.Top;
             p.Text(PlaytestText.F("daily_reward.day", daily.NextStreak), r.Body.CenterX, y + p.U(20f), T.Body, C.InkBrownSoft);
             y += p.U(60f);
@@ -58,7 +58,7 @@ namespace Bloomlings.Playtest.Design
             } : (Action?)null, decorate: true, breathe: true);
             Box bonus = ScreenLayout.CardButton(r.Body, claim.Bottom + p.U(24f), false, p.Scale).Inset(p.U(40f), 0f);
             Kit.SecondaryButton(p, bonus, PlaytestText.F("daily_reward.bonus", 20), null, "ui.ad");
-            p.Text("no ads in the playtest", r.Body.CenterX, bonus.Bottom + p.U(34f), T.Caption, C.InkBrownSoft);
+            p.Text(PlaytestText.T("win.no_ads"), r.Body.CenterX, bonus.Bottom + p.U(34f), T.Caption, C.InkBrownSoft);
             Kit.EndCard(p);
         }
 
@@ -98,8 +98,9 @@ namespace Bloomlings.Playtest.Design
             float scale = (h * 0.64f) / p.U(T.Reward.Size);
             float textWidth = Math.Min(p.MeasureText(text, T.Reward, scale), box.Width - icon - gap - (h * 0.5f));
             float start = box.CenterX - ((icon + gap + textWidth) / 2f);
-            p.Text(text, start + (textWidth / 2f), box.CenterY, T.Reward, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
-            Kit.Petal(p, Box.FromCenter(start + textWidth + gap + (icon / 2f), box.CenterY - (h * 0.02f), icon, icon));
+            // The lotus first, then the amount, as on the win's reward pill and every cost pill.
+            Kit.Petal(p, Box.FromCenter(start + (icon / 2f), box.CenterY - (h * 0.02f), icon, icon));
+            p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, T.Reward, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace Bloomlings.Playtest.Design
         public static void Leaderboard(IPainter p, DesignApp app, float since)
         {
             const float row = 96f;
-            CardRegions r = Kit.Card(p, (8f * (row + 14f)) + 110f, PlaytestText.T("leaderboard.title"), app.CloseOverlay, Kit.Pop(since), sign: SignDecor.None);
+            CardRegions r = Kit.Card(p, (8f * (row + 14f)) + 110f, PlaytestText.T("leaderboard.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
             Box[] rows = ScreenLayout.Column(r.Body, 8, p.U(row), p.U(14f));
             for (int i = 0; i < 5; i++)
             {
@@ -189,7 +190,7 @@ namespace Bloomlings.Playtest.Design
 
             const int columns = 3;
             int rows = Math.Max(1, Math.Min(4, (entries.Count + columns - 1) / columns));
-            CardRegions r = Kit.Card(p, (rows * 250f) + 80f, PlaytestText.T("collection.title"), app.CloseOverlay, Kit.Pop(since), sign: SignDecor.None);
+            CardRegions r = Kit.Card(p, (rows * 250f) + 80f, PlaytestText.T("collection.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
             string count = entries.Count == 1 ? PlaytestText.F("collection.count_one", 1) : PlaytestText.F("collection.count_many", entries.Count);
             p.Text(count, r.Body.CenterX, r.Body.Top + p.U(22f), T.Caption, C.InkBrownSoft);
             float cell = Math.Min((r.Body.Width - p.U(40f)) / columns, p.U(250f));
@@ -213,7 +214,7 @@ namespace Bloomlings.Playtest.Design
         private static void Detail(IPainter p, DesignApp app, CollectionEntry entry, float since)
         {
             p.Mark("collection.detail_frame");
-            CardRegions r = Kit.Card(p, 700f, PlaytestText.T("collection.title"), () => app.CollectionDetail = -1, Kit.Pop(since), sign: SignDecor.None);
+            CardRegions r = Kit.Card(p, 700f, PlaytestText.T("collection.title"), app.CardCloseWith(() => app.CollectionDetail = -1), Kit.Pop(since), sign: SignDecor.None);
             float side = Math.Min(r.Body.Width - p.U(120f), p.U(540f));
             var frame = new Box(r.Body.CenterX - (side / 2f), r.Body.Top + p.U(10f), r.Body.CenterX + (side / 2f), r.Body.Top + p.U(10f) + side);
             Frame(p, frame, entry, app);
@@ -248,7 +249,7 @@ namespace Bloomlings.Playtest.Design
         {
             const float row = 118f;
             bool cosmetics = app.Meta.Wardrobe.IsAvailable;
-            CardRegions r = Kit.Card(p, 130f + (cosmetics ? 116f : 0f) + (7f * (row + 16f)), PlaytestText.T("store.title"), app.CloseOverlay, Kit.Pop(since), sign: SignDecor.Ivy);
+            CardRegions r = Kit.Card(p, 130f + (cosmetics ? 116f : 0f) + (7f * (row + 16f)), PlaytestText.T("store.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.Ivy);
             float y = r.Body.Top;
             Kit.PetalsPill(p, Box.FromCenter(r.Body.CenterX, y + p.U(40f), p.U(360f), p.U(84f)), app.Meta.Economy.Petals, () => app.HomeToast(PlaytestText.T("store.offline")));
             y += p.U(130f);
@@ -314,8 +315,7 @@ namespace Bloomlings.Playtest.Design
         {
             float size = line.Height * 0.76f;
             Box box = Box.FromCenter(line.Left + p.U(22f) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
-            Rgba rim = GardenLook.BoosterRim;
-            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, rim.Lighten(0.62f), rim.Lighten(0.08f), rim.Darken(0.22f));
+            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, GardenLook.BoosterRim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
             Kit.IconFace(p, box, set, size * 0.26f, 0f);
             return box;
         }

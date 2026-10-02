@@ -550,12 +550,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The gameplay level label: since spec 005 a wooden sign with ivy at both ends (§3.2, research D6), its letters in
-        /// <c>badge.super_hard</c> on a Super Hard level.
+        /// <c>badge.super_hard</c> darkened 0.35 on a Super Hard level, so they keep their contrast on the pale wood.
         /// </summary>
         public static void LevelPill(IPainter p, Box box, string text, bool superHard)
         {
             p.Mark("ui.pill.level");
-            WoodSign(p, box, text, T.LevelPill, SignDecor.Ivy, superHard ? C.BadgeSuperHard : (Rgba?)null);
+            WoodSign(p, box, text, T.LevelPill, SignDecor.Ivy, superHard ? C.BadgeSuperHard.Darken(0.35f) : (Rgba?)null);
         }
 
         /// <summary>The HARD or SUPER HARD badge under the level label (frames 8 and 9): a sticker pill on a plate (FR-014).</summary>
@@ -593,11 +593,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A cost pill (spec 005 §3.4; jam choices, booster tiles, the Store): a cream pill with a <c>cream.line</c> outline
-        /// and a soft shadow holding the lotus and a brown price, a green ▶ square and "Free", or "×N" charges.
+        /// and a soft shadow holding the lotus and a brown price, a green ▶ square and "Free", or "×N" charges in big
+        /// digits after <paramref name="chargeIcon"/> (the booster's icon, at 80% of the pill's height) when given.
         /// <paramref name="text"/> replaces the amount's text next to the same icon (the win's reward pill: the lotus and
         /// "+N" counting up).
         /// </summary>
-        public static void CostPill(IPainter p, Box box, Cost cost, string? text = null)
+        public static void CostPill(IPainter p, Box box, Cost cost, string? text = null, IReadOnlyList<IconPart>? chargeIcon = null)
         {
             p.Mark("ui.pill.cost");
             float h = box.Height;
@@ -608,6 +609,8 @@ namespace Bloomlings.Playtest.Design
             p.FillRoundGradient(box, r, C.CreamTop, C.ParchmentBottom);
             p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
 
+            // Charges ("×2") get bigger digits, as large as the reference's prices look next to their icons.
+            bool charges = cost.Kind == CostKind.Charges && text == null;
             text ??= cost.Kind switch
             {
                 CostKind.Petals => NumberText.Group(cost.Amount),
@@ -615,8 +618,9 @@ namespace Bloomlings.Playtest.Design
                 _ => PlaytestText.F("common.charges", cost.Amount),
             };
             TypeStyle s = T.Count;
-            float scale = h * 0.56f / p.U(s.Size);
-            float icon = cost.Kind == CostKind.Petals ? h * 0.86f : cost.Kind == CostKind.Free ? h * 0.6f : 0f;
+            float scale = h * (charges ? 0.66f : 0.56f) / p.U(s.Size);
+            bool withCharge = charges && chargeIcon != null;
+            float icon = cost.Kind == CostKind.Petals ? h * 0.86f : cost.Kind == CostKind.Free ? h * 0.6f : withCharge ? h * 0.8f : 0f;
             float gap = icon > 0f ? h * 0.16f : 0f;
             float textWidth = Math.Min(p.MeasureText(text, s, scale), box.Width - icon - gap - (h * 0.5f));
             float start = box.CenterX - ((icon + gap + textWidth) / 2f);
@@ -634,6 +638,10 @@ namespace Bloomlings.Playtest.Design
                 p.FillRoundGradient(iconBox, icon * 0.26f, green.Top, green.Face);
                 p.StrokeRound(iconBox.Inset(line / 4f), icon * 0.26f, Math.Max(1f, line / 2f), green.Line);
                 p.Shape("ui.play", iconBox.Inset(icon * 0.2f).Offset(icon * 0.03f, 0f), Rgba.White);
+            }
+            else if (withCharge && chargeIcon != null)
+            {
+                IconParts(p, iconBox, chargeIcon);
             }
 
             p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
@@ -738,7 +746,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A popup card (FR-007, spec 005 §3.5): the scrim, parchment, the title in <c>type.title</c> <c>ink.brown</c> or,
+        /// A popup card (FR-007, spec 005 §3.5): the scrim, parchment, the title in <c>type.title</c> <c>ink.title</c> or,
         /// when <paramref name="sign"/> is set, a wooden sign across the card's top edge with that decoration (the win,
         /// the Store), and the cream round close button over the top-right corner when <paramref name="onClose"/> is set.
         /// <paramref name="contentHeight"/> is in reference units.
@@ -765,7 +773,7 @@ namespace Bloomlings.Playtest.Design
                 {
                     float closeRoom = onClose != null ? r.Close.Width + p.U(20f) : 0f;
                     float titleWidth = Math.Min(r.Title.Width, r.Card.Width - (2f * closeRoom) - p.U(60f));
-                    p.Text(title, r.Title.CenterX, r.Title.CenterY, style, C.InkBrown, titleWidth, look: TextLook.Plain(C.InkBrown));
+                    p.Text(title, r.Title.CenterX, r.Title.CenterY, style, C.InkTitle, titleWidth, look: TextLook.Plain(C.InkTitle));
                 }
             }
 
@@ -785,7 +793,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// The jam bottom sheet (frame 10, spec 005 §4.3): a light scrim that keeps the board visible, the parchment sheet
         /// rising by <paramref name="rise"/> (0–1) and settling with one small bounce, its grip, the title in
-        /// <c>ink.brown</c> and the subtitle in <c>ink.brown_soft</c>. <paramref name="contentHeight"/> is in reference units.
+        /// <c>ink.title</c> and the subtitle in <c>ink.brown_soft</c>. <paramref name="contentHeight"/> is in reference units.
         /// </summary>
         public static SheetRegions Sheet(IPainter p, float contentHeight, string title, string subtitle, float rise = 1f)
         {
@@ -799,7 +807,7 @@ namespace Bloomlings.Playtest.Design
             Paper(p, r.Sheet, radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
             p.Hit(r.Sheet, () => { });
             p.FillRound(r.Grip, r.Grip.Height / 2f, C.ParchmentEdge.Darken(0.12f));
-            p.Text(title, r.Title.CenterX, r.Title.CenterY, T.Title, C.InkBrown, r.Title.Width, look: TextLook.Plain(C.InkBrown));
+            p.Text(title, r.Title.CenterX, r.Title.CenterY, T.Title, C.InkTitle, r.Title.Width, look: TextLook.Plain(C.InkTitle));
             p.Text(subtitle, r.Subtitle.CenterX, r.Subtitle.CenterY, T.Body, C.InkBrownSoft, r.Subtitle.Width);
             return r;
         }

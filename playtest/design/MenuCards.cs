@@ -19,7 +19,7 @@ namespace Bloomlings.Playtest.Design
         public static void Pause(IPainter p, DesignApp app, float since)
         {
             float buttons = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.SecondaryHeight) + (4f * 28f) + 30f;
-            CardRegions r = Kit.Card(p, buttons, PlaytestText.T("pause.title"), app.CloseOverlay, Kit.Pop(since), T.Title);
+            CardRegions r = Kit.Card(p, buttons, PlaytestText.T("pause.title"), app.CardClose, Kit.Pop(since), T.Title);
             float gap = p.U(28f);
             float y = r.Body.Top + p.U(24f);
             Box Take(bool primary)
@@ -45,7 +45,7 @@ namespace Bloomlings.Playtest.Design
         public static void Settings(IPainter p, DesignApp app, float since)
         {
             float rows = (3f * 126f) + (2f * 20f) + 30f;
-            CardRegions r = Kit.Card(p, rows, PlaytestText.T("settings.title"), app.CloseOverlay, Kit.Pop(since), T.Title);
+            CardRegions r = Kit.Card(p, rows, PlaytestText.T("settings.title"), app.CardClose, Kit.Pop(since), T.Title);
             var save = app.Meta.Save.Settings;
             (string Key, bool On, Action Toggle)[] items =
             {

@@ -89,6 +89,15 @@ namespace Bloomlings.Playtest.Design
 
         public IReadOnlyList<(Overlay Overlay, float OpenedAt)> Overlays => _overlays;
 
+        /// <summary>Whether the card being drawn lies under another open card (it then shows no close button of its own).</summary>
+        public bool DrawingCovered { get; private set; }
+
+        /// <summary>The close action of the card being drawn: none for a covered card, so only the top card has a ✕.</summary>
+        public Action? CardClose => DrawingCovered ? null : CloseOverlay;
+
+        /// <summary><paramref name="close"/>, or none when the card being drawn is covered by another card.</summary>
+        public Action? CardCloseWith(Action close) => DrawingCovered ? null : close;
+
         /// <summary>
         /// Whether the host should draw another frame soon: animations, the splash, toasts, and the one breathing button
         /// (PLAY on Home, CLAIM on the Daily Reward; spec 003 FR-019).
@@ -100,6 +109,15 @@ namespace Bloomlings.Playtest.Design
             || (_homeToastUntil > Now)
             || (Screen == Screen.Home && _overlays.Count == 0)
             || IsOpen(Overlay.DailyReward);
+
+        /// <summary>
+        /// Whether the only motion left is the open win or milestone card's (turning rays, falling petals, Next breathing):
+        /// the host may then draw at about 30 frames a second instead of every display frame, to save battery.
+        /// </summary>
+        public bool Calm =>
+            Screen == Screen.Level && Level != null && Level.OnlyCelebrating
+            && (_overlays.Count == 0 || Now - _overlays[_overlays.Count - 1].OpenedAt >= 0.4f)
+            && _homeToastUntil <= Now;
 
         private string? _homeToast;
         private float _homeToastUntil;
@@ -246,6 +264,7 @@ namespace Bloomlings.Playtest.Design
             {
                 (Overlay overlay, float openedAt) = _overlays[i];
                 float since = Now - openedAt;
+                DrawingCovered = i < _overlays.Count - 1;
                 switch (overlay)
                 {
                     case Overlay.Pause:
@@ -268,6 +287,8 @@ namespace Bloomlings.Playtest.Design
                         break;
                 }
             }
+
+            DrawingCovered = false;
         }
 
         /// <summary>The garden backdrop of a level band's theme (FR-008, FR-066), cached by the painter.</summary>
