@@ -231,11 +231,18 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   (`GardenLook.BoardGap` = `LawnDark.Darken(0.55)`) between the stones and the tiles, which also shows as the thin dark
   lines between tiles.
 - **Garden Entry** (`Kit.StoneArch(p, cx, cy, cell, EntrySide side)`): a big half ring of 9 sandy stone blocks (outer
-  radius 1.5 cells, so about 3 cells wide and 1.5 tall; the ring 22% of the outer radius thick; `UiRaster.Arch`) on the
+  radius 1.5 cells, so about 3 cells wide and 1.5 tall; the ring 28% of the outer radius thick; `UiRaster.Arch`) on the
   entry's side of the board, its crown toward the board and its opening away from it, as in the reference's gameplay
-  screen; the opening shows the lawn (`GardenLook.ArchOpening` = `LawnLight.Darken(0.12)`, alpha 0.8) with a soft shadow
-  under the crown, and the walkers stand in it. (`cx`, `cy`) is the middle of the open base, where the Bloomlings come
-  out. Screens leave it room below the board.
+  screen; the opening shows the lawn (`GardenLook.ArchOpening` = `LawnLight.Darken(0.12)`, alpha 0.8) and, as in the
+  reference, a sandy flagstone path fanning out from the base (two rings of staggered flags with `StoneLine` joints),
+  with a soft shadow under the crown, and the walkers stand in it. (`cx`, `cy`) is the middle of the open base, where
+  the Bloomlings come out.
+- **Board layout** (`BoardLayout.Fit(area, width, height, entries)`, engine-free, both builds): the cells take the
+  largest size that fits the grid, the border (`Rim` = 0.46 cell), 0.2 cell of lawn on the left and right, and per entry
+  side a 0.14 cell strip of lawn plus an arch of at least 1.2 cells; the room the region has left in that direction lets
+  the arches grow up to 1.5 cells. The group is centered in the board region; arches stay within the border's span, are
+  centered on their entry cell where they can, and shrink so neighbors on one side never overlap. The walkers appear at
+  the arch's door, 42% of its radius inside the opening (`EntryArch.Door`). Entries may be on any side, several per level.
 - **Lawn**: the gameplay backdrop scene becomes a lawn (§4.2).
 - **Pedestal** (`Kit.StonePedestal(p, box)`, `UiRaster.Pedestal`): an ellipse-topped stone drum: top ellipse `StoneTop`
   with a ring joint, side `StoneFace` in two courses of staggered blocks, `StoneLip` bottom, moss at the base. It
@@ -293,7 +300,18 @@ Positions and order stay as in spec 002; only the looks change.
 - Top bar: Pause squircle, level `WoodSign` (Ivy) instead of the level pill, speed pill.
 - Board: lawn backdrop, `StoneBorder`, candy tiles (board style), restored ground as pale flat cells
   (`PictureColor` lightened 0.55, radius 10%, no bevel, a faint inner shadow), stones/keys/locks/layers/specials as now
-  (stone obstacles in `StoneFace` tones), entries as `StoneArch`, walkers unchanged.
+  (stone obstacles in `StoneFace` tones), entries as `StoneArch`, walkers unchanged. In detail (`BoardPainter`):
+  - target tiles nearly fill their cells (inset 0.8%), so only the dark gap and their outlines part them;
+  - a stone obstacle is a raised block of the border's stone (`Kit.StoneBlock`, radius 24%) over a soft shadow on the
+    restored ground, with a jagged crack (a `StoneLine` groove over a light lip) whose direction follows the cell;
+  - a special is a candy-like raised block in its color (outline `Darken(0.45)`, lip `Darken(0.28)`, face
+    `Lighten(0.28)` → color, a faint gloss) with its white glyph outlined in `Darken(0.45)`, and its counter on a
+    `CountBadge` at the bottom until it opens;
+  - the next layer peeks from a chip in the tile's top-right corner (40% of the tile): a small board-style candy tile in a
+    cream ring with a dark rim; a key waiting under a tile is the gold key on a cream disc in its top-left corner;
+  - Bloom Burst targeting rings every candidate tile in `BoosterBloomBurst`, pulsing gently.
+- Finished picture (win, Collection; research D14): `TileStyle.Flat` candy tiles (no lip) inside a `StoneBorder` 0.3 cell
+  thick when the cells are at least 16 units; ground as cream cells, stones as stone blocks.
 - Slot row: on a parchment band, `SlotPlate`s.
 - Tray: parchment panel behind the columns; pods per §3.7.
 - Booster bar: on the parchment, `BoosterTile`s.
@@ -303,6 +321,16 @@ Positions and order stay as in spec 002; only the looks change.
 `BackdropScene.Gameplay` becomes a lawn: `LawnLight` → `LawnDark` fbm grass with fine darker strokes, scattered small
 flowers (white, pink, yellow five-dot blossoms), darker leafy clumps along the screen edges, a soft vignette; no sky.
 Home and Splash keep the sky, arches and hills but warmer (until the owner's pictures).
+
+The lawn (`BackdropRaster`) draws, back to front: soft patches of sun and shade with a finer mottle; one short tapered
+blade per 0.011-width cell, dark or light; soft bushes right at the edges (bumpy, lit from the upper left, a leafy
+speckle, a soft shadow); almond leaves fanned inward from the nearest edge (a few in spring green); five-petal flowers,
+pink most often, then white, the theme's own and yellow, more of them near the edges; the vignette. The theme still
+shows (`DesignTokens.Backdrop`, frame 18): its accent's hue tilts the grass (Pond teal, Orchard warm, Moonlit blue-green)
+and colors a fourth flower, and the Moonlit Garden's dimmer background darkens the lawn toward dusk; the Daylight Garden
+keeps `lawn.light` and `lawn.dark`. Hosts render it at a third of the screen's resolution
+(`BackdropRaster.Downscale(scene)`; Home and Splash stay at a fifth). The slots stay `bg.theme.*` (the owner's pictures
+B2–B5 replace the lawn).
 
 ### 4.3 Popups and cards (frames 10, 11, 17–20)
 
@@ -349,8 +377,8 @@ Home and Splash keep the sky, arches and hills but warmer (until the owner's pic
 New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked where drawn:
 `mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment`, `tile.candy`, `tile.candy.sticker`,
 `ui.sign.wood`, `ui.sign.ivy`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
-`ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch`, `board.lawn` (or `bg.gameplay`
-restyled), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
+`ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch`, the lawn (the `bg.theme.*` slots
+restyled, §4.2; `tile.base`, `tile.ground`, `tile.entry`, `tile.layer_peek` and `tile.picture` restyled), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
 `ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn), `ui.sign.ivy`
 (kind `Shape`: the clover cluster). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (kind `Picture`, research
 D16 and `pictures.md`) keep or add their `bg.*`, `char.hero.*` and `ui.logo` slots with the drawn stand-in as fallback.

@@ -29,8 +29,8 @@
 
 ## Phase 3: User Story 1 — board and tray (P1)
 
-- [ ] T010 [US1] Lawn backdrop scene in `BackdropRaster.cs`
-- [ ] T011 [US1] Board: candy tiles, stone border, stone arch entries, pale restored ground, obstacles in
+- [X] T010 [US1] Lawn backdrop scene in `BackdropRaster.cs`
+- [X] T011 [US1] Board: candy tiles, stone border, stone arch entries, pale restored ground, obstacles in
   `playtest/design/BoardPainter.cs`
 - [ ] T012 [US1] Pods, slots, booster bar, top bar in `PodPainter.cs`, `SlotPainter.cs`, `BoosterBarPainter.cs`,
   `LevelScreen.cs`

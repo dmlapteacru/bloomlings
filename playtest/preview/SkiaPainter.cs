@@ -300,8 +300,9 @@ namespace Bloomlings.Playtest.Preview
 
         public override void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey)
         {
-            int w = Math.Max(32, (int)(box.Width / 5f));
-            int h = Math.Max(32, (int)(box.Height / 5f));
+            float step = BackdropRaster.Downscale(scene);
+            int w = Math.Max(32, (int)(box.Width / step));
+            int h = Math.Max(32, (int)(box.Height / step));
             string key = cacheKey + "@" + w + "x" + h;
             if (!Backdrops.TryGetValue(key, out SKImage? image))
             {

@@ -64,7 +64,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>A candy tile of any color and variant icon (the win picture draws its roles' colors this way).</summary>
         public static void CandyTile(IPainter p, Box box, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal, bool pressed = false)
         {
-            p.Mark(style == TileStyle.Board ? "tile.candy" : "tile.candy.sticker");
+            p.Mark(style == TileStyle.Sticker ? "tile.candy.sticker" : "tile.candy");
             p.Mark(state == TileState.Mystery ? "tile.mystery" : ShapeLibrary.SymbolId(iconId));
             float s = Math.Min(box.Width, box.Height);
             if (s < 1f)
@@ -73,7 +73,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             Box square = Box.FromCenter(box.CenterX, box.CenterY, s, s);
-            string key = "tile.candy/" + (style == TileStyle.Board ? "board" : "sticker") + "/" + state + "/" + iconId + "/" + color.Hex;
+            string key = "tile.candy/" + (style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker") + "/" + state + "/" + iconId + "/" + color.Hex;
             Func<int, int, byte[]> render = (w, h) => UiRaster.Tile(Math.Min(w, h), color, iconId, style, state);
             if (!pressed)
             {

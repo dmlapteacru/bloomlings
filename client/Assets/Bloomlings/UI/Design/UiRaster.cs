@@ -21,6 +21,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>Pods, slots, the jam row, the Collection and the strip: a bigger, detailed symbol with a dark outline.</summary>
         Sticker,
+
+        /// <summary>
+        /// The finished picture (the win card, the Collection; research D14): the board style without the lip, a flat
+        /// full-color tile with its small gloss and the board-style symbol.
+        /// </summary>
+        Flat,
     }
 
     /// <summary>
@@ -356,8 +362,9 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// A Garden Entry's stone arch (spec 005 contracts/look.md §3.6): a half ring of nine sandy stone blocks, 22% of its
-        /// outer radius thick, around an opening that shows the lawn with a soft shadow under the crown, seen from above,
+        /// A Garden Entry's stone arch (spec 005 contracts/look.md §3.6): a half ring of nine sandy stone blocks, 28% of its
+        /// outer radius thick, around an opening that shows the lawn and a sandy flagstone path fanning out from the base (where
+        /// the Bloomlings come out, as in the reference) with a soft shadow under the crown, seen from above,
         /// its crown <paramref name="turns"/> quarter turns clockwise from up (0: the crown up toward a board above it, the
         /// opening facing down). The ring fills the picture: for crown up or down the picture is twice as wide as tall, for
         /// left or right twice as tall as wide. The opening is a little see-through, so the backdrop's lawn shows in it.
@@ -372,7 +379,8 @@ namespace Bloomlings.Client.UI.Design
             var pixels = new byte[width * height * 4];
             const int blocks = 9;
             float outer = Math.Max(2f, Math.Min(w / 2f, h) - 1f);
-            float inner = outer * 0.78f;
+            float inner = outer * 0.72f;
+            float path = inner * 0.86f;
             float jointHalf = Math.Max(0.7f, outer * 0.012f);
             float line = Math.Max(1f, outer * 0.018f);
             float sector = (float)(Math.PI / blocks);
@@ -415,11 +423,32 @@ namespace Bloomlings.Client.UI.Design
                         continue;
                     }
 
-                    // Back to front: the lawn in the opening with a soft shadow under the crown, the dark joints, the stones.
+                    // Back to front: the lawn in the opening, the sandy flagstone path the Bloomlings come out on, a soft
+                    // shadow under the crown, the dark joints, the stones.
                     var c = new Color(GardenLook.ArchOpening);
-                    float under = 1f - Smooth(Clamp01((inner - dist) / (inner * 0.45f)));
-                    c.Mix(C.GardenShadow, 0.38f * under * Smooth(Clamp01(uy / inner)));
                     float alpha = 0.8f * Clamp01(inner + 0.5f - dist);
+                    float pathD = Length(ux / (path * 0.82f), uy / path) - 1f;
+                    float onPath = Clamp01(0.5f - (pathD * path / Math.Max(1f, outer * 0.025f)));
+                    if (onPath > 0f)
+                    {
+                        var flag = new Color(C.StoneTop.Mix(C.StoneFace, Clamp01(uy / path)));
+                        flag.Scale(1f + ((Fbm(x / grain, y / grain, seed + 211, 3) - 0.5f) * 0.1f));
+
+                        // Flagstones: two rings around the base, split into staggered pieces.
+                        float rho = Length(ux, uy) / path;
+                        float ringJoint = Math.Min(Math.Abs(rho - 0.36f), Math.Abs(rho - 0.7f)) * path;
+                        float angle = (float)Math.Atan2(Math.Max(0f, uy), ux);
+                        int ringIndex = rho < 0.36f ? 0 : rho < 0.7f ? 1 : 2;
+                        float pieces = ringIndex == 0 ? 2f : ringIndex == 1 ? 3f : 4f;
+                        float slot = (angle / (float)Math.PI * pieces) + (ringIndex % 2 == 0 ? 0f : 0.5f);
+                        float radialJoint = ringIndex == 0 ? float.MaxValue : Math.Abs(slot - (float)Math.Round(slot)) / pieces * (float)Math.PI * rho * path;
+                        float joint = Math.Min(ringJoint, radialJoint);
+                        flag.Mix(C.StoneLine, 0.45f * Clamp01(1f - (joint / Math.Max(0.8f, outer * 0.012f))));
+                        Over(ref c, ref alpha, flag.ToRgba(), 0.92f * onPath * Clamp01(inner + 0.5f - dist));
+                    }
+
+                    float under = 1f - Smooth(Clamp01((inner - dist) / (inner * 0.45f)));
+                    Over(ref c, ref alpha, C.GardenShadow, 0.42f * under * Smooth(Clamp01(uy / inner)) * Clamp01(inner + 0.5f - dist));
                     float ring = Clamp01(dist - inner + 0.5f) * Clamp01(outer + 0.5f - dist);
                     Over(ref c, ref alpha, gap, 0.85f * ring);
 
@@ -499,7 +528,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The share of a candy tile's side its lip takes (§3.1), so the kit's press can sink the face into it.
         /// </summary>
-        public static float TileLipShare(TileStyle style) => 0.05f;
+        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : 0.05f;
 
         /// <summary>
         /// A candy tile of side <paramref name="size"/> (spec 005 contracts/look.md §3.1): a satin rounded square in
@@ -513,7 +542,7 @@ namespace Bloomlings.Client.UI.Design
         public static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal)
         {
             Check(size, size);
-            bool board = style == TileStyle.Board;
+            bool board = style != TileStyle.Sticker;
             bool mystery = state == TileState.Mystery;
             bool grey = state == TileState.Grey;
             Rgba col = mystery ? C.TileMystery : grey ? color.Grey() : color;
@@ -564,7 +593,10 @@ namespace Bloomlings.Client.UI.Design
                     // The face over its lip: the tile shape moved up by the lip.
                     float t = Clamp01(y / faceH);
                     var c = new Color(t < 0.6f ? top.Mix(col, t / 0.6f) : col.Mix(bottom, (t - 0.6f) / 0.4f));
-                    c.Mix(lipColor, Outside(RoundRect(x, y + lip, 0f, 0f, s, s, r), 1f));
+                    if (lip > 0f)
+                    {
+                        c.Mix(lipColor, Outside(RoundRect(x, y + lip, 0f, 0f, s, s, r), 1f));
+                    }
 
                     // Satin, not jelly: a faint band fading downward and a thin lighter bevel just inside the top edge.
                     float bandTop = faceH * 0.06f;

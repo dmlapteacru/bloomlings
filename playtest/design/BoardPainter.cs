@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
@@ -7,36 +8,49 @@ using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
-using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Playtest.Design
 {
     /// <summary>
-    /// The board of frames 7–9 (spec 002 FR-011, FR-015).
+    /// The board of frames 7–9 in the reference look (spec 005 contracts/look.md §3.1, §3.6, §4.1; research D2, D12, D14).
     /// <list type="bullet">
-    /// <item><description>Raised rounded tiles in the variant colors carry the variant symbol, never a face.</description></item>
-    /// <item><description>Restored ground shows the finished picture in light colors.</description></item>
-    /// <item><description>Stones, keys, locks, layers, mystery tiles and specials are garden objects that never hide a
-    /// tile's symbol.</description></item>
-    /// <item><description>The Garden Entry sits below the board.</description></item>
-    /// <item><description>Bloomlings walk their routes.</description></item>
+    /// <item><description>The board lies on the lawn inside a border of sandy stone blocks (<see cref="BoardLayout"/>).</description></item>
+    /// <item><description>Target tiles are candy tiles (board style) that nearly touch, parted by the dark board gap.</description></item>
+    /// <item><description>Restored ground shows the finished picture as pale flat cells.</description></item>
+    /// <item><description>Stones are stone blocks; specials are candy-like blocks with their white glyph and counter;
+    /// keys, the next-layer peek and mystery tiles keep their meaning in the same style.</description></item>
+    /// <item><description>Each Garden Entry is a stone arch on its side of the board, where the Bloomlings come out
+    /// and walk their routes.</description></item>
     /// </list>
     /// </summary>
     public static class BoardPainter
     {
+        /// <summary>How much a target tile is inset into its cell (each side, in cells): the tiles nearly touch.</summary>
+        private const float TileInset = 0.008f;
+
+        /// <summary>How much a restored cell is inset into its cell (each side, in cells).</summary>
+        private const float GroundInset = 0.025f;
+
+        /// <summary>The layout each level screen was last drawn with (the walkers' doors depend on it).</summary>
+        private static readonly ConditionalWeakTable<LevelScreen, BoardLayout> Layouts = new ConditionalWeakTable<LevelScreen, BoardLayout>();
+
         public static void Draw(IPainter p, Box area, LevelScreen s)
         {
             LevelView view = s.Session.View;
             int w = view.Width;
             int h = view.Height;
-            float cell = Math.Min(area.Width / w, area.Height / (h + 0.7f));
-            float ox = area.CenterX - (cell * w / 2f);
-            float oy = area.Top + ((area.Height - (cell * (h + 0.7f))) / 2f);
-            s.Board = (ox, oy, cell, h);
+            BoardLayout layout = BoardLayout.Fit(area, w, h, view.Entries);
+            Layouts.AddOrUpdate(s, layout);
+            float cell = layout.Cell;
+            s.Board = (layout.Grid.Left, layout.Grid.Top, cell, h);
 
-            // The board sits on paper in a wooden frame (spec 003 FR-023), which keeps its contrast over the garden (FR-008).
-            Box panel = new Box(ox - (cell * 0.18f), oy - (cell * 0.18f), ox + (cell * w) + (cell * 0.18f), oy + (cell * h) + (cell * 0.18f));
-            Kit.Paper(p, panel, cell * 0.4f, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthBoard);
+            // The entries' stone arches on the lawn, then the stone border with the dark gap the tiles lie in.
+            for (int i = 0; i < layout.Arches.Count; i++)
+            {
+                Arch(p, layout.Arches[i]);
+            }
+
+            Kit.StoneBorder(p, layout.Grid, cell);
 
             for (int y = 0; y < h; y++)
             {
@@ -48,11 +62,10 @@ namespace Bloomlings.Playtest.Design
                     switch (info.Kind)
                     {
                         case CellKind.Open:
-                            p.Mark("tile.ground");
-                            p.FillRound(full.Inset(cell * 0.02f), cell * 0.12f, PictureColor(s, x, y));
+                            Ground(p, full, cell, PictureColor(s, x, y));
                             break;
                         case CellKind.Stone:
-                            Stone(p, full, cell);
+                            Stone(p, full, cell, PictureColor(s, x, y), x, y);
                             break;
                         case CellKind.Special:
                             Special(p, s, info, full, cell);
@@ -61,8 +74,11 @@ namespace Bloomlings.Playtest.Design
                             Tile(p, info, full, cell, 1f, 1f);
                             if (s.Targeting == Recovery.BloomBurst && info.Visible.HasValue && !info.MysteryHidden)
                             {
+                                // Bloom Burst targeting: a ring on every candidate tile, which takes the tap.
+                                p.Mark("fx.burst");
                                 VariantId variant = info.Visible.Value;
-                                p.StrokeRound(full.Inset(cell * 0.04f), cell * 0.2f, p.U(4f), C.BoosterBloomBurst.WithAlpha(0.7f));
+                                float pulse = 0.75f + (0.25f * (float)Math.Sin(p.Now * 6.0));
+                                p.StrokeRound(full.Inset(cell * 0.05f), cell * 0.12f, Math.Max(p.U(4f), cell * 0.05f), C.BoosterBloomBurst.WithAlpha(0.85f * pulse));
                                 p.Hit(full, () => s.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant)));
                             }
 
@@ -86,8 +102,9 @@ namespace Bloomlings.Playtest.Design
                     bool drop = fade.Look.Visible.HasValue && Visuals.FamilyOf(fade.Look.Visible.Value) == Family.Drop;
                     if (drop)
                     {
-                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX - (cell * 0.2f), at.CenterY - (cell * 0.1f) - (cell * 0.3f * k), spark * 0.6f, spark * 0.6f), Rgba.FromHex("#DDF1FF"));
-                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX + (cell * 0.22f), at.CenterY - (cell * 0.2f) - (cell * 0.3f * k), spark * 0.5f, spark * 0.5f), Rgba.FromHex("#DDF1FF"));
+                        Rgba splash = Visuals.ColorOf(fade.Look.Visible!.Value).Lighten(0.72f);
+                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX - (cell * 0.2f), at.CenterY - (cell * 0.1f) - (cell * 0.3f * k), spark * 0.6f, spark * 0.6f), splash);
+                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX + (cell * 0.22f), at.CenterY - (cell * 0.2f) - (cell * 0.3f * k), spark * 0.5f, spark * 0.5f), splash);
                     }
                     else
                     {
@@ -102,20 +119,11 @@ namespace Bloomlings.Playtest.Design
             if (s.LastBooster.HasValue && s.LastBooster.Value.Kind == BoosterKind.BloomBurst && s.Animator.Now - s.LastBooster.Value.At < 0.6f)
             {
                 p.Mark("fx.burst");
+                Box board = layout.Grid;
                 float k = (s.Animator.Now - s.LastBooster.Value.At) / 0.6f;
                 p.PushAlpha(1f - k);
-                p.StrokeCircle(panel.CenterX, panel.CenterY, panel.Width * (0.1f + (0.6f * k)), p.U(24f), C.PetalCenter);
+                p.StrokeCircle(board.CenterX, board.CenterY, board.Width * (0.1f + (0.6f * k)), p.U(24f), C.PetalCenter);
                 p.PopAlpha();
-            }
-
-            // The Garden Entry markers below the board.
-            foreach (EntryDef entry in view.Entries)
-            {
-                p.Mark("tile.entry");
-                (float ex, float ey) = EntryPoint(s, entry);
-                Box marker = Box.FromCenter(ex, ey, cell * 0.8f, cell * 0.36f);
-                p.FillRound(marker, marker.Height / 2f, C.PetalCenter);
-                p.StrokeRound(marker, marker.Height / 2f, p.U(3f), C.PetalCenter.Darken(0.25f));
             }
 
             DrawWalkers(p, s, cell);
@@ -129,8 +137,22 @@ namespace Bloomlings.Playtest.Design
             return new Box(left, top, left + cell, top + cell);
         }
 
+        /// <summary>Where Bloomlings come in through an entry: the door of its stone arch.</summary>
         public static (float X, float Y) EntryPoint(LevelScreen s, EntryDef entry)
         {
+            IReadOnlyList<EntryDef> entries = s.Session.View.Entries;
+            if (Layouts.TryGetValue(s, out BoardLayout? layout))
+            {
+                for (int i = 0; i < entries.Count && i < layout.Arches.Count; i++)
+                {
+                    if (entries[i] == entry)
+                    {
+                        return layout.Arches[i].Door;
+                    }
+                }
+            }
+
+            // Before the first frame: just outside the entry cell.
             Box c = CellBox(s, entry.Cell);
             float d = s.Board.Cell * 0.78f;
             return entry.Side switch
@@ -142,68 +164,147 @@ namespace Bloomlings.Playtest.Design
             };
         }
 
-        /// <summary>A target tile: raised, rounded, in its variant color, with its symbol in ink (research R7).</summary>
+        /// <summary>A Garden Entry: its stone arch (<c>board.arch</c>) on its side of the board, over a soft ground shadow.</summary>
+        private static void Arch(IPainter p, EntryArch arch)
+        {
+            p.Mark("tile.entry");
+            float r = arch.Radius;
+            (float sx, float sy) = arch.Side switch
+            {
+                EntrySide.Top => (0f, -r * 0.5f),
+                EntrySide.Left => (-r * 0.5f, 0f),
+                EntrySide.Right => (r * 0.5f, 0f),
+                _ => (0f, r * 0.5f),
+            };
+            bool across = arch.Side == EntrySide.Left || arch.Side == EntrySide.Right;
+            Box shadow = Box.FromCenter(arch.BaseX - (sx * 0.86f) + (r * 0.04f), arch.BaseY - (sy * 0.86f) + (r * 0.08f), across ? r * 1.16f : r * 2.14f, across ? r * 2.14f : r * 1.16f);
+            Kit.SoftShadow(p, shadow, r, 0.18f, 0.02f);
+            Kit.StoneArch(p, arch.BaseX, arch.BaseY, r / 1.5f, arch.Side);
+        }
+
+        /// <summary>
+        /// A target tile (§3.1): a candy tile in the board style, nearly filling its cell. A hidden mystery tile is the
+        /// lilac "?" tile; the next layer peeks from a small chip in the top-right corner and a key waiting under the tile
+        /// shows on a cream disc in the top-left corner, both kept off the symbol.
+        /// </summary>
         public static void Tile(IPainter p, CellInfo info, Box full, float cell, float scale, float alpha)
         {
             p.Mark("tile.base");
-            Box box = full.Inset(cell * 0.05f).Scale(scale, scale);
-            float radius = box.Width * DesignTokens.Radius.Tile;
+            Box box = full.Inset(cell * TileInset).Scale(scale, scale);
             p.PushAlpha(alpha);
             if (info.MysteryHidden || !info.Visible.HasValue)
             {
-                Rgba mystery = C.TileMystery;
-                Box mysteryFace = Kit.Block(p, box, mystery, mystery.Darken(0.25f), radius, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: mystery.Lighten(0.15f));
-                p.Shape("tile.mystery", Box.FromCenter(mysteryFace.CenterX, mysteryFace.CenterY, box.Width * 0.56f, box.Width * 0.56f), Rgba.White);
+                Kit.CandyTile(p, box, (VariantId?)null, TileStyle.Board);
                 p.PopAlpha();
                 return;
             }
 
-            Box face = CharacterBlock(p, box, info.Visible.Value);
+            Kit.CandyTile(p, box, info.Visible.Value, TileStyle.Board);
 
-            // The next layer peeks in the top-right corner (never over the symbol).
             if (info.RemainingLayers > 1 && info.Next.HasValue)
             {
-                p.Mark("tile.layer_peek");
-                Rgba next = Visuals.ColorOf(info.Next.Value);
-                float c = face.Width * 0.36f;
-                Box corner = new Box(face.Right - c, face.Top - (c * 0.15f), face.Right + (c * 0.15f), face.Top + c);
-                p.FillRound(corner, c * 0.3f, Rgba.White);
-                p.FillRound(corner.Inset(p.U(3f)), c * 0.26f, next);
-                p.Shape(Visuals.SymbolOf(info.Next.Value), corner.Inset(corner.Width * 0.22f), next.Ink);
+                LayerPeek(p, box, info.Next.Value);
             }
 
-            // A key waiting under the tile shows in the top-left corner.
             if (info.KeyId != null)
             {
-                float k = face.Width * 0.4f;
-                Box key = new Box(face.Left - (k * 0.15f), face.Top - (k * 0.15f), face.Left + k, face.Top + k);
-                p.FillCircle(key.CenterX, key.CenterY, k * 0.52f, Rgba.White);
-                p.Shape("tile.key", key.Inset(k * 0.08f), C.MedalGold.Darken(0.2f));
+                KeyCorner(p, box);
             }
 
             p.PopAlpha();
         }
 
         /// <summary>
-        /// A target tile: a light block tinted toward the variant color with the variant's character on it (spec 004
-        /// FR-012, FR-013). The lip, bevel and highlight never reach the character (spec 003 FR-023). Returns the face.
+        /// The next layer (<c>tile.layer_peek</c>): a small candy tile of its variant in a cream ring with a thin dark rim,
+        /// tucked into the tile's top-right corner like a chip stacked on it.
         /// </summary>
-        public static Box CharacterBlock(IPainter p, Box box, VariantId variant)
+        private static void LayerPeek(IPainter p, Box tile, VariantId next)
         {
-            Rgba tint = DesignTokens.CharacterTile(Visuals.ColorOf(variant));
-            Box face = Kit.Block(p, box, tint, DesignTokens.TileEdge(tint), box.Width * DesignTokens.Radius.Tile, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: DesignTokens.TileTop(tint));
-            Visuals.Character(p, CharacterArt.OnTile(face), variant, CharacterMood.Happy);
-            return face;
+            p.Mark("tile.layer_peek");
+            float s = tile.Width;
+            float chip = s * 0.4f;
+            float m = s * 0.03f;
+            var box = new Box(tile.Right - m - chip, tile.Top + m, tile.Right - m, tile.Top + m + chip);
+            float ring = Math.Max(1f, chip * 0.1f);
+            float line = Math.Max(1f, chip * 0.045f);
+            Kit.SoftShadow(p, box, chip * 0.26f, 0.3f, 0.06f);
+            p.FillRound(box.Inset(-line), (chip * 0.24f) + line, GardenLook.BoardGap);
+            p.FillRoundGradient(box, chip * 0.24f, C.CreamTop, C.CreamFace);
+            Kit.CandyTile(p, box.Inset(ring), next, TileStyle.Board);
         }
 
-        private static void Stone(IPainter p, Box full, float cell)
+        /// <summary>A key waiting under a tile (<c>tile.key</c>): the gold key on a cream disc in the tile's top-left corner.</summary>
+        private static void KeyCorner(IPainter p, Box tile)
         {
+            float s = tile.Width;
+            float d = s * 0.38f;
+            float m = s * 0.03f;
+            Box disc = new Box(tile.Left + m, tile.Top + m, tile.Left + m + d, tile.Top + m + d);
+            float line = Math.Max(1f, d * 0.05f);
+            Kit.SoftShadow(p, disc, d / 2f, 0.3f, 0.06f);
+            p.FillCircle(disc.CenterX, disc.CenterY, (d / 2f) + line, C.CreamLine);
+            p.FillRoundGradient(disc, d / 2f, C.CreamTop, C.CreamFace);
+            Box key = disc.Inset(d * 0.14f);
+            Func<float, float, float> sdf = ShapeLibrary.Get("tile.key");
+            p.ShapeOf("tile.key/line", (x, y) => sdf(x, y) - 0.09f, key, C.InkBrown);
+            p.Shape("tile.key", key, C.MedalGold);
+        }
+
+        /// <summary>
+        /// Restored ground (<c>tile.ground</c>, §4.1): a pale flat cell of the finished picture with a small radius and a
+        /// faint inner shadow along its top, over a slightly deeper shade of itself, so the picture reads as one calm
+        /// mosaic next to the saturated tiles.
+        /// </summary>
+        private static void Ground(IPainter p, Box full, float cell, Rgba color)
+        {
+            p.Mark("tile.ground");
+            p.FillRect(full, color.Darken(0.12f));
+            Box box = full.Inset(cell * GroundInset);
+            float r = box.Width * 0.1f;
+            p.FillRound(box, r, color);
+            p.PushClip(box);
+            p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + (box.Height * 0.24f)), r, C.GardenShadow.WithAlpha(0.12f), C.GardenShadow.WithAlpha(0f));
+            p.PopClip();
+        }
+
+        /// <summary>
+        /// A stone obstacle (<c>tile.stone</c>, §4.1): a raised block of the border's sandy stone (<c>mat.stone</c>) over a
+        /// soft shadow, sitting on the restored ground, with a crack across it, so it reads as part of the garden's
+        /// stonework, a fixed obstacle among the candy tiles. The crack and the mottling follow the cell, so neighboring
+        /// stones differ.
+        /// </summary>
+        private static void Stone(IPainter p, Box full, float cell, Rgba ground, int x, int y)
+        {
+            p.Mark("tile.stone");
+            Ground(p, full, cell, ground);
             Box box = full.Inset(cell * 0.06f);
-            p.Shape("tile.stone", box.Offset(0f, cell * 0.05f), C.TileStoneEdge);
-            p.Shape("tile.stone", box, C.TileStone);
-            p.Shape("tile.stone", box.Scale(0.7f, 0.55f).Offset(-cell * 0.06f, -cell * 0.12f), C.TileStone.Lighten(0.25f));
+            Kit.SoftShadow(p, box, box.Width * 0.24f, 0.36f, 0.08f);
+            Kit.StoneBlock(p, box, 21 + (((x * 5) + (y * 3)) % 6), 0.24f);
+
+            // The crack: a jagged groove from the upper edge toward the middle with one branch, over a light lower lip.
+            bool flip = ((x + y) % 2) == 1;
+            float w = box.Width;
+            float X(float k) => flip ? box.Right - (k * w) : box.Left + (k * w);
+            float Y(float k) => box.Top + (k * box.Height);
+            (float X, float Y)[] crack = { (X(0.36f), Y(0.08f)), (X(0.44f), Y(0.28f)), (X(0.37f), Y(0.45f)), (X(0.52f), Y(0.63f)) };
+            (float X, float Y)[] branch = { (X(0.44f), Y(0.28f)), (X(0.62f), Y(0.35f)) };
+            float groove = Math.Max(1.5f, w * 0.035f);
+            foreach ((float X, float Y)[] line in new[] { crack, branch })
+            {
+                for (int i = 0; i + 1 < line.Length; i++)
+                {
+                    float dx = groove * 0.45f;
+                    float dy = groove * 0.6f;
+                    p.Line(line[i].X + dx, line[i].Y + dy, line[i + 1].X + dx, line[i + 1].Y + dy, groove, C.StoneTop.Lighten(0.5f).WithAlpha(0.9f));
+                    p.Line(line[i].X, line[i].Y, line[i + 1].X, line[i + 1].Y, groove, C.StoneLine.WithAlpha(0.72f));
+                }
+            }
         }
 
+        /// <summary>
+        /// A special (§4.1): a candy-like raised block in the special's color (a lighter top, a darker lip and a crisp
+        /// outline) with its white glyph outlined in a darker shade, and, until it opens, its counter on a count badge.
+        /// </summary>
         private static void Special(IPainter p, LevelScreen s, CellInfo info, Box full, float cell)
         {
             (int progress, int total, bool triggered) = info.SpecialId != null ? s.Animator.Special(info.SpecialId) : (0, 0, true);
@@ -224,16 +325,41 @@ namespace Bloomlings.Playtest.Design
                 SpecialType.Bridge => (C.SpecialBridge, triggered ? "special.bridge" : "special.bridge_broken"),
                 _ => (C.SpecialGate, "special.gate"),
             };
-            Box box = full.Inset(cell * 0.05f);
-            Box face = Kit.Block(p, box, color, color.Darken(0.28f), box.Width * 0.18f, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: color.Lighten(0.12f));
-            float glyph = Math.Min(face.Width, face.Height) * 0.7f;
-            p.Shape(shape, Box.FromCenter(face.CenterX, face.CenterY, glyph, glyph), Rgba.White.WithAlpha(0.95f));
-            if (!triggered && total > 1)
+            Box box = full.Inset(cell * TileInset);
+            Box face = CandyBlock(p, box, color);
+            bool counter = !triggered && total > 1;
+            float glyph = Math.Min(face.Width, face.Height) * (counter ? 0.5f : 0.62f);
+            Box g = Box.FromCenter(face.CenterX, face.CenterY - (face.Height * (counter ? 0.13f : 0f)), glyph, glyph);
+            Func<float, float, float> sdf = ShapeLibrary.Get(shape);
+            p.ShapeOf(shape + "/line", (x, y) => sdf(x, y) - 0.08f, g, color.Darken(0.45f));
+            p.Shape(shape, g, Rgba.White);
+            if (counter)
             {
-                Box count = Box.FromCenter(face.CenterX, face.Bottom - (face.Height * 0.12f), face.Width * 0.9f, face.Height * 0.34f);
-                p.FillRound(count, count.Height / 2f, C.BadgeCount.WithAlpha(0.85f));
-                p.Text(progress + "/" + total, count.CenterX, count.CenterY, T.Badge, C.TextOnColor, count.Width * 0.9f, sizeScale: cell / p.U(120f));
+                float badge = cell * 0.25f;
+                Kit.CountBadge(p, face.CenterX, face.Bottom - (badge * 0.62f), badge, progress + "/" + total);
             }
+        }
+
+        /// <summary>
+        /// A raised block in the candy tile's manner (§3.1) for the specials: a crisp darker outline, a darker lip along
+        /// the bottom, a face lighter at the top, a faint gloss band and a thin light bevel. Returns the face.
+        /// </summary>
+        private static Box CandyBlock(IPainter p, Box box, Rgba color)
+        {
+            float s = Math.Min(box.Width, box.Height);
+            float r = Math.Max(3f, s * 0.1f);
+            float line = Math.Max(1f, s * 0.022f);
+            float lip = s * 0.07f;
+            p.FillRound(box, r, color.Darken(0.45f));
+            Box inner = box.Inset(line);
+            float ri = Math.Max(1f, r - line);
+            p.FillRound(inner, ri, color.Darken(0.28f));
+            var face = new Box(inner.Left, inner.Top, inner.Right, inner.Bottom - lip);
+            p.FillRoundGradient(face, ri, color.Lighten(0.28f), color);
+            p.StrokeRound(face.Inset(line * 0.6f), ri, line * 0.8f, color.Lighten(0.45f).WithAlpha(0.45f));
+            var band = new Box(face.Left + (face.Width * 0.1f), face.Top + (face.Height * 0.06f), face.Right - (face.Width * 0.1f), face.Top + (face.Height * 0.26f));
+            p.FillRoundGradient(band, band.Height / 2f, Rgba.White.WithAlpha(0.16f), Rgba.White.WithAlpha(0f));
+            return face;
         }
 
         /// <summary>Bloomlings on their way: small figures of their family in the variant color, hopping along the route.</summary>
@@ -282,42 +408,102 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The finished picture under a restored cell: a light version of its role's variant color.</summary>
+        /// <summary>
+        /// A light variant-tinted block with the variant's character on it (spec 004 FR-012, FR-013): since spec 005 board
+        /// tiles are candy tiles; the Bloomlings sheet (frame 24) still shows each character on its spec 004 tile.
+        /// Returns the face.
+        /// </summary>
+        public static Box CharacterBlock(IPainter p, Box box, VariantId variant)
+        {
+            Rgba tint = DesignTokens.CharacterTile(Visuals.ColorOf(variant));
+            Box face = Kit.Block(p, box, tint, DesignTokens.TileEdge(tint), box.Width * DesignTokens.Radius.Tile, Kit.CellLip(p, box.Height), DesignTokens.Garden.CellHighlightAlpha, top: DesignTokens.TileTop(tint));
+            Visuals.Character(p, CharacterArt.OnTile(face), variant, CharacterMood.Happy);
+            return face;
+        }
+
+        /// <summary>The finished picture under a restored cell: a pale version of its role's variant color (§4.1).</summary>
         public static Rgba PictureColor(LevelScreen s, int x, int y) => PictureColor(s.Session.Definition, s.Session.Picture, x, y);
 
         public static Rgba PictureColor(LevelDefinition definition, BasePicture picture, int x, int y)
         {
+            (VariantId? variant, int value) = PictureCell(definition, picture, x, y);
+            if (variant.HasValue)
+            {
+                return Visuals.ColorOf(variant.Value).Lighten(0.55f);
+            }
+
+            return value == BasePicture.Stone ? C.StoneFace.Lighten(0.35f) : C.TileGround;
+        }
+
+        /// <summary>The variant a picture cell's role maps to (null for ground and stones) and the picture's raw value.</summary>
+        private static (VariantId? Variant, int Value) PictureCell(LevelDefinition definition, BasePicture picture, int x, int y)
+        {
             int px = definition.Picture.Mirror == Mirror.Horizontal ? picture.Width - 1 - x : x;
             if (px < 0 || px >= picture.Width || y < 0 || y >= picture.Height)
             {
-                return C.TileGround;
+                return (null, BasePicture.Empty);
             }
 
             int value = picture.CellAt(px, y);
             if (value >= 0 && definition.Mapping.TryGetValue(picture.Roles[value].RoleId, out VariantId variant))
             {
-                return Visuals.ColorOf(variant).Lighten(0.45f);
+                return (variant, value);
             }
 
-            return value == BasePicture.Stone ? C.TileStone.Lighten(0.2f) : C.TileGround;
+            return (null, value);
         }
 
-        /// <summary>A small finished picture (win card, Collection): every cell in its light picture color.</summary>
+        /// <summary>
+        /// A finished picture (the win card and the Collection; research D14, §4.4): each cell a flat full-color candy tile
+        /// of its role's variant (no lip, a small gloss, the board-style symbol), stones as stone blocks and ground as
+        /// cream cells, inside a thin stone border when the cells are big enough for one.
+        /// </summary>
         public static void Picture(IPainter p, Box box, LevelDefinition definition, BasePicture picture)
         {
             p.Mark("tile.picture");
             int w = Math.Max(1, picture.Width);
             int h = Math.Max(1, picture.Height);
-            float cell = Math.Min(box.Width / w, box.Height / h);
+            const float thin = 0.3f;
+            float rim = BoardLayout.Gap + thin;
+            float cell = Math.Min(box.Width / (w + (2f * rim)), box.Height / (h + (2f * rim)));
+            bool framed = cell >= p.U(16f);
+            if (!framed)
+            {
+                cell = Math.Min(box.Width / w, box.Height / h);
+            }
+
             float ox = box.CenterX - (cell * w / 2f);
             float oy = box.CenterY - (cell * h / 2f);
+            var grid = new Box(ox, oy, ox + (cell * w), oy + (cell * h));
+            if (framed)
+            {
+                Kit.StoneBorder(p, grid, cell, thin);
+            }
+            else
+            {
+                p.FillRound(grid, cell * 0.2f, GardenLook.BoardGap);
+            }
+
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
                 {
                     float left = ox + (x * cell);
                     float top = oy + ((h - 1 - y) * cell);
-                    p.FillRound(new Box(left, top, left + cell, top + cell).Inset(cell * 0.03f), cell * 0.15f, PictureColor(definition, picture, x, y));
+                    var full = new Box(left, top, left + cell, top + cell);
+                    (VariantId? variant, int value) = PictureCell(definition, picture, x, y);
+                    if (variant.HasValue)
+                    {
+                        Kit.CandyTile(p, full.Inset(cell * TileInset), variant.Value, TileStyle.Flat);
+                    }
+                    else if (value == BasePicture.Stone)
+                    {
+                        Kit.StoneBlock(p, full.Inset(cell * 0.04f), 21 + (((x * 5) + (y * 3)) % 6), 0.26f);
+                    }
+                    else
+                    {
+                        p.FillRound(full.Inset(cell * GroundInset), cell * 0.1f, C.TileGround);
+                    }
                 }
             }
         }
