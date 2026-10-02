@@ -6,9 +6,9 @@ using NUnit.Framework;
 namespace Bloomlings.Client.Tests
 {
     /// <summary>
-    /// The reference Home's diorama (spec 005 FR-024, contracts/look.md §6.4, <see cref="HomeStage.ReferenceDiorama"/>):
-    /// the four heroes as large as the reference's around the lotus fountain on the well's stone ring, inside Home's
-    /// diorama region on every phone shape.
+    /// The reference Home's drawn diorama (spec 005 FR-024, contracts/look.md §6.4, <see cref="HomeStage.ReferenceDiorama"/>,
+    /// shown while the owner's Home picture is missing): the four heroes as large as the reference's around the lotus
+    /// fountain on the well's stone ring, inside Home's diorama region on every phone shape.
     /// </summary>
     public class HomeDioramaTests
     {
@@ -54,45 +54,6 @@ namespace Bloomlings.Client.Tests
                 Assert.That(d.Heroes[2].Box.Height, Is.GreaterThan(d.Heroes[3].Box.Height), at + ": Sprig larger than Twig, as the reference's");
                 Assert.That(d.Pedestal.Width, Is.GreaterThan(stage.Width * 0.5f), at + ": the ring spans most of the width");
             }
-        }
-
-        [Test]
-        public void AroundTheOwnersFountain_TheFourHeroesStandUnderTheLogo_AndAboveThePlaque()
-        {
-            foreach ((float w, float h, Insets insets, float _) in Shapes())
-            {
-                ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets);
-                Box logo = r.LogoPicture();
-                float letters = logo.Bottom - (logo.Height * 0.1f);
-                var screen = new Box(0f, 0f, w, h);
-                IReadOnlyList<(Family Family, Box Box)> heroes = HomeStage.AroundFountain(screen, letters);
-                string at = w + "x" + h;
-
-                Assert.That(heroes.Count, Is.EqualTo(4), at);
-                Assert.That(heroes[0].Family, Is.EqualTo(Family.Bloom), at + ": Bloom behind the lotus, drawn first");
-                Assert.That(heroes[2].Family, Is.EqualTo(Family.Sprig), at + ": Sprig at the left front");
-                var families = new HashSet<Family>();
-                foreach ((Family family, Box box) in heroes)
-                {
-                    families.Add(family);
-                    Assert.That(box.Width, Is.EqualTo(box.Height * CharacterArt.HeroWidth / CharacterArt.HeroHeight).Within(0.5f), at + ": " + family + " is a solo picture");
-                    Assert.That(box.Top + (box.Height * HomeStage.HeadShare), Is.GreaterThanOrEqualTo(letters - 0.5f), at + ": " + family + " under the logo's letters");
-                    Box body = box.Inset(box.Width * 0.06f, 0f);
-                    Assert.That(body.Left, Is.GreaterThanOrEqualTo(screen.Left - 0.5f), at + ": " + family + " on the screen");
-                    Assert.That(body.Right, Is.LessThanOrEqualTo(screen.Right + 0.5f), at + ": " + family + " on the screen");
-                }
-
-                Assert.That(families.Count, Is.EqualTo(4), at + ": the four families");
-                Box sprig = heroes[2].Box;
-                Assert.That(sprig.CenterX, Is.LessThan(screen.CenterX), at + ": Sprig at the left");
-                Assert.That(heroes[3].Box.CenterX, Is.GreaterThan(screen.CenterX), at + ": Twig at the right");
-                Assert.That(sprig.Height, Is.GreaterThan(heroes[3].Box.Height), at + ": Sprig larger than Twig, as the reference's");
-            }
-
-            // The player's hero takes Sprig's place at the left front.
-            IReadOnlyList<(Family Family, Box Box)> swapped = HomeStage.AroundFountain(new Box(0f, 0f, 1080f, 2340f), 0f, Family.Bloom);
-            Assert.That(swapped[2].Family, Is.EqualTo(Family.Bloom));
-            Assert.That(swapped[0].Family, Is.EqualTo(Family.Sprig));
         }
 
         [Test]

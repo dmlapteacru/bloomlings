@@ -28,7 +28,7 @@ How to read the columns:
 |---|---|---|---|
 | Brand | 3 | 1 | 4 |
 | Backgrounds | 8 | 0 | 8 |
-| Bloomling characters | 18 | 9 | 27 |
+| Bloomling characters | 18 | 8 | 26 |
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 13 | 0 | 13 |
 | Specials | 7 | 0 | 7 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **178** | **28** | **206** |
+| **All** | **178** | **27** | **205** |
 
 ## Brand
 
@@ -50,7 +50,7 @@ How to read the columns:
 |---|---|---|---|---|---|---|---|---|
 | `brand.wordmark` | Bloomlings wordmark (logo): the owner's picture `Brand/logo.png` (spec 005 pictures.md C1) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | the wooden letters `ui.logo.wood` until the picture exists |
 | `brand.tagline` | Tagline "Small friends. Big gardens." (the owner's optional picture `Brand/tagline.png`, spec 005 pictures.md C2) | — | Splash; Home | full | Medium | no | Later | none yet: neither build shows a tagline; the slot keeps the picture's place for later (not in the game yet) |
-| `brand.splash_art` | Splash illustration: Bloomlings of the four families in the garden | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | garden backdrop and the 3D group picture `3d/group` |
+| `brand.splash_art` | Splash illustration: the garden with the logo (Bloomlings of the four families on the drawn stand-in) | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | the owner's Home garden with the logo and no heroes for now (spec 005 FR-024); without the picture, the drawn garden with the four 3D heroes around the lotus fountain |
 | `brand.app_icon` | App icon | — | Launcher; store listing | Android adaptive (foreground, background); iOS set | Medium | no | Launch | platform default icon (not in the game yet) |
 
 ## Backgrounds
@@ -61,7 +61,7 @@ How to read the columns:
 | `bg.theme.pond` | Gameplay backdrop: Pond (from L100) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn tilted toward teal by the pond theme until `Backgrounds/gameplay-pond.png` exists (pictures.md B3) |
 | `bg.theme.orchard` | Gameplay backdrop: Orchard (from L150) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn tilted warm by the orchard theme until `Backgrounds/gameplay-orchard.png` exists (pictures.md B4) |
 | `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn, dusky and blue-green for the moonlit theme, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5) |
-| `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
+| `bg.home` | Home scene: the garden diorama with the lotus fountain (no heroes over it for now, spec 005 FR-024) | 2, 3 | Home | early; progressed | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | the owner's Home garden (`Backgrounds/home.jpg`, `OwnerPictures.Resolve`; the procedural garden without it) until `Backgrounds/splash.png` exists (pictures.md B6) |
 | `bg.wardrobe` | Wardrobe backdrop: the garden arches behind the hero on its pedestal (both builds) | — | Wardrobe | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7) |
 | `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15, 16 | Win; milestone | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
@@ -79,7 +79,7 @@ the fallback when a picture is missing.
 | `char.bloom` | Bloom family body (the fallback figure when a picture is missing) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.bloom` |
 | `char.drop` | Drop family body (the fallback figure when a picture is missing) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.drop` |
 | `char.twig` | Twig family body (the fallback figure when a picture is missing) | 2, 3, 7, 8, 9, 12, 13 | Pods; slots; walkers; Home; demos | idle; walk; work; finish; stuck; celebrate | Medium | yes | Launch | shape `char.twig` |
-| `char.hero.home` | Home hero: a large Bloomling in the player's outfit | 3 | Home | idle; wave; each family; outfit layers | Large | no | Launch | the family's 3D solo hero `3d/{family}` with worn cosmetics |
+| `char.hero.home` | Home hero: a large Bloomling in the player's outfit | 3 | Home | idle; wave; each family; outfit layers | Large | no | Launch | the family's 3D solo hero `3d/{family}` with worn cosmetics on the drawn stand-in; no heroes over the owner's Home picture for now (deferred by the owner on 2026-10-02: animated heroes later) |
 | `char.v.leaf` | Variant character: leaf (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/leaf-{mood}.png` |
 | `char.v.moss` | Variant character: moss (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/moss-{mood}.png` |
 | `char.v.flower` | Variant character: flower (its shape is the symbol) | 7, 8, 9, 12, 13 | Pods; slots; walkers; board tiles | happy; asleep (queued); worried (stuck); blank (worn expression) | Small | yes | Launch | `2d/flower-{mood}.png` |
@@ -96,12 +96,11 @@ the fallback when a picture is missing.
 | `char.hero3d.bloom` | 3D hero: Bloom | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/bloom.png` |
 | `char.hero3d.drop` | 3D hero: Drop | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/drop.png` |
 | `char.hero3d.twig` | 3D hero: Twig | 3, 5 | Home; Wardrobe; profile; leaderboard | face; blank (worn expression) | Medium | no | Launch | `3d/twig.png` |
-| `char.hero3d.group` | 3D heroes: the four families side by side (the hosts stand them on a stone pedestal) | 1, 2, 15, 16 | Splash; Home; win; milestone | warm garden light | Large | no | Launch | `3d/group.png` |
+| `char.hero3d.group` | 3D heroes: the four families side by side (the hosts stand them on a stone pedestal) | 15, 16 | Win; milestone | warm garden light | Large | no | Launch | `3d/group.png` |
 | `char.hero3d.cheer.sprig` | 3D hero celebrating: Sprig (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/sprig-cheer.png` exists (not in the game yet) |
 | `char.hero3d.cheer.bloom` | 3D hero celebrating: Bloom (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/bloom-cheer.png` exists (not in the game yet) |
 | `char.hero3d.cheer.drop` | 3D hero celebrating: Drop (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/drop-cheer.png` exists (not in the game yet) |
 | `char.hero3d.cheer.twig` | 3D hero celebrating: Twig (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none yet: the win card shows the group picture `3d/group.png` until `3d/twig-cheer.png` exists (not in the game yet) |
-| `char.experiment.leafling` | Experiment: the Leafling, a guest on Home (the owner's Meshy model) | 2, 3 | Home | beside the group early on; beside the hero later | Medium | no | Later | `experiments/leafling.png`, painted and rendered by tools/artgen from `tools/artgen/models/leafling.fbx` |
 
 ## Variant symbols
 

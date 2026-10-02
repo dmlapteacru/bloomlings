@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
@@ -10,9 +9,9 @@ using UnityEngine;
 namespace Bloomlings.Client.Tests
 {
     /// <summary>
-    /// Home, the splash and the win over the owner's pictures (spec 005 FR-024, contracts/look.md §6.3, §6.4): the four
-    /// solo heroes around the painted lotus fountain, the logo picture sized by width, the splash taking the Home garden,
-    /// the win's painted stage under the hero, and the blank-faced twins used only when they match the hero.
+    /// Home, the splash and the win over the owner's pictures (spec 005 FR-024, contracts/look.md §6.3, §6.4): no heroes
+    /// over the owner's Home picture for now, the logo picture sized by width, the splash taking the Home garden, the win's
+    /// painted stage under the hero, and the blank-faced twins used only when they match the hero.
     /// </summary>
     public class OwnerHomeTests
     {
@@ -24,48 +23,12 @@ namespace Bloomlings.Client.Tests
         };
 
         [Test]
-        public void TheHeroes_StandAroundTheFountain_BetweenTheLogoAndThePlaque()
+        public void OverTheOwnersHomePicture_HomeAndTheSplashShowNoHeroes_ForNow()
         {
-            foreach ((int w, int h, Insets insets) in Phones)
-            {
-                var screen = new Box(0f, 0f, w, h);
-                ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets);
-                IReadOnlyList<(Family Family, Box Box)> heroes = HomeStage.AroundFountain(screen, ceiling: r.Logo.Bottom);
-                string phone = w + "x" + h;
-
-                // Back to front, as the reference: Bloom behind the lotus, Drop, Sprig at the left front, Twig at the right.
-                Assert.That(heroes.Select(x => x.Family), Is.EqualTo(new[] { Family.Bloom, Family.Drop, Family.Sprig, Family.Twig }), phone);
-                Box bloom = heroes[0].Box;
-                Box drop = heroes[1].Box;
-                Box sprig = heroes[2].Box;
-                Box twig = heroes[3].Box;
-                Assert.That(sprig.CenterX, Is.LessThan(bloom.CenterX), phone);
-                Assert.That(drop.CenterX, Is.GreaterThan(bloom.CenterX), phone);
-                Assert.That(twig.CenterX, Is.GreaterThan(drop.CenterX), phone);
-                Assert.That(sprig.Height, Is.GreaterThan(bloom.Height), "Sprig is the biggest, in front: " + phone);
-                foreach ((Family family, Box box) in heroes)
-                {
-                    // Large (about a third of the width tall or more), heads under the logo, feet above the plaque's bottom,
-                    // and on screen but for a leaf tip where a tall phone crops the picture's sides (the pictures' figures
-                    // start 4-13% in from their boxes' sides).
-                    Assert.That(box.Height, Is.GreaterThan(0.3f * r.W), family + " " + phone);
-                    Assert.That(box.Top + (box.Height * HomeStage.HeadTopShare), Is.GreaterThanOrEqualTo(r.Logo.Bottom - 1f), family + " " + phone);
-                    float feet = box.Top + (box.Height * HomeStage.FeetShare);
-                    Assert.That(feet, Is.LessThan(r.Plaque.Bottom), family + " " + phone);
-                    Assert.That(box.Left + (0.06f * box.Width), Is.GreaterThan(-0.05f * w), family + " " + phone);
-                    Assert.That(box.Right - (0.12f * box.Width), Is.LessThan(1.05f * w), family + " " + phone);
-                }
-            }
-
-            // On the reference's 19.5:9 phone, as measured there (shares of the screen's height): Bloom's head from about
-            // 25%, Sprig's feet at about 57%, every hero's feet above the plaque.
-            (int pw, int ph, Insets pi) = Phones[0];
-            ReferenceHomeRegions reference = ScreenLayout.ReferenceHome(pw, ph, pi);
-            IReadOnlyList<(Family Family, Box Box)> shown = HomeStage.AroundFountain(new Box(0f, 0f, pw, ph), ceiling: reference.Logo.Bottom);
-            float Share(float y) => y / ph;
-            Assert.That(Share(shown[0].Box.Top + (shown[0].Box.Height * HomeStage.HeadTopShare)), Is.EqualTo(0.25f).Within(0.03f));
-            Assert.That(Share(shown[2].Box.Top + (shown[2].Box.Height * HomeStage.FeetShare)), Is.EqualTo(0.57f).Within(0.02f));
-            Assert.That(shown.Max(x => x.Box.Top + (x.Box.Height * HomeStage.FeetShare)), Is.LessThan(reference.Plaque.Top));
+            // The owner deferred the heroes on Home on 2026-10-02 (they come back animated later): the owner's garden
+            // shows alone, and only the drawn stand-in keeps its heroes.
+            Assert.That(HomeStage.ShowsHeroes(ownerPicture: true), Is.False);
+            Assert.That(HomeStage.ShowsHeroes(ownerPicture: false), Is.True);
         }
 
         [Test]

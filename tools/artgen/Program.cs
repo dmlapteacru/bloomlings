@@ -1,5 +1,5 @@
 // The character art generator of spec 004 (contracts/art-files.md).
-// Usage: dotnet run --project tools/artgen -- build|check|sheet|faces [--only 2d|3d|experiments|<picture>]
+// Usage: dotnet run --project tools/artgen -- build|check|sheet|faces [--only 2d|3d|<picture>]
 //        dotnet run --project tools/artgen -- adopt <picture> [--record <file>]   (an owner picture, spec 005 pictures.md A)
 using System;
 using System.Collections.Generic;
@@ -37,12 +37,8 @@ for (int i = 1; i < args.Length; i++)
 
 string root = FindRoot();
 string folder = Path.Combine(root, "client", "Assets", "Bloomlings", "Art", "Characters", "Resources", "Characters");
-
-// The Leafling experiment (research R17): the owner's Meshy model, kept apart from the project's own art.
-string leaflingFile = Path.Combine(root, "client", "Assets", "Bloomlings", "Art", "Experiments", "Resources", "Characters", CharacterArt.Leafling + ".png");
-bool leafling = only == null || only == "experiments";
 IReadOnlyList<string> all = CharacterArt.AllPictures(VariantCatalog.Default.All);
-// --only takes a group (2d, 3d, experiments) or one picture name (3d/group).
+// --only takes a group (2d, 3d) or one picture name (3d/group).
 List<string> names = all.Where(n => only == null || n == only || n.StartsWith(only + "/", StringComparison.Ordinal)).ToList();
 
 switch (command)
@@ -87,14 +83,6 @@ switch (command)
             Console.WriteLine($"wrote {written.Count} pictures{(kept > 0 ? $", kept {kept} of the owner's" : string.Empty)}; the set has {manifest.Files.Count} files, {bytes / 1024} KB");
         }
 
-        if (leafling)
-        {
-            Directory.CreateDirectory(Path.GetDirectoryName(leaflingFile)!);
-            using SkiaSharp.SKBitmap bitmap = Png.FromRgba(Leafling.Width, Leafling.Height, Leafling.Render(root));
-            File.WriteAllBytes(leaflingFile, Png.Encode(bitmap));
-            Console.WriteLine($"{CharacterArt.Leafling}.png ({clock.Elapsed.TotalSeconds:0.0} s)");
-        }
-
         return foreign == 0 ? 0 : 1;
     }
 
@@ -102,17 +90,6 @@ switch (command)
     {
         var notes = new List<string>();
         List<string> problems = names.Count > 0 ? ArtCheck.Run(root, folder, all, names, notes) : new List<string>();
-        if (leafling)
-        {
-            if (File.Exists(leaflingFile))
-            {
-                ArtCheck.Compare(CharacterArt.Leafling, leaflingFile, Leafling.Width, Leafling.Height, (Leafling.Width, Leafling.Height, Leafling.Render(root)), 1, problems);
-            }
-            else
-            {
-                problems.Add(CharacterArt.Leafling + ".png is missing");
-            }
-        }
 
         foreach (string note in notes)
         {
@@ -126,7 +103,7 @@ switch (command)
 
         int owners = Manifest.Read(folder).Files.Count(f => f.IsOwner);
         string theirs = owners > 0 ? $"; {owners} owner picture(s) checked as adopted" : string.Empty;
-        Console.WriteLine(problems.Count == 0 ? $"art check: OK ({names.Count + (leafling ? 1 : 0)} pictures{theirs})" : $"art check: {problems.Count} problem(s)");
+        Console.WriteLine(problems.Count == 0 ? $"art check: OK ({names.Count} pictures{theirs})" : $"art check: {problems.Count} problem(s)");
         return problems.Count == 0 ? 0 : 1;
     }
 
@@ -180,7 +157,7 @@ switch (command)
     }
 
     default:
-        Console.WriteLine("usage: build [--force] | check | sheet | faces [--only 2d|3d|experiments|<picture>]; adopt <picture> [--record <file>]");
+        Console.WriteLine("usage: build [--force] | check | sheet | faces [--only 2d|3d|<picture>]; adopt <picture> [--record <file>]");
         return 2;
 }
 

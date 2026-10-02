@@ -15,7 +15,7 @@ Common rules:
 - Backgrounds: 1080 × 2340 (19.5:9). Keep the important part inside the middle 1080 × 1920; the top 12% sits under the
   top bar and the bottom 30% under the buttons or the tray.
 - Note the tool, the author and the licence of each picture in a source record in the repository (by default
-  `tools/artgen/models/owner-pictures.md`; `tools/artgen/models/leafling.md` is an example). The originality test
+  `tools/artgen/models/owner-pictures.md`). The originality test
   needs it: section A pictures name it through `adopt`, and every background or logo (B, C) needs a row in
   `client/THIRD_PARTY_NOTICES.md` with its path and the record as its licence file, or
   `OriginalityTests.Client_HasNoImportedArtAudioOrFonts` fails.
@@ -60,7 +60,7 @@ Folder: `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`. The n
 
 | # | File | Where | What | Slot |
 |---|---|---|---|---|
-| B1 | `home.png` | Home | the garden diorama of the reference: ruins with stone arches, a round stone well with the lotus fountain in the middle, flowers and bushes, soft sunlight; **without the heroes** (they stand in front, wearing their outfits); empty space at the top for the logo and at the bottom for the level plaque and Play | `bg.home` |
+| B1 | `home.png` | Home | the garden diorama of the reference: ruins with stone arches, a round stone well with the lotus fountain in the middle, flowers and bushes, soft sunlight; **without the heroes**; empty space at the top for the logo and at the bottom for the level plaque and Play. It is used without heroes for now: Home and the splash show it alone with the logo and the buttons (the owner, 2026-10-02: the heroes come back animated later, spec FR-024) | `bg.home` |
 | B2 | `gameplay-daylight.png` | levels 1–99 and every fourth band | a lush garden seen from above: grass, bushes and flowers at the edges, the middle calm (the board covers 86% of the width between 8% and 53% of the height, the tray the bottom 38%) | `bg.theme.daylight_garden` |
 | B3 | `gameplay-pond.png` | from level 100 | the same lawn with water lilies and a pond edge | `bg.theme.pond` |
 | B4 | `gameplay-orchard.png` | from level 150 | the lawn with fruit trees' shade and fallen fruit | `bg.theme.orchard` |

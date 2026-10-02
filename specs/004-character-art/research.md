@@ -278,7 +278,12 @@ New slots, all `PlaceholderKind.Generated` (a new kind: "generated picture, `too
 `char.face` and `char.accent` are retired: faces and symbols are now part of the pictures. `char.<family>` stays (the
 fallback shape). `char.hero.home` stays and points to the 3D solo hero. The inventory is regenerated.
 
-## R17. Experiment: the owner's Meshy model on Home (2026-10-01)
+## R17. Experiment: the owner's Meshy model on Home (2026-10-01; removed by the owner on 2026-10-02)
+
+**Removed by the owner on 2026-10-02** ("Leafling убери"): the guest on Home is gone from both builds, with its slot
+`char.experiment.leafling`, its picture (`Art/Experiments/`), its notices row, the artgen experiment (`Leafling.cs`,
+`Fbx.cs`, `models/leafling.fbx`, `models/leafling.md`, `build|check --only experiments`) and the kit's
+`CharacterArt.Leafling`, `GroupWithGuest` and `GuestBesideHero`. The record below is kept as history.
 
 The owner asked to try a model made with Meshy AI (an FBX file) in the game, as a character on Home.
 

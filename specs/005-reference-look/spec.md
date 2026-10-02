@@ -291,7 +291,10 @@ inventory.
   at the top right, the logo across the top, the diorama (the owner's Home picture, or the heroes on a pedestal with
   the lotus fountain) in the middle, the wooden level plaque, and the big Play button below it. Our other Home entries
   (Wardrobe, Collection, Daily Challenge, rank, milestone teaser, free booster) stay reachable as small cream round
-  buttons and pills along the sides and the bottom.
+  buttons and pills along the sides and the bottom. The heroes on Home are deferred by the owner (2026-10-02: placing
+  them around the painted fountain is hard; they come back animated in a later task): over the owner's Home picture,
+  Home and the splash show the picture alone with the logo and the buttons, and only the drawn stand-in (without the
+  picture) keeps its heroes.
 - **FR-025**: The Wardrobe MUST follow the reference layout (contracts/look.md §6.5) in both builds; the playtest gets
   a Wardrobe screen (equipping through the shared `WardrobeService`) instead of only the Store's cosmetics tab.
 - **FR-026**: Board tile icons MUST be the reference's "gem" icons: the variant symbol about 56% of the tile with a

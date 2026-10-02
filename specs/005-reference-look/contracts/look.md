@@ -509,15 +509,16 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 - Level: a `WoodSign` (None) plaque with "Level N", as tall as its row and as wide as the letters plus 1.5 × its height.
 - Play: the big primary button in its wood rim.
 - Settings, Petals pill per §3.3–3.4.
-- Heroes, until the owner's Home picture (pictures.md B1): the drawn stage `HomeStage.Diorama` (kit `HomeLook.cs`): a
-  `StonePedestal` 0.84 of the stage wide, the lotus fountain on it (`Kit.LotusFountain`, `ui.fountain`: a small pedestal
-  as its basin, water, two lily pads, the lotus) and the four heroes in an arc as in the reference (Sprig at the left,
-  Bloom raised behind the fountain, Drop, Twig in front at the right edge), the guest (spec 004 R17) at the left front.
-  Over the owner's Home picture (B1) the four solo heroes stand around its lotus fountain as on the reference
-  (`HomeStage.AroundFountain`, §6.4), early and progressed alike, each in its outfit once the Wardrobe is open, and the
-  guest is not shown. Without the picture, progressed: the player's hero on a `StonePedestal`
-  (`HomeStage.HeroOnPedestal`), the guest at its right. The splash shows the Home picture until its own (B6) exists
-  (`OwnerPictures.Resolve`) and the same heroes without the guest, so it turns into Home without a jump.
+- Heroes, deferred by the owner on 2026-10-02 (placing them around the painted fountain is hard; they come back
+  animated in a later task): over the owner's Home picture (pictures.md B1) Home and the splash show no heroes, no
+  pedestal and no drawn fountain, only the picture with the logo, Settings, the Petals pill, the side buttons, the
+  plaque, Play and the pills (`HomeStage.ShowsHeroes`). Without the picture, the drawn stage
+  `HomeStage.ReferenceDiorama` (kit `HomeLook.cs`, §6.4): a `StonePedestal` ring, the lotus fountain on it
+  (`Kit.LotusFountain`, `ui.fountain`: a small pedestal as its basin, water, two lily pads, the lotus) and the four
+  heroes around it as in the reference (Bloom raised behind the fountain, Drop at the right back, Sprig at the left,
+  Twig in front at the right), early and progressed alike, each in its outfit once the Wardrobe is open. The splash
+  shows the Home picture until its own (B6) exists (`OwnerPictures.Resolve`) and the same stage as Home, so it turns
+  into Home without a jump. The Leafling guest (spec 004 R17) was removed by the owner on 2026-10-02.
 - The milestone teaser and the rank row are parchment pills (`Kit.ParchmentPill`) with the outlined pink gift or gold
   trophy and `InkBrown` text; the Daily Challenge card is parchment with the sun on a cream disc; the avatar a cream disc.
 - Backdrop: `HomeStage.Garden` warms the Home and splash colors (a clearer blue sky, sunlit horizon and hills, lush
@@ -724,7 +725,7 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
 | Petals pill | `0.38W × 0.095W`, right edge − `0.02W`, top 2.5% of H |
 | Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
-| Diorama | from 22% to 70% of H: the owner's Home picture behind everything with the four heroes around its fountain (`HomeStage.AroundFountain`); else the drawn garden with the heroes on a pedestal with the lotus fountain, centered at 50% |
+| Diorama | from 22% to 70% of H: the owner's Home picture behind everything, without heroes for now (`HomeStage.ShowsHeroes`); else the drawn garden with the heroes on a pedestal with the lotus fountain, centered at 50% |
 | Side buttons | Wardrobe, Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill under the Petals pill |
 | Level plaque | wooden sign `0.5W × 0.085H`, centered, from 64% to 72.5% of H |
 | Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H; the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
@@ -738,21 +739,20 @@ columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0
 more, such as the avatar); the rank pill (`0.3W × 0.075W`) sits under the right column, right-aligned at `0.04W` (under
 the Petals pill there is no room for its touch target); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
 from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
-Over the owner's Home picture the heroes are `HomeStage.AroundFountain(screen, logoBottom, front)`: the picture
-cover-fitted over the screen (the larger scale, centered), the anchor F its lotus's middle (`HomeStage.LotusX`,
-`LotusY` = 50%, 45.5% of the picture) and the unit L the lotus's width (`LotusWidth` = 0.30 of the picture's width,
-324 px at 1080 wide); back to front (`HomeStage.Figure(x, feet, height)`): Bloom `(F.x, F.y − 0.27L, 1.47L)` behind the
-lotus, Drop `(F.x + 0.70L, F.y + 0.55L, 1.30L)` at the right back, Sprig `(F.x − 0.97L, F.y + 0.86L, 1.81L)` at the
-left front and Twig `(F.x + 1.13L, F.y + 1.05L, 1.40L)` at the right front; `front` (the player's hero) swaps into
-Sprig's place; when Bloom's head (12% down its box) would rise above the logo's letters all four shrink about F until
-it clears, and a hero whose body (its box less 6%) would leave the screen on a wide crop slides in to 1% inside the
-edge. At 19.5:9 Bloom's petals start at about 23% of H, Sprig's leaves at 34% with its feet at 57%, Twig's feet at 60%,
-all above the plaque. No guest is shown over the owner's picture.
+Over the owner's Home picture there are no heroes for now (`HomeStage.ShowsHeroes`): the owner deferred them on
+2026-10-02, and they come back animated in a later task. For that task, the placement measured on the reference (its
+code, `HomeStage.AroundFountain`, is removed): the picture cover-fitted over the screen (the larger scale, centered),
+the anchor F its lotus's middle (50%, 45.5% of the picture) and the unit L the lotus's width (0.30 of the picture's
+width, 324 px at 1080 wide); back to front (`HomeStage.Figure(x, feet, height)`): Bloom `(F.x, F.y − 0.27L, 1.47L)`
+behind the lotus, Drop `(F.x + 0.70L, F.y + 0.55L, 1.30L)` at the right back, Sprig `(F.x − 0.97L, F.y + 0.86L, 1.81L)`
+at the left front and Twig `(F.x + 1.13L, F.y + 1.05L, 1.40L)` at the right front; the player's hero swapped into
+Sprig's place; when Bloom's head (12% down its box) would rise above the logo's letters all four shrank about F until
+it cleared.
 The drawn diorama (without the owner's picture) is `HomeStage.ReferenceDiorama(stage)` (in `u = min(0.88 × stage
 width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's stone ring `0.78u` wide with its foot
 `0.09u` above the stage's bottom, the lotus fountain on it, Bloom raised behind the fountain (`0.64u` picture, feet
 `0.51u` up), Drop at the right back (`0.44u` at `+0.30u`), Sprig at the left (`0.74u` at `−0.26u`), Twig in front at the
-right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop; the guest small at the left front. The playtest stacks only the
+right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest stacks only the
 unlocked side buttons (left: Wardrobe, Collection, the avatar; right: Daily Challenge, Store), the rank pill following
 the right column; its splash shows the logo and the diorama in the same boxes.
 
@@ -761,14 +761,13 @@ Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it show
 the green check badge when done today, and the Store, the lotus), and the rank pill sits under the right column's last
 button; the logo shows in both looks, the owner's logo picture sized by width (`ReferenceHomeRegions.LogoPicture`:
 `0.82W` wide, centered on the logo box, its top no higher than a tenth of its height above Settings' bottom); over the
-owner's Home picture both looks show the four solo heroes around its painted lotus fountain
-(`HomeStage.AroundFountain`, their heads under the logo box) and no guest, and once the Wardrobe is open each hero wears
-its outfit and the player's hero (`ProfileAvatar.HeroFamily`) swaps places with Sprig at the left front; without the
-picture, the drawn `HomeStage.ReferenceDiorama`; Play shows its label alone, `ReferenceHomeRegions.PlayLabelShare` of its
+owner's Home picture both looks show no heroes for now (`HomeStage.ShowsHeroes`); without the picture, the drawn
+`HomeStage.ReferenceDiorama`, where once the Wardrobe is open each hero wears its outfit and the player's hero
+(`ProfileAvatar.HeroFamily`) swaps places with Sprig at the left front; Play shows its label alone, `ReferenceHomeRegions.PlayLabelShare` of its
 height; the Petals pill without its "+" starts the amount right after the lotus; the plaque is `0.5W`, wider when its
 letters need it (at most `0.8W`); the free booster is the cream `CostPill` "Free"; the rank pill and the free booster
 take taps in clear boxes grown to `size.touch_min`; the splash takes the Home garden while its own picture is missing
-(`OwnerPictures.Resolve`) and puts its logo and heroes where Home shows them.
+(`OwnerPictures.Resolve`) and puts its logo (and, on the drawn stand-in, its heroes) where Home shows them.
 
 ### 6.5 Wardrobe (both builds)
 

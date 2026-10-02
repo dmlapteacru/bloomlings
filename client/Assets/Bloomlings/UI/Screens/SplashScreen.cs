@@ -9,11 +9,12 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>
     /// The splash of the design board's frame 1 (spec 002 FR-016) in the reference look of spec 005 (contracts/look.md
     /// §4.5; the playtest's <c>SplashScreen</c>): the wooden logo (the owner's logo picture when it exists) over the
-    /// garden (the owner's splash picture, else the Home garden, <see cref="OwnerPictures.Resolve"/>), with the four
-    /// families as 3D heroes around its lotus fountain (spec 004), fading and rising in, both where Home shows them
-    /// (<see cref="ScreenLayout.ReferenceHome"/>'s logo, <see cref="HomeStage.AroundFountain"/>, §6.4). It
-    /// shows from the first frame while services and content load, and goes once the first screen is up. It never waits
-    /// for a tap: the first launch still goes straight into Level 1 (spec 001 US2).
+    /// garden (the owner's splash picture, else the Home garden, <see cref="OwnerPictures.Resolve"/>), fading in where
+    /// Home shows it (<see cref="ScreenLayout.ReferenceHome"/>'s logo, §6.4). Over the owner's picture it shows no heroes
+    /// for now (<see cref="HomeStage.ShowsHeroes"/>); without it, the drawn diorama's four families as 3D heroes around
+    /// the lotus fountain (spec 004) rise in where Home shows them. It shows from the first frame while services and
+    /// content load, and goes once the first screen is up. It never waits for a tap: the first launch still goes straight
+    /// into Level 1 (spec 001 US2).
     /// </summary>
     public sealed class SplashScreen : MonoBehaviour
     {
@@ -37,10 +38,11 @@ namespace Bloomlings.Client.UI.Screens
             ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets);
             var screenBox = new Box(0f, 0f, w, h);
 
-            // The four families around the lotus fountain ("brand.splash_art"), without the guest, as Home shows them.
+            // The drawn diorama's four families around the lotus fountain ("brand.splash_art"), as Home shows them; none
+            // over the owner's garden picture for now.
             screen._stage = UiFactory.Stretch(UiFactory.CreateRect("Heroes", root));
             UiKit.FadeInOnShow(screen._stage.gameObject, 1f, AppearSeconds);
-            HeroPictures.Stage("Stage", screen._stage).Place(r.Diorama, screenBox, BackdropScene.Splash, guest: false, ceiling: r.Logo.Bottom);
+            HeroPictures.Stage("Stage", screen._stage).Place(r.Diorama, screenBox, BackdropScene.Splash);
 
             // The logo across the top ("brand.wordmark"), where Home shows it.
             RectTransform logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));

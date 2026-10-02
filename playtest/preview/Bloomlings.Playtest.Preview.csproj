@@ -63,8 +63,6 @@
     <!-- The owner's booster icons and leaf decorations (spec 005 pictures.md D), drawn instead of the drawn ones when present. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" LogicalName="icons/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" LogicalName="decor/%(Filename)%(Extension)" />
-    <!-- The Leafling experiment (spec 004 research R17): the owner's Meshy model rendered by tools/artgen. -->
-    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Experiments/Resources/Characters/experiments/*.png" LogicalName="characters/experiments/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
     <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />

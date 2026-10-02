@@ -54,13 +54,21 @@ namespace Bloomlings.Client.UI.Design
 
     /// <summary>
     /// The drawn Home stage until the owner's pictures arrive (spec 005 contracts/look.md §4.5, research D16): where the
-    /// stone pedestal, the lotus fountain, the four heroes and the guest stand, and the warmer garden colors of the Home
-    /// and splash backdrops. Both builds lay Home out with it. Engine-free.
+    /// stone pedestal, the lotus fountain and the four heroes stand, and the warmer garden colors of the Home and splash
+    /// backdrops. Both builds lay Home out with it. Engine-free.
     /// </summary>
     public static class HomeStage
     {
         /// <summary>The share of a hero picture's height above its feet (the feet stand at 90% of the picture).</summary>
         public const float FeetShare = 0.9f;
+
+        /// <summary>
+        /// Whether Home and the splash stand heroes in their diorama (spec 005 FR-024, contracts/look.md §4.5, §6.4): only
+        /// on the drawn stand-in. Over the owner's garden picture (pictures.md B1, or the splash's own B6) they show none
+        /// for now: the owner deferred the heroes on Home on 2026-10-02 (placing them around the painted fountain is hard;
+        /// they come back animated in a later task), so the picture shows alone with the logo and the buttons.
+        /// </summary>
+        public static bool ShowsHeroes(bool ownerPicture) => !ownerPicture;
 
         /// <summary>
         /// The Home and splash garden (spec 005 §4.2: "the sky, arches and hills but warmer"): a clearer blue sky that
@@ -81,48 +89,16 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// The early Home diorama in <paramref name="stage"/> (frame 2 and the splash; the reference's heroes around the
-        /// lotus fountain): a wide stone pedestal in the middle with the fountain's basin on its top and the heroes in an
-        /// arc around it (Sprig at the left, Bloom raised behind the fountain, Drop, Twig at the right edge in front). With
-        /// <paramref name="guest"/> the arc moves right and the guest stands at the left front. Heroes are listed back to
-        /// front; hero boxes are 512 × 576 pictures whose feet stand at <see cref="FeetShare"/>.
-        /// </summary>
-        public static HomeDiorama Diorama(Box stage, bool guest = true)
-        {
-            float width = Math.Min(stage.Width * 0.84f, stage.Height * 1.12f);
-            float height = width * 0.34f;
-            float cx = stage.CenterX;
-            var pedestal = Box.FromCenter(cx, stage.Bottom - (stage.Height * 0.03f) - (height / 2f), width, height);
-            (float topY, float ry) = PedestalTop(pedestal);
-            float hero = width * 0.5f;
-
-            // An arc as in the reference: Sprig at the left, Bloom raised behind the fountain, Drop, and Twig at the right
-            // edge in front. With the guest, the arc moves right and the guest stands at the left front.
-            float middle = cx + (width * (guest ? 0.05f : -0.02f));
-            var heroes = new List<(Family Family, Box Box)>
-            {
-                (Family.Bloom, Figure(middle, topY - (ry * 0.62f), hero * 1.02f)),
-                (Family.Sprig, Figure(cx - (width * (guest ? 0.25f : 0.32f)), topY - (ry * 0.12f), hero * 0.92f)),
-                (Family.Drop, Figure(cx + (width * (guest ? 0.27f : 0.22f)), topY - (ry * 0.25f), hero * 0.9f)),
-                (Family.Twig, Figure(cx + (width * (guest ? 0.43f : 0.4f)), topY + (ry * 0.88f), hero * 0.78f)),
-            };
-
-            var fountain = Box.FromCenter(middle, topY + (ry * 0.45f), width * 0.34f, width * 0.13f);
-            Box guestBox = Figure(cx - (width * 0.46f), topY + (ry * 1.0f), hero * 0.72f);
-            return new HomeDiorama(pedestal, fountain, heroes, guestBox);
-        }
-
-        /// <summary>
         /// The reference Home's diorama (spec 005 FR-024, contracts/look.md §6.4; measured on the reference's Home) in
         /// <paramref name="stage"/>, Home's diorama region (<see cref="ReferenceHomeRegions.Diorama"/>): the well's stone
         /// ring 0.78 u wide near the stage's bottom, the lotus fountain on it, and the four heroes as large as the
         /// reference's around it: Bloom raised behind the fountain, Drop at the right back, Sprig at the left, Twig in front
-        /// at the right; with <paramref name="guest"/>, the guest small at the left front. u is 0.88 of the stage's width,
-        /// or its height over 1.09 (the reference stage's shape) on a shorter stage, so the heroes (their pictures less a
-        /// 4% margin) stay inside it. Heroes are listed back to front, the fountain going before the fourth (as
-        /// <see cref="Diorama"/>); hero boxes are 512 × 576 pictures whose feet stand at <see cref="FeetShare"/>.
+        /// at the right. u is 0.88 of the stage's width, or its height over 1.09 (the reference stage's shape) on a shorter
+        /// stage, so the heroes (their pictures less a 4% margin) stay inside it. Heroes are listed back to front, the
+        /// fountain going before the fourth; hero boxes are 512 × 576 pictures whose feet stand at <see cref="FeetShare"/>.
+        /// The hosts draw it only without the owner's garden picture (<see cref="ShowsHeroes"/>).
         /// </summary>
-        public static HomeDiorama ReferenceDiorama(Box stage, bool guest = true)
+        public static HomeDiorama ReferenceDiorama(Box stage)
         {
             float u = Math.Min(stage.Width * 0.88f, stage.Height / 1.09f);
             float cx = stage.CenterX;
@@ -137,99 +113,14 @@ namespace Bloomlings.Client.UI.Design
             };
 
             var fountain = Box.FromCenter(cx, Y(0.364f), 0.31f * u, 0.12f * u);
-            Box guestBox = Figure(cx - (0.4f * u), Y(0f), 0.34f * u);
-            return new HomeDiorama(pedestal, fountain, heroes, guestBox);
-        }
-
-        /// <summary>The owner's Home picture's size in pixels (pictures.md B1, <c>Backgrounds/home.jpg</c>).</summary>
-        public const int HomePictureWidth = 852;
-
-        /// <inheritdoc cref="HomePictureWidth"/>
-        public const int HomePictureHeight = 1846;
-
-        /// <summary>The lotus's middle in the owner's Home picture, as shares of its width and height.</summary>
-        public const float LotusX = 0.5f;
-
-        /// <inheritdoc cref="LotusX"/>
-        public const float LotusY = 0.455f;
-
-        /// <summary>The lotus's width in the owner's Home picture, as a share of its width: the unit of <see cref="AroundFountain"/>.</summary>
-        public const float LotusWidth = 0.3f;
-
-        /// <summary>Where a hero's head begins in its solo picture (y down; the owner's heroes keep a margin above).</summary>
-        public const float HeadShare = 0.12f;
-
-        /// <summary>
-        /// The four heroes around the fountain of the owner's Home picture (spec 005 FR-024, the reference's Home), drawn
-        /// back to front: Bloom behind the lotus in the middle, Drop at the right back, Sprig large at the left front and
-        /// Twig at the right front. The picture is cover-fitted over <paramref name="screen"/> (as the hosts draw
-        /// backgrounds: the larger scale, centered); the anchor is the lotus's middle and the unit L the lotus's width.
-        /// <paramref name="front"/> (the player's hero) takes Sprig's place at the left front, and Sprig its place. When
-        /// Bloom's head would rise above <paramref name="logoBottom"/>, all four shrink toward the lotus until it clears.
-        /// Hero boxes are 512 × 576 pictures whose feet stand at <see cref="FeetShare"/>.
-        /// </summary>
-        public static IReadOnlyList<(Family Family, Box Box)> AroundFountain(
-            Box screen,
-            float logoBottom,
-            Family front = Family.Sprig,
-            int pictureWidth = HomePictureWidth,
-            int pictureHeight = HomePictureHeight)
-        {
-            float s = Math.Max(screen.Width / Math.Max(1, pictureWidth), screen.Height / Math.Max(1, pictureHeight));
-            float left = screen.CenterX - (pictureWidth * s / 2f);
-            float top = screen.CenterY - (pictureHeight * s / 2f);
-            float fx = left + (LotusX * pictureWidth * s);
-            float fy = top + (LotusY * pictureHeight * s);
-            float l = LotusWidth * pictureWidth * s;
-
-            // Bloom's head clears the logo: everything shrinks toward the lotus when it would not.
-            float bloomFeet = fy - (0.27f * l);
-            float bloomHeight = 1.47f * l;
-            float headTop = bloomFeet - (bloomHeight * FeetShare) + (bloomHeight * HeadShare);
-            float k = headTop < logoBottom && fy - headTop > 1f ? Math.Max(0.3f, (fy - logoBottom) / (fy - headTop)) : 1f;
-
-            // On a wide crop (a tall phone shows less of the picture's sides) a hero slides in until its body (the picture
-            // less a 6% margin) is 1% of the screen inside its edge.
-            Box Place(float dx, float dy, float height)
-            {
-                Box box = Figure(fx + (dx * l * k), fy + (dy * l * k), height * l * k);
-                float margin = (box.Width * 0.06f) - (screen.Width * 0.01f);
-                float shift = Math.Max(0f, screen.Left - (box.Left + margin)) - Math.Max(0f, (box.Right - margin) - screen.Right);
-                return box.Offset(shift, 0f);
-            }
-
-            var slots = new (Family Family, Box Box)[]
-            {
-                (Family.Bloom, Place(0f, -0.27f, 1.47f)),
-                (Family.Drop, Place(0.7f, 0.55f, 1.3f)),
-                (Family.Sprig, Place(-0.97f, 0.86f, 1.81f)),
-                (Family.Twig, Place(1.13f, 1.05f, 1.4f)),
-            };
-
-            if (front != Family.Sprig)
-            {
-                for (int i = 0; i < slots.Length; i++)
-                {
-                    if (slots[i].Family == front)
-                    {
-                        slots[i].Family = Family.Sprig;
-                    }
-                    else if (slots[i].Family == Family.Sprig)
-                    {
-                        slots[i].Family = front;
-                    }
-                }
-            }
-
-            return slots;
+            return new HomeDiorama(pedestal, fountain, heroes);
         }
 
         /// <summary>
-        /// The progressed Home (frame 3): the player's hero, as large as <paramref name="heroArea"/> allows, standing on a
-        /// stone pedestal at the bottom of it, and the guest on the grass at its right. Returns the pedestal, the hero's
-        /// picture box and the guest's.
+        /// A hero on its stone pedestal (the Wardrobe's stage): the hero, as large as <paramref name="heroArea"/> allows,
+        /// standing on a stone pedestal at the bottom of it. Returns the pedestal and the hero's picture box.
         /// </summary>
-        public static (Box Pedestal, Box Hero, Box Guest) HeroOnPedestal(Box heroArea)
+        public static (Box Pedestal, Box Hero) HeroOnPedestal(Box heroArea)
         {
             float width = Math.Min(heroArea.Width * 0.56f, heroArea.Height * 0.9f);
             float height = width * 0.34f;
@@ -237,13 +128,7 @@ namespace Bloomlings.Client.UI.Design
             float topY = PedestalTop(pedestal).CenterY;
             float room = topY - heroArea.Top;
             float hero = Math.Min(room / FeetShare, width * 1.25f * CharacterArt.HeroHeight / CharacterArt.HeroWidth);
-            Box heroBox = Figure(heroArea.CenterX, topY, hero);
-            float guest = hero * 0.5f;
-            float guestWidth = guest * CharacterArt.HeroWidth / CharacterArt.HeroHeight;
-            float right = Math.Min(heroArea.Right, pedestal.Right + (guestWidth * 0.95f));
-            float feet = pedestal.Bottom - (height * 0.04f);
-            var guestBox = new Box(right - guestWidth, feet - (guest * FeetShare), right, feet + (guest * (1f - FeetShare)));
-            return (pedestal, heroBox, guestBox);
+            return (pedestal, Figure(heroArea.CenterX, topY, hero));
         }
 
         /// <summary>
@@ -290,69 +175,8 @@ namespace Bloomlings.Client.UI.Design
             float width = height * CharacterArt.HeroWidth / CharacterArt.HeroHeight;
             return new Box(x - (width / 2f), feet - (height * FeetShare), x + (width / 2f), feet + (height * (1f - FeetShare)));
         }
-
-        /// <summary>The lotus fountain's middle in the owner's Home picture (pictures.md B1), as shares of its width and height.</summary>
-        public const float FountainX = 0.5f;
-
-        /// <summary><see cref="FountainX"/>'s height share.</summary>
-        public const float FountainY = 0.455f;
-
-        /// <summary>The lotus's width as a share of the owner's Home picture's width: the unit of <see cref="AroundFountain"/>.</summary>
-        public const float LotusShare = 0.3f;
-
-        /// <summary>A hero's head top below its picture box's top, as a share of the box's height (the owner's heroes).</summary>
-        public const float HeadTopShare = 0.12f;
-
-        /// <summary>
-        /// The four solo heroes around the lotus fountain of the owner's Home picture (pictures.md B1; the reference's Home),
-        /// drawn back to front: Bloom raised behind the lotus, Drop at the right back, Sprig large at the left front and Twig
-        /// at the right front. The picture (<paramref name="picW"/> × <paramref name="picH"/>) is cover-fitted and centered
-        /// on <paramref name="screen"/> as the backdrop draws it; the anchor F is the lotus's middle
-        /// (<see cref="FountainX"/>, <see cref="FountainY"/>) and the unit L the lotus's width (<see cref="LotusShare"/> of the
-        /// drawn picture). Each box is a <see cref="Figure"/> (feet x, feet y, height): Bloom (F.x, F.y − 0.27 L, 1.47 L),
-        /// Drop (F.x + 0.70 L, F.y + 0.55 L, 1.30 L), Sprig (F.x − 0.97 L, F.y + 0.86 L, 1.81 L), Twig (F.x + 1.13 L,
-        /// F.y + 1.05 L, 1.40 L). When a head top (<see cref="HeadTopShare"/> below a box's top) would rise above
-        /// <paramref name="ceiling"/> (the logo's bottom), all four boxes shrink about F until it does not.
-        /// </summary>
-        public static IReadOnlyList<(Family Family, Box Box)> AroundFountain(Box screen, int picW = 852, int picH = 1846, float? ceiling = null)
-        {
-            float s = Math.Max(screen.Width / Math.Max(1f, picW), screen.Height / Math.Max(1f, picH));
-            float width = picW * s;
-            float height = picH * s;
-            float fx = screen.CenterX - (width / 2f) + (FountainX * width);
-            float fy = screen.CenterY - (height / 2f) + (FountainY * height);
-            float l = LotusShare * width;
-            var heroes = new List<(Family Family, Box Box)>
-            {
-                (Family.Bloom, Figure(fx, fy - (0.27f * l), 1.47f * l)),
-                (Family.Drop, Figure(fx + (0.7f * l), fy + (0.55f * l), 1.3f * l)),
-                (Family.Sprig, Figure(fx - (0.97f * l), fy + (0.86f * l), 1.81f * l)),
-                (Family.Twig, Figure(fx + (1.13f * l), fy + (1.05f * l), 1.4f * l)),
-            };
-
-            if (ceiling.HasValue)
-            {
-                float top = float.MaxValue;
-                foreach ((Family _, Box box) in heroes)
-                {
-                    top = Math.Min(top, box.Top + (box.Height * HeadTopShare));
-                }
-
-                if (top < ceiling.Value && fy > ceiling.Value)
-                {
-                    float k = (fy - ceiling.Value) / Math.Max(1f, fy - top);
-                    for (int i = 0; i < heroes.Count; i++)
-                    {
-                        Box b = heroes[i].Box;
-                        heroes[i] = (heroes[i].Family, new Box(fx + ((b.Left - fx) * k), fy + ((b.Top - fy) * k), fx + ((b.Right - fx) * k), fy + ((b.Bottom - fy) * k)));
-                    }
-                }
-            }
-
-            return heroes;
-        }
     }
 
-    /// <summary>The drawn early Home stage (<see cref="HomeStage.Diorama"/>): heroes in drawing order, back to front.</summary>
-    public sealed record HomeDiorama(Box Pedestal, Box Fountain, IReadOnlyList<(Family Family, Box Box)> Heroes, Box Guest);
+    /// <summary>The drawn Home stage (<see cref="HomeStage.ReferenceDiorama"/>): heroes in drawing order, back to front.</summary>
+    public sealed record HomeDiorama(Box Pedestal, Box Fountain, IReadOnlyList<(Family Family, Box Box)> Heroes);
 }

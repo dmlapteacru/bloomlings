@@ -13,8 +13,8 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>
     /// The 3D heroes of spec 004 (FR-017) on the meta screens only, in the reference look of spec 005 (contracts/look.md
     /// §4.4, §4.5): the group picture, the celebration of the win and milestone cards (light rays, a stone pedestal and
-    /// the heroes on it) and the drawn Home stage (the heroes around the lotus fountain on a stone pedestal). Without the
-    /// pictures it shows the four family silhouettes (FR-021).
+    /// the heroes on it) and the drawn Home stage (the heroes around the lotus fountain on a stone pedestal, only without
+    /// the owner's Home picture for now). Without the pictures it shows the four family silhouettes (FR-021).
     /// </summary>
     public static class HeroPictures
     {
@@ -47,20 +47,6 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             return root;
-        }
-
-        /// <summary>
-        /// The Leafling experiment, a guest on Home (spec 004 research R17): the owner's Meshy model as a pre-rendered
-        /// picture. Hidden when the picture is missing.
-        /// </summary>
-        public static Image Guest(string name, Transform parent)
-        {
-            Sprite? picture = CharacterSprites.Get(CharacterArt.Leafling);
-            Image image = UiFactory.CreateImage(name, parent, picture, Color.white);
-            image.preserveAspect = true;
-            image.raycastTarget = false;
-            image.gameObject.SetActive(picture != null);
-            return image;
         }
 
         /// <summary>
@@ -132,10 +118,10 @@ namespace Bloomlings.Client.UI.Screens
         public static CelebrationView Celebration(RectTransform card) => new CelebrationView(card);
 
         /// <summary>
-        /// The Home and splash heroes (spec 005 §4.5, §6.4; the playtest's <c>HomeScreen.Stage</c>) under
-        /// <paramref name="parent"/>: over the owner's garden picture, the four solo heroes around its painted lotus fountain;
-        /// until then, the drawn diorama (the stone ring, the lotus fountain, the heroes around it and the guest). Place it
-        /// with <see cref="HomeStageView.Place"/>.
+        /// The Home and splash heroes (spec 005 FR-024, §4.5, §6.4; the playtest's <c>HomeScreen.Stage</c>) under
+        /// <paramref name="parent"/>: over the owner's garden picture, none for now (<see cref="HomeStage.ShowsHeroes"/>);
+        /// without it, the drawn diorama (the stone ring, the lotus fountain and the heroes around it). Place it with
+        /// <see cref="HomeStageView.Place"/>.
         /// </summary>
         public static HomeStageView Stage(string name, Transform parent) => new HomeStageView(UiFactory.CreateRect(name, parent));
     }
@@ -262,7 +248,6 @@ namespace Bloomlings.Client.UI.Screens
         private readonly RectTransform _pedestal;
         private readonly BloomlingFigure[] _heroes = new BloomlingFigure[4];
         private readonly RectTransform _fountain;
-        private readonly Image _guest;
 
         internal HomeStageView(RectTransform root)
         {
@@ -270,14 +255,13 @@ namespace Bloomlings.Client.UI.Screens
             UiFactory.Stretch(root);
             _pedestal = UiKit.StonePedestal("Pedestal", root);
 
-            // Drawing order as the playtest's: the back row (Bloom, Drop, Sprig), the fountain and the guest, Twig in front.
+            // Drawing order as the playtest's: the back row (Bloom, Drop, Sprig), the fountain, Twig in front.
             for (int i = 0; i < 3; i++)
             {
                 _heroes[i] = Figure("Hero" + i);
             }
 
             _fountain = UiKit.LotusFountain("Fountain", root);
-            _guest = HeroPictures.Guest("Leafling", root);
             _heroes[3] = Figure("Hero3");
         }
 
@@ -287,40 +271,31 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>
         /// Lays the heroes out on Home or the splash, whose parent's screen box is <paramref name="parent"/> (the whole
         /// screen, as the backdrop). Over the owner's garden picture of <paramref name="scene"/> (pictures.md B1; the splash
-        /// takes it while its own is missing) the four solo heroes stand around its painted lotus fountain
-        /// (<see cref="HomeStage.AroundFountain"/>, their heads below <paramref name="ceiling"/>, the logo's bottom) and the
-        /// guest stays out of the reference composition. Until then, the drawn diorama in <paramref name="stage"/>
-        /// (<see cref="HomeStage.ReferenceDiorama"/>: the stone ring, the lotus fountain, the heroes and, when
-        /// <paramref name="guest"/> and its picture exists, the guest). Each hero wears <paramref name="outfitOf"/>'s
-        /// outfit (null: nothing), and <paramref name="front"/> (the player's hero) swaps places with Sprig at the left
-        /// front.
+        /// takes it while its own is missing) nothing shows for now: the owner deferred the heroes on Home on 2026-10-02
+        /// (<see cref="HomeStage.ShowsHeroes"/>; they come back animated later). Without it, the drawn diorama in
+        /// <paramref name="stage"/> (<see cref="HomeStage.ReferenceDiorama"/>: the stone ring, the lotus fountain and the
+        /// four heroes). Each hero wears <paramref name="outfitOf"/>'s outfit (null: nothing), and <paramref name="front"/>
+        /// (the player's hero) swaps places with Sprig at the left front.
         /// </summary>
-        public void Place(Box stage, Box parent, BackdropScene scene, bool guest, float? ceiling = null, Func<Family, Outfit?>? outfitOf = null, Family front = Family.Sprig)
+        public void Place(Box stage, Box parent, BackdropScene scene, Func<Family, Outfit?>? outfitOf = null, Family front = Family.Sprig)
         {
-            Texture2D? picture = OwnerArt.BackgroundOf(scene);
-            bool owner = picture != null;
-            _pedestal.gameObject.SetActive(!owner);
-            _fountain.gameObject.SetActive(!owner);
-            _guest.gameObject.SetActive(!owner && guest && CharacterSprites.Get(CharacterArt.Leafling) != null);
-            IReadOnlyList<(Family Family, Box Box)> heroes;
-            if (picture != null)
+            bool shown = HomeStage.ShowsHeroes(ownerPicture: OwnerArt.BackgroundOf(scene) != null);
+            _root.gameObject.SetActive(shown);
+            if (!shown)
             {
-                heroes = HomeStage.AroundFountain(parent, picture.width, picture.height, ceiling);
-            }
-            else
-            {
-                HomeDiorama diorama = HomeStage.ReferenceDiorama(stage, guest);
-                UiKit.PlaceBox(_pedestal, diorama.Pedestal, parent);
-                UiKit.PlaceBox(_fountain, diorama.Fountain, parent);
-                UiKit.PlaceBox(_guest.rectTransform, diorama.Guest, parent);
-                heroes = diorama.Heroes;
+                return;
             }
 
+            // The drawn stand-in's heroes ("char.hero.home": in their outfits once the Wardrobe is open).
+            HomeDiorama diorama = HomeStage.ReferenceDiorama(stage);
+            UiKit.PlaceBox(_pedestal, diorama.Pedestal, parent);
+            UiKit.PlaceBox(_fountain, diorama.Fountain, parent);
+            IReadOnlyList<(Family Family, Box Box)> heroes = diorama.Heroes;
             for (int i = 0; i < _heroes.Length; i++)
             {
-                bool shown = i < heroes.Count;
-                _heroes[i].Rect.gameObject.SetActive(shown);
-                if (!shown)
+                bool present = i < heroes.Count;
+                _heroes[i].Rect.gameObject.SetActive(present);
+                if (!present)
                 {
                     continue;
                 }
