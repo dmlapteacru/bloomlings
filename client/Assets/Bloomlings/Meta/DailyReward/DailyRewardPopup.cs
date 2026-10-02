@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
@@ -6,21 +7,28 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Bloomlings.Client.UI.Localization;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
+using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.Meta.DailyReward
 {
     /// <summary>
     /// The Daily Reward popup of the design board's frame 4 (spec 002 FR-022; FR-055, T134). It shows:
     /// <list type="bullet">
-    /// <item><description>"Daily Rewards" and "Day N";</description></item>
-    /// <item><description>the reward basket heaped with Petals, "+N" with the Petal symbol;</description></item>
-    /// <item><description>CLAIM, and the optional rewarded-ad bonus the player may start (FR-052).</description></item>
+    /// <item><description>"Daily Rewards" on a wooden sign and "Day N";</description></item>
+    /// <item><description>the reward basket heaped with lotuses in the win's soft turning light, and "+N" with the lotus
+    /// on a cream pill;</description></item>
+    /// <item><description>Claim, and the optional rewarded-ad bonus the player may start (FR-052).</description></item>
     /// </list>
     /// The bonus claims the reward together with its extra Petals, so it is earned at most once a day. The popup opens by
-    /// itself once a day while a claim is due.
+    /// itself once a day while a claim is due. In the reference look of spec 005 (contracts/look.md §4.3, §4.6; the
+    /// playtest's <c>MetaCards.DailyReward</c>).
     /// </summary>
     public sealed class DailyRewardPopup : MonoBehaviour
     {
+        /// <summary>The lotuses heaped over the basket: center offsets and sizes in shares of the art's width.</summary>
+        private static readonly (float X, float Y, float S)[] Heap = { (-0.22f, 0.02f, 0.3f), (0.2f, 0.0f, 0.32f), (0f, -0.12f, 0.34f), (-0.08f, 0.1f, 0.28f), (0.12f, 0.12f, 0.26f) };
+
         private CardView _card = null!;
         private TextMeshProUGUI _day = null!;
         private TextMeshProUGUI _amount = null!;
@@ -29,39 +37,45 @@ namespace Bloomlings.Client.Meta.DailyReward
 
         public static DailyRewardPopup Create(Transform parent)
         {
-            CardView card = UiKit.Card("DailyReward", parent, Loc.T("daily_reward.title"), 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 70f, null);
-            var popup = card.Root.AddComponent<DailyRewardPopup>();
+            float content = 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 90f;
+            DailyRewardPopup popup = null!;
+            CardView card = UiKit.Card("DailyReward", parent, Loc.T("daily_reward.title"), content, () => popup.Hide(), sign: SignDecor.None);
+            popup = card.Root.AddComponent<DailyRewardPopup>();
             popup._card = card;
-            Button close = UiKit.RoundIconButton("Close", card.CardRect, "ui.close", popup.Hide);
-            UiKit.PlaceBox((RectTransform)close.transform, card.Regions.Close, card.Regions.Card);
 
-            RectTransform body = card.Body;
-            popup._day = UiKit.Label("Day", body, string.Empty, DesignTokens.Type.Body, UiTheme.TextSecondary);
-            UiFactory.Place(popup._day.rectTransform, 0f, 0.9f, 1f, 1f);
+            Box body = card.Regions.Body;
+            float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
+            float y = body.Top;
+            popup._day = UiKit.Label("Day", card.Body, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft));
+            UiKit.PlaceBox(popup._day.rectTransform, Box.FromCenter(body.CenterX, y + (20f * u), body.Width, 56f * u), body);
+            y += 60f * u;
 
-            // The reward basket (placeholder art: a basket heaped with Petal symbols).
-            RectTransform art = UiFactory.Place(UiFactory.CreateRect("Basket", body), 0.25f, 0.5f, 0.75f, 0.9f);
-            foreach ((float x0, float y0, float s) in new[] { (0.05f, 0.42f, 0.34f), (0.6f, 0.42f, 0.36f), (0.32f, 0.5f, 0.38f), (0.2f, 0.3f, 0.3f), (0.48f, 0.3f, 0.3f) })
+            // The reward: a heap of lotuses over a woven basket, in the win's soft turning light (currency.petal_pile).
+            var art = new Box(body.CenterX - (220f * u), y, body.CenterX + (220f * u), y + (330f * u));
+            float rays = art.Width * 0.62f;
+            LightRaysView light = UiKit.LightRays("Light", card.Body);
+            UiKit.PlaceBox((RectTransform)light.transform, Box.FromCenter(art.CenterX, art.CenterY, rays * 2f, rays * 2f), body);
+            foreach ((float hx, float hy, float hs) in Heap)
             {
-                Image petal = UiKit.PetalIcon("Petal", art);
-                UiFactory.Place(petal.rectTransform, x0, y0, x0 + s, y0 + s);
+                float size = art.Width * hs;
+                Image lotus = UiKit.PetalIcon("Petal", card.Body);
+                UiKit.PlaceBox(lotus.rectTransform, Box.FromCenter(art.CenterX + (hx * art.Width), art.CenterY + (hy * art.Height), size, size), body);
             }
 
-            Image basket = UiFactory.CreateImage("BasketShape", art, ProceduralSprites.Shape("currency.reward_basket", 192), UiTheme.Of(DesignTokens.Colors.RewardBasket));
-            basket.preserveAspect = true;
-            UiFactory.Place(basket.rectTransform, 0.05f, -0.05f, 0.95f, 0.5f);
+            Image basket = Basket("Basket", card.Body);
+            UiKit.PlaceBox(basket.rectTransform, Box.FromCenter(art.CenterX, art.CenterY + (art.Height * 0.2f), art.Width * 0.8f, art.Width * 0.6f), body);
+            y = art.Bottom + (10f * u);
 
-            popup._amount = UiKit.Label("Amount", body, string.Empty, DesignTokens.Type.Reward, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain), look: TextLook.Plain(DesignTokens.Colors.GardenLabelPlain));
-            UiFactory.Place(popup._amount.rectTransform, 0.1f, 0.37f, 0.78f, 0.5f);
-            Image symbol = UiKit.PetalIcon("Petal", body);
-            UiFactory.Place(symbol.rectTransform, 0.72f, 0.38f, 0.84f, 0.49f);
+            popup._amount = RewardPill(card.Body, body, Box.FromCenter(body.CenterX, y + (50f * u), 250f * u, 92f * u));
+            y += 110f * u;
 
-            // CLAIM: narrower, decorated and breathing while it waits (spec 003 FR-011, FR-011a, FR-019).
-            popup._claim = UiKit.PrimaryButton("Claim", body, Loc.T("daily_reward.claim"), () => { }, decorate: true);
-            popup._claim.GetComponent<GardenButton>().Breathe = true;
-            UiFactory.Place((RectTransform)popup._claim.transform, 0.16f, 0.18f, 0.84f, 0.34f);
-            popup._bonus = UiKit.SecondaryButton("Bonus", body, Loc.T("daily_reward.watch"), () => { }, "ui.ad");
-            UiFactory.Place((RectTransform)popup._bonus.transform, 0.2f, 0.02f, 0.8f, 0.15f);
+            // Claim: narrower, decorated and breathing while it waits (spec 003 FR-011, FR-011a, FR-019).
+            Box claim = ScreenLayout.CardButton(body, y + (10f * u), true, u);
+            popup._claim = UiKit.PrimaryButton("Claim", card.Body, Loc.T("daily_reward.claim"), () => { }, decorate: true, breathe: true);
+            UiKit.PlaceBox((RectTransform)popup._claim.transform, claim, body);
+            Box bonus = ScreenLayout.CardButton(body, claim.Bottom + (24f * u), false, u).Inset(40f * u, 0f);
+            popup._bonus = UiKit.SecondaryButton("Bonus", card.Body, Loc.T("daily_reward.watch"), () => { }, "ui.ad");
+            UiKit.PlaceBox((RectTransform)popup._bonus.transform, bonus, body);
             card.Root.SetActive(false);
             return popup;
         }
@@ -103,5 +117,67 @@ namespace Bloomlings.Client.Meta.DailyReward
         }
 
         public void Hide() => _card.Root.SetActive(false);
+
+        /// <summary>
+        /// The reward basket (the playtest's <c>MetaCards.Basket</c>, <c>currency.reward_basket</c>): woven wood with
+        /// darker weave lines and a lighter upper half, outlined in <c>wood.dark_line</c>, baked into one sprite and
+        /// stretched over the rect like the playtest's shapes.
+        /// </summary>
+        private static Image Basket(string name, Transform parent)
+        {
+            Func<float, float, float> sdf = ShapeLibrary.Get("currency.reward_basket");
+            var layers = new List<(Func<float, float, float> Sdf, Rgba Color)>
+            {
+                ((x, y) => sdf(x, y) - 0.05f, C.WoodDarkLine),
+                (sdf, C.RewardBasket),
+                ((x, y) => Math.Max(sdf(x, y) + 0.05f, Math.Min(Weave(y, 7f), Weave(x + (0.07f * (float)Math.Floor(y * 7f)), 9f))), C.WoodDarkLine.WithAlpha(0.35f)),
+                // The light over the basket's upper half (shape units have y up).
+                ((x, y) => Math.Max(sdf(x, y) + 0.04f, -y), C.RewardBasket.Lighten(0.25f)),
+            };
+            Image image = UiFactory.CreateImage(name, parent, null, Color.white);
+            PictureFit.On(image, (w, h) => ProceduralSprites.Baked("currency.reward_basket/woven", Mathf.Max(8, Mathf.Max(w, h)), layers), sliced: false, shape: PictureShape.Rect);
+            return image;
+        }
+
+        /// <summary>Thin lines across <paramref name="v"/> every 1/<paramref name="count"/> (negative on a line).</summary>
+        private static float Weave(float v, float count)
+        {
+            float t = (v * count) - (float)Math.Floor(v * count);
+            return (0.42f - Math.Abs(t - 0.5f)) / count;
+        }
+
+        /// <summary>
+        /// The reward "+N" on a cream pill with the lotus after it (the playtest's <c>MetaCards.RewardPill</c>, the cost
+        /// pill's look, larger): a soft shadow, the <c>cream.lip</c> below, the cream face, a <c>cream.line</c> outline, and
+        /// the amount and the lotus centered as a group. Returns the amount's label.
+        /// </summary>
+        private static TextMeshProUGUI RewardPill(RectTransform parent, Box parentBox, Box box)
+        {
+            RectTransform root = UiKit.PlaceBox(UiFactory.CreateRect("Reward", parent), box, parentBox);
+            BoxLayout layout = BoxLayout.On(root);
+            UiKit.SoftShadow(layout, b => b, b => b.Height / 2f, 0.2f, 0.1f);
+            Image lip = UiKit.RoundRect("Lip", root, UiTheme.Of(C.CreamLip));
+            Image face = UiKit.RoundGradient("Face", root, C.CreamTop, C.ParchmentBottom);
+            Image line = UiKit.RoundRing("Line", root, UiTheme.Of(C.CreamLine), null, b => Mathf.Max(UiKit.Units(2f), b.Height * 0.04f));
+            TextMeshProUGUI amount = UiKit.KitLabel("Amount", root, string.Empty, T.Reward, TextLook.Plain(C.InkBrown));
+            Image lotus = UiKit.PetalIcon("Lotus", root);
+            layout.Add(lip.rectTransform, b => b.Offset(0f, b.Height * 0.07f));
+            layout.Add(face.rectTransform, b => b);
+            layout.Add(line.rectTransform, b => b);
+            layout.Watch(amount).Then(b =>
+            {
+                float h = b.Height;
+                float icon = h * 0.92f;
+                float gap = h * 0.12f;
+                float size = h * 0.64f;
+                float measured = KitText.Measure(amount, size);
+                float room = Mathf.Max(1f, b.Width - icon - gap - (h * 0.5f));
+                float textWidth = Mathf.Min(measured > 0f ? measured : room, room);
+                float start = b.CenterX - ((icon + gap + textWidth) / 2f);
+                KitText.Place(amount, T.Reward, start + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
+                BoxLayout.Place(lotus.rectTransform, Box.FromCenter(start + textWidth + gap + (icon / 2f), b.CenterY - (h * 0.02f), icon, icon));
+            });
+            return amount;
+        }
     }
 }

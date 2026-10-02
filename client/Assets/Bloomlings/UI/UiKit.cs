@@ -675,7 +675,8 @@ namespace Bloomlings.Client.UI
             if (iconId != null)
             {
                 Image glyph = GardenGlyph(view, view.Content, iconId);
-                content.Then(f => IconAndText(glyph.rectTransform, text, s, f, f.Height * 0.5f, Units(16f), f.Width - (f.Height * 1.4f)));
+                // The glyph a little taller than the letters (70% of the face), as the reference's ⟳ on "Restart Level".
+                content.Then(f => IconAndText(glyph.rectTransform, text, s, f, f.Height * 0.7f, Units(16f), f.Width - (f.Height * 1.6f)));
             }
             else
             {
@@ -1185,31 +1186,32 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A switch (Settings; FR-016, spec 005): off, a parchment well; on, a green track with an inner shadow and a green
-        /// outline; the raised cream knob (one track height plus 8 units) at the off or on end.
+        /// A switch (Settings; FR-016, spec 005 §4.3; the playtest's <c>Kit.Toggle</c>): off, a parchment well; on, the green
+        /// set's glossy track (its lip color fading to its face, a shadow along the top half, a light band along the bottom
+        /// and a green outline) with a white ✓ where the knob was, so the state never rests on the hue alone; the knob a
+        /// domed cream cushion like the round buttons (one track height plus 10 units) at the off or on end.
         /// </summary>
         public static ToggleView Toggle(string name, Transform parent, Action onClick)
         {
             Image track = Well(name, parent, raycast: true);
             var view = track.gameObject.AddComponent<ToggleView>();
             RectTransform on = UiFactory.Stretch(UiFactory.CreateRect("On", track.transform));
-            Image onFace = RoundGradient("Face", on, GardenLook.Green.Face.Darken(0.08f), GardenLook.Green.Face);
+            Image onFace = RoundGradient("Face", on, GardenLook.Green.Lip, GardenLook.Green.Face);
             UiFactory.Stretch(onFace.rectTransform);
             Image onShadow = RoundRect("Shadow", on, Color.white);
-            Gradient(onShadow, UiTheme.Of(C.GardenShadow.WithAlpha(0.18f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
-            onShadow.GetComponent<VerticalGradient>().Stop = 0.45f;
+            Gradient(onShadow, UiTheme.Of(C.GardenShadow.WithAlpha(0.22f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
+            onShadow.GetComponent<VerticalGradient>().Stop = 0.5f;
             UiFactory.Stretch(onShadow.rectTransform);
+            Image onShine = RoundRect("Shine", on, Color.white);
+            Gradient(onShine, UiTheme.Of(GardenLook.Green.Top.WithAlpha(0f)), UiTheme.Of(GardenLook.Green.Top.WithAlpha(0.55f)));
             Image onLine = RoundRing("Line", on, UiTheme.Of(GardenLook.Green.Line), null, _ => Units(DesignTokens.Garden.OutlineWidth));
             UiFactory.Stretch(onLine.rectTransform);
+            Image check = ShapeImage("Check", on, "ui.check", Rgba.White);
+            BoxLayout.On(on)
+                .Add(onShine.rectTransform, b => new Box(b.Left + (b.Height * 0.3f), b.Bottom - (b.Height * 0.34f), b.Right - (b.Height * 0.3f), b.Bottom - (b.Height * 0.12f)))
+                .Add(check.rectTransform, b => Box.FromCenter(b.Left + (b.Height * 0.56f), b.CenterY, b.Height * 0.5f, b.Height * 0.5f));
 
-            GardenButton knob = NewButton("Knob", track.transform, GardenLook.White, raycast: false);
-            RectTransform knobFace = UiFactory.Stretch(UiFactory.CreateRect("Face", knob.Body));
-            BuildFace(knob, knobFace, FaceKind.Raised, gloss: false);
-            BoxLayout.On(knob.Body).Then(b =>
-            {
-                float lip = Units(8f);
-                knob.SetGeometry(Units(DesignTokens.Garden.Outline(b.Height / Mathf.Max(0.0001f, Units(1f)))), lip, Mathf.Max(0f, lip - Units(3f)), float.MaxValue);
-            });
+            GardenButton knob = IconFace("Knob", track.transform, GardenLook.White, b => Mathf.Min(b.Width, b.Height) / 2f, square: true);
             var relay = track.gameObject.AddComponent<PressRelay>();
             relay.Target = knob;
             view.Init(on.gameObject, (RectTransform)knob.transform);
@@ -1844,10 +1846,10 @@ namespace Bloomlings.Client.UI
             BoxLayout.On((RectTransform)transform).Apply();
         }
 
-        /// <summary>The knob: a square one track height plus 8 units, centered on the track's end, 2 units up.</summary>
+        /// <summary>The knob: a square one track height plus 10 units, centered on the track's end, 2 units up.</summary>
         private Box Knob(Box track)
         {
-            float size = track.Height + UiKit.Units(8f);
+            float size = track.Height + UiKit.Units(10f);
             float cx = _state ? track.Right - (track.Height / 2f) : track.Left + (track.Height / 2f);
             return Box.FromCenter(cx, track.CenterY - UiKit.Units(2f), size, size);
         }

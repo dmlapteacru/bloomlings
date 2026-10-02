@@ -2,26 +2,36 @@ using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
+using Bloomlings.Client.UI.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Bloomlings.Client.UI.Localization;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
+using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Tutorial
 {
     /// <summary>
     /// Plays a <see cref="DemoScript"/> (T064): a pointer hand, at most one short message, and a Skip button on every
     /// step. A step that waits for an action lets taps through to the game (the Level 1 guided tap); other steps
-    /// continue on a tap anywhere.
+    /// continue on a tap anywhere. In the reference look of spec 005 (contracts/look.md §4.3, the demo cards): the message
+    /// on parchment in brown, at most two balanced lines; variants as sticker candy tiles; Skip a cream button.
     /// </summary>
     public sealed class DemoOverlay : MonoBehaviour
     {
-        private readonly List<Image> _icons = new List<Image>();
+        /// <summary>The shade over the game: light while a step waits for the player's tap, darker otherwise.</summary>
+        private const float ShadeAlpha = 0.25f;
+        private const float WaitingShadeAlpha = 0.08f;
+
+        private readonly List<RectTransform> _icons = new List<RectTransform>();
         private GameObject _root = null!;
         private Image _shade = null!;
         private Image _hand = null!;
         private Image _cross = null!;
         private TextMeshProUGUI _message = null!;
+        private TextMeshProUGUI _probe = null!;
+        private float _messageWidth;
         private RectTransform _iconRow = null!;
         private DemoScript? _script;
         private int _step;
@@ -34,7 +44,7 @@ namespace Bloomlings.Client.UI.Tutorial
 
         public static DemoOverlay Create(Transform parent)
         {
-            Image shade = UiFactory.CreateImage("DemoOverlay", parent, null, new Color(0f, 0f, 0f, 0.25f), raycast: true);
+            Image shade = UiFactory.CreateImage("DemoOverlay", parent, null, UiTheme.Of(C.SurfaceScrim.WithAlpha(ShadeAlpha)), raycast: true);
             UiFactory.Stretch(shade.rectTransform);
             var overlay = shade.gameObject.AddComponent<DemoOverlay>();
             overlay._root = shade.gameObject;
@@ -42,21 +52,24 @@ namespace Bloomlings.Client.UI.Tutorial
             Button next = shade.gameObject.AddComponent<Button>();
             next.onClick.AddListener(overlay.Advance);
 
-            Image bubble = UiFactory.CreateImage("Bubble", shade.transform, ProceduralSprites.RoundedSquare, UiTheme.Panel);
+            // The message on parchment, never a touch target (taps go to the shade or, while waiting, to the game).
+            Image bubble = UiKit.Paper("Bubble", shade.transform, 48f, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
             UiFactory.Place(bubble.rectTransform, 0.08f, 0.8f, 0.92f, 0.9f);
-            overlay._message = UiFactory.CreateText("Message", bubble.transform, string.Empty, 56f, UiTheme.Text);
-            UiFactory.Stretch(overlay._message.rectTransform);
+            overlay._message = UiKit.Label("Message", bubble.transform, string.Empty, T.ButtonSecondary, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
+            UiFactory.Place(overlay._message.rectTransform, 0.05f, 0.08f, 0.95f, 0.92f);
+            overlay._probe = UiKit.Label("Probe", bubble.transform, string.Empty, T.ButtonSecondary, Color.clear);
+            overlay._messageWidth = UiKit.ScreenBox().Width * 0.84f * 0.9f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
 
             overlay._iconRow = UiFactory.Place(UiFactory.CreateRect("Icons", shade.transform), 0.15f, 0.58f, 0.85f, 0.76f);
-            overlay._cross = UiFactory.CreateImage("Ignore", overlay._iconRow, ProceduralSprites.Cross, UiTheme.Warning);
+            overlay._cross = UiFactory.CreateImage("Ignore", overlay._iconRow, ProceduralSprites.Cross, UiTheme.Of(C.StateDanger));
             overlay._cross.preserveAspect = true;
             UiFactory.Place(overlay._cross.rectTransform, 0.4f, 0.2f, 0.6f, 0.8f);
 
             overlay._hand = UiFactory.CreateImage("Hand", shade.transform, ProceduralSprites.Pointer, Color.white);
             overlay._hand.preserveAspect = true;
-            overlay._hand.rectTransform.sizeDelta = new Vector2(140f, 140f);
+            overlay._hand.rectTransform.sizeDelta = new Vector2(UiKit.Units(140f), UiKit.Units(140f));
 
-            Button skip = UiFactory.CreateButton("Skip", shade.transform, Loc.T("demo.skip"), UiTheme.Text, overlay.Finish, 40f);
+            Button skip = UiKit.SecondaryButton("Skip", shade.transform, Loc.T("demo.skip"), overlay.Finish);
             UiFactory.Place((RectTransform)skip.transform, 0.78f, 0.92f, 0.97f, 0.97f);
             shade.gameObject.SetActive(false);
             return overlay;
@@ -112,13 +125,13 @@ namespace Bloomlings.Client.UI.Tutorial
         private void ShowStep()
         {
             DemoStep step = _script!.Steps[_step];
-            _message.text = step.Message;
+            _message.text = string.Join("\n", UiKit.BalancedLines(_probe, step.Message, UiKit.Units(T.ButtonSecondary.Size), _messageWidth));
 
             // A step that waits for a game action lets taps through, except on the Skip button.
             _shade.raycastTarget = !step.WaitForAction;
-            _shade.color = new Color(0f, 0f, 0f, step.WaitForAction ? 0.08f : 0.25f);
+            _shade.color = UiTheme.Of(C.SurfaceScrim.WithAlpha(step.WaitForAction ? WaitingShadeAlpha : ShadeAlpha));
 
-            foreach (Image icon in _icons)
+            foreach (RectTransform icon in _icons)
             {
                 Destroy(icon.gameObject);
             }
@@ -127,18 +140,16 @@ namespace Bloomlings.Client.UI.Tutorial
             IReadOnlyList<VariantVisual>? visuals = step.SideBySide;
             if (visuals != null)
             {
+                // Each variant as its sticker candy tile (spec 005 §3.1), as on the playtest's demo cards.
                 float width = visuals.Count <= 2 ? 0.3f : 0.9f / visuals.Count;
                 for (int i = 0; i < visuals.Count; i++)
                 {
                     float x = visuals.Count == 1 ? 0.35f
                         : visuals.Count == 2 ? (i == 0 ? 0.05f : 0.65f)
                         : 0.05f + (i * 0.9f / visuals.Count);
-                    Image tile = UiFactory.CreateImage("Variant", _iconRow, ProceduralSprites.RoundedSquare, visuals[i].Color);
-                    UiFactory.Place(tile.rectTransform, x, 0f, x + width - 0.02f, 1f);
-                    Image icon = UiFactory.CreateImage("Icon", tile.transform, visuals[i].Icon, visuals[i].Ink);
-                    icon.preserveAspect = true;
-                    UiFactory.Place(icon.rectTransform, 0.15f, 0.15f, 0.85f, 0.85f);
-                    _icons.Add(tile);
+                    CandyTileView tile = UiKit.CandyTile("Variant", _iconRow, visuals[i].Id, TileStyle.Sticker);
+                    RectTransform rect = UiFactory.Place((RectTransform)tile.transform, x, 0f, x + width - 0.02f, 1f);
+                    _icons.Add(rect);
                 }
             }
 
@@ -164,7 +175,7 @@ namespace Bloomlings.Client.UI.Tutorial
                 // FR-071: the first variant's pod walks toward the sibling's tile, meets the cross and turns back.
                 float gap = _iconRow.rect.width * 0.3f;
                 float k = Mathf.PingPong(_time * 0.9f, 1f);
-                _icons[0].rectTransform.anchoredPosition = new Vector2(gap * Mathf.SmoothStep(0f, 1f, k), 0f);
+                _icons[0].anchoredPosition = new Vector2(gap * Mathf.SmoothStep(0f, 1f, k), 0f);
                 _cross.transform.localScale = Vector3.one * (k > 0.85f ? 1.2f : 1f);
             }
 
@@ -174,7 +185,7 @@ namespace Bloomlings.Client.UI.Tutorial
             }
 
             _hand.transform.position = _target.position;
-            _hand.rectTransform.anchoredPosition += new Vector2(40f, -60f - (18f * Mathf.Sin(_time * 6f)));
+            _hand.rectTransform.anchoredPosition += new Vector2(UiKit.Units(40f), -UiKit.Units(60f) - (UiKit.Units(18f) * Mathf.Sin(_time * 6f)));
         }
     }
 }
