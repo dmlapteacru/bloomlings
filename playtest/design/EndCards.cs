@@ -1,49 +1,67 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Simulation;
+using Bloomlings.Core.Slots;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Playtest.Design
 {
     /// <summary>
-    /// The cards at a level's end and before it: the win (frame 15), the milestone (frame 16), the jam sheet (frame 10)
-    /// and the demo card (spec 002 FR-019 to FR-021).
+    /// The cards at a level's end and before it (spec 002 FR-019 to FR-021) in the reference look of spec 005
+    /// (<c>specs/005-reference-look/contracts/look.md</c> §4.3, §4.4):
+    /// <list type="bullet">
+    /// <item><description>the win (frame 15): the wooden "Level complete!" sign with flowers, the finished picture, the
+    /// heroes on a stone pedestal in light rays and falling petals, the reward pill and Next;</description></item>
+    /// <item><description>the milestone (frame 16) in the same language;</description></item>
+    /// <item><description>the jam sheet (frame 10): the slot contents in a well and one big colored choice per recovery
+    /// with its cost pill;</description></item>
+    /// <item><description>the demo and unlock cards (frame 21).</description></item>
+    /// </list>
+    /// Positions and order stay as in spec 002; only the looks change.
     /// </summary>
     public static class EndCards
     {
         /// <summary>
-        /// The win card: the finished picture, the Petals earned with the Petal symbol, NEXT, and the optional ×2 reward.
-        /// The playtest has no ads, so ×2 shows as unavailable. The spec 001 sequence stays: reveal, then reward, then
-        /// Next.
+        /// The win card: the wooden sign across its top edge, the finished picture, the Petals earned counting up in a
+        /// cream pill, Next, and the optional ×2 reward (the playtest has no ads, so it shows as unavailable). The heroes
+        /// celebrate on their pedestal above the card. The spec 001 sequence stays: reveal, then reward, then Next.
         /// </summary>
         public static void Win(IPainter p, LevelScreen s, float since)
         {
             LevelReward? reward = s.Payout?.Reward;
-            float content = 470f + 130f + (reward?.DroppedBooster != null ? 60f : 0f) + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 100f;
-            CardRegions r = Kit.Card(p, content, PlaytestText.T("win.title"), null, Kit.Pop(since));
-            Heroes(p, r);
-            float y = r.Body.Top;
+            bool drop = reward?.DroppedBooster != null;
+            // The finished picture is a little smaller on a short phone, so the heroes keep their room above the card.
+            float pictureUnits = Math.Max(400f, Math.Min(PictureUnits, ScreenLayout.SafeArea(p.Width, p.Height, p.Insets).Height / p.Scale * 0.24f));
+            float content = pictureUnits + 26f + (reward != null ? RewardUnits : 0f) + (drop ? 64f : 0f) + 22f + DesignTokens.Size.CardPrimaryHeight + 26f + DesignTokens.Size.SecondaryHeight + 60f;
+            CardRegions r = Kit.Card(p, content, string.Empty, null, Kit.Pop(since));
+            Box sign = Header(p, r, PlaytestText.T("win.title"), since, celebrate: true);
+            float y = r.Body.Top + p.U(10f);
 
-            // The finished picture in a frame.
+            // The finished picture, its cells in full color in a thin stone frame (BoardPainter.Picture).
             p.Mark("fx.win_shine");
-            var frame = new Box(r.Body.Left + p.U(30f), y, r.Body.Right - p.U(30f), y + p.U(470f));
-            Kit.Paper(p, frame, p.U(40f), DesignTokens.Garden.FrameWidthSlots, DesignTokens.Garden.FrameDepthSlots);
-            BoardPainter.Picture(p, frame.Inset(p.U(24f)), s.Session.Definition, s.Session.Picture);
+            var picture = new Box(r.Body.Left + p.U(16f), y, r.Body.Right - p.U(16f), y + p.U(pictureUnits));
+            BoardPainter.Picture(p, picture, s.Session.Definition, s.Session.Picture);
             if (since < 1.2f)
             {
                 // A light band sweeps the finished picture once.
-                float band = frame.Left + ((frame.Width + p.U(200f)) * (since / 1.2f)) - p.U(100f);
-                p.PushClip(frame.Inset(p.U(24f)));
-                p.Line(band - p.U(60f), frame.Bottom, band + p.U(60f), frame.Top, p.U(70f), Rgba.White.WithAlpha(0.35f));
+                float band = picture.Left + ((picture.Width + p.U(200f)) * (since / 1.2f)) - p.U(100f);
+                p.PushClip(picture);
+                p.Line(band - p.U(60f), picture.Bottom, band + p.U(60f), picture.Top, p.U(70f), Rgba.White.WithAlpha(0.3f));
                 p.PopClip();
             }
 
-            y = frame.Bottom + p.U(24f);
+            if (s.Payout?.Milestone != null)
+            {
+                MilestoneMark(p, picture);
+            }
+
+            y = picture.Bottom + p.U(26f);
 
             // The reward rises in after the reveal (motion.reward).
             float rise = Kit.Ease((since - 0.15f) / DesignTokens.Motion.Reward.Seconds);
@@ -51,66 +69,53 @@ namespace Bloomlings.Playtest.Design
             p.PushTransform(0f, (1f - rise) * p.U(30f), 1f, 0f, 0f);
             if (reward != null)
             {
-                // The earned Petals count up from 0 (spec 003 FR-020); NEXT works at once.
-                string amount = NumberText.Plus(GardenLook.CountUp(reward.Petals, since - 0.15f));
-                float w = p.MeasureText(NumberText.Plus(reward.Petals), T.Reward);
-                float icon = p.U(80f);
-                float cx = r.Body.CenterX - ((icon + p.U(12f)) / 2f);
-                p.Text(amount, cx, y + p.U(56f), T.Reward, C.GardenLabelPlain, look: TextLook.Plain(C.GardenLabelPlain));
-                Kit.SparkleBurst(p, cx + (w / 2f) + p.U(12f) + (icon / 2f), y + p.U(56f), icon * 1.4f, since - 0.15f);
-                Kit.Petal(p, Box.FromCenter(cx + (w / 2f) + p.U(12f) + (icon / 2f), y + p.U(56f), icon, icon));
-                if (since < 1.4f)
-                {
-                    // Petals burst out around the reward.
-                    float k = Visuals.Clamp01((since - 0.15f) / 1.2f);
-                    for (int i = 0; i < 6; i++)
-                    {
-                        double a = i * Math.PI / 3;
-                        float d = p.U(120f + (90f * k));
-                        float size = p.U(34f) * (1f - (0.5f * k));
-                        p.PushAlpha(1f - k);
-                        p.Shape("fx.petal_burst", Box.FromCenter(cx + (float)(Math.Cos(a) * d), y + p.U(56f) + (float)(Math.Sin(a) * d * 0.55f), size, size), C.PetalFill);
-                        p.PopAlpha();
-                    }
-                }
-                y += p.U(120f);
+                // The earned Petals count up from 0 in a big cream pill with the lotus (spec 003 FR-020); Next works at once.
+                RewardPill(p, r.Body.CenterX, y + (p.U(RewardUnits) / 2f), reward.Petals, since - 0.15f);
+                y += p.U(RewardUnits);
                 if (reward.DroppedBooster.HasValue)
                 {
-                    p.Text(PlaytestText.F("win.drop", BoosterName(reward.DroppedBooster.Value)), r.Body.CenterX, y + p.U(24f), T.Body, C.TextSecondary);
-                    y += p.U(60f);
+                    DroppedBooster(p, r.Body.CenterX, y + p.U(32f), reward.DroppedBooster.Value);
+                    y += p.U(64f);
                 }
             }
 
             p.PopTransform();
             p.PopAlpha();
 
-            Box next = ScreenLayout.CardButton(r.Body, y + p.U(16f), true, p.Scale);
-            Kit.PrimaryButton(p, next, PlaytestText.T("common.next"), s.Next, decorate: true);
-            Box twice = ScreenLayout.CardButton(r.Body, next.Bottom + p.U(24f), false, p.Scale).Inset(p.U(60f), 0f);
+            Box next = ScreenLayout.CardButton(r.Body, y + p.U(22f), true, p.Scale);
+            Kit.PrimaryButton(p, next, PlaytestText.T("common.next"), s.Next, decorate: true, breathe: true);
+            Box twice = ScreenLayout.CardButton(r.Body, next.Bottom + p.U(26f), false, p.Scale).Inset(p.U(50f), 0f);
             Kit.SecondaryButton(p, twice, PlaytestText.T("win.double"), null, "ui.ad");
-            p.Text("no ads in the playtest", r.Body.CenterX, twice.Bottom + p.U(34f), T.Caption, C.TextSecondary);
+            p.Text(PlaytestText.T("win.no_ads"), r.Body.CenterX, twice.Bottom + p.U(34f), T.Caption, C.InkBrownSoft, r.Body.Width);
             Kit.EndCard(p);
 
+            Petals(p, r, sign, since);
             Confetti(p, s, since);
         }
 
-        /// <summary>The milestone card: LEVEL N, "Milestone reached!", one icon with an amount per reward, CONTINUE.</summary>
+        /// <summary>
+        /// The milestone card in the win's language: the wooden sign with "Level N", "Milestone reached!", each reward on
+        /// a cream tile with its amount in a cream pill, and Continue. The heroes celebrate above it.
+        /// </summary>
         public static void Milestone(IPainter p, LevelScreen s, float since)
         {
             MilestoneGrant grant = s.Payout!.Milestone!;
-            CardRegions r = Kit.Card(p, 60f + 300f + DesignTokens.Size.CardPrimaryHeight + 70f, PlaytestText.F("common.level", NumberText.Group(grant.Level)), null, Kit.Pop(since), T.TitleCaps);
-            Heroes(p, r);
-            p.Text(PlaytestText.T("milestone.reached"), r.Body.CenterX, r.Body.Top + p.U(20f), T.Body, C.TextSecondary);
-
-            var items = new List<(string Shape, Rgba Color, string Amount, bool Petal)>();
+            var items = new List<(Action<Box> Icon, string Amount)>();
             if (grant.Item != null)
             {
-                items.Add(("cosmetic.cap", Rgba.FromHex("#6B5B4E"), PlaytestText.T("wardrobe.kind_hat"), false));
+                string itemId = grant.Item;
+                CosmeticItem? item = PlaytestMeta.Cosmetics.TryGet(itemId, out CosmeticItem? found) ? found : null;
+                string name = PlaytestText.Has("cosmetic." + itemId) ? PlaytestText.T("cosmetic." + itemId) : item?.Name ?? PlaytestText.T("wardrobe.kind_hat");
+                items.Add((box =>
+                {
+                    string shape = item != null ? ShapeLibrary.CosmeticId(item.Shape) : "ui.star";
+                    p.Shape(ShapeLibrary.Has(shape) ? shape : "ui.star", box, item != null ? Visuals.Tint(item) : C.MedalGold);
+                }, name));
             }
 
             if (grant.Petals > 0)
             {
-                items.Add(("currency.petal", C.PetalFill, NumberText.Plus(grant.Petals), true));
+                items.Add((box => Kit.Petal(p, box), NumberText.Plus(grant.Petals)));
             }
 
             BoosterGrant? boosters = grant.Boosters;
@@ -120,149 +125,181 @@ namespace Bloomlings.Playtest.Design
                 {
                     if (count > 0)
                     {
-                        items.Add(("booster." + id, DesignTokens.BoosterColor(id), "+" + count, false));
+                        string booster = id;
+                        items.Add((box => Kit.BoosterIcon(p, booster, box), NumberText.Plus(count)));
                     }
                 }
             }
 
-            var row = new Box(r.Body.Left, r.Body.Top + p.U(70f), r.Body.Right, r.Body.Top + p.U(370f));
-            Box[] cells = ScreenLayout.Row(row, Math.Max(1, items.Count), p.U(24f), p.U(230f), square: false);
+            const float rowUnits = 270f;
+            CardRegions r = Kit.Card(p, 64f + rowUnits + 50f + DesignTokens.Size.CardPrimaryHeight + 40f, string.Empty, null, Kit.Pop(since));
+            Box sign = Header(p, r, PlaytestText.F("common.level", NumberText.Group(grant.Level)), since, celebrate: true);
+            p.Text(PlaytestText.T("milestone.reached"), r.Body.CenterX, r.Body.Top + p.U(30f), T.ButtonSecondary, C.InkBrownSoft, r.Body.Width, look: TextLook.Plain(C.InkBrownSoft));
+
+            // Each reward: its icon on a cream tile, the amount in a cream pill over the tile's bottom edge.
+            p.Mark("ui.pill.reward");
+            var row = new Box(r.Body.Left, r.Body.Top + p.U(84f), r.Body.Right, r.Body.Top + p.U(84f + rowUnits));
+            Box[] cells = ScreenLayout.Row(row, Math.Max(1, items.Count), p.U(36f), p.U(230f), square: false);
+            float rise = Kit.Ease((since - 0.15f) / DesignTokens.Motion.Reward.Seconds);
+            p.PushAlpha(rise);
+            p.PushTransform(0f, (1f - rise) * p.U(30f), 1f, 0f, 0f);
             for (int i = 0; i < items.Count; i++)
             {
-                (string shape, Rgba color, string amount, bool petal) = items[i];
+                (Action<Box> icon, string amount) = items[i];
                 Box cell = cells[i];
-                float icon = Math.Min(cell.Width * 0.7f, cell.Height * 0.6f);
-                Box iconBox = Box.FromCenter(cell.CenterX, cell.Top + (icon / 2f) + p.U(10f), icon, icon);
-                if (petal)
-                {
-                    Kit.Petal(p, iconBox);
-                }
-                else if (shape.StartsWith("booster.", StringComparison.Ordinal))
-                {
-                    p.FillCircle(iconBox.CenterX, iconBox.CenterY, icon / 2f, color);
-                    p.Shape(shape, iconBox.Inset(icon * 0.22f), Rgba.White);
-                }
-                else
-                {
-                    p.Shape(shape, iconBox, color);
-                }
-
-                p.Text(amount, cell.CenterX, iconBox.Bottom + p.U(40f), T.Count, C.GardenLabelPlain, cell.Width);
+                float tile = Math.Min(cell.Width * 0.86f, p.U(190f));
+                Box tileBox = Box.FromCenter(cell.CenterX, cell.Top + (tile / 2f), tile, tile);
+                Box face = Kit.IconFace(p, tileBox, GardenLook.White, tile * 0.26f, 0f);
+                icon(Box.FromCenter(face.CenterX, face.CenterY, face.Width * 0.92f, face.Width * 0.92f));
+                float pillHeight = tile * 0.36f;
+                float pillWidth = Math.Min(cell.Width, Math.Max(tile * 0.9f, p.MeasureText(amount, T.Count, pillHeight * 0.56f / p.U(T.Count.Size)) + (pillHeight * 1.1f)));
+                Kit.CostPill(p, Box.FromCenter(tileBox.CenterX, tileBox.Bottom + (pillHeight * 0.2f), pillWidth, pillHeight), Cost.Charges(0), amount);
             }
 
-            Box go = ScreenLayout.CardButton(r.Body, r.Body.Bottom - p.U(DesignTokens.Size.CardPrimaryHeight) - p.U(16f), true, p.Scale);
+            p.PopTransform();
+            p.PopAlpha();
+
+            Box go = ScreenLayout.CardButton(r.Body, r.Body.Bottom - p.U(DesignTokens.Size.CardPrimaryHeight) - p.U(20f), true, p.Scale);
             Kit.PrimaryButton(p, go, PlaytestText.T("milestone.continue"), s.Next, decorate: true, breathe: true);
             Kit.EndCard(p);
+            Petals(p, r, sign, since);
             Confetti(p, s, since);
         }
 
         /// <summary>
-        /// The four 3D heroes celebrating on the card's top edge (spec 004 FR-017), in the room above the card. On a phone
-        /// too short for them they are left out, so the card never moves.
-        /// </summary>
-        private static void Heroes(IPainter p, CardRegions r)
-        {
-            Box? group = CharacterArt.GroupOnCard(r.Card, ScreenLayout.SafeArea(p.Width, p.Height, p.Insets), p.Scale, 0.9f);
-            if (group.HasValue)
-            {
-                Visuals.Group(p, group.Value);
-            }
-        }
-
-        /// <summary>
-        /// The jam bottom sheet: NO MOVES LEFT, the recovery boosters the player can use with their costs, the Free
-        /// rescue once per attempt, and Restart. The board stays visible above it (spec 001 FR-027).
+        /// The jam bottom sheet (frame 10): "No more space!" and its subtitle, the Waiting Slots' contents in an inset
+        /// well, one big colored choice per recovery the player can use now (green Extra Slot and Shuffle, blue Return and
+        /// Bloom Burst) with its cost pill (×N charges, or the lotus and the price), the free rescue once per attempt (▶
+        /// Free), and Restart. The board stays visible above it (spec 001 FR-027).
         /// </summary>
         public static void Jam(IPainter p, LevelScreen s, float since)
         {
-            var options = new List<(BoosterKind Kind, Recovery Recovery, string Id)>();
+            var choices = new List<(string Id, ColorSet Set, string Label, Cost Cost, Action Action)>();
             foreach (Recovery recovery in s.Session.EligibleRecoveries())
             {
                 foreach ((BoosterKind kind, Recovery r, string id) in LevelScreen.Boosters)
                 {
                     if (r == recovery && s.Meta.Economy.IsUnlocked(kind) && s.Meta.Economy.CanAfford(kind))
                     {
-                        options.Add((kind, r, id));
+                        int charges = s.Meta.Economy.Charges(kind);
+                        Cost cost = charges > 0 ? Cost.Charges(charges) : Cost.Petals(s.Meta.Economy.Price(kind));
+                        BoosterKind used = kind;
+                        Recovery chosen = r;
+                        choices.Add((id, ChoiceSet(id), BoosterName(kind), cost, () => s.PressBooster(used, chosen)));
                     }
                 }
             }
 
             (BoosterKind Kind, Command Command)? rescue = s.RescueOffer();
-            float content = (options.Count > 0 ? 250f + 30f : 0f) + (rescue.HasValue ? DesignTokens.Size.CardPrimaryHeight + 24f : 0f) + DesignTokens.Size.SecondaryHeight + 30f;
-            string title = PlaytestText.T(s.Session.Status == LevelStatus.Stuck ? "jam.stuck" : "jam.title");
-            SheetRegions sheet = Kit.Sheet(p, content, title, PlaytestText.T("jam.subtitle"), Kit.SheetRise(since));
-            float y = sheet.Body.Top;
-            if (options.Count > 0)
-            {
-                var row = new Box(sheet.Body.Left, y, sheet.Body.Right, y + p.U(250f));
-                Box[] cells = ScreenLayout.Row(row, options.Count, p.U(22f), p.U(280f), square: false);
-                for (int i = 0; i < options.Count; i++)
-                {
-                    (BoosterKind kind, Recovery recovery, string id) = options[i];
-                    Box cell = cells[i];
-                    // A white garden card on its plate (spec 003 FR-012), pressed like every button.
-                    float depth = Kit.Press(p, cell, true);
-                    Kit.Squash(p, cell, depth);
-                    Box face = Kit.GardenButton(p, cell, GardenLook.White, p.U(36f), depth);
-                    float icon = Math.Min(p.U(100f), face.Height * 0.44f);
-                    float iconY = face.Top + (face.Height * 0.28f);
-                    Rgba color = DesignTokens.BoosterColor(id);
-                    p.FillCircle(face.CenterX, iconY, icon / 2f, color);
-                    p.Shape("booster." + id, Box.FromCenter(face.CenterX, iconY, icon * 0.56f, icon * 0.56f), id == "bloom_burst" ? C.PetalCenter : Rgba.White);
-                    p.Text(BoosterName(kind), face.CenterX, face.Top + (face.Height * 0.64f), T.Caption, C.GardenLabelPlain, face.Width * 0.92f);
-                    int charges = s.Meta.Economy.Charges(kind);
-                    if (charges > 0)
-                    {
-                        p.Text("×" + charges, face.CenterX, face.Top + (face.Height * 0.87f), T.Count, C.GardenLabelPlain);
-                    }
-                    else
-                    {
-                        string price = NumberText.Group(s.Meta.Economy.Price(kind));
-                        float w = p.MeasureText(price, T.Count);
-                        Kit.Petal(p, Box.FromCenter(face.CenterX - (w / 2f) - p.U(8f), face.Top + (face.Height * 0.87f), p.U(40f), p.U(40f)));
-                        p.Text(price, face.CenterX + p.U(16f), face.Top + (face.Height * 0.87f), T.Count, C.GardenLabelPlain);
-                    }
-
-                    p.PopTransform();
-                    p.Hit(cell, () => s.PressBooster(kind, recovery));
-                }
-
-                y = row.Bottom + p.U(30f);
-            }
-
             if (rescue.HasValue)
             {
-                Box free = ScreenLayout.CardButton(sheet.Body, y, true, p.Scale);
-                Kit.PrimaryButton(p, free, PlaytestText.T("jam.rescue"), s.UseRescue, iconId: "ui.ad");
-                y = free.Bottom + p.U(24f);
+                // The free rescue: a green choice with the ▶ Free pill (a rewarded ad in the game).
+                choices.Add((IdOf(rescue.Value.Kind), GardenLook.Green, BoosterName(rescue.Value.Kind), Cost.Free, s.UseRescue));
             }
 
-            Box restart = ScreenLayout.CardButton(sheet.Body, y, false, p.Scale);
-            Kit.SecondaryButton(p, restart, PlaytestText.T("common.restart"), s.Restart, "ui.restart");
+            int columns = choices.Count <= 3 ? Math.Max(1, choices.Count) : choices.Count == 4 ? 2 : 3;
+            int rows = (choices.Count + columns - 1) / columns;
+            bool stuck = s.Session.Status == LevelStatus.Stuck;
+            string title = PlaytestText.T(stuck ? "jam.stuck" : "jam.title");
+            float subtitleWidth = ScreenLayout.Sheet(p.Width, p.Height, p.Insets, 0f).Subtitle.Width;
+            List<string> subtitle = Lines(p, PlaytestText.T(stuck ? "jam.stuck_subtitle" : "jam.subtitle"), T.Body, subtitleWidth * 0.94f, 2);
+
+            // Wanted heights (units): the subtitle's second line, the well, the rows of choices (a button and its pill's
+            // overhang), Restart. A short phone shrinks the well, the choices and the gaps together.
+            float lineUnits = subtitle.Count > 1 ? 50f : 0f;
+            const float wellUnits = 196f;
+            float rowUnits = columns <= 2 ? 236f : 222f;
+            const float rowGap = 30f;
+            const float gap = 34f;
+            float flexible = wellUnits + gap + (rows * rowUnits) + (Math.Max(0, rows - 1) * rowGap) + (rows > 0 ? gap : 0f);
+            // Restart is as big as a card's main button, as on the reference's jam card.
+            float fixedUnits = lineUnits + DesignTokens.Size.CardPrimaryHeight + 34f;
+            SheetRegions sheet = Kit.Sheet(p, flexible + fixedUnits + 10f, title, subtitle[0], Kit.SheetRise(since));
+            float k = Math.Max(0.62f, Math.Min(1f, ((sheet.Body.Height / p.Scale) - fixedUnits) / flexible));
+            float y = sheet.Body.Top;
+            if (subtitle.Count > 1)
+            {
+                p.Text(subtitle[1], sheet.Subtitle.CenterX, sheet.Subtitle.CenterY + p.U(48f), T.Body, C.InkBrownSoft, sheet.Subtitle.Width);
+                y += p.U(lineUnits);
+            }
+
+            // The slots' contents, as in the reference's inset row.
+            var well = new Box(sheet.Body.Left + p.U(14f), y, sheet.Body.Right - p.U(14f), y + (p.U(wellUnits) * k));
+            SlotContents(p, well, s);
+            y = well.Bottom + (p.U(gap) * k);
+
+            float rowHeight = p.U(rowUnits) * k;
+            float gapX = p.U(30f);
+            float cellWidth = Math.Min(p.U(columns <= 2 ? 440f : 300f), (sheet.Body.Width - (gapX * (columns - 1))) / columns);
+            for (int row = 0; row < rows; row++)
+            {
+                int first = row * columns;
+                int inRow = Math.Min(columns, choices.Count - first);
+                Box[] cells = ScreenLayout.Row(new Box(sheet.Body.Left, y, sheet.Body.Right, y + rowHeight), inRow, gapX, cellWidth, square: false);
+                for (int i = 0; i < inRow; i++)
+                {
+                    (string id, ColorSet set, string label, Cost cost, Action action) = choices[first + i];
+                    Kit.ChoiceButton(p, cells[i], set, GardenLook.BoosterIcon(id), label, cost, action);
+                }
+
+                y += rowHeight + (p.U(row < rows - 1 ? rowGap : gap) * k);
+            }
+
+            Box restart = ScreenLayout.CardButton(sheet.Body, y + p.U(8f), true, p.Scale);
+            Kit.SecondaryButton(p, restart, PlaytestText.T("common.restart"), s.Restart, "ui.restart", T.Button);
             Kit.EndSheet(p);
         }
 
-        /// <summary>A demo card shown once before play; a tap anywhere closes it.</summary>
+        /// <summary>
+        /// A demo or unlock card shown once before play; a tap anywhere closes it. A booster's card shows the booster's
+        /// icon on a cream tile, a variant's card the variant tiles (with the ignore mark between siblings), and every
+        /// card its lines in brown, wrapped to the card.
+        /// </summary>
         public static void Demo(IPainter p, LevelScreen s, float since)
         {
             DemoCard demo = s.Demo!;
-            float content = (demo.Lines.Count * 70f) + (demo.Variants.Count > 0 ? 260f : 0f) + 60f;
-            CardRegions r = Kit.Card(p, content, string.Empty, null, Kit.Pop(since));
-            float y = r.Card.Top + p.U(70f);
-            foreach (string line in demo.Lines)
+            string? booster = demo.Id.StartsWith("booster.", StringComparison.Ordinal) ? demo.Id.Substring("booster.".Length) : null;
+            float width = ScreenLayout.Card(p.Width, p.Height, p.Insets, 0f).Body.Width * 0.94f;
+            var lines = new List<(string Text, bool First)>();
+            for (int i = 0; i < demo.Lines.Count; i++)
             {
-                p.Text(line, r.Body.CenterX, y, T.Body, C.GardenLabelPlain, r.Body.Width);
-                y += p.U(70f);
+                foreach (string line in Lines(p, demo.Lines[i], i == 0 ? T.ButtonSecondary : T.Body, width, 3))
+                {
+                    lines.Add((line, i == 0));
+                }
+            }
+
+            const float lineUnits = 58f;
+            float iconUnits = booster != null ? 200f : 0f;
+            float tilesUnits = demo.Variants.Count > 0 ? 230f : 0f;
+            // The card has no title: its content starts near the top edge, and the caption sits near the bottom one.
+            float content = iconUnits + (lines.Count * lineUnits) + tilesUnits + 24f;
+            CardRegions r = Kit.Card(p, content, string.Empty, null, Kit.Pop(since));
+            float y = r.Card.Top + p.U(52f);
+            if (booster != null)
+            {
+                float tile = p.U(170f);
+                Box tileBox = Box.FromCenter(r.Body.CenterX, y + (tile / 2f), tile, tile);
+                Box face = Kit.IconFace(p, tileBox, GardenLook.White, tile * 0.26f, 0f);
+                Kit.BoosterIcon(p, booster, Box.FromCenter(face.CenterX, face.CenterY, tile * 0.7f, tile * 0.7f));
+                y += p.U(iconUnits);
+            }
+
+            foreach ((string text, bool first) in lines)
+            {
+                Rgba ink = first ? C.InkBrown : C.InkBrownSoft;
+                p.Text(text, r.Body.CenterX, y + p.U(lineUnits / 2f), first ? T.ButtonSecondary : T.Body, ink, r.Body.Width, look: TextLook.Plain(ink));
+                y += p.U(lineUnits);
             }
 
             if (demo.Variants.Count > 0)
             {
-                float size = p.U(190f);
-                Box row = new Box(r.Body.Left, y + p.U(10f), r.Body.Right, y + p.U(10f) + size);
-                Box[] cells = ScreenLayout.Row(row, demo.Variants.Count, size * 0.6f, size, square: true);
+                float size = p.U(170f);
+                var row = new Box(r.Body.Left, y + p.U(24f), r.Body.Right, y + p.U(24f) + size);
+                Box[] cells = ScreenLayout.Row(row, demo.Variants.Count, size * 0.7f, size, square: true);
                 for (int i = 0; i < cells.Length; i++)
                 {
-                    Visuals.VariantTile(p, cells[i], demo.Variants[i]);
+                    Kit.CandyTile(p, cells[i], demo.Variants[i], TileStyle.Sticker);
                 }
 
                 if (demo.ShowIgnore)
@@ -271,7 +308,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            p.Text("tap to continue", r.Body.CenterX, r.Card.Bottom - p.U(46f), T.Caption, C.TextSecondary);
+            p.Text(PlaytestText.T("demo.tap_continue"), r.Body.CenterX, r.Card.Bottom - p.U(46f), T.Caption, C.InkBrownSoft, r.Body.Width);
             Kit.EndCard(p);
             p.Hit(new Box(0f, 0f, p.Width, p.Height), s.CloseDemo);
         }
@@ -283,6 +320,266 @@ namespace Bloomlings.Playtest.Design
             BoosterKind.Return => PlaytestText.T("booster.return"),
             _ => PlaytestText.T("booster.bloom_burst"),
         };
+
+        /// <summary>
+        /// A text in at most <paramref name="maxLines"/> lines of <paramref name="width"/>: one line when it fits, else
+        /// two balanced lines that prefer to break after a sentence or a comma (as the reference's jam subtitle), else
+        /// greedy lines (the last one may shrink to fit).
+        /// </summary>
+        public static List<string> Lines(IPainter p, string text, TypeStyle style, float width, int maxLines)
+        {
+            var lines = new List<string>();
+            if (maxLines <= 1 || p.MeasureText(text, style) <= width)
+            {
+                lines.Add(text);
+                return lines;
+            }
+
+            string[] words = text.Split(' ');
+            int best = -1;
+            float bestCost = float.MaxValue;
+            for (int i = 1; i < words.Length; i++)
+            {
+                string a = string.Join(" ", words, 0, i);
+                string b = string.Join(" ", words, i, words.Length - i);
+                float wa = p.MeasureText(a, style);
+                float wb = p.MeasureText(b, style);
+                if (wa > width || wb > width)
+                {
+                    continue;
+                }
+
+                char end = a[a.Length - 1];
+                float cost = Math.Max(wa, wb) - (end == '.' || end == ',' || end == ':' || end == '!' || end == '?' ? width * 0.25f : 0f);
+                if (cost < bestCost)
+                {
+                    bestCost = cost;
+                    best = i;
+                }
+            }
+
+            if (best > 0)
+            {
+                lines.Add(string.Join(" ", words, 0, best));
+                lines.Add(string.Join(" ", words, best, words.Length - best));
+                return lines;
+            }
+
+            string current = string.Empty;
+            foreach (string word in words)
+            {
+                string next = current.Length == 0 ? word : current + " " + word;
+                if (current.Length > 0 && p.MeasureText(next, style) > width && lines.Count < maxLines - 1)
+                {
+                    lines.Add(current);
+                    current = word;
+                }
+                else
+                {
+                    current = next;
+                }
+            }
+
+            lines.Add(current);
+            return lines;
+        }
+
+        // ---- The celebration (spec 005 §4.4) ----
+
+        /// <summary>The finished picture's height on the win card (units), on a phone of 19.5:9 or taller.</summary>
+        private const float PictureUnits = 520f;
+
+        private const float RewardUnits = 118f;
+
+        /// <summary>
+        /// The card's header: a wooden sign with white flower clusters across the card's top edge (§3.2), and, when
+        /// <paramref name="celebrate"/>, the heroes on their stone pedestal in the light rays above it. Returns the sign.
+        /// </summary>
+        private static Box Header(IPainter p, CardRegions r, string title, float since, bool celebrate)
+        {
+            float h = p.U(146f);
+            TypeStyle style = T.LevelHome;
+            float width = Math.Min(r.Card.Width * 0.8f, p.MeasureText(title, style) + (h * 1.5f));
+            Box sign = Box.FromCenter(r.Card.CenterX, r.Card.Top + p.U(30f), width, h);
+            if (celebrate)
+            {
+                Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
+                Celebration(p, new Box(r.Card.Left, safe.Top + p.U(12f), r.Card.Right, sign.Top + (h * 0.3f)), r.Card.Top, since);
+            }
+
+            Kit.WoodSign(p, sign, title, style, SignDecor.Flowers);
+            return sign;
+        }
+
+        /// <summary>
+        /// The heroes celebrating in <paramref name="stage"/> (spec 004 FR-017, spec 005 §4.4): slowly turning light rays
+        /// behind them (above the card's top edge only), a stone pedestal, and the four 3D heroes standing on it. On a
+        /// phone too short for them only the rays show, so the card never moves.
+        /// </summary>
+        private static void Celebration(IPainter p, Box stage, float cardTop, float since)
+        {
+            if (stage.Height < p.U(150f))
+            {
+                return;
+            }
+
+            // The pedestal's top ellipse carries the group's own round base; the drum below shows as its plinth. From the
+            // group's top to the pedestal's foot is about 0.71 of the group's width.
+            float groupWidth = Math.Min(stage.Width * 0.98f, stage.Height / 0.71f);
+            float groupHeight = groupWidth * CharacterArt.GroupHeight / CharacterArt.GroupWidth;
+            float pedestalWidth = groupWidth * 0.86f;
+            float pedestalHeight = pedestalWidth * 0.3f;
+            var pedestal = new Box(stage.CenterX - (pedestalWidth / 2f), stage.Bottom - pedestalHeight, stage.CenterX + (pedestalWidth / 2f), stage.Bottom);
+            float rays = 0.85f * Kit.Ease(since / 0.6f);
+            p.PushClip(new Box(0f, 0f, p.Width, cardTop));
+            p.PushAlpha(rays);
+            Kit.LightRays(p, stage.CenterX, pedestal.Top - (groupHeight * 0.3f), Math.Max(p.Width * 0.62f, stage.Height), since);
+            p.PopAlpha();
+            p.PopClip();
+            Box top = Kit.StonePedestal(p, pedestal);
+            float feet = top.CenterY + (top.Height * 0.18f);
+            var group = new Box(stage.CenterX - (groupWidth / 2f), feet - (groupHeight * 0.92f), stage.CenterX + (groupWidth / 2f), feet + (groupHeight * 0.08f));
+            Visuals.Group(p, group);
+        }
+
+        /// <summary>Pink petals drifting down around the heroes and over the card's top (fx.petals).</summary>
+        private static void Petals(IPainter p, CardRegions r, Box sign, float since)
+        {
+            Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
+            p.PushAlpha(Kit.Ease(since / 0.5f));
+            Kit.FallingPetals(p, new Box(safe.Left, safe.Top, safe.Right, Math.Min(r.Card.Bottom, sign.Bottom + p.U(260f))), since + 3f);
+            p.PopAlpha();
+        }
+
+        /// <summary>
+        /// The reward (§4.4): a big cream pill with the lotus and "+N" counting up from 0, a sparkle burst at the lotus,
+        /// and petals bursting out around it. Returns the pill.
+        /// </summary>
+        private static Box RewardPill(IPainter p, float cx, float cy, int petals, float since)
+        {
+            p.Mark("ui.pill.reward");
+            float h = p.U(104f);
+            float scale = h * 0.56f / p.U(T.Count.Size);
+            string final = NumberText.Plus(petals);
+            float icon = h * 0.86f;
+            float gap = h * 0.16f;
+            float width = Math.Max(p.U(320f), p.MeasureText(final, T.Count, scale) + icon + gap + (h * 1.1f));
+            Box pill = Box.FromCenter(cx, cy, width, h);
+            string amount = NumberText.Plus(GardenLook.CountUp(petals, since));
+            Kit.CostPill(p, pill, Cost.Petals(petals), amount);
+
+            // The lotus sits where the pill put it: left of the amount, the pair centered.
+            float textWidth = Math.Min(p.MeasureText(amount, T.Count, scale), width - icon - gap - (h * 0.5f));
+            float lotusX = cx - ((icon + gap + textWidth) / 2f) + (icon / 2f);
+            Kit.SparkleBurst(p, lotusX, cy, icon * 1.3f, since);
+            if (since >= 0f && since < 1.25f)
+            {
+                // Petals burst out around the reward.
+                float k = Visuals.Clamp01(since / 1.2f);
+                p.PushAlpha(1f - k);
+                for (int i = 0; i < 6; i++)
+                {
+                    double a = i * Math.PI / 3;
+                    float d = (width * 0.42f) + p.U(70f * k);
+                    float size = p.U(34f) * (1f - (0.5f * k));
+                    p.Shape("fx.petal_burst", Box.FromCenter(cx + (float)(Math.Cos(a) * d), cy + (float)(Math.Sin(a) * d * 0.5f), size, size), C.LotusFill);
+                }
+
+                p.PopAlpha();
+            }
+
+            return pill;
+        }
+
+        /// <summary>A booster charge dropped by the win: its icon and "+1 Extra Slot" in brown.</summary>
+        private static void DroppedBooster(IPainter p, float cx, float cy, BoosterKind kind)
+        {
+            string text = PlaytestText.F("win.drop", BoosterName(kind));
+            float icon = p.U(56f);
+            float gap = p.U(12f);
+            float width = p.MeasureText(text, T.ButtonSecondary, 0.8f);
+            float start = cx - ((icon + gap + width) / 2f);
+            Kit.BoosterIcon(p, IdOf(kind), Box.FromCenter(start + (icon / 2f), cy, icon, icon));
+            p.Text(text, start + icon + gap + (width / 2f), cy, T.ButtonSecondary, C.InkBrownSoft, width + p.U(4f), 0.8f, TextLook.Plain(C.InkBrownSoft));
+        }
+
+        /// <summary>The milestone mark over the finished picture's top edge: a cream pill with the gold medal and its text.</summary>
+        private static void MilestoneMark(IPainter p, Box picture)
+        {
+            string text = PlaytestText.T("milestone.reached");
+            float h = p.U(70f);
+            float scale = h * 0.56f / p.U(T.Count.Size);
+            float width = p.MeasureText(text, T.Count, scale) + (h * 1.9f);
+            Box pill = Box.FromCenter(picture.CenterX, picture.Top, width, h);
+            Kit.CostPill(p, pill, Cost.Charges(0), text);
+            p.Shape("ui.medal", Box.FromCenter(pill.Left + (h * 0.62f), pill.CenterY, h * 0.8f, h * 0.8f), C.MedalGold);
+        }
+
+        // ---- The jam (spec 005 §4.3) ----
+
+        /// <summary>The color of a recovery's choice, as on the reference's jam card: Extra Slot and Shuffle green, Return and Bloom Burst blue.</summary>
+        private static ColorSet ChoiceSet(string boosterId) => boosterId == "extra_slot" || boosterId == "shuffle" ? GardenLook.Green : GardenLook.Blue;
+
+        private static string IdOf(BoosterKind kind)
+        {
+            foreach ((BoosterKind k, Recovery _, string id) in LevelScreen.Boosters)
+            {
+                if (k == kind)
+                {
+                    return id;
+                }
+            }
+
+            return "extra_slot";
+        }
+
+        /// <summary>
+        /// The Waiting Slots' contents in an inset well (§4.3): each slot's sticker tile with the count below it, a free
+        /// slot as a small dashed plate, a locked one with its padlock.
+        /// </summary>
+        private static void SlotContents(IPainter p, Box well, LevelScreen s)
+        {
+            p.Mark("ui.jam.slots");
+            Kit.Well(p, well, Math.Min(p.U(36f), well.Height * 0.2f));
+            LevelView view = s.Session.View;
+            var slots = new List<int>();
+            for (int i = 0; i < view.SlotCapacity; i++)
+            {
+                if (view.SlotStateOf(i) != SlotState.Absent)
+                {
+                    slots.Add(i);
+                }
+            }
+
+            if (slots.Count == 0)
+            {
+                return;
+            }
+
+            float tile = Math.Min(well.Height * 0.54f, p.U(112f));
+            float cell = Math.Min(tile * 1.62f, (well.Width - p.U(24f)) / slots.Count);
+            Box[] cells = ScreenLayout.Row(well.Inset(p.U(12f), 0f), slots.Count, 0f, cell, square: false);
+            float top = well.Top + ((well.Height - (tile * 1.5f)) / 2f);
+            for (int n = 0; n < slots.Count; n++)
+            {
+                int slot = slots[n];
+                Box tileBox = Box.FromCenter(cells[n].CenterX, top + (tile / 2f), tile, tile);
+                SlotLook look = s.Animator.Slots[slot];
+                if (view.SlotStateOf(slot) == SlotState.Locked || s.Animator.HeldSlotLocks.Contains(slot))
+                {
+                    Kit.SlotPlate(p, tileBox, SlotPlateState.Locked);
+                }
+                else if (look.PodId == null)
+                {
+                    Kit.SlotPlate(p, tileBox, SlotPlateState.Empty);
+                }
+                else
+                {
+                    Kit.CandyTile(p, tileBox, look.Variant, TileStyle.Sticker);
+                    Kit.CountBelow(p, new Box(tileBox.Left - (tile * 0.2f), tileBox.Bottom + (tile * 0.06f), tileBox.Right + (tile * 0.2f), tileBox.Bottom + (tile * 0.5f)), look.Count, false);
+                }
+            }
+        }
 
         /// <summary>Confetti in the level's variant colors for the first seconds of a win (fx.confetti).</summary>
         private static void Confetti(IPainter p, LevelScreen s, float since)
@@ -303,7 +600,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            colors.Add(C.PetalFill);
+            colors.Add(C.LotusFill);
             colors.Add(C.PetalCenter);
             for (int i = 0; i < 36; i++)
             {

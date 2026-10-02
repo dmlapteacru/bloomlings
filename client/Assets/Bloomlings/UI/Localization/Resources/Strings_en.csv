@@ -64,8 +64,9 @@ pause.resume,Resume
 pause.leave,Leave
 pause.settings,Settings
 pause.home,Home
-win.title,Restored!
+win.title,Level complete!
 win.double,×2 reward
+win.no_ads,No ads in the playtest
 win.drop,+1 {0}
 win.milestone,Milestone! +{0} Petals
 win.milestone_title,Milestone reward!
@@ -74,10 +75,11 @@ win.boosters_many,+{0} boosters
 win.item,+ {0}
 milestone.reached,Milestone reached!
 milestone.continue,Continue
-jam.title,No moves left
+jam.title,No more space!
 jam.stuck,No pod can move!
 jam.free_rescue,Free {0}
-jam.subtitle,Use a booster to continue
+jam.subtitle,All Waiting Slots are full. Choose a way to continue.
+jam.stuck_subtitle,Choose a way to continue.
 jam.rescue,Free rescue
 difficulty.hard,Hard
 difficulty.super_hard,Super Hard
@@ -118,6 +120,7 @@ collection.count_one,{0} picture
 collection.count_many,{0} pictures
 collection.completed,Completed at Level {0}
 demo.skip,Skip
+demo.tap_continue,Tap to continue
 demo.first_tap,Tap a pod to send its Bloomlings
 demo.exact_symbol,Match the exact symbol
 demo.extra_slot.1,Extra Slot: one more slot for this level
