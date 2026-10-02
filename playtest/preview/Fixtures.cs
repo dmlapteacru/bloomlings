@@ -96,7 +96,7 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(8, "gameplay-hard", "Gameplay (hard)", (p, data) => Playing(App(data), p, content, 55, taps: 3));
             yield return new Fixture(9, "gameplay-super-hard", "Gameplay (super hard)", (p, data) => Playing(App(data), p, content, 82, taps: 3));
 
-            yield return new Fixture(10, "jam", "Jam (bottom sheet)", (p, data) =>
+            yield return new Fixture(10, "jam", "Jam (centered card)", (p, data) =>
             {
                 DesignApp app = App(data);
                 app.Meta.SkipTo(27);

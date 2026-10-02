@@ -275,7 +275,8 @@ namespace Bloomlings.Client.Tests
                 Assert.That(r.Picture.Width, Is.LessThanOrEqualTo(0.8f * r.W + 0.5f), at);
                 Assert.That(r.RaysX, Is.EqualTo(r.Hero.CenterX).Within(0.5f), at);
                 float touch = Touch(w, h) * 0.95f;
-                AssertTargets(new List<Box> { TouchBox(r.Double, touch), r.Next }, r.Safe, touch, at);
+                AssertTargets(new List<Box> { TouchBox(r.Pause, touch), TouchBox(r.Double, touch), r.Next }, r.Safe, touch, at);
+                Assert.That(r.Pause.Overlaps(r.Sign), Is.False, at + ": Pause stays clear of the sign");
             }
         }
 

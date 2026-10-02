@@ -607,6 +607,10 @@ the card's sides (clear of the close button), the subtitle box `0.11W` (two line
 choice sits in the middle; the close button's center is `0.06W` inside the card's right edge and `0.025W` below its top;
 on a short screen every height and gap shrinks by `Scale` (the card stays `0.05W` inside the safe area);
 `WellCell(i, n)` gives each slot's tile (`0.11W·Scale`, at most 86% of its share of the well) and count box.
+Playtest (`EndCards.Jam`): the rules never let the jam be dismissed, so there is no close button; the title's letters
+fill 80% of its box (`type.title` about 1.35×), each subtitle line 78% of half the subtitle box; one touch box covers a
+choice and its cost pill; the scrim takes every tap below the gameplay's top bar, so the board and the tray stay
+visible around the card (spec 001 FR-027) but out of reach, and Pause and the speed button above it stay usable.
 
 ### 6.3 Win (full screen)
 
@@ -626,7 +630,19 @@ lightened); no top bar.
 Fixed: the sign is `0.66W` from 7.5% to 20.5% of H; the hero box is an 8:9 solo picture's box (`CharacterArt.HeroWidth`
 / `HeroHeight`, at most `0.8W`) from 50% to 76%, the group fits inside it; the pedestal box spans 72% to 83% (its top
 ellipse about 74%); the rays' center is the hero box's center; `Double` (the ×2 offer) and `Drop` (a dropped booster)
-are boxes at most `0.21W` wide and `0.13W` tall beside the reward pill, right and left, `0.02W` from it.
+are boxes at most `0.21W` wide and `0.13W` tall beside the reward pill, right and left, `0.02W` from it. `Pause` is a
+cream squircle `0.11W` square, `0.03W` from the left and `0.015W` under the top inset: no top bar shows, but Pause stays
+usable over the win (FR-016), so Home, Restart and Settings stay reachable.
+Playtest (`EndCards.Win`, `EndCards.Milestone`): the win fades in over the gameplay for `EndCards.WinFadeSeconds`
+(0.35 s), then replaces it (`LevelScreen`); the picture hangs from the top of its box (as large as fits) and pops in;
+the sign slides down, its title in two lines when one would be small (each line 34% of the plank's height), the flower
+clusters 1.2 × the sign's height (at most `0.34W`) over both ends, the right one mirrored and a little higher; the
+group (while the cheer pictures are missing) stands with its feet just behind the middle of the pedestal's top, its
+heads at the hero box's top, at most 1.15 × the pedestal wide; confetti falls behind everything for 2.2 s; a dropped
+booster is its icon on a cream tile with a green "+1" badge in `Drop`; the ×2 offer needs a rewarded ad, which the
+playtest does not have, so it is not shown. The milestone (frame 16) is the same full screen: the sign "Level N", its
+rewards on a parchment panel in the picture's place (each on a cream tile with its amount in a cream pill), the hero on
+the pedestal, "Milestone reached!" with the gold medal in the pill on the pedestal, and Continue in `Next`.
 
 ### 6.4 Home
 
