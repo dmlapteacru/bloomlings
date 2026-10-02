@@ -265,19 +265,20 @@ namespace Bloomlings.Client.UI.Design
             Shape("special.region", "Region marker (restore this whole area)", new[] { 9 }, "Board", "pending; done", SizeClass.Small, readability: true);
 
             // ---- Pods and slots ----
-            Add("pod.card", "Spirit Pod card", new[] { 7, 8, 9, 12 }, "Tray; flights", "exposed; next in stack; pressed; working", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "rounded card in the variant tint with the family body, symbol and count pill");
-            Add("pod.state.locked", "Locked pod", new[] { 12 }, "Tray", "locked; unlocking", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "grey card with a padlock");
-            Add("pod.state.mystery", "Mystery pod", new[] { 12 }, "Tray; slots", "hidden; revealing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "pink card with ? and its count");
-            Add("pod.link", "Connected pods link", new[] { 12 }, "Tray", "pair; triple", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a teal bar joining the cards");
-            Add("pod.count", "Pod count pill", new[] { 7, 12, 13 }, "Pods; slots", "normal; dropping", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "dark pill with the count");
-            Add("slot.empty", "Empty Waiting Slot", new[] { 7, 13 }, "Slots", "empty", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "soft sunk tile");
-            Add("slot.state.working", "Working pod in a slot", new[] { 13 }, "Slots", "working; finishing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "bright pod card");
-            Add("slot.state.stuck", "Stuck (waiting) pod in a slot", new[] { 13 }, "Slots", "stuck", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "greyed pod card with the hourglass");
+            Add("pod.card", "Spirit Pod (spec 005 §3.7)", new[] { 7, 8, 9, 12 }, "Tray", "exposed (with its handle); next in stack (dimmed); pressed (sunk)", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a dark wooden frame (`mat.wood.dark`) around a cream panel tinted by the variant, the variant's sticker tile (`tile.candy.sticker`) and the plain count below it; a short wooden handle on an exposed pod");
+            Add("pod.state.locked", "Locked pod", new[] { 12 }, "Tray", "locked; unlocking", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the wooden frame around a grey panel with a padlock and the softer count");
+            Add("pod.state.mystery", "Mystery pod", new[] { 12 }, "Tray; slots", "hidden; revealing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot");
+            Add("pod.link", "Connected pods link", new[] { 12 }, "Tray", "pair; triple", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a teal bar with a white rim and a light streak, riveted to each wooden frame");
+            Add("pod.count", "Pod and slot count", new[] { 7, 12, 13 }, "Pods; slots; jam row", "normal; dropping; dimmed", SizeClass.Icon, true, Launch, PlaceholderKind.Procedural, "plain brown digits below the tile, no \"x\"");
+            Add("slot.empty", "Empty Waiting Slot", new[] { 7, 13 }, "Slots", "empty", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline");
+            Add("slot.state.working", "Working pod in a slot", new[] { 13 }, "Slots", "working; finishing", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a raised cream plate with the variant's sticker tile and the plain count below it");
+            Add("slot.state.stuck", "Stuck (waiting) pod in a slot", new[] { 13 }, "Slots", "stuck", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the raised cream plate with the tile in grey, a softer count and the hourglass badge");
             Shape("slot.state.waiting", "Waiting mark (hourglass)", new[] { 13 }, "Slots", "waiting", SizeClass.Icon, readability: true);
             Shape("slot.state.jam_risk", "Jam-risk mark (!)", new[] { 13 }, "Slots", "risk", SizeClass.Icon, readability: true);
-            Add("slot.state.locked", "Locked slot", new[] { 13 }, "Slots", "locked; opening", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "grey tile with a padlock");
+            Add("slot.state.locked", "Locked slot", new[] { 13 }, "Slots", "locked; opening", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a grey raised plate with a padlock");
             Shape("slot.state.danger", "Danger slot frame (the last free usable slot)", new[] { 13 }, "Slots", "danger (4/5 used)", SizeClass.Small, readability: true);
-            Add("slot.extra", "Extra slot (from the Extra Slot booster)", new[] { 13 }, "Slots", "added", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "slot with a green plus corner");
+            Add("slot.extra", "Extra slot (from the Extra Slot booster)", new[] { 13 }, "Slots", "added", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a plate with a green \"+\" badge over its upper left corner");
+            Add("slot.state.target", "Return target (a pod Return can take back)", new[] { 13 }, "Slots", "targeting", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the selected booster's pulsing golden glow and ring around the plate");
 
             // ---- Boosters ----
             Shape("booster.extra_slot", "Booster: Extra Slot", new[] { 7, 8, 9, 10, 14, 16, 17 }, "Booster bar; jam sheet; Store; rewards; demos", "available; count; price; disabled", SizeClass.Small);
@@ -291,6 +292,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("booster.shuffle.b", "Booster icon part: Shuffle's green arrow", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
             Shape("booster.bloom_burst.petals", "Booster icon part: Bloom Burst's pink petals", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
             Shape("booster.bloom_burst.center", "Booster icon part: Bloom Burst's yellow center", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
+            Add("booster.tile", "Booster tile (spec 005 §3.7)", new[] { 7, 8, 9, 14 }, "Booster bar", "charges; price; selected; disabled; pressed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "a cream squircle face set in a silver-grey bezel with a deeper grey lip, a light edge and a soft shadow; the count badge over its lower right corner or the cost pill below it");
 
             // ---- UI kit ----
             Shape("ui.panel", "Rounded panel base (9-slice)", new[] { 4, 5, 6, 10, 11, 15, 16, 17 }, "Every card, button, pill and tile", "any tint", SizeClass.Small);

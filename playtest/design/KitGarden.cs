@@ -133,7 +133,9 @@ namespace Bloomlings.Playtest.Design
         private static Box IvyBox(Box sign, bool left)
         {
             float size = sign.Height * 1.25f;
-            float x = left ? sign.Left + (sign.Height * 0.06f) : sign.Right - (sign.Height * 0.06f);
+            // Centered a little outside the plank's end, so the leaves cling to its corners and most of the plank shows,
+            // as on the reference's gameplay sign.
+            float x = left ? sign.Left - (sign.Height * 0.04f) : sign.Right + (sign.Height * 0.04f);
             return Box.FromCenter(x, sign.CenterY, size, size);
         }
 
@@ -420,6 +422,11 @@ namespace Bloomlings.Playtest.Design
                 }
 
                 CandyTile(p, tileBox, variant, TileStyle.Sticker, queued ? TileState.Dimmed : TileState.Normal);
+                if (queued && !variant.HasValue)
+                {
+                    // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
+                    p.FillRound(tileBox, tileBox.Width * 0.2f, C.ParchmentBottom.WithAlpha(0.45f));
+                }
             }
 
             CountBelow(p, new Box(panel.Left, tileBox.Bottom, panel.Right, panel.Bottom), count, queued || look == PodLook.Locked);
@@ -439,9 +446,11 @@ namespace Bloomlings.Playtest.Design
         /// below while a pod works; the grey tile with the hourglass badge while it is stuck; a slightly sunk face with a
         /// dashed inner outline when empty (in <c>state.danger</c> with "!" for the last free slot); a grey face with the
         /// padlock when locked. <paramref name="extra"/> adds the green "+" badge of the Extra Slot booster. A null
-        /// <paramref name="variant"/> in a filled slot is a mystery pod. Returns the plate's face.
+        /// <paramref name="variant"/> in a filled slot is a mystery pod. <paramref name="tileFlip"/> narrows the tile about
+        /// its middle (a mystery tile turning over) and <paramref name="countBump"/> scales the count about its baseline
+        /// (a Bloomling landing). Returns the plate's face.
         /// </summary>
-        public static Box SlotPlate(IPainter p, Box box, SlotPlateState state, VariantId? variant = null, int count = 0, bool extra = false)
+        public static Box SlotPlate(IPainter p, Box box, SlotPlateState state, VariantId? variant = null, int count = 0, bool extra = false, float tileFlip = 1f, float countBump = 1f)
         {
             float s = Math.Min(box.Width, box.Height);
             float radius = s * 0.2f;
@@ -450,15 +459,21 @@ namespace Bloomlings.Playtest.Design
             if (state == SlotPlateState.Empty || state == SlotPlateState.Danger)
             {
                 p.Mark("slot.empty");
+                // A plate pressed into the parchment: a thin lower edge, the face a little sunk, a light ring inside the
+                // outline, and the dashed inner outline stitched in with a light line under each dash.
+                p.FillRound(box.Offset(0f, s * 0.025f), radius, C.CreamLip.WithAlpha(0.55f));
                 p.FillRound(box, radius, C.CreamFace.Mix(C.ParchmentWell, 0.35f));
                 p.PushClip(box);
                 p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + (s * 0.3f)), radius, C.GardenShadow.WithAlpha(0.1f), C.GardenShadow.WithAlpha(0f));
                 p.PopClip();
-                p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine.WithAlpha(0.35f));
+                float ring = Math.Max(1f, s * 0.022f);
+                p.StrokeRound(box.Inset(line + (ring / 2f)), Math.Max(0f, radius - line - (ring / 2f)), ring, C.CreamTop.WithAlpha(0.75f));
+                p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine.WithAlpha(0.6f));
                 bool danger = state == SlotPlateState.Danger;
-                Box dashed = box.Inset(s * 0.09f);
-                float dash = Math.Max(1.5f, s * 0.028f);
-                p.StrokeRound(dashed, radius * 0.7f, dash, danger ? C.StateDanger : C.CreamLine.WithAlpha(0.8f), s * 0.09f, s * 0.06f);
+                Box dashed = box.Inset(s * 0.085f);
+                float dash = Math.Max(1.5f, s * 0.03f);
+                p.StrokeRound(dashed.Offset(0f, dash * 0.45f), radius * 0.7f, dash, C.CreamTop.WithAlpha(0.8f), s * 0.09f, s * 0.06f);
+                p.StrokeRound(dashed, radius * 0.7f, dash, danger ? C.StateDanger : C.CreamLine.WithAlpha(0.85f), s * 0.09f, s * 0.06f);
                 if (danger)
                 {
                     p.Mark("slot.state.danger");
@@ -471,7 +486,7 @@ namespace Bloomlings.Playtest.Design
             else
             {
                 bool locked = state == SlotPlateState.Locked;
-                float lip = s * 0.07f;
+                float lip = s * 0.055f;
                 SoftShadow(p, box, radius, 0.18f, 0.04f);
                 p.FillRound(box, radius, locked ? C.StateLockBg.Darken(0.15f) : C.CreamLip);
                 face = new Box(box.Left, box.Top, box.Right, box.Bottom - lip);
@@ -492,10 +507,17 @@ namespace Bloomlings.Playtest.Design
                         p.Mark("pod.state.mystery");
                     }
 
-                    float tile = face.Width * 0.64f;
-                    Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.06f) + (tile / 2f), tile, tile);
+                    // The tile near the top (about 70% of a portrait plate's width, as in the reference; less on a square
+                    // one), so the count below it keeps about a quarter of the face.
+                    float tile = Math.Min(face.Width * 0.72f, face.Height * 0.58f);
+                    Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.1f) + (tile / 2f), tile, tile);
+                    p.PushSquash(tileFlip, 1f, tileBox.CenterX, tileBox.CenterY);
                     CandyTile(p, tileBox, variant, TileStyle.Sticker, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
-                    CountBelow(p, new Box(face.Left, tileBox.Bottom, face.Right, face.Bottom - (face.Height * 0.02f)), count, stuck);
+                    p.PopTransform();
+                    var countArea = new Box(face.Left, tileBox.Bottom, face.Right, face.Bottom - (face.Height * 0.03f));
+                    p.PushTransform(0f, 0f, countBump, countArea.CenterX, countArea.Bottom);
+                    CountBelow(p, countArea, count, stuck);
+                    p.PopTransform();
                     if (stuck && count > 0)
                     {
                         float b = s * 0.17f;
@@ -524,10 +546,10 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A booster tile (§3.7; the booster bar): a cream squircle (radius 26%) in a grey-beige rim with the booster's
-        /// colored icon at 62%, and the count badge over its bottom-right corner, or the cost pill under it and a small
-        /// green "+" when no charges are left. A selected tile is raised with the pulsing golden glow; a disabled one is
-        /// greyed (spec 003 FR-031).
+        /// A booster tile (§3.7; the booster bar, <c>booster.tile</c>): a cream squircle (radius 26%) set in a silver-grey
+        /// bezel with the booster's colored icon (about two thirds of the tile), and the count badge over its lower right
+        /// corner, or the cost pill under it and a small green "+" when no charges are left. A selected tile is raised with
+        /// the pulsing golden glow; a disabled one is greyed (spec 003 FR-031).
         /// </summary>
         public static void BoosterTile(IPainter p, Box box, string boosterId, BoosterTileState state, Action? action)
         {
@@ -550,17 +572,18 @@ namespace Bloomlings.Playtest.Design
             }
 
             Squash(p, tile, depth, tile: true);
-            Rgba rim = GardenLook.BoosterRim;
-            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, rim.Lighten(0.62f), rim.Lighten(0.08f), rim.Darken(0.22f));
-            Box f = IconFace(p, tile, state.Disabled ? set.Disabled() : set, radius, depth);
-            float icon = s * 0.62f;
+            Box f = BoosterBezel(p, tile, radius, depth, state.Disabled);
+            // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile, as in the
+            // reference.
+            float icon = s * 0.74f;
             BoosterIcon(p, boosterId, Box.FromCenter(f.CenterX, f.CenterY, icon, icon), grey: state.Disabled);
             p.PopTransform();
 
             if (state.ShowsCharges)
             {
+                // The badge sits over the tile's lower right corner, mostly on the tile, as in the reference.
                 float badge = s * 0.34f;
-                CountBadge(p, tile.Right - (badge / 6f), tile.Bottom - (badge / 6f), badge, state.Charges.ToString(CultureInfo.InvariantCulture));
+                CountBadge(p, tile.Right - (badge * 0.55f), tile.Bottom - (badge * 0.55f), badge, state.Charges.ToString(CultureInfo.InvariantCulture));
             }
             else
             {
@@ -579,6 +602,54 @@ namespace Bloomlings.Playtest.Design
             {
                 p.Hit(Touch(p, box), action);
             }
+        }
+
+        /// <summary>
+        /// A booster tile's body (§3.7): a cream face set in a silver-grey bezel (<see cref="GardenLook.BoosterRim"/>, light
+        /// at the top), a deeper grey lip along its bottom, a light edge where the face meets the bezel, a dark warm grey
+        /// outline and a soft shadow; the face sinks into the lip by the press <paramref name="depth"/>. A disabled tile's
+        /// face is grey. Returns the face.
+        /// </summary>
+        private static Box BoosterBezel(IPainter p, Box box, float radius, float depth, bool disabled)
+        {
+            p.Mark("booster.tile");
+            float s = Math.Min(box.Width, box.Height);
+            float lip = s * 0.085f;
+            float bezel = s * 0.065f;
+            float line = Math.Max(p.U(2f), s * 0.018f);
+            float shift = lip * 0.7f * Math.Max(-0.25f, Math.Min(1f, depth));
+            float dark = 0.08f * Math.Max(0f, Math.Min(1f, depth));
+            float r = Math.Min(radius, s / 2f);
+            Rgba rim = GardenLook.BoosterRim;
+            Rgba face = disabled ? C.CreamFace.Grey().Lighten(0.25f) : C.CreamFace;
+            Rgba middle = disabled ? C.CreamTop.Grey().Lighten(0.3f) : C.CreamTop;
+
+            SoftShadow(p, box, r, 0.22f, 0.06f);
+            var whole = new Box(box.Left, box.Top + Math.Max(0f, shift), box.Right, box.Bottom);
+            p.FillRound(whole, r, rim.Darken(0.16f + dark));
+            var top = new Box(box.Left, box.Top + shift, box.Right, box.Bottom - lip + shift);
+            float topRadius = Math.Min(r, top.Height / 2f);
+            p.FillRoundGradient(top, topRadius, rim.Lighten(0.62f).Darken(dark), rim.Lighten(0.22f).Darken(dark));
+
+            Box inner = top.Inset(bezel);
+            float innerRadius = Math.Max(0f, topRadius - bezel);
+            p.FillRoundGradient(inner, innerRadius, face.Darken(0.02f + dark), face.Darken(dark));
+            for (int k = 0; k < 3; k++)
+            {
+                // A lighter middle, feathered in, as on the reference's cream tiles.
+                float inset = s * (0.1f + (0.05f * k));
+                p.FillRoundGradient(inner.Inset(inset), Math.Max(0f, innerRadius - inset), middle.Darken(dark).WithAlpha(0.35f), middle.WithAlpha(0f));
+            }
+
+            // The face lies a little below the bezel: a faint shade inside its top edge and a light edge around it.
+            p.PushClip(inner);
+            p.FillRoundGradient(new Box(inner.Left, inner.Top, inner.Right, inner.Top + (inner.Height * 0.14f)), innerRadius, C.GardenShadow.WithAlpha(0.08f), C.GardenShadow.WithAlpha(0f));
+            p.PopClip();
+            p.StrokeRound(inner, innerRadius, Math.Max(1f, s * 0.014f), C.CreamTop.WithAlpha(0.9f));
+
+            var outline = new Box(box.Left, Math.Min(top.Top, whole.Top), box.Right, box.Bottom);
+            p.StrokeRound(outline.Inset(line / 2f), Math.Min(r, outline.Height / 2f) - (line / 2f), line, rim.Mix(C.WoodLine, 0.3f).Darken(0.3f));
+            return inner;
         }
 
         /// <summary>A booster's colored icon (§3.8, <see cref="GardenLook.BoosterIcon"/>), all grey when <paramref name="grey"/>.</summary>

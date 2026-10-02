@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Simulation;
-using Bloomlings.Core.Variants;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
-using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Playtest.Design
 {
@@ -18,18 +17,19 @@ namespace Bloomlings.Playtest.Design
     }
 
     /// <summary>
-    /// The Source Tray and its pods, in the states of frame 12 (spec 002 FR-012):
+    /// The Source Tray and its pods, in the states of frame 12 (spec 002 FR-012), as the reference's wooden pods on the
+    /// tray's parchment (spec 005 contracts/look.md §3.7, research D3; <see cref="Kit.Pod"/>):
     /// <list type="bullet">
-    /// <item><description>exposed: bright and raised;</description></item>
-    /// <item><description>next in stack: in its variant color, muted, fully visible below the exposed one (spec 003
-    /// FR-022a);</description></item>
-    /// <item><description>pressed;</description></item>
-    /// <item><description>locked: a padlock;</description></item>
-    /// <item><description>mystery: "?" with its count;</description></item>
-    /// <item><description>connected: a teal link.</description></item>
+    /// <item><description>exposed: a dark wooden frame with its handle on top, a panel tinted by the variant, the variant
+    /// tile and the plain count below it;</description></item>
+    /// <item><description>next in stack: the same pod dimmed toward the parchment, fully visible below the exposed one
+    /// (spec 003 FR-022a);</description></item>
+    /// <item><description>pressed: the frame sinks and squashes, and springs back;</description></item>
+    /// <item><description>locked: the padlock on a grey panel;</description></item>
+    /// <item><description>mystery: the lilac "?" tile with its count;</description></item>
+    /// <item><description>connected: a teal link between the frames.</description></item>
     /// </list>
-    /// Each pod keeps spec 001 FR-012's prominence: the variant symbol in ink on the Bloomling, the variant color, the
-    /// count pill, then the family silhouette.
+    /// The variant reads first from its tile (color and symbol), then from the panel's tint (spec 001 FR-012).
     /// </summary>
     public static class PodPainter
     {
@@ -44,8 +44,9 @@ namespace Bloomlings.Playtest.Design
             }
 
             // A grid like the reference game's source area (spec 003 FR-022a): one column per stack, the exposed pod on
-            // top and the pods that follow it below, never overlapping, so the player sees what each choice uncovers.
-            TrayGrid grid = ScreenLayout.Tray(area, stacks, p.Scale);
+            // top and the pods that follow it below, never overlapping, so the player sees what each choice uncovers. The
+            // grid leaves room above it for the exposed pods' handles.
+            TrayGrid grid = ScreenLayout.Tray(new Box(area.Left, area.Top + p.U(HandleRoom), area.Right, area.Bottom), stacks, p.Scale);
             var linked = new Dictionary<string, List<Box>>(StringComparer.Ordinal);
 
             // Shuffle: the pods swirl in place for a moment.
@@ -60,13 +61,15 @@ namespace Bloomlings.Playtest.Design
                 IReadOnlyList<string> stack = view.Stack(st);
                 if (stack.Count == 0)
                 {
-                    Box empty = grid.Cell(st, 0);
-                    p.FillRound(empty, empty.Width * DesignTokens.Radius.Pod, C.SurfaceSunk.WithAlpha(0.6f));
+                    // An emptied stack: a sunk place on the parchment.
+                    Box empty = grid.Cell(st, 0).Inset(grid.PodSize * 0.06f);
+                    Kit.Well(p, empty, empty.Width * 0.18f, C.ParchmentWell.Mix(C.ParchmentEdge, 0.5f));
                     continue;
                 }
 
                 int shown = Math.Min(stack.Count, ScreenLayout.TrayRows);
-                for (int depth = 0; depth < shown; depth++)
+                // From the bottom row up, so the exposed pod's squash lies over the pod below it.
+                for (int depth = shown - 1; depth >= 0; depth--)
                 {
                     string id = stack[depth];
                     PodInfo pod = view.Pod(id);
@@ -81,7 +84,11 @@ namespace Bloomlings.Playtest.Design
                         p.PushTransform(0f, 0f, 0.75f + (0.25f * Kit.Ease(swirl)), box.CenterX, box.CenterY);
                     }
 
-                    Pod(p, box, pod, locked ? PodLook.Locked : pressed ? PodLook.Pressed : exposed ? PodLook.Exposed : PodLook.Next, s);
+                    // The exposed pod squashes under the finger and springs back (spec 003 FR-017).
+                    float press = exposed && !locked ? Kit.Press(p, Kit.Touch(p, box), true) : 0f;
+                    Kit.Squash(p, box, press, tile: true);
+                    Pod(p, box, pod, locked ? PodLook.Locked : pressed ? PodLook.Pressed : exposed ? PodLook.Exposed : PodLook.Next, s, handle: depth == 0);
+                    p.PopTransform();
                     if (swirl < 1f)
                     {
                         p.PopTransform();
@@ -105,100 +112,74 @@ namespace Bloomlings.Playtest.Design
                     }
                 }
 
-                // Deeper pods are not drawn; a "+N" badge on the last shown pod says how many more wait there. It sits in
-                // the bottom-left corner, clear of the pod's "xN" (spec 004 FR-008).
+                // Deeper pods are not drawn; a "+N" count badge on the last shown pod's lower left corner says how many more
+                // wait there.
                 if (stack.Count > shown)
                 {
                     Box last = grid.Cell(st, shown - 1);
-                    float h = last.Height * 0.3f;
-                    string more = "+" + (stack.Count - shown).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    Kit.CountBadge(p, last.Left + (h * 0.4f), last.Bottom - (h * 0.4f), h, more);
+                    float h = last.Height * 0.26f;
+                    string more = "+" + (stack.Count - shown).ToString(CultureInfo.InvariantCulture);
+                    Kit.CountBadge(p, last.Left + (h * 0.42f), last.Bottom - (h * 0.42f), h, more);
                 }
             }
 
-            // Connected pods: a teal link between the members' cards.
             foreach (List<Box> group in linked.Values)
             {
-                p.Mark("pod.link");
                 for (int i = 1; i < group.Count; i++)
                 {
-                    Box a = group[i - 1];
-                    Box b = group[i];
-                    float y = a.Top + (a.Height * 0.42f);
-                    p.Line(a.Right - p.U(12f), y, b.Left + p.U(12f), y, p.U(16f), Rgba.White);
-                    p.Line(a.Right - p.U(12f), y, b.Left + p.U(12f), y, p.U(10f), C.StateLink);
-                    p.FillCircle(a.Right - p.U(6f), y, p.U(12f), C.StateLink);
-                    p.FillCircle(b.Left + p.U(6f), y, p.U(12f), C.StateLink);
+                    Link(p, group[i - 1], group[i]);
                 }
             }
         }
 
-        /// <summary>One pod card in a state of frame 12.</summary>
-        public static void Pod(IPainter p, Box box, PodInfo pod, PodLook look, LevelScreen? s)
+        /// <summary>The room kept above the tray grid for the exposed pods' handles, in reference units.</summary>
+        public const float HandleRoom = 12f;
+
+        /// <summary>
+        /// One pod in a state of frame 12 (<see cref="Kit.Pod"/>): a mystery pod still hidden shows the "?" tile.
+        /// <paramref name="handle"/> puts the wooden handle on an exposed, pressed or locked pod at the top of its column.
+        /// </summary>
+        public static void Pod(IPainter p, Box box, PodInfo pod, PodLook look, LevelScreen? s, bool handle = true)
         {
-            p.Mark("pod.card");
-            float radius = box.Width * DesignTokens.Radius.Pod;
             bool hidden = pod.Mystery && !pod.Variant.HasValue;
-            if (look == PodLook.Locked)
-            {
-                p.Mark("pod.state.locked");
-                Box face = Kit.Block(p, box, C.StateLockBg, C.StateLockBg.Darken(0.2f), radius, Kit.PodLip(p, box.Height), 0.35f);
-                p.Shape("ui.lock", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.42f), face.Width * 0.46f, face.Width * 0.46f), C.StateLock.Darken(0.2f));
-                CountPill(p, face, pod.Remaining, dim: true);
-                return;
-            }
-
-            if (hidden || !pod.Variant.HasValue)
-            {
-                p.Mark("pod.state.mystery");
-                Rgba card = C.PodMystery;
-                Box face = Kit.Block(p, box, look == PodLook.Next ? card.Grey().Lighten(0.2f) : card, card.Darken(0.18f), radius, Kit.PodLip(p, box.Height), look == PodLook.Next ? 0.25f : 0.55f, look == PodLook.Pressed);
-                p.Shape("tile.mystery", Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.42f), face.Width * 0.5f, face.Width * 0.5f), look == PodLook.Next ? C.StateStuck : C.PodMysteryMark);
-                CountPill(p, face, pod.Remaining, look == PodLook.Next);
-                return;
-            }
-
-            VariantId variant = pod.Variant.Value;
-            Rgba color = Visuals.ColorOf(variant);
-            bool next = look == PodLook.Next;
-
-            // A pod still in its stack keeps its variant color, muted, so what comes next reads at a glance (FR-022a).
-            Rgba shown = next ? DesignTokens.PodQueued(color) : color;
-            Rgba tint = DesignTokens.PodCard(shown);
-            Rgba edge = DesignTokens.PodCardEdge(shown);
-            // A volumetric 2D card (spec 003 FR-022): a thick lip, a bevel and a highlight; never 3D.
-            Box f = Kit.Block(p, box, tint, edge, radius, Kit.PodLip(p, box.Height), next ? 0.25f : 0.55f, look == PodLook.Pressed);
-            // The variant's character (spec 004 FR-008): awake on an exposed pod, asleep in the stack, and "xN" in the corner.
-            Visuals.Character(p, CharacterArt.OnCard(f), variant, next ? CharacterMood.Asleep : CharacterMood.Happy);
-            Count(p, f, pod.Remaining);
+            Kit.Pod(p, box, hidden ? null : pod.Variant, pod.Remaining, look, handle);
         }
 
-        /// <summary>"xN" in the card face's bottom-right corner (spec 004 FR-008, data-model.md "PodCount").</summary>
-        public static void Count(IPainter p, Box face, int count)
+        /// <summary>
+        /// The teal link between two connected pods (<c>pod.link</c>, spec 002 FR-012): a rounded bar with a white rim
+        /// across the gap between their frames, a little above their middle, riveted to each frame.
+        /// </summary>
+        public static void Link(IPainter p, Box a, Box b)
         {
-            p.Mark("pod.count");
-            Box box = CharacterArt.CountBox(face);
-            string text = PlaytestText.F("pod.count", count);
-            float scale = box.Height * 0.9f / p.U(T.Count.Size);
-            float width = p.MeasureText(text, T.Count, scale);
-            float right = box.Right;
-            float shown = Math.Min(width, box.Width);
-            p.Text(text, right - (shown / 2f), box.CenterY, T.Count, CharacterArt.CountColor, box.Width, scale, CharacterArt.CountLook);
+            p.Mark("pod.link");
+            float size = Math.Min(a.Width, b.Width);
+            float y = a.Top + (a.Height * 0.42f);
+            float x0 = a.Right - (size * 0.08f);
+            float x1 = b.Left + (size * 0.08f);
+            float bar = size * 0.1f;
+            p.Line(x0, y + (bar * 0.25f), x1, y + (bar * 0.25f), bar + (size * 0.05f), C.GardenShadow.WithAlpha(0.25f));
+            p.Line(x0, y, x1, y, bar + (size * 0.04f), Rgba.White);
+            p.Line(x0, y, x1, y, bar, C.StateLink);
+            p.Line(x0, y - (bar * 0.18f), x1, y - (bar * 0.18f), bar * 0.3f, C.StateLink.Lighten(0.35f));
+            foreach (float x in new[] { x0, x1 })
+            {
+                p.FillCircle(x, y, bar * 0.62f, Rgba.White);
+                p.FillCircle(x, y, bar * 0.46f, C.StateLink.Darken(0.15f));
+            }
         }
 
-        /// <summary>The count in a dark pill on the card's lower edge.</summary>
-        public static void CountPill(IPainter p, Box face, int count, bool dim)
-        {
-            p.Mark("pod.count");
-            float h = face.Height * 0.26f;
-            string text = count.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            float w = Math.Max(h * 1.5f, p.MeasureText(text, T.Count, h / p.U(56f)) + (h * 0.8f));
-            Box pill = Box.FromCenter(face.CenterX, face.Bottom - (h * 0.62f), Math.Min(w, face.Width * 0.9f), h);
-            p.FillRound(pill, h / 2f, dim ? C.StateStuck : C.BadgeCount);
-            p.Text(text, pill.CenterX, pill.CenterY, T.Count, C.TextOnColor, pill.Width * 0.9f, sizeScale: h / p.U(56f));
-        }
+        /// <summary>The count in a card face's lower part (kept for callers of the spec 004 cards): the plain count below the tile.</summary>
+        public static void Count(IPainter p, Box face, int count) =>
+            Kit.CountBelow(p, new Box(face.Left, face.Bottom - (face.Height * 0.3f), face.Right, face.Bottom), count, false);
 
-        /// <summary>Committed pods flying from the tray to their slots, and returned pods flying back.</summary>
+        /// <summary>The count on a card's lower edge (kept for callers of the spec 002 cards): the plain count, softer when dimmed.</summary>
+        public static void CountPill(IPainter p, Box face, int count, bool dim) =>
+            Kit.CountBelow(p, new Box(face.Left, face.Bottom - (face.Height * 0.3f), face.Right, face.Bottom), count, dim);
+
+        /// <summary>
+        /// Committed pods flying from the tray to their slots, and returned pods flying back: the pod's variant tile (the
+        /// lilac "?" while still hidden) leaves its frame, arcs over and shrinks to the slot's tile, over a soft shadow.
+        /// </summary>
         public static void DrawFlights(IPainter p, LevelScreen s)
         {
             foreach (Flight flight in s.Animator.Flights)
@@ -213,10 +194,13 @@ namespace Bloomlings.Playtest.Design
                 float fromX = flight.FromX;
                 float fromY = flight.FromY;
                 float toX = slot.Value.CenterX;
-                float toY = slot.Value.CenterY;
+                float toY = slot.Value.Top + (slot.Value.Width * 0.39f);
+                float fromSize = s.PodBoxes.TryGetValue(flight.PodId, out Box pod) ? pod.Width * 0.56f : slot.Value.Width * 0.64f;
+                float toSize = slot.Value.Width * 0.64f;
                 if (flight.ToTray)
                 {
-                    (fromX, fromY, toX, toY) = (slot.Value.CenterX, slot.Value.CenterY, flight.FromX, flight.FromY);
+                    (fromX, fromY, toX, toY) = (toX, toY, flight.FromX, flight.FromY);
+                    (fromSize, toSize) = (toSize, fromSize);
                     if (s.PodBoxes.TryGetValue(flight.PodId, out Box target))
                     {
                         toX = target.CenterX;
@@ -229,21 +213,13 @@ namespace Bloomlings.Playtest.Design
                     continue;
                 }
 
+                float lift = (float)Math.Sin(k * Math.PI);
                 float x = fromX + ((toX - fromX) * k);
-                float y = fromY + ((toY - fromY) * k) - ((float)Math.Sin(k * Math.PI) * slot.Value.Height * 0.4f);
-                float size = slot.Value.Width * (1.05f - (0.1f * k));
+                float y = fromY + ((toY - fromY) * k) - (lift * slot.Value.Height * 0.4f);
+                float size = (fromSize + ((toSize - fromSize) * k)) * (1f + (0.12f * lift));
                 Box box = Box.FromCenter(x, y, size, size);
-                if (flight.Variant.HasValue)
-                {
-                    Rgba color = Visuals.ColorOf(flight.Variant.Value);
-                    p.FillRound(box, size * DesignTokens.Radius.Pod, DesignTokens.PodCard(color));
-                    Visuals.Character(p, CharacterArt.OnCard(box), flight.Variant.Value, CharacterMood.Happy);
-                }
-                else
-                {
-                    p.FillRound(box, size * DesignTokens.Radius.Pod, C.PodMystery);
-                    p.Shape("tile.mystery", box.Inset(size * 0.22f), C.PodMysteryMark);
-                }
+                Kit.SoftShadow(p, box.Offset(0f, size * (0.06f + (0.12f * lift))), size * 0.2f, 0.25f * (1f - (0.5f * lift)));
+                Kit.CandyTile(p, box, flight.Variant, TileStyle.Sticker);
             }
         }
     }

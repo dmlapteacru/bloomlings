@@ -468,6 +468,82 @@ namespace Bloomlings.Playtest.Design
 
         // ---- Drawing ----
 
+        /// <summary>The level sign's width in top bar heights (the reference's plank is about 2.9 Pause buttons wide).</summary>
+        public const float SignWidth = 2.9f;
+
+        /// <summary>The level sign's height in top bar heights.</summary>
+        public const float SignHeight = 0.9f;
+
+        /// <summary>The speed pill's width in top bar heights.</summary>
+        public const float SpeedWidth = 1.5f;
+
+        /// <summary>
+        /// The tray's parchment (spec 005 FR-012, §4.1), as in the reference: a frame from just below the board to past the
+        /// bottom of the screen, holding one parchment band for the Waiting Slots, one for the Source Tray and one for the
+        /// booster bar, parted by grooves in the gaps between the regions.
+        /// </summary>
+        public static void TrayBoard(IPainter p, GameplayRegions r, bool hasBoosters)
+        {
+            float side = p.U(8f);
+            float margin = p.U(7f);
+            float groove = p.U(8f) / 2f;
+            var board = new Box(r.Safe.Left + side, r.Slots.Top - p.U(14f), r.Safe.Right - side, p.Height + p.U(80f));
+            TrayFrame(p, board, p.U(40f));
+            float left = board.Left + margin;
+            float right = board.Right - margin;
+            float seam = r.Slots.Bottom + ((r.Tray.Top - r.Slots.Bottom) * 0.3f);
+            TrayBand(p, new Box(left, board.Top + margin, right, seam - groove), p.U(34f));
+            if (!hasBoosters)
+            {
+                TrayBand(p, new Box(left, seam + groove, right, board.Bottom), p.U(22f));
+                return;
+            }
+
+            float seam2 = r.Tray.Bottom + ((r.Boosters.Top - r.Tray.Bottom) * 0.5f);
+            TrayBand(p, new Box(left, seam + groove, right, seam2 - groove), p.U(22f));
+            TrayBand(p, new Box(left, seam2 + groove, right, board.Bottom), p.U(22f));
+        }
+
+        /// <summary>
+        /// The tray's frame (<c>mat.parchment</c>): the deep parchment seen in the grooves between its bands, a dark
+        /// <c>parchment.line</c> outline and a soft halo on the lawn.
+        /// </summary>
+        public static void TrayFrame(IPainter p, Box box, float radius)
+        {
+            p.Mark("mat.parchment");
+            float r = Math.Min(radius, box.Height / 2f);
+            float line = p.U(4f);
+            p.FillRound(box.Inset(-p.U(9f)), r + p.U(9f), C.GardenShadow.WithAlpha(0.06f));
+            p.FillRound(box.Inset(-p.U(4f)), r + p.U(4f), C.GardenShadow.WithAlpha(0.12f));
+            p.FillRound(box, r, C.ParchmentEdge.Mix(C.ParchmentLine, 0.45f));
+            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.ParchmentLine.Darken(0.22f));
+        }
+
+        /// <summary>
+        /// One band of the tray's parchment (<c>mat.parchment</c>): a board a little deeper than a card's parchment, so the
+        /// cream plates and tiles stand out on it as in the reference (<c>parchment.well</c> with light wood at the top,
+        /// with <c>parchment.edge</c> at the bottom), its edges aged darker in fine steps, a light bevel along its top and
+        /// a thin <c>parchment.line</c> outline.
+        /// </summary>
+        public static void TrayBand(IPainter p, Box box, float radius)
+        {
+            p.Mark("mat.parchment");
+            float r = Math.Min(radius, box.Height / 2f);
+            p.FillRoundGradient(box, r, C.ParchmentWell.Mix(C.WoodLight, 0.55f), C.ParchmentEdge.Mix(C.ParchmentWell, 0.4f));
+            float step = p.U(2.5f);
+            for (int k = 0; k < 10; k++)
+            {
+                float inset = step * k;
+                p.StrokeRound(box.Inset(inset), Math.Max(0f, r - inset), step * 1.6f, C.ParchmentLine.WithAlpha(0.15f * (1f - (k / 10f))));
+            }
+
+            // The light bevel along the top edge and round its upper corners.
+            p.PushClip(new Box(box.Left, box.Top, box.Right, box.Top + r + p.U(6f)));
+            p.StrokeRound(box.Inset(p.U(3f)), Math.Max(0f, r - p.U(3f)), p.U(3f), C.ParchmentTop.WithAlpha(0.8f));
+            p.PopClip();
+            p.StrokeRound(box.Inset(p.U(1f)), Math.Max(0f, r - p.U(1f)), p.U(2f), C.ParchmentLine.WithAlpha(0.55f));
+        }
+
         public void Draw(IPainter p)
         {
             LevelView view = Session.View;
@@ -486,21 +562,24 @@ namespace Bloomlings.Playtest.Design
             GameplayRegions r = ScreenLayout.Gameplay(p.Width, p.Height, p.Insets, badge.HasValue, hasBoosters);
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, Level);
 
-            // Top bar: round Pause, the level pill, the 2× pill (frame 7).
+            // Top bar (frame 7, spec 005 §3.3, §4.1): the cream Pause squircle, the level on a wide wooden sign with ivy,
+            // and the cream speed pill, sized like the reference's.
             float bar = r.TopBar.Height;
-            Kit.RoundButton(p, r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, "ui.pause", () => _app.OpenOverlay(Overlay.Pause));
+            Kit.RoundButton(p, r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, "ui.pause", () => _app.OpenOverlay(Overlay.Pause), squircle: true);
             p.Mark("ui.pause");
-            Box pill = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(p.U(420f), r.TopBar.Width - (bar * 3.4f)), bar * 0.82f);
-            Kit.LevelPill(p, pill, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
-            // The speed pill is as tall as Pause (spec 005 §4.1), a little wider.
-            Box speed = new Box(r.TopBar.Right - (bar * 1.4f), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
-            Kit.DarkPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
+            Box sign = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(bar * SignWidth, r.TopBar.Width - (bar * 4f)), bar * SignHeight);
+            Kit.LevelPill(p, sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
+            // The speed pill is as tall as Pause and half as wide again.
+            var speed = new Box(r.TopBar.Right - (bar * SpeedWidth), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
+            Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
             if (badge.HasValue)
             {
+                // HARD or SUPER HARD hangs from the sign's lower edge.
                 Kit.Badge(p, r.Badge.Inset(0f, p.U(2f)).Offset(0f, -p.U(10f)), badge.Value.Text, badge.Value.Color, badge.Value.Slot);
             }
 
             BoardPainter.Draw(p, r.Board, this);
+            TrayBoard(p, r, hasBoosters);
             SlotPainter.DrawRow(p, r.Slots, this);
             PodPainter.DrawTray(p, r.Tray, this);
             if (hasBoosters)
