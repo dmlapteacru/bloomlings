@@ -32,9 +32,9 @@ How to read the columns:
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 12 | 0 | 12 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 13 | 0 | 13 |
-| Booster icons | 10 | 0 | 10 |
-| UI kit | 49 | 0 | 49 |
+| Pods and slots | 14 | 0 | 14 |
+| Booster icons | 11 | 0 | 11 |
+| UI kit | 54 | 0 | 54 |
 | Materials | 4 | 0 | 4 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **167** | **23** | **190** |
+| **All** | **174** | **23** | **197** |
 
 ## Brand
 
@@ -56,10 +56,10 @@ How to read the columns:
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `bg.theme.daylight_garden` | Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop in theme tints until `Backgrounds/gameplay-daylight.png` exists (spec 005 pictures.md B2) |
-| `bg.theme.pond` | Gameplay backdrop: Pond (from L100) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, pond tint, until `Backgrounds/gameplay-pond.png` exists (pictures.md B3) |
-| `bg.theme.orchard` | Gameplay backdrop: Orchard (from L150) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, orchard tint, until `Backgrounds/gameplay-orchard.png` exists (pictures.md B4) |
-| `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, moonlit tint, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5) |
+| `bg.theme.daylight_garden` | Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn (spec 005 §4.2: grass patches and fine blades, small five-petal flowers, darker leafy clumps along the edges, a soft vignette) in fresh green until `Backgrounds/gameplay-daylight.png` exists (spec 005 pictures.md B2) |
+| `bg.theme.pond` | Gameplay backdrop: Pond (from L100) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn tilted toward teal by the pond theme until `Backgrounds/gameplay-pond.png` exists (pictures.md B3) |
+| `bg.theme.orchard` | Gameplay backdrop: Orchard (from L150) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn tilted warm by the orchard theme until `Backgrounds/gameplay-orchard.png` exists (pictures.md B4) |
+| `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn, dusky and blue-green for the moonlit theme, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5) |
 | `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6) |
 
@@ -117,18 +117,18 @@ the fallback when a picture is missing.
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `tile.base` | Board tile (raised, rounded, in the variant color) | 7, 8, 9 | Board | normal; target (breathing); counted; clearing | Small | yes | Launch | rounded rectangle with lighter top and darker edge |
-| `tile.layer_peek` | Layered tile: the next layer peeking | 7, 8, 9 | Board | 2 layers; 3 layers | Small | yes | Launch | a strip of the next layer's color and symbol |
+| `tile.base` | Board tile (a target cell's top layer) | 7, 8, 9 | Board | normal; mystery; clearing (shrinks and fades) | Small | yes | Launch | the candy tile `tile.candy` (board style) nearly filling its cell, parted from its neighbors by the dark board gap |
+| `tile.layer_peek` | Layered tile: the next layer peeking | 7, 8, 9 | Board | 2 layers; 3 layers | Small | yes | Launch | a small candy tile of the next layer in a cream ring with a dark rim, in the tile's top-right corner |
 | `tile.mystery` | Mystery tile and mystery pod mark (?) | 9, 12 | Board; pods; slots | hidden; revealing | Small | yes | Launch | shape `tile.mystery` |
-| `tile.stone` | Stone blocker | 9 | Board | whole; cracking | Small | yes | Launch | shape `tile.stone` |
-| `tile.key` | Key | 9 | Board; flights to locks | on tile; flying | Icon | yes | Launch | shape `tile.key` |
-| `tile.ground` | Open ground (restored or empty cell) | 7, 8, 9 | Board | empty; restored | Small | yes | Launch | flat rounded cell in the ground token |
-| `tile.entry` | Garden Entry marker (where Bloomlings come in) | 7, 8, 9 | Board | idle; active | Small | yes | Launch | a ring in the entry color |
+| `tile.stone` | Stone blocker: the rock glyph carved into a raised sandy stone block (`mat.stone`) | 7, 9 | Board | whole; cracking | Small | yes | Launch | shape `tile.stone` |
+| `tile.key` | Key (gold, on a cream disc in the tile's top-left corner) | 9 | Board; flights to locks | on tile; flying | Icon | yes | Launch | shape `tile.key` |
+| `tile.ground` | Open ground (restored or empty cell) | 7, 8, 9 | Board | empty; restored | Small | yes | Launch | pale flat cell of the finished picture (its variant color lightened), small radius, faint inner shadow |
+| `tile.entry` | Garden Entry (where Bloomlings come in) | 7, 8, 9 | Board | bottom; left; right; top; several per level | Small | yes | Launch | the stone arch `board.arch` beyond the border on the entry's side, sized to the room the layout leaves; the walkers appear in its opening |
 | `tile.candy` | Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a small raised bead | 7, 8, 9 | Board; demos | normal; pressed; dimmed; grey; mystery | Small | yes | Launch | UiRaster.Tile picture (board style) |
 | `tile.candy.sticker` | Candy tile, sticker style: a detailed symbol with a dark outline in its own tone | 7, 10, 12, 13 | Pods; slots; jam sheet; Collection | normal; dimmed (queued); grey (stuck); mystery | Small | yes | Launch | UiRaster.Tile picture (sticker style) |
 | `board.border.stone` | Stone border around the board | 7, 8, 9 | Board; win picture | normal; thin (win) | Large | yes | Launch | UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles |
 | `board.arch` | Garden Entry stone arch | 7, 8, 9 | Board | bottom; left; right; top | Small | yes | Launch | UiRaster.Arch picture: a big half ring of nine sandy stone blocks around an opening that shows the lawn |
-| `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells in light variant colors |
+| `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells as flat full-color candy tiles (`tile.candy`, no lip) of each role's variant in a thin stone border (spec 005 D14) |
 
 ## Specials
 
@@ -146,19 +146,20 @@ the fallback when a picture is missing.
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `pod.card` | Spirit Pod card | 7, 8, 9, 12 | Tray; flights | exposed; next in stack; pressed; working | Small | yes | Launch | rounded card in the variant tint with the family body, symbol and count pill |
-| `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | grey card with a padlock |
-| `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | pink card with ? and its count |
-| `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar joining the cards |
-| `pod.count` | Pod count pill | 7, 12, 13 | Pods; slots | normal; dropping | Icon | yes | Launch | dark pill with the count |
-| `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | soft sunk tile |
-| `slot.state.working` | Working pod in a slot | 13 | Slots | working; finishing | Small | yes | Launch | bright pod card |
-| `slot.state.stuck` | Stuck (waiting) pod in a slot | 13 | Slots | stuck | Small | yes | Launch | greyed pod card with the hourglass |
+| `pod.card` | Spirit Pod (spec 005 §3.7) | 7, 8, 9, 12 | Tray | exposed (with its handle); next in stack (dimmed); pressed (sunk) | Small | yes | Launch | a dark wooden frame (`mat.wood.dark`) around a cream panel tinted by the variant, the variant's sticker tile (`tile.candy.sticker`) and the plain count below it; a short wooden handle on an exposed pod |
+| `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | the wooden frame around a grey panel with a padlock and the softer count |
+| `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
+| `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame |
+| `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | plain brown digits below the tile, no "x" |
+| `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline |
+| `slot.state.working` | Working pod in a slot | 13 | Slots | working; finishing | Small | yes | Launch | a raised cream plate with the variant's sticker tile and the plain count below it |
+| `slot.state.stuck` | Stuck (waiting) pod in a slot | 13 | Slots | stuck | Small | yes | Launch | the raised cream plate with the tile in grey, a softer count and the hourglass badge |
 | `slot.state.waiting` | Waiting mark (hourglass) | 13 | Slots | waiting | Icon | yes | Launch | shape `slot.state.waiting` |
 | `slot.state.jam_risk` | Jam-risk mark (!) | 13 | Slots | risk | Icon | yes | Launch | shape `slot.state.jam_risk` |
-| `slot.state.locked` | Locked slot | 13 | Slots | locked; opening | Small | yes | Launch | grey tile with a padlock |
+| `slot.state.locked` | Locked slot | 13 | Slots | locked; opening | Small | yes | Launch | a grey raised plate with a padlock |
 | `slot.state.danger` | Danger slot frame (the last free usable slot) | 13 | Slots | danger (4/5 used) | Small | yes | Launch | shape `slot.state.danger` |
-| `slot.extra` | Extra slot (from the Extra Slot booster) | 13 | Slots | added | Small | yes | Launch | slot with a green plus corner |
+| `slot.extra` | Extra slot (from the Extra Slot booster) | 13 | Slots | added | Small | yes | Launch | a plate with a green "+" badge over its upper left corner |
+| `slot.state.target` | Return target (a pod Return can take back) | 13 | Slots | targeting | Small | yes | Launch | the selected booster's pulsing golden glow and ring around the plate |
 
 ## Booster icons
 
@@ -174,6 +175,7 @@ the fallback when a picture is missing.
 | `booster.shuffle.b` | Booster icon part: Shuffle's green arrow | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.shuffle.b` |
 | `booster.bloom_burst.petals` | Booster icon part: Bloom Burst's pink petals | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.bloom_burst.petals` |
 | `booster.bloom_burst.center` | Booster icon part: Bloom Burst's yellow center | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.bloom_burst.center` |
+| `booster.tile` | Booster tile (spec 005 §3.7) | 7, 8, 9, 14 | Booster bar | charges; price; selected; disabled; pressed | Small | no | Launch | a cream squircle face set in a silver-grey bezel with a deeper grey lip, a light edge and a soft shadow; the count badge over its lower right corner or the cost pill below it |
 
 ## UI kit
 
@@ -197,18 +199,21 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
 | `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim |
-| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | parchment sheet with a grip and a brown title, rising and settling with a bounce |
+| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | parchment sheet with a grip, a brown title and a soft brown subtitle (two lines when long), rising and settling with a bounce |
 | `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | cream rounded panel with a cream outline; the own row raised and green-tinted |
 | `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: glossy green raised pill on a plate; others: parchment wells |
-| `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | chunky outlined track with a raised knob |
+| `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | a track pressed into the parchment (on: the glossy green face with a white check; off: a parchment well) and a domed cream knob |
 | `ui.sign.wood` | Wooden sign (level label, win and banner titles, Home level plaque) | 2, 3, 7, 15, 17 | Gameplay top bar; win; Home; Store; Wardrobe | plain; ivy; flowers; super hard letters | Medium | no | Launch | UiRaster.Plank (light wood) with brown embossed letters and a soft shadow |
 | `ui.sign.ivy` | Ivy cluster over a sign's ends (clovers with pointed leaflets, at the top and bottom corners) | 7, 17 | Gameplay level sign; Store and Wardrobe banners; wordmark | left; right (mirrored) | Small | no | Launch | shape `ui.sign.ivy` |
-| `ui.sign.flowers` | Flower clusters on the win sign | 15 | Win sign | top-left; bottom-right (turned) | Small | no | Launch | lush clusters of five big leaves with veins and two white flowers at two corners (`ui.deco.garden`) |
+| `ui.sign.flowers` | Flower clusters on the win and milestone signs | 15, 16 | Win sign; milestone sign | top-left; bottom-right (turned) | Small | no | Launch | lush clusters of five big leaves with veins and two white flowers at two corners (`ui.deco.garden`) |
 | `ui.button.rim` | Light wood rim of the main buttons | 2, 3, 10, 11, 15, 16 | PLAY; NEXT; RESUME; CLAIM; CONTINUE; Free rescue | normal; pressed | Medium | no | Launch | UiRaster.Plank (pale wood, only a thin deeper bottom band) behind the green face |
 | `ui.button.choice` | Jam choice button (icon above the label, cost pill below) | 10 | Jam sheet | green; blue; pressed; disabled | Medium | no | Launch | glossy green or blue rounded rectangle with the booster icon, a white outlined label and a cost pill |
 | `ui.pill.cost` | Cost pill (lotus and price, Free, ×N) | 10, 14, 17 | Jam choices; booster tiles; Store | price; free; charges | Small | no | Launch | cream pill with a cream outline: the lotus and a brown price, a green ▶ square and Free, or ×N |
 | `ui.pedestal` | Stone pedestal under the heroes | 2, 3, 15, 16 | Win; milestone; Home; Wardrobe | normal | Medium | no | Launch | UiRaster.Pedestal picture: an ellipse-topped stone drum with joints and moss |
 | `ui.logo.wood` | Wooden wordmark letters (the stand-in for the owner's logo) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower |
+| `ui.tab.family` | Family tab (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | selected (lighter, joined to the panel); unselected | Small | no | Launch | cream tab with rounded top corners holding the family's 3D hero and its name; the selected one lighter and flowing into the panel below |
+| `ui.card.outfit` | Outfit card (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | normal; worn; for sale (cost pill) | Small | no | Launch | cream card with a beige picture well showing the hero in the item and the name below; the worn one green-tinted with a green border and a check badge |
+| `ui.fountain` | Lotus fountain of the drawn Home stage (the stand-in for the owner's Home diorama) | 1, 2 | Splash; Home (early) | normal | Medium | no | Launch | a small stone basin (`ui.pedestal`) with water, two lily pads and the pink lotus, between the heroes on the stone pedestal |
 | `ui.close` | Close glyph | 4, 5, 6, 11 | Cards | normal | Icon | no | Launch | shape `ui.close` |
 | `ui.pause` | Pause glyph | 7, 8, 9 | Gameplay top bar | normal | Icon | no | Launch | shape `ui.pause` |
 | `ui.restart` | Restart glyph | 10, 11 | Pause card; jam sheet | normal | Icon | no | Launch | shape `ui.restart` |
@@ -233,6 +238,8 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.star2` | Double star (Super Hard label, marker) | 9 | Difficulty intro; markers | normal | Icon | no | Launch | shape `ui.star2` |
 | `ui.cross` | Ignore mark (a pod ignores another variant) | — | Variant demo (spec 001 FR-071) | normal | Icon | no | Launch | shape `ui.cross` |
 | `ui.pointer` | Tutorial pointing hand | — | Demos | tap; hold | Small | no | Launch | shape `ui.pointer` |
+| `ui.jam.slots` | Jam sheet: the inset row of the Waiting Slots' contents | 10 | Jam sheet | jammed (all full); stuck (free and locked slots too) | Medium | no | Launch | a sunk parchment well with each slot's sticker tile (`tile.candy.sticker`) and its brown count; free slots as small dashed plates, locked ones with the padlock |
+| `ui.pill.reward` | Reward pill (win, milestone) | 15, 16 | Win; milestone | counting up; steady | Small | no | Launch | the cream cost pill (`ui.pill.cost`), bigger, with the lotus and "+N" counting up; on the milestone each reward on a cream tile with its amount in the pill |
 
 ## Materials
 
