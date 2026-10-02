@@ -83,14 +83,23 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A family's 3D hero (meta screens only, FR-016 and FR-017) in its outfit: the skin masked by the picture, the
-        /// hat on top, and a worn expression over the blank face. Without the pictures it draws the family body.
+        /// A family's 3D hero (meta screens only, FR-016 and FR-017) in its outfit: the skin masked by the picture in the
+        /// skin's tint, the hat on top, and a worn expression over the blank face when the blank twin is the same character
+        /// (<see cref="CharacterArt.HasMatchingBlank"/>), else as a badge beside the face. Without the pictures it draws the
+        /// family body.
         /// </summary>
         public static void Hero(IPainter p, Box box, Family family, Outfit? outfit)
         {
             p.Mark(CharacterArt.HeroSlot(family));
             bool expression = outfit?.Expression != null;
-            string name = CharacterArt.Hero(family, blank: expression);
+            bool blank = expression && CharacterArt.HasMatchingBlank(family);
+            string name = CharacterArt.Hero(family, blank: blank);
+            if (blank && !p.HasSprite(name))
+            {
+                blank = false;
+                name = CharacterArt.Hero(family);
+            }
+
             if (!p.HasSprite(name))
             {
                 p.Mark(ShapeLibrary.SilhouetteId(family));
@@ -108,20 +117,34 @@ namespace Bloomlings.Playtest.Design
             if (outfit?.Skin != null)
             {
                 p.Mark(ShapeLibrary.CosmeticId(outfit.Skin.Shape));
-                p.SpriteSkin(name, picture, outfit.Skin.Shape, Rgba.White.WithAlpha(CosmeticCatalog.SkinOpacity));
+                p.SpriteSkin(name, picture, outfit.Skin.Shape, Tint(outfit.Skin).WithAlpha(CosmeticCatalog.SkinOpacity));
             }
 
             if (outfit?.Expression != null)
             {
-                (float x, float y) = CharacterArt.FaceCenterHero(family);
-                p.Shape(ShapeLibrary.CosmeticId(outfit.Expression.Shape), CharacterArt.ExpressionBox(picture, (x, y)), C.TextPrimary);
+                string glyph = ShapeLibrary.CosmeticId(outfit.Expression.Shape);
+                if (blank)
+                {
+                    (float x, float y) = CharacterArt.FaceCenterHero(family);
+                    p.Shape(glyph, CharacterArt.ExpressionBox(picture, (x, y)), C.TextPrimary);
+                }
+                else
+                {
+                    // The hero keeps its drawn face; the expression shows on a cream badge beside it (pictures.md A5).
+                    Box badge = CharacterArt.ExpressionBadge(picture);
+                    float line = Math.Max(1f, badge.Width * 0.06f);
+                    p.FillCircle(badge.CenterX, badge.CenterY + (line * 0.6f), badge.Width / 2f, C.InkBrown.WithAlpha(0.25f));
+                    p.FillCircle(badge.CenterX, badge.CenterY, badge.Width / 2f, C.CreamTop);
+                    p.StrokeCircle(badge.CenterX, badge.CenterY, (badge.Width / 2f) - (line / 2f), line, C.CreamLine);
+                    p.Shape(glyph, Box.FromCenter(badge.CenterX, badge.CenterY, badge.Width * 0.7f, badge.Width * 0.47f), C.InkBrown);
+                }
             }
 
             if (outfit?.Hat != null)
             {
                 // The hat sits on the head in full color: a darker outline of its own tint, the fill, a light top-left.
                 string hat = ShapeLibrary.CosmeticId(outfit.Hat.Shape);
-                Box hatBox = CharacterArt.HatOnHero(picture, family);
+                Box hatBox = CharacterArt.HatOnHero(picture, family, outfit.Hat.Shape);
                 Rgba tint = Tint(outfit.Hat);
                 if (ShapeLibrary.Has(hat))
                 {
@@ -171,10 +194,11 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// An owner background (spec 005 pictures.md B, <see cref="OwnerPictures"/>) cover-fitted into
-        /// <paramref name="box"/> and clipped to it, or <paramref name="fallback"/> (the code-drawn backdrop) while the
-        /// picture is missing. Callers mark the background's slot.
+        /// <paramref name="box"/> (or placed by <paramref name="place"/> from the picture's size, as the win's
+        /// <see cref="OwnerPictures.TopAnchored"/>) and clipped to it, or <paramref name="fallback"/> (the code-drawn
+        /// backdrop) while the picture is missing. Callers mark the background's slot.
         /// </summary>
-        public static void Background(IPainter p, Box box, string picture, Action fallback)
+        public static void Background(IPainter p, Box box, string picture, Action fallback, Func<int, int, Box>? place = null)
         {
             string name = PainterBase.BackgroundPrefix + picture;
             (int Width, int Height)? size = p.HasSprite(name) ? p.SpriteSize(name) : null;
@@ -185,8 +209,10 @@ namespace Bloomlings.Playtest.Design
             }
 
             float scale = Math.Max(box.Width / size.Value.Width, box.Height / size.Value.Height);
+            Box at = place?.Invoke(size.Value.Width, size.Value.Height)
+                ?? Box.FromCenter(box.CenterX, box.CenterY, size.Value.Width * scale, size.Value.Height * scale);
             p.PushClip(box);
-            p.Sprite(name, Box.FromCenter(box.CenterX, box.CenterY, size.Value.Width * scale, size.Value.Height * scale));
+            p.Sprite(name, at);
             p.PopClip();
         }
 

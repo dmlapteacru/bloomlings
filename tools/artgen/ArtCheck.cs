@@ -117,10 +117,21 @@ namespace Bloomlings.ArtGen
             {
                 string hero = CharacterArt.Hero(family);
                 string blank = CharacterArt.Hero(family, blank: true);
+                // The kit's lists of owner heroes and blanks decide whether a worn expression may swap a hero for its blank.
+                if (owner.Contains(hero) != CharacterArt.OwnerHeroes.Contains(family))
+                {
+                    problems.Add($"CharacterArt.OwnerHeroes {(owner.Contains(hero) ? "misses" : "lists")} {family}, but {hero}.png is {(owner.Contains(hero) ? "the owner's" : "generated")}");
+                }
+
+                if (owner.Contains(blank) != CharacterArt.OwnerBlanks.Contains(family))
+                {
+                    problems.Add($"CharacterArt.OwnerBlanks {(owner.Contains(blank) ? "misses" : "lists")} {family}, but {blank}.png is {(owner.Contains(blank) ? "the owner's" : "generated")}");
+                }
+
                 if (owner.Contains(hero) != owner.Contains(blank))
                 {
                     (string theirs, string generated) = owner.Contains(hero) ? (hero, blank) : (blank, hero);
-                    notes.Add($"{theirs}.png is the owner's but {generated}.png is generated: the Wardrobe shows the generated one under a worn expression (pictures.md A5)");
+                    notes.Add($"{theirs}.png is the owner's but {generated}.png is generated: a worn expression shows as a badge beside the hero until the owner's blank twin exists (pictures.md A5)");
                 }
 
                 if (owner.Contains(hero))

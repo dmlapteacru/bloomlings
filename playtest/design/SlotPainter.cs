@@ -83,16 +83,11 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Where a working plate filling <paramref name="plate"/> holds its tile (<see cref="Kit.SlotPlate"/>: the face above
-        /// the lip, the tile of <see cref="Kit.SlotTileSize"/> 10% of the face below its top): flights land there.
+        /// Where a working plate filling <paramref name="plate"/> holds its tile (<see cref="Kit.SlotPlate"/>,
+        /// <see cref="ReferenceGameplayRegions.SlotTile"/>: the tile of <see cref="Kit.SlotTileSize"/> 8% of the face below
+        /// its top): flights land there.
         /// </summary>
-        public static Box TileBox(Box plate)
-        {
-            float lip = Math.Min(plate.Width, plate.Height) * 0.055f;
-            var face = new Box(plate.Left, plate.Top, plate.Right, plate.Bottom - lip);
-            float tile = Kit.SlotTileSize(plate);
-            return Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.1f) + (tile / 2f), tile, tile);
-        }
+        public static Box TileBox(Box plate) => ReferenceGameplayRegions.SlotTile(plate);
 
         /// <summary>How far the pod shown in a slot has flown in from the tray (0–1; 1 when it is not flying).</summary>
         private static float Arrival(LevelScreen s, int slot, SlotLook look)

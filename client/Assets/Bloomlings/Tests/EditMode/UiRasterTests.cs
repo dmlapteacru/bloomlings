@@ -141,6 +141,18 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void Vivid_PushesAColorAwayFromItsGrey_AndKeepsGreysAndAlpha()
+        {
+            Rgba grey = Rgba.FromHex("#808080");
+            Assert.That(UiRaster.Vivid(grey, 1.6f), Is.EqualTo(grey));
+            Assert.That(UiRaster.Vivid(Rgba.FromHex("#55C7FB"), 1f), Is.EqualTo(Rgba.FromHex("#55C7FB")));
+            Rgba sky = UiRaster.Vivid(Rgba.FromHex("#55C7FB"), 1.6f);
+            Assert.That(sky.B, Is.EqualTo(255), "blue clamps at full");
+            Assert.That(sky.R, Is.LessThan(0x55), "red falls away from the grey");
+            Assert.That(UiRaster.Vivid(new Rgba(200, 40, 40, 128), 1.4f).A, Is.EqualTo(128));
+        }
+
+        [Test]
         public void ThePedestal_IsAStoneDrum_LighterOnTopThanOnItsSide()
         {
             const int w = 240;

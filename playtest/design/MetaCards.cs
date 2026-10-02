@@ -283,9 +283,11 @@ namespace Bloomlings.Playtest.Design
                 Kit.Row(p, line, false);
                 p.PushAlpha(unlocked ? 1f : 0.45f);
                 Box tile = ItemTile(p, line);
-                Kit.BoosterIcon(p, id, Box.FromCenter(tile.CenterX, tile.CenterY, tile.Width * 0.66f, tile.Width * 0.66f), grey: !unlocked);
-                float badge = tile.Width * 0.38f;
-                Kit.CountBadge(p, tile.Right - (badge * 0.1f), tile.Bottom - (badge * 0.1f), badge, app.Meta.Economy.Charges(kind).ToString(CultureInfo.InvariantCulture));
+                // The icon in the booster tile's 74% box (about two thirds of the tile, as the reference's), the count
+                // badge small on its lower right corner.
+                Kit.BoosterIcon(p, id, Box.FromCenter(tile.CenterX, tile.CenterY, tile.Width * 0.74f, tile.Width * 0.74f), grey: !unlocked);
+                float badge = tile.Width * 0.3f;
+                Kit.CountBadge(p, tile.Right - (badge * 0.2f), tile.Bottom - (badge * 0.2f), badge, app.Meta.Economy.Charges(kind).ToString(CultureInfo.InvariantCulture));
                 p.TextLeft(EndCards.BoosterName(kind), line.Left + p.U(150f), line.CenterY, T.ButtonSecondary, C.InkBrown, line.Width * 0.42f, 0.86f, TextLook.Plain(C.InkBrown));
                 p.PopAlpha();
                 Price(p, line, app.Meta.Economy.Price(kind), unlocked ? () =>
@@ -310,10 +312,13 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>A Shop row's item tile at its left end: the booster tile's cream squircle (§3.7). Returns its box.</summary>
+        /// <summary>
+        /// A Shop row's item tile at its left end: the booster tile's cream squircle (§3.7), 0.9 of the row tall and at most
+        /// 0.12 of the screen wide. Returns its box.
+        /// </summary>
         private static Box ItemTile(IPainter p, Box line)
         {
-            float size = line.Height * 0.76f;
+            float size = Math.Min(line.Height * 0.9f, Math.Min(p.Width, p.Height) * 0.12f);
             Box box = Box.FromCenter(line.Left + p.U(22f) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
             var set = new ColorSet("set.cream.booster_tile", C.CreamFace, GardenLook.BoosterRim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
             Kit.IconFace(p, box, set, size * 0.26f, 0f);

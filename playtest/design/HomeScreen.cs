@@ -18,16 +18,16 @@ namespace Bloomlings.Playtest.Design
         public static void Draw(IPainter p, DesignApp app)
         {
             DesignApp.DrawBackdrop(p, BackdropScene.Splash, 1);
-            ReferenceHomeRegions r = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p));
+            ReferenceHomeRegions r = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets);
             float appear = Kit.Ease(app.Now / 0.5f);
             p.PushAlpha(appear);
-            HomeScreen.Wordmark(p, r.Logo);
+            HomeScreen.Wordmark(p, r);
             p.PopAlpha();
 
-            // The four families as 3D heroes on their stone (spec 004 FR-017), rising in with the wordmark.
+            // The four families as 3D heroes around the fountain (spec 004 FR-017), rising in with the wordmark.
             p.PushAlpha(appear);
             p.PushTransform(0f, (1f - appear) * r.W * 0.04f, 1f, 0f, 0f);
-            HomeScreen.Stage(p, r.Diorama, BackdropScene.Splash, guest: false);
+            HomeScreen.Stage(p, r, BackdropScene.Splash, guest: false);
             p.PopTransform();
 
             // Three lotus buds pulsing in turn where Play will be, while the game loads.
@@ -61,14 +61,12 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static class HomeScreen
     {
-        /// <summary>The size of Play's label as a share of its button's height (the reference's big "PLAY").</summary>
-        private const float PlayLabelShare = 0.5f;
-
         /// <summary>
-        /// The height the playtest's dev row keeps at the bottom of the safe area: one touch target and a small gap. Home's
-        /// layout leaves it out (<see cref="ScreenLayout.ReferenceHome"/>'s <c>bottomReserve</c>), and so does the splash.
+        /// The height the playtest's dev row keeps out of Home's layout (<see cref="ScreenLayout.ReferenceHome"/>'s
+        /// <c>bottomReserve</c>): none. The row lies small and faded over the garden under the teaser, so the plaque, Play
+        /// and the teaser stand where the reference has them (64%, 73.5% and 89.5% of the height).
         /// </summary>
-        public static float DevReserve(IPainter p) => p.U(DesignTokens.Size.TouchMin) * 1.12f;
+        public static float DevReserve(IPainter p) => 0f;
 
         public static void Draw(IPainter p, DesignApp app)
         {
@@ -81,13 +79,13 @@ namespace Bloomlings.Playtest.Design
 
             // The logo across the top and the diorama: the four heroes around the lotus fountain, in their outfits once
             // the Wardrobe is open.
-            Wordmark(p, r.Logo);
+            Wordmark(p, r);
             if (look.Hero)
             {
                 p.Mark("char.hero.home");
             }
 
-            Stage(p, r.Diorama, BackdropScene.Home, guest: true, look.Wardrobe ? meta.Wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
+            Stage(p, r, BackdropScene.Home, guest: true, look.Wardrobe ? meta.Wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
 
             // A few pink petals drifting through the garden, as on the reference's Home (Home redraws for Play's breath).
             Kit.FallingPetals(p, new Box(r.Safe.Left, r.Logo.Bottom, r.Safe.Right, r.Plaque.Top), app.Now);
@@ -102,15 +100,18 @@ namespace Bloomlings.Playtest.Design
             // The level on its wooden plaque, Play, the milestone teaser.
             Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(level)), T.LevelHome);
             bool available = app.Content.LevelCount > 0;
-            TypeStyle play = T.ButtonLarge with { Size = Math.Max(T.ButtonLarge.Size, r.Play.Height * PlayLabelShare / p.Scale) };
-            Kit.PrimaryButton(p, r.Play, PlaytestText.T("common.play"), available ? app.StartLevel : (Action?)null, play, decorate: true, playArrow: true, breathe: app.Overlays.Count == 0);
+            TypeStyle play = T.ButtonLarge with { Size = Math.Max(T.ButtonLarge.Size, r.Play.Height * ReferenceHomeRegions.PlayLabelShare / p.Scale) };
+            Kit.PrimaryButton(p, r.Play, PlaytestText.T("common.play"), available ? app.StartLevel : (Action?)null, play, decorate: true, playArrow: false, breathe: app.Overlays.Count == 0);
             if (look.Teaser && next.HasValue)
             {
                 string teaser = next.Value.WinsToGo == 1 ? PlaytestText.T("home.level_to_reward") : PlaytestText.F("home.levels_to_reward", next.Value.WinsToGo);
                 Teaser(p, r.Teaser, teaser);
             }
 
+            // The playtest's own controls, faded at the very bottom under the teaser (not part of the product).
+            p.PushAlpha(0.7f);
             DevRow(p, app, new Box(r.Safe.Left + (r.W * 0.04f), r.Safe.Bottom - p.U(DesignTokens.Size.TouchMin), r.Safe.Right - (r.W * 0.04f), r.Safe.Bottom));
+            p.PopAlpha();
 
             string? toast = app.HomeToastText;
             if (toast != null)
@@ -120,40 +121,55 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The Bloomlings wordmark in <paramref name="box"/> (Home's logo box): the owner's logo picture when it is embedded
-        /// (spec 005 pictures.md C1), else the wooden letters with leaves and flowers (<see cref="Kit.WoodLogo"/>).
+        /// The Bloomlings wordmark of Home and the splash: the owner's logo picture when it is embedded (spec 005
+        /// pictures.md C1), sized by width (<see cref="ReferenceHomeRegions.LogoPicture"/>) so its letters span 0.8 W as
+        /// the reference's; else the wooden letters with leaves and flowers in the logo box (<see cref="Kit.WoodLogo"/>).
         /// </summary>
-        public static void Wordmark(IPainter p, Box box)
+        public static void Wordmark(IPainter p, ReferenceHomeRegions r)
         {
             string name = PlaytestText.T("home.logo");
-            Visuals.Logo(p, box, () => Kit.WoodLogo(p, box, name));
+            Visuals.Logo(p, LogoBox(p, r), () => Kit.WoodLogo(p, r.Logo, name));
+        }
+
+        /// <summary>Where the wordmark goes: the owner's logo picture's box when it is embedded, else the logo box.</summary>
+        public static Box LogoBox(IPainter p, ReferenceHomeRegions r)
+        {
+            string logo = PainterBase.BrandPrefix + OwnerPictures.Logo;
+            (int Width, int Height)? size = p.HasSprite(logo) ? p.SpriteSize(logo) : null;
+            return size.HasValue && size.Value.Width > 0 && size.Value.Height > 0 ? r.LogoPicture(size.Value.Width, size.Value.Height) : r.Logo;
         }
 
         /// <summary>
-        /// The four heroes on Home and the splash (spec 005 §4.5, §6.4). Over the owner's garden picture (pictures.md B1,
-        /// B6, which has the well and the fountain), the group picture stands in front of it; until then the drawn stage
-        /// (<see cref="HomeStage.Diorama"/>): the stone pedestal, Sprig, Bloom and Drop behind the lotus fountain, Twig and
-        /// the guest (when <paramref name="guest"/>) in front, each hero in <paramref name="outfitOf"/>'s outfit.
+        /// The four heroes on Home and the splash (spec 005 §4.5, §6.4), each in <paramref name="outfitOf"/>'s outfit. Over
+        /// the owner's garden picture (pictures.md B1, which has the well and the lotus fountain; the splash shows it too
+        /// until its own exists), the four solo heroes stand around the fountain as the reference's
+        /// (<see cref="HomeStage.AroundFountain"/>, Bloom's head under the logo's letters) and the guest stays away. Until
+        /// then the drawn stage (<see cref="HomeStage.ReferenceDiorama"/>) in the diorama box: the stone ring, Bloom, Drop
+        /// and Sprig behind the lotus fountain, Twig and the guest (when <paramref name="guest"/>) in front.
         /// </summary>
-        public static void Stage(IPainter p, Box stage, BackdropScene scene, bool guest, Func<Family, Outfit>? outfitOf = null)
+        public static void Stage(IPainter p, ReferenceHomeRegions r, BackdropScene scene, bool guest, Func<Family, Outfit>? outfitOf = null)
         {
-            if (p.HasSprite(PainterBase.BackgroundPrefix + OwnerPictures.Background(scene, string.Empty)))
+            string picture = PainterBase.BackgroundPrefix + OwnerPictures.Resolve(scene, string.Empty, DesignApp.HasBackground(p));
+            (int Width, int Height)? size = p.HasSprite(picture) ? p.SpriteSize(picture) : null;
+            if (picture == PainterBase.BackgroundPrefix + OwnerPictures.Home && size.HasValue && size.Value.Width > 0 && size.Value.Height > 0)
             {
-                (Box group, Box beside) = CharacterArt.GroupWithGuest(stage);
-                Visuals.Group(p, group);
-                if (guest)
+                // The logo picture's letters end a tenth of its height above its bottom (its transparent margin).
+                Box logo = LogoBox(p, r);
+                float letters = logo.Bottom - (logo.Height * 0.1f);
+                var screen = new Box(0f, 0f, p.Width, p.Height);
+                foreach ((Family family, Box box) in HomeStage.AroundFountain(screen, letters, Family.Sprig, size.Value.Width, size.Value.Height))
                 {
-                    Visuals.Guest(p, beside);
+                    Visuals.Hero(p, box, family, outfitOf?.Invoke(family));
                 }
 
                 return;
             }
 
-            HomeDiorama diorama = HomeStage.ReferenceDiorama(stage, guest);
+            HomeDiorama diorama = HomeStage.ReferenceDiorama(r.Diorama, guest);
             Kit.StonePedestal(p, diorama.Pedestal);
             for (int i = 0; i < diorama.Heroes.Count; i++)
             {
-                // The fountain and the guest stand between the back row (Bloom, Sprig, Drop) and Twig in front.
+                // The fountain and the guest stand between the back row (Bloom, Drop, Sprig) and Twig in front.
                 if (i == 3)
                 {
                     Kit.LotusFountain(p, diorama.Fountain);

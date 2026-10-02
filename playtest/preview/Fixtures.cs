@@ -179,9 +179,25 @@ namespace Bloomlings.Playtest.Preview
                     var column = new Box(i * w, 0f, (i + 1) * w, p.Height);
                     Client.Gameplay.Themes.BackgroundTheme theme = Client.Gameplay.Themes.ThemeRotation.Default.ThemeFor(themes[i].Level);
                     p.Mark("bg.theme." + theme.Id);
-                    p.PushClip(column);
-                    p.Backdrop(new Box(column.CenterX - (p.Width / 2f), 0f, column.CenterX + (p.Width / 2f), p.Height), DesignTokens.Backdrop(theme.Background, theme.Accent), BackdropScene.Gameplay, theme.Id + "/wide");
-                    p.PopClip();
+
+                    // The theme's own gameplay picture (the owner's, pictures.md B2 to B5) as the level shows it, cover-fitted
+                    // to the whole screen around the column's middle; the drawn lawn while the picture is missing.
+                    var wide = new Box(column.CenterX - (p.Width / 2f), 0f, column.CenterX + (p.Width / 2f), p.Height);
+                    Visuals.Background(
+                        p,
+                        column,
+                        OwnerPictures.Gameplay(theme.Id),
+                        () =>
+                        {
+                            p.PushClip(column);
+                            p.Backdrop(wide, DesignTokens.Backdrop(theme.Background, theme.Accent), BackdropScene.Gameplay, theme.Id + "/wide");
+                            p.PopClip();
+                        },
+                        (pw, ph) =>
+                        {
+                            float scale = Math.Max(wide.Width / pw, wide.Height / ph);
+                            return Box.FromCenter(wide.CenterX, wide.CenterY, pw * scale, ph * scale);
+                        });
 
                     // The theme's name on a small wooden plaque, and a corner of a board on its lawn: candy tiles in the
                     // stone border (spec 005 §4.1, §4.2).
@@ -634,6 +650,9 @@ namespace Bloomlings.Playtest.Preview
             Box top = Kit.StonePedestal(p, pedestal);
             float hero = p.U(190f);
             Visuals.Hero(p, new Box(top.CenterX - (hero * 0.45f), top.CenterY - hero, top.CenterX + (hero * 0.45f), top.CenterY + (hero * 0.06f)), Family.Bloom, null);
+
+            // The drawn Home stage's lotus fountain (ui.fountain), shown on Home only while the owner's picture is missing.
+            Kit.LotusFountain(p, Box.FromCenter(pedestal.Left + (pedestal.Width * 0.08f), pedestal.Bottom - (pedestal.Height * 0.12f), pedestal.Width * 0.42f, pedestal.Width * 0.15f));
             Kit.FallingPetals(p, stage, p.Now);
 
             // Wooden signs: the gameplay level with ivy, the win title with flowers.

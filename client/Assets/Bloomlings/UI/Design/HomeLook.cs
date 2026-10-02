@@ -130,15 +130,98 @@ namespace Bloomlings.Client.UI.Design
             var pedestal = new Box(cx - (0.39f * u), Y(0.385f), cx + (0.39f * u), Y(0.091f));
             var heroes = new List<(Family Family, Box Box)>
             {
-                (Family.Bloom, Figure(cx + (0.06f * u), Y(0.45f), 0.7f * u)),
-                (Family.Drop, Figure(cx + (0.21f * u), Y(0.43f), 0.5f * u)),
-                (Family.Sprig, Figure(cx - (0.21f * u), Y(0.317f), 0.8f * u)),
-                (Family.Twig, Figure(cx + (0.36f * u), Y(0.22f), 0.51f * u)),
+                (Family.Bloom, Figure(cx, Y(0.51f), 0.64f * u)),
+                (Family.Drop, Figure(cx + (0.3f * u), Y(0.4f), 0.44f * u)),
+                (Family.Sprig, Figure(cx - (0.26f * u), Y(0.317f), 0.74f * u)),
+                (Family.Twig, Figure(cx + (0.37f * u), Y(0.2f), 0.48f * u)),
             };
 
             var fountain = Box.FromCenter(cx, Y(0.364f), 0.31f * u, 0.12f * u);
             Box guestBox = Figure(cx - (0.4f * u), Y(0f), 0.34f * u);
             return new HomeDiorama(pedestal, fountain, heroes, guestBox);
+        }
+
+        /// <summary>The owner's Home picture's size in pixels (pictures.md B1, <c>Backgrounds/home.jpg</c>).</summary>
+        public const int HomePictureWidth = 852;
+
+        /// <inheritdoc cref="HomePictureWidth"/>
+        public const int HomePictureHeight = 1846;
+
+        /// <summary>The lotus's middle in the owner's Home picture, as shares of its width and height.</summary>
+        public const float LotusX = 0.5f;
+
+        /// <inheritdoc cref="LotusX"/>
+        public const float LotusY = 0.455f;
+
+        /// <summary>The lotus's width in the owner's Home picture, as a share of its width: the unit of <see cref="AroundFountain"/>.</summary>
+        public const float LotusWidth = 0.3f;
+
+        /// <summary>Where a hero's head begins in its solo picture (y down; the owner's heroes keep a margin above).</summary>
+        public const float HeadShare = 0.12f;
+
+        /// <summary>
+        /// The four heroes around the fountain of the owner's Home picture (spec 005 FR-024, the reference's Home), drawn
+        /// back to front: Bloom behind the lotus in the middle, Drop at the right back, Sprig large at the left front and
+        /// Twig at the right front. The picture is cover-fitted over <paramref name="screen"/> (as the hosts draw
+        /// backgrounds: the larger scale, centered); the anchor is the lotus's middle and the unit L the lotus's width.
+        /// <paramref name="front"/> (the player's hero) takes Sprig's place at the left front, and Sprig its place. When
+        /// Bloom's head would rise above <paramref name="logoBottom"/>, all four shrink toward the lotus until it clears.
+        /// Hero boxes are 512 × 576 pictures whose feet stand at <see cref="FeetShare"/>.
+        /// </summary>
+        public static IReadOnlyList<(Family Family, Box Box)> AroundFountain(
+            Box screen,
+            float logoBottom,
+            Family front = Family.Sprig,
+            int pictureWidth = HomePictureWidth,
+            int pictureHeight = HomePictureHeight)
+        {
+            float s = Math.Max(screen.Width / Math.Max(1, pictureWidth), screen.Height / Math.Max(1, pictureHeight));
+            float left = screen.CenterX - (pictureWidth * s / 2f);
+            float top = screen.CenterY - (pictureHeight * s / 2f);
+            float fx = left + (LotusX * pictureWidth * s);
+            float fy = top + (LotusY * pictureHeight * s);
+            float l = LotusWidth * pictureWidth * s;
+
+            // Bloom's head clears the logo: everything shrinks toward the lotus when it would not.
+            float bloomFeet = fy - (0.27f * l);
+            float bloomHeight = 1.47f * l;
+            float headTop = bloomFeet - (bloomHeight * FeetShare) + (bloomHeight * HeadShare);
+            float k = headTop < logoBottom && fy - headTop > 1f ? Math.Max(0.3f, (fy - logoBottom) / (fy - headTop)) : 1f;
+
+            // On a wide crop (a tall phone shows less of the picture's sides) a hero slides in until its body (the picture
+            // less a 6% margin) is 1% of the screen inside its edge.
+            Box Place(float dx, float dy, float height)
+            {
+                Box box = Figure(fx + (dx * l * k), fy + (dy * l * k), height * l * k);
+                float margin = (box.Width * 0.06f) - (screen.Width * 0.01f);
+                float shift = Math.Max(0f, screen.Left - (box.Left + margin)) - Math.Max(0f, (box.Right - margin) - screen.Right);
+                return box.Offset(shift, 0f);
+            }
+
+            var slots = new (Family Family, Box Box)[]
+            {
+                (Family.Bloom, Place(0f, -0.27f, 1.47f)),
+                (Family.Drop, Place(0.7f, 0.55f, 1.3f)),
+                (Family.Sprig, Place(-0.97f, 0.86f, 1.81f)),
+                (Family.Twig, Place(1.13f, 1.05f, 1.4f)),
+            };
+
+            if (front != Family.Sprig)
+            {
+                for (int i = 0; i < slots.Length; i++)
+                {
+                    if (slots[i].Family == front)
+                    {
+                        slots[i].Family = Family.Sprig;
+                    }
+                    else if (slots[i].Family == Family.Sprig)
+                    {
+                        slots[i].Family = front;
+                    }
+                }
+            }
+
+            return slots;
         }
 
         /// <summary>

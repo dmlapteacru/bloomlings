@@ -149,11 +149,15 @@ Reference crops: the board (gameplay screen) and the "Target Variants" strip.
 | Moss | `#22B79C` → `#0D7C68` | three faint dimples (alpha 0.2): a nearly uniform cushion |
 | Flower | `#FFD2E2` → `#F79AC0` | a yellow center `#FFD35C` with an orange dot |
 | Violet Bud | `#C58BF5` → `#8E4BD8` | a lighter middle line and two green sepals `#5BAA3A` at the base |
-| Water | `#5FB6FF` → `#1E6FD6` | a white curved highlight on the left |
-| Dew | `#E6FFFF` → `#9EEFF3` | a white sparkle star at the top right |
+| Water | `#2F8EF5` → `#0B4FB0` | a white curved highlight on the left |
+| Dew | `#E6FFFF` → `#9EEFF3` | a white sparkle star at the top right, outlined thinly in its line color |
 | Wood | `#C47A3C` → `#7A3A12` | two concentric darker rings on the stump top |
 | Acorn | `#E39A4A` → `#A35A18` (nut), cap `#7A4A22` | a cap line and a tiny stem |
 | Expansion | `color.Lighten(0.2)` → `color.Darken(0.15)` | none |
+
+Every sticker icon is outlined (4% of its symbol box, `UiRaster.StickerLine`) in its tile's own color darkened 0.45
+(`UiRaster.StickerLineDarken`), Dew's nearly white icon in `#1F8D95`, so each icon contrasts with its face (owner's
+review: the Water drop no longer repeats the face's gradient and Dew no longer reads as a faint ghost).
 
 The symbols themselves are redrawn in `ShapeLibrary` (research D13) so that each reads as in the reference strip while
 the two variants of a family keep different silhouettes: leaf (a broad almond, about 1.5:1, with a barely visible
@@ -168,16 +172,19 @@ The reference's board icons are bold "gems" (crops `zz-tiles1.png`, `zz-tiles2.p
 sits at about 56% of the tile (outline included), centered on the face (above the lip), with
 - the gem silhouette `ShapeLibrary.GemSymbol(iconId)` in a shape box of `UiRaster.GemBox` = 0.64 of the tile (the
   silhouette spans about ±0.8 shape units, so its fill is about 44% of the tile);
-- a thick dark outline: the silhouette grown by `UiRaster.GemLine` = 6% of the tile (at least 1 px) in
-  `color.Darken(0.5)`, over a faint drop shadow (the silhouette moved down 0.05 shape units, the outline color at 0.22);
-- a fill in a shade of the tile color, darker than the face on light tiles and lighter on dark ones (`color.Darken(0.22)`
-  (`UiRaster.GemDarken`) when the color's HSL lightness is above 0.55, else `color.Lighten(0.3)` (`GemLighten`)),
-  from that shade lightened 0.1 at the top to darkened 0.08 at the bottom;
+- a thick dark outline: the silhouette grown by `UiRaster.GemLine` = 6% of the tile (at least 1 px) in a deep,
+  saturated shade of the tile: `Vivid(color.Darken(0.42), 1.5)`, over a faint drop shadow (the silhouette moved down
+  0.05 shape units, the outline color at 0.22); `UiRaster.Vivid(c, k)` pushes each channel away from the color's grey
+  `g = 0.3R + 0.59G + 0.11B` by `k` (`g + k·(ch − g)`, clamped), as `GardenLook.SpecialFace`;
+- a vivid fill in a shade of the tile color (the reference's gems are vivid shades of their tile, never mixed toward
+  black): `Vivid(color.Darken(0.12), 1.6)` (`UiRaster.GemShade`, `GemSaturate`) when the color's HSL lightness is above
+  0.55, else `Vivid(color.Lighten(0.25), 1.4)`, from that shade lightened 0.18 at the top to darkened 0.06 at the
+  bottom;
 - the gem's inner line in the outline color at 0.55 (`ShapeLibrary.GemDetail`: the leaf's midrib, the flower's center
   ring, the stump's front rim) and a lighter or darker part (`GemLight`: the flower's middle, the stump's top, dew's
   sparkle, the fill's top lightened 0.22; `GemDark`: the acorn's cap, the fill's bottom darkened 0.2);
-- a soft white highlight on its upper left (alpha 0.45, the sticker's highlight ellipse) and a tiny specular dot
-  (radius 0.075 shape units at (−0.32, 0.42), alpha 0.85);
+- a strong white highlight on its upper left (alpha 0.6, the sticker's highlight ellipse) and a specular dot
+  (radius 0.10 shape units at (−0.32, 0.42), alpha 0.95);
 - no light copy or bead. Below 28 px per tile the gem is its silhouette in the outline color mixed 40% toward
   `color.Darken(0.32)`.
 The gem silhouettes are simple and chunky so they read at 40 px, and keep the distinct silhouettes of research D10:
@@ -195,7 +202,9 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 - `UiRaster.Plank` (Light: pale honey wood) filling `box`, radius 28% of the height, outline 2.5% of the height (min
   2 px), and a soft shadow below (`Kit.SoftShadow`, `GardenShadow` alpha 0.22, offset 7% of the height).
 - Letters: `InkBrown` with a light emboss (`TextLook.Plain`-like, emboss `WoodLight.Lighten(0.4)`), centered, max width
-  82% of the plank; the win and milestone sign (`SignDecor.Flowers`) uses `InkTitle`.
+  82% of the plank, and never under the leaves on its ends: with the owner's ivy picture (D5) at most the plank's width
+  less 1.25 × its height, with `SignDecor.Flowers` at most the width less 1.28 × its height (Unity: label margins of
+  0.625 h and 0.68 h); the win and milestone sign (`SignDecor.Flowers`) uses `InkTitle`.
 - `SignDecor.Ivy`: clover/ivy clusters overlapping both ends (gameplay level sign, Wardrobe/Store banner): six clovers
   whose three leaflets are pointed lenses with a faint midrib (`IvyLeaf.Darken(0.35)` at 0.45), in yellow-green
   `IvyLeaf` shades (±0.2) with a light top-left side (`IvyLeaf.Lighten(0.3)` at 0.5) and a thin outline of
@@ -289,9 +298,15 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   centered on their entry cell where they can, and shrink so neighbors on one side never overlap. The walkers appear at
   the arch's door, 42% of its radius inside the opening (`EntryArch.Door`). Entries may be on any side, several per level.
 - **Lawn**: the gameplay backdrop scene becomes a lawn (§4.2).
-- **Pedestal** (`Kit.StonePedestal(p, box)`, `UiRaster.Pedestal`): an ellipse-topped stone drum: top ellipse `StoneTop`
-  with a ring joint, side `StoneFace` in two courses of staggered blocks, `StoneLip` bottom, moss at the base. It
-  returns the top ellipse's box (where the heroes stand). Win, Home (until the owner's diorama) and Wardrobe.
+- **Pedestal** (`Kit.StonePedestal(p, box)`, `UiRaster.Pedestal`): a warm grey-beige ellipse-topped stone drum that
+  holds its own over the owner's painted gardens: the top ellipse `StoneTop.Mix(StoneFace, 0.4)` (lighter toward the
+  front) with a ring joint at 0.72 of its radius, radial joints outside it and one hairline crack; the side shaded from
+  `StoneFace.Darken(0.06)` to `StoneLip.Darken(0.12)` in two courses of staggered blocks (`StoneLine` joints at alpha
+  0.55, 1.5% of the height wide) with a crack in the upper course, a darker lip band and `StoneMoss` tufts on about a
+  third of the base rim; a `StoneLine` outline 2.5% of the height around it and along the top's front edge; a soft
+  `GardenShadow` (0.22) ellipse under it (`Kit.StonePedestal`). It returns the top ellipse's box (where the heroes
+  stand). Win (unless the owner's win picture paints the stage, §6.3), Home (without the owner's Home picture) and
+  Wardrobe.
 
 ### 3.7 Tray pieces
 
@@ -498,8 +513,11 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   `StonePedestal` 0.84 of the stage wide, the lotus fountain on it (`Kit.LotusFountain`, `ui.fountain`: a small pedestal
   as its basin, water, two lily pads, the lotus) and the four heroes in an arc as in the reference (Sprig at the left,
   Bloom raised behind the fountain, Drop, Twig in front at the right edge), the guest (spec 004 R17) at the left front.
-  Over the owner's picture the group picture stands in front with no drawn pedestal. Progressed: the player's hero on a
-  `StonePedestal` (`HomeStage.HeroOnPedestal`), the guest at its right. The splash shows the same stage without the guest.
+  Over the owner's Home picture (B1) the four solo heroes stand around its lotus fountain as on the reference
+  (`HomeStage.AroundFountain`, §6.4), early and progressed alike, each in its outfit once the Wardrobe is open, and the
+  guest is not shown. Without the picture, progressed: the player's hero on a `StonePedestal`
+  (`HomeStage.HeroOnPedestal`), the guest at its right. The splash shows the Home picture until its own (B6) exists
+  (`OwnerPictures.Resolve`) and the same heroes without the guest, so it turns into Home without a jump.
 - The milestone teaser and the rank row are parchment pills (`Kit.ParchmentPill`) with the outlined pink gift or gold
   trophy and `InkBrown` text; the Daily Challenge card is parchment with the sun on a cream disc; the avatar a cream disc.
 - Backdrop: `HomeStage.Garden` warms the Home and splash colors (a clearer blue sky, sunlit horizon and hills, lush
@@ -565,7 +583,8 @@ Measured on the reference's phone screens (crops `g-game.png`, `g-jam.png`, `g-w
 `g-ward.png` with a 5% grid). `W` and `H` are the safe area's width and height; positions are fractions of them
 unless given in `W` units. The engine-free `ScreenLayout` computes every region for both builds; screens place
 elements only from those regions. On screens shorter than 19.5:9 the tray rows scale down by
-`k = clamp((H / W) / 2.17, 0.8, 1)` and the board takes what is left.
+`k = clamp((H / W) / 2.0, 0.8, 1)` (`ScreenLayout.ReferenceAspect` = 2.0, the safe shape of a 19.5:9 phone with its
+insets: `k` is 1 at 19.5:9 and 21:9, about 0.93 at 18:9 and 0.86 at 16:9) and the board takes what is left.
 
 The functions (engine-free, `client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs`, partial `ScreenLayout`; tests in
 `ReferenceLayoutTests`) are `ScreenLayout.ReferenceGameplay` → `ReferenceGameplayRegions` (with `PodDeck` for one
@@ -594,8 +613,11 @@ tray box spans the whole screen width and runs to the screen's bottom (`TrayRadi
 (`TrayContent`) stops `0.02W` above the bottom inset; the separators are lines `0.92W` wide and `max(2 px, 0.005W)`
 thick in the middle of their `0.04W·k` gaps; the slots spread their `0.92W` with at least `0.0238W` between them, the
 boosters their `0.9W` (the measured centers 14.5%–84.5% become the symmetric 14.75%, 38.25%, 61.75%, 85.25%); the
-decks are at most `0.23W·k` wide with gaps from `0.0133W` to at most `0.06W`, centered (2 or 3 stacks sit together in
-the middle); more stacks than fit at `0.17W` wrap into two rows of `0.26W·k` with `0.015W` between them.
+decks are at most `0.23W·k` wide with gaps from `0.0133W` to at most `0.02W`, centered (2 or 3 stacks sit together in
+the middle, as the reference's touching decks); each deck's front pod fills its bottom 82% (`PodDeck.FrontShare`, about
+`0.23W × 0.254W`), the two buried pods' bands above it; a Waiting Slot's sticker tile is
+`min(0.74 face width, 0.66 face height)` 8% of the face under its top (`ReferenceGameplayRegions.SlotTile`, about
+`0.12W`), the count under it; more stacks than fit at `0.17W` wrap into two rows of `0.26W·k` with `0.015W` between them.
 `ReferenceGameplayRegions.FitBoard(width, height, entries)` runs `BoardLayout.Fit` over `BoardArea` (the board's top to
 the entry strip's bottom, the safe width less `0.02W` a side), narrowed until the stone border's outer box is at most
 `0.86W` (`MaxBoardShare`), so a bottom arch stands in the entry strip. `BoosterBadge(i)` is the badge disc as
@@ -660,26 +682,33 @@ lightened); no top bar.
 | Picture | the finished picture in its stone frame, at most `0.8W` wide, top at 21.5% and bottom at most at 58% of H |
 | Rays and petals | centered on the hero, radius `0.6W`, behind the hero; petals over the whole screen |
 | Hero | the celebrating hero of the level's main family (or the group), centered, from 50% to 76% of H, overlapping the picture's foot |
-| Pedestal | `0.8W` wide, top ellipse at 74%, foot at 83% of H |
+| Pedestal | `0.8W` wide, from 70.5% to 81.5% of H, top ellipse at about 73.8% under the hero's feet (73.4%); with the owner's win picture its own stone disc is the stage instead |
 | Reward pill | `0.47W × 0.09H`, centered, from 76% to 85% of H (on the pedestal's front) |
 | Next | the primary button in its wood rim, `0.84W` wide, from 86% to 96% of H; ×2 reward as a small cream pill under it when offered, or beside the reward pill |
 
 Fixed: the sign is `0.66W` from 7.5% to 20.5% of H; the hero box is an 8:9 solo picture's box (`CharacterArt.HeroWidth`
-/ `HeroHeight`, at most `0.8W`) from 50% to 76%, the group fits inside it; the pedestal box spans 72% to 83% (its top
-ellipse about 74%); the rays' center is the hero box's center; `Double` (the ×2 offer) and `Drop` (a dropped booster)
+/ `HeroHeight`, at most `0.8W`) from 50% to 76%, the group fits inside it; the pedestal box spans 70.5% to 81.5% (its
+top ellipse about 73.8%, so the hero's feet stand on its middle, not on its back rim); the owner's win picture (B8) is
+drawn from the screen's top, centered across, at least cover-sized and as large as it takes for its stone disc
+(`OwnerPictures.WinStageShare` = 57.5% of the picture's height) to lie under the pedestal's top
+(`OwnerPictures.TopAnchored`; about 1.27 × cover at 19.5:9), and then no drawn pedestal stands on it; the rays' center is the hero box's center; `Double` (the ×2 offer) and `Drop` (a dropped booster)
 are boxes at most `0.21W` wide and `0.13W` tall beside the reward pill, right and left, `0.02W` from it. `Pause` is a
 cream squircle `0.11W` square, `0.03W` from the left and `0.015W` under the top inset: no top bar shows, but Pause stays
 usable over the win (FR-016), so Home, Restart and Settings stay reachable.
 Playtest (`EndCards.Win`, `EndCards.Milestone`): the win fades in over the gameplay for `EndCards.WinFadeSeconds`
 (0.35 s), then replaces it (`LevelScreen`); the picture hangs from the top of its box (as large as fits) and pops in;
 the sign slides down, its title in two lines when one would be small (each line 34% of the plank's height), the flower
-clusters 1.2 × the sign's height (at most `0.34W`) over both ends, the right one mirrored and a little higher; the
+clusters 1.2 × the sign's height (at most `0.34W`) on the plank's top corners (the left one 0.18 h, the right one,
+mirrored, 0.10 h under its top), the title at most the sign's width less 0.9 × a cluster wide, so it stays in the free
+middle; the
 group (while the cheer pictures are missing) stands with its feet just behind the middle of the pedestal's top, its
 heads at the hero box's top, at most 1.15 × the pedestal wide; confetti falls behind everything for 2.2 s; a dropped
 booster is its icon on a cream tile with a green "+1" badge in `Drop`; the ×2 offer needs a rewarded ad, which the
 playtest does not have, so it is not shown. The milestone (frame 16) is the same full screen: the sign "Level N", its
 rewards on a parchment panel in the picture's place (each on a cream tile with its amount in a cream pill), the hero on
-the pedestal, "Milestone reached!" with the gold medal in the pill on the pedestal, and Continue in `Next`.
+the pedestal, "Milestone reached!" with the gold medal (the leaderboard's rank medal without a number: two deeper gold
+ribbon tails behind the `medal.gold` disc, both outlined in `medal.gold` darkened 0.3, a small white star on the disc)
+in the pill on the pedestal, and Continue in `Next`.
 
 ### 6.4 Home
 
@@ -687,23 +716,36 @@ the pedestal, "Milestone reached!" with the gold medal in the pill on the pedest
 |---|---|
 | Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
 | Petals pill | `0.38W × 0.095W`, right edge − `0.02W`, top 2.5% of H |
-| Logo | `0.8W` wide centered, from 10% to 20.5% of H |
-| Diorama | from 22% to 70% of H: the owner's Home picture behind everything; else the drawn garden with the heroes (group or the player's hero) on a pedestal with the lotus fountain, centered at 50% |
+| Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
+| Diorama | from 22% to 70% of H: the owner's Home picture behind everything with the four heroes around its fountain (`HomeStage.AroundFountain`); else the drawn garden with the heroes on a pedestal with the lotus fountain, centered at 50% |
 | Side buttons | Wardrobe, Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill under the Petals pill |
 | Level plaque | wooden sign `0.5W × 0.085H`, centered, from 64% to 72.5% of H |
-| Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H |
+| Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H; the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
 | Teaser | the milestone teaser as a small parchment pill centered under Play (89.5%–93.5%); the free booster as a cream pill beside it when offered |
 
-Fixed: the fractions apply to the safe height less the playtest's dev row (`bottomReserve`); the Petals pill is centered
+Fixed: the fractions apply to the safe height less `bottomReserve` (0 in both builds: the playtest's dev row lies small
+and faded at 70% alpha over the garden in the band under the teaser, so the layout keeps the reference's fractions); the
+Petals pill (without the "+" while the Store is locked, its amount follows the lotus) is centered
 on the Settings button's height; the logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side
 columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0.03W` apart (`SideButton(right, i)` for
 more, such as the avatar); the rank pill (`0.3W × 0.075W`) sits under the right column, right-aligned at `0.04W` (under
 the Petals pill there is no room for its touch target); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
 from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
-The drawn diorama is `HomeStage.ReferenceDiorama(stage)` (measured on the reference, in `u = min(0.88 × stage width,
-stage height / 1.09)`): the well's stone ring `0.78u` wide with its foot `0.09u` above the stage's bottom, the lotus
-fountain on it, Bloom raised behind the fountain (`0.7u` picture), Drop at the right back (`0.5u`), Sprig at the left
-(`0.8u`), Twig in front at the right (`0.51u`), the guest small at the left front. The playtest stacks only the
+Over the owner's Home picture the heroes are `HomeStage.AroundFountain(screen, logoBottom, front)`: the picture
+cover-fitted over the screen (the larger scale, centered), the anchor F its lotus's middle (`HomeStage.LotusX`,
+`LotusY` = 50%, 45.5% of the picture) and the unit L the lotus's width (`LotusWidth` = 0.30 of the picture's width,
+324 px at 1080 wide); back to front (`HomeStage.Figure(x, feet, height)`): Bloom `(F.x, F.y − 0.27L, 1.47L)` behind the
+lotus, Drop `(F.x + 0.70L, F.y + 0.55L, 1.30L)` at the right back, Sprig `(F.x − 0.97L, F.y + 0.86L, 1.81L)` at the
+left front and Twig `(F.x + 1.13L, F.y + 1.05L, 1.40L)` at the right front; `front` (the player's hero) swaps into
+Sprig's place; when Bloom's head (12% down its box) would rise above the logo's letters all four shrink about F until
+it clears, and a hero whose body (its box less 6%) would leave the screen on a wide crop slides in to 1% inside the
+edge. At 19.5:9 Bloom's petals start at about 23% of H, Sprig's leaves at 34% with its feet at 57%, Twig's feet at 60%,
+all above the plaque. No guest is shown over the owner's picture.
+The drawn diorama (without the owner's picture) is `HomeStage.ReferenceDiorama(stage)` (in `u = min(0.88 × stage
+width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's stone ring `0.78u` wide with its foot
+`0.09u` above the stage's bottom, the lotus fountain on it, Bloom raised behind the fountain (`0.64u` picture, feet
+`0.51u` up), Drop at the right back (`0.44u` at `+0.30u`), Sprig at the left (`0.74u` at `−0.26u`), Twig in front at the
+right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop; the guest small at the left front. The playtest stacks only the
 unlocked side buttons (left: Wardrobe, Collection, the avatar; right: Daily Challenge, Store), the rank pill following
 the right column; its splash shows the logo and the diorama in the same boxes.
 
@@ -721,7 +763,7 @@ its logo and diorama in Home's boxes.
 |---|---|
 | Back | cream round `0.12W`, left `0.04W`, top 2.5% of H |
 | Banner | wooden sign with ivy `0.46W × 0.055H`, from 24% to 70% of W, top 4.5% |
-| Petals pill | `0.32W`, right edge − `0.02W`, top 3.5% |
+| Petals pill | `0.28W` (from 70% of W), right edge − `0.02W`, top 3.5%, clear of the banner's right ivy |
 | Hero | the selected family's hero in the worn outfit, from 11% to 37% of H, on a pedestal `0.6W` wide (35%–43%) |
 | Arrows | cream round ‹ › `0.09W` at 8% and 92% of W, 28% of H (previous/next family) |
 | Name card | parchment from 42% to 57% of H, `0.92W`; a sign-like tab `0.5W` with the name (`type.title`), the role line, the description in two lines |

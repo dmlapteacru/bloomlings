@@ -52,7 +52,7 @@ namespace Bloomlings.Playtest.Design
             WinRegions r = ScreenLayout.WinScreen(p.Width, p.Height, p.Insets);
             Family family = Visuals.MainFamily(s.Session.Definition);
             p.PushAlpha(Kit.Ease(since / WinFadeSeconds));
-            Garden(p, s, since);
+            Garden(p, s, r, since);
             Celebrant hero = Cast(p, r, family);
             Rays(p, r, hero, since);
 
@@ -144,7 +144,7 @@ namespace Bloomlings.Playtest.Design
 
             WinRegions r = ScreenLayout.WinScreen(p.Width, p.Height, p.Insets);
             Family family = Visuals.MainFamily(s.Session.Definition);
-            Garden(p, s, since);
+            Garden(p, s, r, since);
             Celebrant hero = Cast(p, r, family);
             Rays(p, r, hero, since);
             Sign(p, r, PlaytestText.F("common.level", NumberText.Group(grant.Level)), since);
@@ -376,8 +376,8 @@ namespace Bloomlings.Playtest.Design
 
         // ---- The celebration (spec 005 §4.4, §6.3) ----
 
-        /// <summary>The jam title's letters fill this share of its box's height.</summary>
-        private const float TitleFill = 0.8f;
+        /// <summary>The jam title's letters fill this share of its box's height (the reference's "No More Space!" spans about 0.5 W).</summary>
+        private const float TitleFill = 0.68f;
 
         /// <summary>The jam subtitle's letters fill this share of each of its two lines.</summary>
         private const float SubtitleFill = 0.78f;
@@ -461,15 +461,21 @@ namespace Bloomlings.Playtest.Design
         /// The win garden behind the celebration (§4.2, <c>bg.win</c>: the owner's picture, else the level's lawn blurred and
         /// lightened with a warm glow in the middle), a sprinkle of confetti falling behind everything for the first
         /// seconds, and a catch-all target, so a tap off the buttons does nothing (and none reaches the gameplay below
-        /// while the win fades in).
+        /// while the win fades in). The owner's picture is drawn from the screen's top, as large as it takes for its own
+        /// stone disc to lie under the layout's pedestal (<see cref="OwnerPictures.TopAnchored"/>): the disc is then the
+        /// stage, and no drawn pedestal stands on it (<see cref="PaintedStage"/>).
         /// </summary>
-        private static void Garden(IPainter p, LevelScreen s, float since)
+        private static void Garden(IPainter p, LevelScreen s, WinRegions r, float since)
         {
             var screen = new Box(0f, 0f, p.Width, p.Height);
-            DesignApp.DrawBackdrop(p, BackdropScene.Win, s.Level);
+            float stage = HomeStage.PedestalTop(r.Pedestal).CenterY;
+            DesignApp.DrawBackdrop(p, BackdropScene.Win, s.Level, place: (w, h) => OwnerPictures.TopAnchored(screen, w, h, stage, OwnerPictures.WinStageShare));
             p.Hit(screen, () => { });
             Confetti(p, s, screen, since);
         }
+
+        /// <summary>Whether the owner's win picture is drawn: its own stone disc is the hero's stage (pictures.md B8).</summary>
+        private static bool PaintedStage(IPainter p) => p.HasSprite(PainterBase.BackgroundPrefix + OwnerPictures.Win);
 
         /// <summary>The light rays behind the hero (§3.9, <c>fx.rays</c>), fading in, turning slowly.</summary>
         private static void Rays(IPainter p, WinRegions r, Celebrant hero, float since)
@@ -479,10 +485,17 @@ namespace Bloomlings.Playtest.Design
             p.PopAlpha();
         }
 
-        /// <summary>The stone pedestal and the hero jumping up onto it (fading in, rising a little and settling).</summary>
+        /// <summary>
+        /// The stone pedestal (unless the owner's win picture paints the stage) and the hero jumping up onto it (fading in,
+        /// rising a little and settling).
+        /// </summary>
         private static void Stand(IPainter p, WinRegions r, Celebrant hero, Family family, float since)
         {
-            Kit.StonePedestal(p, r.Pedestal);
+            if (!PaintedStage(p))
+            {
+                Kit.StonePedestal(p, r.Pedestal);
+            }
+
             float up = Kit.Ease((since - 0.1f) / 0.45f);
             p.PushAlpha(up);
             p.PushTransform(0f, (1f - up) * hero.Picture.Height * 0.08f, 1f, 0f, 0f);
@@ -518,8 +531,9 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// The wooden sign at the top (§3.2, §6.3): the plank filling the sign box, sliding down into place, the title in
         /// <c>ink.title</c> with the light emboss (in two lines, as the reference's "Level / Complete!", when one line would be
-        /// small), and the flower clusters (<c>ui.sign.flowers</c>, the owner's picture D6 when it exists) over both ends,
-        /// the right one mirrored and a little higher, as on the reference.
+        /// small), and the flower clusters (<c>ui.sign.flowers</c>, the owner's picture D6 when it exists) on the plank's
+        /// top corners, the right one mirrored and a little higher, as on the reference. The letters keep to the free middle
+        /// between the clusters.
         /// </summary>
         private static void Sign(IPainter p, WinRegions r, string title, float since)
         {
@@ -533,7 +547,8 @@ namespace Bloomlings.Playtest.Design
             Kit.WoodPlank(p, sign, SignRadius, 7);
             TypeStyle style = T.LevelHome;
             TextLook look = GardenLook.SignLetters(C.InkTitle);
-            float maxWidth = sign.Width * SignText;
+            float size = Math.Min(h * ClusterShare, r.W * ClusterMaxShare);
+            float maxWidth = Math.Min(sign.Width * SignText, sign.Width - (size * 0.9f));
             float lineScale = h * SignLine / p.U(style.Size);
             List<string> lines = Lines(p, title, style, maxWidth / lineScale, 2);
             if (lines.Count > 1)
@@ -551,9 +566,8 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.Mark("ui.sign.flowers");
-            float size = Math.Min(h * ClusterShare, r.W * ClusterMaxShare);
-            Kit.FlowerCluster(p, Box.FromCenter(sign.Left + (size * 0.04f), sign.CenterY + (h * 0.04f), size, size), flipped: false);
-            var right = Box.FromCenter(sign.Right - (size * 0.04f), sign.CenterY - (h * 0.1f), size, size);
+            Kit.FlowerCluster(p, Box.FromCenter(sign.Left + (size * 0.04f), sign.Top + (h * 0.18f), size, size), flipped: false);
+            var right = Box.FromCenter(sign.Right - (size * 0.04f), sign.Top + (h * 0.1f), size, size);
             p.PushSquash(-1f, 1f, right.CenterX, right.CenterY);
             Kit.FlowerCluster(p, right, flipped: false);
             p.PopTransform();
@@ -665,10 +679,40 @@ namespace Bloomlings.Playtest.Design
             float width = Math.Min(maxWidth, p.MeasureText(text, T.Count, scale) + (h * 1.9f));
             Box pill = Box.FromCenter(cx, cy, width, h);
             Kit.CostPill(p, pill, Cost.Charges(0), " ");
-            p.Shape("ui.medal", Box.FromCenter(pill.Left + (h * 0.62f), pill.CenterY, h * 0.8f, h * 0.8f), C.MedalGold);
+            Medal(p, Box.FromCenter(pill.Left + (h * 0.62f), pill.CenterY, h * 0.78f, h * 0.78f));
             float left = pill.Left + (h * 1.1f);
             float right = pill.Right - (h * 0.4f);
             p.Text(text, (left + right) / 2f, pill.CenterY, T.Count, C.InkBrown, right - left, scale, TextLook.Plain(C.InkBrown));
+        }
+
+        /// <summary>
+        /// The gold medal (<c>ui.medal</c>, as the leaderboard's rank medals without a number): two ribbon tails in a deeper
+        /// gold behind a gold disc, both outlined in dark gold, with a small white star on the disc.
+        /// </summary>
+        private static void Medal(IPainter p, Box box)
+        {
+            p.Mark("ui.medal");
+            Rgba line = C.MedalGold.Darken(0.3f);
+            Rgba ribbon = UiRaster.Vivid(C.MedalGold.Darken(0.1f), 1.35f);
+            static float Segment(float x, float y, float ax, float ay, float bx, float by)
+            {
+                float dx = bx - ax;
+                float dy = by - ay;
+                float t = Math.Max(0f, Math.Min(1f, (((x - ax) * dx) + ((y - ay) * dy)) / ((dx * dx) + (dy * dy))));
+                float ex = x - (ax + (t * dx));
+                float ey = y - (ay + (t * dy));
+                return (float)Math.Sqrt((ex * ex) + (ey * ey));
+            }
+
+            float Ribbons(float x, float y) => Math.Min(Segment(x, y, -0.32f, 0.88f, -0.05f, 0.3f) - 0.14f, Segment(x, y, 0.32f, 0.88f, 0.05f, 0.3f) - 0.14f);
+            float Disc(float x, float y) => (float)Math.Sqrt((x * x) + ((y + 0.2f) * (y + 0.2f))) - 0.55f;
+            Func<float, float, float> star = ShapeLibrary.Get("ui.star");
+            p.ShapeOf("ui.medal/ribbons/line", (x, y) => Ribbons(x, y) - 0.06f, box, line);
+            p.ShapeOf("ui.medal/ribbons", Ribbons, box, ribbon);
+            p.ShapeOf("ui.medal/disc/line", (x, y) => Disc(x, y) - 0.06f, box, line);
+            p.ShapeOf("ui.medal/disc", Disc, box, C.MedalGold);
+            p.ShapeOf("ui.medal/light", (x, y) => Math.Max(Disc(x + 0.08f, y - 0.08f) + 0.1f, -Disc(x - 0.05f, y + 0.05f) - 0.35f), box, Rgba.White.WithAlpha(0.35f));
+            p.ShapeOf("ui.medal/star", (x, y) => star(x / 0.3f, (y + 0.2f) / 0.3f) * 0.3f, box, Rgba.White.WithAlpha(0.92f));
         }
 
         // ---- The jam (spec 005 §4.3, §6.2) ----

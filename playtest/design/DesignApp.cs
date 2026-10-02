@@ -322,12 +322,19 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// The garden backdrop of a level band's theme (FR-008, FR-066), cached by the painter. <paramref name="picture"/>
         /// names another owner picture than the scene's (the Wardrobe's <see cref="OwnerPictures.Wardrobe"/>), with the
-        /// scene's drawn garden as its stand-in.
+        /// scene's drawn garden as its stand-in; <paramref name="place"/> places the owner's picture from its size (the
+        /// win's top-anchored garden), else it is cover-fitted.
         /// </summary>
-        public static void DrawBackdrop(IPainter p, BackdropScene scene, int level, string? picture = null)
+        public static void DrawBackdrop(IPainter p, BackdropScene scene, int level, string? picture = null, Func<int, int, Box>? place = null)
         {
             BackgroundTheme theme = ThemeRotation.Default.ThemeFor(Math.Max(1, level));
-            picture ??= OwnerPictures.Background(scene, theme.Id);
+            if (picture == null)
+            {
+                // The scene's own slot, then the picture it shows: the splash shows the Home garden until its own exists.
+                p.Mark(OwnerPictures.SlotOf(OwnerPictures.Background(scene, theme.Id)));
+                picture = OwnerPictures.Resolve(scene, theme.Id, HasBackground(p));
+            }
+
             p.Mark(OwnerPictures.SlotOf(picture));
             var screen = new Box(0f, 0f, p.Width, p.Height);
             // The owner's picture when it is embedded (spec 005 pictures.md B), else the code-drawn garden; Home and the
@@ -340,7 +347,10 @@ namespace Bloomlings.Playtest.Design
             }
 
             Visuals.Background(p, screen, picture, () =>
-                p.Backdrop(screen, colors, scene, theme.Id + "/" + scene + (warm ? "/warm" : string.Empty)));
+                p.Backdrop(screen, colors, scene, theme.Id + "/" + scene + (warm ? "/warm" : string.Empty)), place);
         }
+
+        /// <summary>Whether the painter has an owner background of that name (pictures.md B).</summary>
+        public static Func<string, bool> HasBackground(IPainter p) => name => p.HasSprite(PainterBase.BackgroundPrefix + name);
     }
 }

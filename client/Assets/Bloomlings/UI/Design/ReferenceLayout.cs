@@ -83,6 +83,22 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The parts of the deck of Source stack <paramref name="index"/> (<see cref="PodDeck"/>).</summary>
         public PodDeck Deck(int index) => PodDeck.In(Decks[index]);
 
+        /// <summary>A Waiting Slot plate's lip under its face, as a share of the plate's shorter side.</summary>
+        public const float SlotLipShare = 0.055f;
+
+        /// <summary>
+        /// The sticker tile in a Waiting Slot's <paramref name="plate"/> (both builds; z-tray): the face is the plate less
+        /// its lip; the tile is <c>min(0.74 face width, 0.66 face height)</c>, centered across, 8% of the face below its
+        /// top, and the count takes the room under it.
+        /// </summary>
+        public static Box SlotTile(Box plate)
+        {
+            float lip = Math.Min(plate.Width, plate.Height) * SlotLipShare;
+            var face = new Box(plate.Left, plate.Top, plate.Right, plate.Bottom - lip);
+            float tile = Math.Min(face.Width * 0.74f, face.Height * 0.66f);
+            return Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.08f) + (tile / 2f), tile, tile);
+        }
+
         /// <summary>
         /// The board's layout in these regions: <see cref="BoardLayout.Fit"/> over <see cref="BoardArea"/> (less 0.02 W at
         /// each side), narrowed so the stone border's outer box is at most <see cref="MaxBoardShare"/> × <see cref="W"/>
@@ -134,7 +150,7 @@ namespace Bloomlings.Client.UI.Design
     public sealed record PodDeck(Box Deck, Box Front, Box Buried1, Box Buried2, Box Inner, Box Tile, Box Count, Box Badge)
     {
         /// <summary>The share of the deck's height the front pod fills.</summary>
-        public const float FrontShare = 0.78f;
+        public const float FrontShare = 0.82f;
 
         /// <summary>How far each buried pod rises over the one in front of it, as a share of the deck's height.</summary>
         public const float Raise = 0.09f;
@@ -294,6 +310,27 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The gap between two side buttons of a column, as a share of <see cref="W"/>.</summary>
         public const float SideGapShare = 0.03f;
 
+        /// <summary>The size of Play's label as a share of its button's height (the reference's big "PLAY"), both builds.</summary>
+        public const float PlayLabelShare = 0.5f;
+
+        /// <summary>The owner's logo picture's width, as a share of <see cref="W"/> (its letters span about 0.8 W).</summary>
+        public const float LogoPictureShare = 0.82f;
+
+        /// <summary>
+        /// The box of the owner's logo picture (pictures.md C1, <paramref name="width"/> × <paramref name="height"/> with
+        /// transparent margins of about a tenth of its height): sized by width, <see cref="LogoPictureShare"/> of W,
+        /// centered on <see cref="Logo"/>, its top no higher than Settings' bottom less its top margin, so the letters
+        /// fill the reference's 10% to 20.5% of the height.
+        /// </summary>
+        public Box LogoPicture(int width = 1200, int height = 440)
+        {
+            float w = LogoPictureShare * W;
+            float h = w * height / Math.Max(1f, width);
+            Box box = Box.FromCenter(Logo.CenterX, Logo.CenterY, w, h);
+            float top = Settings.Bottom - (0.1f * h);
+            return box.Top < top ? box.Offset(0f, top - box.Top) : box;
+        }
+
         /// <summary>The bands in their screen order.</summary>
         public IReadOnlyList<(string Name, Box Box)> Ordered => new[]
         {
@@ -402,11 +439,11 @@ namespace Bloomlings.Client.UI.Design
     /// <content>The reference layouts of spec 005 (contracts/look.md §6).</content>
     public static partial class ScreenLayout
     {
-        /// <summary>The safe height to width ratio the reference's screens were measured at (19.5:9 without insets).</summary>
-        public const float ReferenceAspect = 2.17f;
+        /// <summary>The safe height to width ratio the reference's screens were measured at: a 19.5:9 phone less its insets.</summary>
+        public const float ReferenceAspect = 2.0f;
 
         /// <summary>
-        /// How much the gameplay tray rows shrink on a screen of this safe shape: <c>clamp((H / W) / 2.17, 0.8, 1)</c>.
+        /// How much the gameplay tray rows shrink on a screen of this safe shape: <c>clamp((H / W) / 2.0, 0.8, 1)</c>.
         /// </summary>
         public static float ReferenceScale(Box safe) =>
             Math.Max(0.8f, Math.Min(1f, safe.Height / Math.Max(1f, safe.Width) / ReferenceAspect));
@@ -499,13 +536,13 @@ namespace Bloomlings.Client.UI.Design
                 ? Spread(Box.FromCenter(safe.CenterX, boosterRow.CenterY, 0.9f * w, 0.195f * w * k), 4, 0.195f * w * k, 0.03f * w)
                 : Array.Empty<Box>();
 
-            // The decks: one row (two when narrow), each row spread evenly across 0.96 W, at most 0.06 W apart, centered.
+            // The decks: one row (two when narrow), each row spread evenly across 0.96 W, at most 0.02 W apart, centered.
             var decks = new Box[stackCount <= 0 ? 0 : stacks];
             for (int row = 0, i = 0; row < podRows; row++)
             {
                 int inRow = Math.Min(perRow, stacks - i);
                 float top = podRow.Top + (row * (deckHeight + rowGap));
-                Box[] cells = Spread(new Box(safe.CenterX - (0.48f * w), top, safe.CenterX + (0.48f * w), top + deckHeight), inRow, deckWidth, gapX, 0.06f * w);
+                Box[] cells = Spread(new Box(safe.CenterX - (0.48f * w), top, safe.CenterX + (0.48f * w), top + deckHeight), inRow, deckWidth, gapX, 0.02f * w);
                 for (int c = 0; c < inRow && i < decks.Length; c++, i++)
                 {
                     decks[i] = cells[c];
@@ -615,8 +652,8 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The full-screen win (contracts/look.md §6.3), in fractions of the safe height H and width W: the sign
         /// 0.66 W × 0.13 H from 7.5% of H; the picture at most 0.8 W wide from 21.5% to 58% of H; the hero from 50% to 76%
-        /// of H (an 8:9 solo picture's box, as wide as the group needs at most 0.8 W); the pedestal 0.8 W wide from 72% to
-        /// 83% of H (its top ellipse about 74%); the rays around the hero with a radius of 0.6 W; the reward pill
+        /// of H (an 8:9 solo picture's box, as wide as the group needs at most 0.8 W); the pedestal 0.8 W wide from 70.5% to
+        /// 81.5% of H (its top ellipse about 73.8%, under the hero's feet at 73.4%); the rays around the hero with a radius of 0.6 W; the reward pill
         /// 0.47 W × 0.09 H from 76% to 85% of H with the ×2 offer at its right and the dropped booster at its left; Next
         /// 0.84 W wide from 86% to 96% of H.
         /// </summary>
@@ -632,7 +669,7 @@ namespace Bloomlings.Client.UI.Design
             float heroHeight = Y(0.76f) - Y(0.5f);
             float heroWidth = Math.Min(0.8f * w, heroHeight * CharacterArt.HeroWidth / CharacterArt.HeroHeight);
             var hero = new Box(safe.CenterX - (heroWidth / 2f), Y(0.5f), safe.CenterX + (heroWidth / 2f), Y(0.76f));
-            var pedestal = new Box(safe.CenterX - (0.4f * w), Y(0.72f), safe.CenterX + (0.4f * w), Y(0.83f));
+            var pedestal = new Box(safe.CenterX - (0.4f * w), Y(0.705f), safe.CenterX + (0.4f * w), Y(0.815f));
             var reward = new Box(safe.CenterX - (0.235f * w), Y(0.76f), safe.CenterX + (0.235f * w), Y(0.85f));
             float side = Math.Min(0.21f * w, (safe.Right - (0.02f * w)) - (reward.Right + (0.02f * w)));
             float sideHeight = Math.Min(reward.Height, 0.13f * w);
@@ -689,7 +726,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The Wardrobe in the reference layout (contracts/look.md §6.5), in fractions of the safe height H and width W:
         /// back 0.12 W at 0.04 W from the left from 2.5% of H; the banner from 24% to 70% of W, from 4.5% to 10% of H;
-        /// the Petals pill 0.32 W × 0.08 W at 0.02 W from the right from 3.5%; the hero (an 8:9 box) from 11% to 37% on
+        /// the Petals pill 0.28 W × 0.08 W at 0.02 W from the right from 3.5% (clear of the banner's right ivy); the hero (an 8:9 box) from 11% to 37% on
         /// the pedestal 0.6 W wide from 35% to 43%; the ‹ › arrows 0.09 W at 8% and 92% of W, 28% of H; the name card
         /// 0.92 W from 42% to 57% with its tab 0.5 W; the tabs from 56% to 68.5%; the panel from 67% to the bottom of the
         /// screen with the kind chips (when <paramref name="hasChips"/>), one row of cards 0.29 W wide and the footer at
@@ -705,7 +742,7 @@ namespace Bloomlings.Client.UI.Design
 
             var back = new Box(X(0.04f), Y(0.025f), X(0.16f), Y(0.025f) + (0.12f * w));
             var banner = new Box(X(0.24f), Y(0.045f), X(0.7f), Y(0.1f));
-            var petals = new Box(X(0.66f), Y(0.035f), X(0.98f), Y(0.035f) + (0.08f * w));
+            var petals = new Box(X(0.7f), Y(0.035f), X(0.98f), Y(0.035f) + (0.08f * w));
             float heroHeight = Y(0.37f) - Y(0.11f);
             float heroWidth = Math.Min(0.8f * w, heroHeight * CharacterArt.HeroWidth / CharacterArt.HeroHeight);
             var hero = new Box(safe.CenterX - (heroWidth / 2f), Y(0.11f), safe.CenterX + (heroWidth / 2f), Y(0.37f));
