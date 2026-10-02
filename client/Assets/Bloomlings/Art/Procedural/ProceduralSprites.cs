@@ -223,7 +223,7 @@ namespace Bloomlings.Client.Art
         /// <summary>A candy tile of any color and variant icon (the win picture draws its roles' colors this way).</summary>
         public static Sprite CandyTile(Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal, int size = 128)
         {
-            string key = "tile.candy/" + (style == TileStyle.Board ? "board" : "sticker") + "/" + state + "/" + iconId + "/" + color.Hex;
+            string key = "tile.candy/" + (style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker") + "/" + state + "/" + iconId + "/" + color.Hex;
             return Picture(key, size, size, (w, h) => UiRaster.Tile(Math.Min(w, h), color, iconId, style, state));
         }
 

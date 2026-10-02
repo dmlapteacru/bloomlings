@@ -34,7 +34,7 @@
   `playtest/design/BoardPainter.cs`
 - [ ] T012 [US1] Pods, slots, booster bar, top bar in `PodPainter.cs`, `SlotPainter.cs`, `BoosterBarPainter.cs`,
   `LevelScreen.cs`
-- [ ] T013 [US1] Unity: `TileView`, `BoardView`, `SpecialView`, `FinishedPictureRenderer`, `SlotRowView`, `PodView`,
+- [X] T013 [US1] Unity: `TileView`, `BoardView`, `SpecialView`, `FinishedPictureRenderer`, `SlotRowView`, `PodView`,
   `TrayView`, `BoosterBar`, `GameplayHud`, `BackdropView`
 
 ## Phase 4: User Story 2 — buttons, cards, popups (P2)

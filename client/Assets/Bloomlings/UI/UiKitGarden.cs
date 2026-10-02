@@ -816,6 +816,9 @@ namespace Bloomlings.Client.UI
         /// <summary>The count label.</summary>
         public TextMeshProUGUI Count => _count;
 
+        /// <summary>The padlock of a locked pod (it grows as the key lands).</summary>
+        public Image Lock => _lock;
+
         internal void Build(BoxLayout layout)
         {
             _layout = layout;
@@ -923,9 +926,12 @@ namespace Bloomlings.Client.UI
     {
         private BoxLayout _layout = null!;
         private GameObject _empty = null!;
+        private Image _emptyLip = null!;
         private Image _emptyFill = null!;
         private Image _emptyShade = null!;
+        private Image _emptyRing = null!;
         private Image _emptyLine = null!;
+        private Image _dashLight = null!;
         private Image _dashed = null!;
         private Image _dangerFill = null!;
         private Image _dangerMark = null!;
@@ -946,6 +952,8 @@ namespace Bloomlings.Client.UI
         private Image _extraDisc = null!;
         private Image _extraGlyph = null!;
         private float _radius;
+        private float _lineWidth;
+        private float _ringWidth;
 
         /// <summary>The slot's state.</summary>
         public SlotPlateState State { get; private set; }
@@ -959,20 +967,33 @@ namespace Bloomlings.Client.UI
         /// <summary>The variant tile.</summary>
         public CandyTileView Tile => _tile;
 
+        /// <summary>The count under the tile (it bumps as Bloomlings land).</summary>
+        public TextMeshProUGUI Count => _count;
+
+        /// <summary>The padlock of a locked slot (it grows as the key lands).</summary>
+        public Image Lock => _lock;
+
         internal void Build(BoxLayout layout)
         {
             _layout = layout;
             Transform root = layout.transform;
             _empty = UiFactory.CreateRect("Empty", root).gameObject;
             UiFactory.Stretch((RectTransform)_empty.transform);
+
+            // A plate pressed into the parchment (the playtest's Kit.SlotPlate): a thin lower edge, the face a little sunk,
+            // a light ring inside the outline, and the dashed inner outline stitched in with a light line under each dash.
+            _emptyLip = UiKit.RoundRect("Lip", _empty.transform, UiTheme.Of(C.CreamLip.WithAlpha(0.55f)), _ => _radius);
             _emptyFill = UiKit.RoundRect("Fill", _empty.transform, UiTheme.Of(C.CreamFace.Mix(C.ParchmentWell, 0.35f)), _ => _radius);
             _emptyShade = UiKit.RoundRect("Shade", _empty.transform, Color.white, _ => _radius);
             UiKit.Gradient(_emptyShade, UiTheme.Of(C.GardenShadow.WithAlpha(0.1f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
             _emptyShade.GetComponent<VerticalGradient>().Stop = 0.3f;
-            _emptyLine = UiKit.RoundRing("Line", _empty.transform, UiTheme.Of(C.CreamLine.WithAlpha(0.35f)), _ => _radius, b => Mathf.Max(UiKit.Units(1f), Mathf.Min(b.Width, b.Height) * 0.018f));
+            _emptyRing = UiKit.RoundRing("Ring", _empty.transform, UiTheme.Of(C.CreamTop.WithAlpha(0.75f)), _ => Mathf.Max(0f, _radius - _lineWidth), _ => _ringWidth);
+            _emptyLine = UiKit.RoundRing("Line", _empty.transform, UiTheme.Of(C.CreamLine.WithAlpha(0.6f)), _ => _radius, _ => _lineWidth);
             _dangerFill = UiKit.RoundRect("DangerFill", _empty.transform, UiTheme.Of(C.StateDanger.WithAlpha(0.07f)), _ => _radius * 0.7f);
+            _dashLight = UiFactory.CreateImage("DashedLight", _empty.transform, null, UiTheme.Of(C.CreamTop.WithAlpha(0.8f)));
+            PictureFit.On(_dashLight, (w, h) => ProceduralSprites.DashedOutline(w, h, 0.085f, 0.14f, 0.03f, 0.09f, 0.06f));
             _dashed = UiFactory.CreateImage("Dashed", _empty.transform, null, Color.white);
-            PictureFit.On(_dashed, (w, h) => ProceduralSprites.DashedOutline(w, h, 0.09f, 0.14f, 0.028f, 0.09f, 0.06f));
+            PictureFit.On(_dashed, (w, h) => ProceduralSprites.DashedOutline(w, h, 0.085f, 0.14f, 0.03f, 0.09f, 0.06f));
             _dangerMark = UiKit.ShapeImage("Danger", _empty.transform, "slot.state.jam_risk", C.StateDanger);
 
             _filled = UiFactory.CreateRect("Filled", root).gameObject;
@@ -1040,25 +1061,33 @@ namespace Bloomlings.Client.UI
         private void Lay(Box box)
         {
             float s = Mathf.Min(box.Width, box.Height);
+            float px = 1f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
             _radius = s * 0.2f;
+            _lineWidth = Mathf.Max(px, s * 0.018f);
+            _ringWidth = Mathf.Max(px, s * 0.022f);
+            BoxLayout.Place(_emptyLip.rectTransform, box.Offset(0f, s * 0.025f));
             BoxLayout.Place(_emptyFill.rectTransform, box);
             BoxLayout.Place(_emptyShade.rectTransform, box);
+            BoxLayout.Place(_emptyRing.rectTransform, box.Inset(_lineWidth));
             BoxLayout.Place(_emptyLine.rectTransform, box);
-            Box dashed = box.Inset(s * 0.09f);
+            Box dashed = box.Inset(s * 0.085f);
             BoxLayout.Place(_dangerFill.rectTransform, dashed);
+            BoxLayout.Place(_dashLight.rectTransform, box.Offset(0f, Mathf.Max(1.5f * px, s * 0.03f) * 0.45f));
             BoxLayout.Place(_dashed.rectTransform, box);
             BoxLayout.Place(_dangerMark.rectTransform, box.Inset(s * 0.32f));
 
-            float lip = s * 0.07f;
+            // The filled plate: a lip of 5.5% of the shorter side; the tile near the top (about 70% of a portrait plate's
+            // width, less on a square one), so the count below it keeps about a quarter of the face.
+            float lip = s * 0.055f;
             var face = new Box(box.Left, box.Top, box.Right, box.Bottom - lip);
             BoxLayout.Place(_lip.rectTransform, box);
             BoxLayout.Place(_face.rectTransform, face);
             BoxLayout.Place(_line.rectTransform, box);
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(face.CenterX, face.CenterY, s * 0.44f, s * 0.44f));
-            float tile = face.Width * 0.64f;
-            Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.06f) + (tile / 2f), tile, tile);
+            float tile = Mathf.Min(face.Width * 0.72f, face.Height * 0.58f);
+            Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.1f) + (tile / 2f), tile, tile);
             BoxLayout.Place((RectTransform)_tile.transform, tileBox);
-            UiKit.PlaceCount(_count, new Box(face.Left, tileBox.Bottom, face.Right, face.Bottom - (face.Height * 0.02f)), State == SlotPlateState.Stuck);
+            UiKit.PlaceCount(_count, new Box(face.Left, tileBox.Bottom, face.Right, face.Bottom - (face.Height * 0.03f)), State == SlotPlateState.Stuck);
 
             float b = s * 0.17f;
             float ring = Mathf.Max(UiKit.Units(1f), s * 0.012f);
@@ -1076,7 +1105,7 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_extraRing.rectTransform, Box.FromCenter(ex, ey, 2f * (r + edge), 2f * (r + edge)));
             BoxLayout.Place(_extraDisc.rectTransform, Box.FromCenter(ex, ey, 2f * r, 2f * r));
             BoxLayout.Place(_extraGlyph.rectTransform, Box.FromCenter(ex, ey, r * 1.2f, r * 1.2f));
-            foreach (Image image in new[] { _emptyFill, _emptyShade, _emptyLine, _dangerFill, _line, _lip, _face })
+            foreach (Image image in new[] { _emptyLip, _emptyFill, _emptyShade, _emptyRing, _emptyLine, _dangerFill, _line, _lip, _face })
             {
                 image.GetComponent<RoundShape>().Apply();
             }
@@ -1131,12 +1160,12 @@ namespace Bloomlings.Client.UI
 
             _ring = UiKit.RoundRing("Ring", _glow, UiTheme.Of(C.GardenGlow), _ => _radius + (Side() * 0.035f), _ => Side() * 0.035f);
 
-            Rgba rim = GardenLook.BoosterRim;
-            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, rim.Lighten(0.62f), rim.Lighten(0.08f), rim.Darken(0.22f));
-            Face = UiKit.IconFace("Tile", root, set, b => Mathf.Min(b.Width, b.Height) * 0.26f, square: false, raycast: true);
+            // The cream face in its silver-grey bezel (the playtest's Kit.BoosterBezel, UiKitGameplay.cs).
+            Face = UiKit.BoosterBezel("Tile", root, b => Mathf.Min(b.Width, b.Height) * 0.26f, raycast: true);
             Face.TileSquash = true;
             _icon = UiKit.BoosterIcon("Icon", Face.Content, boosterId);
-            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, Face.IconSide * 0.62f, Face.IconSide * 0.62f));
+            // The icon's box: its shapes keep a margin, so the icon itself is about two thirds of the tile (the playtest's 0.74).
+            BoxLayout.On(Face.Content).Add(_icon.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, Face.IconSide * 0.74f, Face.IconSide * 0.74f));
 
             _badge = UiKit.CountBadge("Count", root, out _badgeDisc);
             _cost = UiKit.CostPill("Cost", root, Cost.Petals(0));
@@ -1202,7 +1231,8 @@ namespace Bloomlings.Client.UI
             _ring.GetComponent<RoundShape>().Apply();
             BoxLayout.Place((RectTransform)Face.transform, tile);
             float badge = s * 0.34f;
-            BoxLayout.Place(_badgeDisc.rectTransform, Box.FromCenter(tile.Right - (badge / 6f), tile.Bottom - (badge / 6f), badge * 1.26f, badge * 1.26f));
+            // Over the tile's lower right corner, mostly on the tile, as in the reference (the playtest's Kit.BoosterTile).
+            BoxLayout.Place(_badgeDisc.rectTransform, Box.FromCenter(tile.Right - (badge * 0.55f), tile.Bottom - (badge * 0.55f), badge * 1.26f, badge * 1.26f));
             float pill = s * 0.3f;
             BoxLayout.Place((RectTransform)_cost.transform, Box.FromCenter(tile.CenterX, tile.Bottom + (pill * 0.12f), s * 0.86f, pill));
             float plus = s * 0.3f;

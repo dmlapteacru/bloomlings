@@ -1,3 +1,4 @@
+using System;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
@@ -6,130 +7,102 @@ using Bloomlings.Core.Boards;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Client.Gameplay.Board
 {
     /// <summary>
-    /// One board cell. A target shows a raised rounded tile in a light tint of its variant color (a lighter top and a
-    /// darker lower edge) with the variant's 2D character on its face (spec 004 FR-012, FR-013: the character's shape is
-    /// the variant's symbol); open cells hide the tile so the finished picture shows through; stones show a gray
-    /// block. A corner badge with the next variant's color and icon previews the next hidden layer (FR-036). A key sits
-    /// in the opposite corner without hiding the tile's icon or color (FR-033). A cell that counts toward a special's
-    /// condition carries a thin outline in the special's color (FR-037, FR-038). Changes animate: a cleared tile shrinks
-    /// away, a revealed layer or mystery tile flips in, and a tile that Bloom Burst can target breathes.
+    /// One board cell in the reference look (spec 005 contracts/look.md §3.1, §4.1; the playtest's <c>BoardPainter</c>).
+    /// <list type="bullet">
+    /// <item><description>A target is a candy tile in the board style (<c>tile.base</c>): a satin tile in its variant's
+    /// color with the symbol as a small raised bead, nearly filling its cell (inset 0.8%), so only the dark board gap
+    /// and the tiles' outlines part neighbors. A hidden mystery tile is the lilac "?" tile (FR-039).</description></item>
+    /// <item><description>The next hidden layer peeks from a chip in the tile's top-right corner (<c>tile.layer_peek</c>,
+    /// FR-036): a small candy tile of its variant in a cream ring with a dark rim.</description></item>
+    /// <item><description>A key waiting under the tile is the gold key on a cream disc in its top-left corner
+    /// (<c>tile.key</c>, FR-033), clear of the symbol.</description></item>
+    /// <item><description>A stone is a raised block of the border's sandy stone with a crack (<c>tile.stone</c>) over the
+    /// restored ground.</description></item>
+    /// <item><description>Open cells hide the tile, so the restored ground (<see cref="FinishedPictureRenderer"/>) shows
+    /// through.</description></item>
+    /// <item><description>A cell that counts toward a special's condition carries a ring in the special's color
+    /// (FR-037, FR-038); while Bloom Burst waits for its target, a gently pulsing <c>booster.bloom_burst</c> ring marks
+    /// every tile it can take (<c>fx.burst</c>).</description></item>
+    /// </list>
+    /// Changes animate: a cleared tile shrinks away, a revealed layer or mystery tile flips in. The view is the whole
+    /// cell; its parts are laid out from the cell's box, and the pieces only some tiles need are made when first shown.
     /// </summary>
     public sealed class TileView : MonoBehaviour
     {
-        private Image _frame = null!;
-        private Image _fill = null!;
-        private Image _shine = null!;
-        private Image _icon = null!;
-        private Image _peek = null!;
-        private Image _peekIcon = null!;
-        private Image _keyMark = null!;
-        private Image _counted = null!;
-        private VariantVisualCatalog? _visuals;
+        private Image _gap = null!;
+        private RectTransform _body = null!;
+        private BoxLayout _layout = null!;
+        private CandyTileView _tile = null!;
+        private RectTransform? _peek;
+        private CandyTileView? _peekTile;
+        private RectTransform? _key;
+        private Image? _keyGlyph;
+        private Image? _counted;
+        private Image? _target;
+        private Image? _stone;
         private Coroutine? _animation;
         private bool _targetable;
         private float _time;
+        private float _countedRadius;
+        private float _countedWidth;
+        private float _targetRadius;
+        private float _targetWidth;
 
         /// <summary>Raised when the tile is tapped while it is tappable (Bloom Burst picks its variant, T120).</summary>
-        public event System.Action<CellPos>? Tapped;
+        public event Action<CellPos>? Tapped;
 
         public CellPos Cell { get; private set; }
 
-        /// <summary>The lip of a cell as a fraction of its height: <c>garden.cell_lip</c> on a typical cell (spec 003 FR-023).</summary>
-        private const float CellLip = 0.16f;
-
-        private Image _highlight = null!;
-
-        /// <summary>The variant currently shown, or null when the tile is hidden.</summary>
+        /// <summary>The variant currently shown, or null when the tile is hidden (open ground, a stone or a mystery tile).</summary>
         public VariantId? Shown { get; private set; }
 
         public static TileView Create(Transform parent, CellPos cell, VariantVisualCatalog? visuals)
         {
-            Image frame = UiFactory.CreateImage($"Tile {cell.X},{cell.Y}", parent, ProceduralSprites.RoundedSquare, UiTheme.TileFrame);
-            var view = frame.gameObject.AddComponent<TileView>();
-            view._frame = frame;
-            view._visuals = visuals;
+            RectTransform root = UiFactory.CreateRect($"Tile {cell.X},{cell.Y}", parent);
+            var view = root.gameObject.AddComponent<TileView>();
             view.Cell = cell;
-            // A volumetric 2D block (spec 003 FR-023): the frame shows as the thicker darker lip, the fill sits on it with a
-            // lighter top half and a soft highlight band; the icon stays on the face, above the lip.
-            view._fill = UiFactory.CreateImage("Fill", frame.transform, ProceduralSprites.RoundedSquare, Color.white);
-            UiFactory.Place(view._fill.rectTransform, 0f, CellLip, 1f, 1f);
-            view._shine = UiFactory.CreateImage("Shine", view._fill.transform, ProceduralSprites.RoundedSquare, new Color(1f, 1f, 1f, 0f));
-            UiFactory.Place(view._shine.rectTransform, 0.03f, 0.5f, 0.97f, 0.97f);
-            Image highlight = UiFactory.CreateImage("Highlight", view._fill.transform, ProceduralSprites.PillSprite, Color.white);
-            UiFactory.Place(highlight.rectTransform, 0.1f, 0.67f, 0.9f, 0.93f);
-            UiKit.Gradient(highlight, new Color(1f, 1f, 1f, DesignTokens.Garden.CellHighlightAlpha), new Color(1f, 1f, 1f, 0f));
-            view._highlight = highlight;
-            view._icon = UiFactory.CreateImage("Character", frame.transform, null, Color.white);
-            (float x0, float y0, float x1, float y1) = CharacterArt.Anchors(CharacterArt.OnTile(new Box(0f, 0f, 1f, 1f - CellLip)), new Box(0f, 0f, 1f, 1f));
-            UiFactory.Place(view._icon.rectTransform, x0, y0, x1, y1);
-            view._icon.preserveAspect = true;
-            view._peek = UiFactory.CreateImage("NextLayer", frame.transform, ProceduralSprites.Circle, Color.white);
-            UiFactory.Place(view._peek.rectTransform, 0.62f, 0.62f, 1f, 1f);
-            view._peekIcon = UiFactory.CreateImage("NextIcon", view._peek.transform, null, new Color(1f, 1f, 1f, 0.95f));
-            view._peekIcon.preserveAspect = true;
-            UiFactory.Place(view._peekIcon.rectTransform, 0.18f, 0.18f, 0.82f, 0.82f);
-            view._keyMark = UiFactory.CreateImage("Key", frame.transform, ProceduralSprites.Key, UiTheme.EntryMarker);
-            UiFactory.Place(view._keyMark.rectTransform, 0.02f, 0.62f, 0.4f, 0.98f);
-            view._counted = UiFactory.CreateImage("Counted", frame.transform, ProceduralSprites.RoundedSquare, Color.white);
-            view._counted.fillCenter = false;
-            UiFactory.Place(view._counted.rectTransform, -0.04f, -0.04f, 1.04f, 1.04f);
-            view._counted.enabled = false;
-            Button button = frame.gameObject.AddComponent<Button>();
-            button.targetGraphic = frame;
+
+            // The dark board gap under the tile (the stone border's gap, §3.6): it parts the tiles and takes the taps while
+            // the tile is a Bloom Burst target. It hides at once when the tile goes, so the ground shows under the shrinking tile.
+            view._gap = UiFactory.CreateImage("Gap", root, null, UiTheme.Of(GardenLook.BoardGap));
+            UiFactory.Stretch(view._gap.rectTransform);
+            Button button = view._gap.gameObject.AddComponent<Button>();
+            button.transition = Selectable.Transition.None;
+            button.targetGraphic = view._gap;
             button.onClick.AddListener(() => view.Tapped?.Invoke(view.Cell));
-            frame.raycastTarget = false;
+
+            // The body moves in the animations (shrink, flip); the tile and its marks are laid out in it from the cell's box.
+            view._body = UiFactory.Stretch(UiFactory.CreateRect("Body", root));
+            view._layout = BoxLayout.On(view._body);
+            view._tile = UiKit.CandyTile("Candy", view._body, null, TileStyle.Board);
+            view._layout.Add((RectTransform)view._tile.transform, TileBox);
             return view;
         }
+
+        /// <summary>The candy tile's box in the cell's box: inset 0.8% of the cell on each side.</summary>
+        private static Box TileBox(Box cell) => cell.Inset(cell.Width * BoardPictures.TileInset);
 
         /// <param name="animate">Flip in (a revealed layer or mystery tile); false on build and restart.</param>
         public void ShowTarget(VariantId? visible, VariantId? next, string? keyId, bool animate = false)
         {
             StopAnimation();
             gameObject.SetActive(true);
-            _frame.enabled = true;
-            _highlight.enabled = true;
-            if (visible.HasValue)
+            _gap.enabled = true;
+            _tile.gameObject.SetActive(true);
+            if (_stone != null)
             {
-                VariantVisual visual = Visual(visible.Value);
-                Rgba tint = DesignTokens.CharacterTile(UiTheme.ToRgba(visual.Color));
-                _fill.sprite = visual.Tile ?? ProceduralSprites.RoundedSquare;
-                _fill.color = UiTheme.Of(tint);
-                _shine.color = WithAlpha(UiTheme.Of(DesignTokens.TileTop(tint)), visual.Tile == null ? 0.7f : 0f);
-                Sprite? character = CharacterSprites.Character(visible.Value, CharacterMood.Happy);
-                _icon.sprite = character ?? visual.Icon;
-                _icon.color = character != null ? Color.white : WithAlpha(UiTheme.Of(tint.Ink), 0.92f);
-                _icon.enabled = true;
-                _frame.color = UiTheme.Of(DesignTokens.TileEdge(tint));
-            }
-            else
-            {
-                // A hidden mystery tile (FR-039): neutral tile with a question mark.
-                Color mystery = UiTheme.Of(DesignTokens.Colors.TileMystery);
-                _fill.sprite = ProceduralSprites.RoundedSquare;
-                _fill.color = mystery;
-                _shine.color = new Color(1f, 1f, 1f, 0.18f);
-                _icon.sprite = ProceduralSprites.Question;
-                _icon.color = new Color(1f, 1f, 1f, 0.92f);
-                _icon.enabled = true;
-                _frame.color = UiTheme.Dark(mystery);
+                _stone.gameObject.SetActive(false);
             }
 
-            // The layer peek (FR-036): a corner badge with the next layer's color and icon.
-            _peek.enabled = next.HasValue;
-            _peekIcon.enabled = next.HasValue;
-            if (next.HasValue)
-            {
-                VariantVisual peek = Visual(next.Value);
-                _peek.color = peek.Color;
-                _peekIcon.sprite = peek.Icon;
-                _peekIcon.color = WithAlpha(peek.Ink, 0.95f);
-            }
-
-            _keyMark.enabled = keyId != null;
+            // A hidden mystery tile (FR-039) is the lilac "?" tile, and shows no next layer.
+            _tile.Show(visible, TileState.Normal);
+            ShowPeek(visible.HasValue ? next : null);
+            ShowKey(keyId != null);
             Shown = visible;
             if (animate && isActiveAndEnabled)
             {
@@ -137,56 +110,89 @@ namespace Bloomlings.Client.Gameplay.Board
             }
         }
 
+        /// <summary>A stone obstacle (frame 9): a raised stone block with a crack, on the restored ground.</summary>
         public void ShowStone()
         {
             StopAnimation();
             gameObject.SetActive(true);
-            _highlight.enabled = false;
-            // A garden stone (frame 9): the stone shape, lit on top, sitting on its own shadow.
-            _frame.color = Color.clear;
-            _fill.sprite = ProceduralSprites.Shape("tile.stone");
-            _fill.color = UiTheme.StoneColor;
-            _shine.color = new Color(1f, 1f, 1f, 0f);
-            _icon.enabled = false;
-            _peek.enabled = false;
-            _peekIcon.enabled = false;
-            _keyMark.enabled = false;
+            _gap.enabled = false;
+            _gap.raycastTarget = false;
+            _targetable = false;
+            _tile.gameObject.SetActive(false);
+            ShowPeek(null);
+            ShowKey(false);
+            SetTarget(false);
+            if (_stone == null)
+            {
+                _stone = UiFactory.CreateImage("Stone", _body, null, Color.white);
+                int seed = 21 + (((Cell.X * 5) + (Cell.Y * 3)) % 6);
+                bool flip = ((Cell.X + Cell.Y) % 2) == 1;
+                string key = "tile.stone/" + seed + (flip ? "/flip" : string.Empty);
+                PictureFit.On(_stone, (w, h) => ProceduralSprites.Picture(key, Mathf.Min(w, h), Mathf.Min(w, h), (pw, ph) => BoardPictures.StoneObstacle(Mathf.Min(pw, ph), seed, flip)), sliced: false, square: true);
+                _layout.Add(_stone.rectTransform, b => Box.FromCenter(b.CenterX, b.CenterY, b.Width * (1f + (2f * BoardPictures.ObstacleMargin)), b.Height * (1f + (2f * BoardPictures.ObstacleMargin))));
+                _stone.transform.SetAsFirstSibling();
+            }
+
+            _stone.gameObject.SetActive(true);
             Shown = null;
         }
 
         /// <summary>The key mark's position, where a collected key starts its flight (T107).</summary>
-        public Vector3 KeyPosition => _keyMark.transform.position;
+        public Vector3 KeyPosition => _keyGlyph != null ? _keyGlyph.transform.position : transform.position;
 
-        public bool HasKey => _keyMark.enabled;
+        public bool HasKey => _key != null && _key.gameObject.activeSelf;
 
-        /// <summary>Tiles take taps only while a booster waits for a target; such tiles breathe gently.</summary>
+        /// <summary>Tiles take taps only while a booster waits for a target; such tiles carry the pulsing Bloom Burst ring.</summary>
         public void SetTappable(bool tappable)
         {
-            _frame.raycastTarget = tappable;
+            _gap.raycastTarget = tappable;
             _targetable = tappable;
             _time = 0f;
-            if (!tappable && _animation == null)
-            {
-                transform.localScale = Vector3.one;
-            }
+            SetTarget(tappable);
         }
 
-        /// <summary>Outlines the cell in a special's color while it counts toward that special; null removes it.</summary>
+        /// <summary>Rings the cell in a special's color while it counts toward that special; null removes it.</summary>
         public void SetCounted(Color? color)
         {
-            _counted.enabled = color.HasValue;
-            if (color.HasValue)
+            if (!color.HasValue)
             {
-                _counted.color = color.Value;
+                if (_counted != null)
+                {
+                    _counted.gameObject.SetActive(false);
+                }
+
+                return;
             }
+
+            if (_counted == null)
+            {
+                _counted = UiKit.RoundRing("Counted", _body, Color.white, _ => _countedRadius, _ => _countedWidth);
+                _layout.Add(_counted.rectTransform, b =>
+                {
+                    Box tile = TileBox(b);
+                    _countedWidth = Mathf.Max(UiKit.Units(3f), b.Width * 0.06f);
+                    _countedRadius = Mathf.Max(UiKit.Units(3f), tile.Width * 0.1f);
+                    return tile;
+                });
+            }
+
+            _counted.color = color.Value;
+            _counted.gameObject.SetActive(true);
+            _counted.GetComponent<RoundShape>().Apply();
         }
 
-        public void HideKey() => _keyMark.enabled = false;
+        public void HideKey()
+        {
+            if (_key != null)
+            {
+                _key.gameObject.SetActive(false);
+            }
+        }
 
         /// <summary>Draws attention to this tile's key (a locked pod was tapped, T109).</summary>
         public void FlashKey()
         {
-            if (_keyMark.enabled && isActiveAndEnabled)
+            if (HasKey && isActiveAndEnabled)
             {
                 StartCoroutine(Flash());
             }
@@ -194,22 +200,27 @@ namespace Bloomlings.Client.Gameplay.Board
 
         private System.Collections.IEnumerator Flash()
         {
+            Transform key = _key!;
             for (float t = 0f; t < 0.9f; t += Time.unscaledDeltaTime)
             {
-                _keyMark.transform.localScale = Vector3.one * (1f + (0.35f * Mathf.Abs(Mathf.Sin(t * 10f))));
+                key.localScale = Vector3.one * (1f + (0.35f * Mathf.Abs(Mathf.Sin(t * 10f))));
                 yield return null;
             }
 
-            _keyMark.transform.localScale = Vector3.one;
+            key.localScale = Vector3.one;
         }
 
-        /// <summary>Open ground: the tile disappears and the finished picture shows through.</summary>
+        /// <summary>Open ground: the tile disappears and the restored ground shows through.</summary>
         /// <param name="animate">Shrink away (a Bloomling restored it); false on build and restart.</param>
         public void ShowOpen(bool animate = false)
         {
             StopAnimation();
             Shown = null;
-            _counted.enabled = false;
+            SetCounted(null);
+            SetTarget(false);
+            _targetable = false;
+            _gap.raycastTarget = false;
+            _gap.enabled = false;
             if (animate && isActiveAndEnabled)
             {
                 _animation = StartCoroutine(ShrinkAway());
@@ -219,29 +230,173 @@ namespace Bloomlings.Client.Gameplay.Board
             gameObject.SetActive(false);
         }
 
+        /// <summary>
+        /// The next layer's chip (<c>tile.layer_peek</c>): 40% of the tile in its top-right corner, 3% in from its edges,
+        /// a small board-style candy tile in a cream ring (10% of the chip) with a dark rim, over a soft shadow.
+        /// </summary>
+        private void ShowPeek(VariantId? next)
+        {
+            if (!next.HasValue)
+            {
+                if (_peek != null)
+                {
+                    _peek.gameObject.SetActive(false);
+                }
+
+                return;
+            }
+
+            if (_peek == null)
+            {
+                _peek = UiFactory.Stretch(UiFactory.CreateRect("NextLayer", _body));
+                BoxLayout layout = BoxLayout.On(_peek);
+                float radius = 0f;
+                float rimRadius = 0f;
+                UiKit.SoftShadow(layout, b => Chip(TileBox(b)), b => b.Width * 0.26f, 0.3f, 0.06f);
+                Image rim = UiKit.RoundRect("Rim", _peek, UiTheme.Of(GardenLook.BoardGap), _ => rimRadius);
+                Image ring = UiKit.RoundGradient("Ring", _peek, C.CreamTop, C.CreamFace, _ => radius);
+                layout.Add(rim.rectTransform, b =>
+                {
+                    Box chip = Chip(TileBox(b));
+                    float line = Mathf.Max(OnePixel, chip.Width * 0.045f);
+                    radius = chip.Width * 0.24f;
+                    rimRadius = radius + line;
+                    return chip.Inset(-line);
+                });
+                layout.Add(ring.rectTransform, b => Chip(TileBox(b)));
+                _peekTile = UiKit.CandyTile("Next", _peek, next, TileStyle.Board);
+                layout.Add((RectTransform)_peekTile.transform, b =>
+                {
+                    Box chip = Chip(TileBox(b));
+                    return chip.Inset(Mathf.Max(OnePixel, chip.Width * 0.1f));
+                });
+                layout.Then(_ =>
+                {
+                    rim.GetComponent<RoundShape>().Apply();
+                    ring.GetComponent<RoundShape>().Apply();
+                });
+            }
+
+            _peekTile!.Show(next, TileState.Normal);
+            _peek.gameObject.SetActive(true);
+            _peek.SetAsLastSibling();
+        }
+
+        /// <summary>The peek chip's box in a tile's box.</summary>
+        private static Box Chip(Box tile)
+        {
+            float s = tile.Width;
+            float chip = s * 0.4f;
+            float m = s * 0.03f;
+            return new Box(tile.Right - m - chip, tile.Top + m, tile.Right - m, tile.Top + m + chip);
+        }
+
+        /// <summary>
+        /// A key waiting under the tile (<c>tile.key</c>): the gold key with a brown outline on a cream disc (38% of the
+        /// tile, a <c>cream.line</c> ring) in its top-left corner, over a soft shadow.
+        /// </summary>
+        private void ShowKey(bool show)
+        {
+            if (!show)
+            {
+                HideKey();
+                return;
+            }
+
+            if (_key == null)
+            {
+                _key = UiFactory.CreateRect("Key", _body);
+                BoxLayout layout = BoxLayout.On(_key);
+                UiKit.SoftShadow(layout, b => b, b => b.Width / 2f, 0.3f, 0.06f);
+                Image line = UiKit.RoundRect("Ring", _key, UiTheme.Of(C.CreamLine));
+                Image disc = UiKit.RoundGradient("Disc", _key, C.CreamTop, C.CreamFace);
+                Func<float, float, float> sdf = ShapeLibrary.Get("tile.key");
+                Image outline = UiFactory.CreateImage("KeyLine", _key, ProceduralSprites.Composite("tile.key/line", (x, y) => sdf(x, y) - 0.09f), UiTheme.Of(C.InkBrown));
+                outline.preserveAspect = true;
+                _keyGlyph = UiKit.ShapeImage("KeyGlyph", _key, "tile.key", C.MedalGold);
+                layout.Add(line.rectTransform, b => b.Inset(-Mathf.Max(OnePixel, b.Width * 0.05f)));
+                layout.Add(disc.rectTransform, b => b);
+                layout.Add(outline.rectTransform, b => b.Inset(b.Width * 0.14f));
+                layout.Add(_keyGlyph.rectTransform, b => b.Inset(b.Width * 0.14f));
+
+                // The key's own rect is the disc, so the flash scales it about its middle.
+                _layout.Add(_key, b =>
+                {
+                    Box tile = TileBox(b);
+                    float d = tile.Width * 0.38f;
+                    float m = tile.Width * 0.03f;
+                    return new Box(tile.Left + m, tile.Top + m, tile.Left + m + d, tile.Top + m + d);
+                });
+            }
+
+            _key.localScale = Vector3.one;
+            _key.gameObject.SetActive(true);
+            _key.SetAsLastSibling();
+        }
+
+        /// <summary>The Bloom Burst target ring (<c>fx.burst</c>): 5% inside the cell, radius 12% of it, pulsing gently.</summary>
+        private void SetTarget(bool on)
+        {
+            if (!on)
+            {
+                if (_target != null)
+                {
+                    _target.gameObject.SetActive(false);
+                }
+
+                return;
+            }
+
+            if (_target == null)
+            {
+                _target = UiKit.RoundRing("BurstTarget", _body, UiTheme.Of(C.BoosterBloomBurst), _ => _targetRadius, _ => _targetWidth);
+                _layout.Add(_target.rectTransform, b =>
+                {
+                    float cell = b.Width;
+                    _targetWidth = Mathf.Max(UiKit.Units(4f), cell * 0.05f);
+                    _targetRadius = (cell * 0.12f) + (_targetWidth / 2f);
+                    return b.Inset((cell * 0.05f) - (_targetWidth / 2f));
+                });
+            }
+
+            _target.gameObject.SetActive(true);
+            _target.transform.SetAsLastSibling();
+            _target.GetComponent<RoundShape>().Apply();
+            Pulse();
+        }
+
         private void Update()
         {
-            if (_targetable && _animation == null)
+            if (_targetable && _target != null && _target.gameObject.activeSelf)
             {
                 _time += Time.unscaledDeltaTime;
-                transform.localScale = Vector3.one * (1f + (0.06f * Mathf.Sin(_time * 7f)));
+                Pulse();
+            }
+        }
+
+        /// <summary>The target ring's alpha: 0.85 × (0.75 + 0.25 sin(6t)), as the playtest's.</summary>
+        private void Pulse()
+        {
+            if (_target != null)
+            {
+                Color c = UiTheme.Of(C.BoosterBloomBurst);
+                _target.color = new Color(c.r, c.g, c.b, 0.85f * (0.75f + (0.25f * Mathf.Sin(_time * 6f))));
             }
         }
 
         private System.Collections.IEnumerator ShrinkAway()
         {
             _targetable = false;
-            _frame.raycastTarget = false;
             for (float t = 0f; t < 0.18f; t += Time.unscaledDeltaTime)
             {
                 float k = t / 0.18f;
-                transform.localScale = Vector3.one * (1f - (0.8f * k * k));
-                transform.localEulerAngles = new Vector3(0f, 0f, 25f * k);
+                _body.localScale = Vector3.one * (1f - (0.8f * k * k));
+                _body.localEulerAngles = new Vector3(0f, 0f, 25f * k);
                 yield return null;
             }
 
-            transform.localScale = Vector3.one;
-            transform.localEulerAngles = Vector3.zero;
+            _body.localScale = Vector3.one;
+            _body.localEulerAngles = Vector3.zero;
             _animation = null;
             gameObject.SetActive(false);
         }
@@ -251,11 +406,11 @@ namespace Bloomlings.Client.Gameplay.Board
             for (float t = 0f; t < 0.2f; t += Time.unscaledDeltaTime)
             {
                 float k = t / 0.2f;
-                transform.localScale = new Vector3(Mathf.Abs(Mathf.Cos(k * Mathf.PI)), 1f, 1f);
+                _body.localScale = new Vector3(Mathf.Abs(Mathf.Cos(k * Mathf.PI)), 1f, 1f);
                 yield return null;
             }
 
-            transform.localScale = Vector3.one;
+            _body.localScale = Vector3.one;
             _animation = null;
         }
 
@@ -267,12 +422,11 @@ namespace Bloomlings.Client.Gameplay.Board
                 _animation = null;
             }
 
-            transform.localScale = Vector3.one;
-            transform.localEulerAngles = Vector3.zero;
+            _body.localScale = Vector3.one;
+            _body.localEulerAngles = Vector3.zero;
         }
 
-        private static Color WithAlpha(Color color, float alpha) => new Color(color.r, color.g, color.b, alpha);
-
-        private VariantVisual Visual(VariantId id) => _visuals != null ? _visuals.Get(id) : VariantVisualCatalog.Default(id);
+        /// <summary>One screen pixel in canvas units (the playtest's 1 px minimums).</summary>
+        private static float OnePixel => 1f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
     }
 }

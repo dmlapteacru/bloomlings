@@ -2,31 +2,46 @@ using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Variants;
 using Bloomlings.Core.Simulation;
 using UnityEngine;
 using UnityEngine.UI;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Client.Gameplay.Board
 {
     /// <summary>
-    /// The board (T041): fits up to 14×16 cells into the board area without scrolling or zooming (FR-008), draws the
-    /// finished picture under the tiles (T042), and marks the Garden Entries on the board edge. Its visual state
-    /// follows the event timeline, not the logical state, so tiles change when their Bloomling arrives (R4): a restored
-    /// tile shrinks away with a small sparkle, and on a win the finished picture shines. The cells that count toward a
-    /// special's condition are outlined in that special's color.
+    /// The board (T041) in the reference look (spec 005 contracts/look.md §3.6, §4.1; the playtest's <c>BoardPainter</c>):
+    /// it lies on the lawn inside a border of sandy stone blocks, laid out by the shared <see cref="BoardLayout"/>, so it
+    /// fits up to 14×16 cells into the board area without scrolling or zooming (FR-008) exactly as the playtest does.
+    /// <list type="bullet">
+    /// <item><description>Target tiles are candy tiles that nearly touch, parted by the dark board gap
+    /// (<see cref="TileView"/>).</description></item>
+    /// <item><description>Restored ground shows the finished picture as pale flat cells under the tiles (T042,
+    /// <see cref="FinishedPictureRenderer"/>).</description></item>
+    /// <item><description>Each Garden Entry is a stone arch on its side of the board; the Bloomlings come out at its door
+    /// (<see cref="EntryArch.Door"/>).</description></item>
+    /// </list>
+    /// Its visual state follows the event timeline, not the logical state, so tiles change when their Bloomling arrives
+    /// (R4): a restored tile shrinks away with a small sparkle, and on a win the finished picture shines. The cells that
+    /// count toward a special's condition are ringed in that special's color.
     /// </summary>
     public sealed class BoardView : MonoBehaviour
     {
         private readonly List<TileView> _tiles = new List<TileView>();
-        private readonly List<(Image Marker, EntryDef Entry)> _entries = new List<(Image, EntryDef)>();
+        private readonly List<(RectTransform Root, Image Arch, EntryDef Entry)> _entries = new List<(RectTransform, Image, EntryDef)>();
         private readonly List<SpecialView> _specials = new List<SpecialView>();
+        private readonly List<float> _archRadius = new List<float>();
         private RectTransform _area = null!;
         private RectTransform _grid = null!;
         private FinishedPictureRenderer _picture = null!;
+        private StoneBorderView? _border;
         private VariantVisualCatalog? _visuals;
+        private BoardLayout? _layout;
+        private IReadOnlyList<EntryDef> _entryDefs = new EntryDef[0];
         private int _width;
         private int _height;
 
@@ -57,9 +72,9 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             _tiles.Clear();
-            foreach ((Image marker, EntryDef _) in _entries)
+            foreach ((RectTransform root, Image _, EntryDef _) in _entries)
             {
-                Destroy(marker.gameObject);
+                Destroy(root.gameObject);
             }
 
             _entries.Clear();
@@ -71,8 +86,21 @@ namespace Bloomlings.Client.Gameplay.Board
             _specials.Clear();
             _width = view.Width;
             _height = view.Height;
+            _entryDefs = view.Entries;
             Layout();
-            _picture.Build(definition, picture, _visuals, _grid);
+            _picture.Build(definition, picture, _width, _height, GroundPixels(), _grid);
+
+            // The stone border with its dark gap lies under the ground and the tiles (§3.6).
+            if (_border == null)
+            {
+                _border = UiKit.StoneBorder(_grid, _width, _height);
+            }
+            else
+            {
+                _border.SetGrid(_width, _height);
+            }
+
+            _border.transform.SetAsFirstSibling();
 
             for (int y = 0; y < _height; y++)
             {
@@ -82,14 +110,20 @@ namespace Bloomlings.Client.Gameplay.Board
                     TileView tile = TileView.Create(_grid, cell, _visuals);
                     tile.Tapped += c => CellTapped?.Invoke(c);
                     _tiles.Add(tile);
-                    Refresh(view, cell);
                 }
             }
 
+            // The arches stand on the lawn behind the board (§3.6, board.arch), each over a soft ground shadow.
             foreach (EntryDef entry in view.Entries)
             {
-                Image marker = UiFactory.CreateImage("Entry", _grid, ProceduralSprites.Ring, UiTheme.EntryMarker);
-                _entries.Add((marker, entry));
+                RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("Entry", _area));
+                root.SetAsFirstSibling();
+                int index = _entries.Count;
+                BoxLayout layout = BoxLayout.On(root);
+                UiKit.SoftShadow(layout, _ => ArchShadow(index), _ => ArchRadius(index), 0.18f, 0.02f);
+                Image arch = UiKit.StoneArch("Arch", root, entry.Side);
+                layout.Add(arch.rectTransform, _ => ArchBox(index));
+                _entries.Add((root, arch, entry));
             }
 
             foreach (SpecialInfo special in view.Specials)
@@ -98,11 +132,19 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             Layout();
+            for (int y = 0; y < _height; y++)
+            {
+                for (int x = 0; x < _width; x++)
+                {
+                    Refresh(view, new CellPos(x, y));
+                }
+            }
+
             UpdateCounted(view);
         }
 
         /// <summary>
-        /// Outlines the cells that count toward each unresolved special (FR-037, FR-038): for "restore N &lt;variant&gt;
+        /// Rings the cells that count toward each unresolved special (FR-037, FR-038): for "restore N &lt;variant&gt;
         /// around it", the target tiles next to it that hold that variant; for "restore this region", the region's
         /// remaining tiles.
         /// </summary>
@@ -169,16 +211,32 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>Canvas position of a cell center inside <see cref="Grid"/>.</summary>
         public Vector2 CellCenter(CellPos cell) => new Vector2((cell.X + 0.5f) * CellSize, (cell.Y + 0.5f) * CellSize);
 
-        /// <summary>Where Bloomlings emerge: just outside the board edge next to the entry cell.</summary>
+        /// <summary>
+        /// Where Bloomlings emerge: the door of the entry's stone arch (<see cref="EntryArch.Door"/>, 42% of its radius
+        /// inside the opening), in <see cref="Grid"/>'s coordinates; just outside the entry cell before the first layout.
+        /// </summary>
         public Vector2 EntryPoint(EntryDef entry)
         {
+            if (_layout != null)
+            {
+                for (int i = 0; i < _entryDefs.Count && i < _layout.Arches.Count; i++)
+                {
+                    if (_entryDefs[i].Cell == entry.Cell && _entryDefs[i].Side == entry.Side)
+                    {
+                        (float x, float y) = _layout.Arches[i].Door;
+                        return new Vector2(x - _layout.Grid.Left, _layout.Grid.Bottom - y);
+                    }
+                }
+            }
+
             Vector2 c = CellCenter(entry.Cell);
+            float d = CellSize * 0.78f;
             return entry.Side switch
             {
-                EntrySide.Bottom => c + new Vector2(0f, -CellSize * 0.85f),
-                EntrySide.Top => c + new Vector2(0f, CellSize * 0.85f),
-                EntrySide.Left => c + new Vector2(-CellSize * 0.85f, 0f),
-                _ => c + new Vector2(CellSize * 0.85f, 0f),
+                EntrySide.Bottom => c + new Vector2(0f, -d),
+                EntrySide.Top => c + new Vector2(0f, d),
+                EntrySide.Left => c + new Vector2(-d, 0f),
+                _ => c + new Vector2(d, 0f),
             };
         }
 
@@ -190,16 +248,13 @@ namespace Bloomlings.Client.Gameplay.Board
             switch (info.Kind)
             {
                 case CellKind.Target:
-                    tile.ShowTarget(info.Visible, info.Next, info.KeyId);
+                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, info.RemainingLayers > 1 ? info.Next : null, info.KeyId);
                     break;
                 case CellKind.Stone:
                     tile.ShowStone();
                     break;
-                case CellKind.Special:
-                    // Ground under the special's own view (SpecialView).
-                    tile.ShowOpen();
-                    break;
                 default:
+                    // Open ground, or the ground under a special's own view (SpecialView).
                     tile.ShowOpen();
                     break;
             }
@@ -210,7 +265,7 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             CellInfo info = view.Cell(cell);
             Sparkle(cell);
-            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop ? info.Next : null, null, animate: true);
+            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop && info.RemainingLayers > 1 ? info.Next : null, null, animate: true);
         }
 
         /// <summary>Bloom Burst removed a variant (FR-050): each of its tiles bursts in a puff, then shows what is left.</summary>
@@ -221,14 +276,13 @@ namespace Bloomlings.Client.Gameplay.Board
                 TileView tile = Tile(cell);
                 if (tile.Shown.HasValue && isActiveAndEnabled)
                 {
-                    VariantVisual visual = _visuals != null ? _visuals.Get(tile.Shown.Value) : VariantVisualCatalog.Default(tile.Shown.Value);
-                    Effects.UiFx.Puff(_grid, tile.transform.position, visual.Color, 7, CellSize * 0.9f, CellSize * 0.28f, 0.4f, ProceduralSprites.Star);
+                    Effects.UiFx.Puff(_grid, tile.transform.position, UiTheme.Of(BoardPictures.ColorOf(tile.Shown.Value)), 7, CellSize * 0.9f, CellSize * 0.28f, 0.4f, ProceduralSprites.Star);
                 }
 
                 CellInfo info = view.Cell(cell);
                 if (info.Kind == CellKind.Target)
                 {
-                    tile.ShowTarget(info.Visible, info.Next, info.KeyId, animate: true);
+                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, info.RemainingLayers > 1 ? info.Next : null, info.KeyId, animate: true);
                 }
                 else if (info.Kind == CellKind.Stone)
                 {
@@ -259,8 +313,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 return;
             }
 
-            VariantVisual visual = _visuals != null ? _visuals.Get(tile.Shown.Value) : VariantVisualCatalog.Default(tile.Shown.Value);
-            Effects.UiFx.Puff(_grid, tile.transform.position, UiTheme.Light(visual.Color), 5, CellSize * 0.6f, CellSize * 0.22f, 0.3f);
+            Effects.UiFx.Puff(_grid, tile.transform.position, UiTheme.Of(BoardPictures.ColorOf(tile.Shown.Value).Lighten(0.55f)), 5, CellSize * 0.6f, CellSize * 0.22f, 0.3f);
         }
 
         /// <summary>World position of a key still lying on the board, or null.</summary>
@@ -292,7 +345,7 @@ namespace Bloomlings.Client.Gameplay.Board
 
         public RectTransform CellRect(CellPos cell) => (RectTransform)Tile(cell).transform;
 
-        /// <summary>Lets the visible tiles take taps (Bloom Burst's target) or stops it.</summary>
+        /// <summary>Lets the visible tiles take taps (Bloom Burst's target, each ringed) or stops it.</summary>
         public void SetTargeting(bool on)
         {
             foreach (TileView tile in _tiles)
@@ -368,28 +421,65 @@ namespace Bloomlings.Client.Gameplay.Board
 
         private TileView Tile(CellPos cell) => _tiles[(cell.Y * _width) + cell.X];
 
+        /// <summary>The ground's pixels per cell: the cell's size on screen, 64 before the board has a size.</summary>
+        private int GroundPixels() => CellSize > 1f ? Mathf.CeilToInt(CellSize * UiKit.PixelsPerUnit) : 64;
+
+        /// <summary>An entry's arch box in the area's top-down coordinates (the kit's <c>StoneArch</c> box).</summary>
+        private Box ArchBox(int index)
+        {
+            if (_layout == null || index >= _layout.Arches.Count)
+            {
+                return new Box(0f, 0f, 0f, 0f);
+            }
+
+            EntryArch arch = _layout.Arches[index];
+            return UiKit.ArchBox(arch.BaseX, arch.BaseY, arch.Radius / 1.5f, arch.Side);
+        }
+
+        private float ArchRadius(int index) => _layout != null && index < _layout.Arches.Count ? _layout.Arches[index].Radius : 0f;
+
+        /// <summary>The soft ground shadow under an arch's crown (the playtest's <c>BoardPainter.Arch</c>).</summary>
+        private Box ArchShadow(int index)
+        {
+            if (_layout == null || index >= _layout.Arches.Count)
+            {
+                return new Box(0f, 0f, 0f, 0f);
+            }
+
+            EntryArch arch = _layout.Arches[index];
+            float r = arch.Radius;
+            (float sx, float sy) = arch.Side switch
+            {
+                EntrySide.Top => (0f, -r * 0.5f),
+                EntrySide.Left => (-r * 0.5f, 0f),
+                EntrySide.Right => (r * 0.5f, 0f),
+                _ => (0f, r * 0.5f),
+            };
+            bool across = arch.Side == EntrySide.Left || arch.Side == EntrySide.Right;
+            return Box.FromCenter(arch.BaseX - (sx * 0.86f) + (r * 0.04f), arch.BaseY - (sy * 0.86f) + (r * 0.08f), across ? r * 1.16f : r * 2.14f, across ? r * 2.14f : r * 1.16f);
+        }
+
+        /// <summary>
+        /// Lays the board out in its area (<see cref="BoardLayout.Fit"/>, in the area's top-down canvas units): the grid of
+        /// cells, the stone border around it, one arch per entry; tiles take whole cells, specials their cells' box.
+        /// </summary>
         private void Layout()
         {
             Rect area = _area.rect;
-
-            // One cell of margin below for the entry markers; the rest fits the board by its aspect ratio.
-            CellSize = Mathf.Floor(Mathf.Min(area.width / _width, area.height / (_height + 1f)));
-            _grid.anchorMin = new Vector2(0.5f, 0.5f);
-            _grid.anchorMax = new Vector2(0.5f, 0.5f);
-            _grid.pivot = new Vector2(0.5f, 0.5f);
-            _grid.sizeDelta = new Vector2(_width * CellSize, _height * CellSize);
-            _grid.anchoredPosition = new Vector2(0f, CellSize * 0.5f);
+            _layout = BoardLayout.Fit(new Box(0f, 0f, Mathf.Max(1f, area.width), Mathf.Max(1f, area.height)), _width, _height, _entryDefs);
+            CellSize = _layout.Cell;
+            BoxLayout.Place(_grid, _layout.Grid);
             foreach (TileView tile in _tiles)
             {
-                UiFactory.PlaceAbsolute((RectTransform)tile.transform, CellCenter(tile.Cell), Vector2.one * CellSize * 0.96f);
+                UiFactory.PlaceAbsolute((RectTransform)tile.transform, CellCenter(tile.Cell), Vector2.one * CellSize);
             }
 
-            foreach ((Image marker, EntryDef entry) in _entries)
+            foreach ((RectTransform root, Image _, EntryDef _) in _entries)
             {
-                UiFactory.PlaceAbsolute(marker.rectTransform, EntryPoint(entry), Vector2.one * CellSize * 0.8f);
+                BoxLayout.On(root).Apply();
             }
 
-            // A special covers the bounding box of its cells.
+            // A special covers the box of its cells.
             foreach (SpecialView special in _specials)
             {
                 int minX = int.MaxValue, minY = int.MaxValue, maxX = int.MinValue, maxY = int.MinValue;
@@ -402,7 +492,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 }
 
                 var center = new Vector2((minX + maxX + 1) * 0.5f * CellSize, (minY + maxY + 1) * 0.5f * CellSize);
-                UiFactory.PlaceAbsolute((RectTransform)special.transform, center, new Vector2((maxX - minX + 1) * CellSize, (maxY - minY + 1) * CellSize) * 0.96f);
+                UiFactory.PlaceAbsolute((RectTransform)special.transform, center, new Vector2((maxX - minX + 1) * CellSize, (maxY - minY + 1) * CellSize));
                 special.transform.SetAsLastSibling();
             }
         }
@@ -412,6 +502,13 @@ namespace Bloomlings.Client.Gameplay.Board
             if (_width > 0 && _grid != null)
             {
                 Layout();
+
+                // A new size: the ground is drawn again when its cells changed a lot (bilinear scaling keeps small changes).
+                int pixels = GroundPixels();
+                if (_picture.CellPixels > 0 && Mathf.Abs(pixels - _picture.CellPixels) > _picture.CellPixels / 4)
+                {
+                    _picture.Redraw(pixels);
+                }
             }
         }
     }

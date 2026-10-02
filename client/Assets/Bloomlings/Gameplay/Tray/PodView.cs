@@ -1,48 +1,44 @@
 using System;
 using System.Collections;
-using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
-using Bloomlings.Client.UI.Localization;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
-    /// A Spirit Pod card in the states of the design board's frame 12 (spec 002 FR-012).
+    /// A Spirit Pod in the states of the design board's frame 12 (spec 002 FR-012) as the reference's wooden pod (spec 005
+    /// contracts/look.md §3.7; the playtest's <c>PodPainter</c>, <see cref="UiKit.Pod"/>):
     /// <list type="bullet">
-    /// <item><description>exposed: a raised card in the variant's light tint;</description></item>
-    /// <item><description>buried (next in stack): greyed;</description></item>
-    /// <item><description>locked: grey with a padlock;</description></item>
-    /// <item><description>mystery: pink with "?";</description></item>
-    /// <item><description>connected: a teal link mark.</description></item>
+    /// <item><description>exposed: a dark wooden frame with its handle on top, a panel tinted by the variant, the variant's
+    /// sticker tile and the plain count below it;</description></item>
+    /// <item><description>next in stack: the same pod dimmed toward the parchment, fully visible below the exposed one
+    /// (spec 003 FR-022a);</description></item>
+    /// <item><description>pressed: the frame sinks and squashes under the finger, and springs back;</description></item>
+    /// <item><description>locked: the padlock on a grey panel;</description></item>
+    /// <item><description>mystery: the lilac "?" tile with its count.</description></item>
     /// </list>
-    /// The card shows the variant's character (spec 004 FR-008): its whole shape is the variant's symbol, in the variant's
-    /// colors, awake on an exposed pod and asleep in the stack, with "xN" in the bottom-right corner. That keeps spec 001
-    /// FR-012's order of prominence: the character (icon and color in one), the count, then the family. Locked and
-    /// mystery pods keep their padlock or "?" and the count pill.
+    /// Connected pods are joined by the tray's link bar (<see cref="TrayView"/>). The variant reads first from its tile
+    /// (color and symbol), then from the panel's tint, then from the count (spec 001 FR-012).
     /// </summary>
     public sealed class PodView : MonoBehaviour
     {
-        private static readonly Color MysteryCard = UiTheme.Of(DesignTokens.Colors.PodMystery);
-        private static readonly Color MysteryMark = UiTheme.Of(DesignTokens.Colors.PodMysteryMark);
-
-        private Image _edge = null!;
-        private Image _card = null!;
-        private Image _body = null!;
-        private Image _icon = null!;
-        private Image _countPill = null!;
-        private TextMeshProUGUI _pillCount = null!;
-        private Image _lock = null!;
-        private Image _link = null!;
-        private TextMeshProUGUI _count = null!;
+        private KitPodView _pod = null!;
+        private Image? _veil;
         private Button _button = null!;
+        private PressMotion _press = null!;
         private Coroutine? _feedback;
+        private VariantId? _variant;
+        private int _count;
+        private bool _dimmed;
+        private bool _locked;
+        private bool _handle;
+        private bool _pressedShown;
 
         public string PodId { get; private set; } = string.Empty;
 
@@ -50,137 +46,70 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         public static PodView Create(Transform parent, Action<string> onTap)
         {
-            Image edge = UiKit.Rounded("Pod", parent, Color.white, 44f, raycast: true);
-            var view = edge.gameObject.AddComponent<PodView>();
-            view._edge = edge;
-            view._card = UiKit.Rounded("Card", edge.transform, Color.white, 44f);
-            // A volumetric 2D card (spec 003 FR-022): a thick lip below the card and a highlight band; never 3D.
-            RectTransform card = UiFactory.Stretch(view._card.rectTransform);
-            card.offsetMin = new Vector2(0f, UiKit.Units(DesignTokens.Garden.PodLip));
-            Image highlight = UiFactory.CreateImage("Highlight", view._card.transform, ProceduralSprites.PillSprite, Color.white);
-            UiFactory.Place(highlight.rectTransform, 0.09f, 0.75f, 0.91f, 0.95f);
-            UiKit.Gradient(highlight, new Color(1f, 1f, 1f, 0.55f), new Color(1f, 1f, 1f, 0f));
-            view._button = edge.gameObject.AddComponent<Button>();
-            view._button.targetGraphic = view._card;
+            Image root = UiFactory.CreateImage("Pod", parent, null, Color.clear, raycast: true);
+            var view = root.gameObject.AddComponent<PodView>();
+            view._pod = UiKit.Pod("Frame", root.transform);
+            UiFactory.Stretch((RectTransform)view._pod.transform);
+            view._button = root.gameObject.AddComponent<Button>();
+            view._button.transition = Selectable.Transition.None;
+            view._button.targetGraphic = root;
             view._button.onClick.AddListener(() => onTap(view.PodId));
-            edge.gameObject.AddComponent<PressMotion>();
-
-            // The character and its "xN" (spec 004 FR-008), placed by the kit on a square face.
-            var face = new Box(0f, 0f, 1f, 1f);
-            view._body = UiFactory.CreateImage("Character", view._card.transform, null, Color.white);
-            view._body.preserveAspect = true;
-            (float bx0, float by0, float bx1, float by1) = CharacterArt.Anchors(CharacterArt.OnCard(face), face);
-            UiFactory.Place(view._body.rectTransform, bx0, by0, bx1, by1);
-            view._icon = UiFactory.CreateImage("Icon", view._card.transform, null, Color.white);
-            view._icon.preserveAspect = true;
-            UiFactory.Place(view._icon.rectTransform, 0.3f, 0.26f, 0.7f, 0.62f);
-            view._count = UiKit.Label("Count", view._card.transform, string.Empty, DesignTokens.Type.Count, UiTheme.Of(CharacterArt.CountColor), TextAlignmentOptions.Right, CharacterArt.CountLook);
-            (float cx0, float cy0, float cx1, float cy1) = CharacterArt.Anchors(CharacterArt.CountBox(face), face);
-            UiFactory.Place(view._count.rectTransform, cx0, cy0, cx1, cy1);
-
-            // Locked and mystery pods keep the count in a pill (spec 002 FR-012).
-            view._countPill = UiKit.Pill("CountPill", view._card.transform, UiTheme.Of(DesignTokens.Colors.BadgeCount));
-            UiFactory.Place(view._countPill.rectTransform, 0.24f, 0.02f, 0.76f, 0.28f);
-            view._pillCount = UiKit.Label("Count", view._countPill.transform, string.Empty, DesignTokens.Type.Count, Color.white);
-            UiFactory.Place(view._pillCount.rectTransform, 0.06f, 0.04f, 0.94f, 0.96f);
-
-            view._lock = UiFactory.CreateImage("Lock", view._card.transform, ProceduralSprites.Lock, UiTheme.LockGlyph);
-            view._lock.preserveAspect = true;
-            UiFactory.Place(view._lock.rectTransform, 0.28f, 0.36f, 0.72f, 0.8f);
-            view._link = UiFactory.CreateImage("Link", view._card.transform, ProceduralSprites.Circle, UiTheme.LinkColor);
-            view._link.preserveAspect = true;
-            UiFactory.Place(view._link.rectTransform, 0.84f, 0.5f, 1.08f, 0.74f);
+            view._press = root.gameObject.AddComponent<PressMotion>();
+            view._press.Tile = true;
             return view;
         }
 
         /// <param name="interactive">Only exposed pods take taps (FR-011).</param>
-        /// <param name="dimmed">A pod still in its stack, shown below the exposed one in its muted variant color (spec 003 FR-022a).</param>
+        /// <param name="dimmed">A pod still in its stack, shown below the exposed one, dimmed toward the parchment (spec 003 FR-022a).</param>
         /// <param name="lockShown">The lock is drawn (locked, or its key is still in flight).</param>
-        /// <param name="linkColor">The connected group's color, or null when the pod is not connected.</param>
+        /// <param name="linkColor">The connected group's color, or null; the tray draws the link bar between the frames.</param>
         public void Show(PodInfo pod, VariantVisualCatalog? visuals, bool interactive, bool dimmed, bool lockShown, Color? linkColor)
         {
             PodId = pod.Id;
             gameObject.SetActive(true);
             _button.interactable = interactive;
-            bool hidden = !pod.Variant.HasValue;
-            bool character = !lockShown && !hidden;
-            if (lockShown)
+            _variant = pod.Variant;
+            _count = pod.Remaining;
+            _dimmed = dimmed;
+            _locked = lockShown;
+
+            // The wooden handle sits on the pod at the top of its column (exposed, pressed or locked), never on queued ones.
+            _handle = !dimmed;
+            _pressedShown = false;
+            Redraw();
+            _pod.Lock.transform.localScale = Vector3.one;
+        }
+
+        private PodLook Look => _locked ? PodLook.Locked : _dimmed ? PodLook.Next : _pressedShown ? PodLook.Pressed : PodLook.Exposed;
+
+        private void Redraw()
+        {
+            PodLook look = Look;
+            _pod.Show(_variant, _count, look, _handle);
+
+            // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
+            bool veil = look == PodLook.Next && !_variant.HasValue;
+            if (veil && _veil == null)
             {
-                Tint(UiTheme.SlotLocked);
-                _body.enabled = false;
-                _icon.enabled = false;
-            }
-            else if (hidden)
-            {
-                Tint(dimmed ? Grey(MysteryCard) : MysteryCard);
-                _body.enabled = false;
-                _icon.enabled = true;
-                _icon.sprite = ProceduralSprites.Question;
-                _icon.color = dimmed ? UiTheme.Stuck : MysteryMark;
-            }
-            else
-            {
-                VariantVisual visual = visuals != null ? visuals.Get(pod.Variant!.Value) : VariantVisualCatalog.Default(pod.Variant!.Value);
-                Rgba color = UiTheme.ToRgba(visual.Color);
-                // A pod still in its stack keeps its variant color, muted, so what comes next reads at a glance
-                // (spec 003 FR-022a).
-                Rgba shown = dimmed ? DesignTokens.PodQueued(color) : color;
-                Tint(UiTheme.Of(DesignTokens.PodCard(shown)));
-                _card.sprite = visual.PodSkin ?? ProceduralSprites.RoundedSquare;
-                ShowCharacter(_body, _icon, visual, dimmed ? CharacterMood.Asleep : CharacterMood.Happy);
+                _veil = UiKit.RoundRect("Veil", _pod.Tile.transform, UiTheme.Of(C.ParchmentBottom.WithAlpha(0.45f)), b => b.Width * 0.2f);
+                UiFactory.Stretch(_veil.rectTransform);
             }
 
-            // "xN" on a character pod; the count pill on a locked or mystery one.
-            _count.gameObject.SetActive(character);
-            _countPill.gameObject.SetActive(!character);
-            _count.text = Loc.F("pod.count", pod.Remaining);
-            _countPill.color = dimmed || lockShown ? UiTheme.Stuck : UiTheme.Of(DesignTokens.Colors.BadgeCount);
-            _pillCount.text = pod.Remaining.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            _lock.enabled = lockShown;
-            _lock.transform.localScale = Vector3.one;
-            _link.enabled = linkColor.HasValue;
-            if (linkColor.HasValue)
+            if (_veil != null)
             {
-                _link.color = linkColor.Value;
+                _veil.gameObject.SetActive(veil);
             }
         }
 
-        private void Tint(Color card)
+        private void Update()
         {
-            _card.sprite = ProceduralSprites.RoundedSquare;
-            _card.color = card;
-            _edge.color = Color.Lerp(card, Color.black, 0.18f);
-        }
-
-        /// <summary>
-        /// A variant's 2D character on a card (spec 004), or, without its picture, the spec 002 family silhouette in the
-        /// variant color with the symbol in ink (FR-021). Shared by the pods and the Waiting Slots.
-        /// </summary>
-        public static void ShowCharacter(Image body, Image icon, VariantVisual visual, CharacterMood mood)
-        {
-            Sprite? picture = CharacterSprites.Character(visual.Id, mood);
-            body.enabled = true;
-            if (picture != null)
+            // The exposed pod's frame sinks while the finger is down (the playtest's PodLook.Pressed).
+            bool pressed = _button.interactable && !_locked && !_dimmed && _press.Down;
+            if (pressed != _pressedShown)
             {
-                body.sprite = picture;
-                body.color = Color.white;
-                icon.enabled = false;
-                return;
+                _pressedShown = pressed;
+                Redraw();
             }
-
-            Rgba color = UiTheme.ToRgba(visual.Color);
-            Rgba shown = mood == CharacterMood.Asleep ? DesignTokens.PodQueued(color) : mood == CharacterMood.Worried ? color.Grey().Mix(DesignTokens.Colors.StateStuck, 0.35f) : color;
-            body.sprite = ProceduralSprites.Silhouette(visual.Family);
-            body.color = UiTheme.Of(shown);
-            icon.enabled = true;
-            icon.sprite = visual.Icon;
-            icon.color = UiTheme.Of(shown.Ink);
-        }
-
-        private static Color Grey(Color c)
-        {
-            float l = (0.299f * c.r) + (0.587f * c.g) + (0.114f * c.b);
-            return new Color(l, l, l, c.a);
         }
 
         public void Hide() => gameObject.SetActive(false);
@@ -191,10 +120,10 @@ namespace Bloomlings.Client.Gameplay.Tray
         /// <summary>Accepted tap: a quick press pulse.</summary>
         public void Pulse() => Play(PulseRoutine());
 
-        /// <summary>Its key landed: the lock grows and fades, then the card pulses.</summary>
+        /// <summary>Its key landed: the padlock grows, then the pod shows unlocked and pulses.</summary>
         public void Unlock() => Play(UnlockRoutine());
 
-        /// <summary>Shuffle: the card turns over once in place.</summary>
+        /// <summary>Shuffle: the pod turns over once in place.</summary>
         public void Spin() => Play(SpinRoutine());
 
         private void Play(IEnumerator routine)
@@ -208,7 +137,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             {
                 StopCoroutine(_feedback);
                 transform.localScale = Vector3.one;
-                _lock.transform.localScale = Vector3.one;
+                _pod.Lock.transform.localScale = Vector3.one;
             }
 
             _feedback = StartCoroutine(routine);
@@ -242,14 +171,16 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         private IEnumerator UnlockRoutine()
         {
+            Transform padlock = _pod.Lock.transform;
             for (float t = 0f; t < 0.3f; t += Time.unscaledDeltaTime)
             {
-                _lock.transform.localScale = Vector3.one * (1f + (t / 0.3f));
+                padlock.localScale = Vector3.one * (1f + (t / 0.3f));
                 yield return null;
             }
 
-            _lock.enabled = false;
-            _lock.transform.localScale = Vector3.one;
+            padlock.localScale = Vector3.one;
+            _locked = false;
+            Redraw();
             yield return PulseRoutine();
         }
 
@@ -264,6 +195,5 @@ namespace Bloomlings.Client.Gameplay.Tray
             transform.localScale = Vector3.one;
             _feedback = null;
         }
-
     }
 }

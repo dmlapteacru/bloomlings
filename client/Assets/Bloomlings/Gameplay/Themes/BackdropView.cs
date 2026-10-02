@@ -11,12 +11,12 @@ namespace Bloomlings.Client.Gameplay.Themes
     /// picture of the scene (<c>Resources/Backgrounds/{name}</c>, names from <see cref="OwnerPictures"/>: <c>home</c>,
     /// <c>splash</c>, <c>gameplay-daylight</c>, …) is cover-fitted over the screen when it exists. While it is missing,
     /// <see cref="BackdropRaster"/> pixels (the lawn in gameplay, the sky with arches on Home and the splash) are rendered
-    /// at a fifth of the screen resolution, smoothed by bilinear filtering, cached per theme and scene, tinted by the level
-    /// band's theme (<see cref="ThemeRotation"/>). It stands in for the <c>bg.*</c> asset slots.
+    /// at a fraction of the screen resolution (<see cref="BackdropRaster.Downscale"/>: a third for the lawn's blades and
+    /// flowers, a fifth for the smooth skies), smoothed by bilinear filtering, cached per theme and scene, tinted by the
+    /// level band's theme (<see cref="ThemeRotation"/>). It stands in for the <c>bg.*</c> asset slots.
     /// </summary>
     public sealed class BackdropView : MonoBehaviour
     {
-        private const int Downscale = 5;
         private static readonly Dictionary<string, Texture2D> Cache = new Dictionary<string, Texture2D>();
 
         private RawImage _image = null!;
@@ -74,8 +74,9 @@ namespace Bloomlings.Client.Gameplay.Themes
             }
 
             (float w, float h, Insets _) = UiKit.ScreenFrame();
-            int width = Mathf.Max(32, (int)w / Downscale);
-            int height = Mathf.Max(32, (int)h / Downscale);
+            int downscale = BackdropRaster.Downscale(_scene);
+            int width = Mathf.Max(32, (int)w / downscale);
+            int height = Mathf.Max(32, (int)h / downscale);
             string key = (theme?.Id ?? "default") + "/" + _scene + "/" + width + "x" + height;
             if (!Cache.TryGetValue(key, out Texture2D? texture))
             {

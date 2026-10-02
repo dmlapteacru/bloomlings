@@ -1,31 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
-using Bloomlings.Client.Art;
 using Bloomlings.Client.Art.Variants;
 using Bloomlings.Client.Gameplay.Effects;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
-using Bloomlings.Client.UI.Localization;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Slots;
 using Bloomlings.Core.Variants;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Client.Gameplay.Slots
 {
     /// <summary>
-    /// The Waiting Slots (T044): 5 slots, plus the sixth when Extra Slot adds it (US5), drawn with a plus mark. Each shows
-    /// its pod's variant, remaining count and state (FR-015, FR-070): a working pod is full size; a waiting pod is
-    /// smaller with an hourglass; the last free usable slot is outlined with a "!" as a jam risk; on a jam every occupied
-    /// slot shakes. The counts follow the event timeline: they drop, with a small bump, as Bloomlings arrive. A pod pops
-    /// in when committed (a mystery pod shows "?" and flips over), and puffs away when done; a pod committed while its
-    /// slot still animates the previous pod's exit waits in a visual queue (R4). A locked slot keeps its lock until its
-    /// key lands.
+    /// The Waiting Slots (T044) as the reference's cream plates on the tray's parchment (spec 005 contracts/look.md §3.7,
+    /// §4.1; the playtest's <c>SlotPainter</c>, <see cref="UiKit.SlotPlate"/>): 5 slots, plus the sixth when Extra Slot adds
+    /// it (US5), marked with a green "+". Each shows its pod's variant tile and remaining count and its state (FR-015,
+    /// FR-070):
+    /// <list type="bullet">
+    /// <item><description>empty: a slightly sunk plate with a dashed inner outline;</description></item>
+    /// <item><description>working: a raised plate with the variant's sticker tile and its plain count below;</description></item>
+    /// <item><description>stuck (waiting): the tile in grey with the hourglass;</description></item>
+    /// <item><description>locked: a grey plate with the padlock, kept until its key lands;</description></item>
+    /// <item><description>danger: the last free usable slot, its dashed outline red with "!" (never color alone).</description></item>
+    /// </list>
+    /// The counts follow the event timeline: they drop, with a small bump, as Bloomlings arrive. A pod pops onto its plate
+    /// when committed (a mystery pod shows the "?" tile, which turns over to its variant), and puffs away off the plate,
+    /// which is empty again under it; a pod committed while its slot still animates the previous pod's exit waits in a
+    /// visual queue (R4). While Return chooses its slot, every plate it can take a pod back from glows; on a jam every
+    /// occupied slot shakes with a red ring.
     /// </summary>
     public sealed class SlotRowView : MonoBehaviour
     {
+        /// <summary>A plate's width for its height: a little taller than wide, like the reference's slots.</summary>
+        public const float PlateAspect = 0.82f;
+
         private const float ExitSeconds = 0.22f;
 
         private readonly Slot[] _slots = new Slot[WaitingSlots.Capacity];
@@ -47,6 +57,7 @@ namespace Bloomlings.Client.Gameplay.Slots
                 Slot slot = Slot.Create(area, i, extra: i >= WaitingSlots.DefaultCount);
                 view._slots[i] = slot;
                 Button button = slot.Frame.gameObject.AddComponent<Button>();
+                button.transition = Selectable.Transition.None;
                 button.targetGraphic = slot.Frame;
                 int index = i;
                 button.onClick.AddListener(() => view.SlotTapped?.Invoke(index));
@@ -56,13 +67,15 @@ namespace Bloomlings.Client.Gameplay.Slots
             return view;
         }
 
-        /// <summary>Lets occupied slots take taps (Return's target) and outlines them, or stops it.</summary>
+        /// <summary>Lets occupied slots take taps (Return's target) and makes them glow, or stops it.</summary>
         public void SetTargeting(bool on)
         {
             foreach (Slot slot in _slots)
             {
-                slot.Frame.raycastTarget = on && slot.PodId != null;
-                slot.SetHighlight(on && slot.PodId != null ? UiTheme.Accent : (Color?)null);
+                bool target = on && slot.PodId != null && !slot.Leaving;
+                slot.Frame.raycastTarget = target;
+                slot.SetGlow(target);
+                slot.SetHighlight(null);
             }
 
             if (!on && _lastView != null)
@@ -104,11 +117,12 @@ namespace Bloomlings.Client.Gameplay.Slots
             {
                 slot.Clear();
                 slot.Pending.Clear();
+                slot.SetHighlight(null);
                 string? podId = view.PodInSlot(slot.Index);
                 if (podId != null)
                 {
                     PodInfo pod = view.Pod(podId);
-                    slot.Occupy(podId, pod.Variant, pod.Remaining + (pending.TryGetValue(podId, out int n) ? n : 0), _visuals);
+                    slot.Occupy(podId, pod.Variant, pod.Remaining + (pending.TryGetValue(podId, out int n) ? n : 0));
                 }
             }
 
@@ -117,7 +131,7 @@ namespace Bloomlings.Client.Gameplay.Slots
                 Slot slot = _slots[done.SlotIndex];
                 if (slot.PodId == null)
                 {
-                    slot.Occupy(done.PodId, view.Pod(done.PodId).Variant, pending.TryGetValue(done.PodId, out int n) ? n : 0, _visuals);
+                    slot.Occupy(done.PodId, view.Pod(done.PodId).Variant, pending.TryGetValue(done.PodId, out int n) ? n : 0);
                 }
             }
 
@@ -125,13 +139,13 @@ namespace Bloomlings.Client.Gameplay.Slots
         }
 
         /// <summary>A pod was committed (immediate feedback, SC-008); <paramref name="count"/> is its count before any work.</summary>
-        /// <param name="variant">Null for a mystery pod: it shows "?" until <see cref="RevealVariant"/> flips it (FR-039).</param>
+        /// <param name="variant">Null for a mystery pod: it shows the "?" tile until <see cref="RevealVariant"/> turns it (FR-039).</param>
         public void Commit(int slotIndex, string podId, VariantId? variant, int count)
         {
             Slot slot = _slots[slotIndex];
             if (slot.PodId == null && slot.Pending.Count == 0)
             {
-                slot.Occupy(podId, variant, count, _visuals);
+                slot.Occupy(podId, variant, count);
                 Animate(UiFx.Pop(slot.Body, 1.12f, 0.16f));
             }
             else
@@ -140,7 +154,7 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
         }
 
-        /// <summary>A mystery pod shows its exact variant on commit (FR-039): the card flips over.</summary>
+        /// <summary>A mystery pod shows its exact variant on commit (FR-039): its tile turns over.</summary>
         public void RevealVariant(string podId, VariantId variant)
         {
             foreach (Slot slot in _slots)
@@ -153,7 +167,7 @@ namespace Bloomlings.Client.Gameplay.Slots
                     }
                     else
                     {
-                        slot.SetVariant(variant, _visuals);
+                        slot.SetVariant(variant);
                     }
 
                     return;
@@ -177,13 +191,13 @@ namespace Bloomlings.Client.Gameplay.Slots
 
         public RectTransform SlotRect(int slotIndex) => _slots[slotIndex].Frame.rectTransform;
 
-        /// <summary>The side length of a slot card, for the flying pod.</summary>
+        /// <summary>The width of a slot's plate, for the flying pod.</summary>
         public float SlotSize => _slots[0].Frame.rectTransform.sizeDelta.x;
 
         /// <summary>Keeps a slot drawn locked until its key lands (the rules opened it already).</summary>
         public void HoldLock(int slotIndex) => _heldLocks.Add(slotIndex);
 
-        /// <summary>The locked slot's key arrived (FR-039): the lock pops and the slot turns free.</summary>
+        /// <summary>The locked slot's key arrived (FR-039): the padlock grows and the slot turns free.</summary>
         public void PlayUnlock(int slotIndex, LevelView view)
         {
             _heldLocks.Remove(slotIndex);
@@ -205,7 +219,7 @@ namespace Bloomlings.Client.Gameplay.Slots
                 if (slot.PodId == podId)
                 {
                     slot.SetCount(slot.Count - 1);
-                    Animate(UiFx.Pop(slot.CountTransform, 1.35f, 0.14f));
+                    Animate(UiFx.Pop(slot.CountTransform, 1.25f, 0.15f));
                     return;
                 }
             }
@@ -222,7 +236,7 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
         }
 
-        /// <summary>The pod left (PodCompleted): it puffs away, the slot empties, and a queued pod moves in.</summary>
+        /// <summary>The pod left (PodCompleted): it puffs away off its plate, the slot empties, and a queued pod moves in.</summary>
         public void Complete(string podId)
         {
             foreach (Slot slot in _slots)
@@ -243,7 +257,7 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
         }
 
-        /// <summary>The slots jammed or no pod can move (FR-027): every occupied slot shakes in the warning color.</summary>
+        /// <summary>The slots jammed or no pod can move (FR-027): every occupied slot shakes with a red ring.</summary>
         public void ShowBlocked()
         {
             foreach (Slot slot in _slots)
@@ -255,7 +269,7 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
         }
 
-        /// <summary>Slot availability (locked, absent) and the jam-risk mark from the logical state.</summary>
+        /// <summary>Slot availability (locked, absent), the plates' places and the jam-risk mark from the logical state.</summary>
         public void UpdateStates(LevelView view)
         {
             _lastView = view;
@@ -264,7 +278,7 @@ namespace Bloomlings.Client.Gameplay.Slots
             for (int i = 0; i < WaitingSlots.Capacity; i++)
             {
                 SlotState state = view.SlotStateOf(i);
-                if (state == SlotState.Free && !_heldLocks.Contains(i))
+                if (state == SlotState.Free && !_heldLocks.Contains(i) && _slots[i].PodId == null)
                 {
                     free++;
                 }
@@ -275,8 +289,8 @@ namespace Bloomlings.Client.Gameplay.Slots
                 }
             }
 
-            float width = _area.rect.width / Mathf.Max(present, WaitingSlots.DefaultCount);
-            float size = Mathf.Min(width * 0.86f, _area.rect.height * 0.9f);
+            Rect area = _area.rect;
+            Box[] cells = Cells(new Box(0f, 0f, area.width, area.height), present, UiKit.Units(1f));
             int column = 0;
             for (int i = 0; i < WaitingSlots.Capacity; i++)
             {
@@ -289,18 +303,52 @@ namespace Bloomlings.Client.Gameplay.Slots
                     continue;
                 }
 
-                UiFactory.PlaceAbsolute(slot.Frame.rectTransform, new Vector2((column + 0.5f) * width, _area.rect.height / 2f), Vector2.one * size);
+                BoxLayout.Place(slot.Frame.rectTransform, cells[column]);
                 column++;
                 bool locked = state == SlotState.Locked || _heldLocks.Contains(i);
-                slot.SetLocked(locked);
                 bool risk = free == 1 && state == SlotState.Free && !locked && slot.PodId == null;
-                slot.SetJamRisk(risk);
+                slot.SetBase(locked, risk);
                 if (wasAbsent && slot.IsExtra)
                 {
                     // Extra Slot was just added (US5): it pops in.
                     Animate(UiFx.Pop(slot.Frame.transform, 1.25f, 0.3f));
                 }
             }
+        }
+
+        /// <summary>
+        /// The plates of the slot row (the playtest's <c>SlotPainter.Cells</c>), in the area's top-down coordinates: as tall
+        /// as the band allows (less 12 units for their shadows), <see cref="PlateAspect"/> as wide, a quarter of a plate
+        /// apart and centered; narrower when they do not fit. <paramref name="unit"/> is one reference unit.
+        /// </summary>
+        public static Box[] Cells(Box area, int count, float unit)
+        {
+            var cells = new Box[System.Math.Max(0, count)];
+            if (count <= 0)
+            {
+                return cells;
+            }
+
+            float height = area.Height - (12f * unit);
+            float width = height * PlateAspect;
+            float gap = width * 0.27f;
+            float fit = (area.Width - (12f * unit)) / ((count * 1.27f) - 0.27f);
+            if (fit < width)
+            {
+                width = fit;
+                gap = width * 0.27f;
+            }
+
+            float total = (width * count) + (gap * (count - 1));
+            float x = area.CenterX - (total / 2f);
+            float top = area.CenterY - (height / 2f) - (2f * unit);
+            for (int i = 0; i < count; i++)
+            {
+                cells[i] = new Box(x, top, x + width, top + height);
+                x += width + gap;
+            }
+
+            return cells;
         }
 
         private void Animate(IEnumerator routine)
@@ -311,23 +359,24 @@ namespace Bloomlings.Client.Gameplay.Slots
             }
         }
 
+        /// <summary>The "?" tile turns over to the variant (the playtest's reveal flip): only the tile narrows about its middle.</summary>
         private IEnumerator Flip(Slot slot, VariantId variant)
         {
-            Transform body = slot.Body;
+            Transform tile = slot.TileTransform;
             for (float t = 0f; t < 0.3f; t += Time.unscaledDeltaTime)
             {
                 float k = t / 0.3f;
                 if (k >= 0.5f && slot.ShowsQuestion)
                 {
-                    slot.SetVariant(variant, _visuals);
+                    slot.SetVariant(variant);
                 }
 
-                body.localScale = new Vector3(Mathf.Abs(1f - (2f * k)), 1f, 1f);
+                tile.localScale = new Vector3(Mathf.Max(0.04f, Mathf.Abs(Mathf.Cos(k * Mathf.PI))), 1f, 1f);
                 yield return null;
             }
 
-            slot.SetVariant(variant, _visuals);
-            body.localScale = Vector3.one;
+            slot.SetVariant(variant);
+            tile.localScale = Vector3.one;
         }
 
         private IEnumerator Unlock(Slot slot, LevelView view)
@@ -341,12 +390,16 @@ namespace Bloomlings.Client.Gameplay.Slots
 
             icon.localScale = Vector3.one;
             UpdateStates(view);
-            yield return UiFx.Pop(slot.Body, 1.1f, 0.18f);
+            yield return UiFx.Pop(slot.Frame.transform, 1.1f, 0.18f);
         }
 
         private IEnumerator Leave(Slot slot)
         {
             slot.Leaving = true;
+            slot.Frame.raycastTarget = false;
+            slot.SetGlow(false);
+            slot.ShowBaseUnder();
+            slot.SetWorking(true);
             Transform body = slot.Body;
             for (float t = 0f; t < ExitSeconds; t += Time.unscaledDeltaTime)
             {
@@ -366,7 +419,7 @@ namespace Bloomlings.Client.Gameplay.Slots
             if (slot.Pending.Count > 0)
             {
                 (string id, VariantId? variant, int count) = slot.Pending.Dequeue();
-                slot.Occupy(id, variant, count, _visuals);
+                slot.Occupy(id, variant, count);
                 Animate(UiFx.Pop(slot.Body, 1.12f, 0.16f));
             }
 
@@ -378,7 +431,7 @@ namespace Bloomlings.Client.Gameplay.Slots
 
         private IEnumerator Shake(Slot slot)
         {
-            slot.SetHighlight(UiTheme.Warning);
+            slot.SetHighlight(UiTheme.Of(C.StateDanger));
             Transform body = slot.Body;
             for (float t = 0f; t < 0.4f; t += Time.unscaledDeltaTime)
             {
@@ -389,32 +442,33 @@ namespace Bloomlings.Client.Gameplay.Slots
             body.localEulerAngles = Vector3.zero;
         }
 
+        /// <summary>
+        /// One slot: its positioned frame (the touch target of Return), the glow behind it, the base plate (empty, danger
+        /// or locked, with the Extra Slot's "+") and the pod's plate over it (working or stuck), which pops, turns, shakes
+        /// and puffs away.
+        /// </summary>
         private sealed class Slot
         {
             public readonly Queue<(string PodId, VariantId? Variant, int Count)> Pending = new Queue<(string, VariantId?, int)>();
 
-            private Image _body = null!;
-            private Image _figure = null!;
-            private Image _icon = null!;
-            private Image _countPill = null!;
-            private TextMeshProUGUI _pillCount = null!;
-            private TextMeshProUGUI _count = null!;
-            private VariantVisual? _visual;
-            private Image _lock = null!;
-            private Image _waiting = null!;
-            private Image _risk = null!;
-            private Image _danger = null!;
-            private Color _ink = Color.white;
-            private Color _tint = UiTheme.SlotEmpty;
-            private Color _color = Color.white;
+            private RectTransform _glow = null!;
+            private SlotPlateView _base = null!;
+            private SlotPlateView _pod = null!;
+            private CanvasGroup _podFade = null!;
+            private Image _highlight = null!;
+            private VariantId? _variant;
             private bool _working;
+            private bool _locked;
+            private bool _risk;
+            private float _highlightRadius;
+            private float _highlightWidth;
 
             public int Index { get; private set; }
 
-            /// <summary>The sixth slot, only there after Extra Slot (drawn with a plus mark).</summary>
+            /// <summary>The sixth slot, only there after Extra Slot (marked with a green "+").</summary>
             public bool IsExtra { get; private set; }
 
-            /// <summary>The positioned outer frame; its color is the state outline (jam risk, targeting, jam).</summary>
+            /// <summary>The positioned slot (clear; it takes Return's tap).</summary>
             public Image Frame { get; private set; } = null!;
 
             public string? PodId { get; private set; }
@@ -423,200 +477,138 @@ namespace Bloomlings.Client.Gameplay.Slots
 
             public bool Leaving { get; set; }
 
-            public Transform Body => _body.transform;
+            /// <summary>The pod's plate: it pops, shakes and puffs away.</summary>
+            public Transform Body => _pod.transform;
 
-            public Transform LockIcon => _lock.transform;
+            public Transform TileTransform => _pod.Tile.transform;
 
-            public Transform CountTransform => _count.transform;
+            public Transform LockIcon => _base.Lock.transform;
 
-            public bool ShowsQuestion => _icon.sprite == ProceduralSprites.Question;
+            public Transform CountTransform => _pod.Count.transform;
+
+            public bool ShowsQuestion => PodId != null && !_variant.HasValue;
 
             public static Slot Create(Transform parent, int index, bool extra)
             {
                 var slot = new Slot { Index = index, IsExtra = extra };
-                slot.Frame = UiKit.Rounded($"Slot {index}", parent, Color.clear, 44f);
-
-                // The sunk well's brown edge (spec 003 FR-022); the body inside is the well, or the pod's card.
-                Image wellEdge = UiKit.Rounded("WellEdge", slot.Frame.transform, UiTheme.Of(DesignTokens.Colors.GardenWellEdge), 42f);
-                UiFactory.Place(wellEdge.rectTransform, 0.055f, 0.055f, 0.945f, 0.945f);
-                slot._body = UiKit.Rounded("Body", slot.Frame.transform, UiTheme.SlotEmpty, 40f);
-                UiFactory.Place(slot._body.rectTransform, 0.07f, 0.07f, 0.93f, 0.93f);
-                // The pod's character and "xN" (spec 004 FR-009), placed by the kit on a square face.
-                var face = new Box(0f, 0f, 1f, 1f);
-                slot._figure = UiFactory.CreateImage("Character", slot._body.transform, null, Color.white);
-                slot._figure.preserveAspect = true;
-                (float fx0, float fy0, float fx1, float fy1) = CharacterArt.Anchors(CharacterArt.OnCard(face), face);
-                UiFactory.Place(slot._figure.rectTransform, fx0, fy0, fx1, fy1);
-                slot._icon = UiFactory.CreateImage("Icon", slot._body.transform, null, Color.white);
-                slot._icon.preserveAspect = true;
-                UiFactory.Place(slot._icon.rectTransform, 0.3f, 0.26f, 0.7f, 0.62f);
-                slot._count = UiKit.Label("Count", slot._body.transform, string.Empty, DesignTokens.Type.Count, UiTheme.Of(CharacterArt.CountColor), TextAlignmentOptions.Right, CharacterArt.CountLook);
-                (float cx0, float cy0, float cx1, float cy1) = CharacterArt.Anchors(CharacterArt.CountBox(face), face);
-                UiFactory.Place(slot._count.rectTransform, cx0, cy0, cx1, cy1);
-
-                // A mystery pod keeps its count in a pill until its symbol shows.
-                slot._countPill = UiKit.Pill("CountPill", slot._body.transform, UiTheme.Of(DesignTokens.Colors.BadgeCount));
-                UiFactory.Place(slot._countPill.rectTransform, 0.22f, 0.02f, 0.78f, 0.28f);
-                slot._pillCount = UiKit.Label("Count", slot._countPill.transform, string.Empty, DesignTokens.Type.Count, UiTheme.TextOnColor);
-                UiFactory.Place(slot._pillCount.rectTransform, 0.06f, 0.04f, 0.94f, 0.96f);
-                slot._lock = UiFactory.CreateImage("Lock", slot._body.transform, ProceduralSprites.Lock, UiTheme.LockGlyph);
-                slot._lock.preserveAspect = true;
-                UiFactory.Place(slot._lock.rectTransform, 0.25f, 0.25f, 0.75f, 0.75f);
-                slot._waiting = UiFactory.CreateImage("Waiting", slot.Frame.transform, ProceduralSprites.Hourglass, UiTheme.TextSecondary);
-                slot._waiting.preserveAspect = true;
-                UiFactory.Place(slot._waiting.rectTransform, 0.7f, 0.7f, 1.02f, 1.02f);
-                slot._danger = UiFactory.CreateImage("Danger", slot.Frame.transform, ProceduralSprites.Shape("slot.state.danger"), UiTheme.Warning);
-                UiFactory.Stretch(slot._danger.rectTransform);
-                slot._danger.enabled = false;
-                slot._risk = UiFactory.CreateImage("JamRisk", slot.Frame.transform, ProceduralSprites.Exclamation, UiTheme.Warning);
-                slot._risk.preserveAspect = true;
-                UiFactory.Place(slot._risk.rectTransform, 0.3f, 0.3f, 0.7f, 0.7f);
-                if (extra)
+                slot.Frame = UiFactory.CreateImage($"Slot {index}", parent, null, Color.clear);
+                Transform frame = slot.Frame.transform;
+                slot._glow = UiFactory.Stretch(UiKit.TargetGlow("Glow", frame));
+                slot._glow.gameObject.SetActive(false);
+                slot._base = UiKit.SlotPlate("Base", frame);
+                UiFactory.Stretch((RectTransform)slot._base.transform);
+                slot._pod = UiKit.SlotPlate("Pod", frame);
+                UiFactory.Stretch((RectTransform)slot._pod.transform);
+                slot._podFade = slot._pod.gameObject.AddComponent<CanvasGroup>();
+                slot._podFade.blocksRaycasts = false;
+                slot._highlight = UiKit.RoundRing("Highlight", frame, Color.white, _ => slot._highlightRadius, _ => slot._highlightWidth);
+                BoxLayout.On((RectTransform)frame).Add(slot._highlight.rectTransform, b =>
                 {
-                    Image plus = UiFactory.CreateImage("Extra", slot.Frame.transform, ProceduralSprites.Circle, UiTheme.Accent);
-                    plus.preserveAspect = true;
-                    UiFactory.Place(plus.rectTransform, -0.06f, 0.74f, 0.26f, 1.06f);
-                    Image glyph = UiFactory.CreateImage("Plus", plus.transform, ProceduralSprites.Shape("ui.plus"), Color.white);
-                    glyph.preserveAspect = true;
-                    UiFactory.Place(glyph.rectTransform, 0.2f, 0.2f, 0.8f, 0.8f);
-                }
-
+                    float s = Mathf.Min(b.Width, b.Height);
+                    slot._highlightWidth = s * 0.04f;
+                    slot._highlightRadius = s * 0.26f;
+                    return b.Inset(-s * 0.06f);
+                });
+                slot._highlight.gameObject.SetActive(false);
                 slot.Clear();
                 return slot;
             }
 
-            public void Occupy(string podId, VariantId? variant, int count, VariantVisualCatalog? visuals)
+            public void Occupy(string podId, VariantId? variant, int count)
             {
                 PodId = podId;
+                _variant = variant;
+                Count = count;
+                _working = false;
                 SetAlpha(1f);
-                SetVariant(variant, visuals);
-                SetCount(count);
-                SetWorking(false);
-                _risk.enabled = false;
+                Body.localScale = Vector3.one;
+                Body.localEulerAngles = Vector3.zero;
+                TileTransform.localScale = Vector3.one;
+                _pod.gameObject.SetActive(true);
+                _base.gameObject.SetActive(false);
+                ShowPod();
             }
 
-            /// <summary>The pod's card (frame 13): its character on a light tint, or "?" for a mystery pod.</summary>
-            public void SetVariant(VariantId? variant, VariantVisualCatalog? visuals)
+            /// <summary>The pod's tile: its exact variant, or the lilac "?" tile of a mystery pod.</summary>
+            public void SetVariant(VariantId? variant)
             {
-                if (variant.HasValue)
-                {
-                    VariantVisual visual = visuals != null ? visuals.Get(variant.Value) : VariantVisualCatalog.Default(variant.Value);
-                    _visual = visual;
-                    _body.sprite = visual.PodSkin ?? ProceduralSprites.RoundedSquare;
-                    _color = visual.Color;
-                    _tint = UiTheme.Of(DesignTokens.PodCard(UiTheme.ToRgba(visual.Color)));
-                    _ink = visual.Ink;
-                }
-                else
-                {
-                    _visual = null;
-                    _body.sprite = ProceduralSprites.RoundedSquare;
-                    _color = UiTheme.Of(DesignTokens.Colors.PodMysteryMark);
-                    _tint = UiTheme.Of(DesignTokens.Colors.PodMystery);
-                    _figure.enabled = false;
-                    _icon.sprite = ProceduralSprites.Question;
-                    _icon.enabled = true;
-                    _ink = _color;
-                }
-
-                _count.gameObject.SetActive(_visual.HasValue);
-                _countPill.gameObject.SetActive(!_visual.HasValue);
-                _countPill.enabled = true;
-                SetWorking(_working);
+                _variant = variant;
+                ShowPod();
             }
 
             public void SetCount(int count)
             {
                 Count = count;
-                _count.text = Loc.F("pod.count", count);
-                _pillCount.text = count.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                ShowPod();
             }
 
-            /// <summary>Working pods are bright; stuck (waiting) pods are greyed, smaller, and show an hourglass (frame 13).</summary>
+            /// <summary>Working pods are bright; stuck (waiting) pods show their tile in grey with the hourglass (frame 13).</summary>
             public void SetWorking(bool working)
             {
                 _working = working;
-                bool stuck = PodId != null && !working;
-                _body.transform.localScale = Vector3.one * (working || PodId == null ? 1f : 0.92f);
-                if (PodId != null)
+                ShowPod();
+            }
+
+            private void ShowPod()
+            {
+                if (PodId == null)
                 {
-                    _body.color = stuck ? Grey(_tint) : _tint;
-                    _countPill.color = stuck ? UiTheme.Stuck : UiTheme.Of(DesignTokens.Colors.BadgeCount);
-                    if (_visual.HasValue)
-                    {
-                        // Happy while it works, worried and greyed while no tile it can clear is reachable.
-                        Tray.PodView.ShowCharacter(_figure, _icon, _visual.Value, stuck ? CharacterMood.Worried : CharacterMood.Happy);
-                    }
+                    return;
                 }
 
-                if (!_visual.HasValue)
-                {
-                    _icon.color = new Color(_ink.r, _ink.g, _ink.b, working ? 1f : 0.8f);
-                }
-                _waiting.enabled = stuck && Count > 0;
+                _pod.Show(_working || Leaving ? SlotPlateState.Working : SlotPlateState.Stuck, _variant, Count, IsExtra && !Leaving);
             }
 
-            public void SetAlpha(float alpha)
-            {
-                Color body = _body.color;
-                _body.color = new Color(body.r, body.g, body.b, alpha);
-                Color figure = _figure.color;
-                _figure.color = new Color(figure.r, figure.g, figure.b, alpha);
-                Color icon = _icon.color;
-                _icon.color = new Color(icon.r, icon.g, icon.b, alpha * (_working ? 1f : 0.8f));
-                Color pill = _countPill.color;
-                _countPill.color = new Color(pill.r, pill.g, pill.b, alpha);
-                _count.alpha = alpha;
-                _pillCount.alpha = alpha;
-            }
-
-            private static Color Grey(Color c)
-            {
-                float l = (0.299f * c.r) + (0.587f * c.g) + (0.114f * c.b);
-                return new Color(l, l, l, c.a);
-            }
+            public void SetAlpha(float alpha) => _podFade.alpha = alpha;
 
             public void Clear()
             {
                 PodId = null;
                 Count = 0;
                 _working = false;
-                _body.sprite = ProceduralSprites.RoundedSquare;
-                _body.color = UiTheme.SlotEmpty;
-                _visual = null;
-                _figure.enabled = false;
-                _icon.enabled = false;
-                _countPill.enabled = false;
-                _count.text = string.Empty;
-                _count.alpha = 1f;
-                _pillCount.text = string.Empty;
-                _pillCount.alpha = 1f;
-                _waiting.enabled = false;
-                _body.transform.localScale = Vector3.one;
-                _body.transform.localEulerAngles = Vector3.zero;
+                _variant = null;
+                _pod.gameObject.SetActive(false);
+                Body.localScale = Vector3.one;
+                Body.localEulerAngles = Vector3.zero;
+                SetAlpha(1f);
+                _base.gameObject.SetActive(true);
+                ShowBase();
             }
 
-            public void SetLocked(bool locked)
+            /// <summary>The base plate's state: locked (padlock), the jam risk (red dashes and "!"), or empty.</summary>
+            public void SetBase(bool locked, bool risk)
             {
-                _lock.enabled = locked;
-                if (locked)
-                {
-                    _body.color = UiTheme.SlotLocked;
-                }
-                else if (PodId == null)
-                {
-                    _body.color = UiTheme.SlotEmpty;
-                }
+                _locked = locked;
+                _risk = risk;
+                ShowBase();
             }
 
-            /// <summary>The last free usable slot: the red dashed danger frame and a "!" mark (frame 13; never color alone, FR-070).</summary>
-            public void SetJamRisk(bool risk)
+            /// <summary>While the pod puffs away, the empty plate shows under it.</summary>
+            public void ShowBaseUnder()
             {
-                _risk.enabled = risk;
-                _danger.enabled = risk;
+                _base.gameObject.SetActive(true);
+                ShowBase();
             }
 
-            public void SetHighlight(Color? color) => Frame.color = color ?? Color.clear;
+            private void ShowBase()
+            {
+                SlotPlateState state = _locked ? SlotPlateState.Locked : _risk ? SlotPlateState.Danger : SlotPlateState.Empty;
+                _base.Show(state, extra: IsExtra);
+            }
+
+            /// <summary>The golden glow of a plate Return can take its pod back from.</summary>
+            public void SetGlow(bool on) => _glow.gameObject.SetActive(on);
+
+            /// <summary>A ring in <paramref name="color"/> around the plate (a jam); null removes it.</summary>
+            public void SetHighlight(Color? color)
+            {
+                _highlight.gameObject.SetActive(color.HasValue);
+                if (color.HasValue)
+                {
+                    _highlight.color = color.Value;
+                    _highlight.GetComponent<RoundShape>().Apply();
+                }
+            }
         }
     }
 }
