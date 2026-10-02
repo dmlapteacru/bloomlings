@@ -717,30 +717,66 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// The wooden wordmark (§4.5, <c>ui.logo.wood</c>; the stand-in for the owner's logo): <paramref name="text"/> in
         /// <c>type.wordmark</c> fitted into <paramref name="box"/> with light wood letters, a <c>wood.line</c> outline and a
-        /// darker extrusion, ivy over both ends and a small pink flower.
+        /// darker extrusion inside a mossy band, as the reference's logo, broad leaves behind both ends and small pink
+        /// flowers over them.
         /// </summary>
         public static void WoodLogo(IPainter p, Box box, string text)
         {
             p.Mark("ui.logo.wood");
             TypeStyle style = T.Wordmark;
             float natural = Math.Max(1f, p.MeasureText(text, style));
-            float scale = Math.Min(box.Width * 0.86f / natural, box.Height * 0.72f / p.U(style.Size));
+            float scale = Math.Min(box.Width * 0.8f / natural, box.Height * 0.72f / p.U(style.Size));
             float width = natural * scale;
             float em = p.U(style.Size) * scale;
             float cy = box.CenterY - (em * 0.04f);
-            float leaf = em * 1.0f;
-            IvyCluster(p, Box.FromCenter(box.CenterX - (width / 2f) + (leaf * 0.05f), cy - (em * 0.12f), leaf, leaf), flipped: false, back: true);
-            IvyCluster(p, Box.FromCenter(box.CenterX + (width / 2f) - (leaf * 0.05f), cy - (em * 0.12f), leaf, leaf), flipped: true, back: true);
+            float leaf = em * 1.7f;
+            float left = box.CenterX - (width / 2f);
+            float right = box.CenterX + (width / 2f);
+            LogoLeaves(p, Box.FromCenter(left + (em * 0.02f), cy - (em * 0.04f), leaf, leaf), mirrored: false);
+            LogoLeaves(p, Box.FromCenter(right - (em * 0.02f), cy - (em * 0.14f), leaf, leaf), mirrored: true);
+
+            // The mossy band around the letters (the reference's olive rim), then the wooden letters.
+            Rgba moss = C.IvyLine.Mix(C.WoodLine, 0.35f).Lighten(0.12f);
+            p.Text(text, box.CenterX, cy, style, moss, sizeScale: scale, look: new TextLook(moss, moss, moss, 0.14f, 0.14f, 0.36f));
             p.Text(text, box.CenterX, cy, style, C.WoodLight, sizeScale: scale, look: GardenLook.WoodLetters);
-            IvyCluster(p, Box.FromCenter(box.CenterX - (width / 2f) + (leaf * 0.05f), cy - (em * 0.12f), leaf, leaf), flipped: false, back: false);
-            IvyCluster(p, Box.FromCenter(box.CenterX + (width / 2f) - (leaf * 0.05f), cy - (em * 0.12f), leaf, leaf), flipped: true, back: false);
+
+            LogoFlower(p, Box.FromCenter(left - (em * 0.12f), cy + (em * 0.42f), em * 0.36f, em * 0.36f));
+            LogoFlower(p, Box.FromCenter(right + (em * 0.08f), cy - (em * 0.5f), em * 0.4f, em * 0.4f));
+        }
+
+        /// <summary>
+        /// The broad leaves behind one end of the wordmark: the win sign's cluster leaves (<c>ui.deco.garden</c>) fanned to
+        /// the left, or mirrored to the right.
+        /// </summary>
+        private static void LogoLeaves(IPainter p, Box box, bool mirrored)
+        {
+            p.Mark("ui.deco.garden");
+            float m = mirrored ? -1f : 1f;
+            string side = mirrored ? "/m" : "/l";
+            Rgba[] greens = { C.GardenLeaf1, C.GardenLeaf3, C.GardenLeaf2 };
+            for (int i = 0; i < ShapeLibrary.FlowerClusterLeafCount; i++)
+            {
+                Func<float, float, float> shape = ShapeLibrary.ClusterLeafSdf(i, 0f, false);
+                Func<float, float, float> rim = ShapeLibrary.ClusterLeafSdf(i, 0.04f, false);
+                Func<float, float, float> rib = ShapeLibrary.ClusterVeinSdf(i, 0.022f, false);
+                Func<float, float, float> leaf = (x, y) => shape(m * x, y);
+                string key = "ui.logo.wood/leaf" + i + side;
+                p.ShapeOf(key + "/line", (x, y) => rim(m * x, y), box, C.GardenLeafLine);
+                p.ShapeOf(key, leaf, box, greens[i % greens.Length]);
+                p.ShapeOf(key + "/light", (x, y) => Math.Max(leaf(x + 0.05f, y - 0.06f) + 0.08f, leaf(x, y) + 0.03f), box, C.GardenLeaf2.Lighten(0.35f).WithAlpha(0.4f));
+                p.ShapeOf(key + "/vein", (x, y) => Math.Max(rib(m * x, y), leaf(x, y) + 0.04f), box, C.IvyLine.WithAlpha(0.55f));
+            }
+        }
+
+        /// <summary>A small pink five-petal flower with a yellow middle over the wordmark's leaves.</summary>
+        private static void LogoFlower(IPainter p, Box bloom)
+        {
             (Rgba petals, Rgba line, Rgba center) = GardenLook.PinkFlower;
-            float flower = em * 0.4f;
-            Box bloom = Box.FromCenter(box.CenterX + (width / 2f) + (flower * 0.1f), cy - (em * 0.46f), flower, flower);
             Func<float, float, float> sdf = ShapeLibrary.Get("fx.petal_burst");
             p.ShapeOf("ui.logo.wood/flower/line", (x, y) => sdf(x, y) - 0.07f, bloom, line);
             p.Shape("fx.petal_burst", bloom, petals);
-            p.FillCircle(bloom.CenterX, bloom.CenterY, flower * 0.13f, center);
+            p.FillCircle(bloom.CenterX, bloom.CenterY, bloom.Width * 0.14f, C.GardenFlowerCenterLine);
+            p.FillCircle(bloom.CenterX, bloom.CenterY, bloom.Width * 0.11f, center);
         }
 
         private static float Frac(float v) => v - (float)Math.Floor(v);

@@ -115,6 +115,12 @@ wardrobe.kind_expression,Faces
 wardrobe.kind_frame,Frames
 wardrobe.kind_badge,Badges
 wardrobe.kind_marker,Markers
+wardrobe.default,Default
+wardrobe.footer,Earn special outfits as you play!
+family.sprig,Sprig
+family.bloom,Bloom
+family.drop,Drop
+family.twig,Twig
 collection.title,Collection
 collection.count_one,{0} picture
 collection.count_many,{0} pictures

@@ -47,7 +47,7 @@
 ## Phase 5: User Story 3 — celebration and meta (P3)
 
 - [ ] T016 [US3] Win and milestone (sign, full-color picture, pedestal, rays, petals, reward pill) in `EndCards.cs`
-- [ ] T017 [US3] Home and splash (wooden logo, level plaque, Play, pedestal) in `HomeScreen.cs`
+- [X] T017 [US3] Home and splash (wooden logo, level plaque, Play, pedestal) in `HomeScreen.cs`
 - [ ] T018 [US3] Unity: `WinScreen`, `MilestoneCard`, `HomeScreen`, `SplashScreen`, `WardrobeScreen`, `ProfileAvatar`
 
 ## Phase 6: User Story 4 — the owner's pictures (P4)
