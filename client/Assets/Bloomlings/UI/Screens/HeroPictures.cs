@@ -121,9 +121,11 @@ namespace Bloomlings.Client.UI.Screens
         public static Color ColorOf(Family family) => BloomlingFigure.HeroColor(family);
 
         /// <summary>
-        /// The celebration over a win or milestone card (spec 005 §4.4, the playtest's <c>EndCards.Celebration</c>), as
-        /// children of <paramref name="card"/> so it pops with it: slowly turning light rays clipped above the card's top
-        /// edge, a stone pedestal, and the heroes standing on it. Place it with <see cref="CelebrationView.Place"/>.
+        /// The celebration of the win and the milestone (spec 005 §4.4, §6.3; the playtest's <c>EndCards.Celebration</c>),
+        /// as children of <paramref name="card"/> (a card, or the full-screen celebration's root): slowly turning light
+        /// rays, a stone pedestal, and the heroes standing on it. Place it with
+        /// <see cref="CelebrationView.Place(Box, Box, float, float)"/> over a card (the rays clipped above its top edge) or
+        /// <see cref="CelebrationView.Place(WinRegions, Box)"/> on the full screen.
         /// </summary>
         public static CelebrationView Celebration(RectTransform card) => new CelebrationView(card);
 
@@ -163,9 +165,51 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// Shows the owner's celebrating hero of <paramref name="family"/> (pictures.md A7) instead of the group when that
-        /// picture exists; null shows the group. Call <see cref="Place"/> after it.
+        /// picture exists; null shows the group. Call <see cref="Place(Box, Box, float, float)"/> or
+        /// <see cref="Place(WinRegions, Box)"/> after it.
         /// </summary>
         public void ShowHero(Family? family) => _family = family;
+
+        /// <summary>
+        /// Brings the pedestal and the heroes in front of everything built after the celebration so far (the full-screen
+        /// win's finished picture), keeping the rays behind: the hero overlaps the picture's foot as on the reference.
+        /// </summary>
+        public void BringHeroesForward()
+        {
+            _pedestal.SetAsLastSibling();
+            _group.SetAsLastSibling();
+            _cheer.rectTransform.SetAsLastSibling();
+        }
+
+        /// <summary>
+        /// Lays the celebration out on the full-screen win or milestone (spec 005 FR-023, contracts/look.md §6.3) whose
+        /// screen box is <paramref name="parent"/>: the stone pedestal in <see cref="WinRegions.Pedestal"/>, the owner's
+        /// celebrating hero in the 8:9 <see cref="WinRegions.Hero"/> box, or else the group standing with its feet where
+        /// the hero's stand (<see cref="HomeStage.FeetShare"/> of the box), as wide as the pedestal over 0.8 (its heads
+        /// inside the box), and the rays (radius <see cref="WinRegions.RaysRadius"/>) turning around the hero, unclipped.
+        /// </summary>
+        public void Place(WinRegions r, Box parent)
+        {
+            Sprite? cheer = _family.HasValue ? HeroPictures.Cheer(_family.Value) : null;
+            _clip.gameObject.SetActive(true);
+            _pedestal.gameObject.SetActive(true);
+            _group.gameObject.SetActive(cheer == null);
+            _cheer.gameObject.SetActive(cheer != null);
+            UiKit.PlaceBox(_clip, parent, parent);
+            UiKit.PlaceBox(_rays, Box.FromCenter(r.RaysX, r.RaysY, r.RaysRadius * 2f, r.RaysRadius * 2f), parent);
+            UiKit.PlaceBox(_pedestal, r.Pedestal, parent);
+            if (cheer != null)
+            {
+                _cheer.sprite = cheer;
+                UiKit.PlaceBox(_cheer.rectTransform, r.Hero, parent);
+                return;
+            }
+
+            float feet = r.Hero.Top + (r.Hero.Height * HomeStage.FeetShare);
+            float span = (CharacterArt.GroupFeetShare - CharacterArt.GroupHeadShare) * CharacterArt.GroupHeight / CharacterArt.GroupWidth;
+            float width = Mathf.Min(r.Pedestal.Width / 0.8f, (feet - r.Hero.Top) / Mathf.Max(0.01f, span));
+            UiKit.PlaceBox(_group, CharacterArt.GroupStanding(r.Hero.CenterX, feet, width), parent);
+        }
 
         /// <summary>
         /// Lays the celebration out in <paramref name="stage"/> (screen pixels, top-down): the pedestal at the stage's

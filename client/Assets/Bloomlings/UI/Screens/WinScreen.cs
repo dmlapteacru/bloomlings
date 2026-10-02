@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Effects;
+using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
@@ -18,44 +19,48 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The win card of the design board's frame 15 (spec 002 FR-020; FR-025, T050, T122) in the reference look of spec
-    /// 005 (contracts/look.md §4.4; the playtest's <c>EndCards.Win</c>).
+    /// The win of the design board's frame 15 (spec 002 FR-020; FR-025, T050, T122) as the reference's full-screen
+    /// celebration (spec 005 FR-023, contracts/look.md §4.4 and §6.3; the playtest's <c>EndCards.Win</c>), laid out by
+    /// <see cref="ScreenLayout.WinScreen"/>:
     /// <list type="bullet">
-    /// <item><description>The finished picture is revealed on the board first; then the card pops up over a scrim. The
-    /// gameplay top bar stays as it is and takes taps through the scrim, so Pause and the speed pill work as before
-    /// (FR-002).</description></item>
-    /// <item><description>A wooden "Level complete!" sign with white flower clusters lies across the card's top edge,
-    /// and above it the heroes celebrate on a stone pedestal in slowly turning light rays, with pink petals falling and,
-    /// for the first seconds, a light sprinkle of confetti in the level's colors above the card (the owner's celebrating
-    /// hero of the level's main family when that picture exists, pictures.md A7).</description></item>
-    /// <item><description>The card shows the finished picture in full color in a thin stone frame (a milestone level
-    /// adds the "Milestone reached!" mark over its top edge), the Petals earned counting up in a cream pill with the lotus
-    /// (and a dropped booster), Next in its wooden rim, decorated and breathing, and the optional "×2 reward" rewarded ad
-    /// as a cream secondary button.</description></item>
-    /// <item><description>A milestone level shows its milestone card after Next (<see cref="MilestoneCard"/>).</description></item>
+    /// <item><description>The finished picture is revealed on the board first; then the celebration fades in over the
+    /// whole screen, on the win's garden (<c>bg.win</c>: the owner's picture, else the level's lawn blurred and
+    /// lightened). It covers the gameplay, top bar included, and takes every tap: Next goes on (FR-023: no top bar on
+    /// it).</description></item>
+    /// <item><description>Top to bottom: the wooden "Level / complete!" sign with white flower clusters, the finished
+    /// picture large in its stone frame (a milestone level adds the "Milestone reached!" mark over its top edge), the
+    /// celebrating hero of the level's main family (pictures.md A7; else the group) on a stone pedestal overlapping the
+    /// picture's foot, with slowly turning light rays behind it, pink petals falling over the screen and, for the first
+    /// seconds, a light sprinkle of confetti in the level's colors around the sign.</description></item>
+    /// <item><description>On the pedestal's front, the Petals earned counting up on a cream plate with the lotus, a dropped
+    /// booster on a cream tile at its left and the optional "×2" rewarded ad at its right; at the bottom, Next in its
+    /// wooden rim, decorated and breathing.</description></item>
+    /// <item><description>A milestone level shows its milestone screen after Next (<see cref="MilestoneCard"/>).</description></item>
     /// </list>
     /// </summary>
     public sealed class WinScreen : MonoBehaviour
     {
         private const float RevealSeconds = 1.2f;
 
-        /// <summary>The reward row's height (units).</summary>
-        private const float RewardUnits = 118f;
+        /// <summary>How long the celebration takes to fade in over the revealed board.</summary>
+        private const float FadeSeconds = 0.35f;
 
         private GameObject _root = null!;
-        private RectTransform _card = null!;
+        private RectTransform _rect = null!;
+        private CanvasGroup _fade = null!;
+        private BackdropView? _backdrop;
+        private BackgroundTheme? _theme;
         private CelebrationView _celebration = null!;
-        private WoodSignView _sign = null!;
         private WinPictureView _picture = null!;
+        private CelebrationSignView _sign = null!;
         private CostPillView _mark = null!;
         private RectTransform _medal = null!;
         private RectTransform _rise = null!;
         private CanvasGroup _riseFade = null!;
-        private CostPillView _reward = null!;
-        private TextMeshProUGUI _rewardText = null!;
+        private RewardPlateView _reward = null!;
         private CountUp _count = null!;
+        private RectTransform _drop = null!;
         private Image _dropIcon = null!;
-        private TextMeshProUGUI _dropText = null!;
         private Button _next = null!;
         private Button _double = null!;
         private RectTransform _petals = null!;
@@ -70,67 +75,82 @@ namespace Bloomlings.Client.UI.Screens
         private float _pillWidth;
         private int _shows;
 
-        /// <param name="tapThrough">
-        /// The gameplay top bar: the shade lets taps through over it, so Pause and the speed pill stay usable while the
-        /// card shows (FR-002); null: the shade takes every tap.
-        /// </param>
-        public static WinScreen Create(Transform parent, Action onNext, RectTransform? tapThrough = null)
+        public static WinScreen Create(Transform parent, Action onNext)
         {
-            Image shade = UiFactory.CreateImage("WinScreen", parent, null, UiTheme.PanelShade, raycast: true);
-            UiFactory.Stretch(shade.rectTransform);
-            shade.gameObject.AddComponent<RaycastHole>().Hole = tapThrough;
-            var screen = shade.gameObject.AddComponent<WinScreen>();
-            screen._root = shade.gameObject;
+            // The whole screen takes every tap while the celebration shows; its garden covers the gameplay below.
+            Image root = UiFactory.CreateImage("WinScreen", parent, null, UiTheme.Of(C.LawnLight), raycast: true);
+            UiFactory.Stretch(root.rectTransform);
+            var screen = root.gameObject.AddComponent<WinScreen>();
+            screen._root = root.gameObject;
+            screen._rect = root.rectTransform;
+            screen._fade = root.gameObject.AddComponent<CanvasGroup>();
+            Transform t = root.transform;
 
-            // Parchment (spec 005 §3.5) that pops in; everything on it pops with it.
-            Image card = UiKit.Paper("Card", shade.transform, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
-            card.gameObject.AddComponent<PopMotion>();
-            screen._card = card.rectTransform;
-
-            // The celebration first, so the sign lies over the pedestal's foot.
-            screen._celebration = HeroPictures.Celebration(card.rectTransform);
-            screen._sign = UiKit.WoodSign("Title", card.transform, Loc.T("win.title"), T.LevelHome, SignDecor.Flowers);
-            screen._picture = WinPictureView.Create("Picture", card.transform);
+            // Back to front: the rays, the finished picture, the pedestal and the hero over the picture's foot, the sign.
+            screen._celebration = HeroPictures.Celebration(root.rectTransform);
+            screen._picture = WinPictureView.Create("Picture", t);
+            screen._celebration.BringHeroesForward();
+            screen._sign = UiKit.CelebrationSign("Title", t, Loc.T("win.title"));
 
             // A milestone level: a cream pill with the gold medal over the picture's top edge.
-            screen._mark = UiKit.TextPill("Milestone", card.transform, CostKind.Charges, Loc.T("milestone.reached"));
+            screen._mark = UiKit.TextPill("Milestone", t, CostKind.Charges, Loc.T("milestone.reached"));
             screen._medal = UiKit.ShapeImage("Medal", screen._mark.transform, "ui.medal", C.MedalGold).rectTransform;
 
-            // The reward rises in after the reveal (motion.reward): the lotus pill counting up, a dropped booster below it.
-            screen._rise = UiFactory.Stretch(UiFactory.CreateRect("Reward", card.transform));
+            // The reward rises in after the fade (motion.reward): the lotus plate counting up on the pedestal's front, a
+            // dropped booster on its left.
+            screen._rise = UiFactory.Stretch(UiFactory.CreateRect("Reward", t));
             screen._riseFade = screen._rise.gameObject.AddComponent<CanvasGroup>();
             screen._riseFade.blocksRaycasts = false;
-            screen._reward = UiKit.TextPill("Pill", screen._rise, CostKind.Petals, NumberText.Plus(0));
-            screen._rewardText = UiKit.PillText(screen._reward);
-            screen._count = CountUp.On(screen._rewardText, NumberText.Plus);
+            screen._reward = UiKit.RewardPlate("Plate", screen._rise);
+            screen._count = CountUp.On(screen._reward.Label, NumberText.Plus);
             screen._dropIcon = UiKit.BoosterIcon("DropIcon", screen._rise, "extra_slot");
-            screen._dropText = UiKit.Label("DropText", screen._rise, string.Empty, T.ButtonSecondary, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
+            screen._drop = UiKit.DropTile("Drop", screen._rise, screen._dropIcon, NumberText.Plus(1));
 
-            // Next in its wooden rim, decorated and breathing while it waits (spec 003 FR-011a, FR-019).
-            screen._next = UiKit.PrimaryButton("Next", card.transform, Loc.T("common.next"), onNext, decorate: true, breathe: true);
-            screen._double = UiKit.SecondaryButton("Double", card.transform, Loc.T("win.double"), () => { }, "ui.ad");
+            // The ×2 rewarded ad at the plate's right, and Next in its wooden rim, decorated and breathing while it waits
+            // (spec 003 FR-011a, FR-019).
+            screen._double = UiKit.DoubleOffer("Double", t, () => { });
+            screen._next = UiKit.PrimaryButton("Next", t, Loc.T("common.next"), onNext, T.ButtonLarge, decorate: true, breathe: true);
 
-            // Petals drift down around the heroes and over the card's top (fx.petals), above everything.
-            screen._petals = (RectTransform)UiKit.FallingPetals("Petals", shade.transform).transform;
+            // Petals drift down over the whole screen (fx.petals), and a light sprinkle of confetti in the level's colors
+            // falls around the sign for the first seconds (fx.confetti).
+            screen._petals = (RectTransform)UiKit.FallingPetals("Petals", t).transform;
             UiKit.FadeInOnShow(screen._petals.gameObject, 1f, 0.5f);
-
-            // A light sprinkle of confetti in the level's colors, only in the heroes' room above the card (fx.confetti).
-            screen._confettiClip = UiFactory.CreateRect("ConfettiClip", shade.transform);
+            screen._confettiClip = UiFactory.CreateRect("ConfettiClip", t);
             screen._confettiClip.gameObject.AddComponent<RectMask2D>();
             screen._confetti = UiKit.Confetti("Confetti", screen._confettiClip);
-            shade.gameObject.SetActive(false);
+            root.gameObject.SetActive(false);
             return screen;
         }
 
-        /// <summary>Waits for the picture reveal, then shows the card.</summary>
-        /// <param name="rewardText">The reward as text, shown in the pill when no <paramref name="reward"/> is given.</param>
+        /// <summary>
+        /// The level's backdrop theme (the band's, <see cref="ThemeRotation"/>; null: the first theme): the win's garden is
+        /// rendered now, at the level's start, so the celebration shows without a pause.
+        /// </summary>
+        public void SetTheme(BackgroundTheme? theme)
+        {
+            _theme = theme;
+            if (_backdrop == null)
+            {
+                _backdrop = BackdropView.Create(_rect, BackdropScene.Win);
+            }
+
+            _backdrop.Show(theme);
+        }
+
+        /// <summary>Waits for the picture reveal, then shows the celebration.</summary>
+        /// <param name="rewardText">The reward as text, shown on the plate when no <paramref name="reward"/> is given.</param>
         /// <param name="doubleReward">The optional rewarded ad that doubles the Petals (FR-052); null hides it.</param>
-        /// <param name="milestone">A milestone was granted: a small mark says so, and its card follows Next.</param>
+        /// <param name="milestone">A milestone was granted: a small mark says so, and its screen follows Next.</param>
         /// <param name="countUp">Counts the earned Petals up from 0 (spec 003 FR-020); null shows the amount at once.</param>
-        /// <param name="reward">The reward: the Petals in the lotus pill, a dropped booster below it.</param>
-        /// <param name="session">The won level, whose finished picture the card shows and whose main family celebrates.</param>
+        /// <param name="reward">The reward: the Petals on the lotus plate, a dropped booster beside it.</param>
+        /// <param name="session">The won level, whose finished picture shows and whose main family celebrates.</param>
         public void Show(MonoBehaviour host, string rewardText, Action<Action<string>>? doubleReward = null, bool milestone = false, (long Petals, Func<long, string> Format)? countUp = null, LevelReward? reward = null, LevelSession? session = null)
         {
+            if (_backdrop == null)
+            {
+                SetTheme(_theme);
+            }
+
             _model = reward;
             _pendingCount = countUp;
             _mark.gameObject.SetActive(milestone);
@@ -151,7 +171,7 @@ namespace Bloomlings.Client.UI.Screens
                         }
                         else
                         {
-                            _rewardText.text = text;
+                            _reward.Label.text = text;
                         }
 
                         _double.gameObject.SetActive(false);
@@ -159,30 +179,20 @@ namespace Bloomlings.Client.UI.Screens
                 });
             }
 
-            // The reward pill: "+N" with the lotus, or the given text alone.
+            // The reward plate: "+N" with the lotus, or the given text alone.
             bool hasReward = reward != null || !string.IsNullOrEmpty(rewardText);
             _reward.gameObject.SetActive(hasReward);
             long petals = reward?.Petals ?? countUp?.Petals ?? 0L;
-            if (reward != null || countUp.HasValue)
-            {
-                _reward.SetCost(Cost.Petals(0));
-                _rewardText.text = NumberText.Plus(petals);
-            }
-            else
-            {
-                _reward.SetCost(Cost.Charges(0));
-                _rewardText.text = rewardText;
-            }
-
+            bool lotus = reward != null || countUp.HasValue;
+            _reward.ShowLotus(lotus);
+            _reward.Label.text = lotus ? NumberText.Plus(petals) : rewardText;
             _petalsShown = petals;
+
             BoosterKind? drop = reward?.DroppedBooster;
-            _dropIcon.gameObject.SetActive(drop.HasValue);
-            _dropText.gameObject.SetActive(drop.HasValue);
+            _drop.gameObject.SetActive(drop.HasValue);
             if (drop.HasValue)
             {
-                string id = BoosterId(drop.Value);
-                UiKit.SetBoosterIcon(_dropIcon, id, false);
-                _dropText.text = Loc.F("win.drop", BoosterName(drop.Value));
+                UiKit.SetBoosterIcon(_dropIcon, BoosterId(drop.Value), false);
             }
 
             _celebration.ShowHero(session != null ? HeroPictures.MainFamily(session.Definition.Pods) : (Family?)null);
@@ -192,91 +202,59 @@ namespace Bloomlings.Client.UI.Screens
                 _confetti.SetColors(ConfettiView.ColorsOf(session.Definition.Pods));
             }
 
-            Layout(hasReward, drop.HasValue, doubleReward != null, session);
+            Layout(session);
             host.StartCoroutine(ShowAfterReveal(++_shows));
         }
 
-        /// <summary>Hides the card, and keeps a reveal still waiting (a restart from Pause) from showing it.</summary>
+        /// <summary>Hides the celebration, and keeps a reveal still waiting (a restart from Pause) from showing it.</summary>
         public void Hide()
         {
             _shows++;
             _root.SetActive(false);
         }
 
-        /// <summary>The card's regions as the playtest's <c>EndCards.Win</c> computes them, in screen pixels.</summary>
-        private void Layout(bool hasReward, bool drop, bool offerDouble, LevelSession? session)
+        /// <summary>The celebration's regions (<see cref="ScreenLayout.WinScreen"/>), in screen pixels.</summary>
+        private void Layout(LevelSession? session)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
             float u = DesignTokens.ScaleFor(w, h);
-            Box safe = ScreenLayout.SafeArea(w, h, insets);
+            var screen = new Box(0f, 0f, w, h);
+            WinRegions r = ScreenLayout.WinScreen(w, h, insets);
 
-            // The finished picture is a little smaller on a short phone, so the heroes keep their room above the card.
-            float pictureUnits = Mathf.Max(400f, Mathf.Min(DesignTokens.Size.WinPictureHeight, safe.Height / u * 0.24f));
-            float content = pictureUnits + 26f + (hasReward ? RewardUnits : 0f) + (drop ? 64f : 0f) + 22f + DesignTokens.Size.CardPrimaryHeight + (offerDouble ? 26f + DesignTokens.Size.SecondaryHeight : 0f) + 34f;
-            CardRegions r = ScreenLayout.Card(w, h, insets, content);
-            Box card = r.Card;
-            UiKit.PlaceScreen(_card, card);
+            UiKit.PlaceBox((RectTransform)_sign.transform, r.Sign, screen);
+            _celebration.Place(r, screen);
 
-            // The sign across the card's top edge, as wide as its letters need; the heroes above it.
-            float sh = DesignTokens.Size.WinSignHeight * u;
-            float signWidth = Mathf.Min(card.Width * 0.8f, MeasurePx(_sign.Label, T.LevelHome.Size * u) + (sh * 1.5f));
-            Box sign = Box.FromCenter(card.CenterX, card.Top + (30f * u), signWidth, sh);
-            UiKit.PlaceBox((RectTransform)_sign.transform, sign, card);
-            _celebration.Place(new Box(card.Left, safe.Top + (12f * u), card.Right, sign.Top + (sh * 0.3f)), card, w, u);
-
-            // The finished picture in full color.
-            float y = r.Body.Top + (10f * u);
-            var picture = new Box(r.Body.Left + (16f * u), y, r.Body.Right - (16f * u), y + (pictureUnits * u));
+            // The finished picture in full color, its frame on the region's top edge.
             _picture.Rect.gameObject.SetActive(session != null);
+            Box frame = new Box(r.Picture.Left, r.Picture.Top, r.Picture.Right, r.Picture.Top);
             if (session != null)
             {
-                _picture.Show(session.Definition, session.Picture, picture, card, u);
+                _picture.Show(session.Definition, session.Picture, r.Picture, screen, u, alignTop: true);
+                frame = _picture.Frame;
             }
 
             float mh = 70f * u;
             float markWidth = MeasurePx(UiKit.PillText(_mark), mh * 0.56f) + (mh * 1.9f);
-            Box mark = Box.FromCenter(picture.CenterX, picture.Top, markWidth, mh);
-            UiKit.PlaceBox((RectTransform)_mark.transform, mark, card);
+            Box mark = Box.FromCenter(frame.CenterX, frame.Top + (mh * 0.2f), markWidth, mh);
+            UiKit.PlaceBox((RectTransform)_mark.transform, mark, screen);
             UiKit.PlaceBox(_medal, Box.FromCenter(mark.Left + (mh * 0.62f), mark.CenterY, mh * 0.8f, mh * 0.8f), mark);
-            y = picture.Bottom + (26f * u);
 
-            if (hasReward)
-            {
-                // The pill is as wide as its final amount needs: the lotus, a gap, the digits and its rounded ends.
-                float ph = DesignTokens.Size.RewardPillHeight * u;
-                float textWidth = MeasurePx(_rewardText, ph * 0.56f);
-                bool lotus = _reward.Cost.Kind == CostKind.Petals;
-                float icon = lotus ? ph * 0.86f : 0f;
-                float gap = lotus ? ph * 0.16f : 0f;
-                _pillWidth = Mathf.Max(320f * u, textWidth + icon + gap + (ph * 1.1f));
-                Box pill = Box.FromCenter(r.Body.CenterX, y + (RewardUnits * u / 2f), _pillWidth, ph);
-                UiKit.PlaceBox((RectTransform)_reward.transform, pill, card);
-                float lotusX = pill.CenterX - ((icon + gap + Mathf.Min(textWidth, _pillWidth - icon - gap - (ph * 0.5f))) / 2f) + (icon / 2f);
-                _lotusAt = new Vector3(lotusX, h - pill.CenterY, 0f);
-                _pillAt = new Vector3(pill.CenterX, h - pill.CenterY, 0f);
-                y += RewardUnits * u;
-                if (drop)
-                {
-                    // "+1 Extra Slot" in brown after the booster's icon, centered as a group.
-                    float iconSize = 56f * u;
-                    float iconGap = 12f * u;
-                    float font = T.ButtonSecondary.Size * u * 0.8f;
-                    float dropWidth = Mathf.Min(MeasurePx(_dropText, font), r.Body.Width - iconSize - iconGap);
-                    float start = r.Body.CenterX - ((iconSize + iconGap + dropWidth) / 2f);
-                    float cy = y + (32f * u);
-                    UiKit.PlaceBox(_dropIcon.rectTransform, Box.FromCenter(start + (iconSize / 2f), cy, iconSize, iconSize), card);
-                    UiKit.PlaceBox(_dropText.rectTransform, Box.FromCenter(start + iconSize + iconGap + (dropWidth / 2f), cy, dropWidth + (4f * u), 64f * u), card);
-                    SetFont(_dropText, font);
-                    y += 64f * u;
-                }
-            }
+            // The plate on the pedestal's front; the sparkle and the petal burst start at its lotus.
+            Box plate = r.Reward;
+            UiKit.PlaceBox((RectTransform)_reward.transform, plate, screen);
+            float ph = plate.Height;
+            float icon = _reward.Lotus.gameObject.activeSelf ? ph * 0.62f : 0f;
+            float gap = icon > 0f ? ph * 0.1f : 0f;
+            float textWidth = Mathf.Min(MeasurePx(_reward.Label, ph * 0.5f), plate.Width - icon - gap);
+            _pillWidth = plate.Width;
+            _lotusAt = new Vector3(plate.CenterX - ((icon + gap + textWidth) / 2f) + (icon / 2f), h - plate.CenterY, 0f);
+            _pillAt = new Vector3(plate.CenterX, h - plate.CenterY, 0f);
 
-            Box next = ScreenLayout.CardButton(r.Body, y + (22f * u), true, u);
-            UiKit.PlaceBox((RectTransform)_next.transform, next, card);
-            Box twice = ScreenLayout.CardButton(r.Body, next.Bottom + (26f * u), false, u).Inset(50f * u, 0f);
-            UiKit.PlaceBox((RectTransform)_double.transform, twice, card);
-            UiKit.PlaceScreen(_petals, new Box(safe.Left, safe.Top, safe.Right, Mathf.Min(card.Bottom, sign.Bottom + (260f * u))));
-            UiKit.PlaceScreen(_confettiClip, new Box(0f, 0f, w, card.Top));
+            UiKit.PlaceBox(_drop, r.Drop, screen);
+            UiKit.PlaceBox((RectTransform)_double.transform, r.Double, screen);
+            UiKit.PlaceBox((RectTransform)_next.transform, r.Next, screen);
+            UiKit.PlaceBox(_petals, r.Safe, screen);
+            UiKit.PlaceBox(_confettiClip, new Box(0f, 0f, w, frame.Top), screen);
         }
 
         private IEnumerator ShowAfterReveal(int show)
@@ -288,17 +266,25 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _root.SetActive(true);
+            _fade.alpha = 0f;
             _riseFade.alpha = 0f;
-            if (_pendingCount.HasValue && _model != null && _reward.gameObject.activeSelf)
+            for (float t = 0f; t < FadeSeconds; t += Time.unscaledDeltaTime)
             {
-                // The Petals count up while a sparkle bursts at the lotus and petals burst around the pill (spec 003
-                // FR-020); Next works at once.
-                _count.Run(0, _pendingCount.Value.Petals);
-                UiFx.Puff((RectTransform)_root.transform, _lotusAt, UiTheme.Of(C.PetalCenter), 8, UiKit.Units(110f), UiKit.Units(34f), 0.8f, ProceduralSprites.Shape("fx.sparkle"));
-                UiFx.Puff((RectTransform)_root.transform, _pillAt, UiTheme.Of(C.LotusFill), 6, (_pillWidth / Mathf.Max(0.0001f, UiKit.PixelsPerUnit) * 0.42f) + UiKit.Units(70f), UiKit.Units(34f), 1.2f, ProceduralSprites.Shape("fx.petal_burst"));
+                _fade.alpha = FadeIn.Ease(t / FadeSeconds);
+                yield return null;
             }
 
-            // The reward rises in a moment after the card (motion.reward).
+            _fade.alpha = 1f;
+            if (_pendingCount.HasValue && _model != null && _reward.gameObject.activeSelf)
+            {
+                // The Petals count up while a sparkle bursts at the lotus and petals burst around the plate (spec 003
+                // FR-020); Next works at once.
+                _count.Run(0, _pendingCount.Value.Petals);
+                UiFx.Puff(_rect, _lotusAt, UiTheme.Of(C.PetalCenter), 8, UiKit.Units(110f), UiKit.Units(34f), 0.8f, ProceduralSprites.Shape("fx.sparkle"));
+                UiFx.Puff(_rect, _pillAt, UiTheme.Of(C.LotusFill), 6, (_pillWidth / Mathf.Max(0.0001f, UiKit.PixelsPerUnit) * 0.42f) + UiKit.Units(70f), UiKit.Units(34f), 1.2f, ProceduralSprites.Shape("fx.petal_burst"));
+            }
+
+            // The reward rises in a moment after the celebration (motion.reward).
             yield return new WaitForSecondsRealtime(0.15f);
             float seconds = DesignTokens.Motion.Reward.Seconds;
             for (float t = 0f; t < seconds; t += Time.unscaledDeltaTime)
@@ -321,29 +307,12 @@ namespace Bloomlings.Client.UI.Screens
             return width > 0f ? width : fontPx * 0.56f * label.text.Length;
         }
 
-        /// <summary>Sets a placed label's font size (screen pixels), shrinking to its style's minimum when it does not fit.</summary>
-        private static void SetFont(TextMeshProUGUI label, float fontPx)
-        {
-            float size = fontPx / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
-            label.fontSizeMax = size;
-            label.fontSize = size;
-        }
-
         private static string BoosterId(BoosterKind kind) => kind switch
         {
             BoosterKind.ExtraSlot => "extra_slot",
             BoosterKind.Shuffle => "shuffle",
             BoosterKind.Return => "return",
             _ => "bloom_burst",
-        };
-
-        /// <summary>A booster's name, each key written out so the localization check sees it.</summary>
-        private static string BoosterName(BoosterKind kind) => kind switch
-        {
-            BoosterKind.ExtraSlot => Loc.T("booster.extra_slot"),
-            BoosterKind.Shuffle => Loc.T("booster.shuffle"),
-            BoosterKind.Return => Loc.T("booster.return"),
-            _ => Loc.T("booster.bloom_burst"),
         };
     }
 }

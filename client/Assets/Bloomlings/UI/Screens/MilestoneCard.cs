@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Art;
+using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
@@ -19,28 +20,31 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The milestone card of the design board's frame 16 (spec 002 FR-021; spec 001 FR-061), shown after a milestone
-    /// win's Next, in the win's language (spec 005 contracts/look.md §4.4; the playtest's <c>EndCards.Milestone</c>):
+    /// The milestone of the design board's frame 16 (spec 002 FR-021; spec 001 FR-061), shown after a milestone win's
+    /// Next, as the win's full-screen celebration (spec 005 FR-023, contracts/look.md §4.4 and §6.3; the playtest's
+    /// <c>EndCards.Milestone</c>), laid out by <see cref="ScreenLayout.WinScreen"/> on the win's garden (<c>bg.win</c>):
     /// <list type="bullet">
-    /// <item><description>the wooden sign with flower clusters, "Level N", across the card's top edge, the heroes on a
-    /// stone pedestal in light rays above it (the level's celebrating hero when its picture exists), petals falling and,
-    /// for the first seconds, confetti in the level's colors above the card;</description></item>
-    /// <item><description>"Milestone reached!";</description></item>
-    /// <item><description>each reward (the cosmetic item, the Petals, each booster) as its icon on a cream tile with
-    /// its amount in a cream pill over the tile's bottom edge, rising in;</description></item>
-    /// <item><description>Continue, decorated and breathing.</description></item>
+    /// <item><description>the wooden sign with flower clusters, "Level N", and under it the cream "Milestone reached!" mark
+    /// with the gold medal;</description></item>
+    /// <item><description>each reward (the cosmetic item, the Petals, each booster) as its icon on a cream tile with its
+    /// amount in a cream pill over the tile's bottom edge, rising in, where the win shows its picture;</description></item>
+    /// <item><description>the level's celebrating hero (else the group) on the stone pedestal in light rays, petals falling
+    /// and, for the first seconds, confetti in the level's colors around the sign;</description></item>
+    /// <item><description>Continue in its wooden rim, decorated and breathing, where the win shows Next.</description></item>
     /// </list>
+    /// It covers the gameplay and takes every tap; Continue goes on.
     /// </summary>
     public sealed class MilestoneCard : MonoBehaviour
     {
-        private const float RowUnits = 270f;
-
         private readonly List<GameObject> _items = new List<GameObject>();
         private GameObject _root = null!;
-        private RectTransform _card = null!;
+        private RectTransform _rect = null!;
+        private BackdropView? _backdrop;
+        private BackgroundTheme? _theme;
         private CelebrationView _celebration = null!;
-        private WoodSignView _sign = null!;
-        private TextMeshProUGUI _reached = null!;
+        private CelebrationSignView _sign = null!;
+        private CostPillView _reached = null!;
+        private RectTransform _medal = null!;
         private RectTransform _row = null!;
         private CanvasGroup _rowFade = null!;
         private Button _continue = null!;
@@ -52,29 +56,46 @@ namespace Bloomlings.Client.UI.Screens
 
         public static MilestoneCard Create(Transform parent, Action onContinue)
         {
-            Image shade = UiFactory.CreateImage("MilestoneCard", parent, null, UiTheme.PanelShade, raycast: true);
-            UiFactory.Stretch(shade.rectTransform);
-            var screen = shade.gameObject.AddComponent<MilestoneCard>();
-            screen._root = shade.gameObject;
-            Image card = UiKit.Paper("Card", shade.transform, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
-            card.gameObject.AddComponent<PopMotion>();
-            screen._card = card.rectTransform;
-            screen._celebration = HeroPictures.Celebration(card.rectTransform);
-            screen._sign = UiKit.WoodSign("Title", card.transform, string.Empty, T.LevelHome, SignDecor.Flowers);
-            screen._reached = UiKit.Label("Reached", card.transform, Loc.T("milestone.reached"), T.ButtonSecondary, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
-            screen._row = UiFactory.Stretch(UiFactory.CreateRect("Rewards", card.transform));
+            // The whole screen takes every tap while the celebration shows; its garden covers the gameplay below.
+            Image root = UiFactory.CreateImage("MilestoneCard", parent, null, UiTheme.Of(C.LawnLight), raycast: true);
+            UiFactory.Stretch(root.rectTransform);
+            var screen = root.gameObject.AddComponent<MilestoneCard>();
+            screen._root = root.gameObject;
+            screen._rect = root.rectTransform;
+            Transform t = root.transform;
+            screen._celebration = HeroPictures.Celebration(root.rectTransform);
+            screen._sign = UiKit.CelebrationSign("Title", t, string.Empty);
+            screen._sign.gameObject.AddComponent<PopMotion>();
+            screen._reached = UiKit.TextPill("Reached", t, CostKind.Charges, Loc.T("milestone.reached"));
+            screen._medal = UiKit.ShapeImage("Medal", screen._reached.transform, "ui.medal", C.MedalGold).rectTransform;
+            screen._row = UiFactory.Stretch(UiFactory.CreateRect("Rewards", t));
             screen._rowFade = screen._row.gameObject.AddComponent<CanvasGroup>();
             screen._rowFade.blocksRaycasts = false;
 
-            // Continue: the card's main button, decorated and breathing while it waits (spec 003 FR-011a, FR-019).
-            screen._continue = UiKit.PrimaryButton("Continue", card.transform, Loc.T("milestone.continue"), onContinue, decorate: true, breathe: true);
-            screen._petals = (RectTransform)UiKit.FallingPetals("Petals", shade.transform).transform;
+            // Continue: the main button, decorated and breathing while it waits (spec 003 FR-011a, FR-019).
+            screen._continue = UiKit.PrimaryButton("Continue", t, Loc.T("milestone.continue"), onContinue, T.ButtonLarge, decorate: true, breathe: true);
+            screen._petals = (RectTransform)UiKit.FallingPetals("Petals", t).transform;
             UiKit.FadeInOnShow(screen._petals.gameObject, 1f, 0.5f);
-            screen._confettiClip = UiFactory.CreateRect("ConfettiClip", shade.transform);
+            screen._confettiClip = UiFactory.CreateRect("ConfettiClip", t);
             screen._confettiClip.gameObject.AddComponent<RectMask2D>();
             screen._confetti = UiKit.Confetti("Confetti", screen._confettiClip);
-            shade.gameObject.SetActive(false);
+            root.gameObject.SetActive(false);
             return screen;
+        }
+
+        /// <summary>
+        /// The level's backdrop theme (null: the first theme): the win's garden is rendered now, at the level's start (the
+        /// win's screen shares the picture).
+        /// </summary>
+        public void SetTheme(BackgroundTheme? theme)
+        {
+            _theme = theme;
+            if (_backdrop == null)
+            {
+                _backdrop = BackdropView.Create(_rect, BackdropScene.Win);
+            }
+
+            _backdrop.Show(theme);
         }
 
         /// <param name="catalog">The cosmetic catalog, to draw a granted item's shape; null draws a generic star.</param>
@@ -84,6 +105,11 @@ namespace Bloomlings.Client.UI.Screens
         /// </param>
         public void Show(MilestoneGrant grant, CosmeticCatalog? catalog, LevelDefinition? level = null)
         {
+            if (_backdrop == null)
+            {
+                SetTheme(_theme);
+            }
+
             _sign.Text = Loc.F("common.level", NumberText.Group(grant.Level));
             _celebration.ShowHero(level != null ? HeroPictures.MainFamily(level.Pods) : (Family?)null);
             _confettiClip.gameObject.SetActive(level != null);
@@ -132,56 +158,47 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Hide() => _root.SetActive(false);
 
-        /// <summary>The card's regions as the playtest's <c>EndCards.Milestone</c> computes them, in screen pixels.</summary>
+        /// <summary>The celebration's regions (<see cref="ScreenLayout.WinScreen"/>), in screen pixels.</summary>
         private void Layout(List<(Image Icon, string Amount)> rewards)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
             float u = DesignTokens.ScaleFor(w, h);
-            Box safe = ScreenLayout.SafeArea(w, h, insets);
-            CardRegions r = ScreenLayout.Card(w, h, insets, 64f + RowUnits + 50f + DesignTokens.Size.CardPrimaryHeight + 40f);
-            Box card = r.Card;
-            UiKit.PlaceScreen(_card, card);
+            var screen = new Box(0f, 0f, w, h);
+            WinRegions r = ScreenLayout.WinScreen(w, h, insets);
+            UiKit.PlaceBox((RectTransform)_sign.transform, r.Sign, screen);
+            _celebration.Place(r, screen);
 
-            float sh = DesignTokens.Size.WinSignHeight * u;
+            // "Milestone reached!" on a cream pill with the medal, where the win's picture starts.
+            float mh = 70f * u;
             float ppu = Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
-            float signWidth = Mathf.Min(card.Width * 0.8f, (KitText.Measure(_sign.Label, T.LevelHome.Size * u / ppu) * ppu) + (sh * 1.5f));
-            Box sign = Box.FromCenter(card.CenterX, card.Top + (30f * u), signWidth, sh);
-            UiKit.PlaceBox((RectTransform)_sign.transform, sign, card);
-            _celebration.Place(new Box(card.Left, safe.Top + (12f * u), card.Right, sign.Top + (sh * 0.3f)), card, w, u);
-            UiKit.PlaceBox(_reached.rectTransform, Box.FromCenter(r.Body.CenterX, r.Body.Top + (30f * u), r.Body.Width, 64f * u), card);
+            float measured = KitText.Measure(UiKit.PillText(_reached), mh * 0.56f / ppu) * ppu;
+            float markWidth = Mathf.Min(r.Picture.Width, (measured > 0f ? measured : mh * 0.3f * Loc.T("milestone.reached").Length) + (mh * 1.9f));
+            Box mark = Box.FromCenter(r.Picture.CenterX, r.Picture.Top + (mh * 0.7f), markWidth, mh);
+            UiKit.PlaceBox((RectTransform)_reached.transform, mark, screen);
+            UiKit.PlaceBox(_medal, Box.FromCenter(mark.Left + (mh * 0.62f), mark.CenterY, mh * 0.8f, mh * 0.8f), mark);
 
-            // Each reward: its icon on a cream tile, the amount in a cream pill over the tile's bottom edge.
-            var row = new Box(r.Body.Left, r.Body.Top + (84f * u), r.Body.Right, r.Body.Top + ((84f + RowUnits) * u));
-            Box[] cells = ScreenLayout.Row(row, Mathf.Max(1, rewards.Count), 36f * u, 230f * u, square: false);
+            // Each reward on a cream tile with its amount in a pill, in the room between the mark and the hero's head.
+            float room = r.Hero.Top - mark.Bottom;
+            float cellHeight = Mathf.Min(room * 0.8f, 300f * u);
+            var row = Box.FromCenter(r.Safe.CenterX, mark.Bottom + (room / 2f), r.Picture.Width, cellHeight);
+            Box[] cells = ScreenLayout.Row(row, Mathf.Max(1, rewards.Count), 30f * u, Mathf.Min(240f * u, cellHeight / 1.25f), square: false);
             for (int i = 0; i < rewards.Count; i++)
             {
                 (Image icon, string amount) = rewards[i];
-                Box cell = cells[i];
-                float tile = Mathf.Min(cell.Width * 0.86f, 190f * u);
-                Box tileBox = Box.FromCenter(cell.CenterX, cell.Top + (tile / 2f), tile, tile);
-                GardenButton face = UiKit.IconFace("Tile" + i, _row, GardenLook.White, b => b.Height * 0.26f, square: true);
-                UiKit.PlaceBox((RectTransform)face.transform, tileBox, card);
-                icon.transform.SetParent(face.Content, false);
-                icon.raycastTarget = false;
-                UiFactory.Place(icon.rectTransform, 0.02f, 0.02f, 0.98f, 0.98f);
-
-                float pillHeight = tile * 0.36f;
-                CostPillView pill = UiKit.TextPill("Amount" + i, _row, CostKind.Charges, amount);
-                TextMeshProUGUI label = UiKit.PillText(pill);
-                float measured = KitText.Measure(label, pillHeight * 0.56f / ppu) * ppu;
-                float pillWidth = Mathf.Min(cell.Width, Mathf.Max(tile * 0.9f, measured + (pillHeight * 1.1f)));
-                UiKit.PlaceBox((RectTransform)pill.transform, Box.FromCenter(tileBox.CenterX, tileBox.Bottom + (pillHeight * 0.2f), pillWidth, pillHeight), card);
-                _items.Add(face.gameObject);
-                _items.Add(pill.gameObject);
+                RectTransform tile = UiKit.RewardTile("Reward" + i.ToString(CultureInfo.InvariantCulture), _row, icon, amount);
+                UiKit.PlaceBox(tile, cells[i], screen);
+                _items.Add(tile.gameObject);
             }
 
-            Box go = ScreenLayout.CardButton(r.Body, r.Body.Bottom - (DesignTokens.Size.CardPrimaryHeight * u) - (20f * u), true, u);
-            UiKit.PlaceBox((RectTransform)_continue.transform, go, card);
-            UiKit.PlaceScreen(_petals, new Box(safe.Left, safe.Top, safe.Right, Mathf.Min(card.Bottom, sign.Bottom + (260f * u))));
-            UiKit.PlaceScreen(_confettiClip, new Box(0f, 0f, w, card.Top));
+            UiKit.PlaceBox((RectTransform)_continue.transform, r.Next, screen);
+            UiKit.PlaceBox(_petals, r.Safe, screen);
+            UiKit.PlaceBox(_confettiClip, new Box(0f, 0f, w, mark.Top), screen);
         }
 
-        /// <summary>The rewards rise in a moment after the card (motion.reward).</summary>
+        /// <summary>
+        /// The rewards rise in a moment after the screen shows (motion.reward). It follows the win's celebration on the same
+        /// garden, so it shows at once (the sign pops) instead of fading in over the gameplay.
+        /// </summary>
         private IEnumerator RiseIn()
         {
             _rowFade.alpha = 0f;

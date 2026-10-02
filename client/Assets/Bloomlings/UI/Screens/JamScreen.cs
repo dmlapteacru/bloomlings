@@ -16,44 +16,52 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// One Waiting Slot as the jam sheet shows it (spec 005 §4.3, <c>ui.jam.slots</c>): a pod's variant and its count
+    /// One Waiting Slot as the jam card shows it (spec 005 §4.3, <c>ui.jam.slots</c>): a pod's variant and its count
     /// (<see cref="SlotPlateState.Working"/>; a null variant is a mystery pod), a free slot
     /// (<see cref="SlotPlateState.Empty"/>) or a locked one (<see cref="SlotPlateState.Locked"/>).
     /// </summary>
     public sealed record JamSlot(SlotPlateState State, VariantId? Variant, int Count);
 
     /// <summary>
-    /// The jam bottom sheet of the design board's frame 10 (spec 002 FR-019; spec 001 FR-027, T051, T121) in the
-    /// reference look of spec 005 (contracts/look.md §4.3; the playtest's <c>EndCards.Jam</c>):
+    /// The jam card of the design board's frame 10 (spec 002 FR-019; spec 001 FR-027, T051, T121) in the reference layout
+    /// of spec 005 (FR-022, contracts/look.md §4.3 and §6.2; the playtest's <c>EndCards.Jam</c>): a centered modal
+    /// parchment card over the dimmed gameplay, laid out by <see cref="ScreenLayout.JamCard"/>, top to bottom:
     /// <list type="bullet">
-    /// <item><description>parchment rising from the bottom, "No more space!" (or "No pod can move!" when Stuck) and its
-    /// subtitle, broken after its first sentence into two lines;</description></item>
+    /// <item><description>"No more space!" (or "No pod can move!" when Stuck) and its subtitle in up to two balanced
+    /// lines;</description></item>
     /// <item><description>the Waiting Slots' contents in an inset well: each pod's sticker tile with its count, a free
     /// slot as a small dashed plate, a locked one with its padlock;</description></item>
     /// <item><description>one big colored choice per usable recovery (green Extra Slot and Shuffle, blue Return and
-    /// Bloom Burst) with its icon and its cost pill (×N charges, or the lotus and the price), in one row of up to three,
-    /// a 2 × 2 grid of four, or rows of three;</description></item>
-    /// <item><description>the free rescue (a rewarded ad, once per attempt) as one more green choice with the "▶ Free"
-    /// pill;</description></item>
-    /// <item><description>Restart as a cream button with ⟳ at the size of a card's main button.</description></item>
+    /// Bloom Burst) with its icon, in a two-column grid (an odd last one centered), each with its cost pill (×N charges,
+    /// or the lotus and the price) hanging under its bottom edge; the free rescue (a rewarded ad, once per attempt) as
+    /// one more green choice with the "▶ Free" pill;</description></item>
+    /// <item><description>Restart as a cream button with ⟳.</description></item>
     /// </list>
-    /// The sheet covers only the bottom of the screen, so the board stays visible. It never opens the Store. A short
-    /// phone shrinks the well, the choices and the gaps together.
+    /// The card pops in over a warm scrim that keeps the board visible and takes every tap off the card, except over the
+    /// gameplay top bar, so Pause stays usable during a jam. The rules give no way back to play but the card's choices,
+    /// so it shows no close button. It never opens the Store. A short phone shrinks every height and gap together
+    /// (<see cref="JamCardRegions.Scale"/>).
     /// </summary>
     public sealed class JamScreen : MonoBehaviour
     {
         private RectTransform _host = null!;
         private TextMeshProUGUI _probe = null!;
-        private SheetView? _sheet;
+        private GameObject? _card;
         private Action _onRestart = () => { };
         private Action<Recovery> _onRecovery = _ => { };
 
         public bool IsOpen => _host.gameObject.activeSelf;
 
-        public static JamScreen Create(Transform parent, Action onRestart, Action<Recovery> onRecovery)
+        /// <param name="tapThrough">
+        /// The gameplay top bar: the scrim lets taps through over it, so Pause stays usable while the card shows (spec 005
+        /// FR-002); null: the scrim takes every tap.
+        /// </param>
+        public static JamScreen Create(Transform parent, Action onRestart, Action<Recovery> onRecovery, RectTransform? tapThrough = null)
         {
-            // The sheet is built on each Show (its height follows the choices); this host keeps the screen in its place.
-            RectTransform host = UiFactory.Stretch(UiFactory.CreateRect("JamScreen", parent));
+            // The card is built on each Show (its height follows the choices); the scrim keeps the screen in its place.
+            Image scrim = UiFactory.CreateImage("JamScreen", parent, null, UiTheme.PanelShade, raycast: true);
+            RectTransform host = UiFactory.Stretch(scrim.rectTransform);
+            scrim.gameObject.AddComponent<RaycastHole>().Hole = tapThrough;
             var screen = host.gameObject.AddComponent<JamScreen>();
             screen._host = host;
             screen._onRestart = onRestart;
@@ -71,10 +79,10 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="rescue">The rewarded rescue (a free use of that booster, once per attempt), or null when not offered.</param>
         public void Show(bool stuck, IReadOnlyList<Recovery> recoveries, Func<Recovery, Cost?> cost, IReadOnlyList<JamSlot> slots, (Recovery Booster, Action Watch)? rescue = null)
         {
-            if (_sheet != null)
+            if (_card != null)
             {
-                Destroy(_sheet.Root);
-                _sheet = null;
+                Destroy(_card);
+                _card = null;
             }
 
             _host.gameObject.SetActive(true);
@@ -83,7 +91,7 @@ namespace Bloomlings.Client.UI.Screens
 
         public void Hide() => _host.gameObject.SetActive(false);
 
-        /// <summary>The Waiting Slots of <paramref name="view"/> as the sheet shows them: every present slot, left to right.</summary>
+        /// <summary>The Waiting Slots of <paramref name="view"/> as the card shows them: every present slot, left to right.</summary>
         public static IReadOnlyList<JamSlot> SlotsOf(LevelView view)
         {
             var slots = new List<JamSlot>();
@@ -149,113 +157,89 @@ namespace Bloomlings.Client.UI.Screens
                 choices.Add((Id(rescue.Value.Booster), GardenLook.Green, Label(rescue.Value.Booster), Cost.Free, rescue.Value.Watch));
             }
 
-            int columns = choices.Count <= 3 ? Math.Max(1, choices.Count) : choices.Count == 4 ? 2 : 3;
-            int rows = (choices.Count + columns - 1) / columns;
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            float u = DesignTokens.ScaleFor(w, h);
-            float subtitleWidth = ScreenLayout.Sheet(w, h, insets, 0f).Subtitle.Width / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
-            List<string> subtitle = UiKit.BalancedLines(_probe, stuck ? Loc.T("jam.stuck_subtitle") : Loc.T("jam.subtitle"), UiKit.Units(T.Body.Size), subtitleWidth * 0.94f);
+            JamCardRegions r = ScreenLayout.JamCard(w, h, insets, choices.Count, hasClose: false);
+            float k = Mathf.Min(1f, r.Scale);
+            Box cardBox = r.Card;
 
-            // Wanted heights (units): the subtitle's second line, the well, the rows of choices (a button and its pill's
-            // overhang), Restart. A short phone shrinks the well, the choices and the gaps together.
-            float lineUnits = subtitle.Count > 1 ? 50f : 0f;
-            const float wellUnits = 196f;
-            float rowUnits = columns <= 2 ? 236f : 222f;
-            const float rowGap = 30f;
-            const float gap = 34f;
-            float flexible = wellUnits + gap + (rows * rowUnits) + (Math.Max(0, rows - 1) * rowGap) + (rows > 0 ? gap : 0f);
-            float fixedUnits = lineUnits + DesignTokens.Size.CardPrimaryHeight + 34f;
-            SheetView sheet = UiKit.Sheet("Sheet", _host, stuck ? Loc.T("jam.stuck") : Loc.T("jam.title"), subtitle[0], flexible + fixedUnits + 10f);
-            _sheet = sheet;
-            SheetRegions regions = sheet.Regions;
-            Box body = regions.Body;
-            float k = Mathf.Clamp(((body.Height / u) - fixedUnits) / flexible, 0.62f, 1f);
-            float y = body.Top;
-            if (subtitle.Count > 1)
+            // Parchment (§3.5) that pops in (motion.pop); everything on it pops with it.
+            Image card = UiKit.Paper("Card", _host, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            UiKit.PlaceScreen(card.rectTransform, cardBox);
+            card.gameObject.AddComponent<PopMotion>();
+            _card = card.gameObject;
+
+            // The title in ink.title, and the subtitle in up to two balanced lines.
+            Box title = UiKit.ToLocal(r.Title, cardBox);
+            TextMeshProUGUI titleLabel = UiKit.KitLabel("Title", card.transform, stuck ? Loc.T("jam.stuck") : Loc.T("jam.title"), T.Title, TextLook.Plain(C.InkTitle));
+            KitText.Place(titleLabel, T.Title, title.CenterX, title.CenterY, Mathf.Min(UiKit.Units(T.Title.Size) * k, title.Height * 0.8f), title.Width);
+
+            Box subtitle = UiKit.ToLocal(r.Subtitle, cardBox);
+            float bodySize = UiKit.Units(T.Body.Size) * k;
+            List<string> lines = UiKit.BalancedLines(_probe, stuck ? Loc.T("jam.stuck_subtitle") : Loc.T("jam.subtitle"), bodySize, subtitle.Width);
+            float line = Mathf.Min(bodySize * 1.25f, subtitle.Height / Mathf.Max(1, lines.Count));
+            float first = subtitle.CenterY - (line * (lines.Count - 1) / 2f);
+            for (int i = 0; i < lines.Count; i++)
             {
-                TextMeshProUGUI second = UiKit.Label("Subtitle2", sheet.SheetRect, subtitle[1], T.Body, UiTheme.Of(C.InkBrownSoft));
-                UiKit.PlaceBox(second.rectTransform, regions.Subtitle.Offset(0f, 48f * u), regions.Sheet);
-                y += lineUnits * u;
+                TextMeshProUGUI label = UiKit.KitLabel("Subtitle" + i.ToString(CultureInfo.InvariantCulture), card.transform, lines[i], T.Body, TextLook.Plain(C.InkBrownSoft));
+                KitText.Place(label, T.Body, subtitle.CenterX, first + (i * line), bodySize, subtitle.Width);
             }
 
-            // The slots' contents, as in the reference's inset row.
-            var wellBox = new Box(body.Left + (14f * u), y, body.Right - (14f * u), y + (wellUnits * k * u));
-            Image well = UiKit.Well("Slots", sheet.Body, Mathf.Min(36f, wellUnits * k * 0.2f));
-            UiKit.PlaceBox(well.rectTransform, wellBox, body);
-            SlotRow(well.rectTransform, slots);
-            y = wellBox.Bottom + (gap * k * u);
+            // The slots' contents, as in the reference's inset well.
+            Image well = UiKit.Well("Slots", card.transform, Mathf.Min(36f, r.Well.Height / Mathf.Max(0.0001f, UiKit.PixelsPerUnit) * 0.2f));
+            UiKit.PlaceBox(well.rectTransform, r.Well, cardBox);
+            SlotRow(well.rectTransform, r, slots);
 
-            float rowHeight = rowUnits * k * u;
-            float gapX = 30f * u;
-            float cellWidth = Mathf.Min((columns <= 2 ? 440f : 300f) * u, (body.Width - (gapX * (columns - 1))) / columns);
-            for (int row = 0; row < rows; row++)
+            // The choices in two columns, each with its cost pill hanging under it; the pill takes the choice's tap too.
+            for (int i = 0; i < choices.Count; i++)
             {
-                int first = row * columns;
-                int inRow = Math.Min(columns, choices.Count - first);
-                Box[] cells = ScreenLayout.Row(new Box(body.Left, y, body.Right, y + rowHeight), inRow, gapX, cellWidth, square: false);
-                for (int i = 0; i < inRow; i++)
+                (string id, ColorSet set, string label, Cost? price, Action action) = choices[i];
+                IReadOnlyList<IconPart> icon = GardenLook.BoosterIcon(id);
+                ChoiceButtonView choice = UiKit.ChoiceButton(id, card.transform, set, icon, label, null, action);
+                UiKit.PlaceBox((RectTransform)choice.transform, r.Choices[i], cardBox);
+                if (price.HasValue)
                 {
-                    (string id, ColorSet set, string label, Cost? price, Action action) = choices[first + i];
-                    ChoiceButtonView choice = UiKit.ChoiceButton(id, sheet.Body, set, GardenLook.BoosterIcon(id), label, price, action);
-                    UiKit.PlaceBox((RectTransform)choice.transform, cells[i], body);
+                    CostPillView pill = UiKit.CostPill(id + "Cost", card.transform, price.Value);
+                    pill.SetChargeIcon(icon);
+                    UiKit.PlaceBox((RectTransform)pill.transform, r.CostPills[i], cardBox);
+                    Image touch = UiFactory.CreateImage("Touch", pill.transform, null, Color.clear, raycast: true);
+                    UiFactory.Stretch(touch.rectTransform);
+                    UiKit.TapTarget(touch, action);
                 }
-
-                y += rowHeight + ((row < rows - 1 ? rowGap : gap) * k * u);
             }
 
-            // Restart is as big as a card's main button, as on the reference's jam card.
-            Button restart = UiKit.SecondaryButton("Restart", sheet.Body, Loc.T("common.restart"), _onRestart, "ui.restart", T.Button);
-            UiKit.PlaceBox((RectTransform)restart.transform, ScreenLayout.CardButton(body, y + (8f * u), true, u), body);
+            // Restart: a cream button with ⟳, as on the reference's jam card.
+            Button restart = UiKit.SecondaryButton("Restart", card.transform, Loc.T("common.restart"), _onRestart, "ui.restart", T.Button);
+            UiKit.PlaceBox((RectTransform)restart.transform, r.Restart, cardBox);
         }
 
         /// <summary>
-        /// The Waiting Slots' contents in the well (the playtest's <c>EndCards.SlotContents</c>): tiles of 54% of the well's
-        /// height (at most 112 units) in cells of 1.62 tiles, each pod's sticker tile with its count below it, a free slot
-        /// as a small dashed plate, a locked one with its padlock; laid out from the well's own box.
+        /// The Waiting Slots' contents in the well (<see cref="JamCardRegions.WellCell"/>; the playtest's
+        /// <c>EndCards.SlotContents</c>): each pod's sticker tile with its count below it, a free slot as a small dashed
+        /// plate, a locked one with its padlock.
         /// </summary>
-        private static void SlotRow(RectTransform well, IReadOnlyList<JamSlot> slots)
+        private static void SlotRow(RectTransform well, JamCardRegions r, IReadOnlyList<JamSlot> slots)
         {
-            if (slots.Count == 0)
-            {
-                return;
-            }
-
-            var cells = new List<(RectTransform Tile, TextMeshProUGUI? Count)>();
             for (int i = 0; i < slots.Count; i++)
             {
                 JamSlot slot = slots[i];
                 string index = i.ToString(CultureInfo.InvariantCulture);
+                (Box tileBox, Box countBox) = r.WellCell(i, slots.Count);
                 if (slot.State == SlotPlateState.Working)
                 {
                     CandyTileView tile = UiKit.CandyTile("Tile" + index, well, slot.Variant, TileStyle.Sticker);
+                    UiKit.PlaceBox((RectTransform)tile.transform, tileBox, r.Well);
                     TextMeshProUGUI count = UiKit.KitLabel("Count" + index, well, slot.Count.ToString(CultureInfo.InvariantCulture), T.Count, TextLook.Plain(C.InkBrown));
-                    cells.Add(((RectTransform)tile.transform, count));
+                    Box local = UiKit.ToLocal(countBox, r.Well);
+                    float digits = Mathf.Min(local.Height * 0.9f, UiKit.ToLocal(tileBox, r.Well).Height * 0.42f);
+                    UiKit.PlaceCount(count, Box.FromCenter(local.CenterX, local.Top + (digits * 0.62f), local.Width, digits), false, 1f);
                 }
                 else
                 {
                     SlotPlateView plate = UiKit.SlotPlate("Slot" + index, well);
                     plate.Show(slot.State == SlotPlateState.Locked ? SlotPlateState.Locked : SlotPlateState.Empty);
-                    cells.Add(((RectTransform)plate.transform, null));
+                    UiKit.PlaceBox((RectTransform)plate.transform, tileBox, r.Well);
                 }
             }
-
-            BoxLayout.On(well).Then(b =>
-            {
-                float tile = Mathf.Min(b.Height * 0.54f, UiKit.Units(112f));
-                float cell = Mathf.Min(tile * 1.62f, (b.Width - UiKit.Units(24f)) / cells.Count);
-                Box[] boxes = ScreenLayout.Row(b.Inset(UiKit.Units(12f), 0f), cells.Count, 0f, cell, square: false);
-                float top = b.Top + ((b.Height - (tile * 1.5f)) / 2f);
-                for (int i = 0; i < cells.Count; i++)
-                {
-                    Box tileBox = Box.FromCenter(boxes[i].CenterX, top + (tile / 2f), tile, tile);
-                    BoxLayout.Place(cells[i].Tile, tileBox);
-                    TextMeshProUGUI? count = cells[i].Count;
-                    if (count != null)
-                    {
-                        UiKit.PlaceCount(count, new Box(tileBox.Left - (tile * 0.2f), tileBox.Bottom + (tile * 0.06f), tileBox.Right + (tile * 0.2f), tileBox.Bottom + (tile * 0.5f)), false);
-                    }
-                }
-            });
         }
     }
 }

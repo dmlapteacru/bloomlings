@@ -118,12 +118,12 @@ namespace Bloomlings.Client.Gameplay
             {
                 _workers.Outfits = wardrobe.OutfitOf;
             }
-            // The end cards first, then the pause card over them: Pause stays usable under the win card (its shade lets
-            // taps through over the top bar) and during a jam, so its card must cover both (Settings, built when first
-            // opened, comes above it).
-            _win = WinScreen.Create(root, Next, _hud.TopBar);
+            // The end screens first, then the pause card over them: the win and the milestone cover the whole screen, top
+            // bar included (spec 005 FR-023), while Pause stays usable during a jam (its scrim lets taps through over the
+            // top bar), so the pause card must cover the jam card (Settings, built when first opened, comes above it).
+            _win = WinScreen.Create(root, Next);
             _milestoneCard = MilestoneCard.Create(root, Next);
-            _jam = JamScreen.Create(root, RestartFromJam, OnRecovery);
+            _jam = JamScreen.Create(root, RestartFromJam, OnRecovery, _hud.TopBar);
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave, OpenSettings);
             _banner = DifficultyBanner.Create(root);
             _demo = DemoOverlay.Create(root);
@@ -252,7 +252,12 @@ namespace Bloomlings.Client.Gameplay
         private void ApplyTheme()
         {
             int level = IsDaily ? Progression?.CurrentLevel ?? 1 : Flow?.CurrentAttempt?.LevelNumber ?? _session!.Definition.LevelNumber;
-            _hud.SetTheme(Progression != null ? ThemeRotation.Default.ThemeFor(level) : null);
+            BackgroundTheme? theme = Progression != null ? ThemeRotation.Default.ThemeFor(level) : null;
+            _hud.SetTheme(theme);
+
+            // The win's garden is the level's lawn, rendered now so the celebration shows without a pause.
+            _win.SetTheme(theme);
+            _milestoneCard.SetTheme(theme);
         }
 
         /// <summary>
