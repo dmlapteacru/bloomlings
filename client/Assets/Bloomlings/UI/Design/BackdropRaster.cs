@@ -17,6 +17,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>Splash: the Home scene with more blossoms (frame 1).</summary>
         Splash,
+
+        /// <summary>
+        /// The full-screen win (spec 005 FR-023, contracts/look.md §6.3): the gameplay garden softly blurred and lightened,
+        /// with a warm glow in the middle behind the picture and the hero, until the owner's <c>win</c> picture exists.
+        /// </summary>
+        Win,
     }
 
     /// <summary>
@@ -36,10 +42,19 @@ namespace Bloomlings.Client.UI.Design
     {
         /// <summary>
         /// How many screen pixels one backdrop pixel spans: the Home and splash skies are smooth and take a fifth of the
-        /// screen's resolution; the gameplay lawn's blades and flowers need a third (spec 005 §4.2; about 0.15 s for a
-        /// 1080 × 2340 screen on a desktop, once per theme and size).
+        /// screen's resolution; the gameplay lawn's blades and flowers need a third (spec 005 §4.2; about 0.6 s for a
+        /// 1080 × 2340 screen on a desktop, once per theme and size); the win's blurred garden an eighth.
         /// </summary>
-        public static int Downscale(BackdropScene scene) => scene == BackdropScene.Gameplay ? 3 : 5;
+        public static int Downscale(BackdropScene scene) => scene switch
+        {
+            BackdropScene.Gameplay => 3,
+            // The win's garden is the lawn blurred: rendered at an eighth and upscaled smoothly, its details melt.
+            BackdropScene.Win => 8,
+            _ => 5,
+        };
+
+        /// <summary>Whether a scene is the gameplay lawn seen from above (the gameplay and, blurred, the win).</summary>
+        public static bool IsLawn(BackdropScene scene) => scene == BackdropScene.Gameplay || scene == BackdropScene.Win;
 
         /// <summary>RGBA bytes, row by row from the top, of a <paramref name="width"/> × <paramref name="height"/> backdrop.</summary>
         public static byte[] Render(int width, int height, BackdropColors colors, BackdropScene scene)
@@ -51,8 +66,9 @@ namespace Bloomlings.Client.UI.Design
 
             var pixels = new byte[width * height * 4];
             float aspect = (float)height / width;
-            Lawn? lawn = scene == BackdropScene.Gameplay ? Lawn.Of(colors) : null;
+            Lawn? lawn = IsLawn(scene) ? Lawn.Of(colors) : null;
             lawn?.Prepare(aspect);
+            bool win = scene == BackdropScene.Win;
             float texel = 1f / width;
             for (int py = 0; py < height; py++)
             {
@@ -65,6 +81,11 @@ namespace Bloomlings.Client.UI.Design
                     if (lawn != null)
                     {
                         Vec c = lawn.Sample(x, y, aspect, texel);
+                        if (win)
+                        {
+                            c = WinLight(c, x, y, aspect);
+                        }
+
                         pixels[i] = Byte(c.R);
                         pixels[i + 1] = Byte(c.G);
                         pixels[i + 2] = Byte(c.B);
@@ -87,15 +108,32 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The color of one point: x in 0–1, y in width units from the top, aspect = height / width.</summary>
         public static Rgba Sample(float x, float y, float aspect, BackdropColors colors, BackdropScene scene)
         {
-            if (scene != BackdropScene.Gameplay)
+            if (!IsLawn(scene))
             {
                 // One sample at the resolution a phone renders the garden at (1080 px wide, a fifth).
                 return Garden(x, y, aspect, colors, 1f / 216f);
             }
 
-            // One sample at the resolution a phone renders the lawn at (1080 px wide, a third).
-            Vec c = Lawn.Of(colors).Sample(x, y, aspect, 1f / 360f);
+            // One sample at the resolution a phone renders the lawn at (1080 px wide, a third; the win an eighth).
+            Vec c = Lawn.Of(colors).Sample(x, y, aspect, Downscale(scene) / 1080f);
+            if (scene == BackdropScene.Win)
+            {
+                c = WinLight(c, x, y, aspect);
+            }
+
             return new Rgba(Byte(c.R), Byte(c.G), Byte(c.B));
+        }
+
+        /// <summary>
+        /// The win's garden (spec 005 §6.3): the lawn lightened toward a warm cream and a warm glow of <c>ray.light</c>
+        /// around the middle of the screen (behind the picture and the hero), strongest at its center.
+        /// </summary>
+        private static Vec WinLight(Vec c, float x, float y, float aspect)
+        {
+            c = Vec.Mix(c, V(C.ParchmentTop), 0.24f);
+            float d = Length(x - 0.5f, (y - (aspect * 0.5f)) * 0.8f) / 0.75f;
+            float glow = Clamp01(1f - d);
+            return Vec.Mix(c, V(C.RayLight), glow * glow * 0.62f);
         }
 
         // ---- Home and splash: sky, arches, hills, bushes ----
@@ -283,9 +321,10 @@ namespace Bloomlings.Client.UI.Design
         {
             // Grid cells (width units) of the blades, the edge clumps' leaves and the flowers.
             private const float BladeCell = 0.011f;
-            private const float LeafCell = 0.05f;
-            private const float FlowerCell = 0.075f;
-            private const float BushCell = 0.085f;
+            private const float LeafCell = 0.058f;
+            private const float FlowerCell = 0.062f;
+            private const float BushCell = 0.1f;
+            private const float BigFlowerCell = 0.1f;
 
             // The blades of the whole picture, worked out once (Prepare): five numbers per cell (base x, y, tip x, y, light).
             private float[]? _blades;
@@ -306,6 +345,7 @@ namespace Bloomlings.Client.UI.Design
             private readonly Vec _bushLight;
             private readonly Vec _bushDeep;
             private readonly Vec _shade;
+            private readonly Vec _path;
             private readonly Vec[] _petals;
             private readonly Vec _center;
             private readonly Vec _centerLine;
@@ -320,15 +360,19 @@ namespace Bloomlings.Client.UI.Design
                 _sunny = Vec.Mix(_light, V(Rgba.White), 0.2f);
                 _blade = _dark * 0.72f;
                 _bladeLight = Vec.Mix(_light, V(Rgba.White), 0.28f);
-                _leaf = _dark * 0.9f;
-                _leafDeep = _dark * 0.78f;
-                _leafLine = _dark * 0.5f;
+                Vec foliageDeep = Vec.Scale(V(C.FoliageDeep) + (tilt * 0.5f), dim);
+                Vec foliage = Vec.Scale(V(C.Foliage) + (tilt * 0.6f), dim);
+                Vec foliageLight = Vec.Scale(V(C.FoliageLight) + (tilt * 0.7f), dim);
+                _leaf = foliage;
+                _leafDeep = Vec.Mix(foliageDeep, foliage, 0.35f);
+                _leafLine = foliageDeep * 0.7f;
                 _leafVein = Vec.Mix(_light, V(Rgba.White), 0.1f);
-                _leafSpring = Vec.Mix(_light, V(C.GardenLeaf2) * day, 0.6f);
-                _bush = _dark * 0.9f;
-                _bushLight = Vec.Mix(_dark, _light, 0.55f);
-                _bushDeep = _dark * 0.72f;
-                _shade = _dark * 0.8f;
+                _leafSpring = Vec.Mix(foliageLight, V(C.GardenLeaf2) * day, 0.4f);
+                _bush = foliage;
+                _bushLight = foliageLight;
+                _bushDeep = foliageDeep;
+                _shade = _dark * 0.68f;
+                _path = Vec.Mix(_light, V(C.GardenFlowerCenter), 0.16f);
 
                 // Flowers keep more of their light at dusk than the grass.
                 float bloom = 1f - (dusk * 0.5f);
@@ -366,19 +410,25 @@ namespace Bloomlings.Client.UI.Design
                 float n = Fbm(x * 4.6f, y * 4.6f, 11, 3);
                 Vec c = Vec.Mix(_light, _dark, Smooth((n - 0.36f) / 0.34f) * 0.72f);
                 c = Vec.Mix(c, _sunny, Smooth((0.4f - n) / 0.12f) * 0.45f);
+
+                // Lighter, sunny paths winding through the grass (the ridges of a slow noise).
+                float ridge = Math.Abs(Fbm(x * 1.9f, y * 1.9f, 17, 3) - 0.5f);
+                c = Vec.Mix(c, _path, Smooth(1f - (ridge / 0.045f)) * 0.5f);
                 c = c * (1f + ((Fbm(x * 24f, y * 24f, 23, 2) - 0.5f) * 0.16f));
 
                 c = Blades(c, x, y, texel);
 
-                // How close the point is to the screen's edges: clumps and flowers gather there.
+                // How close the point is to the screen's edges: the hedge, bushes, leaves and flowers gather there.
                 float edge = Math.Min(Math.Min(x, 1f - x), Math.Min(y, aspect - y));
-                if (edge < 0.2f)
+                if (edge < 0.26f)
                 {
+                    c = Hedge(c, x, y, aspect, texel);
                     c = Bushes(c, x, y, aspect, texel);
                     c = Clumps(c, x, y, aspect, texel);
+                    c = Flowers(c, x, y, aspect, texel, BigFlowerCell, 100, edgeOnly: true);
                 }
 
-                c = Flowers(c, x, y, aspect, texel);
+                c = Flowers(c, x, y, aspect, texel, FlowerCell, 0, edgeOnly: false);
 
                 // A soft vignette toward the sides and the ends.
                 float vx = Smooth(1f - (Math.Min(x, 1f - x) / 0.24f));
@@ -486,12 +536,12 @@ namespace Bloomlings.Client.UI.Design
                         float bx = (cx + 0.2f + (0.6f * Hash(cx, cy, 51))) * BushCell;
                         float by = (cy + 0.2f + (0.6f * Hash(cx, cy, 52))) * BushCell;
                         float near = Math.Min(Math.Min(bx, 1f - bx), Math.Min(by, aspect - by));
-                        if (Hash(cx, cy, 53) >= Smooth((0.085f - near) / 0.07f))
+                        if (Hash(cx, cy, 53) >= Smooth((0.11f - near) / 0.08f))
                         {
                             continue;
                         }
 
-                        float r = BushCell * (0.55f + (0.35f * Hash(cx, cy, 54)));
+                        float r = BushCell * (0.6f + (0.4f * Hash(cx, cy, 54)));
                         float dx = x - bx;
                         float dy = y - by;
                         float dist = Length(dx, dy);
@@ -512,9 +562,9 @@ namespace Bloomlings.Client.UI.Design
 
                         // Lit from the upper left, deeper toward the lower right and at the rim; leaves as a speckle.
                         float lit = Clamp01(0.5f - ((dx * 0.6f) + (dy * 0.8f)) / (r * 1.6f));
-                        Vec face = Vec.Mix(_bushDeep, _bushLight, lit);
+                        Vec face = Vec.Mix(_bushDeep, _bush, lit);
                         float speckle = Fbm(x * 150f, y * 150f, 61, 2);
-                        face = Vec.Mix(face, _bushLight, Smooth((speckle - 0.55f) / 0.12f) * 0.45f * (0.4f + lit));
+                        face = Vec.Mix(face, _bushLight, Smooth((speckle - 0.55f) / 0.12f) * 0.55f * (0.3f + lit));
                         face = Vec.Mix(face, _bushDeep, Smooth((0.4f - speckle) / 0.12f) * 0.35f);
                         face = Vec.Mix(face, _bushDeep * 0.85f, Clamp01(1f + (d / (r * 0.12f))));
                         c = Vec.Mix(c, face, cover);
@@ -541,7 +591,7 @@ namespace Bloomlings.Client.UI.Design
                         float lx = (cx + 0.15f + (0.7f * Hash(cx, cy, 31))) * LeafCell;
                         float ly = (cy + 0.15f + (0.7f * Hash(cx, cy, 32))) * LeafCell;
                         float near = Math.Min(Math.Min(lx, 1f - lx), Math.Min(ly, aspect - ly));
-                        float chance = Smooth((0.14f - near) / 0.11f) * 0.85f;
+                        float chance = Smooth((0.19f - near) / 0.13f) * 0.8f;
                         if (Hash(cx, cy, 33) >= chance)
                         {
                             continue;
@@ -552,7 +602,7 @@ namespace Bloomlings.Client.UI.Design
                             ? (lx < 0.5f ? 0f : (float)Math.PI)
                             : (ly < aspect / 2f ? (float)(Math.PI / 2.0) : (float)(-Math.PI / 2.0));
                         float angle = inward + ((Hash(cx, cy, 34) - 0.5f) * 2.4f);
-                        float half = LeafCell * (0.42f + (0.3f * Hash(cx, cy, 35)));
+                        float half = LeafCell * (0.46f + (0.34f * Hash(cx, cy, 35)));
                         float ca = (float)Math.Cos(angle);
                         float sa = (float)Math.Sin(angle);
 
@@ -570,7 +620,7 @@ namespace Bloomlings.Client.UI.Design
                         // Lighter on one side of the midrib, darker toward the tip; a dark rim; a light midrib.
                         float k = Hash(cx, cy, 36);
                         Vec face = Vec.Mix(_leafDeep, _leaf, (v > 0f ? 0.85f : 0.45f) + (0.15f * k));
-                        if (k > 0.72f)
+                        if (k > 0.84f)
                         {
                             // A few young leaves in spring green.
                             face = Vec.Mix(_leafSpring * 0.86f, _leafSpring, v > 0f ? 1f : 0.55f);
@@ -602,19 +652,43 @@ namespace Bloomlings.Client.UI.Design
             }
 
             /// <summary>
-            /// Small five-petal flowers (pink, white, orange, yellow and the theme's own), scattered, more of them toward the
-            /// screen's edges: round petals with a darker rim, a lighter heart and a yellow center, over a soft shadow.
+            /// The dense hedge along the screen's sides (the reference's deep foliage): deep greens with a leafy speckle and
+            /// lighter leaf tips, its inner edge wavy, so no grass shows right at the edges.
             /// </summary>
-            private Vec Flowers(Vec c, float x, float y, float aspect, float texel)
+            private Vec Hedge(Vec c, float x, float y, float aspect, float texel)
             {
-                int gx = Floor(x / FlowerCell);
-                int gy = Floor(y / FlowerCell);
-                float r = FlowerCell * (0.15f + (0.1f * Hash(gx, gy, 41)));
-                float fx = (gx + 0.5f + ((Hash(gx, gy, 42) - 0.5f) * (1f - (4f * r / FlowerCell)))) * FlowerCell;
-                float fy = (gy + 0.5f + ((Hash(gx, gy, 43) - 0.5f) * (1f - (4f * r / FlowerCell)))) * FlowerCell;
+                float side = Math.Min(x, 1f - x);
+                float reach = 0.045f + (0.05f * Fbm(y * 7f, x < 0.5f ? 1f : 9f, 81, 3));
+                float d = side - reach;
+                float cover = Clamp01(0.5f - (d / (texel * 1.5f)));
+                if (cover <= 0f)
+                {
+                    // Its soft shadow on the grass.
+                    return Vec.Mix(c, _shade, 0.35f * Clamp01(1f - (d / 0.02f)));
+                }
+
+                float speckle = Fbm(x * 120f, y * 120f, 83, 2);
+                Vec face = Vec.Mix(_bushDeep, _bush, Smooth((speckle - 0.35f) / 0.3f));
+                face = Vec.Mix(face, _bushLight, Smooth((speckle - 0.62f) / 0.1f) * 0.6f);
+                face = Vec.Mix(face, _bushDeep * 0.8f, Clamp01(1f + (d / 0.012f)) * 0.5f);
+                return Vec.Mix(c, face, cover);
+            }
+
+            /// <summary>
+            /// Five-petal flowers (pink, white, orange, yellow and the theme's own) in a grid of <paramref name="cell"/>,
+            /// scattered, more of them toward the screen's edges (only there when <paramref name="edgeOnly"/>: the big ones):
+            /// round petals with a darker rim, a lighter heart and a yellow center, over a soft shadow.
+            /// </summary>
+            private Vec Flowers(Vec c, float x, float y, float aspect, float texel, float cell, int seed, bool edgeOnly)
+            {
+                int gx = Floor(x / cell);
+                int gy = Floor(y / cell);
+                float r = cell * (0.16f + (0.08f * Hash(gx, gy, 41 + seed)));
+                float fx = (gx + 0.5f + ((Hash(gx, gy, 42 + seed) - 0.5f) * (1f - (4f * r / cell)))) * cell;
+                float fy = (gy + 0.5f + ((Hash(gx, gy, 43 + seed) - 0.5f) * (1f - (4f * r / cell)))) * cell;
                 float near = Math.Min(Math.Min(fx, 1f - fx), Math.Min(fy, aspect - fy));
-                float chance = 0.1f + (0.62f * Smooth((0.26f - near) / 0.18f));
-                if (Hash(gx, gy, 44) >= chance)
+                float chance = edgeOnly ? 0.85f * Smooth((0.16f - near) / 0.1f) : 0.14f + (0.76f * Smooth((0.3f - near) / 0.2f));
+                if (Hash(gx, gy, 44 + seed) >= chance)
                 {
                     return c;
                 }
@@ -631,7 +705,7 @@ namespace Bloomlings.Client.UI.Design
                 float shadowRho = Length(dx - (r * 0.12f), dy - (r * 0.22f));
                 c = Vec.Mix(c, _shade, 0.3f * Clamp01(1f - ((shadowRho - (r * 0.9f)) / (r * 0.35f))));
                 const float step = (float)(2.0 * Math.PI / 5.0);
-                float turn = Hash(gx, gy, 45) * step;
+                float turn = Hash(gx, gy, 45 + seed) * step;
                 float phi = (float)Math.Atan2(dy, dx) - turn;
                 float local = phi - (step * (float)Math.Round(phi / step));
                 float px = rho * (float)Math.Cos(local);
@@ -641,7 +715,7 @@ namespace Bloomlings.Client.UI.Design
                 if (cover > 0f)
                 {
                     // Pink most often, then white, orange, the theme's own and yellow.
-                    float pick = Hash(gx, gy, 46);
+                    float pick = Hash(gx, gy, 46 + seed);
                     Vec color = pick < 0.36f ? _petals[1] : pick < 0.6f ? _petals[0] : pick < 0.74f ? _petals[4] : pick < 0.87f ? _petals[3] : _petals[2];
                     Vec face = Vec.Mix(color * 0.86f, Vec.Mix(color, V(Rgba.White), 0.25f), Clamp01(1f - (rho / r)));
                     face = Vec.Mix(face, color * 0.62f, Clamp01(1f + ((petal + (texel * 0.3f)) / texel)));

@@ -14,11 +14,11 @@ namespace Bloomlings.Client.Gameplay.Board
     /// top, the same arguments giving the same bytes, as <see cref="UiRaster"/>):
     /// <list type="bullet">
     /// <item><description><see cref="Ground"/>: the restored ground under the tiles, each cell a pale flat cell of the
-    /// finished picture with a small radius and a faint inner shadow along its top, over a deeper shade of
-    /// itself;</description></item>
+    /// finished picture with a small radius and a faint inner shadow along its top, over a deeper shade of itself, and
+    /// the picture's background as grass (<see cref="UiRaster.Grass"/>);</description></item>
     /// <item><description><see cref="Finished"/>: the finished picture in full color (the win, the Collection), each cell a
-    /// flat candy tile of its role's variant (<see cref="TileStyle.Flat"/>), stones as stone blocks and ground as cream
-    /// cells, inside a thin stone border;</description></item>
+    /// flat candy tile of its role's variant (<see cref="TileStyle.Flat"/>), stones as stone blocks and the background as
+    /// grass, inside a thin stone border;</description></item>
     /// <item><description><see cref="StoneObstacle"/>: a stone obstacle, a raised block of the border's sandy stone over a
     /// soft shadow with a jagged crack.</description></item>
     /// </list>
@@ -75,6 +75,13 @@ namespace Bloomlings.Client.Gameplay.Board
             return (null, value);
         }
 
+        /// <summary>Whether a picture cell is the picture's background (no role, no stone): it shows as grass (<c>tile.grass</c>).</summary>
+        public static bool IsGrass(LevelDefinition definition, BasePicture picture, int x, int y)
+        {
+            (VariantId? variant, int value) = PictureCell(definition, picture, x, y);
+            return !variant.HasValue && value != BasePicture.Stone;
+        }
+
         /// <summary>The restored ground's color under a cell (§4.1): its role's variant color lightened 0.55, stone or ground.</summary>
         public static Rgba GroundColor(LevelDefinition definition, BasePicture picture, int x, int y)
         {
@@ -101,13 +108,23 @@ namespace Bloomlings.Client.Gameplay.Board
             int pw = w * c;
             int ph = h * c;
             var pixels = new byte[pw * ph * 4];
+            var grass = new byte[UiRaster.GrassVariants][];
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
                 {
-                    Rgba color = GroundColor(definition, picture, x, y);
                     int left = x * c;
                     int top = (h - 1 - y) * c;
+                    if (IsGrass(definition, picture, x, y))
+                    {
+                        // The picture's background reads as garden (spec 005 FR-020, tile.grass).
+                        int seed = UiRaster.GrassSeed(x, y);
+                        grass[seed] ??= UiRaster.Grass(c, seed);
+                        Blit(pixels, pw, ph, grass[seed], c, c, left, top);
+                        continue;
+                    }
+
+                    Rgba color = GroundColor(definition, picture, x, y);
                     FillRect(pixels, pw, left, top, c, c, color.Darken(0.12f));
                     var full = new Box(left, top, left + c, top + c);
                     Box face = full.Inset(c * GroundInset);
@@ -149,6 +166,8 @@ namespace Bloomlings.Client.Gameplay.Board
 
             var tiles = new Dictionary<string, byte[]>(StringComparer.Ordinal);
             int tileSize = Math.Max(1, (int)Math.Round(c * (1f - (2f * TileInset))));
+            int grassSize = Math.Max(1, (int)Math.Round(c));
+            var grass = new byte[UiRaster.GrassVariants][];
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -176,7 +195,10 @@ namespace Bloomlings.Client.Gameplay.Board
                     }
                     else
                     {
-                        FillRound(pixels, width, height, full.Inset(c * GroundInset), c * 0.1f, C.TileGround, C.TileGround);
+                        // The picture's background as grass (tile.grass), as on the board.
+                        int seed = UiRaster.GrassSeed(x, y);
+                        grass[seed] ??= UiRaster.Grass(grassSize, seed);
+                        Blit(pixels, width, height, grass[seed], grassSize, grassSize, (int)Math.Round(full.CenterX - (grassSize / 2f)), (int)Math.Round(full.CenterY - (grassSize / 2f)));
                     }
                 }
             }

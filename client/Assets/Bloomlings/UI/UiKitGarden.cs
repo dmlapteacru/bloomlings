@@ -62,6 +62,18 @@ namespace Bloomlings.Client.UI
             return image;
         }
 
+        /// <summary>
+        /// A board cell of the picture's background (spec 005 FR-020, <c>tile.grass</c>; the playtest's
+        /// <c>Kit.GrassCell</c>): a square of lawn filling the rect, the cell's own inset and soft rim included. Never a
+        /// touch target.
+        /// </summary>
+        public static Image GrassCell(string name, Transform parent, int seed)
+        {
+            Image image = UiFactory.CreateImage(name, parent, null, Color.white);
+            PictureFit.On(image, (w, h) => ProceduralSprites.Grass(seed, w, h));
+            return image;
+        }
+
         // ---- Candy tiles (§3.1) ----
 
         /// <summary>
@@ -152,6 +164,15 @@ namespace Bloomlings.Client.UI
         public static Image IvyCluster(string name, Transform parent, bool flipped, bool? back = null)
         {
             Image image = UiFactory.CreateImage(name, parent, null, Color.white);
+            Sprite? picture = OwnerArt.Decor(OwnerPictures.Ivy);
+            if (picture != null)
+            {
+                // The owner's cluster (pictures.md D5) is one picture over the plank's end, mirrored for the right end.
+                OwnerArt.Show(image, picture, mirror: flipped);
+                image.enabled = back != true;
+                return image;
+            }
+
             PictureFit.On(image, (w, h) => ProceduralSprites.IvyCluster(flipped, back, Mathf.Min(w, h)), square: true);
             return image;
         }
@@ -163,6 +184,14 @@ namespace Bloomlings.Client.UI
         public static Image FlowerCluster(string name, Transform parent, bool flipped)
         {
             Image image = UiFactory.CreateImage(name, parent, null, Color.white);
+            Sprite? picture = OwnerArt.Decor(OwnerPictures.Flowers);
+            if (picture != null)
+            {
+                // The owner's cluster (pictures.md D6), mirrored for the other end.
+                OwnerArt.Show(image, picture, mirror: flipped);
+                return image;
+            }
+
             PictureFit.On(image, (w, h) => ProceduralSprites.FlowerCluster(flipped, Mathf.Min(w, h)), square: true);
             return image;
         }
@@ -464,7 +493,10 @@ namespace Bloomlings.Client.UI
             return view;
         }
 
-        /// <summary>A booster's colored icon (§3.8, <see cref="GardenLook.BoosterIcon"/>), all grey when <paramref name="grey"/>.</summary>
+        /// <summary>
+        /// A booster's colored icon (§3.8, <see cref="GardenLook.BoosterIcon"/>), all grey when <paramref name="grey"/>, or
+        /// the owner's icon picture (pictures.md D1–D4) when it exists (<see cref="SetIconParts"/>).
+        /// </summary>
         public static Image BoosterIcon(string name, Transform parent, string boosterId, bool grey = false) =>
             IconParts(name, parent, GardenLook.BoosterIcon(boosterId), grey);
 
@@ -472,9 +504,24 @@ namespace Bloomlings.Client.UI
         public static void SetBoosterIcon(Image image, string boosterId, bool grey) =>
             SetIconParts(image, GardenLook.BoosterIcon(boosterId), grey);
 
-        /// <summary>Changes an <see cref="IconParts"/> image's parts or greyness.</summary>
-        public static void SetIconParts(Image image, IReadOnlyList<IconPart> parts, bool grey) =>
+        /// <summary>
+        /// Changes an <see cref="IconParts"/> image's parts or greyness. A booster's icon is the owner's picture when it
+        /// exists (pictures.md D1–D4), faded to <see cref="GardenLook.PictureDisabledAlpha"/> when grey.
+        /// </summary>
+        public static void SetIconParts(Image image, IReadOnlyList<IconPart> parts, bool grey)
+        {
+            string? booster = GardenLook.BoosterOf(parts);
+            Sprite? picture = booster == null ? null : OwnerArt.Icon(OwnerPictures.BoosterIcon(booster));
+            if (picture != null)
+            {
+                OwnerArt.Show(image, picture);
+                image.color = new Color(1f, 1f, 1f, grey ? GardenLook.PictureDisabledAlpha : 1f);
+                return;
+            }
+
+            image.color = Color.white;
             PictureFit.On(image, (w, h) => ProceduralSprites.IconParts(parts, grey, Mathf.Min(w, h)), square: true);
+        }
 
         // ---- Celebration (§3.9) ----
 
@@ -536,9 +583,19 @@ namespace Bloomlings.Client.UI
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             TypeStyle style = T.Wordmark;
             Image leftLeaves = UiFactory.CreateImage("LeavesLeft", root, null, Color.white);
-            PictureFit.On(leftLeaves, (w, h) => ProceduralSprites.LogoLeaves(false, Mathf.Min(w, h)), square: true);
             Image rightLeaves = UiFactory.CreateImage("LeavesRight", root, null, Color.white);
-            PictureFit.On(rightLeaves, (w, h) => ProceduralSprites.LogoLeaves(true, Mathf.Min(w, h)), square: true);
+            Sprite? leaves = OwnerArt.Decor(OwnerPictures.LogoLeaves);
+            if (leaves != null)
+            {
+                // The owner's leaves (pictures.md D8), mirrored for the right end.
+                OwnerArt.Show(leftLeaves, leaves);
+                OwnerArt.Show(rightLeaves, leaves, mirror: true);
+            }
+            else
+            {
+                PictureFit.On(leftLeaves, (w, h) => ProceduralSprites.LogoLeaves(false, Mathf.Min(w, h)), square: true);
+                PictureFit.On(rightLeaves, (w, h) => ProceduralSprites.LogoLeaves(true, Mathf.Min(w, h)), square: true);
+            }
 
             // The mossy band: the same letters in olive, outlined and extruded thickly, behind the wooden ones.
             Rgba moss = C.IvyLine.Mix(C.WoodLine, 0.35f).Lighten(0.12f);

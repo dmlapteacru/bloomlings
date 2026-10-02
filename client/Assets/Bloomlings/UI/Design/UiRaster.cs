@@ -16,7 +16,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>How a candy tile draws its symbol (spec 005 contracts/look.md §3.1).</summary>
     public enum TileStyle
     {
-        /// <summary>Board tiles: nearly square, with a small raised bead of the symbol in darker shades of the tile.</summary>
+        /// <summary>Board tiles: nearly square, with the symbol as a bold gem with a thick dark outline (spec 005 FR-026).</summary>
         Board,
 
         /// <summary>Pods, slots, the jam row, the Collection and the strip: a bigger, detailed symbol with a dark outline.</summary>
@@ -24,7 +24,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The finished picture (the win card, the Collection; research D14): the board style without the lip, a flat
-        /// full-color tile with its small gloss and the board-style symbol.
+        /// full-color tile with its small gloss and the board's gem icon.
         /// </summary>
         Flat,
     }
@@ -551,11 +551,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// A candy tile of side <paramref name="size"/> (spec 005 contracts/look.md §3.1): a satin rounded square in
         /// <paramref name="color"/> with a lighter top, a faint gloss band, a thin lighter bevel inside its top edge, a thin
-        /// darker lip, a crisp dark outline, and the variant symbol of <paramref name="iconId"/>
-        /// (<see cref="ShapeLibrary.SymbolId"/>): a small raised bead in darker shades of the tile with a white specular
-        /// (<see cref="TileStyle.Board"/>; nearly square, so the board reads as one mosaic), or a bigger, detailed sticker
-        /// with a dark outline in its own tone (<see cref="TileStyle.Sticker"/>, §3.1.1). Below 28 px the board symbol is a
-        /// flat darker fill.
+        /// darker lip, a crisp dark outline, and the variant symbol of <paramref name="iconId"/>: a bold gem with a thick
+        /// dark outline, a fill in a shade of the tile and a white highlight (<see cref="TileStyle.Board"/> and
+        /// <see cref="TileStyle.Flat"/>, <see cref="ShapeLibrary.GemSymbol"/>, §3.1.2; nearly square, so the board reads as
+        /// one mosaic), or a bigger, detailed sticker with a dark outline in its own tone (<see cref="TileStyle.Sticker"/>,
+        /// <see cref="ShapeLibrary.SymbolId"/>, §3.1.1). Below 28 px the gem is a flat dark silhouette.
         /// </summary>
         public static byte[] Tile(int size, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal)
         {
@@ -567,6 +567,7 @@ namespace Bloomlings.Client.UI.Design
             Sticker sticker = Sticker.Of(iconId, color, grey);
             Func<float, float, float> symbol = mystery ? ShapeLibrary.Get("tile.mystery") : ShapeLibrary.Get(ShapeLibrary.SymbolId(iconId));
             Func<float, float, float> solid = mystery ? symbol : ShapeLibrary.SolidSymbol(iconId);
+            Gem gem = board && !mystery ? Gem.Of(iconId, col, size) : default;
             float s = size;
 
             // At least 3 px of corner, so small tiles stay rounded (and their corner pixels clear).
@@ -590,9 +591,6 @@ namespace Bloomlings.Client.UI.Design
             Rgba lipColor = col.Darken(0.28f);
             Rgba outline = col.Darken(board ? 0.45f : 0.5f);
             Rgba bevelColor = col.Lighten(0.45f);
-            Rgba beadLine = col.Darken(0.5f);
-            Rgba beadTop = col.Lighten(0.1f);
-            Rgba beadBottom = col.Darken(0.3f);
             Rgba beadFlat = col.Darken(0.32f);
             float bandAlpha = board ? 0.18f : 0.16f;
             Rgba dim = C.ParchmentBottom;
@@ -645,19 +643,6 @@ namespace Bloomlings.Client.UI.Design
                             {
                                 c.Mix(Rgba.White, Coverage(ds));
                             }
-                            else if (small)
-                            {
-                                c.Mix(beadFlat, Coverage(ds));
-                            }
-                            else
-                            {
-                                // A raised bead: its darker rim, a fill darker toward the bottom, a white specular.
-                                c.Mix(beadLine, Coverage(ds - iconLine));
-                                float g = Clamp01((y - (sy - (box / 2f))) / box);
-                                var fill = new Color(beadTop.Mix(beadBottom, g));
-                                fill.Mix(Rgba.White, 0.7f * Specular(u, v) * Coverage(ds + (iconLine * 2.5f)));
-                                c.Mix(fill.ToRgba(), Coverage(ds));
-                            }
                         }
                         else if (mystery)
                         {
@@ -670,6 +655,11 @@ namespace Bloomlings.Client.UI.Design
                         }
                     }
 
+                    if (board && !mystery)
+                    {
+                        gem.Draw(ref c, x, y, s / 2f, faceH / 2f, small, beadFlat);
+                    }
+
                     c.Mix(outline, Clamp01(0.5f - (-d - line)));
                     if (state == TileState.Dimmed)
                     {
@@ -677,6 +667,190 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     Put(pixels, size, px, py, c, cover);
+                }
+            }
+
+            return pixels;
+        }
+
+        /// <summary>
+        /// The board's gem icon (spec 005 FR-026, contracts/look.md §3.1.2): the variant's gem silhouette
+        /// (<see cref="ShapeLibrary.GemSymbol"/>) in a box of <see cref="GemBox"/> of the tile, centered on the face, with
+        /// a thick dark outline (<see cref="GemLine"/> of the tile, in the color darkened 0.5) over a faint drop shadow, a
+        /// fill in a shade of the tile color (<see cref="GemDarken"/> on light colors, <see cref="GemLighten"/> on darker
+        /// ones) lighter at the top, its inner line and lighter or darker part (<see cref="ShapeLibrary.GemDetail"/>), a soft white highlight
+        /// on its upper left (alpha 0.45) and a tiny specular dot. Small tiles draw only the silhouette in the flat shade.
+        /// </summary>
+        private readonly struct Gem
+        {
+            private readonly Func<float, float, float> _shape;
+            private readonly Func<float, float, float>? _detail;
+            private readonly Func<float, float, float>? _light;
+            private readonly Func<float, float, float>? _dark;
+            private readonly Rgba _line;
+            private readonly Rgba _top;
+            private readonly Rgba _bottom;
+            private readonly float _unit;
+            private readonly float _width;
+
+            private Gem(Func<float, float, float> shape, Func<float, float, float>? detail, Func<float, float, float>? light, Func<float, float, float>? dark, Rgba color, float size)
+            {
+                _shape = shape;
+                _detail = detail;
+                _light = light;
+                _dark = dark;
+                _line = color.Darken(0.5f);
+                Rgba fill = Lightness(color) > 0.55f ? color.Darken(GemDarken) : color.Lighten(GemLighten);
+                _top = fill.Lighten(0.1f);
+                _bottom = fill.Darken(0.08f);
+                _unit = size * GemBox / 2f / ShapeRaster.Margin;
+                _width = Math.Max(1f, size * GemLine);
+            }
+
+            public static Gem Of(string iconId, Rgba color, int size) =>
+                new Gem(ShapeLibrary.GemSymbol(iconId), ShapeLibrary.GemDetail(iconId), ShapeLibrary.GemLight(iconId), ShapeLibrary.GemDark(iconId), color, size);
+
+            /// <summary>Draws the gem at pixel (<paramref name="x"/>, <paramref name="y"/>) of a face centered on (<paramref name="cx"/>, <paramref name="cy"/>).</summary>
+            public void Draw(ref Color c, float x, float y, float cx, float cy, bool small, Rgba flat)
+            {
+                float u = (x - cx) / _unit;
+                float v = -(y - cy) / _unit;
+                float reach = 1f + (_width * 2f / _unit);
+                if (Math.Abs(u) > reach || Math.Abs(v) > reach + 0.1f)
+                {
+                    return;
+                }
+
+                float d = _shape(u, v) * _unit;
+                if (small)
+                {
+                    c.Mix(_line.Mix(flat, 0.4f), Coverage(d - (_width * 0.5f)));
+                    return;
+                }
+
+                // A faint drop shadow under the outline, then the outline, then the fill.
+                float shadow = _shape(u, v + (0.06f * 0.8f)) * _unit;
+                c.Mix(_line, 0.22f * Coverage(shadow - _width));
+                c.Mix(_line, Coverage(d - _width));
+                float inside = Coverage(d);
+                if (inside <= 0f)
+                {
+                    return;
+                }
+
+                var fill = new Color(_top.Mix(_bottom, Clamp01((0.8f - v) / 1.6f)));
+                if (_light != null)
+                {
+                    fill.Mix(_top.Lighten(0.22f), Coverage(_light(u, v) * _unit));
+                }
+
+                if (_dark != null)
+                {
+                    fill.Mix(_bottom.Darken(0.2f), Coverage(_dark(u, v) * _unit));
+                }
+
+                if (_detail != null)
+                {
+                    fill.Mix(_line, 0.55f * Coverage(_detail(u, v) * _unit));
+                }
+
+                // The soft white highlight on the upper left, kept inside the outline, and a tiny specular dot.
+                fill.Mix(Rgba.White, 0.45f * Specular(u, v) * Coverage(d + (_width * 0.8f)));
+                fill.Mix(Rgba.White, 0.85f * Coverage((Length(u + 0.32f, v - 0.42f) - 0.075f) * _unit) * Coverage(d + (_width * 0.5f)));
+                c.Mix(fill.ToRgba(), inside);
+            }
+
+            /// <summary>The HSL lightness of a color (0–1).</summary>
+            private static float Lightness(Rgba color)
+            {
+                int max = Math.Max(color.R, Math.Max(color.G, color.B));
+                int min = Math.Min(color.R, Math.Min(color.G, color.B));
+                return (max + min) / 510f;
+            }
+        }
+
+        /// <summary>The gem icon's shape box as a share of the board tile's side (the gem with its outline spans about 56% of it).</summary>
+        public const float GemBox = 0.64f;
+
+        /// <summary>The gem icon's dark outline as a share of the board tile's side.</summary>
+        public const float GemLine = 0.06f;
+
+        /// <summary>How much darker than its tile a gem is on a light tile (HSL lightness above 0.55).</summary>
+        public const float GemDarken = 0.22f;
+
+        /// <summary>How much lighter than its tile a gem is on a darker tile.</summary>
+        public const float GemLighten = 0.3f;
+
+        // ---- Grass cells ----
+
+        /// <summary>How many different grass cell pictures there are (<see cref="GrassSeed"/>).</summary>
+        public const int GrassVariants = 4;
+
+        /// <summary>How much a grass cell is inset into its cell (each side, in cells), as the restored ground.</summary>
+        public const float GrassInset = 0.025f;
+
+        /// <summary>The grass picture of a board cell (<see cref="GrassVariants"/> of them, so neighbors differ).</summary>
+        public static int GrassSeed(int x, int y) => (((x * 7) + (y * 13)) % GrassVariants + GrassVariants) % GrassVariants;
+
+        /// <summary>
+        /// A board cell of the picture's background (spec 005 FR-020; <c>tile.grass</c>): a square of lawn of side
+        /// <paramref name="size"/>, its face inset by <see cref="GrassInset"/> with a small radius (10%) over a deeper green,
+        /// so a soft line parts it from its neighbors, in a muted mid green between <c>lawn.light</c> and <c>lawn.dark</c> with a
+        /// soft mottle, short dark and light blades, a faint shadow along its top (it lies a little below the tiles) and a
+        /// slightly deeper rim. <paramref name="seed"/> (<see cref="GrassSeed"/>) varies the mottle and the blades. It
+        /// stays flat and calm (no bevel, no symbol), so it reads as garden ground, never as a lime Leaf tile.
+        /// </summary>
+        public static byte[] Grass(int size, int seed) => Grass(size, size, seed);
+
+        /// <summary>A grass cell stretched to <paramref name="width"/> × <paramref name="height"/> (a picture host's quantized box).</summary>
+        public static byte[] Grass(int width, int height, int seed)
+        {
+            Check(width, height);
+            float s = Math.Min(width, height);
+            float inset = s * GrassInset;
+            float r = Math.Max(1.5f, (s - (2f * inset)) * 0.1f);
+            Rgba top = C.LawnLight.Mix(C.LawnDark, 0.5f).Darken(0.04f);
+            Rgba bottom = C.LawnDark.Darken(0.06f);
+            Rgba gap = bottom.Darken(0.3f);
+            Rgba blade = C.LawnDark.Darken(0.3f);
+            Rgba bladeLight = C.LawnLight.Lighten(0.18f);
+            float scale = Math.Max(8f, s);
+            var pixels = new byte[width * height * 4];
+            for (int py = 0; py < height; py++)
+            {
+                float y = py + 0.5f;
+                for (int px = 0; px < width; px++)
+                {
+                    float x = px + 0.5f;
+                    var c = new Color(gap);
+                    float d = RoundRect(x, y, inset, inset, width - inset, height - inset, r);
+                    float face = Coverage(d);
+                    if (face > 0f)
+                    {
+                        float u = x / scale;
+                        float v = y / scale;
+                        var g = new Color(top.Mix(bottom, Clamp01(((y / height) - 0.1f) / 0.9f)));
+                        g.Scale(1f + ((Fbm((u * 3f) + seed, (v * 3f) - seed, 301 + seed, 3) - 0.5f) * 0.22f));
+
+                        // Short blades in a fine grid: a dark or light stroke leaning a little in each small cell.
+                        const float grid = 0.125f;
+                        int gx = (int)Math.Floor(u / grid);
+                        int gy = (int)Math.Floor(v / grid);
+                        float bx = (gx + 0.2f + (0.6f * Hash(gx, gy, 311 + seed))) * grid;
+                        float by = (gy + 0.75f) * grid;
+                        float lean = (Hash(gx, gy, 312 + seed) - 0.5f) * 0.12f;
+                        float t = Clamp01((by - v) / (grid * 0.55f));
+                        float dist = Math.Abs(u - (bx + (lean * t))) - (grid * 0.07f * (1f - (0.7f * t)));
+                        float stroke = Coverage(dist * scale) * (v <= by && v >= by - (grid * 0.55f) ? 1f : 0f);
+                        g.Mix(Hash(gx, gy, 313 + seed) < 0.6f ? blade : bladeLight, stroke * 0.42f);
+
+                        // It lies a little below the tiles: a faint shadow along its top and a slightly deeper rim.
+                        g.Mix(C.GardenShadow, 0.14f * Clamp01(1f - ((y - inset) / (height * 0.22f))));
+                        g.Mix(bottom.Darken(0.18f), 0.5f * Clamp01(1f + (d / Math.Max(1f, s * 0.05f))));
+                        c.Mix(g.ToRgba(), face);
+                    }
+
+                    Put(pixels, width, px, py, c, 1f);
                 }
             }
 

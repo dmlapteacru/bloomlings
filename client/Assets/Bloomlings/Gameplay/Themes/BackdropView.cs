@@ -79,8 +79,9 @@ namespace Bloomlings.Client.Gameplay.Themes
             int width = Mathf.Max(32, (int)w / downscale);
             int height = Mathf.Max(32, (int)h / downscale);
             // Home, the splash and the Wardrobe take the warmer garden colors (spec 005 §4.2), as the playtest's
-            // DesignApp.DrawBackdrop does; the key keeps them apart from a gameplay backdrop of the same theme.
-            bool warm = _scene != BackdropScene.Gameplay;
+            // DesignApp.DrawBackdrop does; the key keeps them apart from a gameplay backdrop of the same theme. The win's
+            // garden (BackdropScene.Win) is the level's lawn, blurred and lightened.
+            bool warm = !BackdropRaster.IsLawn(_scene);
             string key = (theme?.Id ?? "default") + "/" + _scene + (warm ? "/warm" : string.Empty) + "/" + width + "x" + height;
             if (!Cache.TryGetValue(key, out Texture2D? texture))
             {

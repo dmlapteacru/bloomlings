@@ -194,6 +194,17 @@ namespace Bloomlings.Playtest.Design
         public static void IvyCluster(IPainter p, Box box, bool flipped, bool? back = null)
         {
             p.Mark("ui.sign.ivy");
+            if (p.HasSprite(PainterBase.DecorPrefix + OwnerPictures.Ivy))
+            {
+                // The owner's cluster (pictures.md D5) is one picture over the plank's end, mirrored for the right end.
+                if (back != true)
+                {
+                    OwnerPicture(p, PainterBase.DecorPrefix + OwnerPictures.Ivy, box, mirror: flipped);
+                }
+
+                return;
+            }
+
             // One baked picture per half-cluster (LeafPictures), not five masks per leaf.
             (string key, Func<int, int, byte[]> render) = Recipe(Ivies, (Flipped: flipped, Back: back), k =>
                 ("ui.sign.ivy/" + (k.Flipped ? "r" : "l") + "/" + (k.Back.HasValue ? (k.Back.Value ? "back" : "front") : "all"),
@@ -209,6 +220,12 @@ namespace Bloomlings.Playtest.Design
         public static void FlowerCluster(IPainter p, Box box, bool flipped)
         {
             p.Mark("ui.deco.garden");
+            if (OwnerPicture(p, PainterBase.DecorPrefix + OwnerPictures.Flowers, box, mirror: flipped))
+            {
+                // The owner's cluster (pictures.md D6), mirrored for the other end.
+                return;
+            }
+
             // One baked picture per cluster (LeafPictures), not 28 masks.
             p.Picture(flipped ? "ui.deco.garden/cluster/flipped" : "ui.deco.garden/cluster", box, flipped ? FlippedFlowerClusterPicture : FlowerClusterPicture);
         }
@@ -699,11 +716,55 @@ namespace Bloomlings.Playtest.Design
             return inner;
         }
 
-        /// <summary>A booster's colored icon (§3.8, <see cref="GardenLook.BoosterIcon"/>), all grey when <paramref name="grey"/>.</summary>
+        /// <summary>
+        /// A board cell of the picture's background (spec 005 FR-020, <c>tile.grass</c>): a square of lawn
+        /// (<see cref="UiRaster.Grass"/>, one of <see cref="UiRaster.GrassVariants"/> by <paramref name="seed"/>,
+        /// <see cref="UiRaster.GrassSeed"/>) filling <paramref name="full"/>, so the ground around the picture reads as
+        /// garden; restored role cells stay pale picture colors (<c>tile.ground</c>).
+        /// </summary>
+        public static void GrassCell(IPainter p, Box full, int seed)
+        {
+            p.Mark("tile.grass");
+            int k = ((seed % UiRaster.GrassVariants) + UiRaster.GrassVariants) % UiRaster.GrassVariants;
+            p.Picture("tile.grass/" + k, full, (w, h) => UiRaster.Grass(w, h, k));
+        }
+
+        /// <summary>
+        /// A booster's colored icon (§3.8, <see cref="GardenLook.BoosterIcon"/>), all grey when <paramref name="grey"/>, or
+        /// the owner's icon picture (pictures.md D1–D4) when it is embedded.
+        /// </summary>
         public static void BoosterIcon(IPainter p, string boosterId, Box box, bool grey = false)
         {
             p.Mark("booster." + boosterId);
+            // IconParts draws the owner's icon picture instead when it is embedded (pictures.md D1–D4), faded when grey.
             IconParts(p, box, GardenLook.BoosterIcon(boosterId), grey);
+        }
+
+        /// <summary>
+        /// One of the owner's pictures (spec 005 pictures.md D) fitted into <paramref name="box"/>, mirrored left to right
+        /// about the box's middle when <paramref name="mirror"/> and upside down when <paramref name="turn"/> (both: turned
+        /// half way); false, drawing nothing, when the picture is not embedded, so the caller draws its stand-in.
+        /// </summary>
+        public static bool OwnerPicture(IPainter p, string name, Box box, bool mirror = false, bool turn = false)
+        {
+            if (!p.HasSprite(name))
+            {
+                return false;
+            }
+
+            bool flip = mirror || turn;
+            if (flip)
+            {
+                p.PushSquash(mirror ? -1f : 1f, turn ? -1f : 1f, box.CenterX, box.CenterY);
+            }
+
+            p.Sprite(name, box);
+            if (flip)
+            {
+                p.PopTransform();
+            }
+
+            return true;
         }
 
         // ---- Celebration (§3.9) ----
@@ -801,6 +862,12 @@ namespace Bloomlings.Playtest.Design
         private static void LogoLeaves(IPainter p, Box box, bool mirrored)
         {
             p.Mark("ui.deco.garden");
+            if (OwnerPicture(p, PainterBase.DecorPrefix + OwnerPictures.LogoLeaves, box, mirror: mirrored))
+            {
+                // The owner's leaves (pictures.md D8), mirrored for the right end.
+                return;
+            }
+
             // One baked picture per end (LeafPictures), not 20 masks.
             p.Picture(mirrored ? "ui.logo.wood/leaves/m" : "ui.logo.wood/leaves/l", box, mirrored ? MirroredLogoLeavesPicture : LogoLeavesPicture);
         }

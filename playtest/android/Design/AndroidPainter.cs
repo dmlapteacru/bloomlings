@@ -350,7 +350,7 @@ namespace Bloomlings.Playtest.Droid
             string key = cacheKey + "@" + w + "x" + h;
             if (!Backdrops.TryGetValue(key, out Bitmap? bitmap))
             {
-                byte[]? rgba = scene == BackdropScene.Gameplay ? RenderedAside(key, w, h, colors, scene) : BackdropRaster.Render(w, h, colors, scene);
+                byte[]? rgba = BackdropRaster.IsLawn(scene) ? RenderedAside(key, w, h, colors, scene) : BackdropRaster.Render(w, h, colors, scene);
                 if (rgba == null)
                 {
                     FillRoundGradient(box, 0f, DesignTokens.Colors.LawnLight, DesignTokens.Colors.LawnDark);

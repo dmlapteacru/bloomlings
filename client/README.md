@@ -190,7 +190,8 @@ layouts, the order of elements and every rule (recipes in `contracts/look.md`):
   Collection). Pods are wooden frames and Waiting Slots cream plates, both holding the variant's candy tile and its
   plain count; the 2D characters stay as the walkers.
 - The owner's pictures (`specs/005-reference-look/pictures.md`) load through `OwnerArt` from
-  `Art/Backgrounds/Resources/Backgrounds/` and `Art/Brand/Resources/Brand/` by the names in `OwnerPictures`; the 3D
+  `Art/Backgrounds/Resources/Backgrounds/`, `Art/Brand/Resources/Brand/`, `Art/Icons/Resources/Icons/` (booster icons)
+  and `Art/Decor/Resources/Decor/` (leaves, mirrored with a negative `localScale`) by the names in `OwnerPictures`; the 3D
   heroes and the optional celebrating heroes load from `Art/Characters/Resources/Characters/3d/` (`CharacterSprites`,
   `HeroPictures`), where `tools/artgen -- adopt` records them. The drawn stand-in shows while a file is missing.
 

@@ -131,9 +131,10 @@ namespace Bloomlings.Playtest.Design
         public abstract void SpriteSkin(string name, Box box, string skinShape, Rgba tint);
 
         /// <summary>
-        /// The embedded resource name of a picture: <c>bg/{name}</c> is an owner background and <c>brand/{name}</c> the
-        /// logo (spec 005 pictures.md B and C, <see cref="OwnerPictures"/>); every other name is a character picture
-        /// (spec 004 contracts/art-files.md "Loading").
+        /// The embedded resource name of a picture: <c>bg/{name}</c> is an owner background, <c>brand/{name}</c> the
+        /// logo, <c>icon/{name}</c> a booster icon and <c>decor/{name}</c> a leaf decoration (spec 005 pictures.md B, C and
+        /// D, <see cref="OwnerPictures"/>); every other name is a character picture (spec 004 contracts/art-files.md
+        /// "Loading").
         /// </summary>
         public static string SpriteResource(string name)
         {
@@ -147,6 +148,16 @@ namespace Bloomlings.Playtest.Design
                 return "brand/" + name.Substring(BrandPrefix.Length) + ".png";
             }
 
+            if (name.StartsWith(IconPrefix, StringComparison.Ordinal))
+            {
+                return "icons/" + name.Substring(IconPrefix.Length) + ".png";
+            }
+
+            if (name.StartsWith(DecorPrefix, StringComparison.Ordinal))
+            {
+                return "decor/" + name.Substring(DecorPrefix.Length) + ".png";
+            }
+
             return "characters/" + name + ".png";
         }
 
@@ -155,6 +166,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The name prefix of the owner's logo pictures (<c>brand/logo</c>).</summary>
         public const string BrandPrefix = "brand/";
+
+        /// <summary>The name prefix of the owner's icon pictures (<c>icon/booster-shuffle</c>, spec 005 pictures.md D).</summary>
+        public const string IconPrefix = "icon/";
+
+        /// <summary>The name prefix of the owner's leaf pictures (<c>decor/ivy</c>, spec 005 pictures.md D).</summary>
+        public const string DecorPrefix = "decor/";
 
         /// <summary>A picture of <paramref name="width"/> × <paramref name="height"/> fitted into a box: aspect kept, centered.</summary>
         public static Box Fit(Box box, float width, float height) => CharacterArt.FitBox(box, width, height);
@@ -169,10 +186,16 @@ namespace Bloomlings.Playtest.Design
             for (int i = _transforms.Count - 1; i >= 0; i--)
             {
                 (float dx, float dy, float sx, float sy, float cx, float cy) = _transforms[i];
-                l = ((l - cx) * sx) + cx + dx;
-                r = ((r - cx) * sx) + cx + dx;
-                t = ((t - cy) * sy) + cy + dy;
-                b = ((b - cy) * sy) + cy + dy;
+                float l2 = ((l - cx) * sx) + cx + dx;
+                float r2 = ((r - cx) * sx) + cx + dx;
+                float t2 = ((t - cy) * sy) + cy + dy;
+                float b2 = ((b - cy) * sy) + cy + dy;
+
+                // A mirroring transform (a negative scale, PushSquash(-1, 1, …)) swaps the edges.
+                l = Math.Min(l2, r2);
+                r = Math.Max(l2, r2);
+                t = Math.Min(t2, b2);
+                b = Math.Max(t2, b2);
             }
 
             return new Box(l, t, r, b);

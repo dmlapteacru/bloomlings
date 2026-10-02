@@ -517,6 +517,150 @@ namespace Bloomlings.Client.UI.Design
             _ => Get(SymbolId(iconId)),
         };
 
+        /// <summary>
+        /// The board's gem silhouette of a variant symbol (spec 005 FR-026, contracts/look.md §3.1.2): the symbol drawn
+        /// simple, chunky and rounded so it reads as a bold gem with a thick outline at 40 px, keeping the distinct
+        /// silhouettes of research D10 (leaf almond, scalloped moss cushion, five-petal flower, tulip bud, pointed water
+        /// drop, round dew drop with its sparkle, stump, acorn). Spans about ±0.8 shape units. Not a registered shape: it
+        /// is part of the <c>tile.candy</c> picture.
+        /// </summary>
+        public static Func<float, float, float> GemSymbol(string iconId) => iconId switch
+        {
+            "leaf" => GemLeaf,
+            "moss" => GemMoss,
+            "flower" => GemFlower,
+            "bud" => GemBud,
+            "drop" => (x, y) => Teardrop(x, y, 0f, -0.3f, 0.57f, 0.9f) - 0.03f,
+            "dew" => GemDew,
+            "log" => GemStump,
+            "acorn" => GemAcorn,
+            _ => SolidSymbol(iconId),
+        };
+
+        /// <summary>
+        /// The inner line a gem draws over its fill so the one-color gem reads (negative on the line), or null: the
+        /// leaf's midrib, the flower's center ring, the stump's top ellipse and the acorn's cap line.
+        /// </summary>
+        public static Func<float, float, float>? GemDetail(string iconId) => iconId switch
+        {
+            "leaf" => (x, y) => MathF.Max(Segment(x, y, -0.36f, -0.36f, 0.42f, 0.42f) - 0.045f, GemLeaf(x, y) + 0.18f),
+            "flower" => (x, y) => MathF.Abs(Length(x, y) - 0.25f) - 0.05f,
+            "log" => (x, y) => MathF.Max(MathF.Abs(GemEllipse(x, y - GemStumpTopY, 0.58f, 0.26f)) - 0.045f, y - GemStumpTopY),
+            "acorn" => (x, y) => MathF.Max(MathF.Abs(y - (AcornCapY - 0.02f)) - 0.045f, AcornSolid(x, y) + 0.06f),
+            _ => null,
+        };
+
+        /// <summary>The part of a gem drawn a shade lighter (the flower's middle, the stump's top, dew's sparkle), or null.</summary>
+        public static Func<float, float, float>? GemLight(string iconId) => iconId switch
+        {
+            "flower" => (x, y) => Length(x, y) - 0.22f,
+            "log" => (x, y) => GemEllipse(x, y - GemStumpTopY, 0.52f, 0.2f),
+            "dew" => GemDewSparkle,
+            _ => null,
+        };
+
+        /// <summary>The part of a gem drawn a shade darker (the acorn's cap), or null.</summary>
+        public static Func<float, float, float>? GemDark(string iconId) => iconId switch
+        {
+            "acorn" => AcornCap,
+            _ => null,
+        };
+
+        /// <summary>
+        /// Dew: a round droplet leaning to the right (sliding on a leaf), its short soft tip up and to the left, so it
+        /// differs from water's tall upright drop; its sparkle shines inside it (<see cref="GemDewSparkle"/>).
+        /// </summary>
+        private static float GemDew(float x, float y)
+        {
+            const float c = 0.866f;
+            const float s = 0.5f;
+            float u = (c * x) + (s * y);
+            float v = (-s * x) + (c * y);
+            return Teardrop(u + 0.04f, v, 0f, -0.18f, 0.6f, 0.62f) - 0.04f;
+        }
+
+        /// <summary>Dew's sparkle inside its droplet: a small four-pointed star on its right.</summary>
+        private static float GemDewSparkle(float x, float y)
+        {
+            float u = MathF.Abs(x - 0.16f) / 0.3f;
+            float v = MathF.Abs(y + 0.12f) / 0.3f;
+            return (Sq(MathF.Sqrt(u) + MathF.Sqrt(v)) - 0.9f) * 0.15f;
+        }
+
+        /// <summary>The stump gem's top ellipse height.</summary>
+        private const float GemStumpTopY = 0.32f;
+
+        /// <summary>A chunky almond tilted toward the upper right, round at its base and softly pointed at its tip.</summary>
+        private static float GemLeaf(float x, float y) =>
+            SmoothMin(LensSdf(x, y, -0.6f, -0.6f, 0.66f, 0.66f, 0.44f), Length(x + 0.2f, y + 0.2f) - 0.5f, 0.16f) - 0.02f;
+
+        /// <summary>A round cushion, a little wider than tall, with nine soft scallops around its edge and a flatter foot.</summary>
+        private static float GemMoss(float x, float y)
+        {
+            float d = GemEllipse(x, y, 0.6f, 0.54f);
+            for (int i = 0; i < 9; i++)
+            {
+                float a = 0.3f + (i * 2f * MathF.PI / 9f);
+                d = SmoothMin(d, Length(x - (0.62f * MathF.Cos(a)), y - (0.54f * MathF.Sin(a))) - 0.19f, 0.04f);
+            }
+
+            return Max(d, -(y + 0.66f));
+        }
+
+        /// <summary>Five round petals around a smaller middle, so the notches between them stay deep.</summary>
+        private static float GemFlower(float x, float y)
+        {
+            float d = Length(x, y) - 0.3f;
+            for (int i = 0; i < 5; i++)
+            {
+                float a = (MathF.PI / 2f) + (i * 2f * MathF.PI / 5f);
+                d = MathF.Min(d, Length(x - (0.5f * MathF.Cos(a)), y - (0.5f * MathF.Sin(a))) - 0.3f);
+            }
+
+            return d;
+        }
+
+        /// <summary>A tulip bud: a round body with three short rounded tips on top.</summary>
+        private static float GemBud(float x, float y)
+        {
+            float tips = Min(
+                LensSdf(x, y, 0f, -0.3f, 0f, 0.9f, 0.22f),
+                LensSdf(x, y, -0.04f, -0.4f, -0.44f, 0.68f, 0.19f),
+                LensSdf(x, y, 0.04f, -0.4f, 0.44f, 0.68f, 0.19f));
+            return SmoothMin(tips, GemEllipse(x, y + 0.26f, 0.46f, 0.56f), 0.06f) - 0.02f;
+        }
+
+        /// <summary>A stump: a short cylinder with its top ellipse and two roots at its foot.</summary>
+        private static float GemStump(float x, float y) => Min(
+            RoundedBox(x, y, 0f, -0.18f, 0.58f, 0.5f, 0.1f),
+            GemEllipse(x, y - GemStumpTopY, 0.58f, 0.26f),
+            GemEllipse(x + 0.62f, y + 0.6f, 0.26f, 0.14f),
+            GemEllipse(x - 0.62f, y + 0.6f, 0.26f, 0.14f));
+
+        /// <summary>An acorn: a wide cap with a short stem over a round nut softly pointed below.</summary>
+        private static float GemAcorn(float x, float y) => Min(
+            SmoothMin(Max(GemEllipse(x, y - 0.18f, 0.8f, 0.44f), AcornCapY - y), RoundedBox(x, y, 0f, AcornCapY + 0.06f, 0.8f, 0.08f, 0.08f), 0.04f),
+            RoundedBox(x, y, 0.04f, 0.7f, 0.08f, 0.14f, 0.07f),
+            Teardrop(x, -y, 0f, 0.26f, 0.44f, 0.88f) - 0.04f);
+
+        /// <summary>
+        /// A closer ellipse distance than <see cref="Ellipse"/> (its implicit value over its gradient), so a gem's thick
+        /// outline keeps an even width around a flat ellipse.
+        /// </summary>
+        private static float GemEllipse(float x, float y, float rx, float ry)
+        {
+            float f = (x * x / (rx * rx)) + (y * y / (ry * ry)) - 1f;
+            float g = Length(2f * x / (rx * rx), 2f * y / (ry * ry));
+            return g < 1e-4f ? -MathF.Min(rx, ry) : f / g;
+        }
+
+        /// <summary>A smooth union of two distances that blends them over <paramref name="k"/>.</summary>
+        private static float SmoothMin(float a, float b, float k)
+        {
+            float h = MathF.Max(0f, MathF.Min(1f, 0.5f + (0.5f * (b - a) / k)));
+            return (b * (1f - h)) + (a * h) - (k * h * (1f - h));
+        }
+
         /// <summary>The leaf's axis, from the stem end of its blade to its tip (the sticker's midrib and veins follow it).</summary>
         internal const float LeafBaseX = -0.56f, LeafBaseY = -0.5f, LeafTipX = 0.8f, LeafTipY = 0.78f;
 

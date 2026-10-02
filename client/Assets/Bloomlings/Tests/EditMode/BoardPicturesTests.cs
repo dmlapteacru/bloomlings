@@ -30,19 +30,31 @@ namespace Bloomlings.Client.Tests
                 Assert.That(ground[i], Is.EqualTo(255), "the ground covers the whole grid");
             }
 
+            int grassCells = 0;
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
                 {
-                    Rgba color = BoardPictures.GroundColor(level, picture, x, y);
-
-                    // Below the faint top shade, the face is the cell's pale color; the cell's corner is darkened 0.12.
                     Rgba face = Pixel(ground, w * cell, (x * cell) + (cell / 2), ((h - 1 - y) * cell) + (cell * 3 / 4));
                     Rgba corner = Pixel(ground, w * cell, x * cell, (h - 1 - y) * cell);
+                    if (BoardPictures.IsGrass(level, picture, x, y))
+                    {
+                        // The picture's background is a grass cell (spec 005 FR-020, tile.grass).
+                        byte[] grass = UiRaster.Grass(cell, UiRaster.GrassSeed(x, y));
+                        Assert.That(face, Is.EqualTo(Pixel(grass, cell, cell / 2, cell * 3 / 4)), $"grass cell {x},{y}");
+                        Assert.That(face.G, Is.GreaterThan(face.R), $"grass cell {x},{y} is green");
+                        grassCells++;
+                        continue;
+                    }
+
+                    // Below the faint top shade, the face is the cell's pale color; the cell's corner is darkened 0.12.
+                    Rgba color = BoardPictures.GroundColor(level, picture, x, y);
                     Assert.That(Distance(face, color), Is.LessThan(6), $"cell {x},{y}");
                     Assert.That(Distance(corner, color.Darken(0.12f)), Is.LessThan(6), $"cell {x},{y} corner");
                 }
             }
+
+            Assert.That(grassCells, Is.GreaterThan(0), "the first level's picture has a background");
         }
 
         [Test]
@@ -133,7 +145,9 @@ namespace Bloomlings.Client.Tests
                     }
                     else if (value != BasePicture.Stone)
                     {
-                        Assert.That(Distance(sample, C.TileGround), Is.LessThan(6), $"ground cell {x},{y}");
+                        // The background as grass (spec 005 FR-020), as on the board.
+                        byte[] grass = UiRaster.Grass(cell, UiRaster.GrassSeed(x, y));
+                        Assert.That(sample, Is.EqualTo(Pixel(grass, cell, cell / 5, cell * 3 / 5)), $"grass cell {x},{y}");
                     }
                 }
             }

@@ -51,8 +51,11 @@ reference image is `specs/005-reference-look/reference.jpg`; crops named below a
 | `LotusTip` | `lotus.tip` | `#FFE4EE` | lotus petal middles (near white) |
 | `LotusLine` | `lotus.line` | `#D14F7A` | lotus outline |
 | `BadgeGreen` | `badge.green` | `#245C34` | count badge disc |
-| `LawnLight` | `lawn.light` | `#A2C447` | gameplay lawn (sunny yellow-green) |
-| `LawnDark` | `lawn.dark` | `#6E9530` | lawn shade, grass strokes |
+| `LawnLight` | `lawn.light` | `#9CC842` | gameplay lawn (sunny yellow-green; owner's review: a little more saturated) |
+| `LawnDark` | `lawn.dark` | `#64982D` | lawn shade, grass strokes |
+| `FoliageDeep` | `foliage.deep` | `#1F4D17` | the gameplay garden's hedge and the bushes' shade (owner's review, FR-020) |
+| `Foliage` | `foliage.mid` | `#3A8526` | the garden's bushes and leaves |
+| `FoliageLight` | `foliage.light` | `#7DC443` | sunlit leaves and bush highlights |
 | `IvyLeaf` | `ivy.leaf` | `#96D03C` | ivy / clover leaves on signs (yellow-green) |
 | `IvyLine` | `ivy.line` | `#2F6A18` | ivy outline, the dark shadows between leaves, veins |
 | `ButtonBlue` | `button.blue` | `#45A3EE` | jam Return / Bloom Burst buttons |
@@ -89,7 +92,7 @@ Sizes are pixels. Common helpers: rounded-rect SDF, value noise / fbm, smoothste
 | `Frame(w, h, radius, border, WoodTone tone, int seed)` | The plank material as a ring of width `border` (hole transparent) with an inner shadow along the hole's top and a light inner edge along its bottom: the pod frame. |
 | `Stone(w, h, radius, outline, int seed)` | A stone block of warm sandy stone: `StoneTop`→`StoneFace` gradient, a smooth surface (fbm mottling ±4%, rare faint speckles), a light bevel at the top, `StoneLip` along the bottom 14%, the dark `StoneLine` outline; `seed` varies the mottling and, on about one block in six, a soft tuft of moss (`StoneMoss`, feathered edge) over a corner. |
 | `Tile(size, Rgba color, string iconId, TileStyle style)` | The candy tile (§3.1), square; `TileLipShare(style)` gives its lip for the kit's press. |
-| `Lawn(w, h, int seed)` | Optional: the lawn texture for the gameplay backdrop if `BackdropRaster` does not take it (§4.2). |
+| `Grass(size, int seed)` / `Grass(w, h, int seed)` | A grass cell (`tile.grass`, §4.1): the board cell of the picture's background, a muted lawn square (`lawn.light`/`lawn.dark` mixed, a soft mottle, short dark and light blades on a 0.125 grid, a faint top shadow, a deeper rim) inset 2.5% (`GrassInset`) with a 10% radius over a deeper green; `GrassVariants` = 4 pictures, `GrassSeed(x, y)` picks one per cell so neighbors differ. Opaque. |
 
 Each build caches pictures by `key + "@" + w + "x" + h` (sizes quantized up to multiples of 8 px).
 
@@ -162,14 +165,28 @@ The mask difference between any two symbols at 48 px stays above 0.08 (`ShapeLib
 #### 3.1.2 Board gem icons (owner's review, spec 005 FR-026)
 
 The reference's board icons are bold "gems" (crops `zz-tiles1.png`, `zz-tiles2.png`): on every board tile the symbol
-sits at about 56% of the tile, centered, with
-- a thick dark outline: the symbol grown by 7% of the tile in `color.Darken(0.5)`;
-- a fill in a shade of the tile color, darker than the face on light tiles and lighter on dark ones (`color.Darken(0.12)`
-  when the color's lightness is above 0.55, else `color.Lighten(0.18)`), with a vertical gradient lighter at the top;
-- a soft white highlight on its upper left (alpha 0.45) and a tiny specular dot;
-- no light copy or bead.
-The symbols keep their distinct silhouettes (research D10), drawn simple and rounded so they read as gems at 40 px.
-The finished picture (`TileStyle.Flat`) uses the same gem icons.
+sits at about 56% of the tile (outline included), centered on the face (above the lip), with
+- the gem silhouette `ShapeLibrary.GemSymbol(iconId)` in a shape box of `UiRaster.GemBox` = 0.64 of the tile (the
+  silhouette spans about ±0.8 shape units, so its fill is about 44% of the tile);
+- a thick dark outline: the silhouette grown by `UiRaster.GemLine` = 6% of the tile (at least 1 px) in
+  `color.Darken(0.5)`, over a faint drop shadow (the silhouette moved down 0.05 shape units, the outline color at 0.22);
+- a fill in a shade of the tile color, darker than the face on light tiles and lighter on dark ones (`color.Darken(0.22)`
+  (`UiRaster.GemDarken`) when the color's HSL lightness is above 0.55, else `color.Lighten(0.3)` (`GemLighten`)),
+  from that shade lightened 0.1 at the top to darkened 0.08 at the bottom;
+- the gem's inner line in the outline color at 0.55 (`ShapeLibrary.GemDetail`: the leaf's midrib, the flower's center
+  ring, the stump's front rim) and a lighter or darker part (`GemLight`: the flower's middle, the stump's top, dew's
+  sparkle, the fill's top lightened 0.22; `GemDark`: the acorn's cap, the fill's bottom darkened 0.2);
+- a soft white highlight on its upper left (alpha 0.45, the sticker's highlight ellipse) and a tiny specular dot
+  (radius 0.075 shape units at (−0.32, 0.42), alpha 0.85);
+- no light copy or bead. Below 28 px per tile the gem is its silhouette in the outline color mixed 40% toward
+  `color.Darken(0.32)`.
+The gem silhouettes are simple and chunky so they read at 40 px, and keep the distinct silhouettes of research D10:
+leaf a chunky almond tilted to the upper right; moss a round cushion a little wider than tall with nine soft scallops and
+a flatter foot; flower five round petals around a smaller middle (deep notches); bud a tulip with three short tips on a
+round body; water a tall upright pointed drop; dew a round droplet leaning right (its soft tip up-left) with a sparkle
+inside; wood a stump with its top ellipse and two roots; acorn a wide cap with a stem over a nut pointed below. Every
+pair of gem masks differs by more than 0.08 at 48 px (`ShapeLibraryTests`). The finished picture (`TileStyle.Flat`)
+uses the same gem icons.
 
 ### 3.2 Wooden sign — `Kit.WoodSign(p, box, text, TypeStyle style, SignDecor decor)`
 
@@ -327,6 +344,29 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   faint `RayLight` discs (alpha 0.035, radii 6% to 48%), so no disc edge shows.
 - **Falling petals** (win): 10 pink petal shapes (`LotusFill`, `LotusTip`) drifting down and swaying.
 
+### 3.10 The owner's icon and leaf pictures (owner's review, FR-027, pictures.md D)
+
+Both builds draw the owner's picture instead of the drawn icon or leaves when its file exists, in the drawn version's
+box (aspect kept), and the drawn stand-in while it is missing. Names: `OwnerPictures.BoosterIcon(id)` =
+`booster-{id}` in `OwnerPictures.IconFolder` (`Art/Icons/Resources/Icons/`); `OwnerPictures.Ivy` (`ivy`), `Flowers`
+(`flowers`), `ButtonLeaves` (`button-leaves`), `LogoLeaves` (`logo-leaves`) in `OwnerPictures.DecorFolder`
+(`Art/Decor/Resources/Decor/`); `OwnerPictures.SlotOf` gives their slots (`booster.{id}`, `ui.sign.ivy`,
+`ui.sign.flowers`, `ui.deco.garden`, `ui.logo.wood`).
+
+- Playtest: the folders are embedded as `icons/` and `decor/` (`playtest/android`, `playtest/preview`); the painter's
+  names are `PainterBase.IconPrefix + name` (`icon/booster-shuffle`) and `DecorPrefix + name` (`decor/ivy`).
+  `Kit.OwnerPicture(p, name, box, mirror, turn)` draws one; mirroring is `IPainter.PushSquash(-1, 1, cx, cy)` (turned
+  half way: `(-1, -1)`), which both painters' canvases apply and `PainterBase` keeps hit boxes right under.
+- Unity: `OwnerArt.Icon(name)`, `OwnerArt.Decor(name)` (sprites, null while missing) and `OwnerArt.Show(image, sprite,
+  mirror, turn)` (a negative `localScale`).
+- Booster icons: wherever a booster's drawn icon shows (booster tiles, jam choices, cost pills with charges, the Store,
+  drops and rewards), because `Kit.IconParts` / `UiKit.IconParts` / `UiKit.SetIconParts` recognize a booster's parts
+  list (`GardenLook.BoosterOf`); a disabled one fades to `GardenLook.PictureDisabledAlpha` (0.45) instead of turning grey.
+- `ivy`: over the left end of a sign, mirrored for the right end; it replaces both the back and the front leaves (it is
+  drawn in front only). `flowers`: the win sign's clusters, mirrored for the second one. `button-leaves`: a main button's
+  top-left corner, turned half way for the bottom-right one. `logo-leaves`: the drawn wordmark's leaves, mirrored for the
+  right end.
+
 ## 4. Screens
 
 Positions and order stay as in spec 002; only the looks change.
@@ -334,8 +374,10 @@ Positions and order stay as in spec 002; only the looks change.
 ### 4.1 Gameplay (frames 7–9, 12–14, 21–23)
 
 - Top bar: Pause squircle, level `WoodSign` (Ivy) instead of the level pill, speed pill.
-- Board: lawn backdrop, `StoneBorder`, candy tiles (board style), restored ground as pale flat cells
-  (`PictureColor` lightened 0.55, radius 10%, no bevel, a faint inner shadow), stones/keys/locks/layers/specials as now
+- Board: lawn backdrop, `StoneBorder`, candy tiles (board style, gem icons §3.1.2), restored ground of a picture role as
+  pale flat cells (`PictureColor` lightened 0.55, radius 10%, no bevel, a faint inner shadow), the cells of the picture's
+  background (no role, no stone) as grass (owner's review: `Kit.GrassCell` / `UiKit.GrassCell` / Unity
+  `BoardPictures.Ground`, the `UiRaster.Grass` picture of §2, `tile.grass`), stones/keys/locks/layers/specials as now
   (stone obstacles in `StoneFace` tones), entries as `StoneArch`, walkers unchanged. In detail (`BoardPainter`):
   - target tiles nearly fill their cells (inset 0.8%), so only the dark gap and their outlines part them;
   - a stone obstacle is a raised block of the border's stone (`Kit.StoneBlock`, radius 24%) over a soft shadow on the
@@ -348,31 +390,42 @@ Positions and order stay as in spec 002; only the looks change.
     cream ring with a dark rim; a key waiting under a tile is the gold key on a cream disc in its top-left corner;
   - Bloom Burst targeting rings every candidate tile in `BoosterBloomBurst`, pulsing gently.
 - Finished picture (win, Collection; research D14): `TileStyle.Flat` candy tiles (no lip) inside a `StoneBorder` 0.3 cell
-  thick when the cells are at least 16 units; ground as cream cells, stones as stone blocks.
+  thick when the cells are at least 16 units; the background as grass cells (`tile.grass`), stones as stone blocks.
 - Slot row: on a parchment band, `SlotPlate`s.
 - Tray: parchment panel behind the columns; pods per §3.7.
 - Booster bar: on the parchment, `BoosterTile`s.
 
 ### 4.2 Backdrop
 
-`BackdropScene.Gameplay` becomes a sunny lawn: `LawnLight` → `LawnDark` fbm grass with fine darker strokes, scattered
-small flowers (pink, white, orange `ButtonOrange`, yellow five-dot blossoms), leafy clumps and bushes along the screen
-edges in greens only a little deeper than the grass (shade `LawnDark` × 0.8, bush deep × 0.72, leaf deep × 0.78), a light
-vignette (0.12); the edges stay about as light as the middle, a sunlit garden, never a dark frame; no sky.
+`BackdropScene.Gameplay` becomes a lush sunny garden seen from above (owner's review, FR-020: "as colorful as the
+reference"): `LawnLight` → `LawnDark` fbm grass with fine darker strokes and lighter sunny paths, a dense hedge of deep
+`foliage.*` greens along the sides, bushes and big leaves along every edge, many flowers (pink, white, orange
+`ButtonOrange`, yellow), big ones near the edges, a light vignette (0.12); no sky.
 Home and Splash keep the sky, arches and hills but warmer (until the owner's pictures); the distant arches are signed
 distances blended over 1.5 backdrop pixels, so their round doorways stay smooth at a fifth of the resolution, the
 hedges carry a leafy texture, and their blossoms (fewer, of varied sizes, pink and white with yellow middles) gather
 toward the hedges.
 
-The lawn (`BackdropRaster`) draws, back to front: soft patches of sun and shade with a finer mottle; one short tapered
-blade per 0.011-width cell, dark or light; soft bushes right at the edges (bumpy, lit from the upper left, a leafy
-speckle, a soft shadow); almond leaves fanned inward from the nearest edge (a few in spring green); five-petal flowers,
-pink most often, then white, orange, the theme's own and yellow, many more of them near the edges; the vignette. The theme still
+The lawn (`BackdropRaster`) draws, back to front: soft patches of sun and shade with a finer mottle; lighter paths
+winding through the grass (the ridges of a slow fbm, `lawn.light` mixed 16% toward the flower yellow, at 0.5); one short
+tapered blade per 0.011-width cell, dark or light; the hedge along the sides (deep `foliage.deep` → `foliage.mid` with a
+leafy speckle of `foliage.light`, its inner edge wavy, 0.045–0.095 of the width, a soft shadow on the grass); soft bushes
+at the edges (0.1-width cells, within 0.11 of an edge, radius 0.6–1.0 cell, `foliage.deep` → `foliage.mid` lit from the
+upper left, a `foliage.light` speckle, a soft shadow); almond leaves fanned inward from the nearest edge (0.058-width
+cells, within 0.19 of an edge, in `foliage.*` greens, a few in spring green); big five-petal flowers within 0.16 of an
+edge (0.1-width cells) and small ones everywhere (0.062-width cells, many more near the edges), pink most often, then
+white, orange, the theme's own and yellow; the vignette. The theme still
 shows (`DesignTokens.Backdrop`, frame 18): its accent's hue tilts the grass (Pond teal, Orchard warm, Moonlit blue-green)
 and colors a fourth flower, and the Moonlit Garden's dimmer background darkens the lawn toward dusk; the Daylight Garden
 keeps `lawn.light` and `lawn.dark`. Hosts render it at a third of the screen's resolution
 (`BackdropRaster.Downscale(scene)`; Home and Splash stay at a fifth). The slots stay `bg.theme.*` (the owner's pictures
 B2–B5 replace the lawn).
+
+`BackdropScene.Win` (the full-screen win, §6.3; slot `bg.win`, the owner's `win.png` replaces it,
+`OwnerPictures.Win`): the level's lawn rendered at an eighth of the screen (`Downscale(Win)` = 8, so the hosts' smooth
+upscale blurs it), lightened 24% toward `parchment.top`, with a warm `ray.light` glow around the middle of the screen
+(its strength `(1 − d)² × 0.62`, d the distance from (0.5 W, 0.5 H) over 0.75 W with the height squeezed 0.8). It takes
+the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 
 ### 4.3 Popups and cards (frames 10, 11, 17–20)
 
@@ -475,7 +528,9 @@ New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch`, the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.entry`, `tile.layer_peek` and `tile.picture` restyled), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
-`ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn), `ui.sign.ivy`
+`ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
+icon pictures replace them, §3.10), `tile.grass` (the picture's background cells, §4.1), `bg.win` (the win's garden,
+§4.2), `ui.sign.ivy`
 (kind `Shape`: the clover cluster), `ui.jam.slots` (the jam's slot row), `ui.pill.reward` (the win's and the milestone's reward pills). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (research D16 and
 `pictures.md`) keep or add their `bg.*`, `char.hero3d.*` and `brand.wordmark` slots, whose kind is their stand-in's
 (`Procedural` backdrops, the `Text` wordmark, the `Generated` heroes), with the drawn or generated stand-in as fallback:
@@ -493,6 +548,12 @@ unless given in `W` units. The engine-free `ScreenLayout` computes every region 
 elements only from those regions. On screens shorter than 19.5:9 the tray rows scale down by
 `k = clamp((H / W) / 2.17, 0.8, 1)` and the board takes what is left.
 
+The functions (engine-free, `client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs`, partial `ScreenLayout`; tests in
+`ReferenceLayoutTests`) are `ScreenLayout.ReferenceGameplay` → `ReferenceGameplayRegions` (with `PodDeck` for one
+deck), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`, `ScreenLayout.ReferenceHome`
+→ `ReferenceHomeRegions` and `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions`; `ScreenLayout.ReferenceScale`
+is `k`. Where the measurements left a choice, the implementation fixes it as noted under each table ("Fixed:").
+
 ### 6.1 Gameplay
 
 | Region | Box |
@@ -507,12 +568,30 @@ elements only from those regions. On screens shorter than 19.5:9 the tray rows s
 | Separator | as above |
 | Pods row | `0.31W·k` tall: one deck per Source stack, up to 4 at `0.23W` wide spread evenly across `0.96W`; 5 or more shrink to fit one row (never below `0.17W`, then a second row) |
 
+Fixed: the top bar's Pause box is `0.13W` square at `0.04W`, the sign and the speed pill are centered on the bar; a
+Hard or Super Hard badge (`hasBadge`) is a `0.36W × 0.052W` box under the bar and pushes the board down by its height;
+the entry strip shrinks by `k` too; without boosters (`hasBoosters: false`) the booster row and its line collapse; the
+tray box spans the whole screen width and runs to the screen's bottom (`TrayRadius` = `0.06W`), its content box
+(`TrayContent`) stops `0.02W` above the bottom inset; the separators are lines `0.92W` wide and `max(2 px, 0.005W)`
+thick in the middle of their `0.04W·k` gaps; the slots spread their `0.92W` with at least `0.0238W` between them, the
+boosters their `0.9W` (the measured centers 14.5%–84.5% become the symmetric 14.75%, 38.25%, 61.75%, 85.25%); the
+decks are at most `0.23W·k` wide with gaps from `0.0133W` to at most `0.06W`, centered (2 or 3 stacks sit together in
+the middle); more stacks than fit at `0.17W` wrap into two rows of `0.26W·k` with `0.015W` between them.
+`ReferenceGameplayRegions.FitBoard(width, height, entries)` runs `BoardLayout.Fit` over `BoardArea` (the board's top to
+the entry strip's bottom, the safe width less `0.02W` a side), narrowed until the stone border's outer box is at most
+`0.86W` (`MaxBoardShare`), so a bottom arch stands in the entry strip. `BoosterBadge(i)` is the badge disc as
+`Kit.BoosterTile` draws it (0.34 of the box, its center 0.55 of it inside the bottom-right corner).
+
 **Pod deck** (§3.7, FR-021): the deck box is the pod row cell. The front pod fills its bottom 78% (frame, cream panel,
 the sticker tile at 62% of the frame's width in the upper part, the count below it in `type.count` ×1.3, dark
 `InkBrown`). Up to two buried pods are frames of the same width stacked behind it, each raised by 9% of the deck height
 over the one in front; the visible band of each shows the frame's top edge and a strip of its variant color with the
 variant's small sticker symbol (at most 70% of the band's height) in its middle. A "+N" count badge on the deck's
-top-right counts the pods beyond the two shown. Empty stacks show a sunk parchment well.
+top-right counts the pods beyond the two shown. Empty stacks show a sunk parchment well. Fixed (`PodDeck.In(deck)`):
+`Front` is the bottom 78%; `Buried1`/`Buried2` are the front frame raised by 9% and 18% of the deck's height, and
+`Band(depth)` the strip of each that shows; `Inner` is the front frame inset by its 11% border; `Tile` the sticker tile
+(62% of the deck's width, at most 78% of the panel's height, 3% of the panel below its top); `Count` the panel under it;
+`Badge` a disc 0.26 of the width centered 0.32 of it inside the deck's top-right corner.
 
 ### 6.2 Jam (centered modal)
 
@@ -522,7 +601,12 @@ in up to two lines (`type.body`, `InkBrownSoft`); `0.035W`; the well with the sl
 `0.11W` with counts below); `0.04W`; the choice grid — two columns `0.4W` wide with a `0.05W` gap, rows `0.205W` (the
 button) + `0.075W` (its cost pill overlapping the button's bottom edge by half), `0.03W` between rows; `0.045W`; Restart
 `0.7W × 0.14W` (cream, ⟳); bottom padding `0.06W`. The close button (cream round `0.13W`) over the top-right corner when
-the sheet may be closed. The card pops in (motion.pop).
+the sheet may be closed. The card pops in (motion.pop). Fixed: the title box is `0.1W` tall and inset `0.16W` from
+the card's sides (clear of the close button), the subtitle box `0.11W` (two lines) inset `0.06W`; each cost pill is
+`0.3W × 0.09W`, its bottom `0.075W` under its button's bottom edge (so it overlaps the button by `0.015W`); an odd last
+choice sits in the middle; the close button's center is `0.06W` inside the card's right edge and `0.025W` below its top;
+on a short screen every height and gap shrinks by `Scale` (the card stays `0.05W` inside the safe area);
+`WellCell(i, n)` gives each slot's tile (`0.11W·Scale`, at most 86% of its share of the well) and count box.
 
 ### 6.3 Win (full screen)
 
@@ -539,6 +623,11 @@ lightened); no top bar.
 | Reward pill | `0.47W × 0.09H`, centered, from 76% to 85% of H (on the pedestal's front) |
 | Next | the primary button in its wood rim, `0.84W` wide, from 86% to 96% of H; ×2 reward as a small cream pill under it when offered, or beside the reward pill |
 
+Fixed: the sign is `0.66W` from 7.5% to 20.5% of H; the hero box is an 8:9 solo picture's box (`CharacterArt.HeroWidth`
+/ `HeroHeight`, at most `0.8W`) from 50% to 76%, the group fits inside it; the pedestal box spans 72% to 83% (its top
+ellipse about 74%); the rays' center is the hero box's center; `Double` (the ×2 offer) and `Drop` (a dropped booster)
+are boxes at most `0.21W` wide and `0.13W` tall beside the reward pill, right and left, `0.02W` from it.
+
 ### 6.4 Home
 
 | Element | Box |
@@ -551,6 +640,13 @@ lightened); no top bar.
 | Level plaque | wooden sign `0.5W × 0.085H`, centered, from 64% to 72.5% of H |
 | Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H |
 | Teaser | the milestone teaser as a small parchment pill centered under Play (89.5%–93.5%); the free booster as a cream pill beside it when offered |
+
+Fixed: the fractions apply to the safe height less the playtest's dev row (`bottomReserve`); the Petals pill is centered
+on the Settings button's height; the logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side
+columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0.03W` apart (`SideButton(right, i)` for
+more, such as the avatar); the rank pill (`0.3W × 0.075W`) sits under the right column, right-aligned at `0.04W` (under
+the Petals pill there is no room for its touch target); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
+from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
 
 ### 6.5 Wardrobe (both builds)
 
@@ -565,3 +661,9 @@ lightened); no top bar.
 | Family tabs | from 56% to 68.5% of H, four tabs `0.24W` with the family's hero head and name; the selected one lighter and joined to the panel below |
 | Outfit panel | parchment from 67% to the bottom: three cards per row `0.29W × 0.18H` with the hero wearing the item and its name; the worn one green with a check badge; pages or scroll for more |
 | Footer | "Earn special outfits as you play!" at 93% of H |
+
+Fixed: the Petals pill is `0.08W` tall; the hero box is an 8:9 box from 11% to 37% of H; the name tab spans 42%–47.5%,
+the role line 47.5%–50.5%, the description 50.5%–56%; `Tab(i, n)` splits the tabs' `0.96W` into n tabs at most `0.24W`
+wide with `0.01W` between them (five with the Unity profile tab); the panel spans `0.96W` to the screen's bottom; without
+chips the cards span 70%–88% of H, with the kind chips (`hasChips`, 69.5%–74%) 75%–89.5%; `Card(i)` is `0.29W` wide,
+spread over `0.92W`; the footer box spans 91%–95% of H between the page arrows (`0.09W` at 8% and 92% of W).

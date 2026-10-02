@@ -105,3 +105,15 @@ confirmed:
   `CLAUDE.md` and both READMEs; four unused strings removed (`jam.free_rescue`, `jam.rescue`, `wardrobe.none`,
   `wardrobe.tab_bloomlings`), and `LocalizationTests` now also checks keys chosen by a condition, the family-built keys
   and the playtest's keys.
+
+## Owner review (2026-10-02)
+
+The owner asked for the reference's layouts on gameplay, the jam, the win and Home, a centered jam card, a more colorful
+gameplay, gem board icons, and his own booster icons and leaves (spec.md FR-020 to FR-027).
+- [X] T024 Foundation the screens build on: the reference layouts as engine-free regions (`ScreenLayout.ReferenceGameplay`,
+  `JamCard`, `WinScreen`, `ReferenceHome`, `ReferenceWardrobe`, `PodDeck`; look.md §6 with the numbers fixed there) with
+  `ReferenceLayoutTests`; the board's gem icons (`ShapeLibrary.GemSymbol`, §3.1.2); the owner's icon and leaf pictures in
+  both builds (`Art/Icons/`, `Art/Decor/`, `OwnerPictures`, `Kit.OwnerPicture`, `OwnerArt.Icon`/`Decor`/`Show`, mirroring
+  through `PushSquash(-1, 1)` and a negative `localScale`, §3.10); the lush gameplay garden (`foliage.*` tokens) and the
+  win's garden (`BackdropScene.Win`, `bg.win`, §4.2); grass cells for the picture's background (`UiRaster.Grass`,
+  `tile.grass`, §4.1); the slots, the inventory and the docs.

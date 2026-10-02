@@ -41,6 +41,35 @@ namespace Bloomlings.Client.Tests
             }
 
             Assert.That(OwnerPictures.SlotOf(OwnerPictures.Logo), Is.EqualTo("brand.wordmark"));
+            Assert.That(OwnerPictures.Background(BackdropScene.Win, "pond"), Is.EqualTo(OwnerPictures.Win));
+            Assert.That(OwnerPictures.SlotOf(OwnerPictures.Win), Is.EqualTo("bg.win"));
+            Assert.That(AssetSlots.Has("bg.win"), Is.True);
+        }
+
+        [Test]
+        public void TheOwnersIconsAndLeaves_AreNamedAsThePictureListSays_AndHaveTheirSlots()
+        {
+            // Spec 005 pictures.md D (FR-027): booster-{id} in the Icons folder, the leaves in the Decor folder.
+            Assert.That(OwnerPictures.Boosters.Select(OwnerPictures.BoosterIcon), Is.EquivalentTo(new[] { "booster-extra_slot", "booster-shuffle", "booster-return", "booster-bloom_burst" }));
+            Assert.That(OwnerPictures.Decor, Is.EquivalentTo(new[] { "ivy", "flowers", "button-leaves", "logo-leaves" }));
+            foreach (string booster in OwnerPictures.Boosters)
+            {
+                Assert.That(OwnerPictures.SlotOf(OwnerPictures.BoosterIcon(booster)), Is.EqualTo("booster." + booster));
+                Assert.That(AssetSlots.Has("booster." + booster), Is.True, booster);
+
+                // Both kits recognize a booster's drawn icon, so they draw the owner's picture in its place.
+                Assert.That(GardenLook.BoosterOf(GardenLook.BoosterIcon(booster)), Is.EqualTo(booster));
+            }
+
+            Assert.That(GardenLook.BoosterOf(GardenLook.Lotus), Is.Null);
+            Assert.That(OwnerPictures.SlotOf(OwnerPictures.Ivy), Is.EqualTo("ui.sign.ivy"));
+            Assert.That(OwnerPictures.SlotOf(OwnerPictures.Flowers), Is.EqualTo("ui.sign.flowers"));
+            Assert.That(OwnerPictures.SlotOf(OwnerPictures.ButtonLeaves), Is.EqualTo("ui.deco.garden"));
+            Assert.That(OwnerPictures.SlotOf(OwnerPictures.LogoLeaves), Is.EqualTo("ui.logo.wood"));
+            foreach (string picture in OwnerPictures.Decor)
+            {
+                Assert.That(AssetSlots.Has(OwnerPictures.SlotOf(picture)), Is.True, picture);
+            }
         }
 
         [Test]

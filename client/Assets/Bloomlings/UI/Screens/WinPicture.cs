@@ -106,8 +106,9 @@ namespace Bloomlings.Client.UI.Screens
                     }
                     else
                     {
-                        Image ground = UiKit.RoundRect("Ground", _grid, UiTheme.Of(C.TileGround), b => b.Width * 0.1f);
-                        UiKit.PlaceBox(ground.rectTransform, full.Inset(cell * GroundInset), _gridBox);
+                        // The picture's background as grass (spec 005 FR-020, tile.grass), as on the board.
+                        Image ground = UiKit.GrassCell("Ground", _grid, UiRaster.GrassSeed(x, y));
+                        UiKit.PlaceBox(ground.rectTransform, full, _gridBox);
                     }
                 }
             }

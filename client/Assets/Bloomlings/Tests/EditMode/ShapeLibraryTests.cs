@@ -39,6 +39,22 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void EveryVariant_HasItsOwnBoardGem_DistinctFromEveryOther()
+        {
+            // Spec 005 FR-026 (contracts/look.md §3.1.2): the board's gem icons keep the distinct silhouettes.
+            string[] icons = VariantCatalog.Default.All.Select(v => v.IconId).ToArray();
+            byte[][] masks = icons.Select(id => ShapeRaster.Mask(ShapeLibrary.GemSymbol(id), 48, topDown: true)).ToArray();
+            for (int a = 0; a < masks.Length; a++)
+            {
+                Assert.That(ShapeRaster.Coverage(masks[a]), Is.InRange(0.1f, 0.8f), icons[a] + " reads as a gem");
+                for (int b = a + 1; b < masks.Length; b++)
+                {
+                    Assert.That(ShapeRaster.Difference(masks[a], masks[b]), Is.GreaterThan(0.08f), icons[a] + " vs " + icons[b]);
+                }
+            }
+        }
+
+        [Test]
         public void ThePetalCurrency_DiffersFromTheFlowerVariant()
         {
             Assert.That(ShapeRaster.Difference(ShapeRaster.Mask("currency.petal", 48, true), ShapeRaster.Mask("symbol.flower", 48, true)), Is.GreaterThan(0.08f));

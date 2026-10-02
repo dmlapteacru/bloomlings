@@ -182,6 +182,53 @@ namespace Bloomlings.Client.Tests
             Assert.That(UiRaster.CacheKey("mat.wood.light", 600, 144), Is.EqualTo("mat.wood.light@600x144"));
         }
 
+        [Test]
+        public void GrassCells_AreOpaqueLawn_DeterministicAndVaried()
+        {
+            // Spec 005 FR-020: the picture's background reads as garden, never as a lime Leaf tile.
+            const int size = 64;
+            byte[] grass = UiRaster.Grass(size, 1);
+            Assert.That(grass.Length, Is.EqualTo(size * size * 4));
+            Assert.That(grass, Is.EqualTo(UiRaster.Grass(size, 1)));
+            Assert.That(grass, Is.Not.EqualTo(UiRaster.Grass(size, 2)));
+            Assert.That(UiRaster.Grass(48, 40, 3).Length, Is.EqualTo(48 * 40 * 4));
+            for (int i = 3; i < grass.Length; i += 4)
+            {
+                Assert.That(grass[i], Is.EqualTo(255), "a grass cell is opaque");
+            }
+
+            int c = (((size / 2) * size) + (size / 2)) * 4;
+            var middle = new Rgba(grass[c], grass[c + 1], grass[c + 2]);
+            Assert.That(middle.G, Is.GreaterThan(middle.R), "green");
+            Assert.That(middle.G, Is.GreaterThan(middle.B), "green");
+            Assert.That(Rgba.Contrast(middle, Color("leaf")), Is.GreaterThan(1.4), "darker and calmer than the Leaf tile");
+            for (int x = 0; x < 9; x++)
+            {
+                for (int y = 0; y < 9; y++)
+                {
+                    Assert.That(UiRaster.GrassSeed(x, y), Is.InRange(0, UiRaster.GrassVariants - 1));
+                }
+            }
+
+            Assert.That(UiRaster.GrassSeed(0, 0), Is.Not.EqualTo(UiRaster.GrassSeed(1, 0)), "neighbors differ");
+        }
+
+        [Test]
+        public void TheWinGarden_IsTheLawnLightened_WithAGlowInTheMiddle()
+        {
+            BackdropColors colors = DesignTokens.Backdrop("#F5F2E6", "#DDEBCF");
+            Assert.That(BackdropRaster.IsLawn(BackdropScene.Win), Is.True);
+            Assert.That(BackdropRaster.IsLawn(BackdropScene.Home), Is.False);
+            Assert.That(BackdropRaster.Downscale(BackdropScene.Win), Is.GreaterThan(BackdropRaster.Downscale(BackdropScene.Gameplay)), "rendered smaller: the garden blurs");
+            const float aspect = 2340f / 1080f;
+            Rgba lawn = BackdropRaster.Sample(0.5f, aspect * 0.5f, aspect, colors, BackdropScene.Gameplay);
+            Rgba win = BackdropRaster.Sample(0.5f, aspect * 0.5f, aspect, colors, BackdropScene.Win);
+            Rgba edge = BackdropRaster.Sample(0.5f, aspect * 0.06f, aspect, colors, BackdropScene.Win);
+            Assert.That(win.Luminance, Is.GreaterThan(lawn.Luminance + 0.1), "lighter than the lawn");
+            Assert.That(win.Luminance, Is.GreaterThan(edge.Luminance), "the glow is in the middle");
+            Assert.That(BackdropRaster.Render(40, 86, colors, BackdropScene.Win), Is.EqualTo(BackdropRaster.Render(40, 86, colors, BackdropScene.Win)));
+        }
+
         private static Rgba Color(string iconId) => Rgba.FromHex(VariantCatalog.Default.All.First(v => v.IconId == iconId).ColorHex);
 
         private static int Alpha(byte[] pixels, int width, int x, int y) => pixels[(((y * width) + x) * 4) + 3];

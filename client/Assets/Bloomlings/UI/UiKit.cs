@@ -574,8 +574,16 @@ namespace Bloomlings.Client.UI
                 return;
             }
 
-            Image topLeft = UiFactory.CreateImage("DecoTopLeft", button.transform, ProceduralSprites.Decoration(false), Color.white);
-            Image bottomRight = UiFactory.CreateImage("DecoBottomRight", button.transform, ProceduralSprites.Decoration(true), Color.white);
+            Sprite? picture = OwnerArt.Decor(OwnerPictures.ButtonLeaves);
+            Image topLeft = UiFactory.CreateImage("DecoTopLeft", button.transform, picture == null ? ProceduralSprites.Decoration(false) : null, Color.white);
+            Image bottomRight = UiFactory.CreateImage("DecoBottomRight", button.transform, picture == null ? ProceduralSprites.Decoration(true) : null, Color.white);
+            if (picture != null)
+            {
+                // The owner's sprig (pictures.md D7) on the top-left corner, turned half way for the bottom-right one.
+                OwnerArt.Show(topLeft, picture);
+                OwnerArt.Show(bottomRight, picture, mirror: true, turn: true);
+            }
+
             var layout = button.gameObject.AddComponent<DecorationLayout>();
             layout.TopLeft = topLeft.rectTransform;
             layout.BottomRight = bottomRight.rectTransform;
@@ -898,12 +906,13 @@ namespace Bloomlings.Client.UI
         /// <summary>
         /// A multi-part icon (spec 005 contracts/look.md §3.4, §3.8: the lotus, the colored booster icons) baked into one
         /// colored sprite at the image's pixel size: each part's outline, then its fill, back to front; all grey when
-        /// <paramref name="grey"/>. The caller places the image; it keeps its square aspect.
+        /// <paramref name="grey"/>. A booster's icon (<see cref="GardenLook.BoosterOf"/>) is the owner's picture instead
+        /// when it exists (pictures.md D1–D4), faded when grey. The caller places the image; it keeps its square aspect.
         /// </summary>
         public static Image IconParts(string name, Transform parent, IReadOnlyList<IconPart> parts, bool grey = false)
         {
             Image image = UiFactory.CreateImage(name, parent, null, Color.white);
-            PictureFit.On(image, (w, h) => ProceduralSprites.IconParts(parts, grey, Mathf.Min(w, h)), square: true);
+            SetIconParts(image, parts, grey);
             return image;
         }
 

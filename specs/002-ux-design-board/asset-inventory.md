@@ -27,10 +27,10 @@ How to read the columns:
 | Category | Launch | Later | Total |
 |---|---|---|---|
 | Brand | 3 | 1 | 4 |
-| Backgrounds | 7 | 0 | 7 |
+| Backgrounds | 8 | 0 | 8 |
 | Bloomling characters | 18 | 9 | 27 |
 | Variant symbols | 8 | 4 | 12 |
-| Board tiles and overlays | 12 | 0 | 12 |
+| Board tiles and overlays | 13 | 0 | 13 |
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 14 | 0 | 14 |
 | Booster icons | 11 | 0 | 11 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **175** | **28** | **203** |
+| **All** | **177** | **28** | **205** |
 
 ## Brand
 
@@ -57,13 +57,14 @@ How to read the columns:
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `bg.theme.daylight_garden` | Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn (spec 005 §4.2: grass patches and fine blades, small five-petal flowers, darker leafy clumps along the edges, a soft vignette) in fresh green until `Backgrounds/gameplay-daylight.png` exists (spec 005 pictures.md B2) |
+| `bg.theme.daylight_garden` | Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lush garden (spec 005 §4.2, FR-020: grass patches, fine blades and lighter paths; a deep `foliage.*` hedge, bushes and big leaves along the edges; many pink, white, orange and yellow flowers, big ones at the edges; a soft vignette) in fresh green until `Backgrounds/gameplay-daylight.png` exists (spec 005 pictures.md B2) |
 | `bg.theme.pond` | Gameplay backdrop: Pond (from L100) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn tilted toward teal by the pond theme until `Backgrounds/gameplay-pond.png` exists (pictures.md B3) |
 | `bg.theme.orchard` | Gameplay backdrop: Orchard (from L150) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn tilted warm by the orchard theme until `Backgrounds/gameplay-orchard.png` exists (pictures.md B4) |
 | `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn, dusky and blue-green for the moonlit theme, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5) |
 | `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6) |
 | `bg.wardrobe` | Wardrobe backdrop: the garden arches behind the hero on its pedestal (Unity; the playtest has no Wardrobe) | — | Wardrobe | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7) |
+| `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15 | Win | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
 
 ## Bloomling characters
 
@@ -128,9 +129,10 @@ the fallback when a picture is missing.
 | `tile.mystery` | Mystery tile and mystery pod mark (?) | 9, 12 | Board; pods; slots | hidden; revealing | Small | yes | Launch | shape `tile.mystery` |
 | `tile.stone` | Stone blocker: the rock glyph carved into a raised sandy stone block (`mat.stone`) | 7, 9 | Board | whole; cracking | Small | yes | Launch | shape `tile.stone` |
 | `tile.key` | Key (gold, on a cream disc in the tile's top-left corner) | 9 | Board; flights to locks | on tile; flying | Icon | yes | Launch | shape `tile.key` |
-| `tile.ground` | Open ground (restored or empty cell) | 7, 8, 9 | Board | empty; restored | Small | yes | Launch | pale flat cell of the finished picture (its variant color lightened), small radius, faint inner shadow |
+| `tile.ground` | Open ground (a restored cell of a picture role) | 7, 8, 9 | Board | restored | Small | yes | Launch | pale flat cell of the finished picture (its variant color lightened), small radius, faint inner shadow |
+| `tile.grass` | Grass cell: a board cell of the picture's background (no role), so the board reads as garden (spec 005 FR-020) | 7, 8, 9, 15 | Board; finished picture (win, Collection) | open; background | Small | yes | Launch | UiRaster.Grass picture: a muted lawn square with a soft mottle, short blades, a faint top shadow and a deeper rim (four variants) |
 | `tile.entry` | Garden Entry (where Bloomlings come in) | 7, 8, 9 | Board | bottom; left; right; top; several per level | Small | yes | Launch | the stone arch `board.arch` beyond the border on the entry's side, sized to the room the layout leaves; the walkers appear in its opening |
-| `tile.candy` | Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a small raised bead | 7, 8, 9 | Board; demos | normal; pressed; dimmed; grey; mystery | Small | yes | Launch | UiRaster.Tile picture (board style) |
+| `tile.candy` | Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a bold gem (spec 005 FR-026: a thick dark outline, a fill in a shade of the tile, a white highlight) | 7, 8, 9 | Board; demos | normal; pressed; dimmed; grey; mystery | Small | yes | Launch | UiRaster.Tile picture (board style, `ShapeLibrary.GemSymbol`) |
 | `tile.candy.sticker` | Candy tile, sticker style: a detailed symbol with a dark outline in its own tone | 7, 10, 12, 13 | Pods; slots; jam sheet; Collection | normal; dimmed (queued); grey (stuck); mystery | Small | yes | Launch | UiRaster.Tile picture (sticker style) |
 | `board.border.stone` | Stone border around the board | 7, 8, 9 | Board; win picture | normal; thin (win) | Large | yes | Launch | UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles |
 | `board.arch` | Garden Entry stone arch | 7, 8, 9 | Board | bottom; left; right; top | Small | yes | Launch | UiRaster.Arch picture: a big half ring of nine sandy stone blocks around an opening that shows the lawn |
@@ -171,10 +173,10 @@ the fallback when a picture is missing.
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `booster.extra_slot` | Booster: Extra Slot | 7, 8, 9, 10, 14, 16, 17 | Booster bar; jam sheet; Store; rewards; demos | available; count; price; disabled | Small | no | Launch | shape `booster.extra_slot` |
-| `booster.shuffle` | Booster: Shuffle | 7, 8, 9, 10, 14, 16, 17 | Booster bar; jam sheet; Store; rewards; demos | available; count; price; disabled | Small | no | Launch | shape `booster.shuffle` |
-| `booster.return` | Booster: Return | 7, 8, 9, 10, 14, 17 | Booster bar; jam sheet; Store; demos | available; count; price; disabled; targeting | Small | no | Launch | shape `booster.return` |
-| `booster.bloom_burst` | Booster: Bloom Burst | 9, 14, 17 | Booster bar; jam sheet; Store; demos | available; count; price; disabled; targeting | Small | no | Launch | shape `booster.bloom_burst` |
+| `booster.extra_slot` | Booster: Extra Slot (the owner's picture `Icons/booster-extra_slot.png` replaces the drawn icon, spec 005 pictures.md D1) | 7, 8, 9, 10, 14, 16, 17 | Booster bar; jam sheet; Store; rewards; demos | available; count; price; disabled | Small | no | Launch | shape `booster.extra_slot` |
+| `booster.shuffle` | Booster: Shuffle (the owner's picture `Icons/booster-shuffle.png` replaces the drawn icon, pictures.md D2) | 7, 8, 9, 10, 14, 16, 17 | Booster bar; jam sheet; Store; rewards; demos | available; count; price; disabled | Small | no | Launch | shape `booster.shuffle` |
+| `booster.return` | Booster: Return (the owner's picture `Icons/booster-return.png` replaces the drawn icon, pictures.md D3) | 7, 8, 9, 10, 14, 17 | Booster bar; jam sheet; Store; demos | available; count; price; disabled; targeting | Small | no | Launch | shape `booster.return` |
+| `booster.bloom_burst` | Booster: Bloom Burst (the owner's picture `Icons/booster-bloom_burst.png` replaces the drawn icon, pictures.md D4) | 9, 14, 17 | Booster bar; jam sheet; Store; demos | available; count; price; disabled; targeting | Small | no | Launch | shape `booster.bloom_burst` |
 | `booster.extra_slot.disc` | Booster icon part: Extra Slot's blue disc | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.extra_slot.disc` |
 | `booster.extra_slot.plus` | Booster icon part: Extra Slot's white plus | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.extra_slot.plus` |
 | `booster.shuffle.a` | Booster icon part: Shuffle's orange arrow | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.shuffle.a` |
@@ -210,13 +212,13 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: glossy green raised pill on a plate; others: parchment wells |
 | `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | a track pressed into the parchment (on: the glossy green face with a white check; off: a parchment well) and a domed cream knob |
 | `ui.sign.wood` | Wooden sign (level label, win and banner titles, Home level plaque) | 2, 3, 7, 15, 17 | Gameplay top bar; win; Home; Store; Wardrobe | plain; ivy; flowers; super hard letters | Medium | no | Launch | UiRaster.Plank (light wood) with brown embossed letters and a soft shadow |
-| `ui.sign.ivy` | Ivy cluster over a sign's ends (clovers with pointed leaflets, at the top and bottom corners) | 7, 17 | Gameplay level sign; Store and Wardrobe banners; wordmark | left; right (mirrored) | Small | no | Launch | shape `ui.sign.ivy` |
-| `ui.sign.flowers` | Flower clusters on the win and milestone signs | 15, 16 | Win sign; milestone sign | top-left; bottom-right (turned) | Small | no | Launch | lush clusters of five big leaves with veins and two white flowers at two corners (`ui.deco.garden`) |
+| `ui.sign.ivy` | Ivy cluster over a sign's ends (clovers with pointed leaflets, at the top and bottom corners; the owner's picture `Decor/ivy.png`, mirrored for the right end, replaces it, pictures.md D5) | 7, 17 | Gameplay level sign; Store and Wardrobe banners; wordmark | left; right (mirrored) | Small | no | Launch | shape `ui.sign.ivy` |
+| `ui.sign.flowers` | Flower clusters on the win and milestone signs (the owner's picture `Decor/flowers.png`, mirrored for the other end, replaces them, pictures.md D6) | 15, 16 | Win sign; milestone sign | top-left; other end (mirrored) | Small | no | Launch | lush clusters of five big leaves with veins and two white flowers at two corners (`ui.deco.garden`) |
 | `ui.button.rim` | Light wood rim of the main buttons | 2, 3, 10, 11, 15, 16 | PLAY; NEXT; RESUME; CLAIM; CONTINUE; Free rescue | normal; pressed | Medium | no | Launch | UiRaster.Plank (pale wood, only a thin deeper bottom band) behind the green face |
 | `ui.button.choice` | Jam choice button (icon above the label, cost pill below) | 10 | Jam sheet | green; blue; pressed; disabled | Medium | no | Launch | glossy green or blue rounded rectangle with the booster icon, a white outlined label and a cost pill |
 | `ui.pill.cost` | Cost pill (lotus and price, Free, ×N) | 10, 14, 17 | Jam choices; booster tiles; Store | price; free; charges | Small | no | Launch | cream pill with a cream outline: the lotus and a brown price, a green ▶ square and Free, or ×N |
 | `ui.pedestal` | Stone pedestal under the heroes | 2, 3, 15, 16 | Win; milestone; Home; Wardrobe | normal | Medium | no | Launch | UiRaster.Pedestal picture: an ellipse-topped stone drum with joints and moss |
-| `ui.logo.wood` | Wooden wordmark letters (the stand-in for the owner's logo) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower |
+| `ui.logo.wood` | Wooden wordmark letters (the stand-in for the owner's logo; its leaves are the owner's `Decor/logo-leaves.png` when it exists, pictures.md D8) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower |
 | `ui.tab.family` | Family tab (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | selected (lighter, joined to the panel); unselected | Small | no | Launch | cream tab with rounded top corners holding the family's 3D hero and its name; the selected one lighter and flowing into the panel below |
 | `ui.card.outfit` | Outfit card (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | normal; worn; for sale (cost pill) | Small | no | Launch | cream card with a beige picture well showing the hero in the item and the name below; the worn one green-tinted with a green border and a check badge |
 | `ui.fountain` | Lotus fountain of the drawn Home stage (the stand-in for the owner's Home diorama) | 1, 2 | Splash; Home (early) | normal | Medium | no | Launch | a small stone basin (`ui.pedestal`) with water, two lily pads and the pink lotus, between the heroes on the stone pedestal |
@@ -230,7 +232,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.play` | Play triangle, as tall as the letters (spec 003 FR-010) | 2, 3 | PLAY on Home | normal; pressed | Icon | no | Launch | shape `ui.play` |
 | `ui.fast` | Fast glyph (two chevrons) of the speed pill (spec 005) | 7, 8, 9 | Gameplay top bar | normal | Icon | no | Launch | shape `ui.fast` |
 | `ui.back` | Back arrow glyph (spec 005) | 17 | Wardrobe; Store | normal | Icon | no | Launch | shape `ui.back` |
-| `ui.deco.garden` | Leaves and a white flower on the main buttons (spec 003 FR-011a) | 2, 3, 11, 15, 16 | PLAY; RESUME; NEXT; CONTINUE; CLAIM | top-left; bottom-right (turned) | Small | no | Launch | shape `ui.deco.garden` |
+| `ui.deco.garden` | Leaves and a white flower on the main buttons (spec 003 FR-011a; the owner's picture `Decor/button-leaves.png`, turned half way for the bottom right, replaces them, pictures.md D7) | 2, 3, 11, 15, 16 | PLAY; RESUME; NEXT; CONTINUE; CLAIM | top-left; bottom-right (turned) | Small | no | Launch | shape `ui.deco.garden` |
 | `ui.gift` | Gift (milestone teaser) | 3 | Home | normal; ready | Small | no | Launch | shape `ui.gift` |
 | `ui.trophy` | Trophy (rank row, Get +N) | 3, 4 | Home rank row; Daily Reward | normal | Small | no | Launch | shape `ui.trophy` |
 | `ui.medal` | Medal (ranks 1–3) | 5 | Leaderboard | gold; silver; bronze | Small | no | Launch | shape `ui.medal` |

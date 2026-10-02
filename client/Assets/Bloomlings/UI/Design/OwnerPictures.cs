@@ -1,14 +1,17 @@
 namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
-    /// The names of the pictures the owner makes (spec 005 <c>pictures.md</c> B and C): backgrounds and the logo. Each
-    /// build looks for the picture by its name and draws the code-drawn stand-in while it is missing (FR-019):
+    /// The names of the pictures the owner makes (spec 005 <c>pictures.md</c> B, C and D): backgrounds, the logo, the
+    /// booster icons and the leaf decorations. Each build looks for the picture by its name and draws the code-drawn
+    /// stand-in while it is missing (FR-019, FR-027):
     /// <list type="bullet">
-    /// <item><description>Unity loads <c>Resources/Backgrounds/{name}</c> and <c>Resources/Brand/{name}</c>.</description></item>
-    /// <item><description>The playtest embeds the same folders and asks its painter for <c>bg/{name}</c> and
-    /// <c>brand/{name}</c>.</description></item>
+    /// <item><description>Unity loads <c>Resources/Backgrounds/{name}</c>, <c>Resources/Brand/{name}</c>,
+    /// <c>Resources/Icons/{name}</c> and <c>Resources/Decor/{name}</c> (<c>OwnerArt</c>).</description></item>
+    /// <item><description>The playtest embeds the same folders and asks its painter for <c>bg/{name}</c>,
+    /// <c>brand/{name}</c>, <c>icon/{name}</c> and <c>decor/{name}</c>.</description></item>
     /// </list>
-    /// Engine-free.
+    /// A leaf picture is drawn for the LEFT end (or the top-left corner); the right end mirrors it left to right, and a
+    /// button's bottom-right corner turns it half way. Engine-free.
     /// </summary>
     public static class OwnerPictures
     {
@@ -17,6 +20,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The Resources folder of the logo (<c>Art/Brand/Resources/Brand/</c>).</summary>
         public const string BrandFolder = "Brand";
+
+        /// <summary>The Resources folder of the booster icons (<c>Art/Icons/Resources/Icons/</c>).</summary>
+        public const string IconFolder = "Icons";
+
+        /// <summary>The Resources folder of the leaf decorations (<c>Art/Decor/Resources/Decor/</c>).</summary>
+        public const string DecorFolder = "Decor";
 
         /// <summary>B1: the Home garden diorama, without the heroes.</summary>
         public const string Home = "home";
@@ -27,27 +36,58 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>B7: the Wardrobe's garden arches (Unity only: the playtest has no Wardrobe screen).</summary>
         public const string Wardrobe = "wardrobe";
 
+        /// <summary>B8: the full-screen win's garden, calm in the middle with soft light from it.</summary>
+        public const string Win = "win";
+
         /// <summary>C1: the wooden "Bloomlings" letters with leaves and flowers.</summary>
         public const string Logo = "logo";
 
         /// <summary>C2: the optional tagline. Neither build shows it yet (its slot <c>brand.tagline</c> is kept for later).</summary>
         public const string Tagline = "tagline";
 
+        /// <summary>D5: the clover/ivy cluster on the left end of a wooden sign (mirrored for the right end).</summary>
+        public const string Ivy = "ivy";
+
+        /// <summary>D6: the leaves with white flowers on the top-left of the "Level complete!" sign (mirrored for the other end).</summary>
+        public const string Flowers = "flowers";
+
+        /// <summary>D7: the sprig with a white flower on a main button's top-left corner (turned half way for the bottom right).</summary>
+        public const string ButtonLeaves = "button-leaves";
+
+        /// <summary>D8: the leaf cluster at the left end of the drawn wordmark (mirrored for the right).</summary>
+        public const string LogoLeaves = "logo-leaves";
+
+        /// <summary>The booster ids with an icon picture (D1 to D4).</summary>
+        public static readonly string[] Boosters = { "extra_slot", "shuffle", "return", "bloom_burst" };
+
+        /// <summary>The leaf pictures (D5 to D8), in the Decor folder.</summary>
+        public static readonly string[] Decor = { Ivy, Flowers, ButtonLeaves, LogoLeaves };
+
+        /// <summary>D1 to D4: a booster's icon (<c>booster-extra_slot</c>, <c>booster-shuffle</c>, …), in the Icons folder.</summary>
+        public static string BoosterIcon(string boosterId) => "booster-" + boosterId;
+
         /// <summary>
-        /// The asset slot a picture of <c>pictures.md</c> B or C fills (<c>home</c> → <c>bg.home</c>,
-        /// <c>gameplay-pond</c> → <c>bg.theme.pond</c>, <c>logo</c> → <c>brand.wordmark</c>).
+        /// The asset slot a picture of <c>pictures.md</c> B, C or D fills (<c>home</c> → <c>bg.home</c>,
+        /// <c>gameplay-pond</c> → <c>bg.theme.pond</c>, <c>logo</c> → <c>brand.wordmark</c>, <c>booster-shuffle</c> →
+        /// <c>booster.shuffle</c>, <c>ivy</c> → <c>ui.sign.ivy</c>).
         /// </summary>
         public static string SlotOf(string picture) => picture switch
         {
             Home => "bg.home",
             Splash => "bg.splash",
             Wardrobe => "bg.wardrobe",
+            Win => "bg.win",
             Logo => "brand.wordmark",
             Tagline => "brand.tagline",
+            Ivy => "ui.sign.ivy",
+            Flowers => "ui.sign.flowers",
+            ButtonLeaves => "ui.deco.garden",
+            LogoLeaves => "ui.logo.wood",
             "gameplay-daylight" => "bg.theme.daylight_garden",
             "gameplay-moonlit" => "bg.theme.moonlit_garden",
             _ when picture.StartsWith("gameplay-", System.StringComparison.Ordinal) => "bg.theme." + picture.Substring("gameplay-".Length),
-            _ => throw new System.ArgumentException("Not an owner picture of pictures.md B or C: " + picture, nameof(picture)),
+            _ when picture.StartsWith("booster-", System.StringComparison.Ordinal) => "booster." + picture.Substring("booster-".Length),
+            _ => throw new System.ArgumentException("Not an owner picture of pictures.md B, C or D: " + picture, nameof(picture)),
         };
 
         /// <summary>The gameplay background of a theme (B2 to B5): <c>gameplay-daylight</c>, <c>gameplay-pond</c>, …</summary>
@@ -63,6 +103,7 @@ namespace Bloomlings.Client.UI.Design
         {
             BackdropScene.Home => Home,
             BackdropScene.Splash => Splash,
+            BackdropScene.Win => Win,
             _ => Gameplay(themeId),
         };
     }

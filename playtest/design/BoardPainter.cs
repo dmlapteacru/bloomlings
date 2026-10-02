@@ -62,7 +62,16 @@ namespace Bloomlings.Playtest.Design
                     switch (info.Kind)
                     {
                         case CellKind.Open:
-                            Ground(p, full, cell, PictureColor(s, x, y));
+                            if (IsGrass(s.Session.Definition, s.Session.Picture, x, y))
+                            {
+                                // The picture's background reads as garden (spec 005 FR-020).
+                                Kit.GrassCell(p, full, UiRaster.GrassSeed(x, y));
+                            }
+                            else
+                            {
+                                Ground(p, full, cell, PictureColor(s, x, y));
+                            }
+
                             break;
                         case CellKind.Stone:
                             Stone(p, full, cell, PictureColor(s, x, y), x, y);
@@ -449,6 +458,13 @@ namespace Bloomlings.Playtest.Design
             return value == BasePicture.Stone ? C.StoneFace.Lighten(0.35f) : C.TileGround;
         }
 
+        /// <summary>Whether a picture cell is the picture's background (no role, no stone): it shows as grass (<c>tile.grass</c>).</summary>
+        public static bool IsGrass(LevelDefinition definition, BasePicture picture, int x, int y)
+        {
+            (VariantId? variant, int value) = PictureCell(definition, picture, x, y);
+            return !variant.HasValue && value != BasePicture.Stone;
+        }
+
         /// <summary>The variant a picture cell's role maps to (null for ground and stones) and the picture's raw value.</summary>
         private static (VariantId? Variant, int Value) PictureCell(LevelDefinition definition, BasePicture picture, int x, int y)
         {
@@ -516,7 +532,7 @@ namespace Bloomlings.Playtest.Design
                     }
                     else
                     {
-                        p.FillRound(full.Inset(cell * GroundInset), cell * 0.1f, C.TileGround);
+                        Kit.GrassCell(p, full, UiRaster.GrassSeed(x, y));
                     }
                 }
             }

@@ -81,7 +81,8 @@ Folder: `client/Assets/Bloomlings/Art/Brand/Resources/Brand/` (names `OwnerPictu
 ## D. Owner pictures that replace drawn icons and leaves (owner's review, spec 005 FR-027)
 
 The owner supplies these ("картинки я тебе дам, листочков, иконки бафов"). Until a file exists, the drawn version
-shows. Each is transparent, sRGB, drawn in the reference's style (soft light from the upper left, a darker outline,
+shows; once it exists, both builds draw it in the drawn version's place (contracts/look.md §3.10: a booster icon
+wherever the booster's icon shows, the leaves mirrored or turned as listed). Each is transparent, sRGB, drawn in the reference's style (soft light from the upper left, a darker outline,
 gloss). Any size with the given proportions works: the session resizes delivered files to these sizes.
 
 Folder `client/Assets/Bloomlings/Art/Icons/Resources/Icons/` (both builds embed or load it):

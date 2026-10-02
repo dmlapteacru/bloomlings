@@ -196,6 +196,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The orange buttons: a highlighted secondary call to action ("Next" in the reference strip, spec 005 §1.3).</summary>
         public static readonly ColorSet Orange = new ColorSet("set.orange", C.ButtonOrange, C.ButtonOrange.Lighten(0.3f), C.ButtonOrange.Darken(0.22f), C.ButtonOrange.Darken(0.42f));
 
+        /// <summary>
+        /// How faint the owner's booster icon picture is on a disabled tile (spec 005 pictures.md D: a picture is not
+        /// greyed, it fades).
+        /// </summary>
+        public const float PictureDisabledAlpha = 0.45f;
+
         /// <summary>The level pill of a Super Hard level.</summary>
         public static readonly ColorSet Lilac = ColorSet.From("set.lilac", C.PillLevelSuperHard);
 
@@ -319,6 +325,29 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static IReadOnlyList<IconPart> BoosterIcon(string boosterId) =>
             BoosterIcons.TryGetValue(boosterId, out IReadOnlyList<IconPart>? parts) ? parts : BoosterIcons["bloom_burst"];
+
+        /// <summary>
+        /// The booster whose icon these parts are (<see cref="BoosterIcon"/> returns the same list each time), or null.
+        /// Both kits draw the owner's icon picture for it when it exists (spec 005 FR-027, pictures.md D1–D4), wherever
+        /// the icon shows: booster tiles, jam choices, cost pills, the Store, drops and rewards.
+        /// </summary>
+        public static string? BoosterOf(IReadOnlyList<IconPart>? parts)
+        {
+            if (parts == null)
+            {
+                return null;
+            }
+
+            foreach (KeyValuePair<string, IReadOnlyList<IconPart>> pair in BoosterIcons)
+            {
+                if (ReferenceEquals(pair.Value, parts))
+                {
+                    return pair.Key;
+                }
+            }
+
+            return null;
+        }
 
         private static readonly Dictionary<string, IReadOnlyList<IconPart>> BoosterIcons = BuildBoosterIcons();
 

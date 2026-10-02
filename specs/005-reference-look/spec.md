@@ -297,7 +297,7 @@ inventory.
 - **FR-026**: Board tile icons MUST be the reference's "gem" icons: the variant symbol about 56% of the tile with a
   thick dark outline, a glossy fill in a shade of the tile color and a highlight (contracts/look.md §3.1.2).
 - **FR-027**: The booster icons and the leaf decorations (sign ivy, win-sign flowers, button corner leaves, logo
-  leaves) MUST be replaceable by the owner's pictures (pictures.md E): when a picture file exists, both builds draw it
+  leaves) MUST be replaceable by the owner's pictures (pictures.md D): when a picture file exists, both builds draw it
   instead of the drawn icon or leaves.
 
 ### Key Entities

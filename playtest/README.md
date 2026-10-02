@@ -53,8 +53,9 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   character art of spec 004 (`specs/004-character-art/`), embedded from
   `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: 2D characters whose shape is the variant symbol, as
   walkers and on the Bloomlings sheet; 3D heroes on the splash, Home, the win and milestone cards and the leaderboard
-  row. The owner's pictures (`specs/005-reference-look/pictures.md`) are embedded from `Art/Backgrounds/` and
-  `Art/Brand/` when they exist, and replace the drawn backdrop or wordmark. The level tester keeps the system font and
+  row. The owner's pictures (`specs/005-reference-look/pictures.md`) are embedded from `Art/Backgrounds/`,
+  `Art/Brand/`, `Art/Icons/` and `Art/Decor/` when they exist, and replace the drawn backdrop, wordmark, booster icons
+  or leaves (mirrored with `IPainter.PushSquash(-1, 1, …)`). The level tester keeps the system font and
   its minimal look. There are no ads or real-money purchases here, so those buttons show
   as unavailable, and the jam rescue is granted without an ad. A small dev row on Home (−1, +1, +10, Reset) moves the
   progression for testing.

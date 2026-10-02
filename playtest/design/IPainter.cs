@@ -108,7 +108,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Translates by (dx, dy), then scales by <paramref name="scale"/> about (cx, cy), until <see cref="PopTransform"/>.</summary>
         void PushTransform(float dx, float dy, float scale, float cx, float cy);
 
-        /// <summary>Scales by (<paramref name="sx"/>, <paramref name="sy"/>) about (cx, cy) until <see cref="PopTransform"/> (the press squash).</summary>
+        /// <summary>
+        /// Scales by (<paramref name="sx"/>, <paramref name="sy"/>) about (cx, cy) until <see cref="PopTransform"/> (the
+        /// press squash). A negative factor mirrors: <c>PushSquash(-1, 1, cx, cy)</c> flips what follows left to right about
+        /// x = cx (the owner's leaf pictures on the right end of a sign, spec 005 pictures.md D), <c>(-1, -1)</c> turns it
+        /// half way; touch targets drawn under it keep their screen boxes.
+        /// </summary>
         void PushSquash(float sx, float sy, float cx, float cy);
 
         void PopTransform();

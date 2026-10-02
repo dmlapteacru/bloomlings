@@ -236,6 +236,15 @@ namespace Bloomlings.Playtest.Design
 
             p.Mark("ui.deco.garden");
             (Box topLeft, Box bottomRight) = GardenLook.DecorationBoxes(button);
+            string picture = PainterBase.DecorPrefix + OwnerPictures.ButtonLeaves;
+            if (p.HasSprite(picture))
+            {
+                // The owner's sprig (pictures.md D7) on the top-left corner, turned half way for the bottom-right one.
+                OwnerPicture(p, picture, topLeft);
+                OwnerPicture(p, picture, bottomRight, mirror: true, turn: true);
+                return;
+            }
+
             DecorationCluster(p, topLeft, flipped: false);
             DecorationCluster(p, bottomRight, flipped: true);
         }
@@ -653,10 +662,22 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A multi-part icon (spec 005 contracts/look.md §3.4, §3.8: the lotus, the colored booster icons): each part's
         /// outline (the shape grown by its <see cref="IconPart.Grow"/>), then its fill, back to front. A
-        /// <paramref name="grey"/> icon (a disabled booster) draws every part in grey.
+        /// <paramref name="grey"/> icon (a disabled booster) draws every part in grey. A booster's icon
+        /// (<see cref="GardenLook.BoosterOf"/>) is the owner's picture instead when it is embedded (pictures.md D1–D4),
+        /// faded when grey.
         /// </summary>
         public static void IconParts(IPainter p, Box box, IReadOnlyList<IconPart> parts, bool grey = false)
         {
+            string? booster = GardenLook.BoosterOf(parts);
+            string picture = booster == null ? string.Empty : PainterBase.IconPrefix + OwnerPictures.BoosterIcon(booster);
+            if (booster != null && p.HasSprite(picture))
+            {
+                p.PushAlpha(grey ? GardenLook.PictureDisabledAlpha : 1f);
+                p.Sprite(picture, box);
+                p.PopAlpha();
+                return;
+            }
+
             foreach (IconPart part in parts)
             {
                 if (part.Line.HasValue && part.Grow > 0f)

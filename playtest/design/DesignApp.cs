@@ -295,18 +295,20 @@ namespace Bloomlings.Playtest.Design
         public static void DrawBackdrop(IPainter p, BackdropScene scene, int level)
         {
             BackgroundTheme theme = ThemeRotation.Default.ThemeFor(Math.Max(1, level));
-            p.Mark(scene == BackdropScene.Gameplay ? "bg.theme." + theme.Id : scene == BackdropScene.Home ? "bg.home" : "bg.splash");
+            string picture = OwnerPictures.Background(scene, theme.Id);
+            p.Mark(OwnerPictures.SlotOf(picture));
             var screen = new Box(0f, 0f, p.Width, p.Height);
             // The owner's picture when it is embedded (spec 005 pictures.md B), else the code-drawn garden; Home and the
-            // splash in the warmer garden colors (spec 005 §4.2).
+            // splash in the warmer garden colors (spec 005 §4.2); the win's garden is the level's lawn, blurred.
             BackdropColors colors = DesignTokens.Backdrop(theme.Background, theme.Accent);
-            if (scene != BackdropScene.Gameplay)
+            bool warm = !BackdropRaster.IsLawn(scene);
+            if (warm)
             {
                 colors = HomeStage.Garden(colors);
             }
 
-            Visuals.Background(p, screen, OwnerPictures.Background(scene, theme.Id), () =>
-                p.Backdrop(screen, colors, scene, theme.Id + "/" + scene + (scene != BackdropScene.Gameplay ? "/warm" : string.Empty)));
+            Visuals.Background(p, screen, picture, () =>
+                p.Backdrop(screen, colors, scene, theme.Id + "/" + scene + (warm ? "/warm" : string.Empty)));
         }
     }
 }

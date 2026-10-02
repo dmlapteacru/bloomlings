@@ -260,12 +260,13 @@ namespace Bloomlings.Client.Art
 
         /// <summary>
         /// The picture families whose sizes follow a board's cell size: the board's candy tiles, stone obstacles, stone
-        /// border and arches, and the win picture's flat tiles and stones. Each level of another size adds its own.
+        /// border and arches, and the win picture's flat tiles, grass cells and stones. Each level of another size adds its own.
         /// </summary>
         public static readonly IReadOnlyList<string> BoardFamilies = new[]
         {
             "tile.candy/board/",
             "tile.candy/flat/",
+            "tile.grass/",
             "tile.stone/",
             "mat.stone/block/",
             "board.arch/",
@@ -328,6 +329,17 @@ namespace Bloomlings.Client.Art
             }
 
             return CandyTile(Rgba.FromHex(info.ColorHex), info.IconId, style, state, size);
+        }
+
+        /// <summary>
+        /// A board cell of the picture's background (spec 005 FR-020, <c>tile.grass</c>): one of the
+        /// <see cref="UiRaster.GrassVariants"/> lawn squares (<see cref="UiRaster.Grass"/>), <paramref name="seed"/> from
+        /// <see cref="UiRaster.GrassSeed"/>. The same key as the playtest's <c>Kit.GrassCell</c>.
+        /// </summary>
+        public static Sprite Grass(int seed, int width, int height)
+        {
+            int k = ((seed % UiRaster.GrassVariants) + UiRaster.GrassVariants) % UiRaster.GrassVariants;
+            return Picture("tile.grass/" + k, width, height, (w, h) => UiRaster.Grass(w, h, k));
         }
 
         /// <summary>A candy tile of any color and variant icon (the win picture draws its roles' colors this way).</summary>

@@ -213,10 +213,19 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba BadgeGreen = Rgba.FromHex("#245C34");
 
             /// <summary>Gameplay lawn.</summary>
-            public static readonly Rgba LawnLight = Rgba.FromHex("#A2C447");
+            public static readonly Rgba LawnLight = Rgba.FromHex("#9CC842");
 
             /// <summary>Lawn shade, grass strokes.</summary>
-            public static readonly Rgba LawnDark = Rgba.FromHex("#6E9530");
+            public static readonly Rgba LawnDark = Rgba.FromHex("#64982D");
+
+            /// <summary>The gameplay garden's deepest foliage: the hedge and the bushes' shade (spec 005 FR-020, §4.2).</summary>
+            public static readonly Rgba FoliageDeep = Rgba.FromHex("#1F4D17");
+
+            /// <summary>The gameplay garden's foliage.</summary>
+            public static readonly Rgba Foliage = Rgba.FromHex("#3A8526");
+
+            /// <summary>The gameplay garden's sunlit leaves.</summary>
+            public static readonly Rgba FoliageLight = Rgba.FromHex("#7DC443");
 
             /// <summary>Ivy / clover leaves on signs.</summary>
             public static readonly Rgba IvyLeaf = Rgba.FromHex("#96D03C");
@@ -358,6 +367,9 @@ namespace Bloomlings.Client.UI.Design
                 ["badge.green"] = BadgeGreen,
                 ["lawn.light"] = LawnLight,
                 ["lawn.dark"] = LawnDark,
+                ["foliage.deep"] = FoliageDeep,
+                ["foliage.mid"] = Foliage,
+                ["foliage.light"] = FoliageLight,
                 ["ivy.leaf"] = IvyLeaf,
                 ["ivy.line"] = IvyLine,
                 ["button.blue"] = ButtonBlue,

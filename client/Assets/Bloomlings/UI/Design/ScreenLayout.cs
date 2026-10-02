@@ -126,7 +126,7 @@ namespace Bloomlings.Client.UI.Design
     /// (Home); on short phones those shrink first, and the bands keep at least 80% of their size so counts stay
     /// readable. Engine-free.
     /// </summary>
-    public static class ScreenLayout
+    public static partial class ScreenLayout
     {
         /// <summary>The smallest share of the safe height the board keeps (data-model rule 3).</summary>
         public const float BoardMinShare = 0.45f;
