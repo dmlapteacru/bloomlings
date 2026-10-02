@@ -3,12 +3,15 @@ using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Bloomlings.Client.UI.Localization;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
+using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -37,20 +40,23 @@ namespace Bloomlings.Client.UI.Screens
     public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard, Action? OnProfile = null);
 
     /// <summary>
-    /// Home of the design board's frames 2 and 3 (spec 002 FR-017; FR-058, T063).
+    /// Home of the design board's frames 2 and 3 (spec 002 FR-017; FR-058, T063) in the reference look of spec 005
+    /// (contracts/look.md §4.5; the playtest's <c>HomeScreen</c>).
     /// <list type="bullet">
-    /// <item><description>Always shown: the Petals pill (its green "+" opens the Store once unlocked, L12), the round
-    /// Settings button, "LEVEL N" and the big PLAY button.</description></item>
-    /// <item><description>Early on, two Bloomlings sit on a stone under the wordmark.</description></item>
-    /// <item><description>Once the Wardrobe is open (L40), the player's hero stands there, with round Wardrobe and
-    /// Collection buttons beside it and the profile avatar (frame, badge) at the top.</description></item>
-    /// <item><description>The milestone teaser reads "N levels to reward" with a gift.</description></item>
-    /// <item><description>The rank row "Rank #N >" (L10) opens the Leaderboard and carries the marker.</description></item>
-    /// <item><description>The Daily Challenge card (L50) shows "New today" and its reward.</description></item>
-    /// <item><description>The optional free-booster ad offer is a small secondary button.</description></item>
+    /// <item><description>Always shown: the Petals pill (its green "+" opens the Store once unlocked, L12), the cream
+    /// round Settings button, "Level N" on a wooden plaque and the big Play button in its wooden rim.</description></item>
+    /// <item><description>Early on, the wooden logo (the owner's logo picture when it exists) over the four heroes around
+    /// the lotus fountain on a stone pedestal, and the guest.</description></item>
+    /// <item><description>Once the Wardrobe is open (L40), the player's hero stands on a stone pedestal, with cream round
+    /// Wardrobe and Collection buttons beside it and the profile avatar (frame, badge) at the top.</description></item>
+    /// <item><description>The milestone teaser "N levels to reward" with the pink gift and the rank row "Rank #N >" with
+    /// the gold trophy (L10, it opens the Leaderboard and carries the marker) are parchment pills.</description></item>
+    /// <item><description>The Daily Challenge card (L50) is parchment with the sun on a cream disc, "New today" and its
+    /// reward.</description></item>
+    /// <item><description>The optional free-booster ad offer is a small cream secondary button.</description></item>
     /// </list>
-    /// Regions come from <see cref="ScreenLayout.Home"/> and <see cref="HomeLook"/>, shared with the playtest. There is
-    /// no level map, and no button chooses a level: PLAY always continues Level N.
+    /// Regions come from <see cref="ScreenLayout.Home"/>, <see cref="HomeLook"/> and <see cref="HomeStage"/>, shared with
+    /// the playtest. There is no level map, and no button chooses a level: Play always continues Level N.
     /// </summary>
     public sealed class HomeScreen : MonoBehaviour
     {
@@ -62,11 +68,12 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _hero = null!;
         private GameObject _early = null!;
         private GameObject _progressed = null!;
+        private RectTransform _logo = null!;
+        private HomeStageView _stage = null!;
+        private RectTransform _pedestal = null!;
         private BloomlingFigure _heroFigure = null!;
-        private RectTransform _earlyGroup = null!;
-        private Image _guestEarly = null!;
         private Image _guestLater = null!;
-        private TextMeshProUGUI _level = null!;
+        private WoodSignView _level = null!;
         private TextMeshProUGUI _playLabel = null!;
         private Button _playButton = null!;
         private Image _teaser = null!;
@@ -75,7 +82,6 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _rank = null!;
         private Image _rankMarker = null!;
         private Image _daily = null!;
-        private TextMeshProUGUI _dailyTitle = null!;
         private TextMeshProUGUI _dailyReward = null!;
         private Image _dailyChevron = null!;
         private Image _dailyDone = null!;
@@ -91,83 +97,126 @@ namespace Bloomlings.Client.UI.Screens
         {
             var screen = root.gameObject.AddComponent<HomeScreen>();
             screen._root = root;
+
+            // Home lies under the popups opened from it (Wardrobe, Collection, Daily Challenge, Leaderboard), which are
+            // created before it on the same canvas.
+            root.SetAsFirstSibling();
             screen._backdrop = BackdropView.Create(root, BackdropScene.Home);
 
             screen._topBar = UiFactory.CreateRect("TopBar", root);
             screen._settings = (RectTransform)UiKit.RoundIconButton("Settings", screen._topBar, "ui.settings", onSettings).transform;
             screen._petals = UiKit.PetalsPill("Petals", screen._topBar, onStore);
-            Button profile = UiFactory.CreateButton("Profile", screen._topBar, string.Empty, new Color(1f, 1f, 1f, 0f), () => features?.OnProfile?.Invoke());
+            // The profile avatar is its own cream disc; the button around it is a clear touch target.
+            Image profile = UiFactory.CreateImage("Profile", screen._topBar, null, Color.clear, raycast: true);
+            var profileButton = profile.gameObject.AddComponent<Button>();
+            profileButton.transition = Selectable.Transition.None;
+            profileButton.targetGraphic = profile;
+            profileButton.onClick.AddListener(() =>
+            {
+                GameFeedback.Current?.Play(SoundCue.Click);
+                features?.OnProfile?.Invoke();
+            });
+            profile.gameObject.AddComponent<PressMotion>();
             screen._avatar = ProfileAvatar.Create("Avatar", profile.transform);
             UiFactory.Stretch(screen._avatar.Rect);
             screen._profile = profile.gameObject;
 
-            // The hero area: the early scene (frame 2) or the player's hero with its feature buttons (frame 3).
+            // The hero area: the logo over the drawn stage (frame 2) or the player's hero on its pedestal (frame 3).
             screen._hero = UiFactory.CreateRect("Hero", root);
             RectTransform early = UiFactory.Stretch(UiFactory.CreateRect("Early", screen._hero));
             screen._early = early.gameObject;
-            TextMeshProUGUI wordmark = UiKit.Label("Wordmark", early, Loc.T("home.logo"), DesignTokens.Type.Wordmark, UiTheme.Of(DesignTokens.Colors.WordmarkFill));
-            wordmark.outlineColor = UiTheme.Of(DesignTokens.Colors.WordmarkOutline);
-            UiFactory.Place(wordmark.rectTransform, 0.08f, 0.6f, 0.92f, 0.86f);
-            screen._earlyGroup = HeroPictures.Group("Heroes", early);
-            screen._guestEarly = HeroPictures.Guest("Leafling", early);
+            screen._stage = HeroPictures.Stage("Stage", early);
+            screen._logo = OwnerArt.Logo("Logo", early, Loc.T("home.logo"));
 
             RectTransform progressed = UiFactory.Stretch(UiFactory.CreateRect("Progressed", screen._hero));
             screen._progressed = progressed.gameObject;
+            screen._pedestal = UiKit.StonePedestal("Pedestal", progressed);
             screen._heroFigure = BloomlingFigure.Create("HeroFigure", progressed);
-            UiFactory.Place(screen._heroFigure.Rect, 0.2f, 0.04f, 0.8f, 0.96f);
+            screen._heroFigure.Body.raycastTarget = false;
             screen._guestLater = HeroPictures.Guest("Leafling", progressed);
             screen._wardrobe = UiKit.RoundIconButton("Wardrobe", screen._hero, "ui.shirt", () => features?.OnWardrobe?.Invoke()).gameObject;
             screen._collection = UiKit.RoundIconButton("Collection", screen._hero, "ui.grid", () => features?.OnCollection?.Invoke()).gameObject;
 
-            screen._level = UiKit.Label("Level", root, Loc.F("common.level", 1), DesignTokens.Type.LevelHome, UiTheme.TextOnColor, look: TextLook.Headline);
-            screen._teaser = UiKit.Pill("Teaser", root, new Color(UiTheme.Panel.r, UiTheme.Panel.g, UiTheme.Panel.b, 0.92f));
-            screen._milestone = UiKit.Label("Text", screen._teaser.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Of(DesignTokens.Colors.GardenLabelPlain));
-            UiFactory.Place(screen._milestone.rectTransform, 0.06f, 0.08f, 0.82f, 0.92f);
-            Image gift = UiFactory.CreateImage("Gift", screen._teaser.transform, ProceduralSprites.Shape("ui.gift"), UiTheme.Of(DesignTokens.Colors.BoosterBloomBurst));
-            gift.preserveAspect = true;
-            UiFactory.Place(gift.rectTransform, 0.84f, 0.14f, 0.96f, 0.86f);
+            // "Level N" on a plain wooden plaque (spec 005 §4.5).
+            screen._level = UiKit.WoodSign("Level", root, Loc.F("common.level", 1), T.LevelHome);
 
-            // PLAY: shorter and taller, with its ▶, leaves and flowers, breathing while it waits (spec 003 FR-010, FR-011a, FR-019).
-            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, DesignTokens.Type.ButtonLarge, decorate: true, playArrow: true);
-            screen._playButton.GetComponent<GardenButton>().Breathe = true;
+            // The milestone teaser: a parchment pill with the text and the pink gift after it.
+            screen._teaser = UiKit.ParchmentPill("Teaser", root);
+            screen._milestone = UiKit.KitLabel("Text", screen._teaser.transform, string.Empty, T.Body, TextLook.Plain(C.InkBrown));
+            Image gift = UiKit.OutlinedGlyph("Gift", screen._teaser.transform, "ui.gift", C.LotusFill, C.LotusLine);
+            TextMeshProUGUI milestone = screen._milestone;
+            BoxLayout.On(screen._teaser.rectTransform).Watch(milestone).Then(b =>
+            {
+                float giftSize = b.Height * 0.68f;
+                float gap = UiKit.Units(18f);
+                float size = UiKit.Units(T.Body.Size);
+                float textWidth = Fit(milestone, size, b.Width - (giftSize * 2.6f));
+                float start = b.CenterX - ((textWidth + gap + giftSize) / 2f);
+                KitText.Place(milestone, T.Body, start + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
+                BoxLayout.Place(gift.rectTransform, Box.FromCenter(start + textWidth + gap + (giftSize / 2f), b.CenterY - (giftSize * 0.03f), giftSize, giftSize));
+            });
+
+            // Play: shorter and taller, with its ▶, leaves and flowers, breathing while it waits (spec 003 FR-010,
+            // FR-011a, FR-019), in its wooden rim (spec 005 §3.3).
+            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, T.ButtonLarge, decorate: true, playArrow: true, breathe: true);
             screen._playLabel = screen._playButton.GetComponentInChildren<TextMeshProUGUI>();
 
-            screen._rankRow = UiKit.Pill("Rank", root, new Color(1f, 1f, 1f, 0f), raycast: true);
+            // The rank row: a parchment pill with the gold trophy, the rank and a brown chevron; it opens the Leaderboard.
+            screen._rankRow = UiKit.ParchmentPill("Rank", root, raycast: true);
             var rankButton = screen._rankRow.gameObject.AddComponent<Button>();
+            rankButton.transition = Selectable.Transition.None;
             rankButton.targetGraphic = screen._rankRow;
             rankButton.onClick.AddListener(() => features?.OnLeaderboard?.Invoke());
-            Image trophy = UiFactory.CreateImage("Trophy", screen._rankRow.transform, ProceduralSprites.Shape("ui.trophy"), UiTheme.Of(DesignTokens.Colors.MedalGold));
-            trophy.preserveAspect = true;
-            UiFactory.Place(trophy.rectTransform, 0.02f, 0.12f, 0.16f, 0.88f);
-            screen._rank = UiKit.Label("Text", screen._rankRow.transform, string.Empty, DesignTokens.Type.Body, UiTheme.Text);
-            UiFactory.Place(screen._rank.rectTransform, 0.18f, 0.05f, 0.86f, 0.95f);
-            Image chevron = UiFactory.CreateImage("Chevron", screen._rankRow.transform, ProceduralSprites.Shape("ui.chevron"), UiTheme.TextSecondary);
-            chevron.preserveAspect = true;
-            UiFactory.Place(chevron.rectTransform, 0.88f, 0.25f, 0.98f, 0.75f);
+            Image trophy = UiKit.OutlinedGlyph("Trophy", screen._rankRow.transform, "ui.trophy", C.MedalGold, C.MedalGold.Darken(0.42f));
+            screen._rank = UiKit.KitLabel("Text", screen._rankRow.transform, string.Empty, T.Body, TextLook.Plain(C.InkBrown));
+            Image chevron = UiKit.ShapeImage("Chevron", screen._rankRow.transform, "ui.chevron", C.InkBrownSoft);
             screen._rankMarker = UiFactory.CreateImage("Marker", trophy.transform, ProceduralSprites.DoubleStar, Color.white);
             screen._rankMarker.preserveAspect = true;
             UiFactory.Place(screen._rankMarker.rectTransform, 0.5f, -0.2f, 1.2f, 0.5f);
             screen._rankMarker.gameObject.SetActive(false);
+            TextMeshProUGUI rank = screen._rank;
+            BoxLayout.On(screen._rankRow.rectTransform).Watch(rank).Then(b =>
+            {
+                float icon = b.Height * 0.66f;
+                float chevronSize = icon * 0.5f;
+                float gap = UiKit.Units(16f);
+                float size = UiKit.Units(T.Body.Size);
+                float textWidth = Fit(rank, size, b.Width - (icon * 3f));
+                float start = b.CenterX - ((icon + gap + textWidth + gap + chevronSize) / 2f);
+                BoxLayout.Place(trophy.rectTransform, Box.FromCenter(start + (icon / 2f), b.CenterY, icon, icon));
+                KitText.Place(rank, T.Body, start + icon + gap + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
+                BoxLayout.Place(chevron.rectTransform, Box.FromCenter(start + icon + gap + textWidth + gap + (chevronSize / 2f), b.CenterY, chevronSize, chevronSize));
+            });
 
-            // The Daily Challenge card (frame 3): sun, title, "New today · +N" with the Petal symbol, chevron.
-            screen._daily = UiKit.Rounded("Daily", root, UiTheme.Panel, 40f, raycast: true);
-            UiKit.CardShadow(screen._daily);
+            // The Daily Challenge card (frame 3) on parchment: the sun on a cream disc, the title, "New today · +N", a chevron.
+            screen._daily = UiKit.Paper("Daily", root, b => b.Height * 0.3f, DesignTokens.Garden.OutlineWidth, 6f, raycast: true);
             var dailyButton = screen._daily.gameObject.AddComponent<Button>();
+            dailyButton.transition = Selectable.Transition.None;
             dailyButton.targetGraphic = screen._daily;
             dailyButton.onClick.AddListener(() => features?.OnDailyChallenge?.Invoke());
-            Image sun = UiFactory.CreateImage("Sun", screen._daily.transform, ProceduralSprites.Shape("ui.sun"), UiTheme.PetalCenter);
-            sun.preserveAspect = true;
-            UiFactory.Place(sun.rectTransform, 0.03f, 0.18f, 0.15f, 0.82f);
-            screen._dailyTitle = UiKit.Label("Title", screen._daily.transform, Loc.T("daily.title"), DesignTokens.Type.Body, UiTheme.Text, TextAlignmentOptions.Left);
-            UiFactory.Place(screen._dailyTitle.rectTransform, 0.18f, 0.5f, 0.86f, 0.92f);
-            screen._dailyReward = UiKit.Label("Reward", screen._daily.transform, string.Empty, DesignTokens.Type.Caption, UiTheme.TextSecondary, TextAlignmentOptions.Left);
-            UiFactory.Place(screen._dailyReward.rectTransform, 0.18f, 0.08f, 0.8f, 0.5f);
-            screen._dailyChevron = UiFactory.CreateImage("Chevron", screen._daily.transform, ProceduralSprites.Shape("ui.chevron"), UiTheme.TextSecondary);
-            screen._dailyChevron.preserveAspect = true;
-            UiFactory.Place(screen._dailyChevron.rectTransform, 0.88f, 0.3f, 0.96f, 0.7f);
-            screen._dailyDone = UiFactory.CreateImage("Done", screen._daily.transform, ProceduralSprites.Shape("ui.check"), UiTheme.Accent);
-            screen._dailyDone.preserveAspect = true;
-            UiFactory.Place(screen._dailyDone.rectTransform, 0.86f, 0.25f, 0.97f, 0.75f);
+            GardenButton disc = UiKit.IconFace("Disc", screen._daily.transform, GardenLook.White, b => b.Height / 2f, square: true);
+            Image sun = UiKit.OutlinedGlyph("Sun", screen._daily.transform, "ui.sun", C.GardenFlowerCenter, C.GardenFlowerCenterLine);
+            TextMeshProUGUI title = UiKit.KitLabel("Title", screen._daily.transform, Loc.T("daily.title"), T.ButtonSecondary, TextLook.Plain(C.InkBrown));
+            screen._dailyReward = UiKit.KitLabel("Reward", screen._daily.transform, string.Empty, T.Caption, TextLook.Plain(C.InkBrownSoft));
+            screen._dailyChevron = UiKit.ShapeImage("Chevron", screen._daily.transform, "ui.chevron", C.InkBrownSoft);
+            screen._dailyDone = UiKit.ShapeImage("Done", screen._daily.transform, "ui.check", GardenLook.Green.Face);
+            TextMeshProUGUI reward = screen._dailyReward;
+            Image dailyChevron = screen._dailyChevron;
+            Image dailyDone = screen._dailyDone;
+            BoxLayout.On(screen._daily.rectTransform).Then(b =>
+            {
+                float h = b.Height;
+                float discSize = h * 0.66f;
+                float cx = b.Left + (h * 0.56f);
+                BoxLayout.Place((RectTransform)disc.transform, Box.FromCenter(cx, b.CenterY, discSize, discSize));
+                BoxLayout.Place(sun.rectTransform, Box.FromCenter(cx, b.CenterY - (discSize * 0.03f), discSize * 1.04f, discSize * 1.04f));
+                float left = b.Left + (h * 1.05f);
+                float width = b.Width - (h * 1.7f);
+                PlaceLeft(title, T.ButtonSecondary, left, b.Top + (h * 0.37f), UiKit.Units(T.ButtonSecondary.Size) * 0.9f, width);
+                PlaceLeft(reward, T.Caption, left, b.Top + (h * 0.69f), UiKit.Units(T.Caption.Size), width);
+                BoxLayout.Place(dailyChevron.rectTransform, Box.FromCenter(b.Right - (h * 0.42f), b.CenterY, h * 0.3f, h * 0.3f));
+                BoxLayout.Place(dailyDone.rectTransform, Box.FromCenter(b.Right - (h * 0.42f), b.CenterY, h * 0.4f, h * 0.4f));
+            });
 
             // The optional rewarded offer: a free booster, started only by the player (FR-052).
             screen._freeBooster = UiKit.SecondaryButton("FreeBooster", root, Loc.T("home.free_booster"), () => onFreeBooster?.Invoke(), "ui.ad").gameObject;
@@ -224,24 +273,42 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(_settings, new Box(r.TopBar.Right - bar, r.TopBar.Top, r.TopBar.Right, r.TopBar.Bottom), r.TopBar);
             UiKit.PlaceBox((RectTransform)_petals.transform, new Box(r.TopBar.Right - bar - (24f * u) - (330f * u), r.TopBar.CenterY - (bar * 0.36f), r.TopBar.Right - bar - (24f * u), r.TopBar.CenterY + (bar * 0.36f)), r.TopBar);
             UiKit.PlaceBox((RectTransform)_profile.transform, new Box(r.TopBar.Left, r.TopBar.Top, r.TopBar.Left + bar, r.TopBar.Bottom), r.TopBar);
-            UiKit.PlaceBox(_hero, r.Hero, screen);
 
-            // The group with the Leafling guest early on, the guest beside the player's hero later (spec 004 R17).
             Box hero = r.Hero;
-            (Box group, Box guest) = CharacterArt.GroupWithGuest(new Box(hero.Left, hero.Top + (hero.Height * 0.36f), hero.Right, hero.Bottom));
-            UiKit.PlaceBox(_earlyGroup, group, hero);
-            UiKit.PlaceBox(_guestEarly.rectTransform, guest, hero);
-            var figure = new Box(hero.Left + (hero.Width * 0.2f), hero.Top + (hero.Height * 0.04f), hero.Left + (hero.Width * 0.8f), hero.Top + (hero.Height * 0.96f));
-            UiKit.PlaceBox(_guestLater.rectTransform, CharacterArt.GuestBesideHero(CharacterArt.FitBox(figure, CharacterArt.HeroWidth, CharacterArt.HeroHeight), hero), hero);
+            UiKit.PlaceBox(_hero, hero, screen);
+            if (!look.Hero)
+            {
+                // Frame 2: the logo, then the four heroes around the lotus fountain on the stone, the guest at the front.
+                float logoWidth = Mathf.Min(hero.Width * 0.8f, 760f * u);
+                UiKit.PlaceBox(_logo, Box.FromCenter(hero.CenterX, hero.Top + (hero.Height * 0.22f), logoWidth, Mathf.Min(logoWidth * 0.37f, T.Wordmark.Size * u * 1.5f)), hero);
+                _stage.Place(new Box(hero.Left, hero.Top + (hero.Height * 0.36f), hero.Right, hero.Bottom), hero, BackdropScene.Home, guest: true);
+            }
+            else
+            {
+                // Frame 3: the player's hero on the stone pedestal (until the owner's garden brings its own ground), the
+                // guest beside it.
+                (Box pedestal, Box body, Box guest) = HomeStage.HeroOnPedestal(new Box(hero.Left, hero.Top, hero.Right, hero.Bottom - (8f * u)));
+                _pedestal.gameObject.SetActive(OwnerArt.Background(OwnerPictures.Home) == null);
+                UiKit.PlaceBox(_pedestal, pedestal, hero);
+                UiKit.PlaceBox(_heroFigure.Rect, body, hero);
+                UiKit.PlaceBox(_guestLater.rectTransform, guest, hero);
+            }
+
             if (!r.Features.IsEmpty)
             {
                 float button = DesignTokens.Size.IconButton * u;
-                var first = new Box(r.Features.Left, r.Features.Top, r.Features.Right, r.Features.Top + button);
-                UiKit.PlaceBox((RectTransform)_wardrobe.transform, first, r.Hero);
-                UiKit.PlaceBox((RectTransform)_collection.transform, look.Wardrobe ? first.Offset(0f, button * 1.25f) : first, r.Hero);
+                float y = r.Features.Top + (button * 0.6f);
+                UiKit.PlaceBox((RectTransform)_wardrobe.transform, Box.FromCenter(r.Features.CenterX, y, button, button), hero);
+                UiKit.PlaceBox((RectTransform)_collection.transform, Box.FromCenter(r.Features.CenterX, look.Wardrobe ? y + (button * 1.25f) : y, button, button), hero);
             }
 
-            UiKit.PlaceBox(_level.rectTransform, r.Level, screen);
+            // The level plaque: as tall as its row and as wide as its letters plus 1.5 × its height.
+            float plaque = r.Level.Height;
+            float ppu = Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
+            float font = Mathf.Min(T.LevelHome.Size * u, plaque * 0.62f);
+            float letters = KitText.Measure(_level.Label, font / ppu) * ppu;
+            float plaqueWidth = Mathf.Min(r.Level.Width * 0.8f, (letters > 0f ? letters : font * 3.5f) + (plaque * 1.5f));
+            UiKit.PlaceBox((RectTransform)_level.transform, Box.FromCenter(r.Level.CenterX, r.Level.CenterY, plaqueWidth, plaque), screen);
             UiKit.PlaceBox(_teaser.rectTransform, r.Teaser, screen);
             UiKit.PlaceBox((RectTransform)_playButton.transform, r.Play, screen);
             UiKit.PlaceBox(_rankRow.rectTransform, r.Rank, screen);
@@ -252,8 +319,8 @@ namespace Bloomlings.Client.UI.Screens
         public void Show(HomeModel model)
         {
             _model = model;
+            _level.Text = Loc.F("common.level", NumberText.Group(model.CurrentLevel));
             Layout(model);
-            _level.text = Loc.F("common.level", NumberText.Group(model.CurrentLevel));
             _playLabel.text = !model.LevelAvailable ? Loc.T("home.more_levels_soon") : Loc.T("common.play");
             _playButton.interactable = model.LevelAvailable;
             _petals.Show(model.Petals, model.StoreUnlocked);
@@ -261,8 +328,8 @@ namespace Bloomlings.Client.UI.Screens
             _rank.text = model.RankText ?? Loc.T("home.rank_unknown");
             _daily.gameObject.SetActive(model.DailyChallengeAvailable);
             _dailyReward.text = model.DailyChallengeDone ? Loc.T("home.daily_done") : Loc.F("home.daily_new", model.DailyChallengePetals);
-            _dailyDone.enabled = model.DailyChallengeDone;
-            _dailyChevron.enabled = !model.DailyChallengeDone;
+            _dailyDone.gameObject.SetActive(model.DailyChallengeDone);
+            _dailyChevron.gameObject.SetActive(!model.DailyChallengeDone);
             _early.SetActive(!model.WardrobeAvailable);
             _progressed.SetActive(model.WardrobeAvailable);
             _wardrobe.SetActive(model.WardrobeAvailable);
@@ -288,6 +355,24 @@ namespace Bloomlings.Client.UI.Screens
                 int toGo = model.LevelsToMilestone.GetValueOrDefault();
                 _milestone.text = toGo == 1 ? Loc.T("home.level_to_reward") : Loc.F("home.levels_to_reward", toGo);
             }
+        }
+
+        /// <summary>A label's width at <paramref name="size"/> canvas units, at most <paramref name="room"/> (all of it before the text engine can tell).</summary>
+        private static float Fit(TextMeshProUGUI label, float size, float room)
+        {
+            float measured = KitText.Measure(label, size);
+            return Mathf.Max(1f, Mathf.Min(measured > 0f ? measured : room, room));
+        }
+
+        /// <summary>A left-aligned label from <paramref name="left"/>, centered on <paramref name="cy"/>, shrinking to <paramref name="width"/>.</summary>
+        private static void PlaceLeft(TextMeshProUGUI label, TypeStyle style, float left, float cy, float size, float width)
+        {
+            label.alignment = TextAlignmentOptions.Left;
+            label.enableAutoSizing = true;
+            label.fontSizeMax = size;
+            label.fontSize = size;
+            label.fontSizeMin = Mathf.Min(size, size * style.Min / Mathf.Max(1f, style.Size));
+            BoxLayout.Place(label.rectTransform, new Box(left, cy - (size * 0.8f), left + Mathf.Max(1f, width), cy + (size * 0.8f)));
         }
     }
 }

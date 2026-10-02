@@ -117,6 +117,16 @@ wardrobe.kind_badge,Badges
 wardrobe.kind_marker,Markers
 wardrobe.default,Default
 wardrobe.footer,Earn special outfits as you play!
+wardrobe.role.sprig,Leaf Guardian
+wardrobe.role.bloom,Petal Painter
+wardrobe.role.drop,Dew Keeper
+wardrobe.role.twig,Root Builder
+wardrobe.role.profile,Your garden card
+wardrobe.about.sprig,Brings life and harmony to every garden.
+wardrobe.about.bloom,Paints every path with color and sweet scents.
+wardrobe.about.drop,Keeps every leaf fresh and every pond sparkling.
+wardrobe.about.twig,Builds cozy nooks from fallen twigs and acorns.
+wardrobe.about.profile,"Choose the frame, badge and marker others see on the leaderboard."
 family.sprig,Sprig
 family.bloom,Bloom
 family.drop,Drop

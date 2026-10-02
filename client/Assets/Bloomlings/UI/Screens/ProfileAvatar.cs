@@ -1,15 +1,19 @@
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The player's profile picture (FR-061, FR-063): a 3D hero in its outfit inside the shown frame, with the shown
-    /// badge at its foot and the leaderboard marker at its shoulder. Home, the Wardrobe and the leaderboard row use it.
+    /// The player's profile picture (FR-061, FR-063) in the reference look (spec 005 §4.5; the playtest's Home
+    /// <c>Avatar</c>): the hero's portrait in its outfit on a domed cream disc like the round buttons, with a soft green
+    /// middle and a tan ring, inside the shown frame, with the shown badge at its foot and the leaderboard marker at its
+    /// shoulder. Home, the Wardrobe and the leaderboard row use it. Never a touch target itself (its button is).
     /// </summary>
     public sealed class ProfileAvatar
     {
@@ -21,18 +25,23 @@ namespace Bloomlings.Client.UI.Screens
         private ProfileAvatar(RectTransform root)
         {
             Rect = root;
-            Image disc = UiFactory.CreateImage("Disc", root, ProceduralSprites.Circle, UiTheme.Panel);
-            disc.raycastTarget = false;
-            UiFactory.Place(disc.rectTransform, 0.08f, 0.08f, 0.92f, 0.92f);
+            BoxLayout layout = BoxLayout.On(root);
+            GardenButton disc = UiKit.IconFace("Disc", root, GardenLook.White, b => b.Height / 2f, square: true);
+            layout.Add((RectTransform)disc.transform, b => b);
+            Image middle = UiKit.RoundGradient("Middle", disc.Content, GardenLook.Green.Top.Mix(C.CreamTop, 0.6f), GardenLook.Green.Face.Mix(C.CreamTop, 0.45f));
+            Image ring = UiKit.RoundRing("Ring", disc.Content, UiTheme.Of(C.CreamLine), null, _ => UiKit.Units(3f));
+            BoxLayout.On(disc.Content).Add(middle.rectTransform, f => f.Inset(-disc.IconSide * 0.04f)).Add(ring.rectTransform, f => f.Inset(-disc.IconSide * 0.04f));
+
+            // The family's 3D hero (spec 004 FR-017), in its picture's 512:576 shape, 70% of the avatar.
             _figure = BloomlingFigure.Create("Figure", root);
             _figure.Body.raycastTarget = false;
-            // The family's 3D hero (spec 004 FR-017), in its picture's 512:576 shape.
-            UiFactory.Place(_figure.Rect, 0.24f, 0.12f, 0.76f, 0.705f);
-            _frame = UiFactory.CreateImage("Frame", root, ProceduralSprites.Ring, UiTheme.SlotLocked);
-            _frame.raycastTarget = false;
-            UiFactory.Stretch(_frame.rectTransform);
-            _badge = Decoration(root, "Badge", 0.6f, -0.04f, 0.98f, 0.34f);
-            _marker = Decoration(root, "Marker", 0.62f, 0.66f, 0.98f, 1.02f);
+            layout.Add(_figure.Rect, b => Square(b, 0.7f, 0f, 0.02f));
+            _frame = Decoration(root, "Frame");
+            layout.Add(_frame.rectTransform, b => Square(b, 1.08f, 0f, 0f));
+            _badge = Decoration(root, "Badge");
+            layout.Add(_badge.rectTransform, b => Square(b, 0.36f, 0.36f, 0.36f));
+            _marker = Decoration(root, "Marker");
+            layout.Add(_marker.rectTransform, b => Square(b, 0.36f, 0.36f, -0.36f));
         }
 
         public RectTransform Rect { get; }
@@ -44,9 +53,16 @@ namespace Bloomlings.Client.UI.Screens
         public void Show(ProfileLook? look, Outfit? outfit)
         {
             _figure.ShowHero(Family.Bloom, outfit);
-            _frame.color = look?.Frame != null ? BloomlingFigure.Tint(look.Frame) : UiTheme.SlotLocked;
+            Show(_frame, look?.Frame);
             Show(_badge, look?.Badge);
             Show(_marker, look?.Marker);
+        }
+
+        /// <summary>A square of <paramref name="share"/> of the avatar's size, its center moved by shares of the size.</summary>
+        private static Box Square(Box b, float share, float dx, float dy)
+        {
+            float s = Mathf.Min(b.Width, b.Height);
+            return Box.FromCenter(b.CenterX + (s * dx), b.CenterY + (s * dy), s * share, s * share);
         }
 
         private static void Show(Image image, CosmeticItem? item)
@@ -62,12 +78,11 @@ namespace Bloomlings.Client.UI.Screens
             image.gameObject.SetActive(true);
         }
 
-        private static Image Decoration(RectTransform root, string name, float x0, float y0, float x1, float y1)
+        private static Image Decoration(RectTransform root, string name)
         {
             Image image = UiFactory.CreateImage(name, root, null, Color.white);
             image.preserveAspect = true;
             image.raycastTarget = false;
-            UiFactory.Place(image.rectTransform, x0, y0, x1, y1);
             image.gameObject.SetActive(false);
             return image;
         }

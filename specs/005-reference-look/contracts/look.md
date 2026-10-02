@@ -365,7 +365,9 @@ B2–B5 replace the lawn).
 - The heroes group on a `StonePedestal` above the sign, in the room up to the safe area's top (left out under 150
   units), with light rays behind (clipped above the card, fading in, alpha 0.85) and falling petals around (3D pictures;
   the owner's celebrating hero later). The generated group still carries its own round base, which then stands on the
-  pedestal's top like a plinth.
+  pedestal's top like a plinth. Unity: when the owner's celebrating hero of the level's main family exists (pictures.md
+  A7, the family of the variant whose pods carry the most tiles), it stands alone on the same pedestal (feet on the top
+  ellipse's middle, at most 0.8 of the pedestal's width tall) instead of the group.
 - The reward as a cream pill (`CostPill` style, 104 units tall, `ui.pill.reward`) "+N" with the lotus, counting up, a
   sparkle at the lotus and petals bursting out; a dropped booster charge below it as its icon and "+1 Name".
 - Next: `PrimaryButton` (wood rim, decorated, breathing). ×2: cream secondary with the ad glyph.
@@ -404,6 +406,12 @@ B2–B5 replace the lawn).
 - Outfit cards: cream cards with a beige picture well, the name below; the worn one has a green face tint, a 4 px green
   (`GardenLook.Green.Face`) border and a green check badge.
 - Footer: "Earn special outfits as you play!" (`InkBrownSoft`).
+- Unity Wardrobe (a full screen over Home, `WardrobeLayout`): the tabs end with a Profile tab (the avatar), whose stage
+  shows the avatar on the pedestal and whose name card says what the profile items do; the panel starts with the kind
+  chips (`UiKit.Tabs`: skins, hats, trails, faces; or frames, badges, markers), then the outfit cards of the kind three
+  to a row (one row, or two on tall phones), "Default" (none of the kind) first, each card showing the hero in its outfit
+  with that item; the worn card (or the shown profile item) is green with the check; the footer sits between the cream
+  ‹ › page arrows.
 - The playtest's Store cosmetics (preview frame 26): the Store card's `WoodSign` (Ivy) header, `Kit.FamilyTabs`
   (`ui.tab.family`) over the lighter panel, and `Kit.OutfitCard`s (`ui.card.outfit`) six to a page (3 × 2): "Default",
   worn while the family wears nothing, then each item for sale shown on the chosen family's hero (a frame, badge or

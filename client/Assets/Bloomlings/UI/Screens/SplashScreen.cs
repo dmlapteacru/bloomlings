@@ -1,24 +1,25 @@
 using System.Collections;
-using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.UI.Design;
-using Bloomlings.Core.Variants;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using Bloomlings.Client.UI.Localization;
+using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The splash of the design board's frame 1 (spec 002 FR-016): the Bloomlings wordmark over the garden, with the
-    /// four families as 3D heroes on their stone (spec 004). It shows from the first frame while services and content load, and
-    /// fades once the first screen is up. It never waits for a tap: the first launch still goes straight into
-    /// Level 1 (spec 001 US2).
+    /// The splash of the design board's frame 1 (spec 002 FR-016) in the reference look of spec 005 (contracts/look.md
+    /// §4.5; the playtest's <c>SplashScreen</c>): the wooden logo (the owner's logo picture when it exists) over the warm
+    /// garden, with the four families as 3D heroes around the lotus fountain on the stone pedestal (spec 004), fading and
+    /// rising in. It shows from the first frame while services and content load, and goes once the first screen is up.
+    /// It never waits for a tap: the first launch still goes straight into Level 1 (spec 001 US2).
     /// </summary>
     public sealed class SplashScreen : MonoBehaviour
     {
+        private const float AppearSeconds = 0.5f;
+
         private Canvas _canvas = null!;
+        private RectTransform _stage = null!;
 
         /// <summary>A top-most canvas under <paramref name="parent"/>, which should survive scene loads (the Boot object).</summary>
         public static SplashScreen Create(Transform parent)
@@ -29,19 +30,27 @@ namespace Bloomlings.Client.UI.Screens
             screen._canvas = canvas;
             RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("Root", canvas.transform));
             BackdropView.Create(root, BackdropScene.Splash);
-            TextMeshProUGUI shadow = UiKit.Label("WordmarkShadow", root, Loc.T("home.logo"), DesignTokens.Type.Wordmark, UiTheme.Of(DesignTokens.Colors.WordmarkOutline));
-            UiFactory.Place(shadow.rectTransform, 0.06f, 0.6f, 0.94f, 0.74f);
-            TextMeshProUGUI wordmark = UiKit.Label("Wordmark", root, Loc.T("home.logo"), DesignTokens.Type.Wordmark, UiTheme.Of(DesignTokens.Colors.WordmarkFill));
-            wordmark.outlineColor = UiTheme.Of(DesignTokens.Colors.WordmarkOutline);
-            UiFactory.Place(wordmark.rectTransform, 0.06f, 0.605f, 0.94f, 0.745f);
-            Image petal = UiKit.PetalIcon("Petal", root);
-            UiFactory.Place(petal.rectTransform, 0.5f, 0.73f, 0.58f, 0.775f);
 
-            // The four families as 3D heroes on their stone (spec 004 FR-017; "brand.splash_art").
-            UiFactory.Place(HeroPictures.Group("Heroes", root), 0.02f, 0.22f, 0.98f, 0.52f);
+            (float w, float h, Insets insets) = UiKit.ScreenFrame();
+            float u = DesignTokens.ScaleFor(w, h);
+            Box safe = ScreenLayout.SafeArea(w, h, insets);
+            var screenBox = new Box(0f, 0f, w, h);
 
+            // The logo at a third of the safe area, at most 900 units wide ("brand.wordmark").
+            float logoWidth = Mathf.Min(safe.Width * 0.84f, 900f * u);
+            RectTransform logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
+            UiKit.PlaceBox(logo, Box.FromCenter(safe.CenterX, safe.Top + (safe.Height * 0.3f), logoWidth, Mathf.Min(logoWidth * 0.37f, T.Wordmark.Size * u * 1.5f)), screenBox);
+            UiKit.FadeInOnShow(logo.gameObject, 1f, AppearSeconds);
+
+            // The four families on their stone around the lotus fountain ("brand.splash_art"), without the guest.
+            screen._stage = UiFactory.Stretch(UiFactory.CreateRect("Heroes", root));
+            UiKit.FadeInOnShow(screen._stage.gameObject, 1f, AppearSeconds);
+            float width = Mathf.Min(safe.Width, 1000f * u);
+            HeroPictures.Stage("Stage", screen._stage).Place(Box.FromCenter(safe.CenterX, safe.Top + (safe.Height * 0.62f), width, width * 0.7f), screenBox, BackdropScene.Splash, guest: false);
             return screen;
         }
+
+        private void Start() => StartCoroutine(Rise());
 
         /// <summary>Fades the splash out after <paramref name="delay"/> seconds and removes it.</summary>
         public void FadeOut(float delay)
@@ -50,6 +59,18 @@ namespace Bloomlings.Client.UI.Screens
             {
                 StartCoroutine(FadeRoutine(delay));
             }
+        }
+
+        /// <summary>The heroes rise 40 units into place as they fade in.</summary>
+        private IEnumerator Rise()
+        {
+            for (float t = 0f; t < AppearSeconds; t += Time.unscaledDeltaTime)
+            {
+                _stage.anchoredPosition = new Vector2(0f, -(1f - FadeIn.Ease(t / AppearSeconds)) * UiKit.Units(40f));
+                yield return null;
+            }
+
+            _stage.anchoredPosition = Vector2.zero;
         }
 
         private IEnumerator FadeRoutine(float delay)
