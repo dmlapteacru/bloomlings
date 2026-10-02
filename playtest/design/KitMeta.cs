@@ -20,19 +20,21 @@ namespace Bloomlings.Playtest.Design
         /// Family tabs joined to the panel below them (§4.6, <c>ui.tab.family</c>; the reference Wardrobe): one cream tab
         /// per family with rounded top corners, the family's 3D hero (in <paramref name="outfitOf"/>'s outfit) and its
         /// name; the selected tab is lighter, a little taller and flows into the lighter panel, the others sit behind its
-        /// edge. A tap on a tab calls <paramref name="onSelect"/>. Returns the panel's content box.
+        /// edge. A tap on a tab calls <paramref name="onSelect"/>. <paramref name="cells"/> places the tabs (the Wardrobe's
+        /// <see cref="ReferenceWardrobeRegions.Tab"/>); without it they share <paramref name="tabs"/> evenly. Returns the
+        /// panel's content box.
         /// </summary>
-        public static Box FamilyTabs(IPainter p, Box tabs, Box panel, IReadOnlyList<Family> families, IReadOnlyList<string> names, int selected, Action<int> onSelect, Func<Family, Outfit?>? outfitOf = null)
+        public static Box FamilyTabs(IPainter p, Box tabs, Box panel, IReadOnlyList<Family> families, IReadOnlyList<string> names, int selected, Action<int> onSelect, Func<Family, Outfit?>? outfitOf = null, IReadOnlyList<Box>? cells = null)
         {
             p.Mark("ui.tab.family");
-            Box[] cells = ScreenLayout.Row(tabs, families.Count, p.U(10f), float.MaxValue, square: false);
+            cells ??= ScreenLayout.Row(tabs, families.Count, p.U(10f), float.MaxValue, square: false);
             float line = Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidth) * 0.8f);
-            float radius = Math.Min(cells.Length > 0 ? cells[0].Width * 0.18f : 0f, p.U(34f));
+            float radius = Math.Min(cells.Count > 0 ? cells[0].Width * 0.18f : 0f, p.U(34f));
             float panelRadius = p.U(26f);
             float sunk = tabs.Height * 0.07f;
 
             // The other tabs first: a little lower, their bottoms hidden under the panel's edge.
-            for (int i = 0; i < cells.Length; i++)
+            for (int i = 0; i < cells.Count; i++)
             {
                 if (i != selected)
                 {
@@ -45,14 +47,14 @@ namespace Bloomlings.Playtest.Design
             p.FillRoundGradient(panel, panelRadius, C.ParchmentTop, C.CreamTop);
             p.StrokeRound(panel.Inset(line / 2f), panelRadius - (line / 2f), line, C.CreamLine);
 
-            if (selected >= 0 && selected < cells.Length)
+            if (selected >= 0 && selected < cells.Count)
             {
                 // The selected tab flows into the panel: its face covers the panel's outline under it.
                 Box tab = new Box(cells[selected].Left, cells[selected].Top, cells[selected].Right, panel.Top + panelRadius);
                 TabFace(p, tab, radius, C.ParchmentTop.Lighten(0.3f), C.ParchmentTop, line, panel.Top + (line * 1.5f), outlineBottom: panel.Top);
             }
 
-            for (int i = 0; i < cells.Length; i++)
+            for (int i = 0; i < cells.Count; i++)
             {
                 bool on = i == selected;
                 Box cell = cells[i];
@@ -92,9 +94,10 @@ namespace Bloomlings.Playtest.Design
         /// (<paramref name="worn"/>) has a green-tinted well with a green border and the check badge. A
         /// <paramref name="cost"/> adds the cost pill on the card's bottom edge (the Store); <paramref name="box"/> then
         /// holds the card and the pill below it (<paramref name="pillRoom"/> keeps that room without a pill, so cards in a
-        /// row line up), and the whole box is the touch target.
+        /// row line up), and the whole box is the touch target. A <paramref name="locked"/> item (earned later, the
+        /// Wardrobe) fades its picture and carries the padlock badge instead.
         /// </summary>
-        public static void OutfitCard(IPainter p, Box box, string name, bool worn, Action<Box> picture, Cost? cost = null, Action? action = null, bool pillRoom = false)
+        public static void OutfitCard(IPainter p, Box box, string name, bool worn, Action<Box> picture, Cost? cost = null, Action? action = null, bool pillRoom = false, bool locked = false)
         {
             p.Mark("ui.card.outfit");
             const float pillShare = 0.2f;
@@ -126,7 +129,9 @@ namespace Bloomlings.Playtest.Design
 
             p.PushClip(well);
             p.FillRoundGradient(new Box(well.Left, well.Top, well.Right, well.Top + (well.Height * 0.2f)), wellRadius, C.GardenShadow.WithAlpha(0.1f), C.GardenShadow.WithAlpha(0f));
+            p.PushAlpha(locked ? GardenLook.PictureDisabledAlpha : 1f);
             picture(well);
+            p.PopAlpha();
             p.PopClip();
             if (worn)
             {
@@ -140,10 +145,17 @@ namespace Bloomlings.Playtest.Design
                 p.StrokeRound(well.Inset(line / 2f), wellRadius - (line / 2f), line, C.ParchmentEdge.Darken(0.08f));
             }
 
+            if (locked)
+            {
+                float badge = w * 0.22f;
+                LockBadge(p, well.Right - (badge * 0.42f), well.Bottom - (badge * 0.42f), badge);
+            }
+
             float nameTop = well.Bottom;
             float nameBottom = cost.HasValue || pillRoom ? face.Bottom - ((box.Height - bodyHeight) * 0.5f) : face.Bottom;
             float scale = Math.Min(1f, ((nameBottom - nameTop) * 0.62f) / p.U(T.ButtonSecondary.Size));
-            p.Text(name, card.CenterX, (nameTop + nameBottom) / 2f, T.ButtonSecondary, C.InkBrown, w * 0.88f, scale, TextLook.Plain(C.InkBrown));
+            Rgba ink = locked ? C.InkBrownSoft : C.InkBrown;
+            p.Text(name, card.CenterX, (nameTop + nameBottom) / 2f, T.ButtonSecondary, ink, w * 0.88f, scale, TextLook.Plain(ink));
             p.PopTransform();
 
             if (cost.HasValue)
@@ -196,6 +208,51 @@ namespace Bloomlings.Playtest.Design
             p.FillRoundGradient(Box.FromCenter(cx, cy, size, size), size / 2f, GardenLook.Green.Top, GardenLook.Green.Face);
             p.StrokeCircle(cx, cy, (size / 2f) - Math.Max(0.5f, size * 0.02f), Math.Max(1f, size * 0.04f), GardenLook.Green.Line);
             p.Shape("ui.check", Box.FromCenter(cx, cy, size * 0.58f, size * 0.58f), Rgba.White);
+        }
+
+        /// <summary>
+        /// A locked item's badge (the Wardrobe's outfit cards): a domed cream disc in a <c>cream.line</c> ring with the
+        /// brown padlock, over a soft shadow, where the worn item's check would be.
+        /// </summary>
+        public static void LockBadge(IPainter p, float cx, float cy, float size)
+        {
+            p.Mark("ui.lock");
+            float ring = size * 0.08f;
+            Box outer = Box.FromCenter(cx, cy, size + (2f * ring), size + (2f * ring));
+            SoftShadow(p, outer, outer.Width / 2f, 0.25f, 0.06f);
+            p.FillCircle(cx, cy, outer.Width / 2f, C.CreamLine);
+            p.FillRoundGradient(Box.FromCenter(cx, cy, size, size), size / 2f, C.CreamTop, C.CreamFace);
+            p.Shape("ui.lock", Box.FromCenter(cx, cy, size * 0.56f, size * 0.56f), C.InkBrown);
+        }
+
+        /// <summary>
+        /// The Wardrobe's name card (§6.5, the reference Wardrobe; <c>mat.parchment</c>): a wide parchment card whose middle
+        /// rises into a tab (<paramref name="tab"/>: rounded top corners, flowing into the card) carrying
+        /// <paramref name="name"/> in <c>type.title</c> <c>ink.title</c>. The card's body starts at the tab's middle and
+        /// runs to <paramref name="card"/>'s bottom, where the family tabs cover it. Never a touch target.
+        /// </summary>
+        public static void NameCard(IPainter p, Box card, Box tab, string name)
+        {
+            float line = p.U(DesignTokens.Garden.FrameWidth) * 0.8f;
+            var body = new Box(card.Left, tab.Top + (tab.Height * 0.42f), card.Right, card.Bottom);
+            float radius = Math.Min(body.Width, body.Height) * 0.16f;
+            Paper(p, body, radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard * 0.5f);
+
+            // The tab: the card's parchment rising above its edge, its face covering the card's outline under it and its own
+            // outline stopping where it meets the card.
+            float r = tab.Height * 0.34f;
+            Rgba join = C.ParchmentTop.Mix(C.ParchmentBottom, 0.08f);
+            var tall = new Box(tab.Left, tab.Top, tab.Right, body.Top + (tab.Height * 0.6f));
+            SoftShadow(p, new Box(tab.Left, tab.Top, tab.Right, body.Top), r, 0.12f, 0.04f);
+            p.PushClip(new Box(tab.Left - line, tab.Top - line, tab.Right + line, body.Top + (line * 2.5f)));
+            p.FillRoundGradient(tall, r, C.ParchmentTop.Lighten(0.2f), join);
+            p.PopClip();
+            p.PushClip(new Box(tab.Left - line, tab.Top - line, tab.Right + line, body.Top + (line * 0.5f)));
+            p.StrokeRound(tall.Inset(line / 2f), r - (line / 2f), line, C.ParchmentLine);
+            p.PopClip();
+
+            float scale = Math.Min(tab.Height * 0.62f, tab.Width * 0.13f) / p.U(T.Title.Size);
+            p.Text(name, tab.CenterX, tab.CenterY + (tab.Height * 0.04f), T.Title, C.InkTitle, tab.Width * 0.86f, scale, TextLook.Plain(C.InkTitle));
         }
 
         /// <summary>
