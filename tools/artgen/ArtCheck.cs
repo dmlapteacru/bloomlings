@@ -9,7 +9,9 @@ namespace Bloomlings.ArtGen
 {
     /// <summary>
     /// The art check (research R12): the committed pictures match a fresh render within tolerance, keep a transparent
-    /// margin, the launch characters differ in shape at small size, and the manifest matches the files.
+    /// margin, the launch characters differ in shape at small size, and the manifest matches the files. The owner's
+    /// pictures (spec 005 pictures.md A, recorded by <c>adopt</c>) are checked by size, margin, hash and source record
+    /// instead of a fresh render.
     /// </summary>
     public static class ArtCheck
     {
@@ -37,7 +39,12 @@ namespace Bloomlings.ArtGen
         /// <summary>How far a hero's face may lie from <see cref="CharacterArt.FaceCenterHero"/>, as a share of the picture.</summary>
         public const double FaceTolerance = 0.02;
 
-        public static List<string> Run(string folder, IReadOnlyList<string> all, IReadOnlyList<string> names)
+        /// <summary>
+        /// Runs the check over the art folder. <paramref name="all"/> is the generated set and <paramref name="names"/> the
+        /// pictures to re-render (<c>--only</c>); owner pictures are never re-rendered but checked by
+        /// <see cref="CheckOwner"/>. Hints that are not failures go to <paramref name="notes"/>.
+        /// </summary>
+        public static List<string> Run(string root, string folder, IReadOnlyList<string> all, IReadOnlyList<string> names, List<string> notes)
         {
             var problems = new List<string>();
 
@@ -59,21 +66,28 @@ namespace Bloomlings.ArtGen
             {
                 if (!listed.TryGetValue(file, out ManifestFile? entry))
                 {
-                    problems.Add($"{file} is not in {Manifest.FileName}");
+                    problems.Add($"{file} is not in {Manifest.FileName} (an owner picture: run adopt {file}; otherwise delete it)");
                 }
                 else if (entry.Sha256 != Manifest.Hash(Path.Combine(folder, file)))
                 {
-                    problems.Add($"{file}: the manifest hash is stale (run build)");
+                    problems.Add(entry.IsOwner
+                        ? $"{file}: the owner picture changed since it was adopted (run adopt {file} again)"
+                        : $"{file}: differs from its manifest hash (an owner picture: run adopt {file}; otherwise build --force)");
+                }
+                else if (entry.IsOwner)
+                {
+                    CheckOwner(root, folder, entry, all, problems);
                 }
             }
 
             foreach (string file in listed.Keys.Where(k => !present.Contains(k)))
             {
-                problems.Add($"{Manifest.FileName} lists {file}, which does not exist");
+                problems.Add($"{Manifest.FileName} lists {file}, which does not exist (run build)");
             }
 
-            // Each picture re-renders within tolerance and keeps its margin.
-            foreach (string name in names)
+            // Each generated picture re-renders within tolerance and keeps its margin.
+            var owner = new HashSet<string>(manifest.Files.Where(f => f.IsOwner).Select(f => Stem(f.Path)), StringComparer.Ordinal);
+            foreach (string name in names.Where(n => !owner.Contains(n)))
             {
                 string path = Path.Combine(folder, name + ".png");
                 if (!File.Exists(path))
@@ -97,9 +111,24 @@ namespace Bloomlings.ArtGen
                 }
             }
 
-            // The kit places worn expressions on the heroes' faces where the renderer draws them.
+            // The kit places worn expressions on the heroes' faces where the renderer draws them. An owner's hero has its
+            // face where the owner drew it, so the kit's place is then kept by hand.
             foreach (Family family in CharacterArt.Families)
             {
+                string hero = CharacterArt.Hero(family);
+                string blank = CharacterArt.Hero(family, blank: true);
+                if (owner.Contains(hero) != owner.Contains(blank))
+                {
+                    (string theirs, string generated) = owner.Contains(hero) ? (hero, blank) : (blank, hero);
+                    notes.Add($"{theirs}.png is the owner's but {generated}.png is generated: the Wardrobe shows the generated one under a worn expression (pictures.md A5)");
+                }
+
+                if (owner.Contains(hero))
+                {
+                    notes.Add($"{hero}.png is the owner's: CharacterArt.FaceCenterHero({family}) must sit on its face (set by hand, not checked)");
+                    continue;
+                }
+
                 (double x, double y) = Heroes3D.FaceCenter(family);
                 (float kx, float ky) = CharacterArt.FaceCenterHero(family);
                 if (Math.Abs(x - kx) > FaceTolerance || Math.Abs(y - ky) > FaceTolerance)
@@ -109,6 +138,52 @@ namespace Bloomlings.ArtGen
             }
 
             return problems;
+        }
+
+        /// <summary>A file's picture name: <c>3d/sprig.png</c> → <c>3d/sprig</c>.</summary>
+        public static string Stem(string path) => path.EndsWith(".png", StringComparison.Ordinal) ? path.Substring(0, path.Length - 4) : path;
+
+        /// <summary>The size the hosts expect of a picture: the generated set's and the celebrating heroes'; null for others.</summary>
+        public static (int Width, int Height)? ExpectedSize(string name, IReadOnlyList<string> all) =>
+            all.Contains(name) || CharacterArt.Families.Any(f => CharacterArt.Cheer(f) == name) ? CharacterArt.SizeOf(name) : null;
+
+        /// <summary>
+        /// Checks an owner picture (spec 005 pictures.md A) without re-rendering it: it lies in <c>3d/</c>, has the size
+        /// its entry lists and the hosts expect, keeps the transparent margin, and its source record exists. The caller
+        /// checks the hash.
+        /// </summary>
+        public static void CheckOwner(string root, string folder, ManifestFile entry, IReadOnlyList<string> all, List<string> problems)
+        {
+            string name = Stem(entry.Path);
+            if (!name.StartsWith("3d/", StringComparison.Ordinal))
+            {
+                problems.Add($"{entry.Path}: owner pictures are the 3D heroes in 3d/ (pictures.md A)");
+            }
+
+            (int w, int h, byte[] rgba) = Png.Decode(File.ReadAllBytes(Path.Combine(folder, entry.Path)));
+            if (w != entry.Width || h != entry.Height)
+            {
+                problems.Add($"{entry.Path}: {w} × {h}, the manifest says {entry.Width} × {entry.Height}");
+            }
+
+            if (ExpectedSize(name, all) is (int ew, int eh) && (w != ew || h != eh))
+            {
+                problems.Add($"{entry.Path}: {w} × {h}, the hosts expect {ew} × {eh} (pictures.md A)");
+            }
+
+            CheckMargin(entry.Path, w, h, rgba, problems);
+            if (string.IsNullOrEmpty(entry.Record))
+            {
+                problems.Add($"{entry.Path}: no source record (adopt names one: the tool, the author and the licence)");
+            }
+            else if (entry.Record.StartsWith("../", StringComparison.Ordinal) || Path.IsPathRooted(entry.Record))
+            {
+                problems.Add($"{entry.Path}: its source record {entry.Record} must be a file in the repository");
+            }
+            else if (!File.Exists(Path.Combine(root, entry.Record)))
+            {
+                problems.Add($"{entry.Path}: its source record {entry.Record} does not exist (write it first: the tool, the author and the licence)");
+            }
         }
 
         /// <summary>
@@ -151,13 +226,19 @@ namespace Bloomlings.ArtGen
                 problems.Add($"{name}: {differing} pixels differ from a fresh render (worst {worst}); run build or review the tool change");
             }
 
+            CheckMargin(name, w, h, committed, problems);
+        }
+
+        /// <summary>Checks the transparent border of <see cref="Margin"/> on every side of straight-alpha RGBA rows.</summary>
+        public static void CheckMargin(string name, int w, int h, byte[] rgba, List<string> problems)
+        {
             int border = (int)Math.Ceiling(Margin * Math.Min(w, h));
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
                 {
                     bool edge = x < border || y < border || x >= w - border || y >= h - border;
-                    if (edge && committed[(((y * w) + x) * 4) + 3] > 8)
+                    if (edge && rgba[(((y * w) + x) * 4) + 3] > 8)
                     {
                         problems.Add($"{name}: not transparent at ({x}, {y}) inside the {Margin:P0} margin");
                         return;

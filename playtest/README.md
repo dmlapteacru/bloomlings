@@ -34,21 +34,28 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   - a splash (frame 1), then Level 1 on the very first launch and Home later;
   - Home in its early look (frame 2) and, once the features unlock, the progressed look (frame 3): hero, Wardrobe and
     Collection buttons, "N levels to reward", the rank row (offline) and the Daily Challenge card;
-  - the level (frames 7–9): round Pause, the LEVEL pill with the HARD or SUPER HARD badge, 2×, the board with raised
-    tiles and variant symbols, the Waiting Slots, the Source Tray and the booster bar, with the pod, slot and booster
-    states of frames 12–14;
+  - the level (frames 7–9): the cream Pause, the wooden level sign with ivy and the HARD or SUPER HARD badge, the cream
+    2× pill, the board of candy tiles in its stone border, the Waiting Slots, the Source Tray and the booster bar, with
+    the pod, slot and booster states of frames 12–14;
   - cards: pause and Settings (frame 11), the jam bottom sheet (frame 10), the win card (frame 15), the milestone card
     (frame 16), the Daily Reward (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and
     the Store (frame 17).
 
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
-  `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the cartoon "Garden" look of spec 003
-  (`specs/003-cartoon-ui-style/`): buttons on cream plates with sentence-case labels in Nunito (embedded from
-  `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL), cards in wooden frames, a volumetric 2D board, pods and
-  slots and booster tiles. The Bloomlings are the generated character art of spec 004 (`specs/004-character-art/`),
-  embedded from `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: 2D characters whose shape is the
-  variant symbol on pods and slots with "xN" (asleep while queued, worried when stuck), as walkers and on light tinted
-  tiles; 3D heroes on the splash, Home, the win and milestone cards and the leaderboard row. The level tester keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show
+  `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the reference look of spec 005
+  (`specs/005-reference-look/`, recipes in `contracts/look.md`) on the spec 003 Garden kit: sentence-case labels in
+  Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); glossy green main buttons in a light
+  wood rim, cream secondary and round buttons; wooden signs; parchment cards with a cream round close; the board as
+  candy tiles in a stone border with stone arch entries on a lawn; wooden pods and cream Waiting Slots, both holding
+  the variant's candy tile and its plain count; cream booster tiles with green count badges; Petals as a pink lotus.
+  Material pictures (planks, frames, stones, arch, pedestal, candy tiles) come from the kit's `UiRaster` through
+  `IPainter.Picture`, cached by key and size; `BoardLayout` places the board. The Bloomlings are the generated
+  character art of spec 004 (`specs/004-character-art/`), embedded from
+  `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: 2D characters whose shape is the variant symbol, as
+  walkers and on the Bloomlings sheet; 3D heroes on the splash, Home, the win and milestone cards and the leaderboard
+  row. The owner's pictures (`specs/005-reference-look/pictures.md`) are embedded from `Art/Backgrounds/` and
+  `Art/Brand/` when they exist, and replace the drawn backdrop or wordmark. The level tester keeps the system font and
+  its minimal look. There are no ads or real-money purchases here, so those buttons show
   as unavailable, and the jam rescue is granted without an ad. A small dev row on Home (−1, +1, +10, Reset) moves the
   progression for testing.
 - Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):
@@ -64,13 +71,14 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 - Demos once each, with the Unity client's texts (`Strings_en.csv`, embedded): the Level 1 tap hint, each booster at
   its unlock, each mechanic the first time a level uses it, a new variant, and "Match the exact symbol".
 
-The Wardrobe screen and the Daily Challenge are not in the playtest (their Home buttons say so); sign-in, cloud save,
-ads and analytics live in the Unity client.
+The Wardrobe screen and the Daily Challenge are not in the playtest (their Home buttons say so; the Store's cosmetics
+tab takes the Wardrobe's look, frame 26); sign-in, cloud save, ads and analytics live in the Unity client.
 
 ## Preview without a phone
 
 `dotnet run --project playtest/preview` renders the full playtest's screens with SkiaSharp. It writes one PNG per
-design board frame (1–17) plus extras (themes, Settings, a Collection picture, a demo, boosters in use) at 16:9,
+design board frame (1–17) plus extras 18–26 (themes, Settings, a Collection picture, a demo, boosters in use, the
+Bloomlings sheet, 25 the reference-look kit sheet and 26 the Store cosmetics in the Wardrobe look) at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the
 safe area. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset slot registry.

@@ -168,11 +168,31 @@ The cartoon look of `specs/003-cartoon-ui-style/` extends the same kit (`DesignT
 - `UiFonts` makes runtime TextMeshPro font assets from `UI/Fonts/Resources/Nunito-ExtraBold.ttf` and
   `Nunito-SemiBold.ttf` (SIL OFL, `OFL.txt` beside them), and one shared material per font and label look (outline
   plus a hard underlay for the extrusion). If a font cannot be loaded, labels keep the TextMeshPro default font.
-- Cards and the jam sheet are paper in a wooden frame (`UiKit.Paper`) with a header band; the board cells, pods and
-  slot wells are volumetric 2D; the booster bar shows booster tiles with every state.
+- Cards, the jam sheet, the board, pods, slots and booster tiles took the reference look of spec 005 (below); the
+  booster tiles keep every state.
 
 Check on a device that the labels use Nunito with their outline and extrusion, and that the profiler shows no new
 material per label.
+
+## Reference look (spec 005)
+
+`specs/005-reference-look/` restyles every screen after the owner's reference (`reference.jpg`), keeping the spec 002
+layouts, the order of elements and every rule (recipes in `contracts/look.md`):
+- `UiRaster` (kit, engine-free) renders the materials as straight-alpha RGBA pictures, deterministic: wood planks and
+  pod frames, stone blocks, the arch, the pedestal and the candy tiles. `ProceduralSprites.Picture` turns them into
+  cached sprites (9-sliced where needed, one per key and size); `PicturePixels` flips the rows and bleeds the edges.
+- `UiKit` (`UiKit.cs`, `UiKitGarden.cs`, `UiKitGameplay.cs`, `UiKitCards.cs`, `UiKitMeta.cs`, `UiKitViews.cs`) holds the
+  twins of the playtest's `Kit.*` components under the same names (`WoodSign`, `PrimaryButton` in its wood rim,
+  `SpeedPill`, `ChoiceButton`, `CountBadge`, `CostPill`, `PetalsPill`, `Paper`, `Card`, `PodFrame`, `SlotPlate`,
+  `BoosterTile`, `StoneBorder`, `StoneArch`, `StonePedestal`, `LightRays`, `FallingPetals`, `WoodLogo`, `OutfitCard`).
+- The board is candy tiles in a stone border on a lawn: `BoardLayout` (kit) places the grid, the border and the arch
+  entries for `BoardView`, and `BoardPictures` draws the restored ground, stone obstacles and the finished picture (win,
+  Collection). Pods are wooden frames and Waiting Slots cream plates, both holding the variant's candy tile and its
+  plain count; the 2D characters stay as the walkers.
+- The owner's pictures (`specs/005-reference-look/pictures.md`) load through `OwnerArt` from
+  `Art/Backgrounds/Resources/Backgrounds/` and `Art/Brand/Resources/Brand/` by the names in `OwnerPictures`; the 3D
+  heroes and the optional celebrating heroes load from `Art/Characters/Resources/Characters/3d/` (`CharacterSprites`,
+  `HeroPictures`), where `tools/artgen -- adopt` records them. The drawn stand-in shows while a file is missing.
 
 ## Localization
 

@@ -63,6 +63,11 @@ Rules:
 - Every file in the folder is listed, and every listed file exists with the same sha256.
 - The set is complete: 12 icons × 4 moods + 4 families × 2 + the group = 57 files.
 - `OriginalityTests` accepts exactly the listed files (research R15).
+- *(Added by spec 005, pictures.md A.)* An owner picture in `3d/` (a hero, the group or a celebrating hero
+  `3d/{family}-cheer.png`) is recorded by `tools/artgen -- adopt` with `"source": "owner"` and `"record"` (the repository
+  path of its source record: tool, author, licence). `build` keeps it, `check` verifies its hash, size, margin and
+  record instead of a fresh render, and `OriginalityTests` accepts it only while its record exists. The 57 names stay
+  complete, each generated or the owner's.
 
 ## CharacterTile (board)
 

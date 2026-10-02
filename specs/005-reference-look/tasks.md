@@ -11,20 +11,20 @@
 
 ## Phase 2: Foundational (blocks every story)
 
-- [ ] T003 Add the material and UI tokens of contracts/look.md §1.2 to `DesignTokens.Colors` (and its `All` map) and
+- [X] T003 Add the material and UI tokens of contracts/look.md §1.2 to `DesignTokens.Colors` (and its `All` map) and
   retune `ButtonPrimary`; add `GardenLook.Blue` (jam), `Orange`, cream `White` in
   `client/Assets/Bloomlings/UI/Design/DesignTokens.cs` and `GardenLook.cs`
-- [ ] T004 Add `client/Assets/Bloomlings/UI/Design/UiRaster.cs` (plank, frame, stone, candy tile; deterministic,
+- [X] T004 Add `client/Assets/Bloomlings/UI/Design/UiRaster.cs` (plank, frame, stone, candy tile; deterministic,
   straight alpha) with EditMode tests in `client/Assets/Bloomlings/Tests/EditMode/UiRasterTests.cs`
-- [ ] T005 Add the picture primitive: `IPainter.Picture`, `PainterBase`, `playtest/preview/SkiaPainter.cs`,
+- [X] T005 Add the picture primitive: `IPainter.Picture`, `PainterBase`, `playtest/preview/SkiaPainter.cs`,
   `playtest/android/Design/AndroidPainter.cs`; `ProceduralSprites.Picture` in Unity (+ stubs)
-- [ ] T006 Redraw the variant symbols and add the lotus, booster icons, `ui.fast`, `ui.back`, ivy and flower cluster
+- [X] T006 Redraw the variant symbols and add the lotus, booster icons, `ui.fast`, `ui.back`, ivy and flower cluster
   shapes in `client/Assets/Bloomlings/UI/Design/ShapeLibrary.cs`
-- [ ] T007 Restyle and add the kit components in `playtest/design/Kit.cs` (§3) and their twins in
+- [X] T007 Restyle and add the kit components in `playtest/design/Kit.cs` (§3) and their twins in
   `client/Assets/Bloomlings/UI/UiKit.cs`
-- [ ] T008 Background and logo picture hooks with fallbacks (playtest embeds `Art/Backgrounds`, `Art/Brand`; Unity
+- [X] T008 Background and logo picture hooks with fallbacks (playtest embeds `Art/Backgrounds`, `Art/Brand`; Unity
   `BackdropView`, Home logo) and the new asset slots in `AssetSlots.cs`
-- [ ] T009 A kit sheet preview frame (`playtest/preview/Fixtures.cs`) showing every component like the reference's
+- [X] T009 A kit sheet preview frame (`playtest/preview/Fixtures.cs`) showing every component like the reference's
   UI strip
 
 ## Phase 3: User Story 1 — board and tray (P1)
@@ -32,21 +32,21 @@
 - [X] T010 [US1] Lawn backdrop scene in `BackdropRaster.cs`
 - [X] T011 [US1] Board: candy tiles, stone border, stone arch entries, pale restored ground, obstacles in
   `playtest/design/BoardPainter.cs`
-- [ ] T012 [US1] Pods, slots, booster bar, top bar in `PodPainter.cs`, `SlotPainter.cs`, `BoosterBarPainter.cs`,
+- [X] T012 [US1] Pods, slots, booster bar, top bar in `PodPainter.cs`, `SlotPainter.cs`, `BoosterBarPainter.cs`,
   `LevelScreen.cs`
 - [X] T013 [US1] Unity: `TileView`, `BoardView`, `SpecialView`, `FinishedPictureRenderer`, `SlotRowView`, `PodView`,
   `TrayView`, `BoosterBar`, `GameplayHud`, `BackdropView`
 
 ## Phase 4: User Story 2 — buttons, cards, popups (P2)
 
-- [ ] T014 [US2] Jam sheet, pause, settings, store, daily reward, collection, leaderboard, themes in
+- [X] T014 [US2] Jam sheet, pause, settings, store, daily reward, collection, leaderboard, themes in
   `playtest/design/EndCards.cs`, `MenuCards.cs`, `MetaCards.cs`; jam and win strings in `Strings_en.csv`
 - [X] T015 [US2] Unity: `JamScreen`, `PauseScreen`, `SettingsScreen`, `StoreScreen`, `DailyRewardPopup`,
   `DailyChallengeScreen`, `CollectionScreen`, `LeaderboardScreen`
 
 ## Phase 5: User Story 3 — celebration and meta (P3)
 
-- [ ] T016 [US3] Win and milestone (sign, full-color picture, pedestal, rays, petals, reward pill) in `EndCards.cs`
+- [X] T016 [US3] Win and milestone (sign, full-color picture, pedestal, rays, petals, reward pill) in `EndCards.cs`
 - [X] T017 [US3] Home and splash (wooden logo, level plaque, Play, pedestal) in `HomeScreen.cs`
 - [X] T018 [US3] Unity: `WinScreen`, `MilestoneCard`, `HomeScreen`, `SplashScreen`, `WardrobeScreen`, `ProfileAvatar`
 
@@ -56,7 +56,7 @@
 
 ## Phase 7: Polish
 
-- [ ] T020 Re-render the 2D characters (`tools/artgen -- build --only 2d`) and pass `-- check`
+- [X] T020 Re-render the 2D characters (`tools/artgen -- build --only 2d`) and pass `-- check`
 - [X] T021 Side-by-side review of every preview frame against the reference; fix what differs
   - Playtest and engine-free kit done (art director's review): bigger embossed board beads, pillowy tiles, darker ink and
     `ink.title`, a warm scrim, a sunny lawn, cream booster bezels, bigger pod counts, near-rectangular border stones,
@@ -74,6 +74,31 @@
     (`HomeStage.Garden`), the wooden logo's mossy band with leaves and pink flowers, and one shared outfit card
     (`UiKit.OutfitCard`, the Store and the Wardrobe). Checked with the client check and the uGUI simulator; the look in
     the Unity Editor and on a device stays with the checklists (`specs/001-core-game-mvp/checklists/`).
-- [ ] T022 Regenerate `specs/002-ux-design-board/asset-inventory.md`; update `CLAUDE.md`, `playtest/README.md`,
+- [X] T022 Regenerate `specs/002-ux-design-board/asset-inventory.md`; update `CLAUDE.md`, `playtest/README.md`,
   `client/README.md`; mark spec 004 FR-008, FR-009, FR-012 replaced
+  - Also: spec 003 FR-006, FR-009 (titles), FR-013, FR-014, FR-015, FR-022, FR-023 and FR-031 marked as amended (looks
+    only); the spec 002 token contracts carry the current greens and the new tokens; `pictures.md` names every slot
+    (`bg.wardrobe` and `brand.tagline` registered) and the owner-picture flow of `tools/artgen` (`adopt`, the `owner`
+    flag in `manifest.json`).
 - [ ] T023 Run every suite (core, client check, backend, playtest check, preview, art check, Android type-checks)
+  - Left for the final run after the review round below, on the merged branch.
+
+## Review round (2026-10-02)
+
+Three reviewers (regressions, performance, conventions) checked the finished tasks; this round fixes what they
+confirmed:
+- Regressions (code): in Unity the jam sheet covered the Pause card (their order); Pause could not be reached over the
+  win card in either build, so Home, Restart and Settings were gone there (FR-002: Pause stays usable, look.md §4.4);
+  the Unity board could keep the previous level's restored ground.
+- Performance (code): the full-resolution readable ground texture, the Collection thumbnails and the 1024 px light-ray
+  picture built on Unity's main thread, and Unity's unbounded picture cache; in the playtest, the win card redrawing for
+  as long as it is open (it now rests after a celebration of about 8 s), the ivy and flower clusters rasterized as
+  separate masks (now baked), the lawn backdrop rendered on the UI thread, the picture cache dropping everything at
+  once (now least recently used first), the allocations of every picture draw, and fades and flights that animated
+  picture sizes instead of transforms.
+- Conventions (docs, registry, strings): the link palette and the win layout sizes as tokens (`state.link_2`/`_3`,
+  `size.win_*`); `bg.wardrobe` and `brand.tagline` registered; owner pictures in the artgen folder (`adopt`);
+  the task marks, the spec 003 and 004 amendment marks, the token contracts, the look contract's numbers (§3.7, §5),
+  `CLAUDE.md` and both READMEs; four unused strings removed (`jam.free_rescue`, `jam.rescue`, `wardrobe.none`,
+  `wardrobe.tab_bloomlings`), and `LocalizationTests` now also checks keys chosen by a condition, the family-built keys
+  and the playtest's keys.

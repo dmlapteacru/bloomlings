@@ -1,5 +1,6 @@
 // The character art generator of spec 004 (contracts/art-files.md).
 // Usage: dotnet run --project tools/artgen -- build|check|sheet|faces [--only 2d|3d|experiments|<picture>]
+//        dotnet run --project tools/artgen -- adopt <picture> [--record <file>]   (an owner picture, spec 005 pictures.md A)
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -11,11 +12,26 @@ using Bloomlings.Core.Variants;
 
 string command = args.Length > 0 ? args[0] : "check";
 string? only = null;
+string? record = null;
+bool force = false;
+var operands = new List<string>();
 for (int i = 1; i < args.Length; i++)
 {
     if (args[i] == "--only" && i + 1 < args.Length)
     {
         only = args[++i];
+    }
+    else if (args[i] == "--record" && i + 1 < args.Length)
+    {
+        record = args[++i];
+    }
+    else if (args[i] == "--force")
+    {
+        force = true;
+    }
+    else
+    {
+        operands.Add(args[i]);
     }
 }
 
@@ -33,20 +49,42 @@ switch (command)
 {
     case "build":
     {
+        // Never overwrite the owner's pictures: the adopted ones, and a file changed since the last build (an owner picture
+        // not adopted yet). --force overwrites the latter.
         var clock = Stopwatch.StartNew();
+        Manifest previous = Manifest.Read(folder);
+        var written = new HashSet<string>(StringComparer.Ordinal);
+        int kept = 0;
+        int foreign = 0;
         foreach (string name in names)
         {
             string file = Path.Combine(folder, name + ".png");
+            ManifestFile? entry = previous.Find(name + ".png");
+            if (File.Exists(file) && entry?.IsOwner == true)
+            {
+                Console.WriteLine($"{name}.png kept (the owner's picture)");
+                kept++;
+                continue;
+            }
+
+            if (File.Exists(file) && !force && (entry == null ? previous.Files.Count > 0 : entry.Sha256 != Manifest.Hash(file)))
+            {
+                Console.WriteLine($"SKIP {name}.png: it changed since the last build. An owner picture: run adopt {name}; otherwise delete it or build --force.");
+                foreign++;
+                continue;
+            }
+
             Directory.CreateDirectory(Path.GetDirectoryName(file)!);
             File.WriteAllBytes(file, ArtSet.Render(name));
+            written.Add(name);
             Console.WriteLine($"{name}.png ({clock.Elapsed.TotalSeconds:0.0} s)");
         }
 
         if (names.Count > 0)
         {
-            Manifest manifest = Manifest.Write(folder, CharacterArt.SlotOf);
+            Manifest manifest = Manifest.Write(folder, all, written, CharacterArt.SlotOf);
             long bytes = manifest.Files.Sum(f => new FileInfo(Path.Combine(folder, f.Path)).Length);
-            Console.WriteLine($"wrote {names.Count} pictures; the set has {manifest.Files.Count} files, {bytes / 1024} KB");
+            Console.WriteLine($"wrote {written.Count} pictures{(kept > 0 ? $", kept {kept} of the owner's" : string.Empty)}; the set has {manifest.Files.Count} files, {bytes / 1024} KB");
         }
 
         if (leafling)
@@ -57,12 +95,13 @@ switch (command)
             Console.WriteLine($"{CharacterArt.Leafling}.png ({clock.Elapsed.TotalSeconds:0.0} s)");
         }
 
-        return 0;
+        return foreign == 0 ? 0 : 1;
     }
 
     case "check":
     {
-        List<string> problems = names.Count > 0 ? ArtCheck.Run(folder, all, names) : new List<string>();
+        var notes = new List<string>();
+        List<string> problems = names.Count > 0 ? ArtCheck.Run(root, folder, all, names, notes) : new List<string>();
         if (leafling)
         {
             if (File.Exists(leaflingFile))
@@ -75,13 +114,48 @@ switch (command)
             }
         }
 
+        foreach (string note in notes)
+        {
+            Console.WriteLine("NOTE " + note);
+        }
+
         foreach (string problem in problems)
         {
             Console.WriteLine("FAIL " + problem);
         }
 
-        Console.WriteLine(problems.Count == 0 ? $"art check: OK ({names.Count + (leafling ? 1 : 0)} pictures)" : $"art check: {problems.Count} problem(s)");
+        int owners = Manifest.Read(folder).Files.Count(f => f.IsOwner);
+        string theirs = owners > 0 ? $"; {owners} owner picture(s) checked as adopted" : string.Empty;
+        Console.WriteLine(problems.Count == 0 ? $"art check: OK ({names.Count + (leafling ? 1 : 0)} pictures{theirs})" : $"art check: {problems.Count} problem(s)");
         return problems.Count == 0 ? 0 : 1;
+    }
+
+    case "adopt":
+    {
+        // Records the owner's picture (spec 005 pictures.md A) so that build keeps it and check accepts it.
+        if (operands.Count != 1)
+        {
+            Console.WriteLine("usage: adopt <picture> [--record <file>]   e.g. adopt 3d/sprig-cheer.png --record " + Adopt.DefaultRecord);
+            return 2;
+        }
+
+        string recordPath = record ?? Adopt.DefaultRecord;
+        string recordFull = Path.IsPathRooted(recordPath) ? recordPath : File.Exists(Path.Combine(root, recordPath)) ? Path.Combine(root, recordPath) : Path.GetFullPath(recordPath);
+        var problems = new List<string>();
+        ManifestFile? adopted = Adopt.Run(root, folder, all, operands[0], Path.GetRelativePath(root, recordFull), problems);
+        foreach (string problem in problems)
+        {
+            Console.WriteLine("FAIL " + problem);
+        }
+
+        if (adopted == null)
+        {
+            Console.WriteLine("not adopted; see tools/artgen/README.md (\"The owner's pictures\")");
+            return 1;
+        }
+
+        Console.WriteLine($"adopted {adopted.Path} ({adopted.Width} × {adopted.Height}, slot {adopted.Slot}, record {adopted.Record}); commit it with {Manifest.FileName} and the record");
+        return 0;
     }
 
     case "sheet":
@@ -106,7 +180,7 @@ switch (command)
     }
 
     default:
-        Console.WriteLine("usage: build | check | sheet | faces [--only 2d|3d|experiments|<picture>]");
+        Console.WriteLine("usage: build [--force] | check | sheet | faces [--only 2d|3d|experiments|<picture>]; adopt <picture> [--record <file>]");
         return 2;
 }
 

@@ -252,7 +252,8 @@ in spec 002.
 
 #### B. The garden recipe (all styled elements)
 
-- **FR-006 Plate**: Every button, pill and round button MUST lie on a flat plate:
+- **FR-006 Plate** *(amended by spec 005 FR-007: main action buttons sit in a light wood rim instead of the cream
+  plate, and round buttons are single cream cushions)*: Every button, pill and round button MUST lie on a flat plate:
   - the plate is cream, with a thin brown outline;
   - it has a small visible thickness below it and a soft drop shadow;
   - its edge shows evenly around the button.
@@ -276,7 +277,8 @@ in spec 002.
     - a short extrusion below, of about 9% of the letter height;
     - a soft shadow.
   - **On cream faces.** Labels stay dark brown, with no extrusion.
-  - **Titles.** Titles on card headers use the colored-face style at display size.
+  - **Titles.** Titles on card headers use the colored-face style at display size. *(Amended by spec 005 FR-015:
+    card titles are brown, or on a wooden sign.)*
 - **FR-010 Icons**:
   - On colored faces, icons are light glyphs. On light faces, they are dark glyphs.
   - The ▶ on PLAY MUST be as tall as the letters and follow the label's style.
@@ -298,13 +300,16 @@ in spec 002.
   - **disabled:** greyed, with no highlight and no press.
 
   The states MUST differ by shape (lip depth, highlight) as well as by color.
-- **FR-013 Pills and counters**: The Petals pill, the level pill and the 2× pill MUST follow the recipe. The Petals
+- **FR-013 Pills and counters** *(amended by spec 005 FR-008 and FR-009: the gameplay level is a wooden sign with
+  ivy, and the Petals and 2× pills are cream)*: The Petals pill, the level pill and the 2× pill MUST follow the recipe. The Petals
   "+" MUST be a small round green button on its own plate.
-- **FR-014 Badges**: Badges MUST be outlined and readable at their small size:
+- **FR-014 Badges** *(look of counts and prices amended by spec 005 FR-009: dark green count badges with a white ring,
+  cream cost pills with the lotus)*: Badges MUST be outlined and readable at their small size:
   - **HARD and SUPER HARD:** small raised pills on plates;
   - **counts:** white numbers on a round dark brown badge with a cream ring;
   - **prices:** a cream tag with the Petal symbol and the number.
-- **FR-015 Cards and the sheet**: Popup cards and the jam sheet MUST have:
+- **FR-015 Cards and the sheet** *(look amended by spec 005 FR-015: parchment with a brown outline, a brown title or a
+  wooden sign, and a cream round close; kept here as history)*: Popup cards and the jam sheet MUST have:
   - cream paper in a wooden frame, with a thickness below and a soft shadow;
   - a colored header band shaped like a button on a plate, with the title in volumetric letters;
   - a red round close button on a plate, where closing is allowed.
@@ -333,7 +338,9 @@ in spec 002.
 
 #### E. Gameplay pieces (User Story 3)
 
-- **FR-022**: The pods and the Waiting Slots MUST be volumetric, drawn in 2D and never 3D:
+- **FR-022** *(look amended by spec 005 FR-013: pods are wooden frames and Waiting Slots cream plates, both holding the
+  variant's candy tile and its count; still 2D, with every state)*: The pods and the Waiting Slots MUST be volumetric,
+  drawn in 2D and never 3D:
   - pods have a thick lip, a bevel and a highlight, and stacks show their layers;
   - slots are sunk wells in a frame like the board's.
 
@@ -348,13 +355,15 @@ in spec 002.
   the exposed pods are bright and take taps. Deeper pods are not drawn; a "+N" count badge on the last shown pod says
   how many more wait there. Tray pods are smaller than before to fit three rows, and the board keeps its share of the
   screen (spec 002 data-model rule 3).
-- **FR-023**: The board and its cells MUST be volumetric but drawn in 2D:
+- **FR-023** *(frame and cells amended by spec 005 FR-010 and FR-011: candy tiles in a stone border on a lawn)*: The
+  board and its cells MUST be volumetric but drawn in 2D:
   - the board sits in a wooden frame;
   - each cell is a raised block in its own color, with a thicker lip, a bevel and a soft highlight.
 
   The board stays board-dominant and calm. The lip, bevel and highlight MUST NOT cover a cell's symbol. They MUST NOT
   make neighboring cells look joined or partially occupied (constitution II).
-- **FR-031 Booster tiles**: Each booster MUST be a tile: a rounded-square cream plate, a raised tile in the booster's
+- **FR-031 Booster tiles** *(look amended by spec 005 FR-014: a cream tile with the booster's colored icon and a green
+  count badge at its lower right; its states stay)*: Each booster MUST be a tile: a rounded-square cream plate, a raised tile in the booster's
   color, and a large light icon. It MUST show these states, each by shape or symbol as well as by color:
   - **charges:** a round dark brown badge in the top corner with "×N";
   - **no charges:** a cream price tag below, with the Petal symbol and the price, and a small green "+" in the corner

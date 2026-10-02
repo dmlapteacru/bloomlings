@@ -74,7 +74,10 @@ namespace Bloomlings.Content.Tests
             Assert.That(unrecorded, Is.Empty);
         }
 
-        /// <summary>Whether a folder record (<c>| `path/` |</c>) covers a file: its <c>manifest.json</c> lists it.</summary>
+        /// <summary>
+        /// Whether a folder record (<c>| `path/` |</c>) covers a file: its <c>manifest.json</c> lists it, and an owner
+        /// picture there (spec 005 pictures.md A) also names an existing source record of its own.
+        /// </summary>
         private static bool ListedByFolder(string record, string file)
         {
             string folder = record.Split('`')[1];
@@ -83,7 +86,7 @@ namespace Bloomlings.Content.Tests
                 return false;
             }
 
-            return CharacterArtTests.ListedFiles(Path.Combine(RepositoryRoot, folder)).Contains(file.Substring(folder.Length));
+            return CharacterArtTests.RecordedFiles(Path.Combine(RepositoryRoot, folder), RepositoryRoot).Contains(file.Substring(folder.Length));
         }
 
         /// <summary>Whether a licence record's last column names an existing licence file.</summary>

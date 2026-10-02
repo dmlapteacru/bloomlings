@@ -18,3 +18,8 @@ material, was traced, copied or used as input.
 `manifest.json` in the art folder lists every generated file with its SHA-256. The originality test of the content
 suite accepts exactly those files, and `dotnet run --project tools/artgen -- check` proves they still come from this
 tool.
+
+The owner's own 3D pictures (spec 005 `pictures.md` section A) may sit in the same folder. They are not covered by this
+record: `adopt` lists each one in `manifest.json` with `"source": "owner"` and its own source record (`"record"`, for
+example `models/owner-pictures.md`: the tool, the author and the licence), and the originality test accepts it only
+while that record exists (README, "The owner's pictures").

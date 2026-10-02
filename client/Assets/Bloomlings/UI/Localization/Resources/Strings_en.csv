@@ -77,10 +77,8 @@ milestone.reached,Milestone reached!
 milestone.continue,Continue
 jam.title,No more space!
 jam.stuck,No pod can move!
-jam.free_rescue,Free {0}
 jam.subtitle,All Waiting Slots are full. Choose a way to continue.
 jam.stuck_subtitle,Choose a way to continue.
-jam.rescue,Free rescue
 difficulty.hard,Hard
 difficulty.super_hard,Super Hard
 hud.pause,II
@@ -104,9 +102,7 @@ leaderboard.you,You
 leaderboard.anonymous,Gardener
 leaderboard.rank,#{0}
 wardrobe.title,Wardrobe
-wardrobe.none,None
 wardrobe.more,Milestones unlock more items
-wardrobe.tab_bloomlings,Bloomlings
 wardrobe.tab_profile,Profile
 wardrobe.kind_skin,Skins
 wardrobe.kind_hat,Hats

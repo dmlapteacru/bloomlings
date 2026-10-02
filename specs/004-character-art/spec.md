@@ -220,14 +220,16 @@ heroes, the screens keep their layout and buttons, and a worn hat or skin still 
 
 #### C. Pods, slots and walkers
 
-- **FR-008**: A pod MUST show its variant's character, large and centered, and the remaining count as "xN" in the
+- **FR-008** *(replaced by spec 005 FR-013: a pod is a wooden frame holding its variant's candy tile with the plain
+  count below it; kept here as history)*: A pod MUST show its variant's character, large and centered, and the remaining count as "xN" in the
   corner. The count MUST reach 3:1 contrast against the pod (spec 001 FR-072). This replaces the count pill and the
   symbol of spec 003 FR-022.
 
   The pod keeps every state of spec 002 FR-012 and spec 003 FR-022a: exposed, queued (muted, asleep), pressed,
   locked, mystery and connected. Spec 001 FR-012's order of prominence becomes: the character (icon and color in one),
   then the count, then the family. The icon and the color are carried by the same shape.
-- **FR-009**: A Waiting Slot holding a pod MUST show the same character and the "xN" count, with the working and stuck
+- **FR-009** *(replaced by spec 005 FR-013: a Waiting Slot is a cream plate holding the variant's candy tile and the
+  plain count; kept here as history)*: A Waiting Slot holding a pod MUST show the same character and the "xN" count, with the working and stuck
   states of spec 002 FR-013 (happy vs worried and greyed, with the hourglass).
 - **FR-010**: Walking Bloomlings MUST be small copies of their variant's character, happy, with a soft ground shadow.
   They wear their family's outfit (spec 001 FR-063).
@@ -236,16 +238,19 @@ heroes, the screens keep their layout and buttons, and a worn hat or skin still 
 
 #### D. The board
 
-- **FR-012**: Every target tile MUST be a light tile, lightly tinted toward its variant's color, with that variant's
+- **FR-012** *(replaced by spec 005 FR-010: every target tile is a saturated candy tile with its variant symbol
+  embossed, and no character stands on it; kept here as history)*: Every target tile MUST be a light tile, lightly tinted toward its variant's color, with that variant's
   character (happy) standing on it, fully inside its cell. This replaces:
   - the colored tiles with symbols of spec 002 FR-011;
   - spec 001 FR-005's "tiles show simple target symbols, never character faces";
   - doc 12 §7 "no hero faces in target tiles".
 
   This is the owner's decision (Clarifications).
-- **FR-013**: The board MUST still read as the level's picture (spec 001 FR-006). The tints and the characters'
+- **FR-013** *(amended by spec 005 FR-010: the candy tiles' colors follow the mapping; no character stands on a
+  tile)*: The board MUST still read as the level's picture (spec 001 FR-006). The tints and the characters'
   colors MUST follow the role-to-variant mapping, so that the subject is recognizable from the first second.
-- **FR-014**: Clearing MUST keep the restoration reveal of spec 001 FR-007. The character leaves, the finished picture
+- **FR-014** *(amended by spec 005 FR-010: the candy tile shrinks away instead of a character leaving)*: Clearing MUST
+  keep the restoration reveal of spec 001 FR-007. The character leaves, the finished picture
   shows in the cell, and open cells stay clearly distinct from active tiles. Stones, keys, hidden-layer peeks, mystery
   tiles and specials MUST keep their spec 002 and spec 003 looks.
 - **FR-015**: Every cell MUST stay unambiguous (constitution II). A character MUST NOT overlap a neighboring cell or
