@@ -225,9 +225,9 @@ namespace Bloomlings.Client.Art
 
         /// <summary>
         /// The win's light rays (spec 005 contracts/look.md §3.9, the playtest's <c>Kit.LightRays</c>) in a square picture
-        /// of side <paramref name="size"/>, in <paramref name="color"/> with straight alpha: a soft glow of two discs (0.42
-        /// and 0.24 of the radius) and ten rays from the center, alternately full and 0.7 wide, each five faint strokes to
-        /// the edge and five shorter ones. The Unity kit turns the picture 0.05 turn per second.
+        /// of side <paramref name="size"/>, in <paramref name="color"/> with straight alpha: a soft radial glow of eight faint
+        /// discs (0.06 to 0.48 of the radius) and ten rays from the center, alternately full and 0.7 wide, each five faint
+        /// strokes to the edge and five shorter ones. The Unity kit turns the picture 0.05 turn per second.
         /// </summary>
         public static byte[] LightRays(int size, Rgba color)
         {
@@ -247,8 +247,12 @@ namespace Bloomlings.Client.Art
                     float y = py + 0.5f - c;
                     float rho = (float)Math.Sqrt((x * x) + (y * y));
                     float clear = 1f;
-                    clear *= 1f - (0.18f * Clamp01(0.5f - (rho - (radius * 0.42f))));
-                    clear *= 1f - (0.22f * Clamp01(0.5f - (rho - (radius * 0.24f))));
+                    for (int disc = 7; disc >= 0; disc--)
+                    {
+                        // A soft radial glow: eight faint discs (0.06 to 0.48 of the radius), so no edge shows.
+                        clear *= 1f - (0.035f * Clamp01(0.5f - (rho - (radius * (0.06f + (0.06f * disc))))));
+                    }
+
                     if (rho <= radius + 1f)
                     {
                         double theta = Math.Atan2(y, x);
@@ -269,8 +273,8 @@ namespace Bloomlings.Client.Art
                                 double a = ray + (j * 0.034 * wide);
                                 float ux = (float)Math.Cos(a);
                                 float uy = (float)Math.Sin(a);
-                                clear *= 1f - (0.06f * Capsule(x, y, ux, uy, radius, radius * 0.025f * wide));
-                                clear *= 1f - (0.07f * Capsule(x, y, ux, uy, radius * 0.62f, radius * 0.0225f * wide));
+                                clear *= 1f - (0.09f * Capsule(x, y, ux, uy, radius, radius * 0.025f * wide));
+                                clear *= 1f - (0.11f * Capsule(x, y, ux, uy, radius * 0.62f, radius * 0.0225f * wide));
                             }
                         }
                     }

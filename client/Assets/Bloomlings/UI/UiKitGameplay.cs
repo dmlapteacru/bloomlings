@@ -130,17 +130,18 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A booster tile's body (§3.7, <c>booster.tile</c>; the playtest's <c>Kit.BoosterBezel</c>): a cream face set in a
-        /// silver-grey bezel (<see cref="GardenLook.BoosterRim"/>, light at the top, 6.5% of the tile), a deeper grey lip
-        /// along its bottom (8.5%), a lighter middle feathered into the face, a faint shade inside the face's top edge and a
-        /// light edge where the face meets the bezel, a dark warm grey outline and a soft shadow. The square is the
-        /// largest in the rect, its corners <paramref name="radius"/> of it. It presses like the kit's faces (the face sinks
-        /// into the lip and darkens); a disabled tile keeps its silver bezel and turns its face grey. Children go into
+        /// cream-white bezel with a faint silver tint (<see cref="GardenLook.BoosterRim"/>, light at the top, 6.5% of the
+        /// tile), a cream lip along its bottom (<see cref="GardenLook.BoosterLip"/>, 8.5%), a lighter middle feathered into
+        /// the face, a faint shade inside the face's top edge and a light edge where the face meets the bezel, a soft tan
+        /// outline (<see cref="GardenLook.BoosterLine"/>) and a soft shadow. The square is the largest in the rect, its
+        /// corners <paramref name="radius"/> of it. It presses like the kit's faces (the face sinks into the lip and
+        /// darkens); a disabled tile keeps its bezel and turns its face grey. Children go into
         /// <see cref="GardenButton.Content"/>: the face inside the bezel; <see cref="GardenButton.IconSide"/> is the tile's side.
         /// </summary>
         internal static GardenButton BoosterBezel(string name, Transform parent, Func<Box, float> radius, bool raycast)
         {
             Rgba rim = GardenLook.BoosterRim;
-            var set = new ColorSet("set.booster.bezel", rim.Lighten(0.22f), rim.Lighten(0.62f), rim.Darken(0.16f), rim.Mix(C.WoodLine, 0.3f).Darken(0.3f));
+            var set = new ColorSet("set.booster.bezel", rim.Lighten(0.22f), rim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
             GardenButton view = NewButton(name, parent, set, raycast);
             view.GreyWhenDisabled = false;
             bool Enabled() => view.Button == null || view.Button.interactable;

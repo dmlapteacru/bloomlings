@@ -23,8 +23,9 @@ namespace Bloomlings.Client.UI.Screens
     /// <list type="bullet">
     /// <item><description>The finished picture is revealed on the board first; then the card pops up over a scrim.</description></item>
     /// <item><description>A wooden "Level complete!" sign with white flower clusters lies across the card's top edge,
-    /// and above it the heroes celebrate on a stone pedestal in slowly turning light rays, with pink petals falling (the
-    /// owner's celebrating hero of the level's main family when that picture exists, pictures.md A7).</description></item>
+    /// and above it the heroes celebrate on a stone pedestal in slowly turning light rays, with pink petals falling and,
+    /// for the first seconds, a light sprinkle of confetti in the level's colors above the card (the owner's celebrating
+    /// hero of the level's main family when that picture exists, pictures.md A7).</description></item>
     /// <item><description>The card shows the finished picture in full color in a thin stone frame (a milestone level
     /// adds the "Milestone reached!" mark over its top edge), the Petals earned counting up in a cream pill with the lotus
     /// (and a dropped booster), Next in its wooden rim, decorated and breathing, and the optional "×2 reward" rewarded ad
@@ -65,6 +66,8 @@ namespace Bloomlings.Client.UI.Screens
         private Button _next = null!;
         private Button _double = null!;
         private RectTransform _petals = null!;
+        private RectTransform _confettiClip = null!;
+        private ConfettiView _confetti = null!;
 
         private (long Petals, Func<long, string> Format)? _pendingCount;
         private LevelReward? _model;
@@ -72,6 +75,9 @@ namespace Bloomlings.Client.UI.Screens
         private Vector3 _lotusAt;
         private Vector3 _pillAt;
         private float _pillWidth;
+
+        /// <summary>Raised when the card shows after the picture reveal (the gameplay top bar then fades out).</summary>
+        public event Action? Shown;
 
         public static WinScreen Create(Transform parent, Action onNext)
         {
@@ -111,6 +117,11 @@ namespace Bloomlings.Client.UI.Screens
             // Petals drift down around the heroes and over the card's top (fx.petals), above everything.
             screen._petals = (RectTransform)UiKit.FallingPetals("Petals", shade.transform).transform;
             UiKit.FadeInOnShow(screen._petals.gameObject, 1f, 0.5f);
+
+            // A light sprinkle of confetti in the level's colors, only in the heroes' room above the card (fx.confetti).
+            screen._confettiClip = UiFactory.CreateRect("ConfettiClip", shade.transform);
+            screen._confettiClip.gameObject.AddComponent<RectMask2D>();
+            screen._confetti = UiKit.Confetti("Confetti", screen._confettiClip);
             shade.gameObject.SetActive(false);
             return screen;
         }
@@ -179,6 +190,12 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _celebration.ShowHero(session != null ? HeroPictures.MainFamily(session.Definition.Pods) : (Family?)null);
+            _confettiClip.gameObject.SetActive(session != null);
+            if (session != null)
+            {
+                _confetti.SetColors(ConfettiView.ColorsOf(session.Definition.Pods));
+            }
+
             Layout(hasReward, drop.HasValue, doubleReward != null, session);
             host.StartCoroutine(ShowAfterReveal());
         }
@@ -258,12 +275,14 @@ namespace Bloomlings.Client.UI.Screens
             Box twice = ScreenLayout.CardButton(r.Body, next.Bottom + (26f * u), false, u).Inset(50f * u, 0f);
             UiKit.PlaceBox((RectTransform)_double.transform, twice, card);
             UiKit.PlaceScreen(_petals, new Box(safe.Left, safe.Top, safe.Right, Mathf.Min(card.Bottom, sign.Bottom + (260f * u))));
+            UiKit.PlaceScreen(_confettiClip, new Box(0f, 0f, w, card.Top));
         }
 
         private IEnumerator ShowAfterReveal()
         {
             yield return new WaitForSecondsRealtime(RevealSeconds);
             _root.SetActive(true);
+            Shown?.Invoke();
             _riseFade.alpha = 0f;
             if (_pendingCount.HasValue && _model != null && _reward.gameObject.activeSelf)
             {

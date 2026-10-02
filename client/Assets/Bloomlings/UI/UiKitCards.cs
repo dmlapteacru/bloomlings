@@ -202,4 +202,54 @@ namespace Bloomlings.Client.UI
             return lines;
         }
     }
+
+    /// <summary>
+    /// One close button per card stack (spec 005 T021, the playtest's <c>DesignApp.CardClose</c>): every popup card made
+    /// by <see cref="UiKit.Card"/> carries this on its backdrop, and while a card opened after it is open, its own cream
+    /// ✕ hides, so Settings over the pause card shows one ✕, not two stacked at the same edge. The open cards are kept
+    /// in the order they opened; the last one is on top.
+    /// </summary>
+    public sealed class CardStackMember : MonoBehaviour
+    {
+        private static readonly List<CardStackMember> Open = new List<CardStackMember>();
+        private GameObject? _close;
+
+        /// <summary>The card's close button (none for a card without one).</summary>
+        public GameObject? Close
+        {
+            get => _close;
+            set
+            {
+                _close = value;
+                Refresh();
+            }
+        }
+
+        /// <summary>Whether a card opened after this one is still open (its close button then hides).</summary>
+        public bool Covered => Open.Contains(this) && Open[Open.Count - 1] != this;
+
+        private void OnEnable()
+        {
+            Open.Remove(this);
+            Open.Add(this);
+            Refresh();
+        }
+
+        private void OnDisable()
+        {
+            Open.Remove(this);
+            Refresh();
+        }
+
+        private static void Refresh()
+        {
+            for (int i = 0; i < Open.Count; i++)
+            {
+                if (Open[i]._close != null)
+                {
+                    Open[i]._close!.SetActive(i == Open.Count - 1);
+                }
+            }
+        }
+    }
 }

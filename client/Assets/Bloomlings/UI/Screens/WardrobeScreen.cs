@@ -450,26 +450,35 @@ namespace Bloomlings.Client.UI.Screens
         {
             if (item == null || item.IsWorn)
             {
+                // The hero fills the well with its feet near the bottom, as on the Store's outfit cards.
+                Outfit worn = With(outfit, item?.Kind ?? _kind, item);
                 BloomlingFigure figure = BloomlingFigure.Create("Hero", well);
-                UiFactory.Stretch(figure.Rect);
                 figure.Body.raycastTarget = false;
-                figure.ShowHero(_selected, With(outfit, item?.Kind ?? _kind, item));
+                figure.ShowHero(_selected, worn);
+                OutfitCardView.PlaceHero(figure.Rect, well, hat: worn.Hat != null);
                 return;
+            }
+
+            // A profile item as its own mark, 80% of the well (the Store's previews, the playtest's MetaCards.Preview).
+            BoxLayout layout = BoxLayout.On(well);
+            Box Mark(Box w)
+            {
+                float size = Mathf.Min(w.Width, w.Height) * 0.8f;
+                return Box.FromCenter(w.CenterX, w.CenterY, size, size);
             }
 
             if (item.Kind == CosmeticKind.Frame)
             {
                 BloomlingFigure portrait = BloomlingFigure.Create("Hero", well);
-                UiFactory.Place(portrait.Rect, 0.16f, 0.16f, 0.84f, 0.84f);
                 portrait.Body.raycastTarget = false;
                 portrait.ShowHero(Family.Bloom, null);
+                layout.Add(portrait.Rect, w => Mark(w).Inset(Mark(w).Width * 0.16f));
             }
 
             Image mark = UiFactory.CreateImage("Item", well, Icon(item), BloomlingFigure.Tint(item));
             mark.preserveAspect = true;
             mark.raycastTarget = false;
-            float inset = item.Kind == CosmeticKind.Frame ? 0f : 0.08f;
-            UiFactory.Place(mark.rectTransform, inset, inset, 1f - inset, 1f - inset);
+            layout.Add(mark.rectTransform, w => item.Kind == CosmeticKind.Frame ? Mark(w) : Mark(w).Inset(Mark(w).Width * 0.08f));
         }
 
         /// <summary>An outfit with <paramref name="item"/> (or nothing) in <paramref name="kind"/>'s place.</summary>

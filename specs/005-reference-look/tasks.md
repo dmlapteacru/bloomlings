@@ -41,14 +41,14 @@
 
 - [ ] T014 [US2] Jam sheet, pause, settings, store, daily reward, collection, leaderboard, themes in
   `playtest/design/EndCards.cs`, `MenuCards.cs`, `MetaCards.cs`; jam and win strings in `Strings_en.csv`
-- [ ] T015 [US2] Unity: `JamScreen`, `PauseScreen`, `SettingsScreen`, `StoreScreen`, `DailyRewardPopup`,
+- [X] T015 [US2] Unity: `JamScreen`, `PauseScreen`, `SettingsScreen`, `StoreScreen`, `DailyRewardPopup`,
   `DailyChallengeScreen`, `CollectionScreen`, `LeaderboardScreen`
 
 ## Phase 5: User Story 3 — celebration and meta (P3)
 
 - [ ] T016 [US3] Win and milestone (sign, full-color picture, pedestal, rays, petals, reward pill) in `EndCards.cs`
 - [X] T017 [US3] Home and splash (wooden logo, level plaque, Play, pedestal) in `HomeScreen.cs`
-- [ ] T018 [US3] Unity: `WinScreen`, `MilestoneCard`, `HomeScreen`, `SplashScreen`, `WardrobeScreen`, `ProfileAvatar`
+- [X] T018 [US3] Unity: `WinScreen`, `MilestoneCard`, `HomeScreen`, `SplashScreen`, `WardrobeScreen`, `ProfileAvatar`
 
 ## Phase 6: User Story 4 — the owner's pictures (P4)
 
@@ -57,15 +57,23 @@
 ## Phase 7: Polish
 
 - [ ] T020 Re-render the 2D characters (`tools/artgen -- build --only 2d`) and pass `-- check`
-- [ ] T021 Side-by-side review of every preview frame against the reference; fix what differs
+- [X] T021 Side-by-side review of every preview frame against the reference; fix what differs
   - Playtest and engine-free kit done (art director's review): bigger embossed board beads, pillowy tiles, darker ink and
     `ink.title`, a warm scrim, a sunny lawn, cream booster bezels, bigger pod counts, near-rectangular border stones,
     arches on piers with lawn below, soft win rays, the group picture without its own base (`HomeStage.Celebration`),
     the win card animating while open, one close button per card stack, hats on the heroes' heads, the optional
-    celebrating heroes (`char.hero3d.cheer.*`). Left for the Unity twins (`UiKit*`): the playtest-only recipes
-    (`Kit.Card`/`Sheet` titles in `ink.title`, booster bezel lip and line, pod tile 62% and count ×1.05, border stone
-    radii and joints, arch piers via `EntryArch.Picture`, rays' radial glow, ivy outlines, charge pills, covered cards'
-    close, the win top bar fade, the group on `HomeStage.Celebration`).
+    celebrating heroes (`char.hero3d.cheer.*`).
+  - Unity twins mirrored (`UiKit*`, screens): `Kit.Card`/`Sheet` and the win sign's titles in `ink.title`, the Super
+    Hard sign letters darkened, booster bezel lip and line (also the Store's booster tiles), pod tile 62%, count ×1.05
+    and the darker sinking pressed pod, border stone radii, outlines and joints (board and win picture), arch piers via
+    `EntryArch.Picture` with the foot shadow, the vivid special blocks and their bigger counter, the rays' radial glow,
+    the softer ivy, charge pills with the booster icon, one close per card stack (`CardStackMember`), the lotus-first
+    daily reward pill, the win top bar fade, confetti only above the win and milestone cards (`UiKit.Confetti`), the
+    group on `HomeStage.Celebration` and the level's celebrating hero on the milestone too, hats on the heroes' heads,
+    the hero fallback in its family color, the flying pod as its sticker tile, the warm Home/splash/Wardrobe backdrop
+    (`HomeStage.Garden`), the wooden logo's mossy band with leaves and pink flowers, and one shared outfit card
+    (`UiKit.OutfitCard`, the Store and the Wardrobe). Checked with the client check and the uGUI simulator; the look in
+    the Unity Editor and on a device stays with the checklists (`specs/001-core-game-mvp/checklists/`).
 - [ ] T022 Regenerate `specs/002-ux-design-board/asset-inventory.md`; update `CLAUDE.md`, `playtest/README.md`,
   `client/README.md`; mark spec 004 FR-008, FR-009, FR-012 replaced
 - [ ] T023 Run every suite (core, client check, backend, playtest check, preview, art check, Android type-checks)

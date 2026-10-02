@@ -25,8 +25,9 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// The Home wordmark (spec 005 §4.5, pictures.md C1): the owner's logo picture fitted into the rect with its aspect
-        /// kept, or while it is missing the wooden wordmark letters with ivy and a flower (<see cref="UiKit.WoodLogo"/>)
-        /// spelling <paramref name="text"/>. Never a touch target; the caller places the returned rect.
+        /// kept, or while it is missing the wooden wordmark letters in their mossy band with leaves and flowers
+        /// (<see cref="UiKit.WoodLogo"/>) spelling <paramref name="text"/>. Never a touch target; the caller places the
+        /// returned rect.
         /// </summary>
         public static RectTransform Logo(string name, Transform parent, string text)
         {

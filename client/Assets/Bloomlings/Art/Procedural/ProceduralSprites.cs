@@ -267,7 +267,7 @@ namespace Bloomlings.Client.Art
             Picture("mat.stone/block/" + Share(radiusShare) + "/" + seed, width, height, (w, h) =>
             {
                 float side = Math.Min(w, h);
-                return UiRaster.Stone(w, h, side * radiusShare, Math.Max(1f, side * 0.05f), seed);
+                return UiRaster.Stone(w, h, side * radiusShare, Math.Max(1f, side * 0.035f), seed);
             });
 
         /// <summary>The stone pedestal of the heroes (spec 005 §3.6, <c>ui.pedestal</c>).</summary>
@@ -292,7 +292,7 @@ namespace Bloomlings.Client.Art
 
         /// <summary>The win's light rays (spec 005 §3.9, <c>fx.rays</c>) as a square picture of side <paramref name="size"/>.</summary>
         public static Sprite LightRays(int size) =>
-            Picture("fx.rays", size, size, (w, h) => PicturePixels.LightRays(Math.Min(w, h), DesignTokens.Colors.RayLight));
+            Picture("fx.rays/glow", size, size, (w, h) => PicturePixels.LightRays(Math.Min(w, h), DesignTokens.Colors.RayLight));
 
         /// <summary>
         /// A white dashed rounded outline (the empty Waiting Slot, spec 005 §3.7) of <paramref name="width"/> ×
@@ -392,9 +392,9 @@ namespace Bloomlings.Client.Art
 
         /// <summary>
         /// A clover cluster for a wooden sign's end (spec 005 §3.2, §3.9, <c>ui.sign.ivy</c>), as the playtest's
-        /// <c>Kit.IvyCluster</c> draws it: per leaf its dark <c>ivy.line</c> outline, the <c>ivy.leaf</c> shade, a light spot
-        /// and the midribs; mirrored when <paramref name="flipped"/>. <paramref name="back"/> keeps only the leaves behind
-        /// the sign (true) or in front of it (false); null keeps all.
+        /// <c>Kit.IvyCluster</c> draws it: per leaf a soft <c>ivy.line</c> shadow, a thin outline of its own darker shade,
+        /// the <c>ivy.leaf</c> shade, a light top-left side and faint midribs; mirrored when <paramref name="flipped"/>.
+        /// <paramref name="back"/> keeps only the leaves behind the sign (true) or in front of it (false); null keeps all.
         /// </summary>
         public static Sprite IvyCluster(bool flipped, bool? back = null, int size = 128)
         {
@@ -409,14 +409,15 @@ namespace Bloomlings.Client.Art
 
                 Func<float, float, float> leaf = ShapeLibrary.IvyLeafSdf(i, 0f, flipped);
                 Func<float, float, float> veins = ShapeLibrary.IvyVeinSdf(i, 0.018f, flipped);
-                layers.Add((ShapeLibrary.IvyLeafSdf(i, 0.055f, flipped), DesignTokens.Colors.IvyLine));
+                layers.Add((ShapeLibrary.IvyLeafSdf(i, 0.055f, flipped), DesignTokens.Colors.IvyLine.WithAlpha(0.5f)));
+                layers.Add((ShapeLibrary.IvyLeafSdf(i, 0.025f, flipped), DesignTokens.Colors.IvyLeaf.Darken(0.35f).WithAlpha(0.7f)));
                 layers.Add((leaf, GardenLook.IvyShade(i)));
-                layers.Add(((x, y) => Math.Max(leaf(x + 0.05f, y - 0.06f) + 0.07f, leaf(x, y) + 0.02f), DesignTokens.Colors.IvyLeaf.Lighten(0.45f).WithAlpha(0.45f)));
-                layers.Add(((x, y) => Math.Max(veins(x, y), leaf(x, y) + 0.03f), DesignTokens.Colors.IvyLine.WithAlpha(0.5f)));
+                layers.Add(((x, y) => Math.Max(leaf(x + 0.09f, y - 0.1f) + 0.1f, leaf(x, y) + 0.03f), DesignTokens.Colors.IvyLeaf.Lighten(0.3f).WithAlpha(0.5f)));
+                layers.Add(((x, y) => Math.Max(veins(x, y), leaf(x, y) + 0.03f), DesignTokens.Colors.IvyLeaf.Darken(0.35f).WithAlpha(0.45f)));
             }
 
             string part = back.HasValue ? (back.Value ? "back" : "front") : "all";
-            return Baked("ui.sign.ivy/" + (flipped ? "r" : "l") + "/" + part, size, layers);
+            return Baked("ui.sign.ivy/soft/" + (flipped ? "r" : "l") + "/" + part, size, layers);
         }
 
         /// <summary>
@@ -449,21 +450,52 @@ namespace Bloomlings.Client.Art
             return Baked("ui.deco.garden/cluster" + (flipped ? "/flipped" : string.Empty), size, layers);
         }
 
-        /// <summary>The small pink flower over the wooden wordmark's end (spec 005 §4.5): an outlined five-petal bloom with a yellow middle.</summary>
+        /// <summary>
+        /// A small pink flower over the wooden wordmark's ends (spec 005 §4.5, the playtest's <c>Kit.LogoFlower</c>): an
+        /// outlined five-petal bloom with a yellow middle in a darker ring.
+        /// </summary>
         public static Sprite LogoFlower(int size = 96)
         {
             (Rgba petals, Rgba line, Rgba center) = GardenLook.PinkFlower;
             Func<float, float, float> sdf = ShapeLibrary.Get("fx.petal_burst");
 
-            // The playtest draws the middle as a circle of 0.13 of the flower's box: 0.26 of the half box, in shape units.
-            float middle = 0.26f * ShapeRaster.Margin;
+            // The playtest draws the middle's ring at 0.14 of the flower's box and the middle at 0.11: twice that share of
+            // the half box, in shape units.
+            float ring = 0.28f * ShapeRaster.Margin;
+            float middle = 0.22f * ShapeRaster.Margin;
             var layers = new List<(Func<float, float, float> Sdf, Rgba Color)>
             {
                 ((x, y) => sdf(x, y) - 0.07f, line),
                 (sdf, petals),
+                ((x, y) => (float)Math.Sqrt((x * x) + (y * y)) - ring, DesignTokens.Colors.GardenFlowerCenterLine),
                 ((x, y) => (float)Math.Sqrt((x * x) + (y * y)) - middle, center),
             };
-            return Baked("ui.logo.wood/flower", size, layers);
+            return Baked("ui.logo.wood/flower/ringed", size, layers);
+        }
+
+        /// <summary>
+        /// The broad leaves behind one end of the wooden wordmark (spec 005 §4.5, the playtest's <c>Kit.LogoLeaves</c>,
+        /// <c>ui.deco.garden</c>): the win sign's cluster leaves in three greens over their dark outline, with a light
+        /// top-left and veins, fanned to the left, or mirrored to the right.
+        /// </summary>
+        public static Sprite LogoLeaves(bool mirrored, int size = 160)
+        {
+            var layers = new List<(Func<float, float, float> Sdf, Rgba Color)>();
+            float m = mirrored ? -1f : 1f;
+            Rgba[] greens = { DesignTokens.Colors.GardenLeaf1, DesignTokens.Colors.GardenLeaf3, DesignTokens.Colors.GardenLeaf2 };
+            for (int i = 0; i < ShapeLibrary.FlowerClusterLeafCount; i++)
+            {
+                Func<float, float, float> shape = ShapeLibrary.ClusterLeafSdf(i, 0f, false);
+                Func<float, float, float> rim = ShapeLibrary.ClusterLeafSdf(i, 0.04f, false);
+                Func<float, float, float> rib = ShapeLibrary.ClusterVeinSdf(i, 0.022f, false);
+                Func<float, float, float> leaf = (x, y) => shape(m * x, y);
+                layers.Add(((x, y) => rim(m * x, y), DesignTokens.Colors.GardenLeafLine));
+                layers.Add((leaf, greens[i % greens.Length]));
+                layers.Add(((x, y) => Math.Max(leaf(x + 0.05f, y - 0.06f) + 0.08f, leaf(x, y) + 0.03f), DesignTokens.Colors.GardenLeaf2.Lighten(0.35f).WithAlpha(0.4f)));
+                layers.Add(((x, y) => Math.Max(rib(m * x, y), leaf(x, y) + 0.04f), DesignTokens.Colors.IvyLine.WithAlpha(0.55f)));
+            }
+
+            return Baked("ui.logo.wood/leaves" + (mirrored ? "/m" : "/l"), size, layers);
         }
 
         /// <summary>

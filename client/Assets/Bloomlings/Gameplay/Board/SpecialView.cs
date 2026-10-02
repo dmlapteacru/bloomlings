@@ -20,13 +20,13 @@ namespace Bloomlings.Client.Gameplay.Board
     /// <summary>
     /// A special object on the board (T108): the Garden Gate / hedge seal, the Fountain, the Chest (L150), and the Statue
     /// or Bridge (L250), in the reference look (spec 005 contracts/look.md §4.1; the playtest's <c>BoardPainter.Special</c>):
-    /// a candy-like raised block in the special's color (a crisp outline darkened 0.45, a lip darkened 0.28, a face
-    /// lightened 0.28 at the top, a light bevel and a faint gloss) with its white glyph outlined in the darker shade, and
-    /// until it opens its counter on a green count badge at the bottom. Its condition is always visible (FR-037, FR-038):
-    /// a key door shows the gold key, "restore N &lt;variant&gt; around it" a small candy tile of that exact variant and
-    /// "restore this region" the region mark, on a cream chip in the block's top-left corner. When it triggers: a gate
-    /// swings open and fades; a chest pops open with a sparkle and fades; a statue glows and fades; a Fountain sprays
-    /// droplets and stays as a landmark; a bridge is repaired and stays.
+    /// a candy-like raised block in the special's color made vivid (<see cref="GardenLook.SpecialFace"/>: a crisp outline
+    /// darkened 0.45, a lip darkened 0.28, a face lightened 0.28 at the top, a light bevel and a faint gloss) with its white
+    /// glyph outlined in the darker shade, and until it opens its counter on a big green count badge over its bottom edge.
+    /// Its condition is always visible (FR-037, FR-038): a key door shows the gold key, "restore N &lt;variant&gt; around
+    /// it" a small candy tile of that exact variant and "restore this region" the region mark, on a cream chip in the
+    /// block's top-left corner. When it triggers: a gate swings open and fades; a chest pops open with a sparkle and fades;
+    /// a statue glows and fades; a Fountain sprays droplets and stays as a landmark; a bridge is repaired and stays.
     /// </summary>
     public sealed class SpecialView : MonoBehaviour
     {
@@ -84,7 +84,8 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             RectTransform root = (RectTransform)transform;
             _layout = BoxLayout.On(root);
-            Rgba color = _color;
+            // The block in its token made vivid (GardenLook.SpecialFace), candy-bright beside the tiles.
+            Rgba color = GardenLook.SpecialFace(_color);
             float radius = 0f;
             float innerRadius = 0f;
             float bevelRadius = 0f;
@@ -134,9 +135,10 @@ namespace Bloomlings.Client.Gameplay.Board
             _counter = UiKit.CountBadge("Counter", root, out _badge);
             _layout.Add(_badge.rectTransform, b =>
             {
+                // The counter on a count badge over the block's bottom edge, big enough to read at a glance.
                 Box f = Face(b);
-                float size = Cell(b) * 0.25f;
-                return Box.FromCenter(f.CenterX, f.Bottom - (size * 0.62f), size * 1.26f, size * 1.26f);
+                float size = Cell(b) * 0.36f;
+                return Box.FromCenter(f.CenterX, f.Bottom - (size * 0.12f), size * 1.26f, size * 1.26f);
             });
             _layout.Then(_ =>
             {
@@ -164,12 +166,12 @@ namespace Bloomlings.Client.Gameplay.Board
             return new Box(inner.Left, inner.Top, inner.Right, inner.Bottom - lip);
         }
 
-        /// <summary>The glyph: 62% of the face, or 50% and a little higher above the counter.</summary>
+        /// <summary>The glyph: 66% of the face, or 56% and a little higher above the counter.</summary>
         private Box GlyphBox(Box box)
         {
             Box f = Face(box);
-            float g = Mathf.Min(f.Width, f.Height) * (_showsCounter ? 0.5f : 0.62f);
-            return Box.FromCenter(f.CenterX, f.CenterY - (f.Height * (_showsCounter ? 0.13f : 0f)), g, g);
+            float g = Mathf.Min(f.Width, f.Height) * (_showsCounter ? 0.56f : 0.66f);
+            return Box.FromCenter(f.CenterX, f.CenterY - (f.Height * (_showsCounter ? 0.1f : 0f)), g, g);
         }
 
         private void SetGlyph(string shape)

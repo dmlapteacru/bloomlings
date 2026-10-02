@@ -8,6 +8,8 @@ using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Localization;
+using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +23,8 @@ namespace Bloomlings.Client.UI.Screens
     /// win's Next, in the win's language (spec 005 contracts/look.md §4.4; the playtest's <c>EndCards.Milestone</c>):
     /// <list type="bullet">
     /// <item><description>the wooden sign with flower clusters, "Level N", across the card's top edge, the heroes on a
-    /// stone pedestal in light rays above it and petals falling;</description></item>
+    /// stone pedestal in light rays above it (the level's celebrating hero when its picture exists), petals falling and,
+    /// for the first seconds, confetti in the level's colors above the card;</description></item>
     /// <item><description>"Milestone reached!";</description></item>
     /// <item><description>each reward (the cosmetic item, the Petals, each booster) as its icon on a cream tile with
     /// its amount in a cream pill over the tile's bottom edge, rising in;</description></item>
@@ -43,6 +46,8 @@ namespace Bloomlings.Client.UI.Screens
         private CanvasGroup _rowFade = null!;
         private Button _continue = null!;
         private RectTransform _petals = null!;
+        private RectTransform _confettiClip = null!;
+        private ConfettiView _confetti = null!;
 
         public bool IsOpen => _root.activeSelf;
 
@@ -66,14 +71,28 @@ namespace Bloomlings.Client.UI.Screens
             screen._continue = UiKit.PrimaryButton("Continue", card.transform, Loc.T("milestone.continue"), onContinue, decorate: true, breathe: true);
             screen._petals = (RectTransform)UiKit.FallingPetals("Petals", shade.transform).transform;
             UiKit.FadeInOnShow(screen._petals.gameObject, 1f, 0.5f);
+            screen._confettiClip = UiFactory.CreateRect("ConfettiClip", shade.transform);
+            screen._confettiClip.gameObject.AddComponent<RectMask2D>();
+            screen._confetti = UiKit.Confetti("Confetti", screen._confettiClip);
             shade.gameObject.SetActive(false);
             return screen;
         }
 
         /// <param name="catalog">The cosmetic catalog, to draw a granted item's shape; null draws a generic star.</param>
-        public void Show(MilestoneGrant grant, CosmeticCatalog? catalog)
+        /// <param name="level">
+        /// The won level: its main family celebrates (the owner's cheering hero when it exists, pictures.md A7) and its
+        /// colors make the confetti; null shows the group and no confetti.
+        /// </param>
+        public void Show(MilestoneGrant grant, CosmeticCatalog? catalog, LevelDefinition? level = null)
         {
             _sign.Text = Loc.F("common.level", NumberText.Group(grant.Level));
+            _celebration.ShowHero(level != null ? HeroPictures.MainFamily(level.Pods) : (Family?)null);
+            _confettiClip.gameObject.SetActive(level != null);
+            if (level != null)
+            {
+                _confetti.SetColors(ConfettiView.ColorsOf(level.Pods));
+            }
+
             foreach (GameObject item in _items)
             {
                 Destroy(item);
@@ -160,6 +179,7 @@ namespace Bloomlings.Client.UI.Screens
             Box go = ScreenLayout.CardButton(r.Body, r.Body.Bottom - (DesignTokens.Size.CardPrimaryHeight * u) - (20f * u), true, u);
             UiKit.PlaceBox((RectTransform)_continue.transform, go, card);
             UiKit.PlaceScreen(_petals, new Box(safe.Left, safe.Top, safe.Right, Mathf.Min(card.Bottom, sign.Bottom + (260f * u))));
+            UiKit.PlaceScreen(_confettiClip, new Box(0f, 0f, w, card.Top));
         }
 
         /// <summary>The rewards rise in a moment after the card (motion.reward).</summary>

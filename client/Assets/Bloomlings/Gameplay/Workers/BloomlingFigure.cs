@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
@@ -80,16 +82,33 @@ namespace Bloomlings.Client.Gameplay.Workers
             Show(picture, family, color, outfit, face, 1f);
         }
 
-        /// <summary>A family's 3D hero (meta screens only; size the rect to 512:576) wearing <paramref name="outfit"/>.</summary>
+        /// <summary>
+        /// A family's 3D hero (meta screens only; size the rect to 512:576) wearing <paramref name="outfit"/>: a worn hat
+        /// sits on the hero's head in full color (<see cref="CharacterArt.HatOnHero"/>, the playtest's <c>Visuals.Hero</c>).
+        /// Without the picture, the family body in its family's color, a little smaller (the playtest's fallback).
+        /// </summary>
         public void ShowHero(Family family, Outfit? outfit)
         {
             Sprite? picture = CharacterSprites.Hero(family, blank: outfit?.Expression != null);
-            Show(picture, family, Color.white, outfit, CharacterArt.FaceCenterHero(family), (float)CharacterArt.HeroHeight / CharacterArt.HeroWidth);
+            Show(picture, family, HeroColor(family), outfit, CharacterArt.FaceCenterHero(family), (float)CharacterArt.HeroHeight / CharacterArt.HeroWidth, hero: true);
         }
 
         public static Color Tint(CosmeticItem item) => ColorUtility.TryParseHtmlString(item.Tint, out Color color) ? color : Color.white;
 
-        private void Show(Sprite? picture, Family family, Color fallbackColor, Outfit? outfit, (float X, float Y) face, float aspect)
+        /// <summary>A family's color: its first variant's (Leaf, Flower, Water, Wood), the hero's fallback silhouette.</summary>
+        public static Color HeroColor(Family family)
+        {
+            VariantId variant = family switch
+            {
+                Family.Bloom => VariantId.Flower,
+                Family.Drop => VariantId.Water,
+                Family.Twig => VariantId.Wood,
+                _ => VariantId.Leaf,
+            };
+            return UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(variant).ColorHex));
+        }
+
+        private void Show(Sprite? picture, Family family, Color fallbackColor, Outfit? outfit, (float X, float Y) face, float aspect, bool hero = false)
         {
             // The figure's boxes in picture units (width 1, y down), placed relative to the picture's rect.
             var frame = new Box(0f, 0f, 1f, aspect);
@@ -99,19 +118,55 @@ namespace Bloomlings.Client.Gameplay.Workers
                 _body.sprite = picture;
                 _body.color = Color.white;
                 _skinMask.sprite = picture;
+                _body.rectTransform.localScale = Vector3.one;
             }
             else
             {
-                // FR-021: the spec 002 family body in the variant color.
+                // FR-021: the spec 002 family body in the variant color; a hero's is inset 12% of its width on each side.
                 _body.sprite = ProceduralSprites.Silhouette(family);
                 _body.color = fallbackColor;
                 _skinMask.sprite = _body.sprite;
+                _body.rectTransform.localScale = Vector3.one * (hero ? 0.76f : 1f);
             }
 
             ShowSkin(outfit?.Skin);
             ShowAccessory(_trail, outfit?.Trail, CharacterArt.TrailBox(frame), frame);
             ShowAccessory(_expression, outfit?.Expression, CharacterArt.ExpressionBox(frame, face), frame);
-            ShowAccessory(_hat, outfit?.Hat, CharacterArt.HatBox(frame), frame);
+            if (hero && picture != null && outfit?.Hat != null)
+            {
+                ShowHat(outfit.Hat, CharacterArt.HatOnHero(frame, family), frame);
+            }
+            else
+            {
+                ShowAccessory(_hat, outfit?.Hat, CharacterArt.HatBox(frame), frame);
+            }
+        }
+
+        /// <summary>
+        /// A hat on a 3D hero's head in full color (the playtest's <c>Visuals.Hero</c>): a darker outline of its own tint
+        /// (darkened 0.45), the fill, and a light top-left (lightened 0.35, at half alpha), baked into one sprite.
+        /// </summary>
+        private void ShowHat(CosmeticItem hat, Box box, Box frame)
+        {
+            string id = ShapeLibrary.CosmeticId(hat.Shape);
+            if (!ShapeLibrary.Has(id))
+            {
+                ShowAccessory(_hat, hat, box, frame);
+                return;
+            }
+
+            Rgba tint = UiTheme.ToRgba(Tint(hat));
+            Func<float, float, float> sdf = ShapeLibrary.Get(id);
+            var layers = new List<(Func<float, float, float> Sdf, Rgba Color)>
+            {
+                ((x, y) => sdf(x, y) - 0.06f, tint.Darken(0.45f)),
+                (sdf, tint),
+                ((x, y) => Math.Max(sdf(x + 0.05f, y - 0.06f) + 0.07f, sdf(x, y) + 0.03f), tint.Lighten(0.35f).WithAlpha(0.5f)),
+            };
+            _hat.sprite = ProceduralSprites.Baked(id + "/on_hero/" + tint.Hex, 128, layers);
+            _hat.color = Color.white;
+            UiFactory.Place(_hat.rectTransform, box.Left / frame.Width, 1f - (box.Bottom / frame.Height), box.Right / frame.Width, 1f - (box.Top / frame.Height));
+            _hat.gameObject.SetActive(true);
         }
 
         private void ShowSkin(CosmeticItem? skin)

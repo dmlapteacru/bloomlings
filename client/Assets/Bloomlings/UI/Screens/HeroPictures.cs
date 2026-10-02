@@ -16,12 +16,12 @@ namespace Bloomlings.Client.UI.Screens
     /// </summary>
     public static class HeroPictures
     {
-        /// <summary>The group picture's top to the pedestal's foot, over the group's width (the playtest's 0.71).</summary>
-        internal const float GroupOverPedestal = 0.71f;
-
         private static readonly Dictionary<Family, Sprite?> Cheers = new Dictionary<Family, Sprite?>();
 
-        /// <summary>The four heroes on their stone pedestal, fitted into a new rect the caller places.</summary>
+        /// <summary>
+        /// The four heroes side by side (the group picture has no base of its own: callers stand it on a stone pedestal,
+        /// feet at <see cref="CharacterArt.GroupFeetShare"/>), fitted into a new rect the caller places.
+        /// </summary>
         public static RectTransform Group(string name, Transform parent)
         {
             RectTransform root = UiFactory.CreateRect(name, parent);
@@ -118,17 +118,7 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>The color of a family's silhouette when its picture is missing (the playtest's hero fallback).</summary>
-        public static Color ColorOf(Family family)
-        {
-            VariantId variant = family switch
-            {
-                Family.Bloom => VariantId.Flower,
-                Family.Drop => VariantId.Water,
-                Family.Twig => VariantId.Wood,
-                _ => VariantId.Leaf,
-            };
-            return UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(variant).ColorHex));
-        }
+        public static Color ColorOf(Family family) => BloomlingFigure.HeroColor(family);
 
         /// <summary>
         /// The celebration over a win or milestone card (spec 005 §4.4, the playtest's <c>EndCards.Celebration</c>), as
@@ -195,32 +185,26 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            // The pedestal's top ellipse carries the group's own round base; the drum below shows as its plinth.
-            float groupWidth = Mathf.Min(stage.Width * 0.98f, stage.Height / HeroPictures.GroupOverPedestal);
-            float groupHeight = groupWidth * CharacterArt.GroupHeight / CharacterArt.GroupWidth;
-            float pedestalWidth = groupWidth * 0.86f;
-            float pedestalHeight = pedestalWidth * 0.3f;
-            var pedestal = new Box(stage.CenterX - (pedestalWidth / 2f), stage.Bottom - pedestalHeight, stage.CenterX + (pedestalWidth / 2f), stage.Bottom);
+            // The group picture has no base of its own: it stands on the pedestal with its feet on the top ellipse
+            // (HomeStage.Celebration, the playtest's EndCards.Celebration), the rays turning behind the heroes' bodies.
+            (Box pedestal, Box group, float raysX, float raysY) = HomeStage.Celebration(stage);
             UiKit.PlaceBox(_pedestal, pedestal, cardBox);
 
             var clip = new Box(0f, 0f, screenWidth, cardBox.Top);
             UiKit.PlaceBox(_clip, clip, cardBox);
             float radius = Mathf.Max(screenWidth * 0.62f, stage.Height);
-            UiKit.PlaceBox(_rays, Box.FromCenter(stage.CenterX, pedestal.Top - (groupHeight * 0.3f), radius * 2f, radius * 2f), clip);
-
-            Box top = UiKit.PedestalTop(pedestal);
-            float feet = top.CenterY + (top.Height * 0.18f);
+            UiKit.PlaceBox(_rays, Box.FromCenter(raysX, raysY, radius * 2f, radius * 2f), clip);
             if (cheer == null)
             {
-                UiKit.PlaceBox(_group, new Box(stage.CenterX - (groupWidth / 2f), feet - (groupHeight * 0.92f), stage.CenterX + (groupWidth / 2f), feet + (groupHeight * 0.08f)), cardBox);
+                UiKit.PlaceBox(_group, group, cardBox);
                 return;
             }
 
-            // One big celebrating hero, as the reference's win Bloom: its feet at the top ellipse's middle.
+            // One celebrating hero, as on the reference's win card: its feet where the group's stand.
             _cheer.sprite = cheer;
-            float above = top.CenterY - stage.Top;
-            float height = Mathf.Min(above / HomeStage.FeetShare, pedestalWidth * 0.8f);
-            UiKit.PlaceBox(_cheer.rectTransform, HomeStage.Figure(stage.CenterX, top.CenterY, height), cardBox);
+            float feet = group.Top + (group.Height * CharacterArt.GroupFeetShare);
+            float height = Mathf.Min((feet - stage.Top) / HomeStage.FeetShare, pedestal.Width * 0.75f * CharacterArt.HeroHeight / CharacterArt.HeroWidth);
+            UiKit.PlaceBox(_cheer.rectTransform, HomeStage.Figure(stage.CenterX, feet, height), cardBox);
         }
     }
 

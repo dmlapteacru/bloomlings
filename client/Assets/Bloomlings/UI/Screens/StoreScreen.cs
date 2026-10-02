@@ -258,11 +258,10 @@ namespace Bloomlings.Client.UI.Screens
                 row.gameObject.AddComponent<CanvasGroup>().alpha = 0.5f;
             }
 
-            // The item's tile: the booster tile's cream squircle in its silver-grey rim (§3.7).
+            // The item's tile: the booster tile's cream squircle in its cream-white bezel (§3.7).
             float size = line.Height * 0.76f;
             Box tile = Box.FromCenter(line.Left + (22f * u) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
-            Rgba rim = GardenLook.BoosterRim;
-            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, rim.Lighten(0.62f), rim.Lighten(0.08f), rim.Darken(0.22f));
+            var set = new ColorSet("set.cream.booster_tile", C.CreamFace, GardenLook.BoosterRim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
             GardenButton face = UiKit.IconFace("Tile", row.transform, set, b => Mathf.Min(b.Width, b.Height) * 0.26f, square: true);
             UiKit.PlaceBox((RectTransform)face.transform, tile, line);
             if (item.BoosterId != null)
@@ -396,12 +395,12 @@ namespace Bloomlings.Client.UI.Screens
                 StoreItem? item = cards[index];
                 if (item == null)
                 {
-                    OutfitCard(box, Loc.T("wardrobe.default"), worn.IsEmpty, family, null, null, null, u);
+                    OutfitCard(box, Loc.T("wardrobe.default"), worn.IsEmpty, family, null, null, null);
                 }
                 else
                 {
                     Cost? price = item.PetalPrice.HasValue ? Cost.Petals(item.PetalPrice.Value) : (Cost?)null;
-                    OutfitCard(box, item.Name ?? item.Title, false, family, item.Cosmetic, price, item.Enabled ? item.Buy : (Action?)null, u);
+                    OutfitCard(box, item.Name ?? item.Title, false, family, item.Cosmetic, price, item.Enabled ? item.Buy : (Action?)null);
                 }
             }
 
@@ -463,143 +462,17 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// An outfit card (the playtest's <c>Kit.OutfitCard</c>, <c>ui.card.outfit</c>): a raised cream card with a beige
-        /// picture well holding the family's hero wearing the item (or the item's own mark for a profile item) and the name
-        /// below it; the worn one has a green-tinted well, a green border and the check badge. A <paramref name="cost"/>
-        /// adds the cost pill on the card's bottom edge (the box keeps that room for every card, so a row lines up); the
-        /// whole box is the touch target when <paramref name="buy"/> is set.
+        /// An outfit card (the shared <see cref="UiKit.OutfitCard"/>, the playtest's <c>Kit.OutfitCard</c>) in
+        /// <paramref name="box"/>: the family's hero wearing the item (or the item's own mark for a profile item) in the
+        /// well, the name below it; the worn one green with the check. Every card keeps the cost pill's room so a row lines
+        /// up; a <paramref name="cost"/> shows the pill, and the card is the touch target when <paramref name="buy"/> is set.
         /// </summary>
-        private void OutfitCard(Box box, string name, bool worn, Family family, CosmeticItem? item, Cost? cost, Action? buy, float u)
+        private void OutfitCard(Box box, string name, bool worn, Family family, CosmeticItem? item, Cost? cost, Action? buy)
         {
-            const float pillShare = 0.2f;
-            (RectTransform root, BoxLayout layout) = Element("Outfit", _list, buy != null);
-            UiKit.PlaceBox(root, box, _column);
-            ColorSet green = GardenLook.Green;
-            float r = 0f;
-            float line = 0f;
-            float wellRadius = 0f;
-            Box Card(Box b) => new Box(b.Left, b.Top, b.Right, b.Top + (b.Height / (1f + (0.6f * pillShare))));
-            Box Face(Box b)
-            {
-                Box card = Card(b);
-                return new Box(card.Left, card.Top, card.Right, card.Bottom - (card.Width * 0.035f));
-            }
-
-            Box Well(Box b)
-            {
-                Box f = Face(b);
-                float pad = f.Width * 0.075f;
-                return new Box(f.Left + pad, f.Top + pad, f.Right - pad, f.Top + pad + (f.Height * 0.64f));
-            }
-
-            UiKit.SoftShadow(layout, Card, b => b.Width * 0.11f, 0.18f, 0.035f);
-            Image lip = UiKit.RoundRect("Lip", root, UiTheme.Of(C.CreamLip), _ => r);
-            Image face = UiKit.RoundGradient("Face", root, C.CreamTop, C.CreamFace, _ => r);
-            Image cardLine = UiKit.RoundRing("Line", root, UiTheme.Of(C.CreamLine), _ => r, _ => line);
-            Image well = worn
-                ? UiKit.RoundGradient("Well", root, green.Top.Mix(C.CreamTop, 0.55f), green.Face.Mix(C.CreamTop, 0.5f), _ => wellRadius)
-                : UiKit.RoundGradient("Well", root, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell, _ => wellRadius);
-            well.gameObject.AddComponent<Mask>();
-            Image shade = UiKit.RoundRect("Shade", well.transform, Color.white, _ => wellRadius);
-            UiKit.Gradient(shade, UiTheme.Of(C.GardenShadow.WithAlpha(0.1f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
-            shade.GetComponent<VerticalGradient>().Stop = 0.2f;
-            UiFactory.Stretch(shade.rectTransform);
-            RectTransform picture = UiFactory.Stretch(UiFactory.CreateRect("Picture", well.transform));
-            Preview(picture, family, item);
-            float border = 0f;
-            Image wellLine = UiKit.RoundRing("WellLine", root, UiTheme.Of(worn ? green.Face : C.ParchmentEdge.Darken(0.08f)), _ => wellRadius, _ => border);
-            TextMeshProUGUI label = UiKit.KitLabel("Name", root, name, T.ButtonSecondary, TextLook.Plain(C.InkBrown));
-
-            layout.Add(lip.rectTransform, b =>
-            {
-                Box card = Card(b);
-                r = card.Width * 0.11f;
-                line = Mathf.Max(UiKit.Units(1f), card.Width * 0.011f);
-                wellRadius = r * 0.7f;
-                border = worn ? Mathf.Max(UiKit.Units(4f), card.Width * 0.022f) : line;
-                return card;
-            });
-            layout.Add(face.rectTransform, Face);
-            layout.Add(cardLine.rectTransform, Card);
-            layout.Add(well.rectTransform, Well);
-            layout.Add(wellLine.rectTransform, Well);
-            if (worn)
-            {
-                CheckBadge(root, layout, b =>
-                {
-                    Box w = Well(b);
-                    float badge = Card(b).Width * 0.22f;
-                    return Box.FromCenter(w.Right - (badge * 0.42f), w.Bottom - (badge * 0.42f), badge, badge);
-                });
-            }
-
-            layout.Watch(label).Then(b =>
-            {
-                Box card = Card(b);
-                Box f = Face(b);
-                float top = Well(b).Bottom;
-                float bottom = f.Bottom - ((b.Height - card.Height) * 0.5f);
-                float size = Mathf.Min(UiKit.Units(T.ButtonSecondary.Size), (bottom - top) * 0.62f);
-                KitText.Place(label, T.ButtonSecondary, card.CenterX, (top + bottom) / 2f, size, card.Width * 0.88f);
-                foreach (Image image in new[] { lip, face, cardLine, well, shade, wellLine })
-                {
-                    image.GetComponent<RoundShape>().Apply();
-                }
-            });
-
-            if (cost.HasValue)
-            {
-                CostPillView pill = UiKit.CostPill("Cost", root, cost.Value);
-                if (buy == null)
-                {
-                    pill.gameObject.AddComponent<CanvasGroup>().alpha = 0.45f;
-                }
-
-                layout.Add((RectTransform)pill.transform, b =>
-                {
-                    Box card = Card(b);
-                    float h = card.Height * pillShare;
-                    return Box.FromCenter(card.CenterX, card.Bottom + (h * 0.1f), card.Width * 0.78f, h);
-                });
-            }
-
-            if (buy != null)
-            {
-                UiKit.TapTarget(root.GetComponent<Image>(), buy, press: true);
-            }
-        }
-
-        /// <summary>An element root with its layout (a clear raycast image when it takes taps).</summary>
-        private static (RectTransform Root, BoxLayout Layout) Element(string name, Transform parent, bool raycast)
-        {
-            RectTransform root = UiFactory.CreateImage(name, parent, null, Color.clear, raycast).rectTransform;
-            return (root, BoxLayout.On(root));
-        }
-
-        /// <summary>The worn item's badge (the playtest's <c>Kit.CheckBadge</c>): a green disc in a white ring with a white check, over a soft shadow.</summary>
-        private static void CheckBadge(RectTransform root, BoxLayout layout, Func<Box, Box> disc)
-        {
-            ColorSet green = GardenLook.Green;
-            Box Outer(Box b)
-            {
-                Box d = disc(b);
-                return d.Inset(-d.Width * 0.1f);
-            }
-
-            UiKit.SoftShadow(layout, Outer, b => Outer(b).Width / 2f, 0.25f, 0.06f);
-            Image ring = UiKit.RoundRect("CheckRing", root, Color.white);
-            Image face = UiKit.RoundGradient("CheckDisc", root, green.Top, green.Face);
-            Image edge = UiKit.RoundRing("CheckLine", root, UiTheme.Of(green.Line), null, b => Mathf.Max(UiKit.Units(1f), b.Width * 0.04f));
-            Image check = UiFactory.CreateImage("Check", root, ProceduralSprites.Shape("ui.check"), Color.white);
-            check.preserveAspect = true;
-            layout.Add(ring.rectTransform, Outer);
-            layout.Add(face.rectTransform, disc);
-            layout.Add(edge.rectTransform, disc);
-            layout.Add(check.rectTransform, b =>
-            {
-                Box d = disc(b);
-                return Box.FromCenter(d.CenterX, d.CenterY, d.Width * 0.58f, d.Width * 0.58f);
-            });
+            OutfitCardView card = UiKit.OutfitCard("Outfit", _list, name, buy, cost, pillRoom: true);
+            UiKit.PlaceBox((RectTransform)card.transform, box, _column);
+            Preview(card.Picture, family, item);
+            card.Show(worn);
         }
 
         /// <summary>
@@ -618,16 +491,10 @@ namespace Bloomlings.Client.UI.Screens
                     CosmeticKind.Trail => new Outfit(null, null, item, null),
                     _ => new Outfit(null, null, null, item),
                 };
-                bool hat = item != null && item.Kind == CosmeticKind.Hat;
                 BloomlingFigure hero = BloomlingFigure.Create("Hero", picture);
                 hero.ShowHero(family, outfit);
                 hero.Body.raycastTarget = false;
-                BoxLayout.On(picture).Add(hero.Rect, well =>
-                {
-                    // The hero fills the well; with a hat it is a little smaller and lower, so the hat stays inside.
-                    float height = well.Height * (hat ? 0.96f : 1.1f);
-                    return HomeStage.Figure(well.CenterX, well.Bottom - (well.Height * (hat ? 0.02f : 0.05f)), height);
-                });
+                OutfitCardView.PlaceHero(hero.Rect, picture, hat: item != null && item.Kind == CosmeticKind.Hat);
                 return;
             }
 

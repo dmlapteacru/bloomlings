@@ -432,8 +432,9 @@ B2–B5 replace the lawn).
   `InkBrownSoft`) and a description.
 - Family tabs: cream tabs, top corners rounded; the selected one lighter and joined to the panel below; each shows the
   family's hero picture (or silhouette) and its name.
-- Outfit cards: cream cards with a beige picture well, the name below; the worn one has a green face tint, a 4 px green
-  (`GardenLook.Green.Face`) border and a green check badge. A hat sits on the hero's head in full color
+- Outfit cards (`Kit.OutfitCard`, its Unity twin `UiKit.OutfitCard` shared by the Wardrobe and the Store): cream cards
+  (radius 11%, a 3.5% lip) with a beige picture well 64% of the face tall, the name below; the worn one has a green-tinted
+  well, a 4 px green (`GardenLook.Green.Face`) border and a green check badge. A hat sits on the hero's head in full color
   (`CharacterArt.HatOnHero`: 55% of the picture wide over `HeadTopHero`, its brim overlapping the head by 15%), its own
   tint with a `tint.Darken(0.45)` outline and a light top-left side.
 - Footer: "Earn special outfits as you play!" (`InkBrownSoft`).

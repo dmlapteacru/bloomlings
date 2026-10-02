@@ -833,8 +833,8 @@ namespace Bloomlings.Client.UI
         /// <summary>
         /// The gameplay level label: since spec 005 a wooden sign with ivy at both ends (§3.2, research D6); returns its
         /// label. <paramref name="pill"/> recolors it like the old pill: <see cref="GardenLook.Lilac"/> or
-        /// <see cref="GardenLook.Purple"/> turn the letters <c>badge.super_hard</c> (a Super Hard level), any other set
-        /// keeps them <c>ink.brown</c>.
+        /// <see cref="GardenLook.Purple"/> turn the letters <c>badge.super_hard</c> darkened 0.35 (a Super Hard level), any
+        /// other set keeps them <c>ink.brown</c>.
         /// </summary>
         public static TextMeshProUGUI LevelPill(string name, Transform parent, out GardenButton pill)
         {
@@ -1017,9 +1017,10 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A popup card (FR-007, spec 005 §3.5): a dimmed backdrop, parchment (radius 8% of its width, at least
-        /// <c>radius.card_min</c>), the title in <c>type.title</c> <c>ink.brown</c> or, with <paramref name="sign"/>, a wooden
+        /// <c>radius.card_min</c>), the title in <c>type.title</c> <c>ink.title</c> or, with <paramref name="sign"/>, a wooden
         /// sign across the card's top edge with that decoration (the Store, the milestone), and the cream round close
-        /// button over the top-right corner when <paramref name="onClose"/> is given. <paramref name="contentHeight"/> is in
+        /// button over the top-right corner when <paramref name="onClose"/> is given (hidden while a card opened after it is
+        /// open: one close button per stack, <see cref="CardStackMember"/>). <paramref name="contentHeight"/> is in
         /// reference units. <paramref name="header"/> is kept for older callers: the reference has no header band.
         /// </summary>
         public static CardView Card(string name, Transform parent, string title, float contentHeight, Action? onClose, TypeStyle? titleStyle = null, ColorSet? header = null, SignDecor? sign = null)
@@ -1051,7 +1052,7 @@ namespace Bloomlings.Client.UI
             }
             else
             {
-                titleLabel = KitLabel("Title", card.transform, title, style, TextLook.Plain(C.InkBrown));
+                titleLabel = KitLabel("Title", card.transform, title, style, TextLook.Plain(C.InkTitle));
                 Box closeLocal = ToLocal(regions.Close, regions.Card);
                 layout.Then(b =>
                 {
@@ -1061,12 +1062,15 @@ namespace Bloomlings.Client.UI
                 });
             }
 
+            // Only the top card of a stack shows its close button (CardStackMember).
+            CardStackMember member = shade.gameObject.AddComponent<CardStackMember>();
             if (onClose != null)
             {
                 // Over the top-right corner, as in the reference.
                 Button close = RoundIconButton("Close", card.transform, "ui.close", onClose);
                 float shift = regions.Close.Width * 0.3f;
                 PlaceBox((RectTransform)close.transform, regions.Close.Offset(shift, -shift), regions.Card);
+                member.Close = close.gameObject;
             }
 
             RectTransform body = PlaceBox(UiFactory.CreateRect("Body", card.transform), regions.Body, regions.Card);
@@ -1075,7 +1079,7 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// The jam bottom sheet (frame 10, spec 005 §4.3): parchment that rises from the bottom and settles with a small
-        /// bounce (spec 003 FR-018), with a grip, the title in <c>ink.brown</c> and the subtitle in <c>ink.brown_soft</c>,
+        /// bounce (spec 003 FR-018), with a grip, the title in <c>ink.title</c> and the subtitle in <c>ink.brown_soft</c>,
         /// over a light shade that keeps the board visible (spec 001 FR-027).
         /// </summary>
         public static SheetView Sheet(string name, Transform parent, string title, string subtitle, float contentHeight)
@@ -1092,7 +1096,7 @@ namespace Bloomlings.Client.UI
             sheet.gameObject.AddComponent<SheetMotion>();
             Image grip = RoundRect("Grip", sheet.transform, UiTheme.Of(C.ParchmentEdge.Darken(0.12f)));
             PlaceBox(grip.rectTransform, regions.Grip, regions.Sheet);
-            TextMeshProUGUI titleLabel = Label("Title", sheet.transform, title, DesignTokens.Type.Title, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
+            TextMeshProUGUI titleLabel = Label("Title", sheet.transform, title, DesignTokens.Type.Title, UiTheme.Of(C.InkTitle), look: TextLook.Plain(C.InkTitle));
             PlaceBox(titleLabel.rectTransform, regions.Title, regions.Sheet);
             TextMeshProUGUI subtitleLabel = Label("Subtitle", sheet.transform, subtitle, DesignTokens.Type.Body, UiTheme.Of(C.InkBrownSoft));
             PlaceBox(subtitleLabel.rectTransform, regions.Subtitle, regions.Sheet);
@@ -1604,7 +1608,8 @@ namespace Bloomlings.Client.UI
             if (_sign != null)
             {
                 bool super = ReferenceEquals(Set, GardenLook.Lilac) || ReferenceEquals(Set, GardenLook.Purple);
-                _sign.SetLetters(super ? DesignTokens.Colors.BadgeSuperHard : DesignTokens.Colors.InkBrown);
+                // badge.super_hard darkened 0.35 keeps its contrast on the pale wood (the playtest's Kit.LevelPill).
+                _sign.SetLetters(super ? DesignTokens.Colors.BadgeSuperHard.Darken(0.35f) : DesignTokens.Colors.InkBrown);
                 _shownEnabled = enabled;
                 _appliedDark = dark;
                 return;

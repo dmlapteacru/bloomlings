@@ -97,8 +97,8 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A wooden sign (§3.2; the gameplay level, the win and banner titles, the Home level plaque): a light wood plank
-        /// filling the rect (radius 28% of its height) over a soft shadow, the text centered in <c>ink.brown</c> (or
-        /// <paramref name="letters"/>) with a light emboss, at most 82% of the plank wide and 62% of its height tall, and its
+        /// filling the rect (radius 28% of its height) over a soft shadow, the text centered in <c>ink.brown</c>
+        /// (<c>ink.title</c> on the win's flower sign, or <paramref name="letters"/>) with a light emboss, at most 82% of the plank wide and 62% of its height tall, and its
         /// decoration: ivy over both ends (clusters 1.25 × the height, the back leaves behind the plank), or flower clusters
         /// at the top-left and bottom-right ends (1.35 × the height). Never a touch target.
         /// </summary>
@@ -115,7 +115,8 @@ namespace Bloomlings.Client.UI
 
             Image plank = WoodPlank("Plank", root, 0.28f, 7);
             layout.Add(plank.rectTransform, b => b);
-            TextMeshProUGUI label = KitLabel("Label", root, text, style, GardenLook.SignLetters(letters ?? C.InkBrown));
+            // The win's flower sign titles a card: its letters in ink.title (the playtest's Kit.WoodSign).
+            TextMeshProUGUI label = KitLabel("Label", root, text, style, GardenLook.SignLetters(letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown)));
             view.Init(label, plank, style);
             layout.Watch(label).Then(b => KitText.Place(label, style, b.CenterX, b.CenterY - (b.Height * 0.04f), Mathf.Min(Units(style.Size), b.Height * 0.62f), b.Width * 0.82f));
             switch (decor)
@@ -142,8 +143,9 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A cluster of clover leaves (§3.9, <c>ui.sign.ivy</c>) as a square picture: pointed leaflets in yellow-green
-        /// <c>ivy.leaf</c> shades over dark <c>ivy.line</c> outlines with light spots and midribs, mirrored when
+        /// A cluster of clover leaves (§3.9, <c>ui.sign.ivy</c>) as a square picture: soft pointed leaflets in yellow-green
+        /// <c>ivy.leaf</c> shades over a soft <c>ivy.line</c> shadow, with thin outlines of their own darker shade, a light
+        /// top-left side and faint midribs, mirrored when
         /// <paramref name="flipped"/>; <paramref name="back"/> keeps only the leaves behind a sign (true) or in front
         /// (false). Never a touch target.
         /// </summary>
@@ -217,6 +219,7 @@ namespace Bloomlings.Client.UI
             });
 
             CostPillView pill = CostPill("Cost", root, cost ?? Cost.Free);
+            pill.SetChargeIcon(icon);
             view.Init(face, text, pill, fade, iconImage, icon, layout);
             layout.Add((RectTransform)face.transform, view.ButtonBox);
             layout.Add((RectTransform)pill.transform, b =>
@@ -246,7 +249,9 @@ namespace Bloomlings.Client.UI
         /// <summary>
         /// A cost pill (§3.4; jam choices, booster tiles, the Store): a cream pill (a soft shadow, the <c>cream.lip</c>
         /// below, the <c>cream.top</c> to <c>parchment.bottom</c> face and a <c>cream.line</c> outline) holding the lotus and
-        /// a brown price, a green ▶ square and "Free", or "×N" charges, centered as a group.
+        /// a brown price, a green ▶ square and "Free", or "×N" charges, centered as a group; with
+        /// <see cref="CostPillView.SetChargeIcon"/> the charges show in bigger digits after the booster's icon (80% of the
+        /// pill's height).
         /// </summary>
         public static CostPillView CostPill(string name, Transform parent, Cost cost)
         {
@@ -275,14 +280,22 @@ namespace Bloomlings.Client.UI
             freeLayout.Add(freeLine.rectTransform, b => b);
             freeLayout.Add(play.rectTransform, b => b.Inset(b.Width * 0.2f).Offset(b.Width * 0.03f, 0f));
 
+            // Charges ("×2") with the booster's icon before them (the jam choices; hidden until SetChargeIcon).
+            Image charge = UiFactory.CreateImage("Charge", root, null, Color.white);
+            charge.preserveAspect = true;
+            charge.gameObject.SetActive(false);
+
             TextMeshProUGUI label = KitLabel("Amount", root, string.Empty, T.Count, TextLook.Plain(C.InkBrown));
-            view.Init(label, lotus, free.gameObject, layout);
+            view.Init(label, lotus, free.gameObject, charge, layout);
             layout.Watch(label).Then(b =>
             {
                 float h = b.Height;
-                float icon = view.Cost.Kind == CostKind.Petals ? h * 0.86f : view.Cost.Kind == CostKind.Free ? h * 0.6f : 0f;
+                bool charges = view.ShowsChargeIcon;
+                float icon = view.Cost.Kind == CostKind.Petals ? h * 0.86f : view.Cost.Kind == CostKind.Free ? h * 0.6f : charges ? h * 0.8f : 0f;
                 float gap = icon > 0f ? h * 0.16f : 0f;
-                float size = h * 0.56f;
+
+                // Charges get bigger digits, as large as the reference's prices look next to their icons.
+                float size = h * (charges ? 0.66f : 0.56f);
                 float measured = KitText.Measure(label, size);
                 float room = Mathf.Max(1f, b.Width - icon - gap - (h * 0.5f));
                 float textWidth = Mathf.Min(measured > 0f ? measured : room, room);
@@ -290,6 +303,7 @@ namespace Bloomlings.Client.UI
                 Box iconBox = Box.FromCenter(start + (icon / 2f), b.CenterY, icon, icon);
                 BoxLayout.Place(lotus.rectTransform, iconBox);
                 BoxLayout.Place(free, iconBox);
+                BoxLayout.Place(charge.rectTransform, iconBox);
                 KitText.Place(label, T.Count, start + icon + gap + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
             });
             view.SetCost(cost);
@@ -305,7 +319,8 @@ namespace Bloomlings.Client.UI
         /// The stone border around a board's grid (§3.6), as the first child of <paramref name="grid"/> (so the tiles draw
         /// over it): a dark gap of 0.04 cell around the grid (it also shows between the tiles as their thin dark lines),
         /// then blocks of stone <paramref name="thickness"/> cells thick (0.42 on the board, 0.3 around the win picture)
-        /// whose lengths alternate 1.0 and 0.8 cell, square rounded blocks at the corners and dark joints. The cell is
+        /// whose lengths alternate 1.0 and 0.8 cell (nearly rectangular, rounded 14%), square blocks rounded 30% at the
+        /// corners and thin dark joints. The cell is
         /// the grid's width over <paramref name="columns"/> (or its height over <paramref name="rows"/>, the smaller).
         /// </summary>
         public static StoneBorderView StoneBorder(RectTransform grid, int columns, int rows, float thickness = 0.42f)
@@ -318,9 +333,10 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A Garden Entry's stone arch box (§3.6, the playtest's <c>Kit.StoneArch</c>) in top-down coordinates: a half ring
-        /// of outer radius 1.5 cells whose open base's middle is (<paramref name="cx"/>, <paramref name="cy"/>), on the
-        /// <paramref name="side"/> the entry is on (for <see cref="EntrySide.Bottom"/> it stands below the board, crown up).
+        /// A Garden Entry's stone ring box (§3.6) in top-down coordinates: a half ring of outer radius 1.5 cells whose open
+        /// base's middle is (<paramref name="cx"/>, <paramref name="cy"/>), on the <paramref name="side"/> the entry is on
+        /// (for <see cref="EntrySide.Bottom"/> it stands below the board, crown up). The board places its arches at
+        /// <see cref="EntryArch.Picture"/>, which adds the piers the ring stands on.
         /// </summary>
         public static Box ArchBox(float cx, float cy, float cell, EntrySide side)
         {
@@ -345,7 +361,8 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A Garden Entry's stone arch (§3.6, <c>board.arch</c>): nine sandy stone blocks in a half ring around an opening
-        /// that shows the lawn; place it at <see cref="ArchBox"/>. Never a touch target.
+        /// that shows the lawn, standing on two straight piers when its rect is deeper than half its width; place it at
+        /// <see cref="EntryArch.Picture"/> (the playtest's <c>Kit.StoneArch</c>). Never a touch target.
         /// </summary>
         public static Image StoneArch(string name, Transform parent, EntrySide side)
         {
@@ -383,8 +400,9 @@ namespace Bloomlings.Client.UI
         /// <summary>
         /// A pod (§3.7): a soft shadow, the short wooden handle on top of an exposed pod, the inner panel tinted by the
         /// variant (plain cream when queued, locked or a mystery; <c>state.lock_bg</c> when locked), the dark wood frame
-        /// (radius 18%, border 11% of the width), the variant's sticker tile at 70% of the panel near its top and the plain
-        /// count below it. Queued pods are dimmed, a pressed one sinks, a locked one shows the padlock; a null variant is a
+        /// (radius 18%, border 11% of the width), the variant's sticker tile at 62% of the panel near its top and the count
+        /// below it in big plain digits. Queued pods are dimmed, a pressed one sinks and darkens a little (its tile sinking
+        /// into its lip), a locked one shows the padlock; a null variant is a
         /// mystery pod. Set it with <see cref="KitPodView.Show"/>; add the link bar or the "+N" badge on top.
         /// </summary>
         public static KitPodView Pod(string name, Transform parent)
@@ -407,14 +425,15 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// Places a pod's or slot's count under its tile (§3.7): plain digits in <c>type.count</c>, 86% of the area's
-        /// height, <c>ink.brown</c> or softer when <paramref name="dim"/>.
+        /// Places a pod's or slot's count under its tile (§3.7, the playtest's <c>Kit.CountBelow</c>): plain digits in
+        /// <c>type.count</c> at <paramref name="fill"/> of the area's height (slots 0.86, pods 1.05: the digits' caps fill
+        /// it), <c>ink.brown</c> or softer when <paramref name="dim"/>.
         /// </summary>
-        public static void PlaceCount(TextMeshProUGUI label, Box area, bool dim)
+        public static void PlaceCount(TextMeshProUGUI label, Box area, bool dim, float fill = 0.86f)
         {
             Rgba ink = dim ? C.InkBrownSoft.Mix(C.ParchmentBottom, 0.3f) : C.InkBrown;
             ApplyLook(label, T.Count, TextLook.Plain(ink));
-            KitText.Place(label, T.Count, area.CenterX, area.CenterY, area.Height * 0.86f, area.Width);
+            KitText.Place(label, T.Count, area.CenterX, area.CenterY, area.Height * fill, area.Width);
         }
 
         /// <summary>
@@ -432,7 +451,7 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A booster tile (§3.7; the booster bar): a cream squircle (radius 26%) in a cool silver-grey rim with the
+        /// A booster tile (§3.7; the booster bar): a cream squircle (radius 26%) in a cream-white bezel with the
         /// booster's colored icon at 62%, and the green count badge over its bottom-right corner, or the cost pill under it
         /// and a small green "+" when no charges are left. A selected tile is raised with the pulsing golden glow; a
         /// disabled one is greyed at 55% (spec 003 FR-031). Set it with <see cref="BoosterTileView.Show"/>.
@@ -483,49 +502,70 @@ namespace Bloomlings.Client.UI
             return view;
         }
 
+        /// <summary>
+        /// A light sprinkle of confetti for the first seconds of a win or a milestone (§3.9, <c>fx.confetti</c>; the
+        /// playtest's <c>EndCards.Confetti</c>): eighteen small rounded bits in the level's colors
+        /// (<see cref="ConfettiView.ColorsOf"/>) falling through the rect and fading out by 2.2 s, on unscaled time since the
+        /// view was enabled. Put it in the heroes' room above the card (a clip from the screen's top to the card's top edge),
+        /// so the picture, the reward and Next stay clean. Never a touch target.
+        /// </summary>
+        public static ConfettiView Confetti(string name, Transform parent)
+        {
+            RectTransform root = UiFactory.Stretch(UiFactory.CreateRect(name, parent));
+            var view = root.gameObject.AddComponent<ConfettiView>();
+            view.Build();
+            return view;
+        }
+
         // ---- The wordmark (§4.5) ----
 
         /// <summary>
-        /// The wooden wordmark (§4.5, <c>ui.logo.wood</c>; the stand-in for the owner's logo): <paramref name="text"/> in
-        /// <c>type.wordmark</c> fitted into the rect (86% of its width, 72% of its height) with light wood letters, a
-        /// <c>wood.line</c> outline and a darker extrusion (<see cref="GardenLook.WoodLetters"/>), ivy over both ends and a
-        /// small pink flower. Never a touch target. <see cref="OwnerArt.Logo"/> shows the owner's picture instead when it
-        /// exists.
+        /// The wooden wordmark (§4.5, <c>ui.logo.wood</c>; the stand-in for the owner's logo; the playtest's
+        /// <c>Kit.WoodLogo</c>): <paramref name="text"/> in <c>type.wordmark</c> fitted into the rect (80% of its width, 72%
+        /// of its height) with light wood letters, a <c>wood.line</c> outline and a darker extrusion
+        /// (<see cref="GardenLook.WoodLetters"/>) inside an olive mossy band, as the reference's logo, broad leaves behind
+        /// both ends and two small pink flowers over them. Never a touch target. <see cref="OwnerArt.Logo"/> shows the
+        /// owner's picture instead when it exists.
         /// </summary>
         public static RectTransform WoodLogo(string name, Transform parent, string text)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             TypeStyle style = T.Wordmark;
-            Image backLeft = IvyCluster("IvyBackLeft", root, flipped: false, back: true);
-            Image backRight = IvyCluster("IvyBackRight", root, flipped: true, back: true);
+            Image leftLeaves = UiFactory.CreateImage("LeavesLeft", root, null, Color.white);
+            PictureFit.On(leftLeaves, (w, h) => ProceduralSprites.LogoLeaves(false, Mathf.Min(w, h)), square: true);
+            Image rightLeaves = UiFactory.CreateImage("LeavesRight", root, null, Color.white);
+            PictureFit.On(rightLeaves, (w, h) => ProceduralSprites.LogoLeaves(true, Mathf.Min(w, h)), square: true);
+
+            // The mossy band: the same letters in olive, outlined and extruded thickly, behind the wooden ones.
+            Rgba moss = C.IvyLine.Mix(C.WoodLine, 0.35f).Lighten(0.12f);
+            TextMeshProUGUI band = KitLabel("Moss", root, text, style, new TextLook(moss, moss, moss, 0.14f, 0.14f, 0.36f));
             TextMeshProUGUI label = KitLabel("Letters", root, text, style, GardenLook.WoodLetters);
-            Image frontLeft = IvyCluster("IvyLeft", root, flipped: false, back: false);
-            Image frontRight = IvyCluster("IvyRight", root, flipped: true, back: false);
-            Image flower = UiFactory.CreateImage("Flower", root, null, Color.white);
-            PictureFit.On(flower, (w, h) => ProceduralSprites.LogoFlower(Mathf.Min(w, h)), square: true);
+            Image flowerLeft = UiFactory.CreateImage("FlowerLeft", root, null, Color.white);
+            PictureFit.On(flowerLeft, (w, h) => ProceduralSprites.LogoFlower(Mathf.Min(w, h)), square: true);
+            Image flowerRight = UiFactory.CreateImage("FlowerRight", root, null, Color.white);
+            PictureFit.On(flowerRight, (w, h) => ProceduralSprites.LogoFlower(Mathf.Min(w, h)), square: true);
             layout.Watch(label).Then(b =>
             {
                 float size = Units(style.Size);
                 float natural = KitText.Measure(label, size);
                 if (natural <= 0f)
                 {
-                    natural = b.Width * 0.86f;
+                    natural = b.Width * 0.8f;
                 }
 
-                float scale = Mathf.Min(b.Width * 0.86f / natural, b.Height * 0.72f / size);
+                float scale = Mathf.Min(b.Width * 0.8f / natural, b.Height * 0.72f / size);
                 float width = natural * scale;
                 float em = size * scale;
                 float cy = b.CenterY - (em * 0.04f);
+                float left = b.CenterX - (width / 2f);
+                float right = b.CenterX + (width / 2f);
+                float leaf = em * 1.7f;
+                BoxLayout.Place(leftLeaves.rectTransform, Box.FromCenter(left + (em * 0.02f), cy - (em * 0.04f), leaf, leaf));
+                BoxLayout.Place(rightLeaves.rectTransform, Box.FromCenter(right - (em * 0.02f), cy - (em * 0.14f), leaf, leaf));
+                KitText.Place(band, style, b.CenterX, cy, em, width + 1f);
                 KitText.Place(label, style, b.CenterX, cy, em, width + 1f);
-                float leaf = em;
-                Box left = Box.FromCenter(b.CenterX - (width / 2f) + (leaf * 0.05f), cy - (em * 0.12f), leaf, leaf);
-                Box right = Box.FromCenter(b.CenterX + (width / 2f) - (leaf * 0.05f), cy - (em * 0.12f), leaf, leaf);
-                BoxLayout.Place(backLeft.rectTransform, left);
-                BoxLayout.Place(frontLeft.rectTransform, left);
-                BoxLayout.Place(backRight.rectTransform, right);
-                BoxLayout.Place(frontRight.rectTransform, right);
-                float bloom = em * 0.4f;
-                BoxLayout.Place(flower.rectTransform, Box.FromCenter(b.CenterX + (width / 2f) + (bloom * 0.1f), cy - (em * 0.46f), bloom, bloom));
+                BoxLayout.Place(flowerLeft.rectTransform, Box.FromCenter(left - (em * 0.12f), cy + (em * 0.42f), em * 0.36f, em * 0.36f));
+                BoxLayout.Place(flowerRight.rectTransform, Box.FromCenter(right + (em * 0.08f), cy - (em * 0.5f), em * 0.4f, em * 0.4f));
             });
             return root;
         }
@@ -556,25 +596,65 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A Wardrobe outfit card (§4.6, <c>ui.card.outfit</c>): a raised cream card with a beige picture well (put the
-        /// outfit's picture in <see cref="OutfitCardView.Picture"/>) and the name below it. The worn outfit has a green tint,
-        /// a 4-unit green border and a green check badge on the well's corner. The whole card is the touch target.
+        /// An outfit card (§4.6, <c>ui.card.outfit</c>; the Wardrobe and the Store's cosmetics; the playtest's
+        /// <c>Kit.OutfitCard</c>): a raised cream card (radius 11% of its width, a <c>cream.lip</c> of 3.5%, a thin
+        /// <c>cream.line</c> outline) with a beige picture well (64% of the face tall, which <see cref="OutfitCardView.Picture"/>
+        /// fills and clips: put the hero wearing the item there) and the item's name below it. The worn one
+        /// (<see cref="OutfitCardView.Show"/>) has a green-tinted well with a green border and the check badge on its corner.
+        /// A <paramref name="cost"/> adds the cost pill on the card's bottom edge (the Store); the rect then holds the card
+        /// and the pill below it (<paramref name="pillRoom"/> keeps that room without a pill, so cards in a row line up).
+        /// With <paramref name="onClick"/> the whole rect is the touch target; without one a cost pill is faded (it cannot
+        /// be bought now).
         /// </summary>
-        public static OutfitCardView OutfitCard(string name, Transform parent, string label, Action onClick)
+        public static OutfitCardView OutfitCard(string name, Transform parent, string label, Action? onClick, Cost? cost = null, bool pillRoom = false)
         {
-            (RectTransform root, BoxLayout layout) = Element(name, parent, raycast: true);
+            (RectTransform root, BoxLayout layout) = Element(name, parent, raycast: onClick != null);
             var view = root.gameObject.AddComponent<OutfitCardView>();
-            view.Build(layout, label);
-            var button = root.gameObject.AddComponent<Button>();
-            button.transition = Selectable.Transition.None;
-            button.targetGraphic = root.GetComponent<Image>();
-            button.onClick.AddListener(() =>
+            view.Build(layout, label, cost, pillRoom || cost.HasValue, faded: onClick == null);
+            if (onClick != null)
             {
-                GameFeedback.Current?.Play(SoundCue.Click);
-                onClick();
-            });
-            root.gameObject.AddComponent<PressMotion>();
+                var button = root.gameObject.AddComponent<Button>();
+                button.transition = Selectable.Transition.None;
+                button.targetGraphic = root.GetComponent<Image>();
+                button.onClick.AddListener(() =>
+                {
+                    GameFeedback.Current?.Play(SoundCue.Click);
+                    onClick();
+                });
+                root.gameObject.AddComponent<PressMotion>().Tile = true;
+            }
+
             return view;
+        }
+
+        /// <summary>
+        /// The worn item's badge (§4.6, the playtest's <c>Kit.CheckBadge</c>): a green disc in a white ring (10% of the disc)
+        /// with a thin green line and a white check, over a soft shadow, in the box <paramref name="disc"/> gives for the
+        /// element's box. Its images go into <paramref name="layout"/>'s element.
+        /// </summary>
+        internal static void CheckBadge(BoxLayout layout, Func<Box, Box> disc)
+        {
+            Transform root = layout.transform;
+            ColorSet green = GardenLook.Green;
+            Box Outer(Box b)
+            {
+                Box d = disc(b);
+                return d.Inset(-d.Width * 0.1f);
+            }
+
+            SoftShadow(layout, Outer, b => b.Width / 2f, 0.25f, 0.06f);
+            Image ring = RoundRect("CheckRing", root, Color.white);
+            Image face = RoundGradient("CheckDisc", root, green.Top, green.Face);
+            Image edge = RoundRing("CheckLine", root, UiTheme.Of(green.Line), null, b => Mathf.Max(Units(1f), b.Width * 0.04f));
+            Image check = ShapeImage("Check", root, "ui.check", Rgba.White);
+            layout.Add(ring.rectTransform, Outer);
+            layout.Add(face.rectTransform, disc);
+            layout.Add(edge.rectTransform, b => disc(b).Inset(Mathf.Max(0.5f, disc(b).Width * 0.02f)));
+            layout.Add(check.rectTransform, b =>
+            {
+                Box d = disc(b);
+                return Box.FromCenter(d.CenterX, d.CenterY, d.Width * 0.58f, d.Width * 0.58f);
+            });
         }
 
         private static float Frac(float v) => v - (float)Math.Floor(v);
@@ -671,7 +751,7 @@ namespace Bloomlings.Client.UI
             _style = style;
         }
 
-        /// <summary>The letters' color (<c>ink.brown</c>; <c>badge.super_hard</c> on a Super Hard level), embossed.</summary>
+        /// <summary>The letters' color (<c>ink.brown</c>; <c>badge.super_hard</c> darkened on a Super Hard level), embossed.</summary>
         public void SetLetters(Rgba ink) => UiKit.ApplyLook(Label, _style, GardenLook.SignLetters(ink));
     }
 
@@ -681,27 +761,49 @@ namespace Bloomlings.Client.UI
         private TextMeshProUGUI _label = null!;
         private Image _lotus = null!;
         private GameObject _free = null!;
+        private Image _charge = null!;
+        private IReadOnlyList<IconPart>? _chargeParts;
         private BoxLayout _layout = null!;
 
         /// <summary>What the pill shows.</summary>
         public Cost Cost { get; private set; }
 
-        internal void Init(TextMeshProUGUI label, Image lotus, GameObject free, BoxLayout layout)
+        /// <summary>Whether the pill shows charges after the booster's icon (<see cref="SetChargeIcon"/>).</summary>
+        public bool ShowsChargeIcon => Cost.Kind == CostKind.Charges && _chargeParts != null;
+
+        internal void Init(TextMeshProUGUI label, Image lotus, GameObject free, Image charge, BoxLayout layout)
         {
             _label = label;
             _lotus = lotus;
             _free = free;
+            _charge = charge;
             _layout = layout;
         }
 
-        /// <summary>Shows a price with the lotus, Free with the green ▶, or ×N charges.</summary>
+        /// <summary>Shows a price with the lotus, Free with the green ▶, or ×N charges (after the booster's icon when set).</summary>
         public void SetCost(Cost cost)
         {
             Cost = cost;
             _label.text = Text(cost);
             _lotus.gameObject.SetActive(cost.Kind == CostKind.Petals);
             _free.SetActive(cost.Kind == CostKind.Free);
+            _charge.gameObject.SetActive(ShowsChargeIcon);
             _layout.Apply();
+        }
+
+        /// <summary>
+        /// The booster's icon shown before charges (the playtest's <c>Kit.CostPill</c> with its charge icon: the jam
+        /// choices); null shows charges alone.
+        /// </summary>
+        public void SetChargeIcon(IReadOnlyList<IconPart>? parts)
+        {
+            _chargeParts = parts;
+            if (parts != null)
+            {
+                UiKit.SetIconParts(_charge, parts, false);
+            }
+
+            SetCost(Cost);
         }
 
         /// <summary>The pill's text: the grouped price, "Free" or "×N".</summary>
@@ -796,6 +898,7 @@ namespace Bloomlings.Client.UI
         private Image _panel = null!;
         private Image _frame = null!;
         private Image _veil = null!;
+        private Image _shade = null!;
         private Image _lock = null!;
         private CandyTileView _tile = null!;
         private TextMeshProUGUI _count = null!;
@@ -832,6 +935,7 @@ namespace Bloomlings.Client.UI
             _frame = UiFactory.CreateImage("Frame", root, null, Color.white);
             PictureFit.On(_frame, (w, h) => ProceduralSprites.Frame(WoodTone.Dark, w, h), sliced: true);
             _veil = UiKit.RoundRect("Veil", root, UiTheme.Of(C.ParchmentBottom.WithAlpha(0.45f)), _ => _radius);
+            _shade = UiKit.RoundRect("PressShade", root, UiTheme.Of(C.GardenShadow.WithAlpha(0.08f)), _ => _radius);
             _content = UiFactory.CreateRect("Content", root);
             _tile = UiKit.CandyTile("Tile", root, null, TileStyle.Sticker);
             _lock = UiKit.ShapeImage("Lock", root, "ui.lock", C.StateLock.Darken(0.2f));
@@ -852,6 +956,7 @@ namespace Bloomlings.Client.UI
             if (!locked)
             {
                 _tile.Show(variant, queued ? TileState.Dimmed : TileState.Normal);
+                _tile.Pressed = look == PodLook.Pressed;
             }
 
             _count.text = count.ToString(CultureInfo.InvariantCulture);
@@ -887,6 +992,9 @@ namespace Bloomlings.Client.UI
             }
 
             _veil.gameObject.SetActive(queued);
+
+            // Pressed: the whole pod is a little darker as it sinks.
+            _shade.gameObject.SetActive(look == PodLook.Pressed);
             _lock.gameObject.SetActive(false);
             _tile.gameObject.SetActive(false);
             _count.gameObject.SetActive(false);
@@ -901,7 +1009,7 @@ namespace Bloomlings.Client.UI
             _radius = w * 0.18f;
             float border = w * 0.11f;
             _panelRadius = Mathf.Max(0f, _radius - (border * 0.8f));
-            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, w * (pressed ? 0.02f : 0.05f)).Inset(w * 0.03f, 0f));
+            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, w * (pressed ? 0.01f : 0.05f)).Inset(w * 0.03f, 0f));
             float handleHeight = w * 0.15f;
             Box knob = Box.FromCenter(frame.CenterX, frame.Top - (handleHeight * 0.12f), w * 0.34f, handleHeight);
             BoxLayout.Place(_stem.rectTransform, Box.FromCenter(knob.CenterX, knob.Top - (handleHeight * 0.12f), w * 0.04f, handleHeight * 0.45f));
@@ -909,14 +1017,17 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_panel.rectTransform, frame.Inset(border * 0.8f));
             BoxLayout.Place(_frame.rectTransform, frame);
             BoxLayout.Place(_veil.rectTransform, frame);
+            BoxLayout.Place(_shade.rectTransform, frame);
             Box inner = frame.Inset(border);
             BoxLayout.Place(_content, inner);
-            float tile = inner.Width * 0.7f;
-            Box tileBox = Box.FromCenter(inner.CenterX, inner.Top + (inner.Height * 0.04f) + (tile / 2f), tile, tile);
+
+            // The sticker tile at 62% of the panel near its top; the count below it in big digits (about 17% of the pod).
+            float tile = inner.Width * 0.62f;
+            Box tileBox = Box.FromCenter(inner.CenterX, inner.Top + (inner.Height * 0.03f) + (tile / 2f), tile, tile);
             BoxLayout.Place((RectTransform)_tile.transform, tileBox);
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(tileBox.CenterX, tileBox.CenterY, tile * 0.62f, tile * 0.62f));
-            UiKit.PlaceCount(_count, new Box(inner.Left, tileBox.Bottom, inner.Right, inner.Bottom), Look == PodLook.Next || Look == PodLook.Locked);
-            foreach (Image image in new[] { _shadow, _panel, _veil })
+            UiKit.PlaceCount(_count, new Box(inner.Left, tileBox.Bottom, inner.Right, inner.Bottom), Look == PodLook.Next || Look == PodLook.Locked, 1.05f);
+            foreach (Image image in new[] { _shadow, _panel, _veil, _shade })
             {
                 image.GetComponent<RoundShape>().Apply();
             }
@@ -1162,7 +1273,7 @@ namespace Bloomlings.Client.UI
 
             _ring = UiKit.RoundRing("Ring", _glow, UiTheme.Of(C.GardenGlow), _ => _radius + (Side() * 0.035f), _ => Side() * 0.035f);
 
-            // The cream face in its silver-grey bezel (the playtest's Kit.BoosterBezel, UiKitGameplay.cs).
+            // The cream face in its cream-white bezel (the playtest's Kit.BoosterBezel, UiKitGameplay.cs).
             Face = UiKit.BoosterBezel("Tile", root, b => Mathf.Min(b.Width, b.Height) * 0.26f, raycast: true);
             Face.TileSquash = true;
             _icon = UiKit.BoosterIcon("Icon", Face.Content, boosterId);
@@ -1275,7 +1386,7 @@ namespace Bloomlings.Client.UI
         internal void Init(int columns, int rows, float thickness)
         {
             _shadow = UiKit.RoundRect("Shadow", transform, UiTheme.Of(C.GardenShadow.WithAlpha(0.22f)), _ => _shadowRadius);
-            _joints = UiKit.RoundRect("Joints", transform, UiTheme.Of(C.StoneLine.WithAlpha(0.6f)), _ => _jointRadius);
+            _joints = UiKit.RoundRect("Joints", transform, UiTheme.Of(C.StoneLine.WithAlpha(0.45f)), _ => _jointRadius);
             _gap = UiKit.RoundRect("Gap", transform, UiTheme.Of(GardenLook.BoardGap), _ => _gapRadius);
             SetGrid(columns, rows, thickness);
         }
@@ -1301,10 +1412,10 @@ namespace Bloomlings.Client.UI
             float half = cell * 0.02f;
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
-            blocks.Add((new Box(outer.Left, outer.Top, inner.Left, inner.Top).Inset(half), 1, 0.4f));
-            blocks.Add((new Box(inner.Right, outer.Top, outer.Right, inner.Top).Inset(half), 2, 0.4f));
-            blocks.Add((new Box(outer.Left, inner.Bottom, inner.Left, outer.Bottom).Inset(half), 3, 0.4f));
-            blocks.Add((new Box(inner.Right, inner.Bottom, outer.Right, outer.Bottom).Inset(half), 4, 0.4f));
+            blocks.Add((new Box(outer.Left, outer.Top, inner.Left, inner.Top).Inset(half), 1, 0.3f));
+            blocks.Add((new Box(inner.Right, outer.Top, outer.Right, inner.Top).Inset(half), 2, 0.3f));
+            blocks.Add((new Box(outer.Left, inner.Bottom, inner.Left, outer.Bottom).Inset(half), 3, 0.3f));
+            blocks.Add((new Box(inner.Right, inner.Bottom, outer.Right, outer.Bottom).Inset(half), 4, 0.3f));
             Run(blocks, inner.Left, inner.Right, cell, 0, (a, b) => new Box(a, outer.Top, b, inner.Top), half);
             Run(blocks, inner.Left, inner.Right, cell, 1, (a, b) => new Box(a, inner.Bottom, b, outer.Bottom), half);
             Run(blocks, inner.Top, inner.Bottom, cell, 2, (a, b) => new Box(outer.Left, a, inner.Left, b), half);
@@ -1331,7 +1442,7 @@ namespace Bloomlings.Client.UI
 
                 // A few stone looks, chosen by the block's place, keep the picture cache small.
                 int seed = 11 + (((side * 7) + (i * 3)) % 8);
-                blocks.Add((place(at, next).Inset(half), seed, 0.3f));
+                blocks.Add((place(at, next).Inset(half), seed, 0.14f));
                 at = next;
             }
         }
@@ -1459,6 +1570,91 @@ namespace Bloomlings.Client.UI
         }
     }
 
+    /// <summary>The win's confetti (<see cref="UiKit.Confetti"/>): the same time gives the same frame.</summary>
+    public sealed class ConfettiView : MonoBehaviour
+    {
+        /// <summary>How many bits fall.</summary>
+        public const int Count = 18;
+
+        /// <summary>How long the confetti shows, in seconds.</summary>
+        public const float Seconds = 2.2f;
+
+        private readonly Image[] _bits = new Image[Count];
+        private float _startedAt;
+
+        internal void Build()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                _bits[i] = UiKit.RoundRect("Bit" + i, transform, Color.white, _ => UiKit.Units(3f));
+            }
+        }
+
+        /// <summary>The bits' colors, in turn (<see cref="ColorsOf"/>).</summary>
+        public void SetColors(IReadOnlyList<Rgba> colors)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                _bits[i].color = UiTheme.Of(colors.Count > 0 ? colors[i % colors.Count] : C.LotusFill);
+            }
+        }
+
+        /// <summary>The confetti's colors for a level: each variant of its pods once, in pod order, then the lotus pinks.</summary>
+        public static List<Rgba> ColorsOf(IEnumerable<PodDef> pods)
+        {
+            var colors = new List<Rgba>();
+            foreach (PodDef pod in pods)
+            {
+                Rgba color = VariantCatalog.Default.TryGet(pod.Variant, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : C.StateStuck;
+                if (!colors.Contains(color))
+                {
+                    colors.Add(color);
+                }
+            }
+
+            colors.Add(C.LotusFill);
+            colors.Add(C.PetalCenter);
+            return colors;
+        }
+
+        /// <summary>
+        /// Bit <paramref name="i"/>'s box (top-down, in an area <paramref name="width"/> × <paramref name="height"/> from the
+        /// screen's top to the card's) and alpha at <paramref name="seconds"/> after the card showed (the playtest's recipe).
+        /// </summary>
+        public static (Box Box, float Alpha) Bit(int i, float width, float height, float seconds, float unit)
+        {
+            float seed = (i * 0.6180339f) % 1f;
+            float x = width * ((seed + (0.05f * (float)Math.Sin((seconds * 2f) + i))) % 1f);
+            float y = (-40f * unit) + ((seconds * (height * (0.35f + (0.25f * ((i * 0.37f) % 1f))))) % (height + (80f * unit)));
+            float size = unit * (14f + (8f * ((i * 0.53f) % 1f)));
+            return (Box.FromCenter(x, y, size, size * 0.6f), Math.Max(0f, Math.Min(1f, Seconds - seconds)));
+        }
+
+        private void OnEnable() => _startedAt = Time.unscaledTime;
+
+        private void Update()
+        {
+            float seconds = Time.unscaledTime - _startedAt;
+            Rect rect = ((RectTransform)transform).rect;
+            bool show = seconds <= Seconds && rect.width > 0f && rect.height > 0f;
+            float unit = UiKit.Units(1f);
+            for (int i = 0; i < Count; i++)
+            {
+                Image bit = _bits[i];
+                bit.gameObject.SetActive(show);
+                if (!show)
+                {
+                    continue;
+                }
+
+                (Box box, float alpha) = Bit(i, rect.width, rect.height, seconds, unit);
+                BoxLayout.Place(bit.rectTransform, box);
+                Color color = bit.color;
+                bit.color = new Color(color.r, color.g, color.b, alpha);
+            }
+        }
+    }
+
     /// <summary>A Wardrobe family tab built by <see cref="UiKit.FamilyTab"/>.</summary>
     public sealed class FamilyTabView : MonoBehaviour
     {
@@ -1535,88 +1731,150 @@ namespace Bloomlings.Client.UI
         }
     }
 
-    /// <summary>A Wardrobe outfit card built by <see cref="UiKit.OutfitCard"/>.</summary>
+    /// <summary>An outfit card built by <see cref="UiKit.OutfitCard"/> (the playtest's <c>Kit.OutfitCard</c>).</summary>
     public sealed class OutfitCardView : MonoBehaviour
     {
+        /// <summary>The cost pill's height over the card's (§4.6).</summary>
+        public const float PillShare = 0.2f;
+
         private BoxLayout _layout = null!;
-        private Image _lip = null!;
-        private Image _face = null!;
         private Image _well = null!;
-        private Image _border = null!;
+        private Image _wellLine = null!;
         private GameObject _check = null!;
-        private Image _checkRing = null!;
-        private Image _checkDisc = null!;
-        private Image _checkGlyph = null!;
         private TextMeshProUGUI _label = null!;
+        private bool _pillRoom;
         private float _radius;
         private float _wellRadius;
-        private float _stroke;
+        private float _line;
+        private float _border;
 
-        /// <summary>Where the outfit's picture goes (inside the beige well).</summary>
+        /// <summary>Where the outfit's picture goes: the whole well, clipped to its rounded shape.</summary>
         public RectTransform Picture { get; private set; } = null!;
 
         /// <summary>The outfit's name.</summary>
         public TextMeshProUGUI Label => _label;
 
-        /// <summary>Whether the outfit is worn (green, with the check).</summary>
+        /// <summary>The cost pill under the card (null without a cost).</summary>
+        public CostPillView? CostPill { get; private set; }
+
+        /// <summary>Whether the outfit is worn (the green well, its border and the check).</summary>
         public bool Worn { get; private set; }
 
-        internal void Build(BoxLayout layout, string label)
+        /// <summary>The card's body in the rect: above the pill's lower part when the rect keeps the pill's room.</summary>
+        public static Box CardBox(Box box, bool pillRoom) =>
+            pillRoom ? new Box(box.Left, box.Top, box.Right, box.Top + (box.Height / (1f + (0.6f * PillShare)))) : box;
+
+        /// <summary>The well in the rect: inset 7.5% of the card's width, 64% of the face tall.</summary>
+        public static Box WellBox(Box box, bool pillRoom)
+        {
+            Box face = FaceBox(box, pillRoom);
+            float pad = face.Width * 0.075f;
+            return new Box(face.Left + pad, face.Top + pad, face.Right - pad, face.Top + pad + (face.Height * 0.64f));
+        }
+
+        /// <summary>
+        /// Places a hero picture rect in an outfit card's well as the playtest's previews do: filling the well with its
+        /// feet near the bottom (clipped by the well), or with a hat a little smaller and lower, so the hat stays inside.
+        /// </summary>
+        public static void PlaceHero(RectTransform hero, RectTransform well, bool hat) =>
+            BoxLayout.On(well).Add(hero, w => HomeStage.Figure(w.CenterX, w.Bottom - (w.Height * (hat ? 0.02f : 0.05f)), w.Height * (hat ? 0.96f : 1.1f)));
+
+        private static Box FaceBox(Box box, bool pillRoom)
+        {
+            Box card = CardBox(box, pillRoom);
+            return new Box(card.Left, card.Top, card.Right, card.Bottom - (card.Width * 0.035f));
+        }
+
+        internal void Build(BoxLayout layout, string label, Cost? cost, bool pillRoom, bool faded)
         {
             _layout = layout;
+            _pillRoom = pillRoom;
             Transform root = layout.transform;
-            UiKit.SoftShadow(layout, b => b, b => b.Width * 0.12f, 0.18f, 0.04f);
-            _lip = UiKit.RoundRect("Lip", root, UiTheme.Of(C.CreamLip), _ => _radius);
-            _face = UiKit.RoundGradient("Face", root, C.CreamTop, C.CreamFace, _ => _radius);
-            _well = UiKit.RoundRect("Well", root, UiTheme.Of(C.ParchmentWell), _ => _wellRadius);
-            Picture = UiFactory.CreateRect("Picture", root);
-            _border = UiKit.RoundRing("Border", root, UiTheme.Of(C.CreamLine), _ => _radius, _ => _stroke);
+            Box Card(Box b) => CardBox(b, _pillRoom);
+            UiKit.SoftShadow(layout, Card, b => b.Width * 0.11f, 0.18f, 0.035f);
+            Image lip = UiKit.RoundRect("Lip", root, UiTheme.Of(C.CreamLip), _ => _radius);
+            Image face = UiKit.RoundGradient("Face", root, C.CreamTop, C.CreamFace, _ => _radius);
+            Image line = UiKit.RoundRing("Line", root, UiTheme.Of(C.CreamLine), _ => _radius, _ => _line);
+            _well = UiKit.RoundGradient("Well", root, C.ParchmentWell.Mix(C.CreamTop, 0.35f), C.ParchmentWell, _ => _wellRadius);
+            _well.gameObject.AddComponent<Mask>();
+            Image shade = UiKit.RoundRect("Shade", _well.transform, Color.white, _ => _wellRadius);
+            UiKit.Gradient(shade, UiTheme.Of(C.GardenShadow.WithAlpha(0.1f)), UiTheme.Of(C.GardenShadow.WithAlpha(0f)));
+            shade.GetComponent<VerticalGradient>().Stop = 0.2f;
+            UiFactory.Stretch(shade.rectTransform);
+            Picture = UiFactory.Stretch(UiFactory.CreateRect("Picture", _well.transform));
+            _wellLine = UiKit.RoundRing("WellLine", root, UiTheme.Of(C.ParchmentEdge.Darken(0.08f)), _ => _wellRadius, _ => _border);
             _label = UiKit.KitLabel("Name", root, label, T.ButtonSecondary, TextLook.Plain(C.InkBrown));
-            _check = UiFactory.CreateRect("Check", root).gameObject;
-            UiFactory.Stretch((RectTransform)_check.transform);
-            _checkRing = UiKit.RoundRect("Ring", _check.transform, Color.white);
-            _checkDisc = UiKit.RoundGradient("Disc", _check.transform, GardenLook.Green.Top, GardenLook.Green.Face);
-            _checkGlyph = UiKit.ShapeImage("Glyph", _check.transform, "ui.check", Rgba.White);
-            layout.Watch(_label).Then(Lay);
+
+            RectTransform check = UiFactory.Stretch(UiFactory.CreateRect("Check", root));
+            _check = check.gameObject;
+            UiKit.CheckBadge(BoxLayout.On(check), b =>
+            {
+                Box w = WellBox(b, _pillRoom);
+                float badge = CardBox(b, _pillRoom).Width * 0.22f;
+                return Box.FromCenter(w.Right - (badge * 0.42f), w.Bottom - (badge * 0.42f), badge, badge);
+            });
+
+            layout.Add(lip.rectTransform, b =>
+            {
+                Box card = Card(b);
+                _radius = card.Width * 0.11f;
+                _line = Mathf.Max(UiKit.Units(1f), card.Width * 0.011f);
+                _wellRadius = _radius * 0.7f;
+                _border = Worn ? Mathf.Max(UiKit.Units(4f), card.Width * 0.022f) : _line;
+                return card;
+            });
+            layout.Add(face.rectTransform, b => FaceBox(b, _pillRoom));
+            layout.Add(line.rectTransform, Card);
+            layout.Add(_well.rectTransform, b => WellBox(b, _pillRoom));
+            layout.Add(_wellLine.rectTransform, b => WellBox(b, _pillRoom));
+            if (cost.HasValue)
+            {
+                CostPill = UiKit.CostPill("Cost", root, cost.Value);
+                if (faded)
+                {
+                    CostPill.gameObject.AddComponent<CanvasGroup>().alpha = 0.45f;
+                }
+
+                layout.Add((RectTransform)CostPill.transform, b =>
+                {
+                    Box card = Card(b);
+                    float h = card.Height * PillShare;
+                    return Box.FromCenter(card.CenterX, card.Bottom + (h * 0.1f), card.Width * 0.78f, h);
+                });
+            }
+
+            layout.Watch(_label).Then(b =>
+            {
+                Box card = Card(b);
+                float top = WellBox(b, _pillRoom).Bottom;
+                float bottom = _pillRoom ? FaceBox(b, _pillRoom).Bottom - ((b.Height - card.Height) * 0.5f) : FaceBox(b, _pillRoom).Bottom;
+                float size = Mathf.Min(UiKit.Units(T.ButtonSecondary.Size), (bottom - top) * 0.62f);
+                KitText.Place(_label, T.ButtonSecondary, card.CenterX, (top + bottom) / 2f, size, card.Width * 0.88f);
+                foreach (Image image in new[] { lip, face, line, _well, shade, _wellLine })
+                {
+                    image.GetComponent<RoundShape>().Apply();
+                }
+            });
             Show(false);
         }
 
-        /// <summary>Shows the card worn (green tint, green border, check) or not.</summary>
+        /// <summary>Shows the card worn (the green-tinted well with its green border and the check) or not.</summary>
         public void Show(bool worn)
         {
             Worn = worn;
             ColorSet green = GardenLook.Green;
-            UiKit.Gradient(_face, UiTheme.Of(worn ? green.Top.Mix(C.CreamTop, 0.7f) : C.CreamTop), UiTheme.Of(worn ? green.Face.Mix(C.CreamFace, 0.62f) : C.CreamFace));
-            _well.color = UiTheme.Of(worn ? green.Top.Mix(C.CreamTop, 0.45f) : C.ParchmentWell);
-            _border.color = UiTheme.Of(worn ? green.Face : C.CreamLine);
+            if (worn)
+            {
+                UiKit.Gradient(_well, UiTheme.Of(green.Top.Mix(C.CreamTop, 0.55f)), UiTheme.Of(green.Face.Mix(C.CreamTop, 0.5f)));
+            }
+            else
+            {
+                UiKit.Gradient(_well, UiTheme.Of(C.ParchmentWell.Mix(C.CreamTop, 0.35f)), UiTheme.Of(C.ParchmentWell));
+            }
+
+            _wellLine.color = UiTheme.Of(worn ? green.Face : C.ParchmentEdge.Darken(0.08f));
             _check.SetActive(worn);
             _layout.Apply();
-        }
-
-        private void Lay(Box box)
-        {
-            float w = box.Width;
-            _radius = w * 0.12f;
-            _wellRadius = w * 0.08f;
-            _stroke = Worn ? UiKit.Units(4f) : Mathf.Max(UiKit.Units(2f), w * 0.015f);
-            BoxLayout.Place(_lip.rectTransform, box.Offset(0f, box.Height * 0.025f));
-            BoxLayout.Place(_face.rectTransform, box);
-            var well = new Box(box.Left + (w * 0.08f), box.Top + (w * 0.08f), box.Right - (w * 0.08f), box.Top + (w * 0.08f) + (w * 0.84f));
-            BoxLayout.Place(_well.rectTransform, well);
-            BoxLayout.Place(Picture, well.Inset(w * 0.04f));
-            BoxLayout.Place(_border.rectTransform, box);
-            float labelTop = Math.Min(well.Bottom, box.Bottom);
-            KitText.Place(_label, T.ButtonSecondary, box.CenterX, (labelTop + box.Bottom) / 2f, Mathf.Min(UiKit.Units(T.ButtonSecondary.Size), Mathf.Min(w * 0.13f, (box.Bottom - labelTop) * 0.5f)), w * 0.9f);
-            float badge = w * 0.26f;
-            float bx = well.Right - (badge * 0.35f);
-            float by = well.Bottom - (badge * 0.35f);
-            BoxLayout.Place(_checkRing.rectTransform, Box.FromCenter(bx, by, badge * 1.2f, badge * 1.2f));
-            BoxLayout.Place(_checkDisc.rectTransform, Box.FromCenter(bx, by, badge, badge));
-            BoxLayout.Place(_checkGlyph.rectTransform, Box.FromCenter(bx, by, badge * 0.62f, badge * 0.62f));
-            foreach (Image image in new[] { _lip, _face, _well, _border })
-            {
-                image.GetComponent<RoundShape>().Apply();
-            }
         }
     }
 }

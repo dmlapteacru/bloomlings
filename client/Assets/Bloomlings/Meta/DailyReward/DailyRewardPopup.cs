@@ -147,9 +147,9 @@ namespace Bloomlings.Client.Meta.DailyReward
         }
 
         /// <summary>
-        /// The reward "+N" on a cream pill with the lotus after it (the playtest's <c>MetaCards.RewardPill</c>, the cost
+        /// The reward "+N" on a cream pill with the lotus before it (the playtest's <c>MetaCards.RewardPill</c>, the cost
         /// pill's look, larger): a soft shadow, the <c>cream.lip</c> below, the cream face, a <c>cream.line</c> outline, and
-        /// the amount and the lotus centered as a group. Returns the amount's label.
+        /// the lotus and the amount centered as a group. Returns the amount's label.
         /// </summary>
         private static TextMeshProUGUI RewardPill(RectTransform parent, Box parentBox, Box box)
         {
@@ -174,8 +174,9 @@ namespace Bloomlings.Client.Meta.DailyReward
                 float room = Mathf.Max(1f, b.Width - icon - gap - (h * 0.5f));
                 float textWidth = Mathf.Min(measured > 0f ? measured : room, room);
                 float start = b.CenterX - ((icon + gap + textWidth) / 2f);
-                KitText.Place(amount, T.Reward, start + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
-                BoxLayout.Place(lotus.rectTransform, Box.FromCenter(start + textWidth + gap + (icon / 2f), b.CenterY - (h * 0.02f), icon, icon));
+                // The lotus first, then the amount, as on the win's reward pill and every cost pill.
+                BoxLayout.Place(lotus.rectTransform, Box.FromCenter(start + (icon / 2f), b.CenterY - (h * 0.02f), icon, icon));
+                KitText.Place(amount, T.Reward, start + icon + gap + (textWidth / 2f), b.CenterY, size, textWidth + 1f);
             });
             return amount;
         }

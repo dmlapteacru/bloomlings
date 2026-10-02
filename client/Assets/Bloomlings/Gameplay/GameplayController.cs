@@ -21,6 +21,7 @@ using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Gameplay;
 using Bloomlings.Client.UI.Screens;
 using Bloomlings.Client.UI.Tutorial;
@@ -113,6 +114,7 @@ namespace Bloomlings.Client.Gameplay
             }
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave, OpenSettings);
             _win = WinScreen.Create(root, Next);
+            _win.Shown += _hud.FadeOutTopBar;
             _milestoneCard = MilestoneCard.Create(root, Next);
             _jam = JamScreen.Create(root, () => Restart("jam"), OnRecovery);
             _banner = DifficultyBanner.Create(root);
@@ -457,7 +459,6 @@ namespace Bloomlings.Client.Gameplay
                     Feedback?.Play(SoundCue.Win);
                     _board.RevealAll();
                     _workers.Celebrate(LevelVariants(_session!.Definition));
-                    UiFx.Confetti(_root, ConfettiColors(_session.Definition), _milestone != null ? 80 : 40, _milestone != null ? 2.6f : 1.8f);
                     LevelReward? earned = _reward;
                     _win.Show(this, RewardText(earned), DoubleRewardOffer(), _milestone != null, earned != null && earned.Petals > 0 ? (earned.Petals, n => RewardText(earned with { Petals = (int)n })) : null, earned, _session);
                     break;
@@ -933,21 +934,16 @@ namespace Bloomlings.Client.Gameplay
             _board.TriggerSpecial(triggered.SpecialId, triggered.EffectCells, _session!.View);
         }
 
-        /// <summary>A pod card flying between the tray and a slot (commit or Return); decorative only.</summary>
+        /// <summary>
+        /// A pod's sticker tile flying between the tray and a slot (commit or Return; the playtest's
+        /// <c>PodPainter.DrawFlights</c>): the variant's candy tile (the lilac "?" for a mystery pod) at the slot tile's
+        /// size, arcing 40% of a slot's height over the straight line; decorative only.
+        /// </summary>
         private void FlyCard(VariantId? variant, Vector3 from, Vector3 to)
         {
-            Color body = UiTheme.SlotLocked;
-            Sprite? icon = Art.ProceduralSprites.Question;
-            Color ink = Color.white;
-            if (variant.HasValue)
-            {
-                VariantVisual visual = _visuals != null ? _visuals.Get(variant.Value) : VariantVisualCatalog.Default(variant.Value);
-                body = visual.Color;
-                icon = visual.Icon;
-                ink = visual.Ink;
-            }
-
-            UiFx.Fly(_root, body, icon, ink, from, to, _slots.SlotSize * 0.8f, 0.16f);
+            float slot = _slots.SlotSize;
+            Sprite tile = Art.ProceduralSprites.CandyTile(variant, TileStyle.Sticker, TileState.Normal, ShapeRaster.Quantize(slot * UiKit.PixelsPerUnit));
+            UiFx.FlyTile(_root, tile, from, to, slot * 0.56f, slot * 0.64f, slot * 0.4f, 0.16f);
         }
 
         /// <summary>The exact variants of a level, in pod order (the win celebration).</summary>
@@ -963,17 +959,6 @@ namespace Bloomlings.Client.Gameplay
             }
 
             return variants;
-        }
-
-        private Color[] ConfettiColors(LevelDefinition definition)
-        {
-            var colors = new List<Color> { UiTheme.EntryMarker, Color.white };
-            foreach (VariantId variant in LevelVariants(definition))
-            {
-                colors.Add(UiTheme.Light(_visuals != null ? _visuals.Get(variant).Color : VariantVisualCatalog.Default(variant).Color));
-            }
-
-            return colors.ToArray();
         }
 
         /// <summary>The 2× toggle (FR-069) also becomes the default for the next levels.</summary>
@@ -1081,7 +1066,7 @@ namespace Bloomlings.Client.Gameplay
             {
                 _milestoneShown = true;
                 _win.Hide();
-                _milestoneCard.Show(_milestone, Service<WardrobeService>()?.Catalog);
+                _milestoneCard.Show(_milestone, Service<WardrobeService>()?.Catalog, _session?.Definition);
                 return;
             }
 
@@ -1331,6 +1316,7 @@ namespace Bloomlings.Client.Gameplay
             _workInFlight.Clear();
             _win.Hide();
             _jam.Hide();
+            _hud.ShowTopBar();
             if (IsDaily)
             {
                 _hud.SetTitle(Loc.T("daily.title"));

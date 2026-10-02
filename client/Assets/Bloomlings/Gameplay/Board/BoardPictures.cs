@@ -223,7 +223,7 @@ namespace Bloomlings.Client.Gameplay.Board
             Box outer = inner.Inset(-t);
             Rgba shadow = C.GardenShadow.WithAlpha(0.22f);
             FillRound(pixels, width, height, outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), t * 0.5f, shadow, shadow);
-            Rgba joints = C.StoneLine.WithAlpha(0.6f);
+            Rgba joints = C.StoneLine.WithAlpha(0.45f);
             FillRound(pixels, width, height, outer.Inset(joint * 0.5f), t * 0.4f, joints, joints);
             FillRound(pixels, width, height, inner, gap * 2f, GardenLook.BoardGap, GardenLook.BoardGap);
             foreach ((Box box, int seed, float share) in StoneBorderView.Blocks(grid, cell, thickness))
@@ -240,7 +240,7 @@ namespace Bloomlings.Client.Gameplay.Board
             int w = Math.Max(1, (int)Math.Round(box.Right) - left);
             int h = Math.Max(1, (int)Math.Round(box.Bottom) - top);
             float side = Math.Min(w, h);
-            byte[] stone = UiRaster.Stone(w, h, side * radiusShare, Math.Max(1f, side * 0.05f), seed);
+            byte[] stone = UiRaster.Stone(w, h, side * radiusShare, Math.Max(1f, side * 0.035f), seed);
             Blit(pixels, width, height, stone, w, h, left, top);
         }
 

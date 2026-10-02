@@ -13,7 +13,8 @@ namespace Bloomlings.Client.Gameplay.Themes
     /// <see cref="BackdropRaster"/> pixels (the lawn in gameplay, the sky with arches on Home and the splash) are rendered
     /// at a fraction of the screen resolution (<see cref="BackdropRaster.Downscale"/>: a third for the lawn's blades and
     /// flowers, a fifth for the smooth skies), smoothed by bilinear filtering, cached per theme and scene, tinted by the
-    /// level band's theme (<see cref="ThemeRotation"/>). It stands in for the <c>bg.*</c> asset slots.
+    /// level band's theme (<see cref="ThemeRotation"/>); Home, the splash and the Wardrobe in the warmer garden colors of
+    /// <see cref="HomeStage.Garden"/>. It stands in for the <c>bg.*</c> asset slots.
     /// </summary>
     public sealed class BackdropView : MonoBehaviour
     {
@@ -77,10 +78,14 @@ namespace Bloomlings.Client.Gameplay.Themes
             int downscale = BackdropRaster.Downscale(_scene);
             int width = Mathf.Max(32, (int)w / downscale);
             int height = Mathf.Max(32, (int)h / downscale);
-            string key = (theme?.Id ?? "default") + "/" + _scene + "/" + width + "x" + height;
+            // Home, the splash and the Wardrobe take the warmer garden colors (spec 005 §4.2), as the playtest's
+            // DesignApp.DrawBackdrop does; the key keeps them apart from a gameplay backdrop of the same theme.
+            bool warm = _scene != BackdropScene.Gameplay;
+            string key = (theme?.Id ?? "default") + "/" + _scene + (warm ? "/warm" : string.Empty) + "/" + width + "x" + height;
             if (!Cache.TryGetValue(key, out Texture2D? texture))
             {
-                texture = Render(width, height, DesignTokens.Backdrop(theme?.Background, theme?.Accent), _scene, key);
+                BackdropColors colors = DesignTokens.Backdrop(theme?.Background, theme?.Accent);
+                texture = Render(width, height, warm ? HomeStage.Garden(colors) : colors, _scene, key);
                 Cache[key] = texture;
             }
 

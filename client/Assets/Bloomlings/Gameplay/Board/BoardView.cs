@@ -121,6 +121,10 @@ namespace Bloomlings.Client.Gameplay.Board
                 int index = _entries.Count;
                 BoxLayout layout = BoxLayout.On(root);
                 UiKit.SoftShadow(layout, _ => ArchShadow(index), _ => ArchRadius(index), 0.18f, 0.02f);
+
+                // A soft shadow on the lawn under the piers' feet (the playtest's Kit.StoneArch).
+                Image foot = UiKit.Ellipse("Foot", root, UiTheme.Of(DesignTokens.Colors.GardenShadow.WithAlpha(0.18f)));
+                layout.Add(foot.rectTransform, _ => ArchFoot(index));
                 Image arch = UiKit.StoneArch("Arch", root, entry.Side);
                 layout.Add(arch.rectTransform, _ => ArchBox(index));
                 _entries.Add((root, arch, entry));
@@ -424,7 +428,10 @@ namespace Bloomlings.Client.Gameplay.Board
         /// <summary>The ground's pixels per cell: the cell's size on screen, 64 before the board has a size.</summary>
         private int GroundPixels() => CellSize > 1f ? Mathf.CeilToInt(CellSize * UiKit.PixelsPerUnit) : 64;
 
-        /// <summary>An entry's arch box in the area's top-down coordinates (the kit's <c>StoneArch</c> box).</summary>
+        /// <summary>
+        /// An entry's arch picture box in the area's top-down coordinates: the ring on the board's side of its base and the
+        /// two straight piers it stands on beyond it (<see cref="EntryArch.Picture"/>, the playtest's <c>Kit.StoneArch</c>).
+        /// </summary>
         private Box ArchBox(int index)
         {
             if (_layout == null || index >= _layout.Arches.Count)
@@ -432,8 +439,28 @@ namespace Bloomlings.Client.Gameplay.Board
                 return new Box(0f, 0f, 0f, 0f);
             }
 
+            return _layout.Arches[index].Picture;
+        }
+
+        /// <summary>The soft ground shadow under an arch's piers, at its picture's far edge (the playtest's <c>Kit.StoneArch</c>).</summary>
+        private Box ArchFoot(int index)
+        {
+            if (_layout == null || index >= _layout.Arches.Count)
+            {
+                return new Box(0f, 0f, 0f, 0f);
+            }
+
             EntryArch arch = _layout.Arches[index];
-            return UiKit.ArchBox(arch.BaseX, arch.BaseY, arch.Radius / 1.5f, arch.Side);
+            Box box = arch.Picture;
+            float r = arch.Radius;
+            float foot = r * 0.3f;
+            return arch.Side switch
+            {
+                EntrySide.Left => Box.FromCenter(box.Left + (foot * 0.3f), box.CenterY, foot, r * 2.2f),
+                EntrySide.Right => Box.FromCenter(box.Right - (foot * 0.3f), box.CenterY, foot, r * 2.2f),
+                EntrySide.Top => Box.FromCenter(box.CenterX, box.Top + (foot * 0.3f), r * 2.2f, foot),
+                _ => Box.FromCenter(box.CenterX, box.Bottom - (foot * 0.3f), r * 2.2f, foot),
+            };
         }
 
         private float ArchRadius(int index) => _layout != null && index < _layout.Arches.Count ? _layout.Arches[index].Radius : 0f;
