@@ -220,8 +220,11 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The cache size of a picture's side (<see cref="UiRaster.Quantize"/>).</summary>
         protected static int PictureSize(float pixels) => UiRaster.Quantize(pixels);
 
-        /// <summary>How many pictures a painter keeps before it drops them all and renders again on demand.</summary>
-        protected const int PictureCacheLimit = 400;
+        /// <summary>
+        /// How many bytes of pictures a painter keeps (<see cref="PictureCache{T}"/>): past it, the least recently used
+        /// pictures not drawn in the last two frames are dropped and render again on demand.
+        /// </summary>
+        protected const long PictureCacheBytes = 12L * 1024 * 1024;
 
         public abstract void PushClip(Box box);
 

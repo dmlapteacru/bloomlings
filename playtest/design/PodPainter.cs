@@ -27,7 +27,7 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>pressed: the frame sinks and squashes, and springs back;</description></item>
     /// <item><description>locked: the padlock on a grey panel;</description></item>
     /// <item><description>mystery: the lilac "?" tile with its count;</description></item>
-    /// <item><description>connected: a teal link between the frames.</description></item>
+    /// <item><description>connected: a link between the frames, in its group's color.</description></item>
     /// </list>
     /// The variant reads first from its tile (color and symbol), then from the panel's tint (spec 001 FR-012).
     /// </summary>
@@ -123,13 +123,42 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            foreach (List<Box> group in linked.Values)
+            if (linked.Count == 0)
             {
-                for (int i = 1; i < group.Count; i++)
+                return;
+            }
+
+            // Each group has its own color (state.link, state.link_2, state.link_3), by the groups' order, as in Unity's
+            // TrayView.
+            List<string> groups = ConnectedGroups(view);
+            foreach (KeyValuePair<string, List<Box>> group in linked)
+            {
+                Rgba color = LinkPalette[Math.Max(0, groups.IndexOf(group.Key)) % LinkPalette.Length];
+                for (int i = 1; i < group.Value.Count; i++)
                 {
-                    Link(p, group[i - 1], group[i]);
+                    Link(p, group.Value[i - 1], group.Value[i], color);
                 }
             }
+        }
+
+        /// <summary>The connected groups' link colors, in order (the Unity tray's palette).</summary>
+        private static readonly Rgba[] LinkPalette = { C.StateLink, C.StateLink2, C.StateLink3 };
+
+        /// <summary>The level's connected groups, sorted by id: a group's place picks its link color.</summary>
+        private static List<string> ConnectedGroups(LevelView view)
+        {
+            var groups = new List<string>();
+            foreach (string id in view.PodIds)
+            {
+                string? group = view.Pod(id).ConnectedGroupId;
+                if (group != null && !groups.Contains(group))
+                {
+                    groups.Add(group);
+                }
+            }
+
+            groups.Sort(StringComparer.Ordinal);
+            return groups;
         }
 
         /// <summary>The room kept above the tray grid for the exposed pods' handles, in reference units.</summary>
@@ -146,11 +175,13 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The teal link between two connected pods (<c>pod.link</c>, spec 002 FR-012): a rounded bar with a white rim
-        /// across the gap between their frames, a little above their middle, riveted to each frame.
+        /// The link between two connected pods (<c>pod.link</c>, spec 002 FR-012): a rounded bar with a white rim across the
+        /// gap between their frames, a little above their middle, riveted to each frame, in its group's
+        /// <paramref name="color"/> (teal <c>state.link</c> by default).
         /// </summary>
-        public static void Link(IPainter p, Box a, Box b)
+        public static void Link(IPainter p, Box a, Box b, Rgba? color = null)
         {
+            Rgba link = color ?? C.StateLink;
             p.Mark("pod.link");
             float size = Math.Min(a.Width, b.Width);
             float y = a.Top + (a.Height * 0.42f);
@@ -159,12 +190,12 @@ namespace Bloomlings.Playtest.Design
             float bar = size * 0.1f;
             p.Line(x0, y + (bar * 0.25f), x1, y + (bar * 0.25f), bar + (size * 0.05f), C.GardenShadow.WithAlpha(0.25f));
             p.Line(x0, y, x1, y, bar + (size * 0.04f), Rgba.White);
-            p.Line(x0, y, x1, y, bar, C.StateLink);
-            p.Line(x0, y - (bar * 0.18f), x1, y - (bar * 0.18f), bar * 0.3f, C.StateLink.Lighten(0.35f));
+            p.Line(x0, y, x1, y, bar, link);
+            p.Line(x0, y - (bar * 0.18f), x1, y - (bar * 0.18f), bar * 0.3f, link.Lighten(0.35f));
             foreach (float x in new[] { x0, x1 })
             {
                 p.FillCircle(x, y, bar * 0.62f, Rgba.White);
-                p.FillCircle(x, y, bar * 0.46f, C.StateLink.Darken(0.15f));
+                p.FillCircle(x, y, bar * 0.46f, link.Darken(0.15f));
             }
         }
 
@@ -219,7 +250,13 @@ namespace Bloomlings.Playtest.Design
                 float size = (fromSize + ((toSize - fromSize) * k)) * (1f + (0.12f * lift));
                 Box box = Box.FromCenter(x, y, size, size);
                 Kit.SoftShadow(p, box.Offset(0f, size * (0.06f + (0.12f * lift))), size * 0.2f, 0.25f * (1f - (0.5f * lift)));
-                Kit.CandyTile(p, box, flight.Variant, TileStyle.Sticker);
+
+                // The tile is drawn at the slot's tile size and scaled with the canvas, so the whole flight reuses the
+                // slot's picture instead of rendering a new size every frame.
+                float rest = Kit.SlotTileSize(slot.Value);
+                p.PushTransform(0f, 0f, size / Math.Max(1f, rest), x, y);
+                Kit.CandyTile(p, Box.FromCenter(x, y, rest, rest), flight.Variant, TileStyle.Sticker);
+                p.PopTransform();
             }
         }
     }

@@ -91,7 +91,7 @@ namespace Bloomlings.Playtest.Design
         /// An engine-free RGBA picture (<see cref="UiRaster"/>: wood, stone, candy tiles; spec 005 contracts/look.md §2.1)
         /// stretched into <paramref name="box"/> with linear filtering. <paramref name="render"/> gets the pixel size (the
         /// box's, each side rounded up to a multiple of 8) and returns straight-alpha RGBA bytes, rows from the top. The
-        /// painter caches the result by <c>key@WxH</c>, so the same key must always render the same picture. It follows the
+        /// painter caches the result by (key, W, H), so the same key must always render the same picture. It follows the
         /// alpha, clip and transform stacks. Pictures count as asset slots: callers <see cref="Mark"/> the slot they draw.
         /// </summary>
         void Picture(string key, Box box, Func<int, int, byte[]> render);

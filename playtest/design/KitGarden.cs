@@ -28,19 +28,59 @@ namespace Bloomlings.Playtest.Design
         public static void WoodPlank(IPainter p, Box box, float radiusShare, int seed, WoodTone tone = WoodTone.Light, float outlineShare = 0.025f, float lipShare = UiRaster.PlankLip)
         {
             p.Mark(tone == WoodTone.Light ? "mat.wood.light" : "mat.wood.dark");
-            string key = "mat.wood." + (tone == WoodTone.Light ? "light" : "dark") + "/plank/" + Share(radiusShare) + "/" + Share(outlineShare) + "/" + Share(lipShare) + "/" + seed;
-            p.Picture(key, box, (w, h) => UiRaster.Plank(w, h, h * radiusShare, Math.Max(2f, h * outlineShare), tone, seed, lipShare));
+            (string key, Func<int, int, byte[]> render) = Recipe(Planks, (Tone: tone, Radius: radiusShare, Outline: outlineShare, Lip: lipShare, Seed: seed), k =>
+                ("mat.wood." + (k.Tone == WoodTone.Light ? "light" : "dark") + "/plank/" + Share(k.Radius) + "/" + Share(k.Outline) + "/" + Share(k.Lip) + "/" + k.Seed,
+                    (w, h) => UiRaster.Plank(w, h, h * k.Radius, Math.Max(2f, h * k.Outline), k.Tone, k.Seed, k.Lip)));
+            p.Picture(key, box, render);
         }
 
         /// <summary>A stone block picture filling <paramref name="box"/> (<c>mat.stone</c>), its corners rounded by <paramref name="radiusShare"/> of its shorter side.</summary>
         public static void StoneBlock(IPainter p, Box box, int seed, float radiusShare = 0.3f)
         {
             p.Mark("mat.stone");
-            p.Picture("mat.stone/block/" + Share(radiusShare) + "/" + seed, box, (w, h) =>
+            (string key, Func<int, int, byte[]> render) = Recipe(Stones, (Radius: radiusShare, Seed: seed), k =>
+                ("mat.stone/block/" + Share(k.Radius) + "/" + k.Seed, (w, h) =>
+                {
+                    float side = Math.Min(w, h);
+                    return UiRaster.Stone(w, h, side * k.Radius, Math.Max(1f, side * 0.035f), k.Seed);
+                }));
+            p.Picture(key, box, render);
+        }
+
+        // Each picture recipe's cache key and render function, made once per recipe instead of on every draw.
+        private static readonly Dictionary<(WoodTone Tone, float Radius, float Outline, float Lip, int Seed), (string, Func<int, int, byte[]>)> Planks =
+            new Dictionary<(WoodTone, float, float, float, int), (string, Func<int, int, byte[]>)>();
+
+        private static readonly Dictionary<(float Radius, int Seed), (string, Func<int, int, byte[]>)> Stones =
+            new Dictionary<(float, int), (string, Func<int, int, byte[]>)>();
+
+        private static readonly Dictionary<(TileStyle Style, TileState State, string Icon, Rgba Color), (string Key, Func<int, int, byte[]> Render, string Slot)> Tiles =
+            new Dictionary<(TileStyle, TileState, string, Rgba), (string, Func<int, int, byte[]>, string)>();
+
+        private static readonly Dictionary<int, (string, Func<int, int, byte[]>)> Arches = new Dictionary<int, (string, Func<int, int, byte[]>)>();
+
+        private static readonly Dictionary<(bool Flipped, bool? Back), (string, Func<int, int, byte[]>)> Ivies =
+            new Dictionary<(bool, bool?), (string, Func<int, int, byte[]>)>();
+
+        private static readonly Func<int, int, byte[]> FlowerClusterPicture = (w, h) => LeafPictures.FlowerCluster(w, h, flipped: false);
+
+        private static readonly Func<int, int, byte[]> FlippedFlowerClusterPicture = (w, h) => LeafPictures.FlowerCluster(w, h, flipped: true);
+
+        private static readonly Func<int, int, byte[]> LogoLeavesPicture = (w, h) => LeafPictures.LogoLeaves(w, h, mirrored: false);
+
+        private static readonly Func<int, int, byte[]> MirroredLogoLeavesPicture = (w, h) => LeafPictures.LogoLeaves(w, h, mirrored: true);
+
+        /// <summary>A picture recipe's key and render function: made by <paramref name="make"/> the first time, then reused.</summary>
+        private static TValue Recipe<TKey, TValue>(Dictionary<TKey, TValue> recipes, TKey key, Func<TKey, TValue> make)
+            where TKey : notnull
+        {
+            if (!recipes.TryGetValue(key, out TValue? recipe))
             {
-                float side = Math.Min(w, h);
-                return UiRaster.Stone(w, h, side * radiusShare, Math.Max(1f, side * 0.035f), seed);
-            });
+                recipe = make(key);
+                recipes[key] = recipe;
+            }
+
+            return recipe;
         }
 
         // ---- Candy tiles (§3.1) ----
@@ -64,8 +104,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>A candy tile of any color and variant icon (the win picture draws its roles' colors this way).</summary>
         public static void CandyTile(IPainter p, Box box, Rgba color, string iconId, TileStyle style, TileState state = TileState.Normal, bool pressed = false)
         {
+            (string key, Func<int, int, byte[]> render, string slot) = Recipe(Tiles, (Style: style, State: state, Icon: iconId, Color: color), k =>
+                ("tile.candy/" + (k.Style == TileStyle.Board ? "board" : k.Style == TileStyle.Flat ? "flat" : "sticker") + "/" + k.State + "/" + k.Icon + "/" + k.Color.Hex,
+                    (w, h) => UiRaster.Tile(Math.Min(w, h), k.Color, k.Icon, k.Style, k.State),
+                    k.State == TileState.Mystery ? "tile.mystery" : ShapeLibrary.SymbolId(k.Icon)));
             p.Mark(style == TileStyle.Sticker ? "tile.candy.sticker" : "tile.candy");
-            p.Mark(state == TileState.Mystery ? "tile.mystery" : ShapeLibrary.SymbolId(iconId));
+            p.Mark(slot);
             float s = Math.Min(box.Width, box.Height);
             if (s < 1f)
             {
@@ -73,8 +117,6 @@ namespace Bloomlings.Playtest.Design
             }
 
             Box square = Box.FromCenter(box.CenterX, box.CenterY, s, s);
-            string key = "tile.candy/" + (style == TileStyle.Board ? "board" : style == TileStyle.Flat ? "flat" : "sticker") + "/" + state + "/" + iconId + "/" + color.Hex;
-            Func<int, int, byte[]> render = (w, h) => UiRaster.Tile(Math.Min(w, h), color, iconId, style, state);
             if (!pressed)
             {
                 p.Picture(key, square, render);
@@ -152,23 +194,11 @@ namespace Bloomlings.Playtest.Design
         public static void IvyCluster(IPainter p, Box box, bool flipped, bool? back = null)
         {
             p.Mark("ui.sign.ivy");
-            string side = flipped ? "/r" : "/l";
-            for (int i = 0; i < ShapeLibrary.IvyLeafCount; i++)
-            {
-                bool behind = i % 2 == 1;
-                if (back.HasValue && back.Value != behind)
-                {
-                    continue;
-                }
-
-                Func<float, float, float> leaf = ShapeLibrary.IvyLeafSdf(i, 0f, flipped);
-                p.ShapeOf("ui.sign.ivy/" + i + side + "/line", ShapeLibrary.IvyLeafSdf(i, 0.055f, flipped), box, C.IvyLine.WithAlpha(0.5f));
-                p.ShapeOf("ui.sign.ivy/" + i + side + "/edge", ShapeLibrary.IvyLeafSdf(i, 0.025f, flipped), box, C.IvyLeaf.Darken(0.35f).WithAlpha(0.7f));
-                p.ShapeOf("ui.sign.ivy/" + i + side, leaf, box, GardenLook.IvyShade(i));
-                p.ShapeOf("ui.sign.ivy/" + i + side + "/light", (x, y) => Math.Max(leaf(x + 0.09f, y - 0.1f) + 0.1f, leaf(x, y) + 0.03f), box, C.IvyLeaf.Lighten(0.3f).WithAlpha(0.5f));
-                Func<float, float, float> veins = ShapeLibrary.IvyVeinSdf(i, 0.018f, flipped);
-                p.ShapeOf("ui.sign.ivy/" + i + side + "/vein", (x, y) => Math.Max(veins(x, y), leaf(x, y) + 0.03f), box, C.IvyLeaf.Darken(0.35f).WithAlpha(0.45f));
-            }
+            // One baked picture per half-cluster (LeafPictures), not five masks per leaf.
+            (string key, Func<int, int, byte[]> render) = Recipe(Ivies, (Flipped: flipped, Back: back), k =>
+                ("ui.sign.ivy/" + (k.Flipped ? "r" : "l") + "/" + (k.Back.HasValue ? (k.Back.Value ? "back" : "front") : "all"),
+                    (w, h) => LeafPictures.Ivy(w, h, k.Flipped, k.Back)));
+            p.Picture(key, box, render);
         }
 
         /// <summary>
@@ -179,27 +209,8 @@ namespace Bloomlings.Playtest.Design
         public static void FlowerCluster(IPainter p, Box box, bool flipped)
         {
             p.Mark("ui.deco.garden");
-            string side = flipped ? "/flipped" : string.Empty;
-            Rgba[] greens = { C.GardenLeaf1, C.GardenLeaf3, C.GardenLeaf2 };
-            for (int i = 0; i < ShapeLibrary.FlowerClusterLeafCount; i++)
-            {
-                string key = "ui.deco.garden/cluster/leaf" + i + side;
-                Func<float, float, float> leaf = ShapeLibrary.ClusterLeafSdf(i, 0f, flipped);
-                Func<float, float, float> vein = ShapeLibrary.ClusterVeinSdf(i, 0.022f, flipped);
-                p.ShapeOf(key + "/line", ShapeLibrary.ClusterLeafSdf(i, 0.04f, flipped), box, C.GardenLeafLine);
-                p.ShapeOf(key, leaf, box, greens[i % greens.Length]);
-                p.ShapeOf(key + "/light", (x, y) => Math.Max(leaf(x + 0.05f, y - 0.06f) + 0.08f, leaf(x, y) + 0.03f), box, C.GardenLeaf2.Lighten(0.35f).WithAlpha(0.4f));
-                p.ShapeOf(key + "/vein", (x, y) => Math.Max(vein(x, y), leaf(x, y) + 0.04f), box, C.IvyLine.WithAlpha(0.55f));
-            }
-
-            for (int i = 0; i < ShapeLibrary.FlowerClusterFlowerCount; i++)
-            {
-                string key = "ui.deco.garden/cluster/flower" + i + side;
-                p.ShapeOf(key + "/line", ShapeLibrary.ClusterFlowerSdf(i, false, 0.035f, flipped), box, C.GardenFlowerLine);
-                p.ShapeOf(key, ShapeLibrary.ClusterFlowerSdf(i, false, 0f, flipped), box, C.GardenFlower);
-                p.ShapeOf(key + "/center/line", ShapeLibrary.ClusterFlowerSdf(i, true, 0.025f, flipped), box, C.GardenFlowerCenterLine);
-                p.ShapeOf(key + "/center", ShapeLibrary.ClusterFlowerSdf(i, true, 0f, flipped), box, C.GardenFlowerCenter);
-            }
+            // One baked picture per cluster (LeafPictures), not 28 masks.
+            p.Picture(flipped ? "ui.deco.garden/cluster/flipped" : "ui.deco.garden/cluster", box, flipped ? FlippedFlowerClusterPicture : FlowerClusterPicture);
         }
 
         // ---- Jam choices and cost pills (§3.3, §3.4) ----
@@ -333,7 +344,8 @@ namespace Bloomlings.Playtest.Design
                 _ => Box.FromCenter(box.CenterX, box.Bottom - (foot * 0.3f), r * 2.2f, foot),
             };
             p.FillRound(shadow, Math.Min(shadow.Width, shadow.Height) / 2f, C.GardenShadow.WithAlpha(0.18f));
-            p.Picture("board.arch/" + arch.Turns + "/pier", box, (w, h) => UiRaster.Arch(w, h, arch.Turns, 5));
+            (string key, Func<int, int, byte[]> render) = Recipe(Arches, arch.Turns, turns => ("board.arch/" + turns + "/pier", (w, h) => UiRaster.Arch(w, h, turns, 5)));
+            p.Picture(key, box, render);
         }
 
         /// <summary>
@@ -464,6 +476,18 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
+        /// The side of the tile on a working or stuck slot plate filling <paramref name="plate"/> (<see cref="SlotPlate"/>):
+        /// 72% of the plate's width, or less on a squarer plate, so the count below it keeps about a quarter of the face.
+        /// The pods flying to a slot are drawn at this size and scaled, so they share its picture.
+        /// </summary>
+        public static float SlotTileSize(Box plate)
+        {
+            float lip = Math.Min(plate.Width, plate.Height) * 0.055f;
+            var face = new Box(plate.Left, plate.Top, plate.Right, plate.Bottom - lip);
+            return Math.Min(face.Width * 0.72f, face.Height * 0.58f);
+        }
+
+        /// <summary>
         /// A Waiting Slot (§3.7): a raised cream plate (radius 20%) with the sticker tile at 70% of its width and the count
         /// below while a pod works; the grey tile with the hourglass badge while it is stuck; a slightly sunk face with a
         /// dashed inner outline when empty (in <c>state.danger</c> with "!" for the last free slot); a grey face with the
@@ -531,7 +555,7 @@ namespace Bloomlings.Playtest.Design
 
                     // The tile near the top (about 70% of a portrait plate's width, as in the reference; less on a square
                     // one), so the count below it keeps about a quarter of the face.
-                    float tile = Math.Min(face.Width * 0.72f, face.Height * 0.58f);
+                    float tile = SlotTileSize(box);
                     Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.1f) + (tile / 2f), tile, tile);
                     p.PushSquash(tileFlip, 1f, tileBox.CenterX, tileBox.CenterY);
                     CandyTile(p, tileBox, variant, TileStyle.Sticker, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
@@ -777,21 +801,8 @@ namespace Bloomlings.Playtest.Design
         private static void LogoLeaves(IPainter p, Box box, bool mirrored)
         {
             p.Mark("ui.deco.garden");
-            float m = mirrored ? -1f : 1f;
-            string side = mirrored ? "/m" : "/l";
-            Rgba[] greens = { C.GardenLeaf1, C.GardenLeaf3, C.GardenLeaf2 };
-            for (int i = 0; i < ShapeLibrary.FlowerClusterLeafCount; i++)
-            {
-                Func<float, float, float> shape = ShapeLibrary.ClusterLeafSdf(i, 0f, false);
-                Func<float, float, float> rim = ShapeLibrary.ClusterLeafSdf(i, 0.04f, false);
-                Func<float, float, float> rib = ShapeLibrary.ClusterVeinSdf(i, 0.022f, false);
-                Func<float, float, float> leaf = (x, y) => shape(m * x, y);
-                string key = "ui.logo.wood/leaf" + i + side;
-                p.ShapeOf(key + "/line", (x, y) => rim(m * x, y), box, C.GardenLeafLine);
-                p.ShapeOf(key, leaf, box, greens[i % greens.Length]);
-                p.ShapeOf(key + "/light", (x, y) => Math.Max(leaf(x + 0.05f, y - 0.06f) + 0.08f, leaf(x, y) + 0.03f), box, C.GardenLeaf2.Lighten(0.35f).WithAlpha(0.4f));
-                p.ShapeOf(key + "/vein", (x, y) => Math.Max(rib(m * x, y), leaf(x, y) + 0.04f), box, C.IvyLine.WithAlpha(0.55f));
-            }
+            // One baked picture per end (LeafPictures), not 20 masks.
+            p.Picture(mirrored ? "ui.logo.wood/leaves/m" : "ui.logo.wood/leaves/l", box, mirrored ? MirroredLogoLeavesPicture : LogoLeavesPicture);
         }
 
         /// <summary>A small pink five-petal flower with a yellow middle over the wordmark's leaves.</summary>
