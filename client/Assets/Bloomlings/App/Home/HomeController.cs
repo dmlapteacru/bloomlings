@@ -129,7 +129,7 @@ namespace Bloomlings.Client.App.Home
                 }
             }
 
-            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable);
+            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable, wardrobe);
 
             WardrobeScreen wardrobeScreen = WardrobeScreen.Create(root, wardrobe);
             wardrobe.Changed += Refresh;
@@ -367,7 +367,10 @@ namespace Bloomlings.Client.App.Home
                     },
                     Icon: Art.ProceduralSprites.Shape("booster." + boosterId),
                     IconTint: UiTheme.Of(UI.Design.DesignTokens.BoosterColor(boosterId)),
-                    PetalPrice: economy.Price(kind)));
+                    PetalPrice: economy.Price(kind),
+                    BoosterId: boosterId,
+                    Charges: economy.Charges(kind),
+                    Name: BoosterName(kind)));
             }
 
             if (wardrobe.IsAvailable)
@@ -389,7 +392,9 @@ namespace Bloomlings.Client.App.Home
                         StoreTab.Cosmetics,
                         WardrobeScreen.Icon(cosmetic),
                         Gameplay.Workers.BloomlingFigure.Tint(cosmetic),
-                        cosmetic.Price));
+                        cosmetic.Price,
+                        Cosmetic: cosmetic,
+                        Name: WardrobeScreen.Name(cosmetic)));
                 }
             }
 

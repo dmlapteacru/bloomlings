@@ -205,13 +205,15 @@ namespace Bloomlings.Client.UI
             BoxLayout content = BoxLayout.On(face.Content).Watch(text);
             if (iconImage != null)
             {
-                content.Add(iconImage.rectTransform, f => Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.34f), buttonHeight * 0.44f, buttonHeight * 0.44f));
+                // As measured on the reference's jam card (the playtest's Kit.ChoiceButton): the icon's box half the
+                // button's height (the icon about 44% of the face) at 36% of the face, the letters 21% of the height.
+                content.Add(iconImage.rectTransform, f => Box.FromCenter(f.CenterX, f.Top + (f.Height * 0.36f), buttonHeight * 0.5f, buttonHeight * 0.5f));
             }
 
             content.Then(f =>
             {
-                float y = iconImage != null ? f.Top + (f.Height * 0.76f) : f.CenterY;
-                KitText.Place(text, s, f.CenterX, y, Mathf.Min(Units(s.Size), buttonHeight * 0.17f), f.Width * 0.88f);
+                float y = iconImage != null ? f.Top + (f.Height * 0.78f) : f.CenterY;
+                KitText.Place(text, s, f.CenterX, y, Mathf.Min(Units(s.Size), buttonHeight * 0.21f), f.Width * 0.88f);
             });
 
             CostPillView pill = CostPill("Cost", root, cost ?? Cost.Free);

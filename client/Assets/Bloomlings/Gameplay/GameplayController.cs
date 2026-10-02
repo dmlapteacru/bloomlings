@@ -494,7 +494,7 @@ namespace Bloomlings.Client.Gameplay
                 }
             }
 
-            _jam.Show(session.Status == LevelStatus.Stuck, usable, RecoveryLabel, RescueOffer());
+            _jam.Show(session.Status == LevelStatus.Stuck, usable, RecoveryCost, JamScreen.SlotsOf(session.View), RescueOffer());
         }
 
         // ---- Boosters (T120, T121) ----
@@ -695,7 +695,7 @@ namespace Bloomlings.Client.Gameplay
         /// first, then Shuffle (a Stuck board only), then Return on the first slot whose pod can make room. Bloom Burst is
         /// never given away. Null when none of them helps or is unlocked yet, or no ad is ready.
         /// </summary>
-        private (string Label, Action Watch)? RescueOffer()
+        private (Recovery Booster, Action Watch)? RescueOffer()
         {
             IAdsService? ads = Service<IAdsService>();
             AdPolicy? policy = Service<AdPolicy>();
@@ -711,7 +711,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             (BoosterKind kind, Command command) = rescue.Value;
-            return (Loc.F("jam.free_rescue", JamScreen.Label(RecoveryOf(kind))), () => ads.ShowRewarded(AdPlacements.JamRescue, earned =>
+            return (RecoveryOf(kind), () => ads.ShowRewarded(AdPlacements.JamRescue, earned =>
             {
                 if (earned)
                 {
@@ -793,19 +793,17 @@ namespace Bloomlings.Client.Gameplay
                 economy == null || economy.Petals >= economy.Price(kind)));
         }
 
-        private string RecoveryLabel(Recovery recovery)
+        /// <summary>A recovery's cost on the jam sheet (spec 005 §4.3): ×N charges while owned, else the lotus and its price.</summary>
+        private static UI.Design.Cost? RecoveryCost(Recovery recovery)
         {
-            string name = JamScreen.Label(recovery);
             EconomyService? economy = Economy;
             if (economy == null)
             {
-                return name;
+                return null;
             }
 
             BoosterKind kind = KindOf(recovery);
-            return economy.Charges(kind) > 0
-                ? name + " ×" + economy.Charges(kind).ToString(System.Globalization.CultureInfo.InvariantCulture)
-                : name + " " + economy.Price(kind).ToString(System.Globalization.CultureInfo.InvariantCulture) + " ✿";
+            return economy.Charges(kind) > 0 ? UI.Design.Cost.Charges(economy.Charges(kind)) : UI.Design.Cost.Petals(economy.Price(kind));
         }
 
         private static string RewardText(LevelReward? reward)
