@@ -520,6 +520,13 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   marker as its shape) with its cost pill on the card's bottom edge (a tap buys); the footer between cream ‹ › page
   arrows (`Kit.ArrowButton`). The Shop tab's rows are cream rows with the booster tile and its count badge, the name and
   a cost pill; the Daily Reward, Leaderboard and Collection cards carry a `WoodSign` (None) header.
+- The playtest's Wardrobe (owner's review, FR-025; preview frame 27, `playtest/design/WardrobeScreen.cs`, opened from
+  Home's Wardrobe button and the avatar): the §6.5 layout without the kind chips and the profile tab; the name card is
+  `Kit.NameCard` (parchment whose middle rises into the name tab); the cards, three a page, are "Default" (nothing worn;
+  a tap takes everything off), the owned worn items (a tap wears one, or takes it off when worn), the worn items for sale
+  (cost pill; a tap buys and wears) and the ones earned later (`Kit.OutfitCard(…, locked: true)`: the picture faded to
+  `GardenLook.PictureDisabledAlpha`, the `Kit.LockBadge` padlock where the check would be); each shows the family's hero
+  in its outfit with the item in its kind's place. Equipping and buying go through `WardrobeService`.
 
 ## 5. Asset slots
 
@@ -681,6 +688,12 @@ columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0
 more, such as the avatar); the rank pill (`0.3W × 0.075W`) sits under the right column, right-aligned at `0.04W` (under
 the Petals pill there is no room for its touch target); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
 from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
+The drawn diorama is `HomeStage.ReferenceDiorama(stage)` (measured on the reference, in `u = min(0.88 × stage width,
+stage height / 1.09)`): the well's stone ring `0.78u` wide with its foot `0.09u` above the stage's bottom, the lotus
+fountain on it, Bloom raised behind the fountain (`0.7u` picture), Drop at the right back (`0.5u`), Sprig at the left
+(`0.8u`), Twig in front at the right (`0.51u`), the guest small at the left front. The playtest stacks only the
+unlocked side buttons (left: Wardrobe, Collection, the avatar; right: Daily Challenge, Store), the rank pill following
+the right column; its splash shows the logo and the diorama in the same boxes.
 
 ### 6.5 Wardrobe (both builds)
 

@@ -327,4 +327,5 @@ inventory.
   show them through the existing picture slots.
 - The jam keeps our recovery choices (spec 001); the reference's Shuffle button in the jam card is shown only if the
   rules offer Shuffle there.
-- The playtest has no Wardrobe screen; its Store cosmetics tab takes the Wardrobe look.
+- The playtest gets a Wardrobe screen (FR-025, owner's review); its Store cosmetics tab keeps the Wardrobe look for the
+  items sold there.

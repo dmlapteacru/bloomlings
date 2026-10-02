@@ -32,8 +32,14 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):
   - a splash (frame 1), then Level 1 on the very first launch and Home later;
-  - Home in its early look (frame 2) and, once the features unlock, the progressed look (frame 3): hero, Wardrobe and
-    Collection buttons, "N levels to reward", the rank row (offline) and the Daily Challenge card;
+  - Home in the reference layout (spec 005 FR-024, `contracts/look.md` §6.4) in its early look (frame 2) and, once the
+    features unlock, the progressed look (frame 3): Settings and the Petals pill on top, the wooden logo, the four heroes
+    around the lotus fountain (in their outfits), the level plaque, the big Play, "N levels to reward", and cream round
+    side buttons for the Wardrobe, the Collection, the profile avatar, the Daily Challenge and the Store, with the rank
+    pill (offline) under them;
+  - the Wardrobe (frame 27, spec 005 FR-025, §6.5), opened from Home: the hero on its pedestal between ‹ › family
+    arrows, the name card, the family tabs and outfit cards three to a page (owned items to wear, items for sale to buy
+    with Petals, and the ones earned later with a padlock), through the client's `WardrobeService`;
   - the level (frames 7–9) in the reference's layout (spec 005 FR-020, FR-021): the cream Pause, the wooden level sign
     with ivy and the HARD or SUPER HARD badge, the cream 2× pill, the board of candy tiles wide in its stone border on
     the lawn, the entry strip with the arch, and one parchment tray to the bottom of the screen with the Waiting Slots,
@@ -59,8 +65,8 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   `Art/Brand/`, `Art/Icons/` and `Art/Decor/` when they exist, and replace the drawn backdrop, wordmark, booster icons
   or leaves (mirrored with `IPainter.PushSquash(-1, 1, …)`). The level tester keeps the system font and
   its minimal look. There are no ads or real-money purchases here, so those buttons show
-  as unavailable, and the jam rescue is granted without an ad. A small dev row on Home (−1, +1, +10, Reset) moves the
-  progression for testing.
+  as unavailable, and the jam rescue is granted without an ad. A small dev row at the very bottom of Home (−1, +1,
+  +10, Reset) moves the progression for testing.
 - Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):
   the save file, the unlock roadmap (boosters open at L3, L4, L6 and L9 with a free charge; mechanics, Hard and Super
   Hard as in the spec), Petals for wins, booster charges bought with Petals, level drops, milestone rewards, the Daily
@@ -74,14 +80,16 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 - Demos once each, with the Unity client's texts (`Strings_en.csv`, embedded): the Level 1 tap hint, each booster at
   its unlock, each mechanic the first time a level uses it, a new variant, and "Match the exact symbol".
 
-The Wardrobe screen and the Daily Challenge are not in the playtest (their Home buttons say so; the Store's cosmetics
-tab takes the Wardrobe's look, frame 26); sign-in, cloud save, ads and analytics live in the Unity client.
+The Daily Challenge is not in the playtest (its Home button says so), nor is the Wardrobe's profile tab (the Store
+still sells frames and badges in its cosmetics tab, frame 26); sign-in, cloud save, ads and analytics live in the
+Unity client.
 
 ## Preview without a phone
 
 `dotnet run --project playtest/preview` renders the full playtest's screens with SkiaSharp. It writes one PNG per
-design board frame (1–17) plus extras 18–26 (themes, Settings, a Collection picture, a demo, boosters in use, the
-Bloomlings sheet, 25 the reference-look kit sheet and 26 the Store cosmetics in the Wardrobe look) at 16:9,
+design board frame (1–17) plus extras 18–27 (themes, Settings, a Collection picture, a demo, boosters in use, the
+Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store cosmetics in the Wardrobe look and 27 the Wardrobe,
+reached by taps that the frame checks) at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the
 safe area. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset slot registry.

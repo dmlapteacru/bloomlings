@@ -32,7 +32,7 @@ How to read the columns:
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 13 | 0 | 13 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 15 | 0 | 15 |
+| Pods and slots | 14 | 0 | 14 |
 | Booster icons | 11 | 0 | 11 |
 | UI kit | 54 | 0 | 54 |
 | Materials | 4 | 0 | 4 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **178** | **28** | **206** |
+| **All** | **177** | **28** | **205** |
 
 ## Brand
 
@@ -63,8 +63,8 @@ How to read the columns:
 | `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural lawn, dusky and blue-green for the moonlit theme, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5) |
 | `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
 | `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6) |
-| `bg.wardrobe` | Wardrobe backdrop: the garden arches behind the hero on its pedestal (Unity; the playtest has no Wardrobe) | — | Wardrobe | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7) |
-| `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15, 16 | Win; milestone | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
+| `bg.wardrobe` | Wardrobe backdrop: the garden arches behind the hero on its pedestal (both builds) | — | Wardrobe | portrait | Screen | no | Launch | the warm Home garden backdrop (`HomeStage.Garden`) until `Backgrounds/wardrobe.png` exists (pictures.md B7) |
+| `bg.win` | Win backdrop: the garden behind the full-screen celebration, calm in the middle with soft light from it (spec 005 FR-023) | 15 | Win | portrait | Screen | no | Launch | the level's lawn (`BackdropScene.Win`) rendered at an eighth (blurred), lightened toward cream with a warm `ray.light` glow in the middle, until `Backgrounds/win.png` exists (pictures.md B8) |
 
 ## Bloomling characters
 
@@ -158,7 +158,6 @@ the fallback when a picture is missing.
 | `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | the wooden frame around a grey panel with a padlock and the softer count |
 | `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
 | `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame |
-| `pod.deck` | Source stack deck (spec 005 FR-021) | 7, 8, 9, 12 | Tray | buried pods (one or two); more below (+N); emptied stack | Small | yes | Launch | the wooden frames of the next two pods peeking above the front pod, each showing a band of its variant color with its small symbol as a dark silhouette (a lilac band with a white ? for a hidden mystery pod, a grey one with the padlock when locked); a sunk parchment well for an emptied stack |
 | `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | plain brown digits below the tile, no "x" |
 | `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline |
 | `slot.state.working` | Working pod in a slot | 13 | Slots | working; finishing | Small | yes | Launch | a raised cream plate with the variant's sticker tile and the plain count below it |
@@ -208,7 +207,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
 | `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim |
-| `ui.sheet` | Jam card frame (spec 005 FR-022) | 10 | Jam | popping in; open | Large | no | Launch | a parchment card in the middle of the screen over the warm scrim, with a brown title and a soft brown subtitle (two lines when long), popping in |
+| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | parchment sheet with a grip, a brown title and a soft brown subtitle (two lines when long), rising and settling with a bounce |
 | `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | cream rounded panel with a cream outline; the own row raised and green-tinted |
 | `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: glossy green raised pill on a plate; others: parchment wells |
 | `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | a track pressed into the parchment (on: the glossy green face with a white check; off: a parchment well) and a domed cream knob |
@@ -221,7 +220,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.pedestal` | Stone pedestal under the heroes | 2, 3, 15, 16 | Win; milestone; Home; Wardrobe | normal | Medium | no | Launch | UiRaster.Pedestal picture: an ellipse-topped stone drum with joints and moss |
 | `ui.logo.wood` | Wooden wordmark letters (the stand-in for the owner's logo; its leaves are the owner's `Decor/logo-leaves.png` when it exists, pictures.md D8) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower |
 | `ui.tab.family` | Family tab (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | selected (lighter, joined to the panel); unselected | Small | no | Launch | cream tab with rounded top corners holding the family's 3D hero and its name; the selected one lighter and flowing into the panel below |
-| `ui.card.outfit` | Outfit card (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | normal; worn; for sale (cost pill) | Small | no | Launch | cream card with a beige picture well showing the hero in the item and the name below; the worn one green-tinted with a green border and a check badge |
+| `ui.card.outfit` | Outfit card (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | normal; worn; for sale (cost pill); locked (padlock) | Small | no | Launch | cream card with a beige picture well showing the hero in the item and the name below; the worn one green-tinted with a green border and a check badge; a locked one faded with a padlock badge |
 | `ui.fountain` | Lotus fountain of the drawn Home stage (the stand-in for the owner's Home diorama) | 1, 2 | Splash; Home (early) | normal | Medium | no | Launch | a small stone basin (`ui.pedestal`) with water, two lily pads and the pink lotus, between the heroes on the stone pedestal |
 | `ui.close` | Close glyph | 4, 5, 6, 11 | Cards | normal | Icon | no | Launch | shape `ui.close` |
 | `ui.pause` | Pause glyph | 7, 8, 9 | Gameplay top bar | normal | Icon | no | Launch | shape `ui.pause` |

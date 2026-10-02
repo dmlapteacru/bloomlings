@@ -263,6 +263,20 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.5f);
             });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
+            yield return new Fixture(27, "wardrobe", "Extra: Wardrobe (spec 005 FR-025)", (p, data) =>
+            {
+                // From Home's Wardrobe button; then a tap on the starter cap's card puts it on Sprig, so the hero and the
+                // green worn card show an outfit.
+                DesignApp app = Progressed(App(data), content, 87);
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).SideButton(false, 0));
+                Expect(app.Screen == Design.Screen.Wardrobe, "Home's Wardrobe button opens the Wardrobe");
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceWardrobe(p.Width, p.Height, p.Insets).Card(1));
+                Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig, Client.Meta.Wardrobe.CosmeticKind.Hat)?.Id == "hat.sprout_cap", "a tap on an owned item's card wears it");
+                Run(app, p, 0.5f);
+            });
         }
 
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>
@@ -285,6 +299,18 @@ namespace Bloomlings.Playtest.Preview
                 p.Now += Frame;
                 p.BeginFrame();
                 app.Draw(p, Frame);
+            }
+        }
+
+        /// <summary>A tap in the middle of <paramref name="box"/> on the last drawn frame, as a finger would.</summary>
+        private static void Tap(SkiaPainter p, Box box) => p.Dispatch(box.CenterX, box.CenterY);
+
+        /// <summary>Fails the frame (the preview reports it) when a scripted interaction did not do what it should.</summary>
+        private static void Expect(bool condition, string what)
+        {
+            if (!condition)
+            {
+                throw new InvalidOperationException("expected: " + what);
             }
         }
 

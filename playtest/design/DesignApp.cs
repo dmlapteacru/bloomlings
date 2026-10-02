@@ -13,6 +13,7 @@ namespace Bloomlings.Playtest.Design
         Splash,
         Home,
         Level,
+        Wardrobe,
     }
 
     /// <summary>The cards shown over a screen.</summary>
@@ -32,6 +33,7 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the splash;</description></item>
     /// <item><description>Home (frames 2 and 3);</description></item>
     /// <item><description>the level (frames 7–14);</description></item>
+    /// <item><description>the Wardrobe (preview frame 27; spec 005 FR-025), opened from Home;</description></item>
     /// <item><description>the cards over them (frames 4–6, 10, 11 and 15–17).</description></item>
     /// </list>
     /// The very first launch goes straight into Level 1, and later launches open Home (spec 001 US2). Progress, Petals,
@@ -86,6 +88,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The Store cosmetics' page of outfit cards.</summary>
         public int StorePage { get; set; }
+
+        /// <summary>The Wardrobe's chosen family (an index into the four families, spec 005 §6.5).</summary>
+        public int WardrobeFamily { get; set; }
+
+        /// <summary>The Wardrobe's page of outfit cards.</summary>
+        public int WardrobePage { get; set; }
 
         public IReadOnlyList<(Overlay Overlay, float OpenedAt)> Overlays => _overlays;
 
@@ -158,6 +166,23 @@ namespace Bloomlings.Playtest.Design
             {
                 OpenOverlay(Overlay.DailyReward);
             }
+        }
+
+        /// <summary>Opens the Wardrobe over Home (spec 005 FR-025) on its first page.</summary>
+        public void OpenWardrobe()
+        {
+            Sound.Play(SoundCue.Click);
+            _overlays.Clear();
+            WardrobePage = 0;
+            Screen = Screen.Wardrobe;
+        }
+
+        /// <summary>Back from the Wardrobe to Home (without reopening the Daily Reward).</summary>
+        public void CloseWardrobe()
+        {
+            Sound.Play(SoundCue.Click);
+            _overlays.Clear();
+            Screen = Screen.Home;
         }
 
         public void OpenOverlay(Overlay overlay)
@@ -254,6 +279,9 @@ namespace Bloomlings.Playtest.Design
                 case Screen.Home:
                     HomeScreen.Draw(p, this);
                     break;
+                case Screen.Wardrobe:
+                    WardrobeScreen.Draw(p, this);
+                    break;
                 case Screen.Level:
                     Level!.Advance(dt);
                     Level.Draw(p);
@@ -291,11 +319,15 @@ namespace Bloomlings.Playtest.Design
             DrawingCovered = false;
         }
 
-        /// <summary>The garden backdrop of a level band's theme (FR-008, FR-066), cached by the painter.</summary>
-        public static void DrawBackdrop(IPainter p, BackdropScene scene, int level)
+        /// <summary>
+        /// The garden backdrop of a level band's theme (FR-008, FR-066), cached by the painter. <paramref name="picture"/>
+        /// names another owner picture than the scene's (the Wardrobe's <see cref="OwnerPictures.Wardrobe"/>), with the
+        /// scene's drawn garden as its stand-in.
+        /// </summary>
+        public static void DrawBackdrop(IPainter p, BackdropScene scene, int level, string? picture = null)
         {
             BackgroundTheme theme = ThemeRotation.Default.ThemeFor(Math.Max(1, level));
-            string picture = OwnerPictures.Background(scene, theme.Id);
+            picture ??= OwnerPictures.Background(scene, theme.Id);
             p.Mark(OwnerPictures.SlotOf(picture));
             var screen = new Box(0f, 0f, p.Width, p.Height);
             // The owner's picture when it is embedded (spec 005 pictures.md B), else the code-drawn garden; Home and the

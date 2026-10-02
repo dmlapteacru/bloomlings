@@ -113,6 +113,35 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
+        /// The reference Home's diorama (spec 005 FR-024, contracts/look.md §6.4; measured on the reference's Home) in
+        /// <paramref name="stage"/>, Home's diorama region (<see cref="ReferenceHomeRegions.Diorama"/>): the well's stone
+        /// ring 0.78 u wide near the stage's bottom, the lotus fountain on it, and the four heroes as large as the
+        /// reference's around it: Bloom raised behind the fountain, Drop at the right back, Sprig at the left, Twig in front
+        /// at the right; with <paramref name="guest"/>, the guest small at the left front. u is 0.88 of the stage's width,
+        /// or its height over 1.09 (the reference stage's shape) on a shorter stage, so the heroes (their pictures less a
+        /// 4% margin) stay inside it. Heroes are listed back to front, the fountain going before the fourth (as
+        /// <see cref="Diorama"/>); hero boxes are 512 × 576 pictures whose feet stand at <see cref="FeetShare"/>.
+        /// </summary>
+        public static HomeDiorama ReferenceDiorama(Box stage, bool guest = true)
+        {
+            float u = Math.Min(stage.Width * 0.88f, stage.Height / 1.09f);
+            float cx = stage.CenterX;
+            float Y(float up) => stage.Bottom - (up * u);
+            var pedestal = new Box(cx - (0.39f * u), Y(0.385f), cx + (0.39f * u), Y(0.091f));
+            var heroes = new List<(Family Family, Box Box)>
+            {
+                (Family.Bloom, Figure(cx + (0.06f * u), Y(0.45f), 0.7f * u)),
+                (Family.Drop, Figure(cx + (0.21f * u), Y(0.43f), 0.5f * u)),
+                (Family.Sprig, Figure(cx - (0.21f * u), Y(0.317f), 0.8f * u)),
+                (Family.Twig, Figure(cx + (0.36f * u), Y(0.22f), 0.51f * u)),
+            };
+
+            var fountain = Box.FromCenter(cx, Y(0.364f), 0.31f * u, 0.12f * u);
+            Box guestBox = Figure(cx - (0.4f * u), Y(0f), 0.34f * u);
+            return new HomeDiorama(pedestal, fountain, heroes, guestBox);
+        }
+
+        /// <summary>
         /// The progressed Home (frame 3): the player's hero, as large as <paramref name="heroArea"/> allows, standing on a
         /// stone pedestal at the bottom of it, and the guest on the grass at its right. Returns the pedestal, the hero's
         /// picture box and the guest's.
