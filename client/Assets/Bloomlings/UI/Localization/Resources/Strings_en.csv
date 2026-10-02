@@ -6,6 +6,8 @@ common.next,Next
 common.level,Level {0}
 common.petals,{0} Petals
 common.petals_plus,+{0} Petals
+common.free,Free
+common.charges,×{0}
 common.on,On
 common.off,Off
 booster.extra_slot,Extra Slot

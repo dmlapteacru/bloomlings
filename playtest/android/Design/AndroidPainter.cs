@@ -13,12 +13,14 @@ namespace Bloomlings.Playtest.Droid
     /// becomes a cached bitmap scaled with filtering. Text uses the bundled Nunito faces (spec 003 contracts/fonts.md),
     /// falling back to the system typeface, and labels with a look get their shadow, extrusion, outline and gradient
     /// fill (contracts/painter-text.md). The generated character pictures (spec 004) are embedded PNG files, decoded once
-    /// with <see cref="BitmapFactory"/>.
+    /// with <see cref="BitmapFactory"/>. The kit's material pictures (spec 005 <c>UiRaster</c>) become cached, premultiplied
+    /// ARGB_8888 bitmaps drawn with filtering.
     /// </summary>
     public sealed class AndroidPainter : PainterBase
     {
         private static readonly Dictionary<string, Bitmap> Masks = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
         private static readonly Dictionary<string, Bitmap> Backdrops = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, Bitmap> Pictures = new Dictionary<string, Bitmap>(StringComparer.Ordinal);
         private static readonly Dictionary<string, Bitmap?> Sprites = new Dictionary<string, Bitmap?>(StringComparer.Ordinal);
 
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
@@ -291,7 +293,65 @@ namespace Bloomlings.Playtest.Droid
             _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
         }
 
+        public override void Picture(string key, Box box, Func<int, int, byte[]> render)
+        {
+            if (box.Width <= 0f || box.Height <= 0f)
+            {
+                return;
+            }
+
+            int w = PictureSize(box.Width);
+            int h = PictureSize(box.Height);
+            string cacheKey = UiRaster.CacheKey(key, w, h);
+            if (!Pictures.TryGetValue(cacheKey, out Bitmap? bitmap))
+            {
+                byte[] rgba = render(w, h);
+                if (rgba.Length != w * h * 4)
+                {
+                    throw new ArgumentException("Picture " + cacheKey + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
+                }
+
+                if (Pictures.Count >= PictureCacheLimit)
+                {
+                    // Not recycled: a hardware canvas may still hold this frame's draws of them; the GC frees them.
+                    Pictures.Clear();
+                }
+
+                // ARGB_8888 holds premultiplied RGBA bytes; UiRaster renders straight alpha.
+                Premultiply(rgba);
+                bitmap = Bitmap.CreateBitmap(w, h, Bitmap.Config.Argb8888!)!;
+                bitmap.CopyPixelsFromBuffer(Java.Nio.ByteBuffer.Wrap(rgba));
+                Pictures[cacheKey] = bitmap;
+            }
+
+            _source.Set(0, 0, w, h);
+            _canvas.DrawBitmap(bitmap, _source, R(box), Fill(Rgba.White));
+        }
+
+        /// <summary>Straight to premultiplied alpha, in place.</summary>
+        private static void Premultiply(byte[] rgba)
+        {
+            for (int i = 0; i < rgba.Length; i += 4)
+            {
+                int a = rgba[i + 3];
+                if (a == 255)
+                {
+                    continue;
+                }
+
+                rgba[i] = (byte)(((rgba[i] * a) + 127) / 255);
+                rgba[i + 1] = (byte)(((rgba[i + 1] * a) + 127) / 255);
+                rgba[i + 2] = (byte)(((rgba[i + 2] * a) + 127) / 255);
+            }
+        }
+
         public override bool HasSprite(string name) => LoadSprite(name) != null;
+
+        public override (int Width, int Height)? SpriteSize(string name)
+        {
+            Bitmap? bitmap = LoadSprite(name);
+            return bitmap == null ? null : (bitmap.Width, bitmap.Height);
+        }
 
         public override void Sprite(string name, Box box)
         {
@@ -325,7 +385,7 @@ namespace Bloomlings.Playtest.Droid
             _canvas.RestoreToCount(layer);
         }
 
-        /// <summary>An embedded character picture, decoded once; null (logged once) when it is missing.</summary>
+        /// <summary>An embedded picture (a character or an owner picture), decoded once; null (logged once) when it is missing.</summary>
         private static Bitmap? LoadSprite(string name)
         {
             if (!Sprites.TryGetValue(name, out Bitmap? bitmap))
@@ -334,7 +394,7 @@ namespace Bloomlings.Playtest.Droid
                 bitmap = stream != null ? BitmapFactory.DecodeStream(stream) : null;
                 if (bitmap == null)
                 {
-                    Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not embedded; drawing the fallback figure");
+                    Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not embedded; drawing the stand-in");
                 }
 
                 Sprites[name] = bitmap;

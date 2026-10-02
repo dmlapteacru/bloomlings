@@ -9,12 +9,14 @@ namespace Bloomlings.Playtest.Preview
     /// <summary>
     /// <see cref="IPainter"/> over SkiaSharp, for PNG previews of the playtest's designed screens (spec 002 research R3).
     /// It also records every shape, asset slot and text drawn, and every touch target, so the preview can check them
-    /// (contracts/painter.md, "Recording").
+    /// (contracts/painter.md, "Recording"). The kit's material pictures (spec 005 <c>UiRaster</c>) are cached as
+    /// straight-alpha images.
     /// </summary>
     public sealed class SkiaPainter : PainterBase, IDisposable
     {
         private static readonly Dictionary<string, SKImage> Masks = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, SKImage> Pictures = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly Dictionary<string, SKImage?> Sprites = new Dictionary<string, SKImage?>(StringComparer.Ordinal);
         // Declared before the faces: static initializers run in order, and LoadFont reads it.
         private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
@@ -314,7 +316,56 @@ namespace Bloomlings.Playtest.Preview
             Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
         }
 
+        public override void Picture(string key, Box box, Func<int, int, byte[]> render)
+        {
+            if (box.Width <= 0f || box.Height <= 0f)
+            {
+                return;
+            }
+
+            int w = PictureSize(box.Width);
+            int h = PictureSize(box.Height);
+            string cacheKey = UiRaster.CacheKey(key, w, h);
+            SKImage? image;
+            lock (Pictures)
+            {
+                if (!Pictures.TryGetValue(cacheKey, out image))
+                {
+                    byte[] rgba = render(w, h);
+                    if (rgba.Length != w * h * 4)
+                    {
+                        throw new ArgumentException("Picture " + cacheKey + " rendered " + rgba.Length + " bytes, expected " + (w * h * 4) + ".");
+                    }
+
+                    if (Pictures.Count >= PictureCacheLimit)
+                    {
+                        foreach (SKImage old in Pictures.Values)
+                        {
+                            old.Dispose();
+                        }
+
+                        Pictures.Clear();
+                    }
+
+                    // Straight alpha, as UiRaster renders it.
+                    var info = new SKImageInfo(w, h, SKColorType.Rgba8888, SKAlphaType.Unpremul);
+                    using var bitmap = new SKBitmap(info);
+                    System.Runtime.InteropServices.Marshal.Copy(rgba, 0, bitmap.GetPixels(), rgba.Length);
+                    image = SKImage.FromBitmap(bitmap);
+                    Pictures[cacheKey] = image;
+                }
+            }
+
+            Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
+        }
+
         public override bool HasSprite(string name) => LoadSprite(name) != null;
+
+        public override (int Width, int Height)? SpriteSize(string name)
+        {
+            SKImage? image = LoadSprite(name);
+            return image == null ? null : (image.Width, image.Height);
+        }
 
         public override void Sprite(string name, Box box)
         {

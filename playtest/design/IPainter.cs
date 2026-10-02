@@ -72,6 +72,13 @@ namespace Bloomlings.Playtest.Design
         bool HasSprite(string name);
 
         /// <summary>
+        /// The pixel size of an embedded picture, or null when it is missing (a background is cover-fitted with it, spec 005
+        /// <c>Visuals.Background</c>). Names follow <see cref="Sprite"/>: <c>bg/home</c> and <c>brand/logo</c> are the owner's
+        /// pictures (<see cref="OwnerPictures"/>), every other name a character picture.
+        /// </summary>
+        (int Width, int Height)? SpriteSize(string name);
+
+        /// <summary>
         /// A cosmetic skin pattern (<see cref="ShapeLibrary.SkinPattern"/>) in <paramref name="tint"/>, drawn only where the
         /// picture <paramref name="name"/>, fitted as by <see cref="Sprite"/>, is opaque: the picture masks the pattern.
         /// </summary>
@@ -79,6 +86,15 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The garden backdrop of a theme over a box (<see cref="BackdropRaster"/>, cached by the painter).</summary>
         void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey);
+
+        /// <summary>
+        /// An engine-free RGBA picture (<see cref="UiRaster"/>: wood, stone, candy tiles; spec 005 contracts/look.md §2.1)
+        /// stretched into <paramref name="box"/> with linear filtering. <paramref name="render"/> gets the pixel size (the
+        /// box's, each side rounded up to a multiple of 8) and returns straight-alpha RGBA bytes, rows from the top. The
+        /// painter caches the result by <c>key@WxH</c>, so the same key must always render the same picture. It follows the
+        /// alpha, clip and transform stacks. Pictures count as asset slots: callers <see cref="Mark"/> the slot they draw.
+        /// </summary>
+        void Picture(string key, Box box, Func<int, int, byte[]> render);
 
         void PushClip(Box box);
 

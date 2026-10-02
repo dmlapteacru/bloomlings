@@ -57,6 +57,9 @@
     <!-- The generated character pictures (spec 004 contracts/art-files.md "Loading"), drawn by the painter's Sprite. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" LogicalName="characters/2d/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" LogicalName="characters/3d/%(Filename)%(Extension)" />
+    <!-- The owner's pictures (spec 005 pictures.md B and C): backgrounds and the logo, drawn when present (PainterBase.SpriteResource). -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.png" LogicalName="backgrounds/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Brand/Resources/Brand/*.png" LogicalName="brand/%(Filename)%(Extension)" />
     <!-- The Leafling experiment (spec 004 research R17): the owner's Meshy model rendered by tools/artgen. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Experiments/Resources/Characters/experiments/*.png" LogicalName="characters/experiments/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />

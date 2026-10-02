@@ -17,6 +17,9 @@ namespace Bloomlings.Client.UI.Design
         PodSlot,
         Booster,
         UiKit,
+
+        /// <summary>The reference look's materials (spec 005 FR-006): wood, stone, parchment.</summary>
+        Material,
         Currency,
         CollectionFrame,
         Cosmetic,
@@ -133,11 +136,13 @@ namespace Bloomlings.Client.UI.Design
             ["char."] = AssetCategory.Character,
             ["symbol."] = AssetCategory.VariantSymbol,
             ["tile."] = AssetCategory.BoardTile,
+            ["board."] = AssetCategory.BoardTile,
             ["special."] = AssetCategory.Special,
             ["pod."] = AssetCategory.PodSlot,
             ["slot."] = AssetCategory.PodSlot,
             ["booster."] = AssetCategory.Booster,
             ["ui."] = AssetCategory.UiKit,
+            ["mat."] = AssetCategory.Material,
             ["currency."] = AssetCategory.Currency,
             ["collection."] = AssetCategory.CollectionFrame,
             ["cosmetic."] = AssetCategory.Cosmetic,
@@ -185,17 +190,17 @@ namespace Bloomlings.Client.UI.Design
             const AssetPriority Later = AssetPriority.Later;
 
             // ---- Brand ----
-            Add("brand.wordmark", "Bloomlings wordmark (logo)", new[] { 1, 2, 3 }, "Splash; Home", "full; compact", SizeClass.Large, false, Launch, PlaceholderKind.Text, "bold outlined text with a Petal on the i");
+            Add("brand.wordmark", "Bloomlings wordmark (logo): the owner's picture `Brand/logo.png` (spec 005 pictures.md C1)", new[] { 1, 2, 3 }, "Splash; Home", "full; compact", SizeClass.Large, false, Launch, PlaceholderKind.Text, "the wooden letters `ui.logo.wood` until the picture exists");
             Add("brand.splash_art", "Splash illustration: Bloomlings of the four families in the garden", new[] { 1 }, "Splash", "portrait; tall-phone crop", SizeClass.Screen, false, Launch, PlaceholderKind.Generated, "garden backdrop and the 3D group picture `3d/group`");
             Add("brand.app_icon", "App icon", Array.Empty<int>(), "Launcher; store listing", "Android adaptive (foreground, background); iOS set", SizeClass.Medium, false, Launch, PlaceholderKind.External, "platform default icon");
 
             // ---- Backgrounds ----
-            Add("bg.theme.daylight_garden", "Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "sky gradient, hills, bushes, blossoms, arches in theme tints");
-            Add("bg.theme.pond", "Gameplay backdrop: Pond (from L100)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, pond tint");
-            Add("bg.theme.orchard", "Gameplay backdrop: Orchard (from L150)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, orchard tint");
-            Add("bg.theme.moonlit_garden", "Gameplay backdrop: Moonlit Garden (from L200)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, moonlit tint");
-            Add("bg.home", "Home scene: garden with stone arches behind the heroes", new[] { 2, 3 }, "Home", "early (the four heroes on their pedestal); progressed (the hero)", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural backdrop with arches");
-            Add("bg.splash", "Splash backdrop", new[] { 1 }, "Splash", "portrait", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop");
+            Add("bg.theme.daylight_garden", "Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop in theme tints until `Backgrounds/gameplay-daylight.png` exists (spec 005 pictures.md B2)");
+            Add("bg.theme.pond", "Gameplay backdrop: Pond (from L100)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, pond tint, until `Backgrounds/gameplay-pond.png` exists (pictures.md B3)");
+            Add("bg.theme.orchard", "Gameplay backdrop: Orchard (from L150)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, orchard tint, until `Backgrounds/gameplay-orchard.png` exists (pictures.md B4)");
+            Add("bg.theme.moonlit_garden", "Gameplay backdrop: Moonlit Garden (from L200)", Gameplay, "Gameplay", "tall; short", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop, moonlit tint, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5)");
+            Add("bg.home", "Home scene: garden with stone arches behind the heroes", new[] { 2, 3 }, "Home", "early (the four heroes on their pedestal); progressed (the hero)", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1)");
+            Add("bg.splash", "Splash backdrop", new[] { 1 }, "Splash", "portrait", SizeClass.Screen, false, Launch, PlaceholderKind.Procedural, "procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6)");
 
             // ---- Characters ----
             Shape("char.sprig", "Sprig family body (the fallback figure when a picture is missing)", new[] { 2, 3, 7, 8, 9, 12, 13 }, "Pods; slots; walkers; Home; demos", "idle; walk; work; finish; stuck; celebrate", SizeClass.Medium, readability: true);
@@ -243,6 +248,11 @@ namespace Bloomlings.Client.UI.Design
             Shape("tile.key", "Key", new[] { 9 }, "Board; flights to locks", "on tile; flying", SizeClass.Icon, readability: true);
             Add("tile.ground", "Open ground (restored or empty cell)", Gameplay, "Board", "empty; restored", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "flat rounded cell in the ground token");
             Add("tile.entry", "Garden Entry marker (where Bloomlings come in)", Gameplay, "Board", "idle; active", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "a ring in the entry color");
+            // Spec 005 §3.1, §3.6: the candy tiles (UiRaster.Tile) and the stone furniture around the board.
+            Add("tile.candy", "Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a small raised bead", Gameplay, "Board; demos", "normal; pressed; dimmed; grey; mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (board style)");
+            Add("tile.candy.sticker", "Candy tile, sticker style: a detailed symbol with a dark outline in its own tone", new[] { 7, 10, 12, 13 }, "Pods; slots; jam sheet; Collection", "normal; dimmed (queued); grey (stuck); mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (sticker style)");
+            Add("board.border.stone", "Stone border around the board", Gameplay, "Board; win picture", "normal; thin (win)", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles");
+            Add("board.arch", "Garden Entry stone arch", Gameplay, "Board", "bottom; left; right; top", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Arch picture: a big half ring of nine sandy stone blocks around an opening that shows the lawn");
             Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells in light variant colors");
 
             // ---- Specials ----
@@ -274,25 +284,41 @@ namespace Bloomlings.Client.UI.Design
             Shape("booster.shuffle", "Booster: Shuffle", new[] { 7, 8, 9, 10, 14, 16, 17 }, "Booster bar; jam sheet; Store; rewards; demos", "available; count; price; disabled", SizeClass.Small);
             Shape("booster.return", "Booster: Return", new[] { 7, 8, 9, 10, 14, 17 }, "Booster bar; jam sheet; Store; demos", "available; count; price; disabled; targeting", SizeClass.Small);
             Shape("booster.bloom_burst", "Booster: Bloom Burst", new[] { 9, 14, 17 }, "Booster bar; jam sheet; Store; demos", "available; count; price; disabled; targeting", SizeClass.Small);
+            // Spec 005 §3.8: the colored icons are drawn from parts (GardenLook.BoosterIcon); the ids above are their one-color silhouettes.
+            Shape("booster.extra_slot.disc", "Booster icon part: Extra Slot's blue disc", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
+            Shape("booster.extra_slot.plus", "Booster icon part: Extra Slot's white plus", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
+            Shape("booster.shuffle.a", "Booster icon part: Shuffle's orange arrow", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
+            Shape("booster.shuffle.b", "Booster icon part: Shuffle's green arrow", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
+            Shape("booster.bloom_burst.petals", "Booster icon part: Bloom Burst's pink petals", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
+            Shape("booster.bloom_burst.center", "Booster icon part: Bloom Burst's yellow center", new[] { 10, 14, 17 }, "Booster tiles; jam choices; Store", "colored icon");
 
             // ---- UI kit ----
             Shape("ui.panel", "Rounded panel base (9-slice)", new[] { 4, 5, 6, 10, 11, 15, 16, 17 }, "Every card, button, pill and tile", "any tint", SizeClass.Small);
             Shape("ui.circle", "Disc (round buttons, badges, avatars)", new[] { 2, 3, 5, 7, 14 }, "Round buttons; badges; medals; avatars", "any tint", SizeClass.Icon);
             Shape("ui.ring", "Ring (highlights, profile frame)", new[] { 3, 7 }, "Highlights; entry marker; avatar frame", "any tint", SizeClass.Icon);
-            Add("ui.button.primary", "Primary button (green, darker lower edge)", new[] { 2, 3, 4, 10, 11, 15, 16 }, "PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "green raised pill on a cream plate: outline, lip, highlight, volumetric label");
-            Add("ui.button.secondary", "Secondary button (cream)", new[] { 4, 10, 11, 15 }, "RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "cream raised pill on a cream plate, brown outline, dark brown label");
-            Add("ui.button.round", "Round icon button (white)", new[] { 2, 3, 7, 11 }, "Settings; Pause; close; Wardrobe; Collection", "normal; pressed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "raised disc on a round plate: outline, lip, highlight, glyph");
-            Add("ui.pill.level", "Level pill", Gameplay, "Gameplay top bar", "normal; super hard", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "sky-blue raised pill on a plate with the volumetric \"Level N\"");
-            Add("ui.pill.speed", "2× speed pill", Gameplay, "Gameplay top bar", "1×; 2×", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "dark raised pill on a plate");
-            Add("ui.pill.petals", "Petals balance pill", new[] { 2, 3, 17 }, "Home; Store", "with +; without +", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "white raised pill on a plate with the Petal symbol, balance and a round green + on its own plate");
+            Add("ui.button.primary", "Primary button (green, darker lower edge)", new[] { 2, 3, 4, 10, 11, 15, 16 }, "PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "glossy green raised pill in a light wood rim (`ui.button.rim`): outline, lip, highlight band, volumetric label");
+            Add("ui.button.secondary", "Secondary button (cream)", new[] { 4, 10, 11, 15 }, "RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "cream raised pill on a cream plate, cream outline, brown label and glyph");
+            Add("ui.button.round", "Round or squircle icon button (cream)", new[] { 2, 3, 7, 11 }, "Settings; Pause; close; back; Wardrobe; Collection", "normal; pressed; circle; squircle", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "one domed cream cushion (peach edges, lighter middle) with a lip, a soft tan outline, a soft shadow and a brown glyph in a thin cream halo");
+            Add("ui.pill.level", "Level label of the gameplay top bar", Gameplay, "Gameplay top bar", "normal; super hard", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "a wooden sign with ivy (`ui.sign.wood`, `ui.sign.ivy`) and brown \"Level N\"; purple letters on Super Hard");
+            Add("ui.pill.speed", "2× speed pill", Gameplay, "Gameplay top bar", "1×; 2×", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "cream squircle pill with the brown speed and the `ui.fast` chevrons");
+            Add("ui.pill.petals", "Petals balance pill", new[] { 2, 3, 17 }, "Home; Store", "with +; without +", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "cream raised pill with the lotus over its left end, the brown balance and a round green +");
             Add("ui.badge.hard", "HARD badge", new[] { 8 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "red raised sticker pill on a plate");
             Add("ui.badge.super_hard", "SUPER HARD badge", new[] { 9 }, "Gameplay", "intro; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "purple raised sticker pill on a plate");
-            Add("ui.badge.count", "Count badge (booster charges)", new[] { 7, 14 }, "Booster bar", "count; price", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "dark brown disc with a cream ring and a brown outline; price: cream tag with the Petal");
-            Add("ui.card", "Popup card frame", new[] { 4, 5, 6, 11, 16, 17 }, "Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe", "with close; without close", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "paper card in a wooden frame with a header band shaped like a button on a plate, over a scrim");
-            Add("ui.sheet", "Bottom sheet frame", new[] { 10 }, "Jam", "rising; open", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "paper sheet in a wooden frame with a grip, rising and settling with a bounce");
-            Add("ui.row", "List row (Store, Leaderboard)", new[] { 5, 17 }, "Store; Leaderboard", "normal; highlighted (You); unavailable", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "outlined rounded panel; the own row raised");
-            Add("ui.tab", "Tab", new[] { 17 }, "Store; Wardrobe", "selected; unselected", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "selected: green raised pill on a plate; others: sunk");
+            Add("ui.badge.count", "Count badge (booster charges, +N on a stack)", new[] { 7, 12, 14 }, "Booster bar; tray", "count", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "dark green disc with a white ring and white digits");
+            Add("ui.card", "Popup card frame", new[] { 4, 5, 6, 11, 16, 17 }, "Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe", "with close; without close", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim");
+            Add("ui.sheet", "Bottom sheet frame", new[] { 10 }, "Jam", "rising; open", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "parchment sheet with a grip and a brown title, rising and settling with a bounce");
+            Add("ui.row", "List row (Store, Leaderboard)", new[] { 5, 17 }, "Store; Leaderboard", "normal; highlighted (You); unavailable", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "cream rounded panel with a cream outline; the own row raised and green-tinted");
+            Add("ui.tab", "Tab", new[] { 17 }, "Store; Wardrobe", "selected; unselected", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "selected: glossy green raised pill on a plate; others: parchment wells");
             Add("ui.toggle", "Toggle switch", Array.Empty<int>(), "Settings", "on; off", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "chunky outlined track with a raised knob");
+            // Spec 005 §3.2 to §3.6: wooden signs and rims, jam choices, cost pills, the stone pedestal, the wooden wordmark.
+            Add("ui.sign.wood", "Wooden sign (level label, win and banner titles, Home level plaque)", new[] { 2, 3, 7, 15, 17 }, "Gameplay top bar; win; Home; Store; Wardrobe", "plain; ivy; flowers; super hard letters", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.Plank (light wood) with brown embossed letters and a soft shadow");
+            Shape("ui.sign.ivy", "Ivy cluster over a sign's ends (clovers with pointed leaflets, at the top and bottom corners)", new[] { 7, 17 }, "Gameplay level sign; Store and Wardrobe banners; wordmark", "left; right (mirrored)", SizeClass.Small);
+            Add("ui.sign.flowers", "Flower clusters on the win sign", new[] { 15 }, "Win sign", "top-left; bottom-right (turned)", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "lush clusters of five big leaves with veins and two white flowers at two corners (`ui.deco.garden`)");
+            Add("ui.button.rim", "Light wood rim of the main buttons", new[] { 2, 3, 10, 11, 15, 16 }, "PLAY; NEXT; RESUME; CLAIM; CONTINUE; Free rescue", "normal; pressed", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.Plank (pale wood, only a thin deeper bottom band) behind the green face");
+            Add("ui.button.choice", "Jam choice button (icon above the label, cost pill below)", new[] { 10 }, "Jam sheet", "green; blue; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "glossy green or blue rounded rectangle with the booster icon, a white outlined label and a cost pill");
+            Add("ui.pill.cost", "Cost pill (lotus and price, Free, ×N)", new[] { 10, 14, 17 }, "Jam choices; booster tiles; Store", "price; free; charges", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "cream pill with a cream outline: the lotus and a brown price, a green ▶ square and Free, or ×N");
+            Add("ui.pedestal", "Stone pedestal under the heroes", new[] { 2, 3, 15, 16 }, "Win; milestone; Home; Wardrobe", "normal", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.Pedestal picture: an ellipse-topped stone drum with joints and moss");
+            Add("ui.logo.wood", "Wooden wordmark letters (the stand-in for the owner's logo)", new[] { 1, 2, 3 }, "Splash; Home", "full; compact", SizeClass.Large, false, Launch, PlaceholderKind.Text, "wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower");
             Shape("ui.close", "Close glyph", new[] { 4, 5, 6, 11 }, "Cards", "normal");
             Shape("ui.pause", "Pause glyph", Gameplay, "Gameplay top bar", "normal");
             Shape("ui.restart", "Restart glyph", new[] { 10, 11 }, "Pause card; jam sheet", "normal");
@@ -301,6 +327,8 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.plus", "Plus glyph", new[] { 2, 3, 17 }, "Petals pill; + Slot", "normal");
             Shape("ui.check", "Check mark (done)", new[] { 3 }, "Home Daily Challenge card (done today)", "normal");
             Shape("ui.play", "Play triangle, as tall as the letters (spec 003 FR-010)", new[] { 2, 3 }, "PLAY on Home", "normal; pressed");
+            Shape("ui.fast", "Fast glyph (two chevrons) of the speed pill (spec 005)", Gameplay, "Gameplay top bar", "normal");
+            Shape("ui.back", "Back arrow glyph (spec 005)", new[] { 17 }, "Wardrobe; Store", "normal");
             Shape("ui.deco.garden", "Leaves and a white flower on the main buttons (spec 003 FR-011a)", new[] { 2, 3, 11, 15, 16 }, "PLAY; RESUME; NEXT; CONTINUE; CLAIM", "top-left; bottom-right (turned)", SizeClass.Small);
             Shape("ui.gift", "Gift (milestone teaser)", new[] { 3 }, "Home", "normal; ready", SizeClass.Small);
             Shape("ui.trophy", "Trophy (rank row, Get +N)", new[] { 3, 4 }, "Home rank row; Daily Reward", "normal", SizeClass.Small);
@@ -316,8 +344,16 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.cross", "Ignore mark (a pod ignores another variant)", Array.Empty<int>(), "Variant demo (spec 001 FR-071)", "normal");
             Shape("ui.pointer", "Tutorial pointing hand", Array.Empty<int>(), "Demos", "tap; hold", SizeClass.Small);
 
+            // ---- Materials (spec 005 FR-006, contracts/look.md §2) ----
+            Add("mat.wood.light", "Light wood (signs, button rims)", new[] { 2, 3, 7, 15 }, "Signs; main button rims; wordmark", "any size; grain by seed", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.Plank, light tone");
+            Add("mat.wood.dark", "Dark wood (pod frames and handles)", new[] { 7, 12 }, "Pods", "exposed; queued (dimmed); locked", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.Frame, dark tone");
+            Add("mat.stone", "Stone blocks (board border, arch, pedestal)", new[] { 7, 15 }, "Board border; Garden Entry arch; pedestal", "any size; moss by seed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.Stone, Arch and Pedestal (warm sandy stone, smooth, a few soft moss tufts)");
+            Add("mat.parchment", "Parchment (cards, sheet, tray, slot band)", new[] { 4, 5, 6, 10, 11, 17 }, "Cards; jam sheet; tray; slot band; toasts", "any size", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "parchment gradient with a warm aged edge band, a thin brown outline and a thin inner line");
+
             // ---- Currency and rewards ----
-            Shape("currency.petal", "Petal symbol (soft currency)", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Petals pill; rewards; costs; prices; badges", "small; large", SizeClass.Icon);
+            Shape("currency.petal", "Petals symbol (soft currency): a pink lotus bud (spec 005)", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Petals pill; rewards; costs; prices; badges", "small; large", SizeClass.Icon);
+            Shape("currency.petal.front", "Lotus part: the front petals (center and sides) and the base", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Wherever the lotus shows", "small; large", SizeClass.Icon);
+            Shape("currency.petal.tips", "Lotus part: the near-white petal middles", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Wherever the lotus shows", "small; large", SizeClass.Icon);
             Shape("currency.reward_basket", "Reward basket (Daily Reward)", new[] { 4 }, "Daily Reward", "day 1–7", SizeClass.Medium);
             Add("currency.petal_pile", "Pile of Petals (big rewards)", new[] { 4, 16 }, "Daily Reward; Milestone", "small; large", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "a cluster of Petal symbols");
 
@@ -349,6 +385,8 @@ namespace Bloomlings.Client.UI.Design
             Shape("fx.sparkle", "Sparkle", new[] { 7, 15 }, "Clears; win shine; burst", "small; large", SizeClass.Icon);
             Shape("fx.petal_burst", "Petal burst", new[] { 15, 16 }, "Win; milestone; rewards", "burst", SizeClass.Icon);
             Shape("fx.droplet", "Droplets (Drop-family clears)", new[] { 7, 8, 9 }, "Board: tiles restored by Drop Bloomlings", "splash", SizeClass.Icon);
+            Add("fx.rays", "Light rays behind the celebrating heroes", new[] { 15, 16 }, "Win; milestone", "slowly turning", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "ten soft ray-light wedges from the pedestal");
+            Shape("fx.petals", "Falling petals of the win", new[] { 15, 16 }, "Win; milestone", "drifting; swaying", SizeClass.Icon);
             Add("fx.confetti", "Confetti", new[] { 15, 16 }, "Win; milestone", "fall", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "small rotating squares in level colors");
             Add("fx.puff", "Puff (a pod leaves its slot)", new[] { 13 }, "Slots", "puff", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "expanding fading discs");
             Add("fx.shuffle_swirl", "Shuffle swirl", new[] { 14 }, "Tray", "swirl", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "pods spinning in place");

@@ -22,49 +22,50 @@ reference image is `specs/005-reference-look/reference.jpg`; crops named below a
 
 | Token | Key | Value | Use |
 |---|---|---|---|
-| `WoodLight` | `wood.light` | `#EBC48C` | sign / rim face top |
-| `WoodMid` | `wood.mid` | `#D3A066` | sign / rim face bottom |
-| `WoodGrain` | `wood.grain` | `#A8733F` | grain lines (alpha 0.25–0.45) |
-| `WoodEdge` | `wood.edge` | `#9A6232` | sign lower lip |
-| `WoodLine` | `wood.line` | `#6B4020` | sign / rim outline |
+| `WoodLight` | `wood.light` | `#FBE2BC` | sign / rim face top (pale honey wood) |
+| `WoodMid` | `wood.mid` | `#F1CD98` | sign / rim face bottom |
+| `WoodGrain` | `wood.grain` | `#C99863` | grain streaks and lines (faint) |
+| `WoodEdge` | `wood.edge` | `#DDB27C` | the slightly deeper bottom band of a plank |
+| `WoodLine` | `wood.line` | `#8B5A2B` | sign / rim outline |
 | `WoodDark` | `wood.dark` | `#8A5634` | pod frame face |
 | `WoodDarkTop` | `wood.dark_top` | `#A86F45` | pod frame top light |
 | `WoodDarkLine` | `wood.dark_line` | `#4A2A14` | pod frame outline |
-| `StoneTop` | `stone.top` | `#F4ECDB` | stone block top light |
-| `StoneFace` | `stone.face` | `#E3D6BA` | stone block face |
-| `StoneLip` | `stone.lip` | `#C2B08C` | stone block lower edge |
-| `StoneLine` | `stone.line` | `#9E8B69` | stone outline and joints |
+| `StoneTop` | `stone.top` | `#F6DDB2` | stone block top light (warm sandy stone) |
+| `StoneFace` | `stone.face` | `#E8C99A` | stone block face |
+| `StoneLip` | `stone.lip` | `#CDA877` | stone block lower edge |
+| `StoneLine` | `stone.line` | `#7E6844` | stone outline and (deep, dark) joints |
 | `StoneMoss` | `stone.moss` | `#7DB24A` | moss patches |
 | `ParchmentTop` | `parchment.top` | `#FFF8E8` | card / tray top |
 | `ParchmentBottom` | `parchment.bottom` | `#F5E4C3` | card / tray bottom |
-| `ParchmentEdge` | `parchment.edge` | `#E2C99B` | inner border line, plate depth |
-| `ParchmentLine` | `parchment.line` | `#A97E4C` | card outline |
-| `ParchmentWell` | `parchment.well` | `#EEDDBA` | inset wells (jam row, sunk tabs) |
-| `CreamFace` | `cream.face` | `#FBF0DA` | cream button / slot / booster face |
-| `CreamTop` | `cream.top` | `#FFFAF0` | cream face top |
-| `CreamLip` | `cream.lip` | `#D9C196` | cream lower lip |
-| `CreamLine` | `cream.line` | `#B99367` | cream outline |
+| `ParchmentEdge` | `parchment.edge` | `#EBCB9A` | aged edge band, inner border line, plate depth |
+| `ParchmentLine` | `parchment.line` | `#B48552` | card outline |
+| `ParchmentWell` | `parchment.well` | `#F3D7AB` | inset wells (jam row, sunk tabs) |
+| `CreamFace` | `cream.face` | `#FCE7C8` | cream button / slot / booster face (peachy) |
+| `CreamTop` | `cream.top` | `#FFF6E6` | cream face top, the domed middle, glyph halos |
+| `CreamLip` | `cream.lip` | `#E6C69B` | cream lower lip |
+| `CreamLine` | `cream.line` | `#C79F6F` | cream outline (soft tan) |
 | `InkBrown` | `ink.brown` | `#5A3418` | titles, sign letters, counts, glyphs on cream |
 | `InkBrownSoft` | `ink.brown_soft` | `#7B5A3A` | body text on parchment |
-| `LotusFill` | `lotus.fill` | `#F59CBF` | lotus petals |
-| `LotusTip` | `lotus.tip` | `#FFD3E3` | lotus petal light |
-| `LotusLine` | `lotus.line` | `#D9568A` | lotus outline |
+| `LotusFill` | `lotus.fill` | `#F7739F` | lotus petals (deep pink at their edges) |
+| `LotusTip` | `lotus.tip` | `#FFE4EE` | lotus petal middles (near white) |
+| `LotusLine` | `lotus.line` | `#D14F7A` | lotus outline |
 | `BadgeGreen` | `badge.green` | `#245C34` | count badge disc |
 | `LawnLight` | `lawn.light` | `#93CC5B` | gameplay lawn |
 | `LawnDark` | `lawn.dark` | `#5E9E3D` | lawn shade, grass strokes |
-| `IvyLeaf` | `ivy.leaf` | `#79BE47` | ivy / clover leaves on signs |
-| `IvyLine` | `ivy.line` | `#3F7D26` | ivy outline |
+| `IvyLeaf` | `ivy.leaf` | `#96D03C` | ivy / clover leaves on signs (yellow-green) |
+| `IvyLine` | `ivy.line` | `#2F6A18` | ivy outline, the dark shadows between leaves, veins |
 | `ButtonBlue` | `button.blue` | `#45A3EE` | jam Return / Bloom Burst buttons |
 | `ButtonOrange` | `button.orange` | `#F6B021` | orange buttons ("Next" in the strip) |
 | `RayLight` | `ray.light` | `#FFF4C8` | win light rays (alpha) |
 
-`ButtonPrimary` becomes `#4DB847` (top `#86DC5E`, lip `#2D8A32`, line `#1F6427`); `GardenLook.Green` follows it.
+`ButtonPrimary` becomes the reference's yellow-green `#62B83A` (top `#ADE162`, lip `#378F24`, line `#24661A`);
+`GardenLook.Green` follows it.
 
 ### 1.3 Color sets (`GardenLook`)
 
 | Set | Face | Top | Lip | Line | Label |
 |---|---|---|---|---|---|
-| `Green` | `#4DB847` | `#86DC5E` | `#2D8A32` | `#1F6427` | white, outlined `Line` |
+| `Green` | `#62B83A` | `#ADE162` | `#378F24` | `#24661A` | white, outlined `Line` |
 | `Blue` (jam) | `ButtonBlue` | lighten 0.3 | darken 0.25 | darken 0.42 | white, outlined `Line` |
 | `Orange` | `ButtonOrange` | lighten 0.3 | darken 0.22 | darken 0.42 | white, outlined `Line` |
 | `Cream` | `CreamFace` | `CreamTop` | `CreamLip` | `CreamLine` | `InkBrown`, plain |
@@ -81,10 +82,10 @@ Sizes are pixels. Common helpers: rounded-rect SDF, value noise / fbm, smoothste
 
 | Function | Picture |
 |---|---|
-| `Plank(w, h, radius, outline, WoodTone tone, int seed)` | A wooden plank: vertical gradient top→bottom, horizontal grain (fbm stretched 1:12 along x plus 3–5 darker thin wavy lines and an occasional knot ellipse), a 1–2 px lighter bevel inside the top edge, a darker lip band along the bottom (12% of h), the outline. `WoodTone.Light` uses `WoodLight`/`WoodMid`/`WoodGrain`/`WoodEdge`/`WoodLine` (signs, rims); `WoodTone.Dark` uses `WoodDarkTop`/`WoodDark`/`WoodDarkLine` (pod frames). Two tiny nail dots near the ends when `h > 48`. |
+| `Plank(w, h, radius, outline, WoodTone tone, int seed, float lipShare = PlankLip)` | A wooden plank: a pale vertical gradient top→bottom, horizontal grain (many fine, faint streaks: fbm stretched along x, plus 6–9 thin, faint, barely wavy lines and an occasional knot ellipse), a 1–2 px lighter bevel inside the top edge, only a slightly deeper band along the bottom (`lipShare` of h, `PlankLip` = 6% by default, 3% on the button rim; `WoodEdge` at 60%) and no dark lip, the outline. `WoodTone.Light` uses `WoodLight`/`WoodMid`/`WoodGrain`/`WoodEdge`/`WoodLine` (signs, rims); `WoodTone.Dark` uses `WoodDarkTop`/`WoodDark`/`WoodDarkLine` (pod frames). Two tiny nail dots, near the top at the left end and near the bottom at the right end, when `h > 48`. |
 | `Frame(w, h, radius, border, WoodTone tone, int seed)` | The plank material as a ring of width `border` (hole transparent) with an inner shadow along the hole's top and a light inner edge along its bottom: the pod frame. |
-| `Stone(w, h, radius, outline, int seed)` | A stone block: `StoneTop`→`StoneFace` gradient, mottled fbm (±6% light), a few darker speckles, a light bevel at the top, `StoneLip` along the bottom 14%, `StoneLine` outline; `seed` varies the mottling and an optional moss patch (`StoneMoss`) on a corner. |
-| `Tile(size, Rgba color, string iconId, TileStyle style)` | The candy tile (§3.1), square. |
+| `Stone(w, h, radius, outline, int seed)` | A stone block of warm sandy stone: `StoneTop`→`StoneFace` gradient, a smooth surface (fbm mottling ±4%, rare faint speckles), a light bevel at the top, `StoneLip` along the bottom 14%, the dark `StoneLine` outline; `seed` varies the mottling and, on about one block in six, a soft tuft of moss (`StoneMoss`, feathered edge) over a corner. |
+| `Tile(size, Rgba color, string iconId, TileStyle style)` | The candy tile (§3.1), square; `TileLipShare(style)` gives its lip for the kit's press. |
 | `Lawn(w, h, int seed)` | Optional: the lawn texture for the gameplay backdrop if `BackdropRaster` does not take it (§4.2). |
 
 Each build caches pictures by `key + "@" + w + "x" + h` (sizes quantized up to multiples of 8 px).
@@ -109,19 +110,24 @@ Playtest names are `Kit.*`; the Unity twin in `UiKit` takes the same name. A com
 
 Reference crops: the board (gameplay screen) and the "Target Variants" strip.
 
-- Shape: a square, corner radius 16% of its side (board) or 20% (sticker).
-- Face: vertical gradient from `color.Lighten(0.28)` (top) to `color` (60%) to `color.Darken(0.06)` (bottom).
-- Lip: `color.Darken(0.28)` along the bottom 9% (board) / 10% (sticker), under the face.
-- Outline: 1.5% of the side (min 1 px) in `color.Darken(0.45)` at 80% alpha (board tiles look separated by thin dark
-  lines, as in the reference).
-- Gloss: a white band from 6% to 34% of the face height, inset 10% left/right, alpha 0.38 → 0 downward; plus a small
-  white dot (6% of the side) near the top-left corner at alpha 0.55.
-- Symbol, **board style**: the variant symbol (`ShapeLibrary.SymbolId(iconId)`) at 54% of the side, centered 2% above
-  the middle, drawn twice: a light copy `color.Lighten(0.42)` at alpha 0.55 offset (−1.5%, −2%) of the side, then the
-  symbol in `color.Darken(0.24)`. Below 28 px per tile the gloss dot and the light copy are skipped.
-- Symbol, **sticker style** (pods, slots, jam row, Collection, the strip): the symbol at 66% of the side with a rim
-  (the symbol grown by 7% of its size) in `color.Lighten(0.55)`, a fill from `icon top` to `icon` (per variant, §3.1.1),
-  a white highlight ellipse clipped to the symbol's upper left (alpha 0.5), and the variant's detail.
+- Shape: a square, corner radius 7% of its side (board: nearly square, so the board reads as one continuous mosaic) or
+  20% (sticker), at least 3 px.
+- Face (satin): vertical gradient from `color.Lighten(0.28)` (top) to `color` (60%) to `color.Darken(0.06)` (bottom).
+- Lip: `color.Darken(0.28)` along the bottom 5% (`UiRaster.TileLipShare`), under the face; only thinly darker.
+- Outline: crisp and solid, 2% of the side (board) or 2.6% (sticker), min 1 px, in `color.Darken(0.45)` (board) or
+  `color.Darken(0.5)` (sticker) at full alpha. Neighboring board tiles are parted only by their two outlines (about 3–4%
+  of a cell), as in the reference.
+- Gloss: no white band or specular dot (the jelly look is gone): a faint white band from 6% to 24% of the face height,
+  inset 10% left/right, alpha 0.12 (board) or 0.16 (sticker) → 0 downward, and a thin lighter bevel (`color.Lighten(0.45)`
+  at 0.6, about 1.2% of the side) just inside the top edge, fading out by the middle of the sides.
+- Symbol, **board style**: the variant symbol (`ShapeLibrary.SymbolId(iconId)`) at 42% of the side, centered 2% above
+  the middle, as a small raised jelly bead: a darker rim (the symbol grown by 3% of its box) in `color.Darken(0.42)`, a
+  fill from `color.Darken(0.06)` (top) to `color.Darken(0.24)` (bottom) and a soft white specular on its upper left
+  (alpha 0.5, the sticker's highlight ellipse). Below 28 px per tile the symbol is a flat `color.Darken(0.24)` fill.
+- Symbol, **sticker style** (pods, slots, jam row, Collection, the strip): the symbol at 66% of the side with no light
+  halo: a crisp outline (the symbol grown by 3.5% of its box) in the icon's own dark tone (its bottom color darkened
+  0.32), a fill from `icon top` to `icon` (per variant, §3.1.1), a white highlight ellipse clipped to the symbol's upper
+  left (alpha 0.4), and the variant's detail.
 - States: `Dimmed` (queued pods) mixes face and symbol 45% toward `ParchmentBottom`; `Grey` (stuck) uses
   `color.Grey()`; `Pressed` sinks the face into the lip (`Kit.Block` press); `Mystery` uses `TileMystery` with a white
   "?" (`tile.mystery`) and no symbol.
@@ -131,7 +137,7 @@ Reference crops: the board (gameplay screen) and the "Target Variants" strip.
 | Variant | Icon fill (top → bottom) | Detail |
 |---|---|---|
 | Leaf | `#5FB84A` → `#2F8C32` | a lighter midrib and two side veins `#8ED86A` |
-| Moss | `#22B79C` → `#0D7C68` | three lighter dimples |
+| Moss | `#22B79C` → `#0D7C68` | three faint dimples (alpha 0.2): a nearly uniform cushion |
 | Flower | `#FFD2E2` → `#F79AC0` | a yellow center `#FFD35C` with an orange dot |
 | Violet Bud | `#C58BF5` → `#8E4BD8` | a lighter middle line and two green sepals `#5BAA3A` at the base |
 | Water | `#5FB6FF` → `#1E6FD6` | a white curved highlight on the left |
@@ -141,41 +147,54 @@ Reference crops: the board (gameplay screen) and the "Target Variants" strip.
 | Expansion | `color.Lighten(0.2)` → `color.Darken(0.15)` | none |
 
 The symbols themselves are redrawn in `ShapeLibrary` (research D13) so that each reads as in the reference strip while
-the two variants of a family keep different silhouettes: leaf (pointed oval with a stem), moss (scalloped round
-cushion), flower (five round petals), bud (tulip bud with three tips), water (pointed teardrop), dew (round droplet,
-its sparkle as a separate part), wood (stump: a short cylinder with a ringed top), acorn (cap and nut).
+the two variants of a family keep different silhouettes: leaf (a broad almond, about 1.5:1, with a barely visible
+stem), moss (a round 1:1 cushion with about eleven soft scallops), flower (five clearly separated round petals with
+deep notches), bud (a chunky rounded bud with three short tips and two sepals, no stem), water (pointed teardrop), dew
+(round droplet, its sparkle as a separate part), wood (stump: a short cylinder with a ringed top), acorn (cap and nut).
+The mask difference between any two symbols at 48 px stays above 0.08 (`ShapeLibraryTests`).
 
 ### 3.2 Wooden sign — `Kit.WoodSign(p, box, text, TypeStyle style, SignDecor decor)`
 
 Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, the Home "LEVEL 88" plaque.
 
-- `UiRaster.Plank` (Light) filling `box`, radius 28% of the height, outline 2.5% of the height (min 2 px), and a soft
-  shadow below (`GardenShadow` alpha 0.22, offset 6% of the height).
+- `UiRaster.Plank` (Light: pale honey wood) filling `box`, radius 28% of the height, outline 2.5% of the height (min
+  2 px), and a soft shadow below (`Kit.SoftShadow`, `GardenShadow` alpha 0.22, offset 7% of the height).
 - Letters: `InkBrown` with a light emboss (`TextLook.Plain`-like, emboss `WoodLight.Lighten(0.4)`), centered, max width
   82% of the plank.
-- `SignDecor.Ivy`: clover/ivy clusters (3–4 leaves, `IvyLeaf`/`IvyLine`) overlapping both ends (gameplay level sign,
-  Wardrobe/Store banner). `SignDecor.Flowers`: a cluster of 2–3 big leaves and one white flower with a yellow center at
-  the top-left and the bottom-right ends (win sign). `SignDecor.None`: Home plaque, card headers.
+- `SignDecor.Ivy`: clover/ivy clusters overlapping both ends (gameplay level sign, Wardrobe/Store banner): six clovers
+  whose three leaflets are pointed lenses with a midrib (`IvyLine` at 0.5), in yellow-green `IvyLeaf` shades (±0.2)
+  over dark `IvyLine` outlines, gathered in two groups at the top and bottom corners of the plank's end with one leaf
+  bridging them. `SignDecor.Flowers`: lush clusters at the top-left and the bottom-right ends (win sign), 1.35 × the
+  sign's height: five big almond leaves (0.36–0.5 of the cluster, fanned from up-left to down-left, `GardenLeaf1/2/3`
+  with `IvyLine` veins) and two white five-petal flowers (0.34 and 0.26 of the cluster) with yellow centers.
+  `SignDecor.None`: Home plaque, card headers.
 - Never a touch target.
 
 ### 3.3 Buttons
 
-- **Primary** (`Kit.PrimaryButton`): the green set's face (spec 003 `Kit.Face`) with a stronger highlight band (top 8%
-  to 46%, alpha 0.45 → 0) and a light wood rim instead of the cream plate: `UiRaster.Plank` (Light) behind the face,
-  inset by 7% of the height on every side, outline `WoodLine`. White label outlined in the set's line, extruded.
-  Pressed: the face sinks (existing press depth) and darkens by 8%. Decorations (leaves and flower at the corners) stay.
+- **Primary** (`Kit.PrimaryButton`): the green set's face (spec 003 `Kit.Face`) with the smooth gloss: a band of the
+  set's top lightened 0.35, from 4% to 46% of the face, inset 3%, alpha 0.35 → 0, feathered in three steps (inset +0,
+  +2%, +4% at a third of the alpha each) so no edge shows, and a thin white shine along the straight part of the top edge
+  only. A uniform pale wood rim instead of the cream plate: `UiRaster.Plank` (Light, `lipShare` 0.03, so no dark bottom
+  band) behind the face, the face inset by 8.5% of the height on every side, outline `WoodLine`, a soft shadow. White
+  label outlined in the set's line with a lighter extrusion (`TextLook.OnGloss`: 0.6 × `LabelExtrudeEm`). Pressed: the
+  face sinks (existing press depth) and darkens by 8%. Decorations (leaves and flower at the corners) stay.
 - **Secondary** (`Kit.SecondaryButton`): the cream set on a cream plate (`ParchmentEdge` depth), brown label, optional
   brown glyph on the left (Restart's ⟳).
-- **Round / squircle icon buttons** (`Kit.RoundButton`): cream face with a thick light rim (`CreamTop`, 9% of the size)
-  and a `CreamLip` lower edge, `CreamLine` outline, soft shadow; brown glyph (`InkBrown`) at 46% of the size. Pause and
-  speed in the top bar are squircles (radius 34% of the height); Settings, back and close are circles. Close is cream
-  with a brown ✕ (no longer red).
-- **Speed pill** (`Kit.SpeedPill`, replaces `DarkPill`): the cream squircle style, wider, with the speed text ("1×" or
-  "2×", `InkBrown`) and the `ui.fast` glyph (▶▶) after it.
+- **Round / squircle icon buttons** (`Kit.RoundButton`, `Kit.IconFace`): a single domed cream cushion: the face
+  `CreamFace` → `CreamFace.Darken(0.04)` (peach toward the edges) with a lighter `CreamTop` middle feathered in from 8%
+  of the size (three steps, no inner ring, no dish), a `CreamLip` lower edge (7% of the size), a soft tan `CreamLine`
+  outline (2%), a soft shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 46% of the size with a thin `CreamTop`
+  halo all around it (the shape grown by 0.06). Pause and speed in the top bar are squircles (radius 34% of the height)
+  of the same height; Settings, back and close are circles. Close is cream with a brown ✕ (no longer red).
+- **Speed pill** (`Kit.SpeedPill`, replaces `DarkPill`): the cream squircle style, as tall as Pause and wider, with the
+  speed text ("1×" or "2×", `InkBrown`) and the `ui.fast` glyph (▶▶: a solid triangle and a notched chevron, about 42%
+  of the pill tall, as tall as the digits) after it, in the cream halo.
 - **Choice button** (`Kit.ChoiceButton(p, box, ColorSet set, iconDraw, label, cost)`, jam): a rounded rectangle
-  (radius 22% of its height) in the green or blue set with the glossy face, the icon (36% of the height) in the upper
-  half, the white outlined label below it, and a cost pill (§3.4) centered on its bottom edge, overlapping by 40% of the
-  pill's height.
+  (radius 22% of its height) in the green or blue set with the glossy face, the icon (44% of the height, its center at
+  34% of the face) in the upper half, the white outlined label below it (font scaled to 17% of the button's height,
+  centered at 76% of the face, `TextLook.OnGloss`), and a cost pill (§3.4) centered on its bottom edge, overlapping by 40%
+  of the pill's height.
 - Orange (`GardenLook.Orange`) is available for a highlighted secondary call to action.
 - Disabled buttons use `ColorSet.Disabled()` and alpha 0.55 as before.
 
@@ -188,14 +207,17 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   soft shadow; contents: the lotus and the price (`InkBrown`), or a green ▶ square and "Free", or "×N" charges.
 - **Petals pill** (`Kit.PetalsPill`): the cream style, lotus on the left (overlapping the edge by 10%), amount in
   `InkBrown`, the green round "+" on the right.
-- **Lotus** (`Kit.Petal`, shape `currency.petal` redrawn as a lotus): five pointed petals (three in front, two behind)
-  in `LotusFill` with `LotusTip` tips and `LotusLine` outline.
+- **Lotus** (`Kit.Petal`, shape `currency.petal` redrawn as a compact lotus bud): a tall almond center petal (about 90%
+  of the height), two side petals curving out and two small back petals over a small base; each petal deep pink
+  (`LotusFill`) at its edges and near-white (`LotusTip`, `currency.petal.tips`: the petal shrunk by 0.12 from 20% to 85%
+  of its length, over a softer pink band) in its middle, the middles parted by deep pink edges; `LotusLine` outline.
 
 ### 3.5 Surfaces
 
 - **Parchment** (`Kit.Paper`, all cards, the jam sheet, the tray panel, the slot band): `ParchmentTop` →
-  `ParchmentBottom` gradient, a `ParchmentLine` outline (frame width token), a thin `ParchmentEdge` inner line 1.2% of
-  the shorter side inside it, a soft shadow; no wood frame.
+  `ParchmentBottom` gradient, a warm aged band over the outer 6% of the shorter side (`ParchmentEdge` at about 0.4 at
+  the outline fading inward, in fine steps so no ring shows), a thinner `ParchmentLine` outline (0.8 × the frame width
+  token), a thin `ParchmentEdge` inner line 1.2% of the shorter side inside it, a soft shadow; no wood frame.
 - **Well** (`Kit.Well`): `ParchmentWell` with an inner shadow along the top and a `ParchmentEdge` outline (jam slot
   row, sunk tabs, empty plates).
 - **Card** (`Kit.Card`): parchment; a title in `type.title` `InkBrown` (no green band) or a `WoodSign` header when the
@@ -205,18 +227,25 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 
 - **Stone border** (`Kit.StoneBorder(p, gridBox, cell)`): blocks of `UiRaster.Stone` around the grid, thickness 0.42
   cell, lengths alternating 1.0 and 0.8 cell (corners are square blocks 0.42 × 0.42 rounded 40%), a dark joint of 0.04
-  cell between blocks (`StoneLine` at alpha 0.6), seeds by position so the border never flickers. A 0.06 cell dark green
-  (`LawnDark.Darken(0.3)`) gap between the stones and the tiles.
-- **Garden Entry** (`Kit.StoneArch`): a half ring of 5 small stone blocks (outer radius 0.55 cell) opening toward the
-  board on the entry's side, with a darker opening (`LawnDark.Darken(0.45)`).
+  cell between blocks (`StoneLine` at alpha 0.6), seeds by position so the border never flickers. A 0.04 cell dark gap
+  (`GardenLook.BoardGap` = `LawnDark.Darken(0.55)`) between the stones and the tiles, which also shows as the thin dark
+  lines between tiles.
+- **Garden Entry** (`Kit.StoneArch(p, cx, cy, cell, EntrySide side)`): a big half ring of 9 sandy stone blocks (outer
+  radius 1.5 cells, so about 3 cells wide and 1.5 tall; the ring 22% of the outer radius thick; `UiRaster.Arch`) on the
+  entry's side of the board, its crown toward the board and its opening away from it, as in the reference's gameplay
+  screen; the opening shows the lawn (`GardenLook.ArchOpening` = `LawnLight.Darken(0.12)`, alpha 0.8) with a soft shadow
+  under the crown, and the walkers stand in it. (`cx`, `cy`) is the middle of the open base, where the Bloomlings come
+  out. Screens leave it room below the board.
 - **Lawn**: the gameplay backdrop scene becomes a lawn (§4.2).
-- **Pedestal** (`Kit.StonePedestal(p, box)`): an ellipse-topped stone drum: top ellipse `StoneTop`, side `StoneFace`
-  with 4 block joints, `StoneLip` bottom, moss tufts at the base. Win, Home (until the owner's diorama) and Wardrobe.
+- **Pedestal** (`Kit.StonePedestal(p, box)`, `UiRaster.Pedestal`): an ellipse-topped stone drum: top ellipse `StoneTop`
+  with a ring joint, side `StoneFace` in two courses of staggered blocks, `StoneLip` bottom, moss at the base. It
+  returns the top ellipse's box (where the heroes stand). Win, Home (until the owner's diorama) and Wardrobe.
 
 ### 3.7 Tray pieces
 
 - **Pod** (`Kit.PodFrame(p, box, state)` + `CandyTile` sticker + count): `UiRaster.Frame` (Dark) filling the pod box,
-  radius 18%, border 11% of the width; inside it a cream panel (`CreamTop` → `CreamFace`); the candy tile (sticker) at
+  radius 18%, border 11% of the width; inside it a panel tinted by the variant (`color.Mix(CreamTop, 0.78)` →
+  `CreamFace`; queued, locked and mystery pods keep the plain `CreamTop` → `CreamFace`); the candy tile (sticker) at
   70% of the inner width near the top; the count below it, `type.count` `InkBrown`, no "x". A short wooden handle
   (`WoodDark`, 22% × 7% of the box) on top of the exposed pod. Queued pods (the ones below in a column) draw the same
   frame at 55% brightness mixed toward `ParchmentBottom` and a dimmed tile. Locked: the frame with `StateLockBg` inner
@@ -227,9 +256,9 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   outline (`CreamLine` alpha 0.8, dash 9%/6% of the side) on a slightly sunk face; stuck: grey tile + the hourglass
   badge; danger: the dashed outline in `StateDanger` with "!"; extra slot: the green "+" badge; locked: grey face with
   the lock.
-- **Booster tile** (`Kit.BoosterTile`): a cream squircle (radius 26%) with a grey-beige rim (`CreamLine.Mix(StateStuck,
-  0.4)`), the booster icon (§3.8) at 62%, the count badge or the cost pill; selected: the existing glow ring and lift;
-  disabled: greyed.
+- **Booster tile** (`Kit.BoosterTile`): a cream squircle (radius 26%) with a cool silver-grey rim
+  (`GardenLook.BoosterRim` = `CreamLine.Mix(StateStuck, 0.8)`), the booster icon (§3.8) at 62%, the count badge or the
+  cost pill; selected: the existing glow ring and lift; disabled: greyed.
 
 ### 3.8 Icons (`ShapeLibrary`, multi-part icons drawn by `Kit.BoosterIcon`)
 
@@ -237,16 +266,20 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 |---|---|
 | Extra Slot | a blue disc (`#3E9BEA`, outline darker) with a white bold "+" |
 | Shuffle | two curved arrows chasing each other, orange `#F2A33A` and green `#57B847`, white outline |
-| Return | a fat curved arrow pointing left, yellow `#FFC23D` with an orange `#E08A1E` outline |
+| Return | a fat arrow pointing left whose tail bends gently down to the right, yellow `#FFC23D` with an orange `#E08A1E` outline |
 | Bloom Burst | a five-petal flower, pink `#F58CC8` petals, yellow center |
-| `ui.fast` | two brown chevrons ▶▶ |
+| `ui.fast` | ▶▶ in brown: a solid triangle and a notched chevron, each spanning 80% of the glyph's height |
 | `ui.back` | a brown left arrow |
 | `ui.restart` | a circular arrow (existing, brown on cream) |
 
 ### 3.9 Decorations
 
-- **Ivy cluster**, **flower cluster**: `ShapeLibrary` leaf shapes in `IvyLeaf` with `IvyLine` outline, white flower
-  (`GardenFlower`) with a yellow center; never touch targets.
+- **Ivy cluster**, **flower cluster** (§3.2): `ShapeLibrary.IvyLeafSdf`/`IvyVeinSdf` clovers in `IvyLeaf` shades with
+  `IvyLine` outlines and midribs; `ShapeLibrary.ClusterLeafSdf`/`ClusterVeinSdf`/`ClusterFlowerSdf` big leaves and white
+  flowers (`GardenFlower`) with yellow centers; never touch targets.
+- **Soft shadow** (`Kit.SoftShadow(p, box, radius, alpha, offsetShare)`): every raised element (round buttons, signs, the
+  button rim, slots, pills, badges, jam choices) casts four `GardenShadow` layers, each grown by 1.5% of the shorter side
+  at a quarter of the alpha, so the shadow is soft and never reads as another lip.
 - **Light rays** (win): 10 soft wedges from the pedestal's center, `RayLight` alpha 0.0–0.35, slowly turning (0.05 turn
   per second).
 - **Falling petals** (win): 10 pink petal shapes (`LotusFill`, `LotusTip`) drifting down and swaying.
@@ -293,8 +326,8 @@ Home and Splash keep the sky, arches and hills but warmer (until the owner's pic
 
 ### 4.5 Home, Splash (frames 1–3)
 
-- Logo: "Bloomlings" in `type.wordmark` with a wooden look: fill `WoodLight` → `#E39B4E`, outline `WoodLine`, a darker
-  extrusion, two leaf clusters and a small pink flower over the letters' ends.
+- Logo: "Bloomlings" in `type.wordmark` with a wooden look: pale cream-yellow fill `#FFF0C8` → `#E9B874`, outline
+  `WoodLine`, a darker extrusion, two ivy clusters (1 em) and a small pink flower over the letters' ends.
 - Level: a `WoodSign` (None) plaque with "Level N".
 - Play: the big primary button in its wood rim.
 - Settings, Petals pill per §3.3–3.4; heroes on a `StonePedestal` until the owner's diorama.
@@ -317,6 +350,7 @@ New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked
 `mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment`, `tile.candy`, `tile.candy.sticker`,
 `ui.sign.wood`, `ui.sign.ivy`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch`, `board.lawn` (or `bg.gameplay`
-restyled), `fx.rays`, `fx.petals`, `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`, `ui.logo.wood`, `ui.back`,
-`ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn). Owner pictures (kind `Picture`, research
+restyled), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
+`ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn), `ui.sign.ivy`
+(kind `Shape`: the clover cluster). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (kind `Picture`, research
 D16 and `pictures.md`) keep or add their `bg.*`, `char.hero.*` and `ui.logo` slots with the drawn stand-in as fallback.

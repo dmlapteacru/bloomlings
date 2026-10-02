@@ -269,7 +269,10 @@ namespace Bloomlings.Playtest.Design
         {
             BackgroundTheme theme = ThemeRotation.Default.ThemeFor(Math.Max(1, level));
             p.Mark(scene == BackdropScene.Gameplay ? "bg.theme." + theme.Id : scene == BackdropScene.Home ? "bg.home" : "bg.splash");
-            p.Backdrop(new Box(0f, 0f, p.Width, p.Height), DesignTokens.Backdrop(theme.Background, theme.Accent), scene, theme.Id + "/" + scene);
+            var screen = new Box(0f, 0f, p.Width, p.Height);
+            // The owner's picture when it is embedded (spec 005 pictures.md B), else the code-drawn garden.
+            Visuals.Background(p, screen, OwnerPictures.Background(scene, theme.Id), () =>
+                p.Backdrop(screen, DesignTokens.Backdrop(theme.Background, theme.Accent), scene, theme.Id + "/" + scene));
         }
     }
 }

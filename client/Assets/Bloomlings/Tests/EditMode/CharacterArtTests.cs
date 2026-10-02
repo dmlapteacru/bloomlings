@@ -14,6 +14,23 @@ namespace Bloomlings.Client.Tests
         private static IEnumerable<VariantInfo> Launch => VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Launch);
 
         [Test]
+        public void TheOwnersBackgrounds_AreNamedAsThePictureListSays_AndHaveTheirSlots()
+        {
+            // Spec 005 pictures.md B: one gameplay picture per theme, Home and the splash.
+            var names = Gameplay.Themes.ThemeRotation.Default.Themes.Select(t => OwnerPictures.Gameplay(t.Id)).ToList();
+            Assert.That(names, Is.EquivalentTo(new[] { "gameplay-daylight", "gameplay-pond", "gameplay-orchard", "gameplay-moonlit" }));
+            foreach (Gameplay.Themes.BackgroundTheme theme in Gameplay.Themes.ThemeRotation.Default.Themes)
+            {
+                Assert.That(AssetSlots.Has("bg.theme." + theme.Id), Is.True, theme.Id);
+            }
+
+            Assert.That(OwnerPictures.Background(BackdropScene.Home, "pond"), Is.EqualTo(OwnerPictures.Home));
+            Assert.That(OwnerPictures.Background(BackdropScene.Splash, "pond"), Is.EqualTo(OwnerPictures.Splash));
+            Assert.That(OwnerPictures.Background(BackdropScene.Gameplay, "moonlit_garden"), Is.EqualTo("gameplay-moonlit"));
+            Assert.That(AssetSlots.Has("bg.home") && AssetSlots.Has("bg.splash") && AssetSlots.Has("brand.wordmark"), Is.True);
+        }
+
+        [Test]
         public void EveryVariantMoodAndFamily_HasOnePictureName()
         {
             IReadOnlyList<string> all = CharacterArt.AllPictures(VariantCatalog.Default.All);

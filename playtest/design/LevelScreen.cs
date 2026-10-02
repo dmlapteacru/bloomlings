@@ -492,7 +492,8 @@ namespace Bloomlings.Playtest.Design
             p.Mark("ui.pause");
             Box pill = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(p.U(420f), r.TopBar.Width - (bar * 3.4f)), bar * 0.82f);
             Kit.LevelPill(p, pill, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
-            Box speed = new Box(r.TopBar.Right - (bar * 1.3f), r.TopBar.CenterY - (bar * 0.36f), r.TopBar.Right, r.TopBar.CenterY + (bar * 0.36f));
+            // The speed pill is as tall as Pause (spec 005 §4.1), a little wider.
+            Box speed = new Box(r.TopBar.Right - (bar * 1.4f), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
             Kit.DarkPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
             if (badge.HasValue)
             {

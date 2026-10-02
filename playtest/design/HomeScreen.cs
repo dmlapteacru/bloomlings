@@ -112,18 +112,15 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The Bloomlings wordmark placeholder: bold outlined green text with a Petal above the i.</summary>
+        /// <summary>
+        /// The Bloomlings wordmark: the owner's logo picture when it is embedded (spec 005 pictures.md C1), else the wooden
+        /// letters with ivy and a pink flower (<see cref="Kit.WoodLogo"/>), at most <paramref name="maxWidth"/> wide.
+        /// </summary>
         public static void Wordmark(IPainter p, float cx, float cy, float maxWidth)
         {
-            p.Mark("brand.wordmark");
             string name = PlaytestText.T("home.logo");
-            TypeStyle style = T.Wordmark;
-            float width = Math.Min(maxWidth, p.MeasureText(name, style));
-            float scale = width / Math.Max(1f, p.MeasureText(name, style));
-            p.Text(name, cx, cy + p.U(8f), style, C.WordmarkOutline, sizeScale: scale);
-            p.Text(name, cx, cy, style, C.WordmarkFill, sizeScale: scale);
-            float petal = style.Size * p.Scale * scale * 0.42f;
-            Kit.Petal(p, Box.FromCenter(cx + (width * 0.08f), cy - (style.Size * p.Scale * scale * 0.62f), petal, petal));
+            Box box = Box.FromCenter(cx, cy, maxWidth, Math.Min(maxWidth * 0.37f, p.U(T.Wordmark.Size) * 1.5f));
+            Visuals.Logo(p, box, () => Kit.WoodLogo(p, box, name));
         }
 
         /// <summary>The hero area: the four 3D heroes on their stone early on (frame 2), the player's hero later (frame 3).</summary>

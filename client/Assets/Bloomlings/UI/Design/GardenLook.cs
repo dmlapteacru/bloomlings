@@ -35,9 +35,22 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A headline over the garden backdrop (Home's "Level N"): cream-white letters outlined in dark brown.</summary>
         public static TextLook Headline => new TextLook(C.GardenLabelFillTop, C.GardenLabelFillBottom, C.GardenLabelPlain, G.LabelOutlineEm, G.LabelExtrudeEm, G.LabelShadowAlpha);
 
+        /// <summary>
+        /// A label on a glossy face (spec 005 §3.3: the primary button, the jam choices): <see cref="OnColor"/> with a
+        /// lighter extrusion (60%), so the label reads crisp on the satin gloss.
+        /// </summary>
+        public static TextLook OnGloss(ColorSet set) => OnColor(set) with { ExtrudeEm = G.LabelExtrudeEm * 0.6f };
+
         /// <summary>Whether the look draws an outline and an extrusion.</summary>
         public bool Volumetric => OutlineEm > 0f || ExtrudeEm > 0f;
     }
+
+    /// <summary>
+    /// One layer of a multi-part icon (spec 005 contracts/look.md §3.4, §3.8): the <see cref="ShapeLibrary"/> shape
+    /// <see cref="ShapeId"/> in <see cref="Fill"/>, over its outline, which is the same shape grown by <see cref="Grow"/>
+    /// shape units in <see cref="Line"/> (no outline when <see cref="Line"/> is null). Parts are drawn in list order.
+    /// </summary>
+    public sealed record IconPart(string ShapeId, Rgba Fill, Rgba? Line = null, float Grow = 0f);
 
     /// <summary>What a booster tile shows (spec 003 FR-031, contracts/booster-tile.md, data-model.md "BoosterTileState").</summary>
     public readonly struct BoosterTileState
@@ -74,6 +87,78 @@ namespace Bloomlings.Client.UI.Design
         public bool Disabled => !Selected && (!Usable || (Charges <= 0 && !Affordable));
     }
 
+    /// <summary>The leaves on a wooden sign's ends (spec 005 contracts/look.md §3.2).</summary>
+    public enum SignDecor
+    {
+        /// <summary>A plain plank: the Home level plaque, card headers.</summary>
+        None,
+
+        /// <summary>Clover-like ivy over both ends: the gameplay level sign, the Wardrobe and Store banners.</summary>
+        Ivy,
+
+        /// <summary>Big leaves and a white flower at the top-left and bottom-right ends: the win sign.</summary>
+        Flowers,
+    }
+
+    /// <summary>What a cost pill shows (spec 005 contracts/look.md §3.4).</summary>
+    public enum CostKind
+    {
+        /// <summary>The lotus and a price in Petals.</summary>
+        Petals,
+
+        /// <summary>A green ▶ square and "Free" (a rescue or a rewarded choice).</summary>
+        Free,
+
+        /// <summary>"×N": the charges the player owns.</summary>
+        Charges,
+    }
+
+    /// <summary>The contents of a cost pill: a price, Free, or a number of charges (spec 005 contracts/look.md §3.4).</summary>
+    public readonly struct Cost
+    {
+        private Cost(CostKind kind, int amount)
+        {
+            Kind = kind;
+            Amount = amount;
+        }
+
+        public CostKind Kind { get; }
+
+        /// <summary>The price in Petals or the number of charges; 0 for <see cref="CostKind.Free"/>.</summary>
+        public int Amount { get; }
+
+        /// <summary>A free choice (▶ Free).</summary>
+        public static Cost Free => new Cost(CostKind.Free, 0);
+
+        /// <summary>A price in Petals, shown with the lotus.</summary>
+        public static Cost Petals(int price) => new Cost(CostKind.Petals, price);
+
+        /// <summary>Charges the player owns, shown as "×N".</summary>
+        public static Cost Charges(int count) => new Cost(CostKind.Charges, count);
+    }
+
+    /// <summary>
+    /// What a Waiting Slot plate shows (spec 005 contracts/look.md §3.7; the states of spec 002 FR-013 and spec 003
+    /// FR-022a). The extra slot's green "+" is a mark on any of them.
+    /// </summary>
+    public enum SlotPlateState
+    {
+        /// <summary>A free slot: the dashed inner outline on a slightly sunk face.</summary>
+        Empty,
+
+        /// <summary>A pod whose Bloomlings work: the sticker tile and its count.</summary>
+        Working,
+
+        /// <summary>A pod that waits: the tile in grey with the hourglass badge.</summary>
+        Stuck,
+
+        /// <summary>The last free usable slot: the dashed outline in <c>state.danger</c> with "!".</summary>
+        Danger,
+
+        /// <summary>A locked slot: a grey face with the padlock.</summary>
+        Locked,
+    }
+
     /// <summary>One part of the leaves-and-flower decoration (FR-011a), drawn back to front.</summary>
     public enum DecorationPart
     {
@@ -90,17 +175,26 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public static class GardenLook
     {
-        /// <summary>The primary button (PLAY, NEXT, RESUME, CLAIM, CONTINUE), the selected tab and the "+".</summary>
-        public static readonly ColorSet Green = ColorSet.From("set.green", C.ButtonPrimary);
+        /// <summary>
+        /// The primary button (PLAY, NEXT, RESUME, CLAIM, CONTINUE), the selected tab and the "+": the reference's green
+        /// with its explicit shades (spec 005 contracts/look.md §1.3).
+        /// </summary>
+        public static readonly ColorSet Green = new ColorSet("set.green", C.ButtonPrimary, C.ButtonPrimaryTop, C.ButtonPrimaryEdge, Rgba.FromHex("#24661A"));
 
-        /// <summary>The secondary buttons: cream with the brown garden outline.</summary>
-        public static readonly ColorSet Cream = new ColorSet("set.cream", Rgba.FromHex("#F7EDD6"), Rgba.FromHex("#FFF9EC"), Rgba.FromHex("#D8C29A"), C.GardenOutline);
+        /// <summary>The secondary buttons, slots and booster tiles: the reference's cream with a brown outline (spec 005 §1.3).</summary>
+        public static readonly ColorSet Cream = new ColorSet("set.cream", C.CreamFace, C.CreamTop, C.CreamLip, C.CreamLine);
 
-        /// <summary>The round icon buttons and the Petals pill.</summary>
-        public static readonly ColorSet White = new ColorSet("set.white", Rgba.FromHex("#F4EFE4"), Rgba.FromHex("#FFFFFF"), Rgba.FromHex("#CFC6B4"), Rgba.FromHex("#7A6E58"));
+        /// <summary>
+        /// The round icon buttons and the Petals pill: since spec 005 the same cream as <see cref="Cream"/>, kept under its
+        /// own name so callers and <see cref="LabelOn"/> stay as they are.
+        /// </summary>
+        public static readonly ColorSet White = new ColorSet("set.white", C.CreamFace, C.CreamTop, C.CreamLip, C.CreamLine);
 
-        /// <summary>The level pill and the pause header.</summary>
-        public static readonly ColorSet Blue = ColorSet.From("set.blue", C.PillLevel);
+        /// <summary>The jam's blue choices (Return, Bloom Burst; spec 005 §1.3). The gameplay level pill becomes a wooden sign.</summary>
+        public static readonly ColorSet Blue = new ColorSet("set.blue", C.ButtonBlue, C.ButtonBlue.Lighten(0.3f), C.ButtonBlue.Darken(0.25f), C.ButtonBlue.Darken(0.42f));
+
+        /// <summary>The orange buttons: a highlighted secondary call to action ("Next" in the reference strip, spec 005 §1.3).</summary>
+        public static readonly ColorSet Orange = new ColorSet("set.orange", C.ButtonOrange, C.ButtonOrange.Lighten(0.3f), C.ButtonOrange.Darken(0.22f), C.ButtonOrange.Darken(0.42f));
 
         /// <summary>The level pill of a Super Hard level.</summary>
         public static readonly ColorSet Lilac = ColorSet.From("set.lilac", C.PillLevelSuperHard);
@@ -117,28 +211,124 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Every named set (tests and docs).</summary>
         public static IReadOnlyList<ColorSet> Sets { get; } = new[]
         {
-            Green, Cream, White, Blue, Lilac, Dark, Red, Purple,
+            Green, Cream, White, Blue, Orange, Lilac, Dark, Red, Purple,
             Booster("extra_slot"), Booster("shuffle"), Booster("return"), Booster("bloom_burst"),
         };
 
         /// <summary>The colored sets, whose labels use <see cref="TextLook.OnColor"/>.</summary>
         public static IReadOnlyList<ColorSet> ColoredSets { get; } = new[]
         {
-            Green, Blue, Lilac, Dark, Red, Purple,
+            Green, Blue, Orange, Lilac, Dark, Red, Purple,
             Booster("extra_slot"), Booster("shuffle"), Booster("return"), Booster("bloom_burst"),
         };
 
         /// <summary>A booster tile's set, from its spec 002 color.</summary>
         public static ColorSet Booster(string boosterId) => ColorSet.From("set.booster." + boosterId, DesignTokens.BoosterColor(boosterId));
 
-        /// <summary>The label look on a set's face: plain dark brown on cream and white, volumetric on colors.</summary>
+        /// <summary>The label look on a set's face: plain <c>ink.brown</c> on cream and white (spec 005 §1.3), volumetric on colors.</summary>
         public static TextLook LabelOn(ColorSet set) =>
             ReferenceEquals(set, Cream) || ReferenceEquals(set, White) || set.Name.StartsWith("set.cream", StringComparison.Ordinal) || set.Name.StartsWith("set.white", StringComparison.Ordinal)
-                ? TextLook.Plain(C.GardenLabelPlain)
+                ? TextLook.Plain(C.InkBrown)
                 : TextLook.OnColor(set);
 
-        /// <summary>The glyph color on a set's face (FR-010): light on colors, dark on cream and white.</summary>
-        public static Rgba GlyphOn(ColorSet set) => LabelOn(set).Volumetric ? Rgba.FromHex("#FFFBEF") : Rgba.FromHex("#4A4436");
+        /// <summary>The glyph color on a set's face (FR-010): light on colors, <c>ink.brown</c> on cream and white (spec 005 §3.3).</summary>
+        public static Rgba GlyphOn(ColorSet set) => LabelOn(set).Volumetric ? Rgba.FromHex("#FFFBEF") : C.InkBrown;
+
+        // ---- Materials and labels of the reference look (spec 005 contracts/look.md §3) ----
+
+        /// <summary>
+        /// The letters of a wooden sign (§3.2): one dark color, no outline, with a light emboss line under them as if cut
+        /// into the plank. Signs pass <c>ink.brown</c>; a Super Hard level's sign passes <c>badge.super_hard</c>.
+        /// </summary>
+        public static TextLook SignLetters(Rgba ink) => new TextLook(ink, ink, ink, 0f, 0f, 0f, C.WoodLight.Lighten(0.4f));
+
+        /// <summary>
+        /// The wooden wordmark's letters (§4.5): a pale cream-yellow wood fill, from <c>#FFF0C8</c> to a honey
+        /// <c>#E9B874</c>, outlined in <c>wood.line</c> with a darker extrusion.
+        /// </summary>
+        public static TextLook WoodLetters { get; } = new TextLook(Rgba.FromHex("#FFF0C8"), Rgba.FromHex("#E9B874"), C.WoodLine, 0.05f, 0.11f, 0.32f);
+
+        /// <summary>The booster tile's cool silver-grey rim (§3.7).</summary>
+        public static Rgba BoosterRim => C.CreamLine.Mix(C.StateStuck, 0.8f);
+
+        /// <summary>The dark lines between a board's tiles and around them, inside the stone border (§3.6).</summary>
+        public static Rgba BoardGap => C.LawnDark.Darken(0.55f);
+
+        /// <summary>The lawn seen through a stone arch's opening (§3.6), a little darker than the lawn around it.</summary>
+        public static Rgba ArchOpening => C.LawnLight.Darken(0.12f);
+
+        /// <summary>A small pink flower over the wordmark (§4.5): petals and center.</summary>
+        public static (Rgba Petals, Rgba Line, Rgba Center) PinkFlower => (C.LotusFill, C.LotusLine, C.GardenFlowerCenter);
+
+        /// <summary>
+        /// An ivy leaf's fill on a sign (§3.9): <c>ivy.leaf</c>, a little lighter or darker by its place in the cluster so
+        /// the leaves read apart.
+        /// </summary>
+        public static Rgba IvyShade(int leaf) => (leaf % 3) switch
+        {
+            0 => C.IvyLeaf,
+            1 => C.IvyLeaf.Darken(0.2f),
+            _ => C.IvyLeaf.Lighten(0.2f),
+        };
+
+        /// <summary>The falling petals' colors (§3.9), alternating.</summary>
+        public static Rgba PetalShade(int petal) => petal % 2 == 0 ? C.LotusFill : C.LotusTip;
+
+        // ---- Icons (spec 005 contracts/look.md §3.4, §3.8) ----
+
+        /// <summary>The speed pill's glyph: two brown chevrons (▶▶).</summary>
+        public static IconPart FastGlyph { get; } = new IconPart("ui.fast", C.InkBrown);
+
+        /// <summary>The back button's glyph: a brown left arrow.</summary>
+        public static IconPart BackGlyph { get; } = new IconPart("ui.back", C.InkBrown);
+
+        /// <summary>
+        /// The Petals currency as a lotus bud (§3.4), back to front: all five petals in a slightly deeper pink with the
+        /// lotus outline (the two back petals show around the front), the three front petals with their own outline, and
+        /// each petal's near-white middle over a softer pink band, so the petals are deep pink at their edges.
+        /// </summary>
+        public static IReadOnlyList<IconPart> Lotus { get; } = new[]
+        {
+            new IconPart("currency.petal", C.LotusFill.Darken(0.08f), C.LotusLine, 0.07f),
+            new IconPart("currency.petal.front", C.LotusFill, C.LotusLine, 0.035f),
+            new IconPart("currency.petal.tips", C.LotusTip, C.LotusFill.Mix(C.LotusTip, 0.5f), 0.06f),
+        };
+
+        /// <summary>
+        /// A booster's colored icon (§3.8), back to front: Extra Slot a white "+" on a blue disc; Shuffle two arrows chasing
+        /// each other, orange and green with a white outline; Return a fat yellow arrow pointing left with an orange
+        /// outline; Bloom Burst a pink five-petal flower with a yellow center. One-color contexts draw the main silhouette
+        /// <c>booster.{id}</c> instead.
+        /// </summary>
+        public static IReadOnlyList<IconPart> BoosterIcon(string boosterId) =>
+            BoosterIcons.TryGetValue(boosterId, out IReadOnlyList<IconPart>? parts) ? parts : BoosterIcons["bloom_burst"];
+
+        private static readonly Dictionary<string, IReadOnlyList<IconPart>> BoosterIcons = BuildBoosterIcons();
+
+        private static Dictionary<string, IReadOnlyList<IconPart>> BuildBoosterIcons()
+        {
+            Rgba disc = Rgba.FromHex("#3E9BEA");
+            Rgba petals = Rgba.FromHex("#F58CC8");
+            return new Dictionary<string, IReadOnlyList<IconPart>>(StringComparer.Ordinal)
+            {
+                ["extra_slot"] = new[]
+                {
+                    new IconPart("booster.extra_slot.disc", disc, disc.Darken(0.35f), 0.07f),
+                    new IconPart("booster.extra_slot.plus", Rgba.White, disc.Darken(0.18f), 0.05f),
+                },
+                ["shuffle"] = new[]
+                {
+                    new IconPart("booster.shuffle.a", Rgba.FromHex("#F2A33A"), Rgba.White, 0.08f),
+                    new IconPart("booster.shuffle.b", Rgba.FromHex("#57B847"), Rgba.White, 0.08f),
+                },
+                ["return"] = new[] { new IconPart("booster.return", Rgba.FromHex("#FFC23D"), Rgba.FromHex("#E08A1E"), 0.08f) },
+                ["bloom_burst"] = new[]
+                {
+                    new IconPart("booster.bloom_burst.petals", petals, petals.Darken(0.3f), 0.07f),
+                    new IconPart("booster.bloom_burst.center", C.GardenFlowerCenter, C.GardenFlowerCenterLine, 0.04f),
+                },
+            };
+        }
 
         // ---- Motion ----
 

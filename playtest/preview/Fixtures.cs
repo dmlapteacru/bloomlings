@@ -242,6 +242,7 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.2f);
             });
             yield return new Fixture(24, "bloomlings", "Extra: Bloomlings", (p, data) => Bloomlings(p));
+            yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
         }
 
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>
@@ -446,6 +447,136 @@ namespace Bloomlings.Playtest.Preview
             {
                 Visuals.Hero(p, Box.FromCenter(body.Left + ((f + 0.5f) * hw), body.Bottom - (heroes / 2f), hw * 0.92f, heroes), CharacterArt.Families[f], null);
             }
+        }
+
+        /// <summary>
+        /// The reference look's kit on parchment (spec 005 T009), like the reference's "Target Variants" and "UI Elements"
+        /// strips: the candy tiles in both styles, the stone border and arch, the pedestal with rays and petals, the wooden
+        /// signs, the buttons and their pressed state, the round buttons and pills, booster tiles, pods, slots and the jam
+        /// choices.
+        /// </summary>
+        private static void KitSheet(SkiaPainter p)
+        {
+            p.BeginFrame();
+            DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, 1);
+            Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
+            Box sheet = safe.Inset(p.U(20f));
+            Kit.Paper(p, sheet, p.U(48f), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Box body = sheet.Inset(p.U(44f), p.U(34f));
+            float[] heights = { 70f, 150f, 330f, 150f, 170f, 140f, 220f, 230f, 250f };
+            float gap = Math.Max(0f, (body.Height - p.U(heights.Sum())) / (heights.Length - 1));
+            var rows = new Box[heights.Length];
+            float y = body.Top;
+            for (int i = 0; i < heights.Length; i++)
+            {
+                rows[i] = new Box(body.Left, y, body.Right, y + p.U(heights[i]));
+                y = rows[i].Bottom + gap;
+            }
+
+            p.Text("Reference look kit", rows[0].CenterX, rows[0].CenterY, T.Title, C.InkBrown, rows[0].Width, look: TextLook.Plain(C.InkBrown));
+
+            // The eight launch variants as sticker tiles (pods, slots, the jam row), with their names.
+            VariantInfo[] launch = VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Launch).ToArray();
+            Box[] stickers = ScreenLayout.Row(new Box(rows[1].Left, rows[1].Top, rows[1].Right, rows[1].Top + p.U(100f)), launch.Length, p.U(16f), p.U(100f), square: true);
+            for (int i = 0; i < launch.Length; i++)
+            {
+                Kit.CandyTile(p, stickers[i], launch[i].Id, TileStyle.Sticker);
+                p.Text(launch[i].Id.Key.Replace('_', ' '), stickers[i].CenterX, stickers[i].Bottom + p.U(26f), T.Caption, C.InkBrownSoft, stickers[i].Width + p.U(14f));
+            }
+
+            // The board style in a 4 × 2 grid inside the stone border, a Garden Entry arch below it (its crown at the border).
+            float cell = p.U(78f);
+            float rim = cell * 0.48f;
+            var grid = new Box(rows[2].Left + rim, rows[2].Top + rim, rows[2].Left + rim + (cell * 4f), rows[2].Top + rim + (cell * 2f));
+            Kit.StoneBorder(p, grid, cell);
+            for (int i = 0; i < launch.Length; i++)
+            {
+                float cx = grid.Left + ((i % 4) * cell);
+                float cy = grid.Top + ((i / 4) * cell);
+                Kit.CandyTile(p, new Box(cx, cy, cx + cell, cy + cell), launch[i].Id, TileStyle.Board);
+            }
+
+            Kit.StoneArch(p, grid.Left + (cell * 2f), grid.Bottom + (cell * 0.46f) + (cell * 1.5f), cell, EntrySide.Bottom);
+
+            // The expansion variants, and a hero on the stone pedestal in the win's light.
+            VariantInfo[] expansion = VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Expansion).ToArray();
+            float ex = grid.Right + rim + p.U(40f);
+            for (int i = 0; i < expansion.Length; i++)
+            {
+                float sx = ex + ((i % 2) * p.U(100f));
+                float sy = rows[2].Top + p.U(10f) + ((i / 2) * p.U(130f));
+                var tile = new Box(sx, sy, sx + p.U(84f), sy + p.U(84f));
+                Kit.CandyTile(p, tile, expansion[i].Id, TileStyle.Sticker);
+                p.Text(expansion[i].Id.Key, tile.CenterX, tile.Bottom + p.U(22f), T.Caption, C.InkBrownSoft, tile.Width + p.U(14f));
+            }
+
+            var stage = new Box(ex + p.U(210f), rows[2].Top, rows[2].Right, rows[2].Bottom);
+            var pedestal = Box.FromCenter(stage.CenterX, stage.Bottom - p.U(50f), Math.Min(stage.Width, p.U(230f)), p.U(100f));
+            Kit.LightRays(p, pedestal.CenterX, pedestal.Top - p.U(70f), p.U(200f), p.Now);
+            Box top = Kit.StonePedestal(p, pedestal);
+            float hero = p.U(190f);
+            Visuals.Hero(p, new Box(top.CenterX - (hero * 0.45f), top.CenterY - hero, top.CenterX + (hero * 0.45f), top.CenterY + (hero * 0.06f)), Family.Bloom, null);
+            Kit.FallingPetals(p, stage, p.Now);
+
+            // Wooden signs: the gameplay level with ivy, the win title with flowers.
+            Kit.WoodSign(p, new Box(rows[3].Left + p.U(50f), rows[3].CenterY - p.U(46f), rows[3].Left + p.U(320f), rows[3].CenterY + p.U(46f)), PlaytestText.F("common.level", 88), T.LevelPill, SignDecor.Ivy);
+            Kit.WoodSign(p, new Box(rows[3].Right - p.U(530f), rows[3].CenterY - p.U(60f), rows[3].Right - p.U(30f), rows[3].CenterY + p.U(60f)), "Level complete!", T.Title, SignDecor.Flowers);
+
+            // Buttons: Play in its wooden rim, the same pressed, the orange Next.
+            Box[] buttons = Spread(rows[4], new[] { 360f, 290f, 250f }, new[] { 150f, 124f, 124f }, p);
+            Kit.PrimaryButton(p, buttons[0], PlaytestText.T("common.play"), () => { }, T.ButtonLarge, decorate: true);
+            p.Finger = (buttons[1].CenterX, buttons[1].CenterY);
+            Kit.PrimaryButton(p, buttons[1], PlaytestText.T("common.play"), () => { });
+            p.Finger = null;
+            Kit.PrimaryButton(p, buttons[2], PlaytestText.T("common.next"), () => { }, set: GardenLook.Orange);
+
+            // Round and squircle buttons and the speed pill.
+            Box[] round = Spread(rows[5], new[] { 124f, 210f, 124f, 104f, 124f }, new[] { 124f, 112f, 124f, 104f, 124f }, p);
+            Kit.RoundButton(p, round[0].CenterX, round[0].CenterY, round[0].Width, "ui.pause", () => { }, squircle: true);
+            Kit.SpeedPill(p, round[1], "2×", () => { });
+            Kit.RoundButton(p, round[2].CenterX, round[2].CenterY, round[2].Width, "ui.settings", () => { });
+            Kit.RoundButton(p, round[3].CenterX, round[3].CenterY, round[3].Width, "ui.close", () => { });
+            Kit.RoundButton(p, round[4].CenterX, round[4].CenterY, round[4].Width, GardenLook.BackGlyph.ShapeId, () => { });
+
+            // Booster tiles (charges, price, selected, disabled), the Petals pill, a cost pill and a count badge.
+            Box[] tray = Spread(new Box(rows[6].Left, rows[6].Top + p.U(20f), rows[6].Right, rows[6].Top + p.U(180f)), new[] { 140f, 140f, 140f, 140f, 280f }, new[] { 146f, 146f, 146f, 146f, 160f }, p);
+            Kit.BoosterTile(p, tray[0], "extra_slot", new BoosterTileState(3, 30, false, true, true), () => { });
+            Kit.BoosterTile(p, tray[1], "shuffle", new BoosterTileState(0, 30, false, true, true), () => { });
+            Kit.BoosterTile(p, tray[2], "return", new BoosterTileState(1, 50, true, true, true), () => { });
+            Kit.BoosterTile(p, tray[3], "bloom_burst", new BoosterTileState(0, 60, false, true, false), null);
+            Kit.PetalsPill(p, new Box(tray[4].Left, tray[4].Top, tray[4].Right - p.U(20f), tray[4].Top + p.U(76f)), 2450, () => { });
+            Kit.CostPill(p, new Box(tray[4].Left, tray[4].Bottom - p.U(60f), tray[4].Left + p.U(170f), tray[4].Bottom), Cost.Charges(2));
+            Kit.CountBadge(p, tray[4].Right - p.U(40f), tray[4].Bottom - p.U(30f), p.U(56f), "3");
+
+            // Pods (exposed with its handle, queued) and Waiting Slots (working, empty, stuck).
+            Box[] pods = Spread(new Box(rows[7].Left, rows[7].Top + p.U(24f), rows[7].Right, rows[7].Bottom), new[] { 180f, 180f, 156f, 156f, 156f }, new[] { 180f, 180f, 156f, 156f, 156f }, p);
+            Kit.Pod(p, pods[0], VariantId.Leaf, 12, PodLook.Exposed);
+            Kit.Pod(p, pods[1], VariantId.Flower, 8, PodLook.Next);
+            Kit.SlotPlate(p, pods[2], SlotPlateState.Working, VariantId.Water, 3);
+            Kit.SlotPlate(p, pods[3], SlotPlateState.Empty);
+            Kit.SlotPlate(p, pods[4], SlotPlateState.Stuck, VariantId.Acorn, 4);
+
+            // The jam's choices with their cost pills, and Restart.
+            Box[] choices = Spread(rows[8], new[] { 300f, 300f, 270f }, new[] { 240f, 240f, 110f }, p);
+            Kit.ChoiceButton(p, choices[0], GardenLook.Green, GardenLook.BoosterIcon("extra_slot"), PlaytestText.T("booster.extra_slot"), Cost.Petals(30), () => { });
+            Kit.ChoiceButton(p, choices[1], GardenLook.Blue, GardenLook.BoosterIcon("return"), PlaytestText.T("booster.return"), Cost.Free, () => { });
+            Kit.SecondaryButton(p, choices[2], PlaytestText.T("common.restart"), () => { }, "ui.restart");
+        }
+
+        /// <summary>Boxes of the given sizes (reference units) spread evenly across a row and centered in its height.</summary>
+        private static Box[] Spread(Box row, float[] widths, float[] heights, IPainter p)
+        {
+            float total = p.U(widths.Sum());
+            float gap = (row.Width - total) / (widths.Length + 1);
+            var boxes = new Box[widths.Length];
+            float x = row.Left + gap;
+            for (int i = 0; i < widths.Length; i++)
+            {
+                boxes[i] = new Box(x, row.CenterY - (p.U(heights[i]) / 2f), x + p.U(widths[i]), row.CenterY + (p.U(heights[i]) / 2f));
+                x += p.U(widths[i]) + gap;
+            }
+
+            return boxes;
         }
 
         private static void SlotStates(SkiaPainter p)

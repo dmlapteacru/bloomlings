@@ -30,24 +30,25 @@ How to read the columns:
 | Backgrounds | 6 | 0 | 6 |
 | Bloomling characters | 18 | 5 | 23 |
 | Variant symbols | 8 | 4 | 12 |
-| Board tiles and overlays | 8 | 0 | 8 |
+| Board tiles and overlays | 12 | 0 | 12 |
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 13 | 0 | 13 |
-| Booster icons | 4 | 0 | 4 |
-| UI kit | 39 | 0 | 39 |
-| Currency and rewards | 3 | 0 | 3 |
+| Booster icons | 10 | 0 | 10 |
+| UI kit | 49 | 0 | 49 |
+| Materials | 4 | 0 | 4 |
+| Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
 | Cosmetics | 7 | 11 | 18 |
-| Visual effects | 8 | 0 | 8 |
+| Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **139** | **23** | **162** |
+| **All** | **167** | **23** | **190** |
 
 ## Brand
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `brand.wordmark` | Bloomlings wordmark (logo) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | bold outlined text with a Petal on the i |
+| `brand.wordmark` | Bloomlings wordmark (logo): the owner's picture `Brand/logo.png` (spec 005 pictures.md C1) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | the wooden letters `ui.logo.wood` until the picture exists |
 | `brand.splash_art` | Splash illustration: Bloomlings of the four families in the garden | 1 | Splash | portrait; tall-phone crop | Screen | no | Launch | garden backdrop and the 3D group picture `3d/group` |
 | `brand.app_icon` | App icon | — | Launcher; store listing | Android adaptive (foreground, background); iOS set | Medium | no | Launch | platform default icon (not in the game yet) |
 
@@ -55,12 +56,12 @@ How to read the columns:
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `bg.theme.daylight_garden` | Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | sky gradient, hills, bushes, blossoms, arches in theme tints |
-| `bg.theme.pond` | Gameplay backdrop: Pond (from L100) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, pond tint |
-| `bg.theme.orchard` | Gameplay backdrop: Orchard (from L150) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, orchard tint |
-| `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, moonlit tint |
-| `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches |
-| `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop |
+| `bg.theme.daylight_garden` | Gameplay backdrop: Daylight Garden (levels 1–99 and every fourth band) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop in theme tints until `Backgrounds/gameplay-daylight.png` exists (spec 005 pictures.md B2) |
+| `bg.theme.pond` | Gameplay backdrop: Pond (from L100) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, pond tint, until `Backgrounds/gameplay-pond.png` exists (pictures.md B3) |
+| `bg.theme.orchard` | Gameplay backdrop: Orchard (from L150) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, orchard tint, until `Backgrounds/gameplay-orchard.png` exists (pictures.md B4) |
+| `bg.theme.moonlit_garden` | Gameplay backdrop: Moonlit Garden (from L200) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | procedural garden backdrop, moonlit tint, until `Backgrounds/gameplay-moonlit.png` exists (pictures.md B5) |
+| `bg.home` | Home scene: garden with stone arches behind the heroes | 2, 3 | Home | early (the four heroes on their pedestal); progressed (the hero) | Screen | no | Launch | procedural backdrop with arches until `Backgrounds/home.png` exists (pictures.md B1) |
+| `bg.splash` | Splash backdrop | 1 | Splash | portrait | Screen | no | Launch | procedural garden backdrop until `Backgrounds/splash.png` exists (pictures.md B6) |
 
 ## Bloomling characters
 
@@ -123,6 +124,10 @@ the fallback when a picture is missing.
 | `tile.key` | Key | 9 | Board; flights to locks | on tile; flying | Icon | yes | Launch | shape `tile.key` |
 | `tile.ground` | Open ground (restored or empty cell) | 7, 8, 9 | Board | empty; restored | Small | yes | Launch | flat rounded cell in the ground token |
 | `tile.entry` | Garden Entry marker (where Bloomlings come in) | 7, 8, 9 | Board | idle; active | Small | yes | Launch | a ring in the entry color |
+| `tile.candy` | Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a small raised bead | 7, 8, 9 | Board; demos | normal; pressed; dimmed; grey; mystery | Small | yes | Launch | UiRaster.Tile picture (board style) |
+| `tile.candy.sticker` | Candy tile, sticker style: a detailed symbol with a dark outline in its own tone | 7, 10, 12, 13 | Pods; slots; jam sheet; Collection | normal; dimmed (queued); grey (stuck); mystery | Small | yes | Launch | UiRaster.Tile picture (sticker style) |
+| `board.border.stone` | Stone border around the board | 7, 8, 9 | Board; win picture | normal; thin (win) | Large | yes | Launch | UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles |
+| `board.arch` | Garden Entry stone arch | 7, 8, 9 | Board | bottom; left; right; top | Small | yes | Launch | UiRaster.Arch picture: a big half ring of nine sandy stone blocks around an opening that shows the lawn |
 | `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells in light variant colors |
 
 ## Specials
@@ -163,33 +168,47 @@ the fallback when a picture is missing.
 | `booster.shuffle` | Booster: Shuffle | 7, 8, 9, 10, 14, 16, 17 | Booster bar; jam sheet; Store; rewards; demos | available; count; price; disabled | Small | no | Launch | shape `booster.shuffle` |
 | `booster.return` | Booster: Return | 7, 8, 9, 10, 14, 17 | Booster bar; jam sheet; Store; demos | available; count; price; disabled; targeting | Small | no | Launch | shape `booster.return` |
 | `booster.bloom_burst` | Booster: Bloom Burst | 9, 14, 17 | Booster bar; jam sheet; Store; demos | available; count; price; disabled; targeting | Small | no | Launch | shape `booster.bloom_burst` |
+| `booster.extra_slot.disc` | Booster icon part: Extra Slot's blue disc | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.extra_slot.disc` |
+| `booster.extra_slot.plus` | Booster icon part: Extra Slot's white plus | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.extra_slot.plus` |
+| `booster.shuffle.a` | Booster icon part: Shuffle's orange arrow | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.shuffle.a` |
+| `booster.shuffle.b` | Booster icon part: Shuffle's green arrow | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.shuffle.b` |
+| `booster.bloom_burst.petals` | Booster icon part: Bloom Burst's pink petals | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.bloom_burst.petals` |
+| `booster.bloom_burst.center` | Booster icon part: Bloom Burst's yellow center | 10, 14, 17 | Booster tiles; jam choices; Store | colored icon | Icon | no | Launch | shape `booster.bloom_burst.center` |
 
 ## UI kit
 
-Final art for every entry here follows the Garden look of spec 003: a flat cream plate with a thin brown
-outline, a slightly raised face in its color set with a darker lip and a soft highlight, volumetric
-sentence-case labels in Nunito, and, on the main buttons only, the leaves and white flowers of
-`ui.deco.garden`. Cards and the sheet are paper in a wooden frame with a header band.
+Final art for every entry here follows the reference look of spec 005 (`specs/005-reference-look/`): glossy
+raised faces with a darker lip and a highlight band, green main buttons in a light wood rim with the
+leaves and white flowers of `ui.deco.garden`, cream secondary and icon buttons with brown glyphs, wooden
+signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
 | `ui.panel` | Rounded panel base (9-slice) | 4, 5, 6, 10, 11, 15, 16, 17 | Every card, button, pill and tile | any tint | Small | no | Launch | shape `ui.panel` |
 | `ui.circle` | Disc (round buttons, badges, avatars) | 2, 3, 5, 7, 14 | Round buttons; badges; medals; avatars | any tint | Icon | no | Launch | shape `ui.circle` |
 | `ui.ring` | Ring (highlights, profile frame) | 3, 7 | Highlights; entry marker; avatar frame | any tint | Icon | no | Launch | shape `ui.ring` |
-| `ui.button.primary` | Primary button (green, darker lower edge) | 2, 3, 4, 10, 11, 15, 16 | PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue | normal; pressed; disabled | Medium | no | Launch | green raised pill on a cream plate: outline, lip, highlight, volumetric label |
-| `ui.button.secondary` | Secondary button (cream) | 4, 10, 11, 15 | RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N | normal; pressed; disabled | Medium | no | Launch | cream raised pill on a cream plate, brown outline, dark brown label |
-| `ui.button.round` | Round icon button (white) | 2, 3, 7, 11 | Settings; Pause; close; Wardrobe; Collection | normal; pressed | Small | no | Launch | raised disc on a round plate: outline, lip, highlight, glyph |
-| `ui.pill.level` | Level pill | 7, 8, 9 | Gameplay top bar | normal; super hard | Medium | no | Launch | sky-blue raised pill on a plate with the volumetric "Level N" |
-| `ui.pill.speed` | 2× speed pill | 7, 8, 9 | Gameplay top bar | 1×; 2× | Small | no | Launch | dark raised pill on a plate |
-| `ui.pill.petals` | Petals balance pill | 2, 3, 17 | Home; Store | with +; without + | Medium | no | Launch | white raised pill on a plate with the Petal symbol, balance and a round green + on its own plate |
+| `ui.button.primary` | Primary button (green, darker lower edge) | 2, 3, 4, 10, 11, 15, 16 | PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue | normal; pressed; disabled | Medium | no | Launch | glossy green raised pill in a light wood rim (`ui.button.rim`): outline, lip, highlight band, volumetric label |
+| `ui.button.secondary` | Secondary button (cream) | 4, 10, 11, 15 | RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N | normal; pressed; disabled | Medium | no | Launch | cream raised pill on a cream plate, cream outline, brown label and glyph |
+| `ui.button.round` | Round or squircle icon button (cream) | 2, 3, 7, 11 | Settings; Pause; close; back; Wardrobe; Collection | normal; pressed; circle; squircle | Small | no | Launch | one domed cream cushion (peach edges, lighter middle) with a lip, a soft tan outline, a soft shadow and a brown glyph in a thin cream halo |
+| `ui.pill.level` | Level label of the gameplay top bar | 7, 8, 9 | Gameplay top bar | normal; super hard | Medium | no | Launch | a wooden sign with ivy (`ui.sign.wood`, `ui.sign.ivy`) and brown "Level N"; purple letters on Super Hard |
+| `ui.pill.speed` | 2× speed pill | 7, 8, 9 | Gameplay top bar | 1×; 2× | Small | no | Launch | cream squircle pill with the brown speed and the `ui.fast` chevrons |
+| `ui.pill.petals` | Petals balance pill | 2, 3, 17 | Home; Store | with +; without + | Medium | no | Launch | cream raised pill with the lotus over its left end, the brown balance and a round green + |
 | `ui.badge.hard` | HARD badge | 8 | Gameplay | intro; steady | Small | no | Launch | red raised sticker pill on a plate |
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
-| `ui.badge.count` | Count badge (booster charges) | 7, 14 | Booster bar | count; price | Icon | no | Launch | dark brown disc with a cream ring and a brown outline; price: cream tag with the Petal |
-| `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | paper card in a wooden frame with a header band shaped like a button on a plate, over a scrim |
-| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | paper sheet in a wooden frame with a grip, rising and settling with a bounce |
-| `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | outlined rounded panel; the own row raised |
-| `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: green raised pill on a plate; others: sunk |
+| `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
+| `ui.card` | Popup card frame | 4, 5, 6, 11, 16, 17 | Daily Reward; Leaderboard; Collection; Pause; Milestone; Store; Settings; Wardrobe | with close; without close | Large | no | Launch | parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim |
+| `ui.sheet` | Bottom sheet frame | 10 | Jam | rising; open | Large | no | Launch | parchment sheet with a grip and a brown title, rising and settling with a bounce |
+| `ui.row` | List row (Store, Leaderboard) | 5, 17 | Store; Leaderboard | normal; highlighted (You); unavailable | Medium | no | Launch | cream rounded panel with a cream outline; the own row raised and green-tinted |
+| `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: glossy green raised pill on a plate; others: parchment wells |
 | `ui.toggle` | Toggle switch | — | Settings | on; off | Small | no | Launch | chunky outlined track with a raised knob |
+| `ui.sign.wood` | Wooden sign (level label, win and banner titles, Home level plaque) | 2, 3, 7, 15, 17 | Gameplay top bar; win; Home; Store; Wardrobe | plain; ivy; flowers; super hard letters | Medium | no | Launch | UiRaster.Plank (light wood) with brown embossed letters and a soft shadow |
+| `ui.sign.ivy` | Ivy cluster over a sign's ends (clovers with pointed leaflets, at the top and bottom corners) | 7, 17 | Gameplay level sign; Store and Wardrobe banners; wordmark | left; right (mirrored) | Small | no | Launch | shape `ui.sign.ivy` |
+| `ui.sign.flowers` | Flower clusters on the win sign | 15 | Win sign | top-left; bottom-right (turned) | Small | no | Launch | lush clusters of five big leaves with veins and two white flowers at two corners (`ui.deco.garden`) |
+| `ui.button.rim` | Light wood rim of the main buttons | 2, 3, 10, 11, 15, 16 | PLAY; NEXT; RESUME; CLAIM; CONTINUE; Free rescue | normal; pressed | Medium | no | Launch | UiRaster.Plank (pale wood, only a thin deeper bottom band) behind the green face |
+| `ui.button.choice` | Jam choice button (icon above the label, cost pill below) | 10 | Jam sheet | green; blue; pressed; disabled | Medium | no | Launch | glossy green or blue rounded rectangle with the booster icon, a white outlined label and a cost pill |
+| `ui.pill.cost` | Cost pill (lotus and price, Free, ×N) | 10, 14, 17 | Jam choices; booster tiles; Store | price; free; charges | Small | no | Launch | cream pill with a cream outline: the lotus and a brown price, a green ▶ square and Free, or ×N |
+| `ui.pedestal` | Stone pedestal under the heroes | 2, 3, 15, 16 | Win; milestone; Home; Wardrobe | normal | Medium | no | Launch | UiRaster.Pedestal picture: an ellipse-topped stone drum with joints and moss |
+| `ui.logo.wood` | Wooden wordmark letters (the stand-in for the owner's logo) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower |
 | `ui.close` | Close glyph | 4, 5, 6, 11 | Cards | normal | Icon | no | Launch | shape `ui.close` |
 | `ui.pause` | Pause glyph | 7, 8, 9 | Gameplay top bar | normal | Icon | no | Launch | shape `ui.pause` |
 | `ui.restart` | Restart glyph | 10, 11 | Pause card; jam sheet | normal | Icon | no | Launch | shape `ui.restart` |
@@ -198,6 +217,8 @@ sentence-case labels in Nunito, and, on the main buttons only, the leaves and wh
 | `ui.plus` | Plus glyph | 2, 3, 17 | Petals pill; + Slot | normal | Icon | no | Launch | shape `ui.plus` |
 | `ui.check` | Check mark (done) | 3 | Home Daily Challenge card (done today) | normal | Icon | no | Launch | shape `ui.check` |
 | `ui.play` | Play triangle, as tall as the letters (spec 003 FR-010) | 2, 3 | PLAY on Home | normal; pressed | Icon | no | Launch | shape `ui.play` |
+| `ui.fast` | Fast glyph (two chevrons) of the speed pill (spec 005) | 7, 8, 9 | Gameplay top bar | normal | Icon | no | Launch | shape `ui.fast` |
+| `ui.back` | Back arrow glyph (spec 005) | 17 | Wardrobe; Store | normal | Icon | no | Launch | shape `ui.back` |
 | `ui.deco.garden` | Leaves and a white flower on the main buttons (spec 003 FR-011a) | 2, 3, 11, 15, 16 | PLAY; RESUME; NEXT; CONTINUE; CLAIM | top-left; bottom-right (turned) | Small | no | Launch | shape `ui.deco.garden` |
 | `ui.gift` | Gift (milestone teaser) | 3 | Home | normal; ready | Small | no | Launch | shape `ui.gift` |
 | `ui.trophy` | Trophy (rank row, Get +N) | 3, 4 | Home rank row; Daily Reward | normal | Small | no | Launch | shape `ui.trophy` |
@@ -213,11 +234,25 @@ sentence-case labels in Nunito, and, on the main buttons only, the leaves and wh
 | `ui.cross` | Ignore mark (a pod ignores another variant) | — | Variant demo (spec 001 FR-071) | normal | Icon | no | Launch | shape `ui.cross` |
 | `ui.pointer` | Tutorial pointing hand | — | Demos | tap; hold | Small | no | Launch | shape `ui.pointer` |
 
+## Materials
+
+The materials are engine-free pictures rendered by `UiRaster` in both builds (spec 005 research D4): the same
+size and inputs give the same pixels. Painted 9-slice art may replace them (spec 005 pictures.md D).
+
+| Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
+|---|---|---|---|---|---|---|---|---|
+| `mat.wood.light` | Light wood (signs, button rims) | 2, 3, 7, 15 | Signs; main button rims; wordmark | any size; grain by seed | Medium | no | Launch | UiRaster.Plank, light tone |
+| `mat.wood.dark` | Dark wood (pod frames and handles) | 7, 12 | Pods | exposed; queued (dimmed); locked | Small | no | Launch | UiRaster.Frame, dark tone |
+| `mat.stone` | Stone blocks (board border, arch, pedestal) | 7, 15 | Board border; Garden Entry arch; pedestal | any size; moss by seed | Small | no | Launch | UiRaster.Stone, Arch and Pedestal (warm sandy stone, smooth, a few soft moss tufts) |
+| `mat.parchment` | Parchment (cards, sheet, tray, slot band) | 4, 5, 6, 10, 11, 17 | Cards; jam sheet; tray; slot band; toasts | any size | Large | no | Launch | parchment gradient with a warm aged edge band, a thin brown outline and a thin inner line |
+
 ## Currency and rewards
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `currency.petal` | Petal symbol (soft currency) | 2, 3, 4, 10, 15, 16, 17 | Petals pill; rewards; costs; prices; badges | small; large | Icon | no | Launch | shape `currency.petal` |
+| `currency.petal` | Petals symbol (soft currency): a pink lotus bud (spec 005) | 2, 3, 4, 10, 15, 16, 17 | Petals pill; rewards; costs; prices; badges | small; large | Icon | no | Launch | shape `currency.petal` |
+| `currency.petal.front` | Lotus part: the front petals (center and sides) and the base | 2, 3, 4, 10, 15, 16, 17 | Wherever the lotus shows | small; large | Icon | no | Launch | shape `currency.petal.front` |
+| `currency.petal.tips` | Lotus part: the near-white petal middles | 2, 3, 4, 10, 15, 16, 17 | Wherever the lotus shows | small; large | Icon | no | Launch | shape `currency.petal.tips` |
 | `currency.reward_basket` | Reward basket (Daily Reward) | 4 | Daily Reward | day 1–7 | Medium | no | Launch | shape `currency.reward_basket` |
 | `currency.petal_pile` | Pile of Petals (big rewards) | 4, 16 | Daily Reward; Milestone | small; large | Medium | no | Launch | a cluster of Petal symbols |
 
@@ -258,6 +293,8 @@ sentence-case labels in Nunito, and, on the main buttons only, the leaves and wh
 | `fx.sparkle` | Sparkle | 7, 15 | Clears; win shine; burst | small; large | Icon | no | Launch | shape `fx.sparkle` |
 | `fx.petal_burst` | Petal burst | 15, 16 | Win; milestone; rewards | burst | Icon | no | Launch | shape `fx.petal_burst` |
 | `fx.droplet` | Droplets (Drop-family clears) | 7, 8, 9 | Board: tiles restored by Drop Bloomlings | splash | Icon | no | Launch | shape `fx.droplet` |
+| `fx.rays` | Light rays behind the celebrating heroes | 15, 16 | Win; milestone | slowly turning | Large | no | Launch | ten soft ray-light wedges from the pedestal |
+| `fx.petals` | Falling petals of the win | 15, 16 | Win; milestone | drifting; swaying | Icon | no | Launch | shape `fx.petals` |
 | `fx.confetti` | Confetti | 15, 16 | Win; milestone | fall | Icon | no | Launch | small rotating squares in level colors |
 | `fx.puff` | Puff (a pod leaves its slot) | 13 | Slots | puff | Icon | no | Launch | expanding fading discs |
 | `fx.shuffle_swirl` | Shuffle swirl | 14 | Tray | swirl | Medium | no | Launch | pods spinning in place |

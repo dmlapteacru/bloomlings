@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Bloomlings.Client.UI.Design;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
@@ -8,18 +9,17 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The design board's components drawn through <see cref="IPainter"/> (spec 002 FR-005, FR-007; the playtest twin of
-    /// the Unity client's <c>UiKit</c>). The kit covers:
+    /// the Unity client's <c>UiKit</c>), in the reference look of spec 005 (<c>specs/005-reference-look/contracts/look.md</c>
+    /// §3). The kit covers:
     /// <list type="bullet">
-    /// <item><description>primary and secondary buttons with a darker lower edge;</description></item>
-    /// <item><description>round icon buttons;</description></item>
-    /// <item><description>the level, 2× and Petals pills;</description></item>
-    /// <item><description>badges;</description></item>
-    /// <item><description>popup cards and the bottom sheet;</description></item>
-    /// <item><description>list rows, tabs and toggles.</description></item>
+    /// <item><description>glossy primary buttons in a wooden rim, cream secondary and icon buttons, jam choices;</description></item>
+    /// <item><description>the speed and Petals pills, cost pills and badges;</description></item>
+    /// <item><description>parchment cards, the bottom sheet, list rows, wells, tabs and toggles;</description></item>
+    /// <item><description>wooden signs, candy tiles, pods, slots, booster tiles and the stone furniture (<c>KitGarden.cs</c>).</description></item>
     /// </list>
     /// Sizes are reference units scaled by <see cref="IPainter.Scale"/>, and colors are design tokens.
     /// </summary>
-    public static class Kit
+    public static partial class Kit
     {
         public static float U(this IPainter p, float reference) => reference * p.Scale;
 
@@ -51,8 +51,9 @@ namespace Bloomlings.Playtest.Design
         // ---- The Garden recipe (spec 003 FR-006 to FR-008) ----
 
         /// <summary>
-        /// The flat cream plate an element lies on (FR-006): a soft shadow, its thickness below, a cream gradient and a
-        /// thin brown outline. It fills <paramref name="box"/> less its thickness, and returns the plate's top face.
+        /// The cream plate an element lies on (spec 003 FR-006, spec 005 §3.3): a soft shadow, its <c>parchment.edge</c>
+        /// thickness below, a cream gradient and a thin <c>cream.line</c> outline. It fills <paramref name="box"/> less its
+        /// thickness, and returns the plate's top face.
         /// </summary>
         public static Box Plate(IPainter p, Box box, float radius)
         {
@@ -61,19 +62,22 @@ namespace Bloomlings.Playtest.Design
             float line = p.U(DesignTokens.Garden.Outline(h));
             var plate = new Box(box.Left, box.Top, box.Right, box.Bottom - depth);
             float r = Math.Min(radius, plate.Height / 2f);
-            p.FillRound(plate.Offset(0f, depth * 2f).Inset(-p.U(2f), 0f), r, C.GardenShadow.WithAlpha(0.14f));
-            p.FillRound(plate.Offset(0f, depth), r, C.GardenPlateDepth);
-            p.FillRoundGradient(plate, r, C.GardenPlateTop, C.GardenPlateBottom);
-            p.StrokeRound(plate.Inset(line / 2f), r - (line / 2f), line, C.GardenOutline);
+            p.FillRound(plate.Offset(0f, depth * 2f).Inset(-p.U(2f), 0f), r, C.GardenShadow.WithAlpha(0.16f));
+            p.FillRound(plate.Offset(0f, depth), r, C.ParchmentEdge.Darken(0.12f));
+            p.FillRoundGradient(plate, r, C.CreamTop, C.ParchmentBottom);
+            p.StrokeRound(plate.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
             return plate;
         }
 
         /// <summary>
         /// A raised button face in a color set (FR-007): the lip along its bottom edge, the face with its lighter top, a
         /// highlight band and an outline in the set's line. <paramref name="depth"/> is the press (1 sunk into the lip,
-        /// below 0 the spring's overshoot). Returns the content box above the lip, moved with the press.
+        /// below 0 the spring's overshoot); a pressed face also darkens by 8% (spec 005 §3.3). <paramref name="gloss"/> is
+        /// the reference look's smooth gloss: a feathered band of the set's lightened top from 4% to 46% of the face that
+        /// hugs its top edge, and a thin light line along the straight part of that edge. Returns the content box above
+        /// the lip, moved with the press.
         /// </summary>
-        public static Box Face(IPainter p, Box face, ColorSet set, float radius, float depth, bool highlight = true, float? lipUnits = null)
+        public static Box Face(IPainter p, Box face, ColorSet set, float radius, float depth, bool highlight = true, float? lipUnits = null, bool gloss = false)
         {
             float h = face.Height / p.Scale;
             float lip = p.U(lipUnits ?? DesignTokens.Garden.Lip(h));
@@ -81,16 +85,36 @@ namespace Bloomlings.Playtest.Design
             float travel = Math.Max(0f, lip - p.U(3f));
             float shift = travel * Math.Max(-0.25f, Math.Min(1f, depth));
             float r = Math.Min(radius, face.Height / 2f);
+            float dark = 0.08f * Math.Max(0f, Math.Min(1f, depth));
 
             var whole = new Box(face.Left, face.Top + Math.Max(0f, shift), face.Right, face.Bottom);
-            p.FillRound(whole, r, set.Lip);
+            p.FillRound(whole, r, set.Lip.Darken(dark));
             var top = new Box(face.Left, face.Top + shift, face.Right, face.Bottom - lip + shift);
-            p.FillRoundGradient(top, Math.Min(r, top.Height / 2f), set.Top, set.Face);
-            if (highlight)
+            float topRadius = Math.Min(r, top.Height / 2f);
+            p.FillRoundGradient(top, topRadius, set.Top.Darken(dark), set.Face.Darken(dark));
+            if (highlight && gloss)
+            {
+                // The reference's smooth gloss: the lightened top color fading down from the top edge, feathered in three
+                // steps so no edge shows, and a thin light line along the straight part of the top edge only.
+                float fade = 1f - (dark * 4f);
+                Rgba light = set.Top.Lighten(0.35f);
+                var band = new Box(top.Left + (top.Width * 0.03f), top.Top + (top.Height * 0.04f), top.Right - (top.Width * 0.03f), top.Top + (top.Height * 0.46f));
+                for (int k = 0; k < 3; k++)
+                {
+                    Box step = band.Inset(top.Width * 0.02f * k, top.Height * 0.02f * k);
+                    p.FillRoundGradient(step, Math.Min(step.Height / 2f, topRadius), light.WithAlpha(0.35f / 3f * fade), light.WithAlpha(0f));
+                }
+
+                float shine = Math.Max(1f, line * 0.8f);
+                p.PushClip(new Box(top.Left + (topRadius * 0.6f), top.Top, top.Right - (topRadius * 0.6f), top.Top + (top.Height * 0.18f)));
+                p.StrokeRound(top.Inset(line * 1.6f), Math.Max(0f, topRadius - (line * 1.6f)), shine, Rgba.White.WithAlpha(0.55f * fade));
+                p.PopClip();
+            }
+            else if (highlight)
             {
                 float inset = top.Width * 0.07f;
                 var band = new Box(top.Left + inset, top.Top + (top.Height * 0.07f), top.Right - inset, top.Top + (top.Height * DesignTokens.Garden.HighlightHeight));
-                p.FillRoundGradient(band, band.Height / 2f, Rgba.White.WithAlpha(DesignTokens.Garden.HighlightAlpha), Rgba.White.WithAlpha(0f));
+                p.FillRoundGradient(band, Math.Min(band.Height / 2f, topRadius), Rgba.White.WithAlpha(DesignTokens.Garden.HighlightAlpha * (1f - dark * 4f)), Rgba.White.WithAlpha(0f));
             }
 
             var outline = new Box(face.Left, Math.Min(top.Top, whole.Top), face.Right, face.Bottom);
@@ -102,12 +126,28 @@ namespace Bloomlings.Playtest.Design
         /// A garden button: the plate, then the raised face inset on it (FR-006, FR-007). Returns the face's content box.
         /// Pills pass <c>box.Height / 2</c> as the radius; round buttons a square box.
         /// </summary>
-        public static Box GardenButton(IPainter p, Box box, ColorSet set, float radius, float depth, bool highlight = true)
+        public static Box GardenButton(IPainter p, Box box, ColorSet set, float radius, float depth, bool highlight = true, bool gloss = false)
         {
             Box plate = Plate(p, box, radius);
             float inset = p.U(DesignTokens.Garden.PlateInset(box.Height / p.Scale));
             Box face = plate.Inset(inset);
-            return Face(p, face, set, Math.Max(0f, Math.Min(radius, plate.Height / 2f) - inset), depth, highlight);
+            return Face(p, face, set, Math.Max(0f, Math.Min(radius, plate.Height / 2f) - inset), depth, highlight, gloss: gloss);
+        }
+
+        /// <summary>
+        /// A main button's body (spec 005 §3.3): a soft shadow, the uniform pale wood rim (<c>ui.button.rim</c>, a plank
+        /// picture with only a thin deeper bottom band) filling <paramref name="box"/>, and the glossy face inset on every
+        /// side. Returns the face's content box.
+        /// </summary>
+        public static Box RimmedButton(IPainter p, Box box, ColorSet set, float depth, bool highlight = true)
+        {
+            p.Mark("ui.button.rim");
+            float h = box.Height;
+            SoftShadow(p, box, h / 2f, 0.24f, 0.07f);
+            WoodPlank(p, box, 0.5f, 3, outlineShare: 0.018f, lipShare: 0.03f);
+            Box face = box.Inset(h * 0.085f);
+            float lip = (face.Height / p.Scale) * 0.1f;
+            return Face(p, face, set, face.Height / 2f, depth, highlight, lip, gloss: true);
         }
 
         /// <summary>The press of an element (FR-017): its depth now, from the finger and the spring-back.</summary>
@@ -130,8 +170,36 @@ namespace Bloomlings.Playtest.Design
             {
                 p.Shape(shapeId, box.Offset(0f, box.Height * 0.06f), set.Line);
             }
+            else
+            {
+                // A brown glyph on cream: a thin cream halo all around it, as on the reference's cream buttons.
+                GlyphHalo(p, shapeId, box);
+            }
 
             p.Shape(shapeId, box, glyph);
+        }
+
+        /// <summary>The thin <c>cream.top</c> halo around a brown glyph on cream (the shape grown by 0.06 shape units).</summary>
+        private static void GlyphHalo(IPainter p, string shapeId, Box box)
+        {
+            Func<float, float, float> sdf = ShapeLibrary.Get(shapeId);
+            p.ShapeOf(shapeId + "/halo", (x, y) => sdf(x, y) - 0.06f, box, C.CreamTop);
+        }
+
+        /// <summary>
+        /// A soft drop shadow under a raised element (spec 005): four <c>garden.shadow</c> layers, each grown by 1.5% of the
+        /// box's shorter side and a quarter of <paramref name="alpha"/>, so its edge fades instead of reading as another
+        /// lip; moved down by <paramref name="offsetShare"/> of the shorter side.
+        /// </summary>
+        public static void SoftShadow(IPainter p, Box box, float radius, float alpha, float offsetShare = 0.05f)
+        {
+            float s = Math.Min(box.Width, box.Height);
+            Box shadow = box.Offset(0f, s * offsetShare);
+            for (int k = 0; k < 4; k++)
+            {
+                float grow = s * 0.015f * k;
+                p.FillRound(shadow.Inset(-grow), Math.Max(0f, radius) + grow, C.GardenShadow.WithAlpha(alpha / 4f));
+            }
         }
 
         /// <summary>
@@ -246,16 +314,22 @@ namespace Bloomlings.Playtest.Design
         // ---- Buttons ----
 
         /// <summary>
-        /// The green primary button (PLAY, NEXT, CLAIM, RESUME, CONTINUE, Free rescue): a raised green pill on a cream
-        /// plate with a volumetric label (FR-009, FR-012). <paramref name="decorate"/> adds the leaves and flower,
+        /// The green primary button (Play, Next, Claim, Resume, Continue, Free rescue; spec 005 §3.3): a glossy green pill
+        /// in a light wood rim with a volumetric white label outlined in dark green (FR-009, FR-012). Pressed, the face
+        /// sinks into its lip and darkens. <paramref name="decorate"/> adds the leaves and flower,
         /// <paramref name="playArrow"/> the ▶ as tall as the letters, and <paramref name="breathe"/> the idle breath of
-        /// the one waiting button (FR-019).
+        /// the one waiting button (FR-019). <paramref name="set"/> picks another color (<see cref="GardenLook.Orange"/>).
         /// </summary>
-        public static void PrimaryButton(IPainter p, Box box, string label, Action? action, TypeStyle? style = null, string? iconId = null, bool decorate = false, bool playArrow = false, bool breathe = false)
+        public static void PrimaryButton(IPainter p, Box box, string label, Action? action, TypeStyle? style = null, string? iconId = null, bool decorate = false, bool playArrow = false, bool breathe = false, ColorSet? set = null)
         {
             p.Mark("ui.button.primary");
             bool enabled = action != null;
-            ColorSet set = enabled ? GardenLook.Green : GardenLook.Green.Disabled();
+            ColorSet colors = set ?? GardenLook.Green;
+            if (!enabled)
+            {
+                colors = colors.Disabled();
+            }
+
             float depth = Press(p, box, enabled);
             bool breathing = breathe && enabled && depth == 0f;
             if (breathing)
@@ -264,9 +338,9 @@ namespace Bloomlings.Playtest.Design
             }
 
             Squash(p, box, depth);
-            Box f = GardenButton(p, box, set, box.Height / 2f, depth, highlight: enabled);
+            Box f = RimmedButton(p, box, colors, depth, highlight: enabled);
             TypeStyle s = style ?? T.Button;
-            TextLook look = TextLook.OnColor(set);
+            TextLook look = TextLook.OnGloss(colors);
             float side = f.Height * 0.45f;
             if (playArrow)
             {
@@ -285,7 +359,7 @@ namespace Bloomlings.Playtest.Design
                 float icon = f.Height * 0.5f;
                 float textWidth = Math.Min(p.MeasureText(label, s), f.Width - (f.Height * 1.4f));
                 float start = f.CenterX - ((icon + p.U(14f) + textWidth) / 2f);
-                Glyph(p, iconId, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), set);
+                Glyph(p, iconId, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), colors);
                 p.Text(label, start + icon + p.U(14f) + (textWidth / 2f), f.CenterY, s, C.TextOnColor, textWidth, look: look);
             }
             else
@@ -310,7 +384,10 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The cream secondary button (RESTART, SETTINGS, HOME, Restart, ×2 reward, Get +N): dark brown label.</summary>
+        /// <summary>
+        /// The cream secondary button (Restart, Settings, Home, ×2 reward, Get +N; spec 005 §3.3): a cream face on a cream
+        /// plate with a brown label and an optional brown glyph on the left (Restart's ⟳).
+        /// </summary>
         public static void SecondaryButton(IPainter p, Box box, string label, Action? action, string? iconId = null, TypeStyle? style = null)
         {
             p.Mark("ui.button.secondary");
@@ -323,15 +400,15 @@ namespace Bloomlings.Playtest.Design
             TextLook look = GardenLook.LabelOn(GardenLook.Cream);
             if (iconId != null)
             {
-                float icon = f.Height * 0.46f;
+                float icon = f.Height * 0.5f;
                 float textWidth = Math.Min(p.MeasureText(label, s), f.Width - (f.Height * 1.4f));
-                float start = f.CenterX - ((icon + p.U(14f) + textWidth) / 2f);
+                float start = f.CenterX - ((icon + p.U(16f) + textWidth) / 2f);
                 Glyph(p, iconId, Box.FromCenter(start + (icon / 2f), f.CenterY, icon, icon), GardenLook.Cream);
-                p.Text(label, start + icon + p.U(14f) + (textWidth / 2f), f.CenterY, s, C.GardenLabelPlain, textWidth, look: look);
+                p.Text(label, start + icon + p.U(16f) + (textWidth / 2f), f.CenterY, s, C.InkBrown, textWidth, look: look);
             }
             else
             {
-                p.Text(label, f.CenterX, f.CenterY, s, C.GardenLabelPlain, f.Width - (f.Height * 0.7f), look: look);
+                p.Text(label, f.CenterX, f.CenterY, s, C.InkBrown, f.Width - (f.Height * 0.7f), look: look);
             }
 
             p.PopTransform();
@@ -343,18 +420,22 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A round icon button on a round plate (Settings, Pause, close, Wardrobe, Collection): white by default, red for
-        /// close (FR-012, FR-015).
+        /// A round or squircle icon button (Settings, Pause, close, back, Wardrobe, Collection; spec 005 §3.3): one domed
+        /// cream cushion with a lip, an outline and a soft shadow, and a brown glyph at 46% of the size. Pause sits
+        /// in a squircle (<paramref name="squircle"/>: radius 34% of the size; by default only Pause); the others are
+        /// circles. Close is cream with a brown ✕ like every round button. <paramref name="set"/> paints another face (the
+        /// green "+").
         /// </summary>
-        public static void RoundButton(IPainter p, float cx, float cy, float size, string shapeId, Action? action, Rgba? glyph = null, ColorSet? set = null)
+        public static void RoundButton(IPainter p, float cx, float cy, float size, string shapeId, Action? action, Rgba? glyph = null, ColorSet? set = null, bool? squircle = null)
         {
             p.Mark("ui.button.round");
             Box box = Box.FromCenter(cx, cy, size, size);
             ColorSet colors = set ?? GardenLook.White;
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
-            Box f = GardenButton(p, box, colors, size / 2f, depth);
-            float g = Math.Min(f.Width, f.Height) * 0.6f;
+            bool rounded = squircle ?? shapeId == "ui.pause";
+            Box f = IconFace(p, box, colors, rounded ? size * 0.34f : size / 2f, depth);
+            float g = size * GlyphShare(shapeId);
             Box glyphBox = Box.FromCenter(f.CenterX, f.CenterY, g, g);
             if (glyph.HasValue)
             {
@@ -372,14 +453,90 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The dark 2× pill of the gameplay top bar.</summary>
-        public static void DarkPill(IPainter p, Box box, string label, Action? action)
+        /// <summary>
+        /// The box share of a glyph on a round button, so each glyph looks about 46% of the button as in the reference:
+        /// the shapes fill their boxes differently (the pause bars are slim, the gear is wide).
+        /// </summary>
+        private static float GlyphShare(string shapeId) => shapeId switch
+        {
+            "ui.pause" => 0.8f,
+            "ui.close" => 0.74f,
+            "ui.settings" => 0.66f,
+            "ui.back" => 0.64f,
+            _ => 0.6f,
+        };
+
+        /// <summary>
+        /// The face of a round or squircle icon button, the speed pill and the booster tile (spec 005 §3.3): a soft shadow,
+        /// the lip and the outline around a single domed cushion on cream sets (peach toward the edges, a lighter middle
+        /// feathered in), or a light rim around a domed face in the set's color on colored sets. Returns the content box
+        /// (9% of the shorter side inside the face), moved with the press.
+        /// </summary>
+        public static Box IconFace(IPainter p, Box box, ColorSet set, float radius, float depth)
+        {
+            float s = Math.Min(box.Width, box.Height);
+            bool cream = !GardenLook.LabelOn(set).Volumetric;
+            float lip = s * (cream ? 0.07f : 0.085f);
+            float rim = s * 0.09f;
+            float line = Math.Max(p.U(2f), s * (cream ? 0.02f : 0.024f));
+            float shift = lip * 0.7f * Math.Max(-0.25f, Math.Min(1f, depth));
+            float dark = 0.08f * Math.Max(0f, Math.Min(1f, depth));
+            float r = Math.Min(radius, s / 2f);
+
+            SoftShadow(p, box, r, 0.2f, 0.06f);
+            var whole = new Box(box.Left, box.Top + Math.Max(0f, shift), box.Right, box.Bottom);
+            p.FillRound(whole, r, set.Lip.Darken(dark));
+            var top = new Box(box.Left, box.Top + shift, box.Right, box.Bottom - lip + shift);
+            float topRadius = Math.Min(r, top.Height / 2f);
+            Box inner = top.Inset(rim);
+            float innerRadius = Math.Max(0f, topRadius - rim);
+            if (cream)
+            {
+                // One domed cushion: the face's peach, a little deeper toward the bottom, and a lighter middle in three
+                // feathered steps (no ring, no dish).
+                p.FillRoundGradient(top, topRadius, set.Face.Darken(dark), set.Face.Darken(0.04f + dark));
+                for (int k = 0; k < 3; k++)
+                {
+                    float inset = s * (0.08f + (0.04f * k));
+                    Box dome = top.Inset(inset);
+                    p.FillRoundGradient(dome, Math.Max(0f, topRadius - inset), set.Top.Darken(dark).WithAlpha(0.5f), set.Top.WithAlpha(0f));
+                }
+            }
+            else
+            {
+                p.FillRoundGradient(top, topRadius, set.Top.Darken(dark), set.Face.Darken(dark));
+                p.FillRoundGradient(inner, innerRadius, set.Top.Darken(dark), set.Face.Darken(dark));
+                var band = new Box(inner.Left + (inner.Width * 0.12f), inner.Top + (inner.Height * 0.06f), inner.Right - (inner.Width * 0.12f), inner.Top + (inner.Height * 0.42f));
+                p.FillRoundGradient(band, Math.Min(band.Height / 2f, innerRadius), Rgba.White.WithAlpha(0.4f), Rgba.White.WithAlpha(0f));
+            }
+
+            var outline = new Box(box.Left, Math.Min(top.Top, whole.Top), box.Right, box.Bottom);
+            p.StrokeRound(outline.Inset(line / 2f), Math.Min(r, outline.Height / 2f) - (line / 2f), line, set.Line);
+            return inner;
+        }
+
+        /// <summary>
+        /// The speed pill of the gameplay top bar (spec 005 §3.3): the cream squircle style, wider, with the speed
+        /// (<paramref name="label"/>, "1×" or "2×") in <c>ink.brown</c> and the <c>ui.fast</c> chevrons (▶▶) after it.
+        /// </summary>
+        public static void SpeedPill(IPainter p, Box box, string label, Action? action)
         {
             p.Mark("ui.pill.speed");
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
-            Box f = GardenButton(p, box, GardenLook.Dark, box.Height / 2f, depth);
-            p.Text(label, f.CenterX, f.CenterY, T.LevelPill, C.TextOnColor, f.Width * 0.8f, look: TextLook.OnColor(GardenLook.Dark));
+            Box f = IconFace(p, box, GardenLook.White, box.Height * 0.34f, depth);
+            TypeStyle s = T.LevelPill;
+            float scale = box.Height * 0.5f / p.U(s.Size);
+
+            // The ▶▶ box: its marks are 80% of it tall, so they stand as tall as the digits (about 42% of the pill).
+            float glyph = box.Height * 0.52f;
+            float gap = box.Height * 0.04f;
+            float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - glyph - gap - (box.Height * 0.2f));
+            float start = f.CenterX - ((textWidth + gap + glyph) / 2f);
+            p.Text(label, start + (textWidth / 2f), f.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
+            Box fast = Box.FromCenter(start + textWidth + gap + (glyph / 2f), f.CenterY, glyph, glyph);
+            GlyphHalo(p, GardenLook.FastGlyph.ShapeId, fast);
+            p.Shape(GardenLook.FastGlyph.ShapeId, fast, GardenLook.FastGlyph.Fill);
             p.PopTransform();
             if (action != null)
             {
@@ -387,16 +544,20 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The "Level N" pill: sky blue, lilac on Super Hard.</summary>
+        /// <summary>The 2× control of the gameplay top bar: since spec 005 the cream <see cref="SpeedPill"/>.</summary>
+        public static void DarkPill(IPainter p, Box box, string label, Action? action) => SpeedPill(p, box, label, action);
+
+        /// <summary>
+        /// The gameplay level label: since spec 005 a wooden sign with ivy at both ends (§3.2, research D6), its letters in
+        /// <c>badge.super_hard</c> on a Super Hard level.
+        /// </summary>
         public static void LevelPill(IPainter p, Box box, string text, bool superHard)
         {
             p.Mark("ui.pill.level");
-            ColorSet set = superHard ? GardenLook.Lilac : GardenLook.Blue;
-            Box f = GardenButton(p, box, set, box.Height / 2f, 0f);
-            p.Text(text, f.CenterX, f.CenterY, T.LevelPill, C.TextOnColor, f.Width * 0.86f, look: TextLook.OnColor(set));
+            WoodSign(p, box, text, T.LevelPill, SignDecor.Ivy, superHard ? C.BadgeSuperHard : (Rgba?)null);
         }
 
-        /// <summary>The HARD or SUPER HARD badge under the level pill (frames 8 and 9): a sticker pill on a plate (FR-014).</summary>
+        /// <summary>The HARD or SUPER HARD badge under the level label (frames 8 and 9): a sticker pill on a plate (FR-014).</summary>
         public static void Badge(IPainter p, Box box, string text, Rgba color, string slotId)
         {
             p.Mark(slotId);
@@ -405,72 +566,132 @@ namespace Bloomlings.Playtest.Design
             p.Text(text, f.CenterX, f.CenterY, T.Badge, C.TextOnColor, f.Width * 0.86f, look: TextLook.OnColor(set));
         }
 
-        /// <summary>A count badge (booster charges, "×N"): white on a dark brown disc with a cream ring and a brown outline.</summary>
+        /// <summary>
+        /// A count badge (booster charges, "+N" on a stack; spec 005 §3.4): white digits on a <c>badge.green</c> disc with a
+        /// white ring (10% of its size) and a thin dark outline.
+        /// </summary>
         public static void CountBadge(IPainter p, float cx, float cy, float size, string text)
         {
             p.Mark("ui.badge.count");
-            float width = Math.Max(size, p.MeasureText(text, T.Badge, size / p.U(48f)) + (size * 0.55f));
+            float scale = size / p.U(48f);
+            float width = Math.Max(size, p.MeasureText(text, T.Badge, scale) + (size * 0.55f));
             Box box = Box.FromCenter(cx, cy, width, size);
-            float ring = Math.Max(p.U(3f), size * 0.08f);
-            float line = Math.Max(p.U(2f), size * 0.04f);
-            p.FillRound(box.Inset(-(ring + line)).Offset(0f, size * 0.08f), (size / 2f) + ring + line, C.GardenShadow.WithAlpha(0.25f));
-            p.FillRound(box.Inset(-(ring + line)), (size / 2f) + ring + line, C.GardenOutline);
-            p.FillRound(box.Inset(-ring), (size / 2f) + ring, C.GardenBadgeRing);
-            p.FillRound(box, size / 2f, C.GardenBadge);
-            p.Text(text, cx, cy + (size * 0.03f), T.Badge, C.TextOnColor, width * 0.9f, sizeScale: size / p.U(48f));
+            float ring = size * 0.1f;
+            float line = Math.Max(1f, size * 0.03f);
+            Box outer = box.Inset(-(ring + line));
+            float r = outer.Height / 2f;
+            SoftShadow(p, outer, r, 0.25f, 0.07f);
+            p.FillRound(outer, r, C.GardenShadow.WithAlpha(0.8f));
+            p.FillRound(box.Inset(-ring), (size / 2f) + ring, Rgba.White);
+            p.FillRoundGradient(box, size / 2f, C.BadgeGreen.Lighten(0.14f), C.BadgeGreen);
+            p.Text(text, cx, cy + (size * 0.02f), T.Badge, C.TextOnColor, width * 0.9f, sizeScale: scale);
         }
 
+        /// <summary>A price tag (a booster without charges): since spec 005 a <see cref="CostPill"/> with the lotus.</summary>
+        public static void PriceTag(IPainter p, Box box, int price) => CostPill(p, box, Cost.Petals(price));
+
         /// <summary>
-        /// A price tag (a booster without charges, FR-014): the Petal symbol and the price in dark brown on a cream tag
-        /// with a brown outline.
+        /// A cost pill (spec 005 §3.4; jam choices, booster tiles, the Store): a cream pill with a <c>cream.line</c> outline
+        /// and a soft shadow holding the lotus and a brown price, a green ▶ square and "Free", or "×N" charges.
         /// </summary>
-        public static void PriceTag(IPainter p, Box box, int price)
+        public static void CostPill(IPainter p, Box box, Cost cost)
         {
-            p.Mark("ui.badge.count");
-            float line = p.U(DesignTokens.Garden.OutlineWidthSmall + 1f);
-            p.FillRound(box.Offset(0f, p.U(4f)), box.Height / 2f, C.GardenPlateDepth);
-            p.FillRound(box, box.Height / 2f, GardenLook.Cream.Face);
-            p.StrokeRound(box.Inset(line / 2f), (box.Height / 2f) - (line / 2f), line, C.GardenOutline);
-            string text = NumberText.Group(price);
-            float icon = box.Height * 0.78f;
-            float scale = box.Height / p.U(56f);
-            float textWidth = Math.Min(p.MeasureText(text, T.Badge, scale), box.Width - icon - (box.Height * 0.5f));
-            float start = box.CenterX - ((icon + p.U(4f) + textWidth) / 2f);
-            Petal(p, Box.FromCenter(start + (icon / 2f), box.CenterY, icon, icon));
-            p.Text(text, start + icon + p.U(4f) + (textWidth / 2f), box.CenterY, T.Badge, C.GardenLabelPlain, textWidth, scale);
+            p.Mark("ui.pill.cost");
+            float h = box.Height;
+            float r = h / 2f;
+            float line = Math.Max(p.U(2f), h * 0.05f);
+            SoftShadow(p, box, r, 0.2f, 0.12f);
+            p.FillRound(box.Offset(0f, h * 0.07f), r, C.CreamLip);
+            p.FillRoundGradient(box, r, C.CreamTop, C.ParchmentBottom);
+            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
+
+            string text = cost.Kind switch
+            {
+                CostKind.Petals => NumberText.Group(cost.Amount),
+                CostKind.Free => PlaytestText.T("common.free"),
+                _ => PlaytestText.F("common.charges", cost.Amount),
+            };
+            TypeStyle s = T.Count;
+            float scale = h * 0.56f / p.U(s.Size);
+            float icon = cost.Kind == CostKind.Petals ? h * 0.86f : cost.Kind == CostKind.Free ? h * 0.6f : 0f;
+            float gap = icon > 0f ? h * 0.16f : 0f;
+            float textWidth = Math.Min(p.MeasureText(text, s, scale), box.Width - icon - gap - (h * 0.5f));
+            float start = box.CenterX - ((icon + gap + textWidth) / 2f);
+            Box iconBox = Box.FromCenter(start + (icon / 2f), box.CenterY, icon, icon);
+            if (cost.Kind == CostKind.Petals)
+            {
+                Petal(p, iconBox);
+            }
+            else if (cost.Kind == CostKind.Free)
+            {
+                // The rewarded choice: a white ▶ on a small green square.
+                p.Mark("ui.play");
+                ColorSet green = GardenLook.Green;
+                p.FillRound(iconBox.Offset(0f, icon * 0.08f), icon * 0.26f, green.Lip);
+                p.FillRoundGradient(iconBox, icon * 0.26f, green.Top, green.Face);
+                p.StrokeRound(iconBox.Inset(line / 4f), icon * 0.26f, Math.Max(1f, line / 2f), green.Line);
+                p.Shape("ui.play", iconBox.Inset(icon * 0.2f).Offset(icon * 0.03f, 0f), Rgba.White);
+            }
+
+            p.Text(text, start + icon + gap + (textWidth / 2f), box.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
         }
 
-        /// <summary>The Petal symbol: pink petals around a yellow center, with an outline (FR-006, spec 003 FR-010).</summary>
-        public static void Petal(IPainter p, Box box)
+        /// <summary>The Petals symbol: the pink lotus with its outline and light tips (FR-006; spec 005 contracts/look.md §3.4).</summary>
+        public static void Petal(IPainter p, Box box) => IconParts(p, box, GardenLook.Lotus);
+
+        /// <summary>
+        /// A multi-part icon (spec 005 contracts/look.md §3.4, §3.8: the lotus, the colored booster icons): each part's
+        /// outline (the shape grown by its <see cref="IconPart.Grow"/>), then its fill, back to front. A
+        /// <paramref name="grey"/> icon (a disabled booster) draws every part in grey.
+        /// </summary>
+        public static void IconParts(IPainter p, Box box, IReadOnlyList<IconPart> parts, bool grey = false)
         {
-            float grow = 0.07f;
-            Func<float, float, float> sdf = ShapeLibrary.Get("currency.petal");
-            p.ShapeOf("currency.petal/line", (x, y) => sdf(x, y) - grow, box, C.PetalEdge);
-            p.Shape("currency.petal", box, C.PetalFill);
-            p.FillCircle(box.CenterX, box.CenterY, box.Width * 0.2f, C.PetalCenter);
+            foreach (IconPart part in parts)
+            {
+                if (part.Line.HasValue && part.Grow > 0f)
+                {
+                    Func<float, float, float> sdf = ShapeLibrary.Get(part.ShapeId);
+                    float grow = part.Grow;
+                    Rgba line = grey ? part.Line.Value.Grey() : part.Line.Value;
+                    p.ShapeOf(part.ShapeId + "/line/" + grow.ToString("0.###", CultureInfo.InvariantCulture), (x, y) => sdf(x, y) - grow, box, line);
+                }
+
+                p.Shape(part.ShapeId, box, grey ? part.Fill.Grey() : part.Fill);
+            }
         }
 
         /// <summary>
-        /// The Petals balance pill (frames 2, 3 and 17): a white raised pill on a plate with the Petal symbol and the
-        /// balance, and its round green "+" on its own plate (FR-013).
+        /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4): a cream raised pill with the lotus over its left end,
+        /// the balance in <c>ink.brown</c>, and the round green "+" over its right end (FR-013).
         /// </summary>
         public static void PetalsPill(IPainter p, Box box, long petals, Action? onPlus)
         {
             p.Mark("ui.pill.petals");
-            Box f = GardenButton(p, box, GardenLook.White, box.Height / 2f, 0f);
-            float icon = box.Height * 0.86f;
-            Petal(p, Box.FromCenter(box.Left + (box.Height * 0.5f), f.CenterY, icon, icon));
-            float right = onPlus != null ? box.Right - box.Height : box.Right - (box.Height * 0.3f);
-            p.Text(NumberText.Group(petals), (box.Left + box.Height + right) / 2f, f.CenterY, T.Count, C.GardenLabelPlain, right - box.Left - box.Height, look: TextLook.Plain(C.GardenLabelPlain));
+            float h = box.Height;
+            float r = h / 2f;
+            float lip = h * 0.09f;
+            float line = Math.Max(p.U(2f), h * 0.04f);
+            SoftShadow(p, box, r, 0.2f, 0.08f);
+            p.FillRound(box, r, C.CreamLip);
+            var face = new Box(box.Left, box.Top, box.Right, box.Bottom - lip);
+            p.FillRoundGradient(face, Math.Min(r, face.Height / 2f), C.CreamTop, C.CreamFace);
+            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
+            float icon = h * 1.08f;
+            Petal(p, Box.FromCenter(box.Left + (h * 0.42f), face.CenterY - (h * 0.02f), icon, icon));
+            float plusSize = h * 1.0f;
+            float right = onPlus != null ? box.Right - (plusSize * 0.75f) : box.Right - (h * 0.3f);
+            float left = box.Left + (h * 0.95f);
+            TypeStyle s = T.Count;
+            float scale = h * 0.5f / p.U(s.Size);
+            p.Text(NumberText.Group(petals), (left + right) / 2f, face.CenterY, s, C.InkBrown, right - left, scale, TextLook.Plain(C.InkBrown));
             if (onPlus != null)
             {
-                float size = box.Height * 0.84f;
-                Box plus = Box.FromCenter(box.Right - (box.Height * 0.5f), box.CenterY, size, size);
+                Box plus = Box.FromCenter(box.Right - (plusSize * 0.3f), box.CenterY, plusSize, plusSize);
                 float depth = Press(p, Touch(p, box), true);
                 Squash(p, plus, depth);
-                Box face = GardenButton(p, plus, GardenLook.Green, size / 2f, depth);
-                float g = face.Height * 0.62f;
-                Glyph(p, "ui.plus", Box.FromCenter(face.CenterX, face.CenterY, g, g), GardenLook.Green);
+                Box f = IconFace(p, plus, GardenLook.Green, plusSize / 2f, depth);
+                float g = plusSize * 0.6f;
+                Glyph(p, "ui.plus", Box.FromCenter(f.CenterX, f.CenterY, g, g), GardenLook.Green);
                 p.PopTransform();
                 p.Hit(Touch(p, box), onPlus);
             }
@@ -484,25 +705,42 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A paper surface in a wooden frame (spec 003 FR-015): a soft shadow, the frame's thickness below, the paper
-        /// gradient and the brown frame line. Cards, the sheet, the board and the slot row use it.
+        /// A parchment surface (spec 005 §3.5; cards, the sheet, the tray panel, the slot band, toasts): a soft shadow
+        /// <paramref name="depthUnits"/> below, the <c>parchment.top</c> to <c>parchment.bottom</c> gradient with a warm,
+        /// darker aged band over its outer 6% (fading inward), a thin <c>parchment.edge</c> line inside it, and a
+        /// thinner <c>parchment.line</c> outline (0.8 × <paramref name="frameUnits"/>). No wooden frame.
         /// </summary>
         public static void Paper(IPainter p, Box box, float radius, float frameUnits, float depthUnits)
         {
+            p.Mark("mat.parchment");
             float depth = p.U(depthUnits);
-            float line = p.U(frameUnits);
-            p.FillRound(box.Offset(0f, depth * 1.8f).Inset(-p.U(4f), 0f), radius, C.GardenShadow.WithAlpha(0.2f));
-            p.FillRound(box.Offset(0f, depth), radius, C.GardenWoodDepth);
-            p.FillRoundGradient(box, radius, C.GardenPaperTop, C.GardenPaperBottom);
-            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.GardenWood);
+            float line = p.U(frameUnits) * 0.8f;
+            float r = Math.Min(radius, box.Height / 2f);
+            p.FillRound(box.Offset(0f, depth * 1.6f).Inset(-p.U(3f), 0f), r, C.GardenShadow.WithAlpha(0.18f));
+            p.FillRound(box.Offset(0f, depth * 0.7f), r, C.GardenShadow.WithAlpha(0.14f));
+            p.FillRoundGradient(box, r, C.ParchmentTop, C.ParchmentBottom);
+
+            // The aged edge over the outer 6% of the shorter side: twelve overlapping thin steps fading inward (about 0.4 at
+            // the outline), fine enough that no ring shows.
+            float step = Math.Max(1f, Math.Min(box.Width, box.Height) * 0.005f);
+            for (int k = 0; k < 12; k++)
+            {
+                float inset = line + (step * k);
+                p.StrokeRound(box.Inset(inset), Math.Max(0f, r - inset), step * 1.6f, C.ParchmentEdge.WithAlpha(0.26f * (1f - (k / 12f))));
+            }
+
+            float inner = line + Math.Max(p.U(3f), Math.Min(box.Width, box.Height) * 0.012f);
+            p.StrokeRound(box.Inset(inner), Math.Max(0f, r - inner), Math.Max(1f, line * 0.4f), C.ParchmentEdge);
+            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.ParchmentLine);
         }
 
         /// <summary>
-        /// A popup card (FR-007, spec 003 FR-015): the scrim, paper in a wooden frame, a colored header band shaped like a
-        /// button with the title in volumetric letters, and a red round close button when <paramref name="onClose"/> is
-        /// set. <paramref name="contentHeight"/> is in reference units. A card without a title has no band.
+        /// A popup card (FR-007, spec 005 §3.5): the scrim, parchment, the title in <c>type.title</c> <c>ink.brown</c> or,
+        /// when <paramref name="sign"/> is set, a wooden sign across the card's top edge with that decoration (the win,
+        /// the Store), and the cream round close button over the top-right corner when <paramref name="onClose"/> is set.
+        /// <paramref name="contentHeight"/> is in reference units.
         /// </summary>
-        public static CardRegions Card(IPainter p, float contentHeight, string title, Action? onClose, float pop = 1f, TypeStyle? titleStyle = null, ColorSet? header = null)
+        public static CardRegions Card(IPainter p, float contentHeight, string title, Action? onClose, float pop = 1f, TypeStyle? titleStyle = null, SignDecor? sign = null)
         {
             p.Mark("ui.card");
             Scrim(p);
@@ -513,18 +751,26 @@ namespace Bloomlings.Playtest.Design
             p.Hit(r.Card, () => { });
             if (title.Length > 0)
             {
-                ColorSet set = header ?? GardenLook.Green;
-                float margin = p.U(18f);
-                var band = new Box(r.Card.Left + margin, r.Card.Top + margin, r.Card.Right - margin, r.Title.Bottom - p.U(4f));
-                Box face = Face(p, band, set, radius - margin, 0f, lipUnits: 12f);
-                float closeRoom = onClose != null ? r.Close.Width + p.U(20f) : 0f;
-                float titleWidth = Math.Min(r.Title.Width, face.Width - (2f * closeRoom) - p.U(40f));
-                p.Text(title, face.CenterX, face.CenterY, titleStyle ?? T.Title, C.TextOnColor, titleWidth, look: TextLook.OnColor(set));
+                TypeStyle style = titleStyle ?? T.Title;
+                if (sign.HasValue)
+                {
+                    float h = p.U(118f);
+                    float width = Math.Min(r.Card.Width * 0.78f, p.MeasureText(title, style) + (h * 1.4f));
+                    WoodSign(p, Box.FromCenter(r.Card.CenterX, r.Title.CenterY - p.U(30f), width, h), title, style, sign.Value);
+                }
+                else
+                {
+                    float closeRoom = onClose != null ? r.Close.Width + p.U(20f) : 0f;
+                    float titleWidth = Math.Min(r.Title.Width, r.Card.Width - (2f * closeRoom) - p.U(60f));
+                    p.Text(title, r.Title.CenterX, r.Title.CenterY, style, C.InkBrown, titleWidth, look: TextLook.Plain(C.InkBrown));
+                }
             }
 
             if (onClose != null)
             {
-                RoundButton(p, r.Close.CenterX, r.Close.CenterY, r.Close.Width, "ui.close", onClose, set: GardenLook.Red);
+                // Over the top-right corner, as in the reference.
+                float shift = r.Close.Width * 0.3f;
+                RoundButton(p, r.Close.CenterX + shift, r.Close.CenterY - shift, r.Close.Width, "ui.close", onClose);
             }
 
             return r;
@@ -534,9 +780,9 @@ namespace Bloomlings.Playtest.Design
         public static void EndCard(IPainter p) => p.PopTransform();
 
         /// <summary>
-        /// The jam bottom sheet (frame 10): a light scrim that keeps the board visible, the paper sheet in its wooden
-        /// frame rising by <paramref name="rise"/> (0–1) and settling with one small bounce, its grip, title and subtitle.
-        /// <paramref name="contentHeight"/> is in reference units.
+        /// The jam bottom sheet (frame 10, spec 005 §4.3): a light scrim that keeps the board visible, the parchment sheet
+        /// rising by <paramref name="rise"/> (0–1) and settling with one small bounce, its grip, the title in
+        /// <c>ink.brown</c> and the subtitle in <c>ink.brown_soft</c>. <paramref name="contentHeight"/> is in reference units.
         /// </summary>
         public static SheetRegions Sheet(IPainter p, float contentHeight, string title, string subtitle, float rise = 1f)
         {
@@ -549,15 +795,18 @@ namespace Bloomlings.Playtest.Design
             float radius = p.U(64f);
             Paper(p, r.Sheet, radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
             p.Hit(r.Sheet, () => { });
-            p.FillRound(r.Grip, r.Grip.Height / 2f, C.GardenWellEdge);
-            p.Text(title, r.Title.CenterX, r.Title.CenterY, T.TitleCaps, C.GardenLabelPlain, r.Title.Width, look: TextLook.Plain(C.GardenLabelPlain));
-            p.Text(subtitle, r.Subtitle.CenterX, r.Subtitle.CenterY, T.Body, C.TextSecondary, r.Subtitle.Width);
+            p.FillRound(r.Grip, r.Grip.Height / 2f, C.ParchmentEdge.Darken(0.12f));
+            p.Text(title, r.Title.CenterX, r.Title.CenterY, T.Title, C.InkBrown, r.Title.Width, look: TextLook.Plain(C.InkBrown));
+            p.Text(subtitle, r.Subtitle.CenterX, r.Subtitle.CenterY, T.Body, C.InkBrownSoft, r.Subtitle.Width);
             return r;
         }
 
         public static void EndSheet(IPainter p) => p.PopTransform();
 
-        /// <summary>A list row (Store, Leaderboard): an outlined rounded panel; the player's own row is raised and green.</summary>
+        /// <summary>
+        /// A list row (Store, Leaderboard; spec 005 §3.5): a cream rounded panel with a <c>cream.line</c> outline and a
+        /// lip; the player's own row is raised and green-tinted.
+        /// </summary>
         public static void Row(IPainter p, Box box, bool highlighted)
         {
             p.Mark("ui.row");
@@ -565,31 +814,36 @@ namespace Bloomlings.Playtest.Design
             float line = p.U(DesignTokens.Garden.OutlineWidth);
             if (highlighted)
             {
-                p.FillRound(box.Offset(0f, p.U(6f)), radius, C.GardenPlateDepth);
+                p.FillRound(box.Offset(0f, p.U(6f)), radius, GardenLook.Green.Lip.Mix(C.CreamLip, 0.4f));
                 p.FillRoundGradient(box, radius, C.SurfaceRowHighlight.Lighten(0.4f), C.SurfaceRowHighlight);
-            }
-            else
-            {
-                p.FillRound(box.Offset(0f, p.U(4f)), radius, C.GardenWell);
-                p.FillRoundGradient(box, radius, Rgba.White, C.GardenPaperTop);
+                p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, GardenLook.Green.Lip);
+                return;
             }
 
-            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.GardenOutline);
+            p.FillRound(box.Offset(0f, p.U(4f)), radius, C.CreamLip);
+            p.FillRoundGradient(box, radius, C.CreamTop, C.CreamFace);
+            p.StrokeRound(box.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine);
         }
 
-        /// <summary>A sunk well (unselected tabs, toggle tracks, empty slots): darker paper with a shadow along its top.</summary>
-        public static void Well(IPainter p, Box box, float radius, Rgba fill)
+        /// <summary>
+        /// A sunk well (spec 005 §3.5: the jam's slot row, unselected tabs, toggle tracks): <c>parchment.well</c> (or
+        /// <paramref name="fill"/>) with a shadow along its top and a <c>parchment.edge</c> outline.
+        /// </summary>
+        public static void Well(IPainter p, Box box, float radius, Rgba? fill = null)
         {
             float line = p.U(DesignTokens.Garden.OutlineWidth);
             float r = Math.Min(radius, box.Height / 2f);
-            p.FillRound(box, r, fill);
+            p.FillRound(box, r, fill ?? C.ParchmentWell);
             p.PushClip(box);
-            p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + (box.Height * 0.45f)), r, C.GardenShadow.WithAlpha(0.2f), C.GardenShadow.WithAlpha(0f));
+            p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + Math.Min(box.Height * 0.45f, p.U(40f))), r, C.GardenShadow.WithAlpha(0.16f), C.GardenShadow.WithAlpha(0f));
             p.PopClip();
-            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.GardenWellEdge);
+            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.ParchmentEdge.Darken(0.08f));
         }
 
-        /// <summary>Tabs in a row: the selected one is a raised green button on a plate, the others are sunk (FR-016).</summary>
+        /// <summary>
+        /// Tabs in a row (FR-016, spec 005): the selected one is a glossy green button on a cream plate with a white label,
+        /// the others are parchment wells with brown labels.
+        /// </summary>
         public static void Tabs(IPainter p, Box box, IReadOnlyList<string> labels, int selected, Action<int> onSelect)
         {
             p.Mark("ui.tab");
@@ -600,29 +854,29 @@ namespace Bloomlings.Playtest.Design
                 Box cell = cells[i];
                 if (i == selected)
                 {
-                    Box face = GardenButton(p, cell, GardenLook.Green, cell.Height / 2f, 0f);
+                    Box face = GardenButton(p, cell, GardenLook.Green, cell.Height / 2f, 0f, gloss: true);
                     p.Text(labels[i], face.CenterX, face.CenterY, T.ButtonSecondary, C.TextOnColor, face.Width * 0.86f, look: TextLook.OnColor(GardenLook.Green));
                 }
                 else
                 {
                     float depth = Press(p, cell, true);
                     Box well = cell.Inset(p.U(6f), p.U(8f)).Offset(0f, p.U(2f) + (p.U(2f) * depth));
-                    Well(p, well, well.Height / 2f, C.GardenTabSunk);
-                    p.Text(labels[i], well.CenterX, well.CenterY + p.U(3f), T.ButtonSecondary, C.GardenLabelPlain, well.Width * 0.86f, look: TextLook.Plain(C.GardenLabelPlain));
+                    Well(p, well, well.Height / 2f);
+                    p.Text(labels[i], well.CenterX, well.CenterY + p.U(3f), T.ButtonSecondary, C.InkBrown, well.Width * 0.86f, look: TextLook.Plain(C.InkBrown));
                 }
 
                 p.Hit(Touch(p, cells[i]), () => onSelect(index));
             }
         }
 
-        /// <summary>A switch (Settings): a chunky outlined track with a raised knob (FR-016); on is green with the knob right.</summary>
+        /// <summary>A switch (Settings): a chunky outlined track with a raised cream knob (FR-016); on is green with the knob right.</summary>
         public static void Toggle(IPainter p, Box box, bool on, Action action)
         {
             p.Mark("ui.toggle");
             float line = p.U(DesignTokens.Garden.OutlineWidth);
             if (on)
             {
-                p.FillRound(box, box.Height / 2f, GardenLook.Green.Face);
+                p.FillRoundGradient(box, box.Height / 2f, GardenLook.Green.Face.Darken(0.08f), GardenLook.Green.Face);
                 p.PushClip(box);
                 p.FillRoundGradient(new Box(box.Left, box.Top, box.Right, box.Top + (box.Height * 0.45f)), box.Height / 2f, C.GardenShadow.WithAlpha(0.18f), C.GardenShadow.WithAlpha(0f));
                 p.PopClip();
@@ -630,7 +884,7 @@ namespace Bloomlings.Playtest.Design
             }
             else
             {
-                Well(p, box, box.Height / 2f, C.GardenTabSunk);
+                Well(p, box, box.Height / 2f);
             }
 
             float knob = box.Height + p.U(8f);
@@ -640,14 +894,14 @@ namespace Bloomlings.Playtest.Design
             p.Hit(Touch(p, box), action);
         }
 
-        /// <summary>A short message over the board (a refused tap, a hint): a paper pill with a brown outline.</summary>
+        /// <summary>A short message over the board (a refused tap, a hint): a parchment pill with brown text.</summary>
         public static void Toast(IPainter p, Box area, string message)
         {
             float h = p.U(96f);
             float w = Math.Min(area.Width, p.MeasureText(message, T.Body) + p.U(80f));
             Box box = Box.FromCenter(area.CenterX, area.Bottom - (h / 2f) - p.U(16f), w, h);
             Paper(p, box, h / 2f, DesignTokens.Garden.OutlineWidth, 5f);
-            p.Text(message, box.CenterX, box.CenterY, T.Body, C.GardenLabelPlain, box.Width - p.U(40f));
+            p.Text(message, box.CenterX, box.CenterY, T.Body, C.InkBrown, box.Width - p.U(40f));
         }
 
         /// <summary>A box grown to the minimum touch size around its center (FR-027).</summary>

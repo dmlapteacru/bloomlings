@@ -237,7 +237,10 @@ namespace Bloomlings.Client.UI
             return label;
         }
 
-        /// <summary>A glyph on a garden face (FR-010): light with a dark line under it on colors, dark on cream and white.</summary>
+        /// <summary>
+        /// A glyph on a garden face (FR-010): light with a dark line under it on colors; dark brown on cream and white with
+        /// a thin <c>cream.top</c> halo all around it (spec 005 §3.3).
+        /// </summary>
         public static Image GardenGlyph(GardenButton button, Transform parent, string shapeId)
         {
             Image glyph = UiFactory.CreateImage("Glyph", parent, ProceduralSprites.Shape(shapeId), UiTheme.Of(GardenLook.GlyphOn(button.Set)));
@@ -247,6 +250,12 @@ namespace Bloomlings.Client.UI
                 var line = glyph.gameObject.AddComponent<Shadow>();
                 line.effectColor = UiTheme.Of(button.Set.Line);
                 line.effectDistance = new Vector2(0f, -Units(5f));
+            }
+            else
+            {
+                var halo = glyph.gameObject.AddComponent<Outline>();
+                halo.effectColor = UiTheme.Of(DesignTokens.Colors.CreamTop);
+                halo.effectDistance = new Vector2(Units(2f), -Units(2f));
             }
 
             return glyph;
@@ -398,19 +407,45 @@ namespace Bloomlings.Client.UI
             return label;
         }
 
-        /// <summary>The Petal symbol with its outline: pink petals around a yellow center (FR-006, spec 003 FR-010).</summary>
-        public static Image PetalIcon(string name, Transform parent)
+        /// <summary>The Petals symbol: the pink lotus with its outline and light tips (FR-006; spec 005 contracts/look.md §3.4).</summary>
+        public static Image PetalIcon(string name, Transform parent) => IconParts(name, parent, GardenLook.Lotus);
+
+        /// <summary>
+        /// A multi-part icon (spec 005 contracts/look.md §3.4, §3.8: the lotus, the colored booster icons): each part's
+        /// outline, then its fill, back to front. The first layer is the returned root; the others stretch over it.
+        /// </summary>
+        public static Image IconParts(string name, Transform parent, System.Collections.Generic.IReadOnlyList<IconPart> parts)
         {
-            Func<float, float, float> sdf = ShapeLibrary.Get("currency.petal");
-            Image line = UiFactory.CreateImage(name, parent, ProceduralSprites.Composite("currency.petal/line", (x, y) => sdf(x, y) - 0.07f), UiTheme.Of(DesignTokens.Colors.PetalEdge));
-            line.preserveAspect = true;
-            Image petal = UiFactory.CreateImage("Petal", line.transform, ProceduralSprites.Petal, UiTheme.Petal);
-            petal.preserveAspect = true;
-            UiFactory.Stretch(petal.rectTransform);
-            Image center = UiFactory.CreateImage("Center", line.transform, ProceduralSprites.Circle, UiTheme.PetalCenter);
-            center.preserveAspect = true;
-            UiFactory.Place(center.rectTransform, 0.39f, 0.39f, 0.61f, 0.61f);
-            return line;
+            Image? root = null;
+            foreach (IconPart part in parts)
+            {
+                if (part.Line.HasValue && part.Grow > 0f)
+                {
+                    Func<float, float, float> sdf = ShapeLibrary.Get(part.ShapeId);
+                    float grow = part.Grow;
+                    string key = part.ShapeId + "/line/" + grow.ToString("0.###", CultureInfo.InvariantCulture);
+                    root = Layer(root, ProceduralSprites.Composite(key, (x, y) => sdf(x, y) - grow), part.Line.Value);
+                }
+
+                root = Layer(root, ProceduralSprites.Shape(part.ShapeId), part.Fill);
+            }
+
+            return root ?? UiFactory.CreateImage(name, parent, null, Color.clear);
+
+            Image Layer(Image? under, Sprite sprite, Rgba color)
+            {
+                if (under == null)
+                {
+                    Image first = UiFactory.CreateImage(name, parent, sprite, UiTheme.Of(color));
+                    first.preserveAspect = true;
+                    return first;
+                }
+
+                Image layer = UiFactory.CreateImage("Part", under.transform, sprite, UiTheme.Of(color));
+                layer.preserveAspect = true;
+                UiFactory.Stretch(layer.rectTransform);
+                return under;
+            }
         }
 
         /// <summary>

@@ -31,6 +31,8 @@ Coordinates are in pixels of the target surface. Colors are `Rgba` from `DesignT
 | `PushAlpha(a)`, `PopAlpha()` | multiply alpha for faded elements |
 | `PushTransform(dx, dy, scale, cx, cy)`, `PopTransform()` | translate and scale about a point (press and pop motion) |
 | `Backdrop(rect, colors, scene, key)` | the garden backdrop of a theme (`BackdropRaster`), cached as an image by `key` |
+| `Picture(key, rect, render)` | an engine-free RGBA picture (spec 005 `UiRaster`: wood, stone, candy tiles) rendered at the rect's size rounded up to multiples of 8, cached by `key@WxH`, stretched with filtering; callers `Mark` its slot |
+| `Sprite(name, rect)`, `HasSprite(name)`, `SpriteSize(name)` | an embedded picture fitted into `rect` (aspect kept), whether it is embedded, and its pixel size or none: character pictures (`2d/leaf-happy`), and the owner's pictures of spec 005 `pictures.md` (`bg/home`, `brand/logo`; `Visuals.Background` cover-fits a background, else draws the stand-in) |
 | `Hit(rect, action)` | a touch target (in the current transform) |
 | `Pressed(rect)` | whether a finger is down inside `rect` (pressed looks) |
 | `Mark(slotId)` | records that an asset slot is drawn procedurally here (preview only; a no-op on the phone) |

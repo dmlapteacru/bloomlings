@@ -4,7 +4,7 @@ namespace Bloomlings.Client.Art.Variants
 {
     /// <summary>
     /// The ink (icon and count color) drawn on a variant color: white or a dark ink, whichever has the higher WCAG
-    /// contrast ratio. Light variants (Leaf, Flower, Dew) get the dark ink, so their icons and counts stay readable
+    /// contrast ratio. Light variants (Leaf, Moss, Flower, Dew) get the dark ink, so their icons and counts stay readable
     /// (FR-005, FR-072). Engine-free; channels in 0–1 (sRGB).
     /// </summary>
     public static class InkContrast

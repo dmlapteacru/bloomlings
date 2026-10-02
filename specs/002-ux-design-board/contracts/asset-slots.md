@@ -21,11 +21,13 @@ in `client/Assets/Bloomlings/UI/Design/AssetSlots.cs` (engine-free). A slot has 
 | `bg.` | Background | `bg.theme.daylight_garden`, `bg.theme.pond`, `bg.home`, `bg.splash` |
 | `char.` | Character | `char.sprig.idle`, `char.bloom.walk`, `char.hero.home`, `char.face` |
 | `symbol.` | VariantSymbol | `symbol.leaf`, `symbol.moss`, …, `symbol.bark` (8 launch + 4 expansion) |
-| `tile.` | BoardTile | `tile.base`, `tile.layer_peek`, `tile.mystery`, `tile.stone`, `tile.key`, `tile.ground`, `tile.entry`, `tile.picture` |
+| `tile.` | BoardTile | `tile.base`, `tile.layer_peek`, `tile.mystery`, `tile.stone`, `tile.key`, `tile.ground`, `tile.entry`, `tile.picture`, `tile.candy`, `tile.candy.sticker` |
+| `board.` | BoardTile | `board.border.stone`, `board.arch` (spec 005: the stone furniture around the board) |
 | `special.` | Special | `special.gate`, `special.fountain`, `special.chest`, `special.statue`, `special.bridge`, `special.bridge_broken` |
 | `pod.` / `slot.` | PodSlot | `pod.card`, `pod.state.locked`, `pod.state.mystery`, `pod.link`, `pod.count`, `slot.empty`, `slot.state.danger`, `slot.extra` |
 | `booster.` | Booster | `booster.extra_slot`, `booster.shuffle`, `booster.return`, `booster.bloom_burst` |
-| `ui.` | UiKit | `ui.button.primary`, `ui.pill.level`, `ui.badge.hard`, `ui.card`, `ui.sheet`, `ui.close`, `ui.pause`, `ui.medal.gold`, `ui.ad`, `ui.gift`, `ui.check` |
+| `ui.` | UiKit | `ui.button.primary`, `ui.pill.level`, `ui.badge.hard`, `ui.card`, `ui.sheet`, `ui.close`, `ui.pause`, `ui.medal.gold`, `ui.ad`, `ui.gift`, `ui.check`, `ui.sign.wood`, `ui.pedestal` |
+| `mat.` | Material | `mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment` (spec 005 FR-006: engine-free material pictures) |
 | `currency.` | Currency | `currency.petal`, `currency.reward_basket`, `currency.milestone.skin` |
 | `collection.` | CollectionFrame | `collection.frame`, `collection.frame.new` |
 | `cosmetic.` | Cosmetic | `cosmetic.hat.cap`, `cosmetic.skin.spots`, `cosmetic.frame`, `cosmetic.badge` |

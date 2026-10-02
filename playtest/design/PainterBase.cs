@@ -126,10 +126,35 @@ namespace Bloomlings.Playtest.Design
 
         public abstract bool HasSprite(string name);
 
+        public abstract (int Width, int Height)? SpriteSize(string name);
+
         public abstract void SpriteSkin(string name, Box box, string skinShape, Rgba tint);
 
-        /// <summary>The embedded resource name of a character picture (contracts/art-files.md "Loading").</summary>
-        public static string SpriteResource(string name) => "characters/" + name + ".png";
+        /// <summary>
+        /// The embedded resource name of a picture: <c>bg/{name}</c> is an owner background and <c>brand/{name}</c> the
+        /// logo (spec 005 pictures.md B and C, <see cref="OwnerPictures"/>); every other name is a character picture
+        /// (spec 004 contracts/art-files.md "Loading").
+        /// </summary>
+        public static string SpriteResource(string name)
+        {
+            if (name.StartsWith(BackgroundPrefix, StringComparison.Ordinal))
+            {
+                return "backgrounds/" + name.Substring(BackgroundPrefix.Length) + ".png";
+            }
+
+            if (name.StartsWith(BrandPrefix, StringComparison.Ordinal))
+            {
+                return "brand/" + name.Substring(BrandPrefix.Length) + ".png";
+            }
+
+            return "characters/" + name + ".png";
+        }
+
+        /// <summary>The name prefix of the owner's backgrounds (<c>bg/home</c>).</summary>
+        public const string BackgroundPrefix = "bg/";
+
+        /// <summary>The name prefix of the owner's logo pictures (<c>brand/logo</c>).</summary>
+        public const string BrandPrefix = "brand/";
 
         /// <summary>A picture of <paramref name="width"/> × <paramref name="height"/> fitted into a box: aspect kept, centered.</summary>
         public static Box Fit(Box box, float width, float height) => CharacterArt.FitBox(box, width, height);
@@ -189,6 +214,14 @@ namespace Bloomlings.Playtest.Design
         public abstract float MeasureText(string text, TypeStyle style, float sizeScale = 1f);
 
         public abstract void Backdrop(Box box, BackdropColors colors, BackdropScene scene, string cacheKey);
+
+        public abstract void Picture(string key, Box box, Func<int, int, byte[]> render);
+
+        /// <summary>The cache size of a picture's side (<see cref="UiRaster.Quantize"/>).</summary>
+        protected static int PictureSize(float pixels) => UiRaster.Quantize(pixels);
+
+        /// <summary>How many pictures a painter keeps before it drops them all and renders again on demand.</summary>
+        protected const int PictureCacheLimit = 400;
 
         public abstract void PushClip(Box box);
 

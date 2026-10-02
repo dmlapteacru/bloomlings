@@ -192,11 +192,12 @@ namespace Bloomlings.Client.Tests
                 Assert.That(CosmeticCatalog.TryParseHex(info.ColorHex, out double r, out double g, out double b), Is.True);
                 Assert.That(InkContrast.BestRatio(r, g, b), Is.GreaterThanOrEqualTo(3.0), info.Id.Key + ": icons and counts need 3:1");
                 bool dark = InkContrast.UseDarkInk(r, g, b);
-                if (info.Id == VariantId.Leaf || info.Id == VariantId.Flower || info.Id == VariantId.Dew)
+                // Spec 005 research D1: the saturated palette makes Moss light enough for the dark ink too.
+                if (info.Id == VariantId.Leaf || info.Id == VariantId.Moss || info.Id == VariantId.Flower || info.Id == VariantId.Dew)
                 {
                     Assert.That(dark, Is.True, info.Id.Key);
                 }
-                else if (info.Id == VariantId.Moss || info.Id == VariantId.VioletBud || info.Id == VariantId.Wood)
+                else if (info.Id == VariantId.VioletBud || info.Id == VariantId.Wood)
                 {
                     Assert.That(dark, Is.False, info.Id.Key);
                 }

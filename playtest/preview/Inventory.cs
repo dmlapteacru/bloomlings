@@ -59,11 +59,17 @@ namespace Bloomlings.Playtest.Preview
                 md.AppendLine();
                 if (group.Key == AssetCategory.UiKit)
                 {
-                    // Spec 003 FR-030: the final UI art follows the Garden look.
-                    md.AppendLine("Final art for every entry here follows the Garden look of spec 003: a flat cream plate with a thin brown");
-                    md.AppendLine("outline, a slightly raised face in its color set with a darker lip and a soft highlight, volumetric");
-                    md.AppendLine("sentence-case labels in Nunito, and, on the main buttons only, the leaves and white flowers of");
-                    md.AppendLine("`ui.deco.garden`. Cards and the sheet are paper in a wooden frame with a header band.");
+                    // Spec 003 FR-030 and spec 005: the final UI art follows the reference look.
+                    md.AppendLine("Final art for every entry here follows the reference look of spec 005 (`specs/005-reference-look/`): glossy");
+                    md.AppendLine("raised faces with a darker lip and a highlight band, green main buttons in a light wood rim with the");
+                    md.AppendLine("leaves and white flowers of `ui.deco.garden`, cream secondary and icon buttons with brown glyphs, wooden");
+                    md.AppendLine("signs, parchment cards with a brown outline, and sentence-case labels in Nunito.");
+                    md.AppendLine();
+                }
+                else if (group.Key == AssetCategory.Material)
+                {
+                    md.AppendLine("The materials are engine-free pictures rendered by `UiRaster` in both builds (spec 005 research D4): the same");
+                    md.AppendLine("size and inputs give the same pixels. Painted 9-slice art may replace them (spec 005 pictures.md D).");
                     md.AppendLine();
                 }
                 else if (group.Key == AssetCategory.Character)
@@ -109,6 +115,7 @@ namespace Bloomlings.Playtest.Preview
             AssetCategory.PodSlot => "Pods and slots",
             AssetCategory.Booster => "Booster icons",
             AssetCategory.UiKit => "UI kit",
+            AssetCategory.Material => "Materials",
             AssetCategory.Currency => "Currency and rewards",
             AssetCategory.CollectionFrame => "Collection frames",
             AssetCategory.Cosmetic => "Cosmetics",

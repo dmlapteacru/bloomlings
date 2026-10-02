@@ -16,7 +16,8 @@ namespace Bloomlings.Client.UI.Design
     /// The named values of the design board's visual language (FR-005, research R6), implemented once for the Unity
     /// client and the full playtest. The values are sampled from <c>specs/002-ux-design-board/ux-design-board.webp</c>
     /// and documented in <c>contracts/design-tokens.md</c>; screens use these names, never literal colors or sizes.
-    /// Engine-free.
+    /// Spec 005 adds the reference look's materials (wood, stone, parchment, cream, lotus, lawn, ivy) from
+    /// <c>specs/005-reference-look/contracts/look.md</c> §1.2. Engine-free.
     /// </summary>
     public static class DesignTokens
     {
@@ -37,9 +38,9 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba TextSecondary = Rgba.FromHex("#6B7280");
             public static readonly Rgba TextOnColor = Rgba.FromHex("#FFFFFF");
             public static readonly Rgba TextOutline = Rgba.FromHex("#2E3440").WithAlpha(0.35f);
-            public static readonly Rgba ButtonPrimary = Rgba.FromHex("#5DBB46");
-            public static readonly Rgba ButtonPrimaryTop = Rgba.FromHex("#7ED35F");
-            public static readonly Rgba ButtonPrimaryEdge = Rgba.FromHex("#3D8B2F");
+            public static readonly Rgba ButtonPrimary = Rgba.FromHex("#62B83A");
+            public static readonly Rgba ButtonPrimaryTop = Rgba.FromHex("#ADE162");
+            public static readonly Rgba ButtonPrimaryEdge = Rgba.FromHex("#378F24");
             public static readonly Rgba ButtonSecondary = Rgba.FromHex("#F4EAD5");
             public static readonly Rgba ButtonSecondaryEdge = Rgba.FromHex("#D9C9A6");
             public static readonly Rgba ButtonIcon = Rgba.FromHex("#FFFFFF");
@@ -119,6 +120,113 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba GardenFlowerCenter = Rgba.FromHex("#FFD35C");
             public static readonly Rgba GardenFlowerCenterLine = Rgba.FromHex("#D29B2E");
             public static readonly Rgba GardenGlow = Rgba.FromHex("#FFD54A");
+
+            // ---- The reference look (spec 005 contracts/look.md §1.2) ----
+
+            /// <summary>Sign / rim face top.</summary>
+            public static readonly Rgba WoodLight = Rgba.FromHex("#FBE2BC");
+
+            /// <summary>Sign / rim face bottom.</summary>
+            public static readonly Rgba WoodMid = Rgba.FromHex("#F1CD98");
+
+            /// <summary>Grain lines (alpha 0.25–0.45).</summary>
+            public static readonly Rgba WoodGrain = Rgba.FromHex("#C99863");
+
+            /// <summary>Sign lower lip.</summary>
+            public static readonly Rgba WoodEdge = Rgba.FromHex("#DDB27C");
+
+            /// <summary>Sign / rim outline.</summary>
+            public static readonly Rgba WoodLine = Rgba.FromHex("#8B5A2B");
+
+            /// <summary>Pod frame face.</summary>
+            public static readonly Rgba WoodDark = Rgba.FromHex("#8A5634");
+
+            /// <summary>Pod frame top light.</summary>
+            public static readonly Rgba WoodDarkTop = Rgba.FromHex("#A86F45");
+
+            /// <summary>Pod frame outline.</summary>
+            public static readonly Rgba WoodDarkLine = Rgba.FromHex("#4A2A14");
+
+            /// <summary>Stone block top light.</summary>
+            public static readonly Rgba StoneTop = Rgba.FromHex("#F6DDB2");
+
+            /// <summary>Stone block face.</summary>
+            public static readonly Rgba StoneFace = Rgba.FromHex("#E8C99A");
+
+            /// <summary>Stone block lower edge.</summary>
+            public static readonly Rgba StoneLip = Rgba.FromHex("#CDA877");
+
+            /// <summary>Stone outline and joints.</summary>
+            public static readonly Rgba StoneLine = Rgba.FromHex("#7E6844");
+
+            /// <summary>Moss patches.</summary>
+            public static readonly Rgba StoneMoss = Rgba.FromHex("#7DB24A");
+
+            /// <summary>Card / tray top.</summary>
+            public static readonly Rgba ParchmentTop = Rgba.FromHex("#FFF8E8");
+
+            /// <summary>Card / tray bottom.</summary>
+            public static readonly Rgba ParchmentBottom = Rgba.FromHex("#F5E4C3");
+
+            /// <summary>Inner border line, plate depth.</summary>
+            public static readonly Rgba ParchmentEdge = Rgba.FromHex("#EBCB9A");
+
+            /// <summary>Card outline.</summary>
+            public static readonly Rgba ParchmentLine = Rgba.FromHex("#B48552");
+
+            /// <summary>Inset wells (jam row, sunk tabs).</summary>
+            public static readonly Rgba ParchmentWell = Rgba.FromHex("#F3D7AB");
+
+            /// <summary>Cream button / slot / booster face.</summary>
+            public static readonly Rgba CreamFace = Rgba.FromHex("#FCE7C8");
+
+            /// <summary>Cream face top.</summary>
+            public static readonly Rgba CreamTop = Rgba.FromHex("#FFF6E6");
+
+            /// <summary>Cream lower lip.</summary>
+            public static readonly Rgba CreamLip = Rgba.FromHex("#E6C69B");
+
+            /// <summary>Cream outline.</summary>
+            public static readonly Rgba CreamLine = Rgba.FromHex("#C79F6F");
+
+            /// <summary>Titles, sign letters, counts, glyphs on cream.</summary>
+            public static readonly Rgba InkBrown = Rgba.FromHex("#5A3418");
+
+            /// <summary>Body text on parchment.</summary>
+            public static readonly Rgba InkBrownSoft = Rgba.FromHex("#7B5A3A");
+
+            /// <summary>Lotus petals.</summary>
+            public static readonly Rgba LotusFill = Rgba.FromHex("#F7739F");
+
+            /// <summary>Lotus petal light.</summary>
+            public static readonly Rgba LotusTip = Rgba.FromHex("#FFE4EE");
+
+            /// <summary>Lotus outline.</summary>
+            public static readonly Rgba LotusLine = Rgba.FromHex("#D14F7A");
+
+            /// <summary>Count badge disc.</summary>
+            public static readonly Rgba BadgeGreen = Rgba.FromHex("#245C34");
+
+            /// <summary>Gameplay lawn.</summary>
+            public static readonly Rgba LawnLight = Rgba.FromHex("#93CC5B");
+
+            /// <summary>Lawn shade, grass strokes.</summary>
+            public static readonly Rgba LawnDark = Rgba.FromHex("#5E9E3D");
+
+            /// <summary>Ivy / clover leaves on signs.</summary>
+            public static readonly Rgba IvyLeaf = Rgba.FromHex("#96D03C");
+
+            /// <summary>Ivy outline.</summary>
+            public static readonly Rgba IvyLine = Rgba.FromHex("#2F6A18");
+
+            /// <summary>Jam Return / Bloom Burst buttons.</summary>
+            public static readonly Rgba ButtonBlue = Rgba.FromHex("#45A3EE");
+
+            /// <summary>Orange buttons ("Next" in the strip).</summary>
+            public static readonly Rgba ButtonOrange = Rgba.FromHex("#F6B021");
+
+            /// <summary>Win light rays (alpha).</summary>
+            public static readonly Rgba RayLight = Rgba.FromHex("#FFF4C8");
 
             /// <summary>Every color token by its contract name (tests and docs).</summary>
             public static IReadOnlyDictionary<string, Rgba> All { get; } = new Dictionary<string, Rgba>(StringComparer.Ordinal)
@@ -212,6 +320,41 @@ namespace Bloomlings.Client.UI.Design
                 ["garden.flower_center"] = GardenFlowerCenter,
                 ["garden.flower_center_line"] = GardenFlowerCenterLine,
                 ["garden.glow"] = GardenGlow,
+                ["wood.light"] = WoodLight,
+                ["wood.mid"] = WoodMid,
+                ["wood.grain"] = WoodGrain,
+                ["wood.edge"] = WoodEdge,
+                ["wood.line"] = WoodLine,
+                ["wood.dark"] = WoodDark,
+                ["wood.dark_top"] = WoodDarkTop,
+                ["wood.dark_line"] = WoodDarkLine,
+                ["stone.top"] = StoneTop,
+                ["stone.face"] = StoneFace,
+                ["stone.lip"] = StoneLip,
+                ["stone.line"] = StoneLine,
+                ["stone.moss"] = StoneMoss,
+                ["parchment.top"] = ParchmentTop,
+                ["parchment.bottom"] = ParchmentBottom,
+                ["parchment.edge"] = ParchmentEdge,
+                ["parchment.line"] = ParchmentLine,
+                ["parchment.well"] = ParchmentWell,
+                ["cream.face"] = CreamFace,
+                ["cream.top"] = CreamTop,
+                ["cream.lip"] = CreamLip,
+                ["cream.line"] = CreamLine,
+                ["ink.brown"] = InkBrown,
+                ["ink.brown_soft"] = InkBrownSoft,
+                ["lotus.fill"] = LotusFill,
+                ["lotus.tip"] = LotusTip,
+                ["lotus.line"] = LotusLine,
+                ["badge.green"] = BadgeGreen,
+                ["lawn.light"] = LawnLight,
+                ["lawn.dark"] = LawnDark,
+                ["ivy.leaf"] = IvyLeaf,
+                ["ivy.line"] = IvyLine,
+                ["button.blue"] = ButtonBlue,
+                ["button.orange"] = ButtonOrange,
+                ["ray.light"] = RayLight,
             };
 
             /// <summary>The medal color of ranks 1–3, or null for other ranks.</summary>

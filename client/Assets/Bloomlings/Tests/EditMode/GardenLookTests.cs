@@ -10,16 +10,60 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void ColoredSets_DeriveTheirShades_FromOneBase()
         {
-            foreach (ColorSet set in GardenLook.ColoredSets)
+            // Spec 005 contracts/look.md §1.3 gives green, blue and orange their own shades; the others derive from one base.
+            ColorSet[] reference = { GardenLook.Green, GardenLook.Blue, GardenLook.Orange };
+            foreach (ColorSet set in GardenLook.ColoredSets.Where(s => !reference.Contains(s)))
             {
                 Assert.That(set.Top, Is.EqualTo(set.Face.Lighten(0.18f)), set.Name);
                 Assert.That(set.Lip, Is.EqualTo(set.Face.Darken(0.25f)), set.Name);
                 Assert.That(set.Line, Is.EqualTo(set.Face.Darken(0.42f)), set.Name);
             }
+
+            foreach (ColorSet set in GardenLook.ColoredSets)
+            {
+                Assert.That(set.Top.Luminance, Is.GreaterThan(set.Face.Luminance), set.Name + " top");
+                Assert.That(set.Lip.Luminance, Is.LessThan(set.Face.Luminance), set.Name + " lip");
+                Assert.That(set.Line.Luminance, Is.LessThan(set.Lip.Luminance), set.Name + " line");
+            }
         }
 
         [Test]
-        public void NoOutline_IsPureBlack_AndCreamUsesTheGardenBrown()
+        public void TheReferenceSets_UseTheContractShades()
+        {
+            Assert.That(GardenLook.Green, Is.EqualTo(new ColorSet("set.green", Rgba.FromHex("#62B83A"), Rgba.FromHex("#ADE162"), Rgba.FromHex("#378F24"), Rgba.FromHex("#24661A"))));
+            Assert.That(DesignTokens.Colors.ButtonPrimary, Is.EqualTo(GardenLook.Green.Face));
+            Rgba blue = DesignTokens.Colors.ButtonBlue;
+            Assert.That(GardenLook.Blue, Is.EqualTo(new ColorSet("set.blue", blue, blue.Lighten(0.3f), blue.Darken(0.25f), blue.Darken(0.42f))));
+            Rgba orange = DesignTokens.Colors.ButtonOrange;
+            Assert.That(GardenLook.Orange, Is.EqualTo(new ColorSet("set.orange", orange, orange.Lighten(0.3f), orange.Darken(0.22f), orange.Darken(0.42f))));
+            Assert.That(GardenLook.White.Name, Is.EqualTo("set.white"));
+            Assert.That(GardenLook.White.Face, Is.EqualTo(GardenLook.Cream.Face));
+            Assert.That(GardenLook.Cream.Face, Is.EqualTo(DesignTokens.Colors.CreamFace));
+            Assert.That(GardenLook.LabelOn(GardenLook.Cream).FillTop, Is.EqualTo(DesignTokens.Colors.InkBrown));
+            Assert.That(GardenLook.GlyphOn(GardenLook.White), Is.EqualTo(DesignTokens.Colors.InkBrown));
+        }
+
+        [Test]
+        public void TheIconRecipes_NameShapesOfTheLibrary()
+        {
+            var parts = new System.Collections.Generic.List<IconPart>(GardenLook.Lotus) { GardenLook.FastGlyph, GardenLook.BackGlyph };
+            foreach (string id in new[] { "extra_slot", "shuffle", "return", "bloom_burst" })
+            {
+                Assert.That(GardenLook.BoosterIcon(id), Is.Not.Empty, id);
+                parts.AddRange(GardenLook.BoosterIcon(id));
+            }
+
+            foreach (IconPart part in parts)
+            {
+                Assert.That(ShapeLibrary.Has(part.ShapeId), Is.True, part.ShapeId);
+                Assert.That(part.Grow, Is.GreaterThanOrEqualTo(0f).And.LessThan(0.2f), part.ShapeId);
+            }
+
+            Assert.That(GardenLook.Lotus[0].ShapeId, Is.EqualTo("currency.petal"));
+        }
+
+        [Test]
+        public void NoOutline_IsPureBlack_AndCreamUsesTheCreamLine()
         {
             foreach (ColorSet set in GardenLook.Sets)
             {
@@ -27,7 +71,7 @@ namespace Bloomlings.Client.Tests
                 Assert.That(set.Line.Luminance, Is.GreaterThan(0.01), set.Name);
             }
 
-            Assert.That(GardenLook.Cream.Line, Is.EqualTo(DesignTokens.Colors.GardenOutline));
+            Assert.That(GardenLook.Cream.Line, Is.EqualTo(DesignTokens.Colors.CreamLine));
         }
 
         [Test]
@@ -56,6 +100,11 @@ namespace Bloomlings.Client.Tests
             }
 
             Assert.That(Rgba.Contrast(DesignTokens.Colors.GardenLabelPlain, DesignTokens.Colors.GardenPaperBottom), Is.GreaterThanOrEqualTo(4.5));
+
+            // Spec 005: titles and body text on parchment.
+            Assert.That(Rgba.Contrast(DesignTokens.Colors.InkBrown, DesignTokens.Colors.ParchmentBottom), Is.GreaterThanOrEqualTo(4.5));
+            Assert.That(Rgba.Contrast(DesignTokens.Colors.InkBrownSoft, DesignTokens.Colors.ParchmentBottom), Is.GreaterThanOrEqualTo(4.5));
+            Assert.That(Rgba.Contrast(DesignTokens.Colors.InkBrown, DesignTokens.Colors.WoodMid), Is.GreaterThanOrEqualTo(4.5), "sign letters");
         }
 
         [Test]

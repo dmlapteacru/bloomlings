@@ -62,6 +62,163 @@ namespace Bloomlings.Client.UI.Design
         public static Func<float, float, float> DecorationPartSdf(DecorationPart part, float grow, bool flipped) =>
             flipped ? (x, y) => DecorationSdf(part, -x, -y) - grow : (Func<float, float, float>)((x, y) => DecorationSdf(part, x, y) - grow);
 
+        /// <summary>How many clover leaves make the ivy cluster of a wooden sign (<c>ui.sign.ivy</c>, spec 005 §3.9).</summary>
+        public const int IvyLeafCount = 6;
+
+        /// <summary>
+        /// One clover leaf of the ivy cluster (<c>ui.sign.ivy</c>), grown by <paramref name="grow"/> (positive: its
+        /// outline ring), mirrored left to right when <paramref name="flipped"/> (the sign's right end). Leaves are listed
+        /// back to front.
+        /// </summary>
+        public static Func<float, float, float> IvyLeafSdf(int leaf, float grow, bool flipped) =>
+            flipped ? (x, y) => IvyLeaf(leaf, -x, y) - grow : (Func<float, float, float>)((x, y) => IvyLeaf(leaf, x, y) - grow);
+
+        /// <summary>
+        /// The midribs of one clover leaf's three leaflets (a thin line from its middle toward each tip), as a distance
+        /// <paramref name="half"/> wide, mirrored like <see cref="IvyLeafSdf"/>.
+        /// </summary>
+        public static Func<float, float, float> IvyVeinSdf(int leaf, float half, bool flipped) =>
+            flipped ? (x, y) => IvyVeins(leaf, -x, y) - half : (Func<float, float, float>)((x, y) => IvyVeins(leaf, x, y) - half);
+
+        /// <summary>
+        /// The ivy cluster's leaves: center, size and turn. Two groups gather at the top and bottom corners of a plank's end
+        /// (around y 0.55 and −0.5) with one leaf bridging them.
+        /// </summary>
+        private static readonly (float X, float Y, float R, float Turn)[] IvyLeaves =
+        {
+            (-0.16f, 0.6f, 0.4f, 0.5f),
+            (0.22f, 0.44f, 0.34f, 1.25f),
+            (-0.04f, 0.02f, 0.32f, 2.3f),
+            (-0.12f, -0.46f, 0.42f, 0.95f),
+            (0.26f, -0.62f, 0.34f, 1.75f),
+            (-0.3f, -0.74f, 0.32f, 0.2f),
+        };
+
+        /// <summary>A clover leaf: three pointed, heart-like leaflets from its middle, their tips outward.</summary>
+        private static float IvyLeaf(int leaf, float x, float y)
+        {
+            (float cx, float cy, float r, float turn) = IvyLeaves[((leaf % IvyLeafCount) + IvyLeafCount) % IvyLeafCount];
+            float d = Length(x - cx, y - cy) - (0.2f * r);
+            for (int k = 0; k < 3; k++)
+            {
+                float a = turn + (k * 2f * MathF.PI / 3f);
+                d = MathF.Min(d, LensSdf(x, y, cx, cy, cx + (0.95f * r * MathF.Cos(a)), cy + (0.95f * r * MathF.Sin(a)), 0.38f * r));
+            }
+
+            return d;
+        }
+
+        /// <summary>The distance to a clover leaf's three midribs (from its middle to 80% of each leaflet).</summary>
+        private static float IvyVeins(int leaf, float x, float y)
+        {
+            (float cx, float cy, float r, float turn) = IvyLeaves[((leaf % IvyLeafCount) + IvyLeafCount) % IvyLeafCount];
+            float d = float.MaxValue;
+            for (int k = 0; k < 3; k++)
+            {
+                float a = turn + (k * 2f * MathF.PI / 3f);
+                d = MathF.Min(d, Segment(x, y, cx + (0.12f * r * MathF.Cos(a)), cy + (0.12f * r * MathF.Sin(a)), cx + (0.76f * r * MathF.Cos(a)), cy + (0.76f * r * MathF.Sin(a))));
+            }
+
+            return d;
+        }
+
+        /// <summary>How many leaves make a flower cluster at a win sign's ends (spec 005 §3.9); two flowers lie over them.</summary>
+        public const int FlowerClusterLeafCount = 5;
+
+        /// <summary>How many flowers a flower cluster has.</summary>
+        public const int FlowerClusterFlowerCount = 2;
+
+        /// <summary>
+        /// One leaf of a flower cluster (the win sign's ends, spec 005 §3.9): a broad almond fanned out from the cluster's
+        /// base toward the upper left, left and lower left, grown by <paramref name="grow"/>, turned half way when
+        /// <paramref name="flipped"/> (the bottom-right end). Leaves are listed back to front.
+        /// </summary>
+        public static Func<float, float, float> ClusterLeafSdf(int leaf, float grow, bool flipped) =>
+            flipped ? (x, y) => ClusterLeaf(leaf, -x, -y) - grow : (Func<float, float, float>)((x, y) => ClusterLeaf(leaf, x, y) - grow);
+
+        /// <summary>A flower cluster leaf's midrib, a line <paramref name="half"/> wide, turned like <see cref="ClusterLeafSdf"/>.</summary>
+        public static Func<float, float, float> ClusterVeinSdf(int leaf, float half, bool flipped) =>
+            flipped ? (x, y) => ClusterVein(leaf, -x, -y) - half : (Func<float, float, float>)((x, y) => ClusterVein(leaf, x, y) - half);
+
+        /// <summary>
+        /// One white flower of a flower cluster: its five round petals (<paramref name="center"/> false) or its round middle
+        /// (true), grown by <paramref name="grow"/>, turned like <see cref="ClusterLeafSdf"/>.
+        /// </summary>
+        public static Func<float, float, float> ClusterFlowerSdf(int flower, bool center, float grow, bool flipped) =>
+            flipped ? (x, y) => ClusterFlower(flower, center, -x, -y) - grow : (Func<float, float, float>)((x, y) => ClusterFlower(flower, center, x, y) - grow);
+
+        /// <summary>The cluster's leaves: direction (degrees, y up), length and half-width, all from the base point.</summary>
+        private static readonly (float Angle, float Length, float Half)[] ClusterLeaves =
+        {
+            (108f, 1.0f, 0.3f),
+            (136f, 1.06f, 0.33f),
+            (162f, 0.94f, 0.3f),
+            (188f, 1.0f, 0.31f),
+            (214f, 0.8f, 0.26f),
+        };
+
+        /// <summary>The cluster's flowers: center, radius and turn (the big one over the leaves, the small one at the corner).</summary>
+        private static readonly (float X, float Y, float R, float Turn)[] ClusterFlowers =
+        {
+            (-0.34f, -0.04f, 0.37f, 0.2f),
+            (0.3f, 0.5f, 0.28f, 0.75f),
+        };
+
+        private const float ClusterBaseX = 0.12f;
+        private const float ClusterBaseY = -0.08f;
+
+        private static (float X, float Y) ClusterLeafTip(int leaf)
+        {
+            (float Angle, float Length, float Half) shape = ClusterLeaves[((leaf % FlowerClusterLeafCount) + FlowerClusterLeafCount) % FlowerClusterLeafCount];
+            float a = shape.Angle * MathF.PI / 180f;
+            return (ClusterBaseX + (shape.Length * MathF.Cos(a)), ClusterBaseY + (shape.Length * MathF.Sin(a)));
+        }
+
+        private static float ClusterLeaf(int leaf, float x, float y)
+        {
+            (float tx, float ty) = ClusterLeafTip(leaf);
+            float half = ClusterLeaves[((leaf % FlowerClusterLeafCount) + FlowerClusterLeafCount) % FlowerClusterLeafCount].Half;
+            return LensSdf(x, y, ClusterBaseX, ClusterBaseY, tx, ty, half);
+        }
+
+        private static float ClusterVein(int leaf, float x, float y)
+        {
+            (float tx, float ty) = ClusterLeafTip(leaf);
+            float dx = tx - ClusterBaseX;
+            float dy = ty - ClusterBaseY;
+            return Segment(x, y, ClusterBaseX + (0.12f * dx), ClusterBaseY + (0.12f * dy), ClusterBaseX + (0.84f * dx), ClusterBaseY + (0.84f * dy));
+        }
+
+        private static float ClusterFlower(int flower, bool center, float x, float y)
+        {
+            (float cx, float cy, float r, float turn) = ClusterFlowers[((flower % FlowerClusterFlowerCount) + FlowerClusterFlowerCount) % FlowerClusterFlowerCount];
+            if (center)
+            {
+                return Length(x - cx, y - cy) - (0.3f * r);
+            }
+
+            float d = Length(x - cx, y - cy) - (0.45f * r);
+            for (int i = 0; i < 5; i++)
+            {
+                float a = turn + (i * 2f * MathF.PI / 5f);
+                d = MathF.Min(d, Length(x - cx - (0.55f * r * MathF.Cos(a)), y - cy - (0.55f * r * MathF.Sin(a))) - (0.42f * r));
+            }
+
+            return d;
+        }
+
+        /// <summary>The whole ivy cluster (the slot's one-color silhouette).</summary>
+        private static float IvyCluster(float x, float y)
+        {
+            float d = float.MaxValue;
+            for (int i = 0; i < IvyLeafCount; i++)
+            {
+                d = MathF.Min(d, IvyLeaf(i, x, y));
+            }
+
+            return d;
+        }
+
         /// <summary>A part of the decoration in the cluster's square (the mockup's 120 × 100 SVG, centered, 60 per unit).</summary>
         private static float DecorationSdf(DecorationPart part, float x, float y)
         {
@@ -190,6 +347,17 @@ namespace Bloomlings.Client.UI.Design
                 // ---- UI kit: the Garden look (spec 003) ----
                 // PLAY's rounded triangle, as tall as the letters (FR-010).
                 ["ui.play"] = (x, y) => TriangleSdf(x + 0.04f, y, -0.3f, 0.66f, 0.66f, 0f, -0.3f, -0.66f) - 0.1f,
+
+                // ---- UI kit: the reference look (spec 005 contracts/look.md §3.8) ----
+                // The speed pill's two chevrons (▶▶) and the back button's left arrow.
+                ["ui.fast"] = (x, y) => Min(
+                    TriangleSdf(x, y, -0.86f, 0.8f, -0.06f, 0f, -0.86f, -0.8f) - 0.06f,
+                    FastChevron(x, y)),
+                ["ui.back"] = (x, y) => Min(
+                    TriangleSdf(x, y, -0.78f, 0f, -0.12f, 0.56f, -0.12f, -0.56f) - 0.08f,
+                    RoundedBox(x, y, 0.3f, 0f, 0.5f, 0.17f, 0.12f)),
+                // The clover-like ivy over a wooden sign's ends (§3.2, §3.9); its leaves are drawn one by one (IvyLeafSdf).
+                ["ui.sign.ivy"] = IvyCluster,
                 // The leaves and white flower of the main buttons (FR-011a): the whole cluster; its parts are drawn
                 // one by one in their own colors (DecorationPartSdf).
                 ["ui.deco.garden"] = (x, y) => Min(
@@ -199,7 +367,11 @@ namespace Bloomlings.Client.UI.Design
                     DecorationSdf(DecorationPart.Petals, x, y)),
 
                 // ---- Currency and rewards ----
-                ["currency.petal"] = (x, y) => Max(PetalFlower(x, y), -(Length(x, y) - 0.22f)),
+                // The Petals currency is a lotus bud (spec 005 §3.4): a tall center petal, two side petals and two small
+                // back petals. The front petals and the light petal middles are parts drawn over it (GardenLook.Lotus).
+                ["currency.petal"] = (x, y) => Min(LotusFront(x, y), LotusBack(x, y)),
+                ["currency.petal.front"] = LotusFront,
+                ["currency.petal.tips"] = LotusLights,
                 ["currency.reward_basket"] = (x, y) => Min(
                     RoundedBox(x, y, 0f, -0.42f, 0.82f, 0.38f, 0.3f),
                     RoundedBox(x, y, 0f, -0.02f, 0.95f, 0.1f, 0.08f)),
@@ -211,18 +383,17 @@ namespace Bloomlings.Client.UI.Design
                 ["char.twig"] = (x, y) => SilhouetteSdf(Family.Twig, x, y),
 
                 // ---- Variant symbols (8 launch + 4 expansion) ----
-                ["symbol.leaf"] = Leaf,
-                ["symbol.moss"] = (x, y) => Min(Length(x + 0.42f, y + 0.25f) - 0.36f, Length(x - 0.42f, y + 0.25f) - 0.36f, Length(x, y + 0.2f) - 0.42f, Length(x, y - 0.35f) - 0.3f),
+                // Spec 005 (research D10, D13): drawn to read like the reference strip at board size, each family pair
+                // keeping its own silhouette. The sticker tile's details (veins, centers, sparkle, rings, cap) follow the
+                // same geometry (UiRaster).
+                ["symbol.leaf"] = LeafSymbol,
+                ["symbol.moss"] = MossSymbol,
                 ["symbol.flower"] = Flower,
-                ["symbol.bud"] = (x, y) => Min(
-                    Max((Length(x / 0.4f, (y - 0.08f) / 0.52f) - 1f) * 0.4f, -Min(Length(x, y - 0.66f) - 0.14f, Max(MathF.Abs(x) - (0.3f * (y - 0.35f)), 0.35f - y))),
-                    Leaf((x - 0.34f) * 2.6f, (y + 0.5f) * 2.6f) / 2.6f,
-                    Leaf((-x - 0.34f) * 2.6f, (y + 0.5f) * 2.6f) / 2.6f,
-                    RoundedBox(x, y, 0f, -0.72f, 0.06f, 0.22f, 0.03f)),
-                ["symbol.drop"] = (x, y) => Min(Wave(x, y - 0.3f), Wave(x, y + 0.3f)),
-                ["symbol.dew"] = (x, y) => Max(Min(Length(x, y + 0.3f) - 0.45f, Triangle(x, y + 0.1f, 0.45f)), -(Length(x + 0.15f, y + 0.35f) - 0.12f)),
-                ["symbol.log"] = (x, y) => Max(RoundedBox(x, y, 0f, 0f, 0.85f, 0.42f, 0.4f), -(MathF.Abs(Length(x - 0.55f, y) - 0.2f) - 0.05f)),
-                ["symbol.acorn"] = (x, y) => Min(Length(x, y + 0.2f) - 0.5f, RoundedBox(x, y, 0f, 0.35f, 0.6f, 0.2f, 0.18f), RoundedBox(x, y, 0f, 0.62f, 0.06f, 0.14f, 0.03f)),
+                ["symbol.bud"] = BudSymbol,
+                ["symbol.drop"] = WaterSymbol,
+                ["symbol.dew"] = (x, y) => Min(DewDrop(x, y), DewSparkle(x, y)),
+                ["symbol.log"] = (x, y) => Max(StumpSolid(x, y), -StumpGrooves(x, y)),
+                ["symbol.acorn"] = (x, y) => Max(AcornSolid(x, y), -AcornGroove(x, y)),
                 ["symbol.vine"] = (x, y) => MathF.Abs(Length(x, y) - 0.55f) - 0.12f + Step(x > 0.2f && y > 0f),
                 ["symbol.berry"] = (x, y) => Min(Length(x + 0.3f, y - 0.12f) - 0.33f, Length(x - 0.3f, y - 0.12f) - 0.33f, Length(x, y + 0.4f) - 0.33f, RoundedBox(x, y, 0f, 0.62f, 0.06f, 0.2f, 0.03f)),
                 ["symbol.mist"] = (x, y) => Min(RoundedBox(x, y, 0f, 0.45f, 0.8f, 0.1f, 0.1f), RoundedBox(x, y, 0.1f, 0f, 0.7f, 0.1f, 0.1f), RoundedBox(x, y, -0.1f, -0.45f, 0.7f, 0.1f, 0.1f)),
@@ -283,18 +454,18 @@ namespace Bloomlings.Client.UI.Design
                     Length(x, y + 0.65f) - 0.15f),
 
                 // ---- Boosters ----
-                ["booster.extra_slot"] = (x, y) => Max(
-                    RoundedBox(x, y, 0f, 0f, 0.8f, 0.8f, 0.2f),
-                    -Min(RoundedBox(x, y, 0f, 0f, 0.5f, 0.12f, 0.05f), RoundedBox(x, y, 0f, 0f, 0.12f, 0.5f, 0.05f))),
-                ["booster.shuffle"] = (x, y) => Min(
-                    RoundedBox(x - y, y, 0f, 0f, 0.1f, 0.6f, 0.05f),
-                    RoundedBox(x + y, y, 0f, 0f, 0.1f, 0.6f, 0.05f),
-                    Max(Length(x - 0.6f, y - 0.6f) - 0.25f, -(x - 0.45f) - (y - 0.45f)),
-                    Max(Length(x - 0.6f, y + 0.6f) - 0.25f, -(x - 0.45f) + (y + 0.45f))),
-                ["booster.return"] = (x, y) => Min(
-                    MathF.Abs(Length(x, y) - 0.55f) - 0.12f + Step(x < 0.05f && y > 0.2f),
-                    Max(x + 0.02f, (0.6f * (-x - 0.45f)) + (0.8f * (y - 0.55f)), (0.6f * (-x - 0.45f)) - (0.8f * (y - 0.55f)))),
-                ["booster.bloom_burst"] = (x, y) => Min(StarShape(x, y, 0.95f), Length(x, y) - 0.3f),
+                // Spec 005 §3.8: each id is the booster's one-color silhouette; the colored icon is drawn from its parts
+                // (GardenLook.BoosterIcon).
+                ["booster.extra_slot"] = (x, y) => Max(Length(x, y) - 0.86f, -ExtraSlotPlus(x, y)),
+                ["booster.extra_slot.disc"] = (x, y) => Length(x, y) - 0.86f,
+                ["booster.extra_slot.plus"] = ExtraSlotPlus,
+                ["booster.shuffle"] = (x, y) => Min(ShuffleArrow(x, y), ShuffleArrow(-x, -y)),
+                ["booster.shuffle.a"] = ShuffleArrow,
+                ["booster.shuffle.b"] = (x, y) => ShuffleArrow(-x, -y),
+                ["booster.return"] = ReturnArrow,
+                ["booster.bloom_burst"] = (x, y) => Max(BurstPetals(x, y), -(Length(x, y) - 0.2f)),
+                ["booster.bloom_burst.petals"] = BurstPetals,
+                ["booster.bloom_burst.center"] = (x, y) => Length(x, y) - 0.25f,
 
                 // ---- Cosmetics (T143 placeholder art) ----
                 ["cosmetic.sprout"] = (x, y) => Min(RoundedBox(x, y, 0f, -0.45f, 0.06f, 0.4f, 0.04f), Leaf((x + 0.3f) * 2f, (y - 0.1f) * 2f) / 2f, Leaf((-x + 0.3f) * 2f, (y - 0.1f) * 2f) / 2f),
@@ -318,6 +489,8 @@ namespace Bloomlings.Client.UI.Design
                 // ---- Effects ----
                 ["fx.sparkle"] = (x, y) => (Sq(MathF.Sqrt(MathF.Abs(x)) + MathF.Sqrt(MathF.Abs(y))) - 0.9f) * 0.5f,
                 ["fx.petal_burst"] = (x, y) => PetalFlower(x * 1.2f, y * 1.2f) / 1.2f,
+                // One falling petal of the win (spec 005 §3.9): a soft pointed oval with a notch at its round end.
+                ["fx.petals"] = (x, y) => Max(LensSdf(x, y, -0.2f, -0.86f, 0.24f, 0.86f, 0.42f), -(Length(x + 0.02f, y + 0.95f) - 0.16f)),
                 ["fx.droplet"] = (x, y) => Min(Length(x, y + 0.25f) - 0.45f, Triangle(x, y + 0.05f, 0.45f)),
             };
 
@@ -329,6 +502,221 @@ namespace Bloomlings.Client.UI.Design
 
             return s;
         }
+
+        // ---- The reference look's symbols and icons (spec 005 research D10, D13; contracts/look.md §3.1.1, §3.4, §3.8) ----
+
+        /// <summary>
+        /// The symbol a sticker tile fills: the variant symbol without the cuts that let a one-color symbol read (the
+        /// flower's middle, the stump's rings, the acorn's cap line), which the sticker draws as details instead.
+        /// </summary>
+        internal static Func<float, float, float> SolidSymbol(string iconId) => iconId switch
+        {
+            "flower" => FlowerPetals,
+            "log" => StumpSolid,
+            "acorn" => AcornSolid,
+            _ => Get(SymbolId(iconId)),
+        };
+
+        /// <summary>The leaf's axis, from the stem end of its blade to its tip (the sticker's midrib and veins follow it).</summary>
+        internal const float LeafBaseX = -0.56f, LeafBaseY = -0.5f, LeafTipX = 0.8f, LeafTipY = 0.78f;
+
+        /// <summary>The moss cushion's three dimples (x, y, radius) on the sticker.</summary>
+        internal static readonly (float X, float Y, float R)[] MossDimples = { (-0.34f, 0.12f, 0.11f), (0.3f, 0.22f, 0.1f), (0.02f, -0.3f, 0.1f) };
+
+        /// <summary>The water drop's round part (its highlight follows it on the sticker).</summary>
+        internal const float WaterCenterY = -0.3f, WaterRadius = 0.56f;
+
+        /// <summary>The stump's top: an ellipse at this height with these radii (its rings on the sticker).</summary>
+        internal const float StumpTopY = 0.32f, StumpRx = 0.7f, StumpRy = 0.3f;
+
+        /// <summary>The height of the acorn cap's lower edge.</summary>
+        internal const float AcornCapY = 0.04f;
+
+        /// <summary>A broad almond (about 1.5:1) with a round base, tilted toward the upper right, and a barely visible stem.</summary>
+        private static float LeafSymbol(float x, float y)
+        {
+            float blade = Min(
+                LensSdf(x, y, LeafBaseX, LeafBaseY, LeafTipX, LeafTipY, 0.62f),
+                Length(x - (LeafBaseX + (0.32f * (LeafTipX - LeafBaseX))), y - (LeafBaseY + (0.32f * (LeafTipY - LeafBaseY)))) - 0.55f);
+            return Min(blade, Segment(x, y, LeafBaseX + 0.06f, LeafBaseY + 0.06f, -0.74f, -0.74f) - 0.075f);
+        }
+
+        /// <summary>A round cushion (1:1) with about eleven soft, slightly uneven scallops around its edge.</summary>
+        private static float MossSymbol(float x, float y)
+        {
+            float d = Ellipse(x, y, 0.66f, 0.62f);
+            for (int i = 0; i < 11; i++)
+            {
+                float a = 0.2f + (i * 2f * MathF.PI / 11f);
+                float r = 0.14f + (0.03f * MathF.Sin(i * 2.7f));
+                d = MathF.Min(d, Length(x - (0.64f * MathF.Cos(a)), y - (0.64f * MathF.Sin(a))) - r);
+            }
+
+            return Max(d, -(y + 0.78f));
+        }
+
+        /// <summary>A chunky tulip bud: a round body with three short rounded tips and two sepals at its base.</summary>
+        private static float BudSymbol(float x, float y) => Min(
+            Min(LensSdf(x, y, 0f, -0.5f, 0f, 0.92f, 0.34f), LensSdf(x, y, 0.02f, -0.52f, -0.42f, 0.72f, 0.27f), LensSdf(x, y, -0.02f, -0.52f, 0.42f, 0.72f, 0.27f)),
+            Ellipse(x, y + 0.22f, 0.56f, 0.48f),
+            BudSepals(x, y));
+
+        /// <summary>The bud's two sepals at its base (green on the sticker).</summary>
+        internal static float BudSepals(float x, float y) => Min(LensSdf(x, y, 0f, -0.7f, -0.7f, -0.42f, 0.17f), LensSdf(x, y, 0f, -0.7f, 0.7f, -0.42f, 0.17f));
+
+        /// <summary>Water: a tall teardrop with a sharp tip.</summary>
+        private static float WaterSymbol(float x, float y) => Teardrop(x, y, 0f, WaterCenterY, WaterRadius, 0.9f);
+
+        /// <summary>Dew's droplet: rounder and shorter than water's, with a soft tip, left of its sparkle.</summary>
+        internal static float DewDrop(float x, float y) => Teardrop(x, y, -0.14f, -0.24f, 0.56f, 0.5f) - 0.04f;
+
+        /// <summary>Dew's sparkle: a four-pointed star at the droplet's upper right (white on the sticker).</summary>
+        internal static float DewSparkle(float x, float y)
+        {
+            float u = MathF.Abs(x - 0.62f) / 0.32f;
+            float v = MathF.Abs(y - 0.6f) / 0.32f;
+            return (Sq(MathF.Sqrt(u) + MathF.Sqrt(v)) - 0.9f) * 0.16f;
+        }
+
+        /// <summary>The stump's top ellipse.</summary>
+        internal static float StumpTop(float x, float y) => Ellipse(x, y - StumpTopY, StumpRx, StumpRy);
+
+        /// <summary>Wood: a short cylinder (a stump) with its top ellipse, a rounded foot and two small roots.</summary>
+        internal static float StumpSolid(float x, float y) => Min(
+            StumpTop(x, y),
+            Min(RoundedBox(x, y, 0f, (StumpTopY - 0.5f) / 2f, StumpRx, (StumpTopY + 0.5f) / 2f, 0f), Ellipse(x, y + 0.5f, StumpRx, 0.2f)),
+            Ellipse(x + 0.66f, y + 0.56f, 0.24f, 0.14f),
+            Ellipse(x - 0.66f, y + 0.56f, 0.24f, 0.14f));
+
+        /// <summary>The grooves that make the one-color stump read: the front rim of its top, one ring on it and two bark lines.</summary>
+        private static float StumpGrooves(float x, float y) => Min(
+            Max(MathF.Abs(StumpTop(x, y)) - 0.04f, y - StumpTopY),
+            MathF.Abs(Ellipse(x, y - StumpTopY, 0.4f, 0.17f)) - 0.035f,
+            Min(Segment(x, y, -0.34f, -0.08f, -0.34f, -0.42f), Segment(x, y, 0.3f, -0.02f, 0.3f, -0.36f)) - 0.035f);
+
+        /// <summary>The acorn's cap: a dome above the cap line, its rounded rim and a short stem.</summary>
+        internal static float AcornCap(float x, float y) => Min(
+            Max(Ellipse(x, y - 0.2f, 0.7f, 0.42f), AcornCapY + 0.04f - y),
+            RoundedBox(x, y, 0f, AcornCapY + 0.08f, 0.68f, 0.08f, 0.08f),
+            RoundedBox(x, y, 0.06f, 0.74f, 0.07f, 0.15f, 0.06f));
+
+        /// <summary>An acorn: the cap over a round nut with a soft point below.</summary>
+        internal static float AcornSolid(float x, float y) => Min(AcornCap(x, y), Teardrop(x, -y, 0f, 0.26f, 0.5f, 0.86f) - 0.04f);
+
+        /// <summary>The thin cut between the cap and the nut that makes the one-color acorn read.</summary>
+        private static float AcornGroove(float x, float y) => Max(MathF.Abs(y - (AcornCapY - 0.03f)) - 0.03f, MathF.Abs(x) - 0.62f);
+
+        /// <summary>The lotus bud's front: a tall almond center petal, two side petals curving out, and its base.</summary>
+        private static float LotusFront(float x, float y) => Min(
+            LensSdf(x, y, 0f, -0.7f, 0f, 0.92f, 0.36f),
+            LensSdf(x, y, -0.06f, -0.7f, -0.56f, 0.5f, 0.3f),
+            LensSdf(x, y, 0.06f, -0.7f, 0.56f, 0.5f, 0.3f),
+            Ellipse(x, y + 0.6f, 0.46f, 0.16f));
+
+        /// <summary>The lotus' two small back petals, low and to the sides.</summary>
+        private static float LotusBack(float x, float y) => Min(
+            LensSdf(x, y, -0.1f, -0.62f, -0.86f, 0.12f, 0.22f),
+            LensSdf(x, y, 0.1f, -0.62f, 0.86f, 0.12f, 0.22f));
+
+        /// <summary>
+        /// The near-white middles of the lotus petals (each petal shrunk by 0.12, from 20% to 85% of its length), each only
+        /// where the petals in front of it leave room: a side petal's middle stops short of the center petal and a back
+        /// petal's short of the front ones, so a deep pink edge parts every petal from the next.
+        /// </summary>
+        private static float LotusLights(float x, float y)
+        {
+            float center = LensSdf(x, y, 0f, -0.7f, 0f, 0.92f, 0.36f);
+            float sides = Max(
+                Min(LensMiddle(x, y, -0.06f, -0.7f, -0.56f, 0.5f, 0.3f), LensMiddle(x, y, 0.06f, -0.7f, 0.56f, 0.5f, 0.3f)),
+                -(center - 0.08f));
+            float back = Max(
+                Min(LensMiddle(x, y, -0.1f, -0.62f, -0.86f, 0.12f, 0.22f), LensMiddle(x, y, 0.1f, -0.62f, 0.86f, 0.12f, 0.22f)),
+                -(LotusFront(x, y) - 0.08f));
+            return Min(LensMiddle(x, y, 0f, -0.7f, 0f, 0.92f, 0.36f), sides, back);
+        }
+
+        /// <summary>A lens' middle: inside its outline by 0.12, between 20% and 85% of the way from a to b.</summary>
+        private static float LensMiddle(float x, float y, float ax, float ay, float bx, float by, float half)
+        {
+            float dx = bx - ax;
+            float dy = by - ay;
+            float length = MathF.Sqrt((dx * dx) + (dy * dy));
+            float along = (((x - ax) * dx) + ((y - ay) * dy)) / length;
+            return Max(LensSdf(x, y, ax, ay, bx, by, half) + 0.12f, (0.2f * length) - along, along - (0.85f * length));
+        }
+
+        /// <summary>Extra Slot's bold plus.</summary>
+        private static float ExtraSlotPlus(float x, float y) => Min(RoundedBox(x, y, 0f, 0f, 0.52f, 0.17f, 0.1f), RoundedBox(x, y, 0f, 0f, 0.17f, 0.52f, 0.1f));
+
+        /// <summary>One of Shuffle's arrows: the upper arc of a ring from 160° to 35°, its head turning down at the right end.</summary>
+        private static float ShuffleArrow(float x, float y)
+        {
+            const float r = 0.56f;
+            float ring = MathF.Abs(Length(x, y) - r) - 0.15f;
+            // Inside the sector when counter-clockwise of 35° and clockwise of 160°.
+            float c0 = MathF.Cos(35f * MathF.PI / 180f);
+            float s0 = MathF.Sin(35f * MathF.PI / 180f);
+            float c1 = MathF.Cos(160f * MathF.PI / 180f);
+            float s1 = MathF.Sin(160f * MathF.PI / 180f);
+            float arc = Max(ring, -((c0 * y) - (s0 * x)), (c1 * y) - (s1 * x));
+            float ex = r * c0;
+            float ey = r * s0;
+            float head = TriangleSdf(x, y, ex + (0.33f * c0), ey + (0.33f * s0), ex - (0.33f * c0), ey - (0.33f * s0), ex + (0.4f * s0), ey - (0.4f * c0)) - 0.03f;
+            return Min(arc, head);
+        }
+
+        /// <summary>
+        /// Return's fat arrow: the head points left at the top, the shaft runs right and its tail bends gently down on the
+        /// right (the upper right of a ring, overlapping the shaft so no seam shows).
+        /// </summary>
+        private static float ReturnArrow(float x, float y)
+        {
+            float yy = y + 0.28f;
+            float head = TriangleSdf(x, yy, -0.88f, 0.3f, -0.3f, 0.8f, -0.3f, -0.2f) - 0.05f;
+            float shaft = RoundedBox(x, yy, 0f, 0.3f, 0.34f, 0.2f, 0f);
+
+            // The quarter ring's band meets the shaft exactly (0.1 to 0.5) where it starts, and its open inside stays
+            // wider than any outline, so no notch closes into a hole.
+            float hook = Max(MathF.Abs(Length(x - 0.2f, yy + 0.2f) - 0.5f) - 0.2f, -(x - 0.2f), -(yy + 0.2f));
+            return Min(head, shaft, hook);
+        }
+
+        /// <summary>The speed glyph's second mark: a solid triangle with a notch cut from its back, so it reads as a chevron.</summary>
+        private static float FastChevron(float x, float y)
+        {
+            float triangle = TriangleSdf(x, y, -0.02f, 0.8f, 0.86f, 0f, -0.02f, -0.8f) - 0.06f;
+            float notch = TriangleSdf(x + 0.34f, y, -0.02f, 0.8f, 0.86f, 0f, -0.02f, -0.8f) + 0.1f;
+            return Max(triangle, -notch);
+        }
+
+        /// <summary>Bloom Burst's five oval petals around a filled middle.</summary>
+        private static float BurstPetals(float x, float y)
+        {
+            float d = Length(x, y) - 0.34f;
+            for (int i = 0; i < 5; i++)
+            {
+                float a = (MathF.PI / 2f) + (i * 2f * MathF.PI / 5f);
+                float c = MathF.Cos(a);
+                float sn = MathF.Sin(a);
+                float u = (x * c) + (y * sn) - 0.5f;
+                float v = (-x * sn) + (y * c);
+                d = MathF.Min(d, (Length(u / 0.4f, v / 0.31f) - 1f) * 0.31f);
+            }
+
+            return d;
+        }
+
+        /// <summary>A circle (cx, cy, r) with a pointed tip straight above it at <paramref name="tipY"/>.</summary>
+        private static float Teardrop(float x, float y, float cx, float cy, float r, float tipY)
+        {
+            float k = r / (tipY - cy);
+            float tx = r * MathF.Sqrt(1f - (k * k));
+            float ty = cy + (r * k);
+            return Min(Length(x - cx, y - cy) - r, TriangleSdf(x, y, cx, tipY, cx - tx, ty, cx + tx, ty));
+        }
+
+        /// <summary>An approximate ellipse distance (exact on the axes), negative inside.</summary>
+        private static float Ellipse(float x, float y, float rx, float ry) => (Length(x / rx, y / ry) - 1f) * MathF.Min(rx, ry);
 
         // ---- Composite pieces ----
 
@@ -402,19 +790,23 @@ namespace Bloomlings.Client.UI.Design
             return Max(Length(u - 0.5f, v) - 0.9f, Length(u + 0.5f, v) - 0.9f);
         }
 
-        private static float Flower(float x, float y)
+        private static float Flower(float x, float y) => Max(FlowerPetals(x, y), -(Length(x, y) - 0.18f));
+
+        /// <summary>
+        /// The flower's five round petals, clearly apart with deep notches between them, without the hole in the middle (the
+        /// sticker paints its center there). The middle disk (0.36) just closes the small gaps the petals leave inside.
+        /// </summary>
+        private static float FlowerPetals(float x, float y)
         {
             float d = float.MaxValue;
             for (int i = 0; i < 5; i++)
             {
                 float a = (MathF.PI / 2f) + (i * 2f * MathF.PI / 5f);
-                d = MathF.Min(d, Length(x - (0.45f * MathF.Cos(a)), y - (0.45f * MathF.Sin(a))) - 0.35f);
+                d = MathF.Min(d, Length(x - (0.5f * MathF.Cos(a)), y - (0.5f * MathF.Sin(a))) - 0.3f);
             }
 
-            return Max(d, -(Length(x, y) - 0.18f));
+            return MathF.Min(d, Length(x, y) - 0.36f);
         }
-
-        private static float Wave(float x, float y) => MathF.Abs(y - (0.12f * MathF.Sin(x * 5f))) - 0.12f + Step(MathF.Abs(x) > 0.85f);
 
         /// <summary>An upward-pointing triangle on top of a circle of radius r at the origin (a droplet tip).</summary>
         private static float Triangle(float x, float y, float r) => Max(y - (r * 1.9f), (MathF.Abs(x) * 1.6f) + y - (r * 1.9f), -y);

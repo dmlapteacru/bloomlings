@@ -135,6 +135,45 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
+        /// <summary>
+        /// An owner background (spec 005 pictures.md B, <see cref="OwnerPictures"/>) cover-fitted into
+        /// <paramref name="box"/> and clipped to it, or <paramref name="fallback"/> (the code-drawn backdrop) while the
+        /// picture is missing. Callers mark the background's slot.
+        /// </summary>
+        public static void Background(IPainter p, Box box, string picture, Action fallback)
+        {
+            string name = PainterBase.BackgroundPrefix + picture;
+            (int Width, int Height)? size = p.HasSprite(name) ? p.SpriteSize(name) : null;
+            if (!size.HasValue || size.Value.Width <= 0 || size.Value.Height <= 0)
+            {
+                fallback();
+                return;
+            }
+
+            float scale = Math.Max(box.Width / size.Value.Width, box.Height / size.Value.Height);
+            p.PushClip(box);
+            p.Sprite(name, Box.FromCenter(box.CenterX, box.CenterY, size.Value.Width * scale, size.Value.Height * scale));
+            p.PopClip();
+        }
+
+        /// <summary>
+        /// The owner's logo picture (spec 005 pictures.md C1) fitted into <paramref name="box"/>, or
+        /// <paramref name="fallback"/> (the wooden letters, <see cref="Kit.WoodLogo"/>) while it is missing. It marks
+        /// <c>brand.wordmark</c>.
+        /// </summary>
+        public static void Logo(IPainter p, Box box, Action fallback)
+        {
+            p.Mark("brand.wordmark");
+            string name = PainterBase.BrandPrefix + OwnerPictures.Logo;
+            if (p.HasSprite(name))
+            {
+                p.Sprite(name, box);
+                return;
+            }
+
+            fallback();
+        }
+
         /// <summary>The variant whose color a family's fallback hero body takes.</summary>
         private static VariantId HeroVariant(Family family) => family switch
         {
