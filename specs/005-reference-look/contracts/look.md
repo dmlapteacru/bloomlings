@@ -709,6 +709,13 @@ rewards on a parchment panel in the picture's place (each on a cream tile with i
 the pedestal, "Milestone reached!" with the gold medal (the leaderboard's rank medal without a number: two deeper gold
 ribbon tails behind the `medal.gold` disc, both outlined in `medal.gold` darkened 0.3, a small white star on the disc)
 in the pill on the pedestal, and Continue in `Next`.
+Unity (`WinScreen`, `MilestoneCard`): over the owner's win picture (pictures.md B8) the backdrop is anchored at the top
+and zoomed (`OwnerPictures.WinZoom`, at least cover) so the stone disc painted in it (`OwnerPictures.WinDiscShare`, the
+middle of its top at 0.58 of the picture) lies under the hero's feet (`Hero.Top + HomeStage.FeetShare × Hero.Height`),
+and the drawn pedestal is left out: one stage, as on the reference. The celebration sign's flower clusters sit on the
+plank's top corners (the left one 0.18 of the plank's height down, the right one 0.10), the letters at most the plank
+less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosette (`UiKit.GoldMedal`: ribbon tails
+`#E0A21A`, a `#FFC83D` disc, `#B7790F` outlines, a white star), 70% of the pill's height.
 
 ### 6.4 Home
 
@@ -752,10 +759,16 @@ the right column; its splash shows the logo and the diorama in the same boxes.
 Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it shows from its top with `SideButton(right, i)`
 (left: Wardrobe `ui.shirt`, Collection `ui.grid`, the profile avatar; right: the Daily Challenge, the sun `ui.sun` with
 the green check badge when done today, and the Store, the lotus), and the rank pill sits under the right column's last
-button; the logo shows in both looks; the progressed hero stands on `HomeStage.HeroOnPedestal` over the diorama down to
-the plaque's middle; the plaque is `0.5W`, wider when its letters need it (at most `0.8W`); the free booster is the cream
-`CostPill` "Free"; the rank pill and the free booster take taps in clear boxes grown to `size.touch_min`; the splash puts
-its logo and diorama in Home's boxes.
+button; the logo shows in both looks, the owner's logo picture sized by width (`ReferenceHomeRegions.LogoPicture`:
+`0.82W` wide, centered on the logo box, its top no higher than a tenth of its height above Settings' bottom); over the
+owner's Home picture both looks show the four solo heroes around its painted lotus fountain
+(`HomeStage.AroundFountain`, their heads under the logo box) and no guest, and once the Wardrobe is open each hero wears
+its outfit and the player's hero (`ProfileAvatar.HeroFamily`) swaps places with Sprig at the left front; without the
+picture, the drawn `HomeStage.ReferenceDiorama`; Play shows its label alone, `ReferenceHomeRegions.PlayLabelShare` of its
+height; the Petals pill without its "+" starts the amount right after the lotus; the plaque is `0.5W`, wider when its
+letters need it (at most `0.8W`); the free booster is the cream `CostPill` "Free"; the rank pill and the free booster
+take taps in clear boxes grown to `size.touch_min`; the splash takes the Home garden while its own picture is missing
+(`OwnerPictures.Resolve`) and puts its logo and heroes where Home shows them.
 
 ### 6.5 Wardrobe (both builds)
 

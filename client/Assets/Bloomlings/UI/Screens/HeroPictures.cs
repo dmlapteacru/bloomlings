@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using UnityEngine;
@@ -130,10 +132,10 @@ namespace Bloomlings.Client.UI.Screens
         public static CelebrationView Celebration(RectTransform card) => new CelebrationView(card);
 
         /// <summary>
-        /// The drawn Home stage (spec 005 §4.5, the playtest's <c>HomeScreen.Stage</c>) under <paramref name="parent"/>:
-        /// until the owner's garden picture, the stone pedestal with the four heroes in an arc around the lotus fountain
-        /// (<see cref="HomeStage.Diorama"/>) and the guest; over the owner's picture, the group picture and the guest. Place
-        /// it with <see cref="HomeStageView.Place"/>.
+        /// The Home and splash heroes (spec 005 §4.5, §6.4; the playtest's <c>HomeScreen.Stage</c>) under
+        /// <paramref name="parent"/>: over the owner's garden picture, the four solo heroes around its painted lotus fountain;
+        /// until then, the drawn diorama (the stone ring, the lotus fountain, the heroes around it and the guest). Place it
+        /// with <see cref="HomeStageView.Place"/>.
         /// </summary>
         public static HomeStageView Stage(string name, Transform parent) => new HomeStageView(UiFactory.CreateRect(name, parent));
     }
@@ -183,16 +185,17 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// Lays the celebration out on the full-screen win or milestone (spec 005 FR-023, contracts/look.md §6.3) whose
-        /// screen box is <paramref name="parent"/>: the stone pedestal in <see cref="WinRegions.Pedestal"/>, the owner's
+        /// screen box is <paramref name="parent"/>: the stone pedestal in <see cref="WinRegions.Pedestal"/> (left out with
+        /// <paramref name="pedestal"/> false, when the owner's win picture paints the stage there), the owner's
         /// celebrating hero in the 8:9 <see cref="WinRegions.Hero"/> box, or else the group standing with its feet where
         /// the hero's stand (<see cref="HomeStage.FeetShare"/> of the box), as wide as the pedestal over 0.8 (its heads
         /// inside the box), and the rays (radius <see cref="WinRegions.RaysRadius"/>) turning around the hero, unclipped.
         /// </summary>
-        public void Place(WinRegions r, Box parent)
+        public void Place(WinRegions r, Box parent, bool pedestal = true)
         {
             Sprite? cheer = _family.HasValue ? HeroPictures.Cheer(_family.Value) : null;
             _clip.gameObject.SetActive(true);
-            _pedestal.gameObject.SetActive(true);
+            _pedestal.gameObject.SetActive(pedestal);
             _group.gameObject.SetActive(cheer == null);
             _cheer.gameObject.SetActive(cheer != null);
             UiKit.PlaceBox(_clip, parent, parent);
@@ -252,7 +255,7 @@ namespace Bloomlings.Client.UI.Screens
         }
     }
 
-    /// <summary>The drawn Home stage (<see cref="HeroPictures.Stage"/>).</summary>
+    /// <summary>The Home and splash heroes (<see cref="HeroPictures.Stage"/>).</summary>
     public sealed class HomeStageView
     {
         private readonly RectTransform _root;
@@ -260,7 +263,6 @@ namespace Bloomlings.Client.UI.Screens
         private readonly BloomlingFigure[] _heroes = new BloomlingFigure[4];
         private readonly RectTransform _fountain;
         private readonly Image _guest;
-        private readonly RectTransform _group;
 
         internal HomeStageView(RectTransform root)
         {
@@ -268,14 +270,13 @@ namespace Bloomlings.Client.UI.Screens
             UiFactory.Stretch(root);
             _pedestal = UiKit.StonePedestal("Pedestal", root);
 
-            // Drawing order as the playtest's: the back row (Bloom, Sprig, Drop), the fountain and the guest, Twig in front.
+            // Drawing order as the playtest's: the back row (Bloom, Drop, Sprig), the fountain and the guest, Twig in front.
             for (int i = 0; i < 3; i++)
             {
                 _heroes[i] = Figure("Hero" + i);
             }
 
             _fountain = UiKit.LotusFountain("Fountain", root);
-            _group = HeroPictures.Group("Group", root);
             _guest = HeroPictures.Guest("Leafling", root);
             _heroes[3] = Figure("Hero3");
         }
@@ -284,40 +285,53 @@ namespace Bloomlings.Client.UI.Screens
         public RectTransform Rect => _root;
 
         /// <summary>
-        /// Lays the stage out in <paramref name="stage"/> (screen pixels) of a parent whose screen box is
-        /// <paramref name="parent"/>. Over the owner's garden picture of <paramref name="scene"/> (pictures.md B1, B6; it
-        /// has its own well and fountain) the group picture stands in front of it; until then the drawn diorama. The guest
-        /// shows when <paramref name="guest"/> and its picture exists.
+        /// Lays the heroes out on Home or the splash, whose parent's screen box is <paramref name="parent"/> (the whole
+        /// screen, as the backdrop). Over the owner's garden picture of <paramref name="scene"/> (pictures.md B1; the splash
+        /// takes it while its own is missing) the four solo heroes stand around its painted lotus fountain
+        /// (<see cref="HomeStage.AroundFountain"/>, their heads below <paramref name="ceiling"/>, the logo's bottom) and the
+        /// guest stays out of the reference composition. Until then, the drawn diorama in <paramref name="stage"/>
+        /// (<see cref="HomeStage.ReferenceDiorama"/>: the stone ring, the lotus fountain, the heroes and, when
+        /// <paramref name="guest"/> and its picture exists, the guest). Each hero wears <paramref name="outfitOf"/>'s
+        /// outfit (null: nothing), and <paramref name="front"/> (the player's hero) swaps places with Sprig at the left
+        /// front.
         /// </summary>
-        public void Place(Box stage, Box parent, BackdropScene scene, bool guest)
+        public void Place(Box stage, Box parent, BackdropScene scene, bool guest, float? ceiling = null, Func<Family, Outfit?>? outfitOf = null, Family front = Family.Sprig)
         {
-            bool owner = OwnerArt.Background(OwnerPictures.Background(scene, string.Empty)) != null;
-            bool hasGuest = guest && CharacterSprites.Get(CharacterArt.Leafling) != null;
+            Texture2D? picture = OwnerArt.BackgroundOf(scene);
+            bool owner = picture != null;
             _pedestal.gameObject.SetActive(!owner);
             _fountain.gameObject.SetActive(!owner);
-            _group.gameObject.SetActive(owner);
-            foreach (BloomlingFigure hero in _heroes)
+            _guest.gameObject.SetActive(!owner && guest && CharacterSprites.Get(CharacterArt.Leafling) != null);
+            IReadOnlyList<(Family Family, Box Box)> heroes;
+            if (picture != null)
             {
-                hero.Rect.gameObject.SetActive(!owner);
+                heroes = HomeStage.AroundFountain(parent, picture.width, picture.height, ceiling);
+            }
+            else
+            {
+                HomeDiorama diorama = HomeStage.ReferenceDiorama(stage, guest);
+                UiKit.PlaceBox(_pedestal, diorama.Pedestal, parent);
+                UiKit.PlaceBox(_fountain, diorama.Fountain, parent);
+                UiKit.PlaceBox(_guest.rectTransform, diorama.Guest, parent);
+                heroes = diorama.Heroes;
             }
 
-            _guest.gameObject.SetActive(hasGuest);
-            if (owner)
+            for (int i = 0; i < _heroes.Length; i++)
             {
-                (Box group, Box beside) = CharacterArt.GroupWithGuest(stage);
-                UiKit.PlaceBox(_group, group, parent);
-                UiKit.PlaceBox(_guest.rectTransform, beside, parent);
-                return;
-            }
+                bool shown = i < heroes.Count;
+                _heroes[i].Rect.gameObject.SetActive(shown);
+                if (!shown)
+                {
+                    continue;
+                }
 
-            HomeDiorama diorama = HomeStage.Diorama(stage, guest);
-            UiKit.PlaceBox(_pedestal, diorama.Pedestal, parent);
-            UiKit.PlaceBox(_fountain, diorama.Fountain, parent);
-            UiKit.PlaceBox(_guest.rectTransform, diorama.Guest, parent);
-            for (int i = 0; i < _heroes.Length && i < diorama.Heroes.Count; i++)
-            {
-                (Family family, Box box) = diorama.Heroes[i];
-                _heroes[i].ShowHero(family, null);
+                (Family family, Box box) = heroes[i];
+                if (front != Family.Sprig && (family == Family.Sprig || family == front))
+                {
+                    family = family == Family.Sprig ? front : Family.Sprig;
+                }
+
+                _heroes[i].ShowHero(family, outfitOf?.Invoke(family));
                 UiKit.PlaceBox(_heroes[i].Rect, box, parent);
             }
         }

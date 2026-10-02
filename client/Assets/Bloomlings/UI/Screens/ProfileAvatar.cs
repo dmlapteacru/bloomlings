@@ -44,6 +44,9 @@ namespace Bloomlings.Client.UI.Screens
             layout.Add(_marker.rectTransform, b => Square(b, 0.36f, 0.36f, -0.36f));
         }
 
+        /// <summary>The family of the player's hero: the avatar's picture, and the hero at the left front of Home once the Wardrobe is open.</summary>
+        public const Family HeroFamily = Family.Bloom;
+
         public RectTransform Rect { get; }
 
         public static ProfileAvatar Create(string name, Transform parent) => new ProfileAvatar(UiFactory.CreateRect(name, parent));
@@ -52,7 +55,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="outfit">What the pictured Bloomling (a Bloom) wears.</param>
         public void Show(ProfileLook? look, Outfit? outfit)
         {
-            _figure.ShowHero(Family.Bloom, outfit);
+            _figure.ShowHero(HeroFamily, outfit);
             Show(_frame, look?.Frame);
             Show(_badge, look?.Badge);
             Show(_marker, look?.Marker);

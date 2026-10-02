@@ -111,7 +111,7 @@ namespace Bloomlings.Client.UI.Design
         /// Where the stone disc of the owner's win picture (B8) lies: the middle of its top, as a share of the picture's
         /// height. The win stands the hero on it instead of a drawn pedestal (<see cref="TopAnchored"/>).
         /// </summary>
-        public const float WinStageShare = 0.575f;
+        public const float WinStageShare = 0.58f;
 
         /// <summary>
         /// The box of a background picture of <paramref name="width"/> × <paramref name="height"/> drawn over
@@ -135,5 +135,24 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static string Resolve(BackdropScene scene, string themeId, System.Func<string, bool> exists) =>
             scene == BackdropScene.Splash && !exists(Splash) ? Home : Background(scene, themeId);
+
+        /// <summary>
+        /// The height share of the middle of the round stone disc's top painted in the owner's win picture (B8; its back
+        /// rim at 0.562, its front rim at 0.607): the full-screen win anchors the picture at the top and zooms it so the
+        /// disc lies under the hero's feet (<see cref="WinZoom"/>).
+        /// </summary>
+        public const float WinDiscShare = WinStageShare;
+
+        /// <summary>
+        /// The zoom over cover-fitting of the owner's win picture (<paramref name="picW"/> × <paramref name="picH"/>) drawn
+        /// top-anchored and centered across <paramref name="screen"/>, so its painted disc (<see cref="WinDiscShare"/>) lies on
+        /// <paramref name="stageY"/> (where the hero's feet stand): max(1, (stageY − screen top) /
+        /// (<see cref="WinDiscShare"/> × picH × cover)).
+        /// </summary>
+        public static float WinZoom(Box screen, float stageY, int picW = 852, int picH = 1846)
+        {
+            float cover = System.Math.Max(screen.Width / System.Math.Max(1f, picW), screen.Height / System.Math.Max(1f, picH));
+            return System.Math.Max(1f, (stageY - screen.Top) / System.Math.Max(1f, WinDiscShare * picH * cover));
+        }
     }
 }

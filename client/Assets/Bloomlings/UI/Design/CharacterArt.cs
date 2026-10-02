@@ -388,5 +388,13 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A worn trail's box: behind the picture's lower left.</summary>
         public static Box TrailBox(Box picture) =>
             new Box(picture.Left - (picture.Width * 0.22f), picture.Top + (picture.Height * 0.5f), picture.Left + (picture.Width * 0.2f), picture.Top + (picture.Height * 0.9f));
+
+        /// <summary>
+        /// A worn expression on a 3D hero that has no matching blank-faced twin (an owner hero, pictures.md A5): a cream
+        /// disc 0.22 of the picture wide at its upper right (0.18 of its width in from the right, 0.30 of its height down)
+        /// holding the expression's glyph, never over the drawn face.
+        /// </summary>
+        public static Box ExpressionBadge(Box picture) =>
+            Box.FromCenter(picture.Right - (picture.Width * 0.18f), picture.Top + (picture.Height * 0.3f), picture.Width * 0.22f, picture.Width * 0.22f);
     }
 }

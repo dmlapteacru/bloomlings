@@ -14,9 +14,10 @@ namespace Bloomlings.Client.Gameplay.Workers
     /// A Bloomling drawn from a generated picture (spec 004): a variant's 2D character on the board, or a family's 3D
     /// hero on the meta screens, with what it wears (FR-063): a skin pattern laid thinly over the picture and masked by
     /// it, a hat above it, an expression on its face and a trail behind it. A worn expression shows over the picture's
-    /// blank face, so it never doubles the eyes. Without the picture it draws the spec 002 family silhouette (FR-021). The
-    /// character's colors are never changed by a cosmetic. Used by the workers, the win cheer, the Wardrobe, Home and the
-    /// profile.
+    /// blank face, so it never doubles the eyes; a hero without a matching blank twin (an owner hero, pictures.md A5) keeps
+    /// its own face and shows the expression on a cream badge at its upper right. Without the picture it draws the spec 002
+    /// family silhouette (FR-021). The character's colors are never changed by a cosmetic. Used by the workers, the win
+    /// cheer, the Wardrobe, Home and the profile.
     /// </summary>
     public sealed class BloomlingFigure
     {
@@ -26,6 +27,7 @@ namespace Bloomlings.Client.Gameplay.Workers
         private readonly Image _skinMask;
         private readonly Image _skin;
         private readonly Image _trail;
+        private readonly Image _badge;
         private readonly Image _expression;
         private readonly Image _hat;
 
@@ -49,6 +51,7 @@ namespace Bloomlings.Client.Gameplay.Workers
             _skin.raycastTarget = false;
             UiFactory.Stretch(_skin.rectTransform);
             _trail = Part("Trail");
+            _badge = Part("ExpressionBadge");
             _expression = Part("Expression");
             _hat = Part("Hat");
         }
@@ -89,8 +92,12 @@ namespace Bloomlings.Client.Gameplay.Workers
         /// </summary>
         public void ShowHero(Family family, Outfit? outfit)
         {
-            Sprite? picture = CharacterSprites.Hero(family, blank: outfit?.Expression != null);
-            Show(picture, family, HeroColor(family), outfit, CharacterArt.FaceCenterHero(family), (float)CharacterArt.HeroHeight / CharacterArt.HeroWidth, hero: true);
+            // The blank-faced twin only when it is the same character (CharacterSprites.HasMatchingBlank); else the hero
+            // keeps its face and the expression goes on the badge.
+            bool expression = outfit?.Expression != null;
+            bool blank = expression && CharacterSprites.HasMatchingBlank(family);
+            Sprite? picture = CharacterSprites.Hero(family, blank);
+            Show(picture, family, HeroColor(family), outfit, CharacterArt.FaceCenterHero(family), (float)CharacterArt.HeroHeight / CharacterArt.HeroWidth, hero: true, badge: expression && !blank && picture != null);
         }
 
         public static Color Tint(CosmeticItem item) => ColorUtility.TryParseHtmlString(item.Tint, out Color color) ? color : Color.white;
@@ -108,7 +115,7 @@ namespace Bloomlings.Client.Gameplay.Workers
             return UiTheme.Of(Rgba.FromHex(VariantCatalog.Default.Get(variant).ColorHex));
         }
 
-        private void Show(Sprite? picture, Family family, Color fallbackColor, Outfit? outfit, (float X, float Y) face, float aspect, bool hero = false)
+        private void Show(Sprite? picture, Family family, Color fallbackColor, Outfit? outfit, (float X, float Y) face, float aspect, bool hero = false, bool badge = false)
         {
             // The figure's boxes in picture units (width 1, y down), placed relative to the picture's rect.
             var frame = new Box(0f, 0f, 1f, aspect);
@@ -131,7 +138,22 @@ namespace Bloomlings.Client.Gameplay.Workers
 
             ShowSkin(outfit?.Skin);
             ShowAccessory(_trail, outfit?.Trail, CharacterArt.TrailBox(frame), frame);
-            ShowAccessory(_expression, outfit?.Expression, CharacterArt.ExpressionBox(frame, face), frame);
+            if (badge && outfit?.Expression != null)
+            {
+                // A cream disc at the hero's upper right holding the expression in ink.brown, never over the drawn face.
+                Box disc = CharacterArt.ExpressionBadge(frame);
+                _badge.sprite = BadgeDisc;
+                _badge.color = Color.white;
+                Place(_badge, disc, frame);
+                _badge.gameObject.SetActive(true);
+                ShowAccessory(_expression, outfit.Expression, disc.Inset(disc.Width * 0.16f), frame);
+                _expression.color = UiTheme.Of(DesignTokens.Colors.InkBrown);
+            }
+            else
+            {
+                _badge.gameObject.SetActive(false);
+                ShowAccessory(_expression, outfit?.Expression, CharacterArt.ExpressionBox(frame, face), frame);
+            }
             if (hero && picture != null && outfit?.Hat != null)
             {
                 ShowHat(outfit.Hat, CharacterArt.HatOnHero(frame, family), frame);
@@ -168,6 +190,24 @@ namespace Bloomlings.Client.Gameplay.Workers
             UiFactory.Place(_hat.rectTransform, box.Left / frame.Width, 1f - (box.Bottom / frame.Height), box.Right / frame.Width, 1f - (box.Top / frame.Height));
             _hat.gameObject.SetActive(true);
         }
+
+        /// <summary>The expression badge's disc: the cream of the round buttons with a <c>cream.line</c> outline.</summary>
+        private static Sprite BadgeDisc
+        {
+            get
+            {
+                Func<float, float, float> circle = ShapeLibrary.Get("ui.circle");
+                var layers = new List<(Func<float, float, float> Sdf, Rgba Color)>
+                {
+                    (circle, DesignTokens.Colors.CreamLine),
+                    ((x, y) => circle(x, y) + 0.09f, DesignTokens.Colors.CreamTop),
+                };
+                return ProceduralSprites.Baked("expression_badge", 96, layers);
+            }
+        }
+
+        private static void Place(Image image, Box box, Box frame) =>
+            UiFactory.Place(image.rectTransform, box.Left / frame.Width, 1f - (box.Bottom / frame.Height), box.Right / frame.Width, 1f - (box.Top / frame.Height));
 
         private void ShowSkin(CosmeticItem? skin)
         {

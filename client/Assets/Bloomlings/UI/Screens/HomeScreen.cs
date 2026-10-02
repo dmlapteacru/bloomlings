@@ -35,7 +35,8 @@ namespace Bloomlings.Client.UI.Screens
         Outfit? AvatarOutfit = null,
         Color? Accent = null,
         BackgroundTheme? Theme = null,
-        int DailyChallengePetals = 0);
+        int DailyChallengePetals = 0,
+        Func<Family, Outfit?>? OutfitOf = null);
 
     /// <summary>The Home buttons of the long-run features (US7); a null action hides its button.</summary>
     public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnWardrobe, Action? OnCollection, Action? OnLeaderboard, Action? OnProfile = null);
@@ -48,9 +49,10 @@ namespace Bloomlings.Client.UI.Screens
     /// <item><description>Always shown: the cream round Settings button at the top left, the Petals pill at the top right
     /// (its green "+" opens the Store once unlocked, L12), the wooden logo across the top (the owner's logo picture when
     /// it exists), "Level N" on the wooden plaque and the big Play button in its wooden rim below it.</description></item>
-    /// <item><description>The diorama in the middle: early on, the four heroes around the lotus fountain on a stone
-    /// pedestal and the guest; once the Wardrobe is open (L40), the player's hero on its pedestal with the guest beside
-    /// it.</description></item>
+    /// <item><description>The heroes in the middle: over the owner's Home picture, the four solo heroes large around its
+    /// painted lotus fountain (<see cref="HomeStage.AroundFountain"/>, as the reference's Home); until then the drawn
+    /// diorama (the stone ring, the lotus fountain, the heroes and the guest). Once the Wardrobe is open (L40) each wears
+    /// its outfit and the player's hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left front.</description></item>
     /// <item><description>Small cream round side buttons, each once unlocked, packed from the top of their column:
     /// Wardrobe, Collection and the profile avatar (frame, badge) at the left; the Daily Challenge (the sun, with a green
     /// check when done today, L50) and the Store (the lotus) at the right, with the rank pill "Rank #N >" and its gold
@@ -66,13 +68,8 @@ namespace Bloomlings.Client.UI.Screens
         private BackdropView _backdrop = null!;
         private RectTransform _settings = null!;
         private PetalsPill _petals = null!;
-        private GameObject _early = null!;
-        private GameObject _progressed = null!;
         private RectTransform _logo = null!;
         private HomeStageView _stage = null!;
-        private RectTransform _pedestal = null!;
-        private BloomlingFigure _heroFigure = null!;
-        private Image _guestLater = null!;
         private WoodSignView _level = null!;
         private TextMeshProUGUI _playLabel = null!;
         private Button _playButton = null!;
@@ -104,16 +101,8 @@ namespace Bloomlings.Client.UI.Screens
             root.SetAsFirstSibling();
             screen._backdrop = BackdropView.Create(root, BackdropScene.Home);
 
-            // The diorama: the drawn stage with the four heroes (frame 2) or the player's hero on its pedestal (frame 3).
-            RectTransform early = UiFactory.Stretch(UiFactory.CreateRect("Early", root));
-            screen._early = early.gameObject;
-            screen._stage = HeroPictures.Stage("Stage", early);
-            RectTransform progressed = UiFactory.Stretch(UiFactory.CreateRect("Progressed", root));
-            screen._progressed = progressed.gameObject;
-            screen._pedestal = UiKit.StonePedestal("Pedestal", progressed);
-            screen._heroFigure = BloomlingFigure.Create("HeroFigure", progressed);
-            screen._heroFigure.Body.raycastTarget = false;
-            screen._guestLater = HeroPictures.Guest("Leafling", progressed);
+            // The heroes: the four around the owner's painted lotus fountain, or the drawn diorama (frames 2 and 3).
+            screen._stage = HeroPictures.Stage("Stage", root);
 
             // The logo across the top, over the garden in both looks.
             screen._logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
@@ -173,9 +162,14 @@ namespace Bloomlings.Client.UI.Screens
             // "Level N" on the wooden plaque (spec 005 §4.5, §6.4).
             screen._level = UiKit.WoodSign("Level", root, Loc.F("common.level", 1), T.LevelHome);
 
-            // Play: the big primary button with its ▶, leaves and flowers, breathing while it waits (spec 003 FR-010,
-            // FR-011a, FR-019), in its wooden rim (spec 005 §3.3).
-            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, T.ButtonLarge, decorate: true, playArrow: true, breathe: true);
+            // Play: the big primary button with its leaves and flowers, breathing while it waits (spec 003 FR-010, FR-011a,
+            // FR-019), in its wooden rim (spec 005 §3.3); its label alone, centered and as big as the reference's "PLAY"
+            // (ReferenceHomeRegions.PlayLabelShare of the button's height).
+            (float sw, float sh, Insets si) = UiKit.ScreenFrame();
+            float su = DesignTokens.ScaleFor(sw, sh);
+            float playHeight = ScreenLayout.ReferenceHome(sw, sh, si).Play.Height;
+            TypeStyle playStyle = T.ButtonLarge with { Size = Mathf.Max(T.ButtonLarge.Size, playHeight * ReferenceHomeRegions.PlayLabelShare / Mathf.Max(0.0001f, su)) };
+            screen._playButton = UiKit.PrimaryButton("Play", root, Loc.T("common.play"), onPlay, playStyle, decorate: true, playArrow: false, breathe: true);
             screen._playLabel = screen._playButton.GetComponentInChildren<TextMeshProUGUI>();
 
             // The milestone teaser under Play: a parchment pill with the text and the pink gift after it.
@@ -257,24 +251,11 @@ namespace Bloomlings.Client.UI.Screens
             float u = DesignTokens.ScaleFor(w, h);
             UiKit.PlaceBox(_settings, r.Settings, screen);
             UiKit.PlaceBox((RectTransform)_petals.transform, r.Petals, screen);
-            UiKit.PlaceBox(_logo, r.Logo, screen);
+            UiKit.PlaceBox(_logo, OwnerArt.LogoBox(r), screen);
 
-            if (!look.Hero)
-            {
-                // Frame 2: the four heroes around the lotus fountain on the stone, the guest at the front (or the group over
-                // the owner's Home picture).
-                _stage.Place(r.Diorama, screen, BackdropScene.Home, guest: true);
-            }
-            else
-            {
-                // Frame 3: the player's hero on the stone pedestal (until the owner's garden brings its own ground), the
-                // guest beside it; the pedestal's foot goes behind the plaque as the reference's well does.
-                (Box pedestal, Box body, Box guest) = HomeStage.HeroOnPedestal(new Box(r.Diorama.Left, r.Diorama.Top, r.Diorama.Right, r.Plaque.CenterY));
-                _pedestal.gameObject.SetActive(OwnerArt.Background(OwnerPictures.Home) == null);
-                UiKit.PlaceBox(_pedestal, pedestal, screen);
-                UiKit.PlaceBox(_heroFigure.Rect, body, screen);
-                UiKit.PlaceBox(_guestLater.rectTransform, guest, screen);
-            }
+            // The four heroes around the lotus fountain, their heads under the logo (frames 2 and 3); once the Wardrobe is
+            // open each in its outfit, the player's hero at the left front.
+            _stage.Place(r.Diorama, screen, BackdropScene.Home, guest: true, ceiling: r.Logo.Bottom, outfitOf: look.Hero ? model.OutfitOf : null, front: look.Hero ? ProfileAvatar.HeroFamily : Family.Sprig);
 
             // The side columns, packed from the top: Wardrobe, Collection, the avatar; the Daily Challenge, the Store.
             var left = new List<GameObject>();
@@ -350,15 +331,12 @@ namespace Bloomlings.Client.UI.Screens
             _rank.text = model.RankText ?? Loc.T("home.rank_unknown");
             _daily.SetActive(model.DailyChallengeAvailable);
             _dailyDone.SetActive(model.DailyChallengeDone);
-            _early.SetActive(!model.WardrobeAvailable);
-            _progressed.SetActive(model.WardrobeAvailable);
             _wardrobe.SetActive(model.WardrobeAvailable);
             _collection.SetActive(model.CollectionAvailable);
             _profile.SetActive(model.WardrobeAvailable);
             if (model.WardrobeAvailable)
             {
                 _avatar.Show(model.Profile, model.AvatarOutfit);
-                _heroFigure.ShowHero(Family.Bloom, model.AvatarOutfit);
             }
 
             CosmeticItem? marker = model.Profile?.Marker;

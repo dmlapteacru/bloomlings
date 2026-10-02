@@ -106,10 +106,11 @@ namespace Bloomlings.Client.App.Home
                     background,
                     catalog.HasLevel(progression.CurrentLevel),
                     wardrobe.Profile,
-                    wardrobe.OutfitOf(Core.Variants.Family.Bloom),
+                    wardrobe.OutfitOf(ProfileAvatar.HeroFamily),
                     accent,
                     Theme: band,
-                    DailyChallengePetals: DailyChallengeService.RewardPetals));
+                    DailyChallengePetals: DailyChallengeService.RewardPetals,
+                    OutfitOf: wardrobe.OutfitOf));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.IsOpen)
                 {

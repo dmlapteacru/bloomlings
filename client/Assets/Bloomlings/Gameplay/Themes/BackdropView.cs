@@ -24,6 +24,7 @@ namespace Bloomlings.Client.Gameplay.Themes
         private BackdropScene _scene;
         private string? _picture;
         private Texture2D? _owner;
+        private float _zoom;
 
         public static BackdropView Create(RectTransform parent, BackdropScene scene)
         {
@@ -65,8 +66,8 @@ namespace Bloomlings.Client.Gameplay.Themes
         /// </summary>
         public void Show(BackgroundTheme? theme)
         {
-            string name = _picture ?? OwnerPictures.Background(_scene, theme?.Id ?? ThemeRotation.Default.Themes[0].Id);
-            _owner = OwnerArt.Background(name);
+            // The splash takes the Home garden while its own picture is missing (OwnerPictures.Resolve).
+            _owner = _picture != null ? OwnerArt.Background(_picture) : OwnerArt.BackgroundOf(_scene, theme?.Id ?? ThemeRotation.Default.Themes[0].Id);
             if (_owner != null)
             {
                 _image.color = Color.white;
@@ -97,7 +98,25 @@ namespace Bloomlings.Client.Gameplay.Themes
 
         private void OnRectTransformDimensionsChange() => Fit();
 
-        /// <summary>Cover-fits the owner's picture over the backdrop's rect (the screen).</summary>
+        /// <summary>
+        /// The full-screen win (spec 005 §6.3): anchors the owner's win picture at the top of <paramref name="screen"/> and
+        /// zooms it (<see cref="OwnerPictures.WinZoom"/>) so the stone disc painted in it lies on <paramref name="stageY"/>,
+        /// where the hero's feet stand; the painted disc is then the stage. Returns whether the owner's picture shows (else
+        /// nothing changes and the caller draws its pedestal).
+        /// </summary>
+        public bool StandOnPicture(Box screen, float stageY)
+        {
+            if (_owner == null)
+            {
+                return false;
+            }
+
+            _zoom = OwnerPictures.WinZoom(screen, stageY, _owner.width, _owner.height);
+            Fit();
+            return true;
+        }
+
+        /// <summary>Cover-fits the owner's picture over the backdrop's rect (the screen), top-anchored and zoomed on the win.</summary>
         private void Fit()
         {
             if (_owner == null || _image == null)
@@ -107,7 +126,15 @@ namespace Bloomlings.Client.Gameplay.Themes
 
             Rect rect = _image.rectTransform.rect;
             (float w, float h, Insets _) = UiKit.ScreenFrame();
-            OwnerArt.Cover(_image, _owner, rect.width > 0f ? rect.width : w, rect.height > 0f ? rect.height : h);
+            float width = rect.width > 0f ? rect.width : w;
+            float height = rect.height > 0f ? rect.height : h;
+            if (_zoom > 0f)
+            {
+                OwnerArt.CoverTop(_image, _owner, width, height, _zoom);
+                return;
+            }
+
+            OwnerArt.Cover(_image, _owner, width, height);
         }
 
         private static Texture2D Render(int width, int height, BackdropColors colors, BackdropScene scene, string name)
