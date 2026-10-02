@@ -715,7 +715,18 @@ namespace Bloomlings.Playtest.Design
             float left = box.Left + (h * 0.95f);
             TypeStyle s = T.Count;
             float scale = h * 0.5f / p.U(s.Size);
-            p.Text(NumberText.Group(petals), (left + right) / 2f, face.CenterY, s, C.InkBrown, right - left, scale, TextLook.Plain(C.InkBrown));
+            string amount = NumberText.Group(petals);
+
+            // Without the "+" (the Store still locked) the amount follows the lotus, as on the reference, instead of
+            // floating in the middle of the empty pill.
+            float cx = (left + right) / 2f;
+            if (onPlus == null)
+            {
+                float start = box.Left + (h * 1.15f);
+                cx = start + (Math.Min(right - start, p.MeasureText(amount, s, scale)) / 2f);
+            }
+
+            p.Text(amount, cx, face.CenterY, s, C.InkBrown, right - left, scale, TextLook.Plain(C.InkBrown));
             if (onPlus != null)
             {
                 Box plus = Box.FromCenter(box.Right - (plusSize * 0.3f), box.CenterY, plusSize, plusSize);

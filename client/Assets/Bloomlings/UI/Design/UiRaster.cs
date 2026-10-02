@@ -273,11 +273,14 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// A stone pedestal (the win, Home and Wardrobe heroes stand on it; spec 005 contracts/look.md §3.6): a drum seen a
-        /// little from above, as wide as the picture. Its top is an ellipse 28% as tall as wide, paved in
-        /// <c>stone.top</c> with a ring joint; its side is two courses of <c>stone.face</c> blocks with staggered joints,
-        /// darker toward both sides like a cylinder, a <c>stone.lip</c> band along the bottom and moss near the base; the
-        /// <c>stone.line</c> outline goes around it and along the top's front edge.
+        /// A stone pedestal (the win, Home and Wardrobe heroes stand on it; spec 005 contracts/look.md §3.6): a warm
+        /// grey-beige stone drum seen a little from above, as wide as the picture. Its top is an ellipse 28% as tall as
+        /// wide, paved in <c>stone.top</c> mixed 0.4 toward <c>stone.face</c>, with a ring joint at 0.72 of its radius,
+        /// radial joints outside it and one hairline crack; its side is two courses of blocks shaded from
+        /// <c>stone.face</c> darkened 0.06 to <c>stone.lip</c> darkened 0.12, darker toward both sides like a cylinder,
+        /// with staggered <c>stone.line</c> joints (alpha 0.55, 1.5% of the height wide), a crack, and <c>stone.moss</c>
+        /// tufts on about a third of the base rim; a <c>stone.line</c> outline 2.5% of the height goes around it and along
+        /// the top's front edge. (The kit draws the soft ground shadow under it.)
         /// </summary>
         public static byte[] Pedestal(int width, int height, int seed)
         {
@@ -289,9 +292,12 @@ namespace Bloomlings.Client.UI.Design
             float ty = ry + 1f;
             float by = Math.Max(ty + 1f, height - ry - 1f);
             float side = by - ty;
-            float line = Math.Max(1f, width * 0.006f);
-            float joint = Math.Max(0.8f, width * 0.004f);
+            float line = Math.Max(1f, height * 0.025f);
+            float joint = Math.Max(0.8f, height * 0.0075f);
             float grain = Math.Max(4f, width * 0.08f);
+            Rgba paving = C.StoneTop.Mix(C.StoneFace, 0.4f);
+            Rgba sideTop = C.StoneFace.Darken(0.06f);
+            Rgba sideBottom = C.StoneLip.Darken(0.12f);
             for (int py = 0; py < height; py++)
             {
                 float y = py + 0.5f;
@@ -311,46 +317,60 @@ namespace Bloomlings.Client.UI.Design
 
                     float k = Clamp(dx / rx, -1f, 1f);
                     float front = ry * (float)Math.Sqrt(Math.Max(0f, 1f - (k * k)));
-                    float mottle = (Fbm(x / grain, y / grain, seed, 3) - 0.5f) * 0.12f;
+                    float mottle = (Fbm(x / grain, y / grain, seed, 3) - 0.5f) * 0.14f;
                     Color c;
                     if (dTop < 0.5f)
                     {
-                        // The paved top: lighter toward the front, a ring joint and six radial joints between it and the rim.
+                        // The paved top: lighter toward the front, a ring joint, radial joints between it and the rim, and
+                        // one hairline crack running from the ring toward the back left.
                         float e = Length(dx / rx, (y - ty) / ry);
-                        c = new Color(C.StoneTop.Mix(C.StoneFace, 0.35f * Smooth(Clamp01((ty - y + ry) / (2f * ry)))));
+                        c = new Color(paving.Mix(C.StoneTop, 0.3f * Smooth(Clamp01((y - ty + ry) / (2f * ry)))));
                         c.Scale(1f + mottle);
-                        float ring = Math.Abs(e - 0.58f) * ry;
+                        float ring = Math.Abs(e - 0.72f) * ry;
                         c.Mix(C.StoneLine, 0.55f * Clamp01(1f - (ring / joint)));
-                        if (e > 0.58f)
+                        float a = (float)Math.Atan2((y - ty) / ry, dx / rx);
+                        if (e > 0.72f)
                         {
-                            float a = (float)Math.Atan2((y - ty) / ry, dx / rx);
-                            float step = (float)(Math.PI / 3.0);
-                            float nearest = (step * (float)Math.Round((a - 0.25f) / step)) + 0.25f;
+                            float step = (float)(Math.PI / 4.0);
+                            float nearest = (step * (float)Math.Round((a - 0.2f) / step)) + 0.2f;
                             float off = Math.Abs(a - nearest) * e * ry;
-                            c.Mix(C.StoneLine, 0.45f * Clamp01(1f - (off / joint)));
+                            c.Mix(C.StoneLine, 0.5f * Clamp01(1f - (off / joint)));
+                        }
+                        else
+                        {
+                            float crackAngle = -2.3f + (0.18f * (float)Math.Sin(e * 23f));
+                            float crack = Math.Abs(a - crackAngle) * e * ry;
+                            c.Mix(C.StoneLine, 0.45f * Clamp01(1f - (crack / (joint * 0.7f))) * Clamp01((e - 0.25f) * 4f));
                         }
 
-                        c.Mix(C.StoneTop.Lighten(0.5f), 0.55f * Clamp01(1f - (Math.Abs(dTop + (line * 2f)) / (line * 1.5f))));
+                        c.Mix(C.StoneTop.Lighten(0.45f), 0.5f * Clamp01(1f - (Math.Abs(dTop + (line * 1.6f)) / line)));
                         c.Mix(C.StoneLine, Clamp01(0.5f + dTop + line) * (y > ty ? 1f : 0.85f));
-                        Mossy(ref c, x, y, seed + 3, width, Clamp01((e - 0.82f) * 4f) * (y > ty ? 0.9f : 0.4f));
+                        Mossy(ref c, x, y, seed + 3, width, Clamp01((e - 0.86f) * 5f) * (y > ty ? 0.7f : 0.3f) * MossPatch(dx / rx, seed + 5));
                     }
                     else
                     {
                         // The side: two courses of blocks, shaded like a cylinder lit from the upper left.
                         float t = Clamp01((y - ty - front) / Math.Max(1f, side));
-                        c = new Color(C.StoneFace.Mix(C.StoneTop, 0.25f * (1f - t)));
-                        c.Scale(1f - (0.2f * k * k) - (0.06f * k) + mottle);
+                        c = new Color(sideTop.Mix(sideBottom, Smooth(t)));
+                        c.Scale(1f - (0.22f * k * k) - (0.07f * k) + mottle);
                         int course = t < 0.5f ? 0 : 1;
                         float courseLine = Math.Abs(y - (ty + front + (0.5f * side)));
-                        c.Mix(C.StoneLine, 0.7f * Clamp01(1f - (courseLine / joint)));
+                        c.Mix(C.StoneLine, 0.55f * Clamp01(1f - (courseLine / joint)));
                         float theta = (float)Math.Asin(k);
                         float stepAngle = (float)(Math.PI / 4.0);
                         float offset = course == 0 ? 0.5f : 0f;
                         float nearest = stepAngle * ((float)Math.Round((theta / stepAngle) - offset) + offset);
                         float jointX = Math.Abs(dx - (rx * (float)Math.Sin(nearest)));
-                        c.Mix(C.StoneLine, 0.65f * Clamp01(1f - (jointX / (joint * 1.1f))) * Clamp01(courseLine / (joint * 2f)));
-                        c.Mix(C.StoneLip, Smooth(Clamp01((t - 0.8f) / 0.2f)) * 0.8f);
-                        Mossy(ref c, x, y, seed, width, Clamp01((t - 0.62f) * 2.6f));
+                        c.Mix(C.StoneLine, 0.55f * Clamp01(1f - (jointX / joint)) * Clamp01(courseLine / (joint * 2f)));
+
+                        // A hairline crack down the upper course, right of the middle.
+                        float crackX = (rx * 0.28f) + (side * 0.06f * (float)Math.Sin(t * 19f));
+                        c.Mix(C.StoneLine, 0.4f * Clamp01(1f - (Math.Abs(dx - crackX) / (joint * 0.7f))) * Clamp01((0.48f - t) * 8f));
+
+                        // A light edge just under the top's rim, the lip band along the bottom and moss tufts on part of it.
+                        c.Mix(C.StoneTop, 0.35f * Clamp01(1f - (Math.Abs(y - (ty + front + (line * 1.6f))) / line)));
+                        c.Mix(C.StoneLip.Darken(0.2f), Smooth(Clamp01((t - 0.86f) / 0.14f)) * 0.5f);
+                        Mossy(ref c, x, y, seed, width, Clamp01((t - 0.6f) * 2.6f) * MossPatch(dx / rx, seed));
                         c.Mix(C.StoneLine, Clamp01(0.5f + d + line));
                     }
 
@@ -360,6 +380,9 @@ namespace Bloomlings.Client.UI.Design
 
             return pixels;
         }
+
+        /// <summary>Where moss grows along a pedestal's rim (0–1), by the position across it (−1…1): about a third of it.</summary>
+        private static float MossPatch(float across, int seed) => Clamp01((Fbm((across * 3f) + 10f, 0.5f, seed + 13, 2) - 0.5f) * 6f);
 
         /// <summary>
         /// A Garden Entry's stone arch (spec 005 contracts/look.md §3.6): a half ring of nine sandy stone blocks, 28% of its
@@ -584,7 +607,7 @@ namespace Bloomlings.Client.UI.Design
             float sx = s / 2f;
             float sy = (s / 2f) - (s * (board ? 0.02f : 0.01f));
             float unit = box / 2f / ShapeRaster.Margin;
-            float iconLine = Math.Max(0.8f, box * (board ? 0.045f : 0.035f));
+            float iconLine = Math.Max(0.8f, box * (board ? 0.045f : StickerLine));
 
             Rgba top = col.Lighten(0.36f);
             Rgba bottom = col.Darken(0.14f);
@@ -676,10 +699,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The board's gem icon (spec 005 FR-026, contracts/look.md §3.1.2): the variant's gem silhouette
         /// (<see cref="ShapeLibrary.GemSymbol"/>) in a box of <see cref="GemBox"/> of the tile, centered on the face, with
-        /// a thick dark outline (<see cref="GemLine"/> of the tile, in the color darkened 0.5) over a faint drop shadow, a
-        /// fill in a shade of the tile color (<see cref="GemDarken"/> on light colors, <see cref="GemLighten"/> on darker
-        /// ones) lighter at the top, its inner line and lighter or darker part (<see cref="ShapeLibrary.GemDetail"/>), a soft white highlight
-        /// on its upper left (alpha 0.45) and a tiny specular dot. Small tiles draw only the silhouette in the flat shade.
+        /// a thick dark outline (<see cref="GemLine"/> of the tile, in a deep saturated shade of the tile color:
+        /// <see cref="Vivid"/> of the color darkened 0.42, by 1.5) over a faint drop shadow, a vivid fill in a shade of the
+        /// tile color (on light colors the color darkened <see cref="GemShade"/>, on darker ones lightened 0.25, then
+        /// saturated by <see cref="GemSaturate"/> or 1.4) lighter at the top, its inner line and lighter or darker part
+        /// (<see cref="ShapeLibrary.GemDetail"/>), a strong white highlight on its upper left (alpha 0.6) and a specular dot.
+        /// Small tiles draw only the silhouette in the flat shade.
         /// </summary>
         private readonly struct Gem
         {
@@ -699,10 +724,10 @@ namespace Bloomlings.Client.UI.Design
                 _detail = detail;
                 _light = light;
                 _dark = dark;
-                _line = color.Darken(0.5f);
-                Rgba fill = Lightness(color) > 0.55f ? color.Darken(GemDarken) : color.Lighten(GemLighten);
-                _top = fill.Lighten(0.1f);
-                _bottom = fill.Darken(0.08f);
+                _line = Vivid(color.Darken(0.42f), 1.5f);
+                Rgba fill = Lightness(color) > 0.55f ? Vivid(color.Darken(GemShade), GemSaturate) : Vivid(color.Lighten(0.25f), 1.4f);
+                _top = fill.Lighten(0.18f);
+                _bottom = fill.Darken(0.06f);
                 _unit = size * GemBox / 2f / ShapeRaster.Margin;
                 _width = Math.Max(1f, size * GemLine);
             }
@@ -755,8 +780,8 @@ namespace Bloomlings.Client.UI.Design
                 }
 
                 // The soft white highlight on the upper left, kept inside the outline, and a tiny specular dot.
-                fill.Mix(Rgba.White, 0.45f * Specular(u, v) * Coverage(d + (_width * 0.8f)));
-                fill.Mix(Rgba.White, 0.85f * Coverage((Length(u + 0.32f, v - 0.42f) - 0.075f) * _unit) * Coverage(d + (_width * 0.5f)));
+                fill.Mix(Rgba.White, 0.6f * Specular(u, v) * Coverage(d + (_width * 0.8f)));
+                fill.Mix(Rgba.White, 0.95f * Coverage((Length(u + 0.32f, v - 0.42f) - 0.1f) * _unit) * Coverage(d + (_width * 0.5f)));
                 c.Mix(fill.ToRgba(), inside);
             }
 
@@ -775,11 +800,28 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The gem icon's dark outline as a share of the board tile's side.</summary>
         public const float GemLine = 0.06f;
 
-        /// <summary>How much darker than its tile a gem is on a light tile (HSL lightness above 0.55).</summary>
-        public const float GemDarken = 0.22f;
+        /// <summary>A sticker icon's outline as a share of its symbol box (§3.1.1).</summary>
+        public const float StickerLine = 0.04f;
 
-        /// <summary>How much lighter than its tile a gem is on a darker tile.</summary>
-        public const float GemLighten = 0.3f;
+        /// <summary>How much darker than its tile a sticker icon's outline is (§3.1.1; Dew's is <c>#1F8D95</c>).</summary>
+        public const float StickerLineDarken = 0.45f;
+
+        /// <summary>How much darker than its tile a gem is on a light tile (HSL lightness above 0.55), before <see cref="GemSaturate"/>.</summary>
+        public const float GemShade = 0.12f;
+
+        /// <summary>How much a gem's fill on a light tile is saturated away from its grey (<see cref="Vivid"/>).</summary>
+        public const float GemSaturate = 1.6f;
+
+        /// <summary>
+        /// A more saturated <paramref name="color"/>: each channel pushed away from the color's grey
+        /// (<c>0.3 R + 0.59 G + 0.11 B</c>) by <paramref name="k"/> (1 keeps it), clamped, as <c>GardenLook.SpecialFace</c>.
+        /// </summary>
+        public static Rgba Vivid(Rgba color, float k)
+        {
+            float g = (0.3f * color.R) + (0.59f * color.G) + (0.11f * color.B);
+            byte Push(byte c) => (byte)Math.Max(0, Math.Min(255, (int)Math.Round(g + (k * (c - g)))));
+            return new Rgba(Push(color.R), Push(color.G), Push(color.B), color.A);
+        }
 
         // ---- Grass cells ----
 
@@ -876,29 +918,38 @@ namespace Bloomlings.Client.UI.Design
             private readonly Rgba _second;
             private readonly bool _grey;
 
-            private Sticker(string icon, Rgba top, Rgba bottom, Rgba detail, Rgba second, bool grey)
+            private Sticker(string icon, Rgba top, Rgba bottom, Rgba detail, Rgba second, Rgba line, bool grey)
             {
                 _icon = icon;
                 _grey = grey;
                 _top = Tone(top, grey);
                 _bottom = Tone(bottom, grey);
-                _line = Tone(bottom.Darken(0.32f), grey);
+                _line = Tone(line, grey);
                 _detail = Tone(detail, grey);
                 _second = Tone(second, grey);
             }
 
-            public static Sticker Of(string iconId, Rgba color, bool grey) => iconId switch
+            /// <summary>
+            /// The sticker of <paramref name="iconId"/> on a tile of <paramref name="color"/>: its own fill colors and detail,
+            /// outlined in the tile's own color darkened <see cref="StickerLineDarken"/> (Dew, whose icon is nearly white,
+            /// in <c>#1F8D95</c>), so every icon contrasts with its face.
+            /// </summary>
+            public static Sticker Of(string iconId, Rgba color, bool grey)
             {
-                "leaf" => new Sticker(iconId, Rgba.FromHex("#5FB84A"), Rgba.FromHex("#2F8C32"), Rgba.FromHex("#8ED86A"), Rgba.White, grey),
-                "moss" => new Sticker(iconId, Rgba.FromHex("#22B79C"), Rgba.FromHex("#0D7C68"), Rgba.FromHex("#5FD6BF"), Rgba.White, grey),
-                "flower" => new Sticker(iconId, Rgba.FromHex("#FFD2E2"), Rgba.FromHex("#F79AC0"), Rgba.FromHex("#FFD35C"), Rgba.FromHex("#F08A24"), grey),
-                "bud" => new Sticker(iconId, Rgba.FromHex("#C58BF5"), Rgba.FromHex("#8E4BD8"), Rgba.FromHex("#E2C4FF"), Rgba.FromHex("#5BAA3A"), grey),
-                "drop" => new Sticker(iconId, Rgba.FromHex("#5FB6FF"), Rgba.FromHex("#1E6FD6"), Rgba.White, Rgba.White, grey),
-                "dew" => new Sticker(iconId, Rgba.FromHex("#E6FFFF"), Rgba.FromHex("#9EEFF3"), Rgba.White, Rgba.FromHex("#3FAFB8"), grey),
-                "log" => new Sticker(iconId, Rgba.FromHex("#C47A3C"), Rgba.FromHex("#7A3A12"), Rgba.FromHex("#E3A566"), Rgba.FromHex("#6A3210"), grey),
-                "acorn" => new Sticker(iconId, Rgba.FromHex("#E39A4A"), Rgba.FromHex("#A35A18"), Rgba.FromHex("#7A4A22"), Rgba.FromHex("#4F2C10"), grey),
-                _ => new Sticker(iconId, color.Lighten(0.2f), color.Darken(0.15f), color, color, grey),
-            };
+                Rgba line = color.Darken(StickerLineDarken);
+                return iconId switch
+                {
+                    "leaf" => new Sticker(iconId, Rgba.FromHex("#5FB84A"), Rgba.FromHex("#2F8C32"), Rgba.FromHex("#8ED86A"), Rgba.White, line, grey),
+                    "moss" => new Sticker(iconId, Rgba.FromHex("#22B79C"), Rgba.FromHex("#0D7C68"), Rgba.FromHex("#5FD6BF"), Rgba.White, line, grey),
+                    "flower" => new Sticker(iconId, Rgba.FromHex("#FFD2E2"), Rgba.FromHex("#F79AC0"), Rgba.FromHex("#FFD35C"), Rgba.FromHex("#F08A24"), line, grey),
+                    "bud" => new Sticker(iconId, Rgba.FromHex("#C58BF5"), Rgba.FromHex("#8E4BD8"), Rgba.FromHex("#E2C4FF"), Rgba.FromHex("#5BAA3A"), line, grey),
+                    "drop" => new Sticker(iconId, Rgba.FromHex("#2F8EF5"), Rgba.FromHex("#0B4FB0"), Rgba.White, Rgba.White, line, grey),
+                    "dew" => new Sticker(iconId, Rgba.FromHex("#E6FFFF"), Rgba.FromHex("#9EEFF3"), Rgba.White, Rgba.FromHex("#3FAFB8"), Rgba.FromHex("#1F8D95"), grey),
+                    "log" => new Sticker(iconId, Rgba.FromHex("#C47A3C"), Rgba.FromHex("#7A3A12"), Rgba.FromHex("#E3A566"), Rgba.FromHex("#6A3210"), line, grey),
+                    "acorn" => new Sticker(iconId, Rgba.FromHex("#E39A4A"), Rgba.FromHex("#A35A18"), Rgba.FromHex("#7A4A22"), Rgba.FromHex("#4F2C10"), line, grey),
+                    _ => new Sticker(iconId, color.Lighten(0.2f), color.Darken(0.15f), color, color, line, grey),
+                };
+            }
 
             /// <summary>Draws the outline (in the icon's own dark tone), the fill, the detail and the highlight at one point of the symbol.</summary>
             public void Draw(ref Color c, float u, float v, float d, float solid, float unit, float line, float sy, float box, float y)
@@ -983,7 +1034,9 @@ namespace Bloomlings.Client.UI.Design
 
                     case "dew":
                     {
+                        // The white sparkle with a thin outline in the icon's own line color.
                         float sparkle = ShapeLibrary.DewSparkle(u, v);
+                        fill.Mix(_line, Coverage((sparkle - (line * 0.6f / unit)) / px));
                         fill.Mix(_detail, Coverage(sparkle / px));
                         float arc = Math.Abs(Length(u + 0.14f, v + 0.24f) - 0.36f) - 0.05f;
                         arc = Math.Max(arc, Math.Max(u + 0.18f, -(v + 0.2f)));

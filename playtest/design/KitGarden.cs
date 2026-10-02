@@ -158,7 +158,20 @@ namespace Bloomlings.Playtest.Design
             WoodPlank(p, box, 0.28f, 7);
             float scale = Math.Min(1f, (h * 0.62f) / Math.Max(1f, p.U(style.Size)));
             Rgba ink = letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown);
-            p.Text(text, box.CenterX, box.CenterY - (h * 0.04f), style, ink, box.Width * 0.82f, scale, GardenLook.SignLetters(ink));
+
+            // The letters keep clear of the leaves on the plank's ends: the owner's ivy cluster reaches 0.585 h into each
+            // end, the flower clusters about 0.64 h.
+            float maxWidth = box.Width * 0.82f;
+            if (decor == SignDecor.Ivy && p.HasSprite(PainterBase.DecorPrefix + OwnerPictures.Ivy))
+            {
+                maxWidth = Math.Min(maxWidth, box.Width - (h * 1.25f));
+            }
+            else if (decor == SignDecor.Flowers)
+            {
+                maxWidth = Math.Min(maxWidth, box.Width - (h * 1.35f * 0.95f));
+            }
+
+            p.Text(text, box.CenterX, box.CenterY - (h * 0.04f), style, ink, Math.Max(h, maxWidth), scale, GardenLook.SignLetters(ink));
             switch (decor)
             {
                 case SignDecor.Ivy:
@@ -495,16 +508,12 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The side of the tile on a working or stuck slot plate filling <paramref name="plate"/> (<see cref="SlotPlate"/>):
-        /// 72% of the plate's width, or less on a squarer plate, so the count below it keeps about a quarter of the face.
-        /// The pods flying to a slot are drawn at this size and scaled, so they share its picture.
+        /// The side of the tile on a working or stuck slot plate filling <paramref name="plate"/> (<see cref="SlotPlate"/>,
+        /// <see cref="ReferenceGameplayRegions.SlotTile"/>): 74% of the face's width, or 66% of its height on a squarer
+        /// plate, so the count below it keeps about a quarter of the face. The pods flying to a slot are drawn at this
+        /// size and scaled, so they share its picture.
         /// </summary>
-        public static float SlotTileSize(Box plate)
-        {
-            float lip = Math.Min(plate.Width, plate.Height) * 0.055f;
-            var face = new Box(plate.Left, plate.Top, plate.Right, plate.Bottom - lip);
-            return Math.Min(face.Width * 0.72f, face.Height * 0.58f);
-        }
+        public static float SlotTileSize(Box plate) => ReferenceGameplayRegions.SlotTile(plate).Width;
 
         /// <summary>
         /// A Waiting Slot (§3.7): a raised cream plate (radius 20%) with the sticker tile at 70% of its width and the count
@@ -572,10 +581,9 @@ namespace Bloomlings.Playtest.Design
                         p.Mark("pod.state.mystery");
                     }
 
-                    // The tile near the top (about 70% of a portrait plate's width, as in the reference; less on a square
+                    // The tile near the top (about 74% of a portrait plate's width, as in the reference; less on a square
                     // one), so the count below it keeps about a quarter of the face.
-                    float tile = SlotTileSize(box);
-                    Box tileBox = Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.1f) + (tile / 2f), tile, tile);
+                    Box tileBox = ReferenceGameplayRegions.SlotTile(box);
                     p.PushSquash(tileFlip, 1f, tileBox.CenterX, tileBox.CenterY);
                     CandyTile(p, tileBox, variant, TileStyle.Sticker, stuck && variant.HasValue ? TileState.Grey : TileState.Normal);
                     p.PopTransform();

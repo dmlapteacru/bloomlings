@@ -42,7 +42,7 @@ drew it: set `CharacterArt.FaceCenterHero` to it, so a worn expression lands on 
 | A2 | `bloom.png` | 512 × 576 | idle, happy | same | `char.hero3d.bloom` |
 | A3 | `drop.png` | 512 × 576 | idle, happy | same | `char.hero3d.drop` |
 | A4 | `twig.png` | 512 × 576 | idle, happy | same | `char.hero3d.twig` |
-| A5 | `sprig-blank.png` … `twig-blank.png` | 512 × 576 | the same four pictures without eyes and mouth (a worn cosmetic expression draws the face) | Wardrobe with an expression | the family's `char.hero3d.{family}` |
+| A5 | `sprig-blank.png` … `twig-blank.png` | 512 × 576 | the same four pictures without eyes and mouth (a worn cosmetic expression draws the face); until they are adopted, the hosts keep the owner's hero and show a worn expression as a small badge beside its face (`CharacterArt.HasMatchingBlank`, `OwnerBlanks`) | Wardrobe with an expression | the family's `char.hero3d.{family}` |
 | A6 | `group.png` | 1200 × 720 | the four together, Sprig left, Bloom, Drop, Twig right, as in the reference's strip; no base (the game stands them on its stone pedestal); their feet on the line 62% down the picture (`CharacterArt.GroupFeetShare`), their heads from about 15% down (`CharacterArt.GroupHeadShare`) and the space below the feet clear, as in the generated group | Home (early), win, milestone, splash | `char.hero3d.group` |
 | A7 | `sprig-cheer.png` … `twig-cheer.png` | 512 × 576 | celebrating: arms up, eyes closed with joy (the reference's win Bloom); feet on the line 90% down (`HomeStage.FeetShare`), as the solo heroes | win and milestone cards (the family of the level's main variant; the group stands in while it is missing) | `char.hero3d.cheer.{family}` (`CharacterArt.CheerSlot`) |
 

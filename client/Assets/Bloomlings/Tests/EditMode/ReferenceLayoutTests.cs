@@ -52,7 +52,9 @@ namespace Bloomlings.Client.Tests
                                 Assert.That(r.K, Is.InRange(0.8f, 1f), at);
                                 Assert.That(r.TopBar.Top, Is.GreaterThanOrEqualTo(r.Safe.Top), at + ": the top bar sits under the top inset");
                                 Assert.That(r.Board.Width, Is.LessThanOrEqualTo((r.W * ReferenceGameplayRegions.MaxBoardShare) + 0.5f), at);
-                                Assert.That(r.Board.Height, Is.GreaterThan(r.Safe.Height * 0.38f), at + ": the board keeps its room");
+                                // The tray keeps the reference's size on 19.5:9 and shrinks by k on shorter phones (k = 0.86 at
+                                // 16:9), so the board keeps at least 35% of the height there even with a badge.
+                                Assert.That(r.Board.Height, Is.GreaterThan(r.Safe.Height * 0.35f), at + ": the board keeps its room");
                                 Assert.That(r.Tray.Bottom, Is.EqualTo(h).Within(0.5f), at + ": the tray runs to the screen's bottom");
                                 Assert.That(r.Tray.Left, Is.EqualTo(0f).Within(0.5f), at);
                                 Assert.That(r.Tray.Right, Is.EqualTo(w).Within(0.5f), at);
@@ -277,6 +279,56 @@ namespace Bloomlings.Client.Tests
                 float touch = Touch(w, h) * 0.95f;
                 AssertTargets(new List<Box> { TouchBox(r.Pause, touch), TouchBox(r.Double, touch), r.Next }, r.Safe, touch, at);
                 Assert.That(r.Pause.Overlaps(r.Sign), Is.False, at + ": Pause stays clear of the sign");
+
+                // The hero's feet stand on the middle of the pedestal's top (not its back rim).
+                (float topY, float ry) = HomeStage.PedestalTop(r.Pedestal);
+                float feet = r.Hero.Top + (r.Hero.Height * HomeStage.FeetShare);
+                Assert.That(feet, Is.InRange(topY - (ry * 0.5f), topY + (ry * 0.5f)), at + ": the feet on the pedestal's middle");
+
+                // The owner's win picture, drawn from the top, puts its own stone disc under the pedestal's top.
+                var screen = new Box(0f, 0f, w, h);
+                Box picture = OwnerPictures.TopAnchored(screen, 852, 1846, topY, OwnerPictures.WinStageShare);
+                Assert.That(picture.Top, Is.EqualTo(0f).Within(0.01f), at);
+                Assert.That(picture.Width, Is.GreaterThanOrEqualTo(w - 0.5f), at + ": it covers the screen's width");
+                Assert.That(picture.Bottom, Is.GreaterThanOrEqualTo(h - 0.5f), at + ": and its height");
+                Assert.That(picture.Top + (picture.Height * OwnerPictures.WinStageShare), Is.EqualTo(topY).Within(1f), at + ": its disc under the pedestal's top");
+                Assert.That(picture.CenterX, Is.EqualTo(screen.CenterX).Within(0.5f), at);
+            }
+        }
+
+        [Test]
+        public void TheSlotTile_FillsTheReferenceShareOfItsPlate_AndLeavesRoomForTheCount()
+        {
+            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2160f, Insets.None, Bottom, 4, 5);
+            Box plate = r.Slots[0];
+            Box tile = ReferenceGameplayRegions.SlotTile(plate);
+            float lip = Math.Min(plate.Width, plate.Height) * ReferenceGameplayRegions.SlotLipShare;
+            float face = plate.Height - lip;
+            Assert.That(tile.Width, Is.EqualTo(tile.Height).Within(0.01f));
+            Assert.That(tile.Width, Is.EqualTo(Math.Min(plate.Width * 0.74f, face * 0.66f)).Within(0.5f));
+            Assert.That(tile.Top, Is.EqualTo(plate.Top + (face * 0.08f)).Within(0.5f));
+            Assert.That(tile.CenterX, Is.EqualTo(plate.CenterX).Within(0.5f));
+            Assert.That(plate.Bottom - lip - tile.Bottom, Is.GreaterThan(face * 0.2f), "the count keeps a quarter of the face");
+            Assert.That(tile.Width, Is.GreaterThan(0.11f * r.W), "about 0.12 W, as the reference's");
+        }
+
+        [Test]
+        public void TwoOrThreeDecks_StayTogether_AtTheReferenceWidth()
+        {
+            foreach (int stacks in new[] { 2, 3 })
+            {
+                ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 1080f * ScreenLayout.ReferenceAspect, Insets.None, Bottom, stacks, 5);
+                for (int i = 0; i < stacks; i++)
+                {
+                    Assert.That(r.Decks[i].Width, Is.EqualTo(0.23f * r.W).Within(1f), stacks + " decks");
+                }
+
+                for (int i = 1; i < stacks; i++)
+                {
+                    Assert.That(r.Decks[i].Left - r.Decks[i - 1].Right, Is.LessThanOrEqualTo((0.02f * r.W) + 0.5f), stacks + " decks sit together");
+                }
+
+                Assert.That((r.Decks[0].Left + r.Decks[stacks - 1].Right) / 2f, Is.EqualTo(r.Safe.CenterX).Within(0.5f), stacks + " decks centered");
             }
         }
 

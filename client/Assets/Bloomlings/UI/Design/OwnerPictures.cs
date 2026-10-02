@@ -106,5 +106,34 @@ namespace Bloomlings.Client.UI.Design
             BackdropScene.Win => Win,
             _ => Gameplay(themeId),
         };
+
+        /// <summary>
+        /// Where the stone disc of the owner's win picture (B8) lies: the middle of its top, as a share of the picture's
+        /// height. The win stands the hero on it instead of a drawn pedestal (<see cref="TopAnchored"/>).
+        /// </summary>
+        public const float WinStageShare = 0.575f;
+
+        /// <summary>
+        /// The box of a background picture of <paramref name="width"/> × <paramref name="height"/> drawn over
+        /// <paramref name="screen"/> from its top, centered across: at least cover-sized, and as large as it takes for the
+        /// point at <paramref name="share"/> of its height (the win picture's stone disc, <see cref="WinStageShare"/>) to
+        /// land on <paramref name="stageY"/> (where the layout's pedestal top is). Its foot may run below the screen.
+        /// </summary>
+        public static Box TopAnchored(Box screen, int width, int height, float stageY, float share)
+        {
+            float w = System.Math.Max(1, width);
+            float h = System.Math.Max(1, height);
+            float cover = System.Math.Max(screen.Width / w, screen.Height / h);
+            float scale = System.Math.Max(cover, (stageY - screen.Top) / System.Math.Max(1f, share * h));
+            return new Box(screen.CenterX - (w * scale / 2f), screen.Top, screen.CenterX + (w * scale / 2f), screen.Top + (h * scale));
+        }
+
+        /// <summary>
+        /// The picture a backdrop scene shows (<see cref="Background"/>), except that the splash shows the Home garden
+        /// while its own picture (B6) is missing, so the splash turns into Home without a jump. <paramref name="exists"/>
+        /// tells whether the host has a picture of that name.
+        /// </summary>
+        public static string Resolve(BackdropScene scene, string themeId, System.Func<string, bool> exists) =>
+            scene == BackdropScene.Splash && !exists(Splash) ? Home : Background(scene, themeId);
     }
 }

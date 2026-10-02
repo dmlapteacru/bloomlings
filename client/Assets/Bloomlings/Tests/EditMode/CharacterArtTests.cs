@@ -28,6 +28,12 @@ namespace Bloomlings.Client.Tests
             Assert.That(OwnerPictures.Background(BackdropScene.Splash, "pond"), Is.EqualTo(OwnerPictures.Splash));
             Assert.That(OwnerPictures.Background(BackdropScene.Gameplay, "moonlit_garden"), Is.EqualTo("gameplay-moonlit"));
 
+            // The splash shows the Home garden until its own picture (B6) exists, so it turns into Home without a jump.
+            Assert.That(OwnerPictures.Resolve(BackdropScene.Splash, "pond", name => name == OwnerPictures.Home), Is.EqualTo(OwnerPictures.Home));
+            Assert.That(OwnerPictures.Resolve(BackdropScene.Splash, "pond", name => true), Is.EqualTo(OwnerPictures.Splash));
+            Assert.That(OwnerPictures.Resolve(BackdropScene.Home, "pond", name => false), Is.EqualTo(OwnerPictures.Home));
+            Assert.That(OwnerPictures.Resolve(BackdropScene.Gameplay, "pond", name => false), Is.EqualTo("gameplay-pond"));
+
             // Every picture of sections B and C fills a registered slot (FR-019): the themes', Home, the splash, the
             // Wardrobe, the logo and the tagline.
             foreach (Gameplay.Themes.BackgroundTheme theme in Gameplay.Themes.ThemeRotation.Default.Themes)
@@ -147,6 +153,50 @@ namespace Bloomlings.Client.Tests
                 Assert.That(CharacterArt.OnCard(face).Within(face), Is.True, $"card {w}x{h}");
                 Assert.That(CharacterArt.OnTile(face).Within(face), Is.True, $"tile {w}x{h}");
                 Assert.That(CharacterArt.CountBox(face).Within(face), Is.True, $"count {w}x{h}");
+            }
+        }
+
+        [Test]
+        public void AWornExpression_SwapsToTheBlank_OnlyWhenItIsTheSameCharacter()
+        {
+            // The owner's solo heroes (pictures.md A1 to A4) have no owner blank twins yet (A5): the expression shows as a
+            // badge beside the drawn face, never on the old generated blank hero.
+            foreach (Family family in CharacterArt.Families)
+            {
+                bool ownerHero = CharacterArt.OwnerHeroes.Contains(family);
+                bool ownerBlank = CharacterArt.OwnerBlanks.Contains(family);
+                Assert.That(CharacterArt.HasMatchingBlank(family), Is.EqualTo(ownerHero == ownerBlank), family.ToString());
+                if (ownerHero && !ownerBlank)
+                {
+                    Assert.That(CharacterArt.HasMatchingBlank(family), Is.False, family + ": the generated blank is another design");
+                }
+            }
+
+            var picture = new Box(100f, 200f, 612f, 776f);
+            Box badge = CharacterArt.ExpressionBadge(picture);
+            Assert.That(badge.Width, Is.EqualTo(picture.Width * 0.22f).Within(0.01f));
+            Assert.That(badge.Within(picture), Is.True, "the badge stays on the picture");
+            foreach (Family family in CharacterArt.Families)
+            {
+                (float x, float y) = CharacterArt.FaceCenterHero(family);
+                Box face = CharacterArt.ExpressionBox(picture, (x, y));
+                Assert.That(badge.Bottom, Is.LessThan(face.Top + (face.Height * 0.5f)), family + ": the badge sits above the eyes, not on the face");
+            }
+        }
+
+        [Test]
+        public void HatsOnTheOwnersHeroes_SitOnTheHead_AboveTheFace()
+        {
+            var picture = new Box(0f, 0f, 512f, 576f);
+            foreach (Family family in CharacterArt.Families)
+            {
+                Box hat = CharacterArt.HatOnHero(picture, family);
+                (float _, float fy) = CharacterArt.FaceCenterHero(family);
+                float brim = hat.Top + (hat.Height * 0.676f);
+                Assert.That(hat.Width, Is.EqualTo(picture.Width * 0.5f).Within(0.01f), family.ToString());
+                Assert.That(brim, Is.LessThan(picture.Height * (fy - 0.08f)), family + ": the brim rests above the eyes");
+                Assert.That(hat.Top, Is.GreaterThanOrEqualTo(picture.Top - (hat.Height * 0.2f)), family + ": the hat stays near the picture");
+                Assert.That(CharacterArt.HatOnHero(picture, family, "sprout").Bottom, Is.LessThan(hat.Bottom), family + ": the sprout grows from the head's top");
             }
         }
 

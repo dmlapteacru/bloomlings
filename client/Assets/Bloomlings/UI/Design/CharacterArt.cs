@@ -228,16 +228,61 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// Where a 3D hero's face is, as a share of its solo picture: where tools/artgen draws it (<c>-- faces</c> prints
-        /// it, and its art check keeps these within 2%). The heroes stand slightly turned, so the faces are off center.
+        /// Where a 3D hero's face is (between the eyes and the mouth), as a share of its solo picture: measured on the
+        /// owner's heroes (spec 005 pictures.md A1 to A4; tools/artgen's check notes that an owner's hero is set by hand).
+        /// The heroes stand slightly turned, so Sprig's and Twig's faces are right of center.
         /// </summary>
         public static (float X, float Y) FaceCenterHero(Family family) => family switch
         {
-            Family.Sprig => (0.41f, 0.65f),
-            Family.Bloom => (0.49f, 0.38f),
-            Family.Drop => (0.52f, 0.62f),
-            _ => (0.59f, 0.64f),
+            Family.Sprig => (0.6f, 0.55f),
+            Family.Bloom => (0.51f, 0.57f),
+            Family.Drop => (0.5f, 0.55f),
+            _ => (0.56f, 0.56f),
         };
+
+        /// <summary>
+        /// The families whose solo 3D hero (<c>3d/{family}</c>) is the owner's picture (spec 005 pictures.md A1 to A4,
+        /// recorded by tools/artgen <c>adopt</c>; its art check keeps this list equal to the manifest).
+        /// </summary>
+        public static IReadOnlyList<Family> OwnerHeroes { get; } = new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig };
+
+        /// <summary>
+        /// The families whose blank twin (<c>3d/{family}-blank</c>, no eyes and no mouth) is the owner's picture
+        /// (pictures.md A5); none yet, so the blanks are still the generated heroes (the art check keeps this list equal
+        /// to the manifest).
+        /// </summary>
+        public static IReadOnlyList<Family> OwnerBlanks { get; } = Array.Empty<Family>();
+
+        /// <summary>
+        /// Whether a family's blank twin is the same character as its solo hero (both the owner's or both generated), so a
+        /// worn expression may swap the hero for its blank. Otherwise the hosts keep the solo hero and show the expression
+        /// as a badge beside its face (<see cref="ExpressionBadge"/>), never over the drawn face.
+        /// </summary>
+        public static bool HasMatchingBlank(Family family) => Contains(OwnerHeroes, family) == Contains(OwnerBlanks, family);
+
+        /// <summary>
+        /// A worn expression shown beside a hero whose blank twin does not match (<see cref="HasMatchingBlank"/>): a cream
+        /// disc 0.22 of the picture's width near its top right (0.18 W in from the right, 0.30 H down), the expression's
+        /// glyph on it. Returns the disc.
+        /// </summary>
+        public static Box ExpressionBadge(Box picture)
+        {
+            float size = picture.Width * 0.22f;
+            return Box.FromCenter(picture.Right - (picture.Width * 0.18f), picture.Top + (picture.Height * 0.3f), size, size);
+        }
+
+        private static bool Contains(IReadOnlyList<Family> families, Family family)
+        {
+            for (int i = 0; i < families.Count; i++)
+            {
+                if (families[i] == family)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         /// <summary>
         /// The 3D group standing on a card's top edge (the win and milestone cards, FR-017): at most
@@ -307,27 +352,33 @@ namespace Bloomlings.Client.UI.Design
             Box.FromCenter(picture.Left + (picture.Width * face.X), picture.Top + (picture.Height * face.Y), picture.Width * 0.36f, picture.Width * 0.24f);
 
         /// <summary>
-        /// Where a 3D hero's head top is, as a share of its solo picture (y down): the top of Sprig's bean, Bloom's petals,
-        /// a little below Drop's tip (the tip pokes into a hat) and Twig's cut top.
+        /// Where a 3D hero's head line is, as a share of its solo picture (y down), measured on the owner's heroes: the top
+        /// of Sprig's and Bloom's face discs (their leaves and petals poke out beside the hat), a little below Drop's tip
+        /// (it pokes into a hat) and the top of Twig's acorn cap (the hat sits on it). The hat's brim rests 0.15 of its
+        /// size below this line, just above the eyebrows.
         /// </summary>
         public static (float X, float Y) HeadTopHero(Family family) => family switch
         {
-            Family.Sprig => (0.5f, 0.39f),
-            Family.Bloom => (0.5f, 0.1f),
+            Family.Sprig => (0.58f, 0.31f),
+            Family.Bloom => (0.51f, 0.31f),
             Family.Drop => (0.5f, 0.27f),
-            _ => (0.5f, 0.45f),
+            _ => (0.55f, 0.2f),
         };
 
         /// <summary>
-        /// A worn hat's box on a 3D hero picture (meta screens): 55% of the picture wide, centered over the head top
-        /// (<see cref="HeadTopHero"/>), the hat's brim (about 71% down its box) overlapping the head by 15% of its size.
+        /// A worn hat's box on a 3D hero picture (meta screens): half the picture wide (the owner's head discs are about
+        /// that wide), centered over the head line (<see cref="HeadTopHero"/>), the hat's brim (about 71% down its box)
+        /// overlapping the head by 15% of its size. A hat without a brim whose stem reaches its box's foot
+        /// (<paramref name="shape"/> <c>sprout</c>, a <c>CosmeticCatalog</c> shape) rises by a quarter of its size, so the
+        /// stem grows from the head's top instead of hanging over the face.
         /// </summary>
-        public static Box HatOnHero(Box picture, Family family)
+        public static Box HatOnHero(Box picture, Family family, string? shape = null)
         {
             (float x, float y) = HeadTopHero(family);
-            float size = picture.Width * 0.55f;
+            float size = picture.Width * 0.5f;
             float head = picture.Top + (picture.Height * y);
-            return Box.FromCenter(picture.Left + (picture.Width * x), head - (size * 0.06f), size, size);
+            float lift = shape == "sprout" ? size * 0.25f : 0f;
+            return Box.FromCenter(picture.Left + (picture.Width * x), head - (size * 0.06f) - lift, size, size);
         }
 
         /// <summary>A worn hat's box: over the top of the picture (the 2D figures).</summary>
