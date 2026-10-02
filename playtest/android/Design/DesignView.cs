@@ -67,7 +67,15 @@ namespace Bloomlings.Playtest.Droid
             _app.Draw(_painter, dt);
             if (_app.NeedsFrames || _painter.Springing || _painter.Finger.HasValue)
             {
-                PostInvalidateOnAnimation();
+                if (_app.Calm && !_painter.Springing && !_painter.Finger.HasValue)
+                {
+                    // Only the win card's slow motion is left: about 30 frames a second is enough.
+                    PostInvalidateDelayed(33);
+                }
+                else
+                {
+                    PostInvalidateOnAnimation();
+                }
             }
             else
             {

@@ -27,7 +27,10 @@ namespace Bloomlings.Client.UI.Design
     /// <list type="bullet">
     /// <item><description><c>2d/{icon}-{mood}</c>: a variant's 2D character, whose shape is its symbol;</description></item>
     /// <item><description><c>3d/{family}</c> and <c>3d/{family}-blank</c>: a family's 3D hero (meta screens only);</description></item>
-    /// <item><description><c>3d/group</c>: the four heroes on the stone pedestal.</description></item>
+    /// <item><description><c>3d/group</c>: the four heroes side by side, without a base of their own (the hosts stand
+    /// them on their stone pedestal, feet at <see cref="GroupFeetShare"/>).</description></item>
+    /// <item><description><c>3d/{family}-cheer</c>: optional celebrating heroes the owner makes (spec 005 pictures.md A7);
+    /// the win card shows the group while they are missing.</description></item>
     /// </list>
     /// Engine-free.
     /// </summary>
@@ -52,6 +55,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The group picture's asset slot.</summary>
         public const string GroupSlot = "char.hero3d.group";
+
+        /// <summary>Where the group's feet stand, as a share of its picture's height from the top (y down).</summary>
+        public const float GroupFeetShare = 0.62f;
+
+        /// <summary>Where the group's heads begin, as a share of its picture's height from the top (the margin above is clear).</summary>
+        public const float GroupHeadShare = 0.15f;
 
         /// <summary>
         /// The Leafling experiment (spec 004 research R17): the owner's Meshy model, rendered by tools/artgen to a flat
@@ -88,6 +97,12 @@ namespace Bloomlings.Client.UI.Design
 
         public static string HeroSlot(Family family) => "char.hero3d." + FamilyName(family);
 
+        /// <summary>A family's celebrating hero (spec 005 pictures.md A7, optional, 512 × 576): <c>3d/bloom-cheer</c>.</summary>
+        public static string Cheer(Family family) => "3d/" + FamilyName(family) + "-cheer";
+
+        /// <summary>The asset slot of a family's celebrating hero: <c>char.hero3d.cheer.bloom</c>.</summary>
+        public static string CheerSlot(Family family) => "char.hero3d.cheer." + FamilyName(family);
+
         /// <summary>The asset slot a picture name belongs to.</summary>
         public static string SlotOf(string picture)
         {
@@ -109,6 +124,11 @@ namespace Bloomlings.Client.UI.Design
             }
 
             string name = picture.Substring(3);
+            if (name.EndsWith("-cheer", StringComparison.Ordinal))
+            {
+                return "char.hero3d.cheer." + name.Substring(0, name.Length - 6);
+            }
+
             int blank = name.IndexOf('-');
             return "char.hero3d." + (blank > 0 ? name.Substring(0, blank) : name);
         }
@@ -239,15 +259,29 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// Home early on with the guest (the Leafling): the group fitted into the left 80% of the stage, and the guest
-        /// standing on the grass at the right, its feet level with the pedestal's front edge.
+        /// The group picture box whose heroes' feet stand on the line <paramref name="feet"/>, centered on
+        /// <paramref name="cx"/>, <paramref name="width"/> wide (y down; the picture's lower part below the feet is clear).
+        /// </summary>
+        public static Box GroupStanding(float cx, float feet, float width)
+        {
+            float height = width * GroupHeight / GroupWidth;
+            return new Box(cx - (width / 2f), feet - (height * GroupFeetShare), cx + (width / 2f), feet + (height * (1f - GroupFeetShare)));
+        }
+
+        /// <summary>
+        /// Home early on with the guest (the Leafling) over the owner's garden picture: the group in the left 80% of the
+        /// stage, its feet near the stage's bottom and its heads inside it, and the guest standing on the grass at the
+        /// right, its feet on the same line.
         /// </summary>
         public static (Box Group, Box Guest) GroupWithGuest(Box stage)
         {
-            Box group = FitBox(new Box(stage.Left, stage.Top, stage.Left + (stage.Width * 0.8f), stage.Bottom), GroupWidth, GroupHeight);
+            float span = (GroupFeetShare - GroupHeadShare) * GroupHeight / GroupWidth;
+            float groupWidth = Math.Min(stage.Width * 0.8f, stage.Height * 0.96f / Math.Max(0.01f, span));
+            float feet = stage.Bottom - (stage.Height * 0.03f);
+            Box group = GroupStanding(stage.Left + (stage.Width * 0.4f), feet, groupWidth);
             float height = group.Height * 0.62f;
             float width = height * HeroWidth / HeroHeight;
-            float bottom = group.Bottom - (group.Height * 0.02f);
+            float bottom = feet + (height * (1f - HomeStage.FeetShare));
             float right = Math.Min(stage.Right, group.Right + (width * 0.7f));
             return (group, new Box(right - width, bottom - height, right, bottom));
         }
@@ -272,7 +306,31 @@ namespace Bloomlings.Client.UI.Design
         public static Box ExpressionBox(Box picture, (float X, float Y) face) =>
             Box.FromCenter(picture.Left + (picture.Width * face.X), picture.Top + (picture.Height * face.Y), picture.Width * 0.36f, picture.Width * 0.24f);
 
-        /// <summary>A worn hat's box: over the top of the picture.</summary>
+        /// <summary>
+        /// Where a 3D hero's head top is, as a share of its solo picture (y down): the top of Sprig's bean, Bloom's petals,
+        /// a little below Drop's tip (the tip pokes into a hat) and Twig's cut top.
+        /// </summary>
+        public static (float X, float Y) HeadTopHero(Family family) => family switch
+        {
+            Family.Sprig => (0.5f, 0.39f),
+            Family.Bloom => (0.5f, 0.1f),
+            Family.Drop => (0.5f, 0.27f),
+            _ => (0.5f, 0.45f),
+        };
+
+        /// <summary>
+        /// A worn hat's box on a 3D hero picture (meta screens): 55% of the picture wide, centered over the head top
+        /// (<see cref="HeadTopHero"/>), the hat's brim (about 71% down its box) overlapping the head by 15% of its size.
+        /// </summary>
+        public static Box HatOnHero(Box picture, Family family)
+        {
+            (float x, float y) = HeadTopHero(family);
+            float size = picture.Width * 0.55f;
+            float head = picture.Top + (picture.Height * y);
+            return Box.FromCenter(picture.Left + (picture.Width * x), head - (size * 0.06f), size, size);
+        }
+
+        /// <summary>A worn hat's box: over the top of the picture (the 2D figures).</summary>
         public static Box HatBox(Box picture) =>
             Box.FromCenter(picture.CenterX, picture.Top + (picture.Height * 0.12f), picture.Width * 0.5f, picture.Width * 0.5f);
 

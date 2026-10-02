@@ -7,6 +7,7 @@ using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Slots;
+using Bloomlings.Core.Variants;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
@@ -40,7 +41,7 @@ namespace Bloomlings.Playtest.Design
             float pictureUnits = Math.Max(400f, Math.Min(PictureUnits, ScreenLayout.SafeArea(p.Width, p.Height, p.Insets).Height / p.Scale * 0.24f));
             float content = pictureUnits + 26f + (reward != null ? RewardUnits : 0f) + (drop ? 64f : 0f) + 22f + DesignTokens.Size.CardPrimaryHeight + 26f + DesignTokens.Size.SecondaryHeight + 60f;
             CardRegions r = Kit.Card(p, content, string.Empty, null, Kit.Pop(since));
-            Box sign = Header(p, r, PlaytestText.T("win.title"), since, celebrate: true);
+            Box sign = Header(p, r, PlaytestText.T("win.title"), since, celebrate: true, Visuals.MainFamily(s.Session.Definition));
             float y = r.Body.Top + p.U(10f);
 
             // The finished picture, its cells in full color in a thin stone frame (BoardPainter.Picture).
@@ -90,7 +91,7 @@ namespace Bloomlings.Playtest.Design
             Kit.EndCard(p);
 
             Petals(p, r, sign, since);
-            Confetti(p, s, since);
+            Confetti(p, s, r.Card.Top, since);
         }
 
         /// <summary>
@@ -133,7 +134,7 @@ namespace Bloomlings.Playtest.Design
 
             const float rowUnits = 270f;
             CardRegions r = Kit.Card(p, 64f + rowUnits + 50f + DesignTokens.Size.CardPrimaryHeight + 40f, string.Empty, null, Kit.Pop(since));
-            Box sign = Header(p, r, PlaytestText.F("common.level", NumberText.Group(grant.Level)), since, celebrate: true);
+            Box sign = Header(p, r, PlaytestText.F("common.level", NumberText.Group(grant.Level)), since, celebrate: true, Visuals.MainFamily(s.Session.Definition));
             p.Text(PlaytestText.T("milestone.reached"), r.Body.CenterX, r.Body.Top + p.U(30f), T.ButtonSecondary, C.InkBrownSoft, r.Body.Width, look: TextLook.Plain(C.InkBrownSoft));
 
             // Each reward: its icon on a cream tile, the amount in a cream pill over the tile's bottom edge.
@@ -163,7 +164,7 @@ namespace Bloomlings.Playtest.Design
             Kit.PrimaryButton(p, go, PlaytestText.T("milestone.continue"), s.Next, decorate: true, breathe: true);
             Kit.EndCard(p);
             Petals(p, r, sign, since);
-            Confetti(p, s, since);
+            Confetti(p, s, r.Card.Top, since);
         }
 
         /// <summary>
@@ -395,7 +396,7 @@ namespace Bloomlings.Playtest.Design
         /// The card's header: a wooden sign with white flower clusters across the card's top edge (§3.2), and, when
         /// <paramref name="celebrate"/>, the heroes on their stone pedestal in the light rays above it. Returns the sign.
         /// </summary>
-        private static Box Header(IPainter p, CardRegions r, string title, float since, bool celebrate)
+        private static Box Header(IPainter p, CardRegions r, string title, float since, bool celebrate, Family family = Family.Bloom)
         {
             float h = p.U(146f);
             TypeStyle style = T.LevelHome;
@@ -404,7 +405,7 @@ namespace Bloomlings.Playtest.Design
             if (celebrate)
             {
                 Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
-                Celebration(p, new Box(r.Card.Left, safe.Top + p.U(12f), r.Card.Right, sign.Top + (h * 0.3f)), r.Card.Top, since);
+                Celebration(p, new Box(r.Card.Left, safe.Top + p.U(12f), r.Card.Right, sign.Top + (h * 0.3f)), r.Card.Top, since, family);
             }
 
             Kit.WoodSign(p, sign, title, style, SignDecor.Flowers);
@@ -412,33 +413,38 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The heroes celebrating in <paramref name="stage"/> (spec 004 FR-017, spec 005 §4.4): slowly turning light rays
-        /// behind them (above the card's top edge only), a stone pedestal, and the four 3D heroes standing on it. On a
-        /// phone too short for them only the rays show, so the card never moves.
+        /// The heroes celebrating in <paramref name="stage"/> (spec 004 FR-017, spec 005 §4.4,
+        /// <see cref="HomeStage.Celebration"/>): slowly turning light rays behind them (above the card's top edge only), a
+        /// stone pedestal, and on it the celebrating hero of the level's main family when the owner's picture exists
+        /// (pictures.md A7), else the four 3D heroes. On a phone too short for them only the rays show, so the card never
+        /// moves.
         /// </summary>
-        private static void Celebration(IPainter p, Box stage, float cardTop, float since)
+        private static void Celebration(IPainter p, Box stage, float cardTop, float since, Family family)
         {
             if (stage.Height < p.U(150f))
             {
                 return;
             }
 
-            // The pedestal's top ellipse carries the group's own round base; the drum below shows as its plinth. From the
-            // group's top to the pedestal's foot is about 0.71 of the group's width.
-            float groupWidth = Math.Min(stage.Width * 0.98f, stage.Height / 0.71f);
-            float groupHeight = groupWidth * CharacterArt.GroupHeight / CharacterArt.GroupWidth;
-            float pedestalWidth = groupWidth * 0.86f;
-            float pedestalHeight = pedestalWidth * 0.3f;
-            var pedestal = new Box(stage.CenterX - (pedestalWidth / 2f), stage.Bottom - pedestalHeight, stage.CenterX + (pedestalWidth / 2f), stage.Bottom);
+            (Box pedestal, Box group, float raysX, float raysY) = HomeStage.Celebration(stage);
             float rays = 0.85f * Kit.Ease(since / 0.6f);
             p.PushClip(new Box(0f, 0f, p.Width, cardTop));
             p.PushAlpha(rays);
-            Kit.LightRays(p, stage.CenterX, pedestal.Top - (groupHeight * 0.3f), Math.Max(p.Width * 0.62f, stage.Height), since);
+            Kit.LightRays(p, raysX, raysY, Math.Max(p.Width * 0.62f, stage.Height), since);
             p.PopAlpha();
             p.PopClip();
-            Box top = Kit.StonePedestal(p, pedestal);
-            float feet = top.CenterY + (top.Height * 0.18f);
-            var group = new Box(stage.CenterX - (groupWidth / 2f), feet - (groupHeight * 0.92f), stage.CenterX + (groupWidth / 2f), feet + (groupHeight * 0.08f));
+            Kit.StonePedestal(p, pedestal);
+            string cheer = CharacterArt.Cheer(family);
+            if (p.HasSprite(cheer))
+            {
+                // One celebrating hero, as on the reference's win card: its feet where the group's stand.
+                p.Mark(CharacterArt.CheerSlot(family));
+                float feet = group.Top + (group.Height * CharacterArt.GroupFeetShare);
+                float height = Math.Min((feet - stage.Top) / HomeStage.FeetShare, pedestal.Width * 0.75f * CharacterArt.HeroHeight / CharacterArt.HeroWidth);
+                p.Sprite(cheer, HomeStage.Figure(stage.CenterX, feet, height));
+                return;
+            }
+
             Visuals.Group(p, group);
         }
 
@@ -581,8 +587,12 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>Confetti in the level's variant colors for the first seconds of a win (fx.confetti).</summary>
-        private static void Confetti(IPainter p, LevelScreen s, float since)
+        /// <summary>
+        /// A light sprinkle of confetti in the level's variant colors for the first seconds of a win (fx.confetti), only in
+        /// the heroes' room above the card (above <paramref name="cardTop"/>), so the picture, the reward and Next stay
+        /// clean.
+        /// </summary>
+        private static void Confetti(IPainter p, LevelScreen s, float cardTop, float since)
         {
             if (since > 2.2f)
             {
@@ -590,6 +600,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.Mark("fx.confetti");
+            p.PushClip(new Box(0f, 0f, p.Width, cardTop));
             var colors = new List<Rgba>();
             foreach (Core.Definitions.PodDef pod in s.Session.Definition.Pods)
             {
@@ -602,16 +613,18 @@ namespace Bloomlings.Playtest.Design
 
             colors.Add(C.LotusFill);
             colors.Add(C.PetalCenter);
-            for (int i = 0; i < 36; i++)
+            for (int i = 0; i < 18; i++)
             {
                 float seed = (i * 0.6180339f) % 1f;
                 float x = p.Width * ((seed + (0.05f * (float)Math.Sin((since * 2f) + i))) % 1f);
-                float y = (-p.U(40f)) + ((since * (p.Height * (0.35f + (0.25f * ((i * 0.37f) % 1f))))) % (p.Height + p.U(80f)));
+                float y = (-p.U(40f)) + ((since * (cardTop * (0.35f + (0.25f * ((i * 0.37f) % 1f))))) % (cardTop + p.U(80f)));
                 float size = p.U(14f + (8f * ((i * 0.53f) % 1f)));
                 p.PushAlpha(Visuals.Clamp01(2.2f - since));
                 p.FillRound(Box.FromCenter(x, y, size, size * 0.6f), p.U(3f), colors[i % colors.Count]);
                 p.PopAlpha();
             }
+
+            p.PopClip();
         }
     }
 }

@@ -59,8 +59,9 @@ Rendering:
 - **Output:** gamma-corrected, with a mild tone curve; transparent background with the contact shadow in the alpha.
 - **Solo framing:** the camera looks at (0, 0.76, 0) from 6 units away and 0.4 up, zoom 3.0, so the tallest hero (the
   flower) keeps the 2% margin; the heroes keep their slight turn, so their faces sit off center (`FaceCenterHero`).
-- **Group:** the four on a round stone pedestal (worn edge, tile lines), seen from slightly above, in the order Sprig,
-  Bloom, Drop, Twig, the outer two turned toward the middle.
+- **Group:** the four side by side, seen from slightly above, in the order Sprig, Bloom, Drop, Twig, the outer two
+  turned toward the middle, each with the solo heroes' soft contact shadow and no base of its own (spec 005 pictures.md:
+  the hosts stand the picture on their stone pedestal, the feet at `CharacterArt.GroupFeetShare` = 62% of its height).
 - **Blank versions:** the same render without eye and mouth decals; blush stays.
 
 ## Corrections to the concept

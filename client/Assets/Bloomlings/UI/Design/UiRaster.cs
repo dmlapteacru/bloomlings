@@ -366,8 +366,10 @@ namespace Bloomlings.Client.UI.Design
         /// outer radius thick, around an opening that shows the lawn and a sandy flagstone path fanning out from the base (where
         /// the Bloomlings come out, as in the reference) with a soft shadow under the crown, seen from above,
         /// its crown <paramref name="turns"/> quarter turns clockwise from up (0: the crown up toward a board above it, the
-        /// opening facing down). The ring fills the picture: for crown up or down the picture is twice as wide as tall, for
-        /// left or right twice as tall as wide. The opening is a little see-through, so the backdrop's lawn shows in it.
+        /// opening facing down). The ring fills the picture's width: for crown up or down a picture twice as wide as tall
+        /// holds just the ring; a taller one stands the ring on two straight stone piers, as long as the extra height, so
+        /// the arch reads as a doorway standing on the lawn (left or right: the same, turned). The opening is a little
+        /// see-through and the path fainter, so the backdrop's lawn shows in it.
         /// </summary>
         public static byte[] Arch(int width, int height, int turns, int seed)
         {
@@ -379,6 +381,7 @@ namespace Bloomlings.Client.UI.Design
             var pixels = new byte[width * height * 4];
             const int blocks = 9;
             float outer = Math.Max(2f, Math.Min(w / 2f, h) - 1f);
+            float pier = Math.Max(0f, h - (w / 2f));
             float inner = outer * 0.72f;
             float path = inner * 0.86f;
             float jointHalf = Math.Max(0.7f, outer * 0.012f);
@@ -414,9 +417,12 @@ namespace Bloomlings.Client.UI.Design
                             break;
                     }
 
+                    // uy: up from the ground (the picture's base); ry: up from the ring's base, on top of the piers. Below
+                    // the ring the distance runs straight across, so the ring's ends continue down as the piers.
                     float ux = u - (w / 2f);
                     float uy = h - v;
-                    float dist = Length(ux, uy);
+                    float ry = uy - pier;
+                    float dist = ry >= 0f ? Length(ux, ry) : Math.Abs(ux);
                     float floor = Clamp01(uy + 0.5f);
                     if (floor <= 0f || dist > outer + 1f)
                     {
@@ -444,18 +450,30 @@ namespace Bloomlings.Client.UI.Design
                         float radialJoint = ringIndex == 0 ? float.MaxValue : Math.Abs(slot - (float)Math.Round(slot)) / pieces * (float)Math.PI * rho * path;
                         float joint = Math.Min(ringJoint, radialJoint);
                         flag.Mix(C.StoneLine, 0.45f * Clamp01(1f - (joint / Math.Max(0.8f, outer * 0.012f))));
-                        Over(ref c, ref alpha, flag.ToRgba(), 0.92f * onPath * Clamp01(inner + 0.5f - dist));
+                        Over(ref c, ref alpha, flag.ToRgba(), 0.6f * onPath * Clamp01(inner + 0.5f - dist));
                     }
 
                     float under = 1f - Smooth(Clamp01((inner - dist) / (inner * 0.45f)));
-                    Over(ref c, ref alpha, C.GardenShadow, 0.42f * under * Smooth(Clamp01(uy / inner)) * Clamp01(inner + 0.5f - dist));
+                    Over(ref c, ref alpha, C.GardenShadow, 0.42f * under * Smooth(Clamp01(Math.Max(0f, ry) / inner)) * Clamp01(inner + 0.5f - dist));
                     float ring = Clamp01(dist - inner + 0.5f) * Clamp01(outer + 0.5f - dist);
                     Over(ref c, ref alpha, gap, 0.85f * ring);
 
-                    float phi = (float)Math.Atan2(Math.Max(0f, uy), ux);
-                    int block = Math.Min(blocks - 1, Math.Max(0, (int)(phi / sector)));
-                    float edge = Math.Min(phi - (block * sector), ((block + 1) * sector) - phi) * dist;
-                    float d = -Math.Min(Math.Min(dist - inner, outer - dist), Math.Min(edge - jointHalf, uy));
+                    // The ring's blocks, then each pier as one more block under a joint.
+                    float d;
+                    int block;
+                    if (ry >= 0f || pier <= 0f)
+                    {
+                        float phi = (float)Math.Atan2(Math.Max(0f, ry), ux);
+                        block = Math.Min(blocks - 1, Math.Max(0, (int)(phi / sector)));
+                        float edge = Math.Min(phi - (block * sector), ((block + 1) * sector) - phi) * dist;
+                        d = -Math.Min(Math.Min(dist - inner, outer - dist), Math.Min(edge - jointHalf, pier > 0f ? ry - jointHalf : uy));
+                    }
+                    else
+                    {
+                        block = ux < 0f ? blocks + 1 : blocks;
+                        d = -Math.Min(Math.Min(dist - inner, outer - dist), Math.Min(-ry - jointHalf, uy));
+                    }
+
                     float cover = Coverage(d);
                     if (cover > 0f)
                     {
@@ -528,7 +546,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The share of a candy tile's side its lip takes (§3.1), so the kit's press can sink the face into it.
         /// </summary>
-        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : 0.05f;
+        public static float TileLipShare(TileStyle style) => style == TileStyle.Flat ? 0f : 0.07f;
 
         /// <summary>
         /// A candy tile of side <paramref name="size"/> (spec 005 contracts/look.md §3.1): a satin rounded square in
@@ -556,25 +574,27 @@ namespace Bloomlings.Client.UI.Design
             float line = Math.Max(1f, s * (board ? 0.02f : 0.026f));
             float lip = s * TileLipShare(style);
             float faceH = s - lip;
-            float bevel = Math.Max(0.75f, s * 0.012f);
+            float bevel = Math.Max(0.75f, s * 0.025f);
             bool small = size < 28;
 
-            // The symbol's box and its scale from shape units to pixels (as ShapeRaster fits a shape into a box).
-            float box = s * (board ? 0.42f : 0.66f);
+            // The symbol's box and its scale from shape units to pixels (as ShapeRaster fits a shape into a box). The
+            // board's symbol shape covers about 70% of its box, so the bead spans about 42% of the tile.
+            float box = s * (board ? 0.60f : 0.66f);
             float sx = s / 2f;
             float sy = (s / 2f) - (s * (board ? 0.02f : 0.01f));
             float unit = box / 2f / ShapeRaster.Margin;
-            float iconLine = Math.Max(0.8f, box * (board ? 0.03f : 0.035f));
+            float iconLine = Math.Max(0.8f, box * (board ? 0.045f : 0.035f));
 
-            Rgba top = col.Lighten(0.28f);
-            Rgba bottom = col.Darken(0.06f);
+            Rgba top = col.Lighten(0.36f);
+            Rgba bottom = col.Darken(0.14f);
             Rgba lipColor = col.Darken(0.28f);
             Rgba outline = col.Darken(board ? 0.45f : 0.5f);
             Rgba bevelColor = col.Lighten(0.45f);
-            Rgba beadLine = col.Darken(0.42f);
-            Rgba beadTop = col.Darken(0.06f);
-            Rgba beadBottom = col.Darken(0.24f);
-            float bandAlpha = board ? 0.12f : 0.16f;
+            Rgba beadLine = col.Darken(0.5f);
+            Rgba beadTop = col.Lighten(0.1f);
+            Rgba beadBottom = col.Darken(0.3f);
+            Rgba beadFlat = col.Darken(0.32f);
+            float bandAlpha = board ? 0.18f : 0.16f;
             Rgba dim = C.ParchmentBottom;
             var pixels = new byte[size * size * 4];
             for (int py = 0; py < size; py++)
@@ -598,15 +618,19 @@ namespace Bloomlings.Client.UI.Design
                         c.Mix(lipColor, Outside(RoundRect(x, y + lip, 0f, 0f, s, s, r), 1f));
                     }
 
-                    // Satin, not jelly: a faint band fading downward and a thin lighter bevel just inside the top edge.
+                    // Pillowy satin: a faint band fading downward and a lighter bevel just inside the top and left edges,
+                    // fading out by 60% of the side.
                     float bandTop = faceH * 0.06f;
                     float bandBottom = faceH * 0.24f;
                     float band = Coverage(RoundRect(x, y, s * 0.1f, bandTop, s * 0.9f, bandBottom, (bandBottom - bandTop) / 2f));
                     c.Mix(Rgba.White, band * bandAlpha * (1f - Clamp01((y - bandTop) / (bandBottom - bandTop))));
-                    if (y < s * 0.5f)
+                    float topLit = Clamp01(((s * 0.6f) - y) / (s * 0.3f));
+                    float leftLit = Clamp01(((s * 0.6f) - x) / (s * 0.3f)) * Clamp01((faceH - y) / (s * 0.25f));
+                    float lit = Math.Max(topLit, leftLit);
+                    if (lit > 0f)
                     {
                         float edge = Clamp01(1f - (Math.Abs(d + line + bevel) / bevel));
-                        c.Mix(bevelColor, 0.6f * edge * Clamp01(((s * 0.5f) - y) / (s * 0.2f)));
+                        c.Mix(bevelColor, 0.8f * edge * lit);
                     }
 
                     // The symbol, in shape units (y up).
@@ -623,7 +647,7 @@ namespace Bloomlings.Client.UI.Design
                             }
                             else if (small)
                             {
-                                c.Mix(beadBottom, Coverage(ds));
+                                c.Mix(beadFlat, Coverage(ds));
                             }
                             else
                             {
@@ -631,7 +655,7 @@ namespace Bloomlings.Client.UI.Design
                                 c.Mix(beadLine, Coverage(ds - iconLine));
                                 float g = Clamp01((y - (sy - (box / 2f))) / box);
                                 var fill = new Color(beadTop.Mix(beadBottom, g));
-                                fill.Mix(Rgba.White, 0.5f * Specular(u, v) * Coverage(ds + (iconLine * 2.5f)));
+                                fill.Mix(Rgba.White, 0.7f * Specular(u, v) * Coverage(ds + (iconLine * 2.5f)));
                                 c.Mix(fill.ToRgba(), Coverage(ds));
                             }
                         }

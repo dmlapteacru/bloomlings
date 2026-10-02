@@ -15,7 +15,7 @@ Sizes are in **reference units**: 1 unit = 1 px on a 1080-px-wide portrait scree
 | `surface.panel_edge` | `#E8DCC4` | lower edge and outline of cards |
 | `surface.sunk` | `#F1E8D6` | empty slot, inner wells, unselected tabs |
 | `surface.row_highlight` | `#DDF2CF` | the player's own Leaderboard row |
-| `surface.scrim` | `#1E2430` at 55% | dimmed backdrop behind popups and the jam sheet |
+| `surface.scrim` | `#2A1708` at 50% (spec 005; was `#1E2430` at 55%) | dimmed backdrop behind popups and the jam sheet: a warm brown, so the garden keeps its hue |
 | `text.primary` | `#2E3440` | titles and body text on light surfaces |
 | `text.secondary` | `#6B7280` | captions ("Completed at Level 10", "New today") |
 | `text.on_color` | `#FFFFFF` | text on green buttons, pills and badges |

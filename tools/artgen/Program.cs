@@ -1,5 +1,5 @@
 // The character art generator of spec 004 (contracts/art-files.md).
-// Usage: dotnet run --project tools/artgen -- build|check|sheet|faces [--only 2d|3d|experiments]
+// Usage: dotnet run --project tools/artgen -- build|check|sheet|faces [--only 2d|3d|experiments|<picture>]
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,7 +26,8 @@ string folder = Path.Combine(root, "client", "Assets", "Bloomlings", "Art", "Cha
 string leaflingFile = Path.Combine(root, "client", "Assets", "Bloomlings", "Art", "Experiments", "Resources", "Characters", CharacterArt.Leafling + ".png");
 bool leafling = only == null || only == "experiments";
 IReadOnlyList<string> all = CharacterArt.AllPictures(VariantCatalog.Default.All);
-List<string> names = all.Where(n => only == null || n.StartsWith(only + "/", StringComparison.Ordinal)).ToList();
+// --only takes a group (2d, 3d, experiments) or one picture name (3d/group).
+List<string> names = all.Where(n => only == null || n == only || n.StartsWith(only + "/", StringComparison.Ordinal)).ToList();
 
 switch (command)
 {
@@ -105,7 +106,7 @@ switch (command)
     }
 
     default:
-        Console.WriteLine("usage: build | check | sheet | faces [--only 2d|3d|experiments]");
+        Console.WriteLine("usage: build | check | sheet | faces [--only 2d|3d|experiments|<picture>]");
         return 2;
 }
 

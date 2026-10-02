@@ -25,8 +25,8 @@ names and sizes).
 | A3 | `drop.png` | 512 × 576 | idle, happy | same | `char.hero3d.drop` |
 | A4 | `twig.png` | 512 × 576 | idle, happy | same | `char.hero3d.twig` |
 | A5 | `sprig-blank.png` … `twig-blank.png` | 512 × 576 | the same four pictures without eyes and mouth (a worn cosmetic expression draws the face) | Wardrobe with an expression | `char.hero3d.*` |
-| A6 | `group.png` | 1200 × 720 | the four together, Sprig left, Bloom, Drop, Twig right, as in the reference's strip | Home (early), win, milestone, splash | `char.hero3d.group` |
-| A7 | `sprig-cheer.png` … `twig-cheer.png` | 512 × 576 | celebrating: arms up, eyes closed with joy (the reference's win Bloom) | win card (the family of the level's main variant) | `char.hero3d.cheer.*` |
+| A6 | `group.png` | 1200 × 720 | the four together, Sprig left, Bloom, Drop, Twig right, as in the reference's strip; no base (the game stands them on its stone pedestal), their feet on a line 62% down the picture (`CharacterArt.GroupFeetShare`) and the space below clear, as in the generated group | Home (early), win, milestone, splash | `char.hero3d.group` |
+| A7 | `sprig-cheer.png` … `twig-cheer.png` | 512 × 576 | celebrating: arms up, eyes closed with joy (the reference's win Bloom) | win card (the family of the level's main variant; the group stands in while it is missing) | `char.hero3d.cheer.*` |
 
 Optional, if the outfits should be modelled instead of drawn over the hero:
 - A8: one picture per family and outfit, `{family}-{outfit-id}.png`, 512 × 576 (the reference's "Flower Hat",

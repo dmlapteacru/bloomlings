@@ -39,7 +39,7 @@ One per family (4), plus the group picture.
 |---|---|
 | `Family` | Sprig, Bloom, Drop or Twig |
 | `Pictures` | `3d/{family}.png` and `3d/{family}-blank.png`, 512 × 576 |
-| `Group` | `3d/group.png`, 1200 × 720: the four families on the stone pedestal |
+| `Group` | `3d/group.png`, 1200 × 720: the four families side by side, feet at 62% of the height (`GroupFeetShare`), no base of their own (spec 005) |
 
 Rules:
 - The heroes appear on meta screens only (FR-017, FR-018; constitution VII v1.0.2).

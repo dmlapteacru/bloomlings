@@ -58,6 +58,14 @@
 
 - [ ] T020 Re-render the 2D characters (`tools/artgen -- build --only 2d`) and pass `-- check`
 - [ ] T021 Side-by-side review of every preview frame against the reference; fix what differs
+  - Playtest and engine-free kit done (art director's review): bigger embossed board beads, pillowy tiles, darker ink and
+    `ink.title`, a warm scrim, a sunny lawn, cream booster bezels, bigger pod counts, near-rectangular border stones,
+    arches on piers with lawn below, soft win rays, the group picture without its own base (`HomeStage.Celebration`),
+    the win card animating while open, one close button per card stack, hats on the heroes' heads, the optional
+    celebrating heroes (`char.hero3d.cheer.*`). Left for the Unity twins (`UiKit*`): the playtest-only recipes
+    (`Kit.Card`/`Sheet` titles in `ink.title`, booster bezel lip and line, pod tile 62% and count ×1.05, border stone
+    radii and joints, arch piers via `EntryArch.Picture`, rays' radial glow, ivy outlines, charge pills, covered cards'
+    close, the win top bar fade, the group on `HomeStage.Celebration`).
 - [ ] T022 Regenerate `specs/002-ux-design-board/asset-inventory.md`; update `CLAUDE.md`, `playtest/README.md`,
   `client/README.md`; mark spec 004 FR-008, FR-009, FR-012 replaced
 - [ ] T023 Run every suite (core, client check, backend, playtest check, preview, art check, Android type-checks)

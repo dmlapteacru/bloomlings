@@ -39,7 +39,7 @@ namespace Bloomlings.Playtest.Design
             p.Picture("mat.stone/block/" + Share(radiusShare) + "/" + seed, box, (w, h) =>
             {
                 float side = Math.Min(w, h);
-                return UiRaster.Stone(w, h, side * radiusShare, Math.Max(1f, side * 0.05f), seed);
+                return UiRaster.Stone(w, h, side * radiusShare, Math.Max(1f, side * 0.035f), seed);
             });
         }
 
@@ -97,7 +97,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A wooden sign (§3.2; the gameplay level, the win and banner titles, the Home level plaque): a light wood plank
         /// filling <paramref name="box"/> (radius 28% of its height) over a soft shadow, the text centered in
-        /// <c>ink.brown</c> (or <paramref name="letters"/>) with a light emboss, at most 82% of the plank wide, and its
+        /// <c>ink.brown</c> (<c>ink.title</c> on the win's flower sign, or <paramref name="letters"/>) with a light emboss,
+        /// at most 82% of the plank wide, and its
         /// decoration. Never a touch target.
         /// </summary>
         public static void WoodSign(IPainter p, Box box, string text, TypeStyle style, SignDecor decor = SignDecor.None, Rgba? letters = null)
@@ -114,7 +115,8 @@ namespace Bloomlings.Playtest.Design
 
             WoodPlank(p, box, 0.28f, 7);
             float scale = Math.Min(1f, (h * 0.62f) / Math.Max(1f, p.U(style.Size)));
-            p.Text(text, box.CenterX, box.CenterY - (h * 0.04f), style, letters ?? C.InkBrown, box.Width * 0.82f, scale, GardenLook.SignLetters(letters ?? C.InkBrown));
+            Rgba ink = letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown);
+            p.Text(text, box.CenterX, box.CenterY - (h * 0.04f), style, ink, box.Width * 0.82f, scale, GardenLook.SignLetters(ink));
             switch (decor)
             {
                 case SignDecor.Ivy:
@@ -141,8 +143,9 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A cluster of clover leaves (§3.9, <c>ui.sign.ivy</c>) gathered at the top and bottom corners of a sign's end:
-        /// pointed leaflets in yellow-green <c>ivy.leaf</c> shades over dark green <c>ivy.line</c> outlines (the shadows
-        /// between them), each with a light spot and its midribs, mirrored when <paramref name="flipped"/>.
+        /// soft pointed leaflets in yellow-green <c>ivy.leaf</c> shades over a soft <c>ivy.line</c> shadow between them,
+        /// with a thin outline of their own darker shade, a light top-left side and faint midribs, mirrored when
+        /// <paramref name="flipped"/>.
         /// <paramref name="back"/> draws only the back half of the leaves (behind a sign), false only the front half; null
         /// draws all.
         /// </summary>
@@ -159,11 +162,12 @@ namespace Bloomlings.Playtest.Design
                 }
 
                 Func<float, float, float> leaf = ShapeLibrary.IvyLeafSdf(i, 0f, flipped);
-                p.ShapeOf("ui.sign.ivy/" + i + side + "/line", ShapeLibrary.IvyLeafSdf(i, 0.055f, flipped), box, C.IvyLine);
+                p.ShapeOf("ui.sign.ivy/" + i + side + "/line", ShapeLibrary.IvyLeafSdf(i, 0.055f, flipped), box, C.IvyLine.WithAlpha(0.5f));
+                p.ShapeOf("ui.sign.ivy/" + i + side + "/edge", ShapeLibrary.IvyLeafSdf(i, 0.025f, flipped), box, C.IvyLeaf.Darken(0.35f).WithAlpha(0.7f));
                 p.ShapeOf("ui.sign.ivy/" + i + side, leaf, box, GardenLook.IvyShade(i));
-                p.ShapeOf("ui.sign.ivy/" + i + side + "/light", (x, y) => Math.Max(leaf(x + 0.05f, y - 0.06f) + 0.07f, leaf(x, y) + 0.02f), box, C.IvyLeaf.Lighten(0.45f).WithAlpha(0.45f));
+                p.ShapeOf("ui.sign.ivy/" + i + side + "/light", (x, y) => Math.Max(leaf(x + 0.09f, y - 0.1f) + 0.1f, leaf(x, y) + 0.03f), box, C.IvyLeaf.Lighten(0.3f).WithAlpha(0.5f));
                 Func<float, float, float> veins = ShapeLibrary.IvyVeinSdf(i, 0.018f, flipped);
-                p.ShapeOf("ui.sign.ivy/" + i + side + "/vein", (x, y) => Math.Max(veins(x, y), leaf(x, y) + 0.03f), box, C.IvyLine.WithAlpha(0.5f));
+                p.ShapeOf("ui.sign.ivy/" + i + side + "/vein", (x, y) => Math.Max(veins(x, y), leaf(x, y) + 0.03f), box, C.IvyLeaf.Darken(0.35f).WithAlpha(0.45f));
             }
         }
 
@@ -235,7 +239,7 @@ namespace Bloomlings.Playtest.Design
             if (cost.HasValue)
             {
                 float pillHeight = buttonHeight * pillShare;
-                CostPill(p, Box.FromCenter(button.CenterX, button.Bottom + (pillHeight * 0.1f), button.Width * 0.64f, pillHeight), cost.Value);
+                CostPill(p, Box.FromCenter(button.CenterX, button.Bottom + (pillHeight * 0.1f), button.Width * 0.64f, pillHeight), cost.Value, chargeIcon: icon);
             }
 
             p.PopAlpha();
@@ -250,7 +254,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// The stone border around a board's grid (§3.6): a dark gap of 0.04 cell around <paramref name="grid"/>, then
         /// blocks of stone <paramref name="thickness"/> cells thick (0.42 on the board, 0.3 around the win picture) whose
-        /// lengths alternate 1.0 and 0.8 cell, square rounded blocks at the corners, and dark joints between them. Draw it
+        /// lengths alternate 1.0 and 0.8 cell (nearly rectangular, rounded 14%), square blocks rounded 30% at the corners,
+        /// and thin dark joints between them. Draw it
         /// before the tiles: the gap shows between them as their thin dark separation. Seeds follow the block's place, so
         /// the border never flickers.
         /// </summary>
@@ -263,15 +268,15 @@ namespace Bloomlings.Playtest.Design
             Box inner = grid.Inset(-gap);
             Box outer = inner.Inset(-t);
             p.FillRound(outer.Offset(0f, t * 0.22f).Inset(-t * 0.05f, 0f), t * 0.5f, C.GardenShadow.WithAlpha(0.22f));
-            p.FillRound(outer.Inset(joint * 0.5f), t * 0.4f, C.StoneLine.WithAlpha(0.6f));
+            p.FillRound(outer.Inset(joint * 0.5f), t * 0.4f, C.StoneLine.WithAlpha(0.45f));
             p.FillRound(inner, gap * 2f, GardenLook.BoardGap);
 
             // The corners, then each side's run of blocks between them.
             float half = joint / 2f;
-            StoneBlock(p, new Box(outer.Left, outer.Top, inner.Left, inner.Top).Inset(half), 1, 0.4f);
-            StoneBlock(p, new Box(inner.Right, outer.Top, outer.Right, inner.Top).Inset(half), 2, 0.4f);
-            StoneBlock(p, new Box(outer.Left, inner.Bottom, inner.Left, outer.Bottom).Inset(half), 3, 0.4f);
-            StoneBlock(p, new Box(inner.Right, inner.Bottom, outer.Right, outer.Bottom).Inset(half), 4, 0.4f);
+            StoneBlock(p, new Box(outer.Left, outer.Top, inner.Left, inner.Top).Inset(half), 1, 0.3f);
+            StoneBlock(p, new Box(inner.Right, outer.Top, outer.Right, inner.Top).Inset(half), 2, 0.3f);
+            StoneBlock(p, new Box(outer.Left, inner.Bottom, inner.Left, outer.Bottom).Inset(half), 3, 0.3f);
+            StoneBlock(p, new Box(inner.Right, inner.Bottom, outer.Right, outer.Bottom).Inset(half), 4, 0.3f);
             StoneRun(p, inner.Left, inner.Right, cell, 0, (a, b) => new Box(a, outer.Top, b, inner.Top), half);
             StoneRun(p, inner.Left, inner.Right, cell, 1, (a, b) => new Box(a, inner.Bottom, b, outer.Bottom), half);
             StoneRun(p, inner.Top, inner.Bottom, cell, 2, (a, b) => new Box(outer.Left, a, inner.Left, b), half);
@@ -296,7 +301,7 @@ namespace Bloomlings.Playtest.Design
                 float next = i == count - 1 ? to : at + (Pattern(i, side) * k);
                 // A few stone looks, chosen by the block's place, keep the picture cache small.
                 int seed = 11 + (((side * 7) + (i * 3)) % 8);
-                StoneBlock(p, place(at, next).Inset(half), seed, 0.3f);
+                StoneBlock(p, place(at, next).Inset(half), seed, 0.14f);
                 at = next;
             }
         }
@@ -304,25 +309,31 @@ namespace Bloomlings.Playtest.Design
         private static float Pattern(int i, int side) => ((i + side) % 2) == 0 ? 1f : 0.8f;
 
         /// <summary>
-        /// A Garden Entry's stone arch (§3.6, <c>board.arch</c>): a big half ring of nine sandy stone blocks (outer radius
-        /// 1.5 cells, so it is three cells wide) around an opening that shows the lawn, where the walkers stand.
-        /// (<paramref name="cx"/>, <paramref name="cy"/>) is the middle of its open base, where the
-        /// Bloomlings come out; its crown points to the board, which lies beyond the <paramref name="side"/> the entry is
-        /// on (for <see cref="EntrySide.Bottom"/> the arch stands below the board, crown up, as in the reference).
+        /// A Garden Entry's stone arch (§3.6, <c>board.arch</c>): a big half ring of nine sandy stone blocks standing on
+        /// two straight piers (<see cref="EntryArch.Picture"/>), around an opening that shows the lawn, where the walkers
+        /// stand; its crown points to the board, which lies beyond the side the entry is on (for
+        /// <see cref="EntrySide.Bottom"/> the arch stands below the board, crown up, as in the reference). A soft shadow
+        /// lies on the lawn under the piers' feet.
         /// </summary>
-        public static void StoneArch(IPainter p, float cx, float cy, float cell, EntrySide side)
+        public static void StoneArch(IPainter p, float cx, float cy, float cell, EntrySide side) => StoneArch(p, new EntryArch(cx, cy, cell * BoardLayout.ArchMax, side));
+
+        /// <inheritdoc cref="StoneArch(IPainter, float, float, float, EntrySide)"/>
+        public static void StoneArch(IPainter p, EntryArch arch)
         {
             p.Mark("board.arch");
             p.Mark("mat.stone");
-            float r = cell * 1.5f;
-            (int turns, Box box) = side switch
+            Box box = arch.Picture;
+            float r = arch.Radius;
+            float foot = r * 0.3f;
+            Box shadow = arch.Side switch
             {
-                EntrySide.Left => (1, new Box(cx, cy - r, cx + r, cy + r)),
-                EntrySide.Top => (2, new Box(cx - r, cy, cx + r, cy + r)),
-                EntrySide.Right => (3, new Box(cx - r, cy - r, cx, cy + r)),
-                _ => (0, new Box(cx - r, cy - r, cx + r, cy)),
+                EntrySide.Left => Box.FromCenter(box.Left + (foot * 0.3f), box.CenterY, foot, r * 2.2f),
+                EntrySide.Right => Box.FromCenter(box.Right - (foot * 0.3f), box.CenterY, foot, r * 2.2f),
+                EntrySide.Top => Box.FromCenter(box.CenterX, box.Top + (foot * 0.3f), r * 2.2f, foot),
+                _ => Box.FromCenter(box.CenterX, box.Bottom - (foot * 0.3f), r * 2.2f, foot),
             };
-            p.Picture("board.arch/" + turns, box, (w, h) => UiRaster.Arch(w, h, turns, 5));
+            p.FillRound(shadow, Math.Min(shadow.Width, shadow.Height) / 2f, C.GardenShadow.WithAlpha(0.18f));
+            p.Picture("board.arch/" + arch.Turns + "/pier", box, (w, h) => UiRaster.Arch(w, h, arch.Turns, 5));
         }
 
         /// <summary>
@@ -361,7 +372,7 @@ namespace Bloomlings.Playtest.Design
             Box frame = look == PodLook.Pressed ? box.Offset(0f, w * 0.035f) : box;
             float radius = w * 0.18f;
             float border = w * 0.11f;
-            p.FillRound(frame.Offset(0f, w * (look == PodLook.Pressed ? 0.02f : 0.05f)).Inset(w * 0.03f, 0f), radius, C.GardenShadow.WithAlpha(queued ? 0.12f : 0.26f));
+            p.FillRound(frame.Offset(0f, w * (look == PodLook.Pressed ? 0.01f : 0.05f)).Inset(w * 0.03f, 0f), radius, C.GardenShadow.WithAlpha(queued ? 0.12f : 0.26f));
             if (handle && !queued)
             {
                 // A short wooden handle on the frame's top edge, with a small stem.
@@ -392,13 +403,19 @@ namespace Bloomlings.Playtest.Design
             {
                 p.FillRound(frame, radius, C.ParchmentBottom.WithAlpha(0.45f));
             }
+            else if (look == PodLook.Pressed)
+            {
+                // Pressed: the whole pod is a little darker as it sinks.
+                p.FillRound(frame, radius, C.GardenShadow.WithAlpha(0.08f));
+            }
 
             return frame.Inset(border);
         }
 
         /// <summary>
-        /// A whole pod (§3.7): the wooden frame with its panel tinted by the variant, the variant's sticker tile at 70% of
-        /// the panel near its top, and the count below it in <c>type.count</c> <c>ink.brown</c> with no "x". A null
+        /// A whole pod (§3.7): the wooden frame with its panel tinted by the variant, the variant's sticker tile at 62% of
+        /// the panel near its top, and the count below it in big <c>type.count</c> <c>ink.brown</c> digits with no "x"
+        /// (about 17% of the pod tall, as in the reference). A null
         /// <paramref name="variant"/> is a mystery pod (the lilac "?" tile); a locked pod shows the padlock; a queued one is
         /// dimmed; a pressed one sinks. Queued, locked and mystery pods keep the plain cream panel.
         /// </summary>
@@ -408,8 +425,8 @@ namespace Bloomlings.Playtest.Design
             bool queued = look == PodLook.Next;
             Rgba? tint = variant.HasValue && !queued && look != PodLook.Locked ? Visuals.ColorOf(variant.Value) : (Rgba?)null;
             Box panel = PodFrame(p, box, look, handle, tint);
-            float tile = panel.Width * 0.7f;
-            Box tileBox = Box.FromCenter(panel.CenterX, panel.Top + (panel.Height * 0.04f) + (tile / 2f), tile, tile);
+            float tile = panel.Width * 0.62f;
+            Box tileBox = Box.FromCenter(panel.CenterX, panel.Top + (panel.Height * 0.03f) + (tile / 2f), tile, tile);
             if (look == PodLook.Locked)
             {
                 p.Mark("pod.state.locked");
@@ -423,7 +440,7 @@ namespace Bloomlings.Playtest.Design
                     p.Mark("pod.state.mystery");
                 }
 
-                CandyTile(p, tileBox, variant, TileStyle.Sticker, queued ? TileState.Dimmed : TileState.Normal);
+                CandyTile(p, tileBox, variant, TileStyle.Sticker, queued ? TileState.Dimmed : TileState.Normal, pressed: look == PodLook.Pressed);
                 if (queued && !variant.HasValue)
                 {
                     // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
@@ -431,15 +448,18 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            CountBelow(p, new Box(panel.Left, tileBox.Bottom, panel.Right, panel.Bottom), count, queued || look == PodLook.Locked);
+            CountBelow(p, new Box(panel.Left, tileBox.Bottom, panel.Right, panel.Bottom), count, queued || look == PodLook.Locked, 1.05f);
         }
 
-        /// <summary>A pod's or slot's count under its tile (§3.7): plain digits in <c>ink.brown</c>, softer when dimmed.</summary>
-        public static void CountBelow(IPainter p, Box area, int count, bool dim)
+        /// <summary>
+        /// A pod's or slot's count under its tile (§3.7): plain digits in <c>ink.brown</c>, softer when dimmed, the type's
+        /// size scaled to <paramref name="fill"/> of the area's height (slots 0.86, pods 1.05: the digits' caps fill it).
+        /// </summary>
+        public static void CountBelow(IPainter p, Box area, int count, bool dim, float fill = 0.86f)
         {
             p.Mark("pod.count");
             Rgba ink = dim ? C.InkBrownSoft.Mix(C.ParchmentBottom, 0.3f) : C.InkBrown;
-            float scale = (area.Height * 0.86f) / p.U(T.Count.Size);
+            float scale = (area.Height * fill) / p.U(T.Count.Size);
             p.Text(count.ToString(CultureInfo.InvariantCulture), area.CenterX, area.CenterY, T.Count, ink, area.Width, scale, TextLook.Plain(ink));
         }
 
@@ -548,7 +568,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A booster tile (§3.7; the booster bar, <c>booster.tile</c>): a cream squircle (radius 26%) set in a silver-grey
+        /// A booster tile (§3.7; the booster bar, <c>booster.tile</c>): a cream squircle (radius 26%) set in a cream-white
         /// bezel with the booster's colored icon (about two thirds of the tile), and the count badge over its lower right
         /// corner, or the cost pill under it and a small green "+" when no charges are left. A selected tile is raised with
         /// the pulsing golden glow; a disabled one is greyed (spec 003 FR-031).
@@ -607,10 +627,11 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A booster tile's body (§3.7): a cream face set in a silver-grey bezel (<see cref="GardenLook.BoosterRim"/>, light
-        /// at the top), a deeper grey lip along its bottom, a light edge where the face meets the bezel, a dark warm grey
-        /// outline and a soft shadow; the face sinks into the lip by the press <paramref name="depth"/>. A disabled tile's
-        /// face is grey. Returns the face.
+        /// A booster tile's body (§3.7): a cream face set in a cream-white bezel with a faint silver tint
+        /// (<see cref="GardenLook.BoosterRim"/>, light at the top), a cream lip along its bottom
+        /// (<see cref="GardenLook.BoosterLip"/>), a light edge where the face meets the bezel, a soft tan outline
+        /// (<see cref="GardenLook.BoosterLine"/>) and a soft shadow; the face sinks into the lip by the press
+        /// <paramref name="depth"/>. A disabled tile's face is grey. Returns the face.
         /// </summary>
         private static Box BoosterBezel(IPainter p, Box box, float radius, float depth, bool disabled)
         {
@@ -628,7 +649,7 @@ namespace Bloomlings.Playtest.Design
 
             SoftShadow(p, box, r, 0.22f, 0.06f);
             var whole = new Box(box.Left, box.Top + Math.Max(0f, shift), box.Right, box.Bottom);
-            p.FillRound(whole, r, rim.Darken(0.16f + dark));
+            p.FillRound(whole, r, GardenLook.BoosterLip.Darken(dark));
             var top = new Box(box.Left, box.Top + shift, box.Right, box.Bottom - lip + shift);
             float topRadius = Math.Min(r, top.Height / 2f);
             p.FillRoundGradient(top, topRadius, rim.Lighten(0.62f).Darken(dark), rim.Lighten(0.22f).Darken(dark));
@@ -650,7 +671,7 @@ namespace Bloomlings.Playtest.Design
             p.StrokeRound(inner, innerRadius, Math.Max(1f, s * 0.014f), C.CreamTop.WithAlpha(0.9f));
 
             var outline = new Box(box.Left, Math.Min(top.Top, whole.Top), box.Right, box.Bottom);
-            p.StrokeRound(outline.Inset(line / 2f), Math.Min(r, outline.Height / 2f) - (line / 2f), line, rim.Mix(C.WoodLine, 0.3f).Darken(0.3f));
+            p.StrokeRound(outline.Inset(line / 2f), Math.Min(r, outline.Height / 2f) - (line / 2f), line, GardenLook.BoosterLine);
             return inner;
         }
 
@@ -665,15 +686,20 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// Light rays behind the celebrating heroes (§3.9, <c>fx.rays</c>): ten soft <c>ray.light</c> wedges from
-        /// (<paramref name="cx"/>, <paramref name="cy"/>), turning 0.05 turn per second, brightest at the center.
+        /// (<paramref name="cx"/>, <paramref name="cy"/>) over a soft radial glow, turning 0.05 turn per second, brightest
+        /// at the center.
         /// <paramref name="seconds"/> is the time since the win.
         /// </summary>
         public static void LightRays(IPainter p, float cx, float cy, float radius, float seconds)
         {
             p.Mark("fx.rays");
             double turn = seconds * 0.05 * 2.0 * Math.PI;
-            p.FillCircle(cx, cy, radius * 0.42f, C.RayLight.WithAlpha(0.18f));
-            p.FillCircle(cx, cy, radius * 0.24f, C.RayLight.WithAlpha(0.22f));
+            for (int k = 7; k >= 0; k--)
+            {
+                // A soft radial glow: eight faint discs, so no edge shows.
+                p.FillCircle(cx, cy, radius * (0.06f + (0.06f * k)), C.RayLight.WithAlpha(0.035f));
+            }
+
             for (int i = 0; i < 10; i++)
             {
                 double a = turn + (i * Math.PI / 5.0);
@@ -683,8 +709,8 @@ namespace Bloomlings.Playtest.Design
                     double aj = a + (j * 0.034 * wide);
                     float x = (float)Math.Cos(aj);
                     float y = (float)Math.Sin(aj);
-                    p.Line(cx, cy, cx + (x * radius), cy + (y * radius), radius * 0.05f * wide, C.RayLight.WithAlpha(0.06f));
-                    p.Line(cx, cy, cx + (x * radius * 0.62f), cy + (y * radius * 0.62f), radius * 0.045f * wide, C.RayLight.WithAlpha(0.07f));
+                    p.Line(cx, cy, cx + (x * radius), cy + (y * radius), radius * 0.05f * wide, C.RayLight.WithAlpha(0.09f));
+                    p.Line(cx, cy, cx + (x * radius * 0.62f), cy + (y * radius * 0.62f), radius * 0.045f * wide, C.RayLight.WithAlpha(0.11f));
                 }
             }
         }

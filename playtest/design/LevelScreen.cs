@@ -105,7 +105,18 @@ namespace Bloomlings.Playtest.Design
 
         public bool Blocked => Session.Status == LevelStatus.Jammed || Session.Status == LevelStatus.Stuck;
 
-        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && _app.Now - EndShownAt < 2.3f) || ShowingMilestone || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+        /// <summary>
+        /// Whether the screen still moves: animations, a toast, a demo opening, booster targeting, and the end cards (the
+        /// jam's rise for 2.3 s; the win and milestone cards for as long as they show, since their rays turn, their petals
+        /// fall and Next breathes).
+        /// </summary>
+        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (Won || _app.Now - EndShownAt < 2.3f)) || ShowingMilestone || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+
+        /// <summary>
+        /// Whether only the win's own motion moves the screen (the win or milestone card is open and every other animation
+        /// is done): a host may then redraw at a lower frame rate to save battery.
+        /// </summary>
+        public bool OnlyCelebrating => Won && EndShownAt >= 0f && _app.Now - EndShownAt >= 2.3f && Animator.Idle && Targeting == null && Demo == null && (_toast == null || _app.Now >= _toastUntil);
 
         public void Advance(float dt) => Animator.Advance(dt, Session.View);
 
@@ -537,10 +548,19 @@ namespace Bloomlings.Playtest.Design
                 p.StrokeRound(box.Inset(inset), Math.Max(0f, r - inset), step * 1.6f, C.ParchmentLine.WithAlpha(0.15f * (1f - (k / 10f))));
             }
 
-            // The light bevel along the top edge and round its upper corners.
-            p.PushClip(new Box(box.Left, box.Top, box.Right, box.Top + r + p.U(6f)));
-            p.StrokeRound(box.Inset(p.U(3f)), Math.Max(0f, r - p.U(3f)), p.U(3f), C.ParchmentTop.WithAlpha(0.8f));
-            p.PopClip();
+            // The light bevel along the top edge, fading out round the upper corners (no hook down the sides).
+            float bevel = p.U(3f);
+            float[] reach = { r * 0.5f, r, r + p.U(6f) };
+            float[] alphas = { 0.8f, 0.5f, 0.25f };
+            float top = box.Top;
+            for (int k = 0; k < reach.Length; k++)
+            {
+                // Each band's clip starts where the previous one stopped, so the bevel steps down in strength.
+                p.PushClip(new Box(box.Left, top, box.Right, box.Top + reach[k]));
+                p.StrokeRound(box.Inset(bevel), Math.Max(0f, r - bevel), bevel, C.ParchmentTop.WithAlpha(alphas[k]));
+                p.PopClip();
+                top = box.Top + reach[k];
+            }
             p.StrokeRound(box.Inset(p.U(1f)), Math.Max(0f, r - p.U(1f)), p.U(2f), C.ParchmentLine.WithAlpha(0.55f));
         }
 
@@ -563,19 +583,28 @@ namespace Bloomlings.Playtest.Design
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, Level);
 
             // Top bar (frame 7, spec 005 §3.3, §4.1): the cream Pause squircle, the level on a wide wooden sign with ivy,
-            // and the cream speed pill, sized like the reference's.
-            float bar = r.TopBar.Height;
-            Kit.RoundButton(p, r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, "ui.pause", () => _app.OpenOverlay(Overlay.Pause), squircle: true);
-            p.Mark("ui.pause");
-            Box sign = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(bar * SignWidth, r.TopBar.Width - (bar * 4f)), bar * SignHeight);
-            Kit.LevelPill(p, sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
-            // The speed pill is as tall as Pause and half as wide again.
-            var speed = new Box(r.TopBar.Right - (bar * SpeedWidth), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
-            Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
-            if (badge.HasValue)
+            // and the cream speed pill, sized like the reference's. Once the win card shows it fades out in 0.3 s and takes
+            // no taps, so the sign, the heroes and the rays own the top.
+            float topBar = Won && EndShownAt >= 0f ? 1f - Kit.Ease((_app.Now - EndShownAt) / 0.3f) : 1f;
+            if (topBar > 0f)
             {
-                // HARD or SUPER HARD hangs from the sign's lower edge.
-                Kit.Badge(p, r.Badge.Inset(0f, p.U(2f)).Offset(0f, -p.U(10f)), badge.Value.Text, badge.Value.Color, badge.Value.Slot);
+                bool live = topBar >= 1f;
+                p.PushAlpha(topBar);
+                float bar = r.TopBar.Height;
+                Kit.RoundButton(p, r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, "ui.pause", live ? () => _app.OpenOverlay(Overlay.Pause) : (Action?)null, squircle: true);
+                p.Mark("ui.pause");
+                Box sign = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(bar * SignWidth, r.TopBar.Width - (bar * 4f)), bar * SignHeight);
+                Kit.LevelPill(p, sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
+                // The speed pill is as tall as Pause and half as wide again.
+                var speed = new Box(r.TopBar.Right - (bar * SpeedWidth), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
+                Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", live ? ToggleSpeed : (Action?)null);
+                if (badge.HasValue)
+                {
+                    // HARD or SUPER HARD hangs from the sign's lower edge.
+                    Kit.Badge(p, r.Badge.Inset(0f, p.U(2f)).Offset(0f, -p.U(10f)), badge.Value.Text, badge.Value.Color, badge.Value.Slot);
+                }
+
+                p.PopAlpha();
             }
 
             BoardPainter.Draw(p, r.Board, this);
