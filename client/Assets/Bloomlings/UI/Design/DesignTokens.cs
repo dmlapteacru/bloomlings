@@ -64,6 +64,8 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba StateLockBg = Rgba.FromHex("#C4C7CF");
             public static readonly Rgba StateStuck = Rgba.FromHex("#9AA0AA");
             public static readonly Rgba StateLink = Rgba.FromHex("#6CC4B8");
+            public static readonly Rgba StateLink2 = Rgba.FromHex("#6FB6E8");
+            public static readonly Rgba StateLink3 = Rgba.FromHex("#E67FB0");
             public static readonly Rgba MedalGold = Rgba.FromHex("#F5C542");
             public static readonly Rgba MedalSilver = Rgba.FromHex("#C9D1DC");
             public static readonly Rgba MedalBronze = Rgba.FromHex("#DA9A62");
@@ -269,6 +271,8 @@ namespace Bloomlings.Client.UI.Design
                 ["state.lock_bg"] = StateLockBg,
                 ["state.stuck"] = StateStuck,
                 ["state.link"] = StateLink,
+                ["state.link_2"] = StateLink2,
+                ["state.link_3"] = StateLink3,
                 ["medal.gold"] = MedalGold,
                 ["medal.silver"] = MedalSilver,
                 ["medal.bronze"] = MedalBronze,
@@ -446,6 +450,15 @@ namespace Bloomlings.Client.UI.Design
             public const float BoosterTileWidth = 152f;
 
             public const float BoosterTileHeight = 156f;
+
+            /// <summary>The wooden sign over the win and milestone cards (spec 005 contracts/look.md §4.4).</summary>
+            public const float WinSignHeight = 146f;
+
+            /// <summary>The finished picture on the win card (spec 005 §4.4).</summary>
+            public const float WinPictureHeight = 520f;
+
+            /// <summary>The reward pill of the win and milestone cards (spec 005 §4.4).</summary>
+            public const float RewardPillHeight = 104f;
         }
 
         public static class Elevation
