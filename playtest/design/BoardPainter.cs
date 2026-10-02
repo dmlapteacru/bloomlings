@@ -34,12 +34,23 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The layout each level screen was last drawn with (the walkers' doors depend on it).</summary>
         private static readonly ConditionalWeakTable<LevelScreen, BoardLayout> Layouts = new ConditionalWeakTable<LevelScreen, BoardLayout>();
 
+        /// <summary>The board fitted into <paramref name="area"/> (<see cref="BoardLayout.Fit"/>).</summary>
         public static void Draw(IPainter p, Box area, LevelScreen s)
+        {
+            LevelView view = s.Session.View;
+            Draw(p, BoardLayout.Fit(area, view.Width, view.Height, view.Entries), s);
+        }
+
+        /// <summary>
+        /// The board in <paramref name="layout"/>: on the gameplay screen the reference regions' fit
+        /// (<see cref="ReferenceGameplayRegions.FitBoard"/>: the stone border at most 0.86 of the safe width, a bottom
+        /// entry's arch in the entry strip; spec 005 FR-020, contracts/look.md §6.1).
+        /// </summary>
+        public static void Draw(IPainter p, BoardLayout layout, LevelScreen s)
         {
             LevelView view = s.Session.View;
             int w = view.Width;
             int h = view.Height;
-            BoardLayout layout = BoardLayout.Fit(area, w, h, view.Entries);
             Layouts.AddOrUpdate(s, layout);
             float cell = layout.Cell;
             s.Board = (layout.Grid.Left, layout.Grid.Top, cell, h);

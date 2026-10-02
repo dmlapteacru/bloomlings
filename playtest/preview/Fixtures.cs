@@ -396,92 +396,95 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>
-        /// A component sheet in the reference look (frames 12–14, spec 005 §4.1): the tray's parchment over the lawn and the
-        /// title in <c>ink.brown</c>.
+        /// A component sheet in the reference look (frames 12–14, spec 005 §4.1, §6.1): the gameplay tray's parchment panel
+        /// over the lawn from under the title to the bottom of the screen, and the title in <c>ink.brown</c>. The sheet's
+        /// pieces take their sizes from the reference gameplay regions (<see cref="Reference"/>), so they look as in play.
         /// </summary>
-        private static void TraySheet(SkiaPainter p, string title, out Box body, bool bodyBand = true)
+        private static void TraySheet(SkiaPainter p, string title, out Box body)
         {
             p.BeginFrame();
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, 1);
             Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
-            Box sheet = safe.Inset(p.U(30f));
-            LevelScreen.TrayFrame(p, sheet, p.U(48f));
-            Box inner = sheet.Inset(p.U(7f));
-            float split = safe.Top + p.U(190f);
-            LevelScreen.TrayBand(p, new Box(inner.Left, inner.Top, inner.Right, split - p.U(4f)), p.U(42f));
-            if (bodyBand)
-            {
-                LevelScreen.TrayBand(p, new Box(inner.Left, split + p.U(4f), inner.Right, inner.Bottom), p.U(42f));
-            }
-
-            p.Text(title, safe.CenterX, safe.Top + p.U(110f), T.Title, C.InkBrown, look: TextLook.Plain(C.InkBrown));
-            body = new Box(safe.Left + p.U(70f), safe.Top + p.U(220f), safe.Right - p.U(70f), safe.Bottom - p.U(70f));
+            float w = safe.Width;
+            Kit.WoodSign(p, Box.FromCenter(safe.CenterX, safe.Top + (0.08f * w), 0.56f * w, 0.115f * w), title, T.LevelPill, SignDecor.Ivy);
+            var tray = new Box(0f, safe.Top + (0.17f * w), p.Width, p.Height);
+            LevelScreen.TrayPanel(p, tray, 0.06f * w, w, Array.Empty<float>());
+            body = new Box(safe.Left + (0.04f * w), tray.Top + (0.03f * w), safe.Right - (0.04f * w), safe.Bottom - (0.02f * w));
         }
 
-        /// <summary>The left and right edges of a component sheet's bands (see <see cref="TraySheet"/>).</summary>
-        private static (float Left, float Right) SheetBand(IPainter p)
-        {
-            Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
-            return (safe.Left + p.U(37f), safe.Right - p.U(37f));
-        }
+        /// <summary>The reference gameplay regions of this frame's shape, for the sizes of decks, plates and booster boxes.</summary>
+        private static ReferenceGameplayRegions Reference(IPainter p, int stacks = 4, int slots = 5) =>
+            ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, new[] { EntrySide.Bottom }, stacks, slots);
 
         /// <summary>A state's label on a component sheet: <c>ink.brown_soft</c> captions.</summary>
         private static void StateLabel(IPainter p, string label, float cx, float cy, float maxWidth) =>
             p.Text(label, cx, cy, T.Caption, C.InkBrownSoft, maxWidth);
 
+        /// <summary>A separator line across a component sheet, as between the tray's rows.</summary>
+        private static void SheetLine(IPainter p, Box body, float y) =>
+            LevelScreen.Separator(p, Box.FromCenter(body.CenterX, y, body.Width, Math.Max(2f, body.Width * 0.0055f)));
+
+        /// <summary>
+        /// Frame 12: the Source stack decks of spec 005 FR-021 in every state (front pod exposed, pressed, locked, mystery;
+        /// one and two buried pods; "+N" more below; connected; an emptied stack; locked and hidden buried pods), at their
+        /// size in play, and a row of four decks as the tray shows them.
+        /// </summary>
         private static void PodStates(SkiaPainter p)
         {
             TraySheet(p, "Pod states", out Box body);
-            (string Label, PodInfo Pod, PodLook Look)[] states =
+            ReferenceGameplayRegions g = Reference(p);
+            Box size = g.Decks[0];
+            (VariantId? Variant, int Count, bool Locked) Pod(VariantId? variant, int count, bool locked = false) => (variant, count, locked);
+            (string Label, (VariantId?, int, bool)[] Pods, int Total, PodLook Look)[] states =
             {
-                ("Exposed", new PodInfo("a", VariantId.Leaf, 18, PodLocation.Tray, -1, false, false, null), PodLook.Exposed),
-                ("Next in stack", new PodInfo("b", VariantId.Water, 12, PodLocation.Tray, -1, false, false, null), PodLook.Next),
-                ("Pressed", new PodInfo("c", VariantId.Leaf, 18, PodLocation.Tray, -1, false, false, null), PodLook.Pressed),
-                ("Locked", new PodInfo("d", VariantId.Acorn, 20, PodLocation.Tray, -1, true, false, null), PodLook.Locked),
-                ("Mystery", new PodInfo("e", null, 14, PodLocation.Tray, -1, false, true, null), PodLook.Exposed),
-                ("Connected", new PodInfo("f", VariantId.Flower, 12, PodLocation.Tray, -1, false, false, "g"), PodLook.Exposed),
+                ("Exposed", new[] { Pod(VariantId.Leaf, 18) }, 1, PodLook.Exposed),
+                ("Pressed", new[] { Pod(VariantId.Leaf, 18) }, 1, PodLook.Pressed),
+                ("Locked", new[] { Pod(VariantId.Acorn, 20, locked: true) }, 1, PodLook.Locked),
+                ("Mystery", new[] { Pod(null, 14) }, 1, PodLook.Exposed),
+                ("One buried", new[] { Pod(VariantId.Water, 12), Pod(VariantId.Flower, 9) }, 2, PodLook.Exposed),
+                ("Two buried", new[] { Pod(VariantId.Flower, 9), Pod(VariantId.Moss, 6), Pod(VariantId.Wood, 12) }, 3, PodLook.Exposed),
+                ("More below (+4)", new[] { Pod(VariantId.VioletBud, 8), Pod(VariantId.Dew, 10), Pod(VariantId.Acorn, 6) }, 7, PodLook.Exposed),
+                ("Buried mystery, locked", new[] { Pod(VariantId.Leaf, 5), Pod(null, 7), Pod(VariantId.Water, 4, locked: true) }, 3, PodLook.Exposed),
+                ("Emptied stack", Array.Empty<(VariantId?, int, bool)>(), 0, PodLook.Exposed),
             };
-            Box[] cells = Grid(body, p, states.Length, 3, p.U(400f));
+
+            float rowHeight = size.Height + (0.085f * g.W);
+            Box[] cells = Grid(body, p, states.Length, 3, rowHeight);
             for (int i = 0; i < states.Length; i++)
             {
                 Box cell = cells[i];
-                float size = Math.Min(cell.Width * 0.7f, p.U(230f));
-                Box pod = Box.FromCenter(cell.CenterX, cell.Top + p.U(100f) + (size / 2f), size, size);
-                if (states[i].Label == "Connected")
-                {
-                    // Two linked pods side by side, as two columns of the tray.
-                    float small = size * 0.62f;
-                    Box a = Box.FromCenter(cell.CenterX - (small * 0.62f), pod.CenterY, small, small);
-                    Box b = Box.FromCenter(cell.CenterX + (small * 0.62f), pod.CenterY, small, small);
-                    PodPainter.Pod(p, a, states[i].Pod, PodLook.Exposed, null);
-                    PodPainter.Pod(p, b, new PodInfo("g", VariantId.Water, 8, PodLocation.Tray, -1, false, false, "g"), PodLook.Exposed, null);
-                    PodPainter.Link(p, a, b);
-                }
-                else
-                {
-                    PodPainter.Pod(p, pod, states[i].Pod, states[i].Look, null, handle: states[i].Look != PodLook.Next);
-                }
-
-                StateLabel(p, states[i].Label, cell.CenterX, cell.Top + p.U(36f), cell.Width);
+                StateLabel(p, states[i].Label, cell.CenterX, cell.Top + (0.03f * g.W), cell.Width);
+                var deck = PodDeck.In(Box.FromCenter(cell.CenterX, cell.Top + (0.065f * g.W) + (size.Height / 2f), size.Width, size.Height));
+                PodPainter.DrawDeck(p, deck, states[i].Pods, states[i].Total, states[i].Look);
             }
 
-            // A column of the tray: the exposed pod, the two that follow it, and "+N" for the ones further down.
-            var column = new Box(body.Left, cells[cells.Length - 1].Bottom + p.U(10f), body.Right, body.Bottom);
-            StateLabel(p, "A tray column with more below", column.CenterX, column.Top + p.U(36f), column.Width);
-            float pod2 = Math.Min(p.U(150f), (column.Height - p.U(110f)) / 3.2f);
-            if (pod2 > p.U(40f))
+            // The tray's row of decks as in play, its middle two pods connected.
+            float rowTop = cells[cells.Length - 1].Bottom + (0.01f * g.W);
+            if (rowTop + (0.07f * g.W) + size.Height > body.Bottom)
             {
-                (VariantId Variant, int Count)[] stack = { (VariantId.Flower, 9), (VariantId.Moss, 6), (VariantId.Wood, 12) };
-                for (int d = stack.Length - 1; d >= 0; d--)
-                {
-                    Box box = Box.FromCenter(column.CenterX, column.Top + p.U(100f) + (d * pod2 * 1.09f) + (pod2 / 2f), pod2, pod2);
-                    PodPainter.Pod(p, box, new PodInfo("s" + d, stack[d].Variant, stack[d].Count, PodLocation.Tray, -1, false, false, null), d == 0 ? PodLook.Exposed : PodLook.Next, null, handle: d == 0);
-                    if (d == stack.Length - 1)
-                    {
-                        float h = box.Height * 0.26f;
-                        Kit.CountBadge(p, box.Left + (h * 0.42f), box.Bottom - (h * 0.42f), h, "+4");
-                    }
-                }
+                return;
+            }
+
+            SheetLine(p, body, rowTop);
+            StateLabel(p, "The tray in play, two pods connected", body.CenterX, rowTop + (0.035f * g.W), body.Width);
+            float dy = rowTop + (0.07f * g.W) - g.Decks[0].Top;
+            var row = new[]
+            {
+                new[] { Pod(VariantId.Leaf, 12), Pod(VariantId.Moss, 5), Pod(VariantId.Wood, 9) },
+                new[] { Pod(VariantId.Flower, 8), Pod(VariantId.Water, 3), Pod(VariantId.Leaf, 6) },
+                new[] { Pod(VariantId.Water, 14), Pod(VariantId.Acorn, 4), Pod(VariantId.Flower, 7) },
+                new[] { Pod(VariantId.Acorn, 6), Pod(VariantId.VioletBud, 8), Pod(VariantId.Dew, 2) },
+            };
+            var decks = new PodDeck[Math.Min(row.Length, g.Decks.Count)];
+            for (int i = 0; i < decks.Length; i++)
+            {
+                decks[i] = PodDeck.In(g.Decks[i].Offset(0f, dy));
+                PodPainter.DrawDeck(p, decks[i], row[i], 3 + (i * 2), PodLook.Exposed);
+            }
+
+            if (decks.Length >= 3)
+            {
+                PodPainter.Link(p, decks[1].Front, decks[2].Front);
             }
         }
 
@@ -668,9 +671,15 @@ namespace Bloomlings.Playtest.Preview
             return boxes;
         }
 
+        /// <summary>
+        /// Frame 13: every Waiting Slot state (spec 002 FR-013, spec 005 §3.7) on plates of their size in play (§6.1), and
+        /// the slot row as it shows in play.
+        /// </summary>
         private static void SlotStates(SkiaPainter p)
         {
             TraySheet(p, "Waiting slot states", out Box body);
+            ReferenceGameplayRegions g = Reference(p);
+            Box plateSize = g.Slots[0];
             (string Label, SlotLook Look, bool Locked, bool Danger, bool Extra)[] states =
             {
                 ("Empty", new SlotLook(), false, false, false),
@@ -683,66 +692,112 @@ namespace Bloomlings.Playtest.Preview
                 ("Extra slot, working", new SlotLook { PodId = "d", Variant = VariantId.Acorn, Count = 5, InFlight = 1 }, false, false, true),
                 ("Return target", new SlotLook { PodId = "e", Variant = VariantId.Flower, Count = 4, InFlight = 1 }, false, false, false),
             };
-            Box[] cells = Grid(body, p, states.Length, 3, p.U(390f));
+
+            // Plates a little larger than in play, so each state reads on the sheet.
+            float scale = 1.25f;
+            float rowHeight = (plateSize.Height * scale) + (0.11f * g.W);
+            Box[] cells = Grid(body, p, states.Length, 3, rowHeight);
             for (int i = 0; i < states.Length; i++)
             {
                 Box cell = cells[i];
-                float height = Math.Min(cell.Width * 0.7f, p.U(230f));
-                float width = height * SlotPainter.PlateAspect;
-                var plate = Box.FromCenter(cell.CenterX, cell.Top + p.U(100f) + (height / 2f), width, height);
+                var plate = Box.FromCenter(cell.CenterX, cell.Top + (0.08f * g.W) + (plateSize.Height * scale / 2f), plateSize.Width * scale, plateSize.Height * scale);
                 if (states[i].Label == "Return target")
                 {
                     SlotPainter.TargetGlow(p, plate);
                 }
 
                 SlotPainter.Slot(p, plate, states[i].Look, states[i].Locked, states[i].Danger, states[i].Extra, 10f);
-                StateLabel(p, states[i].Label, cell.CenterX, cell.Top + p.U(36f), cell.Width);
+                StateLabel(p, states[i].Label, cell.CenterX, cell.Top + (0.035f * g.W), cell.Width);
             }
 
-            // The row as it shows in play: two working pods, a stuck one, an empty slot and the last free one in danger.
-            var row = new Box(body.Left, cells[cells.Length - 1].Bottom + p.U(20f), body.Right, body.Bottom);
-            if (row.Height > p.U(160f))
+            // The row as it shows in play: four working pods (one stuck) and the last free slot, in the regions' plates.
+            float top = cells[cells.Length - 1].Bottom + (0.02f * g.W);
+            if (top + (0.08f * g.W) + plateSize.Height > body.Bottom)
             {
-                StateLabel(p, "The row in play", row.CenterX, row.Top + p.U(16f), row.Width);
-                var band = new Box(row.Left, row.Top + p.U(46f), row.Right, Math.Min(row.Bottom, row.Top + p.U(46f + 170f)));
-                Box[] plates = SlotPainter.Cells(p, band, 5);
-                SlotLook[] looks =
-                {
-                    new SlotLook { PodId = "r1", Variant = VariantId.Leaf, Count = 3, InFlight = 1 },
-                    new SlotLook { PodId = "r2", Variant = VariantId.Flower, Count = 2, InFlight = 1 },
-                    new SlotLook { PodId = "r3", Variant = VariantId.Water, Count = 1 },
-                    new SlotLook { PodId = "r4", Variant = VariantId.Acorn, Count = 4, InFlight = 2 },
-                    new SlotLook(),
-                };
-                for (int i = 0; i < plates.Length; i++)
-                {
-                    SlotPainter.Slot(p, plates[i], looks[i], false, i == plates.Length - 1, false, 10f);
-                }
+                return;
+            }
+
+            SheetLine(p, body, top);
+            StateLabel(p, "The row in play", body.CenterX, top + (0.04f * g.W), body.Width);
+            float dy = top + (0.08f * g.W) - g.Slots[0].Top;
+            SlotLook[] looks =
+            {
+                new SlotLook { PodId = "r1", Variant = VariantId.Leaf, Count = 3, InFlight = 1 },
+                new SlotLook { PodId = "r2", Variant = VariantId.Flower, Count = 2, InFlight = 1 },
+                new SlotLook { PodId = "r3", Variant = VariantId.Water, Count = 1 },
+                new SlotLook { PodId = "r4", Variant = VariantId.Acorn, Count = 4, InFlight = 2 },
+                new SlotLook(),
+            };
+            for (int i = 0; i < looks.Length && i < g.Slots.Count; i++)
+            {
+                SlotPainter.Slot(p, g.Slots[i].Offset(0f, dy), looks[i], false, i == looks.Length - 1, false, 10f);
+            }
+
+            // With the sixth slot of Extra Slot, the row narrows its plates.
+            ReferenceGameplayRegions six = Reference(p, slots: 6);
+            float sixTop = top + (0.1f * g.W) + plateSize.Height;
+            if (sixTop + (0.08f * g.W) + six.Slots[0].Height > body.Bottom)
+            {
+                return;
+            }
+
+            SheetLine(p, body, sixTop);
+            StateLabel(p, "With the extra slot", body.CenterX, sixTop + (0.04f * g.W), body.Width);
+            float dy6 = sixTop + (0.08f * g.W) - six.Slots[0].Top;
+            for (int i = 0; i < six.Slots.Count; i++)
+            {
+                SlotLook look = i < looks.Length - 1 ? looks[i] : new SlotLook();
+                SlotPainter.Slot(p, six.Slots[i].Offset(0f, dy6), look, false, false, i == six.Slots.Count - 1, 10f);
             }
         }
 
+        /// <summary>
+        /// Frame 14: the booster row of the tray (spec 002 FR-014, spec 005 §3.7, §6.1) as it unlocks, step by step, in the
+        /// four cream boxes of their size in play, and every tile state (charges, price, selected, disabled).
+        /// </summary>
         private static void BoosterBar(SkiaPainter p)
         {
-            TraySheet(p, "Booster bar", out Box body, bodyBand: false);
-            (float bandLeft, float bandRight) = SheetBand(p);
+            TraySheet(p, "Booster bar", out Box body);
+            ReferenceGameplayRegions g = Reference(p);
             (string Label, int Shown)[] steps = { ("Level 1–2 (hidden)", 0), ("Level 3", 1), ("Level 4", 2), ("Level 6", 3), ("Level 9+", 4) };
             string[] ids = { "extra_slot", "shuffle", "return", "bloom_burst" };
             int[] charges = { 2, 2, 1, 0 };
-            float rowHeight = Math.Min(p.U(250f), body.Height / (steps.Length + 1.3f));
-            float barHeight = Math.Min(p.U(DesignTokens.Size.BoosterButton), rowHeight - p.U(80f));
-            float groove = p.U(4f);
+
+            // The boxes at their size in play, unless the rows do not fit the sheet: then all of them a little smaller.
+            float w = g.W;
+            float label = 0.065f * w;
+            float gap = 0.045f * w;
+            float pill = 0.05f * w;
+            float side = g.Boosters[0].Height;
+            float needed = label + ((steps.Length - 1) * (label + side + gap)) + (label + side + pill);
+            float k = Math.Min(1f, body.Height / needed);
+            label *= k;
+            gap *= k;
+            side *= k;
+            Box Place(int i, float cy) => Box.FromCenter(g.Boosters[i].CenterX, cy, g.Boosters[i].Width * k, side);
+
+            float top = body.Top;
             for (int s = 0; s < steps.Length; s++)
             {
-                // Each unlock step on its own band of the tray's parchment.
-                var row = new Box(body.Left, body.Top + (s * rowHeight), body.Right, body.Top + (s * rowHeight) + rowHeight);
-                LevelScreen.TrayBand(p, new Box(bandLeft, row.Top - p.U(26f) + groove, bandRight, row.Bottom - p.U(26f) - groove), p.U(22f));
-                p.TextLeft(steps[s].Label, row.Left, row.Top + p.U(16f), T.Caption, C.InkBrownSoft);
-                var bar = new Box(row.Left, row.Top + p.U(50f), row.Right, row.Top + p.U(50f) + barHeight);
-                Box[] places = BoosterBarPainter.Places(p, bar);
+                if (s > 0)
+                {
+                    SheetLine(p, body, top - (gap / 2f));
+                }
+
+                p.TextLeft(steps[s].Label, body.Left, top + (label * 0.45f), T.Caption, C.InkBrownSoft);
+                if (steps[s].Shown == 0)
+                {
+                    top += label + (gap / 2f);
+                    continue;
+                }
+
+                float cy = top + label + (side / 2f);
                 for (int i = 0; i < steps[s].Shown; i++)
                 {
-                    BoosterBarPainter.Tile(p, BoosterBarPainter.Fit(p, places[i], bar), ids[i], new BoosterTileState(charges[i], 60, false, true, true), null);
+                    BoosterBarPainter.Tile(p, Place(i, cy), ids[i], new BoosterTileState(charges[i], 60, false, true, true), null);
                 }
+
+                top += label + side + gap;
             }
 
             // Every tile state of spec 003 FR-031: charges, price, selected (Return), disabled.
@@ -753,15 +808,13 @@ namespace Bloomlings.Playtest.Preview
                 ("Selected", "return", new BoosterTileState(1, 50, true, true, true)),
                 ("Disabled", "bloom_burst", new BoosterTileState(0, 60, false, true, false)),
             };
-            float top = body.Top + (steps.Length * rowHeight);
-            Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
-            LevelScreen.TrayBand(p, new Box(bandLeft, top - p.U(26f) + groove, bandRight, safe.Bottom - p.U(37f)), p.U(42f));
-            var stateBar = new Box(body.Left, top + p.U(70f), body.Right, top + p.U(70f) + barHeight);
-            Box[] statePlaces = BoosterBarPainter.Places(p, stateBar);
+            SheetLine(p, body, top - (gap / 2f));
+            float stateCy = top + label + (side / 2f);
             for (int i = 0; i < states.Length; i++)
             {
-                StateLabel(p, states[i].Label, statePlaces[i].CenterX, top + p.U(26f), statePlaces[i].Width * 1.4f);
-                BoosterBarPainter.Tile(p, BoosterBarPainter.Fit(p, statePlaces[i], stateBar), states[i].Id, states[i].State, null);
+                Box place = Place(i, stateCy);
+                StateLabel(p, states[i].Label, place.CenterX, top + (label * 0.45f), place.Width * 1.3f);
+                BoosterBarPainter.Tile(p, place, states[i].Id, states[i].State, null);
             }
         }
     }

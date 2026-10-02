@@ -23,10 +23,17 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static class SlotPainter
     {
-        /// <summary>A plate's width for its height: a little taller than wide, like the reference's slots.</summary>
-        public const float PlateAspect = 0.82f;
+        /// <summary>
+        /// A plate's width for its height: the reference's portrait plates, 0.165 W wide in a 0.19 W row (spec 005
+        /// contracts/look.md §6.1).
+        /// </summary>
+        public const float PlateAspect = 0.165f / 0.19f;
 
-        public static void DrawRow(IPainter p, Box area, LevelScreen s)
+        /// <summary>
+        /// The Waiting Slots in the slot row's plates (<see cref="ReferenceGameplayRegions.Slots"/>, spec 005 FR-020): one
+        /// plate per slot shown, the sixth one too once Extra Slot opened it, in slot order.
+        /// </summary>
+        public static void DrawRow(IPainter p, IReadOnlyList<Box> cells, LevelScreen s)
         {
             LevelView view = s.Session.View;
             var slots = new List<int>();
@@ -48,8 +55,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            Box[] cells = Cells(p, area, slots.Count);
-            for (int n = 0; n < slots.Count; n++)
+            for (int n = 0; n < slots.Count && n < cells.Count; n++)
             {
                 int slot = slots[n];
                 Box box = cells[n];
@@ -71,43 +77,21 @@ namespace Bloomlings.Playtest.Design
                 if (target)
                 {
                     int index = slot;
-                    p.Hit(box, () => s.UseBooster(Client.Services.Save.BoosterKind.Return, new UseReturn(index)));
+                    p.Hit(Kit.Touch(p, box), () => s.UseBooster(Client.Services.Save.BoosterKind.Return, new UseReturn(index)));
                 }
             }
         }
 
         /// <summary>
-        /// The plates of the slot row: as tall as the band allows (less a margin for their shadows), <see cref="PlateAspect"/>
-        /// as wide, a quarter of a plate apart and centered; narrower when six do not fit.
+        /// Where a working plate filling <paramref name="plate"/> holds its tile (<see cref="Kit.SlotPlate"/>: the face above
+        /// the lip, the tile of <see cref="Kit.SlotTileSize"/> 10% of the face below its top): flights land there.
         /// </summary>
-        public static Box[] Cells(IPainter p, Box area, int count)
+        public static Box TileBox(Box plate)
         {
-            var cells = new Box[Math.Max(0, count)];
-            if (count <= 0)
-            {
-                return cells;
-            }
-
-            float height = area.Height - p.U(12f);
-            float width = height * PlateAspect;
-            float gap = width * 0.27f;
-            float fit = (area.Width - p.U(12f)) / ((count * 1.27f) - 0.27f);
-            if (fit < width)
-            {
-                width = fit;
-                gap = width * 0.27f;
-            }
-
-            float total = (width * count) + (gap * (count - 1));
-            float x = area.CenterX - (total / 2f);
-            float top = area.CenterY - (height / 2f) - p.U(2f);
-            for (int i = 0; i < count; i++)
-            {
-                cells[i] = new Box(x, top, x + width, top + height);
-                x += width + gap;
-            }
-
-            return cells;
+            float lip = Math.Min(plate.Width, plate.Height) * 0.055f;
+            var face = new Box(plate.Left, plate.Top, plate.Right, plate.Bottom - lip);
+            float tile = Kit.SlotTileSize(plate);
+            return Box.FromCenter(face.CenterX, face.Top + (face.Height * 0.1f) + (tile / 2f), tile, tile);
         }
 
         /// <summary>How far the pod shown in a slot has flown in from the tray (0–1; 1 when it is not flying).</summary>

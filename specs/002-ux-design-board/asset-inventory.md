@@ -32,7 +32,7 @@ How to read the columns:
 | Variant symbols | 8 | 4 | 12 |
 | Board tiles and overlays | 13 | 0 | 13 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 14 | 0 | 14 |
+| Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
 | UI kit | 54 | 0 | 54 |
 | Materials | 4 | 0 | 4 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **177** | **28** | **205** |
+| **All** | **178** | **28** | **206** |
 
 ## Brand
 
@@ -158,6 +158,7 @@ the fallback when a picture is missing.
 | `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | the wooden frame around a grey panel with a padlock and the softer count |
 | `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
 | `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame |
+| `pod.deck` | Source stack deck (spec 005 FR-021) | 7, 8, 9, 12 | Tray | buried pods (one or two); more below (+N); emptied stack | Small | yes | Launch | the wooden frames of the next two pods peeking above the front pod, each showing a band of its variant color with its small symbol as a dark silhouette (a lilac band with a white ? for a hidden mystery pod, a grey one with the padlock when locked); a sunk parchment well for an emptied stack |
 | `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | plain brown digits below the tile, no "x" |
 | `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline |
 | `slot.state.working` | Working pod in a slot | 13 | Slots | working; finishing | Small | yes | Launch | a raised cream plate with the variant's sticker tile and the plain count below it |

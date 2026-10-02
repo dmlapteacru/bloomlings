@@ -92,8 +92,14 @@ namespace Bloomlings.Playtest.Design
         /// <summary>When the end card (win or jam) first showed, for its rise and pop.</summary>
         public float EndShownAt { get; set; } = -1f;
 
-        /// <summary>Where each tray pod was drawn last frame (flights start there).</summary>
+        /// <summary>
+        /// Where each tray pod's tile was drawn last frame: the front pod's sticker tile on its deck, a buried pod's symbol
+        /// on its band (flights start there).
+        /// </summary>
         public Dictionary<string, Box> PodBoxes { get; } = new Dictionary<string, Box>(StringComparer.Ordinal);
+
+        /// <summary>Where each committed pod's tile was when it was tapped: its flight to the slot grows from that size.</summary>
+        public Dictionary<string, Box> LaunchBoxes { get; } = new Dictionary<string, Box>(StringComparer.Ordinal);
 
         /// <summary>Where each slot was drawn last frame.</summary>
         public Box?[] SlotBoxes { get; } = new Box?[WaitingSlots.Capacity];
@@ -268,6 +274,10 @@ namespace Bloomlings.Playtest.Design
                 PodInfo info = Session.View.Pod(member);
                 Box? box = PodBoxes.TryGetValue(member, out Box b) ? b : (Box?)null;
                 before[member] = (info.Remaining, info.Variant, box?.CenterX ?? float.NaN, box?.CenterY ?? float.NaN);
+                if (box.HasValue)
+                {
+                    LaunchBoxes[member] = box.Value;
+                }
             }
 
             CommandResult result = Session.Apply(tap);
@@ -489,78 +499,126 @@ namespace Bloomlings.Playtest.Design
 
         // ---- Drawing ----
 
-        /// <summary>The level sign's width in top bar heights (the reference's plank is about 2.9 Pause buttons wide).</summary>
-        public const float SignWidth = 2.9f;
-
-        /// <summary>The level sign's height in top bar heights.</summary>
-        public const float SignHeight = 0.9f;
-
-        /// <summary>The speed pill's width in top bar heights.</summary>
-        public const float SpeedWidth = 1.5f;
-
         /// <summary>
-        /// The tray's parchment (spec 005 FR-012, §4.1), as in the reference: a frame from just below the board to past the
-        /// bottom of the screen, holding one parchment band for the Waiting Slots, one for the Source Tray and one for the
-        /// booster bar, parted by grooves in the gaps between the regions.
+        /// This frame's reference gameplay regions (spec 005 FR-020, contracts/look.md §6.1): the level's Garden Entry sides
+        /// (a bottom entry takes the entry strip for its arch), one deck per Source stack, the Waiting Slots shown (the
+        /// sixth one too once Extra Slot opened it), the booster row once a booster is unlocked, and the Hard or Super
+        /// Hard badge under the sign.
         /// </summary>
-        public static void TrayBoard(IPainter p, GameplayRegions r, bool hasBoosters)
+        public ReferenceGameplayRegions Regions(IPainter p, bool hasBoosters, bool hasBadge)
         {
-            float side = p.U(8f);
-            float margin = p.U(7f);
-            float groove = p.U(8f) / 2f;
-            var board = new Box(r.Safe.Left + side, r.Slots.Top - p.U(14f), r.Safe.Right - side, p.Height + p.U(80f));
-            TrayFrame(p, board, p.U(40f));
-            float left = board.Left + margin;
-            float right = board.Right - margin;
-            float seam = r.Slots.Bottom + ((r.Tray.Top - r.Slots.Bottom) * 0.3f);
-            TrayBand(p, new Box(left, board.Top + margin, right, seam - groove), p.U(34f));
-            if (!hasBoosters)
+            LevelView view = Session.View;
+            var sides = new List<EntrySide>();
+            foreach (EntryDef entry in view.Entries)
             {
-                TrayBand(p, new Box(left, seam + groove, right, board.Bottom), p.U(22f));
-                return;
+                sides.Add(entry.Side);
             }
 
-            float seam2 = r.Tray.Bottom + ((r.Boosters.Top - r.Tray.Bottom) * 0.5f);
-            TrayBand(p, new Box(left, seam + groove, right, seam2 - groove), p.U(22f));
-            TrayBand(p, new Box(left, seam2 + groove, right, board.Bottom), p.U(22f));
+            int slots = 0;
+            for (int i = 0; i < view.SlotCapacity; i++)
+            {
+                if (view.SlotStateOf(i) != SlotState.Absent)
+                {
+                    slots++;
+                }
+            }
+
+            return ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, sides, view.StackCount, slots, hasBoosters, hasBadge);
         }
 
         /// <summary>
-        /// The tray's frame (<c>mat.parchment</c>): the deep parchment seen in the grooves between its bands, a dark
-        /// <c>parchment.line</c> outline and a soft halo on the lawn.
+        /// The tray (spec 005 FR-012, FR-020, contracts/look.md §6.1), as in the reference: one parchment tray across the
+        /// whole screen from the entry strip to past the bottom of the screen, its top corners rounded by
+        /// <see cref="ReferenceGameplayRegions.TrayRadius"/>, casting a soft shadow up onto the lawn. Its rows (the slots,
+        /// the boosters, the decks) lie on bands of warm parchment parted by the grooves at the separators, so the cream
+        /// plates, boxes and wooden pods stand out on it.
         /// </summary>
-        public static void TrayFrame(IPainter p, Box box, float radius)
+        public static void TrayPanel(IPainter p, ReferenceGameplayRegions r)
+        {
+            var cuts = new List<float>();
+            foreach (Box line in new[] { r.SeparatorTop, r.SeparatorBottom })
+            {
+                if (!line.IsEmpty)
+                {
+                    cuts.Add(line.CenterY);
+                }
+            }
+
+            TrayPanel(p, r.Tray, r.TrayRadius, r.W, cuts);
+        }
+
+        /// <summary>
+        /// A tray filling <paramref name="tray"/> (its bottom corners fall below it, off the screen): the frame and one band
+        /// per row, parted by a groove at each of <paramref name="cuts"/> (screen y). <paramref name="w"/> is the safe
+        /// width its sizes scale by.
+        /// </summary>
+        public static void TrayPanel(IPainter p, Box tray, float radius, float w, IReadOnlyList<float> cuts)
+        {
+            var frame = new Box(tray.Left, tray.Top, tray.Right, tray.Bottom + radius);
+            TrayFrame(p, frame, radius, w);
+            float margin = w * TrayMargin;
+            float groove = Math.Max(2f, w * TrayGroove);
+            float top = frame.Top + margin;
+            for (int i = 0; i <= cuts.Count; i++)
+            {
+                float bottom = i < cuts.Count ? cuts[i] - (groove / 2f) : frame.Bottom;
+                float corner = i == 0 ? radius - margin : w * TrayBandRadius;
+                TrayBand(p, new Box(frame.Left + margin, top, frame.Right - margin, bottom), corner, w);
+                top = i < cuts.Count ? cuts[i] + (groove / 2f) : top;
+            }
+        }
+
+        /// <summary>The tray's frame showing round its bands, as a share of the safe width.</summary>
+        public const float TrayMargin = 0.012f;
+
+        /// <summary>The groove between two bands of the tray, as a share of the safe width.</summary>
+        public const float TrayGroove = 0.009f;
+
+        /// <summary>The corner radius of the tray's inner bands, as a share of the safe width.</summary>
+        public const float TrayBandRadius = 0.03f;
+
+        /// <summary>
+        /// The tray's frame (<c>mat.parchment</c>): the deep parchment seen in the grooves between its bands
+        /// (<c>parchment.edge</c> deepened toward <c>parchment.line</c>), a dark outline and a soft shadow rising onto
+        /// the lawn above it.
+        /// </summary>
+        public static void TrayFrame(IPainter p, Box box, float radius, float w)
         {
             p.Mark("mat.parchment");
             float r = Math.Min(radius, box.Height / 2f);
-            float line = p.U(4f);
-            p.FillRound(box.Inset(-p.U(9f)), r + p.U(9f), C.GardenShadow.WithAlpha(0.06f));
-            p.FillRound(box.Inset(-p.U(4f)), r + p.U(4f), C.GardenShadow.WithAlpha(0.12f));
-            p.FillRound(box, r, C.ParchmentEdge.Mix(C.ParchmentLine, 0.45f));
-            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.ParchmentLine.Darken(0.22f));
+            float grow = w * 0.01f;
+            for (int k = 3; k >= 1; k--)
+            {
+                float g = grow * k;
+                p.FillRound(new Box(box.Left - g, box.Top - g, box.Right + g, box.Bottom), r + g, C.GardenShadow.WithAlpha(0.07f));
+            }
+
+            float line = Math.Max(2f, w * 0.004f);
+            p.FillRound(box, r, C.ParchmentEdge.Mix(C.ParchmentLine, 0.55f));
+            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.ParchmentLine.Darken(0.25f));
         }
 
         /// <summary>
         /// One band of the tray's parchment (<c>mat.parchment</c>): a board a little deeper than a card's parchment, so the
-        /// cream plates and tiles stand out on it as in the reference (<c>parchment.well</c> with light wood at the top,
-        /// with <c>parchment.edge</c> at the bottom), its edges aged darker in fine steps, a light bevel along its top and
-        /// a thin <c>parchment.line</c> outline.
+        /// cream plates and boxes stand out on it as in the reference (<c>parchment.well</c> with light wood at the top,
+        /// with <c>parchment.edge</c> at the bottom), its edges aged darker in fine steps, a light bevel along its top
+        /// (the light line under each groove) and a thin <c>parchment.line</c> outline.
         /// </summary>
-        public static void TrayBand(IPainter p, Box box, float radius)
+        public static void TrayBand(IPainter p, Box box, float radius, float w)
         {
             p.Mark("mat.parchment");
-            float r = Math.Min(radius, box.Height / 2f);
+            float r = Math.Max(0f, Math.Min(radius, box.Height / 2f));
             p.FillRoundGradient(box, r, C.ParchmentWell.Mix(C.WoodLight, 0.55f), C.ParchmentEdge.Mix(C.ParchmentWell, 0.4f));
-            float step = p.U(2.5f);
+            float step = w * 0.0024f;
             for (int k = 0; k < 10; k++)
             {
                 float inset = step * k;
-                p.StrokeRound(box.Inset(inset), Math.Max(0f, r - inset), step * 1.6f, C.ParchmentLine.WithAlpha(0.15f * (1f - (k / 10f))));
+                p.StrokeRound(box.Inset(inset), Math.Max(0f, r - inset), step * 1.6f, C.ParchmentLine.WithAlpha(0.16f * (1f - (k / 10f))));
             }
 
             // The light bevel along the top edge, fading out round the upper corners (no hook down the sides).
-            float bevel = p.U(3f);
-            float[] reach = { r * 0.5f, r, r + p.U(6f) };
+            float bevel = w * 0.003f;
+            float[] reach = { r * 0.5f, r, r + (w * 0.006f) };
             float[] alphas = { 0.8f, 0.5f, 0.25f };
             float top = box.Top;
             for (int k = 0; k < reach.Length; k++)
@@ -571,7 +629,25 @@ namespace Bloomlings.Playtest.Design
                 p.PopClip();
                 top = box.Top + reach[k];
             }
-            p.StrokeRound(box.Inset(p.U(1f)), Math.Max(0f, r - p.U(1f)), p.U(2f), C.ParchmentLine.WithAlpha(0.55f));
+
+            float edge = Math.Max(1f, w * 0.002f);
+            p.StrokeRound(box.Inset(edge / 2f), Math.Max(0f, r - (edge / 2f)), edge, C.ParchmentLine.WithAlpha(0.55f));
+        }
+
+        /// <summary>
+        /// A groove line across a component sheet (frames 12–14), as between the tray's bands: a line of the frame's deep
+        /// parchment with a light <c>parchment.top</c> line under it. Nothing for an empty box.
+        /// </summary>
+        public static void Separator(IPainter p, Box line)
+        {
+            if (line.IsEmpty)
+            {
+                return;
+            }
+
+            float h = line.Height;
+            p.FillRound(line.Offset(0f, h * 0.9f), h / 2f, C.ParchmentTop.WithAlpha(0.95f));
+            p.FillRound(line, h / 2f, C.ParchmentEdge.Mix(C.ParchmentLine, 0.55f));
         }
 
         public void Draw(IPainter p)
@@ -589,48 +665,50 @@ namespace Bloomlings.Playtest.Design
                 badge = null;
             }
 
-            GameplayRegions r = ScreenLayout.Gameplay(p.Width, p.Height, p.Insets, badge.HasValue, hasBoosters);
+            // The reference layout (spec 005 FR-020, contracts/look.md §6.1): the top bar, the board wide in its stone
+            // border on the lawn, the entry strip with a bottom entry's arch, and one parchment tray to the bottom of the
+            // screen with the slots, the boosters and the decks.
+            ReferenceGameplayRegions r = Regions(p, hasBoosters, badge.HasValue);
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, Level);
 
-            // Top bar (frame 7, spec 005 §3.3, §4.1): the cream Pause squircle, the level on a wide wooden sign with ivy,
-            // and the cream speed pill, sized like the reference's. It stays while the win and milestone cards show, under
-            // their scrim and celebration, and Pause and the speed pill keep their taps (see below; spec 005 FR-002).
-            float bar = r.TopBar.Height;
+            // Top bar (spec 005 §3.3, §6.1): the cream Pause squircle, the level on a wide wooden sign with ivy, and the
+            // cream speed pill. It stays while the win and milestone cards show, under their scrim and celebration, and
+            // Pause and the speed pill keep their taps (see below; spec 005 FR-002).
             Action openPause = () => _app.OpenOverlay(Overlay.Pause);
-            var pause = Box.FromCenter(r.TopBar.Left + (bar / 2f), r.TopBar.CenterY, bar, bar);
-            Kit.RoundButton(p, pause.CenterX, pause.CenterY, bar, "ui.pause", openPause, squircle: true);
+            Box pause = r.Pause;
+            Kit.RoundButton(p, pause.CenterX, pause.CenterY, pause.Height, "ui.pause", openPause, squircle: true);
             p.Mark("ui.pause");
-            Box sign = Box.FromCenter(r.TopBar.CenterX, r.TopBar.CenterY, Math.Min(bar * SignWidth, r.TopBar.Width - (bar * 4f)), bar * SignHeight);
-            Kit.LevelPill(p, sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
-            // The speed pill is as tall as Pause and half as wide again.
-            var speed = new Box(r.TopBar.Right - (bar * SpeedWidth), r.TopBar.CenterY - (bar / 2f), r.TopBar.Right, r.TopBar.CenterY + (bar / 2f));
+            Kit.LevelPill(p, r.Sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
+            Box speed = r.Speed;
             Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
             if (badge.HasValue)
             {
-                // HARD or SUPER HARD hangs from the sign's lower edge.
-                Kit.Badge(p, r.Badge.Inset(0f, p.U(2f)).Offset(0f, -p.U(10f)), badge.Value.Text, badge.Value.Color, badge.Value.Slot);
+                // HARD or SUPER HARD under the sign.
+                Kit.Badge(p, r.Badge, badge.Value.Text, badge.Value.Color, badge.Value.Slot);
             }
 
-            BoardPainter.Draw(p, r.Board, this);
-            TrayBoard(p, r, hasBoosters);
+            BoardLayout board = r.FitBoard(view.Width, view.Height, view.Entries);
+            BoardPainter.Draw(p, board, this);
+            TrayPanel(p, r);
             SlotPainter.DrawRow(p, r.Slots, this);
-            PodPainter.DrawTray(p, r.Tray, this);
             if (hasBoosters)
             {
                 BoosterBarPainter.Draw(p, r.Boosters, this);
             }
 
+            PodPainter.DrawDecks(p, r, this);
             PodPainter.DrawFlights(p, this);
 
+            Box over = board.Outer;
             if (FirstTapHint)
             {
-                Kit.Toast(p, new Box(r.Board.Left, r.Board.Top, r.Board.Right, r.Board.Top + p.U(140f)), PlaytestText.T("demo.first_tap"));
+                Kit.Toast(p, new Box(over.Left, over.Top, over.Right, over.Top + p.U(140f)), PlaytestText.T("demo.first_tap"));
             }
 
             string? toast = ToastText;
             if (toast != null)
             {
-                Kit.Toast(p, r.Board, toast);
+                Kit.Toast(p, over, toast);
             }
 
             if (Animator.Settled && (Won || (Blocked && !JamHidden)))

@@ -23,7 +23,12 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static class BoosterBarPainter
     {
-        public static void Draw(IPainter p, Box area, LevelScreen s)
+        /// <summary>
+        /// The booster row of the tray (spec 005 FR-020, contracts/look.md §6.1): <paramref name="places"/> are the four
+        /// cream boxes of <see cref="ReferenceGameplayRegions.Boosters"/>; unlocked boosters take theirs in order
+        /// (frame 14).
+        /// </summary>
+        public static void Draw(IPainter p, IReadOnlyList<Box> places, LevelScreen s)
         {
             var shown = new List<(BoosterKind Kind, Recovery Recovery, string Id)>();
             foreach ((BoosterKind kind, Recovery recovery, string id) in LevelScreen.Boosters)
@@ -34,15 +39,8 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            if (shown.Count == 0)
-            {
-                return;
-            }
-
             IReadOnlyList<Recovery> eligible = s.Session.EligibleRecoveries();
-            // Four places across the bar; unlocked boosters take theirs in order (frame 14).
-            Box[] places = Places(p, area);
-            for (int i = 0; i < shown.Count; i++)
+            for (int i = 0; i < shown.Count && i < places.Count; i++)
             {
                 (BoosterKind kind, Recovery recovery, string id) = shown[i];
                 int charges = s.Meta.Economy.Charges(kind);
@@ -52,32 +50,8 @@ namespace Bloomlings.Playtest.Design
                     selected: s.Targeting == recovery,
                     usable: Applicable(s, recovery, eligible) && s.Session.Status != LevelStatus.Won,
                     affordable: charges > 0 || s.Meta.Economy.CanAfford(kind));
-                Tile(p, Fit(p, places[i], area), id, state, state.Disabled ? (Action?)null : () => s.PressBooster(kind, recovery));
+                Tile(p, places[i], id, state, state.Disabled ? (Action?)null : () => s.PressBooster(kind, recovery));
             }
-        }
-
-        /// <summary>The space between two tiles, in tile sides: the reference's tiles stand close together.</summary>
-        public const float Gap = 0.45f;
-
-        /// <summary>
-        /// The four places of the bar (frame 14): tiles of <see cref="TileSide"/>, <see cref="Gap"/> apart, centered, so the
-        /// row is about as wide as the five Waiting Slots above it.
-        /// </summary>
-        public static Box[] Places(IPainter p, Box area)
-        {
-            float side = TileSide(p, area);
-            return ScreenLayout.Row(area, 4, side * Gap, side, square: false);
-        }
-
-        /// <summary>A tile's side: <c>size.booster_tile</c> (its width), at most the bar's height less a little, and four fitting across.</summary>
-        public static float TileSide(IPainter p, Box area) =>
-            Math.Min(p.U(DesignTokens.Size.BoosterTileWidth), Math.Min(area.Height - p.U(6f), area.Width / (4f + (3f * Gap))));
-
-        /// <summary>The square tile box at a bar place, a little above the bar's middle so the cost pill fits below it.</summary>
-        public static Box Fit(IPainter p, Box place, Box area)
-        {
-            float side = Math.Min(TileSide(p, area), place.Width);
-            return Box.FromCenter(place.CenterX, area.CenterY - p.U(4f), side, side);
         }
 
         /// <summary>One booster tile in its state (contracts/booster-tile.md "Layers", spec 005 §3.7).</summary>

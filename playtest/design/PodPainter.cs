@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Simulation;
+using Bloomlings.Core.Variants;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Playtest.Design
@@ -17,39 +18,58 @@ namespace Bloomlings.Playtest.Design
     }
 
     /// <summary>
-    /// The Source Tray and its pods, in the states of frame 12 (spec 002 FR-012), as the reference's wooden pods on the
-    /// tray's parchment (spec 005 contracts/look.md §3.7, research D3; <see cref="Kit.Pod"/>):
+    /// The Source Tray as the reference's row of decks (spec 005 FR-021, contracts/look.md §3.7, §6.1; frame 12), one deck
+    /// per stack in <see cref="ReferenceGameplayRegions.Decks"/>:
     /// <list type="bullet">
-    /// <item><description>exposed: a dark wooden frame with its handle on top, a panel tinted by the variant, the variant
-    /// tile and the plain count below it;</description></item>
-    /// <item><description>next in stack: the same pod dimmed toward the parchment, fully visible below the exposed one
-    /// (spec 003 FR-022a);</description></item>
-    /// <item><description>pressed: the frame sinks and squashes, and springs back;</description></item>
-    /// <item><description>locked: the padlock on a grey panel;</description></item>
-    /// <item><description>mystery: the lilac "?" tile with its count;</description></item>
-    /// <item><description>connected: a link between the frames, in its group's color.</description></item>
+    /// <item><description>the exposed pod in front: a dark wooden frame, a panel tinted by the variant, the variant's
+    /// sticker tile and the plain count below it; it squashes under the finger and is the only pod that takes a tap
+    /// (spec 001 FR-011);</description></item>
+    /// <item><description>up to two buried pods as wooden frames peeking above it, each showing the frame's top edge and a
+    /// band of its variant color with its small symbol (identity never by hue alone, spec 001 FR-072);</description></item>
+    /// <item><description>a "+N" count badge on the deck's top right for the pods beyond those two;</description></item>
+    /// <item><description>an emptied stack as a sunk well;</description></item>
+    /// <item><description>locked: the padlock on a grey panel (a grey band when buried); mystery: the lilac "?" tile (a
+    /// lilac band with "?"); connected: a link between the frames, in its group's color.</description></item>
     /// </list>
-    /// The variant reads first from its tile (color and symbol), then from the panel's tint (spec 001 FR-012).
+    /// Committed pods fly from the front pod's tile to their slot's tile.
     /// </summary>
     public static class PodPainter
     {
-        public static void DrawTray(IPainter p, Box area, LevelScreen s)
+        /// <summary>The count's type size as a share of its room under the tile (the reference's big dark digits).</summary>
+        public const float CountFill = 1.2f;
+
+        /// <summary>The buried pods' frame top edge, as a share of its band; the variant's band fills the rest.</summary>
+        public const float BandRail = 0.3f;
+
+        /// <summary>The small symbol on a buried pod's band, as a share of the band's height (at most 70%, §6.1).</summary>
+        public const float BandSymbol = 0.7f;
+
+        /// <summary>
+        /// How far the variant's color is lightened for the top of a deck pod's panel: clearly tinted, keeping the color's
+        /// hue (the reference's lime, pink, sky blue and orange panels; spec 005 FR-020).
+        /// </summary>
+        public const float PanelTop = 0.5f;
+
+        /// <summary>How far the variant's color is lightened for the bottom of the panel, under the count.</summary>
+        public const float PanelBottom = 0.8f;
+
+        /// <summary>How many buried pods a deck shows behind its front pod.</summary>
+        public const int BuriedShown = 2;
+
+        /// <summary>
+        /// The decks of the level's Source stacks in the tray's pod row (<see cref="ReferenceGameplayRegions.Decks"/>):
+        /// each stack's buried pods, its front pod (squashing under the finger, taking the tap when exposed) and its "+N"
+        /// badge, or a well for an emptied stack; then the links of the connected groups. Records where each pod's tile
+        /// was drawn in <see cref="LevelScreen.PodBoxes"/>, where flights start.
+        /// </summary>
+        public static void DrawDecks(IPainter p, ReferenceGameplayRegions r, LevelScreen s)
         {
             LevelView view = s.Session.View;
             s.PodBoxes.Clear();
-            int stacks = view.StackCount;
-            if (stacks == 0)
-            {
-                return;
-            }
-
-            // A grid like the reference game's source area (spec 003 FR-022a): one column per stack, the exposed pod on
-            // top and the pods that follow it below, never overlapping, so the player sees what each choice uncovers. The
-            // grid leaves room above it for the exposed pods' handles.
-            TrayGrid grid = ScreenLayout.Tray(new Box(area.Left, area.Top + p.U(HandleRoom), area.Right, area.Bottom), stacks, p.Scale);
+            int stacks = Math.Min(view.StackCount, r.Decks.Count);
             var linked = new Dictionary<string, List<Box>>(StringComparer.Ordinal);
 
-            // Shuffle: the pods swirl in place for a moment.
+            // Shuffle: the decks swirl in place for a moment.
             float swirl = s.LastBooster.HasValue && s.LastBooster.Value.Kind == Client.Services.Save.BoosterKind.Shuffle ? (s.Animator.Now - s.LastBooster.Value.At) / 0.45f : 1f;
             if (swirl < 1f)
             {
@@ -58,85 +78,263 @@ namespace Bloomlings.Playtest.Design
 
             for (int st = 0; st < stacks; st++)
             {
+                PodDeck deck = r.Deck(st);
                 IReadOnlyList<string> stack = view.Stack(st);
                 if (stack.Count == 0)
                 {
-                    // An emptied stack: a sunk place on the parchment.
-                    Box empty = grid.Cell(st, 0).Inset(grid.PodSize * 0.06f);
-                    Kit.Well(p, empty, empty.Width * 0.18f, C.ParchmentWell.Mix(C.ParchmentEdge, 0.5f));
+                    EmptyDeck(p, deck);
                     continue;
                 }
 
-                int shown = Math.Min(stack.Count, ScreenLayout.TrayRows);
-                // From the bottom row up, so the exposed pod's squash lies over the pod below it.
-                for (int depth = shown - 1; depth >= 0; depth--)
+                if (swirl < 1f)
                 {
-                    string id = stack[depth];
-                    PodInfo pod = view.Pod(id);
-                    Box box = grid.Cell(st, depth);
-                    s.PodBoxes[id] = box;
-                    bool exposed = depth == 0 && view.IsExposed(id);
-                    bool locked = pod.Locked || s.Animator.HeldPodLocks.Contains(id);
-                    bool pressed = exposed && !locked && p.Pressed(box);
-                    if (swirl < 1f)
-                    {
-                        p.StrokeCircle(box.CenterX, box.CenterY, box.Width * (0.4f + (0.3f * swirl)), p.U(6f), C.BoosterShuffle.WithAlpha(1f - swirl));
-                        p.PushTransform(0f, 0f, 0.75f + (0.25f * Kit.Ease(swirl)), box.CenterX, box.CenterY);
-                    }
-
-                    // The exposed pod squashes under the finger and springs back (spec 003 FR-017).
-                    float press = exposed && !locked ? Kit.Press(p, Kit.Touch(p, box), true) : 0f;
-                    Kit.Squash(p, box, press, tile: true);
-                    Pod(p, box, pod, locked ? PodLook.Locked : pressed ? PodLook.Pressed : exposed ? PodLook.Exposed : PodLook.Next, s, handle: depth == 0);
-                    p.PopTransform();
-                    if (swirl < 1f)
-                    {
-                        p.PopTransform();
-                    }
-
-                    if (pod.ConnectedGroupId != null)
-                    {
-                        if (!linked.TryGetValue(pod.ConnectedGroupId, out List<Box>? boxes))
-                        {
-                            linked[pod.ConnectedGroupId] = boxes = new List<Box>();
-                        }
-
-                        boxes.Add(box);
-                    }
-
-                    if (exposed)
-                    {
-                        // The exposed pod takes the tap; its target grows to the touch minimum over the row below,
-                        // which takes no taps (FR-027).
-                        p.Hit(Kit.Touch(p, box), () => s.Tap(id));
-                    }
+                    p.StrokeCircle(deck.Deck.CenterX, deck.Deck.CenterY, deck.Deck.Width * (0.4f + (0.3f * swirl)), p.U(6f), C.BoosterShuffle.WithAlpha(1f - swirl));
+                    p.PushTransform(0f, 0f, 0.75f + (0.25f * Kit.Ease(swirl)), deck.Deck.CenterX, deck.Deck.CenterY);
                 }
 
-                // Deeper pods are not drawn; a "+N" count badge on the last shown pod's lower left corner says how many more
-                // wait there.
-                if (stack.Count > shown)
+                // The buried pods, the deepest first, so each lies under the one in front of it.
+                for (int depth = Math.Min(stack.Count - 1, BuriedShown); depth >= 1; depth--)
                 {
-                    Box last = grid.Cell(st, shown - 1);
-                    float h = last.Height * 0.26f;
-                    string more = "+" + (stack.Count - shown).ToString(CultureInfo.InvariantCulture);
-                    Kit.CountBadge(p, last.Left + (h * 0.42f), last.Bottom - (h * 0.42f), h, more);
+                    string buriedId = stack[depth];
+                    PodInfo buried = view.Pod(buriedId);
+                    bool buriedLocked = buried.Locked || s.Animator.HeldPodLocks.Contains(buriedId);
+                    s.PodBoxes[buriedId] = Buried(p, deck, depth, Shown(buried), buriedLocked);
+                    Link(linked, buried, deck.Band(depth));
+                }
+
+                // The front pod squashes under the finger and springs back (spec 003 FR-017).
+                string id = stack[0];
+                PodInfo pod = view.Pod(id);
+                bool exposed = view.IsExposed(id);
+                bool locked = pod.Locked || s.Animator.HeldPodLocks.Contains(id);
+                bool live = exposed && !locked;
+                Box touch = Kit.Touch(p, deck.Front);
+                float press = live ? Kit.Press(p, touch, true) : 0f;
+                Kit.Squash(p, deck.Front, press, tile: true);
+                PodLook look = locked ? PodLook.Locked : live && p.Pressed(deck.Front) ? PodLook.Pressed : exposed ? PodLook.Exposed : PodLook.Next;
+                s.PodBoxes[id] = Front(p, deck, Shown(pod), pod.Remaining, look);
+                p.PopTransform();
+                Link(linked, pod, deck.Front);
+                if (swirl < 1f)
+                {
+                    p.PopTransform();
+                }
+
+                // The pods beyond the two shown wait under a "+N" badge on the deck's top right.
+                int more = stack.Count - 1 - BuriedShown;
+                if (more > 0)
+                {
+                    Kit.CountBadge(p, deck.Badge.CenterX, deck.Badge.CenterY, deck.Badge.Height, "+" + more.ToString(CultureInfo.InvariantCulture));
+                }
+
+                if (exposed)
+                {
+                    // Only the exposed pod takes the tap; a locked one answers with its refusal.
+                    p.Hit(touch, () => s.Tap(id));
                 }
             }
 
+            DrawLinks(p, view, linked);
+        }
+
+        /// <summary>
+        /// A deck drawn from plain data (the component sheet, frame 12): <paramref name="pods"/> top first (the front pod,
+        /// then the buried ones; a null variant is a hidden mystery pod), <paramref name="total"/> pods in the stack (more
+        /// than three shows the "+N" badge), the front pod in <paramref name="look"/>. No taps.
+        /// </summary>
+        public static void DrawDeck(IPainter p, PodDeck deck, IReadOnlyList<(VariantId? Variant, int Count, bool Locked)> pods, int total, PodLook look)
+        {
+            if (pods.Count == 0)
+            {
+                EmptyDeck(p, deck);
+                return;
+            }
+
+            for (int depth = Math.Min(pods.Count - 1, BuriedShown); depth >= 1; depth--)
+            {
+                Buried(p, deck, depth, pods[depth].Variant, pods[depth].Locked);
+            }
+
+            Front(p, deck, pods[0].Variant, pods[0].Count, pods[0].Locked ? PodLook.Locked : look);
+            int more = total - 1 - BuriedShown;
+            if (more > 0)
+            {
+                Kit.CountBadge(p, deck.Badge.CenterX, deck.Badge.CenterY, deck.Badge.Height, "+" + more.ToString(CultureInfo.InvariantCulture));
+            }
+        }
+
+        /// <summary>A pod's variant as the player sees it: null while a mystery pod is hidden (FR-039).</summary>
+        private static VariantId? Shown(PodInfo pod) => pod.Mystery && !pod.Variant.HasValue ? null : pod.Variant;
+
+        private static void Link(Dictionary<string, List<Box>> linked, PodInfo pod, Box box)
+        {
+            if (pod.ConnectedGroupId == null)
+            {
+                return;
+            }
+
+            if (!linked.TryGetValue(pod.ConnectedGroupId, out List<Box>? boxes))
+            {
+                linked[pod.ConnectedGroupId] = boxes = new List<Box>();
+            }
+
+            boxes.Add(box);
+        }
+
+        /// <summary>
+        /// The front pod of a deck (§3.7, §6.1) in <paramref name="deck"/>: the wooden frame filling
+        /// <see cref="PodDeck.Front"/> with its panel tinted by the variant, the sticker tile in <see cref="PodDeck.Tile"/>
+        /// and the count below it in big <c>ink.brown</c> digits. A null <paramref name="variant"/> is a mystery pod (the
+        /// lilac "?" tile); a locked pod shows the padlock; a queued one is dimmed; a pressed one sinks. Returns where the
+        /// tile was drawn.
+        /// </summary>
+        public static Box Front(IPainter p, PodDeck deck, VariantId? variant, int count, PodLook look)
+        {
+            p.Mark("pod.card");
+            bool queued = look == PodLook.Next;
+            Rgba? tint = variant.HasValue && !queued && look != PodLook.Locked ? Visuals.ColorOf(variant.Value) : (Rgba?)null;
+            Box panel = Frame(p, deck.Front, look, tint);
+
+            // A pressed frame sinks: its tile and count go with it.
+            float sink = panel.Top - deck.Inner.Top;
+            Box tile = deck.Tile.Offset(0f, sink);
+            Box countBox = deck.Count.Offset(0f, sink);
+            if (look == PodLook.Locked)
+            {
+                p.Mark("pod.state.locked");
+                float g = tile.Width * 0.62f;
+                p.Shape("ui.lock", Box.FromCenter(tile.CenterX, tile.CenterY, g, g), C.StateLock.Darken(0.2f));
+            }
+            else
+            {
+                if (!variant.HasValue)
+                {
+                    p.Mark("pod.state.mystery");
+                }
+
+                Kit.CandyTile(p, tile, variant, TileStyle.Sticker, queued ? TileState.Dimmed : TileState.Normal, pressed: look == PodLook.Pressed);
+                if (queued && !variant.HasValue)
+                {
+                    // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
+                    p.FillRound(tile, tile.Width * 0.2f, C.ParchmentBottom.WithAlpha(0.45f));
+                }
+            }
+
+            Kit.CountBelow(p, countBox, count, queued || look == PodLook.Locked, CountFill);
+            return tile;
+        }
+
+        /// <summary>
+        /// A deck pod's wooden frame (<see cref="Kit.PodFrame"/>, no handle: the buried frames peek above it) with its panel
+        /// in the variant's <paramref name="color"/> lightened (<see cref="PanelTop"/> to <see cref="PanelBottom"/>), or
+        /// plain cream without a color. Returns the panel.
+        /// </summary>
+        private static Box Frame(IPainter p, Box box, PodLook look, Rgba? color) =>
+            Kit.PodFrame(p, box, look, handle: false, color?.Lighten(PanelTop), 1f, color?.Lighten(PanelBottom));
+
+        /// <summary>
+        /// A buried pod of a deck (<c>pod.deck</c>, FR-021): its wooden frame (<see cref="PodDeck.Buried"/>) behind the pod
+        /// in front, of which only the band <see cref="PodDeck.Band"/> shows: the frame's top edge and, under it, a strip of
+        /// the pod's variant color with its small white symbol outlined in the variant's dark shade, so the next pods read
+        /// by symbol and color. A hidden mystery pod shows a lilac strip with "?", a locked one a grey strip with the
+        /// padlock. Returns the symbol's box.
+        /// </summary>
+        public static Box Buried(IPainter p, PodDeck deck, int depth, VariantId? variant, bool locked)
+        {
+            p.Mark("pod.deck");
+            Box frame = deck.Buried(depth);
+            Box band = deck.Band(depth);
+            Frame(p, frame, PodLook.Exposed, variant.HasValue && !locked ? Visuals.ColorOf(variant.Value) : (Rgba?)null);
+
+            // The strip runs from under the frame's top edge into the pod in front, which covers its lower part.
+            float w = frame.Width;
+            float inset = w * PodDeck.Border * 0.8f;
+            float top = band.Top + (band.Height * BandRail);
+            var strip = new Box(frame.Left + inset, top, frame.Right - inset, band.Bottom + (band.Height * 0.6f));
+            Rgba color = locked ? C.StateLockBg : variant.HasValue ? Visuals.ColorOf(variant.Value) : C.TileMystery;
+            float radius = Math.Min(strip.Height / 2f, w * 0.06f);
+            float line = Math.Max(1f, w * 0.012f);
+            p.FillRound(strip.Inset(-line), radius + line, color.Darken(0.45f));
+            p.FillRoundGradient(strip, radius, color.Lighten(0.4f), color.Lighten(0.12f));
+
+            // The symbol's shape spans about 70% of its box, so the box is as tall as the band's visible strip and the
+            // symbol itself about 70% of the band; small, it reads best as a dark silhouette (as the board's small gems).
+            float size = (band.Bottom - top) * BandSymbol / 0.7f;
+            Box symbol = Box.FromCenter(band.CenterX, (top + band.Bottom) / 2f, size, size);
+            if (locked)
+            {
+                p.Mark("pod.state.locked");
+                p.Shape("ui.lock", symbol, C.StateLock.Darken(0.25f));
+            }
+            else if (variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info))
+            {
+                string shape = ShapeLibrary.SymbolId(info.IconId);
+                Func<float, float, float> sdf = ShapeLibrary.Get(shape);
+                p.ShapeOf(shape + "/band", (x, y) => sdf(x, y) - 0.14f, symbol, color.Lighten(0.55f));
+                p.Shape(shape, symbol, color.Darken(0.52f));
+            }
+            else
+            {
+                p.Mark("pod.state.mystery");
+                Func<float, float, float> sdf = ShapeLibrary.Get("tile.mystery");
+                p.ShapeOf("tile.mystery/band", (x, y) => sdf(x, y) - 0.16f, symbol, color.Darken(0.45f));
+                p.Shape("tile.mystery", symbol, Rgba.White);
+            }
+
+            // The buried pods sit a little in the shade of the one in front.
+            p.FillRound(new Box(frame.Left, band.Top, frame.Right, band.Bottom), w * 0.18f, C.GardenShadow.WithAlpha(0.06f * depth));
+            return symbol;
+        }
+
+        /// <summary>An emptied stack (§6.1): a sunk place of parchment where its front pod stood.</summary>
+        public static void EmptyDeck(IPainter p, PodDeck deck)
+        {
+            p.Mark("pod.deck");
+            Box well = deck.Front.Inset(deck.Front.Width * 0.04f);
+            Kit.Well(p, well, well.Width * 0.18f, C.ParchmentWell.Mix(C.ParchmentEdge, 0.5f));
+        }
+
+        /// <summary>
+        /// The links of the connected groups (spec 002 FR-012): a bar between consecutive members drawn on one row (their
+        /// fronts or, when buried, their bands), and a small ring of the link's color on each member when a group spans
+        /// two rows of decks. Each group has its own color (state.link, state.link_2, state.link_3), by the groups' order,
+        /// as in Unity's TrayView.
+        /// </summary>
+        private static void DrawLinks(IPainter p, LevelView view, Dictionary<string, List<Box>> linked)
+        {
             if (linked.Count == 0)
             {
                 return;
             }
 
-            // Each group has its own color (state.link, state.link_2, state.link_3), by the groups' order, as in Unity's
-            // TrayView.
             List<string> groups = ConnectedGroups(view);
             foreach (KeyValuePair<string, List<Box>> group in linked)
             {
                 Rgba color = LinkPalette[Math.Max(0, groups.IndexOf(group.Key)) % LinkPalette.Length];
-                for (int i = 1; i < group.Value.Count; i++)
+                List<Box> boxes = group.Value;
+                boxes.Sort((a, b) => a.Left.CompareTo(b.Left));
+                bool oneRow = true;
+                for (int i = 1; i < boxes.Count; i++)
                 {
-                    Link(p, group.Value[i - 1], group.Value[i], color);
+                    oneRow &= Math.Abs(boxes[i].CenterY - boxes[0].CenterY) < boxes[0].Height * 0.5f;
+                }
+
+                if (oneRow)
+                {
+                    for (int i = 1; i < boxes.Count; i++)
+                    {
+                        Link(p, boxes[i - 1], boxes[i], color);
+                    }
+
+                    continue;
+                }
+
+                p.Mark("pod.link");
+                foreach (Box box in boxes)
+                {
+                    float d = Math.Min(box.Width, box.Height) * 0.16f;
+                    p.FillCircle(box.Left + d, box.Top + d, d * 1.25f, Rgba.White);
+                    p.FillCircle(box.Left + d, box.Top + d, d, color);
                 }
             }
         }
@@ -161,18 +359,12 @@ namespace Bloomlings.Playtest.Design
             return groups;
         }
 
-        /// <summary>The room kept above the tray grid for the exposed pods' handles, in reference units.</summary>
-        public const float HandleRoom = 12f;
-
         /// <summary>
-        /// One pod in a state of frame 12 (<see cref="Kit.Pod"/>): a mystery pod still hidden shows the "?" tile.
-        /// <paramref name="handle"/> puts the wooden handle on an exposed, pressed or locked pod at the top of its column.
+        /// One pod in a state of frame 12 outside a deck (<see cref="Kit.Pod"/>): a mystery pod still hidden shows the "?"
+        /// tile. <paramref name="handle"/> puts the wooden handle on top.
         /// </summary>
-        public static void Pod(IPainter p, Box box, PodInfo pod, PodLook look, LevelScreen? s, bool handle = true)
-        {
-            bool hidden = pod.Mystery && !pod.Variant.HasValue;
-            Kit.Pod(p, box, hidden ? null : pod.Variant, pod.Remaining, look, handle);
-        }
+        public static void Pod(IPainter p, Box box, PodInfo pod, PodLook look, LevelScreen? s, bool handle = true) =>
+            Kit.Pod(p, box, Shown(pod), pod.Remaining, look, handle);
 
         /// <summary>
         /// The link between two connected pods (<c>pod.link</c>, spec 002 FR-012): a rounded bar with a white rim across the
@@ -187,7 +379,7 @@ namespace Bloomlings.Playtest.Design
             float y = a.Top + (a.Height * 0.42f);
             float x0 = a.Right - (size * 0.08f);
             float x1 = b.Left + (size * 0.08f);
-            float bar = size * 0.1f;
+            float bar = Math.Min(size * 0.1f, a.Height * 0.8f);
             p.Line(x0, y + (bar * 0.25f), x1, y + (bar * 0.25f), bar + (size * 0.05f), C.GardenShadow.WithAlpha(0.25f));
             p.Line(x0, y, x1, y, bar + (size * 0.04f), Rgba.White);
             p.Line(x0, y, x1, y, bar, link);
@@ -199,17 +391,10 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The count in a card face's lower part (kept for callers of the spec 004 cards): the plain count below the tile.</summary>
-        public static void Count(IPainter p, Box face, int count) =>
-            Kit.CountBelow(p, new Box(face.Left, face.Bottom - (face.Height * 0.3f), face.Right, face.Bottom), count, false);
-
-        /// <summary>The count on a card's lower edge (kept for callers of the spec 002 cards): the plain count, softer when dimmed.</summary>
-        public static void CountPill(IPainter p, Box face, int count, bool dim) =>
-            Kit.CountBelow(p, new Box(face.Left, face.Bottom - (face.Height * 0.3f), face.Right, face.Bottom), count, dim);
-
         /// <summary>
         /// Committed pods flying from the tray to their slots, and returned pods flying back: the pod's variant tile (the
-        /// lilac "?" while still hidden) leaves its frame, arcs over and shrinks to the slot's tile, over a soft shadow.
+        /// lilac "?" while still hidden) leaves the deck's front pod at its size there, arcs over and shrinks to the slot's
+        /// tile, over a soft shadow.
         /// </summary>
         public static void DrawFlights(IPainter p, LevelScreen s)
         {
@@ -222,12 +407,13 @@ namespace Bloomlings.Playtest.Design
                 }
 
                 float k = Visuals.Clamp01((s.Animator.Now - flight.Start) / LevelAnimator.FlightSeconds);
+                Box slotTile = SlotPainter.TileBox(slot.Value);
                 float fromX = flight.FromX;
                 float fromY = flight.FromY;
-                float toX = slot.Value.CenterX;
-                float toY = slot.Value.Top + (slot.Value.Width * 0.39f);
-                float fromSize = s.PodBoxes.TryGetValue(flight.PodId, out Box pod) ? pod.Width * 0.56f : slot.Value.Width * 0.64f;
-                float toSize = slot.Value.Width * 0.64f;
+                float toX = slotTile.CenterX;
+                float toY = slotTile.CenterY;
+                float toSize = slotTile.Width;
+                float fromSize = s.PodBoxes.TryGetValue(flight.PodId, out Box pod) ? pod.Width : s.LaunchBoxes.TryGetValue(flight.PodId, out Box launch) ? launch.Width : toSize;
                 if (flight.ToTray)
                 {
                     (fromX, fromY, toX, toY) = (toX, toY, flight.FromX, flight.FromY);
@@ -253,7 +439,7 @@ namespace Bloomlings.Playtest.Design
 
                 // The tile is drawn at the slot's tile size and scaled with the canvas, so the whole flight reuses the
                 // slot's picture instead of rendering a new size every frame.
-                float rest = Kit.SlotTileSize(slot.Value);
+                float rest = slotTile.Width;
                 p.PushTransform(0f, 0f, size / Math.Max(1f, rest), x, y);
                 Kit.CandyTile(p, Box.FromCenter(x, y, rest, rest), flight.Variant, TileStyle.Sticker);
                 p.PopTransform();

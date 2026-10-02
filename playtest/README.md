@@ -34,9 +34,11 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   - a splash (frame 1), then Level 1 on the very first launch and Home later;
   - Home in its early look (frame 2) and, once the features unlock, the progressed look (frame 3): hero, Wardrobe and
     Collection buttons, "N levels to reward", the rank row (offline) and the Daily Challenge card;
-  - the level (frames 7–9): the cream Pause, the wooden level sign with ivy and the HARD or SUPER HARD badge, the cream
-    2× pill, the board of candy tiles in its stone border, the Waiting Slots, the Source Tray and the booster bar, with
-    the pod, slot and booster states of frames 12–14;
+  - the level (frames 7–9) in the reference's layout (spec 005 FR-020, FR-021): the cream Pause, the wooden level sign
+    with ivy and the HARD or SUPER HARD badge, the cream 2× pill, the board of candy tiles wide in its stone border on
+    the lawn, the entry strip with the arch, and one parchment tray to the bottom of the screen with the Waiting Slots,
+    the four booster boxes and one deck per Source stack (the front pod, the next two peeking above it, "+N"), with the
+    pod, slot and booster states of frames 12–14;
   - cards: pause and Settings (frame 11), the jam bottom sheet (frame 10), the win card (frame 15), the milestone card
     (frame 16), the Daily Reward (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and
     the Store (frame 17).

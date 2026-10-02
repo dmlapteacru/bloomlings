@@ -593,6 +593,24 @@ top-right counts the pods beyond the two shown. Empty stacks show a sunk parchme
 (62% of the deck's width, at most 78% of the panel's height, 3% of the panel below its top); `Count` the panel under it;
 `Badge` a disc 0.26 of the width centered 0.32 of it inside the deck's top-right corner.
 
+**Drawn** (the playtest's `LevelScreen`, `PodPainter`, `SlotPainter`, `BoosterBarPainter`; the recipe the Unity twin
+follows): the tray is the old banded parchment on the new regions, as the reference's tray: a frame of deep parchment
+(`parchment.edge` mixed 55% toward `parchment.line`, a dark outline, a soft shadow rising onto the lawn) showing
+`0.012W` round one band per row (`parchment.well` mixed 55% toward `wood.light` at the top to `parchment.edge` mixed 40%
+toward `parchment.well` at the bottom, its edges aged with `parchment.line`, a light bevel along its top, a thin outline;
+the first band's top corners `TrayRadius` less the margin, the others `0.03W`), the bands parted by a `0.009W` groove at
+each separator's middle (`LevelScreen.TrayPanel`).
+A deck's front pod is `Kit.PodFrame` without the handle, its panel the variant's color lightened 0.5 at the top and 0.8
+at the bottom (the reference's lime, pink, sky blue and orange panels), the sticker tile in `PodDeck.Tile` and the
+count in `PodDeck.Count` at 1.2 × its room. A buried pod (`pod.deck`) is the same frame, of which its band shows the
+frame's top edge (30% of the band) and a strip of its variant color lightened 0.4 → 0.12 with a dark outline, and on
+it the variant's symbol as a dark silhouette (the color darkened 0.52, a light halo; its shape about 70% of the strip);
+a hidden mystery pod shows a lilac strip with a white "?", a locked one a grey strip with the padlock; each buried pod
+sits in a faint shade (`garden.shadow` 0.06 per depth). An emptied stack is a `Kit.Well` over `PodDeck.Front`. Only the
+front pod takes a tap; a committed pod's tile flies from `PodDeck.Tile` to the slot's tile (`SlotPainter.TileBox`).
+Connected pods are linked front to front (or band to band when buried, as connected pods share a depth); a group
+split over two rows of decks marks each member with a ring of its link color.
+
 ### 6.2 Jam (centered modal)
 
 The gameplay stays visible under a warm scrim (alpha 0.5). The card: `0.92W` wide, centered horizontally, its center

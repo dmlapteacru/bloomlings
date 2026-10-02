@@ -390,10 +390,12 @@ namespace Bloomlings.Playtest.Design
         /// (<paramref name="handle"/>, exposed pods only), the inner panel and the dark wood frame (radius 18%, border 11% of
         /// the width) over it. The panel is pale <paramref name="tint"/> (the variant's color) fading to cream at the
         /// bottom, plain cream without a tint, <c>state.lock_bg</c> when locked. A queued pod (<see cref="PodLook.Next"/>)
-        /// is dimmed toward <c>parchment.bottom</c>; a pressed one sinks a little. Returns the inner panel, where the tile
-        /// and the count go.
+        /// is dimmed toward <c>parchment.bottom</c>; a pressed one sinks a little. <paramref name="tintShare"/> is how much of
+        /// the tint the panel's top takes (0.22 by default) and <paramref name="panelBottom"/> the tinted panel's bottom
+        /// color (<c>cream.face</c> by default); the gameplay decks pass their own (spec 005 FR-020). Returns the inner
+        /// panel, where the tile and the count go.
         /// </summary>
-        public static Box PodFrame(IPainter p, Box box, PodLook look, bool handle = true, Rgba? tint = null)
+        public static Box PodFrame(IPainter p, Box box, PodLook look, bool handle = true, Rgba? tint = null, float tintShare = 0.22f, Rgba? panelBottom = null)
         {
             p.Mark("mat.wood.dark");
             float w = box.Width;
@@ -420,7 +422,7 @@ namespace Bloomlings.Playtest.Design
             }
             else if (tint.HasValue)
             {
-                p.FillRoundGradient(panel, panelRadius, tint.Value.Mix(C.CreamTop, 0.78f), C.CreamFace);
+                p.FillRoundGradient(panel, panelRadius, tint.Value.Mix(C.CreamTop, 1f - tintShare), panelBottom ?? C.CreamFace);
             }
             else
             {
