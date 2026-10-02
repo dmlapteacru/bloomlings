@@ -68,7 +68,7 @@
     and the darker sinking pressed pod, border stone radii, outlines and joints (board and win picture), arch piers via
     `EntryArch.Picture` with the foot shadow, the vivid special blocks and their bigger counter, the rays' radial glow,
     the softer ivy, charge pills with the booster icon, one close per card stack (`CardStackMember`), the lotus-first
-    daily reward pill, the win top bar fade, confetti only above the win and milestone cards (`UiKit.Confetti`), the
+    daily reward pill, the win top bar fade (reverted in the review round below: Pause stays usable over the win card), confetti only above the win and milestone cards (`UiKit.Confetti`), the
     group on `HomeStage.Celebration` and the level's celebrating hero on the milestone too, hats on the heroes' heads,
     the hero fallback in its family color, the flying pod as its sticker tile, the warm Home/splash/Wardrobe backdrop
     (`HomeStage.Garden`), the wooden logo's mossy band with leaves and pink flowers, and one shared outfit card
@@ -80,8 +80,9 @@
     only); the spec 002 token contracts carry the current greens and the new tokens; `pictures.md` names every slot
     (`bg.wardrobe` and `brand.tagline` registered) and the owner-picture flow of `tools/artgen` (`adopt`, the `owner`
     flag in `manifest.json`).
-- [ ] T023 Run every suite (core, client check, backend, playtest check, preview, art check, Android type-checks)
-  - Left for the final run after the review round below, on the merged branch.
+- [X] T023 Run every suite (core, client check, backend, playtest check, preview, art check, Android type-checks)
+  - On the merged branch after the review round: core 400, client check 243, backend 5, playtest check (282 runs),
+    preview 26 frames "checks: OK", art check 58 pictures, both Mono.Android type-checks 0 errors.
 
 ## Review round (2026-10-02)
 
@@ -89,7 +90,9 @@ Three reviewers (regressions, performance, conventions) checked the finished tas
 confirmed:
 - Regressions (code): in Unity the jam sheet covered the Pause card (their order); Pause could not be reached over the
   win card in either build, so Home, Restart and Settings were gone there (FR-002: Pause stays usable, look.md §4.4);
-  the Unity board could keep the previous level's restored ground.
+  the Unity board could keep the previous level's restored ground; the Unity Wardrobe did not refresh after a cosmetic
+  bought from it in the Store (it now listens to `WardrobeService.Changed`). In the playtest Pause now also takes taps
+  through the win card's scrim (before spec 005 the playtest's scrim blocked it; Unity always allowed it).
 - Performance (code): the full-resolution readable ground texture, the Collection thumbnails and the 1024 px light-ray
   picture built on Unity's main thread, and Unity's unbounded picture cache; in the playtest, the win card redrawing for
   as long as it is open (it now rests after a celebration of about 8 s), the ivy and flower clusters rasterized as
