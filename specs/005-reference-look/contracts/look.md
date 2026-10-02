@@ -508,12 +508,13 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   (`CharacterArt.HatOnHero`: 55% of the picture wide over `HeadTopHero`, its brim overlapping the head by 15%), its own
   tint with a `tint.Darken(0.45)` outline and a light top-left side.
 - Footer: "Earn special outfits as you play!" (`InkBrownSoft`).
-- Unity Wardrobe (a full screen over Home, `WardrobeLayout`): the tabs end with a Profile tab (the avatar), whose stage
-  shows the avatar on the pedestal and whose name card says what the profile items do; the panel starts with the kind
-  chips (`UiKit.Tabs`: skins, hats, trails, faces; or frames, badges, markers), then the outfit cards of the kind three
-  to a row (one row, or two on tall phones), "Default" (none of the kind) first, each card showing the hero in its outfit
-  with that item; the worn card (or the shown profile item) is green with the check; the footer sits between the cream
-  ‹ › page arrows.
+- Unity Wardrobe (a full screen over Home, `ScreenLayout.ReferenceWardrobe` with the kind chips, §6.5): the tabs end
+  with a Profile tab (the avatar), whose stage shows the avatar on the pedestal and whose name card says what the
+  profile items do; the panel starts with the kind chips (`UiKit.Tabs`: skins, hats, trails, faces; or frames, badges,
+  markers), then the outfit cards of the kind, three to a page, "Default" (none of the kind) first, each card showing
+  the hero in its outfit with that item; the worn card (or the shown profile item) is green with the check; the footer
+  sits between the cream ‹ › page arrows. The hero's feet stand on the pedestal's top ellipse; the ‹ › cushions are
+  `UiKit.PageArrow`s in touch-sized squares; the description is broken into two balanced lines.
 - The playtest's Store cosmetics (preview frame 26): the Store card's `WoodSign` (Ivy) header, `Kit.FamilyTabs`
   (`ui.tab.family`) over the lighter panel, and `Kit.OutfitCard`s (`ui.card.outfit`) six to a page (3 × 2): "Default",
   worn while the family wears nothing, then each item for sale shown on the chosen family's hero (a frame, badge or
@@ -647,6 +648,14 @@ columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0
 more, such as the avatar); the rank pill (`0.3W × 0.075W`) sits under the right column, right-aligned at `0.04W` (under
 the Petals pill there is no room for its touch target); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
 from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
+
+Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it shows from its top with `SideButton(right, i)`
+(left: Wardrobe `ui.shirt`, Collection `ui.grid`, the profile avatar; right: the Daily Challenge, the sun `ui.sun` with
+the green check badge when done today, and the Store, the lotus), and the rank pill sits under the right column's last
+button; the logo shows in both looks; the progressed hero stands on `HomeStage.HeroOnPedestal` over the diorama down to
+the plaque's middle; the plaque is `0.5W`, wider when its letters need it (at most `0.8W`); the free booster is the cream
+`CostPill` "Free"; the rank pill and the free booster take taps in clear boxes grown to `size.touch_min`; the splash puts
+its logo and diorama in Home's boxes.
 
 ### 6.5 Wardrobe (both builds)
 

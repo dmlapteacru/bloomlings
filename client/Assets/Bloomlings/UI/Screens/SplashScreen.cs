@@ -3,7 +3,6 @@ using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.UI.Design;
 using UnityEngine;
 using Bloomlings.Client.UI.Localization;
-using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -11,8 +10,9 @@ namespace Bloomlings.Client.UI.Screens
     /// The splash of the design board's frame 1 (spec 002 FR-016) in the reference look of spec 005 (contracts/look.md
     /// §4.5; the playtest's <c>SplashScreen</c>): the wooden logo (the owner's logo picture when it exists) over the warm
     /// garden, with the four families as 3D heroes around the lotus fountain on the stone pedestal (spec 004), fading and
-    /// rising in. It shows from the first frame while services and content load, and goes once the first screen is up.
-    /// It never waits for a tap: the first launch still goes straight into Level 1 (spec 001 US2).
+    /// rising in, both where Home shows them (<see cref="ScreenLayout.ReferenceHome"/>'s logo and diorama, §6.4). It
+    /// shows from the first frame while services and content load, and goes once the first screen is up. It never waits
+    /// for a tap: the first launch still goes straight into Level 1 (spec 001 US2).
     /// </summary>
     public sealed class SplashScreen : MonoBehaviour
     {
@@ -31,22 +31,20 @@ namespace Bloomlings.Client.UI.Screens
             RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("Root", canvas.transform));
             BackdropView.Create(root, BackdropScene.Splash);
 
+            // The logo and the heroes stand where Home shows them (contracts/look.md §6.4), so Home takes over in place.
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            float u = DesignTokens.ScaleFor(w, h);
-            Box safe = ScreenLayout.SafeArea(w, h, insets);
+            ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets);
             var screenBox = new Box(0f, 0f, w, h);
-
-            // The logo at a third of the safe area, at most 900 units wide ("brand.wordmark").
-            float logoWidth = Mathf.Min(safe.Width * 0.84f, 900f * u);
-            RectTransform logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
-            UiKit.PlaceBox(logo, Box.FromCenter(safe.CenterX, safe.Top + (safe.Height * 0.3f), logoWidth, Mathf.Min(logoWidth * 0.37f, T.Wordmark.Size * u * 1.5f)), screenBox);
-            UiKit.FadeInOnShow(logo.gameObject, 1f, AppearSeconds);
 
             // The four families on their stone around the lotus fountain ("brand.splash_art"), without the guest.
             screen._stage = UiFactory.Stretch(UiFactory.CreateRect("Heroes", root));
             UiKit.FadeInOnShow(screen._stage.gameObject, 1f, AppearSeconds);
-            float width = Mathf.Min(safe.Width, 1000f * u);
-            HeroPictures.Stage("Stage", screen._stage).Place(Box.FromCenter(safe.CenterX, safe.Top + (safe.Height * 0.62f), width, width * 0.7f), screenBox, BackdropScene.Splash, guest: false);
+            HeroPictures.Stage("Stage", screen._stage).Place(r.Diorama, screenBox, BackdropScene.Splash, guest: false);
+
+            // The logo across the top ("brand.wordmark").
+            RectTransform logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
+            UiKit.PlaceBox(logo, r.Logo, screenBox);
+            UiKit.FadeInOnShow(logo.gameObject, 1f, AppearSeconds);
             return screen;
         }
 
