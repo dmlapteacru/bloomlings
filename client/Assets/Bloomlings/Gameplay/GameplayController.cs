@@ -262,8 +262,8 @@ namespace Bloomlings.Client.Gameplay
 
         /// <summary>
         /// The screen regions for this level (spec 002 FR-009, FR-010, FR-014; spec 005 §6.1): the badge line of a labelled
-        /// Hard or Super Hard level, the booster row once a booster is unlocked, the entry strip under the board for a
-        /// bottom Garden Entry, and one pod column per Source stack. Laid out before the views are built.
+        /// Hard or Super Hard level, the booster row once a booster is unlocked, and one pod column per Source stack (the
+        /// Garden Entries take no room: they have no arch). Laid out before the views are built.
         /// </summary>
         private void LayoutForLevel(LevelSession session)
         {
@@ -278,13 +278,7 @@ namespace Bloomlings.Client.Gameplay
                 boosters |= economy != null && economy.IsUnlocked(kind);
             }
 
-            var sides = new List<EntrySide>();
-            foreach (EntryDef entry in session.View.Entries)
-            {
-                sides.Add(entry.Side);
-            }
-
-            _hud.Layout(labelled, boosters, sides, session.View.StackCount);
+            _hud.Layout(labelled, boosters, session.View.StackCount);
             _hud.SetDifficulty(difficulty, labelled);
             Canvas.ForceUpdateCanvases();
         }

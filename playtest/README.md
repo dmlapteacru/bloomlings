@@ -45,7 +45,8 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     with Petals, and the ones earned later with a padlock), through the client's `WardrobeService`;
   - the level (frames 7–9) in the reference's layout (spec 005 FR-020, FR-021): the cream Pause, the wooden level sign
     with ivy and the HARD or SUPER HARD badge, the cream 2× pill, the board of candy tiles wide in its stone border on
-    the lawn, the entry strip with the arch, and one parchment tray to the bottom of the screen with the Waiting Slots,
+    the lawn (the Garden Entries have no arch: the Bloomlings set off from the border), and one parchment tray to the
+    bottom of the screen with the Waiting Slots,
     the four booster boxes and a column of pods per Source stack, one after another and never on each other (the
     owner's gameplay rule of 2026-10-03): the exposed pod on top, bright and the only one taking taps, and the next
     ones muted under it, three rows or four from 19.5:9, "+N" on the last shown pod; the pods slide up a row when the
@@ -59,10 +60,10 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   (`specs/005-reference-look/`, recipes in `contracts/look.md`) on the spec 003 Garden kit: sentence-case labels in
   Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); glossy green main buttons in a light
   wood rim, cream secondary and round buttons; wooden signs; parchment cards with a cream round close; the board as
-  candy tiles in a stone border with stone arch entries on a lawn; wooden pods (the owner's icon over the middle, a small
+  candy tiles in a stone border on a lawn; wooden pods (the owner's icon over the middle, a small
   outlined count at the bottom right corner) and cream Waiting Slots (the tile, the count below it); cream booster tiles with green count
   badges; Petals as a pink lotus.
-  Material pictures (planks, frames, stones, arch, pedestal, candy tiles) come from the kit's `UiRaster` through
+  Material pictures (planks, frames, stones, pedestal, candy tiles) come from the kit's `UiRaster` through
   `IPainter.Picture`, cached by key and size; `BoardLayout` places the board. The Bloomlings are the generated character
   art of spec 004 (`specs/004-character-art/`), embedded from
   `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: 2D characters whose shape is the variant symbol, as

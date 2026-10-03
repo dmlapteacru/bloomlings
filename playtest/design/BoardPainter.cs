@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
@@ -19,8 +18,8 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>Restored ground shows the finished picture as pale flat cells.</description></item>
     /// <item><description>Stones are stone blocks; specials are candy-like blocks with their white glyph and counter;
     /// keys, the next-layer peek and mystery tiles keep their meaning in the same style.</description></item>
-    /// <item><description>Each Garden Entry is a stone arch on its side of the board, where the Bloomlings come out
-    /// and walk their routes.</description></item>
+    /// <item><description>A Garden Entry has no picture (the owner, 2026-10-03: no stone arch): the Bloomlings set off
+    /// from the stone border beside the entry cell and walk their routes.</description></item>
     /// </list>
     /// </summary>
     public static class BoardPainter
@@ -31,36 +30,27 @@ namespace Bloomlings.Playtest.Design
         /// <summary>How much a restored cell is inset into its cell (each side, in cells).</summary>
         private const float GroundInset = 0.025f;
 
-        /// <summary>The layout each level screen was last drawn with (the walkers' doors depend on it).</summary>
-        private static readonly ConditionalWeakTable<LevelScreen, BoardLayout> Layouts = new ConditionalWeakTable<LevelScreen, BoardLayout>();
-
         /// <summary>The board fitted into <paramref name="area"/> (<see cref="BoardLayout.Fit"/>).</summary>
         public static void Draw(IPainter p, Box area, LevelScreen s)
         {
             LevelView view = s.Session.View;
-            Draw(p, BoardLayout.Fit(area, view.Width, view.Height, view.Entries), s);
+            Draw(p, BoardLayout.Fit(area, view.Width, view.Height), s);
         }
 
         /// <summary>
         /// The board in <paramref name="layout"/>: on the gameplay screen the reference regions' fit
-        /// (<see cref="ReferenceGameplayRegions.FitBoard"/>: the stone border at most 0.86 of the safe width, a bottom
-        /// entry's arch in the entry strip; spec 005 FR-020, contracts/look.md §6.1).
+        /// (<see cref="ReferenceGameplayRegions.FitBoard"/>: the stone border at most 0.86 of the safe width; spec 005
+        /// FR-020, contracts/look.md §6.1).
         /// </summary>
         public static void Draw(IPainter p, BoardLayout layout, LevelScreen s)
         {
             LevelView view = s.Session.View;
             int w = view.Width;
             int h = view.Height;
-            Layouts.AddOrUpdate(s, layout);
             float cell = layout.Cell;
             s.Board = (layout.Grid.Left, layout.Grid.Top, cell, h);
 
-            // The entries' stone arches on the lawn, then the stone border with the dark gap the tiles lie in.
-            for (int i = 0; i < layout.Arches.Count; i++)
-            {
-                Arch(p, layout.Arches[i]);
-            }
-
+            // The stone border with the dark gap the tiles lie in (the Garden Entries have no picture).
             Kit.StoneBorder(p, layout.Grid, cell);
 
             for (int y = 0; y < h; y++)
@@ -157,50 +147,11 @@ namespace Bloomlings.Playtest.Design
             return new Box(left, top, left + cell, top + cell);
         }
 
-        /// <summary>Where Bloomlings come in through an entry: the door of its stone arch.</summary>
-        public static (float X, float Y) EntryPoint(LevelScreen s, EntryDef entry)
-        {
-            IReadOnlyList<EntryDef> entries = s.Session.View.Entries;
-            if (Layouts.TryGetValue(s, out BoardLayout? layout))
-            {
-                for (int i = 0; i < entries.Count && i < layout.Arches.Count; i++)
-                {
-                    if (entries[i] == entry)
-                    {
-                        return layout.Arches[i].Door;
-                    }
-                }
-            }
-
-            // Before the first frame: just outside the entry cell.
-            Box c = CellBox(s, entry.Cell);
-            float d = s.Board.Cell * 0.78f;
-            return entry.Side switch
-            {
-                EntrySide.Top => (c.CenterX, c.CenterY - d),
-                EntrySide.Left => (c.CenterX - d, c.CenterY),
-                EntrySide.Right => (c.CenterX + d, c.CenterY),
-                _ => (c.CenterX, c.CenterY + d),
-            };
-        }
-
-        /// <summary>A Garden Entry: its stone arch (<c>board.arch</c>) on its piers on its side of the board, over a soft ground shadow.</summary>
-        private static void Arch(IPainter p, EntryArch arch)
-        {
-            p.Mark("tile.entry");
-            float r = arch.Radius;
-            (float sx, float sy) = arch.Side switch
-            {
-                EntrySide.Top => (0f, -r * 0.5f),
-                EntrySide.Left => (-r * 0.5f, 0f),
-                EntrySide.Right => (r * 0.5f, 0f),
-                _ => (0f, r * 0.5f),
-            };
-            bool across = arch.Side == EntrySide.Left || arch.Side == EntrySide.Right;
-            Box shadow = Box.FromCenter(arch.BaseX - (sx * 0.86f) + (r * 0.04f), arch.BaseY - (sy * 0.86f) + (r * 0.08f), across ? r * 1.16f : r * 2.14f, across ? r * 2.14f : r * 1.16f);
-            Kit.SoftShadow(p, shadow, r, 0.18f, 0.02f);
-            Kit.StoneArch(p, arch);
-        }
+        /// <summary>
+        /// Where Bloomlings set off from an entry: the stone border beside its cell, on its side (<see cref="BoardLayout.DoorOf"/>,
+        /// Unity's <c>BoardView.EntryPoint</c>).
+        /// </summary>
+        public static (float X, float Y) EntryPoint(LevelScreen s, EntryDef entry) => BoardLayout.DoorOf(CellBox(s, entry.Cell), entry.Side);
 
         /// <summary>
         /// A target tile (§3.1): a candy tile in the board style, nearly filling its cell. A hidden mystery tile is the

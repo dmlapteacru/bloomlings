@@ -14,8 +14,6 @@ namespace Bloomlings.Client.Tests
     /// </summary>
     public class ReferenceLayoutTests
     {
-        private static readonly EntrySide[] Bottom = { EntrySide.Bottom };
-
         /// <summary>16:9 to 21:9 phones, with typical status and navigation bar insets, and the reference's own shape.</summary>
         private static IEnumerable<(float W, float H, Insets Insets)> Phones()
         {
@@ -38,72 +36,70 @@ namespace Bloomlings.Client.Tests
         {
             foreach ((float w, float h, Insets insets) in Phones())
             {
-                foreach (EntrySide[] sides in new[] { Bottom, new[] { EntrySide.Left }, Array.Empty<EntrySide>() })
+                foreach (bool boosters in new[] { true, false })
                 {
-                    foreach (bool boosters in new[] { true, false })
+                    foreach (bool badge in new[] { false, true })
                     {
-                        foreach (bool badge in new[] { false, true })
+                        foreach (int stacks in new[] { 2, 3, 4, 5 })
                         {
-                            foreach (int stacks in new[] { 2, 3, 4, 5 })
+                            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, stacks, 5, boosters, badge);
+                            string at = w + "x" + h + " boosters=" + boosters + " badge=" + badge + " stacks=" + stacks;
+                            AssertOrdered(r.Ordered, r.Safe, at);
+                            Assert.That(r.K, Is.InRange(0.8f, 1f), at);
+                            Assert.That(r.TopBar.Top, Is.GreaterThanOrEqualTo(r.Safe.Top), at + ": the top bar sits under the top inset");
+                            Assert.That(r.Board.Width, Is.LessThanOrEqualTo((r.W * ReferenceGameplayRegions.MaxBoardShare) + 0.5f), at);
+                            // The tray keeps the reference's size on 19.5:9 and shrinks by k on shorter phones (k = 0.86 at
+                            // 16:9), so the board keeps at least a third of the height even with four rows of pods and a badge.
+                            Assert.That(r.Board.Height, Is.GreaterThan(r.Safe.Height * 0.33f), at + ": the board keeps its room");
+                            Assert.That(r.Tray.Bottom, Is.EqualTo(h).Within(0.5f), at + ": the tray runs to the screen's bottom");
+                            Assert.That(r.Tray.Left, Is.EqualTo(0f).Within(0.5f), at);
+                            Assert.That(r.Tray.Right, Is.EqualTo(w).Within(0.5f), at);
+                            Assert.That(r.TrayContent.Bottom, Is.LessThanOrEqualTo(r.Safe.Bottom), at + ": the tray's content stays above the bottom inset");
+                            Assert.That(r.SlotRow.Top, Is.GreaterThan(r.Tray.Top), at);
+                            Assert.That(r.EntryStrip.Bottom, Is.EqualTo(r.Tray.Top).Within(0.5f), at);
+                            Assert.That(r.EntryStrip.Height, Is.EqualTo(ReferenceGameplayRegions.EntryStripShare * r.W * r.K).Within(0.5f), at + ": a thin strip of lawn, no arch's room");
+
+                            Assert.That(r.Slots.Count, Is.EqualTo(5), at);
+                            AssertRow(r.Slots, r.SlotRow, at + " slots");
+                            AssertRow(r.Columns, r.PodRow, at + " columns");
+                            Assert.That(r.Columns.Count, Is.EqualTo(stacks), at);
+                            bool tall = r.Safe.Height / r.W >= ReferenceGameplayRegions.FourRowsAspect;
+                            Assert.That(r.PodRows, Is.EqualTo(tall ? 4 : 3), at + ": four rows of pods on tall phones, three on short ones");
+                            AssertGrid(r, at);
+                            if (boosters)
                             {
-                                ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, sides, stacks, 5, boosters, badge);
-                                string at = w + "x" + h + " sides=" + sides.Length + " boosters=" + boosters + " badge=" + badge + " stacks=" + stacks;
-                                AssertOrdered(r.Ordered, r.Safe, at);
-                                Assert.That(r.K, Is.InRange(0.8f, 1f), at);
-                                Assert.That(r.TopBar.Top, Is.GreaterThanOrEqualTo(r.Safe.Top), at + ": the top bar sits under the top inset");
-                                Assert.That(r.Board.Width, Is.LessThanOrEqualTo((r.W * ReferenceGameplayRegions.MaxBoardShare) + 0.5f), at);
-                                // The tray keeps the reference's size on 19.5:9 and shrinks by k on shorter phones (k = 0.86 at
-                                // 16:9), so the board keeps at least a third of the height even with four rows of pods and a badge.
-                                Assert.That(r.Board.Height, Is.GreaterThan(r.Safe.Height * 0.33f), at + ": the board keeps its room");
-                                Assert.That(r.Tray.Bottom, Is.EqualTo(h).Within(0.5f), at + ": the tray runs to the screen's bottom");
-                                Assert.That(r.Tray.Left, Is.EqualTo(0f).Within(0.5f), at);
-                                Assert.That(r.Tray.Right, Is.EqualTo(w).Within(0.5f), at);
-                                Assert.That(r.TrayContent.Bottom, Is.LessThanOrEqualTo(r.Safe.Bottom), at + ": the tray's content stays above the bottom inset");
-                                Assert.That(r.SlotRow.Top, Is.GreaterThan(r.Tray.Top), at);
-                                Assert.That(r.EntryStrip.Bottom, Is.EqualTo(r.Tray.Top).Within(0.5f), at);
-
-                                Assert.That(r.Slots.Count, Is.EqualTo(5), at);
-                                AssertRow(r.Slots, r.SlotRow, at + " slots");
-                                AssertRow(r.Columns, r.PodRow, at + " columns");
-                                Assert.That(r.Columns.Count, Is.EqualTo(stacks), at);
-                                bool tall = r.Safe.Height / r.W >= ReferenceGameplayRegions.FourRowsAspect;
-                                Assert.That(r.PodRows, Is.EqualTo(tall ? 4 : 3), at + ": four rows of pods on tall phones, three on short ones");
-                                AssertGrid(r, at);
-                                if (boosters)
+                                Assert.That(r.Boosters.Count, Is.EqualTo(4), at);
+                                AssertRow(r.Boosters, r.BoosterRow, at + " boosters");
+                                Assert.That(r.SeparatorTop.Bottom, Is.LessThanOrEqualTo(r.BoosterRow.Top), at);
+                                Assert.That(r.SeparatorTop.Top, Is.GreaterThanOrEqualTo(r.SlotRow.Bottom), at);
+                                Assert.That(r.SeparatorBottom.Bottom, Is.LessThanOrEqualTo(r.PodRow.Top), at);
+                                Assert.That(r.SeparatorBottom.Top, Is.GreaterThanOrEqualTo(r.BoosterRow.Bottom), at);
+                                for (int i = 0; i < 4; i++)
                                 {
-                                    Assert.That(r.Boosters.Count, Is.EqualTo(4), at);
-                                    AssertRow(r.Boosters, r.BoosterRow, at + " boosters");
-                                    Assert.That(r.SeparatorTop.Bottom, Is.LessThanOrEqualTo(r.BoosterRow.Top), at);
-                                    Assert.That(r.SeparatorTop.Top, Is.GreaterThanOrEqualTo(r.SlotRow.Bottom), at);
-                                    Assert.That(r.SeparatorBottom.Bottom, Is.LessThanOrEqualTo(r.PodRow.Top), at);
-                                    Assert.That(r.SeparatorBottom.Top, Is.GreaterThanOrEqualTo(r.BoosterRow.Bottom), at);
-                                    for (int i = 0; i < 4; i++)
-                                    {
-                                        Assert.That(r.BoosterBadge(i).Overlaps(r.Boosters[i]), Is.True, at + ": the badge sits on its box");
-                                    }
+                                    Assert.That(r.BoosterBadge(i).Overlaps(r.Boosters[i]), Is.True, at + ": the badge sits on its box");
                                 }
-                                else
-                                {
-                                    Assert.That(r.Boosters.Count, Is.EqualTo(0), at);
-                                    Assert.That(r.BoosterRow.IsEmpty, Is.True, at);
-                                    Assert.That(r.SeparatorBottom.IsEmpty, Is.True, at);
-                                }
-
-                                Assert.That(r.Badge.IsEmpty, Is.EqualTo(!badge), at);
-
-                                // Pause, the speed pill, the booster boxes and the exposed pods are pressed: their touch boxes
-                                // stay inside the safe area and never overlap (an exposed pod's grows to the touch minimum,
-                                // over the waiting pod under it, which takes no taps).
-                                float touch = Touch(w, h) * 0.95f;
-                                var targets = new List<Box> { TouchBox(r.Pause, touch), TouchBox(r.Speed, touch) };
-                                targets.AddRange(r.Boosters);
-                                for (int s = 0; s < stacks; s++)
-                                {
-                                    targets.Add(TouchBox(r.Pod(s, 0), touch));
-                                }
-
-                                AssertTargets(targets, r.Safe, touch, at);
                             }
+                            else
+                            {
+                                Assert.That(r.Boosters.Count, Is.EqualTo(0), at);
+                                Assert.That(r.BoosterRow.IsEmpty, Is.True, at);
+                                Assert.That(r.SeparatorBottom.IsEmpty, Is.True, at);
+                            }
+
+                            Assert.That(r.Badge.IsEmpty, Is.EqualTo(!badge), at);
+
+                            // Pause, the speed pill, the booster boxes and the exposed pods are pressed: their touch boxes
+                            // stay inside the safe area and never overlap (an exposed pod's grows to the touch minimum,
+                            // over the waiting pod under it, which takes no taps).
+                            float touch = Touch(w, h) * 0.95f;
+                            var targets = new List<Box> { TouchBox(r.Pause, touch), TouchBox(r.Speed, touch) };
+                            targets.AddRange(r.Boosters);
+                            for (int s = 0; s < stacks; s++)
+                            {
+                                targets.Add(TouchBox(r.Pod(s, 0), touch));
+                            }
+
+                            AssertTargets(targets, r.Safe, touch, at);
                         }
                     }
                 }
@@ -115,14 +111,15 @@ namespace Bloomlings.Client.Tests
         {
             float w = 1080f;
             float h = w * ScreenLayout.ReferenceAspect;
-            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, Insets.None, Bottom, 4, 5);
+            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, Insets.None, 4, 5);
             Assert.That(r.K, Is.EqualTo(1f).Within(0.001f));
             Assert.That(r.Pause.Left, Is.EqualTo(0.04f * w).Within(1f));
             Assert.That(r.Pause.Width, Is.EqualTo(0.13f * w).Within(1f));
             Assert.That(r.Sign.Width, Is.EqualTo(0.42f * w).Within(1f));
             Assert.That(r.Speed.Right, Is.EqualTo(0.96f * w).Within(1f));
             Assert.That(r.Board.Top, Is.EqualTo(0.162f * w).Within(1f));
-            Assert.That(r.EntryStrip.Height, Is.EqualTo(0.17f * w).Within(1f));
+            Assert.That(r.EntryStrip.Height, Is.EqualTo(0.04f * w).Within(1f), "the plain strip: the Garden Entries have no arch");
+            Assert.That(r.Board.Bottom, Is.EqualTo(r.Tray.Top - (0.04f * w)).Within(1f), "the board's region reaches down to it");
             Assert.That(r.SlotRow.Height, Is.EqualTo(0.16f * w).Within(1f));
             Assert.That(r.BoosterRow.Height, Is.EqualTo(0.18f * w).Within(1f));
             Assert.That(r.PodRows, Is.EqualTo(4));
@@ -147,11 +144,11 @@ namespace Bloomlings.Client.Tests
             foreach ((float w, float h, Insets insets) in Phones())
             {
                 string at = w + "x" + h;
-                ReferenceGameplayRegions six = ScreenLayout.ReferenceGameplay(w, h, insets, Bottom, 4, 6);
+                ReferenceGameplayRegions six = ScreenLayout.ReferenceGameplay(w, h, insets, 4, 6);
                 Assert.That(six.Slots.Count, Is.EqualTo(6), at);
                 AssertRow(six.Slots, six.SlotRow, at + " six slots");
                 // The most stacks a level has (SourceTray.MaxStacks) still make one row of columns.
-                ReferenceGameplayRegions many = ScreenLayout.ReferenceGameplay(w, h, insets, Bottom, 6, 5);
+                ReferenceGameplayRegions many = ScreenLayout.ReferenceGameplay(w, h, insets, 6, 5);
                 Assert.That(many.Columns.Count, Is.EqualTo(6), at);
                 AssertRow(many.Columns, many.PodRow, at + " six columns");
                 AssertGrid(many, at + " six stacks");
@@ -159,28 +156,61 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void Gameplay_TheBoardFits_AndBottomArchesStandInTheEntryStrip()
+        public void Gameplay_TheBoardTakesItsWholeRoom_AndTheEntriesNone()
         {
-            var entries = new[] { new EntryDef(new CellPos(4, 0), EntrySide.Bottom) };
             foreach ((float w, float h, Insets insets) in Phones())
             {
                 foreach ((int bw, int bh) in new[] { (9, 12), (6, 6), (12, 16), (10, 8) })
                 {
                     string at = w + "x" + h + " " + bw + "x" + bh;
-                    ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, Bottom, 4, 5);
-                    BoardLayout layout = r.FitBoard(bw, bh, entries);
-                    Assert.That(layout.Outer.Width, Is.LessThanOrEqualTo((r.W * ReferenceGameplayRegions.MaxBoardShare) + 1f), at);
+                    ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, 4, 5);
+                    BoardLayout layout = r.FitBoard(bw, bh);
+                    float max = r.W * ReferenceGameplayRegions.MaxBoardShare;
+                    Assert.That(layout.Outer.Width, Is.LessThanOrEqualTo(max + 1f), at);
                     Assert.That(layout.Outer.Top, Is.GreaterThanOrEqualTo(r.Board.Top - 1f), at);
-                    Assert.That(layout.Arches[0].Picture.Bottom, Is.LessThanOrEqualTo(r.Tray.Top + 1f), at + ": the arch stays on the lawn");
+                    Assert.That(layout.Outer.Bottom, Is.LessThanOrEqualTo(r.Tray.Top + 1f), at + ": the border stays on the lawn");
                     Assert.That(layout.Outer.CenterX, Is.EqualTo(r.Safe.CenterX).Within(1f), at);
+
+                    // No arch takes room any more: the border reaches the width cap or the whole height of the board's lawn.
+                    bool full = Math.Abs(layout.Outer.Width - max) <= 1f || Math.Abs(layout.Outer.Height - r.BoardArea.Height) <= 1f;
+                    Assert.That(full, Is.True, at + ": the board fills its room");
                 }
             }
         }
 
         [Test]
+        public void TheEntries_SetOffFromTheStoneBorder_BesideTheirCells()
+        {
+            BoardLayout layout = BoardLayout.Fit(new Box(0f, 0f, 1000f, 1400f), 9, 12);
+            var entries = new[]
+            {
+                new EntryDef(new CellPos(4, 0), EntrySide.Bottom),
+                new EntryDef(new CellPos(0, 6), EntrySide.Left),
+                new EntryDef(new CellPos(8, 3), EntrySide.Right),
+                new EntryDef(new CellPos(2, 11), EntrySide.Top),
+            };
+            foreach (EntryDef entry in entries)
+            {
+                Box cell = layout.CellBox(entry.Cell.X, entry.Cell.Y);
+                (float x, float y) = layout.Door(entry);
+                string at = entry.Side.ToString();
+                Assert.That(Inside(layout.Outer, x, y), Is.True, at + ": on the stone border");
+                Assert.That(Inside(layout.Grid, x, y), Is.False, at + ": outside the cells");
+                bool across = entry.Side == EntrySide.Left || entry.Side == EntrySide.Right;
+                Assert.That(across ? y : x, Is.EqualTo(across ? cell.CenterY : cell.CenterX).Within(0.01f), at + ": beside its cell");
+            }
+
+            (float bx, float by) = layout.Door(entries[0]);
+            Assert.That(by - layout.Grid.Bottom, Is.EqualTo(layout.Cell * (BoardLayout.Gap + (BoardLayout.Stone / 2f))).Within(0.01f), "the middle of the border");
+            Assert.That(bx, Is.EqualTo(layout.CellBox(4, 0).CenterX).Within(0.01f));
+        }
+
+        private static bool Inside(Box box, float x, float y) => x > box.Left && x < box.Right && y > box.Top && y < box.Bottom;
+
+        [Test]
         public void ThePods_GoOneAfterAnother_NeverOnEachOther()
         {
-            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2340f, Insets.None, Bottom, 4, 5);
+            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2340f, Insets.None, 4, 5);
             for (int depth = 1; depth < r.PodRows; depth++)
             {
                 Assert.That(r.Pod(0, depth).Top, Is.EqualTo(r.Pod(0, depth - 1).Bottom + r.PodGap).Within(0.5f), "depth " + depth + " under the one before");
@@ -337,7 +367,7 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void TheSlotTile_FillsTheReferenceShareOfItsPlate_AndLeavesRoomForTheCount()
         {
-            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2160f, Insets.None, Bottom, 4, 5);
+            ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2160f, Insets.None, 4, 5);
             Box plate = r.Slots[0];
             Box tile = ReferenceGameplayRegions.SlotTile(plate);
             float lip = Math.Min(plate.Width, plate.Height) * ReferenceGameplayRegions.SlotLipShare;
@@ -355,7 +385,7 @@ namespace Bloomlings.Client.Tests
         {
             foreach (int stacks in new[] { 2, 3 })
             {
-                ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 1080f * ScreenLayout.ReferenceAspect, Insets.None, Bottom, stacks, 5);
+                ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 1080f * ScreenLayout.ReferenceAspect, Insets.None, stacks, 5);
                 for (int i = 0; i < stacks; i++)
                 {
                     Assert.That(r.Columns[i].Width, Is.EqualTo(ReferenceGameplayRegions.PodMaxShare * r.W).Within(1f), stacks + " columns");
@@ -368,6 +398,67 @@ namespace Bloomlings.Client.Tests
 
                 Assert.That((r.Columns[0].Left + r.Columns[stacks - 1].Right) / 2f, Is.EqualTo(r.Safe.CenterX).Within(0.5f), stacks + " columns centered");
             }
+        }
+
+        [Test]
+        public void ThePetalsPill_FitsItsAmount_TheLotusInside_TheAmountRightAfterIt()
+        {
+            // Home's pill box (0.38 W × 0.095 W at 1080) and amounts from "0" to "12 345" (about 0.3 to 1.8 of its height).
+            var box = new Box(650f, 40f, 1060f, 142.6f);
+            float h = box.Height;
+            foreach (bool plus in new[] { false, true })
+            {
+                float reach = plus ? h * PetalsPillParts.PlusOut : 0f;
+                PetalsPillParts zero = PetalsPillParts.Fit(box, h * 0.3f, plus);
+                PetalsPillParts large = PetalsPillParts.Fit(box, h * 1.8f, plus);
+                foreach (PetalsPillParts parts in new[] { zero, large })
+                {
+                    string at = "plus=" + plus + " width=" + parts.Pill.Width;
+                    Assert.That(parts.Pill.Height, Is.EqualTo(h).Within(0.01f), at);
+                    Assert.That(parts.Pill.Right + reach, Is.EqualTo(box.Right).Within(0.01f), at + ": the pill (and the \"+\") ends at the box's right end");
+
+                    // The lotus inside the pill's left end: the picture's visible part (94% × 73% of its box) within the pill.
+                    Box lotus = parts.Lotus;
+                    Assert.That(lotus.Left + (lotus.Width * 0.03f), Is.GreaterThan(parts.Pill.Left + (h * 0.05f)), at + ": not over the left edge");
+                    Assert.That(lotus.CenterY - (lotus.Height * 0.365f), Is.GreaterThan(parts.Pill.Top), at);
+                    Assert.That(lotus.CenterY + (lotus.Height * 0.365f), Is.LessThan(parts.Face.Bottom), at);
+
+                    // The amount starts right after the lotus whatever its length, never in the pill's middle.
+                    Assert.That(parts.Amount.Left, Is.EqualTo(lotus.Right + (h * PetalsPillParts.AmountGap)).Within(0.01f), at);
+                    Assert.That(parts.AmountSize, Is.EqualTo(h * PetalsPillParts.AmountShare).Within(0.01f), at);
+                    if (plus)
+                    {
+                        Assert.That(parts.Plus.Left, Is.GreaterThan(parts.Amount.Right), at + ": the \"+\" after the amount");
+                        Assert.That(parts.Plus.Right, Is.EqualTo(box.Right).Within(0.01f), at);
+                    }
+                    else
+                    {
+                        Assert.That(parts.Plus.IsEmpty, Is.True, at);
+                    }
+                }
+
+                Assert.That(large.Amount.Left - large.Pill.Left, Is.EqualTo(zero.Amount.Left - zero.Pill.Left).Within(0.01f), "the same place after the lotus");
+                Assert.That(zero.Amount.Width, Is.EqualTo(h * 0.3f).Within(0.01f), "a short amount gets a short pill");
+                Assert.That(large.Amount.Width, Is.EqualTo(h * 1.8f).Within(0.01f));
+                Assert.That(zero.Pill.Width, Is.LessThan(large.Pill.Width));
+            }
+
+            // A text engine that cannot measure yet: the whole box, the amount still after the lotus.
+            PetalsPillParts unknown = PetalsPillParts.Fit(box, 0f, false);
+            Assert.That(unknown.Pill.Left, Is.EqualTo(box.Left).Within(0.01f));
+            Assert.That(unknown.Pill.Right, Is.EqualTo(box.Right).Within(0.01f));
+            Assert.That(unknown.Amount.Left, Is.EqualTo(unknown.Lotus.Right + (h * PetalsPillParts.AmountGap)).Within(0.01f));
+
+            // Longer than the box: the pill takes the whole box (the "+" reaching beyond it, as the reference's) before
+            // its digits shrink. Centered (the Store card): the pill and its "+" around the box's middle.
+            PetalsPillParts huge = PetalsPillParts.Fit(box, h * 9f, true);
+            Assert.That(huge.Pill.Left, Is.EqualTo(box.Left).Within(0.01f));
+            Assert.That(huge.Pill.Right, Is.EqualTo(box.Right).Within(0.01f));
+            Assert.That(huge.Amount.Right, Is.LessThan(huge.Plus.Left), "the amount still ends before the \"+\"");
+            PetalsPillParts centered = PetalsPillParts.Fit(box, h * 0.6f, true, 0.5f);
+            Assert.That((centered.Pill.Left + centered.Plus.Right) / 2f, Is.EqualTo(box.CenterX).Within(0.01f));
+
+            Assert.That(PetalsPillParts.WidthText(NumberText.Group(1240)), Is.EqualTo("0" + NumberText.Separator + "000"), "measured on zeros, so a count-up keeps its pill");
         }
 
         [Test]

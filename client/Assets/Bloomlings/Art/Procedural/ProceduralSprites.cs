@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using Bloomlings.Client.UI.Design;
-using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 
@@ -37,7 +36,7 @@ namespace Bloomlings.Client.Art
         /// <summary>A circle with a half-size 9-slice border: sliced, it draws a pill at any width (spec 002 pills and buttons).</summary>
         public static Sprite PillSprite => Get("ui.circle", 64, border: 31f);
 
-        /// <summary>A soft ring used for the Garden Entry marker and highlights.</summary>
+        /// <summary>A soft ring used for highlights.</summary>
         public static Sprite Ring => Get("ui.ring", 64);
 
         public static Sprite Lock => Shape("ui.lock");
@@ -259,8 +258,8 @@ namespace Bloomlings.Client.Art
         }
 
         /// <summary>
-        /// The picture families whose sizes follow a board's cell size: the board's candy tiles, stone obstacles, stone
-        /// border and arches, and the win picture's flat tiles, grass cells and stones. Each level of another size adds its own.
+        /// The picture families whose sizes follow a board's cell size: the board's candy tiles, stone obstacles and stone
+        /// border, and the win picture's flat tiles, grass cells and stones. Each level of another size adds its own.
         /// </summary>
         public static readonly IReadOnlyList<string> BoardFamilies = new[]
         {
@@ -271,12 +270,11 @@ namespace Bloomlings.Client.Art
             "tile.grass/",
             "tile.stone/",
             "mat.stone/block/",
-            "board.arch/",
         };
 
         /// <summary>
         /// Destroys the cached pictures of the given families (key prefixes) that no <c>PictureFit</c> shows any more and
-        /// no other caller asked for: with <see cref="BoardFamilies"/>, the tiles, stones and arches of earlier levels at
+        /// no other caller asked for: with <see cref="BoardFamilies"/>, the tiles and stones of earlier levels at
         /// their cell sizes. A new level calls it before it builds its board, so the last level's pictures, still shown,
         /// stay for the new one when its cells are the same size. Returns how many it released.
         /// </summary>
@@ -409,22 +407,6 @@ namespace Bloomlings.Client.Art
         /// <summary>The stone pedestal of the heroes (spec 005 §3.6, <c>ui.pedestal</c>).</summary>
         public static Sprite Pedestal(int width, int height, int seed = 5) =>
             Picture("ui.pedestal/" + seed, width, height, (w, h) => UiRaster.Pedestal(w, h, seed));
-
-        /// <summary>
-        /// A Garden Entry's stone arch (spec 005 §3.6, <c>board.arch</c>), its crown <paramref name="turns"/> quarter turns
-        /// clockwise from up (<see cref="UiRaster.Arch"/>).
-        /// </summary>
-        public static Sprite Arch(int width, int height, int turns, int seed = 5) =>
-            Picture("board.arch/" + (((turns % 4) + 4) % 4) + (seed == 5 ? string.Empty : "/" + seed), width, height, (w, h) => UiRaster.Arch(w, h, turns, seed));
-
-        /// <summary>The stone arch of a Garden Entry on <paramref name="side"/>, its crown toward the board (spec 005 §3.6).</summary>
-        public static Sprite Arch(int width, int height, EntrySide side) => Arch(width, height, side switch
-        {
-            EntrySide.Left => 1,
-            EntrySide.Top => 2,
-            EntrySide.Right => 3,
-            _ => 0,
-        });
 
         /// <summary>The win's light rays (spec 005 §3.9, <c>fx.rays</c>) as a square picture of side <paramref name="size"/>.</summary>
         public static Sprite LightRays(int size) =>

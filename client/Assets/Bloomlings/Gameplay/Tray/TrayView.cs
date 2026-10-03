@@ -192,7 +192,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         private static ReferenceGameplayRegions ScreenGrid(int stacks)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            return GameplayHud.InPodRow(ScreenLayout.ReferenceGameplay(w, h, insets, Array.Empty<EntrySide>(), stacks, WaitingSlots.DefaultCount, true, false));
+            return GameplayHud.InPodRow(ScreenLayout.ReferenceGameplay(w, h, insets, stacks, WaitingSlots.DefaultCount, true, false));
         }
 
         /// <summary>The exposed pod's touch box: its box grown about its center to <c>size.touch_min</c> each way.</summary>

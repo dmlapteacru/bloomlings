@@ -920,58 +920,56 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4): a cream raised pill (a soft shadow, the
-        /// <c>cream.lip</c> band, the cream face and a <c>cream.line</c> outline) with the lotus over its left end, the
-        /// grouped balance in <c>ink.brown</c>, and the round green "+" over its right end (to the Store, once unlocked;
-        /// FR-013). The whole pill is the touch target when <paramref name="onPlus"/> is set.
+        /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4; <see cref="PetalsPillParts"/>, the playtest's
+        /// <c>Kit.PetalsPill</c>): a cream raised pill (a soft shadow, the <c>cream.lip</c> band, the cream face and a
+        /// <c>cream.line</c> outline) that fits its content inside the element's box (placed by <paramref name="align"/>:
+        /// 1 keeps its right end on the box's, 0.5 centers it), the lotus inside its left end, the grouped balance in
+        /// <c>ink.brown</c> left-aligned right after the lotus, so a short amount never floats in the middle, and the round
+        /// green "+" over its right end (to the Store, once unlocked; FR-013). The pill is the touch target when
+        /// <paramref name="onPlus"/> is set.
         /// </summary>
-        public static PetalsPill PetalsPill(string name, Transform parent, Action? onPlus)
+        public static PetalsPill PetalsPill(string name, Transform parent, Action? onPlus, float align = 1f)
         {
-            (RectTransform root, BoxLayout layout) = Element(name, parent, raycast: onPlus != null);
+            (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<PetalsPill>();
-            SoftShadow(layout, b => b, b => b.Height / 2f, 0.2f, 0.08f);
-            Image lip = RoundRect("Lip", root, UiTheme.Of(C.CreamLip));
+            view.Align = align;
+            SoftShadow(layout, b => view.Parts(b).Pill, b => b.Height / 2f, 0.2f, 0.08f);
+            Image lip = RoundRect("Lip", root, UiTheme.Of(C.CreamLip), raycast: onPlus != null);
             Image face = RoundGradient("Face", root, C.CreamTop, C.CreamFace);
             Image line = RoundRing("Line", root, UiTheme.Of(C.CreamLine), null, b => Mathf.Max(Units(2f), b.Height * 0.04f));
-            layout.Add(lip.rectTransform, b => b);
-            layout.Add(face.rectTransform, b => new Box(b.Left, b.Top, b.Right, b.Bottom - (b.Height * 0.09f)));
-            layout.Add(line.rectTransform, b => b);
+            layout.Add(lip.rectTransform, b => view.Parts(b).Pill);
+            layout.Add(face.rectTransform, b => view.Parts(b).Face);
+            layout.Add(line.rectTransform, b => view.Parts(b).Pill);
             Image icon = PetalIcon("Petal", root);
-            layout.Add(icon.rectTransform, b => Box.FromCenter(b.Left + (b.Height * 0.42f), b.CenterY - (b.Height * 0.045f) - (b.Height * 0.02f), b.Height * 1.08f, b.Height * 1.08f));
+            layout.Add(icon.rectTransform, b => view.Parts(b).Lotus);
             TextMeshProUGUI balance = KitLabel("Balance", root, "0", DesignTokens.Type.Count, TextLook.Plain(C.InkBrown));
+            balance.alignment = TextAlignmentOptions.Left;
             view.Balance = balance;
             GardenButton plus = IconFace("Plus", root, GardenLook.Green, b => b.Height / 2f, square: true);
             Image glyph = GardenGlyph(plus, plus.Content, "ui.plus");
             BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.6f, plus.IconSide * 0.6f));
-            layout.Add((RectTransform)plus.transform, b => Box.FromCenter(b.Right - (b.Height * 0.3f), b.CenterY, b.Height, b.Height));
+            view.Plus = plus.gameObject;
+            layout.Add((RectTransform)plus.transform, b => view.Parts(b).Plus);
+
+            // The amount starts right after the lotus (left-aligned, so it never floats in the pill's middle, even while
+            // the text engine cannot measure it yet).
             layout.Watch(balance).Then(b =>
             {
-                float h = b.Height;
-                bool showsPlus = view.Plus != null && view.Plus.activeSelf;
-                float right = showsPlus ? b.Right - (h * 0.75f) : b.Right - (h * 0.3f);
-                float left = b.Left + (h * 0.95f);
-                float faceCenter = (b.Top + b.Bottom - (h * 0.09f)) / 2f;
-                if (showsPlus)
-                {
-                    KitText.Place(balance, DesignTokens.Type.Count, (left + right) / 2f, faceCenter, h * 0.5f, right - left);
-                    return;
-                }
-
-                // Without the "+" (the Store still locked) the amount starts right after the lotus, as on the reference,
-                // instead of floating in the pill's middle.
-                float measured = KitText.Measure(balance, h * 0.5f);
-                float width = Mathf.Min(measured > 0f ? measured : right - left, right - left);
-                KitText.Place(balance, DesignTokens.Type.Count, left + (width / 2f), faceCenter, h * 0.5f, width + 1f);
+                PetalsPillParts parts = view.Parts(b);
+                Box amount = parts.Amount;
+                float measured = KitText.Measure(balance, parts.AmountSize);
+                float width = measured > 0f ? Mathf.Min(measured, amount.Width) : amount.Width;
+                KitText.Place(balance, DesignTokens.Type.Count, amount.Left + (width / 2f), amount.CenterY, parts.AmountSize, width + 1f);
             });
-            view.Plus = plus.gameObject;
             view.Relayout = layout.Apply;
             if (onPlus != null)
             {
+                // The taps land on the pill itself (its lip), not on the empty rest of the element's box.
                 var relay = root.gameObject.AddComponent<PressRelay>();
                 relay.Target = plus;
                 var button = root.gameObject.AddComponent<Button>();
                 button.transition = Selectable.Transition.None;
-                button.targetGraphic = root.GetComponent<Image>();
+                button.targetGraphic = lip;
                 button.onClick.AddListener(() =>
                 {
                     GameFeedback.Current?.Play(SoundCue.Click);
@@ -1336,8 +1334,45 @@ namespace Bloomlings.Client.UI
         /// <summary>Lays the pill out again (the balance takes the room of a hidden "+").</summary>
         internal Action? Relayout { get; set; }
 
+        /// <summary>Where the pill sits in the element's box when it is shorter (<see cref="PetalsPillParts.Fit"/>): 1 at the right.</summary>
+        internal float Align { get; set; } = 1f;
+
         private long _shown = -1;
         private CountUp? _count;
+        private PetalsPillParts? _parts;
+        private Box _partsBox;
+        private string? _partsText;
+        private bool _partsPlus;
+
+        /// <summary>
+        /// The pill's parts in the element's box <paramref name="box"/>, measured on the balance as it reads (and on its
+        /// digits as zeros, so a counting balance keeps its pill); kept while the box, the text and the "+" stay the same.
+        /// </summary>
+        internal PetalsPillParts Parts(Box box)
+        {
+            bool plus = Plus != null && Plus.activeSelf;
+            string text = Balance != null ? Balance.text : string.Empty;
+            if (_parts != null && plus == _partsPlus && text == _partsText && Same(box, _partsBox))
+            {
+                return _parts;
+            }
+
+            float size = box.Height * PetalsPillParts.AmountShare;
+            float measured = Balance != null && text.Length > 0
+                ? Mathf.Max(KitText.Measure(Balance, size, PetalsPillParts.WidthText(text)), KitText.Measure(Balance, size))
+                : 0f;
+            PetalsPillParts parts = PetalsPillParts.Fit(box, measured, plus, Align);
+
+            // Not kept before the text engine can measure, so the pill fits as soon as it can.
+            _parts = measured > 0f ? parts : null;
+            _partsBox = box;
+            _partsText = text;
+            _partsPlus = plus;
+            return parts;
+        }
+
+        private static bool Same(Box a, Box b) =>
+            Mathf.Abs(a.Left - b.Left) < 0.01f && Mathf.Abs(a.Top - b.Top) < 0.01f && Mathf.Abs(a.Right - b.Right) < 0.01f && Mathf.Abs(a.Bottom - b.Bottom) < 0.01f;
 
         /// <summary>Shows the balance; a rise counts up from the old balance (spec 003 FR-020).</summary>
         public void Show(long petals, bool storeUnlocked)
@@ -1356,8 +1391,10 @@ namespace Bloomlings.Client.UI
             if (Plus.activeSelf != storeUnlocked)
             {
                 Plus.SetActive(storeUnlocked);
-                Relayout?.Invoke();
             }
+
+            // The pill fits the new balance (and the "+" shown or hidden) now, not only when the text next changes.
+            Relayout?.Invoke();
         }
     }
 

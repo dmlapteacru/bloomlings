@@ -167,25 +167,6 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheArch_IsAHalfRing_ItsCrownTowardTheTurn()
-        {
-            byte[] up = UiRaster.Arch(120, 60, 0, 5);
-            Assert.That(up.Length, Is.EqualTo(120 * 60 * 4));
-            Assert.That(up, Is.EqualTo(UiRaster.Arch(120, 60, 0, 5)), "deterministic");
-            Assert.That(Alpha(up, 120, 60, 2), Is.EqualTo(255), "the crown, up");
-            Assert.That(Alpha(up, 120, 0, 0), Is.EqualTo(0), "outside the ring");
-            Assert.That(Alpha(up, 120, 60, 50), Is.InRange(1, 254), "the darker, see-through opening");
-
-            byte[] right = UiRaster.Arch(60, 120, 1, 5);
-            Assert.That(Alpha(right, 60, 57, 60), Is.EqualTo(255), "the crown, right");
-            Assert.That(Alpha(right, 60, 2, 60), Is.InRange(1, 254), "the opening, left");
-
-            byte[] left = UiRaster.Arch(60, 120, 3, 5);
-            Assert.That(Alpha(left, 60, 2, 60), Is.EqualTo(255), "the crown, left");
-            Assert.That(Alpha(left, 60, 57, 60), Is.InRange(1, 254), "the opening, right");
-        }
-
-        [Test]
         public void Sizes_QuantizeToEightPixels_AndKeysCarryTheSize()
         {
             Assert.That(UiRaster.Quantize(1f), Is.EqualTo(8));

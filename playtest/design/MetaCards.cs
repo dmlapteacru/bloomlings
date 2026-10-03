@@ -251,7 +251,7 @@ namespace Bloomlings.Playtest.Design
             bool cosmetics = app.Meta.Wardrobe.IsAvailable;
             CardRegions r = Kit.Card(p, 130f + (cosmetics ? 116f : 0f) + (7f * (row + 16f)), PlaytestText.T("store.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.Ivy);
             float y = r.Body.Top;
-            Kit.PetalsPill(p, Box.FromCenter(r.Body.CenterX, y + p.U(40f), p.U(360f), p.U(84f)), app.Meta.Economy.Petals, () => app.HomeToast(PlaytestText.T("store.offline")));
+            Kit.PetalsPill(p, Box.FromCenter(r.Body.CenterX, y + p.U(40f), p.U(360f), p.U(84f)), app.Meta.Economy.Petals, () => app.HomeToast(PlaytestText.T("store.offline")), align: 0.5f);
             y += p.U(130f);
             if (cosmetics)
             {

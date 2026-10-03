@@ -142,7 +142,7 @@ namespace Bloomlings.Client.UI.Screens
             _card = card;
             Box body = card.Regions.Body;
             float u = Scale;
-            _balance = UiKit.PetalsPill("Petals", card.Body, null);
+            _balance = UiKit.PetalsPill("Petals", card.Body, null, align: 0.5f);
             UiKit.PlaceBox((RectTransform)_balance.transform, Box.FromCenter(body.CenterX, body.Top + (40f * u), 360f * u, 84f * u), body);
             float y = body.Top + (130f * u);
             _tabs = null;

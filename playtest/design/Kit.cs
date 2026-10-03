@@ -707,50 +707,40 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4): a cream raised pill with the lotus over its left end,
-        /// the balance in <c>ink.brown</c>, and the round green "+" over its right end (FR-013).
+        /// The Petals balance pill (frames 2, 3 and 17; spec 005 §3.4; <see cref="PetalsPillParts"/>): a cream raised pill
+        /// that fits its content inside <paramref name="box"/> (placed by <paramref name="align"/>: 1 keeps its right end on
+        /// the box's, 0.5 centers it), the lotus inside its left end, the balance in <c>ink.brown</c> left-aligned right
+        /// after the lotus, so a short amount never floats in the middle, and the round green "+" over its right end
+        /// (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>).
         /// </summary>
-        public static void PetalsPill(IPainter p, Box box, long petals, Action? onPlus)
+        public static void PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f)
         {
             p.Mark("ui.pill.petals");
-            float h = box.Height;
-            float r = h / 2f;
-            float lip = h * 0.09f;
-            float line = Math.Max(p.U(2f), h * 0.04f);
-            SoftShadow(p, box, r, 0.2f, 0.08f);
-            p.FillRound(box, r, C.CreamLip);
-            var face = new Box(box.Left, box.Top, box.Right, box.Bottom - lip);
-            p.FillRoundGradient(face, Math.Min(r, face.Height / 2f), C.CreamTop, C.CreamFace);
-            p.StrokeRound(box.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
-            float icon = h * 1.08f;
-            Petal(p, Box.FromCenter(box.Left + (h * 0.42f), face.CenterY - (h * 0.02f), icon, icon));
-            float plusSize = h * 1.0f;
-            float right = onPlus != null ? box.Right - (plusSize * 0.75f) : box.Right - (h * 0.3f);
-            float left = box.Left + (h * 0.95f);
             TypeStyle s = T.Count;
-            float scale = h * 0.5f / p.U(s.Size);
+            float scale = box.Height * PetalsPillParts.AmountShare / p.U(s.Size);
             string amount = NumberText.Group(petals);
-
-            // Without the "+" (the Store still locked) the amount follows the lotus, as on the reference, instead of
-            // floating in the middle of the empty pill.
-            float cx = (left + right) / 2f;
-            if (onPlus == null)
-            {
-                float start = box.Left + (h * 1.15f);
-                cx = start + (Math.Min(right - start, p.MeasureText(amount, s, scale)) / 2f);
-            }
-
-            p.Text(amount, cx, face.CenterY, s, C.InkBrown, right - left, scale, TextLook.Plain(C.InkBrown));
+            float measured = Math.Max(p.MeasureText(PetalsPillParts.WidthText(amount), s, scale), p.MeasureText(amount, s, scale));
+            PetalsPillParts parts = PetalsPillParts.Fit(box, measured, onPlus != null, align);
+            Box pill = parts.Pill;
+            float h = pill.Height;
+            float r = h / 2f;
+            float line = Math.Max(p.U(2f), h * 0.04f);
+            SoftShadow(p, pill, r, 0.2f, 0.08f);
+            p.FillRound(pill, r, C.CreamLip);
+            p.FillRoundGradient(parts.Face, Math.Min(r, parts.Face.Height / 2f), C.CreamTop, C.CreamFace);
+            p.StrokeRound(pill.Inset(line / 2f), r - (line / 2f), line, C.CreamLine);
+            Petal(p, parts.Lotus);
+            p.TextLeft(amount, parts.Amount.Left, parts.Amount.CenterY, s, C.InkBrown, parts.Amount.Width + 1f, scale, TextLook.Plain(C.InkBrown));
             if (onPlus != null)
             {
-                Box plus = Box.FromCenter(box.Right - (plusSize * 0.3f), box.CenterY, plusSize, plusSize);
-                float depth = Press(p, Touch(p, box), true);
+                Box plus = parts.Plus;
+                float depth = Press(p, Touch(p, pill), true);
                 Squash(p, plus, depth);
-                Box f = IconFace(p, plus, GardenLook.Green, plusSize / 2f, depth);
-                float g = plusSize * 0.6f;
+                Box f = IconFace(p, plus, GardenLook.Green, plus.Width / 2f, depth);
+                float g = plus.Width * 0.6f;
                 Glyph(p, "ui.plus", Box.FromCenter(f.CenterX, f.CenterY, g, g), GardenLook.Green);
                 p.PopTransform();
-                p.Hit(Touch(p, box), onPlus);
+                p.Hit(Touch(p, pill), onPlus);
             }
         }
 

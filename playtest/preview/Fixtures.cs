@@ -491,7 +491,7 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>The reference gameplay regions of this frame's shape, for the sizes of decks, plates and booster boxes.</summary>
         private static ReferenceGameplayRegions Reference(IPainter p, int stacks = 4, int slots = 5) =>
-            ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, new[] { EntrySide.Bottom }, stacks, slots);
+            ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, stacks, slots);
 
         /// <summary>A state's label on a component sheet: <c>ink.brown_soft</c> captions.</summary>
         private static void StateLabel(IPainter p, string label, float cx, float cy, float maxWidth) =>
@@ -636,7 +636,7 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>
         /// The reference look's kit on parchment (spec 005 T009), like the reference's "Target Variants" and "UI Elements"
-        /// strips: the candy tiles in both styles, the stone border and arch, the pedestal with rays and petals, the wooden
+        /// strips: the candy tiles in both styles, the stone border, the pedestal with rays and petals, the wooden
         /// signs, the buttons and their pressed state, the round buttons and pills, booster tiles, pods, slots and the jam
         /// choices.
         /// </summary>
@@ -669,10 +669,10 @@ namespace Bloomlings.Playtest.Preview
                 p.Text(launch[i].Id.Key.Replace('_', ' '), stickers[i].CenterX, stickers[i].Bottom + p.U(26f), T.Caption, C.InkBrownSoft, stickers[i].Width + p.U(14f));
             }
 
-            // The board style in a 4 × 2 grid inside the stone border, a Garden Entry arch below it (its crown at the border).
+            // The board style in a 4 × 2 grid inside the stone border, centered in its row (a Garden Entry has no picture).
             float cell = p.U(78f);
             float rim = cell * 0.48f;
-            var grid = new Box(rows[2].Left + rim, rows[2].Top + rim, rows[2].Left + rim + (cell * 4f), rows[2].Top + rim + (cell * 2f));
+            var grid = new Box(rows[2].Left + rim, rows[2].CenterY - cell, rows[2].Left + rim + (cell * 4f), rows[2].CenterY + cell);
             Kit.StoneBorder(p, grid, cell);
             for (int i = 0; i < launch.Length; i++)
             {
@@ -680,8 +680,6 @@ namespace Bloomlings.Playtest.Preview
                 float cy = grid.Top + ((i / 4) * cell);
                 Kit.CandyTile(p, new Box(cx, cy, cx + cell, cy + cell), launch[i].Id, TileStyle.Board);
             }
-
-            Kit.StoneArch(p, grid.Left + (cell * 2f), grid.Bottom + (cell * 0.46f) + (cell * 1.5f), cell, EntrySide.Bottom);
 
             // The expansion variants, and a hero on the stone pedestal in the win's light.
             VariantInfo[] expansion = VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Expansion).ToArray();
@@ -732,7 +730,7 @@ namespace Bloomlings.Playtest.Preview
             Kit.BoosterTile(p, tray[1], "shuffle", new BoosterTileState(0, 30, false, true, true), () => { });
             Kit.BoosterTile(p, tray[2], "return", new BoosterTileState(1, 50, true, true, true), () => { });
             Kit.BoosterTile(p, tray[3], "bloom_burst", new BoosterTileState(0, 60, false, true, false), null);
-            Kit.PetalsPill(p, new Box(tray[4].Left, tray[4].Top, tray[4].Right - p.U(20f), tray[4].Top + p.U(76f)), 2450, () => { });
+            Kit.PetalsPill(p, new Box(tray[4].Left, tray[4].Top, tray[4].Right - p.U(20f), tray[4].Top + p.U(76f)), 2450, () => { }, align: 0f);
             Kit.CostPill(p, new Box(tray[4].Left, tray[4].Bottom - p.U(60f), tray[4].Left + p.U(170f), tray[4].Bottom), Cost.Charges(2));
             Kit.CountBadge(p, tray[4].Right - p.U(40f), tray[4].Bottom - p.U(30f), p.U(56f), "3");
 
