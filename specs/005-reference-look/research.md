@@ -41,7 +41,8 @@ decision records what the reference shows, what we do and why, so the owner can 
 - **Reference**: pods and slots hold the variant tile (sticker style: a larger symbol with a light edge) with the
   count below it ("12", no "x").
 - **Decision**: as in the reference; replaces spec 004 FR-008 and FR-009. State meaning stays: queued pods are dimmed
-  (was "asleep"), stuck slots grey with the hourglass (was "worried"). The 2D characters remain as walkers and on the
+  (was "asleep"), stuck slots grey with the hourglass (was "worried"). Since 2026-10-03 a pod's count stands beside
+  its tile (D20). The 2D characters remain as walkers and on the
   Bloomlings sheet (frame 24), the 3D heroes on the meta screens.
 - **Alternative**: keep the characters inside the wooden frames (rejected: the owner asked for the reference's look of
   "геймплей", and characters on same-colored tiles lose contrast).
@@ -209,3 +210,35 @@ decision records what the reference shows, what we do and why, so the owner can 
 - **Alternatives**: the four painted shadows where they are (rejected: they lie beside the heroes); asking the owner for
   a lotus layer (not needed: the cut-out follows the painted petals); placing the heroes in a box of
   their own over the picture (rejected: they would slide off the fountain on other screen shapes).
+
+## D20. The tray's pods in columns (the owner's gameplay rule, 2026-10-03; FR-021 amended)
+
+- **Owner**: "Карточки выбора должны идти друг за другом, а не друг на друге, вне зависимости от дизайна игры, это
+  правило геймплея. Так чтоб было видно 3-4 ряда. Подстрой размеры боксов." The deck of FR-021 followed the
+  reference's stacked frames: it showed the next two pods only as bands peeking above the front pod, and drew them on
+  each other.
+- **Decision**: each stack is a column (`ReferenceGameplayRegions.Pod`, `PodChip`, contracts/look.md §6.1). The
+  exposed pod is `0.13W` tall on top, and the next pods are `0.1W` tall under it, `0.01W` apart. The tray shows four
+  rows from a safe aspect of 1.95 and three below it. The slot row, the booster row and the separators shrink to
+  `0.16W`, `0.18W` and `0.03W`.
+- **Why the grid**: the owner calls it a gameplay rule, not a look. The player must read what each choice uncovers,
+  as in spec 003 FR-022a, which the deck had replaced. A rule outranks the reference's picture, so a later restyle
+  must not stack pods again.
+- **Why landscape pods**: square pods as wide as a column (`0.228W` with four stacks) would make four rows about
+  `0.94W` tall, more than the deck's whole tray (`0.855W`). Pods wider than tall (`0.13W` and `0.1W`) need `0.46W`,
+  about half of that. With the count beside the tile instead of under it, the digits can be about two thirds of the
+  pod's inner height instead of fitting a strip under the tile, so they stay large in a short pod. `PodChip.MinAspect`
+  (1.45) keeps at least half a tile of width for them, even with six stacks.
+- **Why four rows only from 1.95**: the tray shrinks by `k` on shorter screens (`k` is about 0.86 at 16:9), but a
+  fourth row still costs `0.11W·k`.
+  - On 16:9, four rows would leave the board only about a third of the safe height with a badge and a bottom entry
+    (about 0.33 H, at the layout tests' limit). Under a navigation bar it would get less: 0.32 H on 1080 × 1920 with
+    a 100 px bottom inset. Three rows leave about 0.39 H.
+  - From 1.95 on (`k` ≥ 0.975; 1 from 19.5:9), four rows leave at least 0.35 H.
+  - 1.95 sits just under the reference's safe shape (2.0). 18:9 phones without a status bar get four rows; under one
+    their safe shape falls just below 1.95, so they get three.
+- **Alternatives**:
+  - Keep the deck and widen its bands (rejected: the pods would still lie on each other, against the owner's rule).
+  - Always three rows (rejected: the owner asked for 3-4, and tall phones have the room).
+  - Always four rows (rejected: 16:9 boards would drop under a third).
+  - Two rows of columns for many stacks (not needed: six stacks, `SourceTray.MaxStacks`, fit one row at `0.147W`).
