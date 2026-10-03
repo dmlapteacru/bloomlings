@@ -1,8 +1,8 @@
 # tools/heroanim
 
-Pre-renders the owner's animated FBX heroes into flat frame pictures for Home and the win, and prepares the owner's
-layered Home picture (spec 005 FR-028). The game never loads a 3D model (constitution VII): both builds play the frames
-(`HeroMotion`, `HomeLayers` in the design kit). Source record and processing: `SOURCE.md`.
+Pre-renders the owner's animated FBX heroes into flat frame pictures for Home, the splash, the win and the milestone,
+and prepares the owner's layered Home picture (spec 005 FR-028). The game never loads a 3D model (constitution VII):
+both builds play the frames (`HeroMotion`, `HomeLayers` in the design kit). Source record and processing: `SOURCE.md`.
 
 Requires Node 22 and Chromium for Playwright (`PLAYWRIGHT_BROWSERS_PATH`; the cloud sessions have it in
 `/opt/pw-browsers`).
@@ -17,7 +17,7 @@ node check.mjs                       # must pass before committing hero frames o
 
 | File | What |
 |---|---|
-| `heroes.json` | the bake: cell, foot line, frames per second, camera, light, blend times, and per hero its model, its two clips and its turn |
+| `heroes.json` | the bake: cell, foot line, fill and margin, frames per second, supersampling, camera, light, blend times, and per hero its model, its two clips and its turn (`yaw`) |
 | `models/*.fbx` | the owner's models (`SOURCE.md`) |
 | `bake.mjs`, `page.html`, `serve.mjs`, `png8.mjs` | the renderer (three.js in headless Chromium), the fit and crop, the palette PNG writer |
 | `layers.mjs` | the Home layers: crops, the lotus cut-out, the shadow, the JPEG garden |

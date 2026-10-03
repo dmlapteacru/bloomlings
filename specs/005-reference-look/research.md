@@ -139,3 +139,73 @@ decision records what the reference shows, what we do and why, so the owner can 
 - Gameplay stays flat 2D: tiles, stones, wood and gloss are depth drawn in the plane (constitution VII). The 3D heroes
   stay on the meta screens. No rule changes. The variant colors are art placeholders owned by art
   (`VariantCatalog` remarks); the readability check is the gate (D1).
+
+## D18. The animated heroes: pre-rendered offline (owner's delivery, 2026-10-02; FR-028)
+
+- **Delivered**: four rigged FBX models made with Meshy AI, one per family, each a textured skinned mesh on a 28-bone
+  Mixamo-style rig with 4 to 12 clips (many named only by Meshy library ids), and the owner's table: a 4 s idle
+  ("breathing + sway") and a 2 s reaction per hero (`tools/heroanim/SOURCE.md` maps the clips).
+- **Decision**: `tools/heroanim` renders the clips offline into flat frame pictures, and both builds play the frames.
+  - The renderer is three.js 0.160 (`FBXLoader`, patched to read Meshy's embedded textures) in headless Chromium
+    (playwright-core, SwiftShader): one camera per hero for all its frames (field of view 20°, 10° from above, turned
+    toward the fountain's middle by the hero's `yaw`), rendered 2.5 times larger and drawn down into a 448 × 504 cell
+    (the still heroes' 8:9 shape) with the seam pose's feet on 90% of its height and the seam pose about 84% of the
+    cell tall.
+  - 12 frames per second: 48 idle and 24 reaction frames per hero, 288 in all. The breathing and the bounces are slow
+    and soft; 12 fps reads smooth for them and keeps the files and memory at half of 24 fps.
+  - The seams: a picture cannot blend two poses at run time, so the blends happen in the bake. The idle eases into its
+    own first pose over its last 0.75 s, so it loops; the reaction blends in from that pose over 0.25 s and back to it
+    over its last 0.4 s. A reaction that starts on a seam therefore joins the idle without a jump. A tap between seams
+    reacts at once and cross-fades from the idle frame it interrupts over 0.12 s (`HeroMotion.DissolveSeconds`); one
+    asked for within 0.35 s of the next seam waits for it (`MaxSeamWait`).
+  - The format: every frame is cropped to its visible bounds (its crop and two head points, the head bone at the chin
+    and the head's top at the brow, are in the generated `HeroMotionData.cs`) and stored as an 8-bit palette PNG with
+    one dithered 256-color palette per hero, shared by all its frames so no color flickers: 11 MB for the 288 frames.
+    Decoded, the cropped frames are about 140 MB as RGBA (35 MB as palette pictures), so the hosts load a frame when
+    it is first drawn and keep a bounded cache, never the whole set.
+  - The light: the models' normal maps show blotches at this size, so they are dropped; the albedo is lit with a
+    Lambert material under a warm hemisphere light, a key light from the upper left (as in the reference), a fill and a
+    rim light. The look is soft and volumetric, close to the owner's still heroes.
+  - The hats follow the head: `HeroMotion.Hat` places a worn hat on the line from the head point to the head's top
+    point, turned with it (`HeroFrame.Roll`).
+  - On Home the four take turns: each idles from its own phase (so they do not breathe together), one reacts every 6 s
+    at its next seam (Bloom first, 1.5 s after Home opens, then Sprig, Drop, Twig), and a tap makes a hero react at
+    once (`HomeMotion`). The win's hero reacts from the moment it appears and then idles (`HeroMotionPlayer` with its
+    idle starting then and a reaction waiting for that seam).
+- **Why**: constitution VII forbids a 3D scene, camera or model in what the player plays and navigates and allows
+  pre-rendered 3D as flat pictures on meta screens. Pre-rendered frames are such pictures, both builds (the Unity
+  client and the .NET playtest) draw them through the same engine-free kit, and the motion is deterministic in time.
+- **Alternatives**:
+  - Unity's Animator on the FBX (rejected: a live 3D model, camera and lights in the game, against constitution VII,
+    and the playtest could not show it at all);
+  - a C# FBX reader with skinning in the kit (rejected: a large parser and skinning code for one look, still 3D at run
+    time);
+  - sprite atlases, one sheet per hero (rejected: a sheet is decoded whole, about 30 to 42 MB of RGBA per hero, four
+    on Home, too much for the .NET playtest's memory; separate frames load one at a time);
+  - blending the idle and the reaction at run time (not possible between pictures; hence the baked seams and the short
+    cross-fade);
+  - the guide's blink (`3.webp`): the rig has no face bones, so the clips cannot blink; left out unless the owner adds
+    such clips (pictures.md H).
+
+## D19. The layered Home (owner's delivery, 2026-10-02; FR-028)
+
+- **Delivered**: `bloomlings_home_assets.zip`, the Home picture (852 × 1846) in five layers: the garden (sky, arches,
+  flowers, paving, without the fountain), the fountain's back, the fountain's front stones and flowers, a sheet of four
+  soft shadows and the drifting petals, each a full-size picture with a transparent background.
+- **Decision**: `tools/heroanim/layers.mjs` prepares them (`SOURCE.md`): the garden re-encoded as JPEG (it replaces the
+  earlier single Home picture), each other layer cropped to its visible bounds (a decoded layer holds no empty rows),
+  their boxes in the picture written to `HomeLayersData.cs`. The hosts lay every layer in the box the backdrop
+  cover-fits the garden into (`HomeLayers.Cover`, `Place`), so the heroes stay on the fountain on every screen shape.
+  - **The lotus cut-out**: in the reference Bloom stands behind the lotus, which the fountain's back layer holds.
+    `layers.mjs` cuts the lotus out of that layer (its pink petals and what they enclose, the edge softened, the
+    bottom fading over the leaves) as a sixth picture, drawn again over Bloom, who stands between the two.
+  - **One shadow**: the sheet's four shadows were painted for places that do not line up with the reference's
+    (where the owner asked the heroes to stand), so the front left one, the widest, is cut out with faded edges and
+    drawn under every hero, as wide as its seam pose, at 85% opacity (`HomeLayers.ShadowBox`).
+  - **The petals** drift down (22 picture pixels a second) and sway (14 pixels over 7 s), drawn twice a picture height
+    apart so they wrap (`HomeLayers.PetalsAt`).
+  - **The placement**: each hero's feet and height were measured on the reference's Home and fitted to the layered
+    fountain (`HomeLayers.Placement`, contracts/look.md §6.4).
+- **Alternatives**: the four painted shadows where they are (rejected: they lie beside the heroes); asking the owner for
+  a lotus layer (not needed: the cut-out follows the painted petals); placing the heroes in a box of
+  their own over the picture (rejected: they would slide off the fountain on other screen shapes).

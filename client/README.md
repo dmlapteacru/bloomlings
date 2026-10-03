@@ -40,7 +40,8 @@ straight from the repository's `content/curated/` folder. The save lives in
 and Bloomling workers are built from code with procedural placeholder art (`Art/Procedural/ProceduralSprites.cs`) and
 the generated character pictures of spec 004 (`Art/Characters/Resources/Characters/`, made by `tools/artgen`, loaded by
 `Art/Characters/CharacterSprites.cs`; `Editor/CharacterArtImporter.cs` sets their import settings), so no prefab is
-needed yet.
+needed yet. The owner's animated heroes on Home and the win are pre-rendered frames (`Art/Heroes/Resources/HeroMotion/`,
+made by `tools/heroanim`, imported by `Editor/HeroMotionImporter.cs`; "Reference look" below).
 
 ## Verification status
 
@@ -194,6 +195,31 @@ layouts, the order of elements and every rule (recipes in `contracts/look.md`):
   and `Art/Decor/Resources/Decor/` (leaves, mirrored with a negative `localScale`) by the names in `OwnerPictures`; the 3D
   heroes and the optional celebrating heroes load from `Art/Characters/Resources/Characters/3d/` (`CharacterSprites`,
   `HeroPictures`), where `tools/artgen -- adopt` records them. The drawn stand-in shows while a file is missing.
+- The owner's animated heroes and layered Home (spec 005 FR-028, `contracts/look.md` §3.12, §6.3, §6.4):
+  `tools/heroanim` pre-renders the four FBX heroes into flat frames in `Art/Heroes/Resources/HeroMotion/` (no model
+  enters the game, constitution VII), and the Home picture comes as `home.jpg` plus the `home-*.png` layers in
+  `Art/Backgrounds/Resources/Backgrounds/`. `HeroFrames` loads a family's frames one at a time the first time they show
+  and unloads them when no view holds the family; `HeroMotionView` shows one hero in its frame cell (its pose, the
+  cross-fade, the outfit); `HomeLayersView` draws the layered Home with the four heroes, its touch boxes and the
+  drifting petals, shared by the splash and Home so Home takes over without a jump; `HeroPictures.StageOf` picks the
+  layered Home, the drawn stand-in or no heroes; the win and the milestone show the level's animated hero
+  (`HeroPictures`). `Editor/HeroMotionImporter` sets the import of the frames and the `home-*.png` layers.
+
+Check in the Editor (the client check covers the logic, not the look):
+- The import settings: select a few files of `Art/Heroes/Resources/HeroMotion/` and the `home-*.png` layers. They
+  should be Single sprites with a Full Rect mesh, no mipmaps, alpha is transparency, clamp, bilinear, no power-of-two
+  scaling, not readable, compressed (the frames at normal quality, the layers at high quality). If they were imported
+  before the importer existed, reimport the two folders. Compare a frame with its PNG for banding or dark fringes.
+- The Home stage's sibling order (Home with the owner's pictures, Play mode): under the stage's `Layers`,
+  `FountainBack`, then `ShadowDrop`, `HeroDrop`, `ShadowBloom`, `HeroBloom`, then `Lotus`, then `ShadowSprig`,
+  `HeroSprig`, `ShadowTwig`, `HeroTwig`, then `FountainFront`, `Petals`, `PetalsAbove` and the four `Touch*` boxes;
+  the logo, the buttons, the plaque, Play and the pills come after the stage, above it. Bloom's feet hide behind the
+  lotus, Sprig's and Twig's behind the fountain's front flowers.
+- Taps: a press on a hero makes it react at once (no click sound); Play, the side buttons, Settings, the Petals pill
+  and the plaque keep their taps where they overlap a hero; the splash's heroes take none.
+- The motion: each hero breathes in its 4 s idle, one reacts every 6 s in turn (Bloom first), the petals drift
+  smoothly; the splash's heroes fade in and Home continues their motion; the win's hero reacts as it lands, then idles;
+  the profiler shows the frames of at most the families on screen loaded.
 
 ## Localization
 

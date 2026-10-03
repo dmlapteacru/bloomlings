@@ -54,3 +54,26 @@ specs/005-reference-look/
 ├── spec.md, plan.md, research.md, tasks.md, pictures.md, reference.jpg
 └── contracts/look.md
 ```
+
+## Addendum: the owner's animated heroes and layered Home (2026-10-02)
+
+The owner delivered the Home picture in layers and the four heroes as animated FBX models (spec.md FR-028). The models
+are rendered offline into flat frames, so the game holds no 3D model, scene or camera (constitution VII: pre-rendered
+3D as flat pictures on meta screens only). **Pass.** Both builds play the frames through the engine-free kit.
+
+```text
+tools/heroanim/                      # Node 22, not in the solution (README.md, SOURCE.md)
+├── bake.mjs, page.html, serve.mjs, png8.mjs, heroes.json   # three.js in headless Chromium → 12 fps palette PNG frames
+├── layers.mjs                       # the owner's Home layers: crops, the lotus cut-out, one shadow, the JPEG garden
+├── check.mjs, manifest.json, layers.json                   # hashes of every output; must pass before committing them
+└── models/{sprig,bloom,drop,twig}.fbx                      # the owner's models
+client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/   # {family}-{idle|react}-{NN}.png (288) + manifest.json
+client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/  # home.jpg + the home-*.png layers
+client/Assets/Bloomlings/UI/Design/
+├── HeroMotion.cs, HeroMotionData.cs (generated)            # frames, cell, head points, hats, HeroMotionPlayer
+└── HomeLayers.cs, HomeLayersData.cs (generated)            # layer boxes, placement, shadows, petals, HomeMotion
+client/Assets/Bloomlings/Tests/EditMode/HeroMotionTests.cs
+```
+
+The hosts: the playtest's Home, splash and end cards with a bounded frame cache in both painters; Unity's
+`HomeLayersView`, `HeroMotionView`, `HeroFrames` and `Editor/HeroMotionImporter` (tasks.md T025–T030).

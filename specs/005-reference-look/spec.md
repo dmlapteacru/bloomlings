@@ -81,6 +81,38 @@ The owner compared the first result with the reference ("но оно очень 
   leaves and of the booster icons ("картинки я тебе дам, листочков, иконки бафов"); everything else — every button,
   the layouts, the board and its icons, the boxes the boosters sit in — is ours to build in code (FR-026, FR-027).
 
+### Session 2026-10-02 (the owner's delivery: layered Home and animated heroes)
+
+The owner sent the Home picture in layers and the four heroes as animated models (translated from Russian): "I'm
+sending the assets for the Home screen, split into several layers. I'm also sending you the heroes (the files are named
+a little differently, but you'll understand). They must be placed the same way as in the reference. The heroes have
+animations embedded. Use them. […] Also for the win screen, use the animations too, when the hero appears there."
+With it came an updated reference (`4.webp`: Home with Sprig at the left, Bloom behind and above the lotus, Drop at the
+right back, Twig at the right front; the win with one hero on the pedestal) and an idle animation guide (`3.webp`).
+- Q: What was delivered? → A: `bloomlings_home_assets.zip`, the Home picture in five layers (the garden, the
+  fountain's back, the fountain's front, a sheet of soft shadows, drifting petals) with a README giving their order,
+  and four rigged FBX models made with Meshy AI, one per family, each with its animation clips
+  (`tools/heroanim/SOURCE.md` maps the files to the families).
+- Q: Which animations? → A: the owner's table:
+
+  | Hero | Constant | Reaction A | Duration |
+  |---|---|---|---|
+  | Sprig | breathing + sway | curious head tilt | Idle 4 s / Tilt 2–2.5 s |
+  | Bloom | breathing + soft sway | happy bounce | Idle 4 s / Bounce 2 s |
+  | Drop | breathing + soft body sway | soft buoyant bounce | Idle 4 s / Bounce 2 s |
+  | Twig | breathing + sway | head tilt + tiny bounce | Idle 4 s / Reaction 2 s |
+
+- Q: Where do the heroes stand? → A: "the same way as in the reference": on the painted fountain, Sprig at the left,
+  Bloom behind the lotus, Drop at the right back, Twig at the right front. This lifts FR-024's deferral (FR-028).
+- Q: And the win? → A: "the win too": the level's hero plays its reaction as it appears, then idles. The milestone
+  screen shows the same hero, so it does the same.
+- Q: A 3D model in the game? → A: No (constitution VII; decision in research D18). The models never enter the game:
+  `tools/heroanim` renders them offline into flat frame pictures, shown on meta screens only.
+- Q: When does a hero react on Home? → A: Decided here (research D18): they take turns, one every 6 s (Bloom first,
+  1.5 s after Home opens), each at its idle's seam, and a tap on a hero makes it react at once.
+- The updated reference differs from `reference.jpg` in four more places that this delivery does not cover; they are
+  open with the owner (`pictures.md` H).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - The board and the tray look like the reference (Priority: P1)
@@ -161,6 +193,11 @@ wooden banner, parchment cards, family tabs and outfit cards.
 3. **Given** the Wardrobe (Unity) or the Store's cosmetics (playtest), **When** they are drawn, **Then** they use the
    wooden banner, the parchment name card, family tabs with hero pictures and outfit cards whose worn item is green
    with a check.
+4. **Given** Home over the owner's layered picture, **When** it shows, **Then** the four heroes stand on the painted
+   fountain where the reference shows them, each breathing and swaying in its idle loop, one reacting every few
+   seconds in turn, and a tap on a hero makes it react at once while a tap on any button still does what it did.
+5. **Given** a won level, **When** the win (or the milestone) shows the level's hero, **Then** the hero plays its
+   reaction as it appears and then idles for as long as the screen shows.
 
 ---
 
@@ -190,6 +227,10 @@ inventory.
 - Very long translated labels shrink to the style's minimum inside the new shapes.
 - The level tester keeps its minimal look.
 - A missing generated or owner picture falls back to the drawn stand-in.
+- A family whose animated frames are missing shows its still hero on Home and its still celebrating picture (else the
+  group) on the win; over the owner's garden without its fountain layers, Home shows the garden alone, with no heroes.
+- A screen shape from 16:9 to 21:9 keeps the four heroes on the fountain, inside the screen, under the logo and above
+  the level plaque.
 
 ## Requirements *(mandatory)*
 
@@ -207,8 +248,9 @@ inventory.
   (FR-020 to FR-025, owner's decision of 2026-10-02).
 - **FR-003**: Every color and size MUST come from design tokens (no literal colors in screens), and every drawn
   stand-in MUST be a registered asset slot (CLAUDE.md, spec 002 FR-005).
-- **FR-004**: Gameplay stays flat 2D (constitution VII). 3D pictures appear only on Home, the win and milestone
-  screens, the Wardrobe and the profile.
+- **FR-004**: Gameplay stays flat 2D (constitution VII). 3D pictures appear only on Home (and the splash, which shows
+  Home's stage), the win and milestone screens, the Wardrobe and the profile; the animated heroes are pre-rendered flat
+  frames too (FR-028).
 
 #### B. Palette and materials
 
@@ -291,10 +333,11 @@ inventory.
   at the top right, the logo across the top, the diorama (the owner's Home picture, or the heroes on a pedestal with
   the lotus fountain) in the middle, the wooden level plaque, and the big Play button below it. Our other Home entries
   (Wardrobe, Collection, Daily Challenge, rank, milestone teaser, free booster) stay reachable as small cream round
-  buttons and pills along the sides and the bottom. The heroes on Home are deferred by the owner (2026-10-02: placing
-  them around the painted fountain is hard; they come back animated in a later task): over the owner's Home picture,
-  Home and the splash show the picture alone with the logo and the buttons, and only the drawn stand-in (without the
-  picture) keeps its heroes.
+  buttons and pills along the sides and the bottom. Over the owner's Home picture the heroes were first deferred by the
+  owner (2026-10-02: placing them around the painted fountain is hard); the owner's layered Home and animated heroes of
+  the same day bring them back (FR-028): over the layered picture, Home and the splash stand the four animated heroes
+  on the painted fountain; the drawn stand-in (without the picture) keeps its still heroes; over an owner picture
+  without the fountain layers (a splash picture of its own, B6), no heroes show (`HomeStage.ShowsHeroes`).
 - **FR-025**: The Wardrobe MUST follow the reference layout (contracts/look.md §6.5) in both builds; the playtest gets
   a Wardrobe screen (equipping through the shared `WardrobeService`) instead of only the Store's cosmetics tab.
 - **FR-026**: Board tile icons MUST be the reference's "gem" icons: the variant symbol about 56% of the tile with a
@@ -303,12 +346,33 @@ inventory.
   leaves) MUST be replaceable by the owner's pictures (pictures.md D): when a picture file exists, both builds draw it
   instead of the drawn icon or leaves.
 
+#### H. The owner's layered Home and animated heroes (owner's delivery, 2026-10-02)
+
+- **FR-028**: Home and the splash MUST draw the owner's layered Home over the garden (contracts/look.md §6.4): the
+  fountain's back, Drop and Bloom on their soft shadows, the lotus again (Bloom stands behind it), Sprig and Twig on
+  theirs, the fountain's front over the heroes' feet and the petals drifting, then the UI on top, every layer in the
+  box the backdrop cover-fits the garden into. The four heroes MUST stand where the reference shows them (Sprig at the
+  left, Bloom behind the lotus, Drop at the right back, Twig at the right front) and move as the owner's table says:
+  each loops its 4 s idle from its own phase, they take turns to play their 2 s reaction (one every 6 s, each starting
+  on its idle's first pose), and a tap on a hero makes it react at once, cross-fading from the idle frame it
+  interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill or the plaque. Once
+  the Wardrobe is open each hero wears its outfit (trail, skin, the expression on a badge, the hat turned with the
+  head). The splash shows the same stage and motion, so it turns into Home without a jump. The win and the milestone
+  MUST show the level's main family as its animated hero on the pedestal: its reaction from the moment it appears, then
+  its idle for as long as the screen shows (the still celebrating picture, then the group, while the frames are
+  missing). The heroes MUST be pre-rendered flat frames (`tools/heroanim`, research D18): no 3D model, scene or camera
+  in the game (constitution VII). The Wardrobe, the profile, gameplay and the milestone's group keep the still
+  pictures. A build MUST NOT keep all frames decoded: it loads a frame when first drawn and keeps a bounded cache.
+
 ### Key Entities
 
 - **Material picture**: an engine-free RGBA picture of a material (wood, stone, parchment, candy tile) rendered at a
   pixel size by the kit and cached by each build.
 - **Tile look**: a variant's candy tile in one of two styles: board (small, embossed symbol) and sticker (pods, slots,
   jam row: a detailed symbol with a light edge).
+- **Hero frame**: one pre-rendered picture of a hero's idle or reaction, cropped from a 448 × 504 cell whose feet line
+  is at 90% of its height, with its crop and two head points in the kit (`HeroMotion`).
+- **Home layer**: one picture of the owner's layered Home with its box in the 852 × 1846 picture (`HomeLayers`).
 
 ## Success Criteria *(mandatory)*
 
@@ -323,11 +387,20 @@ inventory.
 - **SC-004**: No screen file uses a literal color or size, and every new stand-in is a registered asset slot that
   appears in the regenerated asset inventory.
 - **SC-005**: `pictures.md` lists every owner picture with its slot.
+- **SC-006**: Every family has a 4 s idle loop (48 frames at 12 fps) and a 2 s reaction (24 frames), both starting and
+  ending on the idle's first pose, as the owner's table says (`HeroMotionTests`).
+- **SC-007**: The 288 hero frames take under 12 MB in the repository, and `node tools/heroanim/check.mjs` verifies every
+  frame, every Home layer and the generated kit files against the last bake.
+- **SC-008**: On every screen shape from 16:9 to 21:9 the four heroes' seam pictures lie inside the screen, under the
+  logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).
+- **SC-009**: In the preview and on a device, a tap on a hero makes it react and a tap on Play, a side button,
+  Settings, the Petals pill or the plaque does what it did before FR-028.
 
 ## Assumptions
 
 - The owner's later 3D heroes and backgrounds will be delivered as PNG files at the listed sizes, and the builds will
-  show them through the existing picture slots.
+  show them through the existing picture slots. The animated heroes came as FBX models instead (2026-10-02); they are
+  pre-rendered into PNG frames offline (FR-028), never loaded as models.
 - The jam keeps our recovery choices (spec 001); the reference's Shuffle button in the jam card is shown only if the
   rules offer Shuffle there.
 - The playtest gets a Wardrobe screen (FR-025, owner's review); its Store cosmetics tab keeps the Wardrobe look for the

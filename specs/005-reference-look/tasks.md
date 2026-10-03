@@ -117,3 +117,33 @@ gameplay, gem board icons, and his own booster icons and leaves (spec.md FR-020 
   through `PushSquash(-1, 1)` and a negative `localScale`, §3.10); the lush gameplay garden (`foliage.*` tokens) and the
   win's garden (`BackdropScene.Win`, `bg.win`, §4.2); grass cells for the picture's background (`UiRaster.Grass`,
   `tile.grass`, §4.1); the slots, the inventory and the docs.
+
+## Owner delivery: animated heroes and layered Home (2026-10-02)
+
+The owner sent the Home picture in layers and the four heroes as animated FBX models, with the clips to use (spec.md
+FR-028, research D18 and D19, contracts/look.md §3.12, §6.3 and §6.4, pictures.md A10 and B1).
+- [X] T025 `tools/heroanim`: the offline bake of the four FBX heroes into 12 fps frames (`bake.mjs`, `page.html`,
+  `serve.mjs`, `png8.mjs`, `heroes.json`; 288 palette PNG files in `Art/Heroes/Resources/HeroMotion/` with their
+  `manifest.json`), the Home layers (`layers.mjs`: the garden as JPEG, the cropped fountain layers, the lotus cut-out,
+  one shadow, the petals), `check.mjs`; the kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
+  with the generated `HeroMotionData.cs` and `HomeLayersData.cs` and `HeroMotionTests`; the source record
+  (`tools/heroanim/SOURCE.md`) and the notices rows (done in a0c7f4a)
+- [ ] T026 Playtest hosts (`playtest/design`, both painters, the preview): the layered Home and the splash with the
+  animated heroes (layer order, shadows, the drifting petals, `HomeMotion` from the splash on, hero taps cut clear of
+  every Home control, outfits once the Wardrobe is open), the win's and the milestone's animated hero, continuous redraw
+  while they move, the frames decoded on first use into a cache bounded by bytes, the preview's frame check
+- [ ] T027 Unity hosts: `HomeLayersView` and `HeroMotionView` (Home and the splash sharing one motion, the touch boxes
+  under the screen's controls, outfits), the win's and the milestone's animated hero (`HeroPictures`), `HeroFrames`
+  (frames loaded one at a time, unloaded when no view holds the family), `Editor/HeroMotionImporter`, the stage choice
+  (`HeroPictures.StageOf`, `HomeStage.ShowsHeroes`), the client check's stubs
+- [ ] T028 Asset slots and inventory: `bg.home.fountain_back`, `bg.home.lotus`, `bg.home.fountain_front`,
+  `bg.home.shadow`, `bg.home.petals` and `char.hero3d.motion.{family}` in `AssetSlots`, the changed `bg.home`,
+  `brand.splash_art`, `char.hero.home` and `char.hero3d.cheer.*` rows; regenerate
+  `specs/002-ux-design-board/asset-inventory.md`
+- [X] T029 Docs: spec.md (clarification, FR-024 amended, FR-028, SC-006 to SC-009), research D18 and D19, look.md
+  §3.12, §4.4, §4.5, §5, §6.3 and §6.4, pictures.md (A10, B1's layers, H), this section, plan.md's addendum,
+  `CLAUDE.md`, `playtest/README.md`, `client/README.md`, the originality checklist (the Meshy plan), `tools/heroanim`'s
+  README and source record
+- [ ] T030 Run every suite (core, client check, backend, playtest check, preview, art check, `tools/heroanim` check,
+  Android type-checks) and review the layered Home, the splash and the win in the preview at 16:9, 19.5:9 and 21:9;
+  move the progressed Home's rank pill out of the right column, where it covers Drop's head (look.md §6.4)

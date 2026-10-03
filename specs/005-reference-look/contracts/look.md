@@ -410,6 +410,54 @@ Names in `OwnerPictures.IconFolder`, for the eight launch variants (`OwnerPictur
 - The lotus: `Kit.Petal` and `UiKit.PetalIcon` (`UiKit.SetIconParts` with `GardenLook.Lotus`) draw the picture in the
   drawn lotus's box wherever the Petals show, faded like a booster picture when grey.
 
+### 3.12 The owner's animated heroes (owner's delivery, FR-028, research D18)
+
+`tools/heroanim` pre-renders the owner's four FBX heroes offline into flat frames (constitution VII: no model, scene or
+camera in the game). The kit's `HeroMotion` (`HeroMotion.cs`, with the generated `HeroMotionData.cs`) describes them
+for both builds; Home places them with `HomeLayers` (§6.4), the win and the milestone in their hero box (§6.3).
+
+- **Frames**: `Art/Heroes/Resources/HeroMotion/{family}-{idle|react}-{NN}.png` (`HeroMotion.Folder`, `FrameName`),
+  slots `char.hero3d.motion.{family}` (`HeroMotion.Slot`). 12 frames a second (`Fps`): per family 48 idle frames (a
+  4 s loop) and 24 reaction frames (2 s) (`FrameCount`, `Seconds`, `Has`). Both clips start on the idle's first frame
+  (the seam) and the reaction ends on it, so the idle and a reaction join without a jump. Each file is an 8-bit
+  palette PNG with transparency, one palette per family.
+- **The cell**: every frame is cut from one 448 × 504 cell (`CellWidth`, `CellHeight`; the still heroes' 8:9 shape)
+  whose feet line lies 90% down (`FootLine`). The seam pose fills about 84% of the cell's height down to the feet
+  (`Fill`: 0.840 to 0.842) and 58% (Twig) to 82% (Bloom) of its width (`SeamWidth`). A frame is stored cropped to its
+  visible bounds: `HeroFrame.X`, `Y`, `Width` and `Height` are its crop in cell pixels,
+  `HeroMotion.PictureBox(cell, frame)` places it in a cell box on screen, and `HeroMotion.Cell(box)` fits the largest
+  centered 8:9 cell into a box.
+- **Head points**: `HeroFrame.Head` (the head bone, at the chin) and `HeroFrame.Top` (the head's top, at the brow), as
+  shares of the cell, projected from the rig in the bake; `HeroFrame.Roll` is the head's tilt in degrees, clockwise from
+  straight up.
+- **A worn hat** (`HeroMotion.Hat(cell, family, frame, shape)`): a square half the cell wide (as
+  `CharacterArt.HatOnHero` on the stills), its middle on the chin-to-brow line, `HatLift` × that line's length above the
+  brow plus 6% of its size (so its brim, about 71% down its box, overlaps the head by 15% of its size), turned by `Roll`
+  about its box's middle; a `sprout` rises a quarter of its size more, so its stem grows from the head's top. `HatLift`:
+  Sprig and Bloom 0 (the brow is the top of their face discs; their leaves and petals poke out beside the hat), Drop
+  0.35 (halfway up its pointed head, whose tip pokes into the hat), Twig 0.55 (the hat sits on its acorn cap).
+- **Timing** (`HeroMotionPlayer(family, idleOrigin)`, deterministic in its inputs): the idle shows its first frame at
+  `idleOrigin` and every 4 s after. `React(now, waitForSeam)` starts the reaction at the next seam when asked to wait or
+  when that seam is at most `MaxSeamWait` (0.35 s) away, else at once, cross-fading from the idle frame it interrupts
+  over `DissolveSeconds` (0.12 s); a request while a reaction plays or waits is ignored; after it the idle starts over
+  from the seam. `Pose(now)` gives the `HeroPose`: its clip and frame index, and while it cross-fades the idle frame it
+  comes from (`FromIdle`, else −1) and that frame's alpha (`FromAlpha`).
+- **Drawing a pose**: the frame `HeroMotion.Frame(family, pose.Clip, pose.Index)` in its picture box; while
+  `pose.FromIdle ≥ 0`, the idle frame `FromIdle` over it at `FromAlpha`. In an outfit (on Home once the Wardrobe is
+  open): the trail behind (`CharacterArt.TrailBox(cell)`), the skin pattern through the frame's own alpha (as on the
+  still hero), the worn expression on its cream badge (`CharacterArt.ExpressionBadge(cell)`: the frames have no faceless
+  twin, so always the badge) and the hat at `HeroMotion.Hat`. A hero is never a button: no press look, no click sound.
+- **Loading**: a frame is loaded when it is first drawn and kept in a bounded cache, never all 288 (about 140 MB as
+  RGBA). The playtest embeds the folder under `heromotion/` (`PainterBase.HeroMotionPrefix`), keeps the frames it drew
+  as palette pictures (one byte a pixel) in a cache bounded by bytes, the least recently drawn dropped first, and
+  expands only the frames on screen to RGBA (`playtest/design/HeroFrames.cs`; `Visuals.HasMotion`,
+  `Visuals.MotionHero`). Unity loads a family's frames one at a time from `Resources` and unloads them when no view
+  holds the family (`HeroFrames`, `HeroFrameSet.Hold`); `HeroMotionView` shows one hero in its cell and changes its
+  images only when the frame changes; `Editor/HeroMotionImporter` imports the frames and the `home-*.png` layers as
+  full-rect sprites without mipmaps, alpha as transparency, clamped and compressed, without a readable copy.
+- **Fallbacks**: while a family's frames are missing, Home shows its still hero (`CharacterArt.Hero`) in its cell, and
+  the win and the milestone its celebrating picture (`CharacterArt.Cheer`), else the group.
+
 ## 4. Screens
 
 Positions and order stay as in spec 002; only the looks change.
@@ -515,16 +563,22 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   below its middle, as large as the room from the heads to the pedestal's foot allows), with light rays behind (clipped
   above the card, fading in, alpha 0.85) and falling petals around. The group picture has no base of its own. When the
   owner's celebrating hero of the level's main family exists (pictures.md A7, `char.hero3d.cheer.*`; the family of the
-  variant with the most work), it stands alone on the pedestal instead of the group. A light sprinkle of confetti falls
+  variant with the most work), it stands alone on the pedestal instead of the group. Since the owner's delivery
+  (FR-028, §3.12, §6.3) that family's animated hero stands there first, when its frames exist: its reaction from the
+  moment it appears, then its idle for as long as the card shows; the still celebrating picture, then the group, stand
+  in while the frames are missing. A light sprinkle of confetti falls
   for 2.2 s only above the card, so the picture, the reward and Next stay clean. Pause stays visible and usable over the
   win card in both builds (FR-002: the card changes no tap outcome, so Home, Restart and Settings stay reachable from
   it, as before spec 005). The celebration (rays, petals, Next breathing) animates for about
-  8 s after the card shows, then rests on its last frame until the next input, so an idle win card costs no frames.
+  8 s after the card shows, then rests on its last frame until the next input, so an idle win card costs no frames;
+  an animated hero keeps the card drawing for as long as it shows (its 12 fps frames; the playtest at its slower
+  celebration rate).
 - The reward as a cream pill (`CostPill` style, `size.reward_pill_height` = 104 units tall, `ui.pill.reward`) "+N"
   with the lotus, counting up, a sparkle at the lotus and petals bursting out; a dropped booster charge below it as its
   icon and "+1 Name".
 - Next: `PrimaryButton` (wood rim, decorated, breathing). ×2: cream secondary with the ad glyph.
-- Milestone (frame 16): the same sign ("Level N"), heroes, rays and petals; "Milestone reached!" in `InkBrownSoft`;
+- Milestone (frame 16): the same sign ("Level N"), heroes (the level's animated hero as on the win), rays and petals;
+  "Milestone reached!" in `InkBrownSoft`;
   each reward's icon on a cream tile with its amount in a cream pill over the tile's bottom edge; Continue (primary,
   decorated, breathing).
 
@@ -537,14 +591,16 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 - Level: a `WoodSign` (None) plaque with "Level N", as tall as its row and as wide as the letters plus 1.5 × its height.
 - Play: the big primary button in its wood rim.
 - Settings, Petals pill per §3.3–3.4.
-- Heroes, deferred by the owner on 2026-10-02 (placing them around the painted fountain is hard; they come back
-  animated in a later task): over the owner's Home picture (pictures.md B1) Home and the splash show no heroes, no
-  pedestal and no drawn fountain, only the picture with the logo, Settings, the Petals pill, the side buttons, the
-  plaque, Play and the pills (`HomeStage.ShowsHeroes`). Without the picture, the drawn stage
+- Heroes (`HomeStage.ShowsHeroes`; first deferred by the owner on 2026-10-02 over the single Home picture, then
+  delivered animated the same day, FR-028): over the owner's layered Home (pictures.md B1: the garden with its
+  fountain layers) Home and the splash stand the four animated heroes on the painted fountain (§6.4 "The layered
+  Home", §3.12), no pedestal and no drawn fountain, with the logo, Settings, the Petals pill, the side buttons, the
+  plaque, Play and the pills over them. Without the owner's picture, the drawn stage
   `HomeStage.ReferenceDiorama` (kit `HomeLook.cs`, §6.4): a `StonePedestal` ring, the lotus fountain on it
   (`Kit.LotusFountain`, `ui.fountain`: a small pedestal as its basin, water, two lily pads, the lotus) and the four
-  heroes around it as in the reference (Bloom raised behind the fountain, Drop at the right back, Sprig at the left,
-  Twig in front at the right), early and progressed alike, each in its outfit once the Wardrobe is open. The splash
+  still heroes around it as in the reference (Bloom raised behind the fountain, Drop at the right back, Sprig at the
+  left, Twig in front at the right). Over an owner picture without the fountain layers (a splash picture of its own,
+  B6) no heroes show. Early and progressed alike, each hero wears its outfit once the Wardrobe is open. The splash
   shows the Home picture until its own (B6) exists (`OwnerPictures.Resolve`) and the same stage as Home, so it turns
   into Home without a jump. The Leafling guest (spec 004 R17) was removed by the owner on 2026-10-02.
 - The milestone teaser and the rank row are parchment pills (`Kit.ParchmentPill`) with the outlined pink gift or gold
@@ -607,6 +663,9 @@ tagline is `brand.tagline` (kind `External`, not drawn yet); the optional celebr
 `char.hero3d.cheer.sprig|bloom|drop|twig` (`CharacterArt.CheerSlot`, picture `CharacterArt.Cheer(family)` =
 `3d/{family}-cheer`), with the group picture standing in until they exist. The owner's 3D pictures share the
 `tools/artgen` folder: `adopt` marks them `"source": "owner"` in its `manifest.json` (`tools/artgen/README.md`).
+The owner's layered Home and animated heroes (FR-028, §3.12, §6.4) add `bg.home.fountain_back`, `bg.home.lotus`,
+`bg.home.fountain_front`, `bg.home.shadow` and `bg.home.petals` (`HomeLayers.SlotOf`; `bg.home` stays the garden
+layer) and `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`), with the still heroes as their stand-in.
 
 ## 6. Reference layouts (owner's review, spec 005 FR-020 to FR-025)
 
@@ -712,7 +771,7 @@ lightened); no top bar.
 | Sign | `0.66W × 0.13H`, centered, top at 7.5% of H (flower clusters over both ends, out to `0.04W` from the edges) |
 | Picture | the finished picture in its stone frame, at most `0.8W` wide, top at 21.5% and bottom at most at 58% of H |
 | Rays and petals | centered on the hero, radius `0.6W`, behind the hero; petals over the whole screen |
-| Hero | the celebrating hero of the level's main family (or the group), centered, from 50% to 76% of H, overlapping the picture's foot |
+| Hero | the level's main family (its animated hero, else its celebrating picture, else the group), centered, from 50% to 76% of H, overlapping the picture's foot |
 | Pedestal | `0.8W` wide, from 70.5% to 81.5% of H, top ellipse at about 73.8% under the hero's feet (73.4%); with the owner's win picture its own stone disc is the stage instead |
 | Reward pill | `0.47W × 0.09H`, centered, from 76% to 85% of H (on the pedestal's front) |
 | Next | the primary button in its wood rim, `0.84W` wide, from 86% to 96% of H; ×2 reward as a small cream pill under it when offered, or beside the reward pill |
@@ -726,6 +785,15 @@ drawn from the screen's top, centered across, at least cover-sized and as large 
 are boxes at most `0.21W` wide and `0.13W` tall beside the reward pill, right and left, `0.02W` from it. `Pause` is a
 cream squircle `0.11W` square, `0.03W` from the left and `0.015W` under the top inset: no top bar shows, but Pause stays
 usable over the win (FR-016), so Home, Restart and Settings stay reachable.
+The animated hero (owner's delivery, FR-028, §3.12): when the level's main family has its frames, it stands in
+`HeroMotion.Cell(Hero)` (the 8:9 cell fitted into the hero box, its foot line where the still hero's feet stand) instead
+of the celebrating picture, played by a `HeroMotionPlayer(family, idleOrigin: t0)` with `React(t0, waitForSeam: true)`,
+t0 the moment the hero appears (after the entrance delay the win already has: in the playtest 0.1 s after the card
+shows, as it starts rising in; in Unity when the celebration shows). The reaction (2 s) therefore plays first, from the
+idle's first pose, and then the idle loops for as long as the screen shows. The hero's entrance, the rays, the petals
+and the confetti stay as they were; the hero wears no outfit (as the celebrating picture). The milestone screen shows
+the level's hero the same way. The group and the still celebrating picture stay as the fallbacks while the frames are
+missing.
 Playtest (`EndCards.Win`, `EndCards.Milestone`): the win fades in over the gameplay for `EndCards.WinFadeSeconds`
 (0.35 s), then replaces it (`LevelScreen`); the picture hangs from the top of its box (as large as fits) and pops in;
 the sign slides down, its title in two lines when one would be small (each line 34% of the plank's height), the flower
@@ -755,8 +823,8 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
 | Petals pill | `0.38W × 0.095W`, right edge − `0.02W`, top 2.5% of H |
 | Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
-| Diorama | from 22% to 70% of H: the owner's Home picture behind everything, without heroes for now (`HomeStage.ShowsHeroes`); else the drawn garden with the heroes on a pedestal with the lotus fountain, centered at 50% |
-| Side buttons | Wardrobe, Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill under the Petals pill |
+| Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
+| Side buttons | Wardrobe, Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill (its place: see "Fixed") |
 | Level plaque | wooden sign `0.5W × 0.085H`, centered, from 64% to 72.5% of H |
 | Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H; the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
 | Teaser | the milestone teaser as a small parchment pill centered under Play (89.5%–93.5%); the free booster as a cream pill beside it when offered |
@@ -766,38 +834,104 @@ and faded at 70% alpha over the garden in the band under the teaser, so the layo
 Petals pill (without the "+" while the Store is locked, its amount follows the lotus) is centered
 on the Settings button's height; the logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side
 columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0.03W` apart (`SideButton(right, i)` for
-more, such as the avatar); the rank pill (`0.3W × 0.075W`) sits under the right column, right-aligned at `0.04W` (under
-the Petals pill there is no room for its touch target); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
+more, such as the avatar); the rank pill (`0.3W × 0.075W`) sat under the right column, right-aligned at `0.04W` (under
+the Petals pill there is no room for its touch target), where it covers Drop's head on the layered Home, so it moves
+(not final; tasks.md T030); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
 from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
-Over the owner's Home picture there are no heroes for now (`HomeStage.ShowsHeroes`): the owner deferred them on
-2026-10-02, and they come back animated in a later task. For that task, the placement measured on the reference (its
-code, `HomeStage.AroundFountain`, is removed): the picture cover-fitted over the screen (the larger scale, centered),
-the anchor F its lotus's middle (50%, 45.5% of the picture) and the unit L the lotus's width (0.30 of the picture's
-width, 324 px at 1080 wide); back to front (`HomeStage.Figure(x, feet, height)`): Bloom `(F.x, F.y − 0.27L, 1.47L)`
-behind the lotus, Drop `(F.x + 0.70L, F.y + 0.55L, 1.30L)` at the right back, Sprig `(F.x − 0.97L, F.y + 0.86L, 1.81L)`
-at the left front and Twig `(F.x + 1.13L, F.y + 1.05L, 1.40L)` at the right front; the player's hero swapped into
-Sprig's place; when Bloom's head (12% down its box) would rise above the logo's letters all four shrank about F until
-it cleared.
+
+**The layered Home** (owner's delivery, FR-028, research D19; kit `HomeLayers` and `HomeMotion` in `HomeLayers.cs`,
+the boxes in the generated `HomeLayersData.cs`). Over the owner's garden with its fountain layers (pictures.md B1),
+Home and the splash draw, back to front:
+1. the garden `home` (`bg.home`), cover-fitted and centered, as every Home backdrop draws it;
+2. the fountain's back `home-fountain-back` (`bg.home.fountain_back`);
+3. Drop, then Bloom (`HomeLayers.DrawOrder`; `BehindLotus` says which go before the lotus), each over its shadow;
+4. the lotus `home-lotus` (`bg.home.lotus`), cut out of the fountain's back and drawn again over Bloom;
+5. Sprig, then Twig, each over its shadow;
+6. the fountain's front `home-fountain-front` (`bg.home.fountain_front`), over the heroes' feet;
+7. the petals `home-petals` (`bg.home.petals`), drifting;
+8. the UI: the logo, Settings, the Petals pill, the side buttons, the plaque, Play and the pills.
+
+Every layer lies at `HomeLayers.Place(HomeLayers.Cover(screen), layer)`, `screen` the full-screen box the backdrop
+cover-fits the garden into: `Cover` lays the 852 × 1846 picture (`PictureWidth`, `PictureHeight`) over it at the larger
+scale, centered, and `Place` scales a layer's box in the picture's pixels into it, so the heroes stay on the fountain
+on every screen shape.
+
+| Layer (`HomeLayers`) | Box in the picture (x, y, width × height) |
+|---|---|
+| `Back`: `home.jpg` | 0, 0, 852 × 1846 |
+| `FountainBack`: `home-fountain-back.png` | 0, 700, 852 × 540 |
+| `Lotus`: `home-lotus.png` | 294, 835, 269 × 159 |
+| `FountainFront`: `home-fountain-front.png` | 0, 987, 852 × 342 |
+| `Petals`: `home-petals.png` | 13, 166, 827 × 1048 (its start; it drifts) |
+| `Shadow`: `home-shadow.png` | 410 × 175 (cut at 0, 918; drawn at each hero's `ShadowBox`) |
+
+The heroes (`HomeLayers.Placement(family)`, measured on the reference's Home and fitted to the layered fountain: the
+feet's middle as shares of the picture's width and height, the seam pose's height as a share of the picture's width;
+`Phase`: how far into its idle loop each starts, so the four do not breathe together):
+
+| Hero | Feet x | Feet y | Height | Where | Phase |
+|---|---|---|---|---|---|
+| Drop | 0.705 | 0.532 | 0.34 | the right back | 2.6 s |
+| Bloom | 0.505 | 0.49 | 0.45 | behind the lotus, its feet hidden | 1.3 s |
+| Sprig | 0.235 | 0.56 | 0.40 | the left rim, its feet behind the front flowers | 0 |
+| Twig | 0.83 | 0.568 | 0.33 | the right rim, its feet behind the front flowers | 0.7 s |
+
+`HomeLayers.HeroCell(picture, family)` is the hero's frame cell (§3.12): `Height` × the picture's width ÷
+`HeroMotion.Fill` tall, 8:9, its foot line on the feet (without frames, the still hero's box with the figure 0.8 of
+it). The shadow (`HomeLayers.ShadowBox`) is the shadow picture as wide as the seam pose (`HeroMotion.SeamWidth` of the
+cell), its middle 8% of its height below the feet, at `ShadowAlpha` 0.85. The places are fixed: the player's hero does
+not swap with Sprig here (it does on the drawn stand-in).
+
+The petals (`HomeLayers.PetalsAt(picture, t)`, t the seconds since Home or the splash opened): the petals' box moved
+down `PetalsSpeed` = 22 picture pixels a second, wrapping round the picture's height (a lap in about 84 s), and
+sideways `PetalsSway` = 14 picture pixels × sin(2π t ÷ `PetalsSwaySeconds`), `PetalsSwaySeconds` = 7 s; drawn there
+and one picture height higher, at `PetalsAlpha` 0.9, smoothly at the display rate.
+
+The motion (`HomeMotion(start)`, made when Home or the splash appears; the splash's carries on into Home): each hero
+idles from `start − Phase(family)`. `Update(now)`, called every drawn frame, starts the reactions whose turn came: the
+first `FirstReaction` = 1.5 s after the start, then one every `ReactionEvery` = 6 s, in `ReactionOrder` (Bloom, Sprig,
+Drop, Twig, then again), each at its hero's next seam. Each hero draws `Player(family).Pose(now)` (§3.12). Home keeps
+drawing while it shows (at least the heroes' 12 fps, the petals at the display rate), under a card too.
+
+Taps: a tap on a hero's seam picture box (`HeroMotion.PictureBox(HeroCell, Frame(family, Idle, 0))`) calls
+`HomeMotion.Tap(family, now)`: the hero reacts at once, cross-fading from its idle, unless it already reacts. A hero
+never takes a tap from Play, the side buttons, Settings, the Petals pill or the plaque: the playtest cuts each hero's
+touch box clear of every Home control and of the heroes in front of it (a part smaller than `size.touch_min` takes
+none); Unity's clear touch boxes lie in the stage under the screen's controls, which keep their taps. The splash takes
+no hero taps.
+
+The splash shows the same stage from its first frame (the fountain is part of the garden at once), its heroes fading in
+on it (the playtest also lifts them by `0.04W`, as the drawn stand-in's heroes rise in) in Home's motion and outfits, so
+Home takes over without a jump. Once the Wardrobe is open each hero wears its outfit (§3.12).
+
+Fallbacks: a family without frames shows its still hero in its cell; without the fountain layers Home shows the garden
+alone, with no heroes (`HomeStage.ShowsHeroes`, Unity `HeroPictures.StageOf`); without the shadow or the petals
+picture those are left out. The earlier measurement for the single Home picture (`HomeStage.AroundFountain`, removed)
+is superseded by `HomeLayers.Placement`.
+
 The drawn diorama (without the owner's picture) is `HomeStage.ReferenceDiorama(stage)` (in `u = min(0.88 × stage
 width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's stone ring `0.78u` wide with its foot
 `0.09u` above the stage's bottom, the lotus fountain on it, Bloom raised behind the fountain (`0.64u` picture, feet
 `0.51u` up), Drop at the right back (`0.44u` at `+0.30u`), Sprig at the left (`0.74u` at `−0.26u`), Twig in front at the
 right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest stacks only the
 unlocked side buttons (left: Wardrobe, Collection, the avatar; right: Daily Challenge, Store), the rank pill following
-the right column; its splash shows the logo and the diorama in the same boxes.
+the right column for now (it moves, T030); its splash shows the logo and the diorama in the same boxes.
 
-Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it shows from its top with `SideButton(right, i)`
-(left: Wardrobe `ui.shirt`, Collection `ui.grid`, the profile avatar; right: the Daily Challenge, the sun `ui.sun` with
-the green check badge when done today, and the Store, the lotus), and the rank pill sits under the right column's last
-button; the logo shows in both looks, the owner's logo picture sized by width (`ReferenceHomeRegions.LogoPicture`:
-`0.82W` wide, centered on the logo box, its top no higher than a tenth of its height above Settings' bottom); over the
-owner's Home picture both looks show no heroes for now (`HomeStage.ShowsHeroes`); without the picture, the drawn
-`HomeStage.ReferenceDiorama`, where once the Wardrobe is open each hero wears its outfit and the player's hero
-(`ProfileAvatar.HeroFamily`) swaps places with Sprig at the left front; Play shows its label alone, `ReferenceHomeRegions.PlayLabelShare` of its
-height; the Petals pill without its "+" starts the amount right after the lotus; the plaque is `0.5W`, wider when its
-letters need it (at most `0.8W`); the free booster is the cream `CostPill` "Free"; the rank pill and the free booster
-take taps in clear boxes grown to `size.touch_min`; the splash takes the Home garden while its own picture is missing
-(`OwnerPictures.Resolve`) and puts its logo (and, on the drawn stand-in, its heroes) where Home shows them.
+Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it shows from its top with
+`SideButton(right, i)` (left: Wardrobe `ui.shirt`, Collection `ui.grid`, the profile avatar; right: the Daily Challenge,
+the sun `ui.sun` with the green check badge when done today, and the Store, the lotus), and the rank pill sat under the
+right column's last button (it moves, T030); the logo shows in both looks, the owner's logo picture sized by width
+(`ReferenceHomeRegions.LogoPicture`: `0.82W` wide, centered on the logo box, its top no higher than a tenth of its
+height above Settings' bottom); over the owner's layered Home both looks show its stage with the four animated heroes
+(`HeroPictures.Stage`, `HomeLayersView` with one `HeroMotionView` per hero, built under the screen's controls;
+`HeroPictures.StageOf` picks the stage); without the picture, the drawn `HomeStage.ReferenceDiorama`, where once the
+Wardrobe is open each hero wears its outfit and the player's hero (`ProfileAvatar.HeroFamily`) swaps places with Sprig
+at the left front; Play shows its label alone, `ReferenceHomeRegions.PlayLabelShare` of its height; the Petals pill
+without its "+" starts the amount right after the lotus; the plaque is `0.5W`, wider when its letters need it (at most
+`0.8W`); the free booster is the cream `CostPill` "Free"; the rank pill and the free booster take taps in clear boxes
+grown to `size.touch_min`; the splash takes the Home garden while its own picture is missing (`OwnerPictures.Resolve`)
+and puts its logo and its heroes where Home shows them; over the layered Home the splash and Home share one `HomeMotion`
+while both show, so Home takes over the splash's motion without a jump.
 
 ### 6.5 Wardrobe (both builds)
 
