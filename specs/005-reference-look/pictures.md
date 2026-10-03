@@ -194,10 +194,8 @@ character sheet) and the animated heroes (A10); C1; G9–G24 and the lotus. What
 
 ## H. Still awaited from the owner, and open questions (2026-10-03)
 
-1. **The Meshy plan of the four models** (to confirm before release): Meshy's terms give the output to its creator on
-   the paid plans, while output made on the free plan is published under CC BY 4.0, which needs an attribution. Which
-   plan made them? (`tools/heroanim/SOURCE.md`; the release checklist
-   `specs/001-core-game-mvp/checklists/originality.md` keeps it open.)
+1. ~~The Meshy plan of the four models~~: answered on 2026-10-03, a personal Meshy licence, so the models are the
+   owner's and need no attribution (`tools/heroanim/SOURCE.md`).
 2. G1–G8: the eight variant characters (walkers, the Bloomlings sheet); `tools/artgen` draws them until then.
 3. A5: the faceless still heroes; `tools/artgen` draws the blanks until then.
 4. Later: the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects.
@@ -208,8 +206,8 @@ character sheet) and the animated heroes (A10); C1; G9–G24 and the lotus. What
    - more reaction clips, for example a celebration for the win (Bloom's and Drop's files already carry a happy jump
      and a joyful dance, Drop's also a victory; unused for now);
    - a blink: the idle guide (`3.webp`) shows one, but the models' rig has no face bones, so the clips do not blink.
-7. **The updated reference (`4.webp`) differs from what is built in four places** that this delivery does not cover;
-   to confirm before they are built:
+7. **The updated reference (`4.webp`) differs from what is built in four places**; the owner decided on 2026-10-03
+   not to build them (they stay as built):
    - the win's reward: one chip per variant of the level (its candy tile and "+30" each) instead of the one "+N"
      Petals pill; it would change what the reward shows (spec 001 economy), not only its look;
    - the jam card: an acorn character (Twig) peeks over the card's top edge;

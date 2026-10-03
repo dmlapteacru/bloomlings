@@ -4,7 +4,7 @@
 |---|---|
 | Delivered | by the project owner on 2026-10-02, in conversation: four rigged and animated FBX models and `bloomlings_home_assets.zip` (the Home picture in five layers, with a README giving the layer order) |
 | Made with | the models: Meshy AI (meshy.ai), text-to-3D with Meshy's auto-rigging and its animation library merged into one file per hero (`Meshy_AI_…_biped_Meshy_Merged_Animations.fbx`); the Home layers: the owner's picture generator (ChatGPT image generation, as the other owner pictures, `tools/artgen/models/owner-pictures.md`) |
-| Rights | the owner's: they delivered the files for the game to use, as with the other owner pictures (owner's statement on 2026-10-02 for the pictures). Meshy's terms give the output to the creator on its paid plans, while output made on its free plan is published under CC BY 4.0 (attribution required). **To confirm with the owner which plan made these models**; until then the release checklist keeps this record open (`specs/001-core-game-mvp/checklists/originality.md`) |
+| Rights | the owner's: they delivered the files for the game to use, as with the other owner pictures (owner's statement on 2026-10-02 for the pictures). the models were made on the owner's personal Meshy licence (owner's statement on 2026-10-03), under which Meshy's terms give the output to its creator: no attribution is needed (the free plan's CC BY 4.0 does not apply) |
 | Constitution | VII: the models are never loaded by the game. `bake.mjs` renders them offline into flat frame pictures, shown on meta screens only (Home and the splash, the win; the milestone card shares the win's hero) |
 
 ## The models
