@@ -50,7 +50,7 @@ namespace Bloomlings.Playtest.Design
         {
             LevelReward? reward = s.Payout?.Reward;
             WinRegions r = ScreenLayout.WinScreen(p.Width, p.Height, p.Insets);
-            Family family = Visuals.MainFamily(s.Session.Definition);
+            Family family = CharacterArt.Celebrant;
             p.PushAlpha(Kit.Ease(since / WinFadeSeconds));
             Garden(p, s, r, since);
             Celebrant hero = Cast(p, r, family);
@@ -143,7 +143,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             WinRegions r = ScreenLayout.WinScreen(p.Width, p.Height, p.Insets);
-            Family family = Visuals.MainFamily(s.Session.Definition);
+            Family family = CharacterArt.Celebrant;
             Garden(p, s, r, since);
             Celebrant hero = Cast(p, r, family);
             Rays(p, r, hero, since);
@@ -437,10 +437,10 @@ namespace Bloomlings.Playtest.Design
 
             public Box Picture { get; }
 
-            /// <summary>The owner's celebrating hero of the level's main family (pictures.md A7), or null for the group.</summary>
+            /// <summary>The owner's celebrating picture of the celebrating family (Twig, <see cref="CharacterArt.Celebrant"/>; pictures.md A7), or null for the group.</summary>
             public string? Cheer { get; }
 
-            /// <summary>Whether the level's main family shows as its animated hero (spec 005 FR-028) in the picture's cell.</summary>
+            /// <summary>Whether the celebrating family shows as its animated hero (spec 005 FR-028) in the picture's cell.</summary>
             public bool Moving { get; }
 
             public float RaysX { get; }
@@ -450,8 +450,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The hero standing on the pedestal (§6.3, spec 004 FR-017): its feet just behind the middle of the pedestal's top,
-        /// the level's main family filling the hero box as its animated hero when its frames exist (spec 005 FR-028), else
-        /// as its celebrating picture when the owner's picture exists (pictures.md A7), else the four heroes, their heads at
+        /// the celebrating family (Twig) filling the hero box as its animated hero when its frames exist (spec 005 FR-028),
+        /// else as its celebrating picture when the owner's picture exists (pictures.md A7), else the four heroes, their heads at
         /// the hero box's top, at most <see cref="GroupShare"/> of the pedestal wide. The rays turn behind its body.
         /// </summary>
         private static Celebrant Cast(IPainter p, WinRegions r, Family family)

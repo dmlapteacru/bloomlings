@@ -22,26 +22,6 @@ namespace Bloomlings.Playtest.Design
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? info.Family : Family.Sprig;
 
         /// <summary>
-        /// A level's main family (the win card's celebrating hero, spec 005 pictures.md A7): the family of the variant with
-        /// the most work in its pods, the first such pod's on a tie.
-        /// </summary>
-        public static Family MainFamily(Core.Definitions.LevelDefinition level)
-        {
-            var work = new System.Collections.Generic.Dictionary<VariantId, int>();
-            VariantId? best = null;
-            foreach (Core.Definitions.PodDef pod in level.Pods)
-            {
-                work[pod.Variant] = (work.TryGetValue(pod.Variant, out int w) ? w : 0) + pod.Count;
-                if (!best.HasValue || work[pod.Variant] > work[best.Value])
-                {
-                    best = pod.Variant;
-                }
-            }
-
-            return best.HasValue ? FamilyOf(best.Value) : Family.Bloom;
-        }
-
-        /// <summary>
         /// A variant's 2D character (spec 004 FR-005 to FR-007): the generated picture whose whole shape is the variant's
         /// symbol, with a face in <paramref name="mood"/>. Without the picture it draws the spec 002 figure: the family
         /// body in the variant color with the symbol in ink (FR-021).

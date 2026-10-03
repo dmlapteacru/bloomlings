@@ -282,3 +282,19 @@ decision records what the reference shows, what we do and why, so the owner can 
   4 s, reactions 2 s); the table stays the reference until the owner changes it.
 - **Alternatives**: keep 12 fps (no visible change from the new files); 30 fps (an even cadence on 60 Hz screens, but
   interpolated poses and 25% more frames than 24).
+
+## D23. Twig celebrates; the owner's new Twig model waits for its colors (2026-10-03; FR-028)
+
+- **Decision**: every win, and the milestone after it, celebrates with Twig (`CharacterArt.Celebrant`, the owner's
+  choice), in both builds, instead of the family of the level's main variant (the two builds' rules also broke ties
+  differently; the one constant removes both).
+- **The new model** (`twig.fbx`, 2026-10-03): exported by Blender 4.2 with its own rig (`Twig_rig_*`, 33 bones, the head
+  bone `Twig_rig_Head`), a 122 721-vertex skinned mesh `Twig` with UVs and one shape key (`Twig_cheer_update_LidsSurface`,
+  the eyelids), three clips (`Twig_Rig|Twig_Breathing` 3 s, `Twig_Rig|Twig_SmallBounce` 1.5 s, `Twig_Rig|Twig_WinCheer`
+  3 s, keyed at 24 a second) and, besides, Blender's default cube, two lights and a camera. Its one material is plain
+  grey (`MeshPhongMaterial`, 0.8 grey) with no texture: the export embedded none (no Texture or Video node in the
+  file) and has no vertex colors, so a bake would draw Twig all grey among the colored heroes.
+- **Next**: with its colors (a re-export with "Path Mode: Copy" and "Embed Textures" on, a `.glb`, or the texture
+  picture for its UVs) the bake takes the new rig's own clips and lengths (idle `Twig_Breathing`, reaction
+  `Twig_SmallBounce`, the win's `Twig_WinCheer`), skips the cube, lights and camera, and follows the hats on
+  `Twig_rig_Head`.

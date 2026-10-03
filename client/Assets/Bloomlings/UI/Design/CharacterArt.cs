@@ -101,6 +101,13 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The asset slot of a family's celebrating hero: <c>char.hero3d.cheer.bloom</c>.</summary>
         public static string CheerSlot(Family family) => "char.hero3d.cheer." + FamilyName(family);
 
+        /// <summary>
+        /// The family that celebrates every won level, on the win and on the milestone that follows it: Twig, the owner's
+        /// choice of 2026-10-03 (spec 005 FR-028). It replaced the level's main family (pictures.md A7). Both builds take
+        /// it from here.
+        /// </summary>
+        public const Family Celebrant = Family.Twig;
+
         /// <summary>The asset slot a picture name belongs to.</summary>
         public static string SlotOf(string picture)
         {

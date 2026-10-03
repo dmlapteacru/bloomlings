@@ -91,34 +91,6 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>The art set name of a family's celebrating hero (pictures.md A7), in <c>Resources/Characters/</c>.</summary>
         public static string CheerPicture(Family family) => "3d/" + CharacterArt.FamilyName(family) + "-cheer";
 
-        /// <summary>
-        /// The family a level celebrates with (pictures.md A7: "the family of the level's main variant"): the family of the
-        /// variant whose pods carry the most tiles, the first in the catalog's order on a tie; Sprig when the level has no
-        /// pods.
-        /// </summary>
-        public static Family MainFamily(IEnumerable<Core.Definitions.PodDef> pods)
-        {
-            var work = new Dictionary<VariantId, int>();
-            foreach (Core.Definitions.PodDef pod in pods)
-            {
-                work.TryGetValue(pod.Variant, out int count);
-                work[pod.Variant] = count + pod.Count;
-            }
-
-            Family best = Family.Sprig;
-            int most = 0;
-            foreach (VariantInfo info in VariantCatalog.Default.All)
-            {
-                if (work.TryGetValue(info.Id, out int count) && count > most)
-                {
-                    most = count;
-                    best = info.Family;
-                }
-            }
-
-            return best;
-        }
-
         /// <summary>The color of a family's silhouette when its picture is missing (the playtest's hero fallback).</summary>
         public static Color ColorOf(Family family) => BloomlingFigure.HeroColor(family);
 

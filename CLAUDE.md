@@ -120,7 +120,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in
   `Art/Backgrounds/Resources/Backgrounds/`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
   place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the
-  reference (idling, taking turns to react, reacting to a tap); the win and the milestone show the level's hero
+  reference (idling, taking turns to react, reacting to a tap); the win and the milestone show Twig (`CharacterArt.Celebrant`)
   reacting, then idling. The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
   scene or camera in the game, only these flat pictures on meta screens. Frames load when first drawn into a bounded
   cache, never all.

@@ -105,7 +105,8 @@ right back, Twig at the right front; the win with one hero on the pedestal) and 
 - Q: Where do the heroes stand? → A: "the same way as in the reference": on the painted fountain, Sprig at the left,
   Bloom behind the lotus, Drop at the right back, Twig at the right front. This lifts FR-024's deferral (FR-028).
 - Q: And the win? → A: "the win too": the level's hero plays its reaction as it appears, then idles. The milestone
-  screen shows the same hero, so it does the same.
+  screen shows the same hero, so it does the same. (Since 2026-10-03 the celebrating hero is always Twig, the
+  clarification "Twig celebrates" below.)
 - Q: A 3D model in the game? → A: No (constitution VII; decision in research D18). The models never enter the game:
   `tools/heroanim` renders them offline into flat frame pictures, shown on meta screens only.
 - Q: When does a hero react on Home? → A: Decided here (research D18): they take turns, one every 6 s (Bloom first,
@@ -147,6 +148,18 @@ rendered (research D21); the owner answered "E".
   centered; a variant whose owner picture is missing shows its sticker tile there.
 - Q: Does a rule change? → A: No. The columns, rows, taps and touch boxes of the previous session stay; presentation
   only (FR-002).
+
+### Session 2026-10-03 (Twig celebrates; Twig's new model)
+
+The owner sent a new Twig and wrote: "Replace the twig fbx with this one, and let it be Twig in the celebration after
+the round."
+- Q: Who celebrates a won level? → A: Twig, on every win and on the milestone that follows it (`CharacterArt.Celebrant`),
+  instead of the family of the level's main variant (FR-028, pictures.md A7). The group still stands in while Twig's
+  frames and picture are missing.
+- Q: Is the new Twig in? → A: Not yet. The new file (`twig.fbx` from Blender 4.2, its own 33-bone rig, the clips
+  `Twig_Breathing` 3 s, `Twig_SmallBounce` 1.5 s and `Twig_WinCheer` 3 s with an eyelid shape key) carries no colors: its
+  material is plain grey and no texture is embedded, though the mesh has UVs. It waits for a re-export with the texture
+  embedded, or the texture picture itself (research D23); until then Twig keeps the Meshy model.
 
 ### Session 2026-10-03 (the owner's 60 fps models)
 
@@ -246,7 +259,7 @@ wooden banner, parchment cards, family tabs and outfit cards.
 4. **Given** Home over the owner's layered picture, **When** it shows, **Then** the four heroes stand on the painted
    fountain where the reference shows them, each breathing and swaying in its idle loop, one reacting every few
    seconds in turn, and a tap on a hero makes it react at once while a tap on any button still does what it did.
-5. **Given** a won level, **When** the win (or the milestone) shows the level's hero, **Then** the hero plays its
+5. **Given** a won level, **When** the win (or the milestone) shows its celebrating hero (Twig), **Then** the hero plays its
    reaction as it appears and then idles for as long as the screen shows.
 
 ---
@@ -433,7 +446,8 @@ inventory.
   interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill or the plaque. Once
   the Wardrobe is open each hero wears its outfit (trail, skin, the expression on a badge, the hat turned with the
   head). The splash shows the same stage and motion, so it turns into Home without a jump. The win and the milestone
-  MUST show the level's main family as its animated hero on the pedestal: its reaction from the moment it appears, then
+  MUST show Twig as its animated hero on the pedestal, whatever the level (`CharacterArt.Celebrant`; the owner's choice
+  of 2026-10-03, which replaced the level's main family): its reaction from the moment it appears, then
   its idle for as long as the screen shows (the still celebrating picture, then the group, while the frames are
   missing). The heroes MUST be pre-rendered flat frames (`tools/heroanim`, research D18): no 3D model, scene or camera
   in the game (constitution VII). The Wardrobe, the profile, gameplay and the milestone's group keep the still

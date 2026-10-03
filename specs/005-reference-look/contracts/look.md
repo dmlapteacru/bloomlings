@@ -601,8 +601,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   picture standing on its top with the heroes' feet, `CharacterArt.GroupFeetShare`, a tenth of the top's half height
   below its middle, as large as the room from the heads to the pedestal's foot allows), with light rays behind (clipped
   above the card, fading in, alpha 0.85) and falling petals around. The group picture has no base of its own. When the
-  owner's celebrating hero of the level's main family exists (pictures.md A7, `char.hero3d.cheer.*`; the family of the
-  variant with the most work), it stands alone on the pedestal instead of the group. Since the owner's delivery
+  owner's celebrating hero of the celebrating family exists (pictures.md A7, `char.hero3d.cheer.*`; Twig,
+  `CharacterArt.Celebrant`, since the owner's choice of 2026-10-03, before it the family of the variant with the most
+  work), it stands alone on the pedestal instead of the group. Since the owner's delivery
   (FR-028, §3.12, §6.3) that family's animated hero stands there first, when its frames exist: its reaction from the
   moment it appears, then its idle for as long as the card shows; the still celebrating picture, then the group, stand
   in while the frames are missing. A light sprinkle of confetti falls
@@ -857,7 +858,7 @@ lightened); no top bar.
 | Sign | `0.66W × 0.13H`, centered, top at 7.5% of H (flower clusters over both ends, out to `0.04W` from the edges) |
 | Picture | the finished picture in its stone frame, at most `0.8W` wide, top at 21.5% and bottom at most at 58% of H |
 | Rays and petals | centered on the hero, radius `0.6W`, behind the hero; petals over the whole screen |
-| Hero | the level's main family (its animated hero, else its celebrating picture, else the group), centered, from 50% to 76% of H, overlapping the picture's foot |
+| Hero | Twig (`CharacterArt.Celebrant`: its animated hero, else its celebrating picture, else the group), centered, from 50% to 76% of H, overlapping the picture's foot |
 | Pedestal | `0.8W` wide, from 70.5% to 81.5% of H, top ellipse at about 73.8% under the hero's feet (73.4%); with the owner's win picture its own stone disc is the stage instead |
 | Reward pill | `0.47W × 0.09H`, centered, from 76% to 85% of H (on the pedestal's front) |
 | Next | the primary button in its wood rim, `0.84W` wide, from 86% to 96% of H; ×2 reward as a small cream pill under it when offered, or beside the reward pill |
@@ -871,14 +872,14 @@ drawn from the screen's top, centered across, at least cover-sized and as large 
 are boxes at most `0.21W` wide and `0.13W` tall beside the reward pill, right and left, `0.02W` from it. `Pause` is a
 cream squircle `0.11W` square, `0.03W` from the left and `0.015W` under the top inset: no top bar shows, but Pause stays
 usable over the win (FR-016), so Home, Restart and Settings stay reachable.
-The animated hero (owner's delivery, FR-028, §3.12): when the level's main family has its frames, it stands in
+The animated hero (owner's delivery, FR-028, §3.12): when the celebrating family (Twig) has its frames, it stands in
 `HeroMotion.Cell(Hero)` (the 8:9 cell fitted into the hero box, its foot line where the still hero's feet stand) instead
 of the celebrating picture, played by a `HeroMotionPlayer(family, idleOrigin: t0)` with `React(t0, waitForSeam: true)`,
 t0 the moment the hero appears (after the entrance delay the win already has: in the playtest 0.1 s after the card
 shows, as it starts rising in; in Unity when the celebration shows). The reaction (2 s) therefore plays first, from the
 idle's first pose, and then the idle loops for as long as the screen shows. The hero's entrance, the rays, the petals
 and the confetti stay as they were; the hero wears no outfit (as the celebrating picture). The milestone screen shows
-the level's hero the same way. The group and the still celebrating picture stay as the fallbacks while the frames are
+Twig the same way. The group and the still celebrating picture stay as the fallbacks while the frames are
 missing.
 Playtest (`EndCards.Win`, `EndCards.Milestone`): the win fades in over the gameplay for `EndCards.WinFadeSeconds`
 (0.35 s), then replaces it (`LevelScreen`); the picture hangs from the top of its box (as large as fits) and pops in;

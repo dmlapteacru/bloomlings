@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Screens;
-using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Variants;
 using NUnit.Framework;
 
@@ -83,17 +82,9 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void AWin_CelebratesWithTheFamilyOfItsMainVariant()
+        public void EveryWin_CelebratesWithTwig()
         {
-            var pods = new[]
-            {
-                new PodDef("a", VariantId.Water, 5, false, null, null),
-                new PodDef("b", VariantId.Leaf, 6, false, null, null),
-                new PodDef("c", VariantId.Water, 4, false, null, null),
-            };
-            Assert.That(HeroPictures.MainFamily(pods), Is.EqualTo(Family.Drop), "Water's pods carry nine tiles");
-            Assert.That(HeroPictures.MainFamily(new[] { pods[0], pods[1] }), Is.EqualTo(Family.Sprig), "Leaf's six tiles");
-            Assert.That(HeroPictures.MainFamily(new PodDef[0]), Is.EqualTo(Family.Sprig), "no pods: Sprig");
+            Assert.That(CharacterArt.Celebrant, Is.EqualTo(Family.Twig), "the owner's choice of 2026-10-03");
         }
     }
 }

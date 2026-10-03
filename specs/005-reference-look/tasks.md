@@ -211,3 +211,12 @@ The owner sent the four FBX heroes again, exported at 60 fps, to replace the oth
   `reactSeconds`); the bake at 24 fps: 576 frames, the regenerated `HeroMotionData.cs` and manifests.
 - [X] T041 The hosts: the playtest's frame cache at 60 MiB (`PainterBase.HeroFrameCacheBytes`), the frame counts in
   `HeroFramesTests` and the comments; every suite; the playtest APK built.
+
+## Owner review: Twig celebrates; Twig's new model (2026-10-03)
+
+See spec.md (the clarification "Twig celebrates") and research D23.
+- [X] T042 The kit's `CharacterArt.Celebrant` (Twig) replaces the level's main family on the win and the milestone in
+  both builds (`EndCards`, `WinScreen`, `MilestoneCard`; `Visuals.MainFamily` and `HeroPictures.MainFamily` removed),
+  with its test and the docs.
+- [ ] T043 The owner's new `twig.fbx`: waits for its colors (research D23). Then the bake takes its rig, clips and lengths
+  (idle `Twig_Breathing`, reaction `Twig_SmallBounce`, the win's `Twig_WinCheer`) and the hosts play the win clip.
