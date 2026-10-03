@@ -270,7 +270,8 @@ namespace Bloomlings.Client.UI.Design
         /// The parts in the layout <paramref name="box"/> for an amount <paramref name="amountWidth"/> wide at
         /// <see cref="AmountShare"/> of the box's height (0 when the text engine cannot tell yet: the pill takes the whole
         /// box), with or without the "+". The pill and the part of the "+" beyond its right end stay inside the box,
-        /// placed by <paramref name="align"/> (0 left, 0.5 centered, 1 right).
+        /// placed by <paramref name="align"/> (0 left, 0.5 centered, 1 right); an amount too long for that takes the whole
+        /// box, the "+" reaching a little beyond it, before its digits would shrink.
         /// </summary>
         public static PetalsPillParts Fit(Box box, float amountWidth, bool plus, float align = 1f)
         {
@@ -279,8 +280,8 @@ namespace Bloomlings.Client.UI.Design
             float end = h * (plus ? PlusShare - PlusOut + PlusGap : EndShare);
             float reach = plus ? h * PlusOut : 0f;
             float room = Math.Max(0f, box.Width - reach);
-            float width = amountWidth > 0f ? Math.Min(room, start + amountWidth + end) : room;
-            float left = box.Left + ((room - width) * Math.Max(0f, Math.Min(1f, align)));
+            float width = amountWidth > 0f ? Math.Min(box.Width, start + amountWidth + end) : room;
+            float left = box.Left + (Math.Max(0f, room - width) * Math.Max(0f, Math.Min(1f, align)));
             var pill = new Box(left, box.Top, left + width, box.Bottom);
             var face = new Box(pill.Left, pill.Top, pill.Right, pill.Bottom - (h * LipShare));
             float lotus = h * LotusShare;

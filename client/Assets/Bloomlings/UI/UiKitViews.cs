@@ -165,7 +165,7 @@ namespace Bloomlings.Client.UI
     /// <summary>How <see cref="PictureFit"/> sizes a picture to its rect.</summary>
     public enum PictureShape
     {
-        /// <summary>The rect's own pixel size (planks, frames, stones, the arch, the pedestal).</summary>
+        /// <summary>The rect's own pixel size (planks, frames, stones, the pedestal).</summary>
         Rect,
 
         /// <summary>A square of the rect's shorter side, its aspect kept and centered (icons, clusters, rays).</summary>

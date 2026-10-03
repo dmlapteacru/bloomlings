@@ -449,8 +449,12 @@ namespace Bloomlings.Client.Tests
             Assert.That(unknown.Pill.Right, Is.EqualTo(box.Right).Within(0.01f));
             Assert.That(unknown.Amount.Left, Is.EqualTo(unknown.Lotus.Right + (h * PetalsPillParts.AmountGap)).Within(0.01f));
 
-            // Longer than the box: it keeps the box. Centered (the Store card): the pill and its "+" around the box's middle.
-            Assert.That(PetalsPillParts.Fit(box, h * 9f, true).Pill.Left, Is.EqualTo(box.Left).Within(0.01f));
+            // Longer than the box: the pill takes the whole box (the "+" reaching beyond it, as the reference's) before
+            // its digits shrink. Centered (the Store card): the pill and its "+" around the box's middle.
+            PetalsPillParts huge = PetalsPillParts.Fit(box, h * 9f, true);
+            Assert.That(huge.Pill.Left, Is.EqualTo(box.Left).Within(0.01f));
+            Assert.That(huge.Pill.Right, Is.EqualTo(box.Right).Within(0.01f));
+            Assert.That(huge.Amount.Right, Is.LessThan(huge.Plus.Left), "the amount still ends before the \"+\"");
             PetalsPillParts centered = PetalsPillParts.Fit(box, h * 0.6f, true, 0.5f);
             Assert.That((centered.Pill.Left + centered.Plus.Right) / 2f, Is.EqualTo(box.CenterX).Within(0.01f));
 

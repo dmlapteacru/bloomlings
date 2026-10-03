@@ -225,7 +225,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.button.round` | Round or squircle icon button (cream) | 2, 3, 7, 11 | Settings; Pause; close; back; Wardrobe; Collection | normal; pressed; circle; squircle | Small | no | Launch | one domed cream cushion (peach edges, lighter middle) with a lip, a soft tan outline, a soft shadow and a brown glyph in a thin cream halo |
 | `ui.pill.level` | Level label of the gameplay top bar | 7, 8, 9 | Gameplay top bar | normal; super hard | Medium | no | Launch | a wooden sign with ivy (`ui.sign.wood`, `ui.sign.ivy`) and brown "Level N"; purple letters on Super Hard |
 | `ui.pill.speed` | 2× speed pill | 7, 8, 9 | Gameplay top bar | 1×; 2× | Small | no | Launch | cream squircle pill with the brown speed and the `ui.fast` chevrons |
-| `ui.pill.petals` | Petals balance pill | 2, 3, 17 | Home; Store | with +; without + | Medium | no | Launch | cream raised pill with the lotus over its left end, the brown balance and a round green + |
+| `ui.pill.petals` | Petals balance pill | 2, 3, 17 | Home; Store | with +; without + | Medium | no | Launch | cream raised pill fitting its amount: the lotus inside its left end, the brown balance right after it and a round green + over its right end (`PetalsPillParts`) |
 | `ui.badge.hard` | HARD badge | 8 | Gameplay | intro; steady | Small | no | Launch | red raised sticker pill on a plate |
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
