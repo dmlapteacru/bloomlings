@@ -315,3 +315,29 @@ decision records what the reference shows, what we do and why, so the owner can 
   texture (`gamma`, `gain`, `saturation`, `warm`). The first five variants (light only, up to 0.60) looked alike to the
   owner; of the bolder six (with the grade) the owner chose "H": hemisphere 4.2, key 0.9, fill 0.6, lift 0.2; gamma
   0.75, gain 1.08, saturation 1.1, warm 0.04 (0.73: even and warm, the brown still brown).
+
+## D24. Sprig's Blender model; Twig and Sprig take turns celebrating (2026-10-03; FR-028)
+
+- **Decision**: Sprig's model is the owner's `Sprig_Complete.glb` (Blender, one skinned mesh with its 34-joint rig and
+  three embedded 2048 × 2048 textures; `tools/heroanim/SOURCE.md`), replacing the Meshy Sprig. On Home it breathes
+  (`Sprig_Breathing`, 4 s) and waves (`Sprig_Wave`, 3 s) at their own lengths. The win and the milestone after it
+  celebrate with Twig on odd levels and Sprig on even ones (`CharacterArt.CelebrantOf`), Sprig alternating its
+  `Sprig_Celebrate` (2 s, `win`) and `Sprig_Clap` (3 s, `win2`) on its own turns (`CharacterArt.CelebrationTurn`,
+  `HeroMotion.WinClip`).
+- **Rationale**: the owner's words ("let it take turns with Twig … celebrate/clap, alternate"). Turns by the level number
+  rather than a count of wins seen keep it deterministic and the same in both builds, after a restart or a replay, with
+  nothing to save; L1, the first win a player sees, stays Twig's.
+- **The first two files** (`Sprig_character_Model.glb`, the same bytes twice) held the rigged mesh with a blank color
+  texture ("Mixar Sprig_character_Model Color": cream islands only), the colors only on unrigged copies beside it
+  (`Sprig_design`, two `Pasted_Image` meshes) and a cube; baked, Sprig came out all cream. The owner re-baked the colors
+  onto the rigged mesh.
+- **The bake** gained, for this model: a list of win clips (`heroes.json` `win: [..]`, baked as `win`, `win2`); a ground
+  point at the model's own base (`ground: "model"`; the mesh lies 4 m from the scene's origin, which the fit had put in
+  the cell's middle, shrinking Sprig to a speck); and a top point for a rig without a head-top bone (`topOffset`
+  [0, 0.3, 0] up the `Head` bone, at the face's top under the leaves, where the hats sit; `HatLift` stays 0).
+- **The kit**: `MotionClip.Win2`; `HeroMotion.WinClip(family, turn)` (two celebrations take turns, one is always
+  played, none falls back to the reaction); `HeroMotionPlayer.Celebrate(now, waitForSeam, turn)`; `CharacterArt.Celebrants`
+  (Twig, Sprig), `CelebrantOf(level)`, `CelebrationTurn(level)` replace the constant `CharacterArt.Celebrant`. Unity's
+  frame sets hold the fourth clip.
+- **Files**: 288 Sprig frames, 11.27 MB (the Meshy Sprig had 144); 756 frames, 30.7 MB in all.
+- **Not changed**: Sprig's still pictures (A1–A7) and its place on Home; Twig's model and clips.

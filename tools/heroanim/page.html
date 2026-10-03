@@ -35,11 +35,11 @@ async function loadHero(file) {
   return obj;
 }
 
-// job: { file, idle, react, win, head, top, fps, idleSeconds, reactSeconds, idleBlend, reactIn, reactOut, yaw, pitch, fov,
-// light, width, height }
-// Renders the idle loop, the reaction and, when job.win names one, the win's celebration at job.width × job.height (the
-// bake supersampling) and returns PNG data URLs with the projected head points of every frame (the hats follow them)
-// and the ground point.
+// job: { file, idle, react, win, head, top, topOffset, ground, fps, idleSeconds, reactSeconds, idleBlend, reactIn,
+// reactOut, yaw, pitch, fov, light, width, height }
+// Renders the idle loop, the reaction and, when job.win names one or a list of them, the win's celebrations ('win',
+// 'win2', …) at job.width × job.height (the bake supersampling) and returns PNG data URLs with the projected head points
+// of every frame (the hats follow them) and the ground point.
 window.bake = async (job) => {
   const obj = await loadHero(job.file);
   const W = job.width, H = job.height;
@@ -99,18 +99,18 @@ window.bake = async (job) => {
   const clipOf = name => { const c = obj.animations.find(a => a.name === name || a.name.endsWith('|' + name)); if (!c) throw new Error('no clip ' + name + ' in ' + job.file); return c; };
   // A clip's own span: from its first keyframe (Blender's clips start at frame 1, 1/24 s in) to its last.
   const span = clip => { let a = Infinity, b = 0; for (const t of clip.tracks) { a = Math.min(a, t.times[0]); b = Math.max(b, t.times[t.times.length - 1]); } return { start: Math.min(a, b), length: b - Math.min(a, b) }; };
-  const idle = clipOf(job.idle), react = clipOf(job.react), win = job.win ? clipOf(job.win) : null;
-  const sIdle = span(idle), sReact = span(react), sWin = win ? span(win) : null;
+  const idle = clipOf(job.idle), react = clipOf(job.react);
+  const wins = (Array.isArray(job.win) ? job.win : job.win ? [job.win] : []).map(clipOf);
+  const sIdle = span(idle), sReact = span(react), sWins = wins.map(span);
   const aIdle = mixer.clipAction(idle), aRest = mixer.clipAction(idle.clone()), aReact = mixer.clipAction(react);
-  const aWin = win ? mixer.clipAction(win) : null;
-  for (const a of [aIdle, aRest, aReact, aWin]) { if (a) { a.play(); a.setEffectiveTimeScale(0); } }
+  const aWins = wins.map(w => mixer.clipAction(w));
+  for (const a of [aIdle, aRest, aReact, ...aWins]) { a.play(); a.setEffectiveTimeScale(0); }
   const rest = () => sIdle.start; // the loop's seam: the idle's first pose
-  // Poses one frame: weights of the idle at t, the seam pose, the one-shot clip (the reaction, or the win's) at t.
+  // Poses one frame: weights of the idle at t, the seam pose, the one-shot clip (the reaction, or a win's) at t.
   const pose = (wIdle, tIdle, wRest, wShot, tShot, shot) => {
     aIdle.setEffectiveWeight(wIdle); aIdle.time = tIdle;
     aRest.setEffectiveWeight(wRest); aRest.time = rest();
-    aReact.setEffectiveWeight(shot === aReact ? wShot : 0); aReact.time = shot === aReact ? tShot : 0;
-    if (aWin) { aWin.setEffectiveWeight(shot === aWin ? wShot : 0); aWin.time = shot === aWin ? tShot : 0; }
+    for (const a of [aReact, ...aWins]) { a.setEffectiveWeight(shot === a ? wShot : 0); a.time = shot === a ? tShot : 0; }
     mixer.update(0);
     obj.updateMatrixWorld(true);
   };
@@ -131,7 +131,7 @@ window.bake = async (job) => {
   }
   // The reaction: from the seam pose into the clip over reactIn seconds and back to the seam pose over the last
   // reactOut seconds, so it starts and ends where the idle loop starts.
-  // The win's celebration likewise, from the seam pose and back to it.
+  // The win's celebrations likewise ('win', 'win2', …), each from the seam pose and back to it.
   const shot = (name, action, s, length, k) => {
     const n = Math.round(length * job.fps);
     for (let i = 0; i < n; i++) { // the last pose is the seam: the idle's first frame shows it
@@ -141,7 +141,7 @@ window.bake = async (job) => {
     }
   };
   shot('react', aReact, sReact, reactLength, kReact);
-  if (aWin) shot('win', aWin, sWin, sWin.length, 1);
+  aWins.forEach((a, i) => shot(i === 0 ? 'win' : 'win' + (i + 1), a, sWins[i], sWins[i].length, 1));
 
   // One camera for every frame: the union of the posed bounds, seen from the yaw and the pitch.
   const box = new THREE.Box3();
@@ -159,10 +159,16 @@ window.bake = async (job) => {
   camera.updateMatrixWorld(true);
 
   const bone = name => { let b = null; obj.traverse(o => { if (o.isBone && o.name === name) b = o; }); return b; };
-  const head = bone(job.head || 'mixamorigHead'), top = bone(job.top || 'mixamorigHeadTop_End');
+  const head = bone(job.head || 'mixamorigHead');
+  let top = bone(job.top || 'mixamorigHeadTop_End');
+  // A rig without a bone at the head's top (the owner's Sprig, 2026-10-03): a point job.topOffset away from the top
+  // bone in its own space (metres along its axes; Blender's bone Y runs up the head), moving with it.
+  if (top && job.topOffset) { const o = new THREE.Object3D(); o.position.fromArray(job.topOffset); top.add(o); obj.updateMatrixWorld(true); top = o; }
   if (!head || !top) throw new Error('no head bones ' + (job.head || 'mixamorigHead') + ', ' + (job.top || 'mixamorigHeadTop_End') + ' in ' + job.file);
   const project = o => { const v = o.getWorldPosition(new THREE.Vector3()).project(camera); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; };
-  const ground = new THREE.Vector3(0, 0, 0).project(camera);
+  // The ground point under the hero: the scene's origin, or (job.ground 'model', for a model placed away from it, such
+  // as the owner's Sprig 4 m to the side) the middle of the posed bounds' base.
+  const ground = (job.ground === 'model' ? new THREE.Vector3(c.x, box.min.y, c.z) : new THREE.Vector3(0, 0, 0)).project(camera);
 
   // Pass 1: the union of every frame's opaque bounds and the idle's foot line (its lowest solid row at the seam).
   const gl = renderer.getContext();
@@ -214,7 +220,7 @@ window.bake = async (job) => {
     out.push({ clip: f.clip, png: cell.toDataURL('image/png'), head: toCell(project(head)), top: toCell(project(top)) });
   }
   renderer.dispose();
-  return { frames: out, scale: s, render: [W, H], idleSeconds: idleLength, reactSeconds: reactLength, winSeconds: sWin ? sWin.length : 0 };
+  return { frames: out, scale: s, render: [W, H], idleSeconds: idleLength, reactSeconds: reactLength, winSeconds: sWins.map(w => w.length) };
 };
 window.ready = true;
 </script>

@@ -13,7 +13,7 @@ namespace Bloomlings.Client.UI
     /// else its texture as a sprite) and kept while a view holds its family (<see cref="HeroFrameSet.Hold"/>); when the last
     /// view lets go (its screen hides or closes), the family's textures are unloaded. Home holds four families, the win and
     /// the milestone one, every other screen none, so at most the families on screen stay loaded, as compressed textures,
-    /// never all 576 frames decoded.
+    /// never all the frames decoded.
     /// </summary>
     public static class HeroFrames
     {
@@ -44,6 +44,7 @@ namespace Bloomlings.Client.UI
         private readonly HeroFrame[] _idle;
         private readonly HeroFrame[] _react;
         private readonly HeroFrame[] _win;
+        private readonly HeroFrame[] _win2;
         private readonly Sprite?[] _sprites;
         private readonly bool[] _tried;
         private readonly bool[] _created;
@@ -56,7 +57,8 @@ namespace Bloomlings.Client.UI
             _idle = Frames(family, MotionClip.Idle, baked);
             _react = Frames(family, MotionClip.React, baked);
             _win = Frames(family, MotionClip.Win, baked);
-            int count = _idle.Length + _react.Length + _win.Length;
+            _win2 = Frames(family, MotionClip.Win2, baked);
+            int count = _idle.Length + _react.Length + _win.Length + _win2.Length;
             _sprites = new Sprite?[count];
             _tried = new bool[count];
             _created = new bool[count];
@@ -80,11 +82,24 @@ namespace Bloomlings.Client.UI
             return frames[Wrap(index, frames.Length)];
         }
 
-        /// <summary>A frame's place among the family's frames (the idle's, then the reaction's, then the win's): its picture's key.</summary>
-        public int Slot(MotionClip clip, int index) =>
-            (clip == MotionClip.Idle ? 0 : clip == MotionClip.React ? _idle.Length : _idle.Length + _react.Length) + Wrap(index, Count(clip));
+        /// <summary>A frame's place among the family's frames (the idle's, then the reaction's, then the wins'): its picture's key.</summary>
+        public int Slot(MotionClip clip, int index) => Offset(clip) + Wrap(index, Count(clip));
 
-        private HeroFrame[] FramesOf(MotionClip clip) => clip == MotionClip.Idle ? _idle : clip == MotionClip.React ? _react : _win;
+        private int Offset(MotionClip clip) => clip switch
+        {
+            MotionClip.Idle => 0,
+            MotionClip.React => _idle.Length,
+            MotionClip.Win => _idle.Length + _react.Length,
+            _ => _idle.Length + _react.Length + _win.Length,
+        };
+
+        private HeroFrame[] FramesOf(MotionClip clip) => clip switch
+        {
+            MotionClip.Idle => _idle,
+            MotionClip.React => _react,
+            MotionClip.Win => _win,
+            _ => _win2,
+        };
 
         /// <summary>A frame's picture, loaded the first time it is asked for; null while it is missing.</summary>
         public Sprite? Sprite(MotionClip clip, int index)

@@ -45,7 +45,7 @@ drew it: set `CharacterArt.FaceCenterHero` to it, so a worn expression lands on 
 | A4 | `twig.png` | 512 × 576 | idle, happy | same | `char.hero3d.twig` |
 | A5 | `sprig-blank.png` … `twig-blank.png` | 512 × 576 | the same four pictures without eyes and mouth (a worn cosmetic expression draws the face); until they are adopted, the hosts keep the owner's hero and show a worn expression as a small badge beside its face (`CharacterArt.HasMatchingBlank`, `OwnerBlanks`) | Wardrobe with an expression | the family's `char.hero3d.{family}` |
 | A6 | `group.png` | 1200 × 720 | the four together, Sprig left, Bloom, Drop, Twig right, as in the reference's strip; no base (the game stands them on its stone pedestal); their feet on the line 62% down the picture (`CharacterArt.GroupFeetShare`), their heads from about 15% down (`CharacterArt.GroupHeadShare`) and the space below the feet clear, as in the generated group | Home (early), win, milestone, splash | `char.hero3d.group` |
-| A7 | `sprig-cheer.png` … `twig-cheer.png` | 512 × 576 | celebrating: arms up, eyes closed with joy (the reference's win Bloom); feet on the line 90% down (`HomeStage.FeetShare`), as the solo heroes | win and milestone cards (Twig's, `CharacterArt.Celebrant`, the owner's choice of 2026-10-03; before it the family of the level's main variant) while its animated frames (A10) are missing; the group stands in while this is missing too | `char.hero3d.cheer.{family}` (`CharacterArt.CheerSlot`) |
+| A7 | `sprig-cheer.png` … `twig-cheer.png` | 512 × 576 | celebrating: arms up, eyes closed with joy (the reference's win Bloom); feet on the line 90% down (`HomeStage.FeetShare`), as the solo heroes | win and milestone cards (the level's celebrant's, Twig or Sprig by turns, `CharacterArt.CelebrantOf`, the owner's choices of 2026-10-03; before them the family of the level's main variant) while its animated frames (A10) are missing; the group stands in while this is missing too | `char.hero3d.cheer.{family}` (`CharacterArt.CheerSlot`) |
 
 Optional, if the outfits should be modelled instead of drawn over the hero (no build loads these yet: they need their
 slots and loading code first):
@@ -57,12 +57,13 @@ slots and loading code first):
 **Delivered (2026-10-02): the animated heroes (A10, spec FR-028).** Four rigged FBX models made by the owner with Meshy
 AI, one per family, carrying the clips of the owner's table (a 4 s idle, a 2 s reaction). `tools/heroanim` renders them
 offline into flat frames (constitution VII: the game never loads a model; research D18):
-`client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/{family}-{idle|react|win}-{NN}.png`, 144 a Meshy family (96 idle and 48
+`client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/{family}-{idle|react|win|win2}-{NN}.png`, 144 a Meshy family (96 idle and 48
 reaction frames at 24 fps, from the owner's 60 fps export of 2026-10-03, research D22) and 180 of Twig (its Blender model
-of 2026-10-03: 72 idle, 36 reaction and 72 frames of the win's cheer, research D23), 8-bit palette PNG files cropped from a 448 × 504 cell with the feet 90% down, listed in the
+of 2026-10-03: 72 idle, 36 reaction and 72 frames of the win's cheer, research D23) and 288 of Sprig (its Blender model of
+2026-10-03: 96 idle, 72 reaction, 48 celebrate and 72 clap frames, research D24), 8-bit palette PNG files cropped from a 448 × 504 cell with the feet 90% down, listed in the
 folder's `manifest.json`; slots `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`); models in
 `tools/heroanim/models/`, source record `tools/heroanim/SOURCE.md`. They show on Home and the splash (on the layered
-fountain, B1) and on the win and the milestone (Twig, `CharacterArt.Celebrant`); the still pictures A1–A7 stay for the Wardrobe, the
+fountain, B1) and on the win and the milestone (Twig and Sprig by turns, `CharacterArt.CelebrantOf`); the still pictures A1–A7 stay for the Wardrobe, the
 profile, the group, the drawn stand-in and as the fallbacks. To change a hero, send its model again (an FBX or a `.glb`
 with its textures embedded, its clips named in `tools/heroanim/heroes.json`), then run `node bake.mjs --only <family>` and `node check.mjs` in
 `tools/heroanim` (`tools/heroanim/README.md`).

@@ -6,14 +6,17 @@ using Bloomlings.Core.Variants;
 namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
-    /// The clips of a hero's motion (spec 005 FR-028): the idle loop, the reaction and, for a hero that has one, the win's
-    /// celebration (<see cref="HeroMotion.HasWin"/>; Twig's cheer).
+    /// The clips of a hero's motion (spec 005 FR-028): the idle loop, the reaction and, for a hero that has them, the win's
+    /// celebrations (<see cref="HeroMotion.HasWin"/>: Twig's cheer; Sprig's celebrate and, as <see cref="Win2"/>, its clap).
     /// </summary>
     public enum MotionClip
     {
         Idle,
         React,
         Win,
+
+        /// <summary>A hero's second celebration, played on every other of its turns (<see cref="HeroMotion.WinClip"/>).</summary>
+        Win2,
     }
 
     /// <summary>
@@ -72,16 +75,17 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A reaction asked for this close to the next seam waits for it instead of cross-fading.</summary>
         public const float MaxSeamWait = 0.35f;
 
-        /// <summary>The clip's name in frame names: <c>idle</c>, <c>react</c>, <c>win</c>.</summary>
+        /// <summary>The clip's name in frame names: <c>idle</c>, <c>react</c>, <c>win</c>, <c>win2</c>.</summary>
         public static string ClipName(MotionClip clip) => clip switch
         {
             MotionClip.Idle => "idle",
             MotionClip.React => "react",
+            MotionClip.Win2 => "win2",
             _ => "win",
         };
 
         /// <summary>Every clip, in the frames' order (<see cref="AllFrames"/>).</summary>
-        public static IReadOnlyList<MotionClip> Clips { get; } = new[] { MotionClip.Idle, MotionClip.React, MotionClip.Win };
+        public static IReadOnlyList<MotionClip> Clips { get; } = new[] { MotionClip.Idle, MotionClip.React, MotionClip.Win, MotionClip.Win2 };
 
         /// <summary>A frame's picture name: <c>sprig-idle-07</c>.</summary>
         public static string FrameName(Family family, MotionClip clip, int index) =>
@@ -95,6 +99,21 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>Whether the family has its own celebration for the win (<see cref="MotionClip.Win"/>).</summary>
         public static bool HasWin(Family family) => Has(family) && Find(family, MotionClip.Win) != null;
+
+        /// <summary>
+        /// The celebration a family plays on its <paramref name="turn"/>-th win (counted from 0, <see cref="CharacterArt.CelebrationTurn"/>):
+        /// with two baked (Sprig's celebrate and clap, the owner's choice of 2026-10-03) they take turns, the first on even
+        /// turns; with one, always it; without, the reaction.
+        /// </summary>
+        public static MotionClip WinClip(Family family, int turn)
+        {
+            if (!HasWin(family))
+            {
+                return MotionClip.React;
+            }
+
+            return turn % 2 != 0 && Find(family, MotionClip.Win2) != null ? MotionClip.Win2 : MotionClip.Win;
+        }
 
         /// <summary>The number of frames of a clip (0 when it was not baked).</summary>
         public static int FrameCount(Family family, MotionClip clip) => Find(family, clip)?.Count ?? 0;
@@ -220,7 +239,7 @@ namespace Bloomlings.Client.UI.Design
             return index;
         }
 
-        private const int ClipCount = 3;
+        private const int ClipCount = 4;
 
         private sealed class ClipData
         {
@@ -337,12 +356,12 @@ namespace Bloomlings.Client.UI.Design
         public void React(float now, bool waitForSeam = false) => Play(MotionClip.React, now, waitForSeam);
 
         /// <summary>
-        /// Asks for the win's celebration (the win and the milestone): the hero's own cheer when it has one
-        /// (<see cref="HeroMotion.HasWin"/>), else its reaction; at the next seam unless <paramref name="waitForSeam"/> is
-        /// false. Ignored while a reaction plays or waits.
+        /// Asks for the win's celebration (the win and the milestone): the hero's own celebration for its
+        /// <paramref name="turn"/>-th win when it has one (<see cref="HeroMotion.WinClip"/>), else its reaction; at the next
+        /// seam unless <paramref name="waitForSeam"/> is false. Ignored while a reaction plays or waits.
         /// </summary>
-        public void Celebrate(float now, bool waitForSeam = true) =>
-            Play(HeroMotion.HasWin(Family) ? MotionClip.Win : MotionClip.React, now, waitForSeam);
+        public void Celebrate(float now, bool waitForSeam = true, int turn = 0) =>
+            Play(HeroMotion.WinClip(Family, turn), now, waitForSeam);
 
         private void Play(MotionClip clip, float now, bool waitForSeam)
         {

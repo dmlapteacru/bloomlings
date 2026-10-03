@@ -105,8 +105,8 @@ right back, Twig at the right front; the win with one hero on the pedestal) and 
 - Q: Where do the heroes stand? → A: "the same way as in the reference": on the painted fountain, Sprig at the left,
   Bloom behind the lotus, Drop at the right back, Twig at the right front. This lifts FR-024's deferral (FR-028).
 - Q: And the win? → A: "the win too": the level's hero plays its reaction as it appears, then idles. The milestone
-  screen shows the same hero, so it does the same. (Since 2026-10-03 the celebrating hero is always Twig, the
-  clarification "Twig celebrates" below.)
+  screen shows the same hero, so it does the same. (Since 2026-10-03 the celebrating hero is Twig, the
+  clarification "Twig celebrates" below, and Twig and Sprig by turns since Sprig's model, "Sprig's Blender model".)
 - Q: A 3D model in the game? → A: No (constitution VII; decision in research D18). The models never enter the game:
   `tools/heroanim` renders them offline into flat frame pictures, shown on meta screens only.
 - Q: When does a hero react on Home? → A: Decided here (research D18): they take turns, one every 6 s (Bloom first,
@@ -167,6 +167,22 @@ the round."
 - Q: Twig looks dark, "as if in shadow"? → A: Its brown texture under the shared light came out darker than the
   others (mean brightness 0.46 against about 0.62). Of six variants the owner chose "H": an even light and a lighter,
   warmer grade of its texture, Twig only (research D23).
+
+### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
+
+The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
+Twig. Use celebrate/clap there, alternate."
+- Q: Is the new Sprig in? → A: Yes, from its third file (`Sprig_Complete.glb`): the first two (the same
+  `Sprig_character_Model.glb` twice) held a blank color texture on the rigged mesh, the colors only on an unrigged copy.
+  It replaces the Meshy Sprig (research D24).
+- Q: Which clips on Home? → A: `Sprig_Breathing` (4 s) its idle and `Sprig_Wave` (3 s) its reaction, at their own
+  lengths (proposed on 2026-10-03, not objected to); `Sprig_LookAround`, `Sprig_SmallJump` and `Sprig_ThumbsUp` are not
+  used.
+- Q: Who celebrates? → A: Twig and Sprig take turns level by level: Twig on odd levels (L1, L3, …), Sprig on even ones,
+  on the win and the milestone after it (`CharacterArt.Celebrants`, `CelebrantOf`). Sprig alternates its two
+  celebrations on its own turns: `Sprig_Celebrate` (2 s) on L2, L6, …, `Sprig_Clap` (3 s) on L4, L8, …
+  (`CharacterArt.CelebrationTurn`, `HeroMotion.WinClip`, `MotionClip.Win2`). Twig keeps its cheer. By the level
+  number, so a replayed or restored level shows the same celebrant in both builds.
 
 ### Session 2026-10-03 (the owner's 60 fps models)
 
@@ -473,8 +489,9 @@ inventory.
   interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill or the plaque. Once
   the Wardrobe is open each hero wears its outfit (trail, skin, the expression on a badge, the hat turned with the
   head). The splash shows the same stage and motion, so it turns into Home without a jump. The win and the milestone
-  MUST show Twig as its animated hero on the pedestal, whatever the level (`CharacterArt.Celebrant`; the owner's choice
-  of 2026-10-03, which replaced the level's main family), its own cheer playing first when it has one: its reaction from the moment it appears, then
+  MUST show the level's celebrant as its animated hero on the pedestal: Twig and Sprig by turns, level by level
+  (`CharacterArt.CelebrantOf`; the owner's choices of 2026-10-03, which replaced the level's main family), Sprig
+  alternating its celebrate and clap on its turns, its own celebration playing first when it has one: its reaction from the moment it appears, then
   its idle for as long as the screen shows (the still celebrating picture, then the group, while the frames are
   missing). The heroes MUST be pre-rendered flat frames (`tools/heroanim`, research D18): no 3D model, scene or camera
   in the game (constitution VII). The Wardrobe, the profile, gameplay and the milestone's group keep the still
@@ -507,10 +524,11 @@ inventory.
 - **SC-004**: No screen file uses a literal color or size, and every new stand-in is a registered asset slot that
   appears in the regenerated asset inventory.
 - **SC-005**: `pictures.md` lists every owner picture with its slot.
-- **SC-006**: Every Meshy family has a 4 s idle loop (96 frames at 24 fps) and a 2 s reaction (48 frames), and Twig its
-  Blender clips (a 3 s idle, a 1.5 s reaction and the win's 3 s cheer), all starting and
+- **SC-006**: Every Meshy family has a 4 s idle loop (96 frames at 24 fps) and a 2 s reaction (48 frames), Twig its
+  Blender clips (a 3 s idle, a 1.5 s reaction and the win's 3 s cheer) and Sprig its (a 4 s idle, a 3 s wave and the
+  win's 2 s celebrate and 3 s clap), all starting and
   ending on the idle's first pose, as the owner's table says (`HeroMotionTests`).
-- **SC-007**: The 612 hero frames take under 27 MB in the repository, and `node tools/heroanim/check.mjs` verifies every
+- **SC-007**: The 756 hero frames take under 32 MB in the repository (612 under 27 MB before Sprig's model), and `node tools/heroanim/check.mjs` verifies every
   frame, every Home layer and the generated kit files against the last bake.
 - **SC-008**: On every screen shape from 16:9 to 21:9 the four heroes' seam pictures lie inside the screen, under the
   logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).

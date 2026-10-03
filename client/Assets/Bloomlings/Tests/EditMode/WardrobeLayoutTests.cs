@@ -82,9 +82,19 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void EveryWin_CelebratesWithTwig()
+        public void TheWins_CelebrateWithTwigAndSprig_ByTurns()
         {
-            Assert.That(CharacterArt.Celebrant, Is.EqualTo(Family.Twig), "the owner's choice of 2026-10-03");
+            // The owner's choices of 2026-10-03: Twig celebrates, then Sprig takes turns with it, alternating its celebrate
+            // and its clap.
+            Assert.That(CharacterArt.Celebrants, Is.EqualTo(new[] { Family.Twig, Family.Sprig }));
+            Assert.That(CharacterArt.CelebrantOf(1), Is.EqualTo(Family.Twig));
+            Assert.That(CharacterArt.CelebrantOf(2), Is.EqualTo(Family.Sprig));
+            Assert.That(CharacterArt.CelebrantOf(3), Is.EqualTo(Family.Twig));
+            Assert.That(CharacterArt.CelebrantOf(4), Is.EqualTo(Family.Sprig));
+            Assert.That(HeroMotion.WinClip(CharacterArt.CelebrantOf(2), CharacterArt.CelebrationTurn(2)), Is.EqualTo(MotionClip.Win), "L2: Sprig's celebrate");
+            Assert.That(HeroMotion.WinClip(CharacterArt.CelebrantOf(4), CharacterArt.CelebrationTurn(4)), Is.EqualTo(MotionClip.Win2), "L4: its clap");
+            Assert.That(HeroMotion.WinClip(CharacterArt.CelebrantOf(6), CharacterArt.CelebrationTurn(6)), Is.EqualTo(MotionClip.Win), "L6: its celebrate again");
+            Assert.That(HeroMotion.WinClip(CharacterArt.CelebrantOf(3), CharacterArt.CelebrationTurn(3)), Is.EqualTo(MotionClip.Win), "L3: Twig's cheer");
         }
     }
 }

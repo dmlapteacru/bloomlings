@@ -1,6 +1,6 @@
 // Pre-renders the owner's animated FBX heroes (models/*.fbx) into flat frame pictures (spec 005 FR-028, constitution VII:
 // pre-rendered 3D shows on meta screens as flat pictures only). For every hero of heroes.json it renders the idle loop
-// and the reaction (and a win's celebration when the hero has one) in headless Chromium with three.js, fits them into one cell, crops every frame to its opaque bounds
+// and the reaction (and the win's celebrations when the hero has them: `win`, `win2`) in headless Chromium with three.js, fits them into one cell, crops every frame to its opaque bounds
 // and writes:
 //   client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/<family>-<clip>-<NN>.png   the frames
 //   client/Assets/Bloomlings/UI/Design/HeroMotionData.cs                               crops and head points (kit)
@@ -76,7 +76,7 @@ function csharp(config, results) {
   lines.push('        private static readonly ClipData[] ClipTable =');
   lines.push('        {');
   for (const r of results) {
-    for (const clip of ['idle', 'react', 'win']) {
+    for (const clip of ['idle', 'react', 'win', 'win2']) {
       const fr = r.frames.filter(f => f.clip === clip);
       if (fr.length === 0) continue;
       lines.push(`            new ClipData("${r.family}", "${clip}",`);
@@ -121,6 +121,7 @@ async function main() {
     const t0 = Date.now();
     const job = {
       file: hero.file, idle: hero.idle, react: hero.react, win: hero.win || null, head: hero.head || null, top: hero.top || null,
+      topOffset: hero.topOffset || null, ground: hero.ground || null,
       fps: config.fps,
       // A hero's own clip lengths (null: the clips' own spans) before the shared ones (the owner's table).
       idleSeconds: 'idleSeconds' in hero ? hero.idleSeconds : config.idleSeconds,
@@ -138,7 +139,7 @@ async function main() {
     for (const f of fs.readdirSync(framesDir)) if (f.startsWith(hero.family + '-') && f.endsWith('.png')) fs.rmSync(path.join(framesDir, f));
     const frames = [];
     const pictures = [];
-    const index = { idle: 0, react: 0, win: 0 };
+    const index = { idle: 0, react: 0, win: 0, win2: 0 };
     const [cw, ch] = config.cell;
     const share = p => [p[0] / cw, p[1] / ch];
     for (const f of baked.frames) {
@@ -157,7 +158,7 @@ async function main() {
       f.bytes = bytes.length;
     });
     const total = frames.reduce((s, f) => s + f.bytes, 0);
-    console.log(`${hero.family}: ${index.idle} idle + ${index.react} reaction${index.win ? ` + ${index.win} win` : ''} frames, ${(total / 1024 / 1024).toFixed(2)} MB, scale ${baked.scale.toFixed(3)}, ${((Date.now() - t0) / 1000).toFixed(1)} s`);
+    console.log(`${hero.family}: ${index.idle} idle + ${index.react} reaction${index.win ? ` + ${index.win} win` : ''}${index.win2 ? ` + ${index.win2} win2` : ''} frames, ${(total / 1024 / 1024).toFixed(2)} MB, scale ${baked.scale.toFixed(3)}, ${((Date.now() - t0) / 1000).toFixed(1)} s`);
     results.push({ family: hero.family, model: hero.file, modelSha256: sha256(fs.readFileSync(path.join(here, 'models', hero.file))), frames });
   }
   await browser.close();

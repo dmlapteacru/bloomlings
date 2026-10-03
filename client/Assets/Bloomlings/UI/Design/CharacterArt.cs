@@ -102,11 +102,26 @@ namespace Bloomlings.Client.UI.Design
         public static string CheerSlot(Family family) => "char.hero3d.cheer." + FamilyName(family);
 
         /// <summary>
-        /// The family that celebrates every won level, on the win and on the milestone that follows it: Twig, the owner's
-        /// choice of 2026-10-03 (spec 005 FR-028). It replaced the level's main family (pictures.md A7). Both builds take
-        /// it from here.
+        /// The families that take turns celebrating won levels, in their order: Twig, then Sprig (the owner's choices of
+        /// 2026-10-03, spec 005 FR-028; Twig alone before Sprig's animated model came). They replaced the level's main
+        /// family (pictures.md A7). Both builds take them from here.
         /// </summary>
-        public const Family Celebrant = Family.Twig;
+        public static IReadOnlyList<Family> Celebrants { get; } = new[] { Family.Twig, Family.Sprig };
+
+        /// <summary>
+        /// The family that celebrates won level <paramref name="level"/>, on the win and on the milestone that follows it:
+        /// the celebrants take turns level by level (L1 Twig, L2 Sprig, L3 Twig, …).
+        /// </summary>
+        public static Family CelebrantOf(int level) => Celebrants[CelebrationIndex(level) % Celebrants.Count];
+
+        /// <summary>
+        /// Which of its own turns the celebrant of <paramref name="level"/> is on, counted from 0 (L2 is Sprig's 0th, L4
+        /// its 1st): a celebrant with two celebrations alternates them by it (<see cref="HeroMotion.WinClip"/>; Sprig's
+        /// celebrate on L2, its clap on L4, …).
+        /// </summary>
+        public static int CelebrationTurn(int level) => CelebrationIndex(level) / Celebrants.Count;
+
+        private static int CelebrationIndex(int level) => Math.Max(0, level - 1);
 
         /// <summary>The asset slot a picture name belongs to.</summary>
         public static string SlotOf(string picture)

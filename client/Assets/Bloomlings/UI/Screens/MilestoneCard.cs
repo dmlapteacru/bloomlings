@@ -28,7 +28,7 @@ namespace Bloomlings.Client.UI.Screens
     /// with the gold medal;</description></item>
     /// <item><description>each reward (the cosmetic item, the Petals, each booster) as its icon on a cream tile with its
     /// amount in a cream pill over the tile's bottom edge, rising in, where the win shows its picture;</description></item>
-    /// <item><description>the celebrating hero as on the win (Twig, <see cref="CharacterArt.Celebrant"/>: its animated hero reacting from the moment the screen shows, then
+    /// <item><description>the celebrating hero as on the win (Twig or Sprig by turns, <see cref="CharacterArt.CelebrantOf"/>: its animated hero reacting from the moment the screen shows, then
     /// idling; else its still celebrating picture; else the group) on the stone pedestal in light rays, petals falling
     /// and, for the first seconds, confetti in the level's colors around the sign;</description></item>
     /// <item><description>Continue in its wooden rim, decorated and breathing, where the win shows Next.</description></item>
@@ -101,7 +101,7 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <param name="catalog">The cosmetic catalog, to draw a granted item's shape; null draws a generic star.</param>
         /// <param name="level">
-        /// The won level: Twig celebrates it as on the win (<see cref="CharacterArt.Celebrant"/>: the owner's animated hero
+        /// The won level: its celebrant celebrates it as on the win (<see cref="CharacterArt.CelebrantOf"/>: the owner's animated hero
         /// when its frames are there, else the cheering hero picture when it exists, pictures.md A7) and its colors make
         /// the confetti; null shows the group and no confetti.
         /// </param>
@@ -113,7 +113,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _sign.Text = Loc.F("common.level", NumberText.Group(grant.Level));
-            _celebration.ShowHero(level != null ? CharacterArt.Celebrant : (Family?)null);
+            _celebration.ShowHero(level != null ? CharacterArt.CelebrantOf(level.LevelNumber) : (Family?)null, CharacterArt.CelebrationTurn(level?.LevelNumber ?? 0));
             _confettiClip.gameObject.SetActive(level != null);
             if (level != null)
             {

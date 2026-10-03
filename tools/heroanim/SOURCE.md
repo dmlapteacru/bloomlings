@@ -11,7 +11,7 @@
 
 | File here | Delivered as | SHA-256 |
 |---|---|---|
-| `models/sprig.fbx` | `Meshy_AI_Leafling_Character_Tu_biped_Animation_all_frame_rate_60.fbx` (the owner: "the files are named a little differently") | `61a47b4ae2137931685019095dba3c6816458bc18a5d222a2fd9a09d231eb4a5` |
+| `models/sprig.glb` | `Sprig_Complete.glb` (2026-10-03; see "Sprig's Blender model" below; it replaced the Meshy `sprig.fbx`, `61a47b4a…`) | `9bdebdff3d18bc53341549394afdab24e8b81843c4ff87fada9c11758e6ecde5` |
 | `models/bloom.fbx` | `Meshy_AI_Petalina_biped_Animation_all_frame_rate_60.fbx` | `052c59366cdfb92dd60c2f3e35598fa98fe62a7bf3a77795b353471a0980479c` |
 | `models/drop.fbx` | `Meshy_AI_Dewdrop_Buddy_biped_Animation_all_frame_rate_60.fbx` | `cb75560cfcfd2b75afee43d5e1b9d656043eee91ff0dddae502f29cc309c3a02` |
 | `models/twig.glb` | `Twig.glb` (2026-10-03; see "Twig's Blender model" below) | `95c9bd89f9400b851c027c05ff89d02051ce33cd7bbd38130ce0941a586231ed` |
@@ -26,7 +26,7 @@ library ids instead of names; the owner's table (2026-10-02) names the two each 
 
 | Hero | Constant (idle, 4 s) | Reaction A (2 s) | Clip ids (idle; reaction) |
 |---|---|---|---|
-| Sprig | breathing + sway | curious head tilt | `01a0fe96-…`; `01a0fe99-…` |
+| Sprig (until 2026-10-03) | breathing + sway | curious head tilt | `01a0fe96-…`; `01a0fe99-…` |
 | Bloom | breathing + soft sway | happy bounce | `01a0fe96-…`; `01a0fea0-…` |
 | Drop | breathing + soft body sway | soft buoyant bounce | `01a0fe96-…`; `01a0fea0-…` |
 | Twig (until 2026-10-03) | breathing + sway | head tilt + tiny bounce | `01a0fe96-…`; `01a0fea0-…` |
@@ -81,3 +81,15 @@ files' hashes are in `layers.json`.
 | Bones | the head points the hats follow: `Twig_rig_Head` (the head's base) and `Twig_rig_Leaf` (the leaf's stem on top of the cap) |
 | Look | lighter and warmer than its texture, the owner's choice "H" of six variants (2026-10-03: "Twig looks dark, as if in shadow"): an even light (`heroes.json` `light`: hemisphere 4.2, key 0.9, fill 0.6 and a 0.2 glow of its own albedo) and a grade of its texture (`color`: gamma 0.75, gain 1.08, saturation 1.1, warm 0.04); its mean brightness 0.73 (it was 0.46, the other heroes about 0.62) |
 | Frames | 72 idle, 36 reaction and 72 win frames, 7.97 MB; with the Meshy heroes, 612 frames and 25.5 MB in all |
+
+## Sprig's Blender model (2026-10-03)
+
+| Field | Value |
+|---|---|
+| Delivered | by the project owner on 2026-10-03, in conversation, to replace Sprig: "replace the hero, and add it to the round's celebration, taking turns with Twig; use celebrate/clap there, alternating". Two exports of `Sprig_character_Model.glb` came first (the same file twice): its rigged mesh's own color texture was blank (cream islands only), the colors lying on an unrigged copy (`Sprig_design`) beside it; then `Sprig_Complete.glb`, used here |
+| Made with | Blender (glTF exporter 5.2.39): one 6 139-vertex skinned mesh with UVs and tangents, its own 34-joint rig (`Head`, `Neck`, `Chest`, `Spine`, `Pelvis`, arms with three fingers, legs) and three embedded 2048 × 2048 PNG textures (base color, normal, roughness: "Prepare_single_GLB_Sprig"); the mesh lies 4 m to the side of the scene's origin |
+| Rights | the owner's: delivered for the game, as the other owner pictures |
+| Clips | `Sprig_Breathing` (4 s, the idle), `Sprig_Wave` (3 s, the reaction), `Sprig_Celebrate` (2 s) and `Sprig_Clap` (3 s), the win's two celebrations, taking turns; keyed 24 a second, at their own lengths. Not used: `Sprig_LookAround` (5 s), `Sprig_SmallJump` (1.5 s), `Sprig_ThumbsUp` (2.7 s) |
+| Placement | `heroes.json` `ground: "model"`: the hero's ground point is the middle of its posed bounds' base (the mesh is 4 m from the origin), not the origin |
+| Bones | the rig has no bone at the head's top, so the brow the hats follow is a point 0.3 m up the `Head` bone (`topOffset` [0, 0.3, 0], at the top of the face under the leaves); the chin is `Head` |
+| Frames | 96 idle, 72 reaction, 48 `win` and 72 `win2` frames, 11.27 MB; with the other heroes, 756 frames and 30.7 MB in all |

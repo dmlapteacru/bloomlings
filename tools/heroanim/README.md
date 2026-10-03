@@ -17,15 +17,15 @@ node check.mjs                       # must pass before committing hero frames o
 
 | File | What |
 |---|---|
-| `heroes.json` | the bake: cell, foot line, fill and margin, frames per second, the clips' lengths on screen, supersampling, camera, light, blend times, and per hero its model, its clips (the idle, the reaction and maybe the win's `win`), its head bones (`head`, `top`; Mixamo's by default), its own clip lengths (null: the clips' own), its own `light` (any of `hemi`, `key`, `fill`, `rim`, and `exposure`, a factor on every light, and `lift`, a share of the albedo added as glow to open the shadows), its own `color` grade of the texture (`gamma` under 1 lightens the midtones, `gain`, `saturation`, `warm`) and its turn (`yaw`) |
-| `models/*.fbx`, `models/*.glb` | the owner's models (`SOURCE.md`): the Meshy FBX heroes and Twig's Blender `.glb` |
+| `heroes.json` | the bake: cell, foot line, fill and margin, frames per second, the clips' lengths on screen, supersampling, camera, light, blend times, and per hero its model, its clips (the idle, the reaction and maybe the win's `win`: one clip, or a list baked as `win`, `win2`), its head bones (`head`, `top`; Mixamo's by default; `topOffset` moves the top point that far along the top bone's axes, for a rig without a bone at the head's top), its ground point (`ground: "model"` for a model placed away from the origin: the middle of its posed bounds' base), its own clip lengths (null: the clips' own), its own `light` (any of `hemi`, `key`, `fill`, `rim`, and `exposure`, a factor on every light, and `lift`, a share of the albedo added as glow to open the shadows), its own `color` grade of the texture (`gamma` under 1 lightens the midtones, `gain`, `saturation`, `warm`) and its turn (`yaw`) |
+| `models/*.fbx`, `models/*.glb` | the owner's models (`SOURCE.md`): the Meshy FBX heroes (Bloom, Drop) and the Blender `.glb` ones (Sprig, Twig) |
 | `bake.mjs`, `page.html`, `serve.mjs`, `png8.mjs` | the renderer (three.js in headless Chromium), the fit and crop, the palette PNG writer |
 | `layers.mjs` | the Home layers: crops, the lotus cut-out, the shadow, the JPEG garden |
 | `check.mjs` | hashes of every output against `manifest.json` and `layers.json`, the generated kit files, the models and `heroes.json` |
 | `manifest.json`, `layers.json` | what the last bake and the last layer run wrote |
 
 Outputs:
-- `client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/<family>-<idle|react>-<NN>.png` and the folder's
+- `client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/<family>-<idle|react|win|win2>-<NN>.png` and the folder's
   `manifest.json` (the originality test's list, `client/THIRD_PARTY_NOTICES.md`);
 - `client/Assets/Bloomlings/UI/Design/HeroMotionData.cs` (per frame: its crop in the 448 × 504 cell and the head points
   the hats follow);

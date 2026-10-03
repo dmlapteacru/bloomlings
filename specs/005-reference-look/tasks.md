@@ -239,3 +239,17 @@ See spec.md (the clarification "the owner's batch"); the clearing pace and the s
   `align`, `KitText.Measure` of any text): the lotus inside its left end, the amount right after it; Unity lays it out
   on every `Show`; the test `ThePetalsPill_FitsItsAmount_TheLotusInside_TheAmountRightAfterIt`.
 - [X] T047 The docs (contracts/look.md §3, §5, §6.1, §6.4; FR-011, FR-020; CLAUDE.md); all checks; the playtest APK.
+
+## Owner delivery: Sprig's Blender model; Twig and Sprig take turns celebrating (2026-10-03)
+
+See spec.md (the clarification "Sprig's Blender model") and research D24.
+- [X] T048 `tools/heroanim`: `sprig.glb` (`Sprig_Complete.glb`) replaces `sprig.fbx` (`SOURCE.md`); the bake takes a list
+  of win clips (`win`, `win2`), a ground point at the model's base (`ground: "model"`) and a top point off a bone
+  (`topOffset`); Sprig re-baked (96 idle, 72 wave, 48 celebrate, 72 clap frames), `HeroMotionData.cs` and the manifests
+  regenerated; `check.mjs` passes.
+- [X] T049 The kit's `MotionClip.Win2`, `HeroMotion.WinClip`, `HeroMotionPlayer.Celebrate(…, turn)` and
+  `CharacterArt.Celebrants` / `CelebrantOf` / `CelebrationTurn` (replacing `Celebrant`); the playtest's `EndCards` and
+  Unity's `WinScreen`, `MilestoneCard`, `HeroPictures`, `HeroMotionView` and `HeroFrames` pass the level's celebrant and
+  turn; the tests (`HeroMotionTests`, `HeroFramesTests`, `WardrobeLayoutTests`).
+- [X] T050 The docs (FR-028, SC-006, SC-007, pictures.md, contracts/look.md, research D24, CLAUDE.md); all checks; the
+  playtest APK.

@@ -603,9 +603,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   picture standing on its top with the heroes' feet, `CharacterArt.GroupFeetShare`, a tenth of the top's half height
   below its middle, as large as the room from the heads to the pedestal's foot allows), with light rays behind (clipped
   above the card, fading in, alpha 0.85) and falling petals around. The group picture has no base of its own. When the
-  owner's celebrating hero of the celebrating family exists (pictures.md A7, `char.hero3d.cheer.*`; Twig,
-  `CharacterArt.Celebrant`, since the owner's choice of 2026-10-03, before it the family of the variant with the most
-  work), it stands alone on the pedestal instead of the group. Since the owner's delivery
+  owner's celebrating hero of the celebrating family exists (pictures.md A7, `char.hero3d.cheer.*`; Twig and Sprig by
+  turns level by level, `CharacterArt.CelebrantOf`, since the owner's choices of 2026-10-03 (Twig alone at first), before
+  them the family of the variant with the most work), it stands alone on the pedestal instead of the group. Since the owner's delivery
   (FR-028, §3.12, §6.3) that family's animated hero stands there first, when its frames exist: its reaction from the
   moment it appears, then its idle for as long as the card shows; the still celebrating picture, then the group, stand
   in while the frames are missing. A light sprinkle of confetti falls
@@ -860,7 +860,7 @@ lightened); no top bar.
 | Sign | `0.66W × 0.13H`, centered, top at 7.5% of H (flower clusters over both ends, out to `0.04W` from the edges) |
 | Picture | the finished picture in its stone frame, at most `0.8W` wide, top at 21.5% and bottom at most at 58% of H |
 | Rays and petals | centered on the hero, radius `0.6W`, behind the hero; petals over the whole screen |
-| Hero | Twig (`CharacterArt.Celebrant`: its animated hero, else its celebrating picture, else the group), centered, from 50% to 76% of H, overlapping the picture's foot |
+| Hero | the level's celebrant, Twig on odd levels and Sprig on even ones (`CharacterArt.CelebrantOf`: its animated hero, else its celebrating picture, else the group), centered, from 50% to 76% of H, overlapping the picture's foot |
 | Pedestal | `0.8W` wide, from 70.5% to 81.5% of H, top ellipse at about 73.8% under the hero's feet (73.4%); with the owner's win picture its own stone disc is the stage instead |
 | Reward pill | `0.47W × 0.09H`, centered, from 76% to 85% of H (on the pedestal's front) |
 | Next | the primary button in its wood rim, `0.84W` wide, from 86% to 96% of H; ×2 reward as a small cream pill under it when offered, or beside the reward pill |

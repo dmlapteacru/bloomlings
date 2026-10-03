@@ -138,6 +138,7 @@ namespace Bloomlings.Client.UI.Screens
         private readonly Image _cheer;
         private readonly HeroMotionView _motion;
         private Family? _family;
+        private int _turn;
 
         internal CelebrationView(RectTransform card)
         {
@@ -161,10 +162,15 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>
         /// Shows <paramref name="family"/>'s hero instead of the group: its animated hero when its frames are there
         /// (<see cref="HeroPictures.Animated"/>: the reaction from the moment it shows, then the idle for as long as it
-        /// shows), else the owner's celebrating picture (pictures.md A7) when it exists; null shows the group. Call
-        /// <see cref="Place(Box, Box, float, float)"/> or <see cref="Place(WinRegions, Box, bool)"/> after it.
+        /// shows), else the owner's celebrating picture (pictures.md A7) when it exists; null shows the group. The
+        /// animated hero plays its celebration for its <paramref name="turn"/>-th win (<see cref="CharacterArt.CelebrationTurn"/>).
+        /// Call <see cref="Place(Box, Box, float, float)"/> or <see cref="Place(WinRegions, Box, bool)"/> after it.
         /// </summary>
-        public void ShowHero(Family? family) => _family = family;
+        public void ShowHero(Family? family, int turn = 0)
+        {
+            _family = family;
+            _turn = turn;
+        }
 
         /// <summary>
         /// What stands on the pedestal for the family shown: the animated hero, else the still cheer picture, else (both
@@ -195,7 +201,7 @@ namespace Bloomlings.Client.UI.Screens
 
             UiKit.PlaceBox(_motion.Rect, HeroMotion.Cell(box), parent);
             _motion.Rect.gameObject.SetActive(true);
-            _motion.Celebrate(_family.Value);
+            _motion.Celebrate(_family.Value, _turn);
         }
 
         /// <summary>

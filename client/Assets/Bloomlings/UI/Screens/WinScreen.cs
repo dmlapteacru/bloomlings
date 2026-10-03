@@ -29,7 +29,7 @@ namespace Bloomlings.Client.UI.Screens
     /// it).</description></item>
     /// <item><description>Top to bottom: the wooden "Level / complete!" sign with white flower clusters, the finished
     /// picture large in its stone frame (a milestone level adds the "Milestone reached!" mark over its top edge), the
-    /// celebrating hero (Twig, <see cref="CharacterArt.Celebrant"/>) on a stone pedestal overlapping the picture's foot: the owner's animated hero
+    /// celebrating hero (Twig or Sprig by turns, <see cref="CharacterArt.CelebrantOf"/>) on a stone pedestal overlapping the picture's foot: the owner's animated hero
     /// (spec 005 FR-028, <see cref="HeroMotionView"/>), its reaction playing from the moment the celebration shows and
     /// then its idle for as long as it shows, else its still celebrating picture (pictures.md A7), else the group; with
     /// slowly turning light rays behind it, pink petals falling over the screen and, for the first seconds, a light
@@ -145,7 +145,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="milestone">A milestone was granted: a small mark says so, and its screen follows Next.</param>
         /// <param name="countUp">Counts the earned Petals up from 0 (spec 003 FR-020); null shows the amount at once.</param>
         /// <param name="reward">The reward: the Petals on the lotus plate, a dropped booster beside it.</param>
-        /// <param name="session">The won level, whose finished picture shows; Twig celebrates it (<see cref="CharacterArt.Celebrant"/>).</param>
+        /// <param name="session">The won level, whose finished picture shows; its celebrant celebrates it (<see cref="CharacterArt.CelebrantOf"/>).</param>
         public void Show(MonoBehaviour host, string rewardText, Action<Action<string>>? doubleReward = null, bool milestone = false, (long Petals, Func<long, string> Format)? countUp = null, LevelReward? reward = null, LevelSession? session = null)
         {
             if (_backdrop == null)
@@ -197,7 +197,8 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.SetBoosterIcon(_dropIcon, BoosterId(drop.Value), false);
             }
 
-            _celebration.ShowHero(session != null ? CharacterArt.Celebrant : (Family?)null);
+            int won = session?.Definition.LevelNumber ?? 0;
+            _celebration.ShowHero(session != null ? CharacterArt.CelebrantOf(won) : (Family?)null, CharacterArt.CelebrationTurn(won));
             _confettiClip.gameObject.SetActive(session != null);
             if (session != null)
             {

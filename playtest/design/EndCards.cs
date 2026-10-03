@@ -50,7 +50,7 @@ namespace Bloomlings.Playtest.Design
         {
             LevelReward? reward = s.Payout?.Reward;
             WinRegions r = ScreenLayout.WinScreen(p.Width, p.Height, p.Insets);
-            Family family = CharacterArt.Celebrant;
+            Family family = CharacterArt.CelebrantOf(s.Level);
             p.PushAlpha(Kit.Ease(since / WinFadeSeconds));
             Garden(p, s, r, since);
             Celebrant hero = Cast(p, r, family);
@@ -143,7 +143,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             WinRegions r = ScreenLayout.WinScreen(p.Width, p.Height, p.Insets);
-            Family family = CharacterArt.Celebrant;
+            Family family = CharacterArt.CelebrantOf(s.Level);
             Garden(p, s, r, since);
             Celebrant hero = Cast(p, r, family);
             Rays(p, r, hero, since);
@@ -437,7 +437,7 @@ namespace Bloomlings.Playtest.Design
 
             public Box Picture { get; }
 
-            /// <summary>The owner's celebrating picture of the celebrating family (Twig, <see cref="CharacterArt.Celebrant"/>; pictures.md A7), or null for the group.</summary>
+            /// <summary>The owner's celebrating picture of the celebrating family (Twig or Sprig by turns, <see cref="CharacterArt.CelebrantOf"/>; pictures.md A7), or null for the group.</summary>
             public string? Cheer { get; }
 
             /// <summary>Whether the celebrating family shows as its animated hero (spec 005 FR-028) in the picture's cell.</summary>
@@ -450,7 +450,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The hero standing on the pedestal (§6.3, spec 004 FR-017): its feet just behind the middle of the pedestal's top,
-        /// the celebrating family (Twig) filling the hero box as its animated hero when its frames exist (spec 005 FR-028),
+        /// the celebrating family (Twig or Sprig) filling the hero box as its animated hero when its frames exist (spec 005 FR-028),
         /// else as its celebrating picture when the owner's picture exists (pictures.md A7), else the four heroes, their heads at
         /// the hero box's top, at most <see cref="GroupShare"/> of the pedestal wide. The rays turn behind its body.
         /// </summary>
@@ -474,14 +474,15 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The animated hero's pose <paramref name="since"/> seconds after the card showed: from its entrance
-        /// (<see cref="HeroEntrance"/>) its celebration (Twig's cheer, <see cref="HeroMotionPlayer.Celebrate"/>; a hero
+        /// (<see cref="HeroEntrance"/>) its celebration for its <paramref name="turn"/>-th win (Twig's cheer, Sprig's
+        /// celebrate and clap by turns, <see cref="HeroMotionPlayer.Celebrate"/>; a hero
         /// without one reacts), which starts on the idle's first pose, then its idle loop. The player
         /// is deterministic in its inputs, so it is made again each frame.
         /// </summary>
-        private static HeroPose CelebrationPose(Family family, float since)
+        private static HeroPose CelebrationPose(Family family, int turn, float since)
         {
             var player = new HeroMotionPlayer(family, HeroEntrance);
-            player.Celebrate(HeroEntrance);
+            player.Celebrate(HeroEntrance, turn: turn);
             return player.Pose(Math.Max(HeroEntrance, since));
         }
 
@@ -531,7 +532,7 @@ namespace Bloomlings.Playtest.Design
             s.HeroMoving = hero.Moving;
             if (hero.Moving)
             {
-                Visuals.MotionHero(p, HeroMotion.Cell(hero.Picture), family, CelebrationPose(family, since), null);
+                Visuals.MotionHero(p, HeroMotion.Cell(hero.Picture), family, CelebrationPose(family, CharacterArt.CelebrationTurn(s.Level), since), null);
             }
             else if (hero.Cheer != null)
             {

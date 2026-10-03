@@ -44,6 +44,7 @@ namespace Bloomlings.Client.UI.Screens
         private HeroFrameSet? _held;
         private HeroMotionPlayer? _player;
         private bool _celebrates;
+        private int _turn;
         private string? _hatShape;
         private bool _wearsHat;
         private bool _wearsSkin;
@@ -82,14 +83,16 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// The win's and the milestone's hero: <paramref name="family"/> reacts from the moment it shows (now, if it shows
-        /// now; else when it is next enabled), the reaction starting on the idle's first pose, and then idles for as long as
-        /// it shows; it ticks itself.
+        /// The win's and the milestone's hero: <paramref name="family"/> celebrates from the moment it shows (now, if it
+        /// shows now; else when it is next enabled) with its celebration for its <paramref name="turn"/>-th win
+        /// (<see cref="HeroMotion.WinClip"/>), starting on the idle's first pose, and then idles for as long as it shows;
+        /// it ticks itself.
         /// </summary>
-        public void Celebrate(Family family)
+        public void Celebrate(Family family, int turn = 0)
         {
             Bind(family);
             _celebrates = true;
+            _turn = turn;
             _player = null;
             if (isActiveAndEnabled)
             {
@@ -257,7 +260,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _player = new HeroMotionPlayer(_set.Family, now);
-            _player.Celebrate(now);
+            _player.Celebrate(now, turn: _turn);
             _shown = -1;
             _fadeShown = -1;
             Tick(now);
