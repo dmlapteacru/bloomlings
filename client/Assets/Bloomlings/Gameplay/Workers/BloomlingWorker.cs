@@ -12,7 +12,9 @@ namespace Bloomlings.Client.Gameplay.Workers
     /// <summary>
     /// One Bloomling on the board (T046): it emerges at the Garden Entry, hops along its route over open cells facing
     /// the way it walks, plays a short restore at the target, then despawns. The states idle, emerge, move, restore
-    /// and despawn are driven in code by the timeline's clock, so 2× speed and backlog compression apply. Workers are
+    /// and despawn are driven in code by the timeline's clock (the time since it set off, <see cref="EventTimeline.Now"/>),
+    /// so 2× speed, backlog compression and pauses apply, and it reaches each route cell exactly when the timeline, which
+    /// schedules later waves by it, expects. Workers are
     /// drawn above the tiles (doc 12 §8). Each is its variant's 2D character, whose shape is the variant's symbol, so the
     /// target reads without color (doc 12 §6, "moving-character test"; spec 004 FR-010), with a flat shadow under it, and
     /// it wears its family's outfit (FR-063).
@@ -39,6 +41,7 @@ namespace Bloomlings.Client.Gameplay.Workers
         private BloomlingFigure _figure = null!;
         private EventTimeline _timeline = null!;
         private WorkerPool _pool = null!;
+        private float _start;
         private float _travel;
         private float _time;
         private float _size;
@@ -66,11 +69,13 @@ namespace Bloomlings.Client.Gameplay.Workers
 
         /// <param name="visual">The variant it clears: its character and family.</param>
         /// <param name="path">Canvas positions: the entry point, then the route cells ending at the target.</param>
+        /// <param name="start">When it sets off, on the timeline clock.</param>
+        /// <param name="travelSeconds">Its walk to the target, in timeline seconds: it reaches route cell j at (j + 1) / count of it.</param>
         /// <param name="outfit">
         /// What its family wears (FR-063): a thin skin pattern, a hat, an expression, a trail. The character's colors
         /// and shape are never changed.
         /// </param>
-        public void Launch(VariantVisual visual, IReadOnlyList<Vector2> path, float size, float travelSeconds, Outfit? outfit = null)
+        public void Launch(VariantVisual visual, IReadOnlyList<Vector2> path, float size, float start, float travelSeconds, Outfit? outfit = null)
         {
             _figure.ShowCharacter(visual.Id, outfit);
             _path.Clear();
@@ -81,6 +86,7 @@ namespace Bloomlings.Client.Gameplay.Workers
             UiFactory.PlaceAbsolute(rect, _path[0], Vector2.one * size);
             transform.localScale = Vector3.zero;
             transform.SetAsLastSibling();
+            _start = start;
             _travel = Mathf.Max(0.05f, travelSeconds);
             _time = 0f;
             Current = State.Emerge;
@@ -101,7 +107,7 @@ namespace Bloomlings.Client.Gameplay.Workers
                 return;
             }
 
-            _time += Time.unscaledDeltaTime * _timeline.Rate;
+            _time = Mathf.Max(0f, _timeline.Now - _start);
             var rect = (RectTransform)transform;
             switch (Current)
             {
@@ -120,22 +126,22 @@ namespace Bloomlings.Client.Gameplay.Workers
                     if (_time >= _travel)
                     {
                         Current = State.Restore;
-                        _time = 0f;
                     }
 
                     break;
                 case State.Restore:
-                    Scale(1f + (0.25f * Mathf.Sin(Mathf.Clamp01(_time / EventTimeline.RestoreSeconds) * Mathf.PI)));
-                    if (_time >= EventTimeline.RestoreSeconds)
+                    float restored = (_time - _travel) / EventTimeline.RestoreSeconds;
+                    Scale(1f + (0.25f * Mathf.Sin(Mathf.Clamp01(restored) * Mathf.PI)));
+                    if (restored >= 1f)
                     {
                         Current = State.Despawn;
-                        _time = 0f;
                     }
 
                     break;
                 case State.Despawn:
-                    Scale(1f - Mathf.Clamp01(_time / DespawnSeconds));
-                    if (_time >= DespawnSeconds)
+                    float gone = (_time - _travel - EventTimeline.RestoreSeconds) / DespawnSeconds;
+                    Scale(1f - Mathf.Clamp01(gone));
+                    if (gone >= 1f)
                     {
                         Current = State.Idle;
                         gameObject.SetActive(false);

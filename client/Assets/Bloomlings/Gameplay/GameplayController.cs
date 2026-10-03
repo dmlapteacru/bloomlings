@@ -349,10 +349,12 @@ namespace Bloomlings.Client.Gameplay
                         (int count, VariantId? shown, Vector3? from) = before.TryGetValue(committed.PodId, out var seen)
                             ? seen
                             : (_session.View.Pod(committed.PodId).Remaining, _session.View.Pod(committed.PodId).Variant, (Vector3?)null);
-                        _slots.Commit(committed.SlotIndex, committed.PodId, shown, count);
+
+                        // It shows on a plate free on screen, maybe not its slot in the rules (SlotPlaces), and flies there.
+                        int place = _slots.Commit(_session.View, committed.SlotIndex, committed.PodId, shown, count);
                         if (from.HasValue)
                         {
-                            FlyCard(shown, from.Value, _slots.TilePosition(committed.SlotIndex), _tray.TileSize(committed.PodId), _slots.TileSize);
+                            FlyCard(shown, from.Value, _slots.TilePosition(place), _tray.TileSize(committed.PodId), _slots.TileSize);
                         }
 
                         break;
@@ -405,9 +407,9 @@ namespace Bloomlings.Client.Gameplay
 
         // ---- Timeline sink ----
 
-        public void OnWorkStarted(IReadOnlyList<WorkUnit> batch, float travelSeconds)
+        public void OnWorkStarted(IReadOnlyList<WorkUnit> batch, float start, float travelSeconds)
         {
-            _workers.Launch(batch, travelSeconds);
+            _workers.Launch(batch, start, travelSeconds);
             foreach (WorkUnit unit in batch)
             {
                 string pod = unit.Clear.PodId;
@@ -598,12 +600,21 @@ namespace Bloomlings.Client.Gameplay
             _board.SetTargeting(false);
         }
 
-        private void OnSlotTapped(int slot)
+        /// <summary>A plate was tapped: Return takes back the pod shown there, by its slot in the rules (it may show on another plate).</summary>
+        private void OnSlotTapped(int place)
         {
-            if (_targeting == BoosterKind.Return)
+            if (_targeting == BoosterKind.Return && _session != null)
             {
+                int slot = SlotPlaces.RulesSlotOf(_session.View, _slots.PodAt(place));
                 CancelTargeting();
-                UseBooster(BoosterKind.Return, new UseReturn(slot));
+                if (slot >= 0)
+                {
+                    UseBooster(BoosterKind.Return, new UseReturn(slot));
+                }
+                else
+                {
+                    ShowJamIfBlocked();
+                }
             }
         }
 
@@ -660,7 +671,9 @@ namespace Bloomlings.Client.Gameplay
             (string PodId, Vector3 From, VariantId? Variant)? returning = null;
             if (command is UseReturn back && session.View.PodInSlot(back.SlotIndex) is string returned)
             {
-                returning = (returned, _slots.TilePosition(back.SlotIndex), session.View.Pod(returned).Variant);
+                // It flies back from the plate it shows on (maybe not its slot in the rules, SlotPlaces).
+                int place = _slots.PlaceOf(returned);
+                returning = (returned, _slots.TilePosition(place >= 0 ? place : back.SlotIndex), session.View.Pod(returned).Variant);
             }
 
             CommandResult result = session.Apply(command);
@@ -691,7 +704,7 @@ namespace Bloomlings.Client.Gameplay
                 }
             }
 
-            _slots.Reset(session.View, result.Events);
+            _slots.Rebuild(session.View, result.Events);
             _tray.Refresh(session.View);
             if (kind == BoosterKind.Shuffle)
             {

@@ -13,7 +13,9 @@ namespace Bloomlings.Client.Gameplay.Workers
 {
     /// <summary>
     /// A bounded pool of Bloomling workers (T046, R4). At most <see cref="Capacity"/> are active (60 on low-end
-    /// devices); when the pool is saturated the timeline merges walkers, so one sprite may stand for several tiles.
+    /// devices); the timeline merges the walkers of a wave larger than the pool, so one sprite may stand for several
+    /// tiles, and while the waves of several taps play side by side a saturated pool skips the sprite (the tiles still
+    /// update on arrival).
     /// The worker's look comes from its variant's family, tinted with the variant color (doc 12 §2).
     /// </summary>
     public sealed class WorkerPool : MonoBehaviour
@@ -45,8 +47,11 @@ namespace Bloomlings.Client.Gameplay.Workers
 
         public void SetEntries(IReadOnlyList<EntryDef> entries) => _entries = entries;
 
-        /// <summary>Sends one walker for a batch; it follows the route of the batch's farthest unit.</summary>
-        public void Launch(IReadOnlyList<WorkUnit> batch, float travelSeconds)
+        /// <summary>
+        /// Sends one walker for a batch; it follows the route of the batch's farthest unit, setting off at
+        /// <paramref name="start"/> on the timeline clock and reaching its target <paramref name="travelSeconds"/> later.
+        /// </summary>
+        public void Launch(IReadOnlyList<WorkUnit> batch, float start, float travelSeconds)
         {
             if (batch.Count == 0)
             {
@@ -67,7 +72,7 @@ namespace Bloomlings.Client.Gameplay.Workers
                 path.Add(_board.CellCenter(cell));
             }
 
-            worker.Launch(visual, path, _board.CellSize * 0.8f, travelSeconds, Outfits?.Invoke(visual.Family));
+            worker.Launch(visual, path, _board.CellSize * 0.8f, start, travelSeconds, Outfits?.Invoke(visual.Family));
         }
 
         public void Release(BloomlingWorker worker) => _free.Push(worker);
