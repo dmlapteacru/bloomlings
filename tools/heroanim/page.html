@@ -50,20 +50,25 @@ window.bake = async (job) => {
   renderer.toneMapping = THREE.NoToneMapping;
 
   const scene = new THREE.Scene();
+  const L = job.light;
+  const exposure = L.exposure ?? 1, lift = L.lift ?? 0;
   obj.traverse(o => {
     if (!o.isMesh || !o.visible) return;
     const map = o.material.map;
     if (map) map.colorSpace = THREE.SRGBColorSpace;
-    // Lambert on the albedo, without the model's normal map (it shows blotches): bright, soft, volumetric.
-    o.material = new THREE.MeshLambertMaterial({ map });
+    // Lambert on the albedo, without the model's normal map (it shows blotches): bright, soft, volumetric. A hero's
+    // light.lift adds that share of its own albedo as glow, so its shadows open up without washing out its lit side.
+    o.material = new THREE.MeshLambertMaterial(lift > 0 && map
+      ? { map, emissive: 0xffffff, emissiveMap: map, emissiveIntensity: lift }
+      : { map });
     o.frustumCulled = false;
   });
   scene.add(obj);
-  const L = job.light;
-  scene.add(new THREE.HemisphereLight(0xfff6e8, 0xb8a080, L.hemi));
-  const key = new THREE.DirectionalLight(0xfff2dc, L.key); key.position.set(-1.2, 2.0, 2.2); scene.add(key);
-  const fill = new THREE.DirectionalLight(0xe8f0ff, L.fill); fill.position.set(1.5, 0.6, 1.5); scene.add(fill);
-  const rim = new THREE.DirectionalLight(0xffffff, L.rim); rim.position.set(0.5, 1.5, -2.0); scene.add(rim);
+  // The lights, each scaled by the hero's light.exposure (1 by default).
+  scene.add(new THREE.HemisphereLight(0xfff6e8, 0xb8a080, L.hemi * exposure));
+  const key = new THREE.DirectionalLight(0xfff2dc, L.key * exposure); key.position.set(-1.2, 2.0, 2.2); scene.add(key);
+  const fill = new THREE.DirectionalLight(0xe8f0ff, L.fill * exposure); fill.position.set(1.5, 0.6, 1.5); scene.add(fill);
+  const rim = new THREE.DirectionalLight(0xffffff, L.rim * exposure); rim.position.set(0.5, 1.5, -2.0); scene.add(rim);
 
   const mixer = new THREE.AnimationMixer(obj);
   // A clip by its Meshy id: the whole name, or its last part after "|" (the 60 fps export names them

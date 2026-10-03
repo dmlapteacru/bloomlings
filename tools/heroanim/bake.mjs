@@ -126,7 +126,9 @@ async function main() {
       idleSeconds: 'idleSeconds' in hero ? hero.idleSeconds : config.idleSeconds,
       reactSeconds: 'reactSeconds' in hero ? hero.reactSeconds : config.reactSeconds,
       idleBlend: config.idleBlend, reactIn: config.reactIn, reactOut: config.reactOut,
-      yaw: hero.yaw, pitch: config.pitch, fov: config.fov, light: config.light,
+      yaw: hero.yaw, pitch: config.pitch, fov: config.fov,
+      // A hero's own light settings (heroes.json `light`: hemi, key, fill, rim, exposure, lift) over the shared ones.
+      light: { ...config.light, ...(hero.light || {}) },
       cell: config.cell, feet: config.feet, fill: config.fill, margin: config.margin,
       width: Math.round(config.cell[0] * config.supersample), height: Math.round(config.cell[1] * config.supersample),
     };
