@@ -27,7 +27,7 @@ namespace Bloomlings.Client.Tests
                 HeroFrameSet set = HeroFrames.Of(family);
                 Assert.That(HeroFrames.Of(family), Is.SameAs(set), family + ": one set a family");
                 Assert.That(set.Baked, Is.EqualTo(HeroMotion.Has(family)), family.ToString());
-                foreach (MotionClip clip in new[] { MotionClip.Idle, MotionClip.React })
+                foreach (MotionClip clip in HeroMotion.Clips)
                 {
                     int count = HeroMotion.FrameCount(family, clip);
                     Assert.That(set.Count(clip), Is.EqualTo(count), family + " " + clip);
@@ -56,7 +56,7 @@ namespace Bloomlings.Client.Tests
             string folder = Path.Combine(ClientRoot, "Art", "Heroes", "Resources", HeroMotion.Folder);
             Assert.That(HeroMotionImporter.FramesFolder, Is.EqualTo("Assets/Bloomlings/Art/Heroes/Resources/" + HeroMotion.Folder + "/"));
             var expected = new HashSet<string>(HeroMotion.AllFrames());
-            Assert.That(expected, Has.Count.EqualTo(576), "four families, a 96-frame idle and a 48-frame reaction each (24 fps)");
+            Assert.That(expected, Has.Count.EqualTo(612), "three Meshy families with a 96-frame idle and a 48-frame reaction, Twig with 72, 36 and its 72-frame cheer (24 fps)");
             foreach (string name in expected)
             {
                 Assert.That(File.Exists(Path.Combine(folder, name + ".png")), Is.True, name + ".png");

@@ -17,8 +17,8 @@ node check.mjs                       # must pass before committing hero frames o
 
 | File | What |
 |---|---|
-| `heroes.json` | the bake: cell, foot line, fill and margin, frames per second, the clips' lengths on screen, supersampling, camera, light, blend times, and per hero its model, its two clips and its turn (`yaw`) |
-| `models/*.fbx` | the owner's models (`SOURCE.md`) |
+| `heroes.json` | the bake: cell, foot line, fill and margin, frames per second, the clips' lengths on screen, supersampling, camera, light, blend times, and per hero its model, its clips (the idle, the reaction and maybe the win's `win`), its head bones (`head`, `top`; Mixamo's by default), its own clip lengths (null: the clips' own) and its turn (`yaw`) |
+| `models/*.fbx`, `models/*.glb` | the owner's models (`SOURCE.md`): the Meshy FBX heroes and Twig's Blender `.glb` |
 | `bake.mjs`, `page.html`, `serve.mjs`, `png8.mjs` | the renderer (three.js in headless Chromium), the fit and crop, the palette PNG writer |
 | `layers.mjs` | the Home layers: crops, the lotus cut-out, the shadow, the JPEG garden |
 | `check.mjs` | hashes of every output against `manifest.json` and `layers.json`, the generated kit files, the models and `heroes.json` |

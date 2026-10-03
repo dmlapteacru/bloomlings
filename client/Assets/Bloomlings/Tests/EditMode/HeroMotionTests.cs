@@ -14,15 +14,39 @@ namespace Bloomlings.Client.Tests
         private const float Eps = 1e-3f;
 
         [Test]
-        public void EveryFamily_HasItsFourSecondIdleAndTwoSecondReaction()
+        public void EveryFamily_HasItsIdleAndReaction_TwigItsWinsCheer()
         {
-            // The owner's table (2026-10-02): every idle lasts 4 s, every reaction 2 s.
+            // The owner's table (2026-10-02): the Meshy heroes' idles last 4 s, their reactions 2 s. Twig's Blender model
+            // (2026-10-03) keeps its clips' own lengths: a 3 s breathing, a 1.5 s small bounce and the win's 3 s cheer.
             foreach (Family family in CharacterArt.Families)
             {
+                bool twig = family == Family.Twig;
                 Assert.That(HeroMotion.Has(family), Is.True, family.ToString());
-                Assert.That(HeroMotion.Seconds(family, MotionClip.Idle), Is.EqualTo(4f).Within(Eps), family + " idle");
-                Assert.That(HeroMotion.Seconds(family, MotionClip.React), Is.EqualTo(2f).Within(Eps), family + " reaction");
+                Assert.That(HeroMotion.Seconds(family, MotionClip.Idle), Is.EqualTo(twig ? 3f : 4f).Within(Eps), family + " idle");
+                Assert.That(HeroMotion.Seconds(family, MotionClip.React), Is.EqualTo(twig ? 1.5f : 2f).Within(Eps), family + " reaction");
+                Assert.That(HeroMotion.HasWin(family), Is.EqualTo(twig), family + " has its own cheer");
+                Assert.That(HeroMotion.Seconds(family, MotionClip.Win), Is.EqualTo(twig ? 3f : 0f).Within(Eps), family + " cheer");
             }
+        }
+
+        [Test]
+        public void ACelebration_PlaysTheHerosCheer_ElseItsReaction_ThenIdles()
+        {
+            var twig = new HeroMotionPlayer(Family.Twig, 0f);
+            twig.Celebrate(0f);
+            Assert.That(twig.Pose(0f).Clip, Is.EqualTo(MotionClip.Win), "Twig cheers from the start");
+            Assert.That(twig.Pose(0f).Index, Is.EqualTo(0));
+            float cheer = HeroMotion.Seconds(Family.Twig, MotionClip.Win);
+            Assert.That(twig.Pose(cheer - 0.01f).Clip, Is.EqualTo(MotionClip.Win));
+            Assert.That(twig.Pose(cheer + 0.01f).Clip, Is.EqualTo(MotionClip.Idle), "then idles");
+            Assert.That(twig.Pose(cheer + 0.01f).Index, Is.EqualTo(0), "from the seam the cheer ends on");
+
+            var sprig = new HeroMotionPlayer(Family.Sprig, 0f);
+            sprig.Celebrate(0f);
+            Assert.That(sprig.Pose(0.5f).Clip, Is.EqualTo(MotionClip.React), "a hero without a cheer reacts");
+
+            twig.React(cheer + 1f, waitForSeam: true);
+            Assert.That(twig.Pose(cheer + HeroMotion.Seconds(Family.Twig, MotionClip.Idle) + 0.01f).Clip, Is.EqualTo(MotionClip.React), "a reaction after the cheer is a reaction");
         }
 
         [Test]
@@ -31,7 +55,7 @@ namespace Bloomlings.Client.Tests
             var names = new HashSet<string>();
             foreach (Family family in CharacterArt.Families)
             {
-                foreach (MotionClip clip in new[] { MotionClip.Idle, MotionClip.React })
+                foreach (MotionClip clip in HeroMotion.Clips)
                 {
                     for (int i = 0; i < HeroMotion.FrameCount(family, clip); i++)
                     {

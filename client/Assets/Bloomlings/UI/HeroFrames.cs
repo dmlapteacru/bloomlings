@@ -43,6 +43,7 @@ namespace Bloomlings.Client.UI
     {
         private readonly HeroFrame[] _idle;
         private readonly HeroFrame[] _react;
+        private readonly HeroFrame[] _win;
         private readonly Sprite?[] _sprites;
         private readonly bool[] _tried;
         private readonly bool[] _created;
@@ -54,7 +55,8 @@ namespace Bloomlings.Client.UI
             bool baked = HeroMotion.Has(family);
             _idle = Frames(family, MotionClip.Idle, baked);
             _react = Frames(family, MotionClip.React, baked);
-            int count = _idle.Length + _react.Length;
+            _win = Frames(family, MotionClip.Win, baked);
+            int count = _idle.Length + _react.Length + _win.Length;
             _sprites = new Sprite?[count];
             _tried = new bool[count];
             _created = new bool[count];
@@ -68,15 +70,21 @@ namespace Bloomlings.Client.UI
         /// <summary>Whether the frames can show: baked, and the seam picture is there.</summary>
         public bool Present => Baked && Sprite(MotionClip.Idle, 0) != null;
 
-        /// <summary>The number of frames of a clip.</summary>
-        public int Count(MotionClip clip) => clip == MotionClip.Idle ? _idle.Length : _react.Length;
+        /// <summary>The number of frames of a clip (0 for a win's celebration the family does not have).</summary>
+        public int Count(MotionClip clip) => FramesOf(clip).Length;
 
         /// <summary>A frame's crop and head points; the index wraps (the kit's <see cref="HeroMotion.Frame"/>, cached).</summary>
         public HeroFrame Frame(MotionClip clip, int index)
         {
-            HeroFrame[] frames = clip == MotionClip.Idle ? _idle : _react;
+            HeroFrame[] frames = FramesOf(clip);
             return frames[Wrap(index, frames.Length)];
         }
+
+        /// <summary>A frame's place among the family's frames (the idle's, then the reaction's, then the win's): its picture's key.</summary>
+        public int Slot(MotionClip clip, int index) =>
+            (clip == MotionClip.Idle ? 0 : clip == MotionClip.React ? _idle.Length : _idle.Length + _react.Length) + Wrap(index, Count(clip));
+
+        private HeroFrame[] FramesOf(MotionClip clip) => clip == MotionClip.Idle ? _idle : clip == MotionClip.React ? _react : _win;
 
         /// <summary>A frame's picture, loaded the first time it is asked for; null while it is missing.</summary>
         public Sprite? Sprite(MotionClip clip, int index)
@@ -87,7 +95,7 @@ namespace Bloomlings.Client.UI
                 return null;
             }
 
-            int slot = (clip == MotionClip.Idle ? 0 : _idle.Length) + Wrap(index, count);
+            int slot = Slot(clip, index);
             if (!_tried[slot])
             {
                 _tried[slot] = true;

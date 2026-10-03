@@ -19,7 +19,8 @@ namespace Bloomlings.Client.UI.Screens
     /// through the frame's own alpha, the expression on its cream badge (<see cref="CharacterArt.ExpressionBadge"/>: the
     /// frames have no blank face) and the hat on the head, turned with it (<see cref="HeroMotion.Hat"/>). Home drives four
     /// of them from its <see cref="HomeMotion"/> (<see cref="Drive"/>, <see cref="Tick"/>); the win and the milestone show
-    /// one that reacts from the moment it shows and then idles for as long as it shows (<see cref="Celebrate"/>). It keeps
+    /// one that celebrates from the moment it shows (Twig's cheer, <see cref="HeroMotionPlayer.Celebrate"/>) and then
+    /// idles for as long as it shows (<see cref="Celebrate"/>). It keeps
     /// its family's frames loaded only while it is enabled (<see cref="HeroFrameSet.Hold"/>), changes its images only when
     /// the frame changes and allocates nothing per frame. Never a touch target.
     /// </summary>
@@ -256,7 +257,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _player = new HeroMotionPlayer(_set.Family, now);
-            _player.React(now, waitForSeam: true);
+            _player.Celebrate(now);
             _shown = -1;
             _fadeShown = -1;
             Tick(now);
@@ -344,8 +345,7 @@ namespace Bloomlings.Client.UI.Screens
             _hat.gameObject.SetActive(true);
         }
 
-        private static int Key(MotionClip clip, int index, HeroFrameSet set) =>
-            clip == MotionClip.Idle ? index : set.Count(MotionClip.Idle) + index;
+        private static int Key(MotionClip clip, int index, HeroFrameSet set) => set.Slot(clip, index);
 
         /// <summary>Anchors a rect of the cell to a box in the cell's pixels (y down), so it follows the placed rect's size.</summary>
         private static void Anchor(RectTransform rect, Box box) =>

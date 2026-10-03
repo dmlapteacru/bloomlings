@@ -294,7 +294,18 @@ decision records what the reference shows, what we do and why, so the owner can 
   3 s, keyed at 24 a second) and, besides, Blender's default cube, two lights and a camera. Its one material is plain
   grey (`MeshPhongMaterial`, 0.8 grey) with no texture: the export embedded none (no Texture or Video node in the
   file) and has no vertex colors, so a bake would draw Twig all grey among the colored heroes.
-- **Next**: with its colors (a re-export with "Path Mode: Copy" and "Embed Textures" on, a `.glb`, or the texture
-  picture for its UVs) the bake takes the new rig's own clips and lengths (idle `Twig_Breathing`, reaction
-  `Twig_SmallBounce`, the win's `Twig_WinCheer`), skips the cube, lights and camera, and follows the hats on
-  `Twig_rig_Head`.
+- **The colors** came in the third file, `Twig.glb` (Blender's glTF exporter 5.2.39): the same model, rig (24 joints)
+  and clips with its three 1024 × 1024 textures embedded. (`Twig_v2.fbx` before it named four textures by a path on the
+  owner's computer without embedding them.)
+- **The bake** (`heroes.json`): Twig's model is the `.glb`; its clips keep their own spans (from the first keyframe, 1/24
+  s in, to the last): `Twig_Breathing` the idle (3 s, 72 frames), `Twig_SmallBounce` the reaction (1.5 s, 36) and
+  `Twig_WinCheer` a third clip, the win's (3 s, 72), baked as the reaction is, from the seam pose and back. Only skinned
+  meshes are drawn (Blender's default cube is hidden); the camera's planes follow the model's size (metres here,
+  centimetres in Meshy's). The hats follow `Twig_rig_Head` and `Twig_rig_Leaf` (the stem on the cap), so Twig's
+  `HeroMotion.HatLift` is 0: the hat sits on the cap.
+- **The kit**: `MotionClip.Win`, `HeroMotion.HasWin`, `HeroMotionPlayer.Celebrate` (the win and the milestone: the cheer
+  when the hero has one, else its reaction). Both builds' celebrations call it; the frame sets hold the third clip.
+- **Home**: the new Twig spreads its branches wider, so it stands at 0.815 of the picture's width (was 0.83), 0.31 of
+  it tall (was 0.33), inside a 21:9 screen.
+- **Not changed**: Twig's still pictures (A1–A7: the Wardrobe, the profile, the group, the celebrating picture) stay the
+  owner's earlier ones until new ones come.

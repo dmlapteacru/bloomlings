@@ -127,7 +127,7 @@ namespace Bloomlings.Playtest.Droid
             int height = 1;
             foreach (Family family in CharacterArt.Families)
             {
-                foreach (MotionClip clip in new[] { MotionClip.Idle, MotionClip.React })
+                foreach (MotionClip clip in HeroMotion.Clips)
                 {
                     for (int i = 0; i < HeroMotion.FrameCount(family, clip); i++)
                     {

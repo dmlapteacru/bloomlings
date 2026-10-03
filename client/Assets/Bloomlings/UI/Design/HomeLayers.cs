@@ -104,14 +104,15 @@ namespace Bloomlings.Client.UI.Design
         /// Where a hero stands, measured on the reference (its Home, look.md §6.4) and fitted to the layered fountain:
         /// its feet's middle as shares of the picture's width and height, and its seam pose's height as a share of the
         /// picture's width. Bloom stands behind the lotus, its feet hidden; Sprig on the left rim and Twig on the right
-        /// rim, their feet behind the fountain's front flowers.
+        /// rim, their feet behind the fountain's front flowers. Twig's Blender model (2026-10-03) spreads its branches
+        /// wider than the Meshy one did, so it stands a little smaller and further in, inside a 21:9 screen.
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
             Family.Bloom => (0.505f, 0.49f, 0.45f),
             Family.Drop => (0.705f, 0.532f, 0.34f),
             Family.Sprig => (0.235f, 0.56f, 0.40f),
-            _ => (0.83f, 0.568f, 0.33f),
+            _ => (0.815f, 0.568f, 0.31f),
         };
 
         /// <summary>How far into its idle loop a hero starts (seconds), so the four do not breathe together.</summary>

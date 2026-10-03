@@ -447,10 +447,12 @@ Names in `OwnerPictures.IconFolder`, for the eight launch variants (`OwnerPictur
 camera in the game). The kit's `HeroMotion` (`HeroMotion.cs`, with the generated `HeroMotionData.cs`) describes them
 for both builds; Home places them with `HomeLayers` (§6.4), the win and the milestone in their hero box (§6.3).
 
-- **Frames**: `Art/Heroes/Resources/HeroMotion/{family}-{idle|react}-{NN}.png` (`HeroMotion.Folder`, `FrameName`),
-  slots `char.hero3d.motion.{family}` (`HeroMotion.Slot`). 24 frames a second (`Fps`; 12 until the owner's 60 fps models, research
-  D22): per family 96 idle frames (a 4 s loop) and 48 reaction frames (2 s) (`FrameCount`, `Seconds`, `Has`). Both clips start on the idle's first frame
-  (the seam) and the reaction ends on it, so the idle and a reaction join without a jump. Each file is an 8-bit
+- **Frames**: `Art/Heroes/Resources/HeroMotion/{family}-{idle|react|win}-{NN}.png` (`HeroMotion.Folder`, `FrameName`),
+  slots `char.hero3d.motion.{family}` (`HeroMotion.Slot`). 24 frames a second (`Fps`; 12 until the owner's 60 fps
+  models, research D22): per Meshy family 96 idle frames (a 4 s loop) and 48 reaction frames (2 s); Twig (its Blender
+  model, research D23) 72 idle frames (3 s), 36 reaction frames (1.5 s) and 72 frames of the win's cheer (3 s,
+  `MotionClip.Win`, `HasWin`) (`FrameCount`, `Seconds`, `Has`). Every clip starts on the idle's first frame (the seam)
+  and the reaction and the cheer end on it, so they join the idle without a jump. Each file is an 8-bit
   palette PNG with transparency, one palette per family.
 - **The cell**: every frame is cut from one 448 × 504 cell (`CellWidth`, `CellHeight`; the still heroes' 8:9 shape)
   whose feet line lies 90% down (`FootLine`). The seam pose fills about 84% of the cell's height down to the feet
@@ -874,9 +876,9 @@ cream squircle `0.11W` square, `0.03W` from the left and `0.015W` under the top 
 usable over the win (FR-016), so Home, Restart and Settings stay reachable.
 The animated hero (owner's delivery, FR-028, §3.12): when the celebrating family (Twig) has its frames, it stands in
 `HeroMotion.Cell(Hero)` (the 8:9 cell fitted into the hero box, its foot line where the still hero's feet stand) instead
-of the celebrating picture, played by a `HeroMotionPlayer(family, idleOrigin: t0)` with `React(t0, waitForSeam: true)`,
+of the celebrating picture, played by a `HeroMotionPlayer(family, idleOrigin: t0)` with `Celebrate(t0)` (Twig's cheer; a hero without one reacts),
 t0 the moment the hero appears (after the entrance delay the win already has: in the playtest 0.1 s after the card
-shows, as it starts rising in; in Unity when the celebration shows). The reaction (2 s) therefore plays first, from the
+shows, as it starts rising in; in Unity when the celebration shows). The cheer (Twig's 3 s) therefore plays first, from the
 idle's first pose, and then the idle loops for as long as the screen shows. The hero's entrance, the rays, the petals
 and the confetti stay as they were; the hero wears no outfit (as the celebrating picture). The milestone screen shows
 Twig the same way. The group and the still celebrating picture stay as the fallbacks while the frames are

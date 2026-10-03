@@ -57,13 +57,14 @@ slots and loading code first):
 **Delivered (2026-10-02): the animated heroes (A10, spec FR-028).** Four rigged FBX models made by the owner with Meshy
 AI, one per family, carrying the clips of the owner's table (a 4 s idle, a 2 s reaction). `tools/heroanim` renders them
 offline into flat frames (constitution VII: the game never loads a model; research D18):
-`client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/{family}-{idle|react}-{NN}.png`, 144 a family (96 idle and 48
-reaction frames at 24 fps, from the owner's 60 fps export of 2026-10-03, research D22), 8-bit palette PNG files cropped from a 448 × 504 cell with the feet 90% down, listed in the
+`client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/{family}-{idle|react|win}-{NN}.png`, 144 a Meshy family (96 idle and 48
+reaction frames at 24 fps, from the owner's 60 fps export of 2026-10-03, research D22) and 180 of Twig (its Blender model
+of 2026-10-03: 72 idle, 36 reaction and 72 frames of the win's cheer, research D23), 8-bit palette PNG files cropped from a 448 × 504 cell with the feet 90% down, listed in the
 folder's `manifest.json`; slots `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`); models in
 `tools/heroanim/models/`, source record `tools/heroanim/SOURCE.md`. They show on Home and the splash (on the layered
 fountain, B1) and on the win and the milestone (Twig, `CharacterArt.Celebrant`); the still pictures A1–A7 stay for the Wardrobe, the
-profile, the group, the drawn stand-in and as the fallbacks. To change a hero, send its FBX again (the same rig, the
-two clips named in `tools/heroanim/heroes.json`), then run `node bake.mjs --only <family>` and `node check.mjs` in
+profile, the group, the drawn stand-in and as the fallbacks. To change a hero, send its model again (an FBX or a `.glb`
+with its textures embedded, its clips named in `tools/heroanim/heroes.json`), then run `node bake.mjs --only <family>` and `node check.mjs` in
 `tools/heroanim` (`tools/heroanim/README.md`).
 
 ## B. Backgrounds

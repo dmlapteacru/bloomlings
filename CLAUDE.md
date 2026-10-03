@@ -116,12 +116,13 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`
   with same-named `UiKit*` twins.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
-  renders the four Meshy FBX heroes offline into flat 24 fps frames (a 4 s idle loop and a 2 s reaction each, in
+  renders the owner's animated heroes offline into flat 24 fps frames (three Meshy FBX heroes with a 4 s idle
+  loop and a 2 s reaction each, and Twig's Blender `.glb` with its 3 s idle, 1.5 s reaction and the win's 3 s cheer, in
   `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in
   `Art/Backgrounds/Resources/Backgrounds/`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
   place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the
   reference (idling, taking turns to react, reacting to a tap); the win and the milestone show Twig (`CharacterArt.Celebrant`)
-  reacting, then idling. The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
+  cheering (`HeroMotionPlayer.Celebrate`), then idling. The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
   scene or camera in the game, only these flat pictures on meta screens. Frames load when first drawn into a bounded
   cache, never all.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in

@@ -156,10 +156,14 @@ the round."
 - Q: Who celebrates a won level? → A: Twig, on every win and on the milestone that follows it (`CharacterArt.Celebrant`),
   instead of the family of the level's main variant (FR-028, pictures.md A7). The group still stands in while Twig's
   frames and picture are missing.
-- Q: Is the new Twig in? → A: Not yet. The new file (`twig.fbx` from Blender 4.2, its own 33-bone rig, the clips
-  `Twig_Breathing` 3 s, `Twig_SmallBounce` 1.5 s and `Twig_WinCheer` 3 s with an eyelid shape key) carries no colors: its
-  material is plain grey and no texture is embedded, though the mesh has UVs. It waits for a re-export with the texture
-  embedded, or the texture picture itself (research D23); until then Twig keeps the Meshy model.
+- Q: Is the new Twig in? → A: Yes, from its third file. The first (`twig.fbx` from Blender 4.2, its own rig, the clips
+  `Twig_Breathing` 3 s, `Twig_SmallBounce` 1.5 s and `Twig_WinCheer` 3 s with an eyelid shape key) carried no colors,
+  the second (`Twig_v2.fbx`) named its textures without embedding them; the owner's `Twig.glb` embeds them and replaces
+  the Meshy Twig (research D23).
+- Q: Which clips, how long? → A: The file's own: `Twig_Breathing` is Twig's idle (3 s) and `Twig_SmallBounce` its
+  reaction (1.5 s) on Home; `Twig_WinCheer` (3 s, a jump with the arms spread) is its celebration on the win and the
+  milestone, then it breathes (`MotionClip.Win`, `HeroMotionPlayer.Celebrate`). A hero without its own cheer reacts
+  there instead.
 
 ### Session 2026-10-03 (the owner's 60 fps models)
 
@@ -447,7 +451,7 @@ inventory.
   the Wardrobe is open each hero wears its outfit (trail, skin, the expression on a badge, the hat turned with the
   head). The splash shows the same stage and motion, so it turns into Home without a jump. The win and the milestone
   MUST show Twig as its animated hero on the pedestal, whatever the level (`CharacterArt.Celebrant`; the owner's choice
-  of 2026-10-03, which replaced the level's main family): its reaction from the moment it appears, then
+  of 2026-10-03, which replaced the level's main family), its own cheer playing first when it has one: its reaction from the moment it appears, then
   its idle for as long as the screen shows (the still celebrating picture, then the group, while the frames are
   missing). The heroes MUST be pre-rendered flat frames (`tools/heroanim`, research D18): no 3D model, scene or camera
   in the game (constitution VII). The Wardrobe, the profile, gameplay and the milestone's group keep the still
@@ -480,9 +484,10 @@ inventory.
 - **SC-004**: No screen file uses a literal color or size, and every new stand-in is a registered asset slot that
   appears in the regenerated asset inventory.
 - **SC-005**: `pictures.md` lists every owner picture with its slot.
-- **SC-006**: Every family has a 4 s idle loop (96 frames at 24 fps) and a 2 s reaction (48 frames), both starting and
+- **SC-006**: Every Meshy family has a 4 s idle loop (96 frames at 24 fps) and a 2 s reaction (48 frames), and Twig its
+  Blender clips (a 3 s idle, a 1.5 s reaction and the win's 3 s cheer), all starting and
   ending on the idle's first pose, as the owner's table says (`HeroMotionTests`).
-- **SC-007**: The 576 hero frames take under 24 MB in the repository, and `node tools/heroanim/check.mjs` verifies every
+- **SC-007**: The 612 hero frames take under 27 MB in the repository, and `node tools/heroanim/check.mjs` verifies every
   frame, every Home layer and the generated kit files against the last bake.
 - **SC-008**: On every screen shape from 16:9 to 21:9 the four heroes' seam pictures lie inside the screen, under the
   logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).

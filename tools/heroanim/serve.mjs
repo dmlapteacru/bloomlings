@@ -8,7 +8,7 @@ import { fileURLToPath } from 'node:url';
 const here = path.dirname(fileURLToPath(import.meta.url));
 const three = path.join(here, 'node_modules', 'three');
 
-const types = { '.js': 'text/javascript', '.html': 'text/html', '.fbx': 'application/octet-stream', '.png': 'image/png' };
+const types = { '.js': 'text/javascript', '.html': 'text/html', '.fbx': 'application/octet-stream', '.glb': 'model/gltf-binary', '.png': 'image/png' };
 
 // three 0.160's FBXLoader picks an embedded image's type from its file name. Meshy's merged FBX files name their
 // textures after a ".fbm" folder, so the loader drops them; this patch takes the type from the bytes instead.

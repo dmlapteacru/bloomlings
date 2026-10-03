@@ -218,5 +218,8 @@ See spec.md (the clarification "Twig celebrates") and research D23.
 - [X] T042 The kit's `CharacterArt.Celebrant` (Twig) replaces the level's main family on the win and the milestone in
   both builds (`EndCards`, `WinScreen`, `MilestoneCard`; `Visuals.MainFamily` and `HeroPictures.MainFamily` removed),
   with its test and the docs.
-- [ ] T043 The owner's new `twig.fbx`: waits for its colors (research D23). Then the bake takes its rig, clips and lengths
-  (idle `Twig_Breathing`, reaction `Twig_SmallBounce`, the win's `Twig_WinCheer`) and the hosts play the win clip.
+- [X] T043 The owner's new Twig (`Twig.glb`, after two FBX files without colors; research D23): the bake reads `.glb`
+  models, hides non-skinned meshes, keeps the clips' own spans and bakes a third clip (`win`); `twig.glb` replaces
+  `twig.fbx` (72 idle, 36 reaction, 72 win frames). The kit's `MotionClip.Win`, `HasWin` and
+  `HeroMotionPlayer.Celebrate`, played by `EndCards` and `HeroMotionView`; the frame sets (`HeroFrameSet`,
+  `HeroBitmaps`, `HeroFrameCheck`) hold it. Twig's place on Home (0.815, 0.31) and `HatLift` 0; the tests and docs.

@@ -474,13 +474,14 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The animated hero's pose <paramref name="since"/> seconds after the card showed: from its entrance
-        /// (<see cref="HeroEntrance"/>) its reaction, which starts on the idle's first pose, then its idle loop. The player
+        /// (<see cref="HeroEntrance"/>) its celebration (Twig's cheer, <see cref="HeroMotionPlayer.Celebrate"/>; a hero
+        /// without one reacts), which starts on the idle's first pose, then its idle loop. The player
         /// is deterministic in its inputs, so it is made again each frame.
         /// </summary>
         private static HeroPose CelebrationPose(Family family, float since)
         {
             var player = new HeroMotionPlayer(family, HeroEntrance);
-            player.React(HeroEntrance, waitForSeam: true);
+            player.Celebrate(HeroEntrance);
             return player.Pose(Math.Max(HeroEntrance, since));
         }
 

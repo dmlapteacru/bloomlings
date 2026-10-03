@@ -17,6 +17,6 @@
     { "family": "sprig", "file": "sprig.fbx", "idle": "01a0fe96-0ade-74ea-b0db-d150e0109e65", "react": "01a0fe99-f60f-74dd-8661-845c58a7c5b6", "yaw": -12, "note": "breathing + sway; curious head tilt" },
     { "family": "bloom", "file": "bloom.fbx", "idle": "01a0fe96-0ade-74ea-b0db-d150e0109e65", "react": "01a0fea0-3b60-70d7-b505-c24179843faf", "yaw": 0, "note": "breathing + soft sway; happy bounce" },
     { "family": "drop", "file": "drop.fbx", "idle": "01a0fe96-0ade-74ea-b0db-d150e0109e65", "react": "01a0fea0-3b60-70d7-b505-c24179843faf", "yaw": 10, "note": "breathing + soft body sway; soft buoyant bounce" },
-    { "family": "twig", "file": "twig.fbx", "idle": "01a0fe96-0ade-74ea-b0db-d150e0109e65", "react": "01a0fea0-3b60-70d7-b505-c24179843faf", "yaw": 14, "note": "breathing + sway; head tilt + tiny bounce" }
+    { "family": "twig", "file": "twig.glb", "idle": "Twig_Breathing", "react": "Twig_SmallBounce", "win": "Twig_WinCheer", "head": "Twig_rig_Head", "top": "Twig_rig_Leaf", "idleSeconds": null, "reactSeconds": null, "yaw": 14, "note": "the owner's Blender model (2026-10-03): breathing; small bounce; the win's cheer; each at its own length" }
   ]
 }
