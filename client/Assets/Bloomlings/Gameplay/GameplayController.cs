@@ -106,7 +106,7 @@ namespace Bloomlings.Client.Gameplay
             // The views take their places from the reference layout's regions (spec 005 FR-020, contracts/look.md §6.1).
             _board.Fit = _hud.FitBoard;
             _slots.CellsFor = _hud.SlotCells;
-            _tray.Decks = _hud.DeckCells;
+            _tray.Grid = _hud.PodGrid;
             _boosters.Places = _hud.BoosterCells;
             _slots.SlotTapped += OnSlotTapped;
             _board.CellTapped += OnCellTapped;
@@ -263,7 +263,7 @@ namespace Bloomlings.Client.Gameplay
         /// <summary>
         /// The screen regions for this level (spec 002 FR-009, FR-010, FR-014; spec 005 §6.1): the badge line of a labelled
         /// Hard or Super Hard level, the booster row once a booster is unlocked, the entry strip under the board for a
-        /// bottom Garden Entry, and one deck per Source stack. Laid out before the views are built.
+        /// bottom Garden Entry, and one pod column per Source stack. Laid out before the views are built.
         /// </summary>
         private void LayoutForLevel(LevelSession session)
         {
@@ -319,7 +319,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             // What the tray shows before the commit: each group member's count, shown variant ("?" for a hidden mystery
-            // pod) and the position of its tile on its deck, where it flies from (spec 005 §6.1).
+            // pod) and the position of its tile in its column, where it flies from (spec 005 §6.1).
             var before = new Dictionary<string, (int Count, VariantId? Variant, Vector3? From)>(System.StringComparer.Ordinal);
             foreach (string member in _session.View.ConnectedGroup(podId))
             {
@@ -972,7 +972,7 @@ namespace Bloomlings.Client.Gameplay
         /// <summary>
         /// A pod's sticker tile flying between the tray and a slot (commit or Return; the playtest's
         /// <c>PodPainter.DrawFlights</c>): the variant's candy tile (the lilac "?" for a mystery pod) leaving one tile at its
-        /// size (<paramref name="fromSize"/>: the deck's tile or the slot's) and growing or shrinking to the other's
+        /// size (<paramref name="fromSize"/>: the pod's tile or the slot's) and growing or shrinking to the other's
         /// (<paramref name="toSize"/>), arcing 40% of a slot's height over the straight line; decorative only. A size of 0
         /// (a tile not shown) falls back to the slot's.
         /// </summary>
@@ -1403,7 +1403,7 @@ namespace Bloomlings.Client.Gameplay
 
             _workers.SetEntries(session.View.Entries);
             _slots.Reset(session.View);
-            _tray.Refresh(session.View);
+            _tray.Refresh(session.View, slide: false);
             _reward = null;
             _milestone = null;
             _milestoneShown = false;

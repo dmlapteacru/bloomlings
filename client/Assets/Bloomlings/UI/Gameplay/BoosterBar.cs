@@ -33,7 +33,7 @@ namespace Bloomlings.Client.UI.Gameplay
 
     /// <summary>
     /// The booster bar of the design board's frame 14 (spec 002 FR-014, T120) as the reference's row of four big cream
-    /// booster boxes on the tray's parchment, between the Waiting Slots and the decks (spec 005 FR-020, contracts/look.md
+    /// booster boxes on the tray's parchment, between the Waiting Slots and the pod columns (spec 005 FR-020, contracts/look.md
     /// §3.7, §3.8, §6.1; the playtest's <c>BoosterBarPainter</c>, <see cref="UiKit.BoosterTile"/>; spec 003 FR-031,
     /// contracts/booster-tile.md).
     /// <list type="bullet">
