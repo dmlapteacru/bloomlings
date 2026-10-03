@@ -16,8 +16,11 @@ namespace Bloomlings.Playtest.Droid
     /// falling back to the system typeface, and labels with a look get their shadow, extrusion, outline and gradient
     /// fill (contracts/painter-text.md). The generated character pictures (spec 004) are embedded PNG files, decoded once
     /// with <see cref="BitmapFactory"/>. The kit's material pictures (spec 005 <c>UiRaster</c>) become premultiplied
-    /// ARGB_8888 bitmaps drawn with filtering, in a cache bounded by bytes (<see cref="PictureCache{T}"/>). The gameplay
-    /// lawn renders on a worker thread; until it is ready the lawn's flat gradient shows, then the view redraws.
+    /// ARGB_8888 bitmaps drawn with filtering, in a cache bounded by bytes (<see cref="PictureCache{T}"/>). The animated
+    /// heroes' frames (spec 005 FR-028) are decoded when first drawn into palette pictures kept in a cache bounded by bytes
+    /// (<see cref="HeroFrameStore"/>), and the frames on screen are expanded into a few reused bitmaps
+    /// (<see cref="HeroBitmaps"/>), never all 288 at once. The gameplay lawn renders on a worker thread; until it is ready
+    /// the lawn's flat gradient shows, then the view redraws.
     /// </summary>
     public sealed class AndroidPainter : PainterBase
     {
@@ -30,6 +33,8 @@ namespace Bloomlings.Playtest.Droid
         private static readonly PictureCache<Bitmap> Pictures = new PictureCache<Bitmap>(PictureCacheBytes, bitmap => bitmap.Dispose());
         private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
         private static readonly Dictionary<string, Bitmap?> Sprites = new Dictionary<string, Bitmap?>(StringComparer.Ordinal);
+        private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(typeof(AndroidPainter).Assembly, HeroFrameCacheBytes);
+        private static readonly HeroBitmaps HeroDraws = new HeroBitmaps(HeroDrawCacheBytes);
 
         private readonly Paint _paint = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
         private readonly Paint _text = new Paint(PaintFlags.AntiAlias);
@@ -73,6 +78,8 @@ namespace Bloomlings.Playtest.Droid
             Insets = insets;
             Volatile.Write(ref s_redraw, Redraw);
             Pictures.NextFrame();
+            HeroFrames.NextFrame();
+            HeroDraws.NextFrame();
             BeginFrame();
         }
 
@@ -81,6 +88,12 @@ namespace Bloomlings.Playtest.Droid
             _canvas.Save();
             _canvas.Translate(dx, dy);
             _canvas.Scale(sx, sy, cx, cy);
+        }
+
+        protected override void ApplyRotation(float degrees, float cx, float cy)
+        {
+            _canvas.Save();
+            _canvas.Rotate(degrees, cx, cy);
         }
 
         /// <summary>
@@ -441,44 +454,77 @@ namespace Bloomlings.Playtest.Droid
             }
         }
 
-        public override bool HasSprite(string name) => LoadSprite(name) != null;
+        public override bool HasSprite(string name) => IsHeroFrame(name) ? HeroFrames.Has(name) : LoadSprite(name) != null;
 
         public override (int Width, int Height)? SpriteSize(string name)
         {
+            if (IsHeroFrame(name))
+            {
+                PalettePicture? frame = HeroFrames.Get(name);
+                return frame == null ? null : (frame.Width, frame.Height);
+            }
+
             Bitmap? bitmap = LoadSprite(name);
             return bitmap == null ? null : (bitmap.Width, bitmap.Height);
         }
 
         public override void Sprite(string name, Box box)
         {
-            Bitmap? bitmap = LoadSprite(name);
-            if (bitmap == null)
+            (Bitmap Bitmap, int Width, int Height)? picture = Drawable(name);
+            if (picture == null)
             {
                 return;
             }
 
-            _source.Set(0, 0, bitmap.Width, bitmap.Height);
-            _canvas.DrawBitmap(bitmap, _source, R(Fit(box, bitmap.Width, bitmap.Height)), Fill(Rgba.White));
+            (Bitmap bitmap, int w, int h) = picture.Value;
+            _source.Set(0, 0, w, h);
+            _canvas.DrawBitmap(bitmap, _source, R(Fit(box, w, h)), Fill(Rgba.White));
         }
 
         public override void SpriteSkin(string name, Box box, string skinShape, Rgba tint)
         {
-            Bitmap? bitmap = LoadSprite(name);
-            if (bitmap == null)
+            (Bitmap Bitmap, int Width, int Height)? picture = Drawable(name);
+            if (picture == null)
             {
                 return;
             }
 
             // A layer: the pattern, then the picture with DST_IN, so the pattern stays only on the picture.
-            Box fitted = Fit(box, bitmap.Width, bitmap.Height);
+            (Bitmap bitmap, int w, int h) = picture.Value;
+            Box fitted = Fit(box, w, h);
             int layer = _canvas.SaveLayer(R(fitted), null);
             DrawMask(MaskKind.Skin, skinShape, null, fitted, tint);
             using var mask = new Paint(PaintFlags.AntiAlias | PaintFlags.FilterBitmap);
             using var mode = new PorterDuffXfermode(PorterDuff.Mode.DstIn!);
             mask.SetXfermode(mode);
-            _source.Set(0, 0, bitmap.Width, bitmap.Height);
+            _source.Set(0, 0, w, h);
             _canvas.DrawBitmap(bitmap, _source, R(fitted), mask);
             _canvas.RestoreToCount(layer);
+        }
+
+        /// <summary>
+        /// A picture to draw and the size of its part of the bitmap (from the top-left): an embedded picture decoded once,
+        /// or an animated hero's frame from its palette picture in a reused bitmap (<see cref="HeroBitmaps"/>); a frame
+        /// that is not a palette PNG decodes as any picture. Null when the picture is missing.
+        /// </summary>
+        private static (Bitmap Bitmap, int Width, int Height)? Drawable(string name)
+        {
+            if (IsHeroFrame(name))
+            {
+                PalettePicture? frame = HeroFrames.Get(name);
+                if (frame != null)
+                {
+                    return (HeroDraws.Get(name, frame), frame.Width, frame.Height);
+                }
+
+                if (!HeroFrames.Has(name))
+                {
+                    return null;
+                }
+            }
+
+            Bitmap? bitmap = LoadSprite(name);
+            return bitmap == null ? null : (bitmap, bitmap.Width, bitmap.Height);
         }
 
         /// <summary>An embedded picture (a character or an owner picture), decoded once; null (logged once) when it is missing.</summary>

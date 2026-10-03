@@ -122,11 +122,17 @@ namespace Bloomlings.Playtest.Design
         public const float CelebrationSeconds = 8f;
 
         /// <summary>
+        /// Whether the win or milestone card's last frame showed the level's animated hero (spec 005 FR-028,
+        /// <see cref="EndCards"/>): its idle loops for as long as the card shows, so the screen keeps redrawing.
+        /// </summary>
+        public bool HeroMoving { get; set; }
+
+        /// <summary>
         /// Whether the screen still moves: animations, a toast, a demo opening, booster targeting, and the end cards (the
         /// jam's rise for <see cref="EndCardSeconds"/>; the win and milestone cards' celebration for
-        /// <see cref="CelebrationSeconds"/>).
+        /// <see cref="CelebrationSeconds"/>, and for as long as they show an animated hero).
         /// </summary>
-        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && _app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds)) || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (_app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds) || (Won && HeroMoving))) || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
 
         /// <summary>
         /// Whether only the win's own motion moves the screen (the win or milestone card is open and every other animation

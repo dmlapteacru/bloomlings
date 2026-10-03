@@ -100,6 +100,9 @@ if (sheetImages.Count > 0)
 }
 
 Console.WriteLine($"frames: {sheetImages.Count}, images in {outDir}");
+(int heroDecoded, long heroBytes) = SkiaPainter.HeroFrameStats;
+Console.WriteLine($"hero frames: {heroDecoded} decoded on first use, {heroBytes / (1024.0 * 1024.0):0.0} MB held");
+problems.AddRange(HeroFrameCheck.Run());
 Console.WriteLine($"slots used by the playtest screens: {usedSlots.Count} of {AssetSlots.All.Count}");
 if (only == null)
 {

@@ -58,6 +58,7 @@ namespace Bloomlings.Playtest.Design
             Meta = new PlaytestMeta(dataFolder);
             _firstLaunch = Meta.FirstLaunch;
             Screen = showSplash ? Screen.Splash : Screen.Home;
+            StartHomeMotion();
             if (!showSplash)
             {
                 AfterSplash();
@@ -76,6 +77,21 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>Seconds since launch (menu motion and toasts).</summary>
         public float Now { get; private set; }
+
+        /// <summary>
+        /// Home's four heroes in motion (spec 005 FR-028), on <see cref="Now"/>'s clock: made when the splash or Home
+        /// appears (the splash's carries on into Home, so nothing jumps), updated every drawn frame and tapped by Home's
+        /// hero targets.
+        /// </summary>
+        public HomeMotion HomeMotion { get; private set; } = null!;
+
+        /// <summary>Seconds since <see cref="HomeMotion"/> started (the drifting petals of the layered Home).</summary>
+        public float HomeSeconds => Now - _homeOpenedAt;
+
+        /// <summary>Whether Home's last frame drew animated heroes (then Home keeps redrawing under a card too).</summary>
+        public bool HomeMoving { get; set; }
+
+        private float _homeOpenedAt;
 
         /// <summary>The Collection's opened picture, or −1.</summary>
         public int CollectionDetail { get; set; } = -1;
@@ -107,25 +123,29 @@ namespace Bloomlings.Playtest.Design
         public Action? CardCloseWith(Action close) => DrawingCovered ? null : close;
 
         /// <summary>
-        /// Whether the host should draw another frame soon: animations, the splash, toasts, and the one breathing button
-        /// (PLAY on Home, CLAIM on the Daily Reward; spec 003 FR-019).
+        /// Whether the host should draw another frame soon: animations, the splash, toasts, the one breathing button
+        /// (PLAY on Home, CLAIM on the Daily Reward; spec 003 FR-019) and Home's animated heroes, which keep moving under
+        /// a card too (spec 005 FR-028).
         /// </summary>
         public bool NeedsFrames =>
             Screen == Screen.Splash
             || (Level != null && Screen == Screen.Level && Level.NeedsFrames)
             || (_overlays.Count > 0 && Now - _overlays[_overlays.Count - 1].OpenedAt < 0.4f)
             || (_homeToastUntil > Now)
-            || (Screen == Screen.Home && _overlays.Count == 0)
+            || (Screen == Screen.Home && (_overlays.Count == 0 || HomeMoving))
             || IsOpen(Overlay.DailyReward);
 
         /// <summary>
-        /// Whether the only motion left is the open win or milestone card's (turning rays, falling petals, Next breathing):
-        /// the host may then draw at about 30 frames a second instead of every display frame, to save battery.
+        /// Whether the only motion left is slow: the open win or milestone card's (turning rays, falling petals, Next
+        /// breathing, the hero's 12 fps frames), or Home's heroes and petals under a settled card (but the Daily Reward's
+        /// breathing CLAIM). The host may then draw at about 30 frames a second instead of every display frame, to save
+        /// battery.
         /// </summary>
         public bool Calm =>
-            Screen == Screen.Level && Level != null && Level.OnlyCelebrating
-            && (_overlays.Count == 0 || Now - _overlays[_overlays.Count - 1].OpenedAt >= 0.4f)
-            && _homeToastUntil <= Now;
+            (_overlays.Count == 0 || Now - _overlays[_overlays.Count - 1].OpenedAt >= 0.4f)
+            && _homeToastUntil <= Now
+            && ((Screen == Screen.Level && Level != null && Level.OnlyCelebrating)
+                || (Screen == Screen.Home && _overlays.Count > 0 && !IsOpen(Overlay.DailyReward)));
 
         private string? _homeToast;
         private float _homeToastUntil;
@@ -159,6 +179,12 @@ namespace Bloomlings.Playtest.Design
 
         public void GoHome()
         {
+            // Home's heroes start over, unless Home follows the splash, whose heroes already move.
+            if (Screen != Screen.Splash)
+            {
+                StartHomeMotion();
+            }
+
             _overlays.Clear();
             Level = null;
             Screen = Screen.Home;
@@ -182,7 +208,15 @@ namespace Bloomlings.Playtest.Design
         {
             Sound.Play(SoundCue.Click);
             _overlays.Clear();
+            StartHomeMotion();
             Screen = Screen.Home;
+        }
+
+        /// <summary>Home's heroes start their motion now (<see cref="HomeMotion"/>).</summary>
+        private void StartHomeMotion()
+        {
+            HomeMotion = new HomeMotion(Now);
+            _homeOpenedAt = Now;
         }
 
         public void OpenOverlay(Overlay overlay)
@@ -269,6 +303,11 @@ namespace Bloomlings.Playtest.Design
             if (Screen == Screen.Splash && Now >= SplashSeconds)
             {
                 AfterSplash();
+            }
+
+            if (Screen == Screen.Splash || Screen == Screen.Home)
+            {
+                HomeMotion.Update(Now);
             }
 
             switch (Screen)
