@@ -132,11 +132,28 @@ ordered **event log**. The next command always applies to that settled state. An
 - **Scheduling.** Each logical round becomes a visual *wave*. For each cleared tile a Bloomling walks from its entry
   along the BFS path (the positions come from the event data), then plays the family's restore animation.
 - **Speed.** 2× speed only scales the timeline (FR-069).
-- **Backlog compression.** If the pending visual time exceeds a threshold (default 1.5 s, remotely tunable), the
-  scheduler speeds playback up to 4× and merges walkers. One sprite may then represent several tiles; this is visual
-  only.
+- **Backlog compression.** If the pending visual time exceeds a threshold (default 6 s since 2026-10-03, was 1.5 s;
+  remotely tunable), the scheduler speeds playback up to 4× and merges walkers. One sprite may then represent several
+  tiles; this is visual only.
 - **Input.** Input is evaluated against the **logical** state and gets immediate feedback within 0.1 s, independent of
   the backlog (FR-070, SC-008). A pod tapped while its target slot is still animating an exit is queued visually.
+- **Amendment (2026-10-03, the owner's report: "two pods tapped one after another land in the same slot, and even in
+  two slots they do not seem to work at the same time").** The rules were right: a tap settles at once, so a pod whose
+  tiles are all reachable finishes and frees its slot at once (FR-022), and the next pod takes that slot (FR-014). The
+  presentation was not: it played every tap's waves in one queue, and showed a pod in its rules' slot even while that
+  slot still showed the finishing pod. Now:
+  - the waves of one tap play one after another, as its rounds do, and the waves of different taps play side by side
+    (FR-018 as the player sees it). A wave waits only as long as it must: each of its Bloomlings steps on a cell of its
+    route, or reaches its target, only after that cell's earlier change has shown (a tile an earlier tap clears, a layer
+    revealed under it), and a special's progress and a pod's leaving keep the rules' order;
+  - a committed pod shows in its rules' slot when that slot shows no pod, else in the first usable slot that shows
+    none, else it waits in a queue until one frees. Where a pod shows never changes an outcome (the rules decide which
+    slot it holds, FR-024); Return aims at the shown pod's slot in the rules;
+  - the clearing pace is halved (the owner: "the initial board clearing speed must be halved"): 0.18 s a route step in
+    the playtest (was 0.09), 0.14 s in Unity (was 0.07), waves of 0.6–3.2 s and 0.6–2.8 s (were 0.3–1.6 s and 0.3–1.4 s).
+  `playtest/check` replays every golden case and showcase solution (with pauses and rapid taps) to the rules' state, and
+  checks two quick taps on every level: wherever both taps have work their waves play side by side, and never in one
+  slot.
 - **Worker cap.** Active Bloomling sprites come from a bounded pool of about 60 on low-end devices; extra work is shown
   aggregated.
 
