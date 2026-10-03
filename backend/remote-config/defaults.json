@@ -119,9 +119,9 @@
       "type": "bool"
     },
     "fx.backlogThresholdMs": {
-      "default": 1500,
-      "max": 5000,
-      "min": 500,
+      "default": 6000,
+      "max": 10000,
+      "min": 1000,
       "type": "int"
     }
   },

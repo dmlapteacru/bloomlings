@@ -101,8 +101,9 @@ namespace Bloomlings.Client.Services.Config
             string.Empty,
             value => value.Length == 0 || (Uri.TryCreate(value, UriKind.Absolute, out Uri? uri) && uri.Scheme == Uri.UriSchemeHttps));
 
-        // Presentation (research R4).
-        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 1500, 500, 5000);
+        // Presentation (research R4). The backlog beyond which the timeline plays faster: 6 s since the waves of
+        // different taps play side by side at the halved clearing pace (the owner's report of 2026-10-03; it was 1.5 s).
+        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 6000, 1000, 10000);
 
         public static IReadOnlyList<IntKey> AllInts { get; } = new[]
         {
