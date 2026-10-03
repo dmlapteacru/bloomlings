@@ -318,6 +318,9 @@ namespace Bloomlings.Playtest.Design
             }
 
             Animator.Flush(Session.View);
+
+            // Return: the pod flies back from the slot it shows in (maybe not its slot in the rules, LevelAnimator.Place).
+            int from = command is UseReturn aimed && Session.View.PodInSlot(aimed.SlotIndex) is string aimedPod ? Animator.PlaceOf(aimedPod) : -1;
             CommandResult result = Session.Apply(command);
             _app.Sound.Play(SoundCue.Booster);
             Animator.Boosted(result, Session.View);
@@ -328,7 +331,7 @@ namespace Bloomlings.Playtest.Design
                 {
                     if (e is PodReturned returned)
                     {
-                        Animator.Flights.Add(new Flight(float.NaN, float.NaN, back.SlotIndex, PodPainter.Shown(Session.View.Pod(returned.PodId)), Animator.Now, true, returned.PodId));
+                        Animator.Flights.Add(new Flight(float.NaN, float.NaN, from >= 0 ? from : back.SlotIndex, PodPainter.Shown(Session.View.Pod(returned.PodId)), Animator.Now, true, returned.PodId));
                     }
                 }
             }

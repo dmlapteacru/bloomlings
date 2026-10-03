@@ -10,6 +10,7 @@ using Bloomlings.Content.Validation;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Simulation;
+using Bloomlings.Core.Slots;
 using Bloomlings.Playtest;
 
 string Root = FindRoot();
@@ -90,6 +91,53 @@ foreach (var run in runs)
 
 Console.WriteLine($"animator: {cases} runs, {failures} failed");
 
+// Two taps in quick succession (the owner's report of 2026-10-03): the second pod shows in a slot of its own while the
+// first still shows, and the two taps' waves play side by side unless one waits for cells the other changes.
+int pairs = 0, together = 0, sameSlot = 0, working = 0;
+foreach (var run in runs)
+{
+    var taps = run.Commands.OfType<TapPod>().Take(2).ToList();
+    if (taps.Count < 2) continue;
+    LevelSession session = LevelSession.Load(run.Level, run.Picture, new SessionOptions(1, run.Budget));
+    var animator = new LevelAnimator();
+    animator.Reset(session.View);
+    var shown = new List<string>();
+    bool ok = true;
+    int withWork = 0;
+    foreach (TapPod tap in taps)
+    {
+        if (!session.Check(tap).IsAllowed) { ok = false; break; }
+        var before = new Dictionary<string, (int, Bloomlings.Core.Variants.VariantId?, float, float)>();
+        foreach (string m in session.View.ConnectedGroup(tap.PodId).Append(tap.PodId))
+        {
+            PodInfo p = session.View.Pod(m);
+            before[m] = (p.Remaining, p.Variant, 0f, 0f);
+        }
+        CommandResult tapped = session.Apply(tap);
+        withWork += tapped.Events.Any(e => e is TileCleared) ? 1 : 0;
+        animator.Tapped(tapped, session.View, before);
+        shown.Add(tap.PodId);
+        animator.Advance(0.03f, session.View);
+    }
+    if (!ok) continue;
+    pairs++;
+    int first = animator.PlaceOf(shown[0]), second = animator.PlaceOf(shown[1]);
+    if (first >= 0 && first == second) sameSlot++;
+    bool both = false;
+    for (int i = 0; i < 2000 && !animator.Idle; i++)
+    {
+        both |= animator.Playing >= 2;
+        animator.Advance(1f / 60f, session.View);
+    }
+    if (withWork == 2)
+    {
+        working++;
+        if (both) together++;
+    }
+}
+Console.WriteLine($"two quick taps: {pairs} levels ({working} with work for both), waves side by side in {together}, the same slot shown in {sameSlot}");
+if (sameSlot > 0 || together < working) { failures++; Console.WriteLine("FAIL two quick taps"); }
+
 // The meta layer on the shared client services.
 string temp = Path.Combine(Path.GetTempPath(), "pt-meta-" + Guid.NewGuid().ToString("N"));
 var meta = new PlaytestMeta(temp);
@@ -148,13 +196,27 @@ void Settle(LevelAnimator animator, LevelSession session, List<string> problems,
             problems.Add($"{at}: cell {pos} shows {shown.Kind}/{shown.Visible}/{shown.KeyId}/{shown.RemainingLayers}, is {real.Kind}/{real.Visible}/{real.KeyId}/{real.RemainingLayers}");
     }
 
+    // A pod shows in the first slot free on screen (LevelAnimator.Place), not always in its slot in the rules: every pod
+    // the rules hold shows once, in a usable slot, with its count and variant; no other pod shows.
+    var held = new HashSet<string>();
     for (int i = 0; i < view.SlotCapacity; i++)
     {
         string? pod = view.PodInSlot(i);
+        if (pod == null) continue;
+        held.Add(pod);
+        int place = animator.PlaceOf(pod);
+        if (place < 0) { problems.Add($"{at}: pod {pod} of slot {i} does not show"); continue; }
+        SlotLook look = animator.Slots[place];
+        if (look.Count != view.Pod(pod).Remaining || look.Variant != view.Pod(pod).Variant)
+            problems.Add($"{at}: slot {place} shows {look.Count}/{look.Variant}, is {view.Pod(pod).Remaining}/{view.Pod(pod).Variant}");
+        if (view.SlotStateOf(place) == SlotState.Locked || view.SlotStateOf(place) == SlotState.Absent)
+            problems.Add($"{at}: pod {pod} shows in the unusable slot {place}");
+    }
+
+    for (int i = 0; i < animator.Slots.Length; i++)
+    {
         SlotLook look = animator.Slots[i];
-        if (look.PodId != pod) { problems.Add($"{at}: slot {i} shows {look.PodId}, is {pod}"); continue; }
-        if (pod != null && (look.Count != view.Pod(pod).Remaining || look.Variant != view.Pod(pod).Variant))
-            problems.Add($"{at}: slot {i} shows {look.Count}/{look.Variant}, is {view.Pod(pod).Remaining}/{view.Pod(pod).Variant}");
+        if (look.PodId != null && !held.Contains(look.PodId)) problems.Add($"{at}: slot {i} shows {look.PodId}, which the rules no longer hold");
         if (look.Pending.Count > 0) problems.Add($"{at}: slot {i} still has a queue");
     }
 

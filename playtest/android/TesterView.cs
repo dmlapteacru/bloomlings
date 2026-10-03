@@ -592,8 +592,9 @@ namespace Bloomlings.Playtest
                     points.Add((r.CenterX(), r.CenterY()));
                 }
 
-                float progress = Math.Clamp(_animator.WaveTime / Math.Max(0.05f, walker.Arrival), 0f, 1f);
-                if (progress >= 1f && _animator.WaveTime > walker.Arrival + 0.12f)
+                float walked = _animator.Now - walker.Start;
+                float progress = Math.Clamp(walked / Math.Max(0.05f, walker.Arrival), 0f, 1f);
+                if (progress >= 1f && walked > walker.Arrival + 0.12f)
                 {
                     continue;
                 }
@@ -630,7 +631,8 @@ namespace Bloomlings.Playtest
             int free = 0;
             foreach (int slot in slots)
             {
-                if (view.SlotStateOf(slot) == SlotState.Free && !_animator.HeldSlotLocks.Contains(slot) && _animator.Slots[slot].PodId == null)
+                // Free on screen: the pods show where the animation put them (LevelAnimator.Place).
+                if (view.SlotStateOf(slot) != SlotState.Locked && !_animator.HeldSlotLocks.Contains(slot) && _animator.Slots[slot].PodId == null)
                 {
                     free++;
                 }
@@ -670,10 +672,10 @@ namespace Bloomlings.Playtest
                 }
 
                 DrawSlotPod(canvas, look, rect, size);
-                if (_targeting == Recovery.Return)
+                int rules = LevelAnimator.RulesSlotOf(view, look.PodId);
+                if (_targeting == Recovery.Return && rules >= 0)
                 {
-                    int index = slot;
-                    Hit(rect, () => UseBooster(BoosterKind.Return, new UseReturn(index)));
+                    Hit(rect, () => UseBooster(BoosterKind.Return, new UseReturn(rules)));
                 }
             }
         }

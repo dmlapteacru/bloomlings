@@ -423,8 +423,9 @@ namespace Bloomlings.Playtest.Design
                     points.Add((b.CenterX, b.CenterY));
                 }
 
-                float progress = Visuals.Clamp01(s.Animator.WaveTime / Math.Max(0.05f, walker.Arrival));
-                if (progress >= 1f && s.Animator.WaveTime > walker.Arrival + 0.12f)
+                float walked = s.Animator.Now - walker.Start;
+                float progress = Visuals.Clamp01(walked / Math.Max(0.05f, walker.Arrival));
+                if (progress >= 1f && walked > walker.Arrival + 0.12f)
                 {
                     continue;
                 }

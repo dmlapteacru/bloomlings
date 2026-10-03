@@ -49,7 +49,9 @@ namespace Bloomlings.Playtest.Design
             int free = 0;
             foreach (int slot in slots)
             {
-                if (view.SlotStateOf(slot) == SlotState.Free && !s.Animator.HeldSlotLocks.Contains(slot) && s.Animator.Slots[slot].PodId == null)
+                // Free on screen: the pods show where the animation put them (LevelAnimator.Place), not always in their
+                // rules' slot.
+                if (view.SlotStateOf(slot) != SlotState.Locked && !s.Animator.HeldSlotLocks.Contains(slot) && s.Animator.Slots[slot].PodId == null)
                 {
                     free++;
                 }
@@ -63,7 +65,9 @@ namespace Bloomlings.Playtest.Design
                 bool locked = view.SlotStateOf(slot) == SlotState.Locked || s.Animator.HeldSlotLocks.Contains(slot);
                 SlotLook look = s.Animator.Slots[slot];
                 bool danger = !locked && look.PodId == null && free == 1 && s.Session.Status == LevelStatus.Playing;
-                bool target = s.Targeting == Recovery.Return && look.PodId != null && !look.IsLeaving;
+                // Return takes back the pod shown here, by its slot in the rules (it may show in another one).
+                int rules = LevelAnimator.RulesSlotOf(view, look.PodId);
+                bool target = s.Targeting == Recovery.Return && look.PodId != null && !look.IsLeaving && rules >= 0;
                 if (target)
                 {
                     // Return is choosing its slot: every pod it can take back glows like the selected booster tile.
@@ -76,8 +80,7 @@ namespace Bloomlings.Playtest.Design
                 Slot(p, box, look, locked, danger, extra: slot >= WaitingSlots.DefaultCount, s.Animator.Now, pending, Arrival(s, slot, look));
                 if (target)
                 {
-                    int index = slot;
-                    p.Hit(Kit.Touch(p, box), () => s.UseBooster(Client.Services.Save.BoosterKind.Return, new UseReturn(index)));
+                    p.Hit(Kit.Touch(p, box), () => s.UseBooster(Client.Services.Save.BoosterKind.Return, new UseReturn(rules)));
                 }
             }
         }
