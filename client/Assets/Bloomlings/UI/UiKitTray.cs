@@ -14,10 +14,11 @@ namespace Bloomlings.Client.UI
 {
     /// <summary>
     /// The reference gameplay tray's own pieces (spec 005 FR-020, FR-021; contracts/look.md §6.1 "Drawn"), the twins of the
-    /// playtest's <c>LevelScreen.TrayPanel</c> and <c>PodPainter.Front</c>, <c>PodPainter.Buried</c> and
-    /// <c>PodPainter.EmptyDeck</c>: the parchment tray across the screen with one band per row, a deck's front pod and its
-    /// buried pods. Sizes are shares of the safe width or of the piece's own box, so they scale with the screen; each is
-    /// laid out from its own rect (<see cref="BoxLayout"/>); decorations never take taps.
+    /// playtest's <c>LevelScreen.TrayPanel</c> and <c>PodPainter</c>: the parchment tray across the screen with one band
+    /// per row, and the pods of the Source stacks' columns, one after another and never on each other (the owner's
+    /// gameplay rule, 2026-10-03; <see cref="ReferenceGameplayRegions.Pod"/>). Sizes are shares of the safe width or of
+    /// the piece's own box, so they scale with the screen; each is laid out from its own rect (<see cref="BoxLayout"/>);
+    /// decorations never take taps.
     /// </summary>
     public static partial class UiKit
     {
@@ -36,52 +37,26 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// The front pod of a deck (§6.1, <c>pod.card</c>; the playtest's <c>PodPainter.Front</c>): the dark wooden frame
-        /// filling the rect with no handle (the buried pods peek above it), its panel in the variant's color lightened 0.5
-        /// at the top and 0.8 at the bottom, the sticker tile and the big count below it as <see cref="PodDeck"/> places
-        /// them. Queued pods are dimmed, a pressed one sinks, a locked one shows the padlock on a grey panel; a null variant
-        /// is a mystery pod. Set it with <see cref="DeckPodView.Show"/>.
+        /// A pod of the tray's grid (§6.1, <c>pod.card</c>; the playtest's <c>PodPainter</c>), filling a rect wider than
+        /// tall (<see cref="Design.PodChip"/>): the dark wooden frame (<c>mat.wood.dark</c>) with no handle, its cream panel tinted
+        /// by the variant (lightened 0.5 at the top and 0.8 at the bottom), the variant's sticker tile at the panel's left
+        /// (<see cref="Design.PodChip.Tile"/>, with the owner's icon) and the plain count in the room right of it
+        /// (<see cref="Design.PodChip.Count"/>, as large as the room allows). A waiting pod (<c>pod.deck</c>) shows the same parts
+        /// muted but readable: the frame and panel under a parchment veil, the tile dimmed, the count softer. A pressed pod
+        /// sinks, a locked one shows the padlock on a grey panel, a null variant is a mystery pod ("?" and its count). Set
+        /// it with <see cref="GridPodView.Show"/>. Never a touch target itself.
         /// </summary>
-        public static DeckPodView DeckPod(string name, Transform parent)
+        public static GridPodView GridPod(string name, Transform parent)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
-            var view = root.gameObject.AddComponent<DeckPodView>();
+            var view = root.gameObject.AddComponent<GridPodView>();
             view.Build(layout);
             return view;
         }
 
-        /// <summary>
-        /// A buried pod of a deck (<c>pod.deck</c>, FR-021; the playtest's <c>PodPainter.Buried</c>): the same wooden frame
-        /// filling the rect, of which only its band shows above the pod in front: the frame's top edge and a strip of the
-        /// pod's variant color with its small symbol as a dark silhouette with a light halo. A hidden mystery pod shows a
-        /// lilac strip with a white "?", a locked one a grey strip with the padlock. Set it with
-        /// <see cref="BuriedPodView.Show"/>. Never a touch target.
-        /// </summary>
-        public static BuriedPodView BuriedPod(string name, Transform parent)
-        {
-            (RectTransform root, BoxLayout layout) = Element(name, parent);
-            var view = root.gameObject.AddComponent<BuriedPodView>();
-            view.Build(layout);
-            return view;
-        }
-
-        /// <summary>A variant's color as the deck pieces tint with it (the catalog's color, <c>tile.mystery</c> when unknown).</summary>
-        internal static Rgba DeckColor(VariantId variant) =>
+        /// <summary>A variant's color as the pods tint with it (the catalog's color, <c>tile.mystery</c> when unknown).</summary>
+        internal static Rgba PodColor(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : C.TileMystery;
-
-        /// <summary>
-        /// The pod's wooden frame shared by the deck pieces (the playtest's <c>Kit.PodFrame</c> without the handle): the
-        /// soft shadow, the inner panel and the frame picture, laid out in <paramref name="box"/> of width w: radius 18%,
-        /// border 11%; a pressed frame sinks 3.5% of its width.
-        /// </summary>
-        internal static (Image Shadow, Image Panel, Image Frame) DeckFrame(Transform root, Func<float> radius, Func<float> panelRadius)
-        {
-            Image shadow = RoundRect("Shadow", root, UiTheme.Of(C.GardenShadow.WithAlpha(0.26f)), _ => radius());
-            Image panel = RoundGradient("Panel", root, C.CreamTop, C.CreamFace, _ => panelRadius());
-            Image frame = UiFactory.CreateImage("Frame", root, null, Color.white);
-            PictureFit.On(frame, (w, h) => ProceduralSprites.Frame(WoodTone.Dark, w, h), sliced: true);
-            return (shadow, panel, frame);
-        }
     }
 
     /// <summary>The tray built by <see cref="UiKit.TrayPanel"/>: its frame and up to three bands.</summary>
@@ -249,17 +224,30 @@ namespace Bloomlings.Client.UI
         }
     }
 
-    /// <summary>A deck's front pod built by <see cref="UiKit.DeckPod"/>.</summary>
-    public sealed class DeckPodView : MonoBehaviour
+    /// <summary>
+    /// A pod of the tray's grid built by <see cref="UiKit.GridPod"/> (the playtest's <c>PodPainter</c> pod), its parts where
+    /// <see cref="PodChip.In"/> places them in the rect: the soft shadow, the panel, the wooden frame, the veil of a waiting
+    /// pod, the press shade, the sticker tile (with the veil of a waiting mystery tile), the padlock and the count.
+    /// </summary>
+    public sealed class GridPodView : MonoBehaviour
     {
-        /// <summary>The count's type size as a share of its room under the tile (the reference's big dark digits).</summary>
-        public const float CountFill = 1.2f;
+        /// <summary>The frame's corner radius, as a share of the pod's height.</summary>
+        public const float Radius = 0.22f;
+
+        /// <summary>The count's type size as a share of its room's height (the reference's big dark digits; the width caps it).</summary>
+        public const float CountFill = 1.1f;
 
         /// <summary>How far the variant's color is lightened for the top of the panel (the reference's tinted panels).</summary>
         public const float PanelTop = 0.5f;
 
-        /// <summary>How far the variant's color is lightened for the bottom of the panel, under the count.</summary>
+        /// <summary>How far the variant's color is lightened for the bottom of the panel.</summary>
         public const float PanelBottom = 0.8f;
+
+        /// <summary>How far a pressed pod's frame sinks, as a share of its height.</summary>
+        public const float Sink = 0.06f;
+
+        /// <summary>The <c>parchment.bottom</c> veil over a waiting pod's frame and panel (its tile and count stay clear of it).</summary>
+        public const float VeilAlpha = 0.45f;
 
         private BoxLayout _layout = null!;
         private Image _shadow = null!;
@@ -267,16 +255,21 @@ namespace Bloomlings.Client.UI
         private Image _frame = null!;
         private Image _veil = null!;
         private Image _shade = null!;
+        private Image _tileVeil = null!;
         private Image _lock = null!;
         private CandyTileView _tile = null!;
         private TextMeshProUGUI _count = null!;
         private float _radius;
         private float _panelRadius;
+        private float _tileRadius;
 
         /// <summary>The pod's state.</summary>
         public PodLook Look { get; private set; }
 
-        /// <summary>The variant tile.</summary>
+        /// <summary>Whether the pod waits in its column under the exposed one (muted).</summary>
+        public bool Waiting { get; private set; }
+
+        /// <summary>The variant tile (committed pods fly from there).</summary>
         public CandyTileView Tile => _tile;
 
         /// <summary>The count label.</summary>
@@ -289,29 +282,41 @@ namespace Bloomlings.Client.UI
         {
             _layout = layout;
             Transform root = layout.transform;
-            (_shadow, _panel, _frame) = UiKit.DeckFrame(root, () => _radius, () => _panelRadius);
-            _veil = UiKit.RoundRect("Veil", root, UiTheme.Of(C.ParchmentBottom.WithAlpha(0.45f)), _ => _radius);
+            _shadow = UiKit.RoundRect("Shadow", root, UiTheme.Of(C.GardenShadow.WithAlpha(0.26f)), _ => _radius);
+            _panel = UiKit.RoundGradient("Panel", root, C.CreamTop, C.CreamFace, _ => _panelRadius);
+
+            // The wooden frame with its corner and border as shares of the pod's height, whatever its width.
+            _frame = UiFactory.CreateImage("Frame", root, null, Color.white);
+            PictureFit.On(_frame, (w, h) => ProceduralSprites.Frame(WoodTone.Dark, w, h, Radius * h / Mathf.Max(1, w), PodChip.Border * h / Mathf.Max(1, w)), sliced: true);
+            _veil = UiKit.RoundRect("Veil", root, UiTheme.Of(C.ParchmentBottom.WithAlpha(VeilAlpha)), _ => _radius);
             _shade = UiKit.RoundRect("PressShade", root, UiTheme.Of(C.GardenShadow.WithAlpha(0.08f)), _ => _radius);
             _tile = UiKit.CandyTile("Tile", root, null, TileStyle.Sticker);
+
+            // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
+            _tileVeil = UiKit.RoundRect("TileVeil", root, UiTheme.Of(C.ParchmentBottom.WithAlpha(VeilAlpha)), _ => _tileRadius);
             _lock = UiKit.ShapeImage("Lock", root, "ui.lock", C.StateLock.Darken(0.2f));
             _count = UiKit.KitLabel("Count", root, string.Empty, T.Count, TextLook.Plain(C.InkBrown));
             layout.Then(Lay);
         }
 
-        /// <summary>Shows the pod: its variant (null: a mystery), its count and its look.</summary>
-        public void Show(VariantId? variant, int count, PodLook look)
+        /// <summary>
+        /// Shows the pod: its variant (null: a mystery), its count, its look (exposed, pressed or locked) and whether it
+        /// waits under the exposed pod (<paramref name="waiting"/>; <see cref="PodLook.Next"/> waits too): muted but
+        /// readable, its symbol and count still clear (spec 001 FR-013).
+        /// </summary>
+        public void Show(VariantId? variant, int count, PodLook look, bool waiting = false)
         {
             Look = look;
-            bool queued = look == PodLook.Next;
+            Waiting = waiting || look == PodLook.Next;
             bool locked = look == PodLook.Locked;
-            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(queued ? 0.12f : 0.26f));
+            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.12f : 0.26f));
             if (locked)
             {
                 UiKit.Gradient(_panel, UiTheme.Of(C.StateLockBg.Lighten(0.2f)), UiTheme.Of(C.StateLockBg));
             }
-            else if (variant.HasValue && !queued)
+            else if (variant.HasValue)
             {
-                Rgba color = UiKit.DeckColor(variant.Value);
+                Rgba color = UiKit.PodColor(variant.Value);
                 UiKit.Gradient(_panel, UiTheme.Of(color.Lighten(PanelTop)), UiTheme.Of(color.Lighten(PanelBottom)));
             }
             else
@@ -319,13 +324,14 @@ namespace Bloomlings.Client.UI
                 UiKit.Gradient(_panel, UiTheme.Of(C.CreamTop), UiTheme.Of(C.CreamFace));
             }
 
-            _veil.gameObject.SetActive(queued);
+            _veil.gameObject.SetActive(Waiting);
             _shade.gameObject.SetActive(look == PodLook.Pressed);
             _lock.gameObject.SetActive(locked);
             _tile.gameObject.SetActive(!locked);
+            _tileVeil.gameObject.SetActive(!locked && Waiting && !variant.HasValue);
             if (!locked)
             {
-                _tile.Show(variant, queued ? TileState.Dimmed : TileState.Normal);
+                _tile.Show(variant, Waiting ? TileState.Dimmed : TileState.Normal);
                 _tile.Pressed = look == PodLook.Pressed;
             }
 
@@ -333,164 +339,31 @@ namespace Bloomlings.Client.UI
             _layout.Apply();
         }
 
-        /// <summary>
-        /// The deck box a front pod filling <paramref name="front"/> belongs to (<see cref="PodDeck.Front"/> is its bottom
-        /// <see cref="PodDeck.FrontShare"/>).
-        /// </summary>
-        public static Box DeckOf(Box front) => new Box(front.Left, front.Bottom - (front.Height / PodDeck.FrontShare), front.Right, front.Bottom);
-
         private void Lay(Box box)
         {
-            float w = box.Width;
+            float h = box.Height;
             bool pressed = Look == PodLook.Pressed;
-            float sink = pressed ? w * 0.035f : 0f;
+            float sink = pressed ? h * Sink : 0f;
             Box frame = box.Offset(0f, sink);
-            _radius = w * 0.18f;
-            float border = w * PodDeck.Border;
+            float border = h * PodChip.Border;
+            _radius = Mathf.Min(h * Radius, h / 2f);
             _panelRadius = Mathf.Max(0f, _radius - (border * 0.8f));
-            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, w * (pressed ? 0.01f : 0.05f)).Inset(w * 0.03f, 0f));
+            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, h * (pressed ? 0.02f : 0.07f)).Inset(h * 0.04f, 0f));
             BoxLayout.Place(_panel.rectTransform, frame.Inset(border * 0.8f));
             BoxLayout.Place(_frame.rectTransform, frame);
             BoxLayout.Place(_veil.rectTransform, frame);
             BoxLayout.Place(_shade.rectTransform, frame);
 
-            // The tile and the count where the deck places them (§6.1), sinking with the frame.
-            PodDeck deck = PodDeck.In(DeckOf(box));
-            Box tile = deck.Tile.Offset(0f, sink);
+            // The tile at the panel's left and the count right of it (PodChip, §6.1), sinking with the frame.
+            PodChip chip = PodChip.In(box);
+            Box tile = chip.Tile.Offset(0f, sink);
             BoxLayout.Place((RectTransform)_tile.transform, tile);
+            _tileRadius = tile.Width * 0.2f;
+            BoxLayout.Place(_tileVeil.rectTransform, tile);
             float g = tile.Width * 0.62f;
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(tile.CenterX, tile.CenterY, g, g));
-            UiKit.PlaceCount(_count, deck.Count.Offset(0f, sink), Look == PodLook.Next || Look == PodLook.Locked, CountFill);
-            foreach (Image image in new[] { _shadow, _panel, _veil, _shade })
-            {
-                image.GetComponent<RoundShape>().Apply();
-            }
-        }
-    }
-
-    /// <summary>A buried pod built by <see cref="UiKit.BuriedPod"/>.</summary>
-    public sealed class BuriedPodView : MonoBehaviour
-    {
-        /// <summary>The frame's top edge, as a share of its band; the variant's strip fills the rest.</summary>
-        public const float BandRail = 0.3f;
-
-        private BoxLayout _layout = null!;
-        private Image _shadow = null!;
-        private Image _panel = null!;
-        private Image _frame = null!;
-        private Image _stripLine = null!;
-        private Image _strip = null!;
-        private Image _symbol = null!;
-        private Image _lock = null!;
-        private Image _shade = null!;
-        private float _radius;
-        private float _panelRadius;
-        private float _stripRadius;
-        private float _stripLineRadius;
-        private float _shadeRadius;
-
-        /// <summary>The pod shown, or null.</summary>
-        public string? PodId { get; set; }
-
-        /// <summary>The variant shown (null: a hidden mystery pod).</summary>
-        public VariantId? Variant { get; private set; }
-
-        /// <summary>Whether the padlock shows.</summary>
-        public bool Locked { get; private set; }
-
-        /// <summary>How deep the pod lies (1 or 2): each depth sits a little further in the shade.</summary>
-        public int Depth { get; private set; } = 1;
-
-        /// <summary>Where the small symbol is (flights and keys aim there).</summary>
-        public RectTransform Symbol => _symbol.rectTransform;
-
-        internal void Build(BoxLayout layout)
-        {
-            _layout = layout;
-            Transform root = layout.transform;
-            (_shadow, _panel, _frame) = UiKit.DeckFrame(root, () => _radius, () => _panelRadius);
-            _stripLine = UiKit.RoundRect("StripLine", root, Color.white, _ => _stripLineRadius);
-            _strip = UiKit.RoundRect("Strip", root, Color.white, _ => _stripRadius);
-            _symbol = UiFactory.CreateImage("Symbol", root, null, Color.white);
-            _symbol.preserveAspect = true;
-            _lock = UiKit.ShapeImage("Lock", root, "ui.lock", C.StateLock.Darken(0.25f));
-            _shade = UiKit.RoundRect("Shade", root, UiTheme.Of(C.GardenShadow.WithAlpha(0.06f)), _ => _shadeRadius);
-            layout.Then(Lay);
-        }
-
-        /// <summary>Shows the buried pod: its variant (null: a hidden mystery pod), whether it is locked and its depth.</summary>
-        public void Show(VariantId? variant, bool locked, int depth)
-        {
-            Variant = variant;
-            Locked = locked;
-            Depth = Mathf.Clamp(depth, 1, 2);
-            Rgba? tint = variant.HasValue && !locked ? UiKit.DeckColor(variant.Value) : (Rgba?)null;
-            if (tint.HasValue)
-            {
-                UiKit.Gradient(_panel, UiTheme.Of(tint.Value.Lighten(DeckPodView.PanelTop)), UiTheme.Of(tint.Value.Lighten(DeckPodView.PanelBottom)));
-            }
-            else
-            {
-                UiKit.Gradient(_panel, UiTheme.Of(C.CreamTop), UiTheme.Of(C.CreamFace));
-            }
-
-            Rgba color = locked ? C.StateLockBg : tint ?? C.TileMystery;
-            _stripLine.color = UiTheme.Of(color.Darken(0.45f));
-            UiKit.Gradient(_strip, UiTheme.Of(color.Lighten(0.4f)), UiTheme.Of(color.Lighten(0.12f)));
-            _lock.gameObject.SetActive(locked);
-            _symbol.gameObject.SetActive(!locked);
-            if (!locked)
-            {
-                // Small, the symbol reads best as a dark silhouette with a light halo (as the board's small gems); a hidden
-                // mystery pod shows a white "?" outlined in the lilac's dark shade.
-                _symbol.sprite = variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info)
-                    ? ProceduralSprites.Haloed(ShapeLibrary.SymbolId(info.IconId), color.Darken(0.52f), color.Lighten(0.55f), 0.14f)
-                    : ProceduralSprites.Haloed("tile.mystery", Rgba.White, color.Darken(0.45f), 0.16f);
-                _symbol.color = Color.white;
-            }
-
-            _shade.color = UiTheme.Of(C.GardenShadow.WithAlpha(0.06f * Depth));
-            _layout.Apply();
-        }
-
-        /// <summary>
-        /// The band of a buried pod filling <paramref name="frame"/>: from its top down to the top of the pod in front of it
-        /// (<see cref="PodDeck.Raise"/> of the deck's height).
-        /// </summary>
-        public static Box BandOf(Box frame) => new Box(frame.Left, frame.Top, frame.Right, frame.Top + (frame.Height * PodDeck.Raise / PodDeck.FrontShare));
-
-        private void Lay(Box box)
-        {
-            float w = box.Width;
-            _radius = w * 0.18f;
-            float border = w * PodDeck.Border;
-            _panelRadius = Mathf.Max(0f, _radius - (border * 0.8f));
-            BoxLayout.Place(_shadow.rectTransform, box.Offset(0f, w * 0.05f).Inset(w * 0.03f, 0f));
-            BoxLayout.Place(_panel.rectTransform, box.Inset(border * 0.8f));
-            BoxLayout.Place(_frame.rectTransform, box);
-
-            // The strip runs from under the frame's top edge into the pod in front, which covers its lower part.
-            Box band = BandOf(box);
-            float inset = w * PodDeck.Border * 0.8f;
-            float top = band.Top + (band.Height * BandRail);
-            var strip = new Box(box.Left + inset, top, box.Right - inset, band.Bottom + (band.Height * 0.6f));
-            _stripRadius = Mathf.Min(strip.Height / 2f, w * 0.06f);
-            float px = 1f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
-            float line = Mathf.Max(px, w * 0.012f);
-            _stripLineRadius = _stripRadius + line;
-            BoxLayout.Place(_stripLine.rectTransform, strip.Inset(-line));
-            BoxLayout.Place(_strip.rectTransform, strip);
-
-            // The symbol's shape spans about 70% of its box, so the box is as tall as the strip's visible part.
-            float size = band.Bottom - top;
-            Box symbol = Box.FromCenter(band.CenterX, (top + band.Bottom) / 2f, size, size);
-            BoxLayout.Place(_symbol.rectTransform, symbol);
-            BoxLayout.Place(_lock.rectTransform, symbol);
-
-            // The buried pods sit a little in the shade of the one in front.
-            _shadeRadius = w * 0.18f;
-            BoxLayout.Place(_shade.rectTransform, new Box(box.Left, band.Top, box.Right, band.Bottom));
-            foreach (Image image in new[] { _shadow, _panel, _stripLine, _strip, _shade })
+            UiKit.PlaceCount(_count, chip.Count.Offset(0f, sink), Waiting || Look == PodLook.Locked, CountFill);
+            foreach (Image image in new[] { _shadow, _panel, _veil, _shade, _tileVeil })
             {
                 image.GetComponent<RoundShape>().Apply();
             }

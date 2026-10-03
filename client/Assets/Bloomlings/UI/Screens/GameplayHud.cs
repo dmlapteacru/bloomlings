@@ -23,12 +23,13 @@ namespace Bloomlings.Client.UI.Screens
     /// <item><description>the board on the lawn inside its stone border, at most 0.86 W wide, with the entry strip under it
     /// for a bottom entry's arch (<see cref="FitBoard"/>);</description></item>
     /// <item><description>one parchment tray from the entry strip to the bottom of the screen, its rows on bands parted by
-    /// grooves: the Waiting Slots, the four booster boxes (left out before the first booster unlocks) and one deck per
-    /// Source stack.</description></item>
+    /// grooves: the Waiting Slots, the four booster boxes (left out before the first booster unlocks) and the Source
+    /// stacks, one column each, their pods one after another and never on each other (the owner's gameplay rule,
+    /// 2026-10-03): three rows, four from 19.5:9.</description></item>
     /// </list>
     /// Everything sits over the level band's lawn. The regions come from the shared
     /// <see cref="ScreenLayout.ReferenceGameplay"/>, so the playtest and this client lay out alike; the views take their
-    /// places from <see cref="SlotCells"/>, <see cref="DeckCells"/>, <see cref="BoosterCells"/> and <see cref="FitBoard"/>.
+    /// places from <see cref="SlotCells"/>, <see cref="PodGrid"/>, <see cref="BoosterCells"/> and <see cref="FitBoard"/>.
     /// There is no goals panel.
     /// </summary>
     public sealed class GameplayHud : MonoBehaviour
@@ -66,7 +67,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>The Waiting Slots' row on the tray.</summary>
         public RectTransform SlotArea { get; private set; } = null!;
 
-        /// <summary>The row of decks at the bottom of the tray, one per Source stack.</summary>
+        /// <summary>The pod grid at the bottom of the tray: one column per Source stack (<see cref="PodGrid"/>).</summary>
         public RectTransform TrayArea { get; private set; } = null!;
 
         /// <summary>The row of the four booster boxes (frame 14).</summary>
@@ -109,7 +110,7 @@ namespace Bloomlings.Client.UI.Screens
             hud.BoardArea = UiFactory.CreateRect("BoardArea", root);
 
             // The tray (spec 005 FR-020, §6.1): one parchment tray across the screen behind the slots, the booster boxes and
-            // the decks; it takes no taps.
+            // the pod columns; it takes no taps.
             hud._tray = UiKit.TrayPanel("Tray", root);
             hud._tray.gameObject.AddComponent<CanvasGroup>().blocksRaycasts = false;
 
@@ -136,7 +137,7 @@ namespace Bloomlings.Client.UI.Screens
         /// Places every region for the coming level (data-model rules 1–3; spec 005 §6.1): a Hard or Super Hard badge takes
         /// a line under the sign; the booster row and its band of parchment are left out before any booster unlocks; a
         /// bottom Garden Entry among <paramref name="entrySides"/> gets the entry strip under the board for its arch; the pod
-        /// row holds one deck per Source stack (<paramref name="stackCount"/>). Call it before the board, slots and tray
+        /// row holds one column per Source stack (<paramref name="stackCount"/>). Call it before the board, slots and tray
         /// are built.
         /// </summary>
         public void Layout(bool hasBadge, bool hasBoosters, IReadOnlyCollection<EntrySide> entrySides, int stackCount)
@@ -198,17 +199,40 @@ namespace Bloomlings.Client.UI.Screens
             return Local(r.Slots, r.SlotRow);
         }
 
-        /// <summary>One deck box per Source stack in <see cref="TrayArea"/>'s top-down canvas units (§6.1).</summary>
-        public IReadOnlyList<Box> DeckCells(int stackCount)
+        /// <summary>
+        /// The pod grid of <paramref name="stackCount"/> Source stacks (§6.1, <see cref="ReferenceGameplayRegions.Pod"/>) in
+        /// <see cref="TrayArea"/>'s top-down canvas units (<see cref="InPodRow"/>).
+        /// </summary>
+        public ReferenceGameplayRegions PodGrid(int stackCount)
         {
             if (_regions == null || stackCount != _stackCount)
             {
-                // A level laid out without its stacks: the decks for this many, in the same pod row.
+                // A level laid out without its stacks: the columns for this many, in the same pod row.
                 _stackCount = Mathf.Max(0, stackCount);
                 _regions = Compute(WaitingSlots.DefaultCount);
             }
 
-            return Local(_regions.Decks, _regions.PodRow);
+            return InPodRow(_regions);
+        }
+
+        /// <summary>
+        /// The pod grid of <paramref name="r"/> in the top-down canvas units of a rect placed at its pod row: the columns,
+        /// the pod row, the pods' heights, their gap and W, so <see cref="ReferenceGameplayRegions.Pod"/>,
+        /// <see cref="ReferenceGameplayRegions.Chip"/> and <see cref="ReferenceGameplayRegions.Shows"/> give the pods' boxes
+        /// there (the other regions stay in screen pixels).
+        /// </summary>
+        public static ReferenceGameplayRegions InPodRow(ReferenceGameplayRegions r)
+        {
+            float k = 1f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
+            return r with
+            {
+                W = r.W * k,
+                PodRow = UiKit.ToLocal(r.PodRow, r.PodRow),
+                Columns = Local(r.Columns, r.PodRow),
+                FrontHeight = r.FrontHeight * k,
+                QueueHeight = r.QueueHeight * k,
+                PodGap = r.PodGap * k,
+            };
         }
 
         /// <summary>The four booster boxes in <see cref="BoosterArea"/>'s top-down canvas units (§6.1); none without boosters.</summary>
