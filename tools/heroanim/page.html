@@ -52,9 +52,32 @@ window.bake = async (job) => {
   const scene = new THREE.Scene();
   const L = job.light;
   const exposure = L.exposure ?? 1, lift = L.lift ?? 0;
+  // A hero's own color grade of its albedo (heroes.json `color`): gamma under 1 lightens the midtones, gain scales,
+  // saturation mixes toward the pixel's grey, warm shifts red up and blue down. Applied once to the texture's pixels.
+  const grade = (map, c) => {
+    const img = map.image, w = img.width, h = img.height;
+    const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+    const g = cv.getContext('2d'); g.drawImage(img, 0, 0);
+    const d = g.getImageData(0, 0, w, h), px = d.data;
+    const gamma = c.gamma ?? 1, gain = c.gain ?? 1, sat = c.saturation ?? 1, warm = c.warm ?? 0;
+    for (let i = 0; i < px.length; i += 4) {
+      let r = px[i] / 255, gg = px[i + 1] / 255, b = px[i + 2] / 255;
+      r = Math.pow(r, gamma) * gain; gg = Math.pow(gg, gamma) * gain; b = Math.pow(b, gamma) * gain;
+      const y = 0.2126 * r + 0.7152 * gg + 0.0722 * b;
+      r = y + (r - y) * sat + warm; gg = y + (gg - y) * sat + warm * 0.3; b = y + (b - y) * sat - warm;
+      px[i] = Math.max(0, Math.min(255, Math.round(r * 255)));
+      px[i + 1] = Math.max(0, Math.min(255, Math.round(gg * 255)));
+      px[i + 2] = Math.max(0, Math.min(255, Math.round(b * 255)));
+    }
+    g.putImageData(d, 0, 0);
+    const t = new THREE.CanvasTexture(cv);
+    t.flipY = map.flipY; t.wrapS = map.wrapS; t.wrapT = map.wrapT; t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  };
   obj.traverse(o => {
     if (!o.isMesh || !o.visible) return;
-    const map = o.material.map;
+    let map = o.material.map;
+    if (map && job.color) map = grade(map, job.color);
     if (map) map.colorSpace = THREE.SRGBColorSpace;
     // Lambert on the albedo, without the model's normal map (it shows blotches): bright, soft, volumetric. A hero's
     // light.lift adds that share of its own albedo as glow, so its shadows open up without washing out its lit side.

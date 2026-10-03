@@ -129,6 +129,8 @@ async function main() {
       yaw: hero.yaw, pitch: config.pitch, fov: config.fov,
       // A hero's own light settings (heroes.json `light`: hemi, key, fill, rim, exposure, lift) over the shared ones.
       light: { ...config.light, ...(hero.light || {}) },
+      // A hero's own color grade of its texture (heroes.json `color`: gamma, gain, saturation, warm), or none.
+      color: hero.color || null,
       cell: config.cell, feet: config.feet, fill: config.fill, margin: config.margin,
       width: Math.round(config.cell[0] * config.supersample), height: Math.round(config.cell[1] * config.supersample),
     };
