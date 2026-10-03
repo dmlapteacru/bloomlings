@@ -38,13 +38,13 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// A pod of the tray's grid (§6.1, <c>pod.card</c>; the playtest's <c>PodPainter</c>), filling a rect wider than
-        /// tall (<see cref="Design.PodChip"/>): the dark wooden frame (<c>mat.wood.dark</c>) with no handle, its cream panel tinted
-        /// by the variant (lightened 0.5 at the top and 0.8 at the bottom), the variant's sticker tile at the panel's left
-        /// (<see cref="Design.PodChip.Tile"/>, with the owner's icon) and the plain count in the room right of it
-        /// (<see cref="Design.PodChip.Count"/>, as large as the room allows). A waiting pod (<c>pod.deck</c>) shows the same parts
-        /// muted but readable: the frame and panel under a parchment veil, the tile dimmed, the count softer. A pressed pod
-        /// sinks, a locked one shows the padlock on a grey panel, a null variant is a mystery pod ("?" and its count). Set
-        /// it with <see cref="GridPodView.Show"/>. Never a touch target itself.
+        /// tall (<see cref="Design.PodChip"/>): the dark wooden frame (<c>mat.wood.dark</c>) with no handle, its cream
+        /// panel tinted by the variant (lightened 0.5 at the top and 0.8 at the bottom), the variant's sticker tile at the
+        /// panel's left (<see cref="Design.PodChip.Tile"/>, with the owner's icon) and the plain count in the room right of
+        /// it (<see cref="Design.PodChip.Count"/>, as large as the room allows). A waiting pod (<c>pod.deck</c>) shows the
+        /// same parts muted but readable: a lighter wash, the frame and panel under a parchment veil, the tile dimmed, the
+        /// count softer. A pressed pod sinks, a locked one shows the padlock on a grey panel, a null variant is a mystery
+        /// pod ("?" and its count). Set it with <see cref="GridPodView.Show"/>. Never a touch target itself.
         /// </summary>
         public static GridPodView GridPod(string name, Transform parent)
         {
@@ -232,7 +232,7 @@ namespace Bloomlings.Client.UI
     public sealed class GridPodView : MonoBehaviour
     {
         /// <summary>The frame's corner radius, as a share of the pod's height.</summary>
-        public const float Radius = 0.22f;
+        public const float Radius = 0.2f;
 
         /// <summary>The count's type size as a share of its room's height (the reference's big dark digits; the width caps it).</summary>
         public const float CountFill = 1.1f;
@@ -241,19 +241,25 @@ namespace Bloomlings.Client.UI
         public const float CountMargin = 0.06f;
 
         /// <summary>A locked pod's padlock, as a share of the tile's side it stands in for.</summary>
-        public const float LockShare = 0.72f;
+        public const float LockShare = 0.62f;
 
-        /// <summary>How far the variant's color is lightened for the top of the panel (the reference's tinted panels).</summary>
+        /// <summary>How far the variant's color is lightened for the top of an exposed pod's panel (the reference's tinted panels).</summary>
         public const float PanelTop = 0.5f;
 
-        /// <summary>How far the variant's color is lightened for the bottom of the panel.</summary>
+        /// <summary>How far the variant's color is lightened for the bottom of an exposed pod's panel.</summary>
         public const float PanelBottom = 0.8f;
 
+        /// <summary>How far the variant's color is lightened for the top of a waiting pod's panel (a lighter wash).</summary>
+        public const float WaitingPanelTop = 0.74f;
+
+        /// <summary>How far the variant's color is lightened for the bottom of a waiting pod's panel.</summary>
+        public const float WaitingPanelBottom = 0.9f;
+
         /// <summary>How far a pressed pod's frame sinks, as a share of its height.</summary>
-        public const float Sink = 0.06f;
+        public const float Sink = 0.04f;
 
         /// <summary>The <c>parchment.bottom</c> veil over a waiting pod's frame and panel (its tile and count stay clear of it).</summary>
-        public const float VeilAlpha = 0.45f;
+        public const float VeilAlpha = 0.4f;
 
         private BoxLayout _layout = null!;
         private Image _shadow = null!;
@@ -315,7 +321,7 @@ namespace Bloomlings.Client.UI
             Look = look;
             Waiting = waiting || look == PodLook.Next;
             bool locked = look == PodLook.Locked;
-            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.12f : 0.26f));
+            _shadow.color = UiTheme.Of(C.GardenShadow.WithAlpha(Waiting ? 0.1f : 0.26f));
             if (locked)
             {
                 UiKit.Gradient(_panel, UiTheme.Of(C.StateLockBg.Lighten(0.2f)), UiTheme.Of(C.StateLockBg));
@@ -323,7 +329,7 @@ namespace Bloomlings.Client.UI
             else if (variant.HasValue)
             {
                 Rgba color = UiKit.PodColor(variant.Value);
-                UiKit.Gradient(_panel, UiTheme.Of(color.Lighten(PanelTop)), UiTheme.Of(color.Lighten(PanelBottom)));
+                UiKit.Gradient(_panel, UiTheme.Of(color.Lighten(Waiting ? WaitingPanelTop : PanelTop)), UiTheme.Of(color.Lighten(Waiting ? WaitingPanelBottom : PanelBottom)));
             }
             else
             {
@@ -333,6 +339,7 @@ namespace Bloomlings.Client.UI
             _veil.gameObject.SetActive(Waiting);
             _shade.gameObject.SetActive(look == PodLook.Pressed);
             _lock.gameObject.SetActive(locked);
+            _lock.color = UiTheme.Of(C.StateLock.Darken(Waiting ? 0.05f : 0.2f));
             _tile.gameObject.SetActive(!locked);
             _tileVeil.gameObject.SetActive(!locked && Waiting && !variant.HasValue);
             if (!locked)
@@ -354,7 +361,7 @@ namespace Bloomlings.Client.UI
             float border = h * PodChip.Border;
             _radius = Mathf.Min(h * Radius, h / 2f);
             _panelRadius = Mathf.Max(0f, _radius - (border * 0.8f));
-            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, h * (pressed ? 0.02f : 0.07f)).Inset(h * 0.04f, 0f));
+            BoxLayout.Place(_shadow.rectTransform, frame.Offset(0f, h * (pressed ? 0.015f : 0.06f)).Inset(h * 0.04f, 0f));
             BoxLayout.Place(_panel.rectTransform, frame.Inset(border * 0.8f));
             BoxLayout.Place(_frame.rectTransform, frame);
             BoxLayout.Place(_veil.rectTransform, frame);
