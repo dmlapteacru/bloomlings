@@ -7,8 +7,10 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// The reference gameplay screen (spec 005 FR-020, FR-021; contracts/look.md §6.1), top to bottom: the top bar (Pause,
     /// the wooden level sign, the speed pill), the board in its stone border on the lawn, the entry strip, and one parchment
-    /// tray from there to the bottom of the screen holding the Waiting Slots, the four booster boxes and one deck per Source
-    /// stack, parted by two thin lines. <see cref="W"/> is the safe width in pixels and <see cref="K"/> the factor the tray
+    /// tray from there to the bottom of the screen holding the Waiting Slots, the four booster boxes and the Source stacks,
+    /// parted by two thin lines. Each stack is a column of pods one after another, never on each other (the owner's
+    /// gameplay rule, 2026-10-03): the exposed pod in the top row and the next ones below it, <see cref="PodRows"/> rows
+    /// in all (<see cref="Pod"/>, <see cref="Chip"/>). <see cref="W"/> is the safe width in pixels and <see cref="K"/> the factor the tray
     /// rows (and the entry strip) shrink by on screens shorter than 19.5:9. Collapsed regions (no badge, no boosters) are
     /// empty. Screen pixels, y down. Engine-free.
     /// </summary>
@@ -33,9 +35,33 @@ namespace Bloomlings.Client.UI.Design
         IReadOnlyList<Box> Boosters,
         Box SeparatorBottom,
         Box PodRow,
-        IReadOnlyList<Box> Decks,
-        int PodRows)
+        IReadOnlyList<Box> Columns,
+        int PodRows,
+        float FrontHeight,
+        float QueueHeight,
+        float PodGap)
     {
+        /// <summary>The fewest pods of a stack the tray shows (the exposed one and the next two), on shorter screens.</summary>
+        public const int MinPodRows = 3;
+
+        /// <summary>The most pods of a stack the tray shows (the exposed one and the next three), from <see cref="FourRowsAspect"/>.</summary>
+        public const int MaxPodRows = 4;
+
+        /// <summary>The safe height to width ratio from which the tray shows <see cref="MaxPodRows"/> rows (19.5:9 phones and taller).</summary>
+        public const float FourRowsAspect = 1.95f;
+
+        /// <summary>The widest a pod gets, as a share of <see cref="W"/> (times <see cref="K"/>).</summary>
+        public const float PodMaxShare = 0.24f;
+
+        /// <summary>The exposed pod's height and a waiting pod's height, as shares of <see cref="W"/> (times <see cref="K"/>).</summary>
+        public const float FrontShare = 0.13f;
+
+        public const float QueueShare = 0.1f;
+
+        /// <summary>The gap between two pods of a column, and between two columns, as shares of <see cref="W"/>.</summary>
+        public const float PodGapShare = 0.01f;
+
+        public const float ColumnGapShare = 0.016f;
         /// <summary>The widest the stone border's outer box may be, as a share of <see cref="W"/>.</summary>
         public const float MaxBoardShare = 0.86f;
 
@@ -80,8 +106,29 @@ namespace Bloomlings.Client.UI.Design
             return Box.FromCenter(box.Right - (size * 0.55f), box.Bottom - (size * 0.55f), size, size);
         }
 
-        /// <summary>The parts of the deck of Source stack <paramref name="index"/> (<see cref="PodDeck"/>).</summary>
-        public PodDeck Deck(int index) => PodDeck.In(Decks[index]);
+        /// <summary>Whether the tray shows the pod at <paramref name="depth"/> of a stack (0 = exposed).</summary>
+        public bool Shows(int depth) => depth >= 0 && depth < PodRows;
+
+        /// <summary>
+        /// The box of the pod at <paramref name="depth"/> (0 = exposed) of Source stack <paramref name="stack"/>: the
+        /// exposed pod at the column's top, <see cref="FrontHeight"/> tall, and each next one under the one before it,
+        /// <see cref="QueueHeight"/> tall, <see cref="PodGap"/> apart, never overlapping. Depths from
+        /// <see cref="PodRows"/> on fall under the pod row (the tray does not show them).
+        /// </summary>
+        public Box Pod(int stack, int depth)
+        {
+            Box column = Columns[stack];
+            if (depth <= 0)
+            {
+                return new Box(column.Left, column.Top, column.Right, column.Top + FrontHeight);
+            }
+
+            float top = column.Top + FrontHeight + PodGap + ((depth - 1) * (QueueHeight + PodGap));
+            return new Box(column.Left, top, column.Right, top + QueueHeight);
+        }
+
+        /// <summary>The parts of the pod at <paramref name="depth"/> of stack <paramref name="stack"/> (<see cref="PodChip"/>).</summary>
+        public PodChip Chip(int stack, int depth) => PodChip.In(Pod(stack, depth));
 
         /// <summary>A Waiting Slot plate's lip under its face, as a share of the plate's shorter side.</summary>
         public const float SlotLipShare = 0.055f;
@@ -140,57 +187,35 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// One Source stack drawn as a deck (spec 005 FR-021, contracts/look.md §6.1): the exposed pod in front filling the
-    /// bottom <see cref="FrontShare"/> of the deck box, and up to two buried pods as frames of the same size behind it,
-    /// each raised by <see cref="Raise"/> of the deck's height over the one in front, so a band of each shows above it.
-    /// <see cref="Inner"/> is the front frame's panel (inside its border of 11% of the width), <see cref="Tile"/> the
-    /// sticker tile (62% of the frame's width, 3% of the panel below its top), <see cref="Count"/> the room for the
-    /// count under it, and <see cref="Badge"/> the "+N" disc on the deck's top right. Engine-free.
+    /// One pod of the tray's grid (spec 005 FR-021, contracts/look.md §6.1): a wooden frame wider than tall, its cream
+    /// panel inside a border of <see cref="Border"/> of its height, the sticker tile as a square at the panel's left (as
+    /// tall as the panel, less a 3% margin), the count in the room right of it, and the "+N" disc of the pods deeper than
+    /// the tray shows over the frame's top right corner. A pod is at least <see cref="MinAspect"/> times as wide as tall
+    /// (the layout keeps it so), so the count always has half a tile of room. Engine-free.
     /// </summary>
-    public sealed record PodDeck(Box Deck, Box Front, Box Buried1, Box Buried2, Box Inner, Box Tile, Box Count, Box Badge)
+    public sealed record PodChip(Box Frame, Box Inner, Box Tile, Box Count, Box Badge)
     {
-        /// <summary>The share of the deck's height the front pod fills.</summary>
-        public const float FrontShare = 0.82f;
+        /// <summary>The frame's border, as a share of the pod's height.</summary>
+        public const float Border = 0.09f;
 
-        /// <summary>How far each buried pod rises over the one in front of it, as a share of the deck's height.</summary>
-        public const float Raise = 0.09f;
+        /// <summary>The narrowest a pod is, as a multiple of its height.</summary>
+        public const float MinAspect = 1.45f;
 
-        /// <summary>The frame's border, as a share of the pod's width (<c>Kit.PodFrame</c>).</summary>
-        public const float Border = 0.11f;
+        /// <summary>The "+N" disc's size, as a share of the pod's height.</summary>
+        public const float BadgeShare = 0.44f;
 
-        /// <summary>The sticker tile's side, as a share of the frame's width.</summary>
-        public const float TileShare = 0.62f;
-
-        /// <summary>The parts of a deck in <paramref name="deck"/>.</summary>
-        public static PodDeck In(Box deck)
+        /// <summary>The parts of a pod in <paramref name="frame"/>.</summary>
+        public static PodChip In(Box frame)
         {
-            float h = deck.Height;
-            float w = deck.Width;
-            var front = new Box(deck.Left, deck.Bottom - (h * FrontShare), deck.Right, deck.Bottom);
-            Box buried1 = front.Offset(0f, -h * Raise);
-            Box buried2 = front.Offset(0f, -2f * h * Raise);
-            Box inner = front.Inset(w * Border);
-            float tile = Math.Min(w * TileShare, inner.Height * 0.78f);
-            float tileTop = inner.Top + (inner.Height * 0.03f);
-            var tileBox = new Box(inner.CenterX - (tile / 2f), tileTop, inner.CenterX + (tile / 2f), tileTop + tile);
-            var count = new Box(inner.Left, tileBox.Bottom, inner.Right, inner.Bottom);
-            float badge = w * 0.26f;
-            Box badgeBox = Box.FromCenter(deck.Right - (badge * 0.32f), deck.Top + (badge * 0.32f), badge, badge);
-            return new PodDeck(deck, front, buried1, buried2, inner, tileBox, count, badgeBox);
-        }
-
-        /// <summary>The frame of buried pod <paramref name="depth"/> (1 or 2).</summary>
-        public Box Buried(int depth) => depth <= 1 ? Buried1 : Buried2;
-
-        /// <summary>
-        /// The visible band of buried pod <paramref name="depth"/> (1 or 2): from its top to the top of the pod in front of
-        /// it. The band shows the frame's top edge and a strip of the pod's variant color with its small symbol.
-        /// </summary>
-        public Box Band(int depth)
-        {
-            Box pod = Buried(depth);
-            Box over = depth <= 1 ? Front : Buried1;
-            return new Box(pod.Left, pod.Top, pod.Right, over.Top);
+            float h = frame.Height;
+            Box inner = frame.Inset(h * Border);
+            float margin = inner.Height * 0.03f;
+            float tile = inner.Height - (2f * margin);
+            var tileBox = new Box(inner.Left + margin, inner.Top + margin, inner.Left + margin + tile, inner.Top + margin + tile);
+            var count = new Box(Math.Min(inner.Right, tileBox.Right + (h * 0.04f)), inner.Top, inner.Right, inner.Bottom);
+            float badge = h * BadgeShare;
+            Box badgeBox = Box.FromCenter(frame.Right - (h * 0.12f), frame.Top + (h * 0.12f), badge, badge);
+            return new PodChip(frame, inner, tileBox, count, badgeBox);
         }
     }
 
@@ -451,8 +476,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The reference gameplay layout (contracts/look.md §6.1). <paramref name="entrySides"/> are the level's Garden
         /// Entry sides (a bottom entry takes a 0.17 W strip under the board for its arch, else the strip is 0.04 W);
-        /// <paramref name="stackCount"/> Source stacks become one row of decks (two rows when a deck would be narrower than
-        /// 0.17 W); <paramref name="slotCount"/> Waiting Slots, the extra slot included, share the slot row. Without
+        /// <paramref name="stackCount"/> Source stacks become columns of pods (<see cref="ReferenceGameplayRegions.Pod"/>):
+        /// four rows from <see cref="ReferenceGameplayRegions.FourRowsAspect"/>, three on shorter screens;
+        /// <paramref name="slotCount"/> Waiting Slots, the extra slot included, share the slot row. Without
         /// boosters (before they unlock) the booster row and its line collapse and the board takes the room; a Hard or
         /// Super Hard badge (<paramref name="hasBadge"/>) sits under the sign and pushes the board down.
         /// </summary>
@@ -482,36 +508,31 @@ namespace Bloomlings.Client.UI.Design
             float boardTop = (hasBadge ? badge.Bottom : bar.Bottom) + (0.02f * w);
 
             // The tray, bottom up: its content ends 0.02 W above the bottom inset; the pods, a line, the boosters, a line,
-            // the slots and 0.025 W of padding above them.
+            // the slots and 0.025 W of padding above them. The pods: one column per stack, the exposed pod on top and the
+            // next ones under it, never overlapping (the owner, 2026-10-03), each pod at least PodChip.MinAspect times as
+            // wide as tall so its count keeps room.
             int stacks = Math.Max(1, stackCount);
-            float gapX = 0.04f * w / 3f;
-            float deckWidth = Math.Min(0.23f * w * k, ((0.96f * w) - (gapX * (stacks - 1))) / stacks);
-            int podRows = 1;
-            int perRow = stacks;
-            if (deckWidth < 0.17f * w)
-            {
-                podRows = 2;
-                perRow = (stacks + 1) / 2;
-                deckWidth = Math.Min(0.23f * w * k, ((0.96f * w) - (gapX * (perRow - 1))) / perRow);
-            }
-
-            float rowGap = 0.015f * w;
-            float deckHeight = podRows == 1 ? 0.31f * w * k : 0.26f * w * k;
-            float podRowHeight = (deckHeight * podRows) + (rowGap * (podRows - 1));
+            int podRows = safe.Height / Math.Max(1f, w) >= ReferenceGameplayRegions.FourRowsAspect ? ReferenceGameplayRegions.MaxPodRows : ReferenceGameplayRegions.MinPodRows;
+            float columnGap = ReferenceGameplayRegions.ColumnGapShare * w;
+            float podWidth = Math.Min(ReferenceGameplayRegions.PodMaxShare * w * k, ((0.96f * w) - (columnGap * (stacks - 1))) / stacks);
+            float frontHeight = Math.Min(ReferenceGameplayRegions.FrontShare * w * k, podWidth / PodChip.MinAspect);
+            float queueHeight = Math.Min(ReferenceGameplayRegions.QueueShare * w * k, podWidth / PodChip.MinAspect);
+            float podGap = ReferenceGameplayRegions.PodGapShare * w * k;
+            float podRowHeight = frontHeight + ((podRows - 1) * (queueHeight + podGap));
             float contentBottom = safe.Bottom - (0.02f * w);
             var podRow = new Box(safe.Left + (0.02f * w), contentBottom - podRowHeight, safe.Right - (0.02f * w), contentBottom);
-            float separator = 0.04f * w * k;
+            float separator = 0.03f * w * k;
             float lineHeight = Math.Max(2f, 0.005f * w);
             Box SeparatorAbove(Box row) => Box.FromCenter(safe.CenterX, row.Top - (separator / 2f), 0.92f * w, lineHeight);
             Box separatorBottom = hasBoosters ? SeparatorAbove(podRow) : new Box(safe.CenterX, podRow.Top, safe.CenterX, podRow.Top);
             float boosterBottom = podRow.Top - separator;
             Box boosterRow = hasBoosters
-                ? new Box(safe.Left + (0.05f * w), boosterBottom - (0.23f * w * k), safe.Right - (0.05f * w), boosterBottom)
+                ? new Box(safe.Left + (0.05f * w), boosterBottom - (0.18f * w * k), safe.Right - (0.05f * w), boosterBottom)
                 : new Box(safe.CenterX, podRow.Top, safe.CenterX, podRow.Top);
             Box above = hasBoosters ? boosterRow : podRow;
             Box separatorTop = SeparatorAbove(above);
             float slotBottom = above.Top - separator;
-            var slotRow = new Box(safe.Left + (0.04f * w), slotBottom - (0.19f * w * k), safe.Right - (0.04f * w), slotBottom);
+            var slotRow = new Box(safe.Left + (0.04f * w), slotBottom - (0.16f * w * k), safe.Right - (0.04f * w), slotBottom);
             float trayTop = slotRow.Top - (0.025f * w);
             var tray = new Box(0f, trayTop, width, height);
             var trayContent = new Box(safe.Left + (0.035f * w), slotRow.Top, safe.Right - (0.035f * w), contentBottom);
@@ -527,31 +548,24 @@ namespace Bloomlings.Client.UI.Design
             float boardWidth = ReferenceGameplayRegions.MaxBoardShare * w;
             var board = new Box(safe.CenterX - (boardWidth / 2f), boardTop, safe.CenterX + (boardWidth / 2f), Math.Max(boardTop, entryStrip.Top));
 
-            // The slots: portrait plates 0.165 W wide spread evenly across 0.92 W (an extra slot narrows them).
+            // The slots: portrait plates 0.14 W wide spread evenly across 0.92 W (an extra slot narrows them).
             int slots = Math.Max(1, slotCount);
-            Box[] slotBoxes = Spread(Box.FromCenter(safe.CenterX, slotRow.CenterY, 0.92f * w, slotRow.Height), slots, 0.165f * w * k, 0.0238f * w);
+            Box[] slotBoxes = Spread(Box.FromCenter(safe.CenterX, slotRow.CenterY, 0.92f * w, slotRow.Height), slots, 0.14f * w * k, 0.0238f * w);
 
-            // The boosters: four squircles 0.195 W spread evenly across 0.9 W.
+            // The boosters: four squircles 0.16 W spread evenly across 0.9 W.
             Box[] boosterBoxes = hasBoosters
-                ? Spread(Box.FromCenter(safe.CenterX, boosterRow.CenterY, 0.9f * w, 0.195f * w * k), 4, 0.195f * w * k, 0.03f * w)
+                ? Spread(Box.FromCenter(safe.CenterX, boosterRow.CenterY, 0.9f * w, 0.16f * w * k), 4, 0.16f * w * k, 0.03f * w)
                 : Array.Empty<Box>();
 
-            // The decks: one row (two when narrow), each row spread evenly across 0.96 W, at most 0.02 W apart, centered.
-            var decks = new Box[stackCount <= 0 ? 0 : stacks];
-            for (int row = 0, i = 0; row < podRows; row++)
-            {
-                int inRow = Math.Min(perRow, stacks - i);
-                float top = podRow.Top + (row * (deckHeight + rowGap));
-                Box[] cells = Spread(new Box(safe.CenterX - (0.48f * w), top, safe.CenterX + (0.48f * w), top + deckHeight), inRow, deckWidth, gapX, 0.02f * w);
-                for (int c = 0; c < inRow && i < decks.Length; c++, i++)
-                {
-                    decks[i] = cells[c];
-                }
-            }
+            // The columns: spread evenly across 0.96 W, at most 0.04 W apart, centered.
+            Box[] columns = stackCount <= 0
+                ? Array.Empty<Box>()
+                : Spread(new Box(safe.CenterX - (0.48f * w), podRow.Top, safe.CenterX + (0.48f * w), podRow.Bottom), stacks, podWidth, columnGap, 0.04f * w);
 
             return new ReferenceGameplayRegions(
                 safe, w, k, bar, pause, sign, speed, badge, board, entryStrip, tray, 0.06f * w, trayContent,
-                slotRow, slotBoxes, separatorTop, boosterRow, boosterBoxes, separatorBottom, podRow, decks, podRows);
+                slotRow, slotBoxes, separatorTop, boosterRow, boosterBoxes, separatorBottom, podRow, columns, podRows,
+                frontHeight, queueHeight, podGap);
         }
 
         /// <summary>

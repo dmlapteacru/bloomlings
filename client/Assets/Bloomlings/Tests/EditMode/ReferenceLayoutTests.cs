@@ -53,8 +53,8 @@ namespace Bloomlings.Client.Tests
                                 Assert.That(r.TopBar.Top, Is.GreaterThanOrEqualTo(r.Safe.Top), at + ": the top bar sits under the top inset");
                                 Assert.That(r.Board.Width, Is.LessThanOrEqualTo((r.W * ReferenceGameplayRegions.MaxBoardShare) + 0.5f), at);
                                 // The tray keeps the reference's size on 19.5:9 and shrinks by k on shorter phones (k = 0.86 at
-                                // 16:9), so the board keeps at least 35% of the height there even with a badge.
-                                Assert.That(r.Board.Height, Is.GreaterThan(r.Safe.Height * 0.35f), at + ": the board keeps its room");
+                                // 16:9), so the board keeps at least a third of the height even with four rows of pods and a badge.
+                                Assert.That(r.Board.Height, Is.GreaterThan(r.Safe.Height * 0.33f), at + ": the board keeps its room");
                                 Assert.That(r.Tray.Bottom, Is.EqualTo(h).Within(0.5f), at + ": the tray runs to the screen's bottom");
                                 Assert.That(r.Tray.Left, Is.EqualTo(0f).Within(0.5f), at);
                                 Assert.That(r.Tray.Right, Is.EqualTo(w).Within(0.5f), at);
@@ -64,9 +64,11 @@ namespace Bloomlings.Client.Tests
 
                                 Assert.That(r.Slots.Count, Is.EqualTo(5), at);
                                 AssertRow(r.Slots, r.SlotRow, at + " slots");
-                                AssertRow(r.Decks, r.PodRow, at + " decks");
-                                Assert.That(r.Decks.Count, Is.EqualTo(stacks), at);
-                                Assert.That(r.PodRows, Is.EqualTo(1), at + ": up to five stacks keep one row");
+                                AssertRow(r.Columns, r.PodRow, at + " columns");
+                                Assert.That(r.Columns.Count, Is.EqualTo(stacks), at);
+                                bool tall = r.Safe.Height / r.W >= ReferenceGameplayRegions.FourRowsAspect;
+                                Assert.That(r.PodRows, Is.EqualTo(tall ? 4 : 3), at + ": four rows of pods on tall phones, three on short ones");
+                                AssertGrid(r, at);
                                 if (boosters)
                                 {
                                     Assert.That(r.Boosters.Count, Is.EqualTo(4), at);
@@ -89,12 +91,17 @@ namespace Bloomlings.Client.Tests
 
                                 Assert.That(r.Badge.IsEmpty, Is.EqualTo(!badge), at);
 
-                                // Pause, the speed pill, the booster boxes and the decks are pressed: their touch boxes stay
-                                // inside the safe area and never overlap.
+                                // Pause, the speed pill, the booster boxes and the exposed pods are pressed: their touch boxes
+                                // stay inside the safe area and never overlap (an exposed pod's grows to the touch minimum,
+                                // over the waiting pod under it, which takes no taps).
                                 float touch = Touch(w, h) * 0.95f;
                                 var targets = new List<Box> { TouchBox(r.Pause, touch), TouchBox(r.Speed, touch) };
                                 targets.AddRange(r.Boosters);
-                                targets.AddRange(r.Decks);
+                                for (int s = 0; s < stacks; s++)
+                                {
+                                    targets.Add(TouchBox(r.Pod(s, 0), touch));
+                                }
+
                                 AssertTargets(targets, r.Safe, touch, at);
                             }
                         }
@@ -116,23 +123,26 @@ namespace Bloomlings.Client.Tests
             Assert.That(r.Speed.Right, Is.EqualTo(0.96f * w).Within(1f));
             Assert.That(r.Board.Top, Is.EqualTo(0.162f * w).Within(1f));
             Assert.That(r.EntryStrip.Height, Is.EqualTo(0.17f * w).Within(1f));
-            Assert.That(r.SlotRow.Height, Is.EqualTo(0.19f * w).Within(1f));
-            Assert.That(r.BoosterRow.Height, Is.EqualTo(0.23f * w).Within(1f));
-            Assert.That(r.PodRow.Height, Is.EqualTo(0.31f * w).Within(1f));
-            Assert.That(r.Slots[0].Width, Is.EqualTo(0.165f * w).Within(1f));
+            Assert.That(r.SlotRow.Height, Is.EqualTo(0.16f * w).Within(1f));
+            Assert.That(r.BoosterRow.Height, Is.EqualTo(0.18f * w).Within(1f));
+            Assert.That(r.PodRows, Is.EqualTo(4));
+            Assert.That(r.PodRow.Height, Is.EqualTo(0.46f * w).Within(1f), "the exposed pod 0.13 W and three more 0.1 W, 0.01 W apart");
+            Assert.That(r.Slots[0].Width, Is.EqualTo(0.14f * w).Within(1f));
             Assert.That(r.Slots[0].Left, Is.EqualTo(0.04f * w).Within(1f), "the slots span 0.92 W");
             Assert.That(r.Slots[4].Right, Is.EqualTo(0.96f * w).Within(1f));
-            Assert.That(r.Boosters[0].Width, Is.EqualTo(0.195f * w).Within(1f));
+            Assert.That(r.Boosters[0].Width, Is.EqualTo(0.16f * w).Within(1f));
             Assert.That(r.Boosters[0].Left, Is.EqualTo(0.05f * w).Within(1f), "the boosters span 0.9 W");
             Assert.That(r.Boosters[3].Right, Is.EqualTo(0.95f * w).Within(1f));
-            Assert.That(r.Decks[0].Width, Is.EqualTo(0.23f * w).Within(1f));
-            Assert.That(r.Decks[0].Left, Is.EqualTo(0.02f * w).Within(1f), "four decks span 0.96 W");
-            Assert.That(r.Decks[3].Right, Is.EqualTo(0.98f * w).Within(1f));
-            Assert.That(r.Tray.Top, Is.EqualTo(h - (0.855f * w)).Within(2f), "the tray holds 0.855 W of rows and padding");
+            Assert.That(r.Columns[0].Width, Is.EqualTo(0.228f * w).Within(1f));
+            Assert.That(r.Columns[0].Left, Is.EqualTo(0.02f * w).Within(1f), "four columns span 0.96 W");
+            Assert.That(r.Columns[3].Right, Is.EqualTo(0.98f * w).Within(1f));
+            Assert.That(r.Pod(0, 0).Height, Is.EqualTo(0.13f * w).Within(1f));
+            Assert.That(r.Pod(0, 1).Height, Is.EqualTo(0.1f * w).Within(1f));
+            Assert.That(r.Tray.Top, Is.EqualTo(h - (0.905f * w)).Within(2f), "the tray holds 0.905 W of rows and padding");
         }
 
         [Test]
-        public void Gameplay_ExtraSlotNarrowsThePlates_AndManyStacksWrap()
+        public void Gameplay_ExtraSlotNarrowsThePlates_AndSixStacksFit()
         {
             foreach ((float w, float h, Insets insets) in Phones())
             {
@@ -140,22 +150,11 @@ namespace Bloomlings.Client.Tests
                 ReferenceGameplayRegions six = ScreenLayout.ReferenceGameplay(w, h, insets, Bottom, 4, 6);
                 Assert.That(six.Slots.Count, Is.EqualTo(6), at);
                 AssertRow(six.Slots, six.SlotRow, at + " six slots");
-                ReferenceGameplayRegions eight = ScreenLayout.ReferenceGameplay(w, h, insets, Bottom, 8, 5);
-                Assert.That(eight.PodRows, Is.EqualTo(2), at);
-                Assert.That(eight.Decks.Count, Is.EqualTo(8), at);
-                foreach (Box deck in eight.Decks)
-                {
-                    Assert.That(deck.Within(eight.PodRow), Is.True, at);
-                    Assert.That(deck.Width, Is.GreaterThanOrEqualTo(0.17f * eight.W * eight.K - 0.5f), at);
-                }
-
-                for (int i = 0; i < eight.Decks.Count; i++)
-                {
-                    for (int j = 0; j < i; j++)
-                    {
-                        Assert.That(eight.Decks[i].Overlaps(eight.Decks[j]), Is.False, at + " decks " + j + " and " + i);
-                    }
-                }
+                // The most stacks a level has (SourceTray.MaxStacks) still make one row of columns.
+                ReferenceGameplayRegions many = ScreenLayout.ReferenceGameplay(w, h, insets, Bottom, 6, 5);
+                Assert.That(many.Columns.Count, Is.EqualTo(6), at);
+                AssertRow(many.Columns, many.PodRow, at + " six columns");
+                AssertGrid(many, at + " six stacks");
             }
         }
 
@@ -179,19 +178,25 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheDeck_ShowsTheFrontPod_AndTwoBandsAboveIt()
+        public void ThePods_GoOneAfterAnother_NeverOnEachOther()
         {
             ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 2340f, Insets.None, Bottom, 4, 5);
-            PodDeck deck = r.Deck(0);
-            Assert.That(deck.Front.Height, Is.EqualTo(deck.Deck.Height * PodDeck.FrontShare).Within(0.5f));
-            Assert.That(deck.Front.Bottom, Is.EqualTo(deck.Deck.Bottom).Within(0.5f));
-            Assert.That(deck.Buried2.Top, Is.GreaterThanOrEqualTo(deck.Deck.Top - 0.5f), "both buried pods stay in the deck");
-            Assert.That(deck.Band(1).Height, Is.EqualTo(deck.Deck.Height * PodDeck.Raise).Within(0.5f));
-            Assert.That(deck.Band(2).Bottom, Is.EqualTo(deck.Buried1.Top).Within(0.5f));
-            Assert.That(deck.Tile.Within(deck.Inner), Is.True);
-            Assert.That(deck.Count.Top, Is.GreaterThanOrEqualTo(deck.Tile.Bottom - 0.5f));
-            Assert.That(deck.Count.Height, Is.GreaterThan(deck.Front.Height * 0.12f), "the count keeps room");
-            Assert.That(deck.Tile.Width, Is.EqualTo(deck.Deck.Width * PodDeck.TileShare).Within(1f));
+            for (int depth = 1; depth < r.PodRows; depth++)
+            {
+                Assert.That(r.Pod(0, depth).Top, Is.EqualTo(r.Pod(0, depth - 1).Bottom + r.PodGap).Within(0.5f), "depth " + depth + " under the one before");
+                Assert.That(r.Pod(0, depth).Left, Is.EqualTo(r.Pod(0, 0).Left).Within(0.01f), "one column");
+            }
+
+            Assert.That(r.Pod(0, r.PodRows - 1).Bottom, Is.EqualTo(r.PodRow.Bottom).Within(0.5f), "the last row ends the pod row");
+            Assert.That(r.Shows(r.PodRows - 1), Is.True);
+            Assert.That(r.Shows(r.PodRows), Is.False, "deeper pods are counted on the badge, not drawn");
+
+            PodChip chip = r.Chip(0, 1);
+            Assert.That(chip.Tile.Within(chip.Inner), Is.True);
+            Assert.That(chip.Tile.Width, Is.EqualTo(chip.Tile.Height).Within(0.01f), "a square sticker tile");
+            Assert.That(chip.Count.Left, Is.GreaterThanOrEqualTo(chip.Tile.Right - 0.01f), "the count right of the tile");
+            Assert.That(chip.Count.Width, Is.GreaterThanOrEqualTo(chip.Tile.Width * 0.5f), "the count keeps half a tile");
+            Assert.That(chip.Badge.Overlaps(chip.Frame), Is.True, "the +N disc sits on the frame's corner");
         }
 
         [Test]
@@ -309,26 +314,26 @@ namespace Bloomlings.Client.Tests
             Assert.That(tile.Top, Is.EqualTo(plate.Top + (face * 0.08f)).Within(0.5f));
             Assert.That(tile.CenterX, Is.EqualTo(plate.CenterX).Within(0.5f));
             Assert.That(plate.Bottom - lip - tile.Bottom, Is.GreaterThan(face * 0.2f), "the count keeps a quarter of the face");
-            Assert.That(tile.Width, Is.GreaterThan(0.11f * r.W), "about 0.12 W, as the reference's");
+            Assert.That(tile.Width, Is.GreaterThan(0.09f * r.W), "about 0.1 W (the slots shrank so the tray shows its pods' rows)");
         }
 
         [Test]
-        public void TwoOrThreeDecks_StayTogether_AtTheReferenceWidth()
+        public void TwoOrThreeColumns_StayTogether_AtTheirWidest()
         {
             foreach (int stacks in new[] { 2, 3 })
             {
                 ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, 1080f * ScreenLayout.ReferenceAspect, Insets.None, Bottom, stacks, 5);
                 for (int i = 0; i < stacks; i++)
                 {
-                    Assert.That(r.Decks[i].Width, Is.EqualTo(0.23f * r.W).Within(1f), stacks + " decks");
+                    Assert.That(r.Columns[i].Width, Is.EqualTo(ReferenceGameplayRegions.PodMaxShare * r.W).Within(1f), stacks + " columns");
                 }
 
                 for (int i = 1; i < stacks; i++)
                 {
-                    Assert.That(r.Decks[i].Left - r.Decks[i - 1].Right, Is.LessThanOrEqualTo((0.02f * r.W) + 0.5f), stacks + " decks sit together");
+                    Assert.That(r.Columns[i].Left - r.Columns[i - 1].Right, Is.LessThanOrEqualTo((0.04f * r.W) + 0.5f), stacks + " columns sit together");
                 }
 
-                Assert.That((r.Decks[0].Left + r.Decks[stacks - 1].Right) / 2f, Is.EqualTo(r.Safe.CenterX).Within(0.5f), stacks + " decks centered");
+                Assert.That((r.Columns[0].Left + r.Columns[stacks - 1].Right) / 2f, Is.EqualTo(r.Safe.CenterX).Within(0.5f), stacks + " columns centered");
             }
         }
 
@@ -411,6 +416,29 @@ namespace Bloomlings.Client.Tests
                     }
 
                     AssertTargets(targets, r.Safe, touch, at);
+                }
+            }
+        }
+
+        /// <summary>
+        /// The tray's pods: each column's shown pods inside the pod row, one under the other without overlapping, the
+        /// exposed one at least as tall as the others, every pod at least <see cref="PodChip.MinAspect"/> times as wide as
+        /// tall.
+        /// </summary>
+        private static void AssertGrid(ReferenceGameplayRegions r, string at)
+        {
+            for (int s = 0; s < r.Columns.Count; s++)
+            {
+                for (int d = 0; d < r.PodRows; d++)
+                {
+                    Box pod = r.Pod(s, d);
+                    Assert.That(pod.Within(r.PodRow.Inset(-0.5f)), Is.True, at + ": pod " + s + "/" + d + " inside the pod row");
+                    Assert.That(pod.Width, Is.GreaterThanOrEqualTo((pod.Height * PodChip.MinAspect) - 0.5f), at + ": pod " + s + "/" + d + " wide enough for its count");
+                    if (d > 0)
+                    {
+                        Assert.That(pod.Top, Is.GreaterThanOrEqualTo(r.Pod(s, d - 1).Bottom), at + ": pods " + s + "/" + (d - 1) + " and " + d + " overlap");
+                        Assert.That(r.Pod(s, 0).Height, Is.GreaterThanOrEqualTo(pod.Height - 0.01f), at);
+                    }
                 }
             }
         }
