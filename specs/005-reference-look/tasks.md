@@ -176,7 +176,7 @@ FR-021 amended, SC-010), research D20 and contracts/look.md §3.7, §4.1 and §6
     lay out and draw the grid with the same recipe.
   - The slide (`PodView.SlideSeconds`) and the touch boxes match the playtest.
   - The client check's tests and stubs follow.
-- [ ] T034 Docs:
+- [X] T034 Docs:
   - spec.md: the clarification, FR-013, FR-020 and FR-021 amended, an edge case, the pod chip and SC-010.
   - research D20, look.md §3.1, §3.7, §4.1, §6 and §6.1, plan.md's addendum and this section.
   - spec 003 FR-022a's note, `CLAUDE.md`, `playtest/README.md` and `client/README.md`.
