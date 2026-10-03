@@ -61,11 +61,13 @@ jobs:
         working-directory: ${{ matrix.project }}
         run: dotnet publish -c Release -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME"
 
+      # `dotnet publish` signs the APK in bin/Release/net10.0-android/ and copies it into its publish/ folder: only the
+      # first is uploaded (a recursive pattern took both, the same APK twice).
       - uses: actions/upload-artifact@v4
         id: upload
         with:
           name: ${{ env.ARTIFACT }}
-          path: ${{ matrix.project }}/bin/Release/**/*-Signed.apk
+          path: ${{ matrix.project }}/bin/Release/net10.0-android/*-Signed.apk
           if-no-files-found: error
           retention-days: 7
           compression-level: 0
