@@ -41,7 +41,7 @@ namespace Bloomlings.Client.Gameplay.Tray
     public sealed class TrayView : MonoBehaviour
     {
         /// <summary>The radius of a connected member's ring mark, as a share of its pod's height (its white rim 30% more).</summary>
-        public const float MarkShare = 0.11f;
+        public const float MarkShare = 0.15f;
 
         private static readonly Rgba[] LinkPalette =
         {
@@ -134,16 +134,17 @@ namespace Bloomlings.Client.Gameplay.Tray
                     Box box = grid.Pod(s, depth);
 
                     // A pod still in its column slides from where it is drawn; one coming into the last row rises from
-                    // under it, fading in. A pod that changed columns (Shuffle) or came back (Return) is placed at once.
+                    // under it, fading in; one put back on top (Return) fades in at its place, under the pods sliding
+                    // down. A pod that changed columns (Shuffle) is placed at once.
                     Box? from = null;
                     bool fadeIn = false;
                     if (slide && pod.IsShown && pod.Stack == s)
                     {
                         from = pod.Visual;
                     }
-                    else if (slide && !pod.IsShown && depth > 0 && depth == rows - 1)
+                    else if (slide && !pod.IsShown && (depth == 0 || depth == rows - 1))
                     {
-                        from = grid.Pod(s, depth + 1);
+                        from = depth == 0 ? box : grid.Pod(s, depth + 1);
                         fadeIn = true;
                     }
 
@@ -293,8 +294,8 @@ namespace Bloomlings.Client.Gameplay.Tray
 
                     (Image rim, Image dot) = _marks[marked++];
                     float d = box.Height * MarkShare;
-                    float x = box.Left + (box.Height * 0.16f);
-                    float y = box.Top + (box.Height * 0.16f);
+                    float x = box.Left + (box.Height * 0.12f);
+                    float y = box.Top + (box.Height * 0.12f);
                     BoxLayout.Place(rim.rectTransform, Box.FromCenter(x, y, d * 2.6f, d * 2.6f));
                     BoxLayout.Place(dot.rectTransform, Box.FromCenter(x, y, d * 2f, d * 2f));
                     dot.color = color;

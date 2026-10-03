@@ -127,7 +127,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                 _slide = null;
             }
 
-            bool moves = from.HasValue && (Mathf.Abs(from.Value.CenterY - box.CenterY) > 0.5f || Mathf.Abs(from.Value.CenterX - box.CenterX) > 0.5f || Mathf.Abs(from.Value.Height - box.Height) > 0.5f);
+            bool moves = from.HasValue && (fadeIn || Mathf.Abs(from.Value.CenterY - box.CenterY) > 0.5f || Mathf.Abs(from.Value.CenterX - box.CenterX) > 0.5f || Mathf.Abs(from.Value.Height - box.Height) > 0.5f);
             if (moves && isActiveAndEnabled)
             {
                 _slide = StartCoroutine(SlideRoutine(from!.Value, fadeIn));
@@ -156,11 +156,15 @@ namespace Bloomlings.Client.Gameplay.Tray
             _slide = null;
         }
 
-        /// <summary>Draws the pod over <paramref name="at"/> (its holder moved and scaled from the pod's place) at <paramref name="alpha"/>.</summary>
+        /// <summary>
+        /// Draws the pod over <paramref name="at"/> (its holder moved and scaled from the pod's place) at
+        /// <paramref name="alpha"/>. A pod growing into the exposed row grows from the waiting size; one going down a row
+        /// (Return) takes its smaller size at once, so it never reaches past its column.
+        /// </summary>
         private void SetVisual(Box at, float alpha)
         {
             _visual = at;
-            float scale = at.Height / Mathf.Max(0.0001f, _box.Height);
+            float scale = Mathf.Min(1f, at.Height / Mathf.Max(0.0001f, _box.Height));
             _holder.localScale = new Vector3(scale, scale, 1f);
             ApplyOffset();
             _fade.alpha = alpha;

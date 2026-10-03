@@ -237,6 +237,12 @@ namespace Bloomlings.Client.UI
         /// <summary>The count's type size as a share of its room's height (the reference's big dark digits; the width caps it).</summary>
         public const float CountFill = 1.1f;
 
+        /// <summary>The room the count keeps from the frame's right member, as a share of the pod's height.</summary>
+        public const float CountMargin = 0.06f;
+
+        /// <summary>A locked pod's padlock, as a share of the tile's side it stands in for.</summary>
+        public const float LockShare = 0.72f;
+
         /// <summary>How far the variant's color is lightened for the top of the panel (the reference's tinted panels).</summary>
         public const float PanelTop = 0.5f;
 
@@ -360,9 +366,11 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place((RectTransform)_tile.transform, tile);
             _tileRadius = tile.Width * 0.2f;
             BoxLayout.Place(_tileVeil.rectTransform, tile);
-            float g = tile.Width * 0.62f;
+            float g = tile.Width * LockShare;
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(tile.CenterX, tile.CenterY, g, g));
-            UiKit.PlaceCount(_count, chip.Count.Offset(0f, sink), Waiting || Look == PodLook.Locked, CountFill);
+            // The count keeps a little room from the frame's right member.
+            Box count = chip.Count.Offset(0f, sink);
+            UiKit.PlaceCount(_count, new Box(count.Left, count.Top, Mathf.Max(count.Left, count.Right - (h * CountMargin)), count.Bottom), Waiting || Look == PodLook.Locked, CountFill);
             foreach (Image image in new[] { _shadow, _panel, _veil, _shade, _tileVeil })
             {
                 image.GetComponent<RoundShape>().Apply();
