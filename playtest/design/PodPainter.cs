@@ -99,7 +99,8 @@ namespace Bloomlings.Playtest.Design
                     s.PodBoxes[id] = Map(chip.Tile, layout, drawn);
                     if (shown)
                     {
-                        Link(linked, pod, drawn);
+                        // The links join the frames, which stand narrower than their places in the middle of the column.
+                        Link(linked, pod, PodChip.In(drawn).Frame);
                     }
 
                     // The exposed pod squashes under the finger and springs back (spec 003 FR-017).
@@ -171,7 +172,7 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="r"/>, moved down by <paramref name="dy"/>: <paramref name="pods"/> top first (the exposed pod,
         /// then the waiting ones; a null variant is a hidden mystery pod), as many as the tray shows;
         /// <paramref name="total"/> pods in the stack (more than the rows shown adds the "+N" badge); the exposed pod in
-        /// <paramref name="look"/>. No taps. Returns the frames drawn, top first.
+        /// <paramref name="look"/>. No taps. Returns the pods' frames drawn (<see cref="PodChip.Frame"/>), top first.
         /// </summary>
         public static Box[] DrawColumn(IPainter p, ReferenceGameplayRegions r, int stack, float dy, IReadOnlyList<(VariantId? Variant, int Count, bool Locked)> pods, int total, PodLook look)
         {
@@ -184,22 +185,25 @@ namespace Bloomlings.Playtest.Design
             p.Mark("pod.deck");
             int shown = Math.Min(pods.Count, r.PodRows);
             var frames = new Box[shown];
+            PodChip? last = null;
             for (int depth = shown - 1; depth >= 0; depth--)
             {
-                frames[depth] = r.Pod(stack, depth).Offset(0f, dy);
+                PodChip chip = PodChip.In(r.Pod(stack, depth).Offset(0f, dy));
+                last ??= chip;
+                frames[depth] = chip.Frame;
                 PodLook podLook = pods[depth].Locked ? PodLook.Locked : depth == 0 ? look : PodLook.Exposed;
-                Kit.Pod(p, PodChip.In(frames[depth]), pods[depth].Variant, pods[depth].Count, podLook, waiting: depth > 0);
+                Kit.Pod(p, chip, pods[depth].Variant, pods[depth].Count, podLook, waiting: depth > 0);
             }
 
-            if (total > r.PodRows)
+            if (total > r.PodRows && last != null)
             {
-                MoreBadge(p, PodChip.In(frames[shown - 1]), total - r.PodRows);
+                MoreBadge(p, last, total - r.PodRows);
             }
 
             return frames;
         }
 
-        /// <summary>The "+N" disc of the pods a column does not show, over its last shown pod's top right corner.</summary>
+        /// <summary>The "+N" disc of the pods a column does not show, over its last shown pod's top left corner (<see cref="PodChip.Badge"/>; the count keeps the bottom right).</summary>
         public static void MoreBadge(IPainter p, PodChip last, int more) =>
             Kit.CountBadge(p, last.Badge.CenterX, last.Badge.CenterY, last.Badge.Height, "+" + more.ToString(CultureInfo.InvariantCulture));
 
@@ -296,13 +300,16 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The ring mark of a connected pod whose group lies on several rows: a dot of the group's color on its top left corner.</summary>
+        /// <summary>
+        /// The ring mark of a connected pod whose group lies on several rows: a dot of the group's color on its frame's top
+        /// right corner (the "+N" disc takes the top left, the count the bottom right).
+        /// </summary>
         public static void LinkRing(IPainter p, Box box, Rgba color)
         {
             p.Mark("pod.link");
             float d = Math.Min(box.Width, box.Height) * 0.16f;
-            p.FillCircle(box.Left + d, box.Top + d, d * 1.25f, Rgba.White);
-            p.FillCircle(box.Left + d, box.Top + d, d, color);
+            p.FillCircle(box.Right - d, box.Top + d, d * 1.25f, Rgba.White);
+            p.FillCircle(box.Right - d, box.Top + d, d, color);
         }
 
         /// <summary>The connected groups' link colors, in order (the Unity tray's palette).</summary>

@@ -311,34 +311,43 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 ### 3.7 Tray pieces
 
 - **Pod** (`Kit.Pod(p, chip, variant, count, look, waiting)` over `Kit.PodFrame`; Unity `UiKit.GridPod`): one pod of
-  the tray's grid (§6.1, FR-021 as amended on 2026-10-03). A stack's pods stand one after another in its column and
-  are never drawn on each other. Each pod fills a box at least `PodChip.MinAspect` = 1.45 times as wide as it is tall,
-  and `PodChip.In(box)` places its parts:
-  - **Frame**: `UiRaster.Frame` (Dark, `mat.wood.dark`) fills the box, with a radius of 20% of its height and a border
-    of `PodChip.Border` = 9% of its height, over a soft `GardenShadow` shadow. There is no handle.
-  - **Panel** (`PodChip.Inner`, the box inset by the border): the variant's color lightened 0.5 at the top and 0.8 at
-    the bottom (the reference's lime, pink, sky blue and orange panels). A hidden mystery pod keeps plain cream; a
+  the tray's grid (§6.1, FR-021 as amended on 2026-10-03; the owner's choice "E" of the same day: the icon first, the
+  count small in a corner). A stack's pods stand one after another in its column and are never drawn on each other.
+  Each pod's place is at least `PodChip.MinAspect` = 1.45 times as wide as it is tall, and `PodChip.In(place)` places
+  its parts:
+  - **Frame** (`PodChip.Frame`): `PodChip.Aspect` = 1.3 times as wide as the place is tall (the place's width when it
+    is narrower), centered in the place. `UiRaster.Frame` (Dark, `mat.wood.dark`) fills it, with a radius of 20% of its
+    height and a border of `PodChip.Border` = 9% of its height, over a soft `GardenShadow` shadow. There is no handle.
+  - **Panel** (`PodChip.Inner`, the frame inset by the border): the variant's color lightened 0.5 at the top and 0.8
+    at the bottom (the reference's lime, pink, sky blue and orange panels). A hidden mystery pod keeps plain cream; a
     locked pod uses `StateLockBg`.
-  - **Tile** (`PodChip.Tile`): the sticker tile (§3.1, with the owner's icon, §3.11) as a square at the panel's left.
-    Its side is the panel's height less a 3% margin at each side.
-  - **Count** (`PodChip.Count`): the room right of the tile, from 4% of the pod's height past the tile to the panel's
-    right edge, and never less than half a tile wide. The digits are plain `type.count` in `InkBrown`, with no "x",
-    as large as the room allows (about two thirds of its height; the width caps them).
+  - **Icon** (`PodChip.Icon`): the owner's detailed icon of the variant (§3.11, `tile.icon.<id>`) alone, with no candy
+    tile under it, over the panel's middle. Its box is `PodChip.Tile` grown by `PodChip.IconGrow` = 4% of the pod's
+    height at each side, so it reaches a little over the panel into the border.
+  - **Tile** (`PodChip.Tile`): a square `PodChip.TileShare` = 1.04 times the panel's height, centered on the panel.
+    The sticker tile (§3.1) is drawn there for a hidden mystery pod (its "?"), and for a variant whose owner picture
+    is missing. A locked pod's padlock stands in its middle. Flights start from it.
+  - **Count** (`PodChip.Count`): small digits over the panel's bottom right corner, their middle
+    `PodChip.CountInset` = 0.42 of their type size in from the corner, their type size `PodChip.CountShare` = 36% of
+    the pod's height, at most half the panel wide. `type.count` in `InkBrown`, with no "x", in a white outline of
+    `PodChip.CountOutlineEm` = 0.14 em, so they read over the icon (`PodChip.CountLook`).
   - **"+N" disc** (`PodChip.Badge`): on the last shown pod of a column deeper than the tray shows (§6.1), a count badge
     (§3.4) `PodChip.BadgeShare` = 44% of the pod's height. Its center is 12% of the height inside the frame's top
-    right corner.
+    left corner, away from the count.
 
   The pod's states:
   - **Exposed** (depth 0): bright, and the only pod that takes a tap. Its touch box is the box grown about its center
     to `size.touch_min`, and may reach over the waiting pod under it.
-  - **Pressed**: the frame sinks by 4% of its height, carrying its tile and count. Its shadow shortens, a
-    `GardenShadow` shade darkens it, and the sticker sinks into its lip.
+  - **Pressed**: the frame sinks by 4% of its height, carrying its icon (or tile) and count. Its shadow shortens, a
+    `GardenShadow` shade darkens it, and a sticker tile sinks into its lip.
   - **Waiting** (depth 1 and deeper, the pods under the exposed one in its column): the same parts, muted but
     readable (spec 001 FR-013). The wash is lighter (the color lightened 0.74 at the top to 0.9 at the bottom), and a
-    `ParchmentBottom` veil at 0.4 covers the frame and the panel. The shadow is lighter, the tile is `Dimmed` (§3.1),
-    and the count is softer (`InkBrownSoft` toward `ParchmentBottom`) and slightly smaller. A waiting hidden mystery
-    pod shows only its veiled "?" tile and its count.
-  - **Locked**: the padlock (`ui.lock`) in the tile's place on the grey panel, with the softer count.
+    `ParchmentBottom` veil at 0.4 covers the frame and the panel. The shadow is lighter, the icon is at
+    `PodChip.WaitingIconAlpha` = 0.7 (a stand-in sticker tile is `Dimmed`, §3.1), and the count is softer
+    (`InkBrownSoft` mixed 30% toward `ParchmentBottom`). A waiting pod is shorter than the exposed one, so its frame,
+    icon and count are smaller too. A waiting hidden mystery pod shows only its veiled "?" tile and its count.
+  - **Locked**: the padlock (`ui.lock`, 62% of the tile's side) in the tile's middle on the grey panel, with the
+    softer count.
   - **Mystery**: the lilac mystery tile and the count.
   - **Connected**: the link bar (`pod.link`) joins frames that stand side by side in one row. Each connected group of
     the tray has its own color (`state.link`, then `state.link_2` and `state.link_3`). A group whose shown members lie
@@ -521,7 +530,8 @@ Positions and order stay as in spec 002; only the looks change.
   the columns, their "+N" discs, the wells and the links.
 - Connected pods: a group whose shown members sit side by side in one row is joined by the link bar. A group whose
   shown members lie on different rows, or that shows a single member, marks each shown member with a ring of its link
-  color (in a white rim) at its pod's top-left corner.
+  color (in a white rim) at its pod frame's top-right corner (the "+N" disc takes the top left, the count the bottom
+  right). Bars and rings go by the frames (`PodChip.Frame`), not by the wider places.
 - Flights: a committed pod's flight starts at its pod's tile (`TrayView.TilePosition`, `TileSize`) and lands on the
   slot's tile (`SlotRowView.TilePosition`, `TileSize`). A returned pod flies back to the tile of its place on top of
   its column.
@@ -771,19 +781,21 @@ another, never on each other, whatever the look.
   - Each next pod, `Pod(stack, d)` for `d` ≥ 1, is `QueueHeight` = `min(QueueShare·W·k, column width / 1.45)` tall
     (`QueueShare` = 0.1), under the one before it and `PodGap` = `PodGapShare·W·k` apart from it (`PodGapShare` =
     0.01).
-  - So a pod is never less than 1.45 times as wide as it is tall. With five and six stacks the pods get shorter: the
+  - So a pod's place is never less than 1.45 times as wide as it is tall, and its 1.3:1 frame always has its whole
+    width. With five and six stacks the pods get shorter: the
     exposed one is `0.124W` and `0.101W` tall at `k` = 1.
   - The pod row is `FrontHeight + (PodRows − 1)·(QueueHeight + PodGap)` tall, and its last row ends at its bottom.
   - `Shows(d)` is true for `0 ≤ d < PodRows`. Deeper pods are not drawn; the "+N" disc counts them.
 - **One pod** (`Chip(stack, d)` = `PodChip.In(Pod(stack, d))`):
-  - `Frame` is the box.
-  - `Inner` is the box inset by `Border` = 9% of its height.
-  - `Tile` is a square at `Inner`'s left; its side is `Inner`'s height less a 3% margin at each side.
-  - `Count` runs from `Tile`'s right + 4% of the box's height (at most `Inner`'s right) to `Inner`'s right, over
-    `Inner`'s full height. At 1.45:1 it keeps at least half a tile of width.
-  - `Badge` is a disc `BadgeShare` = 44% of the height, centered 12% of the height inside the frame's top right corner.
-- **Taps**: only the exposed pods take taps, each through its touch box: the pod grown about its center to the touch
-  minimum (`size.touch_min` × the screen scale). A touch box may reach over the waiting pod under it, which takes no
+  - `Frame` is `min(width, Aspect·height)` wide (`Aspect` = 1.3) and the box's height, centered in the box.
+  - `Inner` is the frame inset by `Border` = 9% of its height.
+  - `Tile` is a square `TileShare` = 1.04 times `Inner`'s height, centered on `Inner`; `Icon` is `Tile` grown by
+    `IconGrow` = 4% of the height at each side.
+  - `Count` is centered `CountInset` · size in from `Inner`'s bottom right corner, `size` = `CountShare` = 36% of the
+    height tall and half of `Inner` wide (the digits' type size and their widest).
+  - `Badge` is a disc `BadgeShare` = 44% of the height, centered 12% of the height inside the frame's top left corner.
+- **Taps**: only the exposed pods take taps, each through its touch box: the pod's place (wider than its frame) grown
+  about its center to the touch minimum (`size.touch_min` × the screen scale). A touch box may reach over the waiting pod under it, which takes no
   taps. The touch boxes stay inside the safe area and clear of each other and of the booster boxes
   (`ReferenceLayoutTests`).
 
@@ -801,8 +813,8 @@ this recipe):
   §3.7's `Kit.Pod` in its `Chip`. The exposed pod is bright and the waiting pods under it are muted. The "+N" disc sits
   on the last shown pod of a deeper column (`PodPainter.MoreBadge`, slot `pod.deck`). An emptied stack is a `Kit.Well`
   (`parchment.well` mixed halfway toward `parchment.edge`) in its exposed pod's box, inset by 6% of the box's height.
-- **Taps and flights**: only the exposed pod takes a tap. A committed pod's tile flies from its `PodChip.Tile` to the
-  slot's tile (`SlotPainter.TileBox`); a pod that Return puts back flies from its slot to the tile of its place on top
+- **Taps and flights**: only the exposed pod takes a tap. A committed pod flies as its sticker tile from its
+  `PodChip.Tile` (the icon's middle) to the slot's tile (`SlotPainter.TileBox`); a pod that Return puts back flies from its slot to the tile of its place on top
   of its column.
 - **Motion** (presentation only, FR-002; the core's events drive it):
   - When the exposed pod leaves, the pods under it slide up one row in 0.18 s, easing out (`PodView.SlideSeconds`,
@@ -812,8 +824,9 @@ this recipe):
     bottom.
   - Shuffle re-lays the columns at once with each build's Shuffle effect as before: the playtest's swirl ring
     (`fx.shuffle_swirl`) and Unity's turn-over of every shown pod.
-- **Connected pods**: pods side by side in one row are joined by the link bar (`pod.link`, §3.7). A group whose shown
-  members lie on different rows marks each member with a ring of its link color.
+- **Connected pods**: pods side by side in one row are joined by the link bar (`pod.link`, §3.7) between their frames.
+  A group whose shown members lie on different rows marks each member with a ring of its link color on its frame's
+  top-right corner.
 
 ### 6.2 Jam (centered modal)
 

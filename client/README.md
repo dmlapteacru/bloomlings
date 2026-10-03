@@ -195,7 +195,8 @@ layouts, the order of elements and every rule (recipes in `contracts/look.md`):
   2026-10-03; spec 005 FR-021, `contracts/look.md` §3.7 and §6.1). `GameplayHud.PodGrid` gives `TrayView` the kit's
   `ReferenceGameplayRegions` (`Pod`, `Chip`, `Shows`) in the tray's canvas units. There is one column per stack, with
   three rows, or four from a safe aspect of 1.95. Each pod is a `PodView` drawn by `UiKit.GridPod` (`UiKitTray.cs`):
-  a wooden frame wider than tall, the candy tile at the left and the plain count at the right.
+  a wooden frame 1.3 times as wide as tall (centered in its place), the owner's icon over its middle and the small
+  outlined count at its bottom right corner (the owner's choice "E", 2026-10-03).
   - The exposed pod is bright and the only one that takes a tap, through a touch box of at least `size.touch_min`.
   - The waiting pods under it are muted but show their variant and count. "+N" sits on the last shown pod, and an
     emptied stack shows a sunk well.

@@ -185,3 +185,19 @@ FR-021 amended, SC-010), research D20 and contracts/look.md §3.7, §4.1 and §6
   - Review the gameplay frames in the preview at 16:9, 19.5:9 and 21:9: three and four rows; two to six stacks; deep,
     mystery, locked and connected stacks.
   - Build the playtest APKs (a manual `android-apk.yml` run).
+
+## Owner review: the pod's look "E" (2026-10-03)
+
+The owner asked for smaller digits and the focus on the icon, chose "E" from six mock-ups. See spec.md (the
+clarification "E", FR-013, FR-021), research D21 and contracts/look.md §3.7, §4.1 and §6.1.
+- [X] T036 Kit (`ReferenceLayout.cs`): `PodChip` narrows the frame to `Aspect` = 1.3 of its height in the middle of its
+  place, centers `Tile` (1.04 of the panel) and `Icon` (4% larger each side) on the panel, puts `Count` at the panel's
+  bottom right corner (36% of the height, `CountLook`: white outline) and `Badge` at the frame's top left;
+  `ReferenceLayoutTests` check the parts.
+- [X] T037 Playtest: `Kit.Pod` draws the owner's icon alone (0.7 when waiting; the sticker tile for a mystery pod or a
+  missing picture, the padlock when locked) and `Kit.PodCount`; the link bars and rings go by the frames, the ring on
+  the top right corner.
+- [X] T038 Unity: `GridPodView` gets the icon image and the outlined count at the same places; `TrayView` puts the
+  links on the frames and the ring on the top right corner.
+- [X] T039 Docs (spec.md, research D21, look.md, plan.md, `CLAUDE.md`, the READMEs, the asset slots and the inventory)
+  and every suite; the preview's frames 7, 8, 12 and 25 reviewed at 16:9, 19.5:9 and 21:9; the playtest APK built.

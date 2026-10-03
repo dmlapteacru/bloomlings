@@ -95,3 +95,17 @@ client/Assets/Bloomlings/UI/UiKitTray.cs, Screens/GameplayHud.cs  # UiKit.TrayPa
 ```
 
 Tasks T031–T035.
+
+## Addendum: the pod's look "E" (2026-10-03)
+
+The owner chose the pod's look from six mock-ups (spec.md, the clarification "E"; research D21): the owner's icon
+first, over the middle of a 1.3:1 frame centered in its place, the count small in a white outline at the bottom right
+corner, the "+N" disc at the top left and the link ring at the top right. The kit's `PodChip` places the parts and
+both builds draw them. Presentation only (FR-002). **Pass** (constitution I–VII unchanged).
+
+```text
+client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs  # PodChip: Aspect, Icon, Tile, Count, Badge, CountLook
+client/Assets/Bloomlings/Tests/EditMode/ReferenceLayoutTests.cs
+playtest/design/KitGarden.cs, PodPainter.cs            # Kit.Pod, PodCount; the links on the frames
+client/Assets/Bloomlings/UI/UiKitTray.cs, Gameplay/Tray/TrayView.cs  # GridPodView's icon and count; the links
+```

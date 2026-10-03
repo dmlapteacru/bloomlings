@@ -37,14 +37,17 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A pod of the tray's grid (§6.1, <c>pod.card</c>; the playtest's <c>PodPainter</c>), filling a rect wider than
-        /// tall (<see cref="Design.PodChip"/>): the dark wooden frame (<c>mat.wood.dark</c>) with no handle, its cream
-        /// panel tinted by the variant (lightened 0.5 at the top and 0.8 at the bottom), the variant's sticker tile at the
-        /// panel's left (<see cref="Design.PodChip.Tile"/>, with the owner's icon) and the plain count in the room right of
-        /// it (<see cref="Design.PodChip.Count"/>, as large as the room allows). A waiting pod (<c>pod.deck</c>) shows the
-        /// same parts muted but readable: a lighter wash, the frame and panel under a parchment veil, the tile dimmed, the
-        /// count softer. A pressed pod sinks, a locked one shows the padlock on a grey panel, a null variant is a mystery
-        /// pod ("?" and its count). Set it with <see cref="GridPodView.Show"/>. Never a touch target itself.
+        /// A pod of the tray's grid (§6.1, <c>pod.card</c>; the playtest's <c>PodPainter</c>; the owner's choice "E" of
+        /// 2026-10-03) in its place in the column (<see cref="Design.PodChip"/>): the dark wooden frame
+        /// (<c>mat.wood.dark</c>, <see cref="Design.PodChip.Aspect"/> of its height wide, centered) with no handle, its
+        /// cream panel tinted by the variant (lightened 0.5 at the top and 0.8 at the bottom), the owner's icon of the
+        /// variant alone over the panel's middle (<see cref="Design.PodChip.Icon"/>, no candy tile under it; the sticker
+        /// tile in <see cref="Design.PodChip.Tile"/> without the picture) and the count's small digits in a white outline
+        /// over the panel's bottom right corner (<see cref="Design.PodChip.Count"/>). A waiting pod (<c>pod.deck</c>) shows
+        /// the same parts muted but readable: a lighter wash, the frame and panel under a parchment veil, the icon at
+        /// <see cref="Design.PodChip.WaitingIconAlpha"/>, the count softer. A pressed pod sinks, a locked one shows the
+        /// padlock on a grey panel, a null variant is a mystery pod ("?" tile and its count). Set it with
+        /// <see cref="GridPodView.Show"/>. Never a touch target itself.
         /// </summary>
         public static GridPodView GridPod(string name, Transform parent)
         {
@@ -227,21 +230,13 @@ namespace Bloomlings.Client.UI
     /// <summary>
     /// A pod of the tray's grid built by <see cref="UiKit.GridPod"/> (the playtest's <c>PodPainter</c> pod), its parts where
     /// <see cref="PodChip.In"/> places them in the rect: the soft shadow, the panel, the wooden frame, the veil of a waiting
-    /// pod, the press shade, the sticker tile (with the veil of a waiting mystery tile), the padlock and the count.
+    /// pod, the press shade, the owner's icon or the sticker tile (with the veil of a waiting mystery tile), the padlock
+    /// and the count.
     /// </summary>
     public sealed class GridPodView : MonoBehaviour
     {
         /// <summary>The frame's corner radius, as a share of the pod's height.</summary>
         public const float Radius = 0.2f;
-
-        /// <summary>The count's type size as a share of its room's height (big digits; the width caps it), as the playtest's <c>Kit.PodCountFill</c>.</summary>
-        public const float CountFill = 0.66f;
-
-        /// <summary>A waiting pod's count, a little smaller than an exposed pod's (the playtest's <c>Kit.PodWaitingCountFill</c>).</summary>
-        public const float WaitingCountFill = 0.6f;
-
-        /// <summary>The room the count keeps from the frame's right member, as a share of the pod's height.</summary>
-        public const float CountMargin = 0.06f;
 
         /// <summary>A locked pod's padlock, as a share of the tile's side it stands in for.</summary>
         public const float LockShare = 0.62f;
@@ -273,6 +268,7 @@ namespace Bloomlings.Client.UI
         private Image _tileVeil = null!;
         private Image _lock = null!;
         private CandyTileView _tile = null!;
+        private Image _icon = null!;
         private TextMeshProUGUI _count = null!;
         private float _radius;
         private float _panelRadius;
@@ -284,8 +280,11 @@ namespace Bloomlings.Client.UI
         /// <summary>Whether the pod waits in its column under the exposed one (muted).</summary>
         public bool Waiting { get; private set; }
 
-        /// <summary>The variant tile (committed pods fly from there).</summary>
+        /// <summary>The variant tile, hidden while the owner's icon stands in for it; its place is the icon's middle (committed pods fly from there).</summary>
         public CandyTileView Tile => _tile;
+
+        /// <summary>The owner's icon of the pod's variant (shown when the picture exists).</summary>
+        public Image Icon => _icon;
 
         /// <summary>The count label.</summary>
         public TextMeshProUGUI Count => _count;
@@ -309,8 +308,11 @@ namespace Bloomlings.Client.UI
 
             // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
             _tileVeil = UiKit.RoundRect("TileVeil", root, UiTheme.Of(C.ParchmentBottom.WithAlpha(VeilAlpha)), _ => _tileRadius);
+            _icon = UiFactory.CreateImage("Icon", root, null, Color.white);
+            _icon.raycastTarget = false;
+            _icon.preserveAspect = true;
             _lock = UiKit.ShapeImage("Lock", root, "ui.lock", C.StateLock.Darken(0.2f));
-            _count = UiKit.KitLabel("Count", root, string.Empty, T.Count, TextLook.Plain(C.InkBrown));
+            _count = UiKit.KitLabel("Count", root, string.Empty, T.Count, PodChip.CountLook(dim: false));
             layout.Then(Lay);
         }
 
@@ -343,24 +345,37 @@ namespace Bloomlings.Client.UI
             _shade.gameObject.SetActive(look == PodLook.Pressed);
             _lock.gameObject.SetActive(locked);
             _lock.color = UiTheme.Of(C.StateLock.Darken(Waiting ? 0.05f : 0.2f));
-            _tile.gameObject.SetActive(!locked);
-            _tileVeil.gameObject.SetActive(!locked && Waiting && !variant.HasValue);
-            if (!locked)
+            // The owner's icon alone when the picture exists; else the sticker tile (a mystery pod's "?" too).
+            Sprite? icon = !locked && variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? OwnerArt.Icon(OwnerPictures.VariantIcon(info.IconId)) : null;
+            _icon.gameObject.SetActive(icon != null);
+            if (icon != null)
+            {
+                _icon.sprite = icon;
+                _icon.color = new Color(1f, 1f, 1f, Waiting ? PodChip.WaitingIconAlpha : 1f);
+            }
+
+            bool tile = !locked && icon == null;
+            _tile.gameObject.SetActive(tile);
+            _tileVeil.gameObject.SetActive(tile && Waiting && !variant.HasValue);
+            if (tile)
             {
                 _tile.Show(variant, Waiting ? TileState.Dimmed : TileState.Normal);
                 _tile.Pressed = look == PodLook.Pressed;
             }
 
             _count.text = count.ToString(CultureInfo.InvariantCulture);
+            UiKit.ApplyLook(_count, T.Count, PodChip.CountLook(Waiting || locked));
             _layout.Apply();
         }
 
         private void Lay(Box box)
         {
+            // The frame stands in the middle of its place (PodChip.Aspect of its height wide), its parts in it (§6.1).
+            PodChip chip = PodChip.In(box);
             float h = box.Height;
             bool pressed = Look == PodLook.Pressed;
             float sink = pressed ? h * Sink : 0f;
-            Box frame = box.Offset(0f, sink);
+            Box frame = chip.Frame.Offset(0f, sink);
             float border = h * PodChip.Border;
             _radius = Mathf.Min(h * Radius, h / 2f);
             _panelRadius = Mathf.Max(0f, _radius - (border * 0.8f));
@@ -370,17 +385,17 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_veil.rectTransform, frame);
             BoxLayout.Place(_shade.rectTransform, frame);
 
-            // The tile at the panel's left and the count right of it (PodChip, §6.1), sinking with the frame.
-            PodChip chip = PodChip.In(box);
+            // The icon (or the tile) over the panel's middle and the count at its bottom right, sinking with the frame.
             Box tile = chip.Tile.Offset(0f, sink);
+            BoxLayout.Place(_icon.rectTransform, chip.Icon.Offset(0f, sink));
             BoxLayout.Place((RectTransform)_tile.transform, tile);
             _tileRadius = tile.Width * 0.2f;
             BoxLayout.Place(_tileVeil.rectTransform, tile);
             float g = tile.Width * LockShare;
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(tile.CenterX, tile.CenterY, g, g));
-            // The count keeps a little room from the frame's right member.
+            // The count's middle at the panel's bottom right corner, its type size the box's height, at most its width wide.
             Box count = chip.Count.Offset(0f, sink);
-            UiKit.PlaceCount(_count, new Box(count.Left, count.Top, Mathf.Max(count.Left, count.Right - (h * CountMargin)), count.Bottom), Waiting || Look == PodLook.Locked, Waiting ? WaitingCountFill : CountFill);
+            KitText.Place(_count, T.Count, count.CenterX, count.CenterY, count.Height, count.Width);
             foreach (Image image in new[] { _shadow, _panel, _veil, _shade, _tileVeil })
             {
                 image.GetComponent<RoundShape>().Apply();

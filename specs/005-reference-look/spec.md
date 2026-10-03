@@ -133,6 +133,21 @@ cards must go one after another, not on top of each other, whatever the game's d
   001 FR-013 allows: the variant and the count, or "?" and the count for a mystery pod. This is presentation only
   (FR-002).
 
+### Session 2026-10-03 (the owner's choice of the pod's look: "E")
+
+The owner reviewed the columns and wrote: "Цифры можно не такие большие; фокус на иконку, цифры можно в углу где-то или
+предложи варианты. Сгенерируй варианты, я выберу." (The digits need not be so big; the focus on the icon, the digits
+can go in a corner somewhere, or suggest options. Generate options, I will choose.) Six mock-ups of the real tray were
+rendered (research D21); the owner answered "E".
+- Q: Which look? → A: "E": the owner's icon of the variant alone, larger, over the middle of the tinted panel (no candy
+  tile under it); the count in small dark digits with a white outline at the panel's bottom right corner; the frame
+  narrowed to 1.3 times its height and centered in its column. The "+N" disc moves to the top left corner, away from
+  the count, and a connected pod's link ring to the top right (FR-013, FR-021, contracts/look.md §3.7).
+- Q: What about pods without the icon? → A: A hidden mystery pod keeps its "?" tile and a locked pod its padlock, both
+  centered; a variant whose owner picture is missing shows its sticker tile there.
+- Q: Does a rule change? → A: No. The columns, rows, taps and touch boxes of the previous session stay; presentation
+  only (FR-002).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - The board and the tray look like the reference (Priority: P1)
@@ -254,7 +269,8 @@ inventory.
   the level plaque.
 - A stack with fewer pods than the tray's rows leaves its lower rows empty. A stack with more pods shows "+N" on its
   last shown pod. An emptied stack shows a sunk well where its exposed pod stood. Six stacks (`SourceTray.MaxStacks`)
-  still make one row of columns: their pods get narrower and shorter, and stay at least 1.45 times as wide as tall.
+  still make one row of columns: their pods get narrower and shorter; each place stays at least 1.45 times as wide as
+  tall, so the 1.3:1 frame keeps its shape.
 
 ## Requirements *(mandatory)*
 
@@ -307,9 +323,9 @@ inventory.
 - **FR-011**: The board MUST sit inside a border of cream stone blocks on a lawn; each Garden Entry is a stone arch on
   its side of the board; walkers stay the spec 004 2D characters.
 - **FR-012**: The tray, slot row and booster bar MUST sit on parchment as in the reference.
-- **FR-013** *(pod layout amended on 2026-10-03 by FR-021: the count stands beside the tile)*: Pods MUST be wooden
-  frames holding the variant tile with the plain count beside it, and Waiting Slots cream plates holding the tile with
-  the count below it; empty slots show a dashed inner outline. This replaces the characters of spec 004
+- **FR-013** *(pod layout amended on 2026-10-03 by FR-021 and the owner's choice "E": the icon first, the count in a
+  corner)*: Pods MUST be wooden frames holding the variant's icon over the middle of the panel with the small count at
+  its bottom right corner, and Waiting Slots cream plates holding the tile with the count below it; empty slots show a dashed inner outline. This replaces the characters of spec 004
   FR-008 and FR-009. All states of spec 002 FR-012 and FR-013 and spec 003 FR-022a stay distinct: waiting pods muted,
   pressed sunk, locked with a lock, mystery "?", connected with a link, stuck greyed with the hourglass, danger dashed
   red, extra slot with the green "+".
@@ -348,9 +364,10 @@ inventory.
   choice uncovers (as spec 003 FR-022a had it).
   - **Rows**: the tray MUST show four rows when the safe area is at least 1.95 times as tall as it is wide
     (`ReferenceGameplayRegions.FourRowsAspect`; 19.5:9 phones and taller), and three rows on shorter screens.
-  - **Pods**: each pod is a wooden frame at least 1.45 times as wide as it is tall, with the variant's sticker tile at
-    the left and the plain count at the right (`PodChip`). The exposed pod is taller than the waiting ones (`0.13W`
-    against `0.1W`, contracts/look.md §6.1).
+  - **Pods**: each pod is a wooden frame 1.3 times as wide as it is tall, centered in a place at least 1.45 times as
+    wide as tall, with the owner's icon of the variant over the middle of its tinted panel and the count's small
+    outlined digits at the panel's bottom right corner (`PodChip`; the owner's choice "E" of 2026-10-03). The exposed
+    pod is taller than the waiting ones (`0.13W` against `0.1W`, contracts/look.md §6.1).
   - **Selection**: the exposed pod is bright and the only one selectable (spec 001 FR-011). Its touch box is at least
     the touch minimum.
   - **Waiting pods**: they are muted, but their variant symbol and count stay readable (spec 001 FR-013; identity is
@@ -418,8 +435,9 @@ inventory.
   is at 90% of its height, with its crop and two head points in the kit (`HeroMotion`).
 - **Home layer**: one picture of the owner's layered Home with its box in the 852 × 1846 picture (`HomeLayers`).
 - **Pod chip**: one pod of the tray's grid at a depth of its stack's column (`ReferenceGameplayRegions.Pod`, `Chip`).
-  It has a frame, an inner panel, a square sticker tile at the left, the count's room at the right and the "+N" disc
-  over its top right corner (`PodChip`).
+  It has a frame 1.3 times as wide as tall centered in its place, an inner panel, the icon and the tile's square over
+  the panel's middle, the count at the panel's bottom right corner and the "+N" disc over the frame's top left corner
+  (`PodChip`).
 
 ## Success Criteria *(mandatory)*
 

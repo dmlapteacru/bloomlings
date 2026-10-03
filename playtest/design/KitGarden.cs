@@ -475,12 +475,6 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The veil of <c>parchment.bottom</c> that mutes a waiting pod's frame and panel (its tile and count stay readable).</summary>
         public const float PodWaitingVeil = 0.4f;
 
-        /// <summary>The count's type size as a share of its room right of the tile (big digits, as large as the pod allows).</summary>
-        public const float PodCountFill = 0.66f;
-
-        /// <summary>A waiting pod's count, a little smaller than an exposed pod's.</summary>
-        public const float PodWaitingCountFill = 0.6f;
-
         /// <summary>
         /// A pod's wooden frame in the tray's grid (§3.7, <c>mat.wood.dark</c>; the owner's rule of 2026-10-03): a box
         /// wider than tall, its corners rounded by 20% of its height and its border <see cref="PodChip.Border"/> of it, over
@@ -530,14 +524,16 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A whole pod of the tray's grid (§3.7, <c>pod.card</c>) in <paramref name="chip"/>: the wooden frame
-        /// (<see cref="PodFrame"/>) with its cream panel tinted by the variant, the variant's sticker tile (the owner's icon
-        /// on it) in <see cref="PodChip.Tile"/> and the plain count in big <c>ink.brown</c> digits in
-        /// <see cref="PodChip.Count"/>, right of it. The exposed pod (<paramref name="waiting"/> false) is bright; a waiting
-        /// one shows the same parts muted (a lighter wash, the veiled frame, the tile's dimmed picture and a softer count) so
-        /// its variant and count still read (spec 001 FR-013). A null <paramref name="variant"/> is a hidden mystery pod (the
-        /// lilac "?" tile on plain cream); a locked pod shows the padlock on a grey panel and its softer count; a pressed one
-        /// sinks. Returns where the tile was drawn.
+        /// A whole pod of the tray's grid (§3.7, <c>pod.card</c>; the owner's choice "E" of 2026-10-03) in
+        /// <paramref name="chip"/>: the wooden frame (<see cref="PodFrame"/>) with its panel tinted by the variant, the
+        /// owner's icon of the variant alone over the panel's middle (<see cref="PodChip.Icon"/>, no candy tile under it)
+        /// and the count's small <c>ink.brown</c> digits in a white outline over the panel's bottom right corner
+        /// (<see cref="PodChip.Count"/>). The exposed pod (<paramref name="waiting"/> false) is bright; a waiting one shows
+        /// the same parts muted (a lighter wash, the veiled frame, the icon at <see cref="PodChip.WaitingIconAlpha"/> and a
+        /// softer count) so its variant and count still read (spec 001 FR-013). A null <paramref name="variant"/> is a
+        /// hidden mystery pod (the lilac "?" tile on plain cream); a locked pod shows the padlock on a grey panel and its
+        /// softer count; without the owner's picture the variant's sticker tile stands in for the icon
+        /// (<see cref="PodChip.Tile"/>); a pressed pod sinks. Returns the tile's place (pods fly to a slot from there).
         /// </summary>
         public static Box Pod(IPainter p, PodChip chip, VariantId? variant, int count, PodLook look, bool waiting)
         {
@@ -548,11 +544,19 @@ namespace Bloomlings.Playtest.Design
             Rgba? bottom = color?.Lighten(waiting ? PodWaitingPanelBottom : PodPanelBottom);
             Box panel = PodFrame(p, chip.Frame, look, waiting, top, bottom);
 
-            // A pressed frame sinks: its tile and count go with it.
+            // A pressed frame sinks: its icon and count go with it.
             float sink = panel.Top - chip.Inner.Top;
             Box tile = chip.Tile.Offset(0f, sink);
-            Box countBox = chip.Count.Offset(0f, sink);
-            if (locked)
+            string? iconId = !locked && variant.HasValue && VariantCatalog.Default.TryGet(variant.Value, out VariantInfo info) ? info.IconId : null;
+            string? icon = iconId == null ? null : PainterBase.IconPrefix + OwnerPictures.VariantIcon(iconId);
+            if (icon != null && p.HasSprite(icon))
+            {
+                p.Mark(OwnerPictures.IconSlot(iconId!));
+                p.PushAlpha(waiting ? PodChip.WaitingIconAlpha : 1f);
+                p.Sprite(icon, chip.Icon.Offset(0f, sink));
+                p.PopAlpha();
+            }
+            else if (locked)
             {
                 p.Mark("pod.state.locked");
                 float g = tile.Width * 0.62f;
@@ -573,8 +577,20 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            CountBelow(p, countBox, count, waiting || locked, waiting ? PodWaitingCountFill : PodCountFill);
+            PodCount(p, chip.Count.Offset(0f, sink), count, waiting || locked);
             return tile;
+        }
+
+        /// <summary>
+        /// A pod's count (§3.7, <c>pod.count</c>): small <c>ink.brown</c> digits in a white outline
+        /// (<see cref="PodChip.CountLook"/>) centered on <paramref name="area"/>, its height the type size, at most its
+        /// width wide.
+        /// </summary>
+        public static void PodCount(IPainter p, Box area, int count, bool dim)
+        {
+            p.Mark("pod.count");
+            TextLook look = PodChip.CountLook(dim);
+            p.Text(count.ToString(CultureInfo.InvariantCulture), area.CenterX, area.CenterY, T.Count, look.FillTop, area.Width, area.Height / p.U(T.Count.Size), look);
         }
 
         /// <summary>

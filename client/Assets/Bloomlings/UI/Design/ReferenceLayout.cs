@@ -187,35 +187,71 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// One pod of the tray's grid (spec 005 FR-021, contracts/look.md §6.1): a wooden frame wider than tall, its cream
-    /// panel inside a border of <see cref="Border"/> of its height, the sticker tile as a square at the panel's left (as
-    /// tall as the panel, less a 3% margin), the count in the room right of it, and the "+N" disc of the pods deeper than
-    /// the tray shows over the frame's top right corner. A pod is at least <see cref="MinAspect"/> times as wide as tall
-    /// (the layout keeps it so), so the count always has half a tile of room. Engine-free.
+    /// One pod of the tray's grid (spec 005 FR-021, contracts/look.md §6.1; the owner's choice "E" of 2026-10-03: the icon
+    /// first, the count small in a corner): a wooden frame a little wider than tall (<see cref="Aspect"/> of its height,
+    /// centered in its place in the column), its panel inside a border of <see cref="Border"/> of its height, the
+    /// variant's icon over the panel's middle (<see cref="Icon"/>; the candy tile in <see cref="Tile"/> for a mystery or
+    /// locked pod, or without the owner's picture), the count's small outlined digits over the panel's bottom right corner
+    /// (<see cref="Count"/>), and the "+N" disc of the pods deeper than the tray shows over the frame's top left corner
+    /// (<see cref="Badge"/>). Engine-free.
     /// </summary>
-    public sealed record PodChip(Box Frame, Box Inner, Box Tile, Box Count, Box Badge)
+    public sealed record PodChip(Box Frame, Box Inner, Box Tile, Box Icon, Box Count, Box Badge)
     {
         /// <summary>The frame's border, as a share of the pod's height.</summary>
         public const float Border = 0.09f;
 
-        /// <summary>The narrowest a pod is, as a multiple of its height.</summary>
+        /// <summary>The frame's width, as a multiple of its height (a place wider than that centers it).</summary>
+        public const float Aspect = 1.3f;
+
+        /// <summary>The narrowest a pod's place in its column is, as a multiple of its height (the layout keeps it so): the frame and a little air beside it.</summary>
         public const float MinAspect = 1.45f;
+
+        /// <summary>The candy tile's side, as a share of the panel's height (a little over it, into the border).</summary>
+        public const float TileShare = 1.04f;
+
+        /// <summary>How far the owner's icon reaches beyond the tile's square on each side, as a share of the pod's height.</summary>
+        public const float IconGrow = 0.04f;
+
+        /// <summary>The count's type size, as a share of the pod's height.</summary>
+        public const float CountShare = 0.36f;
+
+        /// <summary>How far the count's middle stands in from the panel's bottom right corner, as a share of its type size.</summary>
+        public const float CountInset = 0.42f;
+
+        /// <summary>The white outline round the count's digits, in fractions of its type size (it reads over the icon).</summary>
+        public const float CountOutlineEm = 0.14f;
 
         /// <summary>The "+N" disc's size, as a share of the pod's height.</summary>
         public const float BadgeShare = 0.44f;
 
-        /// <summary>The parts of a pod in <paramref name="frame"/>.</summary>
-        public static PodChip In(Box frame)
+        /// <summary>How opaque the icon of a waiting pod is (its veiled panel shows through a little).</summary>
+        public const float WaitingIconAlpha = 0.7f;
+
+        /// <summary>The parts of a pod in its <paramref name="place"/> (<see cref="ReferenceGameplayRegions.Pod"/>).</summary>
+        public static PodChip In(Box place)
         {
-            float h = frame.Height;
+            float h = place.Height;
+            Box frame = Box.FromCenter(place.CenterX, place.CenterY, Math.Min(place.Width, h * Aspect), h);
             Box inner = frame.Inset(h * Border);
-            float margin = inner.Height * 0.03f;
-            float tile = inner.Height - (2f * margin);
-            var tileBox = new Box(inner.Left + margin, inner.Top + margin, inner.Left + margin + tile, inner.Top + margin + tile);
-            var count = new Box(Math.Min(inner.Right, tileBox.Right + (h * 0.04f)), inner.Top, inner.Right, inner.Bottom);
+            float side = inner.Height * TileShare;
+            Box tile = Box.FromCenter(inner.CenterX, inner.CenterY, side, side);
+            Box icon = tile.Inset(-h * IconGrow);
+            float size = h * CountShare;
+            Box count = Box.FromCenter(inner.Right - (size * CountInset), inner.Bottom - (size * CountInset), inner.Width * 0.5f, size);
             float badge = h * BadgeShare;
-            Box badgeBox = Box.FromCenter(frame.Right - (h * 0.12f), frame.Top + (h * 0.12f), badge, badge);
-            return new PodChip(frame, inner, tileBox, count, badgeBox);
+            Box badgeBox = Box.FromCenter(frame.Left + (h * 0.12f), frame.Top + (h * 0.12f), badge, badge);
+            return new PodChip(frame, inner, tile, icon, count, badgeBox);
+        }
+
+        /// <summary>
+        /// The count's look (§6.1): <c>ink.brown</c> digits, softer (<c>ink.brown_soft</c> mixed 30% toward
+        /// <c>parchment.bottom</c>) on a waiting or locked pod (<paramref name="dim"/>), in a white outline of
+        /// <see cref="CountOutlineEm"/>.
+        /// </summary>
+        public static TextLook CountLook(bool dim)
+        {
+            Rgba ink = dim ? DesignTokens.Colors.InkBrownSoft.Mix(DesignTokens.Colors.ParchmentBottom, 0.3f) : DesignTokens.Colors.InkBrown;
+            return new TextLook(ink, ink, Rgba.White, CountOutlineEm, 0f, 0f);
         }
     }
 
@@ -509,8 +545,8 @@ namespace Bloomlings.Client.UI.Design
 
             // The tray, bottom up: its content ends 0.02 W above the bottom inset; the pods, a line, the boosters, a line,
             // the slots and 0.025 W of padding above them. The pods: one column per stack, the exposed pod on top and the
-            // next ones under it, never overlapping (the owner, 2026-10-03), each pod at least PodChip.MinAspect times as
-            // wide as tall so its count keeps room.
+            // next ones under it, never overlapping (the owner, 2026-10-03), each pod's place at least PodChip.MinAspect
+            // times as wide as tall, so its frame (PodChip.Aspect of its height) has its whole width and air beside it.
             int stacks = Math.Max(1, stackCount);
             int podRows = safe.Height / Math.Max(1f, w) >= ReferenceGameplayRegions.FourRowsAspect ? ReferenceGameplayRegions.MaxPodRows : ReferenceGameplayRegions.MinPodRows;
             float columnGap = ReferenceGameplayRegions.ColumnGapShare * w;

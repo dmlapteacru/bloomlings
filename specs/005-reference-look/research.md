@@ -226,9 +226,9 @@ decision records what the reference shows, what we do and why, so the owner can 
   must not stack pods again.
 - **Why landscape pods**: square pods as wide as a column (`0.228W` with four stacks) would make four rows about
   `0.94W` tall, more than the deck's whole tray (`0.855W`). Pods wider than tall (`0.13W` and `0.1W`) need `0.46W`,
-  about half of that. With the count beside the tile instead of under it, the digits can be about two thirds of the
-  pod's inner height instead of fitting a strip under the tile, so they stay large in a short pod. `PodChip.MinAspect`
-  (1.45) keeps at least half a tile of width for them, even with six stacks.
+  about half of that. The pods first held the tile at the left and big digits beside it; the owner's choice "E"
+  (D21) narrowed the frame to 1.3:1 with the icon in the middle. `PodChip.MinAspect` (1.45) still bounds the places,
+  so the 1.3:1 frame always fits its column, even with six stacks.
 - **Why four rows only from 1.95**: the tray shrinks by `k` on shorter screens (`k` is about 0.86 at 16:9), but a
   fourth row still costs `0.11W·k`.
   - On 16:9, four rows would leave the board only about a third of the safe height with a badge and a bottom entry
@@ -242,3 +242,20 @@ decision records what the reference shows, what we do and why, so the owner can 
   - Always three rows (rejected: the owner asked for 3-4, and tall phones have the room).
   - Always four rows (rejected: 16:9 boards would drop under a third).
   - Two rows of columns for many stacks (not needed: six stacks, `SourceTray.MaxStacks`, fit one row at `0.147W`).
+
+## D21. The pod's look: the icon first, the count in a corner (owner's choice "E", 2026-10-03; FR-021)
+
+- **Decision**: a pod's frame is 1.3 times as wide as tall, centered in its place in the column (`PodChip.Aspect`). It
+  shows the owner's detailed icon of the variant alone (no candy tile under it) over the tinted panel's middle, a
+  little larger than the panel (`PodChip.Icon`). The count is small digits (36% of the pod's height) in a white outline
+  over the panel's bottom right corner (`PodChip.Count`, `CountLook`). The "+N" disc moves to the frame's top left
+  corner, and the link ring of a connected pod to its top right. A mystery pod keeps its "?" sticker tile, a locked pod
+  its padlock, and a variant without the owner's picture its sticker tile, all centered (`PodChip.Tile`). Both builds
+  draw it from the kit's `PodChip`.
+- **Why**: the owner asked for smaller digits and the focus on the icon ("Цифры можно не такие большие; фокус на
+  иконку, цифры можно в углу"). Six mock-ups were rendered from the playtest's real tray (the current look, A: the
+  count on a green disc, B: outlined digits over the tile's corner, C: the tile at the left and small digits, D: a cream
+  count tag on the frame's bottom edge, E: B with the bare icon, larger); the owner chose E.
+- **Kept**: the column grid and its sizes (D20), the tinted panel, the waiting veil, the touch boxes (the places, wider
+  than the frames), the flights (from the tile's place, the icon's middle) and the slots' candy tiles.
+- **Alternatives**: the other five mock-ups (not chosen by the owner).

@@ -59,8 +59,8 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   (`specs/005-reference-look/`, recipes in `contracts/look.md`) on the spec 003 Garden kit: sentence-case labels in
   Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); glossy green main buttons in a light
   wood rim, cream secondary and round buttons; wooden signs; parchment cards with a cream round close; the board as
-  candy tiles in a stone border with stone arch entries on a lawn; wooden pods (the candy tile at the left, the plain
-  count at the right) and cream Waiting Slots (the tile, the count below it); cream booster tiles with green count
+  candy tiles in a stone border with stone arch entries on a lawn; wooden pods (the owner's icon over the middle, a small
+  outlined count at the bottom right corner) and cream Waiting Slots (the tile, the count below it); cream booster tiles with green count
   badges; Petals as a pink lotus.
   Material pictures (planks, frames, stones, arch, pedestal, candy tiles) come from the kit's `UiRaster` through
   `IPainter.Picture`, cached by key and size; `BoardLayout` places the board. The Bloomlings are the generated character

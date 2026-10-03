@@ -155,7 +155,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     boxes[info.Id] = box;
                 }
 
-                // The pods beyond the rows shown wait under a "+N" badge on the last shown pod's top-right corner.
+                // The pods beyond the rows shown wait under a "+N" badge on the last shown pod's top-left corner (the count keeps its bottom right).
                 int more = ids.Count - rows;
                 if (more > 0)
                 {
@@ -276,7 +276,7 @@ namespace Bloomlings.Client.Gameplay.Tray
 
                         LinkBarView link = _links[used++];
                         link.gameObject.SetActive(true);
-                        link.Set(members[i - 1], members[i], color);
+                        link.Set(PodChip.In(members[i - 1]).Frame, PodChip.In(members[i]).Frame, color);
                         link.transform.SetAsLastSibling();
                     }
 
@@ -284,9 +284,10 @@ namespace Bloomlings.Client.Gameplay.Tray
                 }
 
                 // Members in different rows or columns apart, or the only member shown: a small ring of the group's color on
-                // each one's top-left corner.
-                foreach (Box box in members)
+                // each one's top-right corner (the "+N" disc takes the top left, the count the bottom right).
+                foreach (Box place in members)
                 {
+                    Box box = PodChip.In(place).Frame;
                     if (marked == _marks.Count)
                     {
                         _marks.Add((UiKit.RoundRect("LinkMarkRim", _area, Color.white), UiKit.RoundRect("LinkMark", _area, Color.white)));
@@ -294,7 +295,7 @@ namespace Bloomlings.Client.Gameplay.Tray
 
                     (Image rim, Image dot) = _marks[marked++];
                     float d = box.Height * MarkShare;
-                    float x = box.Left + (box.Height * 0.12f);
+                    float x = box.Right - (box.Height * 0.12f);
                     float y = box.Top + (box.Height * 0.12f);
                     BoxLayout.Place(rim.rectTransform, Box.FromCenter(x, y, d * 2.6f, d * 2.6f));
                     BoxLayout.Place(dot.rectTransform, Box.FromCenter(x, y, d * 2f, d * 2f));

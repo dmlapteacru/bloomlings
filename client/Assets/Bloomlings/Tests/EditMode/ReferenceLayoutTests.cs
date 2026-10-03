@@ -192,11 +192,44 @@ namespace Bloomlings.Client.Tests
             Assert.That(r.Shows(r.PodRows), Is.False, "deeper pods are counted on the badge, not drawn");
 
             PodChip chip = r.Chip(0, 1);
-            Assert.That(chip.Tile.Within(chip.Inner), Is.True);
-            Assert.That(chip.Tile.Width, Is.EqualTo(chip.Tile.Height).Within(0.01f), "a square sticker tile");
-            Assert.That(chip.Count.Left, Is.GreaterThanOrEqualTo(chip.Tile.Right - 0.01f), "the count right of the tile");
-            Assert.That(chip.Count.Width, Is.GreaterThanOrEqualTo(chip.Tile.Width * 0.5f), "the count keeps half a tile");
+            Box place = r.Pod(0, 1);
+            Assert.That(chip.Frame.Within(place.Inset(-0.01f)), Is.True, "the frame stays in its place");
+            Assert.That(chip.Frame.Width, Is.EqualTo(chip.Frame.Height * PodChip.Aspect).Within(0.01f), "a frame a little wider than tall");
+            Assert.That(chip.Frame.CenterX, Is.EqualTo(place.CenterX).Within(0.01f), "centered in its column");
+            Assert.That(chip.Tile.Width, Is.EqualTo(chip.Tile.Height).Within(0.01f), "a square tile");
+            Assert.That(chip.Tile.CenterX, Is.EqualTo(chip.Inner.CenterX).Within(0.01f), "the icon first: over the panel's middle");
+            Assert.That(chip.Tile.CenterY, Is.EqualTo(chip.Inner.CenterY).Within(0.01f));
+            Assert.That(chip.Tile.Within(chip.Frame), Is.True, "the tile stays inside the frame");
+            Assert.That(chip.Tile.Within(chip.Icon), Is.True, "the owner's icon reaches a little beyond the tile");
+            Assert.That(chip.Count.Height, Is.EqualTo(chip.Frame.Height * PodChip.CountShare).Within(0.01f), "small digits");
+            Assert.That(chip.Count.CenterX, Is.GreaterThan(chip.Inner.CenterX), "the count at the right");
+            Assert.That(chip.Count.CenterY, Is.GreaterThan(chip.Inner.CenterY), "the count at the bottom");
+            Assert.That(chip.Inner.Contains(chip.Count.CenterX, chip.Count.CenterY), Is.True, "the count's middle on the panel");
             Assert.That(chip.Badge.Overlaps(chip.Frame), Is.True, "the +N disc sits on the frame's corner");
+            Assert.That(chip.Badge.CenterX, Is.LessThan(chip.Inner.CenterX), "the +N disc at the top left, away from the count");
+            Assert.That(chip.Badge.CenterY, Is.LessThan(chip.Inner.CenterY));
+        }
+
+        [Test]
+        public void AFramePlace_NarrowerThanItsAspect_KeepsItsWidth()
+        {
+            var place = new Box(10f, 20f, 110f, 100f);
+            PodChip chip = PodChip.In(place);
+            Assert.That(chip.Frame.Left, Is.EqualTo(place.Left).Within(0.01f));
+            Assert.That(chip.Frame.Right, Is.EqualTo(place.Right).Within(0.01f));
+            Assert.That(chip.Frame.Height, Is.EqualTo(place.Height).Within(0.01f));
+        }
+
+        [Test]
+        public void ThePodCount_IsDarkInAWhiteOutline_SofterWhenDimmed()
+        {
+            TextLook bright = PodChip.CountLook(dim: false);
+            TextLook dim = PodChip.CountLook(dim: true);
+            Assert.That(bright.FillTop, Is.EqualTo(DesignTokens.Colors.InkBrown));
+            Assert.That(bright.Outline, Is.EqualTo(Rgba.White));
+            Assert.That(bright.OutlineEm, Is.EqualTo(PodChip.CountOutlineEm));
+            Assert.That(dim.FillTop, Is.Not.EqualTo(bright.FillTop));
+            Assert.That(dim.Outline, Is.EqualTo(Rgba.White));
         }
 
         [Test]
@@ -422,8 +455,8 @@ namespace Bloomlings.Client.Tests
 
         /// <summary>
         /// The tray's pods: each column's shown pods inside the pod row, one under the other without overlapping, the
-        /// exposed one at least as tall as the others, every pod at least <see cref="PodChip.MinAspect"/> times as wide as
-        /// tall.
+        /// exposed one at least as tall as the others, every pod's place at least <see cref="PodChip.MinAspect"/> times as
+        /// wide as tall (its frame then has its whole width).
         /// </summary>
         private static void AssertGrid(ReferenceGameplayRegions r, string at)
         {
@@ -433,7 +466,7 @@ namespace Bloomlings.Client.Tests
                 {
                     Box pod = r.Pod(s, d);
                     Assert.That(pod.Within(r.PodRow.Inset(-0.5f)), Is.True, at + ": pod " + s + "/" + d + " inside the pod row");
-                    Assert.That(pod.Width, Is.GreaterThanOrEqualTo((pod.Height * PodChip.MinAspect) - 0.5f), at + ": pod " + s + "/" + d + " wide enough for its count");
+                    Assert.That(pod.Width, Is.GreaterThanOrEqualTo((pod.Height * PodChip.MinAspect) - 0.5f), at + ": pod " + s + "/" + d + " wide enough for its frame");
                     if (d > 0)
                     {
                         Assert.That(pod.Top, Is.GreaterThanOrEqualTo(r.Pod(s, d - 1).Bottom), at + ": pods " + s + "/" + (d - 1) + " and " + d + " overlap");
