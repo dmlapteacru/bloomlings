@@ -137,9 +137,9 @@ Reference crops: the board (gameplay screen) and the "Target Variants" strip.
   halo: a crisp outline (the symbol grown by 3.5% of its box) in the icon's own dark tone (its bottom color darkened
   0.32), a fill from `icon top` to `icon` (per variant, §3.1.1), a white highlight ellipse clipped to the symbol's upper
   left (alpha 0.4), and the variant's detail.
-- States: `Dimmed` (queued pods) mixes face and symbol 45% toward `ParchmentBottom`; `Grey` (stuck) uses
-  `color.Grey()`; `Pressed` sinks the face into the lip (`Kit.Block` press); `Mystery` uses `TileMystery` with a white
-  "?" (`tile.mystery`) and no symbol.
+- States: `Dimmed` (waiting pods, the ones under the exposed pod in its column, §3.7) mixes face and symbol 45% toward
+  `ParchmentBottom`; `Grey` (stuck) uses `color.Grey()`; `Pressed` sinks the face into the lip (`Kit.Block` press);
+  `Mystery` uses `TileMystery` with a white "?" (`tile.mystery`) and no symbol.
 
 #### 3.1.1 Sticker icon colors and details
 
@@ -310,17 +310,39 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 
 ### 3.7 Tray pieces
 
-- **Pod** (`Kit.PodFrame(p, box, state)` + `CandyTile` sticker + count): `UiRaster.Frame` (Dark) filling the pod box,
-  radius 18%, border 11% of the width; inside it a panel tinted by the variant (`color.Mix(CreamTop, 0.78)` →
-  `CreamFace`; queued, locked and mystery pods keep the plain `CreamTop` → `CreamFace`); the candy tile (sticker) at
-  62% of the inner width, 3% below its top; the count below it, `type.count` `InkBrown` scaled to 1.05 of the room left
-  (its digits about 17% of the pod tall, as the reference's), no "x". Pressed: the pod sinks (its shadow 1% of the width
-  below it), darkens (`GardenShadow` at 0.08) and its sticker sinks into its lip. A short wooden handle (a dark
-  `UiRaster.Plank`, 34% × 15% of the box's width, on a small `WoodDarkLine` stem) on top of the exposed pod. Queued
-  pods (the ones below in a column) draw the same frame at 55% brightness mixed toward `ParchmentBottom` and a dimmed
-  tile. Locked: the frame with `StateLockBg` inner and the lock glyph; mystery: the lilac mystery tile; connected: the
-  link bar between frames as now, one color per connected group of the tray (`state.link`, then `state.link_2` and
-  `state.link_3`). The "+N" depth badge stays (count badge style, §3.4).
+- **Pod** (`Kit.Pod(p, chip, variant, count, look, waiting)` over `Kit.PodFrame`; Unity `UiKit.GridPod`): one pod of
+  the tray's grid (§6.1, FR-021 as amended on 2026-10-03). A stack's pods stand one after another in its column and
+  are never drawn on each other. Each pod fills a box at least `PodChip.MinAspect` = 1.45 times as wide as it is tall,
+  and `PodChip.In(box)` places its parts:
+  - **Frame**: `UiRaster.Frame` (Dark, `mat.wood.dark`) fills the box, with a radius of 20% of its height and a border
+    of `PodChip.Border` = 9% of its height, over a soft `GardenShadow` shadow. There is no handle.
+  - **Panel** (`PodChip.Inner`, the box inset by the border): the variant's color lightened 0.5 at the top and 0.8 at
+    the bottom (the reference's lime, pink, sky blue and orange panels). A hidden mystery pod keeps plain cream; a
+    locked pod uses `StateLockBg`.
+  - **Tile** (`PodChip.Tile`): the sticker tile (§3.1, with the owner's icon, §3.11) as a square at the panel's left.
+    Its side is the panel's height less a 3% margin at each side.
+  - **Count** (`PodChip.Count`): the room right of the tile, from 4% of the pod's height past the tile to the panel's
+    right edge, and never less than half a tile wide. The digits are plain `type.count` in `InkBrown`, with no "x",
+    as large as the room allows (about two thirds of its height; the width caps them).
+  - **"+N" disc** (`PodChip.Badge`): on the last shown pod of a column deeper than the tray shows (§6.1), a count badge
+    (§3.4) `PodChip.BadgeShare` = 44% of the pod's height. Its center is 12% of the height inside the frame's top
+    right corner.
+
+  The pod's states:
+  - **Exposed** (depth 0): bright, and the only pod that takes a tap. Its touch box is the box grown about its center
+    to `size.touch_min`, and may reach over the waiting pod under it.
+  - **Pressed**: the frame sinks by 4% of its height, carrying its tile and count. Its shadow shortens, a
+    `GardenShadow` shade darkens it, and the sticker sinks into its lip.
+  - **Waiting** (depth 1 and deeper, the pods under the exposed one in its column): the same parts, muted but
+    readable (spec 001 FR-013). The wash is lighter (the color lightened 0.74 at the top to 0.9 at the bottom), and a
+    `ParchmentBottom` veil at 0.4 covers the frame and the panel. The shadow is lighter, the tile is `Dimmed` (§3.1),
+    and the count is softer (`InkBrownSoft` toward `ParchmentBottom`) and slightly smaller. A waiting hidden mystery
+    pod shows only its veiled "?" tile and its count.
+  - **Locked**: the padlock (`ui.lock`) in the tile's place on the grey panel, with the softer count.
+  - **Mystery**: the lilac mystery tile and the count.
+  - **Connected**: the link bar (`pod.link`) joins frames that stand side by side in one row. Each connected group of
+    the tray has its own color (`state.link`, then `state.link_2` and `state.link_3`). A group whose shown members lie
+    on different rows marks each member with a ring of its color instead (§4.1).
 - **Waiting Slot** (`Kit.SlotPlate`): a cream plate (raised: `CreamTop`→`CreamFace`, `CreamLip`, `CreamLine`, radius
   20%); filled: the sticker tile at 72% of the face's width (at most 58% of its height), 10% below the face's top, and
   the count below it; empty: a dashed rounded inner
@@ -485,17 +507,24 @@ Positions and order stay as in spec 002; only the looks change.
 - Slot row: on a parchment band, `SlotPlate`s.
 - Tray: parchment panel behind the columns; pods per §3.7.
 - Booster bar: on the parchment, `BoosterTile`s.
-- Since the owner's review the rows sit in the reference layout of §6.1 (the slots, the four booster boxes and one deck
-  per Source stack on one parchment tray). Unity twin: `GameplayHud.Layout(hasBadge, hasBoosters, entrySides,
-  stackCount)` places every region from `ScreenLayout.ReferenceGameplay` and gives the views their boxes in their own
-  canvas units (`SlotCells`, `DeckCells`, `BoosterCells`, and `FitBoard` for `BoardView.Fit`, all wired by
-  `GameplayController`); `UiKit.TrayPanel` (the frame and its bands), `UiKit.DeckPod` (the front pod, `PodView`) and
-  `UiKit.BuriedPod` (`pod.deck`) in `UiKitDeck.cs` draw the playtest's recipe of §6.1 "Drawn"; `TrayView` lays out
-  the decks, their "+N" badges, the wells and the links. A connected group whose shown members lie at different depths
-  (connected pods do not always share one), on two rows of decks, or that shows a single member marks each shown member
-  with a ring of its link color (0.07 of the deck's width, a white rim 30% wider, at 0.11 of the width from the front
-  pod's top-left corner or in the middle of a buried pod's band). Flights start at the deck's tile
-  (`TrayView.TilePosition`, `TileSize`) and land on the slot's tile (`SlotRowView.TilePosition`, `TileSize`).
+- Since the owner's review the rows sit in the reference layout of §6.1: the slots, the four booster boxes and the
+  Source stacks' columns of pods (since 2026-10-03) on one parchment tray.
+- Unity twin, layout: `GameplayHud.Layout(hasBadge, hasBoosters, entrySides, stackCount)` places every region from
+  `ScreenLayout.ReferenceGameplay`. It gives the views their boxes in their own canvas units, all wired by
+  `GameplayController`:
+  - `SlotCells` and `BoosterCells`;
+  - `PodGrid(stackCount)`: the regions with the columns and the pod sizes moved into the pod row's canvas units by
+    `GameplayHud.InPodRow`, so `Pod`, `Chip` and `Shows` work there;
+  - `FitBoard` for `BoardView.Fit`.
+- Unity twin, drawing: `UiKit.TrayPanel` (the frame and its bands) and `UiKit.GridPod` (one pod of the grid, exposed
+  or waiting, `PodView`) in `UiKitTray.cs` draw the playtest's recipe of §3.7 and §6.1 "Drawn". `TrayView` lays out
+  the columns, their "+N" discs, the wells and the links.
+- Connected pods: a group whose shown members sit side by side in one row is joined by the link bar. A group whose
+  shown members lie on different rows, or that shows a single member, marks each shown member with a ring of its link
+  color (in a white rim) at its pod's top-left corner.
+- Flights: a committed pod's flight starts at its pod's tile (`TrayView.TilePosition`, `TileSize`) and lands on the
+  slot's tile (`SlotRowView.TilePosition`, `TileSize`). A returned pod flies back to the tile of its place on top of
+  its column.
 
 ### 4.2 Backdrop
 
@@ -677,10 +706,11 @@ elements only from those regions. On screens shorter than 19.5:9 the tray rows s
 insets: `k` is 1 at 19.5:9 and 21:9, about 0.93 at 18:9 and 0.86 at 16:9) and the board takes what is left.
 
 The functions (engine-free, `client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs`, partial `ScreenLayout`; tests in
-`ReferenceLayoutTests`) are `ScreenLayout.ReferenceGameplay` → `ReferenceGameplayRegions` (with `PodDeck` for one
-deck), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`, `ScreenLayout.ReferenceHome`
-→ `ReferenceHomeRegions` and `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions`; `ScreenLayout.ReferenceScale`
-is `k`. Where the measurements left a choice, the implementation fixes it as noted under each table ("Fixed:").
+`ReferenceLayoutTests`) are `ScreenLayout.ReferenceGameplay` → `ReferenceGameplayRegions` (with `PodChip` for one
+pod of the tray's grid), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`,
+`ScreenLayout.ReferenceHome` → `ReferenceHomeRegions` and `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions`;
+`ScreenLayout.ReferenceScale` is `k`. Where the measurements left a choice, the implementation fixes it as noted under
+each table ("Fixed:").
 
 ### 6.1 Gameplay
 
@@ -690,57 +720,100 @@ is `k`. Where the measurements left a choice, the implementation fixes it as not
 | Board | between the top bar (+ `0.02W`) and the entry strip: the stone border's outer box at most `0.86W` wide, centered; the grid inside it (border 0.42 cell + gap 0.04 cell); cells as large as fit |
 | Entry strip | under the board, `0.17W` tall: lawn with the arch for bottom entries (the arch `0.24W` wide, its door on the board's edge); `0.04W` when no entry is at the bottom (side and top entries keep their arches beside the board) |
 | Tray | from the entry strip to the bottom of the screen (under the bottom inset too), full width, parchment with rounded top corners (radius `0.06W`) and a soft top shadow; inner padding `0.035W` at the sides, `0.025W` at the top, the bottom inset + `0.02W` at the bottom |
-| Slots row | `0.19W·k` tall: five plates `0.165W` wide each (portrait, height = row), spread evenly across `0.92W`; the extra slot (sixth) narrows them to fit |
-| Separator | a thin `ParchmentEdge` line with a light line under it, `0.02W·k` gap above and below |
-| Booster row | `0.23W·k` tall: four cream squircle boxes `0.195W` square, spread evenly across `0.9W` (centers at 14.5%, 37.5%, 61.5%, 84.5% of W), the green badge on each box's bottom-right |
+| Slots row | `0.16W·k` tall: five plates `0.14W·k` wide each (portrait, height = row), spread evenly across `0.92W`; the extra slot (sixth) narrows them to fit |
+| Separator | a thin `ParchmentEdge` line with a light line under it, in the middle of a `0.03W·k` gap |
+| Booster row | `0.18W·k` tall: four cream squircle boxes `0.16W·k` square, spread evenly across `0.9W` (centers at 13%, 37.7%, 62.3% and 87% of W at `k` = 1), the green badge on each box's bottom-right |
 | Separator | as above |
-| Pods row | `0.31W·k` tall: one deck per Source stack, up to 4 at `0.23W` wide spread evenly across `0.96W`; 5 or more shrink to fit one row (never below `0.17W`, then a second row) |
+| Pods row | one column per Source stack across `0.96W`, each holding `PodRows` pods one after another: the exposed pod `0.13W·k` tall on top, then the waiting pods `0.1W·k` tall, `0.01W·k` apart; `0.46W·k` tall with four rows, `0.35W·k` with three |
 
-Fixed: the top bar's Pause box is `0.13W` square at `0.04W`, the sign and the speed pill are centered on the bar; a
-Hard or Super Hard badge (`hasBadge`) is a `0.36W × 0.052W` box under the bar and pushes the board down by its height;
-the entry strip shrinks by `k` too; without boosters (`hasBoosters: false`) the booster row and its line collapse; the
-tray box spans the whole screen width and runs to the screen's bottom (`TrayRadius` = `0.06W`), its content box
-(`TrayContent`) stops `0.02W` above the bottom inset; the separators are lines `0.92W` wide and `max(2 px, 0.005W)`
-thick in the middle of their `0.04W·k` gaps; the slots spread their `0.92W` with at least `0.0238W` between them, the
-boosters their `0.9W` (the measured centers 14.5%–84.5% become the symmetric 14.75%, 38.25%, 61.75%, 85.25%); the
-decks are at most `0.23W·k` wide with gaps from `0.0133W` to at most `0.02W`, centered (2 or 3 stacks sit together in
-the middle, as the reference's touching decks); each deck's front pod fills its bottom 82% (`PodDeck.FrontShare`, about
-`0.23W × 0.254W`), the two buried pods' bands above it; a Waiting Slot's sticker tile is
-`min(0.74 face width, 0.66 face height)` 8% of the face under its top (`ReferenceGameplayRegions.SlotTile`, about
-`0.12W`), the count under it; more stacks than fit at `0.17W` wrap into two rows of `0.26W·k` with `0.015W` between them.
-`ReferenceGameplayRegions.FitBoard(width, height, entries)` runs `BoardLayout.Fit` over `BoardArea` (the board's top to
-the entry strip's bottom, the safe width less `0.02W` a side), narrowed until the stone border's outer box is at most
-`0.86W` (`MaxBoardShare`), so a bottom arch stands in the entry strip. `BoosterBadge(i)` is the badge disc as
-`Kit.BoosterTile` draws it (0.34 of the box, its center 0.55 of it inside the bottom-right corner).
+Before the owner's rule of 2026-10-03 the slots row was `0.19W·k` (plates `0.165W`), the booster row `0.23W·k` (boxes
+`0.195W`), the separators `0.04W·k` and the pods row `0.31W·k` of decks. These rows shrank so that four rows of pods
+fit while the board keeps a third of the screen (FR-021, research D20).
 
-**Pod deck** (§3.7, FR-021): the deck box is the pod row cell. The front pod fills its bottom 78% (frame, cream panel,
-the sticker tile at 62% of the frame's width in the upper part, the count below it in `type.count` ×1.3, dark
-`InkBrown`). Up to two buried pods are frames of the same width stacked behind it, each raised by 9% of the deck height
-over the one in front; the visible band of each shows the frame's top edge and a strip of its variant color with the
-variant's small sticker symbol (at most 70% of the band's height) in its middle. A "+N" count badge on the deck's
-top-right counts the pods beyond the two shown. Empty stacks show a sunk parchment well. Fixed (`PodDeck.In(deck)`):
-`Front` is the bottom 78%; `Buried1`/`Buried2` are the front frame raised by 9% and 18% of the deck's height, and
-`Band(depth)` the strip of each that shows; `Inner` is the front frame inset by its 11% border; `Tile` the sticker tile
-(62% of the deck's width, at most 78% of the panel's height, 3% of the panel below its top); `Count` the panel under it;
-`Badge` a disc 0.26 of the width centered 0.32 of it inside the deck's top-right corner.
+Fixed:
+- **Top bar and badge**: the Pause box is `0.13W` square at `0.04W`; the sign and the speed pill are centered on the
+  bar. A Hard or Super Hard badge (`hasBadge`) is a `0.36W × 0.052W` box under the bar and pushes the board down by its
+  height.
+- **Collapsing**: the entry strip shrinks by `k` too. Without boosters (`hasBoosters: false`) the booster row and its
+  line collapse.
+- **Tray**: the tray box spans the whole screen width and runs to the screen's bottom (`TrayRadius` = `0.06W`). Its
+  content box (`TrayContent`) stops `0.02W` above the bottom inset.
+- **Separators**: lines `0.92W` wide and `max(2 px, 0.005W)` thick, in the middle of their `0.03W·k` gaps.
+- **Slots and boosters**: the slots spread their `0.92W` with at least `0.0238W` between them (five are `0.055W` apart
+  at `k` = 1). The boosters spread their `0.9W` with at least `0.03W` between them, the first box starting at `0.05W`
+  and the last ending at `0.95W`.
+- **Slot tile**: a Waiting Slot's sticker tile is `min(0.74 face width, 0.66 face height)`, 8% of the face under its
+  top (`ReferenceGameplayRegions.SlotTile`, about `0.1W`), with the count under it.
+- **Tray height**: on the reference shape (`k` = 1, four rows, boosters) the tray holds `0.905W` of rows and padding:
+  `0.025W` + slots `0.16W` + `0.03W` + boosters `0.18W` + `0.03W` + pods `0.46W` + `0.02W`. It held `0.855W` with the
+  decks.
+- **Board**: `ReferenceGameplayRegions.FitBoard(width, height, entries)` runs `BoardLayout.Fit` over `BoardArea` (the
+  board's top to the entry strip's bottom, the safe width less `0.02W` a side). It narrows the fit until the stone
+  border's outer box is at most `0.86W` (`MaxBoardShare`), so a bottom arch stands in the entry strip.
+- **Booster badge**: `BoosterBadge(i)` is the badge disc as `Kit.BoosterTile` draws it (0.34 of the box, its center
+  0.55 of it inside the bottom-right corner).
 
-**Drawn** (the playtest's `LevelScreen`, `PodPainter`, `SlotPainter`, `BoosterBarPainter`; the recipe the Unity twin
-follows): the tray is the old banded parchment on the new regions, as the reference's tray: a frame of deep parchment
-(`parchment.edge` mixed 55% toward `parchment.line`, a dark outline, a soft shadow rising onto the lawn) showing
-`0.012W` round one band per row (`parchment.well` mixed 55% toward `wood.light` at the top to `parchment.edge` mixed 40%
-toward `parchment.well` at the bottom, its edges aged with `parchment.line`, a light bevel along its top, a thin outline;
-the first band's top corners `TrayRadius` less the margin, the others `0.03W`), the bands parted by a `0.009W` groove at
-each separator's middle (`LevelScreen.TrayPanel`).
-A deck's front pod is `Kit.PodFrame` without the handle, its panel the variant's color lightened 0.5 at the top and 0.8
-at the bottom (the reference's lime, pink, sky blue and orange panels), the sticker tile in `PodDeck.Tile` and the
-count in `PodDeck.Count` at 1.2 × its room. A buried pod (`pod.deck`) is the same frame, of which its band shows the
-frame's top edge (30% of the band) and a strip of its variant color lightened 0.4 → 0.12 with a dark outline, and on
-it the variant's symbol as a dark silhouette (the color darkened 0.52, a light halo; its shape about 70% of the strip);
-a hidden mystery pod shows a lilac strip with a white "?", a locked one a grey strip with the padlock; each buried pod
-sits in a faint shade (`garden.shadow` 0.06 per depth). An emptied stack is a `Kit.Well` over `PodDeck.Front`. Only the
-front pod takes a tap; a committed pod's tile flies from `PodDeck.Tile` to the slot's tile (`SlotPainter.TileBox`).
-Connected pods are linked front to front (or band to band when buried, as connected pods share a depth); a group
-split over two rows of decks marks each member with a ring of its link color.
+**Pod grid** (§3.7; FR-021 as amended on 2026-10-03; `ReferenceGameplayRegions.Columns`, `PodRows`, `FrontHeight`,
+`QueueHeight`, `PodGap`, `Shows`, `Pod`, `Chip`). This is the owner's gameplay rule: a stack's pods go one after
+another, never on each other, whatever the look.
+- **Rows**: `PodRows` is 4 (`MaxPodRows`) when the safe height is at least `FourRowsAspect` = 1.95 times the safe width
+  (19.5:9 phones and taller), else 3 (`MinPodRows`). 16:9 phones get three rows, and so do 18:9 phones under a status
+  bar, whose safe shape falls just below 1.95.
+- **Columns**: one per stack, each `min(PodMaxShare·W·k, (0.96W − ColumnGapShare·W·(n − 1)) / n)` wide, where
+  `PodMaxShare` = 0.24 and `ColumnGapShare` = 0.016. They spread across the pod row's `0.96W` with gaps from `0.016W`
+  to at most `0.04W`, centered, and every column spans the pod row's height. At `k` = 1:
+  - four stacks are `0.228W` wide and fill the row;
+  - two or three stacks are `0.24W` wide and sit `0.04W` apart in the middle;
+  - five stacks are `0.179W` wide, and six (`SourceTray.MaxStacks`) `0.147W`.
+- **Pods**:
+  - The exposed pod, `Pod(stack, 0)`, sits at the column's top and is `FrontHeight` = `min(FrontShare·W·k, column
+    width / PodChip.MinAspect)` tall (`FrontShare` = 0.13).
+  - Each next pod, `Pod(stack, d)` for `d` ≥ 1, is `QueueHeight` = `min(QueueShare·W·k, column width / 1.45)` tall
+    (`QueueShare` = 0.1), under the one before it and `PodGap` = `PodGapShare·W·k` apart from it (`PodGapShare` =
+    0.01).
+  - So a pod is never less than 1.45 times as wide as it is tall. With five and six stacks the pods get shorter: the
+    exposed one is `0.124W` and `0.101W` tall at `k` = 1.
+  - The pod row is `FrontHeight + (PodRows − 1)·(QueueHeight + PodGap)` tall, and its last row ends at its bottom.
+  - `Shows(d)` is true for `0 ≤ d < PodRows`. Deeper pods are not drawn; the "+N" disc counts them.
+- **One pod** (`Chip(stack, d)` = `PodChip.In(Pod(stack, d))`):
+  - `Frame` is the box.
+  - `Inner` is the box inset by `Border` = 9% of its height.
+  - `Tile` is a square at `Inner`'s left; its side is `Inner`'s height less a 3% margin at each side.
+  - `Count` runs from `Tile`'s right + 4% of the box's height (at most `Inner`'s right) to `Inner`'s right, over
+    `Inner`'s full height. At 1.45:1 it keeps at least half a tile of width.
+  - `Badge` is a disc `BadgeShare` = 44% of the height, centered 12% of the height inside the frame's top right corner.
+- **Taps**: only the exposed pods take taps, each through its touch box: the pod grown about its center to the touch
+  minimum (`size.touch_min` × the screen scale). A touch box may reach over the waiting pod under it, which takes no
+  taps. The touch boxes stay inside the safe area and clear of each other and of the booster boxes
+  (`ReferenceLayoutTests`).
+
+**Drawn** (the playtest's `LevelScreen`, `PodPainter`, `SlotPainter` and `BoosterBarPainter`; the Unity twin follows
+this recipe):
+- **Tray**: the old banded parchment on the new regions, as the reference's tray (`LevelScreen.TrayPanel`):
+  - a frame of deep parchment (`parchment.edge` mixed 55% toward `parchment.line`, a dark outline, a soft shadow
+    rising onto the lawn), showing `0.012W` round one band per row;
+  - each band runs from `parchment.well` mixed 55% toward `wood.light` at the top to `parchment.edge` mixed 40% toward
+    `parchment.well` at the bottom, with its edges aged with `parchment.line`, a light bevel along its top and a thin
+    outline;
+  - the first band's top corners are `TrayRadius` less the margin, the others `0.03W`;
+  - the bands are parted by a `0.009W` groove at each separator's middle.
+- **Columns** (`PodPainter.DrawColumns`; Unity `TrayView` with `PodView` and `UiKit.GridPod`): each shown pod is
+  §3.7's `Kit.Pod` in its `Chip`. The exposed pod is bright and the waiting pods under it are muted. The "+N" disc sits
+  on the last shown pod of a deeper column (`PodPainter.MoreBadge`, slot `pod.deck`). An emptied stack is a `Kit.Well`
+  (`parchment.well` mixed halfway toward `parchment.edge`) in its exposed pod's box, inset by 6% of the box's height.
+- **Taps and flights**: only the exposed pod takes a tap. A committed pod's tile flies from its `PodChip.Tile` to the
+  slot's tile (`SlotPainter.TileBox`); a pod that Return puts back flies from its slot to the tile of its place on top
+  of its column.
+- **Motion** (presentation only, FR-002; the core's events drive it):
+  - When the exposed pod leaves, the pods under it slide up one row in 0.18 s, easing out (`PodView.SlideSeconds`,
+    the playtest's `TrayMotion.SlideSeconds`). A pod reaching the top row grows to the exposed pod's height,
+    and the next hidden pod fades in at the last row.
+  - When Return puts a pod back, its column slides down a row, and the last shown pod fades out under the pod row's
+    bottom.
+  - Shuffle re-lays the columns at once with each build's Shuffle effect as before: the playtest's swirl ring
+    (`fx.shuffle_swirl`) and Unity's turn-over of every shown pod.
+- **Connected pods**: pods side by side in one row are joined by the link bar (`pod.link`, §3.7). A group whose shown
+  members lie on different rows marks each member with a ring of its link color.
 
 ### 6.2 Jam (centered modal)
 

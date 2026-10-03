@@ -111,7 +111,8 @@ confirmed:
 The owner asked for the reference's layouts on gameplay, the jam, the win and Home, a centered jam card, a more colorful
 gameplay, gem board icons, and his own booster icons and leaves (spec.md FR-020 to FR-027).
 - [X] T024 Foundation the screens build on: the reference layouts as engine-free regions (`ScreenLayout.ReferenceGameplay`,
-  `JamCard`, `WinScreen`, `ReferenceHome`, `ReferenceWardrobe`, `PodDeck`; look.md §6 with the numbers fixed there) with
+  `JamCard`, `WinScreen`, `ReferenceHome`, `ReferenceWardrobe`, `PodDeck`, which `PodChip` replaced in T031; look.md §6
+  with the numbers fixed there) with
   `ReferenceLayoutTests`; the board's gem icons (`ShapeLibrary.GemSymbol`, §3.1.2); the owner's icon and leaf pictures in
   both builds (`Art/Icons/`, `Art/Decor/`, `OwnerPictures`, `Kit.OwnerPicture`, `OwnerArt.Icon`/`Decor`/`Show`, mirroring
   through `PushSquash(-1, 1)` and a negative `localScale`, §3.10); the lush gameplay garden (`foliage.*` tokens) and the
@@ -150,3 +151,37 @@ FR-028, research D18 and D19, contracts/look.md §3.12, §6.3 and §6.4, picture
   - The rank pill now lies in the top row between Settings and the Petals pill (`ReferenceHomeRegions.Rank`, both
     builds); both builds decide the layered Home by one kit rule (`HomeLayers.IsLayered`); the heroes' pose lookups no
     longer allocate (`HeroMotion`'s clip index and frame names, `CharacterArt.FamilyName`).
+
+## Owner review: the tray's pods in columns (2026-10-03)
+
+The owner made the tray's layout a gameplay rule: a stack's pods go one after another and are never drawn on each
+other, with three or four rows visible and the boxes resized to fit. See spec.md (the clarification of 2026-10-03,
+FR-021 amended, SC-010), research D20 and contracts/look.md §3.7, §4.1 and §6.1.
+- [X] T031 Kit layout and tests (done in ff782ed):
+  - `ReferenceGameplayRegions` gets `Columns`, `PodRows` (4 from `FourRowsAspect` = 1.95, else 3), `FrontHeight`,
+    `QueueHeight`, `PodGap`, `Shows`, `Pod` and `Chip`.
+  - `PodChip` replaces `PodDeck`: the frame, the inner panel, the square tile at the left, the count at the right and
+    the "+N" disc.
+  - The slot row, the booster row and the separators shrink to `0.16W`, `0.18W` and `0.03W`.
+  - `ReferenceLayoutTests` check the grid, the exposed pods' touch boxes and the board's third.
+- [ ] T032 Playtest (`playtest/design`, the preview):
+  - `PodPainter.DrawColumns` and `Kit.Pod` draw the columns: the exposed pod bright and alone taking taps, the
+    waiting pods muted, "+N" on the last shown pod and the emptied stack's well.
+  - The pods slide a row when one leaves or Return puts one back (`TrayMotion`); flights leave from and return to
+    the pods' tiles.
+  - The asset slots `pod.card`, `pod.deck` and `pod.count`, the regenerated inventory and the preview's component
+    sheet follow.
+- [ ] T033 Unity (`client/Assets/Bloomlings`):
+  - `GameplayHud.PodGrid`, `TrayView`, `PodView` and `UiKit.GridPod` (`UiKitTray.cs`, replacing `UiKitDeck.cs`)
+    lay out and draw the grid with the same recipe.
+  - The slide (`PodView.SlideSeconds`) and the touch boxes match the playtest.
+  - The client check's tests and stubs follow.
+- [X] T034 Docs:
+  - spec.md: the clarification, FR-013, FR-020 and FR-021 amended, an edge case, the pod chip and SC-010.
+  - research D20, look.md §3.1, §3.7, §4.1, §6 and §6.1, plan.md's addendum and this section.
+  - spec 003 FR-022a's note, `CLAUDE.md`, `playtest/README.md` and `client/README.md`.
+- [ ] T035 Run every suite (core, client check, backend, playtest check, preview, art check, `tools/heroanim` check,
+  Android type-checks).
+  - Review the gameplay frames in the preview at 16:9, 19.5:9 and 21:9: three and four rows; two to six stacks; deep,
+    mystery, locked and connected stacks.
+  - Build the playtest APKs (a manual `android-apk.yml` run).

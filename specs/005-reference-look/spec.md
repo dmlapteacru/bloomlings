@@ -113,6 +113,26 @@ right back, Twig at the right front; the win with one hero on the pedestal) and 
 - The updated reference differs from `reference.jpg` in four more places that this delivery does not cover; they are
   open with the owner (`pictures.md` H).
 
+### Session 2026-10-03 (the owner's gameplay rule: pods one after another)
+
+The owner reviewed the tray's decks and wrote: "Карточки выбора должны идти друг за другом, а не друг на друге, вне
+зависимости от дизайна игры, это правило геймплея. Так чтоб было видно 3-4 ряда. Подстрой размеры боксов." (The choice
+cards must go one after another, not on top of each other, whatever the game's design: it is a gameplay rule. So that
+3-4 rows are visible. Adjust the boxes' sizes.)
+- Q: Which cards? → A: The Spirit Pods of the Source Tray. The deck of FR-021 (the exposed pod in front, the next ones
+  as frames peeking above it) drew a stack's pods on each other. Each stack MUST now be a column: the exposed pod in the
+  top row and the next pods under it, each fully visible, never overlapping, as spec 003 FR-022a had it. The rule holds
+  whatever the look, so a later restyle MUST keep it (FR-021 amended).
+- Q: How many rows? → A: "3-4": four when the safe area is at least 1.95 times as tall as it is wide (19.5:9 phones
+  and taller), three on shorter screens (16:9, and 18:9 with a status bar). Then the board keeps at least a third of
+  the safe height on every phone (research D20).
+- Q: Which boxes change? → A: The pods become wider than tall, with the tile at the left and the count at the right.
+  The Waiting Slots, the booster boxes and the lines between the rows shrink so four rows fit (FR-021, contracts/look.md
+  §6.1).
+- Q: Does a rule change? → A: No. Only the exposed pod takes taps (spec 001 FR-011). The waiting pods show what spec
+  001 FR-013 allows: the variant and the count, or "?" and the count for a mystery pod. This is presentation only
+  (FR-002).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - The board and the tray look like the reference (Priority: P1)
@@ -135,7 +155,8 @@ screen and UI strip; play a level in the playtest and see every state.
 2. **Given** the board, **When** it is drawn, **Then** a border of cream stone blocks surrounds the grid on a lawn, and
    the Garden Entry is a small stone arch on its side of the board.
 3. **Given** the tray, **When** it is drawn, **Then** each exposed pod is a wooden frame with a cream inner panel, the
-   variant tile and the count below it; queued pods are dimmed; locked, mystery and connected pods keep their meaning.
+   variant tile and the count beside it. The next pods of its stack stand under it in its column (three or four rows,
+   never overlapping), muted but readable. Locked, mystery and connected pods keep their meaning (FR-021).
 4. **Given** the Waiting Slots, **When** they are drawn, **Then** an empty slot is a cream plate with a dashed inner
    outline, a filled slot shows the variant tile and the count below, and the working, stuck, locked, danger and extra
    states stay distinct.
@@ -231,6 +252,9 @@ inventory.
   group) on the win; over the owner's garden without its fountain layers, Home shows the garden alone, with no heroes.
 - A screen shape from 16:9 to 21:9 keeps the four heroes on the fountain, inside the screen, under the logo and above
   the level plaque.
+- A stack with fewer pods than the tray's rows leaves its lower rows empty. A stack with more pods shows "+N" on its
+  last shown pod. An emptied stack shows a sunk well where its exposed pod stood. Six stacks (`SourceTray.MaxStacks`)
+  still make one row of columns: their pods get narrower and shorter, and stay at least 1.45 times as wide as tall.
 
 ## Requirements *(mandatory)*
 
@@ -283,9 +307,10 @@ inventory.
 - **FR-011**: The board MUST sit inside a border of cream stone blocks on a lawn; each Garden Entry is a stone arch on
   its side of the board; walkers stay the spec 004 2D characters.
 - **FR-012**: The tray, slot row and booster bar MUST sit on parchment as in the reference.
-- **FR-013**: Pods MUST be wooden frames holding the variant tile with the plain count below it, and Waiting Slots
-  cream plates holding the same; empty slots show a dashed inner outline. This replaces the characters of spec 004
-  FR-008 and FR-009. All states of spec 002 FR-012 and FR-013 and spec 003 FR-022a stay distinct: queued pods dimmed,
+- **FR-013** *(pod layout amended on 2026-10-03 by FR-021: the count stands beside the tile)*: Pods MUST be wooden
+  frames holding the variant tile with the plain count beside it, and Waiting Slots cream plates holding the tile with
+  the count below it; empty slots show a dashed inner outline. This replaces the characters of spec 004
+  FR-008 and FR-009. All states of spec 002 FR-012 and FR-013 and spec 003 FR-022a stay distinct: waiting pods muted,
   pressed sunk, locked with a lock, mystery "?", connected with a link, stuck greyed with the hourglass, danger dashed
   red, extra slot with the green "+".
 - **FR-014**: Booster tiles MUST be cream rounded tiles with the booster's colored icon (Extra Slot: a white "+" on a
@@ -315,12 +340,31 @@ inventory.
 - **FR-020**: The gameplay screen MUST follow the reference layout (contracts/look.md §6.1): the top bar; the board in
   its stone border on the lawn, wide and full of color; the lawn strip with the Garden Entry arch below it; then one
   parchment tray to the bottom of the screen holding, in this order, the row of five Waiting Slots, the row of four
-  big booster boxes, and the row of Source stacks. This keeps spec 001 FR-068 (board in the center, entry and slots
-  below it, the stacked tray with its booster bar at the bottom).
-- **FR-021**: Each Source stack MUST be drawn as one big pod in a single row, as a deck: the exposed pod in front with
-  its tile and count, and up to two buried pods as wooden frames peeking above it, each showing a band of its variant
-  color with its small symbol (identity never by hue alone, spec 001 FR-072); deeper stacks show a "+N" badge. Only the
-  exposed pod is selectable (spec 001 FR-011).
+  booster boxes, and the Source stacks, one column each (FR-021). This keeps spec 001 FR-068 (board in the center,
+  entry and slots below it, the stacked tray with its booster bar at the bottom).
+- **FR-021** *(amended on 2026-10-03 by the owner's gameplay rule: columns replace the deck)*: Each Source stack MUST
+  be drawn as a column of pods, one after another and never on each other, whatever the look: the exposed pod in the
+  top row and the next pods of the stack in the rows below it. Each pod is fully visible, so the player reads what each
+  choice uncovers (as spec 003 FR-022a had it).
+  - **Rows**: the tray MUST show four rows when the safe area is at least 1.95 times as tall as it is wide
+    (`ReferenceGameplayRegions.FourRowsAspect`; 19.5:9 phones and taller), and three rows on shorter screens.
+  - **Pods**: each pod is a wooden frame at least 1.45 times as wide as it is tall, with the variant's sticker tile at
+    the left and the plain count at the right (`PodChip`). The exposed pod is taller than the waiting ones (`0.13W`
+    against `0.1W`, contracts/look.md §6.1).
+  - **Selection**: the exposed pod is bright and the only one selectable (spec 001 FR-011). Its touch box is at least
+    the touch minimum.
+  - **Waiting pods**: they are muted, but their variant symbol and count stay readable (spec 001 FR-013; identity is
+    never carried by hue alone, spec 001 FR-072). A mystery pod shows only "?" and its count. Locked and connected
+    pods keep their marks.
+  - **Deeper and empty stacks**: a stack deeper than the rows shows a "+N" disc on its last shown pod, where N is the
+    number of pods not drawn. An emptied stack shows a sunk well where its exposed pod stood.
+  - **Motion**: when the exposed pod leaves for its slot, the pods under it slide up one row. When Return puts a pod
+    back on top, its column slides down.
+  - **Sizes**: to fit four rows, the slot row (`0.16W`, plates `0.14W`), the booster row (`0.18W`, boxes `0.16W`) and
+    the gaps holding the lines between the rows (`0.03W`) are smaller than the reference's (`0.19W`, `0.23W`,
+    `0.04W`).
+
+  This is presentation only (FR-002): no rule, event or tap outcome changes.
 - **FR-022**: The jam card MUST be a centered modal card over the dimmed gameplay (contracts/look.md §6.2): the cream
   round close button over its top-right corner when the rules allow closing, the title, the subtitle, the well with the
   slot contents, the choices as a two-column grid of big colored buttons with cost pills below them, and the Restart
@@ -373,6 +417,9 @@ inventory.
 - **Hero frame**: one pre-rendered picture of a hero's idle or reaction, cropped from a 448 × 504 cell whose feet line
   is at 90% of its height, with its crop and two head points in the kit (`HeroMotion`).
 - **Home layer**: one picture of the owner's layered Home with its box in the 852 × 1846 picture (`HomeLayers`).
+- **Pod chip**: one pod of the tray's grid at a depth of its stack's column (`ReferenceGameplayRegions.Pod`, `Chip`).
+  It has a frame, an inner panel, a square sticker tile at the left, the count's room at the right and the "+N" disc
+  over its top right corner (`PodChip`).
 
 ## Success Criteria *(mandatory)*
 
@@ -395,6 +442,15 @@ inventory.
   logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).
 - **SC-009**: In the preview and on a device, a tap on a hero makes it react and a tap on Play, a side button,
   Settings, the Petals pill or the plaque does what it did before FR-028.
+- **SC-010**: These hold on every screen shape from 16:9 to 21:9, with two to six Source stacks, with or without
+  boosters, a badge or a bottom entry (`ReferenceLayoutTests` checks them on its phone shapes):
+  - no two pods of the tray overlap;
+  - four rows show from a safe aspect of 1.95 and three below it;
+  - the board keeps at least a third of the safe height;
+  - each exposed pod's touch box is at least the touch minimum and stays inside the safe area, clear of the other
+    pressed controls.
+
+  In the preview, every pod shown in the gameplay frames shows its variant and count, or "?" and its count.
 
 ## Assumptions
 

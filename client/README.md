@@ -182,14 +182,24 @@ layouts, the order of elements and every rule (recipes in `contracts/look.md`):
 - `UiRaster` (kit, engine-free) renders the materials as straight-alpha RGBA pictures, deterministic: wood planks and
   pod frames, stone blocks, the arch, the pedestal and the candy tiles. `ProceduralSprites.Picture` turns them into
   cached sprites (9-sliced where needed, one per key and size); `PicturePixels` flips the rows and bleeds the edges.
-- `UiKit` (`UiKit.cs`, `UiKitGarden.cs`, `UiKitGameplay.cs`, `UiKitCards.cs`, `UiKitMeta.cs`, `UiKitViews.cs`) holds the
-  twins of the playtest's `Kit.*` components under the same names (`WoodSign`, `PrimaryButton` in its wood rim,
-  `SpeedPill`, `ChoiceButton`, `CountBadge`, `CostPill`, `PetalsPill`, `Paper`, `Card`, `PodFrame`, `SlotPlate`,
-  `BoosterTile`, `StoneBorder`, `StoneArch`, `StonePedestal`, `LightRays`, `FallingPetals`, `WoodLogo`, `OutfitCard`).
+- `UiKit` (`UiKit.cs`, `UiKitGarden.cs`, `UiKitGameplay.cs`, `UiKitTray.cs`, `UiKitCards.cs`, `UiKitMeta.cs`,
+  `UiKitViews.cs`) holds the twins of the playtest's `Kit.*` components under the same names (`WoodSign`,
+  `PrimaryButton` in its wood rim, `SpeedPill`, `ChoiceButton`, `CountBadge`, `CostPill`, `PetalsPill`, `Paper`, `Card`,
+  `PodFrame`, `SlotPlate`, `BoosterTile`, `StoneBorder`, `StoneArch`, `StonePedestal`, `LightRays`, `FallingPetals`,
+  `WoodLogo`, `OutfitCard`).
 - The board is candy tiles in a stone border on a lawn: `BoardLayout` (kit) places the grid, the border and the arch
   entries for `BoardView`, and `BoardPictures` draws the restored ground, stone obstacles and the finished picture (win,
-  Collection). Pods are wooden frames and Waiting Slots cream plates, both holding the variant's candy tile and its
-  plain count; the 2D characters stay as the walkers.
+  Collection). Waiting Slots are cream plates holding the variant's candy tile with its plain count below it; the 2D
+  characters stay as the walkers.
+- The Source Tray's pods stand in columns, one after another and never on each other (a gameplay rule of the owner,
+  2026-10-03; spec 005 FR-021, `contracts/look.md` §3.7 and §6.1). `GameplayHud.PodGrid` gives `TrayView` the kit's
+  `ReferenceGameplayRegions` (`Pod`, `Chip`, `Shows`) in the tray's canvas units. There is one column per stack, with
+  three rows, or four from a safe aspect of 1.95. Each pod is a `PodView` drawn by `UiKit.GridPod` (`UiKitTray.cs`):
+  a wooden frame wider than tall, the candy tile at the left and the plain count at the right.
+  - The exposed pod is bright and the only one that takes a tap, through a touch box of at least `size.touch_min`.
+  - The waiting pods under it are muted but show their variant and count. "+N" sits on the last shown pod, and an
+    emptied stack shows a sunk well.
+  - The pods slide up a row in `PodView.SlideSeconds` when the exposed one leaves, and down when Return puts one back.
 - The owner's pictures (`specs/005-reference-look/pictures.md`) load through `OwnerArt` from
   `Art/Backgrounds/Resources/Backgrounds/`, `Art/Brand/Resources/Brand/`, `Art/Icons/Resources/Icons/` (booster icons)
   and `Art/Decor/Resources/Decor/` (leaves, mirrored with a negative `localScale`) by the names in `OwnerPictures`; the 3D

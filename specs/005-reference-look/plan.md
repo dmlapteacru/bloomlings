@@ -77,3 +77,21 @@ client/Assets/Bloomlings/Tests/EditMode/HeroMotionTests.cs
 
 The hosts: the playtest's Home, splash and end cards with a bounded frame cache in both painters; Unity's
 `HomeLayersView`, `HeroMotionView`, `HeroFrames` and `Editor/HeroMotionImporter` (tasks.md T025–T030).
+
+## Addendum: the tray's pods in columns (2026-10-03)
+
+The owner made the tray's layout a gameplay rule. A stack's pods go one after another and are never drawn on each
+other, three or four rows are visible, and the boxes are resized to fit (spec.md FR-021 amended, SC-010; research
+D20). The kit lays the grid out and both builds draw it from those regions. This is presentation only (FR-002): the
+core's events drive the slides, and no rule, event or tap outcome changes. **Pass** (constitution I–VII unchanged; the
+exposed pod alone stays selectable, spec 001 FR-011).
+
+```text
+client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs  # Columns, PodRows, Pod, Chip, Shows; PodChip
+client/Assets/Bloomlings/Tests/EditMode/ReferenceLayoutTests.cs
+playtest/design/PodPainter.cs, KitGarden.cs, LevelScreen.cs # the columns, Kit.Pod, TrayMotion
+client/Assets/Bloomlings/Gameplay/Tray/TrayView.cs, PodView.cs  # the Unity grid and its slides
+client/Assets/Bloomlings/UI/UiKitTray.cs, Screens/GameplayHud.cs  # UiKit.TrayPanel, GridPod; GameplayHud.PodGrid
+```
+
+Tasks T031–T035.
