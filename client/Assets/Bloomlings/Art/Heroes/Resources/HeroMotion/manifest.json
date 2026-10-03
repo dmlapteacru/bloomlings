@@ -3893,7 +3893,7 @@
    "path": "twig-idle-00.png",
    "width": 329,
    "height": 408,
-   "sha256": "bbb0d106bbe77ce8e30a367f3d6be2fc1e329a5c8c4161bb16b006440bea8d29",
+   "sha256": "1c3fae9eb08b1e7f93c8f4c65f2c6761f6b26d7c5d9f20a6ba1392e8145add6e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3902,7 +3902,7 @@
    "path": "twig-idle-01.png",
    "width": 329,
    "height": 408,
-   "sha256": "637d7ea005079211a42d2188386752fe900d0deed2fd2d51a9d19dc7d4ff7537",
+   "sha256": "46e1cfd8b49e4ccd97b21807e4bcf6c1add4c38fc9005faa3e4517c246e85006",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3911,7 +3911,7 @@
    "path": "twig-idle-02.png",
    "width": 328,
    "height": 409,
-   "sha256": "126c641ca539e4b5d2a77534e77434fa8aa763f9fcaf9187f99aa5a14ae7518e",
+   "sha256": "80ef1716025433433c72d5223725a3ff0382f82eb67bccd0dc3ba8eae70a9d0b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3920,7 +3920,7 @@
    "path": "twig-idle-03.png",
    "width": 328,
    "height": 409,
-   "sha256": "9e910c314e23a217c8e49e7af16c071101418d61d066be74f8793a0a3846e7d3",
+   "sha256": "a77f9a47b11943de318191786f507c8b6404c7b1114181e16f36faac6341242a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3929,7 +3929,7 @@
    "path": "twig-idle-04.png",
    "width": 329,
    "height": 409,
-   "sha256": "d4837a4e0a0f1ec78596b1bbe68b086fa6b308da29cc43d5dfc36dc20dc4851c",
+   "sha256": "e682704916694cc4980fcdf1f4fe66f6a3da9ee28fafaf6fe2586f4b224156c7",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3938,7 +3938,7 @@
    "path": "twig-idle-05.png",
    "width": 329,
    "height": 409,
-   "sha256": "d8e4a3b6963888c898dae9244b6cf22a8ade1ec0cab060f1d69e767fa48ca753",
+   "sha256": "d691596be11c1fca62fcacc24c874642c4a33350fd8ae6ff595da0c92c06e96c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3947,7 +3947,7 @@
    "path": "twig-idle-06.png",
    "width": 329,
    "height": 409,
-   "sha256": "46a3bf0506bbaa741207b55ad406f3f686a027cf4589736a8fcbb3ef8ca7be57",
+   "sha256": "e0776b8a6af73e8816cd424f72e53c608ebe08f71846e74cfe23582e6c69952c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3956,7 +3956,7 @@
    "path": "twig-idle-07.png",
    "width": 329,
    "height": 410,
-   "sha256": "12f3d17ee95886986e9d817e9fd9a01c23c29e4816bdeaecc2d1494192a02ffc",
+   "sha256": "c6ab60ebbf29e6f43d660901a1c37549032fba4ffb8351e45cbfd8749c012d8d",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3965,7 +3965,7 @@
    "path": "twig-idle-08.png",
    "width": 329,
    "height": 410,
-   "sha256": "4c2ec4c52c971530e95cc16ac349ac3bf113edaf4a9bdcaf3fe7880ef431d9ed",
+   "sha256": "2e87978d2a77255b83b46f9dffe5d94dc5a4ae2f1ea3ee1734838e3f0230571b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3974,7 +3974,7 @@
    "path": "twig-idle-09.png",
    "width": 329,
    "height": 410,
-   "sha256": "527b9b62e042176147af1ba8a32d78c20f646263c5f3ae8637a0eea6803beae9",
+   "sha256": "211d6c35747112911808a541fcc3e4986a13b355fee907f7026231fe4f5250c1",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3983,7 +3983,7 @@
    "path": "twig-idle-10.png",
    "width": 329,
    "height": 410,
-   "sha256": "86d98aed0500fd29e3828def19c44b987c1230722b9861db3b39c8ce2e0503e7",
+   "sha256": "61d2121a35f3fe6e716c771b81868ae266138c9b28a53441d75882223f2b309d",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -3992,7 +3992,7 @@
    "path": "twig-idle-11.png",
    "width": 329,
    "height": 410,
-   "sha256": "c0eabf274f3154e9b47cccb1a23ed4b4c4788632ff01ea1720cfb44fdda84f59",
+   "sha256": "1e02e52941aa6a9d675c7571f2a47227f111468c7e850e6f59eb0d64952ae608",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4001,7 +4001,7 @@
    "path": "twig-idle-12.png",
    "width": 329,
    "height": 410,
-   "sha256": "55393d7f189738a6c545db3523565ed11389c92b8886f1138b7170af34ef314b",
+   "sha256": "e228231beff18fde278fda558d6de99cd00504fd0bf85190788ee39ac3baead1",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4010,7 +4010,7 @@
    "path": "twig-idle-13.png",
    "width": 329,
    "height": 410,
-   "sha256": "452136ce97d4c45ad88fe6c3365e1e7d808c9c6f0f208360995fd2093debe3a2",
+   "sha256": "1b780d5c798b77294c9b02bcf4b0bcbee5d3c38d5da17031366a6e23c76e8390",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4019,7 +4019,7 @@
    "path": "twig-idle-14.png",
    "width": 329,
    "height": 411,
-   "sha256": "14b7bbd27902c0a750dec5e5073d4d02668b0b39916bcad936b1ab7976642e6d",
+   "sha256": "1b4773293c1b1f0e6830270597cdf39675b1b21388b3ed4f04684b52128a9044",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4028,7 +4028,7 @@
    "path": "twig-idle-15.png",
    "width": 329,
    "height": 411,
-   "sha256": "45789069d7a6183746cd861956a3044e539ca7c0f4b13cfc18d99ab38782ebab",
+   "sha256": "a31351ab0aa24b51d0f44f96df2ece838a9dc1c99cb784015c7cbc1d435fc2d3",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4037,7 +4037,7 @@
    "path": "twig-idle-16.png",
    "width": 329,
    "height": 411,
-   "sha256": "e063596ac5ff45dc5446b11efcfe2740ad27d954b94c9747d73f1e74fd73abab",
+   "sha256": "9b212a3aeef585c5c65e4ecacad6767a58f8ab5551c20a08d4682bb995bb7f1b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4046,7 +4046,7 @@
    "path": "twig-idle-17.png",
    "width": 329,
    "height": 411,
-   "sha256": "c16708e16ab239f0f505325f993217612c42d3d1da3adfded727a8d6387ef01f",
+   "sha256": "9ed6e8cfaf08fb60a2f0dd5ec884d0a47699ba051c61e25866324299c7978fea",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4055,7 +4055,7 @@
    "path": "twig-idle-18.png",
    "width": 329,
    "height": 411,
-   "sha256": "11e5457cd3ba84ada078fafc3e599f6b5138b32cc4c80261592996ff4194082e",
+   "sha256": "7255ccfcfb619348a426299d82b69731d61978cecb05ad18ae252e55166ae177",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4064,7 +4064,7 @@
    "path": "twig-idle-19.png",
    "width": 329,
    "height": 411,
-   "sha256": "c16708e16ab239f0f505325f993217612c42d3d1da3adfded727a8d6387ef01f",
+   "sha256": "9ed6e8cfaf08fb60a2f0dd5ec884d0a47699ba051c61e25866324299c7978fea",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4073,7 +4073,7 @@
    "path": "twig-idle-20.png",
    "width": 329,
    "height": 411,
-   "sha256": "f3bbfb7cf5caad64bea9154f3de4bd78a7a1b16766056b041a345d65149dd446",
+   "sha256": "196c2aff92ba44779964b4f1cc3341158c92e4003fa13e2752219b5ee85e5a7a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4082,7 +4082,7 @@
    "path": "twig-idle-21.png",
    "width": 329,
    "height": 411,
-   "sha256": "45789069d7a6183746cd861956a3044e539ca7c0f4b13cfc18d99ab38782ebab",
+   "sha256": "a31351ab0aa24b51d0f44f96df2ece838a9dc1c99cb784015c7cbc1d435fc2d3",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4091,7 +4091,7 @@
    "path": "twig-idle-22.png",
    "width": 329,
    "height": 411,
-   "sha256": "14b7bbd27902c0a750dec5e5073d4d02668b0b39916bcad936b1ab7976642e6d",
+   "sha256": "1b4773293c1b1f0e6830270597cdf39675b1b21388b3ed4f04684b52128a9044",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4100,7 +4100,7 @@
    "path": "twig-idle-23.png",
    "width": 329,
    "height": 410,
-   "sha256": "afe5e6ac0763ae6a91643ca00d2b1daa21db66cea9e4d10785bc78ac0b668687",
+   "sha256": "48e6ae28a21a2de0439d59436e2c44d17fd074cc15472d8f3fdbb4f71b136061",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4109,7 +4109,7 @@
    "path": "twig-idle-24.png",
    "width": 329,
    "height": 410,
-   "sha256": "55393d7f189738a6c545db3523565ed11389c92b8886f1138b7170af34ef314b",
+   "sha256": "e228231beff18fde278fda558d6de99cd00504fd0bf85190788ee39ac3baead1",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4118,7 +4118,7 @@
    "path": "twig-idle-25.png",
    "width": 329,
    "height": 410,
-   "sha256": "c0eabf274f3154e9b47cccb1a23ed4b4c4788632ff01ea1720cfb44fdda84f59",
+   "sha256": "1e02e52941aa6a9d675c7571f2a47227f111468c7e850e6f59eb0d64952ae608",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4127,7 +4127,7 @@
    "path": "twig-idle-26.png",
    "width": 329,
    "height": 410,
-   "sha256": "86d98aed0500fd29e3828def19c44b987c1230722b9861db3b39c8ce2e0503e7",
+   "sha256": "61d2121a35f3fe6e716c771b81868ae266138c9b28a53441d75882223f2b309d",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4136,7 +4136,7 @@
    "path": "twig-idle-27.png",
    "width": 329,
    "height": 410,
-   "sha256": "f8706419385306bc69aa0c5df9c58ccc441f337e2c3dfbac9e477f340743ec4d",
+   "sha256": "238df73fcecd9aa298684b3f6c7a7c6813a553ac17d25ac41a3b46cd3157385b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4145,7 +4145,7 @@
    "path": "twig-idle-28.png",
    "width": 329,
    "height": 410,
-   "sha256": "4c2ec4c52c971530e95cc16ac349ac3bf113edaf4a9bdcaf3fe7880ef431d9ed",
+   "sha256": "2e87978d2a77255b83b46f9dffe5d94dc5a4ae2f1ea3ee1734838e3f0230571b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4154,7 +4154,7 @@
    "path": "twig-idle-29.png",
    "width": 329,
    "height": 410,
-   "sha256": "77877e236ed976d21622a4da5af3336d297ad39f64d884aa4999ff118b4c72a2",
+   "sha256": "b7c006e1ccce6fefc9a726dcfcd6c6cbc044d36ce533417db6b086cafa55846c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4163,7 +4163,7 @@
    "path": "twig-idle-30.png",
    "width": 329,
    "height": 409,
-   "sha256": "46a3bf0506bbaa741207b55ad406f3f686a027cf4589736a8fcbb3ef8ca7be57",
+   "sha256": "e0776b8a6af73e8816cd424f72e53c608ebe08f71846e74cfe23582e6c69952c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4172,7 +4172,7 @@
    "path": "twig-idle-31.png",
    "width": 329,
    "height": 409,
-   "sha256": "d8e4a3b6963888c898dae9244b6cf22a8ade1ec0cab060f1d69e767fa48ca753",
+   "sha256": "d691596be11c1fca62fcacc24c874642c4a33350fd8ae6ff595da0c92c06e96c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4181,7 +4181,7 @@
    "path": "twig-idle-32.png",
    "width": 329,
    "height": 409,
-   "sha256": "d4837a4e0a0f1ec78596b1bbe68b086fa6b308da29cc43d5dfc36dc20dc4851c",
+   "sha256": "e682704916694cc4980fcdf1f4fe66f6a3da9ee28fafaf6fe2586f4b224156c7",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4190,7 +4190,7 @@
    "path": "twig-idle-33.png",
    "width": 328,
    "height": 409,
-   "sha256": "9e910c314e23a217c8e49e7af16c071101418d61d066be74f8793a0a3846e7d3",
+   "sha256": "a77f9a47b11943de318191786f507c8b6404c7b1114181e16f36faac6341242a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4199,7 +4199,7 @@
    "path": "twig-idle-34.png",
    "width": 328,
    "height": 409,
-   "sha256": "126c641ca539e4b5d2a77534e77434fa8aa763f9fcaf9187f99aa5a14ae7518e",
+   "sha256": "80ef1716025433433c72d5223725a3ff0382f82eb67bccd0dc3ba8eae70a9d0b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4208,7 +4208,7 @@
    "path": "twig-idle-35.png",
    "width": 329,
    "height": 408,
-   "sha256": "247fb8d4e21ee1e5c1e8c242cb213d9378cd4712c4a1aff4e2abe2bc4e76e57b",
+   "sha256": "fbefbb21a72f3f83eb5cd493c9a3d34ccf4ee126de5ba4c19970aca03c85dca3",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4217,7 +4217,7 @@
    "path": "twig-idle-36.png",
    "width": 329,
    "height": 408,
-   "sha256": "2a10fc6594dc4a157534adb22087567917ee8161f1ff44adf5cd8740c3eebb92",
+   "sha256": "50ae4a0d56ddfe027fccc9491dbf836a2fe4698ea53242fea7b2d9a213732f67",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4226,7 +4226,7 @@
    "path": "twig-idle-37.png",
    "width": 329,
    "height": 408,
-   "sha256": "7f7ff84b1acb3638b298b4cab6006ccdd4c9406171ab76cbdb9ff4db9b0b791a",
+   "sha256": "d5c83dd3f9803cd27383fbe3bcf94d8c419204cf93b1aa0feb7f584c5a4872bf",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4235,7 +4235,7 @@
    "path": "twig-idle-38.png",
    "width": 328,
    "height": 408,
-   "sha256": "f3aed348561fe2dfc0e9450d46b32c5267b962311883b30b5ac651a95004b38c",
+   "sha256": "dc855c9457c2b97752d4f72a1a49409880b6e94ef3992ff4e1340d687ec4a961",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4244,7 +4244,7 @@
    "path": "twig-idle-39.png",
    "width": 329,
    "height": 406,
-   "sha256": "f9b943b42b8f9c1059c80f8a2af7a33fda2e1df0d7ef52d7a593acf455b4bce9",
+   "sha256": "ce9ad85c96fad22f436a0e7a5e2ffe42960e8b83b44d20165ef42fdddb218dbd",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4253,7 +4253,7 @@
    "path": "twig-idle-40.png",
    "width": 329,
    "height": 406,
-   "sha256": "974a31d25162c5c10bb7c9b49086cfff939f59c66693421bb385279320823cc6",
+   "sha256": "0bdf9d788a6a5d38b71fc33d8d10d9b092b484765a1ae22943fcdaa97794603a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4262,7 +4262,7 @@
    "path": "twig-idle-41.png",
    "width": 329,
    "height": 406,
-   "sha256": "737071079a88c9659f8e54c48490d48e1d167e98478ce5c01f58d2d96f5cf5ce",
+   "sha256": "a37e3c08f86995ae93bd8c29b67e1fc19509ad54f556e89b688df8ce0f389369",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4271,7 +4271,7 @@
    "path": "twig-idle-42.png",
    "width": 328,
    "height": 406,
-   "sha256": "d28af85de56e2297faf28da7586dc9ddd1605faffe8204b65d2e9c41414f9118",
+   "sha256": "2e9fb75f5a3d3f4860451e67d3c1df07254331d5c800a47b2c65031cad798277",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4280,7 +4280,7 @@
    "path": "twig-idle-43.png",
    "width": 328,
    "height": 406,
-   "sha256": "84abe429acab0b34ced53da79ecdd6eb6cae05195958f3c8ea1f66e95b924d9b",
+   "sha256": "56b2548038d29331e1ebe46f5ea604f3743240c046d9369b6e87ba40be8a2a36",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4289,7 +4289,7 @@
    "path": "twig-idle-44.png",
    "width": 328,
    "height": 405,
-   "sha256": "40366249b3692c0d16eb7bd4491eb6dd2fd0da2e3217f7af270e8be3267d0bec",
+   "sha256": "eab1fa25a6ff71f3a45d8acd37fbc4037c14390ed8c096c10cfad758cd46c33e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4298,7 +4298,7 @@
    "path": "twig-idle-45.png",
    "width": 328,
    "height": 405,
-   "sha256": "dd5f7b7a3a27abe7cd51412380988297d6e1e7f070c3d0f778c96eee68f77aeb",
+   "sha256": "4e8b7a6c83ab7dde6ce84bf8afc9935159cfe8cf1d549784896a2533eeb58ae4",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4307,7 +4307,7 @@
    "path": "twig-idle-46.png",
    "width": 329,
    "height": 405,
-   "sha256": "9bf968e498e98aae9ae7cef6ec99b07d4e85baaab38a813a7203c19c9d87b098",
+   "sha256": "2dce6dc2f7ba374fd35f961b4d577c37a9e0ecc395dc2e539adac1875f125211",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4316,7 +4316,7 @@
    "path": "twig-idle-47.png",
    "width": 329,
    "height": 405,
-   "sha256": "3e1929b67c04988476316d13c5d08612142de88bb51a29daefd91ac98ae96a28",
+   "sha256": "56fb56d8fd06e6b26abaaca623d370fcf9fdbff4708c216682074144a184c85a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4325,7 +4325,7 @@
    "path": "twig-idle-48.png",
    "width": 328,
    "height": 405,
-   "sha256": "7c852b11373d808c7949efc09acf45325a1f64facd10a4ebd7439aaa28044103",
+   "sha256": "c7735316c90cb2d4c40de1286be94c8a2b5b8e9791b42df534096533af276d94",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4334,7 +4334,7 @@
    "path": "twig-idle-49.png",
    "width": 328,
    "height": 405,
-   "sha256": "e512534a712a955f07f8a41d75bb2e54ebdb4150cbdb521e6cac1c38daaddf7c",
+   "sha256": "8f4b602c3d60744e0e738ff6f05b64d9c5d960bec253001a5323f71fed6bf39a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4343,7 +4343,7 @@
    "path": "twig-idle-50.png",
    "width": 328,
    "height": 405,
-   "sha256": "f7ad0c6f5f6af02f7836b7e6fa79bbb53f8cd9c9a175a5f8b21db909f622c797",
+   "sha256": "c803ea3aa91b1b344b1ea4e1f445b7b5541f276c8084f92562ac2882ab606fa9",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4352,7 +4352,7 @@
    "path": "twig-idle-51.png",
    "width": 328,
    "height": 405,
-   "sha256": "e4cdcdda8a882ff66b6653f603d9263e3db423087d0004f1786a1d3be2142ed3",
+   "sha256": "558edc6db33f16a8f60a2b53ec1cf2f3d7d18ac99257127a9f937417c5bb64cd",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4361,7 +4361,7 @@
    "path": "twig-idle-52.png",
    "width": 328,
    "height": 405,
-   "sha256": "d4b980736d9c015c305116bbfdb94d9619ee7caa55878353a362c7f29c8af897",
+   "sha256": "1293558a2bb0b6be17cdee04812cb92d22c4c635678b433ea3393d8dc0ea5c38",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4370,7 +4370,7 @@
    "path": "twig-idle-53.png",
    "width": 328,
    "height": 405,
-   "sha256": "988dd252c4c0ebe731ccc71dc80143200fab0db522d06a330bcb45ed95f47a12",
+   "sha256": "7641f216a6d632869d5d94575a319cafb54cc56000b50a91b6921c7c1d86b908",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4379,7 +4379,7 @@
    "path": "twig-idle-54.png",
    "width": 328,
    "height": 405,
-   "sha256": "ae72f009e91559642ef7bb7b61b5168a7a84219778d4d65218266388bfb3bd18",
+   "sha256": "3f601d1faf1dac3c97327dab4826672c07f477acbaed1f66046428cf20801444",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4388,7 +4388,7 @@
    "path": "twig-idle-55.png",
    "width": 328,
    "height": 405,
-   "sha256": "0ab482d006fa6d33adc1f573c06d67b12bf68deb9d4ea784ca46663213cf7fae",
+   "sha256": "f97d6530c4f9fe1ad3c3efcfee23c78ebc4fe3c17b6388c30cc1b0a865f3bc05",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4397,7 +4397,7 @@
    "path": "twig-idle-56.png",
    "width": 328,
    "height": 405,
-   "sha256": "28ecebb0daf14325afd795d9e3b807415ab85e034b352550649466a64e39c120",
+   "sha256": "47701f76c03a1b5cbabda625ee5da5653bd672983f3d691ff20f69a915d7fb35",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4406,7 +4406,7 @@
    "path": "twig-idle-57.png",
    "width": 328,
    "height": 405,
-   "sha256": "c93ecaf25ad19099e693cb5e35d742f0b3c9279a1ef2999c8aafd7972280e8ca",
+   "sha256": "566060b5d00822edb4a11eaeea5979870975581676bd024970729d83ac79546f",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4415,7 +4415,7 @@
    "path": "twig-idle-58.png",
    "width": 328,
    "height": 405,
-   "sha256": "aa533a1d5eae5d671068f8d10924896bae06098ae18604feb43c0babd301c7fe",
+   "sha256": "47633f57ad3d7354b35537a3d1087d877304888736043a76ae5a9af46dda506c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4424,7 +4424,7 @@
    "path": "twig-idle-59.png",
    "width": 329,
    "height": 405,
-   "sha256": "1f05c19baeff43fff4f63a8ff361b50bdca7cd1657252572ed927788fc435dad",
+   "sha256": "92299f892f52b6514d7684ecee602a6b29250592687edd5069729767053d10ef",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4433,7 +4433,7 @@
    "path": "twig-idle-60.png",
    "width": 328,
    "height": 405,
-   "sha256": "3dd09d403680a5b79cadedf7d25d1fd37a1dc22afc628c832631b2b64c36d5c6",
+   "sha256": "5cb968ec9fa0920bd92fc58db232f116f6e69570148583b0b92026196a9710d0",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4442,7 +4442,7 @@
    "path": "twig-idle-61.png",
    "width": 328,
    "height": 406,
-   "sha256": "bf2e8f3603699975d16a767965b88afe8cae6d3945ce567920ce513805c9926b",
+   "sha256": "dc7f7d7f561fe0446a8e191497d5f4a9423ab870e262d7773076c02a343a105d",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4451,7 +4451,7 @@
    "path": "twig-idle-62.png",
    "width": 328,
    "height": 406,
-   "sha256": "f11b93352c7dece16033f5de34f496a1601fc4e5cf0bd40a42ec7346cf527e52",
+   "sha256": "86268a2c1b94c37281cf0c203afc6ac706d2cdda9490f40d306726015df9c8c2",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4460,7 +4460,7 @@
    "path": "twig-idle-63.png",
    "width": 329,
    "height": 406,
-   "sha256": "8ed96154b692d25a085ce7727c577e03c485d9c5d7c30dad92560877a991b32e",
+   "sha256": "d4f5ece8d234b0100dbc523a8bcefc43edfa59a86781a6fbeb756872e0403539",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4469,7 +4469,7 @@
    "path": "twig-idle-64.png",
    "width": 328,
    "height": 406,
-   "sha256": "9fd20e08d767578622f63d40f21107ccedeeb12348e3f5c4472c879d33720ba3",
+   "sha256": "05ee39c3b1ff1badeb13b25d24a79dded0b720bcf458a4c68f26b198f99a1211",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4478,7 +4478,7 @@
    "path": "twig-idle-65.png",
    "width": 328,
    "height": 408,
-   "sha256": "160c917f8eebc1fd105a1a47842cac8e0ac7272d385b89e1ffcf63702823bf98",
+   "sha256": "02f7e19200f51bf57ee7cdf1832e8b3ac0e56a5fca495c0ec7823b8383eb27ae",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4487,7 +4487,7 @@
    "path": "twig-idle-66.png",
    "width": 329,
    "height": 408,
-   "sha256": "da7dcad9aaec3c91132fdd63d7153e4171d858bf3ac04daa6c7f67a71532c719",
+   "sha256": "9cf633e931972f4486bb41fe22e15c81c5fcb1b13378df6869611dd45ad80464",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4496,7 +4496,7 @@
    "path": "twig-idle-67.png",
    "width": 329,
    "height": 408,
-   "sha256": "70eebe7eeb8b9e3bac776cbb2e7d3939ca8f7dcf5794c03ba2a99ec6a9b0be85",
+   "sha256": "36446606399152042e50560a6fb4578c2c6d10e34fc017257c3bfdddd4bb69f4",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4505,7 +4505,7 @@
    "path": "twig-idle-68.png",
    "width": 329,
    "height": 408,
-   "sha256": "94caa530d29e5d1f6dcc4974e5130bda698a2a339d865ed5b54b81b47e9df232",
+   "sha256": "2b39c28dfbc6b84f71bd537b5dcb511791c2af4b0fc1b6f3d87f8d087c5ecec7",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4514,7 +4514,7 @@
    "path": "twig-idle-69.png",
    "width": 329,
    "height": 408,
-   "sha256": "d6c9b0102ca2f9d7cb58d9d7bf2b4637e5675ce306ef7ebc15d9481c889a66ca",
+   "sha256": "b53e29c9f9c34470d92654b585f6539798b699b144814afcb12aab4eddac6785",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4523,7 +4523,7 @@
    "path": "twig-idle-70.png",
    "width": 329,
    "height": 408,
-   "sha256": "5d3f12be1cab2ac0ea91a6f303d0f10289ff456f842cda91c5bd149d932ecfe1",
+   "sha256": "b947308110139d8fe34999acb40992dc9323654a193debdcec1d33cd22017261",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4532,7 +4532,7 @@
    "path": "twig-idle-71.png",
    "width": 329,
    "height": 408,
-   "sha256": "2bad8470ba8d95daa90cb93bb0e510a21c65cdef65f87a7c7d09946c5d11e9bd",
+   "sha256": "9a687803d03ce7244d66e488b8bc0d8313d2e53331c25049a62d464e4f6c7056",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4541,7 +4541,7 @@
    "path": "twig-react-00.png",
    "width": 329,
    "height": 408,
-   "sha256": "bbb0d106bbe77ce8e30a367f3d6be2fc1e329a5c8c4161bb16b006440bea8d29",
+   "sha256": "1c3fae9eb08b1e7f93c8f4c65f2c6761f6b26d7c5d9f20a6ba1392e8145add6e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4550,7 +4550,7 @@
    "path": "twig-react-01.png",
    "width": 329,
    "height": 408,
-   "sha256": "ab604d47390c6a2cb1131bd82e77fd9fcf6fe90cf61cbebab880c28d79bcc20b",
+   "sha256": "d15e9e93cc7ddd4e340e91a8b55fa03ebb7cd452382915c5e81709f4d4a18398",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4559,7 +4559,7 @@
    "path": "twig-react-02.png",
    "width": 328,
    "height": 408,
-   "sha256": "9f98c39002102972fdd25b26f46aab35a538f1b57c2168e1ad4d34abb746c4d0",
+   "sha256": "672a2e5831ecfcc7ffe2aaf588e4530d19e663494ba5d50124272242abaae61c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4568,7 +4568,7 @@
    "path": "twig-react-03.png",
    "width": 328,
    "height": 405,
-   "sha256": "8a2d4e03a8ecc97b8311bbefe0d6a7acb22501cdbf9e93516e856eef088bbdd7",
+   "sha256": "0d732e62ffa0efb613355de821fc3999a287196342edc451720357a15ce82976",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4577,7 +4577,7 @@
    "path": "twig-react-04.png",
    "width": 328,
    "height": 403,
-   "sha256": "8de2c87fa8975fa23276ea85ef0c03112a3f5e8d62d0226cfa53e5ff271550c6",
+   "sha256": "2c04887736bb11a2404638427b1dba2120be9c8543f494d8649743f57d2ac1a6",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4586,7 +4586,7 @@
    "path": "twig-react-05.png",
    "width": 328,
    "height": 401,
-   "sha256": "23fc5957a792cb2646d2cd5271f2f64a71bed5eddec4776d0fc8e8f96f8cecff",
+   "sha256": "7a16c414ed4c6c5505727f9452483a844d7b59a5487dc1830c1a0274c6cd1d41",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4595,7 +4595,7 @@
    "path": "twig-react-06.png",
    "width": 328,
    "height": 400,
-   "sha256": "9b078d7b9d24af09183adede9ebfc066ef423d5b9518e60c75683115c31454b1",
+   "sha256": "d66c28c3641ff83c9e24af962cea421c6222f5bd5c54eea1e14a58877ace05d7",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4604,7 +4604,7 @@
    "path": "twig-react-07.png",
    "width": 328,
    "height": 401,
-   "sha256": "1cbba417a0717967e8936de0f58602df07f551984c5975f507b1c53e45307302",
+   "sha256": "ae3a3c54fb9cd050b8ba82a43b279629e36b7fd69d088a460c76d2671c5e5069",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4613,7 +4613,7 @@
    "path": "twig-react-08.png",
    "width": 328,
    "height": 404,
-   "sha256": "5cfa9fea722da25608c2438959c90da01358694e7839a740f67df63f425c1680",
+   "sha256": "5ac6fea8d955aef6508e2628bf648cec2844174b3dd2a372bc1e71d1e08583cb",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4622,7 +4622,7 @@
    "path": "twig-react-09.png",
    "width": 329,
    "height": 406,
-   "sha256": "60941ce3360e50f6f31f1989a2435a473abe7274c70e894b7aef612dacd2a8a5",
+   "sha256": "21968180c43df09e4d0068dd0534d753c78e2d528d7aa29afd09c7aacfe3a243",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4631,7 +4631,7 @@
    "path": "twig-react-10.png",
    "width": 329,
    "height": 408,
-   "sha256": "7aa4574f741042540ae42c8a5cfd8f192d1231674b888446b349da9f6a84d4e7",
+   "sha256": "586821924ec37dc552056d36a023c0533a91d5d69dfdf26fd2fe908c71294625",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4640,7 +4640,7 @@
    "path": "twig-react-11.png",
    "width": 329,
    "height": 407,
-   "sha256": "97eaccfc20e8df5a0c2250c342e8332061af058ec966ec2018084a5a1d3ab362",
+   "sha256": "7f5b30d2624aaab5b0ea83685f8fe177b1c910430496f752a3e753a825294275",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4649,7 +4649,7 @@
    "path": "twig-react-12.png",
    "width": 329,
    "height": 407,
-   "sha256": "8301937eae1fc96bcc5ad3b0a2aa2e55723beceee3790c77a374a7e9b9dc5742",
+   "sha256": "ec4478f691d38b263a805f0159735bb5b4fc1ac4f893c51adf17bbaf69e25a8e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4658,7 +4658,7 @@
    "path": "twig-react-13.png",
    "width": 329,
    "height": 407,
-   "sha256": "6d1bd1d1a1199ecf27bfbc1dfb9adff06b65c929c92a6a567d66b9e9d44164b5",
+   "sha256": "e562923a23a3179afa14de8ffbbfa031e3f8aacd1b3b773f5f0b128686c69a1b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4667,7 +4667,7 @@
    "path": "twig-react-14.png",
    "width": 329,
    "height": 408,
-   "sha256": "f7202b1e0eb71b892d2878a12e64d89db6718b497091457d1ae2bee4e839b02b",
+   "sha256": "70c86f04b97c031718ccdc256d7e71d11e7ca7595824dbc5b1375d0c0f0cc177",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4676,7 +4676,7 @@
    "path": "twig-react-15.png",
    "width": 329,
    "height": 408,
-   "sha256": "4ed4febf70938df7a6943da625d2b583290b40af11311d3d34a9a46e3d8471e8",
+   "sha256": "df23d88933e6f5d0a265892ab625589ef5cd1f25e5c02af23891d50fa130e809",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4685,7 +4685,7 @@
    "path": "twig-react-16.png",
    "width": 329,
    "height": 408,
-   "sha256": "94a2f016d0d8e3fe3c5d542ea7cee72086196a388c7c06afb63aa5ff88c2eb19",
+   "sha256": "a55186b70acea2858a575b85019e31ad86dde5b3c5df986466ddb3a51ea0da00",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4694,7 +4694,7 @@
    "path": "twig-react-17.png",
    "width": 329,
    "height": 408,
-   "sha256": "9307803a269b33c254da492f2c5fa55bd3415930c033885f07cb2a706a33b22b",
+   "sha256": "18f58cc1e897738bb03d0beb47c8b2439054baf9753fa130643c0d5774e20e0e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4703,7 +4703,7 @@
    "path": "twig-react-18.png",
    "width": 329,
    "height": 408,
-   "sha256": "72f12b94a23a0b4e4bc451f2f97b96607e5055160222d2899ad94369b43b057c",
+   "sha256": "70c86f04b97c031718ccdc256d7e71d11e7ca7595824dbc5b1375d0c0f0cc177",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4712,7 +4712,7 @@
    "path": "twig-react-19.png",
    "width": 329,
    "height": 407,
-   "sha256": "6d1bd1d1a1199ecf27bfbc1dfb9adff06b65c929c92a6a567d66b9e9d44164b5",
+   "sha256": "e562923a23a3179afa14de8ffbbfa031e3f8aacd1b3b773f5f0b128686c69a1b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4721,7 +4721,7 @@
    "path": "twig-react-20.png",
    "width": 329,
    "height": 407,
-   "sha256": "1218b92ee33fcc345fe2f81de5f8a93574c5dddf4f8ce03b36ad727e4c71db02",
+   "sha256": "06d28ee0e654f846ac604b79b8754dbf83e34353c3ebd9e2b839dc7ba163f49d",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4730,7 +4730,7 @@
    "path": "twig-react-21.png",
    "width": 329,
    "height": 407,
-   "sha256": "e44a37071b5528746f02dcfa798830aa36987dcd2a6e6c91936c9e6c139ff53d",
+   "sha256": "dd85cef8e7908b4a3ac6da0fa7a169fb4b900f0fd3ceb63a3f098894dc8aa7f4",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4739,7 +4739,7 @@
    "path": "twig-react-22.png",
    "width": 329,
    "height": 408,
-   "sha256": "7aa4574f741042540ae42c8a5cfd8f192d1231674b888446b349da9f6a84d4e7",
+   "sha256": "586821924ec37dc552056d36a023c0533a91d5d69dfdf26fd2fe908c71294625",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4748,7 +4748,7 @@
    "path": "twig-react-23.png",
    "width": 328,
    "height": 406,
-   "sha256": "bd4a75c1a18f9a51091550398d0eb98f9e8c38e7ee939c320c845149a44993fe",
+   "sha256": "da64321616e35c53a79f52eac156f9ab5c292a87551071e31395223487b69ddf",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4757,7 +4757,7 @@
    "path": "twig-react-24.png",
    "width": 328,
    "height": 403,
-   "sha256": "65cc90056d20dbfd1a05d7de795db6a0fa2215efd31b9742a059a2cc17fee69a",
+   "sha256": "fc857b993fe9bc316108a021031fd138c48976b53d82a04b9bb3d0b18dff7a4e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4766,7 +4766,7 @@
    "path": "twig-react-25.png",
    "width": 328,
    "height": 402,
-   "sha256": "dacac2f372240cb13754588f8e063bac36cee95f57d8456340a3569cea745150",
+   "sha256": "b4f1771120efda67fed9a796b44678aaa698baaea21388e6f565a3d3bb2ac67b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4775,7 +4775,7 @@
    "path": "twig-react-26.png",
    "width": 328,
    "height": 402,
-   "sha256": "39ad2fb3cf5ef1fb8d3c2309cf3aa3f7bb9e03b90265eda8bb47a30bbad9c7b1",
+   "sha256": "f8616fb18243eee971d16c75d9a683d9ca29167f16520ce3a8a7fa647c9deca4",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4784,7 +4784,7 @@
    "path": "twig-react-27.png",
    "width": 328,
    "height": 403,
-   "sha256": "42c68aefc1b99f15f634d0095b9a61ae79e336cf0a22e0f7819ecae94096ed8b",
+   "sha256": "b68a5adcd36eb09910c6c476fcdffd41aa4bfdede46fb821d512507cbb36ed20",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4793,7 +4793,7 @@
    "path": "twig-react-28.png",
    "width": 328,
    "height": 404,
-   "sha256": "4b82c3bc77a84608c612c16bc64cb36690c06f270dc5b9e38e474ce037677148",
+   "sha256": "4f9e66fb0e53b676009244e83c485c9ea84fcb9dcfae6c51646ad8fed28a6e87",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4802,7 +4802,7 @@
    "path": "twig-react-29.png",
    "width": 329,
    "height": 405,
-   "sha256": "e72da8ce3b594f25b5786f471860a36d48806559bcbee30310f4eb16e899946b",
+   "sha256": "786203dc380f0374a2352c7977da32da1b3850bbb3eb915e51f2f66ee4e870b4",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4811,7 +4811,7 @@
    "path": "twig-react-30.png",
    "width": 329,
    "height": 406,
-   "sha256": "d50f8413f7674f172c8d1633ce8c58c1337bf38be444688529df7edf75e23aec",
+   "sha256": "c680875b9fdf105d73d45411448d75e45edf3c0ddd2acd72207fd843c953dd97",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4820,7 +4820,7 @@
    "path": "twig-react-31.png",
    "width": 329,
    "height": 408,
-   "sha256": "fce731b73e8020178bb60c097f093f1407733fe7eb336978d11d34d2d234a005",
+   "sha256": "291ab73a717dac55696bd721d7d33ca63b6b4840550cb3e71b761027422c3a93",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4829,7 +4829,7 @@
    "path": "twig-react-32.png",
    "width": 329,
    "height": 408,
-   "sha256": "c43879bb39db6fee45519e5920bd2587d2e270a24afaf53f96d50c24f356fe64",
+   "sha256": "99281b8f08463894c0aaae326b944d675bc8a21b47456f1d5d493d3ba333d9bc",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4838,7 +4838,7 @@
    "path": "twig-react-33.png",
    "width": 329,
    "height": 408,
-   "sha256": "89fbb3cdf12707620e6bea908631017fcf20a391b64d4995fa98254d1157876b",
+   "sha256": "31da480654325727a968a90f3de03f74ca3fbe953ac8adb999865439c1187256",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4847,7 +4847,7 @@
    "path": "twig-react-34.png",
    "width": 329,
    "height": 408,
-   "sha256": "4185b992b8c5b6c0c4c168c55643424c4d7dc5296e60e04bb2a6c642794fef33",
+   "sha256": "1293568659900ef7ccaf311b5d565ece3756c0d1fff9117eead88a7952b4283e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4856,7 +4856,7 @@
    "path": "twig-react-35.png",
    "width": 329,
    "height": 408,
-   "sha256": "6adb3da26a9557764d38a171729762ba2eb7102860dab87e35fa9eed2d78066c",
+   "sha256": "861980090f8f49cb59fea8f5f03b74f15fc2ec15f265a9c56a13e7f2b6899aba",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4865,7 +4865,7 @@
    "path": "twig-win-00.png",
    "width": 329,
    "height": 408,
-   "sha256": "bbb0d106bbe77ce8e30a367f3d6be2fc1e329a5c8c4161bb16b006440bea8d29",
+   "sha256": "1c3fae9eb08b1e7f93c8f4c65f2c6761f6b26d7c5d9f20a6ba1392e8145add6e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4874,7 +4874,7 @@
    "path": "twig-win-01.png",
    "width": 329,
    "height": 408,
-   "sha256": "61f6e86dd48faf96cc9851b67d5dcc3df8ed870fbba7103f8e730319ff531c79",
+   "sha256": "768d63f5ce620f5e5660fe5195acb9cdcc957b2eb647306fb70c8841a4953f7b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4883,7 +4883,7 @@
    "path": "twig-win-02.png",
    "width": 329,
    "height": 408,
-   "sha256": "9d15dc1d8e74e84be55388170629fcbf116a86083a35a91f86f105f5c3752073",
+   "sha256": "9b8becb4e61d562316507c1172446088fd9ea18887085273f3dbc11c17a76850",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4892,7 +4892,7 @@
    "path": "twig-win-03.png",
    "width": 328,
    "height": 406,
-   "sha256": "27a6c3b045396a98a10de14e5b64b9fce9cea83350d976cdc1d951e43684cb66",
+   "sha256": "5686473e86465b648f1ee4f10be95ad50d4659d061cce1cee1d2b0c2182c1f3a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4901,7 +4901,7 @@
    "path": "twig-win-04.png",
    "width": 328,
    "height": 404,
-   "sha256": "05a6b373c743a318d5a2ae43aa6cf6c7c9eaf47066f0e08de610e68082776d90",
+   "sha256": "981bfb86e7c629bbdf12f62c102258cb4aba5f2aa7e8414b2e866be134357948",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4910,7 +4910,7 @@
    "path": "twig-win-05.png",
    "width": 327,
    "height": 402,
-   "sha256": "42f8aa3b5dfb81dbe87e97813008f8738e4ad119e0b9195650bf0cfb05bd6df7",
+   "sha256": "f2974f5e573d72e67fee79b75ccdc75369d36aef289da6ba7068759f40f036df",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4919,7 +4919,7 @@
    "path": "twig-win-06.png",
    "width": 327,
    "height": 401,
-   "sha256": "a8e6f5f39ea68e31900123f05e66e36f699fbb54cd76e2f7e999b82968394dd9",
+   "sha256": "18af2eadc3691f81b139c8284a25c8800dc01ff88329d9862d03c5c4a9072f22",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4928,7 +4928,7 @@
    "path": "twig-win-07.png",
    "width": 327,
    "height": 401,
-   "sha256": "c0e2cd78a8c699e6d5d67cc2bb2b1c191cd38ce8708b16852e70b712dc140569",
+   "sha256": "5065cc743c1a075649a533f8f7fec8dd41714121c9d8e5c83323bfa5dbfeefcb",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4937,7 +4937,7 @@
    "path": "twig-win-08.png",
    "width": 327,
    "height": 401,
-   "sha256": "393d575813e15f91e7b1ee5aa6c3382ed1622e1b1f495171eee5ea83638b2491",
+   "sha256": "def6fcea2c8e550f98832d2879757613341fdf9453ac7d3c3fdb99da207f7ffd",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4946,7 +4946,7 @@
    "path": "twig-win-09.png",
    "width": 327,
    "height": 401,
-   "sha256": "307a2373db3ec56d7cc49d6d418345900e89732fdda0204da51b052395be6916",
+   "sha256": "42a428d5e1a870e205b637a8a90052ca8d47cf3a829435a54223f7ee86291b45",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4955,7 +4955,7 @@
    "path": "twig-win-10.png",
    "width": 327,
    "height": 401,
-   "sha256": "67a3270f782fb5c9b762e2bfd30d48dd39c42d8daebf16c5398132259817b669",
+   "sha256": "6318e9ced0708d016e47613ff8818399e6f6c9fd82e64214386530baf581eebb",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4964,7 +4964,7 @@
    "path": "twig-win-11.png",
    "width": 328,
    "height": 403,
-   "sha256": "c8273c11fe1d50f9b5a3bddc2fdf80ae5bbdfed7781dc5e44d4b4bb470d03c3a",
+   "sha256": "e168c7ddc3384f4498f02182b167f99540a6a42d33619e1f6e364d9e974ae49c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4973,7 +4973,7 @@
    "path": "twig-win-12.png",
    "width": 329,
    "height": 405,
-   "sha256": "8dd39a9c26a89f19a9f868de4e2841ff2cea9302474b91d47b037b054022d411",
+   "sha256": "c5691d3fc8f54b1e2dca2ee3b1e3c539b70b80ec3158ed59c3378f14e96427ea",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4982,7 +4982,7 @@
    "path": "twig-win-13.png",
    "width": 329,
    "height": 405,
-   "sha256": "50000b30573c7992f2a56bc6854ceb56d4a2c00f515a870e2a99c06632bf43f9",
+   "sha256": "fd4b6b2126ba3dcb1ba1d69bc7ad70d779796b41fbea65e2f3e1dea0edf569db",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -4991,7 +4991,7 @@
    "path": "twig-win-14.png",
    "width": 331,
    "height": 405,
-   "sha256": "a3a508272bd4859dabd012aa43140d26102c3b7b312b14772a52dbb6b1b3ade7",
+   "sha256": "099c41f3e5b4866527164c6469afc4f39bb1ab5978ab9bd23cfba5c230721665",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5000,7 +5000,7 @@
    "path": "twig-win-15.png",
    "width": 333,
    "height": 405,
-   "sha256": "0de5a950faebf696afd09648c31c25ac2b37263825244ea2cf90f38103a4dd21",
+   "sha256": "75f873cdee4c44965a1806017c4329e5ab5d700fe7e6b6f31cb9e2d9acb23027",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5009,7 +5009,7 @@
    "path": "twig-win-16.png",
    "width": 334,
    "height": 404,
-   "sha256": "bd9f256cc33c0c452788bbc0f94f75034e9945d40b3b8506605b4908cd1ab1f5",
+   "sha256": "cb096d2c1ab85cffa7df9a0b91f59f679acf7b56485d5fef3403a80ae556e0c5",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5018,7 +5018,7 @@
    "path": "twig-win-17.png",
    "width": 334,
    "height": 404,
-   "sha256": "f6ab15586813e188e69919d026f167cae2e355b6c02feb34fb79eb6599eda14f",
+   "sha256": "facbb9ad5e4e98da8187853c84e74badba4de7922a09a3970e12ddf30e8fff26",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5027,7 +5027,7 @@
    "path": "twig-win-18.png",
    "width": 335,
    "height": 404,
-   "sha256": "f5387a02be530092286da796d018d989732206e779bcfedfb969447537cb5576",
+   "sha256": "ea0c447dc88e17fb8f9a0fbd5d92e5e4c498f678221a11d21d4eee50a91d607a",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5036,7 +5036,7 @@
    "path": "twig-win-19.png",
    "width": 335,
    "height": 404,
-   "sha256": "659a2fb3cc858ec381b8a115f3411ad326d6ba5834cfd169966fb1ce867ce531",
+   "sha256": "b29fe4ddc9d16061d1079f19a836219f8c9acc99edd859ac2f1ba0dfe86b647e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5045,7 +5045,7 @@
    "path": "twig-win-20.png",
    "width": 335,
    "height": 404,
-   "sha256": "789673f66487c48cafb7f00502db355f763a609f7914226f51735367f155a7c1",
+   "sha256": "e31f21059845e7d36a3d9b5e83861fe66bd1afa6d83709f712cdbb8c7de26949",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5054,7 +5054,7 @@
    "path": "twig-win-21.png",
    "width": 335,
    "height": 404,
-   "sha256": "b21a867e7511121dec4f96c3a9b3e41c69890f87bb928d7c700b7882ec7c8532",
+   "sha256": "9b19c6a9e9ce9c0e19ac840bb2d65873d1db95580f6aa9bbf689c45f77c62ef0",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5063,7 +5063,7 @@
    "path": "twig-win-22.png",
    "width": 335,
    "height": 405,
-   "sha256": "883776867e724c9607bc5271d211114706cef3f420e75d89e31e854644654b03",
+   "sha256": "0e2f74557a8c52411cf7dccdc356b331938e43bb378661c8c958ad834ad890a0",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5072,7 +5072,7 @@
    "path": "twig-win-23.png",
    "width": 335,
    "height": 406,
-   "sha256": "34fe951aceee67dcfae1e0f01909e949a13ff90112ba841f8c5f6099374555d4",
+   "sha256": "3df71c31140d6c91e9e63ba4d2b00e547ef51cc63bd64289bb4ca7ca09006e8c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5081,7 +5081,7 @@
    "path": "twig-win-24.png",
    "width": 336,
    "height": 407,
-   "sha256": "742d869df0c5b2a2539f3e8e81680ea1178dbac0b80cbbba695156d413c58d5e",
+   "sha256": "a4a3499f82af2cbdfe6f5b45a1536258f057de9263ca6c00e56ef3e6ca734ffe",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5090,7 +5090,7 @@
    "path": "twig-win-25.png",
    "width": 335,
    "height": 406,
-   "sha256": "2fa7098f2e60e1176dc4deb441c66d78516bb8259d6710e79e819fbd904b5c8a",
+   "sha256": "5b91463c3900c31c58c187e20bbce348655c3d6e55e9010629aecf57ebf847a6",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5099,7 +5099,7 @@
    "path": "twig-win-26.png",
    "width": 335,
    "height": 405,
-   "sha256": "b9ca3ae02a000dffc482c71e350cf9ddeda73b3cff3f3a606a2a233288156241",
+   "sha256": "275eb82e63df0a238cdffbdb943ba15efc7c544f3bdbfe334b239e5cc6027ee9",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5108,7 +5108,7 @@
    "path": "twig-win-27.png",
    "width": 334,
    "height": 403,
-   "sha256": "2cc0c108e8ce2238cd0a4743fe2eeacf13ba3a8670605409ae3fc8e114ad8159",
+   "sha256": "2e36c4827ae3155d7526e0172b0314c9791876bedbd2197f823e9b788895454e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5117,7 +5117,7 @@
    "path": "twig-win-28.png",
    "width": 332,
    "height": 401,
-   "sha256": "76efd55ba6f561d39a99f8a4765cc9ec75d94f8272f1f3ec682fe380ef4c26be",
+   "sha256": "ff108e6839c6eebea9a021caad44376fb3828c9d81606737dced1cedf5a127c8",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5126,7 +5126,7 @@
    "path": "twig-win-29.png",
    "width": 331,
    "height": 401,
-   "sha256": "fb37cd8ba60060bb68ebc4d2be78c9bcfed564eaf98c759f542fa1d5ec722c20",
+   "sha256": "da4f5b15e81f2916c6fa17d642cb9e017abc619d0f078de363a563ad6f638f14",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5135,7 +5135,7 @@
    "path": "twig-win-30.png",
    "width": 330,
    "height": 401,
-   "sha256": "db7300c98125e93a89a2e74706c17602a851e0026abb8d483aa0da19669d2f63",
+   "sha256": "f5cc941fbddbe355952d32408ec0f0c978b8eaac0a3b9d5511478f72cbd040bf",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5144,7 +5144,7 @@
    "path": "twig-win-31.png",
    "width": 330,
    "height": 402,
-   "sha256": "7618499382cb93d1bdaae7f24fa8da4449b66ba4d6bd3a061f2da9ce0d905c32",
+   "sha256": "26a872f1be48ddcf39a4dc68e01db8a727e6b78912617b5380b6f1b2b414e8cc",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5153,7 +5153,7 @@
    "path": "twig-win-32.png",
    "width": 330,
    "height": 403,
-   "sha256": "ca3c869c567908e1d96ab68bef8833ef02481d25d2625f90bf6c772f164f3942",
+   "sha256": "3ca721cef74c18d48c25e7b5b596bf6ca61260afa5ae2d3155939b8a145d9022",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5162,7 +5162,7 @@
    "path": "twig-win-33.png",
    "width": 330,
    "height": 403,
-   "sha256": "c29d72ec494e41f3fbc63c9458cd4b1d2c9395d0e45986ee563d3c523f4f6b48",
+   "sha256": "5698b211a76bfecb9bbdccaf69cd18c65b421de53288ca360aec84993eaebe04",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5171,7 +5171,7 @@
    "path": "twig-win-34.png",
    "width": 330,
    "height": 404,
-   "sha256": "9c38e4507ed20f20e523e05eba56915739e2ac51dfdf608298379572e2cdc5e4",
+   "sha256": "c1e1bfa036ab686d763a859a12bea5998d7df29f16e06bcb546610e8edd47d0e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5180,7 +5180,7 @@
    "path": "twig-win-35.png",
    "width": 331,
    "height": 404,
-   "sha256": "0c4a98b9a945c3a26be0765c846f77e64b8ac782eb97fe63a1cac81b677513dd",
+   "sha256": "4302432248ee9ccadfb44dbbf4c150d2b7297b7ec38c8e645b3cfef163c80c34",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5189,7 +5189,7 @@
    "path": "twig-win-36.png",
    "width": 332,
    "height": 405,
-   "sha256": "3a9f4bfce93d4c7c410afbcf47047f608562d4331f7817fdcfa5fddc9f742c6d",
+   "sha256": "7f1116a1558d92cc4307d5b253e39a8a063764b2e89695f5e7a6116ad2638dc3",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5198,7 +5198,7 @@
    "path": "twig-win-37.png",
    "width": 333,
    "height": 404,
-   "sha256": "bf9f52987d6b2f3dadb1921e93c27f652b1b633db9e19e752eb608f3da3d260b",
+   "sha256": "6dda13b6ad4a9edbaa37c2cab0f540eed278a9cc275f9d840c3eecad7d6e0b95",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5207,7 +5207,7 @@
    "path": "twig-win-38.png",
    "width": 334,
    "height": 404,
-   "sha256": "20b518f74721031289928b4b48441036e9e259316bad7d92b4a1d72c02404ed1",
+   "sha256": "f6103ac85041878c6513eb9ac03c2a30dd449cad43b1254ef69bffe3ce0a7611",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5216,7 +5216,7 @@
    "path": "twig-win-39.png",
    "width": 333,
    "height": 404,
-   "sha256": "d6647551137c624b38e568a55554c8215b548a9909478a3df2e6ed2698566558",
+   "sha256": "9019486da8a69fdf915bf3204dafcde018052d89ebf655ad9580db1ecce30117",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5225,7 +5225,7 @@
    "path": "twig-win-40.png",
    "width": 333,
    "height": 404,
-   "sha256": "37abcc1fe7c61b182ff33f645e2237836bdf3e857a6331fd2fcbce3497221289",
+   "sha256": "0e447c3dc456aef6fe9fc0ec13a341e923fa1c3f13442f0e1f655a35684afe09",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5234,7 +5234,7 @@
    "path": "twig-win-41.png",
    "width": 331,
    "height": 404,
-   "sha256": "c45346057b6a0aef7396f72fcc86db64c76c6d3125ef53767693cc7bcdd39fd9",
+   "sha256": "c223381387519b41050cf5a212673a407114d573329b627afddfea125589bb98",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5243,7 +5243,7 @@
    "path": "twig-win-42.png",
    "width": 330,
    "height": 403,
-   "sha256": "46d939b37f2da48b7c3288728dbdae962398408e72c64784f0ee1b8c20559159",
+   "sha256": "b529d8a12674f835f6e043c2c381262ebf4facd10dd684cc3e4c3d296227406f",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5252,7 +5252,7 @@
    "path": "twig-win-43.png",
    "width": 329,
    "height": 403,
-   "sha256": "6d913ac7798571a2ce2e296e4e4285d4f80ca4496bbb81ecac88ad78a8fc62bb",
+   "sha256": "f37c624705465e7c2429049b74327baf162d458990c9dd35f7c7b6a23dc3c575",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5261,7 +5261,7 @@
    "path": "twig-win-44.png",
    "width": 327,
    "height": 403,
-   "sha256": "1a37f461c0ca71552e658e9c478719d5381e28d5b1f8b0aa1584f8aa0e94c058",
+   "sha256": "20fc54d8d2a0451d93ed95305543e7ddc0db7afe4cdcbaa97f4a179a68b4163c",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5270,7 +5270,7 @@
    "path": "twig-win-45.png",
    "width": 326,
    "height": 405,
-   "sha256": "41047a5e1216106c6001a719bd1216600de0b78f261c5145f718cf34e77e27f7",
+   "sha256": "aa2c7f5946760a7fffe9482c23de60e8ed8511f8dea666c2359982d046695714",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5279,7 +5279,7 @@
    "path": "twig-win-46.png",
    "width": 327,
    "height": 408,
-   "sha256": "e5a2bd2b20abc0f796ebcacbe587f7d72885dd28d5f4565672dddd292fb54b35",
+   "sha256": "77f861430f7ad1cffb1d3975bbeb41ab09fc90a0ed3ae5d1901f2531fa9dce9e",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5288,7 +5288,7 @@
    "path": "twig-win-47.png",
    "width": 326,
    "height": 411,
-   "sha256": "12c5a448516a3643995211337fcc1cc2a51b1dff13b72e0782585addaf97fe62",
+   "sha256": "bae2ebc0a6b61c44bac9fc18d16029e398267eb04894b71177fd5bc1037464d1",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5297,7 +5297,7 @@
    "path": "twig-win-48.png",
    "width": 326,
    "height": 413,
-   "sha256": "7328ad2b9d31371030dd025c1d74c52ed1c2e8ef783fb3e57ac38fdad79a12fd",
+   "sha256": "e8b7d15caab1969293caac62cb0e79d31974b34f5a6238d16794f7b47864843d",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5306,7 +5306,7 @@
    "path": "twig-win-49.png",
    "width": 327,
    "height": 414,
-   "sha256": "a73b540f9b5df7899742cee90da17e0e055cbef525988446394765d50a16a6bd",
+   "sha256": "10d7361dbe4e9ff504f1af1cf88fff9c0842e8c9f670ad905d0445fc2597564f",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5315,7 +5315,7 @@
    "path": "twig-win-50.png",
    "width": 327,
    "height": 414,
-   "sha256": "f1e1ae5fe0315f304219c1eb88b401dd142d4fc7f95c4c24cf425a857c19e606",
+   "sha256": "ab0582659ca8a7d645cc5f57de064180a2cc47cbdb62663ab3a6c560669c77c3",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5324,7 +5324,7 @@
    "path": "twig-win-51.png",
    "width": 327,
    "height": 414,
-   "sha256": "64a8d152bb0b4312af9d2b391b7fea4b22948e40d2e912b9a38933c8ab9f1fab",
+   "sha256": "b1f203f826601535aa413f3ee0cc1ad55b3167a49af5fc8d7482825d01ca9812",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5333,7 +5333,7 @@
    "path": "twig-win-52.png",
    "width": 327,
    "height": 414,
-   "sha256": "aa4b9a672f0f24c3d4b97e8a514ac3e7f1509911da3f6db3f7f79fb2e41bc41e",
+   "sha256": "8a8061cc1ec80b8399a68ef9287ba9c01d119cb821223248bf3f500c24715282",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5342,7 +5342,7 @@
    "path": "twig-win-53.png",
    "width": 327,
    "height": 414,
-   "sha256": "179780c279fcee69b25e50e9540434ce7d0bd2e71ac0ca37001285d76660a9c3",
+   "sha256": "7f109ee0b37546ca6271e8397e1b6978894709c0a3ffd2022c78559e2cd3d919",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5351,7 +5351,7 @@
    "path": "twig-win-54.png",
    "width": 327,
    "height": 414,
-   "sha256": "32b5e180feb48c3886c3f3d2e78ebe8b6f66012a30f48c6c94a2a478cc955da4",
+   "sha256": "594c2d00556f78efce9e872936c18fa7a865a7148b8ebfd688bb7b8d28b82887",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5360,7 +5360,7 @@
    "path": "twig-win-55.png",
    "width": 327,
    "height": 414,
-   "sha256": "0f93a434a68db18c08f2e75241f0beba1c714efb28d7b16f71303aa1205a0e31",
+   "sha256": "23e8d24b9895cbbc31012351619bf3b90961c4273ba4ae04c58d13e4a890f967",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5369,7 +5369,7 @@
    "path": "twig-win-56.png",
    "width": 327,
    "height": 414,
-   "sha256": "1669695aa444476451de240487cef87acfd272d49634bf586a7921c4b24e8db6",
+   "sha256": "34c07f30bd7bbf0f8bfb652480c1811d46abccc7c194faf6304c864db1d27ecf",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5378,7 +5378,7 @@
    "path": "twig-win-57.png",
    "width": 327,
    "height": 414,
-   "sha256": "b931ea7e28ff7fece65c2bcb20eaaf081ea6a88d047d1f68013660a08fc64361",
+   "sha256": "39df6902a912cd076a82d5a018af11dc59436bfed2414c6d95cabe64c466a784",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5387,7 +5387,7 @@
    "path": "twig-win-58.png",
    "width": 326,
    "height": 414,
-   "sha256": "21b4f9835287d2281a98883854b22b4ad60bda9cdd5587498d9d8a981a48e7e6",
+   "sha256": "a5ef9a31a754f4fee9e5019a243229b4d4740a62a1175b2c4cdee2f675936ac1",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5396,7 +5396,7 @@
    "path": "twig-win-59.png",
    "width": 326,
    "height": 413,
-   "sha256": "8b05f02ff3706c7d0a90893621350cac6bd7121859164c576ec38b0db237f9e2",
+   "sha256": "7fff41174af0755855837bcfbde29d5918a8e1084815c5287740c060ae2f688f",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5405,7 +5405,7 @@
    "path": "twig-win-60.png",
    "width": 326,
    "height": 413,
-   "sha256": "3a033818eaceee0f0f621e737970ed58ffc18394b6878d8f6c88084a38f2a560",
+   "sha256": "6bebc89113d1f3990720cc3ea8a44ce4877a684e26b7075e740aec1e5a772a2b",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5414,7 +5414,7 @@
    "path": "twig-win-61.png",
    "width": 327,
    "height": 412,
-   "sha256": "303ca533bf4fc19af0b8ec0a4a894500ed50f9b47eb0257cf6693a9253615c53",
+   "sha256": "91c4aeafcaab06e98bd12d3649d25145da18becf75e1d48e4d917a0ebf770523",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5423,7 +5423,7 @@
    "path": "twig-win-62.png",
    "width": 326,
    "height": 412,
-   "sha256": "22d38237a98f5e5abeba4001d9645c1460589169b8f50c38ae3a81b5f32592a2",
+   "sha256": "b1bbaf54799f9743717317dd8e92e062efa1aa7a545034816f6e92244b170e86",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5432,7 +5432,7 @@
    "path": "twig-win-63.png",
    "width": 327,
    "height": 411,
-   "sha256": "14a58cc00acc07f622110fda6c8440d108eb6d6e14d8284d01c65457f83937d7",
+   "sha256": "fe983656906593906336a955f68a34a87718148b7c646bd8e48f0ffff277e33f",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5441,7 +5441,7 @@
    "path": "twig-win-64.png",
    "width": 327,
    "height": 410,
-   "sha256": "644d8de7f93ff83769ad8e40431482d988068ddaf05464ed701d1c8b9115065a",
+   "sha256": "bea3006c229ccd8ff87f9aa3ff84a0741b0bff851c81a97bfa32e29e31135156",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5450,7 +5450,7 @@
    "path": "twig-win-65.png",
    "width": 327,
    "height": 410,
-   "sha256": "e6b31b501f68f198f6399cc59b2d6cd5e1a591b9a4b2aba72b1040eaf3a9f8c7",
+   "sha256": "333fbc922735d6109e4957c0d2bfb1249fc6d804548ecc123fe48307be2faaa4",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5459,7 +5459,7 @@
    "path": "twig-win-66.png",
    "width": 327,
    "height": 409,
-   "sha256": "eff3d0b9d5728005d5f3c6c4a9d0e87d8db0348c7632bcc110c9d30a8721e9e4",
+   "sha256": "6a85885c564e6fafaf1e4c21b7a5ec14246fd511143ce2804a65603d81a0e936",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5468,7 +5468,7 @@
    "path": "twig-win-67.png",
    "width": 328,
    "height": 409,
-   "sha256": "ad56e2c954b771573fadbd12101f8c442834db56f6b3e9239c7e2523eab195b0",
+   "sha256": "cc1e675840e4f9fce6509361350fee7d63d67bb37f02a39bbb594ead4f8cce37",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5477,7 +5477,7 @@
    "path": "twig-win-68.png",
    "width": 328,
    "height": 408,
-   "sha256": "5e529049356c9f4d7d686851140ee544f93349efea8a7a39f3240aa3aadfb00b",
+   "sha256": "0cc5df318642b196f70ce598f522e5e91512ef0512fd348b9f527350a38c9af9",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5486,7 +5486,7 @@
    "path": "twig-win-69.png",
    "width": 328,
    "height": 408,
-   "sha256": "92fa67276b403e66824690de919fe42ec00aea554ad777f5a4c20bd5d635276f",
+   "sha256": "cec0b7237cb3c79b720f3698e8cda6c5bc685321989479c805e46f90b5c959fc",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5495,7 +5495,7 @@
    "path": "twig-win-70.png",
    "width": 329,
    "height": 408,
-   "sha256": "1a5fc7370f75df83c422c619df770155f12e7efc3acbf019c472d53807218fde",
+   "sha256": "4dbd37c6e135c7ea77aefbd771104d3c9472fc7c0e1f2ea2be238a033d087822",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"
@@ -5504,7 +5504,7 @@
    "path": "twig-win-71.png",
    "width": 329,
    "height": 408,
-   "sha256": "6dd76391012e5e80cbc5f011bfb86b0e86757c3a37b06b98362be0ffa742e310",
+   "sha256": "e8a6f50caeff441ae8b3efb1dcbe2ae6ef46f0a8a419d04a1f6cae632e2cb582",
    "slot": "char.hero3d.motion.twig",
    "source": "owner",
    "record": "tools/heroanim/SOURCE.md"

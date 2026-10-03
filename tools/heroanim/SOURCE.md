@@ -79,4 +79,5 @@ files' hashes are in `layers.json`.
 | Rights | the owner's: delivered for the game, as the other owner pictures |
 | Clips | `Twig_Breathing` (3 s, the idle), `Twig_SmallBounce` (1.5 s, the reaction), `Twig_WinCheer` (3 s, the win's celebration: a jump with the arms spread), keyed 24 a second; the bake keeps their own lengths (`heroes.json` `idleSeconds`, `reactSeconds` null) |
 | Bones | the head points the hats follow: `Twig_rig_Head` (the head's base) and `Twig_rig_Leaf` (the leaf's stem on top of the cap) |
-| Frames | 72 idle, 36 reaction and 72 win frames, 7.96 MB; with the Meshy heroes, 612 frames and 25.5 MB in all |
+| Look | lighter and warmer than its texture, the owner's choice "H" of six variants (2026-10-03: "Twig looks dark, as if in shadow"): an even light (`heroes.json` `light`: hemisphere 4.2, key 0.9, fill 0.6 and a 0.2 glow of its own albedo) and a grade of its texture (`color`: gamma 0.75, gain 1.08, saturation 1.1, warm 0.04); its mean brightness 0.73 (it was 0.46, the other heroes about 0.62) |
+| Frames | 72 idle, 36 reaction and 72 win frames, 7.97 MB; with the Meshy heroes, 612 frames and 25.5 MB in all |

@@ -309,3 +309,9 @@ decision records what the reference shows, what we do and why, so the owner can 
   it tall (was 0.33), inside a 21:9 screen.
 - **Not changed**: Twig's still pictures (A1–A7: the Wardrobe, the profile, the group, the celebrating picture) stay the
   owner's earlier ones until new ones come.
+- **Its brightness** (the owner: "Twig looks dark, as if in shadow"): the bake lit Twig's brown texture with the shared
+  light and it came out at a mean brightness of 0.46 (the Meshy heroes about 0.62; the Meshy Twig was as dark). The
+  bake gained a hero's own `light` (any light, `exposure`, `lift`: a glow of its own albedo) and `color` grade of its
+  texture (`gamma`, `gain`, `saturation`, `warm`). The first five variants (light only, up to 0.60) looked alike to the
+  owner; of the bolder six (with the grade) the owner chose "H": hemisphere 4.2, key 0.9, fill 0.6, lift 0.2; gamma
+  0.75, gain 1.08, saturation 1.1, warm 0.04 (0.73: even and warm, the brown still brown).

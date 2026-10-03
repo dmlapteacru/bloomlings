@@ -223,3 +223,5 @@ See spec.md (the clarification "Twig celebrates") and research D23.
   `twig.fbx` (72 idle, 36 reaction, 72 win frames). The kit's `MotionClip.Win`, `HasWin` and
   `HeroMotionPlayer.Celebrate`, played by `EndCards` and `HeroMotionView`; the frame sets (`HeroFrameSet`,
   `HeroBitmaps`, `HeroFrameCheck`) hold it. Twig's place on Home (0.815, 0.31) and `HatLift` 0; the tests and docs.
+- [X] T044 Twig's brightness (the owner's choice "H"): the bake's per-hero `light` and `color` grade
+  (`tools/heroanim/page.html`, `bake.mjs`), Twig re-baked with them; the docs; the playtest APK built.

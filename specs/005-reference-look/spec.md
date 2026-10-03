@@ -164,6 +164,9 @@ the round."
   reaction (1.5 s) on Home; `Twig_WinCheer` (3 s, a jump with the arms spread) is its celebration on the win and the
   milestone, then it breathes (`MotionClip.Win`, `HeroMotionPlayer.Celebrate`). A hero without its own cheer reacts
   there instead.
+- Q: Twig looks dark, "as if in shadow"? → A: Its brown texture under the shared light came out darker than the
+  others (mean brightness 0.46 against about 0.62). Of six variants the owner chose "H": an even light and a lighter,
+  warmer grade of its texture, Twig only (research D23).
 
 ### Session 2026-10-03 (the owner's 60 fps models)
 
