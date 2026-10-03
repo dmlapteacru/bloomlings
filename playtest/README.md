@@ -39,7 +39,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     a tap on one makes it react, petals drift over them; without the owner's pictures the drawn stand-in's four still
     heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the level plaque, the big Play,
     "N levels to reward", and cream round side buttons for the Wardrobe, the Collection, the profile avatar, the Daily
-    Challenge and the Store, with the rank pill (offline);
+    Challenge and the Store, with the rank pill (offline) in the top row between Settings and the Petals pill;
   - the Wardrobe (frame 27, spec 005 FR-025, §6.5), opened from Home: the hero on its pedestal between ‹ › family
     arrows, the name card, the family tabs and outfit cards three to a page (owned items to wear, items for sale to buy
     with Petals, and the ones earned later with a padlock), through the client's `WardrobeService`;
@@ -48,7 +48,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     the lawn, the entry strip with the arch, and one parchment tray to the bottom of the screen with the Waiting Slots,
     the four booster boxes and one deck per Source stack (the front pod, the next two peeking above it, "+N"), with the
     pod, slot and booster states of frames 12–14;
-  - cards: pause and Settings (frame 11), the jam bottom sheet (frame 10), the win card (frame 15) and the milestone
+  - cards: pause and Settings (frame 11), the jam card centered on the screen (frame 10), the win card (frame 15) and the milestone
     card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), the Daily Reward
     (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and the Store (frame 17).
 
@@ -93,9 +93,10 @@ Unity client.
 ## Preview without a phone
 
 `dotnet run --project playtest/preview` renders the full playtest's screens with SkiaSharp. It writes one PNG per
-design board frame (1–17) plus extras 18–27 (themes, Settings, a Collection picture, a demo, boosters in use, the
-Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store cosmetics in the Wardrobe look and 27 the Wardrobe,
-reached by taps that the frame checks) at 16:9,
+design board frame (1–17) plus extras 18–28 (themes, Settings, a Collection picture, a demo, boosters in use, the
+Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store cosmetics in the Wardrobe look, 27 the Wardrobe,
+reached by taps that the frame checks, and 28 Home's animated heroes in outfits, which also checks a tap on a hero and
+on Play) at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the
 safe area. It also checks that every animated hero frame is embedded and decodes to its size in the kit, and prints

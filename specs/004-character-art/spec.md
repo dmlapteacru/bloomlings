@@ -271,8 +271,8 @@ heroes, the screens keep their layout and buttons, and a worn hat or skin still 
   expression) as the current figures do (spec 001 FR-063). A worn expression replaces the drawn face.
 - **FR-017**: Each meta screen MUST use the 3D heroes as follows:
   - **Home:** the four families together on a stone pedestal in the hero area. Later, when the player has a hero,
-    their family's hero in its outfit is shown. (Spec 005 FR-024: over the owner's Home picture, Home and the splash
-    show no heroes for now; deferred by the owner on 2026-10-02, the heroes come back animated later.)
+    their family's hero in its outfit is shown. (Spec 005 FR-024 and FR-028: over the owner's layered Home picture,
+    Home and the splash show the four owner heroes animated, pre-rendered from the owner's FBX models.)
   - **Win and milestone screens:** the heroes celebrating above the reward.
   - **Wardrobe and profile:** single heroes.
 

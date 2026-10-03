@@ -62,6 +62,33 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Every layer picture (the drawing order is the class's: see its summary).</summary>
         public static IReadOnlyList<PictureBox> All => new[] { Back, FountainBack, Lotus, Shadow, FountainFront, Petals };
 
+        /// <summary>The layers the heroes need over the garden: the fountain's back, the lotus and the fountain's front.</summary>
+        public static IReadOnlyList<PictureBox> Required => new[] { FountainBack, Lotus, FountainFront };
+
+        /// <summary>
+        /// Whether a scene shows the layered Home (<see cref="HomeStage.ShowsHeroes"/>'s <c>layered</c>): the picture it
+        /// resolves to (<paramref name="resolved"/>, <see cref="OwnerPictures.Resolve"/>) is the garden (<see cref="Back"/>)
+        /// and the host has the garden and every <see cref="Required"/> layer (<paramref name="has"/>, by picture name).
+        /// The shadow and the petals are drawn when present. Both builds decide by this rule.
+        /// </summary>
+        public static bool IsLayered(string resolved, Func<string, bool> has)
+        {
+            if (resolved != Back.Name || !has(Back.Name))
+            {
+                return false;
+            }
+
+            foreach (PictureBox layer in Required)
+            {
+                if (!has(layer.Name))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         /// <summary>The asset slot of a layer: <c>bg.home</c> (the garden), <c>bg.home.fountain_back</c>, …</summary>
         public static string SlotOf(PictureBox layer) => layer.Name == Back.Name
             ? OwnerPictures.SlotOf(OwnerPictures.Home)

@@ -48,12 +48,11 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>
         /// Whether <paramref name="scene"/> (Home or the splash) shows the owner's layered Home: its owner picture is the Home
         /// garden (the splash takes it while its own picture is missing, <see cref="OwnerPictures.Resolve"/>) and the
-        /// fountain's back layer is there.
+        /// fountain's back, the lotus and the fountain's front are there (<see cref="HomeLayers.IsLayered"/>, the
+        /// playtest's rule too).
         /// </summary>
         public static bool Shows(BackdropScene scene) =>
-            OwnerPictures.Resolve(scene, string.Empty, name => OwnerArt.Background(name) != null) == HomeLayers.Back.Name
-            && OwnerArt.Background(HomeLayers.Back.Name) != null
-            && OwnerArt.Background(HomeLayers.FountainBack.Name) != null;
+            HomeLayers.IsLayered(OwnerPictures.Resolve(scene, string.Empty, name => OwnerArt.Background(name) != null), name => OwnerArt.Background(name) != null);
 
         /// <summary>
         /// The layered stage under <paramref name="parent"/> (it stretches over it; place it with <see cref="Place"/>), its

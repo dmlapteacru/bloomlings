@@ -146,7 +146,7 @@ namespace Bloomlings.Client.UI.Screens
         /// (<paramref name="layered"/>), else none; without the owner's picture the drawn stand-in with the still heroes.
         /// </summary>
         public static HomeHeroes StageOf(bool ownerPicture, bool layered) =>
-            !ownerPicture ? HomeHeroes.Drawn : layered ? HomeHeroes.Layered : HomeHeroes.None;
+            !HomeStage.ShowsHeroes(ownerPicture, layered) ? HomeHeroes.None : ownerPicture ? HomeHeroes.Layered : HomeHeroes.Drawn;
 
         /// <summary>
         /// Whether the win and the milestone show <paramref name="family"/>'s animated hero (spec 005 FR-028): its frames

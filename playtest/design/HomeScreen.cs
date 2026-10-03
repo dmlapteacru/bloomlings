@@ -199,7 +199,7 @@ namespace Bloomlings.Playtest.Design
         /// How Home and the splash of <paramref name="scene"/> stand their heroes (<see cref="HomeStage.ShowsHeroes"/>):
         /// over the owner's layered Home when the scene shows the owner's Home garden (pictures.md B1; the splash takes it
         /// until its own, B6, exists) and the fountain's back, the lotus and the fountain's front are embedded
-        /// (<see cref="HomeLayers"/>; the shadow and the petals are drawn when present); on the drawn stand-in without an
+        /// (<see cref="HomeLayers.IsLayered"/>; the shadow and the petals are drawn when present); on the drawn stand-in without an
         /// owner picture; else none.
         /// </summary>
         public static HomeStageKind StageOf(IPainter p, BackdropScene scene)
@@ -207,11 +207,7 @@ namespace Bloomlings.Playtest.Design
             string name = OwnerPictures.Resolve(scene, string.Empty, DesignApp.HasBackground(p));
             (int Width, int Height)? size = p.HasSprite(PainterBase.BackgroundPrefix + name) ? p.SpriteSize(PainterBase.BackgroundPrefix + name) : null;
             bool owner = size.HasValue && size.Value.Width > 0 && size.Value.Height > 0;
-            bool layered = owner && name == HomeLayers.Back.Name;
-            foreach (PictureBox layer in new[] { HomeLayers.FountainBack, HomeLayers.Lotus, HomeLayers.FountainFront })
-            {
-                layered = layered && p.HasSprite(PainterBase.BackgroundPrefix + layer.Name);
-            }
+            bool layered = owner && HomeLayers.IsLayered(name, picture => p.HasSprite(PainterBase.BackgroundPrefix + picture));
 
             return !HomeStage.ShowsHeroes(owner, layered) ? HomeStageKind.None : layered ? HomeStageKind.Layered : HomeStageKind.Diorama;
         }
@@ -365,7 +361,7 @@ namespace Bloomlings.Playtest.Design
 
             if (look.Rank)
             {
-                boxes.Add(Kit.Touch(p, RankBox(r, right)));
+                boxes.Add(Kit.Touch(p, r.Rank));
             }
 
             return boxes;
@@ -483,8 +479,9 @@ namespace Bloomlings.Playtest.Design
 
             if (look.Rank)
             {
-                // The rank under the right column (the server is deferred: the playtest shows the offline form).
-                Box rank = RankBox(r, right);
+                // The rank in the top row between Settings and the Petals pill (the server is deferred: the playtest shows
+                // the offline form).
+                Box rank = r.Rank;
                 RankRow(p, rank, PlaytestText.T("home.rank_unknown_offline"));
                 p.Hit(Kit.Touch(p, rank), () => app.OpenOverlay(Overlay.Leaderboard));
             }
@@ -495,13 +492,6 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>How many round buttons the right column shows: the Daily Challenge, the Store.</summary>
         private static int RightButtons(HomeLook look) => (look.DailyChallenge ? 1 : 0) + (look.Store ? 1 : 0);
-
-        /// <summary>The rank pill under the right column's <paramref name="right"/> buttons.</summary>
-        private static Box RankBox(ReferenceHomeRegions r, int right)
-        {
-            float top = right > 0 ? r.SideButton(true, right - 1).Bottom + (r.W * ReferenceHomeRegions.SideGapShare) : r.SideButton(true, 0).Top;
-            return new Box(r.Rank.Left, top, r.Rank.Right, top + r.Rank.Height);
-        }
 
         /// <summary>The playtest's dev row at the very bottom of the safe area.</summary>
         private static Box DevRowBox(IPainter p, ReferenceHomeRegions r) =>

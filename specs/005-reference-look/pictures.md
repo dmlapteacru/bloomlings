@@ -69,18 +69,19 @@ two clips named in `tools/heroanim/heroes.json`), then run `node bake.mjs --only
 ## B. Backgrounds
 
 Folder: `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`. The names are `OwnerPictures.Home`,
-`Splash`, `Wardrobe` and `OwnerPictures.Gameplay(themeId)`; `OwnerPictures.SlotOf` gives each one's slot.
+`Splash`, `Wardrobe` and `OwnerPictures.Gameplay(themeId)`; `OwnerPictures.SlotOf` gives each one's slot. The opaque
+pictures are stored as JPEG (quality 90) whatever their delivered format; a picture still awaited (B6) may come as PNG.
 
 | # | File | Where | What | Slot |
 |---|---|---|---|---|
 | B1 | `home.jpg` and its layers (below) | Home, splash | **delivered (2026-10-02) as the owner's layered Home** (`bloomlings_home_assets.zip`): the garden diorama of the reference (ruins with stone arches, a round stone well with the lotus fountain in the middle, flowers and bushes, soft sunlight) in layers, **without the heroes**, so the animated heroes (A10) stand between them (spec FR-028, contracts/look.md §6.4); empty space at the top for the logo and at the bottom for the level plaque and Play | `bg.home` and the layer slots below |
-| B2 | `gameplay-daylight.png` | levels 1–99 and every fourth band | a lush garden seen from above: grass, bushes and flowers at the edges, the middle calm (the board covers 86% of the width between 8% and 53% of the height, the tray the bottom 38%) | `bg.theme.daylight_garden` |
-| B3 | `gameplay-pond.png` | from level 100 | the same lawn with water lilies and a pond edge | `bg.theme.pond` |
-| B4 | `gameplay-orchard.png` | from level 150 | the lawn with fruit trees' shade and fallen fruit | `bg.theme.orchard` |
-| B5 | `gameplay-moonlit.png` | from level 200 | the lawn at dusk with fireflies | `bg.theme.moonlit_garden` |
+| B2 | `gameplay-daylight.jpg` | levels 1–99 and every fourth band | a lush garden seen from above: grass, bushes and flowers at the edges, the middle calm (the board covers 86% of the width between 8% and 53% of the height, the tray the bottom 38%) | `bg.theme.daylight_garden` |
+| B3 | `gameplay-pond.jpg` | from level 100 | the same lawn with water lilies and a pond edge | `bg.theme.pond` |
+| B4 | `gameplay-orchard.jpg` | from level 150 | the lawn with fruit trees' shade and fallen fruit | `bg.theme.orchard` |
+| B5 | `gameplay-moonlit.jpg` | from level 200 | the lawn at dusk with fireflies | `bg.theme.moonlit_garden` |
 | B6 | `splash.png` | splash | the Home garden, more blossoms | `bg.splash` |
-| B7 | `wardrobe.png` | Wardrobe (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal | `bg.wardrobe` |
-| B8 | `win.png` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened | `bg.win` |
+| B7 | `wardrobe.jpg` | Wardrobe (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal | `bg.wardrobe` |
+| B8 | `win.jpg` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened | `bg.win` |
 
 The B1 layers (the Backgrounds folder; prepared by `tools/heroanim/layers.mjs` from the owner's five 852 × 1846 layers,
 their boxes in `HomeLayersData.cs`, source record `tools/heroanim/SOURCE.md`):

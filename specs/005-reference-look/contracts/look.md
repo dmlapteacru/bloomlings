@@ -834,9 +834,9 @@ and faded at 70% alpha over the garden in the band under the teaser, so the layo
 Petals pill (without the "+" while the Store is locked, its amount follows the lotus) is centered
 on the Settings button's height; the logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side
 columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0.03W` apart (`SideButton(right, i)` for
-more, such as the avatar); the rank pill (`0.3W × 0.075W`) sat under the right column, right-aligned at `0.04W` (under
-the Petals pill there is no room for its touch target), where it covers Drop's head on the layered Home, so it moves
-(not final; tasks.md T030); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
+more, such as the avatar); the rank pill (`0.3W × 0.075W`) lies in the top row, centered between Settings and the
+Petals pill on Settings' middle (`ReferenceHomeRegions.Rank`; under the right column, its first place, it covered Drop's
+head on the layered Home); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
 from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
 
 **The layered Home** (owner's delivery, FR-028, research D19; kit `HomeLayers` and `HomeMotion` in `HomeLayers.cs`,
@@ -914,13 +914,13 @@ width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's
 `0.09u` above the stage's bottom, the lotus fountain on it, Bloom raised behind the fountain (`0.64u` picture, feet
 `0.51u` up), Drop at the right back (`0.44u` at `+0.30u`), Sprig at the left (`0.74u` at `−0.26u`), Twig in front at the
 right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest stacks only the
-unlocked side buttons (left: Wardrobe, Collection, the avatar; right: Daily Challenge, Store), the rank pill following
-the right column for now (it moves, T030); its splash shows the logo and the diorama in the same boxes.
+unlocked side buttons (left: Wardrobe, Collection, the avatar; right: Daily Challenge, Store), the rank pill in the top row
+(`r.Rank`); its splash shows the logo and the diorama in the same boxes.
 
 Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it shows from its top with
 `SideButton(right, i)` (left: Wardrobe `ui.shirt`, Collection `ui.grid`, the profile avatar; right: the Daily Challenge,
-the sun `ui.sun` with the green check badge when done today, and the Store, the lotus), and the rank pill sat under the
-right column's last button (it moves, T030); the logo shows in both looks, the owner's logo picture sized by width
+the sun `ui.sun` with the green check badge when done today, and the Store, the lotus), and the rank pill in the top row
+(`r.Rank`); the logo shows in both looks, the owner's logo picture sized by width
 (`ReferenceHomeRegions.LogoPicture`: `0.82W` wide, centered on the logo box, its top no higher than a tenth of its
 height above Settings' bottom); over the owner's layered Home both looks show its stage with the four animated heroes
 (`HeroPictures.Stage`, `HomeLayersView` with one `HeroMotionView` per hero, built under the screen's controls;
