@@ -76,7 +76,14 @@ namespace Bloomlings.Client.UI.Design
             _ => "blank",
         };
 
-        public static string FamilyName(Family family) => family.ToString().ToLowerInvariant();
+        public static string FamilyName(Family family) => family switch
+        {
+            Family.Sprig => "sprig",
+            Family.Bloom => "bloom",
+            Family.Drop => "drop",
+            Family.Twig => "twig",
+            _ => family.ToString().ToLowerInvariant(),
+        };
 
         /// <summary>A variant's 2D character picture: <c>2d/leaf-happy</c>.</summary>
         public static string Picture2D(string iconId, CharacterMood mood) => "2d/" + iconId + "-" + MoodName(mood);

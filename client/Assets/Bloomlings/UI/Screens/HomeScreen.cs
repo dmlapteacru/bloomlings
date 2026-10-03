@@ -58,8 +58,8 @@ namespace Bloomlings.Client.UI.Screens
     /// wears its outfit.</description></item>
     /// <item><description>Small cream round side buttons, each once unlocked, packed from the top of their column:
     /// Wardrobe, Collection and the profile avatar (frame, badge) at the left; the Daily Challenge (the sun, with a green
-    /// check when done today, L50) and the Store (the lotus) at the right, with the rank pill "Rank #N >" and its gold
-    /// trophy under them (L10; it opens the Leaderboard and carries the marker).</description></item>
+    /// check when done today, L50) and the Store (the lotus) at the right; the rank pill "Rank #N >" with its gold trophy
+    /// in the top row between Settings and the Petals pill (L10; it opens the Leaderboard and carries the marker).</description></item>
     /// <item><description>Under Play, the milestone teaser "N levels to reward" with the pink gift on a parchment pill, and
     /// the optional free-booster ad offer as a cream "Free" pill beside it.</description></item>
     /// </list>
@@ -137,7 +137,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._dailyDone = UiKit.CornerCheck("Done", daily.transform);
             screen._store = UiKit.RoundPictureButton("Store", root, parent => UiKit.PetalIcon("Lotus", parent), 0.7f, onStore).gameObject;
 
-            // The rank pill under the right column: the gold trophy, the rank and a brown chevron; it opens the Leaderboard
+            // The rank pill in the top row: the gold trophy, the rank and a brown chevron; it opens the Leaderboard
             // from a clear touch box at least size.touch_min tall around it.
             Image rankTouch = UiFactory.CreateImage("RankTouch", root, null, Color.clear, raycast: true);
             UiKit.TapTarget(rankTouch, () => features?.OnLeaderboard?.Invoke());
@@ -300,11 +300,10 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.PlaceBox((RectTransform)right[i].transform, r.SideButton(true, i), screen);
             }
 
-            // The rank pill under the right column's last button (at the column's top when it is empty).
+            // The rank pill in the top row, between Settings and the Petals pill (clear of the animated heroes).
             float touch = DesignTokens.Size.TouchMin * u;
             Box Touch(Box b) => Box.FromCenter(b.CenterX, b.CenterY, Mathf.Max(b.Width, touch), Mathf.Max(b.Height, touch));
-            float rankTop = right.Count > 0 ? r.SideButton(true, right.Count - 1).Bottom + (r.W * ReferenceHomeRegions.SideGapShare) : r.Daily.Top;
-            var rank = new Box(r.Rank.Left, rankTop, r.Rank.Right, rankTop + r.Rank.Height);
+            Box rank = r.Rank;
             UiKit.PlaceBox(_rankTouch, Touch(rank), screen);
             UiKit.PlaceBox(_rankRow.rectTransform, rank, Touch(rank));
 

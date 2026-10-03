@@ -283,8 +283,8 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// Home in the reference layout (spec 005 FR-024, contracts/look.md §6.4): Settings at the top left, the Petals pill
     /// at the top right, the logo across the top, the diorama in the middle, the side buttons (Wardrobe and Collection at
-    /// the left, Daily Challenge and Store at the right, more with <see cref="SideButton"/>) and the rank pill under the
-    /// right column, the wooden level plaque, the big Play button, and the milestone teaser with the free booster offer
+    /// the left, Daily Challenge and Store at the right, more with <see cref="SideButton"/>), the rank pill in the top row
+    /// between Settings and the Petals pill, the wooden level plaque, the big Play button, and the milestone teaser with the free booster offer
     /// beside it at the bottom. Every box is laid out; screens draw the ones unlocked. Engine-free.
     /// </summary>
     public sealed record ReferenceHomeRegions(
@@ -683,8 +683,8 @@ namespace Bloomlings.Client.UI.Design
         /// Home in the reference layout (contracts/look.md §6.4), in fractions of the safe height (less
         /// <paramref name="bottomReserve"/>, the playtest's dev row) and width W: Settings 0.13 W at 0.04 W from the left,
         /// the Petals pill 0.38 W × 0.095 W at 0.02 W from the right, both from 2.5% of H; the logo 0.8 W wide from 10% to
-        /// 20.5%; the diorama from 22% to 70%; the side buttons from 24%; the rank pill (0.3 W × 0.075 W) under the right
-        /// column; the plaque 0.5 W × 0.085 H from 64% to 72.5%; Play 0.85 W wide from 73.5% to 88.5%; the teaser pill
+        /// 20.5%; the diorama from 22% to 70%; the side buttons from 24%; the rank pill (0.3 W × 0.075 W) centered between
+        /// Settings and the Petals pill, on Settings' middle; the plaque 0.5 W × 0.085 H from 64% to 72.5%; Play 0.85 W wide from 73.5% to 88.5%; the teaser pill
         /// 0.5 W wide from 89.5% to 93.5% with the free booster pill at its right.
         /// </summary>
         public static ReferenceHomeRegions ReferenceHome(float width, float height, Insets insets, float bottomReserve = 0f)
@@ -711,7 +711,9 @@ namespace Bloomlings.Client.UI.Design
             Box collection = Side(false, 1);
             Box daily = Side(true, 0);
             Box store = Side(true, 1);
-            var rank = new Box(safe.Right - (0.04f * w) - (0.3f * w), store.Bottom + gap, safe.Right - (0.04f * w), store.Bottom + gap + (0.075f * w));
+            // The rank pill in the top row, between Settings and the Petals pill: under the right column it covered the
+            // animated Drop's head on the layered Home (spec 005 FR-028).
+            Box rank = Box.FromCenter((settings.Right + petals.Left) / 2f, settings.CenterY, 0.3f * w, 0.075f * w);
             var plaque = new Box(safe.CenterX - (0.25f * w), Y(0.64f), safe.CenterX + (0.25f * w), Y(0.725f));
             var play = new Box(safe.CenterX - (0.425f * w), Y(0.735f), safe.CenterX + (0.425f * w), Y(0.885f));
             // The teaser row 0.04 H tall from 89.5%, lowered when needed so the free booster's touch box clears Play.

@@ -91,7 +91,7 @@ namespace Bloomlings.Client.UI.Design
         public static HeroFrame Frame(Family family, MotionClip clip, int index)
         {
             ClipData data = Find(family, clip) ?? throw new ArgumentException("No baked " + ClipName(clip) + " clip of " + family, nameof(family));
-            return data.Frame(family, clip, ((index % data.Count) + data.Count) % data.Count);
+            return data.Frame(((index % data.Count) + data.Count) % data.Count);
         }
 
         /// <summary>Every frame picture's name, the families in <see cref="CharacterArt.Families"/> order.</summary>
@@ -167,25 +167,46 @@ namespace Bloomlings.Client.UI.Design
             return (Box.FromCenter(tx + (ux * up), ty + (uy * up), size, size), frame.Roll);
         }
 
+        // The clips by family and clip, found once: a pose is looked up for every hero at the display rate, so the lookup
+        // must not allocate.
+        private static ClipData?[]? _index;
+
         private static ClipData? Find(Family family, MotionClip clip)
         {
-            string name = CharacterArt.FamilyName(family);
-            string clipName = ClipName(clip);
-            foreach (ClipData data in Clips)
+            ClipData?[] index = _index ??= BuildIndex();
+            int i = (((int)family) * 2) + (clip == MotionClip.Idle ? 0 : 1);
+            return i >= 0 && i < index.Length ? index[i] : null;
+        }
+
+        private static ClipData?[] BuildIndex()
+        {
+            int families = 0;
+            foreach (Family family in CharacterArt.Families)
             {
-                if (data.Family == name && data.Clip == clipName)
+                families = Math.Max(families, ((int)family) + 1);
+            }
+
+            var index = new ClipData?[families * 2];
+            foreach (Family family in CharacterArt.Families)
+            {
+                string name = CharacterArt.FamilyName(family);
+                foreach (ClipData data in Clips)
                 {
-                    return data;
+                    if (data.Family == name)
+                    {
+                        index[(((int)family) * 2) + (data.Clip == ClipName(MotionClip.Idle) ? 0 : 1)] = data;
+                    }
                 }
             }
 
-            return null;
+            return index;
         }
 
         private sealed class ClipData
         {
             private readonly short[] _crops;
             private readonly float[] _points;
+            private readonly string[] _names;
 
             public ClipData(string family, string clip, short[] crops, float[] points)
             {
@@ -198,6 +219,11 @@ namespace Bloomlings.Client.UI.Design
                 Clip = clip;
                 _crops = crops;
                 _points = points;
+                _names = new string[crops.Length / 4];
+                for (int i = 0; i < _names.Length; i++)
+                {
+                    _names[i] = family + "-" + clip + "-" + i.ToString("00", CultureInfo.InvariantCulture);
+                }
             }
 
             public string Family { get; }
@@ -206,8 +232,8 @@ namespace Bloomlings.Client.UI.Design
 
             public int Count => _crops.Length / 4;
 
-            public HeroFrame Frame(Family family, MotionClip clip, int i) => new HeroFrame(
-                FrameName(family, clip, i),
+            public HeroFrame Frame(int i) => new HeroFrame(
+                _names[i],
                 _crops[i * 4],
                 _crops[(i * 4) + 1],
                 _crops[(i * 4) + 2],
