@@ -293,6 +293,41 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig, Client.Meta.Wardrobe.CosmeticKind.Hat)?.Id == "hat.sprout_cap", "a tap on an owned item's card wears it");
                 Run(app, p, 0.5f);
             });
+            yield return new Fixture(28, "home-outfits", "Extra: Home's animated heroes in outfits (spec 005 FR-028)", (p, data) =>
+            {
+                // The progressed Home with an outfit on every hero (a hat each, Sprig's speckles, Bloom's wink, Twig's
+                // sparkle trail), so the frames' outfit layers show: the hats turn with the heads and the skin keeps to
+                // each frame. A tap on Play still plays; a tap on Twig's body makes it react at once, shown mid-reaction.
+                DesignApp app = Progressed(App(data), content, 87);
+                CloseAll(app);
+                foreach (string id in new[] { "hat.sprout_cap", "hat.straw_hat", "hat.flower_crown", "hat.acorn_cap", "skin.speckles", "trail.petal_sparkle", "expression.wink" })
+                {
+                    app.Meta.Save.Cosmetics.Owned.Add(id);
+                }
+
+                foreach ((Family family, string id) in new[]
+                {
+                    (Family.Sprig, "hat.sprout_cap"), (Family.Bloom, "hat.flower_crown"), (Family.Drop, "hat.straw_hat"), (Family.Twig, "hat.acorn_cap"),
+                    (Family.Sprig, "skin.speckles"), (Family.Twig, "trail.petal_sparkle"), (Family.Bloom, "expression.wink"),
+                })
+                {
+                    Expect(app.Meta.Wardrobe.Equip(family, id), "an owned " + id + " can be worn by " + family);
+                }
+
+                Run(app, p, 0.5f);
+                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).Play);
+                Expect(app.Screen == Design.Screen.Level, "a tap on Play plays, whatever hero stands behind it");
+                app.GoHome();
+                CloseAll(app);
+                Run(app, p, 0.5f);
+                Box picture = HomeLayers.Cover(new Box(0f, 0f, p.Width, p.Height));
+                Box twig = HeroMotion.PictureBox(HomeLayers.HeroCell(picture, Family.Twig), HeroMotion.Frame(Family.Twig, MotionClip.Idle, 0));
+                Expect(!app.HomeMotion.Player(Family.Twig).Busy(app.Now), "Twig idles before the tap");
+                p.Dispatch(twig.CenterX, twig.Top + (twig.Height * 0.7f));
+                Expect(app.HomeMotion.Player(Family.Twig).Busy(app.Now), "a tap on Twig makes it react at once");
+                Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "a tap on a hero opens nothing");
+                Run(app, p, 0.6f);
+            });
         }
 
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>

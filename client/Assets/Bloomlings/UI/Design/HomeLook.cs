@@ -63,12 +63,15 @@ namespace Bloomlings.Client.UI.Design
         public const float FeetShare = 0.9f;
 
         /// <summary>
-        /// Whether Home and the splash stand heroes in their diorama (spec 005 FR-024, contracts/look.md §4.5, §6.4): only
-        /// on the drawn stand-in. Over the owner's garden picture (pictures.md B1, or the splash's own B6) they show none
-        /// for now: the owner deferred the heroes on Home on 2026-10-02 (placing them around the painted fountain is hard;
-        /// they come back animated in a later task), so the picture shows alone with the logo and the buttons.
+        /// Whether Home and the splash stand heroes (spec 005 FR-024, FR-028, contracts/look.md §4.5, §6.4). Over the
+        /// owner's layered Home (<paramref name="layered"/>: its garden picture, pictures.md B1, with the fountain's back,
+        /// the lotus and the fountain's front of <see cref="HomeLayers"/>) the four animated heroes stand around the painted
+        /// lotus fountain (the owner, 2026-10-02: <see cref="HomeMotion"/>, <see cref="HomeLayers.HeroCell"/>); on the drawn
+        /// stand-in (no owner picture) the still heroes stand around the drawn fountain (<see cref="ReferenceDiorama"/>).
+        /// Over the owner's garden picture without its layers (or the splash's own B6, which has none) they show none: no
+        /// fountain to stand them in, so the picture shows alone with the logo and the buttons.
         /// </summary>
-        public static bool ShowsHeroes(bool ownerPicture) => !ownerPicture;
+        public static bool ShowsHeroes(bool ownerPicture, bool layered = false) => !ownerPicture || layered;
 
         /// <summary>
         /// The Home and splash garden (spec 005 §4.2: "the sky, arches and hills but warmer"): a clearer blue sky that
@@ -96,7 +99,8 @@ namespace Bloomlings.Client.UI.Design
         /// at the right. u is 0.88 of the stage's width, or its height over 1.09 (the reference stage's shape) on a shorter
         /// stage, so the heroes (their pictures less a 4% margin) stay inside it. Heroes are listed back to front, the
         /// fountain going before the fourth; hero boxes are 512 × 576 pictures whose feet stand at <see cref="FeetShare"/>.
-        /// The hosts draw it only without the owner's garden picture (<see cref="ShowsHeroes"/>).
+        /// The hosts draw it only without the owner's garden picture (<see cref="ShowsHeroes"/>); over the owner's layered
+        /// Home the heroes stand by <see cref="HomeLayers.HeroCell"/> instead.
         /// </summary>
         public static HomeDiorama ReferenceDiorama(Box stage)
         {

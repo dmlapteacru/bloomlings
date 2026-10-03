@@ -131,32 +131,116 @@ namespace Bloomlings.Playtest.Design
                 else
                 {
                     // The hero keeps its drawn face; the expression shows on a cream badge beside it (pictures.md A5).
-                    Box badge = CharacterArt.ExpressionBadge(picture);
-                    float line = Math.Max(1f, badge.Width * 0.06f);
-                    p.FillCircle(badge.CenterX, badge.CenterY + (line * 0.6f), badge.Width / 2f, C.InkBrown.WithAlpha(0.25f));
-                    p.FillCircle(badge.CenterX, badge.CenterY, badge.Width / 2f, C.CreamTop);
-                    p.StrokeCircle(badge.CenterX, badge.CenterY, (badge.Width / 2f) - (line / 2f), line, C.CreamLine);
-                    p.Shape(glyph, Box.FromCenter(badge.CenterX, badge.CenterY, badge.Width * 0.7f, badge.Width * 0.47f), C.InkBrown);
+                    ExpressionBadge(p, CharacterArt.ExpressionBadge(picture), glyph);
                 }
             }
 
             if (outfit?.Hat != null)
             {
-                // The hat sits on the head in full color: a darker outline of its own tint, the fill, a light top-left.
-                string hat = ShapeLibrary.CosmeticId(outfit.Hat.Shape);
-                Box hatBox = CharacterArt.HatOnHero(picture, family, outfit.Hat.Shape);
-                Rgba tint = Tint(outfit.Hat);
-                if (ShapeLibrary.Has(hat))
+                Hat(p, CharacterArt.HatOnHero(picture, family, outfit.Hat.Shape), outfit.Hat);
+            }
+        }
+
+        /// <summary>
+        /// Whether a family's animated hero can show (spec 005 FR-028): its clips were baked (<see cref="HeroMotion.Has"/>)
+        /// and their frames are embedded (else the hosts keep the still pictures).
+        /// </summary>
+        public static bool HasMotion(IPainter p, Family family) =>
+            HeroMotion.Has(family)
+            && p.HasSprite(MotionFrame(HeroMotion.Frame(family, MotionClip.Idle, 0)))
+            && p.HasSprite(MotionFrame(HeroMotion.Frame(family, MotionClip.Idle, -1)))
+            && p.HasSprite(MotionFrame(HeroMotion.Frame(family, MotionClip.React, -1)));
+
+        /// <summary>A hero frame's picture name for the painter (<see cref="PainterBase.HeroMotionPrefix"/>).</summary>
+        public static string MotionFrame(HeroFrame frame) => PainterBase.HeroMotionPrefix + frame.Name;
+
+        /// <summary>
+        /// A family's animated hero (spec 005 FR-028; meta screens only, constitution VII: flat pre-rendered frames) in its
+        /// frame cell <paramref name="cell"/> (<see cref="HeroMotion.Cell"/>, <see cref="HomeLayers.HeroCell"/>) at
+        /// <paramref name="pose"/>: the pose's frame, and over it the idle frame it cross-fades from at the pose's alpha. In
+        /// <paramref name="outfit"/>: the trail behind (<see cref="CharacterArt.TrailBox"/> of the cell), the skin through
+        /// each frame's own alpha, the expression on its cream badge (frames have no blank twin) and the hat on the head
+        /// turned with it (<see cref="HeroMotion.Hat"/>, between the two frames' while they cross-fade). Callers check
+        /// <see cref="HasMotion"/> first.
+        /// </summary>
+        public static void MotionHero(IPainter p, Box cell, Family family, HeroPose pose, Outfit? outfit)
+        {
+            p.Mark(HeroMotion.Slot(family));
+            HeroFrame frame = HeroMotion.Frame(family, pose.Clip, pose.Index);
+            HeroFrame? from = pose.FromIdle >= 0 && pose.FromAlpha > 0f ? HeroMotion.Frame(family, MotionClip.Idle, pose.FromIdle) : (HeroFrame?)null;
+            if (outfit?.Trail != null)
+            {
+                p.Shape(ShapeLibrary.CosmeticId(outfit.Trail.Shape), CharacterArt.TrailBox(cell), Tint(outfit.Trail));
+            }
+
+            MotionFrameIn(p, cell, frame, outfit);
+            if (from.HasValue)
+            {
+                p.PushAlpha(pose.FromAlpha);
+                MotionFrameIn(p, cell, from.Value, outfit);
+                p.PopAlpha();
+            }
+
+            if (outfit?.Expression != null)
+            {
+                ExpressionBadge(p, CharacterArt.ExpressionBadge(cell), ShapeLibrary.CosmeticId(outfit.Expression.Shape));
+            }
+
+            if (outfit?.Hat != null)
+            {
+                (Box box, float degrees) = HeroMotion.Hat(cell, family, frame, outfit.Hat.Shape);
+                if (from.HasValue)
                 {
-                    Func<float, float, float> sdf = ShapeLibrary.Get(hat);
-                    p.ShapeOf(hat + "/line", (x, y) => sdf(x, y) - 0.06f, hatBox, tint.Darken(0.45f));
-                    p.Shape(hat, hatBox, tint);
-                    p.ShapeOf(hat + "/light", (x, y) => Math.Max(sdf(x + 0.05f, y - 0.06f) + 0.07f, sdf(x, y) + 0.03f), hatBox, tint.Lighten(0.35f).WithAlpha(0.5f));
+                    (Box fromBox, float fromDegrees) = HeroMotion.Hat(cell, family, from.Value, outfit.Hat.Shape);
+                    float k = pose.FromAlpha;
+                    box = Box.FromCenter(box.CenterX + ((fromBox.CenterX - box.CenterX) * k), box.CenterY + ((fromBox.CenterY - box.CenterY) * k), box.Width, box.Height);
+                    degrees += (fromDegrees - degrees) * k;
                 }
-                else
-                {
-                    p.Shape(hat, hatBox, tint);
-                }
+
+                p.PushRotate(degrees, box.CenterX, box.CenterY);
+                Hat(p, box, outfit.Hat);
+                p.PopTransform();
+            }
+        }
+
+        /// <summary>One hero frame in its cell, with the worn skin through the frame's own alpha.</summary>
+        private static void MotionFrameIn(IPainter p, Box cell, HeroFrame frame, Outfit? outfit)
+        {
+            string name = MotionFrame(frame);
+            Box box = HeroMotion.PictureBox(cell, frame);
+            p.Sprite(name, box);
+            if (outfit?.Skin != null)
+            {
+                p.Mark(ShapeLibrary.CosmeticId(outfit.Skin.Shape));
+                p.SpriteSkin(name, box, outfit.Skin.Shape, Tint(outfit.Skin).WithAlpha(CosmeticCatalog.SkinOpacity));
+            }
+        }
+
+        /// <summary>A worn expression on a cream badge beside a hero's drawn face (pictures.md A5).</summary>
+        private static void ExpressionBadge(IPainter p, Box badge, string glyph)
+        {
+            float line = Math.Max(1f, badge.Width * 0.06f);
+            p.FillCircle(badge.CenterX, badge.CenterY + (line * 0.6f), badge.Width / 2f, C.InkBrown.WithAlpha(0.25f));
+            p.FillCircle(badge.CenterX, badge.CenterY, badge.Width / 2f, C.CreamTop);
+            p.StrokeCircle(badge.CenterX, badge.CenterY, (badge.Width / 2f) - (line / 2f), line, C.CreamLine);
+            p.Shape(glyph, Box.FromCenter(badge.CenterX, badge.CenterY, badge.Width * 0.7f, badge.Width * 0.47f), C.InkBrown);
+        }
+
+        /// <summary>A worn hat in full color: a darker outline of its own tint, the fill, a light top-left.</summary>
+        private static void Hat(IPainter p, Box hatBox, CosmeticItem item)
+        {
+            string hat = ShapeLibrary.CosmeticId(item.Shape);
+            Rgba tint = Tint(item);
+            if (ShapeLibrary.Has(hat))
+            {
+                Func<float, float, float> sdf = ShapeLibrary.Get(hat);
+                p.ShapeOf(hat + "/line", (x, y) => sdf(x, y) - 0.06f, hatBox, tint.Darken(0.45f));
+                p.Shape(hat, hatBox, tint);
+                p.ShapeOf(hat + "/light", (x, y) => Math.Max(sdf(x + 0.05f, y - 0.06f) + 0.07f, sdf(x, y) + 0.03f), hatBox, tint.Lighten(0.35f).WithAlpha(0.5f));
+            }
+            else
+            {
+                p.Shape(hat, hatBox, tint);
             }
         }
 

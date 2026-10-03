@@ -19,7 +19,7 @@ namespace Bloomlings.Playtest.Design
     {
         private readonly List<(Box Box, Action Action)> _hits = new List<(Box, Action)>();
         private readonly List<float> _alpha = new List<float>();
-        private readonly List<(float Dx, float Dy, float Sx, float Sy, float Cx, float Cy)> _transforms = new List<(float, float, float, float, float, float)>();
+        private readonly List<(float Dx, float Dy, float Sx, float Sy, float Cx, float Cy, float Degrees)> _transforms = new List<(float, float, float, float, float, float, float)>();
         private (float X, float Y, float At)? _release;
 
         public abstract float Width { get; }
@@ -99,14 +99,20 @@ namespace Bloomlings.Playtest.Design
 
         public void PushTransform(float dx, float dy, float scale, float cx, float cy)
         {
-            _transforms.Add((dx, dy, scale, scale, cx, cy));
+            _transforms.Add((dx, dy, scale, scale, cx, cy, 0f));
             ApplyTransform(dx, dy, scale, scale, cx, cy);
         }
 
         public void PushSquash(float sx, float sy, float cx, float cy)
         {
-            _transforms.Add((0f, 0f, sx, sy, cx, cy));
+            _transforms.Add((0f, 0f, sx, sy, cx, cy, 0f));
             ApplyTransform(0f, 0f, sx, sy, cx, cy);
+        }
+
+        public void PushRotate(float degrees, float cx, float cy)
+        {
+            _transforms.Add((0f, 0f, 1f, 1f, cx, cy, degrees));
+            ApplyRotation(degrees, cx, cy);
         }
 
         public void PopTransform()
@@ -134,8 +140,9 @@ namespace Bloomlings.Playtest.Design
         /// The embedded resource name of a picture: <c>bg/{name}</c> is an owner background (embedded without its extension,
         /// so a PNG or a JPEG works), <c>brand/{name}</c> the
         /// logo, <c>icon/{name}</c> a booster icon, a variant icon or the lotus and <c>decor/{name}</c> a leaf decoration
-        /// (spec 005 pictures.md B, C, D and G, <see cref="OwnerPictures"/>); every other name is a character picture (spec
-        /// 004 contracts/art-files.md "Loading"). A grey copy (<see cref="GreySuffix"/>) comes from its picture's resource.
+        /// (spec 005 pictures.md B, C, D and G, <see cref="OwnerPictures"/>), <c>heromotion/{frame}</c> an animated hero's
+        /// frame (spec 005 FR-028, embedded without its extension); every other name is a character picture (spec 004
+        /// contracts/art-files.md "Loading"). A grey copy (<see cref="GreySuffix"/>) comes from its picture's resource.
         /// </summary>
         public static string SpriteResource(string name)
         {
@@ -166,6 +173,12 @@ namespace Bloomlings.Playtest.Design
                 return "decor/" + name.Substring(DecorPrefix.Length) + ".png";
             }
 
+            if (name.StartsWith(HeroMotionPrefix, StringComparison.Ordinal))
+            {
+                // Embedded without the extension, as the backgrounds.
+                return name;
+            }
+
             return "characters/" + name + ".png";
         }
 
@@ -180,6 +193,16 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The name prefix of the owner's leaf pictures (<c>decor/ivy</c>, spec 005 pictures.md D).</summary>
         public const string DecorPrefix = "decor/";
+
+        /// <summary>
+        /// The name prefix of the animated heroes' frames (<c>heromotion/sprig-idle-07</c>, spec 005 FR-028: the
+        /// <see cref="HeroMotion.Folder"/> folder, lower case). The painters decode a frame when it is first drawn and keep
+        /// it in a cache bounded by bytes (<see cref="HeroFrameStore"/>), never the whole set.
+        /// </summary>
+        public const string HeroMotionPrefix = "heromotion/";
+
+        /// <summary>Whether a picture name is an animated hero's frame (<see cref="HeroMotionPrefix"/>).</summary>
+        public static bool IsHeroFrame(string name) => name.StartsWith(HeroMotionPrefix, StringComparison.Ordinal);
 
         /// <summary>
         /// The suffix of a picture's grey copy (<c>icon/variant-leaf#grey</c>: a stuck slot's tile icon, spec 005
@@ -203,7 +226,34 @@ namespace Bloomlings.Playtest.Design
             float b = box.Bottom;
             for (int i = _transforms.Count - 1; i >= 0; i--)
             {
-                (float dx, float dy, float sx, float sy, float cx, float cy) = _transforms[i];
+                (float dx, float dy, float sx, float sy, float cx, float cy, float degrees) = _transforms[i];
+                if (degrees != 0f)
+                {
+                    // A turn: the bounds of the turned corners (clockwise on screen, y down).
+                    double a = degrees * Math.PI / 180.0;
+                    float cos = (float)Math.Cos(a);
+                    float sin = (float)Math.Sin(a);
+                    float minX = float.MaxValue;
+                    float minY = float.MaxValue;
+                    float maxX = float.MinValue;
+                    float maxY = float.MinValue;
+                    foreach ((float x, float y) in new[] { (l, t), (r, t), (l, b), (r, b) })
+                    {
+                        float rx = cx + ((x - cx) * cos) - ((y - cy) * sin);
+                        float ry = cy + ((x - cx) * sin) + ((y - cy) * cos);
+                        minX = Math.Min(minX, rx);
+                        minY = Math.Min(minY, ry);
+                        maxX = Math.Max(maxX, rx);
+                        maxY = Math.Max(maxY, ry);
+                    }
+
+                    l = minX;
+                    t = minY;
+                    r = maxX;
+                    b = maxY;
+                    continue;
+                }
+
                 float l2 = ((l - cx) * sx) + cx + dx;
                 float r2 = ((r - cx) * sx) + cx + dx;
                 float t2 = ((t - cy) * sy) + cy + dy;
@@ -225,6 +275,9 @@ namespace Bloomlings.Playtest.Design
         }
 
         protected abstract void ApplyTransform(float dx, float dy, float sx, float sy, float cx, float cy);
+
+        /// <summary>Turns the canvas by <paramref name="degrees"/> clockwise about (cx, cy) after saving it (<see cref="RestoreTransform"/> undoes it).</summary>
+        protected abstract void ApplyRotation(float degrees, float cx, float cy);
 
         protected abstract void RestoreTransform();
 
@@ -266,6 +319,21 @@ namespace Bloomlings.Playtest.Design
         /// pictures not drawn in the last two frames are dropped and render again on demand.
         /// </summary>
         protected const long PictureCacheBytes = 12L * 1024 * 1024;
+
+        /// <summary>
+        /// How many bytes of decoded hero frames a painter keeps (<see cref="HeroFrameStore"/>): a frame is held as its
+        /// palette picture, one byte a pixel, so the 288 frames would take about 35 MiB and Home's four idle loops take
+        /// 23.5 MiB. The budget holds those loops and the last reaction or two, never the whole set: past it the least
+        /// recently drawn frames (an earlier hero's reaction first, as the idle loops come round every 4 s) are dropped and
+        /// decode again when drawn next. It must stay above the idle loops, or Home would decode every frame it draws.
+        /// </summary>
+        protected const long HeroFrameCacheBytes = 30L * 1024 * 1024;
+
+        /// <summary>
+        /// How many bytes of hero frames a painter keeps expanded to RGBA for drawing (the frames on screen and the few
+        /// before them): with <see cref="HeroFrameCacheBytes"/>, at most about 38 MiB of decoded frames.
+        /// </summary>
+        protected const long HeroDrawCacheBytes = 8L * 1024 * 1024;
 
         public abstract void PushClip(Box box);
 

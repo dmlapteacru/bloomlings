@@ -116,6 +116,13 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         void PushSquash(float sx, float sy, float cx, float cy);
 
+        /// <summary>
+        /// Turns what follows by <paramref name="degrees"/> clockwise about (cx, cy) until <see cref="PopTransform"/> (a
+        /// worn hat tilting with an animated hero's head, <see cref="HeroMotion.Hat"/>); touch targets drawn under it take
+        /// the turned box's bounds.
+        /// </summary>
+        void PushRotate(float degrees, float cx, float cy);
+
         void PopTransform();
 
         /// <summary>A touch target; the topmost target under the finger gets the tap (FR-027: at least <c>size.touch_min</c>).</summary>

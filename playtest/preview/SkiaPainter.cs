@@ -10,7 +10,9 @@ namespace Bloomlings.Playtest.Preview
     /// <see cref="IPainter"/> over SkiaSharp, for PNG previews of the playtest's designed screens (spec 002 research R3).
     /// It also records every shape, asset slot and text drawn, and every touch target, so the preview can check them
     /// (contracts/painter.md, "Recording"). The kit's material pictures (spec 005 <c>UiRaster</c>) are cached as
-    /// straight-alpha images, in a cache bounded by bytes as on the device (<see cref="PictureCache{T}"/>).
+    /// straight-alpha images, in a cache bounded by bytes as on the device (<see cref="PictureCache{T}"/>). The animated
+    /// heroes' frames (spec 005 FR-028) take the device's path: decoded on first use into palette pictures in a cache
+    /// bounded by bytes (<see cref="HeroFrameStore"/>), then expanded to premultiplied RGBA for the frames drawn.
     /// </summary>
     public sealed class SkiaPainter : PainterBase, IDisposable
     {
@@ -18,6 +20,8 @@ namespace Bloomlings.Playtest.Preview
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly PictureCache<SKImage> Pictures = new PictureCache<SKImage>(PictureCacheBytes, image => image.Dispose());
         private static readonly Dictionary<string, SKImage?> Sprites = new Dictionary<string, SKImage?>(StringComparer.Ordinal);
+        private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(typeof(SkiaPainter).Assembly, HeroFrameCacheBytes);
+        private static readonly PictureCache<SKImage> HeroImages = new PictureCache<SKImage>(HeroDrawCacheBytes, image => image.Dispose());
         // Declared before the faces: static initializers run in order, and LoadFont reads it.
         private static readonly Dictionary<bool, SKTypeface?> Fonts = new Dictionary<bool, SKTypeface?>();
         private static readonly SKTypeface Bold = LoadFont(true) ?? SKTypeface.FromFamilyName("DejaVu Sans", SKFontStyle.Bold) ?? SKTypeface.Default;
@@ -75,6 +79,12 @@ namespace Bloomlings.Playtest.Preview
                 Pictures.NextFrame();
             }
 
+            lock (HeroFrames)
+            {
+                HeroFrames.NextFrame();
+                HeroImages.NextFrame();
+            }
+
             base.BeginFrame();
             Targets.Clear();
             Texts.Clear();
@@ -129,6 +139,12 @@ namespace Bloomlings.Playtest.Preview
         }
 
         protected override void RestoreTransform() => Canvas.Restore();
+
+        protected override void ApplyRotation(float degrees, float cx, float cy)
+        {
+            Canvas.Save();
+            Canvas.RotateDegrees(degrees, cx, cy);
+        }
 
         private SKPaint Fill(Rgba color)
         {
@@ -367,7 +383,30 @@ namespace Bloomlings.Playtest.Preview
             Canvas.DrawImage(image, Rect(box), new SKSamplingOptions(SKFilterMode.Linear), Fill(Rgba.White));
         }
 
-        public override bool HasSprite(string name) => LoadSprite(name) != null;
+        public override bool HasSprite(string name)
+        {
+            if (IsHeroFrame(name))
+            {
+                lock (HeroFrames)
+                {
+                    return HeroFrames.Has(name);
+                }
+            }
+
+            return LoadSprite(name) != null;
+        }
+
+        /// <summary>How many hero frames were decoded so far, and the bytes of those held now (the preview's report).</summary>
+        public static (int Decoded, long Bytes) HeroFrameStats
+        {
+            get
+            {
+                lock (HeroFrames)
+                {
+                    return (HeroFrames.Decoded, HeroFrames.Bytes);
+                }
+            }
+        }
 
         public override (int Width, int Height)? SpriteSize(string name)
         {
@@ -405,9 +444,38 @@ namespace Bloomlings.Playtest.Preview
             Canvas.Restore();
         }
 
-        /// <summary>A character picture from the embedded resources, decoded once (null when missing).</summary>
+        /// <summary>
+        /// A picture from the embedded resources (null when missing): an animated hero's frame from its palette picture,
+        /// expanded for the frames that draw it (a frame that is not a palette PNG decodes as any picture), else decoded
+        /// once.
+        /// </summary>
         private static SKImage? LoadSprite(string name)
         {
+            if (IsHeroFrame(name))
+            {
+                lock (HeroFrames)
+                {
+                    PalettePicture? frame = HeroFrames.Get(name);
+                    if (frame != null)
+                    {
+                        if (!HeroImages.TryGet(name, frame.Width, frame.Height, out SKImage image))
+                        {
+                            var rgba = new byte[frame.Width * frame.Height * 4];
+                            frame.Expand(rgba, frame.Width, premultiplied: true);
+                            image = SKImage.FromPixelCopy(new SKImageInfo(frame.Width, frame.Height, SKColorType.Rgba8888, SKAlphaType.Premul), rgba);
+                            HeroImages.Add(name, frame.Width, frame.Height, image, rgba.Length);
+                        }
+
+                        return image;
+                    }
+
+                    if (!HeroFrames.Has(name))
+                    {
+                        return null;
+                    }
+                }
+            }
+
             lock (Sprites)
             {
                 if (!Sprites.TryGetValue(name, out SKImage? image))

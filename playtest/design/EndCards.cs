@@ -20,9 +20,9 @@ namespace Bloomlings.Playtest.Design
     /// <list type="bullet">
     /// <item><description>the win (frame 15): the reference's full-screen celebration (FR-023), no card and no top bar,
     /// over the win garden (<c>bg.win</c>): the wooden "Level complete!" sign with flower clusters, the finished picture
-    /// large in its stone frame, the celebrating hero (or the group) on the stone pedestal over the picture's foot in
-    /// light rays and falling petals, the reward pill on the pedestal and the big Next in its wood rim
-    /// (<see cref="ScreenLayout.WinScreen"/>);</description></item>
+    /// large in its stone frame, the celebrating hero (the level's animated hero, spec 005 FR-028, else its still
+    /// celebrating picture or the group) on the stone pedestal over the picture's foot in light rays and falling petals,
+    /// the reward pill on the pedestal and the big Next in its wood rim (<see cref="ScreenLayout.WinScreen"/>);</description></item>
     /// <item><description>the milestone (frame 16) in the same full-screen language;</description></item>
     /// <item><description>the jam (frame 10): the centered modal card over the dimmed gameplay (FR-022,
     /// <see cref="ScreenLayout.JamCard"/>): the slot contents in a well and the recoveries as a two-column grid of big
@@ -77,7 +77,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             Sign(p, r, PlaytestText.T("win.title"), since);
-            Stand(p, r, hero, family, since);
+            Stand(p, s, r, hero, family, since);
             Petals(p, r, since);
 
             // The reward rises in after the reveal (motion.reward); Next works at once.
@@ -157,7 +157,7 @@ namespace Bloomlings.Playtest.Design
             p.PopTransform();
             p.PopAlpha();
 
-            Stand(p, r, hero, family, since);
+            Stand(p, s, r, hero, family, since);
             Petals(p, r, since);
             p.PushAlpha(rise);
             MilestonePill(p, r.Reward.CenterX, r.Reward.CenterY, Math.Min(r.Reward.Height, p.U(MilestonePillUnits)), r.Reward.Width * MilestonePillWidth);
@@ -402,6 +402,13 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The group (when the level's celebrating hero is missing) is at most this share of the pedestal wide.</summary>
         private const float GroupShare = 1.15f;
 
+        /// <summary>
+        /// When the hero appears on the pedestal, in seconds after the card shows (it then starts rising in,
+        /// <see cref="Stand"/>): the animated hero's reaction plays from here, then its idle loops for as long as the card
+        /// shows.
+        /// </summary>
+        private const float HeroEntrance = 0.1f;
+
         /// <summary>The milestone's reward panel ends this share of the hero's height below the hero box's top (above the heads).</summary>
         private const float HeadRoom = 0.12f;
 
@@ -413,13 +420,17 @@ namespace Bloomlings.Playtest.Design
 
         private const float MilestonePillWidth = 1.5f;
 
-        /// <summary>Who celebrates on the pedestal: the level's celebrating hero (<see cref="Cheer"/>) or the group, and where the rays turn.</summary>
+        /// <summary>
+        /// Who celebrates on the pedestal: the level's animated hero (<see cref="Moving"/>), its still celebrating picture
+        /// (<see cref="Cheer"/>) or the group, and where the rays turn.
+        /// </summary>
         private readonly struct Celebrant
         {
-            public Celebrant(Box picture, string? cheer, float raysX, float raysY)
+            public Celebrant(Box picture, string? cheer, bool moving, float raysX, float raysY)
             {
                 Picture = picture;
                 Cheer = cheer;
+                Moving = moving;
                 RaysX = raysX;
                 RaysY = raysY;
             }
@@ -429,6 +440,9 @@ namespace Bloomlings.Playtest.Design
             /// <summary>The owner's celebrating hero of the level's main family (pictures.md A7), or null for the group.</summary>
             public string? Cheer { get; }
 
+            /// <summary>Whether the level's main family shows as its animated hero (spec 005 FR-028) in the picture's cell.</summary>
+            public bool Moving { get; }
+
             public float RaysX { get; }
 
             public float RaysY { get; }
@@ -436,25 +450,38 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The hero standing on the pedestal (§6.3, spec 004 FR-017): its feet just behind the middle of the pedestal's top,
-        /// the level's celebrating hero filling the hero box when the owner's picture exists (pictures.md A7), else the four
-        /// heroes, their heads at the hero box's top, at most <see cref="GroupShare"/> of the pedestal wide. The rays turn
-        /// behind its body.
+        /// the level's main family filling the hero box as its animated hero when its frames exist (spec 005 FR-028), else
+        /// as its celebrating picture when the owner's picture exists (pictures.md A7), else the four heroes, their heads at
+        /// the hero box's top, at most <see cref="GroupShare"/> of the pedestal wide. The rays turn behind its body.
         /// </summary>
         private static Celebrant Cast(IPainter p, WinRegions r, Family family)
         {
             (float topY, float ry) = HomeStage.PedestalTop(r.Pedestal);
             float feet = Math.Max(r.Hero.Top + (r.Hero.Height * HomeStage.FeetShare), topY - (ry * 0.25f));
             string cheer = CharacterArt.Cheer(family);
-            if (p.HasSprite(cheer))
+            bool moving = Visuals.HasMotion(p, family);
+            if (moving || p.HasSprite(cheer))
             {
                 Box solo = HomeStage.Figure(r.Hero.CenterX, feet, r.Hero.Height);
-                return new Celebrant(solo, cheer, solo.CenterX, solo.CenterY);
+                return new Celebrant(solo, moving ? null : cheer, moving, solo.CenterX, solo.CenterY);
             }
 
             float span = (CharacterArt.GroupFeetShare - CharacterArt.GroupHeadShare) * CharacterArt.GroupHeight / CharacterArt.GroupWidth;
             float width = Math.Min(r.Pedestal.Width * GroupShare, (feet - r.Hero.Top) / span);
             Box group = CharacterArt.GroupStanding(r.Hero.CenterX, feet, width);
-            return new Celebrant(group, null, group.CenterX, feet - (group.Height * 0.22f));
+            return new Celebrant(group, null, false, group.CenterX, feet - (group.Height * 0.22f));
+        }
+
+        /// <summary>
+        /// The animated hero's pose <paramref name="since"/> seconds after the card showed: from its entrance
+        /// (<see cref="HeroEntrance"/>) its reaction, which starts on the idle's first pose, then its idle loop. The player
+        /// is deterministic in its inputs, so it is made again each frame.
+        /// </summary>
+        private static HeroPose CelebrationPose(Family family, float since)
+        {
+            var player = new HeroMotionPlayer(family, HeroEntrance);
+            player.React(HeroEntrance, waitForSeam: true);
+            return player.Pose(Math.Max(HeroEntrance, since));
         }
 
         /// <summary>
@@ -487,19 +514,25 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The stone pedestal (unless the owner's win picture paints the stage) and the hero jumping up onto it (fading in,
-        /// rising a little and settling).
+        /// rising a little and settling). The animated hero reacts as it lands and then idles (<see cref="CelebrationPose"/>),
+        /// and the screen keeps redrawing for it (<see cref="LevelScreen.HeroMoving"/>).
         /// </summary>
-        private static void Stand(IPainter p, WinRegions r, Celebrant hero, Family family, float since)
+        private static void Stand(IPainter p, LevelScreen s, WinRegions r, Celebrant hero, Family family, float since)
         {
             if (!PaintedStage(p))
             {
                 Kit.StonePedestal(p, r.Pedestal);
             }
 
-            float up = Kit.Ease((since - 0.1f) / 0.45f);
+            float up = Kit.Ease((since - HeroEntrance) / 0.45f);
             p.PushAlpha(up);
             p.PushTransform(0f, (1f - up) * hero.Picture.Height * 0.08f, 1f, 0f, 0f);
-            if (hero.Cheer != null)
+            s.HeroMoving = hero.Moving;
+            if (hero.Moving)
+            {
+                Visuals.MotionHero(p, HeroMotion.Cell(hero.Picture), family, CelebrationPose(family, since), null);
+            }
+            else if (hero.Cheer != null)
             {
                 p.Mark(CharacterArt.CheerSlot(family));
                 p.Sprite(hero.Cheer, hero.Picture);
