@@ -201,7 +201,7 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// The pod grid of <paramref name="stackCount"/> Source stacks (§6.1, <see cref="ReferenceGameplayRegions.Pod"/>) in
-        /// <see cref="TrayArea"/>'s top-down canvas units (<see cref="InPodRow"/>).
+        /// <see cref="TrayArea"/>'s top-down canvas units (<see cref="InPodRow(ReferenceGameplayRegions)"/>).
         /// </summary>
         public ReferenceGameplayRegions PodGrid(int stackCount)
         {
@@ -221,14 +221,28 @@ namespace Bloomlings.Client.UI.Screens
         /// <see cref="ReferenceGameplayRegions.Chip"/> and <see cref="ReferenceGameplayRegions.Shows"/> give the pods' boxes
         /// there (the other regions stay in screen pixels).
         /// </summary>
-        public static ReferenceGameplayRegions InPodRow(ReferenceGameplayRegions r)
+        public static ReferenceGameplayRegions InPodRow(ReferenceGameplayRegions r) => InPodRow(r, 1f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit));
+
+        /// <summary>
+        /// <see cref="InPodRow(ReferenceGameplayRegions)"/> at <paramref name="unitsPerPixel"/> canvas units per screen
+        /// pixel (engine-free).
+        /// </summary>
+        public static ReferenceGameplayRegions InPodRow(ReferenceGameplayRegions r, float unitsPerPixel)
         {
-            float k = 1f / Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
+            float k = unitsPerPixel;
+            Box row = r.PodRow;
+            Box InRow(Box b) => new Box((b.Left - row.Left) * k, (b.Top - row.Top) * k, (b.Right - row.Left) * k, (b.Bottom - row.Top) * k);
+            var columns = new Box[r.Columns.Count];
+            for (int i = 0; i < columns.Length; i++)
+            {
+                columns[i] = InRow(r.Columns[i]);
+            }
+
             return r with
             {
                 W = r.W * k,
-                PodRow = UiKit.ToLocal(r.PodRow, r.PodRow),
-                Columns = Local(r.Columns, r.PodRow),
+                PodRow = InRow(row),
+                Columns = columns,
                 FrontHeight = r.FrontHeight * k,
                 QueueHeight = r.QueueHeight * k,
                 PodGap = r.PodGap * k,

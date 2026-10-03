@@ -278,16 +278,17 @@ namespace Bloomlings.Client.UI
 
         /// <summary>
         /// Lays the bar between pod <paramref name="a"/> (left) and pod <paramref name="b"/> (right), boxes in the parent's
-        /// top-down coordinates: 42% down the pods, from 8% of a pod's shorter side inside one frame to as far inside the
-        /// other, 10% of that side thick, in the group's <paramref name="color"/>.
+        /// top-down coordinates (the tray's pods, wider than tall): 42% down the pods, from 10% of a pod's height inside one
+        /// frame (on its wooden member) to as far inside the other, 16% of that height thick, in the group's
+        /// <paramref name="color"/>.
         /// </summary>
         public void Set(Box a, Box b, Color color)
         {
             float size = Mathf.Min(Mathf.Min(a.Width, b.Width), Mathf.Min(a.Height, b.Height));
             float y = a.Top + (a.Height * 0.42f);
-            float x0 = a.Right - (size * 0.08f);
-            float x1 = b.Left + (size * 0.08f);
-            float bar = size * 0.1f;
+            float x0 = a.Right - (size * 0.1f);
+            float x1 = b.Left + (size * 0.1f);
+            float bar = size * 0.16f;
             Place(_shadow, x0, x1, y + (bar * 0.25f), bar + (size * 0.05f));
             Place(_rim, x0, x1, y, bar + (size * 0.04f));
             Place(_bar, x0, x1, y, bar);

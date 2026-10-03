@@ -127,7 +127,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                 _slide = null;
             }
 
-            bool moves = from.HasValue && (fadeIn || Mathf.Abs(from.Value.CenterY - box.CenterY) > 0.5f || Mathf.Abs(from.Value.CenterX - box.CenterX) > 0.5f || Mathf.Abs(from.Value.Height - box.Height) > 0.5f);
+            bool moves = from.HasValue && (fadeIn || _fade.alpha < 0.999f || Mathf.Abs(from.Value.CenterY - box.CenterY) > 0.5f || Mathf.Abs(from.Value.CenterX - box.CenterX) > 0.5f || Mathf.Abs(from.Value.Height - box.Height) > 0.5f);
             if (moves && isActiveAndEnabled)
             {
                 _slide = StartCoroutine(SlideRoutine(from!.Value, fadeIn));
@@ -139,6 +139,8 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         private IEnumerator SlideRoutine(Box from, bool fadeIn)
         {
+            // A pod still fading in when its column moves again keeps fading from where it was.
+            float alpha = fadeIn ? 0f : _fade.alpha;
             for (float t = 0f; t < SlideSeconds; t += Time.unscaledDeltaTime)
             {
                 float k = t / SlideSeconds;
@@ -148,7 +150,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     Mathf.Lerp(from.Top, _box.Top, e),
                     Mathf.Lerp(from.Right, _box.Right, e),
                     Mathf.Lerp(from.Bottom, _box.Bottom, e));
-                SetVisual(at, fadeIn ? e : 1f);
+                SetVisual(at, Mathf.Lerp(alpha, 1f, e));
                 yield return null;
             }
 
