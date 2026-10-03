@@ -350,18 +350,7 @@ namespace Bloomlings.Playtest
         public void Flush(LevelView view)
         {
             _silent = true;
-            _waves.Sort((a, b) => a.StartAt.CompareTo(b.StartAt));
-            foreach (Wave wave in _waves)
-            {
-                if (!wave.Started)
-                {
-                    Start(wave, view, withWalkers: false);
-                }
-
-                Deliver(wave, all: true, view);
-                End(wave, view);
-            }
-
+            Play(float.PositiveInfinity, view, live: false);
             _waves.Clear();
             Walkers.Clear();
             Array.Clear(_ready, 0, _ready.Length);
@@ -385,18 +374,39 @@ namespace Bloomlings.Playtest
         {
             float rate = Math.Min(MaxRate, Speed * Math.Max(1f, Backlog / BacklogSeconds));
             float until = Now + (realSeconds * rate);
+            Play(until, view, live: true);
+            Now = Math.Max(Now, until);
+
+            foreach (SlotLook slot in Slots)
+            {
+                if (slot.IsLeaving && Now - slot.LeavingAt >= ExitSeconds)
+                {
+                    FinishLeave(slot);
+                }
+            }
+
+            Fades.RemoveAll(f => Now - f.Start >= FadeSeconds);
+            Flights.RemoveAll(f => Now - f.Start >= FlightSeconds);
+        }
+
+        /// <summary>
+        /// Plays every wave end, Bloomling arrival and wave start due by <paramref name="until"/> in time order (in that
+        /// order on a tie, so what finishes at a moment shows before what starts then). <paramref name="live"/> moves the
+        /// clock to each and sends the Bloomlings walking; <see cref="Flush"/> plays them all at once without either.
+        /// </summary>
+        private void Play(float until, LevelView view, bool live)
+        {
             while (true)
             {
-                // The next thing due: a wave to start, a Bloomling to arrive, a wave to end (in that order on a tie).
                 Wave? next = null;
                 int kind = 0;
                 float at = float.PositiveInfinity;
                 foreach (Wave wave in _waves)
                 {
-                    (float t, int k) = !wave.Started ? (wave.StartAt, 0)
+                    (float t, int k) = !wave.Started ? (wave.StartAt, 2)
                         : wave.NextArrival < wave.Work.Count ? (wave.StartAt + ArrivalOf(wave, wave.NextArrival), 1)
-                        : (wave.StartAt + wave.Duration, 2);
-                    if (t < at || (t == at && k < kind))
+                        : (wave.StartAt + wave.Duration, 0);
+                    if (next == null || t < at || (t == at && k < kind))
                     {
                         next = wave;
                         kind = k;
@@ -409,10 +419,14 @@ namespace Bloomlings.Playtest
                     break;
                 }
 
-                Now = Math.Max(Now, at);
-                if (kind == 0)
+                if (live)
                 {
-                    Start(next, view, withWalkers: true);
+                    Now = Math.Max(Now, at);
+                }
+
+                if (kind == 2)
+                {
+                    Start(next, view, withWalkers: live);
                 }
                 else if (kind == 1)
                 {
@@ -426,19 +440,6 @@ namespace Bloomlings.Playtest
                     _waves.Remove(next);
                 }
             }
-
-            Now = Math.Max(Now, until);
-
-            foreach (SlotLook slot in Slots)
-            {
-                if (slot.IsLeaving && Now - slot.LeavingAt >= ExitSeconds)
-                {
-                    FinishLeave(slot);
-                }
-            }
-
-            Fades.RemoveAll(f => Now - f.Start >= FadeSeconds);
-            Flights.RemoveAll(f => Now - f.Start >= FlightSeconds);
         }
 
         private static SlotLook[] CreateSlots()
@@ -721,6 +722,15 @@ namespace Bloomlings.Playtest
                     if (_keyReady.TryGetValue(key, out float ready))
                     {
                         start = Math.Max(start, ready + KeyGap - w.Duration);
+                    }
+                }
+
+                if (w.End.Exists(e => e is LevelWon || e is LevelJammed || e is LevelStuck))
+                {
+                    // The level's outcome (its sound; the end card waits for Settled) shows after all an earlier tap still plays.
+                    foreach (Wave other in _waves)
+                    {
+                        start = Math.Max(start, other.StartAt + other.Duration + KeyGap - w.Duration);
                     }
                 }
 

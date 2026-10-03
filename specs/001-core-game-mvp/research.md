@@ -145,7 +145,9 @@ ordered **event log**. The next command always applies to that settled state. An
   - the waves of one tap play one after another, as its rounds do, and the waves of different taps play side by side
     (FR-018 as the player sees it). A wave waits only as long as it must: each of its Bloomlings steps on a cell of its
     route, or reaches its target, only after that cell's earlier change has shown (a tile an earlier tap clears, a layer
-    revealed under it), and a special's progress and a pod's leaving keep the rules' order;
+    revealed under it), and a special's progress and a pod's leaving keep the rules' order. Wave ends, arrivals and
+    starts play in time order (in that order at one moment), also when a booster shows everything at once, and the
+    level's outcome (win, jam, stuck) shows after every wave an earlier tap still plays;
   - a committed pod shows in its rules' slot when that slot shows no pod, else in the first usable slot that shows
     none, else it waits in a queue until one frees. Where a pod shows never changes an outcome (the rules decide which
     slot it holds, FR-024); Return aims at the shown pod's slot in the rules;
