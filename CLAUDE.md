@@ -110,9 +110,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (kit) renders engine-free material pictures (planks, pod frames, stones, arch, pedestal, candy tiles; deterministic,
   straight alpha), drawn through `IPainter.Picture` (playtest) and `ProceduralSprites.Picture` (Unity), each cached by
   key and size. `BoardLayout` places the grid, the stone border and the arch entries. The board is candy tiles in a
-  stone border on a lawn; pods are wooden frames and Waiting Slots cream plates, both holding the variant's candy tile
-  and its plain count; cards are parchment; Petals is a pink lotus. Components are `Kit.*` with same-named `UiKit*`
-  twins.
+  stone border on a lawn. Pods are wooden frames wider than tall (candy tile left, plain count right) that stand one
+  after another in a column per Source stack, never on each other: a gameplay rule (owner, 2026-10-03), whatever the
+  look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). Waiting Slots are cream
+  plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`
+  with same-named `UiKit*` twins.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the four Meshy FBX heroes offline into flat 12 fps frames (a 4 s idle loop and a 2 s reaction each, in
   `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in

@@ -707,9 +707,10 @@ insets: `k` is 1 at 19.5:9 and 21:9, about 0.93 at 18:9 and 0.86 at 16:9) and th
 
 The functions (engine-free, `client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs`, partial `ScreenLayout`; tests in
 `ReferenceLayoutTests`) are `ScreenLayout.ReferenceGameplay` → `ReferenceGameplayRegions` (with `PodChip` for one
-pod of the tray's grid), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`, `ScreenLayout.ReferenceHome`
-→ `ReferenceHomeRegions` and `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions`; `ScreenLayout.ReferenceScale`
-is `k`. Where the measurements left a choice, the implementation fixes it as noted under each table ("Fixed:").
+pod of the tray's grid), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`,
+`ScreenLayout.ReferenceHome` → `ReferenceHomeRegions` and `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions`;
+`ScreenLayout.ReferenceScale` is `k`. Where the measurements left a choice, the implementation fixes it as noted under
+each table ("Fixed:").
 
 ### 6.1 Gameplay
 

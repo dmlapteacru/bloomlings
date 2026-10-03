@@ -87,7 +87,7 @@ core's events drive the slides, and no rule, event or tap outcome changes. **Pas
 exposed pod alone stays selectable, spec 001 FR-011).
 
 ```text
-client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs      # ReferenceGameplayRegions.Columns, PodRows, Pod, Chip, Shows; PodChip
+client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs  # Columns, PodRows, Pod, Chip, Shows; PodChip
 client/Assets/Bloomlings/Tests/EditMode/ReferenceLayoutTests.cs
 playtest/design/PodPainter.cs, KitGarden.cs, LevelScreen.cs # the columns, Kit.Pod, TrayMotion
 client/Assets/Bloomlings/Gameplay/Tray/TrayView.cs, PodView.cs  # the Unity grid and its slides

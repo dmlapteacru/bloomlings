@@ -349,12 +349,13 @@ in spec 002.
   - spec 001 FR-012's order of prominence: variant symbol, variant color, count, family silhouette.
 
   The top-bar pills follow the recipe of FR-006 and FR-007.
-- **FR-022a Tray grid**: The Source Tray MUST show each stack as a column of pods that never overlap: the exposed pod in
-  the top row and the next two pods of the stack in the rows below, each fully visible, so the player can read what
-  each choice uncovers. Pods still in their stack keep their variant color, muted, with their symbol and count; only
-  the exposed pods are bright and take taps. Deeper pods are not drawn; a "+N" count badge on the last shown pod says
-  how many more wait there. Tray pods are smaller than before to fit three rows, and the board keeps its share of the
-  screen (spec 002 data-model rule 3).
+- **FR-022a Tray grid** *(spec 005 FR-021, as amended on 2026-10-03, restores this rule with 3–4 rows: four from a
+  safe aspect of 1.95, else three)*: The Source Tray MUST show each stack as a column of pods that never overlap: the
+  exposed pod in the top row and the next two pods of the stack in the rows below, each fully visible, so the player
+  can read what each choice uncovers. Pods still in their stack keep their variant color, muted, with their symbol and
+  count; only the exposed pods are bright and take taps. Deeper pods are not drawn; a "+N" count badge on the last
+  shown pod says how many more wait there. Tray pods are smaller than before to fit three rows, and the board keeps its
+  share of the screen (spec 002 data-model rule 3).
 - **FR-023** *(frame and cells amended by spec 005 FR-010 and FR-011: candy tiles in a stone border on a lawn)*: The
   board and its cells MUST be volumetric but drawn in 2D:
   - the board sits in a wooden frame;

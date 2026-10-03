@@ -46,8 +46,10 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   - the level (frames 7–9) in the reference's layout (spec 005 FR-020, FR-021): the cream Pause, the wooden level sign
     with ivy and the HARD or SUPER HARD badge, the cream 2× pill, the board of candy tiles wide in its stone border on
     the lawn, the entry strip with the arch, and one parchment tray to the bottom of the screen with the Waiting Slots,
-    the four booster boxes and one deck per Source stack (the front pod, the next two peeking above it, "+N"), with the
-    pod, slot and booster states of frames 12–14;
+    the four booster boxes and a column of pods per Source stack, one after another and never on each other (the
+    owner's gameplay rule of 2026-10-03): the exposed pod on top, bright and the only one taking taps, and the next
+    ones muted under it, three rows or four from 19.5:9, "+N" on the last shown pod; the pods slide up a row when the
+    exposed one leaves and down when Return puts one back. Frames 12–14 show the pod, slot and booster states;
   - cards: pause and Settings (frame 11), the jam card centered on the screen (frame 10), the win card (frame 15) and the milestone
     card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), the Daily Reward
     (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and the Store (frame 17).
@@ -57,8 +59,9 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   (`specs/005-reference-look/`, recipes in `contracts/look.md`) on the spec 003 Garden kit: sentence-case labels in
   Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); glossy green main buttons in a light
   wood rim, cream secondary and round buttons; wooden signs; parchment cards with a cream round close; the board as
-  candy tiles in a stone border with stone arch entries on a lawn; wooden pods and cream Waiting Slots, both holding the
-  variant's candy tile and its plain count; cream booster tiles with green count badges; Petals as a pink lotus.
+  candy tiles in a stone border with stone arch entries on a lawn; wooden pods (the candy tile at the left, the plain
+  count at the right) and cream Waiting Slots (the tile, the count below it); cream booster tiles with green count
+  badges; Petals as a pink lotus.
   Material pictures (planks, frames, stones, arch, pedestal, candy tiles) come from the kit's `UiRaster` through
   `IPainter.Picture`, cached by key and size; `BoardLayout` places the board. The Bloomlings are the generated character
   art of spec 004 (`specs/004-character-art/`), embedded from
