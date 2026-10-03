@@ -522,20 +522,14 @@ namespace Bloomlings.Playtest.Design
         // ---- Drawing ----
 
         /// <summary>
-        /// This frame's reference gameplay regions (spec 005 FR-020, contracts/look.md §6.1): the level's Garden Entry sides
-        /// (a bottom entry takes the entry strip for its arch), one column of pods per Source stack, the Waiting Slots shown (the
+        /// This frame's reference gameplay regions (spec 005 FR-020, contracts/look.md §6.1): one column of pods per Source
+        /// stack (the Garden Entries take no room: they have no arch), the Waiting Slots shown (the
         /// sixth one too once Extra Slot opened it), the booster row once a booster is unlocked, and the Hard or Super
         /// Hard badge under the sign.
         /// </summary>
         public ReferenceGameplayRegions Regions(IPainter p, bool hasBoosters, bool hasBadge)
         {
             LevelView view = Session.View;
-            var sides = new List<EntrySide>();
-            foreach (EntryDef entry in view.Entries)
-            {
-                sides.Add(entry.Side);
-            }
-
             int slots = 0;
             for (int i = 0; i < view.SlotCapacity; i++)
             {
@@ -545,7 +539,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            return ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, sides, view.StackCount, slots, hasBoosters, hasBadge);
+            return ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, view.StackCount, slots, hasBoosters, hasBadge);
         }
 
         /// <summary>
@@ -694,7 +688,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The reference layout (spec 005 FR-020, contracts/look.md §6.1): the top bar, the board wide in its stone
-            // border on the lawn, the entry strip with a bottom entry's arch, and one parchment tray to the bottom of the
+            // border on the lawn, the thin entry strip of lawn under it, and one parchment tray to the bottom of the
             // screen with the slots, the boosters and the columns of pods.
             ReferenceGameplayRegions r = Regions(p, hasBoosters, badge.HasValue);
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, Level);
@@ -715,7 +709,7 @@ namespace Bloomlings.Playtest.Design
                 Kit.Badge(p, r.Badge, badge.Value.Text, badge.Value.Color, badge.Value.Slot);
             }
 
-            BoardLayout board = r.FitBoard(view.Width, view.Height, view.Entries);
+            BoardLayout board = r.FitBoard(view.Width, view.Height);
             BoardPainter.Draw(p, board, this);
             TrayPanel(p, r);
             SlotPainter.DrawRow(p, r.Slots, this);

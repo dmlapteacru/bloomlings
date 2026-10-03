@@ -20,8 +20,8 @@ namespace Bloomlings.Client.UI.Screens
     /// ends (0.42 W × 0.115 W) and the cream speed pill (0.2 W × 0.115 W);</description></item>
     /// <item><description>the HARD or SUPER HARD badge under the sign (a Super Hard level also tints the sign's
     /// letters);</description></item>
-    /// <item><description>the board on the lawn inside its stone border, at most 0.86 W wide, with the entry strip under it
-    /// for a bottom entry's arch (<see cref="FitBoard"/>);</description></item>
+    /// <item><description>the board on the lawn inside its stone border, at most 0.86 W wide, with the thin entry strip of
+    /// lawn under it (<see cref="FitBoard"/>; the Garden Entries have no arch);</description></item>
     /// <item><description>one parchment tray from the entry strip to the bottom of the screen, its rows on bands parted by
     /// grooves: the Waiting Slots, the four booster boxes (left out before the first booster unlocks) and the Source
     /// stacks, one column each, their pods one after another and never on each other (the owner's gameplay rule,
@@ -48,7 +48,6 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _toast = null!;
         private Image _toastPill = null!;
         private ReferenceGameplayRegions? _regions;
-        private IReadOnlyCollection<EntrySide> _entrySides = Array.Empty<EntrySide>();
         private int _stackCount = 4;
         private bool _hasBadge;
         private bool _hasBoosters = true;
@@ -61,7 +60,7 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         public RectTransform TopBar => _topBar;
 
-        /// <summary>The lawn from the board's top to the entry strip's bottom across the safe width: the board and its arches.</summary>
+        /// <summary>The lawn from the board's top to the entry strip's bottom across the safe width: the board's room.</summary>
         public RectTransform BoardArea { get; private set; } = null!;
 
         /// <summary>The Waiting Slots' row on the tray.</summary>
@@ -128,23 +127,21 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// Places every region with the last level's entries and stacks (four stacks and no entry under the board before
-        /// the first level); see <see cref="Layout(bool, bool, IReadOnlyCollection{EntrySide}, int)"/>.
+        /// Places every region with the last level's stacks (four stacks before the first level); see
+        /// <see cref="Layout(bool, bool, int)"/>.
         /// </summary>
-        public void Layout(bool hasBadge, bool hasBoosters) => Layout(hasBadge, hasBoosters, _entrySides, _stackCount);
+        public void Layout(bool hasBadge, bool hasBoosters) => Layout(hasBadge, hasBoosters, _stackCount);
 
         /// <summary>
         /// Places every region for the coming level (data-model rules 1–3; spec 005 §6.1): a Hard or Super Hard badge takes
-        /// a line under the sign; the booster row and its band of parchment are left out before any booster unlocks; a
-        /// bottom Garden Entry among <paramref name="entrySides"/> gets the entry strip under the board for its arch; the pod
-        /// row holds one column per Source stack (<paramref name="stackCount"/>). Call it before the board, slots and tray
-        /// are built.
+        /// a line under the sign; the booster row and its band of parchment are left out before any booster unlocks; the pod
+        /// row holds one column per Source stack (<paramref name="stackCount"/>). The Garden Entries take no room (no arch).
+        /// Call it before the board, slots and tray are built.
         /// </summary>
-        public void Layout(bool hasBadge, bool hasBoosters, IReadOnlyCollection<EntrySide> entrySides, int stackCount)
+        public void Layout(bool hasBadge, bool hasBoosters, int stackCount)
         {
             _hasBadge = hasBadge;
             _hasBoosters = hasBoosters;
-            _entrySides = entrySides;
             _stackCount = Mathf.Max(0, stackCount);
             ReferenceGameplayRegions r = Compute(WaitingSlots.DefaultCount);
             _regions = r;
@@ -182,11 +179,11 @@ namespace Bloomlings.Client.UI.Screens
             LayToast();
         }
 
-        /// <summary>The reference regions for this level's badge, boosters, entries and stacks with <paramref name="slotCount"/> Waiting Slots.</summary>
+        /// <summary>The reference regions for this level's badge, boosters and stacks with <paramref name="slotCount"/> Waiting Slots.</summary>
         private ReferenceGameplayRegions Compute(int slotCount)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            return ScreenLayout.ReferenceGameplay(w, h, insets, _entrySides, _stackCount, slotCount, _hasBoosters, _hasBadge);
+            return ScreenLayout.ReferenceGameplay(w, h, insets, _stackCount, slotCount, _hasBoosters, _hasBadge);
         }
 
         /// <summary>
@@ -262,14 +259,13 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// The board's layout in <see cref="BoardArea"/>'s own top-down canvas units (<paramref name="local"/> is its box):
-        /// <see cref="ReferenceGameplayRegions.FitBoard"/>, the stone border at most 0.86 W wide and a bottom entry's arch
-        /// in the entry strip (§6.1).
+        /// <see cref="ReferenceGameplayRegions.FitBoard"/>, the stone border at most 0.86 W wide (§6.1).
         /// </summary>
-        public BoardLayout FitBoard(Box local, int width, int height, IReadOnlyList<EntryDef> entries)
+        public BoardLayout FitBoard(Box local, int width, int height)
         {
             if (_regions == null || _regions.BoardArea.Width <= 0f)
             {
-                return BoardLayout.Fit(local, width, height, entries);
+                return BoardLayout.Fit(local, width, height);
             }
 
             // FitBoard reads only the board area (the safe width from the board's top to the entry strip's bottom) and W:
@@ -283,7 +279,7 @@ namespace Bloomlings.Client.UI.Screens
                 Board = new Box(local.Left, local.Top, local.Right, local.Top),
                 EntryStrip = new Box(local.Left, local.Bottom, local.Right, local.Bottom),
             };
-            return inArea.FitBoard(width, height, entries);
+            return inArea.FitBoard(width, height);
         }
 
         /// <summary>Screen boxes in the top-down canvas units of a rect placed at <paramref name="area"/>.</summary>

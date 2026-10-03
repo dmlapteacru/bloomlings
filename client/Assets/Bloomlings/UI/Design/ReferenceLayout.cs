@@ -6,7 +6,8 @@ namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
     /// The reference gameplay screen (spec 005 FR-020, FR-021; contracts/look.md §6.1), top to bottom: the top bar (Pause,
-    /// the wooden level sign, the speed pill), the board in its stone border on the lawn, the entry strip, and one parchment
+    /// the wooden level sign, the speed pill), the board in its stone border on the lawn, the entry strip (a thin strip of
+    /// lawn under the board), and one parchment
     /// tray from there to the bottom of the screen holding the Waiting Slots, the four booster boxes and the Source stacks,
     /// parted by two thin lines. Each stack is a column of pods one after another, never on each other (the owner's
     /// gameplay rule, 2026-10-03): the exposed pod in the top row and the next ones below it, <see cref="PodRows"/> rows
@@ -65,9 +66,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The widest the stone border's outer box may be, as a share of <see cref="W"/>.</summary>
         public const float MaxBoardShare = 0.86f;
 
+        /// <summary>The entry strip's height, the lawn between the board region and the tray, as a share of <see cref="W"/> (times <see cref="K"/>).</summary>
+        public const float EntryStripShare = 0.04f;
+
         /// <summary>
-        /// The lawn from the board's top to the entry strip's bottom across the safe width: the area the board and its
-        /// arches share (<see cref="FitBoard"/>).
+        /// The lawn from the board's top to the entry strip's bottom across the safe width: the area the board is fitted
+        /// into (<see cref="FitBoard"/>).
         /// </summary>
         public Box BoardArea => new Box(Safe.Left, Board.Top, Safe.Right, EntryStrip.Bottom);
 
@@ -148,42 +152,11 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The board's layout in these regions: <see cref="BoardLayout.Fit"/> over <see cref="BoardArea"/> (less 0.02 W at
-        /// each side), narrowed so the stone border's outer box is at most <see cref="MaxBoardShare"/> × <see cref="W"/>
-        /// wide. A bottom entry's arch then stands in the entry strip under the board; side and top arches stand beside
-        /// it, as <see cref="BoardLayout"/> places them.
+        /// each side), the stone border's outer box at most <see cref="MaxBoardShare"/> × <see cref="W"/> wide. The Garden
+        /// Entries take no room: their Bloomlings set off from the border (<see cref="BoardLayout.Door"/>).
         /// </summary>
-        public BoardLayout FitBoard(int width, int height, IReadOnlyList<EntryDef> entries)
-        {
-            Box area = BoardArea.Inset(W * 0.02f, 0f);
-            BoardLayout layout = BoardLayout.Fit(area, width, height, entries);
-            float max = W * MaxBoardShare;
-            if (layout.Outer.Width <= max + 0.5f)
-            {
-                return layout;
-            }
-
-            // The widest area whose border stays within the cap (the cells grow with the area's width until its height
-            // binds them, so a bisection finds it).
-            float low = 0f;
-            float high = area.Width;
-            BoardLayout best = BoardLayout.Fit(Box.FromCenter(area.CenterX, area.CenterY, area.Width * max / layout.Outer.Width, area.Height), width, height, entries);
-            for (int i = 0; i < 18; i++)
-            {
-                float mid = (low + high) / 2f;
-                BoardLayout trial = BoardLayout.Fit(Box.FromCenter(area.CenterX, area.CenterY, mid, area.Height), width, height, entries);
-                if (trial.Outer.Width <= max + 0.5f)
-                {
-                    low = mid;
-                    best = trial;
-                }
-                else
-                {
-                    high = mid;
-                }
-            }
-
-            return best;
-        }
+        public BoardLayout FitBoard(int width, int height) =>
+            BoardLayout.Fit(BoardArea.Inset(W * 0.02f, 0f), width, height, W * MaxBoardShare);
     }
 
     /// <summary>
@@ -510,9 +483,10 @@ namespace Bloomlings.Client.UI.Design
             Math.Max(0.8f, Math.Min(1f, safe.Height / Math.Max(1f, safe.Width) / ReferenceAspect));
 
         /// <summary>
-        /// The reference gameplay layout (contracts/look.md §6.1). <paramref name="entrySides"/> are the level's Garden
-        /// Entry sides (a bottom entry takes a 0.17 W strip under the board for its arch, else the strip is 0.04 W);
-        /// <paramref name="stackCount"/> Source stacks become columns of pods (<see cref="ReferenceGameplayRegions.Pod"/>):
+        /// The reference gameplay layout (contracts/look.md §6.1). The board's lawn ends in the entry strip, 0.04 W of lawn
+        /// over the tray whatever the level's Garden Entries (they have no arch since the owner's note of 2026-10-03, so a
+        /// bottom entry no longer takes a 0.17 W strip); <paramref name="stackCount"/> Source stacks become columns of pods
+        /// (<see cref="ReferenceGameplayRegions.Pod"/>):
         /// four rows from <see cref="ReferenceGameplayRegions.FourRowsAspect"/>, three on shorter screens;
         /// <paramref name="slotCount"/> Waiting Slots, the extra slot included, share the slot row. Without
         /// boosters (before they unlock) the booster row and its line collapse and the board takes the room; a Hard or
@@ -522,7 +496,6 @@ namespace Bloomlings.Client.UI.Design
             float width,
             float height,
             Insets insets,
-            IReadOnlyCollection<EntrySide> entrySides,
             int stackCount,
             int slotCount,
             bool hasBoosters = true,
@@ -573,13 +546,7 @@ namespace Bloomlings.Client.UI.Design
             var tray = new Box(0f, trayTop, width, height);
             var trayContent = new Box(safe.Left + (0.035f * w), slotRow.Top, safe.Right - (0.035f * w), contentBottom);
 
-            bool bottomEntry = false;
-            foreach (EntrySide side in entrySides)
-            {
-                bottomEntry |= side == EntrySide.Bottom;
-            }
-
-            float strip = (bottomEntry ? 0.17f : 0.04f) * w * k;
+            float strip = ReferenceGameplayRegions.EntryStripShare * w * k;
             var entryStrip = new Box(safe.Left, trayTop - strip, safe.Right, trayTop);
             float boardWidth = ReferenceGameplayRegions.MaxBoardShare * w;
             var board = new Box(safe.CenterX - (boardWidth / 2f), boardTop, safe.CenterX + (boardWidth / 2f), Math.Max(boardTop, entryStrip.Top));

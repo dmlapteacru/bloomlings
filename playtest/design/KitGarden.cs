@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.UI.Design;
-using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Variants;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
@@ -56,8 +55,6 @@ namespace Bloomlings.Playtest.Design
 
         private static readonly Dictionary<(TileStyle Style, TileState State, string Icon, Rgba Color), TileRecipe> Tiles =
             new Dictionary<(TileStyle, TileState, string, Rgba), TileRecipe>();
-
-        private static readonly Dictionary<int, (string, Func<int, int, byte[]>)> Arches = new Dictionary<int, (string, Func<int, int, byte[]>)>();
 
         private static readonly Dictionary<(bool Flipped, bool? Back), (string, Func<int, int, byte[]>)> Ivies =
             new Dictionary<(bool, bool?), (string, Func<int, int, byte[]>)>();
@@ -407,35 +404,6 @@ namespace Bloomlings.Playtest.Design
         }
 
         private static float Pattern(int i, int side) => ((i + side) % 2) == 0 ? 1f : 0.8f;
-
-        /// <summary>
-        /// A Garden Entry's stone arch (§3.6, <c>board.arch</c>): a big half ring of nine sandy stone blocks standing on
-        /// two straight piers (<see cref="EntryArch.Picture"/>), around an opening that shows the lawn, where the walkers
-        /// stand; its crown points to the board, which lies beyond the side the entry is on (for
-        /// <see cref="EntrySide.Bottom"/> the arch stands below the board, crown up, as in the reference). A soft shadow
-        /// lies on the lawn under the piers' feet.
-        /// </summary>
-        public static void StoneArch(IPainter p, float cx, float cy, float cell, EntrySide side) => StoneArch(p, new EntryArch(cx, cy, cell * BoardLayout.ArchMax, side));
-
-        /// <inheritdoc cref="StoneArch(IPainter, float, float, float, EntrySide)"/>
-        public static void StoneArch(IPainter p, EntryArch arch)
-        {
-            p.Mark("board.arch");
-            p.Mark("mat.stone");
-            Box box = arch.Picture;
-            float r = arch.Radius;
-            float foot = r * 0.3f;
-            Box shadow = arch.Side switch
-            {
-                EntrySide.Left => Box.FromCenter(box.Left + (foot * 0.3f), box.CenterY, foot, r * 2.2f),
-                EntrySide.Right => Box.FromCenter(box.Right - (foot * 0.3f), box.CenterY, foot, r * 2.2f),
-                EntrySide.Top => Box.FromCenter(box.CenterX, box.Top + (foot * 0.3f), r * 2.2f, foot),
-                _ => Box.FromCenter(box.CenterX, box.Bottom - (foot * 0.3f), r * 2.2f, foot),
-            };
-            p.FillRound(shadow, Math.Min(shadow.Width, shadow.Height) / 2f, C.GardenShadow.WithAlpha(0.18f));
-            (string key, Func<int, int, byte[]> render) = Recipe(Arches, arch.Turns, turns => ("board.arch/" + turns + "/pier", (w, h) => UiRaster.Arch(w, h, turns, 5)));
-            p.Picture(key, box, render);
-        }
 
         /// <summary>
         /// The stone pedestal the heroes stand on (§3.6, <c>ui.pedestal</c>; win, milestone, Home, Wardrobe): an

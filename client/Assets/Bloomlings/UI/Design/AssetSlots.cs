@@ -270,8 +270,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("tile.key", "Key (gold, on a cream disc in the tile's top-left corner)", new[] { 9 }, "Board; flights to locks", "on tile; flying", SizeClass.Icon, readability: true);
             Add("tile.ground", "Open ground (a restored cell of a picture role)", Gameplay, "Board", "restored", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "pale flat cell of the finished picture (its variant color lightened), small radius, faint inner shadow");
             Add("tile.grass", "Grass cell: a board cell of the picture's background (no role), so the board reads as garden (spec 005 FR-020)", new[] { 7, 8, 9, 15 }, "Board; finished picture (win, Collection)", "open; background", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Grass picture: a muted lawn square with a soft mottle, short blades, a faint top shadow and a deeper rim (four variants)");
-            Add("tile.entry", "Garden Entry (where Bloomlings come in)", Gameplay, "Board", "bottom; left; right; top; several per level", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "the stone arch `board.arch` beyond the border on the entry's side, sized to the room the layout leaves; the walkers appear in its opening");
-            // Spec 005 §3.1, §3.6: the candy tiles (UiRaster.Tile) and the stone furniture around the board.
+            // Spec 005 §3.1, §3.6: the candy tiles (UiRaster.Tile) and the stone border around the board.
             Add("tile.candy", "Candy tile, board style: a nearly square satin tile in the variant color with a thin top bevel and its symbol as a bold gem (spec 005 FR-026: a thick dark outline, a fill in a shade of the tile, a white highlight); the owner's field icon (`tile.gem.*`) replaces the drawn gem", Gameplay, "Board; demos", "normal; pressed; dimmed; grey; mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (board style, `ShapeLibrary.GemSymbol`); with the owner's icon the face alone (`UiRaster.TileFace`) under the picture");
             Add("tile.candy.sticker", "Candy tile, sticker style: a detailed symbol with a dark outline in its own tone; the owner's detailed icon (`tile.icon.*`) replaces the drawn symbol", new[] { 7, 10, 12, 13 }, "Pods; slots; jam sheet; Collection", "normal; dimmed (queued); grey (stuck); mystery", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Tile picture (sticker style); with the owner's icon the face alone (`UiRaster.TileFace`) under the picture");
 
@@ -287,7 +286,6 @@ namespace Bloomlings.Client.UI.Design
             }
 
             Add("board.border.stone", "Stone border around the board", Gameplay, "Board; win picture", "normal; thin (win)", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles");
-            Add("board.arch", "Garden Entry stone arch", Gameplay, "Board", "bottom; left; right; top", SizeClass.Small, true, Launch, PlaceholderKind.Procedural, "UiRaster.Arch picture: a big half ring of nine sandy stone blocks around an opening that shows the lawn");
             Add("tile.picture", "Finished picture reveal", new[] { 6, 15 }, "Win; Collection", "reveal; framed", SizeClass.Large, true, Launch, PlaceholderKind.Procedural, "the level's cells as flat full-color candy tiles (`tile.candy`, no lip, with the owner's field icons `tile.gem.*`) of each role's variant in a thin stone border (spec 005 D14)");
 
             // ---- Specials ----
@@ -392,7 +390,7 @@ namespace Bloomlings.Client.UI.Design
             // ---- Materials (spec 005 FR-006, contracts/look.md §2) ----
             Add("mat.wood.light", "Light wood (signs, button rims)", new[] { 2, 3, 7, 15 }, "Signs; main button rims; wordmark", "any size; grain by seed", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.Plank, light tone");
             Add("mat.wood.dark", "Dark wood (pod frames)", new[] { 7, 12 }, "Pods", "exposed; waiting (veiled); locked", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.Frame, dark tone");
-            Add("mat.stone", "Stone blocks (board border, arch, pedestal)", new[] { 7, 15 }, "Board border; Garden Entry arch; pedestal", "any size; moss by seed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.Stone, Arch and Pedestal (warm sandy stone, smooth, a few soft moss tufts)");
+            Add("mat.stone", "Stone blocks (board border, pedestal)", new[] { 7, 15 }, "Board border; pedestal", "any size; moss by seed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.Stone and Pedestal (warm sandy stone, smooth, a few soft moss tufts)");
             Add("mat.parchment", "Parchment (cards, sheet, tray, slot band)", new[] { 4, 5, 6, 10, 11, 17 }, "Cards; jam sheet; tray; slot band; toasts", "any size", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "parchment gradient with a warm aged edge band, a thin brown outline and a thin inner line");
 
             // ---- Currency and rewards ----

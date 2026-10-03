@@ -25,7 +25,7 @@ namespace Bloomlings.Client.Tests
                 {
                     float h = 1080f * ratio;
                     string at = ratio.ToString("0.00") + ", " + stacks + " stacks";
-                    ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, h, new Insets(60f, 40f), Array.Empty<EntrySide>(), stacks, 5, true, false);
+                    ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(1080f, h, new Insets(60f, 40f), stacks, 5, true, false);
                     ReferenceGameplayRegions local = GameplayHud.InPodRow(r, UnitsPerPixel);
                     Assert.That(local.PodRows, Is.EqualTo(r.PodRows), at);
                     Assert.That(local.PodRows, Is.EqualTo(ratio >= 2.1f ? 4 : 3), at + ": four rows from 19.5:9, three on shorter phones");

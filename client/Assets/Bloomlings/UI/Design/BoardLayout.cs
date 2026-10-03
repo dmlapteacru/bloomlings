@@ -1,93 +1,16 @@
 using System;
-using System.Collections.Generic;
 using Bloomlings.Core.Definitions;
 
 namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
-    /// A Garden Entry's stone arch on the board (spec 005 contracts/look.md §3.6): the middle of its ring's open base
-    /// (<see cref="BaseX"/>, <see cref="BaseY"/>), its outer radius in pixels, the side of the board it stands on (its
-    /// crown toward the board), the door point inside its opening where the walkers appear, and its picture box with the
-    /// two straight piers the ring stands on (<see cref="Picture"/>, <see cref="BoardLayout.ArchPier"/> of the radius
-    /// beyond the base, away from the board).
-    /// </summary>
-    public readonly struct EntryArch
-    {
-        public EntryArch(float baseX, float baseY, float radius, EntrySide side)
-        {
-            BaseX = baseX;
-            BaseY = baseY;
-            Radius = radius;
-            Side = side;
-        }
-
-        public float BaseX { get; }
-
-        public float BaseY { get; }
-
-        public float Radius { get; }
-
-        public EntrySide Side { get; }
-
-        /// <summary>The piers' length in pixels, beyond the ring's base away from the board.</summary>
-        public float Pier => Radius * BoardLayout.ArchPier;
-
-        /// <summary>
-        /// The arch's picture box (<see cref="UiRaster.Arch"/>, top-down coordinates): the ring of radius
-        /// <see cref="Radius"/> on the board's side of its base and the piers beyond it, so the picture is
-        /// 2 × (1 + <see cref="BoardLayout.ArchPier"/>) times as wide as deep.
-        /// </summary>
-        public Box Picture
-        {
-            get
-            {
-                float r = Radius;
-                float far = r * BoardLayout.ArchPier;
-                return Side switch
-                {
-                    EntrySide.Left => new Box(BaseX - far, BaseY - r, BaseX + r, BaseY + r),
-                    EntrySide.Top => new Box(BaseX - r, BaseY - far, BaseX + r, BaseY + r),
-                    EntrySide.Right => new Box(BaseX - r, BaseY - r, BaseX + far, BaseY + r),
-                    _ => new Box(BaseX - r, BaseY - r, BaseX + r, BaseY + far),
-                };
-            }
-        }
-
-        /// <summary>The arch picture's quarter turns of the crown from up (<see cref="UiRaster.Arch"/>).</summary>
-        public int Turns => Side switch
-        {
-            EntrySide.Left => 1,
-            EntrySide.Top => 2,
-            EntrySide.Right => 3,
-            _ => 0,
-        };
-
-        /// <summary>Where the Bloomlings appear: inside the opening, 42% of the radius from its base toward the crown.</summary>
-        public (float X, float Y) Door
-        {
-            get
-            {
-                float d = Radius * 0.42f;
-                return Side switch
-                {
-                    EntrySide.Top => (BaseX, BaseY + d),
-                    EntrySide.Left => (BaseX + d, BaseY),
-                    EntrySide.Right => (BaseX - d, BaseY),
-                    _ => (BaseX, BaseY - d),
-                };
-            }
-        }
-    }
-
-    /// <summary>
     /// Where the board's pieces go inside the board region of the gameplay layout (spec 005 contracts/look.md §3.6,
-    /// §4.1): the grid of cells, the stone border around it (a dark gap of <see cref="Gap"/> cell and stones
-    /// <see cref="Stone"/> cell thick) and one stone arch per Garden Entry beyond the border on its side, after a strip of
-    /// lawn, standing on its piers with <see cref="ArchFoot"/> cell of lawn beyond them (so it never touches the tray).
-    /// The cells take the largest size that fits the grid, the border and arches of at least <see cref="ArchMin"/>
-    /// cells; the room the region has left in that direction lets the arches grow up to <see cref="ArchMax"/> cells.
-    /// The whole group is centered in the region. Arches stay within the border's span and shrink so neighbors on one side
-    /// never overlap. Both builds draw from it, so the board looks the same in each. Engine-free.
+    /// §4.1): the grid of cells and the stone border around it (a dark gap of <see cref="Gap"/> cell and stones
+    /// <see cref="Stone"/> cell thick), with <see cref="Margin"/> cell of lawn kept at its left and right. The cells take
+    /// the largest size that fits the region (and the widest border the caller allows), and the board is centered in the
+    /// region. A Garden Entry has no picture of its own (the owner, 2026-10-03: no stone arch, and the board keeps the
+    /// arch's room): its Bloomlings set off from the stone border beside the entry cell (<see cref="Door"/>). Both builds
+    /// draw from it, so the board looks the same in each. Engine-free.
     /// </summary>
     public sealed class BoardLayout
     {
@@ -100,31 +23,21 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>How far the border reaches beyond the grid, in cells.</summary>
         public const float Rim = Gap + Stone;
 
-        /// <summary>The lawn kept on each side between the region's edges and the border (or a side arch), in cells.</summary>
+        /// <summary>The lawn kept at the left and the right between the region's edges and the border, in cells.</summary>
         public const float Margin = 0.2f;
 
-        /// <summary>The strip of lawn between the border and an arch's crown, in cells.</summary>
-        public const float ArchGap = 0.14f;
+        /// <summary>
+        /// From an entry cell's center to where its Bloomlings set off, in cells: the middle of the stone border beside the
+        /// cell, on the entry's side.
+        /// </summary>
+        public const float DoorReach = 0.5f + Gap + (Stone / 2f);
 
-        /// <summary>An arch's smallest outer radius, in cells.</summary>
-        public const float ArchMin = 1.2f;
-
-        /// <summary>An arch's largest outer radius, in cells (three cells wide, as in the reference).</summary>
-        public const float ArchMax = 1.5f;
-
-        /// <summary>The straight piers under an arch's ring, as a share of its radius.</summary>
-        public const float ArchPier = 0.2f;
-
-        /// <summary>The lawn kept beyond an arch's piers, at the board region's edge, in cells.</summary>
-        public const float ArchFoot = 0.22f;
-
-        private BoardLayout(Box grid, float cell, int width, int height, IReadOnlyList<EntryArch> arches)
+        private BoardLayout(Box grid, float cell, int width, int height)
         {
             Grid = grid;
             Cell = cell;
             Width = width;
             Height = height;
-            Arches = arches;
         }
 
         /// <summary>The grid of cells, in pixels.</summary>
@@ -137,9 +50,6 @@ namespace Bloomlings.Client.UI.Design
 
         public int Height { get; }
 
-        /// <summary>The arches, in the order of the entries they were laid out for.</summary>
-        public IReadOnlyList<EntryArch> Arches { get; }
-
         /// <summary>The stone border's outer edge.</summary>
         public Box Outer => Grid.Inset(-Rim * Cell);
 
@@ -151,94 +61,42 @@ namespace Bloomlings.Client.UI.Design
             return new Box(left, top, left + Cell, top + Cell);
         }
 
-        /// <summary>Lays out a <paramref name="width"/> × <paramref name="height"/> board with its entries inside <paramref name="area"/>.</summary>
-        public static BoardLayout Fit(Box area, int width, int height, IReadOnlyList<EntryDef> entries)
+        /// <summary>Where the Bloomlings of <paramref name="entry"/> set off (<see cref="DoorOf"/> its cell's box).</summary>
+        public (float X, float Y) Door(EntryDef entry) => DoorOf(CellBox(entry.Cell.X, entry.Cell.Y), entry.Side);
+
+        /// <summary>
+        /// Where the Bloomlings of an entry on <paramref name="side"/> set off, for the entry cell's <paramref name="cell"/>
+        /// box (top-down): <see cref="DoorReach"/> cells from the cell's center toward that side, on the stone border.
+        /// </summary>
+        public static (float X, float Y) DoorOf(Box cell, EntrySide side)
+        {
+            float d = cell.Width * DoorReach;
+            return side switch
+            {
+                EntrySide.Top => (cell.CenterX, cell.CenterY - d),
+                EntrySide.Left => (cell.CenterX - d, cell.CenterY),
+                EntrySide.Right => (cell.CenterX + d, cell.CenterY),
+                _ => (cell.CenterX, cell.CenterY + d),
+            };
+        }
+
+        /// <summary>
+        /// Lays out a <paramref name="width"/> × <paramref name="height"/> board inside <paramref name="area"/>, centered:
+        /// the cells as large as the grid, its border and the lawn margins allow, with the border's outer box at most
+        /// <paramref name="maxOuterWidth"/> wide.
+        /// </summary>
+        public static BoardLayout Fit(Box area, int width, int height, float maxOuterWidth = float.MaxValue)
         {
             int w = Math.Max(1, width);
             int h = Math.Max(1, height);
-            var sides = new bool[4];
-            foreach (EntryDef entry in entries)
-            {
-                sides[(int)entry.Side] = true;
-            }
-
-            bool left = sides[(int)EntrySide.Left];
-            bool right = sides[(int)EntrySide.Right];
-            bool top = sides[(int)EntrySide.Top];
-            bool bottom = sides[(int)EntrySide.Bottom];
-            float room = ArchGap + (ArchMin * (1f + ArchPier)) + ArchFoot;
-            float needX = w + (2f * (Rim + Margin)) + (left ? room : 0f) + (right ? room : 0f);
-            float needY = h + (2f * Rim) + (top ? room : 0f) + (bottom ? room : 0f);
-            float cell = Math.Max(1f, Math.Min(area.Width / needX, area.Height / needY));
-
-            // The room left in each direction goes to that direction's arches, up to ArchMax.
-            int countX = (left ? 1 : 0) + (right ? 1 : 0);
-            int countY = (top ? 1 : 0) + (bottom ? 1 : 0);
-            float growX = countX == 0 ? 0f : Math.Min(ArchMax - ArchMin, Math.Max(0f, area.Width - (cell * needX)) / (cell * countX * (1f + ArchPier)));
-            float growY = countY == 0 ? 0f : Math.Min(ArchMax - ArchMin, Math.Max(0f, area.Height - (cell * needY)) / (cell * countY * (1f + ArchPier)));
-            var radius = new float[4];
-            radius[(int)EntrySide.Left] = left ? ArchMin + growX : 0f;
-            radius[(int)EntrySide.Right] = right ? ArchMin + growX : 0f;
-            radius[(int)EntrySide.Top] = top ? ArchMin + growY : 0f;
-            radius[(int)EntrySide.Bottom] = bottom ? ArchMin + growY : 0f;
-            float Room(EntrySide side) => sides[(int)side] ? ArchGap + (radius[(int)side] * (1f + ArchPier)) + ArchFoot : 0f;
-
-            float usedX = cell * (w + (2f * Rim) + Room(EntrySide.Left) + Room(EntrySide.Right));
-            float usedY = cell * (h + (2f * Rim) + Room(EntrySide.Top) + Room(EntrySide.Bottom));
-            float gridLeft = area.Left + ((area.Width - usedX) / 2f) + (cell * (Room(EntrySide.Left) + Rim));
-            float gridTop = area.Top + ((area.Height - usedY) / 2f) + (cell * (Room(EntrySide.Top) + Rim));
+            float needX = w + (2f * (Rim + Margin));
+            float needY = h + (2f * Rim);
+            float cell = Math.Min(Math.Min(area.Width / needX, area.Height / needY), maxOuterWidth / (w + (2f * Rim)));
+            cell = Math.Max(1f, cell);
+            float gridLeft = area.CenterX - (w * cell / 2f);
+            float gridTop = area.CenterY - (h * cell / 2f);
             var grid = new Box(gridLeft, gridTop, gridLeft + (w * cell), gridTop + (h * cell));
-            Box outer = grid.Inset(-Rim * cell);
-            return new BoardLayout(grid, cell, w, h, PlaceArches(entries, grid, outer, cell, radius));
-        }
-
-        /// <summary>One arch per entry, on its side, centered on its cell where the border's span allows.</summary>
-        private static EntryArch[] PlaceArches(IReadOnlyList<EntryDef> entries, Box grid, Box outer, float cell, float[] radiusCells)
-        {
-            var arches = new EntryArch[entries.Count];
-            var along = new float[entries.Count];
-            var radius = new float[entries.Count];
-            for (int i = 0; i < entries.Count; i++)
-            {
-                EntryDef entry = entries[i];
-                bool across = entry.Side == EntrySide.Left || entry.Side == EntrySide.Right;
-                float r = radiusCells[(int)entry.Side] * cell;
-                float center = across
-                    ? grid.Top + ((grid.Height / cell) - 1 - entry.Cell.Y + 0.5f) * cell
-                    : grid.Left + ((entry.Cell.X + 0.5f) * cell);
-                float from = across ? outer.Top : outer.Left;
-                float to = across ? outer.Bottom : outer.Right;
-                along[i] = to - from <= 2f * r ? (from + to) / 2f : Math.Max(from + r, Math.Min(to - r, center));
-                radius[i] = r;
-            }
-
-            // Neighbors on one side share the room between them.
-            for (int i = 0; i < entries.Count; i++)
-            {
-                for (int j = 0; j < entries.Count; j++)
-                {
-                    if (i != j && entries[i].Side == entries[j].Side)
-                    {
-                        float half = Math.Abs(along[i] - along[j]) / 2f;
-                        radius[i] = Math.Max(cell * 0.6f, Math.Min(radius[i], half));
-                    }
-                }
-            }
-
-            for (int i = 0; i < entries.Count; i++)
-            {
-                float r = radius[i];
-                float reach = (ArchGap * cell) + r;
-                arches[i] = entries[i].Side switch
-                {
-                    EntrySide.Top => new EntryArch(along[i], outer.Top - reach, r, EntrySide.Top),
-                    EntrySide.Left => new EntryArch(outer.Left - reach, along[i], r, EntrySide.Left),
-                    EntrySide.Right => new EntryArch(outer.Right + reach, along[i], r, EntrySide.Right),
-                    _ => new EntryArch(along[i], outer.Bottom + reach, r, EntrySide.Bottom),
-                };
-            }
-
-            return arches;
+            return new BoardLayout(grid, cell, w, h);
         }
     }
 }

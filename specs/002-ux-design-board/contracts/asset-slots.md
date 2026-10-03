@@ -21,8 +21,11 @@ in `client/Assets/Bloomlings/UI/Design/AssetSlots.cs` (engine-free). A slot has 
 | `bg.` | Background | `bg.theme.daylight_garden`, `bg.theme.pond`, `bg.home`, `bg.splash` |
 | `char.` | Character | `char.sprig.idle`, `char.bloom.walk`, `char.hero.home`, `char.face` |
 | `symbol.` | VariantSymbol | `symbol.leaf`, `symbol.moss`, …, `symbol.bark` (8 launch + 4 expansion) |
-| `tile.` | BoardTile | `tile.base`, `tile.layer_peek`, `tile.mystery`, `tile.stone`, `tile.key`, `tile.ground`, `tile.entry`, `tile.picture`, `tile.candy`, `tile.candy.sticker` |
-| `board.` | BoardTile | `board.border.stone`, `board.arch` (spec 005: the stone furniture around the board) |
+| `tile.` | BoardTile | `tile.base`, `tile.layer_peek`, `tile.mystery`, `tile.stone`, `tile.key`, `tile.ground`, `tile.picture`, `tile.candy`, `tile.candy.sticker` |
+| `board.` | BoardTile | `board.border.stone` (spec 005: the stone border around the board) |
+
+The Garden Entry's slots `tile.entry` and `board.arch` (the stone arch) were retired on 2026-10-03 (the owner: no arch
+under the board): an entry has no picture, and its Bloomlings set off from the stone border beside the entry cell.
 | `special.` | Special | `special.gate`, `special.fountain`, `special.chest`, `special.statue`, `special.bridge`, `special.bridge_broken` |
 | `pod.` / `slot.` | PodSlot | `pod.card`, `pod.state.locked`, `pod.state.mystery`, `pod.link`, `pod.count`, `slot.empty`, `slot.state.danger`, `slot.extra` |
 | `booster.` | Booster | `booster.extra_slot`, `booster.shuffle`, `booster.return`, `booster.bloom_burst` |

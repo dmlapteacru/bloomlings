@@ -180,15 +180,16 @@ material per label.
 `specs/005-reference-look/` restyles every screen after the owner's reference (`reference.jpg`), keeping the spec 002
 layouts, the order of elements and every rule (recipes in `contracts/look.md`):
 - `UiRaster` (kit, engine-free) renders the materials as straight-alpha RGBA pictures, deterministic: wood planks and
-  pod frames, stone blocks, the arch, the pedestal and the candy tiles. `ProceduralSprites.Picture` turns them into
+  pod frames, stone blocks, the pedestal and the candy tiles. `ProceduralSprites.Picture` turns them into
   cached sprites (9-sliced where needed, one per key and size); `PicturePixels` flips the rows and bleeds the edges.
 - `UiKit` (`UiKit.cs`, `UiKitGarden.cs`, `UiKitGameplay.cs`, `UiKitTray.cs`, `UiKitCards.cs`, `UiKitMeta.cs`,
   `UiKitViews.cs`) holds the twins of the playtest's `Kit.*` components under the same names (`WoodSign`,
   `PrimaryButton` in its wood rim, `SpeedPill`, `ChoiceButton`, `CountBadge`, `CostPill`, `PetalsPill`, `Paper`, `Card`,
-  `PodFrame`, `SlotPlate`, `BoosterTile`, `StoneBorder`, `StoneArch`, `StonePedestal`, `LightRays`, `FallingPetals`,
+  `PodFrame`, `SlotPlate`, `BoosterTile`, `StoneBorder`, `StonePedestal`, `LightRays`, `FallingPetals`,
   `WoodLogo`, `OutfitCard`).
-- The board is candy tiles in a stone border on a lawn: `BoardLayout` (kit) places the grid, the border and the arch
-  entries for `BoardView`, and `BoardPictures` draws the restored ground, stone obstacles and the finished picture (win,
+- The board is candy tiles in a stone border on a lawn: `BoardLayout` (kit) places the grid and the border for
+  `BoardView` (a Garden Entry has no picture: its Bloomlings set off from the border beside the entry cell,
+  `BoardLayout.Door`), and `BoardPictures` draws the restored ground, stone obstacles and the finished picture (win,
   Collection). Waiting Slots are cream plates holding the variant's candy tile with its plain count below it; the 2D
   characters stay as the walkers.
 - The Source Tray's pods stand in columns, one after another and never on each other (a gameplay rule of the owner,

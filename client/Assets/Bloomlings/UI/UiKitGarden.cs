@@ -378,46 +378,6 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A Garden Entry's stone ring box (§3.6) in top-down coordinates: a half ring of outer radius 1.5 cells whose open
-        /// base's middle is (<paramref name="cx"/>, <paramref name="cy"/>), on the <paramref name="side"/> the entry is on
-        /// (for <see cref="EntrySide.Bottom"/> it stands below the board, crown up). The board places its arches at
-        /// <see cref="EntryArch.Picture"/>, which adds the piers the ring stands on.
-        /// </summary>
-        public static Box ArchBox(float cx, float cy, float cell, EntrySide side)
-        {
-            float r = cell * 1.5f;
-            return side switch
-            {
-                EntrySide.Left => new Box(cx, cy - r, cx + r, cy + r),
-                EntrySide.Top => new Box(cx - r, cy, cx + r, cy + r),
-                EntrySide.Right => new Box(cx - r, cy - r, cx, cy + r),
-                _ => new Box(cx - r, cy - r, cx + r, cy),
-            };
-        }
-
-        /// <summary>The quarter turns of an entry's arch crown from up (<see cref="UiRaster.Arch"/>).</summary>
-        public static int ArchTurns(EntrySide side) => side switch
-        {
-            EntrySide.Left => 1,
-            EntrySide.Top => 2,
-            EntrySide.Right => 3,
-            _ => 0,
-        };
-
-        /// <summary>
-        /// A Garden Entry's stone arch (§3.6, <c>board.arch</c>): nine sandy stone blocks in a half ring around an opening
-        /// that shows the lawn, standing on two straight piers when its rect is deeper than half its width; place it at
-        /// <see cref="EntryArch.Picture"/> (the playtest's <c>Kit.StoneArch</c>). Never a touch target.
-        /// </summary>
-        public static Image StoneArch(string name, Transform parent, EntrySide side)
-        {
-            Image image = UiFactory.CreateImage(name, parent, null, Color.white);
-            int turns = ArchTurns(side);
-            PictureFit.On(image, (w, h) => ProceduralSprites.Arch(w, h, turns));
-            return image;
-        }
-
-        /// <summary>
         /// The stone pedestal the heroes stand on (§3.6, <c>ui.pedestal</c>; win, milestone, Home, Wardrobe): an
         /// ellipse-topped stone drum filling the rect over a soft ground shadow. Put the heroes on <see cref="PedestalTop"/>.
         /// </summary>

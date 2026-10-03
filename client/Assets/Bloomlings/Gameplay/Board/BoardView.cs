@@ -22,8 +22,8 @@ namespace Bloomlings.Client.Gameplay.Board
     /// (<see cref="TileView"/>).</description></item>
     /// <item><description>Restored ground shows the finished picture as pale flat cells under the tiles (T042,
     /// <see cref="FinishedPictureRenderer"/>).</description></item>
-    /// <item><description>Each Garden Entry is a stone arch on its side of the board; the Bloomlings come out at its door
-    /// (<see cref="EntryArch.Door"/>).</description></item>
+    /// <item><description>A Garden Entry has no picture (the owner, 2026-10-03: no stone arch): the Bloomlings set off from
+    /// the stone border beside the entry cell (<see cref="BoardLayout.Door"/>).</description></item>
     /// </list>
     /// Its visual state follows the event timeline, not the logical state, so tiles change when their Bloomling arrives
     /// (R4): a restored tile shrinks away with a small sparkle, and on a win the finished picture shines. The cells that
@@ -32,16 +32,13 @@ namespace Bloomlings.Client.Gameplay.Board
     public sealed class BoardView : MonoBehaviour
     {
         private readonly List<TileView> _tiles = new List<TileView>();
-        private readonly List<(RectTransform Root, Image Arch, EntryDef Entry)> _entries = new List<(RectTransform, Image, EntryDef)>();
         private readonly List<SpecialView> _specials = new List<SpecialView>();
-        private readonly List<float> _archRadius = new List<float>();
         private RectTransform _area = null!;
         private RectTransform _grid = null!;
         private FinishedPictureRenderer _picture = null!;
         private StoneBorderView? _border;
         private VariantVisualCatalog? _visuals;
         private BoardLayout? _layout;
-        private IReadOnlyList<EntryDef> _entryDefs = new EntryDef[0];
         private int _width;
         private int _height;
 
@@ -49,12 +46,11 @@ namespace Bloomlings.Client.Gameplay.Board
         public event System.Action<CellPos>? CellTapped;
 
         /// <summary>
-        /// Lays the board out in its area's top-down canvas units (the area's box, the board's width and height, its
-        /// entries): the HUD's <c>GameplayHud.FitBoard</c>, the stone border at most 0.86 of the safe width with a bottom
-        /// entry's arch in the entry strip (spec 005 FR-020, contracts/look.md §6.1); null fits the whole area
-        /// (<see cref="BoardLayout.Fit"/>).
+        /// Lays the board out in its area's top-down canvas units (the area's box, the board's width and height): the
+        /// HUD's <c>GameplayHud.FitBoard</c>, the stone border at most 0.86 of the safe width (spec 005 FR-020,
+        /// contracts/look.md §6.1); null fits the whole area (<see cref="BoardLayout.Fit"/>).
         /// </summary>
-        public System.Func<Box, int, int, IReadOnlyList<EntryDef>, BoardLayout>? Fit { get; set; }
+        public System.Func<Box, int, int, BoardLayout>? Fit { get; set; }
 
         /// <summary>Side length of one cell in canvas units.</summary>
         public float CellSize { get; private set; }
@@ -80,12 +76,6 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             _tiles.Clear();
-            foreach ((RectTransform root, Image _, EntryDef _) in _entries)
-            {
-                Destroy(root.gameObject);
-            }
-
-            _entries.Clear();
             foreach (SpecialView special in _specials)
             {
                 Destroy(special.gameObject);
@@ -94,7 +84,6 @@ namespace Bloomlings.Client.Gameplay.Board
             _specials.Clear();
             _width = view.Width;
             _height = view.Height;
-            _entryDefs = view.Entries;
             Layout();
             _picture.Build(definition, picture, _width, _height, GroundPixels(), _grid);
 
@@ -119,23 +108,6 @@ namespace Bloomlings.Client.Gameplay.Board
                     tile.Tapped += c => CellTapped?.Invoke(c);
                     _tiles.Add(tile);
                 }
-            }
-
-            // The arches stand on the lawn behind the board (§3.6, board.arch), each over a soft ground shadow.
-            foreach (EntryDef entry in view.Entries)
-            {
-                RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("Entry", _area));
-                root.SetAsFirstSibling();
-                int index = _entries.Count;
-                BoxLayout layout = BoxLayout.On(root);
-                UiKit.SoftShadow(layout, _ => ArchShadow(index), _ => ArchRadius(index), 0.18f, 0.02f);
-
-                // A soft shadow on the lawn under the piers' feet (the playtest's Kit.StoneArch).
-                Image foot = UiKit.Ellipse("Foot", root, UiTheme.Of(DesignTokens.Colors.GardenShadow.WithAlpha(0.18f)));
-                layout.Add(foot.rectTransform, _ => ArchFoot(index));
-                Image arch = UiKit.StoneArch("Arch", root, entry.Side);
-                layout.Add(arch.rectTransform, _ => ArchBox(index));
-                _entries.Add((root, arch, entry));
             }
 
             foreach (SpecialInfo special in view.Specials)
@@ -224,25 +196,20 @@ namespace Bloomlings.Client.Gameplay.Board
         public Vector2 CellCenter(CellPos cell) => new Vector2((cell.X + 0.5f) * CellSize, (cell.Y + 0.5f) * CellSize);
 
         /// <summary>
-        /// Where Bloomlings emerge: the door of the entry's stone arch (<see cref="EntryArch.Door"/>, 42% of its radius
-        /// inside the opening), in <see cref="Grid"/>'s coordinates; just outside the entry cell before the first layout.
+        /// Where Bloomlings set off: the stone border beside the entry cell, on the entry's side
+        /// (<see cref="BoardLayout.Door"/>, the playtest's <c>BoardPainter.EntryPoint</c>), in <see cref="Grid"/>'s
+        /// coordinates.
         /// </summary>
         public Vector2 EntryPoint(EntryDef entry)
         {
             if (_layout != null)
             {
-                for (int i = 0; i < _entryDefs.Count && i < _layout.Arches.Count; i++)
-                {
-                    if (_entryDefs[i].Cell == entry.Cell && _entryDefs[i].Side == entry.Side)
-                    {
-                        (float x, float y) = _layout.Arches[i].Door;
-                        return new Vector2(x - _layout.Grid.Left, _layout.Grid.Bottom - y);
-                    }
-                }
+                (float x, float y) = _layout.Door(entry);
+                return new Vector2(x - _layout.Grid.Left, _layout.Grid.Bottom - y);
             }
 
             Vector2 c = CellCenter(entry.Cell);
-            float d = CellSize * 0.78f;
+            float d = CellSize * BoardLayout.DoorReach;
             return entry.Side switch
             {
                 EntrySide.Bottom => c + new Vector2(0f, -d),
@@ -437,83 +404,20 @@ namespace Bloomlings.Client.Gameplay.Board
         private int GroundPixels() => CellSize > 1f ? Mathf.CeilToInt(CellSize * UiKit.PixelsPerUnit) : 64;
 
         /// <summary>
-        /// An entry's arch picture box in the area's top-down coordinates: the ring on the board's side of its base and the
-        /// two straight piers it stands on beyond it (<see cref="EntryArch.Picture"/>, the playtest's <c>Kit.StoneArch</c>).
-        /// </summary>
-        private Box ArchBox(int index)
-        {
-            if (_layout == null || index >= _layout.Arches.Count)
-            {
-                return new Box(0f, 0f, 0f, 0f);
-            }
-
-            return _layout.Arches[index].Picture;
-        }
-
-        /// <summary>The soft ground shadow under an arch's piers, at its picture's far edge (the playtest's <c>Kit.StoneArch</c>).</summary>
-        private Box ArchFoot(int index)
-        {
-            if (_layout == null || index >= _layout.Arches.Count)
-            {
-                return new Box(0f, 0f, 0f, 0f);
-            }
-
-            EntryArch arch = _layout.Arches[index];
-            Box box = arch.Picture;
-            float r = arch.Radius;
-            float foot = r * 0.3f;
-            return arch.Side switch
-            {
-                EntrySide.Left => Box.FromCenter(box.Left + (foot * 0.3f), box.CenterY, foot, r * 2.2f),
-                EntrySide.Right => Box.FromCenter(box.Right - (foot * 0.3f), box.CenterY, foot, r * 2.2f),
-                EntrySide.Top => Box.FromCenter(box.CenterX, box.Top + (foot * 0.3f), r * 2.2f, foot),
-                _ => Box.FromCenter(box.CenterX, box.Bottom - (foot * 0.3f), r * 2.2f, foot),
-            };
-        }
-
-        private float ArchRadius(int index) => _layout != null && index < _layout.Arches.Count ? _layout.Arches[index].Radius : 0f;
-
-        /// <summary>The soft ground shadow under an arch's crown (the playtest's <c>BoardPainter.Arch</c>).</summary>
-        private Box ArchShadow(int index)
-        {
-            if (_layout == null || index >= _layout.Arches.Count)
-            {
-                return new Box(0f, 0f, 0f, 0f);
-            }
-
-            EntryArch arch = _layout.Arches[index];
-            float r = arch.Radius;
-            (float sx, float sy) = arch.Side switch
-            {
-                EntrySide.Top => (0f, -r * 0.5f),
-                EntrySide.Left => (-r * 0.5f, 0f),
-                EntrySide.Right => (r * 0.5f, 0f),
-                _ => (0f, r * 0.5f),
-            };
-            bool across = arch.Side == EntrySide.Left || arch.Side == EntrySide.Right;
-            return Box.FromCenter(arch.BaseX - (sx * 0.86f) + (r * 0.04f), arch.BaseY - (sy * 0.86f) + (r * 0.08f), across ? r * 1.16f : r * 2.14f, across ? r * 2.14f : r * 1.16f);
-        }
-
-        /// <summary>
         /// Lays the board out in its area (<see cref="Fit"/>, else <see cref="BoardLayout.Fit"/>, in the area's top-down
-        /// canvas units): the grid of cells, the stone border around it, one arch per entry; tiles take whole cells,
-        /// specials their cells' box.
+        /// canvas units): the grid of cells and the stone border around it; tiles take whole cells, specials their cells'
+        /// box.
         /// </summary>
         private void Layout()
         {
             Rect area = _area.rect;
             var box = new Box(0f, 0f, Mathf.Max(1f, area.width), Mathf.Max(1f, area.height));
-            _layout = Fit?.Invoke(box, _width, _height, _entryDefs) ?? BoardLayout.Fit(box, _width, _height, _entryDefs);
+            _layout = Fit?.Invoke(box, _width, _height) ?? BoardLayout.Fit(box, _width, _height);
             CellSize = _layout.Cell;
             BoxLayout.Place(_grid, _layout.Grid);
             foreach (TileView tile in _tiles)
             {
                 UiFactory.PlaceAbsolute((RectTransform)tile.transform, CellCenter(tile.Cell), Vector2.one * CellSize);
-            }
-
-            foreach ((RectTransform root, Image _, EntryDef _) in _entries)
-            {
-                BoxLayout.On(root).Apply();
             }
 
             // A special covers the box of its cells.

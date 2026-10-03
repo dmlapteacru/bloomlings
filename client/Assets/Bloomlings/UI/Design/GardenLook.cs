@@ -277,9 +277,6 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The dark lines between a board's tiles and around them, inside the stone border (§3.6).</summary>
         public static Rgba BoardGap => C.LawnDark.Darken(0.55f);
 
-        /// <summary>The lawn seen through a stone arch's opening (§3.6), a little darker than the lawn around it.</summary>
-        public static Rgba ArchOpening => C.LawnLight.Darken(0.12f);
-
         /// <summary>A small pink flower over the wordmark (§4.5): petals and center.</summary>
         public static (Rgba Petals, Rgba Line, Rgba Center) PinkFlower => (C.LotusFill, C.LotusLine, C.GardenFlowerCenter);
 

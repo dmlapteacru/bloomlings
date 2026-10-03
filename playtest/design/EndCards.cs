@@ -772,7 +772,7 @@ namespace Bloomlings.Playtest.Design
         /// leaves the taps above it to Pause and the speed button.
         /// </summary>
         private static float TopBarBottom(IPainter p) => Math.Max(
-            ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, Array.Empty<EntrySide>(), 1, WaitingSlots.Capacity).TopBar.Bottom,
+            ScreenLayout.ReferenceGameplay(p.Width, p.Height, p.Insets, 1, WaitingSlots.Capacity).TopBar.Bottom,
             ScreenLayout.Gameplay(p.Width, p.Height, p.Insets, false, true).TopBar.Bottom);
 
         /// <summary>

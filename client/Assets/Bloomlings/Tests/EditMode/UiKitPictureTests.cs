@@ -14,7 +14,7 @@ namespace Bloomlings.Client.Tests
     /// <summary>
     /// The engine-free parts of the Unity kit of spec 005 (contracts/look.md §2.1, §3): the picture primitive's keys, row
     /// flip and edge bleed, the sliced UI pictures, the fit of rounded shapes and pictures to rects, and the recipe
-    /// geometry the kit lays out (stone border, arch, pedestal, petals, cost pill text).
+    /// geometry the kit lays out (stone border, pedestal, petals, cost pill text).
     /// </summary>
     public class UiKitPictureTests
     {
@@ -178,16 +178,6 @@ namespace Bloomlings.Client.Tests
             }
 
             Assert.That(blocks, Is.EqualTo(StoneBorderView.Blocks(grid, cell, 0.42f)), "the same place, the same stones");
-        }
-
-        [Test]
-        public void TheArch_StandsOnTheEntrySide_ThreeCellsWide()
-        {
-            Box bottom = UiKit.ArchBox(100f, 300f, 40f, EntrySide.Bottom);
-            Assert.That((bottom.Width, bottom.Height, bottom.Bottom), Is.EqualTo((120f, 60f, 300f)), "below the board, its base at the entry");
-            Box left = UiKit.ArchBox(100f, 300f, 40f, EntrySide.Left);
-            Assert.That((left.Width, left.Height, left.Left), Is.EqualTo((60f, 120f, 100f)));
-            Assert.That(new[] { EntrySide.Bottom, EntrySide.Left, EntrySide.Top, EntrySide.Right }.Select(UiKit.ArchTurns), Is.EqualTo(new[] { 0, 1, 2, 3 }));
         }
 
         [Test]
