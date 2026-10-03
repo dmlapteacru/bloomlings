@@ -31,14 +31,15 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   Past L94 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):
-  - a splash (frame 1), then Level 1 on the very first launch and Home later;
+  - a splash (frame 1), then Level 1 on the very first launch and Home later; over the owner's layered Home its four
+    animated heroes fade in on the fountain already in Home's motion, so Home takes over without a jump;
   - Home in the reference layout (spec 005 FR-024, `contracts/look.md` §6.4) in its early look (frame 2) and, once the
     features unlock, the progressed look (frame 3): Settings and the Petals pill on top, the wooden logo, the owner's
-    garden picture without heroes for now (the owner, 2026-10-02: animated heroes later; without the picture the drawn
-    stand-in's four heroes around the lotus fountain, in their outfits), the level plaque, the big Play, "N levels to
-    reward", and cream round
-    side buttons for the Wardrobe, the Collection, the profile avatar, the Daily Challenge and the Store, with the rank
-    pill (offline) under them;
+    layered Home with the four animated heroes on its fountain (spec 005 FR-028: each idles, they take turns to react,
+    a tap on one makes it react, petals drift over them; without the owner's pictures the drawn stand-in's four still
+    heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the level plaque, the big Play,
+    "N levels to reward", and cream round side buttons for the Wardrobe, the Collection, the profile avatar, the Daily
+    Challenge and the Store, with the rank pill (offline);
   - the Wardrobe (frame 27, spec 005 FR-025, §6.5), opened from Home: the hero on its pedestal between ‹ › family
     arrows, the name card, the family tabs and outfit cards three to a page (owned items to wear, items for sale to buy
     with Petals, and the ones earned later with a padlock), through the client's `WardrobeService`;
@@ -47,28 +48,31 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     the lawn, the entry strip with the arch, and one parchment tray to the bottom of the screen with the Waiting Slots,
     the four booster boxes and one deck per Source stack (the front pod, the next two peeking above it, "+N"), with the
     pod, slot and booster states of frames 12–14;
-  - cards: pause and Settings (frame 11), the jam bottom sheet (frame 10), the win card (frame 15), the milestone card
-    (frame 16), the Daily Reward (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and
-    the Store (frame 17).
+  - cards: pause and Settings (frame 11), the jam bottom sheet (frame 10), the win card (frame 15) and the milestone
+    card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), the Daily Reward
+    (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and the Store (frame 17).
 
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
   `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the reference look of spec 005
   (`specs/005-reference-look/`, recipes in `contracts/look.md`) on the spec 003 Garden kit: sentence-case labels in
   Nunito (embedded from `client/Assets/Bloomlings/UI/Fonts/Resources/`, SIL OFL); glossy green main buttons in a light
   wood rim, cream secondary and round buttons; wooden signs; parchment cards with a cream round close; the board as
-  candy tiles in a stone border with stone arch entries on a lawn; wooden pods and cream Waiting Slots, both holding
-  the variant's candy tile and its plain count; cream booster tiles with green count badges; Petals as a pink lotus.
+  candy tiles in a stone border with stone arch entries on a lawn; wooden pods and cream Waiting Slots, both holding the
+  variant's candy tile and its plain count; cream booster tiles with green count badges; Petals as a pink lotus.
   Material pictures (planks, frames, stones, arch, pedestal, candy tiles) come from the kit's `UiRaster` through
-  `IPainter.Picture`, cached by key and size; `BoardLayout` places the board. The Bloomlings are the generated
-  character art of spec 004 (`specs/004-character-art/`), embedded from
+  `IPainter.Picture`, cached by key and size; `BoardLayout` places the board. The Bloomlings are the generated character
+  art of spec 004 (`specs/004-character-art/`), embedded from
   `client/Assets/Bloomlings/Art/Characters/Resources/Characters/`: 2D characters whose shape is the variant symbol, as
   walkers and on the Bloomlings sheet; 3D heroes on the splash, Home, the win and milestone cards and the leaderboard
-  row. The owner's pictures (`specs/005-reference-look/pictures.md`) are embedded from `Art/Backgrounds/`,
-  `Art/Brand/`, `Art/Icons/` and `Art/Decor/` when they exist, and replace the drawn backdrop, wordmark, booster icons
-  or leaves (mirrored with `IPainter.PushSquash(-1, 1, …)`). The level tester keeps the system font and
-  its minimal look. There are no ads or real-money purchases here, so those buttons show
-  as unavailable, and the jam rescue is granted without an ad. A small dev row at the very bottom of Home (−1, +1,
-  +10, Reset) moves the progression for testing.
+  row. The owner's pictures (`specs/005-reference-look/pictures.md`) are embedded from `Art/Backgrounds/`, `Art/Brand/`,
+  `Art/Icons/` and `Art/Decor/` when they exist, and replace the drawn backdrop, wordmark, booster icons or leaves
+  (mirrored with `IPainter.PushSquash(-1, 1, …)`). The owner's animated heroes (spec 005 FR-028, made by
+  `tools/heroanim`) are embedded from `Art/Heroes/Resources/HeroMotion/` under `heromotion/`: both painters decode a
+  frame when it is first drawn and keep the frames in a cache bounded by bytes (the least recently drawn dropped first),
+  never all 288; the layered Home's pictures (`home.jpg`, `home-*.png`) come with the backgrounds. The level tester
+  keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show as
+  unavailable, and the jam rescue is granted without an ad. A small dev row at the very bottom of Home (−1, +1, +10,
+  Reset) moves the progression for testing.
 - Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):
   the save file, the unlock roadmap (boosters open at L3, L4, L6 and L9 with a free charge; mechanics, Hard and Super
   Hard as in the spec), Petals for wins, booster charges bought with Petals, level drops, milestone rewards, the Daily
@@ -94,7 +98,9 @@ Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store cosmetics in the
 reached by taps that the frame checks) at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the
-safe area. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset slot registry.
+safe area. It also checks that every animated hero frame is embedded and decodes to its size in the kit, and prints
+how many frames it decoded. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset
+slot registry.
 `-- --before <sheet.png>` also writes `before-after.jpg`, that older sheet above the new one (the spec 003 review).
 
 

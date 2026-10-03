@@ -59,6 +59,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `picture-approved`. `content/readability/approved-pairs.json` is `provisional` until the readability sign-off.
   Mechanic showcase levels live in `content/showcase/` (generated with `generate --mechanics <m> --class normal`);
   `generate` keeps them fixed (`--keep`).
+- `tools/heroanim` (Node 22, not in the solution; `tools/heroanim/README.md`) pre-renders the owner's animated FBX
+  heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 2.5
+  minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`
+  (no npm packages) must pass before committing hero frames or Home layers.
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
 - CI: **every workflow is manual only for now** (Actions → Run workflow), so pushes and pull requests spend no
   Actions minutes (the owner's budget rule). Run the tests above locally before every push instead.
@@ -97,8 +101,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   re-rendering it). Names and placements come from the kit's `CharacterArt`; Unity loads them with `CharacterSprites`,
   the playtest and preview embed them (`IPainter.Sprite`). A missing picture falls back
   to the spec 002 family silhouette. The art is the project's own work (`tools/artgen/OWNERSHIP.md`). Over the owner's
-  Home picture, Home and the splash show no heroes for now (the owner, 2026-10-02: animated heroes later;
-  `HomeStage.ShowsHeroes`); only the drawn stand-in keeps them.
+  layered Home picture, Home and the splash show the owner's animated heroes instead (below; `HomeStage.ShowsHeroes`);
+  the drawn stand-in keeps the still ones.
 - The reference look (`specs/005-reference-look/`, after the owner's `reference.jpg`; recipes in `contracts/look.md`)
   restyles every element of the Unity client and the full playtest, presentation only: layouts, order, rules and tap
   outcomes stay (FR-002). It adds the saturated variant palette (`VariantCatalog`, readability-checked) and the
@@ -109,6 +113,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   stone border on a lawn; pods are wooden frames and Waiting Slots cream plates, both holding the variant's candy tile
   and its plain count; cards are parchment; Petals is a pink lotus. Components are `Kit.*` with same-named `UiKit*`
   twins.
+- The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
+  renders the four Meshy FBX heroes offline into flat 12 fps frames (a 4 s idle loop and a 2 s reaction each, in
+  `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in
+  `Art/Backgrounds/Resources/Backgrounds/`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
+  place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the
+  reference (idling, taking turns to react, reacting to a tap); the win and the milestone show the level's hero
+  reacting, then idling. The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
+  scene or camera in the game, only these flat pictures on meta screens. Frames load when first drawn into a bounded
+  cache, never all.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

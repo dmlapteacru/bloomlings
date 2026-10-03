@@ -3,7 +3,8 @@
 Everything else of the reference look is drawn in code. These pictures replace drawn or generated stand-ins; until a
 file exists, the stand-in shows. Drop a file at its path with its exact name; both builds pick it up (the playtest
 embeds the folders at build time, Unity loads them from `Resources`). The 3D heroes of section A also need one
-`tools/artgen -- adopt` command (section A).
+`tools/artgen -- adopt` command (section A); the animated heroes (A10) and the Home layers (B1) go through
+`tools/heroanim` instead.
 
 Common rules:
 - PNG, sRGB, 8-bit. Characters and the logo with a transparent background; backgrounds opaque.
@@ -38,13 +39,13 @@ drew it: set `CharacterArt.FaceCenterHero` to it, so a worn expression lands on 
 
 | # | File | Size | Pose | Where | Slot |
 |---|---|---|---|---|---|
-| A1 | `sprig.png` | 512 × 576 | idle, happy, looking at the viewer | Home (progressed), Wardrobe, profile | `char.hero3d.sprig` |
+| A1 | `sprig.png` | 512 × 576 | idle, happy, looking at the viewer | Home on the drawn stand-in (and for a family whose animated frames, A10, are missing), Wardrobe, profile | `char.hero3d.sprig` |
 | A2 | `bloom.png` | 512 × 576 | idle, happy | same | `char.hero3d.bloom` |
 | A3 | `drop.png` | 512 × 576 | idle, happy | same | `char.hero3d.drop` |
 | A4 | `twig.png` | 512 × 576 | idle, happy | same | `char.hero3d.twig` |
 | A5 | `sprig-blank.png` … `twig-blank.png` | 512 × 576 | the same four pictures without eyes and mouth (a worn cosmetic expression draws the face); until they are adopted, the hosts keep the owner's hero and show a worn expression as a small badge beside its face (`CharacterArt.HasMatchingBlank`, `OwnerBlanks`) | Wardrobe with an expression | the family's `char.hero3d.{family}` |
 | A6 | `group.png` | 1200 × 720 | the four together, Sprig left, Bloom, Drop, Twig right, as in the reference's strip; no base (the game stands them on its stone pedestal); their feet on the line 62% down the picture (`CharacterArt.GroupFeetShare`), their heads from about 15% down (`CharacterArt.GroupHeadShare`) and the space below the feet clear, as in the generated group | Home (early), win, milestone, splash | `char.hero3d.group` |
-| A7 | `sprig-cheer.png` … `twig-cheer.png` | 512 × 576 | celebrating: arms up, eyes closed with joy (the reference's win Bloom); feet on the line 90% down (`HomeStage.FeetShare`), as the solo heroes | win and milestone cards (the family of the level's main variant; the group stands in while it is missing) | `char.hero3d.cheer.{family}` (`CharacterArt.CheerSlot`) |
+| A7 | `sprig-cheer.png` … `twig-cheer.png` | 512 × 576 | celebrating: arms up, eyes closed with joy (the reference's win Bloom); feet on the line 90% down (`HomeStage.FeetShare`), as the solo heroes | win and milestone cards (the family of the level's main variant) while its animated frames (A10) are missing; the group stands in while this is missing too | `char.hero3d.cheer.{family}` (`CharacterArt.CheerSlot`) |
 
 Optional, if the outfits should be modelled instead of drawn over the hero (no build loads these yet: they need their
 slots and loading code first):
@@ -53,6 +54,18 @@ slots and loading code first):
 - A9: tab heads, `{family}-head.png`, 256 × 256, the head and shoulders (Wardrobe family tabs). Without them the solo
   picture is used, scaled.
 
+**Delivered (2026-10-02): the animated heroes (A10, spec FR-028).** Four rigged FBX models made by the owner with Meshy
+AI, one per family, carrying the clips of the owner's table (a 4 s idle, a 2 s reaction). `tools/heroanim` renders them
+offline into flat frames (constitution VII: the game never loads a model; research D18):
+`client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/{family}-{idle|react}-{NN}.png`, 72 a family (48 idle and 24
+reaction frames at 12 fps), 8-bit palette PNG files cropped from a 448 × 504 cell with the feet 90% down, listed in the
+folder's `manifest.json`; slots `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`); models in
+`tools/heroanim/models/`, source record `tools/heroanim/SOURCE.md`. They show on Home and the splash (on the layered
+fountain, B1) and on the win and the milestone (the level's hero); the still pictures A1–A7 stay for the Wardrobe, the
+profile, the group, the drawn stand-in and as the fallbacks. To change a hero, send its FBX again (the same rig, the
+two clips named in `tools/heroanim/heroes.json`), then run `node bake.mjs --only <family>` and `node check.mjs` in
+`tools/heroanim` (`tools/heroanim/README.md`).
+
 ## B. Backgrounds
 
 Folder: `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`. The names are `OwnerPictures.Home`,
@@ -60,7 +73,7 @@ Folder: `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`. The n
 
 | # | File | Where | What | Slot |
 |---|---|---|---|---|
-| B1 | `home.png` | Home | the garden diorama of the reference: ruins with stone arches, a round stone well with the lotus fountain in the middle, flowers and bushes, soft sunlight; **without the heroes**; empty space at the top for the logo and at the bottom for the level plaque and Play. It is used without heroes for now: Home and the splash show it alone with the logo and the buttons (the owner, 2026-10-02: the heroes come back animated later, spec FR-024) | `bg.home` |
+| B1 | `home.jpg` and its layers (below) | Home, splash | **delivered (2026-10-02) as the owner's layered Home** (`bloomlings_home_assets.zip`): the garden diorama of the reference (ruins with stone arches, a round stone well with the lotus fountain in the middle, flowers and bushes, soft sunlight) in layers, **without the heroes**, so the animated heroes (A10) stand between them (spec FR-028, contracts/look.md §6.4); empty space at the top for the logo and at the bottom for the level plaque and Play | `bg.home` and the layer slots below |
 | B2 | `gameplay-daylight.png` | levels 1–99 and every fourth band | a lush garden seen from above: grass, bushes and flowers at the edges, the middle calm (the board covers 86% of the width between 8% and 53% of the height, the tray the bottom 38%) | `bg.theme.daylight_garden` |
 | B3 | `gameplay-pond.png` | from level 100 | the same lawn with water lilies and a pond edge | `bg.theme.pond` |
 | B4 | `gameplay-orchard.png` | from level 150 | the lawn with fruit trees' shade and fallen fruit | `bg.theme.orchard` |
@@ -68,6 +81,22 @@ Folder: `client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`. The n
 | B6 | `splash.png` | splash | the Home garden, more blossoms | `bg.splash` |
 | B7 | `wardrobe.png` | Wardrobe (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal | `bg.wardrobe` |
 | B8 | `win.png` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened | `bg.win` |
+
+The B1 layers (the Backgrounds folder; prepared by `tools/heroanim/layers.mjs` from the owner's five 852 × 1846 layers,
+their boxes in `HomeLayersData.cs`, source record `tools/heroanim/SOURCE.md`):
+
+| File | Layer | Slot |
+|---|---|---|
+| `home.jpg` | the garden: sky, arches, flowers and paving, without the fountain (852 × 1846, JPEG) | `bg.home` |
+| `home-fountain-back.png` | the lotus fountain's basin, rim and lotus, behind the heroes | `bg.home.fountain_back` |
+| `home-lotus.png` | the lotus, cut out of the fountain's back, drawn again over Bloom, who stands behind it | `bg.home.lotus` |
+| `home-fountain-front.png` | the fountain's front stones and flowers, over the heroes' feet | `bg.home.fountain_front` |
+| `home-shadow.png` | one soft shadow (the sheet's front left one), drawn under every hero | `bg.home.shadow` |
+| `home-petals.png` | the pink petals, drifting down over the scene | `bg.home.petals` |
+
+To change them, send the five full-size layers again (the garden opaque, the others transparent, in the same order),
+then run `node layers.mjs <folder>` and `node check.mjs` in `tools/heroanim`. Without the fountain layers Home shows the
+garden alone, with no heroes.
 
 ## C. Logo
 
@@ -158,3 +187,34 @@ lotus came as G9–G24 and `currency-lotus.png`, above.)
 4. The logo (C1).
 5. Optionally: the win garden (B8), the Wardrobe garden (B7), the splash (B6), the faceless heroes (A5).
 Files may be sent in the chat; the session places, resizes and records them (source record, notices, `adopt`).
+
+Delivered by 2026-10-02: D1–D7; B1 (as the layered Home), B2–B5, B7 and B8; A1–A4, A6 and A7 (cut from the owner's
+character sheet) and the animated heroes (A10); C1; G9–G24 and the lotus. What is still open is in H.
+
+## H. Still awaited from the owner, and open questions (2026-10-03)
+
+1. **The Meshy plan of the four models** (to confirm before release): Meshy's terms give the output to its creator on
+   the paid plans, while output made on the free plan is published under CC BY 4.0, which needs an attribution. Which
+   plan made them? (`tools/heroanim/SOURCE.md`; the release checklist
+   `specs/001-core-game-mvp/checklists/originality.md` keeps it open.)
+2. G1–G8: the eight variant characters (walkers, the Bloomlings sheet); `tools/artgen` draws them until then.
+3. A5: the faceless still heroes; `tools/artgen` draws the blanks until then.
+4. Later: the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects.
+5. Optional: the splash picture (B6), the tagline (C2), modelled outfits (A8), tab heads (A9).
+6. Optional, for the animated heroes:
+   - faceless clips (the same idle and reaction without eyes and mouth), so a worn expression can draw the face
+     instead of sitting on a badge beside it;
+   - more reaction clips, for example a celebration for the win (Bloom's and Drop's files already carry a happy jump
+     and a joyful dance, Drop's also a victory; unused for now);
+   - a blink: the idle guide (`3.webp`) shows one, but the models' rig has no face bones, so the clips do not blink.
+7. **The updated reference (`4.webp`) differs from what is built in four places** that this delivery does not cover;
+   to confirm before they are built:
+   - the win's reward: one chip per variant of the level (its candy tile and "+30" each) instead of the one "+N"
+     Petals pill; it would change what the reward shows (spec 001 economy), not only its look;
+   - the jam card: an acorn character (Twig) peeks over the card's top edge;
+   - the Wardrobe: four outfit cards in a row, "Default", "Flower Hat", "Explorer" and "Sunny Scarf" (ours are three a
+     page from the cosmetics catalog, which has no scarf);
+   - the jam card's Bloom Burst button is purple (ours is blue, `button.blue`, as in `reference.jpg`).
+
+   Its logo's tagline also reads "Small friends. Brighter gardens." (C2 and the idle guide say "Big gardens"); no
+   build draws the tagline yet.
