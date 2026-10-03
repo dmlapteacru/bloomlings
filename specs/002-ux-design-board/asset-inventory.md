@@ -178,12 +178,12 @@ the fallback when a picture is missing.
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
-| `pod.card` | Spirit Pod (spec 005 §3.7) | 7, 8, 9, 12 | Tray | exposed (with its handle); next in stack (dimmed); pressed (sunk) | Small | yes | Launch | a dark wooden frame (`mat.wood.dark`) around a cream panel tinted by the variant, the variant's sticker tile (`tile.candy.sticker`) and the plain count below it; a short wooden handle on an exposed pod |
+| `pod.card` | Spirit Pod (spec 005 §3.7) | 7, 8, 9, 12 | Tray | exposed (bright, takes the tap); waiting in its column (muted); pressed (sunk) | Small | yes | Launch | a dark wooden frame wider than tall (`mat.wood.dark`) around a cream panel tinted by the variant, the variant's sticker tile (`tile.candy.sticker`) at its left and the plain count at its right; a waiting pod shows the same parts muted (a lighter wash, a veiled frame, the dimmed tile, a softer count) |
 | `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | the wooden frame around a grey panel with a padlock and the softer count |
 | `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
 | `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame |
-| `pod.deck` | Source stack deck (spec 005 FR-021) | 7, 8, 9, 12 | Tray | buried pods (one or two); more below (+N); emptied stack | Small | yes | Launch | the wooden frames of the next two pods peeking above the front pod, each showing a band of its variant color with its small symbol as a dark silhouette (a lilac band with a white ? for a hidden mystery pod, a grey one with the padlock when locked); a sunk parchment well for an emptied stack |
-| `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | plain brown digits below the tile, no "x" |
+| `pod.deck` | Source stack column (spec 005 FR-021; the owner's rule of 2026-10-03) | 7, 8, 9, 12 | Tray | next pods (two on 16:9, three from 19.5:9); more below (+N); sliding up or down a row; emptied stack | Small | yes | Launch | the stack's pods one after another in a column, never on each other: the exposed pod in the top row and the next ones in the rows under it, each fully visible (`pod.card`, waiting look; a hidden mystery pod shows its ? and count, a locked one its padlock); the +N count badge on the last shown pod; the pods slide up a row when the exposed one leaves and down when Return puts one back; a sunk parchment well for an emptied stack |
+| `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | plain brown digits, no "x": right of a pod's tile, below a slot's tile |
 | `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline |
 | `slot.state.working` | Working pod in a slot | 13 | Slots | working; finishing | Small | yes | Launch | a raised cream plate with the variant's sticker tile and the plain count below it |
 | `slot.state.stuck` | Stuck (waiting) pod in a slot | 13 | Slots | stuck | Small | yes | Launch | the raised cream plate with the tile in grey, a softer count and the hourglass badge |
@@ -282,7 +282,7 @@ size and inputs give the same pixels. Painted 9-slice art may replace them (spec
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
 | `mat.wood.light` | Light wood (signs, button rims) | 2, 3, 7, 15 | Signs; main button rims; wordmark | any size; grain by seed | Medium | no | Launch | UiRaster.Plank, light tone |
-| `mat.wood.dark` | Dark wood (pod frames and handles) | 7, 12 | Pods | exposed; queued (dimmed); locked | Small | no | Launch | UiRaster.Frame, dark tone |
+| `mat.wood.dark` | Dark wood (pod frames) | 7, 12 | Pods | exposed; waiting (veiled); locked | Small | no | Launch | UiRaster.Frame, dark tone |
 | `mat.stone` | Stone blocks (board border, arch, pedestal) | 7, 15 | Board border; Garden Entry arch; pedestal | any size; moss by seed | Small | no | Launch | UiRaster.Stone, Arch and Pedestal (warm sandy stone, smooth, a few soft moss tufts) |
 | `mat.parchment` | Parchment (cards, sheet, tray, slot band) | 4, 5, 6, 10, 11, 17 | Cards; jam sheet; tray; slot band; toasts | any size | Large | no | Launch | parchment gradient with a warm aged edge band, a thin brown outline and a thin inner line |
 

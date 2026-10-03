@@ -502,66 +502,82 @@ namespace Bloomlings.Playtest.Preview
             LevelScreen.Separator(p, Box.FromCenter(body.CenterX, y, body.Width, Math.Max(2f, body.Width * 0.0055f)));
 
         /// <summary>
-        /// Frame 12: the Source stack decks of spec 005 FR-021 in every state (front pod exposed, pressed, locked, mystery;
-        /// one and two buried pods; "+N" more below; connected; an emptied stack; locked and hidden buried pods), at their
-        /// size in play, and a row of four decks as the tray shows them.
+        /// Frame 12: the pods of the tray's grid (spec 005 FR-021, the owner's rule of 2026-10-03) in every state at their
+        /// size in play (exposed, pressed, locked, mystery; waiting under the exposed one, also as a hidden mystery and
+        /// locked; "+N" more below; an emptied stack), and four columns as the tray shows them, one after another and never
+        /// on each other, two exposed pods connected and a group across rows marked by rings.
         /// </summary>
         private static void PodStates(SkiaPainter p)
         {
             TraySheet(p, "Pod states", out Box body);
             ReferenceGameplayRegions g = Reference(p);
-            Box size = g.Decks[0];
+            Box exposedSize = g.Pod(0, 0);
+            Box waitingSize = g.Pod(0, 1);
             (VariantId? Variant, int Count, bool Locked) Pod(VariantId? variant, int count, bool locked = false) => (variant, count, locked);
-            (string Label, (VariantId?, int, bool)[] Pods, int Total, PodLook Look)[] states =
+            (string Label, VariantId? Variant, int Count, PodLook Look, bool Waiting, int More, bool Empty)[] states =
             {
-                ("Exposed", new[] { Pod(VariantId.Leaf, 18) }, 1, PodLook.Exposed),
-                ("Pressed", new[] { Pod(VariantId.Leaf, 18) }, 1, PodLook.Pressed),
-                ("Locked", new[] { Pod(VariantId.Acorn, 20, locked: true) }, 1, PodLook.Locked),
-                ("Mystery", new[] { Pod(null, 14) }, 1, PodLook.Exposed),
-                ("One buried", new[] { Pod(VariantId.Water, 12), Pod(VariantId.Flower, 9) }, 2, PodLook.Exposed),
-                ("Two buried", new[] { Pod(VariantId.Flower, 9), Pod(VariantId.Moss, 6), Pod(VariantId.Wood, 12) }, 3, PodLook.Exposed),
-                ("More below (+4)", new[] { Pod(VariantId.VioletBud, 8), Pod(VariantId.Dew, 10), Pod(VariantId.Acorn, 6) }, 7, PodLook.Exposed),
-                ("Buried mystery, locked", new[] { Pod(VariantId.Leaf, 5), Pod(null, 7), Pod(VariantId.Water, 4, locked: true) }, 3, PodLook.Exposed),
-                ("Emptied stack", Array.Empty<(VariantId?, int, bool)>(), 0, PodLook.Exposed),
+                ("Exposed", VariantId.Leaf, 18, PodLook.Exposed, false, 0, false),
+                ("Pressed", VariantId.Leaf, 18, PodLook.Pressed, false, 0, false),
+                ("Locked", VariantId.Acorn, 20, PodLook.Locked, false, 0, false),
+                ("Mystery", null, 14, PodLook.Exposed, false, 0, false),
+                ("Waiting", VariantId.Flower, 9, PodLook.Exposed, true, 0, false),
+                ("Waiting mystery", null, 7, PodLook.Exposed, true, 0, false),
+                ("Waiting, locked", VariantId.Water, 4, PodLook.Locked, true, 0, false),
+                ("More below (+4)", VariantId.Dew, 10, PodLook.Exposed, true, 4, false),
+                ("Emptied stack", null, 0, PodLook.Exposed, false, 0, true),
             };
 
-            float rowHeight = size.Height + (0.085f * g.W);
+            float rowHeight = exposedSize.Height + (0.085f * g.W);
             Box[] cells = Grid(body, p, states.Length, 3, rowHeight);
             for (int i = 0; i < states.Length; i++)
             {
                 Box cell = cells[i];
                 StateLabel(p, states[i].Label, cell.CenterX, cell.Top + (0.03f * g.W), cell.Width);
-                var deck = PodDeck.In(Box.FromCenter(cell.CenterX, cell.Top + (0.065f * g.W) + (size.Height / 2f), size.Width, size.Height));
-                PodPainter.DrawDeck(p, deck, states[i].Pods, states[i].Total, states[i].Look);
+                Box size = states[i].Waiting ? waitingSize : exposedSize;
+                Box box = Box.FromCenter(cell.CenterX, cell.Top + (0.065f * g.W) + (exposedSize.Height / 2f), size.Width, size.Height);
+                if (states[i].Empty)
+                {
+                    PodPainter.EmptyColumn(p, box);
+                    continue;
+                }
+
+                var chip = PodChip.In(box);
+                Kit.Pod(p, chip, states[i].Variant, states[i].Count, states[i].Look, states[i].Waiting);
+                if (states[i].More > 0)
+                {
+                    PodPainter.MoreBadge(p, chip, states[i].More);
+                }
             }
 
-            // The tray's row of decks as in play, its middle two pods connected.
+            // Four columns as in play: the exposed pods on the top row, the next ones under them.
             float rowTop = cells[cells.Length - 1].Bottom + (0.01f * g.W);
-            if (rowTop + (0.07f * g.W) + size.Height > body.Bottom)
+            if (rowTop + (0.07f * g.W) + g.PodRow.Height > body.Bottom)
             {
                 return;
             }
 
             SheetLine(p, body, rowTop);
-            StateLabel(p, "The tray in play, two pods connected", body.CenterX, rowTop + (0.035f * g.W), body.Width);
-            float dy = rowTop + (0.07f * g.W) - g.Decks[0].Top;
-            var row = new[]
+            StateLabel(p, "The tray in play: each stack a column, two pods connected", body.CenterX, rowTop + (0.035f * g.W), body.Width);
+            float dy = rowTop + (0.07f * g.W) - g.PodRow.Top;
+            var columns = new[]
             {
-                new[] { Pod(VariantId.Leaf, 12), Pod(VariantId.Moss, 5), Pod(VariantId.Wood, 9) },
-                new[] { Pod(VariantId.Flower, 8), Pod(VariantId.Water, 3), Pod(VariantId.Leaf, 6) },
-                new[] { Pod(VariantId.Water, 14), Pod(VariantId.Acorn, 4), Pod(VariantId.Flower, 7) },
+                new[] { Pod(VariantId.Leaf, 12), Pod(VariantId.Moss, 5), Pod(VariantId.Wood, 9), Pod(VariantId.Flower, 6) },
+                new[] { Pod(VariantId.Flower, 8), Pod(VariantId.Water, 3), Pod(VariantId.Leaf, 6), Pod(VariantId.Dew, 4) },
+                new[] { Pod(VariantId.Water, 14), Pod(null, 4), Pod(VariantId.Flower, 7), Pod(VariantId.Acorn, 5, locked: true) },
                 new[] { Pod(VariantId.Acorn, 6), Pod(VariantId.VioletBud, 8), Pod(VariantId.Dew, 2) },
             };
-            var decks = new PodDeck[Math.Min(row.Length, g.Decks.Count)];
-            for (int i = 0; i < decks.Length; i++)
+            int[] totals = { 4, 7, 4, 3 };
+            var frames = new Box[Math.Min(columns.Length, g.Columns.Count)][];
+            for (int i = 0; i < frames.Length; i++)
             {
-                decks[i] = PodDeck.In(g.Decks[i].Offset(0f, dy));
-                PodPainter.DrawDeck(p, decks[i], row[i], 3 + (i * 2), PodLook.Exposed);
+                frames[i] = PodPainter.DrawColumn(p, g, i, dy, columns[i], totals[i], PodLook.Exposed);
             }
 
-            if (decks.Length >= 3)
+            if (frames.Length >= 4)
             {
-                PodPainter.Link(p, decks[1].Front, decks[2].Front);
+                PodPainter.Link(p, frames[1][0], frames[2][0]);
+                PodPainter.LinkRing(p, frames[0][1], PodPainter.LinkPalette[1]);
+                PodPainter.LinkRing(p, frames[3][2], PodPainter.LinkPalette[1]);
             }
         }
 
@@ -720,10 +736,10 @@ namespace Bloomlings.Playtest.Preview
             Kit.CostPill(p, new Box(tray[4].Left, tray[4].Bottom - p.U(60f), tray[4].Left + p.U(170f), tray[4].Bottom), Cost.Charges(2));
             Kit.CountBadge(p, tray[4].Right - p.U(40f), tray[4].Bottom - p.U(30f), p.U(56f), "3");
 
-            // Pods (exposed with its handle, queued) and Waiting Slots (working, empty, stuck).
-            Box[] pods = Spread(new Box(rows[7].Left, rows[7].Top + p.U(24f), rows[7].Right, rows[7].Bottom), new[] { 180f, 180f, 156f, 156f, 156f }, new[] { 180f, 180f, 156f, 156f, 156f }, p);
-            Kit.Pod(p, pods[0], VariantId.Leaf, 12, PodLook.Exposed);
-            Kit.Pod(p, pods[1], VariantId.Flower, 8, PodLook.Next);
+            // Pods of the tray's grid (the exposed one, one waiting under it) and Waiting Slots (working, empty, stuck).
+            Box[] pods = Spread(new Box(rows[7].Left, rows[7].Top + p.U(24f), rows[7].Right, rows[7].Bottom), new[] { 206f, 206f, 132f, 132f, 132f }, new[] { 124f, 96f, 150f, 150f, 150f }, p);
+            Kit.Pod(p, PodChip.In(pods[0]), VariantId.Leaf, 12, PodLook.Exposed, waiting: false);
+            Kit.Pod(p, PodChip.In(pods[1]), VariantId.Flower, 8, PodLook.Exposed, waiting: true);
             Kit.SlotPlate(p, pods[2], SlotPlateState.Working, VariantId.Water, 3);
             Kit.SlotPlate(p, pods[3], SlotPlateState.Empty);
             Kit.SlotPlate(p, pods[4], SlotPlateState.Stuck, VariantId.Acorn, 4);
@@ -846,7 +862,7 @@ namespace Bloomlings.Playtest.Preview
             // The boxes at their size in play, unless the rows do not fit the sheet: then all of them a little smaller.
             float w = g.W;
             float label = 0.065f * w;
-            float gap = 0.045f * w;
+            float gap = 0.07f * w;
             float pill = 0.05f * w;
             float side = g.Boosters[0].Height;
             float needed = label + ((steps.Length - 1) * (label + side + gap)) + (label + side + pill);

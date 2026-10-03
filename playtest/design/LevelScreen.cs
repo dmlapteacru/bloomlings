@@ -93,10 +93,13 @@ namespace Bloomlings.Playtest.Design
         public float EndShownAt { get; set; } = -1f;
 
         /// <summary>
-        /// Where each tray pod's tile was drawn last frame: the front pod's sticker tile on its deck, a buried pod's symbol
-        /// on its band (flights start there).
+        /// Where each tray pod's sticker tile was drawn last frame, in its column of the tray's grid (flights to a slot start
+        /// there, and a returned pod's flight lands there).
         /// </summary>
         public Dictionary<string, Box> PodBoxes { get; } = new Dictionary<string, Box>(StringComparer.Ordinal);
+
+        /// <summary>The tray's pods sliding between the rows of their columns (presentation only, <see cref="Design.TrayMotion"/>).</summary>
+        public TrayMotion TrayMotion { get; } = new TrayMotion();
 
         /// <summary>Where each committed pod's tile was when it was tapped: its flight to the slot grows from that size.</summary>
         public Dictionary<string, Box> LaunchBoxes { get; } = new Dictionary<string, Box>(StringComparer.Ordinal);
@@ -128,11 +131,11 @@ namespace Bloomlings.Playtest.Design
         public bool HeroMoving { get; set; }
 
         /// <summary>
-        /// Whether the screen still moves: animations, a toast, a demo opening, booster targeting, and the end cards (the
-        /// jam's rise for <see cref="EndCardSeconds"/>; the win and milestone cards' celebration for
+        /// Whether the screen still moves: animations, the tray's pods sliding, a toast, a demo opening, booster targeting,
+        /// and the end cards (the jam's rise for <see cref="EndCardSeconds"/>; the win and milestone cards' celebration for
         /// <see cref="CelebrationSeconds"/>, and for as long as they show an animated hero).
         /// </summary>
-        public bool NeedsFrames => !Animator.Idle || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (_app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds) || (Won && HeroMoving))) || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+        public bool NeedsFrames => !Animator.Idle || TrayMotion.Moving(Animator.Now) || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (_app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds) || (Won && HeroMoving))) || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
 
         /// <summary>
         /// Whether only the win's own motion moves the screen (the win or milestone card is open and every other animation
@@ -318,6 +321,18 @@ namespace Bloomlings.Playtest.Design
             CommandResult result = Session.Apply(command);
             _app.Sound.Play(SoundCue.Booster);
             Animator.Boosted(result, Session.View);
+            if (command is UseReturn back)
+            {
+                // Return: the pod flies back from its slot and lands on top of its column, which slides down for it.
+                foreach (GameEvent e in result.Events)
+                {
+                    if (e is PodReturned returned)
+                    {
+                        Animator.Flights.Add(new Flight(float.NaN, float.NaN, back.SlotIndex, PodPainter.Shown(Session.View.Pod(returned.PodId)), Animator.Now, true, returned.PodId));
+                    }
+                }
+            }
+
             LastBooster = (kind, Animator.Now);
             EndShownAt = -1f;
             AfterCommand();
@@ -411,6 +426,7 @@ namespace Bloomlings.Playtest.Design
         {
             Session.Apply(new Restart());
             Animator.Reset(Session.View);
+            TrayMotion.Clear();
             Targeting = null;
             JamHidden = false;
             RescueUsed = false;
@@ -507,7 +523,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// This frame's reference gameplay regions (spec 005 FR-020, contracts/look.md §6.1): the level's Garden Entry sides
-        /// (a bottom entry takes the entry strip for its arch), one deck per Source stack, the Waiting Slots shown (the
+        /// (a bottom entry takes the entry strip for its arch), one column of pods per Source stack, the Waiting Slots shown (the
         /// sixth one too once Extra Slot opened it), the booster row once a booster is unlocked, and the Hard or Super
         /// Hard badge under the sign.
         /// </summary>
@@ -536,7 +552,7 @@ namespace Bloomlings.Playtest.Design
         /// The tray (spec 005 FR-012, FR-020, contracts/look.md §6.1), as in the reference: one parchment tray across the
         /// whole screen from the entry strip to past the bottom of the screen, its top corners rounded by
         /// <see cref="ReferenceGameplayRegions.TrayRadius"/>, casting a soft shadow up onto the lawn. Its rows (the slots,
-        /// the boosters, the decks) lie on bands of warm parchment parted by the grooves at the separators, so the cream
+        /// the boosters, the columns of pods) lie on bands of warm parchment parted by the grooves at the separators, so the cream
         /// plates, boxes and wooden pods stand out on it.
         /// </summary>
         public static void TrayPanel(IPainter p, ReferenceGameplayRegions r)
@@ -679,7 +695,7 @@ namespace Bloomlings.Playtest.Design
 
             // The reference layout (spec 005 FR-020, contracts/look.md §6.1): the top bar, the board wide in its stone
             // border on the lawn, the entry strip with a bottom entry's arch, and one parchment tray to the bottom of the
-            // screen with the slots, the boosters and the decks.
+            // screen with the slots, the boosters and the columns of pods.
             ReferenceGameplayRegions r = Regions(p, hasBoosters, badge.HasValue);
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, Level);
 
@@ -708,7 +724,7 @@ namespace Bloomlings.Playtest.Design
                 BoosterBarPainter.Draw(p, r.Boosters, this);
             }
 
-            PodPainter.DrawDecks(p, r, this);
+            PodPainter.DrawColumns(p, r, this);
             PodPainter.DrawFlights(p, this);
 
             Box over = board.Outer;

@@ -458,55 +458,69 @@ namespace Bloomlings.Playtest.Design
         // ---- Tray pieces (§3.7) ----
 
         /// <summary>
-        /// A pod's wooden frame (§3.7, <c>mat.wood.dark</c>): a soft shadow, the short wooden handle on top
-        /// (<paramref name="handle"/>, exposed pods only), the inner panel and the dark wood frame (radius 18%, border 11% of
-        /// the width) over it. The panel is pale <paramref name="tint"/> (the variant's color) fading to cream at the
-        /// bottom, plain cream without a tint, <c>state.lock_bg</c> when locked. A queued pod (<see cref="PodLook.Next"/>)
-        /// is dimmed toward <c>parchment.bottom</c>; a pressed one sinks a little. <paramref name="tintShare"/> is how much of
-        /// the tint the panel's top takes (0.22 by default) and <paramref name="panelBottom"/> the tinted panel's bottom
-        /// color (<c>cream.face</c> by default); the gameplay decks pass their own (spec 005 FR-020). Returns the inner
-        /// panel, where the tile and the count go.
+        /// How far the variant's color is lightened for the top of an exposed pod's panel: clearly tinted, keeping the
+        /// color's hue (the reference's lime, pink, sky blue and orange panels; spec 005 FR-020).
         /// </summary>
-        public static Box PodFrame(IPainter p, Box box, PodLook look, bool handle = true, Rgba? tint = null, float tintShare = 0.22f, Rgba? panelBottom = null)
+        public const float PodPanelTop = 0.5f;
+
+        /// <summary>How far the variant's color is lightened for the bottom of an exposed pod's panel.</summary>
+        public const float PodPanelBottom = 0.8f;
+
+        /// <summary>How far the variant's color is lightened for the top of a waiting pod's panel: a light wash.</summary>
+        public const float PodWaitingPanelTop = 0.74f;
+
+        /// <summary>How far the variant's color is lightened for the bottom of a waiting pod's panel.</summary>
+        public const float PodWaitingPanelBottom = 0.9f;
+
+        /// <summary>The veil of <c>parchment.bottom</c> that mutes a waiting pod's frame and panel (its tile and count stay readable).</summary>
+        public const float PodWaitingVeil = 0.4f;
+
+        /// <summary>The count's type size as a share of its room right of the tile (big digits, as large as the pod allows).</summary>
+        public const float PodCountFill = 0.66f;
+
+        /// <summary>A waiting pod's count, a little smaller than an exposed pod's.</summary>
+        public const float PodWaitingCountFill = 0.6f;
+
+        /// <summary>
+        /// A pod's wooden frame in the tray's grid (§3.7, <c>mat.wood.dark</c>; the owner's rule of 2026-10-03): a box
+        /// wider than tall, its corners rounded by 20% of its height and its border <see cref="PodChip.Border"/> of it, over
+        /// a soft shadow and around the inner panel. The panel runs from <paramref name="panelTop"/> to
+        /// <paramref name="panelBottom"/> (the variant's color lightened), plain cream without them, <c>state.lock_bg</c>
+        /// when locked. A <paramref name="waiting"/> pod (the next ones of the stack, under the exposed one) is muted by a
+        /// veil of <c>parchment.bottom</c> over the frame and the panel, with a lighter shadow; a pressed one sinks a little.
+        /// Returns the inner panel (<see cref="PodChip.Inner"/>, moved down with a pressed frame), where the tile and the
+        /// count go.
+        /// </summary>
+        public static Box PodFrame(IPainter p, Box box, PodLook look, bool waiting, Rgba? panelTop = null, Rgba? panelBottom = null)
         {
             p.Mark("mat.wood.dark");
-            float w = box.Width;
-            bool queued = look == PodLook.Next;
-            Box frame = look == PodLook.Pressed ? box.Offset(0f, w * 0.035f) : box;
-            float radius = w * 0.18f;
-            float border = w * 0.11f;
-            p.FillRound(frame.Offset(0f, w * (look == PodLook.Pressed ? 0.01f : 0.05f)).Inset(w * 0.03f, 0f), radius, C.GardenShadow.WithAlpha(queued ? 0.12f : 0.26f));
-            if (handle && !queued)
-            {
-                // A short wooden handle on the frame's top edge, with a small stem.
-                float hw = w * 0.34f;
-                float hh = w * 0.15f;
-                Box knob = Box.FromCenter(frame.CenterX, frame.Top - (hh * 0.12f), hw, hh);
-                p.FillRound(Box.FromCenter(knob.CenterX, knob.Top - (hh * 0.12f), w * 0.04f, hh * 0.45f), w * 0.02f, C.WoodDarkLine);
-                WoodPlank(p, knob, 0.5f, 9, WoodTone.Dark);
-            }
-
+            float h = box.Height;
+            bool pressed = look == PodLook.Pressed;
+            Box frame = pressed ? box.Offset(0f, h * 0.04f) : box;
+            float radius = h * 0.2f;
+            float border = h * PodChip.Border;
+            p.FillRound(frame.Offset(0f, h * (pressed ? 0.015f : 0.06f)).Inset(h * 0.04f, 0f), radius, C.GardenShadow.WithAlpha(waiting ? 0.1f : 0.26f));
             Box panel = frame.Inset(border * 0.8f);
             float panelRadius = Math.Max(0f, radius - (border * 0.8f));
             if (look == PodLook.Locked)
             {
                 p.FillRoundGradient(panel, panelRadius, C.StateLockBg.Lighten(0.2f), C.StateLockBg);
             }
-            else if (tint.HasValue)
+            else if (panelTop.HasValue)
             {
-                p.FillRoundGradient(panel, panelRadius, tint.Value.Mix(C.CreamTop, 1f - tintShare), panelBottom ?? C.CreamFace);
+                p.FillRoundGradient(panel, panelRadius, panelTop.Value, panelBottom ?? C.CreamFace);
             }
             else
             {
                 p.FillRoundGradient(panel, panelRadius, C.CreamTop, C.CreamFace);
             }
 
-            p.Picture("mat.wood.dark/frame/4", frame, (pw, ph) => UiRaster.Frame(pw, ph, pw * 0.18f, pw * 0.11f, WoodTone.Dark, 4));
-            if (queued)
+            p.Picture("mat.wood.dark/chip/4", frame, (pw, ph) => UiRaster.Frame(pw, ph, ph * 0.2f, ph * PodChip.Border, WoodTone.Dark, 4));
+            if (waiting)
             {
-                p.FillRound(frame, radius, C.ParchmentBottom.WithAlpha(0.45f));
+                p.FillRound(frame, radius, C.ParchmentBottom.WithAlpha(PodWaitingVeil));
             }
-            else if (look == PodLook.Pressed)
+            else if (pressed)
             {
                 // Pressed: the whole pod is a little darker as it sinks.
                 p.FillRound(frame, radius, C.GardenShadow.WithAlpha(0.08f));
@@ -516,25 +530,33 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A whole pod (§3.7): the wooden frame with its panel tinted by the variant, the variant's sticker tile at 62% of
-        /// the panel near its top, and the count below it in big <c>type.count</c> <c>ink.brown</c> digits with no "x"
-        /// (about 17% of the pod tall, as in the reference). A null
-        /// <paramref name="variant"/> is a mystery pod (the lilac "?" tile); a locked pod shows the padlock; a queued one is
-        /// dimmed; a pressed one sinks. Queued, locked and mystery pods keep the plain cream panel.
+        /// A whole pod of the tray's grid (§3.7, <c>pod.card</c>) in <paramref name="chip"/>: the wooden frame
+        /// (<see cref="PodFrame"/>) with its cream panel tinted by the variant, the variant's sticker tile (the owner's icon
+        /// on it) in <see cref="PodChip.Tile"/> and the plain count in big <c>ink.brown</c> digits in
+        /// <see cref="PodChip.Count"/>, right of it. The exposed pod (<paramref name="waiting"/> false) is bright; a waiting
+        /// one shows the same parts muted (a lighter wash, the veiled frame, the tile's dimmed picture and a softer count) so
+        /// its variant and count still read (spec 001 FR-013). A null <paramref name="variant"/> is a hidden mystery pod (the
+        /// lilac "?" tile on plain cream); a locked pod shows the padlock on a grey panel and its softer count; a pressed one
+        /// sinks. Returns where the tile was drawn.
         /// </summary>
-        public static void Pod(IPainter p, Box box, VariantId? variant, int count, PodLook look, bool handle = true)
+        public static Box Pod(IPainter p, PodChip chip, VariantId? variant, int count, PodLook look, bool waiting)
         {
             p.Mark("pod.card");
-            bool queued = look == PodLook.Next;
-            Rgba? tint = variant.HasValue && !queued && look != PodLook.Locked ? Visuals.ColorOf(variant.Value) : (Rgba?)null;
-            Box panel = PodFrame(p, box, look, handle, tint);
-            float tile = panel.Width * 0.62f;
-            Box tileBox = Box.FromCenter(panel.CenterX, panel.Top + (panel.Height * 0.03f) + (tile / 2f), tile, tile);
-            if (look == PodLook.Locked)
+            bool locked = look == PodLook.Locked;
+            Rgba? color = variant.HasValue && !locked ? Visuals.ColorOf(variant.Value) : (Rgba?)null;
+            Rgba? top = color?.Lighten(waiting ? PodWaitingPanelTop : PodPanelTop);
+            Rgba? bottom = color?.Lighten(waiting ? PodWaitingPanelBottom : PodPanelBottom);
+            Box panel = PodFrame(p, chip.Frame, look, waiting, top, bottom);
+
+            // A pressed frame sinks: its tile and count go with it.
+            float sink = panel.Top - chip.Inner.Top;
+            Box tile = chip.Tile.Offset(0f, sink);
+            Box countBox = chip.Count.Offset(0f, sink);
+            if (locked)
             {
                 p.Mark("pod.state.locked");
-                float g = tile * 0.62f;
-                p.Shape("ui.lock", Box.FromCenter(tileBox.CenterX, tileBox.CenterY, g, g), C.StateLock.Darken(0.2f));
+                float g = tile.Width * 0.62f;
+                p.Shape("ui.lock", Box.FromCenter(tile.CenterX, tile.CenterY, g, g), C.StateLock.Darken(waiting ? 0.05f : 0.2f));
             }
             else
             {
@@ -543,15 +565,16 @@ namespace Bloomlings.Playtest.Design
                     p.Mark("pod.state.mystery");
                 }
 
-                CandyTile(p, tileBox, variant, TileStyle.Sticker, queued ? TileState.Dimmed : TileState.Normal, pressed: look == PodLook.Pressed);
-                if (queued && !variant.HasValue)
+                CandyTile(p, tile, variant, TileStyle.Sticker, waiting ? TileState.Dimmed : TileState.Normal, pressed: look == PodLook.Pressed);
+                if (waiting && !variant.HasValue)
                 {
                     // The mystery tile has no dimmed picture: a veil of the parchment dims it like the others.
-                    p.FillRound(tileBox, tileBox.Width * 0.2f, C.ParchmentBottom.WithAlpha(0.45f));
+                    p.FillRound(tile, tile.Width * 0.2f, C.ParchmentBottom.WithAlpha(0.4f));
                 }
             }
 
-            CountBelow(p, new Box(panel.Left, tileBox.Bottom, panel.Right, panel.Bottom), count, queued || look == PodLook.Locked, 1.05f);
+            CountBelow(p, countBox, count, waiting || locked, waiting ? PodWaitingCountFill : PodCountFill);
+            return tile;
         }
 
         /// <summary>
