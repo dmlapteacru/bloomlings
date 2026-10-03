@@ -71,7 +71,7 @@ namespace Bloomlings.Playtest.Droid
             {
                 if (_app.Calm && !_painter.Springing && !_painter.Finger.HasValue)
                 {
-                    // Only slow motion is left (the win card's, or Home's 12 fps heroes under a card): about 30 frames a
+                    // Only slow motion is left (the win card's, or Home's 24 fps heroes under a card): about 30 frames a
                     // second is enough.
                     PostInvalidateDelayed(33);
                 }

@@ -19,7 +19,7 @@ namespace Bloomlings.Playtest.Droid
     /// ARGB_8888 bitmaps drawn with filtering, in a cache bounded by bytes (<see cref="PictureCache{T}"/>). The animated
     /// heroes' frames (spec 005 FR-028) are decoded when first drawn into palette pictures kept in a cache bounded by bytes
     /// (<see cref="HeroFrameStore"/>), and the frames on screen are expanded into a few reused bitmaps
-    /// (<see cref="HeroBitmaps"/>), never all 288 at once. The gameplay lawn renders on a worker thread; until it is ready
+    /// (<see cref="HeroBitmaps"/>), never all 576 at once. The gameplay lawn renders on a worker thread; until it is ready
     /// the lawn's flat gradient shows, then the view redraws.
     /// </summary>
     public sealed class AndroidPainter : PainterBase

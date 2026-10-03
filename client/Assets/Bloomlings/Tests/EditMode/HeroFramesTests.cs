@@ -56,7 +56,7 @@ namespace Bloomlings.Client.Tests
             string folder = Path.Combine(ClientRoot, "Art", "Heroes", "Resources", HeroMotion.Folder);
             Assert.That(HeroMotionImporter.FramesFolder, Is.EqualTo("Assets/Bloomlings/Art/Heroes/Resources/" + HeroMotion.Folder + "/"));
             var expected = new HashSet<string>(HeroMotion.AllFrames());
-            Assert.That(expected, Has.Count.EqualTo(288), "four families, a 48-frame idle and a 24-frame reaction each");
+            Assert.That(expected, Has.Count.EqualTo(576), "four families, a 96-frame idle and a 48-frame reaction each (24 fps)");
             foreach (string name in expected)
             {
                 Assert.That(File.Exists(Path.Combine(folder, name + ".png")), Is.True, name + ".png");

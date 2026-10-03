@@ -119,7 +119,7 @@ async function main() {
     }
     const t0 = Date.now();
     const job = {
-      file: hero.file, idle: hero.idle, react: hero.react, fps: config.fps,
+      file: hero.file, idle: hero.idle, react: hero.react, fps: config.fps, idleSeconds: config.idleSeconds, reactSeconds: config.reactSeconds,
       idleBlend: config.idleBlend, reactIn: config.reactIn, reactOut: config.reactOut,
       yaw: hero.yaw, pitch: config.pitch, fov: config.fov, light: config.light,
       cell: config.cell, feet: config.feet, fill: config.fill, margin: config.margin,

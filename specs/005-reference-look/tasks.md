@@ -201,3 +201,13 @@ clarification "E", FR-013, FR-021), research D21 and contracts/look.md §3.7, §
   links on the frames and the ring on the top right corner.
 - [X] T039 Docs (spec.md, research D21, look.md, plan.md, `CLAUDE.md`, the READMEs, the asset slots and the inventory)
   and every suite; the preview's frames 7, 8, 12 and 25 reviewed at 16:9, 19.5:9 and 21:9; the playtest APK built.
+
+## Owner delivery: the heroes at 60 fps (2026-10-03)
+
+The owner sent the four FBX heroes again, exported at 60 fps, to replace the others. See spec.md (the clarification
+"the owner's 60 fps models", SC-006, SC-007) and research D22.
+- [X] T040 `tools/heroanim`: the models replaced (`SOURCE.md` with the new files and hashes); `page.html` finds a clip by
+  its Meshy id at the end of its name and plays it at the table's length (`heroes.json` `idleSeconds`,
+  `reactSeconds`); the bake at 24 fps: 576 frames, the regenerated `HeroMotionData.cs` and manifests.
+- [X] T041 The hosts: the playtest's frame cache at 60 MiB (`PainterBase.HeroFrameCacheBytes`), the frame counts in
+  `HeroFramesTests` and the comments; every suite; the playtest APK built.

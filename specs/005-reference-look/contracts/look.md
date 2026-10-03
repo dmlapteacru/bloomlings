@@ -448,8 +448,8 @@ camera in the game). The kit's `HeroMotion` (`HeroMotion.cs`, with the generated
 for both builds; Home places them with `HomeLayers` (§6.4), the win and the milestone in their hero box (§6.3).
 
 - **Frames**: `Art/Heroes/Resources/HeroMotion/{family}-{idle|react}-{NN}.png` (`HeroMotion.Folder`, `FrameName`),
-  slots `char.hero3d.motion.{family}` (`HeroMotion.Slot`). 12 frames a second (`Fps`): per family 48 idle frames (a
-  4 s loop) and 24 reaction frames (2 s) (`FrameCount`, `Seconds`, `Has`). Both clips start on the idle's first frame
+  slots `char.hero3d.motion.{family}` (`HeroMotion.Slot`). 24 frames a second (`Fps`; 12 until the owner's 60 fps models, research
+  D22): per family 96 idle frames (a 4 s loop) and 48 reaction frames (2 s) (`FrameCount`, `Seconds`, `Has`). Both clips start on the idle's first frame
   (the seam) and the reaction ends on it, so the idle and a reaction join without a jump. Each file is an 8-bit
   palette PNG with transparency, one palette per family.
 - **The cell**: every frame is cut from one 448 × 504 cell (`CellWidth`, `CellHeight`; the still heroes' 8:9 shape)
@@ -478,7 +478,7 @@ for both builds; Home places them with `HomeLayers` (§6.4), the win and the mil
   open): the trail behind (`CharacterArt.TrailBox(cell)`), the skin pattern through the frame's own alpha (as on the
   still hero), the worn expression on its cream badge (`CharacterArt.ExpressionBadge(cell)`: the frames have no faceless
   twin, so always the badge) and the hat at `HeroMotion.Hat`. A hero is never a button: no press look, no click sound.
-- **Loading**: a frame is loaded when it is first drawn and kept in a bounded cache, never all 288 (about 140 MB as
+- **Loading**: a frame is loaded when it is first drawn and kept in a bounded cache, never all 576 (about 280 MB as
   RGBA). The playtest embeds the folder under `heromotion/` (`PainterBase.HeroMotionPrefix`), keeps the frames it drew
   as palette pictures (one byte a pixel) in a cache bounded by bytes, the least recently drawn dropped first, and
   expands only the frames on screen to RGBA (`playtest/design/HeroFrames.cs`; `Visuals.HasMotion`,
@@ -610,7 +610,7 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   win card in both builds (FR-002: the card changes no tap outcome, so Home, Restart and Settings stay reachable from
   it, as before spec 005). The celebration (rays, petals, Next breathing) animates for about
   8 s after the card shows, then rests on its last frame until the next input, so an idle win card costs no frames;
-  an animated hero keeps the card drawing for as long as it shows (its 12 fps frames; the playtest at its slower
+  an animated hero keeps the card drawing for as long as it shows (its 24 fps frames; the playtest at its slower
   celebration rate).
 - The reward as a cream pill (`CostPill` style, `size.reward_pill_height` = 104 units tall, `ui.pill.reward`) "+N"
   with the lotus, counting up, a sparkle at the lotus and petals bursting out; a dropped booster charge below it as its
@@ -977,7 +977,7 @@ The motion (`HomeMotion(start)`, made when Home or the splash appears; the splas
 idles from `start − Phase(family)`. `Update(now)`, called every drawn frame, starts the reactions whose turn came: the
 first `FirstReaction` = 1.5 s after the start, then one every `ReactionEvery` = 6 s, in `ReactionOrder` (Bloom, Sprig,
 Drop, Twig, then again), each at its hero's next seam. Each hero draws `Player(family).Pose(now)` (§3.12). Home keeps
-drawing while it shows (at least the heroes' 12 fps, the petals at the display rate), under a card too.
+drawing while it shows (at least the heroes' 24 fps, the petals at the display rate), under a card too.
 
 Taps: a tap on a hero's seam picture box (`HeroMotion.PictureBox(HeroCell, Frame(family, Idle, 0))`) calls
 `HomeMotion.Tap(family, now)`: the hero reacts at once, cross-fading from its idle, unless it already reacts. A hero

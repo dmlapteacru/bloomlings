@@ -72,7 +72,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   (mirrored with `IPainter.PushSquash(-1, 1, …)`). The owner's animated heroes (spec 005 FR-028, made by
   `tools/heroanim`) are embedded from `Art/Heroes/Resources/HeroMotion/` under `heromotion/`: both painters decode a
   frame when it is first drawn and keep the frames in a cache bounded by bytes (the least recently drawn dropped first),
-  never all 288; the layered Home's pictures (`home.jpg`, `home-*.png`) come with the backgrounds. The level tester
+  never all 576; the layered Home's pictures (`home.jpg`, `home-*.png`) come with the backgrounds. The level tester
   keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show as
   unavailable, and the jam rescue is granted without an ad. A small dev row at the very bottom of Home (−1, +1, +10,
   Reset) moves the progression for testing.

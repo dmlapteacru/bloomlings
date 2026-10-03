@@ -60,7 +60,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Mechanic showcase levels live in `content/showcase/` (generated with `generate --mechanics <m> --class normal`);
   `generate` keeps them fixed (`--keep`).
 - `tools/heroanim` (Node 22, not in the solution; `tools/heroanim/README.md`) pre-renders the owner's animated FBX
-  heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 2.5
+  heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
   minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`
   (no npm packages) must pass before committing hero frames or Home layers.
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
@@ -116,7 +116,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`
   with same-named `UiKit*` twins.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
-  renders the four Meshy FBX heroes offline into flat 12 fps frames (a 4 s idle loop and a 2 s reaction each, in
+  renders the four Meshy FBX heroes offline into flat 24 fps frames (a 4 s idle loop and a 2 s reaction each, in
   `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in
   `Art/Backgrounds/Resources/Backgrounds/`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
   place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the

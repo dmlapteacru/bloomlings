@@ -148,6 +148,20 @@ rendered (research D21); the owner answered "E".
 - Q: Does a rule change? → A: No. The columns, rows, taps and touch boxes of the previous session stay; presentation
   only (FR-002).
 
+### Session 2026-10-03 (the owner's 60 fps models)
+
+The owner sent the four heroes again, exported by Meshy at 60 fps ("Animation_all_frame_rate_60"): "I'm giving you new
+fbx, the same heroes but 60 fps. Just replace them and build the APK."
+- Q: What do the new files hold? → A: The same models and clips, but the clips' frames are stamped 1/60 s apart
+  instead of 1/24 s: the idle holds its 96 frames over 1.6 s instead of 4 s, the reactions their 48 over 0.8 s
+  (research D22). Taken as stamped, every hero would move 2.5 times faster than the owner's table; there are no
+  in-between frames.
+- Q: So what changes? → A: The files replace the earlier ones (`tools/heroanim/models/`), each clip keeps the length of
+  the owner's table (`heroes.json` `idleSeconds` 4, `reactSeconds` 2), and the bake takes every frame of the motion:
+  24 frames a second instead of 12 (96 idle and 48 reaction frames a hero), twice as smooth on screen. 60 frames a
+  second of flat pictures would be five times the frames (about 57 MB and 175 MB of palette pictures to cycle), too
+  heavy for a phone (research D22).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - The board and the tray look like the reference (Priority: P1)
@@ -452,9 +466,9 @@ inventory.
 - **SC-004**: No screen file uses a literal color or size, and every new stand-in is a registered asset slot that
   appears in the regenerated asset inventory.
 - **SC-005**: `pictures.md` lists every owner picture with its slot.
-- **SC-006**: Every family has a 4 s idle loop (48 frames at 12 fps) and a 2 s reaction (24 frames), both starting and
+- **SC-006**: Every family has a 4 s idle loop (96 frames at 24 fps) and a 2 s reaction (48 frames), both starting and
   ending on the idle's first pose, as the owner's table says (`HeroMotionTests`).
-- **SC-007**: The 288 hero frames take under 12 MB in the repository, and `node tools/heroanim/check.mjs` verifies every
+- **SC-007**: The 576 hero frames take under 24 MB in the repository, and `node tools/heroanim/check.mjs` verifies every
   frame, every Home layer and the generated kit files against the last bake.
 - **SC-008**: On every screen shape from 16:9 to 21:9 the four heroes' seam pictures lie inside the screen, under the
   logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).

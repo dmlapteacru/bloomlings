@@ -23,7 +23,7 @@ async function loadHero(file) {
   return obj;
 }
 
-// job: { file, idle, react, fps, idleBlend, reactIn, reactOut, yaw, pitch, fov, light, width, height }
+// job: { file, idle, react, fps, idleSeconds, reactSeconds, idleBlend, reactIn, reactOut, yaw, pitch, fov, light, width, height }
 // Renders the idle loop and the reaction at job.width × job.height (the bake supersampling) and returns PNG data URLs
 // with the projected head points of every frame (the hats follow them) and the ground point.
 window.bake = async (job) => {
@@ -52,7 +52,9 @@ window.bake = async (job) => {
   const rim = new THREE.DirectionalLight(0xffffff, L.rim); rim.position.set(0.5, 1.5, -2.0); scene.add(rim);
 
   const mixer = new THREE.AnimationMixer(obj);
-  const clipOf = name => { const c = obj.animations.find(a => a.name === name); if (!c) throw new Error('no clip ' + name + ' in ' + job.file); return c; };
+  // A clip by its Meshy id: the whole name, or its last part after "|" (the 60 fps export names them
+  // "target_character|target_character|<id>").
+  const clipOf = name => { const c = obj.animations.find(a => a.name === name || a.name.endsWith('|' + name)); if (!c) throw new Error('no clip ' + name + ' in ' + job.file); return c; };
   const idle = clipOf(job.idle), react = clipOf(job.react);
   const aIdle = mixer.clipAction(idle), aRest = mixer.clipAction(idle.clone()), aReact = mixer.clipAction(react);
   for (const a of [aIdle, aRest, aReact]) { a.play(); a.setEffectiveTimeScale(0); }
@@ -66,22 +68,28 @@ window.bake = async (job) => {
     obj.updateMatrixWorld(true);
   };
 
+  // Each clip lasts job.idleSeconds and job.reactSeconds on screen (the owner's table: 4 s and 2 s), whatever the time
+  // its file stamps on its keyframes (the 60 fps export puts the same frames 1/60 s apart, 2.5 times faster): t is the
+  // time on screen, t * k the clip's own.
+  const idleLength = job.idleSeconds || idle.duration, kIdle = idle.duration / idleLength;
+  const reactLength = job.reactSeconds || react.duration, kReact = react.duration / reactLength;
+
   // The idle loop: the clip, eased into its own first pose over the last idleBlend seconds, so it loops seamlessly.
   const frames = [];
-  const nIdle = Math.round(idle.duration * job.fps);
+  const nIdle = Math.round(idleLength * job.fps);
   for (let i = 0; i < nIdle; i++) {
-    const t = idle.duration * i / nIdle;
-    const w = smooth((t - (idle.duration - job.idleBlend)) / job.idleBlend);
-    frames.push({ clip: 'idle', set: () => pose(1 - w, t, w, 0, 0) });
+    const t = idleLength * i / nIdle;
+    const w = smooth((t - (idleLength - job.idleBlend)) / job.idleBlend);
+    frames.push({ clip: 'idle', set: () => pose(1 - w, t * kIdle, w, 0, 0) });
   }
   // The reaction: from the seam pose into the clip over reactIn seconds and back to the seam pose over the last
   // reactOut seconds, so it starts and ends where the idle loop starts.
-  const nReact = Math.round(react.duration * job.fps);
+  const nReact = Math.round(reactLength * job.fps);
   for (let i = 0; i <= nReact; i++) {
-    const t = react.duration * i / nReact;
-    const w = Math.max(1 - smooth(t / job.reactIn), smooth((t - (react.duration - job.reactOut)) / job.reactOut));
+    const t = reactLength * i / nReact;
+    const w = Math.max(1 - smooth(t / job.reactIn), smooth((t - (reactLength - job.reactOut)) / job.reactOut));
     if (i === nReact) break; // the last pose is the seam: the idle's first frame shows it
-    frames.push({ clip: 'react', set: () => pose(0, 0, w, 1 - w, t) });
+    frames.push({ clip: 'react', set: () => pose(0, 0, w, 1 - w, t * kReact) });
   }
 
   // One camera for every frame: the union of the posed bounds, seen from the yaw and the pitch.
@@ -152,7 +160,7 @@ window.bake = async (job) => {
     out.push({ clip: f.clip, png: cell.toDataURL('image/png'), head: toCell(project(head)), top: toCell(project(top)) });
   }
   renderer.dispose();
-  return { frames: out, scale: s, render: [W, H], idleSeconds: idle.duration, reactSeconds: react.duration };
+  return { frames: out, scale: s, render: [W, H], idleSeconds: idleLength, reactSeconds: reactLength };
 };
 window.ready = true;
 </script>

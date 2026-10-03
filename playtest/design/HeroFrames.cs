@@ -226,7 +226,7 @@ namespace Bloomlings.Playtest.Design
     /// <summary>
     /// The animated heroes' frames of a painter (spec 005 FR-028): each is read from the embedded resources and decoded
     /// the first time it is drawn (<see cref="PalettePng"/>), then kept in a <see cref="PictureCache{T}"/> bounded by
-    /// bytes, so the 288 frames are never all decoded up front and the cache never grows past its budget (the least
+    /// bytes, so the 576 frames are never all decoded up front and the cache never grows past its budget (the least
     /// recently drawn frames are dropped first, never one drawn in the last two frames). The painter calls
     /// <see cref="NextFrame"/> at the start of each frame. Engine-free; callers lock it when painters share it across threads.
     /// </summary>

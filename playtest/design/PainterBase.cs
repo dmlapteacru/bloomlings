@@ -322,16 +322,17 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// How many bytes of decoded hero frames a painter keeps (<see cref="HeroFrameStore"/>): a frame is held as its
-        /// palette picture, one byte a pixel, so the 288 frames would take about 35 MiB and Home's four idle loops take
-        /// 23.5 MiB. The budget holds those loops and the last reaction or two, never the whole set: past it the least
-        /// recently drawn frames (an earlier hero's reaction first, as the idle loops come round every 4 s) are dropped and
-        /// decode again when drawn next. It must stay above the idle loops, or Home would decode every frame it draws.
+        /// palette picture, one byte a pixel, so the 576 frames (24 fps) would take about 70 MiB and Home's four idle loops
+        /// take 47 MiB. The budget holds those loops and the last reaction or two (about 6 MiB each), never the whole set:
+        /// past it the least recently drawn frames (an earlier hero's reaction first, as the idle loops come round every
+        /// 4 s) are dropped and decode again when drawn next. It must stay above the idle loops, or Home would decode every
+        /// frame it draws.
         /// </summary>
-        protected const long HeroFrameCacheBytes = 30L * 1024 * 1024;
+        protected const long HeroFrameCacheBytes = 60L * 1024 * 1024;
 
         /// <summary>
         /// How many bytes of hero frames a painter keeps expanded to RGBA for drawing (the frames on screen and the few
-        /// before them): with <see cref="HeroFrameCacheBytes"/>, at most about 38 MiB of decoded frames.
+        /// before them): with <see cref="HeroFrameCacheBytes"/>, at most about 68 MiB of decoded frames.
         /// </summary>
         protected const long HeroDrawCacheBytes = 8L * 1024 * 1024;
 

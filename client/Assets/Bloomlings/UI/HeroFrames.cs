@@ -13,7 +13,7 @@ namespace Bloomlings.Client.UI
     /// else its texture as a sprite) and kept while a view holds its family (<see cref="HeroFrameSet.Hold"/>); when the last
     /// view lets go (its screen hides or closes), the family's textures are unloaded. Home holds four families, the win and
     /// the milestone one, every other screen none, so at most the families on screen stay loaded, as compressed textures,
-    /// never all 288 frames decoded.
+    /// never all 576 frames decoded.
     /// </summary>
     public static class HeroFrames
     {

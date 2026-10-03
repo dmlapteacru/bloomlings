@@ -137,7 +137,7 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// Whether the only motion left is slow: the open win or milestone card's (turning rays, falling petals, Next
-        /// breathing, the hero's 12 fps frames), or Home's heroes and petals under a settled card (but the Daily Reward's
+        /// breathing, the hero's 24 fps frames), or Home's heroes and petals under a settled card (but the Daily Reward's
         /// breathing CLAIM). The host may then draw at about 30 frames a second instead of every display frame, to save
         /// battery.
         /// </summary>

@@ -152,8 +152,8 @@ decision records what the reference shows, what we do and why, so the owner can 
     toward the fountain's middle by the hero's `yaw`), rendered 2.5 times larger and drawn down into a 448 × 504 cell
     (the still heroes' 8:9 shape) with the seam pose's feet on 90% of its height and the seam pose about 84% of the
     cell tall.
-  - 12 frames per second: 48 idle and 24 reaction frames per hero, 288 in all. The breathing and the bounces are slow
-    and soft; 12 fps reads smooth for them and keeps the files and memory at half of 24 fps.
+  - 12 frames per second at first: 48 idle and 24 reaction frames per hero, 288 in all, half the files and memory of
+    24 fps. Since the owner's 60 fps delivery (D22) the bake takes 24 frames a second: 96 and 48 a hero, 576 in all.
   - The seams: a picture cannot blend two poses at run time, so the blends happen in the bake. The idle eases into its
     own first pose over its last 0.75 s, so it loops; the reaction blends in from that pose over 0.25 s and back to it
     over its last 0.4 s. A reaction that starts on a seam therefore joins the idle without a jump. A tap between seams
@@ -161,9 +161,9 @@ decision records what the reference shows, what we do and why, so the owner can 
     asked for within 0.35 s of the next seam waits for it (`MaxSeamWait`).
   - The format: every frame is cropped to its visible bounds (its crop and two head points, the head bone at the chin
     and the head's top at the brow, are in the generated `HeroMotionData.cs`) and stored as an 8-bit palette PNG with
-    one dithered 256-color palette per hero, shared by all its frames so no color flickers: 11 MB for the 288 frames.
-    Decoded, the cropped frames are about 140 MB as RGBA (35 MB as palette pictures), so the hosts load a frame when
-    it is first drawn and keep a bounded cache, never the whole set.
+    one dithered 256-color palette per hero, shared by all its frames so no color flickers: 11 MB for the 288 frames
+    (23 MB for the 576 at 24 fps). Decoded, the 576 cropped frames are about 280 MB as RGBA (70 MB as palette
+    pictures), so the hosts load a frame when it is first drawn and keep a bounded cache, never the whole set.
   - The light: the models' normal maps show blotches at this size, so they are dropped; the albedo is lit with a
     Lambert material under a warm hemisphere light, a key light from the upper left (as in the reference), a fill and a
     rim light. The look is soft and volumetric, close to the owner's still heroes.
@@ -259,3 +259,26 @@ decision records what the reference shows, what we do and why, so the owner can 
 - **Kept**: the column grid and its sizes (D20), the tinted panel, the waiting veil, the touch boxes (the places, wider
   than the frames), the flights (from the tile's place, the icon's middle) and the slots' candy tiles.
 - **Alternatives**: the other five mock-ups (not chosen by the owner).
+
+## D22. The owner's 60 fps models: the same frames, baked at 24 fps (2026-10-03; FR-028)
+
+- **Delivered**: the four heroes again, exported by Meshy as `…_biped_Animation_all_frame_rate_60.fbx`. The models,
+  rigs and clips are the same (28 bones, the same Meshy ids, now named `target_character|target_character|<id>`), and
+  each clip holds the same number of frames as before (the idle 96 or 97, the reactions 49), but stamped 1/60 s apart
+  instead of 1/24 s: the idle lasts 1.6 s instead of 4 s and the reactions 0.8 s instead of 2 s. The export re-timed
+  the frames instead of adding frames between them.
+- **Decision**: the new files replace the old ones; every clip is played at the length of the owner's table
+  (`heroes.json` `idleSeconds` = 4, `reactSeconds` = 2; `page.html` scales the clip's own time to it), so the motion is
+  exactly the earlier one (the new and the old bake agree frame for frame at the same times); and the bake takes 24
+  frames a second, the motion's own rate in the table's time, so every baked frame is one of the file's poses.
+  - Files: 576 frames, 23 MB (was 288, 11 MB).
+  - Memory: Home's four idle loops are 47 MiB as palette pictures (one byte a pixel), so the playtest's frame cache
+    grows from 30 to 60 MiB (`PainterBase.HeroFrameCacheBytes`); it must stay above the loops, or Home would decode
+    every frame. Unity keeps the families on screen as compressed textures, twice as many as before.
+- **Why not 60 fps**: flat frames at 60 a second would be five times the 12 fps set (1440 frames, about 57 MB in the
+  APK, 117 MiB of idle loops to keep or 240 frames a second to decode on Home), and every frame past 24 would only
+  interpolate between the file's poses. 24 fps doubles the smoothness for twice the cost.
+- **Why not the files' timing**: 1.6 s breathing and 0.8 s bounces are 2.5 times faster than the owner's table (idle
+  4 s, reactions 2 s); the table stays the reference until the owner changes it.
+- **Alternatives**: keep 12 fps (no visible change from the new files); 30 fps (an even cadence on 60 Hz screens, but
+  interpolated poses and 25% more frames than 24).

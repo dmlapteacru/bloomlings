@@ -100,7 +100,7 @@ namespace Bloomlings.Client.Tests
             player.React(1f);
             HeroPose pose = player.Pose(1.05f);
             Assert.That(pose.Clip, Is.EqualTo(MotionClip.React));
-            Assert.That(pose.FromIdle, Is.EqualTo(12), "from the idle frame it interrupted");
+            Assert.That(pose.FromIdle, Is.EqualTo(HeroMotion.Fps), "from the idle frame it interrupted (the one at 1 s)");
             Assert.That(pose.FromAlpha, Is.InRange(0.01f, 0.99f));
             Assert.That(player.Pose(1f + HeroMotion.DissolveSeconds + 0.01f).FromIdle, Is.EqualTo(-1));
             player.React(1.5f);

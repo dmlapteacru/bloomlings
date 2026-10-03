@@ -63,7 +63,7 @@ are rendered offline into flat frames, so the game holds no 3D model, scene or c
 
 ```text
 tools/heroanim/                      # Node 22, not in the solution (README.md, SOURCE.md)
-├── bake.mjs, page.html, serve.mjs, png8.mjs, heroes.json   # three.js in headless Chromium → 12 fps palette PNG frames
+├── bake.mjs, page.html, serve.mjs, png8.mjs, heroes.json   # three.js in headless Chromium → 24 fps palette PNG frames
 ├── layers.mjs                       # the owner's Home layers: crops, the lotus cut-out, one shadow, the JPEG garden
 ├── check.mjs, manifest.json, layers.json                   # hashes of every output; must pass before committing them
 └── models/{sprig,bloom,drop,twig}.fbx                      # the owner's models

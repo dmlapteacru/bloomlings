@@ -10,14 +10,14 @@ Requires Node 22 and Chromium for Playwright (`PLAYWRIGHT_BROWSERS_PATH`; the cl
 ```sh
 cd tools/heroanim
 npm ci                               # three 0.160.0, playwright-core 1.56.1, pngjs, jpeg-js
-node bake.mjs                        # all four heroes, about 2.5 minutes; --only <family> re-bakes one
+node bake.mjs                        # all four heroes, about 6 minutes; --only <family> re-bakes one
 node layers.mjs <folder>             # the owner's Home layers (01_home_bg_back.png … 05_home_petals_overlay.png)
 node check.mjs                       # must pass before committing hero frames or Home layers (no npm packages needed)
 ```
 
 | File | What |
 |---|---|
-| `heroes.json` | the bake: cell, foot line, fill and margin, frames per second, supersampling, camera, light, blend times, and per hero its model, its two clips and its turn (`yaw`) |
+| `heroes.json` | the bake: cell, foot line, fill and margin, frames per second, the clips' lengths on screen, supersampling, camera, light, blend times, and per hero its model, its two clips and its turn (`yaw`) |
 | `models/*.fbx` | the owner's models (`SOURCE.md`) |
 | `bake.mjs`, `page.html`, `serve.mjs`, `png8.mjs` | the renderer (three.js in headless Chromium), the fit and crop, the palette PNG writer |
 | `layers.mjs` | the Home layers: crops, the lotus cut-out, the shadow, the JPEG garden |

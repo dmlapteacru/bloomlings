@@ -2,8 +2,8 @@
 
 | Field | Value |
 |---|---|
-| Delivered | by the project owner on 2026-10-02, in conversation: four rigged and animated FBX models and `bloomlings_home_assets.zip` (the Home picture in five layers, with a README giving the layer order) |
-| Made with | the models: Meshy AI (meshy.ai), text-to-3D with Meshy's auto-rigging and its animation library merged into one file per hero (`Meshy_AI_…_biped_Meshy_Merged_Animations.fbx`); the Home layers: the owner's picture generator (ChatGPT image generation, as the other owner pictures, `tools/artgen/models/owner-pictures.md`) |
+| Delivered | by the project owner on 2026-10-02, in conversation: four rigged and animated FBX models and `bloomlings_home_assets.zip` (the Home picture in five layers, with a README giving the layer order); on 2026-10-03 the same four models again, exported at 60 fps, to replace the first ones ("the same heroes but 60 fps. Just replace them") |
+| Made with | the models: Meshy AI (meshy.ai), text-to-3D with Meshy's auto-rigging and its animation library in one file per hero (first `Meshy_AI_…_biped_Meshy_Merged_Animations.fbx`, now `Meshy_AI_…_biped_Animation_all_frame_rate_60.fbx`); the Home layers: the owner's picture generator (ChatGPT image generation, as the other owner pictures, `tools/artgen/models/owner-pictures.md`) |
 | Rights | the owner's: they delivered the files for the game to use, as with the other owner pictures (owner's statement on 2026-10-02 for the pictures). the models were made on the owner's personal Meshy licence (owner's statement on 2026-10-03), under which Meshy's terms give the output to its creator: no attribution is needed (the free plan's CC BY 4.0 does not apply) |
 | Constitution | VII: the models are never loaded by the game. `bake.mjs` renders them offline into flat frame pictures, shown on meta screens only (Home and the splash, the win; the milestone card shares the win's hero) |
 
@@ -11,12 +11,17 @@
 
 | File here | Delivered as | SHA-256 |
 |---|---|---|
-| `models/sprig.fbx` | `Meshy_AI_Leafling_Character_Tu_biped_Meshy_Merged_Animations.fbx` (the owner: "the files are named a little differently") | `fa7f3a34b4037d39f1e78e5fde59b6d1a257aee61b6a7d4398288eb99432f779` |
-| `models/bloom.fbx` | `Meshy_AI_Petalina_biped_Meshy_Merged_Animations.fbx` | `58b8a20e089dde30928f90557fc5db2e4096efd9be09fce1e3270de04c1cea39` |
-| `models/drop.fbx` | `Meshy_AI_Dewdrop_Buddy_biped_Meshy_Merged_Animations.fbx` | `afe9851a48ef7183cfda42126ff644364b01dd84543b939c1d4ffc6215d739c9` |
-| `models/twig.fbx` | `Meshy_AI_Acorn_Sprout_biped_Meshy_Merged_Animations.fbx` | `0dbad90b56aefd5c6224e6d9387d182e7f3da00b9452b3a0b78d527f7570f7ea` |
+| `models/sprig.fbx` | `Meshy_AI_Leafling_Character_Tu_biped_Animation_all_frame_rate_60.fbx` (the owner: "the files are named a little differently") | `61a47b4ae2137931685019095dba3c6816458bc18a5d222a2fd9a09d231eb4a5` |
+| `models/bloom.fbx` | `Meshy_AI_Petalina_biped_Animation_all_frame_rate_60.fbx` | `052c59366cdfb92dd60c2f3e35598fa98fe62a7bf3a77795b353471a0980479c` |
+| `models/drop.fbx` | `Meshy_AI_Dewdrop_Buddy_biped_Animation_all_frame_rate_60.fbx` | `cb75560cfcfd2b75afee43d5e1b9d656043eee91ff0dddae502f29cc309c3a02` |
+| `models/twig.fbx` | `Meshy_AI_Acorn_Sprout_biped_Animation_all_frame_rate_60.fbx` | `3a726cd3588870efe2559e19d3e86e4a8b9dbd1d1334dab4bae4cc5b0dafecfb` |
 
-Each holds one textured skinned mesh (a 28-bone Mixamo-style rig) and between 4 and 12 clips. Many clips carry Meshy's
+The first delivery (`…_Meshy_Merged_Animations.fbx`, 2026-10-02) had the same models and clips with the frames 1/24 s
+apart; the 60 fps export holds the same frames 1/60 s apart, so its clips last 0.4 times as long (the idle 1.6 s, the
+reactions 0.8 s) and it names them `target_character|target_character|<id>`. The bake finds a clip by the id at the end
+of its name and plays it at the owner's table's length (research D22).
+
+Each holds one textured skinned mesh (a 28-bone Mixamo-style rig) and between 5 and 12 clips. Many clips carry Meshy's
 library ids instead of names; the owner's table (2026-10-02) names the two each hero uses, and `heroes.json` maps them:
 
 | Hero | Constant (idle, 4 s) | Reaction A (2 s) | Clip ids (idle; reaction) |
@@ -26,8 +31,8 @@ library ids instead of names; the owner's table (2026-10-02) names the two each 
 | Drop | breathing + soft body sway | soft buoyant bounce | `01a0fe96-…`; `01a0fea0-…` |
 | Twig | breathing + sway | head tilt + tiny bounce | `01a0fe96-…`; `01a0fea0-…` |
 
-`01a0fe96` is the 4-second idle every model carries; `01a0fe99` is the 2-second head tilt; `01a0fea0` the 2-second
-bounce (it tilts the head on the way up, Twig's "head tilt + tiny bounce"). The other clips (walking, running, hops,
+`01a0fe96` is the 4-second idle every model carries (96 frames); `01a0fe99` is the 2-second head tilt; `01a0fea0` the
+2-second bounce (48 frames each) (it tilts the head on the way up, Twig's "head tilt + tiny bounce"). The other clips (walking, running, hops,
 dances, `victory`) are not used.
 
 ## Processing (`bake.mjs`, `heroes.json`)
@@ -42,9 +47,11 @@ dances, `victory`) are not used.
   inside the cell (`margin`).
 - The idle eases into its own first pose over its last 0.75 s, so it loops; the reaction blends in from that pose over
   0.25 s and back to it over its last 0.4 s, so it starts and ends where the idle loop starts.
-- 12 frames per second: 48 idle and 24 reaction frames per hero. Every frame is cropped to its visible bounds and stored
-  as an 8-bit palette PNG (one 256-entry palette per hero shared by all its frames, entry 0 clear, Floyd–Steinberg
-  dithered, `png8.mjs`), 11 MB for the 288 frames.
+- Each clip at the length of the owner's table (`heroes.json` `idleSeconds` 4, `reactSeconds` 2), whatever time the
+  file stamps on its frames.
+- 24 frames per second (every frame of the motion; 12 before the 60 fps delivery): 96 idle and 48 reaction frames per
+  hero. Every frame is cropped to its visible bounds and stored as an 8-bit palette PNG (one 256-entry palette per hero
+  shared by all its frames, entry 0 clear, Floyd–Steinberg dithered, `png8.mjs`), 23 MB for the 576 frames.
 
 ## The Home layers (`layers.mjs`)
 
