@@ -225,3 +225,17 @@ See spec.md (the clarification "Twig celebrates") and research D23.
   `HeroBitmaps`, `HeroFrameCheck`) hold it. Twig's place on Home (0.815, 0.31) and `HatLift` 0; the tests and docs.
 - [X] T044 Twig's brightness (the owner's choice "H"): the bake's per-hero `light` and `color` grade
   (`tools/heroanim/page.html`, `bake.mjs`), Twig re-baked with them; the docs; the playtest APK built.
+
+## Owner batch: no arch, the Petals pill (2026-10-03)
+
+See spec.md (the clarification "the owner's batch"); the clearing pace and the side by side taps are spec 001's
+(research R4, amendment of 2026-10-03).
+- [X] T045 No arch under the board: `BoardLayout` without arches (`Fit` takes an optional max border width,
+  `Door` / `DoorOf` on the border beside the entry cell), the plain `0.04W` entry strip in `ReferenceGameplay`
+  (`entrySides` removed), `BoardPainter` and Unity's `BoardView` draw no arch and start the walkers at the door;
+  `Kit.StoneArch`, `UiKit.StoneArch`, `ProceduralSprites.Arch`, `UiRaster.Arch`, `GardenLook.ArchOpening` and their
+  tests removed; the slots `board.arch` and `tile.entry` retired, the inventory regenerated; the layout tests.
+- [X] T046 The Petals pill fits its amount (the kit's `PetalsPillParts`, `Kit.PetalsPill`, `UiKit.PetalsPill` with
+  `align`, `KitText.Measure` of any text): the lotus inside its left end, the amount right after it; Unity lays it out
+  on every `Show`; the test `ThePetalsPill_FitsItsAmount_TheLotusInside_TheAmountRightAfterIt`.
+- [X] T047 The docs (contracts/look.md §3, §5, §6.1, §6.4; FR-011, FR-020; CLAUDE.md); all checks; the playtest APK.

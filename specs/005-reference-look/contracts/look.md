@@ -253,8 +253,15 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 - **Cost pill** (`Kit.CostPill(p, box, Cost cost)`): cream (`CreamFace` → `ParchmentBottom`), `CreamLine` outline,
   soft shadow; contents: the lotus and the price (`InkBrown`), or a green ▶ square and "Free", always icon first, or
   "×N" charges in bigger digits (66% of the pill's height), after the booster's icon (80% of the height) on a jam choice.
-- **Petals pill** (`Kit.PetalsPill`): the cream style, lotus on the left (overlapping the edge by 10%), amount in
-  `InkBrown`, the green round "+" on the right.
+- **Petals pill** (`Kit.PetalsPill` / `UiKit.PetalsPill`, both on the kit's `PetalsPillParts`; the owner, 2026-10-03:
+  "at 0 it shows crooked, somewhere in the middle, the lotus itself too far left"): the cream style; the pill fits its
+  amount inside its layout box (at the box's right end, or centered with `align` 0.5 on the Store card): the lotus
+  (0.92 of the height) fully inside its left end (0.07 of the height in), the amount in `InkBrown` at half the height
+  right after it (0.07 gap), left-aligned for every length, then 0.38 of the height of cream, or the green round "+"
+  (the pill's height) on the right end, reaching 0.2 of the height beyond it. The width is measured with every digit
+  a "0" (`PetalsPillParts.WidthText`), so a counting amount keeps its pill; a very long amount takes the whole box
+  before its digits shrink. Before, the pill took its whole box, the lotus overlapped its left edge by 10% and the
+  amount sat centered in what was left, so a short amount floated in the middle.
 - **Lotus** (`Kit.Petal`, shape `currency.petal` redrawn as a compact lotus bud): a tall almond center petal (about 90%
   of the height), two side petals curving out and two small back petals over a small base; each petal deep pink
   (`LotusFill`) at its edges and near-white (`LotusTip`, `currency.petal.tips`: the petal shrunk by 0.12 from 20% to 85%
@@ -280,23 +287,16 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   alpha 0.45), seeds by position so the border never flickers. A 0.04 cell dark gap
   (`GardenLook.BoardGap` = `LawnDark.Darken(0.55)`) between the stones and the tiles, which also shows as the thin dark
   lines between tiles.
-- **Garden Entry** (`Kit.StoneArch(p, EntryArch arch)`): a big half ring of 9 sandy stone blocks (outer radius 1.5
-  cells, so about 3 cells wide and 1.5 tall; the ring 28% of the outer radius thick; `UiRaster.Arch`) standing on two
-  straight stone piers (`BoardLayout.ArchPier` = 0.2 of the radius, beyond the ring's base away from the board;
-  `EntryArch.Picture` is the picture box with them: `UiRaster.Arch` turns any extra picture depth into piers) on the
-  entry's side of the board, its crown toward the board and its opening away from it, as in the reference's gameplay
-  screen; the opening shows the lawn (`GardenLook.ArchOpening` = `LawnLight.Darken(0.12)`, alpha 0.8) and a fainter
-  sandy flagstone path fanning out from the ground (two rings of staggered flags with `StoneLine` joints, alpha 0.6, so the
-  lawn shows through), with a soft shadow under the crown and a soft `GardenShadow` ellipse (alpha 0.18) on the lawn under
-  the piers' feet; the walkers stand in it. (`BaseX`, `BaseY`) is the middle of the ring's open base, where the
-  Bloomlings come out.
-- **Board layout** (`BoardLayout.Fit(area, width, height, entries)`, engine-free, both builds): the cells take the
-  largest size that fits the grid, the border (`Rim` = 0.46 cell), 0.2 cell of lawn on the left and right, and per entry
-  side a 0.14 cell strip of lawn, an arch of at least 1.2 cells with its piers, and 0.22 cell of lawn beyond them
-  (`ArchFoot`, so an arch never sits on the tray's edge); the room the region has left in that direction lets the
-  arches grow up to 1.5 cells. The group is centered in the board region; arches stay within the border's span, are
-  centered on their entry cell where they can, and shrink so neighbors on one side never overlap. The walkers appear at
-  the arch's door, 42% of its radius inside the opening (`EntryArch.Door`). Entries may be on any side, several per level.
+- **Garden Entry** (the owner, 2026-10-03: "What is the arch under the board in gameplay? Remove it."): no picture.
+  The Bloomlings set off from the middle of the stone border beside the entry cell, on the entry's side
+  (`BoardLayout.Door` / `DoorOf`, both builds), and walk their routes. Until then the entries had a stone arch of 9
+  sandy blocks on two piers on their side of the board (`Kit.StoneArch`, `UiRaster.Arch`, `EntryArch`), with its own
+  room in the board's fit; the arch, its slot `board.arch` and the entry's slot `tile.entry` are retired.
+- **Board layout** (`BoardLayout.Fit(area, width, height, maxOuterWidth)`, engine-free, both builds): the cells take the
+  largest size that fits the grid, the border (`Rim` = 0.46 cell) and 0.2 cell of lawn on the left and right in the
+  area, with the border's outer box at most `maxOuterWidth` wide; the group is centered in the area. Entries take no
+  room (they took 1.8–2.2 cells of an arch and its lawn per entry side before 2026-10-03), so the board grew by about
+  15% (a 9 × 10 board's cells from about 79 to 92 px at 1080 × 2340). Entries may be on any side, several per level.
 - **Lawn**: the gameplay backdrop scene becomes a lawn (§4.2).
 - **Pedestal** (`Kit.StonePedestal(p, box)`, `UiRaster.Pedestal`): a warm grey-beige ellipse-topped stone drum that
   holds its own over the owner's painted gardens: the top ellipse `StoneTop.Mix(StoneFace, 0.4)` (lighter toward the
@@ -502,7 +502,7 @@ Positions and order stay as in spec 002; only the looks change.
   pale flat cells (`PictureColor` lightened 0.55, radius 10%, no bevel, a faint inner shadow), the cells of the picture's
   background (no role, no stone) as grass (owner's review: `Kit.GrassCell` / `UiKit.GrassCell` / Unity
   `BoardPictures.Ground`, the `UiRaster.Grass` picture of §2, `tile.grass`), stones/keys/locks/layers/specials as now
-  (stone obstacles in `StoneFace` tones), entries as `StoneArch`, walkers unchanged. In detail (`BoardPainter`):
+  (stone obstacles in `StoneFace` tones), no picture at the entries (2026-10-03; the stone arch is retired), walkers unchanged. In detail (`BoardPainter`):
   - target tiles nearly fill their cells (inset 0.8%), so only the dark gap and their outlines part them;
   - a stone obstacle is a raised block of the border's stone (`Kit.StoneBlock`, radius 24%) over a soft shadow on the
     restored ground, with a jagged crack (a `StoneLine` groove over a light lip) whose direction follows the cell;
@@ -690,8 +690,8 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked where drawn:
 `mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment`, `tile.candy`, `tile.candy.sticker`,
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
-`ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch`, the lawn (the `bg.theme.*` slots
-restyled, §4.2; `tile.base`, `tile.ground`, `tile.entry`, `tile.layer_peek` and `tile.picture` restyled), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
+`ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch` (retired on 2026-10-03 with the arch), the lawn (the `bg.theme.*` slots
+restyled, §4.2; `tile.base`, `tile.ground`, `tile.layer_peek` and `tile.picture` restyled; `tile.entry` retired on 2026-10-03), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
 `ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
 icon pictures replace them, §3.10), `tile.grass` (the picture's background cells, §4.1), `bg.win` (the win's garden,
 §4.2), `ui.sign.ivy`
@@ -731,7 +731,7 @@ each table ("Fixed:").
 |---|---|
 | Top bar | top `0.012W`, height `0.13W`: Pause squircle `0.13W` at the left edge + `0.04W`; the level sign `0.42W × 0.115W` centered, with ivy over its ends; the speed pill `0.2W × 0.115W` at the right edge − `0.04W` |
 | Board | between the top bar (+ `0.02W`) and the entry strip: the stone border's outer box at most `0.86W` wide, centered; the grid inside it (border 0.42 cell + gap 0.04 cell); cells as large as fit |
-| Entry strip | under the board, `0.17W` tall: lawn with the arch for bottom entries (the arch `0.24W` wide, its door on the board's edge); `0.04W` when no entry is at the bottom (side and top entries keep their arches beside the board) |
+| Entry strip | under the board, `0.04W` tall, plain lawn, whatever the entries (since 2026-10-03; before, `0.17W` with the arch for bottom entries) |
 | Tray | from the entry strip to the bottom of the screen (under the bottom inset too), full width, parchment with rounded top corners (radius `0.06W`) and a soft top shadow; inner padding `0.035W` at the sides, `0.025W` at the top, the bottom inset + `0.02W` at the bottom |
 | Slots row | `0.16W·k` tall: five plates `0.14W·k` wide each (portrait, height = row), spread evenly across `0.92W`; the extra slot (sixth) narrows them to fit |
 | Separator | a thin `ParchmentEdge` line with a light line under it, in the middle of a `0.03W·k` gap |
@@ -760,9 +760,9 @@ Fixed:
 - **Tray height**: on the reference shape (`k` = 1, four rows, boosters) the tray holds `0.905W` of rows and padding:
   `0.025W` + slots `0.16W` + `0.03W` + boosters `0.18W` + `0.03W` + pods `0.46W` + `0.02W`. It held `0.855W` with the
   decks.
-- **Board**: `ReferenceGameplayRegions.FitBoard(width, height, entries)` runs `BoardLayout.Fit` over `BoardArea` (the
-  board's top to the entry strip's bottom, the safe width less `0.02W` a side). It narrows the fit until the stone
-  border's outer box is at most `0.86W` (`MaxBoardShare`), so a bottom arch stands in the entry strip.
+- **Board**: `ReferenceGameplayRegions.FitBoard(width, height)` runs `BoardLayout.Fit` over `BoardArea` (the
+  board's top to the entry strip's bottom, the safe width less `0.02W` a side) with the stone border's outer box at
+  most `0.86W` (`MaxBoardShare`); the board fills that width or the whole height down to the tray.
 - **Booster badge**: `BoosterBadge(i)` is the badge disc as `Kit.BoosterTile` draws it (0.34 of the box, its center
   0.55 of it inside the bottom-right corner).
 
@@ -920,7 +920,7 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 
 Fixed: the fractions apply to the safe height less `bottomReserve` (0 in both builds: the playtest's dev row lies small
 and faded at 70% alpha over the garden in the band under the teaser, so the layout keeps the reference's fractions); the
-Petals pill (without the "+" while the Store is locked, its amount follows the lotus) is centered
+Petals pill (without the "+" while the Store is locked) fits its amount at the right end of its box (§3) and is centered
 on the Settings button's height; the logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side
 columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0.03W` apart (`SideButton(right, i)` for
 more, such as the avatar); the rank pill (`0.3W × 0.075W`) lies in the top row, centered between Settings and the

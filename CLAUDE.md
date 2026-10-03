@@ -107,9 +107,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   restyles every element of the Unity client and the full playtest, presentation only: layouts, order, rules and tap
   outcomes stay (FR-002). It adds the saturated variant palette (`VariantCatalog`, readability-checked) and the
   material tokens (`wood.*`, `stone.*`, `parchment.*`, `cream.*`, `ink.*`, `lotus.*`, `lawn.*`, `ivy.*`). `UiRaster`
-  (kit) renders engine-free material pictures (planks, pod frames, stones, arch, pedestal, candy tiles; deterministic,
+  (kit) renders engine-free material pictures (planks, pod frames, stones, pedestal, candy tiles; deterministic,
   straight alpha), drawn through `IPainter.Picture` (playtest) and `ProceduralSprites.Picture` (Unity), each cached by
-  key and size. `BoardLayout` places the grid, the stone border and the arch entries. The board is candy tiles in a
+  key and size. `BoardLayout` places the grid and the stone border (no arch at the entries since 2026-10-03: the Bloomlings set off from the border beside the entry cell). The board is candy tiles in a
   stone border on a lawn. Pods are wooden frames wider than tall (the owner's icon in the middle, a small count in the corner) that stand one
   after another in a column per Source stack, never on each other: a gameplay rule (owner, 2026-10-03), whatever the
   look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). Waiting Slots are cream

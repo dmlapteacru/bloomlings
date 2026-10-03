@@ -182,6 +182,25 @@ fbx, the same heroes but 60 fps. Just replace them and build the APK."
   second of flat pictures would be five times the frames (about 57 MB and 175 MB of palette pictures to cycle), too
   heavy for a phone (research D22).
 
+### Session 2026-10-03 (the owner's batch: no arch, the Petals pill, slower and side by side clearing)
+
+The owner: "The initial board clearing speed must be halved. What is the arch under the board in gameplay? Remove it.
+It seems there is a bug with the queue of picked pods: I pick two in a row and they land in the same slot. Sometimes,
+even in two slots, they do not seem to work in parallel, as if there were a hidden queue anyway. The currency chip
+must be fixed: at 0 it shows crooked, somewhere in the middle, the lotus itself too far left."
+- Q: The arch? → A: Removed in both builds (FR-011, contracts/look.md §3 "Garden Entry", §6.1): no picture marks an
+  entry; the Bloomlings set off from the stone border beside the entry cell. The arch's room goes to the board, which
+  grew by about 15%. **Flagged conflict:** spec 001 puts "the Garden Entry … below the board" (FR-068, the gameplay
+  screen) and FR-021 wants a tile choice "players can anticipate" by the distance to an entry; with no marker the
+  entry shows only by where the Bloomlings come from. A subtle marker (a lighter border stone, a small path) is the
+  owner's call.
+- Q: The Petals pill? → A: It fits its amount, the lotus fully inside its left end and the amount right after it, the
+  same in both builds (contracts/look.md §3 "Petals pill"); Unity also lays it out again on every change, since a label
+  it could not measure yet stayed centered.
+- Q: The clearing speed and the queue? → A: Presentation only, the rules were right (spec 001 research R4, amendment
+  of 2026-10-03): the clearing pace is halved, and the waves of different taps play side by side, each pod showing in a
+  slot free on screen.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - The board and the tray look like the reference (Priority: P1)
@@ -202,7 +221,7 @@ screen and UI strip; play a level in the playtest and see every state.
    color with a bevel (lighter top, darker lip, thin darker outline, gloss) and its symbol embossed in a darker shade,
    and the tiles nearly touch, like the reference.
 2. **Given** the board, **When** it is drawn, **Then** a border of cream stone blocks surrounds the grid on a lawn, and
-   the Garden Entry is a small stone arch on its side of the board.
+   no arch marks the Garden Entry (amended on 2026-10-03: the Bloomlings set off from the border beside the entry cell).
 3. **Given** the tray, **When** it is drawn, **Then** each exposed pod is a wooden frame with a cream inner panel, the
    variant tile and the count beside it. The next pods of its stack stand under it in its column (three or four rows,
    never overlapping), muted but readable. Locked, mystery and connected pods keep their meaning (FR-021).
@@ -354,8 +373,9 @@ inventory.
   darker lip, thin darker outline, gloss at the top) and the variant symbol embossed in a darker shade with a light
   edge, nearly touching their neighbors. Characters no longer stand on board tiles (replaces spec 004 FR-012). Restored
   ground shows the finished picture as pale flat cells.
-- **FR-011**: The board MUST sit inside a border of cream stone blocks on a lawn; each Garden Entry is a stone arch on
-  its side of the board; walkers stay the spec 004 2D characters.
+- **FR-011** *(amended on 2026-10-03: no arch)*: The board MUST sit inside a border of cream stone blocks on a lawn;
+  a Garden Entry has no picture, its Bloomlings set off from the stone border beside the entry cell; walkers stay the
+  spec 004 2D characters.
 - **FR-012**: The tray, slot row and booster bar MUST sit on parchment as in the reference.
 - **FR-013** *(pod layout amended on 2026-10-03 by FR-021 and the owner's choice "E": the icon first, the count in a
   corner)*: Pods MUST be wooden frames holding the variant's icon over the middle of the panel with the small count at
@@ -388,7 +408,7 @@ inventory.
 #### G. Reference layouts (owner's review, 2026-10-02)
 
 - **FR-020**: The gameplay screen MUST follow the reference layout (contracts/look.md §6.1): the top bar; the board in
-  its stone border on the lawn, wide and full of color; the lawn strip with the Garden Entry arch below it; then one
+  its stone border on the lawn, wide and full of color; a thin lawn strip below it (no arch since 2026-10-03); then one
   parchment tray to the bottom of the screen holding, in this order, the row of five Waiting Slots, the row of four
   booster boxes, and the Source stacks, one column each (FR-021). This keeps spec 001 FR-068 (board in the center,
   entry and slots below it, the stacked tray with its booster bar at the bottom).
