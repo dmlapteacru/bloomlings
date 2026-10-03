@@ -234,8 +234,11 @@ namespace Bloomlings.Client.UI
         /// <summary>The frame's corner radius, as a share of the pod's height.</summary>
         public const float Radius = 0.2f;
 
-        /// <summary>The count's type size as a share of its room's height (the reference's big dark digits; the width caps it).</summary>
-        public const float CountFill = 1.1f;
+        /// <summary>The count's type size as a share of its room's height (big digits; the width caps it), as the playtest's <c>Kit.PodCountFill</c>.</summary>
+        public const float CountFill = 0.66f;
+
+        /// <summary>A waiting pod's count, a little smaller than an exposed pod's (the playtest's <c>Kit.PodWaitingCountFill</c>).</summary>
+        public const float WaitingCountFill = 0.6f;
 
         /// <summary>The room the count keeps from the frame's right member, as a share of the pod's height.</summary>
         public const float CountMargin = 0.06f;
@@ -377,7 +380,7 @@ namespace Bloomlings.Client.UI
             BoxLayout.Place(_lock.rectTransform, Box.FromCenter(tile.CenterX, tile.CenterY, g, g));
             // The count keeps a little room from the frame's right member.
             Box count = chip.Count.Offset(0f, sink);
-            UiKit.PlaceCount(_count, new Box(count.Left, count.Top, Mathf.Max(count.Left, count.Right - (h * CountMargin)), count.Bottom), Waiting || Look == PodLook.Locked, CountFill);
+            UiKit.PlaceCount(_count, new Box(count.Left, count.Top, Mathf.Max(count.Left, count.Right - (h * CountMargin)), count.Bottom), Waiting || Look == PodLook.Locked, Waiting ? WaitingCountFill : CountFill);
             foreach (Image image in new[] { _shadow, _panel, _veil, _shade, _tileVeil })
             {
                 image.GetComponent<RoundShape>().Apply();

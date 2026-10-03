@@ -164,14 +164,14 @@ FR-021 amended, SC-010), research D20 and contracts/look.md §3.7, §4.1 and §6
     the "+N" disc.
   - The slot row, the booster row and the separators shrink to `0.16W`, `0.18W` and `0.03W`.
   - `ReferenceLayoutTests` check the grid, the exposed pods' touch boxes and the board's third.
-- [ ] T032 Playtest (`playtest/design`, the preview):
+- [X] T032 Playtest (`playtest/design`, the preview):
   - `PodPainter.DrawColumns` and `Kit.Pod` draw the columns: the exposed pod bright and alone taking taps, the
     waiting pods muted, "+N" on the last shown pod and the emptied stack's well.
   - The pods slide a row when one leaves or Return puts one back (`TrayMotion`); flights leave from and return to
     the pods' tiles.
   - The asset slots `pod.card`, `pod.deck` and `pod.count`, the regenerated inventory and the preview's component
     sheet follow.
-- [ ] T033 Unity (`client/Assets/Bloomlings`):
+- [X] T033 Unity (`client/Assets/Bloomlings`):
   - `GameplayHud.PodGrid`, `TrayView`, `PodView` and `UiKit.GridPod` (`UiKitTray.cs`, replacing `UiKitDeck.cs`)
     lay out and draw the grid with the same recipe.
   - The slide (`PodView.SlideSeconds`) and the touch boxes match the playtest.
@@ -180,7 +180,7 @@ FR-021 amended, SC-010), research D20 and contracts/look.md §3.7, §4.1 and §6
   - spec.md: the clarification, FR-013, FR-020 and FR-021 amended, an edge case, the pod chip and SC-010.
   - research D20, look.md §3.1, §3.7, §4.1, §6 and §6.1, plan.md's addendum and this section.
   - spec 003 FR-022a's note, `CLAUDE.md`, `playtest/README.md` and `client/README.md`.
-- [ ] T035 Run every suite (core, client check, backend, playtest check, preview, art check, `tools/heroanim` check,
+- [X] T035 Run every suite (core, client check, backend, playtest check, preview, art check, `tools/heroanim` check,
   Android type-checks).
   - Review the gameplay frames in the preview at 16:9, 19.5:9 and 21:9: three and four rows; two to six stacks; deep,
     mystery, locked and connected stacks.
