@@ -229,6 +229,89 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
+    /// The Petals balance pill's parts (spec 005 §3.4; the owner's note of 2026-10-03: a short amount must not float in
+    /// the middle of the pill, and the lotus must not hang off its left end), in both builds (<c>Kit.PetalsPill</c>,
+    /// <c>UiKit.PetalsPill</c>): a cream pill as tall as its layout box that fits its content, at most the box's width and
+    /// placed in it by <c>align</c> (1: its right end on the box's, as on Home and in the Wardrobe; 0.5: centered); its face
+    /// over the lip; the lotus fully inside its left end; the amount left-aligned right after the lotus
+    /// (<see cref="Amount"/>, digits <see cref="AmountSize"/> tall); and, while the Store is open, the round green "+" over
+    /// its right end (<see cref="Plus"/>, empty without). Engine-free.
+    /// </summary>
+    public sealed record PetalsPillParts(Box Pill, Box Face, Box Lotus, Box Amount, float AmountSize, Box Plus)
+    {
+        /// <summary>The cream lip under the face, as a share of the pill's height.</summary>
+        public const float LipShare = 0.09f;
+
+        /// <summary>The lotus picture's side, as a share of the pill's height (the owner's picture fills about 94% × 73% of it).</summary>
+        public const float LotusShare = 0.92f;
+
+        /// <summary>From the pill's left end to the lotus picture's box, as a share of the pill's height.</summary>
+        public const float LotusInset = 0.07f;
+
+        /// <summary>Between the lotus picture's box and the amount, as a share of the pill's height.</summary>
+        public const float AmountGap = 0.07f;
+
+        /// <summary>The amount's type size, as a share of the pill's height.</summary>
+        public const float AmountShare = 0.5f;
+
+        /// <summary>The cream after the amount when there is no "+", as a share of the pill's height.</summary>
+        public const float EndShare = 0.38f;
+
+        /// <summary>The "+" disc's diameter, as a share of the pill's height.</summary>
+        public const float PlusShare = 1f;
+
+        /// <summary>How far the "+" reaches beyond the pill's right end, as a share of the pill's height.</summary>
+        public const float PlusOut = 0.2f;
+
+        /// <summary>Between the amount and the "+", as a share of the pill's height.</summary>
+        public const float PlusGap = 0.1f;
+
+        /// <summary>
+        /// The parts in the layout <paramref name="box"/> for an amount <paramref name="amountWidth"/> wide at
+        /// <see cref="AmountShare"/> of the box's height (0 when the text engine cannot tell yet: the pill takes the whole
+        /// box), with or without the "+". The pill and the part of the "+" beyond its right end stay inside the box,
+        /// placed by <paramref name="align"/> (0 left, 0.5 centered, 1 right).
+        /// </summary>
+        public static PetalsPillParts Fit(Box box, float amountWidth, bool plus, float align = 1f)
+        {
+            float h = box.Height;
+            float start = h * (LotusInset + LotusShare + AmountGap);
+            float end = h * (plus ? PlusShare - PlusOut + PlusGap : EndShare);
+            float reach = plus ? h * PlusOut : 0f;
+            float room = Math.Max(0f, box.Width - reach);
+            float width = amountWidth > 0f ? Math.Min(room, start + amountWidth + end) : room;
+            float left = box.Left + ((room - width) * Math.Max(0f, Math.Min(1f, align)));
+            var pill = new Box(left, box.Top, left + width, box.Bottom);
+            var face = new Box(pill.Left, pill.Top, pill.Right, pill.Bottom - (h * LipShare));
+            float lotus = h * LotusShare;
+            Box lotusBox = Box.FromCenter(pill.Left + (h * LotusInset) + (lotus / 2f), face.CenterY - (h * 0.01f), lotus, lotus);
+            float size = h * AmountShare;
+            float amountLeft = pill.Left + start;
+            var amount = new Box(amountLeft, face.CenterY - (size / 2f), Math.Max(amountLeft, pill.Right - end), face.CenterY + (size / 2f));
+            float disc = h * PlusShare;
+            Box plusBox = plus
+                ? Box.FromCenter(pill.Right + (h * PlusOut) - (disc / 2f), box.CenterY, disc, disc)
+                : new Box(pill.Right, box.CenterY, pill.Right, box.CenterY);
+            return new PetalsPillParts(pill, face, lotusBox, amount, size, plusBox);
+        }
+
+        /// <summary>
+        /// The text the pill's width is measured with: the grouped amount with every digit a zero, so a counting amount
+        /// keeps its pill (it changes only with the number of digits).
+        /// </summary>
+        public static string WidthText(string amount)
+        {
+            var text = new char[amount.Length];
+            for (int i = 0; i < amount.Length; i++)
+            {
+                text[i] = amount[i] >= '0' && amount[i] <= '9' ? '0' : amount[i];
+            }
+
+            return new string(text);
+        }
+    }
+
+    /// <summary>
     /// The jam card (spec 005 FR-022, contracts/look.md §6.2): a centered modal card over the dimmed gameplay, top to
     /// bottom: the title, the subtitle (up to two lines), the well with the slot contents, the choices as a two-column
     /// grid of big colored buttons, each with its cost pill hanging under its bottom edge, and Restart; the cream round

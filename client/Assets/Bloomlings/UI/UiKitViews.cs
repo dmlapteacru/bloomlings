@@ -455,9 +455,12 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>The width of the label's text at <paramref name="fontSize"/> (0 when the text engine cannot tell yet).</summary>
-        public static float Measure(TextMeshProUGUI label, float fontSize)
+        public static float Measure(TextMeshProUGUI label, float fontSize) => Measure(label, fontSize, label.text);
+
+        /// <summary>The width of <paramref name="text"/> in the label's font at <paramref name="fontSize"/> (0 when the text engine cannot tell yet).</summary>
+        public static float Measure(TextMeshProUGUI label, float fontSize, string text)
         {
-            if (string.IsNullOrEmpty(label.text))
+            if (string.IsNullOrEmpty(text))
             {
                 return 0f;
             }
@@ -466,7 +469,7 @@ namespace Bloomlings.Client.UI
             float size = label.fontSize;
             label.enableAutoSizing = false;
             label.fontSize = fontSize;
-            float width = label.GetPreferredValues(label.text).x;
+            float width = label.GetPreferredValues(text).x;
             label.enableAutoSizing = auto;
             label.fontSize = size;
             return float.IsNaN(width) || width < 0f ? 0f : width;

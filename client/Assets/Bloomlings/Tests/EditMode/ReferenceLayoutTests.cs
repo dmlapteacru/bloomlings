@@ -401,6 +401,63 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void ThePetalsPill_FitsItsAmount_TheLotusInside_TheAmountRightAfterIt()
+        {
+            // Home's pill box (0.38 W × 0.095 W at 1080) and amounts from "0" to "12 345" (about 0.3 to 1.8 of its height).
+            var box = new Box(650f, 40f, 1060f, 142.6f);
+            float h = box.Height;
+            foreach (bool plus in new[] { false, true })
+            {
+                float reach = plus ? h * PetalsPillParts.PlusOut : 0f;
+                PetalsPillParts zero = PetalsPillParts.Fit(box, h * 0.3f, plus);
+                PetalsPillParts large = PetalsPillParts.Fit(box, h * 1.8f, plus);
+                foreach (PetalsPillParts parts in new[] { zero, large })
+                {
+                    string at = "plus=" + plus + " width=" + parts.Pill.Width;
+                    Assert.That(parts.Pill.Height, Is.EqualTo(h).Within(0.01f), at);
+                    Assert.That(parts.Pill.Right + reach, Is.EqualTo(box.Right).Within(0.01f), at + ": the pill (and the \"+\") ends at the box's right end");
+
+                    // The lotus inside the pill's left end: the picture's visible part (94% × 73% of its box) within the pill.
+                    Box lotus = parts.Lotus;
+                    Assert.That(lotus.Left + (lotus.Width * 0.03f), Is.GreaterThan(parts.Pill.Left + (h * 0.05f)), at + ": not over the left edge");
+                    Assert.That(lotus.CenterY - (lotus.Height * 0.365f), Is.GreaterThan(parts.Pill.Top), at);
+                    Assert.That(lotus.CenterY + (lotus.Height * 0.365f), Is.LessThan(parts.Face.Bottom), at);
+
+                    // The amount starts right after the lotus whatever its length, never in the pill's middle.
+                    Assert.That(parts.Amount.Left, Is.EqualTo(lotus.Right + (h * PetalsPillParts.AmountGap)).Within(0.01f), at);
+                    Assert.That(parts.AmountSize, Is.EqualTo(h * PetalsPillParts.AmountShare).Within(0.01f), at);
+                    if (plus)
+                    {
+                        Assert.That(parts.Plus.Left, Is.GreaterThan(parts.Amount.Right), at + ": the \"+\" after the amount");
+                        Assert.That(parts.Plus.Right, Is.EqualTo(box.Right).Within(0.01f), at);
+                    }
+                    else
+                    {
+                        Assert.That(parts.Plus.IsEmpty, Is.True, at);
+                    }
+                }
+
+                Assert.That(large.Amount.Left - large.Pill.Left, Is.EqualTo(zero.Amount.Left - zero.Pill.Left).Within(0.01f), "the same place after the lotus");
+                Assert.That(zero.Amount.Width, Is.EqualTo(h * 0.3f).Within(0.01f), "a short amount gets a short pill");
+                Assert.That(large.Amount.Width, Is.EqualTo(h * 1.8f).Within(0.01f));
+                Assert.That(zero.Pill.Width, Is.LessThan(large.Pill.Width));
+            }
+
+            // A text engine that cannot measure yet: the whole box, the amount still after the lotus.
+            PetalsPillParts unknown = PetalsPillParts.Fit(box, 0f, false);
+            Assert.That(unknown.Pill.Left, Is.EqualTo(box.Left).Within(0.01f));
+            Assert.That(unknown.Pill.Right, Is.EqualTo(box.Right).Within(0.01f));
+            Assert.That(unknown.Amount.Left, Is.EqualTo(unknown.Lotus.Right + (h * PetalsPillParts.AmountGap)).Within(0.01f));
+
+            // Longer than the box: it keeps the box. Centered (the Store card): the pill and its "+" around the box's middle.
+            Assert.That(PetalsPillParts.Fit(box, h * 9f, true).Pill.Left, Is.EqualTo(box.Left).Within(0.01f));
+            PetalsPillParts centered = PetalsPillParts.Fit(box, h * 0.6f, true, 0.5f);
+            Assert.That((centered.Pill.Left + centered.Plus.Right) / 2f, Is.EqualTo(box.CenterX).Within(0.01f));
+
+            Assert.That(PetalsPillParts.WidthText(NumberText.Group(1240)), Is.EqualTo("0" + NumberText.Separator + "000"), "measured on zeros, so a count-up keeps its pill");
+        }
+
+        [Test]
         public void Home_FollowsTheReference_AndKeepsEveryButtonReachable()
         {
             foreach ((float w, float h, Insets insets) in Phones())
