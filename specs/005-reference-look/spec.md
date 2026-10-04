@@ -295,6 +295,37 @@ The owner: "Add a button to Settings to remove the petals from Home."
   so older saves show the petals; spec 001's `player-save.schema.json` and data model, the owner's request). Presentation
   only (FR-002).
 
+### Session 2026-10-04 (the owner's Home header)
+
+The owner (translated from Russian): "Home's header must be like this: `[Settings]     [ Petals 5090 + ]     [Avatar]`.
+The Avatar will lead to a separate profile page, we will do that later." The owner's picture shows one row at the top
+of Home: at the left the cream round Settings button with the gear; in the middle a large Petals pill (the pink lotus,
+the grouped amount "5 090" and the round green "+") with a pink flower and leaves on its top-left corner and another on
+its bottom-right corner; at the right a round avatar as large as Settings, a character portrait in a light round frame
+with a small flower on it.
+- Q: Where does each stand? → A: On one row, on Settings' middle line, from 2.5% of H (FR-024, contracts/look.md
+  §6.4, `ReferenceHomeRegions`): Settings `0.13W` at `0.04W` from the left, as before; the Avatar its mirror, `0.13W`
+  at `0.04W` from the safe right edge (`Avatar`); between them the Petals pill's box, larger, `0.44W × 0.105W` (it was
+  `0.38W × 0.095W` at `0.02W` from the right), centered on the safe area's middle, `0.11W` clear of each. The pill fits
+  its amount as before (§3.4, `PetalsPillParts`) and stands centered in its box with its "+" (`align` 0.5). The logo,
+  the Daily Challenge (now under the Avatar) and everything below stay where they were; the logo picture's letters still
+  start under the row.
+- Q: The flowers on the pill? → A: The Play button's leaves and flower (the owner's sprig, pictures.md D7,
+  `ui.deco.garden`; `Kit.Decoration` / `UiKit.PetalsPill(decorate: true)`): one on the pill's rounded left end at its
+  top, one turned half way on the "+"'s edge at its bottom right (on the pill's right end while the Store is locked and
+  the "+" is hidden). They are larger for the pill's height than on a main button (1.2 of it, the bottom-right one 0.9
+  of that; `GardenLook.PillDecorationBoxes`) so the flower reads at the pill's size, and never a touch target. The "+"
+  still opens the Store page once the Store is open. The pages' Petals pills (the page header) stay as they are.
+- Q: What does the Avatar show, and what does a tap do? → A: The profile avatar as Home showed it before the bottom menu
+  (FR-061): the player's hero (Bloom, `CharacterArt.ProfileHero`, Unity's `ProfileAvatar.HeroFamily`; in its outfit once
+  the Wardrobe is open) on a domed cream disc with a soft green middle, in the chosen profile frame with the profile
+  badge at its bottom left; without the shirt badge, since the Wardrobe is the bottom menu's place. It shows from Level
+  1 in both builds. A tap presses it like a round button and clicks; until the profile page comes, the playtest then
+  says "Profile coming soon" (`home.profile_soon`) in Home's toast, and Unity's Home, which has no toast, only presses
+  and clicks (`HomeFeatureActions.OnProfile` is where the profile page will open). The animated heroes' taps stay clear
+  of it: the playtest cuts them clear of its touch box, and in Unity its button lies above the stage and keeps its taps.
+  Presentation only (FR-002).
+
 ### Session 2026-10-04 (the owner's calm backgrounds)
 
 The owner sent `bloomlings_calm_backgrounds.zip` (eight calmer backgrounds: "fewer flowers, less visual noise and
@@ -443,8 +474,9 @@ Home, Win and Wardrobe, and the bottom menu with the owner's wooden variant.
 1. **Given** a won level, **When** the win card appears, **Then** it shows the wooden sign with flower clusters, the
    finished picture as full-color tiles in a stone frame, the heroes on a stone pedestal with rays and petals, the
    reward pill with the lotus, and Next in a wooden rim.
-2. **Given** Home, **When** it is drawn, **Then** the logo has wooden letters with leaves, the level is on a wooden
-   plaque, and Play is the big green button in a wooden rim.
+2. **Given** Home, **When** it is drawn, **Then** Settings, the centered Petals pill with its flowered corners and the
+   profile avatar stand on one header row, the logo has wooden letters with leaves, the level is on a wooden plaque,
+   and Play is the big green button in a wooden rim.
 3. **Given** the Wardrobe or the Store page's cosmetics, **When** they are drawn, **Then** they use the wooden banner
    (with the back button and the Petals pill on one line), the parchment name card (the Wardrobe), family tabs with
    hero pictures and outfit cards whose worn item is green with a check.
@@ -572,8 +604,9 @@ inventory.
 - **FR-017** *(amended on 2026-10-04: the Store is a page, FR-029; one Wardrobe button, the avatar; then the bottom
   menu, FR-030)*: Home MUST show the wooden logo letters with leaves, the level on a wooden plaque and the big Play
   button; its Wardrobe entry is the bottom menu's Wardrobe place once the Wardrobe opens (the profile avatar with a
-  shirt badge was Home's one Wardrobe button until the bottom menu, and it stays in the Wardrobe's profile tab); the
-  Wardrobe and Store pages and the other meta cards use the same signs, parchment, tabs and cards.
+  shirt badge was Home's one Wardrobe button until the bottom menu, and it stays in the Wardrobe's profile tab; since
+  the owner's header request of 2026-10-04 the avatar, without the shirt badge, stands at the right of Home's header
+  row for the profile page to come, FR-024); the Wardrobe and Store pages and the other meta cards use the same signs, parchment, tabs and cards.
 - **FR-018**: The Petals symbol MUST be the pink lotus everywhere it appears.
 
 #### F. Pictures from the owner
@@ -621,9 +654,11 @@ inventory.
   wooden sign with flowers at the top, the finished picture large in its stone frame, the celebrating hero (or the
   group) on a stone pedestal overlapping the picture's foot with rays and petals, the reward pill on the pedestal,
   and the big Next button in its wood rim at the bottom. The gameplay top bar is not shown on it.
-- **FR-024** *(amended on 2026-10-04: the bottom menu, FR-030)*: Home MUST follow the reference layout
-  (contracts/look.md §6.4): settings at the top left, the Petals pill at the top right, the logo across the top, the
-  diorama (the owner's Home picture, or the heroes on a pedestal with the lotus fountain) in the middle, the wooden
+- **FR-024** *(amended on 2026-10-04: the bottom menu, FR-030; the owner's header row)*: Home MUST follow the reference
+  layout (contracts/look.md §6.4): the header row on one line (settings at the top left, the large Petals pill centered
+  between it and the avatar with the Play button's leaves and flower on its top-left and bottom-right corners, and the
+  profile avatar, as large as settings, at the top right; a tap on the avatar opens the profile page once it exists,
+  until then it says "Profile coming soon" where Home has a toast), the logo across the top, the diorama (the owner's Home picture, or the heroes on a pedestal with the lotus fountain) in the middle, the wooden
   level plaque, and the big Play button below it, all above the bottom menu. Our other Home entries stay reachable: the
   Daily Challenge as a small cream round side button, the milestone teaser and the free booster as pills under Play,
   and the Store, the Wardrobe, the Leaderboard (the rank) and the Collection as the bottom menu's places (FR-030; they
@@ -654,8 +689,8 @@ inventory.
   left, Bloom behind the lotus, Drop at the right back, Twig at the right front) and move as the owner's table says:
   each loops its 4 s idle from its own phase, they take turns to play their 2 s reaction (one every 6 s, each starting
   on its idle's first pose), and a tap on a hero makes it react at once, cross-fading from the idle frame it
-  interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill, the plaque or the
-  bottom menu (FR-030). Once
+  interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill, the avatar (since
+  2026-10-04), the plaque or the bottom menu (FR-030). Once
   the Wardrobe is open each hero wears its outfit (trail, skin, the expression on a badge, the hat turned with the
   head). The splash shows the same stage and motion, so it turns into Home without a jump. The win and the milestone
   MUST show the level's celebrant as its animated hero on the pedestal: Twig and Sprig by turns, level by level
@@ -762,7 +797,8 @@ inventory.
 - **SC-008**: On every screen shape from 16:9 to 21:9 the four heroes' seam pictures lie inside the screen, under the
   logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).
 - **SC-009**: In the preview and on a device, a tap on a hero makes it react and a tap on Play, a side button,
-  Settings, the Petals pill, the plaque or the bottom menu does what it did before FR-028.
+  Settings, the Petals pill, the plaque or the bottom menu does what it did before FR-028 (and a tap on the header's
+  avatar what FR-024 says).
 - **SC-011**: On every screen shape from 16:9 to 21:9 and for one to five shown places (the screens show all five since
   2026-10-04), the bottom menu lies across the screen's bottom with its plank on the safe bottom, its places in order
   and evenly spread, the medallion over the active place rising above the plank and inside the screen, every other

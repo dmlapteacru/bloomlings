@@ -452,3 +452,28 @@ contracts/look.md §6.8 and §6.9. Presentation only (FR-002).
   0.84 of the full frame when one more row then fits above the footer, the frames centered across the grid) and the
   footer right under a page's last row; `TheCollectionPage_KeepsItsRegionsInOrder_AndEveryTargetReachable` updated;
   contracts/look.md §6.8, §6.9 and spec.md; all checks; frames 5 and 6 reviewed at 16:9, 19.5:9 and 21:9.
+
+## Owner request: Home's header row (2026-10-04)
+
+See spec.md (the clarification "the owner's Home header", FR-017, FR-024, FR-028, scenario 2, SC-009) and
+contracts/look.md §3.4, §4.5 and §6.4. Presentation only (FR-002).
+- [X] T085 The kit's header row: `ReferenceHomeRegions.Avatar` (`0.13W`, Settings' mirror at `0.04W` from the safe right
+  edge), the Petals box `0.44W × 0.105W` (`PetalsWidthShare`, `PetalsHeightShare`) centered on the safe area and on
+  Settings' middle line, `Header` (the row, first of `Ordered`; the logo picture's top from its bottom), the Avatar in
+  `Buttons`; `PetalsPillParts.Span` and `GardenLook.PillDecorationBoxes` (the pill's flowered corners, 1.2 of its
+  height); `CharacterArt.ProfileHero` (Bloom, the avatar's hero in both builds; Unity's `ProfileAvatar.HeroFamily`);
+  `Home_FollowsTheReference_AndKeepsEveryButtonReachable` updated (one row, the pill centered and clear of both, its
+  flowers between them, the logo's letters under the row, every target reachable and clear of the others).
+- [X] T086 The playtest's Home: the centered pill with its flowered corners (`Kit.PetalsPill(align: 0.5f, decorate:
+  true)`, `Kit.Decoration` on the kit's boxes; the reward's sparkles on its lotus), the avatar restored from before the
+  bottom menu without its shirt badge (`HomeScreen.Avatar`: the hero in its outfit once the Wardrobe is open, the
+  profile frame and badge), its tap the click and the toast "Profile coming soon" (`DesignApp.OpenProfile`,
+  `home.profile_soon`), the heroes' taps cut clear of its touch box (`UiBoxes`); the preview's frame 2 taps it and
+  frame 17 taps the centered pill.
+- [X] T087 Unity's Home: `UiKit.PetalsPill(align, decorate)` with the decoration pictures (`DecorationImages`, shared
+  with `UiKit.Decoration`), the avatar's button (`PressMotion`, the click, `HomeFeatureActions.OnProfile`, none yet:
+  Unity's Home has no toast) holding a `ProfileAvatar` built after the stage, `HomeModel.Profile` and `AvatarOutfit`
+  from `HomeController` (the marker left out); the slot rows `ui.button.round`, `ui.pill.petals`, `ui.deco.garden`,
+  `cosmetic.frame` and `cosmetic.badge` and the regenerated inventory.
+- [X] T088 The docs: spec.md, contracts/look.md (§6.4's row, sizes and fixed numbers on 1080 × 2340), `playtest/README.md`
+  and `client/README.md`; all checks; frames 2, 3, 28 and 31 reviewed at 16:9, 19.5:9 and 21:9.
