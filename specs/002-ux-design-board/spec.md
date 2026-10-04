@@ -217,7 +217,8 @@ find where the game uses it.
   - the Daily Challenge card hides if its content is missing.
 - A player who has not unlocked a feature never sees its button, card or badge. Since the owner's request of 2026-10-04
   (spec 005 FR-030) the bottom menu's five places always show: a locked one keeps its icon with a padlock badge, and its
-  page or card says from which level it is available ("Available from level N").
+  page says from which level it is available ("Available from level N"; every place is a page since the owner's
+  request of the same day).
 - Colorblind players: every state and every variant stays distinguishable without color (symbols, shapes, outlines).
 
 ## Requirements *(mandatory)*
@@ -252,7 +253,11 @@ find where the game uses it.
 - **FR-006**: Currency and rewards MUST use one Petal symbol everywhere: Home, Store, rewards, costs and badges.
 - **FR-007**: Popups (Daily Reward, Leaderboard, Collection, Pause, Store, Milestone) MUST share one card style: a
   title at the top, a round close button (where closing is allowed), and a dimmed backdrop. The jam screen MUST be a
-  bottom sheet (frame 10).
+  bottom sheet (frame 10). *(Note, 2026-10-04: since spec 005 FR-029 and FR-030, the owner's requests of that day ("The
+  Store must be a separate page, not a popup." and "All the menu's places must be a separate page. Not popups."), the
+  Store, the Leaderboard and the Collection are full-screen pages with the page header and the bottom menu
+  (spec 005 contracts/look.md §6.6, §6.8, §6.9), not cards; the other popups keep the card style. Spec 005 also made
+  the jam a centered card, FR-022.)*
 - **FR-008**: Screen backgrounds MUST suggest the garden setting of the board (sky, greenery, soft distance) with
   placeholders until art exists. Backgrounds MUST follow the level band's theme (spec 001 FR-066) and MUST stay light
   enough that the board keeps its contrast.

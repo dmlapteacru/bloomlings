@@ -586,8 +586,10 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   more green `ChoiceButton` with the rescue booster's icon and name and the "▶ Free" pill; the choices in one row of up
   to three, a 2 × 2 grid of four (as on the reference) or rows of three; Restart as a cream secondary button with ⟳ at
   the size of a card's main button. A short phone shrinks the well, the choices and the gaps together.
-- Pause, Settings, Daily reward, Collection, Leaderboard, Themes, Milestone: `Card` per §3.5; the milestone uses a
-  `WoodSign` header. The Store is a page since the owner's note of 2026-10-04 (§4.6, §6.6). Pause: brown title, the
+- Pause, Settings, Daily reward, Themes, Milestone: `Card` per §3.5; the milestone uses a
+  `WoodSign` header. The Store is a page since the owner's note of 2026-10-04 (§4.6, §6.6), the Leaderboard and the
+  Collection since the owner's request of the same day ("All the menu's places must be a separate page. Not popups.";
+  §4.6, §6.8, §6.9). Pause: brown title, the
   cream close, Resume (primary, decorated), Restart (⟳), Settings (gear) and Home (`ui.back`) as cream secondaries with
   their glyphs. Settings: cream rows with brown labels and
   the garden toggle (on: the green set's glossy track with a white ✓ and the knob right; off: a parchment well; the knob
@@ -692,7 +694,26 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   worn while the family wears nothing, then each item for sale shown on the chosen family's hero (a frame, badge or
   marker as its shape) with its cost pill on the card's bottom edge (a tap buys); the footer between cream ‹ › page
   arrows (`Kit.ArrowButton`, `UiKit.PageArrow`); the bottom menu (§6.7) over the panel's foot, the Shop in its
-  medallion. The Daily Reward, Leaderboard and Collection cards carry a `WoodSign` (None) header.
+  medallion. The Daily Reward card carries a `WoodSign` (None) header (the Leaderboard and Collection cards did too
+  until they became pages).
+- The Leaderboard and Collection pages (both builds; preview frames 5, 6, 20 and 31; §6.8, §6.9; the playtest's and
+  Unity's `LeaderboardScreen` and `CollectionScreen`): the Store page's frame (the Wardrobe's garden `bg.wardrobe`, the
+  page header with the "Leaderboard" or "Collection" banner, the parchment panel `mat.parchment` with a card's radius
+  and its bottom corners past the screen's edge, the bottom menu with their place in the medallion). The Leaderboard's
+  rows are the card's recipe on the page's row (`ReferenceLeaderboardRegions.Parts`): cream rows (`Kit.Row`, `ui.row`;
+  the player's raised and green), the outlined medals (`ui.medal`, gold, silver, bronze) with their `type.badge`
+  number or the plain brown rank, the portraits on cream discs (`ui.person`, or the player's hero), the brown name
+  (`type.body`; "You" in `type.button_secondary`), the player's marker and badge, the score in `type.count`, every
+  letter grown with the row (its height over a `0.11W` row's); "…" (`type.title`, `ink.brown_soft`) between the top
+  ranks and the player's neighbours; the offline line in `type.caption` `ink.brown_soft`; Refresh the cream secondary
+  button with ⟳ (`ui.button.secondary`, `ui.restart`). The playtest shows its offline form, as its card did: five
+  placeholder ranks (sunk parchment bars, no invented players), the gap and "You" with the highest completed level;
+  its Refresh says the leaderboard is offline. The Collection's grid: the count in `type.caption` `ink.brown_soft`,
+  the finished pictures newest first in their raised cream frames (`Kit.PictureFrame`, `collection.frame`; pressed,
+  they squash like a tile), three to a row, "n / m" in `type.caption` between the cream ‹ › page arrows
+  (`Kit.ArrowButton`, `UiKit.PageArrow`) when they take more than one page; a picture's detail
+  (`collection.detail_frame`): the picture in the same frame up to `0.8W`, its name in `type.title` `ink.brown`, and
+  "Completed at Level N" in `type.body` `ink.brown_soft`, centered.
 - The playtest's Wardrobe (owner's review, FR-025; preview frame 27, `playtest/design/WardrobeScreen.cs`, opened from
   the bottom menu's Wardrobe, §6.7; before 2026-10-04 from Home's avatar): the §6.5 layout without the kind chips and
   the profile tab, the bottom menu over the panel's foot with the Wardrobe in its medallion; the name card is
@@ -704,6 +725,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 
 ## 5. Asset slots
 
+The Leaderboard and Collection pages (§6.8, §6.9) add no slot: they draw the page header's, the Store page's and the
+cards' slots (`bg.wardrobe`, `mat.parchment`, `ui.row`, `ui.medal`, `ui.person`, `ui.button.secondary`, `ui.restart`,
+`collection.frame`, `collection.detail_frame`, the menu's); `ui.card` no longer lists them.
 New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked where drawn:
 `mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment`, `tile.candy`, `tile.candy.sticker`,
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
@@ -741,9 +765,11 @@ insets: `k` is 1 at 19.5:9 and 21:9, about 0.93 at 18:9 and 0.86 at 16:9) and th
 The functions (engine-free, `client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs`, partial `ScreenLayout`; tests in
 `ReferenceLayoutTests`) are `ScreenLayout.ReferenceGameplay` → `ReferenceGameplayRegions` (with `PodChip` for one
 pod of the tray's grid), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`,
-`ScreenLayout.ReferenceHome` → `ReferenceHomeRegions`, `ScreenLayout.PageHeader` → `PageHeader` (the Wardrobe's and
-the Store page's header row), `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions` and
-`ScreenLayout.ReferenceStore` → `ReferenceStoreRegions`; `ScreenLayout.ReferenceScale` is `k`; the bottom menu is
+`ScreenLayout.ReferenceHome` → `ReferenceHomeRegions`, `ScreenLayout.PageHeader` → `PageHeader` (the four pages'
+header row), `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions` and
+`ScreenLayout.ReferenceStore` → `ReferenceStoreRegions`; the Leaderboard and Collection pages are
+`ScreenLayout.ReferenceLeaderboard` → `ReferenceLeaderboardRegions` (with `LeaderboardRowParts`) and
+`ScreenLayout.ReferenceCollection` → `ReferenceCollectionRegions` (in `MenuPages.cs`, §6.8, §6.9); `ScreenLayout.ReferenceScale` is `k`; the bottom menu is
 `ScreenLayout.BottomNav` → `BottomNavRegions` and `ScreenLayout.BottomNavTop` (in `BottomNav.cs`, §6.7). Where the measurements
 left a choice, the implementation fixes it as noted under each table ("Fixed:").
 
@@ -1066,7 +1092,8 @@ while both show, so Home takes over the splash's motion without a jump.
 | Footer | "Earn special outfits as you play!" at 93% of H, above the bottom menu |
 | Bottom menu | the owner's wooden bar over the panel's foot, the Wardrobe in its medallion (§6.7) |
 
-Fixed: the header (`ScreenLayout.PageHeader`, record `PageHeader`) is shared with the Store page (§6.6); the banner's
+Fixed: the header (`ScreenLayout.PageHeader`, record `PageHeader`) is shared with the Store, Leaderboard and Collection
+pages (§6.6, §6.8, §6.9); the banner's
 ivy clusters (`PageHeader.BannerExtent`, `GardenLook.SignExtent`) keep `0.005W` from the back button and the Petals box
 (and their touch boxes) on every phone from 16:9 to 21:9, and the plank less 1.25 × its height (the letters' room
 between the owner's ivy) is `0.272W`, so "Wardrobe" shows at about 95% of `type.title`; the hero box is an 8:9 box from
@@ -1103,9 +1130,10 @@ Fixed: on a 1080 × 2340 phone (insets 110 / 63, the preview's 19.5:9) the heade
 at 329, the tabs span 378–486, the list 529–2072 with the footer at 1918–2050 (529–2234 and 2080–2212 before the bottom
 menu); the seven Shop rows are 197 px tall (`0.183W`; 205 px before); the cosmetics show three rows of 288 × 359 cards
 (288 × 413 before; two rows on 16:9, three on 21:9, which showed four before the menu). Back returns to Home, or to the
-Wardrobe when its Petals "+" opened the page (the playtest's `DesignApp.StoreReturn`; Unity's page lies over the screen
-that opened it and hides); the Android system back closes the page (and the Wardrobe) as their back buttons do. Every
-entry point opens the page: the bottom menu's Shop (§6.7) on Home or the Wardrobe, and their Petals "+" (Home's Store
+page whose bottom menu's Shop or Petals "+" opened it (the Wardrobe; the Leaderboard and the Collection since they are
+pages, §6.8, §6.9; the playtest's `DesignApp.StoreReturn`; Unity's page lies over the screen that opened it and hides);
+the Android system back closes the page (and the other pages) as their back buttons do. Every entry point opens the
+page: the bottom menu's Shop (§6.7) on Home or any page, and their Petals "+" (Home's Store
 button until 2026-10-04). Before the Store opens (L12) only the bottom menu's Shop opens it (the Petals pills show no
 "+" yet), locked: its header and panel with the locked notice in the list's box (§6.7, `ScreenLayout.LockedPage`).
 
@@ -1121,7 +1149,9 @@ the free room on the plank must be minimal." So the plank has no vines at its en
 `0.14W` tall instead of `0.12W`, the places share its whole length, and each icon is the plank's full height (the
 owner's pictures keep their own thin margin): 151 px instead of 111 px on a 1080 px wide phone. The medallion rises
 `0.03W` instead of `0.05W`, so the menu's top stays `0.17W` above the safe bottom and Home, the Store page and the
-Wardrobe keep their room. Home, the Store page (§6.6) and the Wardrobe (§6.5) show it; gameplay, the win, milestone, jam and pause
+Wardrobe keep their room. Home, the Store page (§6.6), the Wardrobe (§6.5) and, since the owner's request of the same
+day ("All the menu's places must be a separate page. Not popups."), the Leaderboard (§6.8) and Collection (§6.9) pages
+show it; gameplay, the win, milestone, jam and pause
 cards and the splash do not (FR-030). Kit: `BottomNav.cs` (`NavPlace`, `BottomNav`, `BottomNavRegions`,
 `NavBarShape`, `ScreenLayout.BottomNav`, `ScreenLayout.BottomNavTop`), `LockedNotice.cs` (`LockedNoticeRegions`,
 `LockedPageRegions`, `ScreenLayout.LockedNotice`, `ScreenLayout.LockedPage`) and `NavRaster.cs` (`UiRaster.NavBar`,
@@ -1139,12 +1169,16 @@ picture won, so from L2); Home always. `BottomNav.UnlockLevel(place, levelOf)` i
 build's own roadmap (`UnlockRoadmap.LevelOf` of `HomeLook.StoreUnlock`, `WardrobeUnlock`, `LeaderboardUnlock`: 12, 40,
 10; the playtest's `PlaytestMeta.Progression.Roadmap`, Unity's `ProgressionService.Roadmap` in `HomeController`), the
 Collection's `BottomNav.CollectionLevel` 2 (its first picture comes with Level 1's win), Home's 1. The active place
-(the screen's own: Home on Home, the Shop on the Store page, the Wardrobe on the Wardrobe) sits in the medallion and
-takes no tap; a tap on another, with the click: the Shop opens the Store page (over the Wardrobe when it is open, so
-its back returns there), the Wardrobe the Wardrobe, Home returns to Home, the Leaderboard and the Collection open their
-cards over Home (from the Store page or the Wardrobe, Home first). A locked place opens its page or card all the same,
-which shows the locked notice instead of its content (below). The playtest's `DesignApp.Navigate` (`PlaceOpen`,
-`UnlockLevel`), Unity's `HomeController` (`Navigate`, `NavLook`).
+(the screen's own: Home on Home, the Shop on the Store page, the Wardrobe on the Wardrobe, the Leaderboard and the
+Collection on their pages) sits in the medallion and takes no tap; a tap on another, with the click, goes straight
+there from any page: the Shop opens the Store page (over the page that shows the menu, so its back returns there), the
+Wardrobe the Wardrobe, Home returns to Home, the Leaderboard and the Collection open their pages (until the owner's
+request of 2026-10-04 they opened cards over Home). No card opens over Home from the menu. A locked place opens its
+page all the same, which shows the locked notice instead of its content (below). Back (the page header's back button
+and the Android system back) returns from the Wardrobe, the Leaderboard and the Collection to Home, from a Collection
+picture's detail to its grid first. The playtest's `DesignApp.Navigate` (`PlaceOpen`, `UnlockLevel`, `ActivePlace`,
+the `Screen.Leaderboard` and `Screen.Collection` pages, `Back`), Unity's `HomeController` (`Navigate`, `NavLook`,
+`StoreFrom`: it shows the place's page, or Home, and hides the others).
 
 | Region (`BottomNavRegions`) | Box |
 |---|---|
@@ -1155,7 +1189,7 @@ which shows the locked notice instead of its content (below). The playtest's `De
 | `Medallion` | `0.2W` square (`MedallionShare`) centered on the active place, its top `0.03W` (`RiseShare`) over the plank's top, so it reaches `0.03W` under the plank into the inset; smaller where its disc would leave the screen (no bottom inset: its disc ends on the screen's bottom, `0.18W` on 1080 × 1920) |
 | `Disc` | the medallion's wooden disc, `0.88` of its box (`DiscShare`); its leaves and flowers take the rest |
 | `Touch(i)` | a place's touch box: its column from the safe bottom up the plank's height, at least `size.touch_min` (`TouchMin`); a neighbor of the active place cut clear of the medallion while it keeps the touch minimum; the active place has none (`Buttons` lists the others) |
-| `Top` | the menu's highest point, the medallion's top, `0.17W` over the safe bottom (`ScreenLayout.BottomNavTop`, the same whatever the places): Home's bottom stack, the Store's list and the Wardrobe's page end above it |
+| `Top` | the menu's highest point, the medallion's top, `0.17W` over the safe bottom (`ScreenLayout.BottomNavTop`, the same whatever the places): Home's bottom stack and the four pages' content end above it |
 | `BottomNav.LockBox(Icon(i))` | a locked place's padlock badge (`ui.nav.lock`): a square `0.34` of its icon's side (`LockShare`, the whole badge with its ring) at the icon's lower right, `0.03` of the side (`LockInsetShare`) inside its right and bottom edges, so inside the plank's band; never on the active place |
 
 Fixed: on a 1080 × 2340 phone (insets 110 / 63) the plank spans 2126–2277 (x 32–1048), the bar's picture 2126–2340,
@@ -1168,15 +1202,15 @@ place's padlock badge is 51 px (the Shop's at 162–213 × 2221–2272 on 1080 �
 with the padlock badge (`ui.nav.lock`, `Kit.NavLock` / `UiKit.LockBadge`) over its lower right: the outfit cards'
 `Kit.LockBadge` recipe, a domed cream disc (`cream.top` to `cream.face`, `BottomNav.LockDisc`: the box over 1.16) in a
 `cream.line` ring 8% of the disc a side, the brown `ui.lock` (`ink.brown`, 56% of the disc), over a soft shadow; the
-badge squashes with its icon when pressed. A locked place's page or card shows the locked notice (`ui.locked.notice`,
+badge squashes with its icon when pressed. A locked place's page shows the locked notice (`ui.locked.notice`,
 `Kit.LockedNotice` / `UiKit.LockedNotice`) instead of its content:
 
 | Screen when locked | What it shows |
 |---|---|
 | Store page (before L12) | its garden, header (back, "Store" banner, the Petals pill without its "+": the Store it would open is this one) and parchment panel (`ScreenLayout.LockedPage`: the §6.6 layout without tabs and status line), the notice in `Notice` (the list's box) instead of the tabs, rows, page arrows and offline line; the bottom menu with the Shop raised; back as usual; no `store_open` (Unity), it is not a Store visit |
 | Wardrobe (before L40) | its garden and header (back, "Wardrobe" banner, the Petals pill, its "+" opening the Store page once open), the page's lighter panel (`parchment.top` to `cream.top` with a `cream.line` outline, radius 26 units, `Kit.Panel`) in `LockedPage.Panel`, the notice in `Notice`, instead of the hero, name card, tabs, cards and footer; the bottom menu with the Wardrobe raised |
-| Leaderboard card (before L10) | the card's wooden title sign and close button, the notice filling its body (`LockedNoticeRegions.CardContent` 600 units) instead of the ranks and Refresh |
-| Collection card (before its first picture) | the same, "Collection", instead of the count and the pictures (the playtest also opens it from Level 2 while it is empty: its dev row's skips collect no pictures) |
+| Leaderboard page (before L10) | its garden, header (back, "Leaderboard" banner, the Petals pill, its "+" opening the Store page once open) and parchment panel (`ScreenLayout.LockedPage`, §6.8), the notice in `Notice` (the page's area) instead of the rows, the status line and Refresh; the bottom menu with the Leaderboard raised (a locked card until the owner's request of 2026-10-04: every place a page) |
+| Collection page (before its first picture) | the same, "Collection", instead of the count, the pictures and the page arrows (§6.9; the playtest also opens it from Level 2 while it is empty: its dev row's skips collect no pictures) |
 
 Home's and the Wardrobe's Petals pill take a tap only while their "+" shows, so before L12 a tap on the pill does
 nothing in either build (Unity's pill took the tap with its "+" hidden until 2026-10-04 and opened the whole Store page);
@@ -1193,8 +1227,9 @@ The stack (`0.632A` tall at full size) is centered in its area; every share is o
 screen pixels and in Unity's canvas units alike. It is never a touch target. Fixed: on 1080 × 2340 (110 / 63) a locked
 page's panel starts at 329 and its notice's area spans 65–1015 × 377–2071 (where the Store page's list would be): the
 icon 380 px at 350–730 × 924–1304 with its badge 129 px, the message line 893 × 95 at 1352 (68 px letters), the hint
-893 × 67 at 1458 (44 px letters); a locked card is 907 × 758 (body 851 × 600, icon 340 px). On 1080 × 1920 (63 / 0)
-the area spans 323–1715, on 1080 × 2520 (120 / 66) 392–2249, the notice the same size.
+893 × 67 at 1458 (44 px letters), the same on the four locked pages (`LockedNoticeRegions.CardContent` and the locked
+cards are gone). On 1080 × 1920 (63 / 0) the area spans 323–1715, on 1080 × 2520 (120 / 66) 392–2249, the notice the
+same size.
 
 **Recipe** (engine-free pictures, both builds draw the same bytes; cached by key and size):
 - The bar (`ui.nav.bar`, `UiRaster.NavBar(width, height, NavBarShape)`, key `ui.nav.bar/…` from `BottomNavRegions.Shape`:
@@ -1220,6 +1255,64 @@ the area spans 323–1715, on 1080 × 2520 (120 / 66) 392–2249, the notice the
   squashes like a tile (spec 003 FR-017).
 
 Drawn: the playtest draws the bar after the screen's content (its places' hits over everything under them), Unity
-builds one `BottomNavView` into each of the three screens over its content (the bar's picture takes the taps that fall
-on it, so none reach Home's stage; the medallion takes no tap; each place is a clear touch target with its icon). The
-heroes' tap boxes on Home keep clear of the menu from its top down.
+builds one `BottomNavView` into each of the five screens (Home and the four pages) over its content (the bar's picture
+takes the taps that fall on it, so none reach Home's stage; the medallion takes no tap; each place is a clear touch
+target with its icon). The heroes' tap boxes on Home keep clear of the menu from its top down.
+
+### 6.8 Leaderboard page (both builds; owner's request of 2026-10-04)
+
+The owner: "All the menu's places must be a separate page. Not popups." (translated from Russian). The Leaderboard
+card over Home (§4.3 until then) becomes a full-screen page on the Store page's frame
+(`ScreenLayout.ReferenceLeaderboard(width, height, insets)` → `ReferenceLeaderboardRegions`, built on
+`ScreenLayout.LockedPage`, so the four pages line up); it holds what the card showed, laid out for the page, and keeps
+its data and rules (FR-002): the offline last page, the stale notice and the player's frame, badge and marker on their
+own row (Unity), `leaderboard_view` on open.
+
+| Element | Box |
+|---|---|
+| Header row | the page header of §6.5 (`Header`): back (to Home), the "Leaderboard" banner with ivy (`leaderboard.title`), the Petals pill (its "+" opens the Store page over this page once the Store is open; its back returns here) |
+| Panel | the Store page's parchment panel (`Panel`, §6.6): `0.96W` from `0.03W` under the header row to the bottom of the screen |
+| Area | the Store page's list box (`Area`, the locked page's `Notice`): `0.88W` from `0.045W` under the panel's top to `0.02W` over the bottom menu's top |
+| Refresh | the cream secondary button with ⟳ (`leaderboard.refresh`), `0.54W` × `max(0.12W, size.touch_min)`, centered, `0.02W` over the area's bottom (where the Store page's footer is) |
+| Status | `0.06W` tall across the area, `0.02W` over Refresh: "Offline: showing the last known ranks" when the page is stale, else empty (the playtest's offline form: "Offline: the leaderboard will update when you reconnect") |
+| Rows | from the area's top to `0.02W` over the status line; `Row(line, lines)`: cream rows across it from its top, `0.11W` (`RowShare`) to `0.13W` (`RowMaxShare`, what the parts leave room for) tall, `0.02W` apart, filling the box; `LinesFitting` at `0.11W` (at least `MinLines` 8 on every phone from 16:9), `LinesShown(lines)` all of them when they fit, else `FirstLine(lines, shown, focus)` the window that keeps the player's own row in view, as near its middle as the ends allow |
+| Row parts | `Parts(row)` (`LeaderboardRowParts`), positions as shares of the row's width as on the card, sizes of its height: the rank `0.13w` wide on its middle at `8.2%` (its medal `0.75h`), the portrait `0.7h` at `20%`, the name from `27%` to `60%`, the marker and the badge `0.55h` at `65.5%` and `74.5%`, the score `18.8%` wide on its middle `10.6%` from the right end; the letters drawn for a `0.11W` row (`RowTypeShare`) grow with the row |
+| Empty | an empty board's line ("No ranks yet", or "Offline: the leaderboard will update when you reconnect" before the first read) on the rows' middle (`Empty`, `0.06W` tall) |
+| Bottom menu | the owner's wooden bar over the panel's foot, the Leaderboard in its medallion (§6.7) |
+
+Fixed: on 1080 × 2340 (110 / 63) the panel starts at 329, the area spans 65–1015 × 377–2071, the rows 377–1810 (ten
+lines fit; seven or more lines are 140 px, `0.13W`, 21 px apart), the status line 1832–1897 and Refresh 248–831 ×
+1918–2050; a row's parts at 1080 px: the rank 81–205 (its medal 105 px), the portrait 98 px at 206–304, the name
+321–635, the marker 649–726, the badge 734–811, the score 825–1004. On 1080 × 1920 (63 / 0) the rows span 323–1453
+(eight lines fit, 122 px each; seven are 140 px), Refresh 1561–1693; on 1080 × 2520 (120 / 66) the rows 392–1988
+(eleven fit), Refresh 2095–2227. The playtest's offline page shows seven lines: the five placeholder ranks, "…" and
+"You". Back and the Android system back return to Home (the playtest's `DesignApp.CloseLeaderboard` and `Back`;
+Unity's page lies over Home and hides). Before L10 the page shows locked: its header and panel with the locked notice
+in the area (§6.7, `ScreenLayout.LockedPage`).
+
+### 6.9 Collection page (both builds; owner's request of 2026-10-04)
+
+The Collection card over Home (§4.3 until the owner's request of §6.8) becomes a full-screen page on the Store page's
+frame (`ScreenLayout.ReferenceCollection(width, height, insets)` → `ReferenceCollectionRegions`, built on
+`ScreenLayout.LockedPage`); it keeps its data and rules (FR-002): every finished picture, newest first, Unity's redraw
+from the current content (or the level number when it cannot), `collection_open` on open; it is never a level selector.
+
+| Element | Box |
+|---|---|
+| Header row | the page header of §6.5: back (from a picture's detail to the grid, from the grid to Home), the "Collection" banner with ivy (`collection.title`), the Petals pill (as on the Leaderboard page) |
+| Panel, area | the Store page's (§6.8) |
+| Count | "N pictures" (`collection.count_one`, `collection.count_many`) in `type.caption` `ink.brown_soft`, `0.06W` tall across the area's top (`Count`) |
+| Grid | from `0.02W` under the count to the area's bottom (`Grid`); `Cell(slot)`: square frames, three to a row (`Columns`), `0.03W` apart (`CellGapShare`), as large as fit (`CellSize`, about `0.273W`), rows from the grid's top; `RowsFitting(footer)` the rows that fit, above the footer when there are more pages; `PerPage(count)` all the pictures when they fit, else as many full rows as fit above the footer; `Pages(count)` |
+| Footer | the Store page's (`Footer`, §6.6): `0.84W` × `max(0.12W, size.touch_min)`, `0.02W` over the area's bottom, "n / m" (`common.page`) between the page arrows `0.09W` at its ends (`PagePrevious`, `PageNext`, touch-sized), only with more than one page |
+| Detail | a picture's detail in the area's place, centered in it: `Picture` square, `0.8W` at most (less on a short area), then `0.04W` lower `Name` (`0.88W × 0.1W`, the picture's name in sentence case in `type.title` `ink.brown`) and `0.01W` lower `Level` (`0.07W`, "Completed at Level N", `collection.completed`, in `type.body` `ink.brown_soft`) |
+| Bottom menu | the owner's wooden bar over the panel's foot, the Collection in its medallion (§6.7) |
+
+Fixed: on 1080 × 2340 (110 / 63) the count spans 377–442, the grid 464–2071 with 295 px frames 32 px apart: five rows
+(fifteen pictures) fit without the footer, four (twelve a page) above it, the footer 86–993 × 1918–2050 with the arrows
+at 104–201 and 879–976; a picture's detail is 864 px at 108–972 × 674–1538, its name's line at 1581 and its level's at
+1700. On 1080 × 1920 (63 / 0) four rows fit without the footer and three (nine a page) above it, the detail's picture
+at 468–1332; on 1080 × 2520 (120 / 66) five and four, the picture at 769–1633. The preview's frame 6 shows the 87
+pictures of a player at Level 88 (eight pages on 19.5:9, ten on 16:9), frame 20 a picture's detail. Back and the
+Android system back return from the detail to the grid, then to Home (the playtest's `DesignApp.CollectionBack`;
+Unity's `CollectionScreen` back). Before the first picture the page shows locked: its header and panel with the locked
+notice in the area (§6.7).

@@ -13,9 +13,10 @@ namespace Bloomlings.Client.UI
 {
     /// <summary>
     /// The bottom menu in uGUI (spec 005 FR-030, contracts/look.md §6.7), the twin of the playtest's <c>Kit.BottomNav</c>:
-    /// Home, the Store page and the Wardrobe each show one (<see cref="BottomNavView"/>), laid out from the kit's
-    /// <see cref="ScreenLayout.BottomNav"/>, its five places always shown (a locked one with the padlock badge,
-    /// <see cref="LockBadge"/>); and the notice a locked place's page or card shows (<see cref="LockedNotice"/>).
+    /// Home and the four pages (the Store, the Wardrobe, the Leaderboard and the Collection) each show one
+    /// (<see cref="BottomNavView"/>), laid out from the kit's <see cref="ScreenLayout.BottomNav"/>, its five places always
+    /// shown (a locked one with the padlock badge, <see cref="LockBadge"/>); and the notice a locked place's page shows
+    /// (<see cref="LockedNotice"/>).
     /// </summary>
     public static partial class UiKit
     {
@@ -94,7 +95,7 @@ namespace Bloomlings.Client.UI
         /// <summary>
         /// The notice of a locked place (<c>ui.locked.notice</c>; the playtest's <c>Kit.LockedNotice</c>), laid out from its
         /// own rect by <see cref="ScreenLayout.LockedNotice"/>: place the returned view's rect on the notice's area (a locked
-        /// page's <see cref="LockedPageRegions.Notice"/>, a card's body) and fill it with <see cref="LockedNoticeView.Show"/>.
+        /// page's <see cref="LockedPageRegions.Notice"/>) and fill it with <see cref="LockedNoticeView.Show"/>.
         /// It takes no tap.
         /// </summary>
         public static LockedNoticeView LockedNotice(string name, Transform parent)

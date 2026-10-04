@@ -548,11 +548,7 @@ namespace Bloomlings.Client.Tests
                 {
                     foreach (NavPlace active in places)
                     {
-                        if (active == NavPlace.Leaderboard || active == NavPlace.Collection)
-                        {
-                            continue; // cards over Home, never a page of their own
-                        }
-
+                        // Every place is a page or Home (the owner's request of 2026-10-04), so each can be the active one.
                         BottomNavRegions r = ScreenLayout.BottomNav(w, h, insets, places, active);
                         string at = w + "x" + h + " " + string.Join(",", places) + " active=" + active;
                         float sw = r.Safe.Width;
@@ -682,7 +678,7 @@ namespace Bloomlings.Client.Tests
             // The screens lay the five places out whatever the look; each locked place's badge stays on its icon.
             foreach ((float w, float h, Insets insets) in Phones())
             {
-                foreach (NavPlace active in new[] { NavPlace.Home, NavPlace.Shop, NavPlace.Wardrobe })
+                foreach (NavPlace active in BottomNav.Order)
                 {
                     BottomNavRegions r = ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, active);
                     string at = w + "x" + h + " active=" + active;
@@ -727,11 +723,12 @@ namespace Bloomlings.Client.Tests
         }
 
         /// <summary>
-        /// The locked notice (spec 005 FR-030, contracts/look.md §6.7) on every phone, in a locked page's notice area and in
-        /// a locked card's body: the icon, the message and the hint top to bottom, inside the area and centered in it, at
-        /// their sizes (the icon 0.4 of the area's width, the lines 0.94 of it, 0.1 and 0.07 tall), the padlock badge on the
-        /// icon's lower right; the locked page's panel under its header and the notice's area inside it above the bottom
-        /// menu; and on a short area everything still inside, the icon smaller.
+        /// The locked notice (spec 005 FR-030, contracts/look.md §6.7) on every phone, in a locked page's notice area (the
+        /// same for the four pages: the Leaderboard's and the Collection's areas are the Store page's list box too): the
+        /// icon, the message and the hint top to bottom, inside the area and centered in it, at their sizes (the icon 0.4 of
+        /// the area's width, the lines 0.94 of it, 0.1 and 0.07 tall), the padlock badge on the icon's lower right; the
+        /// locked page's panel under its header and the notice's area inside it above the bottom menu; and on a short area
+        /// everything still inside, the icon smaller.
         /// </summary>
         [Test]
         public void TheLockedNotice_KeepsItsPartsInOrder_InsideItsArea_OnEveryPhone()
@@ -749,8 +746,9 @@ namespace Bloomlings.Client.Tests
                 Assert.That(page.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), phone);
                 Assert.That(page.Notice, Is.EqualTo(ScreenLayout.ReferenceStore(w, h, insets, false, false).List), phone + ": where the Store page's list would be");
 
-                CardRegions card = ScreenLayout.Card(w, h, insets, LockedNoticeRegions.CardContent);
-                foreach ((string name, Box area) in new[] { ("page", page.Notice), ("card", card.Body) })
+                Assert.That(ScreenLayout.ReferenceLeaderboard(w, h, insets).Area, Is.EqualTo(page.Notice), phone + ": the Leaderboard page's area");
+                Assert.That(ScreenLayout.ReferenceCollection(w, h, insets).Area, Is.EqualTo(page.Notice), phone + ": the Collection page's area");
+                foreach ((string name, Box area) in new[] { ("page", page.Notice) })
                 {
                     string at = phone + " " + name;
                     LockedNoticeRegions r = ScreenLayout.LockedNotice(area);
@@ -903,6 +901,9 @@ namespace Bloomlings.Client.Tests
                 ReferenceStoreRegions store = ScreenLayout.ReferenceStore(w, h, insets);
                 Assert.That(wardrobe.Header, Is.EqualTo(header), at + ": the Wardrobe's header");
                 Assert.That(store.Header, Is.EqualTo(header), at + ": the Store page's header");
+                Assert.That(ScreenLayout.ReferenceLeaderboard(w, h, insets).Header, Is.EqualTo(header), at + ": the Leaderboard page's header");
+                Assert.That(ScreenLayout.ReferenceCollection(w, h, insets).Header, Is.EqualTo(header), at + ": the Collection page's header");
+                Assert.That(ScreenLayout.LockedPage(w, h, insets).Header, Is.EqualTo(header), at + ": a locked page's header");
                 Assert.That(wardrobe.Hero.Top, Is.GreaterThanOrEqualTo(header.Row.Bottom - 0.5f), at + ": the hero under the header");
             }
         }
@@ -1000,6 +1001,167 @@ namespace Bloomlings.Client.Tests
                         AssertTargets(targets, r.Safe, touch, at);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// The Leaderboard page (the owner's request of 2026-10-04: "All the menu's places must be a separate page. Not
+        /// popups."; contracts/look.md §6.8): on every phone, the header row, the rows, the status line and Refresh in order
+        /// inside the safe area; the page's frame the Store page's (its panel and area); everything above the bottom menu's
+        /// top; at least <see cref="ReferenceLeaderboardRegions.MinLines"/> lines fitting, every shown line inside the rows'
+        /// box, 0.11 W to 0.13 W tall, never overlapping the next, more lines than fit keeping the player's own row in view;
+        /// each row's parts in order inside it; the empty line inside the rows; and every button reachable, clear of the
+        /// menu's places.
+        /// </summary>
+        [Test]
+        public void TheLeaderboardPage_KeepsItsRegionsInOrder_AndEveryTargetReachable()
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                ReferenceLeaderboardRegions r = ScreenLayout.ReferenceLeaderboard(w, h, insets);
+                LockedPageRegions frame = ScreenLayout.LockedPage(w, h, insets);
+                string at = w + "x" + h;
+                AssertOrdered(r.Ordered, r.Safe, at);
+                Assert.That(r.Panel, Is.EqualTo(frame.Panel), at + ": the Store page's panel");
+                Assert.That(r.Area, Is.EqualTo(frame.Notice), at + ": the Store page's list box");
+                Assert.That(r.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at);
+                Assert.That(r.Rows.Within(r.Area) && r.Status.Within(r.Area) && r.Refresh.Within(r.Area), Is.True, at + ": the rows, the status and Refresh inside the area");
+                Assert.That(r.Refresh.Bottom, Is.LessThanOrEqualTo(r.NavTop - (0.02f * r.W) + 0.5f), at + ": Refresh above the bottom menu");
+                Assert.That(r.Refresh.CenterX, Is.EqualTo(r.Safe.CenterX).Within(0.5f), at + ": Refresh centered");
+                Assert.That(r.Empty.Within(r.Rows), Is.True, at + ": the empty line inside the rows");
+                Assert.That(r.LinesFitting, Is.GreaterThanOrEqualTo(ReferenceLeaderboardRegions.MinLines), at + ": eight lines fit");
+
+                float touch = Touch(w, h) * 0.95f;
+                foreach (int lines in new[] { 1, 3, 7, 8, 9, 12 })
+                {
+                    int shown = r.LinesShown(lines);
+                    Assert.That(shown, Is.EqualTo(Math.Min(lines, r.LinesFitting)), at + " lines " + lines);
+                    Assert.That(r.RowHeight(lines), Is.InRange((ReferenceLeaderboardRegions.RowShare * r.W) - 0.5f, (ReferenceLeaderboardRegions.RowMaxShare * r.W) + 0.5f), at + " lines " + lines);
+                    for (int i = 0; i < shown; i++)
+                    {
+                        Box row = r.Row(i, lines);
+                        Assert.That(row.Within(r.Rows), Is.True, at + " lines " + lines + ": row " + i + " " + row + " inside the rows " + r.Rows);
+                        Assert.That(row.Height, Is.GreaterThanOrEqualTo((ReferenceLeaderboardRegions.RowShare * r.W) - 0.5f), at + ": a row at least 0.11 W tall");
+                        if (i > 0)
+                        {
+                            Assert.That(row.Overlaps(r.Row(i - 1, lines)), Is.False, at);
+                        }
+
+                        LeaderboardRowParts parts = ReferenceLeaderboardRegions.Parts(row);
+                        IReadOnlyList<(string Name, Box Box)> ordered = parts.Ordered;
+                        for (int k = 0; k < ordered.Count; k++)
+                        {
+                            Assert.That(ordered[k].Box.Within(row), Is.True, at + ": the " + ordered[k].Name + " inside its row");
+                            if (k > 0)
+                            {
+                                Assert.That(ordered[k].Box.Left, Is.GreaterThanOrEqualTo(ordered[k - 1].Box.Right - 0.5f), at + ": the " + ordered[k].Name + " after the " + ordered[k - 1].Name);
+                            }
+                        }
+
+                        Assert.That(parts.Medal.Within(parts.Rank), Is.True, at + ": the medal in the rank's place");
+                    }
+
+                    // More lines than fit: a window that keeps the player's line (here the last) in view.
+                    int first = ReferenceLeaderboardRegions.FirstLine(lines, shown, lines - 1);
+                    Assert.That(first, Is.InRange(0, Math.Max(0, lines - shown)), at + " lines " + lines);
+                    Assert.That(lines - 1, Is.InRange(first, first + shown - 1), at + " lines " + lines + ": the player's line shows");
+                }
+
+                Assert.That(ReferenceLeaderboardRegions.FirstLine(5, 8, 2), Is.EqualTo(0), "all lines fit: from the first");
+                Assert.That(ReferenceLeaderboardRegions.FirstLine(12, 8, 6), Is.EqualTo(2), "the player's line near the window's middle");
+
+                var targets = new List<Box>();
+                foreach ((string _, Box box) in r.Buttons)
+                {
+                    targets.Add(TouchBox(box, touch));
+                }
+
+                foreach ((string _, Box box) in ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, NavPlace.Leaderboard).Buttons)
+                {
+                    targets.Add(box);
+                    Assert.That(box.Overlaps(r.Refresh), Is.False, at + ": Refresh clear of the menu's " + box);
+                }
+
+                AssertTargets(targets, r.Safe, touch, at);
+            }
+        }
+
+        /// <summary>
+        /// The Collection page (the owner's request of 2026-10-04; contracts/look.md §6.9): on every phone, the header row,
+        /// the count, the grid and the footer in order inside the safe area; the page's frame the Store page's; three square
+        /// frames to a row as large as fit, at least two rows a page, every frame inside the grid and above the footer when
+        /// the pictures take more than a page, never overlapping; the paging (all pictures on one page when they fit, else
+        /// full pages); the detail's picture, name and level in order inside the area, the picture at most 0.8 W; and every
+        /// button reachable, clear of the menu's places.
+        /// </summary>
+        [Test]
+        public void TheCollectionPage_KeepsItsRegionsInOrder_AndEveryTargetReachable()
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                ReferenceCollectionRegions r = ScreenLayout.ReferenceCollection(w, h, insets);
+                LockedPageRegions frame = ScreenLayout.LockedPage(w, h, insets);
+                string at = w + "x" + h;
+                AssertOrdered(r.Ordered, r.Safe, at);
+                AssertOrdered(r.DetailOrdered, r.Area, at + " detail");
+                Assert.That(r.Panel, Is.EqualTo(frame.Panel), at + ": the Store page's panel");
+                Assert.That(r.Area, Is.EqualTo(frame.Notice), at + ": the Store page's list box");
+                Assert.That(r.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at);
+                Assert.That(r.Count.Within(r.Area) && r.Grid.Within(r.Area) && r.Footer.Within(r.Area), Is.True, at);
+                Assert.That(r.Footer, Is.EqualTo(ScreenLayout.ReferenceStore(w, h, insets, false, false).Footer), at + ": the Store page's footer");
+
+                // The frames: three to a row across the grid, square, as large as fit.
+                float gap = ReferenceCollectionRegions.CellGapShare * r.W;
+                Assert.That((r.CellSize * ReferenceCollectionRegions.Columns) + (gap * (ReferenceCollectionRegions.Columns - 1)), Is.EqualTo(r.Grid.Width).Within(0.5f), at + ": the frames span the grid");
+                Assert.That(r.RowsFitting(true), Is.GreaterThanOrEqualTo(2), at + ": at least two rows a page");
+                Assert.That(r.RowsFitting(false), Is.GreaterThanOrEqualTo(r.RowsFitting(true)), at);
+                foreach (int count in new[] { 0, 1, 6, 12, 15, 40, 87 })
+                {
+                    int perPage = r.PerPage(count);
+                    int pages = r.Pages(count);
+                    bool paged = pages > 1;
+                    Assert.That(perPage % ReferenceCollectionRegions.Columns == 0 || !paged, Is.True, at + " count " + count + ": full rows a page");
+                    Assert.That(pages, Is.EqualTo(Math.Max(1, (count + perPage - 1) / perPage)), at + " count " + count);
+                    Assert.That(paged, Is.EqualTo(count > r.RowsFitting(false) * ReferenceCollectionRegions.Columns), at + " count " + count + ": pages only when they do not fit");
+                    for (int slot = 0; slot < Math.Min(count, perPage); slot++)
+                    {
+                        Box cell = r.Cell(slot);
+                        Assert.That(cell.Width, Is.EqualTo(cell.Height).Within(0.01f), at + ": square");
+                        Assert.That(cell.Within(r.Grid), Is.True, at + " count " + count + ": frame " + slot + " " + cell + " inside the grid " + r.Grid);
+                        Assert.That(cell.Bottom, Is.LessThanOrEqualTo(r.NavTop), at + ": frame " + slot + " above the bottom menu");
+                        if (paged)
+                        {
+                            Assert.That(cell.Bottom, Is.LessThanOrEqualTo(r.Footer.Top + 0.5f), at + " count " + count + ": frame " + slot + " above the footer");
+                        }
+
+                        for (int j = 0; j < slot; j++)
+                        {
+                            Assert.That(cell.Overlaps(r.Cell(j)), Is.False, at + ": frames " + j + " and " + slot);
+                        }
+                    }
+                }
+
+                // The detail: the picture square and large, its name and level under it, centered.
+                Assert.That(r.Picture.Width, Is.EqualTo(r.Picture.Height).Within(0.01f), at);
+                Assert.That(r.Picture.Width, Is.LessThanOrEqualTo((ReferenceCollectionRegions.PictureShare * r.W) + 0.5f), at);
+                Assert.That(r.Picture.Width, Is.GreaterThan(0.6f * r.W), at + ": the picture large");
+                Assert.That(r.Picture.CenterX, Is.EqualTo(r.Area.CenterX).Within(0.5f), at);
+                Assert.That(r.Picture.Top - r.Area.Top, Is.EqualTo(r.Area.Bottom - r.Level.Bottom).Within(0.5f), at + ": the detail centered");
+
+                float touch = Touch(w, h) * 0.95f;
+                var targets = new List<Box>();
+                foreach ((string _, Box box) in r.Buttons)
+                {
+                    targets.Add(TouchBox(box, touch));
+                }
+
+                foreach ((string _, Box box) in ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, NavPlace.Collection).Buttons)
+                {
+                    targets.Add(box);
+                    Assert.That(box.Overlaps(r.Cell((r.RowsFitting(false) * ReferenceCollectionRegions.Columns) - 1)), Is.False, at + ": the last frame clear of the menu's " + box);
+                }
+
+                AssertTargets(targets, r.Safe, touch, at);
             }
         }
 
