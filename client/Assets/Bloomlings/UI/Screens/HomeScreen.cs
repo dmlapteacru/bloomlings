@@ -19,7 +19,8 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>
     /// What Home shows (FR-058), with the long-run features once unlocked (US7): the unlocks also decide which of the bottom
     /// menu's places are open (spec 005 FR-030: all five show, a locked one with a padlock; the rank shows on the
-    /// Leaderboard page it opens).
+    /// Leaderboard page it opens). <see cref="Profile"/> and <see cref="AvatarOutfit"/> dress the header's profile avatar
+    /// (its frame and badge; what the pictured hero wears, once the Wardrobe is open).
     /// </summary>
     public sealed record HomeModel(
         int CurrentLevel,
@@ -37,21 +38,27 @@ namespace Bloomlings.Client.UI.Screens
         Color? Accent = null,
         BackgroundTheme? Theme = null,
         int DailyChallengePetals = 0,
-        Func<Family, Outfit?>? OutfitOf = null);
+        Func<Family, Outfit?>? OutfitOf = null,
+        ProfileLook? Profile = null,
+        Outfit? AvatarOutfit = null);
 
     /// <summary>
-    /// The Home button of the long-run features (US7) that is not a place of the bottom menu: the Daily Challenge. The
-    /// Store, the Wardrobe, the Leaderboard and the Collection are the bottom menu's places (spec 005 FR-030).
+    /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7) and the header's profile avatar
+    /// (the owner's request of 2026-10-04; null until the profile page comes: its tap presses and clicks only). The Store,
+    /// the Wardrobe, the Leaderboard and the Collection are the bottom menu's places (spec 005 FR-030).
     /// </summary>
-    public sealed record HomeFeatureActions(Action? OnDailyChallenge);
+    public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnProfile = null);
 
     /// <summary>
     /// Home of the design board's frames 2 and 3 (spec 002 FR-017; FR-058, T063) in the reference look and layout of
     /// spec 005 (FR-024, contracts/look.md §4.5 and §6.4; the playtest's <c>HomeScreen</c>), every element placed from
     /// <see cref="ScreenLayout.ReferenceHome"/>:
     /// <list type="bullet">
-    /// <item><description>Always shown: the cream round Settings button at the top left, the Petals pill at the top right
-    /// (its green "+" opens the Store once unlocked, L12), the wooden logo across the top (the owner's logo picture when
+    /// <item><description>Always shown: the header row (the owner's request of 2026-10-04): the cream round Settings
+    /// button at the top left, the large Petals pill centered between it and the avatar with the Play button's leaves
+    /// and flower on its top-left and bottom-right corners (its green "+" opens the Store once unlocked, L12), and the
+    /// profile avatar at the top right (<see cref="ProfileAvatar"/> with its frame and badge, as large as Settings; it
+    /// presses and clicks, the profile page comes later); the wooden logo across the top (the owner's logo picture when
     /// it exists), "Level N" on the wooden plaque and the big Play button in its wooden rim below it.</description></item>
     /// <item><description>The diorama in the middle (<see cref="HeroPictures.Stage"/>): over the owner's Home picture,
     /// its layered fountain with the four animated heroes where the reference stands them (spec 005 FR-028,
@@ -78,6 +85,8 @@ namespace Bloomlings.Client.UI.Screens
         private BackdropView _backdrop = null!;
         private RectTransform _settings = null!;
         private PetalsPill _petals = null!;
+        private RectTransform _profile = null!;
+        private ProfileAvatar _avatar = null!;
         private RectTransform _logo = null!;
         private HomeStageView _stage = null!;
         private WoodSignView _level = null!;
@@ -157,9 +166,26 @@ namespace Bloomlings.Client.UI.Screens
             screen._freePill = (RectTransform)UiKit.CostPill("Pill", free.transform, Cost.Free).transform;
             free.gameObject.SetActive(false);
 
-            // The top corners: Settings at the left, the Petals pill at the right; the bottom menu last, over the stage.
+            // The header row (the owner's request of 2026-10-04): Settings at the left; the large Petals pill centered, with
+            // its flowered corners; the profile avatar at the right; the bottom menu last, over the stage.
             screen._settings = (RectTransform)UiKit.RoundIconButton("Settings", root, "ui.settings", onSettings).transform;
-            screen._petals = UiKit.PetalsPill("Petals", root, onStore);
+            screen._petals = UiKit.PetalsPill("Petals", root, onStore, align: 0.5f, decorate: true);
+
+            // The avatar's button is a clear touch target around it that presses and clicks like a round button; its
+            // profile page comes later (no toast on Unity's Home yet).
+            Image profile = UiFactory.CreateImage("Profile", root, null, Color.clear, raycast: true);
+            var profileButton = profile.gameObject.AddComponent<Button>();
+            profileButton.transition = Selectable.Transition.None;
+            profileButton.targetGraphic = profile;
+            profileButton.onClick.AddListener(() =>
+            {
+                GameFeedback.Current?.Play(SoundCue.Click);
+                features?.OnProfile?.Invoke();
+            });
+            profile.gameObject.AddComponent<PressMotion>();
+            screen._profile = profile.rectTransform;
+            screen._avatar = ProfileAvatar.Create("Avatar", profile.transform);
+            UiFactory.Stretch(screen._avatar.Rect);
             screen._nav = UiKit.BottomNav("BottomNav", root, place =>
             {
                 if (place != NavPlace.Home)
@@ -223,6 +249,7 @@ namespace Bloomlings.Client.UI.Screens
             float u = DesignTokens.ScaleFor(w, h);
             UiKit.PlaceBox(_settings, r.Settings, screen);
             UiKit.PlaceBox((RectTransform)_petals.transform, r.Petals, screen);
+            UiKit.PlaceBox(_profile, r.Avatar, screen);
             UiKit.PlaceBox(_logo, OwnerArt.LogoBox(r), screen);
 
             // The four heroes (frames 2 and 3): on the owner's layered fountain, or around the drawn diorama's lotus
@@ -260,6 +287,9 @@ namespace Bloomlings.Client.UI.Screens
             _playLabel.text = !model.LevelAvailable ? Loc.T("home.more_levels_soon") : Loc.T("common.play");
             _playButton.interactable = model.LevelAvailable;
             _petals.Show(model.Petals, model.StoreUnlocked);
+
+            // The avatar shows the profile's frame and badge (the leaderboard marker stays on the Leaderboard page).
+            _avatar.Show(model.Profile == null ? null : model.Profile with { Marker = null }, model.AvatarOutfit);
             _daily.SetActive(model.DailyChallengeAvailable);
             _dailyDone.SetActive(model.DailyChallengeDone);
             _backdrop.Show(model.Theme);

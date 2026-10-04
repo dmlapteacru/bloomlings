@@ -227,7 +227,13 @@ namespace Bloomlings.Playtest.Design
         /// The leaves and white flower over a main button's corners (FR-011a): never a touch target, drawn after the button
         /// so they may overlap its plate, and switched off as one setting (<see cref="DesignTokens.Garden.Decorations"/>).
         /// </summary>
-        public static void Decoration(IPainter p, Box button)
+        public static void Decoration(IPainter p, Box button) => Decoration(p, GardenLook.DecorationBoxes(button));
+
+        /// <summary>
+        /// The same leaves and flower in the two boxes of <paramref name="boxes"/> (<see cref="GardenLook.DecorationBoxes"/>,
+        /// or <see cref="GardenLook.PillDecorationBoxes"/> on Home's Petals pill): never a touch target.
+        /// </summary>
+        public static void Decoration(IPainter p, (Box TopLeft, Box BottomRight) boxes)
         {
             if (!DesignTokens.Garden.Decorations)
             {
@@ -235,7 +241,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             p.Mark("ui.deco.garden");
-            (Box topLeft, Box bottomRight) = GardenLook.DecorationBoxes(button);
+            (Box topLeft, Box bottomRight) = boxes;
             string picture = PainterBase.DecorPrefix + OwnerPictures.ButtonLeaves;
             if (p.HasSprite(picture))
             {
@@ -733,8 +739,11 @@ namespace Bloomlings.Playtest.Design
         /// the box's, 0.5 centers it), the lotus inside its left end, the balance in <c>ink.brown</c> left-aligned right
         /// after the lotus, so a short amount never floats in the middle, and the round green "+" over its right end
         /// (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>).
+        /// <paramref name="decorate"/> adds the main buttons' leaves and flower over the corners of the pill and its "+"
+        /// (<see cref="GardenLook.PillDecorationBoxes"/> of <see cref="PetalsPillParts.Span"/>), scaled to its height and
+        /// never a touch target: Home's header pill (the owner's request of 2026-10-04). Returns the parts as drawn.
         /// </summary>
-        public static void PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f)
+        public static PetalsPillParts PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f, bool decorate = false)
         {
             p.Mark("ui.pill.petals");
             TypeStyle s = T.Count;
@@ -763,6 +772,13 @@ namespace Bloomlings.Playtest.Design
                 p.PopTransform();
                 p.Hit(Touch(p, pill), onPlus);
             }
+
+            if (decorate)
+            {
+                Decoration(p, GardenLook.PillDecorationBoxes(parts.Span));
+            }
+
+            return parts;
         }
 
         /// <summary>The dimmed backdrop behind popups; a tap on it does nothing (the card decides).</summary>

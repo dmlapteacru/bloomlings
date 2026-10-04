@@ -13,8 +13,9 @@ namespace Bloomlings.Client.UI.Screens
     /// The player's profile picture (FR-061, FR-063) in the reference look (spec 005 §4.5; the playtest's Home
     /// <c>Avatar</c>): the hero's portrait in its outfit on a domed cream disc like the round buttons, with a soft green
     /// middle and a tan ring, inside the shown frame, with the shown badge at its foot and the leaderboard marker at its
-    /// shoulder. The Wardrobe (its profile tab) and the leaderboard row use it; Home showed it as its Wardrobe button until
-    /// the bottom menu took that place (spec 005 FR-030). Never a touch target itself (its button is).
+    /// shoulder. The Wardrobe (its profile tab) and the leaderboard row use it, and Home's header shows it at the top right
+    /// with its frame and badge (the owner's request of 2026-10-04; it was Home's Wardrobe button until the bottom menu,
+    /// spec 005 FR-030, took that place). Never a touch target itself (its button is).
     /// </summary>
     public sealed class ProfileAvatar
     {
@@ -40,14 +41,14 @@ namespace Bloomlings.Client.UI.Screens
             _frame = Decoration(root, "Frame");
             layout.Add(_frame.rectTransform, b => Square(b, 1.08f, 0f, 0f));
             _badge = Decoration(root, "Badge");
-            // The badge at the bottom left: on Home the bottom right carries the Wardrobe's shirt badge (2026-10-04).
+            // The badge at the bottom left, where it moved when Home's avatar carried the Wardrobe's shirt badge (2026-10-04).
             layout.Add(_badge.rectTransform, b => Square(b, 0.36f, -0.36f, 0.36f));
             _marker = Decoration(root, "Marker");
             layout.Add(_marker.rectTransform, b => Square(b, 0.36f, 0.36f, -0.36f));
         }
 
-        /// <summary>The family of the player's hero: the avatar's picture, and the hero at the left front of Home once the Wardrobe is open.</summary>
-        public const Family HeroFamily = Family.Bloom;
+        /// <summary>The family of the player's hero: the avatar's picture, and the hero at the left front of Home once the Wardrobe is open (the kit's <see cref="CharacterArt.ProfileHero"/>).</summary>
+        public const Family HeroFamily = CharacterArt.ProfileHero;
 
         public RectTransform Rect { get; }
 

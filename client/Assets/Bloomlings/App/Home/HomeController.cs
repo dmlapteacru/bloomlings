@@ -112,7 +112,9 @@ namespace Bloomlings.Client.App.Home
                     accent,
                     Theme: band,
                     DailyChallengePetals: DailyChallengeService.RewardPetals,
-                    OutfitOf: wardrobe.OutfitOf));
+                    OutfitOf: wardrobe.OutfitOf,
+                    Profile: wardrobe.Profile,
+                    AvatarOutfit: wardrobe.IsAvailable ? wardrobe.OutfitOf(ProfileAvatar.HeroFamily) : null));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.ShowsRanks)
                 {

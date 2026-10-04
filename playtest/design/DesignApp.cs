@@ -469,6 +469,16 @@ namespace Bloomlings.Playtest.Design
 
         public string? HomeToastText => _homeToastUntil > Now ? _homeToast : null;
 
+        /// <summary>
+        /// Home's profile avatar (the owner's request of 2026-10-04): the click, then the short toast "Profile coming
+        /// soon" over Home, until the profile page comes.
+        /// </summary>
+        public void OpenProfile()
+        {
+            Sound.Play(SoundCue.Click);
+            HomeToast(PlaytestText.T("home.profile_soon"));
+        }
+
         /// <summary>Playtest control: a brand-new profile (Level 1, nothing unlocked).</summary>
         public void ResetProfile()
         {
