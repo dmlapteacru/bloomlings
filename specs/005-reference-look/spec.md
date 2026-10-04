@@ -195,6 +195,18 @@ the hero's icon, but in its bottom right corner put the clothes icon on that rou
   (its Petals "+"). In the playtest the Android back closes the page, and the Wardrobe, as their back buttons do (it
   left the app before); elsewhere it does what the system does.
 
+### Session 2026-10-04 (the owner's calm backgrounds)
+
+The owner sent `bloomlings_calm_backgrounds.zip` (eight calmer backgrounds: "fewer flowers, less visual noise and
+calmer saturation so Bloomlings characters and UI remain the focal point"): "Use them instead of the existing ones."
+- Q: Which goes where? → A: By their names, in both builds (the files keep their names, pictures.md B): Home's garden
+  `home.jpg` ← `01_home_calm_garden` (through `tools/heroanim/layers.mjs`, under the same fountain layers: its open
+  middle takes the fountain and the heroes), the win `win.jpg` ← `02_win_calm_garden_glow` (its round stone stage at
+  0.60 of the picture's height, `OwnerPictures.WinStageShare`, was 0.58), the Wardrobe and the Store page
+  `wardrobe.jpg` ← `08_wardrobe_calm_garden`, and the gameplay themes: daylight ← `04_lotus_courtyard`, pond ←
+  `06_lily_pond`, orchard ← `03_orchard`, moonlit ← `07_evening_fireflies`. `05_home_lotus_fountain_calm` (a garden
+  with the fountain painted in) is not used: the heroes stand between the fountain's layers.
+
 ### Session 2026-10-04 (Twig and Sprig toned down)
 
 The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
