@@ -46,9 +46,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - `dotnet run --project playtest/check` checks the playtest client without Android: its animator replays every golden
   case and showcase solution and must end on the rules state, and its meta layer runs progression and economy.
 - `dotnet run --project playtest/preview` renders the full playtest's designed screens (spec 002) for every design
-  board frame (1–17, plus extras 18–31: themes, Settings, Collection picture, demo, boosters in use, the Bloomlings
-  sheet, 25 the reference-look kit, 26 the Store cosmetics, 27 the Wardrobe, 28 Home's animated heroes in outfits, and
-  the bottom menu's locked places: 29 the locked Store page, 30 the locked Wardrobe, 31 the locked Leaderboard page) to PNG in `playtest/preview/out/` (gitignored) and checks
+  board frame (1–17, plus extras 18–32: themes, Settings, Collection picture, demo, boosters in use, the Bloomlings
+  sheet, 25 the reference-look kit, 26 the Store cosmetics, 27 the Wardrobe, 28 Home's animated heroes in outfits, the
+  bottom menu's locked places: 29 the locked Store page, 30 the locked Wardrobe, 31 the locked Leaderboard page, and 32
+  the Remove Ads card of Home's No Ads scene) to PNG in `playtest/preview/out/` (gitignored) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays

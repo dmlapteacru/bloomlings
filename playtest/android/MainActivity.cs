@@ -11,8 +11,8 @@ namespace Bloomlings.Playtest
     /// <summary>
     /// The single activity of the playtest APKs: the full playtest shows the design board's screens
     /// (<see cref="Droid.DesignView"/>), the level tester its minimal view (<see cref="TesterView"/>). In the full
-    /// playtest the system back closes the Store page or the Wardrobe (<see cref="Droid.DesignView.Back"/>) and does what
-    /// the system does anywhere else.
+    /// playtest the system back closes the top card, else the Store page, the Wardrobe, the Leaderboard or the Collection
+    /// (<see cref="Droid.DesignView.Back"/>), and does what the system does anywhere else.
     /// </summary>
     [Activity(
         Label = PlaytestFlavor.Title,
