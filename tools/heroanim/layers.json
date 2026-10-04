@@ -1,6 +1,6 @@
 {
  "inputs": {
-  "01_home_bg_back.png": "efdd5c3d5e1b9e7acf1a6ec2582b86876997f4a5bf971840b85b66e0104ed3c4",
+  "01_home_bg_back.png": "bbcc62502d5a2b0dfb2671ae8f9d0baeeba12b13f1d74439b08184b2b453c0f8",
   "02_home_fountain_back.png": "f617241da585f02a7746439664e70a158039a61ef43e7bb72c0e558591e00645",
   "03_home_fountain_front.png": "c6a04ac7705fcb1b1b03b70730f0500263ed8d90f9f70f78f00d736c77f17767",
   "04_home_soft_shadow.png": "842696d90d0b83b6f8dd3b578691e469436df4a22224c65034833c72f308130f",
@@ -18,8 +18,8 @@
     "h": 1846
    },
    "from": "01_home_bg_back.png",
-   "sha256": "27df5cb4f64c17ddf91ef8910454ac8edef5da15b8669298e8acc2d9173ba3db",
-   "bytes": 480694
+   "sha256": "81f43663325866b85d0fbaa50e49b864706de9a5339c8b92c928849f7b95c4da",
+   "bytes": 451240
   },
   {
    "name": "home-fountain-back.png",

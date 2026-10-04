@@ -60,7 +60,7 @@ dances, `victory`) are not used.
 
 | Delivered | Here (`client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`) |
 |---|---|
-| `01_home_bg_back.png` (852 × 1846) | `home.jpg`: re-encoded as JPEG (quality 90); it replaces the earlier single Home picture |
+| `01_home_bg_back.png` (852 × 1846) | `home.jpg`: re-encoded as JPEG (quality 90); it replaces the earlier single Home picture. Since 2026-10-04 the garden comes from the owner's calm backgrounds (`bloomlings_calm_backgrounds.zip`, `01_home_calm_garden.png`, recorded in `tools/artgen/models/owner-pictures.md`), given to `layers.mjs` as `01_home_bg_back.png` with this pack's other four layers unchanged (`layers.json` holds its hash) |
 | `02_home_fountain_back.png` | `home-fountain-back.png`: cropped to its visible bounds (alpha under 6 of 255 counts as dust) |
 | `02_home_fountain_back.png` | `home-lotus.png`: the lotus cut out of it (its pink petals and what they enclose, the edge softened), drawn again over Bloom, who stands behind it |
 | `03_home_fountain_front.png` | `home-fountain-front.png`: cropped the same way |
