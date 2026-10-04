@@ -289,6 +289,17 @@ FR-029) and contracts/look.md §6.4, §6.5, §6.6. Presentation only (FR-002).
   new FR-029, the acceptance scenarios; pictures.md B7; the asset slots `bg.wardrobe` and `ui.card` and the inventory;
   `playtest/README.md`); all checks; the full preview reviewed at 16:9, 19.5:9 and 21:9.
 
+## Owner delivery: the calm backgrounds (2026-10-04)
+
+See spec.md (the clarification "the owner's calm backgrounds") and pictures.md B1–B5, B7, B8. Pictures only (FR-002).
+- [X] T058 The owner's calm pack replaces the first pack's pictures: Home's back layer (`home.jpg` rebuilt by
+  `tools/heroanim/layers.mjs` over the unchanged fountain layers, `layers.json`), the win (`win.jpg`), the Wardrobe
+  (`wardrobe.jpg`) and the four gameplay themes, all JPEG q90; `OwnerPictures.WinStageShare` 0.6 for the new win
+  stage; the source records (`client/THIRD_PARTY_NOTICES.md`, `tools/artgen/models/owner-pictures.md`,
+  `tools/heroanim/SOURCE.md`).
+- [X] T059 The bottom menu's five icons (`Art/Icons/Resources/Icons/nav-*.png`, trimmed and fitted to 512 × 512 with a
+  20 px margin) and their source records; `node tools/heroanim/check.mjs`; the preview's frames 2, 7, 15 and 27 reviewed.
+
 ## Owner request: the bottom menu, wooden (2026-10-04)
 
 See spec.md (the clarification "the owner's bottom menu, wooden", FR-030, the amended FR-017, FR-024, FR-025, FR-029,
