@@ -338,6 +338,18 @@ calmer saturation so Bloomlings characters and UI remain the focal point"): "Use
   `06_lily_pond`, orchard ← `03_orchard`, moonlit ← `07_evening_fireflies`. `05_home_lotus_fountain_calm` (a garden
   with the fountain painted in) is not used: the heroes stand between the fountain's layers.
 
+### Session 2026-10-04 (the owner's saturation note: the backgrounds at 70%)
+
+The owner: "Background 55–65% saturation → UI 65–75% → heroes 100%."
+- Q: Against what? → A: Against the animated heroes, the 100% step (the mean HSL saturation of their frames, 0.656).
+  Measured that way the owner's backgrounds sat at 86–105% of the heroes' (the evening garden at 58%) and the UI
+  pictures at 119–147%. The ladder as asked (backgrounds 60%, the UI pictures and colors 70%) was built and shown;
+  the owner: "Bring it back as it was, and then try lowering only the background to 80%, and show." After 80% and
+  70% were shown side by side: "We keep 70." So only the backgrounds change: each owner background is scaled to 70%
+  of the heroes' mean saturation (the win ×0.66, the Wardrobe and the pages' garden ×0.68, the gameplay themes ×0.71
+  to ×0.82, the layered Home as one scene ×0.73; the evening garden stays, it is under 70% already), lightness and hue
+  kept (FR-031, contracts/look.md §1.4). The UI, the heroes, the characters and the board stay as they are.
+
 ### Session 2026-10-04 (Twig and Sprig toned down)
 
 The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
@@ -756,6 +768,14 @@ inventory.
   on the splash. Home MUST NOT keep a button the menu doubles: its Store, Wardrobe and Collection side buttons and its
   rank pill are removed. The menu changes no rule, economy value, unlock or tap outcome inside a screen (FR-002); it
   only adds these ways between Home and its pages.
+
+#### K. The backgrounds' saturation (the owner's note, 2026-10-04)
+
+- **FR-031**: The owner's backgrounds (the gameplay themes, the win, the Wardrobe and the pages' garden, the layered
+  Home with its layers as one scene) MUST keep at most 70% of the animated heroes' mean HSL saturation (the owner's
+  choice after 60%, 80% and 70% were shown; contracts/look.md §1.4), scaled offline by `tools/heroanim/saturation.mjs`
+  (and `layers.mjs` for the Home layers) with their lightness and hue kept. The UI, the heroes, the 2D characters and
+  the board's pieces keep their saturation. Presentation only (FR-002).
 
 ### Key Entities
 

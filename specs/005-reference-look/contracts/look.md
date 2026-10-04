@@ -66,6 +66,17 @@ reference image is `specs/005-reference-look/reference.jpg`; crops named below a
 `GardenLook.Green` follows it. The spec 002 scrim `surface.scrim` becomes a warm brown, `#2A1708` at 50% (it was a cool
 `#1E2430` at 55%), so the garden and every card's backdrop keep their warm hue; the jam sheet keeps 0.3 of it.
 
+### 1.4 The backgrounds' saturation (the owner's note of 2026-10-04, FR-031)
+
+The owner's backgrounds keep at most 70% of the animated heroes' mean HSL saturation (their frames' mean, 0.656, on the
+pixels at least half opaque): `tools/heroanim/saturation.mjs` scales `win.jpg` (×0.66), `wardrobe.jpg` (×0.68) and the
+gameplay themes (daylight ×0.72, orchard ×0.71, pond ×0.82; moonlit stays, at 59%), and `layers.mjs` the layered Home
+as one scene by its garden's factor (×0.73, `layers.json` `saturation`), once, offline. The transform keeps a pixel's
+lightness and hue (each channel moves toward `(max + min) / 2`); a second run changes nothing; a background added later
+is brought down by running `node saturation.mjs` (or `layers.mjs` for the Home layers). The UI tokens and pictures, the
+heroes, the 2D characters and the board keep their saturation (the owner, after the full ladder was tried: "only the
+background").
+
 ### 1.3 Color sets (`GardenLook`)
 
 | Set | Face | Top | Lip | Line | Label |

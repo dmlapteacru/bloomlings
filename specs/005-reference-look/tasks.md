@@ -477,3 +477,14 @@ contracts/look.md §3.4, §4.5 and §6.4. Presentation only (FR-002).
   `cosmetic.frame` and `cosmetic.badge` and the regenerated inventory.
 - [X] T088 The docs: spec.md, contracts/look.md (§6.4's row, sizes and fixed numbers on 1080 × 2340), `playtest/README.md`
   and `client/README.md`; all checks; frames 2, 3, 28 and 31 reviewed at 16:9, 19.5:9 and 21:9.
+
+## Owner note: the backgrounds at 70% of the heroes' saturation (2026-10-04)
+
+See spec.md (the clarification "the owner's saturation note: the backgrounds at 70%", FR-031) and contracts/look.md
+§1.4. Presentation only (FR-002).
+- [X] T089 The full ladder (backgrounds 60%, UI 70%) built, shown and reverted at the owner's word; the
+  backgrounds alone tried at 80% and 70% of the heroes' mean saturation and shown side by side with the current look.
+- [X] T090 The owner's choice, 70%: `tools/heroanim/saturation.mjs` (the backgrounds only, idempotent,
+  `saturation.json`) and `layers.mjs` (the layered Home as one scene, `layers.json` `saturation`); the backgrounds
+  re-encoded once from the owner's PNG files; the source records (`tools/artgen/models/owner-pictures.md`,
+  `tools/heroanim/SOURCE.md`, `README.md`, pictures.md); all checks.
