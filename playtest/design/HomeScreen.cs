@@ -88,18 +88,19 @@ namespace Bloomlings.Playtest.Design
     /// places (Shop, Wardrobe, Home, Leaderboard, Collection), Home in the raised medallion; it replaced Home's Store,
     /// Wardrobe and Collection side buttons and the rank pill (<see cref="DesignApp.Navigate"/>).</description></item>
     /// </list>
-    /// Play always continues Level N, and there is no level map. A small row just above the bottom menu keeps the
-    /// playtest's skip and reset controls; it is not part of the product.
+    /// Play always continues Level N, and there is no level map. The playtest's skip and reset controls, not part of the
+    /// product, moved from Home's bottom into the Settings card opened from Home (<see cref="MenuCards.Settings"/>) when the
+    /// bottom menu took that band, so Home stands as the Unity client's.
     /// </summary>
     public static class HomeScreen
     {
         /// <summary>
         /// The height the playtest's dev row keeps out of Home's layout (<see cref="ScreenLayout.ReferenceHome"/>'s
-        /// <c>bottomReserve</c>): the touch minimum. Since the bottom menu (FR-030) took the band under the teaser, the row
-        /// lies just above the menu, under the teaser, and the plaque, Play and the teaser stand that much higher than in
-        /// the Unity client.
+        /// <c>bottomReserve</c>): none. Since the bottom menu (FR-030) took the band under the teaser, the row lives in the
+        /// Settings card opened from Home (<see cref="MenuCards.Settings"/>), so the plaque, Play and the teaser stand where
+        /// the Unity client has them.
         /// </summary>
-        public static float DevReserve(IPainter p) => p.U(DesignTokens.Size.TouchMin);
+        public static float DevReserve(IPainter p) => 0f;
 
         public static void Draw(IPainter p, DesignApp app)
         {
@@ -155,11 +156,6 @@ namespace Bloomlings.Playtest.Design
                 string teaser = next.Value.WinsToGo == 1 ? PlaytestText.T("home.level_to_reward") : PlaytestText.F("home.levels_to_reward", next.Value.WinsToGo);
                 Teaser(p, r.Teaser, teaser);
             }
-
-            // The playtest's own controls, faded just above the bottom menu (not part of the product).
-            p.PushAlpha(0.7f);
-            DevRow(p, app, DevRowBox(p, r));
-            p.PopAlpha();
 
             // The bottom menu, Home in its medallion (FR-030).
             Kit.BottomNav(p, Nav(p, look, NavPlace.Home), app.Navigate);
@@ -347,8 +343,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The touch boxes of Home's buttons, pills, plaque and dev row, and the bottom menu from its top down (what the
-        /// heroes' taps keep clear of).
+        /// The touch boxes of Home's buttons, pills and plaque, and the bottom menu from its top down (what the heroes' taps
+        /// keep clear of).
         /// </summary>
         private static List<Box> UiBoxes(IPainter p, ReferenceHomeRegions r, HomeLook look)
         {
@@ -359,7 +355,6 @@ namespace Bloomlings.Playtest.Design
                 Kit.Touch(p, r.Plaque),
                 Kit.Touch(p, r.Play),
                 Kit.Touch(p, r.Teaser),
-                DevRowBox(p, r),
                 new Box(r.Safe.Left, r.NavTop, r.Safe.Right, r.Safe.Bottom),
             };
             if (look.DailyChallenge)
@@ -456,13 +451,6 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The playtest's dev row, the touch minimum tall, just above the bottom menu (<see cref="DevReserve"/>).</summary>
-        private static Box DevRowBox(IPainter p, ReferenceHomeRegions r)
-        {
-            float bottom = r.NavTop - (r.W * BottomNav.GapShare);
-            return new Box(r.Safe.Left + (r.W * 0.04f), bottom - DevReserve(p), r.Safe.Right - (r.W * 0.04f), bottom);
-        }
-
         /// <summary>
         /// A cream round side button with a colored glyph (§3.3's domed cushion, as <see cref="Kit.RoundButton"/>):
         /// <paramref name="glyph"/> draws into the face's content box, which moves with the press.
@@ -498,34 +486,6 @@ namespace Bloomlings.Playtest.Design
             Func<float, float, float> sdf = ShapeLibrary.Get(shapeId);
             p.ShapeOf(shapeId + "/line/0.07", (x, y) => sdf(x, y) - 0.07f, box, line);
             p.Shape(shapeId, box, fill);
-        }
-
-        /// <summary>
-        /// The playtest's own controls (not the product), small just above the bottom menu: step back, skip one or ten
-        /// levels, start a new profile. Each pill is half the row tall; the whole cell takes the tap.
-        /// </summary>
-        private static void DevRow(IPainter p, DesignApp app, Box row)
-        {
-            string[] labels = { "−1", "+1", "+10", "Reset" };
-            Action[] actions =
-            {
-                () => app.Meta.StepBack(),
-                () => app.Meta.SkipTo(app.Meta.Progression.HighestCompletedLevel + 1),
-                () => app.Meta.SkipTo(app.Meta.Progression.HighestCompletedLevel + 10),
-                app.ResetProfile,
-            };
-            float label = p.MeasureText("dev", T.Caption) + (row.Height * 0.2f);
-            p.TextLeft("dev", row.Left, row.CenterY, T.Caption, C.InkBrownSoft);
-            Box[] cells = ScreenLayout.Row(new Box(row.Left + label, row.Top, row.Right, row.Bottom), labels.Length, row.Height * 0.1f, float.MaxValue, square: false);
-            float line = Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidthSmall));
-            for (int i = 0; i < cells.Length; i++)
-            {
-                Box pill = Box.FromCenter(cells[i].CenterX, cells[i].CenterY, cells[i].Width, cells[i].Height * 0.5f);
-                p.FillRound(pill, pill.Height / 2f, C.CreamTop.WithAlpha(0.72f));
-                p.StrokeRound(pill.Inset(line / 2f), (pill.Height / 2f) - (line / 2f), line, C.CreamLine.WithAlpha(0.6f));
-                p.Text(labels[i], pill.CenterX, pill.CenterY, T.Caption, C.InkBrownSoft, pill.Width * 0.9f);
-                p.Hit(cells[i], actions[i]);
-            }
         }
     }
 }
