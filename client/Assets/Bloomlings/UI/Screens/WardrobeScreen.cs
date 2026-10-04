@@ -19,8 +19,9 @@ namespace Bloomlings.Client.UI.Screens
     /// The Wardrobe (FR-063, T143), open from L40, in the reference Wardrobe's look and layout (spec 005 FR-025,
     /// contracts/look.md §4.6 and §6.5), every element placed from <see cref="ScreenLayout.ReferenceWardrobe"/>:
     /// <list type="bullet">
-    /// <item><description>a cream round back button at the top left, the wooden "Wardrobe" banner with ivy and the Petals
-    /// pill at the top right (its "+" opens the Store);</description></item>
+    /// <item><description>the page header on one line (<see cref="UiKit.PageHeader"/>, shared with the Store page): a cream
+    /// round back button at the top left, the wooden "Wardrobe" banner with ivy and the Petals pill at the top right (its
+    /// "+" opens the Store page over the Wardrobe; its back returns here);</description></item>
     /// <item><description>the chosen family's 3D hero in its outfit standing on a stone pedestal, with cream ‹ › arrows
     /// to the other families at the screen's sides;</description></item>
     /// <item><description>a parchment name card: the name on a raised cream tab, the family's role under it and two lines
@@ -46,8 +47,7 @@ namespace Bloomlings.Client.UI.Screens
         private bool _store;
         private PetalsPill? _petals;
         private long _petalsShown = -1;
-        private RectTransform _back = null!;
-        private RectTransform _banner = null!;
+        private PageHeaderView _header = null!;
         private RectTransform _pedestal = null!;
         private BloomlingFigure _hero = null!;
         private ProfileAvatar _avatar = null!;
@@ -141,13 +141,9 @@ namespace Bloomlings.Client.UI.Screens
             screen._pagePrevious = UiKit.PageArrow("PagePrevious", root, next: false, () => screen.TurnPage(-1));
             screen._pageNext = UiKit.PageArrow("PageNext", root, next: true, () => screen.TurnPage(1));
 
-            // The top bar last: the back button, the banner with ivy, the Petals pill.
-            screen._back = (RectTransform)UiKit.RoundIconButton("Back", root, "ui.back", screen.Hide).transform;
-            screen._banner = (RectTransform)UiKit.WoodSign("Banner", root, Loc.T("wardrobe.title"), T.Title, SignDecor.Ivy).transform;
-            if (petals != null)
-            {
-                screen._petals = UiKit.PetalsPill("Petals", root, onStore);
-            }
+            // The header last, on one line (the Store page's too): the back button, the banner with ivy, the Petals pill.
+            screen._header = UiKit.PageHeader(root, Loc.T("wardrobe.title"), screen.Hide, petals != null, onStore);
+            screen._petals = screen._header.Petals;
 
             shade.gameObject.SetActive(false);
             return screen;
@@ -337,12 +333,7 @@ namespace Bloomlings.Client.UI.Screens
             float u = DesignTokens.ScaleFor(w, h);
             float touch = DesignTokens.Size.TouchMin * u;
             Box Touch(Box b) => Box.FromCenter(b.CenterX, b.CenterY, Mathf.Max(b.Width, touch), Mathf.Max(b.Height, touch));
-            UiKit.PlaceScreen(_back, r.Back);
-            UiKit.PlaceScreen(_banner, r.Banner);
-            if (_petals != null)
-            {
-                UiKit.PlaceScreen((RectTransform)_petals.transform, r.Petals);
-            }
+            _header.Place(r.Header);
 
             // The hero stands on the pedestal's top ellipse (its feet at 90% of its picture), its picture from the hero
             // box's top; on the Profile tab the avatar stands there instead.

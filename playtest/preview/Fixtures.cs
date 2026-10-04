@@ -156,9 +156,19 @@ namespace Bloomlings.Playtest.Preview
 
             yield return new Fixture(17, "store", "Store", (p, data) =>
             {
+                // The Store page from Home's Petals "+"; its back and the system back return to Home.
                 DesignApp app = Progressed(App(data), content, 49);
                 CloseAll(app);
-                app.OpenOverlay(Overlay.Store);
+                Run(app, p, 0.1f);
+                Box petals = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).Petals;
+                Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
+                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Home, "Home's Petals \"+\" opens the Store page");
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);
+                Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "the Store page's back returns to Home");
+                app.OpenStore();
+                Expect(app.Back() && app.Screen == Design.Screen.Home, "the system back closes the Store page");
+                app.OpenStore();
                 Run(app, p, 0.5f);
             });
         }
@@ -272,10 +282,25 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(24, "bloomlings", "Extra: Bloomlings", (p, data) => Bloomlings(p));
             yield return new Fixture(26, "store-cosmetics", "Extra: Store cosmetics (the Wardrobe look)", (p, data) =>
             {
+                // The Store page from the Wardrobe's Petals "+"; its back returns to the Wardrobe, then the page again on
+                // its Cosmetics tab.
                 DesignApp app = Progressed(App(data), content, 49);
                 CloseAll(app);
-                app.OpenOverlay(Overlay.Store);
-                app.StoreTab = 1;
+                app.OpenWardrobe();
+                Run(app, p, 0.1f);
+                Box petals = ScreenLayout.ReferenceWardrobe(p.Width, p.Height, p.Insets).Petals;
+                Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
+                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Wardrobe, "the Wardrobe's Petals \"+\" opens the Store page");
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);
+                Expect(app.Screen == Design.Screen.Wardrobe, "the Store page's back returns to the Wardrobe");
+                Run(app, p, 0.1f);
+                Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
+                Expect(app.Screen == Design.Screen.Store, "the Wardrobe's Petals \"+\" opens the Store page again");
+                Run(app, p, 0.1f);
+                Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
+                Expect(app.StoreTab == 1, "a tap on the Cosmetics tab shows the cosmetics");
                 Run(app, p, 0.5f);
             });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));

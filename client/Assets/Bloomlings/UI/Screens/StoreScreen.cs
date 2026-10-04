@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.Art;
+using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
@@ -50,30 +51,29 @@ namespace Bloomlings.Client.UI.Screens
     /// the platform store: offline they show as unavailable (FR-074), while everything for Petals always works. Nothing in
     /// a level ever requires it (FR-056).
     /// <para>
-    /// In the reference look of spec 005 (contracts/look.md §4.3, §4.6; the playtest's <c>MetaCards.Store</c>): a parchment
-    /// card under its wooden banner with ivy, the cream Petals pill, the green and parchment tabs, cream rows with the
-    /// booster's tile and count badge, the name and a cost pill with the lotus (a tap on the row buys), and the cosmetics in
-    /// the reference Wardrobe's look: the four family tabs with their heroes over a lighter panel, outfit cards six to a
-    /// page (the "Default" look first, worn while the family wears nothing; each item shown on the family's hero with its
-    /// cost pill, a tap buys) and the footer line between cream page arrows.
+    /// A full-screen page since the owner's note of 2026-10-04 (spec 005 FR-029; contracts/look.md §6.6), every element
+    /// placed from <see cref="ScreenLayout.ReferenceStore"/>, as the playtest's <c>StoreScreen</c>: over the Wardrobe's
+    /// garden, the Wardrobe's page header on one line (<see cref="UiKit.PageHeader"/>: the back button, the wooden "Store"
+    /// banner with ivy, the Petals pill); a parchment panel to the bottom of the screen with the green and parchment tabs,
+    /// the offline line, and cream rows with the booster's tile and count badge, the name and a cost pill with the lotus (a
+    /// tap on the row buys), growing to fill a taller page, a page of them at a time between cream page arrows; and the
+    /// cosmetics in the reference Wardrobe's look: the four family tabs with their heroes over a lighter panel, outfit
+    /// cards three to a row, as many rows as the page holds (the "Default" look first, worn while the family wears
+    /// nothing; each item shown on the family's hero with its cost pill, a tap buys) and the footer line between the page
+    /// arrows. It opens over Home (the Store button, the Petals pill's "+") or over the Wardrobe (its Petals "+"); its back
+    /// hides it, so the screen under it shows again.
     /// </para>
     /// </summary>
     public sealed class StoreScreen : MonoBehaviour
     {
-        private const int RowsPerPage = 7;
-        private const int OutfitColumns = 3;
-        private const int OutfitsPerPage = 6;
-        private const float RowUnits = 118f;
-        private const float RowGapUnits = 16f;
-        private const float FooterUnits = 110f;
-
-        private RectTransform _host = null!;
-        private CardView? _card;
-        private TabsView? _tabs;
-        private PetalsPill _balance = null!;
+        private GameObject _root = null!;
+        private PageHeaderView _header = null!;
+        private Image _panel = null!;
+        private RectTransform _tabsBox = null!;
+        private TabsView _tabs = null!;
+        private TextMeshProUGUI _status = null!;
         private RectTransform _list = null!;
-        private Box _column;
-        private float _contentUnits = -1f;
+        private ReferenceStoreRegions _regions = null!;
         private IReadOnlyList<StoreItem> _items = Array.Empty<StoreItem>();
         private WardrobeService? _wardrobe;
         private StoreTab _tab = StoreTab.Shop;
@@ -81,15 +81,31 @@ namespace Bloomlings.Client.UI.Screens
         private int _family;
         private int _outfitPage;
 
-        public bool IsOpen => _host.gameObject.activeSelf;
+        public bool IsOpen => _root.activeSelf;
 
         public static StoreScreen Create(Transform parent)
         {
-            // The card is built when the Store opens (its height follows the tabs, the offline notice and the pages).
-            RectTransform host = UiFactory.Stretch(UiFactory.CreateRect("Store", parent));
-            var screen = host.gameObject.AddComponent<StoreScreen>();
-            screen._host = host;
-            host.gameObject.SetActive(false);
+            // A full screen over Home (or over the Wardrobe, opened from its Petals "+") that takes every tap, on the
+            // Wardrobe's garden (the owner's picture B7, or the drawn one), as the Wardrobe.
+            Image shade = UiFactory.CreateImage("Store", parent, null, Color.clear, raycast: true);
+            UiFactory.Stretch(shade.rectTransform);
+            var screen = shade.gameObject.AddComponent<StoreScreen>();
+            screen._root = shade.gameObject;
+            Transform root = shade.transform;
+            BackdropView.Create(shade.rectTransform, OwnerPictures.Wardrobe, BackdropScene.Home);
+
+            // The parchment panel (a card's radius), the tabs, the offline line and the list's area.
+            screen._panel = UiKit.Paper("Panel", root, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
+            // The selected tab is a glossy green button on a plate, the other a parchment well (spec 005 §3.5).
+            screen._tabsBox = UiFactory.CreateRect("Tabs", root);
+            string[] labels = { Loc.T("store.tab_shop"), Loc.T("store.tab_cosmetics") };
+            screen._tabs = UiKit.Tabs("TabRow", screen._tabsBox, labels, i => screen.SetTab((StoreTab)i));
+            screen._status = UiKit.Label("Status", root, Loc.T("store.offline"), T.Caption, UiTheme.Of(C.InkBrownSoft));
+            screen._list = UiFactory.CreateRect("Items", root);
+
+            // The header last, as on the Wardrobe; the pill shows the balance only (Petal packs are rows of the Shop).
+            screen._header = UiKit.PageHeader(root, Loc.T("store.title"), screen.Hide, petals: true);
+            shade.gameObject.SetActive(false);
             return screen;
         }
 
@@ -100,11 +116,9 @@ namespace Bloomlings.Client.UI.Screens
             _items = items;
             _wardrobe = wardrobe;
             bool cosmetics = false;
-            int shop = 0;
             foreach (StoreItem item in items)
             {
                 cosmetics |= item.Tab == StoreTab.Cosmetics;
-                shop += item.Tab == StoreTab.Shop ? 1 : 0;
             }
 
             if (!cosmetics)
@@ -112,58 +126,34 @@ namespace Bloomlings.Client.UI.Screens
                 _tab = StoreTab.Shop;
             }
 
-            // Active before it is built, so the prices' widths are measured at once.
-            _host.gameObject.SetActive(true);
-
-            // The same card stays while its height does (a purchase re-shows the Store without a new pop).
-            float content = 130f + (cosmetics ? 116f : 0f) + (storeAvailable ? 0f : 50f) + (RowsPerPage * (RowUnits + RowGapUnits)) + (shop > RowsPerPage ? FooterUnits : 0f);
-            if (_card == null || content != _contentUnits)
-            {
-                Build(content, cosmetics, storeAvailable);
-            }
-
-            _balance.Show(petals, storeUnlocked: false);
+            // Active before it is laid out, so the prices' widths are measured at once. A purchase shows the Store again
+            // on the same tab and page.
+            _root.SetActive(true);
+            Layout(cosmetics, storeAvailable);
+            _header.Petals?.Show(petals, storeUnlocked: false);
             Refresh();
         }
 
-        public void Hide() => _host.gameObject.SetActive(false);
+        public void Hide() => _root.SetActive(false);
 
         private static float Scale => DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
 
-        private void Build(float content, bool cosmetics, bool storeAvailable)
+        /// <summary>Places the page on the kit's regions for the screen's shape (contracts/look.md §6.6).</summary>
+        private void Layout(bool cosmetics, bool storeAvailable)
         {
-            if (_card != null)
-            {
-                Destroy(_card.Root);
-            }
+            (float w, float h, Insets insets) = UiKit.ScreenFrame();
+            ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, cosmetics, !storeAvailable);
+            _regions = r;
+            _header.Place(r.Header);
 
-            _contentUnits = content;
-            CardView card = UiKit.Card("Card", _host, Loc.T("store.title"), content, Hide, sign: SignDecor.Ivy);
-            _card = card;
-            Box body = card.Regions.Body;
-            float u = Scale;
-            _balance = UiKit.PetalsPill("Petals", card.Body, null, align: 0.5f);
-            UiKit.PlaceBox((RectTransform)_balance.transform, Box.FromCenter(body.CenterX, body.Top + (40f * u), 360f * u, 84f * u), body);
-            float y = body.Top + (130f * u);
-            _tabs = null;
-            if (cosmetics)
-            {
-                // The selected tab is a glossy green button on a plate, the other a parchment well (spec 005 §3.5).
-                RectTransform tabs = UiKit.PlaceBox(UiFactory.CreateRect("Tabs", card.Body), new Box(body.Left + (40f * u), y, body.Right - (40f * u), y + (84f * u)), body);
-                string[] labels = { Loc.T("store.tab_shop"), Loc.T("store.tab_cosmetics") };
-                _tabs = UiKit.Tabs("TabRow", tabs, labels, i => SetTab((StoreTab)i));
-                y += 116f * u;
-            }
-
-            if (!storeAvailable)
-            {
-                TextMeshProUGUI status = UiKit.Label("Status", card.Body, Loc.T("store.offline"), T.Caption, UiTheme.Of(C.InkBrownSoft));
-                UiKit.PlaceBox(status.rectTransform, new Box(body.Left, y, body.Right, y + (40f * u)), body);
-                y += 50f * u;
-            }
-
-            _column = new Box(body.Left, y, body.Right, body.Bottom);
-            _list = UiKit.PlaceBox(UiFactory.CreateRect("Items", card.Body), _column, body);
+            // The panel runs to the bottom of the screen: its bottom corners go past the edge.
+            float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
+            UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            _tabsBox.gameObject.SetActive(cosmetics);
+            UiKit.PlaceScreen(_tabsBox, r.Tabs);
+            _status.gameObject.SetActive(!storeAvailable);
+            UiKit.PlaceScreen(_status.rectTransform, r.Status);
+            UiKit.PlaceScreen(_list, r.List);
         }
 
         private void SetTab(StoreTab tab)
@@ -181,7 +171,7 @@ namespace Bloomlings.Client.UI.Screens
                 Destroy(_list.GetChild(i).gameObject);
             }
 
-            _tabs?.Select((int)_tab);
+            _tabs.Select((int)_tab);
             var shown = new List<StoreItem>();
             foreach (StoreItem item in _items)
             {
@@ -201,37 +191,40 @@ namespace Bloomlings.Client.UI.Screens
             }
         }
 
+        /// <summary>Places a child of the list on a screen box (relative to the list's own box).</summary>
+        private RectTransform PlaceInList(RectTransform rect, Box box) => UiKit.PlaceBox(rect, box, _regions.List);
+
         // ---- The Shop's rows (spec 005 §4.6) ----
 
         private void ShopRows(List<StoreItem> shown)
         {
-            float u = Scale;
+            ReferenceStoreRegions r = _regions;
             if (shown.Count == 0)
             {
                 TextMeshProUGUI empty = UiKit.Label("Empty", _list, Loc.T("store.all_owned"), T.Body, UiTheme.Of(C.InkBrownSoft));
-                UiKit.PlaceBox(empty.rectTransform, new Box(_column.Left, _column.Top, _column.Right, _column.Top + (RowUnits * u)), _column);
+                PlaceInList(empty.rectTransform, r.Row(0, 1));
                 return;
             }
 
-            int pages = Mathf.Max(1, (shown.Count + RowsPerPage - 1) / RowsPerPage);
+            // A page of rows filling the list (the rows grow on a taller page), the footer when there are more.
+            int perPage = r.RowsPerPage(shown.Count);
+            int pages = Mathf.Max(1, (shown.Count + perPage - 1) / perPage);
             _pageIndex = Mathf.Clamp(_pageIndex, 0, pages - 1);
-            Box[] rows = ScreenLayout.Column(_column, RowsPerPage, RowUnits * u, RowGapUnits * u);
-            for (int slot = 0; slot < RowsPerPage; slot++)
+            float grow = r.RowHeight(shown.Count) / (r.W * ReferenceStoreRegions.RowShare);
+            for (int slot = 0; slot < perPage; slot++)
             {
-                int index = (_pageIndex * RowsPerPage) + slot;
+                int index = (_pageIndex * perPage) + slot;
                 if (index >= shown.Count)
                 {
                     break;
                 }
 
-                Row(shown[index], rows[slot], u);
+                Row(shown[index], r.Row(slot, shown.Count), grow);
             }
 
             if (pages > 1)
             {
-                float top = rows[RowsPerPage - 1].Bottom + (RowGapUnits * u);
-                var footer = new Box(_column.Left, top, _column.Right, top + ((FooterUnits - 10f) * u));
-                Footer(footer, Loc.F("common.page", _pageIndex + 1, pages), T.Caption, _pageIndex > 0 ? () => Turn(-1) : (Action?)null, _pageIndex < pages - 1 ? () => Turn(1) : (Action?)null, u);
+                Footer(Loc.F("common.page", _pageIndex + 1, pages), T.Caption, _pageIndex > 0 ? () => Turn(-1) : (Action?)null, _pageIndex < pages - 1 ? () => Turn(1) : (Action?)null);
             }
         }
 
@@ -242,15 +235,17 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// A Shop row (the playtest's <c>MetaCards.ShopRows</c>): a cream row, the item's tile at its left end (a booster's
-        /// colored icon with its count badge, else the lotus), the name in brown, and the price at its right end: a cost
-        /// pill with the lotus for Petals, the store's price on a cream pill, or "Unavailable" while real money cannot be
-        /// spent (the row then fades to half). A tap on the row buys; a price the player cannot pay fades its pill.
+        /// A Shop row (the playtest's <c>StoreScreen.BoosterRow</c> and <c>MoneyRow</c>): a cream row, the item's tile at
+        /// its left end (a booster's colored icon with its count badge, else the lotus), the name in brown, and the price at
+        /// its right end: a cost pill with the lotus for Petals, the store's price on a cream pill, or "Unavailable" while
+        /// real money cannot be spent (the row then fades to half). A tap on the row buys; a price the player cannot pay
+        /// fades its pill. The tile is 0.8 of the row tall and the letters grow with the row (<paramref name="grow"/>: its
+        /// height over a <see cref="ReferenceStoreRegions.RowShare"/> row's).
         /// </summary>
-        private void Row(StoreItem item, Box line, float u)
+        private void Row(StoreItem item, Box line, float grow)
         {
             Image row = UiKit.Row(item.Id, _list, highlighted: false);
-            UiKit.PlaceBox(row.rectTransform, line, _column);
+            PlaceInList(row.rectTransform, line);
             bool petals = item.PetalPrice.HasValue;
             bool unavailable = !petals && !item.Enabled;
             if (unavailable)
@@ -258,10 +253,10 @@ namespace Bloomlings.Client.UI.Screens
                 row.gameObject.AddComponent<CanvasGroup>().alpha = 0.5f;
             }
 
-            // The item's tile: the booster tile's cream squircle in its cream-white bezel (§3.7), 0.12 W as the reference's
-            // booster boxes (at most the row's height less a little), its icon 74% of it as on a booster box.
-            float size = Mathf.Min(0.12f * UiKit.ScreenFrame().Width, line.Height * 0.94f);
-            Box tile = Box.FromCenter(line.Left + (22f * u) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
+            // The item's tile: the booster tile's cream squircle in its cream-white bezel (§3.7), 0.8 of the row tall (0.12 W
+            // on the smallest row, as the reference's booster boxes), its icon 74% of it as on a booster box.
+            float size = line.Height * 0.8f;
+            Box tile = Box.FromCenter(line.Left + (line.Height * 0.14f) + (size / 2f), line.CenterY - (line.Height * 0.02f), size, size);
             var set = new ColorSet("set.cream.booster_tile", C.CreamFace, GardenLook.BoosterRim.Lighten(0.62f), GardenLook.BoosterLip, GardenLook.BoosterLine);
             GardenButton face = UiKit.IconFace("Tile", row.transform, set, b => Mathf.Min(b.Width, b.Height) * 0.26f, square: true);
             UiKit.PlaceBox((RectTransform)face.transform, tile, line);
@@ -290,15 +285,17 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             TextMeshProUGUI title = UiKit.Label("Title", row.transform, item.Name ?? item.Title, T.ButtonSecondary, UiTheme.Of(C.InkBrown), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrown));
-            title.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * 0.86f);
+            title.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * grow);
             title.fontSize = title.fontSizeMax;
-            float titleLeft = line.Left + (150f * u);
+            float titleLeft = tile.Right + (size * 0.22f);
             UiKit.PlaceBox(title.rectTransform, new Box(titleLeft, line.Top, titleLeft + (line.Width * 0.42f), line.Bottom), line);
 
             if (unavailable)
             {
                 TextMeshProUGUI note = UiKit.Label("Unavailable", row.transform, Loc.T("store.unavailable"), T.Caption, UiTheme.Of(C.InkBrownSoft));
-                UiKit.PlaceBox(note.rectTransform, Box.FromCenter(line.Right - (120f * u), line.CenterY, 220f * u, line.Height * 0.6f), line);
+                note.fontSizeMax = UiKit.Units(T.Caption.Size * grow);
+                note.fontSize = note.fontSizeMax;
+                UiKit.PlaceBox(note.rectTransform, Box.FromCenter(line.Right - (line.Height * 0.85f), line.CenterY, line.Width * 0.3f, line.Height * 0.6f), line);
                 return;
             }
 
@@ -321,7 +318,7 @@ namespace Bloomlings.Client.UI.Screens
                 float measured = KitText.Measure(amount, h * 0.56f);
                 float text = measured > 0f ? measured : h * 0.56f * 0.6f * Mathf.Max(1, amount.text.Length);
                 float width = text + (h * (petals ? 1.9f : 1f));
-                float right = b.Right - UiKit.Units(22f);
+                float right = b.Right - (b.Height * 0.14f);
                 return new Box(right - width, b.CenterY - (h / 2f), right, b.CenterY + (h / 2f));
             });
 
@@ -332,67 +329,61 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// A footer line between two cream page arrows (the playtest's cosmetics footer): <paramref name="text"/> centered
-        /// in <c>ink.brown_soft</c>, the ‹ and › buttons (100 units) at its ends, greyed where there is no page to turn to.
+        /// The footer line between the two cream page arrows (<see cref="ReferenceStoreRegions.Footer"/>, the playtest's
+        /// <c>StoreScreen.Footer</c>): <paramref name="text"/> centered in <c>ink.brown_soft</c>, the ‹ and › buttons
+        /// (their cushions in touch-sized squares) at its ends, greyed where there is no page to turn to.
         /// </summary>
-        private void Footer(Box line, string text, TypeStyle style, Action? previous, Action? next, float u)
+        private void Footer(string text, TypeStyle style, Action? previous, Action? next)
         {
-            float touch = DesignTokens.Size.TouchMin * u;
-            float room = touch + (12f * u);
+            ReferenceStoreRegions r = _regions;
+            Box line = r.Footer;
+            float touch = DesignTokens.Size.TouchMin * Scale;
+            float room = line.Height + (12f * Scale);
             TextMeshProUGUI label = UiKit.Label("Footer", _list, text, style, UiTheme.Of(C.InkBrownSoft));
-            UiKit.PlaceBox(label.rectTransform, new Box(line.Left + room, line.Top, line.Right - room, line.Bottom), _column);
+            PlaceInList(label.rectTransform, new Box(line.Left + room, line.Top, line.Right - room, line.Bottom));
             if (previous == null && next == null)
             {
                 return;
             }
 
-            // The arrows' rects are touch-sized; their cushions are 100 units.
             Button back = UiKit.PageArrow("Previous", _list, next: false, previous ?? (() => { }));
             back.interactable = previous != null;
-            UiKit.PlaceBox((RectTransform)back.transform, Box.FromCenter(line.Left + (touch / 2f), line.CenterY, touch, touch), _column);
+            PlaceInList((RectTransform)back.transform, Box.FromCenter(r.PagePrevious.CenterX, r.PagePrevious.CenterY, touch, touch));
             Button forward = UiKit.PageArrow("Next", _list, next: true, next ?? (() => { }));
             forward.interactable = next != null;
-            UiKit.PlaceBox((RectTransform)forward.transform, Box.FromCenter(line.Right - (touch / 2f), line.CenterY, touch, touch), _column);
+            PlaceInList((RectTransform)forward.transform, Box.FromCenter(r.PageNext.CenterX, r.PageNext.CenterY, touch, touch));
         }
 
         // ---- The cosmetics in the reference Wardrobe's look (spec 005 §4.6) ----
 
         /// <summary>
-        /// The Cosmetics tab (the playtest's <c>MetaCards.Outfits</c>): the four family tabs with their heroes over the
-        /// lighter panel, the outfit cards of the chosen family six to a page (3 × 2) and the footer line between the page
-        /// arrows.
+        /// The Cosmetics tab (the playtest's <c>StoreScreen.Outfits</c>): the four family tabs with their heroes over the
+        /// lighter panel, the outfit cards of the chosen family three to a row, as many rows as the page holds
+        /// (<see cref="ReferenceStoreRegions.OutfitsPerPage"/>), and the footer line between the page arrows.
         /// </summary>
         private void Outfits(List<StoreItem> shown, WardrobeService wardrobe)
         {
-            float u = Scale;
+            ReferenceStoreRegions r = _regions;
             IReadOnlyList<Family> families = WardrobeService.Families;
             _family = Mathf.Clamp(_family, 0, families.Count - 1);
             Family family = families[_family];
-            var tabs = new Box(_column.Left, _column.Top + (6f * u), _column.Right, _column.Top + (206f * u));
-            var panel = new Box(_column.Left, tabs.Bottom, _column.Right, _column.Bottom);
-            Box content = FamilyTabs(tabs, panel, families, wardrobe, u);
+            FamilyTabs(r.FamilyTabs, r.OutfitPanel, families, wardrobe);
 
             var cards = new List<StoreItem?> { null };
             cards.AddRange(shown);
-            int pages = Mathf.Max(1, (cards.Count + OutfitsPerPage - 1) / OutfitsPerPage);
+            int perPage = r.OutfitsPerPage;
+            int pages = Mathf.Max(1, (cards.Count + perPage - 1) / perPage);
             _outfitPage = Mathf.Clamp(_outfitPage, 0, pages - 1);
-            float footer = DesignTokens.Size.TouchMin * u;
-            float gap = 22f * u;
-            var grid = new Box(content.Left, content.Top, content.Right, content.Bottom - footer - (8f * u));
-            float cardWidth = (grid.Width - (gap * (OutfitColumns - 1))) / OutfitColumns;
-            float cardHeight = (grid.Height - gap) / 2f;
             Outfit worn = wardrobe.OutfitOf(family);
-            for (int slot = 0; slot < OutfitsPerPage; slot++)
+            for (int slot = 0; slot < perPage; slot++)
             {
-                int index = (_outfitPage * OutfitsPerPage) + slot;
+                int index = (_outfitPage * perPage) + slot;
                 if (index >= cards.Count)
                 {
                     break;
                 }
 
-                float x = grid.Left + ((slot % OutfitColumns) * (cardWidth + gap));
-                float y = grid.Top + ((slot / OutfitColumns) * (cardHeight + gap));
-                var box = new Box(x, y, x + cardWidth, y + cardHeight);
+                Box box = r.OutfitCard(slot);
                 StoreItem? item = cards[index];
                 if (item == null)
                 {
@@ -405,8 +396,7 @@ namespace Bloomlings.Client.UI.Screens
                 }
             }
 
-            var line = new Box(content.Left, content.Bottom - footer, content.Right, content.Bottom);
-            Footer(line, Loc.T("wardrobe.footer"), T.Body, _outfitPage > 0 ? () => TurnOutfits(-1) : (Action?)null, _outfitPage < pages - 1 ? () => TurnOutfits(1) : (Action?)null, u);
+            Footer(Loc.T("wardrobe.footer"), T.Body, _outfitPage > 0 ? () => TurnOutfits(-1) : (Action?)null, _outfitPage < pages - 1 ? () => TurnOutfits(1) : (Action?)null);
         }
 
         private void TurnOutfits(int by)
@@ -425,12 +415,11 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>
         /// The family tabs joined to the panel below them (the playtest's <c>Kit.FamilyTabs</c>, <c>ui.tab.family</c>):
         /// the other tabs a little lower behind the panel's edge, the lighter panel with its tan outline, and the selected
-        /// tab over it, flowing into it; each tab shows the family's 3D hero in its outfit and its name. Returns the panel's
-        /// content box.
+        /// tab over it, flowing into it; each tab shows the family's 3D hero in its outfit and its name.
         /// </summary>
-        private Box FamilyTabs(Box tabs, Box panel, IReadOnlyList<Family> families, WardrobeService wardrobe, float u)
+        private void FamilyTabs(Box tabs, Box panel, IReadOnlyList<Family> families, WardrobeService wardrobe)
         {
-            Box[] cells = ScreenLayout.Row(tabs, families.Count, 10f * u, float.MaxValue, square: false);
+            Box[] cells = ScreenLayout.Row(tabs, families.Count, 10f * Scale, float.MaxValue, square: false);
             float sunk = tabs.Height * 0.07f;
             FamilyTabView? selected = null;
             for (int i = 0; i < cells.Length; i++)
@@ -440,7 +429,7 @@ namespace Bloomlings.Client.UI.Screens
                 Family family = families[i];
                 FamilyTabView tab = UiKit.FamilyTab(family.ToString(), _list, Loc.T("family." + WardrobeService.FamilyKey(family)), () => SelectFamily(index));
                 Box cell = cells[i];
-                UiKit.PlaceBox((RectTransform)tab.transform, new Box(cell.Left, cell.Top + (on ? 0f : sunk), cell.Right, panel.Top), _column);
+                PlaceInList((RectTransform)tab.transform, new Box(cell.Left, cell.Top + (on ? 0f : sunk), cell.Right, panel.Top));
                 BloomlingFigure hero = BloomlingFigure.Create("Hero", tab.Picture);
                 UiFactory.Stretch(hero.Rect);
                 hero.ShowHero(family, wardrobe.OutfitOf(family));
@@ -452,14 +441,13 @@ namespace Bloomlings.Client.UI.Screens
                 }
             }
 
-            // The panel: lighter than the card's parchment, with a thin tan outline; the selected tab is drawn over it.
+            // The panel: lighter than the page's parchment, with a thin tan outline; the selected tab is drawn over it.
             float radius = UiKit.Units(26f);
             Image face = UiKit.RoundGradient("Panel", _list, C.ParchmentTop, C.CreamTop, _ => radius);
-            UiKit.PlaceBox(face.rectTransform, panel, _column);
+            PlaceInList(face.rectTransform, panel);
             Image outline = UiKit.RoundRing("PanelLine", _list, UiTheme.Of(C.CreamLine), _ => radius, _ => Mathf.Max(UiKit.Units(1f), UiKit.Units(DesignTokens.Garden.OutlineWidth) * 0.8f));
-            UiKit.PlaceBox(outline.rectTransform, panel, _column);
+            PlaceInList(outline.rectTransform, panel);
             selected?.transform.SetAsLastSibling();
-            return panel.Inset(22f * u);
         }
 
         /// <summary>
@@ -471,13 +459,13 @@ namespace Bloomlings.Client.UI.Screens
         private void OutfitCard(Box box, string name, bool worn, Family family, CosmeticItem? item, Cost? cost, Action? buy)
         {
             OutfitCardView card = UiKit.OutfitCard("Outfit", _list, name, buy, cost, pillRoom: true);
-            UiKit.PlaceBox((RectTransform)card.transform, box, _column);
+            PlaceInList((RectTransform)card.transform, box);
             Preview(card.Picture, family, item);
             card.Show(worn);
         }
 
         /// <summary>
-        /// An outfit card's picture (the playtest's <c>MetaCards.Preview</c>): the family's hero wearing the item (skins,
+        /// An outfit card's picture (the playtest's <c>StoreScreen.Preview</c>): the family's hero wearing the item (skins,
         /// hats, trails, faces), or its plain look for the Default card, its feet near the well's bottom and clipped by the
         /// well; a profile item (frame, badge, marker) as its own mark, a frame around a small hero.
         /// </summary>

@@ -450,7 +450,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(unknown.Amount.Left, Is.EqualTo(unknown.Lotus.Right + (h * PetalsPillParts.AmountGap)).Within(0.01f));
 
             // Longer than the box: the pill takes the whole box (the "+" reaching beyond it, as the reference's) before
-            // its digits shrink. Centered (the Store card): the pill and its "+" around the box's middle.
+            // its digits shrink. Centered (align 0.5): the pill and its "+" around the box's middle.
             PetalsPillParts huge = PetalsPillParts.Fit(box, h * 9f, true);
             Assert.That(huge.Pill.Left, Is.EqualTo(box.Left).Within(0.01f));
             Assert.That(huge.Pill.Right, Is.EqualTo(box.Right).Within(0.01f));
@@ -540,6 +540,142 @@ namespace Bloomlings.Client.Tests
                     }
 
                     AssertTargets(targets, r.Safe, touch, at);
+                }
+            }
+        }
+
+        /// <summary>
+        /// The page header (the owner's note of 2026-10-04: the Wardrobe's header "not on one line"): the back button, the
+        /// banner and the Petals pill share one middle line, the back button's, on every phone; the banner with its ivy
+        /// clusters (<see cref="PageHeader.BannerExtent"/>) touches neither the back button nor the Petals pill's box, nor
+        /// their touch boxes; the banner's letters keep room for "Wardrobe"; and the Wardrobe and the Store page share it.
+        /// </summary>
+        [Test]
+        public void ThePageHeader_PutsBackBannerAndPetalsOnOneLine_AndTheBannersLeavesTouchNeither()
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                string at = w + "x" + h;
+                Box safe = ScreenLayout.SafeArea(w, h, insets);
+                PageHeader header = ScreenLayout.PageHeader(safe);
+                float sw = safe.Width;
+                Assert.That(header.Back.CenterY, Is.EqualTo(safe.Top + (safe.Height * PageHeader.TopShare) + (PageHeader.BackShare * sw / 2f)).Within(0.5f), at + ": the back button keeps its place");
+                Assert.That(header.Banner.CenterY, Is.EqualTo(header.CenterY).Within(0.5f), at + ": the banner on the back button's line");
+                Assert.That(header.Petals.CenterY, Is.EqualTo(header.CenterY).Within(0.5f), at + ": the Petals pill on the back button's line");
+                Assert.That(header.Back.Width, Is.EqualTo(PageHeader.BackShare * sw).Within(0.5f), at);
+                Assert.That(header.Banner.Height, Is.EqualTo(PageHeader.BannerShare * sw).Within(0.5f), at);
+                Assert.That(header.BannerExtent.Height, Is.EqualTo(header.Banner.Height * GardenLook.IvyShare).Within(0.5f), at + ": the banner and its leaves about the back button's height");
+                Assert.That(header.Petals.Width, Is.EqualTo(PageHeader.PetalsWidthShare * sw).Within(0.5f), at);
+                Assert.That(header.Petals.Height, Is.EqualTo(PageHeader.PetalsHeightShare * sw).Within(0.5f), at);
+                Assert.That(header.Petals.Right, Is.EqualTo(safe.Right - (0.02f * sw)).Within(0.5f), at);
+                Assert.That(header.Row.Within(safe), Is.True, at + ": the header row inside the safe area");
+
+                // The leaves (the plank's ivy clusters) clear the back button and the Petals pill's box, with their touch
+                // boxes, by the gap.
+                Box extent = header.BannerExtent;
+                float touch = Touch(w, h);
+                foreach ((string name, Box box) in new[] { ("Back", header.Back), ("Petals", header.Petals), ("Back touch", TouchBox(header.Back, touch)), ("Petals touch", TouchBox(header.Petals, touch)) })
+                {
+                    Assert.That(extent.Overlaps(box), Is.False, at + ": the banner's leaves " + extent + " overlap " + name + " " + box);
+                }
+
+                Assert.That(extent.Left - header.Back.Right, Is.EqualTo(PageHeader.GapShare * sw).Within(0.5f), at);
+                Assert.That(header.Petals.Left - extent.Right, Is.EqualTo(PageHeader.GapShare * sw).Within(0.5f), at);
+
+                // "Wardrobe" needs about 0.285 W at type.title; the room between the owner's ivy clusters (the plank less
+                // 1.25 × its height) keeps it at 95% or more.
+                Assert.That(header.Banner.Width - (GardenLook.IvyShare * header.Banner.Height), Is.GreaterThanOrEqualTo(0.27f * sw), at + ": the title keeps its room");
+
+                ReferenceWardrobeRegions wardrobe = ScreenLayout.ReferenceWardrobe(w, h, insets);
+                ReferenceStoreRegions store = ScreenLayout.ReferenceStore(w, h, insets);
+                Assert.That(wardrobe.Header, Is.EqualTo(header), at + ": the Wardrobe's header");
+                Assert.That(store.Header, Is.EqualTo(header), at + ": the Store page's header");
+                Assert.That(wardrobe.Hero.Top, Is.GreaterThanOrEqualTo(header.Row.Bottom - 0.5f), at + ": the hero under the header");
+            }
+        }
+
+        /// <summary>
+        /// The Store page (the owner's note of 2026-10-04: "a separate page, not a popup"): inside the safe area, the header
+        /// row, the tabs, the offline line, the list and the footer in order; the panel from under the header to the
+        /// screen's bottom; the Shop's rows inside the list, above the footer when they take more than a page, never
+        /// overlapping, at least the touch minimum tall; the outfit cards inside the lighter panel, at least two rows of
+        /// three; and every button reachable.
+        /// </summary>
+        [Test]
+        public void TheStorePage_KeepsItsRegionsInOrder_AndEveryTargetReachable()
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                foreach (bool cosmetics in new[] { false, true })
+                {
+                    foreach (bool status in new[] { false, true })
+                    {
+                        ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, cosmetics, status);
+                        string at = w + "x" + h + " cosmetics=" + cosmetics + " status=" + status;
+                        AssertOrdered(r.Ordered, r.Safe, at);
+                        Assert.That(r.Tabs.IsEmpty, Is.EqualTo(!cosmetics), at);
+                        Assert.That(r.Status.IsEmpty, Is.EqualTo(!status), at);
+                        Assert.That(r.Panel.Top, Is.GreaterThan(r.Header.Row.Bottom), at + ": the panel under the header");
+                        Assert.That(r.Panel.Bottom, Is.EqualTo(h).Within(0.5f), at + ": the panel runs to the screen's bottom");
+                        Assert.That(r.List.Within(r.Panel), Is.True, at);
+                        Assert.That(r.Footer.Within(r.List), Is.True, at);
+                        if (cosmetics)
+                        {
+                            Assert.That(r.Tabs.Within(r.Panel), Is.True, at);
+                        }
+
+                        float touch = Touch(w, h) * 0.95f;
+                        foreach (int count in new[] { 1, 4, 7, 9, 12, 20 })
+                        {
+                            int perPage = r.RowsPerPage(count);
+                            bool paged = count > perPage;
+                            Assert.That(perPage, Is.InRange(1, count), at + " rows " + count);
+                            Assert.That(r.RowHeight(count), Is.InRange((ReferenceStoreRegions.RowShare * r.W) - 0.5f, (ReferenceStoreRegions.RowMaxShare * r.W) + 0.5f), at + " rows " + count);
+                            for (int i = 0; i < perPage; i++)
+                            {
+                                Box row = r.Row(i, count);
+                                Assert.That(row.Within(r.List), Is.True, at + " rows " + count + ": row " + i + " " + row + " inside the list");
+                                Assert.That(row.Height, Is.GreaterThanOrEqualTo(touch), at + ": a row is a full touch target");
+                                if (paged)
+                                {
+                                    Assert.That(row.Bottom, Is.LessThanOrEqualTo(r.Footer.Top + 0.5f), at + " rows " + count + ": row " + i + " above the footer");
+                                }
+
+                                if (i > 0)
+                                {
+                                    Assert.That(row.Overlaps(r.Row(i - 1, count)), Is.False, at);
+                                }
+                            }
+                        }
+
+                        // The seven rows of the Shop (four boosters, three real-money rows) fit one page on every phone.
+                        Assert.That(r.RowsPerPage(7), Is.EqualTo(7), at + ": the Shop's seven rows on one page");
+
+                        Assert.That(r.FamilyTabs.Within(r.List), Is.True, at);
+                        Assert.That(r.OutfitPanel.Top, Is.EqualTo(r.FamilyTabs.Bottom).Within(0.5f), at);
+                        Assert.That(r.OutfitRows, Is.GreaterThanOrEqualTo(2), at + ": at least two rows of outfit cards");
+                        Assert.That(r.OutfitsPerPage, Is.EqualTo(r.OutfitRows * ReferenceStoreRegions.OutfitColumns), at);
+                        for (int i = 0; i < r.OutfitsPerPage; i++)
+                        {
+                            Box card = r.OutfitCard(i);
+                            Assert.That(card.Within(r.OutfitGrid), Is.True, at + ": card " + i + " " + card + " inside the grid " + r.OutfitGrid);
+                            Assert.That(card.Height, Is.LessThanOrEqualTo((card.Width * ReferenceStoreRegions.OutfitMaxAspect) + 0.5f), at);
+                            for (int j = 0; j < i; j++)
+                            {
+                                Assert.That(card.Overlaps(r.OutfitCard(j)), Is.False, at + ": cards " + j + " and " + i);
+                            }
+                        }
+
+                        Assert.That(r.OutfitGrid.Bottom, Is.LessThanOrEqualTo(r.Footer.Top + 0.5f), at + ": the cards above the footer");
+
+                        var targets = new List<Box>();
+                        foreach ((string _, Box box) in r.Buttons)
+                        {
+                            targets.Add(TouchBox(box, touch));
+                        }
+
+                        AssertTargets(targets, r.Safe, touch, at);
+                    }
                 }
             }
         }

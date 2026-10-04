@@ -207,8 +207,8 @@ namespace Bloomlings.Playtest.Design
             if (decor == SignDecor.Ivy)
             {
                 // The back leaves of each cluster hang behind the plank's ends.
-                IvyCluster(p, IvyBox(box, left: true), flipped: false, back: true);
-                IvyCluster(p, IvyBox(box, left: false), flipped: true, back: true);
+                IvyCluster(p, GardenLook.IvyBox(box, left: true), flipped: false, back: true);
+                IvyCluster(p, GardenLook.IvyBox(box, left: false), flipped: true, back: true);
             }
 
             WoodPlank(p, box, 0.28f, 7);
@@ -231,25 +231,15 @@ namespace Bloomlings.Playtest.Design
             switch (decor)
             {
                 case SignDecor.Ivy:
-                    IvyCluster(p, IvyBox(box, left: true), flipped: false, back: false);
-                    IvyCluster(p, IvyBox(box, left: false), flipped: true, back: false);
+                    IvyCluster(p, GardenLook.IvyBox(box, left: true), flipped: false, back: false);
+                    IvyCluster(p, GardenLook.IvyBox(box, left: false), flipped: true, back: false);
                     break;
                 case SignDecor.Flowers:
                     p.Mark("ui.sign.flowers");
-                    float size = h * 1.35f;
-                    FlowerCluster(p, Box.FromCenter(box.Left + (h * 0.1f), box.Top + (h * 0.08f), size, size), flipped: false);
-                    FlowerCluster(p, Box.FromCenter(box.Right - (h * 0.08f), box.Bottom - (h * 0.04f), size * 0.92f, size * 0.92f), flipped: true);
+                    FlowerCluster(p, GardenLook.FlowerBox(box, left: true), flipped: false);
+                    FlowerCluster(p, GardenLook.FlowerBox(box, left: false), flipped: true);
                     break;
             }
-        }
-
-        private static Box IvyBox(Box sign, bool left)
-        {
-            float size = sign.Height * 1.25f;
-            // Centered a little outside the plank's end, so the leaves cling to its corners and most of the plank shows,
-            // as on the reference's gameplay sign.
-            float x = left ? sign.Left - (sign.Height * 0.04f) : sign.Right + (sign.Height * 0.04f);
-            return Box.FromCenter(x, sign.CenterY, size, size);
         }
 
         /// <summary>

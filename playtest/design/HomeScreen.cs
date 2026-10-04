@@ -137,7 +137,7 @@ namespace Bloomlings.Playtest.Design
 
             // The top: Settings at the left; the Petals at the right, with "+" to the Store once unlocked.
             Kit.RoundButton(p, r.Settings.CenterX, r.Settings.CenterY, r.Settings.Width, "ui.settings", () => app.OpenOverlay(Overlay.Settings));
-            Kit.PetalsPill(p, r.Petals, app.ShownPetals, look.Store ? () => app.OpenOverlay(Overlay.Store) : (Action?)null);
+            Kit.PetalsPill(p, r.Petals, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
             Kit.SparkleBurst(p, r.Petals.Left + (r.Petals.Height * 0.5f), r.Petals.CenterY, r.Petals.Height, app.SinceRewardBurst);
 
             SideButtons(p, r, look, meta, app);
@@ -468,7 +468,7 @@ namespace Bloomlings.Playtest.Design
 
             if (look.Store)
             {
-                RoundSide(p, r.SideButton(true, right++), () => app.OpenOverlay(Overlay.Store), face => StoreGlyph(p, face));
+                RoundSide(p, r.SideButton(true, right++), app.OpenStore, face => StoreGlyph(p, face));
             }
 
             if (look.Rank)

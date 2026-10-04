@@ -121,8 +121,8 @@ namespace Bloomlings.Client.UI
             SoftShadow(layout, b => b, b => b.Height * 0.28f, 0.22f, 0.07f);
             if (decor == SignDecor.Ivy)
             {
-                layout.Add(IvyCluster("IvyBackLeft", root, flipped: false, back: true).rectTransform, b => IvyBox(b, left: true));
-                layout.Add(IvyCluster("IvyBackRight", root, flipped: true, back: true).rectTransform, b => IvyBox(b, left: false));
+                layout.Add(IvyCluster("IvyBackLeft", root, flipped: false, back: true).rectTransform, b => GardenLook.IvyBox(b, left: true));
+                layout.Add(IvyCluster("IvyBackRight", root, flipped: true, back: true).rectTransform, b => GardenLook.IvyBox(b, left: false));
             }
 
             Image plank = WoodPlank("Plank", root, 0.28f, 7);
@@ -134,12 +134,12 @@ namespace Bloomlings.Client.UI
             switch (decor)
             {
                 case SignDecor.Ivy:
-                    layout.Add(IvyCluster("IvyLeft", root, flipped: false, back: false).rectTransform, b => IvyBox(b, left: true));
-                    layout.Add(IvyCluster("IvyRight", root, flipped: true, back: false).rectTransform, b => IvyBox(b, left: false));
+                    layout.Add(IvyCluster("IvyLeft", root, flipped: false, back: false).rectTransform, b => GardenLook.IvyBox(b, left: true));
+                    layout.Add(IvyCluster("IvyRight", root, flipped: true, back: false).rectTransform, b => GardenLook.IvyBox(b, left: false));
                     break;
                 case SignDecor.Flowers:
-                    layout.Add(FlowerCluster("FlowersLeft", root, flipped: false).rectTransform, b => Box.FromCenter(b.Left + (b.Height * 0.1f), b.Top + (b.Height * 0.08f), b.Height * 1.35f, b.Height * 1.35f));
-                    layout.Add(FlowerCluster("FlowersRight", root, flipped: true).rectTransform, b => Box.FromCenter(b.Right - (b.Height * 0.08f), b.Bottom - (b.Height * 0.04f), b.Height * 1.35f * 0.92f, b.Height * 1.35f * 0.92f));
+                    layout.Add(FlowerCluster("FlowersLeft", root, flipped: false).rectTransform, b => GardenLook.FlowerBox(b, left: true));
+                    layout.Add(FlowerCluster("FlowersRight", root, flipped: true).rectTransform, b => GardenLook.FlowerBox(b, left: false));
                     break;
             }
 
@@ -160,14 +160,6 @@ namespace Bloomlings.Client.UI
             }
 
             return decor == SignDecor.Flowers ? Mathf.Max(1f, Mathf.Min(room, b.Width - (b.Height * 1.35f * 0.95f))) : room;
-        }
-
-        /// <summary>The box of a sign end's ivy cluster: 1.25 × the sign's height, centered just inside its end.</summary>
-        private static Box IvyBox(Box sign, bool left)
-        {
-            float size = sign.Height * 1.25f;
-            float x = left ? sign.Left + (sign.Height * 0.06f) : sign.Right - (sign.Height * 0.06f);
-            return Box.FromCenter(x, sign.CenterY, size, size);
         }
 
         /// <summary>

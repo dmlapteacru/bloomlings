@@ -54,6 +54,21 @@ namespace Bloomlings.Client.UI
         public static TextMeshProUGUI PillText(CostPillView pill) => pill.GetComponentInChildren<TextMeshProUGUI>();
 
         /// <summary>
+        /// A full-screen page's header row (§6.5, §6.6; the Wardrobe and the Store page; the playtest's
+        /// <c>Kit.PageHeader</c>): the cream round back button calling <paramref name="onBack"/>, the wooden banner with ivy
+        /// carrying <paramref name="title"/> and, when <paramref name="petals"/>, the Petals pill (its "+" calls
+        /// <paramref name="onPlus"/>). <see cref="PageHeaderView.Place"/> puts the three on the kit's one line
+        /// (<see cref="Design.PageHeader"/>); their parent covers the whole screen.
+        /// </summary>
+        public static PageHeaderView PageHeader(Transform parent, string title, Action onBack, bool petals, Action? onPlus = null)
+        {
+            var back = (RectTransform)RoundIconButton("Back", parent, "ui.back", onBack).transform;
+            var banner = (RectTransform)WoodSign("Banner", parent, title, DesignTokens.Type.Title, SignDecor.Ivy).transform;
+            PetalsPill? pill = petals ? PetalsPill("Petals", parent, onPlus) : null;
+            return new PageHeaderView(back, banner, pill);
+        }
+
+        /// <summary>
         /// A cream round ‹ or › button (§4.6: the Wardrobe's hero arrows and its pages; the playtest's
         /// <c>Kit.ArrowButton</c>): the round button's domed cushion with a brown chevron in its cream halo, pointing right
         /// when <paramref name="next"/>. Not interactable, it fades to 55%. The button is the largest square in its rect.
@@ -150,6 +165,34 @@ namespace Bloomlings.Client.UI
             fade.Alpha = alpha;
             fade.Seconds = seconds;
             return fade;
+        }
+    }
+
+    /// <summary>A page header built by <see cref="UiKit.PageHeader"/>: the back button, the banner and the Petals pill (or none).</summary>
+    public sealed class PageHeaderView
+    {
+        public PageHeaderView(RectTransform back, RectTransform banner, PetalsPill? petals)
+        {
+            Back = back;
+            Banner = banner;
+            Petals = petals;
+        }
+
+        public RectTransform Back { get; }
+
+        public RectTransform Banner { get; }
+
+        public PetalsPill? Petals { get; }
+
+        /// <summary>Places the three on the kit's header row (screen pixels; their parent covers the whole screen).</summary>
+        public void Place(PageHeader header)
+        {
+            UiKit.PlaceScreen(Back, header.Back);
+            UiKit.PlaceScreen(Banner, header.Banner);
+            if (Petals != null)
+            {
+                UiKit.PlaceScreen((RectTransform)Petals.transform, header.Petals);
+            }
         }
     }
 
