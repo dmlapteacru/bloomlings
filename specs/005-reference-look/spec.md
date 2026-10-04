@@ -307,20 +307,6 @@ calmer saturation so Bloomlings characters and UI remain the focal point"): "Use
   `06_lily_pond`, orchard ← `03_orchard`, moonlit ← `07_evening_fireflies`. `05_home_lotus_fountain_calm` (a garden
   with the fountain painted in) is not used: the heroes stand between the fountain's layers.
 
-### Session 2026-10-04 (the owner's saturation ladder)
-
-The owner: "Background 55–65% saturation → UI 65–75% → heroes 100%."
-- Q: Against what are the shares measured, and what counts as UI? → A: Against the animated heroes, the 100% step: the
-  mean HSL saturation of their frames is 0.656. Measured that way the ladder was upside down: the owner's backgrounds
-  sat at 86–105% of the heroes' (the evening garden at 58%) and the UI pictures above the heroes, 119–147% (the bottom
-  menu's icons 127–140%, the boosters' 119–147%, the Petals lotus 139%, the logo 135%, the decorations 120–128%). Each
-  background is now scaled to 60% (the evening garden stays, it is already there; the layered Home as one scene, by
-  its garden's factor, ×0.63) and each UI picture to 70% (factors ×0.48 to ×0.59), their lightness and hue kept. The
-  procedural colors follow: the backdrop, lawn, foliage and rays tokens at ×0.6 of their designed saturation, the
-  other UI tokens at ×0.7. The heroes, the 2D characters and the board's pieces (the candy tiles' variant palette and
-  icons, specials, links, mystery) stay at 100%: they are what the player reads, and the variant palette is
-  readability-checked. The text colors keep their contrast (FR-031, contracts/look.md §1.4).
-
 ### Session 2026-10-04 (Twig and Sprig toned down)
 
 The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
@@ -735,18 +721,6 @@ inventory.
   on the splash. Home MUST NOT keep a button the menu doubles: its Store, Wardrobe and Collection side buttons and its
   rank pill are removed. The menu changes no rule, economy value, unlock or tap outcome inside a screen (FR-002); it
   only adds these ways between Home and its pages.
-
-#### K. The saturation ladder (the owner's note, 2026-10-04)
-
-- **FR-031**: Both builds MUST keep the owner's saturation ladder, "Background 55–65% saturation → UI 65–75% → heroes
-  100%", measured as the mean HSL saturation against the animated heroes' (contracts/look.md §1.4): the backgrounds
-  (the owner's garden pictures, the layered Home as one scene, the procedural backdrop, the lawn, the foliage and the
-  win's rays) at about 60% of the heroes', the UI (the material and UI tokens and the owner's UI pictures: the bottom
-  menu's and the boosters' icons, the Petals lotus, the logo and the decorations) at about 70%, and the heroes, the 2D
-  characters and the board's pieces (the variant palette and icons, the tiles, specials, links and mystery colors) as
-  they are. The text colors keep their designed values (their contrast is an accessibility rule). The owner's pictures
-  are scaled once, offline, by `tools/heroanim/saturation.mjs` (and `layers.mjs` for the Home layers), with their
-  lightness and hue kept; the tokens through `DesignTokens.Saturation`. Presentation only (FR-002).
 
 ### Key Entities
 

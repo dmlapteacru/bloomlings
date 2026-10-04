@@ -1,10 +1,8 @@
 // Prepares the owner's layered Home picture (bloomlings_home_assets.zip, 2026-10-02; spec 005 FR-028) for both builds:
 // every layer cropped to its visible bounds (so a decoded layer holds no empty rows; alpha under 6 / 255 is dust), the lotus cut out of the fountain's
 // back layer (it is drawn again over Bloom, who stands behind it), one soft shadow cut out of the shadow sheet, the
-// opaque garden re-encoded as JPEG (quality 90); every layer's saturation scaled by one factor, the one that brings the
-// garden to the background's share of the heroes' (saturation.mjs, spec 005 FR-031), so the scene keeps its balance.
-// Writes the pictures into the Backgrounds folder, their boxes into client/Assets/Bloomlings/UI/Design/HomeLayersData.cs
-// and the hashes into layers.json.
+// opaque garden re-encoded as JPEG (quality 90). Writes the pictures into the Backgrounds folder, their boxes into
+// client/Assets/Bloomlings/UI/Design/HomeLayersData.cs and the hashes into layers.json.
 // Usage: node layers.mjs <folder with 01_home_bg_back.png … 05_home_petals_overlay.png>
 import fs from 'node:fs';
 import path from 'node:path';
@@ -12,7 +10,6 @@ import { fileURLToPath } from 'node:url';
 import { PNG } from 'pngjs';
 import jpeg from 'jpeg-js';
 import { sha256 } from './bake.mjs';
-import { heroesMean, ladder, meanSaturation, scale, sceneFactor } from './saturation.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
@@ -136,20 +133,17 @@ function main() {
     outputs.push({ name, box, from, sha256: sha256(bytes), bytes: bytes.length });
   };
 
-  // One saturation factor for the whole scene, from the garden (the lotus is cut from the unscaled colors).
-  const heroes = heroesMean();
-  const k = sceneFactor(meanSaturation(src.back.png), ladder.background, heroes);
-  const back = jpeg.encode({ data: scale({ data: Buffer.from(src.back.png.data), width, height }, k).data, width, height }, 90).data;
+  const back = jpeg.encode({ data: src.back.png.data, width, height }, 90).data;
   put('home.jpg', back, { x: 0, y: 0, w: width, h: height }, inputs.back);
   for (const [key, name] of [['fountainBack', 'home-fountain-back.png'], ['fountainFront', 'home-fountain-front.png'], ['petals', 'home-petals.png']]) {
     const b = bounds(src[key].png, 0, 0, width, height, 6); // alpha under 6 / 255 is stray dust
-    put(name, write(scale(crop(src[key].png, b), k)), b, inputs[key]);
+    put(name, write(crop(src[key].png, b)), b, inputs[key]);
   }
   const l = lotus(src.fountainBack.png);
-  put('home-lotus.png', write(scale(l.picture, k)), l.box, inputs.fountainBack + ' (the lotus)');
+  put('home-lotus.png', write(l.picture), l.box, inputs.fountainBack + ' (the lotus)');
   // The shadow sheet holds four soft shadows; the front left one (the widest) serves every hero, scaled to its width.
   const s = bounds(src.shadow.png, 0, 880, Math.floor(width / 2), 1180, 10);
-  put('home-shadow.png', write(scale(fadeEdges(crop(src.shadow.png, s), 14), k)), s, inputs.shadow + ' (the front left shadow)');
+  put('home-shadow.png', write(fadeEdges(crop(src.shadow.png, s), 14)), s, inputs.shadow + ' (the front left shadow)');
 
   const name = { 'home.jpg': 'Back', 'home-fountain-back.png': 'FountainBack', 'home-lotus.png': 'Lotus', 'home-fountain-front.png': 'FountainFront', 'home-shadow.png': 'Shadow', 'home-petals.png': 'Petals' };
   const lines = [
@@ -179,7 +173,6 @@ function main() {
   fs.writeFileSync(layersDataFile, data);
   fs.writeFileSync(layersManifest, JSON.stringify({
     inputs: Object.fromEntries(Object.entries(inputs).map(([k, f]) => [f, sha256(src[k].bytes)])),
-    saturation: { factor: Number(k.toFixed(3)), heroesMean: Number(heroes.toFixed(4)), share: ladder.background },
     data: path.relative(repo, layersDataFile), dataSha256: sha256(Buffer.from(data)), outputs,
   }, null, 1) + '\n');
   for (const o of outputs) console.log(`${o.name}: ${o.box.w} × ${o.box.h} at ${o.box.x}, ${o.box.y}, ${(o.bytes / 1024).toFixed(0)} KB`);

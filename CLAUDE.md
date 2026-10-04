@@ -115,10 +115,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   after another in a column per Source stack, never on each other: a gameplay rule (owner, 2026-10-03), whatever the
   look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). Waiting Slots are cream
   plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`
-  with same-named `UiKit*` twins. The saturation ladder (the owner, FR-031, `contracts/look.md` §1.4): backgrounds at
-  60% and UI at 70% of the animated heroes' mean saturation, heroes, characters and board pieces at 100%; tokens go
-  through `DesignTokens.Saturation` (write their designed values), owner pictures through
-  `node tools/heroanim/saturation.mjs` (idempotent; run it after adding one).
+  with same-named `UiKit*` twins.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the owner's animated heroes offline into flat 24 fps frames (two Meshy FBX heroes with a 4 s idle loop and
   a 2 s reaction each, Twig's Blender `.glb` with its 3 s idle, 1.5 s reaction and the win's 3 s cheer, and Sprig's

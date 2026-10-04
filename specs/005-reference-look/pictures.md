@@ -85,11 +85,6 @@ pictures are stored as JPEG (quality 90) whatever their delivered format; a pict
 | B7 | `wardrobe.jpg` | Wardrobe and the Store page (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal (since 2026-10-04 the owner's calm `08_wardrobe_calm_garden.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors) | `bg.wardrobe` |
 | B8 | `win.jpg` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened (since 2026-10-04 the owner's calm `02_win_calm_garden_glow.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors, the hero on its round stone stage, `OwnerPictures.WinStageShare` 0.60) | `bg.win` |
 
-Since the owner's saturation ladder (2026-10-04, spec FR-031, contracts/look.md §1.4) every background (B1 to B8) is
-scaled to 60% of the animated heroes' mean saturation and every UI picture (C1, D1 to D7, D9 to D13 and the Petals
-lotus `currency-lotus.png`) to 70%, offline, by `tools/heroanim/saturation.mjs` (the B1 layers by `layers.mjs`, as one
-scene); the heroes (A) and the variant and field icons (G) stay as delivered.
-
 The B1 layers (the Backgrounds folder; prepared by `tools/heroanim/layers.mjs` from the owner's five 852 × 1846 layers,
 their boxes in `HomeLayersData.cs`, source record `tools/heroanim/SOURCE.md`):
 

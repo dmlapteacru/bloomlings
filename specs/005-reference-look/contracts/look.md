@@ -66,24 +66,6 @@ reference image is `specs/005-reference-look/reference.jpg`; crops named below a
 `GardenLook.Green` follows it. The spec 002 scrim `surface.scrim` becomes a warm brown, `#2A1708` at 50% (it was a cool
 `#1E2430` at 55%), so the garden and every card's backdrop keep their warm hue; the jam sheet keeps 0.3 of it.
 
-### 1.4 Saturation ladder (the owner's note of 2026-10-04, FR-031)
-
-"Background 55–65% saturation → UI 65–75% → heroes 100%." The shares are of the animated heroes' mean HSL saturation
-(their frames' mean, 0.656, the 100% step), measured on the pixels at least half opaque:
-
-| Step | What | How |
-|---|---|---|
-| Background, 60% | the owner's backgrounds: the gameplay themes, the win, the Wardrobe and the pages' garden, the layered Home (`home.jpg` and its five layers, one scene) | `tools/heroanim/saturation.mjs` (and `layers.mjs` for the Home layers): each picture scaled to 60% of the heroes' mean (never above its own), once, offline; factors ×0.57 (win), ×0.58 (Wardrobe), ×0.61 (daylight, orchard), ×0.70 (pond), ×0.63 (Home), the evening garden kept (58% already) |
-| | the procedural backdrop | `DesignTokens.Saturation.Background` (×0.6) on `backdrop.*`, `lawn.*`, `foliage*`, `ray.light` and the themes' tints (`DesignTokens.Backdrop`) |
-| UI, 70% | the owner's UI pictures: `nav-*`, `booster-*`, `currency-lotus` icons, the logo, the decorations (`ivy`, `flowers`, `button-leaves`) | `saturation.mjs`: each scaled to 70% of the heroes' mean, factors ×0.48 to ×0.59 |
-| | the material and UI tokens (§1.2, spec 002 and spec 003 tokens, `GardenLook`'s literal colors) | `DesignTokens.Saturation.Ui` (×0.7 of their designed values; the tables list the designed values) |
-| Heroes, 100% | the animated heroes, the still heroes and poses, the 2D characters; the board's pieces: the variant palette (§1.1) and the `variant-*` and `field-*` icons, `tile.*`, `special.*`, `state.link*`, `pod.mystery*`; the text colors (`text.*`, their contrast) | as they are |
-
-The transform keeps a pixel's lightness and hue: each channel moves toward `(max + min) / 2` by the factor
-(`Rgba.Saturate` in the kit, `scale` in `saturation.mjs`). A second run of `saturation.mjs` changes nothing (a picture
-at or under its share stays); `saturation.json` records the last run's measurements; an owner picture added later is
-put on the ladder by running it (`cd tools/heroanim && node saturation.mjs`).
-
 ### 1.3 Color sets (`GardenLook`)
 
 | Set | Face | Top | Lip | Line | Label |

@@ -179,7 +179,7 @@ namespace Bloomlings.Client.UI.Design
         /// The primary button (PLAY, NEXT, RESUME, CLAIM, CONTINUE), the selected tab and the "+": the reference's green
         /// with its explicit shades (spec 005 contracts/look.md §1.3).
         /// </summary>
-        public static readonly ColorSet Green = new ColorSet("set.green", C.ButtonPrimary, C.ButtonPrimaryTop, C.ButtonPrimaryEdge, DesignTokens.Saturation.OfUi("#24661A"));
+        public static readonly ColorSet Green = new ColorSet("set.green", C.ButtonPrimary, C.ButtonPrimaryTop, C.ButtonPrimaryEdge, Rgba.FromHex("#24661A"));
 
         /// <summary>The secondary buttons, slots and booster tiles: the reference's cream with a brown outline (spec 005 §1.3).</summary>
         public static readonly ColorSet Cream = new ColorSet("set.cream", C.CreamFace, C.CreamTop, C.CreamLip, C.CreamLine);
@@ -238,7 +238,7 @@ namespace Bloomlings.Client.UI.Design
                 : TextLook.OnColor(set);
 
         /// <summary>The glyph color on a set's face (FR-010): light on colors, <c>ink.brown</c> on cream and white (spec 005 §3.3).</summary>
-        public static Rgba GlyphOn(ColorSet set) => LabelOn(set).Volumetric ? DesignTokens.Saturation.OfUi("#FFFBEF") : C.InkBrown;
+        public static Rgba GlyphOn(ColorSet set) => LabelOn(set).Volumetric ? Rgba.FromHex("#FFFBEF") : C.InkBrown;
 
         // ---- Materials and labels of the reference look (spec 005 contracts/look.md §3) ----
 
@@ -252,7 +252,7 @@ namespace Bloomlings.Client.UI.Design
         /// The wooden wordmark's letters (§4.5): a pale cream-yellow wood fill, from <c>#FFF0C8</c> to a honey
         /// <c>#E9B874</c>, outlined in <c>wood.line</c> with a darker extrusion.
         /// </summary>
-        public static TextLook WoodLetters { get; } = new TextLook(DesignTokens.Saturation.OfUi("#FFF0C8"), DesignTokens.Saturation.OfUi("#E9B874"), C.WoodLine, 0.05f, 0.11f, 0.32f);
+        public static TextLook WoodLetters { get; } = new TextLook(Rgba.FromHex("#FFF0C8"), Rgba.FromHex("#E9B874"), C.WoodLine, 0.05f, 0.11f, 0.32f);
 
         /// <summary>The booster tile's cream-white bezel with a faint silver tint (§3.7).</summary>
         public static Rgba BoosterRim => C.CreamTop.Mix(C.StateStuck, 0.25f);
@@ -350,8 +350,8 @@ namespace Bloomlings.Client.UI.Design
 
         private static Dictionary<string, IReadOnlyList<IconPart>> BuildBoosterIcons()
         {
-            Rgba disc = DesignTokens.Saturation.OfUi("#3E9BEA");
-            Rgba petals = DesignTokens.Saturation.OfUi("#F58CC8");
+            Rgba disc = Rgba.FromHex("#3E9BEA");
+            Rgba petals = Rgba.FromHex("#F58CC8");
             return new Dictionary<string, IReadOnlyList<IconPart>>(StringComparer.Ordinal)
             {
                 ["extra_slot"] = new[]
@@ -361,10 +361,10 @@ namespace Bloomlings.Client.UI.Design
                 },
                 ["shuffle"] = new[]
                 {
-                    new IconPart("booster.shuffle.a", DesignTokens.Saturation.OfUi("#F2A33A"), Rgba.White, 0.08f),
-                    new IconPart("booster.shuffle.b", DesignTokens.Saturation.OfUi("#57B847"), Rgba.White, 0.08f),
+                    new IconPart("booster.shuffle.a", Rgba.FromHex("#F2A33A"), Rgba.White, 0.08f),
+                    new IconPart("booster.shuffle.b", Rgba.FromHex("#57B847"), Rgba.White, 0.08f),
                 },
-                ["return"] = new[] { new IconPart("booster.return", DesignTokens.Saturation.OfUi("#FFC23D"), DesignTokens.Saturation.OfUi("#E08A1E"), 0.08f) },
+                ["return"] = new[] { new IconPart("booster.return", Rgba.FromHex("#FFC23D"), Rgba.FromHex("#E08A1E"), 0.08f) },
                 ["bloom_burst"] = new[]
                 {
                     new IconPart("booster.bloom_burst.petals", petals, petals.Darken(0.3f), 0.07f),

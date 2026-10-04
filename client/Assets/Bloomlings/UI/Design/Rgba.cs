@@ -67,18 +67,6 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Toward black by <paramref name="amount"/> (0–1), keeping alpha.</summary>
         public Rgba Darken(float amount) => Mix(new Rgba(0, 0, 0, A), amount);
 
-        /// <summary>
-        /// The color with its HSL saturation scaled by <paramref name="factor"/> (0 grey, 1 the same), its lightness, hue
-        /// and alpha kept: each channel moved toward <c>(max + min) / 2</c>. The saturation ladder's transform (spec 005
-        /// FR-031, <see cref="DesignTokens.Saturation"/>; the owner's pictures get the same in tools/heroanim/saturation.mjs).
-        /// </summary>
-        public Rgba Saturate(float factor)
-        {
-            float l = (Math.Max(R, Math.Max(G, B)) + Math.Min(R, Math.Min(G, B))) / 2f;
-            byte Scale(byte v) => ToByte(l + (factor * (v - l)));
-            return new Rgba(Scale(R), Scale(G), Scale(B), A);
-        }
-
         /// <summary>A grey of the same luminance (for stuck and next-in-stack looks).</summary>
         public Rgba Grey()
         {
