@@ -331,3 +331,18 @@ SC-011) and contracts/look.md §6.4 to §6.7. Presentation and navigation only (
 - [X] T065 The docs (contracts/look.md §4.5, §4.6, §5, §6, §6.4 to §6.6 and the new §6.7; spec.md; pictures.md D9–D13;
   `playtest/README.md`; contracts/asset-slots.md of spec 002) and the regenerated inventory; all checks; the preview's
   frames reviewed at 16:9, 19.5:9 and 21:9.
+
+## Owner review: the bottom menu without its end vines, larger icons (2026-10-04)
+
+See spec.md (the clarification "the owner's bottom menu, wooden", its last question, and FR-030) and
+contracts/look.md §6.7. Presentation only (FR-002).
+- [X] T066 The kit's menu geometry (`BottomNav.cs`): the plank `0.14W` (`PlankShare`), the places sharing `0.04W` to
+  `0.96W` (`SpanStart`, `SpanEnd`), each icon the plank's full height (`IconShare` 1, no wider than its column), the
+  medallion `0.2W` rising `0.03W` (`MedallionShare`, `RiseShare`) with its icon `0.86` of the disc
+  (`MedallionIconShare`), its size on a phone without a bottom inset keeping its disc on the screen; the bar's box from
+  the plank's top (`DecorShare` removed), the menu's top unchanged at `0.17W` over the safe bottom; the test
+  `TheBottomMenu_SpreadsItsPlacesInOrder_AndRaisesTheActiveOne` updated.
+- [X] T067 The bar's picture without its end vines (`NavRaster.cs`: the vines' stem, tendril, leaves and flowers
+  removed; the medallion keeps its own); the test `TheBottomMenusWood_CoversItsPlank_AndTheMedallionIsADisc` (nothing
+  beside the plank's ends); the slot rows `ui.nav.bar` and `ui.nav.medallion` and the inventory; contracts/look.md
+  §6.7, spec.md FR-030; all checks; the preview's frames 2, 3, 17 and 27 reviewed.

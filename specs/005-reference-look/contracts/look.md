@@ -1108,10 +1108,15 @@ button until 2026-10-04).
 
 The owner: "We also need to add a bottom menu. You will find the icons in the zip. On the picture you will find
 variants. Try the wooden variant." Of the five bar styles on the owner's picture, the second row: a wide warm brown
-wooden plank across the screen's bottom with wood grain and rounded ends, green vine curls with small white flowers
-around both ends, thin vertical grooves between the places, the icons on the plank, and the active place in a raised
-round wooden medallion (a lighter wood disc in a darker rim, with vines and two small white flowers) rising over the
-plank's top. Home, the Store page (§6.6) and the Wardrobe (§6.5) show it; gameplay, the win, milestone, jam and pause
+wooden plank across the screen's bottom with wood grain and rounded ends, thin vertical grooves between the places, the
+icons on the plank, and the active place in a raised round wooden medallion (a lighter wood disc in a darker rim, with
+vines and two small white flowers) rising over the plank's top. The owner's review of the same day: "Remove the branches
+to the right and left of the menu itself. And make the menu icons bigger: they must take more of the menu's plank, and
+the free room on the plank must be minimal." So the plank has no vines at its ends (the medallion keeps its own), it is
+`0.14W` tall instead of `0.12W`, the places share its whole length, and each icon is the plank's full height (the
+owner's pictures keep their own thin margin): 151 px instead of 111 px on a 1080 px wide phone. The medallion rises
+`0.03W` instead of `0.05W`, so the menu's top stays `0.17W` above the safe bottom and Home, the Store page and the
+Wardrobe keep their room. Home, the Store page (§6.6) and the Wardrobe (§6.5) show it; gameplay, the win, milestone, jam and pause
 cards and the splash do not (FR-030). Kit: `BottomNav.cs` (`NavPlace`, `BottomNav`, `BottomNavRegions`,
 `NavBarShape`, `ScreenLayout.BottomNav`, `ScreenLayout.BottomNavTop`) and `NavRaster.cs` (`UiRaster.NavBar`,
 `UiRaster.NavMedallion`); components `Kit.BottomNav` (playtest, `KitNav.cs`) and `UiKit.BottomNav` → `BottomNavView`
@@ -1129,19 +1134,19 @@ and the Collection open their cards over Home (from the Store page or the Wardro
 
 | Region (`BottomNavRegions`) | Box |
 |---|---|
-| `Bar` | the bar's picture: the whole screen's width, from `0.045W` (`DecorShare`, the vines' reach) over the plank's top to the screen's bottom |
-| `Plank` | `0.12W` tall (`PlankShare`) from `0.03W` to `0.97W` (`EndShare`), its bottom on the safe bottom; the wood runs on behind the bottom inset to the screen's bottom |
-| `PlaceBoxes` | the shown places' columns on the plank band, sharing `0.12W` to `0.88W` (`SpanStart`, `SpanEnd`) evenly: five are `0.152W` wide, centered at 19.6%, 34.8%, 50%, 65.2% and 80.4% of W |
-| `Icon(i)` | a place's icon: a square `0.86` of the plank's height (`IconShare`) on its column's middle, `0.03` of the plank's height over the band's middle; the active place's `0.7` of the disc (`MedallionIconShare`) on its middle |
-| `Medallion` | `0.19W` square (`MedallionShare`) centered on the active place, its top `0.05W` (`RiseShare`) over the plank's top, so it reaches `0.02W` under the plank into the inset; smaller where that would leave the screen (no bottom inset: it ends on the screen's bottom, `0.17W` on 1080 × 1920) |
+| `Bar` | the bar's picture: the whole screen's width, from the plank's top to the screen's bottom (no vines over it since the owner's review) |
+| `Plank` | `0.14W` tall (`PlankShare`) from `0.03W` to `0.97W` (`EndShare`), its bottom on the safe bottom; the wood runs on behind the bottom inset to the screen's bottom |
+| `PlaceBoxes` | the shown places' columns on the plank band, sharing `0.04W` to `0.96W` (`SpanStart`, `SpanEnd`) evenly: five are `0.184W` wide, centered at 13.2%, 31.6%, 50%, 68.4% and 86.8% of W |
+| `Icon(i)` | a place's icon: a square the plank's full height (`IconShare` 1, no wider than its column) on its column's and the band's middle; the active place's `0.86` of the disc (`MedallionIconShare`) on its middle, a little larger than the plank's |
+| `Medallion` | `0.2W` square (`MedallionShare`) centered on the active place, its top `0.03W` (`RiseShare`) over the plank's top, so it reaches `0.03W` under the plank into the inset; smaller where its disc would leave the screen (no bottom inset: its disc ends on the screen's bottom, `0.18W` on 1080 × 1920) |
 | `Disc` | the medallion's wooden disc, `0.88` of its box (`DiscShare`); its leaves and flowers take the rest |
 | `Touch(i)` | a place's touch box: its column from the safe bottom up the plank's height, at least `size.touch_min` (`TouchMin`); a neighbor of the active place cut clear of the medallion while it keeps the touch minimum; the active place has none (`Buttons` lists the others) |
-| `Top` | the menu's highest point, the medallion's top (`ScreenLayout.BottomNavTop`, the same whatever the places): Home's bottom stack, the Store's list and the Wardrobe's page end above it |
+| `Top` | the menu's highest point, the medallion's top, `0.17W` over the safe bottom (`ScreenLayout.BottomNavTop`, the same whatever the places): Home's bottom stack, the Store's list and the Wardrobe's page end above it |
 
-Fixed: on a 1080 × 2340 phone (insets 110 / 63) the plank spans 2147–2277 (x 32–1048), the bar's picture 2099–2340,
-the five places 130–950 (164 px each), their touch boxes 2145–2277, the medallion 437–643 × 2093–2299 on Home (its disc
-181 px, its icon 126 px; the plank's icons 111 px), and the menu's top is 2093. On 1080 × 1920 (63 / 0) the plank spans
-1790–1920 and the medallion 184 px from 1736; on 1080 × 2520 (120 / 66) the plank 2324–2454, the top 2270.
+Fixed: on a 1080 × 2340 phone (insets 110 / 63) the plank spans 2126–2277 (x 32–1048), the bar's picture 2126–2340,
+the five places 43–1037 (199 px each), their touch boxes 2126–2277, the medallion 432–648 × 2093–2309 on Home (its disc
+190 px, its icon 163 px; the plank's icons 151 px), and the menu's top is 2093. On 1080 × 1920 (63 / 0) the plank spans
+1769–1920 and the medallion 195 px from 1736; on 1080 × 2520 (120 / 66) the plank 2303–2454, the top 2270.
 
 **Recipe** (engine-free pictures, both builds draw the same bytes; cached by key and size):
 - The bar (`ui.nav.bar`, `UiRaster.NavBar(width, height, NavBarShape)`, key `ui.nav.bar/…` from `BottomNavRegions.Shape`:
@@ -1150,18 +1155,16 @@ the five places 130–950 (164 px each), their touch boxes 2145–2277, the meda
   `wood.dark_top` for warmth, with long darker `wood.dark_line` and lighter streaks, the band lit from above), its top
   corners rounded by 0.42 of the band's height (the bottom ones lie below the screen), a light bevel inside its top
   edge and ends and the `wood.dark_line` outline; the band's lower edge a little deeper, the wood under it (behind the
-  bottom inset) darker; between two places a carved groove half the band tall (a `wood.dark_line` line 3% of the band
-  wide with a light line beside it); and at each end (the right one mirrored) a green vine (`garden.leaf_3` with a
-  `garden.leaf_line` outline and a lighter middle) coming in over the plank's top, curling down around its end and back
-  along its bottom, a tendril curling up over the top, eight almond leaves in the `garden.leaf_*` greens (one side
-  lighter, a `garden.leaf_line` outline and midrib) and two white five-petal flowers (`garden.flower`,
-  `garden.flower_line`) with yellow middles (`garden.flower_center`), sized by the band's height.
+  bottom inset) darker; and between two places a carved groove half the band tall (a `wood.dark_line` line 3% of the
+  band wide with a light line beside it). No vines at its ends (the owner's review of 2026-10-04).
 - The medallion (`ui.nav.medallion`, `UiRaster.NavMedallion(size)`): a soft `garden.shadow` under it; the disc's rim
   in the bar's wood (a fifth of its radius, lighter at its top, the `wood.dark_line` outline and a thin line inside);
   its face light honey wood (`WoodTone.Light` mixed 35% toward `wood.grain`, lit from the upper left toward
   `wood.light`, deeper toward `wood.edge` at the lower right, a soft shadow under the rim's top, a faint growth ring);
-  short green stems along the rim with eight leaves at its four corners and two small white flowers (the lower left
-  and the right).
+  short green stems along the rim (`garden.leaf_3` with a `garden.leaf_line` outline and a lighter middle) with eight
+  almond leaves at its four corners in the `garden.leaf_*` greens (one side lighter, a `garden.leaf_line` outline and
+  midrib) and two small white five-petal flowers (`garden.flower`, `garden.flower_line`) with yellow middles
+  (`garden.flower_center`), at the lower left and the right.
 - The icons (`icon.nav.shop|wardrobe|home|leaderboard|collection`): the owner's pictures `Icons/nav-*.png`
   (`OwnerPictures.NavIcon`, pictures.md D9–D13) fitted into `Icon(i)` with their aspect kept; while a picture is
   missing, the place's glyph (`BottomNav.Fallback`: the reward basket, the shirt, the fountain, the trophy, the grid in

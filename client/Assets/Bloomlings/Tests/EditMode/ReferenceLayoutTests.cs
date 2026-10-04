@@ -522,9 +522,9 @@ namespace Bloomlings.Client.Tests
 
         /// <summary>
         /// The bottom menu (spec 005 FR-030, the owner's wooden variant): on every phone and for one to five shown places,
-        /// the bar across the screen to its bottom; the plank 0.12 W tall on the safe bottom; the places in their order,
-        /// sharing the span evenly and centered; the medallion 0.19 W over the active place, rising at least 0.05 W above
-        /// the plank and staying on the screen; the icons in their places (the active one in the disc); every place but the
+        /// the bar across the screen to its bottom; the plank 0.14 W tall on the safe bottom; the places in their order,
+        /// sharing the span evenly and centered; the medallion 0.2 W over the active place, rising 0.03 W above the plank,
+        /// its disc staying on the screen; the icons in their places (the active one in the disc); every place but the
         /// active one a touch target of at least the touch minimum inside the safe area, clear of the others; and the
         /// menu's top the same whatever its places.
         /// </summary>
@@ -562,7 +562,7 @@ namespace Bloomlings.Client.Tests
                         Assert.That(r.Plank.Height, Is.EqualTo(BottomNav.PlankShare * sw).Within(0.5f), at);
                         Assert.That(r.Plank.Bottom, Is.EqualTo(r.Safe.Bottom).Within(0.01f), at + ": the plank sits on the safe bottom");
                         Assert.That(r.Plank.Within(r.Safe), Is.True, at);
-                        Assert.That(r.Bar.Top, Is.LessThan(r.Plank.Top), at + ": the vines reach over the plank");
+                        Assert.That(r.Bar.Top, Is.EqualTo(r.Plank.Top).Within(0.01f), at + ": the bar's picture starts at the plank's top (no vines over it)");
                         Assert.That(r.Top, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at + ": the top whatever the places");
                         Assert.That(r.Top, Is.LessThanOrEqualTo(Math.Min(r.Bar.Top, r.Medallion.Top) + 0.01f), at);
 
@@ -598,12 +598,13 @@ namespace Bloomlings.Client.Tests
                         // The medallion over the active place, raised, on screen.
                         Box active0 = r.PlaceBoxes[r.ActiveIndex];
                         Assert.That(r.Places[r.ActiveIndex], Is.EqualTo(active), at);
-                        Assert.That(r.Medallion.Width, Is.EqualTo(Math.Min(BottomNav.MedallionShare * sw, h - r.Medallion.Top)).Within(0.5f), at + ": 0.19 W, less when it would leave the screen");
+                        Assert.That(r.Medallion.Width, Is.EqualTo(Math.Min(BottomNav.MedallionShare * sw, (h - r.Medallion.Top) / (0.5f + (BottomNav.DiscShare / 2f)))).Within(0.5f), at + ": 0.2 W, less when its disc would leave the screen");
                         Assert.That(r.Medallion.Width, Is.GreaterThan(0.16f * sw), at);
                         Assert.That(r.Medallion.Height, Is.EqualTo(r.Medallion.Width).Within(0.01f), at);
                         Assert.That(r.Medallion.CenterX, Is.EqualTo(active0.CenterX).Within(0.01f), at + ": the medallion over the active place");
-                        Assert.That(r.Medallion.Top, Is.EqualTo(r.Plank.Top - (BottomNav.RiseShare * sw)).Within(0.5f), at + ": it rises 0.05 W above the plank");
-                        Assert.That(r.Medallion.Bottom, Is.LessThanOrEqualTo(h + 0.5f), at + ": it stays on the screen");
+                        Assert.That(r.Medallion.Top, Is.EqualTo(r.Plank.Top - (BottomNav.RiseShare * sw)).Within(0.5f), at + ": it rises 0.03 W above the plank");
+                        Assert.That(r.Disc.Bottom, Is.LessThanOrEqualTo(h + 0.5f), at + ": its disc stays on the screen");
+                        Assert.That(r.Top, Is.EqualTo(r.Safe.Bottom - (0.17f * sw)).Within(0.5f), at + ": the menu's top 0.17 W above the safe bottom");
                         Assert.That(r.Medallion.Left, Is.GreaterThanOrEqualTo(-0.5f), at);
                         Assert.That(r.Medallion.Right, Is.LessThanOrEqualTo(w + 0.5f), at);
 

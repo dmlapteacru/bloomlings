@@ -224,8 +224,8 @@ namespace Bloomlings.Client.Tests
 
         /// <summary>
         /// The bottom menu's wooden pictures (spec 005 FR-030): the bar opaque wood from its plank's top to its bottom
-        /// between the plank's ends, a groove darker than the wood beside it, transparent above the plank away from its
-        /// vines, vines over its ends, the same bytes each time; the medallion a disc, opaque in its middle, its corners
+        /// between the plank's ends, a groove darker than the wood beside it, transparent beside the plank's ends (no vines
+        /// there since 2026-10-04), the same bytes each time; the medallion a disc, opaque in its middle, its corners
         /// transparent.
         /// </summary>
         [Test]
@@ -242,10 +242,11 @@ namespace Bloomlings.Client.Tests
             int band = (int)((shape.BandBottom - shape.PlankTop) * h);
             Assert.That(Alpha(bar, w, w / 2, plankTop + (band / 2)), Is.EqualTo(255), "the plank's middle");
             Assert.That(Alpha(bar, w, w / 2, h - 1), Is.EqualTo(255), "the wood behind the bottom inset");
-            Assert.That(Alpha(bar, w, w / 2, plankTop / 2), Is.EqualTo(0), "above the plank's middle");
+            Assert.That(shape.PlankTop, Is.EqualTo(0f).Within(0.001f), "the picture starts at the plank's top");
             Assert.That(Alpha(bar, w, 1, h - 1), Is.EqualTo(0), "beside the plank's end");
-            Assert.That(Alpha(bar, w, (int)(shape.PlankLeft * w) - 2, plankTop + (int)(band * 0.62f)), Is.EqualTo(255), "the flower on the vine around the plank's end");
-            Assert.That(Alpha(bar, w, w - 1 - ((int)(shape.PlankLeft * w) - 2), plankTop + (int)(band * 0.62f)), Is.EqualTo(255), "and at the other end");
+            Assert.That(Alpha(bar, w, (int)(shape.PlankLeft * w) + 1, plankTop + 1), Is.EqualTo(0), "its rounded top corner");
+            Assert.That(Alpha(bar, w, (int)(shape.PlankLeft * w) - 2, plankTop + (int)(band * 0.62f)), Is.EqualTo(0), "no vine around the plank's end");
+            Assert.That(Alpha(bar, w, w - 1 - ((int)(shape.PlankLeft * w) - 2), plankTop + (int)(band * 0.62f)), Is.EqualTo(0), "nor at the other end");
             int groove = (int)Math.Round(shape.Grooves[0] * w);
             int y = plankTop + (band / 2);
             Assert.That(Luminance(bar, w, groove, y), Is.LessThan(Luminance(bar, w, groove + (band / 3), y)), "a groove between two places");

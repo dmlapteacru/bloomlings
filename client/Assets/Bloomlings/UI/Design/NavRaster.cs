@@ -1,12 +1,11 @@
 using System;
-using System.Collections.Generic;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Client.UI.Design
 {
     /// <content>
-    /// The bottom menu's wooden pictures (spec 005 FR-030, contracts/look.md §6.7): the plank across the screen with its
-    /// vines (<see cref="NavBar"/>) and the raised medallion of the active place (<see cref="NavMedallion"/>). Like the
+    /// The bottom menu's wooden pictures (spec 005 FR-030, contracts/look.md §6.7): the plank across the screen
+    /// (<see cref="NavBar"/>) and the raised medallion of the active place (<see cref="NavMedallion"/>). Like the
     /// other material pictures they are straight-alpha RGBA rows from the top, anti-aliased over one pixel and the same
     /// for the same arguments.
     /// </content>
@@ -29,12 +28,9 @@ namespace Bloomlings.Client.UI.Design
         /// its top corners rounded by 0.42 of the band's height (the bottom ones lie below the picture);</description></item>
         /// <item><description>a little darker below the band (the wood behind the bottom inset);</description></item>
         /// <item><description>a thin carved groove between two places (half the band tall, a dark line with a light line
-        /// beside it);</description></item>
-        /// <item><description>at each end, a green vine curling around the plank's end with a tendril over its top, eight
-        /// almond leaves in the <c>garden.leaf_*</c> greens with their <c>garden.leaf_line</c> outline and midrib, and two
-        /// white five-petal flowers with yellow middles; mirrored at the right end.</description></item>
+        /// beside it).</description></item>
         /// </list>
-        /// The vines are sized by the band's height, so they keep their shape on every phone.
+        /// No vines at its ends (the owner, 2026-10-04): only the medallion keeps its leaves and flowers.
         /// </summary>
         public static byte[] NavBar(int width, int height, NavBarShape shape)
         {
@@ -114,21 +110,6 @@ namespace Bloomlings.Client.UI.Design
 
                         c.Mix(wood.Line, Clamp01(0.5f + inner));
                         paint.Over(cover, c.ToRgba());
-                    }
-
-                    if (v > VineTop && v < VineBottom)
-                    {
-                        float ul = (x - left) * unit;
-                        if (ul > VineLeft && ul < VineRight)
-                        {
-                            PaintVine(ref paint, ul, v, unit);
-                        }
-
-                        float ur = (right - x) * unit;
-                        if (ur > VineLeft && ur < VineRight)
-                        {
-                            PaintVine(ref paint, ur, v, unit);
-                        }
                     }
 
                     paint.Write(pixels, ((py * width) + px) * 4);
@@ -219,59 +200,6 @@ namespace Bloomlings.Client.UI.Design
             }
 
             return pixels;
-        }
-
-        // ---- The vines at the bar's ends (units: the band's height; u inward from the plank's end, v down from its top) ----
-
-        private const float VineLeft = -0.4f;
-
-        private const float VineRight = 1f;
-
-        private const float VineTop = -0.42f;
-
-        private const float VineBottom = 1.2f;
-
-        /// <summary>The stem curling around the plank's end: in over the top, down around the end, back along the bottom.</summary>
-        private static readonly NavStroke Stem = NavStroke.Through(
-            new[] { 0.8f, 0.5f, 0.2f, -0.02f, -0.1f, -0.05f, 0.15f, 0.45f, 0.74f },
-            new[] { 0.03f, -0.06f, -0.05f, 0.12f, 0.42f, 0.72f, 0.93f, 1f, 0.96f },
-            0.028f,
-            0.018f);
-
-        /// <summary>The tendril curling up from the stem over the plank's top.</summary>
-        private static readonly NavStroke Tendril = NavStroke.Spiral(0.42f, -0.19f, 0.12f, 75f, -480f, 0.7f, 0.014f, 0.012f);
-
-        private static readonly NavLeaf[] VineLeaves =
-        {
-            NavLeaf.At(0.62f, -0.03f, -55f, 0.27f, 0.075f, 0),
-            NavLeaf.At(0.28f, -0.06f, -118f, 0.28f, 0.078f, 2),
-            NavLeaf.At(0.02f, 0.07f, -165f, 0.25f, 0.072f, 1),
-            NavLeaf.At(-0.09f, 0.32f, 228f, 0.23f, 0.07f, 0),
-            NavLeaf.At(-0.08f, 0.6f, 132f, 0.23f, 0.07f, 2),
-            NavLeaf.At(0.3f, 0.98f, -14f, 0.26f, 0.075f, 1),
-            NavLeaf.At(0.62f, 0.97f, -42f, 0.21f, 0.065f, 0),
-            NavLeaf.At(0.1f, 0.9f, 98f, 0.18f, 0.06f, 2),
-        };
-
-        private static readonly (float X, float Y, float R, float Turn)[] VineFlowers =
-        {
-            (-0.03f, 0.62f, 0.16f, 0.3f),
-            (0.5f, -0.15f, 0.11f, 0.9f),
-        };
-
-        private static void PaintVine(ref NavPaint paint, float u, float v, float pixel)
-        {
-            Stem.Paint(ref paint, u, v, pixel);
-            Tendril.Paint(ref paint, u, v, pixel);
-            foreach (NavLeaf leaf in VineLeaves)
-            {
-                leaf.Paint(ref paint, u, v, pixel);
-            }
-
-            foreach ((float fx, float fy, float fr, float turn) in VineFlowers)
-            {
-                PaintFlower(ref paint, fx, fy, fr, turn, u, v, pixel);
-            }
         }
 
         // ---- The medallion's vines (units: the picture's side, from its middle) ----
@@ -484,30 +412,6 @@ namespace Bloomlings.Client.UI.Design
                 }
             }
 
-            /// <summary>A smooth stem through the points (a Catmull-Rom curve, eight samples between two points).</summary>
-            public static NavStroke Through(float[] xs, float[] ys, float half, float line)
-            {
-                const int Steps = 8;
-                var x = new List<float>();
-                var y = new List<float>();
-                int n = xs.Length;
-                for (int i = 0; i < n - 1; i++)
-                {
-                    int i0 = Math.Max(0, i - 1);
-                    int i3 = Math.Min(n - 1, i + 2);
-                    for (int k = 0; k < Steps; k++)
-                    {
-                        float t = k / (float)Steps;
-                        x.Add(CatmullRom(xs[i0], xs[i], xs[i + 1], xs[i3], t));
-                        y.Add(CatmullRom(ys[i0], ys[i], ys[i + 1], ys[i3], t));
-                    }
-                }
-
-                x.Add(xs[n - 1]);
-                y.Add(ys[n - 1]);
-                return new NavStroke(x.ToArray(), y.ToArray(), half, line);
-            }
-
             /// <summary>
             /// A tendril: a spiral about (<paramref name="cx"/>, <paramref name="cy"/>) from <paramref name="radius"/> at
             /// <paramref name="from"/> degrees, turning by <paramref name="turn"/> degrees while its radius shrinks by
@@ -558,9 +462,6 @@ namespace Bloomlings.Client.UI.Design
                 paint.Over(Cover(d, pixel), C.GardenLeaf3);
                 paint.Over(0.45f * Cover(d + (_half * 0.55f), pixel), C.GardenLeaf2);
             }
-
-            private static float CatmullRom(float p0, float p1, float p2, float p3, float t) =>
-                0.5f * ((2f * p1) + ((p2 - p0) * t) + (((2f * p0) - (5f * p1) + (4f * p2) - p3) * t * t) + (((3f * p1) - p0 - (3f * p2) + p3) * t * t * t));
         }
 
         /// <summary>A pixel being painted, in premultiplied floats: shapes over shapes, then straight-alpha bytes.</summary>

@@ -33,33 +33,36 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public static class BottomNav
     {
-        /// <summary>The plank's height, as a share of W.</summary>
-        public const float PlankShare = 0.12f;
-
-        /// <summary>How far the vines at the plank's ends reach above its top, as a share of W (the bar picture's top).</summary>
-        public const float DecorShare = 0.045f;
+        /// <summary>
+        /// The plank's height, as a share of W (the owner's icons fill it, 2026-10-04). With <see cref="RiseShare"/> it keeps
+        /// the menu's top 0.17 W above the safe bottom, so the screens above it keep their room.
+        /// </summary>
+        public const float PlankShare = 0.14f;
 
         /// <summary>The raised medallion's box, as a share of W, and how far it rises above the plank's top.</summary>
-        public const float MedallionShare = 0.19f;
+        public const float MedallionShare = 0.2f;
 
-        public const float RiseShare = 0.05f;
+        public const float RiseShare = 0.03f;
 
         /// <summary>The wooden disc's diameter, as a share of the medallion's box (its leaves and flowers take the rest).</summary>
         public const float DiscShare = 0.88f;
 
-        /// <summary>The plank's ends, as shares of W from the safe area's sides (the vines curl around them).</summary>
+        /// <summary>The plank's ends, as shares of W from the safe area's sides.</summary>
         public const float EndShare = 0.03f;
 
-        /// <summary>Where the places' span starts and ends, as shares of W (the places share it evenly).</summary>
-        public const float SpanStart = 0.12f;
+        /// <summary>Where the places' span starts and ends, as shares of W (the places share it evenly, the plank's whole length).</summary>
+        public const float SpanStart = 0.04f;
 
-        public const float SpanEnd = 0.88f;
+        public const float SpanEnd = 0.96f;
 
-        /// <summary>A place's icon on the plank, as a share of the plank's height (the owner's icons keep a small margin).</summary>
-        public const float IconShare = 0.86f;
+        /// <summary>
+        /// A place's icon on the plank, as a share of the plank's height: the whole band (the owner's pictures keep their own
+        /// thin margin), so the icons leave little of the plank free.
+        /// </summary>
+        public const float IconShare = 1f;
 
-        /// <summary>The active place's icon in the medallion, as a share of the disc's diameter.</summary>
-        public const float MedallionIconShare = 0.7f;
+        /// <summary>The active place's icon in the medallion, as a share of the disc's diameter (a little larger than the plank's).</summary>
+        public const float MedallionIconShare = 0.86f;
 
         /// <summary>The grooves between the places: their length as a share of the plank's height.</summary>
         public const float GrooveShare = 0.5f;
@@ -137,7 +140,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// What the bar's wooden picture shows (<see cref="UiRaster.NavBar"/>), as shares of its box (<see cref="BottomNavRegions.Bar"/>):
     /// the plank's ends (<see cref="PlankLeft"/>, <see cref="PlankRight"/> of the width), its top (<see cref="PlankTop"/>
-    /// of the height; the vines reach above it), the bottom of its band in the safe area (<see cref="BandBottom"/>; the wood
+    /// of the height), the bottom of its band in the safe area (<see cref="BandBottom"/>; the wood
     /// runs on to the picture's bottom, the screen's), and the grooves between the places (<see cref="Grooves"/>, of the
     /// width). <see cref="Key"/> names the picture in both builds' caches.
     /// </summary>
@@ -179,15 +182,15 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// The bottom menu (spec 005 FR-030, contracts/look.md §6.7), both builds (<c>Kit.BottomNav</c>, <c>UiKit.BottomNav</c>):
     /// <list type="bullet">
-    /// <item><description><see cref="Bar"/>: the box of the bar's wooden picture, the whole screen's width from the vines'
-    /// reach over the plank to the screen's bottom (the wood runs on behind the bottom inset).</description></item>
+    /// <item><description><see cref="Bar"/>: the box of the bar's wooden picture, the whole screen's width from the plank's
+    /// top to the screen's bottom (the wood runs on behind the bottom inset).</description></item>
     /// <item><description><see cref="Plank"/>: the plank's band, <see cref="BottomNav.PlankShare"/> of W tall, its bottom on
     /// the safe area's bottom.</description></item>
     /// <item><description><see cref="PlaceBoxes"/>: the shown places' columns on the band, sharing the span from
     /// <see cref="BottomNav.SpanStart"/> to <see cref="BottomNav.SpanEnd"/> of W evenly, in order.</description></item>
     /// <item><description><see cref="Medallion"/>: the raised round medallion over the active place, rising
-    /// <see cref="BottomNav.RiseShare"/> of W above the plank (a little smaller on a screen without a bottom inset, so it
-    /// stays on the screen).</description></item>
+    /// <see cref="BottomNav.RiseShare"/> of W above the plank (a little smaller on a screen without a bottom inset, so its
+    /// disc stays on the screen).</description></item>
     /// </list>
     /// Screen pixels, y down. Engine-free.
     /// </summary>
@@ -227,7 +230,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// Place <paramref name="index"/>'s icon: a square <see cref="BottomNav.IconShare"/> of the plank's height on its
-        /// column's middle, a little above the band's middle; the active place's in the medallion's disc
+        /// column's middle and the band's middle (no wider than its column); the active place's in the medallion's disc
         /// (<see cref="BottomNav.MedallionIconShare"/> of it).
         /// </summary>
         public Box Icon(int index)
@@ -240,8 +243,8 @@ namespace Bloomlings.Client.UI.Design
             }
 
             Box column = PlaceBoxes[index];
-            float side = Plank.Height * BottomNav.IconShare;
-            return Box.FromCenter(column.CenterX, Plank.CenterY - (Plank.Height * 0.03f), side, side);
+            float side = Math.Min(Plank.Height * BottomNav.IconShare, column.Width);
+            return Box.FromCenter(column.CenterX, Plank.CenterY, side, side);
         }
 
         /// <summary>
@@ -311,11 +314,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The bottom menu (contracts/look.md §6.7) for the shown <paramref name="places"/> (<see cref="BottomNav.Places"/>;
         /// the <paramref name="active"/> one is added in its order when missing), in fractions of the safe width W: the
-        /// plank 0.12 W tall from 0.03 W to 0.97 W, its bottom on the safe bottom, the wood running on to the screen's
-        /// bottom; the bar's picture from 0.045 W above the plank (its vines) to the screen's bottom, across the screen; the
-        /// places sharing 0.12 W to 0.88 W evenly; the medallion 0.19 W square on the active place, its top 0.05 W above the
-        /// plank's (smaller when its bottom would leave the screen: on a phone without a bottom inset it ends on the
-        /// screen's bottom, 0.17 W).
+        /// plank 0.14 W tall from 0.03 W to 0.97 W, its bottom on the safe bottom, the wood running on to the screen's
+        /// bottom; the bar's picture from the plank's top to the screen's bottom, across the screen; the places sharing
+        /// 0.04 W to 0.96 W evenly; the medallion 0.2 W square on the active place, its top 0.03 W above the plank's
+        /// (smaller when its disc would leave the screen: on a phone without a bottom inset its disc ends on the screen's
+        /// bottom, about 0.18 W).
         /// </summary>
         public static BottomNavRegions BottomNav(float width, float height, Insets insets, IReadOnlyList<NavPlace> places, NavPlace active)
         {
@@ -323,7 +326,7 @@ namespace Bloomlings.Client.UI.Design
             float w = safe.Width;
             float plankTop = safe.Bottom - (Design.BottomNav.PlankShare * w);
             var plank = new Box(safe.Left + (Design.BottomNav.EndShare * w), plankTop, safe.Right - (Design.BottomNav.EndShare * w), safe.Bottom);
-            var bar = new Box(0f, plankTop - (Design.BottomNav.DecorShare * w), width, height);
+            var bar = new Box(0f, plankTop, width, height);
 
             var shown = new List<NavPlace>();
             foreach (NavPlace place in Design.BottomNav.Order)
@@ -355,7 +358,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             float top = MedallionTop(plankTop, w);
-            float size = Math.Max(1f, Math.Min(Design.BottomNav.MedallionShare * w, height - top));
+            float size = Math.Max(1f, Math.Min(Design.BottomNav.MedallionShare * w, (height - top) / (0.5f + (Design.BottomNav.DiscShare / 2f))));
             var medallion = new Box(boxes[activeIndex].CenterX - (size / 2f), top, boxes[activeIndex].CenterX + (size / 2f), top + size);
             float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
             return new BottomNavRegions(safe, w, bar, plank, shown, boxes, active, medallion, touch);
@@ -370,7 +373,7 @@ namespace Bloomlings.Client.UI.Design
             Box safe = SafeArea(width, height, insets);
             float w = safe.Width;
             float plankTop = safe.Bottom - (Design.BottomNav.PlankShare * w);
-            return Math.Min(plankTop - (Design.BottomNav.DecorShare * w), MedallionTop(plankTop, w));
+            return Math.Min(plankTop, MedallionTop(plankTop, w));
         }
 
         private static float MedallionTop(float plankTop, float w) => plankTop - (Design.BottomNav.RiseShare * w);

@@ -199,6 +199,15 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
   list and the Wardrobe's cards and footer end above the menu too (on 21:9 the Store's cosmetics show three rows of
   cards instead of four). The playtest's dev row (−1, +1, +10, Reset), which lay in that band, moves into the Settings
   card opened from Home.
+- Q (the owner's review on the phone, the same day): "Remove the branches to the right and left of the menu itself. And
+  make the menu icons bigger: they must take more of the menu's plank, and the free room on the plank must be
+  minimal." → A: The plank loses the vines at its ends (the medallion keeps its own leaves and flowers, which lie on
+  it, not beside the menu). The plank grows from `0.12W` to `0.14W`, the places share its whole length (`0.04W` to
+  `0.96W` instead of `0.12W` to `0.88W`), and each icon is the plank's full height, so the owner's pictures nearly
+  touch its top and bottom (their own margin is about 4% a side): 151 px instead of 111 px on a 1080 px wide phone.
+  The medallion grows to `0.2W` with its icon 163 px, a little larger than the plank's, and rises `0.03W` instead of
+  `0.05W`, so the menu's top stays `0.17W` above the safe bottom and Home, the Store page and the Wardrobe keep their
+  layout.
 
 ### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
 
@@ -610,11 +619,13 @@ inventory.
 
 - **FR-030**: Home, the Store page and the Wardrobe MUST show the owner's wooden bottom menu in both builds
   (contracts/look.md §6.7, `ScreenLayout.BottomNav`): a warm brown wooden plank across the screen's bottom (its plank
-  about `0.12W` tall on the safe bottom, the wood running on behind the bottom inset) with grain, rounded ends, green
-  vines with small white flowers curling around both ends and thin grooves between the places; the places' icons (the
-  owner's pictures, pictures.md D9–D13; a drawn glyph while one is missing) on it; and the screen's own place in a
-  raised round wooden medallion (a lighter wood disc in a darker rim with vines and two small white flowers, about
-  `0.19W`, rising about `0.05W` over the plank's top). The places, left to right, are Shop, Wardrobe, Home, Leaderboard
+  about `0.14W` tall on the safe bottom, the wood running on behind the bottom inset) with grain, rounded ends and thin
+  grooves between the places, and no vines at its ends (the owner's review of 2026-10-04); the places' icons (the
+  owner's pictures, pictures.md D9–D13; a drawn glyph while one is missing) on it, each the plank's full height and the
+  places sharing its whole length, so little of the plank is left free; and the screen's own place in a raised round
+  wooden medallion (a lighter wood disc in a darker rim with vines and two small white flowers, about `0.2W`, rising
+  about `0.03W` over the plank's top, its icon a little larger than the plank's). The menu's top stays `0.17W` above
+  the safe bottom. The places, left to right, are Shop, Wardrobe, Home, Leaderboard
   and Collection; a place MUST show only once its feature is unlocked (the Shop from L12, the Wardrobe from L40, the
   Leaderboard from L10, the Collection once a picture is won; Home always), and the shown places share the bar's width
   evenly. A tap on the Shop opens the Store page, on the Wardrobe the Wardrobe, on Home returns to Home, on the
