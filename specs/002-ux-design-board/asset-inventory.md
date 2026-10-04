@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 54 | 0 | 54 |
+| UI kit | 61 | 0 | 61 |
 | Materials | 4 | 0 | 4 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **201** | **27** | **228** |
+| **All** | **208** | **27** | **235** |
 
 ## Brand
 
@@ -165,7 +165,7 @@ the fallback when a picture is missing.
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
 | `special.gate` | Garden Gate (hedge seal) | 9 | Board | closed; opening | Small | yes | Launch | shape `special.gate` |
-| `special.fountain` | Fountain | 9 | Board | dry; flowing | Small | yes | Launch | shape `special.fountain` |
+| `special.fountain` | Fountain (also the bottom menu's Home stand-in) | 9 | Board; bottom menu (while `Icons/nav-home.png` is missing) | dry; flowing | Small | yes | Launch | shape `special.fountain` |
 | `special.chest` | Sealed Chest | 9 | Board | sealed; open | Small | yes | Launch | shape `special.chest` |
 | `special.statue` | Statue | 9 | Board | waiting; restored | Small | yes | Launch | shape `special.statue` |
 | `special.bridge` | Bridge (repaired) | 9 | Board | repaired | Small | yes | Launch | shape `special.bridge` |
@@ -222,7 +222,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.ring` | Ring (highlights, profile frame) | 3, 7 | Highlights; entry marker; avatar frame | any tint | Icon | no | Launch | shape `ui.ring` |
 | `ui.button.primary` | Primary button (green, darker lower edge) | 2, 3, 4, 10, 11, 15, 16 | PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue | normal; pressed; disabled | Medium | no | Launch | glossy green raised pill in a light wood rim (`ui.button.rim`): outline, lip, highlight band, volumetric label |
 | `ui.button.secondary` | Secondary button (cream) | 4, 10, 11, 15 | RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N | normal; pressed; disabled | Medium | no | Launch | cream raised pill on a cream plate, cream outline, brown label and glyph |
-| `ui.button.round` | Round or squircle icon button (cream) | 2, 3, 7, 11 | Settings; Pause; close; back; Wardrobe; Collection | normal; pressed; circle; squircle | Small | no | Launch | one domed cream cushion (peach edges, lighter middle) with a lip, a soft tan outline, a soft shadow and a brown glyph in a thin cream halo |
+| `ui.button.round` | Round or squircle icon button (cream) | 2, 3, 7, 11 | Settings; Pause; close; back; Daily Challenge | normal; pressed; circle; squircle | Small | no | Launch | one domed cream cushion (peach edges, lighter middle) with a lip, a soft tan outline, a soft shadow and a brown glyph in a thin cream halo |
 | `ui.pill.level` | Level label of the gameplay top bar | 7, 8, 9 | Gameplay top bar | normal; super hard | Medium | no | Launch | a wooden sign with ivy (`ui.sign.wood`, `ui.sign.ivy`) and brown "Level N"; purple letters on Super Hard |
 | `ui.pill.speed` | 2× speed pill | 7, 8, 9 | Gameplay top bar | 1×; 2× | Small | no | Launch | cream squircle pill with the brown speed and the `ui.fast` chevrons |
 | `ui.pill.petals` | Petals balance pill | 2, 3, 17 | Home; Store | with +; without + | Medium | no | Launch | cream raised pill fitting its amount: the lotus inside its left end, the brown balance right after it and a round green + over its right end (`PetalsPillParts`) |
@@ -249,7 +249,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.pause` | Pause glyph | 7, 8, 9 | Gameplay top bar | normal | Icon | no | Launch | shape `ui.pause` |
 | `ui.restart` | Restart glyph | 10, 11 | Pause card; jam sheet | normal | Icon | no | Launch | shape `ui.restart` |
 | `ui.settings` | Settings glyph (gear) | 2, 3, 11 | Home; Pause card | normal | Icon | no | Launch | shape `ui.settings` |
-| `ui.chevron` | Chevron (opens a screen) | 3 | Home rank row; Daily Challenge card | normal | Icon | no | Launch | shape `ui.chevron` |
+| `ui.chevron` | Chevron (opens a screen, turns a page) | 17 | Daily Challenge card; ‹ › arrows | normal | Icon | no | Launch | shape `ui.chevron` |
 | `ui.plus` | Plus glyph | 2, 3, 17 | Petals pill; + Slot | normal | Icon | no | Launch | shape `ui.plus` |
 | `ui.check` | Check mark (done) | 3 | Home Daily Challenge card (done today) | normal | Icon | no | Launch | shape `ui.check` |
 | `ui.play` | Play triangle, as tall as the letters (spec 003 FR-010) | 2, 3 | PLAY on Home | normal; pressed | Icon | no | Launch | shape `ui.play` |
@@ -257,11 +257,11 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.back` | Back arrow glyph (spec 005) | 17 | Wardrobe; Store | normal | Icon | no | Launch | shape `ui.back` |
 | `ui.deco.garden` | Leaves and a white flower on the main buttons (spec 003 FR-011a; the owner's picture `Decor/button-leaves.png`, turned half way for the bottom right, replaces them, pictures.md D7) | 2, 3, 11, 15, 16 | PLAY; RESUME; NEXT; CONTINUE; CLAIM | top-left; bottom-right (turned) | Small | no | Launch | shape `ui.deco.garden` |
 | `ui.gift` | Gift (milestone teaser) | 3 | Home | normal; ready | Small | no | Launch | shape `ui.gift` |
-| `ui.trophy` | Trophy (rank row, Get +N) | 3, 4 | Home rank row; Daily Reward | normal | Small | no | Launch | shape `ui.trophy` |
+| `ui.trophy` | Trophy (Get +N; the bottom menu's Leaderboard stand-in) | 4 | Daily Reward; bottom menu (while `Icons/nav-leaderboard.png` is missing) | normal | Small | no | Launch | shape `ui.trophy` |
 | `ui.medal` | Medal (ranks 1–3) | 5 | Leaderboard | gold; silver; bronze | Small | no | Launch | shape `ui.medal` |
 | `ui.ad` | Rewarded-ad mark (video) | 4, 10, 15 | Get +N; Free rescue; ×2 reward; free booster | normal | Icon | no | Launch | shape `ui.ad` |
-| `ui.shirt` | Wardrobe glyph | 3 | Home | normal | Icon | no | Launch | shape `ui.shirt` |
-| `ui.grid` | Collection glyph | 3 | Home | normal | Icon | no | Launch | shape `ui.grid` |
+| `ui.shirt` | Wardrobe glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-wardrobe.png` is missing) | normal | Icon | no | Launch | shape `ui.shirt` |
+| `ui.grid` | Collection glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-collection.png` is missing) | normal | Icon | no | Launch | shape `ui.grid` |
 | `ui.sun` | Daily Challenge glyph | 3 | Home Daily Challenge card | normal; done | Small | no | Launch | shape `ui.sun` |
 | `ui.person` | Player avatar placeholder | 5 | Leaderboard; profile | any tint | Small | no | Launch | shape `ui.person` |
 | `ui.lock` | Padlock | 9, 12, 13, 14 | Locked pods, slots and cells; locked boosters | closed; opening | Icon | yes | Launch | shape `ui.lock` |
@@ -271,6 +271,13 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.pointer` | Tutorial pointing hand | — | Demos | tap; hold | Small | no | Launch | shape `ui.pointer` |
 | `ui.jam.slots` | Jam sheet: the inset row of the Waiting Slots' contents | 10 | Jam sheet | jammed (all full); stuck (free and locked slots too) | Medium | no | Launch | a sunk parchment well with each slot's sticker tile (`tile.candy.sticker`) and its brown count; free slots as small dashed plates, locked ones with the padlock |
 | `ui.pill.reward` | Reward pill (win, milestone) | 15, 16 | Win; milestone | counting up; steady | Small | no | Launch | the cream cost pill (`ui.pill.cost`), bigger, with the lotus and "+N" counting up; on the milestone each reward on a cream tile with its amount in the pill |
+| `ui.nav.bar` | Bottom menu: the wooden bar across the screen's bottom (spec 005 FR-030) | 2, 3, 17 | Home; Store page; Wardrobe | one to five places; grooves between them | Large | no | Launch | UiRaster.NavBar picture: a warm brown plank (`wood.dark_top` to `wood.dark`, grained, rounded ends) from 0.12 W above the safe bottom to the screen's bottom, thin carved grooves between the places, and green vines with leaves and white flowers curling around both ends |
+| `ui.nav.medallion` | Bottom menu: the raised round medallion of the active place | 2, 3, 17 | Home; Store page; Wardrobe | Home; Shop; Wardrobe | Small | no | Launch | UiRaster.NavMedallion picture: a lighter honey wood disc in a darker wooden rim, rising 0.05 W above the plank, with short vines, eight leaves and two small white flowers on its rim and a soft shadow under it |
+| `icon.nav.shop` | Bottom menu icon: Shop (the owner's picture `Icons/nav-shop.png`, spec 005 pictures.md D9) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `currency.reward_basket` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.wardrobe` | Bottom menu icon: Wardrobe (the owner's picture `Icons/nav-wardrobe.png`, spec 005 pictures.md D10) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `ui.shirt` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.home` | Bottom menu icon: Home (the owner's picture `Icons/nav-home.png`, spec 005 pictures.md D11) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `special.fountain` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.leaderboard` | Bottom menu icon: Leaderboard (the owner's picture `Icons/nav-leaderboard.png`, spec 005 pictures.md D12) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `ui.trophy` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.collection` | Bottom menu icon: Collection (the owner's picture `Icons/nav-collection.png`, spec 005 pictures.md D13) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `ui.grid` glyph in its color over a darker outline until the picture exists |
 
 ## Materials
 
@@ -291,7 +298,7 @@ size and inputs give the same pixels. Painted 9-slice art may replace them (spec
 | `currency.petal` | Petals symbol (soft currency): a pink lotus (spec 005; the owner's picture `Icons/currency-lotus.png` replaces the drawn lotus) | 2, 3, 4, 10, 15, 16, 17 | Petals pill; rewards; costs; prices; badges | small; large | Icon | no | Launch | shape `currency.petal` |
 | `currency.petal.front` | Lotus part: the front petals (center and sides) and the base | 2, 3, 4, 10, 15, 16, 17 | Wherever the lotus shows | small; large | Icon | no | Launch | shape `currency.petal.front` |
 | `currency.petal.tips` | Lotus part: the near-white petal middles | 2, 3, 4, 10, 15, 16, 17 | Wherever the lotus shows | small; large | Icon | no | Launch | shape `currency.petal.tips` |
-| `currency.reward_basket` | Reward basket (Daily Reward) | 4 | Daily Reward | day 1–7 | Medium | no | Launch | shape `currency.reward_basket` |
+| `currency.reward_basket` | Reward basket (Daily Reward; the bottom menu's Shop stand-in) | 4 | Daily Reward; bottom menu (while `Icons/nav-shop.png` is missing) | day 1–7 | Medium | no | Launch | shape `currency.reward_basket` |
 | `currency.petal_pile` | Pile of Petals (big rewards) | 4, 16 | Daily Reward; Milestone | small; large | Medium | no | Launch | a cluster of Petal symbols |
 
 ## Collection frames
@@ -320,9 +327,9 @@ size and inputs give the same pixels. Painted 9-slice art may replace them (spec
 | `cosmetic.stripes` | Skin: Stripes | — | Wardrobe; pods; walkers | on each family | Icon | no | Later | shape `cosmetic.stripes` |
 | `cosmetic.petals` | Skin: Petals | — | Wardrobe; pods; walkers | on each family | Icon | no | Later | shape `cosmetic.petals` |
 | `cosmetic.speckles` | Skin: Speckles | — | Wardrobe; pods; walkers | on each family | Icon | no | Later | shape `cosmetic.speckles` |
-| `cosmetic.frame` | Profile frame | 3, 5 | Home avatar; own leaderboard row; Wardrobe | each frame item | Small | no | Launch | shape `cosmetic.frame` |
-| `cosmetic.badge` | Profile badge (incl. level badges) | 3, 5 | Home avatar; Wardrobe | each badge item; level N | Small | no | Launch | shape `cosmetic.badge` |
-| `cosmetic.marker` | Leaderboard marker (incl. level markers) | 3, 5 | Home rank row; own leaderboard row; Wardrobe | each marker item; level N | Small | no | Launch | shape `cosmetic.marker` |
+| `cosmetic.frame` | Profile frame | 5 | Own leaderboard row; Wardrobe (the profile avatar) | each frame item | Small | no | Launch | shape `cosmetic.frame` |
+| `cosmetic.badge` | Profile badge (incl. level badges) | 5 | Wardrobe (the profile avatar) | each badge item; level N | Small | no | Launch | shape `cosmetic.badge` |
+| `cosmetic.marker` | Leaderboard marker (incl. level markers) | 5 | Own leaderboard row; Wardrobe | each marker item; level N | Small | no | Launch | shape `cosmetic.marker` |
 
 ## Visual effects
 
