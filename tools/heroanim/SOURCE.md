@@ -79,7 +79,7 @@ files' hashes are in `layers.json`.
 | Rights | the owner's: delivered for the game, as the other owner pictures |
 | Clips | `Twig_Breathing` (3 s, the idle), `Twig_SmallBounce` (1.5 s, the reaction), `Twig_WinCheer` (3 s, the win's celebration: a jump with the arms spread), keyed 24 a second; the bake keeps their own lengths (`heroes.json` `idleSeconds`, `reactSeconds` null) |
 | Bones | the head points the hats follow: `Twig_rig_Head` (the head's base) and `Twig_rig_Leaf` (the leaf's stem on top of the cap) |
-| Look | lighter and warmer than its texture, the owner's choice "H" of six variants (2026-10-03: "Twig looks dark, as if in shadow"): an even light (`heroes.json` `light`: hemisphere 4.2, key 0.9, fill 0.6 and a 0.2 glow of its own albedo) and a grade of its texture (`color`: gamma 0.75, gain 1.08, saturation 1.1, warm 0.04); its mean brightness 0.73 (it was 0.46, the other heroes about 0.62) |
+| Look | lighter and warmer than its texture, the owner's choice "H" of six variants (2026-10-03: "Twig looks dark, as if in shadow"): an even light (`heroes.json` `light`: hemisphere 4.2, key 0.9, fill 0.6 and a 0.2 glow of its own albedo) and a grade of its texture (`color`: gamma 0.75, gain 1.08, saturation 1.1, warm 0.04); its mean brightness 0.73 (it was 0.46, the other heroes about 0.62). On 2026-10-04 the owner found it "too bright" beside the new Sprig; of three toned-down variants "B" is used: hemisphere 3.9, key 0.9, fill 0.6, glow 0.12; gamma 0.84, gain 1.0, saturation 0.74, no warm shift (brightness 0.62, saturation 0.59; Bloom 0.63 and 0.50, Drop 0.61 and 0.47) |
 | Frames | 72 idle, 36 reaction and 72 win frames, 7.97 MB; with the Meshy heroes, 612 frames and 25.5 MB in all |
 
 ## Sprig's Blender model (2026-10-03)
@@ -92,4 +92,5 @@ files' hashes are in `layers.json`.
 | Clips | `Sprig_Breathing` (4 s, the idle), `Sprig_Wave` (3 s, the reaction), `Sprig_Celebrate` (2 s) and `Sprig_Clap` (3 s), the win's two celebrations, taking turns; keyed 24 a second, at their own lengths. Not used: `Sprig_LookAround` (5 s), `Sprig_SmallJump` (1.5 s), `Sprig_ThumbsUp` (2.7 s) |
 | Placement | `heroes.json` `ground: "model"`: the hero's ground point is the middle of its posed bounds' base (the mesh is 4 m from the origin), not the origin |
 | Bones | the rig has no bone at the head's top, so the brow the hats follow is a point 0.3 m up the `Head` bone (`topOffset` [0, 0.3, 0], at the top of the face under the leaves); the chin is `Head` |
-| Frames | 96 idle, 72 reaction, 48 `win` and 72 `win2` frames, 11.27 MB; with the other heroes, 756 frames and 30.7 MB in all |
+| Look | toned down on 2026-10-04 (the owner: "Sprig too", after Twig's "too bright"): a grade of its texture, `color` gamma 1.04, gain 0.94, saturation 0.74, under the shared light (brightness 0.65 and saturation 0.64; it was 0.69 and 0.79) |
+| Frames | 96 idle, 72 reaction, 48 `win` and 72 `win2` frames, 11.8 MB; with the other heroes, 756 frames and 31.3 MB in all |

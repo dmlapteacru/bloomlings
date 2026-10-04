@@ -341,3 +341,16 @@ decision records what the reference shows, what we do and why, so the owner can 
   frame sets hold the fourth clip.
 - **Files**: 288 Sprig frames, 11.27 MB (the Meshy Sprig had 144); 756 frames, 30.7 MB in all.
 - **Not changed**: Sprig's still pictures (A1–A7) and its place on Home; Twig's model and clips.
+
+## D25. Twig and Sprig toned down (2026-10-04; FR-028)
+
+- **Decision**: Twig's bake light and grade (`heroes.json`) soften to hemisphere 3.9, key 0.9, fill 0.6, glow 0.12;
+  gamma 0.84, gain 1.0, saturation 0.74, no warm shift; Sprig gains a grade of its texture: gamma 1.04, gain 0.94,
+  saturation 0.74. Both re-baked; their frames keep their shapes.
+- **Rationale**: the owner found the chestnut (Twig) "too bright", and Sprig too. Measured on their frames (mean
+  luminance and saturation of the opaque pixels): Twig 0.73 and 0.73 (after "H", D23), Sprig 0.69 and 0.79, against
+  Bloom 0.63 and 0.50 and Drop 0.61 and 0.47. Variant "B" of three per hero brings them to 0.62 and 0.59 (Twig) and
+  0.65 and 0.64 (Sprig): as light as the others, still the most colorful (green leaves, an orange-brown acorn) but no
+  longer glaring. Twig's lower variants (0.53, 0.47) would bring back the "in shadow" look of D23 (0.46).
+- **Alternatives**: "A" (Twig 0.67, Sprig 0.67: a little softer) and "C" (Twig 0.59, Sprig 0.62: browner and greyer)
+  were shown with it (`tools/heroanim` scratch bakes of the seam pose).

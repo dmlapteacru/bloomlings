@@ -168,6 +168,14 @@ the round."
   others (mean brightness 0.46 against about 0.62). Of six variants the owner chose "H": an even light and a lighter,
   warmer grade of its texture, Twig only (research D23).
 
+### Session 2026-10-04 (Twig and Sprig toned down)
+
+The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
+to be reduced. And Sprig too."
+- Q: How much? → A: To the other two heroes' level: of three toned-down variants each (A, B, C), "B": Twig's light and
+  grade softened (brightness 0.73 → 0.62, saturation 0.73 → 0.59), Sprig's texture graded (0.69 → 0.65, saturation
+  0.79 → 0.64), against Bloom's 0.63 and Drop's 0.61 (research D25). Their colors stay; only the glare goes.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with

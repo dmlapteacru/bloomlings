@@ -253,3 +253,9 @@ See spec.md (the clarification "Sprig's Blender model") and research D24.
   turn; the tests (`HeroMotionTests`, `HeroFramesTests`, `WardrobeLayoutTests`).
 - [X] T050 The docs (FR-028, SC-006, SC-007, pictures.md, contracts/look.md, research D24, CLAUDE.md); all checks; the
   playtest APK.
+
+## Owner review: Twig and Sprig toned down (2026-10-04)
+
+See spec.md (the clarification "Twig and Sprig toned down") and research D25.
+- [X] T051 `heroes.json`: Twig's softer light and grade and Sprig's grade (variant "B"), both re-baked; `SOURCE.md`, the
+  docs; all checks; the playtest APK.
