@@ -30,6 +30,7 @@ under the board): an entry has no picture, and its Bloomlings set off from the s
 | `pod.` / `slot.` | PodSlot | `pod.card`, `pod.state.locked`, `pod.state.mystery`, `pod.link`, `pod.count`, `slot.empty`, `slot.state.danger`, `slot.extra` |
 | `booster.` | Booster | `booster.extra_slot`, `booster.shuffle`, `booster.return`, `booster.bloom_burst` |
 | `ui.` | UiKit | `ui.button.primary`, `ui.pill.level`, `ui.badge.hard`, `ui.card`, `ui.sheet`, `ui.close`, `ui.pause`, `ui.medal.gold`, `ui.ad`, `ui.gift`, `ui.check`, `ui.sign.wood`, `ui.pedestal` |
+| `icon.` | UiKit | `icon.nav.shop`, `icon.nav.wardrobe`, `icon.nav.home`, `icon.nav.leaderboard`, `icon.nav.collection` (spec 005 FR-030: the owner's bottom menu icons, `Icons/nav-*.png`; the menu itself is `ui.nav.bar` and `ui.nav.medallion`) |
 | `mat.` | Material | `mat.wood.light`, `mat.wood.dark`, `mat.stone`, `mat.parchment` (spec 005 FR-006: engine-free material pictures) |
 | `currency.` | Currency | `currency.petal`, `currency.reward_basket`, `currency.milestone.skin` |
 | `collection.` | CollectionFrame | `collection.frame`, `collection.frame.new` |

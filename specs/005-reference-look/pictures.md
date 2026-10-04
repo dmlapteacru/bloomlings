@@ -135,6 +135,21 @@ Folder `client/Assets/Bloomlings/Art/Decor/Resources/Decor/`:
 | D7 | `button-leaves.png` | 256 × 256 | the small sprig with a white flower on the top-left corner of the Play and Next buttons; mirrored and turned for the bottom-right corner | `ui.deco.garden` |
 | D8 | `logo-leaves.png` | 512 × 512 | only if the logo picture (C1) does not come: the leaf cluster at the left end of the drawn wordmark; mirrored for the right | `ui.logo.wood` |
 
+The bottom menu's icons (spec FR-030, contracts/look.md §6.7): **delivered on 2026-10-04** by the owner in
+`bloomlings_bottom_nav_icons_clean.zip` (1254 × 1254, trimmed to their alpha and fitted into 512 × 512 with a 20 px
+margin; record `tools/artgen/models/owner-pictures.md`, notices `client/THIRD_PARTY_NOTICES.md`), in the Icons folder
+`client/Assets/Bloomlings/Art/Icons/Resources/Icons/` (names `OwnerPictures.NavIcon(place)`). Each sits on the wooden bar
+in its place (a square 0.86 of the plank's height) or, for the screen's own place, in the raised medallion (0.7 of its
+disc); while a file is missing, the place's drawn glyph shows (`BottomNav.Fallback`).
+
+| # | File | Size | What | Slot |
+|---|---|---|---|---|
+| D9 | `nav-shop.png` | 512 × 512 | the Shop: a cottage shop with a pink and white striped awning and flowers | `icon.nav.shop` |
+| D10 | `nav-wardrobe.png` | 512 × 512 | the Wardrobe: a pink shirt with a white flower on a gold hanger | `icon.nav.wardrobe` |
+| D11 | `nav-home.png` | 512 × 512 | Home: a cream cottage with a red roof, a wooden door and flowers | `icon.nav.home` |
+| D12 | `nav-leaderboard.png` | 512 × 512 | the Leaderboard: a gold trophy with a star, flowers at its foot | `icon.nav.leaderboard` |
+| D13 | `nav-collection.png` | 512 × 512 | the Collection: a purple album with a white flower and gold corners | `icon.nav.collection` |
+
 ## G. Gameplay characters and variant icons (owner's request, 2026-10-02)
 
 The owner makes these next, in the style of their heroes (soft 3D volume, gloss, light from the upper left), as
@@ -192,7 +207,8 @@ lotus came as G9–G24 and `currency-lotus.png`, above.)
 Files may be sent in the chat; the session places, resizes and records them (source record, notices, `adopt`).
 
 Delivered by 2026-10-02: D1–D7; B1 (as the layered Home), B2–B5, B7 and B8; A1–A4, A6 and A7 (cut from the owner's
-character sheet) and the animated heroes (A10); C1; G9–G24 and the lotus. What is still open is in H.
+character sheet) and the animated heroes (A10); C1; G9–G24 and the lotus. On 2026-10-04: the calm backgrounds (B1's
+garden, B2–B5, B7, B8) and the bottom menu's icons D9–D13. What is still open is in H.
 
 ## H. Still awaited from the owner, and open questions (2026-10-03)
 

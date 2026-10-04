@@ -13,7 +13,8 @@ namespace Bloomlings.Client.UI.Screens
     /// The player's profile picture (FR-061, FR-063) in the reference look (spec 005 §4.5; the playtest's Home
     /// <c>Avatar</c>): the hero's portrait in its outfit on a domed cream disc like the round buttons, with a soft green
     /// middle and a tan ring, inside the shown frame, with the shown badge at its foot and the leaderboard marker at its
-    /// shoulder. Home, the Wardrobe and the leaderboard row use it. Never a touch target itself (its button is).
+    /// shoulder. The Wardrobe (its profile tab) and the leaderboard row use it; Home showed it as its Wardrobe button until
+    /// the bottom menu took that place (spec 005 FR-030). Never a touch target itself (its button is).
     /// </summary>
     public sealed class ProfileAvatar
     {

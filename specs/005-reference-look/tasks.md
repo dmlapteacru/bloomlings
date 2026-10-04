@@ -288,3 +288,35 @@ FR-029) and contracts/look.md §6.4, §6.5, §6.6. Presentation only (FR-002).
 - [X] T057 The docs (contracts/look.md §3.2, §3.4, §3.5, §4.3, §4.6, §5, §6.5, the new §6.6; spec.md FR-017, FR-025, the
   new FR-029, the acceptance scenarios; pictures.md B7; the asset slots `bg.wardrobe` and `ui.card` and the inventory;
   `playtest/README.md`); all checks; the full preview reviewed at 16:9, 19.5:9 and 21:9.
+
+## Owner request: the bottom menu, wooden (2026-10-04)
+
+See spec.md (the clarification "the owner's bottom menu, wooden", FR-030, the amended FR-017, FR-024, FR-025, FR-029,
+SC-011) and contracts/look.md §6.4 to §6.7. Presentation and navigation only (FR-002).
+- [X] T060 The kit's bottom menu (`BottomNav.cs`): `NavPlace`, `BottomNav` (the order, `Places(HomeLook)`, keys, slots,
+  the stand-in glyphs), `BottomNavRegions` (the bar, the plank, the places, the icons, the touch boxes, the medallion and
+  its disc, the top) and `ScreenLayout.BottomNav` / `BottomNavTop`; the tests
+  `TheBottomMenu_SpreadsItsPlacesInOrder_AndRaisesTheActiveOne` and `TheBottomMenu_ShowsAPlaceOnlyOnceItsFeatureIsUnlocked`.
+- [X] T061 The menu's pictures (`NavRaster.cs`, `UiRaster` now partial): `UiRaster.NavBar` (the warm brown plank with its
+  grain, grooves, and vines with leaves and white flowers at both ends, from `BottomNavRegions.Shape`) and
+  `UiRaster.NavMedallion` (the honey disc in its darker rim with leaves and two flowers); the slots `ui.nav.bar`,
+  `ui.nav.medallion` and `icon.nav.*` (the new `icon.` prefix), `OwnerPictures.NavIcon` and its slots; the test
+  `TheBottomMenusWood_CoversItsPlank_AndTheMedallionIsADisc`.
+- [X] T062 The playtest: `Kit.BottomNav` and `Kit.NavIcon` (`KitNav.cs`), `DesignApp.Navigate` and `ActivePlace`; the
+  menu on Home (`HomeScreen.Nav`), the Store page and the Wardrobe; Home without its Store, Wardrobe (the avatar) and
+  Collection side buttons and the rank pill, the heroes' taps clear of the menu; the dev row moved into the Settings
+  card opened from Home (`MenuCards.Settings`, `HomeScreen.DevReserve` 0); the preview's frames 17 and 27 walk the
+  menu's places.
+- [X] T063 Unity: `UiKit.BottomNav` / `BottomNavView` (`UiKitNav.cs`) in `HomeScreen`, `StoreScreen` and
+  `WardrobeScreen`; `HomeController.Navigate` (the Store page, the Wardrobe, Home, the Leaderboard and Collection cards
+  over Home) and the places from the unlocks; Home without its Store, Collection and avatar buttons and the rank pill
+  (`HomeModel` without the rank text and the avatar, `HomeFeatureActions` the Daily Challenge only); the Leaderboard,
+  Store and Wardrobe demos point at the menu's places (`HomeScreen.DemoTarget`).
+- [X] T064 The layouts above the menu: `ReferenceHome` bottom up from the menu's top (Play 0.15 H unless the plaque
+  would rise above 60% of H; `Wardrobe`, `Collection`, `Store` and `Rank` removed, `NavTop` added), `ReferenceWardrobe`
+  on the page's height ending at the menu, `ReferenceStore`'s list ending 0.02 W over it (rows from 0.135 W, their type
+  sized for 0.15 W, `RowTypeShare`); the tests `Home_FollowsTheReference_AndKeepsEveryButtonReachable`,
+  `TheWardrobe_FollowsTheReference_AndKeepsEveryButtonReachable` and `TheStorePage_KeepsItsRegionsInOrder_AndEveryTargetReachable`.
+- [X] T065 The docs (contracts/look.md §4.5, §4.6, §5, §6, §6.4 to §6.6 and the new §6.7; spec.md; pictures.md D9–D13;
+  `playtest/README.md`; contracts/asset-slots.md of spec 002) and the regenerated inventory; all checks; the preview's
+  frames reviewed at 16:9, 19.5:9 and 21:9.

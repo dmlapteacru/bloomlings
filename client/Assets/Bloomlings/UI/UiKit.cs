@@ -862,7 +862,8 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// An icon badge (the shirt on Home's Wardrobe avatar; the owner's note of 2026-10-04), the twin of the playtest's
+        /// An icon badge (the shirt Home's Wardrobe avatar wore from the owner's note of 2026-10-04 until the bottom menu,
+        /// spec 005 FR-030, took the avatar's place; no screen shows it now), the twin of the playtest's
         /// <c>Kit.IconBadge</c>: a white glyph on the count badge's green disc with its white ring and thin dark outline,
         /// over a soft shadow. The returned rect is the whole badge (ring and outline included); the disc is its side / 1.26.
         /// </summary>
