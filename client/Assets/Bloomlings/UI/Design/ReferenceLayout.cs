@@ -407,8 +407,9 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// Home in the reference layout (spec 005 FR-024, FR-030, contracts/look.md §6.4): the header row (Settings at the top
     /// left, the large Petals pill in the middle and the profile avatar at the top right, the owner's request of
-    /// 2026-10-04), the logo across the top, the diorama in the middle, the Daily Challenge side button at the right (more
-    /// with <see cref="SideButton"/>), the wooden level plaque, the big Play button and the milestone teaser with the free
+    /// 2026-10-04), the logo across the top, the diorama in the middle, the promo scenes under the logo (No Ads at the left,
+    /// the Daily Reward at the right, <see cref="HomePromo"/>), the Daily Challenge side button under the Daily Reward's
+    /// (more with <see cref="SideButton"/>), the wooden level plaque, the big Play button and the milestone teaser with the free
     /// booster offer beside it, all above the bottom menu (<see cref="NavTop"/>, its top; the Store, the Wardrobe, the
     /// Leaderboard and the Collection are its places since the owner's request of 2026-10-04, so Home has no side button
     /// or rank pill of theirs). Every box is laid out; screens draw the ones unlocked. Engine-free.
@@ -426,7 +427,9 @@ namespace Bloomlings.Client.UI.Design
         Box Play,
         Box Teaser,
         Box FreeBooster,
-        float NavTop)
+        float NavTop,
+        Box NoAds,
+        Box DailyReward)
     {
         /// <summary>The side buttons' size, as a share of <see cref="W"/>: Settings, the Avatar and the Daily Challenge.</summary>
         public const float SideButtonShare = 0.13f;
@@ -492,12 +495,16 @@ namespace Bloomlings.Client.UI.Design
         public IReadOnlyList<(string Name, Box Box)> Buttons => new[]
         {
             ("Settings", Settings), ("Petals", Petals), ("Avatar", Avatar), ("Daily", Daily), ("Play", Play), ("FreeBooster", FreeBooster),
+            ("NoAds", NoAds), ("DailyReward", DailyReward),
         };
+
+        /// <summary>The box of a promo scene (<see cref="HomePromo"/>): No Ads at the left, the Daily Reward at the right.</summary>
+        public Box Promo(PromoScene scene) => scene == PromoScene.NoAds ? NoAds : DailyReward;
 
         /// <summary>
         /// The cream round side button <paramref name="index"/> (0 at the top) of the left or the right column: 0.13 W,
-        /// 0.04 W from the edge, stacked from 24% of the height with 0.03 W between them (the Daily Challenge is the right
-        /// column's first).
+        /// 0.04 W from the edge, stacked from the Daily Challenge's top (under the Daily Reward's promo scene) with 0.03 W
+        /// between them (the Daily Challenge is the right column's first).
         /// </summary>
         public Box SideButton(bool right, int index)
         {
@@ -1051,8 +1058,9 @@ namespace Bloomlings.Client.UI.Design
         /// Home in the reference layout (contracts/look.md §6.4), in fractions of the safe height H and width W: the header
         /// row from 2.5% of H, Settings 0.13 W at 0.04 W from the left, the Avatar its mirror at 0.04 W from the right and
         /// the Petals pill's box 0.44 W × 0.105 W centered on the safe area's middle and on their middle line (0.11 W clear
-        /// of each); the logo 0.8 W wide from 10% to 20.5%; the diorama from 22% to 0.06 H under the plaque's top; the Daily
-        /// Challenge side button from 24%; then, bottom up from the bottom menu's top (<see cref="BottomNavTop"/>) less
+        /// of each); the logo 0.8 W wide from 10% to 20.5%; the diorama from 22% to 0.06 H under the plaque's top; from 24%
+        /// the promo scenes 0.27 W wide (No Ads at the left, the Daily Reward at the right, 0.04 W from the edges) and the
+        /// Daily Challenge side button under the Daily Reward's scene; then, bottom up from the bottom menu's top (<see cref="BottomNavTop"/>) less
         /// 0.015 W and <paramref name="bottomReserve"/> (the playtest's dev row): the teaser row (the teaser pill 0.5 W ×
         /// 0.04 H with the free booster pill at its right) whose touch boxes end there, Play 0.85 W wide ending 1 px over
         /// them, 0.15 H tall unless the plaque would rise above 60% of H (then shorter, at least 0.11 H and the touch
@@ -1071,7 +1079,14 @@ namespace Bloomlings.Client.UI.Design
             Box petals = Box.FromCenter(safe.CenterX, settings.CenterY, ReferenceHomeRegions.PetalsWidthShare * w, ReferenceHomeRegions.PetalsHeightShare * w);
             var logo = new Box(safe.CenterX - (0.4f * w), Math.Max(Y(0.1f), settings.Bottom + (0.01f * w)), safe.CenterX + (0.4f * w), Y(0.205f));
             float sideTop = Math.Max(Y(0.24f), logo.Bottom + (0.02f * w));
-            var daily = new Box(safe.Right - (0.04f * w) - button, sideTop, safe.Right - (0.04f * w), sideTop + button);
+
+            // The promo scenes (spec 005 FR-032) under the logo, 0.04 W from the edges: No Ads at the left, the Daily Reward
+            // at the right; the Daily Challenge's round button under the Daily Reward's scene.
+            float scene = HomePromo.WidthShare * w;
+            Box noAds = HomePromo.SceneBox(safe.Left + (0.04f * w), sideTop, scene);
+            Box dailyReward = HomePromo.SceneBox(safe.Right - (0.04f * w) - scene, sideTop, scene);
+            float dailyTop = dailyReward.Bottom + (ReferenceHomeRegions.SideGapShare * w);
+            var daily = new Box(safe.Right - (0.04f * w) - button, dailyTop, safe.Right - (0.04f * w), dailyTop + button);
 
             // Bottom up from the menu's top: the teaser row, whose touch boxes (the free booster's) end at the limit; Play
             // over them; the plaque over Play. Play shrinks before the plaque rises above PlaqueFloorShare of H.
@@ -1090,7 +1105,7 @@ namespace Bloomlings.Client.UI.Design
             var play = new Box(safe.CenterX - (0.425f * w), playBottom - playHeight, safe.CenterX + (0.425f * w), playBottom);
             var plaque = new Box(safe.CenterX - (0.25f * w), play.Top - gap - plaqueHeight, safe.CenterX + (0.25f * w), play.Top - gap);
             var diorama = new Box(safe.Left, Y(0.22f), safe.Right, Y(0.7f));
-            return new ReferenceHomeRegions(safe, w, settings, petals, avatar, logo, diorama, daily, plaque, play, teaser, free, navTop);
+            return new ReferenceHomeRegions(safe, w, settings, petals, avatar, logo, diorama, daily, plaque, play, teaser, free, navTop, noAds, dailyReward);
         }
 
         /// <summary>

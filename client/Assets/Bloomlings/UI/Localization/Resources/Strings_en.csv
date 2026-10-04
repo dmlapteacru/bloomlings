@@ -33,6 +33,14 @@ home.levels_to_reward,{0} levels to reward
 home.level_to_reward,1 level to reward
 home.daily_new,New today · +{0}
 home.daily_new_plain,New today
+home.promo_no_ads,No Ads
+home.promo_daily,Daily
+remove_ads.title,No Ads
+remove_ads.body,"Play without ad breaks between levels. Optional rewarded ads stay, only when you choose them."
+remove_ads.buy,Remove Ads
+remove_ads.price,Remove Ads · {0}
+remove_ads.restore,Restore Purchases
+remove_ads.owned,Ads are removed. Thank you!
 locked.message,Available from level {0}
 locked.hint,Keep playing to unlock it!
 settings.title,Settings

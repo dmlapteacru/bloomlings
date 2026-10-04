@@ -96,7 +96,7 @@ namespace Bloomlings.Client.UI.Design
         /// <c>gameplay-pond</c> → <c>bg.theme.pond</c>, <c>logo</c> → <c>brand.wordmark</c>, <c>booster-shuffle</c> →
         /// <c>booster.shuffle</c>, <c>ivy</c> → <c>ui.sign.ivy</c>, <c>variant-leaf</c> → <c>tile.icon.leaf</c>,
         /// <c>field-leaf</c> → <c>tile.gem.leaf</c>, <c>currency-lotus</c> → <c>currency.petal</c>, <c>nav-home</c> →
-        /// <c>icon.nav.home</c>).
+        /// <c>icon.nav.home</c>, <c>promo-noads-sprig</c> → <c>ui.promo.no_ads</c>).
         /// </summary>
         public static string SlotOf(string picture) => picture switch
         {
@@ -118,6 +118,8 @@ namespace Bloomlings.Client.UI.Design
             _ when picture.StartsWith("variant-", System.StringComparison.Ordinal) => IconSlot(picture.Substring("variant-".Length)),
             _ when picture.StartsWith("field-", System.StringComparison.Ordinal) => GemSlot(picture.Substring("field-".Length)),
             _ when picture.StartsWith("nav-", System.StringComparison.Ordinal) => "icon.nav." + picture.Substring("nav-".Length),
+            _ when picture.StartsWith("promo-noads-", System.StringComparison.Ordinal) => HomePromo.Slot(PromoScene.NoAds),
+            _ when picture.StartsWith("promo-daily-", System.StringComparison.Ordinal) => HomePromo.Slot(PromoScene.Daily),
             _ => throw new System.ArgumentException("Not an owner picture of pictures.md B, C, D or G: " + picture, nameof(picture)),
         };
 

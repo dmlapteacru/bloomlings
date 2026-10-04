@@ -525,6 +525,8 @@ namespace Bloomlings.Client.Tests
                     }
 
                     Assert.That(r.SideButton(true, 0), Is.EqualTo(r.Daily), at);
+                    Assert.That(r.Daily.Top, Is.GreaterThan(r.DailyReward.Bottom), at + ": the Daily Challenge under the Daily Reward's promo scene");
+                    Assert.That(r.NoAds.Top, Is.EqualTo(r.DailyReward.Top).Within(0.01f), at + ": the promo scenes on one line");
                     Assert.That(r.Daily.Overlaps(r.Logo), Is.False, at + ": the Daily Challenge under the logo");
                     Assert.That(r.Daily.Bottom, Is.LessThan(r.Plaque.Top), at + ": the Daily Challenge above the plaque");
 
