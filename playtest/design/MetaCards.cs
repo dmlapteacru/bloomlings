@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
@@ -8,9 +9,10 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The meta card of frame 4 (spec 002 US3, FR-022) in the reference look (spec 005 §4.3, §4.6): the Daily Reward, a
-    /// parchment card under a wooden sign header with the lotus heap, the reward pill and green and cream buttons; and an
-    /// item's player-facing name. The Store, the Leaderboard and the Collection are pages of their own since the owner's
-    /// notes of 2026-10-04 (<see cref="StoreScreen"/>, <see cref="LeaderboardScreen"/>, <see cref="CollectionScreen"/>).
+    /// parchment card under a wooden sign header with the lotus heap, the reward pill and green and cream buttons; the
+    /// Remove Ads card of Home's No Ads scene (spec 005 FR-033, preview frame 32); and an item's player-facing name. The
+    /// Store, the Leaderboard and the Collection are pages of their own since the owner's notes of 2026-10-04
+    /// (<see cref="StoreScreen"/>, <see cref="LeaderboardScreen"/>, <see cref="CollectionScreen"/>).
     /// Ads are unavailable in the playtest.
     /// </summary>
     public static class MetaCards
@@ -55,6 +57,53 @@ namespace Bloomlings.Playtest.Design
             Kit.SecondaryButton(p, bonus, PlaytestText.F("daily_reward.bonus", 20), null, "ui.ad");
             p.Text(PlaytestText.T("win.no_ads"), r.Body.CenterX, bonus.Bottom + p.U(34f), T.Caption, C.InkBrownSoft);
             Kit.EndCard(p);
+        }
+
+        /// <summary>
+        /// The Remove Ads card (spec 005 FR-033), opened from Home's No Ads scene at every level (the Store keeps its own No
+        /// Ads row): the title, the No Ads scene idling (<see cref="HomeScreen.Promo"/>), what Remove Ads does, the purchase
+        /// (purchases are off in the playtest, so the green button is disabled and reads "Unavailable" over the offline
+        /// line, as the Store's money rows), Restore Purchases (which says purchases are offline: the playtest restores
+        /// nothing) and the close. Its toasts show under the card, over the scrim.
+        /// </summary>
+        public static void RemoveAds(IPainter p, DesignApp app, float since)
+        {
+            const float sceneUnits = 420f;
+            const float lineUnits = 58f;
+            const float captionUnits = 56f;
+            float bodyWidth = ScreenLayout.Card(p.Width, p.Height, p.Insets, 0f).Body.Width;
+            List<string> lines = EndCards.Lines(p, PlaytestText.T("remove_ads.body"), T.Body, bodyWidth * 0.92f, 3);
+            float sceneHeight = sceneUnits * HomePromo.HeightShare;
+            float content = 10f + sceneHeight + 14f + (lines.Count * lineUnits) + 36f + DesignTokens.Size.CardPrimaryHeight + captionUnits + 20f + DesignTokens.Size.SecondaryHeight + 40f;
+            CardRegions r = Kit.Card(p, content, PlaytestText.T("remove_ads.title"), app.CardClose, Kit.Pop(since), T.Title);
+            float y = r.Body.Top + p.U(10f);
+
+            // The No Ads scene at its idle pose, small and centered.
+            float scene = Math.Min(p.U(sceneUnits), r.Body.Width);
+            HomeScreen.Promo(p, PromoScene.NoAds, HomePromo.SceneBox(r.Body.CenterX - (scene / 2f), y, scene), app.PromoSeconds, calling: false);
+            y += (scene * HomePromo.HeightShare) + p.U(14f);
+
+            foreach (string line in lines)
+            {
+                p.Text(line, r.Body.CenterX, y + p.U(lineUnits / 2f), T.Body, C.InkBrown, r.Body.Width, look: TextLook.Plain(C.InkBrown));
+                y += p.U(lineUnits);
+            }
+
+            // The purchase, off in the playtest: the disabled green button and the offline line under it.
+            Box buy = ScreenLayout.CardButton(r.Body, y + p.U(36f), true, p.Scale);
+            Kit.PrimaryButton(p, buy, PlaytestText.T("store.unavailable"), null, decorate: true);
+            p.Text(PlaytestText.T("store.offline"), r.Body.CenterX, buy.Bottom + p.U(captionUnits / 2f), T.Caption, C.InkBrownSoft, r.Body.Width);
+            Box restore = ScreenLayout.CardButton(r.Body, buy.Bottom + p.U(captionUnits + 20f), false, p.Scale).Inset(p.U(40f), 0f);
+            Kit.SecondaryButton(p, restore, PlaytestText.T("remove_ads.restore"), () => app.HomeToast(PlaytestText.T("store.offline")));
+            Kit.EndCard(p);
+
+            // Home's toast lies under the scrim while this card is open: it shows under the card instead.
+            string? toast = app.HomeToastText;
+            if (toast != null && !app.DrawingCovered)
+            {
+                Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
+                Kit.Toast(p, new Box(safe.Left, r.Card.Bottom, safe.Right, Math.Min(safe.Bottom, r.Card.Bottom + p.U(140f))), toast);
+            }
         }
 
         /// <summary>The reward basket: woven wood (darker weave lines) with a lighter rim, outlined like the reference's objects.</summary>

@@ -84,8 +84,11 @@ namespace Bloomlings.Playtest.Design
     /// around the lotus fountain, spec 005 FR-028, <see cref="LayeredStage"/>; or the drawn stand-in's four still
     /// heroes around the lotus fountain on the stone; in their outfits once the Wardrobe is open), the level on a wooden plaque and the big Play button in its
     /// wooden rim. A tap on an animated hero makes it react (<see cref="HomeMotion.Tap"/>).</description></item>
-    /// <item><description>Shown once unlocked: the Daily Challenge as a cream round button at the right; "N levels to
-    /// reward" with the gift as a parchment pill under Play.</description></item>
+    /// <item><description>The promo scenes under the logo (spec 005 FR-032, <see cref="Promo"/>): No Ads at the left from
+    /// level 1 while Remove Ads is not owned (a tap opens the Remove Ads card), the Daily Reward at the right from its
+    /// unlock (a tap opens its card), each idling and in turn playing its attention sequence while it calls.</description></item>
+    /// <item><description>Shown once unlocked: the Daily Challenge as a cream round button at the right, under the Daily
+    /// Reward's scene; "N levels to reward" with the gift as a parchment pill under Play.</description></item>
     /// <item><description>The bottom menu (spec 005 FR-030, <see cref="Kit.BottomNav"/>): the wooden bar with its five
     /// places always shown (Shop, Wardrobe, Home, Leaderboard, Collection, each a page; a locked one with a padlock badge,
     /// its page saying from which level it is available), Home in the raised medallion; it replaced Home's Store, Wardrobe
@@ -152,6 +155,13 @@ namespace Bloomlings.Playtest.Design
             Kit.SparkleBurst(p, petals.Lotus.CenterX, petals.Lotus.CenterY, petals.Pill.Height, app.SinceRewardBurst);
             Avatar(p, r.Avatar, meta.Wardrobe.Profile, AvatarOutfit(app), app.OpenProfile);
 
+            // The promo scenes under the logo (spec 005 FR-032): No Ads at the left, the Daily Reward at the right. They
+            // idle all the time, so Home keeps redrawing under a card too.
+            if (Promos(p, r, app))
+            {
+                app.HomeMoving = true;
+            }
+
             SideButtons(p, r, look, app);
 
             // The level on its wooden plaque, Play, the milestone teaser.
@@ -168,11 +178,108 @@ namespace Bloomlings.Playtest.Design
             // The bottom menu, Home in its medallion, the locked places with their padlocks (FR-030).
             Kit.BottomNav(p, Nav(p, NavPlace.Home), look, app.Navigate);
 
+            // The Remove Ads card shows its own toasts over the scrim (MetaCards.RemoveAds).
             string? toast = app.HomeToastText;
-            if (toast != null)
+            if (toast != null && !app.IsOpen(Overlay.RemoveAds))
             {
                 Kit.Toast(p, new Box(r.Safe.Left, r.Diorama.Top, r.Safe.Right, r.Plaque.Top), toast);
             }
+        }
+
+        /// <summary>
+        /// Whether Home shows a promo scene (spec 005 FR-032): No Ads from level 1 while Remove Ads is not owned (never
+        /// bought in the playtest); the Daily Reward from its unlock (L7,
+        /// <see cref="Client.Meta.DailyReward.DailyRewardService.IsUnlocked"/>), idling once today's reward is claimed.
+        /// </summary>
+        public static bool ShowsPromo(DesignApp app, PromoScene scene) =>
+            scene == PromoScene.NoAds ? !app.Meta.Save.Purchases.RemoveAds : app.Meta.DailyReward.IsUnlocked;
+
+        /// <summary>
+        /// Home's promo scenes in their boxes (<see cref="ReferenceHomeRegions.Promo"/>), each a touch target that presses
+        /// as a whole: No Ads opens the Remove Ads card at every level (<see cref="Overlay.RemoveAds"/>; the Store keeps its
+        /// own row), the Daily Reward its card (<see cref="Overlay.DailyReward"/>). No Ads always calls for attention, the
+        /// Daily Reward while it can be claimed. Returns whether a scene moves (its pictures are embedded).
+        /// </summary>
+        private static bool Promos(IPainter p, ReferenceHomeRegions r, DesignApp app)
+        {
+            bool moving = false;
+            foreach (PromoScene scene in new[] { PromoScene.NoAds, PromoScene.Daily })
+            {
+                if (!ShowsPromo(app, scene))
+                {
+                    continue;
+                }
+
+                Box box = r.Promo(scene);
+                bool calling = scene == PromoScene.NoAds || app.Meta.DailyReward.CanClaim;
+                Action open = scene == PromoScene.NoAds ? () => app.OpenOverlay(Overlay.RemoveAds) : () => app.OpenOverlay(Overlay.DailyReward);
+                float depth = Kit.Press(p, box, true);
+                Kit.Squash(p, box, depth);
+                moving |= Promo(p, scene, box, app.PromoSeconds, calling);
+                p.PopTransform();
+                p.Hit(Kit.Touch(p, box), open);
+            }
+
+            return moving;
+        }
+
+        /// <summary>
+        /// A promo scene in <paramref name="box"/> (<see cref="HomePromo.SceneBox"/>) at <paramref name="seconds"/> since Home
+        /// opened (spec 005 FR-032, <see cref="HomePromo.Layers"/>): the owner's layers back to front, each its whole canvas
+        /// in its box, scaled and turned about its pivot, at its alpha, with the label on the stand's plaque right after the
+        /// stand. While the scene's pictures are missing, the label on a wooden sign in the box instead. Also the Remove Ads
+        /// card's scene (<paramref name="calling"/> false: idling). Returns whether it moves (the pictures are drawn).
+        /// </summary>
+        public static bool Promo(IPainter p, PromoScene scene, Box box, float seconds, bool calling)
+        {
+            p.Mark(HomePromo.Slot(scene));
+            string label = PlaytestText.T(HomePromo.LabelKey(scene));
+            if (!HasPromoPictures(p, scene))
+            {
+                Kit.WoodSign(p, Box.FromCenter(box.CenterX, box.CenterY, box.Width * 0.9f, box.Height * 0.42f), label, T.LevelPill);
+                return false;
+            }
+
+            IReadOnlyList<PromoLayer> layers = HomePromo.Layers(scene, box, seconds, calling);
+            for (int i = 0; i < layers.Count; i++)
+            {
+                PromoLayer layer = layers[i];
+                if (layer.Alpha > 0f)
+                {
+                    p.PushAlpha(layer.Alpha);
+                    p.PushRotate(layer.Rotation, layer.X, layer.Y);
+                    p.PushSquash(layer.ScaleX, layer.ScaleY, layer.X, layer.Y);
+                    p.Sprite(PainterBase.DecorPrefix + layer.Picture, layer.Box);
+                    p.PopTransform();
+                    p.PopTransform();
+                    p.PopAlpha();
+                }
+
+                if (i == 0)
+                {
+                    // The label on the stand's wooden plaque, in the wooden sign's embossed brown letters.
+                    Box plaque = HomePromo.Plaque(box, scene);
+                    float scale = plaque.Height * HomePromo.LabelShare / p.U(T.LevelPill.Size);
+                    p.Text(label, plaque.CenterX, plaque.CenterY, T.LevelPill, C.InkBrown, plaque.Width * 0.92f, scale, GardenLook.SignLetters(C.InkBrown));
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>Whether every picture of a promo scene is embedded (<see cref="HomePromo.Pictures"/>).</summary>
+        private static bool HasPromoPictures(IPainter p, PromoScene scene)
+        {
+            string slot = HomePromo.Slot(scene);
+            foreach (string picture in HomePromo.Pictures)
+            {
+                if (OwnerPictures.SlotOf(picture) == slot && !p.HasSprite(PainterBase.DecorPrefix + picture))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -339,7 +446,7 @@ namespace Bloomlings.Playtest.Design
         private static void HeroTaps(IPainter p, ReferenceHomeRegions r, HomeLook look, DesignApp app)
         {
             Box picture = HomeLayers.Cover(new Box(0f, 0f, p.Width, p.Height));
-            List<Box> taken = UiBoxes(p, r, look);
+            List<Box> taken = UiBoxes(p, r, look, app);
             float min = p.U(DesignTokens.Size.TouchMin);
             for (int i = HomeLayers.DrawOrder.Count - 1; i >= 0; i--)
             {
@@ -362,10 +469,10 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The touch boxes of Home's buttons, pills and plaque, and the bottom menu from its top down (what the heroes' taps
-        /// keep clear of).
+        /// The touch boxes of Home's buttons, pills, plaque and promo scenes, and the bottom menu from its top down (what the
+        /// heroes' taps keep clear of).
         /// </summary>
-        private static List<Box> UiBoxes(IPainter p, ReferenceHomeRegions r, HomeLook look)
+        private static List<Box> UiBoxes(IPainter p, ReferenceHomeRegions r, HomeLook look, DesignApp app)
         {
             var boxes = new List<Box>
             {
@@ -380,6 +487,14 @@ namespace Bloomlings.Playtest.Design
             if (look.DailyChallenge)
             {
                 boxes.Add(Kit.Touch(p, r.Daily));
+            }
+
+            foreach (PromoScene scene in new[] { PromoScene.NoAds, PromoScene.Daily })
+            {
+                if (ShowsPromo(app, scene))
+                {
+                    boxes.Add(Kit.Touch(p, r.Promo(scene)));
+                }
             }
 
             return boxes;

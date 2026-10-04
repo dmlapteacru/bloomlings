@@ -39,8 +39,11 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     avatar at the right, whose tap says "Profile coming soon" until the profile page comes), the wooden logo, the owner's
     layered Home with the four animated heroes on its fountain (spec 005 FR-028: each idles, they take turns to react,
     a tap on one makes it react, petals drift over them; without the owner's pictures the drawn stand-in's four still
-    heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the level plaque, the big Play,
-    "N levels to reward" and the Daily Challenge's cream round side button;
+    heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the owner's two animated promo
+    scenes under the logo (spec 005 FR-032: No Ads at the left from level 1, whose tap opens the Remove Ads card at every
+    level; the Daily Reward at the right from its unlock, whose tap opens its card; each idles and in turn plays its
+    attention sequence while it calls; a wooden sign with the label while their pictures are missing), the level plaque,
+    the big Play, "N levels to reward" and the Daily Challenge's cream round side button under the Daily Reward's scene;
   - the owner's wooden bottom menu (spec 005 FR-030, §6.7) on Home and the four pages: the Shop, the Wardrobe, Home, the
     Leaderboard and the Collection, always all five (the owner's request of 2026-10-04), a locked one with a padlock
     badge on its icon, the screen's own place raised in the round medallion; a tap goes straight to the Store page, the
@@ -71,8 +74,9 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     ones muted under it, three rows or four from 19.5:9, "+N" on the last shown pod; the pods slide up a row when the
     exposed one leaves and down when Return puts one back. Frames 12–14 show the pod, slot and booster states;
   - cards: pause and Settings (frame 11), the jam card centered on the screen (frame 10), the win card (frame 15) and the milestone
-    card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), and the Daily Reward
-    (frame 4).
+    card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), the Daily Reward
+    (frame 4) and the Remove Ads card (spec 005 FR-033, preview frame 32: the No Ads scene idling, what it does, the
+    purchase unavailable offline and Restore Purchases, which says so); the system back closes the top card as its ✕.
 
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
   `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the reference look of spec 005
@@ -117,7 +121,7 @@ Unity client.
 ## Preview without a phone
 
 `dotnet run --project playtest/preview` renders the full playtest's screens with SkiaSharp. It writes one PNG per
-design board frame (1–17) plus extras 18–31 (themes, Settings, a Collection picture, a demo, boosters in use, the
+design board frame (1–17) plus extras 18–32 (themes, Settings, a Collection picture, a demo, boosters in use, the
 Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store page's cosmetics in the Wardrobe look, opened from the
 Wardrobe's Petals "+", 27 the Wardrobe, reached by taps that the frames check (5 opens the Leaderboard page from the
 menu and checks its back, the system back, the menu from page to page and its Shop; 6 opens the Collection page with
@@ -127,7 +131,8 @@ detail; 27 walks the menu's Wardrobe, Shop, Leaderboard and Collection), 28 Home
 also checks a tap on a hero and on Play, and the bottom menu's locked places: 29 the locked Store page at Level 5, 30
 the locked Wardrobe at Level 15 (its Shop and Petals "+" open the Store page, whose back returns there) and 31 the
 locked Leaderboard page on a new profile (after the locked Collection page's check), each checking what the notice
-says)
+says, and 32 the Remove Ads card opened from Home's No Ads scene at Level 15, which checks its Restore and the system
+back; frames 2 and 3 also check which promo scenes show and the Daily Reward scene's tap)
 at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the

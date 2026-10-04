@@ -29,6 +29,9 @@ namespace Bloomlings.Playtest.Design
         Pause,
         Settings,
         DailyReward,
+
+        /// <summary>The Remove Ads card (spec 005 FR-033), opened from Home's No Ads scene at every level.</summary>
+        RemoveAds,
     }
 
     /// <summary>
@@ -45,7 +48,8 @@ namespace Bloomlings.Playtest.Design
     /// from the bottom menu;</description></item>
     /// <item><description>the bottom menu on Home and the four pages (spec 005 FR-030, <see cref="Navigate"/>), its five
     /// places always shown: a locked one with a padlock, its page saying from which level it is available;</description></item>
-    /// <item><description>the cards over them (frames 4, 10, 11, 15 and 16).</description></item>
+    /// <item><description>the cards over them (frames 4, 10, 11, 15 and 16; the Remove Ads card of Home's No Ads scene,
+    /// preview frame 32).</description></item>
     /// </list>
     /// The very first launch goes straight into Level 1, and later launches open Home (spec 001 US2). Progress, Petals,
     /// booster charges, milestones, the Daily Reward and the Collection come from the Unity client's engine-free
@@ -99,10 +103,19 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Seconds since <see cref="HomeMotion"/> started (the drifting petals of the layered Home).</summary>
         public float HomeSeconds => Now - _homeOpenedAt;
 
-        /// <summary>Whether Home's last frame drew animated heroes (then Home keeps redrawing under a card too).</summary>
+        /// <summary>
+        /// Whether Home's last frame drew animated heroes or promo scenes (then Home keeps redrawing under a card too).
+        /// </summary>
         public bool HomeMoving { get; set; }
 
+        /// <summary>
+        /// Seconds since Home was last shown (the clock of its promo scenes, spec 005 FR-032, <see cref="HomePromo.Layers"/>):
+        /// from Home's first frame, also after the splash, whose heroes carry on (<see cref="HomeSeconds"/>).
+        /// </summary>
+        public float PromoSeconds => Now - _promoOpenedAt;
+
         private float _homeOpenedAt;
+        private float _promoOpenedAt;
 
         /// <summary>The Collection page's opened picture (an index into its entries), or −1 for its grid.</summary>
         public int CollectionDetail { get; set; } = -1;
@@ -211,6 +224,7 @@ namespace Bloomlings.Playtest.Design
             _overlays.Clear();
             Level = null;
             Screen = Screen.Home;
+            _promoOpenedAt = Now;
             if (Meta.DailyReward.CanClaim)
             {
                 OpenOverlay(Overlay.DailyReward);
@@ -368,15 +382,17 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The system back (Android): does what a page's back button does, on the Store page, the Wardrobe, the Leaderboard
-        /// and the Collection (a picture's detail back to the grid, the grid to Home). False anywhere else (the host then
-        /// does what the system does).
+        /// The system back (Android): closes the top card as its close does (the Remove Ads card, the Daily Reward, Settings,
+        /// the pause); else does what a page's back button does, on the Store page, the Wardrobe, the Leaderboard and the
+        /// Collection (a picture's detail back to the grid, the grid to Home). False anywhere else (the host then does what
+        /// the system does).
         /// </summary>
         public bool Back()
         {
             if (_overlays.Count > 0)
             {
-                return false;
+                CloseOverlay();
+                return true;
             }
 
             switch (Screen)
@@ -403,6 +419,7 @@ namespace Bloomlings.Playtest.Design
         {
             HomeMotion = new HomeMotion(Now);
             _homeOpenedAt = Now;
+            _promoOpenedAt = Now;
         }
 
         public void OpenOverlay(Overlay overlay)
@@ -543,6 +560,9 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.DailyReward:
                         MetaCards.DailyReward(p, this, since);
+                        break;
+                    case Overlay.RemoveAds:
+                        MetaCards.RemoveAds(p, this, since);
                         break;
                 }
             }

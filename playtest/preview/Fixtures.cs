@@ -71,13 +71,30 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Shows(p, "Profile coming soon") && app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "a tap on the avatar says the profile is coming");
                 Run(app, p, 1.6f);
                 Expect(!Shows(p, "Profile coming soon"), "the avatar's toast passes");
+
+                // The promo scenes (spec 005 FR-032): at Level 5 only No Ads, under the logo at the left (the Daily
+                // Reward's comes with its unlock at L7). The frame waits for No Ads to finish its attention sequence, so
+                // it shows the scene idling: Sprig pushing the crossed AD sign.
+                Expect(p.Slots.Contains(HomePromo.Slot(PromoScene.NoAds)) && !p.Slots.Contains(HomePromo.Slot(PromoScene.Daily)), "an early Home shows the No Ads scene alone");
+                RunTo(app, p, HomePromo.NoAdsAt + HomePromo.NoAdsSeconds + 0.4f);
+                Expect(HomePromo.AttentionAt(PromoScene.NoAds, app.PromoSeconds, true) < 0f, "the No Ads scene idles again");
             });
 
             yield return new Fixture(3, "home-progressed", "Home (progressed)", (p, data) =>
             {
+                // Both promo scenes under the logo (spec 005 FR-032), the Daily Challenge under the Daily Reward's: a tap on
+                // the Daily Reward's scene opens its card, and the system back closes it; with today's reward still
+                // waiting, the frame catches the scene's attention sequence as the stamp has pressed and the petals burst
+                // out of the album.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
                 Run(app, p, 0.3f);
+                Expect(p.Slots.Contains(HomePromo.Slot(PromoScene.NoAds)) && p.Slots.Contains(HomePromo.Slot(PromoScene.Daily)), "a progressed Home shows both promo scenes");
+                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).DailyReward);
+                Expect(app.Overlays.Count == 1 && app.IsOpen(Overlay.DailyReward), "a tap on the Daily Reward's scene opens its card");
+                Expect(app.Back() && app.Overlays.Count == 0 && app.Screen == Design.Screen.Home, "the system back closes the card");
+                RunTo(app, p, HomePromo.DailyAt + 1.6f);
+                Expect(HomePromo.AttentionAt(PromoScene.Daily, app.PromoSeconds, app.Meta.DailyReward.CanClaim) >= 0f, "the Daily Reward's scene calls while its reward waits");
             });
 
             yield return new Fixture(4, "daily-reward", "Daily Reward (popup)", (p, data) =>
@@ -277,8 +294,8 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>
         /// Extra review images beyond the board's 17 frames: themes, Settings, a Collection picture, a demo, boosters in use,
-        /// the kit, the Store's cosmetics, the Wardrobe, Home's heroes in outfits, and the bottom menu's locked places (the
-        /// Store page, the Wardrobe and the Leaderboard page before their unlock).
+        /// the kit, the Store's cosmetics, the Wardrobe, Home's heroes in outfits, the bottom menu's locked places (the
+        /// Store page, the Wardrobe and the Leaderboard page before their unlock), and the Remove Ads card.
         /// </summary>
         public static IEnumerable<Fixture> Extras(ContentSet content)
         {
@@ -557,6 +574,33 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Screen == Design.Screen.Leaderboard, "the locked Collection page's Leaderboard opens the locked Leaderboard page");
                 Run(app, p, 0.5f);
             });
+            yield return new Fixture(32, "remove-ads", "Extra: Remove Ads card (spec 005 FR-033)", (p, data) =>
+            {
+                // Level 15, past the Store's unlock: a tap on Home's No Ads scene still opens the Remove Ads card, not the
+                // Store page (the owner: "a separate Remove Ads popup; it is always there"). Purchases are off in the
+                // playtest: its button reads "Unavailable" over the offline line, and Restore says purchases are offline
+                // under the card. The system back closes it; the frame shows it open again.
+                DesignApp app = Progressed(App(data), content, 14);
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Expect(app.PlaceOpen(NavPlace.Shop), "the Store is open at Level 15");
+                Box noAds = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).NoAds;
+                Tap(p, noAds);
+                Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 1 && app.IsOpen(Overlay.RemoveAds), "a tap on the No Ads scene opens the Remove Ads card");
+                Run(app, p, 0.5f);
+                string offline = PlaytestText.T("store.offline");
+                Expect(Shows(p, PlaytestText.T("remove_ads.title")) && Shows(p, PlaytestText.T("store.unavailable")) && Shows(p, offline), "the card says purchases are unavailable");
+                Tap(p, p.Texts.First(t => t.Text == PlaytestText.T("remove_ads.restore")).Box);
+                Expect(app.HomeToastText == offline && app.IsOpen(Overlay.RemoveAds), "Restore says purchases are offline, and the card stays");
+                Run(app, p, 0.1f);
+                Expect(p.Texts.Count(t => t.Text == offline) == 2, "the toast shows under the card, besides the offline line");
+                Run(app, p, 1.7f);
+                Expect(app.Back() && app.Overlays.Count == 0 && app.Screen == Design.Screen.Home, "the system back closes the Remove Ads card");
+                Run(app, p, 0.1f);
+                Tap(p, noAds);
+                Expect(app.IsOpen(Overlay.RemoveAds), "the No Ads scene opens the card again");
+                Run(app, p, 0.5f);
+            });
         }
 
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>
@@ -569,6 +613,22 @@ namespace Bloomlings.Playtest.Preview
                 p.BeginFrame();
                 app.Draw(p, Frame);
             }
+        }
+
+        /// <summary>
+        /// Draws frames until <paramref name="promoSeconds"/> after Home was last shown (<see cref="DesignApp.PromoSeconds"/>),
+        /// 0.1 s apart (the app's longest step: Home's scenes and heroes follow the clock, so a long wait needs fewer frames).
+        /// </summary>
+        private static void RunTo(DesignApp app, SkiaPainter p, float promoSeconds)
+        {
+            const float step = 0.1f;
+            do
+            {
+                p.Now += step;
+                p.BeginFrame();
+                app.Draw(p, step);
+            }
+            while (app.PromoSeconds < promoSeconds);
         }
 
         /// <summary>Plays the animation until it has shown the rules state (at most a minute of game time).</summary>

@@ -87,8 +87,8 @@ namespace Bloomlings.Playtest.Droid
         }
 
         /// <summary>
-        /// The system back: closes the Store page or the Wardrobe as their back buttons do (<see cref="DesignApp.Back"/>);
-        /// false when there is nothing to close, so the activity does what the system does.
+        /// The system back: closes the top card as its close does, else a page as its back button does
+        /// (<see cref="DesignApp.Back"/>); false when there is nothing to close, so the activity does what the system does.
         /// </summary>
         public bool Back()
         {
