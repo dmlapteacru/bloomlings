@@ -142,6 +142,7 @@ namespace Bloomlings.Client.UI.Design
             ["slot."] = AssetCategory.PodSlot,
             ["booster."] = AssetCategory.Booster,
             ["ui."] = AssetCategory.UiKit,
+            ["icon."] = AssetCategory.UiKit,
             ["mat."] = AssetCategory.Material,
             ["currency."] = AssetCategory.Currency,
             ["collection."] = AssetCategory.CollectionFrame,
@@ -290,7 +291,7 @@ namespace Bloomlings.Client.UI.Design
 
             // ---- Specials ----
             Shape("special.gate", "Garden Gate (hedge seal)", new[] { 9 }, "Board", "closed; opening", SizeClass.Small, readability: true);
-            Shape("special.fountain", "Fountain", new[] { 9 }, "Board", "dry; flowing", SizeClass.Small, readability: true);
+            Shape("special.fountain", "Fountain (also the bottom menu's Home stand-in)", new[] { 9 }, "Board; bottom menu (while `Icons/nav-home.png` is missing)", "dry; flowing", SizeClass.Small, readability: true);
             Shape("special.chest", "Sealed Chest", new[] { 9 }, "Board", "sealed; open", SizeClass.Small, readability: true);
             Shape("special.statue", "Statue", new[] { 9 }, "Board", "waiting; restored", SizeClass.Small, readability: true);
             Shape("special.bridge", "Bridge (repaired)", new[] { 9 }, "Board", "repaired", SizeClass.Small, readability: true);
@@ -334,7 +335,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.ring", "Ring (highlights, profile frame)", new[] { 3, 7 }, "Highlights; entry marker; avatar frame", "any tint", SizeClass.Icon);
             Add("ui.button.primary", "Primary button (green, darker lower edge)", new[] { 2, 3, 4, 10, 11, 15, 16 }, "PLAY; NEXT; CLAIM; RESUME; CONTINUE; Free rescue", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "glossy green raised pill in a light wood rim (`ui.button.rim`): outline, lip, highlight band, volumetric label");
             Add("ui.button.secondary", "Secondary button (cream)", new[] { 4, 10, 11, 15 }, "RESTART; SETTINGS; HOME; Restart; ×2 reward; Get +N", "normal; pressed; disabled", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "cream raised pill on a cream plate, cream outline, brown label and glyph");
-            Add("ui.button.round", "Round or squircle icon button (cream)", new[] { 2, 3, 7, 11 }, "Settings; Pause; close; back; Wardrobe; Collection", "normal; pressed; circle; squircle", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "one domed cream cushion (peach edges, lighter middle) with a lip, a soft tan outline, a soft shadow and a brown glyph in a thin cream halo");
+            Add("ui.button.round", "Round or squircle icon button (cream)", new[] { 2, 3, 7, 11 }, "Settings; Pause; close; back; Daily Challenge", "normal; pressed; circle; squircle", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "one domed cream cushion (peach edges, lighter middle) with a lip, a soft tan outline, a soft shadow and a brown glyph in a thin cream halo");
             Add("ui.pill.level", "Level label of the gameplay top bar", Gameplay, "Gameplay top bar", "normal; super hard", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "a wooden sign with ivy (`ui.sign.wood`, `ui.sign.ivy`) and brown \"Level N\"; purple letters on Super Hard");
             Add("ui.pill.speed", "2× speed pill", Gameplay, "Gameplay top bar", "1×; 2×", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "cream squircle pill with the brown speed and the `ui.fast` chevrons");
             Add("ui.pill.petals", "Petals balance pill", new[] { 2, 3, 17 }, "Home; Store", "with +; without +", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "cream raised pill fitting its amount: the lotus inside its left end, the brown balance right after it and a round green + over its right end (`PetalsPillParts`)");
@@ -363,7 +364,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.pause", "Pause glyph", Gameplay, "Gameplay top bar", "normal");
             Shape("ui.restart", "Restart glyph", new[] { 10, 11 }, "Pause card; jam sheet", "normal");
             Shape("ui.settings", "Settings glyph (gear)", new[] { 2, 3, 11 }, "Home; Pause card", "normal");
-            Shape("ui.chevron", "Chevron (opens a screen)", new[] { 3 }, "Home rank row; Daily Challenge card", "normal");
+            Shape("ui.chevron", "Chevron (opens a screen, turns a page)", new[] { 17 }, "Daily Challenge card; ‹ › arrows", "normal");
             Shape("ui.plus", "Plus glyph", new[] { 2, 3, 17 }, "Petals pill; + Slot", "normal");
             Shape("ui.check", "Check mark (done)", new[] { 3 }, "Home Daily Challenge card (done today)", "normal");
             Shape("ui.play", "Play triangle, as tall as the letters (spec 003 FR-010)", new[] { 2, 3 }, "PLAY on Home", "normal; pressed");
@@ -371,11 +372,11 @@ namespace Bloomlings.Client.UI.Design
             Shape("ui.back", "Back arrow glyph (spec 005)", new[] { 17 }, "Wardrobe; Store", "normal");
             Shape("ui.deco.garden", "Leaves and a white flower on the main buttons (spec 003 FR-011a; the owner's picture `Decor/button-leaves.png`, turned half way for the bottom right, replaces them, pictures.md D7)", new[] { 2, 3, 11, 15, 16 }, "PLAY; RESUME; NEXT; CONTINUE; CLAIM", "top-left; bottom-right (turned)", SizeClass.Small);
             Shape("ui.gift", "Gift (milestone teaser)", new[] { 3 }, "Home", "normal; ready", SizeClass.Small);
-            Shape("ui.trophy", "Trophy (rank row, Get +N)", new[] { 3, 4 }, "Home rank row; Daily Reward", "normal", SizeClass.Small);
+            Shape("ui.trophy", "Trophy (Get +N; the bottom menu's Leaderboard stand-in)", new[] { 4 }, "Daily Reward; bottom menu (while `Icons/nav-leaderboard.png` is missing)", "normal", SizeClass.Small);
             Shape("ui.medal", "Medal (ranks 1–3)", new[] { 5 }, "Leaderboard", "gold; silver; bronze", SizeClass.Small);
             Shape("ui.ad", "Rewarded-ad mark (video)", new[] { 4, 10, 15 }, "Get +N; Free rescue; ×2 reward; free booster", "normal");
-            Shape("ui.shirt", "Wardrobe glyph", new[] { 3 }, "Home", "normal");
-            Shape("ui.grid", "Collection glyph", new[] { 3 }, "Home", "normal");
+            Shape("ui.shirt", "Wardrobe glyph (the bottom menu's stand-in)", new[] { 3 }, "Bottom menu (while `Icons/nav-wardrobe.png` is missing)", "normal");
+            Shape("ui.grid", "Collection glyph (the bottom menu's stand-in)", new[] { 3 }, "Bottom menu (while `Icons/nav-collection.png` is missing)", "normal");
             Shape("ui.sun", "Daily Challenge glyph", new[] { 3 }, "Home Daily Challenge card", "normal; done", SizeClass.Small);
             Shape("ui.person", "Player avatar placeholder", new[] { 5 }, "Leaderboard; profile", "any tint", SizeClass.Small);
             Shape("ui.lock", "Padlock", new[] { 9, 12, 13, 14 }, "Locked pods, slots and cells; locked boosters", "closed; opening", readability: true);
@@ -387,6 +388,16 @@ namespace Bloomlings.Client.UI.Design
             Add("ui.jam.slots", "Jam sheet: the inset row of the Waiting Slots' contents", new[] { 10 }, "Jam sheet", "jammed (all full); stuck (free and locked slots too)", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "a sunk parchment well with each slot's sticker tile (`tile.candy.sticker`) and its brown count; free slots as small dashed plates, locked ones with the padlock");
             Add("ui.pill.reward", "Reward pill (win, milestone)", new[] { 15, 16 }, "Win; milestone", "counting up; steady", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "the cream cost pill (`ui.pill.cost`), bigger, with the lotus and \"+N\" counting up; on the milestone each reward on a cream tile with its amount in the pill");
 
+            // Spec 005 FR-030 (the owner's bottom menu, the wooden variant, 2026-10-04): the bar, its medallion and the
+            // owner's five icons (OwnerPictures.NavIcon), on Home, the Store page and the Wardrobe.
+            Add("ui.nav.bar", "Bottom menu: the wooden bar across the screen's bottom (spec 005 FR-030)", new[] { 2, 3, 17 }, "Home; Store page; Wardrobe", "one to five places; grooves between them", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "UiRaster.NavBar picture: a warm brown plank (`wood.dark_top` to `wood.dark`, grained, rounded ends) from 0.12 W above the safe bottom to the screen's bottom, thin carved grooves between the places, and green vines with leaves and white flowers curling around both ends");
+            Add("ui.nav.medallion", "Bottom menu: the raised round medallion of the active place", new[] { 2, 3, 17 }, "Home; Store page; Wardrobe", "Home; Shop; Wardrobe", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.NavMedallion picture: a lighter honey wood disc in a darker wooden rim, rising 0.05 W above the plank, with short vines, eight leaves and two small white flowers on its rim and a soft shadow under it");
+            foreach (NavPlace place in BottomNav.Order)
+            {
+                string glyph = BottomNav.Fallback(place).ShapeId;
+                Add(BottomNav.Slot(place), "Bottom menu icon: " + place + " (the owner's picture `Icons/" + OwnerPictures.NavIcon(place) + ".png`, spec 005 pictures.md D" + (9 + IndexOf(BottomNav.Order, place)) + ")", new[] { 2, 3, 17 }, "Bottom menu (on the plank; in the medallion when active)", "on the plank; in the medallion; pressed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "the `" + glyph + "` glyph in its color over a darker outline until the picture exists");
+            }
+
             // ---- Materials (spec 005 FR-006, contracts/look.md §2) ----
             Add("mat.wood.light", "Light wood (signs, button rims)", new[] { 2, 3, 7, 15 }, "Signs; main button rims; wordmark", "any size; grain by seed", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.Plank, light tone");
             Add("mat.wood.dark", "Dark wood (pod frames)", new[] { 7, 12 }, "Pods", "exposed; waiting (veiled); locked", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.Frame, dark tone");
@@ -397,7 +408,7 @@ namespace Bloomlings.Client.UI.Design
             Shape("currency.petal", "Petals symbol (soft currency): a pink lotus (spec 005; the owner's picture `Icons/" + OwnerPictures.CurrencyLotus + ".png` replaces the drawn lotus)", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Petals pill; rewards; costs; prices; badges", "small; large", SizeClass.Icon);
             Shape("currency.petal.front", "Lotus part: the front petals (center and sides) and the base", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Wherever the lotus shows", "small; large", SizeClass.Icon);
             Shape("currency.petal.tips", "Lotus part: the near-white petal middles", new[] { 2, 3, 4, 10, 15, 16, 17 }, "Wherever the lotus shows", "small; large", SizeClass.Icon);
-            Shape("currency.reward_basket", "Reward basket (Daily Reward)", new[] { 4 }, "Daily Reward", "day 1–7", SizeClass.Medium);
+            Shape("currency.reward_basket", "Reward basket (Daily Reward; the bottom menu's Shop stand-in)", new[] { 4 }, "Daily Reward; bottom menu (while `Icons/nav-shop.png` is missing)", "day 1–7", SizeClass.Medium);
             Add("currency.petal_pile", "Pile of Petals (big rewards)", new[] { 4, 16 }, "Daily Reward; Milestone", "small; large", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "a cluster of Petal symbols");
 
             // ---- Collection ----
@@ -420,9 +431,9 @@ namespace Bloomlings.Client.UI.Design
             Shape("cosmetic.stripes", "Skin: Stripes", Array.Empty<int>(), "Wardrobe; pods; walkers", "on each family", priority: Later);
             Shape("cosmetic.petals", "Skin: Petals", Array.Empty<int>(), "Wardrobe; pods; walkers", "on each family", priority: Later);
             Shape("cosmetic.speckles", "Skin: Speckles", Array.Empty<int>(), "Wardrobe; pods; walkers", "on each family", priority: Later);
-            Shape("cosmetic.frame", "Profile frame", new[] { 3, 5 }, "Home avatar; own leaderboard row; Wardrobe", "each frame item", SizeClass.Small);
-            Shape("cosmetic.badge", "Profile badge (incl. level badges)", new[] { 3, 5 }, "Home avatar; Wardrobe", "each badge item; level N", SizeClass.Small);
-            Shape("cosmetic.marker", "Leaderboard marker (incl. level markers)", new[] { 3, 5 }, "Home rank row; own leaderboard row; Wardrobe", "each marker item; level N", SizeClass.Small);
+            Shape("cosmetic.frame", "Profile frame", new[] { 5 }, "Own leaderboard row; Wardrobe (the profile avatar)", "each frame item", SizeClass.Small);
+            Shape("cosmetic.badge", "Profile badge (incl. level badges)", new[] { 5 }, "Wardrobe (the profile avatar)", "each badge item; level N", SizeClass.Small);
+            Shape("cosmetic.marker", "Leaderboard marker (incl. level markers)", new[] { 5 }, "Own leaderboard row; Wardrobe", "each marker item; level N", SizeClass.Small);
 
             // ---- Effects ----
             Shape("fx.sparkle", "Sparkle", new[] { 7, 15 }, "Clears; win shine; burst", "small; large", SizeClass.Icon);
@@ -451,6 +462,19 @@ namespace Bloomlings.Client.UI.Design
             }
 
             return list;
+        }
+
+        private static int IndexOf(IReadOnlyList<NavPlace> places, NavPlace place)
+        {
+            for (int i = 0; i < places.Count; i++)
+            {
+                if (places[i] == place)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         private static IReadOnlyList<string> Split(string text) =>

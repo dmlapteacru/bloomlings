@@ -18,6 +18,7 @@ using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Purchases;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Screens;
 using Bloomlings.Client.UI.Tutorial;
 using Bloomlings.Content.Packs;
@@ -32,8 +33,9 @@ namespace Bloomlings.Client.App.Home
     /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (with Restore Purchases
     /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, and
     /// the long-run features (US7): the leaderboard rank (L10), the Wardrobe (L40), the Daily Challenge (L50), the
-    /// Collection, the milestone teaser and the band's background theme. Opening Home syncs the cloud save and refreshes
-    /// the rank in the background. Opened without Boot (in the Editor), it loads Boot first.
+    /// Collection, the milestone teaser and the band's background theme. Home, the Store page and the Wardrobe each show
+    /// the bottom menu (spec 005 FR-030), whose places this controller navigates (<c>Navigate</c>). Opening Home syncs the
+    /// cloud save and refreshes the rank in the background. Opened without Boot (in the Editor), it loads Boot first.
     /// </summary>
     public sealed class HomeController : MonoBehaviour
     {
@@ -96,7 +98,6 @@ namespace Bloomlings.Client.App.Home
                     economy.Petals,
                     progression.IsUnlocked("system.store"),
                     leaderboard.IsUnlocked,
-                    RankText(leaderboard),
                     next?.Level,
                     next?.WinsToGo,
                     dailyChallenge.IsAvailable,
@@ -105,8 +106,6 @@ namespace Bloomlings.Client.App.Home
                     collection.Count > 0,
                     background,
                     catalog.HasLevel(progression.CurrentLevel),
-                    wardrobe.Profile,
-                    wardrobe.OutfitOf(ProfileAvatar.HeroFamily),
                     accent,
                     Theme: band,
                     DailyChallengePetals: DailyChallengeService.RewardPetals,
@@ -132,11 +131,48 @@ namespace Bloomlings.Client.App.Home
 
             void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable, wardrobe);
 
-            WardrobeScreen wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () =>
+            // The bottom menu's places (spec 005 FR-030): the unlocked features, as on Home (HomeLook); and where a tap on
+            // one goes. Defined before the screens that show the menu, which call them later.
+            IReadOnlyList<NavPlace> NavPlaces() => BottomNav.Places(new HomeLook(
+                Store: progression.IsUnlocked(HomeLook.StoreUnlock),
+                Teaser: false,
+                Hero: wardrobe.IsAvailable,
+                Wardrobe: wardrobe.IsAvailable,
+                Collection: collection.Count > 0,
+                Rank: leaderboard.IsUnlocked,
+                DailyChallenge: false,
+                FreeBoosterOffer: false));
+            Action? showBoard = null;
+            Action? showCollection = null;
+            WardrobeScreen? wardrobeScreen = null;
+            void Navigate(NavPlace place)
+            {
+                switch (place)
+                {
+                    case NavPlace.Shop:
+                        // The Store page over the screen that shows the menu: Home or the Wardrobe, where its back returns.
+                        analytics?.StoreOpen(wardrobeScreen != null && wardrobeScreen.IsOpen ? "wardrobe" : "home");
+                        OpenStore();
+                        break;
+                    case NavPlace.Wardrobe:
+                        store!.Hide();
+                        wardrobeScreen!.Show();
+                        break;
+                    default:
+                        // Home, then the Leaderboard or the Collection card over it.
+                        store!.Hide();
+                        wardrobeScreen!.Hide();
+                        Refresh();
+                        (place == NavPlace.Leaderboard ? showBoard : place == NavPlace.Collection ? showCollection : null)?.Invoke();
+                        break;
+                }
+            }
+
+            wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () =>
             {
                 analytics?.StoreOpen("wardrobe");
                 OpenStore();
-            });
+            }, Navigate, NavPlaces);
             wardrobe.Changed += Refresh;
             CollectionScreen collectionScreen = CollectionScreen.Create(root);
             DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
@@ -148,21 +184,19 @@ namespace Bloomlings.Client.App.Home
                 }
             });
             board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()));
+            showCollection = () =>
+            {
+                analytics?.CollectionOpen(collection.Count);
+                collectionScreen.Show(collection.Entries, (entry, side) => RenderCollectionEntry(catalog, entry, side));
+            };
+            showBoard = () =>
+            {
+                analytics?.LeaderboardView(leaderboard.LastPage?.Player?.Rank ?? 0);
+                board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
+                RunInBackground(leaderboard.Refresh());
+            };
             var features = new HomeFeatureActions(
-                () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
-                wardrobeScreen.Show,
-                () =>
-                {
-                    analytics?.CollectionOpen(collection.Count);
-                    collectionScreen.Show(collection.Entries, (entry, side) => RenderCollectionEntry(catalog, entry, side));
-                },
-                () =>
-                {
-                    analytics?.LeaderboardView(leaderboard.LastPage?.Player?.Rank ?? 0);
-                    board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
-                    RunInBackground(leaderboard.Refresh());
-                },
-                wardrobeScreen.ShowProfile);
+                () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)));
 
             home = HomeScreen.Create(
                 UiFactory.Stretch(UiFactory.CreateRect("Home", root)),
@@ -185,7 +219,8 @@ namespace Bloomlings.Client.App.Home
 
                     Refresh();
                 }),
-                features);
+                features,
+                Navigate);
             var account = new AccountActions(
                 () => save.LinkedIdentity != null
                     ? (save.LinkedIdentity == "apple" ? Loc.T("account.linked_apple") : Loc.T("account.linked_google"))
@@ -214,7 +249,7 @@ namespace Bloomlings.Client.App.Home
                 }),
                 account,
                 services.TryGet(out IConsentService? consent) ? consent : null);
-            store = StoreScreen.Create(root);
+            store = StoreScreen.Create(root, Navigate, NavPlaces);
             Refresh();
 
             // Background refresh: a cloud merge or a new rank updates Home when it arrives (never blocking it).
@@ -430,24 +465,6 @@ namespace Bloomlings.Client.App.Home
             BoosterKind.Return => Loc.T("booster.return"),
             _ => Loc.T("booster.bloom_burst"),
         };
-
-        /// <summary>The Home rank slot (FR-058): null before the unlock; a stale rank says so.</summary>
-        private static string? RankText(LeaderboardClient leaderboard)
-        {
-            if (!leaderboard.IsUnlocked)
-            {
-                return null;
-            }
-
-            int? rank = leaderboard.LastPage?.Player?.Rank;
-            if (!rank.HasValue)
-            {
-                return leaderboard.IsStale ? Loc.T("home.rank_unknown_offline") : Loc.T("home.rank_unknown");
-            }
-
-            string number = rank.Value.ToString("N0", CultureInfo.InvariantCulture);
-            return leaderboard.IsStale ? Loc.F("home.rank_offline", number) : Loc.F("home.rank", number);
-        }
 
         /// <summary>
         /// Redraws a Collection entry with the current content when its level still has the same picture and colors, to fit

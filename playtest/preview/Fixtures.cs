@@ -168,6 +168,17 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "the Store page's back returns to Home");
                 app.OpenStore();
                 Expect(app.Back() && app.Screen == Design.Screen.Home, "the system back closes the Store page");
+
+                // The bottom menu (FR-030): its Shop opens the page, a tap on the medallion (the active place) does nothing,
+                // its Home returns to Home.
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Shop));
+                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Home, "the bottom menu's Shop opens the Store page");
+                Run(app, p, 0.1f);
+                Tap(p, Nav(p, app).Medallion);
+                Expect(app.Screen == Design.Screen.Store, "a tap on the active place does nothing");
+                Tap(p, NavTouch(p, app, NavPlace.Home));
+                Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "the bottom menu's Home returns to Home");
                 app.OpenStore();
                 Run(app, p, 0.5f);
             });
@@ -306,13 +317,32 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
             yield return new Fixture(27, "wardrobe", "Extra: Wardrobe (spec 005 FR-025)", (p, data) =>
             {
-                // From Home's Wardrobe button; then a tap on the starter cap's card puts it on Sprig, so the hero and the
-                // green worn card show an outfit.
+                // From the bottom menu's Wardrobe (FR-030); its Shop opens the Store page over it (whose back returns
+                // here) and its Leaderboard the card over Home. Then a tap on the starter cap's card puts it on Sprig, so
+                // the hero and the green worn card show an outfit.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
                 Run(app, p, 0.1f);
-                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).SideButton(false, 0));
-                Expect(app.Screen == Design.Screen.Wardrobe, "Home's Wardrobe button opens the Wardrobe");
+                Expect(Nav(p, app).Places.Count == 5, "every place shows on a progressed Home");
+                Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
+                Expect(app.Screen == Design.Screen.Wardrobe, "the bottom menu's Wardrobe opens the Wardrobe");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Shop));
+                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Wardrobe, "the Wardrobe's Shop opens the Store page over it");
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);
+                Expect(app.Screen == Design.Screen.Wardrobe, "the Store page's back returns to the Wardrobe");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
+                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Leaderboard), "the Wardrobe's Leaderboard opens the card over Home");
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Collection), "Home's Collection opens the card");
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
+                Expect(app.Screen == Design.Screen.Wardrobe, "the bottom menu's Wardrobe opens the Wardrobe again");
                 Run(app, p, 0.1f);
                 Tap(p, ScreenLayout.ReferenceWardrobe(p.Width, p.Height, p.Insets).Card(1));
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig, Client.Meta.Wardrobe.CosmeticKind.Hat)?.Id == "hat.sprout_cap", "a tap on an owned item's card wears it");
@@ -376,6 +406,18 @@ namespace Bloomlings.Playtest.Preview
                 p.BeginFrame();
                 app.Draw(p, Frame);
             }
+        }
+
+        /// <summary>The bottom menu as the app's screen draws it (its unlocked places, the screen's place active).</summary>
+        private static BottomNavRegions Nav(SkiaPainter p, DesignApp app) => HomeScreen.Nav(p, HomeScreen.Look(app), app.ActivePlace);
+
+        /// <summary>The touch box of a place of the bottom menu as the app's screen draws it.</summary>
+        private static Box NavTouch(SkiaPainter p, DesignApp app, NavPlace place)
+        {
+            BottomNavRegions nav = Nav(p, app);
+            int index = nav.IndexOf(place);
+            Expect(index >= 0, "the bottom menu shows " + place);
+            return nav.Touch(index);
         }
 
         /// <summary>A tap in the middle of <paramref name="box"/> on the last drawn frame, as a finger would.</summary>

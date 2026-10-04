@@ -399,11 +399,12 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// Home in the reference layout (spec 005 FR-024, contracts/look.md §6.4): Settings at the top left, the Petals pill
-    /// at the top right, the logo across the top, the diorama in the middle, the side buttons (Wardrobe and Collection at
-    /// the left, Daily Challenge and Store at the right, more with <see cref="SideButton"/>), the rank pill in the top row
-    /// between Settings and the Petals pill, the wooden level plaque, the big Play button, and the milestone teaser with the free booster offer
-    /// beside it at the bottom. Every box is laid out; screens draw the ones unlocked. Engine-free.
+    /// Home in the reference layout (spec 005 FR-024, FR-030, contracts/look.md §6.4): Settings at the top left, the Petals
+    /// pill at the top right, the logo across the top, the diorama in the middle, the Daily Challenge side button at the
+    /// right (more with <see cref="SideButton"/>), the wooden level plaque, the big Play button and the milestone teaser
+    /// with the free booster offer beside it, all above the bottom menu (<see cref="NavTop"/>, its top; the Store, the
+    /// Wardrobe, the Leaderboard and the Collection are its places since the owner's request of 2026-10-04, so Home has no
+    /// side button or rank pill of theirs). Every box is laid out; screens draw the ones unlocked. Engine-free.
     /// </summary>
     public sealed record ReferenceHomeRegions(
         Box Safe,
@@ -412,15 +413,12 @@ namespace Bloomlings.Client.UI.Design
         Box Petals,
         Box Logo,
         Box Diorama,
-        Box Wardrobe,
-        Box Collection,
         Box Daily,
-        Box Store,
-        Box Rank,
         Box Plaque,
         Box Play,
         Box Teaser,
-        Box FreeBooster)
+        Box FreeBooster,
+        float NavTop)
     {
         /// <summary>The side buttons' size, as a share of <see cref="W"/>.</summary>
         public const float SideButtonShare = 0.13f;
@@ -430,6 +428,22 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The size of Play's label as a share of its button's height (the reference's big "PLAY"), both builds.</summary>
         public const float PlayLabelShare = 0.5f;
+
+        /// <summary>Play's height, as a share of the safe height: the reference's, and the least it shrinks to.</summary>
+        public const float PlayShare = 0.15f;
+
+        public const float PlayMinShare = 0.11f;
+
+        /// <summary>The level plaque's height and the gap between it and Play, as shares of the safe height.</summary>
+        public const float PlaqueShare = 0.085f;
+
+        public const float PlaqueGapShare = 0.01f;
+
+        /// <summary>
+        /// The highest the plaque's top goes before Play shrinks, as a share of the safe height (it stood at 0.64 before
+        /// the bottom menu): the heroes on the fountain stay in view above it.
+        /// </summary>
+        public const float PlaqueFloorShare = 0.6f;
 
         /// <summary>The owner's logo picture's width, as a share of <see cref="W"/> (its letters span about 0.8 W).</summary>
         public const float LogoPictureShare = 0.82f;
@@ -455,22 +469,22 @@ namespace Bloomlings.Client.UI.Design
             ("Petals", Petals), ("Logo", Logo), ("Plaque", Plaque), ("Play", Play), ("Teaser", Teaser),
         };
 
-        /// <summary>Everything a finger can press.</summary>
+        /// <summary>Everything a finger can press (the bottom menu's places are its own, <see cref="BottomNavRegions.Buttons"/>).</summary>
         public IReadOnlyList<(string Name, Box Box)> Buttons => new[]
         {
-            ("Settings", Settings), ("Petals", Petals), ("Wardrobe", Wardrobe), ("Collection", Collection), ("Daily", Daily),
-            ("Store", Store), ("Rank", Rank), ("Play", Play), ("FreeBooster", FreeBooster),
+            ("Settings", Settings), ("Petals", Petals), ("Daily", Daily), ("Play", Play), ("FreeBooster", FreeBooster),
         };
 
         /// <summary>
         /// The cream round side button <paramref name="index"/> (0 at the top) of the left or the right column: 0.13 W,
-        /// 0.04 W from the edge, stacked from 24% of the height with 0.03 W between them.
+        /// 0.04 W from the edge, stacked from 24% of the height with 0.03 W between them (the Daily Challenge is the right
+        /// column's first).
         /// </summary>
         public Box SideButton(bool right, int index)
         {
             float size = W * SideButtonShare;
             float x = right ? Safe.Right - (W * 0.04f) - size : Safe.Left + (W * 0.04f);
-            float y = Wardrobe.Top + (index * (size + (W * SideGapShare)));
+            float y = Daily.Top + (index * (size + (W * SideGapShare)));
             return new Box(x, y, x + size, y + size);
         }
     }
@@ -479,8 +493,9 @@ namespace Bloomlings.Client.UI.Design
     /// The Wardrobe in the reference layout (spec 005 FR-025, contracts/look.md §6.5), both builds: the back button, the
     /// wooden banner and the Petals pill; the hero on its stone pedestal between the ‹ › arrows; the parchment name card
     /// with its name tab, the role line and the description; the family tabs (<see cref="Tab"/>); and the parchment panel
-    /// to the bottom of the screen with the optional kind chips, one row of three outfit cards (<see cref="Card"/>) and
-    /// the footer between the page arrows. Engine-free.
+    /// to the bottom of the screen (behind the bottom menu, FR-030) with the optional kind chips, one row of three outfit
+    /// cards (<see cref="Card"/>) and the footer between the page arrows, all above the bottom menu's top
+    /// (<see cref="NavTop"/>). Engine-free.
     /// </summary>
     public sealed record ReferenceWardrobeRegions(
         Box Safe,
@@ -502,7 +517,8 @@ namespace Bloomlings.Client.UI.Design
         Box Grid,
         Box Footer,
         Box PagePrevious,
-        Box PageNext)
+        Box PageNext,
+        float NavTop)
     {
         /// <summary>The outfit cards to a row (one row a page).</summary>
         public const int Columns = 3;
@@ -611,7 +627,8 @@ namespace Bloomlings.Client.UI.Design
     /// The Store as a full-screen page (contracts/look.md §6.6; the owner's note of 2026-10-04: "the Store must be a separate
     /// page, not a popup"), both builds, over the Wardrobe's garden: the page header (<see cref="Header"/>: back, the
     /// "Store" banner, the Petals pill); a parchment panel (<see cref="Panel"/>) from under the header to the bottom of
-    /// the screen holding the Shop / Cosmetics tabs (<see cref="Tabs"/>, empty before the cosmetics open), Unity's offline
+    /// the screen (behind the bottom menu, FR-030; the list ends above its top, <see cref="NavTop"/>) holding the Shop /
+    /// Cosmetics tabs (<see cref="Tabs"/>, empty before the cosmetics open), Unity's offline
     /// line (<see cref="Status"/>, empty without it) and the list (<see cref="List"/>): on the Shop tab one row per item
     /// (<see cref="Row"/>, <see cref="RowsPerPage"/>; the rows grow to fill a taller page), on the Cosmetics tab the family tabs over the lighter panel with the
     /// outfit cards (<see cref="OutfitCard"/>, <see cref="OutfitsPerPage"/>); and the footer line between the page arrows at
@@ -627,13 +644,18 @@ namespace Bloomlings.Client.UI.Design
         Box List,
         Box Footer,
         Box PagePrevious,
-        Box PageNext)
+        Box PageNext,
+        float NavTop)
     {
         /// <summary>
-        /// A Shop row's height, as a share of W: at least <see cref="RowShare"/> (how many fit a page), at most
-        /// <see cref="RowMaxShare"/> (rows grow to fill a taller page); and the gap between two rows.
+        /// A Shop row's height, as a share of W: at least <see cref="RowShare"/> (how many fit a page; 0.15 W before the
+        /// bottom menu, which took the room of a row on 16:9 phones), at most <see cref="RowMaxShare"/> (rows grow to fill a
+        /// taller page); and the gap between two rows.
         /// </summary>
-        public const float RowShare = 0.15f;
+        public const float RowShare = 0.135f;
+
+        /// <summary>The row height the row's type sizes are drawn for, as a share of W (taller rows grow their names, shorter ones shrink them).</summary>
+        public const float RowTypeShare = 0.15f;
 
         public const float RowMaxShare = 0.19f;
 
@@ -1003,49 +1025,47 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// Home in the reference layout (contracts/look.md §6.4), in fractions of the safe height (less
-        /// <paramref name="bottomReserve"/>, the playtest's dev row) and width W: Settings 0.13 W at 0.04 W from the left,
-        /// the Petals pill 0.38 W × 0.095 W at 0.02 W from the right, both from 2.5% of H; the logo 0.8 W wide from 10% to
-        /// 20.5%; the diorama from 22% to 70%; the side buttons from 24%; the rank pill (0.3 W × 0.075 W) centered between
-        /// Settings and the Petals pill, on Settings' middle; the plaque 0.5 W × 0.085 H from 64% to 72.5%; Play 0.85 W wide from 73.5% to 88.5%; the teaser pill
-        /// 0.5 W wide from 89.5% to 93.5% with the free booster pill at its right.
+        /// Home in the reference layout (contracts/look.md §6.4), in fractions of the safe height H and width W: Settings
+        /// 0.13 W at 0.04 W from the left, the Petals pill 0.38 W × 0.095 W at 0.02 W from the right, both from 2.5% of H;
+        /// the logo 0.8 W wide from 10% to 20.5%; the diorama from 22% to 0.06 H under the plaque's top; the Daily
+        /// Challenge side button from 24%; then, bottom up from the bottom menu's top (<see cref="BottomNavTop"/>) less
+        /// 0.015 W and <paramref name="bottomReserve"/> (the playtest's dev row): the teaser row (the teaser pill 0.5 W ×
+        /// 0.04 H with the free booster pill at its right) whose touch boxes end there, Play 0.85 W wide ending 1 px over
+        /// them, 0.15 H tall unless the plaque would rise above 60% of H (then shorter, at least 0.11 H and the touch
+        /// minimum), and the plaque 0.5 W × 0.085 H 0.01 H over Play.
         /// </summary>
         public static ReferenceHomeRegions ReferenceHome(float width, float height, Insets insets, float bottomReserve = 0f)
         {
             Box safe = SafeArea(width, height, insets);
             float w = safe.Width;
-            float h = Math.Max(1f, safe.Height - Math.Max(0f, bottomReserve));
+            float h = Math.Max(1f, safe.Height);
             float Y(float share) => safe.Top + (h * share);
 
             float button = ReferenceHomeRegions.SideButtonShare * w;
             var settings = new Box(safe.Left + (0.04f * w), Y(0.025f), safe.Left + (0.04f * w) + button, Y(0.025f) + button);
             var petals = new Box(safe.Right - (0.02f * w) - (0.38f * w), settings.CenterY - (0.0475f * w), safe.Right - (0.02f * w), settings.CenterY + (0.0475f * w));
             var logo = new Box(safe.CenterX - (0.4f * w), Math.Max(Y(0.1f), settings.Bottom + (0.01f * w)), safe.CenterX + (0.4f * w), Y(0.205f));
-            var diorama = new Box(safe.Left, Y(0.22f), safe.Right, Y(0.7f));
-            float gap = ReferenceHomeRegions.SideGapShare * w;
-            Box Side(bool right, int index)
-            {
-                float x = right ? safe.Right - (0.04f * w) - button : safe.Left + (0.04f * w);
-                float y = Math.Max(Y(0.24f), logo.Bottom + (0.02f * w)) + (index * (button + gap));
-                return new Box(x, y, x + button, y + button);
-            }
+            float sideTop = Math.Max(Y(0.24f), logo.Bottom + (0.02f * w));
+            var daily = new Box(safe.Right - (0.04f * w) - button, sideTop, safe.Right - (0.04f * w), sideTop + button);
 
-            Box wardrobe = Side(false, 0);
-            Box collection = Side(false, 1);
-            Box daily = Side(true, 0);
-            Box store = Side(true, 1);
-            // The rank pill in the top row, between Settings and the Petals pill: under the right column it covered the
-            // animated Drop's head on the layered Home (spec 005 FR-028).
-            Box rank = Box.FromCenter((settings.Right + petals.Left) / 2f, settings.CenterY, 0.3f * w, 0.075f * w);
-            var plaque = new Box(safe.CenterX - (0.25f * w), Y(0.64f), safe.CenterX + (0.25f * w), Y(0.725f));
-            var play = new Box(safe.CenterX - (0.425f * w), Y(0.735f), safe.CenterX + (0.425f * w), Y(0.885f));
-            // The teaser row 0.04 H tall from 89.5%, lowered when needed so the free booster's touch box clears Play.
-            float rowHeight = 0.04f * h;
+            // Bottom up from the menu's top: the teaser row, whose touch boxes (the free booster's) end at the limit; Play
+            // over them; the plaque over Play. Play shrinks before the plaque rises above PlaqueFloorShare of H.
+            float navTop = BottomNavTop(width, height, insets);
+            float limit = navTop - (Design.BottomNav.GapShare * w) - Math.Max(0f, bottomReserve);
             float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
-            float rowCenter = Math.Max(Y(0.915f), play.Bottom + (touch / 2f) + 1f);
+            float rowHeight = 0.04f * h;
+            float rowCenter = limit - (touch / 2f);
             var teaser = new Box(safe.CenterX - (0.25f * w), rowCenter - (rowHeight / 2f), safe.CenterX + (0.25f * w), rowCenter + (rowHeight / 2f));
             var free = new Box(teaser.Right + (0.02f * w), teaser.Top, safe.Right - (0.02f * w), teaser.Bottom);
-            return new ReferenceHomeRegions(safe, w, settings, petals, logo, diorama, wardrobe, collection, daily, store, rank, plaque, play, teaser, free);
+            float playBottom = rowCenter - (touch / 2f) - 1f;
+            float plaqueHeight = ReferenceHomeRegions.PlaqueShare * h;
+            float gap = ReferenceHomeRegions.PlaqueGapShare * h;
+            float room = playBottom - gap - plaqueHeight - Y(ReferenceHomeRegions.PlaqueFloorShare);
+            float playHeight = Math.Min(ReferenceHomeRegions.PlayShare * h, Math.Max(Math.Max(ReferenceHomeRegions.PlayMinShare * h, touch), room));
+            var play = new Box(safe.CenterX - (0.425f * w), playBottom - playHeight, safe.CenterX + (0.425f * w), playBottom);
+            var plaque = new Box(safe.CenterX - (0.25f * w), play.Top - gap - plaqueHeight, safe.CenterX + (0.25f * w), play.Top - gap);
+            var diorama = new Box(safe.Left, Y(0.22f), safe.Right, Y(0.7f));
+            return new ReferenceHomeRegions(safe, w, settings, petals, logo, diorama, daily, plaque, play, teaser, free, navTop);
         }
 
         /// <summary>
@@ -1071,19 +1091,22 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// The Wardrobe in the reference layout (contracts/look.md §6.5), in fractions of the safe height H and width W:
-        /// the page header (<see cref="PageHeader(Box)"/>: back, banner and Petals pill on the back button's middle line);
-        /// the hero (an 8:9 box) from 11% to 37% on
+        /// The Wardrobe in the reference layout (contracts/look.md §6.5), in fractions of the page's height H and the safe
+        /// width W: the page header (<see cref="PageHeader(Box)"/>: back, banner and Petals pill on the back button's middle
+        /// line, from the safe area's own height); the hero (an 8:9 box) from 11% to 37% on
         /// the pedestal 0.6 W wide from 35% to 43%; the ‹ › arrows 0.09 W at 8% and 92% of W, 28% of H; the name card
         /// 0.92 W from 42% to 57% with its tab 0.5 W; the tabs from 56% to 68.5%; the panel from 67% to the bottom of the
         /// screen with the kind chips (when <paramref name="hasChips"/>), one row of cards 0.29 W wide and the footer at
-        /// 93% between the page arrows.
+        /// 93% between the page arrows. H is the safe height shortened so the page arrows' touch boxes (centered on the
+        /// footer, the touch minimum tall) end on the bottom menu's top (<see cref="BottomNavTop"/>, FR-030).
         /// </summary>
         public static ReferenceWardrobeRegions ReferenceWardrobe(float width, float height, Insets insets, bool hasChips = false)
         {
             Box safe = SafeArea(width, height, insets);
             float w = safe.Width;
-            float h = safe.Height;
+            float navTop = BottomNavTop(width, height, insets);
+            float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
+            float h = Math.Max(1f, Math.Min(safe.Height, (navTop - (touch / 2f) - safe.Top) / 0.93f));
             float Y(float share) => safe.Top + (h * share);
             float X(float share) => safe.Left + (w * share);
 
@@ -1109,7 +1132,7 @@ namespace Bloomlings.Client.UI.Design
             var footer = new Box(X(0.15f), Y(0.91f), X(0.85f), Y(0.95f));
             Box pagePrevious = Box.FromCenter(X(0.08f), footer.CenterY, arrow, arrow);
             Box pageNext = Box.FromCenter(X(0.92f), footer.CenterY, arrow, arrow);
-            return new ReferenceWardrobeRegions(safe, w, back, banner, petals, hero, pedestal, previous, next, nameCard, nameTab, role, about, tabs, panel, chips, grid, footer, pagePrevious, pageNext);
+            return new ReferenceWardrobeRegions(safe, w, back, banner, petals, hero, pedestal, previous, next, nameCard, nameTab, role, about, tabs, panel, chips, grid, footer, pagePrevious, pageNext, navTop);
         }
 
         /// <summary>
@@ -1119,7 +1142,8 @@ namespace Bloomlings.Client.UI.Design
         /// <paramref name="hasCosmetics"/>), Unity's offline line 0.05 W tall 0.02 W under them (when
         /// <paramref name="hasStatus"/>), then the list 0.88 W wide from 0.04 W under the tabs (0.02 W under the line) to
         /// 0.04 W over the safe bottom, with the footer line (0.84 W, 0.12 W or the touch minimum tall) 0.02 W over the
-        /// list's bottom and the page arrows 0.09 W at its ends.
+        /// list's bottom and the page arrows 0.09 W at its ends. The list ends 0.02 W over the bottom menu's top
+        /// (<see cref="BottomNavTop"/>, FR-030; 0.04 W over the safe bottom before it).
         /// </summary>
         public static ReferenceStoreRegions ReferenceStore(float width, float height, Insets insets, bool hasCosmetics = true, bool hasStatus = false)
         {
@@ -1144,14 +1168,15 @@ namespace Bloomlings.Client.UI.Design
                 y = status.Bottom + (0.02f * w);
             }
 
-            var list = new Box(X(0.06f), y, X(0.94f), safe.Bottom - (0.04f * w));
+            float navTop = BottomNavTop(width, height, insets);
+            var list = new Box(X(0.06f), y, X(0.94f), Math.Max(y + 1f, navTop - (0.02f * w)));
             float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
             float line = Math.Max(0.12f * w, touch);
             var footer = new Box(X(0.08f), list.Bottom - (0.02f * w) - line, X(0.92f), list.Bottom - (0.02f * w));
             float arrow = 0.09f * w;
             Box pagePrevious = Box.FromCenter(footer.Left + (line / 2f), footer.CenterY, arrow, arrow);
             Box pageNext = Box.FromCenter(footer.Right - (line / 2f), footer.CenterY, arrow, arrow);
-            return new ReferenceStoreRegions(safe, w, header, panel, tabs, status, list, footer, pagePrevious, pageNext);
+            return new ReferenceStoreRegions(safe, w, header, panel, tabs, status, list, footer, pagePrevious, pageNext, navTop);
         }
     }
 }

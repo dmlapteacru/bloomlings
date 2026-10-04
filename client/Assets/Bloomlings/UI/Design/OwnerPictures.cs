@@ -2,7 +2,7 @@ namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
     /// The names of the pictures the owner makes (spec 005 <c>pictures.md</c> B, C, D and G): backgrounds, the logo, the
-    /// booster icons, the leaf decorations, the variant icons and the currency lotus. Each build looks for the picture by
+    /// booster icons, the leaf decorations, the bottom menu's icons, the variant icons and the currency lotus. Each build looks for the picture by
     /// its name and draws the code-drawn stand-in while it is missing (FR-019, FR-027):
     /// <list type="bullet">
     /// <item><description>Unity loads <c>Resources/Backgrounds/{name}</c>, <c>Resources/Brand/{name}</c>,
@@ -85,10 +85,18 @@ namespace Bloomlings.Client.UI.Design
         public const string CurrencyLotus = "currency-lotus";
 
         /// <summary>
+        /// D9–D13: the bottom menu's icon of a place (<c>nav-shop</c>, <c>nav-wardrobe</c>, <c>nav-home</c>,
+        /// <c>nav-leaderboard</c>, <c>nav-collection</c>), in the Icons folder (spec 005 FR-030; the stand-in is the place's
+        /// glyph, <see cref="BottomNav.Fallback"/>).
+        /// </summary>
+        public static string NavIcon(NavPlace place) => "nav-" + BottomNav.Key(place);
+
+        /// <summary>
         /// The asset slot a picture of <c>pictures.md</c> B, C, D or G fills (<c>home</c> → <c>bg.home</c>,
         /// <c>gameplay-pond</c> → <c>bg.theme.pond</c>, <c>logo</c> → <c>brand.wordmark</c>, <c>booster-shuffle</c> →
         /// <c>booster.shuffle</c>, <c>ivy</c> → <c>ui.sign.ivy</c>, <c>variant-leaf</c> → <c>tile.icon.leaf</c>,
-        /// <c>field-leaf</c> → <c>tile.gem.leaf</c>, <c>currency-lotus</c> → <c>currency.petal</c>).
+        /// <c>field-leaf</c> → <c>tile.gem.leaf</c>, <c>currency-lotus</c> → <c>currency.petal</c>, <c>nav-home</c> →
+        /// <c>icon.nav.home</c>).
         /// </summary>
         public static string SlotOf(string picture) => picture switch
         {
@@ -109,6 +117,7 @@ namespace Bloomlings.Client.UI.Design
             _ when picture.StartsWith("booster-", System.StringComparison.Ordinal) => "booster." + picture.Substring("booster-".Length),
             _ when picture.StartsWith("variant-", System.StringComparison.Ordinal) => IconSlot(picture.Substring("variant-".Length)),
             _ when picture.StartsWith("field-", System.StringComparison.Ordinal) => GemSlot(picture.Substring("field-".Length)),
+            _ when picture.StartsWith("nav-", System.StringComparison.Ordinal) => "icon.nav." + picture.Substring("nav-".Length),
             _ => throw new System.ArgumentException("Not an owner picture of pictures.md B, C, D or G: " + picture, nameof(picture)),
         };
 

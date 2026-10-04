@@ -35,7 +35,7 @@ namespace Bloomlings.Playtest.Design
         public static void Draw(IPainter p, DesignApp app)
         {
             DesignApp.DrawBackdrop(p, BackdropScene.Splash, 1);
-            ReferenceHomeRegions r = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets);
+            ReferenceHomeRegions r = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p));
             float appear = Kit.Ease(app.Now / 0.5f);
             float rise = (1f - appear) * r.W * 0.04f;
             if (HomeScreen.StageOf(p, BackdropScene.Splash) == HomeStageKind.Layered)
@@ -82,21 +82,24 @@ namespace Bloomlings.Playtest.Design
     /// FR-028, <see cref="LayeredStage"/>; or the drawn stand-in's four still heroes around the lotus fountain on the
     /// stone; in their outfits once the Wardrobe is open), the level on a wooden plaque and the big Play button in its
     /// wooden rim. A tap on an animated hero makes it react (<see cref="HomeMotion.Tap"/>).</description></item>
-    /// <item><description>Shown once unlocked, as cream round buttons along the sides: the Wardrobe (the profile avatar with
-    /// a shirt badge) and the Collection at the left, the Daily Challenge and the Store at the right, with the rank as a parchment pill under
-    /// the right column; "N levels to reward" with the gift as a parchment pill under Play.</description></item>
+    /// <item><description>Shown once unlocked: the Daily Challenge as a cream round button at the right; "N levels to
+    /// reward" with the gift as a parchment pill under Play.</description></item>
+    /// <item><description>The bottom menu (spec 005 FR-030, <see cref="Kit.BottomNav"/>): the wooden bar with the unlocked
+    /// places (Shop, Wardrobe, Home, Leaderboard, Collection), Home in the raised medallion; it replaced Home's Store,
+    /// Wardrobe and Collection side buttons and the rank pill (<see cref="DesignApp.Navigate"/>).</description></item>
     /// </list>
-    /// Play always continues Level N, and there is no level map. A small row at the very bottom keeps the playtest's
-    /// skip and reset controls; it is not part of the product.
+    /// Play always continues Level N, and there is no level map. A small row just above the bottom menu keeps the
+    /// playtest's skip and reset controls; it is not part of the product.
     /// </summary>
     public static class HomeScreen
     {
         /// <summary>
         /// The height the playtest's dev row keeps out of Home's layout (<see cref="ScreenLayout.ReferenceHome"/>'s
-        /// <c>bottomReserve</c>): none. The row lies small and faded over the garden under the teaser, so the plaque, Play
-        /// and the teaser stand where the reference has them (64%, 73.5% and 89.5% of the height).
+        /// <c>bottomReserve</c>): the touch minimum. Since the bottom menu (FR-030) took the band under the teaser, the row
+        /// lies just above the menu, under the teaser, and the plaque, Play and the teaser stand that much higher than in
+        /// the Unity client.
         /// </summary>
-        public static float DevReserve(IPainter p) => 0f;
+        public static float DevReserve(IPainter p) => p.U(DesignTokens.Size.TouchMin);
 
         public static void Draw(IPainter p, DesignApp app)
         {
@@ -140,7 +143,7 @@ namespace Bloomlings.Playtest.Design
             Kit.PetalsPill(p, r.Petals, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
             Kit.SparkleBurst(p, r.Petals.Left + (r.Petals.Height * 0.5f), r.Petals.CenterY, r.Petals.Height, app.SinceRewardBurst);
 
-            SideButtons(p, r, look, meta, app);
+            SideButtons(p, r, look, app);
 
             // The level on its wooden plaque, Play, the milestone teaser.
             Kit.WoodSign(p, r.Plaque, PlaytestText.F("common.level", NumberText.Group(level)), T.LevelHome);
@@ -153,10 +156,13 @@ namespace Bloomlings.Playtest.Design
                 Teaser(p, r.Teaser, teaser);
             }
 
-            // The playtest's own controls, faded at the very bottom under the teaser (not part of the product).
+            // The playtest's own controls, faded just above the bottom menu (not part of the product).
             p.PushAlpha(0.7f);
             DevRow(p, app, DevRowBox(p, r));
             p.PopAlpha();
+
+            // The bottom menu, Home in its medallion (FR-030).
+            Kit.BottomNav(p, Nav(p, look, NavPlace.Home), app.Navigate);
 
             string? toast = app.HomeToastText;
             if (toast != null)
@@ -191,6 +197,10 @@ namespace Bloomlings.Playtest.Design
             bool hasNext = meta.Milestones.Next(meta.Progression.HighestCompletedLevel).HasValue;
             return HomeLook.From(meta.Progression.IsUnlocked, meta.Collection.Count, hasNext, dailyChallengeAvailable: true, freeBoosterOffer: false);
         }
+
+        /// <summary>The bottom menu's regions with the places <paramref name="look"/> unlocks and <paramref name="active"/> in the medallion.</summary>
+        public static BottomNavRegions Nav(IPainter p, HomeLook look, NavPlace active) =>
+            ScreenLayout.BottomNav(p.Width, p.Height, p.Insets, BottomNav.Places(look), active);
 
         /// <summary>The outfits Home's heroes wear: the player's, once the Wardrobe is open; else none.</summary>
         public static Func<Family, Outfit>? OutfitsOf(DesignApp app) => Look(app).Wardrobe ? app.Meta.Wardrobe.OutfitOf : (Func<Family, Outfit>?)null;
@@ -336,7 +346,10 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The touch boxes of Home's buttons, pills, plaque and dev row (what the heroes' taps keep clear of).</summary>
+        /// <summary>
+        /// The touch boxes of Home's buttons, pills, plaque and dev row, and the bottom menu from its top down (what the
+        /// heroes' taps keep clear of).
+        /// </summary>
         private static List<Box> UiBoxes(IPainter p, ReferenceHomeRegions r, HomeLook look)
         {
             var boxes = new List<Box>
@@ -347,21 +360,11 @@ namespace Bloomlings.Playtest.Design
                 Kit.Touch(p, r.Play),
                 Kit.Touch(p, r.Teaser),
                 DevRowBox(p, r),
+                new Box(r.Safe.Left, r.NavTop, r.Safe.Right, r.Safe.Bottom),
             };
-            for (int i = 0; i < LeftButtons(look); i++)
+            if (look.DailyChallenge)
             {
-                boxes.Add(Kit.Touch(p, r.SideButton(false, i)));
-            }
-
-            int right = RightButtons(look);
-            for (int i = 0; i < right; i++)
-            {
-                boxes.Add(Kit.Touch(p, r.SideButton(true, i)));
-            }
-
-            if (look.Rank)
-            {
-                boxes.Add(Kit.Touch(p, r.Rank));
+                boxes.Add(Kit.Touch(p, r.Daily));
             }
 
             return boxes;
@@ -435,61 +438,30 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The cream round side buttons of the unlocked features (§6.4), each column stacked from its top: the Wardrobe (the
-        /// profile avatar with a shirt badge) and the Collection at the left; the Daily Challenge and the Store at the right, with the rank
-        /// pill under the right column.
+        /// The cream round side button of the unlocked Daily Challenge (§6.4), the right column's first: the sun. The Store,
+        /// the Wardrobe, the Collection and the rank are the bottom menu's places since the owner's request of 2026-10-04
+        /// (FR-030).
         /// </summary>
-        private static void SideButtons(IPainter p, ReferenceHomeRegions r, HomeLook look, PlaytestMeta meta, DesignApp app)
+        private static void SideButtons(IPainter p, ReferenceHomeRegions r, HomeLook look, DesignApp app)
         {
-            int left = 0;
-            if (look.Wardrobe)
-            {
-                // One Wardrobe button, the hero's (the owner's note of 2026-10-04): the profile avatar with a shirt badge.
-                Avatar(p, r.SideButton(false, left++), meta.Wardrobe.Profile, app.OpenWardrobe);
-            }
-
-            if (look.Collection)
-            {
-                Box box = r.SideButton(false, left++);
-                Kit.RoundButton(p, box.CenterX, box.CenterY, box.Width, "ui.grid", () => app.OpenOverlay(Overlay.Collection));
-            }
-
-            int right = 0;
             if (look.DailyChallenge)
             {
                 // The playtest has no Daily Challenge content.
-                RoundSide(p, r.SideButton(true, right++), () => app.HomeToast("Daily Challenge: not in the playtest yet"), face =>
+                RoundSide(p, r.Daily, () => app.HomeToast("Daily Challenge: not in the playtest yet"), face =>
                 {
                     p.Mark("ui.sun");
                     float g = face.Width * 0.72f;
                     OutlinedShape(p, "ui.sun", Box.FromCenter(face.CenterX, face.CenterY, g, g), C.GardenFlowerCenter, C.GardenFlowerCenterLine);
                 });
             }
-
-            if (look.Store)
-            {
-                RoundSide(p, r.SideButton(true, right++), app.OpenStore, face => StoreGlyph(p, face));
-            }
-
-            if (look.Rank)
-            {
-                // The rank in the top row between Settings and the Petals pill (the server is deferred: the playtest shows
-                // the offline form).
-                Box rank = r.Rank;
-                RankRow(p, rank, PlaytestText.T("home.rank_unknown_offline"));
-                p.Hit(Kit.Touch(p, rank), () => app.OpenOverlay(Overlay.Leaderboard));
-            }
         }
 
-        /// <summary>How many round buttons the left column shows: the Wardrobe (the profile avatar), the Collection.</summary>
-        private static int LeftButtons(HomeLook look) => (look.Wardrobe ? 1 : 0) + (look.Collection ? 1 : 0);
-
-        /// <summary>How many round buttons the right column shows: the Daily Challenge, the Store.</summary>
-        private static int RightButtons(HomeLook look) => (look.DailyChallenge ? 1 : 0) + (look.Store ? 1 : 0);
-
-        /// <summary>The playtest's dev row at the very bottom of the safe area.</summary>
-        private static Box DevRowBox(IPainter p, ReferenceHomeRegions r) =>
-            new Box(r.Safe.Left + (r.W * 0.04f), r.Safe.Bottom - p.U(DesignTokens.Size.TouchMin), r.Safe.Right - (r.W * 0.04f), r.Safe.Bottom);
+        /// <summary>The playtest's dev row, the touch minimum tall, just above the bottom menu (<see cref="DevReserve"/>).</summary>
+        private static Box DevRowBox(IPainter p, ReferenceHomeRegions r)
+        {
+            float bottom = r.NavTop - (r.W * BottomNav.GapShare);
+            return new Box(r.Safe.Left + (r.W * 0.04f), bottom - DevReserve(p), r.Safe.Right - (r.W * 0.04f), bottom);
+        }
 
         /// <summary>
         /// A cream round side button with a colored glyph (§3.3's domed cushion, as <see cref="Kit.RoundButton"/>):
@@ -506,21 +478,6 @@ namespace Bloomlings.Playtest.Design
             p.Hit(Kit.Touch(p, box), action);
         }
 
-        /// <summary>The Store's glyph: a pink lotus rising from the woven reward basket (the Store sells for Petals).</summary>
-        private static void StoreGlyph(IPainter p, Box face)
-        {
-            p.Mark("currency.reward_basket");
-            float s = face.Width;
-            Kit.Petal(p, Box.FromCenter(face.CenterX, face.CenterY - (s * 0.14f), s * 0.62f, s * 0.62f));
-            var basket = Box.FromCenter(face.CenterX, face.CenterY + (s * 0.17f), s * 0.78f, s * 0.5f);
-            Func<float, float, float> sdf = ShapeLibrary.Get("currency.reward_basket");
-            p.ShapeOf("currency.reward_basket/line", (x, y) => sdf(x, y) - 0.06f, basket, C.WoodDarkLine);
-            p.Shape("currency.reward_basket", basket, C.RewardBasket);
-            p.PushClip(new Box(basket.Left, basket.Top, basket.Right, basket.CenterY));
-            p.ShapeOf("currency.reward_basket/light", (x, y) => sdf(x, y) + 0.04f, basket, C.RewardBasket.Lighten(0.25f));
-            p.PopClip();
-        }
-
         /// <summary>The milestone teaser: a parchment pill with "N levels to reward" and the pink gift.</summary>
         private static void Teaser(IPainter p, Box box, string text)
         {
@@ -535,22 +492,6 @@ namespace Bloomlings.Playtest.Design
             OutlinedShape(p, "ui.gift", Box.FromCenter(start + textWidth + gap + (gift / 2f), box.CenterY - (gift * 0.03f), gift, gift), C.LotusFill, C.LotusLine);
         }
 
-        /// <summary>The rank row: a parchment pill with the gold trophy, the rank and a brown chevron.</summary>
-        private static void RankRow(IPainter p, Box box, string rank)
-        {
-            p.Mark("ui.trophy");
-            Kit.ParchmentPill(p, box);
-            float icon = box.Height * 0.66f;
-            float chevron = icon * 0.5f;
-            float gap = icon * 0.2f;
-            float scale = Math.Min(1f, (box.Height * 0.48f) / p.U(T.Body.Size));
-            float textWidth = Math.Min(p.MeasureText(rank, T.Body, scale), box.Width - (icon * 2.4f) - chevron);
-            float start = box.CenterX - ((icon + gap + textWidth + gap + chevron) / 2f);
-            OutlinedShape(p, "ui.trophy", Box.FromCenter(start + (icon / 2f), box.CenterY, icon, icon), C.MedalGold, C.MedalGold.Darken(0.42f));
-            p.Text(rank, start + icon + gap + (textWidth / 2f), box.CenterY, T.Body, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
-            p.Shape("ui.chevron", Box.FromCenter(start + icon + gap + textWidth + gap + (chevron / 2f), box.CenterY, chevron, chevron), C.InkBrownSoft);
-        }
-
         /// <summary>A glyph in a saturated color over its darker outline (the gift, the trophy), as the reference's icons.</summary>
         private static void OutlinedShape(IPainter p, string shapeId, Box box, Rgba fill, Rgba line)
         {
@@ -560,39 +501,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The profile avatar (FR-061) as the left column's first round button, Home's one Wardrobe button (the owner's note of
-        /// 2026-10-04: it replaced the shirt button): the hero's portrait on a domed cream disc in the chosen frame, the
-        /// profile badge at its bottom left and a green shirt badge at its bottom right (<see cref="Kit.IconBadge"/>). A tap
-        /// opens the Wardrobe.
-        /// </summary>
-        private static void Avatar(IPainter p, Box box, ProfileLook look, Action action)
-        {
-            float size = box.Width;
-            float depth = Kit.Press(p, box, true);
-            Kit.Squash(p, box, depth);
-            Box face = Kit.IconFace(p, box, GardenLook.White, size / 2f, depth);
-            p.FillRoundGradient(face, face.Width / 2f, GardenLook.Green.Top.Mix(C.CreamTop, 0.6f), GardenLook.Green.Face.Mix(C.CreamTop, 0.45f));
-            p.StrokeCircle(face.CenterX, face.CenterY, face.Width / 2f, Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidth)), C.CreamLine);
-            Visuals.Hero(p, Box.FromCenter(face.CenterX, face.CenterY + (size * 0.02f), size * 0.7f, size * 0.7f), Family.Sprig, null);
-            if (look.Frame != null)
-            {
-                p.Shape("cosmetic.frame", Box.FromCenter(face.CenterX, face.CenterY, size * 1.08f, size * 1.08f), Visuals.Tint(look.Frame));
-            }
-
-            if (look.Badge != null)
-            {
-                p.Shape("cosmetic.badge", Box.FromCenter(face.CenterX - (size * 0.36f), face.CenterY + (size * 0.36f), size * 0.36f, size * 0.36f), Visuals.Tint(look.Badge));
-            }
-
-            Kit.IconBadge(p, face.CenterX + (size * 0.36f), face.CenterY + (size * 0.36f), size * 0.34f, "ui.shirt");
-
-            p.PopTransform();
-            p.Hit(Kit.Touch(p, box), action);
-        }
-
-        /// <summary>
-        /// The playtest's own controls (not the product), small at the very bottom: step back, skip one or ten levels, start
-        /// a new profile. Each pill is half the row tall; the whole cell takes the tap.
+        /// The playtest's own controls (not the product), small just above the bottom menu: step back, skip one or ten
+        /// levels, start a new profile. Each pill is half the row tall; the whole cell takes the tap.
         /// </summary>
         private static void DevRow(IPainter p, DesignApp app, Box row)
         {

@@ -59,7 +59,7 @@ namespace Bloomlings.Client.UI.Design
     /// Sizes are pixels; colors are the <c>wood.*</c>, <c>stone.*</c>, <c>parchment.*</c> tokens and the variant colors.
     /// Engine-free.
     /// </summary>
-    public static class UiRaster
+    public static partial class UiRaster
     {
         /// <summary>The cache key of a picture: <c>key@WxH</c> (contracts/look.md §2).</summary>
         public static string CacheKey(string key, int width, int height) => key + "@" + width + "x" + height;
