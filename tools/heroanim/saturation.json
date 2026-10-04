@@ -1,5 +1,5 @@
 {
- "heroesMean": 0.6558,
+ "heroesMean": 0.659,
  "ladder": {
   "background": 0.7
  },
@@ -8,43 +8,43 @@
    "file": "Backgrounds/Resources/Backgrounds/win.jpg",
    "class": "background",
    "factor": 1,
-   "before": 0.702,
-   "after": 0.702
+   "before": 0.698,
+   "after": 0.698
   },
   {
    "file": "Backgrounds/Resources/Backgrounds/wardrobe.jpg",
    "class": "background",
    "factor": 1,
-   "before": 0.703,
-   "after": 0.703
+   "before": 0.699,
+   "after": 0.699
   },
   {
    "file": "Backgrounds/Resources/Backgrounds/gameplay-daylight.jpg",
    "class": "background",
    "factor": 1,
-   "before": 0.702,
-   "after": 0.702
+   "before": 0.699,
+   "after": 0.699
   },
   {
    "file": "Backgrounds/Resources/Backgrounds/gameplay-moonlit.jpg",
    "class": "background",
    "factor": 1,
-   "before": 0.586,
-   "after": 0.586
+   "before": 0.583,
+   "after": 0.583
   },
   {
    "file": "Backgrounds/Resources/Backgrounds/gameplay-orchard.jpg",
    "class": "background",
    "factor": 1,
-   "before": 0.703,
-   "after": 0.703
+   "before": 0.7,
+   "after": 0.7
   },
   {
    "file": "Backgrounds/Resources/Backgrounds/gameplay-pond.jpg",
    "class": "background",
    "factor": 1,
-   "before": 0.701,
-   "after": 0.701
+   "before": 0.697,
+   "after": 0.697
   }
  ]
 }

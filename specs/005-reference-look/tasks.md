@@ -516,3 +516,15 @@ pictures.md D14–D22. Spec 001 FR-054 and FR-058 carry the owner's amendment (R
 - [X] T096 Docs (spec 005, spec 001 amendment, look.md, pictures.md, CLAUDE.md), the asset inventory, previews, all
   checks, the APK.
 
+## Owner delivery: the four heroes in one file, Heroes.glb (2026-10-04)
+
+See spec.md (the clarification "the owner's Heroes.glb"), research D26 and `tools/heroanim/SOURCE.md`.
+- [X] T097 The single exports checked (`twig2.glb` without clips, `sprig3.glb` with a blank texture, `drop2.glb` with a
+  still breathing, `bloom3.glb`, an empty `bloom4.glb`) and `Heroes.glb` (one rig, material and texture per hero, every
+  clip on its own rig).
+- [X] T098 The bake reads one hero out of a file of several (`mesh`), adds a breath (`breathe`, Drop) and stand-in clips
+  (`synth`, Twig); all four baked from `models/heroes.glb`, graded (the heroes' mean saturation kept), the old models
+  removed; Home's Bloom and Drop placements; the hero tests (1.5 s reactions, 732 frames); SOURCE.md, README, CLAUDE.md.
+- [ ] T099 Twig's own clips (an idle, a reaction, the win) and Drop's breathing and celebration from the owner; then
+  re-bake without the stand-ins.
+

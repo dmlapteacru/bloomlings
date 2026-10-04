@@ -2,7 +2,7 @@
 
 | Field | Value |
 |---|---|
-| Delivered | by the project owner on 2026-10-02, in conversation: four rigged and animated FBX models and `bloomlings_home_assets.zip` (the Home picture in five layers, with a README giving the layer order); on 2026-10-03 the same four models again, exported at 60 fps, to replace the first ones ("the same heroes but 60 fps. Just replace them") |
+| Delivered | by the project owner on 2026-10-02, in conversation: four rigged and animated FBX models and `bloomlings_home_assets.zip` (the Home picture in five layers, with a README giving the layer order); on 2026-10-03 the same four models again, exported at 60 fps, to replace the first ones ("the same heroes but 60 fps. Just replace them"); on 2026-10-03 Twig's and Sprig's Blender models; on 2026-10-04 `Heroes.glb`, the four heroes in one Blender file, which replaces them all ("bake them all and update"; see "The owner's Heroes.glb" below) |
 | Made with | the models: Meshy AI (meshy.ai), text-to-3D with Meshy's auto-rigging and its animation library in one file per hero (first `Meshy_AI_…_biped_Meshy_Merged_Animations.fbx`, now `Meshy_AI_…_biped_Animation_all_frame_rate_60.fbx`); the Home layers: the owner's picture generator (ChatGPT image generation, as the other owner pictures, `tools/artgen/models/owner-pictures.md`) |
 | Rights | the owner's: they delivered the files for the game to use, as with the other owner pictures (owner's statement on 2026-10-02 for the pictures). the models were made on the owner's personal Meshy licence (owner's statement on 2026-10-03), under which Meshy's terms give the output to its creator: no attribution is needed (the free plan's CC BY 4.0 does not apply) |
 | Constitution | VII: the models are never loaded by the game. `bake.mjs` renders them offline into flat frame pictures, shown on meta screens only (Home and the splash, the win; the milestone card shares the win's hero) |
@@ -11,10 +11,11 @@
 
 | File here | Delivered as | SHA-256 |
 |---|---|---|
-| `models/sprig.glb` | `Sprig_Complete.glb` (2026-10-03; see "Sprig's Blender model" below; it replaced the Meshy `sprig.fbx`, `61a47b4a…`) | `9bdebdff3d18bc53341549394afdab24e8b81843c4ff87fada9c11758e6ecde5` |
-| `models/bloom.fbx` | `Meshy_AI_Petalina_biped_Animation_all_frame_rate_60.fbx` | `052c59366cdfb92dd60c2f3e35598fa98fe62a7bf3a77795b353471a0980479c` |
-| `models/drop.fbx` | `Meshy_AI_Dewdrop_Buddy_biped_Animation_all_frame_rate_60.fbx` | `cb75560cfcfd2b75afee43d5e1b9d656043eee91ff0dddae502f29cc309c3a02` |
-| `models/twig.glb` | `Twig.glb` (2026-10-03; see "Twig's Blender model" below) | `95c9bd89f9400b851c027c05ff89d02051ce33cd7bbd38130ce0941a586231ed` |
+| `models/heroes.glb` | `Heroes.glb` (2026-10-04; the four heroes; see "The owner's Heroes.glb" below) | `89ebd3a0d5a04be1e9fb8b0092071c18f9c08a64e569d590364184db660ea0f3` |
+
+Until 2026-10-04 (in the repository's history): `models/sprig.glb` (`Sprig_Complete.glb`, `9bdebdff…`), `models/bloom.fbx`
+(`Meshy_AI_Petalina_biped_Animation_all_frame_rate_60.fbx`, `052c5936…`), `models/drop.fbx`
+(`Meshy_AI_Dewdrop_Buddy_biped_Animation_all_frame_rate_60.fbx`, `cb75560c…`) and `models/twig.glb` (`Twig.glb`, `95c9bd89…`).
 
 The first delivery (`…_Meshy_Merged_Animations.fbx`, 2026-10-02) had the same models and clips with the frames 1/24 s
 apart; the 60 fps export holds the same frames 1/60 s apart, so its clips last 0.4 times as long (the idle 1.6 s, the
@@ -94,3 +95,19 @@ files' hashes are in `layers.json`.
 | Bones | the rig has no bone at the head's top, so the brow the hats follow is a point 0.3 m up the `Head` bone (`topOffset` [0, 0.3, 0], at the top of the face under the leaves); the chin is `Head` |
 | Look | toned down on 2026-10-04 (the owner: "Sprig too", after Twig's "too bright"): a grade of its texture, `color` gamma 1.04, gain 0.94, saturation 0.74, under the shared light (brightness 0.65 and saturation 0.64; it was 0.69 and 0.79) |
 | Frames | 96 idle, 72 reaction, 48 `win` and 72 `win2` frames, 11.8 MB; with the other heroes, 756 frames and 31.3 MB in all |
+
+## The owner's Heroes.glb (2026-10-04)
+
+| Field | Value |
+|---|---|
+| Delivered | by the project owner on 2026-10-04, in conversation, after single exports (`twig2.glb` without clips, `sprig3.glb` with a blank color texture, `drop2.glb`, `bloom3.glb`, an empty `bloom4.glb`): `Heroes.glb`, all four heroes in one file. The owner: "Bake them all and update", then "Bake Twig too. We'll sort out the animations later" |
+| Made with | Blender (glTF exporter 5.2.39): four skinned meshes, each with its own rig, material and 2048 × 2048 base color (`GLB_Bloom_Model` 5 551 vertices, 34 joints; `GLB_Drop_Model` 3 196, 13 joints; `GLB_Sprig_character_Model` 6 138, 34 joints; Twig's `GLB_ChatGPT_4_2026_23_55_22` 3 385, 20 joints, with six corrective shape keys); no normal maps; the heroes stand side by side, away from the origin |
+| Rights | the owner's: delivered for the game, as the other owner pictures |
+| One file | each hero is drawn alone (`heroes.json` `mesh`; the other three hidden), its head points looked up in its own skeleton by the bones' names in the file (three.js makes the second "Head" "Head_1" and keeps the name in `userData`); every clip moves only its own rig |
+| Clips | Sprig: `GLB_Sprig_Breathing` (4 s, the idle), `GLB_Sprig_Wave` (3 s, the reaction), `GLB_Sprig_Celebrate` (2 s) and `GLB_Sprig_Clap` (3 s), the win's two, taking turns (as before). Bloom (a new design: a pink face in a crown of petals with a white flower on top): `GLB_Bloom_Breathing` (4 s) and `GLB_Bloom_SmallJump` (1.5 s; its `Wave` lifts the hand only about 30°). Drop: `GLB_Drop_Breathing` (4 s) and `GLB_Drop_Jump` (1.5 s); the breathing moves only 0.1%, so the bake adds a breath of its body (`breathe`: the `Head` bone, which carries the drop, 2.5% across and 1.5% up, once over the loop). Twig: no clips; the bake makes stand-ins (`synth`, page.html `synthClips`): the arms lowered 55° from the model's T-pose with its `arms_down` corrective on, a 3 s idle (a 2.2% breath of the chest, a 2° sway, a slight nod), a 1.5 s hop with the arms opening and the win's 3 s of two jumps with the arms out (higher, they hide behind the cap) — until the owner's own come. Not used: the other clips (LookAround, ThumbsUp, Clap for Bloom, Celebrate for Bloom and Drop) |
+| Bones | the hats' head points: the `Head` bone (the chin) and a brow 0.3 m (Sprig), 0.33 m (Bloom), 0.4 m (Drop) and 0.5 m (Twig, the cap's top) up it (`topOffset`) |
+| Look | graded to sit together and keep the heroes' mean saturation (spec 005 FR-031: the backgrounds keep 70% of it): Sprig saturation 1.25; Bloom gamma 0.7, gain 1.06, saturation 1.3 and a 0.12 glow; Drop gamma 0.92, gain 1.02, saturation 3.2 (its texture is a pale grey blue); Twig gamma 0.74, gain 1.06, saturation 1.1 and a 0.15 glow. Mean brightness and HSL saturation of every 10th frame: Sprig 0.66 and 0.67, Bloom 0.58 and 0.71, Drop 0.58 and 0.58, Twig 0.55 and 0.68; the heroes' mean 0.659 (0.656 before), so the backgrounds stay as they were (`saturation.json`) |
+| Home | the new Bloom's petals are wide: on Home it stands a little smaller (0.40 of the picture's width, was 0.45) and Drop further right and taller (at 0.735, 0.36 tall), so Drop's face shows (`HomeLayers.Placement`) |
+| Frames | Sprig 96 idle, 72 reaction, 48 `win`, 72 `win2`; Bloom and Drop 96 idle and 36 reaction; Twig 72 idle, 36 reaction and 72 win: 732 frames, 32.7 MB in all |
+| Known | thin light seams along the texture islands of Drop and Twig (the bake left no margin round them): the owner's next export, with a 16 px margin; the Daily Challenge's round button (from level 50) touches Drop's tip on Home |
+

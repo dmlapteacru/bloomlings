@@ -35,13 +35,77 @@ async function loadHero(file) {
   return obj;
 }
 
-// job: { file, idle, react, win, head, top, topOffset, ground, fps, idleSeconds, reactSeconds, idleBlend, reactIn,
-// reactOut, yaw, pitch, fov, light, width, height }
+// A node's name as the file gives it: three.js makes the names of a file's nodes unique (a second hero's "Head" turns
+// "Head_1") and keeps the original in userData.
+const nameOf = o => (o.userData && o.userData.name) || o.name;
+
+// Stand-in clips for a hero delivered without any (heroes.json `synth`: the owner's new Twig in Heroes.glb, 2026-10-04,
+// until its own come): the arms lowered from the model's T-pose (`arms`, degrees about each upper arm's own X, Y, Z, with
+// the model's corrective shape key `morph` on), then an idle of a breath and a slight sway, a reaction of a small hop and
+// a win of two jumps with the arms up, sampled at the bake's fps into three.js clips named `<name>_Idle`, `_React`, `_Win`.
+function synthClips(obj, skeleton, mesh, synth, fps) {
+  const D = Math.PI / 180;
+  const bone = n => { const b = skeleton.bones.find(x => nameOf(x) === n); if (!b) throw new Error('synth: no bone ' + n); return b; };
+  const rest = new Map();
+  for (const b of skeleton.bones) rest.set(b, { q: b.quaternion.clone(), p: b.position.clone(), s: b.scale.clone() });
+  const off = (b, e) => rest.get(b).q.clone().multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(e[0] * D, e[1] * D, e[2] * D, 'XYZ')));
+  const armL = bone('UpperArm.L'), armR = bone('UpperArm.R'), chest = bone('Chest'), head = bone('Head'), root = bone('Root');
+  const [aL, aR] = [synth.arms.L, synth.arms.R];
+  const morph = synth.morph && mesh.morphTargetDictionary ? mesh.morphTargetDictionary[synth.morph] : undefined;
+  // pose(t) → { lift (m), armUp (degrees toward the head), sway (degrees), breath (share), nod (degrees) }
+  const clip = (name, seconds, pose) => {
+    const n = Math.max(2, Math.round(seconds * fps) + 1), times = [], qL = [], qR = [], qH = [], sC = [], pR = [], w = [];
+    for (let i = 0; i < n; i++) {
+      const t = seconds * i / (n - 1), p = pose(t / seconds);
+      times.push(t);
+      // The lowered arm, raised by armUp (the left arm's Z lowers it, the right arm's mirror), swaying with the body.
+      qL.push(...off(armL, [aL[0], aL[1], aL[2] - p.armUp + p.sway]).toArray());
+      qR.push(...off(armR, [aR[0], aR[1], aR[2] + p.armUp + p.sway]).toArray());
+      qH.push(...off(head, [p.nod, 0, p.sway * 0.6]).toArray());
+      const c = rest.get(chest).s;
+      sC.push(c.x * (1 + p.breath), c.y * (1 + (p.breath * 0.6)), c.z * (1 + p.breath));
+      const r = rest.get(root).p;
+      pR.push(r.x, r.y + p.lift, r.z);
+      w.push(1);
+    }
+    const tracks = [
+      new THREE.QuaternionKeyframeTrack(armL.name + '.quaternion', times, qL),
+      new THREE.QuaternionKeyframeTrack(armR.name + '.quaternion', times, qR),
+      new THREE.QuaternionKeyframeTrack(head.name + '.quaternion', times, qH),
+      new THREE.VectorKeyframeTrack(chest.name + '.scale', times, sC),
+      new THREE.VectorKeyframeTrack(root.name + '.position', times, pR),
+    ];
+    if (morph !== undefined) tracks.push(new THREE.NumberKeyframeTrack(mesh.name + '.morphTargetInfluences[' + morph + ']', times, w));
+    return new THREE.AnimationClip(synth.name + '_' + name, seconds, tracks);
+  };
+  const wave = x => Math.sin(2 * Math.PI * x);
+  const bump = x => (1 - Math.cos(2 * Math.PI * x)) / 2;
+  const hop = (x, a, b) => (x <= a || x >= b) ? 0 : Math.sin(Math.PI * (x - a) / (b - a));
+  return [
+    clip('Idle', synth.idleSeconds, x => ({ lift: 0, armUp: 3 * bump(x), sway: 2 * wave(x), breath: 0.022 * bump(x), nod: 1.5 * wave(2 * x) })),
+    clip('React', synth.reactSeconds, x => ({ lift: 0.07 * hop(x, 0.18, 0.62), armUp: 22 * hop(x, 0.1, 0.8), sway: 0, breath: -0.03 * hop(x, 0, 0.18) + 0.015 * hop(x, 0.62, 0.8), nod: -6 * hop(x, 0.15, 0.7) })),
+    clip('Win', synth.winSeconds, x => ({ lift: 0.14 * (hop(x, 0.12, 0.42) + hop(x, 0.5, 0.8)), armUp: 82 * hop(x, 0.05, 0.95) ** 0.5, sway: 6 * wave(x * 2) * hop(x, 0.05, 0.95), breath: 0, nod: -8 * hop(x, 0.1, 0.9) })),
+  ];
+}
+
+// job: { file, mesh, idle, react, win, head, top, topOffset, ground, breathe, synth, fps, idleSeconds, reactSeconds, idleBlend,
+// reactIn, reactOut, yaw, pitch, fov, light, width, height }
 // Renders the idle loop, the reaction and, when job.win names one or a list of them, the win's celebrations ('win',
 // 'win2', …) at job.width × job.height (the bake supersampling) and returns PNG data URLs with the projected head points
 // of every frame (the hats follow them) and the ground point.
 window.bake = async (job) => {
   const obj = await loadHero(job.file);
+  // A file of several heroes (the owner's Heroes.glb, 2026-10-04): only job.mesh is drawn, and its bones are the ones
+  // its head points and breathing look up.
+  let skeleton = null;
+  if (job.mesh) {
+    let found = null;
+    obj.traverse(o => { if (o.isSkinnedMesh && (nameOf(o) === job.mesh || (o.parent && nameOf(o.parent) === job.mesh))) found = o; });
+    if (!found) throw new Error('no skinned mesh ' + job.mesh + ' in ' + job.file);
+    obj.traverse(o => { if (o.isSkinnedMesh && o !== found) o.visible = false; });
+    skeleton = found.skeleton;
+    if (job.synth) obj.animations = obj.animations.concat(synthClips(obj, skeleton, found, job.synth, job.fps));
+  }
   const W = job.width, H = job.height;
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
   renderer.setSize(W, H, false);
@@ -106,6 +170,16 @@ window.bake = async (job) => {
   const aWins = wins.map(w => mixer.clipAction(w));
   for (const a of [aIdle, aRest, aReact, ...aWins]) { a.play(); a.setEffectiveTimeScale(0); }
   const rest = () => sIdle.start; // the loop's seam: the idle's first pose
+  // A breath the idle clip lacks (heroes.json `breathe`: the owner's Drop, whose Drop_Breathing moves 0.1%): the bone
+  // swells by `scale` across and `lift` of that along it, once over the loop (0 at its seam), on top of the clip.
+  const breathBone = job.breathe ? (skeleton ? skeleton.bones.find(b => nameOf(b) === job.breathe.bone) : obj.getObjectByName(job.breathe.bone)) : null;
+  if (job.breathe && !breathBone) throw new Error('no breathing bone ' + job.breathe.bone + ' in ' + job.file);
+  const breathe = phase => {
+    if (!breathBone) return;
+    const k = Math.sin(2 * Math.PI * phase) * job.breathe.scale;
+    breathBone.scale.x *= 1 + k; breathBone.scale.z *= 1 + k; breathBone.scale.y *= 1 + (k * (job.breathe.lift ?? 0.6));
+    obj.updateMatrixWorld(true);
+  };
   // Poses one frame: weights of the idle at t, the seam pose, the one-shot clip (the reaction, or a win's) at t.
   const pose = (wIdle, tIdle, wRest, wShot, tShot, shot) => {
     aIdle.setEffectiveWeight(wIdle); aIdle.time = tIdle;
@@ -127,7 +201,7 @@ window.bake = async (job) => {
   for (let i = 0; i < nIdle; i++) {
     const t = idleLength * i / nIdle;
     const w = smooth((t - (idleLength - job.idleBlend)) / job.idleBlend);
-    frames.push({ clip: 'idle', set: () => pose(1 - w, sIdle.start + (t * kIdle), w, 0, 0, null) });
+    frames.push({ clip: 'idle', set: () => { pose(1 - w, sIdle.start + (t * kIdle), w, 0, 0, null); breathe(t / idleLength); } });
   }
   // The reaction: from the seam pose into the clip over reactIn seconds and back to the seam pose over the last
   // reactOut seconds, so it starts and ends where the idle loop starts.
@@ -158,7 +232,7 @@ window.bake = async (job) => {
   camera.lookAt(c);
   camera.updateMatrixWorld(true);
 
-  const bone = name => { let b = null; obj.traverse(o => { if (o.isBone && o.name === name) b = o; }); return b; };
+  const bone = name => skeleton ? (skeleton.bones.find(b => nameOf(b) === name) || null) : (() => { let b = null; obj.traverse(o => { if (o.isBone && o.name === name) b = o; }); return b; })();
   const head = bone(job.head || 'mixamorigHead');
   let top = bone(job.top || 'mixamorigHeadTop_End');
   // A rig without a bone at the head's top (the owner's Sprig, 2026-10-03): a point job.topOffset away from the top

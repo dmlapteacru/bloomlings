@@ -16,14 +16,14 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void EveryFamily_HasItsIdleAndReaction_TheCelebrantsTheirWins()
         {
-            // The owner's table (2026-10-02): the Meshy heroes' idles last 4 s, their reactions 2 s. The Blender models
-            // (2026-10-03) keep their clips' own lengths: Twig a 3 s breathing, a 1.5 s small bounce and the win's 3 s
-            // cheer; Sprig a 4 s breathing, a 3 s wave and the win's 2 s celebrate and 3 s clap.
+            // The owner's Heroes.glb (2026-10-04) keeps its clips' own lengths: Sprig a 4 s breathing, a 3 s wave and the
+            // win's 2 s celebrate and 3 s clap; Bloom and Drop a 4 s breathing and a 1.5 s jump; Twig, delivered without
+            // clips, the bake's stand-ins: a 3 s breath, a 1.5 s hop and the win's 3 s jumps.
             var lengths = new Dictionary<Family, float[]>
             {
                 [Family.Sprig] = new[] { 4f, 3f, 2f, 3f },
-                [Family.Bloom] = new[] { 4f, 2f, 0f, 0f },
-                [Family.Drop] = new[] { 4f, 2f, 0f, 0f },
+                [Family.Bloom] = new[] { 4f, 1.5f, 0f, 0f },
+                [Family.Drop] = new[] { 4f, 1.5f, 0f, 0f },
                 [Family.Twig] = new[] { 3f, 1.5f, 3f, 0f },
             };
             foreach (Family family in CharacterArt.Families)
@@ -130,11 +130,11 @@ namespace Bloomlings.Client.Tests
             Assert.That(start.Clip, Is.EqualTo(MotionClip.React));
             Assert.That(start.Index, Is.EqualTo(0));
             Assert.That(start.FromIdle, Is.EqualTo(-1), "no cross-fade at the seam");
-            Assert.That(player.Pose(5.99f).Clip, Is.EqualTo(MotionClip.React));
-            HeroPose after = player.Pose(6.01f);
+            Assert.That(player.Pose(5.49f).Clip, Is.EqualTo(MotionClip.React));
+            HeroPose after = player.Pose(5.51f);
             Assert.That(after.Clip, Is.EqualTo(MotionClip.Idle));
             Assert.That(after.Index, Is.EqualTo(0), "the idle starts over from the seam the reaction ends on");
-            Assert.That(player.Busy(6.01f), Is.False);
+            Assert.That(player.Busy(5.51f), Is.False);
         }
 
         [Test]
@@ -148,7 +148,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(pose.FromAlpha, Is.InRange(0.01f, 0.99f));
             Assert.That(player.Pose(1f + HeroMotion.DissolveSeconds + 0.01f).FromIdle, Is.EqualTo(-1));
             player.React(1.5f);
-            Assert.That(player.Pose(2.5f).Index, Is.EqualTo((int)(1.5f * HeroMotion.Fps)), "a second tap does not restart it");
+            Assert.That(player.Pose(2.2f).Index, Is.EqualTo((int)(1.2f * HeroMotion.Fps)), "a second tap does not restart it");
 
             var near = new HeroMotionPlayer(Family.Drop, 0f);
             near.React(3.8f);

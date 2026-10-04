@@ -354,3 +354,21 @@ decision records what the reference shows, what we do and why, so the owner can 
   longer glaring. Twig's lower variants (0.53, 0.47) would bring back the "in shadow" look of D23 (0.46).
 - **Alternatives**: "A" (Twig 0.67, Sprig 0.67: a little softer) and "C" (Twig 0.59, Sprig 0.62: browner and greyer)
   were shown with it (`tools/heroanim` scratch bakes of the seam pose).
+
+## D26. The owner's Heroes.glb: four heroes from one file (2026-10-04; FR-028)
+
+- **Decision**: All four heroes are baked from `tools/heroanim/models/heroes.glb`. `heroes.json` names each hero's
+  skinned mesh (`mesh`); the bake hides the other three and looks its head points up in that hero's own skeleton, by
+  the bones' names in the file (`userData.name`: three.js renames a second "Head" "Head_1"). Drop's still breathing gets
+  a breath from the bake (`breathe`: 2.5% across its body bone, once over the loop); Twig, delivered without clips, gets
+  stand-in clips the bake makes (`synth`: the arms lowered 55° from its T-pose with its `arms_down` corrective, a breath,
+  a hop, two jumps). Each hero is graded to sit with the others while the heroes' mean saturation stays at 0.656 (now
+  0.659), so FR-031's backgrounds are unchanged. On Home, Bloom (its new crown of petals) stands at 0.40 of the
+  picture's width and Drop at x 0.735, 0.36 tall.
+- **Rationale**: every clip of the file moves only its own rig and each hero has its own material and texture, so one
+  file serves as well as four; the owner may keep sending one. Baking the stand-ins keeps the four heroes alive on Home
+  and the win until the owner's clips come, without a frozen T-pose.
+- **Alternatives**: keeping the old Twig until its clips come (the owner chose the new one: "Bake Twig too"); separate
+  files per hero (not needed); lowering the backgrounds' saturation to a lower heroes' mean (would change the owner's
+  70% choice).
+

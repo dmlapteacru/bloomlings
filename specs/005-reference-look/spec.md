@@ -394,6 +394,24 @@ before any code, and three rounds of the owner's notes shaped them.
 - Q: Labels? → A: The stands' wooden plaques carry "No Ads" and "Daily" in the game's letters (`home.promo_no_ads`,
   `home.promo_daily`), so they translate.
 
+### Session 2026-10-04 (the owner's Heroes.glb: all four heroes in one file)
+
+The owner sent Blender exports one by one (`twig2.glb`, `sprig3.glb`, `drop2.glb`, `bloom3.glb`, `bloom4.glb`), then
+`Heroes.glb`, and asked whether the heroes could be used from one file. Then: "Bake them all and update", and "Bake
+Twig too. We'll sort out the animations later."
+- Q: One file or one per hero? → A: One file serves: each hero has its own rig, material and texture, and every clip
+  moves only its own rig, so the bake draws each hero alone (research D26; tools/heroanim/SOURCE.md). Separate files
+  stay possible.
+- Q: What is baked? → A: All four from `Heroes.glb`: Sprig as before (its idle, wave, celebrate and clap); the new
+  pink Bloom (a crown of petals) with its breathing and a small jump; Drop with its jump and a breath the bake adds
+  (its own breathing moves 0.1%); Twig, delivered without clips, with stand-ins the bake makes (the arms lowered from the
+  model's T-pose, a breath, a hop, two jumps with the arms out) until the owner's own come. Their reactions last their
+  clips' 1.5 s (Bloom and Drop played 2 s before).
+- Q: Their colors? → A: Graded to sit together, with the heroes' mean saturation kept (0.659 against 0.656), so the
+  backgrounds keep their 70% (FR-031) unchanged.
+- Q: Home? → A: The new Bloom's petals are wide, so it stands a little smaller and Drop further right and taller, its
+  face showing beside the petals (FR-028).
+
 ### Session 2026-10-04 (Twig and Sprig toned down)
 
 The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
@@ -745,7 +763,8 @@ inventory.
   theirs, the fountain's front over the heroes' feet and the petals drifting, then the UI on top, every layer in the
   box the backdrop cover-fits the garden into. The four heroes MUST stand where the reference shows them (Sprig at the
   left, Bloom behind the lotus, Drop at the right back, Twig at the right front) and move as the owner's table says:
-  each loops its 4 s idle from its own phase, they take turns to play their 2 s reaction (one every 6 s, each starting
+  each loops its idle from its own phase (the clips' own lengths since the owner's Blender models: 4 s, Twig's 3 s),
+  they take turns to play their reaction (one every 6 s, each starting
   on its idle's first pose), and a tap on a hero makes it react at once, cross-fading from the idle frame it
   interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill, the avatar (since
   2026-10-04), the plaque or the bottom menu (FR-030). Once

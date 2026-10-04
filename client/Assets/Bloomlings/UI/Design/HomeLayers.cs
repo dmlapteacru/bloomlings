@@ -105,12 +105,14 @@ namespace Bloomlings.Client.UI.Design
         /// its feet's middle as shares of the picture's width and height, and its seam pose's height as a share of the
         /// picture's width. Bloom stands behind the lotus, its feet hidden; Sprig on the left rim and Twig on the right
         /// rim, their feet behind the fountain's front flowers. Twig's Blender model (2026-10-03) spreads its branches
-        /// wider than the Meshy one did, so it stands a little smaller and further in, inside a 21:9 screen.
+        /// wider than the Meshy one did, so it stands a little smaller and further in, inside a 21:9 screen. The owner's
+        /// Heroes.glb (2026-10-04) gives Bloom a wide crown of petals: Bloom stands a little smaller and Drop further right
+        /// and a little taller, so Drop's face shows beside the petals.
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
-            Family.Bloom => (0.505f, 0.49f, 0.45f),
-            Family.Drop => (0.705f, 0.532f, 0.34f),
+            Family.Bloom => (0.5f, 0.49f, 0.40f),
+            Family.Drop => (0.735f, 0.532f, 0.36f),
             Family.Sprig => (0.235f, 0.56f, 0.40f),
             _ => (0.815f, 0.568f, 0.31f),
         };

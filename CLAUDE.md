@@ -122,9 +122,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   until Remove Ads is owned; a tap opens the Remove Ads card, FR-033) and Daily at the right (the Daily Reward), each
   idling and playing its attention sequence every 12 s, never together; hosts draw `HomePromo.Layers` per frame.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
-  renders the owner's animated heroes offline into flat 24 fps frames (two Meshy FBX heroes with a 4 s idle loop and
-  a 2 s reaction each, Twig's Blender `.glb` with its 3 s idle, 1.5 s reaction and the win's 3 s cheer, and Sprig's
-  with its 4 s idle, 3 s wave and the win's 2 s celebrate and 3 s clap, in
+  renders the owner's animated heroes offline into flat 24 fps frames, all four from the owner's `Heroes.glb`
+  (2026-10-04; `heroes.json` picks each hero's mesh in it): Sprig with its 4 s idle, 3 s wave and the win's 2 s celebrate
+  and 3 s clap, Bloom and Drop with a 4 s idle and a 1.5 s jump (Drop's breath added by the bake), and Twig, delivered
+  without clips, with the bake's stand-ins (a 3 s idle, a 1.5 s hop, the win's 3 s jumps) until its own come, in
   `Art/Heroes/Resources/HeroMotion/`), and the Home picture comes as layers (`home.jpg` and `home-*.png` in
   `Art/Backgrounds/Resources/Backgrounds/`). The kit's `HeroMotion`, `HeroMotionPlayer`, `HomeLayers` and `HomeMotion`
   place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the

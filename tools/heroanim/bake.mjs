@@ -6,6 +6,7 @@
 //   client/Assets/Bloomlings/UI/Design/HeroMotionData.cs                               crops and head points (kit)
 //   client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/manifest.json             the files (originality test)
 //   tools/heroanim/manifest.json                                                       hashes for check.mjs
+// A hero may be one of several in a file (heroes.json `mesh`: the owner's Heroes.glb); `breathe` adds a breath its idle lacks.
 // Usage: node bake.mjs [--only <family>]
 import fs from 'node:fs';
 import path from 'node:path';
@@ -120,8 +121,8 @@ async function main() {
     }
     const t0 = Date.now();
     const job = {
-      file: hero.file, idle: hero.idle, react: hero.react, win: hero.win || null, head: hero.head || null, top: hero.top || null,
-      topOffset: hero.topOffset || null, ground: hero.ground || null,
+      file: hero.file, mesh: hero.mesh || null, idle: hero.idle, react: hero.react, win: hero.win || null, head: hero.head || null,
+      top: hero.top || null, topOffset: hero.topOffset || null, ground: hero.ground || null, breathe: hero.breathe || null, synth: hero.synth || null,
       fps: config.fps,
       // A hero's own clip lengths (null: the clips' own spans) before the shared ones (the owner's table).
       idleSeconds: 'idleSeconds' in hero ? hero.idleSeconds : config.idleSeconds,
