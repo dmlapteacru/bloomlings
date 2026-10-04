@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 61 | 0 | 61 |
+| UI kit | 63 | 0 | 63 |
 | Materials | 4 | 0 | 4 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **208** | **27** | **235** |
+| **All** | **210** | **27** | **237** |
 
 ## Brand
 
@@ -271,13 +271,15 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.pointer` | Tutorial pointing hand | — | Demos | tap; hold | Small | no | Launch | shape `ui.pointer` |
 | `ui.jam.slots` | Jam sheet: the inset row of the Waiting Slots' contents | 10 | Jam sheet | jammed (all full); stuck (free and locked slots too) | Medium | no | Launch | a sunk parchment well with each slot's sticker tile (`tile.candy.sticker`) and its brown count; free slots as small dashed plates, locked ones with the padlock |
 | `ui.pill.reward` | Reward pill (win, milestone) | 15, 16 | Win; milestone | counting up; steady | Small | no | Launch | the cream cost pill (`ui.pill.cost`), bigger, with the lotus and "+N" counting up; on the milestone each reward on a cream tile with its amount in the pill |
-| `ui.nav.bar` | Bottom menu: the wooden bar across the screen's bottom (spec 005 FR-030) | 2, 3, 17 | Home; Store page; Wardrobe | one to five places; grooves between them | Large | no | Launch | UiRaster.NavBar picture: a warm brown plank (`wood.dark_top` to `wood.dark`, grained, rounded ends) from 0.14 W above the safe bottom to the screen's bottom, thin carved grooves between the places, no vines at its ends |
+| `ui.nav.bar` | Bottom menu: the wooden bar across the screen's bottom (spec 005 FR-030) | 2, 3, 17 | Home; Store page; Wardrobe | its five places, always shown (a locked one with its padlock badge); grooves between them | Large | no | Launch | UiRaster.NavBar picture: a warm brown plank (`wood.dark_top` to `wood.dark`, grained, rounded ends) from 0.14 W above the safe bottom to the screen's bottom, thin carved grooves between the places, no vines at its ends |
 | `ui.nav.medallion` | Bottom menu: the raised round medallion of the active place | 2, 3, 17 | Home; Store page; Wardrobe | Home; Shop; Wardrobe | Small | no | Launch | UiRaster.NavMedallion picture: a lighter honey wood disc in a darker wooden rim, rising 0.03 W above the plank, with short vines, eight leaves and two small white flowers on its rim and a soft shadow under it |
-| `icon.nav.shop` | Bottom menu icon: Shop (the owner's picture `Icons/nav-shop.png`, spec 005 pictures.md D9) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `currency.reward_basket` glyph in its color over a darker outline until the picture exists |
-| `icon.nav.wardrobe` | Bottom menu icon: Wardrobe (the owner's picture `Icons/nav-wardrobe.png`, spec 005 pictures.md D10) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `ui.shirt` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.shop` | Bottom menu icon: Shop (the owner's picture `Icons/nav-shop.png`, spec 005 pictures.md D9) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `currency.reward_basket` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.wardrobe` | Bottom menu icon: Wardrobe (the owner's picture `Icons/nav-wardrobe.png`, spec 005 pictures.md D10) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.shirt` glyph in its color over a darker outline until the picture exists |
 | `icon.nav.home` | Bottom menu icon: Home (the owner's picture `Icons/nav-home.png`, spec 005 pictures.md D11) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `special.fountain` glyph in its color over a darker outline until the picture exists |
-| `icon.nav.leaderboard` | Bottom menu icon: Leaderboard (the owner's picture `Icons/nav-leaderboard.png`, spec 005 pictures.md D12) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `ui.trophy` glyph in its color over a darker outline until the picture exists |
-| `icon.nav.collection` | Bottom menu icon: Collection (the owner's picture `Icons/nav-collection.png`, spec 005 pictures.md D13) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `ui.grid` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.leaderboard` | Bottom menu icon: Leaderboard (the owner's picture `Icons/nav-leaderboard.png`, spec 005 pictures.md D12) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.trophy` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.collection` | Bottom menu icon: Collection (the owner's picture `Icons/nav-collection.png`, spec 005 pictures.md D13) | 2, 3, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.grid` glyph in its color over a darker outline until the picture exists |
+| `ui.nav.lock` | Bottom menu: the padlock badge of a locked place | 2, 17 | Bottom menu (a locked place's icon on the plank); locked notice | locked; pressed (squashes with its icon) | Icon | no | Launch | the outfit cards' padlock badge (`Kit.LockBadge`): a domed cream disc in a `cream.line` ring with the brown `ui.lock`, over a soft shadow, 0.34 of the icon's side at its lower right inside the plank's band |
+| `ui.locked.notice` | Locked notice: "Available from level N" on a locked place's page or card | 5, 6, 17 | Store page, Wardrobe, Leaderboard and Collection cards (before their unlock) | Shop; Wardrobe; Leaderboard; Collection | Large | no | Launch | the place's owner icon (or its stand-in glyph) 0.4 of the area's width with the padlock badge on its lower right, then "Available from level N" in `type.title` `ink.brown` and "Keep playing to unlock it!" in `type.body` `ink.brown_soft`, centered |
 
 ## Materials
 

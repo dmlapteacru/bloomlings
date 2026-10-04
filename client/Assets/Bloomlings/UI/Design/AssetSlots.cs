@@ -390,12 +390,14 @@ namespace Bloomlings.Client.UI.Design
 
             // Spec 005 FR-030 (the owner's bottom menu, the wooden variant, 2026-10-04): the bar, its medallion and the
             // owner's five icons (OwnerPictures.NavIcon), on Home, the Store page and the Wardrobe.
-            Add("ui.nav.bar", "Bottom menu: the wooden bar across the screen's bottom (spec 005 FR-030)", new[] { 2, 3, 17 }, "Home; Store page; Wardrobe", "one to five places; grooves between them", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "UiRaster.NavBar picture: a warm brown plank (`wood.dark_top` to `wood.dark`, grained, rounded ends) from 0.14 W above the safe bottom to the screen's bottom, thin carved grooves between the places, no vines at its ends");
+            Add("ui.nav.bar", "Bottom menu: the wooden bar across the screen's bottom (spec 005 FR-030)", new[] { 2, 3, 17 }, "Home; Store page; Wardrobe", "its five places, always shown (a locked one with its padlock badge); grooves between them", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "UiRaster.NavBar picture: a warm brown plank (`wood.dark_top` to `wood.dark`, grained, rounded ends) from 0.14 W above the safe bottom to the screen's bottom, thin carved grooves between the places, no vines at its ends");
             Add("ui.nav.medallion", "Bottom menu: the raised round medallion of the active place", new[] { 2, 3, 17 }, "Home; Store page; Wardrobe", "Home; Shop; Wardrobe", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.NavMedallion picture: a lighter honey wood disc in a darker wooden rim, rising 0.03 W above the plank, with short vines, eight leaves and two small white flowers on its rim and a soft shadow under it");
             foreach (NavPlace place in BottomNav.Order)
             {
                 string glyph = BottomNav.Fallback(place).ShapeId;
-                Add(BottomNav.Slot(place), "Bottom menu icon: " + place + " (the owner's picture `Icons/" + OwnerPictures.NavIcon(place) + ".png`, spec 005 pictures.md D" + (9 + IndexOf(BottomNav.Order, place)) + ")", new[] { 2, 3, 17 }, "Bottom menu (on the plank; in the medallion when active); locked notice", "on the plank; in the medallion; pressed; locked (padlock badge)", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "the `" + glyph + "` glyph in its color over a darker outline until the picture exists");
+                // Home is always open; the other places can be locked (a padlock badge on the plank, their notice).
+                bool lockable = place != NavPlace.Home;
+                Add(BottomNav.Slot(place), "Bottom menu icon: " + place + " (the owner's picture `Icons/" + OwnerPictures.NavIcon(place) + ".png`, spec 005 pictures.md D" + (9 + IndexOf(BottomNav.Order, place)) + ")", new[] { 2, 3, 17 }, "Bottom menu (on the plank; in the medallion when active)" + (lockable ? "; locked notice" : string.Empty), "on the plank; in the medallion; pressed" + (lockable ? "; locked (padlock badge)" : string.Empty), SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "the `" + glyph + "` glyph in its color over a darker outline until the picture exists");
             }
 
             // The owner's request of 2026-10-04: every place always shows; a locked one carries a padlock badge, and its
