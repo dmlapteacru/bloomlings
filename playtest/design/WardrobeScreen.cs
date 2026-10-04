@@ -11,7 +11,7 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The Wardrobe (preview frame 27; spec 005 FR-025) in the reference layout (contracts/look.md §6.5,
-    /// <see cref="ScreenLayout.ReferenceWardrobe"/>), opened from Home's Wardrobe button once it unlocks (L40):
+    /// <see cref="ScreenLayout.ReferenceWardrobe"/>), opened from the bottom menu's Wardrobe once it unlocks (L40):
     /// <list type="bullet">
     /// <item><description>the page header on one line (<see cref="Kit.PageHeader"/>, shared with the Store page): the
     /// cream round back button, the wooden "Wardrobe" banner with ivy and the Petals pill (its "+" opens the Store page,
@@ -26,7 +26,9 @@ namespace Bloomlings.Playtest.Design
     /// (nothing worn) first, then the owned items (a tap wears or takes off), the items for sale with their cost pills
     /// (a tap buys and wears), and the ones earned later with the padlock; the worn ones are green with the
     /// check;</description></item>
-    /// <item><description>the footer "Earn special outfits as you play!" between the page arrows.</description></item>
+    /// <item><description>the footer "Earn special outfits as you play!" between the page arrows;</description></item>
+    /// <item><description>the bottom menu over the panel's foot, the Wardrobe in its medallion (spec 005 FR-030); the
+    /// cards and the footer stand above it.</description></item>
     /// </list>
     /// Equipping and buying go through the Unity client's shared <see cref="WardrobeService"/> (and its economy); the
     /// playtest keeps no rule of its own. The profile items (frames, badges, markers) stay in the Store.
@@ -143,6 +145,9 @@ namespace Bloomlings.Playtest.Design
                 Kit.ArrowButton(p, r.PagePrevious.CenterX, r.PagePrevious.CenterY, r.PagePrevious.Width, next: false, page > 0 ? () => app.WardrobePage = page - 1 : (Action?)null);
                 Kit.ArrowButton(p, r.PageNext.CenterX, r.PageNext.CenterY, r.PageNext.Width, next: true, page < pages - 1 ? () => app.WardrobePage = page + 1 : (Action?)null);
             }
+
+            // The bottom menu, the Wardrobe in its medallion (FR-030).
+            Kit.BottomNav(p, HomeScreen.Nav(p, HomeScreen.Look(app), NavPlace.Wardrobe), app.Navigate);
 
             // The header last, on one line (the Store page's too): the back button, the banner with ivy, the Petals pill,
             // whose "+" opens the Store page (its back returns here).

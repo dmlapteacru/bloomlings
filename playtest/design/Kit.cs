@@ -598,7 +598,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// An icon badge (the shirt on Home's Wardrobe avatar; the owner's note of 2026-10-04): a white glyph on the count
+        /// An icon badge (the shirt Home's Wardrobe avatar wore from the owner's note of 2026-10-04 until the bottom menu,
+        /// spec 005 FR-030, took the avatar's place; no screen shows it now): a white glyph on the count
         /// badge's green disc with its white ring and thin dark outline (<see cref="CountBadge"/>), <paramref name="size"/>
         /// the disc's diameter.
         /// </summary>

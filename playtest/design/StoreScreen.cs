@@ -14,7 +14,7 @@ namespace Bloomlings.Playtest.Design
     /// <summary>
     /// The Store as a page (preview frames 17 and 26; spec 005 FR-029, the owner's note of 2026-10-04) in the reference
     /// layout (contracts/look.md §6.6, <see cref="ScreenLayout.ReferenceStore"/>), opened by
-    /// <see cref="DesignApp.OpenStore"/> from Home's Store button, Home's Petals "+" and the Wardrobe's Petals "+"; its
+    /// <see cref="DesignApp.OpenStore"/> from the bottom menu's Shop, Home's Petals "+" and the Wardrobe's Petals "+"; its
     /// back (and the system back) returns there:
     /// <list type="bullet">
     /// <item><description>the Wardrobe's page header (<see cref="Kit.PageHeader"/>): the back button, the wooden "Store"
@@ -27,6 +27,8 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the Cosmetics: the four family tabs over the lighter panel, the outfit cards of the chosen
     /// family ("Default", then each item for sale on the family's hero with its cost pill; a tap buys) and the footer
     /// between the page arrows.</description></item>
+    /// <item><description>the bottom menu over the panel's foot, the Shop in its medallion (spec 005 FR-030); the list
+    /// ends above it.</description></item>
     /// </list>
     /// Buying goes through the Unity client's shared economy and <see cref="WardrobeService"/>; the playtest keeps no rule
     /// of its own.
@@ -60,7 +62,8 @@ namespace Bloomlings.Playtest.Design
                 ShopRows(p, app, r);
             }
 
-            // The header last, as on the Wardrobe.
+            // The bottom menu, the Shop in its medallion (FR-030); the header last, as on the Wardrobe.
+            Kit.BottomNav(p, HomeScreen.Nav(p, HomeScreen.Look(app), NavPlace.Shop), app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, () => app.HomeToast(PlaytestText.T("store.offline")));
 
             string? toast = app.HomeToastText;
@@ -84,8 +87,8 @@ namespace Bloomlings.Playtest.Design
                 rows.Add((line, grow) => MoneyRow(p, line, grow, key));
             }
 
-            // Rows taller than the smallest (a taller page) grow their names with them.
-            float grow = r.RowHeight(rows.Count) / (r.W * ReferenceStoreRegions.RowShare);
+            // Rows taller than the type's row (a taller page) grow their names with them, shorter ones shrink them.
+            float grow = r.RowHeight(rows.Count) / (r.W * ReferenceStoreRegions.RowTypeShare);
             int perPage = r.RowsPerPage(rows.Count);
             int pages = Math.Max(1, (rows.Count + perPage - 1) / perPage);
             int page = Math.Max(0, Math.Min(pages - 1, app.StoreRowsPage));
@@ -141,14 +144,14 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A row's name in brown after its tile, in <c>type.button_secondary</c> grown with the row (<paramref name="grow"/>:
-        /// its height over a <see cref="ReferenceStoreRegions.RowShare"/> row's), shrunk to 42% of the row when longer.
+        /// its height over a <see cref="ReferenceStoreRegions.RowTypeShare"/> row's), shrunk to 42% of the row when longer.
         /// </summary>
         private static void Name(IPainter p, Box line, Box tile, float grow, string name) =>
             p.TextLeft(name, tile.Right + (tile.Width * 0.22f), line.CenterY, T.ButtonSecondary, C.InkBrown, line.Width * 0.42f, grow, TextLook.Plain(C.InkBrown));
 
         /// <summary>
         /// A Shop row's item tile at its left end: the booster tile's cream squircle (§3.7), 0.8 of the row tall (0.12 W on
-        /// a <see cref="ReferenceStoreRegions.RowShare"/> row, as the reference's booster boxes). Returns its box.
+        /// a <see cref="ReferenceStoreRegions.RowTypeShare"/> row, as the reference's booster boxes). Returns its box.
         /// </summary>
         private static Box ItemTile(IPainter p, Box line)
         {

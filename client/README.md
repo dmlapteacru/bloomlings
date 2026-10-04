@@ -225,10 +225,15 @@ Check in the Editor (the client check covers the logic, not the look):
 - The Home stage's sibling order (Home with the owner's pictures, Play mode): under the stage's `Layers`,
   `FountainBack`, then `ShadowDrop`, `HeroDrop`, `ShadowBloom`, `HeroBloom`, then `Lotus`, then `ShadowSprig`,
   `HeroSprig`, `ShadowTwig`, `HeroTwig`, then `FountainFront`, `Petals`, `PetalsAbove` and the four `Touch*` boxes;
-  the logo, the buttons, the plaque, Play and the pills come after the stage, above it. Bloom's feet hide behind the
-  lotus, Sprig's and Twig's behind the fountain's front flowers.
-- Taps: a press on a hero makes it react at once (no click sound); Play, the side buttons, Settings, the Petals pill
-  and the plaque keep their taps where they overlap a hero; the splash's heroes take none.
+  the logo, the buttons, the plaque, Play, the pills and last the `BottomNav` come after the stage, above it. Bloom's
+  feet hide behind the lotus, Sprig's and Twig's behind the fountain's front flowers.
+- Taps: a press on a hero makes it react at once (no click sound); Play, the side button, Settings, the Petals pill,
+  the plaque and the bottom menu keep their taps where they overlap a hero; the splash's heroes take none.
+- The bottom menu (spec 005 FR-030, `contracts/look.md` §6.7; `UiKit.BottomNav` / `BottomNavView` in Home, the Store
+  page and the Wardrobe, wired by `HomeController`): the wooden bar and the medallion should look as in the preview's
+  frames 2, 3, 17 and 27 on a 19.5:9 and a 16:9 Game view; each unlocked place opens what it should (the Store page, the
+  Wardrobe, Home, the Leaderboard and Collection cards over Home), the medallion's place takes no tap, and a place
+  pressed squashes like a tile. The L10, L12 and L40 Home demos point at the Leaderboard, Shop and Wardrobe places.
 - The motion: each hero breathes in its 4 s idle, one reacts every 6 s in turn (Bloom first), the petals drift
   smoothly; the splash's heroes fade in and Home continues their motion; the win's hero reacts as it lands, then idles;
   the profiler shows the frames of at most the families on screen loaded.

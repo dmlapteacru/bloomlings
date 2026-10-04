@@ -33,9 +33,11 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the splash;</description></item>
     /// <item><description>Home (frames 2 and 3);</description></item>
     /// <item><description>the level (frames 7–14);</description></item>
-    /// <item><description>the Wardrobe (preview frame 27; spec 005 FR-025), opened from Home;</description></item>
-    /// <item><description>the Store page (preview frames 17 and 26; spec 005 FR-029), opened from Home or the
-    /// Wardrobe;</description></item>
+    /// <item><description>the Wardrobe (preview frame 27; spec 005 FR-025), opened from the bottom menu;</description></item>
+    /// <item><description>the Store page (preview frames 17 and 26; spec 005 FR-029), opened from the bottom menu or a
+    /// Petals pill's "+";</description></item>
+    /// <item><description>the bottom menu on Home, the Store page and the Wardrobe (spec 005 FR-030,
+    /// <see cref="Navigate"/>);</description></item>
     /// <item><description>the cards over them (frames 4–6, 10, 11, 15 and 16).</description></item>
     /// </list>
     /// The very first launch goes straight into Level 1, and later launches open Home (spec 001 US2). Progress, Petals,
@@ -212,17 +214,65 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>Back from the Wardrobe to Home (without reopening the Daily Reward).</summary>
-        public void CloseWardrobe()
+        public void CloseWardrobe() => EnterHome(click: true);
+
+        /// <summary>Home from a page (the Wardrobe, the Store page), without reopening the Daily Reward; its heroes start over.</summary>
+        private void EnterHome(bool click)
         {
-            Sound.Play(SoundCue.Click);
+            if (click)
+            {
+                Sound.Play(SoundCue.Click);
+            }
+
             _overlays.Clear();
             StartHomeMotion();
             Screen = Screen.Home;
         }
 
         /// <summary>
-        /// Opens the Store page (spec 005 FR-029) on its first pages: from Home (its Store button, the Petals pill's "+")
-        /// or from the Wardrobe (its Petals pill's "+"), where its back returns (<see cref="StoreReturn"/>).
+        /// The bottom menu's place of the screen now (spec 005 FR-030): the Shop on the Store page, the Wardrobe on the
+        /// Wardrobe, else Home.
+        /// </summary>
+        public NavPlace ActivePlace => Screen == Screen.Store ? NavPlace.Shop : Screen == Screen.Wardrobe ? NavPlace.Wardrobe : NavPlace.Home;
+
+        /// <summary>
+        /// A tap on a place of the bottom menu (spec 005 FR-030), with the click: the Shop opens the Store page
+        /// (<see cref="OpenStore"/>, its back returning to the Wardrobe when it was open), the Wardrobe the Wardrobe, Home
+        /// returns to Home, and the Leaderboard and the Collection open their cards over Home (from a page, Home comes
+        /// first). The active place does nothing.
+        /// </summary>
+        public void Navigate(NavPlace place)
+        {
+            if (place == ActivePlace)
+            {
+                return;
+            }
+
+            switch (place)
+            {
+                case NavPlace.Shop:
+                    OpenStore();
+                    break;
+                case NavPlace.Wardrobe:
+                    OpenWardrobe();
+                    break;
+                case NavPlace.Home:
+                    EnterHome(click: true);
+                    break;
+                default:
+                    if (Screen != Screen.Home)
+                    {
+                        EnterHome(click: false);
+                    }
+
+                    OpenOverlay(place == NavPlace.Leaderboard ? Overlay.Leaderboard : Overlay.Collection);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Opens the Store page (spec 005 FR-029) on its first pages: from Home (the bottom menu's Shop, the Petals pill's
+        /// "+") or from the Wardrobe (the same two), where its back returns (<see cref="StoreReturn"/>).
         /// </summary>
         public void OpenStore()
         {

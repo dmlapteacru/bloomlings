@@ -168,6 +168,38 @@ the round."
   others (mean brightness 0.46 against about 0.62). Of six variants the owner chose "H": an even light and a lighter,
   warmer grade of its texture, Twig only (research D23).
 
+### Session 2026-10-04 (the owner's bottom menu, wooden)
+
+The owner, with `bloomlings_bottom_nav_icons_clean.zip` (five icons) and a picture of five bar styles: "We also need to
+add a bottom menu. You will find the icons in the zip. On the picture you will find variants. Try the wooden variant."
+- Q: Which variant? → A: The wooden one, the picture's second row: a wide warm brown wooden plank across the bottom of
+  the screen with wood grain and rounded ends, green vine curls with small white flowers around both ends, thin
+  vertical grooves between the five places, the icons on the plank, and the active place in a raised round wooden
+  medallion (a lighter wood disc in a darker rim, with vines and two small white flowers) rising over the plank's top.
+  Drawn from the kit's wood and leaves (`UiRaster.NavBar`, `NavMedallion`), the owner's five icons on it (pictures.md
+  D9–D13), in both builds (FR-030, contracts/look.md §6.7).
+- Q: Which places, in which order? → A: Shop, Wardrobe, Home, Leaderboard, Collection. A place shows only once its
+  feature is unlocked (a player never sees the button of a locked feature): the Shop from L12, the Wardrobe from L40,
+  the Leaderboard from L10, the Collection once a picture is won; Home always. The shown places keep their order and
+  share the bar's width evenly, so early on Home stands alone.
+- Q: Which place is raised, and where does a tap go? → A: The screen's own place: Home on Home, the Shop on the Store
+  page, the Wardrobe on the Wardrobe; a tap on it does nothing. The Shop opens the Store page, the Wardrobe the
+  Wardrobe, Home returns to Home, and the Leaderboard and the Collection open their cards over Home (from the Store page
+  or the Wardrobe, Home first). The click sounds as on every button.
+- Q: Where does it show? → A: On Home, the Store page and the Wardrobe, always (with Home alone early on); not in
+  gameplay, on the win, milestone, jam or pause cards, nor on the splash.
+- Q: What leaves Home? → A: The buttons that now do the same thing, so nothing is doubled (the owner had disliked two
+  Wardrobe buttons): the Store side button, the Wardrobe button (the profile avatar with its shirt badge; the avatar
+  stays in the Wardrobe's profile tab), the Collection side button and the rank pill in the top row (the Leaderboard
+  place opens what it opened). Settings, the Petals pill (its "+" still opens the Store), the Daily Challenge's side
+  button and the rest stay. Unity's Home demos of the Leaderboard, the Store and the Wardrobe point at the menu's places.
+- Q: How does Home make room? → A: The plaque, Play and the teaser row move up so Play and the teaser row end above
+  the medallion's top with a small gap; Play keeps the reference's height unless the plaque would rise above 60% of the
+  height (on 16:9 phones), then it is a little shorter, so the heroes on the fountain stay in view. The Store page's
+  list and the Wardrobe's cards and footer end above the menu too (on 21:9 the Store's cosmetics show three rows of
+  cards instead of four). The playtest's dev row (−1, +1, +10, Reset), which lay in that band, moves into the Settings
+  card opened from Home.
+
 ### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
 
 The owner: "In the Wardrobe, the screen's header: the elements there are not on one line. They need aligning." and
@@ -334,7 +366,8 @@ wooden banner, parchment cards, family tabs and outfit cards.
 
 **Why this priority**: the owner named the celebration ("скрины прохождения уровня (празднование)").
 
-**Independent Test**: render frames 1–3, 15, 16 and 24 and compare with the reference's Home, Win and Wardrobe.
+**Independent Test**: render frames 1–3, 15, 16 and 24 (and 17, 26 to 28) and compare with the reference's Home, Win and
+Wardrobe, and the bottom menu with the owner's wooden variant.
 
 **Acceptance Scenarios**:
 
@@ -349,6 +382,11 @@ wooden banner, parchment cards, family tabs and outfit cards.
 4. **Given** Home over the owner's layered picture, **When** it shows, **Then** the four heroes stand on the painted
    fountain where the reference shows them, each breathing and swaying in its idle loop, one reacting every few
    seconds in turn, and a tap on a hero makes it react at once while a tap on any button still does what it did.
+6. **Given** Home, the Store page or the Wardrobe (FR-030), **When** it shows, **Then** the wooden bottom menu lies
+   across the screen's bottom with the unlocked places (Shop, Wardrobe, Home, Leaderboard, Collection; Home alone early
+   on), the screen's own place raised in the medallion; a tap on another place opens the Store page, the Wardrobe,
+   Home, or the Leaderboard or Collection card over Home, and Home shows no Store, Wardrobe or Collection side button
+   and no rank pill.
 5. **Given** a won level, **When** the win (or the milestone) shows its celebrating hero (Twig), **Then** the hero plays its
    reaction as it appears and then idles for as long as the screen shows.
 
@@ -459,10 +497,11 @@ inventory.
 - **FR-016**: The win card MUST show the wooden sign with flowers, the finished picture as full-color tiles in a stone
   frame, the heroes on a stone pedestal with light rays and falling petals, the reward pill and Next in a wooden rim.
   Pause MUST stay usable over it, so Home, Restart and Settings stay reachable as before (FR-002).
-- **FR-017** *(amended on 2026-10-04: the Store is a page, FR-029; one Wardrobe button, the avatar)*: Home MUST show
-  the wooden logo letters with leaves, the level on a wooden plaque and the big Play button, and once the Wardrobe opens
-  one Wardrobe button, the profile avatar with a shirt badge; the Wardrobe and Store pages and the other meta cards
-  use the same signs, parchment, tabs and cards.
+- **FR-017** *(amended on 2026-10-04: the Store is a page, FR-029; one Wardrobe button, the avatar; then the bottom
+  menu, FR-030)*: Home MUST show the wooden logo letters with leaves, the level on a wooden plaque and the big Play
+  button; its Wardrobe entry is the bottom menu's Wardrobe place once the Wardrobe opens (the profile avatar with a
+  shirt badge was Home's one Wardrobe button until the bottom menu, and it stays in the Wardrobe's profile tab); the
+  Wardrobe and Store pages and the other meta cards use the same signs, parchment, tabs and cards.
 - **FR-018**: The Petals symbol MUST be the pink lotus everywhere it appears.
 
 #### F. Pictures from the owner
@@ -510,20 +549,24 @@ inventory.
   wooden sign with flowers at the top, the finished picture large in its stone frame, the celebrating hero (or the
   group) on a stone pedestal overlapping the picture's foot with rays and petals, the reward pill on the pedestal,
   and the big Next button in its wood rim at the bottom. The gameplay top bar is not shown on it.
-- **FR-024**: Home MUST follow the reference layout (contracts/look.md §6.4): settings at the top left, the Petals pill
-  at the top right, the logo across the top, the diorama (the owner's Home picture, or the heroes on a pedestal with
-  the lotus fountain) in the middle, the wooden level plaque, and the big Play button below it. Our other Home entries
-  (Wardrobe, Collection, Daily Challenge, rank, milestone teaser, free booster) stay reachable as small cream round
-  buttons and pills along the sides and the bottom. Over the owner's Home picture the heroes were first deferred by the
+- **FR-024** *(amended on 2026-10-04: the bottom menu, FR-030)*: Home MUST follow the reference layout
+  (contracts/look.md §6.4): settings at the top left, the Petals pill at the top right, the logo across the top, the
+  diorama (the owner's Home picture, or the heroes on a pedestal with the lotus fountain) in the middle, the wooden
+  level plaque, and the big Play button below it, all above the bottom menu. Our other Home entries stay reachable: the
+  Daily Challenge as a small cream round side button, the milestone teaser and the free booster as pills under Play,
+  and the Store, the Wardrobe, the Leaderboard (the rank) and the Collection as the bottom menu's places (FR-030; they
+  were side buttons and the rank pill before). Over the owner's Home picture the heroes were first deferred by the
   owner (2026-10-02: placing them around the painted fountain is hard); the owner's layered Home and animated heroes of
   the same day bring them back (FR-028): over the layered picture, Home and the splash stand the four animated heroes
   on the painted fountain; the drawn stand-in (without the picture) keeps its still heroes; over an owner picture
   without the fountain layers (a splash picture of its own, B6), no heroes show (`HomeStage.ShowsHeroes`).
-- **FR-025** *(amended on 2026-10-04: the header on one line)*: The Wardrobe MUST follow the reference layout
-  (contracts/look.md §6.5) in both builds; the playtest gets a Wardrobe screen (equipping through the shared
+- **FR-025** *(amended on 2026-10-04: the header on one line; the bottom menu)*: The Wardrobe MUST follow the reference
+  layout (contracts/look.md §6.5) in both builds; the playtest gets a Wardrobe screen (equipping through the shared
   `WardrobeService`) instead of only the Store's cosmetics tab. Its header (the back button, the wooden banner with ivy
   and the Petals pill) MUST stand on one line, the back button's middle, with the banner's leaves clear of the back
   button and the Petals pill on every phone from 16:9 to 21:9 (`ScreenLayout.PageHeader`, shared with the Store page).
+  Its cards, footer and page arrows MUST end above the bottom menu, which shows over the panel's foot with the
+  Wardrobe in its medallion (FR-030).
 - **FR-026**: Board tile icons MUST be the reference's "gem" icons: the variant symbol about 56% of the tile with a
   thick dark outline, a glossy fill in a shade of the tile color and a highlight (contracts/look.md §3.1.2).
 - **FR-027**: The booster icons and the leaf decorations (sign ivy, win-sign flowers, button corner leaves, logo
@@ -539,7 +582,8 @@ inventory.
   left, Bloom behind the lotus, Drop at the right back, Twig at the right front) and move as the owner's table says:
   each loops its 4 s idle from its own phase, they take turns to play their 2 s reaction (one every 6 s, each starting
   on its idle's first pose), and a tap on a hero makes it react at once, cross-fading from the idle frame it
-  interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill or the plaque. Once
+  interrupts; a hero MUST never take a tap from Play, the side buttons, Settings, the Petals pill, the plaque or the
+  bottom menu (FR-030). Once
   the Wardrobe is open each hero wears its outfit (trail, skin, the expression on a badge, the hat turned with the
   head). The splash shows the same stage and motion, so it turns into Home without a jump. The win and the milestone
   MUST show the level's celebrant as its animated hero on the pedestal: Twig and Sprig by turns, level by level
@@ -557,8 +601,29 @@ inventory.
   parchment panel to the bottom of the screen with the Shop / Cosmetics tabs and the item rows or outfit cards filling
   the page's width and height, a page of them at a time between page arrows. Everything the card offered MUST stay
   (FR-002): buying boosters for Petals, the real-money rows (unavailable while purchases are off), the cosmetics with
-  their states, the Petals pill. Home's Store button and Petals "+" and the Wardrobe's Petals "+" open it; its back
-  returns to where it was opened, and in the playtest the Android back closes it (and the Wardrobe).
+  their states, the Petals pill. The bottom menu's Shop (FR-030; Home's Store button before it) and the Petals "+" of
+  Home and the Wardrobe open it; its back returns to where it was opened, and in the playtest the Android back closes it
+  (and the Wardrobe). Its list MUST end above the bottom menu, which shows over the panel's foot with the Shop in its
+  medallion.
+
+#### J. The bottom menu (the owner's request, 2026-10-04)
+
+- **FR-030**: Home, the Store page and the Wardrobe MUST show the owner's wooden bottom menu in both builds
+  (contracts/look.md §6.7, `ScreenLayout.BottomNav`): a warm brown wooden plank across the screen's bottom (its plank
+  about `0.12W` tall on the safe bottom, the wood running on behind the bottom inset) with grain, rounded ends, green
+  vines with small white flowers curling around both ends and thin grooves between the places; the places' icons (the
+  owner's pictures, pictures.md D9–D13; a drawn glyph while one is missing) on it; and the screen's own place in a
+  raised round wooden medallion (a lighter wood disc in a darker rim with vines and two small white flowers, about
+  `0.19W`, rising about `0.05W` over the plank's top). The places, left to right, are Shop, Wardrobe, Home, Leaderboard
+  and Collection; a place MUST show only once its feature is unlocked (the Shop from L12, the Wardrobe from L40, the
+  Leaderboard from L10, the Collection once a picture is won; Home always), and the shown places share the bar's width
+  evenly. A tap on the Shop opens the Store page, on the Wardrobe the Wardrobe, on Home returns to Home, on the
+  Leaderboard or the Collection opens its card over Home (from a page, Home first), with the click; a tap on the
+  medallion's place does nothing. Every place's touch box MUST be at least the touch minimum, inside the safe area and
+  clear of the screen's other buttons. The menu MUST NOT show in gameplay, on the win, milestone, jam or pause cards, or
+  on the splash. Home MUST NOT keep a button the menu doubles: its Store, Wardrobe and Collection side buttons and its
+  rank pill are removed. The menu changes no rule, economy value, unlock or tap outcome inside a screen (FR-002); it
+  only adds these ways between Home, its pages and its cards.
 
 ### Key Entities
 
@@ -571,6 +636,8 @@ inventory.
 - **Home layer**: one picture of the owner's layered Home with its box in the 852 × 1846 picture (`HomeLayers`).
 - **Page header**: the Wardrobe's and the Store page's header row (`PageHeader`): the back button, the banner and the
   Petals pill's box on one line.
+- **Bottom menu**: the wooden bar of Home, the Store page and the Wardrobe (`BottomNavRegions`): its plank, the shown
+  places (`NavPlace`) in order with their icons and touch boxes, and the medallion over the active place.
 - **Pod chip**: one pod of the tray's grid at a depth of its stack's column (`ReferenceGameplayRegions.Pod`, `Chip`).
   It has a frame 1.3 times as wide as tall centered in its place, an inner panel, the icon and the tile's square over
   the panel's middle, the count at the panel's bottom right corner and the "+N" disc over the frame's top left corner
@@ -598,7 +665,12 @@ inventory.
 - **SC-008**: On every screen shape from 16:9 to 21:9 the four heroes' seam pictures lie inside the screen, under the
   logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).
 - **SC-009**: In the preview and on a device, a tap on a hero makes it react and a tap on Play, a side button,
-  Settings, the Petals pill or the plaque does what it did before FR-028.
+  Settings, the Petals pill, the plaque or the bottom menu does what it did before FR-028.
+- **SC-011**: On every screen shape from 16:9 to 21:9 and for one to five shown places, the bottom menu lies across the
+  screen's bottom with its plank on the safe bottom, its places in order and evenly spread, the medallion over the
+  active place rising above the plank and inside the screen, every other place's touch box at least the touch minimum
+  inside the safe area; Home's Play and teaser row and the Store's and the Wardrobe's content end above its top
+  (`ReferenceLayoutTests`); and in the preview its places open what FR-030 says (frames 17 and 27).
 - **SC-010**: These hold on every screen shape from 16:9 to 21:9, with two to six Source stacks, with or without
   boosters, a badge or a bottom entry (`ReferenceLayoutTests` checks them on its phone shapes):
   - no two pods of the tray overlap;

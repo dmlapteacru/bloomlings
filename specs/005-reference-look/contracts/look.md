@@ -642,8 +642,8 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 - Heroes (`HomeStage.ShowsHeroes`; first deferred by the owner on 2026-10-02 over the single Home picture, then
   delivered animated the same day, FR-028): over the owner's layered Home (pictures.md B1: the garden with its
   fountain layers) Home and the splash stand the four animated heroes on the painted fountain (§6.4 "The layered
-  Home", §3.12), no pedestal and no drawn fountain, with the logo, Settings, the Petals pill, the side buttons, the
-  plaque, Play and the pills over them. Without the owner's picture, the drawn stage
+  Home", §3.12), no pedestal and no drawn fountain, with the logo, Settings, the Petals pill, the Daily Challenge's
+  side button, the plaque, Play, the pills and the bottom menu (§6.7) over them. Without the owner's picture, the drawn stage
   `HomeStage.ReferenceDiorama` (kit `HomeLook.cs`, §6.4): a `StonePedestal` ring, the lotus fountain on it
   (`Kit.LotusFountain`, `ui.fountain`: a small pedestal as its basin, water, two lily pads, the lotus) and the four
   still heroes around it as in the reference (Bloom raised behind the fountain, Drop at the right back, Sprig at the
@@ -651,8 +651,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   B6) no heroes show. Early and progressed alike, each hero wears its outfit once the Wardrobe is open. The splash
   shows the Home picture until its own (B6) exists (`OwnerPictures.Resolve`) and the same stage as Home, so it turns
   into Home without a jump. The Leafling guest (spec 004 R17) was removed by the owner on 2026-10-02.
-- The milestone teaser and the rank row are parchment pills (`Kit.ParchmentPill`) with the outlined pink gift or gold
-  trophy and `InkBrown` text; the Daily Challenge card is parchment with the sun on a cream disc; the avatar a cream disc.
+- The milestone teaser is a parchment pill (`Kit.ParchmentPill`) with the outlined pink gift and `InkBrown` text; the
+  Daily Challenge card is parchment with the sun on a cream disc. (The rank pill and the avatar side button left Home
+  for the bottom menu's Leaderboard and Wardrobe places on 2026-10-04, §6.7.)
 - Backdrop: `HomeStage.Garden` warms the Home and splash colors (a clearer blue sky, sunlit horizon and hills, lush
   bushes with pink blossoms, sandy arches; 15% of the band's theme tint stays).
 
@@ -688,10 +689,11 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   three to a row, as many rows as the page holds (two on 16:9, three on 19.5:9, four on 21:9 in the preview): "Default",
   worn while the family wears nothing, then each item for sale shown on the chosen family's hero (a frame, badge or
   marker as its shape) with its cost pill on the card's bottom edge (a tap buys); the footer between cream ‹ › page
-  arrows (`Kit.ArrowButton`, `UiKit.PageArrow`). The Daily Reward, Leaderboard and Collection cards carry a `WoodSign`
-  (None) header.
+  arrows (`Kit.ArrowButton`, `UiKit.PageArrow`); the bottom menu (§6.7) over the panel's foot, the Shop in its
+  medallion. The Daily Reward, Leaderboard and Collection cards carry a `WoodSign` (None) header.
 - The playtest's Wardrobe (owner's review, FR-025; preview frame 27, `playtest/design/WardrobeScreen.cs`, opened from
-  Home's Wardrobe button, the avatar): the §6.5 layout without the kind chips and the profile tab; the name card is
+  the bottom menu's Wardrobe, §6.7; before 2026-10-04 from Home's avatar): the §6.5 layout without the kind chips and
+  the profile tab, the bottom menu over the panel's foot with the Wardrobe in its medallion; the name card is
   `Kit.NameCard` (parchment whose middle rises into the name tab); the cards, three a page, are "Default" (nothing worn;
   a tap takes everything off), the owned worn items (a tap wears one, or takes it off when worn), the worn items for sale
   (cost pill; a tap buys and wears) and the ones earned later (`Kit.OutfitCard(…, locked: true)`: the picture faded to
@@ -705,7 +707,9 @@ New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch` (retired on 2026-10-03 with the arch), the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.layer_peek` and `tile.picture` restyled; `tile.entry` retired on 2026-10-03), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
-`ui.logo.wood`, `ui.back`, `ui.fast`, `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
+`ui.logo.wood`, `ui.back`, `ui.fast`, `ui.nav.bar` and `ui.nav.medallion` (the bottom menu, §6.7), `icon.nav.shop`,
+`icon.nav.wardrobe`, `icon.nav.home`, `icon.nav.leaderboard` and `icon.nav.collection` (its places' icons, the owner's
+pictures D9–D13; the `icon.` prefix is `UiKit`), `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
 icon pictures replace them, §3.10), `tile.grass` (the picture's background cells, §4.1), `bg.win` (the win's garden,
 §4.2), `ui.sign.ivy`
 (kind `Shape`: the clover cluster), `ui.jam.slots` (the jam's slot row), `ui.pill.reward` (the win's and the milestone's reward pills),
@@ -736,7 +740,8 @@ The functions (engine-free, `client/Assets/Bloomlings/UI/Design/ReferenceLayout.
 pod of the tray's grid), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`,
 `ScreenLayout.ReferenceHome` → `ReferenceHomeRegions`, `ScreenLayout.PageHeader` → `PageHeader` (the Wardrobe's and
 the Store page's header row), `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions` and
-`ScreenLayout.ReferenceStore` → `ReferenceStoreRegions`; `ScreenLayout.ReferenceScale` is `k`. Where the measurements
+`ScreenLayout.ReferenceStore` → `ReferenceStoreRegions`; `ScreenLayout.ReferenceScale` is `k`; the bottom menu is
+`ScreenLayout.BottomNav` → `BottomNavRegions` and `ScreenLayout.BottomNavTop` (in `BottomNav.cs`, §6.7). Where the measurements
 left a choice, the implementation fixes it as noted under each table ("Fixed:").
 
 ### 6.1 Gameplay
@@ -927,20 +932,28 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Petals pill | `0.38W × 0.095W`, right edge − `0.02W`, top 2.5% of H |
 | Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
-| Side buttons | the Wardrobe (the profile avatar with a green shirt badge at its bottom right, `Kit.IconBadge` / `UiKit.IconBadge`, 0.34 of its size; Home's one Wardrobe button since the owner's note of 2026-10-04, which removed the shirt button), Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill (its place: see "Fixed") |
-| Level plaque | wooden sign `0.5W × 0.085H`, centered, from 64% to 72.5% of H |
-| Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H; the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
-| Teaser | the milestone teaser as a small parchment pill centered under Play (89.5%–93.5%); the free booster as a cream pill beside it when offered |
+| Side buttons | the Daily Challenge (right) as a cream round button `0.13W` at 24% of H, `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places |
+| Level plaque | wooden sign `0.5W × 0.085H`, centered, `0.01H` over Play (64% to 72.5% of H before the bottom menu; about 60% to 68.5% now) |
+| Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, `0.15H` tall, ending over the teaser row (73.5% to 88.5% of H before the bottom menu; about 69.5% to 84.5% on 19.5:9 now); the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
+| Teaser | the milestone teaser as a small parchment pill (`0.5W × 0.04H`) centered under Play, its row's touch boxes ending `0.015W` over the bottom menu's top; the free booster as a cream pill beside it when offered |
+| Bottom menu | the owner's wooden bar across the screen's bottom with Home in its raised medallion (§6.7) |
 
-Fixed: the fractions apply to the safe height less `bottomReserve` (0 in both builds: the playtest's dev row lies small
-and faded at 70% alpha over the garden in the band under the teaser, so the layout keeps the reference's fractions); the
-Petals pill (without the "+" while the Store is locked) fits its amount at the right end of its box (§3) and is centered
-on the Settings button's height; the logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side
-columns start at 24% of H or `0.02W` under the logo and stack `0.13W` buttons `0.03W` apart (`SideButton(right, i)` for
-more, such as the avatar); the rank pill (`0.3W × 0.075W`) lies in the top row, centered between Settings and the
-Petals pill on Settings' middle (`ReferenceHomeRegions.Rank`; under the right column, its first place, it covered Drop's
-head on the layered Home); the teaser row (`0.04H`, the teaser `0.5W`, the free booster
-from `0.02W` right of it to `0.02W` from the edge) moves down when the free booster's touch box would reach Play.
+Fixed: the fractions apply to the safe height (`bottomReserve`, 0 in both builds since the playtest's dev row moved into
+the Settings card opened from Home, lifts the bottom stack by its height); the Petals pill (without the "+" while the
+Store is locked) fits its amount at the right end of its box (§3) and is centered on the Settings button's height; the
+logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side columns start at 24% of H or `0.02W`
+under the logo and stack `0.13W` buttons `0.03W` apart. The bottom stack (owner's bottom menu, 2026-10-04, FR-030) is
+laid out bottom up from the menu's top (`ReferenceHomeRegions.NavTop` = `ScreenLayout.BottomNavTop`, the medallion's
+top, §6.7): its limit is `0.015W` (`BottomNav.GapShare`) over it, less `bottomReserve`; the teaser row is centered half
+the touch minimum over the limit, so the free booster's touch box (`0.02W` right of the `0.5W` teaser to `0.02W` from
+the edge, `0.04H` tall) ends on it; Play ends 1 px over that touch box, `0.15H` tall (`PlayShare`) unless the plaque
+would then rise above 60% of H (`PlaqueFloorShare`), when it shrinks, at least to `0.11H` (`PlayMinShare`) and the
+touch minimum; the plaque (`0.085H`, `PlaqueShare`) stands `0.01H` (`PlaqueGapShare`) over Play. On a 1080 × 2340
+phone (insets 110 / 63) the plaque spans 1413–1598 (before: 1497–1681), Play 1619–1944 at its full `0.15H` (before:
+1703–2028), the teaser 1968–2055 and the menu's top is 2093; on 1080 × 1920 (63 / 0) Play shrinks to `0.126H` (234 px)
+so the plaque stays at 60% (1177), and on 1080 × 2520 (120 / 66) it keeps `0.15H`, the plaque at 61%. The diorama
+keeps 22%–70% of H. The rank pill (`Rank`), the Wardrobe, Collection and Store side buttons (`Wardrobe`,
+`Collection`, `Store`) were removed from `ReferenceHomeRegions` with them.
 
 **The layered Home** (owner's delivery, FR-028, research D19; kit `HomeLayers` and `HomeMotion` in `HomeLayers.cs`,
 the boxes in the generated `HomeLayersData.cs`). Over the owner's garden with its fountain layers (pictures.md B1),
@@ -952,7 +965,7 @@ Home and the splash draw, back to front:
 5. Sprig, then Twig, each over its shadow;
 6. the fountain's front `home-fountain-front` (`bg.home.fountain_front`), over the heroes' feet;
 7. the petals `home-petals` (`bg.home.petals`), drifting;
-8. the UI: the logo, Settings, the Petals pill, the side buttons, the plaque, Play and the pills.
+8. the UI: the logo, Settings, the Petals pill, the side button, the plaque, Play, the pills and the bottom menu (§6.7).
 
 Every layer lies at `HomeLayers.Place(HomeLayers.Cover(screen), layer)`, `screen` the full-screen box the backdrop
 cover-fits the garden into: `Cover` lays the 852 × 1846 picture (`PictureWidth`, `PictureHeight`) over it at the larger
@@ -998,8 +1011,8 @@ drawing while it shows (at least the heroes' 24 fps, the petals at the display r
 
 Taps: a tap on a hero's seam picture box (`HeroMotion.PictureBox(HeroCell, Frame(family, Idle, 0))`) calls
 `HomeMotion.Tap(family, now)`: the hero reacts at once, cross-fading from its idle, unless it already reacts. A hero
-never takes a tap from Play, the side buttons, Settings, the Petals pill or the plaque: the playtest cuts each hero's
-touch box clear of every Home control and of the heroes in front of it (a part smaller than `size.touch_min` takes
+never takes a tap from Play, the side buttons, Settings, the Petals pill, the plaque or the bottom menu: the playtest
+cuts each hero's touch box clear of every Home control, of the menu from its top down and of the heroes in front of it (a part smaller than `size.touch_min` takes
 none); Unity's clear touch boxes lie in the stage under the screen's controls, which keep their taps. The splash takes
 no hero taps.
 
@@ -1016,14 +1029,13 @@ The drawn diorama (without the owner's picture) is `HomeStage.ReferenceDiorama(s
 width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's stone ring `0.78u` wide with its foot
 `0.09u` above the stage's bottom, the lotus fountain on it, Bloom raised behind the fountain (`0.64u` picture, feet
 `0.51u` up), Drop at the right back (`0.44u` at `+0.30u`), Sprig at the left (`0.74u` at `−0.26u`), Twig in front at the
-right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest stacks only the
-unlocked side buttons (left: the Wardrobe as the avatar with its shirt badge, Collection; right: Daily Challenge, Store), the rank pill in the top row
-(`r.Rank`); its splash shows the logo and the diorama in the same boxes.
+right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest shows the Daily Challenge's side button
+once unlocked (`r.Daily`) and the bottom menu (§6.7); its splash shows the logo and the diorama in the same boxes.
 
-Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it shows from its top with
-`SideButton(right, i)` (left: the profile avatar, which opens the Wardrobe, with the `ui.shirt` badge, and Collection `ui.grid`; right: the Daily Challenge,
-the sun `ui.sun` with the green check badge when done today, and the Store, the lotus), and the rank pill in the top row
-(`r.Rank`); the logo shows in both looks, the owner's logo picture sized by width
+Unity (`HomeScreen`, `SplashScreen`): the Daily Challenge, the sun `ui.sun` with the green check badge when done today,
+in `r.Daily`, and the bottom menu (§6.7, `BottomNavView`, built last over the stage, Home in its medallion; its
+Leaderboard, Shop and Wardrobe places are the targets of the L10, L12 and L40 Home demos, `HomeScreen.DemoTarget`; the
+profile avatar, `ProfileAvatar`, stays in the Wardrobe's profile tab); the logo shows in both looks, the owner's logo picture sized by width
 (`ReferenceHomeRegions.LogoPicture`: `0.82W` wide, centered on the logo box, its top no higher than a tenth of its
 height above Settings' bottom); over the owner's layered Home both looks show its stage with the four animated heroes
 (`HeroPictures.Stage`, `HomeLayersView` with one `HeroMotionView` per hero, built under the screen's controls;
@@ -1031,8 +1043,7 @@ height above Settings' bottom); over the owner's layered Home both looks show it
 Wardrobe is open each hero wears its outfit and the player's hero (`ProfileAvatar.HeroFamily`) swaps places with Sprig
 at the left front; Play shows its label alone, `ReferenceHomeRegions.PlayLabelShare` of its height; the Petals pill
 without its "+" starts the amount right after the lotus; the plaque is `0.5W`, wider when its letters need it (at most
-`0.8W`); the free booster is the cream `CostPill` "Free"; the rank pill and the free booster take taps in clear boxes
-grown to `size.touch_min`; the splash takes the Home garden while its own picture is missing (`OwnerPictures.Resolve`)
+`0.8W`); the free booster is the cream `CostPill` "Free" and takes taps in a clear box grown to `size.touch_min`; the splash takes the Home garden while its own picture is missing (`OwnerPictures.Resolve`)
 and puts its logo and its heroes where Home shows them; over the layered Home the splash and Home share one `HomeMotion`
 while both show, so Home takes over the splash's motion without a jump.
 
@@ -1048,8 +1059,9 @@ while both show, so Home takes over the splash's motion without a jump.
 | Arrows | cream round ‹ › `0.09W` at 8% and 92% of W, 28% of H (previous/next family) |
 | Name card | parchment from 42% to 57% of H, `0.92W`; a sign-like tab `0.5W` with the name (`type.title`), the role line, the description in two lines |
 | Family tabs | from 56% to 68.5% of H, four tabs `0.24W` with the family's hero head and name; the selected one lighter and joined to the panel below |
-| Outfit panel | parchment from 67% to the bottom: three cards per row `0.29W × 0.18H` with the hero wearing the item and its name; the worn one green with a check badge; pages or scroll for more |
-| Footer | "Earn special outfits as you play!" at 93% of H |
+| Outfit panel | parchment from 67% to the bottom (behind the bottom menu, §6.7): three cards per row `0.29W × 0.18H` with the hero wearing the item and its name; the worn one green with a check badge; pages or scroll for more |
+| Footer | "Earn special outfits as you play!" at 93% of H, above the bottom menu |
+| Bottom menu | the owner's wooden bar over the panel's foot, the Wardrobe in its medallion (§6.7) |
 
 Fixed: the header (`ScreenLayout.PageHeader`, record `PageHeader`) is shared with the Store page (§6.6); the banner's
 ivy clusters (`PageHeader.BannerExtent`, `GardenLook.SignExtent`) keep `0.005W` from the back button and the Petals box
@@ -1058,7 +1070,12 @@ between the owner's ivy) is `0.272W`, so "Wardrobe" shows at about 95% of `type.
 11% to 37% of H; the name tab spans 42%–47.5%, the role line 47.5%–50.5%, the description 50.5%–56%; `Tab(i, n)`
 splits the tabs' `0.96W` into n tabs at most `0.24W` wide with `0.01W` between them (five with the Unity profile tab);
 the panel spans `0.96W` to the screen's bottom; without chips the cards span 70%–88% of H, with the kind chips (`hasChips`, 69.5%–74%) 75%–89.5%; `Card(i)` is `0.29W` wide,
-spread over `0.92W`; the footer box spans 91%–95% of H between the page arrows (`0.09W` at 8% and 92% of W).
+spread over `0.92W`; the footer box spans 91%–95% of H between the page arrows (`0.09W` at 8% and 92% of W). Since the
+bottom menu (2026-10-04, FR-030) the fractions under the header apply to the page's height H′ = (the menu's top −
+half the touch minimum − the safe top) / 0.93, so the page arrows' touch boxes, centered on the footer at 93%, end on
+the menu's top (`ReferenceWardrobeRegions.NavTop`): H′ is 0.951 of the safe height on 1080 × 2340 (the footer at
+1986–2069, the cards 1553–1924 without the chips), 0.931 on 1080 × 1920 and 0.960 on 1080 × 2520; the header keeps the
+safe height's 2.5%. One row of three cards still fits.
 
 ### 6.6 Store page (both builds)
 
@@ -1069,17 +1086,89 @@ over the Wardrobe's garden; everything the card offered stays (FR-002: the rows,
 | Element | Box |
 |---|---|
 | Header row | the page header of §6.5 (`Header`): back (returns to where the Store was opened), the "Store" banner with ivy, the Petals pill (playtest: its "+" says the Petal packs are offline; Unity: no "+", the packs are Shop rows) |
-| Panel | parchment `0.96W` wide (`0.02W` from the sides) from `0.03W` under the header row to the bottom of the screen (drawn a radius further, so no bottom corners show), radius `radius.card` of its width (at least `radius.card_min`) |
+| Panel | parchment `0.96W` wide (`0.02W` from the sides) from `0.03W` under the header row to the bottom of the screen (drawn a radius further, so no bottom corners show; the bottom menu lies over its foot, §6.7), radius `radius.card` of its width (at least `radius.card_min`) |
 | Tabs | Shop / Cosmetics (`hasCosmetics`, after L40) `0.8W × 0.1W`, `0.045W` under the panel's top |
 | Status | Unity's "Purchases are unavailable offline" (`hasStatus`) `0.88W × 0.05W`, `0.02W` under the tabs |
-| List | `0.88W` wide (`0.06W` from the sides) from `0.04W` under the tabs (`0.02W` under the status line; `0.045W` under the panel's top without either) to `0.04W` over the safe bottom |
-| Shop rows | `Row(slot, count)`: cream rows across the list from its top, `0.15W` to `0.19W` tall (`RowHeight`: a page of rows filling the list), `0.025W` apart; `RowsPerPage(count)`: all the rows when they fit at `0.15W`, else as many as fit above the footer; the Shop's seven playtest rows fit one page on every phone |
+| List | `0.88W` wide (`0.06W` from the sides) from `0.04W` under the tabs (`0.02W` under the status line; `0.045W` under the panel's top without either) to `0.02W` over the bottom menu's top (`NavTop`; `0.04W` over the safe bottom before the menu) |
+| Shop rows | `Row(slot, count)`: cream rows across the list from its top, `0.135W` (`RowShare`; `0.15W` before the bottom menu) to `0.19W` tall (`RowHeight`: a page of rows filling the list), `0.025W` apart, their names sized for a `0.15W` row (`RowTypeShare`) and grown or shrunk with it; `RowsPerPage(count)`: all the rows when they fit at `0.135W`, else as many as fit above the footer; the Shop's seven playtest rows fit one page on every phone |
 | Cosmetics | `FamilyTabs` `0.21W` tall across the list's top; `OutfitPanel` (the lighter panel) from there to the list's bottom; `OutfitGrid` the panel less `0.02W`, above the footer; `OutfitCard(slot)` three to a row, `0.02W` apart, `OutfitRows` rows (as many as fit at 1.15 × the card's width, at least two), each card at most 1.45 × its width tall (its cost pill's room included) |
+| Bottom menu | the owner's wooden bar over the panel's foot, the Shop in its medallion (§6.7) |
 | Footer | `0.84W` wide, `max(0.12W, size.touch_min)` tall, `0.02W` over the list's bottom: "Page n / m" (Shop, only with more than a page) or "Earn special outfits as you play!" (Cosmetics) between the page arrows `0.09W` at its ends (`PagePrevious`, `PageNext`; touch-sized) |
 
 Fixed: on a 1080 × 2340 phone (insets 110 / 63, the preview's 19.5:9) the header's line is at y 229, the panel starts
-at 329, the tabs span 378–486, the list 529–2234 with the footer at 2080–2212; the seven Shop rows are `0.19W` (205 px)
-tall; the cosmetics show three rows of 288 × 413 cards (two on 16:9, four on 21:9). Back returns to Home, or to the
+at 329, the tabs span 378–486, the list 529–2072 with the footer at 1918–2050 (529–2234 and 2080–2212 before the bottom
+menu); the seven Shop rows are 197 px tall (`0.183W`; 205 px before); the cosmetics show three rows of 288 × 359 cards
+(288 × 413 before; two rows on 16:9, three on 21:9, which showed four before the menu). Back returns to Home, or to the
 Wardrobe when its Petals "+" opened the page (the playtest's `DesignApp.StoreReturn`; Unity's page lies over the screen
 that opened it and hides); the Android system back closes the page (and the Wardrobe) as their back buttons do. Every
-entry point opens the page: Home's Store button and Petals "+", the Wardrobe's Petals "+".
+entry point opens the page: the bottom menu's Shop (§6.7) on Home or the Wardrobe, and their Petals "+" (Home's Store
+button until 2026-10-04).
+
+### 6.7 Bottom menu (both builds; owner's request of 2026-10-04, the wooden variant)
+
+The owner: "We also need to add a bottom menu. You will find the icons in the zip. On the picture you will find
+variants. Try the wooden variant." Of the five bar styles on the owner's picture, the second row: a wide warm brown
+wooden plank across the screen's bottom with wood grain and rounded ends, green vine curls with small white flowers
+around both ends, thin vertical grooves between the places, the icons on the plank, and the active place in a raised
+round wooden medallion (a lighter wood disc in a darker rim, with vines and two small white flowers) rising over the
+plank's top. Home, the Store page (§6.6) and the Wardrobe (§6.5) show it; gameplay, the win, milestone, jam and pause
+cards and the splash do not (FR-030). Kit: `BottomNav.cs` (`NavPlace`, `BottomNav`, `BottomNavRegions`,
+`NavBarShape`, `ScreenLayout.BottomNav`, `ScreenLayout.BottomNavTop`) and `NavRaster.cs` (`UiRaster.NavBar`,
+`UiRaster.NavMedallion`); components `Kit.BottomNav` (playtest, `KitNav.cs`) and `UiKit.BottomNav` → `BottomNavView`
+(Unity, `UiKitNav.cs`).
+
+**Places** (`NavPlace`, `BottomNav.Order`), left to right: Shop, Wardrobe, Home, Leaderboard, Collection. A place shows
+only once its feature is unlocked (`BottomNav.Places(HomeLook)`): the Shop with `HomeLook.Store` (L12), the Wardrobe
+with `HomeLook.Wardrobe` (L40), the Leaderboard with `HomeLook.Rank` (L10), the Collection with `HomeLook.Collection`
+(a picture won); Home always, so early on Home stands alone. The shown places keep their order and share the span
+evenly. The active place (the screen's own: Home on Home, the Shop on the Store page, the Wardrobe on the Wardrobe)
+sits in the medallion and takes no tap; a tap on another, with the click: the Shop opens the Store page (over the
+Wardrobe when it is open, so its back returns there), the Wardrobe the Wardrobe, Home returns to Home, the Leaderboard
+and the Collection open their cards over Home (from the Store page or the Wardrobe, Home first). The playtest's
+`DesignApp.Navigate`, Unity's `HomeController` (`Navigate`).
+
+| Region (`BottomNavRegions`) | Box |
+|---|---|
+| `Bar` | the bar's picture: the whole screen's width, from `0.045W` (`DecorShare`, the vines' reach) over the plank's top to the screen's bottom |
+| `Plank` | `0.12W` tall (`PlankShare`) from `0.03W` to `0.97W` (`EndShare`), its bottom on the safe bottom; the wood runs on behind the bottom inset to the screen's bottom |
+| `PlaceBoxes` | the shown places' columns on the plank band, sharing `0.12W` to `0.88W` (`SpanStart`, `SpanEnd`) evenly: five are `0.152W` wide, centered at 19.6%, 34.8%, 50%, 65.2% and 80.4% of W |
+| `Icon(i)` | a place's icon: a square `0.86` of the plank's height (`IconShare`) on its column's middle, `0.03` of the plank's height over the band's middle; the active place's `0.7` of the disc (`MedallionIconShare`) on its middle |
+| `Medallion` | `0.19W` square (`MedallionShare`) centered on the active place, its top `0.05W` (`RiseShare`) over the plank's top, so it reaches `0.02W` under the plank into the inset; smaller where that would leave the screen (no bottom inset: it ends on the screen's bottom, `0.17W` on 1080 × 1920) |
+| `Disc` | the medallion's wooden disc, `0.88` of its box (`DiscShare`); its leaves and flowers take the rest |
+| `Touch(i)` | a place's touch box: its column from the safe bottom up the plank's height, at least `size.touch_min` (`TouchMin`); a neighbor of the active place cut clear of the medallion while it keeps the touch minimum; the active place has none (`Buttons` lists the others) |
+| `Top` | the menu's highest point, the medallion's top (`ScreenLayout.BottomNavTop`, the same whatever the places): Home's bottom stack, the Store's list and the Wardrobe's page end above it |
+
+Fixed: on a 1080 × 2340 phone (insets 110 / 63) the plank spans 2147–2277 (x 32–1048), the bar's picture 2099–2340,
+the five places 130–950 (164 px each), their touch boxes 2145–2277, the medallion 437–643 × 2093–2299 on Home (its disc
+181 px, its icon 126 px; the plank's icons 111 px), and the menu's top is 2093. On 1080 × 1920 (63 / 0) the plank spans
+1790–1920 and the medallion 184 px from 1736; on 1080 × 2520 (120 / 66) the plank 2324–2454, the top 2270.
+
+**Recipe** (engine-free pictures, both builds draw the same bytes; cached by key and size):
+- The bar (`ui.nav.bar`, `UiRaster.NavBar(width, height, NavBarShape)`, key `ui.nav.bar/…` from `BottomNavRegions.Shape`:
+  the plank's ends, top and band bottom as shares of the bar's box, and the grooves' places): the plank in the warm
+  dark wood (`WoodTone.Dark`: `wood.dark_top` to `wood.dark`, its grain along its length, mixed 30% toward
+  `wood.dark_top` for warmth, with long darker `wood.dark_line` and lighter streaks, the band lit from above), its top
+  corners rounded by 0.42 of the band's height (the bottom ones lie below the screen), a light bevel inside its top
+  edge and ends and the `wood.dark_line` outline; the band's lower edge a little deeper, the wood under it (behind the
+  bottom inset) darker; between two places a carved groove half the band tall (a `wood.dark_line` line 3% of the band
+  wide with a light line beside it); and at each end (the right one mirrored) a green vine (`garden.leaf_3` with a
+  `garden.leaf_line` outline and a lighter middle) coming in over the plank's top, curling down around its end and back
+  along its bottom, a tendril curling up over the top, eight almond leaves in the `garden.leaf_*` greens (one side
+  lighter, a `garden.leaf_line` outline and midrib) and two white five-petal flowers (`garden.flower`,
+  `garden.flower_line`) with yellow middles (`garden.flower_center`), sized by the band's height.
+- The medallion (`ui.nav.medallion`, `UiRaster.NavMedallion(size)`): a soft `garden.shadow` under it; the disc's rim
+  in the bar's wood (a fifth of its radius, lighter at its top, the `wood.dark_line` outline and a thin line inside);
+  its face light honey wood (`WoodTone.Light` mixed 35% toward `wood.grain`, lit from the upper left toward
+  `wood.light`, deeper toward `wood.edge` at the lower right, a soft shadow under the rim's top, a faint growth ring);
+  short green stems along the rim with eight leaves at its four corners and two small white flowers (the lower left
+  and the right).
+- The icons (`icon.nav.shop|wardrobe|home|leaderboard|collection`): the owner's pictures `Icons/nav-*.png`
+  (`OwnerPictures.NavIcon`, pictures.md D9–D13) fitted into `Icon(i)` with their aspect kept; while a picture is
+  missing, the place's glyph (`BottomNav.Fallback`: the reward basket, the shirt, the fountain, the trophy, the grid in
+  their colors over a darker outline) in `BottomNav.GlyphBox` (the icon box less 14% a side). A pressed place's icon
+  squashes like a tile (spec 003 FR-017).
+
+Drawn: the playtest draws the bar after the screen's content (its places' hits over everything under them), Unity
+builds one `BottomNavView` into each of the three screens over its content (the bar's picture takes the taps that fall
+on it, so none reach Home's stage; the medallion takes no tap; each place is a clear touch target with its icon). The
+heroes' tap boxes on Home keep clear of the menu from its top down.

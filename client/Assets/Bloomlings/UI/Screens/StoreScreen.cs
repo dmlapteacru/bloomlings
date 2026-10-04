@@ -60,8 +60,9 @@ namespace Bloomlings.Client.UI.Screens
     /// cosmetics in the reference Wardrobe's look: the four family tabs with their heroes over a lighter panel, outfit
     /// cards three to a row, as many rows as the page holds (the "Default" look first, worn while the family wears
     /// nothing; each item shown on the family's hero with its cost pill, a tap buys) and the footer line between the page
-    /// arrows. It opens over Home (the Store button, the Petals pill's "+") or over the Wardrobe (its Petals "+"); its back
-    /// hides it, so the screen under it shows again.
+    /// arrows. It opens over Home (the bottom menu's Shop, the Petals pill's "+") or over the Wardrobe (the same two); its
+    /// back hides it, so the screen under it shows again. The bottom menu stands over the panel's foot, the Shop in its
+    /// medallion (spec 005 FR-030); the list ends above it.
     /// </para>
     /// </summary>
     public sealed class StoreScreen : MonoBehaviour
@@ -73,6 +74,8 @@ namespace Bloomlings.Client.UI.Screens
         private TabsView _tabs = null!;
         private TextMeshProUGUI _status = null!;
         private RectTransform _list = null!;
+        private BottomNavView? _nav;
+        private Func<IReadOnlyList<NavPlace>>? _navPlaces;
         private ReferenceStoreRegions _regions = null!;
         private IReadOnlyList<StoreItem> _items = Array.Empty<StoreItem>();
         private WardrobeService? _wardrobe;
@@ -83,7 +86,9 @@ namespace Bloomlings.Client.UI.Screens
 
         public bool IsOpen => _root.activeSelf;
 
-        public static StoreScreen Create(Transform parent)
+        /// <param name="onNav">A tap on another place of the bottom menu (spec 005 FR-030); null shows no menu.</param>
+        /// <param name="navPlaces">The places the bottom menu shows (<see cref="BottomNav.Places"/>).</param>
+        public static StoreScreen Create(Transform parent, Action<NavPlace>? onNav = null, Func<IReadOnlyList<NavPlace>>? navPlaces = null)
         {
             // A full screen over Home (or over the Wardrobe, opened from its Petals "+") that takes every tap, on the
             // Wardrobe's garden (the owner's picture B7, or the drawn one), as the Wardrobe.
@@ -102,6 +107,19 @@ namespace Bloomlings.Client.UI.Screens
             screen._tabs = UiKit.Tabs("TabRow", screen._tabsBox, labels, i => screen.SetTab((StoreTab)i));
             screen._status = UiKit.Label("Status", root, Loc.T("store.offline"), T.Caption, UiTheme.Of(C.InkBrownSoft));
             screen._list = UiFactory.CreateRect("Items", root);
+
+            // The bottom menu over the panel's foot, the Shop in its medallion (FR-030).
+            if (onNav != null)
+            {
+                screen._navPlaces = navPlaces;
+                screen._nav = UiKit.BottomNav("BottomNav", root, place =>
+                {
+                    if (place != NavPlace.Shop)
+                    {
+                        onNav(place);
+                    }
+                });
+            }
 
             // The header last, as on the Wardrobe; the pill shows the balance only (Petal packs are rows of the Shop).
             screen._header = UiKit.PageHeader(root, Loc.T("store.title"), screen.Hide, petals: true);
@@ -154,6 +172,7 @@ namespace Bloomlings.Client.UI.Screens
             _status.gameObject.SetActive(!storeAvailable);
             UiKit.PlaceScreen(_status.rectTransform, r.Status);
             UiKit.PlaceScreen(_list, r.List);
+            _nav?.Show(_navPlaces?.Invoke() ?? BottomNav.Order, NavPlace.Shop);
         }
 
         private void SetTab(StoreTab tab)
@@ -210,7 +229,7 @@ namespace Bloomlings.Client.UI.Screens
             int perPage = r.RowsPerPage(shown.Count);
             int pages = Mathf.Max(1, (shown.Count + perPage - 1) / perPage);
             _pageIndex = Mathf.Clamp(_pageIndex, 0, pages - 1);
-            float grow = r.RowHeight(shown.Count) / (r.W * ReferenceStoreRegions.RowShare);
+            float grow = r.RowHeight(shown.Count) / (r.W * ReferenceStoreRegions.RowTypeShare);
             for (int slot = 0; slot < perPage; slot++)
             {
                 int index = (_pageIndex * perPage) + slot;
@@ -240,7 +259,7 @@ namespace Bloomlings.Client.UI.Screens
         /// its right end: a cost pill with the lotus for Petals, the store's price on a cream pill, or "Unavailable" while
         /// real money cannot be spent (the row then fades to half). A tap on the row buys; a price the player cannot pay
         /// fades its pill. The tile is 0.8 of the row tall and the letters grow with the row (<paramref name="grow"/>: its
-        /// height over a <see cref="ReferenceStoreRegions.RowShare"/> row's).
+        /// height over a <see cref="ReferenceStoreRegions.RowTypeShare"/> row's).
         /// </summary>
         private void Row(StoreItem item, Box line, float grow)
         {

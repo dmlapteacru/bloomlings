@@ -32,7 +32,9 @@ namespace Bloomlings.Client.UI.Screens
     /// badge, marker), then the owned items of the kind as outfit cards, three to a page, the worn one green with a
     /// check, the "Default" look (none of the kind) first; a tap wears an item, and each family wears one of each
     /// kind;</description></item>
-    /// <item><description>the footer "Earn special outfits as you play!" between the page arrows.</description></item>
+    /// <item><description>the footer "Earn special outfits as you play!" between the page arrows;</description></item>
+    /// <item><description>the bottom menu over the panel's foot, the Wardrobe in its medallion (spec 005 FR-030); the
+    /// cards and the footer stand above it.</description></item>
     /// </list>
     /// Cosmetics only change how Bloomlings look; the variant colors and icons stay as they are.
     /// </summary>
@@ -70,6 +72,8 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _footer = null!;
         private Button _pagePrevious = null!;
         private Button _pageNext = null!;
+        private BottomNavView? _nav;
+        private Func<IReadOnlyList<NavPlace>>? _navPlaces;
         private ReferenceWardrobeRegions _regions = null!;
         private Family _selected = Family.Sprig;
         private bool _profileMode;
@@ -80,7 +84,9 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <param name="petals">The Petals balance for the pill; null hides the pill.</param>
         /// <param name="onStore">Opens the Store from the pill's "+"; null shows the pill without it.</param>
-        public static WardrobeScreen Create(Transform parent, WardrobeService wardrobe, Func<long>? petals = null, Action? onStore = null)
+        /// <param name="onNav">A tap on another place of the bottom menu (spec 005 FR-030); null shows no menu.</param>
+        /// <param name="navPlaces">The places the bottom menu shows (<see cref="BottomNav.Places"/>).</param>
+        public static WardrobeScreen Create(Transform parent, WardrobeService wardrobe, Func<long>? petals = null, Action? onStore = null, Action<NavPlace>? onNav = null, Func<IReadOnlyList<NavPlace>>? navPlaces = null)
         {
             // A full screen over Home that takes every tap, on the owner's Wardrobe garden (pictures.md B7) or the drawn one.
             Image shade = UiFactory.CreateImage("Wardrobe", parent, null, Color.clear, raycast: true);
@@ -140,6 +146,19 @@ namespace Bloomlings.Client.UI.Screens
             screen._footer = UiKit.Label("Footer", root, Loc.T("wardrobe.footer"), T.Body, UiTheme.Of(C.InkBrownSoft), look: TextLook.Plain(C.InkBrownSoft));
             screen._pagePrevious = UiKit.PageArrow("PagePrevious", root, next: false, () => screen.TurnPage(-1));
             screen._pageNext = UiKit.PageArrow("PageNext", root, next: true, () => screen.TurnPage(1));
+
+            // The bottom menu over the panel's foot, the Wardrobe in its medallion (FR-030).
+            if (onNav != null)
+            {
+                screen._navPlaces = navPlaces;
+                screen._nav = UiKit.BottomNav("BottomNav", root, place =>
+                {
+                    if (place != NavPlace.Wardrobe)
+                    {
+                        onNav(place);
+                    }
+                });
+            }
 
             // The header last, on one line (the Store page's too): the back button, the banner with ivy, the Petals pill.
             screen._header = UiKit.PageHeader(root, Loc.T("wardrobe.title"), screen.Hide, petals != null, onStore);
@@ -375,6 +394,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_footer.rectTransform, r.Footer);
             UiKit.PlaceScreen((RectTransform)_pagePrevious.transform, Touch(r.PagePrevious));
             UiKit.PlaceScreen((RectTransform)_pageNext.transform, Touch(r.PageNext));
+            _nav?.Show(_navPlaces?.Invoke() ?? BottomNav.Order, NavPlace.Wardrobe);
         }
 
         private static int IndexOf(Family family)

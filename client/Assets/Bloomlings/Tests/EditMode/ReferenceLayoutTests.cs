@@ -461,38 +461,212 @@ namespace Bloomlings.Client.Tests
             Assert.That(PetalsPillParts.WidthText(NumberText.Group(1240)), Is.EqualTo("0" + NumberText.Separator + "000"), "measured on zeros, so a count-up keeps its pill");
         }
 
+        /// <summary>
+        /// Home (spec 005 FR-024, FR-030): its regions in order inside the safe area; the plaque, Play and the teaser row
+        /// above the bottom menu (Play's bottom and the free booster's touch box end a gap over its top, less the reserve);
+        /// Play 0.15 H tall unless the plaque would rise above 60% of H, then shorter (never under 0.11 H nor the touch
+        /// minimum); the Daily Challenge the right column's first side button; and every button, the bottom menu's places
+        /// included, reachable and clear of the others.
+        /// </summary>
         [Test]
         public void Home_FollowsTheReference_AndKeepsEveryButtonReachable()
         {
             foreach ((float w, float h, Insets insets) in Phones())
             {
-                foreach (float reserve in new[] { 0f, 170f * DesignTokens.ScaleFor(w, h) })
+                foreach (float reserve in new[] { 0f, 132f * DesignTokens.ScaleFor(w, h) })
                 {
                     ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets, reserve);
                     string at = w + "x" + h + " reserve=" + reserve;
+                    float touch = Touch(w, h);
+                    float limit = r.NavTop - (BottomNav.GapShare * r.W) - reserve;
                     AssertOrdered(r.Ordered, r.Safe, at);
-                    Assert.That(r.Teaser.Bottom, Is.LessThanOrEqualTo(r.Safe.Bottom - reserve + 0.5f), at + ": the reserve stays free");
+                    Assert.That(r.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at);
+                    Assert.That(r.Teaser.Bottom, Is.LessThanOrEqualTo(limit + 0.5f), at + ": the teaser above the bottom menu and the reserve");
+                    Assert.That(TouchBox(r.FreeBooster, touch).Bottom, Is.LessThanOrEqualTo(limit + 0.5f), at + ": the free booster's touch box above them");
+                    Assert.That(r.Play.Bottom, Is.LessThan(limit - (touch / 2f)), at + ": Play ends above the medallion's top with a gap");
+                    Assert.That(r.Play.Bottom, Is.LessThanOrEqualTo(TouchBox(r.FreeBooster, touch).Top + 0.5f), at + ": Play clear of the free booster's touch box");
                     Assert.That(r.Diorama.Top, Is.GreaterThanOrEqualTo(r.Logo.Bottom), at);
                     Assert.That(r.Plaque.Top, Is.LessThan(r.Diorama.Bottom), at + ": the plaque stands at the diorama's foot");
                     Assert.That(r.Play.Width, Is.EqualTo(0.85f * r.W).Within(0.5f), at);
-                    Assert.That(r.SideButton(false, 1), Is.EqualTo(r.Collection), at);
-                    Assert.That(r.SideButton(true, 1), Is.EqualTo(r.Store), at);
-                    foreach (Box side in new[] { r.Wardrobe, r.Collection, r.Daily, r.Store, r.Rank })
+                    float sh = r.Safe.Height;
+                    Assert.That(r.Play.Height, Is.InRange(Math.Max(ReferenceHomeRegions.PlayMinShare * sh, touch) - 0.5f, (ReferenceHomeRegions.PlayShare * sh) + 0.5f), at);
+                    if (r.Play.Height < (ReferenceHomeRegions.PlayShare * sh) - 0.5f && r.Play.Height > Math.Max(ReferenceHomeRegions.PlayMinShare * sh, touch) + 0.5f)
                     {
-                        Assert.That(side.Overlaps(r.Logo), Is.False, at + ": " + side + " under the logo");
-                        Assert.That(side.Bottom, Is.LessThan(r.Plaque.Top), at + ": " + side + " above the plaque");
+                        Assert.That(r.Plaque.Top, Is.EqualTo(r.Safe.Top + (ReferenceHomeRegions.PlaqueFloorShare * sh)).Within(0.5f), at + ": Play shrinks only to keep the plaque at 60% of H");
                     }
 
-                    float touch = Touch(w, h) * 0.95f;
+                    Assert.That(r.SideButton(true, 0), Is.EqualTo(r.Daily), at);
+                    Assert.That(r.Daily.Overlaps(r.Logo), Is.False, at + ": the Daily Challenge under the logo");
+                    Assert.That(r.Daily.Bottom, Is.LessThan(r.Plaque.Top), at + ": the Daily Challenge above the plaque");
+
                     var targets = new List<Box>();
                     foreach ((string _, Box box) in r.Buttons)
                     {
-                        targets.Add(TouchBox(box, touch));
+                        targets.Add(TouchBox(box, touch * 0.95f));
                     }
 
-                    AssertTargets(targets, r.Safe, touch, at);
+                    BottomNavRegions nav = ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, NavPlace.Home);
+                    foreach ((string _, Box box) in nav.Buttons)
+                    {
+                        targets.Add(box);
+                    }
+
+                    AssertTargets(targets, r.Safe, touch * 0.95f, at);
                 }
             }
+
+            // On the reference's 19.5:9 phone (the preview's insets) Play keeps its full height.
+            ReferenceHomeRegions reference = ScreenLayout.ReferenceHome(1080f, 2340f, new Insets(110f, 63f));
+            Assert.That(reference.Play.Height, Is.EqualTo(ReferenceHomeRegions.PlayShare * reference.Safe.Height).Within(0.5f));
+        }
+
+        /// <summary>
+        /// The bottom menu (spec 005 FR-030, the owner's wooden variant): on every phone and for one to five shown places,
+        /// the bar across the screen to its bottom; the plank 0.12 W tall on the safe bottom; the places in their order,
+        /// sharing the span evenly and centered; the medallion 0.19 W over the active place, rising at least 0.05 W above
+        /// the plank and staying on the screen; the icons in their places (the active one in the disc); every place but the
+        /// active one a touch target of at least the touch minimum inside the safe area, clear of the others; and the
+        /// menu's top the same whatever its places.
+        /// </summary>
+        [Test]
+        public void TheBottomMenu_SpreadsItsPlacesInOrder_AndRaisesTheActiveOne()
+        {
+            NavPlace[][] sets =
+            {
+                new[] { NavPlace.Home },
+                new[] { NavPlace.Home, NavPlace.Leaderboard },
+                new[] { NavPlace.Shop, NavPlace.Home, NavPlace.Leaderboard },
+                new[] { NavPlace.Shop, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection },
+                new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard },
+                new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection },
+            };
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                float touch = Touch(w, h);
+                foreach (NavPlace[] places in sets)
+                {
+                    foreach (NavPlace active in places)
+                    {
+                        if (active == NavPlace.Leaderboard || active == NavPlace.Collection)
+                        {
+                            continue; // cards over Home, never a page of their own
+                        }
+
+                        BottomNavRegions r = ScreenLayout.BottomNav(w, h, insets, places, active);
+                        string at = w + "x" + h + " " + string.Join(",", places) + " active=" + active;
+                        float sw = r.Safe.Width;
+                        Assert.That(r.Places, Is.EqualTo(places), at + ": the places in their order");
+                        Assert.That(r.Bar.Left, Is.EqualTo(0f).Within(0.01f), at);
+                        Assert.That(r.Bar.Right, Is.EqualTo(w).Within(0.01f), at);
+                        Assert.That(r.Bar.Bottom, Is.EqualTo(h).Within(0.01f), at + ": the wood runs to the screen's bottom");
+                        Assert.That(r.Plank.Height, Is.EqualTo(BottomNav.PlankShare * sw).Within(0.5f), at);
+                        Assert.That(r.Plank.Bottom, Is.EqualTo(r.Safe.Bottom).Within(0.01f), at + ": the plank sits on the safe bottom");
+                        Assert.That(r.Plank.Within(r.Safe), Is.True, at);
+                        Assert.That(r.Bar.Top, Is.LessThan(r.Plank.Top), at + ": the vines reach over the plank");
+                        Assert.That(r.Top, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at + ": the top whatever the places");
+                        Assert.That(r.Top, Is.LessThanOrEqualTo(Math.Min(r.Bar.Top, r.Medallion.Top) + 0.01f), at);
+
+                        // The places: one column each across the span, equal, touching, centered.
+                        Assert.That(r.PlaceBoxes.Count, Is.EqualTo(places.Length), at);
+                        Assert.That(r.PlaceBoxes[0].Left, Is.EqualTo(r.Safe.Left + (BottomNav.SpanStart * sw)).Within(0.5f), at);
+                        Assert.That(r.PlaceBoxes[places.Length - 1].Right, Is.EqualTo(r.Safe.Left + (BottomNav.SpanEnd * sw)).Within(0.5f), at);
+                        Assert.That(r.PlaceBoxes[0].Left - r.Safe.Left, Is.EqualTo(r.Safe.Right - r.PlaceBoxes[places.Length - 1].Right).Within(0.5f), at + ": centered");
+                        for (int i = 0; i < places.Length; i++)
+                        {
+                            Box place = r.PlaceBoxes[i];
+                            Assert.That(place.Within(r.Plank), Is.True, at + ": place " + i + " on the plank");
+                            Assert.That(place.Width, Is.EqualTo(r.PlaceBoxes[0].Width).Within(0.01f), at + ": evenly spread");
+                            if (i > 0)
+                            {
+                                Assert.That(place.Left, Is.EqualTo(r.PlaceBoxes[i - 1].Right).Within(0.01f), at);
+                            }
+
+                            Box icon = r.Icon(i);
+                            if (i == r.ActiveIndex)
+                            {
+                                Assert.That(icon.Within(r.Disc), Is.True, at + ": the active icon in the disc");
+                            }
+                            else
+                            {
+                                Assert.That(icon.Within(r.Plank), Is.True, at + ": icon " + i + " on the plank");
+                                Assert.That(icon.Left, Is.GreaterThanOrEqualTo(place.Left - 0.5f), at);
+                                Assert.That(icon.Right, Is.LessThanOrEqualTo(place.Right + 0.5f), at);
+                                Assert.That(icon.Overlaps(r.Disc), Is.False, at + ": icon " + i + " clear of the medallion");
+                            }
+                        }
+
+                        // The medallion over the active place, raised, on screen.
+                        Box active0 = r.PlaceBoxes[r.ActiveIndex];
+                        Assert.That(r.Places[r.ActiveIndex], Is.EqualTo(active), at);
+                        Assert.That(r.Medallion.Width, Is.EqualTo(Math.Min(BottomNav.MedallionShare * sw, h - r.Medallion.Top)).Within(0.5f), at + ": 0.19 W, less when it would leave the screen");
+                        Assert.That(r.Medallion.Width, Is.GreaterThan(0.16f * sw), at);
+                        Assert.That(r.Medallion.Height, Is.EqualTo(r.Medallion.Width).Within(0.01f), at);
+                        Assert.That(r.Medallion.CenterX, Is.EqualTo(active0.CenterX).Within(0.01f), at + ": the medallion over the active place");
+                        Assert.That(r.Medallion.Top, Is.EqualTo(r.Plank.Top - (BottomNav.RiseShare * sw)).Within(0.5f), at + ": it rises 0.05 W above the plank");
+                        Assert.That(r.Medallion.Bottom, Is.LessThanOrEqualTo(h + 0.5f), at + ": it stays on the screen");
+                        Assert.That(r.Medallion.Left, Is.GreaterThanOrEqualTo(-0.5f), at);
+                        Assert.That(r.Medallion.Right, Is.LessThanOrEqualTo(w + 0.5f), at);
+
+                        // The taps: every place but the active one, each in its column.
+                        var targets = new List<Box>();
+                        foreach ((string name, Box box) in r.Buttons)
+                        {
+                            Assert.That(name, Is.Not.EqualTo(BottomNav.Key(active)), at + ": the active place takes no tap");
+                            targets.Add(box);
+                        }
+
+                        Assert.That(targets.Count, Is.EqualTo(places.Length - 1), at);
+                        for (int i = 0; i < places.Length; i++)
+                        {
+                            Box t = r.Touch(i);
+                            Assert.That(t.Left, Is.GreaterThanOrEqualTo(r.PlaceBoxes[i].Left - 0.5f), at);
+                            Assert.That(t.Right, Is.LessThanOrEqualTo(r.PlaceBoxes[i].Right + 0.5f), at);
+                            Assert.That(t.Bottom, Is.EqualTo(r.Safe.Bottom).Within(0.01f), at);
+                        }
+
+                        AssertTargets(targets, r.Safe, touch * 0.95f, at);
+
+                        // The bar's picture: its plank and band inside the box, a groove between two places.
+                        NavBarShape shape = r.Shape;
+                        Assert.That(shape.Grooves.Count, Is.EqualTo(places.Length - 1), at);
+                        Assert.That(shape.PlankTop, Is.InRange(0f, 1f), at);
+                        Assert.That(shape.BandBottom, Is.InRange(shape.PlankTop, 1f), at);
+                        for (int i = 0; i < shape.Grooves.Count; i++)
+                        {
+                            Assert.That(shape.Grooves[i], Is.InRange(shape.PlankLeft, shape.PlankRight), at);
+                            Assert.That(shape.Grooves[i] * r.Bar.Width, Is.EqualTo(r.PlaceBoxes[i + 1].Left).Within(0.5f), at + ": groove " + i + " between two places");
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>The places a player sees (spec 005 FR-030): Home always, each other place once its feature unlocks.</summary>
+        [Test]
+        public void TheBottomMenu_ShowsAPlaceOnlyOnceItsFeatureIsUnlocked()
+        {
+            Assert.That(BottomNav.Places(HomeLook.Early), Is.EqualTo(new[] { NavPlace.Home }));
+            Assert.That(BottomNav.Places(HomeLook.Early with { Rank = true }), Is.EqualTo(new[] { NavPlace.Home, NavPlace.Leaderboard }));
+            Assert.That(BottomNav.Places(HomeLook.Early with { Rank = true, Store = true }), Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Home, NavPlace.Leaderboard }));
+            Assert.That(BottomNav.Places(HomeLook.Early with { Collection = true }), Is.EqualTo(new[] { NavPlace.Home, NavPlace.Collection }));
+            Assert.That(BottomNav.Places(new HomeLook(true, true, true, true, true, true, true, true)), Is.EqualTo(BottomNav.Order));
+            Assert.That(BottomNav.Order, Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection }));
+
+            // The active place shows even when the list leaves it out.
+            BottomNavRegions r = ScreenLayout.BottomNav(1080f, 2340f, new Insets(110f, 63f), new[] { NavPlace.Home }, NavPlace.Shop);
+            Assert.That(r.Places, Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Home }));
+            Assert.That(r.Active, Is.EqualTo(NavPlace.Shop));
+
+            // Each place's icon is the owner's picture with its slot.
+            foreach (NavPlace place in BottomNav.Order)
+            {
+                Assert.That(OwnerPictures.NavIcon(place), Is.EqualTo("nav-" + BottomNav.Key(place)));
+                Assert.That(OwnerPictures.SlotOf(OwnerPictures.NavIcon(place)), Is.EqualTo(BottomNav.Slot(place)));
+                Assert.That(AssetSlots.Has(BottomNav.Slot(place)), Is.True, place.ToString());
+                Assert.That(ShapeLibrary.Has(BottomNav.Fallback(place).ShapeId), Is.True, place + "'s stand-in glyph");
+            }
+
+            Assert.That(AssetSlots.Has("ui.nav.bar") && AssetSlots.Has("ui.nav.medallion"), Is.True);
         }
 
         [Test]
@@ -511,6 +685,12 @@ namespace Bloomlings.Client.Tests
                     Assert.That(r.Grid.Within(r.Panel), Is.True, at);
                     Assert.That(r.Panel.Bottom, Is.EqualTo(h).Within(0.5f), at + ": the panel runs to the screen's bottom");
                     Assert.That(r.Banner.Overlaps(r.Back), Is.False, at);
+
+                    // Everything above the bottom menu (FR-030): the cards, the footer and the page arrows' touch boxes.
+                    Assert.That(r.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at);
+                    Assert.That(r.Grid.Bottom, Is.LessThanOrEqualTo(r.NavTop), at + ": the cards above the bottom menu");
+                    Assert.That(r.Footer.Bottom, Is.LessThanOrEqualTo(r.NavTop), at + ": the footer above the bottom menu");
+                    Assert.That(TouchBox(r.PageNext, Touch(w, h)).Bottom, Is.LessThanOrEqualTo(r.NavTop + 0.5f), at + ": the page arrows' touch boxes above it");
                     foreach (int count in new[] { 4, 5 })
                     {
                         for (int i = 0; i < count; i++)
@@ -537,6 +717,11 @@ namespace Bloomlings.Client.Tests
                     foreach ((string _, Box box) in r.Buttons)
                     {
                         targets.Add(TouchBox(box, touch));
+                    }
+
+                    foreach ((string _, Box box) in ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, NavPlace.Wardrobe).Buttons)
+                    {
+                        targets.Add(box);
                     }
 
                     AssertTargets(targets, r.Safe, touch, at);
@@ -618,6 +803,8 @@ namespace Bloomlings.Client.Tests
                         Assert.That(r.Panel.Top, Is.GreaterThan(r.Header.Row.Bottom), at + ": the panel under the header");
                         Assert.That(r.Panel.Bottom, Is.EqualTo(h).Within(0.5f), at + ": the panel runs to the screen's bottom");
                         Assert.That(r.List.Within(r.Panel), Is.True, at);
+                        Assert.That(r.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at);
+                        Assert.That(r.List.Bottom, Is.EqualTo(r.NavTop - (0.02f * r.W)).Within(0.5f), at + ": the list ends 0.02 W over the bottom menu");
                         Assert.That(r.Footer.Within(r.List), Is.True, at);
                         if (cosmetics)
                         {
@@ -672,6 +859,14 @@ namespace Bloomlings.Client.Tests
                         foreach ((string _, Box box) in r.Buttons)
                         {
                             targets.Add(TouchBox(box, touch));
+                        }
+
+                        BottomNavRegions nav = ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, NavPlace.Shop);
+                        foreach ((string _, Box box) in nav.Buttons)
+                        {
+                            targets.Add(box);
+                            Assert.That(box.Overlaps(r.Row(r.RowsPerPage(7) - 1, 7)), Is.False, at + ": the last row clear of the menu's " + box);
+                            Assert.That(box.Overlaps(r.OutfitCard(r.OutfitsPerPage - 1)), Is.False, at + ": the last outfit card clear of the menu's " + box);
                         }
 
                         AssertTargets(targets, r.Safe, touch, at);

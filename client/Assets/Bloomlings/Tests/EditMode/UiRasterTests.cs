@@ -222,6 +222,43 @@ namespace Bloomlings.Client.Tests
             Assert.That(BackdropRaster.Render(40, 86, colors, BackdropScene.Win), Is.EqualTo(BackdropRaster.Render(40, 86, colors, BackdropScene.Win)));
         }
 
+        /// <summary>
+        /// The bottom menu's wooden pictures (spec 005 FR-030): the bar opaque wood from its plank's top to its bottom
+        /// between the plank's ends, a groove darker than the wood beside it, transparent above the plank away from its
+        /// vines, vines over its ends, the same bytes each time; the medallion a disc, opaque in its middle, its corners
+        /// transparent.
+        /// </summary>
+        [Test]
+        public void TheBottomMenusWood_CoversItsPlank_AndTheMedallionIsADisc()
+        {
+            BottomNavRegions r = ScreenLayout.BottomNav(1080f, 2340f, new Insets(110f, 63f), BottomNav.Order, NavPlace.Home);
+            NavBarShape shape = r.Shape;
+            int w = 540;
+            int h = (int)Math.Round(r.Bar.Height / 2f);
+            byte[] bar = UiRaster.NavBar(w, h, shape);
+            Assert.That(bar.Length, Is.EqualTo(w * h * 4));
+            Assert.That(UiRaster.NavBar(w, h, shape), Is.EqualTo(bar), "the same bytes each time");
+            int plankTop = (int)(shape.PlankTop * h);
+            int band = (int)((shape.BandBottom - shape.PlankTop) * h);
+            Assert.That(Alpha(bar, w, w / 2, plankTop + (band / 2)), Is.EqualTo(255), "the plank's middle");
+            Assert.That(Alpha(bar, w, w / 2, h - 1), Is.EqualTo(255), "the wood behind the bottom inset");
+            Assert.That(Alpha(bar, w, w / 2, plankTop / 2), Is.EqualTo(0), "above the plank's middle");
+            Assert.That(Alpha(bar, w, 1, h - 1), Is.EqualTo(0), "beside the plank's end");
+            Assert.That(Alpha(bar, w, (int)(shape.PlankLeft * w) - 2, plankTop + (int)(band * 0.62f)), Is.EqualTo(255), "the flower on the vine around the plank's end");
+            Assert.That(Alpha(bar, w, w - 1 - ((int)(shape.PlankLeft * w) - 2), plankTop + (int)(band * 0.62f)), Is.EqualTo(255), "and at the other end");
+            int groove = (int)Math.Round(shape.Grooves[0] * w);
+            int y = plankTop + (band / 2);
+            Assert.That(Luminance(bar, w, groove, y), Is.LessThan(Luminance(bar, w, groove + (band / 3), y)), "a groove between two places");
+            Assert.That(UiRaster.NavBar(w, h, ScreenLayout.BottomNav(1080f, 2340f, new Insets(110f, 63f), new[] { NavPlace.Home }, NavPlace.Home).Shape), Is.Not.EqualTo(bar), "the grooves follow the places");
+
+            byte[] medallion = UiRaster.NavMedallion(96);
+            Assert.That(medallion, Is.EqualTo(UiRaster.NavMedallion(96)));
+            Assert.That(Alpha(medallion, 96, 48, 48), Is.EqualTo(255), "the disc's middle");
+            Assert.That(Alpha(medallion, 96, 0, 0), Is.EqualTo(0), "a corner");
+            Assert.That(Alpha(medallion, 96, 95, 0), Is.EqualTo(0), "a corner");
+            Assert.That(Luminance(medallion, 96, 48, 48), Is.GreaterThan(Luminance(medallion, 96, 48, 48 - 37)), "a lighter face in a darker rim");
+        }
+
         private static Rgba Color(string iconId) => Rgba.FromHex(VariantCatalog.Default.All.First(v => v.IconId == iconId).ColorHex);
 
         private static int Alpha(byte[] pixels, int width, int x, int y) => pixels[(((y * width) + x) * 4) + 3];

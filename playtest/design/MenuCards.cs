@@ -41,10 +41,15 @@ namespace Bloomlings.Playtest.Design
             Kit.EndCard(p);
         }
 
-        /// <summary>Settings: sound and haptics, the 2× speed (spec 001 FR-073), each a cream row with a garden toggle.</summary>
+        /// <summary>
+        /// Settings: sound and haptics, the 2× speed (spec 001 FR-073), each a cream row with a garden toggle; opened from
+        /// Home, the playtest's dev row under them (not the product; it lay at Home's bottom before the bottom menu, spec 005
+        /// FR-030).
+        /// </summary>
         public static void Settings(IPainter p, DesignApp app, float since)
         {
-            float rows = (3f * 126f) + (2f * 20f) + 30f;
+            bool dev = app.Screen == Screen.Home;
+            float rows = (3f * 126f) + (2f * 20f) + 30f + (dev ? 20f + DesignTokens.Size.TouchMin : 0f);
             CardRegions r = Kit.Card(p, rows, PlaytestText.T("settings.title"), app.CardClose, Kit.Pop(since), T.Title);
             var save = app.Meta.Save.Settings;
             (string Key, bool On, Action Toggle)[] items =
@@ -81,7 +86,41 @@ namespace Bloomlings.Playtest.Design
                 Kit.Toggle(p, Box.FromCenter(line.Right - p.U(104f), line.CenterY, p.U(136f), p.U(70f)), on, toggle);
             }
 
+            if (dev)
+            {
+                float top = lines[lines.Length - 1].Bottom + p.U(20f);
+                DevRow(p, app, new Box(r.Body.Left, top, r.Body.Right, top + p.U(DesignTokens.Size.TouchMin)));
+            }
+
             Kit.EndCard(p);
+        }
+
+        /// <summary>
+        /// The playtest's own controls (not the product), in the Settings card opened from Home: step back, skip one or ten
+        /// levels, start a new profile. Each pill is half the row tall; the whole cell takes the tap.
+        /// </summary>
+        private static void DevRow(IPainter p, DesignApp app, Box row)
+        {
+            string[] labels = { "−1", "+1", "+10", "Reset" };
+            Action[] actions =
+            {
+                () => app.Meta.StepBack(),
+                () => app.Meta.SkipTo(app.Meta.Progression.HighestCompletedLevel + 1),
+                () => app.Meta.SkipTo(app.Meta.Progression.HighestCompletedLevel + 10),
+                app.ResetProfile,
+            };
+            float label = p.MeasureText("dev", T.Caption) + (row.Height * 0.2f);
+            p.TextLeft("dev", row.Left, row.CenterY, T.Caption, C.InkBrownSoft);
+            Box[] cells = ScreenLayout.Row(new Box(row.Left + label, row.Top, row.Right, row.Bottom), labels.Length, row.Height * 0.1f, float.MaxValue, square: false);
+            float line = Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidthSmall));
+            for (int i = 0; i < cells.Length; i++)
+            {
+                Box pill = Box.FromCenter(cells[i].CenterX, cells[i].CenterY, cells[i].Width, cells[i].Height * 0.5f);
+                p.FillRound(pill, pill.Height / 2f, C.CreamTop.WithAlpha(0.72f));
+                p.StrokeRound(pill.Inset(line / 2f), (pill.Height / 2f) - (line / 2f), line, C.CreamLine.WithAlpha(0.6f));
+                p.Text(labels[i], pill.CenterX, pill.CenterY, T.Caption, C.InkBrownSoft, pill.Width * 0.9f);
+                p.Hit(cells[i], actions[i]);
+            }
         }
     }
 }
