@@ -509,10 +509,10 @@ pictures.md D14–D22. Spec 001 FR-054 and FR-058 carry the owner's amendment (R
 - [X] T093 Kit: `HomePromo` (scene boxes, the schedule, every layer's pose per frame, the plaques), the scene boxes in
   `ReferenceHomeRegions` (the Daily Challenge under the Daily scene), the nine pictures fitted into the Decor folder with
   their record and notices, the slots `ui.promo.no_ads` and `ui.promo.daily`, the strings, the importer's mipmaps, tests.
-- [ ] T094 [P] Unity: `HomePromoView` on Home (No Ads until Remove Ads is owned, the Daily from its unlock), the
+- [X] T094 [P] Unity: `HomePromoView` on Home (No Ads until Remove Ads is owned, the Daily from its unlock), the
   taps, the Remove Ads card buying the existing product and restoring.
-- [ ] T095 [P] Playtest: the scenes on Home, the taps, the Remove Ads overlay (purchases off: "Unavailable"), the
+- [X] T095 [P] Playtest: the scenes on Home, the taps, the Remove Ads overlay (purchases off: "Unavailable"), the
   preview frame.
-- [ ] T096 Docs (spec 005, spec 001 amendment, look.md, pictures.md, CLAUDE.md), the asset inventory, previews, all
+- [X] T096 Docs (spec 005, spec 001 amendment, look.md, pictures.md, CLAUDE.md), the asset inventory, previews, all
   checks, the APK.
 

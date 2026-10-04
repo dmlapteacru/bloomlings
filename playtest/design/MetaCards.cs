@@ -23,7 +23,8 @@ namespace Bloomlings.Playtest.Design
             var daily = app.Meta.DailyReward;
             CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 90f, PlaytestText.T("daily_reward.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
             float y = r.Body.Top;
-            p.Text(PlaytestText.F("daily_reward.day", daily.NextStreak), r.Body.CenterX, y + p.U(20f), T.Body, C.InkBrownSoft);
+            // Opened from Home's Daily scene after today's claim, it shows the day just claimed, Claim greyed (as Unity's).
+            p.Text(PlaytestText.F("daily_reward.day", daily.TodayStreak), r.Body.CenterX, y + p.U(20f), T.Body, C.InkBrownSoft);
             y += p.U(60f);
 
             // The reward: a heap of lotuses over a woven basket, in the win's soft turning light.
@@ -40,7 +41,7 @@ namespace Bloomlings.Playtest.Design
             Basket(p, Box.FromCenter(art.CenterX, art.CenterY + (art.Height * 0.2f), art.Width * 0.8f, art.Width * 0.6f));
             y = art.Bottom + p.U(10f);
 
-            RewardPill(p, Box.FromCenter(r.Body.CenterX, y + p.U(50f), p.U(250f), p.U(92f)), NumberText.Plus(daily.NextPetals));
+            RewardPill(p, Box.FromCenter(r.Body.CenterX, y + p.U(50f), p.U(250f), p.U(92f)), NumberText.Plus(daily.PetalsOn(daily.TodayStreak)));
             y += p.U(110f);
 
             // Claim breathes while it waits, and the claim bursts sparkles over the Petals pill (spec 003 FR-019, FR-020).

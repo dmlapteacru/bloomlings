@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 63 | 0 | 63 |
+| UI kit | 65 | 0 | 65 |
 | Materials | 4 | 0 | 4 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **210** | **27** | **237** |
+| **All** | **212** | **27** | **239** |
 
 ## Brand
 
@@ -280,6 +280,8 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `icon.nav.collection` | Bottom menu icon: Collection (the owner's picture `Icons/nav-collection.png`, spec 005 pictures.md D13) | 2, 3, 5, 6, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.grid` glyph in its color over a darker outline until the picture exists |
 | `ui.nav.lock` | Bottom menu: the padlock badge of a locked place | 2, 5, 6, 17 | Bottom menu (a locked place's icon on the plank); locked notice | locked; pressed (squashes with its icon) | Icon | no | Launch | the outfit cards' padlock badge (`Kit.LockBadge`): a domed cream disc in a `cream.line` ring with the brown `ui.lock`, over a soft shadow, 0.34 of the icon's side at its lower right inside the plank's band |
 | `ui.locked.notice` | Locked notice: "Available from level N" on a locked place's page | 5, 6, 17 | The Store, Wardrobe, Leaderboard and Collection pages (before their unlock) | Shop; Wardrobe; Leaderboard; Collection | Large | no | Launch | the place's owner icon (or its stand-in glyph) 0.4 of the area's width with the padlock badge on its lower right, then "Available from level N" in `type.title` `ink.brown` and "Keep playing to unlock it!" in `type.body` `ink.brown_soft`, centered |
+| `ui.promo.no_ads` | Home promo scene: No Ads (the owner's layers `Decor/promo-noads-*.png`: the stand, Sprig, the crossed AD sign, the lotus) | 2, 3 | Home (left, under the logo, until Remove Ads is owned); the Remove Ads card | idle; attention (Sprig pushes the sign off, a lotus blooms, both come back); pressed | Medium | no | Launch | the label "No Ads" on a wooden sign (`ui.sign.wood`) until the pictures exist |
+| `ui.promo.daily` | Home promo scene: the Daily Reward (the owner's layers `Decor/promo-daily-*.png`: the stand, the album closed and open, the flower stamp, the petals) | 3 | Home (right, under the logo, from the Daily Reward's unlock) | idle; attention while the reward waits (the album opens, the stamp presses, petals burst); pressed | Medium | no | Launch | the label "Daily" on a wooden sign (`ui.sign.wood`) until the pictures exist |
 
 ## Materials
 
