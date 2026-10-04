@@ -186,9 +186,11 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
 - Q: Which place is raised, and where does a tap go? → A: The screen's own place: Home on Home, the Shop on the Store
   page, the Wardrobe on the Wardrobe; a tap on it does nothing. The Shop opens the Store page, the Wardrobe the
   Wardrobe, Home returns to Home, and the Leaderboard and the Collection open their cards over Home (from the Store page
-  or the Wardrobe, Home first). The click sounds as on every button.
-- Q: Where does it show? → A: On Home, the Store page and the Wardrobe, always (with all five places since the last
-  question below; Home alone early on before it); not in
+  or the Wardrobe, Home first). The click sounds as on every button. (Changed the same day by the owner's last question
+  below: the Leaderboard and the Collection open their own pages, and every place raises its medallion on its page.)
+- Q: Where does it show? → A: On Home, the Store page and the Wardrobe, always (with all five places since the
+  question "always visible" below; Home alone early on before it; and on the Leaderboard and Collection pages since the
+  last question); not in
   gameplay, on the win, milestone, jam or pause cards, nor on the splash.
 - Q: What leaves Home? → A: The buttons that now do the same thing, so nothing is doubled (the owner had disliked two
   Wardrobe buttons): the Store side button, the Wardrobe button (the profile avatar with its shirt badge; the avatar
@@ -222,9 +224,26 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
   §6.7). The Store page keeps its garden, header and parchment panel, the notice in place of the tabs and rows; the
   Wardrobe keeps its garden and header, the page's lighter panel holding the notice in place of the hero, the name
   card, the tabs, the cards and the footer; the Leaderboard and Collection cards keep their title and close button,
-  the notice in place of the ranks or the pictures. N comes from each build's own roadmap (`UnlockRoadmap.LevelOf`:
+  the notice in place of the ranks or the pictures (pages since the next question: their panel holds the notice as
+  the Store page's does). N comes from each build's own roadmap (`UnlockRoadmap.LevelOf`:
   12, 40 and 10), and the Collection's is 2 (its first picture comes with Level 1's win). A locked Store page is not a
   Store visit: no `store_open`. Rules, the economy and unlocks stay as they are (FR-002).
+- Q (the owner, the same day, translated from Russian): "All the menu's places must be a separate page. Not popups."
+  → A: The Leaderboard and the Collection become full-screen pages like the Store page and the Wardrobe, in both
+  builds (FR-030, contracts/look.md §6.8 and §6.9), on the Store page's frame so the four pages line up: the
+  Wardrobe's garden, the page header (the back button, the wooden "Leaderboard" or "Collection" banner with ivy, the
+  Petals pill, its "+" opening the Store page once it is open), the parchment panel and the bottom menu with their
+  place raised in the medallion. No card opens over Home anymore. The Leaderboard page holds what its card showed:
+  the rank rows (as many lines as the data has and the page fits: eight on every phone from 16:9, ten on 19.5:9), the
+  player's own row highlighted, the offline or empty line and Refresh. The Collection page holds the count and the
+  framed finished pictures, newest first, three to a row and as large as fit, a page at a time between the page arrows
+  (nine a page on 16:9, twelve on 19.5:9 and 21:9 when there are more than one page holds); a tap on a picture shows
+  its detail on the page (the picture large, its name and its level), the back button and the system back return to
+  the grid and a second back leaves the page; it is never a level selector. From any page a tap on another place goes
+  straight to that place's page (or Home); back and the Android system back return to Home (the Store page opened from
+  a page returns to that page). Locked, each page shows the locked notice in its panel, as the locked Store page does.
+  The data, the rules and the analytics events the cards sent on open (`leaderboard_view`, `collection_open`) stay
+  (FR-002).
 
 ### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
 
@@ -376,9 +395,9 @@ UI strip.
 3. **Given** the jam, **When** it opens, **Then** a parchment sheet shows "No more space!", the subtitle, an inset row
    of the slot contents (tile and count), one big colored button per recovery choice with its icon on top and a cost
    pill below (lotus and price, ×N charges, or ▶ Free for a rescue), and a cream Restart button.
-4. **Given** any card (Pause, Settings, Daily reward, Collection, Leaderboard), **When** it opens, **Then** it is
-   parchment with a brown outline, a wooden sign or brown title, and a cream round close button with a brown ✕. The
-   Store is a page since 2026-10-04 (FR-029), not a card.
+4. **Given** any card (Pause, Settings, Daily reward), **When** it opens, **Then** it is parchment with a brown
+   outline, a wooden sign or brown title, and a cream round close button with a brown ✕. The Store, the Leaderboard
+   and the Collection are pages since 2026-10-04 (FR-029, FR-030), not cards.
 5. **Given** the Petals currency, **When** it is shown, **Then** its symbol is a pink lotus.
 
 ---
@@ -388,12 +407,13 @@ UI strip.
 Winning a level shows a wooden "Level complete!" sign with flowers, the finished picture in full color, the
 celebrating heroes on a stone pedestal with light rays and falling petals, a reward pill and a green Next button in a
 wooden rim. Home shows the wooden logo, a wooden level plaque and the big Play button. The Wardrobe and Store use the
-wooden banner, parchment cards, family tabs and outfit cards.
+wooden banner, parchment cards, family tabs and outfit cards; the Leaderboard and Collection pages the same banner on
+the Store page's parchment panel.
 
 **Why this priority**: the owner named the celebration ("скрины прохождения уровня (празднование)").
 
-**Independent Test**: render frames 1–3, 15, 16 and 24 (and 17, 26 to 28) and compare with the reference's Home, Win and
-Wardrobe, and the bottom menu with the owner's wooden variant.
+**Independent Test**: render frames 1–3, 15, 16 and 24 (and 5, 6, 17, 20, 26 to 28) and compare with the reference's
+Home, Win and Wardrobe, and the bottom menu with the owner's wooden variant.
 
 **Acceptance Scenarios**:
 
@@ -408,12 +428,14 @@ Wardrobe, and the bottom menu with the owner's wooden variant.
 4. **Given** Home over the owner's layered picture, **When** it shows, **Then** the four heroes stand on the painted
    fountain where the reference shows them, each breathing and swaying in its idle loop, one reacting every few
    seconds in turn, and a tap on a hero makes it react at once while a tap on any button still does what it did.
-6. **Given** Home, the Store page or the Wardrobe (FR-030), **When** it shows, **Then** the wooden bottom menu lies
-   across the screen's bottom with its five places from Level 1 (Shop, Wardrobe, Home, Leaderboard, Collection; a
-   locked one with a padlock badge on its icon), the screen's own place raised in the medallion; a tap on another place
-   opens the Store page, the Wardrobe, Home, or the Leaderboard or Collection card over Home, a locked one its page or
-   card saying "Available from level N" (12, 40, 10, and 2 for the Collection) instead of its content, and Home shows
-   no Store, Wardrobe or Collection side button and no rank pill.
+6. **Given** Home, the Store page, the Wardrobe, the Leaderboard page or the Collection page (FR-030), **When** it
+   shows, **Then** the wooden bottom menu lies across the screen's bottom with its five places from Level 1 (Shop,
+   Wardrobe, Home, Leaderboard, Collection; a locked one with a padlock badge on its icon), the screen's own place
+   raised in the medallion; a tap on another place opens the Store page, the Wardrobe, Home, the Leaderboard page or
+   the Collection page straight away (no card over Home), a locked one its page saying "Available from level N" (12,
+   40, 10, and 2 for the Collection) instead of its content; back and the system back return from the Leaderboard and
+   Collection pages to Home (from a Collection picture's detail, to the grid first); and Home shows no Store, Wardrobe
+   or Collection side button and no rank pill.
 5. **Given** a won level, **When** the win (or the milestone) shows its celebrating hero (Twig), **Then** the hero plays its
    reaction as it appears and then idles for as long as the screen shows.
 
@@ -629,14 +651,15 @@ inventory.
   the page's width and height, a page of them at a time between page arrows. Everything the card offered MUST stay
   (FR-002): buying boosters for Petals, the real-money rows (unavailable while purchases are off), the cosmetics with
   their states, the Petals pill. The bottom menu's Shop (FR-030; Home's Store button before it) and the Petals "+" of
-  Home and the Wardrobe open it; its back returns to where it was opened, and in the playtest the Android back closes it
-  (and the Wardrobe). Its list MUST end above the bottom menu, which shows over the panel's foot with the Shop in its
-  medallion.
+  Home and the other pages (the Wardrobe; the Leaderboard and the Collection since they are pages) open it; its back
+  returns to where it was opened, and in the playtest the Android back closes it (and the other pages). Its list MUST
+  end above the bottom menu, which shows over the panel's foot with the Shop in its medallion.
 
 #### J. The bottom menu (the owner's request, 2026-10-04)
 
-- **FR-030** *(amended on 2026-10-04: every place always shows; a locked one says its level)*: Home, the Store page and
-  the Wardrobe MUST show the owner's wooden bottom menu in both builds
+- **FR-030** *(amended on 2026-10-04: every place always shows; a locked one says its level; every place a page)*:
+  Home and the four pages (the Store, the Wardrobe, the Leaderboard and the Collection) MUST show the owner's wooden
+  bottom menu in both builds
   (contracts/look.md §6.7, `ScreenLayout.BottomNav`): a warm brown wooden plank across the screen's bottom (its plank
   about `0.14W` tall on the safe bottom, the wood running on behind the bottom inset) with grain, rounded ends and thin
   grooves between the places, and no vines at its ends (the owner's review of 2026-10-04); the places' icons (the
@@ -650,18 +673,30 @@ inventory.
   Collection once a picture is won; Home always); a locked place MUST keep the owner's icon, unchanged and tappable,
   with a small padlock badge at its lower right inside the plank's band (about 0.34 of the icon; never on the
   medallion's place). A tap on the Shop opens the Store page, on the Wardrobe the Wardrobe, on Home returns to Home, on
-  the Leaderboard or the Collection opens its card over Home (from a page, Home first), with the click; a tap on the
-  medallion's place does nothing. A locked place's page or card MUST show the locked notice instead of its content:
+  the Leaderboard or the Collection opens its page (the owner's request of 2026-10-04: "All the menu's places must be a
+  separate page. Not popups."), straight from any page and with the click; a tap on the medallion's place does nothing.
+  The Leaderboard and the Collection MUST be full-screen pages on the Store page's frame (contracts/look.md §6.8, §6.9;
+  `ScreenLayout.ReferenceLeaderboard`, `ReferenceCollection`): the Wardrobe's garden, the page header with their
+  banner and the Petals pill, the parchment panel and the bottom menu with their place raised. The Leaderboard page
+  MUST hold the rank rows (as many lines as the data has and the page fits, at least eight on every phone from 16:9,
+  keeping the player's own row in view), the player's own row highlighted, the offline or empty line and Refresh; the
+  Collection page the count line and the framed finished pictures, newest first, three to a row and as large as fit,
+  with the page arrows when they take more than one page, and a picture's detail (the picture large, its name and
+  level) on the page. Back and the Android system back MUST return from either page to Home, from a Collection
+  picture's detail to its grid first; the Store page opened from a page returns to it. The Collection is never a level
+  selector. Their data, rules and analytics events (`leaderboard_view`, `collection_open`) stay as the cards had them.
+  A locked place's page MUST show the locked notice instead of its content:
   the place's icon with the padlock badge, "Available from level N" and "Keep playing to unlock it!" (contracts/look.md
   §6.7), N from the build's own roadmap (12, 40, 10) or 2 for the Collection: the locked Store page keeps its garden,
   header and parchment panel, the notice in place of its tabs, rows, page arrows and offline line; the locked Wardrobe
   keeps its garden and header, the page's lighter panel holding the notice in place of the hero, name card, tabs,
-  cards and footer; the locked Leaderboard and Collection cards keep their title and close button. A locked Store page
+  cards and footer; the locked Leaderboard and Collection pages keep their garden, header and parchment panel, the
+  notice in place of the ranks or the pictures. A locked Store page
   MUST NOT send `store_open` (it is not a Store visit). Every place's touch box MUST be at least the touch minimum,
   inside the safe area and clear of the screen's other buttons. The menu MUST NOT show in gameplay, on the win, milestone, jam or pause cards, or
   on the splash. Home MUST NOT keep a button the menu doubles: its Store, Wardrobe and Collection side buttons and its
   rank pill are removed. The menu changes no rule, economy value, unlock or tap outcome inside a screen (FR-002); it
-  only adds these ways between Home, its pages and its cards.
+  only adds these ways between Home and its pages.
 
 ### Key Entities
 
@@ -672,10 +707,10 @@ inventory.
 - **Hero frame**: one pre-rendered picture of a hero's idle or reaction, cropped from a 448 × 504 cell whose feet line
   is at 90% of its height, with its crop and two head points in the kit (`HeroMotion`).
 - **Home layer**: one picture of the owner's layered Home with its box in the 852 × 1846 picture (`HomeLayers`).
-- **Page header**: the Wardrobe's and the Store page's header row (`PageHeader`): the back button, the banner and the
-  Petals pill's box on one line.
-- **Bottom menu**: the wooden bar of Home, the Store page and the Wardrobe (`BottomNavRegions`): its plank, the shown
-  places (`NavPlace`) in order with their icons and touch boxes, and the medallion over the active place.
+- **Page header**: the header row of the four pages, the Wardrobe, the Store, the Leaderboard and the Collection
+  (`PageHeader`): the back button, the banner and the Petals pill's box on one line.
+- **Bottom menu**: the wooden bar of Home and the four pages (`BottomNavRegions`): its plank, the shown places
+  (`NavPlace`) in order with their icons and touch boxes, and the medallion over the active place.
 - **Pod chip**: one pod of the tray's grid at a depth of its stack's column (`ReferenceGameplayRegions.Pod`, `Chip`).
   It has a frame 1.3 times as wide as tall centered in its place, an inner panel, the icon and the tile's square over
   the panel's middle, the count at the panel's bottom right corner and the "+N" disc over the frame's top left corner
@@ -708,9 +743,11 @@ inventory.
   2026-10-04), the bottom menu lies across the screen's bottom with its plank on the safe bottom, its places in order
   and evenly spread, the medallion over the active place rising above the plank and inside the screen, every other
   place's touch box at least the touch minimum inside the safe area and a locked place's padlock badge inside its icon
-  and the plank's band; Home's Play and teaser row and the Store's and the Wardrobe's content end above its top; the
-  locked notice keeps its parts in order inside its area (`ReferenceLayoutTests`); and in the preview its places open
-  what FR-030 says (frames 17 and 27; locked, frames 29 to 31).
+  and the plank's band; Home's Play and teaser row and the four pages' content end above its top; the Leaderboard and
+  Collection pages keep their regions in order on the Store page's frame with every target reachable, eight rank lines
+  fitting and three frames to a row; the locked notice keeps its parts in order inside its area
+  (`ReferenceLayoutTests`); and in the preview its places open what FR-030 says, page to page, back returning to Home
+  (frames 5, 6, 17, 20 and 27; locked, frames 29 to 31).
 - **SC-010**: These hold on every screen shape from 16:9 to 21:9, with two to six Source stacks, with or without
   boosters, a badge or a bottom entry (`ReferenceLayoutTests` checks them on its phone shapes):
   - no two pods of the tray overlap;

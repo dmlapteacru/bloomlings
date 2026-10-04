@@ -229,14 +229,21 @@ Check in the Editor (the client check covers the logic, not the look):
   feet hide behind the lotus, Sprig's and Twig's behind the fountain's front flowers.
 - Taps: a press on a hero makes it react at once (no click sound); Play, the side button, Settings, the Petals pill,
   the plaque and the bottom menu keep their taps where they overlap a hero; the splash's heroes take none.
-- The bottom menu (spec 005 FR-030, `contracts/look.md` §6.7; `UiKit.BottomNav` / `BottomNavView` in Home, the Store
-  page and the Wardrobe, wired by `HomeController`): the wooden bar and the medallion should look as in the preview's
-  frames 2, 3, 17 and 27 on a 19.5:9 and a 16:9 Game view; all five places always show (the owner's request of
-  2026-10-04), a locked one with the padlock badge (`UiKit.LockBadge`) at its icon's lower right; each place opens what
-  it should (the Store page, the Wardrobe, Home, the Leaderboard and Collection cards over Home), a locked one its page
-  or card locked with "Available from level N" (`LockedNoticeView`; the preview's frames 29–31: L12, L40, L10, and 2
-  for the Collection) and no `store_open` for the locked Store page; the medallion's place takes no tap, and a place
-  pressed squashes like a tile. The L10, L12 and L40 Home demos point at the Leaderboard, Shop and Wardrobe places.
+- The bottom menu (spec 005 FR-030, `contracts/look.md` §6.7; `UiKit.BottomNav` / `BottomNavView` in Home and the four
+  pages, wired by `HomeController`): the wooden bar and the medallion should look as in the preview's frames 2, 3, 5,
+  6, 17 and 27 on a 19.5:9 and a 16:9 Game view; all five places always show (the owner's request of 2026-10-04), a
+  locked one with the padlock badge (`UiKit.LockBadge`) at its icon's lower right; each place opens its page straight
+  from any page (the Store page, the Wardrobe, Home, the Leaderboard page, the Collection page; every place a page, the
+  owner's request of the same day), the others hiding, a locked one its page locked with "Available from level N"
+  (`LockedNoticeView`; the preview's frames 29–31: L12, L40, L10, and 2 for the Collection) and no `store_open` for the
+  locked Store page; the medallion's place takes no tap, and a place pressed squashes like a tile. The L10, L12 and L40
+  Home demos point at the Leaderboard, Shop and Wardrobe places.
+- The Leaderboard and Collection pages (`LeaderboardScreen`, `CollectionScreen`; `contracts/look.md` §6.8, §6.9, laid
+  out from `ScreenLayout.ReferenceLeaderboard` and `ReferenceCollection`): they should line up with the Store page
+  (the same header, panel and area) and look as the preview's frames 5, 6, 20 and 31; the Leaderboard's rows keep the
+  player's own row in view with its frame, badge and marker, its Refresh reads the ranks again; the Collection's page
+  arrows turn its pages, a tap on a picture shows its detail on the page and the back button returns to the grid, then
+  to Home; their Petals pill follows the economy, its "+" opening the Store page over them once the Store is open.
 - The motion: each hero breathes in its 4 s idle, one reacts every 6 s in turn (Bloom first), the petals drift
   smoothly; the splash's heroes fade in and Home continues their motion; the win's hero reacts as it lands, then idles;
   the profiler shows the frames of at most the families on screen loaded.

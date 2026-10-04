@@ -12,8 +12,8 @@ Unity paths are under `client/Assets/Bloomlings/`. Playtest paths are under `pla
 | 2 | Home (early levels) | `UI/Screens/HomeScreen.cs` | `design/HomeScreen.cs` | Petals pill, Settings, LEVEL N, PLAY; two Bloomlings on a stone |
 | 3 | Home (progressed) | same, via `HomeLook` | same | hero, Wardrobe, Collection, "N levels to reward" + gift, "Rank #N >", Daily Challenge card |
 | 4 | Daily Reward (popup) | `Meta/DailyReward/DailyRewardPopup.cs` | `design/MetaCards.cs` (`DailyReward`) | Day N, reward basket, +N Petals, CLAIM, ad bonus |
-| 5 | Leaderboard | `UI/Screens/LeaderboardScreen.cs` | `design/MetaCards.cs` (`Leaderboard`) | medals for 1–3, gap, neighbours, "You" row; offline notice |
-| 6 | Collection | `UI/Screens/CollectionScreen.cs` | `design/MetaCards.cs` (`Collection`) | framed grid, detail with name and "Completed at Level N" |
+| 5 | Leaderboard (a page since spec 005, 2026-10-04) | `UI/Screens/LeaderboardScreen.cs` | `design/LeaderboardScreen.cs` | medals for 1–3, gap, neighbours, "You" row; offline notice; Refresh |
+| 6 | Collection (a page since spec 005, 2026-10-04) | `UI/Screens/CollectionScreen.cs` | `design/CollectionScreen.cs` | framed grid with page arrows, detail with name and "Completed at Level N" |
 | 7 | Gameplay (normal) | `UI/Screens/GameplayHud.cs` + `Gameplay/*` views | `design/LevelScreen.cs`, `design/BoardPainter.cs` | top bar, board, 5 slots, tray, booster bar |
 | 8 | Gameplay (hard) | same + the HUD badge (`SetDifficulty`) and `DifficultyBanner.cs` | same | red HARD badge under the level pill |
 | 9 | Gameplay (super hard) | same | same | SUPER HARD badge, lilac pill, stones, specials |
@@ -24,7 +24,7 @@ Unity paths are under `client/Assets/Bloomlings/`. Playtest paths are under `pla
 | 14 | Booster bar | `UI/Gameplay/BoosterBar.cs` | `design/BoosterBarPainter.cs` | hidden < L3; appears per unlock; count badge; price when empty |
 | 15 | Win screen | `UI/Screens/WinScreen.cs` | `design/EndCards.cs` (`Win`) | picture, +N Petals, NEXT, "×2 reward" |
 | 16 | Milestone win | `UI/Screens/MilestoneCard.cs` | `design/EndCards.cs` (`Milestone`) | LEVEL N, "Milestone reached!", reward icons, CONTINUE |
-| 17 | Store | `UI/Screens/StoreScreen.cs` | `design/MetaCards.cs` (`Store`) | Petals pill, rows: icon, name, price with the Petal symbol |
+| 17 | Store (a page since spec 005, 2026-10-04) | `UI/Screens/StoreScreen.cs` | `design/StoreScreen.cs` | Petals pill, rows: icon, name, price with the Petal symbol |
 
 The preview tool renders each playtest frame to `playtest/preview/out/NN-<frame>-<shape>.png` and a contact sheet
 (`board-sheet.png`) for the side-by-side review.

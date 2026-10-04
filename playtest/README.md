@@ -39,12 +39,13 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     a tap on one makes it react, petals drift over them; without the owner's pictures the drawn stand-in's four still
     heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the level plaque, the big Play,
     "N levels to reward" and the Daily Challenge's cream round side button;
-  - the owner's wooden bottom menu (spec 005 FR-030, §6.7) on Home, the Store page and the Wardrobe: the Shop, the
-    Wardrobe, Home, the Leaderboard and the Collection, always all five (the owner's request of 2026-10-04), a locked one
-    with a padlock badge on its icon, the screen's own place raised in the round medallion; a tap opens the Store page,
-    the Wardrobe, Home, or the Leaderboard and Collection cards over Home, and a locked place's page or card says
-    "Available from level N" (the roadmap's level) instead of its content (it replaced Home's Store, Wardrobe and
-    Collection side buttons and the rank pill);
+  - the owner's wooden bottom menu (spec 005 FR-030, §6.7) on Home and the four pages: the Shop, the Wardrobe, Home, the
+    Leaderboard and the Collection, always all five (the owner's request of 2026-10-04), a locked one with a padlock
+    badge on its icon, the screen's own place raised in the round medallion; a tap goes straight to the Store page, the
+    Wardrobe, Home, the Leaderboard page or the Collection page (every place a page, the owner's request of the same
+    day: "All the menu's places must be a separate page. Not popups."), and a locked place's page says "Available from
+    level N" (the roadmap's level) instead of its content (it replaced Home's Store, Wardrobe and Collection side buttons
+    and the rank pill);
   - the Wardrobe (frame 27, spec 005 FR-025, §6.5), opened from the bottom menu: the header on one line (back, the "Wardrobe"
     banner, the Petals pill), the hero on its pedestal between ‹ › family
     arrows, the name card, the family tabs and outfit cards three to a page (owned items to wear, items for sale to buy
@@ -52,7 +53,13 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   - the Store page (frames 17 and 26, spec 005 FR-029, §6.6), opened from the bottom menu's Shop and the Petals "+" of
     Home or the Wardrobe: the Wardrobe's header ("Store"), then on a parchment panel the Shop / Cosmetics tabs, the
     Shop's rows (boosters for Petals; the real-money rows unavailable) and the cosmetics' outfit cards; its back (and the
-    system back, which also closes the Wardrobe) returns to where it was opened;
+    system back, which also closes the other pages) returns to where it was opened;
+  - the Leaderboard page (frames 5 and 31, §6.8) and the Collection page (frames 6 and 20, §6.9), opened from the bottom
+    menu on the Store page's frame (the Wardrobe's garden, the header with their banner and the Petals pill, the
+    parchment panel): the Leaderboard in its offline form (placeholder top ranks with medals, the gap, "You" with the
+    highest completed level, the offline line and Refresh); the Collection's count and framed pictures newest first,
+    three to a row, a page at a time between the page arrows, and a picture's detail on the page; back and the system
+    back return to Home (from a picture's detail, to the grid first);
   - the level (frames 7–9) in the reference's layout (spec 005 FR-020, FR-021): the cream Pause, the wooden level sign
     with ivy and the HARD or SUPER HARD badge, the cream 2× pill, the board of candy tiles wide in its stone border on
     the lawn (the Garden Entries have no arch: the Bloomlings set off from the border), and one parchment tray to the
@@ -62,8 +69,8 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     ones muted under it, three rows or four from 19.5:9, "+N" on the last shown pod; the pods slide up a row when the
     exposed one leaves and down when Return puts one back. Frames 12–14 show the pod, slot and booster states;
   - cards: pause and Settings (frame 11), the jam card centered on the screen (frame 10), the win card (frame 15) and the milestone
-    card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), the Daily Reward
-    (frame 4), the Leaderboard in its offline form (frame 5) and the Collection (frame 6).
+    card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), and the Daily Reward
+    (frame 4).
 
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
   `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the reference look of spec 005
@@ -110,12 +117,15 @@ Unity client.
 `dotnet run --project playtest/preview` renders the full playtest's screens with SkiaSharp. It writes one PNG per
 design board frame (1–17) plus extras 18–31 (themes, Settings, a Collection picture, a demo, boosters in use, the
 Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store page's cosmetics in the Wardrobe look, opened from the
-Wardrobe's Petals "+", 27 the Wardrobe, reached by taps that the frames check (17 opens the Store page from Home's
-Petals "+" and the bottom menu's Shop and checks its back and the menu's Home; 27 walks the menu's Wardrobe, Shop,
-Leaderboard and Collection), 28 Home's animated heroes in outfits, which also checks a tap on a hero and on Play, and
-the bottom menu's locked places: 29 the locked Store page at Level 5, 30 the locked Wardrobe at Level 15 (its Shop and
-Petals "+" open the Store page, whose back returns there) and 31 the locked Leaderboard card on a new profile (after
-the locked Collection card's check), each checking what the notice says)
+Wardrobe's Petals "+", 27 the Wardrobe, reached by taps that the frames check (5 opens the Leaderboard page from the
+menu and checks its back, the system back, the menu from page to page and its Shop; 6 opens the Collection page with
+87 pictures and checks its page arrows, a picture's detail and back to the grid, then to Home; 17 opens the Store page
+from Home's Petals "+" and the bottom menu's Shop and checks its back and the menu's Home; 20 taps a picture for its
+detail; 27 walks the menu's Wardrobe, Shop, Leaderboard and Collection), 28 Home's animated heroes in outfits, which
+also checks a tap on a hero and on Play, and the bottom menu's locked places: 29 the locked Store page at Level 5, 30
+the locked Wardrobe at Level 15 (its Shop and Petals "+" open the Store page, whose back returns there) and 31 the
+locked Leaderboard page on a new profile (after the locked Collection page's check), each checking what the notice
+says)
 at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the

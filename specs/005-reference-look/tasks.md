@@ -382,3 +382,48 @@ SC-011) and contracts/look.md §6.7. Presentation and navigation only (FR-002): 
   shows (its `Button` interactable with the Store's unlock), as the playtest's; the playtest's Home look opens the
   Collection from Level 2 while it is empty (`HomeScreen.Look`; the dev row's skips collect no pictures);
   contracts/look.md §6.7; all checks and the type-checks.
+
+## Owner review: every menu place a page (2026-10-04)
+
+See spec.md (the clarification "the owner's bottom menu, wooden", its last question: "All the menu's places must be a
+separate page. Not popups."; FR-029, FR-030, acceptance scenarios 4 and 6 and SC-011) and contracts/look.md §4.3,
+§4.6, §5, §6.5 to §6.7 and the new §6.8 and §6.9. Presentation and navigation only (FR-002): the data, rules, unlocks
+and analytics events stay.
+- [X] T075 The kit's page layouts (`MenuPages.cs`, partial `ScreenLayout`), both built on `ScreenLayout.LockedPage` so
+  the four pages share their header, panel and area: `ReferenceLeaderboard` → `ReferenceLeaderboardRegions` (the rows'
+  box, the status line, Refresh, `Empty`; `Row(line, lines)` from `0.11W` to `0.13W`, `LinesFitting` at least
+  `MinLines` 8, `LinesShown`, `FirstLine` keeping the player's row in view; `Parts(row)` → `LeaderboardRowParts`) and
+  `ReferenceCollection` → `ReferenceCollectionRegions` (the count, the grid with `Cell`, `CellSize`, `RowsFitting`,
+  `PerPage` and `Pages`, the Store page's footer and page arrows, the detail's `Picture`, `Name` and `Level`);
+  `LockedNoticeRegions.CardContent` removed with the locked cards; the wording of `BottomNav`, `HomeLook` and
+  `LockedPageRegions`.
+- [X] T076 The tests (`ReferenceLayoutTests`): `TheLeaderboardPage_KeepsItsRegionsInOrder_AndEveryTargetReachable`
+  and `TheCollectionPage_KeepsItsRegionsInOrder_AndEveryTargetReachable` on every phone of `Phones()`;
+  `TheBottomMenu_SpreadsItsPlacesInOrder_AndRaisesTheActiveOne` and
+  `TheBottomMenu_ShowsEveryPlaceAlways_AndKnowsWhichAreOpenAndFromWhichLevel` with the Leaderboard and the Collection
+  as the active place too; the page header and the locked notice tests with the two pages.
+- [X] T077 The playtest: `Screen.Leaderboard` and `Screen.Collection`, `DesignApp.ActivePlace`, `Navigate` (straight to
+  each place's page), `OpenLeaderboard`, `CloseLeaderboard`, `OpenCollection`, `CollectionBack` (the detail, then
+  Home), `CollectionPage`, the system `Back` on both pages and `StoreReturn` to the page that opened the Store;
+  `LeaderboardScreen.cs` (the offline rows, the gap, "You", the offline line and Refresh, locked before L10) and
+  `CollectionScreen.cs` (the count, the frames newest first a page at a time, the detail, locked before the first
+  picture); `MetaCards.Leaderboard`, `Collection`, `Detail` and `LockedCard` and `Overlay.Leaderboard` and
+  `Overlay.Collection` removed.
+- [X] T078 Unity: `LeaderboardScreen` and `CollectionScreen` as full-screen pages (the Wardrobe's garden, `UiKit.PageHeader`
+  with the Petals pill following the economy, the parchment panel, `BottomNavView` with their place raised, the
+  locked notice; `LeaderboardScreen.ShowsRanks`; the Collection's detail on the page, its back returning to the
+  grid); `HomeController.Navigate` showing the place's page (or Home) and hiding the others, `StoreFrom` for the menu's
+  Shop and every page's Petals "+" (`store_open` from `home`, `wardrobe`, `leaderboard` or `collection`), and
+  `leaderboard_view` and `collection_open` sent on open as before; the L10 Home demo still points at the menu's
+  Leaderboard place.
+- [X] T079 The preview: frames 5 (the Leaderboard page: back, system back, page to page, its Shop and the Store's back
+  returning there, Refresh), 6 (the Collection page with 87 pictures: the page arrows, the detail, back and system back
+  to the grid, a second back to Home), 20 (a picture's detail on the page) and 31 (the locked Collection and
+  Leaderboard pages) show the pages; 27 walks the Wardrobe, the Leaderboard and the Collection pages; the slot rows
+  (`bg.wardrobe`, `ui.card`, `ui.row`, `ui.back`, `ui.sign.ivy`, `ui.button.round`, `ui.button.secondary`,
+  `ui.restart`, `ui.chevron`, `mat.parchment`, `collection.frame`, `collection.detail_frame`, `ui.locked.notice` and
+  the menu's) and the regenerated inventory; frames 5, 6, 20 and 31 reviewed at 16:9, 19.5:9 and 21:9, and 17, 27 and
+  29 for regressions.
+- [X] T080 The docs: spec.md (the clarification, FR-029, FR-030, scenarios 4 and 6, SC-011, the key entities),
+  contracts/look.md (§4.3, §4.6, §5, §6, §6.5 to §6.7, the new §6.8 and §6.9 with their fixed numbers), spec 002's FR-007
+  and edge case, `CLAUDE.md`, `playtest/README.md` and `client/README.md`; all checks.
