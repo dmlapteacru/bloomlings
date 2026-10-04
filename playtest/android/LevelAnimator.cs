@@ -173,7 +173,7 @@ namespace Bloomlings.Playtest
                 float end = Now;
                 foreach (Wave wave in _waves)
                 {
-                    end = Math.Max(end, wave.StartAt + wave.Duration);
+                    end = Math.Max(end, wave.EndAt);
                 }
 
                 return end - Now;
@@ -404,8 +404,8 @@ namespace Bloomlings.Playtest
                 foreach (Wave wave in _waves)
                 {
                     (float t, int k) = !wave.Started ? (wave.StartAt, 2)
-                        : wave.NextArrival < wave.Work.Count ? (wave.StartAt + ArrivalOf(wave, wave.NextArrival), 1)
-                        : (wave.StartAt + wave.Duration, 0);
+                        : wave.NextArrival < wave.Work.Count ? (wave.Work[wave.NextArrival].At, 1)
+                        : (wave.EndAt, 0);
                     if (next == null || t < at || (t == at && k < kind))
                     {
                         next = wave;
@@ -455,7 +455,8 @@ namespace Bloomlings.Playtest
 
         private int Index(CellPos cell) => (cell.Y * _width) + cell.X;
 
-        private static float ArrivalOf(Wave wave, int i) => Math.Min(wave.Work[i].Travel, wave.Duration - RestoreSeconds);
+        // A walk's length: its travel, scaled into the wave's length.
+        private static float ArrivalOf(Wave wave, Job job) => Math.Min(job.Travel, wave.Duration - RestoreSeconds);
 
         /// <summary>
         /// The slot on screen a pod the rules put in slot <paramref name="slot"/> shows in: that slot when it shows no
@@ -673,7 +674,7 @@ namespace Bloomlings.Playtest
                         }
 
                         float travel = Math.Max(1, clear.RouteFromEntry.Count) * StepSeconds;
-                        wave.Work.Add((clear, reveal, travel));
+                        wave.Work.Add(new Job(clear, reveal, travel));
                         wave.Duration = Math.Clamp(Math.Max(wave.Duration, travel + RestoreSeconds), MinWaveSeconds, MaxWaveSeconds);
                         break;
                     case MysteryTileRevealed:
@@ -685,43 +686,52 @@ namespace Bloomlings.Playtest
                 }
             }
 
-            // This tap's waves one after another, from now; each also late enough that its Bloomlings step on every cell of
-            // their routes only after that cell's earlier change has shown (a tile an earlier tap clears, a layer revealed
-            // under it), so they may follow an earlier tap's Bloomlings closely while its waves still play.
+            // This tap's waves one after another, from now. Each Bloomling sets off on its own as soon as it may: when every
+            // cell of its route, and its target, has shown its earlier change (a tile an earlier tap clears, a layer revealed
+            // under it), so it may follow an earlier tap's Bloomlings closely while their waves still play, whatever its
+            // wave's other Bloomlings wait for (the owner, 2026-10-04). The wave ends after its last arrival, and late enough
+            // that its end events keep the rules' order.
             float earliest = Now;
             foreach (Wave w in waves)
             {
-                w.Work.Sort((a, b) => a.Travel.CompareTo(b.Travel));
                 float start = earliest;
-                for (int i = 0; i < w.Work.Count; i++)
-                {
-                    IReadOnlyList<CellPos> route = w.Work[i].Clear.RouteFromEntry;
-                    float arrival = ArrivalOf(w, i);
-                    for (int j = 0; j < route.Count; j++)
-                    {
-                        // The walker reaches route cell j at (j + 1) / count of its walk (BoardPainter.DrawWalkers).
-                        float reach = arrival * (j + 1) / route.Count;
-                        start = Math.Max(start, _ready[Index(route[j])] + StepMargin - reach);
-                    }
-
-                    start = Math.Max(start, _ready[Index(w.Work[i].Clear.Cell)] + StepMargin - arrival);
-                }
-
                 foreach (CellPos cell in CellsAt(w.Start))
                 {
                     start = Math.Max(start, _ready[Index(cell)]);
                 }
 
+                float end = start + w.Duration;
+                foreach (Job job in w.Work)
+                {
+                    IReadOnlyList<CellPos> route = job.Clear.RouteFromEntry;
+                    float arrival = ArrivalOf(w, job);
+                    float go = start;
+                    for (int j = 0; j < route.Count; j++)
+                    {
+                        // The walker reaches route cell j at (j + 1) / count of its walk (BoardPainter.DrawWalkers).
+                        float reach = arrival * (j + 1) / route.Count;
+                        go = Math.Max(go, _ready[Index(route[j])] + StepMargin - reach);
+                    }
+
+                    go = Math.Max(go, _ready[Index(job.Clear.Cell)] + StepMargin - arrival);
+                    job.Go = go;
+                    job.At = go + arrival;
+                    end = Math.Max(end, job.At + RestoreSeconds);
+                }
+
+                // Arrivals in time order (ties: the shorter walk first).
+                w.Work.Sort((x, y) => x.At != y.At ? x.At.CompareTo(y.At) : x.Travel.CompareTo(y.Travel));
+
                 foreach (CellPos cell in CellsAt(w.End))
                 {
-                    start = Math.Max(start, _ready[Index(cell)] - w.Duration);
+                    end = Math.Max(end, _ready[Index(cell)]);
                 }
 
                 foreach (string key in KeysAtEnd(w))
                 {
                     if (_keyReady.TryGetValue(key, out float ready))
                     {
-                        start = Math.Max(start, ready + KeyGap - w.Duration);
+                        end = Math.Max(end, ready + KeyGap);
                     }
                 }
 
@@ -730,26 +740,23 @@ namespace Bloomlings.Playtest
                     // The level's outcome (its sound; the end card waits for Settled) shows after all an earlier tap still plays.
                     foreach (Wave other in _waves)
                     {
-                        start = Math.Max(start, other.StartAt + other.Duration + KeyGap - w.Duration);
+                        end = Math.Max(end, other.EndAt + KeyGap);
                     }
                 }
 
                 w.StartAt = start;
-                float end = start + w.Duration;
+                w.EndAt = end;
                 foreach (string key in KeysAtEnd(w))
                 {
                     _keyReady[key] = Math.Max(_keyReady.TryGetValue(key, out float k) ? k : 0f, end);
                 }
 
-                foreach ((TileCleared clear, GameEvent? _, float _) in w.Work)
+                foreach (Job job in w.Work)
                 {
-                    string key = "pod:" + clear.PodId;
+                    string key = "pod:" + job.Clear.PodId;
                     _keyReady[key] = Math.Max(_keyReady.TryGetValue(key, out float k) ? k : 0f, end);
-                }
-                for (int i = 0; i < w.Work.Count; i++)
-                {
-                    int cell = Index(w.Work[i].Clear.Cell);
-                    _ready[cell] = Math.Max(_ready[cell], start + ArrivalOf(w, i));
+                    int cell = Index(job.Clear.Cell);
+                    _ready[cell] = Math.Max(_ready[cell], job.At);
                 }
 
                 foreach (CellPos cell in CellsAt(w.Start))
@@ -759,11 +766,11 @@ namespace Bloomlings.Playtest
 
                 foreach (CellPos cell in CellsAt(w.End))
                 {
-                    _ready[Index(cell)] = Math.Max(_ready[Index(cell)], start + w.Duration);
+                    _ready[Index(cell)] = Math.Max(_ready[Index(cell)], end);
                 }
 
                 _waves.Add(w);
-                earliest = start + w.Duration;
+                earliest = end;
             }
         }
 
@@ -828,12 +835,12 @@ namespace Bloomlings.Playtest
                 }
             }
 
-            // Arrivals in travel order (the work is sorted when the wave is queued); a walker's arrival is scaled into the
-            // wave's length.
+            // Each walker sets off at its own time (Job.Go, it shows from then) and arrives at Job.At; the work is sorted by
+            // arrival when the wave is queued.
             wave.Started = true;
-            for (int i = 0; i < wave.Work.Count; i++)
+            foreach (Job job in wave.Work)
             {
-                TileCleared clear = wave.Work[i].Clear;
+                TileCleared clear = job.Clear;
                 SlotLook? slot = SlotOf(clear.PodId);
                 if (slot != null)
                 {
@@ -842,7 +849,7 @@ namespace Bloomlings.Playtest
 
                 if (withWalkers && Walkers.Count < 40)
                 {
-                    var walker = new Walker(clear.RouteFromEntry, clear.Variant, Now, ArrivalOf(wave, i));
+                    var walker = new Walker(clear.RouteFromEntry, clear.Variant, job.Go, job.At - job.Go);
                     Walkers.Add(walker);
                     wave.Walkers.Add(walker);
                 }
@@ -864,7 +871,8 @@ namespace Bloomlings.Playtest
         private void Arrive(Wave wave, int index, LevelView view)
         {
             {
-                (TileCleared clear, GameEvent? reveal, float _) = wave.Work[index];
+                TileCleared clear = wave.Work[index].Clear;
+                GameEvent? reveal = wave.Work[index].Reveal;
                 CellInfo old = Cell(clear.Cell);
                 Fades.Add(new Fade(clear.Cell, old, Now));
                 _cells[Index(clear.Cell)] = reveal switch
@@ -988,6 +996,29 @@ namespace Bloomlings.Playtest
         private static bool IsRevealOf(GameEvent e, CellPos cell) =>
             (e is CellOpened opened && opened.Cell == cell) || (e is LayerRevealed layer && layer.Cell == cell);
 
+        /// <summary>One Bloomling's work in a wave: the tile it clears, what shows under it, its walk and its times.</summary>
+        private sealed class Job
+        {
+            public Job(TileCleared clear, GameEvent? reveal, float travel)
+            {
+                Clear = clear;
+                Reveal = reveal;
+                Travel = travel;
+            }
+
+            public TileCleared Clear { get; }
+
+            public GameEvent? Reveal { get; }
+
+            public float Travel { get; }
+
+            /// <summary>When it sets off on the animation clock.</summary>
+            public float Go { get; set; }
+
+            /// <summary>When it arrives (its tile changes).</summary>
+            public float At { get; set; }
+        }
+
         private sealed class Wave
         {
             public Wave(int round)
@@ -1003,6 +1034,9 @@ namespace Bloomlings.Playtest
             /// <summary>When the wave starts on the animation clock (after its tap's earlier waves and every change it depends on).</summary>
             public float StartAt { get; set; }
 
+            /// <summary>When it ends (its end events show): after its last arrival and in the rules' order.</summary>
+            public float EndAt { get; set; }
+
             public bool Started { get; set; }
 
             /// <summary>The next of <see cref="Work"/> to arrive.</summary>
@@ -1013,7 +1047,7 @@ namespace Bloomlings.Playtest
 
             public List<GameEvent> Start { get; } = new List<GameEvent>();
 
-            public List<(TileCleared Clear, GameEvent? Reveal, float Travel)> Work { get; } = new List<(TileCleared, GameEvent?, float)>();
+            public List<Job> Work { get; } = new List<Job>();
 
             public List<GameEvent> End { get; } = new List<GameEvent>();
         }

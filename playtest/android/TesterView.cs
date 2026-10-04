@@ -594,7 +594,7 @@ namespace Bloomlings.Playtest
 
                 float walked = _animator.Now - walker.Start;
                 float progress = Math.Clamp(walked / Math.Max(0.05f, walker.Arrival), 0f, 1f);
-                if (progress >= 1f && walked > walker.Arrival + 0.12f)
+                if (walked < 0f || (progress >= 1f && walked > walker.Arrival + 0.12f))
                 {
                     continue;
                 }

@@ -14,13 +14,14 @@ namespace Bloomlings.Client.Gameplay.Timeline
     /// The waves of one command play one after another, in round order; the waves of different commands play side by
     /// side, so pods committed one after another work at the same time (spec 001 FR-018, the owner's report of
     /// 2026-10-03). The rules resolve each tap at once (FR-014, FR-022), so a wave only waits for what it depends on: it
-    /// starts no earlier than the end of its command's previous wave, and late enough that each of its Bloomlings reaches
-    /// every cell of its route, and its targets, only after that cell's earlier queued change has shown (a tile an
-    /// earlier tap clears, a layer or a mystery tile revealed under it), <see cref="StepMargin"/> later. Its end events
-    /// keep the rules' order: a special's progress and trigger, and a pod's completion, end after the last earlier wave
-    /// that changed the same special or that pod's work, and the level's outcome (won, jammed, stuck) after every earlier
-    /// wave, so its card waits for the last wave. Wave starts, arrivals and wave ends happen in time order, each at its
-    /// own moment of the clock.
+    /// starts no earlier than the end of its command's previous wave, and each of its walkers sets off on its own, as soon
+    /// as it reaches every cell of its route, and its targets, only after that cell's earlier queued change has shown (a
+    /// tile an earlier tap clears, a layer or a mystery tile revealed under it), <see cref="StepMargin"/> later, whatever
+    /// the wave's other walkers wait for (the owner, 2026-10-04: a tile beside the entry no longer waits for the farthest
+    /// one). The wave ends after its last arrival, and its end events keep the rules' order: a special's progress and
+    /// trigger, and a pod's completion, end after the last earlier wave that changed the same special or that pod's work,
+    /// and the level's outcome (won, jammed, stuck) after every earlier wave, so its card waits for the last wave. Wave
+    /// starts, arrivals and wave ends happen in time order, each at its own moment of the clock.
     /// </para>
     /// <para>
     /// 2× speed only scales the clock (FR-069). When the time until every queued wave has played (<see cref="Backlog"/>)
@@ -154,10 +155,10 @@ namespace Bloomlings.Client.Gameplay.Timeline
             foreach (Wave w in waves)
             {
                 Plan(w);
-                w.StartAt = StartOf(w, earliest);
+                Schedule(w, earliest);
                 Record(w);
                 _waves.Add(w);
-                earliest = w.StartAt + w.Duration;
+                earliest = w.EndAt;
             }
         }
 
@@ -280,16 +281,16 @@ namespace Bloomlings.Client.Gameplay.Timeline
             float end = Now;
             foreach (Wave wave in _waves)
             {
-                end = Math.Max(end, wave.StartAt + wave.Duration);
+                end = Math.Max(end, wave.EndAt);
             }
 
             return end;
         }
 
         /// <summary>
-        /// The wave's walkers and arrival times: in travel order, merged when the wave is larger than the pool or playback
-        /// is compressed (a walker follows its farthest unit's route, and all its units arrive with it). A walk is scaled
-        /// into the wave, so the walker reaches its target as its tiles change.
+        /// The wave's walkers: in travel order, merged when the wave is larger than the pool or playback is compressed (a
+        /// walker follows its farthest unit's route, and all its units arrive with it). A walk is scaled into the wave, so
+        /// the walker reaches its target as its tiles change.
         /// </summary>
         private void Plan(Wave wave)
         {
@@ -315,80 +316,91 @@ namespace Bloomlings.Client.Gameplay.Timeline
                 batch.Add(unit);
             }
 
-            var arrival = new Dictionary<WorkUnit, float>();
             foreach (List<WorkUnit> batch in batches)
             {
-                float travel = Math.Min(batch[batch.Count - 1].TravelSeconds, wave.Duration - RestoreSeconds);
-                wave.Walks.Add(new Walk(batch, travel));
-                foreach (WorkUnit unit in batch)
-                {
-                    arrival[unit] = travel;
-                }
-            }
-
-            StableSort(byTravel, unit => arrival[unit]);
-            wave.Work.Clear();
-            wave.Work.AddRange(byTravel);
-            foreach (WorkUnit unit in byTravel)
-            {
-                wave.Arrivals.Add(arrival[unit]);
+                wave.Walks.Add(new Walk(batch, Math.Min(batch[batch.Count - 1].TravelSeconds, wave.Duration - RestoreSeconds)));
             }
         }
 
         /// <summary>
-        /// The wave's start: no earlier than <paramref name="earliest"/> (the end of its command's previous wave, or now),
-        /// and late enough for every change it depends on.
+        /// The wave's times: it starts no earlier than <paramref name="earliest"/> (the end of its command's previous wave,
+        /// or now) and its start events' cells; each walker sets off as soon as every cell of its route and its targets has
+        /// shown its earlier change, its units arriving with it (<see cref="Wave.Work"/> in arrival order); the wave ends
+        /// after its last arrival and late enough for its end events' order.
         /// </summary>
-        private float StartOf(Wave wave, float earliest)
+        private void Schedule(Wave wave, float earliest)
         {
             float start = earliest;
-            foreach (Walk walk in wave.Walks)
-            {
-                // The walker follows its farthest unit's route and reaches route cell j at (j + 1) / count of its walk:
-                // its path is the entry point, then the route cells (BloomlingWorker.Move).
-                IReadOnlyList<CellPos> route = walk.Batch[walk.Batch.Count - 1].Clear.RouteFromEntry;
-                for (int j = 0; j < route.Count; j++)
-                {
-                    float reach = walk.Travel * (j + 1) / route.Count;
-                    start = Math.Max(start, _ready[Index(route[j])] + StepMargin - reach);
-                }
-
-                foreach (WorkUnit unit in walk.Batch)
-                {
-                    start = Math.Max(start, _ready[Index(unit.Clear.Cell)] + StepMargin - walk.Travel);
-                }
-            }
-
             foreach (CellPos cell in CellsAt(wave.Start))
             {
                 start = Math.Max(start, _ready[Index(cell)]);
             }
 
+            float end = start + wave.Duration;
+            var arrival = new Dictionary<WorkUnit, float>();
+            var units = new List<WorkUnit>();
+            foreach (Walk walk in wave.Walks)
+            {
+                // The walker follows its farthest unit's route and reaches route cell j at (j + 1) / count of its walk:
+                // its path is the entry point, then the route cells (BloomlingWorker.Move).
+                IReadOnlyList<CellPos> route = walk.Batch[walk.Batch.Count - 1].Clear.RouteFromEntry;
+                float go = start;
+                for (int j = 0; j < route.Count; j++)
+                {
+                    float reach = walk.Travel * (j + 1) / route.Count;
+                    go = Math.Max(go, _ready[Index(route[j])] + StepMargin - reach);
+                }
+
+                foreach (WorkUnit unit in walk.Batch)
+                {
+                    go = Math.Max(go, _ready[Index(unit.Clear.Cell)] + StepMargin - walk.Travel);
+                }
+
+                walk.Go = go;
+                foreach (WorkUnit unit in walk.Batch)
+                {
+                    arrival[unit] = go + walk.Travel;
+                    units.Add(unit);
+                }
+
+                end = Math.Max(end, go + walk.Travel + RestoreSeconds);
+            }
+
+            StableSort(units, unit => arrival[unit]);
+            wave.Work.Clear();
+            wave.Work.AddRange(units);
+            wave.Arrivals.Clear();
+            foreach (WorkUnit unit in units)
+            {
+                wave.Arrivals.Add(arrival[unit]);
+            }
+
             foreach (CellPos cell in CellsAt(wave.End))
             {
-                start = Math.Max(start, _ready[Index(cell)] - wave.Duration);
+                end = Math.Max(end, _ready[Index(cell)]);
             }
 
             foreach (string key in KeysAtEnd(wave))
             {
                 if (_keyReady.TryGetValue(key, out float ready))
                 {
-                    start = Math.Max(start, ready + KeyGap - wave.Duration);
+                    end = Math.Max(end, ready + KeyGap);
                 }
             }
 
             if (EndsLevel(wave))
             {
-                start = Math.Max(start, LastEnd() + KeyGap - wave.Duration);
+                end = Math.Max(end, LastEnd() + KeyGap);
             }
 
-            return start;
+            wave.StartAt = start;
+            wave.EndAt = end;
         }
 
         /// <summary>Notes when the wave's changes show, for the waves queued after it.</summary>
         private void Record(Wave wave)
         {
-            float end = wave.StartAt + wave.Duration;
+            float end = wave.EndAt;
             foreach (string key in KeysAtEnd(wave))
             {
                 KeyReady(key, end);
@@ -398,7 +410,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
             {
                 KeyReady("pod:" + wave.Work[i].Clear.PodId, end);
                 int cell = Index(wave.Work[i].Clear.Cell);
-                _ready[cell] = Math.Max(_ready[cell], wave.StartAt + wave.Arrivals[i]);
+                _ready[cell] = Math.Max(_ready[cell], wave.Arrivals[i]);
             }
 
             foreach (CellPos cell in CellsAt(wave.Start))
@@ -437,12 +449,12 @@ namespace Bloomlings.Client.Gameplay.Timeline
                     }
                     else if (wave.NextArrival < wave.Work.Count)
                     {
-                        t = wave.StartAt + wave.Arrivals[wave.NextArrival];
+                        t = wave.Arrivals[wave.NextArrival];
                         k = Arriving;
                     }
                     else
                     {
-                        t = wave.StartAt + wave.Duration;
+                        t = wave.EndAt;
                         k = Ending;
                     }
 
@@ -496,7 +508,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
             {
                 foreach (Walk walk in wave.Walks)
                 {
-                    _sink!.OnWorkStarted(walk.Batch, wave.StartAt, walk.Travel);
+                    _sink!.OnWorkStarted(walk.Batch, walk.Go, walk.Travel);
                 }
             }
         }
@@ -521,7 +533,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
             }
         }
 
-        /// <summary>One walker: the units it stands for (its farthest last) and its walking time, in timeline seconds.</summary>
+        /// <summary>One walker: the units it stands for (its farthest last), its walking time and when it sets off, in timeline seconds.</summary>
         private sealed class Walk
         {
             public Walk(IReadOnlyList<WorkUnit> batch, float travel)
@@ -533,6 +545,9 @@ namespace Bloomlings.Client.Gameplay.Timeline
             public IReadOnlyList<WorkUnit> Batch { get; }
 
             public float Travel { get; }
+
+            /// <summary>When it sets off on the clock (its route clear), at the wave's start or later.</summary>
+            public float Go { get; set; }
         }
 
         private sealed class Wave
@@ -547,8 +562,11 @@ namespace Bloomlings.Client.Gameplay.Timeline
 
             public float Duration { get; set; }
 
-            /// <summary>When it starts on the clock (after its command's earlier waves and every change it depends on).</summary>
+            /// <summary>When it starts on the clock (after its command's earlier waves and its start events' cells).</summary>
             public float StartAt { get; set; }
+
+            /// <summary>When it ends (its end events show): after its last arrival and in the rules' order.</summary>
+            public float EndAt { get; set; }
 
             public bool Started { get; set; }
 
@@ -557,7 +575,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
 
             public List<GameEvent> Start { get; } = new List<GameEvent>();
 
-            /// <summary>Its work units in arrival order, each arriving <see cref="Arrivals"/> seconds after the wave starts.</summary>
+            /// <summary>Its work units in arrival order, each arriving at <see cref="Arrivals"/> on the clock.</summary>
             public List<WorkUnit> Work { get; } = new List<WorkUnit>();
 
             public List<float> Arrivals { get; } = new List<float>();

@@ -144,8 +144,9 @@ namespace Bloomlings.Client.Gameplay
             if (AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && save!.Settings.Speed2x)
             {
                 _hud.SetDoubleSpeed(true);
-                _timeline.Speed = 2f;
             }
+
+            RefreshSpeed();
 
             RebuildViews();
             ApplyTheme();
@@ -328,6 +329,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             CommandResult result = _session.Apply(tap);
+            RefreshSpeed();
             Feedback?.Play(SoundCue.Tap);
             HoldLocksOpenedBy(result.Events);
             foreach (GameEvent e in result.Events)
@@ -671,6 +673,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             CommandResult result = session.Apply(command);
+            RefreshSpeed();
             HoldLocksOpenedBy(result.Events);
             Feedback?.Play(SoundCue.Booster);
             _jam.Hide();
@@ -1024,13 +1027,41 @@ namespace Bloomlings.Client.Gameplay
         /// <summary>The 2× toggle (FR-069) also becomes the default for the next levels.</summary>
         private void OnSpeedChanged(bool doubleSpeed)
         {
-            _timeline.Speed = doubleSpeed ? 2f : 1f;
+            RefreshSpeed();
             PlayerSave? save = Service<PlayerSave>();
             if (save != null && save.Settings.Speed2x != doubleSpeed)
             {
                 save.Settings.Speed2x = doubleSpeed;
                 Service<SaveService>()?.Save();
             }
+        }
+
+        /// <summary>
+        /// The clock's speed after every command: 2× when the player chose it (FR-069), and also while no pod can be tapped
+        /// (the owner, 2026-10-04: every pod picked, only the animation left), so the rest plays fast; the pill shows 2× then.
+        /// Animation only: never an outcome.
+        /// </summary>
+        private void RefreshSpeed()
+        {
+            bool auto = _session != null && !CanTapAny(_session);
+            _timeline.Speed = _hud.DoubleSpeed || auto ? 2f : 1f;
+            _hud.ShowAutoSpeed(auto);
+        }
+
+        /// <summary>Whether the rules allow a tap on any exposed pod (the top of a Source stack).</summary>
+        private static bool CanTapAny(LevelSession session)
+        {
+            LevelView view = session.View;
+            for (int i = 0; i < view.StackCount; i++)
+            {
+                IReadOnlyList<string> stack = view.Stack(i);
+                if (stack.Count > 0 && session.Check(new TapPod(stack[0])).IsAllowed)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>A locked pod was tapped: point at the key that opens it (the pod or its group).</summary>
@@ -1118,6 +1149,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             _session.Apply(new Restart());
+            RefreshSpeed();
             Service<AdPolicy>()?.OnAttemptStarted();
             RebuildViews();
             BeginAttemptAnalytics();

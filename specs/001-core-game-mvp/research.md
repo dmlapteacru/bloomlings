@@ -156,6 +156,19 @@ ordered **event log**. The next command always applies to that settled state. An
   `playtest/check` replays every golden case and showcase solution (with pauses and rapid taps) to the rules' state, and
   checks two quick taps on every level: wherever both taps have work their waves play side by side, and never in one
   slot.
+- **Amendment (2026-10-04, the owner on L1: "if you pick all 3 at once, the first blue must finish before the green
+  starts, though the greens could start running in the middle of the first blue").** A wave's Bloomlings set off
+  together, so the leaf pod's whole wave waited for its farthest Bloomling, whose route crossed the last tiles the
+  second water pod clears (about 9.7 s), while its tile beside the entry was free after the first step. Now each
+  Bloomling (each walker, in Unity a merged walker) sets off on its own as soon as every cell of its route and its
+  target has shown its earlier change; the wave ends after its last arrival, its end events still in the rules' order
+  (both builds: `LevelAnimator`, `TimelinePlayer`). On L1 the leaf pod's first Bloomling now sets off at about 2 s, while
+  the first water pod still works (`playtest/check`, `EventTimelineTests`).
+- **Auto 2× (2026-10-04, the owner: "when all slots are picked, nothing more to choose from, 2× must turn on by
+  itself").** While no exposed pod can be tapped (every pod picked, or the level decided), the animation plays at 2×
+  (at least; the player's 2× stays 2×) and the speed pill shows 2×; the player's saved choice is unchanged. Re-checked
+  after every command (both builds: `LevelScreen.RefreshSpeed`, `GameplayController.RefreshSpeed`). Animation only
+  (FR-069).
 - **Worker cap.** Active Bloomling sprites come from a bounded pool of about 60 on low-end devices; extra work is shown
   aggregated.
 

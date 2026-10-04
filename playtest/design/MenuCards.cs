@@ -66,7 +66,7 @@ namespace Bloomlings.Playtest.Design
                     app.Meta.Persist();
                     if (app.Level != null)
                     {
-                        app.Level.Animator.Speed = save.Speed2x ? 2f : 1f;
+                        app.Level.RefreshSpeed();
                     }
                 }),
             };

@@ -1483,6 +1483,17 @@ final validation.
 
 ---
 
+## Owner review: walkers set off on their own; auto 2× (2026-10-04)
+
+- [X] T159 Each Bloomling sets off as soon as its own route and target are clear, not with its whole wave; the wave
+  ends after its last arrival, its end events in the rules' order (`playtest/android/LevelAnimator.cs`,
+  `playtest/design/BoardPainter.cs`, `playtest/android/TesterView.cs`,
+  `client/Assets/Bloomlings/Gameplay/Timeline/TimelinePlayer.cs`); `playtest/check` checks the owner's L1 (the leaf pod
+  sets off while the first water pod works) and `EventTimelineTests.EachWalker_SetsOffWhenItsOwnRouteIsClear` (research R4).
+- [X] T160 While no exposed pod can be tapped the animation plays at 2× and the speed pill shows it, the saved setting
+  unchanged (`playtest/design/LevelScreen.cs` `RefreshSpeed`, `client/Assets/Bloomlings/Gameplay/GameplayController.cs`
+  `RefreshSpeed`, `client/Assets/Bloomlings/UI/Screens/GameplayHud.cs` `ShowAutoSpeed`; FR-069).
+
 ## Parallel Example: User Story 1
 
 ```bash

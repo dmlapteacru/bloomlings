@@ -514,7 +514,9 @@ skin. Complete the daily challenge. Open the Collection.
   - Center: the board.
   - Below the board: the Garden Entry and the Waiting Slots.
   - Bottom: the stacked Source Tray, with a compact booster bar.
-- **FR-069**: The 2× speed setting MUST change only animation speed, never the outcome.
+- **FR-069**: The 2× speed setting MUST change only animation speed, never the outcome. While no pod can be tapped
+  (every pod picked, or the level decided), the animation MUST play at 2× on its own, the speed control showing it,
+  without changing the player's setting (the owner, 2026-10-04; research R4).
 - **FR-070**: Every tap MUST get immediate feedback. Selectable, locked, waiting, active, stuck and jam-risk states MUST be communicated visually, with minimal text. Bloomlings MUST stay small enough not to hide tile state.
 - **FR-071**: When the second variant of a family first appears, the game MUST show both side by side with one short message, for example "Match the exact symbol". It MUST then show the first variant's pod ignoring the sibling's tile. The explanation is not repeated later.
 - **FR-072**: Accessibility: every variant MUST have its own icon, with enough color distance and readable counts. Palettes MUST be tested for colorblind safety. Hue alone MUST never carry meaning.

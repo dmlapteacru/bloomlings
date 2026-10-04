@@ -77,6 +77,8 @@ namespace Bloomlings.Client.UI.Screens
 
         public bool DoubleSpeed { get; private set; }
 
+        private bool _autoSpeed;
+
         public static GameplayHud Create(RectTransform root, Action onPause, Action<bool> onSpeedChanged)
         {
             var hud = root.gameObject.AddComponent<GameplayHud>();
@@ -90,7 +92,7 @@ namespace Bloomlings.Client.UI.Screens
             Button speed = UiKit.SpeedPill("Speed", hud._topBar, "1×", () =>
             {
                 hud.DoubleSpeed = !hud.DoubleSpeed;
-                hud._speedLabel.text = hud.DoubleSpeed ? "2×" : "1×";
+                hud.ShowSpeed();
                 onSpeedChanged(hud.DoubleSpeed);
             });
             hud._speed = (RectTransform)speed.transform;
@@ -327,8 +329,20 @@ namespace Bloomlings.Client.UI.Screens
         public void SetDoubleSpeed(bool on)
         {
             DoubleSpeed = on;
-            _speedLabel.text = on ? "2×" : "1×";
+            ShowSpeed();
         }
+
+        /// <summary>
+        /// Whether the animation plays at 2× on its own (no pod can be tapped, GameplayController.RefreshSpeed): the pill
+        /// then shows 2× whatever the toggle; the toggle itself stays as the player set it.
+        /// </summary>
+        public void ShowAutoSpeed(bool on)
+        {
+            _autoSpeed = on;
+            ShowSpeed();
+        }
+
+        private void ShowSpeed() => _speedLabel.text = DoubleSpeed || _autoSpeed ? "2×" : "1×";
 
         public void SetLevel(int levelNumber) => _level.text = Loc.F("common.level", NumberText.Group(levelNumber));
 

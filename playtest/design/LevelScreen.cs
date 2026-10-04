@@ -50,7 +50,7 @@ namespace Bloomlings.Playtest.Design
             ContentSet content = app.Content;
             LevelDefinition definition = content.GetLevel(app.Resolve(Level));
             Session = LevelSession.Load(definition, content.GetPicture(definition.Picture), new SessionOptions(content.ContentVersion, content.ShuffleNodeBudget));
-            Animator.Speed = app.Meta.Save.Settings.Speed2x ? 2f : 1f;
+            RefreshSpeed();
             Animator.Arrived += OnArrived;
             Animator.Shown += OnShown;
             Animator.Reset(Session.View);
@@ -428,6 +428,7 @@ namespace Bloomlings.Playtest.Design
         public void Restart()
         {
             Session.Apply(new Restart());
+            RefreshSpeed();
             Animator.Reset(Session.View);
             TrayMotion.Clear();
             Targeting = null;
@@ -440,6 +441,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>A won level is recorded and paid at once, so closing the app during the animation keeps it (R15).</summary>
         private void AfterCommand()
         {
+            RefreshSpeed();
             if (Won && Payout == null)
             {
                 Payout = Meta.CompleteLevel(Level, Session.Definition.Difficulty.Class, Session.BoostersUsed, Session.Definition) ?? new WinPayout(null, null);
@@ -496,7 +498,31 @@ namespace Bloomlings.Playtest.Design
         {
             Meta.Save.Settings.Speed2x = !Meta.Save.Settings.Speed2x;
             Meta.Persist();
-            Animator.Speed = Meta.Save.Settings.Speed2x ? 2f : 1f;
+            RefreshSpeed();
+        }
+
+        /// <summary>
+        /// The animation's speed after every command: 2× when the player chose it (FR-069), and also while no pod can be
+        /// tapped (the owner, 2026-10-04: every pod picked, only the animation left), so the rest plays fast; the speed pill
+        /// shows 2× then (it shows <see cref="LevelAnimator.Speed"/>). Animation only: never an outcome. The saved choice
+        /// stays as the player set it.
+        /// </summary>
+        public void RefreshSpeed() => Animator.Speed = Meta.Save.Settings.Speed2x || !CanTapAny() ? 2f : 1f;
+
+        /// <summary>Whether the rules allow a tap on any exposed pod (the top of a Source stack).</summary>
+        private bool CanTapAny()
+        {
+            LevelView view = Session.View;
+            for (int i = 0; i < view.StackCount; i++)
+            {
+                IReadOnlyList<string> stack = view.Stack(i);
+                if (stack.Count > 0 && Session.Check(new TapPod(stack[0])).IsAllowed)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public static string RefusalText(RejectReason? reason) => reason switch

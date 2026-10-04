@@ -91,6 +91,23 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void EachWalker_SetsOffWhenItsOwnRouteIsClear()
+        {
+            var (player, sink) = Create();
+
+            // The owner's L1 (2026-10-04): the first tap clears (3,0) at once and (3,4) at the end of a long, winding walk;
+            // the second tap's wave has a Bloomling for (3,1), just past (3,0), and one for (3,5), behind (3,4).
+            player.Enqueue(Tap(Clear(1, "a", new[] { new CellPos(3, 0) }), Clear(1, "a", Column(0, 4).Concat(Row(4, 1, 3)).ToArray())));
+            player.Enqueue(Tap(Clear(1, "b", new[] { new CellPos(3, 0), new CellPos(3, 1) }), Clear(1, "b", Column(3, 5))));
+            player.Advance(100f);
+
+            float near = sink.Walkers.First(w => w.Batch[0].Clear.Cell == new CellPos(3, 1)).Start;
+            float far = sink.Walkers.First(w => w.Batch[0].Clear.Cell == new CellPos(3, 5)).Start;
+            Assert.That(near, Is.LessThan(sink.TimeOf("arrive a 3,4")), "the near Bloomling does not wait for the far tile");
+            Assert.That(far, Is.GreaterThan(near), "the far one sets off when its route is clear");
+        }
+
+        [Test]
         public void SpecialAndPodEvents_KeepTheRulesOrder()
         {
             var (player, sink) = Create();
@@ -232,7 +249,7 @@ namespace Bloomlings.Client.Tests
 
             public void OnWorkStarted(IReadOnlyList<WorkUnit> batch, float start, float travelSeconds)
             {
-                Assert.That(start, Is.EqualTo(_player.Now).Within(Tolerance), "a walker sets off as its wave starts");
+                Assert.That(start, Is.GreaterThanOrEqualTo(_player.Now - Tolerance), "a walker sets off as its wave starts, or later when its route is not clear yet");
                 Walkers.Add((start, travelSeconds, batch));
             }
 

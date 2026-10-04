@@ -138,6 +138,38 @@ foreach (var run in runs)
 Console.WriteLine($"two quick taps: {pairs} levels ({working} with work for both), waves side by side in {together}, the same slot shown in {sameSlot}");
 if (sameSlot > 0 || together < working) { failures++; Console.WriteLine("FAIL two quick taps"); }
 
+// The owner's L1 (2026-10-04): all three pods tapped at once. A Bloomling sets off as soon as its own route is clear, so
+// the leaf pod's first Bloomlings walk while the first water pod's still play, not after it finishes.
+{
+    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "playtest/content/levels/level-0001.json")));
+    LevelSession session = LevelSession.Load(l1, pictures[l1.Picture.Id], new SessionOptions(1, 20000));
+    var animator = new LevelAnimator();
+    animator.Reset(session.View);
+    foreach (string id in new[] { "w1", "w2", "l1" })
+    {
+        var before = new Dictionary<string, (int, Bloomlings.Core.Variants.VariantId?, float, float)>();
+        foreach (string m in session.View.ConnectedGroup(id).Append(id))
+        {
+            PodInfo p = session.View.Pod(m);
+            before[m] = (p.Remaining, p.Variant, 0f, 0f);
+        }
+
+        animator.Tapped(session.Apply(new TapPod(id)), session.View, before);
+        animator.Advance(0.3f, session.View);
+    }
+
+    float leafGoes = float.NaN, waterDone = float.NaN;
+    for (int i = 0; i < 4000 && !animator.Idle && (float.IsNaN(leafGoes) || float.IsNaN(waterDone)); i++)
+    {
+        if (float.IsNaN(leafGoes) && animator.Walkers.Any(w => w.Variant == l1.Pods.First(p => p.Id == "l1").Variant && animator.Now >= w.Start)) leafGoes = animator.Now;
+        if (float.IsNaN(waterDone) && animator.Slots.Any(look => look.PodId == "w1" && look.IsLeaving)) waterDone = animator.Now;
+        animator.Advance(1f / 60f, session.View);
+    }
+
+    Console.WriteLine($"L1, three quick taps: the leaf pod's first Bloomling sets off at {leafGoes:0.00} s, the first water pod finishes at {waterDone:0.00} s");
+    if (!(leafGoes < waterDone)) { failures++; Console.WriteLine("FAIL L1 three quick taps"); }
+}
+
 // The meta layer on the shared client services.
 string temp = Path.Combine(Path.GetTempPath(), "pt-meta-" + Guid.NewGuid().ToString("N"));
 var meta = new PlaytestMeta(temp);
