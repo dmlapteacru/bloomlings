@@ -20,7 +20,9 @@ namespace Bloomlings.Client.UI.Screens
     /// What Home shows (FR-058), with the long-run features once unlocked (US7): the unlocks also decide which of the bottom
     /// menu's places are open (spec 005 FR-030: all five show, a locked one with a padlock; the rank shows on the
     /// Leaderboard page it opens). <see cref="Profile"/> and <see cref="AvatarOutfit"/> dress the header's profile avatar
-    /// (its frame and badge; what the pictured hero wears, once the Wardrobe is open).
+    /// (its frame and badge; what the pictured hero wears, once the Wardrobe is open). The promo scenes (spec 005 FR-032):
+    /// <see cref="NoAdsPromo"/> until Remove Ads is owned, <see cref="DailyRewardPromo"/> once the Daily Reward is unlocked,
+    /// calling for attention while <see cref="DailyRewardWaiting"/> (today's reward can be claimed).
     /// </summary>
     public sealed record HomeModel(
         int CurrentLevel,
@@ -40,14 +42,18 @@ namespace Bloomlings.Client.UI.Screens
         int DailyChallengePetals = 0,
         Func<Family, Outfit?>? OutfitOf = null,
         ProfileLook? Profile = null,
-        Outfit? AvatarOutfit = null);
+        Outfit? AvatarOutfit = null,
+        bool NoAdsPromo = false,
+        bool DailyRewardPromo = false,
+        bool DailyRewardWaiting = false);
 
     /// <summary>
-    /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7) and the header's profile avatar
-    /// (the owner's request of 2026-10-04; null until the profile page comes: its tap presses and clicks only). The Store,
+    /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7), the header's profile avatar
+    /// (the owner's request of 2026-10-04; null until the profile page comes: its tap presses and clicks only) and the
+    /// promo scenes (spec 005 FR-032): No Ads opens the Remove Ads card, the Daily scene the Daily Reward card. The Store,
     /// the Wardrobe, the Leaderboard and the Collection are the bottom menu's places (spec 005 FR-030).
     /// </summary>
-    public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnProfile = null);
+    public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnProfile = null, Action? OnNoAds = null, Action? OnDailyReward = null);
 
     /// <summary>
     /// Home of the design board's frames 2 and 3 (spec 002 FR-017; FR-058, T063) in the reference look and layout of
@@ -67,8 +73,12 @@ namespace Bloomlings.Client.UI.Screens
     /// the picture, the drawn diorama (the stone ring, the lotus fountain and the four still heroes), where the player's
     /// hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left front. Once the Wardrobe is open (L40) each hero
     /// wears its outfit.</description></item>
+    /// <item><description>The promo scenes under the logo (spec 005 FR-032, <see cref="HomePromoView"/>): No Ads at the
+    /// left until Remove Ads is owned (a tap opens the Remove Ads card), the Daily Reward at the right once unlocked (L7; a
+    /// tap opens its card, and it calls for attention only while today's reward waits), each the owner's animated layers
+    /// on a flowered stand with its label on the wooden plaque.</description></item>
     /// <item><description>The Daily Challenge (the sun, with a green check when done today, L50) as a small cream round
-    /// side button at the right, once unlocked.</description></item>
+    /// side button at the right under the Daily scene, once unlocked.</description></item>
     /// <item><description>Under Play, the milestone teaser "N levels to reward" with the pink gift on a parchment pill, and
     /// the optional free-booster ad offer as a cream "Free" pill beside it.</description></item>
     /// <item><description>The bottom menu (spec 005 FR-030, <see cref="BottomNavView"/>): the wooden bar with its five
@@ -88,6 +98,8 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _profile = null!;
         private ProfileAvatar _avatar = null!;
         private RectTransform _logo = null!;
+        private HomePromoView _noAds = null!;
+        private HomePromoView _dailyReward = null!;
         private HomeStageView _stage = null!;
         private WoodSignView _level = null!;
         private TextMeshProUGUI _playLabel = null!;
@@ -123,6 +135,13 @@ namespace Bloomlings.Client.UI.Screens
 
             // The logo across the top, over the garden in both looks.
             screen._logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
+
+            // The promo scenes under the logo (spec 005 FR-032), over the stage and under the cards: each takes the taps
+            // of its own box only, so the heroes keep theirs around it. No Ads always calls for attention while it shows.
+            screen._noAds = HomePromoView.Create("NoAds", root, PromoScene.NoAds, calling: true, () => features?.OnNoAds?.Invoke());
+            screen._dailyReward = HomePromoView.Create("DailyReward", root, PromoScene.Daily, calling: false, () => features?.OnDailyReward?.Invoke());
+            screen._noAds.gameObject.SetActive(false);
+            screen._dailyReward.gameObject.SetActive(false);
 
             // The Daily Challenge side button at the right (the other features are the bottom menu's places).
             Button daily = UiKit.RoundPictureButton("Daily", root, parent => UiKit.OutlinedGlyph("Sun", parent, "ui.sun", C.GardenFlowerCenter, C.GardenFlowerCenterLine), 0.72f, () => features?.OnDailyChallenge?.Invoke());
@@ -256,7 +275,10 @@ namespace Bloomlings.Client.UI.Screens
             // fountain with the player's hero at the left front; once the Wardrobe is open each in its outfit.
             _stage.Place(r.Diorama, screen, BackdropScene.Home, outfitOf: look.Hero ? model.OutfitOf : null, front: look.Hero ? ProfileAvatar.HeroFamily : Family.Sprig);
 
-            // The Daily Challenge, the right column's first side button.
+            // The promo scenes under the logo, and the Daily Challenge, the right column's first side button, under the
+            // Daily Reward's scene.
+            _noAds.Place(r.NoAds, screen);
+            _dailyReward.Place(r.DailyReward, screen);
             UiKit.PlaceBox((RectTransform)_daily.transform, r.Daily, screen);
             float touch = DesignTokens.Size.TouchMin * u;
             Box Touch(Box b) => Box.FromCenter(b.CenterX, b.CenterY, Mathf.Max(b.Width, touch), Mathf.Max(b.Height, touch));
@@ -292,6 +314,12 @@ namespace Bloomlings.Client.UI.Screens
             _avatar.Show(model.Profile == null ? null : model.Profile with { Marker = null }, model.AvatarOutfit);
             _daily.SetActive(model.DailyChallengeAvailable);
             _dailyDone.SetActive(model.DailyChallengeDone);
+
+            // No Ads until Remove Ads is owned (hidden at once after a purchase or a restore); the Daily Reward once
+            // unlocked, calling while today's reward waits.
+            _noAds.gameObject.SetActive(model.NoAdsPromo);
+            _dailyReward.gameObject.SetActive(model.DailyRewardPromo);
+            _dailyReward.Calling = model.DailyRewardWaiting;
             _backdrop.Show(model.Theme);
             _teaser.gameObject.SetActive(model.NextMilestoneLevel.HasValue);
             if (model.NextMilestoneLevel.HasValue)

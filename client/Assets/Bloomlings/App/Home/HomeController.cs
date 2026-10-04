@@ -31,7 +31,9 @@ namespace Bloomlings.Client.App.Home
 {
     /// <summary>
     /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (with Restore Purchases
-    /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, and
+    /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, Home's
+    /// promo scenes (spec 005 FR-032, FR-033: No Ads, opening the <see cref="RemoveAdsCard"/> at every level until Remove
+    /// Ads is owned, and the Daily Reward's, opening its popup once unlocked), and
     /// the long-run features (US7): the leaderboard rank (L10), the Wardrobe (L40), the Daily Challenge (L50), the
     /// Collection, the milestone teaser and the band's background theme. Home and its four pages (the Store, the Wardrobe,
     /// the Leaderboard and the Collection; every place a page since the owner's request of 2026-10-04) each show the
@@ -114,7 +116,10 @@ namespace Bloomlings.Client.App.Home
                     DailyChallengePetals: DailyChallengeService.RewardPetals,
                     OutfitOf: wardrobe.OutfitOf,
                     Profile: wardrobe.Profile,
-                    AvatarOutfit: wardrobe.IsAvailable ? wardrobe.OutfitOf(ProfileAvatar.HeroFamily) : null));
+                    AvatarOutfit: wardrobe.IsAvailable ? wardrobe.OutfitOf(ProfileAvatar.HeroFamily) : null,
+                    NoAdsPromo: !ledger.RemoveAds,
+                    DailyRewardPromo: daily.IsUnlocked,
+                    DailyRewardWaiting: daily.CanClaim));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.ShowsRanks)
                 {
@@ -257,8 +262,69 @@ namespace Bloomlings.Client.App.Home
                 board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
                 RunInBackground(leaderboard.Refresh());
             };
+            // Restore Purchases (Settings and the Remove Ads card): Home refreshes after it, so a restored Remove Ads hides
+            // the No Ads scene at once.
+            void RestorePurchases(Action<bool> done) => purchases.Restore(ok =>
+            {
+                Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.");
+                Refresh();
+                done(ok);
+            });
+
+            // The Daily Reward popup (FR-055), built when first shown: by itself once a day while a claim is due, and from
+            // the Daily scene at any time once unlocked (spec 005 FR-032; after the claim, Claim greyed). The ad bonus
+            // claims the reward with its extra Petals, so it can be earned once a day.
+            DailyRewardPopup? dailyPopup = null;
+            void ShowDailyReward()
+            {
+                if (!daily.IsUnlocked)
+                {
+                    return;
+                }
+
+                dailyPopup ??= DailyRewardPopup.Create(root);
+                bool claimable = daily.CanClaim;
+                dailyPopup.Show(
+                    claimable ? daily.NextPetals : daily.PetalsOn(daily.TodayStreak),
+                    daily.TodayStreak,
+                    ads.IsRewardedReady,
+                    () =>
+                    {
+                        int paid = daily.Claim();
+                        if (paid > 0)
+                        {
+                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
+                        }
+
+                        Refresh();
+                        return paid;
+                    },
+                    done => ads.ShowRewarded(AdPlacements.DailyBonus, earned =>
+                    {
+                        int extra = 0;
+                        if (earned && daily.CanClaim)
+                        {
+                            int paid = daily.Claim();
+                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
+                            extra = config.Get(RemoteConfigKeys.DailyRewardPetals);
+                            analytics?.AdRewarded("daily");
+                            economy.Grant(extra, null);
+                            extra += paid;
+                        }
+
+                        done(extra);
+                        Refresh();
+                    }),
+                    claimable: claimable);
+            }
+
+            // The Remove Ads card (spec 005 FR-033): the Store row's purchase and Settings' restore; Home refreshes after
+            // either, so the No Ads scene hides as soon as Remove Ads is owned.
+            RemoveAdsCard? removeAds = null;
             var features = new HomeFeatureActions(
-                () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)));
+                () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
+                OnNoAds: () => removeAds?.Show(purchases.PriceOf(ProductCatalog.RemoveAdsId), purchases.IsAvailable),
+                OnDailyReward: ShowDailyReward);
 
             home = HomeScreen.Create(
                 UiFactory.Stretch(UiFactory.CreateRect("Home", root)),
@@ -305,25 +371,34 @@ namespace Bloomlings.Client.App.Home
                 root,
                 save.Settings,
                 saves.Save,
-                done => purchases.Restore(ok =>
-                {
-                    Debug.Log(ok ? "[Store] Purchases restored." : "[Store] Restore unavailable.");
-                    done(ok);
-                }),
+                RestorePurchases,
                 account,
                 services.TryGet(out IConsentService? consent) ? consent : null);
             store = StoreScreen.Create(root, Navigate, NavLook);
+            removeAds = RemoveAdsCard.Create(
+                root,
+                done => purchases.Buy(ProductCatalog.RemoveAdsId, _ =>
+                {
+                    Refresh();
+                    done();
+                }),
+                RestorePurchases,
+                () => ledger.RemoveAds);
             Refresh();
 
-            // Background refresh: a cloud merge or a new rank updates Home when it arrives (never blocking it).
+            // Background refresh: a cloud merge, a new rank or a purchase the store delivers later (an order left pending,
+            // the owned purchases fetched at start) updates Home when it arrives (never blocking it).
             Action onMerged = Refresh;
             Action onRank = Refresh;
+            Action<ValidatedPurchase> onGranted = _ => Refresh();
             sync.Merged += onMerged;
             leaderboard.Updated += onRank;
+            ledger.Granted += onGranted;
             _unsubscribe = () =>
             {
                 sync.Merged -= onMerged;
                 leaderboard.Updated -= onRank;
+                ledger.Granted -= onGranted;
                 wardrobe.Changed -= Refresh;
             };
             RunInBackground(sync.Sync());
@@ -355,42 +430,11 @@ namespace Bloomlings.Client.App.Home
                 }
             }
 
-            // The Daily Reward pops up once a day while a claim is due (FR-055). The ad bonus claims the reward with its
-            // extra Petals, so it can be earned once a day: the popup does not come back after a claim.
+            // The Daily Reward pops up once a day while a claim is due (FR-055): it does not come back by itself after a
+            // claim (the Daily scene still opens it).
             if (daily.CanClaim)
             {
-                DailyRewardPopup popup = DailyRewardPopup.Create(root);
-                popup.Show(
-                    daily.NextPetals,
-                    daily.NextStreak,
-                    ads.IsRewardedReady,
-                    () =>
-                    {
-                        int paid = daily.Claim();
-                        if (paid > 0)
-                        {
-                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
-                        }
-
-                        Refresh();
-                        return paid;
-                    },
-                    done => ads.ShowRewarded(AdPlacements.DailyBonus, earned =>
-                    {
-                        int extra = 0;
-                        if (earned && daily.CanClaim)
-                        {
-                            int paid = daily.Claim();
-                            analytics?.DailyRewardClaim(save.Daily.RewardStreak);
-                            extra = config.Get(RemoteConfigKeys.DailyRewardPetals);
-                            analytics?.AdRewarded("daily");
-                            economy.Grant(extra, null);
-                            extra += paid;
-                        }
-
-                        done(extra);
-                        Refresh();
-                    }));
+                ShowDailyReward();
             }
         }
 
