@@ -8,28 +8,31 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>The places of the bottom menu (spec 005 FR-030, contracts/look.md §6.7), in their order from the left.</summary>
     public enum NavPlace
     {
-        /// <summary>The Store page (from L12).</summary>
+        /// <summary>The Store page (open from L12; before it, the page says so).</summary>
         Shop,
 
-        /// <summary>The Wardrobe page (from L40).</summary>
+        /// <summary>The Wardrobe page (open from L40; before it, the page says so).</summary>
         Wardrobe,
 
-        /// <summary>Home, always.</summary>
+        /// <summary>Home, always open.</summary>
         Home,
 
-        /// <summary>The Leaderboard card over Home (from L10).</summary>
+        /// <summary>The Leaderboard card over Home (open from L10; before it, the card says so).</summary>
         Leaderboard,
 
-        /// <summary>The Collection card over Home (once a picture is won).</summary>
+        /// <summary>The Collection card over Home (open once a picture is won, from L2; before it, the card says so).</summary>
         Collection,
     }
 
     /// <summary>
     /// The bottom menu's rules (spec 005 FR-030, contracts/look.md §6.7; the owner's request of 2026-10-04, the wooden
-    /// variant): which places show, in which order, their names, slots and stand-in glyphs, both builds. A place shows only
-    /// once its feature is unlocked (a player never sees the button of a locked feature): the Shop with
-    /// <see cref="HomeLook.Store"/>, the Wardrobe with <see cref="HomeLook.Wardrobe"/>, the Leaderboard with
-    /// <see cref="HomeLook.Rank"/>, the Collection with <see cref="HomeLook.Collection"/>; Home always. Engine-free.
+    /// variant): the places in their order, which are open, from which level, their names, slots and stand-in glyphs, both
+    /// builds. Every place always shows (the owner's request of 2026-10-04: "the menu's places must always be visible"). A
+    /// place is open once its feature is unlocked (<see cref="IsOpen"/>): the Shop with <see cref="HomeLook.Store"/>, the
+    /// Wardrobe with <see cref="HomeLook.Wardrobe"/>, the Leaderboard with <see cref="HomeLook.Rank"/>, the Collection
+    /// with <see cref="HomeLook.Collection"/>; Home always. A locked place keeps its icon, still tappable, with a padlock
+    /// badge (<see cref="LockBox"/>), and its page or card says from which level it is available
+    /// (<see cref="UnlockLevel"/>, <see cref="ScreenLayout.LockedNotice"/>). Engine-free.
     /// </summary>
     public static class BottomNav
     {
@@ -70,11 +73,31 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The room a screen keeps between its lowest content and the menu's top, as a share of W.</summary>
         public const float GapShare = 0.015f;
 
-        /// <summary>The places in their order from the left.</summary>
+        /// <summary>
+        /// A locked place's padlock badge, as a share of its icon's side (the whole badge, its ring included; the outfit
+        /// cards' <c>Kit.LockBadge</c> recipe).
+        /// </summary>
+        public const float LockShare = 0.34f;
+
+        /// <summary>The room the padlock badge keeps from its icon's right and bottom edges, as a share of the icon's side.</summary>
+        public const float LockInsetShare = 0.03f;
+
+        /// <summary>
+        /// The level the Collection opens from: its first picture comes with Level 1's win, so a player on Level 2 has one
+        /// (the Collection is open once it holds a picture, <see cref="HomeLook.Collection"/>; the roadmap has no unlock
+        /// for it).
+        /// </summary>
+        public const int CollectionLevel = 2;
+
+        /// <summary>The places in their order from the left: all five always show.</summary>
         public static IReadOnlyList<NavPlace> Order { get; } = new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection };
 
-        /// <summary>Whether <paramref name="place"/> shows for a player whose Home looks like <paramref name="look"/>.</summary>
-        public static bool Shows(NavPlace place, HomeLook look) => place switch
+        /// <summary>
+        /// Whether <paramref name="place"/> is open for a player whose Home looks like <paramref name="look"/>: Home always,
+        /// the others once their feature is unlocked. A place that is not open still shows, with a padlock badge, and its
+        /// page or card says from which level it is available (<see cref="UnlockLevel"/>).
+        /// </summary>
+        public static bool IsOpen(NavPlace place, HomeLook look) => place switch
         {
             NavPlace.Shop => look.Store,
             NavPlace.Wardrobe => look.Wardrobe,
@@ -83,20 +106,49 @@ namespace Bloomlings.Client.UI.Design
             _ => true,
         };
 
-        /// <summary>The places shown for <paramref name="look"/>, in their order (Home alone early on).</summary>
-        public static IReadOnlyList<NavPlace> Places(HomeLook look)
+        /// <summary>
+        /// The level from which <paramref name="place"/> is available, as its locked page or card says: the roadmap's level
+        /// of the feature's unlock (<paramref name="levelOf"/>, the build's own roadmap, <c>UnlockRoadmap.LevelOf</c>): the
+        /// Shop's <see cref="HomeLook.StoreUnlock"/> (L12), the Wardrobe's <see cref="HomeLook.WardrobeUnlock"/> (L40),
+        /// the Leaderboard's <see cref="HomeLook.LeaderboardUnlock"/> (L10); the Collection from
+        /// <see cref="CollectionLevel"/>; Home from Level 1. An unlock the roadmap does not list counts from Level 1.
+        /// </summary>
+        public static int UnlockLevel(NavPlace place, Func<string, int?> levelOf)
         {
-            var places = new List<NavPlace>();
-            foreach (NavPlace place in Order)
+            string? unlock = place switch
             {
-                if (Shows(place, look))
-                {
-                    places.Add(place);
-                }
+                NavPlace.Shop => HomeLook.StoreUnlock,
+                NavPlace.Wardrobe => HomeLook.WardrobeUnlock,
+                NavPlace.Leaderboard => HomeLook.LeaderboardUnlock,
+                _ => null,
+            };
+
+            if (unlock != null)
+            {
+                return Math.Max(1, levelOf(unlock) ?? 1);
             }
 
-            return places;
+            return place == NavPlace.Collection ? CollectionLevel : 1;
         }
+
+        /// <summary>
+        /// A locked place's padlock badge in its icon box (<c>ui.nav.lock</c>; the locked notice's too): a square
+        /// <see cref="LockShare"/> of the icon's side at its lower right corner, <see cref="LockInsetShare"/> inside its
+        /// right and bottom edges, so on the plank it stays inside the band.
+        /// </summary>
+        public static Box LockBox(Box icon)
+        {
+            float side = Math.Min(icon.Width, icon.Height);
+            float badge = side * LockShare;
+            float inset = side * LockInsetShare;
+            return new Box(icon.Right - inset - badge, icon.Bottom - inset - badge, icon.Right - inset, icon.Bottom - inset);
+        }
+
+        /// <summary>
+        /// The padlock badge's cream disc in its box (<see cref="LockBox"/>): the box less its <c>cream.line</c> ring, 8% of
+        /// the disc on each side (<c>Kit.LockBadge</c>, <c>UiKit.LockBadge</c>).
+        /// </summary>
+        public static float LockDisc(Box badge) => Math.Min(badge.Width, badge.Height) / 1.16f;
 
         /// <summary>A place's name in file names and keys: <c>shop</c>, <c>wardrobe</c>, <c>home</c>, <c>leaderboard</c>, <c>collection</c>.</summary>
         public static string Key(NavPlace place) => place switch
@@ -312,13 +364,13 @@ namespace Bloomlings.Client.UI.Design
     public static partial class ScreenLayout
     {
         /// <summary>
-        /// The bottom menu (contracts/look.md §6.7) for the shown <paramref name="places"/> (<see cref="BottomNav.Places"/>;
-        /// the <paramref name="active"/> one is added in its order when missing), in fractions of the safe width W: the
-        /// plank 0.14 W tall from 0.03 W to 0.97 W, its bottom on the safe bottom, the wood running on to the screen's
-        /// bottom; the bar's picture from the plank's top to the screen's bottom, across the screen; the places sharing
-        /// 0.04 W to 0.96 W evenly; the medallion 0.2 W square on the active place, its top 0.03 W above the plank's
-        /// (smaller when its disc would leave the screen: on a phone without a bottom inset its disc ends on the screen's
-        /// bottom, about 0.18 W).
+        /// The bottom menu (contracts/look.md §6.7) for the shown <paramref name="places"/> (the screens show all five,
+        /// <see cref="Design.BottomNav.Order"/>; the <paramref name="active"/> one is added in its order when missing), in
+        /// fractions of the safe width W: the plank 0.14 W tall from 0.03 W to 0.97 W, its bottom on the safe bottom, the
+        /// wood running on to the screen's bottom; the bar's picture from the plank's top to the screen's bottom, across
+        /// the screen; the places sharing 0.04 W to 0.96 W evenly; the medallion 0.2 W square on the active place, its top
+        /// 0.03 W above the plank's (smaller when its disc would leave the screen: on a phone without a bottom inset its
+        /// disc ends on the screen's bottom, about 0.18 W).
         /// </summary>
         public static BottomNavRegions BottomNav(float width, float height, Insets insets, IReadOnlyList<NavPlace> places, NavPlace active)
         {

@@ -41,9 +41,9 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("ui.tab.family");
             cells ??= ScreenLayout.Row(tabs, families.Count, p.U(10f), float.MaxValue, square: false);
-            float line = Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidth) * 0.8f);
+            float line = PanelLine(p);
             float radius = Math.Min(cells.Count > 0 ? cells[0].Width * 0.18f : 0f, p.U(34f));
-            float panelRadius = p.U(26f);
+            float panelRadius = p.U(PanelRadius);
             float sunk = tabs.Height * 0.07f;
 
             // The other tabs first: a little lower, their bottoms hidden under the panel's edge.
@@ -57,8 +57,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The panel: lighter than the card's parchment, with a thin tan outline.
-            p.FillRoundGradient(panel, panelRadius, C.ParchmentTop, C.CreamTop);
-            p.StrokeRound(panel.Inset(line / 2f), panelRadius - (line / 2f), line, C.CreamLine);
+            Panel(p, panel);
 
             if (selected >= 0 && selected < cells.Count)
             {
@@ -85,6 +84,25 @@ namespace Bloomlings.Playtest.Design
 
             return panel.Inset(p.U(22f));
         }
+
+        /// <summary>The corner radius of the Wardrobe's lighter panel (<see cref="Panel"/>), in reference units.</summary>
+        public const float PanelRadius = 26f;
+
+        /// <summary>
+        /// The Wardrobe's lighter panel (§4.6; under the family tabs, and the locked Wardrobe's, spec 005 FR-030): the
+        /// <c>parchment.top</c> to <c>cream.top</c> gradient, lighter than a card's parchment, with a thin <c>cream.line</c>
+        /// outline, its corners rounded by <see cref="PanelRadius"/>.
+        /// </summary>
+        public static void Panel(IPainter p, Box panel)
+        {
+            p.Mark("mat.parchment");
+            float line = PanelLine(p);
+            float radius = p.U(PanelRadius);
+            p.FillRoundGradient(panel, radius, C.ParchmentTop, C.CreamTop);
+            p.StrokeRound(panel.Inset(line / 2f), radius - (line / 2f), line, C.CreamLine);
+        }
+
+        private static float PanelLine(IPainter p) => Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidth) * 0.8f);
 
         /// <summary>
         /// A tab's face: <paramref name="tab"/> with its top corners rounded by <paramref name="radius"/> and its bottom

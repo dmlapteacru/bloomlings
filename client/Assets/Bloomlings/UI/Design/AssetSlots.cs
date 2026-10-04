@@ -395,8 +395,13 @@ namespace Bloomlings.Client.UI.Design
             foreach (NavPlace place in BottomNav.Order)
             {
                 string glyph = BottomNav.Fallback(place).ShapeId;
-                Add(BottomNav.Slot(place), "Bottom menu icon: " + place + " (the owner's picture `Icons/" + OwnerPictures.NavIcon(place) + ".png`, spec 005 pictures.md D" + (9 + IndexOf(BottomNav.Order, place)) + ")", new[] { 2, 3, 17 }, "Bottom menu (on the plank; in the medallion when active)", "on the plank; in the medallion; pressed", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "the `" + glyph + "` glyph in its color over a darker outline until the picture exists");
+                Add(BottomNav.Slot(place), "Bottom menu icon: " + place + " (the owner's picture `Icons/" + OwnerPictures.NavIcon(place) + ".png`, spec 005 pictures.md D" + (9 + IndexOf(BottomNav.Order, place)) + ")", new[] { 2, 3, 17 }, "Bottom menu (on the plank; in the medallion when active); locked notice", "on the plank; in the medallion; pressed; locked (padlock badge)", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "the `" + glyph + "` glyph in its color over a darker outline until the picture exists");
             }
+
+            // The owner's request of 2026-10-04: every place always shows; a locked one carries a padlock badge, and its
+            // page or card says from which level it is available.
+            Add("ui.nav.lock", "Bottom menu: the padlock badge of a locked place", new[] { 2, 17 }, "Bottom menu (a locked place's icon on the plank); locked notice", "locked; pressed (squashes with its icon)", SizeClass.Icon, false, Launch, PlaceholderKind.Procedural, "the outfit cards' padlock badge (`Kit.LockBadge`): a domed cream disc in a `cream.line` ring with the brown `ui.lock`, over a soft shadow, 0.34 of the icon's side at its lower right inside the plank's band");
+            Add("ui.locked.notice", "Locked notice: \"Available from level N\" on a locked place's page or card", new[] { 5, 6, 17 }, "Store page, Wardrobe, Leaderboard and Collection cards (before their unlock)", "Shop; Wardrobe; Leaderboard; Collection", SizeClass.Large, false, Launch, PlaceholderKind.Procedural, "the place's owner icon (or its stand-in glyph) 0.4 of the area's width with the padlock badge on its lower right, then \"Available from level N\" in `type.title` `ink.brown` and \"Keep playing to unlock it!\" in `type.body` `ink.brown_soft`, centered");
 
             // ---- Materials (spec 005 FR-006, contracts/look.md §2) ----
             Add("mat.wood.light", "Light wood (signs, button rims)", new[] { 2, 3, 7, 15 }, "Signs; main button rims; wordmark", "any size; grain by seed", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.Plank, light tone");
