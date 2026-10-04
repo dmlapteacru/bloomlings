@@ -552,6 +552,228 @@ namespace Bloomlings.Client.UI.Design
             float x = Grid.Left + (slot * (width + gap));
             return new Box(x, Grid.Top, x + width, Grid.Bottom);
         }
+
+        /// <summary>The header row: the back button, the banner and the Petals pill on one line (<see cref="PageHeader"/>).</summary>
+        public PageHeader Header => new PageHeader(Back, Banner, Petals);
+    }
+
+    /// <summary>
+    /// The header row of a full-screen page (contracts/look.md §6.5, §6.6; the owner's note of 2026-10-04: "the elements
+    /// there are not on one line"), shared by the Wardrobe and the Store in both builds (<see cref="ScreenLayout.PageHeader"/>):
+    /// the cream round back button at the left, the wooden banner with ivy in the middle and the Petals pill at the right,
+    /// all three centered on one line, the back button's middle (<see cref="CenterY"/>). The banner is
+    /// <see cref="BannerShare"/> of W tall, so with its ivy clusters it stands about as tall as the back button, and it
+    /// spans the room between the back button and the Petals pill's box less its clusters' reach
+    /// (<see cref="GardenLook.IvyReach"/>) and <see cref="GapShare"/> on each side, so its leaves touch neither
+    /// (<see cref="BannerExtent"/>). Engine-free.
+    /// </summary>
+    public sealed record PageHeader(Box Back, Box Banner, Box Petals)
+    {
+        /// <summary>The back button's side, as a share of W (0.04 W from the left).</summary>
+        public const float BackShare = 0.12f;
+
+        /// <summary>The back button's top, as a share of the safe height.</summary>
+        public const float TopShare = 0.025f;
+
+        /// <summary>The banner's plank height, as a share of W (its ivy clusters are <see cref="GardenLook.IvyShare"/> of it).</summary>
+        public const float BannerShare = 0.1f;
+
+        /// <summary>The Petals pill's box, as shares of W: its width (to 0.02 W from the right) and its height.</summary>
+        public const float PetalsWidthShare = 0.28f;
+
+        public const float PetalsHeightShare = 0.08f;
+
+        /// <summary>The room kept between the banner's leaves and the back button or the Petals pill, as a share of W.</summary>
+        public const float GapShare = 0.005f;
+
+        /// <summary>The one line the three share: the back button's middle.</summary>
+        public float CenterY => Back.CenterY;
+
+        /// <summary>The banner with its ivy clusters (<see cref="GardenLook.SignExtent"/>).</summary>
+        public Box BannerExtent => GardenLook.SignExtent(Banner, SignDecor.Ivy);
+
+        /// <summary>The whole row: the three and the banner's leaves.</summary>
+        public Box Row
+        {
+            get
+            {
+                Box extent = BannerExtent;
+                return new Box(
+                    Math.Min(Back.Left, extent.Left),
+                    Math.Min(Math.Min(Back.Top, extent.Top), Petals.Top),
+                    Math.Max(Petals.Right, extent.Right),
+                    Math.Max(Math.Max(Back.Bottom, extent.Bottom), Petals.Bottom));
+            }
+        }
+    }
+
+    /// <summary>
+    /// The Store as a full-screen page (contracts/look.md §6.6; the owner's note of 2026-10-04: "the Store must be a separate
+    /// page, not a popup"), both builds, over the Wardrobe's garden: the page header (<see cref="Header"/>: back, the
+    /// "Store" banner, the Petals pill); a parchment panel (<see cref="Panel"/>) from under the header to the bottom of
+    /// the screen holding the Shop / Cosmetics tabs (<see cref="Tabs"/>, empty before the cosmetics open), Unity's offline
+    /// line (<see cref="Status"/>, empty without it) and the list (<see cref="List"/>): on the Shop tab one row per item
+    /// (<see cref="Row"/>, <see cref="RowsPerPage"/>; the rows grow to fill a taller page), on the Cosmetics tab the family tabs over the lighter panel with the
+    /// outfit cards (<see cref="OutfitCard"/>, <see cref="OutfitsPerPage"/>); and the footer line between the page arrows at
+    /// the list's bottom when the items take more than one page. Engine-free.
+    /// </summary>
+    public sealed record ReferenceStoreRegions(
+        Box Safe,
+        float W,
+        PageHeader Header,
+        Box Panel,
+        Box Tabs,
+        Box Status,
+        Box List,
+        Box Footer,
+        Box PagePrevious,
+        Box PageNext)
+    {
+        /// <summary>
+        /// A Shop row's height, as a share of W: at least <see cref="RowShare"/> (how many fit a page), at most
+        /// <see cref="RowMaxShare"/> (rows grow to fill a taller page); and the gap between two rows.
+        /// </summary>
+        public const float RowShare = 0.15f;
+
+        public const float RowMaxShare = 0.19f;
+
+        public const float RowGapShare = 0.025f;
+
+        /// <summary>The Cosmetics tab's family tabs' height, as a share of W.</summary>
+        public const float FamilyTabsShare = 0.21f;
+
+        /// <summary>The outfit cards to a row, and the gap between two cards as a share of W.</summary>
+        public const int OutfitColumns = 3;
+
+        public const float OutfitGapShare = 0.02f;
+
+        /// <summary>An outfit card's height (its cost pill's room included) to its width: at least, and at most.</summary>
+        public const float OutfitMinAspect = 1.15f;
+
+        public const float OutfitMaxAspect = 1.45f;
+
+        /// <summary>The back button, the banner and the Petals pill (<see cref="PageHeader"/>).</summary>
+        public Box Back => Header.Back;
+
+        public Box Banner => Header.Banner;
+
+        public Box Petals => Header.Petals;
+
+        /// <summary>The panel's corner radius (a card's, <c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>
+        public float PanelRadius(float scale) => Math.Max(DesignTokens.Radius.CardMin * scale, Panel.Width * DesignTokens.Radius.Card);
+
+        /// <summary>How many Shop rows fit in the list, above the footer when <paramref name="footer"/> (at least one).</summary>
+        public int RowsFitting(bool footer)
+        {
+            float row = W * RowShare;
+            float gap = W * RowGapShare;
+            float bottom = footer ? Footer.Top - gap : List.Bottom;
+            return Math.Max(1, (int)Math.Floor((bottom - List.Top + gap + 0.5f) / (row + gap)));
+        }
+
+        /// <summary>The Shop rows a page shows for <paramref name="count"/> items: all of them when they fit, else as many as fit above the footer.</summary>
+        public int RowsPerPage(int count) => count <= RowsFitting(false) ? Math.Max(1, count) : RowsFitting(true);
+
+        /// <summary>
+        /// The Shop rows' height for <paramref name="count"/> items: a page of rows (<see cref="RowsPerPage"/>) filling
+        /// the list (above the footer when there are more pages), from <see cref="RowShare"/> to <see cref="RowMaxShare"/> of W.
+        /// </summary>
+        public float RowHeight(int count)
+        {
+            int rows = RowsPerPage(count);
+            float gap = W * RowGapShare;
+            float bottom = count > rows ? Footer.Top - gap : List.Bottom;
+            float fill = (bottom - List.Top - (gap * (rows - 1))) / rows;
+            return Math.Max(W * RowShare, Math.Min(W * RowMaxShare, fill));
+        }
+
+        /// <summary>Shop row <paramref name="slot"/> of a page of <paramref name="count"/> items: <see cref="RowHeight"/> tall across the list, from its top.</summary>
+        public Box Row(int slot, int count)
+        {
+            float row = RowHeight(count);
+            float top = List.Top + (slot * (row + (W * RowGapShare)));
+            return new Box(List.Left, top, List.Right, top + row);
+        }
+
+        /// <summary>The Cosmetics tab's family tabs across the list's top.</summary>
+        public Box FamilyTabs => new Box(List.Left, List.Top, List.Right, List.Top + (W * FamilyTabsShare));
+
+        /// <summary>The lighter panel under the family tabs, to the list's bottom (the footer inside it).</summary>
+        public Box OutfitPanel => new Box(List.Left, FamilyTabs.Bottom, List.Right, List.Bottom);
+
+        /// <summary>The outfit cards' area: the lighter panel less 0.02 W, above the footer.</summary>
+        public Box OutfitGrid
+        {
+            get
+            {
+                float inset = W * OutfitGapShare;
+                Box panel = OutfitPanel;
+                return new Box(panel.Left + inset, panel.Top + inset, panel.Right - inset, Math.Max(panel.Top + inset, Footer.Top - inset));
+            }
+        }
+
+        /// <summary>The rows of outfit cards a page shows: as many as fit at <see cref="OutfitMinAspect"/> (at least one).</summary>
+        public int OutfitRows
+        {
+            get
+            {
+                Box grid = OutfitGrid;
+                float gap = W * OutfitGapShare;
+                float width = OutfitCardWidth;
+                return Math.Max(1, (int)Math.Floor((grid.Height + gap) / ((width * OutfitMinAspect) + gap)));
+            }
+        }
+
+        /// <summary>The outfit cards a page shows.</summary>
+        public int OutfitsPerPage => OutfitRows * OutfitColumns;
+
+        private float OutfitCardWidth => (OutfitGrid.Width - (W * OutfitGapShare * (OutfitColumns - 1))) / OutfitColumns;
+
+        /// <summary>
+        /// Outfit card <paramref name="slot"/> of the page (its cost pill's room included): three to a row across the grid,
+        /// <see cref="OutfitRows"/> rows from its top, each card at most <see cref="OutfitMaxAspect"/> times as tall as wide.
+        /// </summary>
+        public Box OutfitCard(int slot)
+        {
+            Box grid = OutfitGrid;
+            float gap = W * OutfitGapShare;
+            float width = OutfitCardWidth;
+            int rows = OutfitRows;
+            float height = Math.Min(width * OutfitMaxAspect, (grid.Height - (gap * (rows - 1))) / rows);
+            int column = slot % OutfitColumns;
+            int row = slot / OutfitColumns;
+            float x = grid.Left + (column * (width + gap));
+            float y = grid.Top + (row * (height + gap));
+            return new Box(x, y, x + width, y + height);
+        }
+
+        /// <summary>The bands in their screen order.</summary>
+        public IReadOnlyList<(string Name, Box Box)> Ordered
+        {
+            get
+            {
+                var bands = new List<(string, Box)> { ("Header", Header.Row) };
+                if (!Tabs.IsEmpty)
+                {
+                    bands.Add(("Tabs", Tabs));
+                }
+
+                if (!Status.IsEmpty)
+                {
+                    bands.Add(("Status", Status));
+                }
+
+                bands.Add(("List", new Box(List.Left, List.Top, List.Right, Footer.Top)));
+                bands.Add(("Footer", Footer));
+                return bands;
+            }
+        }
+
+        /// <summary>Everything a finger can press (the tabs, rows and cards excepted).</summary>
+        public IReadOnlyList<(string Name, Box Box)> Buttons => new[]
+        {
+            ("Back", Back), ("Petals", Petals), ("PagePrevious", PagePrevious), ("PageNext", PageNext),
+        };
     }
 
     /// <content>The reference layouts of spec 005 (contracts/look.md §6).</content>
@@ -827,9 +1049,31 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
+        /// The header row of a full-screen page (contracts/look.md §6.5, §6.6; <see cref="Design.PageHeader"/>), in
+        /// fractions of the safe height H and width W: the back button 0.12 W at 0.04 W from the left, its top at 2.5% of H;
+        /// on its middle line the Petals pill's box 0.28 W × 0.08 W at 0.02 W from the right (the pill fits its amount at
+        /// the box's right end) and the banner 0.1 W tall, from the back button's right plus 0.005 W and its left ivy
+        /// cluster's reach (0.665 of its height) to the Petals box's left less the same (on every phone from about 23% to
+        /// 63% of W).
+        /// </summary>
+        public static PageHeader PageHeader(Box safe)
+        {
+            float w = safe.Width;
+            float side = Design.PageHeader.BackShare * w;
+            float cy = safe.Top + (safe.Height * Design.PageHeader.TopShare) + (side / 2f);
+            Box back = Box.FromCenter(safe.Left + (0.04f * w) + (side / 2f), cy, side, side);
+            float pill = Design.PageHeader.PetalsHeightShare * w;
+            var petals = new Box(safe.Right - (0.02f * w) - (Design.PageHeader.PetalsWidthShare * w), cy - (pill / 2f), safe.Right - (0.02f * w), cy + (pill / 2f));
+            float plank = Design.PageHeader.BannerShare * w;
+            float room = (Design.PageHeader.GapShare * w) + (GardenLook.IvyReach * plank);
+            var banner = new Box(back.Right + room, cy - (plank / 2f), petals.Left - room, cy + (plank / 2f));
+            return new PageHeader(back, banner, petals);
+        }
+
+        /// <summary>
         /// The Wardrobe in the reference layout (contracts/look.md §6.5), in fractions of the safe height H and width W:
-        /// back 0.12 W at 0.04 W from the left from 2.5% of H; the banner from 24% to 70% of W, from 4.5% to 10% of H;
-        /// the Petals pill 0.28 W × 0.08 W at 0.02 W from the right from 3.5% (clear of the banner's right ivy); the hero (an 8:9 box) from 11% to 37% on
+        /// the page header (<see cref="PageHeader(Box)"/>: back, banner and Petals pill on the back button's middle line);
+        /// the hero (an 8:9 box) from 11% to 37% on
         /// the pedestal 0.6 W wide from 35% to 43%; the ‹ › arrows 0.09 W at 8% and 92% of W, 28% of H; the name card
         /// 0.92 W from 42% to 57% with its tab 0.5 W; the tabs from 56% to 68.5%; the panel from 67% to the bottom of the
         /// screen with the kind chips (when <paramref name="hasChips"/>), one row of cards 0.29 W wide and the footer at
@@ -843,9 +1087,10 @@ namespace Bloomlings.Client.UI.Design
             float Y(float share) => safe.Top + (h * share);
             float X(float share) => safe.Left + (w * share);
 
-            var back = new Box(X(0.04f), Y(0.025f), X(0.16f), Y(0.025f) + (0.12f * w));
-            var banner = new Box(X(0.24f), Y(0.045f), X(0.7f), Y(0.1f));
-            var petals = new Box(X(0.7f), Y(0.035f), X(0.98f), Y(0.035f) + (0.08f * w));
+            PageHeader header = PageHeader(safe);
+            Box back = header.Back;
+            Box banner = header.Banner;
+            Box petals = header.Petals;
             float heroHeight = Y(0.37f) - Y(0.11f);
             float heroWidth = Math.Min(0.8f * w, heroHeight * CharacterArt.HeroWidth / CharacterArt.HeroHeight);
             var hero = new Box(safe.CenterX - (heroWidth / 2f), Y(0.11f), safe.CenterX + (heroWidth / 2f), Y(0.37f));
@@ -865,6 +1110,48 @@ namespace Bloomlings.Client.UI.Design
             Box pagePrevious = Box.FromCenter(X(0.08f), footer.CenterY, arrow, arrow);
             Box pageNext = Box.FromCenter(X(0.92f), footer.CenterY, arrow, arrow);
             return new ReferenceWardrobeRegions(safe, w, back, banner, petals, hero, pedestal, previous, next, nameCard, nameTab, role, about, tabs, panel, chips, grid, footer, pagePrevious, pageNext);
+        }
+
+        /// <summary>
+        /// The Store as a page (contracts/look.md §6.6), in fractions of the safe width W: the page header
+        /// (<see cref="PageHeader(Box)"/>); the parchment panel 0.96 W wide from 0.03 W under the header row to the bottom
+        /// of the screen; in it, from 0.045 W under its top, the Shop / Cosmetics tabs 0.8 W × 0.1 W (when
+        /// <paramref name="hasCosmetics"/>), Unity's offline line 0.05 W tall 0.02 W under them (when
+        /// <paramref name="hasStatus"/>), then the list 0.88 W wide from 0.04 W under the tabs (0.02 W under the line) to
+        /// 0.04 W over the safe bottom, with the footer line (0.84 W, 0.12 W or the touch minimum tall) 0.02 W over the
+        /// list's bottom and the page arrows 0.09 W at its ends.
+        /// </summary>
+        public static ReferenceStoreRegions ReferenceStore(float width, float height, Insets insets, bool hasCosmetics = true, bool hasStatus = false)
+        {
+            Box safe = SafeArea(width, height, insets);
+            float w = safe.Width;
+            float X(float share) => safe.Left + (w * share);
+
+            PageHeader header = PageHeader(safe);
+            var panel = new Box(X(0.02f), header.Row.Bottom + (0.03f * w), X(0.98f), height);
+            float y = panel.Top + (0.045f * w);
+            var tabs = new Box(safe.CenterX, y, safe.CenterX, y);
+            if (hasCosmetics)
+            {
+                tabs = new Box(X(0.1f), y, X(0.9f), y + (0.1f * w));
+                y = tabs.Bottom + (0.04f * w);
+            }
+
+            var status = new Box(safe.CenterX, y, safe.CenterX, y);
+            if (hasStatus)
+            {
+                status = new Box(X(0.06f), y - (0.02f * w), X(0.94f), y + (0.03f * w));
+                y = status.Bottom + (0.02f * w);
+            }
+
+            var list = new Box(X(0.06f), y, X(0.94f), safe.Bottom - (0.04f * w));
+            float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
+            float line = Math.Max(0.12f * w, touch);
+            var footer = new Box(X(0.08f), list.Bottom - (0.02f * w) - line, X(0.92f), list.Bottom - (0.02f * w));
+            float arrow = 0.09f * w;
+            Box pagePrevious = Box.FromCenter(footer.Left + (line / 2f), footer.CenterY, arrow, arrow);
+            Box pageNext = Box.FromCenter(footer.Right - (line / 2f), footer.CenterY, arrow, arrow);
+            return new ReferenceStoreRegions(safe, w, header, panel, tabs, status, list, footer, pagePrevious, pageNext);
         }
     }
 }

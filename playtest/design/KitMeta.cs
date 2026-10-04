@@ -17,6 +17,19 @@ namespace Bloomlings.Playtest.Design
     public static partial class Kit
     {
         /// <summary>
+        /// A full-screen page's header row (§6.5, §6.6; the Wardrobe and the Store page; Unity's <c>UiKit.PageHeader</c>):
+        /// the cream round back button calling <paramref name="onBack"/>, the wooden banner with ivy carrying
+        /// <paramref name="title"/> and the Petals pill showing <paramref name="petals"/> (its "+" calls
+        /// <paramref name="onPlus"/>; none without it), all three centered on the kit's one line (<see cref="PageHeader"/>).
+        /// </summary>
+        public static void PageHeader(IPainter p, PageHeader header, string title, Action onBack, long petals, Action? onPlus)
+        {
+            RoundButton(p, header.Back.CenterX, header.Back.CenterY, header.Back.Width, "ui.back", onBack);
+            WoodSign(p, header.Banner, title, T.Title, SignDecor.Ivy);
+            PetalsPill(p, header.Petals, petals, onPlus);
+        }
+
+        /// <summary>
         /// Family tabs joined to the panel below them (§4.6, <c>ui.tab.family</c>; the reference Wardrobe): one cream tab
         /// per family with rounded top corners, the family's 3D hero (in <paramref name="outfitOf"/>'s outfit) and its
         /// name; the selected tab is lighter, a little taller and flows into the lighter panel, the others sit behind its

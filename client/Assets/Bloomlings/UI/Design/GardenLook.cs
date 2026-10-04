@@ -459,5 +459,64 @@ namespace Bloomlings.Client.UI.Design
         {
             DecorationPart.LeafA, DecorationPart.LeafB, DecorationPart.LeafC, DecorationPart.Petals, DecorationPart.Center,
         };
+
+        // ---- A wooden sign's leaves (spec 005 contracts/look.md §3.2) ----
+
+        /// <summary>An ivy cluster's side, as a share of its sign's height.</summary>
+        public const float IvyShare = 1.25f;
+
+        /// <summary>How far an ivy cluster's middle sits outside its plank's end, as a share of the sign's height.</summary>
+        public const float IvyOut = 0.04f;
+
+        /// <summary>
+        /// How far an ivy cluster reaches beyond its plank's end, as a share of the sign's height (half the cluster plus
+        /// <see cref="IvyOut"/>): what a row beside a sign keeps free (<see cref="PageHeader"/>).
+        /// </summary>
+        public const float IvyReach = (IvyShare / 2f) + IvyOut;
+
+        /// <summary>A flower cluster's side, as a share of its sign's height (the bottom-right one is 0.92 of it).</summary>
+        public const float FlowerShare = 1.35f;
+
+        /// <summary>
+        /// The box of a sign end's ivy cluster (<c>ui.sign.ivy</c>; both builds' wooden signs): a square 1.25 × the sign's
+        /// height on its middle line, centered 0.04 × its height outside the plank's end, so the leaves cling to its
+        /// corners and most of the plank shows, as on the reference's gameplay sign.
+        /// </summary>
+        public static Box IvyBox(Box sign, bool left)
+        {
+            float h = sign.Height;
+            float x = left ? sign.Left - (h * IvyOut) : sign.Right + (h * IvyOut);
+            return Box.FromCenter(x, sign.CenterY, h * IvyShare, h * IvyShare);
+        }
+
+        /// <summary>
+        /// The box of a flower cluster on the win and milestone sign (<c>ui.sign.flowers</c>): 1.35 × the sign's height
+        /// over its top-left end, and 0.92 of that over its bottom-right end.
+        /// </summary>
+        public static Box FlowerBox(Box sign, bool left)
+        {
+            float h = sign.Height;
+            float size = h * FlowerShare;
+            return left
+                ? Box.FromCenter(sign.Left + (h * 0.1f), sign.Top + (h * 0.08f), size, size)
+                : Box.FromCenter(sign.Right - (h * 0.08f), sign.Bottom - (h * 0.04f), size * 0.92f, size * 0.92f);
+        }
+
+        /// <summary>A wooden sign's plank together with its decoration (<see cref="IvyBox"/>, <see cref="FlowerBox"/>).</summary>
+        public static Box SignExtent(Box sign, SignDecor decor)
+        {
+            switch (decor)
+            {
+                case SignDecor.Ivy:
+                    return Union(sign, Union(IvyBox(sign, true), IvyBox(sign, false)));
+                case SignDecor.Flowers:
+                    return Union(sign, Union(FlowerBox(sign, true), FlowerBox(sign, false)));
+                default:
+                    return sign;
+            }
+        }
+
+        private static Box Union(Box a, Box b) =>
+            new Box(Math.Min(a.Left, b.Left), Math.Min(a.Top, b.Top), Math.Max(a.Right, b.Right), Math.Max(a.Bottom, b.Bottom));
     }
 }

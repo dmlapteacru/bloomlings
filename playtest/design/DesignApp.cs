@@ -14,6 +14,7 @@ namespace Bloomlings.Playtest.Design
         Home,
         Level,
         Wardrobe,
+        Store,
     }
 
     /// <summary>The cards shown over a screen.</summary>
@@ -24,7 +25,6 @@ namespace Bloomlings.Playtest.Design
         DailyReward,
         Leaderboard,
         Collection,
-        Store,
     }
 
     /// <summary>
@@ -34,7 +34,9 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>Home (frames 2 and 3);</description></item>
     /// <item><description>the level (frames 7–14);</description></item>
     /// <item><description>the Wardrobe (preview frame 27; spec 005 FR-025), opened from Home;</description></item>
-    /// <item><description>the cards over them (frames 4–6, 10, 11 and 15–17).</description></item>
+    /// <item><description>the Store page (preview frames 17 and 26; spec 005 FR-029), opened from Home or the
+    /// Wardrobe;</description></item>
+    /// <item><description>the cards over them (frames 4–6, 10, 11, 15 and 16).</description></item>
     /// </list>
     /// The very first launch goes straight into Level 1, and later launches open Home (spec 001 US2). Progress, Petals,
     /// booster charges, milestones, the Daily Reward and the Collection come from the Unity client's engine-free
@@ -104,6 +106,12 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The Store cosmetics' page of outfit cards.</summary>
         public int StorePage { get; set; }
+
+        /// <summary>The Store Shop's page of rows (when the rows take more than the page).</summary>
+        public int StoreRowsPage { get; set; }
+
+        /// <summary>The screen the Store page returns to: Home, or the Wardrobe when its Petals "+" opened it.</summary>
+        public Screen StoreReturn { get; private set; } = Screen.Home;
 
         /// <summary>The Wardrobe's chosen family (an index into the four families, spec 005 §6.5).</summary>
         public int WardrobeFamily { get; set; }
@@ -210,6 +218,57 @@ namespace Bloomlings.Playtest.Design
             _overlays.Clear();
             StartHomeMotion();
             Screen = Screen.Home;
+        }
+
+        /// <summary>
+        /// Opens the Store page (spec 005 FR-029) on its first pages: from Home (its Store button, the Petals pill's "+")
+        /// or from the Wardrobe (its Petals pill's "+"), where its back returns (<see cref="StoreReturn"/>).
+        /// </summary>
+        public void OpenStore()
+        {
+            Sound.Play(SoundCue.Click);
+            StoreReturn = Screen == Screen.Wardrobe ? Screen.Wardrobe : Screen.Home;
+            _overlays.Clear();
+            StorePage = 0;
+            StoreRowsPage = 0;
+            Screen = Screen.Store;
+        }
+
+        /// <summary>Back from the Store page to where it was opened (Home without reopening the Daily Reward, or the Wardrobe).</summary>
+        public void CloseStore()
+        {
+            Sound.Play(SoundCue.Click);
+            _overlays.Clear();
+            if (StoreReturn == Screen.Home)
+            {
+                StartHomeMotion();
+            }
+
+            Screen = StoreReturn;
+        }
+
+        /// <summary>
+        /// The system back (Android): closes the Store page or the Wardrobe as their back buttons do. False anywhere else
+        /// (the host then does what the system does).
+        /// </summary>
+        public bool Back()
+        {
+            if (_overlays.Count > 0)
+            {
+                return false;
+            }
+
+            switch (Screen)
+            {
+                case Screen.Store:
+                    CloseStore();
+                    return true;
+                case Screen.Wardrobe:
+                    CloseWardrobe();
+                    return true;
+                default:
+                    return false;
+            }
         }
 
         /// <summary>Home's heroes start their motion now (<see cref="HomeMotion"/>).</summary>
@@ -321,6 +380,9 @@ namespace Bloomlings.Playtest.Design
                 case Screen.Wardrobe:
                     WardrobeScreen.Draw(p, this);
                     break;
+                case Screen.Store:
+                    StoreScreen.Draw(p, this);
+                    break;
                 case Screen.Level:
                     Level!.Advance(dt);
                     Level.Draw(p);
@@ -348,9 +410,6 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.Collection:
                         MetaCards.Collection(p, this, since);
-                        break;
-                    case Overlay.Store:
-                        MetaCards.Store(p, this, since);
                         break;
                 }
             }

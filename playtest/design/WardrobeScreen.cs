@@ -13,8 +13,9 @@ namespace Bloomlings.Playtest.Design
     /// The Wardrobe (preview frame 27; spec 005 FR-025) in the reference layout (contracts/look.md §6.5,
     /// <see cref="ScreenLayout.ReferenceWardrobe"/>), opened from Home's Wardrobe button once it unlocks (L40):
     /// <list type="bullet">
-    /// <item><description>the cream round back button, the wooden "Wardrobe" banner with ivy and the Petals pill (its
-    /// "+" opens the Store);</description></item>
+    /// <item><description>the page header on one line (<see cref="Kit.PageHeader"/>, shared with the Store page): the
+    /// cream round back button, the wooden "Wardrobe" banner with ivy and the Petals pill (its "+" opens the Store page,
+    /// whose back returns here);</description></item>
     /// <item><description>the chosen family's 3D hero in its outfit on the stone pedestal, with cream ‹ › arrows to
     /// the other families, over the Wardrobe garden (the owner's picture B7, else the warm Home
     /// garden);</description></item>
@@ -143,11 +144,10 @@ namespace Bloomlings.Playtest.Design
                 Kit.ArrowButton(p, r.PageNext.CenterX, r.PageNext.CenterY, r.PageNext.Width, next: true, page < pages - 1 ? () => app.WardrobePage = page + 1 : (Action?)null);
             }
 
-            // The top bar last: the back button, the banner with ivy, the Petals pill over the banner's right end.
-            Kit.RoundButton(p, r.Back.CenterX, r.Back.CenterY, r.Back.Width, "ui.back", app.CloseWardrobe);
-            Kit.WoodSign(p, r.Banner, PlaytestText.T("wardrobe.title"), T.Title, SignDecor.Ivy);
+            // The header last, on one line (the Store page's too): the back button, the banner with ivy, the Petals pill,
+            // whose "+" opens the Store page (its back returns here).
             bool store = meta.Progression.IsUnlocked(HomeLook.StoreUnlock);
-            Kit.PetalsPill(p, r.Petals, app.ShownPetals, store ? () => app.OpenOverlay(Overlay.Store) : (Action?)null);
+            Kit.PageHeader(p, r.Header, PlaytestText.T("wardrobe.title"), app.CloseWardrobe, app.ShownPetals, store ? app.OpenStore : (Action?)null);
 
             string? toast = app.HomeToastText;
             if (toast != null)
