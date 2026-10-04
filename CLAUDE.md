@@ -117,6 +117,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`
   with same-named `UiKit*` twins. The owner's backgrounds keep at most 70% of the animated heroes' saturation (FR-031):
   run `node tools/heroanim/saturation.mjs` after adding one (idempotent; the Home layers through `layers.mjs`).
+  Home's two promo scenes (FR-032, `HomePromo`, the owner's layers `Decor/promo-*.png`): No Ads at the left (from L1
+  until Remove Ads is owned; a tap opens the Remove Ads card, FR-033) and Daily at the right (the Daily Reward), each
+  idling and playing its attention sequence every 12 s, never together; hosts draw `HomePromo.Layers` per frame.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the owner's animated heroes offline into flat 24 fps frames (two Meshy FBX heroes with a 4 s idle loop and
   a 2 s reaction each, Twig's Blender `.glb` with its 3 s idle, 1.5 s reaction and the win's 3 s cheer, and Sprig's

@@ -467,14 +467,14 @@ skin. Complete the daily challenge. Open the Collection.
 - **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock.
 - **FR-052**: Rewarded ads MUST always be started by the player and optional. They MAY be used for: jam rescue, a free booster, an extra win reward, and an optional daily bonus.
 - **FR-053**: Interstitial ads MUST appear only at post-win transitions. They MUST never appear during a level, immediately after a fail, or during onboarding (Levels 1–10). They MUST be capped by both time and level count.
-- **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage.
+- **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage. *(Amended on 2026-10-04 by the product owner: besides the Store's row (FR-051, from L12), Home offers Remove Ads from L1 through its No Ads scene and a Remove Ads card of its own, until it is owned; spec 005 FR-032, FR-033. Docs 11 and 13 list Remove Ads in the Store only.)*
 - **FR-055**: Daily Reward MUST unlock at L7, with one claim per calendar day.
 - **FR-056**: No level may require spending money or watching ads. This follows from FR-046 and FR-080.
 
 #### H. Progression, Home and long-run motivation (docs 07, 08, 11, 13)
 
 - **FR-057**: Progression MUST be one linear sequence of levels, Level 1 → 2 → … → 5000+. Each win unlocks the next level. There MUST be no level map, no level chooser and no level groupings. The flow is Launch → Home → Play → Level N → Win → Next.
-- **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10). *(Amended on 2026-10-04 by the product owner: the leaderboard rank shows only on the Leaderboard page, not on Home; the Store and the other features are the bottom menu's places, spec 005 FR-030.)*
+- **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10). *(Amended on 2026-10-04 by the product owner: the leaderboard rank shows only on the Leaderboard page, not on Home; the Store and the other features are the bottom menu's places, spec 005 FR-030. Home also shows two promo scenes: No Ads from L1 until Remove Ads is owned, and the Daily Reward from its unlock, spec 005 FR-032.)*
 - **FR-059**: Every level MUST have a class: Normal, Hard (label from L5) or Super Hard (label from L10). The class is shown before the level starts, with a distinct visual treatment and higher rewards. From L11 on, every 100 consecutive levels MUST contain 15–25 Hard and 6–10 Super Hard levels, spaced irregularly (tuning targets from doc 07: Hard every 4–6 levels, Super Hard every 10–15). The level after a Super Hard is a relief level. Difficulty moves in waves and does not rise monotonically.
 - **FR-060**: The number of active variants MUST grow gradually:
 

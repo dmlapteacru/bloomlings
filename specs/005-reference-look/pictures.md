@@ -154,6 +154,26 @@ disc); while a file is missing, the place's drawn glyph shows (`BottomNav.Fallba
 | D12 | `nav-leaderboard.png` | 512 × 512 | the Leaderboard: a gold trophy with a star, flowers at its foot | `icon.nav.leaderboard` |
 | D13 | `nav-collection.png` | 512 × 512 | the Collection: a purple album with a white flower and gold corners | `icon.nav.collection` |
 
+Home's promo scenes (spec FR-032, contracts/look.md §6.4.1): **delivered on 2026-10-04** by the owner in
+`bloomlings_daily_noads_anim_assets_fixed.zip` (separate transparent layers with an animation guide), in the Decor
+folder `client/Assets/Bloomlings/Art/Decor/Resources/Decor/` (names `HomePromo.Pictures`; record
+`tools/artgen/models/owner-pictures.md`, notices `client/THIRD_PARTY_NOTICES.md`). Each layer keeps its whole canvas
+(the stands 1448 × 1086 fitted into 724 × 543, the others 1254 × 1254 into 512 × 512), so the kit's pivots and offsets,
+in the owner's pixels, hold. The pack's red "!" badge (`05_daily_notification_badge.png`) is not used (the owner's note:
+no notification mark). While a file is missing, the scene's label shows on a wooden sign.
+
+| # | File | Size | What | Slot |
+|---|---|---|---|---|
+| D14 | `promo-noads-platform.png` | 724 × 543 | No Ads: the flowered stone stand with an empty wooden plaque (the game writes "No Ads") | `ui.promo.no_ads` |
+| D15 | `promo-noads-sprig.png` | 512 × 512 | No Ads: Sprig pushing, palms to the right | `ui.promo.no_ads` |
+| D16 | `promo-noads-sign.png` | 512 × 512 | No Ads: the wooden sign with the crossed-out "AD" | `ui.promo.no_ads` |
+| D17 | `promo-noads-lotus.png` | 512 × 512 | No Ads: the glowing lotus with petals and sparkles that blooms in their place | `ui.promo.no_ads` |
+| D18 | `promo-daily-platform.png` | 724 × 543 | Daily: the flowered stone stand with an empty wooden plaque (the game writes "Daily") | `ui.promo.daily` |
+| D19 | `promo-daily-book.png` | 512 × 512 | Daily: the closed purple album with a flower | `ui.promo.daily` |
+| D20 | `promo-daily-book-open.png` | 512 × 512 | Daily: the album open on its pages | `ui.promo.daily` |
+| D21 | `promo-daily-stamp.png` | 512 × 512 | Daily: the pink flower stamp | `ui.promo.daily` |
+| D22 | `promo-daily-sparkles.png` | 512 × 512 | Daily: the ring of petals and sparkles that bursts out after the stamp | `ui.promo.daily` |
+
 ## G. Gameplay characters and variant icons (owner's request, 2026-10-02)
 
 The owner makes these next, in the style of their heroes (soft 3D volume, gloss, light from the upper left), as

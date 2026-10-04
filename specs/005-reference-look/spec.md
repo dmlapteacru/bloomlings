@@ -362,6 +362,38 @@ The owner: "Can we make the screens' names (for example Wardrobe) sit in the mid
   banner's ivy clusters are 0.8 of their usual size; "Wardrobe" keeps about 95% of its title size, "Collection" a
   little less, "Leaderboard" about 80% (FR-025; contracts/look.md §6.5). The other signs keep their full-size ivy.
 
+### Session 2026-10-04 (the owner's Home promo scenes: Daily and No Ads)
+
+The owner sent `bloomlings_daily_noads_anim_assets_fixed.zip` (separate layers for "two Home-screen animated promo
+buttons", Daily and No Ads, with an animation guide) and asked whether it all made sense; previews were made as GIFs
+before any code, and three rounds of the owner's notes shaped them.
+- Q: Which Daily? → A: The Daily Reward (spec 001 FR-055, from L7), not the Daily Challenge (L50), whose round button
+  moves under the Daily scene.
+- Q: The album looks like the Collection's menu icon (a purple album with a flower)? → A: "Ignore it for now, leave it
+  as it is."
+- Q: When does No Ads show? → A: On Home right away, from level 1, until Remove Ads is owned (the pack's guide:
+  "After No Ads is purchased, remove the button from Home entirely"). A tap opens a separate Remove Ads popup card,
+  before and after level 12 alike; the Store keeps its own Remove Ads row.
+- Q: The No Ads sequence? → A: The owner: "Sprig should push the ads out; it and he disappear and a lotus forms in
+  their place." Sprig crouches, lunges and pushes the crossed AD sign off the stand (it tips over its bottom-right
+  corner and fades); Sprig hops and is gone; the lotus blooms where they stood and breathes; then it folds away and
+  the two come back. The sign stands in front of Sprig, leaning away from it, the palms' tips hidden behind its left
+  edge so the push reads as a touch (the owner: "the sign is behind the hero, and it's unclear that he really touches
+  it to push; maybe play with the angle or put it in front of the hero"). No lotus while idling.
+- Q: The Daily sequence? → A: The owner: "No notification mark at all. The sparkles show beforehand; they belong only
+  at the end. The stamp is set too fast." The album squashes and opens; the flower stamp appears over the right page,
+  hovers, lifts and presses down (about 0.8 s, the album dipping under it); only then the petals and sparkles burst
+  out of the album and fade; the album closes again. No sparkles while idling, no "!" badge (the pack's badge is not
+  used).
+- Q: Sizes? → A: The owner: "The album came out bigger than No Ads; the sizes should match." The closed album is about
+  as tall as Sprig (0.35 against 0.40 of the scene's width with his leaves).
+- Q: How often? → A: As the pack's guide asks (No Ads every 8–12 s, the Daily every 10–15 s, never together): both every
+  12 s, No Ads 1 s after Home opens, the Daily 6.5 s; the Daily only while today's reward waits, else it idles.
+- Q: Does Home still open the Daily Reward by itself? → A: Yes, as before, once a day while the reward waits; the Daily
+  scene opens the same card any time (the owner did not choose otherwise; one line to change).
+- Q: Labels? → A: The stands' wooden plaques carry "No Ads" and "Daily" in the game's letters (`home.promo_no_ads`,
+  `home.promo_daily`), so they translate.
+
 ### Session 2026-10-04 (Twig and Sprig toned down)
 
 The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
@@ -790,6 +822,28 @@ inventory.
   choice after 60%, 80% and 70% were shown; contracts/look.md §1.4), scaled offline by `tools/heroanim/saturation.mjs`
   (and `layers.mjs` for the Home layers) with their lightness and hue kept. The UI, the heroes, the 2D characters and
   the board's pieces keep their saturation. Presentation only (FR-002).
+
+#### L. Home's promo scenes (the owner's pack and notes, 2026-10-04)
+
+- **FR-032**: Home MUST show the owner's two animated promo scenes under the logo (contracts/look.md §6.4.1;
+  pictures.md D14–D22; `HomePromo`, `ReferenceHomeRegions.NoAds` and `.DailyReward`), in both builds: **No Ads** at the
+  left from level 1 while Remove Ads is not owned (gone for good once it is, after a purchase or a restore), and
+  **Daily** at the right from the Daily Reward's unlock (spec 001 FR-055). Each is the owner's layers on a flowered stone
+  stand whose wooden plaque carries its label, 0.27 W wide, 0.04 W from the screen's edge; the Daily Challenge's round
+  button stands under the Daily scene. Each idles all the time (Sprig breathing and swaying, the AD sign leaning on his
+  palms; the album floating) and plays its attention sequence every 12 s, No Ads at 1 s and the Daily at 6.5 s after
+  Home opens, never together; the Daily only while today's reward can be claimed (the sequences of the clarification
+  "the owner's Home promo scenes"). A tap on No Ads opens the Remove Ads card (FR-033); a tap on the Daily opens the
+  Daily Reward card, which Home still opens by itself once a day while the reward waits. Their touch boxes MUST be at
+  least the touch minimum, inside the safe area and clear of Home's other buttons; while a picture is missing, the
+  scene's label shows on a wooden sign. The scenes change no rule, economy value, reward or unlock (FR-002): they add
+  ways to the existing Remove Ads purchase and the existing Daily Reward card.
+- **FR-033**: The Remove Ads card MUST be a popup card (not the Store page), the same at every level: the title "No
+  Ads", the No Ads scene idling, the line "Play without ad breaks between levels. Optional rewarded ads stay, only when
+  you choose them.", the main button buying the existing Remove Ads product at its store price (spec 001 FR-054;
+  "Unavailable" while purchases are off, as in the playtest) and "Restore Purchases" (the Settings' restore). Once
+  Remove Ads is owned the card thanks the player and closes, and Home hides the No Ads scene. The Store keeps its own
+  Remove Ads row (spec 001 FR-051).
 
 ### Key Entities
 

@@ -978,7 +978,8 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Avatar | the profile avatar `0.13W`, Settings' mirror: right `0.04W` from the safe right edge, top 2.5% of H (`Avatar`): the player's hero (`CharacterArt.ProfileHero`, Bloom; in its outfit once the Wardrobe is open) on a domed cream disc with a soft green middle, the chosen profile frame (1.08 of it) and the profile badge (0.36 of it, at its bottom left); no shirt badge. A tap presses and clicks; the playtest then shows the toast "Profile coming soon" (`home.profile_soon`); Unity's Home has no toast (`HomeFeatureActions.OnProfile`, none yet). The profile page comes later |
 | Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
-| Side buttons | the Daily Challenge (right, under the Avatar) as a cream round button `0.13W` at 24% of H, `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places (the avatar came back the same day, without the shirt badge, at the right of the header row) |
+| Promo scenes | under the logo from 24% of H (or `0.02W` under the logo): No Ads at the left, the Daily Reward at the right, each `0.27W` wide and `0.67` of that tall, `0.04W` from the edge (`ReferenceHomeRegions.NoAds`, `.DailyReward`; §6.4.1) |
+| Side buttons | the Daily Challenge (right) as a cream round button `0.13W` under the Daily Reward's promo scene with `0.03W` between them (at 24% of H before the promo scenes), `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places (the avatar came back the same day, without the shirt badge, at the right of the header row) |
 | Level plaque | wooden sign `0.5W × 0.085H`, centered, `0.01H` over Play (64% to 72.5% of H before the bottom menu; about 60% to 68.5% now) |
 | Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, `0.15H` tall, ending over the teaser row (73.5% to 88.5% of H before the bottom menu; about 69.5% to 84.5% on 19.5:9 now); the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
 | Teaser | the milestone teaser as a small parchment pill (`0.5W × 0.04H`) centered under Play, its row's touch boxes ending `0.015W` over the bottom menu's top; the free booster as a cream pill beside it when offered |
@@ -1106,6 +1107,32 @@ without its "+" starts the amount right after the lotus; the plaque is `0.5W`, w
 `0.8W`); the free booster is the cream `CostPill` "Free" and takes taps in a clear box grown to `size.touch_min`; the splash takes the Home garden while its own picture is missing (`OwnerPictures.Resolve`)
 and puts its logo and its heroes where Home shows them; over the layered Home the splash and Home share one `HomeMotion`
 while both show, so Home takes over the splash's motion without a jump.
+
+#### 6.4.1 The promo scenes and the Remove Ads card (spec FR-032, FR-033)
+
+The owner's layers (pictures.md D14–D22, `Decor/promo-*.png`, whole canvases: the stands 1448 × 1086, the others
+1254 × 1254, fitted into 724 × 543 and 512 × 512) placed and timed by `HomePromo` for both builds; a host draws
+`HomePromo.Layers(scene, box, seconds since Home opened, calling)` back to front: each picture's canvas in its box, then
+scaled and turned clockwise around its pivot, at its alpha (Unity `HomePromoView`; the playtest's painter with
+`PushRotate`/`PushSquash`), and the label right after the stand.
+
+| Part | Recipe |
+|---|---|
+| Stand | the owner's stone stand with flowers, the scene box's width, its canvas from `70/1448` of that under the box's top |
+| Label | `home.promo_no_ads` "No Ads" / `home.promo_daily` "Daily" centered on the plaque's face (`HomePromo.Plaque`), letters 0.74 of its height in `type.level_pill` with the sign letters' look (`ink.brown`, light emboss), fitted to its width |
+| No Ads, idle (2.4 s) | Sprig (0.38 of the scene's width) breathing (`1 → 1.03` tall, `1 → 0.99` wide, from his feet) and swaying (`+6/240` of the width, −3°); the crossed AD sign (0.31) in front of him, leaning 4° ± 2° away over its bottom-right corner, its left edge on his front palm (the palm's tip hidden by `75/1072` of his width); no lotus |
+| No Ads, attention (3.2 s) | Sprig crouches (0.14 s: back `8/240`, `0.92` tall, +6°; the sign stays) and lunges (to 0.42 s: `+18/240`), pushing the sign, which tips to 16°; the sign flies off to the right (to 0.85 s: `+0.38` of the width, 50°, shrinking to 0.8, fading from 0.55 s); Sprig hops (`10/240`) and is gone (0.66–0.84 s); the lotus blooms where they stood (0.62–1.15 s: `0.4 → 1.12 → 1`, then breathing) until 2.6 s; then it folds away (to 2.9 s) and the two pop back (`0.6 → 1.06 → 1`, to 3.2 s) |
+| Daily, idle (2.6 s) | the closed album (0.37 of the scene's width) floating (`−4/240`, −2°, `1.02`) on the stand; no sparkles, no badge |
+| Daily, attention (2.6 s) | the album squashes (0.15 s: `0.94`, −4°) and the open album pops in (`0.85 → 1.05 → 1`, a small rise); the flower stamp (0.14) fades in over the right page (0.5–0.7 s), hovers, lifts (to 1.05 s) and presses down (1.27 s, squashing to `0.92`, the album dipping to `0.97`), settling at −8°; the petals and sparkles (0.6) burst out of the album only then (1.3–2.4 s: `0.5 → 1 → 1.15`, rising `20/240`, fading); the album closes again (2.2–2.55 s) |
+| Schedule | every 12 s from Home's opening: No Ads at 1 s, the Daily at 6.5 s (never together); the Daily only while the reward waits (`calling`), else it idles |
+| Taps | the scene box (at least the touch minimum) presses like a button: No Ads opens the Remove Ads card, the Daily the Daily Reward card |
+| Stand-in | while a picture is missing: the label on a wooden sign (`ui.sign.wood`) in the scene box |
+
+The Remove Ads card: the usual popup card (`ui.card`: parchment, the title, the close), "No Ads" as its title, the No
+Ads scene idling (`calling` false) centered in its top part, `remove_ads.body` in `type.body`, the primary button
+`remove_ads.price` ("Remove Ads · {price}"; `store.unavailable` disabled while purchases are off, with `store.offline`
+under it) and the secondary `remove_ads.restore`. Once Remove Ads is owned: `remove_ads.owned`, the card closes and
+Home's No Ads scene is gone.
 
 ### 6.5 Wardrobe (both builds)
 

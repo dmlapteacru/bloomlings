@@ -498,3 +498,21 @@ See spec.md (the clarification "the owner's note: the pages' titles in the middl
   `PageHeader.IvyScale` (0.8) through `GardenLook.IvyBox` / `SignExtent` / `IvyReachAt` and the signs' `ivyScale`
   (`Kit.WoodSign`, `UiKit.WoodSign`, `UiKit.SignLetterRoom`) in both builds; the header test (banner in the middle,
   leaves clear, the title's room); previews of the Wardrobe, Store, Leaderboard, Collection and locked pages; all checks.
+
+## Owner pack: Home's promo scenes, Daily and No Ads (2026-10-04)
+
+See spec.md (the clarification "the owner's Home promo scenes", FR-032, FR-033), contracts/look.md §6.4.1 and
+pictures.md D14–D22. Spec 001 FR-054 and FR-058 carry the owner's amendment (Remove Ads offered on Home from L1).
+- [X] T092 The pack analysed (layers, guide, sizes, composition) and previewed as GIFs over Home before any code; three
+  rounds of the owner's notes (the push and the lotus, no badge, sparkles last, a slower stamp, equal sizes, the sign in
+  front of Sprig) and answers (the Daily Reward; No Ads from L1 with its own card; the album's colour kept).
+- [X] T093 Kit: `HomePromo` (scene boxes, the schedule, every layer's pose per frame, the plaques), the scene boxes in
+  `ReferenceHomeRegions` (the Daily Challenge under the Daily scene), the nine pictures fitted into the Decor folder with
+  their record and notices, the slots `ui.promo.no_ads` and `ui.promo.daily`, the strings, the importer's mipmaps, tests.
+- [X] T094 [P] Unity: `HomePromoView` on Home (No Ads until Remove Ads is owned, the Daily from its unlock), the
+  taps, the Remove Ads card buying the existing product and restoring.
+- [X] T095 [P] Playtest: the scenes on Home, the taps, the Remove Ads overlay (purchases off: "Unavailable"), the
+  preview frame.
+- [X] T096 Docs (spec 005, spec 001 amendment, look.md, pictures.md, CLAUDE.md), the asset inventory, previews, all
+  checks, the APK.
+
