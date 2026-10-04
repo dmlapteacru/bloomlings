@@ -678,7 +678,7 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   arrows (`Kit.ArrowButton`). The Shop tab's rows are cream rows with the booster tile and its count badge, the name and
   a cost pill; the Daily Reward, Leaderboard and Collection cards carry a `WoodSign` (None) header.
 - The playtest's Wardrobe (owner's review, FR-025; preview frame 27, `playtest/design/WardrobeScreen.cs`, opened from
-  Home's Wardrobe button and the avatar): the §6.5 layout without the kind chips and the profile tab; the name card is
+  Home's Wardrobe button, the avatar): the §6.5 layout without the kind chips and the profile tab; the name card is
   `Kit.NameCard` (parchment whose middle rises into the name tab); the cards, three a page, are "Default" (nothing worn;
   a tap takes everything off), the owned worn items (a tap wears one, or takes it off when worn), the worn items for sale
   (cost pill; a tap buys and wears) and the ones earned later (`Kit.OutfitCard(…, locked: true)`: the picture faded to
@@ -913,7 +913,7 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Petals pill | `0.38W × 0.095W`, right edge − `0.02W`, top 2.5% of H |
 | Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
-| Side buttons | Wardrobe, Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill (its place: see "Fixed") |
+| Side buttons | the Wardrobe (the profile avatar with a green shirt badge at its bottom right, `Kit.IconBadge` / `UiKit.IconBadge`, 0.34 of its size; Home's one Wardrobe button since the owner's note of 2026-10-04, which removed the shirt button), Collection (left) and Daily Challenge, Store (right) as cream round buttons `0.13W` stacked from 24% of H at `0.04W` from the edges; the rank as a small parchment pill (its place: see "Fixed") |
 | Level plaque | wooden sign `0.5W × 0.085H`, centered, from 64% to 72.5% of H |
 | Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, from 73.5% to 88.5% of H; the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
 | Teaser | the milestone teaser as a small parchment pill centered under Play (89.5%–93.5%); the free booster as a cream pill beside it when offered |
@@ -1003,11 +1003,11 @@ width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's
 `0.09u` above the stage's bottom, the lotus fountain on it, Bloom raised behind the fountain (`0.64u` picture, feet
 `0.51u` up), Drop at the right back (`0.44u` at `+0.30u`), Sprig at the left (`0.74u` at `−0.26u`), Twig in front at the
 right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest stacks only the
-unlocked side buttons (left: Wardrobe, Collection, the avatar; right: Daily Challenge, Store), the rank pill in the top row
+unlocked side buttons (left: the Wardrobe as the avatar with its shirt badge, Collection; right: Daily Challenge, Store), the rank pill in the top row
 (`r.Rank`); its splash shows the logo and the diorama in the same boxes.
 
 Unity (`HomeScreen`, `SplashScreen`): each side column packs the buttons it shows from its top with
-`SideButton(right, i)` (left: Wardrobe `ui.shirt`, Collection `ui.grid`, the profile avatar; right: the Daily Challenge,
+`SideButton(right, i)` (left: the profile avatar, which opens the Wardrobe, with the `ui.shirt` badge, and Collection `ui.grid`; right: the Daily Challenge,
 the sun `ui.sun` with the green check badge when done today, and the Store, the lotus), and the rank pill in the top row
 (`r.Rank`); the logo shows in both looks, the owner's logo picture sized by width
 (`ReferenceHomeRegions.LogoPicture`: `0.82W` wide, centered on the logo box, its top no higher than a tenth of its

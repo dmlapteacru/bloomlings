@@ -597,6 +597,26 @@ namespace Bloomlings.Playtest.Design
             p.Text(text, cx, cy + (size * 0.02f), T.Badge, C.TextOnColor, width * 0.9f, sizeScale: scale);
         }
 
+        /// <summary>
+        /// An icon badge (the shirt on Home's Wardrobe avatar; the owner's note of 2026-10-04): a white glyph on the count
+        /// badge's green disc with its white ring and thin dark outline (<see cref="CountBadge"/>), <paramref name="size"/>
+        /// the disc's diameter.
+        /// </summary>
+        public static void IconBadge(IPainter p, float cx, float cy, float size, string shapeId)
+        {
+            p.Mark("ui.badge.count");
+            Box box = Box.FromCenter(cx, cy, size, size);
+            float ring = size * 0.1f;
+            float line = Math.Max(1f, size * 0.03f);
+            Box outer = box.Inset(-(ring + line));
+            float r = outer.Height / 2f;
+            SoftShadow(p, outer, r, 0.25f, 0.07f);
+            p.FillRound(outer, r, C.GardenShadow.WithAlpha(0.8f));
+            p.FillRound(box.Inset(-ring), (size / 2f) + ring, Rgba.White);
+            p.FillRoundGradient(box, size / 2f, C.BadgeGreen.Lighten(0.14f), C.BadgeGreen);
+            p.Shape(shapeId, box.Inset(size * 0.2f), Rgba.White);
+        }
+
         /// <summary>A price tag (a booster without charges): since spec 005 a <see cref="CostPill"/> with the lotus.</summary>
         public static void PriceTag(IPainter p, Box box, int price) => CostPill(p, box, Cost.Petals(price));
 

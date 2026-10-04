@@ -39,7 +39,8 @@ namespace Bloomlings.Client.UI.Screens
             _frame = Decoration(root, "Frame");
             layout.Add(_frame.rectTransform, b => Square(b, 1.08f, 0f, 0f));
             _badge = Decoration(root, "Badge");
-            layout.Add(_badge.rectTransform, b => Square(b, 0.36f, 0.36f, 0.36f));
+            // The badge at the bottom left: on Home the bottom right carries the Wardrobe's shirt badge (2026-10-04).
+            layout.Add(_badge.rectTransform, b => Square(b, 0.36f, -0.36f, 0.36f));
             _marker = Decoration(root, "Marker");
             layout.Add(_marker.rectTransform, b => Square(b, 0.36f, 0.36f, -0.36f));
         }

@@ -57,7 +57,7 @@ namespace Bloomlings.Client.UI.Screens
     /// hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left front. Once the Wardrobe is open (L40) each hero
     /// wears its outfit.</description></item>
     /// <item><description>Small cream round side buttons, each once unlocked, packed from the top of their column:
-    /// Wardrobe, Collection and the profile avatar (frame, badge) at the left; the Daily Challenge (the sun, with a green
+    /// the Wardrobe (the profile avatar with its frame and badge, and a green shirt badge) and the Collection at the left; the Daily Challenge (the sun, with a green
     /// check when done today, L50) and the Store (the lotus) at the right; the rank pill "Rank #N >" with its gold trophy
     /// in the top row between Settings and the Petals pill (L10; it opens the Leaderboard and carries the marker).</description></item>
     /// <item><description>Under Play, the milestone teaser "N levels to reward" with the pink gift on a parchment pill, and
@@ -85,7 +85,6 @@ namespace Bloomlings.Client.UI.Screens
         private GameObject _daily = null!;
         private GameObject _dailyDone = null!;
         private GameObject _store = null!;
-        private GameObject _wardrobe = null!;
         private GameObject _collection = null!;
         private RectTransform _freeBooster = null!;
         private RectTransform _freePill = null!;
@@ -112,12 +111,13 @@ namespace Bloomlings.Client.UI.Screens
             // The logo across the top, over the garden in both looks.
             screen._logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
 
-            // The side buttons: Wardrobe, Collection and the profile avatar at the left; the Daily Challenge and the Store
-            // at the right.
-            screen._wardrobe = UiKit.RoundIconButton("Wardrobe", root, "ui.shirt", () => features?.OnWardrobe?.Invoke()).gameObject;
+            // The side buttons: the Wardrobe (the profile avatar with a shirt badge) and the Collection at the left; the Daily
+            // Challenge and the Store at the right.
             screen._collection = UiKit.RoundIconButton("Collection", root, "ui.grid", () => features?.OnCollection?.Invoke()).gameObject;
 
-            // The profile avatar is its own cream disc; the button around it is a clear touch target.
+            // The profile avatar is Home's one Wardrobe button (the owner's note of 2026-10-04: it replaced the shirt
+            // button): its own cream disc, a green shirt badge at its bottom right; the button around it is a clear touch
+            // target and opens the Wardrobe (its Profile tab is inside).
             Image profile = UiFactory.CreateImage("Profile", root, null, Color.clear, raycast: true);
             var profileButton = profile.gameObject.AddComponent<Button>();
             profileButton.transition = Selectable.Transition.None;
@@ -125,11 +125,17 @@ namespace Bloomlings.Client.UI.Screens
             profileButton.onClick.AddListener(() =>
             {
                 GameFeedback.Current?.Play(SoundCue.Click);
-                features?.OnProfile?.Invoke();
+                (features?.OnWardrobe ?? features?.OnProfile)?.Invoke();
             });
             profile.gameObject.AddComponent<PressMotion>();
             screen._avatar = ProfileAvatar.Create("Avatar", profile.transform);
             UiFactory.Stretch(screen._avatar.Rect);
+            RectTransform shirt = UiKit.IconBadge("Wardrobe", profile.transform, "ui.shirt");
+            BoxLayout.On(profile.rectTransform).Add(shirt, b =>
+            {
+                float side = Mathf.Min(b.Width, b.Height);
+                return Box.FromCenter(b.CenterX + (side * 0.36f), b.CenterY + (side * 0.36f), side * 0.34f * 1.26f, side * 0.34f * 1.26f);
+            });
             screen._profile = profile.gameObject;
 
             Button daily = UiKit.RoundPictureButton("Daily", root, parent => UiKit.OutlinedGlyph("Sun", parent, "ui.sun", C.GardenFlowerCenter, C.GardenFlowerCenterLine), 0.72f, () => features?.OnDailyChallenge?.Invoke());
@@ -222,7 +228,7 @@ namespace Bloomlings.Client.UI.Screens
         {
             "system.leaderboard" => _rankTouch.gameObject.activeSelf ? _rankRow.rectTransform : null,
             "system.store" => Visible(_petals.Plus),
-            "system.wardrobe" => Visible(_wardrobe),
+            "system.wardrobe" => Visible(_profile),
             "system.daily_challenge" => Visible(_daily),
             "system.milestone_25" => Visible(_teaser.gameObject),
             _ => null,
@@ -262,21 +268,16 @@ namespace Bloomlings.Client.UI.Screens
             // fountain with the player's hero at the left front; once the Wardrobe is open each in its outfit.
             _stage.Place(r.Diorama, screen, BackdropScene.Home, outfitOf: look.Hero ? model.OutfitOf : null, front: look.Hero ? ProfileAvatar.HeroFamily : Family.Sprig);
 
-            // The side columns, packed from the top: Wardrobe, Collection, the avatar; the Daily Challenge, the Store.
+            // The side columns, packed from the top: the Wardrobe (the avatar), the Collection; the Daily Challenge, the Store.
             var left = new List<GameObject>();
             if (look.Wardrobe)
             {
-                left.Add(_wardrobe);
+                left.Add(_profile);
             }
 
             if (look.Collection)
             {
                 left.Add(_collection);
-            }
-
-            if (look.Wardrobe)
-            {
-                left.Add(_profile);
             }
 
             var right = new List<GameObject>();
@@ -335,7 +336,6 @@ namespace Bloomlings.Client.UI.Screens
             _rank.text = model.RankText ?? Loc.T("home.rank_unknown");
             _daily.SetActive(model.DailyChallengeAvailable);
             _dailyDone.SetActive(model.DailyChallengeDone);
-            _wardrobe.SetActive(model.WardrobeAvailable);
             _collection.SetActive(model.CollectionAvailable);
             _profile.SetActive(model.WardrobeAvailable);
             if (model.WardrobeAvailable)

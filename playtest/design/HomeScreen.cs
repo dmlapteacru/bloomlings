@@ -82,8 +82,8 @@ namespace Bloomlings.Playtest.Design
     /// FR-028, <see cref="LayeredStage"/>; or the drawn stand-in's four still heroes around the lotus fountain on the
     /// stone; in their outfits once the Wardrobe is open), the level on a wooden plaque and the big Play button in its
     /// wooden rim. A tap on an animated hero makes it react (<see cref="HomeMotion.Tap"/>).</description></item>
-    /// <item><description>Shown once unlocked, as cream round buttons along the sides: the Wardrobe, the Collection and the
-    /// profile avatar at the left, the Daily Challenge and the Store at the right, with the rank as a parchment pill under
+    /// <item><description>Shown once unlocked, as cream round buttons along the sides: the Wardrobe (the profile avatar with
+    /// a shirt badge) and the Collection at the left, the Daily Challenge and the Store at the right, with the rank as a parchment pill under
     /// the right column; "N levels to reward" with the gift as a parchment pill under Play.</description></item>
     /// </list>
     /// Play always continues Level N, and there is no level map. A small row at the very bottom keeps the playtest's
@@ -435,8 +435,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The cream round side buttons of the unlocked features (§6.4), each column stacked from its top: the Wardrobe,
-        /// the Collection and the profile avatar at the left; the Daily Challenge and the Store at the right, with the rank
+        /// The cream round side buttons of the unlocked features (§6.4), each column stacked from its top: the Wardrobe (the
+        /// profile avatar with a shirt badge) and the Collection at the left; the Daily Challenge and the Store at the right, with the rank
         /// pill under the right column.
         /// </summary>
         private static void SideButtons(IPainter p, ReferenceHomeRegions r, HomeLook look, PlaytestMeta meta, DesignApp app)
@@ -444,20 +444,14 @@ namespace Bloomlings.Playtest.Design
             int left = 0;
             if (look.Wardrobe)
             {
-                Box box = r.SideButton(false, left++);
-                Kit.RoundButton(p, box.CenterX, box.CenterY, box.Width, "ui.shirt", app.OpenWardrobe);
+                // One Wardrobe button, the hero's (the owner's note of 2026-10-04): the profile avatar with a shirt badge.
+                Avatar(p, r.SideButton(false, left++), meta.Wardrobe.Profile, app.OpenWardrobe);
             }
 
             if (look.Collection)
             {
                 Box box = r.SideButton(false, left++);
                 Kit.RoundButton(p, box.CenterX, box.CenterY, box.Width, "ui.grid", () => app.OpenOverlay(Overlay.Collection));
-            }
-
-            if (look.Wardrobe)
-            {
-                // The profile avatar opens the Wardrobe too, as the Unity client's opens its Profile tab.
-                Avatar(p, r.SideButton(false, left++), meta.Wardrobe.Profile, app.OpenWardrobe);
             }
 
             int right = 0;
@@ -487,8 +481,8 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>How many round buttons the left column shows: the Wardrobe, the Collection, the profile avatar.</summary>
-        private static int LeftButtons(HomeLook look) => (look.Wardrobe ? 2 : 0) + (look.Collection ? 1 : 0);
+        /// <summary>How many round buttons the left column shows: the Wardrobe (the profile avatar), the Collection.</summary>
+        private static int LeftButtons(HomeLook look) => (look.Wardrobe ? 1 : 0) + (look.Collection ? 1 : 0);
 
         /// <summary>How many round buttons the right column shows: the Daily Challenge, the Store.</summary>
         private static int RightButtons(HomeLook look) => (look.DailyChallenge ? 1 : 0) + (look.Store ? 1 : 0);
@@ -566,8 +560,10 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The profile avatar (FR-061) as the left column's last round button: the hero's portrait on a domed cream disc in
-        /// the chosen frame, with the badge. A tap opens the Wardrobe.
+        /// The profile avatar (FR-061) as the left column's first round button, Home's one Wardrobe button (the owner's note of
+        /// 2026-10-04: it replaced the shirt button): the hero's portrait on a domed cream disc in the chosen frame, the
+        /// profile badge at its bottom left and a green shirt badge at its bottom right (<see cref="Kit.IconBadge"/>). A tap
+        /// opens the Wardrobe.
         /// </summary>
         private static void Avatar(IPainter p, Box box, ProfileLook look, Action action)
         {
@@ -585,8 +581,10 @@ namespace Bloomlings.Playtest.Design
 
             if (look.Badge != null)
             {
-                p.Shape("cosmetic.badge", Box.FromCenter(face.CenterX + (size * 0.36f), face.CenterY + (size * 0.36f), size * 0.36f, size * 0.36f), Visuals.Tint(look.Badge));
+                p.Shape("cosmetic.badge", Box.FromCenter(face.CenterX - (size * 0.36f), face.CenterY + (size * 0.36f), size * 0.36f, size * 0.36f), Visuals.Tint(look.Badge));
             }
+
+            Kit.IconBadge(p, face.CenterX + (size * 0.36f), face.CenterY + (size * 0.36f), size * 0.34f, "ui.shirt");
 
             p.PopTransform();
             p.Hit(Kit.Touch(p, box), action);

@@ -862,6 +862,41 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
+        /// An icon badge (the shirt on Home's Wardrobe avatar; the owner's note of 2026-10-04), the twin of the playtest's
+        /// <c>Kit.IconBadge</c>: a white glyph on the count badge's green disc with its white ring and thin dark outline,
+        /// over a soft shadow. The returned rect is the whole badge (ring and outline included); the disc is its side / 1.26.
+        /// </summary>
+        public static RectTransform IconBadge(string name, Transform parent, string shapeId)
+        {
+            Image root = UiFactory.CreateImage(name, parent, null, Color.clear);
+            root.raycastTarget = false;
+            BoxLayout layout = BoxLayout.On(root.rectTransform);
+            Box Disc(Box b)
+            {
+                float size = Mathf.Min(b.Width, b.Height) / 1.26f;
+                return Box.FromCenter(b.CenterX, b.CenterY, size, size);
+            }
+
+            Box Outer(Box b)
+            {
+                Box d = Disc(b);
+                return d.Inset(-(d.Height * 0.1f) - Mathf.Max(Units(1f), d.Height * 0.03f));
+            }
+
+            SoftShadow(layout, Outer, b => b.Height / 2f, 0.25f, 0.07f);
+            Image outline = RoundRect("Outline", root.transform, UiTheme.Of(C.GardenShadow.WithAlpha(0.8f)));
+            Image ring = RoundRect("Ring", root.transform, Color.white);
+            Image fill = RoundGradient("Fill", root.transform, C.BadgeGreen.Lighten(0.14f), C.BadgeGreen);
+            Image glyph = ShapeImage("Glyph", root.transform, shapeId, Rgba.White);
+            glyph.raycastTarget = false;
+            layout.Add(outline.rectTransform, Outer);
+            layout.Add(ring.rectTransform, b => Disc(b).Inset(-Disc(b).Height * 0.1f));
+            layout.Add(fill.rectTransform, Disc);
+            layout.Add(glyph.rectTransform, b => Disc(b).Inset(Disc(b).Height * 0.2f));
+            return root.rectTransform;
+        }
+
+        /// <summary>
         /// A count badge (booster charges, "+N" on a stack; spec 005 §3.4): white digits on a <c>badge.green</c> disc with a
         /// white ring (10% of the disc) and a thin dark outline, over a soft shadow. The returned <paramref name="disc"/>
         /// rect is the whole badge (ring and outline included) and the disc's size is its height; a longer number widens
