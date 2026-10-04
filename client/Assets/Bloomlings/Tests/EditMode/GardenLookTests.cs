@@ -30,7 +30,8 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void TheReferenceSets_UseTheContractShades()
         {
-            Assert.That(GardenLook.Green, Is.EqualTo(new ColorSet("set.green", Rgba.FromHex("#62B83A"), Rgba.FromHex("#ADE162"), Rgba.FromHex("#378F24"), Rgba.FromHex("#24661A"))));
+            // The contract's shades on the UI's step of the saturation ladder (spec 005 FR-031).
+            Assert.That(GardenLook.Green, Is.EqualTo(new ColorSet("set.green", DesignTokens.Saturation.OfUi("#62B83A"), DesignTokens.Saturation.OfUi("#ADE162"), DesignTokens.Saturation.OfUi("#378F24"), DesignTokens.Saturation.OfUi("#24661A"))));
             Assert.That(DesignTokens.Colors.ButtonPrimary, Is.EqualTo(GardenLook.Green.Face));
             Rgba blue = DesignTokens.Colors.ButtonBlue;
             Assert.That(GardenLook.Blue, Is.EqualTo(new ColorSet("set.blue", blue, blue.Lighten(0.3f), blue.Darken(0.25f), blue.Darken(0.42f))));

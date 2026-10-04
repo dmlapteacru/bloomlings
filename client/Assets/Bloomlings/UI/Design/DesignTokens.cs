@@ -27,61 +27,84 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Pixels per reference unit for a screen, capped so tablets do not blow the UI up.</summary>
         public static float ScaleFor(float width, float height) => Math.Min(width / ReferenceWidth, height / 1700f);
 
+        /// <summary>
+        /// The saturation ladder (the owner, 2026-10-04: "Background 55–65% saturation → UI 65–75% → heroes 100%"; spec 005
+        /// FR-031): the backdrop's colors (the procedural garden, the lawn, the foliage and the win's rays) keep
+        /// <see cref="Background"/> of their designed saturation, every other UI color <see cref="Ui"/> of it, and the board's
+        /// pieces (the variant palette, the tiles, specials, links and mystery colors), the characters and the text colors
+        /// (their contrast is an accessibility rule) all of it. The
+        /// colors' designed values are those in the contracts; <see cref="Rgba.Saturate"/> scales them here once, so screens
+        /// keep using the tokens' names. The owner's pictures get the same ladder against the heroes' saturation
+        /// (tools/heroanim/saturation.mjs).
+        /// </summary>
+        public static class Saturation
+        {
+            public const float Background = 0.6f;
+
+            public const float Ui = 0.7f;
+
+            /// <summary>A backdrop color from its designed value.</summary>
+            public static Rgba OfBackground(string hex) => Rgba.FromHex(hex).Saturate(Background);
+
+            /// <summary>A UI color from its designed value.</summary>
+            public static Rgba OfUi(string hex) => Rgba.FromHex(hex).Saturate(Ui);
+        }
+
         public static class Colors
         {
-            public static readonly Rgba SurfacePanel = Rgba.FromHex("#FFF9EE");
-            public static readonly Rgba SurfacePanelEdge = Rgba.FromHex("#E8DCC4");
-            public static readonly Rgba SurfaceSunk = Rgba.FromHex("#F1E8D6");
-            public static readonly Rgba SurfaceRowHighlight = Rgba.FromHex("#DDF2CF");
-            public static readonly Rgba SurfaceScrim = Rgba.FromHex("#2A1708").WithAlpha(0.5f);
+            public static readonly Rgba SurfacePanel = Saturation.OfUi("#FFF9EE");
+            public static readonly Rgba SurfacePanelEdge = Saturation.OfUi("#E8DCC4");
+            public static readonly Rgba SurfaceSunk = Saturation.OfUi("#F1E8D6");
+            public static readonly Rgba SurfaceRowHighlight = Saturation.OfUi("#DDF2CF");
+            public static readonly Rgba SurfaceScrim = Saturation.OfUi("#2A1708").WithAlpha(0.5f);
             public static readonly Rgba TextPrimary = Rgba.FromHex("#2E3440");
             public static readonly Rgba TextSecondary = Rgba.FromHex("#6B7280");
             public static readonly Rgba TextOnColor = Rgba.FromHex("#FFFFFF");
             public static readonly Rgba TextOutline = Rgba.FromHex("#2E3440").WithAlpha(0.35f);
-            public static readonly Rgba ButtonPrimary = Rgba.FromHex("#62B83A");
-            public static readonly Rgba ButtonPrimaryTop = Rgba.FromHex("#ADE162");
-            public static readonly Rgba ButtonPrimaryEdge = Rgba.FromHex("#378F24");
-            public static readonly Rgba ButtonSecondary = Rgba.FromHex("#F4EAD5");
-            public static readonly Rgba ButtonSecondaryEdge = Rgba.FromHex("#D9C9A6");
-            public static readonly Rgba ButtonIcon = Rgba.FromHex("#FFFFFF");
-            public static readonly Rgba ButtonIconEdge = Rgba.FromHex("#C9CED8");
-            public static readonly Rgba ButtonIconGlyph = Rgba.FromHex("#3A4050");
-            public static readonly Rgba ButtonDark = Rgba.FromHex("#3A4050");
-            public static readonly Rgba PillLevel = Rgba.FromHex("#8FC6F0");
-            public static readonly Rgba PillLevelEdge = Rgba.FromHex("#5E9FD3");
-            public static readonly Rgba PillLevelSuperHard = Rgba.FromHex("#B59AF0");
-            public static readonly Rgba PillPetals = Rgba.FromHex("#FFFFFF").WithAlpha(0.88f);
-            public static readonly Rgba PillPetalsEdge = Rgba.FromHex("#E3DCEF");
-            public static readonly Rgba BadgeHard = Rgba.FromHex("#E5484D");
-            public static readonly Rgba BadgeSuperHard = Rgba.FromHex("#8E4FD8");
-            public static readonly Rgba BadgeCount = Rgba.FromHex("#2F3A4A");
-            public static readonly Rgba AccentPlus = Rgba.FromHex("#5DBB46");
-            public static readonly Rgba PetalFill = Rgba.FromHex("#F58DB8");
-            public static readonly Rgba PetalCenter = Rgba.FromHex("#FFD35C");
-            public static readonly Rgba PetalEdge = Rgba.FromHex("#D8639A");
-            public static readonly Rgba StateDanger = Rgba.FromHex("#E5484D");
+            public static readonly Rgba ButtonPrimary = Saturation.OfUi("#62B83A");
+            public static readonly Rgba ButtonPrimaryTop = Saturation.OfUi("#ADE162");
+            public static readonly Rgba ButtonPrimaryEdge = Saturation.OfUi("#378F24");
+            public static readonly Rgba ButtonSecondary = Saturation.OfUi("#F4EAD5");
+            public static readonly Rgba ButtonSecondaryEdge = Saturation.OfUi("#D9C9A6");
+            public static readonly Rgba ButtonIcon = Saturation.OfUi("#FFFFFF");
+            public static readonly Rgba ButtonIconEdge = Saturation.OfUi("#C9CED8");
+            public static readonly Rgba ButtonIconGlyph = Saturation.OfUi("#3A4050");
+            public static readonly Rgba ButtonDark = Saturation.OfUi("#3A4050");
+            public static readonly Rgba PillLevel = Saturation.OfUi("#8FC6F0");
+            public static readonly Rgba PillLevelEdge = Saturation.OfUi("#5E9FD3");
+            public static readonly Rgba PillLevelSuperHard = Saturation.OfUi("#B59AF0");
+            public static readonly Rgba PillPetals = Saturation.OfUi("#FFFFFF").WithAlpha(0.88f);
+            public static readonly Rgba PillPetalsEdge = Saturation.OfUi("#E3DCEF");
+            public static readonly Rgba BadgeHard = Saturation.OfUi("#E5484D");
+            public static readonly Rgba BadgeSuperHard = Saturation.OfUi("#8E4FD8");
+            public static readonly Rgba BadgeCount = Saturation.OfUi("#2F3A4A");
+            public static readonly Rgba AccentPlus = Saturation.OfUi("#5DBB46");
+            public static readonly Rgba PetalFill = Saturation.OfUi("#F58DB8");
+            public static readonly Rgba PetalCenter = Saturation.OfUi("#FFD35C");
+            public static readonly Rgba PetalEdge = Saturation.OfUi("#D8639A");
+            public static readonly Rgba StateDanger = Saturation.OfUi("#E5484D");
             public static readonly Rgba StateLock = Rgba.FromHex("#8C8F99");
             public static readonly Rgba StateLockBg = Rgba.FromHex("#C4C7CF");
             public static readonly Rgba StateStuck = Rgba.FromHex("#9AA0AA");
             public static readonly Rgba StateLink = Rgba.FromHex("#6CC4B8");
             public static readonly Rgba StateLink2 = Rgba.FromHex("#6FB6E8");
             public static readonly Rgba StateLink3 = Rgba.FromHex("#E67FB0");
-            public static readonly Rgba MedalGold = Rgba.FromHex("#F5C542");
-            public static readonly Rgba MedalSilver = Rgba.FromHex("#C9D1DC");
-            public static readonly Rgba MedalBronze = Rgba.FromHex("#DA9A62");
-            public static readonly Rgba BoosterExtraSlot = Rgba.FromHex("#4CAF50");
-            public static readonly Rgba BoosterShuffle = Rgba.FromHex("#5B6CE0");
-            public static readonly Rgba BoosterReturn = Rgba.FromHex("#3A8EDB");
-            public static readonly Rgba BoosterBloomBurst = Rgba.FromHex("#F2622E");
-            public static readonly Rgba BackdropSkyTop = Rgba.FromHex("#BFE3F8");
-            public static readonly Rgba BackdropSkyBottom = Rgba.FromHex("#EAF6F2");
-            public static readonly Rgba BackdropHillFar = Rgba.FromHex("#CFE6C0");
-            public static readonly Rgba BackdropHillNear = Rgba.FromHex("#A9D68C");
-            public static readonly Rgba BackdropBush = Rgba.FromHex("#86C470");
-            public static readonly Rgba BackdropBlossom = Rgba.FromHex("#F9B8D0");
-            public static readonly Rgba BackdropRuin = Rgba.FromHex("#DCD6E8");
-            public static readonly Rgba WordmarkFill = Rgba.FromHex("#7CCB52");
-            public static readonly Rgba WordmarkOutline = Rgba.FromHex("#2F7A2A");
+            public static readonly Rgba MedalGold = Saturation.OfUi("#F5C542");
+            public static readonly Rgba MedalSilver = Saturation.OfUi("#C9D1DC");
+            public static readonly Rgba MedalBronze = Saturation.OfUi("#DA9A62");
+            public static readonly Rgba BoosterExtraSlot = Saturation.OfUi("#4CAF50");
+            public static readonly Rgba BoosterShuffle = Saturation.OfUi("#5B6CE0");
+            public static readonly Rgba BoosterReturn = Saturation.OfUi("#3A8EDB");
+            public static readonly Rgba BoosterBloomBurst = Saturation.OfUi("#F2622E");
+            public static readonly Rgba BackdropSkyTop = Saturation.OfBackground("#BFE3F8");
+            public static readonly Rgba BackdropSkyBottom = Saturation.OfBackground("#EAF6F2");
+            public static readonly Rgba BackdropHillFar = Saturation.OfBackground("#CFE6C0");
+            public static readonly Rgba BackdropHillNear = Saturation.OfBackground("#A9D68C");
+            public static readonly Rgba BackdropBush = Saturation.OfBackground("#86C470");
+            public static readonly Rgba BackdropBlossom = Saturation.OfBackground("#F9B8D0");
+            public static readonly Rgba BackdropRuin = Saturation.OfBackground("#DCD6E8");
+            public static readonly Rgba WordmarkFill = Saturation.OfUi("#7CCB52");
+            public static readonly Rgba WordmarkOutline = Saturation.OfUi("#2F7A2A");
             public static readonly Rgba TileGround = Rgba.FromHex("#EFE6D2");
             public static readonly Rgba TileStone = Rgba.FromHex("#A3A6AE");
             public static readonly Rgba TileStoneEdge = Rgba.FromHex("#7D818B");
@@ -93,154 +116,154 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba SpecialChest = Rgba.FromHex("#C08A57");
             public static readonly Rgba SpecialStatue = Rgba.FromHex("#A7A9BA");
             public static readonly Rgba SpecialBridge = Rgba.FromHex("#A57C58");
-            public static readonly Rgba RewardBasket = Rgba.FromHex("#B87B4B");
+            public static readonly Rgba RewardBasket = Saturation.OfUi("#B87B4B");
 
             // ---- The Garden look (spec 003 contracts/garden-tokens.md) ----
-            public static readonly Rgba GardenPlateTop = Rgba.FromHex("#FCF5E4");
-            public static readonly Rgba GardenPlateBottom = Rgba.FromHex("#EBDDBE");
-            public static readonly Rgba GardenPlateDepth = Rgba.FromHex("#A88A5C");
-            public static readonly Rgba GardenOutline = Rgba.FromHex("#8C6B45");
-            public static readonly Rgba GardenWood = Rgba.FromHex("#8C6B45");
-            public static readonly Rgba GardenWoodDepth = Rgba.FromHex("#A88A5C");
-            public static readonly Rgba GardenPaperTop = Rgba.FromHex("#FFF9EC");
-            public static readonly Rgba GardenPaperBottom = Rgba.FromHex("#F6EBD3");
-            public static readonly Rgba GardenWell = Rgba.FromHex("#E6D6B3");
-            public static readonly Rgba GardenWellEdge = Rgba.FromHex("#B39668");
-            public static readonly Rgba GardenTabSunk = Rgba.FromHex("#E9D9B7");
-            public static readonly Rgba GardenBadge = Rgba.FromHex("#3B2A1A");
-            public static readonly Rgba GardenBadgeRing = Rgba.FromHex("#FBF3E1");
-            public static readonly Rgba GardenShadow = Rgba.FromHex("#3C2814");
-            public static readonly Rgba GardenLabelFillTop = Rgba.FromHex("#FFFFFF");
-            public static readonly Rgba GardenLabelFillBottom = Rgba.FromHex("#EEF2DA");
-            public static readonly Rgba GardenLabelPlain = Rgba.FromHex("#5A3F24");
-            public static readonly Rgba GardenLeaf1 = Rgba.FromHex("#6DBE45");
-            public static readonly Rgba GardenLeaf2 = Rgba.FromHex("#8BD35A");
-            public static readonly Rgba GardenLeaf3 = Rgba.FromHex("#5BAA3A");
-            public static readonly Rgba GardenLeafLine = Rgba.FromHex("#2F6B22");
-            public static readonly Rgba GardenFlower = Rgba.FromHex("#FFFFFF");
-            public static readonly Rgba GardenFlowerLine = Rgba.FromHex("#B9B09A");
-            public static readonly Rgba GardenFlowerCenter = Rgba.FromHex("#FFD35C");
-            public static readonly Rgba GardenFlowerCenterLine = Rgba.FromHex("#D29B2E");
-            public static readonly Rgba GardenGlow = Rgba.FromHex("#FFD54A");
+            public static readonly Rgba GardenPlateTop = Saturation.OfUi("#FCF5E4");
+            public static readonly Rgba GardenPlateBottom = Saturation.OfUi("#EBDDBE");
+            public static readonly Rgba GardenPlateDepth = Saturation.OfUi("#A88A5C");
+            public static readonly Rgba GardenOutline = Saturation.OfUi("#8C6B45");
+            public static readonly Rgba GardenWood = Saturation.OfUi("#8C6B45");
+            public static readonly Rgba GardenWoodDepth = Saturation.OfUi("#A88A5C");
+            public static readonly Rgba GardenPaperTop = Saturation.OfUi("#FFF9EC");
+            public static readonly Rgba GardenPaperBottom = Saturation.OfUi("#F6EBD3");
+            public static readonly Rgba GardenWell = Saturation.OfUi("#E6D6B3");
+            public static readonly Rgba GardenWellEdge = Saturation.OfUi("#B39668");
+            public static readonly Rgba GardenTabSunk = Saturation.OfUi("#E9D9B7");
+            public static readonly Rgba GardenBadge = Saturation.OfUi("#3B2A1A");
+            public static readonly Rgba GardenBadgeRing = Saturation.OfUi("#FBF3E1");
+            public static readonly Rgba GardenShadow = Saturation.OfUi("#3C2814");
+            public static readonly Rgba GardenLabelFillTop = Saturation.OfUi("#FFFFFF");
+            public static readonly Rgba GardenLabelFillBottom = Saturation.OfUi("#EEF2DA");
+            public static readonly Rgba GardenLabelPlain = Saturation.OfUi("#5A3F24");
+            public static readonly Rgba GardenLeaf1 = Saturation.OfUi("#6DBE45");
+            public static readonly Rgba GardenLeaf2 = Saturation.OfUi("#8BD35A");
+            public static readonly Rgba GardenLeaf3 = Saturation.OfUi("#5BAA3A");
+            public static readonly Rgba GardenLeafLine = Saturation.OfUi("#2F6B22");
+            public static readonly Rgba GardenFlower = Saturation.OfUi("#FFFFFF");
+            public static readonly Rgba GardenFlowerLine = Saturation.OfUi("#B9B09A");
+            public static readonly Rgba GardenFlowerCenter = Saturation.OfUi("#FFD35C");
+            public static readonly Rgba GardenFlowerCenterLine = Saturation.OfUi("#D29B2E");
+            public static readonly Rgba GardenGlow = Saturation.OfUi("#FFD54A");
 
             // ---- The reference look (spec 005 contracts/look.md §1.2) ----
 
             /// <summary>Sign / rim face top.</summary>
-            public static readonly Rgba WoodLight = Rgba.FromHex("#FBE2BC");
+            public static readonly Rgba WoodLight = Saturation.OfUi("#FBE2BC");
 
             /// <summary>Sign / rim face bottom.</summary>
-            public static readonly Rgba WoodMid = Rgba.FromHex("#F1CD98");
+            public static readonly Rgba WoodMid = Saturation.OfUi("#F1CD98");
 
             /// <summary>Grain lines (alpha 0.25–0.45).</summary>
-            public static readonly Rgba WoodGrain = Rgba.FromHex("#C99863");
+            public static readonly Rgba WoodGrain = Saturation.OfUi("#C99863");
 
             /// <summary>Sign lower lip.</summary>
-            public static readonly Rgba WoodEdge = Rgba.FromHex("#DDB27C");
+            public static readonly Rgba WoodEdge = Saturation.OfUi("#DDB27C");
 
             /// <summary>Sign / rim outline.</summary>
-            public static readonly Rgba WoodLine = Rgba.FromHex("#8B5A2B");
+            public static readonly Rgba WoodLine = Saturation.OfUi("#8B5A2B");
 
             /// <summary>Pod frame face.</summary>
-            public static readonly Rgba WoodDark = Rgba.FromHex("#8A5634");
+            public static readonly Rgba WoodDark = Saturation.OfUi("#8A5634");
 
             /// <summary>Pod frame top light.</summary>
-            public static readonly Rgba WoodDarkTop = Rgba.FromHex("#A86F45");
+            public static readonly Rgba WoodDarkTop = Saturation.OfUi("#A86F45");
 
             /// <summary>Pod frame outline.</summary>
-            public static readonly Rgba WoodDarkLine = Rgba.FromHex("#4A2A14");
+            public static readonly Rgba WoodDarkLine = Saturation.OfUi("#4A2A14");
 
             /// <summary>Stone block top light.</summary>
-            public static readonly Rgba StoneTop = Rgba.FromHex("#FCE8C6");
+            public static readonly Rgba StoneTop = Saturation.OfUi("#FCE8C6");
 
             /// <summary>Stone block face.</summary>
-            public static readonly Rgba StoneFace = Rgba.FromHex("#F1D5A8");
+            public static readonly Rgba StoneFace = Saturation.OfUi("#F1D5A8");
 
             /// <summary>Stone block lower edge.</summary>
-            public static readonly Rgba StoneLip = Rgba.FromHex("#D9B585");
+            public static readonly Rgba StoneLip = Saturation.OfUi("#D9B585");
 
             /// <summary>Stone outline and joints.</summary>
-            public static readonly Rgba StoneLine = Rgba.FromHex("#7E6844");
+            public static readonly Rgba StoneLine = Saturation.OfUi("#7E6844");
 
             /// <summary>Moss patches.</summary>
-            public static readonly Rgba StoneMoss = Rgba.FromHex("#7DB24A");
+            public static readonly Rgba StoneMoss = Saturation.OfUi("#7DB24A");
 
             /// <summary>Card / tray top.</summary>
-            public static readonly Rgba ParchmentTop = Rgba.FromHex("#FFF8E8");
+            public static readonly Rgba ParchmentTop = Saturation.OfUi("#FFF8E8");
 
             /// <summary>Card / tray bottom.</summary>
-            public static readonly Rgba ParchmentBottom = Rgba.FromHex("#F5E4C3");
+            public static readonly Rgba ParchmentBottom = Saturation.OfUi("#F5E4C3");
 
             /// <summary>Inner border line, plate depth.</summary>
-            public static readonly Rgba ParchmentEdge = Rgba.FromHex("#EBCB9A");
+            public static readonly Rgba ParchmentEdge = Saturation.OfUi("#EBCB9A");
 
             /// <summary>Card outline.</summary>
-            public static readonly Rgba ParchmentLine = Rgba.FromHex("#B48552");
+            public static readonly Rgba ParchmentLine = Saturation.OfUi("#B48552");
 
             /// <summary>Inset wells (jam row, sunk tabs).</summary>
-            public static readonly Rgba ParchmentWell = Rgba.FromHex("#F3D7AB");
+            public static readonly Rgba ParchmentWell = Saturation.OfUi("#F3D7AB");
 
             /// <summary>Cream button / slot / booster face.</summary>
-            public static readonly Rgba CreamFace = Rgba.FromHex("#FCE7C8");
+            public static readonly Rgba CreamFace = Saturation.OfUi("#FCE7C8");
 
             /// <summary>Cream face top.</summary>
-            public static readonly Rgba CreamTop = Rgba.FromHex("#FFF6E6");
+            public static readonly Rgba CreamTop = Saturation.OfUi("#FFF6E6");
 
             /// <summary>Cream lower lip.</summary>
-            public static readonly Rgba CreamLip = Rgba.FromHex("#E6C69B");
+            public static readonly Rgba CreamLip = Saturation.OfUi("#E6C69B");
 
             /// <summary>Cream outline.</summary>
-            public static readonly Rgba CreamLine = Rgba.FromHex("#C79F6F");
+            public static readonly Rgba CreamLine = Saturation.OfUi("#C79F6F");
 
             /// <summary>Sign letters, counts, glyphs on cream, row labels: a near-black warm brown.</summary>
-            public static readonly Rgba InkBrown = Rgba.FromHex("#3A2416");
+            public static readonly Rgba InkBrown = Saturation.OfUi("#3A2416");
 
             /// <summary>Big card and sheet titles and the win and milestone signs: a warmer red-brown.</summary>
-            public static readonly Rgba InkTitle = Rgba.FromHex("#6E3416");
+            public static readonly Rgba InkTitle = Saturation.OfUi("#6E3416");
 
             /// <summary>Body text on parchment.</summary>
-            public static readonly Rgba InkBrownSoft = Rgba.FromHex("#7B5A3A");
+            public static readonly Rgba InkBrownSoft = Saturation.OfUi("#7B5A3A");
 
             /// <summary>Lotus petals.</summary>
-            public static readonly Rgba LotusFill = Rgba.FromHex("#F7739F");
+            public static readonly Rgba LotusFill = Saturation.OfUi("#F7739F");
 
             /// <summary>Lotus petal light.</summary>
-            public static readonly Rgba LotusTip = Rgba.FromHex("#FFE4EE");
+            public static readonly Rgba LotusTip = Saturation.OfUi("#FFE4EE");
 
             /// <summary>Lotus outline.</summary>
-            public static readonly Rgba LotusLine = Rgba.FromHex("#D14F7A");
+            public static readonly Rgba LotusLine = Saturation.OfUi("#D14F7A");
 
             /// <summary>Count badge disc.</summary>
-            public static readonly Rgba BadgeGreen = Rgba.FromHex("#245C34");
+            public static readonly Rgba BadgeGreen = Saturation.OfUi("#245C34");
 
             /// <summary>Gameplay lawn.</summary>
-            public static readonly Rgba LawnLight = Rgba.FromHex("#9CC842");
+            public static readonly Rgba LawnLight = Saturation.OfBackground("#9CC842");
 
             /// <summary>Lawn shade, grass strokes.</summary>
-            public static readonly Rgba LawnDark = Rgba.FromHex("#64982D");
+            public static readonly Rgba LawnDark = Saturation.OfBackground("#64982D");
 
             /// <summary>The gameplay garden's deepest foliage: the hedge and the bushes' shade (spec 005 FR-020, §4.2).</summary>
-            public static readonly Rgba FoliageDeep = Rgba.FromHex("#1F4D17");
+            public static readonly Rgba FoliageDeep = Saturation.OfBackground("#1F4D17");
 
             /// <summary>The gameplay garden's foliage.</summary>
-            public static readonly Rgba Foliage = Rgba.FromHex("#3A8526");
+            public static readonly Rgba Foliage = Saturation.OfBackground("#3A8526");
 
             /// <summary>The gameplay garden's sunlit leaves.</summary>
-            public static readonly Rgba FoliageLight = Rgba.FromHex("#7DC443");
+            public static readonly Rgba FoliageLight = Saturation.OfBackground("#7DC443");
 
             /// <summary>Ivy / clover leaves on signs.</summary>
-            public static readonly Rgba IvyLeaf = Rgba.FromHex("#96D03C");
+            public static readonly Rgba IvyLeaf = Saturation.OfUi("#96D03C");
 
             /// <summary>Ivy outline.</summary>
-            public static readonly Rgba IvyLine = Rgba.FromHex("#2F6A18");
+            public static readonly Rgba IvyLine = Saturation.OfUi("#2F6A18");
 
             /// <summary>Jam Return / Bloom Burst buttons.</summary>
-            public static readonly Rgba ButtonBlue = Rgba.FromHex("#45A3EE");
+            public static readonly Rgba ButtonBlue = Saturation.OfUi("#45A3EE");
 
             /// <summary>Orange buttons ("Next" in the strip).</summary>
-            public static readonly Rgba ButtonOrange = Rgba.FromHex("#F6B021");
+            public static readonly Rgba ButtonOrange = Saturation.OfUi("#F6B021");
 
             /// <summary>Win light rays (alpha).</summary>
-            public static readonly Rgba RayLight = Rgba.FromHex("#FFF4C8");
+            public static readonly Rgba RayLight = Saturation.OfBackground("#FFF4C8");
 
             /// <summary>Every color token by its contract name (tests and docs).</summary>
             public static IReadOnlyDictionary<string, Rgba> All { get; } = new Dictionary<string, Rgba>(StringComparer.Ordinal)
@@ -587,8 +610,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The backdrop of a level band, mixed 35% toward its theme (FR-008, FR-066); null theme colors keep the defaults.</summary>
         public static BackdropColors Backdrop(string? themeBackgroundHex, string? themeAccentHex)
         {
-            Rgba background = themeBackgroundHex != null ? Rgba.FromHex(themeBackgroundHex) : Colors.BackdropSkyBottom;
-            Rgba accent = themeAccentHex != null ? Rgba.FromHex(themeAccentHex) : Colors.BackdropHillFar;
+            // The theme's tints on the backdrop's step of the saturation ladder, as the backdrop's own colors.
+            Rgba background = themeBackgroundHex != null ? Saturation.OfBackground(themeBackgroundHex) : Colors.BackdropSkyBottom;
+            Rgba accent = themeAccentHex != null ? Saturation.OfBackground(themeAccentHex) : Colors.BackdropHillFar;
             const float t = 0.35f;
             return new BackdropColors(
                 Colors.BackdropSkyTop.Mix(accent, t),

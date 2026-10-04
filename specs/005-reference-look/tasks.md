@@ -452,3 +452,17 @@ contracts/look.md §6.8 and §6.9. Presentation only (FR-002).
   0.84 of the full frame when one more row then fits above the footer, the frames centered across the grid) and the
   footer right under a page's last row; `TheCollectionPage_KeepsItsRegionsInOrder_AndEveryTargetReachable` updated;
   contracts/look.md §6.8, §6.9 and spec.md; all checks; frames 5 and 6 reviewed at 16:9, 19.5:9 and 21:9.
+
+## Owner note: the saturation ladder (2026-10-04)
+
+See spec.md (the clarification "the owner's saturation ladder", FR-031) and contracts/look.md §1.4. Presentation only
+(FR-002).
+- [X] T085 The kit: `Rgba.Saturate` (HSL saturation, lightness and hue kept) and `DesignTokens.Saturation`
+  (`Background` 0.6, `Ui` 0.7, `OfBackground`, `OfUi`): the backdrop, lawn, foliage and rays tokens and the themes'
+  tints on the background step, every other UI token and `GardenLook`'s literal colors on the UI step; the board's
+  pieces, the characters and the text colors as designed; `GardenLookTests` with the contract's shades on the ladder.
+- [X] T086 The owner's pictures: `tools/heroanim/saturation.mjs` (the heroes' mean, the backgrounds to 60% and the UI
+  pictures to 70% of it, idempotent, `saturation.json`) and `layers.mjs` (the layered Home as one scene by its
+  garden's factor, `layers.json` `saturation`); the backgrounds re-encoded once from the owner's PNG files; the source
+  records (`tools/artgen/models/owner-pictures.md`, `tools/heroanim/SOURCE.md`, `README.md`, pictures.md); all checks;
+  the preview's frames 3, 7, 15, 17 and 27 compared before and after.
