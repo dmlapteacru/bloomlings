@@ -84,9 +84,10 @@ namespace Bloomlings.Playtest.Design
     /// wooden rim. A tap on an animated hero makes it react (<see cref="HomeMotion.Tap"/>).</description></item>
     /// <item><description>Shown once unlocked: the Daily Challenge as a cream round button at the right; "N levels to
     /// reward" with the gift as a parchment pill under Play.</description></item>
-    /// <item><description>The bottom menu (spec 005 FR-030, <see cref="Kit.BottomNav"/>): the wooden bar with the unlocked
-    /// places (Shop, Wardrobe, Home, Leaderboard, Collection), Home in the raised medallion; it replaced Home's Store,
-    /// Wardrobe and Collection side buttons and the rank pill (<see cref="DesignApp.Navigate"/>).</description></item>
+    /// <item><description>The bottom menu (spec 005 FR-030, <see cref="Kit.BottomNav"/>): the wooden bar with its five
+    /// places always shown (Shop, Wardrobe, Home, Leaderboard, Collection; a locked one with a padlock badge, its page or
+    /// card saying from which level it is available), Home in the raised medallion; it replaced Home's Store, Wardrobe and
+    /// Collection side buttons and the rank pill (<see cref="DesignApp.Navigate"/>).</description></item>
     /// </list>
     /// Play always continues Level N, and there is no level map. The playtest's skip and reset controls, not part of the
     /// product, moved from Home's bottom into the Settings card opened from Home (<see cref="MenuCards.Settings"/>) when the
@@ -157,8 +158,8 @@ namespace Bloomlings.Playtest.Design
                 Teaser(p, r.Teaser, teaser);
             }
 
-            // The bottom menu, Home in its medallion (FR-030).
-            Kit.BottomNav(p, Nav(p, look, NavPlace.Home), app.Navigate);
+            // The bottom menu, Home in its medallion, the locked places with their padlocks (FR-030).
+            Kit.BottomNav(p, Nav(p, NavPlace.Home), look, app.Navigate);
 
             string? toast = app.HomeToastText;
             if (toast != null)
@@ -194,9 +195,9 @@ namespace Bloomlings.Playtest.Design
             return HomeLook.From(meta.Progression.IsUnlocked, meta.Collection.Count, hasNext, dailyChallengeAvailable: true, freeBoosterOffer: false);
         }
 
-        /// <summary>The bottom menu's regions with the places <paramref name="look"/> unlocks and <paramref name="active"/> in the medallion.</summary>
-        public static BottomNavRegions Nav(IPainter p, HomeLook look, NavPlace active) =>
-            ScreenLayout.BottomNav(p.Width, p.Height, p.Insets, BottomNav.Places(look), active);
+        /// <summary>The bottom menu's regions with its five places (<see cref="BottomNav.Order"/>) and <paramref name="active"/> in the medallion.</summary>
+        public static BottomNavRegions Nav(IPainter p, NavPlace active) =>
+            ScreenLayout.BottomNav(p.Width, p.Height, p.Insets, BottomNav.Order, active);
 
         /// <summary>The outfits Home's heroes wear: the player's, once the Wardrobe is open; else none.</summary>
         public static Func<Family, Outfit>? OutfitsOf(DesignApp app) => Look(app).Wardrobe ? app.Meta.Wardrobe.OutfitOf : (Func<Family, Outfit>?)null;

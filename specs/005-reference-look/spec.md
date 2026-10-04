@@ -181,12 +181,14 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
 - Q: Which places, in which order? → A: Shop, Wardrobe, Home, Leaderboard, Collection. A place shows only once its
   feature is unlocked (a player never sees the button of a locked feature): the Shop from L12, the Wardrobe from L40,
   the Leaderboard from L10, the Collection once a picture is won; Home always. The shown places keep their order and
-  share the bar's width evenly, so early on Home stands alone.
+  share the bar's width evenly, so early on Home stands alone. (Changed the same day by the owner's last question
+  below: all five places always show, a locked one with a padlock.)
 - Q: Which place is raised, and where does a tap go? → A: The screen's own place: Home on Home, the Shop on the Store
   page, the Wardrobe on the Wardrobe; a tap on it does nothing. The Shop opens the Store page, the Wardrobe the
   Wardrobe, Home returns to Home, and the Leaderboard and the Collection open their cards over Home (from the Store page
   or the Wardrobe, Home first). The click sounds as on every button.
-- Q: Where does it show? → A: On Home, the Store page and the Wardrobe, always (with Home alone early on); not in
+- Q: Where does it show? → A: On Home, the Store page and the Wardrobe, always (with all five places since the last
+  question below; Home alone early on before it); not in
   gameplay, on the win, milestone, jam or pause cards, nor on the splash.
 - Q: What leaves Home? → A: The buttons that now do the same thing, so nothing is doubled (the owner had disliked two
   Wardrobe buttons): the Store side button, the Wardrobe button (the profile avatar with its shirt badge; the avatar
@@ -208,6 +210,21 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
   The medallion grows to `0.2W` with its icon 163 px, a little larger than the plank's, and rises `0.03W` instead of
   `0.05W`, so the menu's top stays `0.17W` above the safe bottom and Home, the Store page and the Wardrobe keep their
   layout.
+- Q (the owner, the same day): "The menu's places must always be visible. But if some things are available only from a
+  level, then on entering the menu's place the page must say that it is only available after reaching level N." → A:
+  The five places always show, in their order and sharing the plank as five, from Level 1 (`BottomNav.Order`; which
+  are open is `BottomNav.IsOpen`, as the places showed before: Home always, the Shop from L12, the Wardrobe from L40,
+  the Leaderboard from L10, the Collection with its first picture). A locked place keeps the owner's icon, unchanged
+  and still tappable, with a small padlock badge at its lower right (the outfit cards' cream badge with the brown
+  padlock, 0.34 of the icon, inside the plank's band; the raised place never has one). A tap on it opens its page or
+  card as usual, which then shows the locked notice instead of its content: the place's icon large with the padlock
+  badge, "Available from level N" in brown title letters and "Keep playing to unlock it!" under it (contracts/look.md
+  §6.7). The Store page keeps its garden, header and parchment panel, the notice in place of the tabs and rows; the
+  Wardrobe keeps its garden and header, the page's lighter panel holding the notice in place of the hero, the name
+  card, the tabs, the cards and the footer; the Leaderboard and Collection cards keep their title and close button,
+  the notice in place of the ranks or the pictures. N comes from each build's own roadmap (`UnlockRoadmap.LevelOf`:
+  12, 40 and 10), and the Collection's is 2 (its first picture comes with Level 1's win). A locked Store page is not a
+  Store visit: no `store_open`. Rules, the economy and unlocks stay as they are (FR-002).
 
 ### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
 
@@ -392,10 +409,11 @@ Wardrobe, and the bottom menu with the owner's wooden variant.
    fountain where the reference shows them, each breathing and swaying in its idle loop, one reacting every few
    seconds in turn, and a tap on a hero makes it react at once while a tap on any button still does what it did.
 6. **Given** Home, the Store page or the Wardrobe (FR-030), **When** it shows, **Then** the wooden bottom menu lies
-   across the screen's bottom with the unlocked places (Shop, Wardrobe, Home, Leaderboard, Collection; Home alone early
-   on), the screen's own place raised in the medallion; a tap on another place opens the Store page, the Wardrobe,
-   Home, or the Leaderboard or Collection card over Home, and Home shows no Store, Wardrobe or Collection side button
-   and no rank pill.
+   across the screen's bottom with its five places from Level 1 (Shop, Wardrobe, Home, Leaderboard, Collection; a
+   locked one with a padlock badge on its icon), the screen's own place raised in the medallion; a tap on another place
+   opens the Store page, the Wardrobe, Home, or the Leaderboard or Collection card over Home, a locked one its page or
+   card saying "Available from level N" (12, 40, 10, and 2 for the Collection) instead of its content, and Home shows
+   no Store, Wardrobe or Collection side button and no rank pill.
 5. **Given** a won level, **When** the win (or the milestone) shows its celebrating hero (Twig), **Then** the hero plays its
    reaction as it appears and then idles for as long as the screen shows.
 
@@ -617,7 +635,8 @@ inventory.
 
 #### J. The bottom menu (the owner's request, 2026-10-04)
 
-- **FR-030**: Home, the Store page and the Wardrobe MUST show the owner's wooden bottom menu in both builds
+- **FR-030** *(amended on 2026-10-04: every place always shows; a locked one says its level)*: Home, the Store page and
+  the Wardrobe MUST show the owner's wooden bottom menu in both builds
   (contracts/look.md §6.7, `ScreenLayout.BottomNav`): a warm brown wooden plank across the screen's bottom (its plank
   about `0.14W` tall on the safe bottom, the wood running on behind the bottom inset) with grain, rounded ends and thin
   grooves between the places, and no vines at its ends (the owner's review of 2026-10-04); the places' icons (the
@@ -626,12 +645,20 @@ inventory.
   wooden medallion (a lighter wood disc in a darker rim with vines and two small white flowers, about `0.2W`, rising
   about `0.03W` over the plank's top, its icon a little larger than the plank's). The menu's top stays `0.17W` above
   the safe bottom. The places, left to right, are Shop, Wardrobe, Home, Leaderboard
-  and Collection; a place MUST show only once its feature is unlocked (the Shop from L12, the Wardrobe from L40, the
-  Leaderboard from L10, the Collection once a picture is won; Home always), and the shown places share the bar's width
-  evenly. A tap on the Shop opens the Store page, on the Wardrobe the Wardrobe, on Home returns to Home, on the
-  Leaderboard or the Collection opens its card over Home (from a page, Home first), with the click; a tap on the
-  medallion's place does nothing. Every place's touch box MUST be at least the touch minimum, inside the safe area and
-  clear of the screen's other buttons. The menu MUST NOT show in gameplay, on the win, milestone, jam or pause cards, or
+  and Collection; all five MUST always show, sharing the bar's width evenly (the owner's request of 2026-10-04). A place
+  is open once its feature is unlocked (the Shop from L12, the Wardrobe from L40, the Leaderboard from L10, the
+  Collection once a picture is won; Home always); a locked place MUST keep the owner's icon, unchanged and tappable,
+  with a small padlock badge at its lower right inside the plank's band (about 0.34 of the icon; never on the
+  medallion's place). A tap on the Shop opens the Store page, on the Wardrobe the Wardrobe, on Home returns to Home, on
+  the Leaderboard or the Collection opens its card over Home (from a page, Home first), with the click; a tap on the
+  medallion's place does nothing. A locked place's page or card MUST show the locked notice instead of its content:
+  the place's icon with the padlock badge, "Available from level N" and "Keep playing to unlock it!" (contracts/look.md
+  §6.7), N from the build's own roadmap (12, 40, 10) or 2 for the Collection: the locked Store page keeps its garden,
+  header and parchment panel, the notice in place of its tabs, rows, page arrows and offline line; the locked Wardrobe
+  keeps its garden and header, the page's lighter panel holding the notice in place of the hero, name card, tabs,
+  cards and footer; the locked Leaderboard and Collection cards keep their title and close button. A locked Store page
+  MUST NOT send `store_open` (it is not a Store visit). Every place's touch box MUST be at least the touch minimum,
+  inside the safe area and clear of the screen's other buttons. The menu MUST NOT show in gameplay, on the win, milestone, jam or pause cards, or
   on the splash. Home MUST NOT keep a button the menu doubles: its Store, Wardrobe and Collection side buttons and its
   rank pill are removed. The menu changes no rule, economy value, unlock or tap outcome inside a screen (FR-002); it
   only adds these ways between Home, its pages and its cards.
@@ -677,11 +704,13 @@ inventory.
   logo and above the level plaque, each about its measured height, with its shadow under its feet (`HeroMotionTests`).
 - **SC-009**: In the preview and on a device, a tap on a hero makes it react and a tap on Play, a side button,
   Settings, the Petals pill, the plaque or the bottom menu does what it did before FR-028.
-- **SC-011**: On every screen shape from 16:9 to 21:9 and for one to five shown places, the bottom menu lies across the
-  screen's bottom with its plank on the safe bottom, its places in order and evenly spread, the medallion over the
-  active place rising above the plank and inside the screen, every other place's touch box at least the touch minimum
-  inside the safe area; Home's Play and teaser row and the Store's and the Wardrobe's content end above its top
-  (`ReferenceLayoutTests`); and in the preview its places open what FR-030 says (frames 17 and 27).
+- **SC-011**: On every screen shape from 16:9 to 21:9 and for one to five shown places (the screens show all five since
+  2026-10-04), the bottom menu lies across the screen's bottom with its plank on the safe bottom, its places in order
+  and evenly spread, the medallion over the active place rising above the plank and inside the screen, every other
+  place's touch box at least the touch minimum inside the safe area and a locked place's padlock badge inside its icon
+  and the plank's band; Home's Play and teaser row and the Store's and the Wardrobe's content end above its top; the
+  locked notice keeps its parts in order inside its area (`ReferenceLayoutTests`); and in the preview its places open
+  what FR-030 says (frames 17 and 27; locked, frames 29 to 31).
 - **SC-010**: These hold on every screen shape from 16:9 to 21:9, with two to six Source stacks, with or without
   boosters, a badge or a bottom entry (`ReferenceLayoutTests` checks them on its phone shapes):
   - no two pods of the tray overlap;

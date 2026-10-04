@@ -30,6 +30,9 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the bottom menu over the panel's foot, the Shop in its medallion (spec 005 FR-030); the list
     /// ends above it.</description></item>
     /// </list>
+    /// Before the Store unlocks (L12) the bottom menu's Shop still opens the page, locked (<see cref="Locked"/>): the same
+    /// backdrop, header and panel, the panel holding the locked notice ("Available from level 12") instead of the tabs,
+    /// rows and page arrows.
     /// Buying goes through the Unity client's shared economy and <see cref="WardrobeService"/>; the playtest keeps no rule
     /// of its own.
     /// </summary>
@@ -41,6 +44,13 @@ namespace Bloomlings.Playtest.Design
         public static void Draw(IPainter p, DesignApp app)
         {
             PlaytestMeta meta = app.Meta;
+            HomeLook look = HomeScreen.Look(app);
+            if (!BottomNav.IsOpen(NavPlace.Shop, look))
+            {
+                Locked(p, app, look);
+                return;
+            }
+
             bool cosmetics = meta.Wardrobe.IsAvailable;
             ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, cosmetics);
             DesignApp.DrawBackdrop(p, BackdropScene.Home, meta.CurrentLevel, OwnerPictures.Wardrobe);
@@ -63,7 +73,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The bottom menu, the Shop in its medallion (FR-030); the header last, as on the Wardrobe.
-            Kit.BottomNav(p, HomeScreen.Nav(p, HomeScreen.Look(app), NavPlace.Shop), app.Navigate);
+            Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Shop), look, app.Navigate);
             Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, () => app.HomeToast(PlaytestText.T("store.offline")));
 
             string? toast = app.HomeToastText;
@@ -71,6 +81,24 @@ namespace Bloomlings.Playtest.Design
             {
                 Kit.Toast(p, new Box(r.Safe.Left, r.Panel.Top, r.Safe.Right, r.Footer.Top), toast);
             }
+        }
+
+        /// <summary>
+        /// The locked Store page (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
+        /// Wardrobe's garden, the parchment panel holding the locked notice (<see cref="Kit.LockedNotice"/>: the Shop's
+        /// icon with its padlock, "Available from level N" from the roadmap) where the tabs and rows would be, the bottom
+        /// menu with the Shop raised, and the header with its back and the Petals pill, without the "+" (the Store it
+        /// would open is the locked one).
+        /// </summary>
+        private static void Locked(IPainter p, DesignApp app, HomeLook look)
+        {
+            LockedPageRegions r = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);
+            DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
+            float radius = r.PanelRadius(p.Scale);
+            Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
+            Kit.LockedNotice(p, r.Notice, NavPlace.Shop, app.UnlockLevel(NavPlace.Shop));
+            Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Shop), look, app.Navigate);
+            Kit.PageHeader(p, r.Header, PlaytestText.T("store.title"), app.CloseStore, app.ShownPetals, null);
         }
 
         /// <summary>The Shop's rows, a page of them (<see cref="ReferenceStoreRegions.RowsPerPage"/>), with the footer when there are more.</summary>

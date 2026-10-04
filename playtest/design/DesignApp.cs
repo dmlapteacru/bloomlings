@@ -37,7 +37,8 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the Store page (preview frames 17 and 26; spec 005 FR-029), opened from the bottom menu or a
     /// Petals pill's "+";</description></item>
     /// <item><description>the bottom menu on Home, the Store page and the Wardrobe (spec 005 FR-030,
-    /// <see cref="Navigate"/>);</description></item>
+    /// <see cref="Navigate"/>), its five places always shown: a locked one with a padlock, its page or card saying from
+    /// which level it is available;</description></item>
     /// <item><description>the cards over them (frames 4–6, 10, 11, 15 and 16).</description></item>
     /// </list>
     /// The very first launch goes straight into Level 1, and later launches open Home (spec 001 US2). Progress, Petals,
@@ -236,10 +237,20 @@ namespace Bloomlings.Playtest.Design
         public NavPlace ActivePlace => Screen == Screen.Store ? NavPlace.Shop : Screen == Screen.Wardrobe ? NavPlace.Wardrobe : NavPlace.Home;
 
         /// <summary>
+        /// Whether a place of the bottom menu is open now (<see cref="BottomNav.IsOpen"/> with Home's look): a locked one
+        /// still shows and opens its page or card, which says from which level it is available (<see cref="UnlockLevel"/>).
+        /// </summary>
+        public bool PlaceOpen(NavPlace place) => BottomNav.IsOpen(place, HomeScreen.Look(this));
+
+        /// <summary>The level a locked place's page or card names: its unlock's level in the progression's own roadmap (<see cref="BottomNav.UnlockLevel"/>).</summary>
+        public int UnlockLevel(NavPlace place) => BottomNav.UnlockLevel(place, Meta.Progression.Roadmap.LevelOf);
+
+        /// <summary>
         /// A tap on a place of the bottom menu (spec 005 FR-030), with the click: the Shop opens the Store page
         /// (<see cref="OpenStore"/>, its back returning to the Wardrobe when it was open), the Wardrobe the Wardrobe, Home
         /// returns to Home, and the Leaderboard and the Collection open their cards over Home (from a page, Home comes
-        /// first). The active place does nothing.
+        /// first). The active place does nothing. A locked place opens its page or card all the same, which then shows the
+        /// locked notice instead of its content (<see cref="PlaceOpen"/>; the owner's request of 2026-10-04).
         /// </summary>
         public void Navigate(NavPlace place)
         {

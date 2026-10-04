@@ -11,7 +11,7 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The Wardrobe (preview frame 27; spec 005 FR-025) in the reference layout (contracts/look.md §6.5,
-    /// <see cref="ScreenLayout.ReferenceWardrobe"/>), opened from the bottom menu's Wardrobe once it unlocks (L40):
+    /// <see cref="ScreenLayout.ReferenceWardrobe"/>), opened from the bottom menu's Wardrobe (open from L40):
     /// <list type="bullet">
     /// <item><description>the page header on one line (<see cref="Kit.PageHeader"/>, shared with the Store page): the
     /// cream round back button, the wooden "Wardrobe" banner with ivy and the Petals pill (its "+" opens the Store page,
@@ -30,6 +30,9 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the bottom menu over the panel's foot, the Wardrobe in its medallion (spec 005 FR-030); the
     /// cards and the footer stand above it.</description></item>
     /// </list>
+    /// Before the Wardrobe unlocks (L40) the bottom menu's Wardrobe still opens the page, locked (<see cref="Locked"/>):
+    /// the same garden and header, and the page's lighter panel holding the locked notice ("Available from level 40")
+    /// instead of the hero, the name card, the tabs, the cards and the footer.
     /// Equipping and buying go through the Unity client's shared <see cref="WardrobeService"/> (and its economy); the
     /// playtest keeps no rule of its own. The profile items (frames, badges, markers) stay in the Store.
     /// </summary>
@@ -66,6 +69,13 @@ namespace Bloomlings.Playtest.Design
         public static void Draw(IPainter p, DesignApp app)
         {
             PlaytestMeta meta = app.Meta;
+            HomeLook look = HomeScreen.Look(app);
+            if (!BottomNav.IsOpen(NavPlace.Wardrobe, look))
+            {
+                Locked(p, app, look);
+                return;
+            }
+
             WardrobeService wardrobe = meta.Wardrobe;
             ReferenceWardrobeRegions r = ScreenLayout.ReferenceWardrobe(p.Width, p.Height, p.Insets);
             IReadOnlyList<Family> families = WardrobeService.Families;
@@ -147,17 +157,39 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The bottom menu, the Wardrobe in its medallion (FR-030).
-            Kit.BottomNav(p, HomeScreen.Nav(p, HomeScreen.Look(app), NavPlace.Wardrobe), app.Navigate);
+            Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Wardrobe), look, app.Navigate);
 
             // The header last, on one line (the Store page's too): the back button, the banner with ivy, the Petals pill,
             // whose "+" opens the Store page (its back returns here).
-            bool store = meta.Progression.IsUnlocked(HomeLook.StoreUnlock);
-            Kit.PageHeader(p, r.Header, PlaytestText.T("wardrobe.title"), app.CloseWardrobe, app.ShownPetals, store ? app.OpenStore : (Action?)null);
+            Kit.PageHeader(p, r.Header, PlaytestText.T("wardrobe.title"), app.CloseWardrobe, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
 
             string? toast = app.HomeToastText;
             if (toast != null)
             {
                 Kit.Toast(p, new Box(r.Safe.Left, r.Hero.Top, r.Safe.Right, r.Pedestal.Bottom), toast);
+            }
+        }
+
+        /// <summary>
+        /// The locked Wardrobe (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
+        /// Wardrobe's garden, the page's lighter panel (as under its family tabs) from under the header to the bottom of
+        /// the screen holding the locked notice (<see cref="Kit.LockedNotice"/>: the Wardrobe's icon with its padlock,
+        /// "Available from level N" from the roadmap), the bottom menu with the Wardrobe raised, and the header as usual
+        /// (the Petals pill's "+" opens the Store page once it is open).
+        /// </summary>
+        private static void Locked(IPainter p, DesignApp app, HomeLook look)
+        {
+            LockedPageRegions r = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets);
+            DesignApp.DrawBackdrop(p, BackdropScene.Home, app.Meta.CurrentLevel, OwnerPictures.Wardrobe);
+            Kit.Panel(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + p.U(Kit.PanelRadius)));
+            Kit.LockedNotice(p, r.Notice, NavPlace.Wardrobe, app.UnlockLevel(NavPlace.Wardrobe));
+            Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Wardrobe), look, app.Navigate);
+            Kit.PageHeader(p, r.Header, PlaytestText.T("wardrobe.title"), app.CloseWardrobe, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null);
+
+            string? toast = app.HomeToastText;
+            if (toast != null)
+            {
+                Kit.Toast(p, new Box(r.Safe.Left, r.Panel.Top, r.Safe.Right, r.Notice.Bottom), toast);
             }
         }
 

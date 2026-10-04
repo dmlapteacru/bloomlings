@@ -56,11 +56,13 @@ namespace Bloomlings.Playtest.Preview
 
             yield return new Fixture(2, "home-early", "Home (early levels)", (p, data) =>
             {
-                DesignApp app = App(data);
-                app.Meta.SkipTo(4);
-                app.GoHome();
-                CloseAll(app);
+                // Level 5 with the pictures of the four won levels, as a player has them: the bottom menu shows its five
+                // places (spec 005 FR-030), the Shop, the Wardrobe and the Leaderboard with their padlocks.
+                DesignApp app = Early(App(data), content, 4);
                 Run(app, p, 0.3f);
+                Expect(Nav(p, app).Places.Count == 5, "every place shows on an early Home");
+                Expect(!app.PlaceOpen(NavPlace.Shop) && !app.PlaceOpen(NavPlace.Wardrobe) && !app.PlaceOpen(NavPlace.Leaderboard), "the Shop, the Wardrobe and the Leaderboard are locked at Level 5");
+                Expect(app.PlaceOpen(NavPlace.Home) && app.PlaceOpen(NavPlace.Collection), "Home and the Collection are open at Level 5");
             });
 
             yield return new Fixture(3, "home-progressed", "Home (progressed)", (p, data) =>
@@ -184,7 +186,11 @@ namespace Bloomlings.Playtest.Preview
             });
         }
 
-        /// <summary>Extra review images beyond the board's 17 frames: themes, Settings, a Collection picture, a demo, boosters in use.</summary>
+        /// <summary>
+        /// Extra review images beyond the board's 17 frames: themes, Settings, a Collection picture, a demo, boosters in use,
+        /// the kit, the Store's cosmetics, the Wardrobe, Home's heroes in outfits, and the bottom menu's locked places (the
+        /// Store page, the Wardrobe and the Leaderboard card before their unlock).
+        /// </summary>
         public static IEnumerable<Fixture> Extras(ContentSet content)
         {
             DesignApp App(string data) => new DesignApp(data, content, new Silence(), false);
@@ -383,6 +389,72 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "a tap on a hero opens nothing");
                 Run(app, p, 0.6f);
             });
+            yield return new Fixture(29, "store-locked", "Extra: locked Store page (spec 005 FR-030)", (p, data) =>
+            {
+                // Level 5: the bottom menu's Shop, locked, still opens the Store page, which says from which level it is
+                // available (the roadmap's L12), the Shop raised in the medallion; its back returns to Home.
+                DesignApp app = Early(App(data), content, 4);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Shop));
+                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Home, "the locked Shop opens the Store page");
+                Expect(app.UnlockLevel(NavPlace.Shop) == 12, "the Store opens from the roadmap's level 12");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "Available from level 12"), "the locked Store page says its level");
+                Expect(Nav(p, app).Active == NavPlace.Shop, "the locked Store page raises the Shop");
+                Tap(p, ScreenLayout.LockedPage(p.Width, p.Height, p.Insets).Header.Back);
+                Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "the locked Store page's back returns to Home");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Shop));
+                Expect(app.Screen == Design.Screen.Store, "the locked Shop opens the Store page again");
+                Run(app, p, 0.5f);
+            });
+            yield return new Fixture(30, "wardrobe-locked", "Extra: locked Wardrobe (spec 005 FR-030)", (p, data) =>
+            {
+                // Level 15: the Store, the Leaderboard and the Collection are open, the Wardrobe not yet (L40). The menu's
+                // Wardrobe opens the Wardrobe locked, saying its level; its Shop opens the open Store page over it, whose
+                // back returns here, and so does its Petals "+".
+                DesignApp app = Progressed(App(data), content, 14);
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
+                Expect(app.Screen == Design.Screen.Wardrobe && !app.PlaceOpen(NavPlace.Wardrobe), "the locked Wardrobe place opens the Wardrobe");
+                Expect(app.UnlockLevel(NavPlace.Wardrobe) == 40, "the Wardrobe opens from the roadmap's level 40");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "Available from level 40"), "the locked Wardrobe says its level");
+                Tap(p, NavTouch(p, app, NavPlace.Shop));
+                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Wardrobe, "the locked Wardrobe's Shop opens the Store page over it");
+                Run(app, p, 0.1f);
+                Expect(!Shows(p, "Available from level 12"), "the Store page is open at Level 15");
+                Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);
+                Expect(app.Screen == Design.Screen.Wardrobe, "the Store page's back returns to the locked Wardrobe");
+                Run(app, p, 0.1f);
+                Box petals = ScreenLayout.LockedPage(p.Width, p.Height, p.Insets).Header.Petals;
+                Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
+                Expect(app.Screen == Design.Screen.Store, "the locked Wardrobe's Petals \"+\" opens the Store page");
+                Expect(app.Back() && app.Screen == Design.Screen.Wardrobe, "the system back returns to the locked Wardrobe");
+                Run(app, p, 0.5f);
+            });
+            yield return new Fixture(31, "leaderboard-locked", "Extra: locked Leaderboard card (spec 005 FR-030)", (p, data) =>
+            {
+                // A new profile on Home (Level 1): the menu's Collection opens its card saying it is available from level 2
+                // (its first picture comes with Level 1's win); the Leaderboard's card says level 10 (the roadmap's).
+                DesignApp app = App(data);
+                app.GoHome();
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Expect(app.Meta.CurrentLevel == 1 && !app.PlaceOpen(NavPlace.Collection), "a new profile's Collection is locked");
+                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Collection), "the locked Collection opens its card");
+                Run(app, p, 0.5f);
+                Expect(Shows(p, "Available from level 2"), "the locked Collection card says level 2");
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
+                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Leaderboard), "the locked Leaderboard opens its card");
+                Expect(app.UnlockLevel(NavPlace.Leaderboard) == 10, "the Leaderboard opens from the roadmap's level 10");
+                Run(app, p, 0.5f);
+                Expect(Shows(p, "Available from level 10"), "the locked Leaderboard card says level 10");
+            });
         }
 
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>
@@ -408,8 +480,11 @@ namespace Bloomlings.Playtest.Preview
             }
         }
 
-        /// <summary>The bottom menu as the app's screen draws it (its unlocked places, the screen's place active).</summary>
-        private static BottomNavRegions Nav(SkiaPainter p, DesignApp app) => HomeScreen.Nav(p, HomeScreen.Look(app), app.ActivePlace);
+        /// <summary>The bottom menu as the app's screen draws it (its five places, the screen's place active).</summary>
+        private static BottomNavRegions Nav(SkiaPainter p, DesignApp app) => HomeScreen.Nav(p, app.ActivePlace);
+
+        /// <summary>Whether the last drawn frame shows <paramref name="text"/> as one of its texts.</summary>
+        private static bool Shows(SkiaPainter p, string text) => p.Texts.Any(t => t.Text == text);
 
         /// <summary>The touch box of a place of the bottom menu as the app's screen draws it.</summary>
         private static Box NavTouch(SkiaPainter p, DesignApp app, NavPlace place)
@@ -446,6 +521,26 @@ namespace Bloomlings.Playtest.Preview
             {
                 app.Level.CloseDemo();
             }
+        }
+
+        /// <summary>
+        /// An early profile at Level <paramref name="highest"/>+1 with the pictures of the levels it won in its Collection, as
+        /// a player has them (the skip collects none), on Home with no card open.
+        /// </summary>
+        private static DesignApp Early(DesignApp app, ContentSet content, int highest)
+        {
+            app.Meta.SkipTo(highest);
+            for (int level = 1; level <= highest; level++)
+            {
+                if (content.TryGetLevel(app.Resolve(level), out LevelDefinition? definition) && definition != null)
+                {
+                    app.Meta.Collection.Add(definition, level);
+                }
+            }
+
+            app.GoHome();
+            CloseAll(app);
+            return app;
         }
 
         /// <summary>A profile at Level <paramref name="highest"/>+1 with some Petals and pictures in its Collection, on Home.</summary>

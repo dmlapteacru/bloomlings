@@ -8,7 +8,9 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// Which Home elements show (FR-017, data-model "HomeLook"). Frame 2 always shows the Petals pill, Settings, Level N
     /// and PLAY. Each frame 3 element shows once its feature is unlocked, and a player who has not unlocked a feature
-    /// never sees its button, card or badge (spec edge cases). Derived from progression, never stored. Engine-free.
+    /// never sees its button, card or badge (spec edge cases), but for the bottom menu's places: since the owner's request
+    /// of 2026-10-04 all five always show, and the look tells which are open (<see cref="BottomNav.IsOpen"/>; a locked one
+    /// has a padlock and its page or card says its level). Derived from progression, never stored. Engine-free.
     /// </summary>
     public sealed record HomeLook(
         bool Store,
@@ -27,6 +29,9 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The early look of frame 2: nothing beyond the essentials.</summary>
         public static HomeLook Early { get; } = new HomeLook(false, false, false, false, false, false, false, false);
+
+        /// <summary>A long-run player's look: everything unlocked (the bottom menu's look on a screen not told its own).</summary>
+        public static HomeLook All { get; } = new HomeLook(true, true, true, true, true, true, true, true);
 
         /// <param name="isUnlocked">Whether a roadmap unlock id is reached.</param>
         /// <param name="collectionCount">Pictures in the Collection.</param>

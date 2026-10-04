@@ -17,6 +17,9 @@ namespace Bloomlings.Playtest.Design
     /// §4.6): parchment cards under wooden sign headers, cream rows and frames, green and cream buttons. The Daily Reward,
     /// the Leaderboard (offline, since the server is deferred) and the Collection; the Store is a page of its own since
     /// the owner's note of 2026-10-04 (<see cref="StoreScreen"/>). Real money and ads are unavailable in the playtest.
+    /// Before their feature opens (spec 005 FR-030: the Leaderboard from L10, the Collection with its first picture), the
+    /// bottom menu still opens the Leaderboard and the Collection cards, locked: their title and the locked notice
+    /// (<see cref="LockedCard"/>).
     /// </summary>
     public static class MetaCards
     {
@@ -109,6 +112,12 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Leaderboard(IPainter p, DesignApp app, float since)
         {
+            if (!app.PlaceOpen(NavPlace.Leaderboard))
+            {
+                LockedCard(p, app, since, PlaytestText.T("leaderboard.title"), NavPlace.Leaderboard);
+                return;
+            }
+
             const float row = 96f;
             CardRegions r = Kit.Card(p, (8f * (row + 14f)) + 110f, PlaytestText.T("leaderboard.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
             Box[] rows = ScreenLayout.Column(r.Body, 8, p.U(row), p.U(14f));
@@ -181,6 +190,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The Collection: a grid of framed finished pictures, and a detail view with its name and level (never a level selector).</summary>
         public static void Collection(IPainter p, DesignApp app, float since)
         {
+            if (!app.PlaceOpen(NavPlace.Collection))
+            {
+                LockedCard(p, app, since, PlaytestText.T("collection.title"), NavPlace.Collection);
+                return;
+            }
+
             IReadOnlyList<CollectionEntry> entries = app.Meta.Collection.Entries;
             if (app.CollectionDetail >= 0 && app.CollectionDetail < entries.Count)
             {
@@ -238,6 +253,18 @@ namespace Bloomlings.Playtest.Design
             {
                 BoardPainter.Picture(p, well.Inset(well.Width * 0.04f), definition, app.Content.GetPicture(definition.Picture));
             }
+        }
+
+        /// <summary>
+        /// A locked place's card (spec 005 FR-030, contracts/look.md §6.7): the card with its <paramref name="title"/> and
+        /// close button, its body holding the locked notice (<see cref="Kit.LockedNotice"/>: the place's icon with its
+        /// padlock, "Available from level N" from the roadmap) instead of the ranks or the pictures.
+        /// </summary>
+        private static void LockedCard(IPainter p, DesignApp app, float since, string title, NavPlace place)
+        {
+            CardRegions r = Kit.Card(p, LockedNoticeRegions.CardContent, title, app.CardClose, Kit.Pop(since), sign: SignDecor.None);
+            Kit.LockedNotice(p, r.Body, place, app.UnlockLevel(place));
+            Kit.EndCard(p);
         }
 
         /// <summary>An item's player-facing name (<c>cosmetic.{id}</c> in the string table), else its catalog name.</summary>

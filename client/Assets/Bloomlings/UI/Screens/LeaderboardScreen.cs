@@ -26,7 +26,10 @@ namespace Bloomlings.Client.UI.Screens
     /// Offline, the last rank read stays on screen with a notice. The player's own row carries their frame, badge and
     /// marker (FR-061 prestige rewards). In the reference look of spec 005 (contracts/look.md §4.6; the playtest's
     /// <c>MetaCards.Leaderboard</c>): a parchment card under a wooden sign, cream rows (the player's raised and green),
-    /// outlined medals, portraits on cream discs, brown names and scores, and the cream Refresh with ⟳.
+    /// outlined medals, portraits on cream discs, brown names and scores, and the cream Refresh with ⟳. Before the
+    /// Leaderboard unlocks (L10) the bottom menu's Leaderboard opens its locked card instead (<see cref="ShowLocked"/>; spec
+    /// 005 FR-030, the playtest's <c>MetaCards.LockedCard</c>): the title, the close button and the locked notice
+    /// ("Available from level 10").
     /// </summary>
     public sealed class LeaderboardScreen : MonoBehaviour
     {
@@ -36,10 +39,13 @@ namespace Bloomlings.Client.UI.Screens
         private const float StatusUnits = 50f;
 
         private GameObject _root = null!;
+        private CardView _locked = null!;
+        private LockedNoticeView _notice = null!;
         private RectTransform _list = null!;
         private Box _listBox;
         private TextMeshProUGUI _status = null!;
 
+        /// <summary>Whether the ranks card is open (the locked card shows no ranks to refresh).</summary>
         public bool IsOpen => _root.activeSelf;
 
         public static LeaderboardScreen Create(Transform parent, Action onRefresh)
@@ -60,6 +66,13 @@ namespace Bloomlings.Client.UI.Screens
             Button refresh = UiKit.SecondaryButton("Refresh", card.Body, Loc.T("leaderboard.refresh"), onRefresh, "ui.restart");
             UiKit.PlaceBox((RectTransform)refresh.transform, ScreenLayout.CardButton(body, y, false, u), body);
             card.Root.SetActive(false);
+
+            // The locked card (FR-030): the title, the close button and the locked notice filling its body.
+            CardView locked = UiKit.Card("LeaderboardLocked", parent, Loc.T("leaderboard.title"), LockedNoticeRegions.CardContent, () => screen.Hide(), sign: SignDecor.None);
+            screen._locked = locked;
+            screen._notice = UiKit.LockedNotice("Locked", locked.Body);
+            UiFactory.Stretch((RectTransform)screen._notice.transform);
+            locked.Root.SetActive(false);
             return screen;
         }
 
@@ -68,6 +81,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="own">The player's frame, badge and marker, drawn on their own row (others' are not known offline).</param>
         public void Show(LeaderboardPage? page, bool stale, ProfileLook? own = null)
         {
+            _locked.Root.SetActive(false);
             _root.SetActive(true);
             for (int i = _list.childCount - 1; i >= 0; i--)
             {
@@ -117,7 +131,23 @@ namespace Bloomlings.Client.UI.Screens
             _root.SetActive(true);
         }
 
-        public void Hide() => _root.SetActive(false);
+        /// <summary>
+        /// Shows the locked card (spec 005 FR-030, contracts/look.md §6.7): the Leaderboard's title, its close button and the
+        /// locked notice of the Leaderboard, available from <paramref name="level"/> (the roadmap's,
+        /// <see cref="BottomNav.UnlockLevel"/>).
+        /// </summary>
+        public void ShowLocked(int level)
+        {
+            _root.SetActive(false);
+            _locked.Root.SetActive(true);
+            _notice.Show(NavPlace.Leaderboard, level);
+        }
+
+        public void Hide()
+        {
+            _root.SetActive(false);
+            _locked.Root.SetActive(false);
+        }
 
         /// <summary>
         /// One rank's row (the playtest's <c>MetaCards.Leaderboard</c>): the medal (gold, silver, bronze) with its number or

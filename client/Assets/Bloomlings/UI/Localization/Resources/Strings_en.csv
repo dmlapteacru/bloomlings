@@ -32,6 +32,8 @@ home.levels_to_reward,{0} levels to reward
 home.level_to_reward,1 level to reward
 home.daily_new,New today · +{0}
 home.daily_new_plain,New today
+locked.message,Available from level {0}
+locked.hint,Keep playing to unlock it!
 settings.title,Settings
 settings.music,Music: {0}
 settings.sound,Sound: {0}

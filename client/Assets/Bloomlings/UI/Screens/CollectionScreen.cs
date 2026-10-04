@@ -19,7 +19,9 @@ namespace Bloomlings.Client.UI.Screens
     /// In the reference look of spec 005 (contracts/look.md §4.3, §4.6; the playtest's <c>MetaCards.Collection</c>, frames
     /// 6 and 20): a parchment card under a wooden sign, the count in soft brown, the pictures in raised cream frames
     /// (<c>collection.frame</c>) three to a row, the cream page arrows, and the detail as its own card whose close goes back
-    /// to the grid.
+    /// to the grid. Before its first picture (from Level 2) the bottom menu's Collection opens its locked card instead
+    /// (<see cref="ShowLocked"/>; spec 005 FR-030, the playtest's <c>MetaCards.LockedCard</c>): the title, the close button
+    /// and the locked notice ("Available from level 2").
     /// </para>
     /// </summary>
     public sealed class CollectionScreen : MonoBehaviour
@@ -62,6 +64,26 @@ namespace Bloomlings.Client.UI.Screens
             _pageIndex = 0;
             _host.gameObject.SetActive(true);
             BuildGrid();
+        }
+
+        /// <summary>
+        /// Shows the locked card (spec 005 FR-030, contracts/look.md §6.7) in the grid's place: the Collection's title, its
+        /// close button and the locked notice of the Collection, available from <paramref name="level"/>
+        /// (<see cref="BottomNav.UnlockLevel"/>, <see cref="BottomNav.CollectionLevel"/>).
+        /// </summary>
+        public void ShowLocked(int level)
+        {
+            _entries = Array.Empty<CollectionEntry>();
+            _pageIndex = 0;
+            _host.gameObject.SetActive(true);
+            CloseDetail(showGrid: false);
+            DestroyCard(ref _grid);
+            ReleaseTextures();
+            CardView card = UiKit.Card("Locked", _host, Loc.T("collection.title"), LockedNoticeRegions.CardContent, Hide, sign: SignDecor.None);
+            _grid = card;
+            LockedNoticeView notice = UiKit.LockedNotice("Notice", card.Body);
+            UiFactory.Stretch((RectTransform)notice.transform);
+            notice.Show(NavPlace.Collection, level);
         }
 
         public void Hide()

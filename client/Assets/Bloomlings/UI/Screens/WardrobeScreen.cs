@@ -36,7 +36,11 @@ namespace Bloomlings.Client.UI.Screens
     /// <item><description>the bottom menu over the panel's foot, the Wardrobe in its medallion (spec 005 FR-030); the
     /// cards and the footer stand above it.</description></item>
     /// </list>
-    /// Cosmetics only change how Bloomlings look; the variant colors and icons stay as they are.
+    /// Cosmetics only change how Bloomlings look; the variant colors and icons stay as they are. Before the Wardrobe
+    /// unlocks (L40) the bottom menu's Wardrobe opens it locked (<see cref="ShowLocked"/>, the playtest's
+    /// <c>WardrobeScreen.Locked</c>; the owner's request of 2026-10-04): the same garden and header, and the page's lighter
+    /// panel holding the locked notice (<see cref="LockedNoticeView"/>: "Available from level 40") instead of the hero, the
+    /// name card, the tabs, the cards and the footer.
     /// </summary>
     public sealed class WardrobeScreen : MonoBehaviour
     {
@@ -47,6 +51,7 @@ namespace Bloomlings.Client.UI.Screens
         private WardrobeService _wardrobe = null!;
         private Func<long>? _petalsSource;
         private bool _store;
+        private bool _plus;
         private PetalsPill? _petals;
         private long _petalsShown = -1;
         private PageHeaderView _header = null!;
@@ -72,8 +77,10 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _footer = null!;
         private Button _pagePrevious = null!;
         private Button _pageNext = null!;
+        private LockedNoticeView _notice = null!;
         private BottomNavView? _nav;
-        private Func<IReadOnlyList<NavPlace>>? _navPlaces;
+        private Func<HomeLook>? _navLook;
+        private bool _locked;
         private ReferenceWardrobeRegions _regions = null!;
         private Family _selected = Family.Sprig;
         private bool _profileMode;
@@ -85,8 +92,8 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="petals">The Petals balance for the pill; null hides the pill.</param>
         /// <param name="onStore">Opens the Store from the pill's "+"; null shows the pill without it.</param>
         /// <param name="onNav">A tap on another place of the bottom menu (spec 005 FR-030); null shows no menu.</param>
-        /// <param name="navPlaces">The places the bottom menu shows (<see cref="BottomNav.Places"/>).</param>
-        public static WardrobeScreen Create(Transform parent, WardrobeService wardrobe, Func<long>? petals = null, Action? onStore = null, Action<NavPlace>? onNav = null, Func<IReadOnlyList<NavPlace>>? navPlaces = null)
+        /// <param name="navLook">The look that tells which places of the bottom menu are open (<see cref="BottomNav.IsOpen"/>); null: all of them.</param>
+        public static WardrobeScreen Create(Transform parent, WardrobeService wardrobe, Func<long>? petals = null, Action? onStore = null, Action<NavPlace>? onNav = null, Func<HomeLook>? navLook = null)
         {
             // A full screen over Home that takes every tap, on the owner's Wardrobe garden (pictures.md B7) or the drawn one.
             Image shade = UiFactory.CreateImage("Wardrobe", parent, null, Color.clear, raycast: true);
@@ -147,10 +154,14 @@ namespace Bloomlings.Client.UI.Screens
             screen._pagePrevious = UiKit.PageArrow("PagePrevious", root, next: false, () => screen.TurnPage(-1));
             screen._pageNext = UiKit.PageArrow("PageNext", root, next: true, () => screen.TurnPage(1));
 
+            // The locked notice on the panel, shown only before the Wardrobe unlocks (FR-030).
+            screen._notice = UiKit.LockedNotice("Locked", root);
+            screen._notice.gameObject.SetActive(false);
+
             // The bottom menu over the panel's foot, the Wardrobe in its medallion (FR-030).
             if (onNav != null)
             {
-                screen._navPlaces = navPlaces;
+                screen._navLook = navLook;
                 screen._nav = UiKit.BottomNav("BottomNav", root, place =>
                 {
                     if (place != NavPlace.Wardrobe)
@@ -172,6 +183,8 @@ namespace Bloomlings.Client.UI.Screens
         {
             // Shown first, so the new cards' text engine is awake when their layouts measure them.
             _root.SetActive(true);
+            Unlock();
+            SyncPlus();
             Refresh();
         }
 
@@ -179,7 +192,73 @@ namespace Bloomlings.Client.UI.Screens
         public void ShowProfile()
         {
             _root.SetActive(true);
+            Unlock();
+            SyncPlus();
             SetMode(true);
+        }
+
+        /// <summary>
+        /// Shows the Wardrobe locked (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the
+        /// header as usual, the page's lighter panel from under the header to the bottom of the screen holding the locked
+        /// notice of the Wardrobe, available from <paramref name="level"/> (the roadmap's,
+        /// <see cref="BottomNav.UnlockLevel"/>), and the bottom menu with the Wardrobe raised; the hero, the name card, the
+        /// tabs, the cards and the footer hide. Its back hides it as usual.
+        /// </summary>
+        public void ShowLocked(int level)
+        {
+            _root.SetActive(true);
+            _locked = true;
+            SyncPlus();
+            SetContent(false);
+            foreach (GameObject card in _cards)
+            {
+                Destroy(card);
+            }
+
+            _cards.Clear();
+            (float w, float h, Insets insets) = UiKit.ScreenFrame();
+            LockedPageRegions r = ScreenLayout.LockedPage(w, h, insets);
+            _header.Place(r.Header);
+            var panel = new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + (60f * DesignTokens.ScaleFor(w, h)));
+            UiKit.PlaceScreen(_panel.rectTransform, panel);
+            UiKit.PlaceScreen(_panelLine.rectTransform, panel);
+            _notice.gameObject.SetActive(true);
+            UiKit.PlaceScreen((RectTransform)_notice.transform, r.Notice);
+            _notice.Show(NavPlace.Wardrobe, level);
+            _nav?.Show(NavPlace.Wardrobe, _navLook?.Invoke() ?? HomeLook.All);
+        }
+
+        /// <summary>Leaves the locked look: the notice hides and the page's own elements show again (<see cref="Refresh"/> then sets each one).</summary>
+        private void Unlock()
+        {
+            _locked = false;
+            _notice.gameObject.SetActive(false);
+            SetContent(true);
+        }
+
+        /// <summary>Shows or hides everything of the open Wardrobe but its garden, its panel, its header and the menu.</summary>
+        private void SetContent(bool shown)
+        {
+            _pedestal.gameObject.SetActive(shown);
+            _hero.Rect.gameObject.SetActive(shown);
+            _avatar.Rect.gameObject.SetActive(shown);
+            _previous.gameObject.SetActive(shown);
+            _next.gameObject.SetActive(shown);
+            _nameCard.gameObject.SetActive(shown);
+            _nameTab.gameObject.SetActive(shown);
+            _role.gameObject.SetActive(shown);
+            _about.gameObject.SetActive(shown);
+            foreach (FamilyTabView tab in _tabs)
+            {
+                tab.gameObject.SetActive(shown);
+            }
+
+            _chips.gameObject.SetActive(shown);
+            _items.gameObject.SetActive(shown);
+            _empty.gameObject.SetActive(shown);
+            _footer.gameObject.SetActive(shown);
+            _pagePrevious.gameObject.SetActive(shown);
+            _pageNext.gameObject.SetActive(shown);
         }
 
         public void Hide() => _root.SetActive(false);
@@ -207,7 +286,7 @@ namespace Bloomlings.Client.UI.Screens
 
         private void OnWardrobeChanged()
         {
-            if (_root != null && _root.activeSelf)
+            if (_root != null && _root.activeSelf && !_locked)
             {
                 Refresh();
             }
@@ -337,10 +416,21 @@ namespace Bloomlings.Client.UI.Screens
                 long now = _petalsSource();
                 if (now != _petalsShown)
                 {
-                    _petals.Show(now, _store);
+                    _petals.Show(now, _plus);
                     _petalsShown = now;
                 }
             }
+        }
+
+        /// <summary>
+        /// Whether the Petals pill shows its "+" (to the Store page) as the screen opens: with a Store to open, once the
+        /// Store is open (spec 005 FR-030: the locked Wardrobe can show before L12, and the "+" must not open the Store
+        /// before its unlock, as on Home). The pill is shown again on the next frame.
+        /// </summary>
+        private void SyncPlus()
+        {
+            _plus = _store && (_navLook == null || _navLook().Store);
+            _petalsShown = -1;
         }
 
         /// <summary>Places every element on the reference regions for the screen's shape (contracts/look.md §6.5).</summary>
@@ -394,7 +484,7 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_footer.rectTransform, r.Footer);
             UiKit.PlaceScreen((RectTransform)_pagePrevious.transform, Touch(r.PagePrevious));
             UiKit.PlaceScreen((RectTransform)_pageNext.transform, Touch(r.PageNext));
-            _nav?.Show(_navPlaces?.Invoke() ?? BottomNav.Order, NavPlace.Wardrobe);
+            _nav?.Show(NavPlace.Wardrobe, _navLook?.Invoke() ?? HomeLook.All);
         }
 
         private static int IndexOf(Family family)

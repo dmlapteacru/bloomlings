@@ -64,6 +64,12 @@ namespace Bloomlings.Client.UI.Screens
     /// back hides it, so the screen under it shows again. The bottom menu stands over the panel's foot, the Shop in its
     /// medallion (spec 005 FR-030); the list ends above it.
     /// </para>
+    /// <para>
+    /// Before the Store unlocks (L12) the bottom menu's Shop opens the page locked (<see cref="ShowLocked"/>, the
+    /// playtest's <c>StoreScreen.Locked</c>; the owner's request of 2026-10-04): the same garden, header and panel, the
+    /// panel holding the locked notice (<see cref="LockedNoticeView"/>: "Available from level 12") instead of the tabs,
+    /// the offline line, the rows and the page arrows.
+    /// </para>
     /// </summary>
     public sealed class StoreScreen : MonoBehaviour
     {
@@ -74,8 +80,9 @@ namespace Bloomlings.Client.UI.Screens
         private TabsView _tabs = null!;
         private TextMeshProUGUI _status = null!;
         private RectTransform _list = null!;
+        private LockedNoticeView _notice = null!;
         private BottomNavView? _nav;
-        private Func<IReadOnlyList<NavPlace>>? _navPlaces;
+        private Func<HomeLook>? _navLook;
         private ReferenceStoreRegions _regions = null!;
         private IReadOnlyList<StoreItem> _items = Array.Empty<StoreItem>();
         private WardrobeService? _wardrobe;
@@ -87,8 +94,8 @@ namespace Bloomlings.Client.UI.Screens
         public bool IsOpen => _root.activeSelf;
 
         /// <param name="onNav">A tap on another place of the bottom menu (spec 005 FR-030); null shows no menu.</param>
-        /// <param name="navPlaces">The places the bottom menu shows (<see cref="BottomNav.Places"/>).</param>
-        public static StoreScreen Create(Transform parent, Action<NavPlace>? onNav = null, Func<IReadOnlyList<NavPlace>>? navPlaces = null)
+        /// <param name="navLook">The look that tells which places of the bottom menu are open (<see cref="BottomNav.IsOpen"/>); null: all of them.</param>
+        public static StoreScreen Create(Transform parent, Action<NavPlace>? onNav = null, Func<HomeLook>? navLook = null)
         {
             // A full screen over Home (or over the Wardrobe, opened from its Petals "+") that takes every tap, on the
             // Wardrobe's garden (the owner's picture B7, or the drawn one), as the Wardrobe.
@@ -108,10 +115,14 @@ namespace Bloomlings.Client.UI.Screens
             screen._status = UiKit.Label("Status", root, Loc.T("store.offline"), T.Caption, UiTheme.Of(C.InkBrownSoft));
             screen._list = UiFactory.CreateRect("Items", root);
 
+            // The locked notice in the list's place, shown only before the Store unlocks (FR-030).
+            screen._notice = UiKit.LockedNotice("Locked", root);
+            screen._notice.gameObject.SetActive(false);
+
             // The bottom menu over the panel's foot, the Shop in its medallion (FR-030).
             if (onNav != null)
             {
-                screen._navPlaces = navPlaces;
+                screen._navLook = navLook;
                 screen._nav = UiKit.BottomNav("BottomNav", root, place =>
                 {
                     if (place != NavPlace.Shop)
@@ -152,6 +163,31 @@ namespace Bloomlings.Client.UI.Screens
             Refresh();
         }
 
+        /// <summary>
+        /// Shows the page locked (spec 005 FR-030, contracts/look.md §6.7; <see cref="ScreenLayout.LockedPage"/>): the page
+        /// header with the Petals pill showing <paramref name="petals"/>, the panel holding the locked notice of the Shop,
+        /// available from <paramref name="level"/> (the roadmap's, <see cref="BottomNav.UnlockLevel"/>), and the bottom menu
+        /// with the Shop raised. Its back hides it as usual.
+        /// </summary>
+        public void ShowLocked(int level, int petals)
+        {
+            _items = Array.Empty<StoreItem>();
+            _root.SetActive(true);
+            (float w, float h, Insets insets) = UiKit.ScreenFrame();
+            LockedPageRegions r = ScreenLayout.LockedPage(w, h, insets);
+            _header.Place(r.Header);
+            float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
+            UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
+            _tabsBox.gameObject.SetActive(false);
+            _status.gameObject.SetActive(false);
+            _list.gameObject.SetActive(false);
+            _notice.gameObject.SetActive(true);
+            UiKit.PlaceScreen((RectTransform)_notice.transform, r.Notice);
+            _notice.Show(NavPlace.Shop, level);
+            _nav?.Show(NavPlace.Shop, _navLook?.Invoke() ?? HomeLook.All);
+            _header.Petals?.Show(petals, storeUnlocked: false);
+        }
+
         public void Hide() => _root.SetActive(false);
 
         private static float Scale => DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
@@ -171,8 +207,10 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen(_tabsBox, r.Tabs);
             _status.gameObject.SetActive(!storeAvailable);
             UiKit.PlaceScreen(_status.rectTransform, r.Status);
+            _notice.gameObject.SetActive(false);
+            _list.gameObject.SetActive(true);
             UiKit.PlaceScreen(_list, r.List);
-            _nav?.Show(_navPlaces?.Invoke() ?? BottomNav.Order, NavPlace.Shop);
+            _nav?.Show(NavPlace.Shop, _navLook?.Invoke() ?? HomeLook.All);
         }
 
         private void SetTab(StoreTab tab)

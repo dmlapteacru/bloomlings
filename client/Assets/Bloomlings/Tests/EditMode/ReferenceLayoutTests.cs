@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
 using NUnit.Framework;
 
 namespace Bloomlings.Client.Tests
@@ -642,21 +643,75 @@ namespace Bloomlings.Client.Tests
             }
         }
 
-        /// <summary>The places a player sees (spec 005 FR-030): Home always, each other place once its feature unlocks.</summary>
+        /// <summary>
+        /// The places a player sees (spec 005 FR-030; the owner's request of 2026-10-04: "the menu's places must always be
+        /// visible"): all five always, in their order; Home always open and each other place once its feature unlocks
+        /// (<see cref="BottomNav.IsOpen"/>); a locked place's level from the build's roadmap (the Shop 12, the Wardrobe 40,
+        /// the Leaderboard 10 in <see cref="UnlockRoadmap.Default"/>) or the Collection's 2; and on every phone each place's
+        /// padlock badge (0.34 of its icon) on its icon's lower right, inside the plank's band and clear of the medallion.
+        /// </summary>
         [Test]
-        public void TheBottomMenu_ShowsAPlaceOnlyOnceItsFeatureIsUnlocked()
+        public void TheBottomMenu_ShowsEveryPlaceAlways_AndKnowsWhichAreOpenAndFromWhichLevel()
         {
-            Assert.That(BottomNav.Places(HomeLook.Early), Is.EqualTo(new[] { NavPlace.Home }));
-            Assert.That(BottomNav.Places(HomeLook.Early with { Rank = true }), Is.EqualTo(new[] { NavPlace.Home, NavPlace.Leaderboard }));
-            Assert.That(BottomNav.Places(HomeLook.Early with { Rank = true, Store = true }), Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Home, NavPlace.Leaderboard }));
-            Assert.That(BottomNav.Places(HomeLook.Early with { Collection = true }), Is.EqualTo(new[] { NavPlace.Home, NavPlace.Collection }));
-            Assert.That(BottomNav.Places(new HomeLook(true, true, true, true, true, true, true, true)), Is.EqualTo(BottomNav.Order));
             Assert.That(BottomNav.Order, Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection }));
 
+            // Which places are open: Home always; each other with its feature.
+            foreach (NavPlace place in BottomNav.Order)
+            {
+                Assert.That(BottomNav.IsOpen(place, HomeLook.Early), Is.EqualTo(place == NavPlace.Home), place + " on an early Home");
+                Assert.That(BottomNav.IsOpen(place, HomeLook.All), Is.True, place + " once everything is unlocked");
+            }
+
+            Assert.That(BottomNav.IsOpen(NavPlace.Shop, HomeLook.Early with { Store = true }), Is.True);
+            Assert.That(BottomNav.IsOpen(NavPlace.Wardrobe, HomeLook.Early with { Wardrobe = true }), Is.True);
+            Assert.That(BottomNav.IsOpen(NavPlace.Leaderboard, HomeLook.Early with { Rank = true }), Is.True);
+            Assert.That(BottomNav.IsOpen(NavPlace.Collection, HomeLook.Early with { Collection = true }), Is.True);
+            Assert.That(BottomNav.IsOpen(NavPlace.Shop, HomeLook.Early with { Rank = true, Collection = true }), Is.False, "one unlock opens its own place only");
+            Assert.That(BottomNav.IsOpen(NavPlace.Wardrobe, HomeLook.All with { Wardrobe = false }), Is.False);
+
+            // From which level a locked place is available: the roadmap's unlocks, the Collection's first picture, Home's 1.
+            Func<string, int?> roadmap = UnlockRoadmap.Default.LevelOf;
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Shop, roadmap), Is.EqualTo(12));
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Wardrobe, roadmap), Is.EqualTo(40));
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Leaderboard, roadmap), Is.EqualTo(10));
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Collection, roadmap), Is.EqualTo(2).And.EqualTo(BottomNav.CollectionLevel));
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Home, roadmap), Is.EqualTo(1));
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Shop, id => id == HomeLook.StoreUnlock ? 15 : (int?)null), Is.EqualTo(15), "the build's own roadmap decides");
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Wardrobe, _ => null), Is.EqualTo(1), "an unlock the roadmap does not list counts from Level 1");
+
+            // The screens lay the five places out whatever the look; each locked place's badge stays on its icon.
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                foreach (NavPlace active in new[] { NavPlace.Home, NavPlace.Shop, NavPlace.Wardrobe })
+                {
+                    BottomNavRegions r = ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, active);
+                    string at = w + "x" + h + " active=" + active;
+                    Assert.That(r.Places, Is.EqualTo(BottomNav.Order), at + ": all five places");
+                    for (int i = 0; i < r.Places.Count; i++)
+                    {
+                        if (i == r.ActiveIndex)
+                        {
+                            continue; // the raised place is never locked: its page shows the notice instead
+                        }
+
+                        Box icon = r.Icon(i);
+                        Box badge = BottomNav.LockBox(icon);
+                        Assert.That(badge.Width, Is.EqualTo(BottomNav.LockShare * icon.Width).Within(0.01f), at + ": the badge 0.34 of the icon");
+                        Assert.That(badge.Height, Is.EqualTo(badge.Width).Within(0.01f), at);
+                        Assert.That(badge.Within(icon), Is.True, at + ": badge " + i + " on its icon");
+                        Assert.That(badge.Within(r.Plank), Is.True, at + ": badge " + i + " inside the plank's band");
+                        Assert.That(badge.Left, Is.GreaterThan(icon.CenterX), at + ": at the icon's right");
+                        Assert.That(badge.Top, Is.GreaterThan(icon.CenterY), at + ": at the icon's bottom");
+                        Assert.That(badge.Overlaps(r.Disc), Is.False, at + ": badge " + i + " clear of the medallion");
+                        Assert.That(BottomNav.LockDisc(badge) * 1.16f, Is.EqualTo(badge.Width).Within(0.01f), at + ": the disc and its ring fill the badge");
+                    }
+                }
+            }
+
             // The active place shows even when the list leaves it out.
-            BottomNavRegions r = ScreenLayout.BottomNav(1080f, 2340f, new Insets(110f, 63f), new[] { NavPlace.Home }, NavPlace.Shop);
-            Assert.That(r.Places, Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Home }));
-            Assert.That(r.Active, Is.EqualTo(NavPlace.Shop));
+            BottomNavRegions single = ScreenLayout.BottomNav(1080f, 2340f, new Insets(110f, 63f), new[] { NavPlace.Home }, NavPlace.Shop);
+            Assert.That(single.Places, Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Home }));
+            Assert.That(single.Active, Is.EqualTo(NavPlace.Shop));
 
             // Each place's icon is the owner's picture with its slot.
             foreach (NavPlace place in BottomNav.Order)
@@ -668,6 +723,78 @@ namespace Bloomlings.Client.Tests
             }
 
             Assert.That(AssetSlots.Has("ui.nav.bar") && AssetSlots.Has("ui.nav.medallion"), Is.True);
+            Assert.That(AssetSlots.Has("ui.nav.lock") && AssetSlots.Has("ui.locked.notice") && ShapeLibrary.Has("ui.lock"), Is.True);
+        }
+
+        /// <summary>
+        /// The locked notice (spec 005 FR-030, contracts/look.md §6.7) on every phone, in a locked page's notice area and in
+        /// a locked card's body: the icon, the message and the hint top to bottom, inside the area and centered in it, at
+        /// their sizes (the icon 0.4 of the area's width, the lines 0.94 of it, 0.1 and 0.07 tall), the padlock badge on the
+        /// icon's lower right; the locked page's panel under its header and the notice's area inside it above the bottom
+        /// menu; and on a short area everything still inside, the icon smaller.
+        /// </summary>
+        [Test]
+        public void TheLockedNotice_KeepsItsPartsInOrder_InsideItsArea_OnEveryPhone()
+        {
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                string phone = w + "x" + h;
+                LockedPageRegions page = ScreenLayout.LockedPage(w, h, insets);
+                Assert.That(page.Panel.Top, Is.GreaterThan(page.Header.Row.Bottom), phone + ": the panel under the header");
+                Assert.That(page.Panel.Bottom, Is.EqualTo(h).Within(0.01f), phone + ": the panel to the screen's bottom");
+                Assert.That(page.Notice.Top, Is.GreaterThan(page.Panel.Top), phone);
+                Assert.That(page.Notice.Left, Is.GreaterThanOrEqualTo(page.Panel.Left), phone);
+                Assert.That(page.Notice.Right, Is.LessThanOrEqualTo(page.Panel.Right), phone);
+                Assert.That(page.Notice.Bottom, Is.LessThanOrEqualTo(page.NavTop + 0.01f), phone + ": the notice above the bottom menu");
+                Assert.That(page.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), phone);
+                Assert.That(page.Notice, Is.EqualTo(ScreenLayout.ReferenceStore(w, h, insets, false, false).List), phone + ": where the Store page's list would be");
+
+                CardRegions card = ScreenLayout.Card(w, h, insets, LockedNoticeRegions.CardContent);
+                foreach ((string name, Box area) in new[] { ("page", page.Notice), ("card", card.Body) })
+                {
+                    string at = phone + " " + name;
+                    LockedNoticeRegions r = ScreenLayout.LockedNotice(area);
+                    float a = area.Width;
+                    IReadOnlyList<(string Name, Box Box)> parts = r.Ordered;
+                    for (int i = 0; i < parts.Count; i++)
+                    {
+                        Assert.That(parts[i].Box.Within(area), Is.True, at + ": " + parts[i].Name + " inside the area");
+                        Assert.That(parts[i].Box.CenterX, Is.EqualTo(area.CenterX).Within(0.5f), at + ": " + parts[i].Name + " centered");
+                        if (i > 0)
+                        {
+                            Assert.That(parts[i].Box.Top, Is.GreaterThanOrEqualTo(parts[i - 1].Box.Bottom - 0.01f), at + ": " + parts[i].Name + " under " + parts[i - 1].Name);
+                        }
+                    }
+
+                    Assert.That(r.Icon.Width, Is.EqualTo(LockedNoticeRegions.IconShare * a).Within(0.5f), at + ": the icon 0.4 of the area's width");
+                    Assert.That(r.Icon.Height, Is.EqualTo(r.Icon.Width).Within(0.01f), at);
+                    Assert.That(r.Message.Width, Is.EqualTo(LockedNoticeRegions.TextWidthShare * a).Within(0.5f), at);
+                    Assert.That(r.Message.Height, Is.EqualTo(LockedNoticeRegions.MessageShare * a).Within(0.5f), at);
+                    Assert.That(r.Hint.Width, Is.EqualTo(LockedNoticeRegions.TextWidthShare * a).Within(0.5f), at);
+                    Assert.That(r.Hint.Height, Is.EqualTo(LockedNoticeRegions.HintShare * a).Within(0.5f), at);
+                    Assert.That(r.Badge, Is.EqualTo(BottomNav.LockBox(r.Icon)), at + ": the menu's badge recipe");
+                    Assert.That(r.Badge.Within(r.Icon), Is.True, at);
+                    Assert.That(r.Badge.Left, Is.GreaterThan(r.Icon.CenterX), at + ": at the icon's right");
+                    Assert.That(r.Badge.Top, Is.GreaterThan(r.Icon.CenterY), at + ": at the icon's bottom");
+                    Assert.That(r.Bounds.Within(area), Is.True, at);
+                    Assert.That(r.Icon.Top - area.Top, Is.EqualTo(area.Bottom - r.Hint.Bottom).Within(0.5f), at + ": the stack centered");
+                }
+            }
+
+            // A short area: the icon shrinks first, then the whole stack; nothing leaves the area.
+            foreach (float height in new[] { 420f, 300f, 160f, 60f })
+            {
+                var area = new Box(40f, 100f, 940f, 100f + height);
+                LockedNoticeRegions r = ScreenLayout.LockedNotice(area);
+                string at = "a 900 x " + height + " area";
+                foreach ((string name, Box box) in r.Ordered)
+                {
+                    Assert.That(box.Within(area.Inset(-0.01f)), Is.True, at + ": " + name + " inside the area");
+                }
+
+                Assert.That(r.Icon.Width, Is.LessThan(LockedNoticeRegions.IconShare * area.Width), at + ": a smaller icon");
+                Assert.That(r.Badge.Within(r.Icon), Is.True, at);
+            }
         }
 
         [Test]

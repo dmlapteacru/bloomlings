@@ -707,7 +707,8 @@ New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch` (retired on 2026-10-03 with the arch), the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.layer_peek` and `tile.picture` restyled; `tile.entry` retired on 2026-10-03), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
-`ui.logo.wood`, `ui.back`, `ui.fast`, `ui.nav.bar` and `ui.nav.medallion` (the bottom menu, §6.7), `icon.nav.shop`,
+`ui.logo.wood`, `ui.back`, `ui.fast`, `ui.nav.bar`, `ui.nav.medallion`, `ui.nav.lock` and `ui.locked.notice` (the bottom
+menu, its locked places' padlock and their notice, §6.7), `icon.nav.shop`,
 `icon.nav.wardrobe`, `icon.nav.home`, `icon.nav.leaderboard` and `icon.nav.collection` (its places' icons, the owner's
 pictures D9–D13; the `icon.` prefix is `UiKit`), `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
 icon pictures replace them, §3.10), `tile.grass` (the picture's background cells, §4.1), `bg.win` (the win's garden,
@@ -1075,7 +1076,8 @@ bottom menu (2026-10-04, FR-030) the fractions under the header apply to the pag
 half the touch minimum − the safe top) / 0.93, so the page arrows' touch boxes, centered on the footer at 93%, end on
 the menu's top (`ReferenceWardrobeRegions.NavTop`): H′ is 0.951 of the safe height on 1080 × 2340 (the footer at
 1986–2069, the cards 1553–1924 without the chips), 0.931 on 1080 × 1920 and 0.960 on 1080 × 2520; the header keeps the
-safe height's 2.5%. One row of three cards still fits.
+safe height's 2.5%. One row of three cards still fits. Before the Wardrobe opens (L40) the page shows locked: its header
+and the lighter panel with the locked notice, nothing else (§6.7, `ScreenLayout.LockedPage`).
 
 ### 6.6 Store page (both builds)
 
@@ -1102,7 +1104,8 @@ menu); the seven Shop rows are 197 px tall (`0.183W`; 205 px before); the cosmet
 Wardrobe when its Petals "+" opened the page (the playtest's `DesignApp.StoreReturn`; Unity's page lies over the screen
 that opened it and hides); the Android system back closes the page (and the Wardrobe) as their back buttons do. Every
 entry point opens the page: the bottom menu's Shop (§6.7) on Home or the Wardrobe, and their Petals "+" (Home's Store
-button until 2026-10-04).
+button until 2026-10-04). Before the Store opens (L12) only the bottom menu's Shop opens it (the Petals pills show no
+"+" yet), locked: its header and panel with the locked notice in the list's box (§6.7, `ScreenLayout.LockedPage`).
 
 ### 6.7 Bottom menu (both builds; owner's request of 2026-10-04, the wooden variant)
 
@@ -1118,19 +1121,28 @@ owner's pictures keep their own thin margin): 151 px instead of 111 px on a 1080
 `0.03W` instead of `0.05W`, so the menu's top stays `0.17W` above the safe bottom and Home, the Store page and the
 Wardrobe keep their room. Home, the Store page (§6.6) and the Wardrobe (§6.5) show it; gameplay, the win, milestone, jam and pause
 cards and the splash do not (FR-030). Kit: `BottomNav.cs` (`NavPlace`, `BottomNav`, `BottomNavRegions`,
-`NavBarShape`, `ScreenLayout.BottomNav`, `ScreenLayout.BottomNavTop`) and `NavRaster.cs` (`UiRaster.NavBar`,
-`UiRaster.NavMedallion`); components `Kit.BottomNav` (playtest, `KitNav.cs`) and `UiKit.BottomNav` → `BottomNavView`
-(Unity, `UiKitNav.cs`).
+`NavBarShape`, `ScreenLayout.BottomNav`, `ScreenLayout.BottomNavTop`), `LockedNotice.cs` (`LockedNoticeRegions`,
+`LockedPageRegions`, `ScreenLayout.LockedNotice`, `ScreenLayout.LockedPage`) and `NavRaster.cs` (`UiRaster.NavBar`,
+`UiRaster.NavMedallion`); components `Kit.BottomNav`, `Kit.NavLock` and `Kit.LockedNotice` (playtest, `KitNav.cs`) and
+`UiKit.BottomNav` → `BottomNavView`, `UiKit.LockBadge` and `UiKit.LockedNotice` → `LockedNoticeView` (Unity,
+`UiKitNav.cs`).
 
-**Places** (`NavPlace`, `BottomNav.Order`), left to right: Shop, Wardrobe, Home, Leaderboard, Collection. A place shows
-only once its feature is unlocked (`BottomNav.Places(HomeLook)`): the Shop with `HomeLook.Store` (L12), the Wardrobe
-with `HomeLook.Wardrobe` (L40), the Leaderboard with `HomeLook.Rank` (L10), the Collection with `HomeLook.Collection`
-(a picture won); Home always, so early on Home stands alone. The shown places keep their order and share the span
-evenly. The active place (the screen's own: Home on Home, the Shop on the Store page, the Wardrobe on the Wardrobe)
-sits in the medallion and takes no tap; a tap on another, with the click: the Shop opens the Store page (over the
-Wardrobe when it is open, so its back returns there), the Wardrobe the Wardrobe, Home returns to Home, the Leaderboard
-and the Collection open their cards over Home (from the Store page or the Wardrobe, Home first). The playtest's
-`DesignApp.Navigate`, Unity's `HomeController` (`Navigate`).
+**Places** (`NavPlace`, `BottomNav.Order`), left to right: Shop, Wardrobe, Home, Leaderboard, Collection. All five
+always show, from Level 1 (the owner's request of 2026-10-04: "The menu's places must always be visible. But if some
+things are available only from a level, then on entering the menu's place the page must say that it is only available
+after reaching level N."), keeping their order and sharing the span evenly. A place is open once its feature is
+unlocked (`BottomNav.IsOpen(place, HomeLook)`): the Shop with `HomeLook.Store` (L12), the Wardrobe with
+`HomeLook.Wardrobe` (L40), the Leaderboard with `HomeLook.Rank` (L10), the Collection with `HomeLook.Collection` (a
+picture won, so from L2); Home always. `BottomNav.UnlockLevel(place, levelOf)` is the level a locked place names: the
+build's own roadmap (`UnlockRoadmap.LevelOf` of `HomeLook.StoreUnlock`, `WardrobeUnlock`, `LeaderboardUnlock`: 12, 40,
+10; the playtest's `PlaytestMeta.Progression.Roadmap`, Unity's `ProgressionService.Roadmap` in `HomeController`), the
+Collection's `BottomNav.CollectionLevel` 2 (its first picture comes with Level 1's win), Home's 1. The active place
+(the screen's own: Home on Home, the Shop on the Store page, the Wardrobe on the Wardrobe) sits in the medallion and
+takes no tap; a tap on another, with the click: the Shop opens the Store page (over the Wardrobe when it is open, so
+its back returns there), the Wardrobe the Wardrobe, Home returns to Home, the Leaderboard and the Collection open their
+cards over Home (from the Store page or the Wardrobe, Home first). A locked place opens its page or card all the same,
+which shows the locked notice instead of its content (below). The playtest's `DesignApp.Navigate` (`PlaceOpen`,
+`UnlockLevel`), Unity's `HomeController` (`Navigate`, `NavLook`).
 
 | Region (`BottomNavRegions`) | Box |
 |---|---|
@@ -1142,11 +1154,41 @@ and the Collection open their cards over Home (from the Store page or the Wardro
 | `Disc` | the medallion's wooden disc, `0.88` of its box (`DiscShare`); its leaves and flowers take the rest |
 | `Touch(i)` | a place's touch box: its column from the safe bottom up the plank's height, at least `size.touch_min` (`TouchMin`); a neighbor of the active place cut clear of the medallion while it keeps the touch minimum; the active place has none (`Buttons` lists the others) |
 | `Top` | the menu's highest point, the medallion's top, `0.17W` over the safe bottom (`ScreenLayout.BottomNavTop`, the same whatever the places): Home's bottom stack, the Store's list and the Wardrobe's page end above it |
+| `BottomNav.LockBox(Icon(i))` | a locked place's padlock badge (`ui.nav.lock`): a square `0.34` of its icon's side (`LockShare`, the whole badge with its ring) at the icon's lower right, `0.03` of the side (`LockInsetShare`) inside its right and bottom edges, so inside the plank's band; never on the active place |
 
 Fixed: on a 1080 × 2340 phone (insets 110 / 63) the plank spans 2126–2277 (x 32–1048), the bar's picture 2126–2340,
 the five places 43–1037 (199 px each), their touch boxes 2126–2277, the medallion 432–648 × 2093–2309 on Home (its disc
 190 px, its icon 163 px; the plank's icons 151 px), and the menu's top is 2093. On 1080 × 1920 (63 / 0) the plank spans
-1769–1920 and the medallion 195 px from 1736; on 1080 × 2520 (120 / 66) the plank 2303–2454, the top 2270.
+1769–1920 and the medallion 195 px from 1736; on 1080 × 2520 (120 / 66) the plank 2303–2454, the top 2270. A locked
+place's padlock badge is 51 px (the Shop's at 162–213 × 2221–2272 on 1080 × 2340), inside the band.
+
+**Locked places** (the owner's request of 2026-10-04): the menu draws a locked place's icon unchanged, still tappable,
+with the padlock badge (`ui.nav.lock`, `Kit.NavLock` / `UiKit.LockBadge`) over its lower right: the outfit cards'
+`Kit.LockBadge` recipe, a domed cream disc (`cream.top` to `cream.face`, `BottomNav.LockDisc`: the box over 1.16) in a
+`cream.line` ring 8% of the disc a side, the brown `ui.lock` (`ink.brown`, 56% of the disc), over a soft shadow; the
+badge squashes with its icon when pressed. A locked place's page or card shows the locked notice (`ui.locked.notice`,
+`Kit.LockedNotice` / `UiKit.LockedNotice`) instead of its content:
+
+| Screen when locked | What it shows |
+|---|---|
+| Store page (before L12) | its garden, header (back, "Store" banner, the Petals pill without its "+": the Store it would open is this one) and parchment panel (`ScreenLayout.LockedPage`: the §6.6 layout without tabs and status line), the notice in `Notice` (the list's box) instead of the tabs, rows, page arrows and offline line; the bottom menu with the Shop raised; back as usual; no `store_open` (Unity), it is not a Store visit |
+| Wardrobe (before L40) | its garden and header (back, "Wardrobe" banner, the Petals pill, its "+" opening the Store page once open), the page's lighter panel (`parchment.top` to `cream.top` with a `cream.line` outline, radius 26 units, `Kit.Panel`) in `LockedPage.Panel`, the notice in `Notice`, instead of the hero, name card, tabs, cards and footer; the bottom menu with the Wardrobe raised |
+| Leaderboard card (before L10) | the card's wooden title sign and close button, the notice filling its body (`LockedNoticeRegions.CardContent` 600 units) instead of the ranks and Refresh |
+| Collection card (before its first picture) | the same, "Collection", instead of the count and the pictures |
+
+| Region (`LockedNoticeRegions`, `ScreenLayout.LockedNotice(area)`) | Box (A: the area's width) |
+|---|---|
+| `Icon` | the place's owner icon (`OwnerPictures.NavIcon`; its stand-in glyph in `BottomNav.GlyphBox` while missing) `0.4A` square (`IconShare`), on the area's middle line; on a short area it shrinks to fit, down to `0.2A` (`MinIconShare`), below which the whole stack shrinks with it |
+| `Badge` | the padlock badge, `BottomNav.LockBox(Icon)` (the menu's recipe, 0.34 of the icon at its lower right) |
+| `Message` | "Available from level N" (`locked.message`), `0.05A` under the icon (`IconGapShare`), `0.94A × 0.1A` (`TextWidthShare`, `MessageShare`), in `type.title` `ink.brown` (plain look), its letters `0.72` of the line (`MessageTextShare`), shrunk to its width |
+| `Hint` | "Keep playing to unlock it!" (`locked.hint`), `0.012A` under the message (`HintGapShare`), `0.94A × 0.07A` (`HintShare`), in `type.body` `ink.brown_soft`, its letters `0.66` of the line (`HintTextShare`), shrunk to its width |
+
+The stack (`0.632A` tall at full size) is centered in its area; every share is of A, so the notice keeps its shape in
+screen pixels and in Unity's canvas units alike. It is never a touch target. Fixed: on 1080 × 2340 (110 / 63) a locked
+page's panel starts at 329 and its notice's area spans 65–1015 × 377–2071 (where the Store page's list would be): the
+icon 380 px at 350–730 × 924–1304 with its badge 129 px, the message line 893 × 95 at 1352 (68 px letters), the hint
+893 × 67 at 1458 (44 px letters); a locked card is 907 × 758 (body 851 × 600, icon 340 px). On 1080 × 1920 (63 / 0)
+the area spans 323–1715, on 1080 × 2520 (120 / 66) 392–2249, the notice the same size.
 
 **Recipe** (engine-free pictures, both builds draw the same bytes; cached by key and size):
 - The bar (`ui.nav.bar`, `UiRaster.NavBar(width, height, NavBarShape)`, key `ui.nav.bar/…` from `BottomNavRegions.Shape`:

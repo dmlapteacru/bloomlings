@@ -346,3 +346,35 @@ contracts/look.md §6.7. Presentation only (FR-002).
   removed; the medallion keeps its own); the test `TheBottomMenusWood_CoversItsPlank_AndTheMedallionIsADisc` (nothing
   beside the plank's ends); the slot rows `ui.nav.bar` and `ui.nav.medallion` and the inventory; contracts/look.md
   §6.7, spec.md FR-030; all checks; the preview's frames 2, 3, 17 and 27 reviewed.
+
+## Owner review: every menu place always shown, locked ones say their level (2026-10-04)
+
+See spec.md (the clarification "the owner's bottom menu, wooden", its last question, FR-030, acceptance scenario 6 and
+SC-011) and contracts/look.md §6.7. Presentation and navigation only (FR-002): rules, the economy and unlocks stay.
+- [X] T068 The kit's menu rules (`BottomNav.cs`): the five places always shown (`Order`; `Places` and `Shows` removed),
+  `IsOpen(place, HomeLook)` (Home always, the others as they showed before), `UnlockLevel(place, levelOf)` from the
+  build's roadmap (`HomeLook.StoreUnlock` 12, `WardrobeUnlock` 40, `LeaderboardUnlock` 10; `CollectionLevel` 2; Home 1),
+  the padlock badge's box `LockBox` (0.34 of the icon at its lower right, inside the plank's band) and `LockDisc`;
+  `HomeLook.All`; the slots `ui.nav.lock` and `ui.locked.notice`; the keys `locked.message` and `locked.hint`.
+- [X] T069 The locked notice's layout (`LockedNotice.cs`): `LockedNoticeRegions` (the icon 0.4 of the area's width,
+  smaller on a short area, the badge, the message and the hint lines, `CardContent`) from `ScreenLayout.LockedNotice`,
+  and `LockedPageRegions` from `ScreenLayout.LockedPage` (the Store page's panel without tabs and status, the notice in
+  the list's box); the tests `TheBottomMenu_ShowsEveryPlaceAlways_AndKnowsWhichAreOpenAndFromWhichLevel` (it replaces
+  `TheBottomMenu_ShowsAPlaceOnlyOnceItsFeatureIsUnlocked`) and `TheLockedNotice_KeepsItsPartsInOrder_InsideItsArea_OnEveryPhone`.
+- [X] T070 The playtest: `Kit.BottomNav` with the look (a locked place's icon with `Kit.NavLock`, the outfit cards'
+  `Kit.LockBadge`), `Kit.LockedNotice` (`KitNav.cs`), `Kit.Panel` (the Wardrobe's lighter panel, `KitMeta.cs`),
+  `DesignApp.PlaceOpen` and `UnlockLevel` (from `PlaytestMeta.Progression.Roadmap`), `HomeScreen.Nav` with all five
+  places; the locked Store page (`StoreScreen.Locked`), the locked Wardrobe (`WardrobeScreen.Locked`) and the locked
+  Leaderboard and Collection cards (`MetaCards.LockedCard`).
+- [X] T071 Unity: `UiKit.LockBadge`, `BottomNavView.Show(active, look)` with a badge per locked place,
+  `UiKit.LockedNotice` / `LockedNoticeView` (`UiKitNav.cs`); `StoreScreen.ShowLocked`, `WardrobeScreen.ShowLocked`,
+  `LeaderboardScreen.ShowLocked`, `CollectionScreen.ShowLocked`; `HomeController.Navigate` opening the locked page or
+  card with the level from `ProgressionService.Roadmap` (`NavLook`, `UnlockLevel`), without `store_open` for the locked
+  Store page; the L10, L12 and L40 Home demos still point at their places.
+- [X] T072 The preview: frame 2 (Level 5 with its won pictures) checks the five places and which are locked; the new
+  extras 29 (the locked Store page at Level 5), 30 (the locked Wardrobe at Level 15, its Shop and Petals "+" opening
+  the Store page) and 31 (the locked Collection and Leaderboard cards on a new profile) check what each notice says;
+  frames 2 and 29–31 reviewed at 16:9, 19.5:9 and 21:9; the regenerated inventory.
+- [X] T073 The docs: spec.md (the clarification, FR-030, scenario 6, SC-011), contracts/look.md §5, §6.5, §6.6 and
+  §6.7 (the places always shown, the lock badge, the notice's recipe and regions, each screen when locked, the fixed
+  numbers), spec 002's edge case, `CLAUDE.md`, `playtest/README.md` and `client/README.md`; all checks.

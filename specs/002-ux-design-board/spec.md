@@ -215,7 +215,9 @@ find where the game uses it.
   - the Leaderboard shows its last known data with a notice;
   - the Store marks real-money items unavailable;
   - the Daily Challenge card hides if its content is missing.
-- A player who has not unlocked a feature never sees its button, card or badge.
+- A player who has not unlocked a feature never sees its button, card or badge. Since the owner's request of 2026-10-04
+  (spec 005 FR-030) the bottom menu's five places always show: a locked one keeps its icon with a padlock badge, and its
+  page or card says from which level it is available ("Available from level N").
 - Colorblind players: every state and every variant stays distinguishable without color (symbols, shapes, outlines).
 
 ## Requirements *(mandatory)*

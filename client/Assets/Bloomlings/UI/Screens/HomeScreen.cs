@@ -17,8 +17,9 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// What Home shows (FR-058), with the long-run features once unlocked (US7): the unlocks also decide the bottom menu's
-    /// places (spec 005 FR-030; the rank shows on the Leaderboard card it opens).
+    /// What Home shows (FR-058), with the long-run features once unlocked (US7): the unlocks also decide which of the bottom
+    /// menu's places are open (spec 005 FR-030: all five show, a locked one with a padlock; the rank shows on the
+    /// Leaderboard card it opens).
     /// </summary>
     public sealed record HomeModel(
         int CurrentLevel,
@@ -63,10 +64,11 @@ namespace Bloomlings.Client.UI.Screens
     /// side button at the right, once unlocked.</description></item>
     /// <item><description>Under Play, the milestone teaser "N levels to reward" with the pink gift on a parchment pill, and
     /// the optional free-booster ad offer as a cream "Free" pill beside it.</description></item>
-    /// <item><description>The bottom menu (spec 005 FR-030, <see cref="BottomNavView"/>): the wooden bar with the
-    /// unlocked places (the Shop from L12, the Wardrobe from L40, Home, the Leaderboard from L10, the Collection once a
-    /// picture is won), Home in the raised medallion. It replaced Home's Store, Wardrobe (the profile avatar) and
-    /// Collection side buttons and the rank pill (the owner's request of 2026-10-04).</description></item>
+    /// <item><description>The bottom menu (spec 005 FR-030, <see cref="BottomNavView"/>): the wooden bar with its five
+    /// places always shown (the Shop, the Wardrobe, Home, the Leaderboard and the Collection; the Shop open from L12, the
+    /// Wardrobe from L40, the Leaderboard from L10, the Collection once a picture is won, a locked one with a padlock
+    /// badge), Home in the raised medallion. It replaced Home's Store, Wardrobe (the profile avatar) and Collection side
+    /// buttons and the rank pill (the owner's requests of 2026-10-04).</description></item>
     /// </list>
     /// There is no level map, and no button chooses a level: Play always continues Level N.
     /// </summary>
@@ -207,7 +209,8 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// Places every element of frame 2 or 3 on the reference regions (contracts/look.md §6.4; data-model rule 4:
-        /// locked features collapse, so the bottom menu shows only the unlocked places).
+        /// locked features collapse, but for the bottom menu's places, which always show, the locked ones with their
+        /// padlocks, since the owner's request of 2026-10-04).
         /// </summary>
         private void Layout(HomeModel model)
         {
@@ -243,8 +246,8 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(_freeBooster, Touch(r.FreeBooster), screen);
             UiKit.PlaceBox(_freePill, r.FreeBooster, Touch(r.FreeBooster));
 
-            // The bottom menu, Home in its medallion (spec 005 FR-030).
-            _nav.Show(BottomNav.Places(look), NavPlace.Home);
+            // The bottom menu, Home in its medallion, the locked places with their padlocks (spec 005 FR-030).
+            _nav.Show(NavPlace.Home, look);
         }
 
         public void Show(HomeModel model)
