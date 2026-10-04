@@ -1089,7 +1089,8 @@ namespace Bloomlings.Client.Tests
         /// <summary>
         /// The Collection page (the owner's request of 2026-10-04; contracts/look.md §6.9): on every phone, the header row,
         /// the count, the grid and the footer in order inside the safe area; the page's frame the Store page's; three square
-        /// frames to a row as large as fit, at least two rows a page, every frame inside the grid and above the footer when
+        /// frames to a row as large as fit (a little smaller when one more row then fits, the owner's choice of 2026-10-04),
+        /// the footer right under a page's last row, at least two rows a page, every frame inside the grid and above the footer when
         /// the pictures take more than a page, never overlapping; the paging (all pictures on one page when they fit, else
         /// full pages); the detail's picture, name and level in order inside the area, the picture at most 0.8 W; and every
         /// button reachable, clear of the menu's places.
@@ -1108,12 +1109,21 @@ namespace Bloomlings.Client.Tests
                 Assert.That(r.Area, Is.EqualTo(frame.Notice), at + ": the Store page's list box");
                 Assert.That(r.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at);
                 Assert.That(r.Count.Within(r.Area) && r.Grid.Within(r.Area) && r.Footer.Within(r.Area), Is.True, at);
-                Assert.That(r.Footer, Is.EqualTo(ScreenLayout.ReferenceStore(w, h, insets, false, false).Footer), at + ": the Store page's footer");
+                Box storeFooter = ScreenLayout.ReferenceStore(w, h, insets, false, false).Footer;
+                Assert.That(r.Footer.Left, Is.EqualTo(storeFooter.Left).Within(0.01f), at + ": the Store page's footer line");
+                Assert.That(r.Footer.Right, Is.EqualTo(storeFooter.Right).Within(0.01f), at);
+                Assert.That(r.Footer.Height, Is.EqualTo(storeFooter.Height).Within(0.01f), at);
+                Assert.That(r.Footer.Bottom, Is.LessThanOrEqualTo(storeFooter.Bottom + 0.01f), at + ": never lower than the Store page's");
 
-                // The frames: three to a row across the grid, square, as large as fit.
+                // The frames: three to a row across the grid, square, as large as fit, or a little smaller for one more row.
                 float gap = ReferenceCollectionRegions.CellGapShare * r.W;
-                Assert.That((r.CellSize * ReferenceCollectionRegions.Columns) + (gap * (ReferenceCollectionRegions.Columns - 1)), Is.EqualTo(r.Grid.Width).Within(0.5f), at + ": the frames span the grid");
+                float full = (r.Grid.Width - (gap * (ReferenceCollectionRegions.Columns - 1))) / ReferenceCollectionRegions.Columns;
+                Assert.That(r.CellSize, Is.LessThanOrEqualTo(full + 0.01f), at + ": the frames inside the grid's width");
+                Assert.That(r.CellSize, Is.GreaterThanOrEqualTo((full * ReferenceCollectionRegions.MinSideShare) - 0.01f), at + ": a little smaller at most");
+                Assert.That(r.Cell(0).Left - r.Grid.Left, Is.EqualTo(r.Grid.Right - r.Cell(ReferenceCollectionRegions.Columns - 1).Right).Within(0.5f), at + ": centered across the grid");
                 Assert.That(r.RowsFitting(true), Is.GreaterThanOrEqualTo(2), at + ": at least two rows a page");
+                Box lastRow = r.Cell((r.RowsFitting(true) * ReferenceCollectionRegions.Columns) - 1);
+                Assert.That(r.Footer.Top, Is.EqualTo(lastRow.Bottom + gap).Within(0.5f), at + ": the page arrows right under a page's last row");
                 Assert.That(r.RowsFitting(false), Is.GreaterThanOrEqualTo(r.RowsFitting(true)), at);
                 foreach (int count in new[] { 0, 1, 6, 12, 15, 40, 87 })
                 {

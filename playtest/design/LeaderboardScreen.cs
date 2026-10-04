@@ -28,11 +28,12 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public static class LeaderboardScreen
     {
-        /// <summary>The top ranks the offline Leaderboard shows as placeholder rows.</summary>
-        public const int PlaceholderRanks = 5;
-
-        /// <summary>The lines it shows: the placeholder ranks, the gap and the player's own row.</summary>
-        public const int Lines = PlaceholderRanks + 2;
+        /// <summary>
+        /// The top ranks the offline Leaderboard shows as placeholder rows on <paramref name="r"/>: as many as fill its rows'
+        /// box with the gap and the player's own row (the owner's choice of 2026-10-04: the list over the panel's whole
+        /// height), at least one.
+        /// </summary>
+        public static int PlaceholderRanks(ReferenceLeaderboardRegions r) => Math.Max(1, r.LinesFitting - 2);
 
         public static void Draw(IPainter p, DesignApp app)
         {
@@ -50,11 +51,14 @@ namespace Bloomlings.Playtest.Design
             float radius = r.PanelRadius(p.Scale);
             Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
 
-            // The rows grow their letters with them (sized for a RowTypeShare row).
-            float grow = r.RowHeight(Lines) / (r.W * ReferenceLeaderboardRegions.RowTypeShare);
-            for (int i = 0; i < PlaceholderRanks; i++)
+            // The rows fill the rows' box: the placeholder ranks, the gap and the player's own row. They grow their letters
+            // with them (sized for a RowTypeShare row).
+            int ranks = PlaceholderRanks(r);
+            int lines = ranks + 2;
+            float grow = r.RowHeight(lines) / (r.W * ReferenceLeaderboardRegions.RowTypeShare);
+            for (int i = 0; i < ranks; i++)
             {
-                Box line = r.Row(i, Lines);
+                Box line = r.Row(i, lines);
                 LeaderboardRowParts parts = ReferenceLeaderboardRegions.Parts(line);
                 Kit.Row(p, line, false);
                 Rank(p, parts, i + 1, grow);
@@ -63,10 +67,10 @@ namespace Bloomlings.Playtest.Design
                 Placeholder(p, Box.FromCenter(parts.Score.CenterX, line.CenterY, parts.Score.Width * 0.6f, line.Height * 0.3f));
             }
 
-            Box gap = r.Row(PlaceholderRanks, Lines);
+            Box gap = r.Row(ranks, lines);
             p.Text("…", gap.CenterX, gap.CenterY, T.Title, C.InkBrownSoft, sizeScale: grow);
 
-            Box you = r.Row(PlaceholderRanks + 1, Lines);
+            Box you = r.Row(ranks + 1, lines);
             LeaderboardRowParts own = ReferenceLeaderboardRegions.Parts(you);
             Kit.Row(p, you, highlighted: true);
             p.Text("—", own.Rank.CenterX, you.CenterY, T.Body, C.InkBrown, own.Rank.Width, grow);

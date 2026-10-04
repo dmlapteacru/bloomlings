@@ -192,6 +192,7 @@ namespace Bloomlings.Client.UI.Design
         Box Area,
         Box Count,
         Box Grid,
+        float Side,
         Box Footer,
         Box PagePrevious,
         Box PageNext,
@@ -205,6 +206,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The gap between two frames, as a share of W.</summary>
         public const float CellGapShare = 0.03f;
+
+        /// <summary>
+        /// How much smaller than the grid's full width allows a frame may be, so one more row fits a page (the owner's
+        /// choice of 2026-10-04: as many rows as fit, the page arrows right under them).
+        /// </summary>
+        public const float MinSideShare = 0.84f;
 
         /// <summary>The count line's height, and the room under it, as shares of W.</summary>
         public const float CountShare = 0.06f;
@@ -233,8 +240,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The panel's corner radius (a card's, <c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>
         public float PanelRadius(float scale) => Math.Max(DesignTokens.Radius.CardMin * scale, Panel.Width * DesignTokens.Radius.Card);
 
-        /// <summary>A frame's side: three across the grid with <see cref="CellGapShare"/> between them.</summary>
-        public float CellSize => (Grid.Width - (W * CellGapShare * (Columns - 1))) / Columns;
+        /// <summary>
+        /// A frame's side (<see cref="Side"/>): three across the grid with <see cref="CellGapShare"/> between them, or a
+        /// little less (down to <see cref="MinSideShare"/> of that) when one more row then fits a page.
+        /// </summary>
+        public float CellSize => Side;
 
         /// <summary>How many rows of frames fit in the grid, above the footer when <paramref name="footer"/> (at least one).</summary>
         public int RowsFitting(bool footer)
@@ -250,12 +260,13 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The pages <paramref name="count"/> pictures take (at least one).</summary>
         public int Pages(int count) => Math.Max(1, (count + PerPage(count) - 1) / PerPage(count));
 
-        /// <summary>Frame <paramref name="slot"/> of a page: square, <see cref="CellSize"/>, three to a row from the grid's top.</summary>
+        /// <summary>Frame <paramref name="slot"/> of a page: square, <see cref="CellSize"/>, three to a row from the grid's top, centered across it.</summary>
         public Box Cell(int slot)
         {
             float gap = W * CellGapShare;
             float side = CellSize;
-            float x = Grid.Left + ((slot % Columns) * (side + gap));
+            float left = Grid.CenterX - (((side * Columns) + (gap * (Columns - 1))) / 2f);
+            float x = left + ((slot % Columns) * (side + gap));
             float y = Grid.Top + ((slot / Columns) * (side + gap));
             return new Box(x, y, x + side, y + side);
         }
@@ -306,8 +317,10 @@ namespace Bloomlings.Client.UI.Design
         /// The Collection page (contracts/look.md §6.9; <see cref="ReferenceCollectionRegions"/>), on the Store page's frame
         /// (<see cref="LockedPage"/>), in fractions of the safe width W: the count line <c>0.06W</c> tall at the area's top;
         /// the grid from <c>0.02W</c> under it to the area's bottom, its frames square, three to a row <c>0.03W</c> apart
-        /// (about <c>0.273W</c> each); the footer line as the Store page's (<c>0.84W</c> wide, <c>max(0.12W,
-        /// size.touch_min)</c> tall, <c>0.02W</c> over the area's bottom) with the page arrows <c>0.09W</c> at its ends; and
+        /// (about <c>0.273W</c> each, or down to <see cref="ReferenceCollectionRegions.MinSideShare"/> of that when one more
+        /// row then fits above the footer, the frames centered across the grid); the footer line as the Store page's
+        /// (<c>0.84W</c> wide, <c>max(0.12W, size.touch_min)</c> tall) right under a page's last row, <c>0.03W</c> lower,
+        /// at most <c>0.02W</c> over the area's bottom, with the page arrows <c>0.09W</c> at its ends; and
         /// the detail centered in the area: the picture square, <c>0.8W</c> at most (less on a short area), then
         /// <c>0.04W</c> lower its name's line <c>0.88W × 0.1W</c> and <c>0.01W</c> lower its level's line <c>0.07W</c>.
         /// </summary>
@@ -322,24 +335,38 @@ namespace Bloomlings.Client.UI.Design
             float gridTop = count.Bottom + (ReferenceCollectionRegions.CountGapShare * w);
             var grid = new Box(area.Left, gridTop, area.Right, Math.Max(gridTop + 1f, area.Bottom));
 
-            // The footer and its page arrows, as on the Store page.
+            // The frames: as many rows as fit above the footer, one more when the frames may shrink a little for it; the
+            // footer and its page arrows (the Store page's) right under a page's last row.
             float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
             float line = Math.Max(0.12f * w, touch);
-            var footer = new Box(X(0.08f), area.Bottom - (0.02f * w) - line, X(0.92f), area.Bottom - (0.02f * w));
+            float cellGap = ReferenceCollectionRegions.CellGapShare * w;
+            float full = (grid.Width - (cellGap * (ReferenceCollectionRegions.Columns - 1))) / ReferenceCollectionRegions.Columns;
+            float room = Math.Max(1f, area.Bottom - (0.02f * w) - line - cellGap - grid.Top);
+            int rows = Math.Max(1, (int)Math.Floor((room + cellGap + 0.5f) / (full + cellGap)));
+            float side = full;
+            float more = (room - (cellGap * rows)) / (rows + 1);
+            if (more >= full * ReferenceCollectionRegions.MinSideShare)
+            {
+                rows++;
+                side = more;
+            }
+
+            float footerTop = Math.Min(grid.Top + (rows * (side + cellGap)), area.Bottom - (0.02f * w) - line);
+            var footer = new Box(X(0.08f), footerTop, X(0.92f), footerTop + line);
             float arrow = 0.09f * w;
             Box pagePrevious = Box.FromCenter(footer.Left + (line / 2f), footer.CenterY, arrow, arrow);
             Box pageNext = Box.FromCenter(footer.Right - (line / 2f), footer.CenterY, arrow, arrow);
 
             // The detail: the picture, its name and its level, centered in the area together.
             float text = (ReferenceCollectionRegions.PictureGapShare + ReferenceCollectionRegions.NameShare + ReferenceCollectionRegions.NameGapShare + ReferenceCollectionRegions.LevelShare) * w;
-            float side = Math.Max(1f, Math.Min(ReferenceCollectionRegions.PictureShare * w, area.Height - text));
-            float top = area.CenterY - ((side + text) / 2f);
-            Box picture = Box.FromCenter(area.CenterX, top + (side / 2f), side, side);
+            float pictureSide = Math.Max(1f, Math.Min(ReferenceCollectionRegions.PictureShare * w, area.Height - text));
+            float top = area.CenterY - ((pictureSide + text) / 2f);
+            Box picture = Box.FromCenter(area.CenterX, top + (pictureSide / 2f), pictureSide, pictureSide);
             float nameTop = picture.Bottom + (ReferenceCollectionRegions.PictureGapShare * w);
             var name = new Box(area.Left, nameTop, area.Right, nameTop + (ReferenceCollectionRegions.NameShare * w));
             float levelTop = name.Bottom + (ReferenceCollectionRegions.NameGapShare * w);
             var level = new Box(area.Left, levelTop, area.Right, levelTop + (ReferenceCollectionRegions.LevelShare * w));
-            return new ReferenceCollectionRegions(safe, w, page.Header, page.Panel, area, count, grid, footer, pagePrevious, pageNext, picture, name, level, page.NavTop);
+            return new ReferenceCollectionRegions(safe, w, page.Header, page.Panel, area, count, grid, side, footer, pagePrevious, pageNext, picture, name, level, page.NavTop);
         }
     }
 }

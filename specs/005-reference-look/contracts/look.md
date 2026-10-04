@@ -1281,12 +1281,14 @@ own row (Unity), `leaderboard_view` on open.
 | Bottom menu | the owner's wooden bar over the panel's foot, the Leaderboard in its medallion (§6.7) |
 
 Fixed: on 1080 × 2340 (110 / 63) the panel starts at 329, the area spans 65–1015 × 377–2071, the rows 377–1810 (ten
-lines fit; seven or more lines are 140 px, `0.13W`, 21 px apart), the status line 1832–1897 and Refresh 248–831 ×
+lines fit and fill them, 124 px each, 21 px apart; fewer lines grow up to 140 px, `0.13W`), the status line 1832–1897 and Refresh 248–831 ×
 1918–2050; a row's parts at 1080 px: the rank 81–205 (its medal 105 px), the portrait 98 px at 206–304, the name
 321–635, the marker 649–726, the badge 734–811, the score 825–1004. On 1080 × 1920 (63 / 0) the rows span 323–1453
-(eight lines fit, 122 px each; seven are 140 px), Refresh 1561–1693; on 1080 × 2520 (120 / 66) the rows 392–1988
-(eleven fit), Refresh 2095–2227. The playtest's offline page shows seven lines: the five placeholder ranks, "…" and
-"You". Back and the Android system back return to Home (the playtest's `DesignApp.CloseLeaderboard` and `Back`;
+(eight lines fit, 122 px each), Refresh 1561–1693; on 1080 × 2520 (120 / 66) the rows 392–1988 (eleven fit, 125 px
+each), Refresh 2095–2227. The rows fill the panel's height (the owner's choice of 2026-10-04): the playtest's offline
+page shows as many lines as fit, the placeholder ranks (`LinesFitting` − 2: six on 16:9, eight on 19.5:9, nine on
+21:9), "…" and "You"; Unity reads five players above and below the player and the top eleven
+(`LeaderboardClient.Neighbours`), enough for the eleven lines of 21:9. Back and the Android system back return to Home (the playtest's `DesignApp.CloseLeaderboard` and `Back`;
 Unity's page lies over Home and hides). Before L10 the page shows locked: its header and panel with the locked notice
 in the area (§6.7, `ScreenLayout.LockedPage`).
 
@@ -1302,17 +1304,18 @@ from the current content (or the level number when it cannot), `collection_open`
 | Header row | the page header of §6.5: back (from a picture's detail to the grid, from the grid to Home), the "Collection" banner with ivy (`collection.title`), the Petals pill (as on the Leaderboard page) |
 | Panel, area | the Store page's (§6.8) |
 | Count | "N pictures" (`collection.count_one`, `collection.count_many`) in `type.caption` `ink.brown_soft`, `0.06W` tall across the area's top (`Count`) |
-| Grid | from `0.02W` under the count to the area's bottom (`Grid`); `Cell(slot)`: square frames, three to a row (`Columns`), `0.03W` apart (`CellGapShare`), as large as fit (`CellSize`, about `0.273W`), rows from the grid's top; `RowsFitting(footer)` the rows that fit, above the footer when there are more pages; `PerPage(count)` all the pictures when they fit, else as many full rows as fit above the footer; `Pages(count)` |
-| Footer | the Store page's (`Footer`, §6.6): `0.84W` × `max(0.12W, size.touch_min)`, `0.02W` over the area's bottom, "n / m" (`common.page`) between the page arrows `0.09W` at its ends (`PagePrevious`, `PageNext`, touch-sized), only with more than one page |
+| Grid | from `0.02W` under the count to the area's bottom (`Grid`); `Cell(slot)`: square frames, three to a row (`Columns`), `0.03W` apart (`CellGapShare`), as large as fit (`CellSize`, about `0.273W`, or down to `0.84` of it, `MinSideShare`, when one more row then fits above the footer: the owner's choice of 2026-10-04, as many rows as fit), centered across the grid, rows from the grid's top; `RowsFitting(footer)` the rows that fit, above the footer when there are more pages; `PerPage(count)` all the pictures when they fit, else as many full rows as fit above the footer; `Pages(count)` |
+| Footer | the Store page's footer line (§6.6): `0.84W` × `max(0.12W, size.touch_min)`, right under a page's last row (`0.03W` lower; at most `0.02W` over the area's bottom), "n / m" (`common.page`) between the page arrows `0.09W` at its ends (`PagePrevious`, `PageNext`, touch-sized), only with more than one page |
 | Detail | a picture's detail in the area's place, centered in it: `Picture` square, `0.8W` at most (less on a short area), then `0.04W` lower `Name` (`0.88W × 0.1W`, the picture's name in sentence case in `type.title` `ink.brown`) and `0.01W` lower `Level` (`0.07W`, "Completed at Level N", `collection.completed`, in `type.body` `ink.brown_soft`) |
 | Bottom menu | the owner's wooden bar over the panel's foot, the Collection in its medallion (§6.7) |
 
-Fixed: on 1080 × 2340 (110 / 63) the count spans 377–442, the grid 464–2071 with 295 px frames 32 px apart: five rows
-(fifteen pictures) fit without the footer, four (twelve a page) above it, the footer 86–993 × 1918–2050 with the arrows
-at 104–201 and 879–976; a picture's detail is 864 px at 108–972 × 674–1538, its name's line at 1581 and its level's at
-1700. On 1080 × 1920 (63 / 0) four rows fit without the footer and three (nine a page) above it, the detail's picture
-at 468–1332; on 1080 × 2520 (120 / 66) five and four, the picture at 769–1633. The preview's frame 6 shows the 87
-pictures of a player at Level 88 (eight pages on 19.5:9, ten on 16:9), frame 20 a picture's detail. Back and the
+Fixed: on 1080 × 2340 (110 / 63) the count spans 377–442, the grid 464–2071 with 258 px frames 32 px apart across
+120–960 (295 px would leave a gap: four rows): five rows (fifteen a page) above the footer, the footer 86–993 ×
+1918–2050 right under them with the arrows at 104–201 and 879–976; a picture's detail is 864 px at 108–972 × 674–1538, its name's line at 1581 and its level's at
+1700. On 1080 × 1920 (63 / 0) four rows of 256 px frames (twelve a page) and the footer at 1561–1693, the detail's
+picture at 468–1332; on 1080 × 2520 (120 / 66) five rows of 291 px frames (fifteen a page), the footer at 2095–2227, the
+picture at 769–1633. The preview's frame 6 shows the 87 pictures of a player at Level 88 (six pages on 19.5:9 and 21:9,
+eight on 16:9), frame 20 a picture's detail. Back and the
 Android system back return from the detail to the grid, then to Home (the playtest's `DesignApp.CollectionBack`;
 Unity's `CollectionScreen` back). Before the first picture the page shows locked: its header and panel with the locked
 notice in the area (§6.7).

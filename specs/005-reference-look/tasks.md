@@ -440,3 +440,15 @@ Presentation only (FR-002).
   the splash's, and the stand-in's falling petals), Unity's `HomeLayersView.PetalsOn` read every frame through
   `HomeStageView.PetalsOn` from `HomeScreen.Create` (`HomeController`); all checks and the type-checks; the preview's
   Settings (frame 19) reviewed at 16:9, 19.5:9 and 21:9.
+
+## Owner choice: the pages fill tall phones (2026-10-04)
+
+See spec.md (the clarification "the owner's bottom menu, wooden", its question on tall phones, and FR-030) and
+contracts/look.md §6.8 and §6.9. Presentation only (FR-002).
+- [X] T083 The Leaderboard's rows fill the panel ("B"): the playtest's `LeaderboardScreen.PlaceholderRanks(r)` as many
+  placeholder ranks as fit (`LinesFitting` − 2); Unity's `LeaderboardClient.Neighbours` five (the player's five
+  neighbours a side and the top eleven), enough for eleven lines.
+- [X] T084 The Collection shows as many rows as fit ("A"): `ReferenceCollectionRegions.Side` (down to `MinSideShare`
+  0.84 of the full frame when one more row then fits above the footer, the frames centered across the grid) and the
+  footer right under a page's last row; `TheCollectionPage_KeepsItsRegionsInOrder_AndEveryTargetReachable` updated;
+  contracts/look.md §6.8, §6.9 and spec.md; all checks; frames 5 and 6 reviewed at 16:9, 19.5:9 and 21:9.

@@ -237,7 +237,7 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
   the rank rows (as many lines as the data has and the page fits: eight on every phone from 16:9, ten on 19.5:9), the
   player's own row highlighted, the offline or empty line and Refresh. The Collection page holds the count and the
   framed finished pictures, newest first, three to a row and as large as fit, a page at a time between the page arrows
-  (nine a page on 16:9, twelve on 19.5:9 and 21:9 when there are more than one page holds); a tap on a picture shows
+  (twelve a page on 16:9, fifteen on 19.5:9 and 21:9 since the owner's choice below); a tap on a picture shows
   its detail on the page (the picture large, its name and its level), the back button and the system back return to
   the grid and a second back leaves the page; it is never a level selector. From any page a tap on another place goes
   straight to that place's page (or Home); back and the Android system back return to Home (the Store page opened from
@@ -248,6 +248,14 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
   after L10. Bring it back, or a rank badge on the menu's Leaderboard place? → A: Neither (the owner, the same day):
   "The rank on Home, no. Only on the Leaderboard page." The rank shows only on the Leaderboard page; spec 001 FR-058 is
   amended with the owner's decision.
+- Q: On tall phones the pages leave room: under the Leaderboard's "You" row and over the Collection's page arrows.
+  Leaderboard: A, the status line and Refresh right under the rows, or B, the rows filling the panel; Collection: A, as
+  many rows as fit with the arrows right under them, or B, the same rows of larger frames? → A: The Leaderboard B, the
+  Collection A (the owner, after the preview of 16:9, 19.5:9 and 21:9). The Leaderboard's rows fill the panel: the
+  playtest's offline page shows as many placeholder ranks as fit, Unity reads five players above and below the player
+  and the top eleven. The Collection shows as many rows as fit, its frames a little smaller (down to 0.84 of their
+  full size) when one more row then fits, the page arrows right under the last row: twelve a page on 16:9, fifteen on
+  19.5:9 and 21:9 (contracts/look.md §6.8, §6.9).
 
 ### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
 
@@ -694,10 +702,11 @@ inventory.
   `ScreenLayout.ReferenceLeaderboard`, `ReferenceCollection`): the Wardrobe's garden, the page header with their
   banner and the Petals pill, the parchment panel and the bottom menu with their place raised. The Leaderboard page
   MUST hold the rank rows (as many lines as the data has and the page fits, at least eight on every phone from 16:9,
-  keeping the player's own row in view), the player's own row highlighted, the offline or empty line and Refresh; the
-  Collection page the count line and the framed finished pictures, newest first, three to a row and as large as fit,
-  with the page arrows when they take more than one page, and a picture's detail (the picture large, its name and
-  level) on the page. Back and the Android system back MUST return from either page to Home, from a Collection
+  keeping the player's own row in view, filling the panel's height), the player's own row highlighted, the offline or
+  empty line and Refresh; the Collection page the count line and the framed finished pictures, newest first, three to
+  a row, as many rows as fit (the frames a little smaller when one more row then fits), with the page arrows right
+  under them when they take more than one page, and a picture's detail (the picture large, its name and level) on the
+  page. Back and the Android system back MUST return from either page to Home, from a Collection
   picture's detail to its grid first; the Store page opened from a page returns to it. The Collection is never a level
   selector. Their data, rules and analytics events (`leaderboard_view`, `collection_open`) stay as the cards had them.
   A locked place's page MUST show the locked notice instead of its content:
