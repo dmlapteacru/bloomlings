@@ -244,6 +244,10 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
   a page returns to that page). Locked, each page shows the locked notice in its panel, as the locked Store page does.
   The data, the rules and the analytics events the cards sent on open (`leaderboard_view`, `collection_open`) stay
   (FR-002).
+- Q: Home lost its rank pill to the menu, but spec 001 FR-058 and `product/08` §2 want the leaderboard rank on Home
+  after L10. Bring it back, or a rank badge on the menu's Leaderboard place? → A: Neither (the owner, the same day):
+  "The rank on Home, no. Only on the Leaderboard page." The rank shows only on the Leaderboard page; spec 001 FR-058 is
+  amended with the owner's decision.
 
 ### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
 

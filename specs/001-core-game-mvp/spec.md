@@ -474,7 +474,7 @@ skin. Complete the daily challenge. Open the Collection.
 #### H. Progression, Home and long-run motivation (docs 07, 08, 11, 13)
 
 - **FR-057**: Progression MUST be one linear sequence of levels, Level 1 → 2 → … → 5000+. Each win unlocks the next level. There MUST be no level map, no level chooser and no level groupings. The flow is Launch → Home → Play → Level N → Win → Next.
-- **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10).
+- **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10). *(Amended on 2026-10-04 by the product owner: the leaderboard rank shows only on the Leaderboard page, not on Home; the Store and the other features are the bottom menu's places, spec 005 FR-030.)*
 - **FR-059**: Every level MUST have a class: Normal, Hard (label from L5) or Super Hard (label from L10). The class is shown before the level starts, with a distinct visual treatment and higher rewards. From L11 on, every 100 consecutive levels MUST contain 15–25 Hard and 6–10 Super Hard levels, spaced irregularly (tuning targets from doc 07: Hard every 4–6 levels, Super Hard every 10–15). The level after a Super Hard is a relief level. Difficulty moves in waves and does not rise monotonically.
 - **FR-060**: The number of active variants MUST grow gradually:
 
