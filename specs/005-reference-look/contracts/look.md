@@ -1174,7 +1174,11 @@ badge squashes with its icon when pressed. A locked place's page or card shows t
 | Store page (before L12) | its garden, header (back, "Store" banner, the Petals pill without its "+": the Store it would open is this one) and parchment panel (`ScreenLayout.LockedPage`: the §6.6 layout without tabs and status line), the notice in `Notice` (the list's box) instead of the tabs, rows, page arrows and offline line; the bottom menu with the Shop raised; back as usual; no `store_open` (Unity), it is not a Store visit |
 | Wardrobe (before L40) | its garden and header (back, "Wardrobe" banner, the Petals pill, its "+" opening the Store page once open), the page's lighter panel (`parchment.top` to `cream.top` with a `cream.line` outline, radius 26 units, `Kit.Panel`) in `LockedPage.Panel`, the notice in `Notice`, instead of the hero, name card, tabs, cards and footer; the bottom menu with the Wardrobe raised |
 | Leaderboard card (before L10) | the card's wooden title sign and close button, the notice filling its body (`LockedNoticeRegions.CardContent` 600 units) instead of the ranks and Refresh |
-| Collection card (before its first picture) | the same, "Collection", instead of the count and the pictures |
+| Collection card (before its first picture) | the same, "Collection", instead of the count and the pictures (the playtest also opens it from Level 2 while it is empty: its dev row's skips collect no pictures) |
+
+Home's and the Wardrobe's Petals pill take a tap only while their "+" shows, so before L12 a tap on the pill does
+nothing in either build (Unity's pill took the tap with its "+" hidden until 2026-10-04 and opened the whole Store page);
+the locked Store page opens from the menu's Shop.
 
 | Region (`LockedNoticeRegions`, `ScreenLayout.LockedNotice(area)`) | Box (A: the area's width) |
 |---|---|

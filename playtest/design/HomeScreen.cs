@@ -187,12 +187,17 @@ namespace Bloomlings.Playtest.Design
             return size.HasValue && size.Value.Width > 0 && size.Value.Height > 0 ? r.LogoPicture(size.Value.Width, size.Value.Height) : r.Logo;
         }
 
-        /// <summary>Home's look now: what is unlocked (spec 001 FR-058).</summary>
+        /// <summary>
+        /// Home's look now: what is unlocked (spec 001 FR-058). The Collection also counts as open from its level
+        /// (<see cref="BottomNav.CollectionLevel"/>) while it is still empty: a player reaches it with level 1's picture, but
+        /// the dev row's skips collect none, and its card would otherwise say "Available from level 2" at any level.
+        /// </summary>
         public static HomeLook Look(DesignApp app)
         {
             PlaytestMeta meta = app.Meta;
             bool hasNext = meta.Milestones.Next(meta.Progression.HighestCompletedLevel).HasValue;
-            return HomeLook.From(meta.Progression.IsUnlocked, meta.Collection.Count, hasNext, dailyChallengeAvailable: true, freeBoosterOffer: false);
+            HomeLook look = HomeLook.From(meta.Progression.IsUnlocked, meta.Collection.Count, hasNext, dailyChallengeAvailable: true, freeBoosterOffer: false);
+            return look with { Collection = look.Collection || meta.CurrentLevel >= BottomNav.CollectionLevel };
         }
 
         /// <summary>The bottom menu's regions with its five places (<see cref="BottomNav.Order"/>) and <paramref name="active"/> in the medallion.</summary>

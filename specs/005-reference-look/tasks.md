@@ -378,3 +378,7 @@ SC-011) and contracts/look.md §6.7. Presentation and navigation only (FR-002): 
 - [X] T073 The docs: spec.md (the clarification, FR-030, scenario 6, SC-011), contracts/look.md §5, §6.5, §6.6 and
   §6.7 (the places always shown, the lock badge, the notice's recipe and regions, each screen when locked, the fixed
   numbers), spec 002's edge case, `CLAUDE.md`, `playtest/README.md` and `client/README.md`; all checks.
+- [X] T074 After the review of the merged work: Unity's Petals pill (`UiKit.PetalsPill`) takes a tap only while its "+"
+  shows (its `Button` interactable with the Store's unlock), as the playtest's; the playtest's Home look opens the
+  Collection from Level 2 while it is empty (`HomeScreen.Look`; the dev row's skips collect no pictures);
+  contracts/look.md §6.7; all checks and the type-checks.

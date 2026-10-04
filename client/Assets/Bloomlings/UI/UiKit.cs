@@ -962,7 +962,8 @@ namespace Bloomlings.Client.UI
         /// 1 keeps its right end on the box's, 0.5 centers it), the lotus inside its left end, the grouped balance in
         /// <c>ink.brown</c> left-aligned right after the lotus, so a short amount never floats in the middle, and the round
         /// green "+" over its right end (to the Store, once unlocked; FR-013). The pill is the touch target when
-        /// <paramref name="onPlus"/> is set.
+        /// <paramref name="onPlus"/> is set, and only while its "+" shows: before the Store's unlock a tap on it does nothing,
+        /// as in the playtest (the locked Store page opens from the bottom menu's Shop, spec 005 FR-030).
         /// </summary>
         public static PetalsPill PetalsPill(string name, Transform parent, Action? onPlus, float align = 1f)
         {
@@ -1008,9 +1009,15 @@ namespace Bloomlings.Client.UI
                 button.targetGraphic = lip;
                 button.onClick.AddListener(() =>
                 {
+                    if (!view.Plus.activeSelf)
+                    {
+                        return;
+                    }
+
                     GameFeedback.Current?.Play(SoundCue.Click);
                     onPlus();
                 });
+                button.interactable = view.Plus.activeSelf;
                 plus.Button = button;
             }
 
@@ -1427,6 +1434,13 @@ namespace Bloomlings.Client.UI
             if (Plus.activeSelf != storeUnlocked)
             {
                 Plus.SetActive(storeUnlocked);
+            }
+
+            // The pill takes a tap only while its "+" shows (the Store is unlocked).
+            Button? button = GetComponent<Button>();
+            if (button != null)
+            {
+                button.interactable = storeUnlocked;
             }
 
             // The pill fits the new balance (and the "+" shown or hidden) now, not only when the text next changes.
