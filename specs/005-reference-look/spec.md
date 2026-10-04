@@ -171,7 +171,13 @@ the round."
 ### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
 
 The owner: "In the Wardrobe, the screen's header: the elements there are not on one line. They need aligning." and
-"The Store must be a separate page, not a popup."
+"The Store must be a separate page, not a popup." and "On Home there are two Wardrobe buttons; keep one, the one with
+the hero's icon, but in its bottom right corner put the clothes icon on that round chip."
+- Q: Home's Wardrobe button? → A: The profile avatar (the hero's portrait) is Home's one Wardrobe button, the left
+  column's first; the shirt button is gone. A green shirt badge sits at the avatar's bottom right (`Kit.IconBadge` /
+  `UiKit.IconBadge`: the count badge's disc with a white `ui.shirt`, 0.34 of the avatar), and the profile badge moves to
+  its bottom left. Both builds open the Wardrobe from it (Unity: its default page; the Profile tab is inside;
+  contracts/look.md §6.4).
 - Q: Which line? → A: The back button's middle: the back button, the wooden banner and the Petals pill now share it
   (the banner sat about 0.04 W lower before, 46 px on a 1080 × 2340 phone). The banner's plank is `0.1W` tall, so with
   its ivy it stands about as tall as the back button, and it spans the room between the back button and the Petals
@@ -441,8 +447,9 @@ inventory.
 - **FR-016**: The win card MUST show the wooden sign with flowers, the finished picture as full-color tiles in a stone
   frame, the heroes on a stone pedestal with light rays and falling petals, the reward pill and Next in a wooden rim.
   Pause MUST stay usable over it, so Home, Restart and Settings stay reachable as before (FR-002).
-- **FR-017** *(amended on 2026-10-04: the Store is a page, FR-029)*: Home MUST show the wooden logo letters with
-  leaves, the level on a wooden plaque and the big Play button; the Wardrobe and Store pages and the other meta cards
+- **FR-017** *(amended on 2026-10-04: the Store is a page, FR-029; one Wardrobe button, the avatar)*: Home MUST show
+  the wooden logo letters with leaves, the level on a wooden plaque and the big Play button, and once the Wardrobe opens
+  one Wardrobe button, the profile avatar with a shirt badge; the Wardrobe and Store pages and the other meta cards
   use the same signs, parchment, tabs and cards.
 - **FR-018**: The Petals symbol MUST be the pink lotus everywhere it appears.
 

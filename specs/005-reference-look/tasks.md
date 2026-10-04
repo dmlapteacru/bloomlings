@@ -263,7 +263,10 @@ See spec.md (the clarification "Twig and Sprig toned down") and research D25.
 ## Owner notes: the Wardrobe's header on one line; the Store as a page (2026-10-04)
 
 See spec.md (the clarification "the owner's notes: the Wardrobe's header on one line; the Store as a page", FR-025,
-FR-029) and contracts/look.md §6.5, §6.6. Presentation only (FR-002).
+FR-029) and contracts/look.md §6.4, §6.5, §6.6. Presentation only (FR-002).
+- [X] T052 Home's one Wardrobe button: the profile avatar first in the left column with a green shirt badge at its
+  bottom right (`Kit.IconBadge`, `UiKit.IconBadge`), the shirt button removed, the profile badge at the avatar's bottom
+  left (`ProfileAvatar`); the Wardrobe demo points at the avatar (Unity `HomeScreen.DemoTarget`); look.md §6.4.
 - [X] T053 The kit's page header: `PageHeader` and `ScreenLayout.PageHeader` (the back button, the banner 0.1 W tall and
   the Petals pill's box on the back button's middle line, the banner's ivy clusters 0.005 W clear of both), used by
   `ReferenceWardrobe`; the sign leaves' boxes in the kit (`GardenLook.IvyBox`, `FlowerBox`, `SignExtent`, `IvyReach`),
