@@ -259,7 +259,9 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   "×N" charges in bigger digits (66% of the pill's height), after the booster's icon (80% of the height) on a jam choice.
 - **Petals pill** (`Kit.PetalsPill` / `UiKit.PetalsPill`, both on the kit's `PetalsPillParts`; the owner, 2026-10-03:
   "at 0 it shows crooked, somewhere in the middle, the lotus itself too far left"): the cream style; the pill fits its
-  amount inside its layout box (at the box's right end, as on Home and the page header; `align` 0.5 centers it): the lotus
+  amount inside its layout box (at the box's right end, as in the page header; `align` 0.5 centers it, as in Home's
+  header row since the owner's request of 2026-10-04, where `decorate` adds the main buttons' leaves and flower on its
+  corners, §6.4): the lotus
   (0.92 of the height) fully inside its left end (0.07 of the height in), the amount in `InkBrown` at half the height
   right after it (0.07 gap), left-aligned for every length, then 0.38 of the height of cream, or the green round "+"
   (the pill's height) on the right end, reaching 0.2 of the height beyond it. The width is measured with every digit
@@ -642,12 +644,13 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   and two small pink flowers over them.
 - Level: a `WoodSign` (None) plaque with "Level N", as tall as its row and as wide as the letters plus 1.5 × its height.
 - Play: the big primary button in its wood rim.
-- Settings, Petals pill per §3.3–3.4.
+- Settings, Petals pill per §3.3–3.4, with the profile avatar on one header row (§6.4; the owner's request of
+  2026-10-04).
 - Heroes (`HomeStage.ShowsHeroes`; first deferred by the owner on 2026-10-02 over the single Home picture, then
   delivered animated the same day, FR-028): over the owner's layered Home (pictures.md B1: the garden with its
   fountain layers) Home and the splash stand the four animated heroes on the painted fountain (§6.4 "The layered
-  Home", §3.12), no pedestal and no drawn fountain, with the logo, Settings, the Petals pill, the Daily Challenge's
-  side button, the plaque, Play, the pills and the bottom menu (§6.7) over them. Without the owner's picture, the drawn stage
+  Home", §3.12), no pedestal and no drawn fountain, with the logo, Settings, the Petals pill, the avatar, the Daily
+  Challenge's side button, the plaque, Play, the pills and the bottom menu (§6.7) over them. Without the owner's picture, the drawn stage
   `HomeStage.ReferenceDiorama` (kit `HomeLook.cs`, §6.4): a `StonePedestal` ring, the lotus fountain on it
   (`Kit.LotusFountain`, `ui.fountain`: a small pedestal as its basin, water, two lily pads, the lotus) and the four
   still heroes around it as in the reference (Bloom raised behind the fountain, Drop at the right back, Sprig at the
@@ -957,11 +960,13 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 
 | Element | Box |
 |---|---|
+| Header row | one line, Settings' middle (the owner's request of 2026-10-04: "`[Settings]  [ Petals 5090 + ]  [Avatar]`"; `ReferenceHomeRegions.Header`): Settings, the Petals pill and the Avatar |
 | Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
-| Petals pill | `0.38W × 0.095W`, right edge − `0.02W`, top 2.5% of H |
+| Petals pill | box `0.44W × 0.105W` (`PetalsWidthShare`, `PetalsHeightShare`; before: `0.38W × 0.095W` at the right edge − `0.02W`), centered on the safe area's middle and on Settings' middle line, `0.11W` clear of Settings and of the Avatar; the pill fits its amount and stands centered in the box with its "+" (`align` 0.5), the main buttons' leaves and flower on its top-left end and on the "+"'s bottom-right edge (`GardenLook.PillDecorationBoxes`), never touch targets; its "+" opens the Store page once the Store is open |
+| Avatar | the profile avatar `0.13W`, Settings' mirror: right `0.04W` from the safe right edge, top 2.5% of H (`Avatar`): the player's hero (`CharacterArt.ProfileHero`, Bloom; in its outfit once the Wardrobe is open) on a domed cream disc with a soft green middle, the chosen profile frame (1.08 of it) and the profile badge (0.36 of it, at its bottom left); no shirt badge. A tap presses and clicks; the playtest then shows the toast "Profile coming soon" (`home.profile_soon`); Unity's Home has no toast (`HomeFeatureActions.OnProfile`, none yet). The profile page comes later |
 | Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
-| Side buttons | the Daily Challenge (right) as a cream round button `0.13W` at 24% of H, `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places |
+| Side buttons | the Daily Challenge (right, under the Avatar) as a cream round button `0.13W` at 24% of H, `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places (the avatar came back the same day, without the shirt badge, at the right of the header row) |
 | Level plaque | wooden sign `0.5W × 0.085H`, centered, `0.01H` over Play (64% to 72.5% of H before the bottom menu; about 60% to 68.5% now) |
 | Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, `0.15H` tall, ending over the teaser row (73.5% to 88.5% of H before the bottom menu; about 69.5% to 84.5% on 19.5:9 now); the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
 | Teaser | the milestone teaser as a small parchment pill (`0.5W × 0.04H`) centered under Play, its row's touch boxes ending `0.015W` over the bottom menu's top; the free booster as a cream pill beside it when offered |
@@ -969,8 +974,15 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 
 Fixed: the fractions apply to the safe height (`bottomReserve`, 0 in both builds since the playtest's dev row moved into
 the Settings card opened from Home, lifts the bottom stack by its height); the Petals pill (without the "+" while the
-Store is locked) fits its amount at the right end of its box (§3) and is centered on the Settings button's height; the
-logo starts at 10% of H or `0.01W` under Settings, whichever is lower; the side columns start at 24% of H or `0.02W`
+Store is locked) fits its amount (§3) and stands centered in its box with its "+", on the Settings button's height, as
+does the Avatar; the logo starts at 10% of H or `0.01W` under Settings, whichever is lower, and the owner's logo picture's top no
+higher than the header row's bottom less a tenth of its height (its transparent margin), so its letters start under the
+row; the pill's flowers (the top-left cluster `1.2` of the pill's height with its flower on the pill's rounded left end
+at its top, the bottom-right one `0.9` of that, turned, its flower on the "+"'s edge) stay between Settings and the
+Avatar even when the amount takes the whole box. On a 1080 × 2340 phone (insets 110 / 63) the row's middle line is
+y 234: Settings spans x 43–184 and y 164–305, the Avatar x 896–1037 at the same height, the Petals box x 302–778 and
+y 178–291 (119 px clear of each), the pill's flowers 136 and 122 px square, and the logo picture (886 × 325) starts at
+y 278, its letters at about 310, under the row's bottom (305). The side columns start at 24% of H or `0.02W`
 under the logo and stack `0.13W` buttons `0.03W` apart. The bottom stack (owner's bottom menu, 2026-10-04, FR-030) is
 laid out bottom up from the menu's top (`ReferenceHomeRegions.NavTop` = `ScreenLayout.BottomNavTop`, the medallion's
 top, §6.7): its limit is `0.015W` (`BottomNav.GapShare`) over it, less `bottomReserve`; the teaser row is centered half
@@ -994,7 +1006,8 @@ Home and the splash draw, back to front:
 5. Sprig, then Twig, each over its shadow;
 6. the fountain's front `home-fountain-front` (`bg.home.fountain_front`), over the heroes' feet;
 7. the petals `home-petals` (`bg.home.petals`), drifting;
-8. the UI: the logo, Settings, the Petals pill, the side button, the plaque, Play, the pills and the bottom menu (§6.7).
+8. the UI: the logo, Settings, the Petals pill, the avatar, the side button, the plaque, Play, the pills and the bottom
+   menu (§6.7).
 
 Every layer lies at `HomeLayers.Place(HomeLayers.Cover(screen), layer)`, `screen` the full-screen box the backdrop
 cover-fits the garden into: `Cover` lays the 852 × 1846 picture (`PictureWidth`, `PictureHeight`) over it at the larger
@@ -1040,8 +1053,8 @@ drawing while it shows (at least the heroes' 24 fps, the petals at the display r
 
 Taps: a tap on a hero's seam picture box (`HeroMotion.PictureBox(HeroCell, Frame(family, Idle, 0))`) calls
 `HomeMotion.Tap(family, now)`: the hero reacts at once, cross-fading from its idle, unless it already reacts. A hero
-never takes a tap from Play, the side buttons, Settings, the Petals pill, the plaque or the bottom menu: the playtest
-cuts each hero's touch box clear of every Home control, of the menu from its top down and of the heroes in front of it (a part smaller than `size.touch_min` takes
+never takes a tap from Play, the side buttons, Settings, the Petals pill, the avatar, the plaque or the bottom menu: the
+playtest cuts each hero's touch box clear of every Home control (the avatar's touch box too), of the menu from its top down and of the heroes in front of it (a part smaller than `size.touch_min` takes
 none); Unity's clear touch boxes lie in the stage under the screen's controls, which keep their taps. The splash takes
 no hero taps.
 
@@ -1059,14 +1072,20 @@ width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's
 `0.09u` above the stage's bottom, the lotus fountain on it, Bloom raised behind the fountain (`0.64u` picture, feet
 `0.51u` up), Drop at the right back (`0.44u` at `+0.30u`), Sprig at the left (`0.74u` at `−0.26u`), Twig in front at the
 right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest shows the Daily Challenge's side button
-once unlocked (`r.Daily`) and the bottom menu (§6.7); its splash shows the logo and the diorama in the same boxes.
+once unlocked (`r.Daily`) and the bottom menu (§6.7); its splash shows the logo and the diorama in the same boxes. Its
+header row draws Settings (`Kit.RoundButton`), the pill (`Kit.PetalsPill(align: 0.5f, decorate: true)`, the reward's
+sparkles on its lotus) and the avatar (`HomeScreen.Avatar`, slot `ui.button.round` with the hero's and the cosmetics'
+slots); a tap on the avatar runs `DesignApp.OpenProfile` (the click, then Home's toast).
 
-Unity (`HomeScreen`, `SplashScreen`): the Daily Challenge, the sun `ui.sun` with the green check badge when done today,
-in `r.Daily`, and the bottom menu (§6.7, `BottomNavView`, built last over the stage, Home in its medallion; its
-Leaderboard, Shop and Wardrobe places are the targets of the L10, L12 and L40 Home demos, `HomeScreen.DemoTarget`; the
-profile avatar, `ProfileAvatar`, stays in the Wardrobe's profile tab); the logo shows in both looks, the owner's logo picture sized by width
-(`ReferenceHomeRegions.LogoPicture`: `0.82W` wide, centered on the logo box, its top no higher than a tenth of its
-height above Settings' bottom); over the owner's layered Home both looks show its stage with the four animated heroes
+Unity (`HomeScreen`, `SplashScreen`): the header row, Settings (`UiKit.RoundIconButton`), the pill
+(`UiKit.PetalsPill(align: 0.5f, decorate: true)`) and the avatar (a clear `Button` in `r.Avatar` with `PressMotion` and
+the click, holding a `ProfileAvatar` shown with `HomeModel.Profile` less its marker and `HomeModel.AvatarOutfit`; built
+after the stage, so the heroes never take its taps); the Daily Challenge, the sun `ui.sun` with the green check badge
+when done today, in `r.Daily`, and the bottom menu (§6.7, `BottomNavView`, built last over the stage, Home in its
+medallion; its Leaderboard, Shop and Wardrobe places are the targets of the L10, L12 and L40 Home demos,
+`HomeScreen.DemoTarget`; the profile avatar, `ProfileAvatar`, also stays in the Wardrobe's profile tab); the logo
+shows in both looks, the owner's logo picture sized by width (`ReferenceHomeRegions.LogoPicture`: `0.82W` wide,
+centered on the logo box, its top no higher than a tenth of its height above the header row's bottom); over the owner's layered Home both looks show its stage with the four animated heroes
 (`HeroPictures.Stage`, `HomeLayersView` with one `HeroMotionView` per hero, built under the screen's controls;
 `HeroPictures.StageOf` picks the stage); without the picture, the drawn `HomeStage.ReferenceDiorama`, where once the
 Wardrobe is open each hero wears its outfit and the player's hero (`ProfileAvatar.HeroFamily`) swaps places with Sprig

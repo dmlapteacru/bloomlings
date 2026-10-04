@@ -228,7 +228,14 @@ Check in the Editor (the client check covers the logic, not the look):
   the logo, the buttons, the plaque, Play, the pills and last the `BottomNav` come after the stage, above it. Bloom's
   feet hide behind the lotus, Sprig's and Twig's behind the fountain's front flowers.
 - Taps: a press on a hero makes it react at once (no click sound); Play, the side button, Settings, the Petals pill,
-  the plaque and the bottom menu keep their taps where they overlap a hero; the splash's heroes take none.
+  the avatar, the plaque and the bottom menu keep their taps where they overlap a hero; the splash's heroes take none.
+- Home's header row (the owner's request of 2026-10-04, `contracts/look.md` §6.4): Settings at the left, the large
+  Petals pill centered (`UiKit.PetalsPill(align: 0.5f, decorate: true)`) with the owner's sprig on its top-left end and
+  on the "+"'s bottom-right edge, and the profile avatar at the right (`Profile` with its `ProfileAvatar`: the player's
+  Bloom in its outfit once the Wardrobe is open, the profile frame and badge), as large as Settings and on its middle
+  line, as in the preview's frames 2, 3 and 28. A tap on the avatar presses it and clicks; Unity's Home has no toast,
+  so it says nothing yet (the playtest says "Profile coming soon"), and the profile page will open from
+  `HomeFeatureActions.OnProfile`. The pages' Petals pills keep their place at the right of the page header.
 - The bottom menu (spec 005 FR-030, `contracts/look.md` §6.7; `UiKit.BottomNav` / `BottomNavView` in Home and the four
   pages, wired by `HomeController`): the wooden bar and the medallion should look as in the preview's frames 2, 3, 5,
   6, 17 and 27 on a 19.5:9 and a 16:9 Game view; all five places always show (the owner's request of 2026-10-04), a

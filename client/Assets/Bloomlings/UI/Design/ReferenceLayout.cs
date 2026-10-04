@@ -232,13 +232,19 @@ namespace Bloomlings.Client.UI.Design
     /// The Petals balance pill's parts (spec 005 §3.4; the owner's note of 2026-10-03: a short amount must not float in
     /// the middle of the pill, and the lotus must not hang off its left end), in both builds (<c>Kit.PetalsPill</c>,
     /// <c>UiKit.PetalsPill</c>): a cream pill as tall as its layout box that fits its content, at most the box's width and
-    /// placed in it by <c>align</c> (1: its right end on the box's, as on Home and in the Wardrobe; 0.5: centered); its face
-    /// over the lip; the lotus fully inside its left end; the amount left-aligned right after the lotus
-    /// (<see cref="Amount"/>, digits <see cref="AmountSize"/> tall); and, while the Store is open, the round green "+" over
-    /// its right end (<see cref="Plus"/>, empty without). Engine-free.
+    /// placed in it by <c>align</c> (1: its right end on the box's, as in the pages' headers; 0.5: centered, as in Home's
+    /// header since the owner's request of 2026-10-04); its face over the lip; the lotus fully inside its left end; the
+    /// amount left-aligned right after the lotus (<see cref="Amount"/>, digits <see cref="AmountSize"/> tall); and, while
+    /// the Store is open, the round green "+" over its right end (<see cref="Plus"/>, empty without). Engine-free.
     /// </summary>
     public sealed record PetalsPillParts(Box Pill, Box Face, Box Lotus, Box Amount, float AmountSize, Box Plus)
     {
+        /// <summary>
+        /// The pill with the part of its "+" beyond its right end: what Home's flowered corners
+        /// (<see cref="GardenLook.PillDecorationBoxes"/>) frame.
+        /// </summary>
+        public Box Span => new Box(Pill.Left, Pill.Top, Math.Max(Pill.Right, Plus.Right), Pill.Bottom);
+
         /// <summary>The cream lip under the face, as a share of the pill's height.</summary>
         public const float LipShare = 0.09f;
 
@@ -399,18 +405,20 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// Home in the reference layout (spec 005 FR-024, FR-030, contracts/look.md §6.4): Settings at the top left, the Petals
-    /// pill at the top right, the logo across the top, the diorama in the middle, the Daily Challenge side button at the
-    /// right (more with <see cref="SideButton"/>), the wooden level plaque, the big Play button and the milestone teaser
-    /// with the free booster offer beside it, all above the bottom menu (<see cref="NavTop"/>, its top; the Store, the
-    /// Wardrobe, the Leaderboard and the Collection are its places since the owner's request of 2026-10-04, so Home has no
-    /// side button or rank pill of theirs). Every box is laid out; screens draw the ones unlocked. Engine-free.
+    /// Home in the reference layout (spec 005 FR-024, FR-030, contracts/look.md §6.4): the header row (Settings at the top
+    /// left, the large Petals pill in the middle and the profile avatar at the top right, the owner's request of
+    /// 2026-10-04), the logo across the top, the diorama in the middle, the Daily Challenge side button at the right (more
+    /// with <see cref="SideButton"/>), the wooden level plaque, the big Play button and the milestone teaser with the free
+    /// booster offer beside it, all above the bottom menu (<see cref="NavTop"/>, its top; the Store, the Wardrobe, the
+    /// Leaderboard and the Collection are its places since the owner's request of 2026-10-04, so Home has no side button
+    /// or rank pill of theirs). Every box is laid out; screens draw the ones unlocked. Engine-free.
     /// </summary>
     public sealed record ReferenceHomeRegions(
         Box Safe,
         float W,
         Box Settings,
         Box Petals,
+        Box Avatar,
         Box Logo,
         Box Diorama,
         Box Daily,
@@ -420,8 +428,19 @@ namespace Bloomlings.Client.UI.Design
         Box FreeBooster,
         float NavTop)
     {
-        /// <summary>The side buttons' size, as a share of <see cref="W"/>.</summary>
+        /// <summary>The side buttons' size, as a share of <see cref="W"/>: Settings, the Avatar and the Daily Challenge.</summary>
         public const float SideButtonShare = 0.13f;
+
+        /// <summary>The Petals pill's box in the header row, as shares of <see cref="W"/>: centered between Settings and the Avatar.</summary>
+        public const float PetalsWidthShare = 0.44f;
+
+        public const float PetalsHeightShare = 0.105f;
+
+        /// <summary>
+        /// The header row (the owner's request of 2026-10-04): from Settings' left to the Avatar's right, as tall as they
+        /// are, with the Petals pill's box centered on their middle line between them.
+        /// </summary>
+        public Box Header => new Box(Settings.Left, Math.Min(Settings.Top, Petals.Top), Avatar.Right, Math.Max(Settings.Bottom, Petals.Bottom));
 
         /// <summary>The gap between two side buttons of a column, as a share of <see cref="W"/>.</summary>
         public const float SideGapShare = 0.03f;
@@ -451,28 +470,28 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The box of the owner's logo picture (pictures.md C1, <paramref name="width"/> × <paramref name="height"/> with
         /// transparent margins of about a tenth of its height): sized by width, <see cref="LogoPictureShare"/> of W,
-        /// centered on <see cref="Logo"/>, its top no higher than Settings' bottom less its top margin, so the letters
-        /// fill the reference's 10% to 20.5% of the height.
+        /// centered on <see cref="Logo"/>, its top no higher than the header row's bottom (Settings' and the Avatar's) less
+        /// its top margin, so the letters clear the row and fill the reference's 10% to 20.5% of the height.
         /// </summary>
         public Box LogoPicture(int width = 1200, int height = 440)
         {
             float w = LogoPictureShare * W;
             float h = w * height / Math.Max(1f, width);
             Box box = Box.FromCenter(Logo.CenterX, Logo.CenterY, w, h);
-            float top = Settings.Bottom - (0.1f * h);
+            float top = Header.Bottom - (0.1f * h);
             return box.Top < top ? box.Offset(0f, top - box.Top) : box;
         }
 
         /// <summary>The bands in their screen order.</summary>
         public IReadOnlyList<(string Name, Box Box)> Ordered => new[]
         {
-            ("Petals", Petals), ("Logo", Logo), ("Plaque", Plaque), ("Play", Play), ("Teaser", Teaser),
+            ("Header", Header), ("Logo", Logo), ("Plaque", Plaque), ("Play", Play), ("Teaser", Teaser),
         };
 
         /// <summary>Everything a finger can press (the bottom menu's places are its own, <see cref="BottomNavRegions.Buttons"/>).</summary>
         public IReadOnlyList<(string Name, Box Box)> Buttons => new[]
         {
-            ("Settings", Settings), ("Petals", Petals), ("Daily", Daily), ("Play", Play), ("FreeBooster", FreeBooster),
+            ("Settings", Settings), ("Petals", Petals), ("Avatar", Avatar), ("Daily", Daily), ("Play", Play), ("FreeBooster", FreeBooster),
         };
 
         /// <summary>
@@ -1025,9 +1044,10 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// Home in the reference layout (contracts/look.md §6.4), in fractions of the safe height H and width W: Settings
-        /// 0.13 W at 0.04 W from the left, the Petals pill 0.38 W × 0.095 W at 0.02 W from the right, both from 2.5% of H;
-        /// the logo 0.8 W wide from 10% to 20.5%; the diorama from 22% to 0.06 H under the plaque's top; the Daily
+        /// Home in the reference layout (contracts/look.md §6.4), in fractions of the safe height H and width W: the header
+        /// row from 2.5% of H, Settings 0.13 W at 0.04 W from the left, the Avatar its mirror at 0.04 W from the right and
+        /// the Petals pill's box 0.44 W × 0.105 W centered on the safe area's middle and on their middle line (0.11 W clear
+        /// of each); the logo 0.8 W wide from 10% to 20.5%; the diorama from 22% to 0.06 H under the plaque's top; the Daily
         /// Challenge side button from 24%; then, bottom up from the bottom menu's top (<see cref="BottomNavTop"/>) less
         /// 0.015 W and <paramref name="bottomReserve"/> (the playtest's dev row): the teaser row (the teaser pill 0.5 W ×
         /// 0.04 H with the free booster pill at its right) whose touch boxes end there, Play 0.85 W wide ending 1 px over
@@ -1043,7 +1063,8 @@ namespace Bloomlings.Client.UI.Design
 
             float button = ReferenceHomeRegions.SideButtonShare * w;
             var settings = new Box(safe.Left + (0.04f * w), Y(0.025f), safe.Left + (0.04f * w) + button, Y(0.025f) + button);
-            var petals = new Box(safe.Right - (0.02f * w) - (0.38f * w), settings.CenterY - (0.0475f * w), safe.Right - (0.02f * w), settings.CenterY + (0.0475f * w));
+            var avatar = new Box(safe.Right - (0.04f * w) - button, settings.Top, safe.Right - (0.04f * w), settings.Bottom);
+            Box petals = Box.FromCenter(safe.CenterX, settings.CenterY, ReferenceHomeRegions.PetalsWidthShare * w, ReferenceHomeRegions.PetalsHeightShare * w);
             var logo = new Box(safe.CenterX - (0.4f * w), Math.Max(Y(0.1f), settings.Bottom + (0.01f * w)), safe.CenterX + (0.4f * w), Y(0.205f));
             float sideTop = Math.Max(Y(0.24f), logo.Bottom + (0.02f * w));
             var daily = new Box(safe.Right - (0.04f * w) - button, sideTop, safe.Right - (0.04f * w), sideTop + button);
@@ -1065,7 +1086,7 @@ namespace Bloomlings.Client.UI.Design
             var play = new Box(safe.CenterX - (0.425f * w), playBottom - playHeight, safe.CenterX + (0.425f * w), playBottom);
             var plaque = new Box(safe.CenterX - (0.25f * w), play.Top - gap - plaqueHeight, safe.CenterX + (0.25f * w), play.Top - gap);
             var diorama = new Box(safe.Left, Y(0.22f), safe.Right, Y(0.7f));
-            return new ReferenceHomeRegions(safe, w, settings, petals, logo, diorama, daily, plaque, play, teaser, free, navTop);
+            return new ReferenceHomeRegions(safe, w, settings, petals, avatar, logo, diorama, daily, plaque, play, teaser, free, navTop);
         }
 
         /// <summary>

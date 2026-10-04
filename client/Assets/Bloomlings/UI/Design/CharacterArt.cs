@@ -102,6 +102,13 @@ namespace Bloomlings.Client.UI.Design
         public static string CheerSlot(Family family) => "char.hero3d.cheer." + FamilyName(family);
 
         /// <summary>
+        /// The family of the player's hero: the profile avatar's portrait in both builds (Home's header since the owner's
+        /// request of 2026-10-04, the Wardrobe's Profile tab), and on the drawn stand-in the hero at Home's left front once
+        /// the Wardrobe is open (Unity's <c>ProfileAvatar.HeroFamily</c>).
+        /// </summary>
+        public const Family ProfileHero = Family.Bloom;
+
+        /// <summary>
         /// The families that take turns celebrating won levels, in their order: Twig, then Sprig (the owner's choices of
         /// 2026-10-03, spec 005 FR-028; Twig alone before Sprig's animated model came). They replaced the level's main
         /// family (pictures.md A7). Both builds take them from here.

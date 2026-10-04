@@ -63,6 +63,14 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Nav(p, app).Places.Count == 5, "every place shows on an early Home");
                 Expect(!app.PlaceOpen(NavPlace.Shop) && !app.PlaceOpen(NavPlace.Wardrobe) && !app.PlaceOpen(NavPlace.Leaderboard), "the Shop, the Wardrobe and the Leaderboard are locked at Level 5");
                 Expect(app.PlaceOpen(NavPlace.Home) && app.PlaceOpen(NavPlace.Collection), "Home and the Collection are open at Level 5");
+
+                // The header row (the owner's request of 2026-10-04): a tap on the avatar says the profile is coming and
+                // opens nothing; the toast passes, so the frame shows Home as it stands.
+                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).Avatar);
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "Profile coming soon") && app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "a tap on the avatar says the profile is coming");
+                Run(app, p, 1.6f);
+                Expect(!Shows(p, "Profile coming soon"), "the avatar's toast passes");
             });
 
             yield return new Fixture(3, "home-progressed", "Home (progressed)", (p, data) =>
@@ -243,8 +251,8 @@ namespace Bloomlings.Playtest.Preview
                 DesignApp app = Progressed(App(data), content, 49);
                 CloseAll(app);
                 Run(app, p, 0.1f);
-                Box petals = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).Petals;
-                Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
+                // The pill stands centered in the header row's box (the owner's request of 2026-10-04), so its middle is on it.
+                Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).Petals);
                 Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Home, "Home's Petals \"+\" opens the Store page");
                 Run(app, p, 0.1f);
                 Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);

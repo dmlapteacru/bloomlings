@@ -34,7 +34,9 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   - a splash (frame 1), then Level 1 on the very first launch and Home later; over the owner's layered Home its four
     animated heroes fade in on the fountain already in Home's motion, so Home takes over without a jump;
   - Home in the reference layout (spec 005 FR-024, `contracts/look.md` §6.4) in its early look (frame 2) and, once the
-    features unlock, the progressed look (frame 3): Settings and the Petals pill on top, the wooden logo, the owner's
+    features unlock, the progressed look (frame 3): the header row on top (the owner's request of 2026-10-04: Settings
+    at the left, the large Petals pill centered with the Play button's leaves and flower on its corners, the profile
+    avatar at the right, whose tap says "Profile coming soon" until the profile page comes), the wooden logo, the owner's
     layered Home with the four animated heroes on its fountain (spec 005 FR-028: each idles, they take turns to react,
     a tap on one makes it react, petals drift over them; without the owner's pictures the drawn stand-in's four still
     heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the level plaque, the big Play,

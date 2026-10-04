@@ -463,8 +463,11 @@ namespace Bloomlings.Client.Tests
         }
 
         /// <summary>
-        /// Home (spec 005 FR-024, FR-030): its regions in order inside the safe area; the plaque, Play and the teaser row
-        /// above the bottom menu (Play's bottom and the free booster's touch box end a gap over its top, less the reserve);
+        /// Home (spec 005 FR-024, FR-030): its regions in order inside the safe area; the header row (the owner's
+        /// request of 2026-10-04) with Settings, the Petals pill's box and the Avatar on one middle line, the Avatar
+        /// Settings' mirror, the pill's box 0.44 W × 0.105 W centered on the safe area at least 0.03 W clear of both, its
+        /// flowers between them and the logo picture's letters under the row; the plaque, Play and the teaser row above
+        /// the bottom menu (Play's bottom and the free booster's touch box end a gap over its top, less the reserve);
         /// Play 0.15 H tall unless the plaque would rise above 60% of H, then shorter (never under 0.11 H nor the touch
         /// minimum); the Daily Challenge the right column's first side button; and every button, the bottom menu's places
         /// included, reachable and clear of the others.
@@ -481,6 +484,31 @@ namespace Bloomlings.Client.Tests
                     float touch = Touch(w, h);
                     float limit = r.NavTop - (BottomNav.GapShare * r.W) - reserve;
                     AssertOrdered(r.Ordered, r.Safe, at);
+
+                    // The header row: [Settings]  [ Petals + ]  [Avatar] on Settings' middle line.
+                    float sw = r.W;
+                    Assert.That(r.Settings.Left, Is.EqualTo(r.Safe.Left + (0.04f * sw)).Within(0.5f), at);
+                    Assert.That(r.Avatar.Right, Is.EqualTo(r.Safe.Right - (0.04f * sw)).Within(0.5f), at + ": the Avatar mirrors Settings");
+                    Assert.That(r.Avatar.Width, Is.EqualTo(r.Settings.Width).Within(0.01f), at);
+                    Assert.That(r.Avatar.Height, Is.EqualTo(r.Settings.Height).Within(0.01f), at);
+                    Assert.That(r.Avatar.Top, Is.EqualTo(r.Settings.Top).Within(0.01f), at);
+                    Assert.That(r.Settings.Width, Is.EqualTo(ReferenceHomeRegions.SideButtonShare * sw).Within(0.5f), at);
+                    Assert.That(r.Petals.CenterY, Is.EqualTo(r.Settings.CenterY).Within(0.5f), at + ": the pill on Settings' middle line");
+                    Assert.That(r.Petals.CenterX, Is.EqualTo(r.Safe.CenterX).Within(0.5f), at + ": the pill centered");
+                    Assert.That(r.Petals.Width, Is.EqualTo(ReferenceHomeRegions.PetalsWidthShare * sw).Within(0.5f), at);
+                    Assert.That(r.Petals.Height, Is.EqualTo(ReferenceHomeRegions.PetalsHeightShare * sw).Within(0.5f), at);
+                    Assert.That(r.Petals.Left - r.Settings.Right, Is.GreaterThanOrEqualTo(0.03f * sw), at + ": the pill clear of Settings");
+                    Assert.That(r.Avatar.Left - r.Petals.Right, Is.GreaterThanOrEqualTo(0.03f * sw), at + ": the pill clear of the Avatar");
+
+                    // The pill's flowered corners stay between Settings and the Avatar, even when its amount takes the whole box.
+                    PetalsPillParts full = PetalsPillParts.Fit(r.Petals, r.Petals.Width * 2f, true, 0.5f);
+                    (Box topLeft, Box bottomRight) = GardenLook.PillDecorationBoxes(full.Span);
+                    Assert.That(topLeft.Left, Is.GreaterThan(r.Settings.Right), at + ": the top-left flower clear of Settings");
+                    Assert.That(bottomRight.Right, Is.LessThan(r.Avatar.Left), at + ": the bottom-right flower clear of the Avatar");
+                    Box logo = r.LogoPicture();
+                    Assert.That(logo.Top + (0.1f * logo.Height), Is.GreaterThanOrEqualTo(r.Header.Bottom - 0.5f), at + ": the logo's letters under the header row");
+                    Assert.That(r.Daily.Top, Is.GreaterThan(r.Avatar.Bottom), at + ": the Daily Challenge under the Avatar");
+
                     Assert.That(r.NavTop, Is.EqualTo(ScreenLayout.BottomNavTop(w, h, insets)).Within(0.01f), at);
                     Assert.That(r.Teaser.Bottom, Is.LessThanOrEqualTo(limit + 0.5f), at + ": the teaser above the bottom menu and the reserve");
                     Assert.That(TouchBox(r.FreeBooster, touch).Bottom, Is.LessThanOrEqualTo(limit + 0.5f), at + ": the free booster's touch box above them");
