@@ -40,9 +40,14 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the level plaque, the big Play,
     "N levels to reward", and cream round side buttons for the Wardrobe, the Collection, the profile avatar, the Daily
     Challenge and the Store, with the rank pill (offline) in the top row between Settings and the Petals pill;
-  - the Wardrobe (frame 27, spec 005 FR-025, §6.5), opened from Home: the hero on its pedestal between ‹ › family
+  - the Wardrobe (frame 27, spec 005 FR-025, §6.5), opened from Home: the header on one line (back, the "Wardrobe"
+    banner, the Petals pill), the hero on its pedestal between ‹ › family
     arrows, the name card, the family tabs and outfit cards three to a page (owned items to wear, items for sale to buy
     with Petals, and the ones earned later with a padlock), through the client's `WardrobeService`;
+  - the Store page (frames 17 and 26, spec 005 FR-029, §6.6), opened from Home's Store button and Petals "+" or the
+    Wardrobe's Petals "+": the Wardrobe's header ("Store"), then on a parchment panel the Shop / Cosmetics tabs, the
+    Shop's rows (boosters for Petals; the real-money rows unavailable) and the cosmetics' outfit cards; its back (and the
+    system back, which also closes the Wardrobe) returns to where it was opened;
   - the level (frames 7–9) in the reference's layout (spec 005 FR-020, FR-021): the cream Pause, the wooden level sign
     with ivy and the HARD or SUPER HARD badge, the cream 2× pill, the board of candy tiles wide in its stone border on
     the lawn (the Garden Entries have no arch: the Bloomlings set off from the border), and one parchment tray to the
@@ -53,7 +58,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     exposed one leaves and down when Return puts one back. Frames 12–14 show the pod, slot and booster states;
   - cards: pause and Settings (frame 11), the jam card centered on the screen (frame 10), the win card (frame 15) and the milestone
     card (frame 16) with the level's animated hero (its reaction as it appears, then its idle), the Daily Reward
-    (frame 4), the Leaderboard in its offline form (frame 5), the Collection (frame 6) and the Store (frame 17).
+    (frame 4), the Leaderboard in its offline form (frame 5) and the Collection (frame 6).
 
   The design kit (tokens, shapes, garden backdrop, layouts, asset slots) is the Unity client's engine-free
   `client/Assets/Bloomlings/UI/Design/`, linked. Everything is drawn in the reference look of spec 005
@@ -98,8 +103,9 @@ Unity client.
 
 `dotnet run --project playtest/preview` renders the full playtest's screens with SkiaSharp. It writes one PNG per
 design board frame (1–17) plus extras 18–28 (themes, Settings, a Collection picture, a demo, boosters in use, the
-Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store cosmetics in the Wardrobe look, 27 the Wardrobe,
-reached by taps that the frame checks, and 28 Home's animated heroes in outfits, which also checks a tap on a hero and
+Bloomlings sheet, 25 the reference-look kit sheet, 26 the Store page's cosmetics in the Wardrobe look, opened from the
+Wardrobe's Petals "+", 27 the Wardrobe, reached by taps that the frames check (17 opens the Store page from Home's
+Petals "+" and checks its back), and 28 Home's animated heroes in outfits, which also checks a tap on a hero and
 on Play) at 16:9,
 19.5:9 and 21:9 into `playtest/preview/out/`, and a contact sheet `board-sheet.png` to compare with the board. It fails
 when a drawn shape or slot is not registered, a touch target is too small or overlaps another, or text leaves the

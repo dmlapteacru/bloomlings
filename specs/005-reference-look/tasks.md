@@ -259,3 +259,29 @@ See spec.md (the clarification "Sprig's Blender model") and research D24.
 See spec.md (the clarification "Twig and Sprig toned down") and research D25.
 - [X] T051 `heroes.json`: Twig's softer light and grade and Sprig's grade (variant "B"), both re-baked; `SOURCE.md`, the
   docs; all checks; the playtest APK.
+
+## Owner notes: the Wardrobe's header on one line; the Store as a page (2026-10-04)
+
+See spec.md (the clarification "the owner's notes: the Wardrobe's header on one line; the Store as a page", FR-025,
+FR-029) and contracts/look.md §6.5, §6.6. Presentation only (FR-002).
+- [X] T053 The kit's page header: `PageHeader` and `ScreenLayout.PageHeader` (the back button, the banner 0.1 W tall and
+  the Petals pill's box on the back button's middle line, the banner's ivy clusters 0.005 W clear of both), used by
+  `ReferenceWardrobe`; the sign leaves' boxes in the kit (`GardenLook.IvyBox`, `FlowerBox`, `SignExtent`, `IvyReach`),
+  drawn by both builds' wooden signs (Unity's ivy moves to the playtest's place); `Kit.PageHeader` and its twin
+  `UiKit.PageHeader` / `PageHeaderView`, used by both Wardrobes; the test
+  `ThePageHeader_PutsBackBannerAndPetalsOnOneLine_AndTheBannersLeavesTouchNeither`.
+- [X] T054 The Store page's regions: `ReferenceStoreRegions` and `ScreenLayout.ReferenceStore` (the header, the panel to
+  the screen's bottom, the tabs, Unity's offline line, the list with rows from 0.15 W to 0.19 W tall a page at a time,
+  the cosmetics' family tabs, lighter panel and outfit cards as many rows of three as fit, the footer with the page
+  arrows); the test `TheStorePage_KeepsItsRegionsInOrder_AndEveryTargetReachable`.
+- [X] T055 The playtest's Store page: `StoreScreen` (the Store card's code moved out of `MetaCards`), `Screen.Store` with
+  `DesignApp.OpenStore`, `CloseStore` and `StoreReturn` (back to Home or the Wardrobe), `Overlay.Store` removed; Home's
+  Store button and Petals "+" and the Wardrobe's Petals "+" open it; the system back (`DesignApp.Back`,
+  `DesignView.Back`, `MainActivity`'s back callback and `OnBackPressed`) closes the Store page and the Wardrobe; the
+  preview's frames 17 and 26 open it through those entry points and check its back.
+- [X] T056 Unity's Store page: `StoreScreen` a full-screen page over the Wardrobe's garden on the kit's regions (the
+  page header, the panel, the tabs, the offline line, rows filling the page with the page arrows, the cosmetics' outfit
+  cards), opened by `HomeController`'s unchanged wiring over Home or the Wardrobe; its back hides it.
+- [X] T057 The docs (contracts/look.md §3.2, §3.4, §3.5, §4.3, §4.6, §5, §6.5, the new §6.6; spec.md FR-017, FR-025, the
+  new FR-029, the acceptance scenarios; pictures.md B7; the asset slots `bg.wardrobe` and `ui.card` and the inventory;
+  `playtest/README.md`); all checks; the full preview reviewed at 16:9, 19.5:9 and 21:9.

@@ -209,7 +209,11 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   whose three leaflets are pointed lenses with a faint midrib (`IvyLeaf.Darken(0.35)` at 0.45), in yellow-green
   `IvyLeaf` shades (±0.2) with a light top-left side (`IvyLeaf.Lighten(0.3)` at 0.5) and a thin outline of
   `IvyLeaf.Darken(0.35)` at 0.7 over a soft `IvyLine` shadow at 0.5 between them (no heavy dark outline), gathered in two
-  groups at the top and bottom corners of the plank's end with one leaf bridging them. `SignDecor.Flowers`: lush clusters at the top-left and the bottom-right ends (win sign), 1.35 × the
+  groups at the top and bottom corners of the plank's end with one leaf bridging them; each end's cluster (or the owner's
+  picture, D5) fills a square 1.25 × the sign's height on its middle line, centered 0.04 × the height outside the
+  plank's end, so it reaches 0.665 × the height beyond it (`GardenLook.IvyBox`, `IvyReach`; Unity drew it 0.06 × the
+  height inside the end until 2026-10-04; `GardenLook.SignExtent` is the plank with its leaves). `SignDecor.Flowers`:
+  lush clusters at the top-left and the bottom-right ends (win sign; `GardenLook.FlowerBox`), 1.35 × the
   sign's height: five big almond leaves (0.36–0.5 of the cluster, fanned from up-left to down-left, `GardenLeaf1/2/3`
   with `IvyLine` veins) and two white five-petal flowers (0.34 and 0.26 of the cluster) with yellow centers.
   `SignDecor.None`: Home plaque, card headers.
@@ -255,7 +259,7 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   "×N" charges in bigger digits (66% of the pill's height), after the booster's icon (80% of the height) on a jam choice.
 - **Petals pill** (`Kit.PetalsPill` / `UiKit.PetalsPill`, both on the kit's `PetalsPillParts`; the owner, 2026-10-03:
   "at 0 it shows crooked, somewhere in the middle, the lotus itself too far left"): the cream style; the pill fits its
-  amount inside its layout box (at the box's right end, or centered with `align` 0.5 on the Store card): the lotus
+  amount inside its layout box (at the box's right end, as on Home and the page header; `align` 0.5 centers it): the lotus
   (0.92 of the height) fully inside its left end (0.07 of the height in), the amount in `InkBrown` at half the height
   right after it (0.07 gap), left-aligned for every length, then 0.38 of the height of cream, or the green round "+"
   (the pill's height) on the right end, reaching 0.2 of the height beyond it. The width is measured with every digit
@@ -276,8 +280,9 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 - **Well** (`Kit.Well`): `ParchmentWell` with an inner shadow along the top and a `ParchmentEdge` outline (jam slot
   row, sunk tabs, empty plates).
 - **Card** (`Kit.Card`): parchment; a title in `type.title` `InkTitle` (no green band) or a `WoodSign` header when the
-  screen says so (Win, Store, Wardrobe); the cream round close button over the top-right corner, on the top card only
-  (a card covered by another, as Pause under Settings, shows none).
+  screen says so (the milestone); the cream round close button over the top-right corner, on the top card only
+  (a card covered by another, as Pause under Settings, shows none). The Wardrobe and the Store are full-screen pages
+  under the page header (§6.5, §6.6), not cards.
 
 ### 3.6 Board furniture
 
@@ -581,9 +586,10 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   more green `ChoiceButton` with the rescue booster's icon and name and the "▶ Free" pill; the choices in one row of up
   to three, a 2 × 2 grid of four (as on the reference) or rows of three; Restart as a cream secondary button with ⟳ at
   the size of a card's main button. A short phone shrinks the well, the choices and the gaps together.
-- Pause, Settings, Store, Daily reward, Collection, Leaderboard, Themes, Milestone: `Card` per §3.5; the Store and
-  milestone use a `WoodSign` header. Pause: brown title, the cream close, Resume (primary, decorated), Restart (⟳),
-  Settings (gear) and Home (`ui.back`) as cream secondaries with their glyphs. Settings: cream rows with brown labels and
+- Pause, Settings, Daily reward, Collection, Leaderboard, Themes, Milestone: `Card` per §3.5; the milestone uses a
+  `WoodSign` header. The Store is a page since the owner's note of 2026-10-04 (§4.6, §6.6). Pause: brown title, the
+  cream close, Resume (primary, decorated), Restart (⟳), Settings (gear) and Home (`ui.back`) as cream secondaries with
+  their glyphs. Settings: cream rows with brown labels and
   the garden toggle (on: the green set's glossy track with a white ✓ and the knob right; off: a parchment well; the knob
   a domed cream cushion like the round buttons).
 - Demo and unlock cards: parchment, no title; a booster's card shows its colored icon on a cream tile; the first line in
@@ -650,9 +656,10 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 - Backdrop: `HomeStage.Garden` warms the Home and splash colors (a clearer blue sky, sunlit horizon and hills, lush
   bushes with pink blossoms, sandy arches; 15% of the band's theme tint stays).
 
-### 4.6 Wardrobe (Unity) and the Store's cosmetics (playtest)
+### 4.6 Wardrobe and the Store page
 
-- Back (`ui.back`) round button, `WoodSign` (Ivy) banner, Petals pill.
+- The page header (`Kit.PageHeader` / `UiKit.PageHeader`, §6.5): the back (`ui.back`) round button, the `WoodSign`
+  (Ivy) banner and the Petals pill on one line, the same on the Wardrobe and the Store page.
 - Hero on a `StonePedestal` with ‹ › cream round arrows (Unity Wardrobe).
 - Name card: parchment with a small sign-like tab carrying the name (`type.title`), the role line (`type.body`
   `InkBrownSoft`) and a description.
@@ -671,12 +678,18 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   the hero in its outfit with that item; the worn card (or the shown profile item) is green with the check; the footer
   sits between the cream ‹ › page arrows. The hero's feet stand on the pedestal's top ellipse; the ‹ › cushions are
   `UiKit.PageArrow`s in touch-sized squares; the description is broken into two balanced lines.
-- The playtest's Store cosmetics (preview frame 26): the Store card's `WoodSign` (Ivy) header, `Kit.FamilyTabs`
-  (`ui.tab.family`) over the lighter panel, and `Kit.OutfitCard`s (`ui.card.outfit`) six to a page (3 × 2): "Default",
+- The Store page (both builds; preview frames 17 and 26; §6.6; the playtest's and Unity's `StoreScreen`): over
+  the Wardrobe's garden (`bg.wardrobe`, B7), the page header with the "Store" banner, then a parchment panel
+  (`mat.parchment`, a card's radius, its bottom corners past the screen's edge) with the Shop / Cosmetics tabs
+  (`Kit.Tabs`, once the cosmetics open), Unity's offline line, and the list. The Shop's rows are cream rows (`Kit.Row`)
+  with the booster tile (0.8 of the row) and its count badge, the name (`type.button_secondary`, grown with the row) and
+  a cost pill (a tap on the row buys), the real-money rows faded with "Unavailable" while purchases are off. The
+  Cosmetics tab: `Kit.FamilyTabs` (`ui.tab.family`) over the lighter panel and `Kit.OutfitCard`s (`ui.card.outfit`)
+  three to a row, as many rows as the page holds (two on 16:9, three on 19.5:9, four on 21:9 in the preview): "Default",
   worn while the family wears nothing, then each item for sale shown on the chosen family's hero (a frame, badge or
   marker as its shape) with its cost pill on the card's bottom edge (a tap buys); the footer between cream ‹ › page
-  arrows (`Kit.ArrowButton`). The Shop tab's rows are cream rows with the booster tile and its count badge, the name and
-  a cost pill; the Daily Reward, Leaderboard and Collection cards carry a `WoodSign` (None) header.
+  arrows (`Kit.ArrowButton`, `UiKit.PageArrow`). The Daily Reward, Leaderboard and Collection cards carry a `WoodSign`
+  (None) header.
 - The playtest's Wardrobe (owner's review, FR-025; preview frame 27, `playtest/design/WardrobeScreen.cs`, opened from
   Home's Wardrobe button and the avatar): the §6.5 layout without the kind chips and the profile tab; the name card is
   `Kit.NameCard` (parchment whose middle rises into the name tab); the cards, three a page, are "Default" (nothing worn;
@@ -700,8 +713,8 @@ icon pictures replace them, §3.10), `tile.grass` (the picture's background cell
 `GemSlot`). The `mat.` prefix is the `Material` category and `board.` belongs to `BoardTile`. Owner pictures (research D16 and
 `pictures.md`) keep or add their `bg.*`, `char.hero3d.*` and `brand.wordmark` slots, whose kind is their stand-in's
 (`Procedural` backdrops, the `Text` wordmark, the `Generated` heroes), with the drawn or generated stand-in as fallback:
-`bg.home`, `bg.splash`, `bg.wardrobe` (Unity's Wardrobe) and `bg.theme.*` (`OwnerPictures.SlotOf`); the optional
-tagline is `brand.tagline` (kind `External`, not drawn yet); the optional celebrating heroes (A7) are
+`bg.home`, `bg.splash`, `bg.wardrobe` (the Wardrobe and the Store page) and `bg.theme.*` (`OwnerPictures.SlotOf`); the
+optional tagline is `brand.tagline` (kind `External`, not drawn yet); the optional celebrating heroes (A7) are
 `char.hero3d.cheer.sprig|bloom|drop|twig` (`CharacterArt.CheerSlot`, picture `CharacterArt.Cheer(family)` =
 `3d/{family}-cheer`), with the group picture standing in until they exist. The owner's 3D pictures share the
 `tools/artgen` folder: `adopt` marks them `"source": "owner"` in its `manifest.json` (`tools/artgen/README.md`).
@@ -709,7 +722,7 @@ The owner's layered Home and animated heroes (FR-028, §3.12, §6.4) add `bg.hom
 `bg.home.fountain_front`, `bg.home.shadow` and `bg.home.petals` (`HomeLayers.SlotOf`; `bg.home` stays the garden
 layer) and `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`), with the still heroes as their stand-in.
 
-## 6. Reference layouts (owner's review, spec 005 FR-020 to FR-025)
+## 6. Reference layouts (owner's review, spec 005 FR-020 to FR-025, FR-029)
 
 Measured on the reference's phone screens (crops `g-game.png`, `g-jam.png`, `g-win.png`, `g-home.png`,
 `g-ward.png` with a 5% grid). `W` and `H` are the safe area's width and height; positions are fractions of them
@@ -721,9 +734,10 @@ insets: `k` is 1 at 19.5:9 and 21:9, about 0.93 at 18:9 and 0.86 at 16:9) and th
 The functions (engine-free, `client/Assets/Bloomlings/UI/Design/ReferenceLayout.cs`, partial `ScreenLayout`; tests in
 `ReferenceLayoutTests`) are `ScreenLayout.ReferenceGameplay` → `ReferenceGameplayRegions` (with `PodChip` for one
 pod of the tray's grid), `ScreenLayout.JamCard` → `JamCardRegions`, `ScreenLayout.WinScreen` → `WinRegions`,
-`ScreenLayout.ReferenceHome` → `ReferenceHomeRegions` and `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions`;
-`ScreenLayout.ReferenceScale` is `k`. Where the measurements left a choice, the implementation fixes it as noted under
-each table ("Fixed:").
+`ScreenLayout.ReferenceHome` → `ReferenceHomeRegions`, `ScreenLayout.PageHeader` → `PageHeader` (the Wardrobe's and
+the Store page's header row), `ScreenLayout.ReferenceWardrobe` → `ReferenceWardrobeRegions` and
+`ScreenLayout.ReferenceStore` → `ReferenceStoreRegions`; `ScreenLayout.ReferenceScale` is `k`. Where the measurements
+left a choice, the implementation fixes it as noted under each table ("Fixed:").
 
 ### 6.1 Gameplay
 
@@ -1026,9 +1040,10 @@ while both show, so Home takes over the splash's motion without a jump.
 
 | Element | Box |
 |---|---|
+| Header row | one line, the back button's middle (`PageHeader.CenterY`): the back button, the banner and the Petals pill centered on it (the owner's note of 2026-10-04: "the elements there are not on one line"; the banner sat about 0.04 W lower before, 46 px on a 1080 × 2340 phone) |
 | Back | cream round `0.12W`, left `0.04W`, top 2.5% of H |
-| Banner | wooden sign with ivy `0.46W × 0.055H`, from 24% to 70% of W, top 4.5% |
-| Petals pill | `0.28W` (from 70% of W), right edge − `0.02W`, top 3.5%, clear of the banner's right ivy |
+| Banner | wooden sign with ivy, plank `0.1W` tall (its ivy clusters `0.125W`, about the back button's height), from the back button's right + `0.005W` + its left cluster's reach (`0.0665W`) to the Petals box's left − the same: about 23% to 63% of W on every phone |
+| Petals pill | box `0.28W × 0.08W` (from 70% of W), right edge − `0.02W`; the pill fits its amount at the box's right end |
 | Hero | the selected family's hero in the worn outfit, from 11% to 37% of H, on a pedestal `0.6W` wide (35%–43%) |
 | Arrows | cream round ‹ › `0.09W` at 8% and 92% of W, 28% of H (previous/next family) |
 | Name card | parchment from 42% to 57% of H, `0.92W`; a sign-like tab `0.5W` with the name (`type.title`), the role line, the description in two lines |
@@ -1036,8 +1051,35 @@ while both show, so Home takes over the splash's motion without a jump.
 | Outfit panel | parchment from 67% to the bottom: three cards per row `0.29W × 0.18H` with the hero wearing the item and its name; the worn one green with a check badge; pages or scroll for more |
 | Footer | "Earn special outfits as you play!" at 93% of H |
 
-Fixed: the Petals pill is `0.08W` tall; the hero box is an 8:9 box from 11% to 37% of H; the name tab spans 42%–47.5%,
-the role line 47.5%–50.5%, the description 50.5%–56%; `Tab(i, n)` splits the tabs' `0.96W` into n tabs at most `0.24W`
-wide with `0.01W` between them (five with the Unity profile tab); the panel spans `0.96W` to the screen's bottom; without
-chips the cards span 70%–88% of H, with the kind chips (`hasChips`, 69.5%–74%) 75%–89.5%; `Card(i)` is `0.29W` wide,
+Fixed: the header (`ScreenLayout.PageHeader`, record `PageHeader`) is shared with the Store page (§6.6); the banner's
+ivy clusters (`PageHeader.BannerExtent`, `GardenLook.SignExtent`) keep `0.005W` from the back button and the Petals box
+(and their touch boxes) on every phone from 16:9 to 21:9, and the plank less 1.25 × its height (the letters' room
+between the owner's ivy) is `0.272W`, so "Wardrobe" shows at about 95% of `type.title`; the hero box is an 8:9 box from
+11% to 37% of H; the name tab spans 42%–47.5%, the role line 47.5%–50.5%, the description 50.5%–56%; `Tab(i, n)`
+splits the tabs' `0.96W` into n tabs at most `0.24W` wide with `0.01W` between them (five with the Unity profile tab);
+the panel spans `0.96W` to the screen's bottom; without chips the cards span 70%–88% of H, with the kind chips (`hasChips`, 69.5%–74%) 75%–89.5%; `Card(i)` is `0.29W` wide,
 spread over `0.92W`; the footer box spans 91%–95% of H between the page arrows (`0.09W` at 8% and 92% of W).
+
+### 6.6 Store page (both builds)
+
+The owner's note of 2026-10-04: "The Store must be a separate page, not a popup." A full-screen page like the
+Wardrobe (`ScreenLayout.ReferenceStore(width, height, insets, hasCosmetics, hasStatus)` → `ReferenceStoreRegions`),
+over the Wardrobe's garden; everything the card offered stays (FR-002: the rows, prices, purchases, tabs and states).
+
+| Element | Box |
+|---|---|
+| Header row | the page header of §6.5 (`Header`): back (returns to where the Store was opened), the "Store" banner with ivy, the Petals pill (playtest: its "+" says the Petal packs are offline; Unity: no "+", the packs are Shop rows) |
+| Panel | parchment `0.96W` wide (`0.02W` from the sides) from `0.03W` under the header row to the bottom of the screen (drawn a radius further, so no bottom corners show), radius `radius.card` of its width (at least `radius.card_min`) |
+| Tabs | Shop / Cosmetics (`hasCosmetics`, after L40) `0.8W × 0.1W`, `0.045W` under the panel's top |
+| Status | Unity's "Purchases are unavailable offline" (`hasStatus`) `0.88W × 0.05W`, `0.02W` under the tabs |
+| List | `0.88W` wide (`0.06W` from the sides) from `0.04W` under the tabs (`0.02W` under the status line; `0.045W` under the panel's top without either) to `0.04W` over the safe bottom |
+| Shop rows | `Row(slot, count)`: cream rows across the list from its top, `0.15W` to `0.19W` tall (`RowHeight`: a page of rows filling the list), `0.025W` apart; `RowsPerPage(count)`: all the rows when they fit at `0.15W`, else as many as fit above the footer; the Shop's seven playtest rows fit one page on every phone |
+| Cosmetics | `FamilyTabs` `0.21W` tall across the list's top; `OutfitPanel` (the lighter panel) from there to the list's bottom; `OutfitGrid` the panel less `0.02W`, above the footer; `OutfitCard(slot)` three to a row, `0.02W` apart, `OutfitRows` rows (as many as fit at 1.15 × the card's width, at least two), each card at most 1.45 × its width tall (its cost pill's room included) |
+| Footer | `0.84W` wide, `max(0.12W, size.touch_min)` tall, `0.02W` over the list's bottom: "Page n / m" (Shop, only with more than a page) or "Earn special outfits as you play!" (Cosmetics) between the page arrows `0.09W` at its ends (`PagePrevious`, `PageNext`; touch-sized) |
+
+Fixed: on a 1080 × 2340 phone (insets 110 / 63, the preview's 19.5:9) the header's line is at y 229, the panel starts
+at 329, the tabs span 378–486, the list 529–2234 with the footer at 2080–2212; the seven Shop rows are `0.19W` (205 px)
+tall; the cosmetics show three rows of 288 × 413 cards (two on 16:9, four on 21:9). Back returns to Home, or to the
+Wardrobe when its Petals "+" opened the page (the playtest's `DesignApp.StoreReturn`; Unity's page lies over the screen
+that opened it and hides); the Android system back closes the page (and the Wardrobe) as their back buttons do. Every
+entry point opens the page: Home's Store button and Petals "+", the Wardrobe's Petals "+".

@@ -168,6 +168,27 @@ the round."
   others (mean brightness 0.46 against about 0.62). Of six variants the owner chose "H": an even light and a lighter,
   warmer grade of its texture, Twig only (research D23).
 
+### Session 2026-10-04 (the owner's notes: the Wardrobe's header on one line; the Store as a page)
+
+The owner: "In the Wardrobe, the screen's header: the elements there are not on one line. They need aligning." and
+"The Store must be a separate page, not a popup."
+- Q: Which line? → A: The back button's middle: the back button, the wooden banner and the Petals pill now share it
+  (the banner sat about 0.04 W lower before, 46 px on a 1080 × 2340 phone). The banner's plank is `0.1W` tall, so with
+  its ivy it stands about as tall as the back button, and it spans the room between the back button and the Petals
+  pill's box less its ivy clusters' reach, so the leaves touch neither on any phone from 16:9 to 21:9; "Wardrobe" keeps
+  about 95% of its title size. One kit header (`ScreenLayout.PageHeader`) serves the Wardrobe and the Store page in both
+  builds (FR-025, FR-029; contracts/look.md §6.5). Unity's ivy clusters now sit where the playtest's do (both from the
+  kit's `GardenLook.IvyBox`).
+- Q: What does the Store page hold? → A: Everything the popup offered, on a full-screen page like the Wardrobe
+  (FR-029, contracts/look.md §6.6): the Wardrobe's garden, the page header with the "Store" banner, then a parchment
+  panel to the bottom of the screen with the Shop / Cosmetics tabs, the Shop's rows (boosters for Petals; the starter
+  pack, the booster bundle and Remove Ads, "Unavailable" while purchases are off), larger and filling the page, and the
+  cosmetics' outfit cards, as many rows of three as the page holds, with the page arrows when more remain. Prices, the
+  economy and every tap's outcome stay (FR-002).
+- Q: Where does its back go? → A: Where the Store was opened: Home (its Store button, its Petals "+"), or the Wardrobe
+  (its Petals "+"). In the playtest the Android back closes the page, and the Wardrobe, as their back buttons do (it
+  left the app before); elsewhere it does what the system does.
+
 ### Session 2026-10-04 (Twig and Sprig toned down)
 
 The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
@@ -279,8 +300,9 @@ UI strip.
 3. **Given** the jam, **When** it opens, **Then** a parchment sheet shows "No more space!", the subtitle, an inset row
    of the slot contents (tile and count), one big colored button per recovery choice with its icon on top and a cost
    pill below (lotus and price, ×N charges, or ▶ Free for a rescue), and a cream Restart button.
-4. **Given** any card (Pause, Settings, Store, Daily reward, Collection, Leaderboard), **When** it opens, **Then** it is
-   parchment with a brown outline, a wooden sign or brown title, and a cream round close button with a brown ✕.
+4. **Given** any card (Pause, Settings, Daily reward, Collection, Leaderboard), **When** it opens, **Then** it is
+   parchment with a brown outline, a wooden sign or brown title, and a cream round close button with a brown ✕. The
+   Store is a page since 2026-10-04 (FR-029), not a card.
 5. **Given** the Petals currency, **When** it is shown, **Then** its symbol is a pink lotus.
 
 ---
@@ -303,9 +325,9 @@ wooden banner, parchment cards, family tabs and outfit cards.
    reward pill with the lotus, and Next in a wooden rim.
 2. **Given** Home, **When** it is drawn, **Then** the logo has wooden letters with leaves, the level is on a wooden
    plaque, and Play is the big green button in a wooden rim.
-3. **Given** the Wardrobe (Unity) or the Store's cosmetics (playtest), **When** they are drawn, **Then** they use the
-   wooden banner, the parchment name card, family tabs with hero pictures and outfit cards whose worn item is green
-   with a check.
+3. **Given** the Wardrobe or the Store page's cosmetics, **When** they are drawn, **Then** they use the wooden banner
+   (with the back button and the Petals pill on one line), the parchment name card (the Wardrobe), family tabs with
+   hero pictures and outfit cards whose worn item is green with a check.
 4. **Given** Home over the owner's layered picture, **When** it shows, **Then** the four heroes stand on the painted
    fountain where the reference shows them, each breathing and swaying in its idle loop, one reacting every few
    seconds in turn, and a tap on a hero makes it react at once while a tap on any button still does what it did.
@@ -419,8 +441,9 @@ inventory.
 - **FR-016**: The win card MUST show the wooden sign with flowers, the finished picture as full-color tiles in a stone
   frame, the heroes on a stone pedestal with light rays and falling petals, the reward pill and Next in a wooden rim.
   Pause MUST stay usable over it, so Home, Restart and Settings stay reachable as before (FR-002).
-- **FR-017**: Home MUST show the wooden logo letters with leaves, the level on a wooden plaque and the big Play button;
-  the Wardrobe, Store and the other meta cards use the same signs, parchment, tabs and cards.
+- **FR-017** *(amended on 2026-10-04: the Store is a page, FR-029)*: Home MUST show the wooden logo letters with
+  leaves, the level on a wooden plaque and the big Play button; the Wardrobe and Store pages and the other meta cards
+  use the same signs, parchment, tabs and cards.
 - **FR-018**: The Petals symbol MUST be the pink lotus everywhere it appears.
 
 #### F. Pictures from the owner
@@ -477,8 +500,11 @@ inventory.
   the same day bring them back (FR-028): over the layered picture, Home and the splash stand the four animated heroes
   on the painted fountain; the drawn stand-in (without the picture) keeps its still heroes; over an owner picture
   without the fountain layers (a splash picture of its own, B6), no heroes show (`HomeStage.ShowsHeroes`).
-- **FR-025**: The Wardrobe MUST follow the reference layout (contracts/look.md §6.5) in both builds; the playtest gets
-  a Wardrobe screen (equipping through the shared `WardrobeService`) instead of only the Store's cosmetics tab.
+- **FR-025** *(amended on 2026-10-04: the header on one line)*: The Wardrobe MUST follow the reference layout
+  (contracts/look.md §6.5) in both builds; the playtest gets a Wardrobe screen (equipping through the shared
+  `WardrobeService`) instead of only the Store's cosmetics tab. Its header (the back button, the wooden banner with ivy
+  and the Petals pill) MUST stand on one line, the back button's middle, with the banner's leaves clear of the back
+  button and the Petals pill on every phone from 16:9 to 21:9 (`ScreenLayout.PageHeader`, shared with the Store page).
 - **FR-026**: Board tile icons MUST be the reference's "gem" icons: the variant symbol about 56% of the tile with a
   thick dark outline, a glossy fill in a shade of the tile color and a highlight (contracts/look.md §3.1.2).
 - **FR-027**: The booster icons and the leaf decorations (sign ivy, win-sign flowers, button corner leaves, logo
@@ -505,6 +531,16 @@ inventory.
   in the game (constitution VII). The Wardrobe, the profile, gameplay and the milestone's group keep the still
   pictures. A build MUST NOT keep all frames decoded: it loads a frame when first drawn and keeps a bounded cache.
 
+#### I. Pages (the owner's notes, 2026-10-04)
+
+- **FR-029**: The Store MUST be a full-screen page, not a popup card, in both builds (contracts/look.md §6.6,
+  `ScreenLayout.ReferenceStore`): over the Wardrobe's garden, the Wardrobe's header with the "Store" banner, then a
+  parchment panel to the bottom of the screen with the Shop / Cosmetics tabs and the item rows or outfit cards filling
+  the page's width and height, a page of them at a time between page arrows. Everything the card offered MUST stay
+  (FR-002): buying boosters for Petals, the real-money rows (unavailable while purchases are off), the cosmetics with
+  their states, the Petals pill. Home's Store button and Petals "+" and the Wardrobe's Petals "+" open it; its back
+  returns to where it was opened, and in the playtest the Android back closes it (and the Wardrobe).
+
 ### Key Entities
 
 - **Material picture**: an engine-free RGBA picture of a material (wood, stone, parchment, candy tile) rendered at a
@@ -514,6 +550,8 @@ inventory.
 - **Hero frame**: one pre-rendered picture of a hero's idle or reaction, cropped from a 448 × 504 cell whose feet line
   is at 90% of its height, with its crop and two head points in the kit (`HeroMotion`).
 - **Home layer**: one picture of the owner's layered Home with its box in the 852 × 1846 picture (`HomeLayers`).
+- **Page header**: the Wardrobe's and the Store page's header row (`PageHeader`): the back button, the banner and the
+  Petals pill's box on one line.
 - **Pod chip**: one pod of the tray's grid at a depth of its stack's column (`ReferenceGameplayRegions.Pod`, `Chip`).
   It has a frame 1.3 times as wide as tall centered in its place, an inner panel, the icon and the tile's square over
   the panel's middle, the count at the panel's bottom right corner and the "+N" disc over the frame's top left corner

@@ -82,7 +82,7 @@ pictures are stored as JPEG (quality 90) whatever their delivered format; a pict
 | B4 | `gameplay-orchard.jpg` | from level 150 | the lawn with fruit trees' shade and fallen fruit | `bg.theme.orchard` |
 | B5 | `gameplay-moonlit.jpg` | from level 200 | the lawn at dusk with fireflies | `bg.theme.moonlit_garden` |
 | B6 | `splash.png` | splash | the Home garden, more blossoms | `bg.splash` |
-| B7 | `wardrobe.jpg` | Wardrobe (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal | `bg.wardrobe` |
+| B7 | `wardrobe.jpg` | Wardrobe and the Store page (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal | `bg.wardrobe` |
 | B8 | `win.jpg` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened | `bg.win` |
 
 The B1 layers (the Backgrounds folder; prepared by `tools/heroanim/layers.mjs` from the owner's five 852 × 1846 layers,
