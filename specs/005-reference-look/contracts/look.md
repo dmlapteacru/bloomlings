@@ -678,7 +678,8 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
 ### 4.6 Wardrobe and the Store page
 
 - The page header (`Kit.PageHeader` / `UiKit.PageHeader`, §6.5): the back (`ui.back`) round button, the `WoodSign`
-  (Ivy) banner and the Petals pill on one line, the same on the Wardrobe and the Store page.
+  (Ivy, its clusters at `PageHeader.IvyScale`) banner in the middle of the screen and the Petals pill on one line, the
+  same on every page.
 - Hero on a `StonePedestal` with ‹ › cream round arrows (Unity Wardrobe).
 - Name card: parchment with a small sign-like tab carrying the name (`type.title`), the role line (`type.body`
   `InkBrownSoft`) and a description.
@@ -1110,10 +1111,10 @@ while both show, so Home takes over the splash's motion without a jump.
 
 | Element | Box |
 |---|---|
-| Header row | one line, the back button's middle (`PageHeader.CenterY`): the back button, the banner and the Petals pill centered on it (the owner's note of 2026-10-04: "the elements there are not on one line"; the banner sat about 0.04 W lower before, 46 px on a 1080 × 2340 phone) |
+| Header row | one line, the back button's middle (`PageHeader.CenterY`): the back button, the banner and the Petals pill centered on it (the owner's note of 2026-10-04: "the elements there are not on one line"; the banner sat about 0.04 W lower before, 46 px on a 1080 × 2340 phone); the banner, and so the page's title, in the middle of the screen (the owner's later note of 2026-10-04: the titles were off to the left, the banner's middle at 43% of W) |
 | Back | cream round `0.12W`, left `0.04W`, top 2.5% of H |
-| Banner | wooden sign with ivy, plank `0.1W` tall (its ivy clusters `0.125W`, about the back button's height), from the back button's right + `0.005W` + its left cluster's reach (`0.0665W`) to the Petals box's left − the same: about 23% to 63% of W on every phone |
-| Petals pill | box `0.28W × 0.08W` (from 70% of W), right edge − `0.02W`; the pill fits its amount at the box's right end |
+| Banner | wooden sign with ivy, plank `0.1W` tall, its ivy clusters at 0.8 of their usual size (`PageHeader.IvyScale`: `0.1W`), centered on the screen's middle, reaching to the Petals box's left − `0.005W` − its right cluster's reach (`0.054W`): about 32% to 68% of W on every phone |
+| Petals pill | box `0.24W × 0.068W` (from 74% of W), right edge − `0.02W`; the pill fits its amount at the box's right end ("1 240" with its "+" fills it) |
 | Hero | the selected family's hero in the worn outfit, from 11% to 37% of H, on a pedestal `0.6W` wide (35%–43%) |
 | Arrows | cream round ‹ › `0.09W` at 8% and 92% of W, 28% of H (previous/next family) |
 | Name card | parchment from 42% to 57% of H, `0.92W`; a sign-like tab `0.5W` with the name (`type.title`), the role line, the description in two lines |
@@ -1124,9 +1125,11 @@ while both show, so Home takes over the splash's motion without a jump.
 
 Fixed: the header (`ScreenLayout.PageHeader`, record `PageHeader`) is shared with the Store, Leaderboard and Collection
 pages (§6.6, §6.8, §6.9); the banner's
-ivy clusters (`PageHeader.BannerExtent`, `GardenLook.SignExtent`) keep `0.005W` from the back button and the Petals box
-(and their touch boxes) on every phone from 16:9 to 21:9, and the plank less 1.25 × its height (the letters' room
-between the owner's ivy) is `0.272W`, so "Wardrobe" shows at about 95% of `type.title`; the hero box is an 8:9 box from
+ivy clusters (`PageHeader.BannerExtent`, `GardenLook.SignExtent` at `PageHeader.IvyScale`) keep `0.005W` from the
+Petals box and more from the back button (and clear their touch boxes) on every phone from 16:9 to 21:9, the banner's
+middle is the safe area's, and the plank less 1.25 × 0.8 of its height (the letters' room between the owner's ivy) is
+`0.262W`, so "Wardrobe" shows at about 95% of `type.title`, "Collection" a little smaller and "Leaderboard" at about
+80%; the hero box is an 8:9 box from
 11% to 37% of H; the name tab spans 42%–47.5%, the role line 47.5%–50.5%, the description 50.5%–56%; `Tab(i, n)`
 splits the tabs' `0.96W` into n tabs at most `0.24W` wide with `0.01W` between them (five with the Unity profile tab);
 the panel spans `0.96W` to the screen's bottom; without chips the cards span 70%–88% of H, with the kind chips (`hasChips`, 69.5%–74%) 75%–89.5%; `Card(i)` is `0.29W` wide,

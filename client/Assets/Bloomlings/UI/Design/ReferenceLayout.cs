@@ -597,10 +597,11 @@ namespace Bloomlings.Client.UI.Design
     /// there are not on one line"), shared by the Wardrobe and the Store in both builds (<see cref="ScreenLayout.PageHeader"/>):
     /// the cream round back button at the left, the wooden banner with ivy in the middle and the Petals pill at the right,
     /// all three centered on one line, the back button's middle (<see cref="CenterY"/>). The banner is
-    /// <see cref="BannerShare"/> of W tall, so with its ivy clusters it stands about as tall as the back button, and it
-    /// spans the room between the back button and the Petals pill's box less its clusters' reach
-    /// (<see cref="GardenLook.IvyReach"/>) and <see cref="GapShare"/> on each side, so its leaves touch neither
-    /// (<see cref="BannerExtent"/>). Engine-free.
+    /// <see cref="BannerShare"/> of W tall with its ivy clusters at <see cref="IvyScale"/> of their usual size, and it
+    /// stands in the middle of the screen (the owner's note of 2026-10-04: the titles were off to the left), as wide as
+    /// the room to the Petals pill's box less its clusters' reach (<see cref="GardenLook.IvyReachAt"/>) and
+    /// <see cref="GapShare"/> allows, so its leaves touch neither the pill nor the back button (<see cref="BannerExtent"/>).
+    /// Engine-free.
     /// </summary>
     public sealed record PageHeader(Box Back, Box Banner, Box Petals)
     {
@@ -614,18 +615,21 @@ namespace Bloomlings.Client.UI.Design
         public const float BannerShare = 0.1f;
 
         /// <summary>The Petals pill's box, as shares of W: its width (to 0.02 W from the right) and its height.</summary>
-        public const float PetalsWidthShare = 0.28f;
+        public const float PetalsWidthShare = 0.24f;
 
-        public const float PetalsHeightShare = 0.08f;
+        public const float PetalsHeightShare = 0.068f;
 
         /// <summary>The room kept between the banner's leaves and the back button or the Petals pill, as a share of W.</summary>
         public const float GapShare = 0.005f;
+
+        /// <summary>The banner's ivy clusters, as a share of their usual size (<see cref="GardenLook.IvyBox"/>).</summary>
+        public const float IvyScale = 0.8f;
 
         /// <summary>The one line the three share: the back button's middle.</summary>
         public float CenterY => Back.CenterY;
 
         /// <summary>The banner with its ivy clusters (<see cref="GardenLook.SignExtent"/>).</summary>
-        public Box BannerExtent => GardenLook.SignExtent(Banner, SignDecor.Ivy);
+        public Box BannerExtent => GardenLook.SignExtent(Banner, SignDecor.Ivy, IvyScale);
 
         /// <summary>The whole row: the three and the banner's leaves.</summary>
         public Box Row
@@ -1092,10 +1096,10 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The header row of a full-screen page (contracts/look.md §6.5, §6.6; <see cref="Design.PageHeader"/>), in
         /// fractions of the safe height H and width W: the back button 0.12 W at 0.04 W from the left, its top at 2.5% of H;
-        /// on its middle line the Petals pill's box 0.28 W × 0.08 W at 0.02 W from the right (the pill fits its amount at
-        /// the box's right end) and the banner 0.1 W tall, from the back button's right plus 0.005 W and its left ivy
-        /// cluster's reach (0.665 of its height) to the Petals box's left less the same (on every phone from about 23% to
-        /// 63% of W).
+        /// on its middle line the Petals pill's box 0.24 W × 0.068 W at 0.02 W from the right (the pill fits its amount at
+        /// the box's right end) and the banner 0.1 W tall centered on the screen's middle, its ivy at 0.8 of the usual
+        /// size, reaching to the Petals box's left less 0.005 W and its right cluster's reach (0.54 of its height): on
+        /// every phone from about 32% to 68% of W.
         /// </summary>
         public static PageHeader PageHeader(Box safe)
         {
@@ -1106,8 +1110,9 @@ namespace Bloomlings.Client.UI.Design
             float pill = Design.PageHeader.PetalsHeightShare * w;
             var petals = new Box(safe.Right - (0.02f * w) - (Design.PageHeader.PetalsWidthShare * w), cy - (pill / 2f), safe.Right - (0.02f * w), cy + (pill / 2f));
             float plank = Design.PageHeader.BannerShare * w;
-            float room = (Design.PageHeader.GapShare * w) + (GardenLook.IvyReach * plank);
-            var banner = new Box(back.Right + room, cy - (plank / 2f), petals.Left - room, cy + (plank / 2f));
+            float room = (Design.PageHeader.GapShare * w) + (GardenLook.IvyReachAt(Design.PageHeader.IvyScale) * plank);
+            float half = Math.Min(safe.CenterX - (back.Right + room), (petals.Left - room) - safe.CenterX);
+            var banner = new Box(safe.CenterX - half, cy - (plank / 2f), safe.CenterX + half, cy + (plank / 2f));
             return new PageHeader(back, banner, petals);
         }
 

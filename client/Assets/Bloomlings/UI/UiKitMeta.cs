@@ -63,7 +63,7 @@ namespace Bloomlings.Client.UI
         public static PageHeaderView PageHeader(Transform parent, string title, Action onBack, bool petals, Action? onPlus = null)
         {
             var back = (RectTransform)RoundIconButton("Back", parent, "ui.back", onBack).transform;
-            var banner = (RectTransform)WoodSign("Banner", parent, title, DesignTokens.Type.Title, SignDecor.Ivy).transform;
+            var banner = (RectTransform)WoodSign("Banner", parent, title, DesignTokens.Type.Title, SignDecor.Ivy, ivyScale: Design.PageHeader.IvyScale).transform;
             PetalsPill? pill = petals ? PetalsPill("Petals", parent, onPlus) : null;
             return new PageHeaderView(back, banner, pill);
         }

@@ -197,9 +197,10 @@ namespace Bloomlings.Playtest.Design
         /// filling <paramref name="box"/> (radius 28% of its height) over a soft shadow, the text centered in
         /// <c>ink.brown</c> (<c>ink.title</c> on the win's flower sign, or <paramref name="letters"/>) with a light emboss,
         /// at most 82% of the plank wide, and its
-        /// decoration. Never a touch target.
+        /// decoration (the ivy clusters at <paramref name="ivyScale"/> of their size: <see cref="GardenLook.IvyBox"/>).
+        /// Never a touch target.
         /// </summary>
-        public static void WoodSign(IPainter p, Box box, string text, TypeStyle style, SignDecor decor = SignDecor.None, Rgba? letters = null)
+        public static void WoodSign(IPainter p, Box box, string text, TypeStyle style, SignDecor decor = SignDecor.None, Rgba? letters = null, float ivyScale = 1f)
         {
             p.Mark("ui.sign.wood");
             float h = box.Height;
@@ -207,8 +208,8 @@ namespace Bloomlings.Playtest.Design
             if (decor == SignDecor.Ivy)
             {
                 // The back leaves of each cluster hang behind the plank's ends.
-                IvyCluster(p, GardenLook.IvyBox(box, left: true), flipped: false, back: true);
-                IvyCluster(p, GardenLook.IvyBox(box, left: false), flipped: true, back: true);
+                IvyCluster(p, GardenLook.IvyBox(box, left: true, ivyScale), flipped: false, back: true);
+                IvyCluster(p, GardenLook.IvyBox(box, left: false, ivyScale), flipped: true, back: true);
             }
 
             WoodPlank(p, box, 0.28f, 7);
@@ -216,11 +217,11 @@ namespace Bloomlings.Playtest.Design
             Rgba ink = letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown);
 
             // The letters keep clear of the leaves on the plank's ends: the owner's ivy cluster reaches 0.585 h into each
-            // end, the flower clusters about 0.64 h.
+            // end (at full size), the flower clusters about 0.64 h.
             float maxWidth = box.Width * 0.82f;
             if (decor == SignDecor.Ivy && p.HasSprite(PainterBase.DecorPrefix + OwnerPictures.Ivy))
             {
-                maxWidth = Math.Min(maxWidth, box.Width - (h * 1.25f));
+                maxWidth = Math.Min(maxWidth, box.Width - (h * GardenLook.IvyShare * ivyScale));
             }
             else if (decor == SignDecor.Flowers)
             {
@@ -231,8 +232,8 @@ namespace Bloomlings.Playtest.Design
             switch (decor)
             {
                 case SignDecor.Ivy:
-                    IvyCluster(p, GardenLook.IvyBox(box, left: true), flipped: false, back: false);
-                    IvyCluster(p, GardenLook.IvyBox(box, left: false), flipped: true, back: false);
+                    IvyCluster(p, GardenLook.IvyBox(box, left: true, ivyScale), flipped: false, back: false);
+                    IvyCluster(p, GardenLook.IvyBox(box, left: false, ivyScale), flipped: true, back: false);
                     break;
                 case SignDecor.Flowers:
                     p.Mark("ui.sign.flowers");

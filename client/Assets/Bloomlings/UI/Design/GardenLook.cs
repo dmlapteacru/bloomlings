@@ -498,19 +498,23 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float IvyReach = (IvyShare / 2f) + IvyOut;
 
+        /// <summary>How far ivy clusters drawn at <paramref name="scale"/> of their size reach beyond the plank's end (<see cref="IvyReach"/> at 1).</summary>
+        public static float IvyReachAt(float scale) => (IvyShare * scale / 2f) + IvyOut;
+
         /// <summary>A flower cluster's side, as a share of its sign's height (the bottom-right one is 0.92 of it).</summary>
         public const float FlowerShare = 1.35f;
 
         /// <summary>
         /// The box of a sign end's ivy cluster (<c>ui.sign.ivy</c>; both builds' wooden signs): a square 1.25 × the sign's
         /// height on its middle line, centered 0.04 × its height outside the plank's end, so the leaves cling to its
-        /// corners and most of the plank shows, as on the reference's gameplay sign.
+        /// corners and most of the plank shows, as on the reference's gameplay sign. <paramref name="scale"/> sizes the
+        /// square (the pages' banners: <see cref="PageHeader.IvyScale"/>).
         /// </summary>
-        public static Box IvyBox(Box sign, bool left)
+        public static Box IvyBox(Box sign, bool left, float scale = 1f)
         {
             float h = sign.Height;
             float x = left ? sign.Left - (h * IvyOut) : sign.Right + (h * IvyOut);
-            return Box.FromCenter(x, sign.CenterY, h * IvyShare, h * IvyShare);
+            return Box.FromCenter(x, sign.CenterY, h * IvyShare * scale, h * IvyShare * scale);
         }
 
         /// <summary>
@@ -526,13 +530,16 @@ namespace Bloomlings.Client.UI.Design
                 : Box.FromCenter(sign.Right - (h * 0.08f), sign.Bottom - (h * 0.04f), size * 0.92f, size * 0.92f);
         }
 
-        /// <summary>A wooden sign's plank together with its decoration (<see cref="IvyBox"/>, <see cref="FlowerBox"/>).</summary>
-        public static Box SignExtent(Box sign, SignDecor decor)
+        /// <summary>
+        /// A wooden sign's plank together with its decoration (<see cref="IvyBox"/> at <paramref name="ivyScale"/>,
+        /// <see cref="FlowerBox"/>).
+        /// </summary>
+        public static Box SignExtent(Box sign, SignDecor decor, float ivyScale = 1f)
         {
             switch (decor)
             {
                 case SignDecor.Ivy:
-                    return Union(sign, Union(IvyBox(sign, true), IvyBox(sign, false)));
+                    return Union(sign, Union(IvyBox(sign, true, ivyScale), IvyBox(sign, false, ivyScale)));
                 case SignDecor.Flowers:
                     return Union(sign, Union(FlowerBox(sign, true), FlowerBox(sign, false)));
                 default:

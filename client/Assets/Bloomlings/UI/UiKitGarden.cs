@@ -112,17 +112,18 @@ namespace Bloomlings.Client.UI
         /// filling the rect (radius 28% of its height) over a soft shadow, the text centered in <c>ink.brown</c>
         /// (<c>ink.title</c> on the win's flower sign, or <paramref name="letters"/>) with a light emboss, at most 82% of the plank wide and 62% of its height tall, and its
         /// decoration: ivy over both ends (clusters 1.25 × the height, the back leaves behind the plank), or flower clusters
-        /// at the top-left and bottom-right ends (1.35 × the height). Never a touch target.
+        /// at the top-left and bottom-right ends (1.35 × the height); <paramref name="ivyScale"/> sizes the ivy clusters (the
+        /// pages' banners). Never a touch target.
         /// </summary>
-        public static WoodSignView WoodSign(string name, Transform parent, string text, TypeStyle style, SignDecor decor = SignDecor.None, Rgba? letters = null)
+        public static WoodSignView WoodSign(string name, Transform parent, string text, TypeStyle style, SignDecor decor = SignDecor.None, Rgba? letters = null, float ivyScale = 1f)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<WoodSignView>();
             SoftShadow(layout, b => b, b => b.Height * 0.28f, 0.22f, 0.07f);
             if (decor == SignDecor.Ivy)
             {
-                layout.Add(IvyCluster("IvyBackLeft", root, flipped: false, back: true).rectTransform, b => GardenLook.IvyBox(b, left: true));
-                layout.Add(IvyCluster("IvyBackRight", root, flipped: true, back: true).rectTransform, b => GardenLook.IvyBox(b, left: false));
+                layout.Add(IvyCluster("IvyBackLeft", root, flipped: false, back: true).rectTransform, b => GardenLook.IvyBox(b, left: true, ivyScale));
+                layout.Add(IvyCluster("IvyBackRight", root, flipped: true, back: true).rectTransform, b => GardenLook.IvyBox(b, left: false, ivyScale));
             }
 
             Image plank = WoodPlank("Plank", root, 0.28f, 7);
@@ -130,12 +131,12 @@ namespace Bloomlings.Client.UI
             // The win's flower sign titles a card: its letters in ink.title (the playtest's Kit.WoodSign).
             TextMeshProUGUI label = KitLabel("Label", root, text, style, GardenLook.SignLetters(letters ?? (decor == SignDecor.Flowers ? C.InkTitle : C.InkBrown)));
             view.Init(label, plank, style);
-            layout.Watch(label).Then(b => KitText.Place(label, style, b.CenterX, b.CenterY - (b.Height * 0.04f), Mathf.Min(Units(style.Size), b.Height * 0.62f), SignLetterRoom(b, decor)));
+            layout.Watch(label).Then(b => KitText.Place(label, style, b.CenterX, b.CenterY - (b.Height * 0.04f), Mathf.Min(Units(style.Size), b.Height * 0.62f), SignLetterRoom(b, decor, ivyScale)));
             switch (decor)
             {
                 case SignDecor.Ivy:
-                    layout.Add(IvyCluster("IvyLeft", root, flipped: false, back: false).rectTransform, b => GardenLook.IvyBox(b, left: true));
-                    layout.Add(IvyCluster("IvyRight", root, flipped: true, back: false).rectTransform, b => GardenLook.IvyBox(b, left: false));
+                    layout.Add(IvyCluster("IvyLeft", root, flipped: false, back: false).rectTransform, b => GardenLook.IvyBox(b, left: true, ivyScale));
+                    layout.Add(IvyCluster("IvyRight", root, flipped: true, back: false).rectTransform, b => GardenLook.IvyBox(b, left: false, ivyScale));
                     break;
                 case SignDecor.Flowers:
                     layout.Add(FlowerCluster("FlowersLeft", root, flipped: false).rectTransform, b => GardenLook.FlowerBox(b, left: true));
@@ -149,14 +150,15 @@ namespace Bloomlings.Client.UI
         /// <summary>
         /// The width a wooden sign's letters may take: 82% of the plank, and clear of the owner's ivy clusters (pictures.md
         /// D5, 1.25 × the height over both ends, so the plank less 0.625 × the height each side) or of the flower clusters
-        /// (0.68 × the height each side), as the reference's "Level 88" between its clover ends.
+        /// (0.68 × the height each side), as the reference's "Level 88" between its clover ends; ivy clusters at
+        /// <paramref name="ivyScale"/> of their size leave that much more.
         /// </summary>
-        public static float SignLetterRoom(Box b, SignDecor decor)
+        public static float SignLetterRoom(Box b, SignDecor decor, float ivyScale = 1f)
         {
             float room = b.Width * 0.82f;
             if (decor == SignDecor.Ivy && OwnerArt.Decor(OwnerPictures.Ivy) != null)
             {
-                return Mathf.Max(1f, Mathf.Min(room, b.Width - (b.Height * 1.25f)));
+                return Mathf.Max(1f, Mathf.Min(room, b.Width - (b.Height * GardenLook.IvyShare * ivyScale)));
             }
 
             return decor == SignDecor.Flowers ? Mathf.Max(1f, Mathf.Min(room, b.Width - (b.Height * 1.35f * 0.95f))) : room;

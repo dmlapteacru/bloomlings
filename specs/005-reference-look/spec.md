@@ -350,6 +350,18 @@ The owner: "Background 55–65% saturation → UI 65–75% → heroes 100%."
   to ×0.82, the layered Home as one scene ×0.73; the evening garden stays, it is under 70% already), lightness and hue
   kept (FR-031, contracts/look.md §1.4). The UI, the heroes, the characters and the board stay as they are.
 
+### Session 2026-10-04 (the owner's note: the pages' titles in the middle)
+
+The owner: "Can we make the screens' names (for example Wardrobe) sit in the middle of the header? Now they are off."
+- Q: Where were they? → A: The banner filled the room between the back button and the Petals pill, which is wider
+  than the back button, so its middle sat at 43% of W, about 0.07 W left of the screen's middle.
+- Q: How does it move to the middle without losing its letters? → A: The banner (and so the title) is centered on the
+  safe area's middle on every page (the Wardrobe, the Store, the Leaderboard, the Collection and the locked pages),
+  as wide as the Petals pill's side allows with its leaves `0.005W` clear of it. To keep the letters large, the page
+  header's Petals pill is a little smaller (its box `0.24W × 0.068W`, "1 240" with its "+" still fits) and the
+  banner's ivy clusters are 0.8 of their usual size; "Wardrobe" keeps about 95% of its title size, "Collection" a
+  little less, "Leaderboard" about 80% (FR-025; contracts/look.md §6.5). The other signs keep their full-size ivy.
+
 ### Session 2026-10-04 (Twig and Sprig toned down)
 
 The owner, on the APK with the new Sprig: "Now you can really see that the chestnut is somehow too bright. It needs
@@ -679,11 +691,13 @@ inventory.
   the same day bring them back (FR-028): over the layered picture, Home and the splash stand the four animated heroes
   on the painted fountain; the drawn stand-in (without the picture) keeps its still heroes; over an owner picture
   without the fountain layers (a splash picture of its own, B6), no heroes show (`HomeStage.ShowsHeroes`).
-- **FR-025** *(amended on 2026-10-04: the header on one line; the bottom menu)*: The Wardrobe MUST follow the reference
+- **FR-025** *(amended on 2026-10-04: the header on one line, its title in the middle; the bottom menu)*: The Wardrobe MUST follow the reference
   layout (contracts/look.md §6.5) in both builds; the playtest gets a Wardrobe screen (equipping through the shared
   `WardrobeService`) instead of only the Store's cosmetics tab. Its header (the back button, the wooden banner with ivy
   and the Petals pill) MUST stand on one line, the back button's middle, with the banner's leaves clear of the back
-  button and the Petals pill on every phone from 16:9 to 21:9 (`ScreenLayout.PageHeader`, shared with the Store page).
+  button and the Petals pill on every phone from 16:9 to 21:9 (`ScreenLayout.PageHeader`, shared with the Store page
+  and the other pages), and the banner, with the page's title, MUST stand in the middle of the screen (the owner's
+  note of 2026-10-04).
   Its cards, footer and page arrows MUST end above the bottom menu, which shows over the panel's foot with the
   Wardrobe in its medallion (FR-030).
 - **FR-026**: Board tile icons MUST be the reference's "gem" icons: the variant symbol about 56% of the tile with a

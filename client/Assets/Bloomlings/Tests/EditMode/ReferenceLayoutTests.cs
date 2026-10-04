@@ -903,7 +903,7 @@ namespace Bloomlings.Client.Tests
                 Assert.That(header.Petals.CenterY, Is.EqualTo(header.CenterY).Within(0.5f), at + ": the Petals pill on the back button's line");
                 Assert.That(header.Back.Width, Is.EqualTo(PageHeader.BackShare * sw).Within(0.5f), at);
                 Assert.That(header.Banner.Height, Is.EqualTo(PageHeader.BannerShare * sw).Within(0.5f), at);
-                Assert.That(header.BannerExtent.Height, Is.EqualTo(header.Banner.Height * GardenLook.IvyShare).Within(0.5f), at + ": the banner and its leaves about the back button's height");
+                Assert.That(header.BannerExtent.Height, Is.EqualTo(header.Banner.Height * GardenLook.IvyShare * PageHeader.IvyScale).Within(0.5f), at + ": the banner with its smaller leaves");
                 Assert.That(header.Petals.Width, Is.EqualTo(PageHeader.PetalsWidthShare * sw).Within(0.5f), at);
                 Assert.That(header.Petals.Height, Is.EqualTo(PageHeader.PetalsHeightShare * sw).Within(0.5f), at);
                 Assert.That(header.Petals.Right, Is.EqualTo(safe.Right - (0.02f * sw)).Within(0.5f), at);
@@ -918,12 +918,15 @@ namespace Bloomlings.Client.Tests
                     Assert.That(extent.Overlaps(box), Is.False, at + ": the banner's leaves " + extent + " overlap " + name + " " + box);
                 }
 
-                Assert.That(extent.Left - header.Back.Right, Is.EqualTo(PageHeader.GapShare * sw).Within(0.5f), at);
+                // The title in the middle of the screen (the owner's note of 2026-10-04): the banner centered on the safe
+                // area, as wide as the Petals pill's side leaves it; the back button's side keeps more.
+                Assert.That(header.Banner.CenterX, Is.EqualTo(safe.CenterX).Within(0.5f), at + ": the banner in the middle");
                 Assert.That(header.Petals.Left - extent.Right, Is.EqualTo(PageHeader.GapShare * sw).Within(0.5f), at);
+                Assert.That(extent.Left - header.Back.Right, Is.GreaterThanOrEqualTo((PageHeader.GapShare * sw) - 0.5f), at);
 
-                // "Wardrobe" needs about 0.285 W at type.title; the room between the owner's ivy clusters (the plank less
-                // 1.25 × its height) keeps it at 95% or more.
-                Assert.That(header.Banner.Width - (GardenLook.IvyShare * header.Banner.Height), Is.GreaterThanOrEqualTo(0.27f * sw), at + ": the title keeps its room");
+                // "Wardrobe" needs about 0.27 W at type.title; the room between the smaller ivy clusters (the plank less
+                // 1.25 × 0.8 of its height) keeps it at 95% or more.
+                Assert.That(header.Banner.Width - (GardenLook.IvyShare * PageHeader.IvyScale * header.Banner.Height), Is.GreaterThanOrEqualTo(0.26f * sw), at + ": the title keeps its room");
 
                 ReferenceWardrobeRegions wardrobe = ScreenLayout.ReferenceWardrobe(w, h, insets);
                 ReferenceStoreRegions store = ScreenLayout.ReferenceStore(w, h, insets);

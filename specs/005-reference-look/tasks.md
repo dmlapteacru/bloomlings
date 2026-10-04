@@ -488,3 +488,13 @@ See spec.md (the clarification "the owner's saturation note: the backgrounds at 
   `saturation.json`) and `layers.mjs` (the layered Home as one scene, `layers.json` `saturation`); the backgrounds
   re-encoded once from the owner's PNG files; the source records (`tools/artgen/models/owner-pictures.md`,
   `tools/heroanim/SOURCE.md`, `README.md`, pictures.md); all checks.
+
+## Owner note: the pages' titles in the middle (2026-10-04)
+
+See spec.md (the clarification "the owner's note: the pages' titles in the middle", FR-025) and contracts/look.md
+§6.5. Presentation only (FR-002).
+- [X] T091 `ScreenLayout.PageHeader` centers the banner on the safe area's middle, as wide as the Petals pill's side
+  allows (its leaves `0.005W` clear); the page header's Petals box `0.24W × 0.068W`; the banner's ivy at
+  `PageHeader.IvyScale` (0.8) through `GardenLook.IvyBox` / `SignExtent` / `IvyReachAt` and the signs' `ivyScale`
+  (`Kit.WoodSign`, `UiKit.WoodSign`, `UiKit.SignLetterRoom`) in both builds; the header test (banner in the middle,
+  leaves clear, the title's room); previews of the Wardrobe, Store, Leaderboard, Collection and locked pages; all checks.

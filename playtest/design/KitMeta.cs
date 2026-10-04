@@ -25,7 +25,7 @@ namespace Bloomlings.Playtest.Design
         public static void PageHeader(IPainter p, PageHeader header, string title, Action onBack, long petals, Action? onPlus)
         {
             RoundButton(p, header.Back.CenterX, header.Back.CenterY, header.Back.Width, "ui.back", onBack);
-            WoodSign(p, header.Banner, title, T.Title, SignDecor.Ivy);
+            WoodSign(p, header.Banner, title, T.Title, SignDecor.Ivy, ivyScale: Bloomlings.Client.UI.Design.PageHeader.IvyScale);
             PetalsPill(p, header.Petals, petals, onPlus);
         }
 
