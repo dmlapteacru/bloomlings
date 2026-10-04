@@ -83,8 +83,9 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   frame when it is first drawn and keep the frames in a cache bounded by bytes (the least recently drawn dropped first),
   never all 576; the layered Home's pictures (`home.jpg`, `home-*.png`) come with the backgrounds. The level tester
   keeps the system font and its minimal look. There are no ads or real-money purchases here, so those buttons show as
-  unavailable, and the jam rescue is granted without an ad. A small dev row in the Settings card opened from Home (−1,
-  +1, +10, Reset; it lay at Home's bottom before the bottom menu) moves the progression for testing.
+  unavailable, and the jam rescue is granted without an ad. A small dev row in the Settings card (from Home or a level's
+  pause; "dev L<n>", then −1, +1, +10, Reset; it lay at Home's bottom before the bottom menu) moves the progression for
+  testing; used from a level it returns Home.
 - Progression and economy are the Unity client's own engine-free services, linked from `client/` (never copied):
   the save file, the unlock roadmap (boosters open at L3, L4, L6 and L9 with a free charge; mechanics, Hard and Super
   Hard as in the spec), Petals for wins, booster charges bought with Petals, level drops, milestone rewards, the Daily
