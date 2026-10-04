@@ -21,7 +21,8 @@ namespace Bloomlings.Client.Meta.DailyReward
     /// <item><description>Claim, and the optional rewarded-ad bonus the player may start (FR-052).</description></item>
     /// </list>
     /// The bonus claims the reward together with its extra Petals, so it is earned at most once a day. The popup opens by
-    /// itself once a day while a claim is due. In the reference look of spec 005 (contracts/look.md §4.3, §4.6; the
+    /// itself once a day while a claim is due, and from Home's Daily scene at any time once unlocked (spec 005 FR-032;
+    /// after the claim with Claim greyed). In the reference look of spec 005 (contracts/look.md §4.3, §4.6; the
     /// playtest's <c>MetaCards.DailyReward</c>).
     /// </summary>
     public sealed class DailyRewardPopup : MonoBehaviour
@@ -83,8 +84,14 @@ namespace Bloomlings.Client.Meta.DailyReward
         /// <param name="bonusAvailable">A rewarded ad is ready and today's bonus is unused.</param>
         /// <param name="watchBonus">Shows the ad; reports the Petals paid (claim and bonus), 0 when nothing was earned.</param>
         /// <param name="bonusPetals">The bonus amount for "Get +N"; 0 shows "Watch for more".</param>
-        public void Show(int petals, int streak, bool bonusAvailable, Func<int> claim, Action<Action<int>> watchBonus, int bonusPetals = 0)
+        /// <param name="claimable">
+        /// Today's reward can still be claimed. Home's Daily scene opens the card after the claim too (spec 005 FR-032):
+        /// then it shows the day claimed with Claim greyed and no bonus.
+        /// </param>
+        public void Show(int petals, int streak, bool bonusAvailable, Func<int> claim, Action<Action<int>> watchBonus, int bonusPetals = 0, bool claimable = true)
         {
+            _claim.interactable = claimable;
+            bonusAvailable &= claimable;
             _day.text = Loc.F("daily_reward.day", streak);
             _amount.text = NumberText.Plus(petals);
             _claim.onClick.RemoveAllListeners();

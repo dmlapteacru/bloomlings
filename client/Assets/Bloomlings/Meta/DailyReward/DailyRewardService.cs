@@ -51,13 +51,19 @@ namespace Bloomlings.Client.Meta.DailyReward
         }
 
         /// <summary>What a claim now pays.</summary>
-        public int NextPetals
+        public int NextPetals => PetalsOn(NextStreak);
+
+        /// <summary>
+        /// The streak day of today's reward, for the card (Home's Daily scene opens it after the claim too, spec 005
+        /// FR-032): the day a claim now would be while one is due, else the day last claimed.
+        /// </summary>
+        public int TodayStreak => CanClaim || _save.Daily.RewardLastClaimUtcDate == null ? NextStreak : Math.Max(1, _save.Daily.RewardStreak);
+
+        /// <summary>What the reward pays on streak day <paramref name="streak"/> (the bonus capped at <c>daily.reward.streakMaxDays</c>).</summary>
+        public int PetalsOn(int streak)
         {
-            get
-            {
-                int capped = Math.Min(NextStreak, _config.Get(RemoteConfigKeys.DailyStreakMaxDays));
-                return _config.Get(RemoteConfigKeys.DailyRewardPetals) + (_config.Get(RemoteConfigKeys.DailyStreakBonusPetals) * (capped - 1));
-            }
+            int capped = Math.Max(1, Math.Min(streak, _config.Get(RemoteConfigKeys.DailyStreakMaxDays)));
+            return _config.Get(RemoteConfigKeys.DailyRewardPetals) + (_config.Get(RemoteConfigKeys.DailyStreakBonusPetals) * (capped - 1));
         }
 
         /// <summary>Claims today's reward; returns the Petals paid, or 0 when not claimable.</summary>

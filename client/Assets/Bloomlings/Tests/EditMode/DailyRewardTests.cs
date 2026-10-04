@@ -91,6 +91,24 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void TodaysReward_IsTheDueClaim_ThenTheDayClaimed()
+        {
+            // Home's Daily scene opens the card after the claim too (spec 005 FR-032): it shows the day just claimed.
+            _save.Unlocks.Flags[DailyRewardService.UnlockId] = true;
+            Assert.That(_daily.TodayStreak, Is.EqualTo(1));
+            Assert.That(_daily.PetalsOn(_daily.TodayStreak), Is.EqualTo(_daily.NextPetals));
+            _daily.Claim();
+            _clock.UtcNow = _clock.UtcNow.AddDays(1);
+            Assert.That(_daily.TodayStreak, Is.EqualTo(2), "due: the next day of the streak");
+
+            int paid = _daily.Claim();
+            Assert.That(_daily.CanClaim, Is.False);
+            Assert.That(_daily.TodayStreak, Is.EqualTo(2), "claimed: the day claimed, not a new streak");
+            Assert.That(_daily.PetalsOn(_daily.TodayStreak), Is.EqualTo(paid));
+            Assert.That(_daily.PetalsOn(30), Is.EqualTo(_daily.PetalsOn(7)), "capped");
+        }
+
+        [Test]
         public void TheFreeBoosterAd_IsOnceADay_AndSurvivesARelaunch()
         {
             var offer = new FreeBoosterAd(_save, _clock, () => { });
