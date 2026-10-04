@@ -249,7 +249,7 @@ Wire format: [`contracts/player-save.schema.json`](contracts/player-save.schema.
 | Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker}}` |
 | Daily | `dailyReward{lastClaimUtcDate, streak}`, `dailyChallenge{lastCompletedUtcDate}` |
 | Collection | `entries[]` of `{pictureId, pictureVersion, mappingHash, levelNumber}` (FR-065) |
-| Settings | `music`, `sfx`, `haptics`, `speed2x`, `language` |
+| Settings | `music`, `sfx`, `haptics`, `speed2x`, `homePetals` (optional, default on: Home's falling petals; the owner's request of 2026-10-04, spec 005), `language` |
 | Stats | `levelsWon`, `jams`, `boostersUsed{}`, `adsWatched`, `firstSessionMaxLevel` |
 
 **Rules:**

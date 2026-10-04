@@ -179,11 +179,13 @@ namespace Bloomlings.Client.Services.Save
                     JsonDoc.Int(JsonDoc.Required(entry, path, "levelNumber"), JsonDoc.Join(path, "levelNumber"), min: 1)));
             }
 
-            JObject settings = Obj(root, "settings", "music", "sfx", "haptics", "speed2x", "language");
+            JObject settings = Obj(root, "settings", "music", "sfx", "haptics", "speed2x", "homePetals", "language");
             save.Settings.Music = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "music"), "settings.music");
             save.Settings.Sfx = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "sfx"), "settings.sfx");
             save.Settings.Haptics = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "haptics"), "settings.haptics");
             save.Settings.Speed2x = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "speed2x"), "settings.speed2x");
+            JToken? homePetals = JsonDoc.Optional(settings, "homePetals");
+            save.Settings.HomePetals = homePetals == null || JsonDoc.Bool(homePetals, "settings.homePetals");
             save.Settings.Language = OptionalString(settings, "settings", "language") ?? "en";
 
             JToken? stats = JsonDoc.Optional(root, "stats");
@@ -318,6 +320,7 @@ namespace Bloomlings.Client.Services.Save
                     ["sfx"] = save.Settings.Sfx,
                     ["haptics"] = save.Settings.Haptics,
                     ["speed2x"] = save.Settings.Speed2x,
+                    ["homePetals"] = save.Settings.HomePetals,
                     ["language"] = save.Settings.Language,
                 },
             };

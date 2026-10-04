@@ -41,6 +41,12 @@ namespace Bloomlings.Client.UI.Screens
         private Clock _shared = null!;
         private bool _built;
         private bool _placed;
+
+        /// <summary>
+        /// Whether the petals drift (Settings' "Falling petals", the owner's switch of 2026-10-04); null: always. Read every
+        /// frame, so a switch in Settings shows at once.
+        /// </summary>
+        public Func<bool>? PetalsOn { get; set; }
         private Box _picture;
         private Box _parent;
         private float _heroAlpha = 1f;
@@ -223,7 +229,14 @@ namespace Bloomlings.Client.UI.Screens
                 _heroes[i]?.Tick(now);
             }
 
-            if (_petals.gameObject.activeSelf)
+            bool drift = _petals.texture != null && (PetalsOn == null || PetalsOn());
+            if (_petals.gameObject.activeSelf != drift)
+            {
+                _petals.gameObject.SetActive(drift);
+                _petalsAbove.gameObject.SetActive(drift);
+            }
+
+            if (drift)
             {
                 Box petals = HomeLayers.PetalsAt(_picture, now - _shared.Start);
                 UiKit.PlaceBox(_petals.rectTransform, petals, _parent);

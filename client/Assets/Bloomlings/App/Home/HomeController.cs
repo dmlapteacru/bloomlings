@@ -274,7 +274,8 @@ namespace Bloomlings.Client.App.Home
                     Refresh();
                 }),
                 features,
-                Navigate);
+                Navigate,
+                () => save.Settings.HomePetals);
             var account = new AccountActions(
                 () => save.LinkedIdentity != null
                     ? (save.LinkedIdentity == "apple" ? Loc.T("account.linked_apple") : Loc.T("account.linked_google"))

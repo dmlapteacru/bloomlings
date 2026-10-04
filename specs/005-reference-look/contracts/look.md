@@ -591,7 +591,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   cream close, Resume (primary, decorated), Restart (⟳), Settings (gear) and Home (`ui.back`) as cream secondaries with
   their glyphs. Settings: cream rows with brown labels and
   the garden toggle (on: the green set's glossy track with a white ✓ and the knob right; off: a parchment well; the knob
-  a domed cream cushion like the round buttons).
+  a domed cream cushion like the round buttons); since the owner's request of 2026-10-04 its last switch is "Falling
+  petals" (`settings.petals`, the save's `settings.homePetals`, on by default): off, Home draws neither the layered
+  Home's petals (`bg.home.petals`) nor the stand-in's falling petals; the splash, the win and the milestone keep theirs.
 - Demo and unlock cards: parchment, no title; a booster's card shows its colored icon on a cream tile; the first line in
   `type.button_secondary` `InkBrown`, the others in `type.body` `InkBrownSoft`, each wrapped to the card; variant cards
   show sticker tiles; "Tap to continue" in `InkBrownSoft`.

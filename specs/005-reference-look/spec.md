@@ -253,6 +253,17 @@ the hero's icon, but in its bottom right corner put the clothes icon on that rou
   (its Petals "+"). In the playtest the Android back closes the page, and the Wardrobe, as their back buttons do (it
   left the app before); elsewhere it does what the system does.
 
+### Session 2026-10-04 (the owner's Settings switch for Home's falling petals)
+
+The owner: "Add a button to Settings to remove the petals from Home."
+- Q: Which petals, and how? → A: Home's falling petals (the owner's petals layer drifting over the layered Home,
+  `bg.home.petals`, and the drawn stand-in's falling petals, `Kit.FallingPetals`), not the Petals currency. Settings gets
+  a fifth switch, "Falling petals: On/Off" (`settings.petals`), in both builds, on by default; off, Home shows no
+  petals, at once, also when Settings is open over it. The splash keeps them (it fades into Home), and so do the win and
+  the milestone. It is saved with the other settings: the save's settings gain an optional `homePetals` (default true,
+  so older saves show the petals; spec 001's `player-save.schema.json` and data model, the owner's request). Presentation
+  only (FR-002).
+
 ### Session 2026-10-04 (the owner's calm backgrounds)
 
 The owner sent `bloomlings_calm_backgrounds.zip` (eight calmer backgrounds: "fewer flowers, less visual noise and

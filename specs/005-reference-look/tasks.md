@@ -382,3 +382,16 @@ SC-011) and contracts/look.md §6.7. Presentation and navigation only (FR-002): 
   shows (its `Button` interactable with the Store's unlock), as the playtest's; the playtest's Home look opens the
   Collection from Level 2 while it is empty (`HomeScreen.Look`; the dev row's skips collect no pictures);
   contracts/look.md §6.7; all checks and the type-checks.
+
+## Owner request: a Settings switch for Home's falling petals (2026-10-04)
+
+See spec.md (the clarification "the owner's Settings switch for Home's falling petals") and contracts/look.md §4.3.
+Presentation only (FR-002).
+- [X] T080 The save: `SettingsData.HomePetals` (on by default, copied by `PlayerSave` like the other settings), the
+  serializer's optional `settings.homePetals` (absent: on); spec 001's `player-save.schema.json` and data model; the
+  tests `SavedData_RoundTrips` and `ASaveWithoutTheHomePetalsSwitch_ShowsThePetals`.
+- [X] T081 Settings' fifth switch "Falling petals" (`settings.petals`) in both builds (`MenuCards.Settings`,
+  `SettingsScreen`); Home without petals while it is off: the playtest's `HomeScreen` (the layered Home's petals, not
+  the splash's, and the stand-in's falling petals), Unity's `HomeLayersView.PetalsOn` read every frame through
+  `HomeStageView.PetalsOn` from `HomeScreen.Create` (`HomeController`); all checks and the type-checks; the preview's
+  Settings (frame 19) reviewed at 16:9, 19.5:9 and 21:9.

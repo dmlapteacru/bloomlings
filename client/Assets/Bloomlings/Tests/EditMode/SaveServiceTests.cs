@@ -53,6 +53,7 @@ namespace Bloomlings.Client.Tests
             service.Current.Unlocks.Flags["booster.shuffle"] = true;
             service.Current.Unlocks.MarkDemoSeen("booster.shuffle");
             service.Current.Settings.Speed2x = true;
+            service.Current.Settings.HomePetals = false;
             service.Current.Stats.Increment("boostersUsed", "shuffle");
             service.Save();
 
@@ -66,8 +67,21 @@ namespace Bloomlings.Client.Tests
             Assert.That(save.Unlocks.IsSet("booster.shuffle"), Is.True);
             Assert.That(save.Unlocks.HasSeenDemo("booster.shuffle"), Is.True);
             Assert.That(save.Settings.Speed2x, Is.True);
+            Assert.That(save.Settings.HomePetals, Is.False);
             Assert.That(save.Stats.Groups["boostersUsed"]["shuffle"], Is.EqualTo(1));
             Assert.That(SaveService.Envelope(save), Is.EqualTo(File.ReadAllText(reloaded.MainPath)), "Stable canonical file.");
+        }
+
+        /// <summary>Home's falling petals (the owner's Settings switch of 2026-10-04): a save written before it shows them.</summary>
+        [Test]
+        public void ASaveWithoutTheHomePetalsSwitch_ShowsThePetals()
+        {
+            PlayerSave save = PlayerSave.CreateNew("local", new DateTime(2026, 10, 4, 12, 0, 0, DateTimeKind.Utc));
+            save.Settings.HomePetals = false;
+            JObject document = SaveSerializer.ToJObject(save);
+            Assert.That(((JObject)document["settings"]!).Remove("homePetals"), Is.True, "the switch is written");
+            Assert.That(SaveSerializer.Read(document).Settings.HomePetals, Is.True, "on when the save does not say");
+            Assert.That(SaveSerializer.Read(SaveSerializer.Write(save)).Settings.HomePetals, Is.False, "off once switched off");
         }
 
         [Test]

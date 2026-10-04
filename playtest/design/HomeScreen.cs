@@ -131,8 +131,11 @@ namespace Bloomlings.Playtest.Design
                 Wordmark(p, r);
                 heroes = Stage(p, r, BackdropScene.Home, OutfitsOf(app));
 
-                // As on the reference's Home (Home redraws for Play's breath).
-                Kit.FallingPetals(p, new Box(r.Safe.Left, r.Logo.Bottom, r.Safe.Right, r.Plaque.Top), app.Now);
+                // As on the reference's Home (Home redraws for Play's breath), unless Settings switched them off.
+                if (app.Meta.Save.Settings.HomePetals)
+                {
+                    Kit.FallingPetals(p, new Box(r.Safe.Left, r.Logo.Bottom, r.Safe.Right, r.Plaque.Top), app.Now);
+                }
             }
 
             if (heroes && look.Hero)
@@ -274,7 +277,13 @@ namespace Bloomlings.Playtest.Design
             }
 
             Layer(p, picture, HomeLayers.FountainFront);
-            LayerPetals(p, picture, app.HomeSeconds);
+
+            // Home's petals follow Settings' "Falling petals" (the owner's switch of 2026-10-04); the splash keeps them.
+            if (app.Screen != Screen.Home || app.Meta.Save.Settings.HomePetals)
+            {
+                LayerPetals(p, picture, app.HomeSeconds);
+            }
+
             return moving;
         }
 

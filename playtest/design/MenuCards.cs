@@ -42,13 +42,14 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Settings: sound and haptics, the 2× speed (spec 001 FR-073), each a cream row with a garden toggle; the
+        /// Settings: sound and haptics, the 2× speed (spec 001 FR-073) and Home's falling petals (the owner's switch of
+        /// 2026-10-04), each a cream row with a garden toggle; the
         /// playtest's dev row under them wherever the card opens (not the product; it lay at Home's bottom before the bottom
         /// menu, spec 005 FR-030; the owner, 2026-10-04: "put the dev level up in Settings").
         /// </summary>
         public static void Settings(IPainter p, DesignApp app, float since)
         {
-            float rows = (3f * 126f) + (2f * 20f) + 30f + 20f + DesignTokens.Size.TouchMin;
+            float rows = (4f * 126f) + (3f * 20f) + 30f + 20f + DesignTokens.Size.TouchMin;
             CardRegions r = Kit.Card(p, rows, PlaytestText.T("settings.title"), app.CardClose, Kit.Pop(since), T.Title);
             var save = app.Meta.Save.Settings;
             (string Key, bool On, Action Toggle)[] items =
@@ -72,6 +73,11 @@ namespace Bloomlings.Playtest.Design
                     {
                         app.Level.RefreshSpeed();
                     }
+                }),
+                ("settings.petals", save.HomePetals, () =>
+                {
+                    save.HomePetals = !save.HomePetals;
+                    app.Meta.Persist();
                 }),
             };
             Box[] lines = ScreenLayout.Column(new Box(r.Body.Left, r.Body.Top + p.U(12f), r.Body.Right, r.Body.Bottom), items.Length, p.U(126f), p.U(20f));

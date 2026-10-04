@@ -95,7 +95,8 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <param name="onStore">The Petals pill's "+" (the Store page).</param>
         /// <param name="onNav">A tap on a place of the bottom menu (not Home's own).</param>
-        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null, HomeFeatureActions? features = null, Action<NavPlace>? onNav = null)
+        /// <param name="petalsOn">Whether the layered Home's petals drift (Settings' "Falling petals"); null: always.</param>
+        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null, HomeFeatureActions? features = null, Action<NavPlace>? onNav = null, Func<bool>? petalsOn = null)
         {
             var screen = root.gameObject.AddComponent<HomeScreen>();
             screen._root = root;
@@ -109,6 +110,7 @@ namespace Bloomlings.Client.UI.Screens
             // Everything built after it (the logo, the buttons, the plaque, Play, the pills) lies above it and keeps its
             // taps; a tap on a hero elsewhere makes it react.
             screen._stage = HeroPictures.Stage("Stage", root);
+            screen._stage.PetalsOn = petalsOn;
 
             // The logo across the top, over the garden in both looks.
             screen._logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
