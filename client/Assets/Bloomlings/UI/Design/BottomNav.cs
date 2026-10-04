@@ -17,10 +17,10 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Home, always open.</summary>
         Home,
 
-        /// <summary>The Leaderboard card over Home (open from L10; before it, the card says so).</summary>
+        /// <summary>The Leaderboard page (open from L10; before it, the page says so).</summary>
         Leaderboard,
 
-        /// <summary>The Collection card over Home (open once a picture is won, from L2; before it, the card says so).</summary>
+        /// <summary>The Collection page (open once a picture is won, from L2; before it, the page says so).</summary>
         Collection,
     }
 
@@ -31,7 +31,7 @@ namespace Bloomlings.Client.UI.Design
     /// place is open once its feature is unlocked (<see cref="IsOpen"/>): the Shop with <see cref="HomeLook.Store"/>, the
     /// Wardrobe with <see cref="HomeLook.Wardrobe"/>, the Leaderboard with <see cref="HomeLook.Rank"/>, the Collection
     /// with <see cref="HomeLook.Collection"/>; Home always. A locked place keeps its icon, still tappable, with a padlock
-    /// badge (<see cref="LockBox"/>), and its page or card says from which level it is available
+    /// badge (<see cref="LockBox"/>), and its page says from which level it is available
     /// (<see cref="UnlockLevel"/>, <see cref="ScreenLayout.LockedNotice"/>). Engine-free.
     /// </summary>
     public static class BottomNav
@@ -95,7 +95,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// Whether <paramref name="place"/> is open for a player whose Home looks like <paramref name="look"/>: Home always,
         /// the others once their feature is unlocked. A place that is not open still shows, with a padlock badge, and its
-        /// page or card says from which level it is available (<see cref="UnlockLevel"/>).
+        /// page says from which level it is available (<see cref="UnlockLevel"/>).
         /// </summary>
         public static bool IsOpen(NavPlace place, HomeLook look) => place switch
         {
@@ -107,7 +107,7 @@ namespace Bloomlings.Client.UI.Design
         };
 
         /// <summary>
-        /// The level from which <paramref name="place"/> is available, as its locked page or card says: the roadmap's level
+        /// The level from which <paramref name="place"/> is available, as its locked page says: the roadmap's level
         /// of the feature's unlock (<paramref name="levelOf"/>, the build's own roadmap, <c>UnlockRoadmap.LevelOf</c>): the
         /// Shop's <see cref="HomeLook.StoreUnlock"/> (L12), the Wardrobe's <see cref="HomeLook.WardrobeUnlock"/> (L40),
         /// the Leaderboard's <see cref="HomeLook.LeaderboardUnlock"/> (L10); the Collection from
@@ -417,8 +417,8 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// The bottom menu's top (<see cref="BottomNavRegions.Top"/>, the same whatever its places): Home, the Store page
-        /// and the Wardrobe keep their content above it.
+        /// The bottom menu's top (<see cref="BottomNavRegions.Top"/>, the same whatever its places): Home and the four
+        /// pages (the Store, the Wardrobe, the Leaderboard and the Collection) keep their content above it.
         /// </summary>
         public static float BottomNavTop(float width, float height, Insets insets)
         {

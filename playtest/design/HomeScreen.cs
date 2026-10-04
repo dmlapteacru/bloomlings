@@ -85,9 +85,9 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>Shown once unlocked: the Daily Challenge as a cream round button at the right; "N levels to
     /// reward" with the gift as a parchment pill under Play.</description></item>
     /// <item><description>The bottom menu (spec 005 FR-030, <see cref="Kit.BottomNav"/>): the wooden bar with its five
-    /// places always shown (Shop, Wardrobe, Home, Leaderboard, Collection; a locked one with a padlock badge, its page or
-    /// card saying from which level it is available), Home in the raised medallion; it replaced Home's Store, Wardrobe and
-    /// Collection side buttons and the rank pill (<see cref="DesignApp.Navigate"/>).</description></item>
+    /// places always shown (Shop, Wardrobe, Home, Leaderboard, Collection, each a page; a locked one with a padlock badge,
+    /// its page saying from which level it is available), Home in the raised medallion; it replaced Home's Store, Wardrobe
+    /// and Collection side buttons and the rank pill (<see cref="DesignApp.Navigate"/>).</description></item>
     /// </list>
     /// Play always continues Level N, and there is no level map. The playtest's skip and reset controls, not part of the
     /// product, moved from Home's bottom into the Settings card opened from Home (<see cref="MenuCards.Settings"/>) when the
@@ -190,7 +190,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// Home's look now: what is unlocked (spec 001 FR-058). The Collection also counts as open from its level
         /// (<see cref="BottomNav.CollectionLevel"/>) while it is still empty: a player reaches it with level 1's picture, but
-        /// the dev row's skips collect none, and its card would otherwise say "Available from level 2" at any level.
+        /// the dev row's skips collect none, and its page would otherwise say "Available from level 2" at any level.
         /// </summary>
         public static HomeLook Look(DesignApp app)
         {

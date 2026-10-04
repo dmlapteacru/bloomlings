@@ -15,6 +15,12 @@ namespace Bloomlings.Playtest.Design
         Level,
         Wardrobe,
         Store,
+
+        /// <summary>The Leaderboard page (spec 005 FR-030, contracts/look.md §6.8), a place of the bottom menu.</summary>
+        Leaderboard,
+
+        /// <summary>The Collection page (spec 005 FR-030, contracts/look.md §6.9), a place of the bottom menu.</summary>
+        Collection,
     }
 
     /// <summary>The cards shown over a screen.</summary>
@@ -23,8 +29,6 @@ namespace Bloomlings.Playtest.Design
         Pause,
         Settings,
         DailyReward,
-        Leaderboard,
-        Collection,
     }
 
     /// <summary>
@@ -36,10 +40,12 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the Wardrobe (preview frame 27; spec 005 FR-025), opened from the bottom menu;</description></item>
     /// <item><description>the Store page (preview frames 17 and 26; spec 005 FR-029), opened from the bottom menu or a
     /// Petals pill's "+";</description></item>
-    /// <item><description>the bottom menu on Home, the Store page and the Wardrobe (spec 005 FR-030,
-    /// <see cref="Navigate"/>), its five places always shown: a locked one with a padlock, its page or card saying from
-    /// which level it is available;</description></item>
-    /// <item><description>the cards over them (frames 4–6, 10, 11, 15 and 16).</description></item>
+    /// <item><description>the Leaderboard page (preview frames 5 and 31) and the Collection page (frames 6 and 20; spec
+    /// 005 FR-030, the owner's request of 2026-10-04: "All the menu's places must be a separate page. Not popups."), opened
+    /// from the bottom menu;</description></item>
+    /// <item><description>the bottom menu on Home and the four pages (spec 005 FR-030, <see cref="Navigate"/>), its five
+    /// places always shown: a locked one with a padlock, its page saying from which level it is available;</description></item>
+    /// <item><description>the cards over them (frames 4, 10, 11, 15 and 16).</description></item>
     /// </list>
     /// The very first launch goes straight into Level 1, and later launches open Home (spec 001 US2). Progress, Petals,
     /// booster charges, milestones, the Daily Reward and the Collection come from the Unity client's engine-free
@@ -98,8 +104,11 @@ namespace Bloomlings.Playtest.Design
 
         private float _homeOpenedAt;
 
-        /// <summary>The Collection's opened picture, or −1.</summary>
+        /// <summary>The Collection page's opened picture (an index into its entries), or −1 for its grid.</summary>
         public int CollectionDetail { get; set; } = -1;
+
+        /// <summary>The Collection page's page of pictures.</summary>
+        public int CollectionPage { get; set; }
 
         /// <summary>The Store's selected tab (0 shop, 1 cosmetics).</summary>
         public int StoreTab { get; set; }
@@ -113,7 +122,10 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The Store Shop's page of rows (when the rows take more than the page).</summary>
         public int StoreRowsPage { get; set; }
 
-        /// <summary>The screen the Store page returns to: Home, or the Wardrobe when its Petals "+" opened it.</summary>
+        /// <summary>
+        /// The screen the Store page returns to: Home, or the page whose bottom menu or Petals "+" opened it (the Wardrobe,
+        /// the Leaderboard or the Collection).
+        /// </summary>
         public Screen StoreReturn { get; private set; } = Screen.Home;
 
         /// <summary>The Wardrobe's chosen family (an index into the four families, spec 005 §6.5).</summary>
@@ -217,7 +229,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Back from the Wardrobe to Home (without reopening the Daily Reward).</summary>
         public void CloseWardrobe() => EnterHome(click: true);
 
-        /// <summary>Home from a page (the Wardrobe, the Store page), without reopening the Daily Reward; its heroes start over.</summary>
+        /// <summary>Home from a page (the Wardrobe, the Store, the Leaderboard or the Collection), without reopening the Daily Reward; its heroes start over.</summary>
         private void EnterHome(bool click)
         {
             if (click)
@@ -232,24 +244,32 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The bottom menu's place of the screen now (spec 005 FR-030): the Shop on the Store page, the Wardrobe on the
-        /// Wardrobe, else Home.
+        /// Wardrobe, the Leaderboard and the Collection on their pages, else Home.
         /// </summary>
-        public NavPlace ActivePlace => Screen == Screen.Store ? NavPlace.Shop : Screen == Screen.Wardrobe ? NavPlace.Wardrobe : NavPlace.Home;
+        public NavPlace ActivePlace => Screen switch
+        {
+            Screen.Store => NavPlace.Shop,
+            Screen.Wardrobe => NavPlace.Wardrobe,
+            Screen.Leaderboard => NavPlace.Leaderboard,
+            Screen.Collection => NavPlace.Collection,
+            _ => NavPlace.Home,
+        };
 
         /// <summary>
         /// Whether a place of the bottom menu is open now (<see cref="BottomNav.IsOpen"/> with Home's look): a locked one
-        /// still shows and opens its page or card, which says from which level it is available (<see cref="UnlockLevel"/>).
+        /// still shows and opens its page, which says from which level it is available (<see cref="UnlockLevel"/>).
         /// </summary>
         public bool PlaceOpen(NavPlace place) => BottomNav.IsOpen(place, HomeScreen.Look(this));
 
-        /// <summary>The level a locked place's page or card names: its unlock's level in the progression's own roadmap (<see cref="BottomNav.UnlockLevel"/>).</summary>
+        /// <summary>The level a locked place's page names: its unlock's level in the progression's own roadmap (<see cref="BottomNav.UnlockLevel"/>).</summary>
         public int UnlockLevel(NavPlace place) => BottomNav.UnlockLevel(place, Meta.Progression.Roadmap.LevelOf);
 
         /// <summary>
-        /// A tap on a place of the bottom menu (spec 005 FR-030), with the click: the Shop opens the Store page
-        /// (<see cref="OpenStore"/>, its back returning to the Wardrobe when it was open), the Wardrobe the Wardrobe, Home
-        /// returns to Home, and the Leaderboard and the Collection open their cards over Home (from a page, Home comes
-        /// first). The active place does nothing. A locked place opens its page or card all the same, which then shows the
+        /// A tap on a place of the bottom menu (spec 005 FR-030), with the click, straight from any page: the Shop opens the
+        /// Store page (<see cref="OpenStore"/>, its back returning to the page it was opened from), the Wardrobe the
+        /// Wardrobe, Home returns to Home, the Leaderboard and the Collection open their pages (<see cref="OpenLeaderboard"/>,
+        /// <see cref="OpenCollection"/>; the owner's request of 2026-10-04: "All the menu's places must be a separate page.
+        /// Not popups."). The active place does nothing. A locked place opens its page all the same, which then shows the
         /// locked notice instead of its content (<see cref="PlaceOpen"/>; the owner's request of 2026-10-04).
         /// </summary>
         public void Navigate(NavPlace place)
@@ -267,35 +287,74 @@ namespace Bloomlings.Playtest.Design
                 case NavPlace.Wardrobe:
                     OpenWardrobe();
                     break;
-                case NavPlace.Home:
-                    EnterHome(click: true);
+                case NavPlace.Leaderboard:
+                    OpenLeaderboard();
+                    break;
+                case NavPlace.Collection:
+                    OpenCollection();
                     break;
                 default:
-                    if (Screen != Screen.Home)
-                    {
-                        EnterHome(click: false);
-                    }
-
-                    OpenOverlay(place == NavPlace.Leaderboard ? Overlay.Leaderboard : Overlay.Collection);
+                    EnterHome(click: true);
                     break;
             }
         }
 
+        /// <summary>Opens the Leaderboard page (spec 005 FR-030, contracts/look.md §6.8), locked before L10.</summary>
+        public void OpenLeaderboard()
+        {
+            Sound.Play(SoundCue.Click);
+            _overlays.Clear();
+            Screen = Screen.Leaderboard;
+        }
+
+        /// <summary>Back from the Leaderboard page to Home (without reopening the Daily Reward).</summary>
+        public void CloseLeaderboard() => EnterHome(click: true);
+
+        /// <summary>
+        /// Opens the Collection page (spec 005 FR-030, contracts/look.md §6.9) on its grid's first page, locked before its
+        /// first picture.
+        /// </summary>
+        public void OpenCollection()
+        {
+            Sound.Play(SoundCue.Click);
+            _overlays.Clear();
+            CollectionDetail = -1;
+            CollectionPage = 0;
+            Screen = Screen.Collection;
+        }
+
+        /// <summary>
+        /// Back on the Collection page (its back button and the system back): from a picture's detail to the grid, from the
+        /// grid to Home (without reopening the Daily Reward).
+        /// </summary>
+        public void CollectionBack()
+        {
+            if (CollectionDetail >= 0)
+            {
+                Sound.Play(SoundCue.Click);
+                CollectionDetail = -1;
+                return;
+            }
+
+            EnterHome(click: true);
+        }
+
         /// <summary>
         /// Opens the Store page (spec 005 FR-029) on its first pages: from Home (the bottom menu's Shop, the Petals pill's
-        /// "+") or from the Wardrobe (the same two), where its back returns (<see cref="StoreReturn"/>).
+        /// "+") or from the Wardrobe, the Leaderboard or the Collection page (the same two), where its back returns
+        /// (<see cref="StoreReturn"/>).
         /// </summary>
         public void OpenStore()
         {
             Sound.Play(SoundCue.Click);
-            StoreReturn = Screen == Screen.Wardrobe ? Screen.Wardrobe : Screen.Home;
+            StoreReturn = Screen == Screen.Wardrobe || Screen == Screen.Leaderboard || Screen == Screen.Collection ? Screen : Screen.Home;
             _overlays.Clear();
             StorePage = 0;
             StoreRowsPage = 0;
             Screen = Screen.Store;
         }
 
-        /// <summary>Back from the Store page to where it was opened (Home without reopening the Daily Reward, or the Wardrobe).</summary>
+        /// <summary>Back from the Store page to where it was opened (Home without reopening the Daily Reward, or the page).</summary>
         public void CloseStore()
         {
             Sound.Play(SoundCue.Click);
@@ -309,8 +368,9 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The system back (Android): closes the Store page or the Wardrobe as their back buttons do. False anywhere else
-        /// (the host then does what the system does).
+        /// The system back (Android): does what a page's back button does, on the Store page, the Wardrobe, the Leaderboard
+        /// and the Collection (a picture's detail back to the grid, the grid to Home). False anywhere else (the host then
+        /// does what the system does).
         /// </summary>
         public bool Back()
         {
@@ -326,6 +386,12 @@ namespace Bloomlings.Playtest.Design
                     return true;
                 case Screen.Wardrobe:
                     CloseWardrobe();
+                    return true;
+                case Screen.Leaderboard:
+                    CloseLeaderboard();
+                    return true;
+                case Screen.Collection:
+                    CollectionBack();
                     return true;
                 default:
                     return false;
@@ -343,10 +409,6 @@ namespace Bloomlings.Playtest.Design
         {
             Sound.Play(SoundCue.Click);
             _overlays.Add((overlay, Now));
-            if (overlay == Overlay.Collection)
-            {
-                CollectionDetail = -1;
-            }
         }
 
         public void CloseOverlay()
@@ -444,6 +506,12 @@ namespace Bloomlings.Playtest.Design
                 case Screen.Store:
                     StoreScreen.Draw(p, this);
                     break;
+                case Screen.Leaderboard:
+                    LeaderboardScreen.Draw(p, this);
+                    break;
+                case Screen.Collection:
+                    CollectionScreen.Draw(p, this);
+                    break;
                 case Screen.Level:
                     Level!.Advance(dt);
                     Level.Draw(p);
@@ -465,12 +533,6 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.DailyReward:
                         MetaCards.DailyReward(p, this, since);
-                        break;
-                    case Overlay.Leaderboard:
-                        MetaCards.Leaderboard(p, this, since);
-                        break;
-                    case Overlay.Collection:
-                        MetaCards.Collection(p, this, since);
                         break;
                 }
             }

@@ -33,11 +33,12 @@ namespace Bloomlings.Client.App.Home
     /// The Home scene (FR-058): builds <see cref="HomeScreen"/>, <see cref="SettingsScreen"/> (with Restore Purchases
     /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, and
     /// the long-run features (US7): the leaderboard rank (L10), the Wardrobe (L40), the Daily Challenge (L50), the
-    /// Collection, the milestone teaser and the band's background theme. Home, the Store page and the Wardrobe each show
-    /// the bottom menu (spec 005 FR-030), whose places this controller navigates (<c>Navigate</c>): all five always show,
-    /// and a locked one opens its page or card locked, saying from which level of the progression's roadmap it is
-    /// available. Opening Home syncs the cloud save and refreshes the rank in the background. Opened without Boot (in the
-    /// Editor), it loads Boot first.
+    /// Collection, the milestone teaser and the band's background theme. Home and its four pages (the Store, the Wardrobe,
+    /// the Leaderboard and the Collection; every place a page since the owner's request of 2026-10-04) each show the
+    /// bottom menu (spec 005 FR-030), whose places this controller navigates (<c>Navigate</c>): all five always show, a
+    /// tap shows that place's page (or Home) and hides the others, and a locked one opens its page locked, saying from
+    /// which level of the progression's roadmap it is available. Opening Home syncs the cloud save and refreshes the rank
+    /// in the background. Opened without Boot (in the Editor), it loads Boot first.
     /// </summary>
     public sealed class HomeController : MonoBehaviour
     {
@@ -113,7 +114,7 @@ namespace Bloomlings.Client.App.Home
                     DailyChallengePetals: DailyChallengeService.RewardPetals,
                     OutfitOf: wardrobe.OutfitOf));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
-                if (board != null && board.IsOpen)
+                if (board != null && board.ShowsRanks)
                 {
                     board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
                 }
@@ -150,85 +151,90 @@ namespace Bloomlings.Client.App.Home
             Action? showCollection = null;
             WardrobeScreen? wardrobeScreen = null;
             CollectionScreen? collectionScreen = null;
-            void Navigate(NavPlace place)
+
+            // The Store page over the screen that opened it (Home or one of its pages: the menu's Shop or a Petals "+"),
+            // where its back returns; `from` names that screen for store_open. A locked page is not a Store visit: no
+            // store_open.
+            void StoreFrom(string from)
             {
-                bool open = BottomNav.IsOpen(place, NavLook());
-                switch (place)
-                {
-                    case NavPlace.Shop:
-                        // The Store page over the screen that shows the menu: Home or the Wardrobe, where its back returns.
-                        // A locked page is not a Store visit: no store_open.
-                        if (open)
-                        {
-                            analytics?.StoreOpen(wardrobeScreen != null && wardrobeScreen.IsOpen ? "wardrobe" : "home");
-                            OpenStore();
-                        }
-                        else
-                        {
-                            store!.ShowLocked(UnlockLevel(place), economy.Petals);
-                        }
-
-                        break;
-                    case NavPlace.Wardrobe:
-                        store!.Hide();
-                        if (open)
-                        {
-                            wardrobeScreen!.Show();
-                        }
-                        else
-                        {
-                            wardrobeScreen!.ShowLocked(UnlockLevel(place));
-                        }
-
-                        break;
-                    default:
-                        // Home, then the Leaderboard or the Collection card over it (locked: the card saying its level).
-                        store!.Hide();
-                        wardrobeScreen!.Hide();
-                        Refresh();
-                        if (place == NavPlace.Leaderboard)
-                        {
-                            if (open)
-                            {
-                                showBoard?.Invoke();
-                            }
-                            else
-                            {
-                                board?.ShowLocked(UnlockLevel(place));
-                            }
-                        }
-                        else if (place == NavPlace.Collection)
-                        {
-                            if (open)
-                            {
-                                showCollection?.Invoke();
-                            }
-                            else
-                            {
-                                collectionScreen?.ShowLocked(UnlockLevel(place));
-                            }
-                        }
-
-                        break;
-                }
-            }
-
-            wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () =>
-            {
-                // The Wardrobe's Petals pill: its "+" shows once the Store is open; before it (a locked Wardrobe can show
-                // from L1, FR-030) a tap on the pill opens the Store page locked, as the menu's Shop does.
                 if (BottomNav.IsOpen(NavPlace.Shop, NavLook()))
                 {
-                    analytics?.StoreOpen("wardrobe");
+                    analytics?.StoreOpen(from);
                     OpenStore();
                 }
                 else
                 {
                     store!.ShowLocked(UnlockLevel(NavPlace.Shop), economy.Petals);
                 }
-            }, Navigate, NavLook);
+            }
+
+            // The page that shows the menu now (the Store's origin), else Home.
+            string Origin() =>
+                wardrobeScreen != null && wardrobeScreen.IsOpen ? "wardrobe"
+                : board != null && board.IsOpen ? "leaderboard"
+                : collectionScreen != null && collectionScreen.IsOpen ? "collection"
+                : "home";
+
+            void Navigate(NavPlace place)
+            {
+                if (place == NavPlace.Shop)
+                {
+                    StoreFrom(Origin());
+                    return;
+                }
+
+                // Every other place shows its own page (or Home) and hides the others (the owner's request of 2026-10-04:
+                // "All the menu's places must be a separate page. Not popups."); a locked page says its level.
+                bool open = BottomNav.IsOpen(place, NavLook());
+                store!.Hide();
+                wardrobeScreen!.Hide();
+                board!.Hide();
+                collectionScreen!.Hide();
+                switch (place)
+                {
+                    case NavPlace.Wardrobe:
+                        if (open)
+                        {
+                            wardrobeScreen.Show();
+                        }
+                        else
+                        {
+                            wardrobeScreen.ShowLocked(UnlockLevel(place));
+                        }
+
+                        break;
+                    case NavPlace.Leaderboard:
+                        if (open)
+                        {
+                            showBoard?.Invoke();
+                        }
+                        else
+                        {
+                            board.ShowLocked(UnlockLevel(place));
+                        }
+
+                        break;
+                    case NavPlace.Collection:
+                        if (open)
+                        {
+                            showCollection?.Invoke();
+                        }
+                        else
+                        {
+                            collectionScreen.ShowLocked(UnlockLevel(place));
+                        }
+
+                        break;
+                    default:
+                        Refresh();
+                        break;
+                }
+            }
+
+            // The pages' Petals pills: their "+" shows once the Store is open (a locked page can show from L1, FR-030).
+            wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () => StoreFrom("wardrobe"), Navigate, NavLook);
             wardrobe.Changed += Refresh;
-            collectionScreen = CollectionScreen.Create(root);
+            collectionScreen = CollectionScreen.Create(root, () => economy.Petals, () => StoreFrom("collection"), Navigate, NavLook);
             DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
             {
                 LevelAttempt? attempt = dailyChallenge.BeginAttempt();
@@ -237,7 +243,7 @@ namespace Bloomlings.Client.App.Home
                     flow.PlayDaily(attempt);
                 }
             });
-            board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()));
+            board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()), () => economy.Petals, () => StoreFrom("leaderboard"), Navigate, NavLook);
             showCollection = () =>
             {
                 analytics?.CollectionOpen(collection.Count);

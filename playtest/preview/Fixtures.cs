@@ -80,17 +80,98 @@ namespace Bloomlings.Playtest.Preview
 
             yield return new Fixture(5, "leaderboard", "Leaderboard", (p, data) =>
             {
+                // The Leaderboard page from the bottom menu (spec 005 FR-030; the owner's request of 2026-10-04: every
+                // place a page): its back and the system back return to Home, its menu goes straight to the other pages,
+                // and its Shop opens the Store page over it, whose back returns here.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
-                app.OpenOverlay(Overlay.Leaderboard);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
+                Expect(app.Screen == Design.Screen.Leaderboard && app.Overlays.Count == 0, "the bottom menu's Leaderboard opens the page");
+                Run(app, p, 0.1f);
+                Expect(Nav(p, app).Active == NavPlace.Leaderboard, "the Leaderboard page raises the Leaderboard");
+                Expect(Shows(p, "You") && Shows(p, "87"), "the Leaderboard page shows the player's own row with the highest completed level");
+                Tap(p, Nav(p, app).Medallion);
+                Expect(app.Screen == Design.Screen.Leaderboard, "a tap on the active place does nothing");
+                Tap(p, ScreenLayout.ReferenceLeaderboard(p.Width, p.Height, p.Insets).Back);
+                Expect(app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "the Leaderboard page's back returns to Home");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
+                Expect(app.Back() && app.Screen == Design.Screen.Home, "the system back closes the Leaderboard page");
+
+                // From page to page: the Leaderboard's Collection, the Collection's Leaderboard, its Shop and Home.
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                Expect(app.Screen == Design.Screen.Collection, "the Leaderboard page's Collection opens the Collection page");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
+                Expect(app.Screen == Design.Screen.Leaderboard, "the Collection page's Leaderboard opens the Leaderboard page");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Shop));
+                Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Leaderboard, "the Leaderboard page's Shop opens the Store page over it");
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Back);
+                Expect(app.Screen == Design.Screen.Leaderboard, "the Store page's back returns to the Leaderboard page");
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceLeaderboard(p.Width, p.Height, p.Insets).Refresh);
+                Expect(app.HomeToastText == PlaytestText.T("leaderboard.offline_empty"), "Refresh says the playtest's leaderboard is offline");
+                Run(app, p, 1.7f);
+                Tap(p, NavTouch(p, app, NavPlace.Home));
+                Expect(app.Screen == Design.Screen.Home, "the Leaderboard page's Home returns to Home");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
                 Run(app, p, 0.5f);
             });
 
             yield return new Fixture(6, "collection", "Collection", (p, data) =>
             {
+                // The Collection page of a player at Level 88 with every picture won (newest first, a page at a time): its
+                // page arrows turn the pages, a tap on a picture shows its detail, back (and the system back) returns to
+                // the grid and a second back to Home.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
-                app.OpenOverlay(Overlay.Collection);
+                for (int level = 1; level <= 87; level++)
+                {
+                    if (content.TryGetLevel(app.Resolve(level), out LevelDefinition? definition) && definition != null)
+                    {
+                        app.Meta.Collection.Add(definition, level);
+                    }
+                }
+
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the bottom menu's Collection opens the page");
+                Run(app, p, 0.1f);
+                ReferenceCollectionRegions r = ScreenLayout.ReferenceCollection(p.Width, p.Height, p.Insets);
+                int count = app.Meta.Collection.Count;
+                int pages = r.Pages(count);
+                Expect(pages > 1 && Shows(p, "1 / " + pages), "the pictures take more than a page, the footer says which");
+                Expect(Shows(p, count + " pictures"), "the count line counts every picture");
+                Tap(p, r.PageNext);
+                Expect(app.CollectionPage == 1, "the next page arrow turns the page");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "2 / " + pages), "the footer says the second page");
+                Tap(p, r.PagePrevious);
+                Expect(app.CollectionPage == 0, "the previous page arrow turns back");
+                Run(app, p, 0.1f);
+                Tap(p, r.Cell(0));
+                Expect(app.CollectionDetail == count - 1, "a tap on the first picture (the newest) shows its detail");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "Completed at Level " + NumberText.Group(app.Meta.Collection.Entries[count - 1].LevelNumber)), "the detail says its level");
+                Tap(p, r.Back);
+                Expect(app.Screen == Design.Screen.Collection && app.CollectionDetail == -1, "back from a picture's detail returns to the grid");
+                Run(app, p, 0.1f);
+                Tap(p, r.Cell(1));
+                Expect(app.CollectionDetail == count - 2 && app.Back() && app.Screen == Design.Screen.Collection && app.CollectionDetail == -1, "the system back from the detail returns to the grid");
+                Expect(app.Back() && app.Screen == Design.Screen.Home, "a second back leaves the page for Home");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                Run(app, p, 0.1f);
+                Tap(p, r.Back);
+                Expect(app.Screen == Design.Screen.Home, "the Collection page's back returns to Home");
+                app.OpenCollection();
                 Run(app, p, 0.5f);
             });
 
@@ -189,7 +270,7 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>
         /// Extra review images beyond the board's 17 frames: themes, Settings, a Collection picture, a demo, boosters in use,
         /// the kit, the Store's cosmetics, the Wardrobe, Home's heroes in outfits, and the bottom menu's locked places (the
-        /// Store page, the Wardrobe and the Leaderboard card before their unlock).
+        /// Store page, the Wardrobe and the Leaderboard page before their unlock).
         /// </summary>
         public static IEnumerable<Fixture> Extras(ContentSet content)
         {
@@ -256,10 +337,15 @@ namespace Bloomlings.Playtest.Preview
 
             yield return new Fixture(20, "collection-detail", "Extra: Collection picture", (p, data) =>
             {
+                // A picture's detail on the Collection page: the fourth frame of the grid (newest first) is the third
+                // picture won.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
-                app.OpenOverlay(Overlay.Collection);
-                app.CollectionDetail = 2;
+                app.OpenCollection();
+                Run(app, p, 0.1f);
+                Expect(Nav(p, app).Active == NavPlace.Collection, "the Collection page raises the Collection");
+                Tap(p, ScreenLayout.ReferenceCollection(p.Width, p.Height, p.Insets).Cell(app.Meta.Collection.Count - 1 - 2));
+                Expect(app.Screen == Design.Screen.Collection && app.CollectionDetail == 2, "a tap on a picture shows its detail on the page");
                 Run(app, p, 0.5f);
             });
 
@@ -324,8 +410,8 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(27, "wardrobe", "Extra: Wardrobe (spec 005 FR-025)", (p, data) =>
             {
                 // From the bottom menu's Wardrobe (FR-030); its Shop opens the Store page over it (whose back returns
-                // here) and its Leaderboard the card over Home. Then a tap on the starter cap's card puts it on Sprig, so
-                // the hero and the green worn card show an outfit.
+                // here), its Leaderboard the Leaderboard page, whose Collection opens the Collection page. Then a tap on
+                // the starter cap's card puts it on Sprig, so the hero and the green worn card show an outfit.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
                 Run(app, p, 0.1f);
@@ -340,15 +426,13 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Screen == Design.Screen.Wardrobe, "the Store page's back returns to the Wardrobe");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
-                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Leaderboard), "the Wardrobe's Leaderboard opens the card over Home");
-                CloseAll(app);
+                Expect(app.Screen == Design.Screen.Leaderboard && app.Overlays.Count == 0, "the Wardrobe's Leaderboard opens the Leaderboard page");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Collection));
-                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Collection), "Home's Collection opens the card");
-                CloseAll(app);
+                Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the Leaderboard page's Collection opens the Collection page");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
-                Expect(app.Screen == Design.Screen.Wardrobe, "the bottom menu's Wardrobe opens the Wardrobe again");
+                Expect(app.Screen == Design.Screen.Wardrobe, "the Collection page's Wardrobe opens the Wardrobe again");
                 Run(app, p, 0.1f);
                 Tap(p, ScreenLayout.ReferenceWardrobe(p.Width, p.Height, p.Insets).Card(1));
                 Expect(app.Meta.Wardrobe.EquippedFor(Family.Sprig, Client.Meta.Wardrobe.CosmeticKind.Hat)?.Id == "hat.sprout_cap", "a tap on an owned item's card wears it");
@@ -434,26 +518,36 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Back() && app.Screen == Design.Screen.Wardrobe, "the system back returns to the locked Wardrobe");
                 Run(app, p, 0.5f);
             });
-            yield return new Fixture(31, "leaderboard-locked", "Extra: locked Leaderboard card (spec 005 FR-030)", (p, data) =>
+            yield return new Fixture(31, "leaderboard-locked", "Extra: locked Leaderboard page (spec 005 FR-030)", (p, data) =>
             {
-                // A new profile on Home (Level 1): the menu's Collection opens its card saying it is available from level 2
-                // (its first picture comes with Level 1's win); the Leaderboard's card says level 10 (the roadmap's).
+                // A new profile on Home (Level 1): the menu's Collection opens its page saying it is available from level 2
+                // (its first picture comes with Level 1's win), its back returning to Home; the Leaderboard's page says
+                // level 10 (the roadmap's), the Leaderboard raised, and the system back returns to Home.
                 DesignApp app = App(data);
                 app.GoHome();
                 CloseAll(app);
                 Run(app, p, 0.1f);
                 Expect(app.Meta.CurrentLevel == 1 && !app.PlaceOpen(NavPlace.Collection), "a new profile's Collection is locked");
                 Tap(p, NavTouch(p, app, NavPlace.Collection));
-                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Collection), "the locked Collection opens its card");
+                Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the locked Collection opens its page");
                 Run(app, p, 0.5f);
-                Expect(Shows(p, "Available from level 2"), "the locked Collection card says level 2");
-                CloseAll(app);
+                Expect(Shows(p, "Available from level 2"), "the locked Collection page says level 2");
+                Expect(Nav(p, app).Active == NavPlace.Collection, "the locked Collection page raises the Collection");
+                Tap(p, ScreenLayout.LockedPage(p.Width, p.Height, p.Insets).Header.Back);
+                Expect(app.Screen == Design.Screen.Home, "the locked Collection page's back returns to Home");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
-                Expect(app.Screen == Design.Screen.Home && app.IsOpen(Overlay.Leaderboard), "the locked Leaderboard opens its card");
+                Expect(app.Screen == Design.Screen.Leaderboard && app.Overlays.Count == 0, "the locked Leaderboard opens its page");
                 Expect(app.UnlockLevel(NavPlace.Leaderboard) == 10, "the Leaderboard opens from the roadmap's level 10");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "Available from level 10"), "the locked Leaderboard page says level 10");
+                Expect(app.Back() && app.Screen == Design.Screen.Home, "the system back returns from the locked Leaderboard page to Home");
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
+                Expect(app.Screen == Design.Screen.Leaderboard, "the locked Collection page's Leaderboard opens the locked Leaderboard page");
                 Run(app, p, 0.5f);
-                Expect(Shows(p, "Available from level 10"), "the locked Leaderboard card says level 10");
             });
         }
 

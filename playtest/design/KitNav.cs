@@ -8,9 +8,9 @@ namespace Bloomlings.Playtest.Design
 {
     /// <summary>
     /// The bottom menu (spec 005 FR-030, contracts/look.md §6.7; Unity's <c>UiKit.BottomNav</c>): the wooden bar, its places'
-    /// icons (a locked one with its padlock badge) and the raised medallion of the active place, on Home, the Store page and
-    /// the Wardrobe; and the notice a locked place's page or card shows (<see cref="LockedNotice"/>). It marks the slots it
-    /// draws; screens only call it.
+    /// icons (a locked one with its padlock badge) and the raised medallion of the active place, on Home and the four pages
+    /// (the Store, the Wardrobe, the Leaderboard and the Collection); and the notice a locked place's page shows
+    /// (<see cref="LockedNotice"/>). It marks the slots it draws; screens only call it.
     /// </summary>
     public static partial class Kit
     {

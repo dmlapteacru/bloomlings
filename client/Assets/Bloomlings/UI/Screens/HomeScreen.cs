@@ -19,7 +19,7 @@ namespace Bloomlings.Client.UI.Screens
     /// <summary>
     /// What Home shows (FR-058), with the long-run features once unlocked (US7): the unlocks also decide which of the bottom
     /// menu's places are open (spec 005 FR-030: all five show, a locked one with a padlock; the rank shows on the
-    /// Leaderboard card it opens).
+    /// Leaderboard page it opens).
     /// </summary>
     public sealed record HomeModel(
         int CurrentLevel,
@@ -100,8 +100,8 @@ namespace Bloomlings.Client.UI.Screens
             var screen = root.gameObject.AddComponent<HomeScreen>();
             screen._root = root;
 
-            // Home lies under the popups opened from it (Wardrobe, Collection, Daily Challenge, Leaderboard), which are
-            // created before it on the same canvas.
+            // Home lies under the pages and the cards opened from it (the Wardrobe, Collection and Leaderboard pages, the
+            // Daily Challenge card), which are created before it on the same canvas.
             root.SetAsFirstSibling();
             screen._backdrop = BackdropView.Create(root, BackdropScene.Home);
 

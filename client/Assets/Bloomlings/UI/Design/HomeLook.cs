@@ -10,7 +10,7 @@ namespace Bloomlings.Client.UI.Design
     /// and PLAY. Each frame 3 element shows once its feature is unlocked, and a player who has not unlocked a feature
     /// never sees its button, card or badge (spec edge cases), but for the bottom menu's places: since the owner's request
     /// of 2026-10-04 all five always show, and the look tells which are open (<see cref="BottomNav.IsOpen"/>; a locked one
-    /// has a padlock and its page or card says its level). Derived from progression, never stored. Engine-free.
+    /// has a padlock and its page says its level). Derived from progression, never stored. Engine-free.
     /// </summary>
     public sealed record HomeLook(
         bool Store,

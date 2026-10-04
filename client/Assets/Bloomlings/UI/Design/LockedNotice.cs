@@ -48,13 +48,6 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The hint's letters, as a share of its line's height (before they shrink to its width).</summary>
         public const float HintTextShare = 0.66f;
 
-        /// <summary>
-        /// The content height of a card holding the notice in its body (the locked Leaderboard and Collection cards), in
-        /// reference units: the whole notice at its full size on a card's body (about 850 units wide) with a little room
-        /// above and below.
-        /// </summary>
-        public const float CardContent = 600f;
-
         /// <summary>The notice's parts in their screen order, top to bottom.</summary>
         public IReadOnlyList<(string Name, Box Box)> Ordered => new[] { ("Icon", Icon), ("Message", Message), ("Hint", Hint) };
 
@@ -64,10 +57,12 @@ namespace Bloomlings.Client.UI.Design
 
     /// <summary>
     /// A locked page of the bottom menu (spec 005 FR-030, contracts/look.md §6.7: the Store page before L12, the Wardrobe
-    /// before L40), both builds: the page header (<see cref="Header"/>: back, the page's banner, the Petals pill), the
-    /// page's panel (<see cref="Panel"/>, the Store page's: from under the header row to the bottom of the screen) and,
-    /// in it, the notice's area (<see cref="Notice"/>, where the Store page's list would be: above the bottom menu's top,
-    /// <see cref="NavTop"/>), laid out by <see cref="LockedNoticeRegions"/>. Engine-free.
+    /// before L40, the Leaderboard before L10, the Collection before its first picture), both builds: the page header
+    /// (<see cref="Header"/>: back, the page's banner, the Petals pill), the page's panel (<see cref="Panel"/>, the Store
+    /// page's: from under the header row to the bottom of the screen) and, in it, the notice's area (<see cref="Notice"/>,
+    /// where the Store page's list would be: above the bottom menu's top, <see cref="NavTop"/>), laid out by
+    /// <see cref="LockedNoticeRegions"/>. The Leaderboard and Collection pages are built on the same frame
+    /// (<see cref="ScreenLayout.ReferenceLeaderboard"/>, <see cref="ScreenLayout.ReferenceCollection"/>). Engine-free.
     /// </summary>
     public sealed record LockedPageRegions(Box Safe, float W, PageHeader Header, Box Panel, Box Notice, float NavTop)
     {
