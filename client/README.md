@@ -231,8 +231,11 @@ Check in the Editor (the client check covers the logic, not the look):
   the plaque and the bottom menu keep their taps where they overlap a hero; the splash's heroes take none.
 - The bottom menu (spec 005 FR-030, `contracts/look.md` §6.7; `UiKit.BottomNav` / `BottomNavView` in Home, the Store
   page and the Wardrobe, wired by `HomeController`): the wooden bar and the medallion should look as in the preview's
-  frames 2, 3, 17 and 27 on a 19.5:9 and a 16:9 Game view; each unlocked place opens what it should (the Store page, the
-  Wardrobe, Home, the Leaderboard and Collection cards over Home), the medallion's place takes no tap, and a place
+  frames 2, 3, 17 and 27 on a 19.5:9 and a 16:9 Game view; all five places always show (the owner's request of
+  2026-10-04), a locked one with the padlock badge (`UiKit.LockBadge`) at its icon's lower right; each place opens what
+  it should (the Store page, the Wardrobe, Home, the Leaderboard and Collection cards over Home), a locked one its page
+  or card locked with "Available from level N" (`LockedNoticeView`; the preview's frames 29–31: L12, L40, L10, and 2
+  for the Collection) and no `store_open` for the locked Store page; the medallion's place takes no tap, and a place
   pressed squashes like a tile. The L10, L12 and L40 Home demos point at the Leaderboard, Shop and Wardrobe places.
 - The motion: each hero breathes in its 4 s idle, one reacts every 6 s in turn (Bloom first), the petals drift
   smoothly; the splash's heroes fade in and Home continues their motion; the win's hero reacts as it lands, then idles;
