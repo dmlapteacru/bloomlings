@@ -50,7 +50,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   use, the Bloomlings sheet, 25 the reference-look kit, 26 the Store cosmetics, 27 the Wardrobe, 28 Home's animated heroes
   in outfits, the bottom menu's locked places: 29 the locked Store page, 30 the locked Wardrobe, 31 the locked
   Leaderboard page, and 32 the Remove Ads card of Home's No Ads scene; and the guided spotlights 33–38: the entry, the
-  first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles) to PNG in `playtest/preview/out/` (gitignored) and checks
+  first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; and the profile 39–41: the page, the
+  edit card's avatars, its name and frames) to PNG in `playtest/preview/out/` (gitignored) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
@@ -150,6 +151,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   on, `winYaw` and the `winidle` clip; Home's heroes stay turned toward the fountain's middle by their `yaw`). The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
   scene or camera in the game, only these flat pictures on meta screens. Frames load when first drawn into a bounded
   cache, never all.
+- The profile page (spec 005 FR-037, the owner, 2026-10-05; after the reference game's): Home's avatar opens it (no
+  bottom menu), and its "Edit profile" card picks the avatar, frame, badge and name. The owner's 14 avatar pictures are
+  opaque 384 px JPEG in `client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/` (`AvatarCatalog`: four free, ten for
+  Petals at 300 / 600 / 1200, Remote Config `economy.price.avatar*`), shown in a round clip (`IPainter.PushClipRound`,
+  Unity a `Mask`). The data is engine-free in `client/Assets/Bloomlings/Meta/Profile/` (`ProfileService`,
+  `ProfileEditor`, linked into the playtest); the save keeps bought avatars in `cosmetics.owned`, the shown one in
+  `cosmetics.equipped.profile.avatar`, the name and joining day in the optional `profile` section. The name stays on
+  the device (the playtest asks with the system's text dialog through `ITextPrompt`, Unity uses a `TMP_InputField`);
+  the achievements are placeholders until the owner names them. Layouts: `ScreenLayout.ReferenceProfile`, `ProfileEdit`.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

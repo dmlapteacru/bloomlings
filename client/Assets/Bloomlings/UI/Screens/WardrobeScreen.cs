@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
@@ -80,6 +81,7 @@ namespace Bloomlings.Client.UI.Screens
         private LockedNoticeView _notice = null!;
         private BottomNavView? _nav;
         private Func<HomeLook>? _navLook;
+        private Func<AvatarItem>? _avatarOf;
         private bool _locked;
         private ReferenceWardrobeRegions _regions = null!;
         private Family _selected = Family.Sprig;
@@ -93,7 +95,8 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="onStore">Opens the Store from the pill's "+"; null shows the pill without it.</param>
         /// <param name="onNav">A tap on another place of the bottom menu (spec 005 FR-030); null shows no menu.</param>
         /// <param name="navLook">The look that tells which places of the bottom menu are open (<see cref="BottomNav.IsOpen"/>); null: all of them.</param>
-        public static WardrobeScreen Create(Transform parent, WardrobeService wardrobe, Func<long>? petals = null, Action? onStore = null, Action<NavPlace>? onNav = null, Func<HomeLook>? navLook = null)
+        /// <param name="avatar">The profile's chosen avatar (spec 005 FR-037) for the Profile tab's picture; null shows the profile hero.</param>
+        public static WardrobeScreen Create(Transform parent, WardrobeService wardrobe, Func<long>? petals = null, Action? onStore = null, Action<NavPlace>? onNav = null, Func<HomeLook>? navLook = null, Func<AvatarItem>? avatar = null)
         {
             // A full screen over Home that takes every tap, on the owner's Wardrobe garden (pictures.md B7) or the drawn one.
             Image shade = UiFactory.CreateImage("Wardrobe", parent, null, Color.clear, raycast: true);
@@ -101,6 +104,7 @@ namespace Bloomlings.Client.UI.Screens
             var screen = shade.gameObject.AddComponent<WardrobeScreen>();
             screen._root = shade.gameObject;
             screen._wardrobe = wardrobe;
+            screen._avatarOf = avatar;
             screen._petalsSource = petals;
             screen._store = onStore != null;
             Transform root = shade.transform;
@@ -510,8 +514,10 @@ namespace Bloomlings.Client.UI.Screens
             _previous.gameObject.SetActive(!_profileMode);
             _next.gameObject.SetActive(!_profileMode);
             _hero.ShowHero(_selected, _wardrobe.OutfitOf(_selected));
-            _avatar.Show(_wardrobe.Profile, _wardrobe.OutfitOf(Family.Bloom));
-            _tabAvatar.Show(_wardrobe.Profile, _wardrobe.OutfitOf(Family.Bloom));
+            AvatarItem? avatar = _avatarOf?.Invoke();
+            Outfit outfit = _wardrobe.OutfitOf(avatar?.Family ?? Family.Bloom);
+            _avatar.Show(_wardrobe.Profile, outfit, avatar);
+            _tabAvatar.Show(_wardrobe.Profile, outfit, avatar);
             _name.text = _profileMode ? Loc.T("wardrobe.tab_profile") : Loc.T("family." + key);
             _role.text = _profileMode ? Loc.T("wardrobe.role.profile") : Loc.T("wardrobe.role." + key);
             // The description in two balanced lines, as the reference's (§6.5).

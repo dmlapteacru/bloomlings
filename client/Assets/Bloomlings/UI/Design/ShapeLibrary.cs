@@ -320,6 +320,10 @@ namespace Bloomlings.Client.UI.Design
                     Max(-(x - 0.02f), (0.6f * (x - 0.45f)) + (0.8f * (y - 0.55f)), (0.6f * (x - 0.45f)) - (0.8f * (y - 0.55f)))),
                 ["ui.chevron"] = (x, y) => Min(Segment(x, y, -0.2f, 0.5f, 0.22f, 0f), Segment(x, y, 0.22f, 0f, -0.2f, -0.5f)) - 0.13f,
                 ["ui.plus"] = (x, y) => Min(RoundedBox(x, y, 0f, 0f, 0.58f, 0.15f, 0.08f), RoundedBox(x, y, 0f, 0f, 0.15f, 0.58f, 0.08f)),
+                // A pencil from the lower left (its tip) to the upper right, a gap before its eraser.
+                ["ui.edit"] = (x, y) => Min(
+                    Max(Segment(x, y, -0.24f, -0.24f, 0.44f, 0.44f) - 0.17f, -(MathF.Abs(((x + y) * 0.7071f) - 0.36f) - 0.035f)),
+                    TriangleSdf(x, y, -0.62f, -0.62f, -0.42f, -0.17f, -0.17f, -0.42f)),
                 ["ui.check"] = (x, y) => Min(Segment(x, y, -0.52f, 0.02f, -0.12f, -0.4f), Segment(x, y, -0.12f, -0.4f, 0.55f, 0.45f)) - 0.13f,
                 ["ui.gift"] = (x, y) => Min(
                     Max(Min(RoundedBox(x, y, 0f, -0.32f, 0.68f, 0.45f, 0.08f), RoundedBox(x, y, 0f, 0.3f, 0.8f, 0.13f, 0.05f)), -(MathF.Abs(x) - 0.06f)),

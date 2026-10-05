@@ -4,6 +4,7 @@ using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services;
 using Bloomlings.Client.Services.Ads;
@@ -129,6 +130,8 @@ namespace Bloomlings.Client.App
             services.Register(wardrobe);
             services.Register(milestones);
             services.Register(collection);
+            // The profile page's avatars, name and joining day (spec 005 FR-037), open from L1.
+            services.Register(new ProfileService(save, remote, clock, saves.Save, economy));
 
             var progression = new ProgressionService(save, UnlockRoadmap.Default, saves.Save);
             progression.UnlockReached += entry => Debug.Log($"[Progression] Unlocked {entry.UnlockId} at L{entry.Level}.");

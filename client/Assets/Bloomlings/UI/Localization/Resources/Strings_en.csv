@@ -28,7 +28,6 @@ home.daily,Daily
 home.daily_done,Done today
 home.wardrobe,Wardrobe
 home.collection,Collection
-home.profile_soon,Profile coming soon
 home.levels_to_reward,{0} levels to reward
 home.level_to_reward,1 level to reward
 home.daily_new,New today · +{0}
@@ -236,3 +235,30 @@ cosmetic.trail.breeze,Breeze
 cosmetic.expression.sleepy,Sleepy
 cosmetic.frame.bramble,Bramble Frame
 cosmetic.badge.watering_can,Watering Can Badge
+common.ok,OK
+common.cancel,Cancel
+profile.title,Profile
+profile.edit_title,Edit profile
+profile.default_name,Gardener {0}
+profile.id,ID: {0}
+profile.joined,Playing since {0}
+profile.stat_levels,Levels won
+profile.stat_pictures,Pictures
+profile.stat_milestones,Milestones
+profile.achievements,Achievements
+profile.achievement_soon,Coming soon
+profile.achievements_note,More achievements are on their way
+profile.tab_avatar,Avatar
+profile.tab_frame,Frame
+profile.tab_badge,Badge
+profile.tab_name,Name
+profile.save,Save
+profile.buy,Buy for {0}
+profile.name_change,Change name
+profile.name_hint,"Up to 16 letters, digits and spaces"
+profile.name_prompt,Your name
+profile.name_empty,Type a name with letters or digits
+profile.items_locked,Frames and badges open at level {0}
+profile.no_frames,Frames come from milestones and the Store
+profile.no_badges,Badges come from milestones and the Store
+profile.bought,New avatar!

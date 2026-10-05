@@ -50,7 +50,8 @@ only.
 | `economy.petals.base` | 12 | 5–50 | FR-041 |
 | `economy.petals.cleanBonus` | 8 | 0–50 | FR-041 |
 | `economy.petals.hardBonus` / `superHardBonus` | 10 / 20 | 0–100 | FR-041 |
-| `economy.price.extraSlot` / `shuffle` / `return` / `bloomBurst` | 40 / 40 / 50 / 60 | 10–500 (Bloom Burst 10–1000; the client keeps it above the other three, FR-048) | FR-047, FR-048 |
+| `economy.price.extraSlot` / `shuffle` / `return` / `bloomBurst` | 1200 / 1200 / 1500 / 1800 (40 / 40 / 50 / 60 before 2026-10-05) | 10–5000 (Bloom Burst 10–10000; the client keeps it above the other three, FR-048) | FR-047, FR-048 |
+| `economy.price.avatarCommon` / `avatarRare` / `avatarSpecial` | 300 / 600 / 1200 (the owner, 2026-10-05) | 10–10000 | spec 005 FR-037 (the profile's avatar pictures) |
 | `economy.unlockGrant` | 1 | 1–3 | FR-042 |
 | `economy.drop.everyLevels` | 5 | 2–20 | FR-047: every Nth completed level grants 1 charge, rotating through the unlocked boosters (no randomness) |
 | `daily.reward.petals` | 20 | 5–200 | FR-055 |

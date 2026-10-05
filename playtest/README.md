@@ -37,7 +37,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   - Home in the reference layout (spec 005 FR-024, `contracts/look.md` §6.4) in its early look (frame 2) and, once the
     features unlock, the progressed look (frame 3): the header row on top (the owner's request of 2026-10-04: Settings
     at the left, the large Petals pill centered with the Play button's leaves and flower on its corners, the profile
-    avatar at the right, whose tap says "Profile coming soon" until the profile page comes), the wooden logo, the owner's
+    avatar at the right with the chosen avatar picture, whose tap opens the profile page), the wooden logo, the owner's
     layered Home with the four animated heroes on its fountain (spec 005 FR-028: each idles, they take turns to react,
     a tap on one makes it react, petals drift over them; without the owner's pictures the drawn stand-in's four still
     heroes around the lotus fountain), each in its outfit once the Wardrobe is open, the owner's two animated promo
@@ -115,9 +115,14 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 - Demos once each, with the Unity client's texts (`Strings_en.csv`, embedded): the Level 1 tap hint, each booster at
   its unlock, each mechanic the first time a level uses it, a new variant, and "Match the exact symbol".
 
+The profile page (spec 005 FR-037, preview frames 39–41) opens from Home's avatar: the player's card (avatar, name,
+ID, joining month, level), three stats and placeholder achievements; its "Edit profile" card picks one of the owner's
+14 avatars (four free, ten bought once with Petals at 300 / 600 / 1200), the frame and badge (once the Wardrobe is open)
+and the name, asked with Android's text dialog.
+
 The Daily Challenge is not in the playtest (its Home button says so), nor is the Wardrobe's profile tab (the Store
-still sells frames and badges in its cosmetics tab, frame 26); sign-in, cloud save, ads and analytics live in the
-Unity client.
+still sells frames and badges in its cosmetics tab, frame 26, and the profile's edit card shows them); sign-in, cloud
+save, ads and analytics live in the Unity client.
 
 ## Preview without a phone
 

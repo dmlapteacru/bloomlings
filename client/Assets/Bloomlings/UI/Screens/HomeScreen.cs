@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.UI.Design;
@@ -45,11 +46,12 @@ namespace Bloomlings.Client.UI.Screens
         Outfit? AvatarOutfit = null,
         bool NoAdsPromo = false,
         bool DailyRewardPromo = false,
-        bool DailyRewardWaiting = false);
+        bool DailyRewardWaiting = false,
+        AvatarItem? Avatar = null);
 
     /// <summary>
     /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7), the header's profile avatar
-    /// (the owner's request of 2026-10-04; null until the profile page comes: its tap presses and clicks only) and the
+    /// (the owner's request of 2026-10-04; it opens the profile page, spec 005 FR-037) and the
     /// promo scenes (spec 005 FR-032): No Ads opens the Remove Ads card, the Daily scene the Daily Reward card. The Store,
     /// the Wardrobe, the Leaderboard and the Collection are the bottom menu's places (spec 005 FR-030).
     /// </summary>
@@ -308,7 +310,7 @@ namespace Bloomlings.Client.UI.Screens
             _petals.Show(model.Petals, model.StoreUnlocked);
 
             // The avatar shows the profile's frame and badge (the leaderboard marker stays on the Leaderboard page).
-            _avatar.Show(model.Profile == null ? null : model.Profile with { Marker = null }, model.AvatarOutfit);
+            _avatar.Show(model.Profile == null ? null : model.Profile with { Marker = null }, model.AvatarOutfit, model.Avatar);
             _daily.SetActive(model.DailyChallengeAvailable);
             _dailyDone.SetActive(model.DailyChallengeDone);
 

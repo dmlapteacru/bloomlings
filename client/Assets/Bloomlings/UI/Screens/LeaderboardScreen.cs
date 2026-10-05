@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.UI.Design;
@@ -61,6 +62,7 @@ namespace Bloomlings.Client.UI.Screens
         private long _petalsShown = -1;
         private bool _locked;
         private ReferenceLeaderboardRegions _regions = null!;
+        private AvatarItem? _ownAvatar;
 
         /// <summary>Whether the page shows, locked or not.</summary>
         public bool IsOpen => _root.activeSelf;
@@ -117,8 +119,10 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <param name="own">The player's frame, badge and marker, drawn on their own row (others' are not known offline).</param>
-        public void Show(LeaderboardPage? page, bool stale, ProfileLook? own = null)
+        /// <param name="avatar">The player's avatar picture (spec 005 FR-037) on their own row; none shows the profile hero.</param>
+        public void Show(LeaderboardPage? page, bool stale, ProfileLook? own = null, AvatarItem? avatar = null)
         {
+            _ownAvatar = avatar;
             _root.SetActive(true);
             _locked = false;
             SyncPlus();
@@ -291,7 +295,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             // The player's own row shows their family's 3D hero, small (spec 004 FR-017); other gardeners a person.
-            Portrait(row, line, parts.Portrait, entry.IsPlayer);
+            Portrait(row, line, parts.Portrait, entry.IsPlayer, entry.IsPlayer ? _ownAvatar : null);
 
             TypeStyle nameStyle = entry.IsPlayer ? T.ButtonSecondary : T.Body;
             TextMeshProUGUI name = UiKit.Label("Name", row, entry.IsPlayer ? Loc.T("leaderboard.you") : Short(entry.Name), nameStyle, UiTheme.Of(C.InkBrown), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrown));
@@ -318,7 +322,7 @@ namespace Bloomlings.Client.UI.Screens
         /// A round portrait on a cream disc (the playtest's <c>LeaderboardScreen.Portrait</c>): the <c>cream.lip</c> below, a
         /// <c>cream.line</c> ring, the cream face, and the player's hero or the anonymous figure of another gardener.
         /// </summary>
-        private static void Portrait(Transform row, Box line, Box face, bool player)
+        private static void Portrait(Transform row, Box line, Box face, bool player, AvatarItem? avatar)
         {
             float ring = Mathf.Max(1f, face.Width * 0.044f);
             Image lip = UiKit.RoundRect("PortraitLip", row, UiTheme.Of(C.CreamLip));
@@ -327,7 +331,22 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(edge.rectTransform, face.Inset(-ring), line);
             Image disc = UiKit.RoundGradient("Portrait", row, C.CreamTop, C.CreamFace);
             UiKit.PlaceBox(disc.rectTransform, face, line);
-            Sprite? hero = player ? CharacterSprites.Hero(Family.Bloom, blank: false) : null;
+            // The player's avatar picture in a round mask (spec 005 FR-037), else their hero.
+            Texture2D? own = avatar == null ? null : OwnerArt.Avatar(avatar.Picture);
+            if (own != null)
+            {
+                Image mask = UiFactory.CreateImage("AvatarMask", row, ProceduralSprites.Circle, Color.white);
+                mask.raycastTarget = false;
+                mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+                UiKit.PlaceBox(mask.rectTransform, face, line);
+                RawImage picture = UiFactory.CreateRect("Avatar", mask.transform).gameObject.AddComponent<RawImage>();
+                picture.texture = own;
+                picture.raycastTarget = false;
+                UiFactory.Stretch(picture.rectTransform);
+                return;
+            }
+
+            Sprite? hero = player ? CharacterSprites.Hero(avatar?.Family ?? Family.Bloom, blank: false) : null;
             if (hero != null)
             {
                 Image picture = UiFactory.CreateImage("Hero", row, hero, Color.white);

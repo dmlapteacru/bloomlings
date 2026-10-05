@@ -320,9 +320,9 @@ with a small flower on it.
   (FR-061): the player's hero (Bloom, `CharacterArt.ProfileHero`, Unity's `ProfileAvatar.HeroFamily`; in its outfit once
   the Wardrobe is open) on a domed cream disc with a soft green middle, in the chosen profile frame with the profile
   badge at its bottom left; without the shirt badge, since the Wardrobe is the bottom menu's place. It shows from Level
-  1 in both builds. A tap presses it like a round button and clicks; until the profile page comes, the playtest then
-  says "Profile coming soon" (`home.profile_soon`) in Home's toast, and Unity's Home, which has no toast, only presses
-  and clicks (`HomeFeatureActions.OnProfile` is where the profile page will open). The animated heroes' taps stay clear
+  1 in both builds. A tap presses it like a round button and clicks; until the profile page came (2026-10-05, FR-037:
+  now it opens the page and shows the chosen avatar picture), the playtest then said "Profile coming soon" in Home's
+  toast, and Unity's Home, which has no toast, only pressed and clicked. The animated heroes' taps stay clear
   of it: the playtest cuts them clear of its touch box, and in Unity its button lies above the stage and keeps its taps.
   Presentation only (FR-002).
 
@@ -487,6 +487,29 @@ the acorn [Twig] a little to the right, so Drop shows better."
   device (spec 001 `player-save.schema.json`).
 - Q: "19 px lower"? → A: Play, the plaque and the teaser go down by the bottom menu's gap (0.015 W, 16 px on a 1080 px
   screen): the teaser row's touch boxes now end at the medallion's top, which they may not cross.
+
+### Session 2026-10-05 (the owner's profile page and avatars)
+
+The owner (with two screenshots of the reference game's profile and its "Edit profile"): "Make a profile page like
+Colony Flow's, in our style. I'm sending a zip with the avatars players can pick. Four of them are default. The rest
+are bought with lotuses (Petals)." Then: "There are 10 paid ones in the zip. Split them into different prices; 300 /
+600 / 1200 suits me. Achievements will come, but I don't know which yet: put a couple of placeholders. If needed, make
+the avatars webp to cut memory, or use the way you cut them before."
+- Q: Which avatar costs what? → A: The four `*_default` pictures are free (one per family; Bloom's is a new profile's,
+  the hero Home's avatar showed before). Of the ten others, the simpler styles cost 300 (Sprig's ladybug watercolor,
+  Bloom's ribbon plush, Drop's sailor sticker, Twig's clay glasses and scarf), the 3D and paper-cut ones 600 (Sprig's
+  dewdrops and flower crown, Drop's bubbles and shell, Twig's autumn wreath), the two crowned Blooms 1200 (pearl tiara,
+  jeweled crown). The tiers are the owner's; which picture is in which tier is the implementation's proposal, the
+  owner's to change (`AvatarCatalog`, Remote Config `economy.price.avatar*`).
+- Q: WebP? → A: Unity cannot import WebP without a plugin, so the avatars are opaque 384 × 384 JPEG at quality 88, as
+  the backgrounds were cut before: 24 MB of PNG became 540 KB (pictures.md I).
+- Q: Where is a bought avatar kept? → A: As a profile cosmetic in the save: `cosmetics.owned` (`avatar.<name>`) and the
+  shown one in `cosmetics.equipped.profile.avatar`; the name and the joining day in the new optional `profile`
+  section (both schema copies). The name stays on the device (no server sees it yet, so no name check runs).
+- Q: Frames and badges? → A: The edit card's Frame and Badge tabs list the owned ones (milestones, the Store) and stay
+  locked until the Wardrobe opens (L40), as before; the avatars are open from Level 1.
+- Q: The achievements? → A: Three locked placeholder tiles ("Coming soon") and a note, until the owner names them.
+  Three stat cells (levels won, pictures, milestones) fill the page with what the save already counts.
 
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
@@ -964,6 +987,22 @@ inventory.
   width (corners 22% of it) with a soft shadow (`garden.shadow` at 0.4, blur 12.8/1080 W, 6.4/1080 W down), every
   picture of a scene casting a soft shadow under all of them (0.55, blur 16/1080 W, 8/1080 W down); the Daily
   Challenge 0.086 W under the Daily Reward's scene. The Remove Ads card's scene keeps no plate or shadows.
+
+- **FR-037** *(the owner's profile page of 2026-10-05)*: Home's avatar MUST open a profile page in both builds
+  (contracts/look.md §6.11; `ScreenLayout.ReferenceProfile`): the Store page's header ("Profile", back, the Petals
+  pill) and panel, no bottom menu; the player's card (the chosen avatar's round picture on the cream disc in the
+  shown frame and badge, a tap opening the edit card on Avatar; the name, "Gardener NNNN" until one is chosen, with the
+  pencil opening it on Name; "ID: XXXXXXXX", the first 8 characters of the local player ID; "Playing since MM/YYYY";
+  the wooden "Level N" plaque); three stat cells (levels won, pictures collected, milestones reached); and
+  "Achievements": three locked placeholder tiles with "Coming soon" and a note. The "Edit profile" card
+  (`ScreenLayout.ProfileEdit`, `ProfileEditor`) MUST show the tabs Avatar, Frame, Badge and Name, the picked avatar in
+  the picked frame and badge with the name, the tab's grid of four a row (the 14 avatars, free first, the others with
+  their Petal price until bought, the picked one checked; the owned frames or badges on the avatar, locked until the
+  Wardrobe opens; the name's field, the playtest asking with the system's text dialog), and one button: "Save" keeps
+  every choice and closes the card; "Buy for N" buys the picked avatar once (`ProfileService.TryBuy`), short Petals
+  say so. A name is 1–16 letters, digits, spaces, `_ - .` (Latin and Cyrillic). The avatar shows on Home, the page, the
+  card, the Wardrobe's profile tab and the player's own leaderboard row; while its picture is missing, its family's
+  hero stands in. Presentation and profile cosmetics only (spec 001 FR-063 as amended): no gameplay effect.
 
 ### Key Entities
 

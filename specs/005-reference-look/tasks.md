@@ -467,7 +467,7 @@ contracts/look.md §3.4, §4.5 and §6.4. Presentation only (FR-002).
 - [X] T086 The playtest's Home: the centered pill with its flowered corners (`Kit.PetalsPill(align: 0.5f, decorate:
   true)`, `Kit.Decoration` on the kit's boxes; the reward's sparkles on its lotus), the avatar restored from before the
   bottom menu without its shirt badge (`HomeScreen.Avatar`: the hero in its outfit once the Wardrobe is open, the
-  profile frame and badge), its tap the click and the toast "Profile coming soon" (`DesignApp.OpenProfile`,
+  profile frame and badge), its tap the click and the toast "Profile coming soon" (since T115: the profile page) (`DesignApp.OpenProfile`,
   `home.profile_soon`), the heroes' taps cut clear of its touch box (`UiBoxes`); the preview's frame 2 taps it and
   frame 17 taps the centered pill.
 - [X] T087 Unity's Home: `UiKit.PetalsPill(align, decorate)` with the decoration pictures (`DecorationImages`, shared
@@ -572,3 +572,23 @@ and contracts/look.md §3.6, §6.10.
 - [X] T111 The garden blurred in `home.jpg` (`layers.mjs`), the heroes' Home frames finished (`post.mjs`, `heroes.json`
   `home`) and re-baked; the falling petals off by default (`settings.homePetalsOn`, both schema copies).
 - [ ] T112 Unity Editor: check Home's plates, shadows and the blurred garden on a device against the playtest.
+
+## The owner's profile page and avatars (2026-10-05, FR-037)
+
+- [X] T113 Data: `AvatarCatalog` (14 avatars, tiers), `ProfileService` (owned, chosen, bought with Petals, the name,
+  the short ID, the joining day), `ProfileEditor` (the card's tabs, picks, Save or Buy); the save's `profile` section
+  and `cosmetics.equipped.profile.avatar` (both schema copies, the merge); Remote Config `economy.price.avatar*`;
+  `ProfileServiceTests`.
+- [X] T114 Pictures: the owner's 14 avatars at 384 × 384 JPEG in `Art/Avatars/Resources/Avatars/`, the notices and the
+  source record, pictures.md I; `OwnerPictures.AvatarFolder`, the slots `ui.avatar`, `ui.achievement`, `ui.edit` (the
+  pencil shape); `ScreenLayout.ReferenceProfile` and `ProfileEdit`, `ProfileLayoutTests`; the strings.
+- [X] T115 Playtest: `ProfileScreen` (the page and the card), `Kit.Avatar` and `Kit.AvatarPicture` (`IPainter.PushClipRound`
+  in both painters), the avatars embedded, Home's avatar and the own leaderboard row, the Android text dialog
+  (`TextPrompt`); preview frames 39–41, frame 2 opening the page.
+- [X] T116 Unity: `ProfileScreen`, `ProfileEditCard` (`TMP_InputField` for the name), `ProfileAvatar` with the round
+  picture (`OwnerArt.Avatar`, a mask), Home's `OnProfile`, the Wardrobe's and the leaderboard's own avatar; the avatars
+  imported with mipmaps (`OwnerIconImporter`).
+- [ ] T117 Unity Editor: open the profile page and the card on a device; type a name with the system keyboard; buy an
+  avatar; check the round masks and the Wardrobe's profile tab.
+- [ ] T118 The owner: confirm the avatars' tiers (which picture costs 300, 600 or 1200) and how the avatars were made
+  (the source record's tool line); name the achievements.

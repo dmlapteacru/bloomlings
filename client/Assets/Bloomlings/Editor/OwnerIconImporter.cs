@@ -11,6 +11,7 @@ namespace Bloomlings.Client.Editor
     /// drawn far below their size (a 512 px icon on a 60 px tile), so mipmaps keep them smooth; alpha is transparency,
     /// edges clamp, sizes are kept as made and the compression is the high-quality one so the dark outlines stay crisp. They
     /// keep no readable copy: the grey copy and the finished picture read their pixels back once (<c>OwnerArt.IconPixels</c>).
+    /// The profile's avatars (pictures.md I, <c>Art/Avatars/</c>) are opaque, with mipmaps and at most 512 px.
     /// </summary>
     public sealed class OwnerIconImporter : AssetPostprocessor
     {
@@ -19,8 +20,26 @@ namespace Bloomlings.Client.Editor
         // The Home promo scenes' layers (pictures.md D14–D22) are drawn at about a third of their size too.
         private const string Promo = "Assets/Bloomlings/Art/Decor/Resources/Decor/promo-";
 
+        // The profile's avatar pictures (pictures.md I, spec 005 FR-037): opaque 384 px JPEG files, drawn from about 70 px
+        // (the edit card's grid) to about 370 px (the profile page), so mipmaps keep the small ones smooth.
+        private const string Avatars = "Assets/Bloomlings/Art/Avatars/";
+
         private void OnPreprocessTexture()
         {
+            if (assetPath.StartsWith(Avatars, StringComparison.Ordinal) && assetImporter is TextureImporter avatar)
+            {
+                avatar.textureType = TextureImporterType.Default;
+                avatar.sRGBTexture = true;
+                avatar.alphaSource = TextureImporterAlphaSource.None;
+                avatar.mipmapEnabled = true;
+                avatar.wrapMode = TextureWrapMode.Clamp;
+                avatar.npotScale = TextureImporterNPOTScale.None;
+                avatar.maxTextureSize = 512;
+                avatar.isReadable = false;
+                avatar.textureCompression = TextureImporterCompression.CompressedHQ;
+                return;
+            }
+
             bool ours = assetPath.StartsWith(Folder, StringComparison.Ordinal) || assetPath.StartsWith(Promo, StringComparison.Ordinal);
             if (!ours || !(assetImporter is TextureImporter importer))
             {

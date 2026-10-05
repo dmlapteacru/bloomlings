@@ -51,7 +51,7 @@ var shapes = new (string Name, float Width, float Height, Insets Insets)[]
 var usedSlots = new HashSet<string>(StringComparer.Ordinal);
 var problems = new List<string>();
 var sheetImages = new List<(int Number, string Title, SKImage Image)>();
-foreach (Fixture frame in Fixtures.All(content, root).Concat(Fixtures.Extras(content)).Concat(Fixtures.Guides(content)))
+foreach (Fixture frame in Fixtures.All(content, root).Concat(Fixtures.Extras(content)).Concat(Fixtures.Guides(content)).Concat(Fixtures.Profile(content)))
 {
     if (only != null && !only.Contains(frame.Number))
     {

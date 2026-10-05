@@ -986,7 +986,7 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Header row | one line, Settings' middle (the owner's request of 2026-10-04: "`[Settings]  [ Petals 5090 + ]  [Avatar]`"; `ReferenceHomeRegions.Header`): Settings, the Petals pill and the Avatar |
 | Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
 | Petals pill | box `0.44W × 0.105W` (`PetalsWidthShare`, `PetalsHeightShare`; before: `0.38W × 0.095W` at the right edge − `0.02W`), centered on the safe area's middle and on Settings' middle line, `0.11W` clear of Settings and of the Avatar; the pill fits its amount and stands centered in the box with its "+" (`align` 0.5), the main buttons' leaves and flower on its top-left end and on the "+"'s bottom-right edge (`GardenLook.PillDecorationBoxes`), never touch targets; its "+" opens the Store page once the Store is open |
-| Avatar | the profile avatar `0.13W`, Settings' mirror: right `0.04W` from the safe right edge, top 2.5% of H (`Avatar`): the player's hero (`CharacterArt.ProfileHero`, Bloom; in its outfit once the Wardrobe is open) on a domed cream disc with a soft green middle, the chosen profile frame (1.08 of it) and the profile badge (0.36 of it, at its bottom left); no shirt badge. A tap presses and clicks; the playtest then shows the toast "Profile coming soon" (`home.profile_soon`); Unity's Home has no toast (`HomeFeatureActions.OnProfile`, none yet). The profile page comes later |
+| Avatar | the profile avatar `0.13W`, Settings' mirror: right `0.04W` from the safe right edge, top 2.5% of H (`Avatar`): the chosen avatar's round picture (spec 005 FR-037, `OwnerPictures.AvatarPicture` of the disc's face; while it is missing, its family's hero in its outfit once the Wardrobe is open, on a soft green middle) on a domed cream disc, the chosen profile frame (1.08 of it) and the profile badge (0.36 of it, at its bottom left); no shirt badge. A tap presses, clicks and opens the profile page (§6.11; `DesignApp.OpenProfile`, `HomeFeatureActions.OnProfile`) |
 | Logo | none on Home since the owner's tuning of 2026-10-05 (FR-036); the box stays for the splash's wordmark: `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
 | Promo scenes | in the logo's place from 17.5% of H (`PromoTopShare`, or `0.02W` under Settings): No Ads at the left, the Daily Reward at the right, each `0.2835W` wide (`HomePromo.WidthShare` × `PromoScale` 1.05) and `0.67` of that tall, `0.04W` from the edge (`ReferenceHomeRegions.NoAds`, `.DailyReward`; §6.4.1), each on a cream plate with soft shadows (FR-036, below) |
@@ -1112,8 +1112,8 @@ width, stage height / 1.09)`, retuned for the owner's larger heroes): the well's
 right (`0.48u` at `+0.37u`), so Bloom's eyes stay clear of Drop. The playtest shows the Daily Challenge's side button
 once unlocked (`r.Daily`) and the bottom menu (§6.7); its splash shows the logo and the diorama in the same boxes. Its
 header row draws Settings (`Kit.RoundButton`), the pill (`Kit.PetalsPill(align: 0.5f, decorate: true)`, the reward's
-sparkles on its lotus) and the avatar (`HomeScreen.Avatar`, slot `ui.button.round` with the hero's and the cosmetics'
-slots); a tap on the avatar runs `DesignApp.OpenProfile` (the click, then Home's toast).
+sparkles on its lotus) and the avatar (`Kit.Avatar`, slot `ui.button.round` with `ui.avatar` and the cosmetics'
+slots); a tap on the avatar runs `DesignApp.OpenProfile` (the click, then the profile page, §6.11).
 
 Unity (`HomeScreen`, `SplashScreen`): the header row, Settings (`UiKit.RoundIconButton`), the pill
 (`UiKit.PetalsPill(align: 0.5f, decorate: true)`) and the avatar (a clear `Button` in `r.Avatar` with `PressMotion` and
@@ -1427,3 +1427,31 @@ are in the way" and `.2` "Clear them first to reach the others"; a booster's `de
 for later". The preview's frames 33 (the entry), 34 (the first tap), 35 (the blocked entry, Level 2), 21 (Extra
 Slot's forced step, Level 3), 36 (the kept step), 37 (Return's plates, Level 6) and 38 (Bloom Burst's tiles, Level 9)
 show them.
+
+### 6.11 Profile page and its edit card (both builds; the owner's request of 2026-10-05, FR-037)
+
+`ScreenLayout.ReferenceProfile` (`ReferenceProfileRegions`), in shares of the safe width W: the Store page's header
+and panel (§6.6), no bottom menu (Home's avatar opens the page; back returns Home). From `0.045W` under the panel's top,
+`0.88W` wide: the card `0.55W` tall (a cream row, `Kit.Row` / `UiKit.Row`): the avatar `0.3W` at `0.05W` in; beside it,
+`0.05W` on, the name `0.09W` tall (`type.title`, `ink.title`) with the pencil (`ui.edit` on a round button, `0.11W`) at
+its end, the ID and the joining month `0.06W` each (`type.body`, `ink.brown_soft`); the wooden plaque "Level N"
+(`0.5W × 0.11W`, `type.level_pill`) `0.04W` under the avatar. Then the stat cells `0.2W` tall (three parchment wells
+`0.03W` apart: the count in `type.level_pill`, the label in `type.caption`), the "Achievements" title `0.08W` tall
+(`type.title`), three placeholder tiles (`ui.achievement`: a `0.2W` parchment well holding a faded trophy and the
+padlock badge, "Coming soon" under it, `0.07W` apart) and their note. On a page too short for it all, everything under
+the header shrinks evenly to end `0.04W` over the safe bottom.
+
+The edit card (`ScreenLayout.ProfileEdit`, `ProfileEditRegions`): `ScreenLayout.Card` with `ContentUnits`, the title
+"Edit profile" and the close; in reference units under the title: the tabs `104` tall (Avatar, Frame, Badge, Name;
+`Kit.Tabs` / `UiKit.Tabs`), the preview `190` tall `22` lower (the picked avatar in the picked frame and badge, the name
+beside it), the grid `22` lower (four rows of four cells, `196` square and `14` apart, smaller to fit; each cell the
+avatar on its disc at `0.8` of the cell, a cost pill over its foot while it is for sale, the green check at its upper
+right when picked, a green disc behind the picked avatar), and the main button (`card.primary_height`) at the body's
+bottom: "Save" or "Buy for N". The Name tab: a cream well across the grid's top holding the name (Unity: a
+`TMP_InputField`; the playtest: the name and a "Change name" button asking the host's text dialog), its hint under it.
+Frame and Badge: the owned items on the picked avatar, or a note (with the padlock while the Wardrobe is locked).
+
+The avatar's picture: a circle of `OwnerPictures.AvatarPictureShare` (0.86) of the disc's face, clipped round (the
+playtest's `IPainter.PushClipRound`; Unity's `Mask` with the circle sprite), in a thin `cream.line` ring; the frame at
+1.08 and the badge at 0.36 of the disc as before.
+

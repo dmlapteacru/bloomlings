@@ -74,7 +74,8 @@ namespace Bloomlings.Playtest.Design
             LeaderboardRowParts own = ReferenceLeaderboardRegions.Parts(you);
             Kit.Row(p, you, highlighted: true);
             p.Text("—", own.Rank.CenterX, you.CenterY, T.Body, C.InkBrown, own.Rank.Width, grow);
-            Portrait(p, own.Portrait, Family.Sprig);
+            Portrait(p, own.Portrait, null);
+            Kit.AvatarPicture(p, own.Portrait, app.Meta.Profile.Avatar);
             p.TextLeft(PlaytestText.T("leaderboard.you"), own.Name.Left, you.CenterY, T.ButtonSecondary, C.InkBrown, own.Name.Width, grow, TextLook.Plain(C.InkBrown));
             p.Text(NumberText.Group(app.Meta.Progression.HighestCompletedLevel), own.Score.CenterX, you.CenterY, T.Count, C.InkBrown, own.Score.Width, grow, TextLook.Plain(C.InkBrown));
 

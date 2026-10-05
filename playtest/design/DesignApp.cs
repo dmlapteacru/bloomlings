@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
@@ -21,6 +22,9 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The Collection page (spec 005 FR-030, contracts/look.md §6.9), a place of the bottom menu.</summary>
         Collection,
+
+        /// <summary>The profile page (spec 005 FR-037), opened from Home's avatar.</summary>
+        Profile,
     }
 
     /// <summary>The cards shown over a screen.</summary>
@@ -32,6 +36,18 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The Remove Ads card (spec 005 FR-033), opened from Home's No Ads scene at every level.</summary>
         RemoveAds,
+
+        /// <summary>The profile's "Edit profile" card (spec 005 FR-037), over the profile page.</summary>
+        ProfileEdit,
+    }
+
+    /// <summary>
+    /// The host's text entry (the profile's name, spec 005 FR-037): the APK asks with the system's text dialog and calls
+    /// <c>done</c> with the typed text on the UI thread, or not at all when it is cancelled; the preview answers at once.
+    /// </summary>
+    public interface ITextPrompt
+    {
+        void Ask(string title, string text, int maxLength, Action<string> done);
     }
 
     /// <summary>
@@ -48,6 +64,8 @@ namespace Bloomlings.Playtest.Design
     /// from the bottom menu;</description></item>
     /// <item><description>the bottom menu on Home and the four pages (spec 005 FR-030, <see cref="Navigate"/>), its five
     /// places always shown: a locked one with a padlock, its page saying from which level it is available;</description></item>
+    /// <item><description>the profile page (preview frame 39; spec 005 FR-037), opened from Home's avatar, and its edit
+    /// card (frames 40 and 41);</description></item>
     /// <item><description>the cards over them (frames 4, 10, 11, 15 and 16; the Remove Ads card of Home's No Ads scene,
     /// preview frame 32).</description></item>
     /// </list>
@@ -83,6 +101,12 @@ namespace Bloomlings.Playtest.Design
         public ContentSet Content { get; }
 
         public ISoundOut Sound { get; }
+
+        /// <summary>The host's text entry for the profile's name; none in a host without one (the name then stays).</summary>
+        public ITextPrompt? TextPrompt { get; set; }
+
+        /// <summary>The open edit card's state (spec 005 FR-037), made when the card opens.</summary>
+        public ProfileEditor? ProfileEditor { get; private set; }
 
         public PlaytestMeta Meta { get; private set; }
 
@@ -361,7 +385,7 @@ namespace Bloomlings.Playtest.Design
         public void OpenStore()
         {
             Sound.Play(SoundCue.Click);
-            StoreReturn = Screen == Screen.Wardrobe || Screen == Screen.Leaderboard || Screen == Screen.Collection ? Screen : Screen.Home;
+            StoreReturn = Screen == Screen.Wardrobe || Screen == Screen.Leaderboard || Screen == Screen.Collection || Screen == Screen.Profile ? Screen : Screen.Home;
             _overlays.Clear();
             StorePage = 0;
             StoreRowsPage = 0;
@@ -408,6 +432,9 @@ namespace Bloomlings.Playtest.Design
                     return true;
                 case Screen.Collection:
                     CollectionBack();
+                    return true;
+                case Screen.Profile:
+                    CloseProfile();
                     return true;
                 default:
                     return false;
@@ -486,14 +513,79 @@ namespace Bloomlings.Playtest.Design
 
         public string? HomeToastText => _homeToastUntil > Now ? _homeToast : null;
 
-        /// <summary>
-        /// Home's profile avatar (the owner's request of 2026-10-04): the click, then the short toast "Profile coming
-        /// soon" over Home, until the profile page comes.
-        /// </summary>
+        /// <summary>Home's profile avatar (spec 005 FR-037): opens the profile page.</summary>
         public void OpenProfile()
         {
             Sound.Play(SoundCue.Click);
-            HomeToast(PlaytestText.T("home.profile_soon"));
+            _overlays.Clear();
+            Screen = Screen.Profile;
+        }
+
+        /// <summary>Back from the profile page to Home (without reopening the Daily Reward).</summary>
+        public void CloseProfile()
+        {
+            ProfileEditor = null;
+            EnterHome(click: true);
+        }
+
+        /// <summary>Opens the edit card on <paramref name="tab"/> (the avatar's tap: Avatar; the pencil: Name).</summary>
+        public void OpenProfileEdit(ProfileTab tab)
+        {
+            ProfileEditor = new ProfileEditor(Meta.Profile, Meta.Wardrobe, tab);
+            OpenOverlay(Overlay.ProfileEdit);
+        }
+
+        /// <summary>
+        /// The edit card's main button (<see cref="ProfileEditor.Confirm"/>): Save closes the card, a bought avatar shows
+        /// "New avatar!", short Petals or an empty name say so.
+        /// </summary>
+        public void ConfirmProfileEdit()
+        {
+            ProfileEditor? editor = ProfileEditor;
+            if (editor == null)
+            {
+                return;
+            }
+
+            switch (editor.Confirm())
+            {
+                case ProfileOutcome.Saved:
+                    Sound.Play(SoundCue.Click);
+                    CloseOverlay();
+                    break;
+                case ProfileOutcome.Bought:
+                    Sound.Play(SoundCue.PodDone);
+                    HomeToast(PlaytestText.T("profile.bought"));
+                    break;
+                case ProfileOutcome.NotEnoughPetals:
+                    Sound.Play(SoundCue.Refused);
+                    HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
+                    break;
+                default:
+                    Sound.Play(SoundCue.Refused);
+                    HomeToast(PlaytestText.T("profile.name_empty"));
+                    break;
+            }
+        }
+
+        /// <summary>The Name tab's "Change name": asks the host for the name, then keeps it in the card until Save.</summary>
+        public void AskProfileName()
+        {
+            ProfileEditor? editor = ProfileEditor;
+            if (editor == null || TextPrompt == null)
+            {
+                return;
+            }
+
+            Sound.Play(SoundCue.Click);
+            string current = editor.Name ?? PlaytestText.F("profile.default_name", Meta.Profile.DefaultNumber);
+            TextPrompt.Ask(PlaytestText.T("profile.name_prompt"), current, ProfileService.MaxNameLength, text =>
+            {
+                if (!editor.EnterName(text))
+                {
+                    HomeToast(PlaytestText.T("profile.name_empty"));
+                }
+            });
         }
 
         /// <summary>Playtest control: a brand-new profile (Level 1, nothing unlocked).</summary>
@@ -539,6 +631,9 @@ namespace Bloomlings.Playtest.Design
                 case Screen.Collection:
                     CollectionScreen.Draw(p, this);
                     break;
+                case Screen.Profile:
+                    ProfileScreen.Draw(p, this);
+                    break;
                 case Screen.Level:
                     Level!.Advance(dt);
                     Level.Draw(p);
@@ -563,6 +658,9 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.RemoveAds:
                         MetaCards.RemoveAds(p, this, since);
+                        break;
+                    case Overlay.ProfileEdit:
+                        ProfileScreen.Edit(p, this, since);
                         break;
                 }
             }

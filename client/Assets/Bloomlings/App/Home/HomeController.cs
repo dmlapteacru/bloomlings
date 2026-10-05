@@ -7,6 +7,7 @@ using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Ads;
@@ -71,6 +72,7 @@ namespace Bloomlings.Client.App.Home
             IRemoteConfigService config = services.Get<IRemoteConfigService>();
             MilestoneService milestones = services.Get<MilestoneService>();
             WardrobeService wardrobe = services.Get<WardrobeService>();
+            ProfileService profile = services.Get<ProfileService>();
             CollectionService collection = services.Get<CollectionService>();
             DailyChallengeService dailyChallenge = services.Get<DailyChallengeService>();
             LeaderboardClient leaderboard = services.Get<LeaderboardClient>();
@@ -116,14 +118,15 @@ namespace Bloomlings.Client.App.Home
                     DailyChallengePetals: DailyChallengeService.RewardPetals,
                     OutfitOf: wardrobe.OutfitOf,
                     Profile: wardrobe.Profile,
-                    AvatarOutfit: wardrobe.IsAvailable ? wardrobe.OutfitOf(ProfileAvatar.HeroFamily) : null,
+                    AvatarOutfit: wardrobe.IsAvailable ? wardrobe.OutfitOf(profile.Avatar.Family) : null,
                     NoAdsPromo: !ledger.RemoveAds,
                     DailyRewardPromo: daily.IsUnlocked,
-                    DailyRewardWaiting: daily.CanClaim));
+                    DailyRewardWaiting: daily.CanClaim,
+                    Avatar: profile.Avatar));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
                 if (board != null && board.ShowsRanks)
                 {
-                    board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
+                    board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile, profile.Avatar);
                 }
             }
 
@@ -158,6 +161,7 @@ namespace Bloomlings.Client.App.Home
             Action? showCollection = null;
             WardrobeScreen? wardrobeScreen = null;
             CollectionScreen? collectionScreen = null;
+            ProfileScreen? profileScreen = null;
 
             // The Store page over the screen that opened it (Home or one of its pages: the menu's Shop or a Petals "+"),
             // where its back returns; `from` names that screen for store_open. A locked page is not a Store visit: no
@@ -177,7 +181,8 @@ namespace Bloomlings.Client.App.Home
 
             // The page that shows the menu now (the Store's origin), else Home.
             string Origin() =>
-                wardrobeScreen != null && wardrobeScreen.IsOpen ? "wardrobe"
+                profileScreen != null && profileScreen.IsOpen ? "profile"
+                : wardrobeScreen != null && wardrobeScreen.IsOpen ? "wardrobe"
                 : board != null && board.IsOpen ? "leaderboard"
                 : collectionScreen != null && collectionScreen.IsOpen ? "collection"
                 : "home";
@@ -194,6 +199,7 @@ namespace Bloomlings.Client.App.Home
                 // "All the menu's places must be a separate page. Not popups."); a locked page says its level.
                 bool open = BottomNav.IsOpen(place, NavLook());
                 store!.Hide();
+                profileScreen?.Hide();
                 wardrobeScreen!.Hide();
                 board!.Hide();
                 collectionScreen!.Hide();
@@ -239,7 +245,7 @@ namespace Bloomlings.Client.App.Home
             }
 
             // The pages' Petals pills: their "+" shows once the Store is open (a locked page can show from L1, FR-030).
-            wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () => StoreFrom("wardrobe"), Navigate, NavLook);
+            wardrobeScreen = WardrobeScreen.Create(root, wardrobe, () => economy.Petals, () => StoreFrom("wardrobe"), Navigate, NavLook, () => profile.Avatar);
             wardrobe.Changed += Refresh;
             collectionScreen = CollectionScreen.Create(root, () => economy.Petals, () => StoreFrom("collection"), Navigate, NavLook);
             DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
@@ -250,6 +256,19 @@ namespace Bloomlings.Client.App.Home
                     flow.PlayDaily(attempt);
                 }
             });
+            // The profile page (spec 005 FR-037), opened by Home's avatar; its edit card keeps or buys, then Home redraws.
+            profileScreen = ProfileScreen.Create(
+                root,
+                profile,
+                wardrobe,
+                () => progression.CurrentLevel,
+                () => new ProfileStats(save.Stats.Counters.TryGetValue("levelsWon", out long won) ? won : 0, collection.Count, save.Milestones.Claimed.Count),
+                UnlockLevel(NavPlace.Wardrobe),
+                wardrobe.OutfitOf,
+                () => economy.Petals,
+                () => StoreFrom("profile"),
+                NavLook,
+                Refresh);
             board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()), () => economy.Petals, () => StoreFrom("leaderboard"), Navigate, NavLook);
             showCollection = () =>
             {
@@ -259,7 +278,7 @@ namespace Bloomlings.Client.App.Home
             showBoard = () =>
             {
                 analytics?.LeaderboardView(leaderboard.LastPage?.Player?.Rank ?? 0);
-                board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile);
+                board.Show(leaderboard.LastPage, leaderboard.IsStale, wardrobe.Profile, profile.Avatar);
                 RunInBackground(leaderboard.Refresh());
             };
             // Restore Purchases (Settings and the Remove Ads card): Home refreshes after it, so a restored Remove Ads hides
@@ -323,6 +342,7 @@ namespace Bloomlings.Client.App.Home
             RemoveAdsCard? removeAds = null;
             var features = new HomeFeatureActions(
                 () => dailyScreen.Show(new DailyChallengeModel(dailyChallenge.Today, dailyChallenge.CompletedToday, DailyChallengeService.RewardPetals)),
+                OnProfile: () => profileScreen?.Show(),
                 OnNoAds: () => removeAds?.Show(purchases.PriceOf(ProductCatalog.RemoveAdsId), purchases.IsAvailable),
                 OnDailyReward: ShowDailyReward);
 

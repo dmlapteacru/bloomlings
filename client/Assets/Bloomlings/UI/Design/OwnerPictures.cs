@@ -27,6 +27,22 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The Resources folder of the leaf decorations (<c>Art/Decor/Resources/Decor/</c>).</summary>
         public const string DecorFolder = "Decor";
 
+        /// <summary>
+        /// The Resources folder of the profile's avatar pictures (pictures.md I, spec 005 FR-037:
+        /// <c>Art/Avatars/Resources/Avatars/</c>, opaque JPEG named by <c>AvatarCatalog</c>); the playtest asks its painter
+        /// for <c>avatar/{name}</c>.
+        /// </summary>
+        public const string AvatarFolder = "Avatars";
+
+        /// <summary>The asset slot every avatar picture fills.</summary>
+        public const string AvatarSlot = "ui.avatar";
+
+        /// <summary>The share of an avatar disc's diameter (the cream button) that its round picture takes.</summary>
+        public const float AvatarPictureShare = 0.86f;
+
+        /// <summary>The round picture's box in an avatar disc: <see cref="AvatarPictureShare"/> of it, centered.</summary>
+        public static Box AvatarPicture(Box disc) => Box.FromCenter(disc.CenterX, disc.CenterY, disc.Width * AvatarPictureShare, disc.Height * AvatarPictureShare);
+
         /// <summary>B1: the Home garden diorama, without the heroes.</summary>
         public const string Home = "home";
 

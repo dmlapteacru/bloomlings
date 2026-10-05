@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
@@ -152,7 +153,9 @@ namespace Bloomlings.Playtest.Design
             Kit.RoundButton(p, r.Settings.CenterX, r.Settings.CenterY, r.Settings.Width, "ui.settings", () => app.OpenOverlay(Overlay.Settings));
             PetalsPillParts petals = Kit.PetalsPill(p, r.Petals, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null, align: 0.5f, decorate: true);
             Kit.SparkleBurst(p, petals.Lotus.CenterX, petals.Lotus.CenterY, petals.Pill.Height, app.SinceRewardBurst);
-            Avatar(p, r.Avatar, meta.Wardrobe.Profile, AvatarOutfit(app), app.OpenProfile);
+            ProfileLook profile = meta.Wardrobe.Profile;
+            AvatarItem avatar = meta.Profile.Avatar;
+            Kit.Avatar(p, r.Avatar, avatar, profile.Frame, profile.Badge, app.OpenProfile, OutfitsOf(app)?.Invoke(avatar.Family));
 
             // The promo scenes under the header (spec 005 FR-032, FR-036): No Ads at the left, the Daily Reward at the right,
             // each on its cream plate. They idle all the time, so Home keeps redrawing under a card too.
@@ -647,40 +650,6 @@ namespace Bloomlings.Playtest.Design
             p.PopTransform();
             p.Hit(Kit.Touch(p, box), action);
         }
-
-        /// <summary>
-        /// The profile avatar at the right of Home's header (FR-061; the owner's request of 2026-10-04), as large as Settings
-        /// (Unity's <c>ProfileAvatar</c> on its button): the player's hero (<see cref="CharacterArt.ProfileHero"/>, in
-        /// <paramref name="outfit"/>) on a domed cream disc with a soft green middle, in the chosen profile frame, the profile
-        /// badge at its bottom left. It presses like a round button; a tap runs <paramref name="action"/> (the profile page
-        /// comes later).
-        /// </summary>
-        private static void Avatar(IPainter p, Box box, ProfileLook look, Outfit? outfit, Action action)
-        {
-            p.Mark("ui.button.round");
-            float size = box.Width;
-            float depth = Kit.Press(p, box, true);
-            Kit.Squash(p, box, depth);
-            Box face = Kit.IconFace(p, box, GardenLook.White, size / 2f, depth);
-            p.FillRoundGradient(face, face.Width / 2f, GardenLook.Green.Top.Mix(C.CreamTop, 0.6f), GardenLook.Green.Face.Mix(C.CreamTop, 0.45f));
-            p.StrokeCircle(face.CenterX, face.CenterY, face.Width / 2f, Math.Max(1f, p.U(DesignTokens.Garden.OutlineWidth)), C.CreamLine);
-            Visuals.Hero(p, Box.FromCenter(face.CenterX, face.CenterY + (size * 0.02f), size * 0.7f, size * 0.7f), CharacterArt.ProfileHero, outfit);
-            if (look.Frame != null)
-            {
-                p.Shape("cosmetic.frame", Box.FromCenter(face.CenterX, face.CenterY, size * 1.08f, size * 1.08f), Visuals.Tint(look.Frame));
-            }
-
-            if (look.Badge != null)
-            {
-                p.Shape("cosmetic.badge", Box.FromCenter(face.CenterX - (size * 0.36f), face.CenterY + (size * 0.36f), size * 0.36f, size * 0.36f), Visuals.Tint(look.Badge));
-            }
-
-            p.PopTransform();
-            p.Hit(Kit.Touch(p, box), action);
-        }
-
-        /// <summary>What the avatar's hero wears: its outfit once the Wardrobe is open, as Home's heroes (<see cref="OutfitsOf"/>).</summary>
-        private static Outfit? AvatarOutfit(DesignApp app) => OutfitsOf(app)?.Invoke(CharacterArt.ProfileHero);
 
         /// <summary>The milestone teaser: a parchment pill with "N levels to reward" and the pink gift.</summary>
         private static void Teaser(IPainter p, Box box, string text)

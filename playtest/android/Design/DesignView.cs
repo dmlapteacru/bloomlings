@@ -29,6 +29,7 @@ namespace Bloomlings.Playtest.Droid
             var output = new SoundOut(sound);
             _app = new DesignApp(context.FilesDir!.AbsolutePath, PlaytestContent.Load(), output);
             output.App = _app;
+            _app.TextPrompt = new TextPrompt(context, this);
             sound.Enabled = _app.Meta.Save.Settings.Sfx;
             // A lawn rendered on a worker thread asks for the frame that shows it.
             _painter.Redraw = PostInvalidate;

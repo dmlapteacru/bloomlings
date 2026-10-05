@@ -21,6 +21,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" Link="Shared/BundledRemoteConfigService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" Link="Shared/WardrobeService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" Link="Shared/DailyRewardService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" Link="Shared/Profile/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" Link="Shared/CollectionService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" Link="Shared/ThemeRotation.cs" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
@@ -36,6 +37,7 @@
     <!-- The owner's booster icons and leaf decorations (spec 005 pictures.md D), drawn instead of the drawn ones when present. -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" LogicalName="icons/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" LogicalName="decor/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" LogicalName="avatars/%(Filename)" />
     <!--
       The owner's animated heroes as flat frames (spec 005 FR-028, tools/heroanim; no 3D model in the game): the splash,
       Home, the win and the milestone draw them, each frame decoded when it is first drawn and kept in a cache bounded by

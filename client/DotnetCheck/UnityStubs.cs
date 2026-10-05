@@ -83,7 +83,7 @@ namespace UnityEngine
 }
 namespace UnityEngine { public static class GUILayout { public static bool Button(string text) => false; } }
 namespace UnityEngine { public interface ICanvasRaycastFilter { bool IsRaycastLocationValid(Vector2 sp, Camera eventCamera); } public static class RectTransformUtility { public static bool RectangleContainsScreenPoint(RectTransform rect, Vector2 screenPoint, Camera cam) => false; } }
-namespace UnityEngine.Events { public delegate void UnityAction(); public class UnityEvent { public void AddListener(UnityAction a) { } public void RemoveAllListeners() { } } }
+namespace UnityEngine.Events { public delegate void UnityAction(); public delegate void UnityAction<T0>(T0 arg0); public class UnityEvent { public void AddListener(UnityAction a) { } public void RemoveAllListeners() { } } public class UnityEvent<T0> { public void AddListener(UnityAction<T0> a) { } public void RemoveAllListeners() { } } }
 namespace UnityEngine.UI
 {
     public class Graphic : Behaviour { public Color color { get; set; } public bool raycastTarget { get; set; } public RectTransform rectTransform => null!; public void SetVerticesDirty() { } }
@@ -110,6 +110,26 @@ namespace TMPro
     [Flags] public enum FontStyles { Normal = 0, Bold = 1, UpperCase = 16 }
     public struct VertexGradient { public VertexGradient(UnityEngine.Color topLeft, UnityEngine.Color topRight, UnityEngine.Color bottomLeft, UnityEngine.Color bottomRight) { } }
     public sealed class TMP_FontAsset : UnityEngine.Object { public UnityEngine.Material material => null!; public static TMP_FontAsset? CreateFontAsset(UnityEngine.Font font, int samplingPointSize, int atlasPadding, UnityEngine.TextCore.LowLevel.GlyphRenderMode renderMode, int atlasWidth, int atlasHeight) => null; }
+    public sealed class TMP_InputField : UnityEngine.UI.Selectable
+    {
+        public enum LineType { SingleLine, MultiLineSubmit, MultiLineNewline }
+        public enum ContentType { Standard, Autocorrected, IntegerNumber, DecimalNumber, Alphanumeric, Name, EmailAddress, Password, Pin, Custom }
+        public sealed class SubmitEvent : UnityEngine.Events.UnityEvent<string> { }
+        public sealed class OnChangeEvent : UnityEngine.Events.UnityEvent<string> { }
+        public UnityEngine.RectTransform? textViewport { get; set; }
+        public TextMeshProUGUI? textComponent { get; set; }
+        public UnityEngine.UI.Graphic? placeholder { get; set; }
+        public int characterLimit { get; set; }
+        public LineType lineType { get; set; }
+        public ContentType contentType { get; set; }
+        public string text { get; set; } = "";
+        public bool isFocused => false;
+        public SubmitEvent onEndEdit { get; } = new SubmitEvent();
+        public OnChangeEvent onValueChanged { get; } = new OnChangeEvent();
+        public void SetTextWithoutNotify(string input) { }
+        public void ActivateInputField() { }
+        public void DeactivateInputField() { }
+    }
     public class TextMeshProUGUI : UnityEngine.UI.Graphic { public TMP_FontAsset? font { get; set; } public UnityEngine.Material? fontSharedMaterial { get; set; } public bool enableVertexGradient { get; set; } public VertexGradient colorGradient { get; set; } public string text { get; set; } = ""; public float fontSize { get; set; } public TextAlignmentOptions alignment { get; set; } public TextWrappingModes textWrappingMode { get; set; } public FontStyles fontStyle { get; set; } public bool enableAutoSizing { get; set; } public float alpha { get; set; } public float fontSizeMin { get; set; } public float fontSizeMax { get; set; } public float outlineWidth { get; set; } public UnityEngine.Color32 outlineColor { get; set; } public float characterSpacing { get; set; } public UnityEngine.Vector2 GetPreferredValues(string text) => default; }
 }
 namespace UnityEngine.TextCore.LowLevel { public enum GlyphRenderMode { SDFAA } }
@@ -148,7 +168,7 @@ namespace UnityEditor
     public enum TextureImporterCompression { Uncompressed, Compressed, CompressedHQ, CompressedLQ }
     public enum SpriteImportMode { None, Single, Multiple, Polygon }
     public sealed class TextureImporterSettings { public UnityEngine.SpriteMeshType spriteMeshType { get; set; } public int spriteAlignment { get; set; } }
-    public sealed class TextureImporter : AssetImporter { public TextureImporterType textureType { get; set; } public bool sRGBTexture { get; set; } public TextureImporterAlphaSource alphaSource { get; set; } public bool alphaIsTransparency { get; set; } public bool mipmapEnabled { get; set; } public UnityEngine.TextureWrapMode wrapMode { get; set; } public UnityEngine.FilterMode filterMode { get; set; } public TextureImporterNPOTScale npotScale { get; set; } public bool isReadable { get; set; } public TextureImporterCompression textureCompression { get; set; } public SpriteImportMode spriteImportMode { get; set; } public float spritePixelsPerUnit { get; set; } public void ReadTextureSettings(TextureImporterSettings dest) { } public void SetTextureSettings(TextureImporterSettings src) { } }
+    public sealed class TextureImporter : AssetImporter { public TextureImporterType textureType { get; set; } public bool sRGBTexture { get; set; } public TextureImporterAlphaSource alphaSource { get; set; } public bool alphaIsTransparency { get; set; } public bool mipmapEnabled { get; set; } public UnityEngine.TextureWrapMode wrapMode { get; set; } public UnityEngine.FilterMode filterMode { get; set; } public TextureImporterNPOTScale npotScale { get; set; } public bool isReadable { get; set; } public TextureImporterCompression textureCompression { get; set; } public int maxTextureSize { get; set; } public SpriteImportMode spriteImportMode { get; set; } public float spritePixelsPerUnit { get; set; } public void ReadTextureSettings(TextureImporterSettings dest) { } public void SetTextureSettings(TextureImporterSettings src) { } }
     public class AssetPostprocessor { public string assetPath { get; set; } = ""; public AssetImporter assetImporter => null!; }
     [Flags] public enum BuildOptions { None = 0, Development = 1 }
     public enum BuildTarget { Android, iOS }

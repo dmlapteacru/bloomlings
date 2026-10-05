@@ -104,6 +104,12 @@ namespace Bloomlings.Playtest.Design
 
         void PushClip(Box box);
 
+        /// <summary>
+        /// Clips to a rounded box (a circle when <paramref name="radius"/> is half its side: the profile's round avatar
+        /// pictures, spec 005 FR-037), anti-aliased; ended by <see cref="PopClip"/>.
+        /// </summary>
+        void PushClipRound(Box box, float radius);
+
         void PopClip();
 
         /// <summary>Multiplies the alpha of everything drawn until <see cref="PopAlpha"/>.</summary>

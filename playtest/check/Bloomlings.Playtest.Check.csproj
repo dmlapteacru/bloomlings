@@ -20,6 +20,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveSerializer.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveService.cs" />

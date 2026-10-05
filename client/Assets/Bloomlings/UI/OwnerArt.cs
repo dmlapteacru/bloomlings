@@ -33,6 +33,9 @@ namespace Bloomlings.Client.UI
         public static Texture2D? BackgroundOf(BackdropScene scene, string themeId = "") =>
             Background(OwnerPictures.Resolve(scene, themeId, name => Background(name) != null));
 
+        /// <summary>A profile avatar picture (<c>Resources/Avatars/{name}</c>, pictures.md I, spec 005 FR-037), or null while it is missing.</summary>
+        public static Texture2D? Avatar(string name) => Load(OwnerPictures.AvatarFolder + "/" + name);
+
         /// <summary>The owner's logo picture, or null while it is missing.</summary>
         public static Texture2D? LogoPicture() => Load(OwnerPictures.BrandFolder + "/" + OwnerPictures.Logo);
 

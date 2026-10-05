@@ -345,7 +345,13 @@ namespace Bloomlings.Client.UI.Screens
             title.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * grow);
             title.fontSize = title.fontSizeMax;
             float titleLeft = tile.Right + (size * 0.22f);
-            UiKit.PlaceBox(title.rectTransform, new Box(titleLeft, line.Top, titleLeft + (line.Width * 0.42f), line.Bottom), line);
+            // At most 42% of the row, and never under the price pill (its width estimated as the pill's layout below
+            // does before it is measured: a 4-digit booster price since 2026-10-05).
+            float pillH = line.Height * 0.56f;
+            string priceText = unavailable ? string.Empty : petals ? NumberText.Group(item.PetalPrice!.Value) : item.PriceText;
+            float pillLeft = line.Right - (line.Height * 0.14f) - ((pillH * 0.56f * 0.6f * Mathf.Max(1, priceText.Length)) + (pillH * (petals ? 1.9f : 1f)));
+            float titleRight = unavailable ? titleLeft + (line.Width * 0.42f) : Mathf.Min(titleLeft + (line.Width * 0.42f), pillLeft - (line.Height * 0.12f));
+            UiKit.PlaceBox(title.rectTransform, new Box(titleLeft, line.Top, titleRight, line.Bottom), line);
 
             if (unavailable)
             {

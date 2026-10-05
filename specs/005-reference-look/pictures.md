@@ -215,6 +215,34 @@ one on pods, slots, the jam row, flights and every other sticker tile; the lotus
 **Later (optional):** the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects
 (stone obstacle, gate, fountain, chest, statue, bridge, key, lock, the "?" mystery tile), all drawn in code today.
 
+## I. Profile avatars (the owner's delivery of 2026-10-05, spec 005 FR-037)
+
+The profile page's avatar pictures, from `Bloomlings_Avatars.zip`: opaque square paintings of a family's character on a
+soft background, shown in a round mask on Home's avatar button, the profile page, the edit card and the player's own
+leaderboard row. Stored as 384 × 384 JPEG (quality 88) in `Art/Avatars/Resources/Avatars/` (Unity `OwnerArt.Avatar`,
+the playtest `avatar/{name}`), one slot `ui.avatar` (`AvatarCatalog`). Recorded in `tools/artgen/models/owner-pictures.md`.
+
+| # | File | Size | What | Price |
+|---|---|---|---|---|
+| I1 | `sprig_default.jpg` | 384 × 384 | Sprig | free |
+| I2 | `bloom_default.jpg` | 384 × 384 | Bloom (a new profile's avatar) | free |
+| I3 | `drop_default.jpg` | 384 × 384 | Drop | free |
+| I4 | `twig_default.jpg` | 384 × 384 | Twig | free |
+| I5 | `sprig_ladybug_watercolor.jpg` | 384 × 384 | Sprig with a ladybug, watercolor | 300 |
+| I6 | `bloom_ribbon_plush.jpg` | 384 × 384 | Bloom with a ribbon, plush | 300 |
+| I7 | `drop_sailor_sticker.jpg` | 384 × 384 | Drop in a sailor cap, sticker | 300 |
+| I8 | `twig_glasses_scarf_clay.jpg` | 384 × 384 | Twig with glasses and a scarf, clay | 300 |
+| I9 | `sprig_dewdrop_papercut.jpg` | 384 × 384 | Sprig with dewdrops, paper cut | 600 |
+| I10 | `sprig_flower_crown_3d.jpg` | 384 × 384 | Sprig with a flower crown | 600 |
+| I11 | `drop_bubble_shell_3d.jpg` | 384 × 384 | Drop with bubbles and a shell | 600 |
+| I12 | `twig_autumn_wreath_3d.jpg` | 384 × 384 | Twig with an autumn wreath | 600 |
+| I13 | `bloom_pearl_tiara_3d.jpg` | 384 × 384 | Bloom with a pearl tiara | 1200 |
+| I14 | `bloom_jeweled_crown_magic.jpg` | 384 × 384 | Bloom with a jeweled crown | 1200 |
+
+The prices are the owner's tiers (300 / 600 / 1200 Petals, Remote Config `economy.price.avatarCommon`, `avatarRare`,
+`avatarSpecial`); which picture is in which tier was proposed by the implementation (the simpler styles at 300, the
+3D and paper-cut ones at 600, the two crowned Blooms at 1200) and is the owner's to change.
+
 ## E. Optional painted UI (only if the code-drawn versions should be replaced)
 
 All of these are drawn in code today (contracts/look.md) and need no picture: the wooden sign plank (9-slice,

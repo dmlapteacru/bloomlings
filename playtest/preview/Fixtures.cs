@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bloomlings.Client.Meta.Profile;
+using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
@@ -64,13 +66,15 @@ namespace Bloomlings.Playtest.Preview
                 Expect(!app.PlaceOpen(NavPlace.Shop) && !app.PlaceOpen(NavPlace.Wardrobe) && !app.PlaceOpen(NavPlace.Leaderboard), "the Shop, the Wardrobe and the Leaderboard are locked at Level 5");
                 Expect(app.PlaceOpen(NavPlace.Home) && app.PlaceOpen(NavPlace.Collection), "Home and the Collection are open at Level 5");
 
-                // The header row (the owner's request of 2026-10-04): a tap on the avatar says the profile is coming and
-                // opens nothing; the toast passes, so the frame shows Home as it stands.
+                // The header row (the owner's request of 2026-10-04): a tap on the avatar opens the profile page (spec 005
+                // FR-037, frame 39); the system back returns, so the frame shows Home as it stands.
                 Tap(p, ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).Avatar);
+                Expect(app.Screen == Design.Screen.Profile && app.Overlays.Count == 0, "a tap on the avatar opens the profile page");
                 Run(app, p, 0.1f);
-                Expect(Shows(p, "Profile coming soon") && app.Screen == Design.Screen.Home && app.Overlays.Count == 0, "a tap on the avatar says the profile is coming");
-                Run(app, p, 1.6f);
-                Expect(!Shows(p, "Profile coming soon"), "the avatar's toast passes");
+                Expect(Shows(p, PlaytestText.T("profile.title")), "the profile page shows its banner");
+                Expect(app.Back() && app.Screen == Design.Screen.Home, "the system back returns from the profile page to Home");
+                Run(app, p, 0.1f);
+                Expect(p.Slots.Contains(OwnerPictures.AvatarSlot), "Home's avatar shows the avatar picture");
 
                 // The promo scenes (spec 005 FR-032): at Level 5 only No Ads, under the logo at the left (the Daily
                 // Reward's comes with its unlock at L7). The frame waits for No Ads to finish its attention sequence, so
@@ -208,7 +212,7 @@ namespace Bloomlings.Playtest.Preview
             {
                 DesignApp app = App(data);
                 app.Meta.SkipTo(27);
-                app.Meta.Economy.Grant(300, null);
+                app.Meta.Economy.Grant(3000, null);
                 app.LoadLevel(28);
                 CloseDemo(app);
                 Run(app, p, 0.1f);
@@ -610,6 +614,108 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>
+        /// The profile page and its edit card (spec 005 FR-037): the page at Level 15 with a bought avatar (39), the card's
+        /// avatars with a purchase and short Petals (40), and at Level 45 a new name and the owned frames (41).
+        /// </summary>
+        public static IEnumerable<Fixture> Profile(ContentSet content)
+        {
+            DesignApp App(string data) => new DesignApp(data, content, new Silence(), false) { TextPrompt = new FixedPrompt("Rosie") };
+            Box HomeAvatar(SkiaPainter p) => ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p)).Avatar;
+
+            yield return new Fixture(39, "profile", "Extra: profile page (spec 005 FR-037)", (p, data) =>
+            {
+                // Level 15 with 1240 Petals and Drop's sailor avatar bought: Home's avatar opens the page, which shows it in
+                // the card with the default name, the ID, the joining month, the Level plaque, the stats and the locked
+                // achievements.
+                DesignApp app = Progressed(App(data), content, 14);
+                CloseAll(app);
+                Expect(app.Meta.Profile.TryBuy("avatar.drop_sailor_sticker"), "an avatar for 300 Petals");
+                Run(app, p, 0.1f);
+                Tap(p, HomeAvatar(p));
+                Expect(app.Screen == Design.Screen.Profile, "Home's avatar opens the profile page");
+                Run(app, p, 0.4f);
+                ProfileService profile = app.Meta.Profile;
+                Expect(Shows(p, PlaytestText.F("profile.default_name", profile.DefaultNumber)), "the default name");
+                Expect(Shows(p, PlaytestText.F("profile.id", profile.ShortId)) && Shows(p, PlaytestText.F("profile.joined", profile.JoinedMonth)), "the ID and the joining month");
+                Expect(Shows(p, PlaytestText.F("common.level", 15)), "the Level plaque");
+                Expect(p.Texts.Count(t => t.Text == PlaytestText.T("profile.achievement_soon")) == ReferenceProfileRegions.AchievementCount, "the achievements are placeholders");
+                Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && p.Slots.Contains("ui.achievement"), "the avatar picture and the achievement tiles");
+            });
+            yield return new Fixture(40, "profile-edit", "Extra: profile edit card, avatars (spec 005 FR-037)", (p, data) =>
+            {
+                // The avatar's tap opens the card on Avatar: the free four, then the ten with their prices. A 600 one is
+                // bought (640 Petals left), a 1200 one is too dear: its button says "Buy for 1 200" and Petals are short.
+                DesignApp app = Progressed(App(data), content, 14);
+                CloseAll(app);
+                Run(app, p, 0.1f);
+                Tap(p, HomeAvatar(p));
+                Run(app, p, 0.1f);
+                Tap(p, ScreenLayout.ReferenceProfile(p.Width, p.Height, p.Insets).Avatar);
+                Expect(app.IsOpen(Overlay.ProfileEdit) && app.ProfileEditor!.Tab == ProfileTab.Avatar, "the avatar opens the card on Avatar");
+                Run(app, p, 0.5f);
+                ProfileEditRegions r = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
+                Tap(p, r.Cell(9));
+                Run(app, p, 0.1f);
+                Expect(Shows(p, PlaytestText.F("profile.buy", NumberText.Group(600))), "a 600 avatar to buy");
+                Tap(p, r.Button);
+                Expect(app.Meta.Economy.Petals == 640 && app.Meta.Profile.Avatar.Id == "avatar.sprig_flower_crown_3d", "bought and shown");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, PlaytestText.T("profile.bought")) && Shows(p, PlaytestText.T("profile.save")), "the card stays, its button now Save");
+                Tap(p, r.Cell(13));
+                Run(app, p, 0.1f);
+                Tap(p, r.Button);
+                Expect(app.HomeToastText == PlaytestText.T("gameplay.not_enough_petals") && app.Meta.Economy.Petals == 640, "Petals short for 1 200");
+                Run(app, p, 1.8f);
+                Expect(Shows(p, PlaytestText.F("profile.buy", NumberText.Group(1200))), "the button keeps the price");
+            });
+            yield return new Fixture(41, "profile-frames", "Extra: profile edit card, name and frames (spec 005 FR-037)", (p, data) =>
+            {
+                // Level 45, the Wardrobe open: the pencil opens the card on Name, "Change name" asks the host (here "Rosie")
+                // and Save keeps it; the card again on Frame lists the owned frames on the avatar, the shown one checked.
+                DesignApp app = Progressed(App(data), content, 44);
+                CloseAll(app);
+                // Two frames and a badge as later milestones give them.
+                foreach (string item in new[] { "frame.daisy", "frame.ivy", "badge.sprout" })
+                {
+                    app.Meta.Save.Cosmetics.Owned.Add(item);
+                }
+
+                Run(app, p, 0.1f);
+                Tap(p, HomeAvatar(p));
+                Run(app, p, 0.1f);
+                ReferenceProfileRegions page = ScreenLayout.ReferenceProfile(p.Width, p.Height, p.Insets);
+                Tap(p, page.Edit);
+                Expect(app.IsOpen(Overlay.ProfileEdit) && app.ProfileEditor!.Tab == ProfileTab.Name, "the pencil opens the card on Name");
+                Run(app, p, 0.5f);
+                ProfileEditRegions r = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
+                Tap(p, r.NameButton);
+                Run(app, p, 0.1f);
+                Expect(app.Meta.Profile.Name == null && Shows(p, "Rosie"), "the typed name waits for Save");
+                Tap(p, r.Button);
+                Expect(!app.IsOpen(Overlay.ProfileEdit) && app.Meta.Profile.Name == "Rosie", "Save keeps the name and closes the card");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "Rosie"), "the page shows the name");
+                Tap(p, page.Avatar);
+                Run(app, p, 0.1f);
+                Tap(p, Box.FromCenter(r.Tabs.Left + (r.Tabs.Width * 1.5f / ProfileEditor.Tabs.Count), r.Tabs.CenterY, 1f, 1f));
+                Expect(app.ProfileEditor!.Tab == ProfileTab.Frame, "the Frame tab");
+                Run(app, p, 0.5f);
+                Expect(app.ProfileEditor.ProfileItemsOpen && app.ProfileEditor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count > 0, "owned frames at Level 45");
+                Expect(p.Slots.Contains("cosmetic.frame"), "the frames on the avatar");
+            });
+        }
+
+        /// <summary>The preview's text entry: answers every question with the same text at once.</summary>
+        private sealed class FixedPrompt : ITextPrompt
+        {
+            private readonly string _answer;
+
+            public FixedPrompt(string answer) => _answer = answer;
+
+            public void Ask(string title, string text, int maxLength, Action<string> done) => done(_answer);
+        }
+
+        /// <summary>
         /// The guided spotlights of the onboarding (spec 005 FR-035): Level 1's entry and forced first tap, the blocked entry
         /// (Level 2), a booster's free use and its "kept" step (Level 3), Return's slots (Level 6) and Bloom Burst's tiles
         /// (Level 9).
@@ -858,7 +964,7 @@ namespace Bloomlings.Playtest.Preview
         private static void Playing(DesignApp app, SkiaPainter p, ContentSet content, int level, int taps)
         {
             app.Meta.SkipTo(level - 1);
-            app.Meta.Economy.Grant(200, null);
+            app.Meta.Economy.Grant(2000, null);
             app.LoadLevel(level);
             CloseDemo(app);
             Run(app, p, 0.1f);
@@ -1312,6 +1418,7 @@ namespace Bloomlings.Playtest.Preview
             (string Label, int Shown)[] steps = { ("Level 1–2 (hidden)", 0), ("Level 3", 1), ("Level 4", 2), ("Level 6", 3), ("Level 9+", 4) };
             string[] ids = { "extra_slot", "shuffle", "return", "bloom_burst" };
             int[] charges = { 2, 2, 1, 0 };
+            int[] prices = { RemoteConfigKeys.PriceExtraSlot.Default, RemoteConfigKeys.PriceShuffle.Default, RemoteConfigKeys.PriceReturn.Default, RemoteConfigKeys.PriceBloomBurst.Default };
 
             // The boxes at their size in play, unless the rows do not fit the sheet: then all of them a little smaller.
             float w = g.W;
@@ -1344,7 +1451,7 @@ namespace Bloomlings.Playtest.Preview
                 float cy = top + label + (side / 2f);
                 for (int i = 0; i < steps[s].Shown; i++)
                 {
-                    BoosterBarPainter.Tile(p, Place(i, cy), ids[i], new BoosterTileState(charges[i], 60, false, true, true), null);
+                    BoosterBarPainter.Tile(p, Place(i, cy), ids[i], new BoosterTileState(charges[i], prices[i], false, true, true), null);
                 }
 
                 top += label + side + gap;
@@ -1353,10 +1460,10 @@ namespace Bloomlings.Playtest.Preview
             // Every tile state of spec 003 FR-031: charges, price, selected (Return), disabled.
             var states = new (string Label, string Id, BoosterTileState State)[]
             {
-                ("Charges", "extra_slot", new BoosterTileState(3, 40, false, true, true)),
-                ("Price", "shuffle", new BoosterTileState(0, 40, false, true, true)),
-                ("Selected", "return", new BoosterTileState(1, 50, true, true, true)),
-                ("Disabled", "bloom_burst", new BoosterTileState(0, 60, false, true, false)),
+                ("Charges", "extra_slot", new BoosterTileState(3, prices[0], false, true, true)),
+                ("Price", "shuffle", new BoosterTileState(0, prices[1], false, true, true)),
+                ("Selected", "return", new BoosterTileState(1, prices[2], true, true, true)),
+                ("Disabled", "bloom_burst", new BoosterTileState(0, prices[3], false, true, false)),
             };
             SheetLine(p, body, top - (gap / 2f));
             float stateCy = top + label + (side / 2f);

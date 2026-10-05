@@ -147,7 +147,7 @@ namespace Bloomlings.Playtest.Design
             Kit.BoosterIcon(p, id, Box.FromCenter(tile.CenterX, tile.CenterY, tile.Width * 0.74f, tile.Width * 0.74f), grey: !unlocked);
             float badge = tile.Width * 0.3f;
             Kit.CountBadge(p, tile.Right - (badge * 0.2f), tile.Bottom - (badge * 0.2f), badge, app.Meta.Economy.Charges(kind).ToString(CultureInfo.InvariantCulture));
-            Name(p, line, tile, grow, EndCards.BoosterName(kind));
+            Name(p, line, tile, grow, EndCards.BoosterName(kind), PriceBox(p, line, app.Meta.Economy.Price(kind)).Left);
             p.PopAlpha();
             Price(p, line, app.Meta.Economy.Price(kind), unlocked ? () =>
             {
@@ -172,10 +172,15 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A row's name in brown after its tile, in <c>type.button_secondary</c> grown with the row (<paramref name="grow"/>:
-        /// its height over a <see cref="ReferenceStoreRegions.RowTypeShare"/> row's), shrunk to 42% of the row when longer.
+        /// its height over a <see cref="ReferenceStoreRegions.RowTypeShare"/> row's), shrunk to 42% of the row when longer,
+        /// and to the room before <paramref name="right"/> (the price pill's left, a 4-digit price since 2026-10-05).
         /// </summary>
-        private static void Name(IPainter p, Box line, Box tile, float grow, string name) =>
-            p.TextLeft(name, tile.Right + (tile.Width * 0.22f), line.CenterY, T.ButtonSecondary, C.InkBrown, line.Width * 0.42f, grow, TextLook.Plain(C.InkBrown));
+        private static void Name(IPainter p, Box line, Box tile, float grow, string name, float right = float.MaxValue)
+        {
+            float left = tile.Right + (tile.Width * 0.22f);
+            float room = Math.Min(line.Width * 0.42f, right - (line.Height * 0.12f) - left);
+            p.TextLeft(name, left, line.CenterY, T.ButtonSecondary, C.InkBrown, room, grow, TextLook.Plain(C.InkBrown));
+        }
 
         /// <summary>
         /// A Shop row's item tile at its left end: the booster tile's cream squircle (§3.7), 0.8 of the row tall (0.12 W on
@@ -190,13 +195,18 @@ namespace Bloomlings.Playtest.Design
             return box;
         }
 
+        /// <summary>Where a row's price pill goes: at its right end, as wide as the lotus and the grouped price.</summary>
+        private static Box PriceBox(IPainter p, Box line, int price)
+        {
+            float h = line.Height * 0.56f;
+            float w = p.MeasureText(NumberText.Group(price), T.Count, (h * 0.56f) / p.U(T.Count.Size)) + (h * 1.9f);
+            return new Box(line.Right - (line.Height * 0.14f) - w, line.CenterY - (h / 2f), line.Right - (line.Height * 0.14f), line.CenterY + (h / 2f));
+        }
+
         /// <summary>A price as a cost pill with the lotus at a row's right end; a tap on the row buys.</summary>
         private static void Price(IPainter p, Box line, int price, Action? buy)
         {
-            float h = line.Height * 0.56f;
-            string text = NumberText.Group(price);
-            float w = p.MeasureText(text, T.Count, (h * 0.56f) / p.U(T.Count.Size)) + (h * 1.9f);
-            var pill = new Box(line.Right - (line.Height * 0.14f) - w, line.CenterY - (h / 2f), line.Right - (line.Height * 0.14f), line.CenterY + (h / 2f));
+            Box pill = PriceBox(p, line, price);
             p.PushAlpha(buy != null ? 1f : 0.45f);
             Kit.CostPill(p, pill, Cost.Petals(price));
             p.PopAlpha();

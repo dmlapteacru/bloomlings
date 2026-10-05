@@ -991,7 +991,8 @@ with Extra Slot.
   Use `SessionOptions.ShuffleNodeBudget` as the budget and emit `TrayShuffled`.
 - [X] T118 [P] [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs`. It holds the bundled
   defaults and clamping ranges for the `economy.*` keys in `contracts/backend-services.md`, for example
-  `economy.petals.base` 12 (5–50), `economy.price.bloomBurst` 60 (10–500) and `economy.drop.everyLevels` 5 (2–20).
+  `economy.petals.base` 12 (5–50), `economy.price.bloomBurst` 1800 (10–10000; 60 and 10–1000 before 2026-10-05) and
+  `economy.drop.everyLevels` 5 (2–20).
 - [X] T119 [US5] Implement `client/Assets/Bloomlings/Services/Economy/EconomyService.cs`:
   - the Petals wallet;
   - level rewards (FR-041);
@@ -1523,6 +1524,14 @@ final validation.
   the screen four.
 - [ ] T164 The owner looks at the ten redrawn curated pictures (approved provisionally, as before, "pending the owner's
   look and playtest") and playtests the new Levels 1–10 and the new pace (FR-084, SC-001: Level 1 within 2 minutes).
+- [X] T165 Booster prices as in the reference game (the owner, 2026-10-05): Extra Slot and Shuffle 1200 Petals, Return
+  1500, Bloom Burst 1800 (Remote Config, `backend-services.md`; they were 40 / 40 / 50 / 60); the Store's names keep
+  clear of the wider price pills (both builds); the economy tests and preview frames 10, 14, 17 at the new prices.
+- [X] T166 The profile's avatars as profile cosmetics (FR-063 as amended; spec 005 FR-037, its tasks T113–T118): four
+  free, ten bought once for 300 / 600 / 1200 Petals (Remote Config `economy.price.avatar*`), the save's `profile`
+  section and `cosmetics.equipped.profile.avatar` (both schema copies, data-model §3.1, the merge).
+- [ ] T167 The owner: set the Petal packs' sizes for the new booster prices (120 / 400 / 1000 now buy less than one
+  booster) with the server work (`ProductCatalog.json`, `backend/cloud-code/ValidatePurchase.js`).
 
 ## Parallel Example: User Story 1
 

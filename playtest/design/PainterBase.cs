@@ -145,7 +145,8 @@ namespace Bloomlings.Playtest.Design
         /// so a PNG or a JPEG works), <c>brand/{name}</c> the
         /// logo, <c>icon/{name}</c> a booster icon, a variant icon or the lotus and <c>decor/{name}</c> a leaf decoration
         /// (spec 005 pictures.md B, C, D and G, <see cref="OwnerPictures"/>), <c>heromotion/{frame}</c> an animated hero's
-        /// frame (spec 005 FR-028, embedded without its extension); every other name is a character picture (spec 004
+        /// frame (spec 005 FR-028, embedded without its extension), <c>avatar/{name}</c> a profile avatar (spec 005 FR-037, a JPEG
+        /// embedded without its extension); every other name is a character picture (spec 004
         /// contracts/art-files.md "Loading"). A grey copy (<see cref="GreySuffix"/>) comes from its picture's resource.
         /// </summary>
         public static string SpriteResource(string name)
@@ -183,8 +184,17 @@ namespace Bloomlings.Playtest.Design
                 return name;
             }
 
+            if (name.StartsWith(AvatarPrefix, StringComparison.Ordinal))
+            {
+                // The profile's avatar pictures (JPEG), embedded without the extension.
+                return "avatars/" + name.Substring(AvatarPrefix.Length);
+            }
+
             return "characters/" + name + ".png";
         }
+
+        /// <summary>The name prefix of the profile's avatar pictures (<c>avatar/drop_default</c>, spec 005 pictures.md I).</summary>
+        public const string AvatarPrefix = "avatar/";
 
         /// <summary>The name prefix of the owner's backgrounds (<c>bg/home</c>).</summary>
         public const string BackgroundPrefix = "bg/";
@@ -341,6 +351,8 @@ namespace Bloomlings.Playtest.Design
         protected const long HeroDrawCacheBytes = 8L * 1024 * 1024;
 
         public abstract void PushClip(Box box);
+
+        public abstract void PushClipRound(Box box, float radius);
 
         public abstract void PopClip();
 

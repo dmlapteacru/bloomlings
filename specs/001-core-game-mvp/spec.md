@@ -90,6 +90,18 @@ a default or asks a question.
   for the start: 11×12–12×12 at L1–10 (about 110–130 tiles, was 7×8–8×8 with 52–60), growing to 13×14–14×16 at
   L51–100, and never smaller than 11×12 later. FR-008 and the Level Band Guidelines are amended; the picture library,
   Levels 1–10 and the showcases were redrawn for it. The clearing pace at 1× is halved again (research R4).
+- **Q: The in-game prices are very cheap. What should boosters cost?**
+  A: As in the reference game: its cheapest booster costs 1200 coins (players' reports), and its four boosters keep the
+  ratio 40 : 40 : 50 : 60 (the fan wiki). Extra Slot and Shuffle cost 1200 Petals, Return 1500 and Bloom Burst 1800
+  (Remote Config `economy.price.*`, `contracts/backend-services.md`); they cost 40 / 40 / 50 / 60 before. Bloom Burst
+  stays the dearest (FR-048). The Petal packs (120 / 400 / 1000) now buy less than one booster; their sizes are the
+  owner's to set with the server work.
+- **Q: What does the profile hold?**
+  A: A profile page like the reference game's, in the garden look (spec 005 FR-037): the owner's 14 avatar pictures,
+  four free (one per family) and ten for Petals at 300 / 600 / 1200 (Remote Config `economy.price.avatar*`), the
+  player's name (kept on the device until the server work), the short player ID, the joining month, the level, three
+  stats and placeholder achievements until the owner names them. The avatars are profile cosmetics (FR-063 as amended),
+  open from Level 1.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -510,6 +522,10 @@ skin. Complete the daily challenge. Open the Collection.
   After about L500, new core mechanics MUST be rare.
 - **FR-062**: The Leaderboard MUST unlock at L10 and rank players globally by highest completed level. Ties are ordered by who completed that level first. Submissions MUST pass sanity checks: progress only moves forward, no impossible jumps, and the content version is compatible.
 - **FR-063**: Wardrobe MUST unlock at L40. It offers cosmetic skins, hats, trails and expressions with no gameplay effect. Cosmetics MUST NOT reduce tile or pod readability.
+  *Amended 2026-10-05 (the owner):* the profile's avatar pictures (spec 005 FR-037) are profile cosmetics too: four
+  free, ten bought once with Petals (300 / 600 / 1200), open from Level 1 on the profile page (not in the Wardrobe or
+  the Store), shown only on the profile (Home's avatar, the page, the player's own leaderboard row), never on the
+  board.
 - **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50.
 - **FR-065**: Every finished picture MUST be added to a Collection that the player can view. The Collection is never a level selector.
 - **FR-066**: Background themes MUST rotate automatically by level band. This is visual only; there are no navigable areas.
@@ -723,7 +739,7 @@ Layout principles:
   - Variants entering at L45/L200: to be decided.
 - **Platforms**: Android and iOS phones, portrait. The high-level technical direction in doc 15 (Unity/C#, deterministic simulation, offline generator and solver, lightweight backend) is input for planning, not part of this spec.
 - **Picture library**: if each base picture is used in at most about 5 levels, a 5000-level catalog needs roughly 1000–1500 base pictures. The exact size and sourcing (drawn, generated, or generated and edited) are decided in planning.
-- **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 Petals, a booster costs roughly 40–60 Petals.
+- **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 Petals, a booster costs 1200–1800 Petals (the owner, 2026-10-05: aligned with the reference game, whose cheapest booster costs 1200 coins; it was 40–60).
 - **Out of scope for launch** (doc 14):
   - world map, room builder, PvP, clans, narrative campaign;
   - permanent hero power upgrades;

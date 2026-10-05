@@ -4,6 +4,7 @@ using System.IO;
 using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
@@ -26,7 +27,8 @@ namespace Bloomlings.Playtest
     /// <item><description>milestone rewards;</description></item>
     /// <item><description>the Daily Reward;</description></item>
     /// <item><description>the Collection;</description></item>
-    /// <item><description>the Wardrobe.</description></item>
+    /// <item><description>the Wardrobe;</description></item>
+    /// <item><description>the profile (avatars, name, joining day).</description></item>
     /// </list>
     /// The playtest only calls them; their rules live in <c>client/</c>.
     /// </summary>
@@ -50,6 +52,7 @@ namespace Bloomlings.Playtest
             DailyReward = new DailyRewardService(Save, clock, config, Economy, _saves.Save);
             Collection = new CollectionService(Save, _saves.Save);
             Wardrobe = new WardrobeService(Save, Cosmetics, config, _saves.Save, Economy);
+            Profile = new ProfileService(Save, config, clock, _saves.Save, Economy);
             Progression = new ProgressionService(Save, UnlockRoadmap.Default, _saves.Save);
             Progression.UnlockReached += entry =>
             {
@@ -81,6 +84,8 @@ namespace Bloomlings.Playtest
         public CollectionService Collection { get; }
 
         public WardrobeService Wardrobe { get; }
+
+        public ProfileService Profile { get; }
 
         /// <summary>Unlocks reached by the last win (the Home and win card mention them).</summary>
         public List<UnlockEntry> NewUnlocks { get; } = new List<UnlockEntry>();

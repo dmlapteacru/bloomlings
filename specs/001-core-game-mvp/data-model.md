@@ -246,11 +246,12 @@ Wire format: [`contracts/player-save.schema.json`](contracts/player-save.schema.
 | Boosters | `{extraSlot, shuffle, return, bloomBurst}` charges |
 | Unlocks | Flags keyed by `unlockId`, plus `demosSeen[]` |
 | Milestones | `claimed[]` of level numbers (each granted exactly once, FR-061) |
-| Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker}}` |
+| Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items and the bought avatars `avatar.<name>`, spec 005 FR-037), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker, avatar}}` |
 | Daily | `dailyReward{lastClaimUtcDate, streak}`, `dailyChallenge{lastCompletedUtcDate}` |
 | Collection | `entries[]` of `{pictureId, pictureVersion, mappingHash, levelNumber}` (FR-065) |
 | Settings | `music`, `sfx`, `haptics`, `speed2x`, `homePetalsOn` (optional, default off: Home's falling petals; the owner's request of 2026-10-04 and tuning of 2026-10-05, spec 005 FR-036; the earlier `homePetals`, written as on by older saves, is read and ignored), `language` |
 | Stats | `levelsWon`, `jams`, `boostersUsed{}`, `adsWatched`, `firstSessionMaxLevel` |
+| Profile | optional (spec 005 FR-037, 2026-10-05): `name?` (1–16 characters, kept on the device; missing while the default "Gardener NNNN" is kept), `joinedAt?` (the UTC day, `yyyy-MM-dd`, set once); a merge keeps the base's name, else the other's, and the earlier day |
 
 **Rules:**
 

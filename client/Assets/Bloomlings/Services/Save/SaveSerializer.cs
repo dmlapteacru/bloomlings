@@ -64,7 +64,7 @@ namespace Bloomlings.Client.Services.Save
         {
             JObject root = (migrations ?? SaveMigrations.Default).Apply(document);
             const string p = "";
-            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats");
+            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats", "profile");
 
             var save = new PlayerSave
             {
@@ -189,6 +189,15 @@ namespace Bloomlings.Client.Services.Save
             JToken? homePetals = JsonDoc.Optional(settings, "homePetalsOn");
             save.Settings.HomePetals = homePetals != null && JsonDoc.Bool(homePetals, "settings.homePetalsOn");
             save.Settings.Language = OptionalString(settings, "settings", "language") ?? "en";
+
+            JToken? profile = JsonDoc.Optional(root, "profile");
+            if (profile != null)
+            {
+                JObject fields = JsonDoc.Object(profile, "profile");
+                JsonDoc.AllowOnly(fields, "profile", "name", "joinedAt");
+                save.Profile.Name = OptionalString(fields, "profile", "name");
+                save.Profile.JoinedAt = OptionalString(fields, "profile", "joinedAt");
+            }
 
             JToken? stats = JsonDoc.Optional(root, "stats");
             if (stats != null)
@@ -335,6 +344,22 @@ namespace Bloomlings.Client.Services.Save
             if (save.DeviceId != null)
             {
                 root["deviceId"] = save.DeviceId;
+            }
+
+            if (save.Profile.Name != null || save.Profile.JoinedAt != null)
+            {
+                var profile = new JObject();
+                if (save.Profile.Name != null)
+                {
+                    profile["name"] = save.Profile.Name;
+                }
+
+                if (save.Profile.JoinedAt != null)
+                {
+                    profile["joinedAt"] = save.Profile.JoinedAt;
+                }
+
+                root["profile"] = profile;
             }
 
             if (save.Stats.Counters.Count > 0 || save.Stats.Groups.Count > 0)

@@ -575,10 +575,10 @@ namespace Bloomlings.Playtest.Droid
                     {
                         Android.Util.Log.Warn("Bloomlings", SpriteResource(name) + " is not embedded; drawing the stand-in");
                     }
-                    else if (name.StartsWith(IconPrefix, StringComparison.Ordinal))
+                    else if (name.StartsWith(IconPrefix, StringComparison.Ordinal) || name.StartsWith(AvatarPrefix, StringComparison.Ordinal))
                     {
-                        // The owner's icons are drawn far below their size (a 512 px icon on a 60 px tile): mipmaps keep
-                        // them smooth.
+                        // The owner's icons are drawn far below their size (a 512 px icon on a 60 px tile), and so are
+                        // the avatars in the edit card's grid: mipmaps keep them smooth.
                         bitmap.HasMipMap = true;
                     }
                 }
@@ -623,6 +623,14 @@ namespace Bloomlings.Playtest.Droid
         {
             _canvas.Save();
             _canvas.ClipRect(R(box));
+        }
+
+        public override void PushClipRound(Box box, float radius)
+        {
+            _canvas.Save();
+            using var path = new Android.Graphics.Path();
+            path.AddRoundRect(R(box), radius, radius, Android.Graphics.Path.Direction.Cw!);
+            _canvas.ClipPath(path);
         }
 
         public override void PopClip() => _canvas.Restore();
