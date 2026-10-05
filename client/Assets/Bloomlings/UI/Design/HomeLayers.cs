@@ -35,8 +35,9 @@ namespace Bloomlings.Client.UI.Design
     /// heroes at the back with their shadows (Drop, Bloom), the lotus again (<see cref="Lotus"/>, so Bloom stands behind
     /// it), the heroes in front with their shadows (Sprig, Twig), the fountain's front stones and flowers
     /// (<see cref="FountainFront"/>, over the heroes' feet), the drifting petals (<see cref="Petals"/>), then the UI. The
-    /// layers share one box over the screen (<see cref="Cover"/>, the backdrop's own cover fit), so the heroes stay on the
-    /// fountain on every screen shape. Engine-free.
+    /// layers over the garden share one box over the screen (<see cref="Stage"/>: the backdrop's own cover fit,
+    /// <see cref="Cover"/>, drawn at <see cref="StageScale"/>), so the heroes stay on the fountain on every screen shape.
+    /// Engine-free.
     /// </summary>
     public static partial class HomeLayers
     {
@@ -53,6 +54,19 @@ namespace Bloomlings.Client.UI.Design
         public const float PetalsSway = 14f;
 
         public const float PetalsSwaySeconds = 7f;
+
+        /// <summary>
+        /// The stage's size (the owner's tuning of 2026-10-05, spec 005 FR-036): the fountain's layers, the heroes, their
+        /// shadows and the petals are drawn at this share of the garden's cover box, toward the screen's middle across and
+        /// <see cref="StageAnchorShare"/> of its height down (about the plaque), so the fountain sits a little smaller in the
+        /// blurred garden.
+        /// </summary>
+        public const float StageScale = 0.9f;
+
+        public const float StageAnchorShare = 0.6f;
+
+        /// <summary>Each hero's size on the stage, about its feet (the owner's tuning of 2026-10-05).</summary>
+        public const float HeroScale = 1.05f;
 
         /// <summary>When Home's first reaction comes after it opens, and how often one follows, in seconds.</summary>
         public const float FirstReaction = 1.5f;
@@ -107,14 +121,15 @@ namespace Bloomlings.Client.UI.Design
         /// rim, their feet behind the fountain's front flowers. Twig's Blender model (2026-10-03) spreads its branches
         /// wider than the Meshy one did, so it stands a little smaller and further in, inside a 21:9 screen. The owner's
         /// Heroes.glb (2026-10-04) gives Bloom a wide crown of petals: Bloom stands a little smaller and Drop further right
-        /// and a little taller, so Drop's face shows beside the petals.
+        /// and a little taller, so Drop's face shows beside the petals. Since the owner's tuning of 2026-10-05 Twig stands a
+        /// little further right, so more of Drop shows beside it.
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
             Family.Bloom => (0.5f, 0.49f, 0.40f),
             Family.Drop => (0.735f, 0.532f, 0.36f),
             Family.Sprig => (0.235f, 0.56f, 0.40f),
-            _ => (0.815f, 0.568f, 0.31f),
+            _ => (0.85f, 0.568f, 0.31f),
         };
 
         /// <summary>How far into its idle loop a hero starts (seconds), so the four do not breathe together.</summary>
@@ -136,6 +151,19 @@ namespace Bloomlings.Client.UI.Design
             return Box.FromCenter(screen.CenterX, screen.CenterY, PictureWidth * scale, PictureHeight * scale);
         }
 
+        /// <summary>
+        /// The box the stage's layers and heroes lie in over <paramref name="screen"/>: the garden's cover box
+        /// (<see cref="Cover"/>) at <see cref="StageScale"/>, toward the screen's middle across and
+        /// <see cref="StageAnchorShare"/> of its height down. The garden itself keeps its cover box.
+        /// </summary>
+        public static Box Stage(Box screen)
+        {
+            Box cover = Cover(screen);
+            float ax = screen.CenterX;
+            float ay = screen.Top + (screen.Height * StageAnchorShare);
+            return new Box(ax + ((cover.Left - ax) * StageScale), ay + ((cover.Top - ay) * StageScale), ax + ((cover.Right - ax) * StageScale), ay + ((cover.Bottom - ay) * StageScale));
+        }
+
         /// <summary>A layer's box on screen, the layered picture lying at <paramref name="picture"/>.</summary>
         public static Box Place(Box picture, PictureBox layer)
         {
@@ -145,14 +173,14 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// A hero's frame cell on screen (<see cref="HeroMotion.Cell"/>'s 8:9 box, the feet on its foot line): its seam
-        /// pose <see cref="Placement"/>'s height tall. Without baked frames, the still hero's box (feet at 90%) with the
-        /// figure about 0.8 of it.
+        /// pose <see cref="Placement"/>'s height tall, times <see cref="HeroScale"/>. Without baked frames, the still hero's
+        /// box (feet at 90%) with the figure about 0.8 of it.
         /// </summary>
         public static Box HeroCell(Box picture, Family family)
         {
             (float x, float feet, float height) = Placement(family);
             float fill = HeroMotion.Has(family) ? HeroMotion.Fill(family) : 0.8f;
-            float cellHeight = height * picture.Width / Math.Max(0.05f, fill);
+            float cellHeight = height * HeroScale * picture.Width / Math.Max(0.05f, fill);
             float cellWidth = cellHeight * HeroMotion.CellWidth / HeroMotion.CellHeight;
             float fx = picture.Left + (x * picture.Width);
             float fy = picture.Top + (feet * picture.Height);

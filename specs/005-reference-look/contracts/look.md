@@ -617,7 +617,8 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   their glyphs. Settings: cream rows with brown labels and
   the garden toggle (on: the green set's glossy track with a white ✓ and the knob right; off: a parchment well; the knob
   a domed cream cushion like the round buttons); since the owner's request of 2026-10-04 its last switch is "Falling
-  petals" (`settings.petals`, the save's `settings.homePetals`, on by default): off, Home draws neither the layered
+  petals" (`settings.petals`, the save's `settings.homePetalsOn`, off by default since the owner's tuning of 2026-10-05;
+  the earlier `homePetals`, on in every older save, is ignored): off, Home draws neither the layered
   Home's petals (`bg.home.petals`) nor the stand-in's falling petals; the splash, the win and the milestone keep theirs.
 - Demo and unlock cards: parchment, no title; a booster's card shows its colored icon on a cream tile; the first line in
   `type.button_secondary` `InkBrown`, the others in `type.body` `InkBrownSoft`, each wrapped to the card; variant cards
@@ -986,13 +987,13 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
 | Petals pill | box `0.44W × 0.105W` (`PetalsWidthShare`, `PetalsHeightShare`; before: `0.38W × 0.095W` at the right edge − `0.02W`), centered on the safe area's middle and on Settings' middle line, `0.11W` clear of Settings and of the Avatar; the pill fits its amount and stands centered in the box with its "+" (`align` 0.5), the main buttons' leaves and flower on its top-left end and on the "+"'s bottom-right edge (`GardenLook.PillDecorationBoxes`), never touch targets; its "+" opens the Store page once the Store is open |
 | Avatar | the profile avatar `0.13W`, Settings' mirror: right `0.04W` from the safe right edge, top 2.5% of H (`Avatar`): the player's hero (`CharacterArt.ProfileHero`, Bloom; in its outfit once the Wardrobe is open) on a domed cream disc with a soft green middle, the chosen profile frame (1.08 of it) and the profile badge (0.36 of it, at its bottom left); no shirt badge. A tap presses and clicks; the playtest then shows the toast "Profile coming soon" (`home.profile_soon`); Unity's Home has no toast (`HomeFeatureActions.OnProfile`, none yet). The profile page comes later |
-| Logo | `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
+| Logo | none on Home since the owner's tuning of 2026-10-05 (FR-036); the box stays for the splash's wordmark: `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
-| Promo scenes | under the logo from 24% of H (or `0.02W` under the logo): No Ads at the left, the Daily Reward at the right, each `0.27W` wide and `0.67` of that tall, `0.04W` from the edge (`ReferenceHomeRegions.NoAds`, `.DailyReward`; §6.4.1) |
-| Side buttons | the Daily Challenge (right) as a cream round button `0.13W` under the Daily Reward's promo scene with `0.03W` between them (at 24% of H before the promo scenes), `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places (the avatar came back the same day, without the shirt badge, at the right of the header row) |
-| Level plaque | wooden sign `0.5W × 0.085H`, centered, `0.01H` over Play (64% to 72.5% of H before the bottom menu; about 60% to 68.5% now) |
-| Play | the primary button (wood rim, decorated, breathing), `0.85W` wide, `0.15H` tall, ending over the teaser row (73.5% to 88.5% of H before the bottom menu; about 69.5% to 84.5% on 19.5:9 now); the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
-| Teaser | the milestone teaser as a small parchment pill (`0.5W × 0.04H`) centered under Play, its row's touch boxes ending `0.015W` over the bottom menu's top; the free booster as a cream pill beside it when offered |
+| Promo scenes | in the logo's place from 17.5% of H (`PromoTopShare`, or `0.02W` under Settings): No Ads at the left, the Daily Reward at the right, each `0.2835W` wide (`HomePromo.WidthShare` × `PromoScale` 1.05) and `0.67` of that tall, `0.04W` from the edge (`ReferenceHomeRegions.NoAds`, `.DailyReward`; §6.4.1), each on a cream plate with soft shadows (FR-036, below) |
+| Side buttons | the Daily Challenge (right) as a cream round button `0.13W` under the Daily Reward's promo scene with `0.086W` between them (`DailyGapShare`; `0.03W` before 2026-10-05) (at 24% of H before the promo scenes), `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places (the avatar came back the same day, without the shirt badge, at the right of the header row) |
+| Level plaque | wooden sign `0.4W × 0.068H` (`PlaqueWidthShare`, `PlaqueShare`; `0.5W × 0.085H` before 2026-10-05), centered, `0.01H` over Play |
+| Play | the primary button (wood rim, decorated, breathing), `0.68W` wide, `0.12H` tall (`PlayWidthShare`, `PlayShare`; `0.85W × 0.15H` before 2026-10-05), ending over the teaser row; the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
+| Teaser | the milestone teaser as a small parchment pill (`0.5W × 0.04H`) centered under Play, its row's touch boxes ending on the bottom menu's top (`0.015W` over it before 2026-10-05); the free booster as a cream pill beside it when offered |
 | Bottom menu | the owner's wooden bar across the screen's bottom with Home in its raised medallion (§6.7) |
 
 Fixed: the fractions apply to the safe height (`bottomReserve`, 0 in both builds since the playtest's dev row moved into
@@ -1019,6 +1020,19 @@ so the plaque stays at 60% (1177), and on 1080 × 2520 (120 / 66) it keeps `0.15
 keeps 22%–70% of H. The rank pill (`Rank`), the Wardrobe, Collection and Store side buttons (`Wardrobe`,
 `Collection`, `Store`) were removed from `ReferenceHomeRegions` with them.
 
+**The owner's tuning** (2026-10-05, FR-036, research D29, from the constructor of the game's own layers; the
+numbers are the owner's on a 1080 px wide screen, kept as shares of W): no logo; the garden blurred by `4/1080` of its
+width in its picture (`layers.mjs` `gardenBlur`); the stage (the fountain's layers, the heroes, their shadows and the
+petals) at `HomeLayers.Stage(screen)`, the cover box at 0.9 toward the screen's middle across and 60% of its height
+down; each hero ×1.05 about its feet (`HomeLayers.HeroScale`), Twig at 0.85 of the picture's width; the heroes' Home
+frames sharpened, at 110% contrast and saturation (`heroes.json` `home`, `post.mjs`); the falling petals off unless
+Settings switches them on. Each promo scene stands on the round buttons' cream cushion (`ui.button.round`,
+`HomePromo.PlateBox`: the scene's box grown by `0.02` of its width, corners `0.22` of the plate's width) over its soft
+shadow (`UiRaster.RoundShadow`: `garden.shadow` at 0.4, blur `12.8/1080 W`, `6.4/1080 W` down); every picture of the
+scene casts a soft shadow under all of them (`HomePromo.ShadowOf`, `UiRaster.SilhouetteShadow` from the picture's alpha:
+`garden.shadow` at 0.55, blur `16/1080 W`, `8/1080 W` down), posed as its picture; the Remove Ads card's scene has
+neither.
+
 **The layered Home** (owner's delivery, FR-028, research D19; kit `HomeLayers` and `HomeMotion` in `HomeLayers.cs`,
 the boxes in the generated `HomeLayersData.cs`). Over the owner's garden with its fountain layers (pictures.md B1),
 Home and the splash draw, back to front:
@@ -1029,13 +1043,14 @@ Home and the splash draw, back to front:
 5. Sprig, then Twig, each over its shadow;
 6. the fountain's front `home-fountain-front` (`bg.home.fountain_front`), over the heroes' feet;
 7. the petals `home-petals` (`bg.home.petals`), drifting;
-8. the UI: the logo, Settings, the Petals pill, the avatar, the side button, the plaque, Play, the pills and the bottom
-   menu (§6.7).
+8. the UI: Settings, the Petals pill, the avatar, the promo scenes on their plates, the side button, the plaque, Play,
+   the pills and the bottom menu (§6.7); the splash its wordmark.
 
-Every layer lies at `HomeLayers.Place(HomeLayers.Cover(screen), layer)`, `screen` the full-screen box the backdrop
-cover-fits the garden into: `Cover` lays the 852 × 1846 picture (`PictureWidth`, `PictureHeight`) over it at the larger
-scale, centered, and `Place` scales a layer's box in the picture's pixels into it, so the heroes stay on the fountain
-on every screen shape.
+Every layer over the garden lies at `HomeLayers.Place(HomeLayers.Stage(screen), layer)`, `screen` the full-screen box
+the backdrop cover-fits the garden into: `Cover` lays the 852 × 1846 picture (`PictureWidth`, `PictureHeight`) over it
+at the larger scale, centered (the garden's own box), `Stage` takes that box at 0.9 toward the screen's middle at 60% of
+its height (since 2026-10-05), and `Place` scales a layer's box in the picture's pixels into it, so the heroes stay on
+the fountain on every screen shape.
 
 | Layer (`HomeLayers`) | Box in the picture (x, y, width × height) |
 |---|---|

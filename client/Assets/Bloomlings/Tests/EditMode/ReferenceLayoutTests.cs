@@ -482,7 +482,9 @@ namespace Bloomlings.Client.Tests
                     ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets, reserve);
                     string at = w + "x" + h + " reserve=" + reserve;
                     float touch = Touch(w, h);
-                    float limit = r.NavTop - (BottomNav.GapShare * r.W) - reserve;
+                    // The teaser row's touch boxes end at the menu's top (the medallion's) less the reserve: the owner lowered
+                    // Home's bottom group by about the menu's gap (2026-10-05, spec 005 FR-036).
+                    float limit = r.NavTop - reserve;
                     AssertOrdered(r.Ordered, r.Safe, at);
 
                     // The header row: [Settings]  [ Petals + ]  [Avatar] on Settings' middle line.
@@ -516,7 +518,8 @@ namespace Bloomlings.Client.Tests
                     Assert.That(r.Play.Bottom, Is.LessThanOrEqualTo(TouchBox(r.FreeBooster, touch).Top + 0.5f), at + ": Play clear of the free booster's touch box");
                     Assert.That(r.Diorama.Top, Is.GreaterThanOrEqualTo(r.Logo.Bottom), at);
                     Assert.That(r.Plaque.Top, Is.LessThan(r.Diorama.Bottom), at + ": the plaque stands at the diorama's foot");
-                    Assert.That(r.Play.Width, Is.EqualTo(0.85f * r.W).Within(0.5f), at);
+                    Assert.That(r.Play.Width, Is.EqualTo(ReferenceHomeRegions.PlayWidthShare * r.W).Within(0.5f), at);
+                    Assert.That(r.Plaque.Width, Is.EqualTo(ReferenceHomeRegions.PlaqueWidthShare * r.W).Within(0.5f), at);
                     float sh = r.Safe.Height;
                     Assert.That(r.Play.Height, Is.InRange(Math.Max(ReferenceHomeRegions.PlayMinShare * sh, touch) - 0.5f, (ReferenceHomeRegions.PlayShare * sh) + 0.5f), at);
                     if (r.Play.Height < (ReferenceHomeRegions.PlayShare * sh) - 0.5f && r.Play.Height > Math.Max(ReferenceHomeRegions.PlayMinShare * sh, touch) + 0.5f)
@@ -527,6 +530,10 @@ namespace Bloomlings.Client.Tests
                     Assert.That(r.SideButton(true, 0), Is.EqualTo(r.Daily), at);
                     Assert.That(r.Daily.Top, Is.GreaterThan(r.DailyReward.Bottom), at + ": the Daily Challenge under the Daily Reward's promo scene");
                     Assert.That(r.NoAds.Top, Is.EqualTo(r.DailyReward.Top).Within(0.01f), at + ": the promo scenes on one line");
+                    Assert.That(r.NoAds.Width, Is.EqualTo(HomePromo.WidthShare * ReferenceHomeRegions.PromoScale * r.W).Within(0.5f), at);
+                    Assert.That(r.NoAds.Top, Is.EqualTo(Math.Max(r.Safe.Top + (ReferenceHomeRegions.PromoTopShare * sh), r.Settings.Bottom + (0.02f * r.W))).Within(0.5f), at + ": the promo scenes in the logo's place");
+                    Assert.That(HomePromo.PlateBox(r.NoAds).Top, Is.GreaterThan(r.Header.Bottom), at + ": No Ads' plate under the header");
+                    Assert.That(r.Daily.Top - r.DailyReward.Bottom, Is.EqualTo(ReferenceHomeRegions.DailyGapShare * r.W).Within(0.5f), at);
                     Assert.That(r.Daily.Overlaps(r.Logo), Is.False, at + ": the Daily Challenge under the logo");
                     Assert.That(r.Daily.Bottom, Is.LessThan(r.Plaque.Top), at + ": the Daily Challenge above the plaque");
 

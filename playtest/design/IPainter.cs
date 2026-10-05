@@ -79,6 +79,12 @@ namespace Bloomlings.Playtest.Design
         (int Width, int Height)? SpriteSize(string name);
 
         /// <summary>
+        /// The alpha of an embedded picture (one byte a pixel, rows from the top) with its size, or null when it is missing:
+        /// the silhouette the promo scenes' soft shadows are made from (<see cref="HomePromo.Shadow"/>). Read once and cached.
+        /// </summary>
+        (byte[] Alpha, int Width, int Height)? SpriteAlpha(string name);
+
+        /// <summary>
         /// A cosmetic skin pattern (<see cref="ShapeLibrary.SkinPattern"/>) in <paramref name="tint"/>, drawn only where the
         /// picture <paramref name="name"/>, fitted as by <see cref="Sprite"/>, is opaque: the picture masks the pattern.
         /// </summary>

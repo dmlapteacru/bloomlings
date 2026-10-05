@@ -1,7 +1,8 @@
 // Prepares the owner's layered Home picture (bloomlings_home_assets.zip, 2026-10-02; spec 005 FR-028) for both builds:
 // every layer cropped to its visible bounds (so a decoded layer holds no empty rows; alpha under 6 / 255 is dust), the lotus cut out of the fountain's
 // back layer (it is drawn again over Bloom, who stands behind it), one soft shadow cut out of the shadow sheet, the
-// opaque garden re-encoded as JPEG (quality 90); every layer's saturation scaled by one factor, the one that brings the
+// opaque garden blurred (the owner's 4 px on a 1080 px wide screen, 2026-10-05, spec 005 FR-036: `gardenBlur`) and
+// re-encoded as JPEG (quality 90); every layer's saturation scaled by one factor, the one that brings the
 // garden to the background's share of the heroes' (saturation.mjs, spec 005 FR-031), so the scene keeps its balance.
 // Writes the pictures into the Backgrounds folder, their boxes into client/Assets/Bloomlings/UI/Design/HomeLayersData.cs
 // and the hashes into layers.json.
@@ -44,6 +45,30 @@ function crop(png, r) {
 }
 
 const write = p => PNG.sync.write(p, { deflateLevel: 9 });
+
+/** The garden's blur, as a share of its width (the owner's 4 px on a 1080 px wide screen, the Home constructor's). */
+export const gardenBlur = 4 / 1080;
+
+// A Gaussian blur of an opaque RGBA picture in place (separable, the edges clamped), `sigma` in pixels.
+function blur(img, sigma) {
+  const { width: w, height: h, data } = img;
+  const r = Math.ceil(sigma * 3);
+  const k = Array.from({ length: 2 * r + 1 }, (_, i) => Math.exp(-((i - r) ** 2) / (2 * sigma * sigma)));
+  const sum = k.reduce((a, b) => a + b, 0);
+  const kn = k.map(v => v / sum);
+  const tmp = new Float32Array(w * h * 3);
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) {
+    let v = 0;
+    for (let i = -r; i <= r; i++) v += kn[i + r] * data[(y * w + Math.min(w - 1, Math.max(0, x + i))) * 4 + c];
+    tmp[(y * w + x) * 3 + c] = v;
+  }
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) for (let c = 0; c < 3; c++) {
+    let v = 0;
+    for (let i = -r; i <= r; i++) v += kn[i + r] * tmp[(Math.min(h - 1, Math.max(0, y + i)) * w + x) * 3 + c];
+    data[(y * w + x) * 4 + c] = Math.max(0, Math.min(255, Math.round(v)));
+  }
+  return img;
+}
 
 // Fades a cut-out to nothing over its outer `margin` pixels, so its crop leaves no edge.
 function fadeEdges(p, margin) {
@@ -139,7 +164,8 @@ function main() {
   // One saturation factor for the whole scene, from the garden (the lotus is cut from the unscaled colors).
   const heroes = heroesMean();
   const k = sceneFactor(meanSaturation(src.back.png), ladder.background, heroes);
-  const back = jpeg.encode({ data: scale({ data: Buffer.from(src.back.png.data), width, height }, k).data, width, height }, 90).data;
+  const garden = blur(scale({ data: Buffer.from(src.back.png.data), width, height }, k), gardenBlur * width);
+  const back = jpeg.encode({ data: garden.data, width, height }, 90).data;
   put('home.jpg', back, { x: 0, y: 0, w: width, h: height }, inputs.back);
   for (const [key, name] of [['fountainBack', 'home-fountain-back.png'], ['fountainFront', 'home-fountain-front.png'], ['petals', 'home-petals.png']]) {
     const b = bounds(src[key].png, 0, 0, width, height, 6); // alpha under 6 / 255 is stray dust

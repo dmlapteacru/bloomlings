@@ -7,8 +7,8 @@
   "05_home_petals_overlay.png": "91f7a470ab4feb0171c53dec8358eec0fc1b1d1900bc5c619fd03ae84063c71d"
  },
  "saturation": {
-  "factor": 0.733,
-  "heroesMean": 0.6558,
+  "factor": 0.738,
+  "heroesMean": 0.6602,
   "share": 0.7
  },
  "data": "client/Assets/Bloomlings/UI/Design/HomeLayersData.cs",
@@ -23,8 +23,8 @@
     "h": 1846
    },
    "from": "01_home_bg_back.png",
-   "sha256": "958b1ed38673c6be9f89c6c63db95ce8f10a3d32ea8be5b40f66bd6882129d24",
-   "bytes": 422527
+   "sha256": "5aafd2fb2d2f46fa7b3731fe83f27db0d624d7166fc28258e0be010aeb5a8b45",
+   "bytes": 266838
   },
   {
    "name": "home-fountain-back.png",
@@ -35,8 +35,8 @@
     "h": 540
    },
    "from": "02_home_fountain_back.png",
-   "sha256": "86d00a9f3bee8fdda2d64e0a28cde231841acdfea55d0cf0f929903cdf65c682",
-   "bytes": 754367
+   "sha256": "a97b57e3a7a7693f97d99ae0f6bbe633a7b33fe4a4bc722d6f1171d56bc7f14a",
+   "bytes": 754507
   },
   {
    "name": "home-fountain-front.png",
@@ -47,8 +47,8 @@
     "h": 342
    },
    "from": "03_home_fountain_front.png",
-   "sha256": "08a421f1189c5421a9d766cb5b05a33c898669ff465f6e23cd948605012ba5c4",
-   "bytes": 451080
+   "sha256": "eaba892ae8b8c2f78ab83925d0f25a54cc86ea83af5b675e85a9e0fdc826cc3c",
+   "bytes": 451224
   },
   {
    "name": "home-petals.png",
@@ -59,8 +59,8 @@
     "h": 1048
    },
    "from": "05_home_petals_overlay.png",
-   "sha256": "ad48a894cea3c432bac27d5aa9c2215ac6fc5b2b5b69c154c822857e8a67e0d3",
-   "bytes": 364195
+   "sha256": "6f2bc11fd4d31c6e2b80b7e5c7ace4e3fa7e49fbf52f046a2fb224fc7f16b2b9",
+   "bytes": 364250
   },
   {
    "name": "home-lotus.png",
@@ -71,8 +71,8 @@
     "h": 159
    },
    "from": "02_home_fountain_back.png (the lotus)",
-   "sha256": "b808c129e5e5aa794bed91697d0475b44bd49c9ae7685ec2498e723391a5d4e8",
-   "bytes": 76995
+   "sha256": "071dc863db30250f88d413070f7fc62da1a8fb1c3ddebe2b199c8ebcca24aada",
+   "bytes": 77036
   },
   {
    "name": "home-shadow.png",
@@ -83,8 +83,8 @@
     "h": 175
    },
    "from": "04_home_soft_shadow.png (the front left shadow)",
-   "sha256": "7a1d651b0f35f3392b028d3b52758d51435fd2321d78ff593bf912c18fec9823",
-   "bytes": 103029
+   "sha256": "cfdcc35c7cb18381d5763fc53d2444e9f369866281867c80840e1034f80197e0",
+   "bytes": 103368
   }
  ]
 }

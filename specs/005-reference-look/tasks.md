@@ -557,3 +557,18 @@ and contracts/look.md §3.6, §6.10.
   second time facing the player for the win and the milestone (`winYaw`, `winidle`, one palette per set);
   `MotionClip.WinIdle`, `HeroMotion.HasFront`, `HeroMotionPlayer` `front`, `HeroPose.FromClip`; both builds' win and
   milestone; the hero tests (900 frames); SOURCE.md, README, research D28, CLAUDE.md; the APK.
+
+## The owner's Home tuning (2026-10-05, FR-036)
+
+- [X] T108 Home variations rendered (24, contact sheets), then a constructor page of the game's own layers with
+  sliders and presets; the owner's settings read back from it (research D29).
+- [X] T109 Kit: `HomeLayers.Stage` (0.9) and `HeroScale` (1.05), Twig at 0.85; Home's regions (no logo, the promo
+  scenes from 17.5% at ×1.05, the sun 0.086 W under the Daily Reward's, Play 0.68 W × 0.12 H, the plaque 0.4 W × 0.068 H,
+  the teaser row down to the menu's top); `HomePromo` plates and shadows, `UiRaster.SilhouetteShadow` and `RoundShadow`;
+  the layout and promo tests.
+- [X] T110 Playtest: Home without its logo, the stage, the plates and the soft shadows (`IPainter.SpriteAlpha` in both
+  painters); Unity: `HomeScreen` without its logo, `HomeLayersView` on the stage, `HomePromoView` plates and shadows
+  (`OwnerArt.DecorAlpha`).
+- [X] T111 The garden blurred in `home.jpg` (`layers.mjs`), the heroes' Home frames finished (`post.mjs`, `heroes.json`
+  `home`) and re-baked; the falling petals off by default (`settings.homePetalsOn`, both schema copies).
+- [ ] T112 Unity Editor: check Home's plates, shadows and the blurred garden on a device against the playtest.

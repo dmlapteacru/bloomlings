@@ -117,11 +117,12 @@ namespace Bloomlings.Playtest.Design
             ReferenceHomeRegions r = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, DevReserve(p));
             DesignApp.DrawBackdrop(p, BackdropScene.Home, level);
 
-            // The diorama and the logo across the top. Over the owner's layered Home: the fountain, the four animated
-            // heroes around the lotus (a tap makes one react; the buttons drawn after keep their taps) and the drifting
-            // petals, then the logo over them. Else the logo, the drawn stand-in's four still heroes around the lotus
-            // fountain (none over the owner's garden picture alone) and a few drawn petals drifting through the garden.
-            // The heroes wear their outfits once the Wardrobe is open.
+            // The diorama (no logo since the owner's tuning of 2026-10-05, spec 005 FR-036; the splash keeps its wordmark).
+            // Over the owner's layered Home: the fountain and the four animated heroes around the lotus (a tap makes one
+            // react; the buttons drawn after keep their taps), and the drifting petals when Settings switched them on.
+            // Else the drawn stand-in's four still heroes around the lotus fountain (none over the owner's garden picture
+            // alone) and a few drawn petals drifting through the garden. The heroes wear their outfits once the Wardrobe
+            // is open.
             bool heroes;
             app.HomeMoving = false;
             if (StageOf(p, BackdropScene.Home) == HomeStageKind.Layered)
@@ -129,11 +130,9 @@ namespace Bloomlings.Playtest.Design
                 app.HomeMoving = LayeredStage(p, app, OutfitsOf(app));
                 HeroTaps(p, r, look, app);
                 heroes = true;
-                Wordmark(p, r);
             }
             else
             {
-                Wordmark(p, r);
                 heroes = Stage(p, r, BackdropScene.Home, OutfitsOf(app));
 
                 // As on the reference's Home (Home redraws for Play's breath), unless Settings switched them off.
@@ -155,8 +154,8 @@ namespace Bloomlings.Playtest.Design
             Kit.SparkleBurst(p, petals.Lotus.CenterX, petals.Lotus.CenterY, petals.Pill.Height, app.SinceRewardBurst);
             Avatar(p, r.Avatar, meta.Wardrobe.Profile, AvatarOutfit(app), app.OpenProfile);
 
-            // The promo scenes under the logo (spec 005 FR-032): No Ads at the left, the Daily Reward at the right. They
-            // idle all the time, so Home keeps redrawing under a card too.
+            // The promo scenes under the header (spec 005 FR-032, FR-036): No Ads at the left, the Daily Reward at the right,
+            // each on its cream plate. They idle all the time, so Home keeps redrawing under a card too.
             if (Promos(p, r, app))
             {
                 app.HomeMoving = true;
@@ -215,7 +214,8 @@ namespace Bloomlings.Playtest.Design
                 Action open = scene == PromoScene.NoAds ? () => app.OpenOverlay(Overlay.RemoveAds) : () => app.OpenOverlay(Overlay.DailyReward);
                 float depth = Kit.Press(p, box, true);
                 Kit.Squash(p, box, depth);
-                moving |= Promo(p, scene, box, app.PromoSeconds, calling);
+                Plate(p, box, r.W, depth);
+                moving |= Promo(p, scene, box, app.PromoSeconds, calling, r.W);
                 p.PopTransform();
                 p.Hit(Kit.Touch(p, box), open);
             }
@@ -228,9 +228,11 @@ namespace Bloomlings.Playtest.Design
         /// opened (spec 005 FR-032, <see cref="HomePromo.Layers"/>): the owner's layers back to front, each its whole canvas
         /// in its box, scaled and turned about its pivot, at its alpha, with the label on the stand's plaque right after the
         /// stand. While the scene's pictures are missing, the label on a wooden sign in the box instead. Also the Remove Ads
-        /// card's scene (<paramref name="calling"/> false: idling). Returns whether it moves (the pictures are drawn).
+        /// card's scene (<paramref name="calling"/> false: idling). On Home (<paramref name="shadowW"/>, the safe width W)
+        /// every picture's soft shadow lies under all of them (<see cref="HomePromo.ShadowOf"/>). Returns whether it moves
+        /// (the pictures are drawn).
         /// </summary>
-        public static bool Promo(IPainter p, PromoScene scene, Box box, float seconds, bool calling)
+        public static bool Promo(IPainter p, PromoScene scene, Box box, float seconds, bool calling, float shadowW = 0f)
         {
             p.Mark(HomePromo.Slot(scene));
             string label = PlaytestText.T(HomePromo.LabelKey(scene));
@@ -241,6 +243,14 @@ namespace Bloomlings.Playtest.Design
             }
 
             IReadOnlyList<PromoLayer> layers = HomePromo.Layers(scene, box, seconds, calling);
+            if (shadowW > 0f)
+            {
+                foreach (PromoLayer layer in layers)
+                {
+                    PromoShadow(p, layer, shadowW);
+                }
+            }
+
             for (int i = 0; i < layers.Count; i++)
             {
                 PromoLayer layer = layers[i];
@@ -265,6 +275,43 @@ namespace Bloomlings.Playtest.Design
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// A promo picture's soft shadow (spec 005 FR-036): its silhouette blurred (<see cref="HomePromo.Shadow"/>), posed as
+        /// the picture and dropped a little.
+        /// </summary>
+        private static void PromoShadow(IPainter p, PromoLayer layer, float w)
+        {
+            string name = PainterBase.DecorPrefix + layer.Picture;
+            (byte[] Alpha, int Width, int Height)? mask = layer.Alpha > 0f ? p.SpriteAlpha(name) : null;
+            if (mask == null)
+            {
+                return;
+            }
+
+            (PromoLayer shadow, float pad, float blur) = HomePromo.ShadowOf(layer, w);
+            (byte[] alpha, int mw, int mh) = mask.Value;
+            p.PushAlpha(shadow.Alpha);
+            p.PushRotate(shadow.Rotation, shadow.X, shadow.Y);
+            p.PushSquash(shadow.ScaleX, shadow.ScaleY, shadow.X, shadow.Y);
+            p.Picture(HomePromo.ShadowKey(layer.Picture), shadow.Box, (pw, ph) => HomePromo.Shadow(alpha, mw, mh, pw, ph, shadow.Width, shadow.Height, pad, blur));
+            p.PopTransform();
+            p.PopTransform();
+            p.PopAlpha();
+        }
+
+        /// <summary>
+        /// The cream plate a promo scene stands on (spec 005 FR-036, <see cref="HomePromo.PlateBox"/>): its soft shadow, then
+        /// the round buttons' cushion, pressing with the scene.
+        /// </summary>
+        private static void Plate(IPainter p, Box scene, float w, float depth)
+        {
+            p.Mark("ui.button.round");
+            Box plate = HomePromo.PlateBox(scene);
+            (Box shadow, float pad, float blur) = HomePromo.PlateShadowOf(plate, w);
+            p.Picture(HomePromo.PlateShadowKey, shadow, (pw, ph) => HomePromo.PlateShadow(pw, ph, shadow, plate, pad, blur));
+            Kit.IconFace(p, plate, GardenLook.White, HomePromo.PlateRadius(plate), depth);
         }
 
         /// <summary>Whether every picture of a promo scene is embedded (<see cref="HomePromo.Pictures"/>).</summary>
@@ -350,7 +397,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static bool LayeredStage(IPainter p, DesignApp app, Func<Family, Outfit>? outfitOf, float heroAlpha = 1f, float heroRise = 0f)
         {
-            Box picture = HomeLayers.Cover(new Box(0f, 0f, p.Width, p.Height));
+            Box picture = HomeLayers.Stage(new Box(0f, 0f, p.Width, p.Height));
             HomeMotion motion = app.HomeMotion;
             bool moving = false;
             bool lotus = false;
@@ -445,7 +492,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         private static void HeroTaps(IPainter p, ReferenceHomeRegions r, HomeLook look, DesignApp app)
         {
-            Box picture = HomeLayers.Cover(new Box(0f, 0f, p.Width, p.Height));
+            Box picture = HomeLayers.Stage(new Box(0f, 0f, p.Width, p.Height));
             List<Box> taken = UiBoxes(p, r, look, app);
             float min = p.U(DesignTokens.Size.TouchMin);
             for (int i = HomeLayers.DrawOrder.Count - 1; i >= 0; i--)

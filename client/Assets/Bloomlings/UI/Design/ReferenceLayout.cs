@@ -405,9 +405,10 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// Home in the reference layout (spec 005 FR-024, FR-030, contracts/look.md §6.4): the header row (Settings at the top
-    /// left, the large Petals pill in the middle and the profile avatar at the top right, the owner's request of
-    /// 2026-10-04), the logo across the top, the diorama in the middle, the promo scenes under the logo (No Ads at the left,
+    /// Home in the reference layout (spec 005 FR-024, FR-030, FR-036, contracts/look.md §6.4): the header row (Settings at
+    /// the top left, the large Petals pill in the middle and the profile avatar at the top right, the owner's request of
+    /// 2026-10-04), the logo's box across the top (the splash's wordmark; Home shows no logo since the owner's tuning of
+    /// 2026-10-05), the diorama in the middle, the promo scenes under the header (No Ads at the left,
     /// the Daily Reward at the right, <see cref="HomePromo"/>), the Daily Challenge side button under the Daily Reward's
     /// (more with <see cref="SideButton"/>), the wooden level plaque, the big Play button and the milestone teaser with the free
     /// booster offer beside it, all above the bottom menu (<see cref="NavTop"/>, its top; the Store, the Wardrobe, the
@@ -451,15 +452,36 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The size of Play's label as a share of its button's height (the reference's big "PLAY"), both builds.</summary>
         public const float PlayLabelShare = 0.5f;
 
-        /// <summary>Play's height, as a share of the safe height: the reference's, and the least it shrinks to.</summary>
-        public const float PlayShare = 0.15f;
+        /// <summary>
+        /// Play's height, as a share of the safe height, and the least it shrinks to: 80% of the reference's 0.15 and 0.11
+        /// since the owner's tuning of 2026-10-05 (spec 005 FR-036), as its width (<see cref="PlayWidthShare"/>, of W).
+        /// </summary>
+        public const float PlayShare = 0.12f;
 
-        public const float PlayMinShare = 0.11f;
+        public const float PlayMinShare = 0.088f;
 
-        /// <summary>The level plaque's height and the gap between it and Play, as shares of the safe height.</summary>
-        public const float PlaqueShare = 0.085f;
+        public const float PlayWidthShare = 0.68f;
+
+        /// <summary>
+        /// The level plaque's height and the gap between it and Play, as shares of the safe height, and its width as a share
+        /// of W: 80% of the reference's 0.085 and 0.5 since the owner's tuning of 2026-10-05.
+        /// </summary>
+        public const float PlaqueShare = 0.068f;
 
         public const float PlaqueGapShare = 0.01f;
+
+        public const float PlaqueWidthShare = 0.4f;
+
+        /// <summary>
+        /// The promo scenes' top, as a share of the safe height (they rose into the logo's place when Home lost its logo,
+        /// the owner's tuning of 2026-10-05), their size against <see cref="HomePromo.WidthShare"/>, and the Daily
+        /// Challenge's gap under the Daily Reward's scene, as a share of W.
+        /// </summary>
+        public const float PromoTopShare = 0.175f;
+
+        public const float PromoScale = 1.05f;
+
+        public const float DailyGapShare = 0.086f;
 
         /// <summary>
         /// The highest the plaque's top goes before Play shrinks, as a share of the safe height (it stood at 0.64 before
@@ -1055,16 +1077,17 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// Home in the reference layout (contracts/look.md §6.4), in fractions of the safe height H and width W: the header
-        /// row from 2.5% of H, Settings 0.13 W at 0.04 W from the left, the Avatar its mirror at 0.04 W from the right and
-        /// the Petals pill's box 0.44 W × 0.105 W centered on the safe area's middle and on their middle line (0.11 W clear
-        /// of each); the logo 0.8 W wide from 10% to 20.5%; the diorama from 22% to 0.06 H under the plaque's top; from 24%
-        /// the promo scenes 0.27 W wide (No Ads at the left, the Daily Reward at the right, 0.04 W from the edges) and the
-        /// Daily Challenge side button under the Daily Reward's scene; then, bottom up from the bottom menu's top (<see cref="BottomNavTop"/>) less
-        /// 0.015 W and <paramref name="bottomReserve"/> (the playtest's dev row): the teaser row (the teaser pill 0.5 W ×
-        /// 0.04 H with the free booster pill at its right) whose touch boxes end there, Play 0.85 W wide ending 1 px over
-        /// them, 0.15 H tall unless the plaque would rise above 60% of H (then shorter, at least 0.11 H and the touch
-        /// minimum), and the plaque 0.5 W × 0.085 H 0.01 H over Play.
+        /// Home in the reference layout (contracts/look.md §6.4; the owner's tuning of 2026-10-05, spec 005 FR-036), in
+        /// fractions of the safe height H and width W: the header row from 2.5% of H, Settings 0.13 W at 0.04 W from the
+        /// left, the Avatar its mirror at 0.04 W from the right and the Petals pill's box 0.44 W × 0.105 W centered on the
+        /// safe area's middle and on their middle line (0.11 W clear of each); the logo's box 0.8 W wide from 10% to 20.5%
+        /// (the splash's wordmark; Home shows none); the diorama from 22% to 0.06 H under the plaque's top; from 17.5% the
+        /// promo scenes 0.2835 W wide (No Ads at the left, the Daily Reward at the right, 0.04 W from the edges) and the
+        /// Daily Challenge side button 0.086 W under the Daily Reward's scene; then, bottom up from the bottom menu's top
+        /// (<see cref="BottomNavTop"/>, the medallion's) less <paramref name="bottomReserve"/> (the playtest's dev row):
+        /// the teaser row (the teaser pill 0.5 W × 0.04 H with the free booster pill at its right) whose touch boxes end
+        /// there, Play 0.68 W wide ending 1 px over them, 0.12 H tall unless the plaque would rise above 60% of H (then
+        /// shorter, at least 0.088 H and the touch minimum), and the plaque 0.4 W × 0.068 H 0.01 H over Play.
         /// </summary>
         public static ReferenceHomeRegions ReferenceHome(float width, float height, Insets insets, float bottomReserve = 0f)
         {
@@ -1078,20 +1101,21 @@ namespace Bloomlings.Client.UI.Design
             var avatar = new Box(safe.Right - (0.04f * w) - button, settings.Top, safe.Right - (0.04f * w), settings.Bottom);
             Box petals = Box.FromCenter(safe.CenterX, settings.CenterY, ReferenceHomeRegions.PetalsWidthShare * w, ReferenceHomeRegions.PetalsHeightShare * w);
             var logo = new Box(safe.CenterX - (0.4f * w), Math.Max(Y(0.1f), settings.Bottom + (0.01f * w)), safe.CenterX + (0.4f * w), Y(0.205f));
-            float sideTop = Math.Max(Y(0.24f), logo.Bottom + (0.02f * w));
+            float sideTop = Math.Max(Y(ReferenceHomeRegions.PromoTopShare), settings.Bottom + (0.02f * w));
 
-            // The promo scenes (spec 005 FR-032) under the logo, 0.04 W from the edges: No Ads at the left, the Daily Reward
-            // at the right; the Daily Challenge's round button under the Daily Reward's scene.
-            float scene = HomePromo.WidthShare * w;
+            // The promo scenes (spec 005 FR-032) under the header, 0.04 W from the edges: No Ads at the left, the Daily
+            // Reward at the right; the Daily Challenge's round button under the Daily Reward's scene.
+            float scene = HomePromo.WidthShare * ReferenceHomeRegions.PromoScale * w;
             Box noAds = HomePromo.SceneBox(safe.Left + (0.04f * w), sideTop, scene);
             Box dailyReward = HomePromo.SceneBox(safe.Right - (0.04f * w) - scene, sideTop, scene);
-            float dailyTop = dailyReward.Bottom + (ReferenceHomeRegions.SideGapShare * w);
+            float dailyTop = dailyReward.Bottom + (ReferenceHomeRegions.DailyGapShare * w);
             var daily = new Box(safe.Right - (0.04f * w) - button, dailyTop, safe.Right - (0.04f * w), dailyTop + button);
 
-            // Bottom up from the menu's top: the teaser row, whose touch boxes (the free booster's) end at the limit; Play
-            // over them; the plaque over Play. Play shrinks before the plaque rises above PlaqueFloorShare of H.
+            // Bottom up from the menu's top: the teaser row, whose touch boxes (the free booster's) end at the limit, the
+            // medallion's top (the owner lowered the group by about the menu's gap, 2026-10-05); Play over them; the plaque
+            // over Play. Play shrinks before the plaque rises above PlaqueFloorShare of H.
             float navTop = BottomNavTop(width, height, insets);
-            float limit = navTop - (Design.BottomNav.GapShare * w) - Math.Max(0f, bottomReserve);
+            float limit = navTop - Math.Max(0f, bottomReserve);
             float touch = DesignTokens.Size.TouchMin * DesignTokens.ScaleFor(width, height);
             float rowHeight = 0.04f * h;
             float rowCenter = limit - (touch / 2f);
@@ -1102,8 +1126,10 @@ namespace Bloomlings.Client.UI.Design
             float gap = ReferenceHomeRegions.PlaqueGapShare * h;
             float room = playBottom - gap - plaqueHeight - Y(ReferenceHomeRegions.PlaqueFloorShare);
             float playHeight = Math.Min(ReferenceHomeRegions.PlayShare * h, Math.Max(Math.Max(ReferenceHomeRegions.PlayMinShare * h, touch), room));
-            var play = new Box(safe.CenterX - (0.425f * w), playBottom - playHeight, safe.CenterX + (0.425f * w), playBottom);
-            var plaque = new Box(safe.CenterX - (0.25f * w), play.Top - gap - plaqueHeight, safe.CenterX + (0.25f * w), play.Top - gap);
+            float playHalf = ReferenceHomeRegions.PlayWidthShare * w / 2f;
+            float plaqueHalf = ReferenceHomeRegions.PlaqueWidthShare * w / 2f;
+            var play = new Box(safe.CenterX - playHalf, playBottom - playHeight, safe.CenterX + playHalf, playBottom);
+            var plaque = new Box(safe.CenterX - plaqueHalf, play.Top - gap - plaqueHeight, safe.CenterX + plaqueHalf, play.Top - gap);
             var diorama = new Box(safe.Left, Y(0.22f), safe.Right, Y(0.7f));
             return new ReferenceHomeRegions(safe, w, settings, petals, avatar, logo, diorama, daily, plaque, play, teaser, free, navTop, noAds, dailyReward);
         }

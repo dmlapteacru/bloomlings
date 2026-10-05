@@ -496,7 +496,7 @@ namespace Bloomlings.Playtest.Preview
                 app.GoHome();
                 CloseAll(app);
                 Run(app, p, 0.5f);
-                Box picture = HomeLayers.Cover(new Box(0f, 0f, p.Width, p.Height));
+                Box picture = HomeLayers.Stage(new Box(0f, 0f, p.Width, p.Height));
                 Box twig = HeroMotion.PictureBox(HomeLayers.HeroCell(picture, Family.Twig), HeroMotion.Frame(Family.Twig, MotionClip.Idle, 0));
                 Expect(!app.HomeMotion.Player(Family.Twig).Busy(app.Now), "Twig idles before the tap");
                 p.Dispatch(twig.CenterX, twig.Top + (twig.Height * 0.7f));

@@ -9,6 +9,8 @@
 // A hero may be one of several in a file (heroes.json `mesh`: the owner's Heroes.glb); `breathe` adds a breath its idle lacks.
 // A hero with a `winYaw` is baked twice: at its `yaw` for Home (turned toward the fountain's middle: its idle and reaction)
 // and at its `winYaw` for the win, where it stands alone facing the player (its celebrations and that idle, `winidle`).
+// The Home set's frames (idle, react) get heroes.json's `home` finish (post.mjs: sharpening, contrast, saturation; the
+// owner's tuning of 2026-10-05) before their palette.
 // Usage: node bake.mjs [--only <family>]
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,6 +20,7 @@ import { PNG } from 'pngjs';
 import { chromium } from 'playwright-core';
 import { serve } from './serve.mjs';
 import { palette, indexed, writePng8 } from './png8.mjs';
+import { finish } from './post.mjs';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const repo = path.resolve(here, '..', '..');
@@ -156,7 +159,9 @@ async function main() {
       const png = PNG.sync.read(Buffer.from(f.png.split(',')[1], 'base64'));
       const b = bounds(png);
       if (!b) throw new Error(`${hero.family}: an empty frame`);
-      pictures.push(crop(png, b));
+      // The Home set (its idle and reaction) gets heroes.json's `home` finish (post.mjs); the win's set stays as rendered.
+      const cropped = crop(png, b);
+      pictures.push(config.home && (f.clip === 'idle' || f.clip === 'react') ? finish(cropped, config.home) : cropped);
       frames.push({ name: frameName(hero.family, f.clip, index[f.clip]++), clip: f.clip, crop: b, head: share(f.head), top: share(f.top) });
     }
     // One palette for all the hero's frames (png8.mjs), so the files stay small and no color flickers; a hero baked twice

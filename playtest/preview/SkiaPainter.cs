@@ -20,6 +20,7 @@ namespace Bloomlings.Playtest.Preview
         private static readonly Dictionary<string, SKImage> Backdrops = new Dictionary<string, SKImage>(StringComparer.Ordinal);
         private static readonly PictureCache<SKImage> Pictures = new PictureCache<SKImage>(PictureCacheBytes, image => image.Dispose());
         private static readonly Dictionary<string, SKImage?> Sprites = new Dictionary<string, SKImage?>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
         private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(typeof(SkiaPainter).Assembly, HeroFrameCacheBytes);
         private static readonly PictureCache<SKImage> HeroImages = new PictureCache<SKImage>(HeroDrawCacheBytes, image => image.Dispose());
         // Declared before the faces: static initializers run in order, and LoadFont reads it.
@@ -412,6 +413,39 @@ namespace Bloomlings.Playtest.Preview
         {
             SKImage? image = LoadSprite(name);
             return image == null ? null : (image.Width, image.Height);
+        }
+
+        public override (byte[] Alpha, int Width, int Height)? SpriteAlpha(string name)
+        {
+            lock (Alphas)
+            {
+                if (!Alphas.TryGetValue(name, out (byte[], int, int)? alpha))
+                {
+                    SKImage? image = LoadSprite(name);
+                    alpha = null;
+                    if (image != null)
+                    {
+                        var info = new SKImageInfo(image.Width, image.Height, SKColorType.Alpha8, SKAlphaType.Premul);
+                        var bytes = new byte[image.Width * image.Height];
+                        var handle = System.Runtime.InteropServices.GCHandle.Alloc(bytes, System.Runtime.InteropServices.GCHandleType.Pinned);
+                        try
+                        {
+                            if (image.ReadPixels(info, handle.AddrOfPinnedObject(), image.Width, 0, 0))
+                            {
+                                alpha = (bytes, image.Width, image.Height);
+                            }
+                        }
+                        finally
+                        {
+                            handle.Free();
+                        }
+                    }
+
+                    Alphas[name] = alpha;
+                }
+
+                return alpha;
+            }
         }
 
         public override void Sprite(string name, Box box)

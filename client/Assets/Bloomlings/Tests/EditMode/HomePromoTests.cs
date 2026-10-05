@@ -118,8 +118,12 @@ namespace Bloomlings.Client.Tests.EditMode
             Assert.That(OwnerPictures.SlotOf(HomePromo.DailyBook), Is.EqualTo(HomePromo.Slot(PromoScene.Daily)));
         }
 
+        /// <summary>
+        /// The promo scenes under the header, in the logo's place since Home lost its logo (the owner's tuning of
+        /// 2026-10-05, spec 005 FR-036), 5% larger, their plates clear of Home's other buttons.
+        /// </summary>
         [Test]
-        public void TheScenes_StandUnderTheLogo_ClearOfHomesOtherButtons()
+        public void TheScenes_StandUnderTheHeader_ClearOfHomesOtherButtons()
         {
             foreach ((float w, float h, Insets insets) in new[] { (1080f, 1920f, new Insets(63f, 0f)), (1080f, 2340f, new Insets(110f, 63f)), (1080f, 2520f, new Insets(120f, 66f)), (720f, 1600f, new Insets(48f, 30f)) })
             {
@@ -128,13 +132,14 @@ namespace Bloomlings.Client.Tests.EditMode
                 foreach (PromoScene scene in new[] { PromoScene.NoAds, PromoScene.Daily })
                 {
                     Box box = r.Promo(scene);
-                    Assert.That(box.Width, Is.EqualTo(HomePromo.WidthShare * r.W).Within(0.5f), at);
-                    Assert.That(box.Within(r.Safe), Is.True, at + " " + scene);
-                    Assert.That(box.Top, Is.GreaterThanOrEqualTo(r.Logo.Bottom), at + " " + scene + ": under the logo");
-                    Assert.That(box.Bottom, Is.LessThan(r.Plaque.Top), at + " " + scene + ": above the plaque");
+                    Assert.That(box.Width, Is.EqualTo(HomePromo.WidthShare * ReferenceHomeRegions.PromoScale * r.W).Within(0.5f), at);
+                    Box plate = HomePromo.PlateBox(box);
+                    Assert.That(plate.Within(r.Safe), Is.True, at + " " + scene);
+                    Assert.That(plate.Top, Is.GreaterThan(r.Header.Bottom), at + " " + scene + ": under the header");
+                    Assert.That(plate.Bottom, Is.LessThan(r.Plaque.Top), at + " " + scene + ": above the plaque");
                     foreach (Box other in new[] { r.Settings, r.Avatar, r.Petals, r.Daily, r.Play, r.Plaque })
                     {
-                        Assert.That(box.Overlaps(other), Is.False, at + " " + scene + " overlaps " + other);
+                        Assert.That(plate.Overlaps(other), Is.False, at + " " + scene + " overlaps " + other);
                     }
                 }
 

@@ -21,6 +21,7 @@ namespace Bloomlings.Client.UI
         private static readonly Dictionary<string, Sprite?> Sprites = new Dictionary<string, Sprite?>();
         private static readonly Dictionary<(string Icon, bool Sticker, bool Grey), Sprite?> TileIcons = new Dictionary<(string, bool, bool), Sprite?>();
         private static readonly Dictionary<string, (byte[] Rgba, int Width, int Height)?> Pixels = new Dictionary<string, (byte[], int, int)?>();
+        private static readonly Dictionary<string, (byte[] Alpha, int Width, int Height)?> Alphas = new Dictionary<string, (byte[], int, int)?>();
 
         /// <summary>An owner background (<c>home</c>, <c>gameplay-pond</c>, …), or null while it is missing.</summary>
         public static Texture2D? Background(string name) => Load(OwnerPictures.BackgroundFolder + "/" + name);
@@ -94,6 +95,42 @@ namespace Bloomlings.Client.UI
             }
 
             return pixels;
+        }
+
+        /// <summary>
+        /// The alpha of an owner leaf or promo picture (<paramref name="name"/>, in the Decor folder), one byte a pixel, rows
+        /// from the top, with its size, or null while it is missing: the silhouette the promo scenes' soft shadows are made
+        /// from (<see cref="HomePromo.Shadow"/>). Read back once through a render texture and kept.
+        /// </summary>
+        public static (byte[] Alpha, int Width, int Height)? DecorAlpha(string name)
+        {
+            string path = OwnerPictures.DecorFolder + "/" + name;
+            if (!Alphas.TryGetValue(path, out (byte[] Alpha, int Width, int Height)? alpha))
+            {
+                Texture2D? texture = Load(path);
+                byte[]? rows = texture == null ? null : ReadBack(texture);
+                alpha = null;
+                if (rows != null)
+                {
+                    int w = texture!.width;
+                    int h = texture.height;
+                    var bytes = new byte[w * h];
+                    for (int y = 0; y < h; y++)
+                    {
+                        int from = (h - 1 - y) * w * 4;
+                        for (int x = 0; x < w; x++)
+                        {
+                            bytes[(y * w) + x] = rows[from + (x * 4) + 3];
+                        }
+                    }
+
+                    alpha = (bytes, w, h);
+                }
+
+                Alphas[path] = alpha;
+            }
+
+            return alpha;
         }
 
         /// <summary>

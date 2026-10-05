@@ -463,6 +463,31 @@ don't know (look at how other games do it), I don't mind leaving or taking the i
   use ends the same way: the player tried it and still has one. The demo counts as seen at the use, so leaving the
   level never gives the free use again.
 
+### Session 2026-10-05 (the owner's Home tuning in the Home constructor)
+
+The owner: "Home is too busy. Play with the background (blur maybe), the heroes (their size; can you fix their
+texture and colors, they look blurry), the logo (remove it maybe, or make it smaller), Play (smaller maybe); the main
+idea is that the heroes, the buttons, No Ads and Daily should be sharper, more in focus." Renders of 24 variants were
+made first; then, on the owner's question "can you let me drive every setting myself?", a constructor page built Home
+from the game's own layers with sliders (research D29). The owner sent these settings (2026-10-05): the background's
+blur 4 px; no falling petals; the stage (the fountain with the heroes) ×0.90; the heroes ×1.05, sharpness 0.30,
+contrast 110%, saturation 110%; no logo; Play and the "Level" plaque at 80%, both 19 px lower; No Ads and Daily ×1.05,
+140 px higher, on a light plate as the buttons have, with a 16 px shadow; the Daily Challenge's sun 61 px lower. "Move
+the acorn [Twig] a little to the right, so Drop shows better."
+- Q: Where do the settings live? → A: In the kit, so both builds follow them (FR-036): the stage's box
+  (`HomeLayers.Stage`, `HeroScale`), Twig's place, Home's regions (`ReferenceHomeRegions`: Play, the plaque, the promo
+  scenes, the sun), the plate and the soft shadows (`HomePromo`, `UiRaster.SilhouetteShadow`, `RoundShadow`). The
+  garden's blur is in its picture (`home.jpg`, `layers.mjs`); the heroes' sharpness, contrast and saturation are in
+  their Home frames (`heroes.json` `home`, `post.mjs`). The pixel values are the owner's on a 1080 px wide screen; the
+  kit keeps them as shares of the width (or of the height for the lifts).
+- Q: The splash? → A: It keeps the wordmark (it is the brand's moment, and it fades into Home); its fountain and heroes
+  stand as on Home, in the same blurred garden.
+- Q: The falling petals? → A: Settings keeps its "Falling petals" switch, now off by default; the save's
+  `settings.homePetalsOn` replaces `homePetals`, which every earlier save wrote as on, so they start off on every
+  device (spec 001 `player-save.schema.json`).
+- Q: "19 px lower"? → A: Play, the plaque and the teaser go down by the bottom menu's gap (0.015 W, 16 px on a 1080 px
+  screen): the teaser row's touch boxes now end at the medallion's top, which they may not cross.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -772,7 +797,7 @@ inventory.
   wooden sign with flowers at the top, the finished picture large in its stone frame, the celebrating hero (or the
   group) on a stone pedestal overlapping the picture's foot with rays and petals, the reward pill on the pedestal,
   and the big Next button in its wood rim at the bottom. The gameplay top bar is not shown on it.
-- **FR-024** *(amended on 2026-10-04: the bottom menu, FR-030; the owner's header row)*: Home MUST follow the reference
+- **FR-024** *(amended on 2026-10-04: the bottom menu, FR-030; the owner's header row; on 2026-10-05: no logo, smaller Play, FR-036)*: Home MUST follow the reference
   layout (contracts/look.md §6.4): the header row on one line (settings at the top left, the large Petals pill centered
   between it and the avatar with the Play button's leaves and flower on its top-left and bottom-right corners, and the
   profile avatar, as large as settings, at the top right; a tap on the avatar opens the profile page once it exists,
@@ -888,7 +913,7 @@ inventory.
 
 #### L. Home's promo scenes (the owner's pack and notes, 2026-10-04)
 
-- **FR-032**: Home MUST show the owner's two animated promo scenes under the logo (contracts/look.md §6.4.1;
+- **FR-032** *(amended on 2026-10-05: under the header, on plates, FR-036)*: Home MUST show the owner's two animated promo scenes under the logo (contracts/look.md §6.4.1;
   pictures.md D14–D22; `HomePromo`, `ReferenceHomeRegions.NoAds` and `.DailyReward`), in both builds: **No Ads** at the
   left from level 1 while Remove Ads is not owned (gone for good once it is, after a purchase or a restore), and
   **Daily** at the right from the Daily Reward's unlock (spec 001 FR-055). Each is the owner's layers on a flowered stone
@@ -929,6 +954,16 @@ inventory.
   can act; Return when a pod first waits in a slot. The guided use is free: no charge is taken and it does not count
   against the clean-clear bonus; analytics report it as `booster_use` with `source` `demo`. These steps replace the
   booster cards and Level 1's first-tap hint; the mechanic and variant demos keep their cards.
+- **FR-036** *(the owner's Home tuning of 2026-10-05)*: Home MUST follow the owner's settings, in both builds: no logo
+  (the splash keeps it); the owner's garden blurred by 4/1080 of its width; the stage (the fountain's layers, the
+  heroes and their shadows, the petals) at 0.9 of the garden's cover box toward the screen's middle at 60% of its
+  height, each hero ×1.05 about its feet, Twig at 0.85 of the picture's width; the heroes' Home frames sharpened (a
+  3 × 3 kernel of 0.3), at 110% contrast and 110% saturation; the falling petals off unless Settings switches them on;
+  Play 0.68 W × 0.12 H and the plaque 0.4 W × 0.068 H, the teaser row's touch boxes ending at the bottom menu's top; the
+  promo scenes 0.2835 W wide from 17.5% of the safe height, each on the round buttons' cream cushion grown by 2% of its
+  width (corners 22% of it) with a soft shadow (`garden.shadow` at 0.4, blur 12.8/1080 W, 6.4/1080 W down), every
+  picture of a scene casting a soft shadow under all of them (0.55, blur 16/1080 W, 8/1080 W down); the Daily
+  Challenge 0.086 W under the Daily Reward's scene. The Remove Ads card's scene keeps no plate or shadows.
 
 ### Key Entities
 

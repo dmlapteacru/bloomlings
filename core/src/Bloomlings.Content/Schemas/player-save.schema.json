@@ -139,6 +139,8 @@
         "sfx": { "type": "boolean" },
         "haptics": { "type": "boolean" },
         "speed2x": { "type": "boolean" },
+        "homePetals": { "type": "boolean", "description": "Read and ignored (written as on by saves before 2026-10-05)" },
+        "homePetalsOn": { "type": "boolean", "default": false },
         "language": { "type": "string", "default": "en" }
       }
     },

@@ -162,6 +162,107 @@ namespace Bloomlings.Client.UI.Design
         public const float LabelShare = 0.74f;
 
         /// <summary>
+        /// The cream plate a scene stands on on Home (spec 005 FR-036, the owner's tuning of 2026-10-05: "a light plate, as
+        /// the buttons have"): the round buttons' cushion (<c>ui.button.round</c>) over the scene's box grown by this share
+        /// of its width on every side, its corners <see cref="PlateRadiusShare"/> of the plate's width.
+        /// </summary>
+        public const float PlateGrowShare = 0.02f;
+
+        public const float PlateRadiusShare = 0.22f;
+
+        /// <summary>
+        /// The soft shadows on Home (the owner's 16 px, 8 px down, on a 1080 px wide screen): under every picture of a scene,
+        /// <c>garden.shadow</c> at <see cref="ShadowAlpha"/>, blurred by <see cref="ShadowBlurShare"/> of W and dropped
+        /// <see cref="ShadowDropShare"/> of W; under the plate, at <see cref="PlateShadowAlpha"/>, blurred by
+        /// <see cref="PlateShadowBlurShare"/> and dropped <see cref="PlateShadowDropShare"/>. The Remove Ads card's scene has
+        /// neither plate nor shadows.
+        /// </summary>
+        public const float ShadowAlpha = 0.55f;
+
+        public const float ShadowBlurShare = 16f / 1080f;
+
+        public const float ShadowDropShare = 8f / 1080f;
+
+        public const float PlateShadowAlpha = 0.4f;
+
+        public const float PlateShadowBlurShare = 12.8f / 1080f;
+
+        public const float PlateShadowDropShare = 6.4f / 1080f;
+
+        /// <summary>The room a shadow picture keeps round its silhouette, in blurs (<see cref="ShadowOf"/>).</summary>
+        public const float ShadowPad = 2.5f;
+
+        /// <summary>The plate under a scene in <paramref name="scene"/> (<see cref="PlateGrowShare"/>).</summary>
+        public static Box PlateBox(Box scene) => scene.Inset(-PlateGrowShare * scene.Width);
+
+        /// <summary>The plate's corner radius.</summary>
+        public static float PlateRadius(Box plate) => PlateRadiusShare * plate.Width;
+
+        /// <summary>
+        /// The plate's shadow picture's box (the plate grown by <see cref="ShadowPad"/> blurs and dropped) and the room it
+        /// keeps round the plate, in screen px, for a safe width of <paramref name="w"/>.
+        /// </summary>
+        public static (Box Box, float Pad, float Blur) PlateShadowOf(Box plate, float w)
+        {
+            float blur = PlateShadowBlurShare * w;
+            float pad = ShadowPad * blur;
+            return (plate.Inset(-pad).Offset(0f, PlateShadowDropShare * w), pad, blur);
+        }
+
+        /// <summary>
+        /// The shadow of a scene's picture as drawn now (<paramref name="layer"/>), for a safe width of <paramref name="w"/>:
+        /// the same picture, pivot point, scale, turn and alpha, its canvas grown by <see cref="ShadowPad"/> blurs on every
+        /// side (the room returned, in screen px of the unscaled canvas, with the blur) and dropped
+        /// <see cref="ShadowDropShare"/> of W. Hosts draw every picture's shadow first, then the pictures.
+        /// </summary>
+        public static (PromoLayer Shadow, float Pad, float Blur) ShadowOf(PromoLayer layer, float w)
+        {
+            float blur = ShadowBlurShare * w;
+            float pad = ShadowPad * blur;
+            float width = layer.Width + (2f * pad);
+            float height = layer.Height + (2f * pad);
+            var shadow = new PromoLayer(
+                layer.Picture,
+                layer.X,
+                layer.Y + (ShadowDropShare * w),
+                width,
+                height,
+                ((layer.PivotX * layer.Width) + pad) / width,
+                ((layer.PivotY * layer.Height) + pad) / height,
+                layer.ScaleX,
+                layer.ScaleY,
+                layer.Rotation,
+                layer.Alpha);
+            return (shadow, pad, blur);
+        }
+
+        /// <summary>
+        /// The shadow picture of <paramref name="picture"/>'s silhouette (<paramref name="mask"/>, its alpha) at
+        /// <paramref name="width"/> × <paramref name="height"/> pixels for a shadow canvas of <paramref name="canvasWidth"/>
+        /// screen px with <paramref name="pad"/> and <paramref name="blur"/> screen px (<see cref="ShadowOf"/>).
+        /// </summary>
+        public static byte[] Shadow(byte[] mask, int maskWidth, int maskHeight, int width, int height, float canvasWidth, float canvasHeight, float pad, float blur)
+        {
+            float kx = width / Math.Max(1f, canvasWidth);
+            float ky = height / Math.Max(1f, canvasHeight);
+            return UiRaster.SilhouetteShadow(mask, maskWidth, maskHeight, width, height, pad * kx, pad * ky, blur * (kx + ky) / 2f, ShadowAlpha);
+        }
+
+        /// <summary>The plate's shadow picture at <paramref name="width"/> × <paramref name="height"/> pixels (<see cref="PlateShadowOf"/>).</summary>
+        public static byte[] PlateShadow(int width, int height, Box shadowBox, Box plate, float pad, float blur)
+        {
+            float kx = width / Math.Max(1f, shadowBox.Width);
+            float ky = height / Math.Max(1f, shadowBox.Height);
+            return UiRaster.RoundShadow(width, height, pad * kx, pad * ky, PlateRadius(plate) * kx, blur * (kx + ky) / 2f, PlateShadowAlpha);
+        }
+
+        /// <summary>The cache key of a scene picture's shadow (the painters add the size).</summary>
+        public static string ShadowKey(string picture) => "ui.promo.shadow/" + picture;
+
+        /// <summary>The cache key of the plate's shadow.</summary>
+        public const string PlateShadowKey = "ui.promo.plate_shadow";
+
+        /// <summary>
         /// The time into the scene's attention sequence at <paramref name="seconds"/> since Home opened, or −1 when it idles:
         /// No Ads from <see cref="NoAdsAt"/>, the Daily Reward from <see cref="DailyAt"/>, every <see cref="CycleSeconds"/>,
         /// so the two never play together. A scene that does not call for attention (<paramref name="calling"/> false: the

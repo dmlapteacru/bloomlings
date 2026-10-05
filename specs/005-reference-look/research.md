@@ -407,3 +407,26 @@ decision records what the reference shows, what we do and why, so the owner can 
 - **Rationale**: the owner's note; the turn suits four heroes round the fountain, not one alone on the stage.
 - **Alternatives**: one bake at 0° for every screen (Home's heroes would all face the camera and lose their turn toward
   the middle); mirroring or skewing the frames (cannot turn a 3D pose).
+
+## D29. The owner's Home tuning, from a constructor of the game's own layers (2026-10-05; FR-036)
+
+- **Decision**: Home's look is the owner's own setting, found on a constructor page that built Home from the game's
+  layers (the garden, the fountain's layers, each hero in each of six bakes, the logo, the header, the promo scenes and
+  their plates, the sun, the plaque, Play, the teaser and the menu, exported by the playtest's painter at 1080 × 2340)
+  and moved them with CSS: blur, brightness and saturation of the garden, the stage's and the heroes' scale, an SVG
+  sharpening kernel with contrast and saturation on the heroes, the logo's, Play's and the promo scenes' size and place,
+  the plates and `drop-shadow`s. Its settings move into the kit as the same quantities in W (or H) shares; what the
+  game cannot do per frame is done once offline: the garden's blur in `home.jpg` (`layers.mjs` `gardenBlur`, a
+  Gaussian of 4/1080 of its width) and the heroes' finish in their Home frames (`post.mjs`: the constructor's kernel,
+  transparent neighbours as black as the browser takes them, then contrast and saturation, before the palette). The
+  promo scenes' soft shadows are made from each picture's alpha at the size drawn (`UiRaster.SilhouetteShadow`, three
+  box blurs for the Gaussian; the browser's `drop-shadow` blur is the Gaussian's deviation, measured in Chromium), the
+  plate's from its rounded box (`UiRaster.RoundShadow`), both cached by the hosts. The scene factor of the Home layers'
+  saturation (FR-031) was measured with the heroes before their finish.
+- **Rationale**: the owner wanted the heroes, the buttons and the promo scenes "sharper, more in focus"; renders of
+  fixed variants were a guess, the constructor let the owner choose each value, and its exported layers matched the
+  game's render pixel for pixel at rest, so the settings carry over exactly.
+- **Alternatives**: a runtime blur of the garden and a sharpening shader on the heroes (a shader per build, a cost per
+  frame, and no shader in the client so far); generated shadow pictures checked in for the nine promo layers (nine more
+  files with their records, out of step with the layers whenever they change); a bake with a 3D outline (offered in the
+  constructor; the owner kept the current render).

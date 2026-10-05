@@ -64,19 +64,20 @@ namespace Bloomlings.Client.UI.Screens
     /// button at the top left, the large Petals pill centered between it and the avatar with the Play button's leaves
     /// and flower on its top-left and bottom-right corners (its green "+" opens the Store once unlocked, L12), and the
     /// profile avatar at the top right (<see cref="ProfileAvatar"/> with its frame and badge, as large as Settings; it
-    /// presses and clicks, the profile page comes later); the wooden logo across the top (the owner's logo picture when
-    /// it exists), "Level N" on the wooden plaque and the big Play button in its wooden rim below it.</description></item>
+    /// presses and clicks, the profile page comes later); "Level N" on the wooden plaque and the Play button in its wooden
+    /// rim below it. No logo since the owner's tuning of 2026-10-05 (spec 005 FR-036; the splash keeps the wordmark).</description></item>
     /// <item><description>The diorama in the middle (<see cref="HeroPictures.Stage"/>): over the owner's Home picture,
     /// its layered fountain with the four animated heroes where the reference stands them (spec 005 FR-028,
     /// <see cref="HomeLayersView"/>: Sprig at the left, Bloom behind the lotus, Drop at the right back, Twig at the right
-    /// front), each idling and taking turns to react, reacting at once to a tap, with petals drifting over them; without
+    /// front), each idling and taking turns to react, reacting at once to a tap, with petals drifting over them once
+    /// Settings switches them on (off by default since 2026-10-05), in the blurred garden (FR-036); without
     /// the picture, the drawn diorama (the stone ring, the lotus fountain and the four still heroes), where the player's
     /// hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left front. Once the Wardrobe is open (L40) each hero
     /// wears its outfit.</description></item>
-    /// <item><description>The promo scenes under the logo (spec 005 FR-032, <see cref="HomePromoView"/>): No Ads at the
-    /// left until Remove Ads is owned (a tap opens the Remove Ads card), the Daily Reward at the right once unlocked (L7; a
-    /// tap opens its card, and it calls for attention only while today's reward waits), each the owner's animated layers
-    /// on a flowered stand with its label on the wooden plaque.</description></item>
+    /// <item><description>The promo scenes under the header (spec 005 FR-032, FR-036, <see cref="HomePromoView"/>): No Ads
+    /// at the left until Remove Ads is owned (a tap opens the Remove Ads card), the Daily Reward at the right once unlocked
+    /// (L7; a tap opens its card, and it calls for attention only while today's reward waits), each the owner's animated
+    /// layers on a flowered stand with its label on the wooden plaque, on a cream plate with soft shadows.</description></item>
     /// <item><description>The Daily Challenge (the sun, with a green check when done today, L50) as a small cream round
     /// side button at the right under the Daily scene, once unlocked.</description></item>
     /// <item><description>Under Play, the milestone teaser "N levels to reward" with the pink gift on a parchment pill, and
@@ -97,7 +98,6 @@ namespace Bloomlings.Client.UI.Screens
         private PetalsPill _petals = null!;
         private RectTransform _profile = null!;
         private ProfileAvatar _avatar = null!;
-        private RectTransform _logo = null!;
         private HomePromoView _noAds = null!;
         private HomePromoView _dailyReward = null!;
         private HomeStageView _stage = null!;
@@ -133,13 +133,11 @@ namespace Bloomlings.Client.UI.Screens
             screen._stage = HeroPictures.Stage("Stage", root);
             screen._stage.PetalsOn = petalsOn;
 
-            // The logo across the top, over the garden in both looks.
-            screen._logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
-
-            // The promo scenes under the logo (spec 005 FR-032), over the stage and under the cards: each takes the taps
-            // of its own box only, so the heroes keep theirs around it. No Ads always calls for attention while it shows.
-            screen._noAds = HomePromoView.Create("NoAds", root, PromoScene.NoAds, calling: true, () => features?.OnNoAds?.Invoke());
-            screen._dailyReward = HomePromoView.Create("DailyReward", root, PromoScene.Daily, calling: false, () => features?.OnDailyReward?.Invoke());
+            // The promo scenes under the header (spec 005 FR-032, FR-036), on their cream plates, over the stage and under
+            // the cards: each takes the taps of its own box only, so the heroes keep theirs around it. No Ads always calls
+            // for attention while it shows.
+            screen._noAds = HomePromoView.Create("NoAds", root, PromoScene.NoAds, calling: true, () => features?.OnNoAds?.Invoke(), plate: true);
+            screen._dailyReward = HomePromoView.Create("DailyReward", root, PromoScene.Daily, calling: false, () => features?.OnDailyReward?.Invoke(), plate: true);
             screen._noAds.gameObject.SetActive(false);
             screen._dailyReward.gameObject.SetActive(false);
 
@@ -269,21 +267,20 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceBox(_settings, r.Settings, screen);
             UiKit.PlaceBox((RectTransform)_petals.transform, r.Petals, screen);
             UiKit.PlaceBox(_profile, r.Avatar, screen);
-            UiKit.PlaceBox(_logo, OwnerArt.LogoBox(r), screen);
 
             // The four heroes (frames 2 and 3): on the owner's layered fountain, or around the drawn diorama's lotus
             // fountain with the player's hero at the left front; once the Wardrobe is open each in its outfit.
             _stage.Place(r.Diorama, screen, BackdropScene.Home, outfitOf: look.Hero ? model.OutfitOf : null, front: look.Hero ? ProfileAvatar.HeroFamily : Family.Sprig);
 
-            // The promo scenes under the logo, and the Daily Challenge, the right column's first side button, under the
+            // The promo scenes under the header, and the Daily Challenge, the right column's first side button, under the
             // Daily Reward's scene.
-            _noAds.Place(r.NoAds, screen);
-            _dailyReward.Place(r.DailyReward, screen);
+            _noAds.Place(r.NoAds, screen, r.W);
+            _dailyReward.Place(r.DailyReward, screen, r.W);
             UiKit.PlaceBox((RectTransform)_daily.transform, r.Daily, screen);
             float touch = DesignTokens.Size.TouchMin * u;
             Box Touch(Box b) => Box.FromCenter(b.CenterX, b.CenterY, Mathf.Max(b.Width, touch), Mathf.Max(b.Height, touch));
 
-            // The level plaque: 0.5 W, wider when its letters need more (at most 0.8 W).
+            // The level plaque: 0.4 W, wider when its letters need more (at most 0.8 W).
             float plaque = r.Plaque.Height;
             float ppu = Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
             float font = Mathf.Min(T.LevelHome.Size * u, plaque * 0.62f);

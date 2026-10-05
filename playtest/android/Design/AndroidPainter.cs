@@ -33,6 +33,7 @@ namespace Bloomlings.Playtest.Droid
         private static readonly PictureCache<Bitmap> Pictures = new PictureCache<Bitmap>(PictureCacheBytes, bitmap => bitmap.Dispose());
         private static readonly Dictionary<(int Top, int Bottom, float Height), LinearGradient> Gradients = new Dictionary<(int, int, float), LinearGradient>();
         private static readonly Dictionary<string, Bitmap?> Sprites = new Dictionary<string, Bitmap?>(StringComparer.Ordinal);
+        private static readonly Dictionary<string, (byte[], int, int)?> Alphas = new Dictionary<string, (byte[], int, int)?>(StringComparer.Ordinal);
         private static readonly HeroFrameStore HeroFrames = new HeroFrameStore(typeof(AndroidPainter).Assembly, HeroFrameCacheBytes);
         private static readonly HeroBitmaps HeroDraws = new HeroBitmaps(HeroDrawCacheBytes);
 
@@ -466,6 +467,33 @@ namespace Bloomlings.Playtest.Droid
 
             Bitmap? bitmap = LoadSprite(name);
             return bitmap == null ? null : (bitmap.Width, bitmap.Height);
+        }
+
+        public override (byte[] Alpha, int Width, int Height)? SpriteAlpha(string name)
+        {
+            if (!Alphas.TryGetValue(name, out (byte[], int, int)? alpha))
+            {
+                Bitmap? bitmap = LoadSprite(name);
+                alpha = null;
+                if (bitmap != null)
+                {
+                    int w = bitmap.Width;
+                    int h = bitmap.Height;
+                    var colors = new int[w * h];
+                    bitmap.GetPixels(colors, 0, w, 0, 0, w, h);
+                    var bytes = new byte[colors.Length];
+                    for (int i = 0; i < colors.Length; i++)
+                    {
+                        bytes[i] = (byte)(colors[i] >> 24);
+                    }
+
+                    alpha = (bytes, w, h);
+                }
+
+                Alphas[name] = alpha;
+            }
+
+            return alpha;
         }
 
         public override void Sprite(string name, Box box)

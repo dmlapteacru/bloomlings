@@ -60,12 +60,16 @@ dances, `victory`) are not used.
 - 24 frames per second (every frame of the motion; 12 before the 60 fps delivery): 96 idle and 48 reaction frames per
   hero. Every frame is cropped to its visible bounds and stored as an 8-bit palette PNG (one 256-entry palette per hero
   shared by all its frames, entry 0 clear, Floyd–Steinberg dithered, `png8.mjs`), 23 MB for the 576 frames.
+- Since the owner's Home tuning of 2026-10-05 (spec 005 FR-036, research D29) the Home set (every hero's idle and
+  reaction) gets `heroes.json` `home` before its palette (`post.mjs`): a 3 × 3 sharpening kernel of 0.3 on the colors,
+  then 110% contrast and 110% saturation, the filters the owner chose in the Home constructor; the win's set stays as
+  rendered.
 
 ## The Home layers (`layers.mjs`)
 
 | Delivered | Here (`client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/`) |
 |---|---|
-| `01_home_bg_back.png` (852 × 1846) | `home.jpg`: re-encoded as JPEG (quality 90); it replaces the earlier single Home picture. Since 2026-10-04 the garden comes from the owner's calm backgrounds (`bloomlings_calm_backgrounds.zip`, `01_home_calm_garden.png`, recorded in `tools/artgen/models/owner-pictures.md`), given to `layers.mjs` as `01_home_bg_back.png` with this pack's other four layers unchanged (`layers.json` holds its hash). Since the owner's note of 2026-10-04 (spec 005 FR-031) `layers.mjs` scales every layer's saturation by the factor that brings the garden to 70% of the heroes' (×0.73, `layers.json` `saturation`), lightness and hue kept |
+| `01_home_bg_back.png` (852 × 1846) | `home.jpg`: re-encoded as JPEG (quality 90); it replaces the earlier single Home picture. Since 2026-10-04 the garden comes from the owner's calm backgrounds (`bloomlings_calm_backgrounds.zip`, `01_home_calm_garden.png`, recorded in `tools/artgen/models/owner-pictures.md`), given to `layers.mjs` as `01_home_bg_back.png` with this pack's other four layers unchanged (`layers.json` holds its hash). Since the owner's note of 2026-10-04 (spec 005 FR-031) `layers.mjs` scales every layer's saturation by the factor that brings the garden to 70% of the heroes' (×0.73, `layers.json` `saturation`), lightness and hue kept. Since the owner's Home tuning of 2026-10-05 (FR-036) the garden is blurred by a Gaussian of 4/1080 of its width (`gardenBlur`) after that scale; the factor was measured on the heroes before their Home finish (×0.738) |
 | `02_home_fountain_back.png` | `home-fountain-back.png`: cropped to its visible bounds (alpha under 6 of 255 counts as dust) |
 | `02_home_fountain_back.png` | `home-lotus.png`: the lotus cut out of it (its pink petals and what they enclose, the edge softened), drawn again over Bloom, who stands behind it |
 | `03_home_fountain_front.png` | `home-fountain-front.png`: cropped the same way |

@@ -103,7 +103,7 @@ namespace Bloomlings.Client.UI.Screens
         /// </summary>
         public void Place(Box screen, Box parent, Func<Family, Outfit?>? outfitOf = null)
         {
-            _picture = HomeLayers.Cover(screen);
+            _picture = HomeLayers.Stage(screen);
             _parent = parent;
             PlaceLayer(_fountainBack, HomeLayers.FountainBack);
             PlaceLayer(_lotus, HomeLayers.Lotus);

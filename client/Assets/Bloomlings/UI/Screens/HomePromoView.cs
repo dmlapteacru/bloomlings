@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Localization;
 using TMPro;
@@ -18,7 +19,10 @@ namespace Bloomlings.Client.UI.Screens
     /// the scene was shown (Home opening, or the card opening), so each attention sequence first plays a little after
     /// Home opens; a scene that is not <see cref="Calling"/> only idles. The whole scene box is the touch target when it
     /// takes taps: it clicks and squashes like Home's profile avatar (<see cref="PressMotion"/>). While the stand's picture
-    /// is missing, the label shows on a wooden sign (<c>ui.sign.wood</c>) inside the box instead.
+    /// is missing, the label shows on a wooden sign (<c>ui.sign.wood</c>) inside the box instead. On Home (spec 005 FR-036,
+    /// the owner's tuning of 2026-10-05) the scene stands on the round buttons' cream cushion with its soft shadow
+    /// (<see cref="HomePromo.PlateBox"/>), and every picture casts a soft shadow under all of them
+    /// (<see cref="HomePromo.ShadowOf"/>, made from the picture's alpha, <see cref="OwnerArt.DecorAlpha"/>).
     /// </summary>
     public sealed class HomePromoView : MonoBehaviour
     {
@@ -28,6 +32,8 @@ namespace Bloomlings.Client.UI.Screens
         private const float SignHeightShare = 0.32f;
 
         private readonly Dictionary<string, Image> _pictures = new Dictionary<string, Image>(StringComparer.Ordinal);
+        private readonly Dictionary<string, Image> _shadows = new Dictionary<string, Image>(StringComparer.Ordinal);
+        private readonly Dictionary<string, (float Width, float Height, float Pad, float Blur)> _shadowSizes = new Dictionary<string, (float, float, float, float)>(StringComparer.Ordinal);
         private readonly List<string> _order = new List<string>();
         private readonly HashSet<string> _shown = new HashSet<string>(StringComparer.Ordinal);
         private PromoScene _scene;
@@ -37,20 +43,27 @@ namespace Bloomlings.Client.UI.Screens
         private Box _box;
         private float _start;
         private bool _placed;
+        private bool _plated;
+        private float _w;
+        private Image? _plateShadow;
+        private GardenButton? _plate;
+        private RectTransform? _shadowLayer;
 
         /// <summary>Whether the scene calls for attention (its sequence plays every cycle); else it only idles.</summary>
         public bool Calling { get; set; }
 
         /// <summary>
         /// The scene under <paramref name="parent"/> (place it with <see cref="Place"/>), taking taps on its whole box when
-        /// <paramref name="onTap"/> is given (Home), none otherwise (the Remove Ads card's picture).
+        /// <paramref name="onTap"/> is given (Home), none otherwise (the Remove Ads card's picture); on its cream plate with
+        /// the pictures' soft shadows when <paramref name="plate"/> (Home).
         /// </summary>
-        public static HomePromoView Create(string name, Transform parent, PromoScene scene, bool calling, Action? onTap = null)
+        public static HomePromoView Create(string name, Transform parent, PromoScene scene, bool calling, Action? onTap = null, bool plate = false)
         {
             Image touch = UiFactory.CreateImage(name, parent, null, Color.clear, raycast: onTap != null);
             var view = touch.gameObject.AddComponent<HomePromoView>();
             view._scene = scene;
             view._root = touch.rectTransform;
+            view._plated = plate;
             view.Calling = calling;
             if (onTap != null)
             {
@@ -64,11 +77,29 @@ namespace Bloomlings.Client.UI.Screens
             return view;
         }
 
-        /// <summary>Lays the scene out in <paramref name="box"/> (screen pixels), its parent lying at <paramref name="parent"/>.</summary>
-        public void Place(Box box, Box parent)
+        /// <summary>
+        /// Lays the scene out in <paramref name="box"/> (screen pixels), its parent lying at <paramref name="parent"/>; the
+        /// plate's and the shadows' blur and drop follow the safe width <paramref name="w"/>.
+        /// </summary>
+        public void Place(Box box, Box parent, float w = 0f)
         {
             _box = box;
+            _w = w > 0f ? w : box.Width / Mathf.Max(0.01f, HomePromo.WidthShare);
             UiKit.PlaceBox(_root, box, parent);
+            if (_plate != null && _plateShadow != null)
+            {
+                Box plate = HomePromo.PlateBox(box);
+                (Box shadow, float pad, float blur) = HomePromo.PlateShadowOf(plate, _w);
+                UiKit.PlaceBox((RectTransform)_plate.transform, plate, box);
+                UiKit.PlaceBox(_plateShadow.rectTransform, shadow, box);
+                PictureFit.On(_plateShadow, (pw, ph) => ProceduralSprites.Picture(HomePromo.PlateShadowKey, pw, ph, (x, y) => HomePromo.PlateShadow(x, y, shadow, plate, pad, blur)));
+            }
+
+            if (_shadowLayer != null)
+            {
+                UiFactory.Stretch(_shadowLayer);
+            }
+
             if (_sign != null)
             {
                 UiKit.PlaceBox((RectTransform)_sign.transform, Box.FromCenter(box.CenterX, box.CenterY, box.Width * SignWidthShare, box.Width * SignHeightShare), box);
@@ -107,6 +138,15 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
+            // On Home: the plate's soft shadow and the cream cushion, then a layer for the pictures' shadows, under them all.
+            if (_plated)
+            {
+                _plateShadow = UiFactory.CreateImage("PlateShadow", _root, null, Color.white);
+                _plateShadow.raycastTarget = false;
+                _plate = UiKit.IconFace("Plate", _root, GardenLook.White, b => HomePromo.PlateRadius(b), square: false);
+                _shadowLayer = UiFactory.CreateRect("Shadows", _root);
+            }
+
             // One image per picture of the scene, hidden until posed; a missing prop is left out.
             foreach (string picture in HomePromo.Pictures)
             {
@@ -116,6 +156,26 @@ namespace Bloomlings.Client.UI.Screens
                     Image image = UiFactory.CreateImage(picture, _root, sprite, Color.white);
                     image.enabled = false;
                     _pictures[picture] = image;
+                    (byte[] Alpha, int Width, int Height)? mask = _shadowLayer != null ? OwnerArt.DecorAlpha(picture) : null;
+                    if (mask != null)
+                    {
+                        string name = picture;
+                        (byte[] alpha, int mw, int mh) = mask.Value;
+                        Image shadow = UiFactory.CreateImage(picture + "Shadow", _shadowLayer!, null, Color.white);
+                        shadow.raycastTarget = false;
+                        shadow.enabled = false;
+                        PictureFit.On(shadow, (pw, ph) =>
+                        {
+                            // Posed once before it shows (Animate); until then nothing.
+                            if (!_shadowSizes.TryGetValue(name, out (float Width, float Height, float Pad, float Blur) size))
+                            {
+                                return ProceduralSprites.Picture(HomePromo.ShadowKey("none"), 1, 1, (x, y) => new byte[4]);
+                            }
+
+                            return ProceduralSprites.Picture(HomePromo.ShadowKey(name), pw, ph, (x, y) => HomePromo.Shadow(alpha, mw, mh, x, y, size.Width, size.Height, size.Pad, size.Blur));
+                        });
+                        _shadows[picture] = shadow;
+                    }
                 }
             }
 
@@ -159,6 +219,21 @@ namespace Bloomlings.Client.UI.Screens
                 }
 
                 _shown.Add(layer.Picture);
+                if (_shadows.TryGetValue(layer.Picture, out Image? shade))
+                {
+                    (PromoLayer s, float pad, float blur) = HomePromo.ShadowOf(layer, _w);
+                    _shadowSizes[layer.Picture] = (s.Width, s.Height, pad, blur);
+                    RectTransform sr = shade.rectTransform;
+                    sr.pivot = new Vector2(s.PivotX, 1f - s.PivotY);
+                    UiKit.PlaceBox(sr, s.Box, _box);
+                    sr.localScale = new Vector3(s.ScaleX, s.ScaleY, 1f);
+                    sr.localEulerAngles = new Vector3(0f, 0f, -s.Rotation);
+                    shade.color = color;
+                    if (!shade.enabled)
+                    {
+                        shade.enabled = true;
+                    }
+                }
             }
 
             // Only the pictures that just left the frame change state, so the others keep their graphics.
@@ -167,6 +242,14 @@ namespace Bloomlings.Client.UI.Screens
                 if (picture.Value.enabled && !_shown.Contains(picture.Key))
                 {
                     picture.Value.enabled = false;
+                }
+            }
+
+            foreach (KeyValuePair<string, Image> shadow in _shadows)
+            {
+                if (shadow.Value.enabled && !_shown.Contains(shadow.Key))
+                {
+                    shadow.Value.enabled = false;
                 }
             }
         }

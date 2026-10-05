@@ -136,6 +136,8 @@ namespace Bloomlings.Playtest.Design
 
         public abstract (int Width, int Height)? SpriteSize(string name);
 
+        public abstract (byte[] Alpha, int Width, int Height)? SpriteAlpha(string name);
+
         public abstract void SpriteSkin(string name, Box box, string skinShape, Rgba tint);
 
         /// <summary>
