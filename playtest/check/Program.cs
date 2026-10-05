@@ -215,7 +215,8 @@ static string FindRoot()
 
 void Settle(LevelAnimator animator, LevelSession session, List<string> problems, string at)
 {
-    for (int i = 0; i < 2000 && !animator.Idle; i++) animator.Advance(1f / 60f, session.View);
+    // Up to 67 s of play (the clearing pace was halved twice, 2026-10-03 and 2026-10-05).
+    for (int i = 0; i < 4000 && !animator.Idle; i++) animator.Advance(1f / 60f, session.View);
     if (!animator.Idle) { problems.Add(at + ": never idle"); return; }
     LevelView view = session.View;
     for (int y = 0; y < view.Height; y++)

@@ -132,8 +132,8 @@ ordered **event log**. The next command always applies to that settled state. An
 - **Scheduling.** Each logical round becomes a visual *wave*. For each cleared tile a Bloomling walks from its entry
   along the BFS path (the positions come from the event data), then plays the family's restore animation.
 - **Speed.** 2× speed only scales the timeline (FR-069).
-- **Backlog compression.** If the pending visual time exceeds a threshold (default 6 s since 2026-10-03, was 1.5 s;
-  remotely tunable), the scheduler speeds playback up to 4× and merges walkers. One sprite may then represent several
+- **Backlog compression.** If the pending visual time exceeds a threshold (default 12 s since 2026-10-05, 6 s from
+  2026-10-03, 1.5 s before; remotely tunable), the scheduler speeds playback up to 4× and merges walkers. One sprite may then represent several
   tiles; this is visual only.
 - **Input.** Input is evaluated against the **logical** state and gets immediate feedback within 0.1 s, independent of
   the backlog (FR-070, SC-008). A pod tapped while its target slot is still animating an exit is queued visually.
@@ -156,6 +156,12 @@ ordered **event log**. The next command always applies to that settled state. An
   `playtest/check` replays every golden case and showcase solution (with pauses and rapid taps) to the rules' state, and
   checks two quick taps on every level: wherever both taps have work their waves play side by side, and never in one
   slot.
+- **Amendment (2026-10-05, the owner: "the board clearing speed at 1x must be halved").** The pace is halved again: 0.36 s
+  a route step in the playtest (was 0.18), 0.28 s in Unity (was 0.14), waves of 1.2–6.4 s and 1.2–5.6 s (were
+  0.6–3.2 s and 0.6–2.8 s); the restore keeps its time. 2× still doubles the clock, so it now plays at the old 1× pace.
+  The backlog speed-up threshold doubles with it, to 12 s (Remote Config `fx.backlogThresholdMs` 12000, range
+  2000–20000), so quick taps do not speed the slower clearing up again sooner than before. Presentation only: no
+  outcome changes (FR-069).
 - **Amendment (2026-10-04, the owner on L1: "if you pick all 3 at once, the first blue must finish before the green
   starts, though the greens could start running in the middle of the first blue").** A wave's Bloomlings set off
   together, so the leaf pod's whole wave waited for its farthest Bloomling, whose route crossed the last tiles the

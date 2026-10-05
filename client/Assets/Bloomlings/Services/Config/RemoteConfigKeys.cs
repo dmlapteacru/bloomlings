@@ -103,7 +103,7 @@ namespace Bloomlings.Client.Services.Config
 
         // Presentation (research R4). The backlog beyond which the timeline plays faster: 6 s since the waves of
         // different taps play side by side at the halved clearing pace (the owner's report of 2026-10-03; it was 1.5 s).
-        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 6000, 1000, 10000);
+        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 12000, 2000, 20000);
 
         public static IReadOnlyList<IntKey> AllInts { get; } = new[]
         {

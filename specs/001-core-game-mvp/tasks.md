@@ -408,7 +408,7 @@ must pass.
 - [X] T045 [US1] Implement `client/Assets/Bloomlings/Gameplay/Timeline/EventTimeline.cs` (R4):
   - consume the event logs as waves, one per round;
   - scale playback by 2× speed;
-  - compress a backlog above `fx.backlogThresholdMs` (default 6000 since 2026-10-03, 1500 before) by speeding up to 4× and merging walkers;
+  - compress a backlog above `fx.backlogThresholdMs` (default 12000 since 2026-10-05, 6000 from 2026-10-03, 1500 before) by speeding up to 4× and merging walkers;
   - never block input.
 - [X] T046 [US1] Implement `client/Assets/Bloomlings/Gameplay/Workers/WorkerPool.cs` and `BloomlingWorker.cs`:
   - a pooled set of family prefabs, capped at 60 active on low-end devices;

@@ -32,10 +32,11 @@ namespace Bloomlings.Client.Gameplay.Timeline
     /// </summary>
     public sealed class TimelinePlayer
     {
-        // The clearing pace, halved on the owner's request of 2026-10-03 (it was 0.07 s a step and waves of 0.3–1.4 s).
-        public const float StepSeconds = 0.14f;
-        public const float MinWaveSeconds = 0.6f;
-        public const float MaxWaveSeconds = 2.8f;
+        // The clearing pace, halved on the owner's requests of 2026-10-03 (it was 0.07 s a step and waves of 0.3–1.4 s)
+        // and again of 2026-10-05 (0.14 s a step and waves of 0.6–2.8 s); the restore keeps its time.
+        public const float StepSeconds = 0.28f;
+        public const float MinWaveSeconds = 1.2f;
+        public const float MaxWaveSeconds = 5.6f;
 
         public const float RestoreSeconds = 0.22f;
         public const float MaxRate = 4f;

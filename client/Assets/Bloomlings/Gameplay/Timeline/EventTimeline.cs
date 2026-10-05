@@ -51,7 +51,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
     [DefaultExecutionOrder(-100)]
     public sealed class EventTimeline : MonoBehaviour
     {
-        // The clearing pace, halved on the owner's request of 2026-10-03 (it was 0.07 s a step and waves of 0.3–1.4 s).
+        // The clearing pace, halved on the owner's requests of 2026-10-03 and 2026-10-05 (TimelinePlayer).
         public const float StepSeconds = TimelinePlayer.StepSeconds;
         public const float MinWaveSeconds = TimelinePlayer.MinWaveSeconds;
         public const float MaxWaveSeconds = TimelinePlayer.MaxWaveSeconds;

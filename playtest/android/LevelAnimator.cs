@@ -74,18 +74,20 @@ namespace Bloomlings.Playtest
     /// </summary>
     public sealed class LevelAnimator
     {
-        // The clearing pace, halved on the owner's request of 2026-10-03 (it was 0.09 s a step and waves of 0.3–1.6 s).
-        public const float StepSeconds = 0.18f;
+        // The clearing pace, halved on the owner's requests of 2026-10-03 (it was 0.09 s a step and waves of 0.3–1.6 s)
+        // and again of 2026-10-05 (0.18 s a step and waves of 0.6–3.2 s); the restore keeps its time.
+        public const float StepSeconds = 0.36f;
         public const float RestoreSeconds = 0.2f;
-        public const float MinWaveSeconds = 0.6f;
-        public const float MaxWaveSeconds = 3.2f;
+        public const float MinWaveSeconds = 1.2f;
+        public const float MaxWaveSeconds = 6.4f;
         public const float ExitSeconds = 0.25f;
         public const float FadeSeconds = 0.2f;
         public const float FlightSeconds = 0.2f;
         private const float MaxRate = 4f;
 
-        // The backlog beyond which the timeline plays faster (taps far quicker than the Bloomlings walk).
-        private const float BacklogSeconds = 6f;
+        // The backlog beyond which the timeline plays faster (taps far quicker than the Bloomlings walk), doubled with the
+        // pace on 2026-10-05 (it was 6 s), so the slower clearing is not sped up again.
+        private const float BacklogSeconds = 12f;
 
         private readonly List<Wave> _waves = new List<Wave>();
         private readonly Dictionary<string, (int Progress, int Total, bool Triggered)> _specials = new Dictionary<string, (int, int, bool)>(StringComparer.Ordinal);

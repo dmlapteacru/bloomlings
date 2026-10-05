@@ -14,7 +14,7 @@ the targets, what is already in place, and the table to fill in.
 
 - [x] Walkers come from a bounded pool (`WorkerPool`, 60 active on low-end devices), and a saturated wave merges walkers
   (T046, R4).
-- [x] When the pending animation time exceeds `fx.backlogThresholdMs` (Remote Config, default 6000 ms since 2026-10-03, 1500 before), playback
+- [x] When the pending animation time exceeds `fx.backlogThresholdMs` (Remote Config, default 12000 ms since 2026-10-05, 6000 from 2026-10-03, 1500 before), playback
   speeds up to 4× and walkers are merged (T045, R4).
 - [x] Input never waits for the timeline: taps apply to the logical state at once (FR-016, SC-008).
 - [x] Content packs are parsed off the main thread at boot (`BundledContentLoader`, `Task.Run`).

@@ -60,6 +60,6 @@ only.
 | `ads.rescue.perAttempt` | 1 | 0–1 | FR-027, FR-048 |
 | `feature.dailyChallenge` / `feature.wardrobe` / `feature.leaderboard` | true | bool | FR-062 to FR-064 |
 | `content.manifestUrl` | "" | URL | FR-078 |
-| `fx.backlogThresholdMs` | 6000 (1500 before 2026-10-03, R4 amendment) | 1000–10000 | R4 |
+| `fx.backlogThresholdMs` | 12000 (6000 from 2026-10-03, 1500 before; R4 amendments) | 2000–20000 | R4 |
 
 Core puzzle rules and level definitions are **not** remotely configurable (FR-085).

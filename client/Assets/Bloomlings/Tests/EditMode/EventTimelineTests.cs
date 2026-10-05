@@ -12,23 +12,25 @@ namespace Bloomlings.Client.Tests
     /// <summary>
     /// The Unity event timeline's schedule (<see cref="TimelinePlayer"/>, behind <see cref="EventTimeline"/>; the owner's
     /// report of 2026-10-03): the waves of one tap play one after another, the waves of different taps side by side, a
-    /// wave waits only for the cells, specials and pods it depends on, and the clearing pace is halved.
+    /// wave waits only for the cells, specials and pods it depends on, and the clearing pace is halved (and halved again on
+    /// 2026-10-05).
     /// </summary>
     public class EventTimelineTests
     {
         private const float Tolerance = 0.0005f;
 
         [Test]
-        public void ClearingPace_IsHalved_AndTheSpeedUpStartsBeyondSixSeconds()
+        public void ClearingPace_IsHalvedTwice_AndTheSpeedUpStartsBeyondTwelveSeconds()
         {
-            Assert.That(EventTimeline.StepSeconds, Is.EqualTo(0.14f));
-            Assert.That(EventTimeline.MinWaveSeconds, Is.EqualTo(0.6f));
-            Assert.That(EventTimeline.MaxWaveSeconds, Is.EqualTo(2.8f));
+            // The owner's requests of 2026-10-03 and 2026-10-05: 0.07 s a step, then 0.14 s, now 0.28 s.
+            Assert.That(EventTimeline.StepSeconds, Is.EqualTo(0.28f));
+            Assert.That(EventTimeline.MinWaveSeconds, Is.EqualTo(1.2f));
+            Assert.That(EventTimeline.MaxWaveSeconds, Is.EqualTo(5.6f));
             Assert.That(EventTimeline.RestoreSeconds, Is.EqualTo(0.22f), "the restore keeps its time");
-            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Default, Is.EqualTo(6000));
-            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Min, Is.EqualTo(1000));
-            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Max, Is.EqualTo(10000));
-            Assert.That(new TimelinePlayer().BacklogThresholdSeconds, Is.EqualTo(6f));
+            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Default, Is.EqualTo(12000));
+            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Min, Is.EqualTo(2000));
+            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Max, Is.EqualTo(20000));
+            Assert.That(new TimelinePlayer().BacklogThresholdSeconds, Is.EqualTo(12f));
         }
 
         [Test]
@@ -170,14 +172,14 @@ namespace Bloomlings.Client.Tests
             player.Enqueue(Tap(Clear(1, "b", Long(5))));
             Assert.That(player.Backlog, Is.EqualTo(EventTimeline.MaxWaveSeconds).Within(Tolerance), "two taps side by side, not one after the other");
             player.Advance(0.01f);
-            Assert.That(player.Rate, Is.EqualTo(1f), "under 6 s of backlog the pace stays");
+            Assert.That(player.Rate, Is.EqualTo(1f), "under 12 s of backlog the pace stays");
 
-            // One tap's three rounds follow each other (on cells of their own): 3 × 2.46 s.
+            // One tap's three rounds follow each other (on cells of their own): 3 × 4.7 s.
             float round = (16 * EventTimeline.StepSeconds) + EventTimeline.RestoreSeconds;
             player.Enqueue(Tap(Clear(1, "c", Column(12, 15)), Clear(2, "c", Column(12, 15)), Clear(3, "c", Column(12, 15))));
             Assert.That(player.Backlog, Is.EqualTo(3 * round).Within(Tolerance));
             player.Advance(0.01f);
-            Assert.That(player.Rate, Is.EqualTo(3 * round / 6f).Within(0.01f), "beyond 6 s it plays faster");
+            Assert.That(player.Rate, Is.EqualTo(3 * round / player.BacklogThresholdSeconds).Within(0.01f), "beyond 12 s it plays faster");
             Assert.That(player.Rate, Is.LessThanOrEqualTo(EventTimeline.MaxRate));
         }
 
