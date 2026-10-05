@@ -7,6 +7,8 @@
 //   client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/manifest.json             the files (originality test)
 //   tools/heroanim/manifest.json                                                       hashes for check.mjs
 // A hero may be one of several in a file (heroes.json `mesh`: the owner's Heroes.glb); `breathe` adds a breath its idle lacks.
+// A hero with a `winYaw` is baked twice: at its `yaw` for Home (turned toward the fountain's middle: its idle and reaction)
+// and at its `winYaw` for the win, where it stands alone facing the player (its celebrations and that idle, `winidle`).
 // Usage: node bake.mjs [--only <family>]
 import fs from 'node:fs';
 import path from 'node:path';
@@ -77,7 +79,7 @@ function csharp(config, results) {
   lines.push('        private static readonly ClipData[] ClipTable =');
   lines.push('        {');
   for (const r of results) {
-    for (const clip of ['idle', 'react', 'win', 'win2']) {
+    for (const clip of ['idle', 'react', 'win', 'win2', 'winidle']) {
       const fr = r.frames.filter(f => f.clip === clip);
       if (fr.length === 0) continue;
       lines.push(`            new ClipData("${r.family}", "${clip}",`);
@@ -137,10 +139,17 @@ async function main() {
       width: Math.round(config.cell[0] * config.supersample), height: Math.round(config.cell[1] * config.supersample),
     };
     const baked = await page.evaluate(j => window.bake(j), job);
+    if (hero.win && 'winYaw' in hero && hero.winYaw !== hero.yaw) {
+      // The win's set, front on: its idle (as `winidle`) and celebrations replace the Home set's celebrations. The Home set
+      // is baked as before (with its celebrations in the camera's fit), so Home's frames do not change.
+      const front = await page.evaluate(j => window.bake(j), { ...job, yaw: hero.winYaw });
+      baked.frames = baked.frames.filter(f => f.clip === 'idle' || f.clip === 'react')
+        .concat(front.frames.filter(f => f.clip !== 'react').map(f => f.clip === 'idle' ? { ...f, clip: 'winidle' } : f));
+    }
     for (const f of fs.readdirSync(framesDir)) if (f.startsWith(hero.family + '-') && f.endsWith('.png')) fs.rmSync(path.join(framesDir, f));
     const frames = [];
     const pictures = [];
-    const index = { idle: 0, react: 0, win: 0, win2: 0 };
+    const index = { idle: 0, react: 0, win: 0, win2: 0, winidle: 0 };
     const [cw, ch] = config.cell;
     const share = p => [p[0] / cw, p[1] / ch];
     for (const f of baked.frames) {
@@ -150,16 +159,21 @@ async function main() {
       pictures.push(crop(png, b));
       frames.push({ name: frameName(hero.family, f.clip, index[f.clip]++), clip: f.clip, crop: b, head: share(f.head), top: share(f.top) });
     }
-    // One palette for all the hero's frames (png8.mjs), so the files stay small and no color flickers.
-    const pal = palette(pictures);
+    // One palette for all the hero's frames (png8.mjs), so the files stay small and no color flickers; a hero baked twice
+    // has one per set (Home's, the win's), so Home's frames stay as they were.
+    const twice = baked.frames.some(f => f.clip === 'winidle');
+    const winSet = f => twice && f.clip !== 'idle' && f.clip !== 'react';
+    const palHome = palette(pictures.filter((_, i) => !winSet(frames[i])));
+    const palWin = twice ? palette(pictures.filter((_, i) => winSet(frames[i]))) : palHome;
     frames.forEach((f, i) => {
+      const pal = winSet(f) ? palWin : palHome;
       const bytes = writePng8(pictures[i].width, pictures[i].height, indexed(pictures[i], pal), pal);
       fs.writeFileSync(path.join(framesDir, f.name + '.png'), bytes);
       f.sha256 = sha256(bytes);
       f.bytes = bytes.length;
     });
     const total = frames.reduce((s, f) => s + f.bytes, 0);
-    console.log(`${hero.family}: ${index.idle} idle + ${index.react} reaction${index.win ? ` + ${index.win} win` : ''}${index.win2 ? ` + ${index.win2} win2` : ''} frames, ${(total / 1024 / 1024).toFixed(2)} MB, scale ${baked.scale.toFixed(3)}, ${((Date.now() - t0) / 1000).toFixed(1)} s`);
+    console.log(`${hero.family}: ${index.idle} idle + ${index.react} reaction${index.win ? ` + ${index.win} win` : ''}${index.win2 ? ` + ${index.win2} win2` : ''}${index.winidle ? ` + ${index.winidle} win idle` : ''} frames, ${(total / 1024 / 1024).toFixed(2)} MB, scale ${baked.scale.toFixed(3)}, ${((Date.now() - t0) / 1000).toFixed(1)} s`);
     results.push({ family: hero.family, model: hero.file, modelSha256: sha256(fs.readFileSync(path.join(here, 'models', hero.file))), frames });
   }
   await browser.close();

@@ -396,3 +396,14 @@ decision records what the reference shows, what we do and why, so the owner can 
   leave it); granting two charges and spending one (changes FR-042's grant and the economy config for the same
   result); a skippable, unforced demo card (the previous behaviour; the owner asked for a forced tap); showing the
   blocked entry on Level 5 as rendered (the same situation first happens on Level 2, where it is simpler).
+
+## D28. The win's celebrants face the player (2026-10-05; FR-028)
+
+- **Decision**: A hero with a `winYaw` in `heroes.json` (Twig and Sprig, 0°) is baked twice: at its `yaw` for Home
+  (its idle and reaction, as before, the camera's fit still taking its celebrations in, so Home's frames keep their
+  size) and at its `winYaw` for the win and the milestone (its celebrations and its idle, `winidle`), each set with its
+  own palette. The kit's `HeroMotionPlayer` with `front` (both builds' win and milestone) idles on `WinIdle`, and a
+  cross-fade names its idle clip (`HeroPose.FromClip`).
+- **Rationale**: the owner's note; the turn suits four heroes round the fountain, not one alone on the stage.
+- **Alternatives**: one bake at 0° for every screen (Home's heroes would all face the camera and lose their turn toward
+  the middle); mirroring or skewing the frames (cannot turn a 3D pose).

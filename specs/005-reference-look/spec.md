@@ -420,6 +420,16 @@ to be reduced. And Sprig too."
   grade softened (brightness 0.73 → 0.62, saturation 0.73 → 0.59), Sprig's texture graded (0.69 → 0.65, saturation
   0.79 → 0.64), against Bloom's 0.63 and Drop's 0.61 (research D25). Their colors stay; only the glare goes.
 
+### Session 2026-10-05 (the owner's note: the celebrating hero looks aside)
+
+The owner: "Why do the heroes on the celebration screen look to the side, their bodies turned?"
+- Q: Why? → A: Each hero was baked once, its camera turned by its `yaw` (Sprig -12°, Twig 14°, Drop 10°) so that on
+  Home the four turn toward the fountain's middle; the win and the milestone showed the same frames, so the hero
+  standing alone in the middle looked aside.
+- Q: The fix? → A: The heroes that celebrate (Twig, Sprig) are baked a second time facing the player for the win and
+  the milestone: their celebrations and their idle there (`MotionClip.WinIdle`, `HeroMotionPlayer`'s `front`; research
+  D28). Home keeps its turned heroes. 168 more frames (900 in all, about 7 MB more).
+
 ### Session 2026-10-05 (the owner's visible Garden Entry and guided spotlights)
 
 The owner, on Level 5: "I pick the drops but they do not play, why? Because the way to the board lies through the

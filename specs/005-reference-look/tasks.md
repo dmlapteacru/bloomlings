@@ -550,3 +550,10 @@ and contracts/look.md §3.6, §6.10.
   the asset inventory, all checks, the APK.
 - [ ] T106 Unity Editor: play Levels 1–9 on a device and check the spotlight's taps (the raycast filter) and looks match
   the playtest's.
+
+## Owner note: the celebrating hero looks aside (2026-10-05)
+
+- [X] T107 The cause found (the bake's per-hero `yaw` for Home's fountain, shown on the win too); Twig and Sprig baked a
+  second time facing the player for the win and the milestone (`winYaw`, `winidle`, one palette per set);
+  `MotionClip.WinIdle`, `HeroMotion.HasFront`, `HeroMotionPlayer` `front`, `HeroPose.FromClip`; both builds' win and
+  milestone; the hero tests (900 frames); SOURCE.md, README, research D28, CLAUDE.md; the APK.

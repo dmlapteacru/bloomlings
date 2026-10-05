@@ -481,7 +481,8 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         private static HeroPose CelebrationPose(Family family, int turn, float since)
         {
-            var player = new HeroMotionPlayer(family, HeroEntrance);
+            // Alone on the stage it faces the player (its win set, baked front on).
+            var player = new HeroMotionPlayer(family, HeroEntrance, front: true);
             player.Celebrate(HeroEntrance, turn: turn);
             return player.Pose(Math.Max(HeroEntrance, since));
         }

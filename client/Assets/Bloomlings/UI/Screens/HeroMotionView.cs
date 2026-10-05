@@ -188,14 +188,14 @@ namespace Bloomlings.Client.UI.Screens
             int from = pose.FromIdle;
             if (from != _fadeShown || pose.FromAlpha != _fadeAlpha)
             {
-                Sprite? sprite = from >= 0 ? set.Sprite(MotionClip.Idle, from) : null;
+                Sprite? sprite = from >= 0 ? set.Sprite(pose.FromClip, from) : null;
                 _fade.enabled = sprite != null;
                 if (sprite != null)
                 {
                     if (from != _fadeShown)
                     {
                         _fade.sprite = sprite;
-                        Anchor(_fade.rectTransform, HeroMotion.PictureBox(UnitCell, set.Frame(MotionClip.Idle, from)));
+                        Anchor(_fade.rectTransform, HeroMotion.PictureBox(UnitCell, set.Frame(pose.FromClip, from)));
                     }
 
                     Color color = Color.white;
@@ -259,7 +259,8 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            _player = new HeroMotionPlayer(_set.Family, now);
+            // Alone on the stage it faces the player (its win set, baked front on).
+            _player = new HeroMotionPlayer(_set.Family, now, front: true);
             _player.Celebrate(now, turn: _turn);
             _shown = -1;
             _fadeShown = -1;

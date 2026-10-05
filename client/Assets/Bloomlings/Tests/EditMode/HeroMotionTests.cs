@@ -65,6 +65,22 @@ namespace Bloomlings.Client.Tests
             Assert.That(HeroMotion.WinClip(Family.Twig, 1), Is.EqualTo(MotionClip.Win), "Twig cheers on every turn");
             Assert.That(HeroMotion.WinClip(Family.Bloom, 0), Is.EqualTo(MotionClip.React));
 
+            // On the win the celebrants face the player: their win set and its idle were baked front on (the owner,
+            // 2026-10-05: "why do the heroes look aside on the celebration?"); Home's players keep the turned idle.
+            foreach (Family celebrant in new[] { Family.Twig, Family.Sprig })
+            {
+                Assert.That(HeroMotion.HasFront(celebrant), Is.True, celebrant.ToString());
+                Assert.That(HeroMotion.Seconds(celebrant, MotionClip.WinIdle), Is.EqualTo(HeroMotion.Seconds(celebrant, MotionClip.Idle)).Within(Eps), celebrant + ": the same idle, facing the player");
+                var win = new HeroMotionPlayer(celebrant, 0f, front: true);
+                win.Celebrate(0f);
+                float end = HeroMotion.Seconds(celebrant, HeroMotion.WinClip(celebrant, 0));
+                Assert.That(win.Pose(end + 0.01f).Clip, Is.EqualTo(MotionClip.WinIdle), celebrant + " idles facing the player after celebrating");
+                Assert.That(new HeroMotionPlayer(celebrant, 0f).Pose(0.5f).Clip, Is.EqualTo(MotionClip.Idle), celebrant + " on Home");
+            }
+
+            Assert.That(HeroMotion.HasFront(Family.Bloom), Is.False, "a hero that never celebrates has no win set");
+            Assert.That(new HeroMotionPlayer(Family.Bloom, 0f, front: true).Pose(0.5f).Clip, Is.EqualTo(MotionClip.Idle));
+
             twig.React(cheer + 1f, waitForSeam: true);
             Assert.That(twig.Pose(cheer + HeroMotion.Seconds(Family.Twig, MotionClip.Idle) + 0.01f).Clip, Is.EqualTo(MotionClip.React), "a reaction after the cheer is a reaction");
         }

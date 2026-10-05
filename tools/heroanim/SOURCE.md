@@ -48,6 +48,10 @@ dances, `victory`) are not used.
   `yaw`), rendered 2.5 times larger and drawn down into a 448 × 504 cell (the still heroes' 8:9 shape) with the seam
   pose's feet on 90% of its height, the seam pose at most 84% of the cell high (`fill`) and every frame at least 1.5%
   inside the cell (`margin`).
+- A hero that celebrates on the win (Twig, Sprig; `winYaw` 0) is baked a second time facing the player, as it stands
+  alone on the win and the milestone: its celebrations and its idle there (`winidle`), with their own palette, so
+  Home's frames stay turned toward the fountain (the owner, 2026-10-05: "why do the heroes on the celebration screen
+  look aside, their bodies turned?").
 - The idle eases into its own first pose over its last 0.75 s, so it loops; the reaction blends in from that pose over
   0.25 s and back to it over its last 0.4 s, so it starts and ends where the idle loop starts.
 - Each Meshy clip at the length of the owner's table (`heroes.json` `idleSeconds` 4, `reactSeconds` 2), whatever time

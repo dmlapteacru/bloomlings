@@ -45,6 +45,7 @@ namespace Bloomlings.Client.UI
         private readonly HeroFrame[] _react;
         private readonly HeroFrame[] _win;
         private readonly HeroFrame[] _win2;
+        private readonly HeroFrame[] _winIdle;
         private readonly Sprite?[] _sprites;
         private readonly bool[] _tried;
         private readonly bool[] _created;
@@ -58,7 +59,8 @@ namespace Bloomlings.Client.UI
             _react = Frames(family, MotionClip.React, baked);
             _win = Frames(family, MotionClip.Win, baked);
             _win2 = Frames(family, MotionClip.Win2, baked);
-            int count = _idle.Length + _react.Length + _win.Length + _win2.Length;
+            _winIdle = Frames(family, MotionClip.WinIdle, baked);
+            int count = _idle.Length + _react.Length + _win.Length + _win2.Length + _winIdle.Length;
             _sprites = new Sprite?[count];
             _tried = new bool[count];
             _created = new bool[count];
@@ -90,7 +92,8 @@ namespace Bloomlings.Client.UI
             MotionClip.Idle => 0,
             MotionClip.React => _idle.Length,
             MotionClip.Win => _idle.Length + _react.Length,
-            _ => _idle.Length + _react.Length + _win.Length,
+            MotionClip.Win2 => _idle.Length + _react.Length + _win.Length,
+            _ => _idle.Length + _react.Length + _win.Length + _win2.Length,
         };
 
         private HeroFrame[] FramesOf(MotionClip clip) => clip switch
@@ -98,7 +101,8 @@ namespace Bloomlings.Client.UI
             MotionClip.Idle => _idle,
             MotionClip.React => _react,
             MotionClip.Win => _win,
-            _ => _win2,
+            MotionClip.Win2 => _win2,
+            _ => _winIdle,
         };
 
         /// <summary>A frame's picture, loaded the first time it is asked for; null while it is missing.</summary>

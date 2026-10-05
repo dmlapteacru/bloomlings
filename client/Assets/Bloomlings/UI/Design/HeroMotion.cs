@@ -17,6 +17,13 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>A hero's second celebration, played on every other of its turns (<see cref="HeroMotion.WinClip"/>).</summary>
         Win2,
+
+        /// <summary>
+        /// The idle of a hero that celebrates, baked facing the player for the win and the milestone, where it stands alone
+        /// (the owner, 2026-10-05: on Home the heroes turn toward the fountain's middle; <see cref="HeroMotion.HasFront"/>).
+        /// Its celebrations are baked the same way.
+        /// </summary>
+        WinIdle,
     }
 
     /// <summary>
@@ -75,17 +82,18 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A reaction asked for this close to the next seam waits for it instead of cross-fading.</summary>
         public const float MaxSeamWait = 0.35f;
 
-        /// <summary>The clip's name in frame names: <c>idle</c>, <c>react</c>, <c>win</c>, <c>win2</c>.</summary>
+        /// <summary>The clip's name in frame names: <c>idle</c>, <c>react</c>, <c>win</c>, <c>win2</c>, <c>winidle</c>.</summary>
         public static string ClipName(MotionClip clip) => clip switch
         {
             MotionClip.Idle => "idle",
             MotionClip.React => "react",
             MotionClip.Win2 => "win2",
+            MotionClip.WinIdle => "winidle",
             _ => "win",
         };
 
         /// <summary>Every clip, in the frames' order (<see cref="AllFrames"/>).</summary>
-        public static IReadOnlyList<MotionClip> Clips { get; } = new[] { MotionClip.Idle, MotionClip.React, MotionClip.Win, MotionClip.Win2 };
+        public static IReadOnlyList<MotionClip> Clips { get; } = new[] { MotionClip.Idle, MotionClip.React, MotionClip.Win, MotionClip.Win2, MotionClip.WinIdle };
 
         /// <summary>A frame's picture name: <c>sprig-idle-07</c>.</summary>
         public static string FrameName(Family family, MotionClip clip, int index) =>
@@ -99,6 +107,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>Whether the family has its own celebration for the win (<see cref="MotionClip.Win"/>).</summary>
         public static bool HasWin(Family family) => Has(family) && Find(family, MotionClip.Win) != null;
+
+        /// <summary>
+        /// Whether the family's win set was baked facing the player (<see cref="MotionClip.WinIdle"/>, heroes.json
+        /// <c>winYaw</c>): the win and the milestone then idle on it (<see cref="HeroMotionPlayer"/>'s <c>front</c>).
+        /// </summary>
+        public static bool HasFront(Family family) => HasWin(family) && Find(family, MotionClip.WinIdle) != null;
 
         /// <summary>
         /// The celebration a family plays on its <paramref name="turn"/>-th win (counted from 0, <see cref="CharacterArt.CelebrationTurn"/>):
@@ -239,7 +253,7 @@ namespace Bloomlings.Client.UI.Design
             return index;
         }
 
-        private const int ClipCount = 4;
+        private const int ClipCount = 5;
 
         private sealed class ClipData
         {
@@ -287,12 +301,13 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>What a hero shows at a moment: a clip's frame, maybe cross-fading from an idle frame.</summary>
     public readonly struct HeroPose
     {
-        public HeroPose(MotionClip clip, int index, int fromIdle, float fromAlpha)
+        public HeroPose(MotionClip clip, int index, int fromIdle, float fromAlpha, MotionClip fromClip = MotionClip.Idle)
         {
             Clip = clip;
             Index = index;
             FromIdle = fromIdle;
             FromAlpha = fromAlpha;
+            FromClip = fromClip;
         }
 
         public MotionClip Clip { get; }
@@ -302,6 +317,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The idle frame a reaction cross-fades from (drawn over it at <see cref="FromAlpha"/>), or −1.</summary>
         public int FromIdle { get; }
 
+        /// <summary>The idle clip <see cref="FromIdle"/> is a frame of (<see cref="MotionClip.WinIdle"/> on the win).</summary>
+        public MotionClip FromClip { get; }
+
         public float FromAlpha { get; }
     }
 
@@ -310,8 +328,9 @@ namespace Bloomlings.Client.UI.Design
     /// shows then and every idle length after), and reactions on request (<see cref="React"/>, or the win's celebration,
     /// <see cref="Celebrate"/>). A reaction starts at the next seam when asked to wait or when that seam is near
     /// (<see cref="HeroMotion.MaxSeamWait"/>), else at once, cross-fading from the idle frame it interrupts over
-    /// <see cref="HeroMotion.DissolveSeconds"/>; it ends on the seam pose and the idle starts over from it. Deterministic
-    /// in its inputs; engine-free.
+    /// <see cref="HeroMotion.DissolveSeconds"/>; it ends on the seam pose and the idle starts over from it. With
+    /// <c>front</c> (the win and the milestone) a hero whose win set was baked facing the player idles on it
+    /// (<see cref="MotionClip.WinIdle"/>). Deterministic in its inputs; engine-free.
     /// </summary>
     public sealed class HeroMotionPlayer
     {
@@ -320,15 +339,19 @@ namespace Bloomlings.Client.UI.Design
         private int _fromIdle = -1;
         private MotionClip _shot = MotionClip.React;
 
-        public HeroMotionPlayer(Family family, float idleOrigin)
+        public HeroMotionPlayer(Family family, float idleOrigin, bool front = false)
         {
             Family = family;
             _idleOrigin = idleOrigin;
+            IdleClip = front && HeroMotion.HasFront(family) ? MotionClip.WinIdle : MotionClip.Idle;
         }
 
         public Family Family { get; }
 
-        private float IdleSeconds => Math.Max(1f / HeroMotion.Fps, HeroMotion.Seconds(Family, MotionClip.Idle));
+        /// <summary>The idle this player loops: <see cref="MotionClip.WinIdle"/> on the win for a hero baked facing the player.</summary>
+        public MotionClip IdleClip { get; }
+
+        private float IdleSeconds => Math.Max(1f / HeroMotion.Fps, HeroMotion.Seconds(Family, IdleClip));
 
         private float ReactSeconds => HeroMotion.Seconds(Family, _shot);
 
@@ -395,10 +418,10 @@ namespace Bloomlings.Client.UI.Design
                 int count = HeroMotion.FrameCount(Family, _shot);
                 int index = Math.Min(count - 1, Math.Max(0, (int)Math.Floor(t * HeroMotion.Fps)));
                 float alpha = _fromIdle >= 0 && t < HeroMotion.DissolveSeconds ? 1f - (t / HeroMotion.DissolveSeconds) : 0f;
-                return new HeroPose(_shot, index, alpha > 0f ? _fromIdle : -1, alpha);
+                return new HeroPose(_shot, index, alpha > 0f ? _fromIdle : -1, alpha, IdleClip);
             }
 
-            return new HeroPose(MotionClip.Idle, IdleIndex(now), -1, 0f);
+            return new HeroPose(IdleClip, IdleIndex(now), -1, 0f, IdleClip);
         }
 
         private int IdleIndex(float now)
@@ -409,7 +432,7 @@ namespace Bloomlings.Client.UI.Design
                 t += IdleSeconds;
             }
 
-            int count = Math.Max(1, HeroMotion.FrameCount(Family, MotionClip.Idle));
+            int count = Math.Max(1, HeroMotion.FrameCount(Family, IdleClip));
             return Math.Min(count - 1, Math.Max(0, (int)Math.Floor(t * HeroMotion.Fps)));
         }
 

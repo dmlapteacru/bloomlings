@@ -147,7 +147,7 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark(HeroMotion.Slot(family));
             HeroFrame frame = HeroMotion.Frame(family, pose.Clip, pose.Index);
-            HeroFrame? from = pose.FromIdle >= 0 && pose.FromAlpha > 0f ? HeroMotion.Frame(family, MotionClip.Idle, pose.FromIdle) : (HeroFrame?)null;
+            HeroFrame? from = pose.FromIdle >= 0 && pose.FromAlpha > 0f ? HeroMotion.Frame(family, pose.FromClip, pose.FromIdle) : (HeroFrame?)null;
             if (outfit?.Trail != null)
             {
                 p.Shape(ShapeLibrary.CosmeticId(outfit.Trail.Shape), CharacterArt.TrailBox(cell), Tint(outfit.Trail));

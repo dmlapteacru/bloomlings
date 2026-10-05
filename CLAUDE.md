@@ -138,7 +138,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   place and time them for both builds. Home and the splash stand the four heroes on the painted fountain as in the
   reference (idling, taking turns to react, reacting to a tap); the win and the milestone show the level's celebrant,
   Twig and Sprig by turns (`CharacterArt.CelebrantOf`; Sprig alternates its celebrate and clap, `HeroMotion.WinClip`),
-  celebrating (`HeroMotionPlayer.Celebrate`), then idling. The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
+  celebrating (`HeroMotionPlayer.Celebrate`), then idling, facing the player (their win set is baked a second time front
+  on, `winYaw` and the `winidle` clip; Home's heroes stay turned toward the fountain's middle by their `yaw`). The Wardrobe, profile and the group keep the still pictures. Constitution VII: no 3D model,
   scene or camera in the game, only these flat pictures on meta screens. Frames load when first drawn into a bounded
   cache, never all.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
