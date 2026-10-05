@@ -420,6 +420,39 @@ to be reduced. And Sprig too."
   grade softened (brightness 0.73 → 0.62, saturation 0.73 → 0.59), Sprig's texture graded (0.69 → 0.65, saturation
   0.79 → 0.64), against Bloom's 0.63 and Drop's 0.61 (research D25). Their colors stay; only the glare goes.
 
+### Session 2026-10-05 (the owner's visible Garden Entry and guided spotlights)
+
+The owner, on Level 5: "I pick the drops but they do not play, why? Because the way to the board lies through the
+logs? That is why there was a gate or an arch? If so, an indicator is needed, a tunnel, but visible; highlight it,
+especially in the first round, dim the screen and pick it out." Renders of three entry looks and four ways to draw
+attention were made before any code; the owner chose "B + 1a + 1b". Then: "Since we make a screen dimming feature,
+when boosters appear in the game, dim and highlight them too, and make the player tap the item so they see right away
+how it works. Leave them the item in any case and count the first tap as a demonstration only, since we force it; I
+don't know (look at how other games do it), I don't mind leaving or taking the item."
+- Q: Why did the drops wait? → A: The rules were right: Level 5's only entry is under the pot of logs, so the water
+  and the leaves are out of reach until the logs at the entry are cleared (spec 001 FR-010), and the wood pods are the
+  deepest in their stacks. Nothing showed the entry since the arch went on 2026-10-03.
+- Q: Does the entry move between levels? → A: Yes: Levels 1–10 have one entry at the bottom middle (on 8-wide boards
+  one cell right of the middle); from Level 11 it may be at the bottom left or right, from 51 two entries, from 251 on
+  a side (the profiles' `entryLayouts`). So every entry shows its arch, on its side.
+- Q: Which look? → A: "B", a small stone arch set in the border beside the entry cell, ivy and a pink flower on it,
+  two eyes peeping from its dark opening (FR-034). It replaces the flagged question of 2026-10-03 ("a subtle marker is
+  the owner's call"); unlike the retired arch it stands in the border and takes no room from the board.
+- Q: When does the spotlight show? → A: "1a": Level 1 lights the arch once ("Bloomlings come in through this arch"),
+  then the forced first tap. "1b": the first level whose start leaves an exposed pod's tiles out of reach lights the
+  tiles in front of the entry and says to clear them first. In the launch content that is Level 2 (only the leaves are
+  reachable there; the owner met it on Level 5, where it lasts longer), so 1b shows on Level 2.
+- Q: The boosters? → A: Each booster's unlock (spec 001 FR-042) dims the screen and lights its button; only that tap
+  works (forced); Return's and Bloom Burst's then light the slot or the tiles to tap; then a step says the free one is
+  still there. Extra Slot, Shuffle and Bloom Burst start as their level opens; Return starts on Level 6 as soon as a pod
+  waits in a slot (after the first tap), since before that it has nothing to send back.
+- Q: Keep or take the item? → A: Kept (research D27). The guided use is free: it takes no charge, so the unlock's one
+  free charge stays for later, and it does not cost the clean-clear bonus. Other games give a small stock with the
+  tutorial and spend one of it in the guided use (Royal Match gives three of each pre-level booster at Level 7 "as the
+  game shows you how they work"; Diamond Digger Saga gives two or three samples); with one free charge, a free guided
+  use ends the same way: the player tried it and still has one. The demo counts as seen at the use, so leaving the
+  level never gives the free use again.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -653,9 +686,9 @@ inventory.
   darker lip, thin darker outline, gloss at the top) and the variant symbol embossed in a darker shade with a light
   edge, nearly touching their neighbors. Characters no longer stand on board tiles (replaces spec 004 FR-012). Restored
   ground shows the finished picture as pale flat cells.
-- **FR-011** *(amended on 2026-10-03: no arch)*: The board MUST sit inside a border of cream stone blocks on a lawn;
-  a Garden Entry has no picture, its Bloomlings set off from the stone border beside the entry cell; walkers stay the
-  spec 004 2D characters.
+- **FR-011** *(amended on 2026-10-03: no arch; and on 2026-10-05: the small arch of FR-034)*: The board MUST sit inside
+  a border of cream stone blocks on a lawn; a Garden Entry is the small arch of FR-034 set in the border, its
+  Bloomlings set off from the stone border beside the entry cell; walkers stay the spec 004 2D characters.
 - **FR-012**: The tray, slot row and booster bar MUST sit on parchment as in the reference.
 - **FR-013** *(pod layout amended on 2026-10-03 by FR-021 and the owner's choice "E": the icon first, the count in a
   corner)*: Pods MUST be wooden frames holding the variant's icon over the middle of the panel with the small count at
@@ -692,7 +725,8 @@ inventory.
 #### G. Reference layouts (owner's review, 2026-10-02)
 
 - **FR-020**: The gameplay screen MUST follow the reference layout (contracts/look.md §6.1): the top bar; the board in
-  its stone border on the lawn, wide and full of color; a thin lawn strip below it (no arch since 2026-10-03); then one
+  its stone border on the lawn, wide and full of color; a thin lawn strip below it (no arch under the board since
+  2026-10-03; the entries' small arches of FR-034 stand in the border); then one
   parchment tray to the bottom of the screen holding, in this order, the row of five Waiting Slots, the row of four
   booster boxes, and the Source stacks, one column each (FR-021). This keeps spec 001 FR-068 (board in the center,
   entry and slots below it, the stacked tray with its booster bar at the bottom).
@@ -863,6 +897,28 @@ inventory.
   "Unavailable" while purchases are off, as in the playtest) and "Restore Purchases" (the Settings' restore). Once
   Remove Ads is owned the card thanks the player and closes, and Home hides the No Ads scene. The Store keeps its own
   Remove Ads row (spec 001 FR-051).
+
+#### M. The visible Garden Entry and the guided spotlights (the owner, 2026-10-05)
+
+- **FR-034**: Every Garden Entry MUST show a small stone arch set in the border beside its entry cell, turned to the
+  entry's side (contracts/look.md §3.6 "Garden Entry"; `BoardLayout.Arch`, `UiRaster.EntryArch`, slot
+  `board.entry.arch`), in both builds and on every level: two stone pillars and an arch of keystones round a dark
+  opening where two eyes peep out, ivy and a pink flower on it and a soft warm light round it. It reaches at most 0.36
+  cell over the entry cell (whose symbol stays readable), takes no room from the board's fit and lies under the
+  walkers, which set off from it. It changes no rule (FR-002).
+- **FR-035**: The onboarding MUST guide with a spotlight (contracts/look.md §6.10; `GuideTour`, `Spotlight`, slot
+  `ui.spotlight`), in both builds, never in the Daily Challenge, each demo once: the screen dimmed but for the lit
+  place, a glow ring breathing round it and a parchment bubble with the message pointing at it. A forced step takes no
+  tap but the one on its lit place, with a pointing hand; another step goes on with a tap anywhere ("Tap to
+  continue"). The steps are: (1) Level 1: the arch, then the forced first tap on a pod that clears tiles at once
+  (spec 001 US1); (2) the first level from Level 2 whose start leaves an exposed pod's variant without a reachable
+  tile: the reachable tiles and their variant's tiles joined to them, with the arch, "These tiles are in the way /
+  Clear them first to reach the others"; (3) each booster at its unlock (spec 001 FR-042): its button, forced, "Tap it
+  to try. This one is on us"; for Return then the slots it can take back and for Bloom Burst the board's tiles, forced;
+  then "Your free one is still here for later". Extra Slot, Shuffle and Bloom Burst start as their level opens when they
+  can act; Return when a pod first waits in a slot. The guided use is free: no charge is taken and it does not count
+  against the clean-clear bonus; analytics report it as `booster_use` with `source` `demo`. These steps replace the
+  booster cards and Level 1's first-tap hint; the mechanic and variant demos keep their cards.
 
 ### Key Entities
 

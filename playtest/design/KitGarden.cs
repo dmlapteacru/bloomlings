@@ -340,6 +340,27 @@ namespace Bloomlings.Playtest.Design
         // ---- Board furniture (§3.6) ----
 
         /// <summary>
+        /// A Garden Entry's small stone arch set in the border (spec 005 FR-034, <see cref="UiRaster.EntryArch"/>), drawn
+        /// upright in its box and turned to its side (<see cref="BoardLayout.ArchOf"/>): over the border and the foot of the
+        /// entry cell, under the walkers.
+        /// </summary>
+        public static void EntryArch(IPainter p, (Box Box, float Degrees) arch)
+        {
+            p.Mark("board.entry.arch");
+            bool turned = Math.Abs(arch.Degrees) > 0.5f;
+            if (turned)
+            {
+                p.PushRotate(arch.Degrees, arch.Box.CenterX, arch.Box.CenterY);
+            }
+
+            p.Picture("board.entry.arch", arch.Box, UiRaster.EntryArch);
+            if (turned)
+            {
+                p.PopTransform();
+            }
+        }
+
+        /// <summary>
         /// The stone border around a board's grid (§3.6): a dark gap of 0.04 cell around <paramref name="grid"/>, then
         /// blocks of stone <paramref name="thickness"/> cells thick (0.42 on the board, 0.3 around the win picture) whose
         /// lengths alternate 1.0 and 0.8 cell (nearly rectangular, rounded 14%), square blocks rounded 30% at the corners,

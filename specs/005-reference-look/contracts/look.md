@@ -305,16 +305,26 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   alpha 0.45), seeds by position so the border never flickers. A 0.04 cell dark gap
   (`GardenLook.BoardGap` = `LawnDark.Darken(0.55)`) between the stones and the tiles, which also shows as the thin dark
   lines between tiles.
-- **Garden Entry** (the owner, 2026-10-03: "What is the arch under the board in gameplay? Remove it."): no picture.
-  The Bloomlings set off from the middle of the stone border beside the entry cell, on the entry's side
-  (`BoardLayout.Door` / `DoorOf`, both builds), and walk their routes. Until then the entries had a stone arch of 9
-  sandy blocks on two piers on their side of the board (`Kit.StoneArch`, `UiRaster.Arch`, `EntryArch`), with its own
-  room in the board's fit; the arch, its slot `board.arch` and the entry's slot `tile.entry` are retired.
+- **Garden Entry** (the owner's choice "B" of 2026-10-05, FR-034; slot `board.entry.arch`): a small stone arch set in
+  the border beside each entry cell (`Kit.EntryArch`, Unity `BoardView`'s arch images; `UiRaster.EntryArch`). Its
+  picture is `BoardLayout.ArchWidth` × `ArchHeight` (1.12 × 0.86) cells drawn upright for a bottom entry, its middle
+  `ArchInset` (0.18) cell from the door toward the board, turned clockwise by `BoardLayout.ArchOf` (0° bottom, 180° top,
+  90° left, -90° right); in cells from its top-left: the grid's edge at 0.36, the border's outer edge at 0.82. Two
+  `stone.*` pillars 0.15 wide carry an arch band (inner radius 0.29, outer 0.44, spring line at 0.53) with four keystone
+  joints and a `stone.line` outline, round a dark opening (`garden.shadow` darkened 0.6 at its top, 0.15 at its foot,
+  `ray.light` glowing at its foot) where two white eyes with `ink.brown` pupils peep; seven `ivy.leaf` leaves with
+  `ivy.line` veins climb it and a five-petal `petal.fill` flower with a `petal.center` heart sits on the keystone; a
+  soft `garden.glow` light (0.32) is round it and a `garden.shadow` ellipse (0.3) under it. It lies over the border and
+  the entry cell's foot (at most 0.36 cell, the symbol stays readable) and under the walkers, which set off from the
+  border there (`BoardLayout.Door` / `DoorOf`, both builds). The big arch under the board (9 sandy blocks on two piers
+  with its own room in the board's fit, slots `board.arch` and `tile.entry`) was retired on 2026-10-03 at the owner's
+  request ("What is the arch under the board in gameplay? Remove it.") and stays retired.
 - **Board layout** (`BoardLayout.Fit(area, width, height, maxOuterWidth)`, engine-free, both builds): the cells take the
   largest size that fits the grid, the border (`Rim` = 0.46 cell) and 0.2 cell of lawn on the left and right in the
   area, with the border's outer box at most `maxOuterWidth` wide; the group is centered in the area. Entries take no
   room (they took 1.8–2.2 cells of an arch and its lawn per entry side before 2026-10-03), so the board grew by about
-  15% (a 9 × 10 board's cells from about 79 to 92 px at 1080 × 2340). Entries may be on any side, several per level.
+  15% (a 9 × 10 board's cells from about 79 to 92 px at 1080 × 2340); the small arches of 2026-10-05 stand in the border
+  and take no room either. Entries may be on any side, several per level.
 - **Lawn**: the gameplay backdrop scene becomes a lawn (§4.2).
 - **Pedestal** (`Kit.StonePedestal(p, box)`, `UiRaster.Pedestal`): a warm grey-beige ellipse-topped stone drum that
   holds its own over the owner's painted gardens: the top ellipse `StoneTop.Mix(StoneFace, 0.4)` (lighter toward the
@@ -1379,3 +1389,26 @@ eight on 16:9), frame 20 a picture's detail. Back and the
 Android system back return from the detail to the grid, then to Home (the playtest's `DesignApp.CollectionBack`;
 Unity's `CollectionScreen` back). Before the first picture the page shows locked: its header and panel with the locked
 notice in the area (§6.7).
+
+### 6.10 Guided spotlight (both builds; the owner's request of 2026-10-05, FR-035)
+
+The onboarding's guided steps (`GuideTour`: which steps, `Spotlight`: where; drawn by the playtest's `GuidePainter`
+and Unity's `GuideOverlay`), over the gameplay screen of §6.1, slot `ui.spotlight`. All sizes in reference units
+(`u`, `DesignTokens.ScaleFor`) or screen pixels.
+
+| Piece | Recipe |
+|---|---|
+| Holes | the lit places, each grown by `PadUnits` (14 u): the arches' bounds (Entry); the arches and each tile that blocks the way, grown 2 u so neighbours join (Blocked, `GuideTour.BlockingCells`); the guided pod's touch box (FirstTap); the booster's tile (Booster, BoosterKept); the plates Return can take back (Return's target); the board's grid (Bloom Burst's target) |
+| Scrim | `UiRaster.SpotlightScrim`: `surface.scrim`'s color at `ScrimAlpha` (0.8) everywhere but the holes, each a rounded box (radius `RadiusUnits` 30 u, `CellRadiusUnits` 8 u over tiles) with a soft edge of `FeatherUnits` (12 u); rendered at `RasterShare` (a quarter) of the screen and stretched, cached by its holes (`ScrimKey`) |
+| Ring | a `garden.glow` outline 6 u wide round the first hole, breathing out 3–10 u and from 0.95 to 0.5 alpha every `PulseSeconds` (1.2 s) |
+| Bubble | parchment (`Kit.Paper`, radius 34 u) `BubbleShare` (0.88) of the safe width, centered across the screen, above the hole when it fits under the top bar (`TopBarUnits` 170 u below the safe top) with `TailUnits` + `GapUnits` (44 u) to the hole, else below it (under the hand), else at the safe bottom; a parchment tail (a turned square, 39 u) toward the hole's middle; padding 30 u; the icon (a booster on a cream face; the blocking variant's sticker tile) `IconUnits` (120 u) at its left; the first message key in `type.button_secondary` `ink.brown`, the next ones in `type.body` `ink.brown_soft`, `LineUnits` (58 u) a line, at most two lines each; "Tap to continue" (`demo.tap_continue`, `type.caption`) under a step that is not forced |
+| Hand | a forced step's `ui.pointer` in white over an `ink.brown` copy 5 u larger, `HandUnits` (130 u) square, its fingertip on the hole's bottom edge, bobbing a tenth of its side |
+| Taps | not forced: a tap anywhere goes on; forced: only the lit place's own targets work (the pod, the booster, Return's plates; Bloom Burst's whole board, the tile under the finger) |
+| Fade | the step fades in over 0.25 s |
+
+Messages: `demo.entry` "Bloomlings come in through this arch"; `demo.first_tap`; `demo.entry_blocked.1` "These tiles
+are in the way" and `.2` "Clear them first to reach the others"; a booster's `demo.<booster>.1` and `demo.try_free`
+"Tap it to try. This one is on us"; Return's and Bloom Burst's `.2`; `demo.booster_kept` "Your free one is still here
+for later". The preview's frames 33 (the entry), 34 (the first tap), 35 (the blocked entry, Level 2), 21 (Extra
+Slot's forced step, Level 3), 36 (the kept step), 37 (Return's plates, Level 6) and 38 (Bloom Burst's tiles, Level 9)
+show them.

@@ -22,8 +22,9 @@ namespace Bloomlings.Client.Gameplay.Board
     /// (<see cref="TileView"/>).</description></item>
     /// <item><description>Restored ground shows the finished picture as pale flat cells under the tiles (T042,
     /// <see cref="FinishedPictureRenderer"/>).</description></item>
-    /// <item><description>A Garden Entry has no picture (the owner, 2026-10-03: no stone arch): the Bloomlings set off from
-    /// the stone border beside the entry cell (<see cref="BoardLayout.Door"/>).</description></item>
+    /// <item><description>A Garden Entry is a small stone arch set in the border beside its entry cell (spec 005 FR-034,
+    /// <see cref="BoardLayout.Arch"/>, <see cref="UiRaster.EntryArch"/>), turned to its side; the Bloomlings set off from
+    /// the border there (<see cref="BoardLayout.Door"/>).</description></item>
     /// </list>
     /// Its visual state follows the event timeline, not the logical state, so tiles change when their Bloomling arrives
     /// (R4): a restored tile shrinks away with a small sparkle, and on a win the finished picture shines. The cells that
@@ -33,6 +34,7 @@ namespace Bloomlings.Client.Gameplay.Board
     {
         private readonly List<TileView> _tiles = new List<TileView>();
         private readonly List<SpecialView> _specials = new List<SpecialView>();
+        private readonly List<(Image Image, EntryDef Entry)> _arches = new List<(Image, EntryDef)>();
         private RectTransform _area = null!;
         private RectTransform _grid = null!;
         private FinishedPictureRenderer _picture = null!;
@@ -113,6 +115,18 @@ namespace Bloomlings.Client.Gameplay.Board
             foreach (SpecialInfo special in view.Specials)
             {
                 _specials.Add(SpecialView.Create(_grid, special, _visuals));
+            }
+
+            // The Garden Entries' arches, over the border and the entry cell's foot (spec 005 FR-034).
+            foreach ((Image image, EntryDef _) in _arches)
+            {
+                Destroy(image.gameObject);
+            }
+
+            _arches.Clear();
+            foreach (EntryDef entry in view.Entries)
+            {
+                _arches.Add((UiFactory.CreateImage("EntryArch", _grid, null, Color.white), entry));
             }
 
             Layout();
@@ -435,6 +449,38 @@ namespace Bloomlings.Client.Gameplay.Board
                 var center = new Vector2((minX + maxX + 1) * 0.5f * CellSize, (minY + maxY + 1) * 0.5f * CellSize);
                 UiFactory.PlaceAbsolute((RectTransform)special.transform, center, new Vector2((maxX - minX + 1) * CellSize, (maxY - minY + 1) * CellSize));
                 special.transform.SetAsLastSibling();
+            }
+
+            // Each arch upright in its box, turned clockwise to its side (Unity turns counter-clockwise).
+            foreach ((Image image, EntryDef entry) in _arches)
+            {
+                (Box arch, float degrees) = _layout.Arch(entry);
+                var center = new Vector2(arch.CenterX - _layout.Grid.Left, _layout.Grid.Bottom - arch.CenterY);
+                UiFactory.PlaceAbsolute(image.rectTransform, center, new Vector2(arch.Width, arch.Height));
+                image.transform.localEulerAngles = new Vector3(0f, 0f, -degrees);
+                int pw = UiRaster.Quantize(arch.Width * UiKit.PixelsPerUnit);
+                int ph = UiRaster.Quantize(arch.Height * UiKit.PixelsPerUnit);
+                image.sprite = ProceduralSprites.Picture("board.entry.arch", pw, ph, UiRaster.EntryArch);
+                image.type = Image.Type.Simple;
+                image.transform.SetAsLastSibling();
+            }
+        }
+
+        /// <summary>The screen box of the board's grid (Bloom Burst's guided tiles).</summary>
+        public RectTransform GridRect => _grid;
+
+        /// <summary>The arches' rects (the guided entry spotlight lights them).</summary>
+        public IReadOnlyList<RectTransform> ArchRects
+        {
+            get
+            {
+                var rects = new List<RectTransform>();
+                foreach ((Image image, EntryDef _) in _arches)
+                {
+                    rects.Add(image.rectTransform);
+                }
+
+                return rects;
             }
         }
 

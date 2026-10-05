@@ -1,4 +1,6 @@
 using System.Linq;
+using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Tutorial;
 using Bloomlings.Client.UI.Tutorial.Demos;
 using Bloomlings.Core.Progression;
@@ -24,7 +26,10 @@ namespace Bloomlings.Client.Tests
                     }
                     else if (entry.Kind == UnlockKind.Booster)
                     {
-                        Assert.That(BoosterDemos.For(entry.UnlockId, () => null), Is.Not.Null, entry.UnlockId);
+                        // A guided, forced and free first use (spec 005 FR-035, spec 001 FR-042).
+                        var kind = EconomyService.BoosterUnlocks.Single(b => b.UnlockId == entry.UnlockId).Kind;
+                        Assert.That(GuideTour.BoosterId(kind), Is.EqualTo(entry.UnlockId));
+                        Assert.That(GuideTour.BoosterSteps(kind).All(s => s.DemoId == entry.UnlockId && s.Booster == kind), Is.True, entry.UnlockId);
                     }
                 }
             }

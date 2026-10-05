@@ -30,11 +30,11 @@ How to read the columns:
 | Backgrounds | 13 | 0 | 13 |
 | Bloomling characters | 22 | 8 | 30 |
 | Variant symbols | 8 | 4 | 12 |
-| Board tiles and overlays | 27 | 0 | 27 |
+| Board tiles and overlays | 28 | 0 | 28 |
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 65 | 0 | 65 |
+| UI kit | 66 | 0 | 66 |
 | Materials | 4 | 0 | 4 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 10 | 0 | 10 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **212** | **27** | **239** |
+| **All** | **214** | **27** | **241** |
 
 ## Brand
 
@@ -157,6 +157,7 @@ the fallback when a picture is missing.
 | `tile.gem.dew` | Variant icon, simplified for the board: Dew (the owner's picture `Icons/field-dew.png`, spec 005 pictures.md G22) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Launch | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
 | `tile.gem.log` | Variant icon, simplified for the board: Wood (the owner's picture `Icons/field-log.png`, spec 005 pictures.md G23) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Launch | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
 | `tile.gem.acorn` | Variant icon, simplified for the board: Acorn (the owner's picture `Icons/field-acorn.png`, spec 005 pictures.md G24) | 7, 8, 9, 15 | Board tiles; layer peeks; specials; finished picture (win, Collection) | normal; flat (finished picture) | Icon | yes | Launch | the drawn gem (`ShapeLibrary.GemSymbol`, UiRaster.Tile, board style) until the picture exists; it covers about 62% of the tile |
+| `board.entry.arch` | Garden Entry: a small stone arch set in the border beside each entry cell (spec 005 FR-034; the owner's choice "B", 2026-10-05) | 7, 8, 9 | Board (every entry, turned to its side) | bottom; top; left; right | Small | yes | Launch | UiRaster.EntryArch: two stone pillars and an arch of keystones round a dark opening with two peeping eyes, ivy, a pink flower on the keystone and a soft warm light; it reaches 0.36 cell over the entry cell |
 | `board.border.stone` | Stone border around the board | 7, 8, 9 | Board; win picture | normal; thin (win) | Large | yes | Launch | UiRaster.Stone blocks (warm sandy stone) with dark joints, and dark lines between the tiles |
 | `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells as flat full-color candy tiles (`tile.candy`, no lip, with the owner's field icons `tile.gem.*`) of each role's variant in a thin stone border (spec 005 D14) |
 
@@ -230,6 +231,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
 | `ui.card` | Popup card frame | 4, 11, 16 | Daily Reward; Pause; Milestone; Settings; Daily Challenge | with close; without close | Large | no | Launch | parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim |
+| `ui.spotlight` | Guided spotlight (spec 005 FR-035): the screen dimmed but for one lit place, a breathing glow ring round it, a parchment bubble with the message and a pointing hand on a forced step | 7, 8, 9 | Gameplay: the Garden Entry (L1), the first tap (L1), the blocked entry (first time), each booster at its unlock | tap to continue; forced (only the lit place takes the tap) | Screen | no | Launch | UiRaster.SpotlightScrim (`surface.scrim` at 0.72 with a soft rounded hole), a `garden.glow` ring, a parchment bubble (`mat.parchment`) with a tail and `ui.pointer` |
 | `ui.sheet` | Jam card frame (spec 005 FR-022) | 10 | Jam | popping in; open | Large | no | Launch | a parchment card in the middle of the screen over the warm scrim, with a brown title and a soft brown subtitle (two lines when long), popping in |
 | `ui.row` | List row (the Store and Leaderboard pages) | 5, 17 | Store page; Leaderboard page | normal; highlighted (You); unavailable | Medium | no | Launch | cream rounded panel with a cream outline; the own row raised and green-tinted |
 | `ui.tab` | Tab | 17 | Store; Wardrobe | selected; unselected | Small | no | Launch | selected: glossy green raised pill on a plate; others: parchment wells |

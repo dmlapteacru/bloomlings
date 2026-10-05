@@ -39,6 +39,7 @@ namespace Bloomlings.Playtest.Design
         };
 
         private readonly DesignApp _app;
+        private readonly List<GuideStep> _guide = new List<GuideStep>();
         private string? _toast;
         private float _toastUntil;
         private float _lastClearSound = -1f;
@@ -83,8 +84,26 @@ namespace Bloomlings.Playtest.Design
 
         public float DemoOpenedAt { get; private set; }
 
-        /// <summary>Level 1's one-line hint above the board until the first tap (spec 001 US2).</summary>
-        public bool FirstTapHint { get; private set; }
+        /// <summary>
+        /// The guided spotlight's current step (spec 005 FR-035, <see cref="GuideTour"/>): Level 1's entry and first tap,
+        /// the blocked entry, a booster's forced and free first use. Null when none shows.
+        /// </summary>
+        public GuideStep? Guide => _guide.Count > 0 ? _guide[0] : null;
+
+        /// <summary>When the current guided step showed (for its fade, ring and hand).</summary>
+        public float GuideOpenedAt { get; private set; }
+
+        /// <summary>The pod the guided first tap points at.</summary>
+        public string? GuidePod { get; private set; }
+
+        /// <summary>
+        /// The booster uses of this attempt that were a guided demo's free use (spec 001 FR-042 as amended on 2026-10-05):
+        /// they take no charge and keep the clean-clear bonus.
+        /// </summary>
+        public int DemoBoosterUses { get; private set; }
+
+        /// <summary>Where each unlocked booster's tile was drawn last frame (the guided spotlight lights it).</summary>
+        public Dictionary<BoosterKind, Box> BoosterBoxes { get; } = new Dictionary<BoosterKind, Box>();
 
         /// <summary>The win card is closed and the milestone card shows (frame 16).</summary>
         public bool ShowingMilestone { get; private set; }
@@ -135,13 +154,13 @@ namespace Bloomlings.Playtest.Design
         /// and the end cards (the jam's rise for <see cref="EndCardSeconds"/>; the win and milestone cards' celebration for
         /// <see cref="CelebrationSeconds"/>, and for as long as they show an animated hero).
         /// </summary>
-        public bool NeedsFrames => !Animator.Idle || TrayMotion.Moving(Animator.Now) || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (_app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds) || (Won && HeroMoving))) || Targeting.HasValue || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
+        public bool NeedsFrames => !Animator.Idle || TrayMotion.Moving(Animator.Now) || (LastBooster.HasValue && Animator.Now - LastBooster.Value.At < 0.7f) || (_toast != null && _app.Now < _toastUntil) || (EndShownAt >= 0f && (_app.Now - EndShownAt < (Won ? CelebrationSeconds : EndCardSeconds) || (Won && HeroMoving))) || Targeting.HasValue || Guide != null || (Demo != null && _app.Now - DemoOpenedAt < 0.3f);
 
         /// <summary>
         /// Whether only the win's own motion moves the screen (the win or milestone card is open and every other animation
         /// is done): a host may then redraw at a lower frame rate to save battery.
         /// </summary>
-        public bool OnlyCelebrating => Won && EndShownAt >= 0f && _app.Now - EndShownAt >= EndCardSeconds && Animator.Idle && Targeting == null && Demo == null && (_toast == null || _app.Now >= _toastUntil);
+        public bool OnlyCelebrating => Won && EndShownAt >= 0f && _app.Now - EndShownAt >= EndCardSeconds && Animator.Idle && Targeting == null && Demo == null && Guide == null && (_toast == null || _app.Now >= _toastUntil);
 
         public void Advance(float dt) => Animator.Advance(dt, Session.View);
 
@@ -155,23 +174,17 @@ namespace Bloomlings.Playtest.Design
 
         // ---- Before play ----
 
-        /// <summary>At most one demo before play (FR-031, FR-042, FR-059, FR-071).</summary>
+        /// <summary>
+        /// At most one demo before play (FR-031, FR-042, FR-059, FR-071): the guided spotlights first (Level 1's entry and
+        /// first tap, a booster's forced free use, the blocked entry; spec 005 FR-035), else a mechanic's or variant's card.
+        /// </summary>
         private void ShowIntro()
         {
-            FirstTapHint = Level == 1 && !Meta.HasSeenDemo("system.core");
-            if (FirstTapHint)
+            IReadOnlyList<GuideStep> guide = GuideTour.AtStart(Level, false, Meta.HasSeenDemo, Meta.Economy.IsUnlocked, Session);
+            if (guide.Count > 0)
             {
+                StartGuide(guide);
                 return;
-            }
-
-            foreach ((BoosterKind kind, Recovery _, string id) in Boosters)
-            {
-                string unlockId = "booster." + id;
-                if (Meta.Economy.IsUnlocked(kind) && !Meta.HasSeenDemo(unlockId))
-                {
-                    OpenDemo(new DemoCard(unlockId, Lines("demo." + id), Array.Empty<VariantId>(), false));
-                    return;
-                }
             }
 
             foreach (string unlockId in LevelMechanics.UnlocksUsed(Session.Definition, Session.Picture))
@@ -225,6 +238,81 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
+        private void StartGuide(IReadOnlyList<GuideStep> steps)
+        {
+            _guide.Clear();
+            _guide.AddRange(steps);
+            GuidePod = GuideTour.FirstTapPod(Session);
+            GuideOpenedAt = _app.Now;
+        }
+
+        /// <summary>
+        /// The guided spotlight goes on to its next step (a tap anywhere on a step that is not forced, or the forced step's
+        /// action done); a demo is marked seen when its last step ends.
+        /// </summary>
+        public void NextGuideStep()
+        {
+            if (_guide.Count == 0)
+            {
+                return;
+            }
+
+            GuideStep done = _guide[0];
+            _guide.RemoveAt(0);
+            if (_guide.Count == 0 || _guide[0].DemoId != done.DemoId)
+            {
+                Meta.MarkDemoSeen(done.DemoId);
+            }
+
+            GuideOpenedAt = _app.Now;
+            if (!done.Forced)
+            {
+                _app.Sound.Play(SoundCue.Click);
+            }
+        }
+
+        /// <summary>Ends the guided spotlight at once (tests and previews): its demos count as seen.</summary>
+        public void SkipGuide()
+        {
+            while (_guide.Count > 0)
+            {
+                Meta.MarkDemoSeen(_guide[0].DemoId);
+                _guide.RemoveAt(0);
+            }
+        }
+
+        /// <summary>
+        /// Return's guided demo waits until a pod waits in a slot after Return's unlock (Level 6: after the first tap),
+        /// once the board has settled (<see cref="GuideTour.WhenSettled"/>).
+        /// </summary>
+        private void GuideWhenSettled()
+        {
+            if (Guide != null || Demo != null || Targeting != null || !Animator.Idle)
+            {
+                return;
+            }
+
+            IReadOnlyList<GuideStep> steps = GuideTour.WhenSettled(false, Meta.HasSeenDemo, Meta.Economy.IsUnlocked, Session);
+            if (steps.Count > 0)
+            {
+                StartGuide(steps);
+            }
+        }
+
+        /// <summary>The recovery a booster is (its targeting, its jam choice).</summary>
+        public static Recovery RecoveryOf(BoosterKind kind)
+        {
+            foreach ((BoosterKind k, Recovery recovery, string _) in Boosters)
+            {
+                if (k == kind)
+                {
+                    return recovery;
+                }
+            }
+
+            return Recovery.ExtraSlot;
+        }
+
         private void OpenDemo(DemoCard demo)
         {
             Demo = demo;
@@ -262,7 +350,7 @@ namespace Bloomlings.Playtest.Design
 
         public void Tap(string podId)
         {
-            if (Targeting != null || Demo != null)
+            if (Targeting != null || Demo != null || (Guide != null && !(Guide.Kind == GuideKind.FirstTap && podId == GuidePod)))
             {
                 return;
             }
@@ -291,10 +379,9 @@ namespace Bloomlings.Playtest.Design
 
             CommandResult result = Session.Apply(tap);
             _app.Sound.Play(SoundCue.Tap);
-            if (FirstTapHint)
+            if (Guide != null && Guide.Kind == GuideKind.FirstTap)
             {
-                FirstTapHint = false;
-                Meta.MarkDemoSeen("system.core");
+                NextGuideStep();
             }
 
             Animator.Tapped(result, Session.View, before);
@@ -303,6 +390,14 @@ namespace Bloomlings.Playtest.Design
 
         public void UseBooster(BoosterKind kind, Command command, bool free = false)
         {
+            // A guided demo's forced use is free: the unlock's free charge stays (spec 001 FR-042 as amended on 2026-10-05).
+            bool demo = Guide != null && Guide.Booster == kind && (Guide.Kind == GuideKind.Booster || Guide.Kind == GuideKind.BoosterTarget);
+            if (Guide != null && !demo)
+            {
+                return;
+            }
+
+            free |= demo;
             Targeting = null;
             CommandCheck check = Session.Check(command);
             if (!check.IsAllowed)
@@ -338,12 +433,21 @@ namespace Bloomlings.Playtest.Design
 
             LastBooster = (kind, Animator.Now);
             EndShownAt = -1f;
+            if (demo)
+            {
+                // Seen at once, so leaving the level now never gives the free use again.
+                DemoBoosterUses++;
+                Meta.MarkDemoSeen(Guide!.DemoId);
+                NextGuideStep();
+            }
+
             AfterCommand();
         }
 
         public void PressBooster(BoosterKind kind, Recovery recovery)
         {
-            if (Demo != null)
+            bool guided = Guide != null && Guide.Kind == GuideKind.Booster && Guide.Booster == kind;
+            if (Demo != null || (Guide != null && !guided))
             {
                 return;
             }
@@ -377,7 +481,16 @@ namespace Bloomlings.Playtest.Design
 
                     Targeting = recovery;
                     JamHidden = true;
-                    Toast(PlaytestText.T(recovery == Recovery.Return ? "gameplay.hint_return" : "gameplay.hint_burst"));
+                    if (guided)
+                    {
+                        // The guided demo lights the targets and says what to tap.
+                        NextGuideStep();
+                    }
+                    else
+                    {
+                        Toast(PlaytestText.T(recovery == Recovery.Return ? "gameplay.hint_return" : "gameplay.hint_burst"));
+                    }
+
                     break;
             }
         }
@@ -434,6 +547,7 @@ namespace Bloomlings.Playtest.Design
             Targeting = null;
             JamHidden = false;
             RescueUsed = false;
+            DemoBoosterUses = 0;
             EndShownAt = -1f;
             _app.Sound.Play(SoundCue.Click);
         }
@@ -444,7 +558,7 @@ namespace Bloomlings.Playtest.Design
             RefreshSpeed();
             if (Won && Payout == null)
             {
-                Payout = Meta.CompleteLevel(Level, Session.Definition.Difficulty.Class, Session.BoostersUsed, Session.Definition) ?? new WinPayout(null, null);
+                Payout = Meta.CompleteLevel(Level, Session.Definition.Difficulty.Class, Session.BoostersUsed - DemoBoosterUses, Session.Definition) ?? new WinPayout(null, null);
             }
         }
 
@@ -697,6 +811,12 @@ namespace Bloomlings.Playtest.Design
 
         public void Draw(IPainter p)
         {
+            // A level that ends under a guided step (its last "kept" step) leaves the end cards alone.
+            if (Guide != null && (Won || Blocked))
+            {
+                SkipGuide();
+            }
+
             if (DrawEndScreen(p))
             {
                 // The full-screen win or milestone replaced the gameplay (spec 005 FR-023).
@@ -751,15 +871,17 @@ namespace Bloomlings.Playtest.Design
             PodPainter.DrawFlights(p, this);
 
             Box over = board.Outer;
-            if (FirstTapHint)
-            {
-                Kit.Toast(p, new Box(over.Left, over.Top, over.Right, over.Top + p.U(140f)), PlaytestText.T("demo.first_tap"));
-            }
-
             string? toast = ToastText;
             if (toast != null)
             {
                 Kit.Toast(p, over, toast);
+            }
+
+            // The guided spotlight over the gameplay (spec 005 FR-035): Return's demo starts once a pod waits.
+            GuideWhenSettled();
+            if (Guide != null)
+            {
+                GuidePainter.Draw(p, this, board, r);
             }
 
             if (Animator.Settled && (Won || (Blocked && !JamHidden)))

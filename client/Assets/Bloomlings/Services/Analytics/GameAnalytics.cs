@@ -140,7 +140,7 @@ namespace Bloomlings.Client.Services.Analytics
 
         public void LevelQuit(LevelInfo level, long durationMs) => Log(AnalyticsEvents.LevelQuit, level, ("duration_ms", durationMs));
 
-        /// <param name="source"><c>charge</c>, <c>petals</c> or <c>ad</c>.</param>
+        /// <param name="source"><c>charge</c>, <c>petals</c>, <c>ad</c> or <c>demo</c> (the free guided use at its unlock, spec 005 FR-035).</param>
         public void BoosterUse(LevelInfo level, string booster, string source) =>
             Log(AnalyticsEvents.BoosterUse, level, ("booster", booster), ("source", source));
 

@@ -452,13 +452,13 @@ skin. Complete the daily challenge. Open the Collection.
 
 - **FR-040**: A failed or abandoned attempt MUST cost nothing. Restarts MUST be unlimited and free, and there MUST be no lives or energy system (doc 10, "No lives baseline").
 - **FR-041**: Petals (soft currency) MUST be earned per level: a base amount, plus a clean-clear (no-booster) bonus, plus a Hard/Super Hard bonus. Petals MUST also come from milestones and optional rewarded ads. Prices MUST NOT inflate with the level number.
-- **FR-042**: The four boosters MUST unlock at L3 (Extra Slot), L4 (Shuffle), L6 (Return) and L9 (Bloom Burst). Each unlock MUST come with a demonstration and one free charge.
+- **FR-042**: The four boosters MUST unlock at L3 (Extra Slot), L4 (Shuffle), L6 (Return) and L9 (Bloom Burst). Each unlock MUST come with a demonstration and one free charge. *(Amended on 2026-10-05 by the product owner: the demonstration is a guided spotlight that dims the screen and makes the player tap the booster, and for Return a slot, for Bloom Burst a tile; that guided use is free: it takes no charge, so the free charge stays for later, and it does not cost the clean-clear bonus (FR-041). Return's starts once a pod waits in a slot. Spec 005 FR-035, research D27.)*
 - **FR-043**: **Extra Slot** MUST add one extra usable slot until the end of the current level. At most one extra slot can be active.
 - **FR-044**: **Shuffle** MUST rearrange only the remaining eligible Source Pods. Waiting pods are unaffected, locks stay attached to their pods, and connected pods stay connected. If any arrangement can still be won without further boosters, the result MUST be winnable. Each use consumes a charge.
 - **FR-045**: **Return** MUST move one unfinished waiting pod, with its remaining count, back to the top of its original Source stack. Cleared tiles stay cleared.
 - **FR-046**: Every level MUST be winnable without boosters; FR-080 validates this. A booster that can have no effect MUST be disabled.
 - **FR-047**: Boosters MUST be obtainable through unlock grants, level-completion drops, milestone rewards, Petal purchases, rewarded ads and in-app purchase bundles.
-- **FR-048**: Recovery MUST stay limited: at most one extra slot at a time, each booster use consumes a charge, Bloom Burst is the most expensive booster, and the ad rescue is available once per attempt.
+- **FR-048**: Recovery MUST stay limited: at most one extra slot at a time, each booster use consumes a charge (but the guided first use at its unlock, FR-042 as amended on 2026-10-05), Bloom Burst is the most expensive booster, and the ad rescue is available once per attempt.
 - **FR-049**: No booster, cosmetic or reward may change the exact-matching rule or give Bloomlings extra power.
 - **FR-050**: **Bloom Burst** MUST let the player choose one visible exact variant. It then removes every remaining layer of that variant, visible and hidden, and every pod of that variant from the tray and the slots. Accounting stays reconciled. This default follows the doc 09 main proposal; the "limited number of cells" alternative in doc 09 may replace it after solver and economy review.
 

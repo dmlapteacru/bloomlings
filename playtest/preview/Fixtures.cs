@@ -374,11 +374,17 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.5f);
             });
 
-            yield return new Fixture(21, "demo", "Extra: booster demo", (p, data) =>
+            yield return new Fixture(21, "demo", "Extra: booster demo (the guided, forced and free first use, spec 005 FR-035)", (p, data) =>
             {
+                // Level 3: Extra Slot's button lit, the screen dimmed; a tap elsewhere does nothing (forced).
                 DesignApp app = App(data);
                 app.Meta.SkipTo(2);
                 app.LoadLevel(3);
+                Run(app, p, 0.5f);
+                LevelScreen level = app.Level!;
+                Expect(level.Guide?.Kind == GuideKind.Booster && level.Guide.Booster == BoosterKind.ExtraSlot && level.Guide.Forced, "Level 3 opens on Extra Slot's forced demo");
+                Tap(p, level.PodBoxes.Values.First());
+                Expect(level.Guide?.Kind == GuideKind.Booster && level.Session.CommandLog.Count == 0, "a tap off the lit booster does nothing");
                 Run(app, p, 0.5f);
             });
 
@@ -603,6 +609,118 @@ namespace Bloomlings.Playtest.Preview
             });
         }
 
+        /// <summary>
+        /// The guided spotlights of the onboarding (spec 005 FR-035): Level 1's entry and forced first tap, the blocked entry
+        /// (Level 2), a booster's free use and its "kept" step (Level 3), Return's slots (Level 6) and Bloom Burst's tiles
+        /// (Level 9).
+        /// </summary>
+        public static IEnumerable<Fixture> Guides(ContentSet content)
+        {
+            DesignApp App(string data) => new DesignApp(data, content, new Silence(), false);
+
+            yield return new Fixture(33, "guide-entry", "Guide: the Garden Entry (Level 1)", (p, data) =>
+            {
+                DesignApp app = App(data);
+                app.LoadLevel(1);
+                Run(app, p, 0.5f);
+                Expect(app.Level!.Guide?.Kind == GuideKind.Entry && !app.Level.Guide.Forced, "Level 1 opens on the entry's spotlight");
+                Expect(Shows(p, PlaytestText.T("demo.entry")) && Shows(p, PlaytestText.T("demo.tap_continue")), "the bubble says where Bloomlings come in, and to tap");
+            });
+
+            yield return new Fixture(34, "guide-first-tap", "Guide: the forced first tap (Level 1)", (p, data) =>
+            {
+                DesignApp app = App(data);
+                app.LoadLevel(1);
+                Run(app, p, 0.3f);
+                LevelScreen level = app.Level!;
+                Tap(p, new Box(p.Width * 0.5f, p.Height * 0.1f, p.Width * 0.5f + 1f, p.Height * 0.1f + 1f));
+                Expect(level.Guide?.Kind == GuideKind.FirstTap && app.Meta.HasSeenDemo(GuideTour.EntryId), "a tap anywhere goes on to the first tap; the entry is seen");
+                Run(app, p, 0.3f);
+                string other = level.PodBoxes.Keys.First(id => id != level.GuidePod);
+                Tap(p, level.PodBoxes[other]);
+                Expect(level.Session.CommandLog.Count == 0, "another pod takes no tap");
+                Run(app, p, 0.5f);
+            });
+
+            yield return new Fixture(35, "guide-blocked", "Guide: the blocked entry (Level 2)", (p, data) =>
+            {
+                DesignApp app = App(data);
+                app.Meta.SkipTo(1);
+                app.Meta.MarkDemoSeen(GuideTour.EntryId);
+                app.Meta.MarkDemoSeen(GuideTour.FirstTapId);
+                app.LoadLevel(2);
+                Run(app, p, 0.5f);
+                Expect(app.Level!.Guide?.Kind == GuideKind.Blocked, "Level 2 starts with a pod whose tiles are out of reach: the blocked spotlight");
+                Expect(Shows(p, PlaytestText.T("demo.entry_blocked.1")), "the bubble says the tiles are in the way");
+            });
+
+            yield return new Fixture(36, "guide-kept", "Guide: the free use done, the charge kept (Level 3)", (p, data) =>
+            {
+                DesignApp app = App(data);
+                app.Meta.SkipTo(2);
+                app.LoadLevel(3);
+                Run(app, p, 0.3f);
+                LevelScreen level = app.Level!;
+                int charges = app.Meta.Economy.Charges(BoosterKind.ExtraSlot);
+                Tap(p, level.BoosterBoxes[BoosterKind.ExtraSlot]);
+                Expect(level.Session.BoostersUsed == 1 && level.DemoBoosterUses == 1, "the lit booster's tap uses it");
+                Expect(app.Meta.Economy.Charges(BoosterKind.ExtraSlot) == charges && charges == 1, "the demo's use is free: the unlock's charge stays");
+                Expect(level.Guide?.Kind == GuideKind.BoosterKept && app.Meta.HasSeenDemo("booster.extra_slot"), "then the kept step; the demo is seen at the use");
+                Run(app, p, 0.6f);
+                Expect(p.Texts.Any(t => PlaytestText.T("demo.booster_kept").StartsWith(t.Text, StringComparison.Ordinal) && t.Text.Length > 8), "the bubble says the free one is still there");
+            });
+
+            yield return new Fixture(37, "guide-return", "Guide: Return's slot (Level 6, after the first tap)", (p, data) =>
+            {
+                DesignApp app = App(data);
+                app.Meta.SkipTo(5);
+                foreach (string id in new[] { "booster.extra_slot", "booster.shuffle", GuideTour.BlockedId })
+                {
+                    app.Meta.MarkDemoSeen(id);
+                }
+
+                app.LoadLevel(6);
+                CloseCards(app);
+                Run(app, p, 0.2f);
+                LevelScreen level = app.Level!;
+                Expect(level.Guide == null, "Return's demo waits: no pod waits yet");
+                level.Tap(level.Session.View.Stack(0)[0]);
+                Run(app, p, 6f);
+                Expect(level.Guide?.Kind == GuideKind.Booster && level.Guide.Booster == BoosterKind.Return, "once a pod waits, Return's forced demo starts");
+                Tap(p, level.BoosterBoxes[BoosterKind.Return]);
+                Expect(level.Guide?.Kind == GuideKind.BoosterTarget && level.Targeting == Recovery.Return, "its tap lights the slot to send back");
+                Run(app, p, 0.6f);
+            });
+
+            yield return new Fixture(38, "guide-bloom-burst", "Guide: Bloom Burst's tiles (Level 9)", (p, data) =>
+            {
+                DesignApp app = App(data);
+                app.Meta.SkipTo(8);
+                foreach (string id in new[] { "booster.extra_slot", "booster.shuffle", "booster.return", GuideTour.BlockedId })
+                {
+                    app.Meta.MarkDemoSeen(id);
+                }
+
+                app.LoadLevel(9);
+                CloseCards(app);
+                Run(app, p, 0.3f);
+                LevelScreen level = app.Level!;
+                Expect(level.Guide?.Booster == BoosterKind.BloomBurst, "Level 9 opens on Bloom Burst's forced demo");
+                Tap(p, level.BoosterBoxes[BoosterKind.BloomBurst]);
+                Expect(level.Guide?.Kind == GuideKind.BoosterTarget && level.Targeting == Recovery.BloomBurst, "its tap lights the board's tiles");
+                Run(app, p, 0.6f);
+            });
+        }
+
+        /// <summary>Closes the mechanic and variant cards of a level, keeping its guided spotlight.</summary>
+        private static void CloseCards(DesignApp app)
+        {
+            while (app.Level?.Demo != null)
+            {
+                app.Level.CloseDemo();
+            }
+        }
+
         /// <summary>Draws frames for <paramref name="seconds"/>: animations advance as on a device; the last frame stays.</summary>
         private static void Run(DesignApp app, SkiaPainter p, float seconds)
         {
@@ -677,12 +795,20 @@ namespace Bloomlings.Playtest.Preview
             }
         }
 
+        /// <summary>Closes a demo card and ends the guided spotlights, now and for later (their demos count as seen).</summary>
         private static void CloseDemo(DesignApp app)
         {
             if (app.Level?.Demo != null)
             {
                 app.Level.CloseDemo();
             }
+
+            foreach (string id in GuideTour.DemoIds)
+            {
+                app.Meta.MarkDemoSeen(id);
+            }
+
+            app.Level?.SkipGuide();
         }
 
         /// <summary>

@@ -128,6 +128,9 @@ namespace Bloomlings.Playtest.Design
         /// <summary>A touch target; the topmost target under the finger gets the tap (FR-027: at least <c>size.touch_min</c>).</summary>
         void Hit(Box box, Action action);
 
+        /// <summary>Where the tap being dispatched now is, in screen pixels (a target spanning a grid of cells picks one).</summary>
+        (float X, float Y) TapPoint { get; }
+
         /// <summary>Whether a finger is down inside <paramref name="box"/> (the pressed look of buttons and pods).</summary>
         bool Pressed(Box box);
 

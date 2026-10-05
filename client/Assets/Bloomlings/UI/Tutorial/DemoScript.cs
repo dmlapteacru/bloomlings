@@ -44,18 +44,14 @@ namespace Bloomlings.Client.UI.Tutorial
         public IReadOnlyList<DemoStep> Steps { get; }
     }
 
-    /// <summary>The demos of the onboarding levels (T064). Booster demos are added with US5 (T122).</summary>
+    /// <summary>
+    /// The demos of the onboarding levels shown as cards (T064). Level 1's first tap and the booster demos are guided
+    /// spotlights since 2026-10-05 (<see cref="Design.GuideTour"/>, <see cref="GuideOverlay"/>).
+    /// </summary>
     public static class DemoScripts
     {
-        /// <summary>The Level 1 guided first tap; its id is the roadmap's core-play unlock.</summary>
-        public const string FirstTapId = "system.core";
-
         /// <summary>The same-family sibling demo, shown only once (FR-071).</summary>
         public const string SiblingsId = "demo.siblings";
-
-        public static DemoScript FirstTap(Func<RectTransform?> pod) => new DemoScript(
-            FirstTapId,
-            new DemoStep(Loc.T("demo.first_tap")) { PointAt = pod, WaitForAction = true });
 
         public static DemoScript Siblings(VariantVisual first, VariantVisual second) => new DemoScript(
             SiblingsId,

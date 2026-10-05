@@ -372,3 +372,27 @@ decision records what the reference shows, what we do and why, so the owner can 
   files per hero (not needed); lowering the backgrounds' saturation to a lower heroes' mean (would change the owner's
   70% choice).
 
+
+## D27. The guided spotlights; a booster's guided use is free (2026-10-05; FR-034, FR-035)
+
+- **Decision**: The Garden Entry is the owner's look "B", a small stone arch in the border (`UiRaster.EntryArch`,
+  turned to its side by `BoardLayout.ArchOf`). The onboarding's spotlight is one engine-free planner (`GuideTour`: which
+  steps a level shows) and one layout (`Spotlight`: the scrim with soft holes, rendered at a quarter of the screen, the
+  bubble above or below the lit place, the hand), drawn by `GuidePainter` (playtest) and `GuideOverlay` (Unity). A
+  forced step lets taps through only inside its holes: the playtest lays the lit place's targets over the scrim's
+  catch-all again, Unity's overlay is a raycast filter that is transparent inside the holes. Bloom Burst's guided tap
+  takes the whole board and picks the tile under the finger (`IPainter.TapPoint`), as cells are smaller than a touch
+  target. A booster's guided use takes no charge and does not count against the clean-clear bonus (the hosts subtract
+  their demo uses from the session's booster count); it is marked seen at the use.
+- **Rationale**: the owner's request ("make the player tap the item ... leave them the item in any case ... look at how
+  other games do it"). Match-3 games give a small stock with the booster's tutorial and spend one of it in the guided
+  use, so the player ends with some left: Royal Match gives three of each pre-level booster on reaching Level 7 "as the
+  game shows you how they work" ([Old Cynic](https://oldcynic.com/royal-match-tips-and-tricks-cheats-for-new-players),
+  [Twinfinite](https://twinfinite.net/guides/how-to-get-boosters-royal-match/)); Diamond Digger Saga gives two or three
+  free samples during its tutorial ([Game Developer](https://www.gamedeveloper.com/business/match-3-monetisation-new-booster-selling-trend-in-king-games)).
+  Our unlock grants one charge (spec 001 FR-042); a free guided use keeps it, which is the same outcome without
+  changing the grant or the economy numbers. Marking the demo seen at the use stops a free use per relaunch.
+- **Alternatives**: taking the charge in the guided use (the player would end with none, against the owner's wish to
+  leave it); granting two charges and spending one (changes FR-042's grant and the economy config for the same
+  result); a skippable, unforced demo card (the previous behaviour; the owner asked for a forced tap); showing the
+  blocked entry on Level 5 as rendered (the same situation first happens on Level 2, where it is simpler).

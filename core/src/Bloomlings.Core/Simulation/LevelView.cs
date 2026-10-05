@@ -234,5 +234,21 @@ namespace Bloomlings.Core.Simulation
 
         /// <summary>True when the pod is the exposed top of its stack.</summary>
         public bool IsExposed(string podId) => State.PodIndex.TryGetValue(podId, out int pod) && State.Tray.IsExposed(pod);
+
+        /// <summary>
+        /// The target cells Bloomlings can reach now (FR-010), nearest first by the FR-021 order. For hints and guided
+        /// demos only (which tiles block the way): the rules compute their own reachability every round.
+        /// </summary>
+        public IReadOnlyList<CellPos> ReachableTargets()
+        {
+            IReadOnlyList<ReachableTarget> targets = Reachability.Compute(State.Board).Targets;
+            var cells = new CellPos[targets.Count];
+            for (int i = 0; i < cells.Length; i++)
+            {
+                cells[i] = targets[i].Cell;
+            }
+
+            return cells;
+        }
     }
 }

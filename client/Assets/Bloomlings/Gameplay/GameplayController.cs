@@ -72,6 +72,15 @@ namespace Bloomlings.Client.Gameplay
         private JamScreen _jam = null!;
         private DifficultyBanner _banner = null!;
         private DemoOverlay _demo = null!;
+        private GuideOverlay _guide = null!;
+        private readonly List<GuideStep> _guideSteps = new List<GuideStep>();
+        private string? _guidePod;
+
+        /// <summary>
+        /// The booster uses of this attempt that were a guided demo's free use (spec 001 FR-042 as amended on 2026-10-05):
+        /// they take no charge and keep the clean-clear bonus.
+        /// </summary>
+        private int _demoUses;
         private BoosterBar _boosters = null!;
         private BoosterKind? _targeting;
         private LevelReward? _reward;
@@ -127,6 +136,7 @@ namespace Bloomlings.Client.Gameplay
             _pause = PauseScreen.Create(root, ClosePause, RestartFromPause, Leave, OpenSettings);
             _banner = DifficultyBanner.Create(root);
             _demo = DemoOverlay.Create(root);
+            _guide = GuideOverlay.Create(root);
 
             if (AppServices.Current != null && AppServices.Current.TryGet(out IRemoteConfigService? config))
             {
@@ -193,7 +203,8 @@ namespace Bloomlings.Client.Gameplay
             if (session.Status == LevelStatus.Won && !_winLogged)
             {
                 _winLogged = true;
-                analytics.LevelWin(info, AttemptMilliseconds, TapsThisAttempt(session), session.BoostersUsed, session.BoostersUsed == 0, _peakSlots, _attemptIndex);
+                int boosters = session.BoostersUsed - _demoUses;
+                analytics.LevelWin(info, AttemptMilliseconds, TapsThisAttempt(session), boosters, boosters == 0, _peakSlots, _attemptIndex);
             }
             else if ((session.Status == LevelStatus.Jammed || session.Status == LevelStatus.Stuck) && !_jamLogged)
             {
@@ -293,6 +304,13 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
+            // A guided spotlight lets only its lit pod take the tap (spec 005 FR-035).
+            GuideStep? guided = _guide.Step;
+            if (guided != null && !(guided.Kind == GuideKind.FirstTap && podId == _guidePod))
+            {
+                return;
+            }
+
             if (_targeting != null)
             {
                 CancelTargeting();
@@ -364,6 +382,10 @@ namespace Bloomlings.Client.Gameplay
             _slots.UpdateStates(_session.View);
             _timeline.Enqueue(result.Events);
             _demo.NotifyAction();
+            if (guided != null)
+            {
+                NextGuideStep();
+            }
 
             RecordWinIfWon();
             TrackAnalytics();
@@ -395,7 +417,7 @@ namespace Bloomlings.Client.Gameplay
 
             if (Flow.OnLevelWon(attempt.LevelNumber, LeaderboardClient.CommandLogHash(_session.CommandLog)) && Economy != null)
             {
-                _reward = Economy.GrantLevelReward(attempt.LevelNumber, _session.Definition.Difficulty.Class, _session.BoostersUsed);
+                _reward = Economy.GrantLevelReward(attempt.LevelNumber, _session.Definition.Difficulty.Class, _session.BoostersUsed - _demoUses);
                 MilestoneGrant? grant = Service<MilestoneService>()?.LastGrant;
                 _milestone = grant != null && grant.Level == attempt.LevelNumber ? grant : null;
             }
@@ -530,6 +552,14 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
+            // During a guided spotlight only its lit booster takes the tap (spec 005 FR-035).
+            GuideStep? step = _guide.Step;
+            bool guided = step != null && step.Kind == GuideKind.Booster && step.Booster == kind;
+            if (step != null && !guided)
+            {
+                return;
+            }
+
             if (_targeting == kind)
             {
                 CancelTargeting();
@@ -547,11 +577,17 @@ namespace Bloomlings.Client.Gameplay
                     UseBooster(kind, new UseShuffle());
                     break;
                 case BoosterKind.Return:
-                    StartTargeting(kind, Loc.T("gameplay.hint_return"));
+                    StartTargeting(kind, guided ? null : Loc.T("gameplay.hint_return"));
                     break;
                 default:
-                    StartTargeting(kind, Loc.T("gameplay.hint_burst"));
+                    StartTargeting(kind, guided ? null : Loc.T("gameplay.hint_burst"));
                     break;
+            }
+
+            if (guided && (kind == BoosterKind.Return || kind == BoosterKind.BloomBurst))
+            {
+                // The guided demo lights the targets and says what to tap.
+                NextGuideStep();
             }
         }
 
@@ -573,11 +609,15 @@ namespace Bloomlings.Client.Gameplay
             OnBoosterPressed(KindOf(recovery));
         }
 
-        private void StartTargeting(BoosterKind kind, string hint)
+        private void StartTargeting(BoosterKind kind, string? hint)
         {
             _targeting = kind;
             _boosters.SetTargeting(kind);
-            _hud.Toast(hint);
+            if (hint != null)
+            {
+                _hud.Toast(hint);
+            }
+
             if (kind == BoosterKind.Return)
             {
                 _slots.SetTargeting(true);
@@ -639,6 +679,15 @@ namespace Bloomlings.Client.Gameplay
         private void UseBooster(BoosterKind kind, Command command, bool free = false)
         {
             LevelSession session = _session!;
+
+            // A guided demo's forced use is free: the unlock's free charge stays (spec 001 FR-042 as amended on 2026-10-05).
+            GuideStep? step = _guide.Step;
+            bool demo = step != null && step.Booster == kind && (step.Kind == GuideKind.Booster || step.Kind == GuideKind.BoosterTarget);
+            if (step != null && !demo)
+            {
+                return;
+            }
+
             CommandCheck check = session.Check(command);
             if (!check.IsAllowed)
             {
@@ -647,7 +696,8 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
-            string source = free ? "ad" : Economy == null || Economy.Charges(kind) > 0 ? "charge" : "petals";
+            string source = demo ? "demo" : free ? "ad" : Economy == null || Economy.Charges(kind) > 0 ? "charge" : "petals";
+            free |= demo;
             if (!free && Economy != null && !Economy.TryTakeCharge(kind))
             {
                 _hud.Toast(Loc.T("gameplay.not_enough_petals"));
@@ -714,6 +764,14 @@ namespace Bloomlings.Client.Gameplay
             }
 
             _timeline.Enqueue(result.Events);
+            if (demo)
+            {
+                // Seen at once, so leaving the level now never gives the free use again.
+                _demoUses++;
+                MarkSeen(step!.DemoId);
+                NextGuideStep();
+            }
+
             RecordWinIfWon();
             TrackAnalytics();
             RefreshBoosters();
@@ -1149,6 +1207,9 @@ namespace Bloomlings.Client.Gameplay
             }
 
             _session.Apply(new Restart());
+            _demoUses = 0;
+            _guideSteps.Clear();
+            _guide.Hide();
             RefreshSpeed();
             Service<AdPolicy>()?.OnAttemptStarted();
             RebuildViews();
@@ -1212,25 +1273,13 @@ namespace Bloomlings.Client.Gameplay
                 progression?.IsUnlocked("profile.hard") ?? true,
                 progression?.IsUnlocked("profile.super_hard") ?? true);
 
-            if (session.Definition.LevelNumber == 1 && !IsDaily && !SeenDemo(DemoScripts.FirstTapId))
+            // The guided spotlights first (spec 005 FR-035): Level 1's entry and forced first tap, a booster's forced and
+            // free first use (FR-042), the blocked entry.
+            IReadOnlyList<GuideStep> guide = GuideTour.AtStart(session.Definition.LevelNumber, IsDaily, SeenDemo, BoosterUnlocked, session);
+            if (guide.Count > 0)
             {
-                string? pod = RecommendedFirstPod(session);
-                ShowDemo(DemoScripts.FirstTap(() => pod == null ? null : _tray.RectOf(pod)));
+                StartGuide(guide);
                 return;
-            }
-
-            // A booster unlocked on the way here: its demo and free charge (FR-042, T122).
-            foreach ((string unlockId, BoosterKind kind) in EconomyService.BoosterUnlocks)
-            {
-                if (progression != null && progression.IsUnlocked(unlockId) && !SeenDemo(unlockId))
-                {
-                    DemoScript? demo = BoosterDemos.For(unlockId, () => _boosters.RectOf(kind));
-                    if (demo != null)
-                    {
-                        ShowDemo(demo);
-                        return;
-                    }
-                }
             }
 
             // The first time the player meets an unlocked mechanic, its demo (FR-031, T111).
@@ -1368,27 +1417,166 @@ namespace Bloomlings.Client.Gameplay
             }
         }
 
-        /// <summary>An exposed pod that clears tiles at once: the target of the guided first tap.</summary>
-        private static string? RecommendedFirstPod(LevelSession session)
+        // ---- Guided spotlights (spec 005 FR-035) ----
+
+        private bool BoosterUnlocked(BoosterKind kind) => Economy?.IsUnlocked(kind) ?? false;
+
+        private void StartGuide(IReadOnlyList<GuideStep> steps)
         {
-            foreach (string id in session.View.PodIds)
+            _guideSteps.Clear();
+            _guideSteps.AddRange(steps);
+            _guidePod = GuideTour.FirstTapPod(_session!);
+            ShowGuideStep();
+        }
+
+        private void ShowGuideStep()
+        {
+            GuideStep step = _guideSteps[0];
+            Analytics?.TutorialStep(Info, step.DemoId, 1, false);
+            System.Action<RectTransform>? icon = step.Booster.HasValue
+                ? GuideOverlay.BoosterIcon(GuideTour.Key(step.Booster.Value))
+                : step.Kind == GuideKind.Blocked && GuideTour.BlockingVariant(_session!.View) is VariantId variant ? GuideOverlay.TileIcon(variant) : null;
+            _guide.Show(step, () => GuideHoles(step), icon, NextGuideStep);
+        }
+
+        /// <summary>The guided step goes on; a demo is seen when its last step ends.</summary>
+        private void NextGuideStep()
+        {
+            if (_guideSteps.Count == 0)
             {
-                if (!session.View.IsExposed(id))
+                _guide.Hide();
+                return;
+            }
+
+            GuideStep done = _guideSteps[0];
+            _guideSteps.RemoveAt(0);
+            if (_guideSteps.Count == 0 || _guideSteps[0].DemoId != done.DemoId)
+            {
+                Analytics?.TutorialStep(Info, done.DemoId, 1, true);
+                MarkSeen(done.DemoId);
+            }
+
+            if (_guideSteps.Count > 0)
+            {
+                ShowGuideStep();
+            }
+            else
+            {
+                _guide.Hide();
+            }
+        }
+
+        private void MarkSeen(string demoId)
+        {
+            if (Progression != null)
+            {
+                Progression.MarkDemoSeen(demoId);
+            }
+            else
+            {
+                _devDemosSeen.Add(demoId);
+            }
+        }
+
+        /// <summary>The places a guided step lights, on screen now (the first one ringed).</summary>
+        private System.Collections.Generic.List<Box> GuideHoles(GuideStep step)
+        {
+            var holes = new System.Collections.Generic.List<Box>();
+            LevelView view = _session!.View;
+            Box? Union(System.Collections.Generic.IEnumerable<RectTransform> rects)
+            {
+                Box? all = null;
+                foreach (RectTransform rect in rects)
                 {
-                    continue;
+                    Box b = _guide.ScreenOf(rect);
+                    all = all.HasValue ? new Box(Mathf.Min(all.Value.Left, b.Left), Mathf.Min(all.Value.Top, b.Top), Mathf.Max(all.Value.Right, b.Right), Mathf.Max(all.Value.Bottom, b.Bottom)) : b;
                 }
 
-                LevelSession probe = session.Clone();
-                foreach (GameEvent e in probe.Apply(new TapPod(id)).Events)
+                return all;
+            }
+
+            void Add(Box? box)
+            {
+                if (box.HasValue)
                 {
-                    if (e is TileCleared)
-                    {
-                        return id;
-                    }
+                    holes.Add(box.Value);
                 }
             }
 
-            return null;
+            switch (step.Kind)
+            {
+                case GuideKind.Entry:
+                    Add(Union(_board.ArchRects));
+                    break;
+                case GuideKind.Blocked:
+                    Add(Union(_board.ArchRects));
+                    foreach (Core.Boards.CellPos cell in GuideTour.BlockingCells(view))
+                    {
+                        holes.Add(_guide.ScreenOf(_board.CellRect(cell)));
+                    }
+
+                    break;
+                case GuideKind.FirstTap:
+                    Add(_guidePod != null && _tray.RectOf(_guidePod) is RectTransform pod ? _guide.ScreenOf(pod) : (Box?)null);
+                    break;
+                case GuideKind.BoosterTarget when step.Booster == BoosterKind.Return:
+                {
+                    var plates = new System.Collections.Generic.List<RectTransform>();
+                    for (int slot = 0; slot < view.SlotCapacity; slot++)
+                    {
+                        int place = view.PodInSlot(slot) is string waiting && _session.Check(new UseReturn(slot)).IsAllowed ? _slots.PlaceOf(waiting) : -1;
+                        if (place >= 0)
+                        {
+                            plates.Add(_slots.SlotRect(place));
+                        }
+                    }
+
+                    Add(Union(plates));
+                    break;
+                }
+
+                case GuideKind.BoosterTarget:
+                    Add(_guide.ScreenOf(_board.GridRect));
+                    break;
+                default:
+                    if (step.Booster.HasValue)
+                    {
+                        Add(_guide.ScreenOf(_boosters.RectOf(step.Booster.Value)));
+                    }
+
+                    break;
+            }
+
+            return holes;
+        }
+
+        /// <summary>
+        /// Return's guided demo starts once a pod waits in a slot and the board has settled (Level 6); a level that ends
+        /// under a step (its last "kept" step) leaves the end screens alone.
+        /// </summary>
+        private void Update()
+        {
+            if (_session != null && _guide != null && _guide.IsShowing && _session.Status != LevelStatus.Playing)
+            {
+                while (_guideSteps.Count > 0)
+                {
+                    MarkSeen(_guideSteps[0].DemoId);
+                    _guideSteps.RemoveAt(0);
+                }
+
+                _guide.Hide();
+            }
+
+            if (_session == null || _guide == null || _guide.IsShowing || _demo.IsShowing || _pause.IsOpen || _targeting != null || !_timeline.IsIdle)
+            {
+                return;
+            }
+
+            IReadOnlyList<GuideStep> steps = GuideTour.WhenSettled(IsDaily, SeenDemo, BoosterUnlocked, _session);
+            if (steps.Count > 0)
+            {
+                StartGuide(steps);
+            }
         }
 
         /// <summary>Two variants of one family among the level's pods, for the sibling demo (FR-071).</summary>

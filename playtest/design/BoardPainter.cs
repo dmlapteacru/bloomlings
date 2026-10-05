@@ -50,7 +50,7 @@ namespace Bloomlings.Playtest.Design
             float cell = layout.Cell;
             s.Board = (layout.Grid.Left, layout.Grid.Top, cell, h);
 
-            // The stone border with the dark gap the tiles lie in (the Garden Entries have no picture).
+            // The stone border with the dark gap the tiles lie in (the Garden Entries' arches come after the tiles).
             Kit.StoneBorder(p, layout.Grid, cell);
 
             for (int y = 0; y < h; y++)
@@ -134,6 +134,13 @@ namespace Bloomlings.Playtest.Design
                 p.PushAlpha(1f - k);
                 p.StrokeCircle(board.CenterX, board.CenterY, board.Width * (0.1f + (0.6f * k)), p.U(24f), C.PetalCenter);
                 p.PopAlpha();
+            }
+
+            // The Garden Entries' small stone arches (spec 005 FR-034): over the border and the entry cell's foot, under
+            // the walkers coming out of them.
+            foreach (EntryDef entry in view.Entries)
+            {
+                Kit.EntryArch(p, BoardLayout.ArchOf(CellBox(s, entry.Cell), entry.Side));
             }
 
             DrawWalkers(p, s, cell);

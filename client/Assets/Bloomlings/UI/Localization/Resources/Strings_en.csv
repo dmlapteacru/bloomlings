@@ -146,11 +146,14 @@ collection.completed,Completed at Level {0}
 demo.skip,Skip
 demo.tap_continue,Tap to continue
 demo.first_tap,Tap a pod to send its Bloomlings
+demo.entry,Bloomlings come in through this arch
+demo.entry_blocked.1,These tiles are in the way
+demo.entry_blocked.2,Clear them first to reach the others
+demo.try_free,Tap it to try. This one is on us
+demo.booster_kept,Your free one is still here for later
 demo.exact_symbol,Match the exact symbol
 demo.extra_slot.1,Extra Slot: one more slot for this level
-demo.extra_slot.2,Here is a free one
 demo.shuffle.1,Shuffle rearranges the pods in the tray
-demo.shuffle.2,It always leaves a way to win
 demo.return.1,Return sends a waiting pod back to the tray
 demo.return.2,Then tap the slot to send back
 demo.bloom_burst.1,Bloom Burst clears one symbol from the whole garden

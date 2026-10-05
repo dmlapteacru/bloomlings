@@ -41,6 +41,8 @@ namespace Bloomlings.Playtest.Design
 
         public IReadOnlyList<(Box Box, Action Action)> Hits => _hits;
 
+        public (float X, float Y) TapPoint => _release.HasValue ? (_release.Value.X, _release.Value.Y) : (0f, 0f);
+
         /// <summary>The alpha everything is multiplied by now.</summary>
         protected float Alpha => _alpha.Count == 0 ? 1f : _alpha[_alpha.Count - 1];
 

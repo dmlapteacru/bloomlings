@@ -8,9 +8,10 @@ namespace Bloomlings.Client.UI.Design
     /// §4.1): the grid of cells and the stone border around it (a dark gap of <see cref="Gap"/> cell and stones
     /// <see cref="Stone"/> cell thick), with <see cref="Margin"/> cell of lawn kept at its left and right. The cells take
     /// the largest size that fits the region (and the widest border the caller allows), and the board is centered in the
-    /// region. A Garden Entry has no picture of its own (the owner, 2026-10-03: no stone arch, and the board keeps the
-    /// arch's room): its Bloomlings set off from the stone border beside the entry cell (<see cref="Door"/>). Both builds
-    /// draw from it, so the board looks the same in each. Engine-free.
+    /// region. A Garden Entry is a small stone arch set in the border beside its entry cell (<see cref="Arch"/>; the
+    /// owner, 2026-10-05, after the big arch under the board went on 2026-10-03, so the board keeps that room), and its
+    /// Bloomlings set off from the border there (<see cref="Door"/>). Both builds draw from it, so the board looks the
+    /// same in each. Engine-free.
     /// </summary>
     public sealed class BoardLayout
     {
@@ -31,6 +32,15 @@ namespace Bloomlings.Client.UI.Design
         /// cell, on the entry's side.
         /// </summary>
         public const float DoorReach = 0.5f + Gap + (Stone / 2f);
+
+        /// <summary>The entry arch picture's width across its entry, in cells (<see cref="UiRaster.EntryArch"/>).</summary>
+        public const float ArchWidth = 1.12f;
+
+        /// <summary>The entry arch picture's height toward the board, in cells: it reaches 0.36 cell over its entry cell.</summary>
+        public const float ArchHeight = 0.86f;
+
+        /// <summary>From the door to the arch picture's middle, in cells toward the board.</summary>
+        public const float ArchInset = 0.18f;
 
         private BoardLayout(Box grid, float cell, int width, int height)
         {
@@ -78,6 +88,37 @@ namespace Bloomlings.Client.UI.Design
                 EntrySide.Right => (cell.CenterX + d, cell.CenterY),
                 _ => (cell.CenterX, cell.CenterY + d),
             };
+        }
+
+        /// <summary>Where <paramref name="entry"/>'s arch picture goes (<see cref="ArchOf"/> its cell's box).</summary>
+        public (Box Box, float Degrees) Arch(EntryDef entry) => ArchOf(CellBox(entry.Cell.X, entry.Cell.Y), entry.Side);
+
+        /// <summary>
+        /// The arch picture of an entry on <paramref name="side"/> for the entry cell's <paramref name="cell"/> box: a box
+        /// <see cref="ArchWidth"/> × <see cref="ArchHeight"/> cells round the door, <see cref="ArchInset"/> toward the
+        /// board, and the clockwise turn that points the picture's top (its opening) into the board: 0° at the bottom,
+        /// 180° at the top, 90° on the left, -90° on the right. Draw the picture upright in the box, turned about its middle.
+        /// </summary>
+        public static (Box Box, float Degrees) ArchOf(Box cell, EntrySide side)
+        {
+            (float x, float y) = DoorOf(cell, side);
+            float c = cell.Width;
+            (float ix, float iy, float degrees) = side switch
+            {
+                EntrySide.Top => (0f, 1f, 180f),
+                EntrySide.Left => (1f, 0f, 90f),
+                EntrySide.Right => (-1f, 0f, -90f),
+                _ => (0f, -1f, 0f),
+            };
+
+            return (Box.FromCenter(x + (ix * ArchInset * c), y + (iy * ArchInset * c), ArchWidth * c, ArchHeight * c), degrees);
+        }
+
+        /// <summary>The screen bounds of an arch picture once turned (for the Entry spotlight's hole).</summary>
+        public static Box ArchBounds((Box Box, float Degrees) arch)
+        {
+            bool across = Math.Abs(Math.Abs(arch.Degrees) - 90f) < 1f;
+            return across ? Box.FromCenter(arch.Box.CenterX, arch.Box.CenterY, arch.Box.Height, arch.Box.Width) : arch.Box;
         }
 
         /// <summary>

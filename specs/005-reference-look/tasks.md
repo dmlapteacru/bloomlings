@@ -528,3 +528,25 @@ See spec.md (the clarification "the owner's Heroes.glb"), research D26 and `tool
 - [ ] T099 Twig's own clips (an idle, a reaction, the win) and Drop's breathing and celebration from the owner; then
   re-bake without the stand-ins.
 
+
+## Owner request: a visible Garden Entry and guided spotlights (2026-10-05)
+
+See spec.md (the clarification "the owner's visible Garden Entry and guided spotlights"), FR-034, FR-035, research D27
+and contracts/look.md §3.6, §6.10.
+- [X] T100 The cause found on Level 5's data (the only entry under the logs, the wood pods deepest), three entry looks
+  and four ways to draw attention rendered over the level before any code; the owner chose "B + 1a + 1b".
+- [X] T101 Core: `LevelView.ReachableTargets()` (hints only; the rules keep their own reachability), with a test.
+- [X] T102 Kit: `UiRaster.EntryArch` and `BoardLayout.Arch` / `ArchOf` / `ArchBounds` (every entry, turned to its
+  side); `GuideTour` (the steps of Level 1, the blocked entry, the boosters, Return when a pod waits);
+  `Spotlight` and `UiRaster.SpotlightScrim` (holes, bubble, hand, ring); slots `board.entry.arch` and `ui.spotlight`;
+  strings; `GuideTourTests`.
+- [X] T103 [P] Playtest: the arches on the board; `GuidePainter` and the guide in `LevelScreen` (forced steps, the free
+  demo use kept out of the clean-clear count, the booster cards and the first-tap hint replaced); `IPainter.TapPoint`;
+  preview frames 33–38 and frame 21.
+- [X] T104 [P] Unity: the arches in `BoardView`; `GuideOverlay` (scrim picture, raycast filter letting taps through
+  only inside the holes, bubble, ring, hand); the guide in `GameplayController` (the same steps, the free use, `source`
+  `demo`, Return's start once the board has settled); `BoosterDemos` and the first-tap card removed.
+- [X] T105 Docs (spec 005, spec 001 FR-042 and FR-048 amendments, analytics contract, look.md, research D27, CLAUDE.md),
+  the asset inventory, all checks, the APK.
+- [ ] T106 Unity Editor: play Levels 1–9 on a device and check the spotlight's taps (the raycast filter) and looks match
+  the playtest's.

@@ -40,9 +40,11 @@ namespace Bloomlings.Playtest.Design
             }
 
             IReadOnlyList<Recovery> eligible = s.Session.EligibleRecoveries();
+            s.BoosterBoxes.Clear();
             for (int i = 0; i < shown.Count && i < places.Count; i++)
             {
                 (BoosterKind kind, Recovery recovery, string id) = shown[i];
+                s.BoosterBoxes[kind] = places[i];
                 int charges = s.Meta.Economy.Charges(kind);
                 var state = new BoosterTileState(
                     charges,

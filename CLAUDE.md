@@ -46,10 +46,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - `dotnet run --project playtest/check` checks the playtest client without Android: its animator replays every golden
   case and showcase solution and must end on the rules state, and its meta layer runs progression and economy.
 - `dotnet run --project playtest/preview` renders the full playtest's designed screens (spec 002) for every design
-  board frame (1–17, plus extras 18–32: themes, Settings, Collection picture, demo, boosters in use, the Bloomlings
-  sheet, 25 the reference-look kit, 26 the Store cosmetics, 27 the Wardrobe, 28 Home's animated heroes in outfits, the
-  bottom menu's locked places: 29 the locked Store page, 30 the locked Wardrobe, 31 the locked Leaderboard page, and 32
-  the Remove Ads card of Home's No Ads scene) to PNG in `playtest/preview/out/` (gitignored) and checks
+  board frame (1–17, plus extras 18–32: themes, Settings, Collection picture, 21 a booster's guided demo, boosters in
+  use, the Bloomlings sheet, 25 the reference-look kit, 26 the Store cosmetics, 27 the Wardrobe, 28 Home's animated heroes
+  in outfits, the bottom menu's locked places: 29 the locked Store page, 30 the locked Wardrobe, 31 the locked
+  Leaderboard page, and 32 the Remove Ads card of Home's No Ads scene; and the guided spotlights 33–38: the entry, the
+  first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles) to PNG in `playtest/preview/out/` (gitignored) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
@@ -111,7 +112,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   material tokens (`wood.*`, `stone.*`, `parchment.*`, `cream.*`, `ink.*`, `lotus.*`, `lawn.*`, `ivy.*`). `UiRaster`
   (kit) renders engine-free material pictures (planks, pod frames, stones, pedestal, candy tiles; deterministic,
   straight alpha), drawn through `IPainter.Picture` (playtest) and `ProceduralSprites.Picture` (Unity), each cached by
-  key and size. `BoardLayout` places the grid and the stone border (no arch at the entries since 2026-10-03: the Bloomlings set off from the border beside the entry cell). The board is candy tiles in a
+  key and size. `BoardLayout` places the grid and the stone border; each Garden Entry is a small stone arch set in the border beside its entry cell, turned to its side (`BoardLayout.Arch`, `UiRaster.EntryArch`; the owner's "B" of 2026-10-05, FR-034; the big arch under the board stays retired since 2026-10-03), and the Bloomlings set off from there. The board is candy tiles in a
   stone border on a lawn. Pods are wooden frames wider than tall (the owner's icon in the middle, a small count in the corner) that stand one
   after another in a column per Source stack, never on each other: a gameplay rule (owner, 2026-10-03), whatever the
   look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). Waiting Slots are cream
@@ -121,6 +122,12 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Home's two promo scenes (FR-032, `HomePromo`, the owner's layers `Decor/promo-*.png`): No Ads at the left (from L1
   until Remove Ads is owned; a tap opens the Remove Ads card, FR-033) and Daily at the right (the Daily Reward), each
   idling and playing its attention sequence every 12 s, never together; hosts draw `HomePromo.Layers` per frame.
+- The guided spotlights (spec 005 FR-035, the owner, 2026-10-05): `GuideTour` (kit) decides the onboarding's steps
+  (Level 1's arch and forced first tap; the first level that starts with a pod's tiles out of reach, Level 2; each
+  booster's forced demo at its unlock, Return's once a pod waits) and `Spotlight` lays them out (a scrim with soft holes,
+  a ring, a parchment bubble, a hand); the playtest draws them with `GuidePainter`, Unity with `GuideOverlay` (a raycast
+  filter lets taps through only inside the holes). A booster's guided use is free (no charge, clean-clear kept, analytics
+  `source` `demo`; spec 001 FR-042 as amended). Mechanic and variant demos keep their cards.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the owner's animated heroes offline into flat 24 fps frames, all four from the owner's `Heroes.glb`
   (2026-10-04; `heroes.json` picks each hero's mesh in it): Sprig with its 4 s idle, 3 s wave and the win's 2 s celebrate
