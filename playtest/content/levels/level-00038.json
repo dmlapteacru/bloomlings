@@ -2,206 +2,119 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2064
+    "score": 2078
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 9,
+      "x": 6,
       "y": 0
     }
   ],
   "generatorVersion": "gen-1.2.0",
   "levelNumber": 38,
   "mapping": {
-    "fish": "wood",
-    "sand": "acorn",
-    "tail": "acorn",
-    "water": "water",
-    "weed": "leaf"
+    "body": "acorn",
+    "grass": "leaf",
+    "sky": "dew",
+    "spot": "violet_bud",
+    "wing": "flower"
   },
-  "mechanics": ["layered_tile", "stone"],
-  "overlays": {
-    "cells": [
-      {
-        "layersBelow": ["wood"],
-        "x": 4,
-        "y": 0
-      },
-      {
-        "layersBelow": ["wood"],
-        "x": 10,
-        "y": 0
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 1,
-        "y": 2
-      },
-      {
-        "layersBelow": ["leaf"],
-        "x": 0,
-        "y": 4
-      },
-      {
-        "layersBelow": ["acorn"],
-        "x": 3,
-        "y": 5
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 3,
-        "y": 6
-      },
-      {
-        "layersBelow": ["acorn"],
-        "x": 6,
-        "y": 6
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 8,
-        "y": 6
-      },
-      {
-        "layersBelow": ["leaf"],
-        "x": 1,
-        "y": 8
-      },
-      {
-        "layersBelow": ["water"],
-        "x": 6,
-        "y": 8
-      },
-      {
-        "stone": true,
-        "x": 10,
-        "y": 8
-      },
-      {
-        "layersBelow": ["leaf"],
-        "x": 1,
-        "y": 9
-      },
-      {
-        "layersBelow": ["leaf"],
-        "x": 8,
-        "y": 9
-      },
-      {
-        "layersBelow": ["wood"],
-        "x": 0,
-        "y": 10
-      },
-      {
-        "layersBelow": ["acorn"],
-        "x": 3,
-        "y": 10
-      },
-      {
-        "stone": true,
-        "x": 9,
-        "y": 10
-      }
-    ]
-  },
+  "mechanics": ["connected_pair"],
   "picture": {
-    "id": "fish_02",
-    "version": 1
+    "id": "butterfly_01",
+    "mirror": "horizontal",
+    "version": 2
   },
   "pods": [
     {
-      "count": 5,
+      "count": 12,
       "id": "p01",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 9,
       "id": "p02",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
-      "count": 10,
+      "count": 11,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
       "count": 8,
       "id": "p04",
-      "variantId": "water"
+      "variantId": "violet_bud"
     },
     {
-      "count": 9,
+      "count": 13,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 16,
       "id": "p06",
-      "variantId": "water"
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p07",
+      "variantId": "dew"
     },
     {
       "count": 10,
-      "id": "p07",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
       "id": "p08",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p09",
-      "variantId": "acorn"
+      "variantId": "flower"
     },
     {
-      "count": 7,
+      "connectedGroupId": "c1",
+      "count": 10,
       "id": "p10",
-      "variantId": "acorn"
+      "variantId": "flower"
     },
     {
-      "count": 5,
+      "connectedGroupId": "c1",
+      "count": 9,
       "id": "p11",
-      "variantId": "wood"
+      "variantId": "flower"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p12",
-      "variantId": "wood"
+      "variantId": "flower"
     },
     {
-      "count": 8,
+      "count": 10,
       "id": "p13",
-      "variantId": "wood"
+      "variantId": "flower"
     },
     {
-      "count": 8,
+      "count": 10,
       "id": "p14",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p15",
-      "variantId": "water"
-    },
-    {
-      "count": 9,
-      "id": "p16",
-      "variantId": "water"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "14210532643705103471",
+  "seed": "1318095075005240076",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13"],
-      ["p02", "p06", "p10", "p14"],
-      ["p03", "p07", "p11", "p15"],
-      ["p04", "p08", "p12", "p16"]
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12", "p15"]
     ]
   }
 }

@@ -364,6 +364,17 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
+            // A pod goes in only to a slot that shows no pod (the owner, 2026-10-05; spec 001 FR-070 as amended): the rules
+            // free a finished pod's slot at once, but the player waits until it is empty on screen, so quick taps cannot
+            // stack pods behind the ones still working. The rules never see a refused tap.
+            int group = Session.View.ConnectedGroup(podId).Count;
+            if (Animator.FreeOnScreen(Session.View) < group)
+            {
+                _app.Sound.Play(SoundCue.Refused);
+                Toast(RefusalText(group > 1 ? RejectReason.NotEnoughSlotsForGroup : RejectReason.NoFreeSlot));
+                return;
+            }
+
             var before = new Dictionary<string, (int Count, VariantId? Variant, float X, float Y)>(StringComparer.Ordinal);
             var members = new List<string>(Session.View.ConnectedGroup(podId)) { podId };
             foreach (string member in members)

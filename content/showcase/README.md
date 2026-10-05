@@ -22,7 +22,9 @@ the others live here:
 A showcase is generated in showcase mode (only the new mechanic, Normal class; the triple's is Hard). A practice level
 is generated in band mode: the generator gives the practice level its mechanic alone and keeps the level's scheduled
 difficulty class (the triple's practice is the first Hard or Super Hard level after L400, L401 under the generator's
-schedule). All were regenerated on 2026-09-29 with `gen-1.2.0`, which follows the Level Band Guidelines, for example:
+schedule). All were regenerated on 2026-09-29 with `gen-1.2.0`, which follows the Level Band Guidelines, and again on
+2026-10-05 at the bigger band sizes (the owner: more, smaller cells from Level 1; spec 001 FR-008 as amended), for
+example:
 
 ```sh
 dotnet run --project core/src/Bloomlings.Pipeline -- generate --profile content/profiles/band-0011-0025.json \

@@ -2,12 +2,13 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 14,
+  "height": 16,
   "id": "frog_04",
   "legend": {
     "f": "frog",
     "o": "blossom",
     "p": "pad",
+    "r": "reed",
     "w": "pond"
   },
   "review": {
@@ -35,6 +36,11 @@
       "colorGroup": "pink_purple",
       "name": "Blossom",
       "roleId": "blossom"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Reed",
+      "roleId": "reed"
     }
   ],
   "source": {
@@ -52,6 +58,6 @@
       "pond"
     ]
   },
-  "version": 1,
+  "version": 2,
   "width": 14
 }

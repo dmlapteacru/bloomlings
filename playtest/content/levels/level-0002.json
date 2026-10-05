@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "normal",
     "score": 0
@@ -7,7 +7,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 3,
+      "x": 5,
       "y": 0
     }
   ],
@@ -20,26 +20,26 @@
   },
   "picture": {
     "id": "tulip",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 14,
+      "count": 35,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 19,
+      "count": 40,
       "id": "w2",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 27,
       "id": "f1",
       "variantId": "flower"
     },
     {
-      "count": 7,
+      "count": 20,
       "id": "l1",
       "variantId": "leaf"
     }

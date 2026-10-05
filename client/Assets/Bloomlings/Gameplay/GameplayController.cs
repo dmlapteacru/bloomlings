@@ -331,6 +331,18 @@ namespace Bloomlings.Client.Gameplay
                 return;
             }
 
+            // A pod goes in only onto a plate that shows no pod (the owner, 2026-10-05; spec 001 FR-070 as amended): the
+            // rules free a finished pod's slot at once, but the player waits until its plate is empty on screen, so quick
+            // taps cannot stack pods behind the ones still working. The rules never see a refused tap.
+            int group = _session.View.ConnectedGroup(podId).Count;
+            if (_slots.FreeOnScreen(_session.View) < group)
+            {
+                Feedback?.Play(SoundCue.Refused);
+                _tray.ShowRefused(podId);
+                _hud.Toast(RefusalText(group > 1 ? RejectReason.NotEnoughSlotsForGroup : RejectReason.NoFreeSlot));
+                return;
+            }
+
             // What the tray shows before the commit: each group member's count, shown variant ("?" for a hidden mystery
             // pod) and the position of its tile in its column, where it flies from (spec 005 §6.1).
             var before = new Dictionary<string, (int Count, VariantId? Variant, Vector3? From)>(System.StringComparer.Ordinal);

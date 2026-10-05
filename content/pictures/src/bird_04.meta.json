@@ -2,10 +2,11 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 12,
+  "height": 14,
   "id": "bird_04",
   "legend": {
     "b": "bird",
+    "k": "beak",
     "l": "leaves",
     "n": "wing",
     "r": "branch",
@@ -34,6 +35,11 @@
     },
     {
       "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
       "name": "Branch",
       "roleId": "branch"
     },
@@ -58,6 +64,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 12
+  "version": 2,
+  "width": 14
 }

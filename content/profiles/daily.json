@@ -20,12 +20,12 @@
   "bandId": "daily",
   "boardSize": {
     "height": [
-      10,
+      12,
       14
     ],
     "width": [
-      10,
-      12
+      11,
+      13
     ]
   },
   "bufferPressureTarget": "normal",
@@ -87,7 +87,7 @@
     5
   ],
   "work": [
-    90,
-    180
+    100,
+    200
   ]
 }

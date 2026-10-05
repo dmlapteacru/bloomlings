@@ -67,9 +67,9 @@ namespace Bloomlings.Client.Tests.EditMode
             Assert.That(cells.Select(c => two.View.Cell(c).Visible).Distinct().Single(), Is.EqualTo(GuideTour.BlockingVariant(two.View)));
             Assert.That(cells, Is.SupersetOf(two.View.ReachableTargets()));
 
-            // Level 5 (the owner's case): the whole pot of logs blocks the water and the leaves.
+            // Level 5 (the owner's case): the whole pot of logs blocks the water and the leaves (38 logs on its 12×12 board).
             LevelSession five = Level(5);
-            Assert.That(GuideTour.BlockingCells(five.View).Count, Is.EqualTo(18));
+            Assert.That(GuideTour.BlockingCells(five.View).Count, Is.EqualTo(38));
         }
 
         [TestCase(3, BoosterKind.ExtraSlot)]

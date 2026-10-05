@@ -19,16 +19,17 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 
 ## What the full playtest has
 
-- Levels 1–94 in `playtest/content/levels/` (refreshed 2026-09-29):
-  - the curated Levels 1–10;
+- Levels 1–100 in `playtest/content/levels/` (refreshed 2026-10-05 for the bigger boards, spec 001 FR-008 as amended):
+  - the curated Levels 1–10, on 11×12–12×12 boards;
   - the mechanic showcases and their practice levels (`content/showcase/`);
-  - 34 levels generated with `gen-1.2.0 --allow-draft`, which follows the Level Band Guidelines;
-  - 33 older preview levels (21, 23–25, 42, 55–94 where the new generator found no level). The 107-picture library
-    is too small for the current rules: Levels 1–100 use distinct pictures (FR-083), and from L51 a level needs 5
-    variants, so a picture with 5+ color roles; only 44 pictures have them. These older levels predate the band rules
-    (4 variants, pods under 5 tiles) and some repeat a picture. They are playable, but not catalog levels.
+  - the other levels generated with `gen-1.2.0 --allow-draft` at the amended Level Band Guidelines
+    (`generate --allow-draft` for each band profile, with the earlier bands as `--history`, then the levels a band run
+    could not fill, one by one with other seeds; the batches stay in the gitignored `content/work/pt5/`, which
+    `playtest/check` replays when present). Every level of 11–100 is a generated level now; the older preview levels
+    are gone, since the whole picture library was redrawn bigger.
 
-  Past L94 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
+  Past L100 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
+  A pod tap goes in only when a slot shows no pod on screen (spec 001 FR-014 as amended on 2026-10-05).
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):
   - a splash (frame 1), then Level 1 on the very first launch and Home later; over the owner's layered Home its four

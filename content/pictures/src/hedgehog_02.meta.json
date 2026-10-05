@@ -2,9 +2,10 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 12,
+  "height": 14,
   "id": "hedgehog_02",
   "legend": {
+    "a": "apple",
     "f": "face",
     "g": "grass",
     "k": "spikes",
@@ -35,6 +36,11 @@
       "colorGroup": "green",
       "name": "Grass",
       "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Apple",
+      "roleId": "apple"
     }
   ],
   "source": {
@@ -52,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 12
+  "version": 2,
+  "width": 14
 }

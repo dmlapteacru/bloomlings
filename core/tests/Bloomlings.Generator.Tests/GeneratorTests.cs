@@ -20,8 +20,8 @@ namespace Bloomlings.Generator.Tests
     /// <summary>
     /// T069: the generator is deterministic, every accepted level passes <see cref="CatalogValidator"/>, every discarded
     /// candidate records a reason, and the visible top layer always follows the picture mapping. The fixture uses the
-    /// small approved pictures of the repository (onboarding and dev) and a small test band. Those boards are below the
-    /// L11 band guidelines, so these tests turn the guidelines off; <see cref="BandGuidelinesTests"/> covers them.
+    /// approved onboarding pictures of the repository (11–12×12 since 2026-10-05) and a small test band. Those levels are
+    /// not tutorial levels, so these tests turn the band guidelines off; <see cref="BandGuidelinesTests"/> covers them.
     /// </summary>
     public class GeneratorTests
     {
@@ -30,7 +30,7 @@ namespace Bloomlings.Generator.Tests
         private const string SmallBand = @"{
   ""bandId"": ""test-small"",
   ""levelRange"": [11, 40],
-  ""boardSize"": { ""width"": [7, 8], ""height"": [8, 9] },
+  ""boardSize"": { ""width"": [11, 12], ""height"": [12, 12] },
   ""picturePool"": { ""themes"": [] },
   ""structureTargets"": { ""nestingDepth"": [1, 6], ""backgroundSharePermille"": [0, 1000] },
   ""variantCount"": [3, 3],
@@ -42,7 +42,7 @@ namespace Bloomlings.Generator.Tests
   ""stacks"": [2, 3],
   ""podCount"": [7, 9],
   ""podSize"": [3, 40],
-  ""work"": [20, 80],
+  ""work"": [90, 140],
   ""bufferPressureTarget"": ""relaxed"",
   ""durationTarget"": [20, 60],
   ""hardMode"": { ""extraPods"": 1, ""maxInjections"": 8, ""hardPressure"": ""tense"", ""superHardPressure"": ""critical"" },
@@ -117,7 +117,7 @@ namespace Bloomlings.Generator.Tests
         public void RejectedCandidates_RecordAReason()
         {
             // No approved picture has 500+ tile-layers, so every candidate is discarded at the work check.
-            string impossible = SmallBand.Replace(@"""work"": [20, 80]", @"""work"": [500, 900]", StringComparison.Ordinal);
+            string impossible = SmallBand.Replace(@"""work"": [90, 140]", @"""work"": [500, 900]", StringComparison.Ordinal);
 
             GenerationResult result = Run(impossible, 11, 11).Result;
 

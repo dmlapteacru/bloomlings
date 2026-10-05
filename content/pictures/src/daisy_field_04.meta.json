@@ -1,0 +1,63 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "daisy_field_04",
+  "legend": {
+    "c": "center",
+    "g": "grass",
+    "p": "petal",
+    "s": "sky",
+    "t": "stem"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petals",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Centers",
+      "roleId": "center"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Daisy field 4",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "flowers",
+      "garden"
+    ]
+  },
+  "version": 2,
+  "width": 13
+}

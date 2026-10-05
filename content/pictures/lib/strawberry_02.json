@@ -3,20 +3,22 @@
     "mode": "auto"
   },
   "grid": [
-    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, -1, 0],
     [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 2, 1, 0, 0, 0, -1],
-    [0, -1, 0, 0, 2, 1, 1, 1, -1, 0, 0, -1],
-    [0, 0, -1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
-    [0, 0, 1, 2, 1, 1, 1, 1, 2, 1, 0, 0],
+    [0, 0, -1, 2, 2, 1, 2, 1, 0, 0, 0, 0],
+    [0, 0, 0, -1, 1, 1, 1, 1, 0, 0, 0, -1],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, 0, 0, -1],
+    [-1, 0, 0, 2, 1, 1, 1, 1, 2, 0, 0, -1],
     [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, -1, 1, 1, 3, 3, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, -1],
     [0, -1, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0],
     [-1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1]
   ],
-  "height": 12,
+  "height": 14,
   "id": "strawberry_02",
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -43,6 +45,11 @@
       "colorGroup": "green",
       "name": "Leaves",
       "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
     }
   ],
   "source": {
@@ -51,15 +58,15 @@
     "origin": "content/pictures/tools/sketch_pictures.py"
   },
   "structure": {
-    "backgroundShare": 0.569,
+    "backgroundShare": 0.446,
     "nestingDepth": 3,
-    "regionCount": 7
+    "regionCount": 9
   },
   "subject": "Strawberry 2",
   "tags": {
     "bands": ["early_mid"],
     "themes": ["fruit"]
   },
-  "version": 1,
+  "version": 2,
   "width": 12
 }

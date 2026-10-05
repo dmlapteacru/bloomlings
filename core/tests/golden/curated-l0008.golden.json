@@ -1,8 +1,8 @@
 {
-  "commands": ["tap:t1", "tap:w2", "tap:k1", "tap:w1"],
+  "commands": ["tap:t1", "tap:k1", "tap:w1", "tap:w2"],
   "contentVersion": 1,
   "definition": {
-    "definitionVersion": 1,
+    "definitionVersion": 2,
     "difficulty": {
       "class": "normal",
       "score": 0
@@ -10,7 +10,7 @@
     "entries": [
       {
         "side": "bottom",
-        "x": 3,
+        "x": 5,
         "y": 0
       }
     ],
@@ -35,38 +35,38 @@
       "cells": [
         {
           "hole": true,
-          "x": 1,
-          "y": 4
+          "x": 2,
+          "y": 6
         },
         {
           "keyId": "key1",
-          "x": 2,
-          "y": 1
+          "x": 4,
+          "y": 2
         }
       ]
     },
     "picture": {
       "id": "kite",
-      "version": 1
+      "version": 2
     },
     "pods": [
       {
-        "count": 18,
+        "count": 43,
         "id": "w1",
         "variantId": "water"
       },
       {
-        "count": 17,
+        "count": 43,
         "id": "w2",
         "variantId": "water"
       },
       {
-        "count": 12,
+        "count": 25,
         "id": "k1",
         "variantId": "violet_bud"
       },
       {
-        "count": 4,
+        "count": 10,
         "id": "t1",
         "variantId": "acorn"
       }
@@ -80,8 +80,8 @@
       {
         "cells": [
           {
-            "x": 1,
-            "y": 4
+            "x": 2,
+            "y": 6
           }
         ],
         "condition": {
@@ -103,8 +103,8 @@
     }
   },
   "description": "Curated Level 8 (Kite): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011). The key on the tail opens the door in the sky (Key preview, T111).",
-  "expectedEventsDigest": "d908200b85c2d3bf",
-  "expectedStateHash": "893380b3bcdc6354",
+  "expectedEventsDigest": "2d81b060549aa88e",
+  "expectedStateHash": "cc8e22631a8550d2",
   "expectedStatus": "won",
   "name": "curated-l0008",
   "picture": {
@@ -112,20 +112,24 @@
       "mode": "auto"
     },
     "grid": [
-      [-1, 0, 0, 2, 0, 0, -1],
-      [0, 0, 2, 0, 0, 0, 0],
-      [0, 0, 0, 2, 0, 0, -1],
-      [0, 0, 0, 0, 2, 0, 0],
-      [0, 0, 0, 1, 1, 1, 0],
-      [0, 0, 1, 1, 1, 1, 1],
-      [0, 0, 0, 1, 1, 1, 0],
-      [-1, 0, 0, 0, 1, 0, 0]
+      [-1, -1, 0, 0, 0, 2, 2, 0, 0, -1, -1],
+      [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0],
+      [0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0],
+      [-1, 0, 0, 0, 0, 1, 1, 1, 0, 0, -1],
+      [-1, -1, 0, 0, 0, 0, 1, 0, 0, -1, -1]
     ],
-    "height": 8,
+    "height": 12,
     "id": "kite",
     "review": {
-      "date": "2026-09-29",
-      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "date": "2026-10-05",
+      "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
       "reviewer": "content",
       "status": "approved"
     },
@@ -157,8 +161,8 @@
       "bands": ["onboarding"],
       "themes": ["sky"]
     },
-    "version": 1,
-    "width": 7
+    "version": 2,
+    "width": 11
   },
   "shuffleNodeBudget": 20000
 }

@@ -3,18 +3,21 @@
     "mode": "auto"
   },
   "grid": [
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 3, 2, 2, 2, 2, 2, 3, 3, 3],
-    [0, 0, 0, 0, 0, 0, 0, 0, -1, 0],
-    [-1, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
-    [-1, 0, 0, 0, 1, 1, -1, -1, 0, 0],
-    [0, 0, 0, -1, -1, 0, 0, 0, 0, 0],
-    [-1, 0, 0, 0, 0, 0, 0, -1, 0, -1]
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 2, 2, 2, 2, 2, 2, 3, 3, 3],
+    [3, 3, 3, 2, 2, 2, 2, 2, 2, 3, 3, 3],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, -1, 1, -1, 0, -1, 0],
+    [0, 0, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, -1, 1, 0, -1, -1, -1, 0, 0],
+    [-1, 0, 0, 0, 0, -1, 0, 0, -1, 4, 4, 0],
+    [-1, 0, -1, 0, 0, -1, 0, 0, 4, 4, 4, -1]
   ],
-  "height": 10,
+  "height": 13,
   "id": "sailboat_01",
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -41,6 +44,11 @@
       "colorGroup": "blue_cyan",
       "name": "Sea",
       "roleId": "sea"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
     }
   ],
   "source": {
@@ -49,15 +57,15 @@
     "origin": "content/pictures/tools/sketch_pictures.py"
   },
   "structure": {
-    "backgroundShare": 0.46,
+    "backgroundShare": 0.442,
     "nestingDepth": 3,
-    "regionCount": 4
+    "regionCount": 7
   },
   "subject": "Sailboat 1",
   "tags": {
     "bands": ["early"],
     "themes": ["sea"]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 12
 }

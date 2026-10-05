@@ -2,13 +2,14 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 14,
+  "height": 16,
   "id": "tulip_bed_04",
   "legend": {
     "d": "soil",
     "l": "stem",
     "p": "tulip",
-    "s": "sky"
+    "s": "sky",
+    "u": "sun"
   },
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -35,6 +36,11 @@
       "colorGroup": "brown_orange",
       "name": "Soil",
       "roleId": "soil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
     }
   ],
   "source": {
@@ -52,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
+  "version": 2,
   "width": 14
 }

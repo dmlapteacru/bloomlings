@@ -1,0 +1,138 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1444
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.2.0",
+  "levelNumber": 98,
+  "mapping": {
+    "body": "acorn",
+    "grass": "leaf",
+    "sky": "water",
+    "spot": "flower",
+    "wing": "violet_bud"
+  },
+  "mechanics": ["mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 2,
+        "y": 6
+      },
+      {
+        "mystery": true,
+        "x": 0,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "butterfly_04",
+    "mirror": "horizontal",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 12,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "16299907921336180923",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12", "p16"]
+    ]
+  }
+}

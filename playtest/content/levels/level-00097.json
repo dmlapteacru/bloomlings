@@ -1,0 +1,138 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 2708
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.2.0",
+  "levelNumber": 97,
+  "mapping": {
+    "hull": "acorn",
+    "sail": "violet_bud",
+    "sea": "water",
+    "sky": "dew",
+    "sun": "wood"
+  },
+  "picture": {
+    "id": "sailboat_05",
+    "mirror": "horizontal",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "18396295987773926165",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17"],
+      ["p02", "p06", "p10", "p14", "p18"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12", "p16"]
+    ]
+  }
+}

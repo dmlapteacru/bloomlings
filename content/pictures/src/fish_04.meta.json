@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 13,
+  "height": 15,
   "id": "fish_04",
   "legend": {
     "d": "sand",
@@ -58,6 +58,6 @@
       "sea"
     ]
   },
-  "version": 1,
-  "width": 13
+  "version": 2,
+  "width": 14
 }

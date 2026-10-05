@@ -66,9 +66,11 @@ namespace Bloomlings.Generator.Tests
         [Test]
         public void Work_IsByClassWhereTheBandSaysSo_AndLayersDeepenOnTheRoadmap()
         {
-            Assert.That(BandGuidelines.Work(20, DifficultyClass.Hard), Is.EqualTo(new IntRange(50, 100)));
-            Assert.That(BandGuidelines.Work(60, DifficultyClass.Normal), Is.EqualTo(new IntRange(90, 180)));
-            Assert.That(BandGuidelines.Work(60, DifficultyClass.Hard), Is.EqualTo(new IntRange(150, 300)));
+            // The bigger boards of 2026-10-05: work follows the board sizes.
+            Assert.That(BandGuidelines.Work(5, DifficultyClass.Normal), Is.EqualTo(new IntRange(95, 140)));
+            Assert.That(BandGuidelines.Work(20, DifficultyClass.Hard), Is.EqualTo(new IntRange(105, 150)));
+            Assert.That(BandGuidelines.Work(60, DifficultyClass.Normal), Is.EqualTo(new IntRange(135, 240)));
+            Assert.That(BandGuidelines.Work(60, DifficultyClass.Hard), Is.EqualTo(new IntRange(180, 360)));
             Assert.That(BandGuidelines.Work(200, DifficultyClass.Normal).Min, Is.EqualTo(150));
 
             Assert.That(BandGuidelines.MaxLayersBelow(27), Is.Zero);
@@ -154,19 +156,28 @@ namespace Bloomlings.Generator.Tests
         [Test]
         public void TheValidator_ChecksBoardPodsAndPodSizeByBand()
         {
-            // Curated L3: an 8×8 board with a 4-tile pod. As L3 the small pod only warns (hand-curated tutorial level).
+            // Curated L3: a 12×12 board (the onboarding size since 2026-10-05) passes as L3.
             LevelDefinition three = Curated(3);
-            List<LevelIssue> asTutorial = Validate(three);
-            Assert.That(asTutorial.Where(i => i.IsError), Is.Empty);
+            Assert.That(Validate(three).Where(i => i.IsError), Is.Empty);
+
+            // Its 8-tile trunk pod split into two 4-tile pods: as L3 the small pods only warn (hand-curated tutorial level).
+            PodDef trunk = three.Pods.Single(p => p.Id == "t1");
+            LevelDefinition small = three with
+            {
+                Pods = three.Pods.Select(p => p == trunk ? p with { Count = 4 } : p).Append(trunk with { Id = "t2", Count = 4 }).ToList(),
+                Tray = new TrayDef(three.Tray.Stacks.Select(s => (IReadOnlyList<string>)s.SelectMany(id => id == "t1" ? new[] { "t1", "t2" } : new[] { id }).ToList()).ToList()),
+            };
+            List<LevelIssue> asTutorial = Validate(small);
+            Assert.That(asTutorial.Where(i => i.IsError), Is.Empty, string.Join("; ", asTutorial.Where(i => i.IsError).Select(i => i.Message)));
             Assert.That(asTutorial.Any(i => !i.IsError && i.Check == "band" && i.Message.Contains("4 tiles")), Is.True);
 
-            // The same level as L11 breaks the early band: board 9–10×10 and pods of 5+.
-            List<LevelIssue> asEarly = Validate(three with { LevelNumber = 11 });
-            var band = asEarly.Where(i => i.IsError && i.Check == "band").Select(i => i.Message).ToList();
-            Assert.That(band.Any(m => m.Contains("board 8×8")), Is.True, string.Join("; ", band));
+            // The same level as L11 breaks the early band: pods of 5+ and 7–14 pods.
+            var band = Validate(small with { LevelNumber = 11 }).Where(i => i.IsError && i.Check == "band").Select(i => i.Message).ToList();
             Assert.That(band.Any(m => m.Contains("4 tiles")), Is.True, string.Join("; ", band));
+            Assert.That(band.Any(m => m.Contains("6 Source Pods")), Is.True, string.Join("; ", band));
 
-            // As L51 its 3 variants are too few (5 in the core completion band).
+            // As L26 its board is too small (12–13×13–14 in the early-mid band), and as L51 its 3 variants are too few (5).
+            Assert.That(Validate(three with { LevelNumber = 26 }).Any(i => i.IsError && i.Check == "band" && i.Message.Contains("board 12×12")), Is.True);
             Assert.That(Validate(three with { LevelNumber = 51 }).Any(i => i.IsError && i.Check == "variant-count"), Is.True);
         }
 

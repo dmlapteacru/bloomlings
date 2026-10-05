@@ -1,8 +1,8 @@
 {
-  "commands": ["tap:l1", "tap:w1", "tap:w2", "tap:f1"],
+  "commands": ["tap:l1", "tap:w1", "tap:f1", "tap:w2"],
   "contentVersion": 1,
   "definition": {
-    "definitionVersion": 1,
+    "definitionVersion": 2,
     "difficulty": {
       "class": "normal",
       "score": 0
@@ -10,7 +10,7 @@
     "entries": [
       {
         "side": "bottom",
-        "x": 3,
+        "x": 5,
         "y": 0
       }
     ],
@@ -23,26 +23,26 @@
     },
     "picture": {
       "id": "tulip",
-      "version": 1
+      "version": 2
     },
     "pods": [
       {
-        "count": 14,
+        "count": 35,
         "id": "w1",
         "variantId": "water"
       },
       {
-        "count": 19,
+        "count": 40,
         "id": "w2",
         "variantId": "water"
       },
       {
-        "count": 12,
+        "count": 27,
         "id": "f1",
         "variantId": "flower"
       },
       {
-        "count": 7,
+        "count": 20,
         "id": "l1",
         "variantId": "leaf"
       }
@@ -60,8 +60,8 @@
     }
   },
   "description": "Curated Level 2 (Tulip): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
-  "expectedEventsDigest": "fdfcdb3c5d9a27ff",
-  "expectedStateHash": "1faa78d19e034822",
+  "expectedEventsDigest": "b00521c0a38db936",
+  "expectedStateHash": "5a17da01385a7ba4",
   "expectedStatus": "won",
   "name": "curated-l0002",
   "picture": {
@@ -69,20 +69,24 @@
       "mode": "auto"
     },
     "grid": [
-      [-1, 0, 0, 2, 0, 0, -1],
-      [0, 0, 0, 2, 0, 0, 0],
-      [0, 2, 2, 2, 2, 0, 0],
-      [0, 0, 0, 2, 0, 0, 0],
-      [0, 0, 1, 1, 1, 0, 0],
-      [0, 1, 1, 1, 1, 1, 0],
-      [0, 1, 1, 0, 1, 1, 0],
-      [-1, 0, 0, 0, 0, 0, -1]
+      [-1, -1, 0, 0, 0, 2, 0, 0, 0, -1, -1],
+      [0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0],
+      [0, 0, 2, 2, 0, 2, 0, 2, 2, 0, 0],
+      [0, 2, 2, 0, 0, 2, 0, 0, 2, 2, 0],
+      [0, 2, 0, 0, 0, 2, 0, 0, 0, 2, 0],
+      [0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
+      [-1, 0, 0, 1, 0, 1, 0, 1, 0, 0, -1],
+      [-1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1]
     ],
-    "height": 8,
+    "height": 12,
     "id": "tulip",
     "review": {
-      "date": "2026-09-29",
-      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "date": "2026-10-05",
+      "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
       "reviewer": "content",
       "status": "approved"
     },
@@ -114,8 +118,8 @@
       "bands": ["onboarding"],
       "themes": ["flowers"]
     },
-    "version": 1,
-    "width": 7
+    "version": 2,
+    "width": 11
   },
   "shuffleNodeBudget": 20000
 }

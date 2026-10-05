@@ -2,7 +2,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1304
+    "score": 1536
   },
   "entries": [
     {
@@ -14,106 +14,130 @@
   "generatorVersion": "gen-1.2.0",
   "levelNumber": 35,
   "mapping": {
-    "center": "acorn",
-    "leaf": "leaf",
-    "petal": "flower",
-    "pot": "acorn",
-    "sky": "dew"
+    "fish": "wood",
+    "sand": "wood",
+    "tail": "acorn",
+    "water": "water",
+    "weed": "moss"
   },
   "mechanics": ["gate"],
   "overlays": {
     "cells": [
       {
         "hole": true,
-        "x": 8,
-        "y": 6
+        "x": 6,
+        "y": 4
       }
     ]
   },
   "picture": {
-    "id": "flower_pot_04",
-    "mirror": "horizontal",
-    "version": 1
+    "id": "fish_03",
+    "version": 2
   },
   "pods": [
     {
-      "count": 5,
+      "count": 10,
       "id": "p01",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p02",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 9,
       "id": "p03",
-      "variantId": "flower"
+      "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p04",
-      "variantId": "leaf"
+      "variantId": "water"
     },
     {
       "count": 8,
       "id": "p05",
-      "variantId": "dew"
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "water"
     },
     {
       "count": 9,
-      "id": "p06",
-      "variantId": "acorn"
-    },
-    {
-      "count": 7,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
-      "count": 6,
+      "count": 8,
       "id": "p08",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 9,
       "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p10",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
-      "id": "p11",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
-      "id": "p12",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 9,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
       "id": "p13",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 6,
       "id": "p14",
-      "variantId": "acorn"
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "wood"
     },
     {
       "count": 7,
-      "id": "p15",
-      "variantId": "flower"
+      "id": "p18",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "1203377204067307375",
+  "seed": "3752155123680537421",
   "slots": {
     "count": 5
   },
@@ -121,12 +145,12 @@
     {
       "cells": [
         {
-          "x": 8,
-          "y": 6
+          "x": 6,
+          "y": 4
         }
       ],
       "condition": {
-        "count": 3,
+        "count": 2,
         "kind": "clear_count_adjacent"
       },
       "effect": {
@@ -138,10 +162,11 @@
   ],
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13"],
-      ["p02", "p06", "p10", "p14"],
-      ["p03", "p07", "p11", "p15"],
-      ["p04", "p08", "p12"]
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
     ]
   }
 }

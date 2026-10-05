@@ -2,12 +2,12 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1236
+    "score": 1378
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 1,
+      "x": 10,
       "y": 0
     }
   ],
@@ -17,105 +17,109 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p06",
+        "id": "p12",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "dot": "acorn",
-    "head": "acorn",
-    "leaf": "moss",
-    "shell": "violet_bud"
+    "fish": "wood",
+    "sand": "acorn",
+    "tail": "acorn",
+    "water": "water",
+    "weed": "moss"
   },
   "mechanics": ["locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 1,
-        "y": 9
+        "x": 10,
+        "y": 3
       }
     ]
   },
   "picture": {
-    "id": "ladybug_01",
-    "mirror": "horizontal",
-    "version": 1
+    "id": "fish_01",
+    "version": 2
   },
   "pods": [
     {
-      "count": 6,
+      "count": 8,
       "id": "p01",
-      "variantId": "violet_bud"
+      "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p02",
-      "variantId": "acorn"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p03",
-      "variantId": "moss"
-    },
-    {
-      "count": 5,
-      "id": "p04",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
       "count": 9,
-      "id": "p05",
-      "variantId": "moss"
+      "id": "p04",
+      "variantId": "water"
     },
     {
-      "count": 6,
-      "id": "p06",
-      "lockKeyId": "k1",
-      "variantId": "acorn"
+      "count": 11,
+      "id": "p05",
+      "variantId": "water"
     },
     {
       "count": 8,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
       "id": "p07",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 11,
       "id": "p08",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 10,
       "id": "p09",
-      "variantId": "moss"
-    },
-    {
-      "count": 5,
-      "id": "p10",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 5,
-      "id": "p11",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
       "count": 6,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
       "id": "p12",
-      "variantId": "moss"
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "2471084213299524899",
+  "seed": "3111309127720346470",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p04", "p07", "p10"],
-      ["p02", "p05", "p08", "p11"],
-      ["p03", "p06", "p09", "p12"]
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
     ]
   }
 }

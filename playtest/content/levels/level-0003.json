@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "normal",
     "score": 0
@@ -7,7 +7,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 4,
+      "x": 6,
       "y": 0
     }
   ],
@@ -20,26 +20,31 @@
   },
   "picture": {
     "id": "tree",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 28,
+      "count": 40,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 15,
+      "count": 34,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 26,
       "id": "c1",
       "variantId": "leaf"
     },
     {
-      "count": 13,
+      "count": 26,
       "id": "c2",
       "variantId": "leaf"
     },
     {
-      "count": 4,
+      "count": 8,
       "id": "t1",
       "variantId": "wood"
     }
@@ -51,7 +56,7 @@
   },
   "tray": {
     "stacks": [
-      ["w1", "c1"],
+      ["w1", "c1", "w2"],
       ["t1", "c2"]
     ]
   }

@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "normal",
     "score": 0
@@ -7,7 +7,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 3,
+      "x": 5,
       "y": 0
     }
   ],
@@ -19,21 +19,21 @@
   },
   "picture": {
     "id": "sprout",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 20,
+      "count": 44,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 21,
+      "count": 44,
       "id": "w2",
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 34,
       "id": "l1",
       "variantId": "leaf"
     }

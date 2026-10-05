@@ -2,23 +2,22 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1913
+    "score": 1853
   },
   "entries": [
     {
-      "side": "left",
-      "x": 0,
+      "side": "right",
+      "x": 12,
       "y": 4
     }
   ],
   "generatorVersion": "gen-1.2.0",
   "levelNumber": 251,
   "mapping": {
-    "beak": "wood",
-    "bird": "dew",
-    "branch": "wood",
-    "leaves": "moss",
+    "body": "wood",
+    "grass": "moss",
     "sky": "water",
+    "spot": "violet_bud",
     "wing": "flower"
   },
   "mechanics": ["environment_2"],
@@ -26,125 +25,125 @@
     "cells": [
       {
         "hole": true,
-        "x": 3,
-        "y": 7
+        "x": 6,
+        "y": 12
       }
     ]
   },
   "picture": {
-    "id": "bird_03",
+    "id": "butterfly_01",
     "mirror": "horizontal",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 9,
+      "count": 8,
       "id": "p01",
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p02",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p03",
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 9,
       "id": "p04",
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p05",
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p06",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
       "count": 5,
       "id": "p07",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 9,
+      "count": 6,
       "id": "p08",
       "variantId": "water"
     },
     {
       "count": 9,
       "id": "p09",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p10",
       "variantId": "water"
-    },
-    {
-      "count": 9,
-      "id": "p11",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p12",
-      "variantId": "dew"
     },
     {
       "count": 6,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
       "id": "p13",
-      "variantId": "moss"
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "flower"
     },
     {
       "count": 8,
-      "id": "p14",
-      "variantId": "dew"
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "flower"
     },
     {
       "count": 6,
-      "id": "p15",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p16",
-      "variantId": "wood"
-    },
-    {
-      "count": 7,
-      "id": "p17",
-      "variantId": "wood"
-    },
-    {
-      "count": 7,
       "id": "p18",
       "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p19",
-      "variantId": "water"
-    },
-    {
-      "count": 5,
-      "id": "p20",
       "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 10,
+      "id": "p20",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
       "id": "p21",
-      "variantId": "flower"
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "2968610929306924842",
+  "seed": "5004269306701278165",
   "slots": {
     "count": 5
   },
@@ -152,44 +151,29 @@
     {
       "cells": [
         {
-          "x": 3,
-          "y": 7
+          "x": 6,
+          "y": 12
         }
       ],
       "condition": {
-        "kind": "clear_region",
-        "regionCells": [
-          {
-            "x": 3,
-            "y": 6
-          },
-          {
-            "x": 2,
-            "y": 7
-          },
-          {
-            "x": 4,
-            "y": 7
-          },
-          {
-            "x": 3,
-            "y": 8
-          }
-        ]
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
       },
       "effect": {
         "kind": "open_cells"
       },
-      "id": "statue",
-      "type": "statue"
+      "id": "bridge",
+      "type": "bridge"
     }
   ],
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13", "p17", "p21"],
-      ["p02", "p06", "p10", "p14", "p18"],
-      ["p03", "p07", "p11", "p15", "p19"],
-      ["p04", "p08", "p12", "p16", "p20"]
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
     ]
   }
 }

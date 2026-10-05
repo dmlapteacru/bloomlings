@@ -2,13 +2,14 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 14,
+  "height": 16,
   "id": "ladybug_03",
   "legend": {
     "b": "shell",
     "d": "dot",
     "h": "head",
-    "l": "leaf"
+    "l": "leaf",
+    "w": "dew"
   },
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -35,6 +36,11 @@
       "colorGroup": "brown_orange",
       "name": "Head",
       "roleId": "head"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Dew drop",
+      "roleId": "dew"
     }
   ],
   "source": {
@@ -52,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
+  "version": 2,
   "width": 14
 }

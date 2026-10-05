@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 14,
+  "height": 16,
   "id": "mushroom_04",
   "legend": {
     "c": "cap",
@@ -58,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
+  "version": 2,
   "width": 13
 }

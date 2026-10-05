@@ -2,11 +2,12 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 13,
+  "height": 15,
   "id": "butterfly_03",
   "legend": {
     "b": "body",
     "d": "spot",
+    "g": "grass",
     "s": "sky",
     "w": "wing"
   },
@@ -35,6 +36,11 @@
       "colorGroup": "brown_orange",
       "name": "Body",
       "roleId": "body"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
     }
   ],
   "source": {
@@ -52,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 12
+  "version": 2,
+  "width": 13
 }

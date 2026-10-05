@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "normal",
     "score": 0
@@ -7,7 +7,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 4,
+      "x": 6,
       "y": 0
     }
   ],
@@ -20,16 +20,21 @@
   },
   "picture": {
     "id": "birdhouse",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 29,
+      "count": 34,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 34,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 30,
       "id": "r1",
       "variantId": "flower"
     },
@@ -39,7 +44,7 @@
       "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 24,
       "id": "h2",
       "variantId": "wood"
     }
@@ -51,7 +56,7 @@
   },
   "tray": {
     "stacks": [
-      ["h1", "r1"],
+      ["h1", "r1", "w2"],
       ["w1", "h2"]
     ]
   }

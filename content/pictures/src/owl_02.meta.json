@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 14,
+  "height": 16,
   "id": "owl_02",
   "legend": {
     "b": "belly",
@@ -64,6 +64,6 @@
       "night"
     ]
   },
-  "version": 1,
+  "version": 2,
   "width": 14
 }

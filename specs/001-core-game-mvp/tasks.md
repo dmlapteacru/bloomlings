@@ -755,9 +755,14 @@ Quickstart §2–§4 must pass.
   `content/pictures/src/`, as `.grid.txt` or indexed PNG plus `.meta.json`. They show garden-world subjects:
   flowers, fruit, insects, small animals, garden tools and cozy objects. Import them with `pictures import`. Status
   stays `draft` until a person approves each picture for recognizability (FR-084, SC-015).
-  Status: 94 draft pictures (27 subjects in up to four variations: 16 for 9×10–10×10, 26 for 10×10–12×12, 52 for
-  10×12–14×14) are sketched procedurally by `content/pictures/tools/sketch_pictures.py` and imported (`pictures
-  validate`: 0 errors). They are placeholders for an artist to refine. A person still has to approve each picture
+  Status: 94 draft pictures (27 subjects in up to four variations: 16 for 12×12–12×13, 26 for 12×13–13×14, 52 for
+  13×14–14×16 since the bigger boards of 2026-10-05, version 2; they were 9×10–10×10, 10×10–12×12 and 10×12–14×14)
+  are sketched procedurally by `content/pictures/tools/sketch_pictures.py` and imported (`pictures validate`: 0
+  errors). Since 2026-10-05 every subject has at least five color roles (a sun, a plate, grass, a reed and so on were
+  added to the four-role ones), so the five-variant levels from L51 can use any core picture, and every role keeps at
+  least 5 cells (the smallest pod, `MIN_ROLE_CELLS`): a role under that, such as a ladybug's dots or a daisy's
+  centers, grows into its nearest neighbours, because a variant with fewer tiles cannot fill a pod and the generator
+  rejected such candidates at its partition step. They are placeholders for an artist to refine. A person still has to approve each picture
   for recognizability (FR-084, SC-015); until then `validate` fails every generated level on `picture-approved`.
 - [ ] T095 [US3] Produce the curated Levels 11–100:
   - run `generate` with the band-0011-0025, band-0026-0050 and band-0051-0100 profiles, using only the mechanics
@@ -775,7 +780,11 @@ Quickstart §2–§4 must pass.
   practice levels): 34 of the 67 non-showcase levels in 11–94 were generated; L51+ mostly fail with
   `mapping:none-for-<picture>`, because Levels 1–100 use distinct pictures (FR-083) and from L51 a level needs 5
   variants, which only the 44 pictures with 5+ color roles can carry. The library needs about 50 more pictures with 5+
-  color roles before Levels 51–100 can be generated. The playtest APK fills the gaps with older previews. Still needed: picture approval (T094), the readability sign-off (T075), a person playtest of
+  color roles before Levels 51–100 can be generated. The playtest APK filled the gaps with older previews. Rerun on
+  2026-10-05 at the bigger band sizes (T162; `content/work/pt5.sh`, then the levels it could not fill one by one with
+  other seeds): all 90 levels of 11–100 generated, showcases included, every one passing every `validate` check except
+  `picture-approved`; the library grew to 110 sketches (16 more five-variant core pictures), every role at least 5
+  cells. The playtest APK now holds only generated levels. Still needed: picture approval (T094), the readability sign-off (T075), a person playtest of
   every level (FR-084), then regeneration with approved pictures and the commit into `content/catalog/`. For
   playtest builds, `publish --allow-draft` packs draft pictures as marked previews.
 
@@ -1493,6 +1502,27 @@ final validation.
 - [X] T160 While no exposed pod can be tapped the animation plays at 2× and the speed pill shows it, the saved setting
   unchanged (`playtest/design/LevelScreen.cs` `RefreshSpeed`, `client/Assets/Bloomlings/Gameplay/GameplayController.cs`
   `RefreshSpeed`, `client/Assets/Bloomlings/UI/Screens/GameplayHud.cs` `ShowAutoSpeed`; FR-069).
+
+## Owner review: slower clearing, bigger boards, taps wait for a free slot (2026-10-05)
+
+- [X] T161 The clearing pace at 1× halved again: 0.36 s a step in the playtest, 0.28 s in Unity, waves of 1.2–6.4 s and
+  1.2–5.6 s; the backlog speed-up from 12 s (`fx.backlogThresholdMs` 12000, 2000–20000)
+  (`playtest/android/LevelAnimator.cs`, `client/Assets/Bloomlings/Gameplay/Timeline/TimelinePlayer.cs`,
+  `client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs`, `backend/remote-config/defaults.json`; research R4).
+- [X] T162 Bigger boards from Level 1 (FR-008 and the Level Band Guidelines as amended): 11×12–12×12 at L1–10 growing to
+  13×14–14×16 at L51–100, never under 11×12 (`core/src/Bloomlings.Generator/Profiles/BandGuidelines.cs`, the FR-008
+  check of `CatalogValidator`, `content/profiles/*.json`); the ten curated pictures redrawn and Levels 1–10 rebuilt on
+  them with the same lessons (L2's blocked entry, L5's pot, L8's key, L10's flower bed), version 2, their golden cases
+  rebuilt; the sketched library at the new sizes (T094); the showcases and the playtest's Levels 11–100 regenerated
+  (T095); the tests follow (`ContentFolderTests`, `BandGuidelinesTests`, `GeneratorTests`, `ProgressionRulesTests`,
+  `GuideTourTests`).
+- [X] T163 A pod tap goes in only when a slot shows no pod on screen, one per pod of a connected group; before that it
+  gets the no-free-slot feedback and the rules never see it (FR-014 as amended; `playtest/design/LevelScreen.cs`
+  `Tap`, `LevelAnimator.FreeOnScreen`, `client/Assets/Bloomlings/Gameplay/GameplayController.cs` `OnPodTapped`,
+  `SlotRowView.FreeOnScreen`); `playtest/check` checks that right after L1's first tap the rules have five slots free and
+  the screen four.
+- [ ] T164 The owner looks at the ten redrawn curated pictures (approved provisionally, as before, "pending the owner's
+  look and playtest") and playtests the new Levels 1–10 and the new pace (FR-084, SC-001: Level 1 within 2 minutes).
 
 ## Parallel Example: User Story 1
 

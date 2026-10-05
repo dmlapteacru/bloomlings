@@ -2,11 +2,10 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 10,
+  "height": 13,
   "id": "umbrella_02",
   "legend": {
     "g": "grass",
-    "h": "handle",
     "s": "sky",
     "u": "canopy",
     "v": "rib"
@@ -33,11 +32,6 @@
       "roleId": "rib"
     },
     {
-      "colorGroup": "brown_orange",
-      "name": "Handle",
-      "roleId": "handle"
-    },
-    {
       "colorGroup": "green",
       "name": "Grass",
       "roleId": "grass"
@@ -57,6 +51,6 @@
       "cozy"
     ]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 12
 }

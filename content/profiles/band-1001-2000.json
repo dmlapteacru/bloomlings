@@ -26,18 +26,18 @@
   "bandId": "band-1001-2000",
   "boardSize": {
     "height": [
-      10,
+      12,
       16
     ],
     "width": [
-      9,
+      11,
       14
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    45,
-    240
+    60,
+    300
   ],
   "entryLayouts": [
     "bottom_center",
@@ -96,7 +96,7 @@
     6
   ],
   "work": [
-    90,
+    100,
     320
   ]
 }

@@ -3,18 +3,21 @@
     "mode": "auto"
   },
   "grid": [
-    [-1, 0, 1, 1, 1, 1, 1, 0, 0, -1],
-    [0, 0, 1, 1, 1, 1, 1, -1, 0, 0],
-    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, 0, 1, 1, 1, 1, 1, 0, 1, 0],
-    [0, 0, 1, 1, 1, 1, 1, 1, 1, 0],
-    [-1, -1, 2, 2, 2, 2, 2, 0, 0, 0],
-    [0, 0, 0, 3, 0, 3, 0, 0, -1, 0],
-    [0, 0, 0, 3, 0, 3, 0, 0, 0, -1],
-    [-1, 0, 0, 3, 0, 3, 0, 0, 0, 0],
-    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, -1, 1, 1, 1, 1, 1, 1, 1, 0, 1, -1],
+    [-1, -1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0],
+    [0, 0, 2, 2, 2, 2, 2, 2, 1, 1, 0, 0],
+    [0, -1, 2, 2, 2, 2, 2, 2, 1, 0, 0, 0],
+    [0, 0, 0, 0, 3, 0, 3, 0, -1, 0, 0, -1],
+    [0, 0, 0, -1, 3, -1, 3, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 0, 0, 0, 0, 0, -1, 0],
+    [0, -1, 0, 0, 3, 0, 0, 3, -1, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1]
   ],
-  "height": 10,
+  "height": 13,
   "id": "mug_01",
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -41,6 +44,11 @@
       "colorGroup": "blue_cyan",
       "name": "Steam",
       "roleId": "steam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
     }
   ],
   "source": {
@@ -49,15 +57,15 @@
     "origin": "content/pictures/tools/sketch_pictures.py"
   },
   "structure": {
-    "backgroundShare": 0.5,
-    "nestingDepth": 3,
-    "regionCount": 7
+    "backgroundShare": 0.41,
+    "nestingDepth": 4,
+    "regionCount": 12
   },
   "subject": "Mug 1",
   "tags": {
     "bands": ["early_mid"],
     "themes": ["cozy"]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 12
 }

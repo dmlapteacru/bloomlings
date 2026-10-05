@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "normal",
     "score": 0
@@ -7,7 +7,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 4,
+      "x": 6,
       "y": 0
     }
   ],
@@ -20,21 +20,21 @@
   },
   "picture": {
     "id": "snail",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 26,
+      "count": 50,
       "id": "d1",
       "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 38,
       "id": "h1",
       "variantId": "acorn"
     },
     {
-      "count": 17,
+      "count": 46,
       "id": "g1",
       "variantId": "leaf"
     }

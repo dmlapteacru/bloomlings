@@ -24,7 +24,19 @@ foreach (string file in Directory.GetFiles(Path.Combine(Root, "core/tests/golden
     runs.Add((g.Name, g.Definition, g.Picture, g.Commands, g.ShuffleNodeBudget));
 }
 
-foreach (string folder in new[] { "content/showcase", "content/work/pt/b11", "content/work/pt/b26", "content/work/pt/b51" })
+// The showcases and the local playtest preview batches (content/work is gitignored; pt5 is the 2026-10-05 run at the
+// bigger band sizes: the band batches and the levels filled in one by one).
+var folders = new List<string> { "content/showcase" };
+string preview = Path.Combine(Root, "content/work/pt5");
+if (Directory.Exists(preview))
+{
+    folders.AddRange(Directory.GetDirectories(preview, "*", SearchOption.AllDirectories)
+        .Where(d => Directory.Exists(Path.Combine(d, "levels")))
+        .Select(d => Path.GetRelativePath(Root, d))
+        .OrderBy(d => d, StringComparer.Ordinal));
+}
+
+foreach (string folder in folders)
 {
     string levels = Path.Combine(Root, folder, "levels");
     if (!Directory.Exists(levels)) continue;
@@ -168,6 +180,26 @@ if (sameSlot > 0 || together < working) { failures++; Console.WriteLine("FAIL tw
 
     Console.WriteLine($"L1, three quick taps: the leaf pod's first Bloomling sets off at {leafGoes:0.00} s, the first water pod finishes at {waterDone:0.00} s");
     if (!(leafGoes < waterDone)) { failures++; Console.WriteLine("FAIL L1 three quick taps"); }
+}
+
+// The owner's report of 2026-10-05: quick taps must not stack pods behind the ones still working. The rules free a
+// finished pod's slot at once, but a tap goes in only to a slot free on screen (LevelScreen.Tap), so the screen's free
+// slots, not the rules', decide: right after L1's first water pod is tapped the rules have all five slots free again (its
+// 44 tiles settle at once), while the screen shows it working in one of them until its Bloomlings are done.
+{
+    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "playtest/content/levels/level-0001.json")));
+    LevelSession session = LevelSession.Load(l1, pictures[l1.Picture.Id], new SessionOptions(1, 20000));
+    var animator = new LevelAnimator();
+    animator.Reset(session.View);
+    int RulesFree() => Enumerable.Range(0, session.View.SlotCapacity).Count(i => session.View.SlotStateOf(i) != SlotState.Locked && session.View.SlotStateOf(i) != SlotState.Absent && session.View.PodInSlot(i) == null);
+    var before = new Dictionary<string, (int, Bloomlings.Core.Variants.VariantId?, float, float)> { ["w1"] = (session.View.Pod("w1").Remaining, session.View.Pod("w1").Variant, 0f, 0f) };
+    animator.Tapped(session.Apply(new TapPod("w1")), session.View, before);
+    animator.Advance(0.1f, session.View);
+    int rulesFree = RulesFree(), screenFree = animator.FreeOnScreen(session.View);
+    for (int i = 0; i < 4000 && !animator.Idle; i++) animator.Advance(1f / 60f, session.View);
+    int settledFree = animator.FreeOnScreen(session.View);
+    Console.WriteLine($"L1, a slot free on screen: after the first tap the rules have {rulesFree} free, the screen {screenFree}; once it settles {settledFree}");
+    if (!(rulesFree == 5 && screenFree == 4 && settledFree == 5)) { failures++; Console.WriteLine("FAIL a slot free on screen"); }
 }
 
 // The meta layer on the shared client services.

@@ -30,14 +30,14 @@
       16
     ],
     "width": [
-      10,
+      11,
       14
     ]
   },
   "bufferPressureTarget": "tense",
   "durationTarget": [
     60,
-    240
+    300
   ],
   "entryLayouts": [
     "bottom_center",
@@ -61,7 +61,7 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Combination band, late: 5–6 variants (6 in Normal from L300), up to 3 layers deep.",
+  "note": "Combination band, late: 5\u20136 variants (6 in Normal from L300), up to 3 layers deep.",
   "picturePool": {
     "themes": []
   },

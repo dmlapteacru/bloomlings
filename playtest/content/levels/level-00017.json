@@ -2,7 +2,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1182
+    "score": 1377
   },
   "entries": [
     {
@@ -17,91 +17,92 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p09",
+        "id": "p07",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "grass": "moss",
-    "pumpkin": "acorn",
     "sky": "water",
-    "stem": "moss"
+    "soil": "acorn",
+    "stem": "leaf",
+    "sun": "acorn",
+    "tulip": "violet_bud"
   },
   "mechanics": ["locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 8,
-        "y": 0
+        "x": 7,
+        "y": 5
       }
     ]
   },
   "picture": {
-    "id": "pumpkin_01",
-    "version": 1
+    "id": "tulip_bed_01",
+    "version": 2
   },
   "pods": [
     {
       "count": 9,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "acorn"
     },
     {
-      "count": 9,
+      "count": 13,
       "id": "p02",
-      "variantId": "moss"
+      "variantId": "water"
     },
     {
-      "count": 5,
+      "count": 11,
       "id": "p03",
       "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 10,
       "id": "p04",
-      "variantId": "acorn"
+      "variantId": "leaf"
     },
     {
-      "count": 8,
+      "count": 11,
       "id": "p05",
-      "variantId": "acorn"
+      "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 11,
       "id": "p06",
-      "variantId": "acorn"
-    },
-    {
-      "count": 9,
-      "id": "p07",
-      "variantId": "acorn"
-    },
-    {
-      "count": 6,
-      "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 9,
-      "id": "p09",
-      "lockKeyId": "k1",
       "variantId": "water"
     },
     {
       "count": 8,
+      "id": "p07",
+      "lockKeyId": "k1",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
       "id": "p10",
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 5,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "8046816017306518457",
+  "seed": "4604221038520672129",
   "slots": {
     "count": 5
   },

@@ -1,8 +1,8 @@
 {
-  "commands": ["tap:w2", "tap:o2", "tap:c1", "tap:w1", "tap:w3", "tap:o1", "tap:c2"],
+  "commands": ["tap:c1", "tap:w3", "tap:o1", "tap:w1", "tap:c2", "tap:w2", "tap:o2"],
   "contentVersion": 1,
   "definition": {
-    "definitionVersion": 1,
+    "definitionVersion": 2,
     "difficulty": {
       "class": "hard",
       "overridden": true,
@@ -11,7 +11,7 @@
     "entries": [
       {
         "side": "bottom",
-        "x": 4,
+        "x": 6,
         "y": 0
       }
     ],
@@ -24,41 +24,41 @@
     },
     "picture": {
       "id": "cactus",
-      "version": 1
+      "version": 2
     },
     "pods": [
       {
-        "count": 10,
+        "count": 20,
         "id": "o1",
         "variantId": "wood"
       },
       {
-        "count": 8,
+        "count": 18,
         "id": "o2",
         "variantId": "wood"
       },
       {
-        "count": 8,
+        "count": 17,
         "id": "w1",
         "variantId": "water"
       },
       {
-        "count": 8,
+        "count": 17,
         "id": "w2",
         "variantId": "water"
       },
       {
-        "count": 9,
+        "count": 16,
         "id": "w3",
         "variantId": "water"
       },
       {
-        "count": 8,
+        "count": 24,
         "id": "c1",
         "variantId": "leaf"
       },
       {
-        "count": 9,
+        "count": 24,
         "id": "c2",
         "variantId": "leaf"
       }
@@ -77,8 +77,8 @@
     }
   },
   "description": "Curated Level 5 (Cactus in a pot): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
-  "expectedEventsDigest": "e08b3c9de62751c1",
-  "expectedStateHash": "9fcf2e504167ba8d",
+  "expectedEventsDigest": "10e76c87290c8d33",
+  "expectedStateHash": "a2e323868fd48126",
   "expectedStatus": "won",
   "name": "curated-l0005",
   "picture": {
@@ -86,20 +86,24 @@
       "mode": "auto"
     },
     "grid": [
-      [-1, 0, 2, 2, 2, 2, 0, -1],
-      [0, 2, 2, 2, 2, 2, 2, 0],
-      [2, 2, 2, 2, 2, 2, 2, 2],
-      [0, 0, 0, 1, 1, 0, 0, 0],
-      [0, 1, 1, 1, 1, 1, 0, 0],
-      [0, 1, 0, 1, 1, 0, 1, 0],
-      [0, 1, 0, 1, 1, 0, 1, 0],
-      [-1, 0, 0, 1, 1, 0, 0, -1]
+      [-1, -1, 2, 2, 2, 2, 2, 2, 2, 2, -1, -1],
+      [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+      [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+      [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+      [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+      [0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0],
+      [0, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0],
+      [-1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, -1],
+      [-1, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, -1]
     ],
-    "height": 8,
+    "height": 12,
     "id": "cactus",
     "review": {
-      "date": "2026-09-29",
-      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "date": "2026-10-05",
+      "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
       "reviewer": "content",
       "status": "approved"
     },
@@ -131,8 +135,8 @@
       "bands": ["onboarding"],
       "themes": ["desert", "garden"]
     },
-    "version": 1,
-    "width": 8
+    "version": 2,
+    "width": 12
   },
   "shuffleNodeBudget": 20000
 }

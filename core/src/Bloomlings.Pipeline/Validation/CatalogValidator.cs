@@ -221,9 +221,10 @@ namespace Bloomlings.Pipeline.Validation
         {
             int n = level.LevelNumber;
             bool ok = true;
-            if (picture.Width < 7 || picture.Width > 14 || picture.Height < 8 || picture.Height > 16)
+            if (picture.Width < BandGuidelines.MinBoardWidth || picture.Width > BasePicture.MaxWidth
+                || picture.Height < BandGuidelines.MinBoardHeight || picture.Height > BasePicture.MaxHeight)
             {
-                Error(report, n, "board", $"board {picture.Width}×{picture.Height} is outside 7×8–14×16 (FR-008)");
+                Error(report, n, "board", $"board {picture.Width}×{picture.Height} is outside {BandGuidelines.MinBoardWidth}×{BandGuidelines.MinBoardHeight}–{BasePicture.MaxWidth}×{BasePicture.MaxHeight} (FR-008)");
                 ok = false;
             }
 

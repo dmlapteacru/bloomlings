@@ -2,12 +2,12 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1163
+    "score": 1331
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 8,
+      "x": 6,
       "y": 0
     }
   ],
@@ -15,80 +15,101 @@
   "levelNumber": 18,
   "mapping": {
     "background": "leaf",
-    "mug": "flower",
+    "mug": "violet_bud",
     "steam": "water",
-    "tea": "wood"
+    "table": "acorn",
+    "tea": "acorn"
   },
   "mechanics": ["connected_pair"],
   "picture": {
     "id": "mug_01",
-    "version": 1
+    "mirror": "horizontal",
+    "version": 2
   },
   "pods": [
     {
-      "count": 13,
+      "connectedGroupId": "c1",
+      "count": 12,
       "id": "p01",
-      "variantId": "leaf"
+      "variantId": "acorn"
     },
     {
-      "count": 6,
+      "count": 9,
       "id": "p02",
-      "variantId": "water"
-    },
-    {
-      "count": 11,
-      "id": "p03",
-      "variantId": "leaf"
-    },
-    {
-      "count": 14,
-      "id": "p04",
-      "variantId": "flower"
-    },
-    {
-      "count": 6,
-      "id": "p05",
       "variantId": "leaf"
     },
     {
       "connectedGroupId": "c1",
-      "count": 6,
-      "id": "p06",
-      "variantId": "flower"
+      "count": 12,
+      "id": "p03",
+      "variantId": "acorn"
     },
     {
       "count": 12,
-      "id": "p07",
-      "variantId": "leaf"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 5,
-      "id": "p08",
-      "variantId": "wood"
+      "id": "p04",
+      "variantId": "acorn"
     },
     {
       "count": 8,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
       "id": "p09",
       "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 16,
       "id": "p10",
-      "variantId": "flower"
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "water"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "18133279342196474924",
+  "seed": "13541008386738242391",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09"],
-      ["p02", "p06", "p10"],
-      ["p03", "p07"],
-      ["p04", "p08"]
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12"]
     ]
   }
 }

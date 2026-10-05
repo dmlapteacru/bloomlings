@@ -27,11 +27,18 @@ namespace Bloomlings.Generator.Profiles
     /// <item>Hidden layers under a tile: none before L28 (Layered Tile), at most 1 before L125, at most 2 after.</item>
     /// <item>Pods: at least <see cref="MinPodSize"/> tiles, the "small" class of the pod size table.</item>
     /// <item>From L20 all four families are regular: any <see cref="FamilyWindow"/> consecutive levels use all four.</item>
+    /// <item>Boards: 11×12 to 14×16 everywhere (<see cref="MinBoardWidth"/>, <see cref="MinBoardHeight"/>, FR-008 as amended
+    /// on 2026-10-05), growing from 11×12–12×12 at L1–10 to 13×14–14×16 at L51–100.</item>
     /// </list>
     /// </summary>
     public static class BandGuidelines
     {
         public const int MinPodSize = 5;
+
+        /// <summary>The smallest shipped board (FR-008, the owner's amendment of 2026-10-05; it was 7×8).</summary>
+        public const int MinBoardWidth = 11;
+
+        public const int MinBoardHeight = 12;
 
         /// <summary>From this level, every window of <see cref="FamilyWindow"/> consecutive levels uses all four families.</summary>
         public const int AllFamiliesFrom = 20;
@@ -42,12 +49,13 @@ namespace Bloomlings.Generator.Profiles
 
         private static readonly GuidelineBand[] Bands =
         {
-            new GuidelineBand("onboarding", new IntRange(1, 10), new IntRange(7, 8), new IntRange(8, 8), new IntRange(3, 7), new IntRange(30, 60), null, new IntRange(20, 45)),
-            new GuidelineBand("early", new IntRange(11, 25), new IntRange(9, 10), new IntRange(10, 10), new IntRange(6, 12), new IntRange(50, 100), null, new IntRange(45, 120)),
-            new GuidelineBand("early-mid", new IntRange(26, 50), new IntRange(10, 12), new IntRange(10, 12), new IntRange(10, 20), new IntRange(90, 180), null, new IntRange(45, 120)),
-            new GuidelineBand("core-completion", new IntRange(51, 100), new IntRange(10, 14), new IntRange(12, 14), new IntRange(10, 24), new IntRange(90, 180), new IntRange(150, 300), new IntRange(45, 240)),
-            new GuidelineBand("combination", new IntRange(101, 500), new IntRange(7, 14), new IntRange(8, 16), new IntRange(15, 30), new IntRange(150, Open.Max), null, new IntRange(60, 240)),
-            new GuidelineBand("long-run", new IntRange(501, int.MaxValue), new IntRange(7, 14), new IntRange(8, 16), new IntRange(10, Open.Max), new IntRange(90, Open.Max), null, new IntRange(45, 240)),
+            // Bigger boards from Level 1 (the owner, 2026-10-05: more, smaller cells, so clearing takes longer from the start).
+            new GuidelineBand("onboarding", new IntRange(1, 10), new IntRange(11, 12), new IntRange(12, 12), new IntRange(3, 8), new IntRange(95, 140), null, new IntRange(45, 90)),
+            new GuidelineBand("early", new IntRange(11, 25), new IntRange(12, 12), new IntRange(12, 13), new IntRange(7, 14), new IntRange(105, 150), null, new IntRange(60, 150)),
+            new GuidelineBand("early-mid", new IntRange(26, 50), new IntRange(12, 13), new IntRange(13, 14), new IntRange(11, 22), new IntRange(115, 220), null, new IntRange(60, 150)),
+            new GuidelineBand("core-completion", new IntRange(51, 100), new IntRange(13, 14), new IntRange(14, 16), new IntRange(12, 28), new IntRange(135, 240), new IntRange(180, 360), new IntRange(60, 300)),
+            new GuidelineBand("combination", new IntRange(101, 500), new IntRange(11, 14), new IntRange(12, 16), new IntRange(15, 30), new IntRange(150, Open.Max), null, new IntRange(60, 300)),
+            new GuidelineBand("long-run", new IntRange(501, int.MaxValue), new IntRange(11, 14), new IntRange(12, 16), new IntRange(10, Open.Max), new IntRange(100, Open.Max), null, new IntRange(60, 300)),
         };
 
         public static GuidelineBand BandOf(int level)

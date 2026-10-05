@@ -1,0 +1,62 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 15,
+  "id": "sailboat_05",
+  "legend": {
+    "a": "sail",
+    "h": "hull",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sails",
+      "roleId": "sail"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hull",
+      "roleId": "hull"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Sailboat 5",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "sea"
+    ]
+  },
+  "version": 2,
+  "width": 14
+}

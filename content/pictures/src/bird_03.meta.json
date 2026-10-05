@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 14,
+  "height": 16,
   "id": "bird_03",
   "legend": {
     "b": "bird",
@@ -64,6 +64,6 @@
       "garden"
     ]
   },
-  "version": 1,
+  "version": 2,
   "width": 13
 }

@@ -29,7 +29,8 @@ namespace Bloomlings.Client.Gameplay.Slots
     /// when committed (a mystery pod shows the "?" tile, which turns over to its variant), and puffs away off the plate,
     /// which is empty again under it. Where each pod shows is <see cref="SlotPlaces"/>' choice: its slot in the rules when
     /// that plate shows no pod, else the first usable plate that shows none (the rules free a finished pod's slot while
-    /// it still shows here), else it waits in a visual queue (R4), counting down, until a plate frees. While Return
+    /// it still shows here), else it waits in a visual queue (R4), counting down, until a plate frees (since 2026-10-05 a
+    /// tap goes in only when a plate shows no pod, <see cref="FreeOnScreen"/>, so the queue is a safety net). While Return
     /// chooses its slot, every plate showing a pod it can take back glows; on a jam every occupied plate shakes with a red
     /// ring.
     /// </summary>
@@ -92,6 +93,12 @@ namespace Bloomlings.Client.Gameplay.Slots
 
         /// <summary>The plate a pod shows on, or −1 (not committed, or still waiting for a plate).</summary>
         public int PlaceOf(string podId) => _places.PlaceOf(podId);
+
+        /// <summary>
+        /// How many usable plates show no pod now (a leaving pod still counts as shown): a tap needs one per pod it commits
+        /// (the owner, 2026-10-05).
+        /// </summary>
+        public int FreeOnScreen(LevelView view) => _places.FreeOnScreen(slot => Usable(slot, view));
 
         /// <summary>Lets the plates showing a pod Return can take back take taps (Return's target) and glow, or stops it.</summary>
         public void SetTargeting(bool on)

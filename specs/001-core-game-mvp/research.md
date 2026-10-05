@@ -162,6 +162,15 @@ ordered **event log**. The next command always applies to that settled state. An
   The backlog speed-up threshold doubles with it, to 12 s (Remote Config `fx.backlogThresholdMs` 12000, range
   2000–20000), so quick taps do not speed the slower clearing up again sooner than before. Presentation only: no
   outcome changes (FR-069).
+- **Amendment (2026-10-05, the owner: "on hard levels I can tap quickly and the pods stack one after another; they
+  must not pile up, the player must wait until a slot frees, or the jam is bypassed").** The rules settle a tap at once,
+  so a finished pod frees its slot in the rules while its Bloomlings still walk on screen, and quick taps could commit
+  pods the screen had no room for (they waited in the visual queue). Now a pod tap goes in only when a usable slot shows
+  no pod on screen (one per pod of a connected group; `LevelAnimator.FreeOnScreen`, `SlotRowView.FreeOnScreen`); before
+  that it gets the no-free-slot feedback and the rules never see it (FR-014 as amended). The input is still checked
+  against the logical state first and answered within 0.1 s; the rules stay deterministic for the taps they get (the same
+  definition and tap sequence give the same outcome), and the gate only decides when the player may make the next tap.
+  The visual queue stays as a safety net. The level tester (instant results) keeps no gate.
 - **Amendment (2026-10-04, the owner on L1: "if you pick all 3 at once, the first blue must finish before the green
   starts, though the greens could start running in the middle of the first blue").** A wave's Bloomlings set off
   together, so the leaf pod's whole wave waited for its farthest Bloomling, whose route crossed the last tiles the

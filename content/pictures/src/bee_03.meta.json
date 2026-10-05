@@ -2,9 +2,11 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 12,
+  "height": 14,
   "id": "bee_03",
   "legend": {
+    "f": "flower",
+    "g": "grass",
     "i": "wing",
     "k": "stripe",
     "s": "sky",
@@ -35,6 +37,16 @@
       "colorGroup": "brown_orange",
       "name": "Stripes",
       "roleId": "stripe"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
     }
   ],
   "source": {
@@ -52,6 +64,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 13
 }

@@ -6,8 +6,9 @@ must review it for recognizability and usability and set review.status to approv
 script with the same seed rewrites the same files; it never touches pictures whose sidecar is already approved.
 
 Roles use only the four launch color groups (green, pink_purple, blue_cyan, brown_orange) so that every picture can be
-mapped with launch variants (FR-006). Bands: early 9-10 x 10 (L11-25), early_mid 10-12 x 10-12 (L26-50),
-core 10-14 x 12-14 (L51-100).
+mapped with launch variants (FR-006). Bands (the Level Band Guidelines as amended on 2026-10-05, bigger boards from
+Level 1): early 12 x 12-13 (L11-25), early_mid 12-13 x 13-14 (L26-50), core 13-14 x 14-16 (L51-100). Every subject has
+at least five color roles, so the core band, whose levels need five variants, can use any of them.
 """
 import json
 import math
@@ -18,6 +19,13 @@ import sys
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src')
 
 GREEN, PINK, BLUE, BROWN = 'green', 'pink_purple', 'blue_cyan', 'brown_orange'
+
+# Version 2 since 2026-10-05: the sketches were redrawn at the bigger band sizes.
+VERSION = 2
+
+# The smallest pod (BandGuidelines.MinPodSize): every color role keeps at least this many cells, so each variant a
+# mapping gives it can fill a pod.
+MIN_ROLE_CELLS = 5
 
 
 class Canvas:
@@ -75,6 +83,40 @@ class Canvas:
             x, y = cells.pop()
             self.g[y][x] = '.'
 
+    def grow_small_roles(self, bg, minimum):
+        """Grows every role under `minimum` cells (a variant that small cannot make a pod, BandGuidelines.MinPodSize):
+        it takes the nearest neighbouring cells, background first, then those of roles with cells to spare."""
+        def counts():
+            out = {}
+            for row in self.g:
+                for c in row:
+                    out[c] = out.get(c, 0) + 1
+            return out
+
+        for role in sorted(c for c, n in counts().items() if c not in ('.', bg) and n < minimum):
+            while True:
+                n = counts()
+                if n.get(role, 0) >= minimum:
+                    break
+                cells = [(x, y) for y in range(self.h) for x in range(self.w) if self.g[y][x] == role]
+                cx = sum(x for x, _ in cells) / len(cells)
+                cy = sum(y for _, y in cells) / len(cells)
+                best = None
+                for y in range(self.h):
+                    for x in range(self.w):
+                        c = self.g[y][x]
+                        if c == role or c == '.' or (c != bg and n[c] <= minimum + 1):
+                            continue
+                        if not any(0 <= x + dx < self.w and 0 <= y + dy < self.h and self.g[y + dy][x + dx] == role
+                                   for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                            continue
+                        key = (0 if c == bg else 1, (x + 0.5 - cx - 0.5) ** 2 + (y + 0.5 - cy - 0.5) ** 2, y, x)
+                        if best is None or key < best[0]:
+                            best = (key, x, y)
+                if best is None:
+                    break
+                self.g[best[2]][best[1]] = role
+
     def occupancy(self):
         return sum(1 for r in self.g for c in r if c != '.') / (self.w * self.h)
 
@@ -121,7 +163,8 @@ def tulip_bed(w, h, r):
         top = h * r.uniform(0.3, 0.45)
         cv.line(x, top + 1, x, h - 2, 'l', 0.5)
         cv.poly([(x - 1.3, top - 1), (x - 0.2, top), (x + 1.3, top - 1), (x + 1.1, top + 1.2), (x - 1.1, top + 1.2)], 'p')
-    return cv, [('s', 'sky', 'Sky', BLUE, True), ('p', 'tulip', 'Tulips', PINK, False), ('l', 'stem', 'Stems', GREEN, False), ('d', 'soil', 'Soil', BROWN, False)], ['flowers', 'garden']
+    cv.ellipse(w * 0.86, h * 0.1, w * 0.09, h * 0.07, 'u')
+    return cv, [('s', 'sky', 'Sky', BLUE, True), ('p', 'tulip', 'Tulips', PINK, False), ('l', 'stem', 'Stems', GREEN, False), ('d', 'soil', 'Soil', BROWN, False), ('u', 'sun', 'Sun', BROWN, False)], ['flowers', 'garden']
 
 
 def fruit_tree(w, h, r):
@@ -136,39 +179,43 @@ def fruit_tree(w, h, r):
 
 def apple(w, h, r):
     cv = Canvas(w, h, 'b')
-    cv.ellipse(w / 2, h * 0.58, w * 0.4, h * 0.36, 'a')
+    cv.rect(int(w * 0.08), int(h * 0.9), int(w * 0.92), h - 1, 'p')
+    cv.ellipse(w / 2, h * 0.56, w * 0.4, h * 0.34, 'a')
     cv.line(w / 2, h * 0.24, w / 2 + 0.6, h * 0.1, 't', 0.5)
     cv.ellipse(w / 2 + w * 0.2, h * 0.14, w * 0.15, h * 0.06, 'l')
-    return cv, [('b', 'background', 'Background', BLUE, True), ('a', 'apple', 'Apple', BROWN, False), ('t', 'stalk', 'Stalk', BROWN, False), ('l', 'leaf', 'Leaf', GREEN, False)], ['fruit']
+    return cv, [('b', 'background', 'Background', BLUE, True), ('a', 'apple', 'Apple', BROWN, False), ('t', 'stalk', 'Stalk', BROWN, False), ('l', 'leaf', 'Leaf', GREEN, False), ('p', 'plate', 'Plate', PINK, False)], ['fruit']
 
 
 def pear(w, h, r):
     cv = Canvas(w, h, 'b')
-    cv.ellipse(w / 2, h * 0.68, w * 0.38, h * 0.26, 'p')
+    cv.rect(int(w * 0.08), int(h * 0.92), int(w * 0.92), h - 1, 'd')
+    cv.ellipse(w / 2, h * 0.66, w * 0.38, h * 0.26, 'p')
     cv.ellipse(w / 2, h * 0.38, w * 0.22, h * 0.2, 'p')
     cv.line(w / 2, h * 0.2, w / 2, h * 0.08, 't', 0.5)
     cv.ellipse(w / 2 - w * 0.18, h * 0.12, w * 0.14, h * 0.05, 'l')
-    return cv, [('b', 'background', 'Background', PINK, True), ('p', 'pear', 'Pear', GREEN, False), ('l', 'leaf', 'Leaf', GREEN, False), ('t', 'stalk', 'Stalk', BROWN, False)], ['fruit']
+    return cv, [('b', 'background', 'Background', PINK, True), ('p', 'pear', 'Pear', GREEN, False), ('l', 'leaf', 'Leaf', GREEN, False), ('t', 'stalk', 'Stalk', BROWN, False), ('d', 'plate', 'Plate', BLUE, False)], ['fruit']
 
 
 def cherries(w, h, r):
     cv = Canvas(w, h, 'b')
+    cv.rect(int(w * 0.08), int(h * 0.93), int(w * 0.92), h - 1, 'p')
     cv.line(w * 0.3, h * 0.7, w * 0.55, h * 0.2, 't', 0.5)
     cv.line(w * 0.7, h * 0.72, w * 0.55, h * 0.2, 't', 0.5)
     cv.ellipse(w * 0.3, h * 0.72, w * 0.17, h * 0.15, 'c')
     cv.ellipse(w * 0.7, h * 0.74, w * 0.17, h * 0.15, 'c')
     cv.ellipse(w * 0.66, h * 0.16, w * 0.18, h * 0.07, 'l')
-    return cv, [('b', 'background', 'Background', BLUE, True), ('c', 'cherry', 'Cherries', PINK, False), ('t', 'stalk', 'Stalks', GREEN, False), ('l', 'leaf', 'Leaf', GREEN, False)], ['fruit']
+    return cv, [('b', 'background', 'Background', BLUE, True), ('c', 'cherry', 'Cherries', PINK, False), ('t', 'stalk', 'Stalks', GREEN, False), ('l', 'leaf', 'Leaf', GREEN, False), ('p', 'plate', 'Plate', BROWN, False)], ['fruit']
 
 
 def strawberry(w, h, r):
     cv = Canvas(w, h, 'b')
-    cv.poly([(w * 0.12, h * 0.32), (w * 0.88, h * 0.32), (w * 0.5, h * 0.95)], 's')
+    cv.rect(int(w * 0.08), int(h * 0.92), int(w * 0.92), h - 1, 'p')
+    cv.poly([(w * 0.12, h * 0.3), (w * 0.88, h * 0.3), (w * 0.5, h * 0.93)], 's')
     cv.ellipse(w / 2, h * 0.34, w * 0.38, h * 0.12, 's')
     for i in range(4 + r.randint(0, 2)):
         cv.put(int(w * r.uniform(0.3, 0.7)), int(h * r.uniform(0.4, 0.7)), 'd')
     cv.poly([(w * 0.25, h * 0.2), (w * 0.5, h * 0.28), (w * 0.75, h * 0.2), (w * 0.5, h * 0.08)], 'l')
-    return cv, [('b', 'background', 'Background', BLUE, True), ('s', 'berry', 'Berry', PINK, False), ('d', 'seed', 'Seeds', BROWN, False), ('l', 'leaves', 'Leaves', GREEN, False)], ['fruit']
+    return cv, [('b', 'background', 'Background', BLUE, True), ('s', 'berry', 'Berry', PINK, False), ('d', 'seed', 'Seeds', BROWN, False), ('l', 'leaves', 'Leaves', GREEN, False), ('p', 'plate', 'Plate', BROWN, False)], ['fruit']
 
 
 def grapes(w, h, r):
@@ -178,7 +225,8 @@ def grapes(w, h, r):
             cv.ellipse(w / 2 + (i - (n - 1) / 2) * w * 0.18, h * (0.35 + row * 0.13), w * 0.1, h * 0.07, 'g')
     cv.line(w / 2, h * 0.3, w / 2 + 0.5, h * 0.1, 't', 0.5)
     cv.ellipse(w * 0.72, h * 0.16, w * 0.16, h * 0.07, 'l')
-    return cv, [('b', 'background', 'Background', BLUE, True), ('g', 'grape', 'Grapes', PINK, False), ('t', 'stalk', 'Stalk', BROWN, False), ('l', 'leaf', 'Leaf', GREEN, False)], ['fruit']
+    cv.line(w * 0.18, h * 0.08, w * 0.36, h * 0.2, 'v', 0.45)
+    return cv, [('b', 'background', 'Background', BLUE, True), ('g', 'grape', 'Grapes', PINK, False), ('t', 'stalk', 'Stalk', BROWN, False), ('l', 'leaf', 'Leaf', GREEN, False), ('v', 'vine', 'Vine', GREEN, False)], ['fruit']
 
 
 def pumpkin(w, h, r):
@@ -187,7 +235,8 @@ def pumpkin(w, h, r):
     cv.ellipse(w / 2, h * 0.62, w * 0.44, h * 0.28, 'p')
     cv.line(w / 2, h * 0.36, w / 2, h * 0.9, 'r', 0.35)
     cv.rect(int(w / 2) - 1, int(h * 0.26), int(w / 2), int(h * 0.34), 't')
-    return cv, [('s', 'sky', 'Sky', BLUE, True), ('p', 'pumpkin', 'Pumpkin', BROWN, False), ('r', 'rib', 'Ribs', BROWN, False), ('t', 'stem', 'Stem', GREEN, False), ('g', 'grass', 'Grass', GREEN, False)], ['fruit', 'garden']
+    cv.ellipse(w * 0.68, h * 0.27, w * 0.13, h * 0.05, 'f')
+    return cv, [('s', 'sky', 'Sky', BLUE, True), ('p', 'pumpkin', 'Pumpkin', BROWN, False), ('r', 'rib', 'Ribs', BROWN, False), ('t', 'stem', 'Stem', GREEN, False), ('g', 'grass', 'Grass', GREEN, False), ('f', 'leaf', 'Leaf', GREEN, False)], ['fruit', 'garden']
 
 
 def mushroom(w, h, r):
@@ -203,6 +252,7 @@ def mushroom(w, h, r):
 
 def butterfly(w, h, r):
     cv = Canvas(w, h, 's')
+    ground(cv, 'g', 1)
     cv.ellipse(w * 0.28, h * 0.35, w * 0.25, h * 0.22, 'w')
     cv.ellipse(w * 0.72, h * 0.35, w * 0.25, h * 0.22, 'w')
     cv.ellipse(w * 0.32, h * 0.68, w * 0.18, h * 0.16, 'w')
@@ -210,17 +260,19 @@ def butterfly(w, h, r):
     for (x, y) in [(0.25, 0.33), (0.75, 0.33), (0.32, 0.68), (0.68, 0.68)]:
         cv.ellipse(w * x, h * y, w * 0.07, h * 0.06, 'd')
     cv.rect(int(w / 2) - (1 if w % 2 == 0 else 0), int(h * 0.2), int(w / 2), int(h * 0.85), 'b')
-    return cv, [('s', 'sky', 'Sky', BLUE, True), ('w', 'wing', 'Wings', PINK, False), ('d', 'spot', 'Spots', PINK, False), ('b', 'body', 'Body', BROWN, False)], ['insects', 'garden']
+    return cv, [('s', 'sky', 'Sky', BLUE, True), ('w', 'wing', 'Wings', PINK, False), ('d', 'spot', 'Spots', PINK, False), ('b', 'body', 'Body', BROWN, False), ('g', 'grass', 'Grass', GREEN, False)], ['insects', 'garden']
 
 
 def bee(w, h, r):
     cv = Canvas(w, h, 's')
+    ground(cv, 'g', 1)
     cv.ellipse(w * 0.35, h * 0.3, w * 0.2, h * 0.16, 'i')
     cv.ellipse(w * 0.62, h * 0.3, w * 0.2, h * 0.16, 'i')
     cv.ellipse(w / 2, h * 0.6, w * 0.34, h * 0.24, 'y')
     for k in range(3):
         cv.rect(int(w * (0.3 + k * 0.17)), int(h * 0.4), int(w * (0.3 + k * 0.17)), int(h * 0.82), 'k')
-    return cv, [('s', 'sky', 'Sky', BLUE, True), ('i', 'wing', 'Wings', BLUE, False), ('y', 'body', 'Body', BROWN, False), ('k', 'stripe', 'Stripes', BROWN, False)], ['insects', 'garden']
+    cv.ellipse(w * 0.12, h * 0.88, w * 0.1, h * 0.07, 'f')
+    return cv, [('s', 'sky', 'Sky', BLUE, True), ('i', 'wing', 'Wings', BLUE, False), ('y', 'body', 'Body', BROWN, False), ('k', 'stripe', 'Stripes', BROWN, False), ('f', 'flower', 'Flower', PINK, False), ('g', 'grass', 'Grass', GREEN, False)], ['insects', 'garden']
 
 
 def snail(w, h, r):
@@ -240,7 +292,8 @@ def ladybug(w, h, r):
     cv.line(w / 2, h * 0.3, w / 2, h * 0.86, 'h', 0.4)
     for _ in range(4):
         cv.put(int(w / 2 + r.uniform(-w * 0.25, w * 0.25)), int(h * r.uniform(0.42, 0.75)), 'd')
-    return cv, [('l', 'leaf', 'Leaf', GREEN, True), ('b', 'shell', 'Shell', PINK, False), ('d', 'dot', 'Dots', BROWN, False), ('h', 'head', 'Head', BROWN, False)], ['insects', 'garden']
+    cv.ellipse(w * 0.86, h * 0.12, w * 0.08, h * 0.06, 'w')
+    return cv, [('l', 'leaf', 'Leaf', GREEN, True), ('b', 'shell', 'Shell', PINK, False), ('d', 'dot', 'Dots', BROWN, False), ('h', 'head', 'Head', BROWN, False), ('w', 'dew', 'Dew drop', BLUE, False)], ['insects', 'garden']
 
 
 def fish(w, h, r):
@@ -272,7 +325,8 @@ def frog(w, h, r):
     cv.ellipse(w * 0.64, h * 0.32, w * 0.09, h * 0.08, 'f')
     cv.put(int(w * 0.8), int(h * 0.15), 'o')
     cv.ellipse(w * 0.82, h * 0.18, w * 0.08, h * 0.07, 'o')
-    return cv, [('w', 'pond', 'Pond', BLUE, True), ('p', 'pad', 'Lily pad', GREEN, False), ('f', 'frog', 'Frog', GREEN, False), ('o', 'blossom', 'Blossom', PINK, False)], ['animals', 'pond']
+    cv.line(w * 0.1, h * 0.95, w * 0.12, h * 0.35, 'r', 0.45)
+    return cv, [('w', 'pond', 'Pond', BLUE, True), ('p', 'pad', 'Lily pad', GREEN, False), ('f', 'frog', 'Frog', GREEN, False), ('o', 'blossom', 'Blossom', PINK, False), ('r', 'reed', 'Reed', BROWN, False)], ['animals', 'pond']
 
 
 def watering_can(w, h, r):
@@ -305,7 +359,8 @@ def mug(w, h, r):
     cv.rect(int(w * 0.24), int(h * 0.42), int(w * 0.64), int(h * 0.48), 't')
     for k in range(2):
         cv.line(w * (0.35 + k * 0.2), h * 0.35, w * (0.4 + k * 0.2), h * 0.1, 'v', 0.4)
-    return cv, [('b', 'background', 'Background', GREEN, True), ('m', 'mug', 'Mug', PINK, False), ('t', 'tea', 'Tea', BROWN, False), ('v', 'steam', 'Steam', BLUE, False)], ['cozy']
+    cv.rect(0, int(h * 0.92), w - 1, h - 1, 'd')
+    return cv, [('b', 'background', 'Background', GREEN, True), ('m', 'mug', 'Mug', PINK, False), ('t', 'tea', 'Tea', BROWN, False), ('v', 'steam', 'Steam', BLUE, False), ('d', 'table', 'Table', BROWN, False)], ['cozy']
 
 
 def umbrella(w, h, r):
@@ -336,18 +391,20 @@ def sailboat(w, h, r):
     cv.poly([(w * 0.2, h * 0.68), (w * 0.8, h * 0.68), (w * 0.7, h * 0.82), (w * 0.3, h * 0.82)], 'h')
     cv.poly([(w * 0.5, h * 0.1), (w * 0.5, h * 0.64), (w * 0.2, h * 0.64)], 'a')
     cv.poly([(w * 0.55, h * 0.2), (w * 0.55, h * 0.64), (w * 0.82, h * 0.64)], 'a')
-    return cv, [('s', 'sky', 'Sky', BLUE, True), ('a', 'sail', 'Sails', PINK, False), ('h', 'hull', 'Hull', BROWN, False), ('w', 'sea', 'Sea', BLUE, False)], ['sea']
+    cv.ellipse(w * 0.88, h * 0.1, w * 0.08, h * 0.06, 'u')
+    return cv, [('s', 'sky', 'Sky', BLUE, True), ('a', 'sail', 'Sails', PINK, False), ('h', 'hull', 'Hull', BROWN, False), ('w', 'sea', 'Sea', BLUE, False), ('u', 'sun', 'Sun', BROWN, False)], ['sea']
 
 
 def cactus(w, h, r):
     cv = Canvas(w, h, 's')
+    ground(cv, 'd', 1)
     cv.poly([(w * 0.25, h * 0.72), (w * 0.75, h * 0.72), (w * 0.68, h - 1), (w * 0.32, h - 1)], 'o')
     cv.rect(int(w * 0.42), int(h * 0.2), int(w * 0.58), int(h * 0.72), 'c')
     cv.rect(int(w * 0.22), int(h * 0.38), int(w * 0.3), int(h * 0.55), 'c')
     cv.rect(int(w * 0.3), int(h * 0.5), int(w * 0.42), int(h * 0.55), 'c')
     cv.rect(int(w * 0.7), int(h * 0.3), int(w * 0.78), int(h * 0.48), 'c')
     cv.ellipse(w / 2, h * 0.16, w * 0.1, h * 0.06, 'f')
-    return cv, [('s', 'sky', 'Sky', BLUE, True), ('c', 'cactus', 'Cactus', GREEN, False), ('f', 'flower', 'Flower', PINK, False), ('o', 'pot', 'Pot', BROWN, False)], ['desert', 'garden']
+    return cv, [('s', 'sky', 'Sky', BLUE, True), ('c', 'cactus', 'Cactus', GREEN, False), ('f', 'flower', 'Flower', PINK, False), ('o', 'pot', 'Pot', BROWN, False), ('d', 'sand', 'Sand', BROWN, False)], ['desert', 'garden']
 
 
 def hedgehog(w, h, r):
@@ -357,7 +414,8 @@ def hedgehog(w, h, r):
     cv.poly([(w * 0.7, h * 0.5), (w * 0.95, h * 0.7), (w * 0.7, h * 0.82)], 'f')
     for k in range(4):
         cv.put(int(w * (0.2 + k * 0.14)), int(h * 0.38), 'k')
-    return cv, [('s', 'sky', 'Sky', BLUE, True), ('k', 'spikes', 'Spikes', BROWN, False), ('f', 'face', 'Face', BROWN, False), ('g', 'grass', 'Grass', GREEN, False)], ['animals', 'garden']
+    cv.ellipse(w * 0.42, h * 0.36, w * 0.08, h * 0.06, 'a')
+    return cv, [('s', 'sky', 'Sky', BLUE, True), ('k', 'spikes', 'Spikes', BROWN, False), ('f', 'face', 'Face', BROWN, False), ('g', 'grass', 'Grass', GREEN, False), ('a', 'apple', 'Apple', PINK, False)], ['animals', 'garden']
 
 
 def owl(w, h, r):
@@ -375,10 +433,15 @@ SUBJECTS = [flower_pot, daisy_field, tulip_bed, fruit_tree, apple, pear, cherrie
             butterfly, bee, snail, ladybug, fish, bird, frog, watering_can, birdhouse, mug, umbrella, cottage, sailboat,
             cactus, hedgehog, owl]
 
+# Subjects whose roles can carry five distinct variants (at most two per color group): the core band's levels need five.
+FIVE_VARIANTS = [s for s in SUBJECTS if s is not fish]
+
 BANDS = [
-    ('early', 16, [(9, 10), (10, 10)]),
-    ('early_mid', 26, [(10, 10), (11, 11), (12, 12), (11, 12)]),
-    ('core', 52, [(10, 12), (12, 12), (12, 13), (13, 13), (13, 14), (14, 14)]),
+    ('early', 16, [(12, 12), (12, 13)], SUBJECTS),
+    ('early_mid', 26, [(12, 13), (13, 13), (12, 14), (13, 14)], SUBJECTS),
+    ('core', 52, [(13, 14), (14, 14), (13, 15), (14, 15), (13, 16), (14, 16)], SUBJECTS),
+    # Added 2026-10-05: Levels 51-100 use 50 distinct pictures with five variants, and the 52 above ran out by L93.
+    ('core', 16, [(14, 15), (13, 16), (14, 16), (13, 15)], FIVE_VARIANTS),
 ]
 
 
@@ -387,13 +450,14 @@ def main(seed=2026):
     os.makedirs(ROOT, exist_ok=True)
     counter = {}
     written = 0
-    for band, count, sizes in BANDS:
+    for band, count, sizes, subjects in BANDS:
         for i in range(count):
-            subject = SUBJECTS[(written + i * 7) % len(SUBJECTS)]
+            subject = subjects[(written + i * 7) % len(subjects)]
             w, h = sizes[i % len(sizes)]
             r = random.Random(rng.randrange(1 << 30))
             cv, roles, themes = subject(w, h, r)
             bg = roles[0][0]
+            cv.grow_small_roles(bg, MIN_ROLE_CELLS)
             cv.holes(bg, r, target=r.uniform(0.84, 0.92))
             used = {c for row in cv.rows() for c in row}
             roles = [role for role in roles if role[0] in used]
@@ -404,7 +468,7 @@ def main(seed=2026):
             if os.path.exists(meta_path) and '"approved"' in open(meta_path).read():
                 continue
             meta = {
-                'id': pid, 'version': 1,
+                'id': pid, 'version': VERSION,
                 'subject': name.replace('_', ' ').capitalize() + ' ' + str(counter[name]),
                 'width': w, 'height': h,
                 'legend': {role[0]: role[1] for role in roles},

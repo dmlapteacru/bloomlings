@@ -83,6 +83,14 @@ a default or asks a question.
   A: Option A, no lives, as in doc 10. A failed or abandoned attempt is free, restarts are unlimited, and there is no
   energy timer. See FR-040.
 
+### Session 2026-10-05 (the owner)
+
+- **Q: The cells are too big and the board clears too fast. How big should the boards be?**
+  A: More, smaller cells from the very first level, and slower clearing. The owner chose boards like today's Level 26
+  for the start: 11×12–12×12 at L1–10 (about 110–130 tiles, was 7×8–8×8 with 52–60), growing to 13×14–14×16 at
+  L51–100, and never smaller than 11×12 later. FR-008 and the Level Band Guidelines are amended; the picture library,
+  Levels 1–10 and the showcases were redrawn for it. The clearing pace at 1× is halved again (research R4).
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Play a level: commit pods, restore the picture, avoid the jam (Priority: P1)
@@ -372,7 +380,7 @@ skin. Complete the daily challenge. Open the Collection.
   - Hidden layers, keys and specials MAY deviate from the picture, as long as the subject is still recognizable at level start.
   - A base picture MAY be reused in several levels with a different role-to-variant mapping, mirroring, background and Source design, within the limits of FR-083.
 - **FR-007**: Each cleared cell MUST reveal the matching part of the level's finished picture beneath it (restoration reveal). The finished picture is the same subject in its restored look: clean, bright art without tile symbols. It MAY be rendered automatically from the base picture; bespoke illustrations are optional, for example for milestones. Open cells MUST stay visually distinct from active target tiles. On a win, the finished picture MUST be shown in full.
-- **FR-008**: Board size MUST range from 7×8 cells in tutorials to at most 14×16 cells. The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
+- **FR-008**: Board size MUST range from 11×12 cells in tutorials to at most 14×16 cells (amended 2026-10-05, the owner: it was 7×8 in tutorials). The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
 - **FR-009**: Each level MUST have at least one Garden Entry, by default at the bottom center. Some levels MAY use two entries or a side entry.
 - **FR-010**: A target MUST count as reachable only when an orthogonally connected route of open cells leads from a Garden Entry to a side of that target. Diagonal contact does not count. Blockers are never walkable.
 
@@ -388,7 +396,7 @@ skin. Complete the daily challenge. Open the Collection.
   | Locked | Variant, count and lock |
   | Mystery | `?` and count |
   | Connected | A visible link across all members |
-- **FR-014**: Tapping an exposed, selectable pod MUST move it to the first free usable slot. If no usable slot is free, the tap MUST be refused with feedback and no state change.
+- **FR-014**: Tapping an exposed, selectable pod MUST move it to the first free usable slot. If no usable slot is free, the tap MUST be refused with feedback and no state change. Amended 2026-10-05 (the owner: "quick taps stack pods one after another and bypass the jam"): a slot counts as free for a tap only once it shows no pod on screen. The rules free a finished pod's slot at once, while its Bloomlings may still be at work; a tap made before that slot empties on screen is refused like a tap with no free slot (the same feedback), and the rules never see it. A connected group needs as many slots free on screen as it has pods.
 - **FR-015**: The Waiting Buffer MUST have exactly 5 slots by default. Slots show the pod's variant, remaining count and waiting/active state. Pods in slots cannot be reordered manually.
 - **FR-016**: The player MUST be able to commit more pods while Bloomlings are working. The player MUST never tap target cells.
 
@@ -615,12 +623,18 @@ skin. Complete the daily challenge. Open the Collection.
 
 | Band | Levels | Board (cells) | Active variants | Source Pods | Work (tile-layers) | Typical duration |
 |---|---|---|---|---|---|---|
-| Onboarding | 1–10 | 7×8–8×8 | 2–3 | 3–7 | 30–60 | 20–45 s |
-| Early | 11–25 | 9×10–10×10 | 3–4 | 6–12 | 50–100 | 45–120 s |
-| Early-mid | 26–50 | 10×10–12×12 | 4–5 | 10–20 | 90–180 | 45–120 s |
-| Core completion | 51–100 | 10×12–14×14 | 5 (6 in Hard) | 10–24 | 90–180 (Hard 150–300) | 45 s–4 min |
-| Combination | 101–500 | up to 14×16 | 5–6 | 15–30 | 150–300+ | 1–4 min |
-| Long run | 501–5000+ | up to 14×16 | 4–6 (7 rare) | 10–30+ | 90–300+ | 45 s–4 min |
+| Onboarding | 1–10 | 11×12–12×12 | 2–3 | 3–8 | 95–140 | 45–90 s |
+| Early | 11–25 | 12×12–12×13 | 3–4 | 7–14 | 105–150 | 60–150 s |
+| Early-mid | 26–50 | 12×13–13×14 | 4–5 | 11–22 | 115–220 | 60–150 s |
+| Core completion | 51–100 | 13×14–14×16 | 5 (6 in Hard) | 12–28 | 135–240 (Hard 180–360) | 1–5 min |
+| Combination | 101–500 | 11×12–14×16 | 5–6 | 15–30 | 150–300+ | 1–5 min |
+| Long run | 501–5000+ | 11×12–14×16 | 4–6 (7 rare) | 10–30+ | 100–300+ | 1–5 min |
+
+Amended 2026-10-05 (the owner: more, smaller cells from Level 1, and slower clearing). The rows were: Onboarding 7×8–8×8,
+3–7 pods, work 30–60, 20–45 s; Early 9×10–10×10, 6–12 pods, 50–100, 45–120 s; Early-mid 10×10–12×12, 10–20 pods,
+90–180, 45–120 s; Core completion 10×12–14×14, 10–24 pods, 90–180 (Hard 150–300), 45 s–4 min; Combination and Long run
+up to 14×16, work 150–300+ and 90–300+, 1–4 min and 45 s–4 min. Work follows the boards (75–95% occupancy, FR-008, plus
+layers from L28); the durations are estimates at the halved pace until playtests calibrate them (T155).
 
 Pod sizes:
 

@@ -2,7 +2,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1468
+    "score": 1611
   },
   "entries": [
     {
@@ -17,127 +17,142 @@
     {
       "keyId": "k1",
       "target": {
-        "id": "p13",
+        "id": "p20",
         "kind": "pod"
       }
     }
   ],
   "mapping": {
-    "door": "wood",
     "grass": "leaf",
-    "roof": "wood",
-    "sky": "dew",
-    "wall": "flower",
-    "window": "dew"
+    "leaf": "moss",
+    "pumpkin": "wood",
+    "rib": "wood",
+    "sky": "water",
+    "stem": "moss"
   },
   "mechanics": ["connected_pair", "locked_pod"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 3,
+        "x": 11,
         "y": 0
       }
     ]
   },
   "picture": {
-    "id": "cottage_03",
+    "id": "pumpkin_03",
     "mirror": "horizontal",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 7,
-      "id": "p01",
-      "variantId": "leaf"
-    },
-    {
       "count": 8,
-      "id": "p02",
+      "id": "p01",
       "variantId": "wood"
     },
     {
       "count": 5,
-      "id": "p03",
+      "id": "p02",
       "variantId": "leaf"
     },
     {
-      "count": 5,
-      "id": "p04",
-      "variantId": "leaf"
+      "count": 9,
+      "id": "p03",
+      "variantId": "wood"
     },
     {
       "count": 7,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
       "id": "p05",
       "variantId": "leaf"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p06",
-      "variantId": "dew"
-    },
-    {
-      "count": 11,
-      "id": "p07",
-      "variantId": "flower"
-    },
-    {
-      "count": 11,
-      "id": "p08",
-      "variantId": "flower"
+      "variantId": "leaf"
     },
     {
       "count": 6,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 8,
       "id": "p10",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 10,
       "id": "p11",
-      "variantId": "dew"
+      "variantId": "wood"
     },
     {
-      "count": 6,
+      "count": 9,
       "id": "p12",
-      "variantId": "dew"
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p14",
+      "variantId": "wood"
     },
     {
       "count": 7,
-      "id": "p13",
-      "lockKeyId": "k1",
-      "variantId": "dew"
+      "id": "p15",
+      "variantId": "water"
     },
     {
       "count": 8,
-      "id": "p14",
-      "variantId": "dew"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 6,
-      "id": "p15",
-      "variantId": "dew"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 6,
       "id": "p16",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p17",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p18",
-      "variantId": "wood"
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 6,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p20",
+      "lockKeyId": "k1",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 10,
+      "id": "p21",
+      "variantId": "moss"
     }
   ],
   "rewardProfile": "standard",
@@ -147,10 +162,9 @@
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13", "p17"],
-      ["p02", "p06", "p10", "p14", "p18"],
-      ["p03", "p07", "p11", "p15"],
-      ["p04", "p08", "p12", "p16"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21"]
     ]
   }
 }

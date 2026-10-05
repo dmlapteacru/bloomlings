@@ -538,6 +538,21 @@ namespace Bloomlings.Playtest
             }
         }
 
+        /// <summary>
+        /// How many usable slots show no pod now (a leaving pod still counts as shown): a tap needs one per pod it commits
+        /// (the owner, 2026-10-05), so quick taps cannot stack pods behind the ones still working.
+        /// </summary>
+        public int FreeOnScreen(LevelView view)
+        {
+            int free = 0;
+            for (int i = 0; i < Slots.Length && i < view.SlotCapacity; i++)
+            {
+                free += Usable(i, view) && Empty(Slots[i]) ? 1 : 0;
+            }
+
+            return free;
+        }
+
         /// <summary>The slot on screen a pod shows in, or −1.</summary>
         public int PlaceOf(string podId)
         {

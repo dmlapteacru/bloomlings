@@ -40,7 +40,7 @@ namespace Bloomlings.Generator.Tests
         private const string SmallBand = @"{
   ""bandId"": ""test-small"",
   ""levelRange"": [8, 500],
-  ""boardSize"": { ""width"": [7, 8], ""height"": [8, 9] },
+  ""boardSize"": { ""width"": [11, 12], ""height"": [12, 12] },
   ""picturePool"": { ""themes"": [] },
   ""structureTargets"": { ""nestingDepth"": [1, 6], ""backgroundSharePermille"": [0, 1000] },
   ""variantCount"": [3, 3],
@@ -52,7 +52,7 @@ namespace Bloomlings.Generator.Tests
   ""stacks"": [3, 3],
   ""podCount"": [7, 9],
   ""podSize"": [3, 40],
-  ""work"": [20, 80],
+  ""work"": [90, 140],
   ""bufferPressureTarget"": ""relaxed"",
   ""durationTarget"": [20, 60],
   ""hardMode"": { ""extraPods"": 1, ""maxInjections"": 8, ""hardPressure"": ""tense"", ""superHardPressure"": ""critical"" },

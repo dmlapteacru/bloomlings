@@ -876,6 +876,12 @@ namespace Bloomlings.Playtest.Preview
                 switch (commands[i])
                 {
                     case TapPod tap:
+                        // As a player must (the owner, 2026-10-05): wait until a slot shows no pod for each pod the tap commits.
+                        for (int wait = 0; wait < 600 && level.Animator.FreeOnScreen(level.Session.View) < level.Session.View.ConnectedGroup(tap.PodId).Count; wait++)
+                        {
+                            Run(app, p, 0.1f);
+                        }
+
                         level.Tap(tap.PodId);
                         break;
                     case UseExtraSlot:
