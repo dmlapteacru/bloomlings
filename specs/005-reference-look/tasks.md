@@ -773,3 +773,9 @@ and contracts/look.md §3.6, §6.10.
   and §6.11 (the avatar and the frames' recipes), CLAUDE.md's profile line.
 - [ ] T169 Unity Editor and a device: the icon buttons' rims and glyphs, the speed pill's glow round its rim, the
   avatar's rounded mask on Home, the profile page, the edit card, the Wardrobe and the leaderboard, and each frame.
+- [X] T170 Both builds (the owner, 2026-10-06: "frame in a frame"; "the decoration must be the main frame and border"):
+  the avatar's one border is the wood rim or the shown frame in its place, never both (`AvatarLook.Disc(avatar,
+  framed)`, `DiscRadius`, `DiscRadiusOf`, `Frame(avatar)` at 1.125 of the side, `FrameCorner`; Unity's `ProfileAvatar`
+  hides its rim while a frame shows); the cream lip under the picture removed (its second stripe at the bottom), a thin
+  `wood.line` ring instead; `TheAvatarsBorder_IsTheWoodRim_OrTheFrameInItsPlace_AndThePictureFillsTheRest`; frames 3,
+  27, 39, 40 and 41 checked; look.md §6.11 and FR-037 amended.

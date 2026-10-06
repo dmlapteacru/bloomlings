@@ -5,9 +5,9 @@ namespace Bloomlings.Client.UI.Design
 {
     /// <content>
     /// The five drawn profile frames (spec 005 FR-037 as amended 2026-10-06, contracts/look.md §6.11): square pictures
-    /// laid over the avatar's disc (<see cref="AvatarLook.Frame"/>), each a band over the disc's rounded-square edge
-    /// (<see cref="AvatarLook.FrameEdge"/> from the middle, its corners following the disc's, the owner's rounded square of
-    /// 2026-10-06; they were rings) that casts a soft shadow a little lower, lit from the upper left like the rest of the
+    /// laid in place of the avatar's wood rim (<see cref="AvatarLook.Frame"/>), each a band over the framed disc's
+    /// rounded-square edge (<see cref="AvatarLook.FrameEdge"/> from the middle, its corners
+    /// <see cref="AvatarLook.FrameCorner"/>, the owner's rounded square of 2026-10-06; they were rings) that casts a soft shadow a little lower, lit from the upper left like the rest of the
     /// reference look. A band's place across it is <see cref="FrameDist"/> (a ring's distance from the middle) and its
     /// place along it <see cref="FrameAlong"/> (a ring's angle), so each frame keeps the recipe it had as a ring. Like the other material pictures they are straight-alpha RGBA rows from the
     /// top, anti-aliased over one pixel and the same for the same arguments.
@@ -22,9 +22,10 @@ namespace Bloomlings.Client.UI.Design
         private const int StoneRingBlocks = 12;
         private const int StoneRingSeed = 17;
 
-        // The disc's rounded square in a frame's picture: half its side, its corner radius and its straight half-sides.
+        // The framed disc's rounded square in a frame's picture (the rim's middle line): half its side, its corner radius
+        // and its straight half-sides.
         private const float FrameHalf = AvatarLook.FrameEdge;
-        private const float FrameCorner = AvatarLook.FrameEdge * 2f * AvatarLook.DiscRadiusShare;
+        private const float FrameCorner = AvatarLook.FrameCorner;
         private const float FrameStraight = FrameHalf - FrameCorner;
 
         // A quarter of the rounded square's outline and the whole of it, in picture units.
@@ -37,7 +38,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// A drawn profile frame (<see cref="ProfileFrameStyle"/>) in a square picture of side <paramref name="size"/>, its
-        /// band centered on the avatar's disc edge (<see cref="AvatarLook.FrameEdge"/> of the side from the middle):
+        /// band centered on the framed disc's edge (<see cref="AvatarLook.FrameEdge"/> of the side from the middle):
         /// <list type="bullet">
         /// <item><description><see cref="ProfileFrameStyle.WoodRing"/> (Wooden Frame): a rounded band of honey wood
         /// (<c>wood.light</c> to <c>wood.mid</c>), its grain running round it with two carved lines, lit from the upper

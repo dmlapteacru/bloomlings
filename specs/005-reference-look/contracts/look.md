@@ -1480,27 +1480,31 @@ has nothing to list before the Wardrobe opens (the Badge tab: "Badges open at le
 Frame tab holds at most 11 frames today (three rows), so the four-a-row grid needs no scrolling.
 
 The avatar (`AvatarLook`, both builds; the owner, 2026-10-06: "the icon in the profile must be stretched over the
-whole circle", then later that day the avatar became a rounded square in the icon buttons' wood rim; it was round): in
-the avatar's square box of side `s`, the light wood rim (`Kit.IconRim` / `UiKit.IconRim`, `AvatarLook.Rim`, corners
-`0.34 s`, `0.1 s` wide, its soft shadow), and inside it (`AvatarLook.Inner`, side `0.8 s`) the lip, a rounded square
-`(1 - LipShare)` of that side (`LipShare` = 0.06) at its bottom in `cream.lip` with a `cream.line` outline the ring's
-width, and the disc the same rounded square at its top, so a band of lip shows under it; their corners are
-`AvatarLook.DiscRadiusShare` (0.32) of their side, following the rim's (`AvatarLook.Radius`). A press sinks the disc by
-0.7 of the lip and darkens it by 8% (`garden.shadow`), as the icon buttons. The disc is `cream.line`, and the avatar's
-picture fills it inside a ring of `RingShare` (0.03) of the disc, at least 2 reference units: clipped to its rounded
-square (the playtest's `IPainter.PushClipRound` with the radius; Unity's `Mask` on a `UiKit.RoundRect`), with no cream
-gap. While the picture is missing, the soft green middle fills the same rounded square with the family hero at 0.82 of
-it. The frame lies over the disc's edge and the rim, centered on the disc: a drawn frame's picture `FrameShare` (1.25)
-of the disc (its band on the disc's rounded-square edge, `FrameEdge` = 0.4 of the picture from its middle; the picture
-stays inside the avatar's square), or the plain `cosmetic.frame` band (a rounded square) in its tint at 1.08 of `s`; the
-badge `0.36 s` at the disc's lower left (`-0.36 s`, `+0.36 s`), the leaderboard marker at its upper right. The
-leaderboard's portraits are rounded squares too (`cream.lip`, `cream.line`, the picture filling the face with a thin
-`cream.line` stroke).
+whole circle"; later that day the avatar became a rounded square in the icon buttons' wood rim; and then: "the
+decoration must be the main frame and border: there is a default border, a thick one, and a chosen frame takes its
+place", since the frame was drawn over the rim and a cream lip under the picture showed as a second stripe at the
+bottom): in the avatar's square box of side `s`, its one border is
+- with no frame, the light wood rim (`Kit.IconRim` / `UiKit.IconRim`, `AvatarLook.Rim`, corners `0.34 s`, `0.1 s`
+  wide, its soft shadow), the picture filling the rounded square inside it (`AvatarLook.Disc`, `0.8 s`, corners
+  `0.24 s`);
+- with a frame, the frame in the rim's place (no rim): the picture fills a rounded square `0.9 s` (corners `0.29 s`,
+  `AvatarLook.Disc(avatar, framed: true)`) and the frame's band lies over its edge, where the rim's middle was: a drawn
+  frame's picture `FrameShare` (1.125) of `s` (its band's middle `FrameEdge` = 0.4 of the picture from its middle, its
+  corners `FrameCorner` = 0.258), or the plain `cosmetic.frame` band (a rounded square in its tint, the same box), so a
+  framed avatar takes the same room and shows about as much picture.
+No lip: the picture sits centered, a thin `wood.line` ring (`RingShare` 0.025 of the disc, at least 2 reference units)
+edging it, clipped to its rounded square (the playtest's `IPainter.PushClipRound` with the radius; Unity's `Mask` on a
+`UiKit.RoundRect`, its corners from its own box by `AvatarLook.DiscRadiusOf`). A press squashes the avatar and darkens
+the picture by 8% (`garden.shadow`), as the icon buttons. While the picture is missing, the soft green middle fills the
+same rounded square with the family hero at 0.82 of it. The badge `0.36 s` at the lower left (`-0.36 s`, `+0.36 s`),
+the leaderboard marker at its upper right. The leaderboard's portraits are rounded squares too (`cream.lip`,
+`cream.line`, the picture filling the face with a thin `cream.line` stroke, `AvatarLook.Radius`).
 
 The five free frames (`ProfileFrames`, `UiRaster.ProfileFrame(size, style)`; slots `cosmetic.frame.{shape}`; catalog
 items `frame.{shape}` with `"free": true`): square straight-alpha pictures in units of their side from the middle, the
-disc's edge a rounded square of half side `0.4` with corners of radius `0.256` (the disc's `DiscRadiusShare`; the
-frames were rings until the owner's rounded square of 2026-10-06, and their catalog ids keep the names of then). A
+framed disc's edge (the rim's middle) a rounded square of half side `0.4` with corners of radius `0.258`
+(`AvatarLook.FrameCorner`; the frames were rings until the owner's rounded square of 2026-10-06, and their catalog ids
+keep the names of then). A
 band's place across it is its distance from that rounded square (`FrameDist`: `0.4` on the edge, as a ring's radius
 was) and its place along it the length round it from the right side's middle, clockwise (`FrameAlong`, as a ring's
 angle was); every band is lit from the upper left (`(-0.42, -0.62, 0.66)`, a band's cross-section a half circle, its

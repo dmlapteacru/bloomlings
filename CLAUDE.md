@@ -195,7 +195,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   opaque 384 px JPEG in `client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/` (`AvatarCatalog`: four free, ten for
   Petals at 300 / 600 / 1200, Remote Config `economy.price.avatar*`), shown in a rounded-square clip
   (`IPainter.PushClipRound` with a radius, Unity a `Mask` on a `UiKit.RoundRect`) that fills the avatar's whole disc
-  inside a thin ring, in the icon buttons' wood rim (the kit's `AvatarLook`; the owner, 2026-10-06). Every icon button
+  inside a thin ring; the avatar has one border, the icon buttons' wood rim or the shown frame in its place, never both
+  (the kit's `AvatarLook`; the owner, 2026-10-06). Every icon button
   (Settings, Pause, close, back, the pencil, ‹ ›, the Daily Challenge) and the speed pill is a rounded square in that
   light wood rim (`Kit.RimmedIconFace`, `Kit.IconRim` / `UiKit.IconFace(..., rim: true)`, `UiKit.IconRim`;
   `GardenLook.IconRadiusShare`, `IconRimShare`); they were circles. Five drawn rounded-square frames (`ProfileFrames`,

@@ -274,7 +274,7 @@ namespace Bloomlings.Client.Tests
 
             // The disc's rounded square in the picture (the owner's rounded square of 2026-10-06; the frames were rings).
             double half = AvatarLook.FrameEdge * size;
-            double corner = half * 2 * AvatarLook.DiscRadiusShare;
+            double corner = AvatarLook.FrameCorner * size;
             double straight = half - corner;
             var pictures = ProfileFrames.All.Select(style => (Style: style, Pixels: UiRaster.ProfileFrame(size, style))).ToList();
             Assert.That(pictures.Count, Is.EqualTo(5));

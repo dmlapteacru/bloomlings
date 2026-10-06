@@ -26,41 +26,48 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// The profile avatar's geometry in both builds (spec 005 FR-037 as amended 2026-10-06: "the avatar must fill the
-    /// whole circle", then the owner, later that day: the avatar became a rounded square in the icon buttons' wood rim;
-    /// the playtest's <c>Kit.Avatar</c>, Unity's <c>ProfileAvatar</c>): in the avatar's square box, the icon buttons'
-    /// light wood rim (<see cref="GardenLook.IconRimShare"/>, its corners <see cref="GardenLook.IconRadiusShare"/> of the
-    /// side), and inside it a rounded square <c>1 - </c><see cref="LipShare"/> of the rest at its top (the disc, its
-    /// corners <see cref="DiscRadiusShare"/> of its side), on a cream lip showing under it; the avatar's picture fills the
-    /// disc inside a thin <c>cream.line</c> ring (<see cref="RingShare"/>), with no cream gap; a drawn frame
-    /// (<see cref="Frame"/>) or the plain tinted frame (<see cref="ShapeFrame"/>) lies over the disc's edge and the rim, the
-    /// badge at its lower left and the leaderboard marker at its upper right. Engine-free.
+    /// The profile avatar's geometry in both builds (spec 005 FR-037 as amended 2026-10-06; the playtest's
+    /// <c>Kit.Avatar</c>, Unity's <c>ProfileAvatar</c>). The owner's requests of that day: the picture fills the avatar
+    /// ("the icon in the profile must be stretched over the whole circle"), the avatar is a rounded square, and its border
+    /// is one: "the decoration must be the main frame and border: there is a default border, a thick one, and a chosen
+    /// frame takes its place" (it was drawn over the default one, and a cream lip under the picture showed as a second
+    /// stripe at the bottom). In the avatar's square box of side <c>s</c>:
+    /// <list type="bullet">
+    /// <item><description>with no frame, the default border is the icon buttons' light wood rim (<see cref="Rim"/>,
+    /// <see cref="GardenLook.IconRimShare"/> of the side, its corners <see cref="GardenLook.IconRadiusShare"/>), and the
+    /// picture fills the rounded square inside it (<see cref="Disc"/>, 0.8 s);</description></item>
+    /// <item><description>with a frame, the frame is the border instead (no rim): the picture fills a rounded square
+    /// 0.9 s and the frame's band lies over its edge, where the rim's middle was (<see cref="Frame"/>,
+    /// <see cref="ShapeFrame"/>), so a framed avatar takes the same room and shows as much picture.</description></item>
+    /// </list>
+    /// A thin <c>wood.line</c> ring (<see cref="RingShare"/>) edges the picture, the badge sits at its lower left and the
+    /// leaderboard marker at its upper right. Engine-free.
     /// </summary>
     public static class AvatarLook
     {
-        /// <summary>The lip under the disc, as a share of the side inside the rim.</summary>
-        public const float LipShare = 0.06f;
+        /// <summary>The thin <c>wood.line</c> ring round the picture, as a share of the disc's side (at least 2 reference units).</summary>
+        public const float RingShare = 0.025f;
 
-        /// <summary>How far a press sinks the disc into its lip, as a share of the lip.</summary>
-        public const float TravelShare = 0.7f;
+        /// <summary>The corner radius of a rounded square that is not an avatar's own disc (the leaderboard's portraits), as a share of its side.</summary>
+        public const float DiscRadiusShare = (GardenLook.IconRadiusShare - GardenLook.IconRimShare) / GardenLook.IconRimFaceShare;
 
-        /// <summary>The thin <c>cream.line</c> ring round the picture, as a share of the disc's side (at least 2 reference units).</summary>
-        public const float RingShare = 0.03f;
+        /// <summary>A framed avatar's disc inside its box, as a share of the side on each side: half the rim.</summary>
+        public const float FramedInset = GardenLook.IconRimShare / 2f;
+
+        /// <summary>A frame's square picture, as a share of the avatar's side, centered on it.</summary>
+        public const float FrameShare = 1.125f;
 
         /// <summary>
-        /// The disc's corner radius, as a share of its side: the rim's corners less the rim (0.34 - 0.1 of the avatar's
-        /// side, over the disc's 0.752 of it), so the disc follows the rim.
+        /// The framed disc's edge in a frame's picture, from its middle, as a share of the picture's side (0.4): the rim's
+        /// middle, half a side less half the rim, over <see cref="FrameShare"/>.
         /// </summary>
-        public const float DiscRadiusShare = 0.32f;
+        public const float FrameEdge = (0.5f - FramedInset) / FrameShare;
 
-        /// <summary>A drawn frame's square picture, as a share of the disc's side, centered on the disc.</summary>
-        public const float FrameShare = 1.25f;
+        /// <summary>The corner radius of that edge in a frame's picture, as a share of the picture's side: the rim's middle line's.</summary>
+        public const float FrameCorner = (GardenLook.IconRadiusShare - FramedInset) / FrameShare;
 
-        /// <summary>The disc's edge in a drawn frame's picture, from its middle, as a share of the picture's side.</summary>
-        public const float FrameEdge = 0.5f / FrameShare;
-
-        /// <summary>The plain tinted frame (<c>cosmetic.frame</c>) as a share of the avatar's side, centered on the disc.</summary>
-        public const float ShapeFrameShare = 1.08f;
+        /// <summary>The plain tinted frame (<c>cosmetic.frame</c>) as a share of the avatar's side: as a drawn frame.</summary>
+        public const float ShapeFrameShare = FrameShare;
 
         /// <summary>The badge and the marker, as a share of the avatar's side.</summary>
         public const float BadgeShare = 0.36f;
@@ -74,32 +81,26 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The rim's corner radius: <see cref="GardenLook.IconRadiusShare"/> of the side.</summary>
         public static float RimRadius(Box avatar) => Side(avatar) * GardenLook.IconRadiusShare;
 
-        /// <summary>The square inside the rim, where the disc and its lip lie.</summary>
-        public static Box Inner(Box avatar) => GardenLook.IconRimFace(Rim(avatar));
+        /// <summary>
+        /// The disc the picture fills: inside the wood rim (0.8 of the side), or with a frame (<paramref name="framed"/>)
+        /// inside half the rim (0.9 of it), where the frame's band covers its edge.
+        /// </summary>
+        public static Box Disc(Box avatar, bool framed = false) => Rim(avatar).Inset(Side(avatar) * (framed ? FramedInset : GardenLook.IconRimShare));
+
+        /// <summary>The disc's corner radius: the rim's corners less the inset, so the disc follows the rim.</summary>
+        public static float DiscRadius(Box avatar, bool framed = false) => Side(avatar) * (GardenLook.IconRadiusShare - (framed ? FramedInset : GardenLook.IconRimShare));
 
         /// <summary>
-        /// The disc: a rounded square <c>1 - </c><see cref="LipShare"/> of the side inside the rim, centered across, at
-        /// that square's top, sunk by a press of <paramref name="depth"/> (0 to 1; a release overshoots to -0.25) by
-        /// <see cref="TravelShare"/> of the lip.
+        /// The corner radius of a box inside the disc, from its own side (the disc, the picture inside its ring): the
+        /// share <see cref="DiscRadius"/> has of the disc, so a host can round a part from its own box.
         /// </summary>
-        public static Box Disc(Box avatar, float depth = 0f)
+        public static float DiscRadiusOf(Box part, bool framed = false)
         {
-            Box inner = Inner(avatar);
-            float s = inner.Width;
-            float d = s * (1f - LipShare);
-            float top = inner.Top + (s * LipShare * TravelShare * Math.Max(-0.25f, Math.Min(1f, depth)));
-            return new Box(inner.CenterX - (d / 2f), top, inner.CenterX + (d / 2f), top + d);
+            float inset = framed ? FramedInset : GardenLook.IconRimShare;
+            return Math.Min(part.Width, part.Height) * (GardenLook.IconRadiusShare - inset) / (1f - (2f * inset));
         }
 
-        /// <summary>The lip: the disc's rounded square at the bottom inside the rim, showing as a band under the disc.</summary>
-        public static Box Lip(Box avatar)
-        {
-            Box inner = Inner(avatar);
-            float d = inner.Width * (1f - LipShare);
-            return new Box(inner.CenterX - (d / 2f), inner.Bottom - d, inner.CenterX + (d / 2f), inner.Bottom);
-        }
-
-        /// <summary>A disc's (or the lip's) corner radius: <see cref="DiscRadiusShare"/> of its side.</summary>
+        /// <summary>A rounded square's corner radius for a portrait that is not an avatar's own disc: <see cref="DiscRadiusShare"/> of its side.</summary>
         public static float Radius(Box disc) => Math.Min(disc.Width, disc.Height) * DiscRadiusShare;
 
         /// <summary>The ring's width for a disc: <see cref="RingShare"/> of it, at least <paramref name="minimum"/> (2 reference units).</summary>
@@ -111,27 +112,28 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The family hero standing in while the picture is missing: 0.82 of the picture, a little low.</summary>
         public static Box Hero(Box picture) => Box.FromCenter(picture.CenterX, picture.CenterY + (picture.Height * 0.02f), picture.Width * 0.82f, picture.Height * 0.82f);
 
-        /// <summary>A drawn frame's picture: <see cref="FrameShare"/> of the disc, centered on it.</summary>
-        public static Box Frame(Box disc) => Box.FromCenter(disc.CenterX, disc.CenterY, disc.Width * FrameShare, disc.Height * FrameShare);
+        /// <summary>A drawn frame's picture: <see cref="FrameShare"/> of the avatar's side, centered on it.</summary>
+        public static Box Frame(Box avatar) => Box.FromCenter(avatar.CenterX, avatar.CenterY, Side(avatar) * FrameShare, Side(avatar) * FrameShare);
 
-        /// <summary>The plain tinted frame's box: <see cref="ShapeFrameShare"/> of the avatar's side, centered on the disc.</summary>
-        public static Box ShapeFrame(Box avatar, Box disc) => Square(disc, Side(avatar) * ShapeFrameShare, 0f, 0f);
+        /// <summary>The plain tinted frame's box: <see cref="ShapeFrameShare"/> of the avatar's side, centered on it.</summary>
+        public static Box ShapeFrame(Box avatar) => Box.FromCenter(avatar.CenterX, avatar.CenterY, Side(avatar) * ShapeFrameShare, Side(avatar) * ShapeFrameShare);
 
-        /// <summary>The badge's box: <see cref="BadgeShare"/> of the side, at the disc's lower left.</summary>
-        public static Box Badge(Box avatar, Box disc) => Square(disc, Side(avatar) * BadgeShare, -Side(avatar) * BadgeShare, Side(avatar) * BadgeShare);
+        /// <summary>The badge's box: <see cref="BadgeShare"/> of the side, at the avatar's lower left.</summary>
+        public static Box Badge(Box avatar) => Square(avatar, Side(avatar) * BadgeShare, -Side(avatar) * BadgeShare, Side(avatar) * BadgeShare);
 
-        /// <summary>The leaderboard marker's box: <see cref="BadgeShare"/> of the side, at the disc's upper right.</summary>
-        public static Box Marker(Box avatar, Box disc) => Square(disc, Side(avatar) * BadgeShare, Side(avatar) * BadgeShare, -Side(avatar) * BadgeShare);
+        /// <summary>The leaderboard marker's box: <see cref="BadgeShare"/> of the side, at the avatar's upper right.</summary>
+        public static Box Marker(Box avatar) => Square(avatar, Side(avatar) * BadgeShare, Side(avatar) * BadgeShare, -Side(avatar) * BadgeShare);
 
-        private static Box Square(Box disc, float side, float dx, float dy) => Box.FromCenter(disc.CenterX + dx, disc.CenterY + dy, side, side);
+        private static Box Square(Box avatar, float side, float dx, float dy) => Box.FromCenter(avatar.CenterX + dx, avatar.CenterY + dy, side, side);
     }
 
     /// <summary>
     /// The drawn profile frames (spec 005 FR-037 as amended 2026-10-06): the <c>CosmeticCatalog</c> shape of each free
     /// frame names its style, its asset slot (<c>cosmetic.frame.{shape}</c>) and its picture
-    /// (<see cref="UiRaster.ProfileFrame"/>), which both builds draw over the avatar's disc in <see cref="AvatarLook.Frame"/>
-    /// (the playtest with <c>IPainter.Picture</c>, Unity with <c>ProceduralSprites.Picture</c>). Any other frame shape is
-    /// the plain ring its tint colors (<c>cosmetic.frame</c>). Engine-free.
+    /// (<see cref="UiRaster.ProfileFrame"/>), which both builds draw in place of the avatar's wood rim in
+    /// <see cref="AvatarLook.Frame"/> (the playtest with <c>IPainter.Picture</c>, Unity with
+    /// <c>ProceduralSprites.Picture</c>). Any other frame shape is the plain band its tint colors (<c>cosmetic.frame</c>).
+    /// Engine-free.
     /// </summary>
     public static class ProfileFrames
     {

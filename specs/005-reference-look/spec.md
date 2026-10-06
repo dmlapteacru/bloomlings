@@ -1087,7 +1087,10 @@ inventory.
   layout and main buttons are rectangular, shall we turn every round button and the profile into squares? then the
   border can be bigger, like Play's": the avatar MUST be a rounded square in the icon buttons' light wood rim, its
   picture filling the rounded square inside the rim, and the leaderboard's portraits rounded squares too; it was
-  round)*, a tap opening the edit card on Avatar; the
+  round; and once more that day, the owner: "the decoration must be the main frame and border: there is a default
+  border, a thick one, and a chosen frame takes its place": the avatar MUST have one border, the wood rim by default
+  or the shown frame in its place, never both, and no second stripe under the picture)*, a tap opening the edit card
+  on Avatar; the
   name, "Gardener NNNN" until one is chosen, with the pencil opening it on Name; "ID: XXXXXXXX", the first 8
   characters of the local player ID; "Playing since MM/YYYY";
   the wooden "Level N" plaque); three stat cells (levels won, pictures collected, milestones reached); and

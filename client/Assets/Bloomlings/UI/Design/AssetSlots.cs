@@ -454,8 +454,9 @@ namespace Bloomlings.Client.UI.Design
             Shape("cosmetic.frame", "Profile frame", new[] { 2, 3, 5 }, "Home's profile avatar; own leaderboard row; Wardrobe (the profile avatar)", "each frame item", SizeClass.Small);
 
             // The five drawn profile frames, free from Level 1 (spec 005 FR-037 as amended 2026-10-06; ProfileFrames,
-            // UiRaster.ProfileFrame): each a picture 1.25 of the avatar's disc over its rounded-square edge and the rim, with
-            // a soft shadow (rounded squares since the owner's request of 2026-10-06; they were rings).
+            // UiRaster.ProfileFrame): each a picture 1.125 of the avatar in the wood rim's place, its band over the picture's
+            // rounded-square edge, with a soft shadow (rounded squares since the owner's requests of 2026-10-06; they were
+            // rings over the disc's edge).
             const string FrameUse = "Home's profile avatar; the profile page; its edit card (Frame tab); Wardrobe (the profile avatar)";
             const string FrameStates = "on the avatar; in the edit card's Frame tab (picked: green disc and check)";
             Add("cosmetic.frame.wood_ring", "Profile frame: Wooden Frame (free from Level 1)", new[] { 2, 3, 5 }, FrameUse, FrameStates, SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.ProfileFrame picture: a rounded-square band of honey wood (`wood.light` to `wood.mid`), its grain running round it with two carved lines, lit from the upper left, its `wood.line` outline, four brass nails (`medal.gold`) at its corners");

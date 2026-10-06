@@ -85,42 +85,46 @@ namespace Bloomlings.Client.Tests
                 Assert.That(Inside(r.Grid, r.NameField) && Inside(r.Grid, r.NameButton) && Inside(r.Grid, r.NameHint), Is.True, at + ": the Name tab");
                 Assert.That(r.NameButton.Height, Is.GreaterThanOrEqualTo(touch * 0.95f), at);
                 Box item = ProfileEditRegions.CellItemAvatar(r.Cell(0));
-                Assert.That(Inside(r.Cell(0), AvatarLook.Frame(AvatarLook.Disc(item))), Is.True, at + ": a drawn frame inside its cell");
+                Assert.That(Inside(r.Cell(0), AvatarLook.Frame(item)), Is.True, at + ": a drawn frame inside its cell");
             }
         }
 
         /// <summary>
-        /// The owner's requests of 2026-10-06: the avatar's picture fills its whole disc, inside only the thin ring, and a
-        /// drawn frame's band lies over the disc's edge; then the avatar became a rounded square in the icon buttons' wood
-        /// rim, the disc's corners following the rim's; a press sinks the disc into its lip.
+        /// The owner's requests of 2026-10-06: the avatar's picture fills it, the avatar is a rounded square in the icon
+        /// buttons' wood rim, and its border is one ("there is a default border, a thick one, and a chosen frame takes its
+        /// place"): with no frame the picture fills the rim's inside, with one the picture grows to half the rim and the
+        /// frame's band lies where the rim's middle was; no lip under the picture.
         /// </summary>
         [Test]
-        public void TheAvatarsPicture_FillsItsRoundedSquare_InsideTheWoodRim_AndTheFrameLiesOverItsEdge()
+        public void TheAvatarsBorder_IsTheWoodRim_OrTheFrameInItsPlace_AndThePictureFillsTheRest()
         {
             var avatar = new Box(100f, 200f, 240f, 340f);
             Box rim = AvatarLook.Rim(avatar);
-            Box inner = AvatarLook.Inner(avatar);
             Box disc = AvatarLook.Disc(avatar);
+            Box framed = AvatarLook.Disc(avatar, framed: true);
             float ring = AvatarLook.Ring(disc, 2f);
             Box picture = AvatarLook.Picture(disc, ring);
             Assert.That(rim.Width, Is.EqualTo(140f).Within(0.01f), "the rim fills the avatar's square");
-            Assert.That(inner.Left - rim.Left, Is.EqualTo(140f * GardenLook.IconRimShare).Within(0.01f), "a rim as thick as the icon buttons'");
+            Assert.That(disc.Left - rim.Left, Is.EqualTo(140f * GardenLook.IconRimShare).Within(0.01f), "inside a rim as thick as the icon buttons'");
             Assert.That(disc.Width, Is.EqualTo(disc.Height).Within(0.01f), "a square");
-            Assert.That(disc.Width, Is.EqualTo(inner.Width * (1f - AvatarLook.LipShare)).Within(0.01f));
-            Assert.That(disc.Top, Is.EqualTo(inner.Top).Within(0.01f), "at the top inside the rim, the lip under it");
-            Assert.That(AvatarLook.Lip(avatar).Bottom, Is.EqualTo(inner.Bottom).Within(0.01f));
-            Assert.That(AvatarLook.Radius(disc), Is.EqualTo(AvatarLook.RimRadius(avatar) - (inner.Left - rim.Left)).Within(0.5f), "its corners follow the rim's");
-            Assert.That(AvatarLook.Radius(disc), Is.LessThan(disc.Width / 2f), "a rounded square, not a circle");
-            Assert.That(picture.Width, Is.EqualTo(disc.Width - (2f * ring)).Within(0.01f), "no cream gap: only the ring");
-            Assert.That(ring / disc.Width, Is.LessThanOrEqualTo(0.035f), "a thin ring");
-            Assert.That(ring, Is.GreaterThanOrEqualTo(2f), "at least the minimum");
-            Box frame = AvatarLook.Frame(disc);
-            Assert.That(frame.CenterX, Is.EqualTo(disc.CenterX).Within(0.01f));
-            Assert.That(frame.CenterY, Is.EqualTo(disc.CenterY).Within(0.01f));
-            Assert.That(AvatarLook.FrameEdge * frame.Width, Is.EqualTo(disc.Width / 2f).Within(0.01f), "the frames' bands lie on the disc's edge");
-            Assert.That(frame.Width, Is.LessThanOrEqualTo(rim.Width + 0.01f), "a drawn frame covers the rim, inside the avatar's square");
-            Assert.That(AvatarLook.Disc(avatar, 1f).Top, Is.GreaterThan(disc.Top), "pressed, the disc sinks");
-            Assert.That(AvatarLook.Disc(avatar, 1f).Bottom, Is.LessThanOrEqualTo(inner.Bottom), "into its lip, never below it");
+            Assert.That(disc.CenterY, Is.EqualTo(rim.CenterY).Within(0.01f), "centered: no lip under it");
+            Assert.That(disc.Bottom, Is.EqualTo(rim.Bottom - (140f * GardenLook.IconRimShare)).Within(0.01f), "it fills the rim's inside to the bottom");
+            Assert.That(AvatarLook.DiscRadius(avatar), Is.EqualTo(AvatarLook.RimRadius(avatar) - (disc.Left - rim.Left)).Within(0.01f), "its corners follow the rim's");
+            Assert.That(AvatarLook.DiscRadiusOf(disc), Is.EqualTo(AvatarLook.DiscRadius(avatar)).Within(0.01f), "from its own box too");
+            Assert.That(AvatarLook.DiscRadius(avatar), Is.LessThan(disc.Width / 2f), "a rounded square, not a circle");
+            Assert.That(picture.Width, Is.EqualTo(disc.Width - (2f * ring)).Within(0.01f), "no gap: only the thin ring");
+            Assert.That(ring / disc.Width, Is.LessThanOrEqualTo(0.03f), "a thin ring");
+
+            // With a frame: the picture grows to half the rim, and the frame's band lies on its edge, the rim's middle.
+            Assert.That(framed.Width, Is.GreaterThan(disc.Width), "a framed picture is larger");
+            Assert.That(framed.Left - rim.Left, Is.EqualTo(140f * GardenLook.IconRimShare / 2f).Within(0.01f));
+            Assert.That(AvatarLook.DiscRadiusOf(framed, framed: true), Is.EqualTo(AvatarLook.DiscRadius(avatar, framed: true)).Within(0.01f));
+            Box frame = AvatarLook.Frame(avatar);
+            Assert.That(frame.CenterX, Is.EqualTo(rim.CenterX).Within(0.01f));
+            Assert.That(frame.CenterY, Is.EqualTo(rim.CenterY).Within(0.01f));
+            Assert.That(AvatarLook.FrameEdge * frame.Width, Is.EqualTo(framed.Width / 2f).Within(0.01f), "the frames' bands lie on the framed picture's edge");
+            Assert.That(AvatarLook.FrameCorner * frame.Width, Is.EqualTo(AvatarLook.DiscRadius(avatar, framed: true)).Within(0.01f), "with its corners");
+            Assert.That(AvatarLook.ShapeFrame(avatar).Width, Is.EqualTo(frame.Width).Within(0.01f), "the plain frame in the same place");
         }
     }
 }
