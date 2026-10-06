@@ -1,0 +1,101 @@
+{
+  "definitionVersion": 2,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 5,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 8,
+  "locks": [
+    {
+      "keyId": "key1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "kite": "violet_bud",
+    "sky": "water",
+    "tail": "acorn"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 2,
+        "y": 6
+      },
+      {
+        "keyId": "key1",
+        "x": 4,
+        "y": 2
+      }
+    ]
+  },
+  "picture": {
+    "id": "kite",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 43,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 43,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "k1",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "t1",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1008",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 2,
+          "y": 6
+        }
+      ],
+      "condition": {
+        "keyId": "key1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["k1", "w1"],
+      ["t1", "w2"]
+    ]
+  }
+}

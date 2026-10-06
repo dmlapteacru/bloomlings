@@ -1,0 +1,63 @@
+{
+  "definitionVersion": 2,
+  "difficulty": {
+    "class": "normal",
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 4,
+  "mapping": {
+    "house": "wood",
+    "roof": "flower",
+    "sky": "water"
+  },
+  "picture": {
+    "id": "birdhouse",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 34,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 34,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 30,
+      "id": "r1",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "h1",
+      "variantId": "wood"
+    },
+    {
+      "count": 24,
+      "id": "h2",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1004",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["h1", "r1", "w2"],
+      ["w1", "h2"]
+    ]
+  }
+}

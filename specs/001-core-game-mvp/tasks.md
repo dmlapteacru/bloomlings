@@ -787,6 +787,10 @@ Quickstart §2–§4 must pass.
   cells. The playtest APK now holds only generated levels. Still needed: picture approval (T094), the readability sign-off (T075), a person playtest of
   every level (FR-084), then regeneration with approved pictures and the commit into `content/catalog/`. For
   playtest builds, `publish --allow-draft` packs draft pictures as marked previews.
+  Update 2026-10-06: Levels 1–50 are in `content/catalog/` (the curated L1–10, the showcases, the rest generated on
+  approved regular pictures by `tools/catalog/build-catalog.sh`; `validate` 0 errors, `content/catalog/README.md`).
+  L51–100 follow with the catalog build (T153). Still needed: the readability sign-off and a person playtest of every
+  level (FR-084).
 
 **Checkpoint**: The pipeline produces and certifies catalogs, the client loads published packs, and CI gates content.
 
@@ -1381,6 +1385,13 @@ final validation.
   The pipeline side is ready. `daily generate` and `publish` with a daily pool were exercised on 2026-09-29 (3 daily
   entries, 3 packs). Generation takes several hours of solver time per 100 levels in this environment, so producing
   5000+ levels needs a dedicated, parallelized run once the pictures exist.
+  Update 2026-10-06: the pictures exist (T176), and `tools/catalog/build-catalog.ps1` / `.sh` (README there) build the
+  catalog band by band with fixed segments (`generate --segments`, T179), up to two more seeds per level without an
+  accepted candidate, each band validated in context, a manifest line per band, resumable, and a `-Check` that
+  regenerates a band to compare it file by file. Measured here: about 100 s per level on average (a Super Hard level
+  10–20 min), about 145 core-hours for L11–5000 before the engine speed-up. Levels 1–50 are built and validated here
+  (`content/catalog/README.md`); the owner builds L51–5000 on his PC once the speed-up is merged, then `score`, `daily
+  generate` and `publish` follow.
 - [ ] T154 [P] Run an originality review and record it in `specs/001-core-game-mvp/checklists/originality.md`. Confirm
   that no Colony Flow name, characters, art, audio, level pictures or UI graphics appear in `client/Assets/` or
   `content/pictures/`, and that every picture's `source.licence` is owned or licensed (FR-091).

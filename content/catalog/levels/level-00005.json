@@ -1,0 +1,75 @@
+{
+  "definitionVersion": 2,
+  "difficulty": {
+    "class": "hard",
+    "overridden": true,
+    "score": 0
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 6,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "curated",
+  "levelNumber": 5,
+  "mapping": {
+    "cactus": "leaf",
+    "pot": "wood",
+    "sky": "water"
+  },
+  "picture": {
+    "id": "cactus",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 20,
+      "id": "o1",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "o2",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "w1",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "w3",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "c1",
+      "variantId": "leaf"
+    },
+    {
+      "count": 24,
+      "id": "c2",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1005",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["c1", "w3", "o1"],
+      ["w1", "c2"],
+      ["w2", "o2"]
+    ]
+  }
+}
