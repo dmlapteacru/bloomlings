@@ -13,14 +13,22 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>the transform stack, which hit boxes follow;</description></item>
     /// <item><description>hooks the preview uses to record what was drawn.</description></item>
     /// </list>
-    /// A frame starts with <see cref="BeginFrame"/>; a tap goes to <see cref="Dispatch"/>. Engine-free.
+    /// A frame starts with <see cref="BeginFrame"/>; the host's touches go to <see cref="TouchDown"/>,
+    /// <see cref="TouchMove"/> and <see cref="TouchUp"/> (tap or scroll, spec 005 FR-041), and a tap to
+    /// <see cref="Dispatch"/>. Engine-free.
     /// </summary>
     public abstract class PainterBase : IPainter
     {
         private readonly List<(Box Box, Action Action)> _hits = new List<(Box, Action)>();
+        private readonly List<(Box Box, Action? Previous, Action? Next, int After)> _scrolls = new List<(Box, Action?, Action?, int)>();
         private readonly List<float> _alpha = new List<float>();
         private readonly List<(float Dx, float Dy, float Sx, float Sy, float Cx, float Cy, float Degrees)> _transforms = new List<(float, float, float, float, float, float, float)>();
         private (float X, float Y, float At)? _release;
+
+        // The last full-screen target (a card's scrim): the scroll areas registered before it are covered.
+        private int _coverAt = -1;
+        private TouchGesture? _gesture;
+        private (Action? Previous, Action? Next) _dragTurns;
 
         public abstract float Width { get; }
 
@@ -46,11 +54,93 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The alpha everything is multiplied by now.</summary>
         protected float Alpha => _alpha.Count == 0 ? 1f : _alpha[_alpha.Count - 1];
 
+        /// <summary>The screen's density in dots per inch (0: unknown), which turns <c>touch.slop</c> and <c>touch.swipe</c> into pixels.</summary>
+        public float Dpi { get; set; }
+
+        /// <summary>Whether the finger down now drags a page that scrolls (it then taps nothing and nothing looks pressed).</summary>
+        public bool Dragging => _gesture != null && _gesture.Dragging;
+
         public virtual void BeginFrame()
         {
             _hits.Clear();
+            _scrolls.Clear();
+            _coverAt = -1;
             _alpha.Clear();
             _transforms.Clear();
+        }
+
+        /// <summary>
+        /// A finger goes down (spec 005 FR-041): on a page that scrolls (an uncovered <see cref="Scroll"/> area of the
+        /// last frame under it) the touch may become a drag; everywhere else it taps where it lifts, as before.
+        /// </summary>
+        public void TouchDown(float x, float y)
+        {
+            _gesture = TouchGesture.For(Dpi, Width);
+            int area = ScrollAt(x, y);
+            _dragTurns = area >= 0 ? (_scrolls[area].Previous, _scrolls[area].Next) : (null, null);
+            _gesture.Press(x, y, area >= 0);
+            Finger = (x, y);
+        }
+
+        /// <summary>The finger moves: once it drags a page, nothing looks pressed any more.</summary>
+        public void TouchMove(float x, float y)
+        {
+            if (_gesture == null || !_gesture.Down)
+            {
+                return;
+            }
+
+            _gesture.Move(x, y);
+            Finger = _gesture.Dragging ? ((float, float)?)null : (x, y);
+        }
+
+        /// <summary>
+        /// The finger lifts: a tap dispatches where it lifted (<see cref="Dispatch"/>); a drag never taps, and a long enough
+        /// one turns its page. True when something was tapped or turned.
+        /// </summary>
+        public bool TouchUp(float x, float y)
+        {
+            Finger = null;
+            if (_gesture == null)
+            {
+                return false;
+            }
+
+            GestureEnd end = _gesture.Lift(x, y);
+            switch (end.Kind)
+            {
+                case GestureKind.Tap:
+                    return Dispatch(x, y);
+                case GestureKind.Drag:
+                    Action? turn = end.Page > 0 ? _dragTurns.Next : end.Page < 0 ? _dragTurns.Previous : null;
+                    turn?.Invoke();
+                    return turn != null;
+                default:
+                    return false;
+            }
+        }
+
+        /// <summary>The system took the touch: nothing taps.</summary>
+        public void TouchCancel()
+        {
+            _gesture?.Cancel();
+            Finger = null;
+        }
+
+        public void Scroll(Box area, Action? previous = null, Action? next = null) => _scrolls.Add((ToScreen(area), previous, next, _hits.Count));
+
+        /// <summary>The topmost scroll area of the last frame under (x, y) that no later full-screen target covers, or −1.</summary>
+        public int ScrollAt(float x, float y)
+        {
+            for (int i = _scrolls.Count - 1; i >= 0; i--)
+            {
+                if (_scrolls[i].After > _coverAt && _scrolls[i].Box.Contains(x, y))
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         /// <summary>Runs the topmost target under a tap; false when none was hit. The lift starts the spring-back.</summary>
@@ -72,6 +162,12 @@ namespace Bloomlings.Playtest.Design
         public void Hit(Box box, Action action)
         {
             Box screen = ToScreen(box);
+            if (screen.Left <= 0f && screen.Top <= 0f && screen.Right >= Width && screen.Bottom >= Height)
+            {
+                // A card's scrim: the pages' scroll areas under it take no drag.
+                _coverAt = _hits.Count;
+            }
+
             _hits.Add((screen, action));
             OnHit(screen);
         }

@@ -107,6 +107,23 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
+        /// <summary>
+        /// The purchase confirmation (spec 005 FR-040; preview frame 49) over whatever asked (<see cref="DesignApp.ConfirmPurchase"/>):
+        /// the item's picture, name and price, the Petals balance under the price, Buy (the purchase runs only now) and
+        /// Cancel (nothing is bought). It has no close: Cancel and the system back close it.
+        /// </summary>
+        public static void Purchase(IPainter p, DesignApp app, float since)
+        {
+            PurchaseOffer? offer = app.Purchase.Offer;
+            if (offer == null)
+            {
+                return;
+            }
+
+            string note = offer.RealMoney ? PlaytestText.T("purchase.store_next") : PlaytestText.F("purchase.balance", NumberText.Group(app.Meta.Economy.Petals));
+            Kit.PurchaseCard(p, offer, app.PurchasePicture, note, app.BuyConfirmed, app.CloseOverlay, Kit.Pop(since));
+        }
+
         /// <summary>The reward basket: woven wood (darker weave lines) with a lighter rim, outlined like the reference's objects.</summary>
         private static void Basket(IPainter p, Box box)
         {

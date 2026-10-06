@@ -446,6 +446,28 @@ namespace Bloomlings.Playtest.Preview
                 Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
                 Tap(p, Box.FromCenter(tabs.CenterX, tabs.CenterY, 1f, 1f));
                 Expect(app.StoreTab == 1, "a tap on the Cosmetics tab shows the cosmetics");
+                Run(app, p, 0.1f);
+
+                // Tap or scroll (FR-041, the owner's request of 2026-10-06): a drag over the cards buys nothing and opens
+                // nothing; a swipe up turns to the next page and a swipe down back; a tap on a card asks to buy it (FR-040),
+                // and the system back cancels without spending.
+                ReferenceStoreRegions store = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                int balance = app.Meta.Economy.Petals;
+                int owned = app.Meta.Save.Cosmetics.Owned.Count;
+                Box top = store.OutfitCard(1);
+                Box below = store.OutfitCard(4);
+                Drag(p, top.CenterX, top.CenterY, top.CenterX + (top.Width * 0.6f), top.CenterY + (top.Height * 0.1f));
+                Expect(app.Overlays.Count == 0 && app.StorePage == 0, "a sideways drag over a card taps nothing (and there is no page before)");
+                Drag(p, below.CenterX, below.CenterY, top.CenterX, top.CenterY);
+                Expect(app.Overlays.Count == 0 && app.StorePage == 1, "a swipe up over the cards turns to the next page, buying nothing");
+                Run(app, p, 0.1f);
+                Drag(p, top.CenterX, top.CenterY, below.CenterX, below.CenterY);
+                Expect(app.Overlays.Count == 0 && app.StorePage == 0, "a swipe down turns back");
+                Run(app, p, 0.1f);
+                Tap(p, top);
+                Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer != null && app.Purchase.Offer.Petals > 0, "a tap on a card asks to buy it");
+                Expect(app.Back() && app.Overlays.Count == 0, "the system back cancels the confirmation");
+                Expect(app.Meta.Economy.Petals == balance && app.Meta.Save.Cosmetics.Owned.Count == owned, "nothing was bought");
                 Run(app, p, 0.5f);
             });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
@@ -667,6 +689,10 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.1f);
                 Expect(Shows(p, PlaytestText.F("profile.buy", NumberText.Group(600))), "a 600 avatar to buy");
                 Tap(p, r.Button);
+                Expect(app.IsOpen(Overlay.Purchase) && app.Meta.Economy.Petals == 1240, "Buy asks the purchase confirmation first, nothing spent (FR-040)");
+                Run(app, p, 0.5f);
+                Tap(p, ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets).Confirm);
+                Expect(!app.IsOpen(Overlay.Purchase) && app.IsOpen(Overlay.ProfileEdit), "the confirmation's Buy closes it over the edit card");
                 Expect(app.Meta.Economy.Petals == 640 && app.Meta.Profile.Avatar.Id == "avatar.sprig_flower_crown_3d", "bought and shown");
                 Run(app, p, 0.1f);
                 Expect(Shows(p, PlaytestText.T("profile.bought")) && Shows(p, PlaytestText.T("profile.save")), "the card stays, its button now Save");
@@ -757,6 +783,85 @@ namespace Bloomlings.Playtest.Preview
                 Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "a style is not bought before Level 40");
                 Run(app, p, 4f);
                 Expect(p.Slots.Contains("ui.lock") && p.Slots.Contains("fx.clear.bubbles"), "the padlocks over the live previews");
+            });
+        }
+
+        /// <summary>
+        /// The purchase confirmation (spec 005 FR-040) and the Animations tab's buttons (FR-038 as amended on 2026-10-06):
+        /// at Level 45 a booster used without charges asks first, Cancel and the system back buy nothing, Buy buys; on the
+        /// Store's Animations a style's Buy asks, its Buy buys and chooses it ("Chosen"), the free pair's card then reads
+        /// "Choose"; the frame shows the confirmation for Pushers over the tab, its live preview in the well.
+        /// </summary>
+        public static IEnumerable<Fixture> Purchases(ContentSet content)
+        {
+            DesignApp App(string data) => new DesignApp(data, content, new Silence(), false);
+            yield return new Fixture(49, "purchase-confirm", "Extra: the purchase confirmation over the Store's Animations (spec 005 FR-040)", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 44);
+                app.Meta.Economy.Grant(12000, null);
+                CloseAll(app);
+                PurchaseConfirmRegions confirm = ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets);
+
+                // A level: Bloom Burst without charges buys one for Petals, so it asks first.
+                app.LoadLevel(app.Meta.CurrentLevel);
+                CloseDemo(app);
+                while (app.Meta.Save.Boosters.TryUse(BoosterKind.BloomBurst))
+                {
+                }
+
+                Run(app, p, 0.1f);
+                LevelScreen level = app.Level!;
+                VariantId variant = level.Session.Definition.Pods[0].Variant;
+                int petals = app.Meta.Economy.Petals;
+                int price = app.Meta.Economy.Price(BoosterKind.BloomBurst);
+                level.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant));
+                Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Petals == price && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "a booster without charges asks before buying");
+                Run(app, p, 0.5f);
+                Expect(Shows(p, PlaytestText.F("purchase.question_petals", PlaytestText.T("booster.bloom_burst"), NumberText.Group(price))), "the question names the booster and its price");
+                Tap(p, confirm.Cancel);
+                Expect(app.Overlays.Count == 0 && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "Cancel buys nothing");
+                Run(app, p, 0.1f);
+                level.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant));
+                Run(app, p, 0.5f);
+                Tap(p, confirm.Confirm);
+                Expect(app.Overlays.Count == 0 && app.Meta.Economy.Petals == petals - price && level.Session.BoostersUsed == 1 && app.Meta.Economy.Charges(BoosterKind.BloomBurst) == 0, "Buy buys the charge and uses it");
+
+                // The Store's Animations: the cards' buttons.
+                app.GoHome();
+                CloseAll(app);
+                app.OpenStore();
+                Run(app, p, 0.1f);
+                Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 6f), tabs.CenterY, 1f, 1f));
+                Expect(app.StoreTab == 2, "the Animations tab");
+                Run(app, p, 0.2f);
+                Expect(app.NeedsFrames && app.StoreMoving, "the live previews keep the host drawing");
+                ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, PlaytestText.T("clearing.buy")), "the free pair Chosen, the others Buy");
+                petals = app.Meta.Economy.Petals;
+                Box bubbles = ClearingCard.Button(r.ClearingCard(2));
+                Tap(p, bubbles);
+                Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Name == PlaytestText.T("clearing.bubbles") && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "Bubbles' Buy asks first");
+                Run(app, p, 0.3f);
+                Tap(p, confirm.Cancel);
+                Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "Cancel buys nothing");
+                Run(app, p, 0.1f);
+                Tap(p, Box.FromCenter(r.ClearingCard(2).CenterX, r.ClearingCard(2).Top + (r.ClearingCard(2).Height * 0.3f), 1f, 1f));
+                Expect(app.IsOpen(Overlay.Purchase), "a tap on the card's preview asks too");
+                Expect(app.Back() && app.Overlays.Count == 0 && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "the system back buys nothing");
+                Run(app, p, 0.1f);
+                Tap(p, bubbles);
+                Run(app, p, 0.5f);
+                Tap(p, confirm.Confirm);
+                Expect(app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Clearing.IsChosen(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals - app.Meta.Clearing.Price, "Buy buys Bubbles and chooses it");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, PlaytestText.T("clearing.choose")) && Shows(p, PlaytestText.T("clearing.chosen")), "the free pair now Choose, Bubbles Chosen");
+
+                // The frame: Pushers' confirmation over the tab, its live preview in the well.
+                Tap(p, ClearingCard.Button(r.ClearingCard(3)));
+                Expect(app.IsOpen(Overlay.Purchase), "Pushers' Buy asks");
+                Run(app, p, 2.5f);
+                Expect(p.Slots.Contains("ui.card.purchase") && p.Slots.Contains("fx.clear.pushers"), "the card with the live preview");
             });
         }
 
@@ -1013,6 +1118,18 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>A tap in the middle of <paramref name="box"/> on the last drawn frame, as a finger would.</summary>
         private static void Tap(SkiaPainter p, Box box) => p.Dispatch(box.CenterX, box.CenterY);
+
+        /// <summary>A finger going down at (x0, y0), moving in eight steps to (x1, y1) and lifting there, on the last drawn frame.</summary>
+        private static void Drag(SkiaPainter p, float x0, float y0, float x1, float y1)
+        {
+            p.TouchDown(x0, y0);
+            for (int i = 1; i <= 8; i++)
+            {
+                p.TouchMove(x0 + ((x1 - x0) * i / 8f), y0 + ((y1 - y0) * i / 8f));
+            }
+
+            p.TouchUp(x1, y1);
+        }
 
         /// <summary>Fails the frame (the preview reports it) when a scripted interaction did not do what it should.</summary>
         private static void Expect(bool condition, string what)

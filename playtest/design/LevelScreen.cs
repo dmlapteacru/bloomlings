@@ -415,7 +415,9 @@ namespace Bloomlings.Playtest.Design
             AfterCommand();
         }
 
-        public void UseBooster(BoosterKind kind, Command command, bool free = false)
+        /// <param name="confirmed">The purchase confirmation's Buy already answered (spec 005 FR-040): a use without charges
+        /// buys one for Petals only then; it asks first otherwise.</param>
+        public void UseBooster(BoosterKind kind, Command command, bool free = false, bool confirmed = false)
         {
             // A guided demo's forced use is free: the unlock's free charge stays (spec 001 FR-042 as amended on 2026-10-05).
             bool demo = Guide != null && Guide.Booster == kind && (Guide.Kind == GuideKind.Booster || Guide.Kind == GuideKind.BoosterTarget);
@@ -430,6 +432,19 @@ namespace Bloomlings.Playtest.Design
             if (!check.IsAllowed)
             {
                 Toast(PlaytestText.T("gameplay.booster_useless"));
+                return;
+            }
+
+            if (!free && !confirmed && Meta.Economy.Charges(kind) == 0 && Meta.Economy.CanAfford(kind))
+            {
+                // No charge left: the use buys one for Petals, so the purchase confirmation asks first and the booster is
+                // bought and used only on its Buy (spec 005 FR-040); a cancel buys nothing and brings the jam card back.
+                string id = EndCards.IdOf(kind);
+                _app.ConfirmPurchase(
+                    PurchaseOffer.ForPetals(EndCards.BoosterName(kind), Meta.Economy.Price(kind)),
+                    (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)),
+                    () => UseBooster(kind, command, confirmed: true),
+                    () => JamHidden = false);
                 return;
             }
 

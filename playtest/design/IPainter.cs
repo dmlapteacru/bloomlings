@@ -140,6 +140,15 @@ namespace Bloomlings.Playtest.Design
         /// <summary>A touch target; the topmost target under the finger gets the tap (FR-027: at least <c>size.touch_min</c>).</summary>
         void Hit(Box box, Action action);
 
+        /// <summary>
+        /// A page that scrolls (spec 005 FR-041, <see cref="TouchGesture"/>): a finger that goes down inside
+        /// <paramref name="area"/> taps only when it lifts within <c>touch.slop</c>; past it the touch is a drag, which never
+        /// taps and, long enough, turns the page with <paramref name="previous"/> or <paramref name="next"/> (null: no page
+        /// that way). The topmost area under the finger takes the drag; a full-screen target drawn after an area (a card's
+        /// scrim) covers it. Pages register their areas after their content, cards after theirs.
+        /// </summary>
+        void Scroll(Box area, Action? previous = null, Action? next = null);
+
         /// <summary>Where the tap being dispatched now is, in screen pixels (a target spanning a grid of cells picks one).</summary>
         (float X, float Y) TapPoint { get; }
 

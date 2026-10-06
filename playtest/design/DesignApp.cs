@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Meta.Profile;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
@@ -39,6 +40,9 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The profile's "Edit profile" card (spec 005 FR-037), over the profile page.</summary>
         ProfileEdit,
+
+        /// <summary>The purchase confirmation (spec 005 FR-040), over whatever asked: nothing is spent until its Buy.</summary>
+        Purchase,
     }
 
     /// <summary>
@@ -182,6 +186,23 @@ namespace Bloomlings.Playtest.Design
 
         public IReadOnlyList<(Overlay Overlay, float OpenedAt)> Overlays => _overlays;
 
+        /// <summary>
+        /// The purchase waiting for the player's answer (spec 005 FR-040, the owner's request of 2026-10-06: "Every purchase
+        /// needs a confirmation popup"), shown by <see cref="Overlay.Purchase"/>.
+        /// </summary>
+        public PurchaseConfirmation Purchase { get; } = new PurchaseConfirmation();
+
+        /// <summary>The asked item's picture in the confirmation's well, drawn each frame; none for a plain card.</summary>
+        public Action<IPainter, Box>? PurchasePicture { get; private set; }
+
+        private Action? _purchaseCancelled;
+
+        /// <summary>
+        /// Whether the Store page's last frame drew the Animations tab, whose live previews loop all the time (spec 005
+        /// FR-038 as amended on 2026-10-06): the host keeps drawing frames for them.
+        /// </summary>
+        public bool StoreMoving { get; set; }
+
         /// <summary>Whether the card being drawn lies under another open card (it then shows no close button of its own).</summary>
         public bool DrawingCovered { get; private set; }
 
@@ -204,7 +225,9 @@ namespace Bloomlings.Playtest.Design
             || (_overlays.Count > 0 && Now - _overlays[_overlays.Count - 1].OpenedAt < 0.4f)
             || (_homeToastUntil > Now)
             || (Screen == Screen.Home && (_overlays.Count == 0 || HomeMoving))
-            || IsOpen(Overlay.DailyReward);
+            || (Screen == Screen.Store && StoreMoving)
+            || IsOpen(Overlay.DailyReward)
+            || IsOpen(Overlay.Purchase);
 
         /// <summary>
         /// Whether the only motion left is slow: the open win or milestone card's (turning rays, falling petals, Next
@@ -216,7 +239,8 @@ namespace Bloomlings.Playtest.Design
             (_overlays.Count == 0 || Now - _overlays[_overlays.Count - 1].OpenedAt >= 0.4f)
             && _homeToastUntil <= Now
             && ((Screen == Screen.Level && Level != null && Level.OnlyCelebrating)
-                || (Screen == Screen.Home && _overlays.Count > 0 && !IsOpen(Overlay.DailyReward)));
+                || (Screen == Screen.Home && _overlays.Count > 0 && !IsOpen(Overlay.DailyReward))
+                || (Screen == Screen.Store && StoreMoving && _overlays.Count == 0));
 
         private string? _homeToast;
         private float _homeToastUntil;
@@ -266,7 +290,7 @@ namespace Bloomlings.Playtest.Design
 
         public void LoadLevel(int levelNumber)
         {
-            _overlays.Clear();
+            ClearOverlays();
             Level = new LevelScreen(this, levelNumber);
             Screen = Screen.Level;
         }
@@ -279,7 +303,7 @@ namespace Bloomlings.Playtest.Design
                 StartHomeMotion();
             }
 
-            _overlays.Clear();
+            ClearOverlays();
             Level = null;
             Screen = Screen.Home;
             _promoOpenedAt = Now;
@@ -293,7 +317,7 @@ namespace Bloomlings.Playtest.Design
         public void OpenWardrobe()
         {
             Sound.Play(SoundCue.Click);
-            _overlays.Clear();
+            ClearOverlays();
             WardrobePage = 0;
             Screen = Screen.Wardrobe;
         }
@@ -309,7 +333,7 @@ namespace Bloomlings.Playtest.Design
                 Sound.Play(SoundCue.Click);
             }
 
-            _overlays.Clear();
+            ClearOverlays();
             StartHomeMotion();
             Screen = Screen.Home;
         }
@@ -375,7 +399,7 @@ namespace Bloomlings.Playtest.Design
         public void OpenLeaderboard()
         {
             Sound.Play(SoundCue.Click);
-            _overlays.Clear();
+            ClearOverlays();
             Screen = Screen.Leaderboard;
         }
 
@@ -389,7 +413,7 @@ namespace Bloomlings.Playtest.Design
         public void OpenCollection()
         {
             Sound.Play(SoundCue.Click);
-            _overlays.Clear();
+            ClearOverlays();
             CollectionDetail = -1;
             CollectionPage = 0;
             Screen = Screen.Collection;
@@ -420,7 +444,7 @@ namespace Bloomlings.Playtest.Design
         {
             Sound.Play(SoundCue.Click);
             StoreReturn = Screen == Screen.Wardrobe || Screen == Screen.Leaderboard || Screen == Screen.Collection || Screen == Screen.Profile ? Screen : Screen.Home;
-            _overlays.Clear();
+            ClearOverlays();
             StorePage = 0;
             StoreRowsPage = 0;
             Screen = Screen.Store;
@@ -430,7 +454,7 @@ namespace Bloomlings.Playtest.Design
         public void CloseStore()
         {
             Sound.Play(SoundCue.Click);
-            _overlays.Clear();
+            ClearOverlays();
             if (StoreReturn == Screen.Home)
             {
                 StartHomeMotion();
@@ -492,9 +516,64 @@ namespace Bloomlings.Playtest.Design
         {
             if (_overlays.Count > 0)
             {
+                bool purchase = _overlays[_overlays.Count - 1].Overlay == Overlay.Purchase;
                 _overlays.RemoveAt(_overlays.Count - 1);
                 Sound.Play(SoundCue.Click);
+                if (purchase)
+                {
+                    // Closed without Buy (Cancel, the system back): nothing is bought.
+                    DropPurchase();
+                }
             }
+        }
+
+        /// <summary>Closes every card; a purchase still asking is dropped, nothing bought.</summary>
+        private void ClearOverlays()
+        {
+            _overlays.Clear();
+            Purchase.Cancel();
+            PurchasePicture = null;
+            _purchaseCancelled = null;
+        }
+
+        /// <summary>
+        /// Asks to confirm a purchase (spec 005 FR-040): the confirmation card opens over everything with the item's
+        /// <paramref name="picture"/>, its name and its price; <paramref name="buy"/> runs only on its Buy, and
+        /// <paramref name="cancelled"/> when it is closed without (Cancel, the system back). Nothing is spent before.
+        /// </summary>
+        public void ConfirmPurchase(PurchaseOffer offer, Action<IPainter, Box>? picture, Action buy, Action? cancelled = null)
+        {
+            Purchase.Ask(offer, buy);
+            PurchasePicture = picture;
+            _purchaseCancelled = cancelled;
+            if (_overlays.Count == 0 || _overlays[_overlays.Count - 1].Overlay != Overlay.Purchase)
+            {
+                OpenOverlay(Overlay.Purchase);
+            }
+        }
+
+        /// <summary>The confirmation's Buy: the card closes, then the purchase runs once.</summary>
+        public void BuyConfirmed()
+        {
+            if (_overlays.Count > 0 && _overlays[_overlays.Count - 1].Overlay == Overlay.Purchase)
+            {
+                _overlays.RemoveAt(_overlays.Count - 1);
+            }
+
+            PurchasePicture = null;
+            _purchaseCancelled = null;
+            Sound.Play(SoundCue.Click);
+            Purchase.Confirm();
+        }
+
+        /// <summary>A purchase closed without Buy: nothing is bought, and whoever asked hears of it.</summary>
+        private void DropPurchase()
+        {
+            Action? cancelled = _purchaseCancelled;
+            Purchase.Cancel();
+            PurchasePicture = null;
+            _purchaseCancelled = null;
+            cancelled?.Invoke();
         }
 
         public bool IsOpen(Overlay overlay)
@@ -550,7 +629,7 @@ namespace Bloomlings.Playtest.Design
         public void OpenProfile()
         {
             Sound.Play(SoundCue.Click);
-            _overlays.Clear();
+            ClearOverlays();
             Screen = Screen.Profile;
         }
 
@@ -570,7 +649,8 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The edit card's main button (<see cref="ProfileEditor.Confirm"/>): Save closes the card, a bought avatar shows
-        /// "New avatar!", short Petals or an empty name say so.
+        /// "New avatar!", short Petals or an empty name say so. "Buy for N" asks the purchase confirmation first (spec 005
+        /// FR-040): the avatar is bought only on its Buy.
         /// </summary>
         public void ConfirmProfileEdit()
         {
@@ -580,6 +660,22 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
+            if (editor.NeedsBuying && Meta.Economy.Petals >= editor.Price)
+            {
+                AvatarItem avatar = editor.Avatar;
+                Outfit? outfit = Meta.Wardrobe.IsAvailable ? Meta.Wardrobe.OutfitOf(avatar.Family) : (Outfit?)null;
+                ConfirmPurchase(
+                    PurchaseOffer.ForPetals(PlaytestText.T("purchase.avatar"), editor.Price),
+                    (q, well) => Kit.AvatarPicture(q, well.Inset(well.Width * 0.08f), avatar, outfit),
+                    () => FinishProfileEdit(editor));
+                return;
+            }
+
+            FinishProfileEdit(editor);
+        }
+
+        private void FinishProfileEdit(ProfileEditor editor)
+        {
             switch (editor.Confirm())
             {
                 case ProfileOutcome.Saved:
@@ -714,6 +810,12 @@ namespace Bloomlings.Playtest.Design
                         break;
                     case Overlay.ProfileEdit:
                         ProfileScreen.Edit(p, this, since);
+
+                        // A drag over the card's grid never taps a cell (spec 005 FR-041).
+                        p.Scroll(ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets).Grid);
+                        break;
+                    case Overlay.Purchase:
+                        MetaCards.Purchase(p, this, since);
                         break;
                 }
             }

@@ -79,6 +79,9 @@ namespace Bloomlings.Playtest.Design
             p.TextLeft(PlaytestText.T("leaderboard.you"), own.Name.Left, you.CenterY, T.ButtonSecondary, C.InkBrown, own.Name.Width, grow, TextLook.Plain(C.InkBrown));
             p.Text(NumberText.Group(app.Meta.Progression.HighestCompletedLevel), own.Score.CenterX, you.CenterY, T.Count, C.InkBrown, own.Score.Width, grow, TextLook.Plain(C.InkBrown));
 
+            // The ranks are a list that scrolls: a drag over them never taps (spec 005 FR-041).
+            p.Scroll(r.Rows);
+
             // The offline line and Refresh: the playtest has no leaderboard server, so Refresh says it is offline.
             p.Text(PlaytestText.T("leaderboard.offline_empty"), r.Status.CenterX, r.Status.CenterY, T.Caption, C.InkBrownSoft, r.Status.Width);
             Kit.SecondaryButton(p, r.Refresh, PlaytestText.T("leaderboard.refresh"), () => app.HomeToast(PlaytestText.T("leaderboard.offline_empty")), "ui.restart");
