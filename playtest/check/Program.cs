@@ -9,6 +9,7 @@ using Bloomlings.Content.Json;
 using Bloomlings.Content.Validation;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Search;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Slots;
 using Bloomlings.Playtest;
@@ -49,6 +50,23 @@ foreach (string folder in folders)
         runs.Add((folder + "/L" + level.LevelNumber, level, pictures[level.Picture.Id], v.SolutionTrace, 20000));
         if (v.JamWitness != null) runs.Add((folder + "/L" + level.LevelNumber + "-jam", level, pictures[level.Picture.Id], v.JamWitness, 20000));
     }
+}
+
+// A big level's 22×28 icons board (spec 001 FR-008 and FR-036 as amended on 2026-10-06): the generator tests' fixture,
+// while the picture library has no big picture yet. Its winning line comes from the core's search.
+string fixtures = Path.Combine(Root, "core/tests/Bloomlings.Generator.Tests/Fixtures");
+if (File.Exists(Path.Combine(fixtures, "big-level.level.json")))
+{
+    LevelDefinition big = DefinitionJson.Read(File.ReadAllText(Path.Combine(fixtures, "big-level.level.json")));
+    BasePicture bigPicture = BasePictureJson.Read(File.ReadAllText(Path.Combine(fixtures, "big-level.picture.json")));
+    SearchResult line = StateSearch.Find(LevelSession.Load(big, bigPicture, new SessionOptions(1, 20000)), StateSearch.IsWon, MoveOrder.ProgressFirst, 20000);
+    if (line.Outcome != SearchOutcome.Found)
+    {
+        failures++;
+        Console.WriteLine("FAIL the 22×28 fixture has no winning line");
+    }
+
+    runs.Add(("fixture/big-level-22x28", big, bigPicture, line.Path, 20000));
 }
 
 foreach (var run in runs)

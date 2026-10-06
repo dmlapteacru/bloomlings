@@ -1540,6 +1540,51 @@ final validation.
   data-model §3.1, the merge); one trip time for every style, a line of Bloomlings from each arch, rounds not waiting
   for each other, the backlog speed-up at 60 s (`fx.backlogThresholdMs` 60000), both builds.
 
+## Owner review: regular and big boards, the board look in the level data (2026-10-06)
+
+- [X] T169 Board limits 22×28 (FR-008 as amended): `CellPos.MaxWidth`/`MaxHeight` 22/28, `BasePicture`'s limits follow,
+  `BoardBuilder`'s message, both copies of `level-definition.schema.json` (cells x ≤ 21, y ≤ 27) and
+  `base-picture.schema.json` (width ≤ 22, height ≤ 28), `PictureValidator`; the hash audit (research R3: nothing
+  iterates in hash order) and every golden replay byte-identical, never regenerated; the timelines' wave cap 40 → 60 s
+  so the 22×28 board's longest straight trip is not squeezed (`TimelinePlayer`, `LevelAnimator`, research R4).
+- [X] T170 The board rule by level (Level Band Guidelines as amended): `BandGuidelines` `BoardRule` (widths, heights,
+  cells), `RegularBoard` 224–288 cells from L11, `BigBoard` 289–616 cells, `IsBigLevel` (every milestone from L525),
+  `For`/`Board`, the new pods, work and durations and the big levels' row; `PicturePicker` picks big pictures for big
+  levels only; `CatalogValidator`'s band check; `content/profiles/band-*.json` (regular sizes, the bands from L501 up to
+  22×28); big levels' own thresholds (`difficulty-thresholds.json` `big`, `ProfileLoader.ReadBigThresholds` /
+  `ReadThresholdsFor`, the generator's `BigLevelThresholds`, `generate` and `score`); big levels are Normal
+  (`DifficultySchedule` moves a Hard due on one to the next level: the tuner cannot make a big board Hard).
+- [X] T171 The board look in the level data (FR-036 as amended): `BoardLook`, `BoardLooks` (`MaxPeekCells` 288),
+  `LevelDefinition.BoardLook` (optional; absent peeks), `DefinitionJson` reads and writes `boardLook` (a stated `peek`
+  is kept), the schema and data-model §1.3, the generator always writes it (`gen-1.3.0`), `CatalogValidator`'s board
+  check fails a look that disagrees with the cell count, `LevelView.BoardLook` and `CellInfo.Next` null on an icons
+  board.
+- [X] T172 Hidden-layer fairness on icons boards (research R8b): `HiddenLayerFairness` (12 sampled worlds of the same
+  hidden layers, a visible-information player that plans on model worlds and replans on surprises, fixed budgets),
+  `FairnessChecker` (`Uncovered` for mystery on an icons board, `OverCap` over 72 hidden layers), the generator's
+  acceptance and slack (`OverlayPlanner` 4–9% layered tiles on icons boards, no mystery, big levels' lower buffer
+  pressure), `CatalogValidator`'s `player-info-fair`.
+- [X] T173 Both builds skip the next-layer chip on an icons board (`playtest/design/BoardPainter.cs`,
+  `playtest/android/TesterView.cs`, `client/Assets/Bloomlings/Gameplay/Board/BoardView.cs`); a scratch render of a
+  generated 22×28 big level through the full playtest's screens at the preview's three phone shapes (no chip, no render
+  check problem; cells about 3% of the width); `ReferenceLayoutTests` fit 14×16, 16×18 and 22×28.
+- [X] T174 Tests: `HiddenLayerFairnessTests` (Solver), `BigLevelTests` with a generated 22×28 big level and a blind-guess
+  level as fixtures (`core/tests/Bloomlings.Generator.Tests/Fixtures/`), `BandGuidelinesTests`, `GeneratorTests`,
+  `DefinitionJsonTests` (the look, 22×28 coordinates, the embedded schemas equal the contracts), `BoardBuilderTests`.
+- [X] T175 The showcases on the new boards: L251 (Statue/Bridge practice) and L400 (connected triple showcase)
+  regenerated on approved 14×16 pictures with the documented `generate` commands (L150, L250 and L401 already stood on
+  14×16 boards and pass); L151 (chest practice, Super Hard) moves to T177, with the levels the new pictures need.
+- [ ] T176 The picture library for the new boards: every level from L11 needs a picture of 224–288 cells (14–16 ×
+  16–18), and the 180 big levels (L525–5000, every 25th) pictures of 289–616 cells up to 22×28. The library has 12
+  approved 14×16 pictures and no big one (another session draws them).
+- [ ] T177 With those pictures: L151 and the showcase and practice levels L11–91 (17 levels, still on 12×12–14×15 boards; FR-083
+  wants 17 distinct pictures in Levels 1–100 while the library has 12 of 224+ cells) and the playtest's Levels 11–100
+  regenerated on regular boards; then the catalog (`generate --jobs N`), whose big levels take minutes each.
+- [ ] T178 The owner: confirm the "rare" default (every milestone level from L525, always Normal), whether "icons only" should also
+  drop the candy tile behind the icon (today: the candy tiles stay and only the chip goes), the big levels' pods (24–56)
+  and thresholds (`big`, 1500 over the band's) after playing big levels, and a glance test on a 22×28 board (SC-003
+  names 14×16).
+
 ## Parallel Example: User Story 1
 
 ```bash

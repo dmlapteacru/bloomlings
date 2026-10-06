@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <!--
-    Checks the playtest client's engine-free parts without Android: LevelAnimator replays every golden case and every
-    showcase solution (with pauses and with rapid taps) and the settled screen must equal the rules state; PlaytestMeta
+    Checks the playtest client's engine-free parts without Android: LevelAnimator replays every golden case, every
+    showcase solution and a 22x28 big level (with pauses and with rapid taps) and the settled screen must equal the rules
+    state; PlaytestMeta
     runs progression, unlocks, Petals and milestones on the linked client services.
     Run: dotnet run, project playtest/check (exit code 1 on a failure).
   -->

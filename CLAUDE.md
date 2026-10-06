@@ -44,7 +44,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   client uses a new Unity API).
 - `node --test backend/tests/*.test.js` runs the Cloud Code script tests (in-memory stand-ins for the UGS modules).
 - `dotnet run --project playtest/check` checks the playtest client without Android: its animator replays every golden
-  case and showcase solution and must end on the rules state, and its meta layer runs progression and economy.
+  case and showcase solution, and a 22×28 big level (the generator tests' fixture), and must end on the rules state, and
+  its meta layer runs progression and economy.
 - `dotnet run --project playtest/preview` renders the full playtest's designed screens (spec 002) for every design
   board frame (1–17, plus extras 18–32: themes, Settings, Collection picture, 21 a booster's guided demo, boosters in
   use, the Bloomlings sheet, 25 the reference-look kit, 26 the Store cosmetics, 27 the Wardrobe, 28 Home's animated heroes
