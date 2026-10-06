@@ -18,17 +18,29 @@ namespace Bloomlings.Solver
         /// <summary>Some observation leaves the player without a safe continuation: winning needs hidden knowledge.</summary>
         Unfair,
 
-        /// <summary>More mystery than the cap (2 mystery pods plus 3 mystery tiles).</summary>
+        /// <summary>More mystery than the cap (2 mystery pods plus 3 mystery tiles), or more hidden layers on an icons board than its cap.</summary>
         OverCap,
 
         /// <summary>The node budget ran out.</summary>
         Unknown,
+
+        /// <summary>
+        /// Hidden information the check does not cover: a mystery tile or pod on an <see cref="BoardLook.Icons"/> board,
+        /// whose hidden layers and mystery would have to be judged together (FR-036 as amended on 2026-10-06).
+        /// </summary>
+        Uncovered,
     }
 
     public sealed record FairnessResult(FairnessStatus Status, int Worlds, int NodesUsed)
     {
-        /// <summary>The value of <c>playerInfoFair</c> in the validation record: null when the level has no mystery.</summary>
+        /// <summary>
+        /// The value of <c>playerInfoFair</c> in the validation record: null when the level hides nothing the check judges
+        /// (no mystery, and no hidden layer on an icons board).
+        /// </summary>
         public bool? PlayerInfoFair { get; init; }
+
+        /// <summary>Why the level is not fair, for reports; null when it is.</summary>
+        public string? Detail { get; init; }
     }
 
     /// <summary>
@@ -39,16 +51,38 @@ namespace Bloomlings.Solver
     /// every such observation class must still be winnable (AND). The level is fair when some strategy wins in every
     /// world consistent with the start the player sees. Hidden layers below a mystery tile's top are not enumerated;
     /// they show through the layer peek once the tile reveals.
+    /// <para>
+    /// On an <see cref="BoardLook.Icons"/> board (FR-036 as amended on 2026-10-06) no layer peek shows, so the hidden
+    /// layers themselves are hidden information. Dozens of them make the enumeration intractable, so they get the sampled
+    /// check of <see cref="HiddenLayerFairness"/> (research R8b), and a mystery tile or pod there is
+    /// <see cref="FairnessStatus.Uncovered"/>: the generator keeps them off such boards.
+    /// </para>
     /// </summary>
     public static class FairnessChecker
     {
         public const int MaxMysteryPods = 2;
         public const int MaxMysteryTiles = 3;
 
-        public static FairnessResult Check(LevelDefinition definition, BasePicture picture, SessionOptions options, int nodeBudget)
+        /// <param name="nodeBudget">The mystery search's budget; the hidden-layer check has its own fixed one (<see cref="HiddenLayerFairness.CheckBudget"/>).</param>
+        /// <param name="maxLayersBelow">
+        /// The most hidden layers a cell may hold at this level (FR-036, the band rule the player knows); the hidden-layer
+        /// check of an icons board places its worlds' layers within it.
+        /// </param>
+        /// <param name="maxHiddenLayers">The most hidden layers an icons board may have for the check (<see cref="HiddenLayerFairness"/>).</param>
+        public static FairnessResult Check(LevelDefinition definition, BasePicture picture, SessionOptions options, int nodeBudget, int maxLayersBelow = BoardBuilder.MaxLayersBelow, int maxHiddenLayers = int.MaxValue)
         {
             var tiles = definition.Overlays.Where(o => o.Mystery).Select(o => o.Cell).ToArray();
             var pods = definition.Pods.Where(p => p.Mystery).Select(p => p.Id).ToArray();
+            if (BoardLooks.Of(definition) == BoardLook.Icons)
+            {
+                if (tiles.Length > 0 || pods.Length > 0)
+                {
+                    return new FairnessResult(FairnessStatus.Uncovered, 0, 0) { PlayerInfoFair = false, Detail = "a mystery tile or pod on an icons board, where the hidden layers do not show either" };
+                }
+
+                return HiddenLayerFairness.Check(definition, picture, options, maxLayersBelow, maxHiddenLayers);
+            }
+
             if (tiles.Length == 0 && pods.Length == 0)
             {
                 return new FairnessResult(FairnessStatus.Fair, 1, 0);
