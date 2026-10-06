@@ -470,30 +470,6 @@ namespace Bloomlings.Client.UI.Design
             return (topLeft, bottomRight);
         }
 
-        /// <summary>
-        /// The decoration's size on Home's Petals pill (the owner's request of 2026-10-04), as a share of the pill's height:
-        /// the pill is about a third as tall as Play, so its clusters are larger for their height than a main button's
-        /// (<see cref="DesignTokens.Garden.DecorationSize"/>) and the flower still reads.
-        /// </summary>
-        public const float PillDecorationShare = 1.2f;
-
-        /// <summary>
-        /// Where the leaves and flower go on Home's Petals pill, <paramref name="span"/> the pill with its "+"
-        /// (<see cref="PetalsPillParts.Span"/>): the main buttons' two clusters (<see cref="DecorationBoxes"/>), the top-left
-        /// one <see cref="PillDecorationShare"/> of the height and the bottom-right one 0.9 of it, placed so the flower sits
-        /// on the pill's rounded left end at its top and on the "+"'s edge at its bottom right, the leaves and the twig
-        /// reaching out beyond them. Each box is square.
-        /// </summary>
-        public static (Box TopLeft, Box BottomRight) PillDecorationBoxes(Box span)
-        {
-            float h = span.Height;
-            float big = h * PillDecorationShare;
-            float small = big * 0.9f;
-            var topLeft = new Box(span.Left - (h * 0.84f), span.Top - (h * 0.53f), span.Left - (h * 0.84f) + big, span.Top - (h * 0.53f) + big);
-            var bottomRight = new Box(span.Right - (h * 0.38f), span.Bottom - (h * 0.61f), span.Right - (h * 0.38f) + small, span.Bottom - (h * 0.61f) + small);
-            return (topLeft, bottomRight);
-        }
-
         /// <summary>The fill and outline colors of a decoration part.</summary>
         public static (Rgba Fill, Rgba Line) DecorationColors(DecorationPart part) => part switch
         {

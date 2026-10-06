@@ -1121,7 +1121,7 @@ inventory.
   while the player has chosen no bought style. A chosen bought style MUST play on every level. The Store MUST show an
   Animations tab from its unlock (L12): the free pair's card first, then each bought style's card with its live
   preview, which MUST loop all the time (never only under a finger), its 5000 Petals price, and a padlock before L40.
-  Each card MUST carry its action button (contracts/look.md §6.12): "Buy" with the price while it can be bought (from
+  Each card MUST carry its action button (contracts/look.md §6.12): the lotus and the price while it can be bought (no "Buy" word, and 1.5 times as tall as the outfit cards' cost pills: the owner, 2026-10-06; it read "Buy" with the price) (from
   L40), "Choose" for an owned style that is not chosen (the free card while a bought style is chosen) and "Chosen" with
   a check for the chosen one. A tap on a card asks to buy the style from L40 (the purchase confirmation, FR-040, buys and
   chooses it), before that it says from which level, and when owned it chooses the style; the free card brings back

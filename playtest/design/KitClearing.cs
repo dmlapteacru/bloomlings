@@ -69,7 +69,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>
         /// A clearing style card's action button (<c>ui.button.clearing</c>, <see cref="ClearingCard.Button"/>; spec 005 FR-038
         /// as amended on 2026-10-06; Unity's <c>UiKit.ClearingButton</c>): <see cref="ClearingAction.Buy"/> the glossy green
-        /// face on its plate with "Buy", the lotus and <paramref name="price"/> in white (<see cref="ClearingCard.BuyParts"/>);
+        /// face on its plate with the lotus and <paramref name="price"/> in white, no "Buy" word (<see cref="ClearingCard.PriceParts"/>);
         /// <see cref="ClearingAction.Choose"/> the cream face with "Choose" in brown; <see cref="ClearingAction.Chosen"/> a
         /// flat cream plate in a green outline with a green check and "Chosen". It lies inside its card's touch box and takes
         /// the card's tap (the whole card is the button); a <paramref name="pressable"/> face sinks under the finger as every
@@ -111,10 +111,8 @@ namespace Bloomlings.Playtest.Design
             TextLook look = buy ? TextLook.OnColor(set) : GardenLook.LabelOn(set);
             if (buy)
             {
-                string label = PlaytestText.T("clearing.buy");
                 string amount = NumberText.Group(price);
-                (Box Label, Box Lotus, Box Price, float Scale) parts = ClearingCard.BuyParts(box, p.MeasureText(label, T.ButtonSecondary, scale), p.MeasureText(amount, T.ButtonSecondary, scale));
-                p.Text(label, parts.Label.CenterX, parts.Label.CenterY, T.ButtonSecondary, C.TextOnColor, parts.Label.Width + 1f, scale * parts.Scale, look);
+                (Box Lotus, Box Price, float Scale) parts = ClearingCard.PriceParts(box, p.MeasureText(amount, T.ButtonSecondary, scale));
                 Petal(p, parts.Lotus);
                 p.Text(amount, parts.Price.CenterX, parts.Price.CenterY, T.ButtonSecondary, C.TextOnColor, parts.Price.Width + 1f, scale * parts.Scale, look);
             }

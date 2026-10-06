@@ -993,11 +993,9 @@ namespace Bloomlings.Client.UI
         /// green "+" over its right end (to the Store, once unlocked; FR-013). The pill is the touch target when
         /// <paramref name="onPlus"/> is set, and only while its "+" shows: before the Store's unlock a tap on it does nothing,
         /// as in the playtest (the locked Store page opens from the bottom menu's Shop, spec 005 FR-030).
-        /// <paramref name="decorate"/> adds the main buttons' leaves and flower over the corners of the pill and its "+"
-        /// (<see cref="GardenLook.PillDecorationBoxes"/> of <see cref="PetalsPillParts.Span"/>), scaled to its height and
-        /// never a touch target: Home's header pill (the owner's request of 2026-10-04).
+        /// No decoration anywhere (the owner, 2026-10-06; Home's pill had the main buttons' leaves and flower since 2026-10-04).
         /// </summary>
-        public static PetalsPill PetalsPill(string name, Transform parent, Action? onPlus, float align = 1f, bool decorate = false)
+        public static PetalsPill PetalsPill(string name, Transform parent, Action? onPlus, float align = 1f)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<PetalsPill>();
@@ -1019,14 +1017,6 @@ namespace Bloomlings.Client.UI
             BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.6f, plus.IconSide * 0.6f));
             view.Plus = plus.gameObject;
             layout.Add((RectTransform)plus.transform, b => view.Parts(b).Plus);
-            if (decorate && DesignTokens.Garden.Decorations)
-            {
-                // Over the pill and its "+", as the playtest draws them last.
-                (Image topLeft, Image bottomRight) = DecorationImages(root);
-                layout.Add(topLeft.rectTransform, b => GardenLook.PillDecorationBoxes(view.Parts(b).Span).TopLeft);
-                layout.Add(bottomRight.rectTransform, b => GardenLook.PillDecorationBoxes(view.Parts(b).Span).BottomRight);
-            }
-
             // The amount starts right after the lotus (left-aligned, so it never floats in the pill's middle, even while
             // the text engine cannot measure it yet).
             layout.Watch(balance).Then(b =>

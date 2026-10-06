@@ -31,7 +31,6 @@ namespace Bloomlings.Client.UI
     public sealed class ClearingButtonView : MonoBehaviour
     {
         private GardenButton _buy = null!;
-        private TextMeshProUGUI _buyLabel = null!;
         private TextMeshProUGUI _price = null!;
         private Image _lotus = null!;
         private GardenButton _choose = null!;
@@ -39,18 +38,16 @@ namespace Bloomlings.Client.UI
 
         internal void Build(RectTransform root)
         {
-            // Buy: "Buy", the lotus and the price, laid out together and shrunk together to fit (ClearingCard.BuyParts).
+            // Buy: the lotus and the price, no "Buy" word, laid out together and shrunk together to fit (ClearingCard.PriceParts).
             _buy = UiKit.Garden("Buy", root, GardenLook.Green, DesignTokens.Size.SecondaryHeight, raycast: false, gloss: true);
             UiFactory.Stretch((RectTransform)_buy.transform);
             TextLook on = TextLook.OnColor(GardenLook.Green);
-            _buyLabel = UiKit.KitLabel("Label", root, Loc.T("clearing.buy"), T.ButtonSecondary, on);
             _lotus = UiKit.PetalIcon("Lotus", root);
             _price = UiKit.KitLabel("Price", root, string.Empty, T.ButtonSecondary, on);
             BoxLayout.On(root).Watch(_price).Then(b =>
             {
                 float size = ClearingCard.LabelSize(b);
-                (Box label, Box lotus, Box price, float scale) = ClearingCard.BuyParts(b, KitText.Measure(_buyLabel, size), KitText.Measure(_price, size));
-                KitText.Place(_buyLabel, T.ButtonSecondary, label.CenterX, label.CenterY, size * scale, label.Width + 1f);
+                (Box lotus, Box price, float scale) = ClearingCard.PriceParts(b, KitText.Measure(_price, size));
                 BoxLayout.Place(_lotus.rectTransform, lotus);
                 KitText.Place(_price, T.ButtonSecondary, price.CenterX, price.CenterY, size * scale, price.Width + 1f);
             });
@@ -88,7 +85,6 @@ namespace Bloomlings.Client.UI
         {
             bool buy = action == ClearingAction.Buy;
             _buy.gameObject.SetActive(buy);
-            _buyLabel.gameObject.SetActive(buy);
             _lotus.gameObject.SetActive(buy);
             _price.gameObject.SetActive(buy);
             _price.text = NumberText.Group(price);

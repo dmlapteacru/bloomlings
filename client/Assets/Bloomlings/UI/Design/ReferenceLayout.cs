@@ -239,10 +239,7 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public sealed record PetalsPillParts(Box Pill, Box Face, Box Lotus, Box Amount, float AmountSize, Box Plus)
     {
-        /// <summary>
-        /// The pill with the part of its "+" beyond its right end: what Home's flowered corners
-        /// (<see cref="GardenLook.PillDecorationBoxes"/>) frame.
-        /// </summary>
+        /// <summary>The pill with the part of its "+" beyond its right end.</summary>
         public Box Span => new Box(Pill.Left, Pill.Top, Math.Max(Pill.Right, Plus.Right), Pill.Bottom);
 
         /// <summary>The cream lip under the face, as a share of the pill's height.</summary>

@@ -739,3 +739,8 @@ and contracts/look.md §3.6, §6.10.
   and the application's `Icon`/`RoundIcon`), so both APKs show it; notices, the owner pictures' record, CLAUDE.md.
 - [ ] T138 Unity Editor: after `CiBuild.ApplyIcons`, check Player Settings' icons (adaptive layers, round, legacy) and the
   launcher icon on a device.
+- [X] T139 Both builds (the owner, 2026-10-06): the Animations tab's buy buttons show only the lotus and the price, no
+  "Buy" word (`ClearingCard.PriceParts`, `clearing.buy` removed), and every clearing card's button is 1.5 times as tall
+  (`ClearingCard.ButtonShare` 0.3, was 0.2); the Petals pill has no decoration anywhere (Home's leaves and flower,
+  `GardenLook.PillDecorationBoxes` and the pills' `decorate` removed). look.md §6.12 and Home's table amended; frames
+  2, 3, 42 and 43 checked.

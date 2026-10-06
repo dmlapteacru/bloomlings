@@ -230,8 +230,8 @@ namespace Bloomlings.Playtest.Design
         public static void Decoration(IPainter p, Box button) => Decoration(p, GardenLook.DecorationBoxes(button));
 
         /// <summary>
-        /// The same leaves and flower in the two boxes of <paramref name="boxes"/> (<see cref="GardenLook.DecorationBoxes"/>,
-        /// or <see cref="GardenLook.PillDecorationBoxes"/> on Home's Petals pill): never a touch target.
+        /// The same leaves and flower in the two boxes of <paramref name="boxes"/> (<see cref="GardenLook.DecorationBoxes"/>):
+        /// never a touch target.
         /// </summary>
         public static void Decoration(IPainter p, (Box TopLeft, Box BottomRight) boxes)
         {
@@ -740,12 +740,11 @@ namespace Bloomlings.Playtest.Design
         /// that fits its content inside <paramref name="box"/> (placed by <paramref name="align"/>: 1 keeps its right end on
         /// the box's, 0.5 centers it), the lotus inside its left end, the balance in <c>ink.brown</c> left-aligned right
         /// after the lotus, so a short amount never floats in the middle, and the round green "+" over its right end
-        /// (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>).
-        /// <paramref name="decorate"/> adds the main buttons' leaves and flower over the corners of the pill and its "+"
-        /// (<see cref="GardenLook.PillDecorationBoxes"/> of <see cref="PetalsPillParts.Span"/>), scaled to its height and
-        /// never a touch target: Home's header pill (the owner's request of 2026-10-04). Returns the parts as drawn.
+        /// (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>). No
+        /// decoration anywhere (the owner, 2026-10-06: "remove all the decoration from this chip everywhere"; Home's pill had
+        /// the main buttons' leaves and flower since 2026-10-04). Returns the parts as drawn.
         /// </summary>
-        public static PetalsPillParts PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f, bool decorate = false)
+        public static PetalsPillParts PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f)
         {
             p.Mark("ui.pill.petals");
             TypeStyle s = T.Count;
@@ -773,11 +772,6 @@ namespace Bloomlings.Playtest.Design
                 Glyph(p, "ui.plus", Box.FromCenter(f.CenterX, f.CenterY, g, g), GardenLook.Green);
                 p.PopTransform();
                 p.Hit(Touch(p, pill), onPlus);
-            }
-
-            if (decorate)
-            {
-                Decoration(p, GardenLook.PillDecorationBoxes(parts.Span));
             }
 
             return parts;

@@ -142,7 +142,7 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheClearingButton_HangsUnderItsCard_AndBuyFitsItsParts()
+        public void TheClearingButton_HangsUnderItsCard_AndThePriceFitsIt()
         {
             var slot = new Box(100f, 500f, 390f, 920f);
             Box body = ClearingCard.Body(slot);
@@ -151,15 +151,17 @@ namespace Bloomlings.Client.Tests
             Assert.That(button.Top, Is.LessThan(body.Bottom), "over the body's bottom edge");
             Assert.That(button.Bottom, Is.EqualTo(slot.Bottom).Within(0.5f));
 
-            (Box label, Box lotus, Box price, float scale) = ClearingCard.BuyParts(button, 60f, 100f);
-            Assert.That(scale, Is.LessThanOrEqualTo(1f));
-            Assert.That(label.Right, Is.LessThanOrEqualTo(lotus.Left + 0.01f), "Buy, then the lotus");
-            Assert.That(lotus.Right, Is.LessThanOrEqualTo(price.Left + 0.01f), "then the price");
-            float pad = button.Height * ClearingCard.PadShare;
-            Assert.That(label.Left, Is.GreaterThanOrEqualTo(button.Left + pad - 0.5f));
-            Assert.That(price.Right, Is.LessThanOrEqualTo(button.Right - pad + 0.5f));
+            Assert.That(button.Height, Is.EqualTo(body.Height * 0.3f).Within(0.01f), "1.5 times the cost pill's height (the owner, 2026-10-06)");
 
-            (Box _, Box _, Box _, float wide) = ClearingCard.BuyParts(button, 400f, 400f);
+            (Box lotus, Box price, float scale) = ClearingCard.PriceParts(button, 100f);
+            Assert.That(scale, Is.LessThanOrEqualTo(1f));
+            Assert.That(lotus.Right, Is.LessThanOrEqualTo(price.Left + 0.01f), "the lotus, then the price, no Buy word");
+            float pad = button.Height * ClearingCard.PadShare;
+            Assert.That(lotus.Left, Is.GreaterThanOrEqualTo(button.Left + pad - 0.5f));
+            Assert.That(price.Right, Is.LessThanOrEqualTo(button.Right - pad + 0.5f));
+            Assert.That((lotus.Left + price.Right) / 2f, Is.EqualTo(button.CenterX).Within(0.5f), "centered");
+
+            (Box _, Box _, float wide) = ClearingCard.PriceParts(button, 800f);
             Assert.That(wide, Is.LessThan(1f), "too long: everything shrinks together");
         }
     }

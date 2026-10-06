@@ -186,7 +186,7 @@ namespace Bloomlings.Client.UI.Screens
             // The header row (the owner's request of 2026-10-04): Settings at the left; the large Petals pill centered, with
             // its flowered corners; the profile avatar at the right; the bottom menu last, over the stage.
             screen._settings = (RectTransform)UiKit.RoundIconButton("Settings", root, "ui.settings", onSettings).transform;
-            screen._petals = UiKit.PetalsPill("Petals", root, onStore, align: 0.5f, decorate: true);
+            screen._petals = UiKit.PetalsPill("Petals", root, onStore, align: 0.5f);
 
             // The avatar's button is a clear touch target around it that presses and clicks like a round button; its
             // profile page comes later (no toast on Unity's Home yet).

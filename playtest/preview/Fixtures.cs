@@ -861,7 +861,7 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.2f);
                 Expect(app.NeedsFrames && app.StoreMoving, "the live previews keep the host drawing");
                 ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
-                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, PlaytestText.T("clearing.buy")), "the free pair Chosen, the others Buy");
+                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, NumberText.Group(app.Meta.Clearing.Price)), "the free pair Chosen, the others their price (no Buy word)");
                 petals = app.Meta.Economy.Petals;
                 Box bubbles = ClearingCard.Button(r.ClearingCard(2));
                 Tap(p, bubbles);

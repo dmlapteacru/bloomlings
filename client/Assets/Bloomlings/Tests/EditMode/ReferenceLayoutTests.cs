@@ -502,11 +502,6 @@ namespace Bloomlings.Client.Tests
                     Assert.That(r.Petals.Left - r.Settings.Right, Is.GreaterThanOrEqualTo(0.03f * sw), at + ": the pill clear of Settings");
                     Assert.That(r.Avatar.Left - r.Petals.Right, Is.GreaterThanOrEqualTo(0.03f * sw), at + ": the pill clear of the Avatar");
 
-                    // The pill's flowered corners stay between Settings and the Avatar, even when its amount takes the whole box.
-                    PetalsPillParts full = PetalsPillParts.Fit(r.Petals, r.Petals.Width * 2f, true, 0.5f);
-                    (Box topLeft, Box bottomRight) = GardenLook.PillDecorationBoxes(full.Span);
-                    Assert.That(topLeft.Left, Is.GreaterThan(r.Settings.Right), at + ": the top-left flower clear of Settings");
-                    Assert.That(bottomRight.Right, Is.LessThan(r.Avatar.Left), at + ": the bottom-right flower clear of the Avatar");
                     Box logo = r.LogoPicture();
                     Assert.That(logo.Top + (0.1f * logo.Height), Is.GreaterThanOrEqualTo(r.Header.Bottom - 0.5f), at + ": the logo's letters under the header row");
                     Assert.That(r.Daily.Top, Is.GreaterThan(r.Avatar.Bottom), at + ": the Daily Challenge under the Avatar");
