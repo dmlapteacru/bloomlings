@@ -40,8 +40,9 @@ namespace Bloomlings.Pipeline.Commands
             var forcedClass = new Option<string>("--class") { Description = "A fixed difficulty class: normal, hard or super_hard (showcases are normal)." };
             Option<string> level8 = Cli.Level8();
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Development preview only: use pictures that are not approved yet. Such levels fail validate." };
-            var jobs = new Option<int>("--jobs") { Description = "Generate this many contiguous segments of the range in parallel, then generate again the levels at their seams that break a repetition rule with their neighbours.", DefaultValueFactory = _ => 1 };
-            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, keep, forced, forcedClass, thresholds, pairs, allowDraft, level8, jobs })
+            var jobs = new Option<int>("--jobs") { Description = "Threads: generate this many segments of the range at a time. Without --segments, also the number of segments (contiguous parts of the range, generated in parallel; the levels at their seams that break a repetition rule with their neighbours are then generated again).", DefaultValueFactory = _ => 1 };
+            var segments = new Option<int>("--segments") { Description = "Cut the range into this many contiguous segments (at most one per 50 levels; default: --jobs). The levels depend on the segments and never on --jobs, so a fixed --segments gives the same levels on any machine.", DefaultValueFactory = _ => 0 };
+            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, keep, forced, forcedClass, thresholds, pairs, allowDraft, level8, jobs, segments })
             {
                 command.Options.Add(option);
             }
@@ -97,7 +98,7 @@ namespace Bloomlings.Pipeline.Commands
                         new PicturePicker(library, parse.GetValue(allowDraft)),
                         difficulty,
                         approved.IsApproved,
-                        new DifficultySchedule(0xB100B100UL),
+                        new DifficultySchedule(0xB100B100UL, UnlockRoadmap.ForLevel8(parse.GetValue(level8)!)),
                         UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
                     made.BigLevelThresholds = bigDifficulty;
                     if (!string.IsNullOrEmpty(parse.GetValue(forced)))
@@ -128,8 +129,11 @@ namespace Bloomlings.Pipeline.Commands
                     return made;
                 }
 
-                (GenerationResult result, int seamRepairs) = GenerateRange(NewGenerator, first, last, (ulong)parse.GetValue(seed), history, kept, Math.Max(1, parse.GetValue(jobs)));
-                report["jobs"] = Math.Max(1, parse.GetValue(jobs));
+                int threads = Math.Max(1, parse.GetValue(jobs));
+                int parts = parse.GetValue(segments) > 0 ? parse.GetValue(segments) : threads;
+                (GenerationResult result, int seamRepairs) = GenerateRange(NewGenerator, first, last, (ulong)parse.GetValue(seed), history, kept, parts, threads);
+                report["jobs"] = threads;
+                report["segments"] = Segments(first, last, parts).Count;
                 report["seamRepairs"] = seamRepairs;
 
                 string batch = parse.GetValue(outDir)!;
@@ -170,32 +174,45 @@ namespace Bloomlings.Pipeline.Commands
         }
 
         /// <summary>
-        /// Generates <paramref name="first"/>–<paramref name="last"/> into <paramref name="history"/>. With more than one
-        /// job the range is cut into contiguous segments generated in parallel, each knowing only the fixed history; the
-        /// levels near a segment's start that then break a repetition rule with their neighbours
-        /// (<see cref="LevelGenerator.Conflicts"/>) are generated again between them, until none does. Returns the
-        /// accepted levels (one per level number) and how many were generated again.
+        /// The contiguous segments <paramref name="first"/>–<paramref name="last"/> is cut into: <paramref name="segments"/>
+        /// of them, but at most one per <paramref name="minLength"/> levels (the repetition window,
+        /// <see cref="PicturePicker.RepeatWindow"/>; shorter only in tests) and at least one.
         /// </summary>
-        public static (GenerationResult Result, int SeamRepairs) GenerateRange(Func<LevelGenerator> newGenerator, int first, int last, ulong seed, SortedDictionary<int, LevelDefinition> history, ISet<int> kept, int jobs)
+        public static IReadOnlyList<(int First, int Last)> Segments(int first, int last, int segments, int minLength = PicturePicker.RepeatWindow)
         {
             int count = last - first + 1;
-            int segments = Math.Max(1, Math.Min(jobs, count / PicturePicker.RepeatWindow));
-            if (segments == 1)
+            int n = Math.Max(1, Math.Min(segments, count / Math.Max(1, minLength)));
+            var bounds = new List<(int First, int Last)>();
+            for (int k = 0; k < n; k++)
+            {
+                int a = first + (int)((long)count * k / n);
+                int b = first + (int)((long)count * (k + 1) / n) - 1;
+                bounds.Add((a, b));
+            }
+
+            return bounds;
+        }
+
+        /// <summary>
+        /// Generates <paramref name="first"/>–<paramref name="last"/> into <paramref name="history"/>. With more than one
+        /// segment (<see cref="Segments"/>) the range is cut into contiguous segments generated in parallel on
+        /// <paramref name="jobs"/> threads, each knowing only the fixed history; the levels near a segment's start that then
+        /// break a repetition rule with their neighbours (<see cref="LevelGenerator.Conflicts"/>) are generated again
+        /// between them, until none does. The result depends on the segments only, never on the threads. Returns the
+        /// accepted levels (one per level number) and how many were generated again.
+        /// </summary>
+        /// <param name="minSegmentLength">The shortest segment: the repetition window, shorter only in tests.</param>
+        public static (GenerationResult Result, int SeamRepairs) GenerateRange(Func<LevelGenerator> newGenerator, int first, int last, ulong seed, SortedDictionary<int, LevelDefinition> history, ISet<int> kept, int segments, int jobs, int minSegmentLength = PicturePicker.RepeatWindow)
+        {
+            IReadOnlyList<(int First, int Last)> bounds = Segments(first, last, segments, minSegmentLength);
+            if (bounds.Count == 1)
             {
                 return (newGenerator().Generate(first, last, seed, history, kept), 0);
             }
 
-            var bounds = new List<(int First, int Last)>();
-            for (int k = 0; k < segments; k++)
-            {
-                int a = first + (int)((long)count * k / segments);
-                int b = first + (int)((long)count * (k + 1) / segments) - 1;
-                bounds.Add((a, b));
-            }
-
-            var parts = new GenerationResult[segments];
+            var parts = new GenerationResult[bounds.Count];
             var fixedHistory = new SortedDictionary<int, LevelDefinition>(history);
-            System.Threading.Tasks.Parallel.For(0, segments, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = segments }, k =>
+            System.Threading.Tasks.Parallel.For(0, bounds.Count, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = Math.Max(1, jobs) }, k =>
             {
                 var own = new SortedDictionary<int, LevelDefinition>(fixedHistory);
                 parts[k] = newGenerator().Generate(bounds[k].First, bounds[k].Last, seed, own, kept);
@@ -219,7 +236,7 @@ namespace Bloomlings.Pipeline.Commands
             LevelGenerator repairer = newGenerator();
             int repairs = 0;
             var seamLevels = new List<int>();
-            for (int k = 1; k < segments; k++)
+            for (int k = 1; k < bounds.Count; k++)
             {
                 for (int l = bounds[k].First - PicturePicker.RepeatWindow; l < bounds[k].First + PicturePicker.RepeatWindow; l++)
                 {

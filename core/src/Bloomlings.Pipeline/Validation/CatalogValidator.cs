@@ -627,6 +627,12 @@ namespace Bloomlings.Pipeline.Validation
                         {
                             Error(report, n, role, $"L{n} is the {role} of {mechanic}: no other mechanic may join it (FR-031)");
                         }
+
+                        // The owner, 2026-10-06: a practice level is never Super Hard (the schedule moves that Super Hard on).
+                        if (!isShowcase && level.Difficulty.Class == DifficultyClass.SuperHard)
+                        {
+                            Error(report, n, role, $"L{n} is the practice of {mechanic}: a practice level is never Super Hard (FR-059 as amended)");
+                        }
                     }
                 }
 

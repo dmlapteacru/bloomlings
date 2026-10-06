@@ -10,7 +10,8 @@ R7–R9). It is a .NET 10 tool in `core/src/Bloomlings.Pipeline`, run with
 - **Exit codes**: `0` success, `1` validation failures found, `2` usage or I/O error.
 - **Output**: every command prints a human summary. With `--json` it writes a machine-readable report to stdout.
 - **Determinism**: every command is deterministic for its inputs. Seeds and node budgets are always explicit or taken
-  from the profile.
+  from the profile. `generate` gives the same levels for the same profile, range, seed, segments and history on any
+  machine and with any number of threads (`--jobs`).
 
 ## Commands
 
@@ -18,7 +19,7 @@ R7–R9). It is a .NET 10 tool in `core/src/Bloomlings.Pipeline`, run with
 |---|---|---|---|
 | `pictures import` | Convert indexed PNGs and sidecars into `base-picture.v1` JSON, and compute `structure` | `--src content/pictures/src --out content/pictures/lib` | Picture JSON files, import report |
 | `pictures validate` | Check pictures against the schema: size limits, role/color-group consistency, licence present, review status | `--lib content/pictures/lib` | Report; fails on errors |
-| `generate` | Generate candidates for a level range from a profile (R9) | `--profile content/profiles/<band>.json --levels 501-750 --seed <n> --out content/work/<batch>` | Definitions and validation records |
+| `generate` | Generate candidates for a level range from a profile (R9). The range is cut into `--segments` contiguous parts (at most one per 50 levels; default `--jobs`), generated in parallel on `--jobs` threads; the levels at the seams that break a repetition rule are generated again. The levels depend on the segments, never on the threads | `--profile content/profiles/<band>.json --levels 501-750 --seed <n> --out content/work/<batch>` (`--history <batch>…`, `--keep content/showcase`, `--jobs <n>`, `--segments <n>`) | Definitions, validation records and `rejections.json` (a tray rejection names the score it reached) |
 | `readability` | Compute the variant-pair color distances (normal vision and simulated protanopia, deuteranopia, tritanopia) and grayscale contrast for FR-005 | `--out content/readability`, `--write-provisional` | `pairs-report.json` (and a provisional `approved-pairs.json`) |
 | `solve` | Solve one level or a set; produce a trace, a jam witness and metrics (R8) | `--level <n>` or `--catalog <dir>` (alias `--defs`), `--node-budget <n>` | Validation records |
 | `validate` | Run every FR-080 invariant, plus FR-081 (losable) and FR-083 (similarity), over a set or the whole catalog | `--catalog content/catalog` (alias `--defs <dir>`), `--context content/curated`, `--changed-only` | Report; fails on any violation |

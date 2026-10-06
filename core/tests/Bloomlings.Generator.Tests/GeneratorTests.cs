@@ -132,6 +132,30 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void TrayRejections_NameTheScoreTheTuningReached()
+        {
+            // Hard is out of reach (HardMin 100 000), so every candidate that gets to the tray tuner is rejected there.
+            string band = SmallBand.Replace(@"""maxCandidatesPerLevel"": 16", @"""maxCandidatesPerLevel"": 3", StringComparison.Ordinal);
+            var generator = new LevelGenerator(ProfileLoader.Read(band), new PicturePicker(Library), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed))
+            {
+                ForcedClass = DifficultyClass.Hard,
+                UseBandGuidelines = false,
+            };
+
+            GenerationResult result = generator.Generate(11, 11, Seed, new SortedDictionary<int, LevelDefinition>());
+
+            Assert.That(result.Failed, Is.EqualTo(new[] { 11 }));
+            List<string> tray = result.Rejections.Select(r => r.Reason).Where(r => r.StartsWith("tray:class-", StringComparison.Ordinal)).ToList();
+            Assert.That(tray, Is.Not.Empty, string.Join(", ", result.Rejections.Select(r => r.Reason)));
+            foreach (string reason in tray)
+            {
+                Assert.That(reason, Does.Match(@"^tray:class-normal-not-hard:score-\d+$"));
+                int score = int.Parse(reason.Substring(reason.LastIndexOf('-') + 1), System.Globalization.CultureInfo.InvariantCulture);
+                Assert.That(score, Is.GreaterThan(0).And.LessThan(Thresholds.HardMin));
+            }
+        }
+
+        [Test]
         public void VisibleTopLayer_FollowsThePictureMapping()
         {
             GenerationResult result = Run(SmallBand, 11, 12).Result;
@@ -234,6 +258,110 @@ namespace Bloomlings.Generator.Tests
             // FR-059: per 100 levels about 15–25 Hard and 6–10 Super Hard.
             Assert.That(hard, Is.InRange(150, 250));
             Assert.That(superHard, Is.InRange(60, 100));
+        }
+
+        /// <summary>The catalog's schedule (the seed of <c>generate</c>) puts a Super Hard on L151, the chest's practice.</summary>
+        [Test]
+        public void Schedule_MovesASuperHardOffAPracticeLevel_ToTheNextFreeLevel()
+        {
+            var plain = new DifficultySchedule(0xB100B100UL);
+            var schedule = new DifficultySchedule(0xB100B100UL, UnlockRoadmap.Default);
+            Assert.That(plain.ClassFor(151), Is.EqualTo(DifficultyClass.SuperHard), "the seed's own schedule");
+            Assert.That(schedule.PracticeLevels(), Does.Contain(151));
+
+            Assert.That(schedule.ClassFor(151), Is.Not.EqualTo(DifficultyClass.SuperHard));
+            int moved = Enumerable.Range(152, 10).First(l => schedule.ClassFor(l) == DifficultyClass.SuperHard);
+            Assert.That(plain.ClassFor(moved), Is.Not.EqualTo(DifficultyClass.SuperHard));
+            Assert.That(schedule.ClassFor(151), Is.EqualTo(plain.ClassFor(moved)), "the practice level takes the class of the level the Super Hard moves to");
+            Assert.That(schedule.ClassFor(moved + 1), Is.EqualTo(DifficultyClass.Normal), "relief");
+            for (int level = 11; level <= 2010; level++)
+            {
+                if (level != 151 && level != moved)
+                {
+                    Assert.That(schedule.ClassFor(level), Is.EqualTo(plain.ClassFor(level)), $"L{level}: the rest of the schedule is unchanged");
+                }
+            }
+        }
+
+        [TestCase(0xB100B100UL, "key")]
+        [TestCase(0xB100B100UL, "mystery_pod")]
+        [TestCase(1UL, "key")]
+        [TestCase(7UL, "key")]
+        [TestCase(Seed, "key")]
+        [TestCase(Seed, "mystery_pod")]
+        public void Schedule_NeverPutsSuperHardOnAPracticeLevel_AndKeepsItsRules(ulong seed, string level8)
+        {
+            UnlockRoadmap roadmap = UnlockRoadmap.ForLevel8(level8);
+            var plain = new DifficultySchedule(seed);
+            var schedule = new DifficultySchedule(seed, roadmap);
+            IReadOnlyCollection<int> practices = schedule.PracticeLevels();
+            Assert.That(practices, Has.Count.GreaterThanOrEqualTo(10));
+            foreach (int practice in practices)
+            {
+                Assert.That(schedule.ClassFor(practice), Is.Not.EqualTo(DifficultyClass.SuperHard), $"L{practice} is a practice level");
+            }
+
+            // The triple's practice stays the first Hard (or Super Hard) level after L400, and it is Hard.
+            int triple = MechanicNames.PracticeLevel(MechanicNames.ConnectedTriple, roadmap, schedule.ClassFor)!.Value;
+            Assert.That(practices, Does.Contain(triple));
+            Assert.That(schedule.ClassFor(triple), Is.EqualTo(DifficultyClass.Hard));
+
+            for (int level = 11; level <= 5010; level++)
+            {
+                if (schedule.ClassFor(level) == DifficultyClass.SuperHard)
+                {
+                    Assert.That(level % 25, Is.Not.Zero, $"L{level} is a milestone (FR-059)");
+                    Assert.That(schedule.ClassFor(level + 1), Is.EqualTo(DifficultyClass.Normal), $"relief after L{level}");
+                }
+            }
+
+            // FR-059: every block of 100 from L11 keeps the counts it had before the moves, which the score check judges.
+            for (int start = 11; start + 99 <= 5010; start += 100)
+            {
+                int Count(DifficultySchedule s, DifficultyClass c) => Enumerable.Range(start, 100).Count(l => s.ClassFor(l) == c);
+                Assert.That(Count(schedule, DifficultyClass.Hard), Is.EqualTo(Count(plain, DifficultyClass.Hard)).Within(1), $"Hard in L{start}–{start + 99}");
+                Assert.That(Count(schedule, DifficultyClass.SuperHard), Is.EqualTo(Count(plain, DifficultyClass.SuperHard)).Within(1), $"Super Hard in L{start}–{start + 99}");
+            }
+        }
+
+        [Test]
+        public void TheCatalogSchedule_Holds15To25HardAnd6To10SuperHard_InEveryBlockOf100()
+        {
+            var schedule = new DifficultySchedule(0xB100B100UL, UnlockRoadmap.Default);
+            for (int start = 11; start + 99 <= 5010; start += 100)
+            {
+                int hard = Enumerable.Range(start, 100).Count(l => schedule.ClassFor(l) == DifficultyClass.Hard);
+                int superHard = Enumerable.Range(start, 100).Count(l => schedule.ClassFor(l) == DifficultyClass.SuperHard);
+                Assert.That(hard, Is.InRange(15, 25), $"Hard in L{start}–{start + 99}");
+                Assert.That(superHard, Is.InRange(6, 10), $"Super Hard in L{start}–{start + 99}");
+            }
+        }
+
+        [Test]
+        public void Segments_FixTheLevels_WhateverTheThreads()
+        {
+            Assert.That(Bloomlings.Pipeline.Commands.GenerateCommand.Segments(11, 110, 5), Is.EqualTo(new[] { (11, 60), (61, 110) }), "at most one per 50 levels");
+            Assert.That(Bloomlings.Pipeline.Commands.GenerateCommand.Segments(11, 40, 3), Is.EqualTo(new[] { (11, 40) }));
+            Assert.That(Bloomlings.Pipeline.Commands.GenerateCommand.Segments(11, 16, 3, minLength: 2), Is.EqualTo(new[] { (11, 12), (13, 14), (15, 16) }));
+
+            GenerationProfile profile = ProfileLoader.Read(SmallBand);
+            LevelGenerator NewGenerator() => new LevelGenerator(profile, new PicturePicker(Library), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed))
+            {
+                ForcedClass = DifficultyClass.Normal,
+                UseBandGuidelines = false,
+            };
+
+            (GenerationResult Result, int SeamRepairs) Run(int jobs) => Bloomlings.Pipeline.Commands.GenerateCommand.GenerateRange(
+                NewGenerator, 11, 14, Seed, new SortedDictionary<int, LevelDefinition>(), new HashSet<int>(), segments: 2, jobs: jobs, minSegmentLength: 2);
+
+            // Two segments (L11–12 and L13–14) on one thread, then on two: the same levels, rejections and seam repairs.
+            (GenerationResult one, int oneRepairs) = Run(1);
+            (GenerationResult two, int twoRepairs) = Run(2);
+            Assert.That(one.Accepted, Has.Count.GreaterThanOrEqualTo(3));
+            Assert.That(two.Accepted.Select(l => DefinitionJson.Write(l.Definition)), Is.EqualTo(one.Accepted.Select(l => DefinitionJson.Write(l.Definition))));
+            Assert.That(two.Rejections, Is.EqualTo(one.Rejections));
+            Assert.That(two.Failed, Is.EqualTo(one.Failed));
+            Assert.That(twoRepairs, Is.EqualTo(oneRepairs));
         }
     }
 }

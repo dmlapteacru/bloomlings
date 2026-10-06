@@ -141,8 +141,12 @@ namespace Bloomlings.Generator
                 }
             }
 
+            // The reason names the score the tuning reached (its best, since only harder steps are kept), so a batch's
+            // rejections.json shows how far a candidate stayed from the target class's threshold.
             DifficultyClass reached = DifficultyScorer.Classify(score, thresholds);
-            rejection = reached == target ? "tray:not-losable" : $"tray:class-{reached.ToString().ToLowerInvariant()}-not-{target.ToString().ToLowerInvariant()}";
+            rejection = reached == target
+                ? "tray:not-losable:score-" + score.ToString(CultureInfo.InvariantCulture)
+                : $"tray:class-{reached.ToString().ToLowerInvariant()}-not-{target.ToString().ToLowerInvariant()}:score-{score.ToString(CultureInfo.InvariantCulture)}";
             return null;
         }
 
