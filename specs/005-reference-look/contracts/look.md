@@ -256,7 +256,8 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   the cushion since the owner's 2026-10-06 "make it bigger so they show"; it was 2%; 4% on colored sets), a soft
   shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 40% of the button (`GardenLook.IconRimGlyph`, 0.88 of
   the 46% it had without the rim) with a thin `CreamTop` halo all around it (the shape grown by 0.06). Close is cream
-  with a brown ✕ (no longer red). The booster tiles keep their own squircle and bezel (§3.7); the Petals pill's green +
+  with a brown ✕ (no longer red), as big as the other icon buttons on the cards (`size.icon_button`, 132; it was 96;
+  the owner, 2026-10-06). The booster tiles keep their own squircle and bezel (§3.7); the Petals pill's green +
   and the toggles' knobs stay round.
 - **Speed pill** (`Kit.SpeedPill(p, box, on, action)` / `UiKit.SpeedPill`, replaces `DarkPill`): the icon buttons'
   rounded square in its wood rim, as tall as Pause and wider, with only the `ui.fast` glyph in the middle (▶▶▶: three

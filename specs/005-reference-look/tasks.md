@@ -779,3 +779,6 @@ and contracts/look.md §3.6, §6.10.
   hides its rim while a frame shows); the cream lip under the picture removed (its second stripe at the bottom), a thin
   `wood.line` ring instead; `TheAvatarsBorder_IsTheWoodRim_OrTheFrameInItsPlace_AndThePictureFillsTheRest`; frames 3,
   27, 39, 40 and 41 checked; look.md §6.11 and FR-037 amended.
+- [X] T171 Both builds (the owner, 2026-10-06: "the ✕ must be bigger"): the cards' close button is an icon button's size
+  (`ScreenLayout.Card`: `DesignTokens.Size.IconButton`, 132, was 96), the centered title kept clear of it on both
+  sides; frames 11, 19, 40 and 49 checked.

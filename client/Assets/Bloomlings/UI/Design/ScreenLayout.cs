@@ -274,8 +274,11 @@ namespace Bloomlings.Client.UI.Design
             float padding = DesignTokens.Space.M * u;
             float cardHeight = Math.Min(safe.Height - (80f * u), titleHeight + (contentHeight * u) + padding);
             Box card = Box.FromCenter(safe.CenterX, safe.CenterY, cardWidth, cardHeight);
-            var title = new Box(card.Left + (120f * u), card.Top + (20f * u), card.Right - (120f * u), card.Top + titleHeight);
-            float close = 96f * u;
+            // The close button as big as every other icon button (the owner, 2026-10-06: "make the ✕ bigger"; it was 96),
+            // the centered title kept clear of it on both sides.
+            float close = DesignTokens.Size.IconButton * u;
+            float titleSide = close + (40f * u);
+            var title = new Box(card.Left + titleSide, card.Top + (20f * u), card.Right - titleSide, card.Top + titleHeight);
             var closeBox = new Box(card.Right - close - (22f * u), card.Top + (22f * u), card.Right - (22f * u), card.Top + (22f * u) + close);
             var body = new Box(card.Left + padding, card.Top + titleHeight, card.Right - padding, card.Bottom - padding);
             return new CardRegions(card, title, closeBox, body);
