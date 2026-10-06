@@ -70,3 +70,4 @@ tools/artgen/out/
 
 # tools/heroanim (npm packages; `npm ci` restores them)
 tools/heroanim/node_modules/
+__pycache__/
