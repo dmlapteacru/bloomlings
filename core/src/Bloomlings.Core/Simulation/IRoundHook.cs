@@ -28,7 +28,7 @@ namespace Bloomlings.Core.Simulation
     /// <summary>What a hook sees during one round.</summary>
     internal sealed class RoundContext
     {
-        public RoundContext(LevelState state, int round, ReachabilityResult reach, List<GameEvent> events)
+        public RoundContext(LevelState state, int round, ReachabilityResult reach, List<GameEvent>? events)
         {
             State = state;
             Round = round;
@@ -42,7 +42,8 @@ namespace Bloomlings.Core.Simulation
 
         public ReachabilityResult Reach { get; }
 
-        public List<GameEvent> Events { get; }
+        /// <summary>The event log, or null in a search, which changes the state the same way but builds no events.</summary>
+        public List<GameEvent>? Events { get; }
 
         /// <summary>Set by a hook that changed the state, so the loop runs another round even without claims.</summary>
         public bool Changed { get; set; }

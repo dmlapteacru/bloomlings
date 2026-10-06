@@ -376,9 +376,9 @@ namespace Bloomlings.Solver
                         return true;
                     }
 
-                    LevelSession child = session.Clone();
+                    // The moves are legal, so the child is the state after the tap (unchanged if it were refused).
+                    LevelSession child = session.SearchChild(move) ?? session.Clone();
                     _nodes++;
-                    child.Apply(move);
                     moves++;
                     if (Winnable(child))
                     {

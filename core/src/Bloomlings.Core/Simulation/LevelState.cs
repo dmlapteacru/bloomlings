@@ -40,8 +40,10 @@ namespace Bloomlings.Core.Simulation
             MechanicsData mechanics,
             int[] specialProgress,
             bool[] specialTriggered,
-            StateHasher hasher)
+            StateHasher hasher,
+            int[]? podLookClass)
         {
+            PodLookClass = podLookClass;
             Definition = definition;
             Picture = picture;
             Options = options;
@@ -77,6 +79,15 @@ namespace Bloomlings.Core.Simulation
 
         /// <summary>Catalog index of each pod's variant. Shared between clones.</summary>
         public int[] PodVariantIndex { get; }
+
+        /// <summary>
+        /// For the search's symmetry pruning (<see cref="Search.StateSearch.Moves"/>): per pod, a number shared by exactly
+        /// the pods with the same variant, lock key and connected group, the fixed part of a pod's signature text. Null
+        /// when a lock key or group id holds a character the signature text uses as a separator ('C' in a lock key, '|' in
+        /// either), so that comparing these parts could disagree with comparing the texts; the search then builds the
+        /// texts. Shared between clones.
+        /// </summary>
+        public int[]? PodLookClass { get; }
 
         public PodRuntime[] Pods { get; }
 
@@ -234,7 +245,8 @@ namespace Bloomlings.Core.Simulation
                 mechanics,
                 new int[mechanics.Specials.Length],
                 new bool[mechanics.Specials.Length],
-                new StateHasher());
+                new StateHasher(),
+                LookClasses(podDefs));
             state._hasher.Toggle(state.ComputeIncrementalPart());
             return state;
         }
@@ -253,17 +265,27 @@ namespace Bloomlings.Core.Simulation
                 Tray.Clone(),
                 Slots.Clone(),
                 KeyIds,
-                (bool[])KeyCollected.Clone(),
+                Copy(KeyCollected),
                 Mechanics,
-                (int[])SpecialProgress.Clone(),
-                (bool[])SpecialTriggered.Clone(),
-                _hasher.Clone());
+                Copy(SpecialProgress),
+                Copy(SpecialTriggered),
+                _hasher.Clone(),
+                PodLookClass);
             clone.ExtraSlotUsed = ExtraSlotUsed;
             clone.ShuffleUses = ShuffleUses;
             clone.BoostersUsed = BoostersUsed;
             clone.Status = Status;
             return clone;
         }
+
+        /// <summary>
+        /// The catalog index of a layer's variant: the board's kept index (<see cref="Board.TopCode"/>), or the catalog's
+        /// lookup, which throws as before, for a variant the catalog does not hold.
+        /// </summary>
+        private int VariantIndex(int code, VariantId variant) => code >= 0 ? code : Catalog.IndexOf(variant);
+
+        /// <summary>A copy of a per-state array; an empty one cannot change, so clones share it.</summary>
+        private static T[] Copy<T>(T[] source) => source.Length == 0 ? source : (T[])source.Clone();
 
         /// <summary>The hash recomputed from scratch; equal to <see cref="StateHash"/> at all times (tests check this).</summary>
         public ulong ComputeFullHash() => ComputeIncrementalPart() ^ SlotsHash();
@@ -457,7 +479,7 @@ namespace Bloomlings.Core.Simulation
             int depth = Board.TopDepth(cell);
             VariantId variant = Board.TopLayer(cell);
             bool wasHidden = Board.IsMysteryHidden(cell);
-            _hasher.Toggle(ZobristFeature.CellLayer, cell, depth, Catalog.IndexOf(variant));
+            _hasher.Toggle(ZobristFeature.CellLayer, cell, depth, VariantIndex(Board.TopCode(cell), variant));
             LayerClearResult result = Board.ClearTopLayer(cell);
             if (result.Opened)
             {
@@ -809,6 +831,44 @@ namespace Bloomlings.Core.Simulation
                         $"Exact accounting fails for '{info.Id}': pods need {demand}, the board has {layers} layers (FR-023).");
                 }
             }
+        }
+
+        /// <summary>The <see cref="PodLookClass"/> table, or null when an id could make two different parts print alike.</summary>
+        private static int[]? LookClasses(PodDef[] pods)
+        {
+            var classes = new int[pods.Length];
+            var representatives = new List<PodDef>();
+            for (int i = 0; i < pods.Length; i++)
+            {
+                PodDef pod = pods[i];
+                if ((pod.LockKeyId != null && (pod.LockKeyId.IndexOf('C') >= 0 || pod.LockKeyId.IndexOf('|') >= 0))
+                    || (pod.ConnectedGroupId != null && pod.ConnectedGroupId.IndexOf('|') >= 0))
+                {
+                    return null;
+                }
+
+                int found = -1;
+                for (int k = 0; k < representatives.Count && found < 0; k++)
+                {
+                    PodDef other = representatives[k];
+                    if (other.Variant == pod.Variant
+                        && string.Equals(other.LockKeyId, pod.LockKeyId, StringComparison.Ordinal)
+                        && string.Equals(other.ConnectedGroupId, pod.ConnectedGroupId, StringComparison.Ordinal))
+                    {
+                        found = k;
+                    }
+                }
+
+                if (found < 0)
+                {
+                    found = representatives.Count;
+                    representatives.Add(pod);
+                }
+
+                classes[i] = found;
+            }
+
+            return classes;
         }
 
         private static string[] CollectKeyIds(LevelDefinition definition)

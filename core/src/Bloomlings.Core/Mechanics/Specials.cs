@@ -34,7 +34,11 @@ namespace Bloomlings.Core.Mechanics
 
         public void BeforeAllocation(RoundContext context)
         {
-            context.SpecialProgressAtStart = (int[])context.State.SpecialProgress.Clone();
+            // Only the SpecialProgressed events compare with it, so a search (no events) needs no copy.
+            if (context.Events != null)
+            {
+                context.SpecialProgressAtStart = (int[])context.State.SpecialProgress.Clone();
+            }
         }
 
         public void OnLayerCleared(RoundContext context, int cell, LayerClearResult result, int pod)
@@ -94,7 +98,7 @@ namespace Bloomlings.Core.Mechanics
 
                 if (progress != before[s])
                 {
-                    context.Events.Add(new SpecialProgressed(context.Round, rule.Def.Id, progress, rule.Total));
+                    context.Events?.Add(new SpecialProgressed(context.Round, rule.Def.Id, progress, rule.Total));
                 }
 
                 if (progress >= rule.Total)
@@ -137,7 +141,7 @@ namespace Bloomlings.Core.Mechanics
                     if (state.Board.IsMysteryHidden(cell))
                     {
                         state.RevealMysteryTile(cell);
-                        context.Events.Add(new MysteryTileRevealed(context.Round, state.Board.PosOf(cell), state.Board.TopLayer(cell)));
+                        context.Events?.Add(new MysteryTileRevealed(context.Round, state.Board.PosOf(cell), state.Board.TopLayer(cell)));
                         changed.Add(state.Board.PosOf(cell));
                     }
                 }
@@ -147,7 +151,7 @@ namespace Bloomlings.Core.Mechanics
                 }
             }
 
-            context.Events.Add(new SpecialTriggered(context.Round, rule.Def.Id, changed));
+            context.Events?.Add(new SpecialTriggered(context.Round, rule.Def.Id, changed));
             context.Changed = true;
         }
 
