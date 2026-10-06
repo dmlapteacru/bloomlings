@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 21,
+  "id": "lollipop_05",
+  "legend": {
+    "a": "swirl",
+    "b": "swirl2",
+    "c": "swirl3",
+    "f": "flowers",
+    "g": "grass",
+    "k": "stick",
+    "m": "cloud",
+    "r": "bow",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink swirl",
+      "roleId": "swirl"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange swirl",
+      "roleId": "swirl2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet swirl",
+      "roleId": "swirl3"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stick",
+      "roleId": "stick"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bow",
+      "roleId": "bow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Lollipop 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "sweets"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

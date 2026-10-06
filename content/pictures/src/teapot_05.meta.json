@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "teapot_05",
+  "legend": {
+    "b": "wall",
+    "c": "cup",
+    "d": "table",
+    "l": "lid",
+    "p": "pattern",
+    "t": "teapot",
+    "v": "steam"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Teapot",
+      "roleId": "teapot"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lid",
+      "roleId": "lid"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower pattern",
+      "roleId": "pattern"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cup",
+      "roleId": "cup"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Teapot 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

@@ -1,0 +1,108 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 1, 1, 8, 8, 8, 8, 8, 1, 1, 8, 8, 8, 8, 8],
+    [8, 8, 0, 0, -1, -1, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [0, 1, 2, 3, 4, 5, 6, -1, 0, 0, -1, -1, 6, 8, 8, 8, 2, 1, -1],
+    [-1, 1, 2, 3, 4, 5, 6, -1, 0, 0, 0, 0, 6, 5, 4, 3, 2, 1, 0],
+    [0, 1, 2, 3, 4, 4, 5, 6, 6, 6, 6, 6, 5, 4, 4, 3, 2, 1, 0],
+    [0, -1, 1, 2, 3, 4, 4, 5, 5, 5, 5, 5, 4, 4, 3, 2, 1, -1, 0],
+    [0, 0, 1, 1, 2, 3, 4, 4, 4, 4, 4, 4, 4, 3, 2, 1, 1, 0, 0],
+    [0, 0, 0, 1, 1, 2, 3, 3, 3, 3, 3, 3, 3, 2, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 1, 1, -1, -1, 0, 0],
+    [0, 0, 0, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, -1, -1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, 0, -1, 0, -1, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0],
+    [0, 7, 7, 7, 7, 7, -1, 0, 0, -1, 0, 0, -1, 0, -1, 0, 9, 9, 0],
+    [-1, 7, 7, 7, 7, -1, 0, 0, 0, 0, 7, 7, 7, 7, -1, 9, 9, 9, 0],
+    [0, 0, 7, 7, 0, 0, 0, 0, -1, 0, 7, 7, 7, 0, 0, 9, 9, 9, 0],
+    [-1, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1]
+  ],
+  "height": 24,
+  "id": "rainbow_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red band and flowers",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange band",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green band",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue band",
+      "roleId": "blue"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet band",
+      "roleId": "violet"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yellow band",
+      "roleId": "yellow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.484,
+    "nestingDepth": 4,
+    "regionCount": 43
+  },
+  "subject": "Rainbow 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["things", "sky"]
+  },
+  "version": 1,
+  "width": 19
+}

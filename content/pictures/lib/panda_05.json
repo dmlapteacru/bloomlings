@@ -1,0 +1,95 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 7, 7, 6, 6, 6, 6, 6, 6, 7, 7, 6, 6, 6, 6, 6],
+    [6, 6, 6, 7, 6, 6, 2, 2, 6, 6, 2, 2, 6, 6, 6, 6, 6, 6],
+    [0, 4, 0, 0, -1, 2, 2, 2, 1, 1, 2, 2, 2, 4, 0, 4, 0, -1],
+    [0, 4, 0, 0, -1, 0, 2, 2, 1, 1, 2, 2, 2, 4, 0, 4, 0, 0],
+    [0, 4, -1, -1, -1, 0, 2, 1, 1, 1, 1, 2, 2, 4, 0, 4, 0, -1],
+    [0, -1, -1, -1, 0, 2, 2, 1, 1, 1, 1, 2, 2, 4, -1, 0, -1, 0],
+    [0, 4, 0, -1, 0, 2, 2, 1, 1, 1, 1, 2, 2, 4, -1, 4, -1, 0],
+    [-1, 4, 0, 0, 0, 2, 2, 1, 1, 1, 1, 2, 4, 4, -1, 4, 0, -1],
+    [-1, 4, 0, 0, 0, 2, 2, 1, 1, 1, 1, 2, 4, 4, 0, 4, -1, -1],
+    [0, 0, 0, 0, 0, -1, 1, 1, 1, 1, 1, 1, 4, 4, -1, 0, 0, -1],
+    [0, 4, -1, 0, 0, -1, 1, 1, 2, 2, 1, 1, 4, 4, 4, 4, 0, -1],
+    [0, 4, 0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 1, 4, 5, 5, 0, 0],
+    [-1, 4, -1, 0, -1, 1, 2, 3, 3, 3, 3, 2, 1, 4, -1, 5, 0, -1],
+    [0, 0, 0, -1, 0, 1, 2, 2, 3, 1, 2, 2, 1, 5, 0, 5, 0, -1],
+    [0, 4, -1, 5, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 5, 4, 0, 0],
+    [0, 4, -1, 5, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 5, 4, 0, 0],
+    [0, 4, 0, 0, 0, 2, -1, 0, 0, 5, 5, 5, 2, 0, -1, 4, -1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, -1],
+    [0, -1, 0, -1, 0, 0, 0, -1, -1, 0, 0, 0, -1, -1, -1, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 21,
+  "id": "panda_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Bamboo forest",
+      "roleId": "forest"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Panda",
+      "roleId": "panda"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Patches",
+      "roleId": "patches"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bamboo",
+      "roleId": "bamboo"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bamboo leaves and rings",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.28,
+    "nestingDepth": 5,
+    "regionCount": 46
+  },
+  "subject": "Panda 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "forest"]
+  },
+  "version": 1,
+  "width": 18
+}

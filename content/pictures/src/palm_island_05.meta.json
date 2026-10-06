@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "palm_island_05",
+  "legend": {
+    "b": "bush",
+    "c": "coconut",
+    "d": "sand",
+    "l": "leaves",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun",
+    "w": "sea",
+    "x": "starfish"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Coconuts and boat",
+      "roleId": "coconut"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Starfish and sail",
+      "roleId": "starfish"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Palm island 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "things",
+      "beach"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

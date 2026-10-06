@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "alarm_clock_05",
+  "legend": {
+    "b": "wall",
+    "e": "bell",
+    "f": "face",
+    "h": "hands",
+    "k": "frame",
+    "m": "marks",
+    "t": "table",
+    "z": "ring"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frame and legs",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clock face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hands",
+      "roleId": "hands"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hour marks",
+      "roleId": "marks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bells",
+      "roleId": "bell"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ringing",
+      "roleId": "ring"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Alarm clock 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "things",
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 19
+}
