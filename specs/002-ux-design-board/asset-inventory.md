@@ -34,15 +34,15 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 69 | 0 | 69 |
+| UI kit | 70 | 0 | 70 |
 | Materials | 4 | 0 | 4 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
 | Cosmetics | 7 | 11 | 18 |
-| Visual effects | 10 | 0 | 10 |
+| Visual effects | 12 | 5 | 17 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **217** | **27** | **244** |
+| **All** | **220** | **32** | **252** |
 
 ## Brand
 
@@ -245,6 +245,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.pedestal` | Stone pedestal under the heroes | 2, 3, 15, 16 | Win; milestone; Home; Wardrobe | normal | Medium | no | Launch | UiRaster.Pedestal picture: a warm grey-beige ellipse-topped stone drum with block joints, a crack, moss tufts and a dark outline (the win stands on the owner's painted disc instead when `Backgrounds/win.jpg` exists) |
 | `ui.logo.wood` | Wooden wordmark letters (the stand-in for the owner's logo; its leaves are the owner's `Decor/logo-leaves.png` when it exists, pictures.md D8) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower |
 | `ui.tab.family` | Family tab (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | selected (lighter, joined to the panel); unselected | Small | no | Launch | cream tab with rounded top corners holding the family's 3D hero and its name; the selected one lighter and flowing into the panel below |
+| `ui.card.clearing` | Clearing style card (the Store's Animations tab; spec 005 FR-038) | 17 | Store: Animations | free pair; for sale (cost pill); bought; chosen (check); before L40 (padlock) | Small | no | Launch | the outfit card holding a live preview: a small board of 5 × 3 tiles with its arch and a slot, cleared in the style in a loop |
 | `ui.card.outfit` | Outfit card (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | normal; worn; for sale (cost pill); locked (padlock) | Small | no | Launch | cream card with a beige picture well showing the hero in the item and the name below; the worn one green-tinted with a green border and a check badge; a locked one faded with a padlock badge |
 | `ui.fountain` | Lotus fountain of the drawn Home stage (the stand-in for the owner's Home diorama) | 1, 2 | Splash; Home (early) | normal | Medium | no | Launch | a small stone basin (`ui.pedestal`) with water, two lily pads and the pink lotus, between the heroes on the stone pedestal |
 | `ui.close` | Close glyph | 4, 5, 6, 11 | Cards | normal | Icon | no | Launch | shape `ui.close` |
@@ -284,7 +285,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.nav.lock` | Bottom menu: the padlock badge of a locked place | 2, 5, 6, 17 | Bottom menu (a locked place's icon on the plank); locked notice | locked; pressed (squashes with its icon) | Icon | no | Launch | the outfit cards' padlock badge (`Kit.LockBadge`): a domed cream disc in a `cream.line` ring with the brown `ui.lock`, over a soft shadow, 0.34 of the icon's side at its lower right inside the plank's band |
 | `ui.locked.notice` | Locked notice: "Available from level N" on a locked place's page | 5, 6, 17 | The Store, Wardrobe, Leaderboard and Collection pages (before their unlock) | Shop; Wardrobe; Leaderboard; Collection | Large | no | Launch | the place's owner icon (or its stand-in glyph) 0.4 of the area's width with the padlock badge on its lower right, then "Available from level N" in `type.title` `ink.brown` and "Keep playing to unlock it!" in `type.body` `ink.brown_soft`, centered |
 | `ui.avatar` | Profile avatar picture (the owner's `Avatars/*.jpg`, pictures.md I; spec 005 FR-037) | 2, 3, 5 | Home's avatar button; the profile page; its edit card; the player's own leaderboard row | each of the 14 avatars; owned; for sale (price pill); picked (check) | Small | no | Launch | the profile hero (`char.hero3d.bloom`) on the soft green middle while the picture is missing |
-| `ui.achievement` | Achievement tile (placeholder until the owner names the achievements; spec 005 FR-037) | 2 | The profile page's Achievements | locked placeholder | Small | no | Launch | a parchment well with a padlock badge (`ui.lock`) and "Coming soon" |
+| `ui.achievement` | Achievement tile (Green Thumb, Picture Keeper, Daily Gardener; spec 005 FR-037) | 2 | The profile page's Achievements | before bronze (padlock); bronze; silver; gold (check) | Small | no | Launch | a parchment well with the trophy (`ui.trophy`) in its tier's medal color (`medal.bronze`, `medal.silver`, `medal.gold`; faded before bronze) and the count toward the next tier, the name under it |
 | `ui.promo.no_ads` | Home promo scene: No Ads (the owner's layers `Decor/promo-noads-*.png`: the stand, Sprig, the crossed AD sign, the lotus) | 2, 3 | Home (left, under the logo, until Remove Ads is owned); the Remove Ads card | idle; attention (Sprig pushes the sign off, a lotus blooms, both come back); pressed | Medium | no | Launch | the label "No Ads" on a wooden sign (`ui.sign.wood`) until the pictures exist |
 | `ui.promo.daily` | Home promo scene: the Daily Reward (the owner's layers `Decor/promo-daily-*.png`: the stand, the album closed and open, the flower stamp, the petals) | 3 | Home (right, under the logo, from the Daily Reward's unlock) | idle; attention while the reward waits (the album opens, the stamp presses, petals burst); pressed | Medium | no | Launch | the label "Daily" on a wooden sign (`ui.sign.wood`) until the pictures exist |
 
@@ -354,6 +355,13 @@ size and inputs give the same pixels. Painted 9-slice art may replace them (spec
 | `fx.shuffle_swirl` | Shuffle swirl | 14 | Tray | swirl | Medium | no | Launch | pods spinning in place |
 | `fx.burst` | Bloom Burst blast | 9, 14 | Board | blast | Medium | no | Launch | pulsing targets and sparkles |
 | `fx.win_shine` | Finished picture shine | 15 | Win | sweep | Large | no | Launch | a light band sweeping the picture |
+| `fx.clear.blossom` | Clearing style Blossom (free) | 7 | Board: Levels 1–10 and odd levels; the Store's preview | walk; the tile sinks turning; a flower opens; it fades into the picture; neighbours sway | Medium | yes | Launch | the walker hops once and sinks into its tile; a five-petal flower (white rim, the variant's lighter color, a golden middle) opens with an overshoot and fades with a sparkle |
+| `fx.clear.munchers` | Clearing style Munchers (free) | 7 | Board: even levels from 12; the Store's preview | walk; climb; three bites with crumbs; gulp; waddle home full; hop into the arch | Medium | yes | Launch | the walker sits on its tile, which shrinks from the top in three bites; small rounded crumbs in the variant color fly and fall; it walks home wider and lower |
+| `fx.clear.fireflies` | Clearing style Fireflies (bought) | 7, 17 | Board (when chosen); the Store's preview | walk; the tile glows; it breaks into fireflies; they hover and swarm to the slot | Medium | yes | Later | twelve golden dots with a soft glow and a three-dot trail, twinkling, on curves to the slot |
+| `fx.clear.bubbles` | Clearing style Bubbles (bought) | 7, 17 | Board (when chosen); the Store's preview | walk; blow a bubble round the tile; float on a wave to the slot; pop | Medium | yes | Later | a pale glass disc with a pink rainbow rim, a white rim and highlights, wobbling, the tile turning inside; a ring and droplets as it pops |
+| `fx.clear.pushers` | Clearing style Pushers (bought) | 7, 17 | Board (when chosen); the Store's preview | walk; step behind the tile; push it home tumbling a cell at a time; it hops from the arch into the slot | Medium | yes | Later | the tile turns a quarter and lifts a little on each cell, landing with a squash, its shadow under it; the walker leans in behind |
+| `fx.clear.fireworks` | Clearing style Fireworks (bought) | 7, 17 | Board (when chosen); the Store's preview | walk; the tile swells white; it pops; four sparkles arc to the slot | Medium | yes | Later | a white flash and a ring of dots, then sparkles (fx.sparkle) with a colored glow on arcs to the slot |
+| `fx.clear.parade` | Clearing style Confetti Parade (bought) | 7, 17 | Board (when chosen); the Store's preview | small walkers with a dot trail; two hops on the tile; squash and stretch; a pop into confetti and a ring | Medium | yes | Later | ten rotating confetti strips (gold, the variant color, pink) with a white edge and a white ring |
 
 ## Typography
 

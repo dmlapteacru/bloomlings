@@ -178,6 +178,19 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void BlossomsRestore_SparklesOrSplashesDropletsForTheDropFamily()
+        {
+            var flower = new FxList();
+            ClearLook.Restore(flower, ClearStyle.Blossom, new ClearFade((2.5f, 2.5f), VariantId.Flower, 10f, null), 10.2f);
+            Assert.That(flower.Items.Any(i => i.Shape == "fx.sparkle") && flower.Items.All(i => i.Shape != "fx.droplet"), Is.True);
+
+            var dew = new FxList();
+            ClearLook.Restore(dew, ClearStyle.Blossom, new ClearFade((2.5f, 2.5f), VariantId.Dew, 10f, null), 10.2f);
+            Assert.That(dew.Items.Count(i => i.Shape == "fx.droplet"), Is.EqualTo(2), "a Drop-family tile splashes");
+            Assert.That(dew.Items.All(i => i.Shape != "fx.sparkle"), Is.True);
+        }
+
+        [Test]
         public void Blossom_SwaysTheNeighboursOfAJustOpenedFlower()
         {
             var fades = new List<ClearFade> { new ClearFade((2.5f, 2.5f), VariantId.Flower, 10f, null) };

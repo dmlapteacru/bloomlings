@@ -157,7 +157,18 @@ namespace Bloomlings.Client.UI.Design
                     Flower(list, x, y, 1.15f * (1f - (0.35f * fadeOut)), 40f + (6f * (float)Math.Sin(k * Math.PI * 3f)), color);
                     list.Pop();
                     float sp = Clamp01(k / 0.8f);
-                    list.Shape("fx.sparkle", Box.FromCenter(x + 0.3f, y - 0.45f - (0.25f * sp), 0.4f, 0.4f), Rgba.White.WithAlpha(1f - sp));
+                    if (IsDrop(fade.Variant))
+                    {
+                        // The Drop family's tiles splash two droplets instead (fx.droplet).
+                        Rgba splash = color.Lighten(0.72f).WithAlpha(1f - sp);
+                        float size = 0.35f + (0.4f * sp);
+                        list.Shape("fx.droplet", Box.FromCenter(x - 0.2f, y - 0.1f - (0.3f * sp), size * 0.6f, size * 0.6f), splash);
+                        list.Shape("fx.droplet", Box.FromCenter(x + 0.22f, y - 0.2f - (0.3f * sp), size * 0.5f, size * 0.5f), splash);
+                    }
+                    else
+                    {
+                        list.Shape("fx.sparkle", Box.FromCenter(x + 0.3f, y - 0.45f - (0.25f * sp), 0.4f, 0.4f), Rgba.White.WithAlpha(1f - sp));
+                    }
                 }
             }
             else if (style == ClearStyle.Parade)
@@ -919,6 +930,9 @@ namespace Bloomlings.Client.UI.Design
         }
 
         private static Box TileAt((float X, float Y) center) => Box.FromCenter(center.X, center.Y, TileSide, TileSide);
+
+        private static bool IsDrop(VariantId variant) =>
+            VariantCatalog.Default.TryGet(variant, out VariantInfo info) && info.Family == Family.Drop;
 
         private static Rgba ColorOf(VariantId variant) =>
             VariantCatalog.Default.TryGet(variant, out VariantInfo info) ? Rgba.FromHex(info.ColorHex) : DesignTokens.Colors.InkBrown;

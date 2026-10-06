@@ -1476,7 +1476,7 @@ slot):
 
 | Style | Slot | Out | Act | Back | Fin | Look |
 |---|---|---|---|---|---|---|
-| Blossom (free) | `fx.clear.blossom` | 1.1n | 1.4 | 0 | 0 | the Bloomling hops onto its tile and sinks into it; the tile sinks turning 18° to half and fades; a five-petal flower of the variant's color opens (overshooting) and, after the clear, fades into the picture over 0.9 s with a white `fx.sparkle`; the neighbours within 2.5 cells sway up to 7° about their feet |
+| Blossom (free) | `fx.clear.blossom` | 1.1n | 1.4 | 0 | 0 | the Bloomling hops onto its tile and sinks into it; the tile sinks turning 18° to half and fades; a five-petal flower of the variant's color opens (overshooting) and, after the clear, fades into the picture over 0.9 s with a white `fx.sparkle` (a Drop-family tile splashes two `fx.droplet` of its color lightened 0.72 instead); the neighbours within 2.5 cells sway up to 7° about their feet |
 | Munchers (free) | `fx.clear.munchers` | 0.5n | 1.1 | 0.6n | 0.3 | it climbs on the tile and eats it in three bites (the tile squashes by each), crumbs of the variant's color scattering, then waddles home round and full |
 | Fireflies | `fx.clear.fireflies` | 0.9n | 0.4 | 0 | 0.2n + 1 | the tile glows `garden.glow` and breaks into `fx.firefly` motes with `fx.firefly_glow` halos that hover, then drift in a trailing swarm to the slot |
 | Bubbles | `fx.clear.bubbles` | 0.9n | 0.5 | 0 | 0.2n + 0.9 | it blows an `fx.glass` bubble (an `fx.glass_rim` ring with a white glint) round the tile, which floats on a lazy wave to the slot and pops |
