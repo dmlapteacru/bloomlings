@@ -90,6 +90,7 @@ purchase.buy,Buy
 purchase.balance,You have {0} Petals
 purchase.store_next,Your app store confirms the payment next
 purchase.avatar,this avatar
+purchase.price_unknown,the store's price
 pause.title,Paused
 pause.resume,Resume
 pause.leave,Leave

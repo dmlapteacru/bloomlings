@@ -252,6 +252,41 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
+            if (editor.NeedsBuying)
+            {
+                // "Buy for N" asks the purchase confirmation first (spec 005 FR-040): the avatar is bought only on its Buy;
+                // short Petals say so without asking.
+                _confirm ??= UiKit.PurchaseCard(_root.transform.parent);
+                AvatarItem avatar = editor.Avatar;
+                long petals = App.AppServices.Current != null && App.AppServices.Current.TryGet(out Services.Economy.EconomyService? economy) && economy != null ? economy.Petals : editor.Price;
+                _confirm.ShowPetals(
+                    PurchaseOffer.ForPetals(Loc.T("purchase.avatar"), editor.Price),
+                    petals,
+                    well =>
+                    {
+                        ProfileAvatar picture = ProfileAvatar.Create("Avatar", well);
+                        UiFactory.Stretch(picture.Rect);
+                        picture.Show(null, null, avatar);
+                    },
+                    () => Finish(editor),
+                    () => Say(Loc.T("gameplay.not_enough_petals")));
+                return;
+            }
+
+            Finish(editor);
+        }
+
+        // The purchase confirmation of an avatar, made when first asked (spec 005 FR-040).
+        private PurchaseCardView? _confirm;
+
+        /// <summary>The main button's outcome, once a purchase is confirmed.</summary>
+        private void Finish(ProfileEditor editor)
+        {
+            if (_editor != editor)
+            {
+                return;
+            }
+
             switch (editor.Confirm())
             {
                 case ProfileOutcome.Saved:

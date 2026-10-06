@@ -30,19 +30,26 @@ namespace Bloomlings.Client.UI
             return canvas;
         }
 
+        /// <summary>
+        /// The scene's EventSystem, made when there is none, with its drag threshold at <c>touch.slop</c> in the screen's
+        /// pixels (spec 005 FR-041, <see cref="UiKit.ApplyTouchSlop"/>): a finger on a page that scrolls drags it past
+        /// 10 dp and never taps.
+        /// </summary>
         public static void EnsureEventSystem()
         {
-            if (EventSystem.current != null || UnityEngine.Object.FindAnyObjectByType<EventSystem>() != null)
+            EventSystem? system = EventSystem.current != null ? EventSystem.current : UnityEngine.Object.FindAnyObjectByType<EventSystem>();
+            if (system == null)
             {
-                return;
+                var go = new GameObject("EventSystem", typeof(EventSystem));
+#if ENABLE_INPUT_SYSTEM
+                go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
+#else
+                go.AddComponent<StandaloneInputModule>();
+#endif
+                system = go.GetComponent<EventSystem>();
             }
 
-            var go = new GameObject("EventSystem", typeof(EventSystem));
-#if ENABLE_INPUT_SYSTEM
-            go.AddComponent<UnityEngine.InputSystem.UI.InputSystemUIInputModule>();
-#else
-            go.AddComponent<StandaloneInputModule>();
-#endif
+            UiKit.ApplyTouchSlop(system);
         }
 
         public static RectTransform CreateRect(string name, Transform parent)
