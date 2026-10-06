@@ -1,0 +1,4 @@
+# Every text file is stored and checked out with "\n" line endings on every OS: the content pipeline writes canonical
+# JSON with "\n" (CanonicalJson), the golden replays and level files are compared byte for byte, and the owner builds
+# the level catalog on Windows, where Git would otherwise check them out with "\r\n". Binary files are detected.
+* text=auto eol=lf
