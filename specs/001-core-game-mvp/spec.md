@@ -125,6 +125,18 @@ a default or asks a question.
   a line, 0.42 s apart, and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
   its way. The backlog speed-up waits for 60 s of backlog (research R4). 2× still doubles the clock (FR-069).
   Presentation only: no outcome changes.
+- **Q: Must a person approve every base picture?**
+  A: No (FR-084 as amended). The owner: "I don't think there is any point in me approving pictures, the rules can be
+  rewritten. I checked Levels 1 to 10 and played many other levels, almost 400 of them; the pictures shown suit me
+  conceptually: a flower, a frog, a sailboat and so on." The procedural pictures are approved as a style, so a picture
+  is approved by the automated picture checks: every role used and at least 5 cells (the smallest pod), a launch variant
+  for every role's color group, 75–95% occupancy (FR-008) and computed structure metrics. `pictures import` approves a
+  draft that passes; `validate` keeps refusing a level on a picture that is not approved.
+- **Q: How far must the catalog reach?**
+  A: The whole run: "we must be ready to generate 5000+ levels; the range just needs to grow to 5000 with different
+  pictures. A house, a castle, a ship, a boat, a ball: anything at all." The picture library grows with many new
+  subjects beyond the garden (homes and buildings, vehicles, toys, food, animals, everyday objects), drawn in the same
+  procedural style, and the catalog is generated and validated for Levels 1–5000 (FR-006, FR-083, FR-084).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -606,7 +618,7 @@ skin. Complete the daily challenge. Open the Collection.
   | 101–500 | Solver plus manual review of every level |
   | 501–5000+ | Solver plus automated invariants plus human sampling |
 
-  Milestone, Hard and Super Hard levels MUST get stronger review in every tier. Every base picture MUST be reviewed by a person for recognizability and gameplay usability before any level uses it. Pictures may be hand-drawn, generated, or generated and then edited.
+  Milestone, Hard and Super Hard levels MUST get stronger review in every tier. Every base picture MUST pass the automated picture checks before any level uses it *(amended 2026-10-06, the owner: it was a person's review for recognizability and gameplay usability; the owner approved the procedural style as a whole)*: every role is used and keeps at least the smallest pod's 5 cells, every role's color group has a launch variant, the occupancy is 75–95% (FR-008) and the structure metrics are computed. A picture that passes is approved; a person MAY still reject one. Pictures may be hand-drawn, generated, or generated and then edited.
 - **FR-085**: Economy values, ad cadence, rewards, feature flags and store offers MUST be tunable remotely without an app release. Core puzzle rules and shipped level definitions MUST NOT be remotely mutable, except through versioned content updates.
 - **FR-086**: The team MUST be able to see per-level start, win, jam and booster-use rates for difficulty tuning. Every crash or error report MUST include the app version, level number and content version.
 

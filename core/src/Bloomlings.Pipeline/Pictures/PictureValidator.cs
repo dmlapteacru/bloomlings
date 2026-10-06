@@ -15,8 +15,9 @@ namespace Bloomlings.Pipeline.Pictures
 
     /// <summary>
     /// <c>pictures validate</c> (T074): the embedded base-picture schema (JsonSchema.Net), "7 ≤ width ≤ 14, 8 ≤ height ≤ 16",
-    /// "At least 2 roles; each role has exactly one color group", a licence, and the review status: only
-    /// <c>approved</c> pictures are usable (FR-084, FR-091).
+    /// "At least 2 roles; each role has exactly one color group", a licence, the automated picture checks
+    /// (<see cref="PictureChecks"/>) and the review status: only <c>approved</c> pictures are usable (FR-084 as amended,
+    /// FR-091).
     /// </summary>
     public static class PictureValidator
     {
@@ -74,57 +75,22 @@ namespace Bloomlings.Pipeline.Pictures
                 errors.Add("the licence is missing (FR-091)");
             }
 
-            var used = new bool[picture.Roles.Count];
-            foreach (IReadOnlyList<int> row in picture.Grid)
+            // The automated picture checks (FR-084 as amended): what a draft misses keeps it from being approved on import.
+            IReadOnlyList<string> problems = PictureChecks.Problems(picture);
+            foreach (string problem in problems)
             {
-                foreach (int cell in row)
-                {
-                    if (cell >= 0)
-                    {
-                        used[cell] = true;
-                    }
-                }
-            }
-
-            for (int i = 0; i < picture.Roles.Count; i++)
-            {
-                PictureRole role = picture.Roles[i];
-                if (!used[i])
-                {
-                    warnings.Add($"role '{role.RoleId}' is not used by the grid");
-                }
-
-                if (!HasLaunchVariant(role.ColorGroup))
-                {
-                    warnings.Add($"role '{role.RoleId}' ({role.ColorGroup}) has no launch variant; usable only after a pool expansion");
-                }
-            }
-
-            if (picture.Structure == null)
-            {
-                warnings.Add("structure metrics are missing (run pictures import)");
+                warnings.Add(problem);
             }
 
             bool approved = picture.Review.Status == ReviewStatus.Approved;
             if (!approved)
             {
-                warnings.Add($"review status is {picture.Review.Status}: unusable until approved (FR-084)");
+                warnings.Add(picture.Review.Status == ReviewStatus.Draft
+                    ? "draft: it does not pass the automated picture checks yet, so it is unusable (FR-084)"
+                    : $"review status is {picture.Review.Status}: unusable (FR-084)");
             }
 
             return new PictureReport(file, picture.Id, errors, warnings, errors.Count == 0 && approved);
-        }
-
-        private static bool HasLaunchVariant(ColorGroup group)
-        {
-            foreach (VariantInfo info in VariantCatalog.Default.All)
-            {
-                if (info.ColorGroup == group && info.Status == VariantStatus.Launch)
-                {
-                    return true;
-                }
-            }
-
-            return false;
         }
     }
 }

@@ -12,7 +12,7 @@
     "s": "sky"
   },
   "review": {
-    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
     "status": "draft"
   },
   "roles": [

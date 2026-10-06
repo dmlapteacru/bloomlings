@@ -22,8 +22,9 @@
   "height": 15,
   "id": "frog_05",
   "review": {
-    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
-    "status": "draft"
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
   },
   "roles": [
     {

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Procedural sketches of garden-world base pictures (T094).
 
-Writes content/pictures/src/<id>.grid.txt and <id>.meta.json for `pictures import`. Every picture is a draft: a person
-must review it for recognizability and usability and set review.status to approved (FR-084, SC-015). Re-running the
-script with the same seed rewrites the same files; it never touches pictures whose sidecar is already approved.
+Writes content/pictures/src/<id>.grid.txt and <id>.meta.json for `pictures import`. Every sidecar is a draft, and
+`pictures import` approves each one that passes the automated picture checks (PictureChecks; FR-084 as amended on
+2026-10-06: the owner approved the procedural style, so no person reviews each picture). Re-running the script with the
+same seed rewrites the same files; it never touches pictures whose sidecar is already approved.
 
 Roles use only the four launch color groups (green, pink_purple, blue_cyan, brown_orange) so that every picture can be
 mapped with launch variants (FR-006). Bands (the Level Band Guidelines as amended on 2026-10-05, bigger boards from
@@ -475,7 +476,7 @@ def main(seed=2026):
                 'roles': [dict({'roleId': role[1], 'name': role[2], 'colorGroup': role[3]}, **({'isBackground': True} if role[4] else {})) for role in roles],
                 'finishedLook': {'mode': 'auto'},
                 'tags': {'themes': themes, 'bands': [band]},
-                'review': {'status': 'draft', 'notes': 'Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).'},
+                'review': {'status': 'draft', 'notes': 'Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).'},
                 'source': {'kind': 'generated', 'origin': 'content/pictures/tools/sketch_pictures.py', 'licence': 'owned'},
             }
             with open(meta_path, 'w') as f:

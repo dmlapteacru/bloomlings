@@ -99,8 +99,9 @@ namespace Bloomlings.Pipeline.Tests
         }
 
         [Test]
-        public void Validator_FlagsDraftsAndSchemaErrors()
+        public void Validator_FlagsADraftThatFailsTheChecks_AndSchemaErrors()
         {
+            // A full grid (no open cell) is outside FR-008's 75–95% occupancy: the draft stays a draft.
             WriteMeta("pond", "\"legend\": {\"s\": \"sky\", \"l\": \"lily\", \"w\": \"water\"},", status: "draft");
             File.WriteAllText(Path.Combine(_folder, "pond.grid.txt"), string.Join("\n", Enumerable.Repeat("sswwllss", 8)));
             string lib = Path.Combine(_folder, "lib");
@@ -110,8 +111,31 @@ namespace Bloomlings.Pipeline.Tests
             var reports = PictureValidator.ValidateFolder(lib).ToDictionary(r => Path.GetFileNameWithoutExtension(r.File));
 
             Assert.That(reports["pond"].Errors, Is.Empty);
-            Assert.That(reports["pond"].Usable, Is.False, "draft pictures are unusable until approved");
+            Assert.That(reports["pond"].Usable, Is.False, "a draft that fails the automated checks is unusable");
+            Assert.That(reports["pond"].Warnings, Has.Some.Contains("occupancy"));
             Assert.That(reports["broken"].Errors, Is.Not.Empty);
+        }
+
+        [Test]
+        public void Import_ApprovesADraftThatPassesTheAutomatedChecks()
+        {
+            // FR-084 as amended on 2026-10-06: no person reviews the procedural pictures; the checks approve them.
+            WriteMeta("lily", "\"legend\": {\"s\": \"sky\", \"l\": \"lily\", \"w\": \"water\"},", status: "draft");
+            string[] rows = { ".swwlls.", "sswwllss", "sswwllss", "sswwllss", "sswwllss", "sswwllss", "sswwllss", ".s.ww.s." };
+            File.WriteAllText(Path.Combine(_folder, "lily.grid.txt"), string.Join("\n", rows));
+
+            BasePicture picture = PictureImporter.Import(Path.Combine(_folder, "lily.meta.json"));
+
+            Assert.That(PictureChecks.Problems(picture), Is.Empty);
+            Assert.That(picture.Review.Status, Is.EqualTo(ReviewStatus.Approved));
+            Assert.That(picture.Review.Reviewer, Is.EqualTo(PictureChecks.Reviewer));
+
+            // A role under the smallest pod keeps a draft a draft.
+            string[] thin = { ".sssss..", "ssswssss", "sssssssl", "llllllll", "llllllll", "ssssllll", "ssssllll", ".sss.ss." };
+            File.WriteAllText(Path.Combine(_folder, "lily.grid.txt"), string.Join("\n", thin));
+            BasePicture draft = PictureImporter.Import(Path.Combine(_folder, "lily.meta.json"));
+            Assert.That(draft.Review.Status, Is.EqualTo(ReviewStatus.Draft));
+            Assert.That(PictureChecks.Problems(draft), Has.Some.Contains("'water' has 1 cells"));
         }
 
         private void WriteMeta(string id, string extra, string status = "approved")

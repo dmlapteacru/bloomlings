@@ -14,7 +14,8 @@ namespace Bloomlings.Pipeline.Pictures
     /// <c>pictures import</c> (T073): reads <c>&lt;id&gt;.meta.json</c> (base-picture.v1 without <c>grid</c> and
     /// <c>structure</c>, plus an optional <c>legend</c>) with <c>&lt;id&gt;.png</c> or <c>&lt;id&gt;.grid.txt</c>, and
     /// writes <c>&lt;id&gt;.json</c> with the grid (rows bottom first) and the structure metrics. For a PNG, palette index
-    /// i below the role count is role i, <c>roles.length</c> is EMPTY and <c>roles.length + 1</c> is STONE.
+    /// i below the role count is role i, <c>roles.length</c> is EMPTY and <c>roles.length + 1</c> is STONE. A draft that
+    /// passes the automated picture checks is approved by them (<see cref="PictureChecks"/>, FR-084 as amended).
     /// </summary>
     public static class PictureImporter
     {
@@ -121,7 +122,7 @@ namespace Bloomlings.Pipeline.Pictures
 
             meta["grid"] = grid;
             BasePicture picture = BasePictureJson.Read(CanonicalJson.Write(meta, indented: false));
-            return picture with { Structure = StructureMetrics.Compute(picture) };
+            return PictureChecks.ApproveIfPassing(picture with { Structure = StructureMetrics.Compute(picture) });
         }
 
         private static int[][] FromPng(IndexedImage image, int roleCount, string name)
