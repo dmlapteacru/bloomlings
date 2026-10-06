@@ -34,14 +34,8 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const string AvatarFolder = "Avatars";
 
-        /// <summary>The asset slot every avatar picture fills.</summary>
+        /// <summary>The asset slot every avatar picture fills (the whole avatar disc inside its ring: <see cref="AvatarLook.Picture"/>).</summary>
         public const string AvatarSlot = "ui.avatar";
-
-        /// <summary>The share of an avatar disc's diameter (the cream button) that its round picture takes.</summary>
-        public const float AvatarPictureShare = 0.86f;
-
-        /// <summary>The round picture's box in an avatar disc: <see cref="AvatarPictureShare"/> of it, centered.</summary>
-        public static Box AvatarPicture(Box disc) => Box.FromCenter(disc.CenterX, disc.CenterY, disc.Width * AvatarPictureShare, disc.Height * AvatarPictureShare);
 
         /// <summary>B1: the Home garden diorama, without the heroes.</summary>
         public const string Home = "home";

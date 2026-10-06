@@ -260,6 +260,54 @@ namespace Bloomlings.Client.Tests
             Assert.That(Luminance(medallion, 96, 48, 48), Is.GreaterThan(Luminance(medallion, 96, 48, 48 - 37)), "a lighter face in a darker rim");
         }
 
+        /// <summary>
+        /// The five drawn profile frames (spec 005 FR-037 as amended 2026-10-06): each a ring over the avatar disc's edge,
+        /// opaque on the edge all round, the avatar's picture left clear in the middle and the corners transparent, the
+        /// same bytes each time, and each frame different from the others.
+        /// </summary>
+        [Test]
+        public void TheProfileFrames_AreRingsOverTheDiscsEdge_EachItsOwn()
+        {
+            const int size = 160;
+            int edge = (int)Math.Round(AvatarLook.FrameEdge * size);
+            int middle = size / 2;
+            var pictures = ProfileFrames.All.Select(style => (Style: style, Pixels: UiRaster.ProfileFrame(size, style))).ToList();
+            Assert.That(pictures.Count, Is.EqualTo(5));
+            foreach ((ProfileFrameStyle style, byte[] pixels) in pictures)
+            {
+                Assert.That(pixels.Length, Is.EqualTo(size * size * 4), style.ToString());
+                Assert.That(UiRaster.ProfileFrame(size, style), Is.EqualTo(pixels), style + ": the same bytes each time");
+                Assert.That(Alpha(pixels, size, middle, middle), Is.EqualTo(0), style + ": the picture shows in the middle");
+                Assert.That(Alpha(pixels, size, middle, middle - (edge / 2)), Is.EqualTo(0), style + ": and halfway to the edge");
+                Assert.That(Alpha(pixels, size, 0, 0), Is.EqualTo(0), style + ": a corner");
+                Assert.That(Alpha(pixels, size, size - 1, size - 1), Is.EqualTo(0), style + ": a corner");
+                for (int k = 0; k < 16; k++)
+                {
+                    double a = (k + 0.5) * Math.PI / 8;
+                    int x = middle + (int)Math.Round(edge * Math.Cos(a));
+                    int y = middle + (int)Math.Round(edge * Math.Sin(a));
+                    Assert.That(Alpha(pixels, size, x, y), Is.GreaterThan(200), $"{style}: the disc's edge covered at {k * 22.5 + 11.25:0.##}°");
+                }
+            }
+
+            for (int i = 0; i < pictures.Count; i++)
+            {
+                for (int j = i + 1; j < pictures.Count; j++)
+                {
+                    Assert.That(pictures[i].Pixels, Is.Not.EqualTo(pictures[j].Pixels), pictures[i].Style + " and " + pictures[j].Style);
+                }
+            }
+
+            Assert.That(ProfileFrames.All.Select(ProfileFrames.Slot).Distinct().Count(), Is.EqualTo(5), "a slot each");
+            foreach (ProfileFrameStyle style in ProfileFrames.All)
+            {
+                Assert.That(AssetSlots.Has(ProfileFrames.Slot(style)), Is.True, ProfileFrames.Slot(style));
+                Assert.That(ProfileFrames.StyleOf(ProfileFrames.ShapeOf(style)), Is.EqualTo(style), "its catalog shape names it");
+            }
+
+            Assert.That(ProfileFrames.StyleOf("frame"), Is.Null, "the plain ring stays the tinted shape");
+        }
+
         private static Rgba Color(string iconId) => Rgba.FromHex(VariantCatalog.Default.All.First(v => v.IconId == iconId).ColorHex);
 
         private static int Alpha(byte[] pixels, int width, int x, int y) => pixels[(((y * width) + x) * 4) + 3];

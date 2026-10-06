@@ -47,6 +47,29 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void CatalogRules_FreeItemsAreProfileItems_NeitherGivenNorSold()
+        {
+            var catalog = new CosmeticCatalog(new[]
+            {
+                new CosmeticItem("frame.wood_ring", CosmeticKind.Frame, "Wooden Ring", "wood_ring", "#F1CD98", false, Free: true),
+                new CosmeticItem("frame.sold", CosmeticKind.Frame, "Sold", "frame", "#F1CD98", false, 100, Free: true),
+                new CosmeticItem("frame.given", CosmeticKind.Frame, "Given", "frame", "#F1CD98", true, Free: true),
+                new CosmeticItem("hat.free", CosmeticKind.Hat, "Free Hat", "cap", "#A8B59A", false, Free: true),
+                new CosmeticItem("frame.unknown", CosmeticKind.Frame, "Unknown", "lace", "#F1CD98", false),
+            });
+
+            Assert.That(catalog.ReadabilityProblems(), Is.EqualTo(new[]
+            {
+                "frame.sold: a free item is everyone's from Level 1, neither given nor sold",
+                "frame.given: a free item is everyone's from Level 1, neither given nor sold",
+                "hat.free: only profile items are free (the profile opens at Level 1, the Wardrobe later)",
+                "frame.unknown: shape 'lace' is not a frame shape",
+            }));
+            Assert.That(catalog.FreeOf(CosmeticKind.Frame).Select(i => i.Id), Is.EqualTo(new[] { "frame.wood_ring", "frame.sold", "frame.given" }));
+            Assert.That(CosmeticCatalog.Parse("{\"items\": [{\"id\": \"frame.wood_ring\", \"kind\": \"frame\", \"name\": \"W\", \"shape\": \"wood_ring\", \"tint\": \"#F1CD98\", \"free\": true}]}").Items.Single().Free, Is.True);
+        }
+
+        [Test]
         public void EveryMilestoneItem_IsInTheCatalog()
         {
             CosmeticCatalog catalog = Catalog;
@@ -67,7 +90,8 @@ namespace Bloomlings.Client.Tests
             save.Unlocks.Flags[WardrobeService.UnlockId] = true;
             wardrobe.OnUnlock(WardrobeService.UnlockId);
             wardrobe.OnUnlock(WardrobeService.UnlockId);
-            Assert.That(wardrobe.Owned.Select(i => i.Id), Is.EqualTo(new[] { "hat.sprout_cap", "skin.speckles" }), "starter items are given once");
+            Assert.That(wardrobe.Owned.Where(i => !i.Free).Select(i => i.Id), Is.EqualTo(new[] { "hat.sprout_cap", "skin.speckles" }), "starter items are given once");
+            Assert.That(wardrobe.Owned.Where(i => i.Free).All(i => i.Kind == CosmeticKind.Frame), Is.True, "besides the free frames everyone owns");
 
             Assert.That(wardrobe.Equip(Family.Drop, "hat.leaf_cap"), Is.False, "not owned");
             save.Cosmetics.Owned.Add("hat.leaf_cap");

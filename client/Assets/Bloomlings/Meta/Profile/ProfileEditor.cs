@@ -42,8 +42,10 @@ namespace Bloomlings.Client.Meta.Profile
     /// <summary>
     /// The "Edit profile" card's state (spec 005 FR-037, both builds draw it): the tab shown and the choices picked but not
     /// kept yet (an avatar, a frame, a badge, a name). An avatar not owned yet turns the main button into "Buy" at its
-    /// price; Save keeps every choice at once and Close forgets them. Frames and badges come from the Wardrobe (milestones
-    /// and the Store), so their tabs list the owned ones and stay locked until the Wardrobe opens. Engine-free.
+    /// price; Save keeps every choice at once and Close forgets them. Frames and badges are the Wardrobe's items: the five
+    /// free frames (<see cref="CosmeticItem.Free"/>, spec 005 FR-037 as amended 2026-10-06) are listed from Level 1, the
+    /// frames and badges of milestones and the Store once the Wardrobe opens; a tab with nothing to list before then is
+    /// locked (the Badge tab). Engine-free.
     /// </summary>
     public sealed class ProfileEditor
     {
@@ -83,12 +85,20 @@ namespace Bloomlings.Client.Meta.Profile
 
         public CosmeticItem? Badge => Item(BadgeId);
 
-        /// <summary>Whether frames and badges can be picked: the Wardrobe is open (they are its items).</summary>
+        /// <summary>Whether every owned frame and badge can be picked: the Wardrobe is open (they are its items).</summary>
         public bool ProfileItemsOpen => _wardrobe != null && _wardrobe.IsAvailable;
 
-        /// <summary>The owned frames or badges a tab lists (empty while the Wardrobe is closed).</summary>
+        /// <summary>
+        /// The frames or badges a tab lists: every owned one while the Wardrobe is open (the free ones first, in catalog
+        /// order), only the free ones before.
+        /// </summary>
         public IReadOnlyList<CosmeticItem> Owned(CosmeticKind kind) =>
-            ProfileItemsOpen ? _wardrobe!.OwnedOf(kind) : (IReadOnlyList<CosmeticItem>)Array.Empty<CosmeticItem>();
+            _wardrobe == null ? Array.Empty<CosmeticItem>()
+            : ProfileItemsOpen ? _wardrobe.OwnedOf(kind)
+            : _wardrobe.Catalog.FreeOf(kind);
+
+        /// <summary>Whether a tab is locked until the Wardrobe opens: it has nothing to list before (the Badge tab).</summary>
+        public bool IsLocked(CosmeticKind kind) => !ProfileItemsOpen && Owned(kind).Count == 0;
 
         public void PickAvatar(string avatarId)
         {
@@ -137,20 +147,18 @@ namespace Bloomlings.Client.Meta.Profile
             }
 
             _profile.Choose(AvatarId);
-            if (ProfileItemsOpen)
-            {
-                if (FrameId != null && FrameId != _wardrobe!.Shown(CosmeticKind.Frame)?.Id)
-                {
-                    _wardrobe.Show(FrameId);
-                }
-
-                if (BadgeId != null && BadgeId != _wardrobe!.Shown(CosmeticKind.Badge)?.Id)
-                {
-                    _wardrobe.Show(BadgeId);
-                }
-            }
-
+            Keep(CosmeticKind.Frame, FrameId);
+            Keep(CosmeticKind.Badge, BadgeId);
             return ProfileOutcome.Saved;
+        }
+
+        /// <summary>Shows a picked frame or badge on the profile when it is listed now and not shown yet.</summary>
+        private void Keep(CosmeticKind kind, string? itemId)
+        {
+            if (_wardrobe != null && itemId != null && Pick(kind, itemId) != null && itemId != _wardrobe.Shown(kind)?.Id)
+            {
+                _wardrobe.Show(itemId);
+            }
         }
 
         private string? Pick(CosmeticKind kind, string itemId)

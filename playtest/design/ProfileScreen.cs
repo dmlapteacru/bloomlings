@@ -166,7 +166,7 @@ namespace Bloomlings.Playtest.Design
                         Box picture = ProfileEditRegions.CellPicture(cell);
                         if (picked)
                         {
-                            p.FillCircle(picture.CenterX, picture.CenterY, picture.Width * 0.56f, GardenLook.Green.Face);
+                            p.FillCircle(picture.CenterX, picture.CenterY, picture.Width * ProfileEditRegions.PickedShare, GardenLook.Green.Face);
                         }
 
                         Kit.Avatar(p, picture, avatar, null, null, null);
@@ -220,13 +220,16 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The Frame or Badge tab: the owned items on the picked avatar, or the note while there are none.</summary>
+        /// <summary>
+        /// The Frame or Badge tab: the listed items on the picked avatar (the five free frames from Level 1, every owned one
+        /// once the Wardrobe is open), the picked one on a green disc with the check, or the note while there are none.
+        /// </summary>
         private static void Items(IPainter p, DesignApp app, ProfileEditor editor, ProfileEditRegions r, CosmeticKind kind)
         {
-            if (!editor.ProfileItemsOpen)
+            if (editor.IsLocked(kind))
             {
                 Kit.LockBadge(p, r.Note.CenterX, r.Note.Top - (r.CellSize * 0.4f), r.CellSize * 0.5f);
-                p.Text(PlaytestText.F("profile.items_locked", app.UnlockLevel(NavPlace.Wardrobe)), r.Note.CenterX, r.Note.CenterY, T.Body, C.InkBrownSoft, r.Note.Width);
+                p.Text(PlaytestText.F("profile.badges_locked", app.UnlockLevel(NavPlace.Wardrobe)), r.Note.CenterX, r.Note.CenterY, T.Body, C.InkBrownSoft, r.Note.Width);
                 return;
             }
 
@@ -242,10 +245,15 @@ namespace Bloomlings.Playtest.Design
             {
                 CosmeticItem item = owned[i];
                 Box cell = r.Cell(i);
-                Box picture = ProfileEditRegions.CellPicture(cell).Inset(cell.Width * 0.06f);
                 bool frame = kind == CosmeticKind.Frame;
                 bool picked = item.Id == (frame ? editor.FrameId : editor.BadgeId);
-                Kit.Avatar(p, picture, editor.Avatar, frame ? item : null, frame ? null : item, null);
+                if (picked)
+                {
+                    Box disc = ProfileEditRegions.CellPicture(cell);
+                    p.FillCircle(disc.CenterX, disc.CenterY, disc.Width * ProfileEditRegions.PickedShare, GardenLook.Green.Face);
+                }
+
+                Kit.Avatar(p, ProfileEditRegions.CellItemAvatar(cell), editor.Avatar, frame ? item : null, frame ? null : item, null);
                 if (picked)
                 {
                     Box check = ProfileEditRegions.CellCheck(cell);

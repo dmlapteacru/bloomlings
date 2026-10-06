@@ -1049,8 +1049,11 @@ inventory.
 - **FR-037** *(the owner's profile page of 2026-10-05)*: Home's avatar MUST open a profile page in both builds
   (contracts/look.md §6.11; `ScreenLayout.ReferenceProfile`): the Store page's header ("Profile", back, the Petals
   pill) and panel, no bottom menu; the player's card (the chosen avatar's round picture on the cream disc in the
-  shown frame and badge, a tap opening the edit card on Avatar; the name, "Gardener NNNN" until one is chosen, with the
-  pencil opening it on Name; "ID: XXXXXXXX", the first 8 characters of the local player ID; "Playing since MM/YYYY";
+  shown frame and badge *(amended 2026-10-06, the owner: "the icon in the profile must be stretched over the whole
+  circle": the picture MUST fill the avatar's whole disc inside a thin `cream.line` ring, with no cream gap, wherever
+  the avatar shows, the frame drawn over the disc's edge; `AvatarLook`)*, a tap opening the edit card on Avatar; the
+  name, "Gardener NNNN" until one is chosen, with the pencil opening it on Name; "ID: XXXXXXXX", the first 8
+  characters of the local player ID; "Playing since MM/YYYY";
   the wooden "Level N" plaque); three stat cells (levels won, pictures collected, milestones reached); and
   "Achievements": three tiles and a note *(amended 2026-10-06: they were locked placeholders)*, Green Thumb (levels
   won), Picture Keeper (pictures collected) and Daily Gardener (Daily Challenges won), each with a bronze, a silver and
@@ -1059,9 +1062,14 @@ inventory.
   (`ScreenLayout.ProfileEdit`, `ProfileEditor`) MUST show the tabs Avatar, Frame, Badge and Name, the picked avatar in
   the picked frame and badge with the name, the tab's grid of four a row (the 14 avatars, free first, the others with
   their Petal price until bought, the picked one checked; the owned frames or badges on the avatar, locked until the
-  Wardrobe opens; the name's field, the playtest asking with the system's text dialog), and one button: "Save" keeps
-  every choice and closes the card; "Buy for N" buys the picked avatar once (`ProfileService.TryBuy`), short Petals
-  say so. A name is 1–16 letters, digits, spaces, `_ - .` (Latin and Cyrillic). The avatar shows on Home, the page, the
+  Wardrobe opens *(amended 2026-10-06, the owner: "make a couple of different frames for the user, they can be free,
+  5 of them": five visibly different frames, Wooden Ring, Leaf Ring, Flower Wreath, Stone Ring and Golden Ribbon,
+  drawn by the kit in the reference look (`ProfileFrames`, `UiRaster.ProfileFrame`, contracts/look.md §6.11) MUST be
+  every player's from Level 1 (the catalog's `free` items: owned without a save entry, never given, sold or shown by
+  default), listed first in the Frame tab, before the Wardrobe opens too, the picked one on a green disc with the check;
+  only the Badge tab stays locked until the Wardrobe opens, and the earlier frames keep their tinted ring)*; the
+  name's field, the playtest asking with the system's text dialog), and one button: "Save" keeps every choice and
+  closes the card; "Buy for N" buys the picked avatar once (`ProfileService.TryBuy`), short Petals say so. A name is 1–16 letters, digits, spaces, `_ - .` (Latin and Cyrillic). The avatar shows on Home, the page, the
   card, the Wardrobe's profile tab and the player's own leaderboard row; while its picture is missing, its family's
   hero stands in. Presentation and profile cosmetics only (spec 001 FR-063 as amended): no gameplay effect.
 - **FR-038** *(the owner's clearing styles of 2026-10-06)*: The board MUST clear in one of seven styles, in both builds

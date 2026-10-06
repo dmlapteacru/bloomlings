@@ -630,10 +630,18 @@ namespace Bloomlings.Client.UI.Screens
                 layout.Add(portrait.Rect, w => Mark(w).Inset(Mark(w).Width * 0.16f));
             }
 
-            Image mark = UiFactory.CreateImage("Item", well, Icon(item), BloomlingFigure.Tint(item));
+            // A drawn frame (the five free ones, spec 005 FR-037 as amended 2026-10-06) shows its picture; the others their tinted mark.
+            ProfileFrameStyle? drawn = item.Kind == CosmeticKind.Frame ? ProfileFrames.StyleOf(item.Shape) : null;
+            Image mark = UiFactory.CreateImage("Item", well, drawn.HasValue ? null : Icon(item), drawn.HasValue ? Color.white : BloomlingFigure.Tint(item));
             mark.preserveAspect = true;
             mark.raycastTarget = false;
             layout.Add(mark.rectTransform, w => item.Kind == CosmeticKind.Frame ? Mark(w) : Mark(w).Inset(Mark(w).Width * 0.08f));
+            if (drawn.HasValue)
+            {
+                ProfileFrameStyle style = drawn.Value;
+                string slot = ProfileFrames.Slot(style);
+                PictureFit.On(mark, (pw, ph) => ProceduralSprites.Picture(slot, Mathf.Min(pw, ph), Mathf.Min(pw, ph), (x, y) => ProfileFrames.Render(style, Mathf.Min(x, y))), square: true);
+            }
         }
 
         /// <summary>An outfit with <paramref name="item"/> (or nothing) in <paramref name="kind"/>'s place.</summary>
