@@ -2,33 +2,48 @@
   <!--
     Temporary playtest client (not the product client): a plain .NET for Android app on the same deterministic core,
     so an APK builds on a stock GitHub runner with no licence or secrets. The Unity client in client/ stays the real
-    client (doc 15). See playtest/README.md.
+    client (doc 15). This is the full playtest, in the design board's look (spec 002): Home, progression, economy,
+    the Daily Reward, the Collection, the Store, demos and animations, drawn by the engine-free screens of
+    playtest/design through AndroidPainter. The level tester (playtest/tester) builds android/*.cs only, in its minimal
+    look. See playtest/README.md.
   -->
+  <Import Project="../Playtest.Shared.props" />
+
   <PropertyGroup>
-    <TargetFramework>net10.0-android</TargetFramework>
-    <SupportedOSPlatformVersion>26</SupportedOSPlatformVersion>
-    <OutputType>Exe</OutputType>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>disable</ImplicitUsings>
-    <LangVersion>latest</LangVersion>
-    <RootNamespace>Bloomlings.Playtest</RootNamespace>
     <ApplicationId>com.bloomlings.playtest</ApplicationId>
     <ApplicationTitle>Bloomlings Playtest</ApplicationTitle>
-    <ApplicationDisplayVersion>0.1.0</ApplicationDisplayVersion>
-    <ApplicationVersion>$([MSBuild]::ValueOrDefault('$(GITHUB_RUN_NUMBER)', '1'))</ApplicationVersion>
-    <AndroidPackageFormat>apk</AndroidPackageFormat>
-    <RuntimeIdentifiers>android-arm64;android-arm;android-x64</RuntimeIdentifiers>
-    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
-    <ProjectReference Include="../../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <!-- Levels 1–94 for playtests (playtest/content/levels) and the picture library they use. -->
-    <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
-    <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
+    <!-- The designed screens (engine-free, also rendered by playtest/preview) and the Unity client's design kit. -->
+    <Compile Include="../design/*.cs" Link="Design/Screens/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" Link="Shared/Design/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" Link="Shared/BundledRemoteConfigService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" Link="Shared/WardrobeService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" Link="Shared/DailyRewardService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" Link="Shared/Profile/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Clearing/*.cs" Link="Shared/Clearing/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" Link="Shared/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" Link="Shared/ThemeRotation.cs" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
+    <!-- The Garden look's font (spec 003 contracts/fonts.md); AndroidPainter loads it, the level tester does not. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-ExtraBold.ttf" LogicalName="fonts/Nunito-ExtraBold.ttf" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
+    <!-- The generated character pictures (spec 004 contracts/art-files.md "Loading"), drawn by the painter's Sprite. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" LogicalName="characters/2d/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" LogicalName="characters/3d/%(Filename)%(Extension)" />
+    <!-- The owner's pictures (spec 005 pictures.md B and C): backgrounds and the logo, drawn when present (PainterBase.SpriteResource). -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.png;../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.jpg" LogicalName="backgrounds/%(Filename)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Brand/Resources/Brand/*.png" LogicalName="brand/%(Filename)%(Extension)" />
+    <!-- The owner's booster icons and leaf decorations (spec 005 pictures.md D), drawn instead of the drawn ones when present. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" LogicalName="icons/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" LogicalName="decor/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" LogicalName="avatars/%(Filename)" />
+    <!--
+      The owner's animated heroes as flat frames (spec 005 FR-028, tools/heroanim; no 3D model in the game): the splash,
+      Home, the win and the milestone draw them, each frame decoded when it is first drawn and kept in a cache bounded by
+      bytes (HeroFrameStore). Embedded without the extension, as the backgrounds (PainterBase.HeroMotionPrefix).
+    -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" LogicalName="heromotion/%(Filename)" />
   </ItemGroup>
 </Project>

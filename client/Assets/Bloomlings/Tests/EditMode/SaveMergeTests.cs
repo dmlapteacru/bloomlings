@@ -52,7 +52,7 @@ namespace Bloomlings.Client.Tests
             remote.Purchases.RemoveAds = true;
             remote.Cosmetics.Owned.Add("frame.daisy");
             remote.Cosmetics.Owned.Add("hat.acorn_cap");
-            remote.Cosmetics.Equipped["drop"] = "hat.acorn_cap";
+            remote.Cosmetics.Equipped["drop.hat"] = "hat.acorn_cap";
             remote.Milestones.TryClaim(25);
             remote.Unlocks.MarkDemoSeen("mechanic.key");
             remote.Collection.Add(new CollectionEntry("fish_01", 1, "aaaa", 11));
@@ -61,7 +61,7 @@ namespace Bloomlings.Client.Tests
             PlayerSave merged = SaveMerge.Merge(local, remote);
             Assert.That(merged.Purchases.RemoveAds, Is.True);
             Assert.That(merged.Cosmetics.Owned, Is.EquivalentTo(new[] { "hat.leaf_cap", "frame.daisy", "hat.acorn_cap" }));
-            Assert.That(merged.Cosmetics.Equipped["drop"], Is.EqualTo("hat.acorn_cap"), "families the base leaves empty are filled");
+            Assert.That(merged.Cosmetics.Equipped["drop.hat"], Is.EqualTo("hat.acorn_cap"), "slots the base leaves empty are filled");
             Assert.That(merged.Milestones.Claimed, Is.EqualTo(new[] { 25, 50 }));
             Assert.That(merged.Unlocks.IsSet("system.wardrobe"), Is.True);
             Assert.That(merged.Unlocks.HasSeenDemo("mechanic.key"), Is.True);

@@ -13,12 +13,12 @@ These events feed difficulty tuning and business metrics (FR-086, SC-006, SC-007
 | Event | When | Extra parameters |
 |---|---|---|
 | `level_start` | Level loaded and playable | `attempt_index` |
-| `level_win` | `LevelWon` | `duration_ms`, `taps`, `boosters_used`, `clean_clear`, `peak_slots`, `attempt_index` |
+| `level_win` | `LevelWon` | `duration_ms`, `taps`, `boosters_used` (without the free guided use), `clean_clear`, `peak_slots`, `attempt_index` |
 | `level_jam` | `LevelJammed` or `LevelStuck` | `kind` (`jam`/`stuck`), `duration_ms`, `taps`, `slots_used`, `remaining_work` |
-| `level_recover` | Recovery used at a jam | `method` (`extra_slot`/`return`/`bloom_burst`/`ad_rescue`) |
+| `level_recover` | Recovery used at a jam | `method` (`extra_slot`/`shuffle`/`return`/`bloom_burst`/`ad_rescue`; Shuffle recovers a stuck board) |
 | `level_restart` | Restart | `from` (`pause`/`jam`) |
 | `level_quit` | Leave the level from pause | `duration_ms` |
-| `booster_use` | Booster command accepted | `booster`, `source` (`charge`/`petals`/`ad`) |
+| `booster_use` | Booster command accepted | `booster`, `source` (`charge`/`petals`/`ad`/`demo`: the free guided use at its unlock, spec 005 FR-035) |
 | `tutorial_step` | Demonstration step shown or completed | `unlock_id`, `step`, `completed` |
 
 ## Progression and meta
@@ -30,7 +30,7 @@ These events feed difficulty tuning and business metrics (FR-086, SC-006, SC-007
 | `daily_reward_claim` | Daily reward claimed | `streak` |
 | `daily_challenge_complete` | Daily challenge won | `utc_date` |
 | `leaderboard_view` | Leaderboard opened | `rank` |
-| `cosmetic_equip` | Skin equipped | `family`, `skin_id` |
+| `cosmetic_equip` | Skin equipped, or a clearing style chosen (spec 005 FR-038: `family` `board`, `skin_id` the style's `clear.*` id) | `family`, `skin_id` |
 | `collection_open` | Collection opened | `entries` |
 
 ## Monetization

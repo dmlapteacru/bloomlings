@@ -1,0 +1,74 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, -1],
+    [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0],
+    [-1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, -1, -1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0],
+    [-1, 0, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, -1],
+    [0, 0, 0, 1, 1, -1, 0, 0, 0, 1, 0, 0, -1, 0],
+    [0, 0, -1, 0, 0, 2, 0, 0, -1, 2, 0, 0, -1, 0],
+    [0, 0, 0, 0, 0, 2, -1, 0, 2, 0, -1, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 2, -1, 2, 0, -1, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 2, 3, 3, 3, 0, -1, 0],
+    [0, 0, 0, 0, 0, -1, 0, 3, 3, 3, 3, 3, 0, 0],
+    [-1, 0, 0, -1, -1, -1, 0, 0, 3, 3, 0, 0, 0, 0],
+    [-1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "cherries_04",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherries",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.5,
+    "nestingDepth": 4,
+    "regionCount": 16
+  },
+  "subject": "Cherries 4",
+  "tags": {
+    "bands": ["core"],
+    "themes": ["fruit"]
+  },
+  "version": 2,
+  "width": 14
+}

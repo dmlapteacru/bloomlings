@@ -1,7 +1,9 @@
 # 05 — Level Structure
 
 **Status:** LOCKED (2026-09-29)  
-**Revision 2026-09-29:** levels are picture-first mosaics (§1, §4, §5, §6, §11, §18; spec `001` FR-006).
+**Revision 2026-09-29:** levels are picture-first mosaics (§1, §4, §5, §6, §11, §18; spec `001` FR-006).  
+**Revision 2026-10-05 (product owner):** more, smaller cells from Level 1, so clearing takes longer from the start
+(§2, §3, §13, §15; spec `001` FR-008 and the Level Band Guidelines).
 
 ## 1. Core structural goal
 
@@ -15,21 +17,23 @@ The grid may be rectangular internally. The visible playable area follows the pi
 
 Suggested logical ranges:
 
-### Tutorial
-- 7×8
-- 8×8
+Since 2026-10-05 no shipped board is smaller than 11×12 (it was 7×8 in the tutorial).
 
-### Early standard
-- 9×10
-- 10×10
-
-### Standard
-- 10×12
+### Tutorial (L1–10)
 - 11×12
 - 12×12
 
-### Large/advanced
-- 12×14
+### Early standard (L11–25)
+- 12×12
+- 12×13
+
+### Standard (L26–50)
+- 12×13
+- 13×13
+- 13×14
+
+### Large/advanced (L51+)
+- 13×14
 - 14×14
 - up to ~14×16 if phone readability remains good.
 
@@ -37,10 +41,10 @@ Suggested logical ranges:
 
 Processable tile-layers:
 
-- tutorial: 30–60
-- early: 50–100
-- standard: 90–180
-- hard/late: 150–300+
+- tutorial: 95–140 (was 30–60 before 2026-10-05)
+- early: 105–150 (was 50–100)
+- standard: 115–240 (was 90–180)
+- hard/late: 180–360+ (was 150–300+)
 - exceptional late levels may exceed this if animation/readability remains good
 
 ## 4. Density
@@ -211,9 +215,9 @@ Typical group counts:
 ## 13. Number of Source Pods
 
 Typical:
-- tutorial: 3–7
-- early: 6–12
-- standard: 10–20
+- tutorial: 3–8 (was 3–7 before 2026-10-05)
+- early: 7–14 (was 6–12)
+- standard: 11–22 (was 10–20)
 - advanced: 15–30+
 
 ## 14. Variant distribution across pods
@@ -229,9 +233,9 @@ This creates ordering and partial-buffer behavior.
 
 ## 15. Level duration
 
-- tutorial: 20–45 sec
-- normal: 45–120 sec
-- hard: 2–4 min
+- tutorial: 45–90 sec (was 20–45 sec before 2026-10-05: bigger boards, halved clearing pace)
+- normal: 60–150 sec (was 45–120 sec)
+- hard: 2–5 min (was 2–4 min)
 
 ## 16. Buffer pressure
 

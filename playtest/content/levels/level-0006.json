@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "normal",
     "score": 0
@@ -7,7 +7,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 3,
+      "x": 5,
       "y": 0
     }
   ],
@@ -20,21 +20,26 @@
   },
   "picture": {
     "id": "sailboat",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 31,
+      "count": 37,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 37,
+      "id": "w2",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
       "id": "a1",
       "variantId": "flower"
     },
     {
-      "count": 12,
+      "count": 27,
       "id": "h1",
       "variantId": "wood"
     }
@@ -47,7 +52,7 @@
   "tray": {
     "stacks": [
       ["h1", "a1"],
-      ["w1"]
+      ["w1", "w2"]
     ]
   }
 }

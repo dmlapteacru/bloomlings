@@ -1,0 +1,63 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 15,
+  "id": "snail_04",
+  "legend": {
+    "b": "body",
+    "c": "spiral",
+    "g": "grass",
+    "h": "shell",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shell",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Spiral",
+      "roleId": "spiral"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Body",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Snail 4",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "animals",
+      "garden"
+    ]
+  },
+  "version": 2,
+  "width": 13
+}

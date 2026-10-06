@@ -1,0 +1,302 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<!-- The render page of bake.mjs: three.js (node_modules), the FBX loader patched by serve.mjs (embedded textures) and
+     the glTF loader (.glb heroes). -->
+<script type="importmap">{"imports":{"three":"/three/build/three.module.js"}}</script>
+</head>
+<body style="margin:0">
+<script type="module">
+import * as THREE from 'three';
+import { FBXLoader } from '/fbxloader.js';
+import { GLTFLoader } from '/three/examples/jsm/loaders/GLTFLoader.js';
+
+// Smootherstep: the blend weight of the seams (0 → 1 with flat ends).
+const smooth = x => { const t = Math.min(1, Math.max(0, x)); return t * t * t * (t * (t * 6 - 15) + 10); };
+
+// A hero's model: an FBX (Meshy) or a glTF binary (Blender), its clips on the returned object either way. Only its
+// skinned meshes are the hero: an exported scene's other meshes (Blender's default cube), lights and cameras are hidden.
+async function loadHero(file) {
+  let obj;
+  if (file.endsWith('.glb')) {
+    const gltf = await new GLTFLoader().loadAsync('/models/' + file);
+    obj = gltf.scene;
+    obj.animations = gltf.animations;
+  } else {
+    obj = await new FBXLoader().loadAsync('/models/' + file);
+  }
+  obj.traverse(o => { if ((o.isMesh && !o.isSkinnedMesh) || o.isLight || o.isCamera) o.visible = false; });
+  const maps = [];
+  obj.traverse(o => { if (o.isMesh && o.material.map) maps.push(o.material.map); });
+  for (let i = 0; i < 600 && !maps.every(t => t.image && t.image.width && (t.image.complete === undefined || t.image.complete)); i++) {
+    await new Promise(r => setTimeout(r, 50));
+  }
+  return obj;
+}
+
+// A node's name as the file gives it: three.js makes the names of a file's nodes unique (a second hero's "Head" turns
+// "Head_1") and keeps the original in userData.
+const nameOf = o => (o.userData && o.userData.name) || o.name;
+
+// Stand-in clips for a hero delivered without any (heroes.json `synth`: the owner's new Twig in Heroes.glb, 2026-10-04,
+// until its own come): the arms lowered from the model's T-pose (`arms`, degrees about each upper arm's own X, Y, Z, with
+// the model's corrective shape key `morph` on), then an idle of a breath and a slight sway, a reaction of a small hop and
+// a win of two jumps with the arms up, sampled at the bake's fps into three.js clips named `<name>_Idle`, `_React`, `_Win`.
+function synthClips(obj, skeleton, mesh, synth, fps) {
+  const D = Math.PI / 180;
+  const bone = n => { const b = skeleton.bones.find(x => nameOf(x) === n); if (!b) throw new Error('synth: no bone ' + n); return b; };
+  const rest = new Map();
+  for (const b of skeleton.bones) rest.set(b, { q: b.quaternion.clone(), p: b.position.clone(), s: b.scale.clone() });
+  const off = (b, e) => rest.get(b).q.clone().multiply(new THREE.Quaternion().setFromEuler(new THREE.Euler(e[0] * D, e[1] * D, e[2] * D, 'XYZ')));
+  const armL = bone('UpperArm.L'), armR = bone('UpperArm.R'), chest = bone('Chest'), head = bone('Head'), root = bone('Root');
+  const [aL, aR] = [synth.arms.L, synth.arms.R];
+  const morph = synth.morph && mesh.morphTargetDictionary ? mesh.morphTargetDictionary[synth.morph] : undefined;
+  // pose(t) → { lift (m), armUp (degrees toward the head), sway (degrees), breath (share), nod (degrees) }
+  const clip = (name, seconds, pose) => {
+    const n = Math.max(2, Math.round(seconds * fps) + 1), times = [], qL = [], qR = [], qH = [], sC = [], pR = [], w = [];
+    for (let i = 0; i < n; i++) {
+      const t = seconds * i / (n - 1), p = pose(t / seconds);
+      times.push(t);
+      // The lowered arm, raised by armUp (the left arm's Z lowers it, the right arm's mirror), swaying with the body.
+      qL.push(...off(armL, [aL[0], aL[1], aL[2] - p.armUp + p.sway]).toArray());
+      qR.push(...off(armR, [aR[0], aR[1], aR[2] + p.armUp + p.sway]).toArray());
+      qH.push(...off(head, [p.nod, 0, p.sway * 0.6]).toArray());
+      const c = rest.get(chest).s;
+      sC.push(c.x * (1 + p.breath), c.y * (1 + (p.breath * 0.6)), c.z * (1 + p.breath));
+      const r = rest.get(root).p;
+      pR.push(r.x, r.y + p.lift, r.z);
+      w.push(1);
+    }
+    const tracks = [
+      new THREE.QuaternionKeyframeTrack(armL.name + '.quaternion', times, qL),
+      new THREE.QuaternionKeyframeTrack(armR.name + '.quaternion', times, qR),
+      new THREE.QuaternionKeyframeTrack(head.name + '.quaternion', times, qH),
+      new THREE.VectorKeyframeTrack(chest.name + '.scale', times, sC),
+      new THREE.VectorKeyframeTrack(root.name + '.position', times, pR),
+    ];
+    if (morph !== undefined) tracks.push(new THREE.NumberKeyframeTrack(mesh.name + '.morphTargetInfluences[' + morph + ']', times, w));
+    return new THREE.AnimationClip(synth.name + '_' + name, seconds, tracks);
+  };
+  const wave = x => Math.sin(2 * Math.PI * x);
+  const bump = x => (1 - Math.cos(2 * Math.PI * x)) / 2;
+  const hop = (x, a, b) => (x <= a || x >= b) ? 0 : Math.sin(Math.PI * (x - a) / (b - a));
+  return [
+    clip('Idle', synth.idleSeconds, x => ({ lift: 0, armUp: 3 * bump(x), sway: 2 * wave(x), breath: 0.022 * bump(x), nod: 1.5 * wave(2 * x) })),
+    clip('React', synth.reactSeconds, x => ({ lift: 0.07 * hop(x, 0.18, 0.62), armUp: 22 * hop(x, 0.1, 0.8), sway: 0, breath: -0.03 * hop(x, 0, 0.18) + 0.015 * hop(x, 0.62, 0.8), nod: -6 * hop(x, 0.15, 0.7) })),
+    clip('Win', synth.winSeconds, x => ({ lift: 0.14 * (hop(x, 0.12, 0.42) + hop(x, 0.5, 0.8)), armUp: 82 * hop(x, 0.05, 0.95) ** 0.5, sway: 6 * wave(x * 2) * hop(x, 0.05, 0.95), breath: 0, nod: -8 * hop(x, 0.1, 0.9) })),
+  ];
+}
+
+// job: { file, mesh, idle, react, win, head, top, topOffset, ground, breathe, synth, fps, idleSeconds, reactSeconds, idleBlend,
+// reactIn, reactOut, yaw, pitch, fov, light, width, height }
+// Renders the idle loop, the reaction and, when job.win names one or a list of them, the win's celebrations ('win',
+// 'win2', …) at job.width × job.height (the bake supersampling) and returns PNG data URLs with the projected head points
+// of every frame (the hats follow them) and the ground point.
+window.bake = async (job) => {
+  const obj = await loadHero(job.file);
+  // A file of several heroes (the owner's Heroes.glb, 2026-10-04): only job.mesh is drawn, and its bones are the ones
+  // its head points and breathing look up.
+  let skeleton = null;
+  if (job.mesh) {
+    let found = null;
+    obj.traverse(o => { if (o.isSkinnedMesh && (nameOf(o) === job.mesh || (o.parent && nameOf(o.parent) === job.mesh))) found = o; });
+    if (!found) throw new Error('no skinned mesh ' + job.mesh + ' in ' + job.file);
+    obj.traverse(o => { if (o.isSkinnedMesh && o !== found) o.visible = false; });
+    skeleton = found.skeleton;
+    if (job.synth) obj.animations = obj.animations.concat(synthClips(obj, skeleton, found, job.synth, job.fps));
+  }
+  const W = job.width, H = job.height;
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, preserveDrawingBuffer: true });
+  renderer.setSize(W, H, false);
+  renderer.setClearColor(0x000000, 0);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.NoToneMapping;
+
+  const scene = new THREE.Scene();
+  const L = job.light;
+  const exposure = L.exposure ?? 1, lift = L.lift ?? 0;
+  // A hero's own color grade of its albedo (heroes.json `color`): gamma under 1 lightens the midtones, gain scales,
+  // saturation mixes toward the pixel's grey, warm shifts red up and blue down. Applied once to the texture's pixels.
+  const grade = (map, c) => {
+    const img = map.image, w = img.width, h = img.height;
+    const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+    const g = cv.getContext('2d'); g.drawImage(img, 0, 0);
+    const d = g.getImageData(0, 0, w, h), px = d.data;
+    const gamma = c.gamma ?? 1, gain = c.gain ?? 1, sat = c.saturation ?? 1, warm = c.warm ?? 0;
+    for (let i = 0; i < px.length; i += 4) {
+      let r = px[i] / 255, gg = px[i + 1] / 255, b = px[i + 2] / 255;
+      r = Math.pow(r, gamma) * gain; gg = Math.pow(gg, gamma) * gain; b = Math.pow(b, gamma) * gain;
+      const y = 0.2126 * r + 0.7152 * gg + 0.0722 * b;
+      r = y + (r - y) * sat + warm; gg = y + (gg - y) * sat + warm * 0.3; b = y + (b - y) * sat - warm;
+      px[i] = Math.max(0, Math.min(255, Math.round(r * 255)));
+      px[i + 1] = Math.max(0, Math.min(255, Math.round(gg * 255)));
+      px[i + 2] = Math.max(0, Math.min(255, Math.round(b * 255)));
+    }
+    g.putImageData(d, 0, 0);
+    const t = new THREE.CanvasTexture(cv);
+    t.flipY = map.flipY; t.wrapS = map.wrapS; t.wrapT = map.wrapT; t.colorSpace = THREE.SRGBColorSpace;
+    return t;
+  };
+  obj.traverse(o => {
+    if (!o.isMesh || !o.visible) return;
+    let map = o.material.map;
+    if (map && job.color) map = grade(map, job.color);
+    if (map) map.colorSpace = THREE.SRGBColorSpace;
+    // Lambert on the albedo, without the model's normal map (it shows blotches): bright, soft, volumetric. A hero's
+    // light.lift adds that share of its own albedo as glow, so its shadows open up without washing out its lit side.
+    o.material = new THREE.MeshLambertMaterial(lift > 0 && map
+      ? { map, emissive: 0xffffff, emissiveMap: map, emissiveIntensity: lift }
+      : { map });
+    o.frustumCulled = false;
+  });
+  scene.add(obj);
+  // The lights, each scaled by the hero's light.exposure (1 by default).
+  scene.add(new THREE.HemisphereLight(0xfff6e8, 0xb8a080, L.hemi * exposure));
+  const key = new THREE.DirectionalLight(0xfff2dc, L.key * exposure); key.position.set(-1.2, 2.0, 2.2); scene.add(key);
+  const fill = new THREE.DirectionalLight(0xe8f0ff, L.fill * exposure); fill.position.set(1.5, 0.6, 1.5); scene.add(fill);
+  const rim = new THREE.DirectionalLight(0xffffff, L.rim * exposure); rim.position.set(0.5, 1.5, -2.0); scene.add(rim);
+
+  const mixer = new THREE.AnimationMixer(obj);
+  // A clip by its Meshy id: the whole name, or its last part after "|" (the 60 fps export names them
+  // "target_character|target_character|<id>").
+  const clipOf = name => { const c = obj.animations.find(a => a.name === name || a.name.endsWith('|' + name)); if (!c) throw new Error('no clip ' + name + ' in ' + job.file); return c; };
+  // A clip's own span: from its first keyframe (Blender's clips start at frame 1, 1/24 s in) to its last.
+  const span = clip => { let a = Infinity, b = 0; for (const t of clip.tracks) { a = Math.min(a, t.times[0]); b = Math.max(b, t.times[t.times.length - 1]); } return { start: Math.min(a, b), length: b - Math.min(a, b) }; };
+  const idle = clipOf(job.idle), react = clipOf(job.react);
+  const wins = (Array.isArray(job.win) ? job.win : job.win ? [job.win] : []).map(clipOf);
+  const sIdle = span(idle), sReact = span(react), sWins = wins.map(span);
+  const aIdle = mixer.clipAction(idle), aRest = mixer.clipAction(idle.clone()), aReact = mixer.clipAction(react);
+  const aWins = wins.map(w => mixer.clipAction(w));
+  for (const a of [aIdle, aRest, aReact, ...aWins]) { a.play(); a.setEffectiveTimeScale(0); }
+  const rest = () => sIdle.start; // the loop's seam: the idle's first pose
+  // A breath the idle clip lacks (heroes.json `breathe`: the owner's Drop, whose Drop_Breathing moves 0.1%): the bone
+  // swells by `scale` across and `lift` of that along it, once over the loop (0 at its seam), on top of the clip.
+  const breathBone = job.breathe ? (skeleton ? skeleton.bones.find(b => nameOf(b) === job.breathe.bone) : obj.getObjectByName(job.breathe.bone)) : null;
+  if (job.breathe && !breathBone) throw new Error('no breathing bone ' + job.breathe.bone + ' in ' + job.file);
+  const breathe = phase => {
+    if (!breathBone) return;
+    const k = Math.sin(2 * Math.PI * phase) * job.breathe.scale;
+    breathBone.scale.x *= 1 + k; breathBone.scale.z *= 1 + k; breathBone.scale.y *= 1 + (k * (job.breathe.lift ?? 0.6));
+    obj.updateMatrixWorld(true);
+  };
+  // Poses one frame: weights of the idle at t, the seam pose, the one-shot clip (the reaction, or a win's) at t.
+  const pose = (wIdle, tIdle, wRest, wShot, tShot, shot) => {
+    aIdle.setEffectiveWeight(wIdle); aIdle.time = tIdle;
+    aRest.setEffectiveWeight(wRest); aRest.time = rest();
+    for (const a of [aReact, ...aWins]) { a.setEffectiveWeight(shot === a ? wShot : 0); a.time = shot === a ? tShot : 0; }
+    mixer.update(0);
+    obj.updateMatrixWorld(true);
+  };
+
+  // Each clip lasts job.idleSeconds and job.reactSeconds on screen (the owner's table for the Meshy heroes: 4 s and 2 s),
+  // whatever the time its file stamps on its keyframes (the 60 fps export puts the same frames 1/60 s apart, 2.5 times
+  // faster); without them, and for the win's clip, its own span: t is the time on screen, start + t * k the clip's own.
+  const idleLength = job.idleSeconds || sIdle.length, kIdle = sIdle.length / idleLength;
+  const reactLength = job.reactSeconds || sReact.length, kReact = sReact.length / reactLength;
+
+  // The idle loop: the clip, eased into its own first pose over the last idleBlend seconds, so it loops seamlessly.
+  const frames = [];
+  const nIdle = Math.round(idleLength * job.fps);
+  for (let i = 0; i < nIdle; i++) {
+    const t = idleLength * i / nIdle;
+    const w = smooth((t - (idleLength - job.idleBlend)) / job.idleBlend);
+    frames.push({ clip: 'idle', set: () => { pose(1 - w, sIdle.start + (t * kIdle), w, 0, 0, null); breathe(t / idleLength); } });
+  }
+  // The reaction: from the seam pose into the clip over reactIn seconds and back to the seam pose over the last
+  // reactOut seconds, so it starts and ends where the idle loop starts.
+  // The win's celebrations likewise ('win', 'win2', …), each from the seam pose and back to it.
+  const shot = (name, action, s, length, k) => {
+    const n = Math.round(length * job.fps);
+    for (let i = 0; i < n; i++) { // the last pose is the seam: the idle's first frame shows it
+      const t = length * i / n;
+      const w = Math.max(1 - smooth(t / job.reactIn), smooth((t - (length - job.reactOut)) / job.reactOut));
+      frames.push({ clip: name, set: () => pose(0, 0, w, 1 - w, s.start + (t * k), action) });
+    }
+  };
+  shot('react', aReact, sReact, reactLength, kReact);
+  aWins.forEach((a, i) => shot(i === 0 ? 'win' : 'win' + (i + 1), a, sWins[i], sWins[i].length, 1));
+
+  // One camera for every frame: the union of the posed bounds, seen from the yaw and the pitch.
+  const box = new THREE.Box3();
+  const bounds = () => { const b = new THREE.Box3(); obj.traverse(o => { if (o.isSkinnedMesh && o.visible) b.union(new THREE.Box3().setFromObject(o, true)); }); return b; };
+  for (const f of frames) { f.set(); box.union(bounds()); }
+  const fov = job.fov, yaw = job.yaw * Math.PI / 180, pitch = job.pitch * Math.PI / 180;
+  const c = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+  // The near and far planes from the model's size (Meshy's models are in centimetres, Blender's in metres).
+  const camera = new THREE.PerspectiveCamera(fov, W / H, size.length() / 1000, size.length() * 100);
+  const dir = new THREE.Vector3(Math.sin(yaw) * Math.cos(pitch), Math.sin(pitch), Math.cos(yaw) * Math.cos(pitch));
+  const tan = Math.tan(fov * Math.PI / 360);
+  const radius = Math.max(size.y / 2 / tan, size.x / 2 / tan / (W / H), size.z / 2 / tan) * 1.25 + size.length() / 2;
+  camera.position.copy(c).addScaledVector(dir, radius);
+  camera.lookAt(c);
+  camera.updateMatrixWorld(true);
+
+  const bone = name => skeleton ? (skeleton.bones.find(b => nameOf(b) === name) || null) : (() => { let b = null; obj.traverse(o => { if (o.isBone && o.name === name) b = o; }); return b; })();
+  const head = bone(job.head || 'mixamorigHead');
+  let top = bone(job.top || 'mixamorigHeadTop_End');
+  // A rig without a bone at the head's top (the owner's Sprig, 2026-10-03): a point job.topOffset away from the top
+  // bone in its own space (metres along its axes; Blender's bone Y runs up the head), moving with it.
+  if (top && job.topOffset) { const o = new THREE.Object3D(); o.position.fromArray(job.topOffset); top.add(o); obj.updateMatrixWorld(true); top = o; }
+  if (!head || !top) throw new Error('no head bones ' + (job.head || 'mixamorigHead') + ', ' + (job.top || 'mixamorigHeadTop_End') + ' in ' + job.file);
+  const project = o => { const v = o.getWorldPosition(new THREE.Vector3()).project(camera); return [(v.x + 1) / 2 * W, (1 - v.y) / 2 * H]; };
+  // The ground point under the hero: the scene's origin, or (job.ground 'model', for a model placed away from it, such
+  // as the owner's Sprig 4 m to the side) the middle of the posed bounds' base.
+  const ground = (job.ground === 'model' ? new THREE.Vector3(c.x, box.min.y, c.z) : new THREE.Vector3(0, 0, 0)).project(camera);
+
+  // Pass 1: the union of every frame's opaque bounds and the idle's foot line (its lowest solid row at the seam).
+  const gl = renderer.getContext();
+  const pixels = new Uint8Array(W * H * 4);
+  let minX = W, minY = H, maxX = -1, maxY = -1, feet = -1;
+  frames.forEach((f, i) => {
+    f.set();
+    renderer.render(scene, camera);
+    gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    for (let y = 0; y < H; y++) {
+      const row = (H - 1 - y) * W * 4; // readPixels starts at the bottom
+      for (let x = 0; x < W; x++) {
+        const a = pixels[row + x * 4 + 3];
+        if (a === 0) continue;
+        if (x < minX) minX = x; if (x > maxX) maxX = x; if (y < minY) minY = y; if (y > maxY) maxY = y;
+        if (i === 0 && a >= 128 && y > feet) feet = y;
+      }
+    }
+  });
+
+  // The fit: the hero's ground point at the cell's middle, its seam pose's feet on the foot line, as large as the
+  // union of all frames allows inside the margins, its seam pose at most job.fill of the cell high.
+  const CW = job.cell[0], CH = job.cell[1], footLine = job.feet * CH, m = job.margin;
+  const gx = (ground.x + 1) / 2 * W;
+  let seamTop = H;
+  { frames[0].set(); renderer.render(scene, camera); gl.readPixels(0, 0, W, H, gl.RGBA, gl.UNSIGNED_BYTE, pixels);
+    for (let y = 0; y < H && seamTop === H; y++) { const row = (H - 1 - y) * W * 4; for (let x = 0; x < W; x++) if (pixels[row + x * 4 + 3] > 0) { seamTop = y; break; } } }
+  const s = Math.min(
+    job.fill * CH / (feet - seamTop),
+    (footLine - m * CH) / (feet - minY),
+    ((1 - m) * CH - footLine) / Math.max(1, maxY - feet),
+    (CW / 2 - m * CW) / Math.max(1, gx - minX),
+    (CW / 2 - m * CW) / Math.max(1, maxX - gx));
+  const tx = CW / 2 - s * gx, ty = footLine - s * feet;
+  const cell = document.createElement('canvas'); cell.width = CW; cell.height = CH;
+  const g = cell.getContext('2d');
+  g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+  const toCell = p => [+(p[0] * s + tx).toFixed(2), +(p[1] * s + ty).toFixed(2)];
+
+  // Pass 2: every frame drawn into the cell.
+  const out = [];
+  for (const f of frames) {
+    f.set();
+    renderer.render(scene, camera);
+    g.setTransform(1, 0, 0, 1, 0, 0);
+    g.clearRect(0, 0, CW, CH);
+    g.setTransform(s, 0, 0, s, tx, ty);
+    g.drawImage(renderer.domElement, 0, 0);
+    out.push({ clip: f.clip, png: cell.toDataURL('image/png'), head: toCell(project(head)), top: toCell(project(top)) });
+  }
+  renderer.dispose();
+  return { frames: out, scale: s, render: [W, H], idleSeconds: idleLength, reactSeconds: reactLength, winSeconds: sWins.map(w => w.length) };
+};
+window.ready = true;
+</script>
+</body>
+</html>

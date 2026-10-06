@@ -1,0 +1,187 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1775
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.2.0",
+  "levelNumber": 250,
+  "mapping": {
+    "dew": "water",
+    "dot": "wood",
+    "head": "acorn",
+    "leaf": "leaf",
+    "shell": "flower"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 12,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "ladybug_03",
+    "mirror": "horizontal",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 5,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p17",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p19",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "15973560352622707213",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 12,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 12,
+            "y": 6
+          },
+          {
+            "x": 11,
+            "y": 7
+          },
+          {
+            "x": 12,
+            "y": 8
+          },
+          {
+            "x": 12,
+            "y": 5
+          },
+          {
+            "x": 11,
+            "y": 6
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
+    ]
+  }
+}

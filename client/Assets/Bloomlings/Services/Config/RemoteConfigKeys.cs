@@ -71,10 +71,20 @@ namespace Bloomlings.Client.Services.Config
         public static readonly IntKey PetalsCleanBonus = new IntKey("economy.petals.cleanBonus", 8, 0, 50);
         public static readonly IntKey PetalsHardBonus = new IntKey("economy.petals.hardBonus", 10, 0, 100);
         public static readonly IntKey PetalsSuperHardBonus = new IntKey("economy.petals.superHardBonus", 20, 0, 100);
-        public static readonly IntKey PriceExtraSlot = new IntKey("economy.price.extraSlot", 40, 10, 500);
-        public static readonly IntKey PriceShuffle = new IntKey("economy.price.shuffle", 40, 10, 500);
-        public static readonly IntKey PriceReturn = new IntKey("economy.price.return", 50, 10, 500);
-        public static readonly IntKey PriceBloomBurst = new IntKey("economy.price.bloomBurst", 60, 10, 500);
+        // Booster prices as in the reference game (the owner, 2026-10-05: its cheapest booster costs 1200 coins, the four in
+        // the ratio 40:40:50:60); they were 40/40/50/60.
+        public static readonly IntKey PriceExtraSlot = new IntKey("economy.price.extraSlot", 1200, 10, 5000);
+        public static readonly IntKey PriceShuffle = new IntKey("economy.price.shuffle", 1200, 10, 5000);
+        public static readonly IntKey PriceReturn = new IntKey("economy.price.return", 1500, 10, 5000);
+        /// <summary>Up to 10000, so it can always stay above the other prices (at most 5000) as FR-048 asks.</summary>
+        public static readonly IntKey PriceBloomBurst = new IntKey("economy.price.bloomBurst", 1800, 10, 10000);
+        // The profile's avatar pictures for Petals, by tier (spec 005 FR-037; the owner's 300 / 600 / 1200 of 2026-10-05).
+        public static readonly IntKey PriceAvatarCommon = new IntKey("economy.price.avatarCommon", 300, 10, 10000);
+        public static readonly IntKey PriceAvatarRare = new IntKey("economy.price.avatarRare", 600, 10, 10000);
+        public static readonly IntKey PriceAvatarSpecial = new IntKey("economy.price.avatarSpecial", 1200, 10, 10000);
+
+        /// <summary>Every bought clearing style (spec 005 FR-038; the owner, 2026-10-06: 5000 for now, Petals only).</summary>
+        public static readonly IntKey PriceClearing = new IntKey("economy.price.clearing", 5000, 10, 50000);
         public static readonly IntKey UnlockGrant = new IntKey("economy.unlockGrant", 1, 1, 3);
         public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 5, 2, 20);
 
@@ -100,13 +110,15 @@ namespace Bloomlings.Client.Services.Config
             string.Empty,
             value => value.Length == 0 || (Uri.TryCreate(value, UriKind.Absolute, out Uri? uri) && uri.Scheme == Uri.UriSchemeHttps));
 
-        // Presentation (research R4).
-        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 1500, 500, 5000);
+        // Presentation (research R4). The backlog beyond which the timeline plays faster: 60 s since the owner's calm
+        // clearing pace of 2026-10-06, so normal play keeps the pace (12 s from 2026-10-05, 6 s from 2026-10-03, 1.5 s before).
+        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 60000, 2000, 120000);
 
         public static IReadOnlyList<IntKey> AllInts { get; } = new[]
         {
             PetalsBase, PetalsCleanBonus, PetalsHardBonus, PetalsSuperHardBonus,
-            PriceExtraSlot, PriceShuffle, PriceReturn, PriceBloomBurst, UnlockGrant, DropEveryLevels,
+            PriceExtraSlot, PriceShuffle, PriceReturn, PriceBloomBurst,
+            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearing, UnlockGrant, DropEveryLevels,
             DailyRewardPetals, DailyStreakBonusPetals, DailyStreakMaxDays,
             InterstitialFirstLevel, InterstitialMinSeconds, InterstitialMinLevels, RescuePerAttempt,
             FxBacklogThresholdMs,

@@ -1,7 +1,8 @@
 {
-  "note": "Cosmetics (FR-063, T143). No gameplay effect. Worn items (hat, trail, expression) use neutral tints (HSV saturation <= 0.3) so they never read as a variant color; frames, badges and markers decorate the profile only. Milestone items come from content/roadmap/milestones.json.",
+  "note": "Cosmetics (FR-063, T143). No gameplay effect. Worn items (skin, hat, trail, expression) use neutral tints (HSV saturation <= 0.3) so they never read as a variant color, and skins are thin patterns over the variant-colored body; frames, badges and markers decorate the profile only. Items with a price are sold for Petals in the Store after the Wardrobe unlock (FR-051); milestone items come from content/roadmap/milestones.json and are never sold. Level badges and markers (badge.level_N, marker.level_N) are generated, not listed.",
   "items": [
     { "id": "hat.sprout_cap", "kind": "hat", "name": "Sprout Cap", "shape": "sprout", "tint": "#A8B59A", "starter": true },
+    { "id": "skin.speckles", "kind": "skin", "name": "Speckles", "shape": "speckles", "tint": "#F2EEE6", "starter": true },
     { "id": "hat.leaf_cap", "kind": "hat", "name": "Leaf Cap", "shape": "cap", "tint": "#9C9480" },
     { "id": "trail.petal_sparkle", "kind": "trail", "name": "Petal Sparkle", "shape": "sparkle", "tint": "#E8E1D6" },
     { "id": "expression.wink", "kind": "expression", "name": "Wink", "shape": "wink", "tint": "#4A4540" },
@@ -19,13 +20,25 @@
     { "id": "hat.night_cap", "kind": "hat", "name": "Night Cap", "shape": "nightcap", "tint": "#B8B8CC" },
     { "id": "trail.moon_dust", "kind": "trail", "name": "Moon Dust", "shape": "sparkle", "tint": "#D8D8E6" },
     { "id": "frame.silver_vine", "kind": "frame", "name": "Silver Vine Frame", "shape": "frame", "tint": "#C0C4C8" },
+    { "id": "skin.moon_frost", "kind": "skin", "name": "Moon Frost", "shape": "speckles", "tint": "#D0D4DC" },
     { "id": "marker.silver_leaf", "kind": "marker", "name": "Silver Leaf Marker", "shape": "marker", "tint": "#C0C4C8" },
     { "id": "frame.silver_bloom", "kind": "frame", "name": "Silver Bloom Frame", "shape": "frame", "tint": "#C8CCD0" },
     { "id": "badge.golden_leaf", "kind": "badge", "name": "Golden Leaf Badge", "shape": "badge", "tint": "#D9C27A" },
+    { "id": "skin.golden_petals", "kind": "skin", "name": "Golden Petals", "shape": "petals", "tint": "#E0D4A8" },
     { "id": "hat.golden_crown", "kind": "hat", "name": "Golden Crown", "shape": "crown", "tint": "#D9CFA8" },
     { "id": "badge.golden_bloom", "kind": "badge", "name": "Golden Bloom Badge", "shape": "badge", "tint": "#E0C878" },
     { "id": "marker.crown", "kind": "marker", "name": "Crown Marker", "shape": "marker", "tint": "#D9C27A" },
     { "id": "frame.aurora", "kind": "frame", "name": "Aurora Frame", "shape": "frame", "tint": "#C8D8E8" },
-    { "id": "hat.star_crown", "kind": "hat", "name": "Star Crown", "shape": "crown", "tint": "#DCD8C8" }
+    { "id": "hat.star_crown", "kind": "hat", "name": "Star Crown", "shape": "crown", "tint": "#DCD8C8" },
+    { "id": "skin.spots", "kind": "skin", "name": "Spots", "shape": "spots", "tint": "#EDE7DC", "price": 200 },
+    { "id": "skin.stripes", "kind": "skin", "name": "Stripes", "shape": "stripes", "tint": "#E6E2DA", "price": 250 },
+    { "id": "skin.petal_print", "kind": "skin", "name": "Petal Print", "shape": "petals", "tint": "#F0E6EA", "price": 300 },
+    { "id": "hat.bucket_hat", "kind": "hat", "name": "Bucket Hat", "shape": "brim", "tint": "#C8C0B0", "price": 200 },
+    { "id": "hat.bell_cap", "kind": "hat", "name": "Bell Cap", "shape": "nightcap", "tint": "#D8D0C4", "price": 250 },
+    { "id": "trail.pollen", "kind": "trail", "name": "Pollen Trail", "shape": "sparkle", "tint": "#EEE8D0", "price": 180 },
+    { "id": "trail.breeze", "kind": "trail", "name": "Breeze", "shape": "swirl", "tint": "#DDE2E0", "price": 220 },
+    { "id": "expression.sleepy", "kind": "expression", "name": "Sleepy", "shape": "sleepy", "tint": "#4A4540", "price": 150 },
+    { "id": "frame.bramble", "kind": "frame", "name": "Bramble Frame", "shape": "frame", "tint": "#B5A898", "price": 350 },
+    { "id": "badge.watering_can", "kind": "badge", "name": "Watering Can Badge", "shape": "badge", "tint": "#B0BCC4", "price": 300 }
   ]
 }

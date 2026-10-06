@@ -2,9 +2,10 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 10,
+  "height": 13,
   "id": "pumpkin_01",
   "legend": {
+    "f": "leaf",
     "g": "grass",
     "p": "pumpkin",
     "s": "sky",
@@ -35,6 +36,11 @@
       "colorGroup": "green",
       "name": "Grass",
       "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
     }
   ],
   "source": {
@@ -52,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 12
 }

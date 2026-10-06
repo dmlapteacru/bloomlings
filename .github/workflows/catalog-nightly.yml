@@ -2,9 +2,9 @@ name: catalog-nightly
 
 # Full catalog certification (T093; SC-004, SC-012): solves every level, checks every invariant, reports the
 # difficulty distribution (FR-059) and the picture similarity statistics, and uploads the JSON reports.
+# Manual only (Actions → Run workflow), like the APK builds, so it spends no Actions minutes on its own. A nightly
+# schedule can come back once content/catalog/ holds the launch catalog (T153) and the budget allows it.
 on:
-  schedule:
-    - cron: "17 3 * * *"
   workflow_dispatch:
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
           status=0
           pipeline pictures validate --lib content/pictures/lib --json > reports/pictures.json || status=1
           pipeline validate --defs content/curated --json > reports/validate-curated.json || status=1
-          pipeline validate --defs content/catalog --json > reports/validate-catalog.json || status=1
+          pipeline validate --defs content/catalog --context content/curated --json > reports/validate-catalog.json || status=1
           pipeline score --defs content/catalog --curated content/curated --json > reports/score.json || status=1
           echo "pipeline exit status: $status"
           exit $status

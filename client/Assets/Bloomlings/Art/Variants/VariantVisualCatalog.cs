@@ -31,6 +31,13 @@ namespace Bloomlings.Client.Art.Variants
         public Sprite? PodSkin { get; }
 
         public Family Family { get; }
+
+        /// <summary>The icon and count color drawn on this variant: dark on light variants, else white (<see cref="InkContrast"/>).</summary>
+        public Color Ink => InkOn(Color);
+
+        public static Color InkOn(Color color) => InkContrast.UseDarkInk(color.r, color.g, color.b)
+            ? new Color((float)InkContrast.DarkInk, (float)InkContrast.DarkInk, (float)InkContrast.DarkInk, 1f)
+            : Color.white;
     }
 
     /// <summary>

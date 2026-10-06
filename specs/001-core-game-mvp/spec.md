@@ -83,6 +83,49 @@ a default or asks a question.
   A: Option A, no lives, as in doc 10. A failed or abandoned attempt is free, restarts are unlimited, and there is no
   energy timer. See FR-040.
 
+### Session 2026-10-05 (the owner)
+
+- **Q: The cells are too big and the board clears too fast. How big should the boards be?**
+  A: More, smaller cells from the very first level, and slower clearing. The owner chose boards like today's Level 26
+  for the start: 11×12–12×12 at L1–10 (about 110–130 tiles, was 7×8–8×8 with 52–60), growing to 13×14–14×16 at
+  L51–100, and never smaller than 11×12 later. FR-008 and the Level Band Guidelines are amended; the picture library,
+  Levels 1–10 and the showcases were redrawn for it. The clearing pace at 1× is halved again (research R4).
+- **Q: The in-game prices are very cheap. What should boosters cost?**
+  A: As in the reference game: its cheapest booster costs 1200 coins (players' reports), and its four boosters keep the
+  ratio 40 : 40 : 50 : 60 (the fan wiki). Extra Slot and Shuffle cost 1200 Petals, Return 1500 and Bloom Burst 1800
+  (Remote Config `economy.price.*`, `contracts/backend-services.md`); they cost 40 / 40 / 50 / 60 before. Bloom Burst
+  stays the dearest (FR-048). The Petal packs (120 / 400 / 1000) now buy less than one booster; their sizes are the
+  owner's to set with the server work.
+- **Q: What does the profile hold?**
+  A: A profile page like the reference game's, in the garden look (spec 005 FR-037): the owner's 14 avatar pictures,
+  four free (one per family) and ten for Petals at 300 / 600 / 1200 (Remote Config `economy.price.avatar*`), the
+  player's name (kept on the device until the server work), the short player ID, the joining month, the level, three
+  stats and placeholder achievements until the owner names them. The avatars are profile cosmetics (FR-063 as amended),
+  open from Level 1.
+
+### Session 2026-10-06 (the owner)
+
+- **Q: How should the board clear?**
+  A: Calmly and slowly, as the reference game's ants carry, so that the player can sit and watch (spec 005 FR-038).
+  The owner chose seven clearing styles out of ten proposals. Two are free and play by level: Blossom (a flower opens
+  where the tile was) on Levels 1–10 and on every odd level, and Munchers (the Bloomling eats the tile and waddles home
+  full) on every even level from 12. Five are bought once with Petals in the Store: Fireflies, Bubbles, Pushers,
+  Fireworks and Confetti Parade. They cost 5000 Petals each for now (Remote Config `economy.price.clearing`), well above
+  a booster, and only Petals buy them. A bought style, once chosen, plays on every level instead of the free pair. The
+  proposals Carriers, Wave and Gardener are dropped.
+- **Q: Where are they sold?**
+  A: In the Store's new Animations tab, open with the Store (L12). Each style is a card with a live preview of it.
+  Buying opens at L40, with the Wardrobe: before that a card shows its price and a padlock, and a tap says from which
+  level. A bought style is chosen on its card, and the free card brings back the free pair.
+- **Q: Does a style change the pace?**
+  A: No. Every style takes the same time for a tile: about 1.1 s for each cell from the entry plus 1.4 s, from the
+  Bloomling leaving the arch to the slot's count going down. The return trips of Munchers and Pushers walk faster to
+  fit. The pace sits between the earlier one and a very slow one. The owner: "not too fast, or a whole level lasts ten
+  seconds; something in between; in the reference game they are really slow". Each pod's Bloomlings leave the arch in
+  a line, 0.42 s apart, and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
+  its way. The backlog speed-up waits for 60 s of backlog (research R4). 2× still doubles the clock (FR-069).
+  Presentation only: no outcome changes.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Play a level: commit pods, restore the picture, avoid the jam (Priority: P1)
@@ -372,7 +415,7 @@ skin. Complete the daily challenge. Open the Collection.
   - Hidden layers, keys and specials MAY deviate from the picture, as long as the subject is still recognizable at level start.
   - A base picture MAY be reused in several levels with a different role-to-variant mapping, mirroring, background and Source design, within the limits of FR-083.
 - **FR-007**: Each cleared cell MUST reveal the matching part of the level's finished picture beneath it (restoration reveal). The finished picture is the same subject in its restored look: clean, bright art without tile symbols. It MAY be rendered automatically from the base picture; bespoke illustrations are optional, for example for milestones. Open cells MUST stay visually distinct from active target tiles. On a win, the finished picture MUST be shown in full.
-- **FR-008**: Board size MUST range from 7×8 cells in tutorials to at most 14×16 cells. The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
+- **FR-008**: Board size MUST range from 11×12 cells in tutorials to at most 14×16 cells (amended 2026-10-05, the owner: it was 7×8 in tutorials). The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
 - **FR-009**: Each level MUST have at least one Garden Entry, by default at the bottom center. Some levels MAY use two entries or a side entry.
 - **FR-010**: A target MUST count as reachable only when an orthogonally connected route of open cells leads from a Garden Entry to a side of that target. Diagonal contact does not count. Blockers are never walkable.
 
@@ -388,7 +431,7 @@ skin. Complete the daily challenge. Open the Collection.
   | Locked | Variant, count and lock |
   | Mystery | `?` and count |
   | Connected | A visible link across all members |
-- **FR-014**: Tapping an exposed, selectable pod MUST move it to the first free usable slot. If no usable slot is free, the tap MUST be refused with feedback and no state change.
+- **FR-014**: Tapping an exposed, selectable pod MUST move it to the first free usable slot. If no usable slot is free, the tap MUST be refused with feedback and no state change. Amended 2026-10-05 (the owner: "quick taps stack pods one after another and bypass the jam"): a slot counts as free for a tap only once it shows no pod on screen. The rules free a finished pod's slot at once, while its Bloomlings may still be at work; a tap made before that slot empties on screen is refused like a tap with no free slot (the same feedback), and the rules never see it. A connected group needs as many slots free on screen as it has pods.
 - **FR-015**: The Waiting Buffer MUST have exactly 5 slots by default. Slots show the pod's variant, remaining count and waiting/active state. Pods in slots cannot be reordered manually.
 - **FR-016**: The player MUST be able to commit more pods while Bloomlings are working. The player MUST never tap target cells.
 
@@ -452,29 +495,29 @@ skin. Complete the daily challenge. Open the Collection.
 
 - **FR-040**: A failed or abandoned attempt MUST cost nothing. Restarts MUST be unlimited and free, and there MUST be no lives or energy system (doc 10, "No lives baseline").
 - **FR-041**: Petals (soft currency) MUST be earned per level: a base amount, plus a clean-clear (no-booster) bonus, plus a Hard/Super Hard bonus. Petals MUST also come from milestones and optional rewarded ads. Prices MUST NOT inflate with the level number.
-- **FR-042**: The four boosters MUST unlock at L3 (Extra Slot), L4 (Shuffle), L6 (Return) and L9 (Bloom Burst). Each unlock MUST come with a demonstration and one free charge.
+- **FR-042**: The four boosters MUST unlock at L3 (Extra Slot), L4 (Shuffle), L6 (Return) and L9 (Bloom Burst). Each unlock MUST come with a demonstration and one free charge. *(Amended on 2026-10-05 by the product owner: the demonstration is a guided spotlight that dims the screen and makes the player tap the booster, and for Return a slot, for Bloom Burst a tile; that guided use is free: it takes no charge, so the free charge stays for later, and it does not cost the clean-clear bonus (FR-041). Return's starts once a pod waits in a slot. Spec 005 FR-035, research D27.)*
 - **FR-043**: **Extra Slot** MUST add one extra usable slot until the end of the current level. At most one extra slot can be active.
 - **FR-044**: **Shuffle** MUST rearrange only the remaining eligible Source Pods. Waiting pods are unaffected, locks stay attached to their pods, and connected pods stay connected. If any arrangement can still be won without further boosters, the result MUST be winnable. Each use consumes a charge.
 - **FR-045**: **Return** MUST move one unfinished waiting pod, with its remaining count, back to the top of its original Source stack. Cleared tiles stay cleared.
 - **FR-046**: Every level MUST be winnable without boosters; FR-080 validates this. A booster that can have no effect MUST be disabled.
 - **FR-047**: Boosters MUST be obtainable through unlock grants, level-completion drops, milestone rewards, Petal purchases, rewarded ads and in-app purchase bundles.
-- **FR-048**: Recovery MUST stay limited: at most one extra slot at a time, each booster use consumes a charge, Bloom Burst is the most expensive booster, and the ad rescue is available once per attempt.
+- **FR-048**: Recovery MUST stay limited: at most one extra slot at a time, each booster use consumes a charge (but the guided first use at its unlock, FR-042 as amended on 2026-10-05), Bloom Burst is the most expensive booster, and the ad rescue is available once per attempt.
 - **FR-049**: No booster, cosmetic or reward may change the exact-matching rule or give Bloomlings extra power.
 - **FR-050**: **Bloom Burst** MUST let the player choose one visible exact variant. It then removes every remaining layer of that variant, visible and hidden, and every pod of that variant from the tray and the slots. Accounting stays reconciled. This default follows the doc 09 main proposal; the "limited number of cells" alternative in doc 09 may replace it after solver and economy review.
 
 #### G. Store, ads and daily reward (doc 10)
 
-- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock.
+- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock. *(Amended on 2026-10-06 by the product owner: the Animations tab, which sells the board's clearing styles (FR-063 as amended, spec 005 FR-038), shows from L12 with live previews. Its styles can be bought from L40, as the other cosmetics.)*
 - **FR-052**: Rewarded ads MUST always be started by the player and optional. They MAY be used for: jam rescue, a free booster, an extra win reward, and an optional daily bonus.
 - **FR-053**: Interstitial ads MUST appear only at post-win transitions. They MUST never appear during a level, immediately after a fail, or during onboarding (Levels 1–10). They MUST be capped by both time and level count.
-- **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage.
+- **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage. *(Amended on 2026-10-04 by the product owner: besides the Store's row (FR-051, from L12), Home offers Remove Ads from L1 through its No Ads scene and a Remove Ads card of its own, until it is owned; spec 005 FR-032, FR-033. Docs 11 and 13 list Remove Ads in the Store only.)*
 - **FR-055**: Daily Reward MUST unlock at L7, with one claim per calendar day.
 - **FR-056**: No level may require spending money or watching ads. This follows from FR-046 and FR-080.
 
 #### H. Progression, Home and long-run motivation (docs 07, 08, 11, 13)
 
 - **FR-057**: Progression MUST be one linear sequence of levels, Level 1 → 2 → … → 5000+. Each win unlocks the next level. There MUST be no level map, no level chooser and no level groupings. The flow is Launch → Home → Play → Level N → Win → Next.
-- **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10).
+- **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10). *(Amended on 2026-10-04 by the product owner: the leaderboard rank shows only on the Leaderboard page, not on Home; the Store and the other features are the bottom menu's places, spec 005 FR-030. Home also shows two promo scenes: No Ads from L1 until Remove Ads is owned, and the Daily Reward from its unlock, spec 005 FR-032.)*
 - **FR-059**: Every level MUST have a class: Normal, Hard (label from L5) or Super Hard (label from L10). The class is shown before the level starts, with a distinct visual treatment and higher rewards. From L11 on, every 100 consecutive levels MUST contain 15–25 Hard and 6–10 Super Hard levels, spaced irregularly (tuning targets from doc 07: Hard every 4–6 levels, Super Hard every 10–15). The level after a Super Hard is a relief level. Difficulty moves in waves and does not rise monotonically.
 - **FR-060**: The number of active variants MUST grow gradually:
 
@@ -502,6 +545,14 @@ skin. Complete the daily challenge. Open the Collection.
   After about L500, new core mechanics MUST be rare.
 - **FR-062**: The Leaderboard MUST unlock at L10 and rank players globally by highest completed level. Ties are ordered by who completed that level first. Submissions MUST pass sanity checks: progress only moves forward, no impossible jumps, and the content version is compatible.
 - **FR-063**: Wardrobe MUST unlock at L40. It offers cosmetic skins, hats, trails and expressions with no gameplay effect. Cosmetics MUST NOT reduce tile or pod readability.
+  *Amended 2026-10-05 (the owner):* the profile's avatar pictures (spec 005 FR-037) are profile cosmetics too: four
+  free, ten bought once with Petals (300 / 600 / 1200), open from Level 1 on the profile page (not in the Wardrobe or
+  the Store), shown only on the profile (Home's avatar, the page, the player's own leaderboard row), never on the
+  board.
+  *Amended 2026-10-06 (the owner):* the board's clearing styles (spec 005 FR-038) are board cosmetics too. Blossom
+  and Munchers are free and play by level. Fireflies, Bubbles, Pushers, Fireworks and Confetti Parade are bought once
+  for 5000 Petals each from L40 in the Store's Animations tab, whose previews show from L12. A chosen one plays on every
+  level. Every style takes the same time per tile, so none changes the pace or an outcome.
 - **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50.
 - **FR-065**: Every finished picture MUST be added to a Collection that the player can view. The Collection is never a level selector.
 - **FR-066**: Background themes MUST rotate automatically by level band. This is visual only; there are no navigable areas.
@@ -514,7 +565,9 @@ skin. Complete the daily challenge. Open the Collection.
   - Center: the board.
   - Below the board: the Garden Entry and the Waiting Slots.
   - Bottom: the stacked Source Tray, with a compact booster bar.
-- **FR-069**: The 2× speed setting MUST change only animation speed, never the outcome.
+- **FR-069**: The 2× speed setting MUST change only animation speed, never the outcome. While no pod can be tapped
+  (every pod picked, or the level decided), the animation MUST play at 2× on its own, the speed control showing it,
+  without changing the player's setting (the owner, 2026-10-04; research R4).
 - **FR-070**: Every tap MUST get immediate feedback. Selectable, locked, waiting, active, stuck and jam-risk states MUST be communicated visually, with minimal text. Bloomlings MUST stay small enough not to hide tile state.
 - **FR-071**: When the second variant of a family first appears, the game MUST show both side by side with one short message, for example "Match the exact symbol". It MUST then show the first variant's pod ignoring the sibling's tile. The explanation is not repeated later.
 - **FR-072**: Accessibility: every variant MUST have its own icon, with enough color distance and readable counts. Palettes MUST be tested for colorblind safety. Hue alone MUST never carry meaning.
@@ -613,12 +666,18 @@ skin. Complete the daily challenge. Open the Collection.
 
 | Band | Levels | Board (cells) | Active variants | Source Pods | Work (tile-layers) | Typical duration |
 |---|---|---|---|---|---|---|
-| Onboarding | 1–10 | 7×8–8×8 | 2–3 | 3–7 | 30–60 | 20–45 s |
-| Early | 11–25 | 9×10–10×10 | 3–4 | 6–12 | 50–100 | 45–120 s |
-| Early-mid | 26–50 | 10×10–12×12 | 4–5 | 10–20 | 90–180 | 45–120 s |
-| Core completion | 51–100 | 10×12–14×14 | 5 (6 in Hard) | 10–24 | 90–180 (Hard 150–300) | 45 s–4 min |
-| Combination | 101–500 | up to 14×16 | 5–6 | 15–30 | 150–300+ | 1–4 min |
-| Long run | 501–5000+ | up to 14×16 | 4–6 (7 rare) | 10–30+ | 90–300+ | 45 s–4 min |
+| Onboarding | 1–10 | 11×12–12×12 | 2–3 | 3–8 | 95–140 | 45–90 s |
+| Early | 11–25 | 12×12–12×13 | 3–4 | 7–14 | 105–150 | 60–150 s |
+| Early-mid | 26–50 | 12×13–13×14 | 4–5 | 11–22 | 115–220 | 60–150 s |
+| Core completion | 51–100 | 13×14–14×16 | 5 (6 in Hard) | 12–28 | 135–240 (Hard 180–360) | 1–5 min |
+| Combination | 101–500 | 11×12–14×16 | 5–6 | 15–30 | 150–300+ | 1–5 min |
+| Long run | 501–5000+ | 11×12–14×16 | 4–6 (7 rare) | 10–30+ | 100–300+ | 1–5 min |
+
+Amended 2026-10-05 (the owner: more, smaller cells from Level 1, and slower clearing). The rows were: Onboarding 7×8–8×8,
+3–7 pods, work 30–60, 20–45 s; Early 9×10–10×10, 6–12 pods, 50–100, 45–120 s; Early-mid 10×10–12×12, 10–20 pods,
+90–180, 45–120 s; Core completion 10×12–14×14, 10–24 pods, 90–180 (Hard 150–300), 45 s–4 min; Combination and Long run
+up to 14×16, work 150–300+ and 90–300+, 1–4 min and 45 s–4 min. Work follows the boards (75–95% occupancy, FR-008, plus
+layers from L28); the durations are estimates at the halved pace until playtests calibrate them (T155).
 
 Pod sizes:
 
@@ -707,7 +766,7 @@ Layout principles:
   - Variants entering at L45/L200: to be decided.
 - **Platforms**: Android and iOS phones, portrait. The high-level technical direction in doc 15 (Unity/C#, deterministic simulation, offline generator and solver, lightweight backend) is input for planning, not part of this spec.
 - **Picture library**: if each base picture is used in at most about 5 levels, a 5000-level catalog needs roughly 1000–1500 base pictures. The exact size and sourcing (drawn, generated, or generated and edited) are decided in planning.
-- **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 Petals, a booster costs roughly 40–60 Petals.
+- **Economy numbers** are tuning parameters: Petal rewards, booster prices, ad caps and milestone bundles. Starting points are taken from the reference game: a win pays roughly 12–30 Petals, a booster costs 1200–1800 Petals (the owner, 2026-10-05: aligned with the reference game, whose cheapest booster costs 1200 coins; it was 40–60).
 - **Out of scope for launch** (doc 14):
   - world map, room builder, PvP, clans, narrative campaign;
   - permanent hero power upgrades;

@@ -2,12 +2,13 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 12,
+  "height": 14,
   "id": "cherries_02",
   "legend": {
     "b": "background",
     "c": "cherry",
     "l": "leaf",
+    "p": "plate",
     "t": "stalk"
   },
   "review": {
@@ -35,6 +36,11 @@
       "colorGroup": "green",
       "name": "Leaf",
       "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
     }
   ],
   "source": {
@@ -51,6 +57,6 @@
       "fruit"
     ]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 13
 }

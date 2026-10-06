@@ -20,7 +20,8 @@ namespace Bloomlings.Generator.Tests
     /// <summary>
     /// T069: the generator is deterministic, every accepted level passes <see cref="CatalogValidator"/>, every discarded
     /// candidate records a reason, and the visible top layer always follows the picture mapping. The fixture uses the
-    /// small approved pictures of the repository (onboarding and dev) and a small test band.
+    /// approved onboarding pictures of the repository (11–12×12 since 2026-10-05) and a small test band. Those levels are
+    /// not tutorial levels, so these tests turn the band guidelines off; <see cref="BandGuidelinesTests"/> covers them.
     /// </summary>
     public class GeneratorTests
     {
@@ -29,7 +30,7 @@ namespace Bloomlings.Generator.Tests
         private const string SmallBand = @"{
   ""bandId"": ""test-small"",
   ""levelRange"": [11, 40],
-  ""boardSize"": { ""width"": [7, 8], ""height"": [8, 9] },
+  ""boardSize"": { ""width"": [11, 12], ""height"": [12, 12] },
   ""picturePool"": { ""themes"": [] },
   ""structureTargets"": { ""nestingDepth"": [1, 6], ""backgroundSharePermille"": [0, 1000] },
   ""variantCount"": [3, 3],
@@ -41,8 +42,8 @@ namespace Bloomlings.Generator.Tests
   ""stacks"": [2, 3],
   ""podCount"": [7, 9],
   ""podSize"": [3, 40],
-  ""work"": [20, 80],
-  ""bufferPressureTarget"": ""normal"",
+  ""work"": [90, 140],
+  ""bufferPressureTarget"": ""relaxed"",
   ""durationTarget"": [20, 60],
   ""hardMode"": { ""extraPods"": 1, ""maxInjections"": 8, ""hardPressure"": ""tense"", ""superHardPressure"": ""critical"" },
   ""solver"": { ""nodeBudget"": 20000, ""maxCandidatesPerLevel"": 16 }
@@ -72,7 +73,10 @@ namespace Bloomlings.Generator.Tests
         private static (GenerationResult Result, SortedDictionary<int, LevelDefinition> History) Run(string profileJson, int first, int last)
         {
             GenerationProfile profile = ProfileLoader.Read(profileJson);
-            var generator = new LevelGenerator(profile, new PicturePicker(Library), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed));
+            var generator = new LevelGenerator(profile, new PicturePicker(Library), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed))
+            {
+                UseBandGuidelines = false,
+            };
             var history = new SortedDictionary<int, LevelDefinition>();
             GenerationResult result = generator.Generate(first, last, Seed, history);
             return (result, history);
@@ -96,7 +100,7 @@ namespace Bloomlings.Generator.Tests
             (GenerationResult result, SortedDictionary<int, LevelDefinition> history) = Run(SmallBand, 11, 12);
             Assert.That(result.Failed, Is.Empty, "levels without an accepted candidate: " + string.Join(", ", result.Rejections.Select(r => r.Reason)));
 
-            var validator = new CatalogValidator(Library, UnlockRoadmap.Default, Pairs, new SolveOptions(20000));
+            var validator = new CatalogValidator(Library, UnlockRoadmap.Default, Pairs, new SolveOptions(20000)) { CheckBandGuidelines = false };
             CatalogReport report = validator.Validate(history.Values.ToList());
             IEnumerable<string> errors = report.Issues.Where(i => i.IsError).Select(i => $"L{i.Level} {i.Check}: {i.Message}");
 
@@ -113,7 +117,7 @@ namespace Bloomlings.Generator.Tests
         public void RejectedCandidates_RecordAReason()
         {
             // No approved picture has 500+ tile-layers, so every candidate is discarded at the work check.
-            string impossible = SmallBand.Replace(@"""work"": [20, 80]", @"""work"": [500, 900]", StringComparison.Ordinal);
+            string impossible = SmallBand.Replace(@"""work"": [90, 140]", @"""work"": [500, 900]", StringComparison.Ordinal);
 
             GenerationResult result = Run(impossible, 11, 11).Result;
 
@@ -174,6 +178,7 @@ namespace Bloomlings.Generator.Tests
             {
                 ForcedMechanics = new[] { mechanic },
                 ForcedClass = DifficultyClass.Normal,
+                UseBandGuidelines = false,
             };
             var history = new SortedDictionary<int, LevelDefinition>();
 
@@ -185,7 +190,7 @@ namespace Bloomlings.Generator.Tests
             BasePicture picture = Library.Single(p => p.Id == generated.Picture.Id);
             Assert.That(LevelMechanics.UnlocksUsed(generated, picture), Does.Contain("mechanic." + mechanic));
 
-            var validator = new CatalogValidator(Library, UnlockRoadmap.Default, Pairs, new SolveOptions(20000));
+            var validator = new CatalogValidator(Library, UnlockRoadmap.Default, Pairs, new SolveOptions(20000)) { CheckBandGuidelines = false };
             IEnumerable<string> errors = validator.Validate(history.Values.ToList()).Issues.Where(i => i.IsError).Select(i => $"{i.Check}: {i.Message}");
             Assert.That(errors, Is.Empty);
         }

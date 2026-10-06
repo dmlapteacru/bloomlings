@@ -1,8 +1,8 @@
 {
-  "commands": ["tap:h1", "tap:w1", "tap:r1", "tap:h2"],
+  "commands": ["tap:h1", "tap:w1", "tap:h2", "tap:r1", "tap:w2"],
   "contentVersion": 1,
   "definition": {
-    "definitionVersion": 1,
+    "definitionVersion": 2,
     "difficulty": {
       "class": "normal",
       "score": 0
@@ -10,7 +10,7 @@
     "entries": [
       {
         "side": "bottom",
-        "x": 4,
+        "x": 6,
         "y": 0
       }
     ],
@@ -23,16 +23,21 @@
     },
     "picture": {
       "id": "birdhouse",
-      "version": 1
+      "version": 2
     },
     "pods": [
       {
-        "count": 29,
+        "count": 34,
         "id": "w1",
         "variantId": "water"
       },
       {
-        "count": 12,
+        "count": 34,
+        "id": "w2",
+        "variantId": "water"
+      },
+      {
+        "count": 30,
         "id": "r1",
         "variantId": "flower"
       },
@@ -42,7 +47,7 @@
         "variantId": "wood"
       },
       {
-        "count": 7,
+        "count": 24,
         "id": "h2",
         "variantId": "wood"
       }
@@ -54,14 +59,14 @@
     },
     "tray": {
       "stacks": [
-        ["h1", "r1"],
+        ["h1", "r1", "w2"],
         ["w1", "h2"]
       ]
     }
   },
   "description": "Curated Level 4 (Birdhouse): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
-  "expectedEventsDigest": "5ffd5a779f02dcc6",
-  "expectedStateHash": "027c6fd9df860bb0",
+  "expectedEventsDigest": "d5736fc8a24651e8",
+  "expectedStateHash": "13542662fee76767",
   "expectedStatus": "won",
   "name": "curated-l0004",
   "picture": {
@@ -69,20 +74,24 @@
       "mode": "auto"
     },
     "grid": [
-      [-1, 0, 0, 0, 2, 0, 0, -1],
-      [0, 0, 0, 2, 2, 0, 0, 0],
-      [0, 2, 2, 2, 2, 2, 2, 0],
-      [0, 2, 2, -1, -1, 2, 2, 0],
-      [0, 2, 2, 2, 2, 2, 2, 0],
-      [0, 1, 1, 1, 1, 1, 1, 0],
-      [0, 0, 1, 1, 1, 1, 0, 0],
-      [0, 0, 0, 1, 1, 0, 0, 0]
+      [-1, -1, 0, 0, 0, 2, 2, 0, 0, 0, -1, -1],
+      [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+      [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+      [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+      [0, 0, 2, 2, 2, -1, -1, 2, 2, 2, 0, 0],
+      [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+      [-1, -1, 0, 0, 0, 1, 1, 0, 0, 0, -1, -1]
     ],
-    "height": 8,
+    "height": 12,
     "id": "birdhouse",
     "review": {
-      "date": "2026-09-29",
-      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "date": "2026-10-05",
+      "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
       "reviewer": "content",
       "status": "approved"
     },
@@ -114,8 +123,8 @@
       "bands": ["onboarding"],
       "themes": ["garden"]
     },
-    "version": 1,
-    "width": 8
+    "version": 2,
+    "width": 12
   },
   "shuffleNodeBudget": 20000
 }

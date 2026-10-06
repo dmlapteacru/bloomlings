@@ -1,8 +1,8 @@
 {
-  "commands": ["tap:w1", "tap:c1", "tap:t1", "tap:c2"],
+  "commands": ["tap:w1", "tap:c1", "tap:w2", "tap:t1", "tap:c2"],
   "contentVersion": 1,
   "definition": {
-    "definitionVersion": 1,
+    "definitionVersion": 2,
     "difficulty": {
       "class": "normal",
       "score": 0
@@ -10,7 +10,7 @@
     "entries": [
       {
         "side": "bottom",
-        "x": 4,
+        "x": 6,
         "y": 0
       }
     ],
@@ -23,26 +23,31 @@
     },
     "picture": {
       "id": "tree",
-      "version": 1
+      "version": 2
     },
     "pods": [
       {
-        "count": 28,
+        "count": 40,
         "id": "w1",
         "variantId": "water"
       },
       {
-        "count": 15,
+        "count": 34,
+        "id": "w2",
+        "variantId": "water"
+      },
+      {
+        "count": 26,
         "id": "c1",
         "variantId": "leaf"
       },
       {
-        "count": 13,
+        "count": 26,
         "id": "c2",
         "variantId": "leaf"
       },
       {
-        "count": 4,
+        "count": 8,
         "id": "t1",
         "variantId": "wood"
       }
@@ -54,14 +59,14 @@
     },
     "tray": {
       "stacks": [
-        ["w1", "c1"],
+        ["w1", "c1", "w2"],
         ["t1", "c2"]
       ]
     }
   },
   "description": "Curated Level 3 (Round tree): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
-  "expectedEventsDigest": "4aedc922eec3ca18",
-  "expectedStateHash": "027c6fd9df860bb0",
+  "expectedEventsDigest": "b6ddec94394017ce",
+  "expectedStateHash": "13542662fee76767",
   "expectedStatus": "won",
   "name": "curated-l0003",
   "picture": {
@@ -69,20 +74,24 @@
       "mode": "auto"
     },
     "grid": [
-      [-1, 0, 0, 0, 0, 0, 0, -1],
-      [0, 0, 0, 2, 2, 0, 0, 0],
-      [0, 0, 0, 2, 2, 0, 0, 0],
-      [0, 0, 1, 1, 1, 1, 0, 0],
-      [0, 1, 1, 1, 1, 1, 1, 0],
-      [1, 1, 1, 1, 1, 1, 1, 1],
-      [0, 1, 1, 1, 1, 1, 1, 0],
-      [-1, 0, 1, 1, 1, 1, 0, -1]
+      [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1],
+      [0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0],
+      [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+      [-1, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, -1],
+      [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1]
     ],
-    "height": 8,
+    "height": 12,
     "id": "tree",
     "review": {
-      "date": "2026-09-29",
-      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "date": "2026-10-05",
+      "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
       "reviewer": "content",
       "status": "approved"
     },
@@ -114,8 +123,8 @@
       "bands": ["onboarding"],
       "themes": ["garden"]
     },
-    "version": 1,
-    "width": 8
+    "version": 2,
+    "width": 12
   },
   "shuffleNodeBudget": 20000
 }

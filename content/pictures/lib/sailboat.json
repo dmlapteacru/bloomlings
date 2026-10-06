@@ -3,20 +3,24 @@
     "mode": "auto"
   },
   "grid": [
-    [0, 0, 0, 0, 0, 0, 0],
-    [0, 2, 2, 2, 2, 2, 0],
-    [2, 2, 2, 2, 2, 2, 2],
-    [0, 0, 0, 0, 0, 0, -1],
-    [0, 1, 1, 1, 1, 0, 0],
-    [0, 0, 1, 1, 1, 0, 0],
-    [0, 0, 1, 1, 0, 0, 0],
-    [-1, 0, 1, 0, 0, 0, -1]
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+    [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0],
+    [0, 0, 1, 1, 1, 1, 0, 1, 1, 0, 0],
+    [0, 0, 0, 1, 1, 1, 0, 1, 0, 0, 0],
+    [-1, 0, 0, 0, 1, 1, 0, 0, 0, 0, -1],
+    [-1, -1, 0, 0, 0, 1, 0, 0, 0, -1, -1]
   ],
-  "height": 8,
+  "height": 12,
   "id": "sailboat",
   "review": {
-    "date": "2026-09-29",
-    "notes": "Curated onboarding picture (T067); pending playtest.",
+    "date": "2026-10-05",
+    "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
     "reviewer": "content",
     "status": "approved"
   },
@@ -48,6 +52,6 @@
     "bands": ["onboarding"],
     "themes": ["sea"]
   },
-  "version": 1,
-  "width": 7
+  "version": 2,
+  "width": 11
 }

@@ -15,7 +15,10 @@
  *   (FIRST_ALLOWANCE for the first one, then BURST + LEVELS_PER_MINUTE × minutes);
  * - the content version must be one the game supports (raise MAX_CONTENT_VERSION with each content release).
  *
- * State per player (Cloud Save, key "leaderboard_progress"): { level, at, firstAttemptAt }.
+ * State per player (Cloud Save protected player data, key "leaderboard_progress"): { level, at, firstAttemptAt }.
+ * Protected data and the score are written with the service token: players can read their protected data but cannot
+ * write it, so deleting or editing the state cannot reset the jump allowance. Deny players direct writes to the
+ * leaderboard with an Access Control policy (backend/README.md), so this function is the only way in.
  */
 const { DataApi } = require("@unity-services/cloud-save-1.4");
 const { LeaderboardsApi } = require("@unity-services/leaderboards-1.1");
@@ -49,8 +52,8 @@ module.exports = async ({ params, context, logger }) => {
   }
 
   const now = Date.now();
-  const cloudSave = new DataApi(context);
-  const stored = await cloudSave.getItems(context.projectId, context.playerId, [STATE_KEY]);
+  const cloudSave = new DataApi({ accessToken: context.serviceToken });
+  const stored = await cloudSave.getProtectedItems(context.projectId, context.playerId, [STATE_KEY]);
   const found = stored.data.results.find((item) => item.key === STATE_KEY);
   const state = found ? found.value : { level: 0, at: null, firstAttemptAt: now };
 
@@ -64,7 +67,7 @@ module.exports = async ({ params, context, logger }) => {
   if (level - state.level > allowed) {
     if (!found) {
       // Remember the first attempt, so a long offline run is accepted once enough time has passed.
-      await cloudSave.setItem(context.projectId, context.playerId, { key: STATE_KEY, value: state });
+      await cloudSave.setProtectedItem(context.projectId, context.playerId, { key: STATE_KEY, value: state });
     }
 
     return reject("implausible-jump", { level, previous: state.level, minutes: Math.round(minutes), allowed: Math.floor(allowed) });
@@ -72,10 +75,10 @@ module.exports = async ({ params, context, logger }) => {
 
   const elapsed = Math.min(MAX_MINUTES, Math.max(0, Math.floor((now - EPOCH_MS) / 60000)));
   const score = level * LEVEL_FACTOR + (MAX_MINUTES - elapsed);
-  const leaderboards = new LeaderboardsApi(context);
+  const leaderboards = new LeaderboardsApi({ accessToken: context.serviceToken });
   const result = await leaderboards.addLeaderboardPlayerScore(context.projectId, LEADERBOARD_ID, context.playerId, { score });
 
-  await cloudSave.setItem(context.projectId, context.playerId, {
+  await cloudSave.setProtectedItem(context.projectId, context.playerId, {
     key: STATE_KEY,
     value: { level, at: now, firstAttemptAt: state.firstAttemptAt, contentVersion, commandLogHash: String(params.commandLogHash || "") },
   });

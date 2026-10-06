@@ -19,13 +19,14 @@ R7–R9). It is a .NET 10 tool in `core/src/Bloomlings.Pipeline`, run with
 | `pictures import` | Convert indexed PNGs and sidecars into `base-picture.v1` JSON, and compute `structure` | `--src content/pictures/src --out content/pictures/lib` | Picture JSON files, import report |
 | `pictures validate` | Check pictures against the schema: size limits, role/color-group consistency, licence present, review status | `--lib content/pictures/lib` | Report; fails on errors |
 | `generate` | Generate candidates for a level range from a profile (R9) | `--profile content/profiles/<band>.json --levels 501-750 --seed <n> --out content/work/<batch>` | Definitions and validation records |
-| `solve` | Solve one level or a set; produce a trace, a jam witness and metrics (R8) | `--level <n>` or `--defs <dir>`, `--node-budget <n>` | Validation records |
-| `validate` | Run every FR-080 invariant, plus FR-081 (losable) and FR-083 (similarity), over a set or the whole catalog | `--catalog content/catalog` or `--defs <dir>`, `--changed-only` | Report; fails on any violation |
-| `score` | Compute the difficulty score and class, and report the band distribution against FR-059 (Hard 15–25 and Super Hard 6–10 per 100 levels) | `--catalog …` | Report |
-| `review` | Create the review sheet for a batch: board and finished-picture renders, metrics, flags for manual QA tiers (FR-084) | `--defs <dir> --out <dir>` | HTML/PNG review pack |
-| `publish` | Assemble packs of 250 levels, the picture pack and the daily pack; compute SHA-256; write the `content-manifest.v1` | `--catalog content/catalog --content-version <n> --out build/content` | Packs and manifest |
-| `replay` | Replay a command log against a level definition and print the event summary and final `StateHash` (support, doc 15 §14) | `--level <n> --content-version <v> --log <file>` | Summary |
-| `diff` | Compare two content versions. Lists changed levels, which must be deliberate `definitionVersion` bumps (FR-076) | `--from <v> --to <v>` | Report; fails on unversioned changes |
+| `readability` | Compute the variant-pair color distances (normal vision and simulated protanopia, deuteranopia, tritanopia) and grayscale contrast for FR-005 | `--out content/readability`, `--write-provisional` | `pairs-report.json` (and a provisional `approved-pairs.json`) |
+| `solve` | Solve one level or a set; produce a trace, a jam witness and metrics (R8) | `--level <n>` or `--catalog <dir>` (alias `--defs`), `--node-budget <n>` | Validation records |
+| `validate` | Run every FR-080 invariant, plus FR-081 (losable) and FR-083 (similarity), over a set or the whole catalog | `--catalog content/catalog` (alias `--defs <dir>`), `--context content/curated`, `--changed-only` | Report; fails on any violation |
+| `score` | Compute each level's difficulty score and class from its metrics with its band's weights and thresholds (FR-082), flag levels whose stored class or score disagree, and report the band distribution against FR-059 (Hard 15–25 and Super Hard 6–10 per 100 levels) | `--catalog …` (alias `--defs`), `--profiles`, `--thresholds` | Report; fails on disagreements or FR-059 violations |
+| `review` | Create the review sheet for a batch: board and finished-picture renders, metrics, flags for manual QA tiers (FR-084) | `--catalog <dir>` (alias `--defs`) `--out <dir>` | HTML/PNG review pack |
+| `publish` | Validate the whole catalog again, like `validate` (the release gate; the daily pool level by level), and refuse on any error; then assemble packs of 250 levels, the picture pack and the daily pack; compute SHA-256; write the `content-manifest.v1`. `--allow-draft` (playtest builds only) tolerates unapproved pictures, nothing else | `--catalog content/catalog --content-version <n> --out build/content` (`--pairs`, `--node-budget`, `--daily`, `--allow-draft`) | Packs and manifest; exit 1 when the gate fails |
+| `replay` | Replay a command log against a level definition and print the event summary and final `StateHash` (support, doc 15 §14). With `--content` the level, picture, content version and Shuffle budget come from that published content version, as on the player's device | `--level <n> --content <published dir> [--content-version <v>] --log <file>`, or `--catalog <dir>` for unpublished levels | Summary |
+| `diff` | Compare two content versions. Lists changed levels, which must be deliberate `definitionVersion` bumps (FR-076), and changed pictures, which need a new picture version | `--from <published dir, catalog dir or git ref> --to <published dir or catalog dir>` | Report; fails on unversioned changes |
 | `daily generate` | Build the Daily Challenge pool with the `daily` profile (R19) | `--count <n> --seed <n>` | Daily definitions |
 
 ## Repository layout used by the pipeline
@@ -42,11 +43,14 @@ content/
 
 ## CI usage
 
-- **Pull request**:
+Every workflow runs by hand only for now (Actions → Run workflow), to spend no Actions minutes; the same commands run
+locally before each push.
+
+- **Pull request** (`content-validate.yml`):
   - `pictures validate`
   - `validate --changed-only`
   - `diff --from <main> --to <branch>`
-- **Nightly**:
+- **Nightly** (`catalog-nightly.yml`, run by hand until the launch catalog exists):
   - `validate --catalog content/catalog`, the full solve (SC-004)
   - `score`
   - the similarity statistics (SC-012)

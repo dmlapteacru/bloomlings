@@ -2,67 +2,49 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 2769
+    "score": 2945
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 10,
+      "x": 1,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 31,
-  "locks": [
-    {
-      "keyId": "k1",
-      "target": {
-        "id": "p20",
-        "kind": "pod"
-      }
-    }
-  ],
   "mapping": {
-    "background": "dew",
-    "grape": "flower",
-    "leaf": "moss",
-    "stalk": "acorn"
+    "crown": "moss",
+    "fruit": "flower",
+    "grass": "moss",
+    "sky": "dew",
+    "trunk": "acorn"
   },
-  "mechanics": ["locked_pod"],
-  "overlays": {
-    "cells": [
-      {
-        "keyId": "k1",
-        "x": 1,
-        "y": 11
-      }
-    ]
-  },
+  "mechanics": ["connected_pair"],
   "picture": {
-    "id": "grapes_02",
-    "mirror": "horizontal",
-    "version": 1
+    "id": "fruit_tree_02",
+    "version": 2
   },
   "pods": [
     {
-      "count": 8,
+      "count": 6,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 8,
       "id": "p02",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
       "count": 7,
       "id": "p03",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 6,
       "id": "p04",
-      "variantId": "dew"
+      "variantId": "flower"
     },
     {
       "count": 6,
@@ -70,94 +52,93 @@
       "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 9,
       "id": "p06",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 9,
       "id": "p07",
-      "variantId": "dew"
+      "variantId": "moss"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p08",
       "variantId": "dew"
     },
     {
       "count": 7,
       "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p12",
       "variantId": "dew"
     },
     {
-      "count": 5,
-      "id": "p10",
-      "variantId": "flower"
+      "count": 9,
+      "id": "p13",
+      "variantId": "dew"
     },
     {
       "count": 9,
-      "id": "p11",
-      "variantId": "flower"
-    },
-    {
-      "count": 10,
-      "id": "p12",
-      "variantId": "flower"
-    },
-    {
-      "count": 6,
-      "id": "p13",
-      "variantId": "flower"
-    },
-    {
-      "count": 6,
       "id": "p14",
       "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 9,
       "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 9,
       "id": "p16",
       "variantId": "dew"
     },
     {
-      "count": 7,
+      "connectedGroupId": "c1",
+      "count": 8,
       "id": "p17",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "connectedGroupId": "c1",
+      "count": 7,
       "id": "p18",
-      "variantId": "flower"
-    },
-    {
-      "count": 3,
-      "id": "p19",
-      "variantId": "acorn"
-    },
-    {
-      "count": 2,
-      "id": "p20",
-      "lockKeyId": "k1",
       "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p19",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "9567408671600509803",
+  "seed": "1875477728718863810",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16"],
-      ["p02", "p07", "p12", "p17"],
-      ["p03", "p08", "p13", "p18"],
-      ["p04", "p09", "p14", "p19"],
-      ["p05", "p10", "p15", "p20"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
     ]
   }
 }

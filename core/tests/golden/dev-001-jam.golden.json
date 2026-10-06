@@ -82,7 +82,7 @@
     }
   },
   "description": "Tulip pot: five pods that cannot reach their tiles fill the buffer and jam; the last tap is refused with NoFreeSlot.",
-  "expectedEventsDigest": "94944c8cd9cd6148",
+  "expectedEventsDigest": "af25489bc8ee995d",
   "expectedStateHash": "19e0a43296b8b6e9",
   "expectedStatus": "jammed",
   "name": "dev-001-jam",

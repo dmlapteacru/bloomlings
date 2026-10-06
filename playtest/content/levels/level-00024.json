@@ -2,138 +2,100 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1278
+    "score": 1336
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 1,
+      "x": 10,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 24,
-  "locks": [
-    {
-      "keyId": "k1",
-      "target": {
-        "id": "door1",
-        "kind": "special"
-      }
-    }
-  ],
   "mapping": {
-    "beak": "acorn",
-    "bird": "water",
-    "branch": "acorn",
-    "leaves": "moss",
-    "sky": "water",
-    "wing": "flower"
-  },
-  "mechanics": ["key"],
-  "overlays": {
-    "cells": [
-      {
-        "keyId": "k1",
-        "x": 1,
-        "y": 1
-      },
-      {
-        "hole": true,
-        "x": 4,
-        "y": 7
-      }
-    ]
+    "can": "moss",
+    "drops": "dew",
+    "grass": "leaf",
+    "handle": "acorn",
+    "sky": "dew"
   },
   "picture": {
-    "id": "bird_01",
-    "version": 1
+    "id": "watering_can_01",
+    "mirror": "horizontal",
+    "version": 2
   },
   "pods": [
     {
-      "count": 6,
+      "count": 12,
       "id": "p01",
-      "variantId": "moss"
-    },
-    {
-      "count": 9,
-      "id": "p02",
-      "variantId": "acorn"
-    },
-    {
-      "count": 7,
-      "id": "p03",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p04",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p05",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
       "count": 8,
-      "id": "p06",
-      "variantId": "water"
+      "id": "p02",
+      "variantId": "dew"
     },
     {
-      "count": 6,
-      "id": "p07",
-      "variantId": "water"
+      "count": 10,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "dew"
     },
     {
       "count": 9,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
       "id": "p08",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
-      "count": 14,
+      "count": 15,
       "id": "p09",
-      "variantId": "water"
+      "variantId": "moss"
     },
     {
-      "count": 3,
+      "count": 13,
       "id": "p10",
-      "variantId": "flower"
+      "variantId": "moss"
     },
     {
-      "count": 1,
+      "count": 13,
       "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p12",
       "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "7753118322605440385",
+  "seed": "9813300218135916063",
   "slots": {
     "count": 5
   },
-  "specials": [
-    {
-      "cells": [
-        {
-          "x": 4,
-          "y": 7
-        }
-      ],
-      "condition": {
-        "keyId": "k1",
-        "kind": "key"
-      },
-      "effect": {
-        "kind": "open_cells"
-      },
-      "id": "door1",
-      "type": "gate"
-    }
-  ],
   "tray": {
     "stacks": [
       ["p01", "p03", "p05", "p07", "p09", "p11"],
-      ["p02", "p04", "p06", "p08", "p10"]
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
     ]
   }
 }

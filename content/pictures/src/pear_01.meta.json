@@ -2,10 +2,11 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 12,
+  "height": 14,
   "id": "pear_01",
   "legend": {
     "b": "background",
+    "d": "plate",
     "l": "leaf",
     "p": "pear",
     "t": "stalk"
@@ -35,6 +36,11 @@
       "colorGroup": "brown_orange",
       "name": "Stalk",
       "roleId": "stalk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
     }
   ],
   "source": {
@@ -51,6 +57,6 @@
       "fruit"
     ]
   },
-  "version": 1,
+  "version": 2,
   "width": 12
 }

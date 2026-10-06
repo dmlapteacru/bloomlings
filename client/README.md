@@ -37,13 +37,17 @@ straight from the repository's `content/curated/` folder. The save lives in
 
 **Tools/Bloomlings/Play Dev Level** opens the Gameplay scene and plays a level straight from the repository's
 `content/curated/dev/` folder (or any level file you choose), without going through Boot. All screens, tiles, pods
-and Bloomling workers are built from code with procedural placeholder art (`Art/Procedural/ProceduralSprites.cs`), so
-no prefab or sprite asset is needed yet.
+and Bloomling workers are built from code with procedural placeholder art (`Art/Procedural/ProceduralSprites.cs`) and
+the generated character pictures of spec 004 (`Art/Characters/Resources/Characters/`, made by `tools/artgen`, loaded by
+`Art/Characters/CharacterSprites.cs`; `Editor/CharacterArtImporter.cs` sets their import settings), so no prefab is
+needed yet. The owner's animated heroes on Home and the win are pre-rendered frames (`Art/Heroes/Resources/HeroMotion/`,
+made by `tools/heroanim`, imported by `Editor/HeroMotionImporter.cs`; "Reference look" below).
 
 ## Verification status
 
 `client/DotnetCheck` compiles every client script against minimal Unity API stubs and runs the engine-free EditMode
-tests (save, progression, golden replays) under .NET; CI runs it with the core tests:
+tests (save, progression, golden replays) under .NET; `core-tests.yml` runs it with the core tests when started by
+hand:
 
 ```sh
 dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj
@@ -99,9 +103,12 @@ package); Authentication is required for all of them. Linking Apple or Google Pl
 sign-in plugins, which register their token sources in `ServiceProviders.AppleIdToken` and
 `ServiceProviders.GooglePlayGamesAuthCode`; without them Settings shows no link buttons.
 
-On iOS, add Unity's iOS 14 Advertising Support package and the `BLOOMLINGS_ATT` scripting define to ask for ATT before
-personalized ads. Fill the release ad unit ids in `Integrations/GoogleMobileAds/GoogleMobileAdsService.cs`
-(development builds use Google's test units), set the store product ids to match
+On iOS, add Unity's iOS 14 Advertising Support package (`com.unity.ads.ios-support`; it turns on `BLOOMLINGS_ATT` by
+itself) and an `NSUserTrackingUsageDescription` to ask for ATT after the UMP form. Consent is read from the TCF values the
+UMP form stores (`Services/Consent/TcfConsent.cs`): an EEA refusal is never treated as consent, and Settings shows
+"Privacy options" where the rules require it. Fill the release ad unit ids in
+`Integrations/GoogleMobileAds/GoogleMobileAdsService.cs`: development builds use Google's test units, and a release build
+without its ids shows no ads. Set the store product ids to match
 `Services/Purchases/Resources/ProductCatalog.json`, and deploy `backend/` (see `backend/README.md`). The integration code
 has not been compiled against the SDKs yet: fix any API drift on first open.
 
@@ -136,6 +143,117 @@ The build method `Bloomlings.Client.Editor.CiBuild.Build` performs the first-ope
 Golden Replays (Android/iOS)** builds that scene alone with IL2CPP. On each reference device the player logs
 `[GoldenReplay] RESULT PASS n/n corpus=<digest> …`. Every case must pass, and the corpus digest must be the same on
 every device (SC-005, SC-011).
+
+## Design (spec 002)
+
+The screens follow the UX design board (`specs/002-ux-design-board/ux-design-board.webp`), built without art assets.
+The engine-free kit in `Assets/Bloomlings/UI/Design/` holds everything that defines the look, and the playtest links it:
+- `DesignTokens`: colors, radii, type, spacing, elevation and motion (`contracts/design-tokens.md`);
+- `ShapeLibrary` and `ShapeRaster`: every placeholder shape as a signed distance function, keyed by its asset slot id;
+- `BackdropRaster`: the garden backdrop per level band theme;
+- `ScreenLayout` and `HomeLook`: the regions of the gameplay screen, Home, cards and the jam sheet;
+- `AssetSlots`: the registry the asset inventory (`specs/002-ux-design-board/asset-inventory.md`) is generated from.
+
+Unity wraps the kit in `ProceduralSprites` (sprites), `UiTheme` (Unity colors), `UiKit` (the board's pills, raised
+buttons, round icon buttons, badges, cards and bottom sheet) and `BackdropView`. The canvas matches the screen width at
+1080 units, so token sizes map one to one. Final art replaces a placeholder by its slot id without layout changes.
+
+## Garden look (spec 003)
+
+The cartoon look of `specs/003-cartoon-ui-style/` extends the same kit (`DesignTokens.Garden`, `GardenLook`):
+- `UiKit.Garden` builds a button as layered images: the cream plate (shadow, thickness, brown outline, gradient) and
+  the raised face (outline, lip, gradient top, highlight). Its `GardenButton` component presses into the lip and
+  springs back with one overshoot, breathes when it is the screen's waiting button, and greys out when not
+  interactable; `VerticalGradient` draws the gradients, `DecorationLayout` places the leaves and flowers on PLAY and
+  the main card buttons.
+- `UiFonts` makes runtime TextMeshPro font assets from `UI/Fonts/Resources/Nunito-ExtraBold.ttf` and
+  `Nunito-SemiBold.ttf` (SIL OFL, `OFL.txt` beside them), and one shared material per font and label look (outline
+  plus a hard underlay for the extrusion). If a font cannot be loaded, labels keep the TextMeshPro default font.
+- Cards, the jam sheet, the board, pods, slots and booster tiles took the reference look of spec 005 (below); the
+  booster tiles keep every state.
+
+Check on a device that the labels use Nunito with their outline and extrusion, and that the profiler shows no new
+material per label.
+
+## Reference look (spec 005)
+
+`specs/005-reference-look/` restyles every screen after the owner's reference (`reference.jpg`), keeping the spec 002
+layouts, the order of elements and every rule (recipes in `contracts/look.md`):
+- `UiRaster` (kit, engine-free) renders the materials as straight-alpha RGBA pictures, deterministic: wood planks and
+  pod frames, stone blocks, the pedestal and the candy tiles. `ProceduralSprites.Picture` turns them into
+  cached sprites (9-sliced where needed, one per key and size); `PicturePixels` flips the rows and bleeds the edges.
+- `UiKit` (`UiKit.cs`, `UiKitGarden.cs`, `UiKitGameplay.cs`, `UiKitTray.cs`, `UiKitCards.cs`, `UiKitMeta.cs`,
+  `UiKitViews.cs`) holds the twins of the playtest's `Kit.*` components under the same names (`WoodSign`,
+  `PrimaryButton` in its wood rim, `SpeedPill`, `ChoiceButton`, `CountBadge`, `CostPill`, `PetalsPill`, `Paper`, `Card`,
+  `PodFrame`, `SlotPlate`, `BoosterTile`, `StoneBorder`, `StonePedestal`, `LightRays`, `FallingPetals`,
+  `WoodLogo`, `OutfitCard`).
+- The board is candy tiles in a stone border on a lawn: `BoardLayout` (kit) places the grid and the border for
+  `BoardView` (a Garden Entry has no picture: its Bloomlings set off from the border beside the entry cell,
+  `BoardLayout.Door`), and `BoardPictures` draws the restored ground, stone obstacles and the finished picture (win,
+  Collection). Waiting Slots are cream plates holding the variant's candy tile with its plain count below it; the 2D
+  characters stay as the walkers.
+- The Source Tray's pods stand in columns, one after another and never on each other (a gameplay rule of the owner,
+  2026-10-03; spec 005 FR-021, `contracts/look.md` §3.7 and §6.1). `GameplayHud.PodGrid` gives `TrayView` the kit's
+  `ReferenceGameplayRegions` (`Pod`, `Chip`, `Shows`) in the tray's canvas units. There is one column per stack, with
+  three rows, or four from a safe aspect of 1.95. Each pod is a `PodView` drawn by `UiKit.GridPod` (`UiKitTray.cs`):
+  a wooden frame 1.3 times as wide as tall (centered in its place), the owner's icon over its middle and the small
+  outlined count at its bottom right corner (the owner's choice "E", 2026-10-03).
+  - The exposed pod is bright and the only one that takes a tap, through a touch box of at least `size.touch_min`.
+  - The waiting pods under it are muted but show their variant and count. "+N" sits on the last shown pod, and an
+    emptied stack shows a sunk well.
+  - The pods slide up a row in `PodView.SlideSeconds` when the exposed one leaves, and down when Return puts one back.
+- The owner's pictures (`specs/005-reference-look/pictures.md`) load through `OwnerArt` from
+  `Art/Backgrounds/Resources/Backgrounds/`, `Art/Brand/Resources/Brand/`, `Art/Icons/Resources/Icons/` (booster icons)
+  and `Art/Decor/Resources/Decor/` (leaves, mirrored with a negative `localScale`) by the names in `OwnerPictures`; the 3D
+  heroes and the optional celebrating heroes load from `Art/Characters/Resources/Characters/3d/` (`CharacterSprites`,
+  `HeroPictures`), where `tools/artgen -- adopt` records them. The drawn stand-in shows while a file is missing.
+- The owner's animated heroes and layered Home (spec 005 FR-028, `contracts/look.md` §3.12, §6.3, §6.4):
+  `tools/heroanim` pre-renders the four FBX heroes into flat frames in `Art/Heroes/Resources/HeroMotion/` (no model
+  enters the game, constitution VII), and the Home picture comes as `home.jpg` plus the `home-*.png` layers in
+  `Art/Backgrounds/Resources/Backgrounds/`. `HeroFrames` loads a family's frames one at a time the first time they show
+  and unloads them when no view holds the family; `HeroMotionView` shows one hero in its frame cell (its pose, the
+  cross-fade, the outfit); `HomeLayersView` draws the layered Home with the four heroes, its touch boxes and the
+  drifting petals, shared by the splash and Home so Home takes over without a jump; `HeroPictures.StageOf` picks the
+  layered Home, the drawn stand-in or no heroes; the win and the milestone show the level's animated hero
+  (`HeroPictures`). `Editor/HeroMotionImporter` sets the import of the frames and the `home-*.png` layers.
+
+Check in the Editor (the client check covers the logic, not the look):
+- The import settings: select a few files of `Art/Heroes/Resources/HeroMotion/` and the `home-*.png` layers. They
+  should be Single sprites with a Full Rect mesh, no mipmaps, alpha is transparency, clamp, bilinear, no power-of-two
+  scaling, not readable, compressed (the frames at normal quality, the layers at high quality). If they were imported
+  before the importer existed, reimport the two folders. Compare a frame with its PNG for banding or dark fringes.
+- The Home stage's sibling order (Home with the owner's pictures, Play mode): under the stage's `Layers`,
+  `FountainBack`, then `ShadowDrop`, `HeroDrop`, `ShadowBloom`, `HeroBloom`, then `Lotus`, then `ShadowSprig`,
+  `HeroSprig`, `ShadowTwig`, `HeroTwig`, then `FountainFront`, `Petals`, `PetalsAbove` and the four `Touch*` boxes;
+  the logo, the buttons, the plaque, Play, the pills and last the `BottomNav` come after the stage, above it. Bloom's
+  feet hide behind the lotus, Sprig's and Twig's behind the fountain's front flowers.
+- Taps: a press on a hero makes it react at once (no click sound); Play, the side button, Settings, the Petals pill,
+  the avatar, the plaque and the bottom menu keep their taps where they overlap a hero; the splash's heroes take none.
+- Home's header row (the owner's request of 2026-10-04, `contracts/look.md` §6.4): Settings at the left, the large
+  Petals pill centered (`UiKit.PetalsPill(align: 0.5f, decorate: true)`) with the owner's sprig on its top-left end and
+  on the "+"'s bottom-right edge, and the profile avatar at the right (`Profile` with its `ProfileAvatar`: the player's
+  Bloom in its outfit once the Wardrobe is open, the profile frame and badge), as large as Settings and on its middle
+  line, as in the preview's frames 2, 3 and 28. A tap on the avatar presses it and clicks; Unity's Home has no toast,
+  so it says nothing yet (the playtest says "Profile coming soon"), and the profile page will open from
+  `HomeFeatureActions.OnProfile`. The pages' Petals pills keep their place at the right of the page header.
+- The bottom menu (spec 005 FR-030, `contracts/look.md` §6.7; `UiKit.BottomNav` / `BottomNavView` in Home and the four
+  pages, wired by `HomeController`): the wooden bar and the medallion should look as in the preview's frames 2, 3, 5,
+  6, 17 and 27 on a 19.5:9 and a 16:9 Game view; all five places always show (the owner's request of 2026-10-04), a
+  locked one with the padlock badge (`UiKit.LockBadge`) at its icon's lower right; each place opens its page straight
+  from any page (the Store page, the Wardrobe, Home, the Leaderboard page, the Collection page; every place a page, the
+  owner's request of the same day), the others hiding, a locked one its page locked with "Available from level N"
+  (`LockedNoticeView`; the preview's frames 29–31: L12, L40, L10, and 2 for the Collection) and no `store_open` for the
+  locked Store page; the medallion's place takes no tap, and a place pressed squashes like a tile. The L10, L12 and L40
+  Home demos point at the Leaderboard, Shop and Wardrobe places.
+- The Leaderboard and Collection pages (`LeaderboardScreen`, `CollectionScreen`; `contracts/look.md` §6.8, §6.9, laid
+  out from `ScreenLayout.ReferenceLeaderboard` and `ReferenceCollection`): they should line up with the Store page
+  (the same header, panel and area) and look as the preview's frames 5, 6, 20 and 31; the Leaderboard's rows keep the
+  player's own row in view with its frame, badge and marker, its Refresh reads the ranks again; the Collection's page
+  arrows turn its pages, a tap on a picture shows its detail on the page and the back button returns to the grid, then
+  to Home; their Petals pill follows the economy, its "+" opening the Store page over them once the Store is open.
+- The motion: each hero breathes in its 4 s idle, one reacts every 6 s in turn (Bloom first), the petals drift
+  smoothly; the splash's heroes fade in and Home continues their motion; the win's hero reacts as it lands, then idles;
+  the profiler shows the frames of at most the families on screen loaded.
 
 ## Localization
 

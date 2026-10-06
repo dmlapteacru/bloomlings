@@ -17,7 +17,8 @@ namespace Bloomlings.Client.Services.Save
     /// </list>
     /// The identity fields (<c>localPlayerId</c>, <c>deviceId</c>) stay the local device's. Daily claims keep the later
     /// date on each side, so a reward claimed on another device today is not claimable again; statistics keep the larger
-    /// value of each counter. Neither input is modified.
+    /// value of each counter; the profile keeps the base's name (else the other's) and the earlier joining day (spec 005
+    /// FR-037). Neither input is modified.
     /// </summary>
     public static class SaveMerge
     {
@@ -84,6 +85,14 @@ namespace Bloomlings.Client.Services.Save
                 }
             }
 
+            // The profile: the base's name unless it kept the default one; the earlier joining day.
+            merged.Profile.Name ??= other.Profile.Name;
+            if (other.Profile.JoinedAt != null
+                && (merged.Profile.JoinedAt == null || string.CompareOrdinal(other.Profile.JoinedAt, merged.Profile.JoinedAt) < 0))
+            {
+                merged.Profile.JoinedAt = other.Profile.JoinedAt;
+            }
+
             MergeDaily(merged.Daily, other.Daily);
             MergeCollection(merged.Collection, other.Collection);
             MergeStats(merged.Stats, other.Stats);
@@ -112,6 +121,11 @@ namespace Bloomlings.Client.Services.Save
             if (string.CompareOrdinal(other.ChallengeLastCompletedUtcDate ?? string.Empty, merged.ChallengeLastCompletedUtcDate ?? string.Empty) > 0)
             {
                 merged.ChallengeLastCompletedUtcDate = other.ChallengeLastCompletedUtcDate;
+            }
+
+            if (string.CompareOrdinal(other.FreeBoosterAdUtcDate ?? string.Empty, merged.FreeBoosterAdUtcDate ?? string.Empty) > 0)
+            {
+                merged.FreeBoosterAdUtcDate = other.FreeBoosterAdUtcDate;
             }
         }
 

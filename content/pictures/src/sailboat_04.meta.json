@@ -2,12 +2,13 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 13,
+  "height": 15,
   "id": "sailboat_04",
   "legend": {
     "a": "sail",
     "h": "hull",
     "s": "sky",
+    "u": "sun",
     "w": "sea"
   },
   "review": {
@@ -35,6 +36,11 @@
       "colorGroup": "blue_cyan",
       "name": "Sea",
       "roleId": "sea"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
     }
   ],
   "source": {
@@ -51,6 +57,6 @@
       "sea"
     ]
   },
-  "version": 1,
-  "width": 12
+  "version": 2,
+  "width": 13
 }

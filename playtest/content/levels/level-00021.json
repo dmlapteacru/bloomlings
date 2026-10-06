@@ -2,99 +2,131 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "super_hard",
-    "score": 3242
+    "score": 3474
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 5,
+      "x": 1,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 21,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p07",
+        "kind": "pod"
+      }
+    }
+  ],
   "mapping": {
-    "cap": "flower",
-    "dot": "flower",
-    "grass": "leaf",
-    "sky": "water",
-    "stem": "acorn"
+    "beak": "acorn",
+    "bird": "dew",
+    "branch": "acorn",
+    "leaves": "leaf",
+    "sky": "dew",
+    "wing": "violet_bud"
   },
-  "mechanics": ["connected_pair"],
+  "mechanics": ["locked_pod", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 10,
+        "y": 1
+      },
+      {
+        "stone": true,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 10
+      }
+    ]
+  },
   "picture": {
-    "id": "mushroom_01",
-    "version": 1
+    "id": "bird_02",
+    "version": 2
   },
   "pods": [
     {
-      "count": 12,
+      "count": 10,
       "id": "p01",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 19,
       "id": "p02",
-      "variantId": "flower"
+      "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 10,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
       "count": 10,
       "id": "p04",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 8,
+      "count": 11,
       "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "lockKeyId": "k1",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p08",
       "variantId": "acorn"
     },
     {
-      "count": 7,
-      "id": "p06",
-      "variantId": "flower"
-    },
-    {
-      "count": 9,
-      "id": "p07",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p08",
-      "variantId": "leaf"
-    },
-    {
-      "connectedGroupId": "c1",
       "count": 9,
       "id": "p09",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 11,
       "id": "p10",
-      "variantId": "leaf"
+      "variantId": "dew"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 7,
+      "count": 6,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "5943454344502714819",
+  "seed": "12082045990509340304",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09"],
-      ["p02", "p06", "p10"],
-      ["p03", "p07", "p11"],
-      ["p04", "p08"]
+      ["p01", "p04", "p07", "p10"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
     ]
   }
 }

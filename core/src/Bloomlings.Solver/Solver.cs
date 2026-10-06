@@ -32,6 +32,9 @@ namespace Bloomlings.Solver
 
         public LevelMetrics Measure(LevelSession start, SolveOptions options) => Analyze(start, options).Metrics;
 
+        public FairnessResult CheckPlayerInformation(LevelSession start, SolveOptions options) =>
+            FairnessChecker.Check(start.Definition, start.Picture, start.Options, options.NodeBudget);
+
         /// <summary>The winning trace, the jam witness and the metrics in one pass.</summary>
         public LevelAnalysis Analyze(LevelSession start, SolveOptions options) => Analyze(start, options, Solve(start, options));
 

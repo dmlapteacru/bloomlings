@@ -56,8 +56,8 @@ namespace Bloomlings.Content.Tests
 
         /// <summary>
         /// The onboarding band (Levels 1–10): file names match level numbers, each level has its own picture (FR-083),
-        /// L1 has 2 variants and L2 adds a third (FR-060), boards are at most 8×8 with 2–3 variants, 3–7 pods and 30–60
-        /// work; L5 is the first Hard and L10 the first Super Hard level (roadmap).
+        /// L1 has 2 variants and L2 adds a third (FR-060), boards are 11–12×12 (the bigger boards of 2026-10-05) with 2–3
+        /// variants, 3–8 pods and 95–140 work; L5 is the first Hard and L10 the first Super Hard level (roadmap).
         /// </summary>
         [Test]
         public void CuratedOnboardingLevels_FollowTheBandGuidelines()
@@ -75,11 +75,11 @@ namespace Bloomlings.Content.Tests
                 {
                     Assert.That(level.LevelNumber, Is.EqualTo(n), file);
                     Assert.That(pictures.Add(level.Picture.Id), Is.True, $"L{n} reuses picture {level.Picture.Id}");
-                    Assert.That(picture.Width, Is.InRange(7, 8), $"L{n} width");
-                    Assert.That(picture.Height, Is.EqualTo(8), $"L{n} height");
+                    Assert.That(picture.Width, Is.InRange(11, 12), $"L{n} width");
+                    Assert.That(picture.Height, Is.EqualTo(12), $"L{n} height");
                     Assert.That(variants, Is.EqualTo(n == 1 ? 2 : n == 2 ? 3 : variants).And.InRange(2, 3), $"L{n} variants");
-                    Assert.That(level.Pods.Count, Is.InRange(3, 7), $"L{n} pods");
-                    Assert.That(work, Is.InRange(30, 60), $"L{n} work");
+                    Assert.That(level.Pods.Count, Is.InRange(3, 8), $"L{n} pods");
+                    Assert.That(work, Is.InRange(95, 140), $"L{n} work");
                     DifficultyClass expected = n == 5 ? DifficultyClass.Hard : n == 10 ? DifficultyClass.SuperHard : DifficultyClass.Normal;
                     Assert.That(level.Difficulty.Class, Is.EqualTo(expected), $"L{n} class");
                 });

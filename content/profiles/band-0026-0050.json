@@ -20,18 +20,18 @@
   "bandId": "band-0026-0050",
   "boardSize": {
     "height": [
-      10,
-      12
+      13,
+      14
     ],
     "width": [
-      10,
-      12
+      12,
+      13
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    45,
-    120
+    60,
+    150
   ],
   "entryLayouts": [
     "bottom_center",
@@ -52,17 +52,17 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 1,
-  "note": "Early-mid band: 10×10–12×12, 4–5 variants (5 from L32), 10–20 pods, work 90–180. Layered tiles from L28 (depth ≤ 2 layers), gates from L35.",
+  "note": "Early-mid band: 12\u00d713\u201313\u00d714 (since 2026-10-05), 4\u20135 variants (5 from L32), 11\u201322 pods, work 115\u2013220. Layered tiles from L28 (depth \u2264 2 layers), gates from L35.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
-    12,
-    20
+    13,
+    22
   ],
   "podSize": [
     5,
-    40
+    45
   ],
   "solver": {
     "maxCandidatesPerLevel": 60,
@@ -87,7 +87,7 @@
     5
   ],
   "work": [
-    90,
-    180
+    115,
+    220
   ]
 }

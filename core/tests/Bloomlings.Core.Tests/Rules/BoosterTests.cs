@@ -83,6 +83,61 @@ namespace Bloomlings.Core.Tests.Rules
         }
 
         [Test]
+        public void Shuffle_IsDisabledOnAJam_BecauseNoOrderFreesASlot()
+        {
+            LevelSession session = Jammed();
+
+            Assert.That(session.Check(new UseShuffle()).Reason, Is.EqualTo(RejectReason.BoosterNotApplicable));
+            Assert.That(session.EligibleRecoveries(), Is.EqualTo(new[] { Recovery.ExtraSlot, Recovery.Return, Recovery.BloomBurst }));
+        }
+
+        [Test]
+        public void Return_OnAJam_NeedsAnotherPodToTakeTheFreedSlot()
+        {
+            // Only the Water pod can help, and it lies under f1's home stack: returning f1 would bury it again.
+            string[] rows = Rows("###f###", "###f###", "###f###", "###f###", "###f###", "##mwm##", ".......");
+            LevelDefinition level = Definition(rows, new[]
+            {
+                Pod("f1", VariantId.Flower, 1), Pod("f2", VariantId.Flower, 1), Pod("f3", VariantId.Flower, 1), Pod("f4", VariantId.Flower, 1), Pod("f5", VariantId.Flower, 1),
+                Pod("water", VariantId.Water, 1), Pod("moss", VariantId.Moss, 2),
+            }, stacks: new[] { new[] { "f1", "water", "moss" }, new[] { "f2" }, new[] { "f3" }, new[] { "f4" }, new[] { "f5" } });
+            LevelSession session = Load(rows, level);
+            foreach (string pod in new[] { "f1", "f2", "f3", "f4", "f5" })
+            {
+                Do(session, "tap:" + pod);
+            }
+
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Jammed));
+            Assert.That(session.Check(new UseReturn(session.View.Pod("f1").SlotIndex)).IsAllowed, Is.False, "f1 would cover the Water pod");
+            Assert.That(session.Check(new UseReturn(session.View.Pod("f2").SlotIndex)).IsAllowed, Is.True);
+
+            Do(session, new UseReturn(session.View.Pod("f2").SlotIndex));
+            Do(session, "tap:water");
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Playing));
+        }
+
+        [Test]
+        public void ExtraSlot_IsDisabledWhenOnlyLockedPodsRemain()
+        {
+            // The Leaf pod's key lies on the Leaf tile itself: once the Moss is gone nothing can move.
+            string[] rows = Rows("##mlm##", ".......");
+            LevelDefinition level = Definition(
+                rows,
+                new[] { new PodDef("leaf", VariantId.Leaf, 1, false, "k1", null), Pod("moss", VariantId.Moss, 2) },
+                stacks: new[] { new[] { "leaf" }, new[] { "moss" } },
+                overlays: new[] { new CellOverlay(new CellPos(3, 1), Array.Empty<VariantId>(), false, false, false, "k1") }) with
+            {
+                Locks = new[] { new LockDef("k1", LockTargetKind.Pod, "leaf") },
+            };
+            LevelSession session = Load(rows, level);
+            Do(session, "tap:moss");
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Stuck));
+
+            Assert.That(session.Check(new UseExtraSlot()).Reason, Is.EqualTo(RejectReason.BoosterNotApplicable));
+            Assert.That(session.EligibleRecoveries(), Is.EqualTo(new[] { Recovery.BloomBurst }));
+        }
+
+        [Test]
         public void Return_PutsThePodOnTopOfItsOriginalStack()
         {
             string[] rows = Rows("###l###", "..mmm..", "...m...");
@@ -176,6 +231,57 @@ namespace Bloomlings.Core.Tests.Rules
 
             Refused(session, "burst:water");
             Assert.That(session.Check(new UseBloomBurst(VariantId.Leaf)).IsAllowed, Is.True, "the Leaf tile is visible though not reachable");
+        }
+
+        [Test]
+        public void BloomBurst_CountsHiddenLayersForSpecials_SoTheLevelStaysWinnable()
+        {
+            // The Fountain needs all 3 Water layers around it; (2,1) holds two of them, one hidden.
+            string[] rows = Rows("#######", "##w.w##", ".......");
+            LevelDefinition level = Definition(
+                rows,
+                new[] { Pod("water", VariantId.Water, 2), Pod("water2", VariantId.Water, 1) },
+                overlays: new[] { new CellOverlay(new CellPos(2, 1), new[] { VariantId.Water }, false, false, false, null) }) with
+            {
+                Specials = new[]
+                {
+                    new SpecialDef(
+                        "fountain",
+                        SpecialType.Fountain,
+                        new[] { new CellPos(3, 1) },
+                        new SpecialCondition(SpecialConditionKind.ClearCountAdjacent, null, VariantId.Water, 3, Array.Empty<CellPos>()),
+                        new SpecialEffect(SpecialEffectKind.RemoveStones, new[] { new CellPos(3, 2) })),
+                },
+            };
+            LevelSession session = Load(rows, level);
+
+            CommandResult result = Do(session, new UseBloomBurst(VariantId.Water));
+
+            Assert.That(result.Events.OfType<SpecialProgressed>().Last(), Is.EqualTo(new SpecialProgressed(0, "fountain", 3, 3)));
+            Assert.That(result.Events.OfType<SpecialTriggered>().Single().SpecialId, Is.EqualTo("fountain"));
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Won), "a burst never leaves a special counter short for good");
+        }
+
+        [Test]
+        public void BloomBurst_KeepsAHiddenMysteryTileSecret()
+        {
+            // (3,2) is a hidden mystery tile: Water over Moss. The burst takes its Water but must not say so.
+            string[] rows = Rows("###w###", ".w.l...", ".......");
+            LevelDefinition level = Definition(
+                rows,
+                new[] { Pod("water", VariantId.Water, 2), Pod("leaf", VariantId.Leaf, 1), Pod("moss", VariantId.Moss, 1) },
+                overlays: new[] { new CellOverlay(new CellPos(3, 2), new[] { VariantId.Moss }, true, false, false, null) });
+            LevelSession session = Load(rows, level);
+            Assert.That(session.View.Cell(new CellPos(3, 2)).MysteryHidden, Is.True);
+
+            CommandResult burst = Do(session, new UseBloomBurst(VariantId.Water));
+
+            Assert.That(burst.Events.OfType<VariantBurst>().Single().Cells, Is.EqualTo(new[] { new CellPos(1, 1) }));
+            Assert.That(session.View.Cell(new CellPos(3, 2)).MysteryHidden, Is.True, "still a ? tile");
+            CommandResult leaf = Do(session, "tap:leaf");
+            Assert.That(leaf.Events.OfType<MysteryTileRevealed>().Single().Variant, Is.EqualTo(VariantId.Moss));
+            Do(session, "tap:moss");
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Won));
         }
 
         private static readonly string[] ShuffleBoard = Rows("###f###", "###d###", "###o###", "###m###", "##lwl##", ".......");

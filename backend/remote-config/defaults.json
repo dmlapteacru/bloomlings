@@ -76,27 +76,51 @@
       "min": 0,
       "type": "int"
     },
+    "economy.price.avatarCommon": {
+      "default": 300,
+      "max": 10000,
+      "min": 10,
+      "type": "int"
+    },
+    "economy.price.avatarRare": {
+      "default": 600,
+      "max": 10000,
+      "min": 10,
+      "type": "int"
+    },
+    "economy.price.avatarSpecial": {
+      "default": 1200,
+      "max": 10000,
+      "min": 10,
+      "type": "int"
+    },
     "economy.price.bloomBurst": {
-      "default": 60,
-      "max": 500,
+      "default": 1800,
+      "max": 10000,
+      "min": 10,
+      "type": "int"
+    },
+    "economy.price.clearing": {
+      "default": 5000,
+      "max": 50000,
       "min": 10,
       "type": "int"
     },
     "economy.price.extraSlot": {
-      "default": 40,
-      "max": 500,
+      "default": 1200,
+      "max": 5000,
       "min": 10,
       "type": "int"
     },
     "economy.price.return": {
-      "default": 50,
-      "max": 500,
+      "default": 1500,
+      "max": 5000,
       "min": 10,
       "type": "int"
     },
     "economy.price.shuffle": {
-      "default": 40,
-      "max": 500,
+      "default": 1200,
+      "max": 5000,
       "min": 10,
       "type": "int"
     },
@@ -119,9 +143,9 @@
       "type": "bool"
     },
     "fx.backlogThresholdMs": {
-      "default": 1500,
-      "max": 5000,
-      "min": 500,
+      "default": 60000,
+      "max": 120000,
+      "min": 2000,
       "type": "int"
     }
   },

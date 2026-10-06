@@ -85,13 +85,32 @@
       "properties": {
         "owned": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
         "equipped": {
+          "description": "Each family wears one skin, hat, trail and expression; the profile shows one frame, badge, marker and avatar (spec 005 FR-037: a free avatar or one in owned, avatar.<id>); the board plays one bought clearing style (spec 005 FR-038). A bare string per family (one item) is the early form and is still read.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "sprig": { "type": "string" },
-            "bloom": { "type": "string" },
-            "drop": { "type": "string" },
-            "twig": { "type": "string" }
+            "sprig": { "$ref": "#/$defs/worn" },
+            "bloom": { "$ref": "#/$defs/worn" },
+            "drop": { "$ref": "#/$defs/worn" },
+            "twig": { "$ref": "#/$defs/worn" },
+            "profile": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "frame": { "type": "string" },
+                "badge": { "type": "string" },
+                "marker": { "type": "string" },
+                "avatar": { "type": "string", "pattern": "^avatar\\." }
+              }
+            },
+            "board": {
+              "description": "The board's chosen bought clearing style (spec 005 FR-038: one in owned, clear.<name>); none plays the free pair by level.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "clearing": { "type": "string", "pattern": "^clear\\." }
+              }
+            }
           }
         }
       }
@@ -102,7 +121,8 @@
       "properties": {
         "rewardLastClaimUtcDate": { "type": ["string", "null"], "format": "date" },
         "rewardStreak": { "type": "integer", "minimum": 0 },
-        "challengeLastCompletedUtcDate": { "type": ["string", "null"], "format": "date" }
+        "challengeLastCompletedUtcDate": { "type": ["string", "null"], "format": "date" },
+        "freeBoosterAdUtcDate": { "type": ["string", "null"], "format": "date" }
       }
     },
     "collection": {
@@ -128,12 +148,23 @@
         "sfx": { "type": "boolean" },
         "haptics": { "type": "boolean" },
         "speed2x": { "type": "boolean" },
+        "homePetals": { "type": "boolean", "description": "Read and ignored (written as on by saves before 2026-10-05)" },
+        "homePetalsOn": { "type": "boolean", "default": false },
         "language": { "type": "string", "default": "en" }
       }
     },
     "stats": {
       "type": "object",
       "additionalProperties": { "type": ["integer", "object"] }
+    },
+    "profile": {
+      "description": "The profile page's fields (spec 005 FR-037): the chosen name (missing while the default one is kept) and the UTC day the player joined (set once).",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": { "type": "string", "minLength": 1, "maxLength": 16 },
+        "joinedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
+      }
     }
   },
   "$defs": {
@@ -146,6 +177,21 @@
         "return": { "type": "integer", "minimum": 0 },
         "bloomBurst": { "type": "integer", "minimum": 0 }
       }
+    },
+    "worn": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "skin": { "type": "string" },
+            "hat": { "type": "string" },
+            "trail": { "type": "string" },
+            "expression": { "type": "string" }
+          }
+        },
+        { "type": "string", "pattern": "^(hat|trail|expression)\\." }
+      ]
     }
   }
 }

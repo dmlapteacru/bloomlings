@@ -1,0 +1,73 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [4, 4, 4, 4, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [4, 4, 4, 4, 0, 0, -1, -1, 0, 0, 0, -1, 0],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, -1, -1, 0],
+    [0, -1, 0, 1, 1, 1, 1, 1, 1, -1, 0, 0, 0],
+    [0, 0, 1, 1, 2, 2, 2, 1, 1, 0, 0, 0, -1],
+    [0, -1, 0, 2, 2, 2, 2, 1, 1, 0, -1, 0, 0],
+    [-1, -1, 0, 1, 1, 1, 1, 1, 1, 1, -1, -1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, -1, 0, 0, 0],
+    [0, 0, 0, 0, -1, -1, 0, -1, 0, 0, -1, 0, 0],
+    [-1, -1, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 15,
+  "id": "bird_05",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.471,
+    "nestingDepth": 4,
+    "regionCount": 9
+  },
+  "subject": "Bird 5",
+  "tags": {
+    "bands": ["core"],
+    "themes": ["animals", "garden"]
+  },
+  "version": 2,
+  "width": 13
+}

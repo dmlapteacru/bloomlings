@@ -78,11 +78,34 @@ namespace Bloomlings.Client.Services.Analytics
             }
         }
 
-        /// <summary>Consent refused: nothing is collected in this session.</summary>
+        /// <summary>Consent refused or withdrawn: nothing more is collected, and a started backend stops.</summary>
         public void Disable()
         {
             _disabled = true;
             _queue.Clear();
+            _analytics?.Stop();
+        }
+
+        /// <summary>
+        /// The player changed consent in the privacy options (FR-090). Withdrawn: collection stops. Given: the backends
+        /// start (created only then), or a started one takes the new personalization.
+        /// </summary>
+        public void ConsentChanged(bool allowed, bool personalized, Func<IAnalyticsService> analytics, Func<ICrashReporter> crashes)
+        {
+            if (!allowed)
+            {
+                Disable();
+                return;
+            }
+
+            _disabled = false;
+            if (_analytics != null)
+            {
+                _analytics.Initialize(personalized);
+                return;
+            }
+
+            Attach(analytics(), crashes(), personalized);
         }
 
         /// <summary>Sets the crash keys for the level about to be played (R14).</summary>
@@ -117,7 +140,7 @@ namespace Bloomlings.Client.Services.Analytics
 
         public void LevelQuit(LevelInfo level, long durationMs) => Log(AnalyticsEvents.LevelQuit, level, ("duration_ms", durationMs));
 
-        /// <param name="source"><c>charge</c>, <c>petals</c> or <c>ad</c>.</param>
+        /// <param name="source"><c>charge</c>, <c>petals</c>, <c>ad</c> or <c>demo</c> (the free guided use at its unlock, spec 005 FR-035).</param>
         public void BoosterUse(LevelInfo level, string booster, string source) =>
             Log(AnalyticsEvents.BoosterUse, level, ("booster", booster), ("source", source));
 

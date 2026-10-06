@@ -1,0 +1,179 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1853
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 12,
+      "y": 4
+    }
+  ],
+  "generatorVersion": "gen-1.2.0",
+  "levelNumber": 251,
+  "mapping": {
+    "body": "wood",
+    "grass": "moss",
+    "sky": "water",
+    "spot": "violet_bud",
+    "wing": "flower"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 6,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "butterfly_01",
+    "mirror": "horizontal",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p20",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p21",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5004269306701278165",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 6,
+          "y": 12
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "bridge",
+      "type": "bridge"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

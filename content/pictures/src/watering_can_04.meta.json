@@ -1,0 +1,63 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 15,
+  "id": "watering_can_04",
+  "legend": {
+    "c": "can",
+    "d": "drops",
+    "g": "grass",
+    "h": "handle",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Can",
+      "roleId": "can"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Handle",
+      "roleId": "handle"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Drops",
+      "roleId": "drops"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Watering can 4",
+  "tags": {
+    "bands": [
+      "core"
+    ],
+    "themes": [
+      "tools",
+      "garden"
+    ]
+  },
+  "version": 2,
+  "width": 13
+}

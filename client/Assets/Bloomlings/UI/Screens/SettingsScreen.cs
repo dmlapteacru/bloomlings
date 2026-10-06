@@ -1,10 +1,15 @@
 using System;
+using System.Collections.Generic;
+using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Backend;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Design;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Bloomlings.Client.UI.Localization;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
+using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
@@ -14,69 +19,130 @@ namespace Bloomlings.Client.UI.Screens
     public sealed record AccountActions(Func<string> Status, bool CanLinkApple, bool CanLinkGooglePlayGames, Action<LinkProvider, Action<bool>> Link);
 
     /// <summary>
-    /// Settings (T066): music, sound effects, haptics and the 2× default, stored in the save and saved on every change
+    /// Settings (T066): music, sound effects, haptics, the 2× default and Home's falling petals (the owner's switch of
+    /// 2026-10-04), stored in the save and saved on every change
     /// (R15). Restore Purchases is wired with the store in US6. The account section offers optional Sign in with Apple
-    /// or Google Play Games linking for cloud sync (FR-087); the game never requires it.
+    /// or Google Play Games linking for cloud sync (FR-087); the game never requires it. In the reference look of spec 005
+    /// (contracts/look.md §4.3; the playtest's <c>MenuCards.Settings</c>): a parchment card with the brown title and the
+    /// cream round close, cream rows with brown labels and the garden switches, and cream buttons below them.
     /// </summary>
     public sealed class SettingsScreen : MonoBehaviour
     {
+        private const float RowUnits = 126f;
+        private const float RowGapUnits = 20f;
+        private const float StatusUnits = 56f;
+        private const float ButtonGapUnits = 24f;
+
         private GameObject _root = null!;
         private SettingsData _settings = null!;
         private Action _persist = () => { };
+        private readonly List<(ToggleView View, Func<bool> On)> _toggles = new List<(ToggleView, Func<bool>)>();
         private TextMeshProUGUI _music = null!;
         private TextMeshProUGUI _sfx = null!;
         private TextMeshProUGUI _haptics = null!;
         private TextMeshProUGUI _speed = null!;
+        private TextMeshProUGUI _petals = null!;
         private TextMeshProUGUI? _account;
         private Func<string>? _accountStatus;
+        private TextMeshProUGUI _restoreLabel = null!;
+        private Button _privacy = null!;
+        private IConsentService? _consent;
 
         public bool IsOpen => _root.activeSelf;
 
-        public static SettingsScreen Create(Transform parent, SettingsData settings, Action persist, Action? onRestorePurchases = null, AccountActions? account = null)
+        /// <param name="onRestorePurchases">Restores purchases and reports whether the store answered.</param>
+        /// <param name="consent">Shows the privacy options entry when the consent rules require one (FR-090).</param>
+        public static SettingsScreen Create(
+            Transform parent,
+            SettingsData settings,
+            Action persist,
+            Action<Action<bool>>? onRestorePurchases = null,
+            AccountActions? account = null,
+            IConsentService? consent = null)
         {
-            RectTransform card = UiFactory.CreateModal("SettingsScreen", parent, 0.62f, out GameObject root);
-            var screen = root.AddComponent<SettingsScreen>();
+            bool links = account != null && (account.CanLinkApple || account.CanLinkGooglePlayGames);
+            float content = 12f + (5f * RowUnits) + (4f * RowGapUnits)
+                + (account != null ? ButtonGapUnits + StatusUnits : 0f)
+                + (links ? 16f + DesignTokens.Size.SecondaryHeight : 0f)
+                + ButtonGapUnits + DesignTokens.Size.SecondaryHeight + 30f;
+
+            SettingsScreen screen = null!;
+            CardView view = UiKit.Card("SettingsScreen", parent, Loc.T("settings.title"), content, () => screen.Hide(), T.Title);
+            GameObject root = view.Root;
+            screen = root.AddComponent<SettingsScreen>();
             screen._root = root;
             screen._settings = settings;
             screen._persist = persist;
+            screen._consent = consent;
 
-            TextMeshProUGUI title = UiFactory.CreateText("Title", card, Loc.T("settings.title"), 72f, UiTheme.Text);
-            UiFactory.Place(title.rectTransform, 0f, 0.88f, 1f, 0.97f);
-            screen._music = Toggle(card, "Music", 0.77f, () => settings.Music = !settings.Music, screen);
-            screen._sfx = Toggle(card, "Sound", 0.66f, () => settings.Sfx = !settings.Sfx, screen);
-            screen._haptics = Toggle(card, "Haptics", 0.55f, () => settings.Haptics = !settings.Haptics, screen);
-            screen._speed = Toggle(card, "Speed", 0.44f, () => settings.Speed2x = !settings.Speed2x, screen);
+            Box body = view.Regions.Body;
+            float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
+            Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), 5, RowUnits * u, RowGapUnits * u);
+            screen._music = Toggle(view.Body, body, lines[0], "Music", () => settings.Music, () => settings.Music = !settings.Music, screen, u);
+            screen._sfx = Toggle(view.Body, body, lines[1], "Sound", () => settings.Sfx, () => settings.Sfx = !settings.Sfx, screen, u);
+            screen._haptics = Toggle(view.Body, body, lines[2], "Haptics", () => settings.Haptics, () => settings.Haptics = !settings.Haptics, screen, u);
+            screen._speed = Toggle(view.Body, body, lines[3], "Speed", () => settings.Speed2x, () => settings.Speed2x = !settings.Speed2x, screen, u);
+            screen._petals = Toggle(view.Body, body, lines[4], "Petals", () => settings.HomePetals, () => settings.HomePetals = !settings.HomePetals, screen, u);
+            float y = lines[4].Bottom;
 
             if (account != null)
             {
+                y += ButtonGapUnits * u;
                 screen._accountStatus = account.Status;
-                screen._account = UiFactory.CreateText("Account", card, string.Empty, 36f, UiTheme.Text);
-                UiFactory.Place(screen._account.rectTransform, 0.05f, 0.365f, 0.95f, 0.425f);
-                if (account.CanLinkApple)
+                screen._account = UiKit.Label("Account", view.Body, string.Empty, T.Body, UiTheme.Of(C.InkBrownSoft));
+                UiKit.PlaceBox(screen._account.rectTransform, new Box(body.Left, y, body.Right, y + (StatusUnits * u)), body);
+                y += StatusUnits * u;
+                if (links)
                 {
-                    Button apple = UiFactory.CreateButton("LinkApple", card, Loc.T("settings.link_apple"), UiTheme.Text, () => account.Link(LinkProvider.Apple, _ => screen.Refresh()), 36f);
-                    UiFactory.Place((RectTransform)apple.transform, 0.08f, 0.265f, account.CanLinkGooglePlayGames ? 0.48f : 0.92f, 0.355f);
-                }
+                    y += 16f * u;
+                    var row = new Box(body.Left, y, body.Right, y + (DesignTokens.Size.SecondaryHeight * u));
+                    Box[] cells = Pair(row, account.CanLinkApple && account.CanLinkGooglePlayGames ? 2 : 1, u);
+                    int cell = 0;
+                    if (account.CanLinkApple)
+                    {
+                        Button apple = UiKit.SecondaryButton("LinkApple", view.Body, Loc.T("settings.link_apple"), () => account.Link(LinkProvider.Apple, _ => screen.Refresh()));
+                        UiKit.PlaceBox((RectTransform)apple.transform, cells[cell++], body);
+                    }
 
-                if (account.CanLinkGooglePlayGames)
-                {
-                    Button google = UiFactory.CreateButton("LinkGoogle", card, Loc.T("settings.link_google"), UiTheme.Text, () => account.Link(LinkProvider.GooglePlayGames, _ => screen.Refresh()), 36f);
-                    UiFactory.Place((RectTransform)google.transform, account.CanLinkApple ? 0.52f : 0.08f, 0.265f, 0.92f, 0.355f);
+                    if (account.CanLinkGooglePlayGames)
+                    {
+                        Button google = UiKit.SecondaryButton("LinkGoogle", view.Body, Loc.T("settings.link_google"), () => account.Link(LinkProvider.GooglePlayGames, _ => screen.Refresh()));
+                        UiKit.PlaceBox((RectTransform)google.transform, cells[cell], body);
+                    }
+
+                    y = row.Bottom;
                 }
             }
 
-            Button restore = UiFactory.CreateButton("RestorePurchases", card, Loc.T("settings.restore"), UiTheme.SlotLocked, () => onRestorePurchases?.Invoke(), 40f);
-            UiFactory.Place((RectTransform)restore.transform, 0.15f, 0.15f, 0.85f, 0.24f);
+            // Restore Purchases and the privacy options side by side, as cream buttons.
+            y += ButtonGapUnits * u;
+            Box[] buttons = Pair(new Box(body.Left, y, body.Right, y + (DesignTokens.Size.SecondaryHeight * u)), 2, u);
+            Button restore = null!;
+            restore = UiKit.SecondaryButton("RestorePurchases", view.Body, Loc.T("settings.restore"), () =>
+            {
+                restore.interactable = false;
+                screen._restoreLabel.text = Loc.T("settings.restoring");
+                onRestorePurchases?.Invoke(ok =>
+                {
+                    restore.interactable = true;
+                    screen._restoreLabel.text = ok ? Loc.T("settings.restore_done") : Loc.T("settings.restore_failed");
+                });
+            });
+            UiKit.PlaceBox((RectTransform)restore.transform, buttons[0], body);
             restore.interactable = onRestorePurchases != null;
+            screen._restoreLabel = restore.GetComponentInChildren<TextMeshProUGUI>();
 
-            Button close = UiFactory.CreateButton("Close", card, Loc.T("common.close"), UiTheme.Accent, screen.Hide);
-            UiFactory.Place((RectTransform)close.transform, 0.25f, 0.03f, 0.75f, 0.12f);
+            screen._privacy = UiKit.SecondaryButton("PrivacyOptions", view.Body, Loc.T("settings.privacy"), () =>
+                screen._consent?.ShowPrivacyOptions(screen.Refresh));
+            UiKit.PlaceBox((RectTransform)screen._privacy.transform, buttons[1], body);
+
             root.SetActive(false);
             return screen;
         }
 
         public void Show()
         {
+            _restoreLabel.text = Loc.T("settings.restore");
             Refresh();
             _root.SetActive(true);
         }
@@ -89,23 +155,45 @@ namespace Bloomlings.Client.UI.Screens
             _sfx.text = Loc.F("settings.sound", OnOff(_settings.Sfx));
             _haptics.text = Loc.F("settings.haptics", OnOff(_settings.Haptics));
             _speed.text = Loc.F("settings.speed", _settings.Speed2x ? "2×" : "1×");
+            _petals.text = Loc.F("settings.petals", OnOff(_settings.HomePetals));
+            foreach ((ToggleView view, Func<bool> on) in _toggles)
+            {
+                view.Show(on());
+            }
+
+            _privacy.gameObject.SetActive(_consent != null && _consent.PrivacyOptionsRequired);
             if (_account != null && _accountStatus != null)
             {
                 _account.text = _accountStatus();
             }
         }
 
-        private static TextMeshProUGUI Toggle(RectTransform card, string name, float y, Action flip, SettingsScreen screen)
+        /// <summary>
+        /// A settings row (the playtest's <c>MenuCards.Settings</c>): a cream row, its brown label 36 units in at 86% of
+        /// <c>type.button_secondary</c>, and the garden switch (136 × 70 units) near its right end.
+        /// </summary>
+        private static TextMeshProUGUI Toggle(RectTransform cardBody, Box body, Box line, string name, Func<bool> on, Action flip, SettingsScreen screen, float u)
         {
-            Button button = UiFactory.CreateButton(name, card, name, UiTheme.Text, () =>
+            Image row = UiKit.Row(name, cardBody, highlighted: false);
+            UiKit.PlaceBox(row.rectTransform, line, body);
+            TextMeshProUGUI label = UiKit.Label("Label", row.transform, string.Empty, T.ButtonSecondary, UiTheme.Of(C.InkBrown), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrown));
+            label.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * 0.86f);
+            label.fontSize = label.fontSizeMax;
+            UiKit.PlaceBox(label.rectTransform, new Box(line.Left + (36f * u), line.Top, line.Left + (36f * u) + (line.Width * 0.6f), line.Bottom), line);
+            ToggleView toggle = UiKit.Toggle("Switch", row.transform, () =>
             {
                 flip();
                 screen._persist();
                 screen.Refresh();
-            }, 48f);
-            UiFactory.Place((RectTransform)button.transform, 0.15f, y, 0.85f, y + 0.095f);
-            return button.GetComponentInChildren<TextMeshProUGUI>();
+            });
+            UiKit.PlaceBox((RectTransform)toggle.transform, Box.FromCenter(line.Right - (104f * u), line.CenterY, 136f * u, 70f * u), line);
+            screen._toggles.Add((toggle, on));
+            return label;
         }
+
+        /// <summary>One or two cream buttons in a row: two halves with a gap, or one at the card's secondary width.</summary>
+        private static Box[] Pair(Box row, int count, float u) =>
+            ScreenLayout.Row(row, count, ButtonGapUnits * u, count == 1 ? DesignTokens.Size.CardSecondaryWidth * u : float.MaxValue, square: false);
 
         private static string OnOff(bool value) => value ? Loc.T("common.on") : Loc.T("common.off");
     }

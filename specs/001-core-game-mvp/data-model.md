@@ -116,12 +116,21 @@ One profile per progression band (FR-079, doc 06 §4). It defines:
 - `entryLayouts`;
 - `maxLayerDepth`;
 - `allowedMechanics`;
-- `stacks` (min and max) and `podSizes` (min and max per size class);
+- `stacks` (min and max), `podCount` (min and max) and `podSize` (min and max tiles per pod; never under the 5-tile
+  small class, `BandGuidelines.MinPodSize`; the size classes small 5–15, medium 16–40, large 41–100 and
+  exceptional 100+ follow from the band's work and pod count);
+- `work` (min and max tile-layers; the Level Band Guidelines narrow it per class, e.g. Hard 150–300 in L51–100);
 - `bufferPressureTarget` (relaxed, normal, tense or critical);
-- `difficultyTarget` (class and score range);
+- the difficulty target: the class of each level comes from the difficulty schedule (`DifficultySchedule`: Hard 15–25
+  and Super Hard 6–10 per 100 levels), and the score range of each class from the band's thresholds in
+  `content/profiles/difficulty-thresholds.json`;
 - `durationTarget`;
-- `hardMode`;
-- `milestoneConstraints`.
+- `hardMode` (extra pods, injections, Hard and Super Hard pressure);
+- milestone constraints: the schedule never makes a milestone level (every 25) Super Hard and follows a Super Hard level
+  with a Normal one (FR-059); they are schedule rules rather than profile fields.
+
+The spec's Level Band Guidelines and the roadmap rows that change them within a band (`BandGuidelines`) apply on top
+of every profile: a level keeps both.
 
 ### 1.6 Catalog, UnlockRoadmap and Milestones
 
@@ -237,11 +246,12 @@ Wire format: [`contracts/player-save.schema.json`](contracts/player-save.schema.
 | Boosters | `{extraSlot, shuffle, return, bloomBurst}` charges |
 | Unlocks | Flags keyed by `unlockId`, plus `demosSeen[]` |
 | Milestones | `claimed[]` of level numbers (each granted exactly once, FR-061) |
-| Cosmetics | `owned[]`, `equipped{family → skinId}` |
+| Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items, the bought avatars `avatar.<name>`, spec 005 FR-037, and the bought clearing styles `clear.<name>`, spec 005 FR-038), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker, avatar}, board → {clearing}}` (no `board.clearing`: the free pair by level) |
 | Daily | `dailyReward{lastClaimUtcDate, streak}`, `dailyChallenge{lastCompletedUtcDate}` |
 | Collection | `entries[]` of `{pictureId, pictureVersion, mappingHash, levelNumber}` (FR-065) |
-| Settings | `music`, `sfx`, `haptics`, `speed2x`, `language` |
+| Settings | `music`, `sfx`, `haptics`, `speed2x`, `homePetalsOn` (optional, default off: Home's falling petals; the owner's request of 2026-10-04 and tuning of 2026-10-05, spec 005 FR-036; the earlier `homePetals`, written as on by older saves, is read and ignored), `language` |
 | Stats | `levelsWon`, `jams`, `boostersUsed{}`, `adsWatched`, `firstSessionMaxLevel` |
+| Profile | optional (spec 005 FR-037, 2026-10-05): `name?` (1–16 characters, kept on the device; missing while the default "Gardener NNNN" is kept), `joinedAt?` (the UTC day, `yyyy-MM-dd`, set once); a merge keeps the base's name, else the other's, and the earlier day |
 
 **Rules:**
 

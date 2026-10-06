@@ -44,22 +44,50 @@ namespace Bloomlings.Client.UI.Tutorial
         public IReadOnlyList<DemoStep> Steps { get; }
     }
 
-    /// <summary>The demos of the onboarding levels (T064). Booster demos are added with US5 (T122).</summary>
+    /// <summary>
+    /// The demos of the onboarding levels shown as cards (T064). Level 1's first tap and the booster demos are guided
+    /// spotlights since 2026-10-05 (<see cref="Design.GuideTour"/>, <see cref="GuideOverlay"/>).
+    /// </summary>
     public static class DemoScripts
     {
-        /// <summary>The Level 1 guided first tap; its id is the roadmap's core-play unlock.</summary>
-        public const string FirstTapId = "system.core";
-
         /// <summary>The same-family sibling demo, shown only once (FR-071).</summary>
         public const string SiblingsId = "demo.siblings";
-
-        public static DemoScript FirstTap(Func<RectTransform?> pod) => new DemoScript(
-            FirstTapId,
-            new DemoStep(Loc.T("demo.first_tap")) { PointAt = pod, WaitForAction = true });
 
         public static DemoScript Siblings(VariantVisual first, VariantVisual second) => new DemoScript(
             SiblingsId,
             new DemoStep(Loc.T("demo.exact_symbol")) { SideBySide = new[] { first, second } },
             new DemoStep(Loc.T("demo.exact_symbol")) { SideBySide = new[] { first, second }, ShowIgnore = true });
+
+        /// <summary>The demo id of a variant that joins the pool at a milestone (L45, L200).</summary>
+        public static string NewVariantId(string variantKey) => "demo.variant." + variantKey;
+
+        /// <summary>
+        /// A variant from a pool expansion appears for the first time (roadmap L45, L200): it is shown beside its family's
+        /// other variants with the exact-symbol reminder, once.
+        /// </summary>
+        public static DemoScript NewVariant(string variantKey, IReadOnlyList<VariantVisual> family) => new DemoScript(
+            NewVariantId(variantKey),
+            new DemoStep(Loc.T("demo.new_variant")) { SideBySide = family });
+
+        /// <summary>
+        /// A system unlock seen on Home for the first time (roadmap L10–L100): one message pointing at its button. Null
+        /// for systems without a Home demo.
+        /// </summary>
+        public static DemoScript? HomeSystem(string unlockId, Func<RectTransform?> target) => unlockId switch
+        {
+            "system.leaderboard" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.leaderboard")) { PointAt = target }),
+            "system.store" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.store")) { PointAt = target }),
+            "system.wardrobe" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.wardrobe")) { PointAt = target }),
+            "system.daily_challenge" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.daily_challenge")) { PointAt = target }),
+            "system.milestone_25" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.milestones")) { PointAt = target }),
+            "system.theme_rotation" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.themes"))),
+            _ => null,
+        };
+
+        /// <summary>The systems that have a Home demo, in roadmap order.</summary>
+        public static IReadOnlyList<string> HomeSystems { get; } = new[]
+        {
+            "system.leaderboard", "system.store", "system.milestone_25", "system.wardrobe", "system.daily_challenge", "system.theme_rotation",
+        };
     }
 }

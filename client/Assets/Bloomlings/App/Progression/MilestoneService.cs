@@ -1,4 +1,5 @@
 using System;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
 
@@ -10,8 +11,9 @@ namespace Bloomlings.Client.App.Progression
     /// <summary>
     /// Milestone rewards (FR-061, T142). Completing a milestone level grants the reward of the largest cadence it
     /// matches, exactly once: the claim is recorded in the save's <c>milestones.claimed</c>, so replays, cloud merges
-    /// and the Editor fast-forward never pay twice. Items the player already owns are skipped. The service also feeds
-    /// the Home teaser ("Level 100 reward in 12", FR-058). Engine-free.
+    /// and the Editor fast-forward never pay twice. Items the player already owns are skipped, and once a cadence's
+    /// list is all owned it grants a generated level badge (a level marker for prestige), so the rewards never run out.
+    /// The service also feeds the Home teaser ("Level 100 reward in 12", FR-058). Engine-free.
     /// </summary>
     public sealed class MilestoneService
     {
@@ -105,6 +107,13 @@ namespace Bloomlings.Client.App.Progression
                     item = id;
                     break;
                 }
+            }
+
+            // Rewards never run out (FR-061): past its listed items, a cadence grants the level's own badge, or its
+            // leaderboard marker for a prestige cadence.
+            if (item == null && cadence.Items.Count > 0)
+            {
+                item = cadence.Tier == MilestoneTier.Prestige ? CosmeticCatalog.LevelMarkerId(level) : CosmeticCatalog.LevelBadgeId(level);
             }
 
             return new MilestoneGrant(level, cadence, cadence.Petals, boosters, item);

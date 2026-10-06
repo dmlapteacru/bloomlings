@@ -2,103 +2,144 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1284
+    "score": 1304
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 8,
+      "x": 1,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 25,
   "locks": [
     {
       "keyId": "k1",
       "target": {
-        "id": "p04",
-        "kind": "pod"
+        "id": "door1",
+        "kind": "special"
       }
     }
   ],
   "mapping": {
-    "hull": "acorn",
-    "sail": "flower",
-    "sea": "dew",
-    "sky": "water"
+    "grass": "leaf",
+    "house": "acorn",
+    "pole": "acorn",
+    "roof": "violet_bud",
+    "sky": "dew"
   },
-  "mechanics": ["locked_pod"],
+  "mechanics": ["connected_pair", "key"],
   "overlays": {
     "cells": [
       {
         "keyId": "k1",
-        "x": 7,
-        "y": 2
+        "x": 0,
+        "y": 0
+      },
+      {
+        "hole": true,
+        "x": 2,
+        "y": 6
       }
     ]
   },
   "picture": {
-    "id": "sailboat_01",
-    "version": 1
+    "id": "birdhouse_01",
+    "version": 2
   },
   "pods": [
     {
-      "count": 14,
+      "count": 12,
       "id": "p01",
-      "variantId": "flower"
+      "variantId": "leaf"
     },
     {
-      "count": 11,
+      "count": 8,
       "id": "p02",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 10,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 10,
       "id": "p04",
-      "lockKeyId": "k1",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 9,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 17,
       "id": "p06",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 9,
       "id": "p07",
-      "variantId": "water"
+      "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 10,
       "id": "p08",
       "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 18,
       "id": "p09",
-      "variantId": "water"
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 10,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 12,
+      "id": "p12",
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "12929708704059659255",
+  "seed": "15449460409554168898",
   "slots": {
     "count": 5
   },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 2,
+          "y": 6
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09"],
-      ["p02", "p04", "p06", "p08"]
+      ["p01", "p03", "p05", "p07", "p09", "p11"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
     ]
   }
 }

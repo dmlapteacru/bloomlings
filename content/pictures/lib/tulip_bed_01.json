@@ -3,18 +3,20 @@
     "mode": "auto"
   },
   "grid": [
-    [3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 2, 3, 3, 2, 3, 3, 2, 3],
-    [0, 2, 0, 0, 2, 0, 0, 2, 0],
-    [0, 2, -1, 0, 2, 0, -1, 2, 0],
-    [1, 1, 1, -1, 2, 0, 0, 2, 0],
-    [1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [0, -1, 0, 1, -1, 1, 1, -1, 1],
-    [0, 0, 0, 0, 0, -1, 0, 0, 0],
-    [0, 0, 0, -1, 0, 0, -1, 0, 0],
-    [-1, 0, 0, 0, -1, 0, 0, 0, -1]
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 2, 3, 3, 2, 3, 3, 2, 3, 3, 2, 3],
+    [-1, 2, 0, -1, 2, 0, -1, 2, 0, 0, 2, 0],
+    [-1, 2, -1, 0, 2, 0, 0, 2, 0, 0, 2, 0],
+    [-1, 2, 0, 0, 2, 0, -1, 2, -1, 0, 2, 0],
+    [0, 2, -1, 0, 2, 0, 0, 2, 0, 0, 2, 0],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 2, 0],
+    [0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1],
+    [0, 0, 0, 0, 0, 0, -1, -1, 0, -1, 0, 1],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 0, 0, 4, 4, 0],
+    [-1, 0, 0, -1, 0, 0, 0, -1, 4, 4, 4, -1]
   ],
-  "height": 10,
+  "height": 12,
   "id": "tulip_bed_01",
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -41,6 +43,11 @@
       "colorGroup": "brown_orange",
       "name": "Soil",
       "roleId": "soil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
     }
   ],
   "source": {
@@ -49,15 +56,15 @@
     "origin": "content/pictures/tools/sketch_pictures.py"
   },
   "structure": {
-    "backgroundShare": 0.4,
+    "backgroundShare": 0.402,
     "nestingDepth": 4,
-    "regionCount": 10
+    "regionCount": 16
   },
   "subject": "Tulip bed 1",
   "tags": {
     "bands": ["early"],
     "themes": ["flowers", "garden"]
   },
-  "version": 1,
-  "width": 9
+  "version": 2,
+  "width": 12
 }

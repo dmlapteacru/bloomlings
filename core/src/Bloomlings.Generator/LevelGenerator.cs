@@ -35,11 +35,15 @@ namespace Bloomlings.Generator
     /// The picture-first, solution-first generator (R9 steps 1–9, FR-079, T089). Everything is driven by a seeded
     /// PRNG per (seed, level, attempt), so the same profile and seed give byte-identical definitions. Each discarded
     /// candidate records its reason.
+    /// A level keeps both its profile and the spec's Level Band Guidelines (<see cref="BandGuidelines"/>): the variant
+    /// count, work and pod count are the overlap of the two for its level and class, pods keep the minimum size, all
+    /// four families recur from L20, and the winning line's peak slot use meets the band's buffer-pressure target
+    /// (Normal levels stay within it; Hard and Super Hard reach at least its minimum, tighter is their point).
     /// </summary>
     public sealed class LevelGenerator
     {
         /// <summary>Recorded in each definition; bump it when generator behavior changes.</summary>
-        public const string Version = "gen-1.0.0";
+        public const string Version = "gen-1.2.0";
 
         /// <summary>Node budget of each search while the tray is tuned.</summary>
         public const int TuningNodeBudget = 10_000;
@@ -72,6 +76,15 @@ namespace Bloomlings.Generator
         /// one of them is rejected. Every mechanic must still be allowed by the profile and unlocked at the level.
         /// </summary>
         public IReadOnlyList<string>? ForcedMechanics { get; set; }
+
+        /// <summary>
+        /// Whether the Level Band Guidelines apply (default). The Daily Challenge pool turns them off: its level numbers
+        /// are pool indexes, not Level N, and its profile holds the mid-game band values it uses.
+        /// </summary>
+        public bool UseBandGuidelines { get; set; } = true;
+
+        /// <summary>Which expansion variants join the pool, and when (FR-060).</summary>
+        public VariantPool Pool { get; set; } = VariantPool.Default;
 
         /// <summary>A fixed difficulty class instead of the schedule (showcase levels are Normal).</summary>
         public DifficultyClass? ForcedClass { get; set; }
@@ -125,6 +138,16 @@ namespace Bloomlings.Generator
             var rng = new Xoshiro256StarStar(levelSeed);
             DifficultyClass target = ForcedClass ?? _schedule.ClassFor(level);
 
+            // The profile and the band guidelines both apply: their overlap for this level and class.
+            IntRange? variantCount = UseBandGuidelines ? BandGuidelines.Intersect(_profile.VariantCount, BandGuidelines.Variants(level, target)) : _profile.VariantCount;
+            IntRange? workRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.Work, BandGuidelines.Work(level, target)) : _profile.Work;
+            IntRange? podRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.PodCount, BandGuidelines.BandOf(level).Pods) : _profile.PodCount;
+            if (variantCount == null || workRange == null || podRange == null)
+            {
+                reason = $"profile:{_profile.BandId}-outside-guidelines-at-L{level}";
+                return null;
+            }
+
             // 1. Picture.
             BasePicture? picture = _pictures.Pick(_profile, level, history, ref rng);
             if (picture == null)
@@ -134,10 +157,19 @@ namespace Bloomlings.Generator
             }
 
             // 2. Mapping, avoiding the variant set of the two previous levels when they share one (FR-083).
-            IReadOnlyList<SortedDictionary<string, VariantId>> mappings = RoleMapper.Mappings(picture, _profile, _readablePair);
+            // The pool's expansion variants for this level; a variant joining the pool gets one clean level (it is used
+            // and no mechanic is) and then one mixed level (it is used again), FR-031.
+            IReadOnlyList<VariantId> expansions = UseBandGuidelines ? Pool.ExpansionsAt(level, _roadmap) : Array.Empty<VariantId>();
+            (VariantId? introduce, bool cleanIntro) = UseBandGuidelines ? Introduction(level) : (null, false);
+            IReadOnlyList<SortedDictionary<string, VariantId>> mappings = RoleMapper.Mappings(picture, _profile, _readablePair, variantCount: variantCount, extraVariants: expansions);
+            if (introduce != null)
+            {
+                mappings = mappings.Where(m => m.Values.Contains(introduce.Value)).ToList();
+            }
+
             if (mappings.Count == 0)
             {
-                reason = $"mapping:none-for-{picture.Id}";
+                reason = introduce != null ? $"intro:no-mapping-with-{introduce.Value.Key}-on-{picture.Id}" : $"mapping:none-for-{picture.Id}";
                 return null;
             }
 
@@ -145,6 +177,12 @@ namespace Bloomlings.Generator
             if (RepeatsVariantSet(level, mapping, history))
             {
                 reason = "similarity:variant-set-3-in-a-row";
+                return null;
+            }
+
+            if (UseBandGuidelines && MissesAFamily(level, mapping, history))
+            {
+                reason = "families:not-all-four-in-" + BandGuidelines.FamilyWindow.ToString(CultureInfo.InvariantCulture);
                 return null;
             }
 
@@ -172,9 +210,19 @@ namespace Bloomlings.Generator
                     }
                 }
             }
+            else if (cleanIntro)
+            {
+                chosen = new List<string>();
+            }
+            else if (UseBandGuidelines && PracticeAt(level) is string practice)
+            {
+                // FR-031: the practice level uses the newly shown mechanic again, alone.
+                chosen = new List<string> { practice };
+            }
             else
             {
-                chosen = OverlayPlanner.Choose(_profile, level, _roadmap, 2, ref rng);
+                int? combinations = _roadmap.LevelOf(AdvancedCombinationsUnlock);
+                chosen = OverlayPlanner.Choose(_profile, level, _roadmap, combinations != null && level >= combinations.Value ? 3 : 2, ref rng, target);
             }
 
             var skeleton = new LevelDefinition(
@@ -202,9 +250,9 @@ namespace Bloomlings.Generator
             skeleton = skeleton with { Overlays = boardOverlays };
             Board board = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
             int work = board.CountAllLayers();
-            if (!_profile.Work.Contains(work))
+            if (!workRange.Contains(work))
             {
-                reason = $"work:{work}-outside-{_profile.Work}";
+                reason = $"work:{work}-outside-{workRange}";
                 return null;
             }
 
@@ -225,10 +273,10 @@ namespace Bloomlings.Generator
 
             // 6. Pods along the waves.
             int extra = target == DifficultyClass.Normal ? 0 : _profile.HardMode.ExtraPods;
-            IReadOnlyList<PlannedPod>? planned = PodPartitioner.Partition(waves, _profile.PodCount, _profile.PodSize, extra, ref rng);
+            IReadOnlyList<PlannedPod>? planned = PodPartitioner.Partition(waves, podRange, _profile.PodSize, extra, ref rng);
             if (planned == null)
             {
-                reason = $"partition:{waves.Count}-waves-outside-{_profile.PodCount}-pods";
+                reason = $"partition:{waves.Count}-waves-outside-{podRange}-pods-of-{BandGuidelines.MinPodSize}+";
                 return null;
             }
 
@@ -243,6 +291,12 @@ namespace Bloomlings.Generator
             if (ForcedMechanics != null && locks.Dropped.Count > 0)
             {
                 reason = "showcase:cannot-place-" + string.Join(",", locks.Dropped);
+                return null;
+            }
+
+            if (UseBandGuidelines && ForcedMechanics == null && PracticeAt(level) is string practiced && locks.Dropped.Contains(practiced))
+            {
+                reason = "practice:cannot-place-" + practiced;
                 return null;
             }
 
@@ -292,29 +346,68 @@ namespace Bloomlings.Generator
                 return null;
             }
 
-            // 7b. A connected pair at the same depth, if the level uses them and one keeps the level as planned.
-            if (mechanics.Contains(MechanicNames.ConnectedPair))
+            // 7b. A connected group at the same depth (a pair, or the optional triple on Hard levels), and a mystery pod,
+            // if the level uses them and one keeps the level as planned.
+            foreach ((string mechanic, int size) in new[] { (MechanicNames.ConnectedTriple, 3), (MechanicNames.ConnectedPair, 2) })
             {
-                TrayOutcome? connected = TrayBuilder.Connect(tray, picture, target, _thresholds, tuning, ref rng);
+                if (!mechanics.Contains(mechanic))
+                {
+                    continue;
+                }
+
+                // One group per level: a triple, when chosen, stands for the pair too.
+                TrayOutcome? connected = tray.Definition.Pods.Any(p => p.ConnectedGroupId != null)
+                    ? null
+                    : TrayBuilder.Connect(tray, picture, target, _thresholds, tuning, ref rng, size);
                 if (connected != null)
                 {
                     tray = connected;
                 }
-                else if (ForcedMechanics != null)
+                else if (ForcedMechanics != null && ForcedMechanics.Contains(mechanic))
                 {
-                    reason = "showcase:cannot-place-connected_pair";
+                    reason = "showcase:cannot-place-" + mechanic;
+                    return null;
+                }
+                else if (IsPracticeOf(level, mechanic))
+                {
+                    // FR-031: the practice level must use its mechanic; another candidate may fit it.
+                    reason = "practice:cannot-place-" + mechanic;
                     return null;
                 }
                 else
                 {
-                    mechanics.Remove(MechanicNames.ConnectedPair);
+                    mechanics.Remove(mechanic);
                     tray = tray with { Definition = tray.Definition with { Mechanics = mechanics } };
                 }
             }
 
-            // Mystery tiles: no blind guesses (FR-039, R8).
+            if (mechanics.Contains(MechanicNames.MysteryPod))
+            {
+                TrayOutcome? hidden = TrayBuilder.HidePod(tray, picture, target, _thresholds, tuning, ref rng);
+                if (hidden != null)
+                {
+                    tray = hidden;
+                }
+                else if (ForcedMechanics != null)
+                {
+                    reason = "showcase:cannot-place-mystery_pod";
+                    return null;
+                }
+                else if (IsPracticeOf(level, MechanicNames.MysteryPod))
+                {
+                    reason = "practice:cannot-place-mystery_pod";
+                    return null;
+                }
+                else
+                {
+                    mechanics.Remove(MechanicNames.MysteryPod);
+                    tray = tray with { Definition = tray.Definition with { Mechanics = mechanics } };
+                }
+            }
+
+            // Mystery tiles and pods: no blind guesses (FR-039, R8).
             bool? playerInfoFair = null;
-            if (mechanics.Contains(MechanicNames.MysteryTile))
+            if (mechanics.Contains(MechanicNames.MysteryTile) || mechanics.Contains(MechanicNames.MysteryPod))
             {
                 FairnessResult fairness = FairnessChecker.Check(tray.Definition, picture, new SessionOptions(1, 20000), tuning.NodeBudget);
                 if (fairness.Status != FairnessStatus.Fair)
@@ -324,6 +417,15 @@ namespace Bloomlings.Generator
                 }
 
                 playerInfoFair = fairness.PlayerInfoFair;
+            }
+
+            // Buffer pressure (the band's target, as peak occupied slots on the winning line).
+            IntRange pressure = BandGuidelines.PeakSlots(PressureFor(level, tray.Class));
+            int peak = tray.Analysis.Metrics.PeakBuffer;
+            if (peak < pressure.Min || (tray.Class == DifficultyClass.Normal && peak > pressure.Max))
+            {
+                reason = $"pressure:peak-{peak}-outside-{pressure}";
+                return null;
             }
 
             if (RepeatsSourceLayout(level, tray.Definition, history))
@@ -391,6 +493,95 @@ namespace Bloomlings.Generator
             return merged;
         }
 
+        private bool IsPracticeOf(int level, string mechanic) => UseBandGuidelines && ForcedMechanics == null && PracticeAt(level) == mechanic;
+
+        /// <summary>The mechanic whose practice level this is (FR-031), when the profile allows it.</summary>
+        private string? PracticeAt(int level)
+        {
+            foreach (string mechanic in MechanicNames.All)
+            {
+                if (_profile.Allows(mechanic) && MechanicNames.PracticeLevel(mechanic, _roadmap, _schedule.ClassFor) == level)
+                {
+                    return mechanic;
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// The variant this level must introduce: at the level a pool expansion joins, the clean level (true); on the
+        /// next level, the mixed level (false). Only when some picture can carry it (its color group), else nothing.
+        /// </summary>
+        private (VariantId? Variant, bool Clean) Introduction(int level)
+        {
+            foreach ((int at, bool clean) in new[] { (level, true), (level - 1, false) })
+            {
+                foreach (VariantId variant in Pool.JoiningAt(at, _roadmap))
+                {
+                    if (_pictures.HasColorGroup(VariantCatalog.Default.Get(variant).ColorGroup))
+                    {
+                        return (variant, clean);
+                    }
+                }
+            }
+
+            return (null, false);
+        }
+
+        /// <summary>Unlock of the advanced connected/locked combinations profile (roadmap L175): up to 3 mechanics.</summary>
+        public const string AdvancedCombinationsUnlock = "profile.advanced_combinations";
+
+        /// <summary>Unlock of the advanced Hard profile (roadmap L225): Hard and Super Hard press the buffer critically.</summary>
+        public const string AdvancedHardUnlock = "profile.advanced_hard";
+
+        /// <summary>The buffer-pressure target of a level's class; from the advanced Hard profile, critical for Hard too.</summary>
+        private BufferPressure PressureFor(int level, DifficultyClass difficulty)
+        {
+            if (difficulty == DifficultyClass.Normal)
+            {
+                return _profile.BufferPressureTarget;
+            }
+
+            int? advanced = _roadmap.LevelOf(AdvancedHardUnlock);
+            if (advanced != null && level >= advanced.Value)
+            {
+                return BufferPressure.Critical;
+            }
+
+            return difficulty == DifficultyClass.SuperHard ? _profile.HardMode.SuperHardPressure : _profile.HardMode.HardPressure;
+        }
+
+        /// <summary>From L20 all four families are regular: the last <see cref="BandGuidelines.FamilyWindow"/> levels use all four.</summary>
+        private static bool MissesAFamily(int level, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history)
+        {
+            if (level < BandGuidelines.AllFamiliesFrom)
+            {
+                return false;
+            }
+
+            var families = new HashSet<Family>();
+            foreach (VariantId variant in mapping.Values)
+            {
+                families.Add(VariantCatalog.Default.Get(variant).Family);
+            }
+
+            for (int back = 1; back < BandGuidelines.FamilyWindow; back++)
+            {
+                if (!history.TryGetValue(level - back, out LevelDefinition? earlier))
+                {
+                    return false; // Not enough history to judge (the start of a batch without its predecessors).
+                }
+
+                foreach (VariantId variant in earlier!.Mapping.Values)
+                {
+                    families.Add(VariantCatalog.Default.Get(variant).Family);
+                }
+            }
+
+            return families.Count < 4;
+        }
+
         /// <summary>FR-083: no 3 consecutive levels share the same active variant set.</summary>
         private static bool RepeatsVariantSet(int level, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history)
         {
@@ -399,10 +590,10 @@ namespace Bloomlings.Generator
                 && set.SetEquals(VariantSet(a!)) && set.SetEquals(VariantSet(b!));
         }
 
-        /// <summary>FR-083: no 3 consecutive levels share the same (non-empty) set of mechanics.</summary>
+        /// <summary>FR-083: no 3 consecutive levels share the same set of mechanics; from L11 the empty set counts too.</summary>
         private static bool RepeatsMechanics(int level, IReadOnlyList<string> mechanics, IReadOnlyDictionary<int, LevelDefinition> history)
         {
-            if (mechanics.Count == 0)
+            if (mechanics.Count == 0 && level <= 10)
             {
                 return false;
             }

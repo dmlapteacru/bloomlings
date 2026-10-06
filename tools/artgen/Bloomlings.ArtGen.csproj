@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The character art generator of spec 004 (contracts/art-files.md): draws the 2D variant characters and renders the 3D
+    family heroes, and writes them as PNG files with a manifest into the Unity client's Resources folder, which the full
+    playtest embeds. Dev-only: it never ships. Run: dotnet run, project tools/artgen, then build, check or sheet.
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Bloomlings.ArtGen</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- The shared engine-free kit: picture names (CharacterArt), colors and tokens, exactly as the clients use them. -->
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" Link="Kit/%(Filename)%(Extension)" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
+  </ItemGroup>
+</Project>

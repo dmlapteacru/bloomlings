@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 11,
+  "height": 13,
   "id": "daisy_field_02",
   "legend": {
     "c": "center",
@@ -58,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 11
+  "version": 2,
+  "width": 13
 }

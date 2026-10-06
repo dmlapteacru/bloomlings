@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Slots;
 using Bloomlings.Core.Tray;
@@ -173,6 +174,37 @@ namespace Bloomlings.Core.Tests.Rules
 
             CheckRefused(session.Check(new TapPod("cLeaf")), RejectReason.NotEnoughSlotsForGroup);
             Assert.That(session.Status, Is.EqualTo(LevelStatus.Stuck), "one free slot, and the only exposed pods form a pair");
+        }
+
+        [Test]
+        public void ConnectedTriple_NeedsThreeFreeSlots_AndCommitsTogether()
+        {
+            // Three members (Leaf, Water, Leaf) at the same depth; three Flower pods first leave only two free slots.
+            string[] rows = Rows("###f###", "###f###", "###f###", "##lwl##", ".......");
+            LevelDefinition level = Definition(
+                rows,
+                new[]
+                {
+                    Pod("f1", VariantId.Flower, 1), Pod("f2", VariantId.Flower, 1), Pod("f3", VariantId.Flower, 1),
+                    Connected("a", VariantId.Leaf, 1, "t"), Connected("b", VariantId.Water, 1, "t"), Connected("c", VariantId.Leaf, 1, "t"),
+                },
+                stacks: new[] { new[] { "a", "f1" }, new[] { "b", "f2" }, new[] { "c", "f3" } });
+            LevelSession session = Load(rows, level);
+            Assert.That(LevelMechanics.UnlocksUsed(level, Picture(rows)), Does.Contain("mechanic.connected_triple").And.Not.Contain("mechanic.connected_pair"));
+
+            CommandResult result = TapChecked(session, "b");
+
+            Assert.That(result.Events.OfType<PodCommitted>().Select(c => c.PodId), Is.EqualTo(new[] { "b", "a", "c" }), "the tapped member first, then the group");
+            Assert.That(session.View.ConnectedGroup("a"), Is.EqualTo(new[] { "a", "b", "c" }));
+
+            // The same pods with the Flowers on top: three wait behind the Water tile, and two free slots are too few.
+            LevelSession buried = Load(rows, level with { Tray = new TrayDef(new[] { new[] { "f1", "a" }, new[] { "f2", "b" }, new[] { "f3", "c" } }) });
+            foreach (string flower in new[] { "f1", "f2", "f3" })
+            {
+                TapChecked(buried, flower);
+            }
+
+            CheckRefused(buried.Check(new TapPod("a")), RejectReason.NotEnoughSlotsForGroup);
         }
 
         private static void CheckRefused(CommandCheck check, RejectReason reason)

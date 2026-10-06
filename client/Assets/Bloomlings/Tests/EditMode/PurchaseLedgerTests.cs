@@ -72,6 +72,30 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void TheBackendsGrants_WinOverTheBundledCatalog()
+        {
+            // The server answered 450 Petals for petals_m (a newer catalog); the bundled one says 400.
+            Assert.That(_ledger.Grant(new ValidatedPurchase("t-s", "petals_m", 450)), Is.True);
+            Assert.That(_economy.Petals, Is.EqualTo(450));
+
+            _ledger.Grant(new ValidatedPurchase("t-b", "boosters_bundle_small", 0, new BoosterGrant(1, 0, 0, 0)));
+            Assert.That(_economy.Charges(BoosterKind.ExtraSlot), Is.EqualTo(1));
+            Assert.That(_economy.Charges(BoosterKind.BloomBurst), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void TheStarterPack_BoughtOnAnotherInstall_IsNoLongerOffered()
+        {
+            _ledger.OnStarterPackOffer(null);
+            Assert.That(_save.Purchases.StarterPackOffered, Is.False, "offline changes nothing");
+            _ledger.OnStarterPackOffer(true);
+            Assert.That(_save.Purchases.StarterPackOffered, Is.False);
+
+            _ledger.OnStarterPackOffer(false);
+            Assert.That(_save.Purchases.StarterPackOffered, Is.True);
+        }
+
+        [Test]
         public void UnknownProducts_GrantNothing()
         {
             Assert.That(_ledger.Grant(new ValidatedPurchase("t-x", "gold_bars")), Is.False);

@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "super_hard",
     "overridden": true,
@@ -8,7 +8,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 4,
+      "x": 6,
       "y": 0
     }
   ],
@@ -22,41 +22,41 @@
   },
   "picture": {
     "id": "butterfly",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 14,
+      "count": 32,
       "id": "f1",
       "variantId": "flower"
     },
     {
-      "count": 4,
+      "count": 10,
       "id": "f2",
       "variantId": "flower"
     },
     {
-      "count": 8,
+      "count": 14,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 14,
       "id": "w2",
       "variantId": "water"
     },
     {
-      "count": 6,
+      "count": 12,
       "id": "w3",
       "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 27,
       "id": "v1",
       "variantId": "violet_bud"
     },
     {
-      "count": 10,
+      "count": 27,
       "id": "v2",
       "variantId": "violet_bud"
     }

@@ -1,0 +1,23 @@
+{
+  "cell": [448, 504],
+  "feet": 0.9,
+  "fill": 0.84,
+  "margin": 0.015,
+  "fps": 24,
+  "idleSeconds": 4,
+  "reactSeconds": 2,
+  "supersample": 2.5,
+  "home": {"sharpen": 0.3, "contrast": 1.1, "saturation": 1.1},
+  "pitch": 10,
+  "fov": 20,
+  "light": {"hemi": 2.3, "key": 1.3, "fill": 0.4, "rim": 1.2},
+  "idleBlend": 0.75,
+  "reactIn": 0.25,
+  "reactOut": 0.4,
+  "heroes": [
+    {"family": "sprig", "file": "heroes.glb", "mesh": "GLB_Sprig_character_Model", "idle": "GLB_Sprig_Breathing", "react": "GLB_Sprig_Wave", "win": ["GLB_Sprig_Celebrate", "GLB_Sprig_Clap"], "head": "Head", "top": "Head", "topOffset": [0, 0.3, 0], "ground": "model", "idleSeconds": null, "reactSeconds": null, "color": {"gamma": 1.0, "gain": 1.0, "saturation": 1.25}, "yaw": -12, "winYaw": 0, "note": "the owner's Heroes.glb (2026-10-04): breathing; a wave; the win's celebrate and clap, taking turns; each at its own length"},
+    {"family": "bloom", "file": "heroes.glb", "mesh": "GLB_Bloom_Model", "idle": "GLB_Bloom_Breathing", "react": "GLB_Bloom_SmallJump", "head": "Head", "top": "Head", "topOffset": [0, 0.33, 0], "ground": "model", "idleSeconds": null, "reactSeconds": null, "yaw": 0, "note": "the owner's Heroes.glb (2026-10-04), the new pink Bloom: breathing; a small jump; each at its own length", "color": {"gamma": 0.7, "gain": 1.06, "saturation": 1.3}, "light": {"lift": 0.12}},
+    {"family": "drop", "file": "heroes.glb", "mesh": "GLB_Drop_Model", "idle": "GLB_Drop_Breathing", "react": "GLB_Drop_Jump", "breathe": {"bone": "Head", "scale": 0.025, "lift": 0.6}, "head": "Head", "top": "Head", "topOffset": [0, 0.4, 0], "ground": "model", "idleSeconds": null, "reactSeconds": null, "yaw": 10, "note": "the owner's Heroes.glb (2026-10-04): its Drop_Breathing barely moves, so the bake adds a 2.5% breath of the body; a jump; each at its own length", "color": {"gamma": 0.92, "gain": 1.02, "saturation": 3.2}},
+    {"family": "twig", "file": "heroes.glb", "mesh": "GLB_ChatGPT_4_2026_23_55_22", "synth": {"name": "Twig_Temp", "arms": {"L": [10, 0, 55], "R": [10, 0, -55]}, "morph": "Twig_Rig_Corrective_arms_down", "idleSeconds": 3, "reactSeconds": 1.5, "winSeconds": 3}, "idle": "Twig_Temp_Idle", "react": "Twig_Temp_React", "win": "Twig_Temp_Win", "head": "Head", "top": "Head", "topOffset": [0, 0.5, 0], "ground": "model", "idleSeconds": null, "reactSeconds": null, "yaw": 14, "note": "the owner's new Twig in Heroes.glb (2026-10-04), delivered without clips: stand-in clips the bake makes (the arms lowered, a breath, a small hop, two jumps with the arms up) until its own come", "color": {"gamma": 0.74, "gain": 1.06, "saturation": 1.1}, "light": {"lift": 0.15}, "winYaw": 0}
+  ]
+}

@@ -9,9 +9,15 @@ namespace Bloomlings.Client.Services.Analytics
     /// </summary>
     public interface IAnalyticsService
     {
-        /// <summary>Starts collection; called once, only after consent allows analytics.</summary>
+        /// <summary>
+        /// Starts collection, only after consent allows analytics. Called again when the player changes consent in the
+        /// privacy options, with the new personalization, and after <see cref="Stop"/> when consent is given again.
+        /// </summary>
         /// <param name="personalized">False: no advertising id or personal data (non-personalized consent).</param>
         void Initialize(bool personalized);
+
+        /// <summary>Consent was withdrawn: collection stops and every consent type is denied.</summary>
+        void Stop();
 
         /// <summary>Logs one event. Values are strings, longs or doubles.</summary>
         void Log(string eventName, IReadOnlyDictionary<string, object> parameters);
@@ -21,6 +27,10 @@ namespace Bloomlings.Client.Services.Analytics
     public sealed class NullAnalyticsService : IAnalyticsService
     {
         public void Initialize(bool personalized)
+        {
+        }
+
+        public void Stop()
         {
         }
 

@@ -1,0 +1,198 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1873
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.2.0",
+  "levelNumber": 150,
+  "mapping": {
+    "body": "acorn",
+    "grass": "moss",
+    "sky": "water",
+    "spot": "violet_bud",
+    "wing": "flower"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 6,
+        "y": 13
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "butterfly_02",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p15",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p17",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p21",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14047701200650148141",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 6,
+          "y": 13
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 5,
+            "y": 14
+          },
+          {
+            "x": 6,
+            "y": 15
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

@@ -82,7 +82,7 @@
     }
   },
   "description": "Return sends a waiting Flower pod back to its own stack, freeing a slot for the Water pod (FR-045).",
-  "expectedEventsDigest": "c57904824052907c",
+  "expectedEventsDigest": "6bba662e14a1cb75",
   "expectedStateHash": "8199c0d884f78418",
   "expectedStatus": "won",
   "name": "boost-return",

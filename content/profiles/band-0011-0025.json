@@ -18,18 +18,18 @@
   "bandId": "band-0011-0025",
   "boardSize": {
     "height": [
-      10,
-      10
+      12,
+      13
     ],
     "width": [
-      9,
-      10
+      12,
+      12
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    45,
-    120
+    60,
+    150
   ],
   "entryLayouts": [
     "bottom_center",
@@ -50,13 +50,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 0,
-  "note": "Early band (spec Level Band Guidelines): 9×10–10×10, 3–4 variants with all four families by L20, 6–12 pods, work 50–100. Mechanics apply only from their roadmap level.",
+  "note": "Early band (spec Level Band Guidelines, amended 2026-10-05): 12\u00d712\u201312\u00d713, 3\u20134 variants with all four families by L20, 7\u201314 pods, work 105\u2013150. Mechanics apply only from their roadmap level.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
-    9,
-    12
+    10,
+    14
   ],
   "podSize": [
     5,
@@ -85,7 +85,7 @@
     4
   ],
   "work": [
-    50,
-    100
+    105,
+    150
   ]
 }

@@ -43,5 +43,8 @@ namespace Bloomlings.Solver
 
         /// <summary>Difficulty metrics from the search tree (FR-082, doc 06 §16).</summary>
         LevelMetrics Measure(LevelSession start, SolveOptions options);
+
+        /// <summary>Mystery fairness (FR-039, R8): winning never needs hidden knowledge.</summary>
+        FairnessResult CheckPlayerInformation(LevelSession start, SolveOptions options);
     }
 }

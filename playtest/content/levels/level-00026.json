@@ -2,7 +2,7 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1433
+    "score": 1365
   },
   "entries": [
     {
@@ -11,7 +11,7 @@
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 26,
   "locks": [
     {
@@ -23,10 +23,10 @@
     }
   ],
   "mapping": {
-    "grass": "leaf",
-    "house": "wood",
-    "pole": "wood",
-    "roof": "violet_bud",
+    "cactus": "moss",
+    "flower": "violet_bud",
+    "pot": "acorn",
+    "sand": "acorn",
     "sky": "water"
   },
   "mechanics": ["connected_pair", "locked_pod"],
@@ -34,25 +34,25 @@
     "cells": [
       {
         "keyId": "k1",
-        "x": 1,
+        "x": 3,
         "y": 0
       }
     ]
   },
   "picture": {
-    "id": "birdhouse_03",
-    "version": 1
+    "id": "cactus_04",
+    "version": 2
   },
   "pods": [
     {
-      "count": 12,
+      "count": 13,
       "id": "p01",
-      "variantId": "leaf"
+      "variantId": "acorn"
     },
     {
-      "count": 8,
+      "count": 14,
       "id": "p02",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 9,
@@ -60,65 +60,65 @@
       "variantId": "water"
     },
     {
-      "count": 10,
+      "connectedGroupId": "c1",
+      "count": 12,
       "id": "p04",
       "variantId": "water"
     },
     {
-      "count": 10,
+      "connectedGroupId": "c1",
+      "count": 13,
       "id": "p05",
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 11,
       "id": "p06",
       "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 9,
       "id": "p07",
       "variantId": "water"
     },
     {
-      "count": 10,
+      "count": 12,
       "id": "p08",
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 11,
       "id": "p09",
       "variantId": "water"
     },
     {
-      "count": 7,
+      "count": 12,
       "id": "p10",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 10,
       "id": "p11",
       "lockKeyId": "k1",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
       "count": 8,
       "id": "p12",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 8,
+      "count": 9,
       "id": "p13",
-      "variantId": "wood"
+      "variantId": "moss"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 8,
+      "count": 10,
       "id": "p14",
-      "variantId": "violet_bud"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p15",
       "variantId": "violet_bud"
     }

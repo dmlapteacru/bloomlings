@@ -1,13 +1,22 @@
 name: android-apk
 
-# Builds the temporary playtest APK (playtest/android: .NET for Android on the shared C# core, Levels 1–94) and uploads
-# it as an artifact. It needs no secrets: the .NET Android workload and the runner's Android SDK are free.
+# Builds the temporary playtest APKs (.NET for Android on the shared C# core, Levels 1–94) and uploads them as
+# artifacts. They need no secrets: the .NET Android workload and the runner's Android SDK are free.
+#   - bloomlings-playtest-apk (playtest/android): the full playtest, with Home, progression, economy, demos, animations;
+#   - bloomlings-tester-apk (playtest/tester): the level tester, with ◀ ▶ between levels, free boosters, instant results.
+# The two install side by side (different application ids).
 # Manual only (Actions → android-apk → Run workflow): it never runs on push, pull request or a schedule, so commits
-# spend no Actions minutes. Only the newest APK is kept: after a successful upload every older artifact with the same
-# name is deleted, and each artifact also expires after 7 days.
+# spend no Actions minutes. Only the newest APK of each kind is kept: after a successful upload every older artifact
+# with the same name is deleted, and each artifact also expires after 7 days.
 
 on:
   workflow_dispatch:
+    inputs:
+      apks:
+        description: Which APKs to build
+        type: choice
+        options: [both, playtest, tester]
+        default: both
 
 permissions:
   contents: read
@@ -20,9 +29,13 @@ concurrency:
 jobs:
   apk:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
+    strategy:
+      matrix:
+        # Only the APKs the run asked for (no runner starts for the other one).
+        include: ${{ fromJSON(inputs.apks == 'playtest' && '[{"kind":"playtest","project":"playtest/android","artifact":"bloomlings-playtest-apk"}]' || inputs.apks == 'tester' && '[{"kind":"tester","project":"playtest/tester","artifact":"bloomlings-tester-apk"}]' || '[{"kind":"playtest","project":"playtest/android","artifact":"bloomlings-playtest-apk"},{"kind":"tester","project":"playtest/tester","artifact":"bloomlings-tester-apk"}]') }}
     env:
-      ARTIFACT: bloomlings-playtest-apk
+      ARTIFACT: ${{ matrix.artifact }}
       DOTNET_CLI_TELEMETRY_OPTOUT: "1"
     steps:
       - uses: actions/checkout@v4
@@ -37,22 +50,24 @@ jobs:
           global-json-file: core/global.json
 
       - name: Install the .NET Android workload
-        working-directory: playtest/android
+        working-directory: ${{ matrix.project }}
         run: dotnet workload install android
 
       - name: Install missing Android SDK packages
-        working-directory: playtest/android
+        working-directory: ${{ matrix.project }}
         run: dotnet build -t:InstallAndroidDependencies -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME" -p:AcceptAndroidSDKLicenses=True
 
       - name: Build the APK
-        working-directory: playtest/android
+        working-directory: ${{ matrix.project }}
         run: dotnet publish -c Release -f net10.0-android -p:AndroidSdkDirectory="$ANDROID_HOME"
 
+      # `dotnet publish` signs the APK in bin/Release/net10.0-android/ and copies it into its publish/ folder: only the
+      # first is uploaded (a recursive pattern took both, the same APK twice).
       - uses: actions/upload-artifact@v4
         id: upload
         with:
           name: ${{ env.ARTIFACT }}
-          path: playtest/android/bin/Release/**/*-Signed.apk
+          path: ${{ matrix.project }}/bin/Release/net10.0-android/*-Signed.apk
           if-no-files-found: error
           retention-days: 7
           compression-level: 0

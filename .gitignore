@@ -46,6 +46,8 @@ client/*.slnx
 
 # .NET check of the Unity client scripts (client/DotnetCheck)
 client/DotnetCheck/artifacts/
+client/DotnetCheck/obj/
+client/DotnetCheck/bin/
 content/showcase/rejections.json
 client/Assets/StreamingAssets/golden/
 client/Assets/StreamingAssets/golden.meta
@@ -53,3 +55,18 @@ client/Assets/StreamingAssets/golden.meta
 # Temporary .NET Android playtest client (playtest/android)
 playtest/android/bin/
 playtest/android/obj/
+playtest/check/bin/
+playtest/check/obj/
+playtest/tester/bin/
+playtest/tester/obj/
+playtest/preview/bin/
+playtest/preview/obj/
+playtest/preview/out/
+
+# Character art generator (spec 004): build outputs and the review sheet
+tools/artgen/bin/
+tools/artgen/obj/
+tools/artgen/out/
+
+# tools/heroanim (npm packages; `npm ci` restores them)
+tools/heroanim/node_modules/

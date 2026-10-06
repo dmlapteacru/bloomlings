@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Localization;
+using Bloomlings.Core.Variants;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -21,23 +22,61 @@ namespace Bloomlings.Client.Tests
             new[] { "App", "Gameplay", "Meta", "Services", "UI" }
                 .SelectMany(folder => Directory.GetFiles(Path.Combine(Root, folder), "*.cs", SearchOption.AllDirectories));
 
+        /// <summary>The playtest's screens, which read the same table through <c>PlaytestText</c> (when the repository has them).</summary>
+        private static IEnumerable<string> PlaytestSources() =>
+            new[] { "design", "android" }
+                .Select(folder => Path.GetFullPath(Path.Combine(Application.dataPath, "..", "..", "playtest", folder)))
+                .Where(Directory.Exists)
+                .SelectMany(folder => Directory.GetFiles(folder, "*.cs", SearchOption.TopDirectoryOnly));
+
+        /// <summary>The keys a source asks for: <c>Loc.T("key")</c>, and both keys of <c>Loc.T(cond ? "a" : "b")</c>.</summary>
+        private static IEnumerable<string> KeysUsedIn(string text)
+        {
+            var plain = new Regex(@"(?:Loc|PlaytestText)\.[TF]\(""([a-z0-9_.]+)""[,)]");
+            var either = new Regex(@"(?:Loc|PlaytestText)\.[TF]\([^()""]*\?\s*""([a-z0-9_.]+)""\s*:\s*""([a-z0-9_.]+)""\s*[,)]");
+            return plain.Matches(text).Cast<Match>().Select(m => m.Groups[1].Value)
+                .Concat(either.Matches(text).Cast<Match>().SelectMany(m => new[] { m.Groups[1].Value, m.Groups[2].Value }));
+        }
+
         [Test]
         public void EveryKeyUsedInCode_IsInTheEnglishTable()
         {
             Dictionary<string, string> english = English;
-            var used = new Regex(@"Loc\.[TF]\(""([a-z0-9_.]+)""[,)]");
             var missing = new List<string>();
-            foreach (string file in GameSources())
+            foreach (string file in GameSources().Concat(PlaytestSources()))
             {
-                foreach (Match match in used.Matches(File.ReadAllText(file)))
+                foreach (string key in KeysUsedIn(File.ReadAllText(file)))
                 {
-                    if (!english.ContainsKey(match.Groups[1].Value))
+                    if (!english.ContainsKey(key))
                     {
-                        missing.Add(Path.GetFileName(file) + ": " + match.Groups[1].Value);
+                        missing.Add(Path.GetFileName(file) + ": " + key);
                     }
                 }
             }
 
+            Assert.That(missing, Is.Empty);
+        }
+
+        [Test]
+        public void KeysUsedThroughAChoice_AreFound()
+        {
+            List<string> keys = KeysUsedIn(@"Loc.T(stuck ? ""jam.stuck"" : ""jam.title""); PlaytestText.F(""common.level"", 3);").ToList();
+            Assert.That(keys, Is.EquivalentTo(new[] { "jam.stuck", "jam.title", "common.level" }));
+        }
+
+        [Test]
+        public void KeysBuiltFromAFamily_AreInTheEnglishTable()
+        {
+            // The Wardrobe and the Store's cosmetics build these keys from WardrobeService.FamilyKey, and the Wardrobe's
+            // Profile tab from "profile".
+            Dictionary<string, string> english = English;
+            var missing = new List<string>();
+            foreach (string key in WardrobeService.Families.Select(WardrobeService.FamilyKey))
+            {
+                missing.AddRange(new[] { "family." + key, "wardrobe.role." + key, "wardrobe.about." + key }.Where(k => !english.ContainsKey(k)));
+            }
+
+            missing.AddRange(new[] { "wardrobe.role.profile", "wardrobe.about.profile", "wardrobe.tab_profile" }.Where(k => !english.ContainsKey(k)));
             Assert.That(missing, Is.Empty);
         }
 
@@ -47,6 +86,7 @@ namespace Bloomlings.Client.Tests
             var patterns = new[]
             {
                 new Regex(@"Create(Text|Button)\(""[^""]*"", [^,]+, \$?""[^""]*[A-Za-z][^""]*"""),
+                new Regex(@"UiKit\.(Label|PrimaryButton|SecondaryButton|DarkPill|Badge|Card|Sheet)\(""[^""]*"", [^,]+, \$?""[^""]*[A-Za-z][^""]*"""),
                 new Regex(@"new DemoStep\(\$?"""),
                 new Regex(@"(Toast|SetTitle)\(\$?""[^""]*[A-Za-z]"),
                 new Regex(@"StartTargeting\([^,]+, \$?""[^""]*[A-Za-z]"),
@@ -93,6 +133,26 @@ namespace Bloomlings.Client.Tests
             {
                 Assert.That(english.ContainsKey("cosmetic." + item.Id), Is.True, item.Id);
             }
+        }
+
+        /// <summary>
+        /// The Wardrobe and the Store build these keys from <see cref="WardrobeService.FamilyKey"/>, so the key check above
+        /// cannot see them: every family has its name, its role and its line, and the profile tab its role and line.
+        /// </summary>
+        [Test]
+        public void EnglishTable_NamesEveryFamily_AndTheProfile()
+        {
+            Dictionary<string, string> english = English;
+            var keys = new List<string> { "wardrobe.role.profile", "wardrobe.about.profile" };
+            foreach (Family family in (Family[])System.Enum.GetValues(typeof(Family)))
+            {
+                string key = WardrobeService.FamilyKey(family);
+                keys.Add("family." + key);
+                keys.Add("wardrobe.role." + key);
+                keys.Add("wardrobe.about." + key);
+            }
+
+            Assert.That(keys.Where(k => !english.ContainsKey(k)), Is.Empty);
         }
 
         [Test]

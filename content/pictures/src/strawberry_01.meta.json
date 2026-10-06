@@ -2,12 +2,13 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 10,
+  "height": 13,
   "id": "strawberry_01",
   "legend": {
     "b": "background",
     "d": "seed",
     "l": "leaves",
+    "p": "plate",
     "s": "berry"
   },
   "review": {
@@ -35,6 +36,11 @@
       "colorGroup": "green",
       "name": "Leaves",
       "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
     }
   ],
   "source": {
@@ -51,6 +57,6 @@
       "fruit"
     ]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 12
 }

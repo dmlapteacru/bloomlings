@@ -7,6 +7,7 @@ using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
+using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Readability;
 using Bloomlings.Solver;
 
@@ -59,12 +60,33 @@ namespace Bloomlings.Pipeline.Validation
             _options = options;
         }
 
+        /// <summary>
+        /// Whether the Level Band Guidelines are checked (variant count, board, pods, work, pod size, families; default
+        /// on). Off only for test fixtures built on small pictures and for the Daily Challenge pool, whose numbers are
+        /// pool indexes; the readability and layer depth rules always apply.
+        /// </summary>
+        public bool CheckBandGuidelines { get; set; } = true;
+
+        /// <summary>
+        /// Whether the level-sequence rules run (FR-083 similarity, the families window; default on). Off for the Daily
+        /// Challenge pool, whose numbers are pool indexes, not Level N.
+        /// </summary>
+        public bool CheckSequences { get; set; } = true;
+
+        /// <summary>Which expansion variants join the pool, and when (FR-060).</summary>
+        public VariantPool Pool { get; set; } = VariantPool.Default;
+
         /// <param name="levels">The catalog (any order); FR-083 checks look at level-number neighbours.</param>
         /// <param name="solveOnly">When set, only these levels are solved (the others still take part in FR-083).</param>
-        public CatalogReport Validate(IReadOnlyList<LevelDefinition> levels, ISet<int>? solveOnly = null)
+        /// <param name="context">
+        /// Neighbouring levels that are validated elsewhere (the curated L1–10 next to the catalog): they take part in
+        /// the FR-083 windows and the families window, so those cross the boundary, but they are not checked here.
+        /// </param>
+        public CatalogReport Validate(IReadOnlyList<LevelDefinition> levels, ISet<int>? solveOnly = null, IReadOnlyList<LevelDefinition>? context = null)
         {
             var report = new CatalogReport();
             var sorted = levels.OrderBy(l => l.LevelNumber).ToList();
+            var own = new HashSet<int>(sorted.Select(l => l.LevelNumber));
             var numbers = new HashSet<int>();
             foreach (LevelDefinition level in sorted)
             {
@@ -82,7 +104,12 @@ namespace Bloomlings.Pipeline.Validation
                 }
             }
 
-            ValidateSequences(sorted, report);
+            if (CheckSequences)
+            {
+                var neighbours = (context ?? Array.Empty<LevelDefinition>()).Where(l => !own.Contains(l.LevelNumber));
+                ValidateSequences(sorted.Concat(neighbours).OrderBy(l => l.LevelNumber).ToList(), own, report);
+            }
+
             return report;
         }
 
@@ -122,6 +149,11 @@ namespace Bloomlings.Pipeline.Validation
             }
 
             CheckBoard(level, picture, report, passed);
+            if (CheckBandGuidelines)
+            {
+                CheckBand(level, picture, report, passed);
+            }
+
             CheckVariants(level, report, passed);
             CheckUnlocks(level, picture, report, passed);
             CheckDataModel(level, report, passed);
@@ -189,9 +221,10 @@ namespace Bloomlings.Pipeline.Validation
         {
             int n = level.LevelNumber;
             bool ok = true;
-            if (picture.Width < 7 || picture.Width > 14 || picture.Height < 8 || picture.Height > 16)
+            if (picture.Width < BandGuidelines.MinBoardWidth || picture.Width > BasePicture.MaxWidth
+                || picture.Height < BandGuidelines.MinBoardHeight || picture.Height > BasePicture.MaxHeight)
             {
-                Error(report, n, "board", $"board {picture.Width}×{picture.Height} is outside 7×8–14×16 (FR-008)");
+                Error(report, n, "board", $"board {picture.Width}×{picture.Height} is outside {BandGuidelines.MinBoardWidth}×{BandGuidelines.MinBoardHeight}–{BasePicture.MaxWidth}×{BasePicture.MaxHeight} (FR-008)");
                 ok = false;
             }
 
@@ -220,35 +253,65 @@ namespace Bloomlings.Pipeline.Validation
             }
         }
 
-        /// <summary>FR-004 and FR-060: the variant count by level band.</summary>
+        /// <summary>FR-004 and FR-060: the variant count by level band (<see cref="BandGuidelines.Variants"/>).</summary>
         public static (int Min, int Max) VariantRange(int level, DifficultyClass difficulty)
         {
-            if (level == 1)
+            IntRange range = BandGuidelines.Variants(level, difficulty);
+            return (range.Min, range.Max);
+        }
+
+        /// <summary>
+        /// The spec's Level Band Guidelines (<see cref="BandGuidelines"/>): board size, Source Pod count and work by band
+        /// and class, and the minimum pod size. The hand-curated tutorial levels (L1–10) only warn on small pods.
+        /// The typical duration is not checked: the solver's estimate (<c>estimatedDurationMs</c>) is not calibrated yet
+        /// and runs at about half the spec's durations (L1–10 estimate 10–17 s for 20–45 s); playtests calibrate it
+        /// (T155), and the check follows then.
+        /// </summary>
+        private static void CheckBand(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
+        {
+            int n = level.LevelNumber;
+            GuidelineBand band = BandGuidelines.BandOf(n);
+            bool ok = true;
+            void Fail(string message)
             {
-                return (2, 2);
+                Error(report, n, "band", message + $" ({band.Name} band, Level Band Guidelines)");
+                ok = false;
             }
 
-            if (level <= LastTutorialLevel)
+            if (!band.BoardWidth.Contains(picture.Width) || !band.BoardHeight.Contains(picture.Height))
             {
-                return (2, 3);
+                Fail($"board {picture.Width}×{picture.Height} is outside {band.BoardWidth}×{band.BoardHeight}");
             }
 
-            if (level <= 25)
+            if (!band.Pods.Contains(level.Pods.Count))
             {
-                return (3, 4);
+                Fail($"{level.Pods.Count} Source Pods; the band allows {band.Pods}");
             }
 
-            if (level < 70)
+            IntRange work = BandGuidelines.Work(n, level.Difficulty.Class);
+            int total = level.Pods.Sum(p => p.Count);
+            if (!work.Contains(total))
             {
-                return (4, 5);
+                Fail($"work {total} is outside {work} for a {level.Difficulty.Class} level");
             }
 
-            if (level < 300)
+            foreach (PodDef pod in level.Pods.Where(p => p.Count < BandGuidelines.MinPodSize))
             {
-                return (4, difficulty == DifficultyClass.Normal ? 5 : 6);
+                string message = $"pod {pod.Id} has {pod.Count} tiles; the smallest pod class is {BandGuidelines.MinPodSize}–15";
+                if (n <= LastTutorialLevel)
+                {
+                    Warning(report, n, "band", message + " (hand-curated tutorial level)");
+                }
+                else
+                {
+                    Fail(message);
+                }
             }
 
-            return (4, 6);
+            if (ok)
+            {
+                passed.Add("band");
+            }
         }
 
         private void CheckVariants(LevelDefinition level, CatalogReport report, List<string> passed)
@@ -261,7 +324,11 @@ namespace Bloomlings.Pipeline.Validation
             }
 
             (int min, int max) = VariantRange(n, level.Difficulty.Class);
-            if (variants.Count == 7 && n >= 300)
+            if (!CheckBandGuidelines)
+            {
+                passed.Add("variant-count");
+            }
+            else if (variants.Count == 7 && n > 500)
             {
                 Warning(report, n, "variant-count", "7 variants: exceptional, needs the readability sign-off (FR-004)");
             }
@@ -320,14 +387,15 @@ namespace Bloomlings.Pipeline.Validation
                 }
             }
 
-            int? expansion = _roadmap.LevelOf("variant.pool_expansion_1");
-            foreach (PodDef pod in level.Pods)
+            foreach (VariantId variant in level.Pods.Select(p => p.Variant).Distinct())
             {
-                if (VariantCatalog.Default.Get(pod.Variant).Status == VariantStatus.Expansion && (expansion == null || n < expansion.Value))
+                if (!Pool.IsAvailable(variant, n, _roadmap))
                 {
-                    Error(report, n, "unlock", $"expansion variant {pod.Variant} before the pool expansion");
+                    int? at = Pool.IntroducedAt(variant, _roadmap);
+                    Error(report, n, "unlock", at == null
+                        ? $"variant {variant} is not in the pool (FR-060)"
+                        : $"variant {variant} is used before it joins the pool at L{at.Value} (FR-060)");
                     ok = false;
-                    break;
                 }
             }
 
@@ -357,7 +425,7 @@ namespace Bloomlings.Pipeline.Validation
                 Fail("a locked slot before L80 (FR-039)");
             }
 
-            int maxBelow = n < 125 ? 1 : 2;
+            int maxBelow = BandGuidelines.MaxLayersBelow(n);
             foreach (CellOverlay overlay in level.Overlays)
             {
                 if (overlay.LayersBelow.Count > maxBelow)
@@ -415,12 +483,18 @@ namespace Bloomlings.Pipeline.Validation
             }
         }
 
-        private void ValidateSequences(List<LevelDefinition> sorted, CatalogReport report)
+        /// <param name="own">The levels issues are reported for; the others are context.</param>
+        private void ValidateSequences(List<LevelDefinition> sorted, ISet<int> own, CatalogReport report)
         {
             var byNumber = sorted.GroupBy(l => l.LevelNumber).ToDictionary(g => g.Key, g => g.First());
             foreach (LevelDefinition level in sorted)
             {
                 int n = level.LevelNumber;
+                if (!own.Contains(n))
+                {
+                    continue;
+                }
+
                 BasePicture? picture = _pictures.TryGetValue(level.Picture.Id + "@" + level.Picture.Version, out BasePicture? p) ? p : null;
 
                 // Pictures: unique in 1–100, no repeat within 50, and a reuse must differ in mapping or mirror and in Source design.
@@ -462,10 +536,99 @@ namespace Bloomlings.Pipeline.Validation
                         && _pictures.TryGetValue(a.Picture.Id + "@" + a.Picture.Version, out BasePicture? pa)
                         && _pictures.TryGetValue(b.Picture.Id + "@" + b.Picture.Version, out BasePicture? pb))
                     {
+                        // An empty set is a set too, once mechanics exist (from L11; the tutorial levels have none).
                         string mechanics = string.Join(",", MechanicsUsed(level, picture));
-                        if (mechanics.Length > 0 && mechanics == string.Join(",", MechanicsUsed(a, pa)) && mechanics == string.Join(",", MechanicsUsed(b, pb)))
+                        if ((mechanics.Length > 0 || n > LastTutorialLevel) && mechanics == string.Join(",", MechanicsUsed(a, pa)) && mechanics == string.Join(",", MechanicsUsed(b, pb)))
                         {
-                            Error(report, n, "similarity", $"the same mechanics ({mechanics}) 3 levels in a row (FR-083)");
+                            Error(report, n, "similarity", $"the same mechanics ({(mechanics.Length > 0 ? mechanics : "none")}) 3 levels in a row (FR-083)");
+                        }
+                    }
+                }
+
+                // From L20 all four families are regular: every window of levels uses all four.
+                if (CheckBandGuidelines && n >= BandGuidelines.AllFamiliesFrom + BandGuidelines.FamilyWindow - 1)
+                {
+                    var families = new HashSet<Family>();
+                    bool complete = true;
+                    for (int l = n - BandGuidelines.FamilyWindow + 1; l <= n && complete; l++)
+                    {
+                        if (!byNumber.TryGetValue(l, out LevelDefinition? windowLevel))
+                        {
+                            complete = false;
+                            break;
+                        }
+
+                        foreach (VariantId variant in Generator.LevelGenerator.VariantSet(windowLevel))
+                        {
+                            families.Add(VariantCatalog.Default.Get(variant).Family);
+                        }
+                    }
+
+                    if (complete && families.Count < 4)
+                    {
+                        Error(report, n, "families", $"L{n - BandGuidelines.FamilyWindow + 1}–{n} use {families.Count} of the 4 families; all four are regular from L{BandGuidelines.AllFamiliesFrom}");
+                    }
+                }
+
+                // FR-031 showcase → practice: the unlock level and the practice level use the mechanic, and no other
+                // (stones aside, and the key that a locked pod or slot needs). An optional mechanic (mystery tile, chest, statue/bridge, triple) is checked only when
+                // the catalog uses it somewhere.
+                if (picture != null)
+                {
+                    IReadOnlyList<string> used = MechanicsUsed(level, picture);
+                    foreach (string mechanic in Generator.Overlays.MechanicNames.All)
+                    {
+                        string unlock = Generator.Overlays.MechanicNames.UnlockId(mechanic);
+                        int? showcase = _roadmap.LevelOf(unlock);
+                        int? practice = Generator.Overlays.MechanicNames.PracticeLevel(mechanic, _roadmap, l => byNumber.TryGetValue(l, out LevelDefinition? d) ? d.Difficulty.Class : DifficultyClass.Normal);
+                        bool isShowcase = showcase == n;
+                        if (!isShowcase && practice != n)
+                        {
+                            continue;
+                        }
+
+                        UnlockEntry? entry = _roadmap.Entries.FirstOrDefault(e => e.UnlockId == unlock);
+                        if (entry != null && entry.Optional && !UsedAnywhere(sorted, unlock))
+                        {
+                            continue;
+                        }
+
+                        string role = isShowcase ? "showcase" : "practice";
+                        if (!used.Contains(unlock))
+                        {
+                            Error(report, n, role, $"L{n} is the {role} of {mechanic}: it must use it (FR-031)");
+                        }
+                        else if (used.Any(u => u != unlock && u.StartsWith("mechanic.", StringComparison.Ordinal) && !Companion(mechanic, u)))
+                        {
+                            Error(report, n, role, $"L{n} is the {role} of {mechanic}: no other mechanic may join it (FR-031)");
+                        }
+                    }
+                }
+
+                // FR-031: a variant joining the pool gets one clean level (it is used, no mechanic is), then one mixed
+                // level (it is used again). Without any picture of its color group it cannot be shown yet: a warning.
+                foreach ((int joinedAt, bool clean) in new[] { (n, true), (n - 1, false) })
+                {
+                    foreach (VariantId variant in Pool.JoiningAt(joinedAt, _roadmap))
+                    {
+                        bool used = Generator.LevelGenerator.VariantSet(level).Contains(variant);
+                        bool quiet = picture == null || MechanicsUsed(level, picture).All(m => m == "mechanic.stone");
+                        if (used && (!clean || quiet))
+                        {
+                            continue;
+                        }
+
+                        string message = clean
+                            ? $"{variant} joins the pool here: this level must use it, with no mechanic (FR-031 clean level)"
+                            : $"{variant} joined the pool at L{joinedAt}: this level must use it again (FR-031 mixed level)";
+                        bool drawable = _pictures.Values.Any(p => p.Roles.Any(r => r.ColorGroup == VariantCatalog.Default.Get(variant).ColorGroup));
+                        if (drawable)
+                        {
+                            Error(report, n, "variant-intro", message);
+                        }
+                        else
+                        {
+                            Warning(report, n, "variant-intro", message + $"; no picture has a {VariantCatalog.Default.Get(variant).ColorGroup} role yet");
                         }
                     }
                 }
@@ -481,6 +644,14 @@ namespace Bloomlings.Pipeline.Validation
                 }
             }
         }
+
+        /// <summary>Mechanics that come with another on its showcase and practice: stones anywhere, keys with locks.</summary>
+        private static bool Companion(string mechanic, string unlock) =>
+            unlock == "mechanic.stone"
+            || (unlock == "mechanic.key" && (mechanic == Generator.Overlays.MechanicNames.LockedPod || mechanic == Generator.Overlays.MechanicNames.LockedSlot));
+
+        private bool UsedAnywhere(IEnumerable<LevelDefinition> levels, string unlock) =>
+            levels.Any(l => _pictures.TryGetValue(l.Picture.Id + "@" + l.Picture.Version, out BasePicture? p) && MechanicsUsed(l, p).Contains(unlock));
 
         private static bool SameMapping(LevelDefinition a, LevelDefinition b)
         {

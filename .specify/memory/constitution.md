@@ -124,7 +124,11 @@ Rationale: A long-run, relaxing puzzle keeps players through trust, not pressure
 
 ### VII. Simplicity, Readability and Offline-First
 
-- The product MUST stay strictly flat 2D, calm, minimal and board-dominant.
+- The product MUST stay strictly flat 2D, calm, minimal and board-dominant. Flat 2D means that what the player plays
+  and navigates has no 3D scene, camera, perspective or isometric view, and gameplay is drawn in 2D. Depth drawn in
+  the plane (outlines, lips, gloss, shadows) is flat 2D.
+- Pre-rendered 3D illustrations, shown as flat pictures, MAY appear on meta screens only: Home, the win and milestone
+  screens, the Wardrobe and the profile. They MUST NOT appear inside a level.
 - Gameplay uses one-tap input: the player taps pods and never taps target cells.
 - States are shown visually, with minimal text.
 - The product MUST NOT add a level map, a level chooser, garden areas, a room builder or navigation overhead.
@@ -225,4 +229,4 @@ existing content migrates.
 
 Non-compliant changes MUST NOT be merged.
 
-**Version**: 1.0.1 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-09-29
+**Version**: 1.0.2 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-01

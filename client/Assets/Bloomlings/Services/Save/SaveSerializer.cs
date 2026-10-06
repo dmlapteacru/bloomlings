@@ -55,6 +55,8 @@ namespace Bloomlings.Client.Services.Save
     {
         private static readonly string[] BoosterNames = { "extraSlot", "shuffle", "return", "bloomBurst" };
 
+        private static readonly string[] CosmeticsOwners = { "sprig", "bloom", "drop", "twig", CosmeticsData.ProfileOwner, CosmeticsData.BoardOwner };
+
         public static PlayerSave Read(string json, SaveMigrations? migrations = null) =>
             Read(JsonDoc.ParseObject(json, "save"), migrations);
 
@@ -62,7 +64,7 @@ namespace Bloomlings.Client.Services.Save
         {
             JObject root = (migrations ?? SaveMigrations.Default).Apply(document);
             const string p = "";
-            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats");
+            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats", "profile");
 
             var save = new PlayerSave
             {
@@ -130,17 +132,39 @@ namespace Bloomlings.Client.Services.Save
             }
 
             JObject equipped = JsonDoc.Object(JsonDoc.Required(cosmetics, "cosmetics", "equipped"), "cosmetics.equipped");
-            JsonDoc.AllowOnly(equipped, "cosmetics.equipped", "sprig", "bloom", "drop", "twig");
-            foreach (JProperty family in equipped.Properties())
+            JsonDoc.AllowOnly(equipped, "cosmetics.equipped", CosmeticsOwners);
+            foreach (JProperty owner in equipped.Properties())
             {
-                save.Cosmetics.Equipped[family.Name] = JsonDoc.String(family.Value, "cosmetics.equipped." + family.Name);
+                string path = "cosmetics.equipped." + owner.Name;
+                if (owner.Value.Type == JTokenType.String && owner.Name != CosmeticsData.ProfileOwner && owner.Name != CosmeticsData.BoardOwner)
+                {
+                    // Early saves held one item per family: its slot is the kind its id names.
+                    string id = JsonDoc.String(owner.Value, path);
+                    int dot = id.IndexOf('.');
+                    string kind = dot > 0 ? id.Substring(0, dot) : string.Empty;
+                    if (Array.IndexOf(CosmeticsData.KindsOf(owner.Name), kind) < 0)
+                    {
+                        throw new ContentFormatException(path, $"'{id}' is not a worn cosmetic");
+                    }
+
+                    save.Cosmetics.Equipped[CosmeticsData.Slot(owner.Name, kind)] = id;
+                    continue;
+                }
+
+                JObject slots = JsonDoc.Object(owner.Value, path);
+                JsonDoc.AllowOnly(slots, path, CosmeticsData.KindsOf(owner.Name));
+                foreach (JProperty slot in slots.Properties())
+                {
+                    save.Cosmetics.Equipped[CosmeticsData.Slot(owner.Name, slot.Name)] = JsonDoc.String(slot.Value, JsonDoc.Join(path, slot.Name));
+                }
             }
 
-            JObject daily = Obj(root, "daily", "rewardLastClaimUtcDate", "rewardStreak", "challengeLastCompletedUtcDate");
+            JObject daily = Obj(root, "daily", "rewardLastClaimUtcDate", "rewardStreak", "challengeLastCompletedUtcDate", "freeBoosterAdUtcDate");
             save.Daily.RewardLastClaimUtcDate = OptionalString(daily, "daily", "rewardLastClaimUtcDate");
             JToken? streak = JsonDoc.Optional(daily, "rewardStreak");
             save.Daily.RewardStreak = streak == null ? 0 : JsonDoc.Int(streak, "daily.rewardStreak", min: 0);
             save.Daily.ChallengeLastCompletedUtcDate = OptionalString(daily, "daily", "challengeLastCompletedUtcDate");
+            save.Daily.FreeBoosterAdUtcDate = OptionalString(daily, "daily", "freeBoosterAdUtcDate");
 
             JArray collection = JsonDoc.Array(JsonDoc.Required(root, p, "collection"), "collection");
             for (int i = 0; i < collection.Count; i++)
@@ -155,12 +179,25 @@ namespace Bloomlings.Client.Services.Save
                     JsonDoc.Int(JsonDoc.Required(entry, path, "levelNumber"), JsonDoc.Join(path, "levelNumber"), min: 1)));
             }
 
-            JObject settings = Obj(root, "settings", "music", "sfx", "haptics", "speed2x", "language");
+            JObject settings = Obj(root, "settings", "music", "sfx", "haptics", "speed2x", "homePetals", "homePetalsOn", "language");
             save.Settings.Music = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "music"), "settings.music");
             save.Settings.Sfx = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "sfx"), "settings.sfx");
             save.Settings.Haptics = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "haptics"), "settings.haptics");
             save.Settings.Speed2x = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "speed2x"), "settings.speed2x");
+            // Home's falling petals: off unless switched on (the owner's tuning of 2026-10-05); the older homePetals key,
+            // written as on by every earlier save, is accepted and ignored.
+            JToken? homePetals = JsonDoc.Optional(settings, "homePetalsOn");
+            save.Settings.HomePetals = homePetals != null && JsonDoc.Bool(homePetals, "settings.homePetalsOn");
             save.Settings.Language = OptionalString(settings, "settings", "language") ?? "en";
+
+            JToken? profile = JsonDoc.Optional(root, "profile");
+            if (profile != null)
+            {
+                JObject fields = JsonDoc.Object(profile, "profile");
+                JsonDoc.AllowOnly(fields, "profile", "name", "joinedAt");
+                save.Profile.Name = OptionalString(fields, "profile", "name");
+                save.Profile.JoinedAt = OptionalString(fields, "profile", "joinedAt");
+            }
 
             JToken? stats = JsonDoc.Optional(root, "stats");
             if (stats != null)
@@ -230,7 +267,15 @@ namespace Bloomlings.Client.Services.Save
             var equipped = new JObject();
             foreach (KeyValuePair<string, string> pair in save.Cosmetics.Equipped)
             {
-                equipped[pair.Key] = pair.Value;
+                int dot = pair.Key.IndexOf('.');
+                string owner = pair.Key.Substring(0, dot);
+                if (!(equipped[owner] is JObject slots))
+                {
+                    slots = new JObject();
+                    equipped[owner] = slots;
+                }
+
+                slots[pair.Key.Substring(dot + 1)] = pair.Value;
             }
 
             var collection = new JArray();
@@ -250,6 +295,7 @@ namespace Bloomlings.Client.Services.Save
                 ["rewardLastClaimUtcDate"] = save.Daily.RewardLastClaimUtcDate,
                 ["rewardStreak"] = save.Daily.RewardStreak,
                 ["challengeLastCompletedUtcDate"] = save.Daily.ChallengeLastCompletedUtcDate,
+                ["freeBoosterAdUtcDate"] = save.Daily.FreeBoosterAdUtcDate,
             };
 
             var root = new JObject
@@ -285,6 +331,7 @@ namespace Bloomlings.Client.Services.Save
                     ["sfx"] = save.Settings.Sfx,
                     ["haptics"] = save.Settings.Haptics,
                     ["speed2x"] = save.Settings.Speed2x,
+                    ["homePetalsOn"] = save.Settings.HomePetals,
                     ["language"] = save.Settings.Language,
                 },
             };
@@ -297,6 +344,22 @@ namespace Bloomlings.Client.Services.Save
             if (save.DeviceId != null)
             {
                 root["deviceId"] = save.DeviceId;
+            }
+
+            if (save.Profile.Name != null || save.Profile.JoinedAt != null)
+            {
+                var profile = new JObject();
+                if (save.Profile.Name != null)
+                {
+                    profile["name"] = save.Profile.Name;
+                }
+
+                if (save.Profile.JoinedAt != null)
+                {
+                    profile["joinedAt"] = save.Profile.JoinedAt;
+                }
+
+                root["profile"] = profile;
             }
 
             if (save.Stats.Counters.Count > 0 || save.Stats.Groups.Count > 0)

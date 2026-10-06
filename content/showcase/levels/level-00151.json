@@ -1,0 +1,205 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 3146
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 4
+    }
+  ],
+  "generatorVersion": "gen-1.2.0",
+  "levelNumber": 151,
+  "mapping": {
+    "beak": "acorn",
+    "bird": "dew",
+    "branch": "wood",
+    "leaves": "leaf",
+    "sky": "water",
+    "wing": "flower"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 1,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 3,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "bird_04",
+    "mirror": "horizontal",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p21",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p22",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3356727797116472691",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 3,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 1,
+            "y": 7
+          },
+          {
+            "x": 2,
+            "y": 8
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16", "p22"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

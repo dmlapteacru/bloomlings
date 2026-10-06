@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 10,
+  "height": 13,
   "id": "watering_can_01",
   "legend": {
     "c": "can",
@@ -58,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 12
 }

@@ -1,0 +1,79 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    Renders the full playtest's designed screens (playtest/design) to PNG without Android, with SkiaSharp in place of
+    Android's canvas: one image per design board frame (1-17) at three phone shapes, a contact sheet, and render checks
+    (every drawn shape and slot is registered, no overlapping or undersized touch targets, nothing outside the safe
+    area). With inventory it writes the asset inventory from the slot registry (spec 002 US4). Local tool only: it never
+    ships in an APK. Run: dotnet run, project playtest/preview (exit code 1 on a failed check).
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <RootNamespace>Bloomlings.Playtest.Preview</RootNamespace>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="3.119.1" />
+    <PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="3.119.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="../design/*.cs" />
+    <Compile Include="../android/LevelAnimator.cs" />
+    <Compile Include="../android/PlaytestText.cs" />
+    <Compile Include="../android/PlaytestContent.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveSerializer.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/IClock.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Clock/SystemClock.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/ProgressionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/App/Progression/MilestoneTable.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Economy/EconomyConfig.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/IRemoteConfigService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/BundledRemoteConfigService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/CosmeticCatalog.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Clearing/*.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" />
+    <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
+    <ProjectReference Include="../../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
+    <ProjectReference Include="../../core/src/Bloomlings.Solver/Bloomlings.Solver.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Localization/Resources/Strings_en.csv" LogicalName="strings/Strings_en.csv" />
+    <!-- The Garden look's font (spec 003 contracts/fonts.md), the same files the Unity client and the full playtest use. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-ExtraBold.ttf" LogicalName="fonts/Nunito-ExtraBold.ttf" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/UI/Fonts/Resources/Nunito-SemiBold.ttf" LogicalName="fonts/Nunito-SemiBold.ttf" />
+    <!-- The generated character pictures (spec 004 contracts/art-files.md "Loading"), drawn by the painter's Sprite. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/2d/*.png" LogicalName="characters/2d/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Characters/Resources/Characters/3d/*.png" LogicalName="characters/3d/%(Filename)%(Extension)" />
+    <!-- The owner's pictures (spec 005 pictures.md B and C): backgrounds and the logo, drawn when present (PainterBase.SpriteResource). -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.png;../../client/Assets/Bloomlings/Art/Backgrounds/Resources/Backgrounds/*.jpg" LogicalName="backgrounds/%(Filename)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Brand/Resources/Brand/*.png" LogicalName="brand/%(Filename)%(Extension)" />
+    <!-- The owner's booster icons and leaf decorations (spec 005 pictures.md D), drawn instead of the drawn ones when present. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" LogicalName="icons/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" LogicalName="decor/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" LogicalName="avatars/%(Filename)" />
+    <!--
+      The owner's animated heroes as flat frames (spec 005 FR-028, tools/heroanim; no 3D model in the game): the splash,
+      Home, the win and the milestone draw them, each frame decoded when it is first drawn and kept in a cache bounded by
+      bytes (HeroFrameStore). Embedded without the extension, as the backgrounds (PainterBase.HeroMotionPrefix).
+    -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" LogicalName="heromotion/%(Filename)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
+    <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
+  </ItemGroup>
+</Project>

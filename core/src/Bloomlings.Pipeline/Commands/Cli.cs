@@ -19,11 +19,14 @@ namespace Bloomlings.Pipeline.Commands
     {
         public static readonly Option<bool> Json = new Option<bool>("--json") { Description = "Write a machine-readable JSON report to stdout.", Recursive = true };
 
-        public static Option<string> Path(string name, string defaultValue, string description) =>
-            new Option<string>(name) { Description = description, DefaultValueFactory = _ => defaultValue };
+        public static Option<string> Path(string name, string defaultValue, string description, params string[] aliases) =>
+            new Option<string>(name, aliases) { Description = description, DefaultValueFactory = _ => defaultValue };
 
         public static Option<string> Required(string name, string description) =>
             new Option<string>(name) { Description = description, Required = true };
+
+        /// <summary>The roadmap's Level 8 choice: <c>key</c> (default) or <c>mystery_pod</c> (then the Key moves to L14).</summary>
+        public static Option<string> Level8() => Path("--level8", "key", "Level 8 of the unlock roadmap: key (default) or mystery_pod (the Key then unlocks at L14).");
 
         public static Option<int> Int(string name, int defaultValue, string description) =>
             new Option<int>(name) { Description = description, DefaultValueFactory = _ => defaultValue };

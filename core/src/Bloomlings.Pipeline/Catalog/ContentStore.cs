@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Bloomlings.Content.Json;
+using Bloomlings.Content.Packs;
 using Bloomlings.Content.Validation;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Pipeline.Readability;
@@ -89,6 +90,33 @@ namespace Bloomlings.Pipeline.Catalog
 
         public static ApprovedPairs? LoadPairs(string path) => File.Exists(path) ? ApprovedPairs.Read(path) : null;
 
+        /// <summary>Whether a folder holds published content (a <c>manifest.json</c> and its packs).</summary>
+        public static bool IsPublished(string folder) => File.Exists(Path.Combine(folder, ManifestWriter.ManifestFileName));
+
+        /// <summary>A published content version (<c>publish</c> output), with its packs verified.</summary>
+        public static ContentSet LoadPublished(string folder)
+        {
+            ContentManifest manifest = ContentManifest.Read(File.ReadAllText(Path.Combine(folder, ManifestWriter.ManifestFileName)));
+            return ContentLoader.FromPacks(manifest, entry => File.ReadAllBytes(Path.Combine(folder, entry.Path ?? throw new InvalidDataException($"pack {entry.Id} has no path"))));
+        }
+
+        /// <summary>
+        /// The levels of a content source: a published content version (its manifest), a catalog or level folder, or
+        /// a git ref (read at <paramref name="gitFolder"/>). Returns the content version when the source has one.
+        /// </summary>
+        public static (List<LevelDefinition> Levels, int? ContentVersion) LoadAny(string source, string gitFolder)
+        {
+            if (Directory.Exists(source) && IsPublished(source))
+            {
+                ContentSet content = LoadPublished(source);
+                return (content.LevelNumbers.Select(content.GetLevel).ToList(), content.ContentVersion);
+            }
+
+            return Directory.Exists(source)
+                ? (LoadLevels(source).Select(l => l.Level).ToList(), null)
+                : (LoadLevelsAtGitRef(source, gitFolder), null);
+        }
+
         /// <summary>Level definitions at a git ref (for <c>diff --from main</c>).</summary>
         public static List<LevelDefinition> LoadLevelsAtGitRef(string gitRef, string folder)
         {
@@ -100,6 +128,33 @@ namespace Bloomlings.Pipeline.Catalog
             }
 
             return levels;
+        }
+
+        /// <summary>The picture library at a git ref (for <c>diff --from main</c>).</summary>
+        public static List<BasePicture> LoadLibraryAtGitRef(string gitRef, string folder)
+        {
+            string listing = Git("ls-tree", "-r", "--name-only", gitRef, "--", folder);
+            var pictures = new List<BasePicture>();
+            foreach (string file in listing.Split('\n', StringSplitOptions.RemoveEmptyEntries).Where(f => f.EndsWith(".json", StringComparison.Ordinal)))
+            {
+                pictures.Add(BasePictureJson.Read(Git("show", gitRef + ":" + file)));
+            }
+
+            return pictures;
+        }
+
+        /// <summary>
+        /// The pictures a content source ships: a published version's own pictures, the library at a git ref, or the
+        /// current library for a catalog folder.
+        /// </summary>
+        public static List<BasePicture> PicturesOf(string source, string library)
+        {
+            if (Directory.Exists(source) && IsPublished(source))
+            {
+                return LoadPublished(source).Pictures.ToList();
+            }
+
+            return Directory.Exists(source) ? LoadLibrary(library) : LoadLibraryAtGitRef(source, library);
         }
 
         /// <summary>Files changed against a git ref (for <c>validate --changed-only</c>).</summary>

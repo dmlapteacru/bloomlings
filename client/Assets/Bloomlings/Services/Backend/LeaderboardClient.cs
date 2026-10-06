@@ -21,7 +21,11 @@ namespace Bloomlings.Client.Services.Backend
     {
         public const string UnlockId = "system.leaderboard";
         public const string SubmittedCounter = "leaderboard.submittedLevel";
-        public const int Neighbours = 3;
+        /// <summary>
+        /// The players read above and below the player (and the top read, twice as many plus one): five, so the Leaderboard
+        /// page's rows fill its panel on every phone (eleven lines on 21:9; the owner's choice of 2026-10-04).
+        /// </summary>
+        public const int Neighbours = 5;
 
         private readonly PlayerSave _save;
         private readonly ILeaderboardService _service;

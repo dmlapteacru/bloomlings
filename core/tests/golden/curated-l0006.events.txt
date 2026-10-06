@@ -1,119 +1,261 @@
 > tap:w1
 r0 PodCommitted w1 slot=0 stack=1 depth=0
-r1 TileCleared 3,0 water by w1 route=3,0
-r1 CellOpened 3,0
-r2 TileCleared 2,0 water by w1 route=3,0>2,0
-r2 CellOpened 2,0
-r2 TileCleared 4,0 water by w1 route=3,0>4,0
+r1 TileCleared 5,0 water by w1 route=5,0
+r1 CellOpened 5,0
+r2 TileCleared 4,0 water by w1 route=5,0>4,0
 r2 CellOpened 4,0
-r3 TileCleared 1,0 water by w1 route=3,0>2,0>1,0
-r3 CellOpened 1,0
-r3 TileCleared 5,0 water by w1 route=3,0>4,0>5,0
-r3 CellOpened 5,0
-r4 TileCleared 0,0 water by w1 route=3,0>2,0>1,0>0,0
-r4 CellOpened 0,0
-r4 TileCleared 6,0 water by w1 route=3,0>4,0>5,0>6,0
-r4 CellOpened 6,0
-r5 TileCleared 0,1 water by w1 route=3,0>2,0>1,0>0,0>0,1
+r2 TileCleared 6,0 water by w1 route=5,0>6,0
+r2 CellOpened 6,0
+r2 TileCleared 5,1 water by w1 route=5,0>5,1
+r2 CellOpened 5,1
+r3 TileCleared 3,0 water by w1 route=5,0>4,0>3,0
+r3 CellOpened 3,0
+r3 TileCleared 7,0 water by w1 route=5,0>6,0>7,0
+r3 CellOpened 7,0
+r3 TileCleared 4,1 water by w1 route=5,0>4,0>4,1
+r3 CellOpened 4,1
+r3 TileCleared 6,1 water by w1 route=5,0>6,0>6,1
+r3 CellOpened 6,1
+r3 TileCleared 5,2 water by w1 route=5,0>5,1>5,2
+r3 CellOpened 5,2
+r4 TileCleared 2,0 water by w1 route=5,0>4,0>3,0>2,0
+r4 CellOpened 2,0
+r4 TileCleared 8,0 water by w1 route=5,0>6,0>7,0>8,0
+r4 CellOpened 8,0
+r4 TileCleared 3,1 water by w1 route=5,0>4,0>3,0>3,1
+r4 CellOpened 3,1
+r4 TileCleared 7,1 water by w1 route=5,0>6,0>7,0>7,1
+r4 CellOpened 7,1
+r4 TileCleared 4,2 water by w1 route=5,0>4,0>4,1>4,2
+r4 CellOpened 4,2
+r4 TileCleared 6,2 water by w1 route=5,0>6,0>6,1>6,2
+r4 CellOpened 6,2
+r5 TileCleared 2,1 water by w1 route=5,0>4,0>3,0>2,0>2,1
+r5 CellOpened 2,1
+r5 TileCleared 8,1 water by w1 route=5,0>6,0>7,0>8,0>8,1
+r5 CellOpened 8,1
+r5 TileCleared 3,2 water by w1 route=5,0>4,0>3,0>3,1>3,2
+r5 CellOpened 3,2
+r5 TileCleared 7,2 water by w1 route=5,0>6,0>7,0>7,1>7,2
+r5 CellOpened 7,2
+r5 TileCleared 1,1 water by w1 route=5,0>4,0>3,0>2,0>1,0>1,1
+r5 CellOpened 1,1
+r5 TileCleared 9,1 water by w1 route=5,0>6,0>7,0>8,0>9,0>9,1
+r5 CellOpened 9,1
+r5 TileCleared 0,1 water by w1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1
 r5 CellOpened 0,1
-r5 TileCleared 6,1 water by w1 route=3,0>4,0>5,0>6,0>6,1
-r5 CellOpened 6,1
+r5 TileCleared 10,1 water by w1 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1
+r5 CellOpened 10,1
+r6 TileCleared 2,2 water by w1 route=5,0>4,0>3,0>2,0>2,1>2,2
+r6 CellOpened 2,2
+r6 TileCleared 8,2 water by w1 route=5,0>6,0>7,0>8,0>8,1>8,2
+r6 CellOpened 8,2
+r6 TileCleared 1,2 water by w1 route=5,0>4,0>3,0>2,0>1,0>1,1>1,2
+r6 CellOpened 1,2
+r6 TileCleared 9,2 water by w1 route=5,0>6,0>7,0>8,0>9,0>9,1>9,2
+r6 CellOpened 9,2
+r6 TileCleared 0,2 water by w1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2
+r6 CellOpened 0,2
+r6 TileCleared 10,2 water by w1 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2
+r6 CellOpened 10,2
+r7 TileCleared 1,3 water by w1 route=5,0>4,0>3,0>2,0>1,0>1,1>1,2>1,3
+r7 CellOpened 1,3
+r7 TileCleared 9,3 water by w1 route=5,0>6,0>7,0>8,0>9,0>9,1>9,2>9,3
+r7 CellOpened 9,3
+r7 TileCleared 0,3 water by w1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3
+r7 CellOpened 0,3
+r7 TileCleared 10,3 water by w1 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3
+r7 CellOpened 10,3
+r8 TileCleared 0,4 water by w1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4
+r8 CellOpened 0,4
+r8 TileCleared 10,4 water by w1 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4
+r8 CellOpened 10,4
 > tap:h1
 r0 PodCommitted h1 slot=1 stack=0 depth=0
-r1 TileCleared 3,1 wood by h1 route=3,0>3,1
-r1 CellOpened 3,1
-r1 TileCleared 2,1 wood by h1 route=3,0>2,0>2,1
-r1 CellOpened 2,1
-r1 TileCleared 4,1 wood by h1 route=3,0>4,0>4,1
-r1 CellOpened 4,1
-r1 TileCleared 1,1 wood by h1 route=3,0>2,0>1,0>1,1
-r1 CellOpened 1,1
-r1 TileCleared 5,1 wood by h1 route=3,0>4,0>5,0>5,1
-r1 CellOpened 5,1
-r1 TileCleared 0,2 wood by h1 route=3,0>2,0>1,0>0,0>0,1>0,2
-r1 CellOpened 0,2
-r1 TileCleared 6,2 wood by h1 route=3,0>4,0>5,0>6,0>6,1>6,2
-r1 CellOpened 6,2
-r2 TileCleared 0,3 water by w1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3
-r2 CellOpened 0,3
-r2 TileCleared 5,3 water by w1 route=3,0>4,0>5,0>6,0>6,1>6,2>6,3>5,3
-r2 CellOpened 5,3
-r2 TileCleared 6,4 water by w1 route=3,0>4,0>5,0>6,0>6,1>6,2>6,3>6,4
+r1 TileCleared 5,3 wood by h1 route=5,0>5,1>5,2>5,3
+r1 CellOpened 5,3
+r1 TileCleared 4,3 wood by h1 route=5,0>4,0>4,1>4,2>4,3
+r1 CellOpened 4,3
+r1 TileCleared 6,3 wood by h1 route=5,0>6,0>6,1>6,2>6,3
+r1 CellOpened 6,3
+r1 TileCleared 3,3 wood by h1 route=5,0>4,0>3,0>3,1>3,2>3,3
+r1 CellOpened 3,3
+r1 TileCleared 7,3 wood by h1 route=5,0>6,0>7,0>7,1>7,2>7,3
+r1 CellOpened 7,3
+r1 TileCleared 2,3 wood by h1 route=5,0>4,0>3,0>2,0>2,1>2,2>2,3
+r1 CellOpened 2,3
+r1 TileCleared 8,3 wood by h1 route=5,0>6,0>7,0>8,0>8,1>8,2>8,3
+r1 CellOpened 8,3
+r1 TileCleared 1,4 wood by h1 route=5,0>4,0>3,0>2,0>1,0>1,1>1,2>1,3>1,4
+r1 CellOpened 1,4
+r1 TileCleared 9,4 wood by h1 route=5,0>6,0>7,0>8,0>9,0>9,1>9,2>9,3>9,4
+r1 CellOpened 9,4
+r1 TileCleared 0,5 wood by h1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5
+r1 CellOpened 0,5
+r1 TileCleared 10,5 wood by h1 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5
+r1 CellOpened 10,5
+r2 TileCleared 0,6 water by w1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6
+r2 CellOpened 0,6
+r2 TileCleared 10,6 water by w1 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6
+r2 CellOpened 10,6
+r2 TileCleared 5,4 wood by h1 route=5,0>5,1>5,2>5,3>5,4
+r2 CellOpened 5,4
+r2 TileCleared 4,4 wood by h1 route=5,0>4,0>4,1>4,2>4,3>4,4
+r2 CellOpened 4,4
+r2 TileCleared 6,4 wood by h1 route=5,0>6,0>6,1>6,2>6,3>6,4
 r2 CellOpened 6,4
-r2 TileCleared 3,2 wood by h1 route=3,0>3,1>3,2
-r2 CellOpened 3,2
-r2 TileCleared 2,2 wood by h1 route=3,0>2,0>2,1>2,2
-r2 CellOpened 2,2
-r2 TileCleared 4,2 wood by h1 route=3,0>4,0>4,1>4,2
-r2 CellOpened 4,2
-r2 TileCleared 1,2 wood by h1 route=3,0>2,0>1,0>1,1>1,2
-r2 CellOpened 1,2
-r2 TileCleared 5,2 wood by h1 route=3,0>4,0>5,0>5,1>5,2
-r2 CellOpened 5,2
-r2 PodCompleted h1 slot=1
-r2 SlotFreed 1
-r3 TileCleared 3,3 water by w1 route=3,0>3,1>3,2>3,3
-r3 CellOpened 3,3
-r3 TileCleared 2,3 water by w1 route=3,0>2,0>2,1>2,2>2,3
-r3 CellOpened 2,3
-r3 TileCleared 4,3 water by w1 route=3,0>4,0>4,1>4,2>4,3
-r3 CellOpened 4,3
-r3 TileCleared 1,3 water by w1 route=3,0>2,0>1,0>1,1>1,2>1,3
-r3 CellOpened 1,3
-r3 TileCleared 5,4 water by w1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4
-r3 CellOpened 5,4
-r3 TileCleared 0,4 water by w1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4
-r3 CellOpened 0,4
-r3 TileCleared 6,5 water by w1 route=3,0>4,0>5,0>6,0>6,1>6,2>6,3>6,4>6,5
+r2 TileCleared 3,4 wood by h1 route=5,0>4,0>3,0>3,1>3,2>3,3>3,4
+r2 CellOpened 3,4
+r2 TileCleared 7,4 wood by h1 route=5,0>6,0>7,0>7,1>7,2>7,3>7,4
+r2 CellOpened 7,4
+r2 TileCleared 2,4 wood by h1 route=5,0>4,0>3,0>2,0>2,1>2,2>2,3>2,4
+r2 CellOpened 2,4
+r2 TileCleared 8,4 wood by h1 route=5,0>6,0>7,0>8,0>8,1>8,2>8,3>8,4
+r2 CellOpened 8,4
+r2 TileCleared 1,5 wood by h1 route=5,0>4,0>3,0>2,0>1,0>1,1>1,2>1,3>1,4>1,5
+r2 CellOpened 1,5
+r2 TileCleared 9,5 wood by h1 route=5,0>6,0>7,0>8,0>9,0>9,1>9,2>9,3>9,4>9,5
+r2 CellOpened 9,5
+r2 PodCompleted w1 slot=0
+r2 SlotFreed 0
+r3 TileCleared 5,5 wood by h1 route=5,0>5,1>5,2>5,3>5,4>5,5
+r3 CellOpened 5,5
+r3 TileCleared 4,5 wood by h1 route=5,0>4,0>4,1>4,2>4,3>4,4>4,5
+r3 CellOpened 4,5
+r3 TileCleared 6,5 wood by h1 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5
 r3 CellOpened 6,5
-r4 TileCleared 5,5 water by w1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4>5,5
-r4 CellOpened 5,5
-r4 TileCleared 0,5 water by w1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5
-r4 CellOpened 0,5
-r4 TileCleared 6,6 water by w1 route=3,0>4,0>5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6
-r4 CellOpened 6,6
-r5 TileCleared 5,6 water by w1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4>5,5>5,6
-r5 CellOpened 5,6
-r5 TileCleared 1,5 water by w1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>1,5
-r5 CellOpened 1,5
-r5 TileCleared 0,6 water by w1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6
-r5 CellOpened 0,6
-r5 TileCleared 5,7 water by w1 route=3,0>4,0>5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>5,7
-r5 CellOpened 5,7
-r6 TileCleared 4,6 water by w1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4>5,5>5,6>4,6
-r6 CellOpened 4,6
-r6 TileCleared 1,6 water by w1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>1,5>1,6
-r6 CellOpened 1,6
-r6 TileCleared 4,7 water by w1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4>5,5>5,6>5,7>4,7
-r6 CellOpened 4,7
-r6 TileCleared 1,7 water by w1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>1,7
-r6 CellOpened 1,7
-r7 TileCleared 3,7 water by w1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4>5,5>5,6>4,6>4,7>3,7
-r7 CellOpened 3,7
-r7 PodCompleted w1 slot=0
-r7 SlotFreed 0
+r3 TileCleared 3,5 wood by h1 route=5,0>4,0>3,0>3,1>3,2>3,3>3,4>3,5
+r3 CellOpened 3,5
+r3 TileCleared 7,5 wood by h1 route=5,0>6,0>7,0>7,1>7,2>7,3>7,4>7,5
+r3 CellOpened 7,5
+r3 TileCleared 2,5 wood by h1 route=5,0>4,0>3,0>2,0>2,1>2,2>2,3>2,4>2,5
+r3 CellOpened 2,5
+r3 TileCleared 8,5 wood by h1 route=5,0>6,0>7,0>8,0>8,1>8,2>8,3>8,4>8,5
+r3 CellOpened 8,5
+r3 PodCompleted h1 slot=1
+r3 SlotFreed 1
+> tap:w2
+r0 PodCommitted w2 slot=0 stack=1 depth=0
+r1 TileCleared 5,6 water by w2 route=5,0>5,1>5,2>5,3>5,4>5,5>5,6
+r1 CellOpened 5,6
+r1 TileCleared 4,6 water by w2 route=5,0>4,0>4,1>4,2>4,3>4,4>4,5>4,6
+r1 CellOpened 4,6
+r1 TileCleared 6,6 water by w2 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6
+r1 CellOpened 6,6
+r1 TileCleared 3,6 water by w2 route=5,0>4,0>3,0>3,1>3,2>3,3>3,4>3,5>3,6
+r1 CellOpened 3,6
+r1 TileCleared 7,6 water by w2 route=5,0>6,0>7,0>7,1>7,2>7,3>7,4>7,5>7,6
+r1 CellOpened 7,6
+r1 TileCleared 2,6 water by w2 route=5,0>4,0>3,0>2,0>2,1>2,2>2,3>2,4>2,5>2,6
+r1 CellOpened 2,6
+r1 TileCleared 8,6 water by w2 route=5,0>6,0>7,0>8,0>8,1>8,2>8,3>8,4>8,5>8,6
+r1 CellOpened 8,6
+r1 TileCleared 1,6 water by w2 route=5,0>4,0>3,0>2,0>1,0>1,1>1,2>1,3>1,4>1,5>1,6
+r1 CellOpened 1,6
+r1 TileCleared 9,6 water by w2 route=5,0>6,0>7,0>8,0>9,0>9,1>9,2>9,3>9,4>9,5>9,6
+r1 CellOpened 9,6
+r1 TileCleared 0,7 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7
+r1 CellOpened 0,7
+r1 TileCleared 10,7 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7
+r1 CellOpened 10,7
+r2 TileCleared 6,7 water by w2 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7
+r2 CellOpened 6,7
+r2 TileCleared 0,8 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8
+r2 CellOpened 0,8
+r2 TileCleared 10,8 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8
+r2 CellOpened 10,8
+r3 TileCleared 6,8 water by w2 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8
+r3 CellOpened 6,8
+r3 TileCleared 1,8 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8
+r3 CellOpened 1,8
+r3 TileCleared 9,8 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>9,8
+r3 CellOpened 9,8
+r3 TileCleared 0,9 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>0,9
+r3 CellOpened 0,9
+r3 TileCleared 10,9 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>10,9
+r3 CellOpened 10,9
+r4 TileCleared 6,9 water by w2 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9
+r4 CellOpened 6,9
+r4 TileCleared 1,9 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9
+r4 CellOpened 1,9
+r4 TileCleared 9,9 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>9,8>9,9
+r4 CellOpened 9,9
+r4 TileCleared 1,10 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>0,9>0,10>1,10
+r4 CellOpened 1,10
+r4 TileCleared 9,10 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>10,9>10,10>9,10
+r4 CellOpened 9,10
+r4 TileCleared 2,11 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>0,9>0,10>0,11>1,11>2,11
+r4 CellOpened 2,11
+r4 TileCleared 8,11 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>10,9>10,10>10,11>9,11>8,11
+r4 CellOpened 8,11
+r5 TileCleared 6,10 water by w2 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9>6,10
+r5 CellOpened 6,10
+r5 TileCleared 2,9 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9>2,9
+r5 CellOpened 2,9
+r5 TileCleared 8,9 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>9,8>9,9>8,9
+r5 CellOpened 8,9
+r5 TileCleared 2,10 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9>1,10>2,10
+r5 CellOpened 2,10
+r5 TileCleared 8,10 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>9,8>9,9>9,10>8,10
+r5 CellOpened 8,10
+r5 TileCleared 3,11 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9>1,10>1,11>2,11>3,11
+r5 CellOpened 3,11
+r5 TileCleared 7,11 water by w2 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>9,8>9,9>9,10>9,11>8,11>7,11
+r5 CellOpened 7,11
+r6 TileCleared 7,10 water by w2 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9>6,10>7,10
+r6 CellOpened 7,10
+r6 TileCleared 6,11 water by w2 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9>6,10>6,11
+r6 CellOpened 6,11
+r6 TileCleared 3,10 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9>2,9>2,10>3,10
+r6 CellOpened 3,10
+r6 TileCleared 4,11 water by w2 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9>2,9>2,10>2,11>3,11>4,11
+r6 CellOpened 4,11
+r6 PodCompleted w2 slot=0
+r6 SlotFreed 0
 > tap:a1
 r0 PodCommitted a1 slot=0 stack=0 depth=0
-r1 TileCleared 3,4 flower by a1 route=3,0>3,1>3,2>3,3>3,4
-r1 CellOpened 3,4
-r1 TileCleared 2,4 flower by a1 route=3,0>2,0>2,1>2,2>2,3>2,4
-r1 CellOpened 2,4
-r1 TileCleared 4,4 flower by a1 route=3,0>4,0>4,1>4,2>4,3>4,4
-r1 CellOpened 4,4
-r1 TileCleared 1,4 flower by a1 route=3,0>2,0>1,0>1,1>1,2>1,3>1,4
-r1 CellOpened 1,4
-r1 TileCleared 4,5 flower by a1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4>5,5>4,5
-r1 CellOpened 4,5
-r1 TileCleared 2,5 flower by a1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>1,5>2,5
-r1 CellOpened 2,5
-r1 TileCleared 3,6 flower by a1 route=3,0>4,0>5,0>5,1>5,2>5,3>5,4>5,5>5,6>4,6>3,6
-r1 CellOpened 3,6
-r1 TileCleared 2,6 flower by a1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>1,5>1,6>2,6
-r1 CellOpened 2,6
-r1 TileCleared 2,7 flower by a1 route=3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>1,5>1,6>1,7>2,7
+r1 TileCleared 5,7 flower by a1 route=5,0>5,1>5,2>5,3>5,4>5,5>5,6>5,7
+r1 CellOpened 5,7
+r1 TileCleared 4,7 flower by a1 route=5,0>4,0>4,1>4,2>4,3>4,4>4,5>4,6>4,7
+r1 CellOpened 4,7
+r1 TileCleared 3,7 flower by a1 route=5,0>4,0>3,0>3,1>3,2>3,3>3,4>3,5>3,6>3,7
+r1 CellOpened 3,7
+r1 TileCleared 7,7 flower by a1 route=5,0>6,0>7,0>7,1>7,2>7,3>7,4>7,5>7,6>7,7
+r1 CellOpened 7,7
+r1 TileCleared 2,7 flower by a1 route=5,0>4,0>3,0>2,0>2,1>2,2>2,3>2,4>2,5>2,6>2,7
 r1 CellOpened 2,7
-r2 TileCleared 3,5 flower by a1 route=3,0>3,1>3,2>3,3>3,4>3,5
-r2 CellOpened 3,5
+r1 TileCleared 8,7 flower by a1 route=5,0>6,0>7,0>8,0>8,1>8,2>8,3>8,4>8,5>8,6>8,7
+r1 CellOpened 8,7
+r1 TileCleared 5,8 flower by a1 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>5,8
+r1 CellOpened 5,8
+r1 TileCleared 7,8 flower by a1 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>7,8
+r1 CellOpened 7,8
+r1 TileCleared 1,7 flower by a1 route=5,0>4,0>3,0>2,0>1,0>1,1>1,2>1,3>1,4>1,5>1,6>1,7
+r1 CellOpened 1,7
+r1 TileCleared 9,7 flower by a1 route=5,0>6,0>7,0>8,0>9,0>9,1>9,2>9,3>9,4>9,5>9,6>9,7
+r1 CellOpened 9,7
+r1 TileCleared 5,9 flower by a1 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9>5,9
+r1 CellOpened 5,9
+r1 TileCleared 7,9 flower by a1 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9>7,9
+r1 CellOpened 7,9
+r1 TileCleared 5,10 flower by a1 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9>6,10>5,10
+r1 CellOpened 5,10
+r1 TileCleared 5,11 flower by a1 route=5,0>6,0>6,1>6,2>6,3>6,4>6,5>6,6>6,7>6,8>6,9>6,10>6,11>5,11
+r1 CellOpened 5,11
+r1 TileCleared 2,8 flower by a1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>2,8
+r1 CellOpened 2,8
+r1 TileCleared 8,8 flower by a1 route=5,0>6,0>7,0>8,0>9,0>10,0>10,1>10,2>10,3>10,4>10,5>10,6>10,7>10,8>9,8>8,8
+r1 CellOpened 8,8
+r1 TileCleared 3,9 flower by a1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9>2,9>3,9
+r1 CellOpened 3,9
+r1 TileCleared 4,10 flower by a1 route=5,0>4,0>3,0>2,0>1,0>0,0>0,1>0,2>0,3>0,4>0,5>0,6>0,7>0,8>1,8>1,9>2,9>2,10>3,10>4,10
+r1 CellOpened 4,10
+r2 TileCleared 4,8 flower by a1 route=5,0>4,0>4,1>4,2>4,3>4,4>4,5>4,6>4,7>4,8
+r2 CellOpened 4,8
+r2 TileCleared 3,8 flower by a1 route=5,0>4,0>3,0>3,1>3,2>3,3>3,4>3,5>3,6>3,7>3,8
+r2 CellOpened 3,8
+r2 TileCleared 4,9 flower by a1 route=5,0>5,1>5,2>5,3>5,4>5,5>5,6>5,7>5,8>5,9>4,9
+r2 CellOpened 4,9
 r2 PodCompleted a1 slot=0
 r2 SlotFreed 0
 r3 LevelWon boosters=0

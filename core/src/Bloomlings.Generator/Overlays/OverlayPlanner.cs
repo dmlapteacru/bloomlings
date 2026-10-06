@@ -24,8 +24,60 @@ namespace Bloomlings.Generator.Overlays
         public const string LockedSlot = "locked_slot";
         public const string MysteryTile = "mystery_tile";
 
+        /// <summary>Roadmap L8 alternative: a pod shown as "? ×n" until committed (FR-039).</summary>
+        public const string MysteryPod = "mystery_pod";
+
+        /// <summary>Roadmap L150 (optional): a sealed garden object.</summary>
+        public const string Chest = "chest";
+
+        /// <summary>Roadmap L250 (optional): the second environmental object, a Statue or a Bridge.</summary>
+        public const string Environment2 = "environment_2";
+
+        /// <summary>Roadmap L400 (optional): a connected group of three, on Hard and Super Hard levels only.</summary>
+        public const string ConnectedTriple = "connected_triple";
+
         /// <summary>The roadmap unlock id of a mechanic (<c>mechanic.&lt;name&gt;</c>).</summary>
         public static string UnlockId(string mechanic) => "mechanic." + mechanic;
+
+        /// <summary>Every mechanic the generator can place, in planning order.</summary>
+        public static IReadOnlyList<string> All { get; } = new[]
+        {
+            MechanicNames.Stone, MechanicNames.Key, MechanicNames.LockedPod, MechanicNames.ConnectedPair, MechanicNames.LayeredTile, MechanicNames.Gate,
+            MechanicNames.Fountain, MechanicNames.LockedSlot, MechanicNames.MysteryTile, MechanicNames.MysteryPod, MechanicNames.Chest,
+            MechanicNames.Environment2, MechanicNames.ConnectedTriple,
+        };
+
+        /// <summary>
+        /// FR-031 showcase → practice → combination. The showcase is the unlock level; the practice level uses the
+        /// mechanic again, alone. It is the roadmap's own practice row when there is one (the Key at L14), else the next
+        /// level, and for the Connected Triple (Hard and Super Hard only) the next level of those classes.
+        /// </summary>
+        /// <param name="classOf">The difficulty class of a level (the schedule, or the catalog's own levels).</param>
+        public static int? PracticeLevel(string mechanic, UnlockRoadmap roadmap, Func<int, DifficultyClass> classOf)
+        {
+            int? showcase = roadmap.LevelOf(UnlockId(mechanic));
+            if (showcase == null)
+            {
+                return null;
+            }
+
+            int? row = roadmap.LevelOf("profile." + mechanic + "_practice");
+            if (row != null && row.Value > showcase.Value)
+            {
+                return row.Value;
+            }
+
+            int level = showcase.Value + 1;
+            if (mechanic == ConnectedTriple)
+            {
+                while (classOf(level) == DifficultyClass.Normal && level < showcase.Value + 100)
+                {
+                    level++;
+                }
+            }
+
+            return level;
+        }
     }
 
     /// <summary>The board overlays of one level (R9 step 4, before the solution plan).</summary>
@@ -64,27 +116,28 @@ namespace Bloomlings.Generator.Overlays
     /// </summary>
     public static class OverlayPlanner
     {
-        private static readonly string[] Order =
-        {
-            MechanicNames.Stone, MechanicNames.Key, MechanicNames.LockedPod, MechanicNames.ConnectedPair, MechanicNames.LayeredTile,
-            MechanicNames.Gate, MechanicNames.Fountain, MechanicNames.LockedSlot, MechanicNames.MysteryTile,
-        };
+        private static IReadOnlyList<string> Order => MechanicNames.All;
 
-        /// <summary>Chooses up to <paramref name="max"/> mechanics for the level (stones in the picture itself come on top).</summary>
-        public static List<string> Choose(GenerationProfile profile, int level, UnlockRoadmap roadmap, int max, ref Xoshiro256StarStar rng)
+        /// <summary>
+        /// Chooses up to <paramref name="max"/> mechanics for the level (stones in the picture itself come on top). The
+        /// Connected Triple is only for Hard and Super Hard levels (doc 13 L400).
+        /// </summary>
+        public static List<string> Choose(GenerationProfile profile, int level, UnlockRoadmap roadmap, int max, ref Xoshiro256StarStar rng, DifficultyClass target = DifficultyClass.Normal)
         {
             var candidates = new List<string>();
             foreach (string mechanic in Order)
             {
                 int? at = roadmap.LevelOf(MechanicNames.UnlockId(mechanic));
-                if (profile.Allows(mechanic) && at != null && at.Value <= level)
+                bool classAllows = mechanic != MechanicNames.ConnectedTriple || target != DifficultyClass.Normal;
+                if (profile.Allows(mechanic) && at != null && at.Value <= level && classAllows)
                 {
                     candidates.Add(mechanic);
                 }
             }
 
+            // Up to two mechanics; a third from the advanced combinations profile (roadmap L175) when max allows it.
             int roll = rng.NextInt(100);
-            int count = Math.Min(candidates.Count, Math.Min(max, roll < 25 ? 0 : roll < 75 ? 1 : 2));
+            int count = Math.Min(candidates.Count, Math.Min(max, roll < 25 ? 0 : roll < 75 ? 1 : max >= 3 && roll >= 90 ? 3 : 2));
             var chosen = new List<string>();
             for (int i = 0; i < count; i++)
             {
@@ -135,7 +188,7 @@ namespace Bloomlings.Generator.Overlays
             List<int> ground = targets.Where(c => background[c] && !NearEntry(c) && board.PosOf(c).Y > 0).ToList();
             var taken = new HashSet<int>();
 
-            foreach (string special in new[] { MechanicNames.Key, MechanicNames.Gate, MechanicNames.Fountain })
+            foreach (string special in new[] { MechanicNames.Key, MechanicNames.Gate, MechanicNames.Fountain, MechanicNames.Chest, MechanicNames.Environment2 })
             {
                 if (!mechanics.Contains(special))
                 {
@@ -160,7 +213,7 @@ namespace Bloomlings.Generator.Overlays
                 taken.Add(hole);
                 plan.HoleFor[special] = hole;
                 overlays[hole] = new CellOverlay(board.PosOf(hole), Array.Empty<VariantId>(), false, false, true, null);
-                if (special == MechanicNames.Fountain)
+                if (special == MechanicNames.Fountain || special == MechanicNames.Chest)
                 {
                     List<int> near = ground.Where(c => !taken.Contains(c) && Distance(board, c, hole) >= 2 && Distance(board, c, hole) <= 3).ToList();
                     foreach (int stone in Pick(near, 2, ref rng))
@@ -184,7 +237,7 @@ namespace Bloomlings.Generator.Overlays
             if (mechanics.Contains(MechanicNames.LayeredTile) && active.Count > 1)
             {
                 // FR-036: depth 2 (1 below) first, depth 3 from L125, within the band's limit.
-                int maxBelow = Math.Min(profile.MaxLayerDepth, level < 125 ? 1 : 2);
+                int maxBelow = Math.Min(profile.MaxLayerDepth, BandGuidelines.MaxLayersBelow(level));
                 List<int> free = targets.Where(c => !taken.Contains(c)).ToList();
                 int count = Math.Max(2, free.Count * (8 + rng.NextInt(10)) / 100);
                 foreach (int cell in Pick(free, count, ref rng))
@@ -362,6 +415,80 @@ namespace Bloomlings.Generator.Overlays
                         new[] { board.PosOf(gate) },
                         new SpecialCondition(SpecialConditionKind.ClearCountAdjacent, null, null, count, Array.Empty<CellPos>()),
                         new SpecialEffect(SpecialEffectKind.OpenCells, Array.Empty<CellPos>())));
+                }
+            }
+
+            if (mechanics.Contains(MechanicNames.Chest))
+            {
+                // The sealed garden object (roadmap L150): restore every tile around it and it bursts open, clearing
+                // the rubble (stones) beside it. Its own cell opens as a route, like a gate.
+                List<int> spots = boardPlan.HoleFor.TryGetValue(MechanicNames.Chest, out int hole)
+                    ? new List<int> { hole }
+                    : openCells.Where(c => !usedSpecialCells.Contains(c) && AdjacentLayers(board, c, null) >= 3).ToList();
+                if (spots.Count == 0)
+                {
+                    plan.Dropped.Add(MechanicNames.Chest);
+                }
+                else
+                {
+                    int chest = spots[rng.NextInt(spots.Count)];
+                    usedSpecialCells.Add(chest);
+                    int[] rubble = Enumerable.Range(0, board.CellCount)
+                        .Where(s => s != chest && !usedSpecialCells.Contains(s) && board.KindAt(s) == CellKind.Stone && Distance(board, s, chest) <= 3)
+                        .Take(2)
+                        .ToArray();
+                    plan.Specials.Add(new SpecialDef(
+                        "chest",
+                        SpecialType.Chest,
+                        new[] { board.PosOf(chest) },
+                        new SpecialCondition(SpecialConditionKind.ClearCountAdjacent, null, null, AdjacentLayers(board, chest, null), Array.Empty<CellPos>()),
+                        rubble.Length > 0
+                            ? new SpecialEffect(SpecialEffectKind.RemoveStones, rubble.Select(board.PosOf).ToArray())
+                            : new SpecialEffect(SpecialEffectKind.OpenCells, Array.Empty<CellPos>())));
+                }
+            }
+
+            if (mechanics.Contains(MechanicNames.Environment2))
+            {
+                // The second environmental object (roadmap L250): a Statue, unveiled when the garden patch around it is
+                // restored (a region counter), or a Bridge, built when enough of one exact variant around it is restored.
+                // Both open their own cell as a route when they trigger.
+                List<int> spots = boardPlan.HoleFor.TryGetValue(MechanicNames.Environment2, out int hole)
+                    ? new List<int> { hole }
+                    : openCells.Where(c => !usedSpecialCells.Contains(c) && AdjacentLayers(board, c, null) >= 2).ToList();
+                if (spots.Count == 0)
+                {
+                    plan.Dropped.Add(MechanicNames.Environment2);
+                }
+                else
+                {
+                    int cell = spots[rng.NextInt(spots.Count)];
+                    usedSpecialCells.Add(cell);
+                    VariantId[] bridgeVariants = AdjacentVariants(board, cell).Where(v => AdjacentLayers(board, cell, v) >= 2).ToArray();
+                    if (rng.NextInt(2) == 0 || bridgeVariants.Length == 0)
+                    {
+                        int[] region = Enumerable.Range(0, board.CellCount)
+                            .Where(t => board.IsTarget(t) && !mysteryCells.Contains(t) && Distance(board, t, cell) <= 2)
+                            .OrderBy(t => Distance(board, t, cell)).ThenBy(t => t)
+                            .Take(4 + rng.NextInt(3))
+                            .ToArray();
+                        plan.Specials.Add(new SpecialDef(
+                            "statue",
+                            SpecialType.Statue,
+                            new[] { board.PosOf(cell) },
+                            new SpecialCondition(SpecialConditionKind.ClearRegion, null, null, null, region.Select(board.PosOf).ToArray()),
+                            new SpecialEffect(SpecialEffectKind.OpenCells, Array.Empty<CellPos>())));
+                    }
+                    else
+                    {
+                        VariantId variant = bridgeVariants[rng.NextInt(bridgeVariants.Length)];
+                        plan.Specials.Add(new SpecialDef(
+                            "bridge",
+                            SpecialType.Bridge,
+                            new[] { board.PosOf(cell) },
+                            new SpecialCondition(SpecialConditionKind.ClearCountAdjacent, null, variant, Math.Min(AdjacentLayers(board, cell, variant), 2 + rng.NextInt(4)), Array.Empty<CellPos>()),
+                            new SpecialEffect(SpecialEffectKind.OpenCells, Array.Empty<CellPos>())));
+                    }
                 }
             }
 

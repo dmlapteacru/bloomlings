@@ -2,13 +2,14 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 13,
+  "height": 15,
   "id": "grapes_03",
   "legend": {
     "b": "background",
     "g": "grape",
     "l": "leaf",
-    "t": "stalk"
+    "t": "stalk",
+    "v": "vine"
   },
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -35,6 +36,11 @@
       "colorGroup": "green",
       "name": "Leaf",
       "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Vine",
+      "roleId": "vine"
     }
   ],
   "source": {
@@ -51,6 +57,6 @@
       "fruit"
     ]
   },
-  "version": 1,
-  "width": 12
+  "version": 2,
+  "width": 13
 }

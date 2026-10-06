@@ -5,18 +5,20 @@
   "grid": [
     [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
     [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
-    [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, -1],
     [-1, 0, 0, 1, 1, 1, 1, 1, 1, 0, -1, 0],
-    [0, 0, 0, 1, 0, 1, 1, -1, 1, -1, -1, 0],
-    [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, -1, -1, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, -1, 0],
     [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, 0, 1, 0, 1, 1, 2, 1, 0, 1, 0, 0],
-    [0, 0, 0, 0, 0, 0, 2, 3, 3, 3, 0, 0],
-    [0, 0, 0, 0, 0, 0, 2, 3, 3, 3, -1, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],
+    [0, 0, -1, 4, 4, 2, 2, 3, 3, 3, 0, 0],
+    [0, 0, 4, 4, 4, 2, 2, 3, 3, 3, 0, 0],
     [-1, -1, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1]
   ],
-  "height": 12,
+  "height": 14,
   "id": "grapes_02",
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -43,6 +45,11 @@
       "colorGroup": "green",
       "name": "Leaf",
       "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Vine",
+      "roleId": "vine"
     }
   ],
   "source": {
@@ -51,15 +58,15 @@
     "origin": "content/pictures/tools/sketch_pictures.py"
   },
   "structure": {
-    "backgroundShare": 0.576,
+    "backgroundShare": 0.553,
     "nestingDepth": 3,
-    "regionCount": 8
+    "regionCount": 10
   },
   "subject": "Grapes 2",
   "tags": {
     "bands": ["early_mid"],
     "themes": ["fruit"]
   },
-  "version": 1,
+  "version": 2,
   "width": 12
 }

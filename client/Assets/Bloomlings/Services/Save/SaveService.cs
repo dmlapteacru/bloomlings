@@ -20,7 +20,7 @@ namespace Bloomlings.Client.Services.Save
     }
 
     /// <summary>
-    /// The local save file (R15, T059): <c>Application.persistentDataPath/save/player_save_v1.json</c>. The file is an
+    /// The local save file (R15, T059): <c>&lt;app data&gt;/save/player_save_v1.json</c>. The file is an
     /// envelope <c>{"checksum": sha256, "save": player-save.v1}</c>; the checksum covers the compact canonical save
     /// document. Writes are atomic: the new file is written to <c>.tmp</c> and then swapped in, keeping the previous
     /// version as <c>.bak</c>. A corrupt or partial main file falls back to the backup. The game saves after a win, a
@@ -44,9 +44,11 @@ namespace Bloomlings.Client.Services.Save
 
         public PlayerSave Current { get; private set; }
 
-        /// <summary>The save in <c>Application.persistentDataPath/save/</c>.</summary>
-        public static SaveService CreateDefault(IClock clock) =>
-            new SaveService(Path.Combine(UnityEngine.Application.persistentDataPath, "save"), clock);
+        /// <summary>
+        /// The save folder's name under the app's data folder (<c>Application.persistentDataPath</c> in Unity). The engine
+        /// path is resolved by the caller, so this class stays engine-free and the playtest client shares it.
+        /// </summary>
+        public const string FolderName = "save";
 
         public SaveSource Source { get; private set; } = SaveSource.New;
 

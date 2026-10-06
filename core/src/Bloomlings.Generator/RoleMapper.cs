@@ -14,12 +14,26 @@ namespace Bloomlings.Generator
     /// </summary>
     public static class RoleMapper
     {
+        /// <param name="variantCount">The allowed number of distinct variants (the profile's range when null).</param>
+        /// <param name="extraVariants">Variants the pool adds for this level (expansions, FR-060) on top of the profile's.</param>
         public static IReadOnlyList<SortedDictionary<string, VariantId>> Mappings(
             BasePicture picture,
             GenerationProfile profile,
             Func<VariantId, VariantId, bool> readablePair,
-            int limit = 256)
+            int limit = 256,
+            IntRange? variantCount = null,
+            IReadOnlyList<VariantId>? extraVariants = null)
         {
+            var allowed = new List<VariantId>(profile.AllowedVariants);
+            foreach (VariantId extra in extraVariants ?? Array.Empty<VariantId>())
+            {
+                if (!allowed.Contains(extra))
+                {
+                    allowed.Add(extra);
+                }
+            }
+
+            IntRange distinctRange = variantCount ?? profile.VariantCount;
             var used = new bool[picture.Roles.Count];
             foreach (IReadOnlyList<int> row in picture.Grid)
             {
@@ -42,7 +56,7 @@ namespace Bloomlings.Generator
                 }
 
                 var choices = new List<VariantId>();
-                foreach (VariantId variant in profile.AllowedVariants)
+                foreach (VariantId variant in allowed)
                 {
                     if (VariantCatalog.Default.Get(variant).ColorGroup == picture.Roles[i].ColorGroup)
                     {
@@ -74,7 +88,7 @@ namespace Bloomlings.Generator
                 if (index == roles.Count)
                 {
                     var distinct = new SortedSet<VariantId>(current);
-                    if (!profile.VariantCount.Contains(distinct.Count))
+                    if (!distinctRange.Contains(distinct.Count))
                     {
                         return;
                     }

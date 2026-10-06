@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "hard",
     "overridden": true,
@@ -8,7 +8,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 4,
+      "x": 6,
       "y": 0
     }
   ],
@@ -21,41 +21,41 @@
   },
   "picture": {
     "id": "cactus",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 10,
+      "count": 20,
       "id": "o1",
       "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 18,
       "id": "o2",
       "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 17,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 17,
       "id": "w2",
       "variantId": "water"
     },
     {
-      "count": 9,
+      "count": 16,
       "id": "w3",
       "variantId": "water"
     },
     {
-      "count": 8,
+      "count": 24,
       "id": "c1",
       "variantId": "leaf"
     },
     {
-      "count": 9,
+      "count": 24,
       "id": "c2",
       "variantId": "leaf"
     }

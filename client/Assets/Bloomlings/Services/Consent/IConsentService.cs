@@ -37,16 +37,21 @@ namespace Bloomlings.Client.Services.Consent
         /// <summary>The privacy options entry point in Settings, when the rules require one.</summary>
         bool PrivacyOptionsRequired { get; }
 
+        /// <summary>Shows the privacy options form; the state is read again when it closes.</summary>
         void ShowPrivacyOptions(Action onClosed);
+
+        /// <summary>The state changed after <see cref="Gather"/> (the player changed it in the privacy options).</summary>
+        event Action<ConsentState>? Changed;
     }
 
-    /// <summary>What a consent SDK reports (the UMP/ATT integration implements it).</summary>
+    /// <summary>What a consent SDK reports (the UMP/ATT integration implements it, with <see cref="TcfConsent"/>).</summary>
     public interface IConsentProvider
     {
         IEnumerator Update(Action<ConsentState> onState);
 
         bool PrivacyOptionsRequired { get; }
 
-        void ShowPrivacyOptions(Action onClosed);
+        /// <summary>Shows the privacy options form and reports the state after it closes.</summary>
+        void ShowPrivacyOptions(Action<ConsentState> onClosed);
     }
 }

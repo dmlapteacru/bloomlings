@@ -2,111 +2,105 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1059
+    "score": 1172
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 1,
+      "x": 10,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 20,
   "mapping": {
-    "crown": "leaf",
-    "fruit": "flower",
-    "grass": "leaf",
-    "sky": "dew",
-    "trunk": "wood"
+    "center": "acorn",
+    "grass": "moss",
+    "petal": "flower",
+    "sky": "water",
+    "stem": "moss"
   },
   "mechanics": ["stone"],
   "overlays": {
     "cells": [
       {
         "stone": true,
-        "x": 0,
-        "y": 2
+        "x": 7,
+        "y": 3
       },
       {
         "stone": true,
-        "x": 8,
-        "y": 5
+        "x": 1,
+        "y": 4
       }
     ]
   },
   "picture": {
-    "id": "fruit_tree_01",
-    "version": 1
+    "id": "daisy_field_01",
+    "mirror": "horizontal",
+    "version": 2
   },
   "pods": [
     {
-      "count": 9,
+      "count": 17,
       "id": "p01",
-      "variantId": "leaf"
-    },
-    {
-      "count": 7,
-      "id": "p02",
-      "variantId": "dew"
-    },
-    {
-      "count": 5,
-      "id": "p03",
-      "variantId": "dew"
-    },
-    {
-      "count": 3,
-      "id": "p04",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p05",
-      "variantId": "leaf"
-    },
-    {
-      "count": 11,
-      "id": "p06",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
-      "id": "p07",
-      "variantId": "leaf"
-    },
-    {
-      "count": 6,
-      "id": "p08",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
       "count": 9,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
       "id": "p09",
-      "variantId": "leaf"
+      "variantId": "flower"
     },
     {
       "count": 5,
       "id": "p10",
-      "variantId": "wood"
-    },
-    {
-      "count": 3,
-      "id": "p11",
-      "variantId": "flower"
+      "variantId": "acorn"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "206611126024711944",
+  "seed": "5125156701723150498",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09"],
-      ["p02", "p06", "p10"],
-      ["p03", "p07", "p11"],
-      ["p04", "p08"]
+      ["p01", "p03", "p05", "p07", "p09"],
+      ["p02", "p04", "p06", "p08", "p10"]
     ]
   }
 }

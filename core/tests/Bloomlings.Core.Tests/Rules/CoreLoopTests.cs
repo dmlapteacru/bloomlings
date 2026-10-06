@@ -60,6 +60,22 @@ namespace Bloomlings.Core.Tests.Rules
         }
 
         [Test]
+        public void TheView_ListsTheReachableTargets_NearestFirst_AndTheyGrowAsTilesClear()
+        {
+            // The entry cell and its neighbours are Moss; the only Leaf tile sits behind them.
+            var session = Session(
+                new[] { "#######", "#######", "#######", "#######", "#######", "#######", "###l###", "..mmm.." },
+                new[] { Pod("leaf", VariantId.Leaf, 1), Pod("moss", VariantId.Moss, 3) });
+
+            var before = session.View.ReachableTargets();
+            Assert.That(before.Select(c => session.View.Cell(c).Visible), Is.All.EqualTo(VariantId.Moss), "the Leaf tile is behind the Moss");
+            Assert.That(before.First(), Is.EqualTo(new CellPos(3, 0)), "the entry cell comes first");
+
+            session.Tap("moss");
+            Assert.That(session.View.ReachableTargets(), Does.Contain(new CellPos(3, 1)), "the Leaf tile opens once the Moss is cleared");
+        }
+
+        [Test]
         public void ExactAccounting_IsCheckedPerVariantOnLoad()
         {
             string[] board = { "#######", "#######", "#######", "#######", "#######", "#######", "lllmmmm", "......." };

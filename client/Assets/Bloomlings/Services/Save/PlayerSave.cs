@@ -54,6 +54,9 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>Counters such as <c>levelsWon</c>, and counter groups such as <c>boostersUsed</c>.</summary>
         public StatsData Stats { get; } = new StatsData();
 
+        /// <summary>The profile page's name and joining day (spec 005 FR-037); the chosen avatar is a profile slot of <see cref="Cosmetics"/>.</summary>
+        public ProfileData Profile { get; } = new ProfileData();
+
         /// <summary>A fresh profile, created automatically on first launch with no sign-in (FR-087).</summary>
         public static PlayerSave CreateNew(string localPlayerId, DateTime utcNow)
         {
@@ -99,13 +102,17 @@ namespace Bloomlings.Client.Services.Save
             Daily.RewardLastClaimUtcDate = source.Daily.RewardLastClaimUtcDate;
             Daily.RewardStreak = source.Daily.RewardStreak;
             Daily.ChallengeLastCompletedUtcDate = source.Daily.ChallengeLastCompletedUtcDate;
+            Daily.FreeBoosterAdUtcDate = source.Daily.FreeBoosterAdUtcDate;
             Collection.Clear();
             Collection.AddRange(source.Collection);
             Settings.Music = source.Settings.Music;
             Settings.Sfx = source.Settings.Sfx;
             Settings.Haptics = source.Settings.Haptics;
             Settings.Speed2x = source.Settings.Speed2x;
+            Settings.HomePetals = source.Settings.HomePetals;
             Settings.Language = source.Settings.Language;
+            Profile.Name = source.Profile.Name;
+            Profile.JoinedAt = source.Profile.JoinedAt;
             Stats.Counters.Clear();
             foreach (KeyValuePair<string, long> pair in source.Stats.Counters)
             {
@@ -295,10 +302,47 @@ namespace Bloomlings.Client.Services.Save
 
     public sealed class CosmeticsData
     {
+        /// <summary>The owner of the profile slots (frame, badge, marker, avatar) in <see cref="Equipped"/>.</summary>
+        public const string ProfileOwner = "profile";
+
+        /// <summary>The profile slot of the chosen avatar picture (spec 005 FR-037): <c>profile.avatar</c>.</summary>
+        public const string AvatarKind = "avatar";
+
+        /// <summary>The owner of the board's slot (the chosen clearing style, spec 005 FR-038).</summary>
+        public const string BoardOwner = "board";
+
+        /// <summary>The board slot of the chosen bought clearing style: <c>board.clearing</c> (none: the free pair).</summary>
+        public const string ClearingKind = "clearing";
+
+        /// <summary>The kinds of slot each owner has (the family slots are worn, the profile and board slots are shown).</summary>
+        public static string[] KindsOf(string owner) => owner == ProfileOwner
+            ? new[] { "frame", "badge", "marker", AvatarKind }
+            : owner == BoardOwner
+                ? new[] { ClearingKind }
+                : new[] { "skin", "hat", "trail", "expression" };
+
         public SortedSet<string> Owned { get; } = new SortedSet<string>(StringComparer.Ordinal);
 
-        /// <summary>Family (sprig, bloom, drop, twig) → equipped skin id.</summary>
+        /// <summary>
+        /// Slot → item id. A slot is <c>owner.kind</c>: a family wears one skin, hat, trail and expression
+        /// (<c>drop.hat</c>), the profile shows one frame, badge, marker and avatar (<c>profile.frame</c>,
+        /// <c>profile.avatar</c>), and the board plays one bought clearing style (<c>board.clearing</c>). The bought avatars
+        /// and clearing styles are in <see cref="Owned"/> by their ids (<c>avatar.drop_sailor_sticker</c>, <c>clear.bubbles</c>).
+        /// </summary>
         public SortedDictionary<string, string> Equipped { get; } = new SortedDictionary<string, string>(StringComparer.Ordinal);
+
+        public static string Slot(string owner, string kind) => owner + "." + kind;
+    }
+
+    /// <summary>
+    /// The profile page's own fields (spec 005 FR-037), optional in the save as <c>profile</c>: the player's chosen name
+    /// (null while they keep the default one) and the UTC day they joined (<c>yyyy-MM-dd</c>, set once).
+    /// </summary>
+    public sealed class ProfileData
+    {
+        public string? Name { get; set; }
+
+        public string? JoinedAt { get; set; }
     }
 
     public sealed class DailyData
@@ -309,6 +353,9 @@ namespace Bloomlings.Client.Services.Save
         public int RewardStreak { get; set; }
 
         public string? ChallengeLastCompletedUtcDate { get; set; }
+
+        /// <summary>UTC date <c>yyyy-MM-dd</c> of the last free-booster rewarded ad on Home, or null.</summary>
+        public string? FreeBoosterAdUtcDate { get; set; }
     }
 
     public sealed record CollectionEntry(string PictureId, int PictureVersion, string MappingHash, int LevelNumber);
@@ -323,6 +370,13 @@ namespace Bloomlings.Client.Services.Save
 
         /// <summary>Default animation speed for new levels (FR-069).</summary>
         public bool Speed2x { get; set; }
+
+        /// <summary>
+        /// Whether Home shows its falling petals (spec 005 FR-028; the owner's Settings switch of 2026-10-04). Optional in
+        /// the save as <c>homePetalsOn</c>, off by default since the owner's tuning of 2026-10-05 (spec 005 FR-036); the
+        /// earlier <c>homePetals</c>, which every save wrote as on, is read and ignored, so the petals start off.
+        /// </summary>
+        public bool HomePetals { get; set; }
 
         public string Language { get; set; } = "en";
     }

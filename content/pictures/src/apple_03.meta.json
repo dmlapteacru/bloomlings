@@ -2,12 +2,13 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 12,
+  "height": 14,
   "id": "apple_03",
   "legend": {
     "a": "apple",
     "b": "background",
     "l": "leaf",
+    "p": "plate",
     "t": "stalk"
   },
   "review": {
@@ -35,6 +36,11 @@
       "colorGroup": "green",
       "name": "Leaf",
       "roleId": "leaf"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plate",
+      "roleId": "plate"
     }
   ],
   "source": {
@@ -51,6 +57,6 @@
       "fruit"
     ]
   },
-  "version": 1,
-  "width": 12
+  "version": 2,
+  "width": 14
 }

@@ -66,9 +66,9 @@ namespace Bloomlings.Client.Tests
             Assert.That(_economy.TryBuy(BoosterKind.Shuffle), Is.False, "no Petals");
             Assert.That(_economy.Petals, Is.EqualTo(0));
 
-            _economy.Grant(100, null);
+            _economy.Grant(EconomyConfig.Bundled.PriceShuffle + 100, null);
             Assert.That(_economy.TryBuy(BoosterKind.Shuffle), Is.True);
-            Assert.That(_economy.Petals, Is.EqualTo(100 - EconomyConfig.Bundled.PriceShuffle));
+            Assert.That(_economy.Petals, Is.EqualTo(100));
             Assert.That(_economy.Charges(BoosterKind.Shuffle), Is.EqualTo(2));
         }
 
@@ -124,6 +124,18 @@ namespace Bloomlings.Client.Tests
             Assert.That(config.DropEveryLevels, Is.EqualTo(2));
             Assert.That(config.PriceBloomBurst, Is.GreaterThan(config.PriceReturn));
             Assert.That(config.PriceBloomBurst, Is.GreaterThan(config.PriceShuffle));
+
+            // Even with every other price at its 5000 maximum, Bloom Burst stays strictly the most expensive (FR-048).
+            var capped = new Dictionary<string, int>
+            {
+                ["economy.price.extraSlot"] = 9999,
+                ["economy.price.shuffle"] = 9999,
+                ["economy.price.return"] = 9999,
+                ["economy.price.bloomBurst"] = 1,
+            };
+            EconomyConfig top = EconomyConfig.Read(key => capped.TryGetValue(key.Name, out int v) ? v : key.Default);
+            Assert.That(top.PriceReturn, Is.EqualTo(5000));
+            Assert.That(top.PriceBloomBurst, Is.EqualTo(5001));
         }
 
         [Test]

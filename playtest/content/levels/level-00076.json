@@ -2,163 +2,143 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1250
+    "score": 1633
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 3,
-      "y": 0
-    },
-    {
-      "side": "bottom",
-      "x": 9,
+      "x": 1,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 76,
   "mapping": {
-    "door": "wood",
+    "body": "leaf",
     "grass": "moss",
-    "roof": "wood",
-    "sky": "dew",
-    "wall": "flower",
-    "window": "dew"
+    "shell": "wood",
+    "sky": "water",
+    "spiral": "acorn"
   },
-  "mechanics": ["stone"],
-  "overlays": {
-    "cells": [
-      {
-        "stone": true,
-        "x": 1,
-        "y": 10
-      },
-      {
-        "stone": true,
-        "x": 0,
-        "y": 11
-      }
-    ]
-  },
+  "mechanics": ["connected_pair"],
   "picture": {
-    "id": "cottage_04",
-    "version": 1
+    "id": "snail_02",
+    "version": 2
   },
   "pods": [
     {
-      "count": 5,
+      "count": 6,
       "id": "p01",
       "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p02",
       "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 11,
       "id": "p03",
-      "variantId": "moss"
+      "variantId": "wood"
     },
     {
-      "count": 7,
+      "count": 8,
       "id": "p04",
       "variantId": "moss"
     },
     {
-      "count": 8,
+      "count": 7,
       "id": "p05",
-      "variantId": "flower"
-    },
-    {
-      "count": 7,
-      "id": "p06",
-      "variantId": "flower"
-    },
-    {
-      "count": 7,
-      "id": "p07",
-      "variantId": "flower"
+      "variantId": "moss"
     },
     {
       "count": 6,
-      "id": "p08",
-      "variantId": "flower"
+      "id": "p06",
+      "variantId": "leaf"
     },
     {
       "count": 9,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
       "id": "p09",
-      "variantId": "dew"
+      "variantId": "leaf"
     },
     {
-      "count": 8,
+      "connectedGroupId": "c1",
+      "count": 10,
       "id": "p10",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
+      "connectedGroupId": "c1",
       "count": 9,
       "id": "p11",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 9,
       "id": "p12",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
-      "id": "p13",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 10,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
       "id": "p14",
-      "variantId": "dew"
+      "variantId": "water"
     },
     {
       "count": 9,
       "id": "p15",
-      "variantId": "dew"
-    },
-    {
-      "count": 8,
-      "id": "p16",
-      "variantId": "dew"
-    },
-    {
-      "count": 7,
-      "id": "p17",
-      "variantId": "wood"
+      "variantId": "water"
     },
     {
       "count": 10,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
       "id": "p18",
       "variantId": "wood"
     },
     {
-      "count": 10,
+      "count": 9,
       "id": "p19",
       "variantId": "wood"
     },
     {
-      "count": 8,
+      "count": 10,
       "id": "p20",
       "variantId": "wood"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "13751095801186635721",
+  "seed": "11953331991068473966",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16"],
-      ["p02", "p07", "p12", "p17"],
-      ["p03", "p08", "p13", "p18"],
-      ["p04", "p09", "p14", "p19"],
-      ["p05", "p10", "p15", "p20"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
     ]
   }
 }

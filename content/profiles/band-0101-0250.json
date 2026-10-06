@@ -9,7 +9,8 @@
     "fountain",
     "locked_slot",
     "mystery_tile",
-    "chest"
+    "chest",
+    "environment_2"
   ],
   "allowedVariants": [
     "acorn",
@@ -28,14 +29,14 @@
       16
     ],
     "width": [
-      10,
+      11,
       14
     ]
   },
   "bufferPressureTarget": "tense",
   "durationTarget": [
     60,
-    240
+    300
   ],
   "entryLayouts": [
     "bottom_center",
@@ -58,8 +59,8 @@
   "mappingConstraints": {
     "allowRoleMerge": true
   },
-  "maxLayerDepth": 1,
-  "note": "Combination band: up to 14×16, 5 variants (6 in Hard), 15–30 pods, work 150–300+. Layer depth ≤ 2 before L125 and ≤ 3 after (maxLayerDepth counts layers below the top).",
+  "maxLayerDepth": 2,
+  "note": "Combination band: 11\u00d712 to 14\u00d716, 5 variants (6 in Hard), 15\u201330 pods, work 150\u2013300+. Layer depth \u2264 2 before L125 and \u2264 3 after (maxLayerDepth counts layers below the top).",
   "picturePool": {
     "themes": []
   },
@@ -90,8 +91,8 @@
     ]
   },
   "variantCount": [
-    4,
-    5
+    5,
+    6
   ],
   "work": [
     150,

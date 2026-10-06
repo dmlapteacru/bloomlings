@@ -3,20 +3,22 @@
     "mode": "auto"
   },
   "grid": [
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 3, 3, 1, 1, 1, 1, 3, 3, 3],
-    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, -1],
-    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [-1, 1, 1, 1, 1, 1, 1, 1, 1, -1],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, -1, 0, 1, 2, 2, 1, 0, 0, 0],
-    [-1, 0, 0, -1, 2, 2, 0, 0, 0, 0],
-    [0, 0, 0, -1, 0, 0, 0, 0, 0, -1],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [-1, 0, 0, -1, 0, 0, 0, 0, 0, -1]
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 1, 2, 1, 4, 4, 4, 4, 4],
+    [0, 0, 0, 1, 1, 1, 2, 1, 1, 1, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, -1],
+    [-1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0],
+    [0, 0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0, 0],
+    [0, -1, -1, 1, 1, 1, 2, 1, 1, 1, -1, 0, 0],
+    [-1, -1, 0, -1, 0, 3, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 3, 3, 5, 5, 5, 0, 0, -1],
+    [0, 0, 0, 0, 0, 3, 0, 5, 5, 0, 0, 0, 0],
+    [0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0],
+    [-1, -1, -1, 0, 0, 0, -1, 0, 0, 0, 0, -1, -1]
   ],
-  "height": 12,
+  "height": 14,
   "id": "pumpkin_03",
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -35,6 +37,11 @@
       "roleId": "pumpkin"
     },
     {
+      "colorGroup": "brown_orange",
+      "name": "Ribs",
+      "roleId": "rib"
+    },
+    {
       "colorGroup": "green",
       "name": "Stem",
       "roleId": "stem"
@@ -43,6 +50,11 @@
       "colorGroup": "green",
       "name": "Grass",
       "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
     }
   ],
   "source": {
@@ -51,15 +63,15 @@
     "origin": "content/pictures/tools/sketch_pictures.py"
   },
   "structure": {
-    "backgroundShare": 0.366,
-    "nestingDepth": 3,
-    "regionCount": 8
+    "backgroundShare": 0.335,
+    "nestingDepth": 4,
+    "regionCount": 13
   },
   "subject": "Pumpkin 3",
   "tags": {
     "bands": ["core"],
     "themes": ["fruit", "garden"]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 13
 }

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <!--
+    The level tester APK: the playtest sources (playtest/android) built with PLAYTEST_TESTER. Levels open straight
+    away with ◀ ▶ to move between them, every booster is free, and a tap shows its result at once; there is no Home,
+    progression or economy. Its own application id, so it installs next to the full playtest. See playtest/README.md.
+  -->
+  <Import Project="../Playtest.Shared.props" />
+
+  <PropertyGroup>
+    <ApplicationId>com.bloomlings.playtest.tester</ApplicationId>
+    <ApplicationTitle>Bloomlings Tester</ApplicationTitle>
+    <DefineConstants>$(DefineConstants);PLAYTEST_TESTER</DefineConstants>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="../android/*.cs" />
+    <!-- The clearing styles' timing, which the animator schedules by (the tester keeps its own minimal look). -->
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/ClearStyles.cs" Link="Shared/Design/ClearStyles.cs" />
+  </ItemGroup>
+</Project>

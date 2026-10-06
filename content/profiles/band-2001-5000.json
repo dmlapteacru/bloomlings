@@ -26,18 +26,18 @@
   "bandId": "band-2001-5000",
   "boardSize": {
     "height": [
-      10,
+      12,
       16
     ],
     "width": [
-      9,
+      11,
       14
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    45,
-    240
+    60,
+    300
   ],
   "entryLayouts": [
     "bottom_center",
@@ -61,7 +61,7 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Long run to L5000+: 4–6 variants (7 rare only after a pool expansion), the full mechanic set.",
+  "note": "Long run to L5000+: 4\u20136 variants (7 rare only after a pool expansion), the full mechanic set.",
   "picturePool": {
     "themes": []
   },
@@ -96,7 +96,7 @@
     6
   ],
   "work": [
-    90,
+    100,
     320
   ]
 }

@@ -4,6 +4,8 @@ using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Clearing;
+using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services;
 using Bloomlings.Client.Services.Ads;
@@ -14,10 +16,12 @@ using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Consent;
 using Bloomlings.Client.Services.Content;
 using Bloomlings.Client.Services.Economy;
+using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Purchases;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Progression;
+using Bloomlings.Client.UI.Screens;
 using UnityEngine;
 
 namespace Bloomlings.Client.App
@@ -43,6 +47,10 @@ namespace Bloomlings.Client.App
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = _targetFrameRate;
 
+            // The splash (spec 002 frame 1) shows while services and content load; it needs no tap.
+            SplashScreen splash = SplashScreen.Create(transform);
+            yield return null;
+
             var services = new AppServices();
             var clock = new SystemClock();
             services.Register<IClock>(clock);
@@ -50,11 +58,14 @@ namespace Bloomlings.Client.App
             var remote = new UgsRemoteConfigService();
             services.Register<IRemoteConfigService>(remote);
 
-            SaveService saves = SaveService.CreateDefault(clock);
+            SaveService saves = new SaveService(System.IO.Path.Combine(Application.persistentDataPath, SaveService.FolderName), clock);
             PlayerSave save = saves.Load();
             bool firstLaunch = saves.IsFirstLaunch;
             services.Register(saves);
             services.Register(save);
+
+            // Sound, music and haptics follow the Settings toggles from the first frame (FR-073).
+            services.Register(GameFeedback.Create(save.Settings));
 
             ContentSet? content = null;
             Exception? error = null;
@@ -78,7 +89,8 @@ namespace Bloomlings.Client.App
 
             Debug.Log($"[Boot] Content v{content.ContentVersion}: {content.LevelCount} levels, {content.PictureCount} pictures ({source}); save from {saves.Source}.");
             services.Register(content);
-            var catalog = new CatalogService(content);
+            // Past the end of the catalog only development builds repeat it; a release build says more levels are coming.
+            var catalog = new CatalogService(content, repeatPastEnd: Debug.isDebugBuild);
             services.Register(catalog);
 
             // Analytics and crash keys (T147): events wait on the device until consent allows them (FR-090).
@@ -113,12 +125,17 @@ namespace Bloomlings.Client.App
             // Long-run motivation (US7): milestones, Wardrobe, Collection; all local and offline-first.
             TextAsset? cosmeticsJson = Resources.Load<TextAsset>("CosmeticCatalog");
             CosmeticCatalog cosmetics = cosmeticsJson != null ? CosmeticCatalog.Parse(cosmeticsJson.text) : new CosmeticCatalog(Array.Empty<CosmeticItem>());
-            var wardrobe = new WardrobeService(save, cosmetics, remote, saves.Save);
+            var wardrobe = new WardrobeService(save, cosmetics, remote, saves.Save, economy);
             var milestones = new MilestoneService(save, MilestoneTable.Default, economy, saves.Save);
             var collection = new CollectionService(save, saves.Save);
             services.Register(wardrobe);
             services.Register(milestones);
             services.Register(collection);
+            // The profile page's avatars, name and joining day (spec 005 FR-037), open from L1.
+            services.Register(new ProfileService(save, remote, clock, saves.Save, economy));
+            var clearing = new ClearingService(save, remote, saves.Save, economy);
+            services.Register(clearing);
+            clearing.Chose += id => analytics.CosmeticEquip(CosmeticsData.BoardOwner, id);
 
             var progression = new ProgressionService(save, UnlockRoadmap.Default, saves.Save);
             progression.UnlockReached += entry => Debug.Log($"[Progression] Unlocked {entry.UnlockId} at L{entry.Level}.");
@@ -138,7 +155,11 @@ namespace Bloomlings.Client.App
             TextAsset? catalogJson = Resources.Load<TextAsset>("ProductCatalog");
             ProductCatalog products = catalogJson != null ? ProductCatalog.Parse(catalogJson.text) : new ProductCatalog(Array.Empty<StoreProduct>());
             var ledger = new PurchaseLedger(save, products, economy, clock, saves.Save);
-            ledger.Granted += purchase => analytics.Purchase(purchase.ProductId, 0, string.Empty, purchase.TransactionId);
+            ledger.Granted += purchase =>
+            {
+                (long Micros, string Currency)? price = purchases.PriceDetailsOf(purchase.ProductId);
+                analytics.Purchase(purchase.ProductId, price?.Micros ?? 0, price?.Currency ?? string.Empty, purchase.TransactionId);
+            };
             var adPolicy = new AdPolicy(remote, clock.UtcNow);
             services.Register<IConsentService>(consent);
             services.Register(ads);
@@ -147,6 +168,7 @@ namespace Bloomlings.Client.App
             services.Register(ledger);
             services.Register(adPolicy);
             services.Register(new DailyRewardService(save, clock, remote, economy, saves.Save));
+            services.Register(new FreeBoosterAd(save, clock, saves.Save));
             services.Register(new DailyChallengeService(save, clock, remote, catalog, economy, saves.Save));
 
             // Identity, cloud save and leaderboard (US7): anonymous, in the background, never blocking play (FR-087).
@@ -201,9 +223,10 @@ namespace Bloomlings.Client.App
             services.Register(flow);
             AppServices.MakeCurrent(services);
             flow.Begin(firstLaunch);
+            splash.FadeOut(0.6f);
 
             // Offline-first (FR-074): everything below runs after the game is playable and never blocks it.
-            StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, auth, sync, leaderboard, analytics));
+            StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, ledger, auth, sync, leaderboard, analytics));
         }
 
         private static IEnumerator OnlineServices(
@@ -214,6 +237,7 @@ namespace Bloomlings.Client.App
             IAdsService ads,
             IPurchaseService purchases,
             ProductCatalog products,
+            PurchaseLedger ledger,
             IAuthService auth,
             CloudSaveSync sync,
             LeaderboardClient leaderboard,
@@ -234,7 +258,7 @@ namespace Bloomlings.Client.App
 
             // Consent before any ad or analytics initialization (FR-090); the default is the most restrictive.
             yield return consent.Gather();
-            analytics.Consent(consent.State.ToString().ToLowerInvariant(), Application.platform == RuntimePlatform.IPhonePlayer ? (consent.State == ConsentState.Personalized ? "authorized" : "not_authorized") : "not_applicable");
+            analytics.Consent(consent.State.ToString().ToLowerInvariant(), AttText(consent.State));
             if (consent.AnalyticsAllowed)
             {
                 analytics.Attach(
@@ -248,7 +272,30 @@ namespace Bloomlings.Client.App
             }
 
             ads.Initialize(consent.State);
-            purchases.Initialize(products, ready => Debug.Log(ready ? "[Store] Connected." : "[Store] Unavailable."));
+
+            // A change in the privacy options applies at once: analytics stop or start, ads reload or stop.
+            consent.Changed += state =>
+            {
+                analytics.ConsentChanged(
+                    consent.AnalyticsAllowed,
+                    state == ConsentState.Personalized,
+                    () => ServiceProviders.Analytics?.Invoke() ?? new NullAnalyticsService(),
+                    () => ServiceProviders.Crashes?.Invoke() ?? new NullCrashReporter());
+                analytics.Consent(state.ToString().ToLowerInvariant(), AttText(state));
+                ads.Initialize(state);
+            };
+            purchases.Initialize(products, ledger.Grant, ready =>
+            {
+                Debug.Log(ready ? "[Store] Connected." : "[Store] Unavailable.");
+                if (ready)
+                {
+                    // The starter pack is once per player, not per install: the backend remembers a purchase.
+                    purchases.CheckStarterPackOffer(eligible => ledger.OnStarterPackOffer(eligible));
+                }
+            });
         }
+
+        private static string AttText(ConsentState state) =>
+            Application.platform == RuntimePlatform.IPhonePlayer ? (state == ConsentState.Personalized ? "authorized" : "not_authorized") : "not_applicable";
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
@@ -94,6 +95,21 @@ namespace Bloomlings.Client.Tests
             _save.Boosters.Add(BoosterKind.Shuffle, 3);
             _save.Boosters.Add(BoosterKind.BloomBurst, 3);
             Assert.That(_milestones.OnLevelCompleted(75)!.Boosters, Is.EqualTo(new BoosterGrant(0, 0, 1, 0)));
+        }
+
+        [Test]
+        public void Rewards_NeverRunOut_ALevelBadgeOrMarkerFollowsTheLists()
+        {
+            foreach (MilestoneCadence cadence in MilestoneTable.Default.Cadences)
+            {
+                _save.Cosmetics.Owned.UnionWith(cadence.Items);
+            }
+
+            Assert.That(_milestones.OnLevelCompleted(50)!.Item, Is.EqualTo(CosmeticCatalog.LevelBadgeId(50)));
+            Assert.That(_milestones.OnLevelCompleted(4900)!.Item, Is.EqualTo(CosmeticCatalog.LevelBadgeId(4900)), "major");
+            Assert.That(_milestones.OnLevelCompleted(750)!.Item, Is.EqualTo(CosmeticCatalog.LevelMarkerId(750)), "prestige");
+            Assert.That(_milestones.OnLevelCompleted(125)!.Item, Is.Null, "a bundle has no item");
+            Assert.That(_save.Cosmetics.Owned, Does.Contain("badge.level_50").And.Contain("marker.level_750"));
         }
 
         [Test]

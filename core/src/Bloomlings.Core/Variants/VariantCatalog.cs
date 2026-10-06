@@ -65,18 +65,18 @@ namespace Bloomlings.Core.Variants
         /// <summary>The 8 launch variants (2 per family) plus the 4 planned expansion variants (FR-002).</summary>
         public static VariantCatalog Default { get; } = new VariantCatalog(new[]
         {
-            new VariantInfo(VariantId.Leaf, Family.Sprig, ColorGroup.Green, "#ADCF42", "leaf", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Moss, Family.Sprig, ColorGroup.Green, "#356557", "moss", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Flower, Family.Bloom, ColorGroup.PinkPurple, "#EF8DA5", "flower", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.VioletBud, Family.Bloom, ColorGroup.PinkPurple, "#512E97", "bud", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Water, Family.Drop, ColorGroup.BlueCyan, "#3D82E0", "drop", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Dew, Family.Drop, ColorGroup.BlueCyan, "#74F9F9", "dew", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Wood, Family.Twig, ColorGroup.BrownOrange, "#551E0A", "log", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Acorn, Family.Twig, ColorGroup.BrownOrange, "#B55A11", "acorn", VariantStatus.Launch, 1),
-            new VariantInfo(VariantId.Vine, Family.Sprig, ColorGroup.Lime, "#F7FA2E", "vine", VariantStatus.Expansion, null),
-            new VariantInfo(VariantId.Berry, Family.Bloom, ColorGroup.Red, "#A02C12", "berry", VariantStatus.Expansion, null),
-            new VariantInfo(VariantId.Mist, Family.Drop, ColorGroup.Indigo, "#8D9BCC", "mist", VariantStatus.Expansion, null),
-            new VariantInfo(VariantId.Bark, Family.Twig, ColorGroup.Gold, "#B1A05B", "bark", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Leaf, Family.Sprig, ColorGroup.Green, "#99D323", "leaf", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Moss, Family.Sprig, ColorGroup.Green, "#0FB198", "moss", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Flower, Family.Bloom, ColorGroup.PinkPurple, "#FF3B89", "flower", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.VioletBud, Family.Bloom, ColorGroup.PinkPurple, "#7F3CC4", "bud", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Water, Family.Drop, ColorGroup.BlueCyan, "#3485E7", "drop", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Dew, Family.Drop, ColorGroup.BlueCyan, "#61DAE1", "dew", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Wood, Family.Twig, ColorGroup.BrownOrange, "#9B4904", "log", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Acorn, Family.Twig, ColorGroup.BrownOrange, "#CF7F20", "acorn", VariantStatus.Launch, 1),
+            new VariantInfo(VariantId.Vine, Family.Sprig, ColorGroup.Lime, "#FFFF3C", "vine", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Berry, Family.Bloom, ColorGroup.Red, "#810F00", "berry", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Mist, Family.Drop, ColorGroup.Indigo, "#94A8EC", "mist", VariantStatus.Expansion, null),
+            new VariantInfo(VariantId.Bark, Family.Twig, ColorGroup.Gold, "#84794B", "bark", VariantStatus.Expansion, null),
         });
 
         /// <summary>Entries in catalog order; the position is the stable index used for hashing.</summary>

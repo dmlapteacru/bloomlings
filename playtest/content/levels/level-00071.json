@@ -2,199 +2,118 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1573
+    "score": 1448
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 3,
-      "y": 0
-    },
-    {
-      "side": "bottom",
-      "x": 8,
+      "x": 6,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 71,
   "mapping": {
-    "crown": "moss",
-    "fruit": "flower",
-    "grass": "leaf",
-    "sky": "water",
-    "trunk": "wood"
-  },
-  "mechanics": ["connected_pair", "fountain"],
-  "overlays": {
-    "cells": [
-      {
-        "stone": true,
-        "x": 9,
-        "y": 1
-      },
-      {
-        "hole": true,
-        "x": 7,
-        "y": 2
-      },
-      {
-        "stone": true,
-        "x": 8,
-        "y": 4
-      }
-    ]
+    "door": "wood",
+    "grass": "moss",
+    "roof": "wood",
+    "sky": "dew",
+    "wall": "flower",
+    "window": "water"
   },
   "picture": {
-    "id": "fruit_tree_02",
-    "mirror": "horizontal",
-    "version": 1
+    "id": "cottage_04",
+    "version": 2
   },
   "pods": [
     {
-      "count": 7,
+      "count": 13,
       "id": "p01",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 5,
+      "count": 13,
       "id": "p02",
-      "variantId": "leaf"
+      "variantId": "moss"
     },
     {
-      "count": 6,
+      "count": 16,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
-      "count": 6,
+      "count": 10,
       "id": "p04",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
-      "id": "p05",
-      "variantId": "water"
+      "variantId": "flower"
     },
     {
       "count": 9,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
       "id": "p06",
-      "variantId": "water"
-    },
-    {
-      "count": 6,
-      "id": "p07",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p08",
-      "variantId": "water"
-    },
-    {
-      "count": 7,
-      "id": "p09",
-      "variantId": "water"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 7,
-      "id": "p10",
-      "variantId": "water"
-    },
-    {
-      "connectedGroupId": "c1",
-      "count": 5,
-      "id": "p11",
-      "variantId": "moss"
-    },
-    {
-      "count": 7,
-      "id": "p12",
-      "variantId": "moss"
-    },
-    {
-      "count": 5,
-      "id": "p13",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p14",
-      "variantId": "moss"
-    },
-    {
-      "count": 7,
-      "id": "p15",
-      "variantId": "moss"
-    },
-    {
-      "count": 5,
-      "id": "p16",
-      "variantId": "moss"
-    },
-    {
-      "count": 6,
-      "id": "p17",
-      "variantId": "moss"
-    },
-    {
-      "count": 8,
-      "id": "p18",
-      "variantId": "moss"
-    },
-    {
-      "count": 6,
-      "id": "p19",
       "variantId": "wood"
     },
     {
-      "count": 5,
-      "id": "p20",
-      "variantId": "flower"
+      "count": 13,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "water"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "360740398370228751",
+  "seed": "2715270125437718000",
   "slots": {
     "count": 5
   },
-  "specials": [
-    {
-      "cells": [
-        {
-          "x": 7,
-          "y": 2
-        }
-      ],
-      "condition": {
-        "count": 2,
-        "kind": "clear_count_adjacent",
-        "variantId": "water"
-      },
-      "effect": {
-        "cells": [
-          {
-            "x": 9,
-            "y": 1
-          },
-          {
-            "x": 8,
-            "y": 4
-          }
-        ],
-        "kind": "remove_stones"
-      },
-      "id": "fountain",
-      "type": "fountain"
-    }
-  ],
   "tray": {
     "stacks": [
-      ["p01", "p05", "p09", "p13", "p17"],
-      ["p02", "p06", "p10", "p14", "p18"],
-      ["p03", "p07", "p11", "p15", "p19"],
-      ["p04", "p08", "p12", "p16", "p20"]
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
     ]
   }
 }

@@ -1,9 +1,10 @@
 name: core-tests
 
+# Manual only for now (Actions → Run workflow), so pushes and pull requests spend no Actions minutes; the tests are run
+# locally before each push (CLAUDE.md "Build and test commands"). Restore the push and pull_request triggers when the
+# budget allows.
 on:
-  pull_request:
-  push:
-    branches: ["**"]
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -23,6 +24,9 @@ jobs:
 
       - name: Client scripts (stub compile and engine-free EditMode tests)
         run: dotnet test client/DotnetCheck/Bloomlings.Client.DotnetCheck.csproj -c Release --logger trx --results-directory core/artifacts/test-results
+
+      - name: Cloud Code scripts (in-memory UGS stand-ins)
+        run: node --test backend/tests/*.test.js
 
       - name: Upload test results
         if: always()

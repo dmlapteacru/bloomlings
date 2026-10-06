@@ -2,13 +2,18 @@
  * ValidatePurchase — UGS Cloud Code (contracts/backend-services.md, FR-089, research R13; T132).
  *
  * Input:  platform ("google" | "apple"), receipt (the Unity IAP receipt JSON string), productId.
- * Output: { valid, transactionId, grants }.
+ * Output: { valid, transactionId, grants, reason }. The client grants `grants`, not its bundled catalog.
  *
  * - Google Play: the purchase data is verified against its signature with the app's Play license public key.
  * - Apple: the transaction is looked up with the App Store Server API, signed with the in-app purchase key.
- * - Idempotent by transactionId: the first answer for a transaction is stored in the player's Cloud Save data and
- *   returned again for repeats. The client ledger is keyed by the same id, so a repeat never grants twice.
- * - The starter pack is offered once: buying it records the offer as used (see GetStarterPackOffer).
+ * - Idempotent by transactionId across ALL players: each transaction is claimed once, in game-wide Cloud Save custom
+ *   data (custom id "purchases", written with the service token, so players cannot write it). A repeat by the same
+ *   player gets the stored answer again; the client ledger is keyed by the same id, so it never grants twice. The same
+ *   receipt sent from another account is refused for consumables ("claimed-by-another-player"); a non-consumable
+ *   (Remove Ads) is an entitlement of the store account, so restoring it on another game account is allowed.
+ * - The starter pack is offered once per player: buying it sets "starter_pack_used" in the player's protected data
+ *   (not writable by the client; see GetStarterPackOffer). A second purchase is refused ("offer-already-used"); the
+ *   client then does not confirm the order, and Google Play refunds an unacknowledged purchase.
  *
  * Secrets (UGS Secret Manager): GOOGLE_PLAY_LICENSE_KEY, APPLE_ISSUER_ID, APPLE_KEY_ID, APPLE_PRIVATE_KEY,
  * APPLE_BUNDLE_ID. The product grants mirror client/Assets/Bloomlings/Services/Purchases/ProductCatalog.json.
@@ -28,7 +33,9 @@ const PRODUCTS = {
   remove_ads: { removeAds: true },
 };
 
-const INVALID = { valid: false, transactionId: null, grants: null };
+const INVALID = { valid: false, transactionId: null, grants: null, reason: "invalid" };
+const PURCHASES_ID = "purchases";
+const STARTER_KEY = "starter_pack_used";
 
 module.exports = async ({ params, context, logger }) => {
   const product = PRODUCTS[params.productId];
@@ -53,23 +60,38 @@ module.exports = async ({ params, context, logger }) => {
     return INVALID;
   }
 
-  // Idempotency: the first answer for this transaction is kept and returned again.
-  const cloudSave = new DataApi(context);
-  const key = `purchase_tx_${transactionId.replace(/[^A-Za-z0-9_-]/g, "_")}`;
-  const existing = await cloudSave.getItems(context.projectId, context.playerId, [key]);
-  const stored = existing.data.results.find((item) => item.key === key);
-  if (stored) {
-    return stored.value;
+  // Idempotency across players: a transaction is claimed once, game-wide, with the service token.
+  const server = new DataApi({ accessToken: context.serviceToken });
+  const key = `tx_${transactionId.replace(/[^A-Za-z0-9_-]/g, "_")}`.slice(0, 255);
+  const answer = { valid: true, transactionId, grants: product, reason: null };
+  const claims = await server.getCustomItems(context.projectId, PURCHASES_ID, [key]);
+  const claim = claims.data.results.find((item) => item.key === key);
+  if (claim) {
+    if (claim.value.playerId === context.playerId) {
+      return claim.value.answer;
+    }
+
+    if (product.removeAds) {
+      return answer;
+    }
+
+    logger.warning(`Transaction ${transactionId} replayed by ${context.playerId}; claimed by ${claim.value.playerId}`);
+    return { ...INVALID, transactionId, reason: "claimed-by-another-player" };
   }
 
-  const answer = { valid: true, transactionId, grants: product };
-  const items = [{ key, value: answer }];
   if (product.offeredOnce) {
-    items.push({ key: "starter_pack_used", value: true });
+    const used = await server.getProtectedItems(context.projectId, context.playerId, [STARTER_KEY]);
+    if (used.data.results.some((item) => item.key === STARTER_KEY && item.value === true)) {
+      return { ...INVALID, transactionId, reason: "offer-already-used" };
+    }
   }
 
-  for (const item of items) {
-    await cloudSave.setItem(context.projectId, context.playerId, item);
+  await server.setCustomItem(context.projectId, PURCHASES_ID, {
+    key,
+    value: { playerId: context.playerId, productId: params.productId, at: new Date().toISOString(), answer },
+  });
+  if (product.offeredOnce) {
+    await server.setProtectedItem(context.projectId, context.playerId, { key: STARTER_KEY, value: true });
   }
 
   return answer;

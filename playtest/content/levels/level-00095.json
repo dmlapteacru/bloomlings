@@ -1,0 +1,296 @@
+{
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2096
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.2.0",
+  "levelNumber": 95,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "can": "moss",
+    "drops": "water",
+    "grass": "leaf",
+    "handle": "wood",
+    "sky": "dew"
+  },
+  "mechanics": ["key", "layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["wood"],
+        "x": 11,
+        "y": 0
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 0,
+        "y": 1
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 2,
+        "y": 2
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 4,
+        "y": 2
+      },
+      {
+        "keyId": "k1",
+        "x": 5,
+        "y": 2
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 12,
+        "y": 2
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 5,
+        "y": 3
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 12,
+        "y": 3
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 3,
+        "y": 4
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 8,
+        "y": 4
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 0,
+        "y": 5
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 1,
+        "y": 5
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 9,
+        "y": 5
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 11,
+        "y": 5
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 3,
+        "y": 6
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 4,
+        "y": 6
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 1,
+        "y": 8
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 2,
+        "y": 9
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 9
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 11,
+        "y": 9
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 12,
+        "y": 9
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 5,
+        "y": 10
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 12,
+        "y": 10
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 2,
+        "y": 11
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 7,
+        "y": 11
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 12,
+        "y": 11
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 2,
+        "y": 13
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 6,
+        "y": 13
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 4,
+        "y": 14
+      }
+    ]
+  },
+  "picture": {
+    "id": "watering_can_04",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "18121231818114619245",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

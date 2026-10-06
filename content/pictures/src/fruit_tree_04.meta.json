@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 13,
+  "height": 15,
   "id": "fruit_tree_04",
   "legend": {
     "c": "crown",
@@ -58,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 13
+  "version": 2,
+  "width": 14
 }

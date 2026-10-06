@@ -11,7 +11,9 @@ using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Generator;
+using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Catalog;
+using Bloomlings.Pipeline.Readability;
 using Bloomlings.Pipeline.Review;
 using Bloomlings.Pipeline.Validation;
 using Bloomlings.Solver;
@@ -23,7 +25,8 @@ namespace Bloomlings.Pipeline.Commands
     /// <summary><c>solve</c>, <c>validate</c>, <c>score</c>, <c>review</c>, <c>publish</c>, <c>replay</c> and <c>diff</c>.</summary>
     public static class CatalogCommands
     {
-        private static Option<string> Defs() => Cli.Path("--defs", "content/catalog", "Catalog or batch folder (levels/ and validation/), or a folder of level files.");
+        /// <summary><c>--defs</c>, also spelled <c>--catalog</c> as in contracts/pipeline-cli.md.</summary>
+        private static Option<string> Defs() => Cli.Path("--defs", "content/catalog", "Catalog or batch folder (levels/ and validation/), or a folder of level files.", "--catalog");
 
         private static Option<string> Lib() => Cli.Path("--lib", "content/pictures/lib", "Picture library.");
 
@@ -92,7 +95,9 @@ namespace Bloomlings.Pipeline.Commands
             var changedOnly = new Option<bool>("--changed-only") { Description = "Solve only levels whose files changed against --base (FR-083 still covers the whole catalog)." };
             Option<string> baseRef = Cli.Path("--base", "origin/main", "Git ref for --changed-only.");
             var writeRecords = new Option<bool>("--write-records") { Description = "Write the validation records next to the levels." };
-            foreach (Option option in new Option[] { defs, lib, pairs, budget, changedOnly, baseRef, writeRecords })
+            Option<string> context = Cli.Path("--context", string.Empty, "Neighbouring levels validated elsewhere (e.g. content/curated next to the catalog): they join the FR-083 and families windows but are not checked.");
+            Option<string> level8 = Cli.Level8();
+            foreach (Option option in new Option[] { defs, lib, pairs, budget, changedOnly, baseRef, writeRecords, context, level8 })
             {
                 command.Options.Add(option);
             }
@@ -110,10 +115,13 @@ namespace Bloomlings.Pipeline.Commands
 
                 var validator = new CatalogValidator(
                     ContentStore.LoadLibrary(parse.GetValue(lib)!),
-                    UnlockRoadmap.Default,
+                    UnlockRoadmap.ForLevel8(parse.GetValue(level8)!),
                     ContentStore.LoadPairs(parse.GetValue(pairs)!),
                     new SolveOptions(parse.GetValue(budget)));
-                CatalogReport result = validator.Validate(levels.Select(l => l.Level).ToList(), only);
+                List<LevelDefinition>? neighbours = parse.GetValue(context)!.Length > 0
+                    ? ContentStore.LoadLevels(parse.GetValue(context)!).Select(l => l.Level).ToList()
+                    : null;
+                CatalogReport result = validator.Validate(levels.Select(l => l.Level).ToList(), only, neighbours);
                 if (parse.GetValue(writeRecords))
                 {
                     foreach ((string _, LevelDefinition level) in levels)
@@ -142,14 +150,30 @@ namespace Bloomlings.Pipeline.Commands
 
         public static Command Score()
         {
-            var command = new Command("score", "Report the difficulty class distribution against FR-059 and the picture similarity statistics (SC-012).");
+            var command = new Command("score", "Compute each level's difficulty score and class (FR-082), report the class distribution against FR-059 and the picture similarity statistics (SC-012).");
             Option<string> defs = Defs();
             Option<string> curated = Cli.Path("--curated", "content/curated", "Curated levels, included in the statistics when not in --defs.");
-            command.Options.Add(defs);
-            command.Options.Add(curated);
+            Option<string> lib = Lib();
+            Option<string> profiles = Cli.Path("--profiles", "content/profiles", "Band profiles: which thresholds apply to each level.");
+            Option<string> thresholds = Cli.Path("--thresholds", "content/profiles/difficulty-thresholds.json", "Difficulty weights and thresholds per band.");
+            Option<int> budget = Budget();
+            foreach (Option option in new Option[] { defs, curated, lib, profiles, thresholds, budget })
+            {
+                command.Options.Add(option);
+            }
+
             command.SetAction(parse => Cli.Run(parse, report =>
             {
                 var levels = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).ToDictionary(l => l.LevelNumber);
+                (JArray scores, int mismatches) = ComputeScores(
+                    levels.Values.OrderBy(l => l.LevelNumber).ToList(),
+                    ContentStore.LoadRecords(parse.GetValue(defs)!),
+                    parse.GetValue(lib)!,
+                    parse.GetValue(profiles)!,
+                    parse.GetValue(thresholds)!,
+                    new SolveOptions(parse.GetValue(budget)),
+                    parse);
+                report["scores"] = scores;
                 foreach ((string _, LevelDefinition level) in ContentStore.LoadLevels(parse.GetValue(curated)!))
                 {
                     levels.TryAdd(level.LevelNumber, level);
@@ -209,7 +233,7 @@ namespace Bloomlings.Pipeline.Commands
                     lastUse[level.Picture.Id] = level.LevelNumber;
                 }
 
-                violations += repeatsInFirstHundred + closeRepeats.Count;
+                violations += repeatsInFirstHundred + closeRepeats.Count + mismatches;
                 report["similarity"] = new JObject
                 {
                     ["levelsUpTo100"] = firstHundred.Count,
@@ -227,6 +251,73 @@ namespace Bloomlings.Pipeline.Commands
                 return violations == 0 ? ExitCodes.Success : ExitCodes.ValidationFailed;
             }));
             return command;
+        }
+
+        /// <summary>
+        /// FR-082: each level's score from its metrics (the stored validation record when it matches the definition,
+        /// else a fresh solve) with its band's weights and thresholds, and whether the class and score stored in the
+        /// definition agree. Levels outside every band profile (the hand-curated L1–10) are skipped.
+        /// </summary>
+        private static (JArray Scores, int Mismatches) ComputeScores(
+            IReadOnlyList<LevelDefinition> levels,
+            IReadOnlyDictionary<int, ValidationRecord> records,
+            string lib,
+            string profilesFolder,
+            string thresholdsPath,
+            SolveOptions options,
+            ParseResult parse)
+        {
+            var bands = Directory.Exists(profilesFolder)
+                ? Directory.GetFiles(profilesFolder, "band-*.json").Select(ProfileLoader.ReadFile).OrderBy(p => p.LevelRange.Min).ToList()
+                : new List<GenerationProfile>();
+            string thresholdsJson = File.Exists(thresholdsPath) ? File.ReadAllText(thresholdsPath) : string.Empty;
+            Dictionary<string, BasePicture>? pictures = null;
+            var solver = new Solver.Solver();
+            var scores = new JArray();
+            int mismatches = 0;
+            foreach (LevelDefinition level in levels)
+            {
+                GenerationProfile? band = bands.FirstOrDefault(b => b.LevelRange.Contains(level.LevelNumber));
+                if (band == null || thresholdsJson.Length == 0)
+                {
+                    continue;
+                }
+
+                IReadOnlyDictionary<string, int> metrics;
+                if (records.TryGetValue(level.LevelNumber, out ValidationRecord? record) && record.DefinitionHash == ValidationRecord.HashOf(level))
+                {
+                    metrics = record.Metrics;
+                }
+                else
+                {
+                    pictures ??= Pictures(lib);
+                    BasePicture picture = Usable(pictures[Key(level.Picture)], parse, level.LevelNumber);
+                    metrics = solver.Analyze(LevelSession.Load(level, picture, new SessionOptions(1, 20000)), options).Metrics.ToDictionary();
+                }
+
+                DifficultyThresholds thresholds = ProfileLoader.ReadThresholds(thresholdsJson, band.BandId);
+                int score = DifficultyScorer.Score(metrics, thresholds);
+                DifficultyClass computed = DifficultyScorer.Classify(score, thresholds);
+                bool agrees = level.Difficulty.Overridden || (computed == level.Difficulty.Class && score == level.Difficulty.Score);
+                if (!agrees)
+                {
+                    mismatches++;
+                    Cli.Say(parse, $"  L{level.LevelNumber}: stored {level.Difficulty.Class} ({level.Difficulty.Score}), computed {computed} ({score}) with {band.BandId}");
+                }
+
+                scores.Add(new JObject
+                {
+                    ["level"] = level.LevelNumber,
+                    ["band"] = band.BandId,
+                    ["score"] = score,
+                    ["class"] = computed.ToString(),
+                    ["stored"] = level.Difficulty.Class.ToString(),
+                    ["agrees"] = agrees,
+                });
+            }
+
+            Cli.Say(parse, $"  scores: {scores.Count} levels scored, {mismatches} disagree with their stored class or score (FR-082).");
+            return (scores, mismatches);
         }
 
         public static Command ReviewSheet()
@@ -255,7 +346,7 @@ namespace Bloomlings.Pipeline.Commands
 
         public static Command Publish()
         {
-            var command = new Command("publish", "Assemble level, picture and daily packs and the content-manifest.v1 (R5, R6).");
+            var command = new Command("publish", "Validate the whole catalog again (the release gate), then assemble level, picture and daily packs and the content-manifest.v1 (R5, R6).");
             Option<string> defs = Cli.Path("--catalog", "content/catalog", "Catalog folder.");
             Option<string> lib = Lib();
             Option<int> version = new Option<int>("--content-version") { Description = "Content version.", Required = true };
@@ -265,7 +356,10 @@ namespace Bloomlings.Pipeline.Commands
             Option<int> shuffleBudget = Cli.Int("--shuffle-node-budget", 50_000, "Shuffle node budget, fixed for this content version (R10).");
             Option<string> daily = Cli.Path("--daily", string.Empty, "Daily pool folder (optional).");
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Playtest builds only: include pictures that are not approved yet, marked as draft previews. Never for release." };
-            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, shuffleBudget, daily, allowDraft })
+            Option<string> pairs = Cli.Path("--pairs", "content/readability/approved-pairs.json", "Approved readability pairs.");
+            Option<int> budget = Budget();
+            Option<string> level8 = Cli.Level8();
+            foreach (Option option in new Option[] { defs, lib, version, outDir, minApp, pictureVersion, shuffleBudget, daily, allowDraft, pairs, budget, level8 })
             {
                 command.Options.Add(option);
             }
@@ -279,6 +373,27 @@ namespace Bloomlings.Pipeline.Commands
                 }
 
                 Dictionary<string, BasePicture> library = Pictures(parse.GetValue(lib)!);
+                List<LevelDefinition> dailyLevels = parse.GetValue(daily)!.Length > 0
+                    ? ContentStore.LoadLevels(parse.GetValue(daily)!).Select(l => l.Level).ToList()
+                    : new List<LevelDefinition>();
+
+                // The release gate (FR-080, FR-081, FR-083): the whole catalog is validated again, and any error stops the
+                // publish. The daily pool is checked level by level (its numbers are pool indexes, not Level N). With
+                // --allow-draft only unapproved pictures are tolerated, never an unsolvable or otherwise invalid level.
+                List<LevelIssue> issues = GateIssues(parse.GetValue(lib)!, parse.GetValue(pairs)!, parse.GetValue(budget), levels, dailyLevels, UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
+                var blocking = issues.Where(i => i.IsError && !(parse.GetValue(allowDraft) && i.Check == "picture-approved")).ToList();
+                report["gateErrors"] = new JArray(blocking.Select(i => new JObject { ["level"] = i.Level, ["check"] = i.Check, ["message"] = i.Message }).ToArray());
+                if (blocking.Count > 0)
+                {
+                    foreach (LevelIssue issue in blocking)
+                    {
+                        Cli.Say(parse, $"  error L{issue.Level} {issue.Check}: {issue.Message}");
+                    }
+
+                    Cli.Say(parse, $"publish refused: {blocking.Count} validation errors (run validate for the full report).");
+                    return ExitCodes.ValidationFailed;
+                }
+
                 var drafts = new SortedSet<string>(StringComparer.Ordinal);
                 BasePicture Publishable(string key)
                 {
@@ -299,9 +414,9 @@ namespace Bloomlings.Pipeline.Commands
 
                 var used = levels.Select(l => Key(l.Picture)).Distinct().Select(Publishable).ToList();
                 var pool = new List<DailyPoolEntry>();
-                if (parse.GetValue(daily)!.Length > 0)
+                if (dailyLevels.Count > 0)
                 {
-                    foreach ((string _, LevelDefinition level) in ContentStore.LoadLevels(parse.GetValue(daily)!))
+                    foreach (LevelDefinition level in dailyLevels)
                     {
                         pool.Add(new DailyPoolEntry(level.LevelNumber - 1, level));
                         if (!used.Any(p => p.Id == level.Picture.Id && p.Version == level.Picture.Version))
@@ -336,6 +451,22 @@ namespace Bloomlings.Pipeline.Commands
             return command;
         }
 
+        /// <summary>The validation issues of a catalog and its daily pool, for the publish gate.</summary>
+        public static List<LevelIssue> GateIssues(string lib, string pairsPath, int budget, IReadOnlyList<LevelDefinition> levels, IReadOnlyList<LevelDefinition> dailyLevels, UnlockRoadmap? roadmap = null)
+        {
+            List<BasePicture> library = ContentStore.LoadLibrary(lib);
+            ApprovedPairs? pairs = ContentStore.LoadPairs(pairsPath);
+            roadmap ??= UnlockRoadmap.Default;
+            var issues = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)).Validate(levels).Issues;
+            if (dailyLevels.Count > 0)
+            {
+                var daily = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)) { CheckBandGuidelines = false, CheckSequences = false };
+                issues.AddRange(daily.Validate(dailyLevels).Issues.Select(i => i with { Check = "daily-" + i.Check }));
+            }
+
+            return issues;
+        }
+
         public static Command Replay()
         {
             var command = new Command("replay", "Replay a command log against a level and print the event summary and the final StateHash (support).");
@@ -343,18 +474,41 @@ namespace Bloomlings.Pipeline.Commands
             Option<string> lib = Lib();
             Option<int> level = new Option<int>("--level") { Description = "Level number.", Required = true };
             Option<string> log = Cli.Required("--log", "Command log: one command per line (tap:p1, restart, …).");
-            Option<int> contentVersion = Cli.Int("--content-version", 1, "Content version of the session (salts Shuffle).");
-            Option<int> shuffleBudget = Cli.Int("--shuffle-node-budget", 50_000, "Shuffle node budget of that content version.");
-            foreach (Option option in new Option[] { defs, lib, level, log, contentVersion, shuffleBudget })
+            Option<int> contentVersion = Cli.Int("--content-version", 0, "Content version of the session (salts Shuffle). With --content it must match the manifest.");
+            Option<int> shuffleBudget = Cli.Int("--shuffle-node-budget", 50_000, "Shuffle node budget of that content version (taken from the manifest with --content).");
+            Option<string> published = Cli.Path("--content", string.Empty, "A published content version (publish output): the level, picture, content version and Shuffle budget come from its manifest, as on the player's device.");
+            foreach (Option option in new Option[] { defs, lib, level, log, contentVersion, shuffleBudget, published })
             {
                 command.Options.Add(option);
             }
 
             command.SetAction(parse => Cli.Run(parse, report =>
             {
-                LevelDefinition definition = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).Single(l => l.LevelNumber == parse.GetValue(level));
-                BasePicture picture = Usable(Pictures(parse.GetValue(lib)!)[Key(definition.Picture)], parse, definition.LevelNumber);
-                LevelSession session = LevelSession.Load(definition, picture, new SessionOptions(parse.GetValue(contentVersion), parse.GetValue(shuffleBudget)));
+                LevelDefinition definition;
+                BasePicture picture;
+                SessionOptions sessionOptions;
+                if (parse.GetValue(published)!.Length > 0)
+                {
+                    ContentSet content = ContentStore.LoadPublished(parse.GetValue(published)!);
+                    int wanted = parse.GetValue(contentVersion);
+                    if (wanted != 0 && wanted != content.ContentVersion)
+                    {
+                        throw new ArgumentException($"--content holds content version {content.ContentVersion}, not {wanted}.");
+                    }
+
+                    definition = content.GetLevel(parse.GetValue(level));
+                    picture = content.GetPicture(definition.Picture);
+                    sessionOptions = new SessionOptions(content.ContentVersion, content.ShuffleNodeBudget);
+                }
+                else
+                {
+                    definition = ContentStore.LoadLevels(parse.GetValue(defs)!).Select(l => l.Level).Single(l => l.LevelNumber == parse.GetValue(level));
+                    picture = Usable(Pictures(parse.GetValue(lib)!)[Key(definition.Picture)], parse, definition.LevelNumber);
+                    sessionOptions = new SessionOptions(Math.Max(1, parse.GetValue(contentVersion)), parse.GetValue(shuffleBudget));
+                }
+
+                report["contentVersion"] = sessionOptions.ContentVersion;
+                LevelSession session = LevelSession.Load(definition, picture, sessionOptions);
                 var lines = new JArray();
                 foreach (string line in File.ReadAllLines(parse.GetValue(log)!).Select(l => l.Trim()).Where(l => l.Length > 0 && !l.StartsWith("#", StringComparison.Ordinal)))
                 {
@@ -375,19 +529,25 @@ namespace Bloomlings.Pipeline.Commands
 
         public static Command Diff()
         {
-            var command = new Command("diff", "Compare two catalogs: every changed level needs a deliberate definitionVersion bump (FR-076).");
-            Option<string> from = Cli.Required("--from", "Earlier catalog: a folder or a git ref such as main.");
-            Option<string> to = Cli.Path("--to", "content/catalog", "Later catalog folder.");
+            var command = new Command("diff", "Compare two content versions or catalogs: every changed level needs a deliberate definitionVersion bump (FR-076).");
+            Option<string> from = Cli.Required("--from", "Earlier content: a published content version (publish output), a catalog folder, or a git ref such as main.");
+            Option<string> to = Cli.Path("--to", "content/catalog", "Later content: a published content version or a catalog folder.");
+            Option<string> lib = Lib();
             command.Options.Add(from);
             command.Options.Add(to);
+            command.Options.Add(lib);
             command.SetAction(parse => Cli.Run(parse, report =>
             {
                 string toFolder = parse.GetValue(to)!;
-                string fromValue = parse.GetValue(from)!;
-                List<LevelDefinition> before = Directory.Exists(fromValue)
-                    ? ContentStore.LoadLevels(fromValue).Select(l => l.Level).ToList()
-                    : ContentStore.LoadLevelsAtGitRef(fromValue, toFolder);
-                var after = ContentStore.LoadLevels(toFolder).Select(l => l.Level).ToDictionary(l => l.LevelNumber);
+                (List<LevelDefinition> before, int? fromVersion) = ContentStore.LoadAny(parse.GetValue(from)!, toFolder);
+                (List<LevelDefinition> later, int? toVersion) = ContentStore.LoadAny(toFolder, toFolder);
+                var after = later.ToDictionary(l => l.LevelNumber);
+                report["fromContentVersion"] = fromVersion;
+                report["toContentVersion"] = toVersion;
+                if (fromVersion != null && toVersion != null && toVersion <= fromVersion)
+                {
+                    throw new ArgumentException($"--to (v{toVersion}) must be a later content version than --from (v{fromVersion}).");
+                }
                 var changed = new JArray();
                 var errors = new JArray();
                 foreach (LevelDefinition old in before)
@@ -410,6 +570,19 @@ namespace Bloomlings.Pipeline.Commands
                     }
                 }
 
+                // A picture that changed under the same id and version would silently change shipped levels.
+                var pictureChanges = new JArray();
+                Dictionary<string, BasePicture> earlierPictures = ContentStore.PicturesOf(parse.GetValue(from)!, parse.GetValue(lib)!).ToDictionary(p => p.Id + "@" + p.Version);
+                foreach (BasePicture picture in ContentStore.PicturesOf(toFolder, parse.GetValue(lib)!))
+                {
+                    if (earlierPictures.TryGetValue(picture.Id + "@" + picture.Version, out BasePicture? earlier) && Comparable(earlier) != Comparable(picture))
+                    {
+                        pictureChanges.Add(picture.Id);
+                        errors.Add($"picture {picture.Id} v{picture.Version} changed without a new picture version");
+                    }
+                }
+
+                report["changedPictures"] = pictureChanges;
                 int added = after.Keys.Count(k => before.All(b => b.LevelNumber != k));
                 report["changed"] = changed;
                 report["added"] = added;
@@ -424,6 +597,10 @@ namespace Bloomlings.Pipeline.Commands
             }));
             return command;
         }
+
+        /// <summary>A picture's content without its review metadata: approving a picture is not a change to it.</summary>
+        private static string Comparable(BasePicture picture) =>
+            BasePictureJson.Write(picture with { Review = new PictureReview(ReviewStatus.Approved, null, null, null) }, indented: false);
 
         private static ValidationRecord Record(LevelDefinition definition, LevelAnalysis analysis, SolveOptions options) => new ValidationRecord(
             definition.LevelNumber,

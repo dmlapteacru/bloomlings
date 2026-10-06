@@ -2,7 +2,7 @@
   "commands": ["tap:w1", "tap:l1", "tap:w2"],
   "contentVersion": 1,
   "definition": {
-    "definitionVersion": 1,
+    "definitionVersion": 2,
     "difficulty": {
       "class": "normal",
       "score": 0
@@ -10,7 +10,7 @@
     "entries": [
       {
         "side": "bottom",
-        "x": 3,
+        "x": 5,
         "y": 0
       }
     ],
@@ -22,21 +22,21 @@
     },
     "picture": {
       "id": "sprout",
-      "version": 1
+      "version": 2
     },
     "pods": [
       {
-        "count": 20,
+        "count": 44,
         "id": "w1",
         "variantId": "water"
       },
       {
-        "count": 21,
+        "count": 44,
         "id": "w2",
         "variantId": "water"
       },
       {
-        "count": 11,
+        "count": 34,
         "id": "l1",
         "variantId": "leaf"
       }
@@ -54,8 +54,8 @@
     }
   },
   "description": "Curated Level 1 (Sprout): a winning order with the lowest buffer peak. Level N must give the same result everywhere (SC-011).",
-  "expectedEventsDigest": "aaf9b714bc097485",
-  "expectedStateHash": "5cc3175c01f42eab",
+  "expectedEventsDigest": "2e2012a83ff620fb",
+  "expectedStateHash": "197eb58ca7ad1d2d",
   "expectedStatus": "won",
   "name": "curated-l0001",
   "picture": {
@@ -63,20 +63,24 @@
       "mode": "auto"
     },
     "grid": [
-      [-1, 0, 0, 0, 0, 0, -1],
-      [0, 0, 0, 1, 0, 0, 0],
-      [0, 0, 0, 1, 0, 0, 0],
-      [0, 1, 1, 0, 1, 1, 0],
-      [0, 0, 1, 1, 1, 0, 0],
-      [0, 0, 0, 1, 1, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0],
-      [-1, 0, 0, 0, 0, 0, -1]
+      [-1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1],
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
+      [0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
+      [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+      [0, 1, 1, 1, 1, 0, 1, 1, 1, 1, 0],
+      [0, 0, 1, 1, 0, 0, 0, 1, 1, 0, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+      [-1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1]
     ],
-    "height": 8,
+    "height": 12,
     "id": "sprout",
     "review": {
-      "date": "2026-09-29",
-      "notes": "Curated onboarding picture (T067); pending playtest.",
+      "date": "2026-10-05",
+      "notes": "Curated onboarding picture (T067), redrawn at the bigger onboarding size on the owner's request of 2026-10-05 (spec 001 FR-008 as amended); pending the owner's look and playtest.",
       "reviewer": "content",
       "status": "approved"
     },
@@ -103,8 +107,8 @@
       "bands": ["onboarding"],
       "themes": ["garden"]
     },
-    "version": 1,
-    "width": 7
+    "version": 2,
+    "width": 11
   },
   "shuffleNodeBudget": 20000
 }

@@ -8,7 +8,7 @@ r0 PodCommitted f3 slot=2 stack=2 depth=0
 r0 PodCommitted f4 slot=3 stack=3 depth=0
 > tap:f5
 r0 PodCommitted f5 slot=4 stack=4 depth=0
-r1 LevelJammed recoveries=ExtraSlot,Shuffle,Return,BloomBurst
+r1 LevelJammed recoveries=ExtraSlot,Return,BloomBurst
 > extra_slot
 r0 ExtraSlotAdded 5
 > extra_slot rejected:BoosterNotApplicable

@@ -132,11 +132,72 @@ ordered **event log**. The next command always applies to that settled state. An
 - **Scheduling.** Each logical round becomes a visual *wave*. For each cleared tile a Bloomling walks from its entry
   along the BFS path (the positions come from the event data), then plays the family's restore animation.
 - **Speed.** 2× speed only scales the timeline (FR-069).
-- **Backlog compression.** If the pending visual time exceeds a threshold (default 1.5 s, remotely tunable), the
-  scheduler speeds playback up to 4× and merges walkers. One sprite may then represent several tiles; this is visual
-  only.
+- **Backlog compression.** If the pending visual time exceeds a threshold (default 12 s since 2026-10-05, 6 s from
+  2026-10-03, 1.5 s before; remotely tunable), the scheduler speeds playback up to 4× and merges walkers. One sprite may then represent several
+  tiles; this is visual only.
 - **Input.** Input is evaluated against the **logical** state and gets immediate feedback within 0.1 s, independent of
   the backlog (FR-070, SC-008). A pod tapped while its target slot is still animating an exit is queued visually.
+- **Amendment (2026-10-03, the owner's report: "two pods tapped one after another land in the same slot, and even in
+  two slots they do not seem to work at the same time").** The rules were right: a tap settles at once, so a pod whose
+  tiles are all reachable finishes and frees its slot at once (FR-022), and the next pod takes that slot (FR-014). The
+  presentation was not: it played every tap's waves in one queue, and showed a pod in its rules' slot even while that
+  slot still showed the finishing pod. Now:
+  - the waves of one tap play one after another, as its rounds do, and the waves of different taps play side by side
+    (FR-018 as the player sees it). A wave waits only as long as it must: each of its Bloomlings steps on a cell of its
+    route, or reaches its target, only after that cell's earlier change has shown (a tile an earlier tap clears, a layer
+    revealed under it), and a special's progress and a pod's leaving keep the rules' order. Wave ends, arrivals and
+    starts play in time order (in that order at one moment), also when a booster shows everything at once, and the
+    level's outcome (win, jam, stuck) shows after every wave an earlier tap still plays;
+  - a committed pod shows in its rules' slot when that slot shows no pod, else in the first usable slot that shows
+    none, else it waits in a queue until one frees. Where a pod shows never changes an outcome (the rules decide which
+    slot it holds, FR-024); Return aims at the shown pod's slot in the rules;
+  - the clearing pace is halved (the owner: "the initial board clearing speed must be halved"): 0.18 s a route step in
+    the playtest (was 0.09), 0.14 s in Unity (was 0.07), waves of 0.6–3.2 s and 0.6–2.8 s (were 0.3–1.6 s and 0.3–1.4 s).
+  `playtest/check` replays every golden case and showcase solution (with pauses and rapid taps) to the rules' state, and
+  checks two quick taps on every level: wherever both taps have work their waves play side by side, and never in one
+  slot.
+- **Amendment (2026-10-05, the owner: "the board clearing speed at 1x must be halved").** The pace is halved again: 0.36 s
+  a route step in the playtest (was 0.18), 0.28 s in Unity (was 0.14), waves of 1.2–6.4 s and 1.2–5.6 s (were
+  0.6–3.2 s and 0.6–2.8 s); the restore keeps its time. 2× still doubles the clock, so it now plays at the old 1× pace.
+  The backlog speed-up threshold doubles with it, to 12 s (Remote Config `fx.backlogThresholdMs` 12000, range
+  2000–20000), so quick taps do not speed the slower clearing up again sooner than before. Presentation only: no
+  outcome changes (FR-069).
+- **Amendment (2026-10-05, the owner: "on hard levels I can tap quickly and the pods stack one after another; they
+  must not pile up, the player must wait until a slot frees, or the jam is bypassed").** The rules settle a tap at once,
+  so a finished pod frees its slot in the rules while its Bloomlings still walk on screen, and quick taps could commit
+  pods the screen had no room for (they waited in the visual queue). Now a pod tap goes in only when a usable slot shows
+  no pod on screen (one per pod of a connected group; `LevelAnimator.FreeOnScreen`, `SlotRowView.FreeOnScreen`); before
+  that it gets the no-free-slot feedback and the rules never see it (FR-014 as amended). The input is still checked
+  against the logical state first and answered within 0.1 s; the rules stay deterministic for the taps they get (the same
+  definition and tap sequence give the same outcome), and the gate only decides when the player may make the next tap.
+  The visual queue stays as a safety net. The level tester (instant results) keeps no gate.
+- **Amendment (2026-10-04, the owner on L1: "if you pick all 3 at once, the first blue must finish before the green
+  starts, though the greens could start running in the middle of the first blue").** A wave's Bloomlings set off
+  together, so the leaf pod's whole wave waited for its farthest Bloomling, whose route crossed the last tiles the
+  second water pod clears (about 9.7 s), while its tile beside the entry was free after the first step. Now each
+  Bloomling (each walker, in Unity a merged walker) sets off on its own as soon as every cell of its route and its
+  target has shown its earlier change; the wave ends after its last arrival, its end events still in the rules' order
+  (both builds: `LevelAnimator`, `TimelinePlayer`). On L1 the leaf pod's first Bloomling now sets off at about 2 s, while
+  the first water pod still works (`playtest/check`, `EventTimelineTests`).
+- **Auto 2× (2026-10-04, the owner: "when all slots are picked, nothing more to choose from, 2× must turn on by
+  itself").** While no exposed pod can be tapped (every pod picked, or the level decided), the animation plays at 2×
+  (at least; the player's 2× stays 2×) and the speed pill shows 2×; the player's saved choice is unchanged. Re-checked
+  after every command (both builds: `LevelScreen.RefreshSpeed`, `GameplayController.RefreshSpeed`). Animation only
+  (FR-069).
+- **Amendment (2026-10-06, the owner: "it must be mesmerizing; in the reference game the ants carry slowly and
+  beautifully, you just sit and watch", then "not too fast, or a whole level lasts ten seconds; something in
+  between").** The clearing plays in one of seven styles (spec 005 FR-038). Every style takes the same time for a tile n
+  route cells from its entry: `ClearStyles.TripSeconds(n)` = 1.1 s × n + 1.4 s, from the Bloomling leaving the arch to
+  the tile's clear (the slot's count going down). Each style splits that time into legs: out, an act at the tile, an
+  optional way back, and the tile's last leg into the slot (`ClearStyles.LegsOf`). The waves' length clamps at 1.2–40 s
+  (was 1.2–6.4 s and 1.2–5.6 s), so no trip is squeezed. A pod's Bloomlings leave each arch in a line, at least
+  `ClearStyles.LineGap` (0.42 s) apart, nearer tiles first, its later rounds and taps joining the line; different pods'
+  lines run side by side (FR-018; on L1 the leaf pod's line still sets off while the first water pod works). A tap's later rounds no longer wait for
+  its earlier rounds to end: each Bloomling waits only for its way, as before, and the rounds' end events keep the rules'
+  order. A later Bloomling may cross a cell once its tile is gone from it (eaten, picked up, in a bubble; the style's
+  out and act legs) unless a layer comes up under it. The backlog speed-up waits for 60 s of backlog
+  (`fx.backlogThresholdMs` 60000, range 2000–120000), so the calm pace is kept in normal play. 2× and auto 2× still
+  double the clock. Presentation only: no outcome changes (FR-069), both builds (`LevelAnimator`, `TimelinePlayer`).
 - **Worker cap.** Active Bloomling sprites come from a bounded pool of about 60 on low-end devices; extra work is shown
   aggregated.
 

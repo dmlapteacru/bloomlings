@@ -1,5 +1,5 @@
 {
-  "definitionVersion": 1,
+  "definitionVersion": 2,
   "difficulty": {
     "class": "normal",
     "score": 0
@@ -7,7 +7,7 @@
   "entries": [
     {
       "side": "bottom",
-      "x": 3,
+      "x": 5,
       "y": 0
     }
   ],
@@ -32,38 +32,38 @@
     "cells": [
       {
         "hole": true,
-        "x": 1,
-        "y": 4
+        "x": 2,
+        "y": 6
       },
       {
         "keyId": "key1",
-        "x": 2,
-        "y": 1
+        "x": 4,
+        "y": 2
       }
     ]
   },
   "picture": {
     "id": "kite",
-    "version": 1
+    "version": 2
   },
   "pods": [
     {
-      "count": 18,
+      "count": 43,
       "id": "w1",
       "variantId": "water"
     },
     {
-      "count": 17,
+      "count": 43,
       "id": "w2",
       "variantId": "water"
     },
     {
-      "count": 12,
+      "count": 25,
       "id": "k1",
       "variantId": "violet_bud"
     },
     {
-      "count": 4,
+      "count": 10,
       "id": "t1",
       "variantId": "acorn"
     }
@@ -77,8 +77,8 @@
     {
       "cells": [
         {
-          "x": 1,
-          "y": 4
+          "x": 2,
+          "y": 6
         }
       ],
       "condition": {

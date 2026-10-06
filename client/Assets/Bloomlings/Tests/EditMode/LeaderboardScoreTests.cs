@@ -56,5 +56,15 @@ namespace Bloomlings.Client.Tests
             var unspecified = new DateTime(2026, 3, 1, 8, 30, 0, DateTimeKind.Unspecified);
             Assert.That(LeaderboardScore.Encode(7, unspecified), Is.EqualTo(LeaderboardScore.Encode(7, Early)));
         }
+
+        [Test]
+        public void AnEntry_KnowsWhenItsLevelWasReached()
+        {
+            var reached = new DateTime(2026, 5, 4, 10, 15, 0, DateTimeKind.Utc);
+            var entry = new Bloomlings.Client.Services.Backend.LeaderboardEntry(3, "Ada", 120, false, LeaderboardScore.Encode(120, reached));
+
+            Assert.That(entry.ReachedAtUtc, Is.EqualTo(reached));
+            Assert.That(new Bloomlings.Client.Services.Backend.LeaderboardEntry(3, "Ada", 120, false).ReachedAtUtc, Is.Null, "unknown without a score");
+        }
     }
 }

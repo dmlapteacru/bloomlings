@@ -2,7 +2,7 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 12,
+  "height": 14,
   "id": "cottage_03",
   "legend": {
     "d": "door",
@@ -64,6 +64,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 12
+  "version": 2,
+  "width": 14
 }

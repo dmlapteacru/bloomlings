@@ -12,6 +12,9 @@ namespace Bloomlings.Client.Meta.DailyReward
     /// persisted in the save's <c>daily</c> section. A claim pays <c>daily.reward.petals</c> plus
     /// <c>daily.reward.streakBonusPetals</c> for each consecutive day after the first, capped at
     /// <c>daily.reward.streakMaxDays</c>; a missed day starts the streak again. Engine-free, driven by <see cref="IClock"/>.
+    /// The claim date only moves forward (<see cref="DailyDates.IsLater"/>): setting the device clock back and forth
+    /// gives nothing, as a claim waits until a day after the last claimed one. The day is the UTC day, the same on every
+    /// device, so cloud saves from different time zones merge by date.
     /// </summary>
     public sealed class DailyRewardService
     {
@@ -34,7 +37,7 @@ namespace Bloomlings.Client.Meta.DailyReward
 
         public bool IsUnlocked => _save.Unlocks.IsSet(UnlockId);
 
-        public bool CanClaim => IsUnlocked && _save.Daily.RewardLastClaimUtcDate != Today;
+        public bool CanClaim => IsUnlocked && DailyDates.IsLater(Today, _save.Daily.RewardLastClaimUtcDate);
 
         /// <summary>The streak day a claim now would be (1 after a gap or on the first claim).</summary>
         public int NextStreak
@@ -42,19 +45,25 @@ namespace Bloomlings.Client.Meta.DailyReward
             get
             {
                 string? last = _save.Daily.RewardLastClaimUtcDate;
-                string yesterday = Format(_clock.UtcToday.AddDays(-1));
+                string yesterday = DailyDates.Format(_clock.UtcToday.AddDays(-1));
                 return last == yesterday ? _save.Daily.RewardStreak + 1 : 1;
             }
         }
 
         /// <summary>What a claim now pays.</summary>
-        public int NextPetals
+        public int NextPetals => PetalsOn(NextStreak);
+
+        /// <summary>
+        /// The streak day of today's reward, for the card (Home's Daily scene opens it after the claim too, spec 005
+        /// FR-032): the day a claim now would be while one is due, else the day last claimed.
+        /// </summary>
+        public int TodayStreak => CanClaim || _save.Daily.RewardLastClaimUtcDate == null ? NextStreak : Math.Max(1, _save.Daily.RewardStreak);
+
+        /// <summary>What the reward pays on streak day <paramref name="streak"/> (the bonus capped at <c>daily.reward.streakMaxDays</c>).</summary>
+        public int PetalsOn(int streak)
         {
-            get
-            {
-                int capped = Math.Min(NextStreak, _config.Get(RemoteConfigKeys.DailyStreakMaxDays));
-                return _config.Get(RemoteConfigKeys.DailyRewardPetals) + (_config.Get(RemoteConfigKeys.DailyStreakBonusPetals) * (capped - 1));
-            }
+            int capped = Math.Max(1, Math.Min(streak, _config.Get(RemoteConfigKeys.DailyStreakMaxDays)));
+            return _config.Get(RemoteConfigKeys.DailyRewardPetals) + (_config.Get(RemoteConfigKeys.DailyStreakBonusPetals) * (capped - 1));
         }
 
         /// <summary>Claims today's reward; returns the Petals paid, or 0 when not claimable.</summary>
@@ -73,8 +82,43 @@ namespace Bloomlings.Client.Meta.DailyReward
             return petals;
         }
 
-        private string Today => Format(_clock.UtcToday);
+        private string Today => DailyDates.Format(_clock.UtcToday);
+    }
 
-        private static string Format(DateTime utcDate) => utcDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+    /// <summary>The <c>yyyy-MM-dd</c> UTC dates of the save's <c>daily</c> section.</summary>
+    public static class DailyDates
+    {
+        public static string Format(DateTime utcDate) => utcDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+        /// <summary>Whether <paramref name="today"/> is a later day than <paramref name="last"/> (true when never).</summary>
+        public static bool IsLater(string today, string? last) => last == null || string.CompareOrdinal(today, last) > 0;
+    }
+
+    /// <summary>
+    /// The free-booster rewarded ad on Home (FR-052): once per UTC day, remembered in the save so a relaunch does not
+    /// bring it back, and like the Daily Reward it waits for a later day when the device clock is set back.
+    /// REMOTE-CONFIG-DEFERRED: the once-a-day cap (and the daily bonus's, one per claim) is local on purpose; whether it
+    /// becomes Remote Config (FR-085) is decided at the end (tasks.md, "Local values, Remote Config decided at the end").
+    /// </summary>
+    public sealed class FreeBoosterAd
+    {
+        private readonly PlayerSave _save;
+        private readonly IClock _clock;
+        private readonly Action _persist;
+
+        public FreeBoosterAd(PlayerSave save, IClock clock, Action persist)
+        {
+            _save = save;
+            _clock = clock;
+            _persist = persist;
+        }
+
+        public bool IsAvailable => DailyDates.IsLater(DailyDates.Format(_clock.UtcToday), _save.Daily.FreeBoosterAdUtcDate);
+
+        public void MarkTaken()
+        {
+            _save.Daily.FreeBoosterAdUtcDate = DailyDates.Format(_clock.UtcToday);
+            _persist();
+        }
     }
 }

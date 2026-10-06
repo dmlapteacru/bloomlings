@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Variants;
 using Bloomlings.Core.Random;
 using Bloomlings.Generator.Profiles;
 
@@ -25,6 +26,23 @@ namespace Bloomlings.Generator
             _library = new List<BasePicture>(library);
             _library.Sort((a, b) => string.CompareOrdinal(a.Id, b.Id));
             _allowDraft = allowDraft;
+        }
+
+        /// <summary>Whether any usable picture has a role of this color group (a variant can only map onto its own group).</summary>
+        public bool HasColorGroup(ColorGroup group)
+        {
+            foreach (BasePicture picture in _library)
+            {
+                foreach (PictureRole role in picture.Roles)
+                {
+                    if (role.ColorGroup == group)
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
         public IReadOnlyList<BasePicture> Candidates(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history)

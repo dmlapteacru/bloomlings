@@ -2,10 +2,11 @@
   "finishedLook": {
     "mode": "auto"
   },
-  "height": 13,
+  "height": 15,
   "id": "cactus_03",
   "legend": {
     "c": "cactus",
+    "d": "sand",
     "f": "flower",
     "o": "pot",
     "s": "sky"
@@ -35,6 +36,11 @@
       "colorGroup": "brown_orange",
       "name": "Pot",
       "roleId": "pot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
     }
   ],
   "source": {
@@ -52,6 +58,6 @@
       "garden"
     ]
   },
-  "version": 1,
-  "width": 13
+  "version": 2,
+  "width": 14
 }

@@ -82,7 +82,7 @@
     }
   },
   "description": "Five Flower pods jam the buffer; Extra Slot adds the sixth slot and the level is won (FR-043).",
-  "expectedEventsDigest": "a8ebf0f9fa68c876",
+  "expectedEventsDigest": "b4985276cdbf5b4f",
   "expectedStateHash": "9412cca1d88b44ca",
   "expectedStatus": "won",
   "name": "boost-extra-slot",

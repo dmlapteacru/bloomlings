@@ -2,114 +2,118 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1114
+    "score": 1245
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 7,
+      "x": 10,
       "y": 0
     }
   ],
-  "generatorVersion": "gen-1.0.0",
+  "generatorVersion": "gen-1.2.0",
   "levelNumber": 11,
   "mapping": {
-    "fish": "acorn",
-    "sand": "acorn",
-    "tail": "wood",
-    "water": "dew",
-    "weed": "moss"
+    "door": "acorn",
+    "grass": "moss",
+    "roof": "acorn",
+    "sky": "dew",
+    "wall": "flower",
+    "window": "dew"
   },
   "mechanics": ["stone"],
   "overlays": {
     "cells": [
       {
         "stone": true,
-        "x": 5,
-        "y": 1
+        "x": 0,
+        "y": 7
       },
       {
         "stone": true,
         "x": 2,
-        "y": 2
-      },
-      {
-        "stone": true,
-        "x": 5,
-        "y": 2
-      },
-      {
-        "stone": true,
-        "x": 6,
         "y": 8
+      },
+      {
+        "stone": true,
+        "x": 10,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 4,
+        "y": 12
       }
     ]
   },
   "picture": {
-    "id": "fish_01",
-    "version": 1
+    "id": "cottage_02",
+    "mirror": "horizontal",
+    "version": 2
   },
   "pods": [
     {
-      "count": 9,
+      "count": 15,
       "id": "p01",
-      "variantId": "dew"
+      "variantId": "acorn"
     },
     {
-      "count": 2,
+      "count": 12,
       "id": "p02",
       "variantId": "moss"
     },
     {
-      "count": 10,
-      "id": "p03",
-      "variantId": "dew"
-    },
-    {
-      "count": 11,
-      "id": "p04",
-      "variantId": "dew"
-    },
-    {
       "count": 12,
-      "id": "p05",
-      "variantId": "dew"
+      "id": "p03",
+      "variantId": "moss"
     },
     {
-      "count": 9,
+      "count": 14,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 13,
       "id": "p06",
       "variantId": "acorn"
     },
     {
-      "count": 10,
+      "count": 13,
       "id": "p07",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 6,
+      "count": 11,
       "id": "p08",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 11,
       "id": "p09",
-      "variantId": "wood"
+      "variantId": "dew"
     },
     {
-      "count": 1,
+      "count": 13,
       "id": "p10",
-      "variantId": "acorn"
+      "variantId": "dew"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "4523693810654960015",
+  "seed": "1998628254301546285",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09"],
-      ["p02", "p04", "p06", "p08", "p10"]
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07"],
+      ["p04", "p08"]
     ]
   }
 }

@@ -1,0 +1,74 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 3, 3, 3, 3, 4, 4, 4, 4, 4],
+    [0, 0, 0, -1, 0, 3, 3, 3, 3, 0, -1, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1],
+    [0, 0, -1, 1, 1, 1, 1, 1, 2, 1, 1, 0, 0, -1],
+    [-1, 0, 0, -1, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, 0, 0, 0, -1, 0, 0, 0, -1, -1, -1, -1, 0, -1]
+  ],
+  "height": 16,
+  "id": "mushroom_05",
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dots",
+      "roleId": "dot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stem",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.441,
+    "nestingDepth": 4,
+    "regionCount": 12
+  },
+  "subject": "Mushroom 5",
+  "tags": {
+    "bands": ["core"],
+    "themes": ["forest", "garden"]
+  },
+  "version": 2,
+  "width": 14
+}

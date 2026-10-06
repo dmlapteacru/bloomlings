@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Bloomlings.Client.Services.Feedback;
 
 namespace Bloomlings.Client.UI
 {
@@ -22,7 +23,8 @@ namespace Bloomlings.Client.UI
             var scaler = go.AddComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
             scaler.referenceResolution = UiTheme.ReferenceResolution;
-            scaler.matchWidthOrHeight = 0.5f;
+            // Match the width: the canvas is always 1080 units wide, so design-token sizes map one to one (spec 002).
+            scaler.matchWidthOrHeight = 0f;
             go.AddComponent<GraphicRaycaster>();
             EnsureEventSystem();
             return canvas;
@@ -102,26 +104,28 @@ namespace Bloomlings.Client.UI
             return label;
         }
 
-        public static Button CreateButton(string name, Transform parent, string label, Color color, Action onClick, float fontSize = 48f)
-        {
-            Image background = CreateImage(name, parent, ProceduralSprites.RoundedSquare, color, raycast: true);
-            var button = background.gameObject.AddComponent<Button>();
-            button.targetGraphic = background;
-            button.onClick.AddListener(() => onClick());
-            TextMeshProUGUI text = CreateText("Label", background.transform, label, fontSize, UiTheme.TextOnColor);
-            Stretch(text.rectTransform);
-            return button;
-        }
+        /// <summary>
+        /// A garden button (spec 003 FR-012): the green primary one when <paramref name="color"/> is the accent, else the
+        /// cream secondary one. The font size comes from the board's button styles.
+        /// </summary>
+        public static Button CreateButton(string name, Transform parent, string label, Color color, Action onClick, float fontSize = 48f) =>
+            color == UiTheme.Accent
+                ? UiKit.PrimaryButton(name, parent, label, onClick)
+                : UiKit.SecondaryButton(name, parent, label, onClick);
 
-        /// <summary>A full-screen shade with a centered white card; returns the card.</summary>
+        /// <summary>
+        /// A full-screen shade with a centered paper card in a wooden frame (spec 003 FR-015), popping in. Returns the
+        /// card.
+        /// </summary>
         public static RectTransform CreateModal(string name, Transform parent, float cardHeight01, out GameObject root)
         {
             Image shade = CreateImage(name, parent, null, UiTheme.PanelShade, raycast: true);
             Stretch(shade.rectTransform);
             root = shade.gameObject;
-            Image card = CreateImage("Card", shade.transform, ProceduralSprites.RoundedSquare, UiTheme.Panel, raycast: true);
+            Image card = UiKit.Paper("Card", shade.transform, 56f, Design.DesignTokens.Garden.FrameWidth, Design.DesignTokens.Garden.FrameDepthCard);
+            card.gameObject.AddComponent<PopMotion>();
             float half = cardHeight01 / 2f;
-            Place(card.rectTransform, 0.1f, 0.5f - half, 0.9f, 0.5f + half);
+            Place(card.rectTransform, 0.08f, 0.5f - half, 0.92f, 0.5f + half);
             return card.rectTransform;
         }
     }

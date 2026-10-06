@@ -26,18 +26,18 @@
   "bandId": "band-0501-1000",
   "boardSize": {
     "height": [
-      10,
+      12,
       16
     ],
     "width": [
-      9,
+      11,
       14
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    45,
-    240
+    60,
+    300
   ],
   "entryLayouts": [
     "bottom_center",
@@ -61,7 +61,7 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Long run: 4–6 variants, 10–30+ pods, work 90–300+, 45 s–4 min. Pace alternates short relief levels with long combination levels.",
+  "note": "Long run: 11\u00d712 to 14\u00d716, 4\u20136 variants, 10\u201330+ pods, work 100\u2013300+, 1\u20135 min. Pace alternates short relief levels with long combination levels.",
   "picturePool": {
     "themes": []
   },
@@ -96,7 +96,7 @@
     6
   ],
   "work": [
-    90,
+    100,
     320
   ]
 }

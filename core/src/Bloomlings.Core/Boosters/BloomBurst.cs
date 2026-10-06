@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Bloomlings.Core.Boards;
+using Bloomlings.Core.Mechanics;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Tray;
 using Bloomlings.Core.Variants;
@@ -10,7 +11,11 @@ namespace Bloomlings.Core.Boosters
     /// Bloom Burst (FR-050 default, T116): the player picks a visible exact variant; every remaining layer of it, visible
     /// and hidden, leaves the board, and every pod of it leaves the tray and the slots, so the accounting still
     /// reconciles. Where a cell's visible top layer goes, it counts as a clear: its key is collected and special
-    /// counters around it advance. Hidden layers that go do not count, as the player never saw them.
+    /// counters around it advance. Hidden layers that go advance the special counters around them too: those layers
+    /// can never be cleared by a pod any more, so a counter that needed them (a Fountain counting every Water layer
+    /// around it) would otherwise stay short for good and block the win. Keys stay tied to the top layer.
+    /// A mystery tile that is still hidden after the burst keeps its secret: it is left out of the burst's cells, so
+    /// the event never tells which hidden tiles held the variant.
     /// </summary>
     internal static class BloomBurst
     {
@@ -52,19 +57,35 @@ namespace Bloomlings.Core.Boosters
                 }
 
                 bool topRemoved = board.TopLayer(i) == variant;
-                if (state.BurstCell(i, variant) == 0)
+                int removed = state.BurstCell(i, variant);
+                if (removed == 0)
                 {
                     continue;
                 }
 
-                cells.Add(board.PosOf(i));
+                bool opened = !board.IsTarget(i);
+                if (opened || !board.IsMysteryHidden(i))
+                {
+                    cells.Add(board.PosOf(i));
+                }
+
+                var result = new LayerClearResult(variant, opened, opened ? default : board.TopLayer(i));
                 if (topRemoved)
                 {
-                    bool opened = !board.IsTarget(i);
-                    var result = new LayerClearResult(variant, opened, opened ? default : board.TopLayer(i));
                     foreach (IRoundHook hook in hooks)
                     {
                         hook.OnLayerCleared(context, i, result, -1);
+                    }
+                }
+
+                for (int hidden = topRemoved ? 1 : 0; hidden < removed; hidden++)
+                {
+                    foreach (IRoundHook hook in hooks)
+                    {
+                        if (hook is Specials)
+                        {
+                            hook.OnLayerCleared(context, i, result, -1);
+                        }
                     }
                 }
             }

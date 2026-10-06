@@ -3,18 +3,21 @@
     "mode": "auto"
   },
   "grid": [
-    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
-    [3, 3, 1, 1, 1, 1, 1, 1, 3, 3],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 1, 1, 1, 1, 1, 1, 1, 1, 0],
-    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0],
-    [0, 0, -1, -1, 2, 2, 0, 0, 0, 0],
-    [0, 0, -1, 0, 2, 2, -1, 0, 0, 0],
-    [0, 0, 0, 0, -1, 0, 0, 0, -1, 0],
-    [-1, -1, -1, 0, 0, -1, -1, -1, 0, -1]
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 1, 1, 1, 1, 3, 3, 3, 3],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, -1, 0, 0, -1, 2, 2, 0, 0, 0, 0, -1],
+    [0, 0, 0, 0, 0, 2, 2, 4, 4, 4, 0, -1],
+    [-1, 0, 0, -1, 0, 2, 0, 4, 4, -1, 0, 0],
+    [0, 0, -1, 0, 0, 0, -1, 0, 0, 0, -1, 0],
+    [-1, -1, -1, -1, 0, -1, -1, -1, -1, 0, 0, -1]
   ],
-  "height": 10,
+  "height": 13,
   "id": "pumpkin_01",
   "review": {
     "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); needs a recognizability review (FR-084, SC-015).",
@@ -41,6 +44,11 @@
       "colorGroup": "green",
       "name": "Grass",
       "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
     }
   ],
   "source": {
@@ -49,15 +57,15 @@
     "origin": "content/pictures/tools/sketch_pictures.py"
   },
   "structure": {
-    "backgroundShare": 0.32,
-    "nestingDepth": 3,
-    "regionCount": 7
+    "backgroundShare": 0.288,
+    "nestingDepth": 4,
+    "regionCount": 9
   },
   "subject": "Pumpkin 1",
   "tags": {
     "bands": ["early"],
     "themes": ["fruit", "garden"]
   },
-  "version": 1,
-  "width": 10
+  "version": 2,
+  "width": 12
 }

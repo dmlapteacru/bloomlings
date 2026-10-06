@@ -42,7 +42,11 @@ namespace Bloomlings.Pipeline.Commands
                     new PicturePicker(ContentStore.LoadLibrary(parse.GetValue(lib)!), parse.GetValue(allowDraft)),
                     ProfileLoader.ReadThresholds(File.ReadAllText(parse.GetValue(thresholds)!), band.BandId),
                     approved.IsApproved,
-                    new DifficultySchedule((ulong)parse.GetValue(seed)));
+                    new DifficultySchedule((ulong)parse.GetValue(seed)))
+                {
+                    // Pool indexes are not Level N: the daily profile's own ranges apply, not the band guidelines.
+                    UseBandGuidelines = false,
+                };
                 var history = new SortedDictionary<int, LevelDefinition>();
                 GenerationResult result = generator.Generate(1, parse.GetValue(count), (ulong)parse.GetValue(seed), history);
                 foreach (GeneratedLevel level in result.Accepted)

@@ -1,0 +1,17 @@
+{
+  "name": "bloomlings-heroanim",
+  "private": true,
+  "type": "module",
+  "description": "Pre-renders the owner's animated FBX heroes into flat frame pictures for Home and the win (spec 005 FR-028).",
+  "scripts": {
+    "bake": "node bake.mjs",
+    "layers": "node layers.mjs",
+    "check": "node check.mjs"
+  },
+  "dependencies": {
+    "jpeg-js": "0.4.4",
+    "playwright-core": "1.56.1",
+    "pngjs": "7.0.0",
+    "three": "0.160.0"
+  }
+}
