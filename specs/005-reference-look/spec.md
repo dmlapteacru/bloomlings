@@ -568,6 +568,34 @@ and the petals themselves must be removed from the game completely. I mean the p
   lotus loader's ring (FR-039) and the Petals currency.
 - Q: Older saves? → A: Their `homePetals` and `homePetalsOn` are read and ignored; no save writes them any more.
 
+### Session 2026-10-06 (the owner's purchases, the Animations tab and scrolling, playing the playtest APK)
+
+The owner: "Во время любых покупок, нужен попап подтверждения." ("Every purchase needs a confirmation popup.") "Не
+понятно как выбрать анимацию, потому что они запускаются и потом останавливаются в магазине. Как будто надо нажать и
+держать, но это не понятно юзеру." ("It is not clear how to choose an animation, because in the Store they start and
+then stop. As if you had to press and hold, but the player cannot tell.") "В косметик шопе, я пытаюсь скролить, а вместо
+этого нажимаются на ячейки и покупаются все косметики подряд. Нужно настроить нажатия там нормально и скрол." ("In the
+cosmetics shop I try to scroll, and the cells are pressed instead and every cosmetic is bought in a row. The taps and
+the scrolling there must work properly.")
+- Q: Which purchases ask? → A: Every one, in both builds (FR-040): the Store's boosters, cosmetics and clearing styles,
+  the Wardrobe's items for sale (the playtest), a booster used in a level without charges (it buys its charge), the
+  profile's avatars, and every real-money purchase (Remove Ads from its card or the Store, the Petal packs, the starter
+  pack, the booster bundle). A card in the game's card style names the item and its price ("Buy Fireflies for 5 000
+  Petals?") with its picture, a green Buy and a cream Cancel; nothing is spent until Buy, and a cancel buys nothing.
+  Short Petals say so at once without asking.
+- Q: And for real money, where the store shows its own sheet? → A: The confirmation comes first, then the platform's
+  purchase sheet: the player confirms twice, the second time in the store's own sheet (Unity; the playtest sells nothing
+  for money). The card says so ("Your app store confirms the payment next").
+- Q: Why did the previews stop? → A: The playtest drew a new frame only while something else moved or a finger was
+  down, so the previews ran only under a finger. They now loop all the time (FR-038 as amended); Unity's already did.
+- Q: How does a player choose a style? → A: Each card has its button: "Buy" with the price (it opens the
+  confirmation), "Choose" for an owned style that is not chosen, "Chosen" with a check for the chosen one; the free
+  pair's card reads "Chosen" or "Choose" too. Before L40 the card keeps its price and padlock, and a tap says from which
+  level.
+- Q: Scrolling? → A: The pages page with arrows; a drag on them now never taps, and a swipe turns the page as the arrows
+  do (FR-041): a tap fires only when the finger lifts within 10 dp of where it went down; past that the touch is a drag.
+  The board, the tray and the level's buttons keep their quick taps. The confirmation is the second safety net.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1072,7 +1100,8 @@ inventory.
   closes the card; "Buy for N" buys the picked avatar once (`ProfileService.TryBuy`), short Petals say so. A name is 1–16 letters, digits, spaces, `_ - .` (Latin and Cyrillic). The avatar shows on Home, the page, the
   card, the Wardrobe's profile tab and the player's own leaderboard row; while its picture is missing, its family's
   hero stands in. Presentation and profile cosmetics only (spec 001 FR-063 as amended): no gameplay effect.
-- **FR-038** *(the owner's clearing styles of 2026-10-06)*: The board MUST clear in one of seven styles, in both builds
+- **FR-038** *(the owner's clearing styles of 2026-10-06; amended the same day: the previews loop all the time and
+  each card has its button)*: The board MUST clear in one of seven styles, in both builds
   and in the Store's previews alike. The kit's engine-free `ClearStyles` and `ClearLook` hold the styles' timing and
   look, and each host only draws the list they give (contracts/look.md §6.12). Every style takes the same time for a
   tile (`ClearStyles.TripSeconds`). The Bloomlings leave the arch in a line, each style splitting the trip into its own
@@ -1091,8 +1120,12 @@ inventory.
   Blossom and Munchers MUST play by level (Blossom on Levels 1–10 and odd levels, Munchers on even levels from 12)
   while the player has chosen no bought style. A chosen bought style MUST play on every level. The Store MUST show an
   Animations tab from its unlock (L12): the free pair's card first, then each bought style's card with its live
-  preview, its 5000 Petals price, and a padlock before L40. A tap on a card buys the style from L40, before that it
-  says from which level, and when owned it chooses the style; the free card brings back the pair. Presentation and
+  preview, which MUST loop all the time (never only under a finger), its 5000 Petals price, and a padlock before L40.
+  Each card MUST carry its action button (contracts/look.md §6.12): "Buy" with the price while it can be bought (from
+  L40), "Choose" for an owned style that is not chosen (the free card while a bought style is chosen) and "Chosen" with
+  a check for the chosen one. A tap on a card asks to buy the style from L40 (the purchase confirmation, FR-040, buys and
+  chooses it), before that it says from which level, and when owned it chooses the style; the free card brings back
+  the pair. Presentation and
   board cosmetics only (spec 001 FR-063 as amended): no outcome changes, and the tiles, pods and walkers keep their
   variant icons and colors.
 - **FR-039** *(the owner's loading screen of 2026-10-06, "the lotus")*: Both builds MUST show the lotus loader as the
@@ -1105,6 +1138,24 @@ inventory.
   cover (an interstitial that is due shows here, spec 001 FR-053), hold 0.9 s and open on the level (0.5 s), about
   1.9 s in all. The iris is a round hole in the parchment with a pink rim, centered on the lotus. Nothing takes a tap
   while the cover shows. Presentation only: no rule or progression changes.
+- **FR-040** *(the owner's request of 2026-10-06: "Every purchase needs a confirmation popup")*: Every purchase MUST ask
+  for confirmation before anything is spent, in both builds (contracts/look.md §6.14; the kit's `PurchaseConfirmation`,
+  `ScreenLayout.PurchaseConfirm`, slot `ui.card.purchase`): for Petals, the Store's boosters, cosmetics and clearing
+  styles, the Wardrobe's items for sale, a booster used in a level without charges and the profile's avatars; for real
+  money, every product the purchases layer sells (Remove Ads from its card and from the Store, the Petal packs, the
+  starter pack, the booster bundle). The card MUST show the item's picture, name it and its price ("Buy Fireflies for
+  5 000 Petals?"), the cost pill, a green Buy and a cream Cancel. Nothing MUST be spent before Buy; Cancel (and the
+  system back) MUST buy nothing. Short Petals MUST say so without asking. For real money the confirmation comes before
+  the platform's purchase flow, whose own sheet then confirms the payment once more. Analytics and the economy stay as
+  they were: a confirmed purchase does exactly what the tap did before (a booster bought in a level is still a
+  `petals` use).
+- **FR-041** *(the owner's request of 2026-10-06: scrolling the cosmetics bought every cosmetic in a row)*: On a page
+  that scrolls (the Store, the Wardrobe, the Collection, the Leaderboard, the profile's edit card) a tap MUST fire only
+  when the finger lifts within `touch.slop` (10 dp) of where it went down; a drag farther MUST never tap (nothing looks
+  pressed) and, at least `touch.swipe` (40 dp) long, MUST turn the page as the arrows do, in both builds
+  (contracts/look.md §6.15; the kit's `TouchGesture`, the playtest's `IPainter.Scroll`, Unity's `SwipePager` and the
+  EventSystem's `pixelDragThreshold` from the screen's dpi). Taps elsewhere (the board, the tray, a level's buttons)
+  keep firing where the finger lifts.
 
 ### Key Entities
 
@@ -1166,6 +1217,10 @@ inventory.
     pressed controls.
 
   In the preview, every pod shown in the gameplay frames shows its variant and count, or "?" and its count.
+- **SC-012**: In the preview, every purchase asks first and a cancel buys nothing: a booster bought in a level, a
+  clearing style (frame 49), a cosmetic (frame 26) and an avatar (frame 40); a drag over the cosmetics buys nothing and
+  a swipe turns their page (frame 26); the Animations cards show Buy, Choose and Chosen and their previews keep the host
+  drawing (frames 42, 43 and 49; `PurchaseConfirmTests`, `ClearingServiceTests`).
 
 ## Assumptions
 

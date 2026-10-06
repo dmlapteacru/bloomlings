@@ -158,6 +158,16 @@ namespace Bloomlings.Client.UI.Screens
             screen._pagePrevious = UiKit.PageArrow("PagePrevious", root, next: false, () => screen.TurnPage(-1));
             screen._pageNext = UiKit.PageArrow("PageNext", root, next: true, () => screen.TurnPage(1));
 
+            // A drag on the page never taps a card (spec 005 FR-041); a swipe over the cards turns their page, as the arrows.
+            UiKit.Scrolls(screen._root, step =>
+            {
+                Button arrow = step > 0 ? screen._pageNext : screen._pagePrevious;
+                if (arrow.gameObject.activeSelf && arrow.interactable)
+                {
+                    screen.TurnPage(step);
+                }
+            }, screen._items);
+
             // The locked notice on the panel, shown only before the Wardrobe unlocks (FR-030).
             screen._notice = UiKit.LockedNotice("Locked", root);
             screen._notice.gameObject.SetActive(false);

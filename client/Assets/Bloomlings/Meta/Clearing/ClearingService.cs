@@ -26,6 +26,25 @@ namespace Bloomlings.Client.Meta.Clearing
     }
 
     /// <summary>
+    /// A clearing style's card button on the Store's Animations tab (spec 005 FR-038 as amended on 2026-10-06,
+    /// <see cref="ClearingService.ActionOf"/>): what a tap on the card does, shown so the player never has to guess.
+    /// </summary>
+    public enum ClearingAction
+    {
+        /// <summary>Not owned before <see cref="ClearStyles.BuyFromLevel"/>: the cost pill and the padlock; a tap says from which level.</summary>
+        Locked,
+
+        /// <summary>Not owned from L40: the green "Buy" with the price; a tap opens the purchase confirmation (FR-040).</summary>
+        Buy,
+
+        /// <summary>Owned (or the free pair) but not chosen: the cream "Choose".</summary>
+        Choose,
+
+        /// <summary>The chosen one (the free pair while no bought style is chosen): "Chosen" with a check; a tap changes nothing.</summary>
+        Chosen,
+    }
+
+    /// <summary>
     /// The board's clearing styles as board cosmetics (spec 005 FR-038; spec 001 FR-063 and FR-051 as amended): the free
     /// pair, Blossom and Munchers, plays by level; the five bought styles are bought once with Petals from
     /// <see cref="ClearStyles.BuyFromLevel"/> (Remote Config <c>economy.price.clearing</c>, 5000 for now) and, once chosen,
@@ -80,9 +99,42 @@ namespace Bloomlings.Client.Meta.Clearing
         /// <summary>Whether a bought style can be bought at <paramref name="level"/>: from L40, with the other cosmetics.</summary>
         public static bool IsOpenAt(int level) => level >= ClearStyles.BuyFromLevel;
 
+        /// <summary>The card button of <paramref name="style"/> at <paramref name="level"/> (<see cref="ClearingAction"/>).</summary>
+        public ClearingAction ActionOf(ClearStyle style, int level) =>
+            IsChosen(style) ? ClearingAction.Chosen
+            : Owns(style) ? ClearingAction.Choose
+            : IsOpenAt(level) ? ClearingAction.Buy
+            : ClearingAction.Locked;
+
+        /// <summary>
+        /// What a tap on <paramref name="style"/>'s card would do at <paramref name="level"/>, without doing it: the hosts
+        /// ask the purchase confirmation first (spec 005 FR-040) when it would buy (<see cref="ClearingTap.Bought"/>) and
+        /// tap at once otherwise (choosing spends nothing; a refused tap says why).
+        /// </summary>
+        public ClearingTap Check(ClearStyle style, int level)
+        {
+            if (Owns(style))
+            {
+                return ClearingTap.Chosen;
+            }
+
+            if (!IsOpenAt(level))
+            {
+                return ClearingTap.Locked;
+            }
+
+            if (_economy == null || Price <= 0)
+            {
+                return ClearingTap.Unavailable;
+            }
+
+            return _economy.Petals < Price ? ClearingTap.Short : ClearingTap.Bought;
+        }
+
         /// <summary>
         /// A tap on a style's card at <paramref name="level"/>: an owned style (or the free pair) is chosen; a bought one
-        /// not owned yet is bought for Petals and chosen, from L40.
+        /// not owned yet is bought for Petals and chosen, from L40. The hosts call it for a purchase only once the player
+        /// has confirmed it (spec 005 FR-040, <see cref="Check"/>).
         /// </summary>
         public ClearingTap Tap(ClearStyle style, int level)
         {

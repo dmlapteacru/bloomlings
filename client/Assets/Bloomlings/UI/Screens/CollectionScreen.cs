@@ -88,6 +88,16 @@ namespace Bloomlings.Client.UI.Screens
             screen._previous = UiKit.PageArrow("Previous", root, next: false, () => screen.Turn(-1));
             screen._next = UiKit.PageArrow("Next", root, next: true, () => screen.Turn(1));
 
+            // A drag on the page never opens a picture (spec 005 FR-041); a swipe over the grid turns its page, as the arrows.
+            UiKit.Scrolls(screen._root, step =>
+            {
+                Button arrow = step > 0 ? screen._next : screen._previous;
+                if (screen._grid.gameObject.activeSelf && arrow.gameObject.activeSelf && arrow.interactable)
+                {
+                    screen.Turn(step);
+                }
+            }, screen._grid);
+
             // A picture's detail in the page's area, shown in the grid's place.
             screen._detail = UiFactory.CreateRect("Detail", root);
             screen._detail.gameObject.SetActive(false);

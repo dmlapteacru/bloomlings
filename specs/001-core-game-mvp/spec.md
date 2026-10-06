@@ -145,6 +145,19 @@ a default or asks a question.
   pictures. A house, a castle, a ship, a boat, a ball: anything at all." The picture library grows with many new
   subjects beyond the garden (homes and buildings, vehicles, toys, food, animals, everyday objects), drawn in the same
   procedural style, and the catalog is generated and validated for Levels 1–5000 (FR-006, FR-083, FR-084).
+- **Q: Must a purchase be confirmed?**
+  A: Yes, every one (FR-051 as amended, spec 005 FR-040). The owner: "Every purchase needs a confirmation popup."
+  Before anything is spent a card names the item and its price ("Buy Fireflies for 5 000 Petals?") with its picture, a
+  green Buy and a cream Cancel: in the Store (boosters, cosmetics, clearing styles, the real-money products), a booster
+  that buys its charge in a level, the profile's avatars and the Remove Ads card. Cancel buys nothing. For real money
+  the platform's own purchase sheet follows, so the player confirms twice. The economy and analytics are unchanged.
+- **Q: Scrolling the cosmetics bought them. What must a drag do?**
+  A: Never tap (FR-070 as amended, spec 005 FR-041). On the Store, the Wardrobe, the Collection, the Leaderboard and
+  the profile's edit card a tap fires only when the finger lifts within 10 dp of where it went down; a longer drag turns
+  the page as the arrows do. A level keeps its quick taps.
+- **Q: How does a player choose a clearing style?**
+  A: Each card of the Animations tab has its button: Buy with the price (it asks the confirmation), Choose, or Chosen with
+  a check; the previews loop all the time (spec 005 FR-038 as amended).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -527,7 +540,10 @@ skin. Complete the daily challenge. Open the Collection.
 
 #### G. Store, ads and daily reward (doc 10)
 
-- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock. *(Amended on 2026-10-06 by the product owner: the Animations tab, which sells the board's clearing styles (FR-063 as amended, spec 005 FR-038), shows from L12 with live previews. Its styles can be bought from L40, as the other cosmetics.)*
+- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock. *(Amended on 2026-10-06 by the product owner: the Animations tab, which sells the board's clearing styles (FR-063 as amended, spec 005 FR-038), shows from L12 with live previews. Its styles can be bought from L40, as the other cosmetics. Amended again on 2026-10-06: every purchase, in the Store
+or anywhere else (a booster that buys its charge in a level, a profile avatar, the Remove Ads card), MUST first ask for
+confirmation on a card that names the item and its price; nothing is spent before its Buy and a cancel buys nothing.
+For real money the confirmation comes before the platform's purchase flow. Spec 005 FR-040.)*
 - **FR-052**: Rewarded ads MUST always be started by the player and optional. They MAY be used for: jam rescue, a free booster, an extra win reward, and an optional daily bonus.
 - **FR-053**: Interstitial ads MUST appear only at post-win transitions. They MUST never appear during a level, immediately after a fail, or during onboarding (Levels 1–10). They MUST be capped by both time and level count.
 - **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage. *(Amended on 2026-10-04 by the product owner: besides the Store's row (FR-051, from L12), Home offers Remove Ads from L1 through its No Ads scene and a Remove Ads card of its own, until it is owned; spec 005 FR-032, FR-033. Docs 11 and 13 list Remove Ads in the Store only.)*
@@ -591,7 +607,7 @@ skin. Complete the daily challenge. Open the Collection.
   lights up as switched on, and then switches off"; it was a 2× setting labelled "1×" or "2×")*. While no pod can be
   tapped (every pod picked, or the level decided), the animation MUST play fast on its own, the speed control lit,
   without changing the player's setting (the owner, 2026-10-04; research R4).
-- **FR-070**: Every tap MUST get immediate feedback. Selectable, locked, waiting, active, stuck and jam-risk states MUST be communicated visually, with minimal text. Bloomlings MUST stay small enough not to hide tile state.
+- **FR-070**: Every tap MUST get immediate feedback. Selectable, locked, waiting, active, stuck and jam-risk states MUST be communicated visually, with minimal text. Bloomlings MUST stay small enough not to hide tile state. *(Amended on 2026-10-06 by the product owner: on a page that scrolls (the Store, the Wardrobe, the Collection, the Leaderboard, the profile's edit card) a drag MUST never tap: a tap fires only when the finger lifts within 10 dp of where it went down, and a longer drag turns the page. Spec 005 FR-041.)*
 - **FR-071**: When the second variant of a family first appears, the game MUST show both side by side with one short message, for example "Match the exact symbol". It MUST then show the first variant's pod ignoring the sibling's tile. The explanation is not repeated later.
 - **FR-072**: Accessibility: every variant MUST have its own icon, with enough color distance and readable counts. Palettes MUST be tested for colorblind safety. Hue alone MUST never carry meaning.
 - **FR-073**: Settings MUST offer music, sound effects and haptics toggles, plus restore purchases.

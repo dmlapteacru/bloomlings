@@ -34,6 +34,7 @@ Coordinates are in pixels of the target surface. Colors are `Rgba` from `DesignT
 | `Picture(key, rect, render)` | an engine-free RGBA picture (spec 005 `UiRaster`: wood, stone, candy tiles) rendered at the rect's size rounded up to multiples of 8, cached by `key@WxH`, stretched with filtering; callers `Mark` its slot |
 | `Sprite(name, rect)`, `HasSprite(name)`, `SpriteSize(name)` | an embedded picture fitted into `rect` (aspect kept), whether it is embedded, and its pixel size or none: character pictures (`2d/leaf-happy`), and the owner's pictures of spec 005 `pictures.md` (`bg/home`, `brand/logo`; `Visuals.Background` cover-fits a background, else draws the stand-in) |
 | `Hit(rect, action)` | a touch target (in the current transform) |
+| `Scroll(rect, previous, next)` | a page that scrolls (spec 005 FR-041): a drag that starts in `rect` never taps, and a swipe turns the page with `previous` or `next`; a later full-screen target (a card's scrim) covers it |
 | `Pressed(rect)` | whether a finger is down inside `rect` (pressed looks) |
 | `Mark(slotId)` | records that an asset slot is drawn procedurally here (preview only; a no-op on the phone) |
 
@@ -45,6 +46,10 @@ finger, the alpha and transform stacks, and dispatch to the topmost target.
 
 - Screens register touch targets with `Hit(rect, action)` while drawing.
 - The host dispatches a tap to the topmost target under the finger, as the current playtest does.
+- Tap or scroll (spec 005 FR-041): the host passes the finger's down, moves and lift to `PainterBase.TouchDown`,
+  `TouchMove` and `TouchUp` (with the screen's `Dpi`). A finger that goes down in a `Scroll` area and moves farther
+  than `touch.slop` (10 dp) drags: it taps nothing, nothing looks pressed, and a drag of `touch.swipe` (40 dp) turns the
+  page. Anywhere else the lift taps where the finger is, as before (`TouchGesture`).
 - Every target is at least `size.touch_min` reference units on its shorter side. The preview tool checks this (FR-027).
 
 ## Recording (preview tool only)

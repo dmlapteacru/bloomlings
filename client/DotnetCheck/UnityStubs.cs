@@ -61,7 +61,7 @@ namespace UnityEngine
     public sealed class TooltipAttribute : Attribute { public TooltipAttribute(string t) { } }
     public sealed class SerializeField : Attribute { }
     public sealed class DefaultExecutionOrder : Attribute { public DefaultExecutionOrder(int order) { } }
-    public static class Screen { public static int width => 1080; public static int height => 2340; public static Rect safeArea => new Rect(0, 0, 1080, 2340); }
+    public static class Screen { public static int width => 1080; public static int height => 2340; public static float dpi => 420f; public static Rect safeArea => new Rect(0, 0, 1080, 2340); }
     public static class Time { public static float unscaledDeltaTime => 0; public static float unscaledTime => 0; }
     public static class ColorUtility { public static bool TryParseHtmlString(string s, out Color c) { c = default; return true; } }
     public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public T GetComponent<T>() => default!; public T GetComponentInChildren<T>() => default!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; public bool activeInHierarchy => true; }
@@ -102,7 +102,7 @@ namespace UnityEngine.UI
     public sealed class CanvasScaler : Behaviour { public enum ScaleMode { ScaleWithScreenSize } public ScaleMode uiScaleMode; public Vector2 referenceResolution; public float matchWidthOrHeight; }
     public sealed class GraphicRaycaster : Behaviour { }
 }
-namespace UnityEngine.EventSystems { public sealed class EventSystem : Behaviour { public static EventSystem? current => null; } public sealed class StandaloneInputModule : Behaviour { } public class PointerEventData { } public interface IPointerDownHandler { void OnPointerDown(PointerEventData e); } public interface IPointerUpHandler { void OnPointerUp(PointerEventData e); } public interface IPointerExitHandler { void OnPointerExit(PointerEventData e); } }
+namespace UnityEngine.EventSystems { public sealed class EventSystem : Behaviour { public static EventSystem? current => null; public int pixelDragThreshold { get; set; } = 10; } public sealed class StandaloneInputModule : Behaviour { } public class PointerEventData { public Vector2 position { get; set; } public Vector2 pressPosition { get; set; } } public interface IPointerDownHandler { void OnPointerDown(PointerEventData e); } public interface IPointerUpHandler { void OnPointerUp(PointerEventData e); } public interface IPointerExitHandler { void OnPointerExit(PointerEventData e); } public interface IBeginDragHandler { void OnBeginDrag(PointerEventData e); } public interface IDragHandler { void OnDrag(PointerEventData e); } public interface IEndDragHandler { void OnEndDrag(PointerEventData e); } }
 namespace TMPro
 {
     public enum TextAlignmentOptions { Center, Left, Right }
