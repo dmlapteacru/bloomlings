@@ -132,6 +132,30 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void TrayRejections_NameTheScoreTheTuningReached()
+        {
+            // Hard is out of reach (HardMin 100 000), so every candidate that gets to the tray tuner is rejected there.
+            string band = SmallBand.Replace(@"""maxCandidatesPerLevel"": 16", @"""maxCandidatesPerLevel"": 3", StringComparison.Ordinal);
+            var generator = new LevelGenerator(ProfileLoader.Read(band), new PicturePicker(Library), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed))
+            {
+                ForcedClass = DifficultyClass.Hard,
+                UseBandGuidelines = false,
+            };
+
+            GenerationResult result = generator.Generate(11, 11, Seed, new SortedDictionary<int, LevelDefinition>());
+
+            Assert.That(result.Failed, Is.EqualTo(new[] { 11 }));
+            List<string> tray = result.Rejections.Select(r => r.Reason).Where(r => r.StartsWith("tray:class-", StringComparison.Ordinal)).ToList();
+            Assert.That(tray, Is.Not.Empty, string.Join(", ", result.Rejections.Select(r => r.Reason)));
+            foreach (string reason in tray)
+            {
+                Assert.That(reason, Does.Match(@"^tray:class-normal-not-hard:score-\d+$"));
+                int score = int.Parse(reason.Substring(reason.LastIndexOf('-') + 1), System.Globalization.CultureInfo.InvariantCulture);
+                Assert.That(score, Is.GreaterThan(0).And.LessThan(Thresholds.HardMin));
+            }
+        }
+
+        [Test]
         public void VisibleTopLayer_FollowsThePictureMapping()
         {
             GenerationResult result = Run(SmallBand, 11, 12).Result;
