@@ -1,6 +1,11 @@
 {
-  "note": "Cosmetics (FR-063, T143). No gameplay effect. Worn items (skin, hat, trail, expression) use neutral tints (HSV saturation <= 0.3) so they never read as a variant color, and skins are thin patterns over the variant-colored body; frames, badges and markers decorate the profile only. Items with a price are sold for Petals in the Store after the Wardrobe unlock (FR-051); milestone items come from content/roadmap/milestones.json and are never sold. Level badges and markers (badge.level_N, marker.level_N) are generated, not listed.",
+  "note": "Cosmetics (FR-063, T143). No gameplay effect. Worn items (skin, hat, trail, expression) use neutral tints (HSV saturation <= 0.3) so they never read as a variant color, and skins are thin patterns over the variant-colored body; frames, badges and markers decorate the profile only. Items with a price are sold for Petals in the Store after the Wardrobe unlock (FR-051); milestone items come from content/roadmap/milestones.json and are never sold. Level badges and markers (badge.level_N, marker.level_N) are generated, not listed. Free items (the five drawn profile frames, spec 005 FR-037 as amended 2026-10-06) are everyone's from Level 1: never stored as owned, never given or sold; their tint is the plain ring's stand-in color.",
   "items": [
+    { "id": "frame.wood_ring", "kind": "frame", "name": "Wooden Ring", "shape": "wood_ring", "tint": "#F1CD98", "free": true },
+    { "id": "frame.leaf_ring", "kind": "frame", "name": "Leaf Ring", "shape": "leaf_ring", "tint": "#6DBE45", "free": true },
+    { "id": "frame.flower_wreath", "kind": "frame", "name": "Flower Wreath", "shape": "flower_wreath", "tint": "#F7739F", "free": true },
+    { "id": "frame.stone_ring", "kind": "frame", "name": "Stone Ring", "shape": "stone_ring", "tint": "#F1D5A8", "free": true },
+    { "id": "frame.golden_ribbon", "kind": "frame", "name": "Golden Ribbon", "shape": "golden_ribbon", "tint": "#F5C542", "free": true },
     { "id": "hat.sprout_cap", "kind": "hat", "name": "Sprout Cap", "shape": "sprout", "tint": "#A8B59A", "starter": true },
     { "id": "skin.speckles", "kind": "skin", "name": "Speckles", "shape": "speckles", "tint": "#F2EEE6", "starter": true },
     { "id": "hat.leaf_cap", "kind": "hat", "name": "Leaf Cap", "shape": "cap", "tint": "#9C9480" },

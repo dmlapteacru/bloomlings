@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Bloomlings.Client.Meta.Profile;
@@ -7,6 +8,7 @@ using Bloomlings.Client.Services.Clock;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Economy;
 using Bloomlings.Client.Services.Save;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
 using NUnit.Framework;
 using UnityEngine;
@@ -17,6 +19,9 @@ namespace Bloomlings.Client.Tests
     public class ProfileServiceTests
     {
         private static readonly DateTime Today = new DateTime(2026, 10, 5, 0, 0, 0, DateTimeKind.Utc);
+
+        /// <summary>The five free frames (the owner, 2026-10-06), in the catalog's and the edit card's order.</summary>
+        private static readonly string[] FreeFrames = { "frame.wood_ring", "frame.leaf_ring", "frame.flower_wreath", "frame.stone_ring", "frame.golden_ribbon" };
 
         private static string AvatarFolder => Path.Combine(Application.dataPath, "Bloomlings", "Art", "Avatars", "Resources", "Avatars");
 
@@ -163,8 +168,8 @@ namespace Bloomlings.Client.Tests
             save.Cosmetics.Owned.Add("frame.daisy");
 
             var editor = new ProfileEditor(profile, wardrobe);
-            Assert.That(editor.ProfileItemsOpen, Is.False, "frames wait for the Wardrobe");
-            Assert.That(editor.Owned(CosmeticKind.Frame), Is.Empty);
+            Assert.That(editor.ProfileItemsOpen, Is.False, "the Wardrobe's frames wait for it");
+            Assert.That(editor.Owned(CosmeticKind.Frame).Select(i => i.Id), Is.EqualTo(FreeFrames), "only the free frames before the Wardrobe opens");
 
             editor.PickAvatar("avatar.bloom_ribbon_plush");
             Assert.That(editor.Action, Is.EqualTo(ProfileAction.Buy));
@@ -185,12 +190,70 @@ namespace Bloomlings.Client.Tests
             save.Unlocks.Flags[WardrobeService.UnlockId] = true;
             save.Cosmetics.Owned.Add("frame.ivy");
             editor = new ProfileEditor(profile, wardrobe, ProfileTab.Frame);
-            Assert.That(editor.Owned(CosmeticKind.Frame).Select(i => i.Id), Is.EqualTo(new[] { "frame.daisy", "frame.ivy" }));
+            Assert.That(editor.Owned(CosmeticKind.Frame).Select(i => i.Id), Is.EqualTo(FreeFrames.Concat(new[] { "frame.daisy", "frame.ivy" })), "the free frames first");
             editor.PickFrame("frame.daisy");
             editor.PickFrame("frame.aurora");
             Assert.That(editor.FrameId, Is.EqualTo("frame.daisy"), "not owned: the pick stays");
             Assert.That(editor.Confirm(), Is.EqualTo(ProfileOutcome.Saved));
             Assert.That(wardrobe.Profile.Frame!.Id, Is.EqualTo("frame.daisy"));
+        }
+
+        /// <summary>
+        /// The owner's request of 2026-10-06: five different free frames from Level 1. They are owned without a save entry
+        /// (no migration), listed and picked in the edit card while the Wardrobe is still closed, shown on the profile once
+        /// saved, never shown by default, never sold; the Badge tab stays locked until the Wardrobe opens.
+        /// </summary>
+        [Test]
+        public void TheFreeFrames_AreOwnedFromLevelOne_AndCanBePickedAndShown()
+        {
+            ProfileService profile = Service(out PlayerSave save, out EconomyService economy);
+            CosmeticCatalog catalog = CosmeticCatalog.Parse(File.ReadAllText(CatalogPath));
+            var wardrobe = new WardrobeService(save, catalog, new BundledRemoteConfigService(), () => { }, economy);
+            IReadOnlyList<CosmeticItem> free = catalog.FreeOf(CosmeticKind.Frame);
+            Assert.That(free.Select(i => i.Id), Is.EqualTo(FreeFrames));
+            Assert.That(free.Select(i => ProfileFrames.StyleOf(i.Shape)), Is.EqualTo(ProfileFrames.All.Cast<ProfileFrameStyle?>()), "five different drawn frames");
+            Assert.That(catalog.Items.Where(i => i.Free).All(i => i.Kind == CosmeticKind.Frame && !i.ForSale && !i.Starter), Is.True);
+            Assert.That(catalog.Items.Where(i => i.Kind == CosmeticKind.Frame && !i.Free).Select(i => i.Shape).Distinct(), Is.EqualTo(new[] { "frame" }), "the earlier frames keep their plain ring");
+
+            // Level 1: the Wardrobe closed, nothing stored, every free frame owned, none shown yet.
+            Assert.That(wardrobe.IsAvailable, Is.False);
+            Assert.That(free.All(wardrobe.Owns), Is.True);
+            Assert.That(save.Cosmetics.Owned, Is.Empty, "owned without a save entry");
+            Assert.That(wardrobe.Profile, Is.EqualTo(ProfileLook.None), "no frame until the player picks one");
+            Assert.That(free.Any(wardrobe.IsBuyable) || wardrobe.ForSale.Any(i => i.Free), Is.False, "never sold");
+
+            var editor = new ProfileEditor(profile, wardrobe, ProfileTab.Frame);
+            Assert.That(editor.IsLocked(CosmeticKind.Frame), Is.False, "the Frame tab is open at Level 1");
+            Assert.That(editor.IsLocked(CosmeticKind.Badge), Is.True, "badges wait for the Wardrobe");
+            Assert.That(editor.Owned(CosmeticKind.Badge), Is.Empty);
+            Assert.That(editor.FrameId, Is.Null);
+            editor.PickFrame("frame.daisy");
+            Assert.That(editor.FrameId, Is.Null, "not owned: nothing picked");
+            editor.PickFrame("frame.golden_ribbon");
+            Assert.That(editor.Frame!.Name, Is.EqualTo("Golden Ribbon"), "the preview shows the pick");
+            Assert.That(wardrobe.Profile.Frame, Is.Null, "kept only on Save");
+            Assert.That(editor.Confirm(), Is.EqualTo(ProfileOutcome.Saved));
+            Assert.That(wardrobe.Profile.Frame!.Id, Is.EqualTo("frame.golden_ribbon"), "shown before the Wardrobe opens");
+            Assert.That(wardrobe.Profile.Badge, Is.Null);
+            Assert.That(save.Cosmetics.Equipped["profile.frame"], Is.EqualTo("frame.golden_ribbon"));
+            Assert.That(save.Cosmetics.Owned, Is.Empty, "still nothing stored as owned");
+            Assert.That(SaveSerializer.Read(SaveSerializer.Write(save)).Cosmetics.Equipped["profile.frame"], Is.EqualTo("frame.golden_ribbon"), "the save keeps the choice");
+
+            // Another free frame through the editor again; the choice stays once the Wardrobe opens and frames are earned.
+            editor = new ProfileEditor(profile, wardrobe, ProfileTab.Frame);
+            Assert.That(editor.FrameId, Is.EqualTo("frame.golden_ribbon"), "the card opens on the shown frame");
+            editor.PickFrame("frame.stone_ring");
+            Assert.That(editor.Confirm(), Is.EqualTo(ProfileOutcome.Saved));
+            save.Unlocks.Flags[WardrobeService.UnlockId] = true;
+            save.Cosmetics.Owned.Add("frame.daisy");
+            Assert.That(wardrobe.Profile.Frame!.Id, Is.EqualTo("frame.stone_ring"), "a chosen free frame stays chosen");
+            Assert.That(wardrobe.OwnedOf(CosmeticKind.Frame).Select(i => i.Id), Is.EqualTo(FreeFrames.Concat(new[] { "frame.daisy" })), "the Wardrobe lists them too");
+
+            // Nothing chosen: the default is the newest earned frame, never a free one.
+            save.Cosmetics.Equipped.Remove("profile.frame");
+            Assert.That(wardrobe.Profile.Frame!.Id, Is.EqualTo("frame.daisy"));
+            save.Cosmetics.Owned.Remove("frame.daisy");
+            Assert.That(wardrobe.Profile.Frame, Is.Null);
         }
 
         private static ProfileService Service(out PlayerSave save, out EconomyService economy)
