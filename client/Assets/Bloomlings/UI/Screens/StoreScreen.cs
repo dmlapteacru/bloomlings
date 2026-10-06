@@ -379,6 +379,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _tabs?.Select(_tabOrder.IndexOf(_tab));
+            _pages = 1;
             if (_tab == StoreTab.Animations && _clearing != null)
             {
                 Animations(_clearing);
