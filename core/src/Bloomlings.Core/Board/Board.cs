@@ -48,10 +48,16 @@ namespace Bloomlings.Core.Boards
     /// </summary>
     public sealed class Board
     {
+        /// <summary>The bytes of <see cref="CellKind.Open"/> and <see cref="CellKind.Target"/> in <see cref="Kinds"/>.</summary>
+        internal const byte OpenKind = (byte)CellKind.Open;
+        internal const byte TargetKind = (byte)CellKind.Target;
+
         private static readonly VariantId[] NoLayers = new VariantId[0];
         private static readonly int[] NoCodes = new int[0];
 
-        private readonly CellKind[] _kind;
+        // Kinds and top pointers as bytes (a cell has at most 4 layers, BoardBuilder.MaxLayersBelow + 1), so a clone
+        // copies a quarter of the memory.
+        private readonly byte[] _kind;
         private VariantId[][] _layers;
 
         // The catalog index of every layer, parallel to _layers (-1 for a variant the catalog lacks). It changes with
@@ -59,7 +65,7 @@ namespace Bloomlings.Core.Boards
         private int[][] _codes;
         private readonly VariantCatalog? _catalog;
         private bool _ownsLayers;
-        private readonly int[] _top;
+        private readonly byte[] _top;
         private bool[] _mysteryHidden;
         private bool _ownsMystery;
         private string?[] _keyId;
@@ -81,13 +87,20 @@ namespace Bloomlings.Core.Boards
         // Reachability of the current cell kinds (it depends on nothing else), or null; dropped whenever a kind changes.
         private ReachabilityResult? _reach;
 
+        // While _reach is null: the reachability before the cells in _opened (the first _openedCount) became open ground,
+        // the only change of kind play makes, so a search can update it instead of computing it again. Null when unknown.
+        private ReachabilityResult? _reachBefore;
+        private int[] _opened = NoOpened;
+        private int _openedCount;
+        private static readonly int[] NoOpened = new int[0];
+
         /// <param name="catalog">The catalog the layers' indexes come from (<see cref="TopCode"/>); null for none.</param>
         internal Board(int width, int height, EntryDef[] entries, VariantCatalog? catalog = null)
         {
             Width = width;
             Height = height;
             int n = width * height;
-            _kind = new CellKind[n];
+            _kind = new byte[n];
             _layers = new VariantId[n][];
             _codes = new int[n][];
             _catalog = catalog;
@@ -98,7 +111,7 @@ namespace Bloomlings.Core.Boards
                 _codes[i] = NoCodes;
             }
 
-            _top = new int[n];
+            _top = new byte[n];
             _mysteryHidden = new bool[n];
             _ownsMystery = true;
             _keyId = new string?[n];
@@ -139,14 +152,14 @@ namespace Bloomlings.Core.Boards
         {
             Width = source.Width;
             Height = source.Height;
-            _kind = (CellKind[])source._kind.Clone();
+            _kind = (byte[])source._kind.Clone();
             // Shared until one side rewrites a cell's stack (Bloom Burst); then that side copies (see OwnLayers).
             _layers = source._layers;
             _codes = source._codes;
             _catalog = source._catalog;
             source._ownsLayers = false;
             _ownsLayers = false;
-            _top = (int[])source._top.Clone();
+            _top = (byte[])source._top.Clone();
 
             // Shared until one side changes them (see OwnMystery, OwnKeys and OwnSpecials).
             _mysteryHidden = source._mysteryHidden;
@@ -182,11 +195,11 @@ namespace Bloomlings.Core.Boards
 
         public CellPos PosOf(int index) => CellPos.FromIndex(index, Width);
 
-        public CellKind KindAt(int index) => _kind[index];
+        public CellKind KindAt(int index) => (CellKind)_kind[index];
 
-        public bool IsWalkable(int index) => _kind[index] == CellKind.Open;
+        public bool IsWalkable(int index) => _kind[index] == OpenKind;
 
-        public bool IsTarget(int index) => _kind[index] == CellKind.Target;
+        public bool IsTarget(int index) => _kind[index] == TargetKind;
 
         public bool IsEntryCell(int index) => _isEntryCell[index];
 
@@ -196,8 +209,8 @@ namespace Bloomlings.Core.Boards
         /// </summary>
         internal int[] Neighbours => _neighbours;
 
-        /// <summary>The kind of every cell (read only; the rules' inner loops).</summary>
-        internal CellKind[] Kinds => _kind;
+        /// <summary>The kind of every cell as a byte (<see cref="OpenKind"/>, <see cref="TargetKind"/>; read only, the rules' inner loops).</summary>
+        internal byte[] Kinds => _kind;
 
         /// <summary>Whether each cell is an entry cell (read only).</summary>
         internal bool[] EntryCells => _isEntryCell;
@@ -219,6 +232,8 @@ namespace Bloomlings.Core.Boards
                 if (_reach == null || !_reach.HasRoutes)
                 {
                     _reach = Reachability.Compute(this, routes: true);
+                    _reachBefore = null;
+                    _openedCount = 0;
                 }
 
                 return _reach;
@@ -227,9 +242,25 @@ namespace Bloomlings.Core.Boards
 
         /// <summary>
         /// As <see cref="Reach"/>, but the routes may be left out: for a search, which builds no events. The targets,
-        /// their order and distances are the same.
+        /// their order and distances are the same. After cells opened, it is updated from the reachability before
+        /// (<see cref="Reachability.Update"/>).
         /// </summary>
-        internal ReachabilityResult ReachTargets => _reach ??= Reachability.Compute(this, routes: false);
+        internal ReachabilityResult ReachTargets
+        {
+            get
+            {
+                if (_reach == null)
+                {
+                    _reach = _reachBefore != null
+                        ? Reachability.Update(this, _reachBefore, _opened, _openedCount)
+                        : Reachability.Compute(this, routes: false);
+                    _reachBefore = null;
+                    _openedCount = 0;
+                }
+
+                return _reach;
+            }
+        }
 
         /// <summary>The visible top layer of a target cell.</summary>
         public VariantId TopLayer(int index)
@@ -248,7 +279,7 @@ namespace Bloomlings.Core.Boards
         internal int CodeAt(int index, int depth) => _codes[index][depth];
 
         /// <summary>Number of layers still on the cell, including the top one.</summary>
-        public int RemainingLayers(int index) => _kind[index] == CellKind.Target ? _layers[index].Length - _top[index] : 0;
+        public int RemainingLayers(int index) => _kind[index] == TargetKind ? _layers[index].Length - _top[index] : 0;
 
         /// <summary>Depth of the current top layer in the original stack (0 = original top); used for hashing.</summary>
         public int TopDepth(int index) => _top[index];
@@ -312,7 +343,7 @@ namespace Bloomlings.Core.Boards
         /// <summary>Turns a special or stone cell into open ground (special effects, FR-037).</summary>
         public void OpenCell(int index)
         {
-            if (_kind[index] == CellKind.Target)
+            if (_kind[index] == TargetKind)
             {
                 throw new InvalidOperationException("A target cell opens only by clearing its layers.");
             }
@@ -333,7 +364,7 @@ namespace Bloomlings.Core.Boards
             int count = 0;
             for (int i = 0; i < _kind.Length; i++)
             {
-                if (_kind[i] != CellKind.Target)
+                if (_kind[i] != TargetKind)
                 {
                     continue;
                 }
@@ -439,6 +470,12 @@ namespace Bloomlings.Core.Boards
 
         internal void SetTarget(int index, VariantId[] layersTopFirst, bool mysteryHidden, string? keyId)
         {
+            // BoardBuilder allows at most 1 + MaxLayersBelow layers; the top pointer is a byte.
+            if (layersTopFirst.Length > byte.MaxValue)
+            {
+                throw new InvalidLevelException($"Cell {PosOf(index)} has {layersTopFirst.Length} layers.");
+            }
+
             OwnLayers();
             OwnMystery();
             OwnKeys();
@@ -459,11 +496,36 @@ namespace Bloomlings.Core.Boards
             _layerCount = -1;
         }
 
-        /// <summary>Changes a cell's kind; the kept reachability no longer holds.</summary>
+        /// <summary>
+        /// Changes a cell's kind; the kept reachability no longer holds. When the cell becomes open ground, the
+        /// reachability before is kept with the opened cells, so that a search can update it.
+        /// </summary>
         private void SetKind(int index, CellKind kind)
         {
-            _kind[index] = kind;
-            _reach = null;
+            _kind[index] = (byte)kind;
+            if (kind != CellKind.Open || (_reach == null && _reachBefore == null))
+            {
+                _reach = null;
+                _reachBefore = null;
+                _openedCount = 0;
+                return;
+            }
+
+            if (_reach != null)
+            {
+                _reachBefore = _reach;
+                _reach = null;
+                _openedCount = 0;
+            }
+
+            if (_openedCount == _opened.Length)
+            {
+                var grown = new int[Math.Max(8, _opened.Length * 2)];
+                Array.Copy(_opened, grown, _openedCount);
+                _opened = grown;
+            }
+
+            _opened[_openedCount++] = index;
         }
 
         private void ClearMystery(int index)
@@ -532,9 +594,9 @@ namespace Bloomlings.Core.Boards
 
         private void EnsureTarget(int index)
         {
-            if (_kind[index] != CellKind.Target)
+            if (_kind[index] != TargetKind)
             {
-                throw new InvalidOperationException($"Cell {PosOf(index)} is {_kind[index]}, not a target.");
+                throw new InvalidOperationException($"Cell {PosOf(index)} is {(CellKind)_kind[index]}, not a target.");
             }
         }
     }

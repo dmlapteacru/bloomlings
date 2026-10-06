@@ -86,6 +86,48 @@ namespace Bloomlings.Core.Tests.Properties
                 return true;
             });
 
+        /// <summary>A search keeps and updates its reachability as cells open; it equals a fresh computation at every step.</summary>
+        [Property(MaxTest = Runs)]
+        public bool SearchReachability_EqualsFreshCompute(ulong seed)
+        {
+            LevelSession session = RandomLevels.Create(seed);
+            var rng = new Core.Random.Xoshiro256StarStar(seed ^ 0x5EA4C4UL);
+            for (int step = 0; step < 60 && session.Status == LevelStatus.Playing; step++)
+            {
+                IReadOnlyList<Command> moves = StateSearch.Moves(session, step % 2 == 0 ? MoveOrder.ProgressFirst : MoveOrder.IdleFirst);
+                if (moves.Count == 0)
+                {
+                    break;
+                }
+
+                LevelSession? child = session.SearchChild(moves[rng.NextInt(moves.Count)]);
+                if (child == null)
+                {
+                    return false;
+                }
+
+                Boards.Board board = child.State.Board;
+                ReachabilityResult kept = board.ReachTargets;
+                ReachabilityResult fresh = Reachability.Compute(board);
+                if (!kept.Targets.Select(t => (t.Index, t.Cell, t.Distance)).SequenceEqual(fresh.Targets.Select(t => (t.Index, t.Cell, t.Distance))))
+                {
+                    return false;
+                }
+
+                for (int i = 0; i < board.CellCount; i++)
+                {
+                    if (kept.OpenDistance(i) != fresh.OpenDistance(i) || kept.IsReachable(i) != fresh.IsReachable(i))
+                    {
+                        return false;
+                    }
+                }
+
+                session = child;
+            }
+
+            return true;
+        }
+
         [Property(MaxTest = Runs)]
         public bool Reachability_EqualsTheFirstImplementation(ulong seed) =>
             Replay(seed, session =>

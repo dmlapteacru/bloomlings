@@ -25,22 +25,22 @@ namespace Bloomlings.Core.Slots
         public const int Capacity = 6;
         public const int ExtraSlotIndex = 5;
 
-        private readonly SlotState[] _state;
-        private readonly int[] _pod;
-        private readonly int[] _age;
+        // One array, so a clone copies once: each slot's state, then its pod (or -1), then its age stamp (or -1).
+        private const int PodAt = Capacity;
+        private const int AgeAt = 2 * Capacity;
+
+        private readonly int[] _slots;
         private int _nextAge;
 
         /// <param name="lockedSlotIndex">A slot that starts locked, or -1 (FR-039).</param>
         public WaitingSlots(int lockedSlotIndex = -1)
         {
-            _state = new SlotState[Capacity];
-            _pod = new int[Capacity];
-            _age = new int[Capacity];
+            _slots = new int[3 * Capacity];
             for (int i = 0; i < Capacity; i++)
             {
-                _state[i] = i < DefaultCount ? SlotState.Free : SlotState.Absent;
-                _pod[i] = -1;
-                _age[i] = -1;
+                _slots[i] = (int)(i < DefaultCount ? SlotState.Free : SlotState.Absent);
+                _slots[PodAt + i] = -1;
+                _slots[AgeAt + i] = -1;
             }
 
             if (lockedSlotIndex >= 0)
@@ -50,24 +50,22 @@ namespace Bloomlings.Core.Slots
                     throw new ArgumentOutOfRangeException(nameof(lockedSlotIndex), lockedSlotIndex, "Only one of the 5 default slots can be locked.");
                 }
 
-                _state[lockedSlotIndex] = SlotState.Locked;
+                _slots[lockedSlotIndex] = (int)SlotState.Locked;
             }
         }
 
         private WaitingSlots(WaitingSlots source)
         {
-            _state = (SlotState[])source._state.Clone();
-            _pod = (int[])source._pod.Clone();
-            _age = (int[])source._age.Clone();
+            _slots = (int[])source._slots.Clone();
             _nextAge = source._nextAge;
         }
 
         public WaitingSlots Clone() => new WaitingSlots(this);
 
-        public SlotState StateOf(int slot) => _state[slot];
+        public SlotState StateOf(int slot) => (SlotState)_slots[slot];
 
         /// <summary>The pod index in the slot, or -1.</summary>
-        public int PodIn(int slot) => _pod[slot];
+        public int PodIn(int slot) => _slots[PodAt + slot];
 
         public int FreeCount => Count(SlotState.Free);
 
@@ -81,7 +79,7 @@ namespace Bloomlings.Core.Slots
         {
             for (int i = 0; i < Capacity; i++)
             {
-                if (_state[i] == SlotState.Free)
+                if (StateOf(i) == SlotState.Free)
                 {
                     return i;
                 }
@@ -99,45 +97,45 @@ namespace Bloomlings.Core.Slots
                 throw new InvalidOperationException("No free usable slot.");
             }
 
-            _state[slot] = SlotState.Occupied;
-            _pod[slot] = pod;
-            _age[slot] = _nextAge++;
+            _slots[slot] = (int)SlotState.Occupied;
+            _slots[PodAt + slot] = pod;
+            _slots[AgeAt + slot] = _nextAge++;
             return slot;
         }
 
         /// <summary>Frees a slot at once (FR-022).</summary>
         public void Release(int slot)
         {
-            if (_state[slot] != SlotState.Occupied)
+            if (StateOf(slot) != SlotState.Occupied)
             {
-                throw new InvalidOperationException($"Slot {slot} is {_state[slot]}, not occupied.");
+                throw new InvalidOperationException($"Slot {slot} is {StateOf(slot)}, not occupied.");
             }
 
-            _state[slot] = SlotState.Free;
-            _pod[slot] = -1;
-            _age[slot] = -1;
+            _slots[slot] = (int)SlotState.Free;
+            _slots[PodAt + slot] = -1;
+            _slots[AgeAt + slot] = -1;
         }
 
         /// <summary>Makes a locked slot usable (key collected, FR-039).</summary>
         public void Unlock(int slot)
         {
-            if (_state[slot] != SlotState.Locked)
+            if (StateOf(slot) != SlotState.Locked)
             {
-                throw new InvalidOperationException($"Slot {slot} is {_state[slot]}, not locked.");
+                throw new InvalidOperationException($"Slot {slot} is {StateOf(slot)}, not locked.");
             }
 
-            _state[slot] = SlotState.Free;
+            _slots[slot] = (int)SlotState.Free;
         }
 
         /// <summary>Adds the sixth slot (Extra Slot, FR-043).</summary>
         public void AddExtra()
         {
-            if (_state[ExtraSlotIndex] != SlotState.Absent)
+            if (StateOf(ExtraSlotIndex) != SlotState.Absent)
             {
                 throw new InvalidOperationException("The extra slot is already present.");
             }
 
-            _state[ExtraSlotIndex] = SlotState.Free;
+            _slots[ExtraSlotIndex] = (int)SlotState.Free;
         }
 
         /// <summary>Occupied slots ordered by age, oldest first: the allocation order of FR-020.</summary>
@@ -147,11 +145,11 @@ namespace Bloomlings.Core.Slots
             int n = 0;
             for (int i = 0; i < Capacity; i++)
             {
-                if (_state[i] == SlotState.Occupied)
+                if (StateOf(i) == SlotState.Occupied)
                 {
                     // Insertion sort by age; at most 6 entries.
                     int j = n++;
-                    while (j > 0 && _age[slots[j - 1]] > _age[i])
+                    while (j > 0 && _slots[AgeAt + slots[j - 1]] > _slots[AgeAt + i])
                     {
                         slots[j] = slots[j - 1];
                         j--;
@@ -167,15 +165,16 @@ namespace Bloomlings.Core.Slots
         /// <summary>0 for the oldest occupied slot, 1 for the next, …; -1 when the slot is not occupied.</summary>
         public int AgeRank(int slot)
         {
-            if (_state[slot] != SlotState.Occupied)
+            if (StateOf(slot) != SlotState.Occupied)
             {
                 return -1;
             }
 
             int rank = 0;
+            int age = _slots[AgeAt + slot];
             for (int i = 0; i < Capacity; i++)
             {
-                if (_state[i] == SlotState.Occupied && _age[i] < _age[slot])
+                if (StateOf(i) == SlotState.Occupied && _slots[AgeAt + i] < age)
                 {
                     rank++;
                 }
@@ -187,9 +186,9 @@ namespace Bloomlings.Core.Slots
         private int Count(SlotState state)
         {
             int count = 0;
-            foreach (SlotState s in _state)
+            for (int i = 0; i < Capacity; i++)
             {
-                if (s == state)
+                if (_slots[i] == (int)state)
                 {
                     count++;
                 }

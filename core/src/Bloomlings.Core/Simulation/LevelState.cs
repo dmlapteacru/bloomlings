@@ -22,7 +22,7 @@ namespace Bloomlings.Core.Simulation
         private const int LocationDone = 3;
         private const int LocationRemoved = 4;
 
-        private readonly StateHasher _hasher;
+        private ulong _hash;
 
         private LevelState(
             LevelDefinition definition,
@@ -40,7 +40,7 @@ namespace Bloomlings.Core.Simulation
             MechanicsData mechanics,
             int[] specialProgress,
             bool[] specialTriggered,
-            StateHasher hasher,
+            ulong hash,
             int[]? podLookClass)
         {
             PodLookClass = podLookClass;
@@ -59,7 +59,7 @@ namespace Bloomlings.Core.Simulation
             Mechanics = mechanics;
             SpecialProgress = specialProgress;
             SpecialTriggered = specialTriggered;
-            _hasher = hasher;
+            _hash = hash;
         }
 
         public LevelDefinition Definition { get; }
@@ -117,7 +117,7 @@ namespace Bloomlings.Core.Simulation
 
         public LevelStatus Status { get; set; }
 
-        public ulong StateHash => _hasher.Value ^ SlotsHash();
+        public ulong StateHash => _hash ^ SlotsHash();
 
         /// <summary>
         /// Builds the start state and checks exact accounting: "for every variant v, the sum of count over pods of v
@@ -245,9 +245,9 @@ namespace Bloomlings.Core.Simulation
                 mechanics,
                 new int[mechanics.Specials.Length],
                 new bool[mechanics.Specials.Length],
-                new StateHasher(),
+                0UL,
                 LookClasses(podDefs));
-            state._hasher.Toggle(state.ComputeIncrementalPart());
+            state._hash ^= state.ComputeIncrementalPart();
             return state;
         }
 
@@ -269,7 +269,7 @@ namespace Bloomlings.Core.Simulation
                 Mechanics,
                 Copy(SpecialProgress),
                 Copy(SpecialTriggered),
-                _hasher.Clone(),
+                _hash,
                 PodLookClass);
             clone.ExtraSlotUsed = ExtraSlotUsed;
             clone.ShuffleUses = ShuffleUses;
@@ -479,16 +479,16 @@ namespace Bloomlings.Core.Simulation
             int depth = Board.TopDepth(cell);
             VariantId variant = Board.TopLayer(cell);
             bool wasHidden = Board.IsMysteryHidden(cell);
-            _hasher.Toggle(ZobristFeature.CellLayer, cell, depth, VariantIndex(Board.TopCode(cell), variant));
+            Toggle(ZobristFeature.CellLayer, cell, depth, VariantIndex(Board.TopCode(cell), variant));
             LayerClearResult result = Board.ClearTopLayer(cell);
             if (result.Opened)
             {
-                _hasher.Toggle(ZobristFeature.CellOpen, cell);
+                Toggle(ZobristFeature.CellOpen, cell);
             }
 
             if (wasHidden && !Board.IsMysteryHidden(cell))
             {
-                _hasher.Toggle(ZobristFeature.CellMysteryHidden, cell);
+                Toggle(ZobristFeature.CellMysteryHidden, cell);
             }
 
             return result;
@@ -500,7 +500,7 @@ namespace Bloomlings.Core.Simulation
             if (Board.IsMysteryHidden(cell))
             {
                 Board.RevealMystery(cell);
-                _hasher.Toggle(ZobristFeature.CellMysteryHidden, cell);
+                Toggle(ZobristFeature.CellMysteryHidden, cell);
             }
         }
 
@@ -508,7 +508,7 @@ namespace Bloomlings.Core.Simulation
         public void OpenNonTargetCell(int cell)
         {
             Board.OpenCell(cell);
-            _hasher.Toggle(ZobristFeature.CellOpen, cell);
+            Toggle(ZobristFeature.CellOpen, cell);
         }
 
         public void SetRemaining(int pod, int remaining)
@@ -518,9 +518,9 @@ namespace Bloomlings.Core.Simulation
                 throw new InvalidOperationException($"Pod '{PodId(pod)}' would go negative.");
             }
 
-            _hasher.Toggle(ZobristFeature.PodRemaining, pod, Pods[pod].Remaining);
+            Toggle(ZobristFeature.PodRemaining, pod, Pods[pod].Remaining);
             Pods[pod].Remaining = remaining;
-            _hasher.Toggle(ZobristFeature.PodRemaining, pod, remaining);
+            Toggle(ZobristFeature.PodRemaining, pod, remaining);
         }
 
         /// <summary>Moves an exposed pod from its stack to the leftmost free slot and returns (stack, slot).</summary>
@@ -577,13 +577,13 @@ namespace Bloomlings.Core.Simulation
                 int depth = Tray.DepthFromTop(pod);
                 for (int i = 0; i < depth; i++)
                 {
-                    _hasher.Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
+                    Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
                 }
 
                 Tray.Remove(pod);
                 for (int i = 0; i < depth; i++)
                 {
-                    _hasher.Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
+                    Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
                 }
             }
 
@@ -629,7 +629,7 @@ namespace Bloomlings.Core.Simulation
             if (!Pods[pod].VariantRevealed)
             {
                 Pods[pod].VariantRevealed = true;
-                _hasher.Toggle(ZobristFeature.PodRevealed, pod);
+                Toggle(ZobristFeature.PodRevealed, pod);
             }
         }
 
@@ -644,7 +644,7 @@ namespace Bloomlings.Core.Simulation
             if (!KeyCollected[index])
             {
                 KeyCollected[index] = true;
-                _hasher.Toggle(ZobristFeature.KeyCollected, index);
+                Toggle(ZobristFeature.KeyCollected, index);
             }
         }
 
@@ -652,16 +652,16 @@ namespace Bloomlings.Core.Simulation
 
         public void SetSpecialProgress(int special, int progress)
         {
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
             SpecialProgress[special] = progress;
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
         }
 
         public void MarkSpecialTriggered(int special)
         {
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
             SpecialTriggered[special] = true;
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], 1);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], 1);
         }
 
         public void MarkExtraSlotUsed()
@@ -669,7 +669,7 @@ namespace Bloomlings.Core.Simulation
             if (!ExtraSlotUsed)
             {
                 ExtraSlotUsed = true;
-                _hasher.Toggle(ZobristFeature.ExtraSlotUsed, 0);
+                Toggle(ZobristFeature.ExtraSlotUsed, 0);
             }
         }
 
@@ -677,14 +677,19 @@ namespace Bloomlings.Core.Simulation
         {
             if (ShuffleUses > 0)
             {
-                _hasher.Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
+                Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
             }
 
             ShuffleUses++;
-            _hasher.Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
+            Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
         }
 
         // ---- Hashing ----
+
+        /// <summary>Toggles a key of the incremental part of the hash (as <see cref="StateHasher.Toggle(ulong)"/>).</summary>
+        private void Toggle(ulong key) => _hash ^= key;
+
+        private void Toggle(ZobristFeature feature, int a, int b = 0, int c = 0) => _hash ^= ZobristKeys.Key(feature, a, b, c);
 
         /// <summary>Toggles every hash key of one cell (its kind, layers and mystery flag); call before and after a change.</summary>
         private void ToggleCell(int cell)
@@ -692,17 +697,17 @@ namespace Bloomlings.Core.Simulation
             switch (Board.KindAt(cell))
             {
                 case CellKind.Open:
-                    _hasher.Toggle(ZobristFeature.CellOpen, cell);
+                    Toggle(ZobristFeature.CellOpen, cell);
                     break;
                 case CellKind.Target:
                     for (int d = Board.TopDepth(cell); d < Board.OriginalLayerCount(cell); d++)
                     {
-                        _hasher.Toggle(ZobristFeature.CellLayer, cell, d, Catalog.IndexOf(Board.LayerAt(cell, d)));
+                        Toggle(ZobristFeature.CellLayer, cell, d, Catalog.IndexOf(Board.LayerAt(cell, d)));
                     }
 
                     if (Board.IsMysteryHidden(cell))
                     {
-                        _hasher.Toggle(ZobristFeature.CellMysteryHidden, cell);
+                        Toggle(ZobristFeature.CellMysteryHidden, cell);
                     }
 
                     break;
@@ -711,10 +716,10 @@ namespace Bloomlings.Core.Simulation
 
         private void ToggleLocation(int pod)
         {
-            _hasher.Toggle(LocationKey(pod));
+            Toggle(LocationKey(pod));
             if (Pods[pod].Location == PodLocation.Tray)
             {
-                _hasher.Toggle(ZobristFeature.TrayDepth, pod, Tray.DepthFromBottom(pod));
+                Toggle(ZobristFeature.TrayDepth, pod, Tray.DepthFromBottom(pod));
             }
         }
 

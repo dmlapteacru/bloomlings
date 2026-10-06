@@ -43,7 +43,7 @@ namespace Bloomlings.Core.Simulation
                 int[] slots = state.Slots.OccupiedByAge();
                 if (slots.Length > 0)
                 {
-                    candidates ??= new Candidates(board.CellCount, state.Catalog.Count);
+                    candidates ??= Candidates.For(state.Catalog.Count);
                     candidates.Allocate(state, reach.TargetArray, slots, claimPods, claimTargets);
                 }
 
@@ -103,29 +103,42 @@ namespace Bloomlings.Core.Simulation
         /// <summary>
         /// The allocation of one round (FR-020, FR-021). Each pod, oldest slot first, walks the reachable targets in their
         /// fixed order and claims the unclaimed ones whose visible top layer is its exact variant, until its count is
-        /// covered. The targets are first grouped by their top layer's variant, keeping their order, so each pod walks
-        /// only the targets of its own variant: the claims are the same, in the same order. A hidden mystery tile is
-        /// never a candidate. Buffers are reused across the rounds of one settle.
+        /// covered. The candidates are first grouped by variant, keeping the target order. A pod then claims the next
+        /// ones of its variant: the earlier pods of that variant took the ones before, so these are exactly the first
+        /// unclaimed ones, and the claims are the same, in the same order. A hidden mystery tile is never a candidate.
+        /// The work arrays are kept per thread.
         /// </summary>
         private sealed class Candidates
         {
-            private readonly bool[] _claimed;
+            [System.ThreadStatic]
+            private static Candidates? s_current;
+
             private readonly int[] _start;
             private readonly int[] _next;
-            private int[] _byVariant;
+            private int[] _byVariant = new int[64];
 
-            public Candidates(int cells, int variants)
+            private Candidates(int variants)
             {
-                _claimed = new bool[cells];
                 _start = new int[variants + 1];
                 _next = new int[variants];
-                _byVariant = new int[16];
+            }
+
+            public static Candidates For(int variants)
+            {
+                Candidates? current = s_current;
+                if (current == null || current._next.Length != variants)
+                {
+                    current = new Candidates(variants);
+                    s_current = current;
+                }
+
+                return current;
             }
 
             public void Allocate(LevelState state, ReachableTarget[] targets, int[] slots, List<int> claimPods, List<ReachableTarget> claimTargets)
             {
                 Board board = state.Board;
-                int variants = _start.Length - 1;
+                int variants = _next.Length;
                 System.Array.Clear(_start, 0, _start.Length);
                 if (_byVariant.Length < targets.Length)
                 {
@@ -167,31 +180,23 @@ namespace Bloomlings.Core.Simulation
                     }
                 }
 
+                // Each variant's next unclaimed candidate.
+                System.Array.Copy(_start, next, variants);
                 foreach (int slot in slots)
                 {
                     int pod = state.Slots.PodIn(slot);
                     int variant = state.PodVariantIndex[pod];
                     int need = state.Pods[pod].Remaining;
-                    for (int k = _start[variant]; k < _start[variant + 1] && need > 0; k++)
+                    int k = next[variant];
+                    int end = _start[variant + 1];
+                    while (need > 0 && k < end)
                     {
-                        int t = _byVariant[k];
-                        int cell = targets[t].Index;
-                        if (_claimed[cell])
-                        {
-                            continue;
-                        }
-
-                        _claimed[cell] = true;
                         claimPods.Add(pod);
-                        claimTargets.Add(targets[t]);
+                        claimTargets.Add(targets[_byVariant[k++]]);
                         need--;
                     }
-                }
 
-                // Unclaim for the next round.
-                for (int i = 0; i < claimTargets.Count; i++)
-                {
-                    _claimed[claimTargets[i].Index] = false;
+                    next[variant] = k;
                 }
             }
         }
