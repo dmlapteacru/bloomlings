@@ -68,7 +68,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     three to a row, a page at a time between the page arrows, and a picture's detail on the page; back and the system
     back return to Home (from a picture's detail, to the grid first);
   - the level (frames 7–9) in the reference's layout (spec 005 FR-020, FR-021): the cream Pause, the wooden level sign
-    with ivy and the HARD or SUPER HARD badge, the cream 2× pill, the board of candy tiles wide in its stone border on
+    with ivy and the HARD or SUPER HARD badge, the cream ▶▶▶ fast-forward pill (lit while on, 3×), the board of candy tiles wide in its stone border on
     the lawn (the Garden Entries have no arch: the Bloomlings set off from the border), and one parchment tray to the
     bottom of the screen with the Waiting Slots,
     the four booster boxes and a column of pods per Source stack, one after another and never on each other (the
@@ -110,7 +110,7 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 - Animation: the rules resolve a tap at once in the core; `LevelAnimator` then plays the events round by round, like
   the Unity client's timeline: a pod flies from the tray to its slot, Bloomlings walk from the Garden Entry to their
   tiles, each tile shrinks away when its Bloomling arrives, slot counts drop, a finished pod leaves, locks stay until
-  their key's wave, and the win or jam card waits for the last wave. 2× speed and backlog compression change only the
+  their key's wave, and the win or jam card waits for the last wave. Fast forward (3×) and backlog compression change only the
   pace. A harness replays every golden case and every showcase solution, with pauses and with rapid taps, and checks
   that the settled screen equals the rules state.
 - Demos once each, with the Unity client's texts (`Strings_en.csv`, embedded): the Level 1 tap hint, each booster at

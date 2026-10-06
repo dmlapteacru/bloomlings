@@ -60,7 +60,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
 
         private readonly TimelinePlayer _player = new TimelinePlayer();
 
-        /// <summary>1 or 2 (the 2× toggle).</summary>
+        /// <summary>1 or <c>PlaySpeed.Fast</c> (3×, the speed pill's fast forward).</summary>
         public float Speed
         {
             get => _player.Speed;

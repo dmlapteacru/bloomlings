@@ -125,8 +125,14 @@ a default or asks a question.
   fit. The pace sits between the earlier one and a very slow one. The owner: "not too fast, or a whole level lasts ten
   seconds; something in between; in the reference game they are really slow". Each pod's Bloomlings leave the arch in
   a line, 0.28 s apart, and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
-  its way. The backlog speed-up waits for 60 s of backlog (research R4). 2× still doubles the clock (FR-069).
+  its way. The backlog speed-up waits for 60 s of backlog (research R4). Fast forward still speeds up the clock (3× since the owner's amendment of FR-069).
   Presentation only: no outcome changes.
+- **Q: How fast is the speed button, and what does it show?**
+  A: 3×, shown as ▶▶▶ with no number (FR-069 as amended). The owner: "the 2x button should really be 3x, but I don't
+  want to show 3x: maybe just >>>, and when the player turns it on it lights up as switched on, and then switches off".
+  It is a toggle: a tap lights it (a `garden.glow` halo, the chevrons green) and plays the animation at 3×; another tap
+  turns it off. It still lights up on its own while no pod can be tapped. The saved choice and Settings' row
+  ("Fast forward: On/Off") stay. Presentation only.
 - **Q: Must a person approve every base picture?**
   A: No (FR-084 as amended). The owner: "I don't think there is any point in me approving pictures, the rules can be
   rewritten. I checked Levels 1 to 10 and played many other levels, almost 400 of them; the pictures shown suit me
@@ -458,7 +464,7 @@ skin. Complete the daily challenge. Open the Collection.
 - **FR-021**: When more matching tiles are reachable than a pod needs, the tiles MUST be chosen by a fixed rule that players can anticipate: nearest to a Garden Entry by route distance first, then a fixed tie-break order.
 - **FR-022**: A pod MUST leave only when its count reaches 0. Its slot MUST become free at once.
 - **FR-023**: For each exact variant, the pod counts MUST add up to the visible plus hidden tile-layers of that variant. Accounting is never per family.
-- **FR-024**: The same level definition and the same sequence of accepted taps and booster uses MUST always give the same logical outcome. The outcome MUST never depend on animation timing, the 2× speed setting or the device. Mystery values are fixed in the level data.
+- **FR-024**: The same level definition and the same sequence of accepted taps and booster uses MUST always give the same logical outcome. The outcome MUST never depend on animation timing, the fast-forward setting or the device. Mystery values are fixed in the level data.
 
 #### D. Win, jam and restart (docs 01, 09, 11)
 
@@ -575,12 +581,15 @@ skin. Complete the daily challenge. Open the Collection.
 
 - **FR-067**: The game MUST be playable one-handed in portrait orientation on phones.
 - **FR-068**: The gameplay screen MUST be laid out as follows, with no goals panel (the board itself shows the remaining work):
-  - Top: Pause, Level N, 2× speed.
+  - Top: Pause, Level N, fast forward (▶▶▶).
   - Center: the board.
   - Below the board: the Garden Entry and the Waiting Slots.
   - Bottom: the stacked Source Tray, with a compact booster bar.
-- **FR-069**: The 2× speed setting MUST change only animation speed, never the outcome. While no pod can be tapped
-  (every pod picked, or the level decided), the animation MUST play at 2× on its own, the speed control showing it,
+- **FR-069**: The fast-forward setting MUST change only animation speed, never the outcome. Fast forward plays the
+  animation at 3×; its control shows ▶▶▶ with no number and lights up while it is on *(amended 2026-10-06, the owner:
+  "the 2x button should really be 3x, but I don't want to show 3x: maybe just >>>, and when the player turns it on it
+  lights up as switched on, and then switches off"; it was a 2× setting labelled "1×" or "2×")*. While no pod can be
+  tapped (every pod picked, or the level decided), the animation MUST play fast on its own, the speed control lit,
   without changing the player's setting (the owner, 2026-10-04; research R4).
 - **FR-070**: Every tap MUST get immediate feedback. Selectable, locked, waiting, active, stuck and jam-risk states MUST be communicated visually, with minimal text. Bloomlings MUST stay small enough not to hide tile state.
 - **FR-071**: When the second variant of a family first appears, the game MUST show both side by side with one short message, for example "Match the exact symbol". It MUST then show the first variant's pod ignoring the sibling's tile. The explanation is not repeated later.
@@ -744,7 +753,7 @@ Layout principles:
 - **SC-002**: After Level 10, at least 80% of playtesters can explain in their own words when a level jams.
 - **SC-003**: In a glance test with 6 active variants on a 14×16 board, players identify the exact variant of any tile with at least 95% accuracy, and confuse same-family siblings in under 2% of answers. They also tell active tiles apart from restored (open) cells with at least 95% accuracy. The same test passes under a colorblind simulation.
 - **SC-004**: 100% of the 5000+ launch levels pass every invariant in FR-080 before release.
-- **SC-005**: Replaying a stored tap sequence gives an identical outcome in 100% of automated replays, across devices and at both 1× and 2× speed.
+- **SC-005**: Replaying a stored tap sequence gives an identical outcome in 100% of automated replays, across devices and at both 1× and fast-forward (3×) speed.
 - **SC-006**: Median completion times fall within the band targets: tutorial 20–45 s, Normal 45–120 s, Hard 2–4 min.
 - **SC-007**: First-attempt win rates meet the targets (tunable): Normal at least 70%, Hard 35–60%, Super Hard 15–40%.
 - **SC-008**: Every tap shows feedback within 0.1 s. Animation stays smooth on the lowest supported devices with the largest boards: at least 30 fps, with no frame hitch longer than 100 ms.

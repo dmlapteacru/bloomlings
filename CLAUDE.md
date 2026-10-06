@@ -237,7 +237,7 @@ no pay-to-win), simplicity/offline-first and the workflow gates.
 - Exact matching: a pod clears only its exact target variant. A family (Sprig, Bloom, Drop,
   Twig) is never a wildcard.
 - Deterministic rules: the same level definition plus the same tap sequence always gives the
-  same outcome, independent of animation, 2x speed or device.
+  same outcome, independent of animation, fast forward or device.
 - Every gameplay cell is unambiguous: fully one thing, never partially occupied.
 - Difficulty comes from source ordering, dependencies, variants and mechanics, not from tile HP
   or repetitive tapping.

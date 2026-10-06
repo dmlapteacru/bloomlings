@@ -58,6 +58,18 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
+    /// The fast-forward speed of the animation clock in both builds (spec 001 FR-069 as amended on 2026-10-06, the owner:
+    /// 3×, shown as ▶▶▶ with no number and lit while on): the player's choice on the speed pill, and the speed on its own
+    /// while no pod can be tapped. Animation only: never an outcome.
+    /// </summary>
+    public static class PlaySpeed
+    {
+        public const float Fast = 3f;
+
+        public static float Of(bool fast) => fast ? Fast : 1f;
+    }
+
+    /// <summary>
     /// The clearing styles' catalog and timing (spec 005 FR-038; spec 001 research R4, amendment of 2026-10-06), shared by
     /// both builds' timelines (<c>LevelAnimator</c>, <c>TimelinePlayer</c>), the board's drawing (<see cref="ClearLook"/>)
     /// and the Store's previews (<see cref="ClearPreview"/>). Every style takes the same time for a tile

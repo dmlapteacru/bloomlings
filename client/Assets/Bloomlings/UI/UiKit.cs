@@ -782,35 +782,54 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// The speed pill of the gameplay top bar (spec 005 §3.3): the cream squircle style (radius 34% of its height),
-        /// wider, with the speed (<paramref name="label"/>, "1×" or "2×") in <c>ink.brown</c> at half its height and the
-        /// <c>ui.fast</c> chevrons (▶▶, 52% of its height) after it, both centered as a group. The label is the pill's only
-        /// text, so callers find it with <c>GetComponentInChildren&lt;TextMeshProUGUI&gt;</c>.
+        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the cream squircle style (radius
+        /// 34% of its height), wider, with only the <c>ui.fast</c> chevrons (▶▶▶, <see cref="GardenLook.SpeedGlyphShare"/>
+        /// of its height) in the middle, no number. <paramref name="setOn"/> lights it while fast forward is on: a
+        /// <c>garden.glow</c> halo round the face and the chevrons in the green of a switched-on toggle (the playtest's
+        /// <c>Kit.SpeedPill</c>).
         /// </summary>
-        public static Button SpeedPill(string name, Transform parent, string label, Action onClick)
+        public static Button SpeedPill(string name, Transform parent, Action onClick, out Action<bool> setOn)
         {
             GardenButton view = IconFace(name, parent, GardenLook.White, b => b.Height * 0.34f, square: false, raycast: true);
-            TypeStyle s = DesignTokens.Type.LevelPill;
-            TextMeshProUGUI text = KitLabel("Label", view.Content, label, s, TextLook.Plain(C.InkBrown));
-            Image fast = UiFactory.CreateImage("Fast", view.Content, ProceduralSprites.Haloed(GardenLook.FastGlyph.ShapeId, GardenLook.FastGlyph.Fill, C.CreamTop), Color.white);
-            fast.preserveAspect = true;
-            BoxLayout.On(view.Content).Watch(text).Then(f =>
+            BoxLayout body = BoxLayout.On(view.Body);
+            var rings = new List<GameObject>();
+            var radii = new float[GardenLook.SpeedGlowLayers];
+            Color ringColor = UiTheme.Of(C.GardenGlow.WithAlpha(GardenLook.SpeedGlowAlpha / GardenLook.SpeedGlowLayers));
+            for (int k = 0; k < GardenLook.SpeedGlowLayers; k++)
             {
-                float h = view.IconSide;
-                float size = h * 0.5f;
-                float glyph = h * 0.52f;
-                float gap = h * 0.04f;
-                float measured = KitText.Measure(text, size);
-                float textWidth = Mathf.Min(measured > 0f ? measured : size * 1.4f, f.Width - glyph - gap - (h * 0.2f));
-                float start = f.CenterX - ((textWidth + gap + glyph) / 2f);
-                KitText.Place(text, s, start + (textWidth / 2f), f.CenterY, size, textWidth + 1f);
-                BoxLayout.Place(fast.rectTransform, Box.FromCenter(start + textWidth + gap + (glyph / 2f), f.CenterY, glyph, glyph));
+                int layer = k;
+                Image ring = RoundRect("Glow" + layer, view.Body, ringColor, _ => radii[layer]);
+                ring.raycastTarget = false;
+                ring.rectTransform.SetAsFirstSibling();
+                body.Add(ring.rectTransform, b =>
+                {
+                    float grow = b.Height * GardenLook.SpeedGlowGrow * (layer + 1);
+                    radii[layer] = (b.Height * 0.34f) + grow;
+                    return b.Inset(-grow);
+                });
+                rings.Add(ring.gameObject);
+            }
+
+            Sprite off = ProceduralSprites.Haloed(GardenLook.FastGlyph.ShapeId, GardenLook.FastGlyph.Fill, C.CreamTop);
+            Sprite lit = ProceduralSprites.Haloed(GardenLook.FastGlyphOn.ShapeId, GardenLook.FastGlyphOn.Fill, C.CreamTop);
+            Image fast = UiFactory.CreateImage("Fast", view.Content, off, Color.white);
+            fast.preserveAspect = true;
+            BoxLayout.On(view.Content).Then(f =>
+            {
+                float side = view.IconSide * GardenLook.SpeedGlyphShare;
+                BoxLayout.Place(fast.rectTransform, Box.FromCenter(f.CenterX, f.CenterY, side, side));
             });
+            setOn = on =>
+            {
+                fast.sprite = on ? lit : off;
+                foreach (GameObject ring in rings)
+                {
+                    ring.SetActive(on);
+                }
+            };
+            setOn(false);
             return Clickable(view, onClick);
         }
-
-        /// <summary>The 2× control of the gameplay top bar: since spec 005 the cream <see cref="SpeedPill"/>.</summary>
-        public static Button DarkPill(string name, Transform parent, string label, Action onClick) => SpeedPill(name, parent, label, onClick);
 
         /// <summary>Makes a garden element a button: the click sound and action, the press and the greyed state.</summary>
         private static Button Clickable(GardenButton view, Action onClick)

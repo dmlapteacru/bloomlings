@@ -643,12 +643,12 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The animation's speed after every command: 2× when the player chose it (FR-069), and also while no pod can be
-        /// tapped (the owner, 2026-10-04: every pod picked, only the animation left), so the rest plays fast; the speed pill
-        /// shows 2× then (it shows <see cref="LevelAnimator.Speed"/>). Animation only: never an outcome. The saved choice
-        /// stays as the player set it.
+        /// The animation's speed after every command: fast forward (<see cref="PlaySpeed.Fast"/>, 3×) when the player chose
+        /// it (FR-069 as amended on 2026-10-06), and also while no pod can be tapped (the owner, 2026-10-04: every pod
+        /// picked, only the animation left), so the rest plays fast; the speed pill is lit then (it shows
+        /// <see cref="LevelAnimator.Speed"/>). Animation only: never an outcome. The saved choice stays as the player set it.
         /// </summary>
-        public void RefreshSpeed() => Animator.Speed = Meta.Save.Settings.Speed2x || !CanTapAny() ? 2f : 1f;
+        public void RefreshSpeed() => Animator.Speed = PlaySpeed.Of(Meta.Save.Settings.Speed2x || !CanTapAny());
 
         /// <summary>Whether the rules allow a tap on any exposed pod (the top of a Source stack).</summary>
         private bool CanTapAny()
@@ -878,7 +878,7 @@ namespace Bloomlings.Playtest.Design
             p.Mark("ui.pause");
             Kit.LevelPill(p, r.Sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
             Box speed = r.Speed;
-            Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
+            Kit.SpeedPill(p, speed, Animator.Speed > 1f, ToggleSpeed);
             if (badge.HasValue)
             {
                 // HARD or SUPER HARD under the sign.

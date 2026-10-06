@@ -249,7 +249,7 @@ Wire format: [`contracts/player-save.schema.json`](contracts/player-save.schema.
 | Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items, the bought avatars `avatar.<name>`, spec 005 FR-037, and the bought clearing styles `clear.<name>`, spec 005 FR-038), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker, avatar}, board → {clearing}}` (no `board.clearing`: the free pair by level) |
 | Daily | `dailyReward{lastClaimUtcDate, streak}`, `dailyChallenge{lastCompletedUtcDate}` |
 | Collection | `entries[]` of `{pictureId, pictureVersion, mappingHash, levelNumber}` (FR-065) |
-| Settings | `music`, `sfx`, `haptics`, `speed2x`, `language`; older saves' `homePetals` and `homePetalsOn` (Home's falling petals' switch, removed with the petals by the owner on 2026-10-06, spec 005) are read and ignored |
+| Settings | `music`, `sfx`, `haptics`, `speed2x` (fast forward on; 3× since FR-069's amendment of 2026-10-06, the key kept for older saves), `language`; older saves' `homePetals` and `homePetalsOn` (Home's falling petals' switch, removed with the petals by the owner on 2026-10-06, spec 005) are read and ignored |
 | Stats | `levelsWon`, `jams`, `boostersUsed{}`, `adsWatched`, `firstSessionMaxLevel` |
 | Profile | optional (spec 005 FR-037, 2026-10-05): `name?` (1–16 characters, kept on the device; missing while the default "Gardener NNNN" is kept), `joinedAt?` (the UTC day, `yyyy-MM-dd`, set once); a merge keeps the base's name, else the other's, and the earlier day |
 

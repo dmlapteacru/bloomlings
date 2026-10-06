@@ -296,8 +296,25 @@ namespace Bloomlings.Client.UI.Design
 
         // ---- Icons (spec 005 contracts/look.md §3.4, §3.8) ----
 
-        /// <summary>The speed pill's glyph: two brown chevrons (▶▶).</summary>
+        /// <summary>The speed pill's glyph while fast forward is off: three brown chevrons (▶▶▶), no number.</summary>
         public static IconPart FastGlyph { get; } = new IconPart("ui.fast", C.InkBrown);
+
+        /// <summary>
+        /// The speed pill's glyph while fast forward is on (the owner, 2026-10-06: it lights up as switched on): the
+        /// chevrons in the green of a switched-on toggle, inside a <c>garden.glow</c> halo (<see cref="SpeedGlowAlpha"/>).
+        /// </summary>
+        public static IconPart FastGlyphOn { get; } = new IconPart("ui.fast", C.ButtonPrimary);
+
+        /// <summary>The lit speed pill's halo: <see cref="SpeedGlowLayers"/> rings of <c>garden.glow</c> sharing this alpha.</summary>
+        public const float SpeedGlowAlpha = 0.85f;
+
+        public const int SpeedGlowLayers = 4;
+
+        /// <summary>How far each halo ring grows past the pill's face, as a share of its height.</summary>
+        public const float SpeedGlowGrow = 0.045f;
+
+        /// <summary>The speed pill's glyph box: a square this share of the pill's height, centered (no label beside it).</summary>
+        public const float SpeedGlyphShare = 0.74f;
 
         /// <summary>The back button's glyph: a brown left arrow.</summary>
         public static IconPart BackGlyph { get; } = new IconPart("ui.back", C.InkBrown);

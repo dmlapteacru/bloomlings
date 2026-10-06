@@ -641,3 +641,10 @@ and contracts/look.md §3.6, §6.10.
   `PerCell`, `Base` and `LineGap` (0.73 s a cell plus 0.93 s, the line 0.28 s apart), so each tile's trip and the whole
   board's clearing take two thirds of the time with the same look and spacing; the Store's previews follow. Spec 001's
   Q&A and research R4, FR-038's Q&A and look.md §6.12 amended; `EveryStyle_TakesTheSameTimeForATile`.
+- [X] T133 Both builds: fast forward at 3× shown as ▶▶▶ (the owner, 2026-10-06: "the 2x button should really be 3x, but
+  I don't want to show 3x: maybe just >>>, and when the player turns it on it lights up as switched on, and then
+  switches off"): `PlaySpeed.Fast` (3×) for the player's choice and while no pod can be tapped; `ui.fast` redrawn as three
+  notched chevrons; `Kit.SpeedPill(p, box, on, action)` and `UiKit.SpeedPill(…, out setOn)` show no number and light up
+  while on (`garden.glow` rings, green chevrons, `GardenLook.FastGlyphOn`); Settings' row reads "Fast forward: On/Off";
+  the save keeps `speed2x`. Spec 001 FR-069 (with its Q&A), FR-024, FR-068, SC-005, quickstart, plan and data model,
+  look.md §3.3, the READMEs and CLAUDE.md amended; the asset inventory regenerated.

@@ -247,9 +247,13 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   outline (2%), a soft shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 46% of the size with a thin `CreamTop`
   halo all around it (the shape grown by 0.06). Pause and speed in the top bar are squircles (radius 34% of the height)
   of the same height; Settings, back and close are circles. Close is cream with a brown ✕ (no longer red).
-- **Speed pill** (`Kit.SpeedPill`, replaces `DarkPill`): the cream squircle style, as tall as Pause and wider, with the
-  speed text ("1×" or "2×", `InkBrown`) and the `ui.fast` glyph (▶▶: a solid triangle and a notched chevron, about 42%
-  of the pill tall, as tall as the digits) after it, in the cream halo.
+- **Speed pill** (`Kit.SpeedPill(p, box, on, action)` / `UiKit.SpeedPill`, replaces `DarkPill`): the cream squircle
+  style, as tall as Pause and wider, with only the `ui.fast` glyph in the middle (▶▶▶: three notched chevrons, its box
+  `GardenLook.SpeedGlyphShare` = 74% of the pill's height, in the cream halo), no number (the owner, 2026-10-06; it showed
+  "1×"/"2×" and ▶▶). Off: brown chevrons (`GardenLook.FastGlyph`). On (fast forward, 3×, `PlaySpeed.Fast`, or on its
+  own while no pod can be tapped): lit, with `SpeedGlowLayers` (4) rings of `garden.glow` round the face, each grown by
+  `SpeedGlowGrow` (4.5%) of the height and sharing `SpeedGlowAlpha` (0.85), and the chevrons in `ButtonPrimary` green
+  (`GardenLook.FastGlyphOn`).
 - **Choice button** (`Kit.ChoiceButton(p, box, ColorSet set, iconDraw, label, cost)`, jam): a rounded rectangle
   (radius 22% of its height) in the green or blue set with the glossy face, the icon (its box 50% of the height, so the
   icon itself is about 44% of the face as on the reference; its center at 36% of the face) in the upper half, the white

@@ -1411,7 +1411,7 @@ namespace Bloomlings.Playtest.Preview
             // Round and squircle buttons and the speed pill.
             Box[] round = Spread(rows[5], new[] { 124f, 210f, 124f, 104f, 124f }, new[] { 124f, 112f, 124f, 104f, 124f }, p);
             Kit.RoundButton(p, round[0].CenterX, round[0].CenterY, round[0].Width, "ui.pause", () => { }, squircle: true);
-            Kit.SpeedPill(p, round[1], "2×", () => { });
+            Kit.SpeedPill(p, round[1], true, () => { });
             Kit.RoundButton(p, round[2].CenterX, round[2].CenterY, round[2].Width, "ui.settings", () => { });
             Kit.RoundButton(p, round[3].CenterX, round[3].CenterY, round[3].Width, "ui.close", () => { });
             Kit.RoundButton(p, round[4].CenterX, round[4].CenterY, round[4].Width, GardenLook.BackGlyph.ShapeId, () => { });

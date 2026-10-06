@@ -532,36 +532,38 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The speed pill of the gameplay top bar (spec 005 §3.3): the cream squircle style, wider, with the speed
-        /// (<paramref name="label"/>, "1×" or "2×") in <c>ink.brown</c> and the <c>ui.fast</c> chevrons (▶▶) after it.
+        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the cream squircle style, wider,
+        /// with only the <c>ui.fast</c> chevrons (▶▶▶) in the middle, no number. While fast forward is on
+        /// (<paramref name="on"/>) it lights up: a <c>garden.glow</c> halo round the face and the chevrons in the green of a
+        /// switched-on toggle.
         /// </summary>
-        public static void SpeedPill(IPainter p, Box box, string label, Action? action)
+        public static void SpeedPill(IPainter p, Box box, bool on, Action? action)
         {
             p.Mark("ui.pill.speed");
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
-            Box f = IconFace(p, box, GardenLook.White, box.Height * 0.34f, depth);
-            TypeStyle s = T.LevelPill;
-            float scale = box.Height * 0.5f / p.U(s.Size);
+            float radius = box.Height * 0.34f;
+            if (on)
+            {
+                for (int k = GardenLook.SpeedGlowLayers; k >= 1; k--)
+                {
+                    float grow = box.Height * GardenLook.SpeedGlowGrow * k;
+                    p.FillRound(box.Inset(-grow), radius + grow, C.GardenGlow.WithAlpha(GardenLook.SpeedGlowAlpha / GardenLook.SpeedGlowLayers));
+                }
+            }
 
-            // The ▶▶ box: its marks are 80% of it tall, so they stand as tall as the digits (about 42% of the pill).
-            float glyph = box.Height * 0.52f;
-            float gap = box.Height * 0.04f;
-            float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - glyph - gap - (box.Height * 0.2f));
-            float start = f.CenterX - ((textWidth + gap + glyph) / 2f);
-            p.Text(label, start + (textWidth / 2f), f.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
-            Box fast = Box.FromCenter(start + textWidth + gap + (glyph / 2f), f.CenterY, glyph, glyph);
-            GlyphHalo(p, GardenLook.FastGlyph.ShapeId, fast);
-            p.Shape(GardenLook.FastGlyph.ShapeId, fast, GardenLook.FastGlyph.Fill);
+            Box f = IconFace(p, box, GardenLook.White, radius, depth);
+            IconPart glyph = on ? GardenLook.FastGlyphOn : GardenLook.FastGlyph;
+            float side = box.Height * GardenLook.SpeedGlyphShare;
+            Box fast = Box.FromCenter(f.CenterX, f.CenterY, side, side);
+            GlyphHalo(p, glyph.ShapeId, fast);
+            p.Shape(glyph.ShapeId, fast, glyph.Fill);
             p.PopTransform();
             if (action != null)
             {
                 p.Hit(Touch(p, box), action);
             }
         }
-
-        /// <summary>The 2× control of the gameplay top bar: since spec 005 the cream <see cref="SpeedPill"/>.</summary>
-        public static void DarkPill(IPainter p, Box box, string label, Action? action) => SpeedPill(p, box, label, action);
 
         /// <summary>
         /// The gameplay level label: since spec 005 a wooden sign with ivy at both ends (§3.2, research D6), its letters in

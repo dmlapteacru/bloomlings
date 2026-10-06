@@ -151,7 +151,7 @@ namespace Bloomlings.Client.UI.Screens
             _music.text = Loc.F("settings.music", OnOff(_settings.Music));
             _sfx.text = Loc.F("settings.sound", OnOff(_settings.Sfx));
             _haptics.text = Loc.F("settings.haptics", OnOff(_settings.Haptics));
-            _speed.text = Loc.F("settings.speed", _settings.Speed2x ? "2×" : "1×");
+            _speed.text = Loc.F("settings.speed", Loc.T(_settings.Speed2x ? "common.on" : "common.off"));
             foreach ((ToggleView view, Func<bool> on) in _toggles)
             {
                 view.Show(on());

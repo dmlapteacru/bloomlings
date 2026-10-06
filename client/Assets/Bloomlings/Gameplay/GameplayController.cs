@@ -171,7 +171,7 @@ namespace Bloomlings.Client.Gameplay
             Service<AdPolicy>()?.OnAttemptStarted();
             if (AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && save!.Settings.Speed2x)
             {
-                _hud.SetDoubleSpeed(true);
+                _hud.SetFastForward(true);
             }
 
             RefreshSpeed();
@@ -1141,27 +1141,28 @@ namespace Bloomlings.Client.Gameplay
             return variants;
         }
 
-        /// <summary>The 2× toggle (FR-069) also becomes the default for the next levels.</summary>
-        private void OnSpeedChanged(bool doubleSpeed)
+        /// <summary>Fast forward (FR-069) also becomes the default for the next levels.</summary>
+        private void OnSpeedChanged(bool fastForward)
         {
             RefreshSpeed();
             PlayerSave? save = Service<PlayerSave>();
-            if (save != null && save.Settings.Speed2x != doubleSpeed)
+            if (save != null && save.Settings.Speed2x != fastForward)
             {
-                save.Settings.Speed2x = doubleSpeed;
+                save.Settings.Speed2x = fastForward;
                 Service<SaveService>()?.Save();
             }
         }
 
         /// <summary>
-        /// The clock's speed after every command: 2× when the player chose it (FR-069), and also while no pod can be tapped
-        /// (the owner, 2026-10-04: every pod picked, only the animation left), so the rest plays fast; the pill shows 2× then.
+        /// The clock's speed after every command: fast forward (<see cref="PlaySpeed.Fast"/>, 3×) when the player chose it
+        /// (FR-069 as amended on 2026-10-06), and also while no pod can be tapped (the owner, 2026-10-04: every pod picked,
+        /// only the animation left), so the rest plays fast; the pill is lit then.
         /// Animation only: never an outcome.
         /// </summary>
         private void RefreshSpeed()
         {
             bool auto = _session != null && !CanTapAny(_session);
-            _timeline.Speed = _hud.DoubleSpeed || auto ? 2f : 1f;
+            _timeline.Speed = PlaySpeed.Of(_hud.FastForward || auto);
             _hud.ShowAutoSpeed(auto);
         }
 

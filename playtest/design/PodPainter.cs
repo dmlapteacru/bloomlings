@@ -423,7 +423,7 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public sealed class TrayMotion
     {
-        /// <summary>How long a pod slides to its new row (animation seconds, so 2× speed halves it).</summary>
+        /// <summary>How long a pod slides to its new row (animation seconds, so fast forward shortens it).</summary>
         public const float SlideSeconds = 0.18f;
 
         private readonly Dictionary<string, Place> _places = new Dictionary<string, Place>(StringComparer.Ordinal);
