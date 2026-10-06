@@ -145,6 +145,35 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void APracticeLevel_IsNeverSuperHard_ForTheValidator()
+        {
+            // L151, the chest's practice: a Normal (or Hard) practice passes; the same level stored as Super Hard is refused.
+            var generator = new LevelGenerator(
+                ProfileLoader.Read(SmallBand),
+                new PicturePicker(Library),
+                DifficultyThresholds.Default with { HardMin = 100_000, SuperHardMin = 200_000 },
+                Pairs.IsApproved,
+                new DifficultySchedule(7, UnlockRoadmap.Default))
+            {
+                ForcedMechanics = new[] { MechanicNames.Chest },
+                ForcedClass = DifficultyClass.Normal,
+                UseBandGuidelines = false,
+            };
+            var history = new SortedDictionary<int, LevelDefinition>();
+            GenerationResult result = generator.Generate(151, 151, 7, history);
+            Assert.That(result.Failed, Is.Empty, string.Join(", ", result.Rejections.Select(r => r.Reason).Distinct()));
+            LevelDefinition practice = result.Accepted.Single().Definition;
+
+            var validator = new CatalogValidator(Library, UnlockRoadmap.Default, Pairs, new SolveOptions(20000)) { CheckBandGuidelines = false };
+            Assert.That(validator.Validate(new[] { practice }).Issues.Where(i => i.IsError).Select(i => $"{i.Check}: {i.Message}"), Is.Empty);
+
+            LevelDefinition superHard = practice with { Difficulty = practice.Difficulty with { Class = DifficultyClass.SuperHard } };
+            List<LevelIssue> errors = validator.Validate(new[] { superHard }).Issues.Where(i => i.IsError).ToList();
+            Assert.That(errors.Select(i => i.Check), Is.EqualTo(new[] { "practice" }));
+            Assert.That(errors[0].Message, Does.Contain("never Super Hard"));
+        }
+
+        [Test]
         public void AMysteryPod_IsPlacedFairly_WhenLevel8GoesToIt()
         {
             UnlockRoadmap roadmap = UnlockRoadmap.MysteryPodAtLevel8;

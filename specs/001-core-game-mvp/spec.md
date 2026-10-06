@@ -182,6 +182,13 @@ a default or asks a question.
 - **Q: How does a player choose a clearing style?**
   A: Each card of the Animations tab has its button: Buy with the price (it asks the confirmation), Choose, or Chosen with
   a check; the previews loop all the time (spec 005 FR-038 as amended).
+- **Q: The first generation on the regular boards cannot make some practice levels Super Hard. Lower the threshold?**
+  A: No: the thresholds stay, and practice levels are never Super Hard (FR-059 as amended). On a practice level (one
+  mechanic alone, FR-031) the tuned candidates top out at about 2550 (L151, the chest's practice: 119 candidates, none
+  over 2549, against its band's Super Hard minimum of 3100), while levels that mix mechanics either stay Normal or jump
+  far past the minimum (L21 3327, L1001 3437), so a lower minimum would swallow the Hard range without helping. A Super
+  Hard that the schedule puts on a practice level moves to the next level that is not a showcase, a practice or a
+  milestone level, and the practice level takes that level's class, as a Hard due on a big level moves on (FR-008).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -579,7 +586,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
 
 - **FR-057**: Progression MUST be one linear sequence of levels, Level 1 → 2 → … → 5000+. Each win unlocks the next level. There MUST be no level map, no level chooser and no level groupings. The flow is Launch → Home → Play → Level N → Win → Next.
 - **FR-058**: Home MUST show: the logo, Level N, Play/Continue, Petals, Settings, the Store (once unlocked), a teaser for the next milestone (for example, "Level 100 reward in 12"), and the leaderboard rank (after L10). *(Amended on 2026-10-04 by the product owner: the leaderboard rank shows only on the Leaderboard page, not on Home; the Store and the other features are the bottom menu's places, spec 005 FR-030. Home also shows two promo scenes: No Ads from L1 until Remove Ads is owned, and the Daily Reward from its unlock, spec 005 FR-032.)*
-- **FR-059**: Every level MUST have a class: Normal, Hard (label from L5) or Super Hard (label from L10). The class is shown before the level starts, with a distinct visual treatment and higher rewards. From L11 on, every 100 consecutive levels MUST contain 15–25 Hard and 6–10 Super Hard levels, spaced irregularly (tuning targets from doc 07: Hard every 4–6 levels, Super Hard every 10–15). The level after a Super Hard is a relief level. Difficulty moves in waves and does not rise monotonically.
+- **FR-059**: Every level MUST have a class: Normal, Hard (label from L5) or Super Hard (label from L10). The class is shown before the level starts, with a distinct visual treatment and higher rewards. From L11 on, every 100 consecutive levels MUST contain 15–25 Hard and 6–10 Super Hard levels, spaced irregularly (tuning targets from doc 07: Hard every 4–6 levels, Super Hard every 10–15). The level after a Super Hard is a relief level. A practice level (FR-031) is never Super Hard *(amended 2026-10-06, the owner: practice levels are never Super Hard; a Super Hard that the schedule puts on one moves to the next level that is not a showcase, a practice or a milestone level, and the practice level takes that level's class)*. Difficulty moves in waves and does not rise monotonically.
 - **FR-060**: The number of active variants MUST grow gradually:
 
   | Level | Active variants |
@@ -753,6 +760,11 @@ no big level. Every regular band now takes the whole regular range, so work is o
 mechanics; its icons board gets fewer hidden layers (4–9% of its tiles, at most 72), no mystery and a lower buffer
 pressure (peak 1–3 slots) so that the hidden-layer fairness check (FR-036) passes, and its own difficulty thresholds,
 because its score grows with its board. The durations remain estimates until playtests calibrate them (T155).
+
+Amended 2026-10-06 (the owner: practice levels are never Super Hard; the difficulty thresholds stay as they are). A
+practice level keeps its scheduled class unless the schedule makes it Super Hard: that Super Hard moves to the next
+level that is not a showcase, a practice or a milestone level, and the practice level takes that level's class (FR-059 as
+amended). With the catalog's schedule only L151 is affected: it is Hard, and L153 is Super Hard.
 
 Pod sizes:
 

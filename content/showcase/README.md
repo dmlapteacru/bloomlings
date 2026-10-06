@@ -21,7 +21,7 @@ the others live here:
 
 A showcase is generated in showcase mode (only the new mechanic, Normal class; the triple's is Hard). A practice level
 is generated in band mode: the generator gives the practice level its mechanic alone and keeps the level's scheduled
-difficulty class (the triple's practice is the first Hard or Super Hard level after L400, L401 under the generator's
+difficulty class, which is never Super Hard (spec 001 FR-059 as amended on 2026-10-06; the triple's practice is the first Hard or Super Hard level after L400, L401 under the generator's
 schedule). All were regenerated on 2026-09-29 with `gen-1.2.0`, which follows the Level Band Guidelines, again on
 2026-10-05 at the bigger band sizes (the owner: more, smaller cells from Level 1), and on 2026-10-06 on the regular
 boards of 224–288 cells that every level from L11 needs (spec 001 FR-008 as amended on 2026-10-06; task T177).
@@ -48,7 +48,7 @@ The levels today (`gen-1.3.0` unless noted; every picture approved by the automa
 | 90 | showcase | mystery_tile | fir_tree_01 | 16×18 (288) | Normal (1548) | 2026-10-06, seed 1 |
 | 91 | practice | mystery_tile | barn_03 | 14×16 (224) | Normal (1633) | 2026-10-06, seed 1 |
 | 150 | showcase | chest | butterfly_02 | 14×16 (224) | Normal (1873) | 2026-10-05, `gen-1.2.0` |
-| 151 | practice | chest | pending (see below) | | Super Hard (scheduled) | |
+| 151 | practice | chest | rabbit_04 | 16×16 (256) | Hard (2367) | 2026-10-06, seed 1 |
 | 250 | showcase | environment_2 | ladybug_03 | 14×16 (224) | Normal (1775) | 2026-10-05, `gen-1.2.0` |
 | 251 | practice | environment_2 | tulip_bed_04 | 14×16 (224) | Normal (1940) | 2026-10-06, seed 1 (T175) |
 | 400 | showcase | connected_triple | pear_03 | 14×16 (224) | Hard (2588) | 2026-10-06, seed 1 (T175) |
@@ -68,13 +68,16 @@ keeps every level of this folder fixed (`--keep content/showcase`, the default),
 around them. To redo one level, take its two files out of `levels/` and `validation/` first (a kept level is not
 generated), generate it into `content/work/`, and copy both files back. On 2026-10-06 L11–91 were redone this way in
 level order, each with seed 1 and with `content/catalog/` still empty, so the history was the curated Levels 1–10 and
-this folder.
+this folder; L151 followed with the schedule of FR-059 as amended.
 
 **Status:** `validate --catalog content/showcase --context content/curated` passes with 0 errors; its only warnings are
 the provisionally approved readability pairs (`content/readability/approved-pairs.json`, until the human sign-off).
 The levels are copied into `content/catalog/` with the catalog (`content/catalog/README.md`). Still open for the
 FR-084 tier of Levels 1–100: a person playtests each showcase.
 
-**L151 (chest practice, Super Hard by the schedule):** the old level stood on a 14×14 board (196 cells), which the band
-rule refuses. Every candidate on regular boards failed to reach the band's Super Hard minimum (3100): seeds 1–4 each
-spent all 60 candidates (`tray:class-normal-not-superhard` 80%, `tray:class-hard-not-superhard` 20%).
+**L151 (chest practice):** the old level stood on a 14×14 board (196 cells), which the band rule refuses, and was Super
+Hard by the schedule. On regular boards no candidate reached the band's Super Hard minimum (3100): seeds 1–4 and 6 each
+spent all 60 candidates, and the scored ones topped out at 2549 (median 2018). The owner then ruled that practice levels
+are never Super Hard (2026-10-06, spec 001 FR-059 as amended): the schedule moves that Super Hard to L153, and L151 takes
+L153's class, Hard. It was regenerated with `generate --profile content/profiles/band-0101-0250.json --levels 151-151
+--seed 1` (Hard 2367 at candidate 2).

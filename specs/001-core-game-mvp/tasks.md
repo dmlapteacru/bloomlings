@@ -1581,10 +1581,32 @@ final validation.
 - [ ] T177 With those pictures: L151 and the showcase and practice levels L11–91 (17 levels, still on 12×12–14×15 boards; FR-083
   wants 17 distinct pictures in Levels 1–100 while the library has 12 of 224+ cells) and the playtest's Levels 11–100
   regenerated on regular boards; then the catalog (`generate --jobs N`), whose big levels take minutes each.
+  Status (2026-10-06): the 17 showcase and practice levels L11–91 regenerated with `gen-1.3.0`, seed 1, in level order on
+  approved 224–288-cell pictures, all Normal; L151 regenerated after T180 (Hard 2367, rabbit_04 16×16);
+  `validate --catalog content/showcase --context content/curated` 0 errors (`content/showcase/README.md`). Timing on
+  this machine (one core per process): about 20 s for a Normal or Hard level, 10–20 min for a Super Hard one (most of its
+  60 candidates fail the tuner), 25 s for a big level; `validate` 0.5 s per level. The catalog and the playtest's levels
+  follow (T153), built by `tools/catalog/` on the owner's PC once the engine speed-up is merged.
 - [ ] T178 The owner: confirm the "rare" default (every milestone level from L525, always Normal), whether "icons only" should also
   drop the candy tile behind the icon (today: the candy tiles stay and only the chip goes), the big levels' pods (24–56)
   and thresholds (`big`, 1500 over the band's) after playing big levels, and a glance test on a 22×28 board (SC-003
   names 14×16).
+- [X] T179 `generate --segments N` (pipeline, contracts/pipeline-cli.md): the range is cut into N contiguous segments
+  (at most one per 50 levels; default `--jobs`, the behaviour before) generated in parallel on `--jobs` threads, so the
+  levels depend on the segments and never on the machine's cores (`GenerateCommand.Segments`, `GenerateRange`;
+  `GeneratorTests.Segments_FixTheLevels_WhateverTheThreads`). The tray tuner's rejection names the score it reached
+  (`tray:class-normal-not-superhard:score-1776`; `GeneratorTests.TrayRejections_NameTheScoreTheTuningReached`).
+- [X] T180 Practice levels are never Super Hard (the owner, 2026-10-06; FR-059 and the Level Band Guidelines as amended):
+  with the roadmap, `DifficultySchedule` moves a Super Hard due on a practice level (FR-031) to the nearest later level
+  that is not a showcase, a practice or a milestone level, whose next level is Normal and that follows no Super Hard, and
+  the practice level takes that level's class; the rest of the schedule is unchanged (with the catalog's seed only L151,
+  now Hard, and L153, now Super Hard). `generate` builds its schedule with the roadmap; `CatalogValidator` refuses a
+  practice level stored as Super Hard (check `practice`). The thresholds stay (`difficulty-thresholds.json` note: the
+  mixed levels' tuned scores are bimodal, the single-mechanic practice tops out at about 2550). Tests:
+  `GeneratorTests.Schedule_MovesASuperHardOffAPracticeLevel_ToTheNextFreeLevel`,
+  `Schedule_NeverPutsSuperHardOnAPracticeLevel_AndKeepsItsRules`,
+  `TheCatalogSchedule_Holds15To25HardAnd6To10SuperHard_InEveryBlockOf100`,
+  `ProgressionRulesTests.APracticeLevel_IsNeverSuperHard_ForTheValidator`. L151 regenerated on it (T177).
 
 ## Parallel Example: User Story 1
 
