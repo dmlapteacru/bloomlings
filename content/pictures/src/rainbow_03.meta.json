@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "rainbow_03",
+  "legend": {
+    "a": "red",
+    "b": "orange",
+    "c": "green",
+    "d": "blue",
+    "e": "violet",
+    "g": "hills",
+    "k": "cloud",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red band and flowers",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange band",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green band",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue band",
+      "roleId": "blue"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet band",
+      "roleId": "violet"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rainbow 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "sky"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

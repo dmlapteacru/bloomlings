@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "moon_and_stars_02",
+  "legend": {
+    "g": "hills",
+    "h": "far_hills",
+    "k": "roof",
+    "m": "moon",
+    "n": "night",
+    "o": "house",
+    "x": "specks",
+    "y": "star"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars and window",
+      "roleId": "star"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Tiny stars",
+      "roleId": "specks"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof and smile",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "House",
+      "roleId": "house"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far hills",
+      "roleId": "far_hills"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Moon and stars 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "night"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

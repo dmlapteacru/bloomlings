@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "popsicle_01",
+  "legend": {
+    "a": "top",
+    "b": "middle",
+    "c": "bottom",
+    "d": "sand",
+    "e": "grape",
+    "k": "stick",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink top",
+      "roleId": "top"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange middle",
+      "roleId": "middle"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green bottom",
+      "roleId": "bottom"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grape popsicle",
+      "roleId": "grape"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sticks",
+      "roleId": "stick"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Popsicle 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "summer"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

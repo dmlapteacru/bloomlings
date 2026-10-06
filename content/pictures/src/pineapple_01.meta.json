@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "pineapple_01",
+  "legend": {
+    "b": "wall",
+    "c": "crown",
+    "g": "crown2",
+    "h": "scales",
+    "o": "dots",
+    "p": "fruit",
+    "q": "plate",
+    "t": "table"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pineapple",
+      "roleId": "fruit"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Scales",
+      "roleId": "scales"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Inner leaves",
+      "roleId": "crown2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wall dots",
+      "roleId": "dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pineapple 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "summer"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

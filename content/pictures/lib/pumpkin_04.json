@@ -1,0 +1,91 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 6, 6, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 5],
+    [5, 6, 5, 1, 1, 5, 1, 1, 1, 1, 5, 1, 1, 5, 6, 5],
+    [0, 0, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, -1, -1],
+    [0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, -1],
+    [0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, 1, -1],
+    [0, 0, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 1, -1, 0],
+    [0, 0, 0, 0, 4, 4, 4, 3, 3, 1, 1, 1, 4, -1, 0, -1],
+    [0, 0, 0, 4, 4, 4, 4, 3, 3, 4, 4, 4, -1, -1, 0, 0],
+    [-1, 0, 0, -1, 0, 0, 0, 3, -1, 0, -1, 0, 0, 0, -1, -1],
+    [0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, -1, -1, 7, 7, 0],
+    [0, 0, 0, -1, 0, 0, -1, 0, -1, -1, 0, 0, 7, 7, 7, -1],
+    [-1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 7, 7, -1]
+  ],
+  "height": 17,
+  "id": "pumpkin_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pumpkin",
+      "roleId": "pumpkin"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ribs",
+      "roleId": "rib"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stem",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Vine and leaf",
+      "roleId": "vine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.268,
+    "nestingDepth": 4,
+    "regionCount": 24
+  },
+  "subject": "Pumpkin 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["fruit", "garden"]
+  },
+  "version": 1,
+  "width": 16
+}

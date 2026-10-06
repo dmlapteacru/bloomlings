@@ -10,6 +10,16 @@ Roles use only the four launch color groups (green, pink_purple, blue_cyan, brow
 mapped with launch variants (FR-006). Bands (the Level Band Guidelines as amended on 2026-10-05, bigger boards from
 Level 1): early 12 x 12-13 (L11-25), early_mid 12-13 x 13-14 (L26-50), core 13-14 x 14-16 (L51-100). Every subject has
 at least five color roles, so the core band, whose levels need five variants, can use any of them.
+
+Since 2026-10-06 (the owner's bigger boards: 224-288 cells from Level 11, and from Level 525 a big board of 289-616
+cells, at most 22 x 28, every 25th level) two more bands follow, drawn by the subject modules next to this script
+(garden_subjects.py redraws the garden subjects above with more detail, world_subjects.py adds buildings, vehicles, toys
+and things, animal_subjects.py animals, food_subjects.py food; picture_kit.py holds their drawing helpers):
+regular 14-16 x 16-18 (four pictures of every subject) and big 17-22 x 20-28 (one of every subject). Their sketches are
+tidied (no stray single cells), their holes keep the background share and nesting depth inside the picker's structure
+targets, and the script stops with a list of problems unless every picture meets its band's targets (nesting depth,
+background share, role sizes, occupancy, variants: all carry five and six distinct variants). The new bands come after
+the first ones, so the first pictures keep their random stream and stay byte-identical.
 """
 import json
 import math
@@ -437,13 +447,67 @@ SUBJECTS = [flower_pot, daisy_field, tulip_bed, fruit_tree, apple, pear, cherrie
 # Subjects whose roles can carry five distinct variants (at most two per color group): the core band's levels need five.
 FIVE_VARIANTS = [s for s in SUBJECTS if s is not fish]
 
+
+# ---- The bigger boards (the owner, 2026-10-06): regular boards of 224-288 cells from Level 11, and from Level 525 a
+# big board of 289-616 cells (at most 22 x 28) every 25th level. The subject modules draw with picture_kit, which
+# takes Canvas from this module (registered under its name also when it runs as a script).
+sys.modules.setdefault('sketch_pictures', sys.modules[__name__])
+import picture_kit  # noqa: E402
+from animal_subjects import ANIMAL_SUBJECTS  # noqa: E402
+from food_subjects import FOOD_SUBJECTS  # noqa: E402
+from garden_subjects import GARDEN_SUBJECTS  # noqa: E402
+from world_subjects import WORLD_SUBJECTS  # noqa: E402
+
+# The redrawn garden subjects, then the world (buildings, vehicles, toys, things), animals and food. Pictures take
+# subject (written + 7i) and size i in turn, so the count stays coprime with 7 and with the 9 regular sizes: every
+# subject then comes once in each run of len(NEW_SUBJECTS) pictures, and in four different sizes (97 since 2026-10-06).
+NEW_SUBJECTS = GARDEN_SUBJECTS + WORLD_SUBJECTS + ANIMAL_SUBJECTS + FOOD_SUBJECTS
+
+REGULAR_SIZES = [(14, 16), (15, 16), (14, 17), (15, 17), (16, 16), (16, 17), (14, 18), (15, 18), (16, 18)]
+BIG_SIZES = [(17, 20), (18, 22), (19, 24), (20, 24), (21, 26), (22, 28), (18, 21), (20, 25)]
+assert math.gcd(len(NEW_SUBJECTS), 7 * len(REGULAR_SIZES)) == 1, 'keep the subject count coprime with 7 and the sizes'
+
+# How the new bands finish and check each sketch: the picker's structure targets (nesting depth, background share in
+# per mille, PicturePicker and the band profiles), the fewest distinct variants every picture carries, and the share of
+# pictures that carry six. The holes never take the background below `min_background`.
+REGULAR = {'version': 1, 'depth': (2, 4), 'background': (250, 650), 'min_background': 0.27, 'variants': 5, 'six': 0.6}
+BIG = {'version': 1, 'depth': (2, 5), 'background': (250, 650), 'min_background': 0.27, 'variants': 6, 'six': 1.0}
+
 BANDS = [
     ('early', 16, [(12, 12), (12, 13)], SUBJECTS),
     ('early_mid', 26, [(12, 13), (13, 13), (12, 14), (13, 14)], SUBJECTS),
     ('core', 52, [(13, 14), (14, 14), (13, 15), (14, 15), (13, 16), (14, 16)], SUBJECTS),
     # Added 2026-10-05: Levels 51-100 use 50 distinct pictures with five variants, and the 52 above ran out by L93.
     ('core', 16, [(14, 15), (13, 16), (14, 16), (13, 15)], FIVE_VARIANTS),
+    # Added 2026-10-06: the bigger boards. New entries go last, so the bands above keep their random stream.
+    ('regular', 4 * len(NEW_SUBJECTS), REGULAR_SIZES, NEW_SUBJECTS, REGULAR),
+    ('big', len(NEW_SUBJECTS), BIG_SIZES, NEW_SUBJECTS, BIG),
 ]
+
+
+def finish(cv, roles, r, style):
+    """The new bands' finish: stray single cells go, small roles grow to a pod, then the holes open, never taking the
+    background below `min_background` nor the nesting depth past the band's."""
+    bg = roles[0][0]
+    picture_kit.tidy(cv)
+    cv.grow_small_roles(bg, MIN_ROLE_CELLS)
+    share = sum(row.count(bg) for row in cv.g) / (cv.w * cv.h)
+    target = min(0.94, max(r.uniform(0.84, 0.92), 1.0 - (share - style['min_background'])))
+    picture_kit.open_holes(cv, bg, r, target, style['depth'][1])
+
+
+def structure(cv, roles):
+    """Nesting depth and background share (per mille) as StructureMetrics computes them on import."""
+    bg = sum(row.count(roles[0][0]) for row in cv.g)
+    return picture_kit.nesting_depth(cv), bg * 1000 // (cv.w * cv.h)
+
+
+def variants(roles):
+    """The fewest and most distinct variants a mapping can give the roles (at most two per color group)."""
+    groups = {}
+    for role in roles:
+        groups[role[3]] = groups.get(role[3], 0) + 1
+    return len(groups), sum(min(2, k) for k in groups.values())
 
 
 def main(seed=2026):
@@ -451,17 +515,38 @@ def main(seed=2026):
     os.makedirs(ROOT, exist_ok=True)
     counter = {}
     written = 0
-    for band, count, sizes, subjects in BANDS:
+    problems = []
+    for band, count, sizes, subjects, *style in BANDS:
+        style = style[0] if style else None
+        six = 0
         for i in range(count):
             subject = subjects[(written + i * 7) % len(subjects)]
             w, h = sizes[i % len(sizes)]
             r = random.Random(rng.randrange(1 << 30))
             cv, roles, themes = subject(w, h, r)
             bg = roles[0][0]
-            cv.grow_small_roles(bg, MIN_ROLE_CELLS)
-            cv.holes(bg, r, target=r.uniform(0.84, 0.92))
+            if style:
+                finish(cv, roles, r, style)
+            else:
+                cv.grow_small_roles(bg, MIN_ROLE_CELLS)
+                cv.holes(bg, r, target=r.uniform(0.84, 0.92))
             used = {c for row in cv.rows() for c in row}
             roles = [role for role in roles if role[0] in used]
+            if style:
+                depth, share = structure(cv, roles)
+                fewest, most = variants(roles)
+                six += fewest <= 6 <= most
+                small = [role[1] for role in roles if sum(row.count(role[0]) for row in cv.g) < MIN_ROLE_CELLS]
+                occupancy = sum(1 for row in cv.g for c in row if c != '.') * 1000 // (w * h)
+                where = f'{band} #{i} {subject.__name__} {w}x{h}'
+                if not style['depth'][0] <= depth <= style['depth'][1]:
+                    problems.append(f'{where}: nesting depth {depth}')
+                if not style['background'][0] <= share <= style['background'][1]:
+                    problems.append(f'{where}: background {share}‰')
+                if not fewest <= style['variants'] <= most:
+                    problems.append(f'{where}: carries {fewest}-{most} variants, not {style["variants"]}')
+                if small or not 750 <= occupancy <= 950:
+                    problems.append(f'{where}: small roles {small}, occupancy {occupancy}‰')
             name = subject.__name__
             counter[name] = counter.get(name, 0) + 1
             pid = f'{name}_{counter[name]:02d}'
@@ -469,7 +554,7 @@ def main(seed=2026):
             if os.path.exists(meta_path) and '"approved"' in open(meta_path).read():
                 continue
             meta = {
-                'id': pid, 'version': VERSION,
+                'id': pid, 'version': style['version'] if style else VERSION,
                 'subject': name.replace('_', ' ').capitalize() + ' ' + str(counter[name]),
                 'width': w, 'height': h,
                 'legend': {role[0]: role[1] for role in roles},
@@ -484,8 +569,15 @@ def main(seed=2026):
                 f.write('\n')
             with open(os.path.join(ROOT, pid + '.grid.txt'), 'w') as f:
                 f.write('\n'.join(cv.rows()) + '\n')
+        if style and six < style['six'] * count:
+            problems.append(f'{band}: {six} of {count} pictures carry six variants, fewer than {style["six"]:.0%}')
+        if style:
+            print(f'{band}: {count} pictures, {six} carry six variants')
         written += count
     print(f'wrote {written} picture sketches to {os.path.normpath(ROOT)}')
+    if problems:
+        print('\n'.join(problems), file=sys.stderr)
+        sys.exit(1)
 
 
 if __name__ == '__main__':

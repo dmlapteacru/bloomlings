@@ -1,0 +1,91 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7],
+    [0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, 6, 6, 0, 0, 0, 0, 0, -1, -1],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, -1],
+    [-1, 0, 0, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, -1, -1, 0],
+    [-1, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, 0, 0],
+    [-1, -1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0],
+    [0, 0, -1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0, -1, 0],
+    [0, 0, -1, 2, 2, 2, 2, 5, 5, 2, 2, 2, 2, -1, 0, 0],
+    [0, -1, -1, 0, 3, 3, 3, 5, 5, 0, 0, 3, 0, 0, -1, 0],
+    [0, -1, 0, 0, 4, -1, 3, 5, 5, 0, 0, 4, 0, 0, 0, -1],
+    [0, 0, 0, -1, 4, -1, 0, 4, 4, 0, 0, 4, -1, 0, 0, 0],
+    [0, 4, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, -1, 0],
+    [-1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 4, 0],
+    [0, 0, 0, -1, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1]
+  ],
+  "height": 17,
+  "id": "cake_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sponge",
+      "roleId": "sponge"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Candles",
+      "roleId": "candles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flames and stars",
+      "roleId": "flames"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherry",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cake stand",
+      "roleId": "stand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.393,
+    "nestingDepth": 4,
+    "regionCount": 25
+  },
+  "subject": "Cake 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "party"]
+  },
+  "version": 1,
+  "width": 16
+}

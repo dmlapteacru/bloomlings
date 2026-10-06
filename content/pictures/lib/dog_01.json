@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [0, -1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6],
+    [-1, 0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 0, 6, 6],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [-1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0, -1],
+    [0, 0, 1, 0, 0, 1, 1, 1, 5, 1, 1, 1, 0, 0, 0, -1],
+    [-1, 0, 1, 0, 0, 1, 1, 5, 5, 1, 1, 0, -1, 0, 0, 0],
+    [0, 0, 0, 2, 2, 0, 3, 5, 5, 3, 1, 2, 2, 0, -1, 0],
+    [0, -1, 0, 2, 2, 2, 3, 4, 4, 3, 3, 2, 2, 0, 0, 0],
+    [0, 0, 0, 2, 2, 2, 4, 3, 4, 4, 2, 2, 2, -1, 0, -1],
+    [-1, 0, 0, 2, 2, 2, 4, 1, 2, 4, 2, 2, 2, -1, 0, 0],
+    [-1, 0, -1, 0, 2, -1, 1, 1, 1, 2, 1, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 1, 1, 1, -1, 0, -1, 0, 0, 0],
+    [0, 8, 8, 0, 0, -1, -1, -1, 0, -1, 0, 0, 0, 0, 0, -1],
+    [-1, 8, 8, 0, -1, -1, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0],
+    [-1, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "dog_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dog",
+      "roleId": "dog"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ears and patch",
+      "roleId": "ears"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Muzzle",
+      "roleId": "muzzle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tongue",
+      "roleId": "tongue"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bone",
+      "roleId": "bone"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.338,
+    "nestingDepth": 4,
+    "regionCount": 24
+  },
+  "subject": "Dog 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "garden"]
+  },
+  "version": 1,
+  "width": 16
+}

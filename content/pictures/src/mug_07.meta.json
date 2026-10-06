@@ -1,0 +1,80 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "mug_07",
+  "legend": {
+    "b": "background",
+    "d": "table",
+    "e": "heart",
+    "k": "cookie",
+    "m": "mug",
+    "t": "tea",
+    "v": "steam",
+    "x": "pattern"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mug",
+      "roleId": "mug"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tea",
+      "roleId": "tea"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Heart",
+      "roleId": "heart"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cookie",
+      "roleId": "cookie"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wallpaper dots",
+      "roleId": "pattern"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mug 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 26,
+  "id": "cake_05",
+  "legend": {
+    "b": "wall",
+    "c": "sponge",
+    "d": "candles",
+    "f": "flames",
+    "k": "stand",
+    "m": "cream",
+    "r": "cherry",
+    "t": "table"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sponge",
+      "roleId": "sponge"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Candles",
+      "roleId": "candles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flames and stars",
+      "roleId": "flames"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherry",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cake stand",
+      "roleId": "stand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cake 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "party"
+    ]
+  },
+  "version": 1,
+  "width": 21
+}

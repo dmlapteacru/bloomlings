@@ -1,0 +1,68 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "cherries_05",
+  "legend": {
+    "b": "background",
+    "c": "cherry",
+    "d": "table",
+    "l": "leaf",
+    "p": "plate",
+    "t": "stalk"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherries",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cherries 5",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

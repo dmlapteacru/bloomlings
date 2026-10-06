@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "teddy_bear_03",
+  "legend": {
+    "b": "bear",
+    "f": "floor",
+    "k": "block",
+    "m": "muzzle",
+    "n": "nose",
+    "p": "wall",
+    "q": "block2",
+    "r": "bow"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bear",
+      "roleId": "bear"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Muzzle and paws",
+      "roleId": "muzzle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Nose and eyes",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bow",
+      "roleId": "bow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blocks",
+      "roleId": "block"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue block",
+      "roleId": "block2"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Teddy bear 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "toys",
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

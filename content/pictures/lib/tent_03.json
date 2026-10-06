@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3, 8],
+    [8, 3, 0, 0, 1, 1, 1, 2, 2, 2, 1, 1, 1, -1, 3, 8],
+    [7, 7, -1, 0, 0, 1, 1, 1, 2, 2, 1, 1, 1, 0, 7, 7],
+    [7, 7, 0, 0, 0, 1, 1, 1, 2, 1, 1, 1, 0, -1, 7, 7],
+    [7, 7, -1, 0, 0, 1, 1, 1, 2, 1, 1, 1, 0, 0, 7, 7],
+    [-1, 7, 0, 0, 0, 0, 1, 1, 2, 1, 1, 0, 0, 0, 7, 0],
+    [0, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, -1],
+    [0, 0, 0, 0, -1, -1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, -1, 0, -1, -1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0],
+    [0, -1, 5, 0, 0, -1, -1, 0, 1, -1, -1, 0, -1, 0, 5, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 3, -1, 0, -1, 0, 0, 0, 0],
+    [-1, 0, 0, 0, -1, 0, -1, 0, 3, 4, 5, 0, 0, -1, 0, 0],
+    [0, -1, 0, 0, 5, 0, 0, 0, 4, 4, 4, -1, 0, 6, 6, 0],
+    [-1, 5, 0, 0, 0, 0, 0, 0, 5, 4, 0, 0, -1, 6, 6, 0],
+    [-1, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 6, 0, -1]
+  ],
+  "height": 17,
+  "id": "tent_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tent",
+      "roleId": "tent"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pole and logs",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flag",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars and fire",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.43,
+    "nestingDepth": 4,
+    "regionCount": 26
+  },
+  "subject": "Tent 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["camping", "night"]
+  },
+  "version": 1,
+  "width": 16
+}

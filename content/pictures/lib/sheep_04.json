@@ -1,0 +1,85 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 3, 3, 3, 5, 5, 5, 5, 5, 3, 3, 5, 5, 5, 5],
+    [4, 4, 5, 5, 5, 2, 2, 5, 2, 2, 5, 5, 5, 5, 4, 4],
+    [4, 4, 4, 0, 0, 1, 1, 1, 1, 1, 0, -1, 0, 4, 4, 4],
+    [4, 4, -1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 4, 4],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 0, 0, 0],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 1, 0, 0, 0],
+    [0, 0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 1, 0, 0, -1, 1, 1, 0, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 1, -1, 0, 0, -1],
+    [-1, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, -1, -1],
+    [0, 0, 0, -1, 0, 0, 0, 0, -1, -1, -1, -1, -1, 0, 0, 0],
+    [-1, -1, 0, 0, 0, -1, 0, -1, -1, 0, 0, -1, -1, 0, 0, -1],
+    [0, 6, 6, 6, 6, 6, 0, 0, 0, 0, -1, 0, 0, 0, -1, -1],
+    [0, 0, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 16,
+  "id": "sheep_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wool",
+      "roleId": "wool"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face and legs",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.433,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Sheep 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "farm"]
+  },
+  "version": 1,
+  "width": 16
+}

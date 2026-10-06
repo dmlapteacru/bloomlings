@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "car_01",
+  "legend": {
+    "c": "body",
+    "d": "road",
+    "i": "window",
+    "k": "trim",
+    "l": "lamp",
+    "m": "hub",
+    "s": "sky",
+    "t": "tyre"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Body",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tyres",
+      "roleId": "tyre"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Lamps",
+      "roleId": "lamp"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Door and cloud",
+      "roleId": "trim"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Road",
+      "roleId": "road"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Car 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "town"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

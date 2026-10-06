@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "rocket_05",
+  "legend": {
+    "b": "body",
+    "c": "nose",
+    "f": "flame",
+    "i": "window",
+    "m": "moon",
+    "n": "space",
+    "o": "ring",
+    "q": "planet",
+    "x": "stars",
+    "y": "flame_core"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Space",
+      "roleId": "space"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Body",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Nose and fins",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flame",
+      "roleId": "flame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flame core",
+      "roleId": "flame_core"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Planet",
+      "roleId": "planet"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Planet ring",
+      "roleId": "ring"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rocket 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "vehicles",
+      "space"
+    ]
+  },
+  "version": 1,
+  "width": 19
+}

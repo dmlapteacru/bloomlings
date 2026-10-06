@@ -1,0 +1,85 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [6, 6, 6, 5, 5, 3, 3, 3, 3, 6, 6, 5, 5, 3, 5, 5],
+    [6, 0, 6, 0, 0, 3, 3, 3, 6, 6, 6, 6, 0, 3, 0, 0],
+    [0, -1, 0, 6, 0, 3, 3, 3, 3, 0, 0, 0, 0, 3, 0, 0],
+    [0, 0, -1, 0, 0, 3, 3, 3, 3, 0, 0, 0, 4, 4, 4, 0],
+    [0, 0, 0, 0, 0, 3, 3, 3, 3, 0, -1, 0, 4, 4, 0, 0],
+    [-1, 0, 0, 0, 0, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, -1],
+    [0, -1, 0, 0, 0, 3, 3, 3, 3, -1, 0, 0, 0, 0, 0, 0],
+    [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 2, 1, 1, 0, 0],
+    [0, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, -1, 0],
+    [0, 1, 2, 2, 2, 1, 1, 1, 2, 2, 1, 2, 1, 0, 0, 0],
+    [0, 0, 1, 2, 1, 1, 1, 1, 2, 2, 1, 1, 0, 0, -1, 0],
+    [0, -1, 0, 0, 1, 1, 1, 1, 2, 1, 0, 0, 0, 0, -1, 0],
+    [0, 0, 0, 0, -1, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, -1],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "mushroom_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dots",
+      "roleId": "dot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Small cap",
+      "roleId": "small_cap"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ferns",
+      "roleId": "fern"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.425,
+    "nestingDepth": 4,
+    "regionCount": 23
+  },
+  "subject": "Mushroom 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["forest", "garden"]
+  },
+  "version": 1,
+  "width": 16
+}

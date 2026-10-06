@@ -1,0 +1,90 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [0, -1, -1, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 3, 5, 5, 0, 0, 0, -1, 0],
+    [0, 0, -1, 0, -1, 5, 5, 3, 5, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, -1],
+    [0, -1, -1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1, -1],
+    [0, 0, 0, 0, 2, 2, 3, 3, 3, 2, 2, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 2, 2, 2, -1, 2, 2, 2, 0, -1, 0, 0],
+    [0, -1, 0, 0, 2, 2, 2, -1, 2, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [0, -1, 0, 1, 1, 1, 1, 1, 1, 6, 6, 6, 0, -1, 0],
+    [0, 0, -1, 0, 0, 1, 1, 1, 1, 6, 6, 6, 6, 0, 0],
+    [-1, 0, 0, 0, -1, 0, 1, 1, 1, 0, -1, 6, 0, 0, 0],
+    [0, 7, 7, 0, -1, -1, 0, 0, 0, 0, -1, 0, 0, -1, 0],
+    [7, 7, 7, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "birdhouse_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "House",
+      "roleId": "house"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pole and perch",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.475,
+    "nestingDepth": 4,
+    "regionCount": 13
+  },
+  "subject": "Birdhouse 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["cozy", "garden"]
+  },
+  "version": 1,
+  "width": 15
+}

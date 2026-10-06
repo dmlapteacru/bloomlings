@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "rowboat_02",
+  "legend": {
+    "b": "boat",
+    "c": "cloud",
+    "g": "island",
+    "m": "rim",
+    "o": "oar",
+    "p": "pad",
+    "s": "sky",
+    "u": "sun",
+    "w": "lake"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Boat",
+      "roleId": "boat"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stripes",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oars and trunk",
+      "roleId": "oar"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lake",
+      "roleId": "lake"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Island",
+      "roleId": "island"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lily pads",
+      "roleId": "pad"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rowboat 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "lake"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

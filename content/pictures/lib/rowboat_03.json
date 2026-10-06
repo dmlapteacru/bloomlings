@@ -1,0 +1,95 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 6, 6, 6, 4, 4, 4],
+    [4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 6, 4, 4, 4, 3, 4],
+    [4, 4, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 3, 4, 4],
+    [4, 4, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 5, 5],
+    [4, 4, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5],
+    [0, 0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5],
+    [0, 0, 0, -1, 0, 3, -1, 0, 0, -1, 3, 0, 0, -1, 0, 0],
+    [-1, 0, 0, -1, 0, 3, 3, 0, 0, 3, 3, 0, 0, 0, 0, 0],
+    [-1, 0, -1, -1, 0, 0, 3, 0, 0, 3, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0],
+    [0, 0, -1, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0],
+    [-1, -1, 0, 8, 8, 8, 8, 0, -1, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, 8, 8, 8, 8, 8, -1, 0, 0, 0, 0, 7, 7, 0, 0],
+    [-1, 0, -1, -1, 8, 8, -1, -1, 0, 0, -1, 0, 7, 7, 0, 0],
+    [-1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 7, 0, -1, -1]
+  ],
+  "height": 16,
+  "id": "rowboat_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Boat",
+      "roleId": "boat"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stripes",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oars and trunk",
+      "roleId": "oar"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lake",
+      "roleId": "lake"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Island",
+      "roleId": "island"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lily pads",
+      "roleId": "pad"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.351,
+    "nestingDepth": 3,
+    "regionCount": 17
+  },
+  "subject": "Rowboat 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["vehicles", "lake"]
+  },
+  "version": 1,
+  "width": 16
+}

@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "fruit_tree_07",
+  "legend": {
+    "b": "basket",
+    "c": "crown",
+    "f": "fruit",
+    "g": "grass",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fruit",
+      "roleId": "fruit"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Basket",
+      "roleId": "basket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Fruit tree 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "fruit",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

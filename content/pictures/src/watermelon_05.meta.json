@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "watermelon_05",
+  "legend": {
+    "b": "blanket",
+    "d": "blanket_dots",
+    "f": "flesh",
+    "k": "seeds",
+    "r": "rind",
+    "s": "sky",
+    "u": "sun",
+    "w": "pale_rind"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pale rind",
+      "roleId": "pale_rind"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Rind",
+      "roleId": "rind"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Watermelon 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "summer"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

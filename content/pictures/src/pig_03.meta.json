@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "pig_03",
+  "legend": {
+    "f": "fence",
+    "g": "grass",
+    "k": "nostril",
+    "m": "mud",
+    "n": "snout",
+    "p": "pig",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pig",
+      "roleId": "pig"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snout, ear and tail",
+      "roleId": "snout"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, nostrils and mouth",
+      "roleId": "nostril"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mud",
+      "roleId": "mud"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fence",
+      "roleId": "fence"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pig 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "farm"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

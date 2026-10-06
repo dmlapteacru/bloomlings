@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "octopus_01",
+  "legend": {
+    "d": "sand",
+    "g": "weed",
+    "k": "pupil",
+    "o": "octopus",
+    "q": "spots",
+    "w": "water",
+    "x": "bubbles"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Octopus",
+      "roleId": "octopus"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes, smile and starfish",
+      "roleId": "pupil"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Octopus 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

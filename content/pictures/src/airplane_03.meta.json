@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "airplane_03",
+  "legend": {
+    "c": "cloud",
+    "g": "wing",
+    "h": "hills",
+    "i": "window",
+    "p": "plane",
+    "r": "propeller",
+    "s": "sky",
+    "t": "tail"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plane",
+      "roleId": "plane"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wings",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Propeller",
+      "roleId": "propeller"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Airplane 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "sky"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

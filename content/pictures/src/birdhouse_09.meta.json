@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 26,
+  "id": "birdhouse_09",
+  "legend": {
+    "b": "bird",
+    "g": "grass",
+    "h": "house",
+    "l": "leaves",
+    "p": "pole",
+    "r": "roof",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "House",
+      "roleId": "house"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pole and perch",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Birdhouse 9",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "cozy",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 21
+}

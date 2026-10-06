@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "igloo_05",
+  "legend": {
+    "a": "aurora",
+    "b": "aurora2",
+    "d": "door",
+    "g": "snow",
+    "i": "igloo",
+    "l": "block",
+    "n": "night",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Polar night",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Aurora",
+      "roleId": "aurora"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Aurora glow",
+      "roleId": "aurora2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Igloo",
+      "roleId": "igloo"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Block lines",
+      "roleId": "block"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snow",
+      "roleId": "snow"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Igloo 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "things",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

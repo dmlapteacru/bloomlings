@@ -1,0 +1,104 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 1, 1, 6, 6, 6, 6, 6, 2, 2, 6, 6, 6, 6],
+    [0, 7, 1, 1, 3, 3, 1, 0, -1, 0, 2, 3, 3, 2, 2, 7, 0],
+    [-1, 7, 1, 3, 3, 3, 1, 0, 0, 0, 2, 3, 3, 3, 2, 7, 0],
+    [0, 7, 1, 3, 3, 3, 3, 1, 0, 2, 3, 3, 3, 3, 2, 0, 0],
+    [0, 0, 1, 3, 3, 3, 1, 1, 0, 2, 2, 3, 3, 3, 2, 0, 0],
+    [-1, 0, 4, 5, 5, 4, 5, 4, 0, 4, 5, 5, 5, 5, 4, 0, 0],
+    [-1, 0, 4, 5, 4, 4, 5, 4, 0, 4, 5, 4, 4, 5, 4, 0, 0],
+    [0, 0, 4, 4, 4, 4, 4, 4, 0, 4, 4, 4, 4, 4, 4, 0, -1],
+    [0, 0, 1, 1, 1, 1, 1, 1, 0, 2, 2, 2, 2, 2, 2, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 0, 2, 2, 2, 2, 2, 2, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 1, 0, 2, 0, 0, 0, 0, 2, 0, -1],
+    [0, 0, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0],
+    [0, 0, -1, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, -1],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 9, 0, -1, 0, 8, 8, 8, 0],
+    [0, 9, -1, 0, 0, 9, 0, 0, 0, -1, 0, 0, -1, 8, 8, 8, 0],
+    [-1, 0, 0, 0, -1, -1, 0, -1, 0, 0, 0, 0, -1, -1, 8, 0, -1]
+  ],
+  "height": 20,
+  "id": "owlets_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Dusk sky",
+      "roleId": "dusk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Brown owlet",
+      "roleId": "owl"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green owlet",
+      "roleId": "owl2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bellies",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pupils and beaks",
+      "roleId": "pupil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.444,
+    "nestingDepth": 4,
+    "regionCount": 30
+  },
+  "subject": "Owlets 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "night"]
+  },
+  "version": 1,
+  "width": 17
+}

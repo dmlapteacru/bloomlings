@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "fir_tree_04",
+  "legend": {
+    "b": "wall",
+    "e": "bauble2",
+    "f": "floor",
+    "g": "tree",
+    "k": "garland",
+    "o": "bauble",
+    "p": "present",
+    "q": "present2",
+    "t": "trunk",
+    "y": "star"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tree",
+      "roleId": "tree"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Garland",
+      "roleId": "garland"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red baubles",
+      "roleId": "bauble"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue baubles",
+      "roleId": "bauble2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Star",
+      "roleId": "star"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Present",
+      "roleId": "present"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green present",
+      "roleId": "present2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Fir tree 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

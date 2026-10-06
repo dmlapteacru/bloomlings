@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "train_02",
+  "legend": {
+    "c": "cab",
+    "e": "boiler",
+    "f": "funnel",
+    "g": "grass",
+    "i": "window",
+    "k": "rail",
+    "m": "steam",
+    "s": "sky",
+    "t": "wheel"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Boiler",
+      "roleId": "boiler"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cab and tender",
+      "roleId": "cab"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Funnel",
+      "roleId": "funnel"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wheels",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rails and roof",
+      "roleId": "rail"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Train 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "travel"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

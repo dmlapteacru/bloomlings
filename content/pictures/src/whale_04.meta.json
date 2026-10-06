@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "whale_04",
+  "legend": {
+    "b": "belly",
+    "e": "eye",
+    "f": "fish",
+    "k": "whale",
+    "p": "spout",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Whale",
+      "roleId": "whale"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and smile",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Spout",
+      "roleId": "spout"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun and gull",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Whale 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}
