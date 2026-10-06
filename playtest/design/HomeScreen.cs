@@ -23,54 +23,17 @@ namespace Bloomlings.Playtest.Design
     }
 
     /// <summary>
-    /// The splash of frame 1 (spec 002 FR-016, spec 005 §4.5) in Home's reference layout (§6.4): the wordmark in Home's
-    /// logo box over the garden, so the splash turns into Home without anything jumping. Over the owner's layered Home
-    /// (spec 005 FR-028, <see cref="HomeScreen.LayeredStage"/>) the fountain stands from the first frame and the four
-    /// animated heroes rise in around the lotus already in Home's motion, which carries on into Home
-    /// (<see cref="DesignApp.HomeMotion"/>); the drawn stand-in keeps the four still families around the lotus fountain on
-    /// the stone in Home's diorama box; over the owner's garden picture alone there are none
-    /// (<see cref="HomeStage.ShowsHeroes"/>). It shows while the game starts and never waits for a tap.
+    /// The splash of frame 1 (spec 002 FR-016 as amended by spec 005 FR-039, contracts/look.md §6.13): the lotus loader.
+    /// The logo and the lotus stand on the parchment while the ring of petals round the lotus fills, "Loading..." under
+    /// it; once it is full the first screen comes up under it and the lotus iris opens on it (<see cref="DesignApp"/>). It
+    /// shows while the game starts and never waits for a tap.
     /// </summary>
     public static class SplashScreen
     {
         public static void Draw(IPainter p, DesignApp app)
         {
-            DesignApp.DrawBackdrop(p, BackdropScene.Splash, 1);
-            ReferenceHomeRegions r = ScreenLayout.ReferenceHome(p.Width, p.Height, p.Insets, HomeScreen.DevReserve(p));
-            float appear = Kit.Ease(app.Now / 0.5f);
-            float rise = (1f - appear) * r.W * 0.04f;
-            if (HomeScreen.StageOf(p, BackdropScene.Splash) == HomeStageKind.Layered)
-            {
-                // The heroes in the outfits Home shows, so nothing changes when Home takes over; the wordmark over them.
-                HomeScreen.LayeredStage(p, app, HomeScreen.OutfitsOf(app), appear, rise);
-                p.PushAlpha(appear);
-                HomeScreen.Wordmark(p, r);
-            }
-            else
-            {
-                p.PushAlpha(appear);
-                HomeScreen.Wordmark(p, r);
-                p.PopAlpha();
-
-                // On the drawn stand-in, the four families as 3D heroes around the fountain (spec 004 FR-017), rising in
-                // with the wordmark; over the owner's garden picture alone, none.
-                p.PushAlpha(appear);
-                p.PushTransform(0f, rise, 1f, 0f, 0f);
-                HomeScreen.Stage(p, r, BackdropScene.Splash);
-                p.PopTransform();
-            }
-
-            // Three lotus buds pulsing in turn where Play will be, while the game loads.
-            float bud = r.W * 0.075f;
-            for (int i = 0; i < 3; i++)
-            {
-                float pulse = Math.Max(0f, (float)Math.Sin((app.Now * 5f) - (i * 1.1f)));
-                float size = bud * (0.78f + (0.22f * pulse));
-                Kit.Petal(p, Box.FromCenter(r.Play.CenterX + ((i - 1) * bud * 1.7f), r.Play.CenterY - (bud * 0.12f * pulse), size, size));
-            }
-
-            p.PopAlpha();
-            p.Mark("brand.splash_art");
+            float progress = LotusIris.SplashProgress(app.Now, 1f);
+            LotusPainter.Draw(p, LotusIris.Splash(app.Now, progress), PlaytestText.T("splash.loading"), splash: true);
         }
     }
 
@@ -135,12 +98,6 @@ namespace Bloomlings.Playtest.Design
             else
             {
                 heroes = Stage(p, r, BackdropScene.Home, OutfitsOf(app));
-
-                // As on the reference's Home (Home redraws for Play's breath), unless Settings switched them off.
-                if (app.Meta.Save.Settings.HomePetals)
-                {
-                    Kit.FallingPetals(p, new Box(r.Safe.Left, r.Logo.Bottom, r.Safe.Right, r.Plaque.Top), app.Now);
-                }
             }
 
             if (heroes && look.Hero)
@@ -392,8 +349,7 @@ namespace Bloomlings.Playtest.Design
         /// The owner's layered Home over the backdrop's garden (spec 005 FR-028, <see cref="HomeLayers"/>), every layer in
         /// the backdrop's own cover box, back to front: the fountain's back; Drop and Bloom, each on its soft shadow; the
         /// lotus again (Bloom stands behind it); Sprig and Twig on their shadows; the fountain's front stones and flowers
-        /// over the heroes' feet; the petals drifting down (<see cref="HomeLayers.PetalsAt"/>, twice, a picture height
-        /// apart). Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
+        /// over the heroes' feet. Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
         /// still picture while its frames are missing, in <paramref name="outfitOf"/>'s outfit; the heroes and their shadows
         /// fade in with <paramref name="heroAlpha"/> and the heroes rise by <paramref name="heroRise"/> (the splash).
         /// Returns whether a hero moves.
@@ -438,13 +394,6 @@ namespace Bloomlings.Playtest.Design
             }
 
             Layer(p, picture, HomeLayers.FountainFront);
-
-            // Home's petals follow Settings' "Falling petals" (the owner's switch of 2026-10-04); the splash keeps them.
-            if (app.Screen != Screen.Home || app.Meta.Save.Settings.HomePetals)
-            {
-                LayerPetals(p, picture, app.HomeSeconds);
-            }
-
             return moving;
         }
 
@@ -467,23 +416,6 @@ namespace Bloomlings.Playtest.Design
             p.Mark(HomeLayers.SlotOf(HomeLayers.Shadow));
             p.PushAlpha(HomeLayers.ShadowAlpha);
             p.Sprite(name, HomeLayers.ShadowBox(picture, family));
-            p.PopAlpha();
-        }
-
-        /// <summary>The petals drifting down <paramref name="seconds"/> after Home opened, wrapping round the picture's height.</summary>
-        private static void LayerPetals(IPainter p, Box picture, float seconds)
-        {
-            string name = PainterBase.BackgroundPrefix + HomeLayers.Petals.Name;
-            if (!p.HasSprite(name))
-            {
-                return;
-            }
-
-            p.Mark(HomeLayers.SlotOf(HomeLayers.Petals));
-            Box petals = HomeLayers.PetalsAt(picture, seconds);
-            p.PushAlpha(HomeLayers.PetalsAlpha);
-            p.Sprite(name, petals);
-            p.Sprite(name, petals.Offset(0f, -picture.Height));
             p.PopAlpha();
         }
 

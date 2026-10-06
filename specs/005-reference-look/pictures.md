@@ -81,7 +81,7 @@ pictures are stored as JPEG (quality 90) whatever their delivered format; a pict
 | B3 | `gameplay-pond.jpg` | from level 100 | the same lawn with water lilies and a pond edge (since 2026-10-04 the owner's calm `06_lily_pond_calm_background.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors) | `bg.theme.pond` |
 | B4 | `gameplay-orchard.jpg` | from level 150 | the lawn with fruit trees' shade and fallen fruit (since 2026-10-04 the owner's calm `03_orchard_calm_background.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors) | `bg.theme.orchard` |
 | B5 | `gameplay-moonlit.jpg` | from level 200 | the lawn at dusk with fireflies (since 2026-10-04 the owner's calm `07_evening_fireflies_calm_background.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors) | `bg.theme.moonlit_garden` |
-| B6 | `splash.png` | splash | the Home garden, more blossoms | `bg.splash` |
+| B6 | `splash.png` | splash | the Home garden, more blossoms (not shown since FR-039: the splash is the lotus loader on parchment; no longer needed) | `bg.splash` |
 | B7 | `wardrobe.jpg` | Wardrobe and the Store page (both builds) | the garden arches of the reference's Wardrobe, empty middle for the hero on the pedestal (since 2026-10-04 the owner's calm `08_wardrobe_calm_garden.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors) | `bg.wardrobe` |
 | B8 | `win.jpg` | the full-screen win | a garden with soft light from the middle, calm in the middle (the picture, the hero and the pedestal cover it); without it the gameplay garden shows, blurred and lightened (since 2026-10-04 the owner's calm `02_win_calm_garden_glow.png`, `bloomlings_calm_backgrounds.zip`: fewer flowers, calmer colors, the hero on its round stone stage, `OwnerPictures.WinStageShare` 0.60) | `bg.win` |
 
@@ -99,7 +99,7 @@ their boxes in `HomeLayersData.cs`, source record `tools/heroanim/SOURCE.md`):
 | `home-lotus.png` | the lotus, cut out of the fountain's back, drawn again over Bloom, who stands behind it | `bg.home.lotus` |
 | `home-fountain-front.png` | the fountain's front stones and flowers, over the heroes' feet | `bg.home.fountain_front` |
 | `home-shadow.png` | one soft shadow (the sheet's front left one), drawn under every hero | `bg.home.shadow` |
-| `home-petals.png` | the pink petals, drifting down over the scene | `bg.home.petals` |
+| `home-petals.png` | removed on 2026-10-06 with Home's falling petals (the owner's `05_home_petals_overlay.png` is not used) | — |
 
 To change them, send the five full-size layers again (the garden opaque, the others transparent, in the same order),
 then run `node layers.mjs <folder>` and `node check.mjs` in `tools/heroanim`. Without the fountain layers Home shows the
@@ -255,7 +255,8 @@ lotus came as G9–G24 and `currency-lotus.png`, above.)
 2. The Home garden without the heroes (B1) and the gameplay garden (B2; B3–B5 for the other themes).
 3. The 3D heroes: idle (A1–A4), celebrating (A7) and the group (A6); any size with the 8:9 and 5:3 proportions.
 4. The logo (C1).
-5. Optionally: the win garden (B8), the Wardrobe garden (B7), the splash (B6), the faceless heroes (A5).
+5. Optionally: the win garden (B8), the Wardrobe garden (B7), the faceless heroes (A5). (The splash picture B6 is no
+   longer shown since FR-039.)
 Files may be sent in the chat; the session places, resizes and records them (source record, notices, `adopt`).
 
 Delivered by 2026-10-02: D1–D7; B1 (as the layered Home), B2–B5, B7 and B8; A1–A4, A6 and A7 (cut from the owner's
@@ -269,7 +270,8 @@ garden, B2–B5, B7, B8) and the bottom menu's icons D9–D13. What is still ope
 2. G1–G8: the eight variant characters (walkers, the Bloomlings sheet); `tools/artgen` draws them until then.
 3. A5: the faceless still heroes; `tools/artgen` draws the blanks until then.
 4. Later: the expansion variants (Vine, Berry, Mist, Bark) for G1–G24, and the mechanics' board objects.
-5. Optional: the splash picture (B6), the tagline (C2), modelled outfits (A8), tab heads (A9).
+5. Optional: the tagline (C2), modelled outfits (A8), tab heads (A9). (The splash picture B6 is no longer shown since
+   FR-039.)
 6. Optional, for the animated heroes:
    - faceless clips (the same idle and reaction without eyes and mouth), so a worn expression can draw the face
      instead of sitting on a badge beside it;

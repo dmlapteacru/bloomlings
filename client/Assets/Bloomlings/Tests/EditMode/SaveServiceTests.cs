@@ -53,7 +53,6 @@ namespace Bloomlings.Client.Tests
             service.Current.Unlocks.Flags["booster.shuffle"] = true;
             service.Current.Unlocks.MarkDemoSeen("booster.shuffle");
             service.Current.Settings.Speed2x = true;
-            service.Current.Settings.HomePetals = true;
             service.Current.Stats.Increment("boostersUsed", "shuffle");
             service.Save();
 
@@ -67,28 +66,25 @@ namespace Bloomlings.Client.Tests
             Assert.That(save.Unlocks.IsSet("booster.shuffle"), Is.True);
             Assert.That(save.Unlocks.HasSeenDemo("booster.shuffle"), Is.True);
             Assert.That(save.Settings.Speed2x, Is.True);
-            Assert.That(save.Settings.HomePetals, Is.True);
             Assert.That(save.Stats.Groups["boostersUsed"]["shuffle"], Is.EqualTo(1));
             Assert.That(SaveService.Envelope(save), Is.EqualTo(File.ReadAllText(reloaded.MainPath)), "Stable canonical file.");
         }
 
         /// <summary>
-        /// Home's falling petals (the owner's Settings switch of 2026-10-04, off by default since the owner's tuning of
-        /// 2026-10-05): a save that does not say, or says only the older homePetals, starts without them; a switch on is kept.
+        /// Home's falling petals and their Settings switch were removed by the owner on 2026-10-06: a save no longer writes
+        /// the switch, and an older save that still has <c>homePetals</c> or <c>homePetalsOn</c> loads as before.
         /// </summary>
         [Test]
-        public void HomePetals_AreOffUnlessSwitchedOn()
+        public void TheRemovedPetalsSwitch_IsNoLongerWritten_ButOlderSavesStillLoad()
         {
-            PlayerSave save = PlayerSave.CreateNew("local", new DateTime(2026, 10, 4, 12, 0, 0, DateTimeKind.Utc));
-            Assert.That(save.Settings.HomePetals, Is.False, "a new save starts without them");
-            save.Settings.HomePetals = true;
+            PlayerSave save = PlayerSave.CreateNew("local", new DateTime(2026, 10, 6, 12, 0, 0, DateTimeKind.Utc));
+            save.Settings.Speed2x = true;
             JObject document = SaveSerializer.ToJObject(save);
             var settings = (JObject)document["settings"]!;
-            Assert.That(settings.Remove("homePetalsOn"), Is.True, "the switch is written");
-            Assert.That(SaveSerializer.Read(document).Settings.HomePetals, Is.False, "off when the save does not say");
+            Assert.That(settings.ContainsKey("homePetals") || settings.ContainsKey("homePetalsOn"), Is.False, "the switch is gone");
             settings["homePetals"] = true;
-            Assert.That(SaveSerializer.Read(document).Settings.HomePetals, Is.False, "the older key, on in every earlier save, is ignored");
-            Assert.That(SaveSerializer.Read(SaveSerializer.Write(save)).Settings.HomePetals, Is.True, "on once switched on");
+            settings["homePetalsOn"] = true;
+            Assert.That(SaveSerializer.Read(document).Settings.Speed2x, Is.True, "an older save with the switch still loads");
         }
 
         [Test]

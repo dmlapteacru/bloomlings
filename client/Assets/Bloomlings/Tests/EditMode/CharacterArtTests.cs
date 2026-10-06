@@ -238,7 +238,8 @@ namespace Bloomlings.Client.Tests
             }
 
             Assert.That(AssetSlots.Find("char.hero.home")?.Kind, Is.EqualTo(PlaceholderKind.Generated));
-            Assert.That(AssetSlots.Find("brand.splash_art")?.Kind, Is.EqualTo(PlaceholderKind.Generated));
+            // Since spec 005 FR-039 the splash is the lotus loader, drawn in code; the heroes stay on Home.
+            Assert.That(AssetSlots.Find("brand.splash_art")?.Kind, Is.EqualTo(PlaceholderKind.Procedural));
         }
 
         [Test]

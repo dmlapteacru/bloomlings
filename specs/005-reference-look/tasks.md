@@ -613,3 +613,26 @@ and contracts/look.md §3.6, §6.10.
   slots), `TileView` hiding held tiles, the Store's Animations tab with `ClearPreviewView` cards; the controller picks
   the level's style.
 - [ ] T124 Unity Editor: play a level in each style on a device; check the previews' masks and the padlock before L40.
+
+## The owner's loading screen: the lotus (2026-10-06, FR-039)
+
+- [X] T125 GIFs: four loading-screen variants rendered from the game's pictures (`tools/loading-gifs`); the owner chose
+  2 · Lotus.
+- [X] T126 Kit: `LotusIris` (the layout, the splash's and the transition's poses, the splash's progress, the ring's
+  petals, the hole's box and the cover's panels), `UiRaster.IrisHole` and `IrisGlow`; the slot `ui.lotus_iris`, the
+  splash's slots `brand.splash_art` and `bg.splash` as the lotus loader; the string `splash.loading`; `LotusIrisTests`.
+- [X] T127 Playtest: `LotusPainter`; the splash is the lotus loader and opens on the first screen through the iris;
+  the win's Next plays the iris (`DesignApp.NextLevel`); preview frames 1 and 44–47.
+- [X] T128 Unity: `LotusIrisView`, `SplashScreen` (its ring follows `Boot`'s loading), `LevelTransition` on the Boot
+  object (the interstitial over the closed cover, `GameFlow.PostWinTransition`).
+- [ ] T129 Unity Editor: launch on a device (the splash's ring and the iris opening on Level 1 and on Home); win a level
+  with and without an interstitial due; check the rim, the cover's seams and that no tap goes through.
+
+## The owner removes Home's falling petals (2026-10-06)
+
+- [X] T130 Both builds: Home's falling petals gone (the layered Home's petals layer, `HomeLayers.PetalsAt` and its
+  constants, the drawn stand-in's falling petals on Home), Settings' "Falling petals" switch and `settings.petals`; the
+  save no longer writes `homePetalsOn` (older saves' `homePetals` and `homePetalsOn` are read and ignored; both schema
+  copies, spec 001's data model); `TheRemovedPetalsSwitch_IsNoLongerWritten_ButOlderSavesStillLoad`.
+- [X] T131 Pictures: `home-petals.png`, the slot `bg.home.petals` and its notice removed; `tools/heroanim/layers.mjs` no
+  longer reads `05_home_petals_overlay.png` (`layers.json`, `HomeLayersData.cs`; `check.mjs` passes).

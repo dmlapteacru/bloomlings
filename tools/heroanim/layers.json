@@ -3,8 +3,7 @@
   "01_home_bg_back.png": "bbcc62502d5a2b0dfb2671ae8f9d0baeeba12b13f1d74439b08184b2b453c0f8",
   "02_home_fountain_back.png": "f617241da585f02a7746439664e70a158039a61ef43e7bb72c0e558591e00645",
   "03_home_fountain_front.png": "c6a04ac7705fcb1b1b03b70730f0500263ed8d90f9f70f78f00d736c77f17767",
-  "04_home_soft_shadow.png": "842696d90d0b83b6f8dd3b578691e469436df4a22224c65034833c72f308130f",
-  "05_home_petals_overlay.png": "91f7a470ab4feb0171c53dec8358eec0fc1b1d1900bc5c619fd03ae84063c71d"
+  "04_home_soft_shadow.png": "842696d90d0b83b6f8dd3b578691e469436df4a22224c65034833c72f308130f"
  },
  "saturation": {
   "factor": 0.738,
@@ -12,7 +11,7 @@
   "share": 0.7
  },
  "data": "client/Assets/Bloomlings/UI/Design/HomeLayersData.cs",
- "dataSha256": "8d9731d6bfa37a65a8af1dd6c25342d6ef0ed75e6833caac5f97d3ffc8db3343",
+ "dataSha256": "b19fee65371991f2836cccbe46294b6527cccffc6ab1202a6bebf3610d9f2c48",
  "outputs": [
   {
    "name": "home.jpg",
@@ -49,18 +48,6 @@
    "from": "03_home_fountain_front.png",
    "sha256": "eaba892ae8b8c2f78ab83925d0f25a54cc86ea83af5b675e85a9e0fdc826cc3c",
    "bytes": 451224
-  },
-  {
-   "name": "home-petals.png",
-   "box": {
-    "x": 13,
-    "y": 166,
-    "w": 827,
-    "h": 1048
-   },
-   "from": "05_home_petals_overlay.png",
-   "sha256": "6f2bc11fd4d31c6e2b80b7e5c7ace4e3fa7e49fbf52f046a2fb224fc7f16b2b9",
-   "bytes": 364250
   },
   {
    "name": "home-lotus.png",

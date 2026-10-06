@@ -21,9 +21,6 @@ namespace Bloomlings.Client.UI.Design
         /// <summary><c>home-fountain-front.png</c> (from <c>03_home_fountain_front.png</c>): its box in the picture.</summary>
         public static readonly PictureBox FountainFront = new PictureBox("home-fountain-front", 0, 987, 852, 342);
 
-        /// <summary><c>home-petals.png</c> (from <c>05_home_petals_overlay.png</c>): its box in the picture.</summary>
-        public static readonly PictureBox Petals = new PictureBox("home-petals", 13, 166, 827, 1048);
-
         /// <summary><c>home-lotus.png</c> (from <c>02_home_fountain_back.png (the lotus)</c>): its box in the picture.</summary>
         public static readonly PictureBox Lotus = new PictureBox("home-lotus", 294, 835, 269, 159);
 

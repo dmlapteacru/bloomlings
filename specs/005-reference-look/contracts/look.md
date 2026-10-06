@@ -616,10 +616,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   cream close, Resume (primary, decorated), Restart (⟳), Settings (gear) and Home (`ui.back`) as cream secondaries with
   their glyphs. Settings: cream rows with brown labels and
   the garden toggle (on: the green set's glossy track with a white ✓ and the knob right; off: a parchment well; the knob
-  a domed cream cushion like the round buttons); since the owner's request of 2026-10-04 its last switch is "Falling
-  petals" (`settings.petals`, the save's `settings.homePetalsOn`, off by default since the owner's tuning of 2026-10-05;
-  the earlier `homePetals`, on in every older save, is ignored): off, Home draws neither the layered
-  Home's petals (`bg.home.petals`) nor the stand-in's falling petals; the splash, the win and the milestone keep theirs.
+  a domed cream cushion like the round buttons). Its "Falling petals" switch (the owner's request of 2026-10-04) went
+  with Home's falling petals on 2026-10-06 (the owner: removed from the game altogether); older saves' `homePetals` and
+  `homePetalsOn` are read and ignored. The win, the milestone and the Wardrobe keep their falling petals.
 - Demo and unlock cards: parchment, no title; a booster's card shows its colored icon on a cream tile; the first line in
   `type.button_secondary` `InkBrown`, the others in `type.body` `InkBrownSoft`, each wrapped to the card; variant cards
   show sticker tiles; "Tap to continue" in `InkBrownSoft`.
@@ -678,8 +677,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   still heroes around it as in the reference (Bloom raised behind the fountain, Drop at the right back, Sprig at the
   left, Twig in front at the right). Over an owner picture without the fountain layers (a splash picture of its own,
   B6) no heroes show. Early and progressed alike, each hero wears its outfit once the Wardrobe is open. The splash
-  shows the Home picture until its own (B6) exists (`OwnerPictures.Resolve`) and the same stage as Home, so it turns
-  into Home without a jump. The Leafling guest (spec 004 R17) was removed by the owner on 2026-10-02.
+  showed the Home picture until its own (B6) exists (`OwnerPictures.Resolve`) and the same stage as Home; since the
+  owner's choice of 2026-10-06 (FR-039) it is the lotus loader instead (§6.13), which opens on Home through the lotus
+  iris. The Leafling guest (spec 004 R17) was removed by the owner on 2026-10-02.
 - The milestone teaser is a parchment pill (`Kit.ParchmentPill`) with the outlined pink gift and `InkBrown` text; the
   Daily Challenge card is parchment with the sun on a cream disc. (The rank pill and the avatar side button left Home
   for the bottom menu's Leaderboard and Wardrobe places on 2026-10-04, §6.7.)
@@ -776,8 +776,8 @@ optional tagline is `brand.tagline` (kind `External`, not drawn yet); the option
 `3d/{family}-cheer`), with the group picture standing in until they exist. The owner's 3D pictures share the
 `tools/artgen` folder: `adopt` marks them `"source": "owner"` in its `manifest.json` (`tools/artgen/README.md`).
 The owner's layered Home and animated heroes (FR-028, §3.12, §6.4) add `bg.home.fountain_back`, `bg.home.lotus`,
-`bg.home.fountain_front`, `bg.home.shadow` and `bg.home.petals` (`HomeLayers.SlotOf`; `bg.home` stays the garden
-layer) and `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`), with the still heroes as their stand-in.
+`bg.home.fountain_front` and `bg.home.shadow` (`HomeLayers.SlotOf`; `bg.home` stays the garden layer; the petals
+layer `bg.home.petals` was removed with Home's falling petals on 2026-10-06) and `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`), with the still heroes as their stand-in.
 
 ## 6. Reference layouts (owner's review, spec 005 FR-020 to FR-025, FR-029)
 
@@ -1022,11 +1022,10 @@ keeps 22%–70% of H. The rank pill (`Rank`), the Wardrobe, Collection and Store
 
 **The owner's tuning** (2026-10-05, FR-036, research D29, from the constructor of the game's own layers; the
 numbers are the owner's on a 1080 px wide screen, kept as shares of W): no logo; the garden blurred by `4/1080` of its
-width in its picture (`layers.mjs` `gardenBlur`); the stage (the fountain's layers, the heroes, their shadows and the
-petals) at `HomeLayers.Stage(screen)`, the cover box at 0.9 toward the screen's middle across and 60% of its height
+width in its picture (`layers.mjs` `gardenBlur`); the stage (the fountain's layers, the heroes and their shadows) at `HomeLayers.Stage(screen)`, the cover box at 0.9 toward the screen's middle across and 60% of its height
 down; each hero ×1.05 about its feet (`HomeLayers.HeroScale`), Twig at 0.85 of the picture's width; the heroes' Home
-frames sharpened, at 110% contrast and saturation (`heroes.json` `home`, `post.mjs`); the falling petals off unless
-Settings switches them on. Each promo scene stands on the round buttons' cream cushion (`ui.button.round`,
+frames sharpened, at 110% contrast and saturation (`heroes.json` `home`, `post.mjs`); no falling petals (removed from
+the game on 2026-10-06). Each promo scene stands on the round buttons' cream cushion (`ui.button.round`,
 `HomePromo.PlateBox`: the scene's box grown by `0.02` of its width, corners `0.22` of the plate's width) over its soft
 shadow (`UiRaster.RoundShadow`: `garden.shadow` at 0.4, blur `12.8/1080 W`, `6.4/1080 W` down); every picture of the
 scene casts a soft shadow under all of them (`HomePromo.ShadowOf`, `UiRaster.SilhouetteShadow` from the picture's alpha:
@@ -1042,8 +1041,7 @@ Home and the splash draw, back to front:
 4. the lotus `home-lotus` (`bg.home.lotus`), cut out of the fountain's back and drawn again over Bloom;
 5. Sprig, then Twig, each over its shadow;
 6. the fountain's front `home-fountain-front` (`bg.home.fountain_front`), over the heroes' feet;
-7. the petals `home-petals` (`bg.home.petals`), drifting;
-8. the UI: Settings, the Petals pill, the avatar, the promo scenes on their plates, the side button, the plaque, Play,
+7. the UI: Settings, the Petals pill, the avatar, the promo scenes on their plates, the side button, the plaque, Play,
    the pills and the bottom menu (§6.7); the splash its wordmark.
 
 Every layer over the garden lies at `HomeLayers.Place(HomeLayers.Stage(screen), layer)`, `screen` the full-screen box
@@ -1058,7 +1056,6 @@ the fountain on every screen shape.
 | `FountainBack`: `home-fountain-back.png` | 0, 700, 852 × 540 |
 | `Lotus`: `home-lotus.png` | 294, 835, 269 × 159 |
 | `FountainFront`: `home-fountain-front.png` | 0, 987, 852 × 342 |
-| `Petals`: `home-petals.png` | 13, 166, 827 × 1048 (its start; it drifts) |
 | `Shadow`: `home-shadow.png` | 410 × 175 (cut at 0, 918; drawn at each hero's `ShadowBox`) |
 
 The heroes (`HomeLayers.Placement(family)`, measured on the reference's Home and fitted to the layered fountain: the
@@ -1077,11 +1074,6 @@ feet's middle as shares of the picture's width and height, the seam pose's heigh
 it). The shadow (`HomeLayers.ShadowBox`) is the shadow picture as wide as the seam pose (`HeroMotion.SeamWidth` of the
 cell), its middle 8% of its height below the feet, at `ShadowAlpha` 0.85. The places are fixed: the player's hero does
 not swap with Sprig here (it does on the drawn stand-in).
-
-The petals (`HomeLayers.PetalsAt(picture, t)`, t the seconds since Home or the splash opened): the petals' box moved
-down `PetalsSpeed` = 22 picture pixels a second, wrapping round the picture's height (a lap in about 84 s), and
-sideways `PetalsSway` = 14 picture pixels × sin(2π t ÷ `PetalsSwaySeconds`), `PetalsSwaySeconds` = 7 s; drawn there
-and one picture height higher, at `PetalsAlpha` 0.9, smoothly at the display rate.
 
 The motion (`HomeMotion(start)`, made when Home or the splash appears; the splash's carries on into Home): each hero
 idles from `start − Phase(family)`. `Update(now)`, called every drawn frame, starts the reactions whose turn came: the
@@ -1506,3 +1498,35 @@ its line of walkers clears it as the board is scheduled, then it rests 1.8 s and
 Blossom's loop, then Munchers' (`ClearPreview.At`). A tap buys from L40 and chooses an owned style; before L40 it says
 from which level (the playtest's toast; Unity's footer line), as it does when Petals are short. The preview's frames
 42 (L45, Fireflies chosen) and 43 (L20, the padlocks) show it.
+
+### 6.13 The lotus loader and the lotus iris (both builds; the owner's choice of 2026-10-06, FR-039)
+
+The splash and the move from the win to the next level, laid out and timed by the kit's `LotusIris` (engine-free) and
+drawn by the playtest's `LotusPainter` and Unity's `LotusIrisView` from one `LotusPose` a frame. The playtest's
+`SplashScreen` and `DesignApp.NextLevel` drive it there; Unity's `SplashScreen` (its progress from `Boot`) and
+`LevelTransition` (on the Boot object, so it survives the scene load). Sizes in reference units (`u`,
+`DesignTokens.ScaleFor`) or screen pixels; a turn is clockwise on screen (Unity turns by its negative).
+
+| Piece | Recipe |
+|---|---|
+| Middle | the lotus' and the iris' middle: across the screen's middle, at `CenterShare` (48%) of the safe height |
+| Cover | `parchment.bottom` everywhere but a round hole round the middle: `UiRaster.IrisHole` (512 px, the cover with a hole `HoleShare` = 0.8 of its side across, a one-pixel soft edge), rendered once and scaled to the hole (`HoleBox`), and plain boxes round it (`CoverPanels`, up to four); all plain when closed. Nothing is rendered per frame |
+| Rim | round the hole: a `lotus.fill` band `RimUnits` (10 u) wide, then a `lotus.line` edge `RimLineUnits` (3 u) |
+| Glow | `UiRaster.IrisGlow` (128 px, `parchment.top` lightened 0.5, 0.9 alpha in the middle fading smoothly to none) scaled to `GlowUnits` (1150 u) behind the lotus |
+| Lotus | the Petals' lotus (`currency.petal`, the owner's picture) `LotusUnits` (340 u) square |
+| Ring | twelve `fx.petals` round the lotus at `RingUnits` (225 u), each `PetalUnits` (58 u) pointing outward over a copy `PetalLineScale` (1.16) larger in its outline color; waiting: `lotus.tip` over `parchment.line`, lit: `lotus.fill` over `lotus.line`; the petal lighting up swells to ×1.35 (`PetalState`) |
+| Text | `TextUnits` (375 u) under the middle: "Level N" (`common.level`) in `type.level_home` ×1.25 `ink.title`; on the splash "Loading..." (`splash.loading`) in `type.button_secondary` `ink.brown_soft` |
+| Logo | the splash only: the wordmark in Home's logo box (§6.4), as the splash showed it before |
+| Taps | none while the cover shows (a clear full-screen target), from the transition's first frame |
+
+Timing (`LotusIris.Splash`, `LotusIris.Transition`; ease-in is cubic, the pops an ease-out-back):
+
+| Moment | Splash | Between levels |
+|---|---|---|
+| Start | the cover closed; the logo pops in 0.1–0.6 s (×0.75 → 1), the lotus 0.3–0.8 s (breathing ±4%, swaying ±4°), the ring 0.5–0.9 s, "Loading..." 0.7–1.0 s | the iris closes over the win, 0–0.5 s (ease-in) |
+| Wait | the ring lights with the loading, never ahead of it and never faster than over `SplashFillSeconds` (1.15 s) from 0.45 s (`SplashProgress`) | closed: the glow (0.5–0.8 s), the lotus pops in turning from −30° (0.5–0.95 s), the ring spins at 126°/s (0.55–0.85 s in), "Level N" rises 30 u in (0.6–0.95 s); the next level starts under the cover at `SwitchAt` (0.5 s; an interstitial that is due shows over the cover, which holds until it is closed and the level is up) |
+| Open | once loaded, the first screen up and the ring full (`SplashFull`): the iris opens over `SplashOpenSeconds` (0.55 s, ease-in), the lotus growing ×2.4 and everything fading | from `OpenAt` (1.4 s) over 0.5 s (ease-in), the lotus growing ×2.4 and fading; the ring and the text gone in 0.2 s, before the hole reaches them |
+
+The preview's frames 1 (the splash loading), 44 (the splash opening on Level 1), 45 (the iris closing over the win of
+Level 12), 46 (closed, "Level 13") and 47 (opening on Level 13) show it. The renderer of the owner's GIFs is
+`tools/loading-gifs` (Python, from the game's pictures).

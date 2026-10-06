@@ -184,10 +184,8 @@ namespace Bloomlings.Client.Services.Save
             save.Settings.Sfx = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "sfx"), "settings.sfx");
             save.Settings.Haptics = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "haptics"), "settings.haptics");
             save.Settings.Speed2x = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "speed2x"), "settings.speed2x");
-            // Home's falling petals: off unless switched on (the owner's tuning of 2026-10-05); the older homePetals key,
-            // written as on by every earlier save, is accepted and ignored.
-            JToken? homePetals = JsonDoc.Optional(settings, "homePetalsOn");
-            save.Settings.HomePetals = homePetals != null && JsonDoc.Bool(homePetals, "settings.homePetalsOn");
+            // homePetals and homePetalsOn (Home's falling petals' switch, removed with the petals by the owner on
+            // 2026-10-06) are accepted in older saves and ignored.
             save.Settings.Language = OptionalString(settings, "settings", "language") ?? "en";
 
             JToken? profile = JsonDoc.Optional(root, "profile");
@@ -331,7 +329,6 @@ namespace Bloomlings.Client.Services.Save
                     ["sfx"] = save.Settings.Sfx,
                     ["haptics"] = save.Settings.Haptics,
                     ["speed2x"] = save.Settings.Speed2x,
-                    ["homePetalsOn"] = save.Settings.HomePetals,
                     ["language"] = save.Settings.Language,
                 },
             };

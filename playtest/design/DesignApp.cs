@@ -76,8 +76,21 @@ namespace Bloomlings.Playtest.Design
     /// </summary>
     public sealed class DesignApp
     {
-        /// <summary>How long the splash shows at launch (it never waits for a tap, FR-016).</summary>
-        public const float SplashSeconds = 1.4f;
+        /// <summary>
+        /// When the splash's lotus iris started to open on the first screen (spec 005 FR-039), or −1 while it loads: the
+        /// splash fills its ring of petals (the playtest has loaded everything before it starts), then the iris opens from
+        /// the lotus. It never waits for a tap (spec 002 FR-016).
+        /// </summary>
+        private float _splashOpenSince = -1f;
+
+        /// <summary>When the lotus iris between two levels started (the win's Next, spec 005 FR-039), or −1.</summary>
+        private float _transitionSince = -1f;
+
+        /// <summary>The level the transition shows ("Level N") and starts under its closed cover.</summary>
+        private int _transitionLevel;
+
+        /// <summary>Whether the transition's level has started under the cover.</summary>
+        private bool _transitionSwitched;
 
         private readonly string _dataFolder;
         private readonly List<(Overlay Overlay, float OpenedAt)> _overlays = new List<(Overlay, float)>();
@@ -124,9 +137,6 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public HomeMotion HomeMotion { get; private set; } = null!;
 
-        /// <summary>Seconds since <see cref="HomeMotion"/> started (the drifting petals of the layered Home).</summary>
-        public float HomeSeconds => Now - _homeOpenedAt;
-
         /// <summary>
         /// Whether Home's last frame drew animated heroes or promo scenes (then Home keeps redrawing under a card too).
         /// </summary>
@@ -134,11 +144,10 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// Seconds since Home was last shown (the clock of its promo scenes, spec 005 FR-032, <see cref="HomePromo.Layers"/>):
-        /// from Home's first frame, also after the splash, whose heroes carry on (<see cref="HomeSeconds"/>).
+        /// from Home's first frame, also after the splash.
         /// </summary>
         public float PromoSeconds => Now - _promoOpenedAt;
 
-        private float _homeOpenedAt;
         private float _promoOpenedAt;
 
         /// <summary>The Collection page's opened picture (an index into its entries), or −1 for its grid.</summary>
@@ -189,6 +198,8 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public bool NeedsFrames =>
             Screen == Screen.Splash
+            || SplashOpening
+            || Transitioning
             || (Level != null && Screen == Screen.Level && Level.NeedsFrames)
             || (_overlays.Count > 0 && Now - _overlays[_overlays.Count - 1].OpenedAt < 0.4f)
             || (_homeToastUntil > Now)
@@ -229,6 +240,29 @@ namespace Bloomlings.Playtest.Design
         }
 
         public void StartLevel() => LoadLevel(Meta.CurrentLevel);
+
+        /// <summary>
+        /// The win's Next (spec 005 FR-039): the lotus iris closes over the win, the next level starts under its closed
+        /// cover with "Level N" on it, and the iris opens on the level.
+        /// </summary>
+        public void NextLevel()
+        {
+            if (Transitioning)
+            {
+                return;
+            }
+
+            _transitionSince = Now;
+            _transitionLevel = Meta.CurrentLevel;
+            _transitionSwitched = false;
+            Sound.Play(SoundCue.Click);
+        }
+
+        /// <summary>Whether the lotus iris between two levels shows.</summary>
+        public bool Transitioning => _transitionSince >= 0f;
+
+        /// <summary>Whether the splash's iris is opening on the first screen.</summary>
+        public bool SplashOpening => _splashOpenSince >= 0f;
 
         public void LoadLevel(int levelNumber)
         {
@@ -445,7 +479,6 @@ namespace Bloomlings.Playtest.Design
         private void StartHomeMotion()
         {
             HomeMotion = new HomeMotion(Now);
-            _homeOpenedAt = Now;
             _promoOpenedAt = Now;
         }
 
@@ -601,9 +634,29 @@ namespace Bloomlings.Playtest.Design
         public void Draw(IPainter p, float dt)
         {
             Now += Math.Max(0f, Math.Min(0.1f, dt));
-            if (Screen == Screen.Splash && Now >= SplashSeconds)
+            if (Screen == Screen.Splash && LotusIris.SplashFull(Now, 1f))
             {
+                // The ring is full: the first screen comes up under the cover and the iris opens on it.
+                _splashOpenSince = Now;
                 AfterSplash();
+            }
+            else if (SplashOpening && LotusIris.SplashDone(Now, _splashOpenSince))
+            {
+                _splashOpenSince = -1f;
+            }
+
+            if (Transitioning)
+            {
+                float since = Now - _transitionSince;
+                if (!_transitionSwitched && since >= LotusIris.SwitchAt)
+                {
+                    _transitionSwitched = true;
+                    LoadLevel(_transitionLevel);
+                }
+                else if (since >= LotusIris.TransitionSeconds)
+                {
+                    _transitionSince = -1f;
+                }
             }
 
             if (Screen == Screen.Splash || Screen == Screen.Home)
@@ -666,6 +719,15 @@ namespace Bloomlings.Playtest.Design
             }
 
             DrawingCovered = false;
+            if (SplashOpening)
+            {
+                LotusPainter.Draw(p, LotusIris.Splash(Now, 1f, _splashOpenSince), PlaytestText.T("splash.loading"), splash: true);
+            }
+
+            if (Transitioning)
+            {
+                LotusPainter.Draw(p, LotusIris.Transition(Now - _transitionSince), PlaytestText.F("common.level", _transitionLevel), splash: false);
+            }
         }
 
         /// <summary>

@@ -74,7 +74,7 @@ dances, `victory`) are not used.
 | `02_home_fountain_back.png` | `home-lotus.png`: the lotus cut out of it (its pink petals and what they enclose, the edge softened), drawn again over Bloom, who stands behind it |
 | `03_home_fountain_front.png` | `home-fountain-front.png`: cropped the same way |
 | `04_home_soft_shadow.png` | `home-shadow.png`: its front left shadow (of four), cut out with faded edges, drawn under every hero |
-| `05_home_petals_overlay.png` | `home-petals.png`: cropped the same way; drifts down over the scene |
+| `05_home_petals_overlay.png` | not used since 2026-10-06: the owner removed Home's falling petals (it was `home-petals.png`) |
 
 The layers' boxes in the 852 × 1846 picture are in `client/Assets/Bloomlings/UI/Design/HomeLayersData.cs`; the input
 files' hashes are in `layers.json`.

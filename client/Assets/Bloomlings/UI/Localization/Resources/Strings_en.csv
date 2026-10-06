@@ -15,6 +15,7 @@ booster.shuffle,Shuffle
 booster.return,Return
 booster.bloom_burst,Bloom Burst
 home.logo,Bloomlings
+splash.loading,Loading...
 home.continue,Continue
 home.more_levels_soon,More levels soon
 home.store,Store
@@ -47,7 +48,6 @@ settings.music,Music: {0}
 settings.sound,Sound: {0}
 settings.haptics,Haptics: {0}
 settings.speed,Speed: {0}
-settings.petals,Falling petals: {0}
 settings.link_apple,Link Apple
 settings.link_google,Link Google Play
 settings.restore,Restore Purchases

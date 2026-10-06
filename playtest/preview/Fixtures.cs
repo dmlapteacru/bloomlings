@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.Profile;
@@ -53,8 +54,12 @@ namespace Bloomlings.Playtest.Preview
 
             yield return new Fixture(1, "splash", "Splash", (p, data) =>
             {
+                // The lotus loader (spec 005 FR-039): the ring half full.
                 DesignApp app = App(data, splash: true);
-                Run(app, p, 0.8f);
+                Run(app, p, 1.05f);
+                Expect(app.Screen == Design.Screen.Splash && !app.SplashOpening, "the splash still loads");
+                Expect(Shows(p, PlaytestText.T("splash.loading")), "the splash says it is loading");
+                Expect(p.Slots.Contains("ui.lotus_iris") && p.Slots.Contains("currency.petal") && p.Slots.Contains("brand.wordmark"), "the parchment, the lotus and the logo");
             });
 
             yield return new Fixture(2, "home-early", "Home (early levels)", (p, data) =>
@@ -752,6 +757,81 @@ namespace Bloomlings.Playtest.Preview
                 Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "a style is not bought before Level 40");
                 Run(app, p, 4f);
                 Expect(p.Slots.Contains("ui.lock") && p.Slots.Contains("fx.clear.bubbles"), "the padlocks over the live previews");
+            });
+        }
+
+        /// <summary>The lotus iris (spec 005 FR-039): the splash opening on the first screen, and the win's Next to the next level.</summary>
+        public static IEnumerable<Fixture> Loading(ContentSet content)
+        {
+            DesignApp App(string data, bool splash = false) => new DesignApp(data, content, new Silence(), splash);
+            yield return new Fixture(44, "splash-opening", "Extra: the splash's lotus iris opening on Level 1 (spec 005 FR-039)", (p, data) =>
+            {
+                DesignApp done = App(Directory.CreateDirectory(Path.Combine(data, "done")).FullName, splash: true);
+                Run(done, p, LotusIris.SplashFillFrom + LotusIris.SplashFillSeconds + LotusIris.SplashOpenSeconds + 0.2f);
+                Expect(!done.SplashOpening && done.Screen == Design.Screen.Level, "the iris is gone once open");
+
+                // The frame: half open.
+                DesignApp app = App(data, splash: true);
+                Run(app, p, LotusIris.SplashFillFrom + LotusIris.SplashFillSeconds + 0.3f);
+                Expect(app.SplashOpening && app.Screen == Design.Screen.Level && app.Level!.Level == 1, "the first launch opens on Level 1 through the iris");
+            });
+
+            DesignApp Won(string data, SkiaPainter p)
+            {
+                DesignApp app = App(data);
+                app.Meta.SkipTo(11);
+                app.LoadLevel(12);
+                CloseDemo(app);
+                Run(app, p, 0.1f);
+                SolveResult win = new Solver.Solver().Solve(Session(content, 12), SolveOptions.Default);
+                Play(app, p, win.Trace, win.Trace.Count);
+                Settle(app, p);
+                Run(app, p, 1.1f);
+                Expect(app.Level!.Won && app.Meta.CurrentLevel == 13, "Level 12 won");
+                app.Level.Next();
+                Expect(app.Transitioning, "Next starts the lotus iris");
+                return app;
+            }
+
+            yield return new Fixture(45, "next-closing", "Extra: the win's Next, the lotus iris closing (spec 005 FR-039)", (p, data) =>
+            {
+                DesignApp app = Won(data, p);
+                Run(app, p, 0.3f);
+                Expect(app.Level!.Level == 12, "the win stays under the closing iris");
+            });
+
+            // The closed and the opening iris need no win under them: Next's transition from Level 12's board.
+            DesignApp Next(string data, SkiaPainter p)
+            {
+                DesignApp app = App(data);
+                app.Meta.SkipTo(12);
+                app.LoadLevel(12);
+                CloseDemo(app);
+                Run(app, p, 0.1f);
+                Expect(app.Meta.CurrentLevel == 13, "Level 13 is next");
+                app.NextLevel();
+                return app;
+            }
+
+            yield return new Fixture(46, "next-closed", "Extra: the lotus iris closed, \"Level 13\" (spec 005 FR-039)", (p, data) =>
+            {
+                DesignApp app = Next(data, p);
+                Run(app, p, 1.05f);
+                Expect(app.Level!.Level == 13, "the next level starts under the closed cover");
+                Expect(Shows(p, PlaytestText.F("common.level", 13)), "the cover says Level 13");
+                Expect(p.Slots.Contains(LotusIris.PetalShape), "the ring of petals");
+            });
+
+            yield return new Fixture(47, "next-opening", "Extra: the lotus iris opening on Level 13 (spec 005 FR-039)", (p, data) =>
+            {
+                DesignApp done = Next(Directory.CreateDirectory(Path.Combine(data, "done")).FullName, p);
+                Run(done, p, LotusIris.TransitionSeconds + 0.1f);
+                Expect(!done.Transitioning && done.Screen == Design.Screen.Level && done.Level!.Level == 13, "the iris is gone once open");
+
+                // The frame: half open.
+                DesignApp app = Next(data, p);
+                Run(app, p, LotusIris.OpenAt + 0.32f);
+                Expect(app.Transitioning && app.Level!.Level == 13, "the iris opens on Level 13");
             });
         }
 

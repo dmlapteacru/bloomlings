@@ -52,7 +52,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Leaderboard page, and 32 the Remove Ads card of Home's No Ads scene; and the guided spotlights 33–38: the entry, the
   first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; the profile 39–41: the page, the
   edit card's avatars, its name and frames; and the Store's Animations 42–43: the clearing styles' live previews, then
-  their padlocks before L40) to PNG in `playtest/preview/out/` (gitignored) and checks
+  their padlocks before L40; the lotus iris 44–47: the splash opening on Level 1, then the win's Next closing, closed
+  on "Level 13" and opening) to PNG in `playtest/preview/out/` (gitignored) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
@@ -130,8 +131,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   are sharpened and at 110% contrast and saturation (`heroes.json` `home`, `tools/heroanim/post.mjs`, applied by the
   bake); Play, the plaque, the promo scenes and the sun follow `ReferenceHomeRegions`' shares; each promo scene stands on
   the round buttons' cream cushion with soft shadows made from its pictures' alpha (`HomePromo.PlateBox`, `ShadowOf`,
-  `UiRaster.SilhouetteShadow`, `RoundShadow`; `IPainter.SpriteAlpha`, `OwnerArt.DecorAlpha`); the falling petals are
-  off unless Settings switches them on (the save's `settings.homePetalsOn`).
+  `UiRaster.SilhouetteShadow`, `RoundShadow`; `IPainter.SpriteAlpha`, `OwnerArt.DecorAlpha`). Home has no falling
+  petals and Settings no switch for them (the owner removed both on 2026-10-06; older saves' `homePetalsOn` is ignored).
 - The guided spotlights (spec 005 FR-035, the owner, 2026-10-05): `GuideTour` (kit) decides the onboarding's steps
   (Level 1's arch and forced first tap; the first level that starts with a pod's tiles out of reach, Level 2; each
   booster's forced demo at its unlock, Return's once a pod waits) and `Spotlight` lays them out (a scrim with soft holes,
@@ -148,6 +149,14 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Animations tab (`ClearingService`; Remote Config `economy.price.clearing`, the save's `clear.<name>` and
   `cosmetics.equipped.board.clearing`), and a chosen one plays on every level. The rules' clear stays at each trip's
   end; `LevelAnimator` and `TimelinePlayer` keep the same schedule.
+- The lotus loader and the lotus iris (spec 005 FR-039, the owner's choice of 2026-10-06; recipe in
+  `contracts/look.md` §6.13): the splash is the logo and the lotus on the parchment with a ring of petals filling as the
+  game loads, then a round iris opens from the lotus on the first screen; the win's Next closes the iris, shows the lotus
+  with "Level N", starts the next level under the cover (an interstitial that is due shows there) and opens on it. The
+  kit's `LotusIris` holds the layout and the timing; the playtest's `LotusPainter` and Unity's `LotusIrisView` draw its
+  `LotusPose` (the cover is `UiRaster.IrisHole` scaled to the hole plus plain boxes round it, never rendered per
+  frame); Unity's `SplashScreen` takes its progress from `Boot`, and `LevelTransition` sits on the Boot object.
+  `tools/loading-gifs` (Python) renders the review GIFs of the concepts from the game's pictures.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the owner's animated heroes offline into flat 24 fps frames, all four from the owner's `Heroes.glb`
   (2026-10-04; `heroes.json` picks each hero's mesh in it): Sprig with its 4 s idle, 3 s wave and the win's 2 s celebrate

@@ -1,113 +1,64 @@
-using System.Collections;
-using Bloomlings.Client.Gameplay.Themes;
-using Bloomlings.Client.UI.Design;
 using UnityEngine;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Localization;
 
 namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
-    /// The splash of the design board's frame 1 (spec 002 FR-016) in the reference look of spec 005 (contracts/look.md
-    /// §4.5; the playtest's <c>SplashScreen</c>): the wooden logo (the owner's logo picture when it exists) over the
-    /// garden (the owner's splash picture, else the Home garden, <see cref="OwnerPictures.Resolve"/>), fading in where
-    /// Home shows it (<see cref="ScreenLayout.ReferenceHome"/>'s logo, §6.4). Over the owner's Home garden it shows Home's
-    /// layered fountain from the first frame, its four animated heroes fading in on it (spec 005 FR-028,
-    /// <see cref="HomeLayersView"/>) and the petals drifting, in the very motion Home then shows under it, so Home takes
-    /// over without a jump; without the owner's picture, the drawn diorama's four families as 3D heroes around the lotus
-    /// fountain (spec 004) rise in where Home shows them. It shows from the first frame while services and content load,
-    /// and goes once the first screen is up. It takes no tap and never waits for one: the first launch still goes
-    /// straight into Level 1 (spec 001 US2).
+    /// The splash of the design board's frame 1 (spec 002 FR-016 as amended by spec 005 FR-039, contracts/look.md §6.13;
+    /// the playtest's <c>SplashScreen</c>): the lotus loader. The logo and the lotus stand on the parchment from the first
+    /// frame while services and content load; the ring of petals round the lotus fills with the loading
+    /// (<see cref="Loaded"/>), "Loading..." under it. Once the first screen is up (<see cref="Ready"/>) and the ring is full,
+    /// the lotus iris opens on it and the splash is gone. It takes no tap and never waits for one: the first launch still
+    /// goes straight into Level 1 (spec 001 US2).
     /// </summary>
     public sealed class SplashScreen : MonoBehaviour
     {
-        private const float AppearSeconds = 0.5f;
-
-        private Canvas _canvas = null!;
-        private RectTransform _stage = null!;
-        private HomeLayersView? _layers;
+        private LotusIrisView _view = null!;
+        private float _time;
+        private float _loaded;
+        private int _readyFrames = -1;
+        private float _openSince = -1f;
 
         /// <summary>A top-most canvas under <paramref name="parent"/>, which should survive scene loads (the Boot object).</summary>
         public static SplashScreen Create(Transform parent)
         {
-            Canvas canvas = UiFactory.CreateCanvas("Splash", 1000);
-            canvas.transform.SetParent(parent, false);
-            var screen = canvas.gameObject.AddComponent<SplashScreen>();
-            screen._canvas = canvas;
-            RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("Root", canvas.transform));
-            BackdropView.Create(root, BackdropScene.Splash);
-
-            // The logo and the heroes stand where Home shows them (contracts/look.md §6.4), so Home takes over in place.
-            (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            ReferenceHomeRegions r = ScreenLayout.ReferenceHome(w, h, insets);
-            var screenBox = new Box(0f, 0f, w, h);
-
-            // The four families as Home shows them ("brand.splash_art"): on the owner's layered fountain, which shows at
-            // once as part of the garden while its heroes fade in on it, or around the drawn diorama's lotus fountain,
-            // rising in with it. The splash's heroes take no taps (Home's, under it, do).
-            screen._stage = UiFactory.Stretch(UiFactory.CreateRect("Heroes", root));
-            HomeStageView stage = HeroPictures.Stage("Stage", screen._stage, tappable: false);
-            stage.Place(r.Diorama, screenBox, BackdropScene.Splash);
-            screen._layers = stage.Layers;
-            if (screen._layers != null)
-            {
-                screen._layers.HeroAlpha = 0f;
-            }
-            else
-            {
-                UiKit.FadeInOnShow(screen._stage.gameObject, 1f, AppearSeconds);
-            }
-
-            // The logo across the top ("brand.wordmark"), where Home shows it.
-            RectTransform logo = OwnerArt.Logo("Logo", root, Loc.T("home.logo"));
-            UiKit.PlaceBox(logo, OwnerArt.LogoBox(r), screenBox);
-            UiKit.FadeInOnShow(logo.gameObject, 1f, AppearSeconds);
+            LotusIrisView view = LotusIrisView.Create(parent, splash: true, Loc.T("splash.loading"));
+            var screen = view.gameObject.AddComponent<SplashScreen>();
+            screen._view = view;
+            view.Show(LotusIris.Splash(0f, 0f));
             return screen;
         }
 
-        private void Start() => StartCoroutine(Rise());
+        /// <summary>How much of the start is done, 0–1 (the ring never runs ahead of it).</summary>
+        public void Loaded(float share) => _loaded = Mathf.Max(_loaded, Mathf.Clamp01(share));
 
-        /// <summary>Fades the splash out after <paramref name="delay"/> seconds and removes it.</summary>
-        public void FadeOut(float delay)
+        /// <summary>The first screen is loading under the splash: once it is up and the ring is full, the iris opens.</summary>
+        public void Ready()
         {
-            if (isActiveAndEnabled)
-            {
-                StartCoroutine(FadeRoutine(delay));
-            }
+            _loaded = 1f;
+            _readyFrames = 0;
         }
 
-        /// <summary>
-        /// The drawn diorama's heroes rise 40 units into place as they fade in; the layered Home's heroes fade in where they
-        /// stand, on the fountain.
-        /// </summary>
-        private IEnumerator Rise()
+        private void Update()
         {
-            for (float t = 0f; t < AppearSeconds; t += Time.unscaledDeltaTime)
+            _time += Time.unscaledDeltaTime;
+            if (_readyFrames >= 0)
             {
-                float k = FadeIn.Ease(t / AppearSeconds);
-                if (_layers != null)
-                {
-                    _layers.HeroAlpha = k;
-                }
-                else
-                {
-                    _stage.anchoredPosition = new Vector2(0f, -(1f - k) * UiKit.Units(40f));
-                }
-
-                yield return null;
+                _readyFrames++;
             }
 
-            if (_layers != null)
+            // The scene loads the frame after it is asked for: wait for it before opening on it.
+            if (_openSince < 0f && _readyFrames >= 2 && LotusIris.SplashFull(_time, _loaded))
             {
-                _layers.HeroAlpha = 1f;
+                _openSince = _time;
             }
 
-            _stage.anchoredPosition = Vector2.zero;
-        }
-
-        private IEnumerator FadeRoutine(float delay)
-        {
-            yield return new WaitForSecondsRealtime(delay);
-            Destroy(_canvas.gameObject);
+            _view.Show(LotusIris.Splash(_time, LotusIris.SplashProgress(_time, _loaded), _openSince));
+            if (LotusIris.SplashDone(_time, _openSince))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
