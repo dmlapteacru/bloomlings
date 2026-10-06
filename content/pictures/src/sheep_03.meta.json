@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "sheep_03",
+  "legend": {
+    "c": "cloud",
+    "f": "face",
+    "g": "meadow",
+    "o": "flowers",
+    "s": "sky",
+    "v": "bush",
+    "w": "wool"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wool",
+      "roleId": "wool"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face and legs",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Sheep 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "farm"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

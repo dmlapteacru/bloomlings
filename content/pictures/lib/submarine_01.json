@@ -1,0 +1,91 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [0, 6, 6, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0],
+    [-1, 6, 6, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 6, 0],
+    [-1, 6, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 6, 0, 0],
+    [0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 6, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1, -1, 0],
+    [0, 0, 1, 4, 4, 1, 1, 4, 1, 1, 4, 1, 1, 0, 2, 0],
+    [-1, 1, 1, 4, 4, 1, 4, 4, 1, 4, 4, 4, 1, 2, 2, 0],
+    [0, 5, 1, 4, 4, 1, 1, 4, 1, 1, 4, 1, 1, 0, 2, 0],
+    [5, 5, 0, 0, 1, 1, 2, 2, 2, 1, 1, 0, 0, 0, 0, 0],
+    [-1, 5, 0, 0, 0, -1, 2, 2, 2, 0, 0, 0, 0, 0, 0, -1],
+    [0, 5, 0, 0, -1, 0, 2, 2, 2, 0, 0, 0, -1, 0, 0, 0],
+    [5, 5, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, -1, 0, 3, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 0, -1, 0, 3, 0, 0, 0, 0, -1, 0, -1]
+  ],
+  "height": 17,
+  "id": "submarine_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Deep water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hull",
+      "roleId": "hull"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tower and fin",
+      "roleId": "tower"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Periscope",
+      "roleId": "periscope"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Portholes",
+      "roleId": "portholes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.485,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Submarine 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["vehicles", "sea"]
+  },
+  "version": 1,
+  "width": 16
+}

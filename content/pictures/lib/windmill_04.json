@@ -1,0 +1,91 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 7],
+    [6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 7],
+    [0, 0, 0, 0, 1, 1, 4, 4, 1, 1, 0, 0, -1, 0],
+    [0, 0, 0, 0, 1, 1, 4, 4, 1, 1, 0, -1, -1, 0],
+    [0, -1, 0, -1, 0, 1, 4, 4, 1, 0, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, 1, 1, 1, 1, -1, -1, 0, 0, -1],
+    [0, -1, 0, -1, 0, 1, 1, 1, 1, 0, 0, 0, 0, -1],
+    [0, 0, 3, -1, -1, 1, 5, 5, 1, 0, 0, 3, -1, 0],
+    [0, 0, 0, 3, 0, 1, 5, 5, 1, 0, 3, -1, 0, 0],
+    [0, 0, 0, 0, 3, 1, 5, 1, 1, 3, -1, 0, 0, 0],
+    [0, 0, -1, 0, -1, 3, 1, 1, 3, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 3, 3, 2, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 2, 2, 3, 3, 0, 0, -1, 0, -1, 0],
+    [0, 0, 0, 0, 0, 3, -1, 0, 3, -1, 0, 0, -1, 0],
+    [0, 0, 0, 0, 3, 0, -1, 0, -1, 3, 0, 0, 0, 0],
+    [0, -1, 0, 3, 0, 0, -1, 0, 0, 0, 3, -1, 0, 0],
+    [-1, -1, 3, 0, 0, 0, 0, -1, -1, 0, 0, 3, 0, -1]
+  ],
+  "height": 17,
+  "id": "windmill_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mill",
+      "roleId": "mill"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blades",
+      "roleId": "blade"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Field",
+      "roleId": "field"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.466,
+    "nestingDepth": 4,
+    "regionCount": 35
+  },
+  "subject": "Windmill 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["buildings", "farm"]
+  },
+  "version": 1,
+  "width": 14
+}

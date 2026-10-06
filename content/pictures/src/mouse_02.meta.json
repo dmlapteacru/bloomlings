@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "mouse_02",
+  "legend": {
+    "b": "wall",
+    "c": "cheese",
+    "f": "floor",
+    "h": "hole",
+    "k": "holes",
+    "m": "mouse",
+    "t": "pink"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Mouse",
+      "roleId": "mouse"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ears, nose and tail",
+      "roleId": "pink"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheese",
+      "roleId": "cheese"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and cheese holes",
+      "roleId": "holes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mouse hole",
+      "roleId": "hole"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mouse 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

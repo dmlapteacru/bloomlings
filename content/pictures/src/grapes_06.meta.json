@@ -1,0 +1,74 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "grapes_06",
+  "legend": {
+    "b": "background",
+    "g": "grape",
+    "k": "table",
+    "l": "leaf",
+    "q": "grape2",
+    "t": "stalk",
+    "v": "vine"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grapes",
+      "roleId": "grape"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dark grapes",
+      "roleId": "grape2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalk",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Vine",
+      "roleId": "vine"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Grapes 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

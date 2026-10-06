@@ -1,0 +1,85 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 1, 5, 1, 1, 1, 5, 5, 5, 5, 3, 5, 5],
+    [0, 0, 0, 1, 0, 3, 3, 3, 0, 0, 0, -1, 3, -1, 0],
+    [-1, 0, -1, 1, 0, 1, 1, 1, -1, -1, 0, 0, 3, 0, -1],
+    [-1, 0, -1, 1, 0, 1, 1, 1, 0, 0, -1, 0, 3, 0, 0],
+    [0, 0, 0, 1, 0, 1, 2, 1, -1, 0, 0, 0, 3, 0, 0],
+    [0, -1, -1, 1, 1, 1, 1, 1, 2, 0, 0, 0, 3, 0, 0],
+    [0, 0, 0, 2, 1, 1, 2, 1, 0, 0, -1, 0, 3, 0, 0],
+    [0, 0, -1, -1, 0, 0, 0, 1, 2, 0, 0, 0, 3, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 4, 4, 4, 4],
+    [0, 0, 0, 0, 0, -1, -1, 2, 1, 0, 0, 0, 4, -1, 0],
+    [-1, 0, 0, 0, -1, 0, 0, 1, 1, 0, 0, -1, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 2, 1, 2, 0, 0, 0, 0, 0],
+    [0, 6, 6, -1, -1, 0, -1, 1, 1, 3, 0, 0, 0, -1, 0],
+    [0, 6, 6, 0, 0, -1, 0, 3, 2, 3, 0, 0, -1, 0, 0],
+    [-1, 6, 0, 0, 0, 0, -1, 3, 0, 0, 0, 0, -1, 0, -1]
+  ],
+  "height": 16,
+  "id": "giraffe_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Giraffe",
+      "roleId": "giraffe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horns, eye, hooves and tree",
+      "roleId": "horns"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Acacia",
+      "roleId": "acacia"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.47,
+    "nestingDepth": 3,
+    "regionCount": 26
+  },
+  "subject": "Giraffe 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "savanna"]
+  },
+  "version": 1,
+  "width": 15
+}

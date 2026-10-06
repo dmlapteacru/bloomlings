@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "daisy_field_07",
+  "legend": {
+    "c": "center",
+    "g": "grass",
+    "p": "petal",
+    "q": "petal2",
+    "s": "sky",
+    "t": "stem",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petals",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Other petals",
+      "roleId": "petal2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Centers",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Daisy field 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "flowers",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

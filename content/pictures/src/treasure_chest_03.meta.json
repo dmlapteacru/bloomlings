@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "treasure_chest_03",
+  "legend": {
+    "b": "water",
+    "d": "sand",
+    "j": "gems",
+    "k": "gold",
+    "l": "lock",
+    "o": "bubbles",
+    "s": "weed",
+    "w": "wood"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wood",
+      "roleId": "wood"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bands and gold",
+      "roleId": "gold"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lock",
+      "roleId": "lock"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Gems",
+      "roleId": "gems"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Treasure chest 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

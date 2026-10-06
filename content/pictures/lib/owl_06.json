@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [0, 6, 6, 1, 1, 1, 1, 1, 1, 1, 6, 6, 0, 0],
+    [0, 0, 6, 1, 1, 2, 2, 2, 2, 1, 6, 6, 0, -1],
+    [-1, 0, 0, 1, 1, 2, 2, 2, 2, 1, 1, 0, -1, 0],
+    [0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 1, 0, 0, 0],
+    [-1, 0, 0, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, -1],
+    [0, 0, 0, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, 0],
+    [0, 0, -1, 1, 4, 4, 3, 3, 4, 4, 1, 0, 0, 0],
+    [0, -1, 0, 1, 4, 4, 3, 3, 4, 4, 1, 0, -1, -1],
+    [0, 8, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 8, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [-1, 0, 0, 1, 0, 1, 1, 1, 1, 0, 1, -1, -1, 0],
+    [0, 0, 0, -1, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 7, 7, 7, 0],
+    [0, 8, 0, 0, 8, 0, -1, 0, -1, 0, 0, 7, 7, 0],
+    [-1, -1, -1, 0, 0, 0, 0, 0, 8, 0, 0, 0, -1, -1]
+  ],
+  "height": 17,
+  "id": "owl_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Owl",
+      "roleId": "owl"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pupils and beak",
+      "roleId": "pupil"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.369,
+    "nestingDepth": 4,
+    "regionCount": 20
+  },
+  "subject": "Owl 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "night"]
+  },
+  "version": 1,
+  "width": 14
+}

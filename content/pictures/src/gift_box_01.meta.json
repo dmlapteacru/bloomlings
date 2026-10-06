@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "gift_box_01",
+  "legend": {
+    "b": "wall",
+    "c": "confetti",
+    "d": "dots",
+    "f": "floor",
+    "k": "small_ribbon",
+    "o": "ribbon",
+    "t": "tag",
+    "x": "box",
+    "y": "small_box"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Box",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dots",
+      "roleId": "dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ribbon and bow",
+      "roleId": "ribbon"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Small box",
+      "roleId": "small_box"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Small ribbon",
+      "roleId": "small_ribbon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tag",
+      "roleId": "tag"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Confetti",
+      "roleId": "confetti"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Gift box 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "party"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

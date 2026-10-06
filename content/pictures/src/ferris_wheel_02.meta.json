@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "ferris_wheel_02",
+  "legend": {
+    "a": "cabin",
+    "b": "cabin2",
+    "c": "cabin3",
+    "g": "grass",
+    "k": "frame",
+    "m": "cloud",
+    "r": "rim",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Rim and roof",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Spokes and stand",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange cabins",
+      "roleId": "cabin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue cabins",
+      "roleId": "cabin2"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green cabins",
+      "roleId": "cabin3"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Ferris wheel 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "park"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

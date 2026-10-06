@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "bus_03",
+  "legend": {
+    "b": "bus",
+    "d": "road",
+    "e": "door",
+    "i": "window",
+    "l": "light",
+    "s": "sky",
+    "t": "wheel",
+    "u": "sun",
+    "z": "stripe"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bus",
+      "roleId": "bus"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stripe",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wheels",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Light",
+      "roleId": "light"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Road",
+      "roleId": "road"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bus 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "town"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

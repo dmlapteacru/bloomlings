@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "owlets_01",
+  "legend": {
+    "b": "belly",
+    "e": "eye",
+    "k": "pupil",
+    "l": "leaves",
+    "m": "moon",
+    "n": "dusk",
+    "o": "owl",
+    "q": "owl2",
+    "r": "branch",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Dusk sky",
+      "roleId": "dusk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Brown owlet",
+      "roleId": "owl"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green owlet",
+      "roleId": "owl2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bellies",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pupils and beaks",
+      "roleId": "pupil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Owlets 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "night"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

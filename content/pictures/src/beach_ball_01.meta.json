@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "beach_ball_01",
+  "legend": {
+    "a": "red",
+    "b": "yellow",
+    "c": "green",
+    "d": "sand",
+    "k": "pole",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red panels",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yellow panels",
+      "roleId": "yellow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green panels",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun and stripes",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pole",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Beach ball 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "toys",
+      "beach"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

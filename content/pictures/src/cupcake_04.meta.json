@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "cupcake_04",
+  "legend": {
+    "b": "wall",
+    "c": "cherry",
+    "f": "frosting",
+    "g": "swirl",
+    "k": "pleats",
+    "o": "bubbles",
+    "t": "table",
+    "w": "wrapper",
+    "x": "sprinkles"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wrapper",
+      "roleId": "wrapper"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pleats",
+      "roleId": "pleats"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frosting",
+      "roleId": "frosting"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Swirl",
+      "roleId": "swirl"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sprinkles",
+      "roleId": "sprinkles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cherry",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cupcake 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "party"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

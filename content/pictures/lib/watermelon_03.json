@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 6, 5, 5, 6, 6, 5, 6, 5, 5, 6, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [0, 0, 0, 0, 0, 0, 0, 3, 3, 0, -1, 0, 0, 0, -1, 0],
+    [-1, 0, -1, 0, 3, 3, 3, 2, 2, 3, 3, 3, 0, -1, 0, -1],
+    [-1, 0, 0, 3, 3, 2, 1, 1, 1, 1, 2, 3, 3, 0, 0, 0],
+    [0, 0, 3, 2, 2, 4, 1, 1, 4, 1, 1, 2, 2, 3, 0, 0],
+    [0, 0, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 3, -1, 0],
+    [-1, 3, 2, 1, 4, 1, 1, 1, 1, 1, 1, 4, 1, 2, 3, 0],
+    [0, 3, 2, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 2, 3, 0],
+    [-1, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, -1, 0, -1, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, -1],
+    [0, 0, 0, -1, -1, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0],
+    [-1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 7, 7, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, -1],
+    [-1, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, -1, 7, 0, -1]
+  ],
+  "height": 18,
+  "id": "watermelon_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pale rind",
+      "roleId": "pale_rind"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Rind",
+      "roleId": "rind"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.378,
+    "nestingDepth": 4,
+    "regionCount": 34
+  },
+  "subject": "Watermelon 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "summer"]
+  },
+  "version": 1,
+  "width": 16
+}

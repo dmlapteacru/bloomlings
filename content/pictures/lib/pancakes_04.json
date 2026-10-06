@@ -1,0 +1,97 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [-1, 7, 7, 7, 5, 5, 7, 7, 7, 7, 6, 6, 7, 7, 7, -1],
+    [-1, 0, 0, 2, 5, 5, 2, 2, 2, 2, 6, 6, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 5, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, -1, 4, 4, 0, 0, 0, 0, -1, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, 4, 4, 0, -1, 0, 0, -1, -1, 0],
+    [0, -1, 0, 0, -1, 0, 0, 4, 0, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, -1],
+    [-1, 6, 6, 0, 0, -1, 0, -1, 0, -1, -1, 0, 0, 6, 6, -1],
+    [0, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 18,
+  "id": "pancakes_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pancakes",
+      "roleId": "pancake"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pancake edges",
+      "roleId": "edge"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Syrup",
+      "roleId": "syrup"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Butter",
+      "roleId": "butter"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Strawberries",
+      "roleId": "strawberry"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blueberries",
+      "roleId": "blueberry"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.513,
+    "nestingDepth": 3,
+    "regionCount": 14
+  },
+  "subject": "Pancakes 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "cozy"]
+  },
+  "version": 1,
+  "width": 16
+}

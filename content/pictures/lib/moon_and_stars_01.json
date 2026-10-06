@@ -1,0 +1,91 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 6, 6],
+    [7, 7, 7, 7, 7, 7, 6, 6, 6, 6, 5, 5, 5, 7, 7],
+    [0, 0, 0, 0, 7, 7, 7, 7, 7, 7, 2, 2, 5, 0, -1],
+    [0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 4, 4, 4, -1, 0],
+    [0, 0, 0, 3, 0, 0, 0, -1, 0, 0, 4, 4, 0, -1, 0],
+    [0, -1, 0, 0, -1, 0, -1, -1, -1, 3, 0, -1, 0, 2, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, -1, -1, -1, 2, 2, 0],
+    [0, 0, -1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 2, 0, 0],
+    [0, 3, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, -1, -1, 1, 1, 1, 0, 0, 0, 3, 0, 0, 0, 0, -1],
+    [-1, 0, -1, 1, 1, 1, 0, -1, 0, 0, -1, 0, 0, 0, -1],
+    [0, 2, -1, 1, 1, 1, 0, 0, 0, -1, 0, 2, 2, 0, 0],
+    [-1, 0, 2, -1, 1, 1, 0, 0, 0, -1, 0, 2, 2, 2, -1],
+    [0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 0, -1, 2, 0, 3],
+    [-1, 0, 0, 0, 0, 0, 0, -1, -1, -1, 0, -1, -1, 0, -1]
+  ],
+  "height": 17,
+  "id": "moon_and_stars_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars and window",
+      "roleId": "star"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Tiny stars",
+      "roleId": "specks"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof and smile",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "House",
+      "roleId": "house"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far hills",
+      "roleId": "far_hills"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.392,
+    "nestingDepth": 4,
+    "regionCount": 28
+  },
+  "subject": "Moon and stars 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["things", "night"]
+  },
+  "version": 1,
+  "width": 15
+}

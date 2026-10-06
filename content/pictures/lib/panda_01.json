@@ -1,0 +1,80 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 5, 5, 5],
+    [0, 3, 0, -1, 0, 2, 2, 2, 2, 2, 2, 0, -1, -1, 3, -1],
+    [0, 3, 0, -1, -1, 2, 2, 1, 1, 2, 2, 0, 0, 0, 3, 0],
+    [-1, 3, 0, -1, 0, 2, 1, 1, 1, 1, 2, -1, 0, 0, 3, 0],
+    [-1, 3, 0, -1, 2, 2, 2, 1, 1, 2, 2, 2, 0, -1, 3, -1],
+    [0, 3, 0, 0, 2, 2, 1, 1, 1, 1, 3, 2, 0, -1, 3, -1],
+    [0, 3, -1, 0, 0, 2, 1, 1, 1, 1, 2, 3, 0, 0, 3, 0],
+    [-1, 3, -1, 0, 0, 1, 1, 2, 2, 1, 1, 3, 3, 0, 3, 0],
+    [0, 3, 0, 0, 0, 2, 2, 2, 2, 2, 2, -1, 3, 4, 3, 0],
+    [-1, 3, 0, -1, 0, 2, 2, 2, 2, 2, 2, 0, -1, 4, 3, 0],
+    [0, 3, 0, 0, 2, 1, 2, 1, 1, 2, 1, 2, 4, -1, 3, 0],
+    [-1, 3, 0, 4, 2, 2, 1, 1, 1, 1, 2, 2, 4, -1, 3, 0],
+    [-1, 3, 0, 0, 2, 2, -1, 0, -1, 0, 2, 2, 0, 0, 3, -1],
+    [-1, 3, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 3, 0],
+    [-1, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 16,
+  "id": "panda_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Bamboo forest",
+      "roleId": "forest"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Panda",
+      "roleId": "panda"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Patches",
+      "roleId": "patches"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bamboo",
+      "roleId": "bamboo"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bamboo leaves and rings",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ground",
+      "roleId": "ground"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.281,
+    "nestingDepth": 4,
+    "regionCount": 31
+  },
+  "subject": "Panda 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "forest"]
+  },
+  "version": 1,
+  "width": 16
+}

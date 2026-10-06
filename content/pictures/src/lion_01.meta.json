@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "lion_01",
+  "legend": {
+    "b": "lion",
+    "g": "grass",
+    "m": "mane",
+    "n": "nose",
+    "s": "sky",
+    "u": "sun",
+    "z": "muzzle"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Lion",
+      "roleId": "lion"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mane",
+      "roleId": "mane"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Muzzle",
+      "roleId": "muzzle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Lion 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "savanna"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}
