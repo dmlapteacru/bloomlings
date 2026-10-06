@@ -168,12 +168,10 @@ namespace Bloomlings.Core.Boards
                 start[d] += start[d - 1];
             }
 
-            CellPos[] positions = board.Positions;
-            var sorted = new ReachableTarget[count];
+            var sorted = new int[count];
             for (int k = 0; k < count; k++)
             {
-                int i = found[k];
-                sorted[start[foundDistance[k]]++] = new ReachableTarget(i, positions[i], foundDistance[k]);
+                sorted[start[foundDistance[k]]++] = ReachabilityResult.Pack(found[k], foundDistance[k]);
             }
 
             return new ReachabilityResult(board, distance, parent, via, sorted);
@@ -191,13 +189,17 @@ namespace Bloomlings.Core.Boards
         /// whose distance changed can change; the others keep their place, and the changed ones are merged in by the
         /// same order (distance, then row and column, which is the cell index).
         /// </para>
+        /// <para>
+        /// With <paramref name="inPlace"/> (the board's own result, which nothing else holds) <paramref name="before"/>
+        /// itself is updated and returned; otherwise it stays as it is and a new result is returned.
+        /// </para>
         /// </summary>
-        internal static ReachabilityResult Update(Board board, ReachabilityResult before, int[] opened, int count)
+        internal static ReachabilityResult Update(Board board, ReachabilityResult before, int[] opened, int count, bool inPlace)
         {
             byte[] kind = board.Kinds;
             int[] neighbours = board.Neighbours;
             bool[] entryCell = board.EntryCells;
-            var distance = (short[])before.Distances.Clone();
+            short[] distance = inPlace ? before.Distances : (short[])before.Distances.Clone();
             Scratch scratch = Scratch.Begin(board.CellCount);
 
             // Each opened cell takes its distance from its reached neighbours, or 1 at an entry.
@@ -231,11 +233,11 @@ namespace Bloomlings.Core.Boards
                 }
             }
 
-            // The targets next to a changed cell are measured again (as Compute does) and sorted by (distance, index).
+            // The targets next to a changed cell are measured again (as Compute does) and sorted by (distance, index),
+            // which is the order of their packed values.
             int[] changed = scratch.ChangedCells;
             int changedCount = scratch.ChangedCount;
-            int[] addedCell = scratch.Queue;
-            int[] addedDistance = scratch.Values;
+            int[] addedTargets = scratch.Queue;
             int added = 0;
             for (int k = 0; k < changedCount; k++)
             {
@@ -252,64 +254,62 @@ namespace Bloomlings.Core.Boards
                         }
 
                         // Insertion sort: few targets change at a time.
+                        int packed = ReachabilityResult.Pack(target, best);
                         int j = added++;
-                        while (j > 0 && Before(best, target, addedDistance[j - 1], addedCell[j - 1]))
+                        while (j > 0 && addedTargets[j - 1] > packed)
                         {
-                            addedCell[j] = addedCell[j - 1];
-                            addedDistance[j] = addedDistance[j - 1];
+                            addedTargets[j] = addedTargets[j - 1];
                             j--;
                         }
 
-                        addedCell[j] = target;
-                        addedDistance[j] = best;
+                        addedTargets[j] = packed;
                     }
                 }
             }
 
-            // The other targets keep their distance and order; the measured ones are merged in.
-            ReachableTarget[] old = before.TargetArray;
-            int kept = 0;
-            for (int k = 0; k < old.Length; k++)
+            // The other targets keep their distance and order; the measured ones are merged in. The opened cells were
+            // marked too: an old target that is no longer one opened, as nothing else changes a kind.
+            for (int k = 0; k < count; k++)
             {
-                int cell = old[k].Index;
-                if (kind[cell] == Board.TargetKind && !scratch.IsAffected(cell))
-                {
-                    kept++;
-                }
+                scratch.MarkAffected(opened[k]);
             }
 
-            CellPos[] positions = board.Positions;
-            var merged = new ReachableTarget[kept + added];
+            int[] old = before.Packed;
+            int[] buffer = scratch.Values;
             int m = 0;
             int a = 0;
             for (int k = 0; k < old.Length; k++)
             {
-                ReachableTarget keep = old[k];
-                if (kind[keep.Index] != Board.TargetKind || scratch.IsAffected(keep.Index))
+                int keep = old[k];
+                if (scratch.IsAffected(ReachabilityResult.CellOf(keep)))
                 {
                     continue;
                 }
 
-                while (a < added && Before(addedDistance[a], addedCell[a], keep.Distance, keep.Index))
+                while (a < added && addedTargets[a] < keep)
                 {
-                    merged[m++] = new ReachableTarget(addedCell[a], positions[addedCell[a]], addedDistance[a]);
-                    a++;
+                    buffer[m++] = addedTargets[a++];
                 }
 
-                merged[m++] = keep;
+                buffer[m++] = keep;
             }
 
-            for (; a < added; a++)
+            while (a < added)
             {
-                merged[m++] = new ReachableTarget(addedCell[a], positions[addedCell[a]], addedDistance[a]);
+                buffer[m++] = addedTargets[a++];
+            }
+
+            var merged = new int[m];
+            Array.Copy(buffer, merged, m);
+
+            if (inPlace)
+            {
+                before.Replace(distance, merged);
+                return before;
             }
 
             return new ReachabilityResult(board, distance, null, null, merged);
         }
-
-        /// <summary>The FR-021 order of targets: distance, then row, then column (the cell index runs row by row).</summary>
-        private static bool Before(int distance, int cell, int otherDistance, int otherCell) =>
-            distance != otherDistance ? distance < otherDistance : cell < otherCell;
 
         /// <summary>The smallest of <paramref name="best"/> and a reached neighbour's distance + 1 (the target rule of Compute).</summary>
         private static int MeasureFrom(int cell, int[] neighbours, short[] distance, int best)
@@ -448,36 +448,74 @@ namespace Bloomlings.Core.Boards
         }
     }
 
-    /// <summary>Outcome of <see cref="Reachability.Compute(Board)"/>. It never changes after it is computed.</summary>
+    /// <summary>
+    /// Outcome of <see cref="Reachability.Compute(Board)"/>. It never changes after it is computed (a board updates the
+    /// one it keeps for a search in place only while nothing else holds it).
+    /// </summary>
     public sealed class ReachabilityResult
     {
         private readonly Board _board;
-        private readonly short[] _distance;
-        private readonly int[]? _parent;
-        private readonly int[]? _via;
-        private readonly ReachableTarget[] _targets;
+        private short[] _distance;
+        private int[]? _parent;
+        private int[]? _via;
+        private int[] _packed;
+        private ReachableTarget[]? _targets;
         private bool[]? _reachable;
 
-        internal ReachabilityResult(Board board, short[] distance, int[]? parent, int[]? via, ReachableTarget[] targets)
+        internal ReachabilityResult(Board board, short[] distance, int[]? parent, int[]? via, int[] packed)
         {
             _board = board;
             _distance = distance;
             _parent = parent;
             _via = via;
-            _targets = targets;
+            _packed = packed;
         }
 
         /// <summary>Reachable targets ordered by (distance ↑, row ↑ from the bottom, column ↑) (FR-021).</summary>
-        public IReadOnlyList<ReachableTarget> Targets => _targets;
+        public IReadOnlyList<ReachableTarget> Targets => _targets ??= Unpack();
 
-        /// <summary><see cref="Targets"/> as an array, for the rules' inner loops (callers never change it).</summary>
-        internal ReachableTarget[] TargetArray => _targets;
+        /// <summary>
+        /// The targets in the same order, each as one int (<see cref="Pack"/>), for the rules' inner loops. A board has
+        /// fewer than 2^16 cells and distances below 2^15, so the packed values sort exactly as (distance, index), which is
+        /// (distance, row, column).
+        /// </summary>
+        internal int[] Packed => _packed;
 
         /// <summary>Whether the routes are known (<see cref="RouteTo"/>); a search's reachability leaves them out.</summary>
         internal bool HasRoutes => _via != null;
 
-        /// <summary>The open distances by cell (<see cref="OpenDistance"/>), never changed.</summary>
+        /// <summary>The open distances by cell (<see cref="OpenDistance"/>).</summary>
         internal short[] Distances => _distance;
+
+        internal static int Pack(int cell, int distance) => (distance << 16) | cell;
+
+        internal static int CellOf(int packed) => packed & 0xFFFF;
+
+        internal static int DistanceOf(int packed) => packed >> 16;
+
+        /// <summary>An in-place update (<see cref="Reachability.Update"/>): new distances and targets, no routes.</summary>
+        internal void Replace(short[] distance, int[] packed)
+        {
+            _distance = distance;
+            _packed = packed;
+            _parent = null;
+            _via = null;
+            _targets = null;
+            _reachable = null;
+        }
+
+        private ReachableTarget[] Unpack()
+        {
+            var targets = new ReachableTarget[_packed.Length];
+            CellPos[] positions = _board.Positions;
+            for (int k = 0; k < targets.Length; k++)
+            {
+                int cell = CellOf(_packed[k]);
+                targets[k] = new ReachableTarget(cell, positions[cell], DistanceOf(_packed[k]));
+            }
+
+            return targets;
+        }
 
         public bool IsReachable(int index) => Reachable()[index];
 
@@ -518,9 +556,9 @@ namespace Bloomlings.Core.Boards
             if (_reachable == null)
             {
                 var reachable = new bool[_board.CellCount];
-                foreach (ReachableTarget t in _targets)
+                foreach (int packed in _packed)
                 {
-                    reachable[t.Index] = true;
+                    reachable[CellOf(packed)] = true;
                 }
 
                 _reachable = reachable;

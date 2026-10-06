@@ -62,6 +62,47 @@ namespace Bloomlings.Core.Tests.Properties
                 return true;
             });
 
+        /// <summary>A child written into a reused session is the same as a fresh one, and the reused one's old state is gone.</summary>
+        [Property(MaxTest = Runs)]
+        public bool ReusedSearchChild_EqualsFreshChild(ulong seed)
+        {
+            LevelSession session = RandomLevels.Create(seed);
+            var rng = new Core.Random.Xoshiro256StarStar(seed ^ 0x2E05EUL);
+            LevelSession? spare = null;
+            for (int step = 0; step < 60 && session.Status == LevelStatus.Playing; step++)
+            {
+                IReadOnlyList<Command> moves = StateSearch.Moves(session, MoveOrder.ProgressFirst);
+                if (moves.Count == 0)
+                {
+                    break;
+                }
+
+                // Every move into the same spare, as a search does for the children of one state.
+                LevelSession? kept = null;
+                int pick = rng.NextInt(moves.Count);
+                for (int m = 0; m < moves.Count; m++)
+                {
+                    LevelSession? fresh = session.SearchChild(moves[m]);
+                    LevelSession? reused = session.SearchChild(moves[m], spare);
+                    if (fresh == null || reused == null || reused.StateHash != fresh.StateHash || reused.Status != fresh.Status
+                        || reused.ComputeFullStateHash() != reused.StateHash || !SameAsFresh(reused.State.Board))
+                    {
+                        return false;
+                    }
+
+                    spare = reused;
+                    if (m == pick)
+                    {
+                        kept = fresh;
+                    }
+                }
+
+                session = kept!;
+            }
+
+            return true;
+        }
+
         [Property(MaxTest = Runs)]
         public bool KeptReachability_EqualsFreshCompute(ulong seed) =>
             Replay(seed, session =>
@@ -106,23 +147,33 @@ namespace Bloomlings.Core.Tests.Properties
                     return false;
                 }
 
-                Boards.Board board = child.State.Board;
-                ReachabilityResult kept = board.ReachTargets;
-                ReachabilityResult fresh = Reachability.Compute(board);
-                if (!kept.Targets.Select(t => (t.Index, t.Cell, t.Distance)).SequenceEqual(fresh.Targets.Select(t => (t.Index, t.Cell, t.Distance))))
+                // The child's kept reachability is right, and the parent's, which the child started from, is untouched.
+                if (!SameAsFresh(child.State.Board) || !SameAsFresh(session.State.Board))
                 {
                     return false;
                 }
 
-                for (int i = 0; i < board.CellCount; i++)
-                {
-                    if (kept.OpenDistance(i) != fresh.OpenDistance(i) || kept.IsReachable(i) != fresh.IsReachable(i))
-                    {
-                        return false;
-                    }
-                }
-
                 session = child;
+            }
+
+            return true;
+        }
+
+        private static bool SameAsFresh(Boards.Board board)
+        {
+            ReachabilityResult kept = board.ReachTargets;
+            ReachabilityResult fresh = Reachability.Compute(board);
+            if (!kept.Targets.Select(t => (t.Index, t.Cell, t.Distance)).SequenceEqual(fresh.Targets.Select(t => (t.Index, t.Cell, t.Distance))))
+            {
+                return false;
+            }
+
+            for (int i = 0; i < board.CellCount; i++)
+            {
+                if (kept.OpenDistance(i) != fresh.OpenDistance(i) || kept.IsReachable(i) != fresh.IsReachable(i))
+                {
+                    return false;
+                }
             }
 
             return true;

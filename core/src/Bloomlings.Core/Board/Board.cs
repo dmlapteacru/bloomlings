@@ -90,6 +90,10 @@ namespace Bloomlings.Core.Boards
         // While _reach is null: the reachability before the cells in _opened (the first _openedCount) became open ground,
         // the only change of kind play makes, so a search can update it instead of computing it again. Null when unknown.
         private ReachabilityResult? _reachBefore;
+
+        // Whether this board made _reach (or _reachBefore) itself and no clone shares it, so that it may update it in place.
+        private bool _reachOwned;
+        private bool _reachBeforeOwned;
         private int[] _opened = NoOpened;
         private int _openedCount;
         private static readonly int[] NoOpened = new int[0];
@@ -152,32 +156,20 @@ namespace Bloomlings.Core.Boards
         {
             Width = source.Width;
             Height = source.Height;
-            _kind = (byte[])source._kind.Clone();
-            // Shared until one side rewrites a cell's stack (Bloom Burst); then that side copies (see OwnLayers).
-            _layers = source._layers;
-            _codes = source._codes;
+            _kind = new byte[source._kind.Length];
+            _top = new byte[source._top.Length];
             _catalog = source._catalog;
-            source._ownsLayers = false;
-            _ownsLayers = false;
-            _top = (byte[])source._top.Clone();
-
-            // Shared until one side changes them (see OwnMystery, OwnKeys and OwnSpecials).
-            _mysteryHidden = source._mysteryHidden;
-            source._ownsMystery = false;
-            _ownsMystery = false;
-            _keyId = source._keyId;
-            source._ownsKeys = false;
-            _ownsKeys = false;
-            _specialId = source._specialId;
-            source._ownsSpecials = false;
-            _ownsSpecials = false;
             _isEntryCell = source._isEntryCell;
             _entries = source._entries;
             _neighbours = source._neighbours;
             _positions = source._positions;
             _entryIndexes = source._entryIndexes;
-            _layerCount = source._layerCount;
-            _reach = source._reach;
+            _layers = source._layers;
+            _codes = source._codes;
+            _mysteryHidden = source._mysteryHidden;
+            _keyId = source._keyId;
+            _specialId = source._specialId;
+            CopyCellsFrom(source);
         }
 
         public int Width { get; }
@@ -190,6 +182,51 @@ namespace Bloomlings.Core.Boards
         public IReadOnlyList<EntryDef> Entries => _entries;
 
         public Board Clone() => new Board(this);
+
+        /// <summary>
+        /// Makes this board the same as <paramref name="source"/>, a board of the same level (a clone of the same
+        /// build), as <see cref="Clone"/> would, but in this board's own arrays; false when it is not of the same build.
+        /// </summary>
+        internal bool TryCopyFrom(Board source)
+        {
+            if (!ReferenceEquals(source._neighbours, _neighbours) || ReferenceEquals(source, this))
+            {
+                return false;
+            }
+
+            CopyCellsFrom(source);
+            return true;
+        }
+
+        /// <summary>The cell state of <paramref name="source"/>: the kinds and top pointers copied, the rest shared.</summary>
+        private void CopyCellsFrom(Board source)
+        {
+            Array.Copy(source._kind, _kind, _kind.Length);
+            Array.Copy(source._top, _top, _top.Length);
+
+            // Shared until one side rewrites a cell's stack (Bloom Burst); then that side copies (see OwnLayers).
+            _layers = source._layers;
+            _codes = source._codes;
+            source._ownsLayers = false;
+            _ownsLayers = false;
+
+            // Shared until one side changes them (see OwnMystery, OwnKeys and OwnSpecials).
+            _mysteryHidden = source._mysteryHidden;
+            source._ownsMystery = false;
+            _ownsMystery = false;
+            _keyId = source._keyId;
+            source._ownsKeys = false;
+            _ownsKeys = false;
+            _specialId = source._specialId;
+            source._ownsSpecials = false;
+            _ownsSpecials = false;
+            _layerCount = source._layerCount;
+            _reach = source._reach;
+            _reachOwned = false;
+            source._reachOwned = false;
+            _reachBefore = null;
+            _openedCount = 0;
+        }
 
         public int IndexOf(CellPos cell) => cell.ToIndex(Width);
 
@@ -232,6 +269,7 @@ namespace Bloomlings.Core.Boards
                 if (_reach == null || !_reach.HasRoutes)
                 {
                     _reach = Reachability.Compute(this, routes: true);
+                    _reachOwned = true;
                     _reachBefore = null;
                     _openedCount = 0;
                 }
@@ -252,8 +290,9 @@ namespace Bloomlings.Core.Boards
                 if (_reach == null)
                 {
                     _reach = _reachBefore != null
-                        ? Reachability.Update(this, _reachBefore, _opened, _openedCount)
+                        ? Reachability.Update(this, _reachBefore, _opened, _openedCount, inPlace: _reachBeforeOwned)
                         : Reachability.Compute(this, routes: false);
+                    _reachOwned = true;
                     _reachBefore = null;
                     _openedCount = 0;
                 }
@@ -514,6 +553,7 @@ namespace Bloomlings.Core.Boards
             if (_reach != null)
             {
                 _reachBefore = _reach;
+                _reachBeforeOwned = _reachOwned;
                 _reach = null;
                 _openedCount = 0;
             }

@@ -62,6 +62,13 @@ namespace Bloomlings.Core.Slots
 
         public WaitingSlots Clone() => new WaitingSlots(this);
 
+        /// <summary>Makes these slots the same as <paramref name="source"/>, as <see cref="Clone"/> would, in place.</summary>
+        internal void CopyFrom(WaitingSlots source)
+        {
+            Array.Copy(source._slots, _slots, _slots.Length);
+            _nextAge = source._nextAge;
+        }
+
         public SlotState StateOf(int slot) => (SlotState)_slots[slot];
 
         /// <summary>The pod index in the slot, or -1.</summary>
@@ -160,6 +167,29 @@ namespace Bloomlings.Core.Slots
             }
 
             return slots;
+        }
+
+        /// <summary>As <see cref="OccupiedByAge()"/>, into <paramref name="slots"/> (room for <see cref="Capacity"/>); returns how many.</summary>
+        internal int OccupiedByAge(int[] slots)
+        {
+            int n = 0;
+            for (int i = 0; i < Capacity; i++)
+            {
+                if (StateOf(i) == SlotState.Occupied)
+                {
+                    // Insertion sort by age; at most 6 entries.
+                    int j = n++;
+                    while (j > 0 && _slots[AgeAt + slots[j - 1]] > _slots[AgeAt + i])
+                    {
+                        slots[j] = slots[j - 1];
+                        j--;
+                    }
+
+                    slots[j] = i;
+                }
+            }
+
+            return n;
         }
 
         /// <summary>0 for the oldest occupied slot, 1 for the next, …; -1 when the slot is not occupied.</summary>

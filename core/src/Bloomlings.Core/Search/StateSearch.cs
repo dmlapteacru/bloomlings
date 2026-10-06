@@ -142,12 +142,13 @@ namespace Bloomlings.Core.Search
         {
             var result = new bool[state.Catalog.Count];
             ReachabilityResult reach = state.Board.ReachTargets;
-            foreach (ReachableTarget target in reach.TargetArray)
+            foreach (int target in reach.Packed)
             {
-                if (!state.Board.IsMysteryHidden(target.Index))
+                int cell = ReachabilityResult.CellOf(target);
+                if (!state.Board.IsMysteryHidden(cell))
                 {
-                    int code = state.Board.TopCode(target.Index);
-                    result[code >= 0 ? code : state.Catalog.IndexOf(state.Board.TopLayer(target.Index))] = true;
+                    int code = state.Board.TopCode(cell);
+                    result[code >= 0 ? code : state.Catalog.IndexOf(state.Board.TopLayer(cell))] = true;
                 }
             }
 
@@ -209,12 +210,16 @@ namespace Bloomlings.Core.Search
             private readonly int _budget;
             private readonly TranspositionTable _table;
 
+            private readonly bool _reuse;
+            private readonly List<LevelSession?> _spares = new List<LevelSession?>();
+
             public Dfs(Func<LevelSession, bool> goal, MoveOrder order, int budget, TranspositionTable table)
             {
                 _goal = goal;
                 _order = order;
                 _budget = budget;
                 _table = table;
+                _reuse = goal.Equals((Func<LevelSession, bool>)IsWon) || goal.Equals((Func<LevelSession, bool>)IsLost);
             }
 
             public int Nodes { get; private set; }
@@ -239,6 +244,10 @@ namespace Bloomlings.Core.Search
                     // Known to reach the goal but the path is not stored: search on to rebuild it.
                 }
 
+                // The children of this depth are explored one after another, and none is kept once its subtree is done,
+                // so one session per depth is reused for them (only when the goal is a built-in one, which keeps no
+                // session).
+                int depth = path.Count;
                 foreach (Command move in Moves(session, _order))
                 {
                     if (Nodes >= _budget)
@@ -247,11 +256,23 @@ namespace Bloomlings.Core.Search
                         return false;
                     }
 
-                    LevelSession? child = session.SearchChild(move);
+                    LevelSession? child = session.SearchChild(move, _reuse && depth < _spares.Count ? _spares[depth] : null);
                     Nodes++;
                     if (child == null)
                     {
                         continue;
+                    }
+
+                    if (_reuse)
+                    {
+                        if (depth < _spares.Count)
+                        {
+                            _spares[depth] = child;
+                        }
+                        else
+                        {
+                            _spares.Add(child);
+                        }
                     }
 
                     path.Add(move);

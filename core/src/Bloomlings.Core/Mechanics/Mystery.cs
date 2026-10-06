@@ -30,12 +30,13 @@ namespace Bloomlings.Core.Mechanics
         public void BeforeAllocation(RoundContext context)
         {
             LevelState state = context.State;
-            foreach (ReachableTarget target in context.Reach.TargetArray)
+            foreach (int target in context.Reach.Packed)
             {
-                if (state.Board.IsMysteryHidden(target.Index))
+                int cell = ReachabilityResult.CellOf(target);
+                if (state.Board.IsMysteryHidden(cell))
                 {
-                    state.RevealMysteryTile(target.Index);
-                    context.Events?.Add(new MysteryTileRevealed(context.Round, target.Cell, state.Board.TopLayer(target.Index)));
+                    state.RevealMysteryTile(cell);
+                    context.Events?.Add(new MysteryTileRevealed(context.Round, state.Board.Positions[cell], state.Board.TopLayer(cell)));
                     context.Changed = true;
                 }
             }

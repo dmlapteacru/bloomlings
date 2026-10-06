@@ -73,8 +73,31 @@ namespace Bloomlings.Core.Tray
         private SourceTray(SourceTray source)
         {
             _stacks = source._stacks;
-            _count = (int[])source._count.Clone();
-            _stackOf = (int[])source._stackOf.Clone();
+            _count = new int[source._count.Length];
+            _stackOf = new int[source._stackOf.Length];
+            CopyStacksFrom(source);
+        }
+
+        /// <summary>
+        /// Makes this tray the same as <paramref name="source"/> (a tray of the same level), as <see cref="Clone"/>
+        /// would, but in this tray's own arrays; false when the sizes differ.
+        /// </summary>
+        internal bool TryCopyFrom(SourceTray source)
+        {
+            if (source._count.Length != _count.Length || source._stackOf.Length != _stackOf.Length || ReferenceEquals(source, this))
+            {
+                return false;
+            }
+
+            CopyStacksFrom(source);
+            return true;
+        }
+
+        private void CopyStacksFrom(SourceTray source)
+        {
+            _stacks = source._stacks;
+            Array.Copy(source._count, _count, _count.Length);
+            Array.Copy(source._stackOf, _stackOf, _stackOf.Length);
             source._ownedStacks = 0;
             source._ownsStacks = false;
             _ownedStacks = 0;

@@ -279,6 +279,41 @@ namespace Bloomlings.Core.Simulation
         }
 
         /// <summary>
+        /// Makes this state equal to <paramref name="source"/>, a state of the same loaded level, exactly as
+        /// <see cref="Clone"/> would, but in this state's own arrays (a search reuses the state of a child it is done
+        /// with). False, and nothing changes, when the source is not of the same load.
+        /// </summary>
+        public bool TryCopyFrom(LevelState source)
+        {
+            if (ReferenceEquals(source, this)
+                || !ReferenceEquals(source.Definition, Definition) || !ReferenceEquals(source.Picture, Picture)
+                || !ReferenceEquals(source.Options, Options) || !ReferenceEquals(source.PodDefs, PodDefs)
+                || !ReferenceEquals(source.PodIndex, PodIndex) || !ReferenceEquals(source.PodVariantIndex, PodVariantIndex)
+                || !ReferenceEquals(source.KeyIds, KeyIds) || !ReferenceEquals(source.Mechanics, Mechanics)
+                || !ReferenceEquals(source.PodLookClass, PodLookClass)
+                || source.Pods.Length != Pods.Length || source.KeyCollected.Length != KeyCollected.Length
+                || source.SpecialProgress.Length != SpecialProgress.Length || source.SpecialTriggered.Length != SpecialTriggered.Length
+                || source.Tray.StackCount != Tray.StackCount || source.Tray.PodCount != Tray.PodCount
+                || !Board.TryCopyFrom(source.Board))
+            {
+                return false;
+            }
+
+            Tray.TryCopyFrom(source.Tray);
+            Array.Copy(source.Pods, Pods, Pods.Length);
+            Slots.CopyFrom(source.Slots);
+            Array.Copy(source.KeyCollected, KeyCollected, KeyCollected.Length);
+            Array.Copy(source.SpecialProgress, SpecialProgress, SpecialProgress.Length);
+            Array.Copy(source.SpecialTriggered, SpecialTriggered, SpecialTriggered.Length);
+            _hash = source._hash;
+            ExtraSlotUsed = source.ExtraSlotUsed;
+            ShuffleUses = source.ShuffleUses;
+            BoostersUsed = source.BoostersUsed;
+            Status = source.Status;
+            return true;
+        }
+
+        /// <summary>
         /// The catalog index of a layer's variant: the board's kept index (<see cref="Board.TopCode"/>), or the catalog's
         /// lookup, which throws as before, for a variant the catalog does not hold.
         /// </summary>

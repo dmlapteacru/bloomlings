@@ -87,7 +87,14 @@ namespace Bloomlings.Core.Simulation
         /// session does not change. A tap builds no event log (nobody reads it during a search), and the copy keeps no
         /// <see cref="CommandLog"/>: it is for exploring states, never for replays or presentation.
         /// </summary>
-        public LevelSession? SearchChild(Command command)
+        public LevelSession? SearchChild(Command command) => SearchChild(command, null);
+
+        /// <summary>
+        /// As <see cref="SearchChild(Command)"/>; with <paramref name="reuse"/>, a session from an earlier search step of
+        /// the same loaded level that the caller is done with, the child is written into it instead of a new copy (then
+        /// the caller must not use what it held). The child is the same either way.
+        /// </summary>
+        public LevelSession? SearchChild(Command command, LevelSession? reuse)
         {
             if (command is TapPod tap)
             {
@@ -96,7 +103,17 @@ namespace Bloomlings.Core.Simulation
                     return null;
                 }
 
-                var child = new LevelSession(State.Clone(), new List<Command>(), _hooks);
+                LevelSession child;
+                if (reuse != null && !ReferenceEquals(reuse, this) && ReferenceEquals(reuse._hooks, _hooks) && reuse.State.TryCopyFrom(State))
+                {
+                    child = reuse;
+                    child._commandLog.Clear();
+                }
+                else
+                {
+                    child = new LevelSession(State.Clone(), new List<Command>(), _hooks);
+                }
+
                 child.CommitTap(tap, null);
                 return child;
             }

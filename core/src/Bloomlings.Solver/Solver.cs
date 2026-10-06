@@ -346,8 +346,13 @@ namespace Bloomlings.Solver
 
             public int LosingMovesInWinnableStates { get; private set; }
 
+            // One reused session per depth: the children of a state are walked one after another and none is kept.
+            private readonly List<LevelSession> _spares = new List<LevelSession>();
+
             /// <summary>True when a win is reachable; unknown parts (budget) count as winnable.</summary>
-            public bool Winnable(LevelSession session)
+            public bool Winnable(LevelSession session) => Winnable(session, 0);
+
+            private bool Winnable(LevelSession session, int depth)
             {
                 if (session.Status == LevelStatus.Won)
                 {
@@ -377,10 +382,19 @@ namespace Bloomlings.Solver
                     }
 
                     // The moves are legal, so the child is the state after the tap (unchanged if it were refused).
-                    LevelSession child = session.SearchChild(move) ?? session.Clone();
+                    LevelSession child = session.SearchChild(move, depth < _spares.Count ? _spares[depth] : null) ?? session.Clone();
+                    if (depth < _spares.Count)
+                    {
+                        _spares[depth] = child;
+                    }
+                    else
+                    {
+                        _spares.Add(child);
+                    }
+
                     _nodes++;
                     moves++;
-                    if (Winnable(child))
+                    if (Winnable(child, depth + 1))
                     {
                         winnable = true;
                     }
