@@ -145,7 +145,7 @@ heroes, the screens keep their layout and buttons, and a worn hat or skin still 
 
 ### Edge Cases
 
-- **Smallest sizes.** The largest board (14×16 cells) on the narrowest supported phone gives the smallest character.
+- **Smallest sizes.** The largest board (14×16 cells) on the narrowest supported phone gives the smallest character. *(Since 2026-10-06 the largest board is a big level's 22×28, spec 001 FR-008 as amended: its walkers are smaller still.)*
   So do the queued pods. The shape alone must still tell the variant, and the face must never look like a symbol.
 - **Same-family pairs.** Leaf/Moss, Flower/Violet Bud, Water/Dew and Wood/Acorn must differ in shape as well as in
   color (constitution II).

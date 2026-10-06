@@ -23,7 +23,9 @@ public sealed class LevelSession
 {
     public static LevelSession Load(LevelDefinition definition, BasePicture picture, SessionOptions options);
 
-    public LevelView View { get; }               // read-only snapshot for rendering and queries
+    public LevelView View { get; }               // read-only snapshot for rendering and queries; View.BoardLook is the
+                                                 // level's stored look, and on an icons board View.Cell(..).Next is null
+                                                 // (the next layer is a surprise, FR-036 as amended on 2026-10-06)
     public LevelStatus Status { get; }           // Playing | Won | Jammed | Stuck
     public ulong StateHash { get; }              // Zobrist hash of the logical state
 
@@ -106,7 +108,8 @@ public interface ISolver
 {
     SolveResult Solve(LevelSession start, SolveOptions options);                  // winning trace or unsolvable/unknown
     SolveResult FindJam(LevelSession start, SolveOptions options);                // jam witness (FR-081)
-    FairnessResult CheckPlayerInformation(LevelSession start, SolveOptions o);    // mystery fairness (R8)
+    FairnessResult CheckPlayerInformation(LevelSession start, SolveOptions o);    // mystery fairness (R8); on an icons board
+                                                                                  // the sampled hidden-layer check (R8b)
     Metrics Measure(LevelSession start, SolveOptions options);                    // difficulty metrics (FR-082)
 }
 ```

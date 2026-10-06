@@ -39,7 +39,7 @@ A base picture of the picture library (FR-006, doc 06 §23). Wire format:
 |---|---|---|
 | `id`, `version` | string, int | Stable identity; a change creates a new version |
 | `subject` | string | Human-readable name, e.g. "tulip in pot" |
-| `width`, `height` | int | 7 ≤ width ≤ 14, 8 ≤ height ≤ 16 (FR-008) |
+| `width`, `height` | int | 7 ≤ width ≤ 22, 8 ≤ height ≤ 28, the format limits (FR-008 as amended on 2026-10-06; they were 14 and 16). A level's board rule picks the sizes it may use: 11–12×12 for the curated L1–10, 224–288 cells (14×16 to 16×18) for regular levels from L11, 289–616 cells for big levels (`BandGuidelines.Board`) |
 | `roles[]` | list of `{roleId, name, colorGroup, isBackground}` | At least 2 roles; each role has exactly one color group |
 | `grid` | height × width of role index, `EMPTY` or `STONE` | Every non-empty cell has one role (FR-001) |
 | `finishedLook` | `{mode: auto\|illustration, illustrationKey?}` | `auto` by default (FR-007) |
@@ -71,6 +71,7 @@ One per level number (FR-075 to FR-077). Wire format:
 | `difficulty` | `{class: normal\|hard\|super_hard, score, overridden}` | FR-082. `score` is an integer fixed-point value (× 1000) |
 | `rewardProfile` | string | Links to an economy config entry |
 | `mechanics[]` | list of strings | Derived; used by unlock validation |
+| `boardLook` | `peek \| icons`, optional (absent = `peek`) | How the board is drawn, stored in the level data and never chosen per device (FR-036 as amended on 2026-10-06): `peek` (candy tiles with the next-layer chip) for boards of up to 288 cells, `icons` (icons only, the next layer hidden) for boards over 288 cells. The generator always writes it from the cell count (`BoardLooks.For`); older content without it peeks |
 
 **Derived board.** The board is derived at load time as follows (R5):
 
@@ -88,6 +89,11 @@ One per level number (FR-075 to FR-077). Wire format:
   readability tests (FR-005).
 - **Reachability**: every mandatory layer, key and special can become reachable (FR-080).
 - **Unlocks**: no mechanic and no variant appears before its unlock level (FR-031).
+- **Board** (FR-008 as amended on 2026-10-06): the board follows the level's rule (from L11 regular boards of 224–288
+  cells; big boards of 289–616 cells, at most 22×28, for big levels only: every milestone level from L525), and the
+  stored `boardLook` (absent = `peek`) is the one the cell count asks for.
+- **Hidden layers of an icons board** (FR-036 as amended): at most 72, no mystery tile or pod, and they pass the sampled
+  hidden-layer fairness check (research R8b), recorded as `playerInfoFair`.
 - **Solver**: the level is solvable without boosters and has a jam witness unless it is a tutorial (FR-080, FR-081).
 - **Similarity**: FR-083 holds against the catalog.
 
@@ -100,7 +106,7 @@ One per level number (FR-075 to FR-077). Wire format:
 | `result` | `solvable \| unsolvable \| unknown` |
 | `solutionTrace[]` | commands |
 | `jamWitness[]` | commands, or null for tutorials |
-| `playerInfoFair` | bool, or null if the level has no mystery |
+| `playerInfoFair` | bool, or null if the level hides nothing the fairness checks judge: no mystery, and no hidden layer on an icons board (R8, R8b) |
 | `metrics` | depth, branching, unsafe-choice density, dead-end depth, peak/mean buffer, connected commitments, variant load, special load, total work, estimated duration |
 | `checks[]` | the list of passed invariant ids |
 
@@ -109,7 +115,8 @@ One per level number (FR-075 to FR-077). Wire format:
 One profile per progression band (FR-079, doc 06 §4). It defines:
 
 - `bandId` and `levelRange`;
-- `boardSize` (min and max);
+- `boardSize` (min and max; the Level Band Guidelines' board rule narrows it per level: the bands from L501 cover both
+  the regular boards and the big ones, up to 22×28);
 - `picturePool` (tags) and `structureTargets`;
 - `variantCount` (min and max) and `allowedVariants`;
 - `mappingConstraints`;
@@ -119,7 +126,8 @@ One profile per progression band (FR-079, doc 06 §4). It defines:
 - `stacks` (min and max), `podCount` (min and max) and `podSize` (min and max tiles per pod; never under the 5-tile
   small class, `BandGuidelines.MinPodSize`; the size classes small 5–15, medium 16–40, large 41–100 and
   exceptional 100+ follow from the band's work and pod count);
-- `work` (min and max tile-layers; the Level Band Guidelines narrow it per class, e.g. Hard 150–300 in L51–100);
+- `work` (min and max tile-layers; the Level Band Guidelines narrow it per level: 150–275 at L11–25, up to 360 later on
+  a regular board, 200–650 on a big level's board since 2026-10-06);
 - `bufferPressureTarget` (relaxed, normal, tense or critical);
 - the difficulty target: the class of each level comes from the difficulty schedule (`DifficultySchedule`: Hard 15–25
   and Super Hard 6–10 per 100 levels), and the score range of each class from the band's thresholds in

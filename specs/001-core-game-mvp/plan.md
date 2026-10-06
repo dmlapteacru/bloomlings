@@ -79,7 +79,8 @@ The launch product covers:
 - **Constraints**:
   - The simulation is deterministic, with integer logic, no Unity APIs, no wall clock and node-count budgets (R3).
   - The game is offline-first (FR-074).
-  - The board is at most 14×16, with 3–6 active variants typically.
+  - The board is at most 22×28 (616 cells, the rare big levels; FR-008 as amended on 2026-10-06, it was 14×16), and
+    regular boards have 224–288 cells, with 3–6 active variants typically.
   - Animated workers use a bounded pool of about 60 on low-end devices (R4).
   - Install size ≤ 150 MB and memory ≤ 350 MB.
   - Interstitial placement rules apply (FR-053).

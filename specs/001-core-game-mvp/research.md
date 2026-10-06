@@ -101,7 +101,10 @@ ordered **event log**. The next command always applies to that settled state. An
 **Arithmetic and randomness rules:**
 
 - All logic is integer-only.
-- Collections are arrays or sorted lists; nothing depends on hash-map iteration order.
+- Collections are arrays or sorted lists; nothing depends on hash-map iteration order. *(Checked again on 2026-10-06,
+  when the board limit grew from 14×16 to 22×28: `CellPos.GetHashCode` uses `CellPos.MaxWidth`, but rules and solvers walk
+  cells by index, the Zobrist keys use the board's own row-major index, and no dictionary or set keyed by cells is
+  enumerated in hash order, so every golden replay stayed byte-identical.)*
 - There is no wall-clock time, no floating point and no `System.Random`.
 - The only randomness, Shuffle (R10), uses a specified PRNG: SplitMix64 seeding xoshiro256\*\*. Its seed comes from
   `(level seed, content version, shuffle-use index, state hash)`.
@@ -190,7 +193,8 @@ ordered **event log**. The next command always applies to that settled state. An
   route cells from its entry: `ClearStyles.TripSeconds(n)` = 1.1 s × n + 1.4 s, from the Bloomling leaving the arch to
   the tile's clear (the slot's count going down). Each style splits that time into legs: out, an act at the tile, an
   optional way back, and the tile's last leg into the slot (`ClearStyles.LegsOf`). The waves' length clamps at 1.2–40 s
-  (was 1.2–6.4 s and 1.2–5.6 s), so no trip is squeezed. A pod's Bloomlings leave each arch in a line, at least
+  (was 1.2–6.4 s and 1.2–5.6 s; 1.2–60 s since 2026-10-06, so a straight route of 49 cells across the 22×28 board of a
+  big level, about 55.5 s, fits too), so no trip is squeezed. A pod's Bloomlings leave each arch in a line, at least
   `ClearStyles.LineGap` (0.42 s) apart, nearer tiles first, its later rounds and taps joining the line; different pods'
   lines run side by side (FR-018; on L1 the leaf pod's line still sets off while the first water pod works). A tap's later rounds no longer wait for
   its earlier rounds to end: each Bloomling waits only for its way, as before, and the rounds' end events keep the rules'
@@ -225,7 +229,12 @@ picture. It stores:
 - sparse **overlays**: hidden layers, mystery flags, stone and hole deviations, keys and specials;
 - **Garden Entries**;
 - **slots**;
-- the **Source Tray**, with stacks and pods listed explicitly.
+- the **Source Tray**, with stacks and pods listed explicitly;
+- the **board look** (`boardLook`, since 2026-10-06, spec FR-036 as amended): `peek` (candy tiles with the next-layer
+  chip) for boards of up to 288 cells, `icons` (icons only, the next layer hidden) for boards over 288 cells. It is
+  presentation that the level data fixes, never the device. It is optional, so content written before it loads and
+  peeks; the generator always writes it from the cell count (`BoardLooks.For`), the writer keeps a stated `peek` (the one
+  field written although it equals its default), and validation fails a level whose look disagrees with the rule.
 
 **Runtime expansion.** The runtime expands the definition deterministically, in this order:
 
@@ -303,8 +312,11 @@ for JSON, and Addressables is the right tool for the art bundles.
 metadata ([`contracts/base-picture.schema.json`](contracts/base-picture.schema.json)). They are authored in any pixel
 editor, such as Aseprite or Pixelorama.
 
-**Import.** The pipeline imports each picture into a role grid (at most 14×16) and computes structure metrics: region
-count, nesting depth relative to a bottom entry, and background share.
+**Import.** The pipeline imports each picture into a role grid (at most 22×28 since 2026-10-06, the big levels' largest
+board; it was 14×16) and computes structure metrics: region count, nesting depth relative to a bottom entry, and
+background share. The format allows 7×8 to 22×28; which sizes a level may use is the level band's board rule (FR-008):
+11–12×12 for the curated Levels 1–10, 224–288 cells (14×16 to 16×18) for the regular levels from L11, and 289–616 cells
+for the big levels.
 
 **Review.** The review status is recorded in the metadata. Only `approved` pictures can be used (FR-084).
 
@@ -377,13 +389,77 @@ to keep this tractable. Levels fail if only hidden knowledge avoids a forced los
 - **Monte Carlo sampling**: cannot prove unsolvability.
 - **SAT or constraint solvers**: complex to model reachability dynamics and harder to extract metrics from.
 
+## R8b. Hidden-layer fairness on icons boards (2026-10-06)
+
+**Context.** The owner (2026-10-06): a board over 288 cells (a big level) shows icons only, and a layered tile no longer
+shows its next layer; the hidden layers are a surprise (spec FR-036 as amended). The player sees the top layers, the
+tray and every event, and can count from the pods how many hidden layers of each variant there are, but not where they
+lie. No level may force a blind guess (FR-080), so the hidden layers need the player-information check that mystery
+tiles have (FR-039). R8's AND-OR search enumerates every world and caps mystery at 3 tiles and 2 pods; a big board hides
+dozens of layers whose placements number in the billions, so it cannot be enumerated.
+
+**Decision**: a sampled check with a player that uses only visible information (`Bloomlings.Solver.HiddenLayerFairness`,
+which `FairnessChecker` runs for every `icons` board; the generator's acceptance and `CatalogValidator` call it, and the
+validation record stores the result as `playerInfoFair` with the `player-info-fair` check).
+
+1. **Worlds.** A world keeps the level's hidden layers, as the player counts them (each variant's pod total less its
+   visible tiles), so the exact per-variant totals the pods show hold and every hidden layer is an active variant, and
+   places them on random target cells, at most the level's layers per cell (FR-036: 1 before L125, 2 after). The level's
+   seed draws up to 24 worlds and keeps the first 12 that a full-information search (4000 nodes) can win: a world no one
+   could win is one the player rules out, since every shipped level is winnable (FR-046). If fewer than 6 of the
+   wanted 12 turn up winnable, the level is unfair: whether it can be won hangs on where the hidden layers lie.
+2. **The visible player.** It keeps its taps and what each one showed, and plans on a *model world*: the level with the
+   layers it has seen revealed where they were and the layers it has not seen drawn at random under the cells that may
+   still hold them, from a seed made of what it has seen (equal observations give equal choices in every world). It
+   follows the model's winning line (a 2000-node search) while the model foretells every event; when a revealed layer
+   surprises it, it draws a new model, replays its taps into it and plans again (up to 3 models, then the first tap of
+   the search's move order, which reads only visible state).
+3. **The verdict.** The level is fair when the visible player wins the real level and all 12 kept worlds. It is unfair
+   when it loses one, when too few worlds can be won, or with more than 72 hidden layers; a mystery tile or pod on an
+   icons board is "uncovered" and fails, because the check does not judge both kinds of hidden information together.
+4. **Budgets.** All fixed: 4000 nodes per world, 2000 per plan, 300 000 for the whole check (every applied command
+   counts), so the generator and the validator always agree, whatever their solve budgets.
+5. **Generator slack.** An icons board gets fewer hidden layers (4–9% of its tiles instead of 8–17%, at most 72), no
+   mystery tile or pod, and a big level a lower buffer pressure (peak 1–3 slots), which leaves room for a pod that
+   waits for a layer it could not foresee. Big levels are Normal: the difficulty schedule moves a Hard due on one to
+   the next level (`DifficultySchedule`), because the tray tuner's injections barely move a big board's score (a trial
+   on a 40-pod big level: 2124 to 2128 in 40 attempts, the peak buffer staying at 1), and their own class thresholds
+   (`difficulty-thresholds.json` `big`, 1500 over the band's) keep their scale from reading as Hard.
+
+**This is sampled, not a proof.** Its limits, stated plainly:
+
+- A placement that is never drawn may still defeat the visible player: 12 worlds sample a huge space. Passing shows
+  that one strategy without hidden knowledge wins the real level and 12 random placements, not all of them.
+- The visible player is one heuristic strategy (planning on one sampled model, replanning on surprise). A level it
+  loses may be fair for a smarter player (a false rejection costs a generator candidate); a level it wins on the sample
+  may still be unfair for an unlucky placement.
+- Dropping the worlds no one could win assumes that the player trusts every level to be winnable.
+- Peek boards are unchanged: a depth-3 tile's third layer shows only once the second is its top, as before, and no check
+  judges it.
+
+**Trial (2026-10-06).** Relabelling the 15 layered levels of the playtest's Levels 28–100 as icons boards: every
+Normal and most Hard levels pass, while a Super Hard (L56) and a Hard (L78) level fail; the tighter the buffer, the
+more an unforeseen layer hurts. On sketched big pictures (up to 22×28, 23–62 hidden layers) the generated big levels
+passed in about 1–30 s, and the check rejected one big candidate in about ten.
+
+**Alternatives considered**:
+
+- **R8's enumeration**: intractable at dozens of hidden layers.
+- **R8's AND-OR search over the sampled worlds**: after the first reveal that tells two worlds apart each world is alone,
+  and the search then backtracks knowing that world's later hidden layers. It checks that every placement can be won,
+  not that a player can find the way.
+- **A greedy visible player without planning**: much weaker; it would reject most levels.
+- **Showing that a tile is layered without its variant**: not what the owner chose ("icons only").
+
 ## R9. Generator (picture-first, solution-first)
 
 **Decision**: The generator runs doc 06 §1–13 and FR-079 as a seeded pipeline.
 
-1. **Pick a picture.** Choose an approved base picture that matches the profile: size, tags and structure targets. Skip
-   pictures blocked by the similarity window of FR-083: 100 unique pictures in levels 1–100, and a 50-level repeat
-   window.
+1. **Pick a picture.** Choose an approved base picture that matches the profile: size, tags and structure targets, and
+   the level's board rule (FR-008 as amended on 2026-10-06: 224–288 cells from L11, and 289–616 cells, at most 22×28,
+   only for a big level, every milestone level from L525). Skip pictures blocked by the similarity window of FR-083: 100
+   unique pictures in levels 1–100, and a 50-level repeat window. The level stores its board look from the cell count
+   (R5), and an icons board gets the slack and the fairness check of R8b.
 2. **Map roles to variants.** Enumerate the role→variant mappings allowed by the band's variant pool and color groups
    (FR-004, FR-060). Merge similar roles if there are too many. Enforce readability pairs (FR-005).
 3. **Place entries and derive the dependency graph.** Compute shielding regions from the Garden Entries. Choose the

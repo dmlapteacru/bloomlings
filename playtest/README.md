@@ -29,6 +29,10 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
     are gone, since the whole picture library was redrawn bigger.
 
   Past L100 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
+  These Levels 11–100 predate the owner's boards of 2026-10-06 (spec 001 FR-008 as amended: at least 224 cells from
+  L11), so most stand on smaller boards; they are refreshed with the catalog once the picture library has the regular
+  and big pictures. A level whose data stores the icons look (a big level, over 288 cells) draws no next-layer chip in
+  either APK (FR-036 as amended).
   A pod tap goes in only when a slot shows no pod on screen (spec 001 FR-014 as amended on 2026-10-05).
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):

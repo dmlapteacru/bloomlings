@@ -65,6 +65,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `picture-approved`. `content/readability/approved-pairs.json` is `provisional` until the readability sign-off.
   Mechanic showcase levels live in `content/showcase/` (generated with `generate --mechanics <m> --class normal`);
   `generate` keeps them fixed (`--keep`).
+- Boards (spec 001 FR-008 and FR-036 as amended on 2026-10-06, the owner): the curated Levels 1–10 keep 11–12×12; from
+  L11 every regular board has 224–288 cells (14×16 up to 16×18) and shows the layer peek; from L525 every milestone level
+  (every 25th, `BandGuidelines.IsBigLevel`) is a big level of 289–616 cells, at most 22×28 (`CellPos.MaxWidth`/
+  `MaxHeight`), drawn in the icons look with the next layer hidden. The look is level data, never chosen per device
+  (`boardLook`, `BoardLooks.For`; absent means peek): the generator writes it from the cell count, `validate` fails a
+  mismatch, `LevelView` hides `CellInfo.Next` on an icons board and both builds skip the chip. An icons board's hidden
+  layers pass the sampled fairness check of research R8b (`HiddenLayerFairness`, at most 72 layers, no mystery); big
+  levels are Normal (`DifficultySchedule` moves a Hard due on one to the next level) and score against the band's `big`
+  thresholds in `difficulty-thresholds.json`.
 - `tools/heroanim` (Node 22, not in the solution; `tools/heroanim/README.md`) pre-renders the owner's animated FBX
   heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
   minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`
@@ -116,7 +125,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   (kit) renders engine-free material pictures (planks, pod frames, stones, pedestal, candy tiles; deterministic,
   straight alpha), drawn through `IPainter.Picture` (playtest) and `ProceduralSprites.Picture` (Unity), each cached by
   key and size. `BoardLayout` places the grid and the stone border; each Garden Entry is a small stone arch set in the border beside its entry cell, turned to its side (`BoardLayout.Arch`, `UiRaster.EntryArch`; the owner's "B" of 2026-10-05, FR-034; the big arch under the board stays retired since 2026-10-03), and the Bloomlings set off from there. The board is candy tiles in a
-  stone border on a lawn. Pods are wooden frames wider than tall (the owner's icon in the middle, a small count in the corner) that stand one
+  stone border on a lawn (a big level's icons board, over 288 cells, without the layer chip). Pods are wooden frames wider than tall (the owner's icon in the middle, a small count in the corner) that stand one
   after another in a column per Source stack, never on each other: a gameplay rule (owner, 2026-10-03), whatever the
   look; 3 rows, 4 from a safe aspect of 1.95 (`ReferenceGameplayRegions.Pod`, `PodChip`). Waiting Slots are cream
   plates holding the tile with its count below; cards are parchment; Petals is a pink lotus. Components are `Kit.*`

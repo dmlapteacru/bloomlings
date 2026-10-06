@@ -137,6 +137,30 @@ a default or asks a question.
   pictures. A house, a castle, a ship, a boat, a ball: anything at all." The picture library grows with many new
   subjects beyond the garden (homes and buildings, vehicles, toys, food, animals, everyday objects), drawn in the same
   procedural style, and the catalog is generated and validated for Levels 1–5000 (FR-006, FR-083, FR-084).
+- **Q: How small may a board be after the onboarding?**
+  A: From Level 11 on, every board has at least 224 cells (14×16). Boards of 11×12–12×12 stay only for the curated
+  onboarding Levels 1–10, which keep their boards (FR-008 as amended).
+- **Q: How big may a board be?**
+  A: Regular boards have 224–288 cells, from 14×16 up to 16×18. The largest board is 22×28 (616 cells), and only rare
+  "big" levels in late bands use one. The default for "rare", set here and open to the owner's review: from L525 every
+  milestone level (every 25th, which the difficulty schedule never makes Super Hard, FR-059) is a big level with a board
+  of 289–616 cells, at most 22 wide and 28 high; every other level from L11 has a regular board. That is 180 big levels
+  in Levels 525–5000. A big level is a Normal level: on a board that big each variant has tiles everywhere, so a pod
+  committed early rarely waits and the tray tuner cannot make the level Hard; a Hard due on a big level moves to the
+  next level (every 100 levels still hold 17–23 Hard and 6–10 Super Hard ones). FR-008 and the Level Band Guidelines
+  are amended; the picture library needs big pictures for them.
+- **Q: How is a board drawn, and who decides?**
+  A: The level data decides, never the device: each level stores its board look (`boardLook`). Boards of up to 288 cells
+  keep today's look, candy tiles with their icons and the small next-layer chip (the layer peek, `peek`). Boards over
+  288 cells show icons only, with the next layer hidden (`icons`). The generator always writes the look from the cell
+  count, older content without it peeks, and validation fails a level whose look disagrees with the rule (FR-036 as
+  amended).
+- **Q: What does a layered tile show on a big board?**
+  A: Nothing of what lies under it: the hidden layers are a surprise, and clearing the top layer reveals the next one as
+  layers already do. No big level may force a blind guess, so the hidden layers of an icons board need a
+  player-information fairness check like the mystery tiles' (FR-039). Big boards can hide dozens of layers, so the
+  check is sampled rather than a proof (research R8b), and mystery tiles and pods stay off icons boards (FR-036 as
+  amended).
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -420,14 +444,14 @@ skin. Complete the daily challenge. Open the Collection.
   | Exceptional | 7, only if readability checks pass |
 - **FR-005**: Each variant MUST be identified by at least hue and icon. Tiles MUST show simple target symbols, never character faces. Two variants of the same family MUST be as easy to tell apart as two unrelated colors. No pair of variants may appear together in a level until it has passed the readability tests: grayscale/icon, small size, color distance, pod, slot and moving character.
 - **FR-006**: Every level MUST be a picture, built as a picture-first mosaic:
-  - The level comes from a **base picture**: a small image of a garden-world subject, drawn at board resolution (at most 14×16 cells). The image uses abstract color roles such as petal, leaf, stem, pot or background. Example subjects: flowers, fruit, insects, small animals, garden tools, cozy objects, seasonal motifs.
+  - The level comes from a **base picture**: a small image of a garden-world subject, drawn at board resolution (at most 22×28 cells, and at most 288 cells except on a big level; amended 2026-10-06, the owner: it was at most 14×16). The image uses abstract color roles such as petal, leaf, stem, pot or background. Example subjects: flowers, fruit, insects, small animals, garden tools, cozy objects, seasonal motifs.
   - The level definition MUST map each color role to one exact target variant that fits the color language. For example, leaves map to Leaf or Moss; petals to Flower, Violet Bud or Acorn; a pot to Wood; the background to Water or Dew.
   - The visible top layer of every cell MUST follow this mapping, so that the board reads as the subject from the first second.
   - Stones, empty holes and background regions MAY be part of the picture, as long as all mandatory content stays reachable.
   - Hidden layers, keys and specials MAY deviate from the picture, as long as the subject is still recognizable at level start.
   - A base picture MAY be reused in several levels with a different role-to-variant mapping, mirroring, background and Source design, within the limits of FR-083.
 - **FR-007**: Each cleared cell MUST reveal the matching part of the level's finished picture beneath it (restoration reveal). The finished picture is the same subject in its restored look: clean, bright art without tile symbols. It MAY be rendered automatically from the base picture; bespoke illustrations are optional, for example for milestones. Open cells MUST stay visually distinct from active target tiles. On a win, the finished picture MUST be shown in full.
-- **FR-008**: Board size MUST range from 11×12 cells in tutorials to at most 14×16 cells (amended 2026-10-05, the owner: it was 7×8 in tutorials). The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
+- **FR-008**: Board size MUST range from 11×12 cells in tutorials to at most 22×28 cells (amended 2026-10-05, the owner: it was 7×8 in tutorials; amended 2026-10-06, the owner: it was at most 14×16). Boards of 11×12–12×12 MUST appear only in the curated onboarding Levels 1–10. From Level 11 on, a board MUST have at least 224 cells (14×16): a regular board has 224–288 cells (14×16 up to 16×18), and only a big level has more, 289–616 cells, at most 22 wide and 28 high. Big levels MUST stay rare and late: by default every milestone level from L525 (level % 25 = 0) is a big level, and no other level is; a big level is a Normal level (FR-059 already keeps milestones from Super Hard, and a Hard due on a big level moves to the next level). The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
 - **FR-009**: Each level MUST have at least one Garden Entry, by default at the bottom center. Some levels MAY use two entries or a side entry.
 - **FR-010**: A target MUST count as reachable only when an orthogonally connected route of open cells leads from a Garden Entry to a side of that target. Diagonal contact does not count. Blockers are never walkable.
 
@@ -489,10 +513,11 @@ skin. Complete the daily challenge. Open the Collection.
   - After placement, each member behaves independently.
   - Pairs unlock first; triples are an optional late candidate.
 - **FR-036**: **Layered tile**:
-  - It shows its current variant plus a clear indicator of the next layer's variant.
+  - It shows its current variant plus a clear indicator of the next layer's variant on a board of up to 288 cells. *(Amended on 2026-10-06 by the product owner: it was on every board.)* The level data MUST store the board look (`boardLook`), never chosen per device: `peek` for boards of up to 288 cells (candy tiles with their icons and the next-layer chip) and `icons` for boards over 288 cells (icons only, the next layer hidden). Data written before the field existed peeks. On an `icons` board a layered tile MUST NOT show its next layer; clearing the top layer reveals it as a surprise.
   - Clearing the top layer reveals the next variant, which may belong to another family, and MAY wake an active pod.
   - Allowed depth is 2 at first and 3 later; deeper stacks are exceptional only.
   - Every layer counts in per-variant demand.
+  - The hidden layers of an `icons` board MUST pass a player-information fairness check, as mystery tiles do (FR-039): no level may force a blind guess about where they lie. The check is sampled, not a proof (research R8b): a solver that uses only what the player sees MUST win the real level and every sampled placement of the same hidden layers that can be won at all, and most sampled placements MUST be winnable. An `icons` board MUST NOT hold more than 72 hidden layers, nor any mystery tile or pod, which the check does not cover.
 - **FR-037**: **Garden Gate / heavy blocker**: MUST block a route until a clearly visible condition or counter is met. It then opens, making cells walkable or revealing targets.
 - **FR-038**: **Fountain**: MUST show a visible exact-variant condition, for example "restore 6 Water around it". Meeting the condition MUST produce a visible board change.
 - **FR-039**: **Locked slot**: one of the five slots MUST stay unusable until its key is collected. **Mystery pod** and **mystery tile**:
@@ -679,17 +704,28 @@ skin. Complete the daily challenge. Open the Collection.
 | Band | Levels | Board (cells) | Active variants | Source Pods | Work (tile-layers) | Typical duration |
 |---|---|---|---|---|---|---|
 | Onboarding | 1–10 | 11×12–12×12 | 2–3 | 3–8 | 95–140 | 45–90 s |
-| Early | 11–25 | 12×12–12×13 | 3–4 | 7–14 | 105–150 | 60–150 s |
-| Early-mid | 26–50 | 12×13–13×14 | 4–5 | 11–22 | 115–220 | 60–150 s |
-| Core completion | 51–100 | 13×14–14×16 | 5 (6 in Hard) | 12–28 | 135–240 (Hard 180–360) | 1–5 min |
-| Combination | 101–500 | 11×12–14×16 | 5–6 | 15–30 | 150–300+ | 1–5 min |
-| Long run | 501–5000+ | 11×12–14×16 | 4–6 (7 rare) | 10–30+ | 100–300+ | 1–5 min |
+| Early | 11–25 | 14×16–16×18 (224–288) | 3–4 | 10–22 | 150–275 | 1.5–4 min |
+| Early-mid | 26–50 | 14×16–16×18 (224–288) | 4–5 | 14–30 | 150–330 | 1.5–4 min |
+| Core completion | 51–100 | 14×16–16×18 (224–288) | 5 (6 in Hard) | 15–36 | 150–330 | 2–5 min |
+| Combination | 101–500 | 14×16–16×18 (224–288) | 5–6 | 16–40 | 150–360 | 2–6 min |
+| Long run | 501–5000+ | 14×16–16×18 (224–288) | 4–6 (7 rare) | 12–40 | 150–360 | 2–6 min |
+| Big level | every 25th from 525 | 289–616, at most 22×28 | as its band | 24–56 | 200–650 | 4–10 min |
 
 Amended 2026-10-05 (the owner: more, smaller cells from Level 1, and slower clearing). The rows were: Onboarding 7×8–8×8,
 3–7 pods, work 30–60, 20–45 s; Early 9×10–10×10, 6–12 pods, 50–100, 45–120 s; Early-mid 10×10–12×12, 10–20 pods,
 90–180, 45–120 s; Core completion 10×12–14×14, 10–24 pods, 90–180 (Hard 150–300), 45 s–4 min; Combination and Long run
 up to 14×16, work 150–300+ and 90–300+, 1–4 min and 45 s–4 min. Work follows the boards (75–95% occupancy, FR-008, plus
 layers from L28); the durations are estimates at the halved pace until playtests calibrate them (T155).
+
+Amended 2026-10-06 (the owner: at least 224 cells from Level 11, regular boards of 224–288 cells, and the 22×28 maximum
+only for rare big levels in late bands). The rows were: Early 12×12–12×13, 7–14 pods, work 105–150, 60–150 s; Early-mid
+12×13–13×14, 11–22 pods, 115–220, 60–150 s; Core completion 13×14–14×16, 12–28 pods, 135–240 (Hard 180–360), 1–5 min;
+Combination 11×12–14×16, 15–30 pods, 150–300+, 1–5 min; Long run 11×12–14×16, 10–30+ pods, 100–300+, 1–5 min; there was
+no big level. Every regular band now takes the whole regular range, so work is one range for every class. A big level
+(the "rare" default of FR-008: every milestone level from L525, always Normal) keeps its band's variants and
+mechanics; its icons board gets fewer hidden layers (4–9% of its tiles, at most 72), no mystery and a lower buffer
+pressure (peak 1–3 slots) so that the hidden-layer fairness check (FR-036) passes, and its own difficulty thresholds,
+because its score grows with its board. The durations remain estimates until playtests calibrate them (T155).
 
 Pod sizes:
 
@@ -719,8 +755,8 @@ Layout principles:
 
 ### Key Entities
 
-- **Level definition**: level number, definition version, seed, content version, base picture, role-to-variant mapping, mirroring, board mask, Garden Entries, active variant set, cells and layers, specials, Source stacks and pods, keys and locks, connections, difficulty class and score, solution trace(s), reward profile.
-- **Base picture**: a subject with a grid of color roles (at most 14×16), an optional background region, a finished (restored) look, tags (theme, season, suitable bands) and a review status. It may be reused across levels (FR-006, FR-083).
+- **Level definition**: level number, definition version, seed, content version, base picture, role-to-variant mapping, mirroring, board mask, Garden Entries, active variant set, cells and layers, specials, Source stacks and pods, keys and locks, connections, difficulty class and score, board look (peek or icons, FR-036 as amended on 2026-10-06), solution trace(s), reward profile.
+- **Base picture**: a subject with a grid of color roles (at most 22×28 since 2026-10-06, regular ones 224–288 cells; it was at most 14×16), an optional background region, a finished (restored) look, tags (theme, season, suitable bands) and a review status. It may be reused across levels (FR-006, FR-083).
 - **Bloomling family**: Sprig, Bloom, Drop or Twig. A character and animation family.
 - **Target variant**: the exact matching type. It has a family, color, icon, tile art and pod skin.
 - **Cell / tile-layer**: a board position with its content and an ordered stack of layers.
@@ -759,7 +795,8 @@ Layout principles:
 - **Precedence**: the product documents v0.5 (`product/01`–`15`, `LOCKED_CONCEPT_v0.5.md`) are the detailed design. Colony Flow is the structural reference. This spec consolidates both, and where the documents are silent, the spec's own rules apply. The spec adds:
   - FR-021: the deterministic tile-choice rule;
   - FR-026: jam-like "stuck" handling;
-  - FR-036: the layer peek indicator;
+  - FR-036: the layer peek indicator (on boards of up to 288 cells; icons boards hide the next layer, as amended on
+    2026-10-06);
   - FR-044: the Shuffle winnability rule;
   - FR-045: Return goes to the top of the original stack;
   - FR-062: leaderboard tie-break by time;

@@ -4,6 +4,9 @@
 **Revision 2026-09-29:** levels are picture-first mosaics (§1, §4, §5, §6, §11, §18; spec `001` FR-006).  
 **Revision 2026-10-05 (product owner):** more, smaller cells from Level 1, so clearing takes longer from the start
 (§2, §3, §13, §15; spec `001` FR-008 and the Level Band Guidelines).
+**Revision 2026-10-06 (product owner):** at least 224 cells from Level 11, regular boards of 224–288 cells, and boards
+up to 22×28 only for rare big levels, whose board look (stored in the level) hides the next layer (§2, §3, §5, §13, §15;
+spec `001` FR-008, FR-036 and the Level Band Guidelines).
 
 ## 1. Core structural goal
 
@@ -17,34 +20,32 @@ The grid may be rectangular internally. The visible playable area follows the pi
 
 Suggested logical ranges:
 
-Since 2026-10-05 no shipped board is smaller than 11×12 (it was 7×8 in the tutorial).
+Since 2026-10-05 no shipped board is smaller than 11×12 (it was 7×8 in the tutorial). Since 2026-10-06 boards of
+11×12–12×12 are for the curated tutorial only, and from Level 11 every board has at least 224 cells.
 
 ### Tutorial (L1–10)
 - 11×12
 - 12×12
 
-### Early standard (L11–25)
-- 12×12
-- 12×13
+### Regular (L11+, since 2026-10-06)
+- 224–288 cells: 14×16 up to 16×18 (before: 12×12–12×13 at L11–25, 12×13–13×14 at L26–50, 13×14–14×16 later)
+- the layer peek shows the next layer
 
-### Standard (L26–50)
-- 12×13
-- 13×13
-- 13×14
-
-### Large/advanced (L51+)
-- 13×14
-- 14×14
-- up to ~14×16 if phone readability remains good.
+### Big levels (rare, late; since 2026-10-06)
+- 289–616 cells, at most 22×28;
+- default "rare": every milestone level (every 25th) from L525, always a Normal level;
+- icons only, the next layer hidden: a layered tile's next layer is a surprise, so no big level may force a blind
+  guess (a sampled fairness check), and no mystery tile or pod shares the board.
 
 ## 3. Work volume
 
 Processable tile-layers:
 
 - tutorial: 95–140 (was 30–60 before 2026-10-05)
-- early: 105–150 (was 50–100)
-- standard: 115–240 (was 90–180)
-- hard/late: 180–360+ (was 150–300+)
+- early: 150–275 (was 105–150 before 2026-10-06, and 50–100 before 2026-10-05)
+- standard: 150–330 (was 115–240, and 90–180)
+- late: 150–360 (was 180–360+, and 150–300+)
+- big levels: 200–650 (since 2026-10-06)
 - exceptional late levels may exceed this if animation/readability remains good
 
 ## 4. Density
@@ -57,7 +58,8 @@ Inside the picture's playable area:
 ## 5. Base picture (picture-first mosaic)
 
 Each level starts from a base picture:
-- a small image of a garden-world subject, drawn at board resolution (max ~14×16 cells);
+- a small image of a garden-world subject, drawn at board resolution (max ~14×16 cells until 2026-10-06; now 224–288
+  cells for regular levels and up to 22×28 for big levels);
 - made of abstract **color roles** (e.g. petal, leaf, stem, pot, background), not fixed variants;
 - an optional background region around the subject;
 - optionally stones and meaningful empty holes as neutral elements, as long as all mandatory content stays reachable.
@@ -216,9 +218,10 @@ Typical group counts:
 
 Typical:
 - tutorial: 3–8 (was 3–7 before 2026-10-05)
-- early: 7–14 (was 6–12)
-- standard: 11–22 (was 10–20)
-- advanced: 15–30+
+- early: 10–22 (was 7–14 before 2026-10-06, and 6–12)
+- standard: 14–36 (was 11–22, and 10–20)
+- advanced: 16–40 (was 15–30+)
+- big levels: 24–56 (since 2026-10-06)
 
 ## 14. Variant distribution across pods
 
@@ -234,8 +237,9 @@ This creates ordering and partial-buffer behavior.
 ## 15. Level duration
 
 - tutorial: 45–90 sec (was 20–45 sec before 2026-10-05: bigger boards, halved clearing pace)
-- normal: 60–150 sec (was 45–120 sec)
-- hard: 2–5 min (was 2–4 min)
+- normal: 1.5–4 min (was 60–150 sec before 2026-10-06, and 45–120 sec)
+- hard: 2–6 min (was 2–5 min, and 2–4 min)
+- big levels: 4–10 min (since 2026-10-06; estimates until playtests calibrate them)
 
 ## 16. Buffer pressure
 

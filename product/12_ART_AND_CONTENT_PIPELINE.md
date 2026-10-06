@@ -2,6 +2,8 @@
 
 **Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** picture library and finished-picture reveal (§7, §10, §12–§14; spec `001` FR-006/FR-007).
+**Revision 2026-10-06 (product owner):** pictures of 224–288 cells from Level 11 and up to 22×28 for the rare big
+levels (spec `001` FR-008).
 
 ## 1. Locked visual direction
 
@@ -125,7 +127,8 @@ Build data-driven skins, not bespoke UI per variant.
 Levels are picture-first mosaics (`05_LEVEL_STRUCTURE.md` §5, `06_LEVEL_GENERATOR.md` §23).
 
 Need a growing library of base pictures:
-- small garden-world subjects drawn at board resolution (max ~14×16 cells);
+- small garden-world subjects drawn at board resolution (max ~14×16 cells until 2026-10-06; now 224–288 cells, and up
+  to 22×28 for the big levels);
 - drawn in abstract color roles that map to the variant color groups: green, pink–purple, blue–cyan, brown–orange, and after expansion lime, red, indigo, gold;
 - readable as the subject at board size with tile symbols on;
 - hand-drawn, generated, or generated and then edited.

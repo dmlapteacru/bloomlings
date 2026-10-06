@@ -2,6 +2,8 @@
 
 **Status:** LOCKED (2026-09-29)  
 **Revision 2026-09-29:** picture-first generation (§1, §3–§10, §19–§23; spec `001` FR-079).
+**Revision 2026-10-06 (product owner):** pictures up to 22×28 for the rare big levels (spec `001` FR-008); the
+generator writes each level's board look and checks a big level's hidden layers for blind guesses (FR-036).
 
 ## 1. Principle
 
@@ -357,7 +359,7 @@ The long-run catalog is driven by a library of base pictures, not by bespoke boa
 
 Each base picture stores:
 - subject/name;
-- grid of color roles (max ~14×16);
+- grid of color roles (max ~14×16 until 2026-10-06; now 224–288 cells for regular levels, up to 22×28 for big ones);
 - optional background region;
 - finished (restored) look: rendered automatically from the grid by default, or a bespoke illustration for curated/milestone levels;
 - tags: theme, season, suitable level bands, structure metrics (region count, nesting depth);

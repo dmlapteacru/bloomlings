@@ -1,6 +1,8 @@
 # 03 — Tile & Target Variant System
 
 **Status:** LOCKED (2026-09-29)
+**Revision 2026-10-06 (product owner):** on a big level's icons board a layered tile hides its next layer (§7; spec
+`001` FR-036 as amended).
 
 ## 1. Core rule
 
@@ -81,6 +83,10 @@ Guideline:
 - deeper exceptional only.
 
 Layering creates reveal/dependency, not HP.
+
+Since 2026-10-06 boards of up to 288 cells show the next layer as a small peek, while a big level's board (over 288
+cells, up to 22×28) shows icons only: its layered tiles keep the next layer a surprise until the top layer clears. The
+look is stored in each level, never chosen per device.
 
 ## 8. Stone
 

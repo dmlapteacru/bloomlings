@@ -540,6 +540,11 @@ Positions and order stay as in spec 002; only the looks change.
     `CountBadge` 0.36 cell tall over its bottom edge until it opens;
   - the next layer peeks from a chip in the tile's top-right corner (40% of the tile): a small board-style candy tile in a
     cream ring with a dark rim; a key waiting under a tile is the gold key on a cream disc in its top-left corner;
+  - the chip shows only on a level whose data stores the `peek` look (boards of up to 288 cells). A big level's board
+    (over 288 cells, up to 22×28) stores `icons`: its tiles show their icons only and no chip, so the next layer is a
+    surprise when the top layer clears (spec 001 FR-036 as amended on 2026-10-06; `LevelView.BoardLook`, and
+    `CellInfo.Next` is null there; `BoardPainter`, the tester's `TesterView` and Unity's `BoardView` skip the chip). The
+    same `BoardLayout` fits the 22×28 board, its stone border and arches, with cells of about 3% of the screen width;
   - Bloom Burst targeting rings every candidate tile in `BoosterBloomBurst`, pulsing gently.
 - Finished picture (win, Collection; research D14): `TileStyle.Flat` candy tiles (no lip) inside a `StoneBorder` 0.3 cell
   thick when the cells are at least 16 units; the background as grass cells (`tile.grass`), stones as stone blocks.
