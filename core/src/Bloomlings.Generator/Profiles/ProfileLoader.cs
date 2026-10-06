@@ -80,7 +80,20 @@ namespace Bloomlings.Generator.Profiles
         /// Reads <c>difficulty-thresholds.json</c>: global integer weights per metric, and per-band class thresholds,
         /// because scores grow with level scale while the class is relative to the band (FR-082).
         /// </summary>
-        public static DifficultyThresholds ReadThresholds(string json, string bandId)
+        public static DifficultyThresholds ReadThresholds(string json, string bandId) => Read(json, bandId, big: false)!;
+
+        /// <summary>
+        /// The band's thresholds for its big levels (<see cref="BandGuidelines.IsBigLevel"/>), the band entry's optional
+        /// <c>big</c> object: their boards of up to 616 cells score far above the band's regular levels. Null when the band
+        /// has none (bands without big levels).
+        /// </summary>
+        public static DifficultyThresholds? ReadBigThresholds(string json, string bandId) => Read(json, bandId, big: true);
+
+        /// <summary>The thresholds that apply to <paramref name="level"/> in the band: its big ones for a big level, when the band has them.</summary>
+        public static DifficultyThresholds ReadThresholdsFor(string json, string bandId, int level) =>
+            (BandGuidelines.IsBigLevel(level) ? ReadBigThresholds(json, bandId) : null) ?? ReadThresholds(json, bandId);
+
+        private static DifficultyThresholds? Read(string json, string bandId, bool big)
         {
             JObject root = JsonDoc.ParseObject(json, "difficulty-thresholds");
             JsonDoc.AllowOnly(root, string.Empty, "weights", "bands", "note");
@@ -91,10 +104,24 @@ namespace Bloomlings.Generator.Profiles
             }
 
             JObject bands = JsonDoc.Object(JsonDoc.Required(root, string.Empty, "bands"), "bands");
-            JObject band = JsonDoc.Object(bands[bandId] ?? throw new ContentFormatException("bands." + bandId, "no thresholds for this band"), "bands." + bandId);
-            JsonDoc.AllowOnly(band, "bands." + bandId, "hardMin", "superHardMin");
-            int hardMin = JsonDoc.Int(JsonDoc.Required(band, "bands." + bandId, "hardMin"), "hardMin", min: 0);
-            int superHardMin = JsonDoc.Int(JsonDoc.Required(band, "bands." + bandId, "superHardMin"), "superHardMin", min: hardMin);
+            string path = "bands." + bandId;
+            JObject band = JsonDoc.Object(bands[bandId] ?? throw new ContentFormatException(path, "no thresholds for this band"), path);
+            JsonDoc.AllowOnly(band, path, "hardMin", "superHardMin", "big");
+            if (big)
+            {
+                JToken? token = JsonDoc.Optional(band, "big");
+                if (token == null)
+                {
+                    return null;
+                }
+
+                path += ".big";
+                band = JsonDoc.Object(token, path);
+                JsonDoc.AllowOnly(band, path, "hardMin", "superHardMin");
+            }
+
+            int hardMin = JsonDoc.Int(JsonDoc.Required(band, path, "hardMin"), path + ".hardMin", min: 0);
+            int superHardMin = JsonDoc.Int(JsonDoc.Required(band, path, "superHardMin"), path + ".superHardMin", min: hardMin);
             return new DifficultyThresholds(weights, hardMin, superHardMin);
         }
 

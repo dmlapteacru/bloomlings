@@ -26,18 +26,18 @@
   "bandId": "band-2001-5000",
   "boardSize": {
     "height": [
-      12,
-      16
+      16,
+      28
     ],
     "width": [
-      11,
-      14
+      14,
+      22
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    60,
-    300
+    120,
+    600
   ],
   "entryLayouts": [
     "bottom_center",
@@ -61,13 +61,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Long run to L5000+: 4\u20136 variants (7 rare only after a pool expansion), the full mechanic set.",
+  "note": "Long run to L5000+: as band-0501-1000 (regular boards and the big milestone levels), 4\u20136 variants (7 rare only after a pool expansion), the full mechanic set.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
-    10,
-    32
+    12,
+    56
   ],
   "podSize": [
     5,
@@ -96,7 +96,7 @@
     6
   ],
   "work": [
-    100,
-    320
+    150,
+    650
   ]
 }

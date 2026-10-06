@@ -39,11 +39,16 @@ namespace Bloomlings.Generator
     /// count, work and pod count are the overlap of the two for its level and class, pods keep the minimum size, all
     /// four families recur from L20, and the winning line's peak slot use meets the band's buffer-pressure target
     /// (Normal levels stay within it; Hard and Super Hard reach at least its minimum, tighter is their point).
+    /// The board follows the level's board rule (<see cref="BandGuidelines.Board"/>, FR-008 as amended on 2026-10-06):
+    /// a regular picture of 224–288 cells from L11, a big one of 289–616 cells for a big level
+    /// (<see cref="BandGuidelines.IsBigLevel"/>). Every level stores its board look from the cell count
+    /// (<see cref="BoardLooks.For"/>); an icons board gets fewer hidden layers, no mystery, a lower buffer pressure and
+    /// the hidden-layer fairness check (<see cref="FairnessChecker"/>, research R8b).
     /// </summary>
     public sealed class LevelGenerator
     {
         /// <summary>Recorded in each definition; bump it when generator behavior changes.</summary>
-        public const string Version = "gen-1.2.0";
+        public const string Version = "gen-1.3.0";
 
         /// <summary>Node budget of each search while the tray is tuned.</summary>
         public const int TuningNodeBudget = 10_000;
@@ -88,6 +93,12 @@ namespace Bloomlings.Generator
 
         /// <summary>A fixed difficulty class instead of the schedule (showcase levels are Normal).</summary>
         public DifficultyClass? ForcedClass { get; set; }
+
+        /// <summary>
+        /// The class thresholds of big levels (<see cref="BandGuidelines.IsBigLevel"/>), whose scores grow with their
+        /// boards (the band's <c>big</c> thresholds in <c>difficulty-thresholds.json</c>); null uses the band's own.
+        /// </summary>
+        public DifficultyThresholds? BigLevelThresholds { get; set; }
 
         /// <summary>Called after each level with the level number, the accepted level (null when every candidate failed) and the candidates tried.</summary>
         public Action<int, GeneratedLevel?, int>? Progress { get; set; }
@@ -213,26 +224,41 @@ namespace Bloomlings.Generator
 
         private GeneratedLevel? TryGenerate(int level, ulong levelSeed, IReadOnlyDictionary<int, LevelDefinition> history, out string? reason)
         {
+            // A showcase's mechanics must be allowed and unlocked (FR-031): a wrong request is refused before any candidate.
+            foreach (string mechanic in ForcedMechanics ?? Array.Empty<string>())
+            {
+                int? at = _roadmap.LevelOf(MechanicNames.UnlockId(mechanic));
+                if (!_profile.Allows(mechanic) || at == null || at.Value > level)
+                {
+                    throw new ArgumentException($"{mechanic} is not allowed by {_profile.BandId} or not unlocked at L{level} (FR-031).");
+                }
+            }
+
             var rng = new Xoshiro256StarStar(levelSeed);
             DifficultyClass target = ForcedClass ?? _schedule.ClassFor(level);
 
             // The profile and the band guidelines both apply: their overlap for this level and class.
             IntRange? variantCount = UseBandGuidelines ? BandGuidelines.Intersect(_profile.VariantCount, BandGuidelines.Variants(level, target)) : _profile.VariantCount;
             IntRange? workRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.Work, BandGuidelines.Work(level, target)) : _profile.Work;
-            IntRange? podRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.PodCount, BandGuidelines.BandOf(level).Pods) : _profile.PodCount;
+            IntRange? podRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.PodCount, BandGuidelines.For(level).Pods) : _profile.PodCount;
+            bool big = UseBandGuidelines && BandGuidelines.IsBigLevel(level);
+            DifficultyThresholds thresholds = big && BigLevelThresholds != null ? BigLevelThresholds : _thresholds;
             if (variantCount == null || workRange == null || podRange == null)
             {
                 reason = $"profile:{_profile.BandId}-outside-guidelines-at-L{level}";
                 return null;
             }
 
-            // 1. Picture.
-            BasePicture? picture = _pictures.Pick(_profile, level, history, ref rng);
+            // 1. Picture, of the level's board rule: regular from L11, big for a big level (FR-008 as amended on 2026-10-06).
+            BasePicture? picture = _pictures.Pick(_profile, level, history, ref rng, UseBandGuidelines ? BandGuidelines.Board(level) : null);
             if (picture == null)
             {
-                reason = "picture:none-available";
+                reason = big ? "picture:no-big-picture-available" : "picture:none-available";
                 return null;
             }
+
+            // The board look follows the cell count and is stored in the level (FR-036 as amended on 2026-10-06).
+            BoardLook look = BoardLooks.For(picture.Width, picture.Height);
 
             // 2. Mapping, avoiding the variant set of the two previous levels when they share one (FR-083).
             // The pool's expansion variants for this level; a variant joining the pool gets one clean level (it is used
@@ -279,14 +305,6 @@ namespace Bloomlings.Generator
             if (ForcedMechanics != null)
             {
                 chosen = new List<string>(ForcedMechanics);
-                foreach (string mechanic in chosen)
-                {
-                    int? at = _roadmap.LevelOf(MechanicNames.UnlockId(mechanic));
-                    if (!_profile.Allows(mechanic) || at == null || at.Value > level)
-                    {
-                        throw new ArgumentException($"{mechanic} is not allowed by {_profile.BandId} or not unlocked at L{level} (FR-031).");
-                    }
-                }
             }
             else if (cleanIntro)
             {
@@ -301,6 +319,20 @@ namespace Bloomlings.Generator
             {
                 int? combinations = _roadmap.LevelOf(AdvancedCombinationsUnlock);
                 chosen = OverlayPlanner.Choose(_profile, level, _roadmap, combinations != null && level >= combinations.Value ? 3 : 2, ref rng, target);
+            }
+
+            // No mystery on an icons board: its hidden layers are hidden information already, and the fairness check
+            // covers them alone (research R8b).
+            if (look == BoardLook.Icons)
+            {
+                foreach (string mystery in new[] { MechanicNames.MysteryTile, MechanicNames.MysteryPod })
+                {
+                    if (chosen.Remove(mystery) && (ForcedMechanics != null || IsPracticeOf(level, mystery)))
+                    {
+                        reason = "look:no-" + mystery + "-on-an-icons-board";
+                        return null;
+                    }
+                }
             }
 
             var skeleton = new LevelDefinition(
@@ -319,11 +351,14 @@ namespace Bloomlings.Generator
                 Array.Empty<PodDef>(),
                 new DifficultyDef(target, 0, false),
                 "standard",
-                Array.Empty<string>());
+                Array.Empty<string>())
+            {
+                BoardLook = look,
+            };
 
             var active = new List<VariantId>(new SortedSet<VariantId>(mapping.Values));
             Board plain = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
-            BoardPlan boardPlan = OverlayPlanner.BoardOverlays(plain, BackgroundCells(picture, mirror), chosen, _profile, level, active, ref rng);
+            BoardPlan boardPlan = OverlayPlanner.BoardOverlays(plain, BackgroundCells(picture, mirror), chosen, _profile, level, active, ref rng, look);
             List<CellOverlay> boardOverlays = boardPlan.Overlays;
             skeleton = skeleton with { Overlays = boardOverlays };
             Board board = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
@@ -411,7 +446,7 @@ namespace Bloomlings.Generator
             TrayOutcome? tray;
             try
             {
-                tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, _thresholds, tuning, ref rng, out string? trayReason);
+                tray = TrayBuilder.Tune(skeleton, picture, pods, stacks, target, requireLosable: true, _profile.HardMode.MaxInjections, thresholds, tuning, ref rng, out string? trayReason);
                 if (tray == null)
                 {
                     reason = trayReason;
@@ -436,7 +471,7 @@ namespace Bloomlings.Generator
                 // One group per level: a triple, when chosen, stands for the pair too.
                 TrayOutcome? connected = tray.Definition.Pods.Any(p => p.ConnectedGroupId != null)
                     ? null
-                    : TrayBuilder.Connect(tray, picture, target, _thresholds, tuning, ref rng, size);
+                    : TrayBuilder.Connect(tray, picture, target, thresholds, tuning, ref rng, size);
                 if (connected != null)
                 {
                     tray = connected;
@@ -461,7 +496,7 @@ namespace Bloomlings.Generator
 
             if (mechanics.Contains(MechanicNames.MysteryPod))
             {
-                TrayOutcome? hidden = TrayBuilder.HidePod(tray, picture, target, _thresholds, tuning, ref rng);
+                TrayOutcome? hidden = TrayBuilder.HidePod(tray, picture, target, thresholds, tuning, ref rng);
                 if (hidden != null)
                 {
                     tray = hidden;
@@ -483,27 +518,29 @@ namespace Bloomlings.Generator
                 }
             }
 
-            // Mystery tiles and pods: no blind guesses (FR-039, R8).
-            bool? playerInfoFair = null;
-            if (mechanics.Contains(MechanicNames.MysteryTile) || mechanics.Contains(MechanicNames.MysteryPod))
+            // Buffer pressure (the band's target, as peak occupied slots on the winning line; a big level's is lower and
+            // capped for every class, slack for its hidden layers).
+            IntRange pressure = big ? BandGuidelines.BigLevelPeakSlots(tray.Class) : BandGuidelines.PeakSlots(PressureFor(level, tray.Class));
+            int peak = tray.Analysis.Metrics.PeakBuffer;
+            if (peak < pressure.Min || ((big || tray.Class == DifficultyClass.Normal) && peak > pressure.Max))
             {
-                FairnessResult fairness = FairnessChecker.Check(tray.Definition, picture, new SessionOptions(1, 20000), tuning.NodeBudget);
+                reason = $"pressure:peak-{peak}-outside-{pressure}";
+                return null;
+            }
+
+            // Mystery tiles and pods, and the hidden layers of an icons board: no blind guesses (FR-036, FR-039, R8, R8b).
+            bool? playerInfoFair = null;
+            bool hiddenLayers = look == BoardLook.Icons && tray.Definition.Overlays.Any(o => o.LayersBelow.Count > 0);
+            if (hiddenLayers || mechanics.Contains(MechanicNames.MysteryTile) || mechanics.Contains(MechanicNames.MysteryPod))
+            {
+                FairnessResult fairness = FairnessChecker.Check(tray.Definition, picture, new SessionOptions(1, 20000), tuning.NodeBudget, BandGuidelines.MaxLayersBelow(level), BandGuidelines.MaxHiddenLayersOnIcons);
                 if (fairness.Status != FairnessStatus.Fair)
                 {
-                    reason = "fairness:" + fairness.Status.ToString().ToLowerInvariant();
+                    reason = (hiddenLayers ? "fairness:hidden-layers-" : "fairness:") + fairness.Status.ToString().ToLowerInvariant();
                     return null;
                 }
 
                 playerInfoFair = fairness.PlayerInfoFair;
-            }
-
-            // Buffer pressure (the band's target, as peak occupied slots on the winning line).
-            IntRange pressure = BandGuidelines.PeakSlots(PressureFor(level, tray.Class));
-            int peak = tray.Analysis.Metrics.PeakBuffer;
-            if (peak < pressure.Min || (tray.Class == DifficultyClass.Normal && peak > pressure.Max))
-            {
-                reason = $"pressure:peak-{peak}-outside-{pressure}";
-                return null;
             }
 
             if (RepeatsSourceLayout(level, tray.Definition, history))

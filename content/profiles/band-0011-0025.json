@@ -18,18 +18,18 @@
   "bandId": "band-0011-0025",
   "boardSize": {
     "height": [
-      12,
-      13
+      16,
+      18
     ],
     "width": [
-      12,
-      12
+      14,
+      16
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    60,
-    150
+    90,
+    240
   ],
   "entryLayouts": [
     "bottom_center",
@@ -50,13 +50,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 0,
-  "note": "Early band (spec Level Band Guidelines, amended 2026-10-05): 12\u00d712\u201312\u00d713, 3\u20134 variants with all four families by L20, 7\u201314 pods, work 105\u2013150. Mechanics apply only from their roadmap level.",
+  "note": "Early band (spec Level Band Guidelines, amended 2026-10-06): regular boards of 224\u2013288 cells (14\u00d716 up to 16\u00d718; they were 12\u00d712\u201312\u00d713), 3\u20134 variants with all four families by L20, 10\u201322 pods, work 150\u2013275. Mechanics apply only from their roadmap level.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
-    10,
-    14
+    12,
+    20
   ],
   "podSize": [
     5,
@@ -85,7 +85,7 @@
     4
   ],
   "work": [
-    105,
-    150
+    150,
+    275
   ]
 }

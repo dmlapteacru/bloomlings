@@ -9,8 +9,10 @@ namespace Bloomlings.Generator
 {
     /// <summary>
     /// R9 step 1 (T084): picks an approved base picture that fits the profile (size, themes, structure targets and
-    /// mechanics) and is not blocked by the FR-083 windows: Levels 1–100 each use a different picture, and a picture
-    /// never repeats within 50 consecutive levels (judged on both sides of the level, against what the history holds).
+    /// mechanics) and the level's board rule (<see cref="BandGuidelines.Board"/>: a big picture, 289–616 cells, only for a
+    /// big level, and a regular one, 224–288 cells, otherwise; FR-008 as amended on 2026-10-06), and is not blocked by the
+    /// FR-083 windows: Levels 1–100 each use a different picture, and a picture never repeats within 50 consecutive
+    /// levels (judged on both sides of the level, against what the history holds).
     /// </summary>
     public sealed class PicturePicker
     {
@@ -45,7 +47,8 @@ namespace Bloomlings.Generator
             return false;
         }
 
-        public IReadOnlyList<BasePicture> Candidates(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history)
+        /// <param name="board">The level's board rule (the band guidelines), or null for the profile's sizes alone.</param>
+        public IReadOnlyList<BasePicture> Candidates(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, BoardRule? board = null)
         {
             var blocked = new HashSet<string>(StringComparer.Ordinal);
             foreach (KeyValuePair<int, LevelDefinition> entry in history)
@@ -66,6 +69,7 @@ namespace Bloomlings.Generator
                     || (!_allowDraft && picture.Review.Status != ReviewStatus.Approved)
                     || !profile.BoardWidth.Contains(picture.Width)
                     || !profile.BoardHeight.Contains(picture.Height)
+                    || (board != null && !board.Allows(picture.Width, picture.Height))
                     || !MatchesThemes(picture, profile)
                     || (HasStones(picture) && !profile.Allows("stone")))
                 {
@@ -85,9 +89,9 @@ namespace Bloomlings.Generator
             return result;
         }
 
-        public BasePicture? Pick(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, ref Xoshiro256StarStar rng)
+        public BasePicture? Pick(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, ref Xoshiro256StarStar rng, BoardRule? board = null)
         {
-            IReadOnlyList<BasePicture> candidates = Candidates(profile, level, history);
+            IReadOnlyList<BasePicture> candidates = Candidates(profile, level, history, board);
             return candidates.Count == 0 ? null : candidates[rng.NextInt(candidates.Count)];
         }
 

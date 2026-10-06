@@ -26,18 +26,18 @@
   "bandId": "band-0501-1000",
   "boardSize": {
     "height": [
-      12,
-      16
+      16,
+      28
     ],
     "width": [
-      11,
-      14
+      14,
+      22
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    60,
-    300
+    120,
+    600
   ],
   "entryLayouts": [
     "bottom_center",
@@ -61,13 +61,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Long run: 11\u00d712 to 14\u00d716, 4\u20136 variants, 10\u201330+ pods, work 100\u2013300+, 1\u20135 min. Pace alternates short relief levels with long combination levels.",
+  "note": "Long run: regular boards of 224\u2013288 cells, and from L525 every milestone level (every 25th) a big level of 289\u2013616 cells (at most 22\u00d728) in the icons look (since 2026-10-06; 11\u00d712 to 14\u00d716 before). The boardSize covers both; the Level Band Guidelines pick the regular or the big boards by level. 4\u20136 variants, 12\u201340 pods and work 150\u2013360 on a regular board, 24\u201356 pods and work 200\u2013650 on a big one. Pace alternates short relief levels with long combination levels.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
-    10,
-    30
+    12,
+    56
   ],
   "podSize": [
     5,
@@ -96,7 +96,7 @@
     6
   ],
   "work": [
-    100,
-    320
+    150,
+    650
   ]
 }

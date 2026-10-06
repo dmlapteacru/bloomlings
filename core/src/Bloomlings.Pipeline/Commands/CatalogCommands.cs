@@ -295,7 +295,7 @@ namespace Bloomlings.Pipeline.Commands
                     metrics = solver.Analyze(LevelSession.Load(level, picture, new SessionOptions(1, 20000)), options).Metrics.ToDictionary();
                 }
 
-                DifficultyThresholds thresholds = ProfileLoader.ReadThresholds(thresholdsJson, band.BandId);
+                DifficultyThresholds thresholds = ProfileLoader.ReadThresholdsFor(thresholdsJson, band.BandId, level.LevelNumber);
                 int score = DifficultyScorer.Score(metrics, thresholds);
                 DifficultyClass computed = DifficultyScorer.Classify(score, thresholds);
                 bool agrees = level.Difficulty.Overridden || (computed == level.Difficulty.Class && score == level.Difficulty.Score);

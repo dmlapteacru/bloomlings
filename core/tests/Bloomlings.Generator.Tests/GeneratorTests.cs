@@ -107,6 +107,9 @@ namespace Bloomlings.Generator.Tests
             Assert.That(errors, Is.Empty);
             foreach (GeneratedLevel level in result.Accepted)
             {
+                // The generator always writes the board look from the cell count (FR-036 as amended on 2026-10-06).
+                Assert.That(level.Definition.BoardLook, Is.EqualTo(BoardLook.Peek), "12×12 boards peek");
+                Assert.That(DefinitionJson.Write(level.Definition), Does.Contain("\"boardLook\": \"peek\""));
                 Assert.That(level.Record.Result, Is.EqualTo(Bloomlings.Content.Validation.ValidationResult.Solvable));
                 Assert.That(level.Record.JamWitness, Is.Not.Null.And.Not.Empty, "every level from L11 on is losable (FR-081)");
                 Assert.That(level.Record.DefinitionHash, Is.EqualTo(report.Records[level.Definition.LevelNumber].DefinitionHash));

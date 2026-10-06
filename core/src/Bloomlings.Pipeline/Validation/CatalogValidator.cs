@@ -31,9 +31,12 @@ namespace Bloomlings.Pipeline.Validation
     /// The catalog validator (T080). Per level it checks every FR-080 invariant (winnable without boosters with a
     /// stored trace, exact accounting, no inaccessible content, no mechanic or variant before its unlock, no hidden-
     /// information failure, readable variant pairs), FR-081 (losable unless a tutorial level), FR-004/FR-060 (variant
-    /// count per band), FR-008 (board limits and occupancy) and the data-model rules (keys and locks 1:1, at most one
-    /// locked slot and only from L80, layer depth ≤ 2 before L125 and ≤ 3 after, 2–6 stacks, connected members at the
-    /// same depth). Across the catalog it checks the FR-083 repetition rules.
+    /// count per band), FR-008 (board limits and occupancy, and as amended on 2026-10-06 the level's board rule: regular
+    /// boards of 224–288 cells from L11 and big ones of 289–616 cells for big levels), FR-036 as amended (the stored
+    /// board look follows the cell count; the hidden layers of an icons board pass the hidden-layer fairness check, and
+    /// it holds no mystery) and the data-model rules (keys and locks 1:1, at most one locked slot and only from L80,
+    /// layer depth ≤ 2 before L125 and ≤ 3 after, 2–6 stacks, connected members at the same depth). Across the catalog it
+    /// checks the FR-083 repetition rules.
     /// </summary>
     public sealed class CatalogValidator
     {
@@ -185,8 +188,10 @@ namespace Bloomlings.Pipeline.Validation
                 Error(report, n, "losable", "no tap sequence jams this level (FR-081)");
             }
 
-            // Mystery pods and tiles: no level may force a blind guess (FR-039, FR-080, R8).
-            FairnessResult fairness = FairnessChecker.Check(level, picture, new SessionOptions(1, 20000), _options.NodeBudget);
+            // Mystery pods and tiles, and the hidden layers of an icons board: no level may force a blind guess (FR-036 as
+            // amended, FR-039, FR-080, R8, R8b).
+            bool icons = BoardLooks.Of(level) == BoardLook.Icons;
+            FairnessResult fairness = FairnessChecker.Check(level, picture, new SessionOptions(1, 20000), _options.NodeBudget, BandGuidelines.MaxLayersBelow(n), BandGuidelines.MaxHiddenLayersOnIcons);
             if (fairness.Status == FairnessStatus.Fair)
             {
                 passed.Add("player-info-fair");
@@ -195,11 +200,14 @@ namespace Bloomlings.Pipeline.Validation
             {
                 string why = fairness.Status switch
                 {
+                    FairnessStatus.OverCap when icons => fairness.Detail ?? $"more than {BandGuidelines.MaxHiddenLayersOnIcons} hidden layers on an icons board",
                     FairnessStatus.OverCap => $"more than {FairnessChecker.MaxMysteryPods} mystery pods or {FairnessChecker.MaxMysteryTiles} mystery tiles",
                     FairnessStatus.Unknown => $"the fairness search ran out of budget ({fairness.NodesUsed} nodes)",
+                    FairnessStatus.Uncovered => fairness.Detail ?? "hidden information the check does not cover",
+                    _ when icons => (fairness.Detail ?? "winning needs to know where the hidden layers lie") + $" ({fairness.Worlds} worlds)",
                     _ => $"winning needs hidden knowledge in {fairness.Worlds} indistinguishable worlds",
                 };
-                Error(report, n, "player-info-fair", why + " (FR-039)");
+                Error(report, n, "player-info-fair", why + (icons ? " (FR-036, FR-039)" : " (FR-039)"));
             }
 
             report.Records[n] = new ValidationRecord(
@@ -217,14 +225,30 @@ namespace Bloomlings.Pipeline.Validation
                 passed);
         }
 
+        /// <summary>
+        /// FR-008: the board limits and the occupancy, and FR-036 as amended on 2026-10-06: the board look the level stores
+        /// (Peek when it stores none) is the one its cell count asks for. The level's own board rule by level number is a
+        /// band check (<see cref="CheckBand"/>).
+        /// </summary>
         private static void CheckBoard(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
         {
             int n = level.LevelNumber;
             bool ok = true;
             if (picture.Width < BandGuidelines.MinBoardWidth || picture.Width > BasePicture.MaxWidth
-                || picture.Height < BandGuidelines.MinBoardHeight || picture.Height > BasePicture.MaxHeight)
+                || picture.Height < BandGuidelines.MinBoardHeight || picture.Height > BasePicture.MaxHeight
+                || picture.Width * picture.Height > BandGuidelines.BigMaxCells)
             {
                 Error(report, n, "board", $"board {picture.Width}×{picture.Height} is outside {BandGuidelines.MinBoardWidth}×{BandGuidelines.MinBoardHeight}–{BasePicture.MaxWidth}×{BasePicture.MaxHeight} (FR-008)");
+                ok = false;
+            }
+
+            BoardLook wanted = BoardLooks.For(picture.Width, picture.Height);
+            BoardLook stored = BoardLooks.Of(level);
+            if (stored != wanted)
+            {
+                int cells = picture.Width * picture.Height;
+                string stated = level.BoardLook == null ? " (not stated)" : string.Empty;
+                Error(report, n, "board", $"boardLook is {Wire(stored)}{stated}, but a board of {cells} cells shows {Wire(wanted)}: up to {BoardLooks.MaxPeekCells} cells peek, more icons (FR-036 as amended on 2026-10-06)");
                 ok = false;
             }
 
@@ -270,17 +294,18 @@ namespace Bloomlings.Pipeline.Validation
         private static void CheckBand(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
         {
             int n = level.LevelNumber;
-            GuidelineBand band = BandGuidelines.BandOf(n);
+            GuidelineBand band = BandGuidelines.For(n);
             bool ok = true;
             void Fail(string message)
             {
-                Error(report, n, "band", message + $" ({band.Name} band, Level Band Guidelines)");
+                string row = BandGuidelines.IsBigLevel(n) ? $"a big level of the {BandGuidelines.BandOf(n).Name} band" : $"{band.Name} band";
+                Error(report, n, "band", message + $" ({row}, Level Band Guidelines)");
                 ok = false;
             }
 
-            if (!band.BoardWidth.Contains(picture.Width) || !band.BoardHeight.Contains(picture.Height))
+            if (!band.Board.Allows(picture.Width, picture.Height))
             {
-                Fail($"board {picture.Width}×{picture.Height} is outside {band.BoardWidth}×{band.BoardHeight}");
+                Fail($"board {picture.Width}×{picture.Height} ({picture.Width * picture.Height} cells) is outside {band.Board} (FR-008 as amended on 2026-10-06)");
             }
 
             if (!band.Pods.Contains(level.Pods.Count))
@@ -670,6 +695,8 @@ namespace Bloomlings.Pipeline.Validation
 
             return true;
         }
+
+        private static string Wire(BoardLook look) => look == BoardLook.Icons ? "icons" : "peek";
 
         private static void Error(CatalogReport report, int level, string check, string message) =>
             report.Issues.Add(new LevelIssue(level, check, message, true));

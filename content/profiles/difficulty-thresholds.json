@@ -21,14 +21,26 @@
       "superHardMin": 3200
     },
     "band-0501-1000": {
+      "big": {
+        "hardMin": 3800,
+        "superHardMin": 4600
+      },
       "hardMin": 2300,
       "superHardMin": 3100
     },
     "band-1001-2000": {
+      "big": {
+        "hardMin": 3900,
+        "superHardMin": 4700
+      },
       "hardMin": 2400,
       "superHardMin": 3200
     },
     "band-2001-5000": {
+      "big": {
+        "hardMin": 3900,
+        "superHardMin": 4700
+      },
       "hardMin": 2400,
       "superHardMin": 3200
     },
@@ -37,7 +49,7 @@
       "superHardMin": 2600
     }
   },
-  "note": "Integer weights applied as value \u00d7 weight / 1000 to the solver metrics (FR-082). Class thresholds are per band because scores grow with level scale. Bands 11\u2013100 were calibrated by trial generation of the draft picture library (Normal levels score about 950\u20131600, tuned levels reach about 3000); later bands are extrapolated. Recalibrate after playtests.",
+  "note": "Integer weights applied as value \u00d7 weight / 1000 to the solver metrics (FR-082). Class thresholds are per band because scores grow with level scale. Bands 11\u2013100 were calibrated by trial generation of the draft picture library (Normal levels score about 950\u20131600, tuned levels reach about 3000); later bands are extrapolated. Recalibrate after playtests. Bands with big levels (spec 001 FR-008 as amended on 2026-10-06: from L525 every milestone level has a board of 289\u2013616 cells) carry their own big thresholds, set 1500 above the band\u2019s from trial generation on sketched big pictures (Normal big levels scored about 2000\u20133550); recalibrate them once the big pictures exist.",
   "weights": {
     "branchingX1000": 20,
     "crossVariantLayers": 15000,

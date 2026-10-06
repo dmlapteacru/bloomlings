@@ -156,8 +156,14 @@ namespace Bloomlings.Generator.Overlays
         /// nearby to wash away. The layer variants come from the level's mapping, so no variant is added.
         /// </summary>
         /// <param name="background">Per cell: the picture's background role, where stones and holes may go.</param>
-        public static BoardPlan BoardOverlays(Board board, bool[] background, IReadOnlyCollection<string> mechanics, GenerationProfile profile, int level, IReadOnlyList<VariantId> active, ref Xoshiro256StarStar rng)
+        /// <param name="look">
+        /// The level's board look. On an <see cref="BoardLook.Icons"/> board no layer peek shows, so it gets fewer hidden
+        /// layers (4–9% of its tiles instead of 8–17%), never more than <see cref="BandGuidelines.MaxHiddenLayersOnIcons"/>,
+        /// and no mystery tile (generator slack for the hidden-layer fairness check, research R8b).
+        /// </param>
+        public static BoardPlan BoardOverlays(Board board, bool[] background, IReadOnlyCollection<string> mechanics, GenerationProfile profile, int level, IReadOnlyList<VariantId> active, ref Xoshiro256StarStar rng, BoardLook look = BoardLook.Peek)
         {
+            bool icons = look == BoardLook.Icons;
             var plan = new BoardPlan();
             var overlays = new SortedDictionary<int, CellOverlay>();
             var targets = new List<int>();
@@ -239,10 +245,18 @@ namespace Bloomlings.Generator.Overlays
                 // FR-036: depth 2 (1 below) first, depth 3 from L125, within the band's limit.
                 int maxBelow = Math.Min(profile.MaxLayerDepth, BandGuidelines.MaxLayersBelow(level));
                 List<int> free = targets.Where(c => !taken.Contains(c)).ToList();
-                int count = Math.Max(2, free.Count * (8 + rng.NextInt(10)) / 100);
+                int count = Math.Max(2, free.Count * (icons ? 4 + rng.NextInt(6) : 8 + rng.NextInt(10)) / 100);
+                int hiddenLeft = icons ? BandGuidelines.MaxHiddenLayersOnIcons : int.MaxValue;
                 foreach (int cell in Pick(free, count, ref rng))
                 {
                     int below = maxBelow >= 2 && rng.NextInt(100) < 30 ? 2 : 1;
+                    below = Math.Min(below, hiddenLeft);
+                    if (below <= 0)
+                    {
+                        break;
+                    }
+
+                    hiddenLeft -= below;
                     var layers = new VariantId[below];
                     VariantId above = board.TopLayer(cell);
                     for (int d = 0; d < below; d++)
@@ -261,7 +275,7 @@ namespace Bloomlings.Generator.Overlays
                 }
             }
 
-            if (mechanics.Contains(MechanicNames.MysteryTile))
+            if (mechanics.Contains(MechanicNames.MysteryTile) && !icons)
             {
                 // Tiles that are not reachable at the start, so they reveal during play (FR-039); at most 3 (R8 cap).
                 ReachabilityResult reach = Reachability.Compute(board);

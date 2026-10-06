@@ -56,7 +56,9 @@ namespace Bloomlings.Pipeline.Commands
                     throw new IOException($"{parse.GetValue(pairs)} is missing; run `readability --write-provisional` or record approved pairs.");
                 }
 
-                DifficultyThresholds difficulty = ProfileLoader.ReadThresholds(File.ReadAllText(parse.GetValue(thresholds)!), band.BandId);
+                string thresholdsJson = File.ReadAllText(parse.GetValue(thresholds)!);
+                DifficultyThresholds difficulty = ProfileLoader.ReadThresholds(thresholdsJson, band.BandId);
+                DifficultyThresholds? bigDifficulty = ProfileLoader.ReadBigThresholds(thresholdsJson, band.BandId);
                 var history = new SortedDictionary<int, LevelDefinition>();
                 IEnumerable<(string, LevelDefinition)> sources = ContentStore.LoadLevels(parse.GetValue(curated)!).Concat(ContentStore.LoadLevels(parse.GetValue(catalog)!));
                 foreach (string folder in parse.GetValue(extraHistory) ?? Array.Empty<string>())
@@ -97,6 +99,7 @@ namespace Bloomlings.Pipeline.Commands
                         approved.IsApproved,
                         new DifficultySchedule(0xB100B100UL),
                         UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
+                    made.BigLevelThresholds = bigDifficulty;
                     if (!string.IsNullOrEmpty(parse.GetValue(forced)))
                     {
                         made.ForcedMechanics = parse.GetValue(forced)!.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);

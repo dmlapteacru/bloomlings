@@ -23,17 +23,17 @@
   "bandId": "band-0051-0100",
   "boardSize": {
     "height": [
-      14,
-      16
+      16,
+      18
     ],
     "width": [
-      13,
-      14
+      14,
+      16
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    60,
+    120,
     300
   ],
   "entryLayouts": [
@@ -56,13 +56,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 1,
-  "note": "Core completion band: 13\u00d714\u201314\u00d716 (since 2026-10-05), 5 variants (6 only in Hard and Super Hard from L70), 12\u201328 pods, work 135\u2013240 (Hard 180\u2013360). Fountain from L60, locked slot from L80, mystery tile (optional) from L90. The generator also applies the Level Band Guidelines (BandGuidelines.cs): variants, work and pods per level and class.",
+  "note": "Core completion band: regular boards of 224\u2013288 cells (since 2026-10-06; 13\u00d714\u201314\u00d716 before), 5 variants (6 only in Hard and Super Hard from L70), 15\u201336 pods, work 150\u2013330. Fountain from L60, locked slot from L80, mystery tile (optional) from L90. The generator also applies the Level Band Guidelines (BandGuidelines.cs): boards, variants, work and pods per level and class.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
-    15,
-    28
+    16,
+    30
   ],
   "podSize": [
     5,
@@ -91,7 +91,7 @@
     6
   ],
   "work": [
-    135,
-    360
+    150,
+    330
   ]
 }

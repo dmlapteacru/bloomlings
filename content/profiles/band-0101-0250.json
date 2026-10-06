@@ -25,18 +25,18 @@
   "bandId": "band-0101-0250",
   "boardSize": {
     "height": [
-      12,
-      16
+      16,
+      18
     ],
     "width": [
-      11,
-      14
+      14,
+      16
     ]
   },
   "bufferPressureTarget": "tense",
   "durationTarget": [
-    60,
-    300
+    120,
+    360
   ],
   "entryLayouts": [
     "bottom_center",
@@ -60,13 +60,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Combination band: 11\u00d712 to 14\u00d716, 5 variants (6 in Hard), 15\u201330 pods, work 150\u2013300+. Layer depth \u2264 2 before L125 and \u2264 3 after (maxLayerDepth counts layers below the top).",
+  "note": "Combination band: regular boards of 224\u2013288 cells (since 2026-10-06; 11\u00d712 to 14\u00d716 before), 5 variants (6 in Hard), 16\u201340 pods, work 150\u2013360. Layer depth \u2264 2 before L125 and \u2264 3 after (maxLayerDepth counts layers below the top).",
   "picturePool": {
     "themes": []
   },
   "podCount": [
-    15,
-    30
+    16,
+    34
   ],
   "podSize": [
     5,
@@ -96,6 +96,6 @@
   ],
   "work": [
     150,
-    320
+    360
   ]
 }

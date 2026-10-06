@@ -7,7 +7,9 @@ namespace Bloomlings.Generator
     /// The target class of each level from L11 on (FR-059): Hard every 4–6 levels and Super Hard every 10–15, spaced
     /// irregularly by a seeded PRNG, the level after a Super Hard always Normal (relief), and milestone levels (every 25)
     /// never Super Hard. Every 100 consecutive levels then hold about 15–25 Hard and 6–10 Super Hard levels.
-    /// Levels 1–10 are curated (L5 Hard, L10 Super Hard).
+    /// Levels 1–10 are curated (L5 Hard, L10 Super Hard). A big level (<see cref="Profiles.BandGuidelines.IsBigLevel"/>,
+    /// every milestone from L525) is never Hard either: on its board of up to 616 cells a premature pod finds tiles almost
+    /// at once, so the tray tuner cannot make it Hard (2026-10-06, research R8b); a Hard due on it moves to the next level.
     /// </summary>
     public sealed class DifficultySchedule
     {
@@ -72,7 +74,7 @@ namespace Bloomlings.Generator
                         nextHard = level + 2;
                     }
                 }
-                else if (level >= nextHard)
+                else if (level >= nextHard && !Profiles.BandGuidelines.IsBigLevel(level))
                 {
                     c = DifficultyClass.Hard;
                     nextHard = level + 4 + rng.NextInt(3);
