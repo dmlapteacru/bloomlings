@@ -143,16 +143,20 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>A round portrait on a cream disc: the player's hero, or the anonymous figure of a placeholder row.</summary>
+        /// <summary>
+        /// A portrait on a cream rounded square (the avatar's shape, <see cref="AvatarLook.Radius"/>; the owner, 2026-10-06;
+        /// it was round): the player's hero, or the anonymous figure of a placeholder row.
+        /// </summary>
         private static void Portrait(IPainter p, Box face, Family? family)
         {
             float size = face.Width;
             float cx = face.CenterX;
             float cy = face.CenterY;
             float ring = Math.Max(1f, size * 0.044f);
-            p.FillCircle(cx, cy + (ring * 0.8f), (size / 2f) + ring, C.CreamLip);
-            p.FillCircle(cx, cy, (size / 2f) + ring, C.CreamLine);
-            p.FillRoundGradient(face, size / 2f, C.CreamTop, C.CreamFace);
+            float r = AvatarLook.Radius(face);
+            p.FillRound(face.Inset(-ring).Offset(0f, ring * 0.8f), r + ring, C.CreamLip);
+            p.FillRound(face.Inset(-ring), r + ring, C.CreamLine);
+            p.FillRoundGradient(face, r, C.CreamTop, C.CreamFace);
             if (family.HasValue)
             {
                 Visuals.Hero(p, Box.FromCenter(cx, cy + (size * 0.02f), size * 0.92f, size * 0.92f), family.Value, null);

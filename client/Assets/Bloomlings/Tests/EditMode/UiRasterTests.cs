@@ -266,11 +266,16 @@ namespace Bloomlings.Client.Tests
         /// same bytes each time, and each frame different from the others.
         /// </summary>
         [Test]
-        public void TheProfileFrames_AreRingsOverTheDiscsEdge_EachItsOwn()
+        public void TheProfileFrames_AreRoundedSquaresOverTheDiscsEdge_EachItsOwn()
         {
             const int size = 160;
             int edge = (int)Math.Round(AvatarLook.FrameEdge * size);
             int middle = size / 2;
+
+            // The disc's rounded square in the picture (the owner's rounded square of 2026-10-06; the frames were rings).
+            double half = AvatarLook.FrameEdge * size;
+            double corner = half * 2 * AvatarLook.DiscRadiusShare;
+            double straight = half - corner;
             var pictures = ProfileFrames.All.Select(style => (Style: style, Pixels: UiRaster.ProfileFrame(size, style))).ToList();
             Assert.That(pictures.Count, Is.EqualTo(5));
             foreach ((ProfileFrameStyle style, byte[] pixels) in pictures)
@@ -281,13 +286,30 @@ namespace Bloomlings.Client.Tests
                 Assert.That(Alpha(pixels, size, middle, middle - (edge / 2)), Is.EqualTo(0), style + ": and halfway to the edge");
                 Assert.That(Alpha(pixels, size, 0, 0), Is.EqualTo(0), style + ": a corner");
                 Assert.That(Alpha(pixels, size, size - 1, size - 1), Is.EqualTo(0), style + ": a corner");
-                for (int k = 0; k < 16; k++)
+                // Round the rounded square: each side's middle and its straight part's ends, and each corner's middle.
+                foreach (int sx in new[] { -1, 1 })
                 {
-                    double a = (k + 0.5) * Math.PI / 8;
-                    int x = middle + (int)Math.Round(edge * Math.Cos(a));
-                    int y = middle + (int)Math.Round(edge * Math.Sin(a));
-                    Assert.That(Alpha(pixels, size, x, y), Is.GreaterThan(200), $"{style}: the disc's edge covered at {k * 22.5 + 11.25:0.##}°");
+                    foreach (int sy in new[] { -1, 1 })
+                    {
+                        var points = new (double X, double Y, string Where)[]
+                        {
+                            (half, 0, "a side's middle"),
+                            (half, straight * 0.9, "a side's straight end"),
+                            (straight * 0.9, half, "the other side's straight end"),
+                            (straight + (corner * Math.Cos(Math.PI / 4)), straight + (corner * Math.Sin(Math.PI / 4)), "a corner"),
+                        };
+                        foreach ((double px, double py, string where) in points)
+                        {
+                            int x = middle + (int)Math.Round(sx * px);
+                            int y = middle + (int)Math.Round(sy * py);
+                            Assert.That(Alpha(pixels, size, x, y), Is.GreaterThan(200), $"{style}: the disc's edge covered at {where} ({x}, {y})");
+                        }
+                    }
                 }
+
+                // Outside a rounded corner, where a square's corner would be, the picture is clear.
+                int clear = middle + (int)Math.Round(half);
+                Assert.That(Alpha(pixels, size, clear, clear), Is.LessThan(200), style + ": the corners rounded");
             }
 
             for (int i = 0; i < pictures.Count; i++)
@@ -305,7 +327,7 @@ namespace Bloomlings.Client.Tests
                 Assert.That(ProfileFrames.StyleOf(ProfileFrames.ShapeOf(style)), Is.EqualTo(style), "its catalog shape names it");
             }
 
-            Assert.That(ProfileFrames.StyleOf("frame"), Is.Null, "the plain ring stays the tinted shape");
+            Assert.That(ProfileFrames.StyleOf("frame"), Is.Null, "the plain frame stays the tinted shape");
         }
 
         private static Rgba Color(string iconId) => Rgba.FromHex(VariantCatalog.Default.All.First(v => v.IconId == iconId).ColorHex);

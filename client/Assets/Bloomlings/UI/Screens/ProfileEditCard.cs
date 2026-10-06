@@ -389,9 +389,8 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.PlaceBox(hit.rectTransform, cell, body);
                 UiKit.TapTarget(hit, () => onPick(index), press: true);
                 Box picture = ProfileEditRegions.CellPicture(cell);
-                Image ring = UiKit.RoundRect("Picked", hit.transform, UiTheme.Of(GardenLook.Green.Face), b => b.Height / 2f);
-                float picked = picture.Width * ProfileEditRegions.PickedShare * 2f;
-                UiKit.PlaceBox(ring.rectTransform, Box.FromCenter(picture.CenterX, picture.CenterY, picked, picked), cell);
+                Image ring = UiKit.RoundRect("Picked", hit.transform, UiTheme.Of(GardenLook.Green.Face), GardenLook.IconRadius);
+                UiKit.PlaceBox(ring.rectTransform, ProfileEditRegions.Picked(picture), cell);
                 ProfileAvatar avatar = ProfileAvatar.Create("Avatar", hit.transform);
                 UiKit.PlaceBox(avatar.Rect, picture, cell);
                 CostPillView price = UiKit.CostPill("Price", hit.transform, Cost.Petals(0));

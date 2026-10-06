@@ -114,8 +114,14 @@ namespace Bloomlings.Client.UI.Design
             return new Box(left, top, left + CellSize, top + CellSize);
         }
 
-        /// <summary>The picked cell's green disc, as a share of its picture's side (a radius 0.56 of it: a rim round the avatar).</summary>
+        /// <summary>
+        /// The picked cell's green plate, as a share of its picture's side (half its side 0.56 of it: a rim round the
+        /// avatar), a rounded square like the avatar since the owner's request of 2026-10-06 (it was a disc).
+        /// </summary>
         public const float PickedShare = 0.56f;
+
+        /// <summary>The picked cell's green plate: a rounded square 2 × <see cref="PickedShare"/> of the picture, centered on it.</summary>
+        public static Box Picked(Box picture) => Box.FromCenter(picture.CenterX, picture.CenterY, picture.Width * PickedShare * 2f, picture.Width * PickedShare * 2f);
 
         /// <summary>The round picture in a cell (its upper 84%, centered across).</summary>
         public static Box CellPicture(Box cell) => Box.FromCenter(cell.CenterX, cell.Top + (cell.Height * 0.43f), cell.Width * 0.8f, cell.Width * 0.8f);

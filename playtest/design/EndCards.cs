@@ -627,7 +627,7 @@ namespace Bloomlings.Playtest.Design
         {
             p.Mark("ui.pause");
             Box pause = r.Pause;
-            Kit.RoundButton(p, pause.CenterX, pause.CenterY, pause.Width, "ui.pause", active ? () => s.App.OpenOverlay(Overlay.Pause) : (Action?)null, squircle: true);
+            Kit.RoundButton(p, pause.CenterX, pause.CenterY, pause.Width, "ui.pause", active ? () => s.App.OpenOverlay(Overlay.Pause) : (Action?)null);
         }
 
         /// <summary>

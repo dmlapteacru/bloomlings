@@ -51,7 +51,7 @@ namespace Bloomlings.Client.Tests
         {
             var catalog = new CosmeticCatalog(new[]
             {
-                new CosmeticItem("frame.wood_ring", CosmeticKind.Frame, "Wooden Ring", "wood_ring", "#F1CD98", false, Free: true),
+                new CosmeticItem("frame.wood_ring", CosmeticKind.Frame, "Wooden Frame", "wood_ring", "#F1CD98", false, Free: true),
                 new CosmeticItem("frame.sold", CosmeticKind.Frame, "Sold", "frame", "#F1CD98", false, 100, Free: true),
                 new CosmeticItem("frame.given", CosmeticKind.Frame, "Given", "frame", "#F1CD98", true, Free: true),
                 new CosmeticItem("hat.free", CosmeticKind.Hat, "Free Hat", "cap", "#A8B59A", false, Free: true),

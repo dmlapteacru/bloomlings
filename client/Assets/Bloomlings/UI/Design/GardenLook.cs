@@ -305,6 +305,48 @@ namespace Bloomlings.Client.UI.Design
 
         public const float IconLineColored = 0.04f;
 
+        /// <summary>
+        /// The corner radius of every icon button, of the speed pill (of its height) and of the profile avatar, as a share
+        /// of the shorter side (the owner, 2026-10-06: "our layout and main buttons are rectangular", so every round button
+        /// and the avatar became a rounded square; they were circles, and only Pause a squircle).
+        /// </summary>
+        public const float IconRadiusShare = 0.34f;
+
+        /// <summary>
+        /// The light wood rim round an icon button, the speed pill and the profile avatar, as a share of the shorter side
+        /// (the owner, 2026-10-06: a bigger border, like Play's wood rim); the cushion fills the rest.
+        /// </summary>
+        public const float IconRimShare = 0.1f;
+
+        /// <summary>The icon rim's plank outline and lip, as shares of its height (Play's rim: 0.018 and 0.03).</summary>
+        public const float IconRimOutline = 0.03f;
+
+        public const float IconRimLip = 0.045f;
+
+        /// <summary>The share of an icon button its glyph keeps inside the rim (the glyphs were sized to the whole button).</summary>
+        public const float IconRimGlyph = 0.88f;
+
+        /// <summary>The cushion's shorter side inside the rim, as a share of the button's.</summary>
+        public const float IconRimFaceShare = 1f - (2f * IconRimShare);
+
+        /// <summary>
+        /// A glyph's share of the cushion inside the rim for the glyph share it had of the whole button: the glyph keeps
+        /// <see cref="IconRimGlyph"/> of its size (Unity sizes glyphs from the cushion's side).
+        /// </summary>
+        public const float IconRimGlyphOfFace = IconRimGlyph / IconRimFaceShare;
+
+        /// <summary>An icon button's corner radius: <see cref="IconRadiusShare"/> of its shorter side.</summary>
+        public static float IconRadius(Box box) => Math.Min(box.Width, box.Height) * IconRadiusShare;
+
+        /// <summary>The cushion inside an icon button's wood rim: the box less <see cref="IconRimShare"/> of its shorter side all round.</summary>
+        public static Box IconRimFace(Box box) => box.Inset(Math.Min(box.Width, box.Height) * IconRimShare);
+
+        /// <summary>
+        /// The corner radius of the cushion inside a rim, from the cushion's box: the rim's corners less the rim
+        /// (0.34 - 0.1 of the button over its 0.8), so the cushion follows the rim.
+        /// </summary>
+        public static float IconRimFaceRadius(Box face) => Math.Min(face.Width, face.Height) * (IconRadiusShare - IconRimShare) / IconRimFaceShare;
+
         /// <summary>The speed pill's glyph while fast forward is off: three brown chevrons (▶▶▶), no number.</summary>
         public static IconPart FastGlyph { get; } = new IconPart("ui.fast", C.InkBrown);
 

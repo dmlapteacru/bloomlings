@@ -719,21 +719,21 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A round or squircle icon button (Settings, Pause, close, back, Wardrobe, Collection; spec 005 §3.3): one domed
-        /// cream cushion with a lip, an outline and a soft shadow, and a brown glyph with a light halo at about 46% of the
-        /// size. Pause is a squircle (<paramref name="squircle"/>: radius 34% of the size; by default only Pause), the
-        /// others circles; close is cream with a brown ✕ like every round button. <paramref name="set"/> paints another
-        /// face (the green "+"). The button is the largest square in its rect.
+        /// An icon button (Settings, Pause, close, back, edit; spec 005 §3.3): a rounded square (radius
+        /// <see cref="GardenLook.IconRadiusShare"/> of the size) in a light wood rim (<see cref="IconRim"/>) round one domed
+        /// cream cushion with a lip and an outline, and a brown glyph with a light halo at about 40% of the size; close is
+        /// cream with a brown ✕ like every icon button. <paramref name="set"/> paints another face. The button is the
+        /// largest square in its rect. (The owner, 2026-10-06: every round button became a rounded square in a wood rim
+        /// like Play's; they were circles, and only Pause a squircle.)
         /// </summary>
-        public static Button RoundIconButton(string name, Transform parent, string shapeId, Action onClick, ColorSet? set = null, bool? squircle = null)
+        public static Button RoundIconButton(string name, Transform parent, string shapeId, Action onClick, ColorSet? set = null)
         {
             ColorSet colors = set ?? GardenLook.White;
-            bool rounded = squircle ?? shapeId == "ui.pause";
-            GardenButton view = IconFace(name, parent, colors, b => rounded ? b.Height * 0.34f : b.Height / 2f, square: true, raycast: true);
+            GardenButton view = IconFace(name, parent, colors, GardenLook.IconRimFaceRadius, square: true, raycast: true, rim: true);
             Image glyph = GardenGlyph(view, view.Content, shapeId);
             BoxLayout.On(view.Content).Add(glyph.rectTransform, f =>
             {
-                float g = view.IconSide * GlyphShare(shapeId);
+                float g = view.IconSide * GlyphShare(shapeId) * GardenLook.IconRimGlyphOfFace;
                 return Box.FromCenter(f.CenterX, f.CenterY, g, g);
             });
             return Clickable(view, onClick);
@@ -753,18 +753,27 @@ namespace Bloomlings.Client.UI
         };
 
         /// <summary>
-        /// The face of a round or squircle icon button, the speed pill, the booster tile and the green "+" (the playtest's
+        /// The face of an icon button, the speed pill, the booster tile and the green "+" (the playtest's
         /// <c>Kit.IconFace</c>, spec 005 §3.3): a soft shadow, the lip and the outline around a single domed cushion on
         /// cream sets (peach toward the edges, a lighter middle feathered in), or a light rim around a domed face in the
         /// set's color on colored sets. <paramref name="radius"/> gets the face's box; <paramref name="square"/> keeps the
-        /// largest centered square of the rect. Children go into <see cref="GardenButton.Content"/>: 9% of the shorter side
-        /// inside the face, moving with the press.
+        /// largest centered square of the rect; <paramref name="rim"/> sets the face in the icon buttons' light wood rim
+        /// (<see cref="IconRim"/>, the playtest's <c>Kit.RimmedIconFace</c>), the face inside it
+        /// (<see cref="GardenLook.IconRimFace"/>). Children go into <see cref="GardenButton.Content"/>: 9% of the face's
+        /// shorter side inside it, moving with the press.
         /// </summary>
-        public static GardenButton IconFace(string name, Transform parent, ColorSet set, Func<Box, float> radius, bool square = true, bool raycast = false)
+        public static GardenButton IconFace(string name, Transform parent, ColorSet set, Func<Box, float> radius, bool square = true, bool raycast = false, bool rim = false)
         {
             GardenButton view = NewButton(name, parent, set, raycast);
             BoxLayout layout = BoxLayout.On(view.Body);
-            Func<Box, Box> faceBox = b => square ? Box.FromCenter(b.CenterX, b.CenterY, Mathf.Min(b.Width, b.Height), Mathf.Min(b.Width, b.Height)) : b;
+            Func<Box, Box> outer = b => square ? Box.FromCenter(b.CenterX, b.CenterY, Mathf.Min(b.Width, b.Height), Mathf.Min(b.Width, b.Height)) : b;
+            Func<Box, Box> faceBox = outer;
+            if (rim)
+            {
+                IconRim(layout, view.Body, outer);
+                faceBox = b => GardenLook.IconRimFace(outer(b));
+            }
+
             SoftShadow(layout, faceBox, b => Mathf.Min(radius(b), Mathf.Min(b.Width, b.Height) / 2f), 0.2f, 0.06f);
             RectTransform face = UiFactory.CreateRect("Face", view.Body);
             BuildFace(view, face, FaceKind.Icon, gloss: false);
@@ -782,15 +791,32 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the cream squircle style (radius
-        /// 34% of its height), wider, with only the <c>ui.fast</c> chevrons (▶▶▶, <see cref="GardenLook.SpeedGlyphShare"/>
-        /// of its height) in the middle, no number. <paramref name="setOn"/> lights it while fast forward is on: a
-        /// <c>garden.glow</c> halo round the face and the chevrons in the green of a switched-on toggle (the playtest's
-        /// <c>Kit.SpeedPill</c>).
+        /// The light wood rim of an icon button, the speed pill and the profile avatar (spec 005 §3.3, the playtest's
+        /// <c>Kit.IconRim</c>; the owner, 2026-10-06: a bigger border like Play's): a soft shadow and Play's light plank
+        /// (<c>ui.button.rim</c>) as a rounded rectangle (<see cref="GardenLook.IconRadiusShare"/> of its height) filling
+        /// <paramref name="box"/> of the layout's rect, with a deeper outline and lip than Play's
+        /// (<see cref="GardenLook.IconRimOutline"/>, <see cref="GardenLook.IconRimLip"/>). Never a touch target.
+        /// </summary>
+        public static Image IconRim(BoxLayout layout, Transform parent, Func<Box, Box> box)
+        {
+            SoftShadow(layout, box, b => GardenLook.IconRadius(b), 0.24f, 0.07f);
+            Image rim = UiFactory.CreateImage("Rim", parent, null, Color.white);
+            rim.raycastTarget = false;
+            PictureFit.On(rim, (w, h) => ProceduralSprites.Plank(WoodTone.Light, w, h, GardenLook.IconRadiusShare, GardenLook.IconRimOutline, 3, GardenLook.IconRimLip), sliced: true);
+            layout.Add(rim.rectTransform, box);
+            return rim;
+        }
+
+        /// <summary>
+        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the icon buttons' rounded square
+        /// style in its wood rim (radius 34% of its height), wider, with only the <c>ui.fast</c> chevrons (▶▶▶,
+        /// <see cref="GardenLook.SpeedGlyphShare"/> of its height, less the rim's share) in the middle, no number.
+        /// <paramref name="setOn"/> lights it while fast forward is on: a <c>garden.glow</c> halo round the rim and the
+        /// chevrons in the green of a switched-on toggle (the playtest's <c>Kit.SpeedPill</c>).
         /// </summary>
         public static Button SpeedPill(string name, Transform parent, Action onClick, out Action<bool> setOn)
         {
-            GardenButton view = IconFace(name, parent, GardenLook.White, b => b.Height * 0.34f, square: false, raycast: true);
+            GardenButton view = IconFace(name, parent, GardenLook.White, GardenLook.IconRimFaceRadius, square: false, raycast: true, rim: true);
             BoxLayout body = BoxLayout.On(view.Body);
             var rings = new List<GameObject>();
             var radii = new float[GardenLook.SpeedGlowLayers];
@@ -804,7 +830,7 @@ namespace Bloomlings.Client.UI
                 body.Add(ring.rectTransform, b =>
                 {
                     float grow = b.Height * GardenLook.SpeedGlowGrow * (layer + 1);
-                    radii[layer] = (b.Height * 0.34f) + grow;
+                    radii[layer] = GardenLook.IconRadius(b) + grow;
                     return b.Inset(-grow);
                 });
                 rings.Add(ring.gameObject);
@@ -816,7 +842,7 @@ namespace Bloomlings.Client.UI
             fast.preserveAspect = true;
             BoxLayout.On(view.Content).Then(f =>
             {
-                float side = view.IconSide * GardenLook.SpeedGlyphShare;
+                float side = view.IconSide * GardenLook.SpeedGlyphShare * GardenLook.IconRimGlyphOfFace;
                 BoxLayout.Place(fast.rectTransform, Box.FromCenter(f.CenterX, f.CenterY, side, side));
             });
             setOn = on =>

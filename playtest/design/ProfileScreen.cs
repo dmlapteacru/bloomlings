@@ -166,7 +166,8 @@ namespace Bloomlings.Playtest.Design
                         Box picture = ProfileEditRegions.CellPicture(cell);
                         if (picked)
                         {
-                            p.FillCircle(picture.CenterX, picture.CenterY, picture.Width * ProfileEditRegions.PickedShare, GardenLook.Green.Face);
+                            Box plate = ProfileEditRegions.Picked(picture);
+                            p.FillRound(plate, GardenLook.IconRadius(plate), GardenLook.Green.Face);
                         }
 
                         Kit.Avatar(p, picture, avatar, null, null, null);
@@ -249,8 +250,8 @@ namespace Bloomlings.Playtest.Design
                 bool picked = item.Id == (frame ? editor.FrameId : editor.BadgeId);
                 if (picked)
                 {
-                    Box disc = ProfileEditRegions.CellPicture(cell);
-                    p.FillCircle(disc.CenterX, disc.CenterY, disc.Width * ProfileEditRegions.PickedShare, GardenLook.Green.Face);
+                    Box plate = ProfileEditRegions.Picked(ProfileEditRegions.CellPicture(cell));
+                    p.FillRound(plate, GardenLook.IconRadius(plate), GardenLook.Green.Face);
                 }
 
                 Kit.Avatar(p, ProfileEditRegions.CellItemAvatar(cell), editor.Avatar, frame ? item : null, frame ? null : item, null);

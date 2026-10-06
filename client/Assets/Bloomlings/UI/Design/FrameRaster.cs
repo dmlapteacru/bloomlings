@@ -5,9 +5,11 @@ namespace Bloomlings.Client.UI.Design
 {
     /// <content>
     /// The five drawn profile frames (spec 005 FR-037 as amended 2026-10-06, contracts/look.md §6.11): square pictures
-    /// laid over the avatar's disc (<see cref="AvatarLook.Frame"/>), each a band over the disc's edge
-    /// (<see cref="AvatarLook.FrameEdge"/> from the middle) that casts a soft shadow a little lower, lit from the upper left
-    /// like the rest of the reference look. Like the other material pictures they are straight-alpha RGBA rows from the
+    /// laid over the avatar's disc (<see cref="AvatarLook.Frame"/>), each a band over the disc's rounded-square edge
+    /// (<see cref="AvatarLook.FrameEdge"/> from the middle, its corners following the disc's, the owner's rounded square of
+    /// 2026-10-06; they were rings) that casts a soft shadow a little lower, lit from the upper left like the rest of the
+    /// reference look. A band's place across it is <see cref="FrameDist"/> (a ring's distance from the middle) and its
+    /// place along it <see cref="FrameAlong"/> (a ring's angle), so each frame keeps the recipe it had as a ring. Like the other material pictures they are straight-alpha RGBA rows from the
     /// top, anti-aliased over one pixel and the same for the same arguments.
     /// </content>
     public static partial class UiRaster
@@ -17,29 +19,38 @@ namespace Bloomlings.Client.UI.Design
         private const float FrameLightY = -0.62f;
         private const float FrameLightZ = 0.66f;
 
-        private const int StoneRingBlocks = 10;
+        private const int StoneRingBlocks = 12;
         private const int StoneRingSeed = 17;
+
+        // The disc's rounded square in a frame's picture: half its side, its corner radius and its straight half-sides.
+        private const float FrameHalf = AvatarLook.FrameEdge;
+        private const float FrameCorner = AvatarLook.FrameEdge * 2f * AvatarLook.DiscRadiusShare;
+        private const float FrameStraight = FrameHalf - FrameCorner;
+
+        // A quarter of the rounded square's outline and the whole of it, in picture units.
+        private const float FrameQuarter = (2f * FrameStraight) + (FrameCorner * (float)Math.PI / 2f);
+        private const float FramePerimeter = 4f * FrameQuarter;
 
         private static readonly NavLeaf[] LeafRingLeaves = LeafWreath(20, 0f, 0.118f, 0.041f, 0.092f, 0.033f, 3);
 
-        private static readonly NavLeaf[] WreathLeaves = LeafWreath(16, 11.25f, 0.074f, 0.026f, 0.066f, 0.023f, 7);
+        private static readonly NavLeaf[] WreathLeaves = LeafWreath(16, 1f / 32f, 0.074f, 0.026f, 0.066f, 0.023f, 7);
 
         /// <summary>
         /// A drawn profile frame (<see cref="ProfileFrameStyle"/>) in a square picture of side <paramref name="size"/>, its
         /// band centered on the avatar's disc edge (<see cref="AvatarLook.FrameEdge"/> of the side from the middle):
         /// <list type="bullet">
-        /// <item><description><see cref="ProfileFrameStyle.WoodRing"/>: a round band of honey wood (<c>wood.light</c> to
-        /// <c>wood.mid</c>), turned grain running round it with two carved lines, lit from the upper left, its
-        /// <c>wood.line</c> outline, and four brass nails (<c>medal.gold</c>) at its corners;</description></item>
-        /// <item><description><see cref="ProfileFrameStyle.LeafRing"/>: a green vine (<c>garden.leaf_3</c>) round the
-        /// disc with twenty almond leaves in the three garden greens, all turning one way, out and in by
+        /// <item><description><see cref="ProfileFrameStyle.WoodRing"/> (Wooden Frame): a rounded band of honey wood
+        /// (<c>wood.light</c> to <c>wood.mid</c>), its grain running round it with two carved lines, lit from the upper
+        /// left, its <c>wood.line</c> outline, and four brass nails (<c>medal.gold</c>) at its corners;</description></item>
+        /// <item><description><see cref="ProfileFrameStyle.LeafRing"/> (Leaf Frame): a green vine (<c>garden.leaf_3</c>)
+        /// round the disc with twenty almond leaves in the three garden greens, all turning one way, out and in by
         /// turns;</description></item>
         /// <item><description><see cref="ProfileFrameStyle.FlowerWreath"/>: two twisted twigs (<c>wood.dark</c>) with
-        /// sixteen small leaves and eight blossoms, pink (<c>lotus.fill</c>) and white (<c>garden.flower</c>) by turns,
-        /// with golden middles;</description></item>
-        /// <item><description><see cref="ProfileFrameStyle.StoneRing"/>: ten wedge-cut blocks of sandy stone
-        /// (<c>stone.top</c> to <c>stone.face</c>, mottled, a <c>stone.lip</c> side away from the light, the
-        /// <c>stone.line</c> outline) on dark mortar, two with a tuft of moss (<c>stone.moss</c>);</description></item>
+        /// sixteen small leaves and eight blossoms, pink (<c>lotus.fill</c>) at the sides' middles and white
+        /// (<c>garden.flower</c>) at the corners, with golden middles;</description></item>
+        /// <item><description><see cref="ProfileFrameStyle.StoneRing"/> (Stone Frame): twelve blocks of sandy stone, one
+        /// bent round each corner (<c>stone.top</c> to <c>stone.face</c>, mottled, a <c>stone.lip</c> side away from the
+        /// light, the <c>stone.line</c> outline) on dark mortar, two with a tuft of moss (<c>stone.moss</c>);</description></item>
         /// <item><description><see cref="ProfileFrameStyle.GoldenRibbon"/>: a gold satin band (<c>medal.gold</c>, lit to
         /// <c>ray.light</c>) wound round in eighteen folds, a gold star on top and a pink bow (<c>lotus.*</c>) at the
         /// bottom.</description></item>
@@ -91,7 +102,7 @@ namespace Bloomlings.Client.UI.Design
             float inner = edge - 0.056f;
             float outer = edge + 0.05f;
             FrameShadow(ref paint, u, v, inner, outer, 0.3f);
-            float dist = Length(u, v);
+            float dist = FrameDist(u, v);
             float mid = (inner + outer) / 2f;
             float half = (outer - inner) / 2f;
             float d = Math.Abs(dist - mid) - half;
@@ -99,7 +110,7 @@ namespace Bloomlings.Client.UI.Design
             float cover = Cover(d, pixel);
             if (cover > 0f)
             {
-                float angle = (float)Math.Atan2(v, u);
+                float angle = FrameAngle(u, v);
                 float light = BandLight(u, v, dist, mid, half);
                 var c = new Color(C.WoodMid.Mix(C.WoodLight, Clamp01(0.5f - (v / outer * 0.5f))));
                 c.Mix(C.WoodEdge, 0.38f);
@@ -129,8 +140,8 @@ namespace Bloomlings.Client.UI.Design
             // Four brass nails at the corners.
             for (int k = 0; k < 4; k++)
             {
-                float a = (float)Math.PI * (0.25f + (0.5f * k));
-                PaintNail(ref paint, u, v, mid * (float)Math.Cos(a), mid * (float)Math.Sin(a), Math.Max(pixel * 1.6f, 0.012f), pixel);
+                (float nx, float ny, _) = FramePoint((k + 0.5f) * FrameQuarter, mid - FrameHalf);
+                PaintNail(ref paint, u, v, nx, ny, Math.Max(pixel * 1.6f, 0.012f), pixel);
             }
         }
 
@@ -157,7 +168,7 @@ namespace Bloomlings.Client.UI.Design
         {
             float edge = AvatarLook.FrameEdge;
             FrameShadow(ref paint, u, v, edge - 0.05f, edge + 0.05f, 0.24f);
-            float dist = Length(u, v);
+            float dist = FrameDist(u, v);
             float half = 0.015f;
             float line = FrameLine(pixel);
             float d = Math.Abs(dist - edge) - half;
@@ -178,21 +189,21 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// <paramref name="count"/> leaves round the disc's edge, every second one leaning out and the others in, all turning
-        /// clockwise; the first at <paramref name="from"/> degrees, each a little off its place.
+        /// clockwise; the first <paramref name="from"/> of the way round from the right side's middle, each a little off its
+        /// place, spread evenly along the rounded square.
         /// </summary>
         private static NavLeaf[] LeafWreath(int count, float from, float outLength, float outHalf, float inLength, float inHalf, int seed)
         {
-            float edge = AvatarLook.FrameEdge;
             var leaves = new NavLeaf[count];
             for (int i = 0; i < count; i++)
             {
-                float degrees = from + (i * 360f / count) + ((Hash(i, 3, seed) - 0.5f) * 6f);
-                float a = degrees * (float)Math.PI / 180f;
+                float along = (from + ((float)i / count) + ((Hash(i, 3, seed) - 0.5f) / 60f)) * FramePerimeter;
+                (float x, float y, float tangent) = FramePoint(along, 0f);
                 bool outward = i % 2 == 0;
                 leaves[i] = NavLeaf.At(
-                    edge * (float)Math.Cos(a),
-                    edge * (float)Math.Sin(a),
-                    degrees + 90f + (outward ? -42f : 42f),
+                    x,
+                    y,
+                    tangent + (outward ? -42f : 42f),
                     outward ? outLength : inLength,
                     outward ? outHalf : inHalf,
                     i % 3);
@@ -207,12 +218,12 @@ namespace Bloomlings.Client.UI.Design
         {
             float edge = AvatarLook.FrameEdge;
             FrameShadow(ref paint, u, v, edge - 0.045f, edge + 0.045f, 0.24f);
-            float dist = Length(u, v);
+            float dist = FrameDist(u, v);
             float line = FrameLine(pixel);
             if (Math.Abs(dist - edge) < 0.06f)
             {
                 // Two twigs twisted round each other, the one behind first.
-                float angle = (float)Math.Atan2(v, u);
+                float angle = FrameAngle(u, v);
                 float wave = (float)Math.Sin(angle * 5f);
                 bool firstBehind = Math.Cos(angle * 5f) < 0f;
                 for (int pass = 0; pass < 2; pass++)
@@ -231,12 +242,10 @@ namespace Bloomlings.Client.UI.Design
                 leaf.Paint(ref paint, u, v, pixel);
             }
 
-            // Eight blossoms, pink and white by turns.
+            // Eight blossoms: pink at the sides' middles, white at the corners.
             for (int j = 0; j < 8; j++)
             {
-                float a = (float)Math.PI * (j + 0.5f) / 4f;
-                float cx = edge * (float)Math.Cos(a);
-                float cy = edge * (float)Math.Sin(a);
+                (float cx, float cy, _) = FramePoint(j * FrameQuarter / 2f, 0f);
                 float turn = Hash(j, 11, 7) * 1.2f;
                 if (j % 2 == 0)
                 {
@@ -287,7 +296,7 @@ namespace Bloomlings.Client.UI.Design
             float inner = edge - 0.062f;
             float outer = edge + 0.056f;
             FrameShadow(ref paint, u, v, inner, outer, 0.32f);
-            float dist = Length(u, v);
+            float dist = FrameDist(u, v);
             if (dist < inner - 0.02f || dist > outer + 0.02f)
             {
                 return;
@@ -300,43 +309,38 @@ namespace Bloomlings.Client.UI.Design
             // The mortar between the blocks, a little inside their edges.
             paint.Over(Cover(Math.Abs(dist - mid) - (half - 0.014f), pixel), C.StoneLip.Darken(0.32f));
 
-            // The block under this pixel: the boundaries a little uneven, each block its own size.
-            float step = 2f * (float)Math.PI / StoneRingBlocks;
-            float angle = (float)Math.Atan2(v, u);
-            if (angle < 0f)
-            {
-                angle += 2f * (float)Math.PI;
-            }
-
-            int k = Math.Min(StoneRingBlocks - 1, (int)(angle / step));
-            if (angle < StoneBoundary(k))
+            // The block under this pixel along the band: the boundaries a little uneven, each block its own size, one
+            // block bent round each corner.
+            float step = FramePerimeter / StoneRingBlocks;
+            float at = FrameAlong(u, v);
+            int k = Math.Min(StoneRingBlocks - 1, (int)(at / step));
+            if (at < StoneBoundary(k))
             {
                 k = (k + StoneRingBlocks - 1) % StoneRingBlocks;
             }
-            else if (angle >= StoneBoundary(k + 1))
+            else if (at >= StoneBoundary(k + 1))
             {
                 k = (k + 1) % StoneRingBlocks;
             }
 
             float from = StoneBoundary(k);
             float to = StoneBoundary(k + 1);
-            float centreAngle = (from + to) / 2f;
-            float rel = angle - centreAngle;
-            if (rel > Math.PI)
+            float rel = at - ((from + to) / 2f);
+            if (rel > FramePerimeter / 2f)
             {
-                rel -= 2f * (float)Math.PI;
+                rel -= FramePerimeter;
             }
-            else if (rel < -Math.PI)
+            else if (rel < -FramePerimeter / 2f)
             {
-                rel += 2f * (float)Math.PI;
+                rel += FramePerimeter;
             }
 
             float blockInner = inner + (0.005f * (Hash(k, 6, StoneRingSeed) - 0.5f));
             float blockOuter = outer + (0.008f * (Hash(k, 7, StoneRingSeed) - 0.5f));
-            // Measured along the ring's middle, so the joints run straight out from the middle (wedge-cut stones).
-            float halfLength = (((to - from) / 2f) * mid) - 0.004f;
+            // Measured along the band, so the joints run straight across it.
+            float halfLength = ((to - from) / 2f) - 0.004f;
             float halfWidth = (blockOuter - blockInner) / 2f;
-            float along = rel * mid;
+            float along = rel;
             float across = dist - ((blockInner + blockOuter) / 2f);
             float d = RoundRect(along, across, -halfLength, -halfWidth, halfLength, halfWidth, 0.014f);
             float cover = Cover(d, pixel);
@@ -360,8 +364,8 @@ namespace Bloomlings.Client.UI.Design
             c.Mix(C.StoneLip, 0.85f * Clamp01((0.56f - light) * 2.4f));
             c.Mix(C.StoneTop.Lighten(0.4f), 0.55f * Clamp01((light - 0.7f) * 3f) * Clamp01((d + 0.014f) / 0.01f));
 
-            // A tuft of moss over the outer edge of two blocks (one at the upper left, one at the lower right).
-            if (k == 1 || k == 6)
+            // A tuft of moss over the outer edge of two blocks (the lower right corner's and the upper left corner's).
+            if (k == 1 || k == 7)
             {
                 float moss = Length(along - (halfLength * 0.2f), (across - (halfWidth * 0.75f)) * 1.25f) - 0.04f - (0.018f * (Fbm(u * 34f, v * 34f, 29, 2) - 0.5f));
                 float tuft = Clamp01(-moss / 0.007f);
@@ -374,13 +378,16 @@ namespace Bloomlings.Client.UI.Design
             paint.Over(cover, c.ToRgba());
         }
 
-        /// <summary>The angle where the stone ring's block <paramref name="k"/> starts (radians; the last wraps to the first).</summary>
+        /// <summary>
+        /// Where the stone frame's block <paramref name="k"/> starts along the band (<see cref="FrameAlong"/>; the last wraps
+        /// to the first): three blocks a quarter, the corners' blocks centered on the corners.
+        /// </summary>
         private static float StoneBoundary(int k)
         {
-            float step = 2f * (float)Math.PI / StoneRingBlocks;
+            float step = FramePerimeter / StoneRingBlocks;
             int wraps = k >= StoneRingBlocks ? 1 : 0;
             int index = k % StoneRingBlocks;
-            return ((index + (0.3f * (Hash(index, 5, StoneRingSeed) - 0.5f))) * step) + (wraps * 2f * (float)Math.PI);
+            return ((index + (0.3f * (Hash(index, 5, StoneRingSeed) - 0.5f))) * step) + (wraps * FramePerimeter);
         }
 
         // ---- The golden ribbon ----
@@ -391,7 +398,7 @@ namespace Bloomlings.Client.UI.Design
             float inner = edge - 0.044f;
             float outer = edge + 0.044f;
             FrameShadow(ref paint, u, v, inner, outer, 0.28f);
-            float dist = Length(u, v);
+            float dist = FrameDist(u, v);
             float mid = (inner + outer) / 2f;
             float half = (outer - inner) / 2f;
             float line = FrameLine(pixel);
@@ -402,7 +409,6 @@ namespace Bloomlings.Client.UI.Design
             float cover = Cover(d, pixel);
             if (cover > 0f)
             {
-                float angle = (float)Math.Atan2(v, u);
                 float light = BandLight(u, v, dist, mid, half);
                 var c = new Color(gold);
                 c.Mix(C.RayLight, 0.78f * Clamp01((light - 0.66f) * 3.2f));
@@ -410,9 +416,9 @@ namespace Bloomlings.Client.UI.Design
 
                 // The satin wound round in eighteen folds: a deep line where one fold tucks under the next, a sheen after it.
                 float across = (dist - inner) / (outer - inner);
-                float phase = (angle / (2f * (float)Math.PI) * 18f) + (across * 0.8f);
+                float phase = (FrameAlong(u, v) / FramePerimeter * 18f) + (across * 0.8f);
                 float f = phase - (float)Math.Floor(phase);
-                float fold = 2f * (float)Math.PI * mid / 18f;
+                float fold = FramePerimeter / 18f;
                 c.Mix(deep, 0.6f * Cover((Math.Min(f, 1f - f) * fold) - (line * 0.3f), pixel));
                 c.Mix(C.RayLight, 0.4f * Cover((Math.Abs(f - 0.12f) * fold) - (line * 0.35f), pixel));
                 c.Mix(rim, Clamp01(0.5f + ((d + line) / pixel)));
@@ -524,16 +530,146 @@ namespace Bloomlings.Client.UI.Design
         private static float FrameLine(float pixel) => Math.Max(pixel * 1.1f, 0.0065f);
 
         /// <summary>
-        /// The light on a round band (a ring seen from above, its cross-section a half circle) at (u, v): about 0.66 on its
+        /// A ring's distance from the middle for the frames' rounded square: <see cref="AvatarLook.FrameEdge"/> plus the
+        /// signed distance from (u, v) to the disc's rounded square, so a band at <c>FrameEdge ± d</c> is that square grown or
+        /// shrunk by d. It is |u| or |v| along the axes and 0 in the middle.
+        /// </summary>
+        private static float FrameDist(float u, float v)
+        {
+            float qx = Math.Abs(u) - FrameStraight;
+            float qy = Math.Abs(v) - FrameStraight;
+            return FrameStraight + Length(Math.Max(qx, 0f), Math.Max(qy, 0f)) + Math.Min(Math.Max(qx, qy), 0f);
+        }
+
+        /// <summary>
+        /// Where (u, v) lies along the band (a ring's angle): the length along the disc's rounded square, from the right
+        /// side's middle round through the bottom (clockwise on screen, as a ring's angle grew), in [0, <see cref="FramePerimeter"/>).
+        /// </summary>
+        private static float FrameAlong(float u, float v)
+        {
+            float q = AlongQuarter(Math.Abs(u), Math.Abs(v));
+            if (u >= 0f)
+            {
+                return v >= 0f ? q : FramePerimeter - q;
+            }
+
+            return v >= 0f ? (2f * FrameQuarter) - q : (2f * FrameQuarter) + q;
+        }
+
+        /// <summary><see cref="FrameAlong"/> as an angle in radians, for the patterns that went round a ring.</summary>
+        private static float FrameAngle(float u, float v)
+        {
+            float a = FrameAlong(u, v) / FramePerimeter * 2f * (float)Math.PI;
+            return a > (float)Math.PI ? a - (2f * (float)Math.PI) : a;
+        }
+
+        /// <summary>The length along the lower right quarter of the rounded square (x, y ≥ 0) from the right side's middle.</summary>
+        private static float AlongQuarter(float x, float y)
+        {
+            float qx = x - FrameStraight;
+            float qy = y - FrameStraight;
+            if (qx > 0f && qy > 0f)
+            {
+                return FrameStraight + (FrameCorner * (float)Math.Atan2(qy, qx));
+            }
+
+            return qx >= qy ? Math.Min(y, FrameStraight) : FrameStraight + (FrameCorner * (float)Math.PI / 2f) + (FrameStraight - Math.Min(x, FrameStraight));
+        }
+
+        /// <summary>
+        /// The point <paramref name="along"/> the band (<see cref="FrameAlong"/>), <paramref name="offset"/> out from the
+        /// disc's edge, and the band's direction there in degrees (y down; a ring's angle + 90°).
+        /// </summary>
+        private static (float X, float Y, float Degrees) FramePoint(float along, float offset)
+        {
+            float s = along % FramePerimeter;
+            if (s < 0f)
+            {
+                s += FramePerimeter;
+            }
+
+            int quarter = Math.Min(3, (int)(s / FrameQuarter));
+            float t = s - (quarter * FrameQuarter);
+            bool mirrored = quarter == 1 || quarter == 3;
+            float q = mirrored ? FrameQuarter - t : t;
+
+            // The point and its direction in the lower right quarter, q from the right side's middle.
+            float x;
+            float y;
+            float tx;
+            float ty;
+            float bend = FrameCorner * (float)Math.PI / 2f;
+            if (q <= FrameStraight)
+            {
+                x = FrameHalf + offset;
+                y = q;
+                tx = 0f;
+                ty = 1f;
+            }
+            else if (q < FrameStraight + bend)
+            {
+                float a = (q - FrameStraight) / FrameCorner;
+                x = FrameStraight + ((FrameCorner + offset) * (float)Math.Cos(a));
+                y = FrameStraight + ((FrameCorner + offset) * (float)Math.Sin(a));
+                tx = -(float)Math.Sin(a);
+                ty = (float)Math.Cos(a);
+            }
+            else
+            {
+                x = FrameStraight - (q - FrameStraight - bend);
+                y = FrameHalf + offset;
+                tx = -1f;
+                ty = 0f;
+            }
+
+            // Into the point's quarter: mirrored across, and the direction turned where the length runs the other way.
+            switch (quarter)
+            {
+                case 1:
+                    x = -x;
+                    ty = -ty;
+                    break;
+                case 2:
+                    x = -x;
+                    y = -y;
+                    tx = -tx;
+                    ty = -ty;
+                    break;
+                case 3:
+                    y = -y;
+                    tx = -tx;
+                    break;
+            }
+
+            return (x, y, (float)(Math.Atan2(ty, tx) * 180.0 / Math.PI));
+        }
+
+        /// <summary>
+        /// The light on a band round the rounded square (its cross-section a half circle) at (u, v): about 0.66 on its
         /// crest, toward 1 on the side facing the upper left, lower on the side away from it.
         /// </summary>
         private static float BandLight(float u, float v, float dist, float mid, float half)
         {
             float s = Clamp((dist - mid) / Math.Max(1e-5f, half), -1f, 1f);
-            float nx = dist > 1e-5f ? u / dist : 0f;
-            float ny = dist > 1e-5f ? v / dist : 0f;
+            (float nx, float ny) = FrameNormal(u, v);
             float nz = (float)Math.Sqrt(Math.Max(0f, 1f - (s * s)));
             return (nx * s * FrameLightX) + (ny * s * FrameLightY) + (nz * FrameLightZ);
+        }
+
+        /// <summary>The outward direction of the rounded square's bands at (u, v): out of a side, or out of a corner's middle.</summary>
+        private static (float X, float Y) FrameNormal(float u, float v)
+        {
+            float qx = Math.Abs(u) - FrameStraight;
+            float qy = Math.Abs(v) - FrameStraight;
+            float sx = u < 0f ? -1f : 1f;
+            float sy = v < 0f ? -1f : 1f;
+            if (qx > 0f && qy > 0f)
+            {
+                float length = Math.Max(1e-5f, Length(qx, qy));
+                return (sx * qx / length, sy * qy / length);
+            }
+
+            return qx >= qy ? (sx, 0f) : (0f, sy);
         }
 
         /// <summary>The soft shadow a frame casts on the avatar and round it: its band a little lower, feathered.</summary>
@@ -541,7 +677,7 @@ namespace Bloomlings.Client.UI.Design
         {
             float mid = (inner + outer) / 2f;
             float half = (outer - inner) / 2f;
-            float drop = Math.Abs(Length(u, v - 0.014f) - mid) - half;
+            float drop = Math.Abs(FrameDist(u, v - 0.014f) - mid) - half;
             if (drop < 0.03f)
             {
                 paint.Over(alpha * (1f - Smooth(Clamp01((drop + 0.006f) / 0.03f))), C.GardenShadow);

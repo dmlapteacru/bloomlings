@@ -16,8 +16,8 @@ namespace Bloomlings.Client.UI.Screens
     /// The gameplay screen of the design board's frames 7–9 (spec 002 FR-009, FR-010; spec 001 FR-068) in the reference
     /// layout (spec 005 FR-020, FR-021, contracts/look.md §6.1; the playtest's <c>LevelScreen</c>), top to bottom:
     /// <list type="bullet">
-    /// <item><description>the top bar: the cream Pause squircle (0.13 W), the level on a wide wooden sign with ivy at both
-    /// ends (0.42 W × 0.115 W) and the cream speed pill (0.2 W × 0.115 W);</description></item>
+    /// <item><description>the top bar: the cream Pause button in its wood rim (0.13 W), the level on a wide wooden sign
+    /// with ivy at both ends (0.42 W × 0.115 W) and the cream speed pill (0.2 W × 0.115 W);</description></item>
     /// <item><description>the HARD or SUPER HARD badge under the sign (a Super Hard level also tints the sign's
     /// letters);</description></item>
     /// <item><description>the board on the lawn inside its stone border, at most 0.86 W wide, with the thin entry strip of
@@ -86,7 +86,7 @@ namespace Bloomlings.Client.UI.Screens
             hud._backdrop = BackdropView.Create(root, BackdropScene.Gameplay);
 
             hud._topBar = UiFactory.CreateRect("TopBar", root);
-            hud._pause = (RectTransform)UiKit.RoundIconButton("Pause", hud._topBar, "ui.pause", onPause, squircle: true).transform;
+            hud._pause = (RectTransform)UiKit.RoundIconButton("Pause", hud._topBar, "ui.pause", onPause).transform;
             hud._level = UiKit.LevelPill("Level", hud._topBar, out hud._levelFace);
             hud._level.text = Loc.F("common.level", 1);
             hud._levelPill = (RectTransform)hud._levelFace.transform;

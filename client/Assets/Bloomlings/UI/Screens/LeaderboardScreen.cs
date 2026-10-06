@@ -322,23 +322,25 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// A round portrait on a cream disc (the playtest's <c>LeaderboardScreen.Portrait</c>): the <c>cream.lip</c> below, a
-        /// <c>cream.line</c> ring, the cream face, and the player's hero or the anonymous figure of another gardener.
+        /// A portrait on a cream rounded square (the avatar's shape, <see cref="AvatarLook.Radius"/>; the owner, 2026-10-06;
+        /// it was round; the playtest's <c>LeaderboardScreen.Portrait</c>): the <c>cream.lip</c> below, a <c>cream.line</c>
+        /// edge, the cream face, and the player's hero or the anonymous figure of another gardener.
         /// </summary>
         private static void Portrait(Transform row, Box line, Box face, bool player, AvatarItem? avatar)
         {
             float ring = Mathf.Max(1f, face.Width * 0.044f);
-            Image lip = UiKit.RoundRect("PortraitLip", row, UiTheme.Of(C.CreamLip));
+            float r = AvatarLook.Radius(face);
+            Image lip = UiKit.RoundRect("PortraitLip", row, UiTheme.Of(C.CreamLip), _ => r + ring);
             UiKit.PlaceBox(lip.rectTransform, face.Inset(-ring).Offset(0f, ring * 0.8f), line);
-            Image edge = UiKit.RoundRect("PortraitLine", row, UiTheme.Of(C.CreamLine));
+            Image edge = UiKit.RoundRect("PortraitLine", row, UiTheme.Of(C.CreamLine), _ => r + ring);
             UiKit.PlaceBox(edge.rectTransform, face.Inset(-ring), line);
-            Image disc = UiKit.RoundGradient("Portrait", row, C.CreamTop, C.CreamFace);
+            Image disc = UiKit.RoundGradient("Portrait", row, C.CreamTop, C.CreamFace, AvatarLook.Radius);
             UiKit.PlaceBox(disc.rectTransform, face, line);
-            // The player's avatar picture in a round mask (spec 005 FR-037), else their hero.
+            // The player's avatar picture in a rounded-square mask (spec 005 FR-037), else their hero.
             Texture2D? own = avatar == null ? null : OwnerArt.Avatar(avatar.Picture);
             if (own != null)
             {
-                Image mask = UiFactory.CreateImage("AvatarMask", row, ProceduralSprites.Circle, Color.white);
+                Image mask = UiKit.RoundRect("AvatarMask", row, Color.white, AvatarLook.Radius);
                 mask.raycastTarget = false;
                 mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
                 UiKit.PlaceBox(mask.rectTransform, face, line);

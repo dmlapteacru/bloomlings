@@ -485,7 +485,8 @@ namespace Bloomlings.Client.UI.Design
                     Max(MathF.Abs(Length(x + 0.4f, y - 0.3f) - 0.2f) - 0.05f, y - 0.3f),
                     Max(MathF.Abs(Length(x - 0.4f, y - 0.3f) - 0.2f) - 0.05f, y - 0.3f),
                     Length(x, y + 0.3f) - 0.1f),
-                ["cosmetic.frame"] = (x, y) => MathF.Abs(Length(x, y) - 0.8f) - 0.14f,
+                // The plain tinted frame: a band round the avatar's rounded square (the owner, 2026-10-06; it was a ring).
+                ["cosmetic.frame"] = (x, y) => MathF.Abs(RoundedBox(x, y, 0f, 0f, 0.8f, 0.8f, 0.5f)) - 0.14f,
                 ["cosmetic.badge"] = (x, y) => StarShape(x, y, 0.9f),
                 ["cosmetic.marker"] = (x, y) => Min(StarShape((x + 0.42f) * 1.7f, y * 1.7f, 0.9f) / 1.7f, StarShape((x - 0.42f) * 1.7f, y * 1.7f, 0.9f) / 1.7f),
 

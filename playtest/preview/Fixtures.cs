@@ -725,7 +725,7 @@ namespace Bloomlings.Playtest.Preview
             {
                 // Level 45, the Wardrobe open: the pencil opens the card on Name, "Change name" asks the host (here "Rosie")
                 // and Save keeps it; the card again on Frame lists the five free frames, then the owned ones, on the avatar;
-                // the shown one (the newest owned, Ivy) is checked until a tap picks the Leaf Ring.
+                // the shown one (the newest owned, Ivy) is checked until a tap picks the Leaf Frame.
                 DesignApp app = Progressed(App(data), content, 44);
                 CloseAll(app);
                 // Two frames and a badge as later milestones give them.
@@ -760,7 +760,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(p.Slots.Contains("cosmetic.frame") && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the frames on the avatar");
                 Tap(p, r.Cell(1));
                 Run(app, p, 0.2f);
-                Expect(editor.FrameId == "frame.leaf_ring", "a tap picks the Leaf Ring");
+                Expect(editor.FrameId == "frame.leaf_ring", "a tap picks the Leaf Frame");
             });
         }
 
@@ -1549,9 +1549,9 @@ namespace Bloomlings.Playtest.Preview
             p.Finger = null;
             Kit.PrimaryButton(p, buttons[2], PlaytestText.T("common.next"), () => { }, set: GardenLook.Orange);
 
-            // Round and squircle buttons and the speed pill.
+            // The icon buttons (rounded squares in their wood rims) and the speed pill.
             Box[] round = Spread(rows[5], new[] { 124f, 210f, 124f, 104f, 124f }, new[] { 124f, 112f, 124f, 104f, 124f }, p);
-            Kit.RoundButton(p, round[0].CenterX, round[0].CenterY, round[0].Width, "ui.pause", () => { }, squircle: true);
+            Kit.RoundButton(p, round[0].CenterX, round[0].CenterY, round[0].Width, "ui.pause", () => { });
             Kit.SpeedPill(p, round[1], true, () => { });
             Kit.RoundButton(p, round[2].CenterX, round[2].CenterY, round[2].Width, "ui.settings", () => { });
             Kit.RoundButton(p, round[3].CenterX, round[3].CenterY, round[3].Width, "ui.close", () => { });

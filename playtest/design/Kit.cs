@@ -436,22 +436,21 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A round or squircle icon button (Settings, Pause, close, back, Wardrobe, Collection; spec 005 §3.3): one domed
-        /// cream cushion with a lip, an outline and a soft shadow, and a brown glyph at 46% of the size. Pause sits
-        /// in a squircle (<paramref name="squircle"/>: radius 34% of the size; by default only Pause); the others are
-        /// circles. Close is cream with a brown ✕ like every round button. <paramref name="set"/> paints another face (the
-        /// green "+").
+        /// An icon button (Settings, Pause, close, back, edit; spec 005 §3.3): a rounded square (radius
+        /// <see cref="GardenLook.IconRadiusShare"/> of the size) in a light wood rim (<see cref="IconRim"/>) round one domed
+        /// cream cushion with a lip and an outline, and a brown glyph at about 40% of the size. Close is cream with a brown ✕
+        /// like every icon button. <paramref name="set"/> paints another face. (The owner, 2026-10-06: every round button
+        /// became a rounded square in a wood rim like Play's; they were circles, and only Pause a squircle.)
         /// </summary>
-        public static void RoundButton(IPainter p, float cx, float cy, float size, string shapeId, Action? action, Rgba? glyph = null, ColorSet? set = null, bool? squircle = null)
+        public static void RoundButton(IPainter p, float cx, float cy, float size, string shapeId, Action? action, Rgba? glyph = null, ColorSet? set = null)
         {
             p.Mark("ui.button.round");
             Box box = Box.FromCenter(cx, cy, size, size);
             ColorSet colors = set ?? GardenLook.White;
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
-            bool rounded = squircle ?? shapeId == "ui.pause";
-            Box f = IconFace(p, box, colors, rounded ? size * 0.34f : size / 2f, depth);
-            float g = size * GlyphShare(shapeId);
+            Box f = RimmedIconFace(p, box, colors, depth);
+            float g = size * GlyphShare(shapeId) * GardenLook.IconRimGlyph;
             Box glyphBox = Box.FromCenter(f.CenterX, f.CenterY, g, g);
             if (glyph.HasValue)
             {
@@ -483,7 +482,34 @@ namespace Bloomlings.Playtest.Design
         };
 
         /// <summary>
-        /// The face of a round or squircle icon button, the speed pill and the booster tile (spec 005 §3.3): a soft shadow,
+        /// The light wood rim of an icon button, the speed pill and the profile avatar (spec 005 §3.3; the owner,
+        /// 2026-10-06: a bigger border like Play's): a soft shadow and Play's light plank (<c>ui.button.rim</c>) as a rounded
+        /// rectangle of <paramref name="radius"/> filling <paramref name="box"/>, with a deeper outline and lip than Play's
+        /// (<see cref="GardenLook.IconRimOutline"/>, <see cref="GardenLook.IconRimLip"/>). Returns the box inside the rim
+        /// (<see cref="GardenLook.IconRimFace"/>).
+        /// </summary>
+        public static Box IconRim(IPainter p, Box box, float radius)
+        {
+            p.Mark("ui.button.rim");
+            SoftShadow(p, box, radius, 0.24f, 0.07f);
+            WoodPlank(p, box, radius / Math.Max(1f, box.Height), 3, outlineShare: GardenLook.IconRimOutline, lipShare: GardenLook.IconRimLip);
+            return GardenLook.IconRimFace(box);
+        }
+
+        /// <summary>
+        /// An icon button's rim and cushion: the wood rim (<see cref="IconRim"/>) round the rounded square of
+        /// <see cref="GardenLook.IconRadius"/>, and the cushion (<see cref="IconFace"/>) inside it, its corners following
+        /// the rim's. Returns the cushion's content box.
+        /// </summary>
+        public static Box RimmedIconFace(IPainter p, Box box, ColorSet set, float depth)
+        {
+            float radius = GardenLook.IconRadius(box);
+            Box inside = IconRim(p, box, radius);
+            return IconFace(p, inside, set, Math.Max(0f, radius - (inside.Left - box.Left)), depth);
+        }
+
+        /// <summary>
+        /// The face of an icon button, the speed pill and the booster tile (spec 005 §3.3): a soft shadow,
         /// the lip and the outline around a single domed cushion on cream sets (peach toward the edges, a lighter middle
         /// feathered in), or a light rim around a domed face in the set's color on colored sets. Returns the content box
         /// (9% of the shorter side inside the face), moved with the press.
@@ -532,17 +558,17 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the cream squircle style, wider,
-        /// with only the <c>ui.fast</c> chevrons (▶▶▶) in the middle, no number. While fast forward is on
-        /// (<paramref name="on"/>) it lights up: a <c>garden.glow</c> halo round the face and the chevrons in the green of a
-        /// switched-on toggle.
+        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the icon buttons' rounded square
+        /// style in its wood rim, wider, with only the <c>ui.fast</c> chevrons (▶▶▶) in the middle, no number. While fast
+        /// forward is on (<paramref name="on"/>) it lights up: a <c>garden.glow</c> halo round the rim and the chevrons in
+        /// the green of a switched-on toggle.
         /// </summary>
         public static void SpeedPill(IPainter p, Box box, bool on, Action? action)
         {
             p.Mark("ui.pill.speed");
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
-            float radius = box.Height * 0.34f;
+            float radius = GardenLook.IconRadius(box);
             if (on)
             {
                 for (int k = GardenLook.SpeedGlowLayers; k >= 1; k--)
@@ -552,9 +578,9 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            Box f = IconFace(p, box, GardenLook.White, radius, depth);
+            Box f = RimmedIconFace(p, box, GardenLook.White, depth);
             IconPart glyph = on ? GardenLook.FastGlyphOn : GardenLook.FastGlyph;
-            float side = box.Height * GardenLook.SpeedGlyphShare;
+            float side = box.Height * GardenLook.SpeedGlyphShare * GardenLook.IconRimGlyph;
             Box fast = Box.FromCenter(f.CenterX, f.CenterY, side, side);
             GlyphHalo(p, glyph.ShapeId, fast);
             p.Shape(glyph.ShapeId, fast, glyph.Fill);

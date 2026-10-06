@@ -12,12 +12,12 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// The player's profile picture (FR-061, FR-063) in the reference look (spec 005 §4.5; the playtest's
-    /// <c>Kit.Avatar</c>), placed by the kit's <see cref="AvatarLook"/>: a soft shadow and the cream lip under a round disc
-    /// that the chosen avatar's picture fills (spec 005 FR-037, <see cref="OwnerArt.Avatar"/> in a round mask inside a thin
-    /// <c>cream.line</c> ring, with no cream gap: the owner, 2026-10-06; while it is missing, the avatar's family hero in
-    /// its outfit on a soft green middle), the shown frame over the disc's edge (a drawn frame,
-    /// <see cref="ProfileFrames"/>, or the plain tinted ring), the shown badge at its foot and the leaderboard marker at its
-    /// shoulder. The profile page and its edit card use it too. The Wardrobe (its profile tab) and the leaderboard row use
+    /// <c>Kit.Avatar</c>), placed by the kit's <see cref="AvatarLook"/>: the icon buttons' light wood rim
+    /// (<see cref="UiKit.IconRim"/>) and the cream lip under a rounded-square disc that the chosen avatar's picture fills
+    /// (spec 005 FR-037, <see cref="OwnerArt.Avatar"/> in a rounded-square mask inside a thin <c>cream.line</c> ring, with no
+    /// cream gap: the owner, 2026-10-06; it was round; while it is missing, the avatar's family hero in its outfit on a soft
+    /// green middle), the shown frame over the disc's edge and the rim (a drawn frame, <see cref="ProfileFrames"/>, or the
+    /// plain tinted frame), the shown badge at its foot and the leaderboard marker at its shoulder. The profile page and its edit card use it too. The Wardrobe (its profile tab) and the leaderboard row use
     /// it, and Home's header shows it at the top right with its frame and badge (the owner's request of 2026-10-04; it was
     /// Home's Wardrobe button until the bottom menu, spec 005 FR-030, took that place). Never a touch target itself (its
     /// button is).
@@ -40,17 +40,16 @@ namespace Bloomlings.Client.UI.Screens
             BoxLayout layout = BoxLayout.On(root);
             ColorSet set = GardenLook.White;
 
-            // The shadow, the lip in its outline and the disc's ring (the playtest's order).
-            UiKit.SoftShadow(layout, AvatarLook.Lip, b => AvatarLook.Lip(b).Width / 2f, 0.2f, 0.06f);
+            // The wood rim, the lip in its outline and the disc's ring (the playtest's order).
+            UiKit.IconRim(layout, root, AvatarLook.Rim);
             Image lipLine = Disc("LipLine", root, set.Line);
             Image lip = Disc("Lip", root, set.Lip);
             Image ring = Disc("Ring", root, set.Line);
-            _middle = UiKit.RoundGradient("Middle", root, GardenLook.Green.Top.Mix(C.CreamTop, 0.6f), GardenLook.Green.Face.Mix(C.CreamTop, 0.45f));
+            _middle = UiKit.RoundGradient("Middle", root, GardenLook.Green.Top.Mix(C.CreamTop, 0.6f), GardenLook.Green.Face.Mix(C.CreamTop, 0.45f), AvatarLook.Radius);
             _middle.raycastTarget = false;
 
-            // The avatar's picture in a round mask filling the disc inside its ring.
-            _mask = UiFactory.CreateImage("PictureMask", root, ProceduralSprites.Circle, Color.white);
-            _mask.raycastTarget = false;
+            // The avatar's picture in a rounded-square mask filling the disc inside its ring.
+            _mask = Disc("PictureMask", root, Rgba.White);
             _mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
             _picture = UiFactory.CreateRect("Picture", _mask.transform).gameObject.AddComponent<RawImage>();
             _picture.raycastTarget = false;
@@ -68,7 +67,7 @@ namespace Bloomlings.Client.UI.Screens
             _figure.Body.raycastTarget = false;
             layout.Add(_figure.Rect, b => AvatarLook.Hero(PictureOf(b)));
 
-            // The frame over the disc's edge: the plain tinted ring, or a drawn frame's picture.
+            // The frame over the disc's edge: the plain tinted frame, or a drawn frame's picture.
             _frame = Decoration(root, "Frame");
             layout.Add(_frame.rectTransform, b => AvatarLook.ShapeFrame(b, AvatarLook.Disc(b)));
             _framePicture = Decoration(root, "FramePicture");
@@ -108,7 +107,7 @@ namespace Bloomlings.Client.UI.Screens
             Show(_marker, look?.Marker);
         }
 
-        /// <summary>A drawn frame's picture (<see cref="UiRaster.ProfileFrame"/>, at the rect's pixel size), else the tinted ring.</summary>
+        /// <summary>A drawn frame's picture (<see cref="UiRaster.ProfileFrame"/>, at the rect's pixel size), else the tinted frame.</summary>
         private void ShowFrame(CosmeticItem? frame)
         {
             ProfileFrameStyle? style = frame == null ? null : ProfileFrames.StyleOf(frame.Shape);
@@ -127,12 +126,13 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>The ring's width round the picture for the avatar's box (at least 2 reference units).</summary>
         private static float RingOf(Box avatar) => AvatarLook.Ring(AvatarLook.Disc(avatar), UiKit.Units(2f));
 
-        /// <summary>The picture's circle: the disc inside its ring.</summary>
+        /// <summary>The picture's rounded square: the disc inside its ring.</summary>
         private static Box PictureOf(Box avatar) => AvatarLook.Picture(AvatarLook.Disc(avatar), RingOf(avatar));
 
+        /// <summary>A rounded square of the avatar (the disc, its lip, the picture's mask): its corners <see cref="AvatarLook.Radius"/> of its side.</summary>
         private static Image Disc(string name, RectTransform root, Rgba color)
         {
-            Image image = UiKit.RoundRect(name, root, UiTheme.Of(color));
+            Image image = UiKit.RoundRect(name, root, UiTheme.Of(color), AvatarLook.Radius);
             image.raycastTarget = false;
             return image;
         }

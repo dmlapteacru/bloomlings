@@ -744,3 +744,32 @@ and contracts/look.md §3.6, §6.10.
   (`ClearingCard.ButtonShare` 0.3, was 0.2); the Petals pill has no decoration anywhere (Home's leaves and flower,
   `GardenLook.PillDecorationBoxes` and the pills' `decorate` removed). look.md §6.12 and Home's table amended; frames
   2, 3, 42 and 43 checked.
+
+
+## The owner's rounded squares and wood rims (2026-10-06, FR-007, FR-015, FR-037 as amended)
+
+- [X] T160 Kit: `GardenLook.IconRadiusShare` (0.34), `IconRimShare` (0.1), `IconRimOutline`, `IconRimLip`,
+  `IconRimGlyph`, `IconRimFaceShare`, `IconRimGlyphOfFace`, `IconRadius`, `IconRimFace`, `IconRimFaceRadius`: every icon
+  button, the speed pill and the avatar become rounded squares in a light wood rim like Play's.
+- [X] T161 Playtest: `Kit.IconRim` and `Kit.RimmedIconFace`; `Kit.RoundButton` (Settings, Pause, close, back, the pencil;
+  its `squircle` argument removed), `Kit.ArrowButton`, Home's Daily Challenge (`RoundSide`) and `Kit.SpeedPill` on them.
+- [X] T162 Unity: `UiKit.IconRim` and `UiKit.IconFace(..., rim: true)`; `RoundIconButton` (no `squircle`), `ArrowButton`,
+  `PageArrow`, `RoundPictureButton` and `SpeedPill` on them; `GameplayHud`'s Pause.
+- [X] T163 Kit: `AvatarLook` (`Rim`, `RimRadius`, `Inner`, the disc and lip inside the rim, `DiscRadiusShare` 0.32,
+  `Radius`); the plain `cosmetic.frame` shape a rounded-square band.
+- [X] T164 Both builds: the avatar a rounded square in its wood rim (`Kit.Avatar`, `Kit.AvatarPicture` with a rounded
+  clip; Unity's `ProfileAvatar` with a rounded mask), and the leaderboard's portraits rounded squares
+  (`LeaderboardScreen.Portrait` in both builds).
+- [X] T165 Kit: `UiRaster.ProfileFrame` redrawn round the rounded square (`FrameDist`, `FrameAlong`, `FrameAngle`,
+  `FramePoint`, `FrameNormal`): the wood band with its nails at the corners, the leaf vine with its leaves spread along
+  it, the twigs with pink blossoms at the sides' middles and white ones at the corners, twelve stone blocks with one bent
+  round each corner, the gold ribbon with its folds; the names Wooden Frame, Leaf Frame and Stone Frame (strings and the
+  catalog; the ids keep `_ring`).
+- [X] T166 Tests: `TheAvatarsPicture_FillsItsRoundedSquare_InsideTheWoodRim_AndTheFrameLiesOverItsEdge`,
+  `TheProfileFrames_AreRoundedSquaresOverTheDiscsEdge_EachItsOwn`.
+- [X] T167 Preview: frames 2, 3, 5, 7, 11, 17, 19, 25, 27, 31, 39, 40 and 41 checked at the three phone shapes; the
+  asset inventory regenerated (`ui.button.round`, `ui.button.rim`, `ui.pill.speed`, the frames' rows).
+- [X] T168 Docs: spec FR-007, FR-015 and FR-037 amended, contracts/look.md §3.3 (icon buttons, speed pill), §6.1, §6.4
+  and §6.11 (the avatar and the frames' recipes), CLAUDE.md's profile line.
+- [ ] T169 Unity Editor and a device: the icon buttons' rims and glyphs, the speed pill's glow round its rim, the
+  avatar's rounded mask on Home, the profile page, the edit card, the Wardrobe and the leaderboard, and each frame.

@@ -550,7 +550,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The cream round side button of the unlocked Daily Challenge (§6.4), the right column's first: the sun. The Store,
+        /// The cream side button of the unlocked Daily Challenge (§6.4), the right column's first: the sun. The Store,
         /// the Wardrobe, the Collection and the rank are the bottom menu's places since the owner's request of 2026-10-04
         /// (FR-030).
         /// </summary>
@@ -562,14 +562,14 @@ namespace Bloomlings.Playtest.Design
                 RoundSide(p, r.Daily, () => app.HomeToast("Daily Challenge: not in the playtest yet"), face =>
                 {
                     p.Mark("ui.sun");
-                    float g = face.Width * 0.72f;
+                    float g = face.Width * 0.8f;
                     OutlinedShape(p, "ui.sun", Box.FromCenter(face.CenterX, face.CenterY, g, g), C.GardenFlowerCenter, C.GardenFlowerCenterLine);
                 });
             }
         }
 
         /// <summary>
-        /// A cream round side button with a colored glyph (§3.3's domed cushion, as <see cref="Kit.RoundButton"/>):
+        /// A cream side button with a colored glyph (§3.3's rounded square in its wood rim, as <see cref="Kit.RoundButton"/>):
         /// <paramref name="glyph"/> draws into the face's content box, which moves with the press.
         /// </summary>
         private static void RoundSide(IPainter p, Box box, Action action, Action<Box> glyph)
@@ -577,7 +577,7 @@ namespace Bloomlings.Playtest.Design
             p.Mark("ui.button.round");
             float depth = Kit.Press(p, box, true);
             Kit.Squash(p, box, depth);
-            Box face = Kit.IconFace(p, box, GardenLook.White, box.Width / 2f, depth);
+            Box face = Kit.RimmedIconFace(p, box, GardenLook.White, depth);
             glyph(face);
             p.PopTransform();
             p.Hit(Kit.Touch(p, box), action);

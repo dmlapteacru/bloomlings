@@ -884,12 +884,12 @@ namespace Bloomlings.Playtest.Design
             ReferenceGameplayRegions r = Regions(p, hasBoosters, badge.HasValue);
             DesignApp.DrawBackdrop(p, BackdropScene.Gameplay, Level);
 
-            // Top bar (spec 005 §3.3, §6.1): the cream Pause squircle, the level on a wide wooden sign with ivy, and the
-            // cream speed pill. It stays while the win and milestone cards show, under their scrim and celebration, and
+            // Top bar (spec 005 §3.3, §6.1): the cream Pause button in its wood rim, the level on a wide wooden sign with
+            // ivy, and the cream speed pill. It stays while the win and milestone cards show, under their scrim and celebration, and
             // Pause and the speed pill keep their taps (see below; spec 005 FR-002).
             Action openPause = () => _app.OpenOverlay(Overlay.Pause);
             Box pause = r.Pause;
-            Kit.RoundButton(p, pause.CenterX, pause.CenterY, pause.Height, "ui.pause", openPause, squircle: true);
+            Kit.RoundButton(p, pause.CenterX, pause.CenterY, pause.Height, "ui.pause", openPause);
             p.Mark("ui.pause");
             Kit.LevelPill(p, r.Sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
             Box speed = r.Speed;

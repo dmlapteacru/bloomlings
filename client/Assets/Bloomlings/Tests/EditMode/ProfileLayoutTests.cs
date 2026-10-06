@@ -90,20 +90,27 @@ namespace Bloomlings.Client.Tests
         }
 
         /// <summary>
-        /// The owner's request of 2026-10-06: the avatar's picture fills its whole disc, inside only the thin ring, and a
-        /// drawn frame's band lies over the disc's edge; a press sinks the disc into its lip.
+        /// The owner's requests of 2026-10-06: the avatar's picture fills its whole disc, inside only the thin ring, and a
+        /// drawn frame's band lies over the disc's edge; then the avatar became a rounded square in the icon buttons' wood
+        /// rim, the disc's corners following the rim's; a press sinks the disc into its lip.
         /// </summary>
         [Test]
-        public void TheAvatarsPicture_FillsItsDisc_AndTheFrameLiesOverItsEdge()
+        public void TheAvatarsPicture_FillsItsRoundedSquare_InsideTheWoodRim_AndTheFrameLiesOverItsEdge()
         {
             var avatar = new Box(100f, 200f, 240f, 340f);
+            Box rim = AvatarLook.Rim(avatar);
+            Box inner = AvatarLook.Inner(avatar);
             Box disc = AvatarLook.Disc(avatar);
             float ring = AvatarLook.Ring(disc, 2f);
             Box picture = AvatarLook.Picture(disc, ring);
-            Assert.That(disc.Width, Is.EqualTo(disc.Height).Within(0.01f), "round");
-            Assert.That(disc.Width, Is.EqualTo(140f * (1f - AvatarLook.LipShare)).Within(0.01f));
-            Assert.That(disc.Top, Is.EqualTo(avatar.Top).Within(0.01f), "at the top, the lip under it");
-            Assert.That(AvatarLook.Lip(avatar).Bottom, Is.EqualTo(avatar.Bottom).Within(0.01f));
+            Assert.That(rim.Width, Is.EqualTo(140f).Within(0.01f), "the rim fills the avatar's square");
+            Assert.That(inner.Left - rim.Left, Is.EqualTo(140f * GardenLook.IconRimShare).Within(0.01f), "a rim as thick as the icon buttons'");
+            Assert.That(disc.Width, Is.EqualTo(disc.Height).Within(0.01f), "a square");
+            Assert.That(disc.Width, Is.EqualTo(inner.Width * (1f - AvatarLook.LipShare)).Within(0.01f));
+            Assert.That(disc.Top, Is.EqualTo(inner.Top).Within(0.01f), "at the top inside the rim, the lip under it");
+            Assert.That(AvatarLook.Lip(avatar).Bottom, Is.EqualTo(inner.Bottom).Within(0.01f));
+            Assert.That(AvatarLook.Radius(disc), Is.EqualTo(AvatarLook.RimRadius(avatar) - (inner.Left - rim.Left)).Within(0.5f), "its corners follow the rim's");
+            Assert.That(AvatarLook.Radius(disc), Is.LessThan(disc.Width / 2f), "a rounded square, not a circle");
             Assert.That(picture.Width, Is.EqualTo(disc.Width - (2f * ring)).Within(0.01f), "no cream gap: only the ring");
             Assert.That(ring / disc.Width, Is.LessThanOrEqualTo(0.035f), "a thin ring");
             Assert.That(ring, Is.GreaterThanOrEqualTo(2f), "at least the minimum");
@@ -111,8 +118,9 @@ namespace Bloomlings.Client.Tests
             Assert.That(frame.CenterX, Is.EqualTo(disc.CenterX).Within(0.01f));
             Assert.That(frame.CenterY, Is.EqualTo(disc.CenterY).Within(0.01f));
             Assert.That(AvatarLook.FrameEdge * frame.Width, Is.EqualTo(disc.Width / 2f).Within(0.01f), "the frames' bands lie on the disc's edge");
+            Assert.That(frame.Width, Is.LessThanOrEqualTo(rim.Width + 0.01f), "a drawn frame covers the rim, inside the avatar's square");
             Assert.That(AvatarLook.Disc(avatar, 1f).Top, Is.GreaterThan(disc.Top), "pressed, the disc sinks");
-            Assert.That(AvatarLook.Disc(avatar, 1f).Bottom, Is.LessThanOrEqualTo(avatar.Bottom), "into its lip, never below it");
+            Assert.That(AvatarLook.Disc(avatar, 1f).Bottom, Is.LessThanOrEqualTo(inner.Bottom), "into its lip, never below it");
         }
     }
 }

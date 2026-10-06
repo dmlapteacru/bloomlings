@@ -241,15 +241,27 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
   face sinks (existing press depth) and darkens by 8%. Decorations (leaves and flower at the corners) stay.
 - **Secondary** (`Kit.SecondaryButton`): the cream set on a cream plate (`ParchmentEdge` depth), brown label, optional
   brown glyph on the left (Restart's ⟳).
-- **Round / squircle icon buttons** (`Kit.RoundButton`, `Kit.IconFace`): a single domed cream cushion: the face
-  `CreamFace` → `CreamFace.Darken(0.04)` (peach toward the edges) with a lighter `CreamTop` middle feathered in from 8%
-  of the size (three steps, no inner ring, no dish), a `CreamLip` lower edge (7% of the size), a soft tan `CreamLine`
-  outline (`GardenLook.IconLineCream` = 4.5% since the owner's 2026-10-06 "make it bigger so they show"; it was 2%; 4% on colored sets), a soft shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 46% of the size with a thin `CreamTop`
-  halo all around it (the shape grown by 0.06). Pause and speed in the top bar are squircles (radius 34% of the height)
-  of the same height; Settings, back and close are circles. Close is cream with a brown ✕ (no longer red).
-- **Speed pill** (`Kit.SpeedPill(p, box, on, action)` / `UiKit.SpeedPill`, replaces `DarkPill`): the cream squircle
-  style, as tall as Pause and wider, with only the `ui.fast` glyph in the middle (▶▶▶: three notched chevrons, its box
-  `GardenLook.SpeedGlyphShare` = 74% of the pill's height, in the cream halo), no number (the owner, 2026-10-06; it showed
+- **Icon buttons** (`Kit.RoundButton`, `Kit.RimmedIconFace`, `Kit.IconFace`; Unity `UiKit.RoundIconButton`,
+  `UiKit.IconFace(..., rim: true)`): since the owner's request of 2026-10-06 ("our layout and main buttons are
+  rectangular; turn the round buttons and the profile into squares, then the border can be bigger, like Play's") every
+  icon button is a rounded square, its corners `GardenLook.IconRadiusShare` (34%) of its side: Settings, Pause, close,
+  back, the pencil, the ‹ › arrows and Home's Daily Challenge (they were circles, and only Pause a squircle). Each sits in
+  the light wood rim (`Kit.IconRim` / `UiKit.IconRim`, slot `ui.button.rim`): a soft shadow (0.24, 0.07 down) and Play's
+  pale plank as a rounded square filling the button, `GardenLook.IconRimShare` (10%) of its side wide, its outline
+  `IconRimOutline` (3% of its height) and lip `IconRimLip` (4.5%) a little deeper than Play's. Inside the rim
+  (`GardenLook.IconRimFace`) a single domed cream cushion, its corners following the rim's
+  (`GardenLook.IconRimFaceRadius`: 0.24 of the button's side): the face `CreamFace` → `CreamFace.Darken(0.04)` (peach
+  toward the edges) with a lighter `CreamTop` middle feathered in from 8% of the size (three steps, no inner ring, no
+  dish), a `CreamLip` lower edge (7% of the size), a soft tan `CreamLine` outline (`GardenLook.IconLineCream` = 4.5% of
+  the cushion since the owner's 2026-10-06 "make it bigger so they show"; it was 2%; 4% on colored sets), a soft
+  shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 40% of the button (`GardenLook.IconRimGlyph`, 0.88 of
+  the 46% it had without the rim) with a thin `CreamTop` halo all around it (the shape grown by 0.06). Close is cream
+  with a brown ✕ (no longer red). The booster tiles keep their own squircle and bezel (§3.7); the Petals pill's green +
+  and the toggles' knobs stay round.
+- **Speed pill** (`Kit.SpeedPill(p, box, on, action)` / `UiKit.SpeedPill`, replaces `DarkPill`): the icon buttons'
+  rounded square in its wood rim, as tall as Pause and wider, with only the `ui.fast` glyph in the middle (▶▶▶: three
+  notched chevrons, its box `GardenLook.SpeedGlyphShare` = 74% of the pill's height times `IconRimGlyph`, in the cream
+  halo), no number (the owner, 2026-10-06; it showed
   "1×"/"2×" and ▶▶). Off: brown chevrons (`GardenLook.FastGlyph`). On (fast forward, 3×, `PlaySpeed.Fast`, or on its
   own while no pod can be tapped): lit, with `SpeedGlowLayers` (4) rings of `garden.glow` round the face, each grown by
   `SpeedGlowGrow` (4.5%) of the height and sharing `SpeedGlowAlpha` (0.85), and the chevrons in `ButtonPrimary` green
@@ -529,7 +541,7 @@ Positions and order stay as in spec 002; only the looks change.
 
 ### 4.1 Gameplay (frames 7–9, 12–14, 21–23)
 
-- Top bar: Pause squircle, level `WoodSign` (Ivy) instead of the level pill, speed pill.
+- Top bar: Pause (a rounded square in its wood rim), level `WoodSign` (Ivy) instead of the level pill, speed pill.
 - Board: lawn backdrop, `StoneBorder`, candy tiles (board style, gem icons §3.1.2), restored ground of a picture role as
   pale flat cells (`PictureColor` lightened 0.55, radius 10%, no bevel, a faint inner shadow), the cells of the picture's
   background (no role, no stone) as grass (owner's review: `Kit.GrassCell` / `UiKit.GrassCell` / Unity
@@ -818,7 +830,7 @@ left a choice, the implementation fixes it as noted under each table ("Fixed:").
 
 | Region | Box |
 |---|---|
-| Top bar | top `0.012W`, height `0.13W`: Pause squircle `0.13W` at the left edge + `0.04W`; the level sign `0.42W × 0.115W` centered, with ivy over its ends; the speed pill `0.2W × 0.115W` at the right edge − `0.04W` |
+| Top bar | top `0.012W`, height `0.13W`: Pause (rounded square in its wood rim) `0.13W` at the left edge + `0.04W`; the level sign `0.42W × 0.115W` centered, with ivy over its ends; the speed pill `0.2W × 0.115W` at the right edge − `0.04W` |
 | Board | between the top bar (+ `0.02W`) and the entry strip: the stone border's outer box at most `0.86W` wide, centered; the grid inside it (border 0.42 cell + gap 0.04 cell); cells as large as fit |
 | Entry strip | under the board, `0.04W` tall, plain lawn, whatever the entries (since 2026-10-03; before, `0.17W` with the arch for bottom entries) |
 | Tray | from the entry strip to the bottom of the screen (under the bottom inset too), full width, parchment with rounded top corners (radius `0.06W`) and a soft top shadow; inner padding `0.035W` at the sides, `0.025W` at the top, the bottom inset + `0.02W` at the bottom |
@@ -1005,7 +1017,7 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 | Logo | none on Home since the owner's tuning of 2026-10-05 (FR-036); the box stays for the splash's wordmark: `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
 | Promo scenes | in the logo's place from 17.5% of H (`PromoTopShare`, or `0.02W` under Settings): No Ads at the left, the Daily Reward at the right, each `0.2835W` wide (`HomePromo.WidthShare` × `PromoScale` 1.05) and `0.67` of that tall, `0.04W` from the edge (`ReferenceHomeRegions.NoAds`, `.DailyReward`; §6.4.1), each on a cream plate with soft shadows (FR-036, below) |
-| Side buttons | the Daily Challenge (right) as a cream round button `0.13W` under the Daily Reward's promo scene with `0.086W` between them (`DailyGapShare`; `0.03W` before 2026-10-05) (at 24% of H before the promo scenes), `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places (the avatar came back the same day, without the shirt badge, at the right of the header row) |
+| Side buttons | the Daily Challenge (right) as a cream icon button (rounded square in its wood rim) `0.13W` under the Daily Reward's promo scene with `0.086W` between them (`DailyGapShare`; `0.03W` before 2026-10-05) (at 24% of H before the promo scenes), `0.04W` from the edge (`SideButton(right, i)` for more). Since the owner's bottom menu (2026-10-04, FR-030, §6.7) the Store, the Wardrobe (the profile avatar with its shirt badge), the Collection and the rank pill are gone from Home: they are the menu's places (the avatar came back the same day, without the shirt badge, at the right of the header row) |
 | Level plaque | wooden sign `0.4W × 0.068H` (`PlaqueWidthShare`, `PlaqueShare`; `0.5W × 0.085H` before 2026-10-05), centered, `0.01H` over Play |
 | Play | the primary button (wood rim, decorated, breathing), `0.68W` wide, `0.12H` tall (`PlayWidthShare`, `PlayShare`; `0.85W × 0.15H` before 2026-10-05), ending over the teaser row; the label "Play" alone (no arrow), half the button's height (`ReferenceHomeRegions.PlayLabelShare`) |
 | Teaser | the milestone teaser as a small parchment pill (`0.5W × 0.04H`) centered under Play, its row's touch boxes ending on the bottom menu's top (`0.015W` over it before 2026-10-05); the free booster as a cream pill beside it when offered |
@@ -1440,7 +1452,7 @@ show them.
 `ScreenLayout.ReferenceProfile` (`ReferenceProfileRegions`), in shares of the safe width W: the Store page's header
 and panel (§6.6), no bottom menu (Home's avatar opens the page; back returns Home). From `0.045W` under the panel's top,
 `0.88W` wide: the card `0.55W` tall (a cream row, `Kit.Row` / `UiKit.Row`): the avatar `0.3W` at `0.05W` in; beside it,
-`0.05W` on, the name `0.09W` tall (`type.title`, `ink.title`) with the pencil (`ui.edit` on a round button, `0.11W`) at
+`0.05W` on, the name `0.09W` tall (`type.title`, `ink.title`) with the pencil (`ui.edit` on an icon button, `0.11W`) at
 its end, the ID and the joining month `0.06W` each (`type.body`, `ink.brown_soft`); the wooden plaque "Level N"
 (`0.5W × 0.11W`, `type.level_pill`) `0.04W` under the avatar. Then the stat cells `0.2W` tall (three parchment wells
 `0.03W` apart: the count in `type.level_pill`, the label in `type.caption`), the "Achievements" title `0.08W` tall
@@ -1456,41 +1468,51 @@ The edit card (`ScreenLayout.ProfileEdit`, `ProfileEditRegions`): `ScreenLayout.
 `Kit.Tabs` / `UiKit.Tabs`), the preview `190` tall `22` lower (the picked avatar in the picked frame and badge, the name
 beside it), the grid `22` lower (four rows of four cells, `196` square and `14` apart, smaller to fit; each cell the
 avatar on its disc at `0.8` of the cell, a cost pill over its foot while it is for sale, the green check at its upper
-right when picked, a green disc behind the picked avatar), and the main button (`card.primary_height`) at the body's
-bottom: "Save" or "Buy for N". The Name tab: a cream well across the grid's top holding the name (Unity: a
+right when picked, a green rounded square behind the picked avatar), and the main button (`card.primary_height`) at
+the body's bottom: "Save" or "Buy for N". The Name tab: a cream well across the grid's top holding the name (Unity: a
 `TMP_InputField`; the playtest: the name and a "Change name" button asking the host's text dialog), its hint under it.
 Frame and Badge: the listed items on the picked avatar (`ProfileEditor.Owned`: the five free frames first, from Level
 1, then every owned frame or badge once the Wardrobe is open), each on `ProfileEditRegions.CellItemAvatar` (the cell's
 picture box `0.06` of the cell smaller on each side, so a drawn frame about fills the picture box), the picked one on
-the green disc (`PickedShare`, a radius `0.56` of the picture box) with the check; a note with the padlock while a tab
+the green rounded square (`PickedShare`: half its side `0.56` of the picture box, `ProfileEditRegions.Picked`; a
+disc before the owner's rounded squares) with the check; a note with the padlock while a tab
 has nothing to list before the Wardrobe opens (the Badge tab: "Badges open at level N", `profile.badges_locked`). The
 Frame tab holds at most 11 frames today (three rows), so the four-a-row grid needs no scrolling.
 
 The avatar (`AvatarLook`, both builds; the owner, 2026-10-06: "the icon in the profile must be stretched over the
-whole circle"): in the avatar's square box of side `s`, a soft shadow (`Kit.SoftShadow` / `UiKit.SoftShadow`, 0.2,
-0.06 down) under the lip, the lip a circle `(1 - LipShare) s` (`LipShare` = 0.06) at the box's bottom in `cream.lip`
-with a `cream.line` outline the ring's width, and the disc the same circle at the box's top, so a `0.06 s` crescent of
-lip shows under it; a press sinks the disc by 0.7 of the lip and darkens it by 8% (`garden.shadow`), as the round
-buttons. The disc is `cream.line`, and the avatar's picture fills it inside a ring of `RingShare` (0.03) of the disc,
-at least 2 reference units: a circle clipped round (the playtest's `IPainter.PushClipRound`; Unity's `Mask` with the
-circle sprite), with no cream gap. While the picture is missing, the soft green middle fills the same circle with the
-family hero at 0.82 of it. The frame lies over the disc's edge, centered on the disc: a drawn frame's picture
-`FrameShare` (1.25) of the disc (its band on the disc's edge, `FrameEdge` = 0.4 of the picture from its middle), or the
-plain `cosmetic.frame` ring in its tint at 1.08 of `s`; the badge `0.36 s` at the disc's lower left
-(`-0.36 s`, `+0.36 s`), the leaderboard marker at its upper right. The leaderboard's own row keeps its portrait disc
-(`cream.lip`, `cream.line`, the picture filling the face with a thin `cream.line` stroke).
+whole circle", then later that day the avatar became a rounded square in the icon buttons' wood rim; it was round): in
+the avatar's square box of side `s`, the light wood rim (`Kit.IconRim` / `UiKit.IconRim`, `AvatarLook.Rim`, corners
+`0.34 s`, `0.1 s` wide, its soft shadow), and inside it (`AvatarLook.Inner`, side `0.8 s`) the lip, a rounded square
+`(1 - LipShare)` of that side (`LipShare` = 0.06) at its bottom in `cream.lip` with a `cream.line` outline the ring's
+width, and the disc the same rounded square at its top, so a band of lip shows under it; their corners are
+`AvatarLook.DiscRadiusShare` (0.32) of their side, following the rim's (`AvatarLook.Radius`). A press sinks the disc by
+0.7 of the lip and darkens it by 8% (`garden.shadow`), as the icon buttons. The disc is `cream.line`, and the avatar's
+picture fills it inside a ring of `RingShare` (0.03) of the disc, at least 2 reference units: clipped to its rounded
+square (the playtest's `IPainter.PushClipRound` with the radius; Unity's `Mask` on a `UiKit.RoundRect`), with no cream
+gap. While the picture is missing, the soft green middle fills the same rounded square with the family hero at 0.82 of
+it. The frame lies over the disc's edge and the rim, centered on the disc: a drawn frame's picture `FrameShare` (1.25)
+of the disc (its band on the disc's rounded-square edge, `FrameEdge` = 0.4 of the picture from its middle; the picture
+stays inside the avatar's square), or the plain `cosmetic.frame` band (a rounded square) in its tint at 1.08 of `s`; the
+badge `0.36 s` at the disc's lower left (`-0.36 s`, `+0.36 s`), the leaderboard marker at its upper right. The
+leaderboard's portraits are rounded squares too (`cream.lip`, `cream.line`, the picture filling the face with a thin
+`cream.line` stroke).
 
 The five free frames (`ProfileFrames`, `UiRaster.ProfileFrame(size, style)`; slots `cosmetic.frame.{shape}`; catalog
 items `frame.{shape}` with `"free": true`): square straight-alpha pictures in units of their side from the middle, the
-disc's edge at `0.4`, every band lit from the upper left (`(-0.42, -0.62, 0.66)`, a band's cross-section a half
-circle) and casting a soft `garden.shadow` 0.014 lower (feathered over 0.03); outlines `max(1.1 px, 0.0065)`.
+disc's edge a rounded square of half side `0.4` with corners of radius `0.256` (the disc's `DiscRadiusShare`; the
+frames were rings until the owner's rounded square of 2026-10-06, and their catalog ids keep the names of then). A
+band's place across it is its distance from that rounded square (`FrameDist`: `0.4` on the edge, as a ring's radius
+was) and its place along it the length round it from the right side's middle, clockwise (`FrameAlong`, as a ring's
+angle was); every band is lit from the upper left (`(-0.42, -0.62, 0.66)`, a band's cross-section a half circle, its
+outward direction out of a side or out of a corner's middle) and casts a soft `garden.shadow` 0.014 lower (feathered
+over 0.03); outlines `max(1.1 px, 0.0065)`.
 
 | Frame | Recipe |
 |---|---|
-| Wooden Ring (`wood_ring`) | a band from `0.344` to `0.45`: `wood.mid` to `wood.light` from the bottom up, 38% toward `wood.edge`, turned grain (radial noise streaks of `wood.grain`, warped a little) and two carved `wood.line` lines near its edges with a `wood.light` edge beside each, lit to `wood.light`, shaded to `wood.grain`, the `wood.line` outline 1.3 times as wide; four brass nails at the diagonals on its middle (`medal.gold` lit from the upper left, a `wood.line` rim, a `ray.light` glint) |
-| Leaf Ring (`leaf_ring`) | a vine on the edge (`garden.leaf_3` toward `garden.leaf_2` in the light, half width `0.015`, a lighter streak, the `garden.leaf_line` outline) and twenty almond leaves on it (the bottom menu's leaf: the three garden greens, a lighter side, the midrib), all turning clockwise, the even ones leaning out (`0.118` long) and the odd ones in (`0.092`) |
-| Flower Wreath (`flower_wreath`) | two twigs twisted round the edge (`wood.dark` to `wood.dark_top` in the light, `wood.dark_line` outlines, five twists, the one behind drawn first), sixteen small leaves between, and eight five-petal blossoms on the edge at `22.5°` and every `45°`, pink (`lotus.fill`, a `lotus.tip` middle, `lotus.line`) and white (`garden.flower`) by turns, golden middles (`garden.flower_center`) |
-| Stone Ring (`stone_ring`) | mortar (`stone.lip` 32% darker) under ten wedge-cut blocks of sandy stone from `0.338` to `0.456`, their joints running straight out from the middle, a little uneven, each block of its own size with rounded corners: `stone.face` 25% toward `stone.lip`, to `stone.top` in the light, mottled, a few `stone.lip` speckles, deeper toward its edges, the side away from the light `stone.lip`, a light bevel along the lit edge, the `stone.line` outline 1.3 times as wide; two blocks (upper left, lower right) with a tuft of `stone.moss` over their outer edge |
+| Wooden Frame (`wood_ring`) | a band from `0.344` to `0.45`: `wood.mid` to `wood.light` from the bottom up, 38% toward `wood.edge`, turned grain (radial noise streaks of `wood.grain`, warped a little) and two carved `wood.line` lines near its edges with a `wood.light` edge beside each, lit to `wood.light`, shaded to `wood.grain`, the `wood.line` outline 1.3 times as wide; four brass nails at its corners' middles on the band's middle (`medal.gold` lit from the upper left, a `wood.line` rim, a `ray.light` glint) |
+| Leaf Frame (`leaf_ring`) | a vine on the edge (`garden.leaf_3` toward `garden.leaf_2` in the light, half width `0.015`, a lighter streak, the `garden.leaf_line` outline) and twenty almond leaves on it (the bottom menu's leaf: the three garden greens, a lighter side, the midrib), spread evenly along it, all turning clockwise, the even ones leaning out (`0.118` long) and the odd ones in (`0.092`) |
+| Flower Wreath (`flower_wreath`) | two twigs twisted round the edge (`wood.dark` to `wood.dark_top` in the light, `wood.dark_line` outlines, five twists, the one behind drawn first), sixteen small leaves between, and eight five-petal blossoms on the edge, pink (`lotus.fill`, a `lotus.tip` middle, `lotus.line`) at the sides' middles and white (`garden.flower`) at the corners, golden middles (`garden.flower_center`) |
+| Stone Frame (`stone_ring`) | mortar (`stone.lip` 32% darker) under twelve blocks of sandy stone from `0.338` to `0.456`, three a quarter with one bent round each corner, their joints running straight across the band, a little uneven, each block of its own size with rounded corners: `stone.face` 25% toward `stone.lip`, to `stone.top` in the light, mottled, a few `stone.lip` speckles, deeper toward its edges, the side away from the light `stone.lip`, a light bevel along the lit edge, the `stone.line` outline 1.3 times as wide; two blocks (the upper left and lower right corners') with a tuft of `stone.moss` over their outer edge |
 | Golden Ribbon (`golden_ribbon`) | a gold satin band from `0.356` to `0.444` (`medal.gold`, lit to `ray.light`, shaded 30% deeper) wound round in eighteen folds (a deep line where a fold tucks under, a sheen after it), the outline `medal.gold` 50% darker; a gold five-point star on its top (radius `0.082`, lit from the upper left, a glint) and a pink bow at its bottom (`lotus.fill` tails with a bite out of each end, two loops tilted up with their shaded insides, the knot with a `lotus.tip` light; `lotus.line` outlines) |
 
 

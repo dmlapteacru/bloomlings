@@ -69,13 +69,13 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A cream round ‹ or › button (§4.6: the Wardrobe's hero arrows and its pages; the playtest's
-        /// <c>Kit.ArrowButton</c>): the round button's domed cushion with a brown chevron in its cream halo, pointing right
-        /// when <paramref name="next"/>. Not interactable, it fades to 55%. The button is the largest square in its rect.
+        /// A cream ‹ or › button (§4.6: the Wardrobe's hero arrows and its pages; the playtest's <c>Kit.ArrowButton</c>):
+        /// the icon buttons' rounded square in its wood rim with a brown chevron in its cream halo, pointing right when
+        /// <paramref name="next"/>. Not interactable, it fades to 55%. The button is the largest square in its rect.
         /// </summary>
         public static Button ArrowButton(string name, Transform parent, bool next, Action onClick)
         {
-            GardenButton view = IconFace(name, parent, GardenLook.White, b => b.Height / 2f, square: true, raycast: true);
+            GardenButton view = IconFace(name, parent, GardenLook.White, GardenLook.IconRimFaceRadius, square: true, raycast: true, rim: true);
             view.GreyWhenDisabled = false;
             view.FadeWhenDisabled = true;
             Image glyph = UiFactory.CreateImage("Chevron", view.Content, ProceduralSprites.Haloed("ui.chevron", C.InkBrown, C.CreamTop), Color.white);
@@ -89,8 +89,8 @@ namespace Bloomlings.Client.UI
             float side = next ? 1f : -1f;
             BoxLayout.On(view.Content).Add(glyph.rectTransform, f =>
             {
-                float g = view.IconSide * 0.5f;
-                return Box.FromCenter(f.CenterX + (view.IconSide * 0.03f * side), f.CenterY, g, g);
+                float g = view.IconSide * 0.5f * GardenLook.IconRimGlyphOfFace;
+                return Box.FromCenter(f.CenterX + (view.IconSide * 0.03f * side / GardenLook.IconRimFaceShare), f.CenterY, g, g);
             });
             return Clickable(view, onClick);
         }

@@ -43,8 +43,8 @@ namespace Bloomlings.Client.UI
         }
 
         /// <summary>
-        /// A cream round ‹ or › button (spec 005 §4.6: the Store's and the Collection's pages; the playtest's
-        /// <c>Kit.ArrowButton</c>): the round button's domed cushion, 100/132 of the rect (place a touch-sized square,
+        /// A cream ‹ or › button (spec 005 §4.6: the Store's and the Collection's pages; the playtest's
+        /// <c>Kit.ArrowButton</c>): the icon buttons' rounded square in its wood rim, 100/132 of the rect (place a touch-sized square,
         /// <c>size.touch_min</c>, so the 100-unit arrow keeps a full touch target), with the brown chevron (half the
         /// cushion, nudged the way it points) in its cream halo, pointing right when <paramref name="next"/>. Not
         /// interactable, it fades to 55% and takes no tap.
@@ -52,7 +52,7 @@ namespace Bloomlings.Client.UI
         public static Button PageArrow(string name, Transform parent, bool next, Action onClick)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent, raycast: true);
-            GardenButton face = IconFace("Face", root, GardenLook.White, b => Mathf.Min(b.Width, b.Height) / 2f, square: true);
+            GardenButton face = IconFace("Face", root, GardenLook.White, GardenLook.IconRimFaceRadius, square: true, rim: true);
             face.GreyWhenDisabled = false;
             face.FadeWhenDisabled = true;
             Image glyph = GardenGlyph(face, face.Content, "ui.chevron");
@@ -65,8 +65,8 @@ namespace Bloomlings.Client.UI
 
             BoxLayout.On(face.Content).Add(glyph.rectTransform, f =>
             {
-                float g = face.IconSide * 0.5f;
-                return Box.FromCenter(f.CenterX + (face.IconSide * 0.03f * m), f.CenterY, g, g);
+                float g = face.IconSide * 0.5f * GardenLook.IconRimGlyphOfFace;
+                return Box.FromCenter(f.CenterX + (face.IconSide * 0.03f * m / GardenLook.IconRimFaceShare), f.CenterY, g, g);
             });
             layout.Add((RectTransform)face.transform, b =>
             {

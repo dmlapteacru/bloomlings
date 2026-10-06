@@ -650,7 +650,7 @@ must be fixed: at 0 it shows crooked, somewhere in the middle, the lotus itself 
 ### User Story 1 - The board and the tray look like the reference (Priority: P1)
 
 A player opens a level. The board is a picture of saturated candy tiles, each with a small embossed symbol, framed by a
-stone border on a lawn. A wooden sign shows the level between cream round buttons. The tray below is parchment: cream
+stone border on a lawn. A wooden sign shows the level between cream icon buttons. The tray below is parchment: cream
 Waiting Slots, cream booster tiles with green count badges, and wooden framed pods holding a variant tile and its count.
 
 **Why this priority**: the owner named the board first ("особенно то как выглядит борд"), and gameplay is what the
@@ -812,9 +812,13 @@ inventory.
 
 #### C. Buttons and controls
 
-- **FR-007**: Buttons MUST be glossy raised faces as in the reference: a face with a lighter top, a darker lip, a
-  highlight band, an outline in a darker shade and a soft shadow. Main actions are green with white letters outlined in
-  dark green, and sit in a light wood rim. Secondary actions and icon buttons are cream with brown glyphs and letters.
+- **FR-007** *(amended on 2026-10-06, the owner: "our layout and main buttons are rectangular, shall we turn every
+  round button and the profile into squares? then the border can be bigger, like Play's")*: Buttons MUST be glossy
+  raised faces as in the reference: a face with a lighter top, a darker lip, a highlight band, an outline in a darker
+  shade and a soft shadow. Main actions are green with white letters outlined in dark green, and sit in a light wood
+  rim. Secondary actions and icon buttons are cream with brown glyphs and letters. Icon buttons (Settings, Pause,
+  close, back, the pencil, the ‹ › arrows, the Daily Challenge) and the speed pill MUST be rounded squares in the same
+  light wood rim (contracts/look.md §3.3); they were circles, and only Pause a squircle.
   Jam choices are big green or blue rounded buttons with the icon above the label. The pressed state sinks the face
   into its lip.
 - **FR-008**: The level label in gameplay and the titles of the win card, the Wardrobe and the Store are wooden signs
@@ -845,8 +849,8 @@ inventory.
 
 #### E. Popups, celebration and meta
 
-- **FR-015**: Cards and the jam sheet MUST be parchment with a brown outline and a cream round close button with a
-  brown ✕. The jam sheet MUST show the reference's content in our layout: title, subtitle, the inset row of slot
+- **FR-015**: Cards and the jam sheet MUST be parchment with a brown outline and a cream close button with a brown ✕
+  (a rounded square in its wood rim since FR-007 as amended on 2026-10-06). The jam sheet MUST show the reference's content in our layout: title, subtitle, the inset row of slot
   contents, the recovery choices as big colored buttons with cost pills, the free rescue and Restart.
 - **FR-016**: The win card MUST show the wooden sign with flowers, the finished picture as full-color tiles in a stone
   frame, the heroes on a stone pedestal with light rays and falling petals, the reward pill and Next in a wooden rim.
@@ -1079,7 +1083,11 @@ inventory.
   pill) and panel, no bottom menu; the player's card (the chosen avatar's round picture on the cream disc in the
   shown frame and badge *(amended 2026-10-06, the owner: "the icon in the profile must be stretched over the whole
   circle": the picture MUST fill the avatar's whole disc inside a thin `cream.line` ring, with no cream gap, wherever
-  the avatar shows, the frame drawn over the disc's edge; `AvatarLook`)*, a tap opening the edit card on Avatar; the
+  the avatar shows, the frame drawn over the disc's edge; `AvatarLook`; amended again on 2026-10-06, the owner: "our
+  layout and main buttons are rectangular, shall we turn every round button and the profile into squares? then the
+  border can be bigger, like Play's": the avatar MUST be a rounded square in the icon buttons' light wood rim, its
+  picture filling the rounded square inside the rim, and the leaderboard's portraits rounded squares too; it was
+  round)*, a tap opening the edit card on Avatar; the
   name, "Gardener NNNN" until one is chosen, with the pencil opening it on Name; "ID: XXXXXXXX", the first 8
   characters of the local player ID; "Playing since MM/YYYY";
   the wooden "Level N" plaque); three stat cells (levels won, pictures collected, milestones reached); and
@@ -1091,11 +1099,13 @@ inventory.
   the picked frame and badge with the name, the tab's grid of four a row (the 14 avatars, free first, the others with
   their Petal price until bought, the picked one checked; the owned frames or badges on the avatar, locked until the
   Wardrobe opens *(amended 2026-10-06, the owner: "make a couple of different frames for the user, they can be free,
-  5 of them": five visibly different frames, Wooden Ring, Leaf Ring, Flower Wreath, Stone Ring and Golden Ribbon,
+  5 of them": five visibly different frames, Wooden Frame, Leaf Frame, Flower Wreath, Stone Frame and Golden Ribbon
+  (drawn as rings until the avatar became a rounded square later that day; now rounded-square frames, their catalog ids
+  unchanged),
   drawn by the kit in the reference look (`ProfileFrames`, `UiRaster.ProfileFrame`, contracts/look.md §6.11) MUST be
   every player's from Level 1 (the catalog's `free` items: owned without a save entry, never given, sold or shown by
   default), listed first in the Frame tab, before the Wardrobe opens too, the picked one on a green disc with the check;
-  only the Badge tab stays locked until the Wardrobe opens, and the earlier frames keep their tinted ring)*; the
+  only the Badge tab stays locked until the Wardrobe opens, and the earlier frames keep their tinted band)*; the
   name's field, the playtest asking with the system's text dialog), and one button: "Save" keeps every choice and
   closes the card; "Buy for N" buys the picked avatar once (`ProfileService.TryBuy`), short Petals say so. A name is 1–16 letters, digits, spaces, `_ - .` (Latin and Cyrillic). The avatar shows on Home, the page, the
   card, the Wardrobe's profile tab and the player's own leaderboard row; while its picture is missing, its family's

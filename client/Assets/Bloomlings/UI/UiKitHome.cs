@@ -14,14 +14,14 @@ namespace Bloomlings.Client.UI
     public static partial class UiKit
     {
         /// <summary>
-        /// A cream round side button of Home (§6.4) with a colored picture: the round button's domed cushion
+        /// A cream side button of Home (§6.4) with a colored picture: the icon buttons' rounded square in its wood rim
         /// (<see cref="IconFace"/>) with the image <paramref name="picture"/> makes in its content, a square
         /// <paramref name="share"/> of the cushion wide, moving with the press. The button is the largest square in its
         /// rect.
         /// </summary>
         public static Button RoundPictureButton(string name, Transform parent, Func<Transform, Image> picture, float share, Action onClick)
         {
-            GardenButton view = IconFace(name, parent, GardenLook.White, b => b.Height / 2f, square: true, raycast: true);
+            GardenButton view = IconFace(name, parent, GardenLook.White, GardenLook.IconRimFaceRadius, square: true, raycast: true, rim: true);
             Image image = picture(view.Content);
             image.raycastTarget = false;
             BoxLayout.On(view.Content).Add(image.rectTransform, f =>
