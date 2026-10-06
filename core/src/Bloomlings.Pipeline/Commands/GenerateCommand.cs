@@ -196,10 +196,11 @@ namespace Bloomlings.Pipeline.Commands
         /// <summary>
         /// Generates <paramref name="first"/>–<paramref name="last"/> into <paramref name="history"/>. With more than one
         /// segment (<see cref="Segments"/>) the range is cut into contiguous segments generated in parallel on
-        /// <paramref name="jobs"/> threads, each knowing only the fixed history; the levels near a segment's start that then
-        /// break a repetition rule with their neighbours (<see cref="LevelGenerator.Conflicts"/>) are generated again
-        /// between them, until none does. The result depends on the segments only, never on the threads. Returns the
-        /// accepted levels (one per level number) and how many were generated again.
+        /// <paramref name="jobs"/> threads, each knowing only the fixed history. Then, seam by seam in level order, the
+        /// later segment's first levels that break a repetition rule (<see cref="LevelGenerator.Conflicts"/>) with the
+        /// levels before them are generated again between their neighbours on both sides, until none does: of two levels
+        /// that clash across a seam only the later one is redone. The result depends on the segments only, never on the
+        /// threads. Returns the accepted levels (one per level number) and how many were generated again.
         /// </summary>
         /// <param name="minSegmentLength">The shortest segment: the repetition window, shorter only in tests.</param>
         public static (GenerationResult Result, int SeamRepairs) GenerateRange(Func<LevelGenerator> newGenerator, int first, int last, ulong seed, SortedDictionary<int, LevelDefinition> history, ISet<int> kept, int segments, int jobs, int minSegmentLength = PicturePicker.RepeatWindow)
@@ -232,31 +233,16 @@ namespace Bloomlings.Pipeline.Commands
                 merged.Failed.AddRange(part.Failed);
             }
 
-            // The seams: a segment's first levels never saw the previous segment's last ones.
+            // The seams: a segment's first levels never saw the previous segment's last ones. Seam by seam, in level order,
+            // the later segment's first levels are judged against every level before them (the earlier segments and their
+            // own segment), and those that break a repetition rule are generated again between their neighbours on both
+            // sides. So of two levels that clash across a seam only the later one is redone, and the earlier segment keeps
+            // its levels as generated; the later segments' levels do not count yet, as their own seams come later.
             LevelGenerator repairer = newGenerator();
             int repairs = 0;
-            var seamLevels = new List<int>();
-            for (int k = 1; k < bounds.Count; k++)
+            void Redo(List<int> broken, ulong repairSeed)
             {
-                for (int l = bounds[k].First - PicturePicker.RepeatWindow; l < bounds[k].First + PicturePicker.RepeatWindow; l++)
-                {
-                    if (l >= first && l <= last && !kept.Contains(l))
-                    {
-                        seamLevels.Add(l);
-                    }
-                }
-            }
-
-            for (int round = 0; round < 8; round++)
-            {
-                var readOnly = new SortedDictionary<int, LevelDefinition>(history);
-                var broken = seamLevels.Where(l => readOnly.ContainsKey(l) && LevelGenerator.Conflicts(l, readOnly).Count > 0).ToList();
-                if (broken.Count == 0)
-                {
-                    break;
-                }
-
-                GenerationResult again = repairer.Regenerate(broken, seed ^ (0x5EA3UL * (ulong)(round + 1)), history);
+                GenerationResult again = repairer.Regenerate(broken, repairSeed, history);
                 repairs += broken.Count;
                 foreach (int level in broken)
                 {
@@ -271,6 +257,57 @@ namespace Bloomlings.Pipeline.Commands
                 merged.Rejections.AddRange(again.Rejections);
                 merged.Failed.RemoveAll(again.Accepted.Select(a => a.Definition.LevelNumber).Contains);
                 merged.Failed.AddRange(again.Failed.Where(l => !merged.Failed.Contains(l)));
+            }
+
+            bool Repairable(int level, IReadOnlyDictionary<int, LevelDefinition> view) =>
+                !kept.Contains(level) && view.ContainsKey(level) && LevelGenerator.Conflicts(level, view).Count > 0;
+
+            for (int k = 1; k < bounds.Count; k++)
+            {
+                int headLast = Math.Min(bounds[k].Last, bounds[k].First + PicturePicker.RepeatWindow - 1);
+                int segmentLast = bounds[k].Last;
+                for (int round = 0; round < 8; round++)
+                {
+                    var view = new SortedDictionary<int, LevelDefinition>();
+                    foreach (KeyValuePair<int, LevelDefinition> entry in history)
+                    {
+                        if (entry.Key <= segmentLast || entry.Key > last || kept.Contains(entry.Key))
+                        {
+                            view[entry.Key] = entry.Value;
+                        }
+                    }
+
+                    var broken = Enumerable.Range(bounds[k].First, headLast - bounds[k].First + 1).Where(l => Repairable(l, view)).ToList();
+                    if (broken.Count == 0)
+                    {
+                        break;
+                    }
+
+                    Redo(broken, seed ^ (0x5EA3UL * (ulong)(round + 1)));
+                }
+            }
+
+            // A safety net: every level near a seam against all its neighbours. Each level the seam pass redid was judged
+            // against both sides, so normally nothing is left to redo here.
+            var seamLevels = new SortedSet<int>();
+            for (int k = 1; k < bounds.Count; k++)
+            {
+                for (int l = Math.Max(first, bounds[k].First - PicturePicker.RepeatWindow); l < Math.Min(last + 1, bounds[k].First + PicturePicker.RepeatWindow); l++)
+                {
+                    seamLevels.Add(l);
+                }
+            }
+
+            for (int round = 0; round < 8; round++)
+            {
+                var readOnly = new SortedDictionary<int, LevelDefinition>(history);
+                var broken = seamLevels.Where(l => Repairable(l, readOnly)).ToList();
+                if (broken.Count == 0)
+                {
+                    break;
+                }
+
+                Redo(broken, seed ^ (0x5EA3UL * (ulong)(round + 9)));
             }
 
             merged.Accepted.AddRange(accepted.Values);

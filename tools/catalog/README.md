@@ -36,7 +36,10 @@ tools/catalog/build-catalog.sh --check 0026-0050
 Each band uses its profile, seed 1 and a fixed number of segments. `generate --segments` cuts the range into that many
 contiguous parts that run in parallel on `--jobs` threads (a segment holds at least 50 levels). The levels depend on
 the segments and never on the threads, so any machine gives the same catalog. A machine with fewer threads than
-segments is only slower.
+segments is only slower. The segments are generated blind to each other, so at each seam the later segment's first
+levels that break a repetition rule with the levels before them (the same picture or Source layout within 50 levels,
+three in a row) are generated again between their neighbours. Only the later level of such a pair is redone, and the
+earlier segment keeps its levels.
 
 | Band | Levels | Profile | Seed | Segments |
 |---|---|---|---|---|
@@ -112,7 +115,8 @@ Measured on the 4-core cloud machine (one core per segment): a Normal or Hard le
 one 10–20 min when most of its 60 candidates fail the tray tuner (and up to three seeds when the first two fail), a big
 level about 25 s, and `validate` about 0.5 s per level. That is about 100 s per level on average, about 145
 core-hours for Levels 11–5000, before the engine speed-up of the search. With 14 threads, a band of 14 segments runs
-about 14 times faster, plus the seam repairs, which run one after another at the end of the band. A level takes about
+about 14 times faster, plus the seam repairs (a few levels per seam), which run one after another at the end of
+the band. A level takes about
 9 KB on disk (definition and validation record), about 45 MB for 5000 levels.
 
 ## What to commit

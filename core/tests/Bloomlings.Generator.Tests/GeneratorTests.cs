@@ -363,5 +363,47 @@ namespace Bloomlings.Generator.Tests
             Assert.That(two.Failed, Is.EqualTo(one.Failed));
             Assert.That(twoRepairs, Is.EqualTo(oneRepairs));
         }
+
+        [Test]
+        public void SeamRepair_RedoesOnlyTheLaterLevel_AndKeepsTheEarlierSegment()
+        {
+            // Six levels in three segments of two. Blind to each other, the segments give levels without mechanics side by
+            // side (the small band only has stones), and three such levels in a row break FR-083 across a seam.
+            GenerationProfile profile = ProfileLoader.Read(SmallBand);
+            List<BasePicture> pictures = Library;
+            LevelGenerator NewGenerator() => new LevelGenerator(profile, new PicturePicker(pictures), Thresholds, Pairs.IsApproved, new DifficultySchedule(Seed))
+            {
+                ForcedClass = DifficultyClass.Normal,
+                UseBandGuidelines = false,
+            };
+
+            (GenerationResult Result, int SeamRepairs) Run(int jobs) => Bloomlings.Pipeline.Commands.GenerateCommand.GenerateRange(
+                NewGenerator, 11, 16, Seed, new SortedDictionary<int, LevelDefinition>(), new HashSet<int>(), segments: 3, jobs: jobs, minSegmentLength: 2);
+
+            (GenerationResult result, int repairs) = Run(1);
+            Assert.That(repairs, Is.GreaterThan(0), "the fixture must have a seam to repair");
+            Assert.That(result.Accepted, Has.Count.GreaterThanOrEqualTo(4), "a level of this small band may fail on its own");
+            Dictionary<int, LevelDefinition> final = result.Accepted.ToDictionary(l => l.Definition.LevelNumber, l => l.Definition);
+
+            // The first segment, generated alone, is what the result keeps: its levels are never the later side of a seam.
+            GenerationResult firstAlone = NewGenerator().Generate(11, 12, Seed, new SortedDictionary<int, LevelDefinition>());
+            Assert.That(firstAlone.Accepted, Is.Not.Empty);
+            foreach (GeneratedLevel level in firstAlone.Accepted)
+            {
+                Assert.That(DefinitionJson.Write(final[level.Definition.LevelNumber]), Is.EqualTo(DefinitionJson.Write(level.Definition)));
+            }
+
+            // Every level fits its neighbours on both sides.
+            var history = new SortedDictionary<int, LevelDefinition>(final);
+            foreach (int level in history.Keys)
+            {
+                Assert.That(LevelGenerator.Conflicts(level, history), Is.Empty, $"L{level}");
+            }
+
+            // The same levels and repairs on two threads.
+            (GenerationResult two, int twoRepairs) = Run(2);
+            Assert.That(two.Accepted.Select(l => DefinitionJson.Write(l.Definition)), Is.EqualTo(result.Accepted.Select(l => DefinitionJson.Write(l.Definition))));
+            Assert.That(twoRepairs, Is.EqualTo(repairs));
+        }
     }
 }

@@ -31,6 +31,10 @@ Built on 2026-10-06 with `tools/catalog/build-catalog.sh --jobs 3` (pipeline 97f
 `validate --catalog content/catalog --context content/curated` passes with 0 errors over L1–50, and `score` reports no
 disagreement, 50 distinct pictures in 50 levels and no repeat within 50 levels. The warnings are the provisionally
 approved readability pairs (`content/readability/approved-pairs.json`) until the human readability sign-off, and at
-L45–46 the Vine variant's introduction (FR-031), which no picture can show yet: the library has no Lime role. The
-bands from L51 are built on the owner's PC once the engine speed-up of the search is merged. Still open for Levels
-1–100: a person playtests every level (FR-084).
+L45–46 the Vine variant's introduction (FR-031), which no picture can show yet. Still open for Levels 1–100: a person
+playtests every level (FR-084).
+
+**Waiting for the picture library (2026-10-06).** The library has no lime or red color roles, so Vine (joining at L45)
+and Berry (at L200) can never appear. The library is being fixed. After that fix, band 26–50 is generated again (its
+L45–46 must introduce Vine), and nothing from L51 on is generated before it. The owner then builds the rest with
+`tools/catalog/` once the new pictures, the engine speed-up of the search and the one-sided seam repair are in.

@@ -1618,6 +1618,12 @@ final validation.
   `Schedule_NeverPutsSuperHardOnAPracticeLevel_AndKeepsItsRules`,
   `TheCatalogSchedule_Holds15To25HardAnd6To10SuperHard_InEveryBlockOf100`,
   `ProgressionRulesTests.APracticeLevel_IsNeverSuperHard_ForTheValidator`. L151 regenerated on it (T177).
+- [X] T181 The seam repair of `generate` redoes one level per clash (pipeline, contracts/pipeline-cli.md): seam by seam
+  in level order, the later segment's first levels that break a repetition rule with the levels before them are
+  generated again between their neighbours, and the earlier segment keeps its levels; it regenerated both levels of a
+  clashing pair before, and with segments under 100 levels a level could be listed twice. A last pass over every seam
+  level against both sides stays as a safety net. Test: `GeneratorTests.SeamRepair_RedoesOnlyTheLaterLevel_AndKeepsTheEarlierSegment`
+  (it fails on the old repair). No multi-segment band had been generated yet.
 
 ## Parallel Example: User Story 1
 
