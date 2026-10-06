@@ -16,10 +16,13 @@ namespace Bloomlings.Client.Gameplay.Board
     /// <summary>
     /// The board (T041) in the reference look (spec 005 contracts/look.md §3.6, §4.1; the playtest's <c>BoardPainter</c>):
     /// it lies on the lawn inside a border of sandy stone blocks, laid out by the shared <see cref="BoardLayout"/>, so it
-    /// fits up to 14×16 cells into the board area without scrolling or zooming (FR-008) exactly as the playtest does.
+    /// fits up to 22×28 cells (the big levels; FR-008 as amended on 2026-10-06) into the board area without scrolling or
+    /// zooming exactly as the playtest does.
     /// <list type="bullet">
     /// <item><description>Target tiles are candy tiles that nearly touch, parted by the dark board gap
-    /// (<see cref="TileView"/>).</description></item>
+    /// (<see cref="TileView"/>). A layered tile's next layer peeks from its chip only when the level's data stores the
+    /// peek look (<see cref="BoardLook.Peek"/>, boards of up to 288 cells); a big level's icons board shows the tiles'
+    /// icons only and keeps the next layer a surprise (FR-036 as amended on 2026-10-06).</description></item>
     /// <item><description>Restored ground shows the finished picture as pale flat cells under the tiles (T042,
     /// <see cref="FinishedPictureRenderer"/>).</description></item>
     /// <item><description>A Garden Entry is a small stone arch set in the border beside its entry cell (spec 005 FR-034,
@@ -43,6 +46,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private BoardLayout? _layout;
         private int _width;
         private int _height;
+        private bool _peek = true;
         private readonly HashSet<CellPos> _held = new HashSet<CellPos>();
         private readonly HashSet<CellPos> _swaying = new HashSet<CellPos>();
 
@@ -90,6 +94,7 @@ namespace Bloomlings.Client.Gameplay.Board
             _specials.Clear();
             _width = view.Width;
             _height = view.Height;
+            _peek = view.BoardLook == BoardLook.Peek;
             Layout();
             _picture.Build(definition, picture, _width, _height, GroundPixels(), _grid);
 
@@ -245,7 +250,7 @@ namespace Bloomlings.Client.Gameplay.Board
             switch (info.Kind)
             {
                 case CellKind.Target:
-                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, info.RemainingLayers > 1 ? info.Next : null, info.KeyId);
+                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, NextOf(info), info.KeyId);
                     break;
                 case CellKind.Stone:
                     tile.ShowStone();
@@ -262,8 +267,11 @@ namespace Bloomlings.Client.Gameplay.Board
         {
             CellInfo info = view.Cell(cell);
             Sparkle(cell);
-            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop && info.RemainingLayers > 1 ? info.Next : null, null, animate: true);
+            Tile(cell).ShowTarget(newTop, info.Kind == CellKind.Target && info.Visible == newTop ? NextOf(info) : null, null, animate: true);
         }
+
+        /// <summary>The next layer to peek from a tile's chip: none on an icons board (FR-036 as amended on 2026-10-06).</summary>
+        private Core.Variants.VariantId? NextOf(CellInfo info) => _peek && info.RemainingLayers > 1 ? info.Next : null;
 
         /// <summary>Bloom Burst removed a variant (FR-050): each of its tiles bursts in a puff, then shows what is left.</summary>
         public void ShowBurst(IReadOnlyList<CellPos> cells, LevelView view)
@@ -279,7 +287,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 CellInfo info = view.Cell(cell);
                 if (info.Kind == CellKind.Target)
                 {
-                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, info.RemainingLayers > 1 ? info.Next : null, info.KeyId, animate: true);
+                    tile.ShowTarget(info.MysteryHidden ? null : info.Visible, NextOf(info), info.KeyId, animate: true);
                 }
                 else if (info.Kind == CellKind.Stone)
                 {

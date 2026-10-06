@@ -17,7 +17,10 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>Target tiles are candy tiles (board style) that nearly touch, parted by the dark board gap.</description></item>
     /// <item><description>Restored ground shows the finished picture as pale flat cells.</description></item>
     /// <item><description>Stones are stone blocks; specials are candy-like blocks with their white glyph and counter;
-    /// keys, the next-layer peek and mystery tiles keep their meaning in the same style.</description></item>
+    /// keys, the next-layer peek and mystery tiles keep their meaning in the same style. The peek shows only on a
+    /// <see cref="BoardLook.Peek"/> board: a level whose data stores the icons look (boards over 288 cells, the big
+    /// levels; spec 001 FR-036 as amended on 2026-10-06) shows the tiles' icons only and keeps the next layer a
+    /// surprise.</description></item>
     /// <item><description>A Garden Entry has no picture (the owner, 2026-10-03: no stone arch): the Bloomlings set off
     /// from the stone border beside the entry cell and walk their routes.</description></item>
     /// </list>
@@ -48,6 +51,7 @@ namespace Bloomlings.Playtest.Design
             int w = view.Width;
             int h = view.Height;
             float cell = layout.Cell;
+            bool peek = view.BoardLook == BoardLook.Peek;
             s.Board = (layout.Grid.Left, layout.Grid.Top, cell, h);
 
             // The stone border with the dark gap the tiles lie in (the Garden Entries' arches come after the tiles).
@@ -95,7 +99,7 @@ namespace Bloomlings.Playtest.Design
                                 p.PushRotate(sway, full.CenterX, full.Bottom);
                             }
 
-                            Tile(p, info, full, cell, 1f, 1f);
+                            Tile(p, info, full, cell, 1f, 1f, peek);
                             if (sway != 0f)
                             {
                                 p.PopTransform();
@@ -154,10 +158,11 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A target tile (§3.1): a candy tile in the board style, nearly filling its cell. A hidden mystery tile is the
-        /// lilac "?" tile; the next layer peeks from a small chip in the top-right corner and a key waiting under the tile
-        /// shows on a cream disc in the top-left corner, both kept off the symbol.
+        /// lilac "?" tile; the next layer peeks from a small chip in the top-right corner (on a <paramref name="peek"/>
+        /// board only, spec 001 FR-036 as amended on 2026-10-06) and a key waiting under the tile shows on a cream disc in
+        /// the top-left corner, both kept off the symbol.
         /// </summary>
-        public static void Tile(IPainter p, CellInfo info, Box full, float cell, float scale, float alpha)
+        public static void Tile(IPainter p, CellInfo info, Box full, float cell, float scale, float alpha, bool peek = true)
         {
             p.Mark("tile.base");
             // Drawn at its rest size and shrunk with the canvas (a fading tile), so its picture is the one the board
@@ -178,7 +183,7 @@ namespace Bloomlings.Playtest.Design
             {
                 Kit.CandyTile(p, box, info.Visible.Value, TileStyle.Board);
 
-                if (info.RemainingLayers > 1 && info.Next.HasValue)
+                if (peek && info.RemainingLayers > 1 && info.Next.HasValue)
                 {
                     LayerPeek(p, box, info.Next.Value);
                 }

@@ -550,7 +550,8 @@ namespace Bloomlings.Playtest
             Color color = VariantColor(variant);
             Fill(canvas, tile, WithAlpha(color, alpha), cell * 0.18f);
             Text(canvas, Code(variant), tile.CenterX(), tile.CenterY(), cell * 0.36f, WithAlpha(Ink(color), alpha));
-            if (info.RemainingLayers > 1 && info.Next.HasValue)
+            // The next layer's corner, on a peek board only: an icons board keeps it a surprise (FR-036 as amended on 2026-10-06).
+            if (_session.View.BoardLook == BoardLook.Peek && info.RemainingLayers > 1 && info.Next.HasValue)
             {
                 Fill(canvas, new RectF(tile.Right - (cell * 0.32f), tile.Top, tile.Right, tile.Top + (cell * 0.32f)), WithAlpha(VariantColor(info.Next.Value), alpha), cell * 0.1f);
             }

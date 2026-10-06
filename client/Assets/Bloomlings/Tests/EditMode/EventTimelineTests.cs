@@ -26,7 +26,10 @@ namespace Bloomlings.Client.Tests
         public void ClearingPace_IsTheStylesTripTime_AndTheSpeedUpWaitsForAMinute()
         {
             Assert.That(EventTimeline.MinWaveSeconds, Is.EqualTo(1.2f));
-            Assert.That(EventTimeline.MaxWaveSeconds, Is.EqualTo(40f), "no trip is squeezed into its wave");
+            // No trip is squeezed into its wave, a straight route across the biggest board (22×28, 49 cells) included
+            // (40 s until the big boards of 2026-10-06).
+            Assert.That(EventTimeline.MaxWaveSeconds, Is.EqualTo(60f), "no trip is squeezed into its wave");
+            Assert.That(EventTimeline.MaxWaveSeconds, Is.GreaterThanOrEqualTo(Trip(22 + 28 - 1) + EventTimeline.RestoreSeconds));
             Assert.That(EventTimeline.RestoreSeconds, Is.EqualTo(0.22f), "the restore keeps its time");
             Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Default, Is.EqualTo(60000));
             Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Min, Is.EqualTo(2000));

@@ -161,7 +161,8 @@ namespace Bloomlings.Client.Tests
         {
             foreach ((float w, float h, Insets insets) in Phones())
             {
-                foreach ((int bw, int bh) in new[] { (9, 12), (6, 6), (12, 16), (10, 8) })
+                // The regular boards from L11 (14×16 to 16×18) and the biggest, 22×28 (spec 001 FR-008 as amended on 2026-10-06).
+                foreach ((int bw, int bh) in new[] { (9, 12), (6, 6), (12, 16), (10, 8), (14, 16), (16, 18), (22, 28) })
                 {
                     string at = w + "x" + h + " " + bw + "x" + bh;
                     ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, 4, 5);
@@ -177,6 +178,30 @@ namespace Bloomlings.Client.Tests
                     Assert.That(full, Is.True, at + ": the board fills its room");
                 }
             }
+        }
+
+        [Test]
+        public void TheBiggestBoard_FitsWithoutScrolling_AndItsLongestStraightTripIsNotSqueezed()
+        {
+            // A big level's 22×28 board (spec 001 FR-008 as amended on 2026-10-06): every cell on screen, none tiny.
+            foreach ((float w, float h, Insets insets) in Phones())
+            {
+                ReferenceGameplayRegions r = ScreenLayout.ReferenceGameplay(w, h, insets, 6, 5);
+                BoardLayout layout = r.FitBoard(22, 28);
+                string at = w + "x" + h;
+                Assert.That(layout.Outer.Left, Is.GreaterThanOrEqualTo(r.Safe.Left - 1f), at);
+                Assert.That(layout.Outer.Right, Is.LessThanOrEqualTo(r.Safe.Right + 1f), at);
+                Assert.That(layout.Outer.Bottom, Is.LessThanOrEqualTo(r.Tray.Top + 1f), at);
+                Assert.That(layout.Cell, Is.GreaterThanOrEqualTo(r.W * 0.028f), at + ": a cell keeps about 3% of the width");
+                Box corner = layout.CellBox(21, 27);
+                Assert.That(corner.Top, Is.EqualTo(layout.Grid.Top).Within(0.01f), at);
+                Assert.That(corner.Right, Is.EqualTo(layout.Grid.Right).Within(0.01f), at);
+            }
+
+            // The longest straight route across it, from a bottom corner entry to the far top corner, is 49 cells: its trip
+            // at the owner's calm pace fits a wave, so no trip is walked faster (both builds' cap).
+            float trip = ClearStyles.TripSeconds(22 + 28 - 1);
+            Assert.That(Bloomlings.Client.Gameplay.Timeline.TimelinePlayer.MaxWaveSeconds, Is.GreaterThanOrEqualTo(trip + Bloomlings.Client.Gameplay.Timeline.TimelinePlayer.RestoreSeconds));
         }
 
         [Test]

@@ -18,7 +18,9 @@ namespace Bloomlings.Client.Gameplay.Board
     /// color with the symbol as a small raised bead, nearly filling its cell (inset 0.8%), so only the dark board gap
     /// and the tiles' outlines part neighbors. A hidden mystery tile is the lilac "?" tile (FR-039).</description></item>
     /// <item><description>The next hidden layer peeks from a chip in the tile's top-right corner (<c>tile.layer_peek</c>,
-    /// FR-036): a small candy tile of its variant in a cream ring with a dark rim.</description></item>
+    /// FR-036): a small candy tile of its variant in a cream ring with a dark rim. On a level whose data stores the icons
+    /// look (boards over 288 cells) <see cref="BoardView"/> passes no next layer, so no chip shows (FR-036 as amended on
+    /// 2026-10-06).</description></item>
     /// <item><description>A key waiting under the tile is the gold key on a cream disc in its top-left corner
     /// (<c>tile.key</c>, FR-033), clear of the symbol.</description></item>
     /// <item><description>A stone is a raised block of the border's sandy stone with a crack (<c>tile.stone</c>) over the

@@ -37,8 +37,9 @@ namespace Bloomlings.Client.Gameplay.Timeline
     {
         // The clearing pace is the clearing styles' (ClearStyles.TripSeconds, the owner's calm pace of 2026-10-06; it was
         // 0.28 s a step and waves of 1.2–5.6 s): every style takes the same time for a tile, and no wave squeezes a trip.
+        // The cap fits a straight route across the biggest board, 22×28 (49 cells, about 55.5 s; it was 40 s for 14×16).
         public const float MinWaveSeconds = 1.2f;
-        public const float MaxWaveSeconds = 40f;
+        public const float MaxWaveSeconds = 60f;
 
         public const float RestoreSeconds = 0.22f;
         public const float MaxRate = 4f;
