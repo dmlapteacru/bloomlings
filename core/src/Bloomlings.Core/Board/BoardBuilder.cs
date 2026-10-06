@@ -104,7 +104,7 @@ namespace Bloomlings.Core.Boards
                 || picture.Height < BasePicture.MinHeight || picture.Height > BasePicture.MaxHeight)
             {
                 throw new InvalidLevelException(
-                    $"Picture {picture.Id} is {picture.Width}×{picture.Height}; allowed is 7 ≤ width ≤ 14, 8 ≤ height ≤ 16 (FR-008).");
+                    $"Picture {picture.Id} is {picture.Width}×{picture.Height}; allowed is {BasePicture.MinWidth} ≤ width ≤ {BasePicture.MaxWidth}, {BasePicture.MinHeight} ≤ height ≤ {BasePicture.MaxHeight} (FR-008).");
             }
 
             if (picture.Roles.Count < 2)

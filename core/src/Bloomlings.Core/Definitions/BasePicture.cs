@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Bloomlings.Core.Boards;
 
 namespace Bloomlings.Core.Definitions
 {
@@ -41,7 +42,8 @@ namespace Bloomlings.Core.Definitions
 
     /// <summary>
     /// A base picture of the picture library (FR-006; contracts/base-picture.schema.json; data-model §1.2).
-    /// Width and height: "7 ≤ width ≤ 14, 8 ≤ height ≤ 16". Roles: "At least 2 roles; each role has exactly one
+    /// Width and height: "7 ≤ width ≤ 22, 8 ≤ height ≤ 28" (the format limits; FR-008 as amended on 2026-10-06 raised them
+    /// from 14 × 16 for the big levels, and the level band rules pick the sizes a level may use). Roles: "At least 2 roles; each role has exactly one
     /// color group". <see cref="Grid"/> rows run bottom (index 0) to top; each value is a role index,
     /// <see cref="Empty"/> or <see cref="Stone"/>.
     /// </summary>
@@ -63,9 +65,9 @@ namespace Bloomlings.Core.Definitions
         public const int Stone = -2;
 
         public const int MinWidth = 7;
-        public const int MaxWidth = 14;
+        public const int MaxWidth = CellPos.MaxWidth;
         public const int MinHeight = 8;
-        public const int MaxHeight = 16;
+        public const int MaxHeight = CellPos.MaxHeight;
 
         /// <summary>Role index, <see cref="Empty"/> or <see cref="Stone"/> at column <paramref name="x"/>, row <paramref name="y"/>.</summary>
         public int CellAt(int x, int y) => Grid[y][x];

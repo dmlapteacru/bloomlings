@@ -43,5 +43,14 @@ namespace Bloomlings.Core.Definitions
         IReadOnlyList<PodDef> Pods,
         DifficultyDef Difficulty,
         string RewardProfile,
-        IReadOnlyList<string> Mechanics);
+        IReadOnlyList<string> Mechanics)
+    {
+        /// <summary>
+        /// The board look the level data stores (<c>boardLook</c>, FR-036 as amended on 2026-10-06): optional, so content
+        /// written before it still loads; absent means <see cref="Definitions.BoardLook.Peek"/>
+        /// (<see cref="BoardLooks.Of"/>). The generator always writes it from the cell count, and validation fails a level
+        /// whose look disagrees with <see cref="BoardLooks.For"/>.
+        /// </summary>
+        public BoardLook? BoardLook { get; init; }
+    }
 }

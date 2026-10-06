@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Tests.Fixtures;
@@ -23,6 +25,47 @@ namespace Bloomlings.Core.Tests.Board
         };
 
         private static BasePicture Flower() => TestContent.Picture("flower_pot", TestContent.GardenLegend, FlowerRows);
+
+        /// <summary>A water picture of <paramref name="width"/> × <paramref name="height"/> with a row of leaves on top.</summary>
+        private static BasePicture Plain(int width, int height) => TestContent.Picture(
+            "plain",
+            TestContent.GardenLegend,
+            Enumerable.Range(0, height).Select(y => new string(y == 0 ? 'l' : 'b', width)).ToArray());
+
+        [Test]
+        public void Build_TakesTheBiggestBoard_22By28_AndPlaysOnIt()
+        {
+            // FR-008 as amended on 2026-10-06: the big levels' boards reach 22 × 28 (616 cells; it was 14 × 16).
+            BasePicture big = Plain(22, 28);
+            int water = 22 * 27;
+            var pods = new[]
+            {
+                new PodDef("w1", VariantId.Water, water / 2, false, null, null),
+                new PodDef("w2", VariantId.Water, water - (water / 2), false, null, null),
+                new PodDef("l1", VariantId.Leaf, 22, false, null, null),
+            };
+            LevelDefinition level = TestContent.Level(big, TestContent.GardenMapping(), pods: pods, stacks: new[] { new[] { "w1" }, new[] { "w2", "l1" } });
+
+            var board = BoardBuilder.Build(level, big, VariantCatalog.Default);
+            LevelSession session = LevelSession.Load(level, big, new SessionOptions(1, 20000));
+
+            Assert.That(board.CellCount, Is.EqualTo(616));
+            Assert.That(session.View.Cell(new CellPos(21, 27)).Visible, Is.EqualTo(VariantId.Leaf));
+            Assert.That(session.Apply(new TapPod("w1")).Accepted, Is.True);
+            Assert.That(session.Apply(new TapPod("w2")).Accepted, Is.True);
+            Assert.That(session.Apply(new TapPod("l1")).Accepted, Is.True);
+            Assert.That(session.Status, Is.EqualTo(LevelStatus.Won));
+            Assert.That(session.State.ComputeFullHash(), Is.EqualTo(session.StateHash), "the hash covers every cell of the big board");
+        }
+
+        [TestCase(23, 28)]
+        [TestCase(22, 29)]
+        public void Build_RefusesBoardsOverTheLimit(int width, int height)
+        {
+            BasePicture picture = Plain(width, height);
+
+            Assert.Throws<InvalidLevelException>(() => BoardBuilder.Build(TestContent.Level(picture, TestContent.GardenMapping()), picture, VariantCatalog.Default));
+        }
 
         [Test]
         public void Build_MapsPictureRolesToTopLayerVariants()

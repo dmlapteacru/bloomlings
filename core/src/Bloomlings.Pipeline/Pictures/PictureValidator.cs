@@ -14,7 +14,8 @@ namespace Bloomlings.Pipeline.Pictures
     public sealed record PictureReport(string File, string? Id, IReadOnlyList<string> Errors, IReadOnlyList<string> Warnings, bool Usable);
 
     /// <summary>
-    /// <c>pictures validate</c> (T074): the embedded base-picture schema (JsonSchema.Net), "7 ≤ width ≤ 14, 8 ≤ height ≤ 16",
+    /// <c>pictures validate</c> (T074): the embedded base-picture schema (JsonSchema.Net), "7 ≤ width ≤ 22, 8 ≤ height ≤ 28"
+    /// (the format limits since 2026-10-06; the level band rules pick the sizes a level uses),
     /// "At least 2 roles; each role has exactly one color group", a licence, the automated picture checks
     /// (<see cref="PictureChecks"/>) and the review status: only <c>approved</c> pictures are usable (FR-084 as amended,
     /// FR-091).

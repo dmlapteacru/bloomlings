@@ -37,8 +37,8 @@
         "additionalProperties": false,
         "required": ["x", "y", "side"],
         "properties": {
-          "x": { "type": "integer", "minimum": 0, "maximum": 13 },
-          "y": { "type": "integer", "minimum": 0, "maximum": 15, "description": "Row 0 is the bottom row." },
+          "x": { "type": "integer", "minimum": 0, "maximum": 21 },
+          "y": { "type": "integer", "minimum": 0, "maximum": 27, "description": "Row 0 is the bottom row." },
           "side": { "enum": ["bottom", "left", "right", "top"] }
         }
       }
@@ -54,8 +54,8 @@
             "additionalProperties": false,
             "required": ["x", "y"],
             "properties": {
-              "x": { "type": "integer", "minimum": 0, "maximum": 13 },
-              "y": { "type": "integer", "minimum": 0, "maximum": 15 },
+              "x": { "type": "integer", "minimum": 0, "maximum": 21 },
+              "y": { "type": "integer", "minimum": 0, "maximum": 27 },
               "layersBelow": {
                 "type": "array",
                 "maxItems": 3,
@@ -183,7 +183,12 @@
       }
     },
     "rewardProfile": { "type": "string" },
-    "mechanics": { "type": "array", "items": { "type": "string" }, "uniqueItems": true }
+    "mechanics": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
+    "boardLook": {
+      "enum": ["peek", "icons"],
+      "default": "peek",
+      "description": "How the board is drawn (FR-036 as amended on 2026-10-06), stored in the level data and never chosen per device: 'peek' (candy tiles with the next-layer chip) for boards of up to 288 cells, 'icons' (icons only, the next layer hidden until the top layer clears) for boards over 288 cells. Optional so older content loads; the generator always writes it, and validation fails a level whose look disagrees with its cell count."
+    }
   },
   "$defs": {
     "variantId": {
@@ -194,8 +199,8 @@
       "additionalProperties": false,
       "required": ["x", "y"],
       "properties": {
-        "x": { "type": "integer", "minimum": 0, "maximum": 13 },
-        "y": { "type": "integer", "minimum": 0, "maximum": 15 }
+        "x": { "type": "integer", "minimum": 0, "maximum": 21 },
+        "y": { "type": "integer", "minimum": 0, "maximum": 27 }
       }
     }
   }

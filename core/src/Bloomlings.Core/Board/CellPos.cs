@@ -4,12 +4,13 @@ namespace Bloomlings.Core.Boards
 {
     /// <summary>
     /// A board cell position. Row 0 is the bottom row; the Garden Entry is usually on it (FR-009).
-    /// Boards are at most 14 columns × 16 rows (FR-008).
+    /// Boards are at most 22 columns × 28 rows (FR-008 as amended on 2026-10-06, the owner: it was 14 × 16), the size of
+    /// the rare big levels; regular boards stay at most 288 cells.
     /// </summary>
     public readonly struct CellPos : IEquatable<CellPos>
     {
-        public const int MaxWidth = 14;
-        public const int MaxHeight = 16;
+        public const int MaxWidth = 22;
+        public const int MaxHeight = 28;
 
         /// <summary>Number of orthogonal neighbours; diagonals never count (FR-010).</summary>
         public const int NeighbourCount = 4;
@@ -95,6 +96,11 @@ namespace Bloomlings.Core.Boards
 
         public override bool Equals(object? obj) => obj is CellPos other && Equals(other);
 
+        /// <summary>
+        /// Unique per cell. No rule or search result depends on it: rules and solvers walk cells by index, and a
+        /// dictionary or set keyed by cells is never enumerated in hash order (.NET enumerates in insertion order), so
+        /// changing <see cref="MaxWidth"/> changes no outcome (the golden replays pin this).
+        /// </summary>
         public override int GetHashCode() => (Y * MaxWidth) + X;
 
         public override string ToString() => $"({X},{Y})";

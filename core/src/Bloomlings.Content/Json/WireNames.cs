@@ -55,6 +55,10 @@ namespace Bloomlings.Content.Json
             (DifficultyClass.Hard, "hard"),
             (DifficultyClass.SuperHard, "super_hard"));
 
+        public static readonly EnumNames<BoardLook> BoardLooks = new EnumNames<BoardLook>(
+            (BoardLook.Peek, "peek"),
+            (BoardLook.Icons, "icons"));
+
         public static readonly EnumNames<FinishedLookMode> FinishedLookModes = new EnumNames<FinishedLookMode>(
             (FinishedLookMode.Auto, "auto"),
             (FinishedLookMode.Illustration, "illustration"));

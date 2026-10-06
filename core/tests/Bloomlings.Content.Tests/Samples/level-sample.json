@@ -1,4 +1,5 @@
 {
+  "boardLook": "peek",
   "definitionVersion": 2,
   "difficulty": {
     "class": "hard",

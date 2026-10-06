@@ -13,7 +13,9 @@ namespace Bloomlings.Content.Json
     /// Reading enforces the schema by hand (types, ranges, enums, required and unknown properties); the rules that span
     /// several fields, such as colorGroup matching, are checked later by <c>BoardBuilder</c> and the pipeline.
     /// Writing is canonical: sorted keys, optional fields only when they differ from their default, so
-    /// <c>Write(Read(x)) == x</c> for every canonical document.
+    /// <c>Write(Read(x)) == x</c> for every canonical document. The one exception is <c>boardLook</c>: it is written
+    /// whenever the level states it, <c>"peek"</c> included, because the generator always writes it (FR-036 as amended
+    /// on 2026-10-06) while older content leaves it out.
     /// </summary>
     public static class DefinitionJson
     {
@@ -42,7 +44,8 @@ namespace Bloomlings.Content.Json
                 "pods",
                 "difficulty",
                 "rewardProfile",
-                "mechanics");
+                "mechanics",
+                "boardLook");
 
             int levelNumber = JsonDoc.Int(JsonDoc.Required(root, path, "levelNumber"), JsonDoc.Join(path, "levelNumber"), min: 1);
             int definitionVersion = JsonDoc.Int(
@@ -90,6 +93,11 @@ namespace Bloomlings.Content.Json
                 ? Array.Empty<string>()
                 : ReadMechanics(mechanicsToken, JsonDoc.Join(path, "mechanics"));
 
+            JToken? lookToken = JsonDoc.Optional(root, "boardLook");
+            BoardLook? boardLook = lookToken == null
+                ? (BoardLook?)null
+                : JsonDoc.Enum(lookToken, JsonDoc.Join(path, "boardLook"), WireNames.BoardLooks);
+
             return new LevelDefinition(
                 levelNumber,
                 definitionVersion,
@@ -106,7 +114,10 @@ namespace Bloomlings.Content.Json
                 pods,
                 difficulty,
                 rewardProfile,
-                mechanics);
+                mechanics)
+            {
+                BoardLook = boardLook,
+            };
         }
 
         internal static JObject ToJObject(LevelDefinition level)
@@ -145,6 +156,11 @@ namespace Bloomlings.Content.Json
             if (level.Mechanics.Count > 0)
             {
                 root["mechanics"] = new JArray(ToObjects(level.Mechanics));
+            }
+
+            if (level.BoardLook != null)
+            {
+                root["boardLook"] = WireNames.BoardLooks.ToWire(level.BoardLook.Value);
             }
 
             return root;

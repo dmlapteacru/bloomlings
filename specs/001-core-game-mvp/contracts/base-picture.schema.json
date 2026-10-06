@@ -10,8 +10,8 @@
     "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
     "version": { "type": "integer", "minimum": 1 },
     "subject": { "type": "string", "minLength": 2 },
-    "width": { "type": "integer", "minimum": 7, "maximum": 14 },
-    "height": { "type": "integer", "minimum": 8, "maximum": 16 },
+    "width": { "type": "integer", "minimum": 7, "maximum": 22, "description": "Format limits (FR-008 as amended on 2026-10-06: it was 14 x 16); the level band rules pick the sizes a level may use: 11-12 x 12 for Levels 1-10, 224-288 cells (14-16 x 16-18) for regular levels from L11, 289-616 cells (at most 22 x 28) for big levels." },
+    "height": { "type": "integer", "minimum": 8, "maximum": 28 },
     "roles": {
       "type": "array",
       "minItems": 2,

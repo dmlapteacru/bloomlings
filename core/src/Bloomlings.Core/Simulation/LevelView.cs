@@ -27,9 +27,18 @@ namespace Bloomlings.Core.Simulation
         /// <summary>The visible top-layer variant; null for non-target cells and hidden mystery tiles.</summary>
         public VariantId? Visible { get; }
 
-        /// <summary>The next layer's variant for the peek indicator (FR-036); null when there is none or it is hidden.</summary>
+        /// <summary>
+        /// The next layer's variant for the peek indicator (FR-036); null when there is none, when the tile is a hidden
+        /// mystery tile, and on an <see cref="BoardLook.Icons"/> board, where the next layer is a surprise (FR-036 as
+        /// amended on 2026-10-06).
+        /// </summary>
         public VariantId? Next { get; }
 
+        /// <summary>
+        /// The layers still on the cell, the top one included. Not player information on an <see cref="BoardLook.Icons"/>
+        /// board, where a layered tile looks like any other: hosts use it only to decide whether to draw the peek, and
+        /// <see cref="Next"/> is null there.
+        /// </summary>
         public int RemainingLayers { get; }
 
         public bool MysteryHidden { get; }
@@ -127,6 +136,9 @@ namespace Bloomlings.Core.Simulation
 
         public LevelStatus Status => State.Status;
 
+        /// <summary>How the board is drawn (FR-036 as amended on 2026-10-06): the level's stored look, Peek when it stores none.</summary>
+        public BoardLook BoardLook => BoardLooks.Of(State.Definition);
+
         /// <summary>Remaining tile-layers on the whole board, visible and hidden.</summary>
         public int RemainingWork => State.Board.CountAllLayers();
 
@@ -138,7 +150,7 @@ namespace Bloomlings.Core.Simulation
             CellKind kind = board.KindAt(index);
             bool hidden = board.IsMysteryHidden(index);
             VariantId? visible = kind == CellKind.Target && !hidden ? board.TopLayer(index) : (VariantId?)null;
-            VariantId? next = kind == CellKind.Target && !hidden ? board.NextLayer(index) : null;
+            VariantId? next = kind == CellKind.Target && !hidden && BoardLook == BoardLook.Peek ? board.NextLayer(index) : null;
             return new CellInfo(kind, visible, next, board.RemainingLayers(index), hidden, board.KeyAt(index), board.SpecialAt(index), board.IsEntryCell(index));
         }
 

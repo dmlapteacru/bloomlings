@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using Bloomlings.Content.Json;
 using Bloomlings.Core.Boards;
@@ -71,6 +72,7 @@ namespace Bloomlings.Content.Tests
                 Assert.That(level.Pods[3], Is.EqualTo(new PodDef("p4", VariantId.Flower, 4, true, "k1", null)));
                 Assert.That(level.Difficulty, Is.EqualTo(new DifficultyDef(DifficultyClass.Hard, 1250, true)));
                 Assert.That(level.Mechanics, Is.EqualTo(new[] { "keys", "layers", "gate" }));
+                Assert.That(level.BoardLook, Is.EqualTo(BoardLook.Peek));
             });
         }
 
@@ -122,7 +124,9 @@ namespace Bloomlings.Content.Tests
             ("one pod", d => ((JArray)d["pods"]!).RemoveAt(1), "pods"),
             ("mapping with one role", d => d["mapping"] = new JObject { ["bg"] = "water" }, "mapping"),
             ("no entries", d => d["entries"] = new JArray(), "entries"),
-            ("entry x out of range", d => d["entries"]![0]!["x"] = 14, "entries[0].x"),
+            ("entry x out of range", d => d["entries"]![0]!["x"] = 22, "entries[0].x"),
+            ("entry y out of range", d => d["entries"]![0]!["y"] = 28, "entries[0].y"),
+            ("unknown board look", d => d["boardLook"] = "tiles", "boardLook"),
             ("entry side unknown", d => d["entries"]![0]!["side"] = "middle", "entries[0].side"),
             ("fractional score", d => d["difficulty"]!["score"] = 1.5m, "difficulty.score"),
             ("unknown difficulty class", d => d["difficulty"]!["class"] = "extreme", "difficulty.class"),
@@ -151,6 +155,83 @@ namespace Bloomlings.Content.Tests
             {
                 Assert.That(ContractSchemas.IsValidLevel(json), Is.False, "The contract schema must reject it too.");
             }
+        }
+
+        /// <summary>
+        /// FR-036 as amended on 2026-10-06: <c>boardLook</c> is optional (older content leaves it out and peeks), and a
+        /// stated look is kept as written, <c>"peek"</c> included, because the generator always writes it.
+        /// </summary>
+        [TestCase(null)]
+        [TestCase("peek")]
+        [TestCase("icons")]
+        public void BoardLook_IsOptional_AndKeptAsWritten(string? look)
+        {
+            JObject doc = MinimalLevel();
+            if (look != null)
+            {
+                doc["boardLook"] = look;
+            }
+
+            LevelDefinition level = DefinitionJson.Read(doc.ToString());
+            string canonical = DefinitionJson.Write(level);
+
+            Assert.That(level.BoardLook, Is.EqualTo(look == null ? (BoardLook?)null : look == "icons" ? BoardLook.Icons : BoardLook.Peek));
+            Assert.That(BoardLooks.Of(level), Is.EqualTo(look == "icons" ? BoardLook.Icons : BoardLook.Peek));
+            Assert.That(canonical.Contains("\"boardLook\""), Is.EqualTo(look != null));
+            Assert.That(DefinitionJson.Write(DefinitionJson.Read(canonical)), Is.EqualTo(canonical));
+            Assert.That(DefinitionJson.Write(DefinitionJson.Read(canonical), indented: false), Does.Not.Contain("\n"));
+            Assert.That(ContractSchemas.IsValidLevel(canonical), Is.True);
+        }
+
+        [Test]
+        public void TheBiggestBoard_HasCoordinatesUpTo21By27()
+        {
+            JObject doc = MinimalLevel();
+            doc["entries"]![0]!["x"] = 21;
+            doc["entries"]![0]!["y"] = 27;
+            doc["entries"]![0]!["side"] = "top";
+
+            LevelDefinition level = DefinitionJson.Read(doc.ToString());
+
+            Assert.That(level.Entries[0].Cell, Is.EqualTo(new CellPos(21, 27)));
+            Assert.That(ContractSchemas.IsValidLevel(doc.ToString()), Is.True);
+            Assert.That(CellPos.MaxWidth * CellPos.MaxHeight, Is.EqualTo(616), "22 × 28 (FR-008 as amended on 2026-10-06)");
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new CellPos(22, 0));
+            Assert.Throws<ArgumentOutOfRangeException>(() => _ = new CellPos(0, 28));
+        }
+
+        [Test]
+        public void ThePictureSchema_AllowsBoardsUpTo22By28()
+        {
+            string wide = PictureSample.Replace("\"width\": 7", "\"width\": 22");
+            string tooWide = PictureSample.Replace("\"width\": 7", "\"width\": 23");
+            string tall = PictureSample.Replace("\"height\": 8", "\"height\": 28");
+            string tooTall = PictureSample.Replace("\"height\": 8", "\"height\": 29");
+
+            // The grid no longer matches, which only the reader checks; the schema sees the size limits.
+            Assert.That(ContractSchemas.IsValidPicture(wide), Is.True);
+            Assert.That(ContractSchemas.IsValidPicture(tall), Is.True);
+            Assert.That(ContractSchemas.IsValidPicture(tooWide), Is.False);
+            Assert.That(ContractSchemas.IsValidPicture(tooTall), Is.False);
+            Assert.That(BasePicture.MaxWidth, Is.EqualTo(22));
+            Assert.That(BasePicture.MaxHeight, Is.EqualTo(28));
+        }
+
+        [TestCase("level-definition.schema.json")]
+        [TestCase("base-picture.schema.json")]
+        [TestCase("content-manifest.schema.json")]
+        [TestCase("player-save.schema.json")]
+        public void TheEmbeddedSchemas_AreTheContractsUnchanged(string file)
+        {
+            DirectoryInfo? dir = new DirectoryInfo(AppContext.BaseDirectory);
+            while (dir != null && !File.Exists(Path.Combine(dir.FullName, "core", "Bloomlings.sln")))
+            {
+                dir = dir.Parent;
+            }
+
+            string contract = File.ReadAllText(Path.Combine(dir!.FullName, "specs", "001-core-game-mvp", "contracts", file));
+
+            Assert.That(Bloomlings.Content.Schemas.SchemaResources.Read(file), Is.EqualTo(contract));
         }
 
         [Test]
