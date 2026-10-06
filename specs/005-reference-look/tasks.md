@@ -648,3 +648,16 @@ and contracts/look.md §3.6, §6.10.
   while on (`garden.glow` rings, green chevrons, `GardenLook.FastGlyphOn`); Settings' row reads "Fast forward: On/Off";
   the save keeps `speed2x`. Spec 001 FR-069 (with its Q&A), FR-024, FR-068, SC-005, quickstart, plan and data model,
   look.md §3.3, the READMEs and CLAUDE.md amended; the asset inventory regenerated.
+- [X] T134 Core: Shuffle looks shuffled (the owner, 2026-10-06: "I press it and they don't shuffle"; spec 001 FR-044 as
+  amended, research R10 step 6): `ShufflePlanner` seeds the relaxed search's unit order and each row's stacks, deals up
+  to four lines before the seeded candidates, and takes a verified arrangement only if `LooksShuffled` (at most half
+  the shown columns and half the exposed pods look as before), else the first verified one; the golden
+  `boost-shuffle` regenerated (its final state unchanged); `ShuffleLookTests`. Both builds share the core.
+- [X] T135 Both builds: thicker outlines on the round and squircle icon buttons, the speed pill and the booster tiles
+  (the owner, 2026-10-06: "the outline around the round buttons must be bigger, so they show"):
+  `GardenLook.IconLineCream` 4.5% (was 2%) and `IconLineColored` 4% (was 2.4%) in `Kit.IconFace` and `UiKit.IconFace`;
+  look.md §3.3 amended.
+- [X] T136 Both builds: taller card buttons (the owner, 2026-10-06: the pause popup's buttons "must be higher, now too
+  narrow"): `DesignTokens.Size.CardPrimaryHeight` 160 (was 140) and the new `CardSecondaryHeight` 136 (was the 110 of
+  `SecondaryHeight`) in `ScreenLayout.CardButton`, with the pause, Daily Reward and Remove Ads cards' content heights in
+  both builds; spec 003's garden tokens amended. Frames 4, 11 and 32 checked at 16:9 and 19.5:9.

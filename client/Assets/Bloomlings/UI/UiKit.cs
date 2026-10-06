@@ -775,7 +775,7 @@ namespace Bloomlings.Client.UI
                 float s = Mathf.Min(f.Width, f.Height);
                 bool cream = !GardenLook.LabelOn(view.Set).Volumetric;
                 float lip = s * (cream ? 0.07f : 0.085f);
-                float line = Mathf.Max(Units(2f), s * (cream ? 0.02f : 0.024f));
+                float line = Mathf.Max(Units(2f), s * (cream ? GardenLook.IconLineCream : GardenLook.IconLineColored));
                 view.SetGeometry(line, lip, lip * 0.7f, Mathf.Min(radius(f), s / 2f), s * 0.09f, s);
             });
             return view;

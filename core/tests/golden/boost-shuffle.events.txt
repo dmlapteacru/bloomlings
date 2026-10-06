@@ -5,9 +5,9 @@ r0 PodCommitted moss slot=1 stack=1 depth=0
 > tap:dew
 r0 PodCommitted dew slot=2 stack=0 depth=0
 > shuffle
-r0 TrayShuffled [water,wood] [leaf]
+r0 TrayShuffled [leaf,wood] [water]
 > tap:water
-r0 PodCommitted water slot=3 stack=0 depth=0
+r0 PodCommitted water slot=3 stack=1 depth=0
 r1 TileCleared 3,1 water by water route=3,0>3,1
 r1 CellOpened 3,1
 r1 PodCompleted water slot=3
@@ -17,7 +17,7 @@ r2 CellOpened 3,2
 r2 PodCompleted moss slot=1
 r2 SlotFreed 1
 > tap:leaf
-r0 PodCommitted leaf slot=1 stack=1 depth=0
+r0 PodCommitted leaf slot=1 stack=0 depth=0
 r1 TileCleared 2,1 leaf by leaf route=3,0>2,0>2,1
 r1 CellOpened 2,1
 r1 TileCleared 4,1 leaf by leaf route=3,0>4,0>4,1

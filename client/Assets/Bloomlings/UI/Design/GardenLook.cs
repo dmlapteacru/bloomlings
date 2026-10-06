@@ -296,6 +296,15 @@ namespace Bloomlings.Client.UI.Design
 
         // ---- Icons (spec 005 contracts/look.md §3.4, §3.8) ----
 
+        /// <summary>
+        /// The outline of the round and squircle icon buttons, the speed pill and the booster tiles, as a share of their
+        /// shorter side (the owner, 2026-10-06: thicker, so the round buttons stand out; it was 2% on cream sets and 2.4%
+        /// on colored ones).
+        /// </summary>
+        public const float IconLineCream = 0.045f;
+
+        public const float IconLineColored = 0.04f;
+
         /// <summary>The speed pill's glyph while fast forward is off: three brown chevrons (▶▶▶), no number.</summary>
         public static IconPart FastGlyph { get; } = new IconPart("ui.fast", C.InkBrown);
 

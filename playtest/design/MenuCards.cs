@@ -18,7 +18,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Pause(IPainter p, DesignApp app, float since)
         {
-            float buttons = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.SecondaryHeight) + (4f * 28f) + 30f;
+            float buttons = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.CardSecondaryHeight) + (4f * 28f) + 30f;
             CardRegions r = Kit.Card(p, buttons, PlaytestText.T("pause.title"), app.CardClose, Kit.Pop(since), T.Title);
             float gap = p.U(28f);
             float y = r.Body.Top + p.U(24f);

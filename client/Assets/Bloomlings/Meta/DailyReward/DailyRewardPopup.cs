@@ -38,7 +38,7 @@ namespace Bloomlings.Client.Meta.DailyReward
 
         public static DailyRewardPopup Create(Transform parent)
         {
-            float content = 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 90f;
+            float content = 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.CardSecondaryHeight + 90f;
             DailyRewardPopup popup = null!;
             CardView card = UiKit.Card("DailyReward", parent, Loc.T("daily_reward.title"), content, () => popup.Hide(), sign: SignDecor.None);
             popup = card.Root.AddComponent<DailyRewardPopup>();

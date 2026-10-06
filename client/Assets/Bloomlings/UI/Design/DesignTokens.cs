@@ -475,7 +475,11 @@ namespace Bloomlings.Client.UI.Design
             /// <summary>The main button of a card (NEXT, RESUME, CLAIM, CONTINUE), narrower and centered.</summary>
             public const float CardPrimaryWidth = 620f;
 
-            public const float CardPrimaryHeight = 140f;
+            /// <summary>Its height (the owner, 2026-10-06: the pause card's buttons felt thin; it was 140).</summary>
+            public const float CardPrimaryHeight = 160f;
+
+            /// <summary>The height of a card's secondary buttons (it was <see cref="SecondaryHeight"/>, 110).</summary>
+            public const float CardSecondaryHeight = 136f;
 
             /// <summary>The secondary buttons of a card (HOME, RESTART, SETTINGS).</summary>
             public const float CardSecondaryWidth = 580f;

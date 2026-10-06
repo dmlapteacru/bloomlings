@@ -494,7 +494,7 @@ namespace Bloomlings.Playtest.Design
             bool cream = !GardenLook.LabelOn(set).Volumetric;
             float lip = s * (cream ? 0.07f : 0.085f);
             float rim = s * 0.09f;
-            float line = Math.Max(p.U(2f), s * (cream ? 0.02f : 0.024f));
+            float line = Math.Max(p.U(2f), s * (cream ? GardenLook.IconLineCream : GardenLook.IconLineColored));
             float shift = lip * 0.7f * Math.Max(-0.25f, Math.Min(1f, depth));
             float dark = 0.08f * Math.Max(0f, Math.Min(1f, depth));
             float r = Math.Min(radius, s / 2f);

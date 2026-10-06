@@ -424,6 +424,15 @@ is steered by the Source design, which is where doc 06 says it should come from,
 4. **Fall back if needed.** If verification fails or runs out of budget, try the next candidate from the seeded PRNG
    (R3). The last resort is the arrangement that maximizes the number of exposed pods that can progress at once.
 5. **Keep the rules.** Locked pods keep their locks, connected pods stay connected, and waiting pods are untouched.
+6. **Look shuffled** *(amendment 2026-10-06, the owner: "I press it and they don't shuffle")*. The first relaxed line
+   used to be the tray's own order, dealt back the same way: the same pods on top, the columns at most moved over.
+   Now the relaxed search tries each step's units in a seeded order (progressing units still first), each row of the
+   deal takes its stacks in a seeded order (which keeps the order realizable), up to four lines are dealt before the
+   seeded candidates, and a verified arrangement is taken only if it looks shuffled as the player sees the tray
+   (`ShufflePlanner.LooksShuffled`: each pod by its variant or "?", count and lock in the three shown rows; at most half
+   the columns show what a column showed before, and at most half the exposed pods look like the ones before). If none
+   does within the budget, the first verified arrangement is used, so the winnability rule never weakens. On the
+   playtest's Levels 1–100 the old plan left 76 of 98 trays looking alike, the new one none.
 
 **Rationale**:
 

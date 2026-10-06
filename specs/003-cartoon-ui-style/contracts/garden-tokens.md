@@ -64,8 +64,9 @@ Sizes are in reference units: the 1080-unit-wide design, scaled by `DesignTokens
 | `garden.deco_size` | 0.75 × button height |
 | `garden.decorations` | true |
 | `size.play` | 540 × 204 |
-| `size.card_primary` | 620 × 140 |
+| `size.card_primary` | 620 × 160 (the owner, 2026-10-06: taller card buttons; it was 620 × 140) |
 | `size.card_secondary_width` | 580 |
+| `size.card_secondary_height` | 136 (it was the 110 of `size.secondary`) |
 | `size.booster_tile` | 152 × 156 |
 
 ## Label look

@@ -22,7 +22,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="onSettings">Opens Settings over the pause card; null hides the button.</param>
         public static PauseScreen Create(Transform parent, Action onResume, Action onRestart, Action onLeave, Action? onSettings = null)
         {
-            float content = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.SecondaryHeight) + (4f * 28f) + 30f;
+            float content = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.CardSecondaryHeight) + (4f * 28f) + 30f;
             CardView card = UiKit.Card("PauseScreen", parent, Loc.T("pause.title"), content, onResume, DesignTokens.Type.Title);
             var screen = card.Root.AddComponent<PauseScreen>();
             screen._root = card.Root;

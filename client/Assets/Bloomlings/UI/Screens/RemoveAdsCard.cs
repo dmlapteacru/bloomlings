@@ -49,7 +49,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="owned">Whether Remove Ads is owned now (the purchase ledger).</param>
         public static RemoveAdsCard Create(Transform parent, Action<Action> purchase, Action<Action<bool>> restore, Func<bool> owned)
         {
-            float content = 10f + (SceneUnits * HomePromo.HeightShare) + 16f + BodyUnits + 30f + DesignTokens.Size.CardPrimaryHeight + 24f + DesignTokens.Size.SecondaryHeight + 12f + StatusUnits + 20f;
+            float content = 10f + (SceneUnits * HomePromo.HeightShare) + 16f + BodyUnits + 30f + DesignTokens.Size.CardPrimaryHeight + 24f + DesignTokens.Size.CardSecondaryHeight + 12f + StatusUnits + 20f;
             RemoveAdsCard screen = null!;
             CardView card = UiKit.Card("RemoveAds", parent, Loc.T("remove_ads.title"), content, () => screen.Hide(), sign: SignDecor.None);
             screen = card.Root.AddComponent<RemoveAdsCard>();

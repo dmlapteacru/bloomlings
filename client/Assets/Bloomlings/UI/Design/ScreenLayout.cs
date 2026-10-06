@@ -260,7 +260,7 @@ namespace Bloomlings.Client.UI.Design
         public static Box CardButton(Box body, float top, bool primary, float scale)
         {
             float width = Math.Min(body.Width, (primary ? DesignTokens.Size.CardPrimaryWidth : DesignTokens.Size.CardSecondaryWidth) * scale);
-            float height = (primary ? DesignTokens.Size.CardPrimaryHeight : DesignTokens.Size.SecondaryHeight) * scale;
+            float height = (primary ? DesignTokens.Size.CardPrimaryHeight : DesignTokens.Size.CardSecondaryHeight) * scale;
             return new Box(body.CenterX - (width / 2f), top, body.CenterX + (width / 2f), top + height);
         }
 

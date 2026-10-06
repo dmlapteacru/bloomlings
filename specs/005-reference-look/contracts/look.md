@@ -244,7 +244,7 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 - **Round / squircle icon buttons** (`Kit.RoundButton`, `Kit.IconFace`): a single domed cream cushion: the face
   `CreamFace` → `CreamFace.Darken(0.04)` (peach toward the edges) with a lighter `CreamTop` middle feathered in from 8%
   of the size (three steps, no inner ring, no dish), a `CreamLip` lower edge (7% of the size), a soft tan `CreamLine`
-  outline (2%), a soft shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 46% of the size with a thin `CreamTop`
+  outline (`GardenLook.IconLineCream` = 4.5% since the owner's 2026-10-06 "make it bigger so they show"; it was 2%; 4% on colored sets), a soft shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 46% of the size with a thin `CreamTop`
   halo all around it (the shape grown by 0.06). Pause and speed in the top bar are squircles (radius 34% of the height)
   of the same height; Settings, back and close are circles. Close is cream with a brown ✕ (no longer red).
 - **Speed pill** (`Kit.SpeedPill(p, box, on, action)` / `UiKit.SpeedPill`, replaces `DarkPill`): the cream squircle
