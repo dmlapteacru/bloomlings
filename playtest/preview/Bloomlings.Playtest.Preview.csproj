@@ -44,6 +44,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Clearing/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Art/Variants/InkContrast.cs" />
     <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />

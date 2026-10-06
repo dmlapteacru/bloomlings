@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Services.Config;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Simulation;
 
@@ -11,17 +12,19 @@ namespace Bloomlings.Client.Gameplay.Timeline
     /// it turns the settle events of each command into waves, one per settle round, schedules them on its own clock
     /// (<see cref="Now"/>, in timeline seconds) and tells an <see cref="ITimelineSink"/> what to show and when.
     /// <para>
-    /// The waves of one command play one after another, in round order; the waves of different commands play side by
-    /// side, so pods committed one after another work at the same time (spec 001 FR-018, the owner's report of
-    /// 2026-10-03). The rules resolve each tap at once (FR-014, FR-022), so a wave only waits for what it depends on: it
-    /// starts no earlier than the end of its command's previous wave, and each of its walkers sets off on its own, as soon
-    /// as it reaches every cell of its route, and its targets, only after that cell's earlier queued change has shown (a
-    /// tile an earlier tap clears, a layer or a mystery tile revealed under it), <see cref="StepMargin"/> later, whatever
-    /// the wave's other walkers wait for (the owner, 2026-10-04: a tile beside the entry no longer waits for the farthest
-    /// one). The wave ends after its last arrival, and its end events keep the rules' order: a special's progress and
-    /// trigger, and a pod's completion, end after the last earlier wave that changed the same special or that pod's work,
-    /// and the level's outcome (won, jammed, stuck) after every earlier wave, so its card waits for the last wave. Wave
-    /// starts, arrivals and wave ends happen in time order, each at its own moment of the clock.
+    /// The waves of every command play side by side, so pods committed one after another work at the same time (spec
+    /// 001 FR-018, the owner's report of 2026-10-03), and a command's rounds no longer wait for each other (the owner's
+    /// calm pace of 2026-10-06). The rules resolve each tap at once (FR-014, FR-022), so a walker only waits for its way:
+    /// it sets off as soon as it reaches every cell of its route, and its targets, only after that cell's earlier queued
+    /// change has shown (a tile an earlier tap or round takes, a layer or a mystery tile revealed under it),
+    /// <see cref="StepMargin"/> later, whatever the wave's other walkers wait for (the owner, 2026-10-04), and at least
+    /// <see cref="ClearStyles.LineGap"/> after its pod's last walker out of its arch, nearer tiles first. Every trip takes
+    /// <see cref="ClearStyles.TripSeconds"/> in every clearing style (<see cref="Style"/>, spec 005 FR-038); a later
+    /// walker may cross a cell once its tile is gone from it (the style's out and act legs) unless a layer comes up under
+    /// it. A wave ends after its last arrival, and its end events keep the rules' order: after its command's earlier
+    /// rounds, a special's progress and trigger and a pod's completion after the last earlier wave that changed the same
+    /// special or that pod's work, and the level's outcome (won, jammed, stuck) after every earlier wave, so its card
+    /// waits for the last wave. Wave starts, arrivals and wave ends happen in time order, each at its own moment.
     /// </para>
     /// <para>
     /// 2× speed only scales the clock (FR-069). When the time until every queued wave has played (<see cref="Backlog"/>)
@@ -32,11 +35,10 @@ namespace Bloomlings.Client.Gameplay.Timeline
     /// </summary>
     public sealed class TimelinePlayer
     {
-        // The clearing pace, halved on the owner's requests of 2026-10-03 (it was 0.07 s a step and waves of 0.3–1.4 s)
-        // and again of 2026-10-05 (0.14 s a step and waves of 0.6–2.8 s); the restore keeps its time.
-        public const float StepSeconds = 0.28f;
+        // The clearing pace is the clearing styles' (ClearStyles.TripSeconds, the owner's calm pace of 2026-10-06; it was
+        // 0.28 s a step and waves of 1.2–5.6 s): every style takes the same time for a tile, and no wave squeezes a trip.
         public const float MinWaveSeconds = 1.2f;
-        public const float MaxWaveSeconds = 5.6f;
+        public const float MaxWaveSeconds = 40f;
 
         public const float RestoreSeconds = 0.22f;
         public const float MaxRate = 4f;
@@ -63,6 +65,10 @@ namespace Bloomlings.Client.Gameplay.Timeline
 
         // Per special and per pod: when the last wave queued so far that changes it ends.
         private readonly Dictionary<string, float> _keyReady = new Dictionary<string, float>(StringComparer.Ordinal);
+
+        // Per pod and arch (its entry cell): when its last walker queued so far leaves, so the next keeps the line (each
+        // pod's walkers leave in a line of their own; pods still work side by side, FR-018).
+        private readonly Dictionary<(string Pod, int Door), float> _lastGo = new Dictionary<(string, int), float>();
         private ITimelineSink? _sink;
 
         public TimelinePlayer()
@@ -72,6 +78,9 @@ namespace Bloomlings.Client.Gameplay.Timeline
 
         /// <summary>1 or 2 (the 2× toggle).</summary>
         public float Speed { get; set; } = 1f;
+
+        /// <summary>The level's clearing style (spec 005 FR-038): its legs decide when a walker's tile leaves its cell.</summary>
+        public ClearStyle Style { get; set; } = ClearStyle.Blossom;
 
         /// <summary>The backlog beyond which playback speeds up (Remote Config <c>fx.backlogThresholdMs</c>).</summary>
         public float BacklogThresholdSeconds { get; set; } = RemoteConfigKeys.FxBacklogThresholdMs.Default / 1000f;
@@ -139,7 +148,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
                             reveal = events[++i];
                         }
 
-                        float travel = Math.Max(1, clear.RouteFromEntry.Count) * StepSeconds;
+                        float travel = ClearStyles.TripSeconds(clear.RouteFromEntry.Count);
                         wave.Work.Add(new WorkUnit(clear, reveal, travel));
                         wave.Duration = Math.Min(MaxWaveSeconds, Math.Max(MinWaveSeconds, Math.Max(wave.Duration, travel + RestoreSeconds)));
                         break;
@@ -152,14 +161,14 @@ namespace Bloomlings.Client.Gameplay.Timeline
                 }
             }
 
-            float earliest = Now;
+            float lastEnd = Now;
             foreach (Wave w in waves)
             {
                 Plan(w);
-                Schedule(w, earliest);
+                Schedule(w, lastEnd);
                 Record(w);
                 _waves.Add(w);
-                earliest = w.EndAt;
+                lastEnd = w.EndAt;
             }
         }
 
@@ -274,6 +283,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
             }
 
             _keyReady.Clear();
+            _lastGo.Clear();
         }
 
         /// <summary>When the last queued wave ends (now, when none is queued).</summary>
@@ -324,14 +334,15 @@ namespace Bloomlings.Client.Gameplay.Timeline
         }
 
         /// <summary>
-        /// The wave's times: it starts no earlier than <paramref name="earliest"/> (the end of its command's previous wave,
-        /// or now) and its start events' cells; each walker sets off as soon as every cell of its route and its targets has
-        /// shown its earlier change, its units arriving with it (<see cref="Wave.Work"/> in arrival order); the wave ends
-        /// after its last arrival and late enough for its end events' order.
+        /// The wave's times: it starts now, or when its start events' cells have shown; each walker sets off as soon as
+        /// every cell of its route and its targets has shown its earlier change, and a line gap after its pod's last
+        /// walker out of its arch, its units arriving with it (<see cref="Wave.Work"/> in arrival order); the wave ends after its last
+        /// arrival, after <paramref name="previousEnd"/> (its command's previous round) and late enough for its end events'
+        /// order.
         /// </summary>
-        private void Schedule(Wave wave, float earliest)
+        private void Schedule(Wave wave, float previousEnd)
         {
-            float start = earliest;
+            float start = Now;
             foreach (CellPos cell in CellsAt(wave.Start))
             {
                 start = Math.Max(start, _ready[Index(cell)]);
@@ -339,28 +350,47 @@ namespace Bloomlings.Client.Gameplay.Timeline
 
             float end = start + wave.Duration;
             var arrival = new Dictionary<WorkUnit, float>();
+            var gone = new Dictionary<WorkUnit, float>();
             var units = new List<WorkUnit>();
             foreach (Walk walk in wave.Walks)
             {
-                // The walker follows its farthest unit's route and reaches route cell j at (j + 1) / count of its walk:
-                // its path is the entry point, then the route cells (BloomlingWorker.Move).
-                IReadOnlyList<CellPos> route = walk.Batch[walk.Batch.Count - 1].Clear.RouteFromEntry;
+                // The walker follows its farthest unit's route and reaches route cell j at (j + 1) / count of its walk out
+                // (ClearLook): its path is the entry point, then the route cells.
+                WorkUnit lead = walk.Batch[walk.Batch.Count - 1];
+                IReadOnlyList<CellPos> route = lead.Clear.RouteFromEntry;
+                ClearLegs legs = ClearStyles.LegsOf(Style, route.Count);
+                float scale = walk.Travel / Math.Max(0.01f, lead.TravelSeconds);
+                float outward = legs.Out * scale;
                 float go = start;
                 for (int j = 0; j < route.Count; j++)
                 {
-                    float reach = walk.Travel * (j + 1) / route.Count;
+                    float reach = outward * (j + 1) / route.Count;
                     go = Math.Max(go, _ready[Index(route[j])] + StepMargin - reach);
                 }
 
                 foreach (WorkUnit unit in walk.Batch)
                 {
-                    go = Math.Max(go, _ready[Index(unit.Clear.Cell)] + StepMargin - walk.Travel);
+                    go = Math.Max(go, _ready[Index(unit.Clear.Cell)] + StepMargin - outward);
+                }
+
+                if (route.Count > 0)
+                {
+                    var line = (lead.Clear.PodId, Index(route[0]));
+                    if (_lastGo.TryGetValue(line, out float last))
+                    {
+                        go = Math.Max(go, last + ClearStyles.LineGap);
+                    }
+
+                    _lastGo[line] = go;
                 }
 
                 walk.Go = go;
                 foreach (WorkUnit unit in walk.Batch)
                 {
                     arrival[unit] = go + walk.Travel;
+
+                    // The lead's tile leaves its cell with the style's out and act legs; merged units' tiles at the clear.
+                    gone[unit] = unit == lead ? go + ((legs.Out + legs.Act) * scale) : go + walk.Travel;
                     units.Add(unit);
                 }
 
@@ -371,15 +401,20 @@ namespace Bloomlings.Client.Gameplay.Timeline
             wave.Work.Clear();
             wave.Work.AddRange(units);
             wave.Arrivals.Clear();
+            wave.Gone.Clear();
             foreach (WorkUnit unit in units)
             {
                 wave.Arrivals.Add(arrival[unit]);
+                wave.Gone.Add(gone[unit]);
             }
 
             foreach (CellPos cell in CellsAt(wave.End))
             {
                 end = Math.Max(end, _ready[Index(cell)]);
             }
+
+            // A command's rounds still end in the rules' order.
+            end = Math.Max(end, previousEnd + KeyGap);
 
             foreach (string key in KeysAtEnd(wave))
             {
@@ -411,7 +446,9 @@ namespace Bloomlings.Client.Gameplay.Timeline
             {
                 KeyReady("pod:" + wave.Work[i].Clear.PodId, end);
                 int cell = Index(wave.Work[i].Clear.Cell);
-                _ready[cell] = Math.Max(_ready[cell], wave.Arrivals[i]);
+
+                // A later walker may cross the cell once its tile is gone, unless a layer comes up under it at the clear.
+                _ready[cell] = Math.Max(_ready[cell], wave.Work[i].Reveal is LayerRevealed ? wave.Arrivals[i] : wave.Gone[i]);
             }
 
             foreach (CellPos cell in CellsAt(wave.Start))
@@ -580,6 +617,9 @@ namespace Bloomlings.Client.Gameplay.Timeline
             public List<WorkUnit> Work { get; } = new List<WorkUnit>();
 
             public List<float> Arrivals { get; } = new List<float>();
+
+            /// <summary>When each of <see cref="Work"/>'s tiles is gone from its cell (crossable), on the clock.</summary>
+            public List<float> Gone { get; } = new List<float>();
 
             public List<Walk> Walks { get; } = new List<Walk>();
 

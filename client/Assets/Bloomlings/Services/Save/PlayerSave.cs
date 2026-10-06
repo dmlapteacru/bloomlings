@@ -308,17 +308,26 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>The profile slot of the chosen avatar picture (spec 005 FR-037): <c>profile.avatar</c>.</summary>
         public const string AvatarKind = "avatar";
 
-        /// <summary>The kinds of slot each owner has (the family slots are worn, the profile slots are shown).</summary>
+        /// <summary>The owner of the board's slot (the chosen clearing style, spec 005 FR-038).</summary>
+        public const string BoardOwner = "board";
+
+        /// <summary>The board slot of the chosen bought clearing style: <c>board.clearing</c> (none: the free pair).</summary>
+        public const string ClearingKind = "clearing";
+
+        /// <summary>The kinds of slot each owner has (the family slots are worn, the profile and board slots are shown).</summary>
         public static string[] KindsOf(string owner) => owner == ProfileOwner
             ? new[] { "frame", "badge", "marker", AvatarKind }
-            : new[] { "skin", "hat", "trail", "expression" };
+            : owner == BoardOwner
+                ? new[] { ClearingKind }
+                : new[] { "skin", "hat", "trail", "expression" };
 
         public SortedSet<string> Owned { get; } = new SortedSet<string>(StringComparer.Ordinal);
 
         /// <summary>
         /// Slot → item id. A slot is <c>owner.kind</c>: a family wears one skin, hat, trail and expression
-        /// (<c>drop.hat</c>), and the profile shows one frame, badge, marker and avatar (<c>profile.frame</c>,
-        /// <c>profile.avatar</c>). The bought avatars are in <see cref="Owned"/> by their ids (<c>avatar.drop_sailor_sticker</c>).
+        /// (<c>drop.hat</c>), the profile shows one frame, badge, marker and avatar (<c>profile.frame</c>,
+        /// <c>profile.avatar</c>), and the board plays one bought clearing style (<c>board.clearing</c>). The bought avatars
+        /// and clearing styles are in <see cref="Owned"/> by their ids (<c>avatar.drop_sailor_sticker</c>, <c>clear.bubbles</c>).
         /// </summary>
         public SortedDictionary<string, string> Equipped { get; } = new SortedDictionary<string, string>(StringComparer.Ordinal);
 

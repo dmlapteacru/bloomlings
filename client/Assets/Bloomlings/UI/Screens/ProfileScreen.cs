@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
@@ -13,14 +14,18 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
-    /// <summary>What the profile page's stat cells count: levels won, pictures collected, milestones reached.</summary>
+    /// <summary>
+    /// What the profile page counts: levels won, pictures collected, milestones reached (its stat cells) and Daily
+    /// Challenges won (an achievement's).
+    /// </summary>
     public readonly struct ProfileStats
     {
-        public ProfileStats(long levelsWon, int pictures, int milestones)
+        public ProfileStats(long levelsWon, int pictures, int milestones, long dailyWon = 0)
         {
             LevelsWon = levelsWon;
             Pictures = pictures;
             Milestones = milestones;
+            DailyWon = dailyWon;
         }
 
         public long LevelsWon { get; }
@@ -28,6 +33,8 @@ namespace Bloomlings.Client.UI.Screens
         public int Pictures { get; }
 
         public int Milestones { get; }
+
+        public long DailyWon { get; }
     }
 
     /// <summary>
@@ -36,7 +43,7 @@ namespace Bloomlings.Client.UI.Screens
     /// banner, the Petals pill whose "+" opens the Store once it is open) and the parchment panel; on it the player's card
     /// (the round avatar in its frame and badge, a tap opening the edit card on Avatar; the name with the pencil, opening it
     /// on Name; the short ID; "Playing since 10/2026"; the wooden "Level N" plaque), three stat cells (levels won,
-    /// pictures, milestones) and the Achievements: locked placeholder tiles, "Coming soon", until the owner names them. It
+    /// pictures, milestones) and the Achievements (Green Thumb, Picture Keeper, Daily Gardener: bronze, silver, gold). It
     /// lies over Home (Home's avatar opens it, <c>HomeFeatureActions.OnProfile</c>); its back hides it. It has no bottom
     /// menu: it is not a menu place.
     /// </summary>
@@ -59,6 +66,7 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _title = null!;
         private readonly RectTransform[] _tiles = new RectTransform[ReferenceProfileRegions.AchievementCount];
         private readonly TextMeshProUGUI[] _tileLabels = new TextMeshProUGUI[ReferenceProfileRegions.AchievementCount];
+        private readonly (Image Trophy, TextMeshProUGUI Count, GameObject Lock, GameObject Check)[] _tileParts = new (Image, TextMeshProUGUI, GameObject, GameObject)[ReferenceProfileRegions.AchievementCount];
         private TextMeshProUGUI _note = null!;
         private ProfileEditCard _editCard = null!;
         private ProfileService _profile = null!;
@@ -133,23 +141,30 @@ namespace Bloomlings.Client.UI.Screens
                 screen._statLabels[i] = UiKit.Label("Label", screen._stats[i].transform, labels[i], T.Caption, UiTheme.Of(C.InkBrownSoft));
             }
 
-            // The Achievements: placeholders until the owner names them.
+            // The Achievements (Achievements): each a well with the trophy in its tier's medal color and the count toward
+            // the next tier, the padlock before bronze and the check at gold, the name under it.
             screen._title = UiKit.Label("Achievements", root, Loc.T("profile.achievements"), T.Title, UiTheme.Of(C.InkTitle), look: TextLook.Plain(C.InkTitle));
+            Box Badge(Box b) => Box.FromCenter(b.Right - (b.Width * 0.14f), b.Bottom - (b.Height * 0.14f), b.Width * 0.3f, b.Width * 0.3f);
             for (int i = 0; i < screen._tiles.Length; i++)
             {
                 RectTransform tile = UiFactory.CreateRect("Achievement" + i, root);
                 Image well = UiKit.Well("Well", tile);
                 Image trophy = UiKit.ShapeImage("Trophy", well.transform, "ui.trophy", C.InkBrownSoft.WithAlpha(0.35f));
+                TextMeshProUGUI count = UiKit.Label("Count", well.transform, string.Empty, T.Caption, UiTheme.Of(C.InkBrown), look: TextLook.Plain(C.InkBrown));
                 RectTransform badge = UiKit.LockBadge("Lock", well.transform);
-                TextMeshProUGUI label = UiKit.Label("Label", tile, Loc.T("profile.achievement_soon"), T.Caption, UiTheme.Of(C.InkBrownSoft));
+                RectTransform check = UiFactory.Stretch(UiFactory.CreateRect("Check", well.transform));
+                UiKit.CheckBadge(BoxLayout.On(check), Badge);
+                TextMeshProUGUI label = UiKit.Label("Label", tile, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
                 BoxLayout.On(tile)
                     .Add(well.rectTransform, ReferenceProfileRegions.AchievementWell)
                     .Add(label.rectTransform, ReferenceProfileRegions.AchievementLabel);
                 BoxLayout.On(well.rectTransform)
-                    .Add(trophy.rectTransform, b => b.Inset(b.Width * 0.24f))
-                    .Add(badge, b => Box.FromCenter(b.Right - (b.Width * 0.14f), b.Bottom - (b.Height * 0.14f), b.Width * 0.3f, b.Width * 0.3f));
+                    .Add(trophy.rectTransform, ReferenceProfileRegions.AchievementTrophy)
+                    .Add(count.rectTransform, ReferenceProfileRegions.AchievementProgress)
+                    .Add(badge, Badge);
                 screen._tiles[i] = tile;
                 screen._tileLabels[i] = label;
+                screen._tileParts[i] = (trophy, count, badge.gameObject, check.gameObject);
             }
 
             screen._note = UiKit.Label("Note", root, Loc.T("profile.achievements_note"), T.Caption, UiTheme.Of(C.InkBrownSoft));
@@ -195,6 +210,19 @@ namespace Bloomlings.Client.UI.Screens
             _statValues[0].text = NumberText.Group(stats.LevelsWon);
             _statValues[1].text = NumberText.Group(stats.Pictures);
             _statValues[2].text = NumberText.Group(stats.Milestones);
+            IReadOnlyList<AchievementState> achievements = Achievements.Of(stats.LevelsWon, stats.Pictures, stats.DailyWon);
+            for (int i = 0; i < _tileParts.Length && i < achievements.Count; i++)
+            {
+                AchievementState state = achievements[i];
+                (Image trophy, TextMeshProUGUI count, GameObject padlock, GameObject check) = _tileParts[i];
+                Rgba? medal = AchievementLook.TierColor(state.Tier);
+                trophy.color = UiTheme.Of(medal ?? C.InkBrownSoft.WithAlpha(0.35f));
+                count.text = state.Complete ? NumberText.Group(state.Value) : Loc.F("profile.achievement_progress", NumberText.Group(state.Shown), NumberText.Group(state.Goal));
+                padlock.SetActive(state.Tier == 0);
+                check.SetActive(state.Complete);
+                _tileLabels[i].text = Loc.T(state.Def.NameKey);
+                _tileLabels[i].color = UiTheme.Of(state.Tier == 0 ? C.InkBrownSoft : C.InkBrown);
+            }
         }
 
         private void Update()

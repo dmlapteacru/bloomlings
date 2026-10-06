@@ -50,8 +50,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   use, the Bloomlings sheet, 25 the reference-look kit, 26 the Store cosmetics, 27 the Wardrobe, 28 Home's animated heroes
   in outfits, the bottom menu's locked places: 29 the locked Store page, 30 the locked Wardrobe, 31 the locked
   Leaderboard page, and 32 the Remove Ads card of Home's No Ads scene; and the guided spotlights 33–38: the entry, the
-  first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; and the profile 39–41: the page, the
-  edit card's avatars, its name and frames) to PNG in `playtest/preview/out/` (gitignored) and checks
+  first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; the profile 39–41: the page, the
+  edit card's avatars, its name and frames; and the Store's Animations 42–43: the clearing styles' live previews, then
+  their padlocks before L40) to PNG in `playtest/preview/out/` (gitignored) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry.
 - `BLOOMLINGS_GOLDEN_REGEN=1 dotnet test core/Bloomlings.sln --filter GoldenReplayTests` regenerates golden replays
@@ -137,6 +138,16 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   a ring, a parchment bubble, a hand); the playtest draws them with `GuidePainter`, Unity with `GuideOverlay` (a raycast
   filter lets taps through only inside the holes). A booster's guided use is free (no charge, clean-clear kept, analytics
   `source` `demo`; spec 001 FR-042 as amended). Mechanic and variant demos keep their cards.
+- The clearing styles (spec 005 FR-038, the owner, 2026-10-06; recipes in `contracts/look.md` §6.12): the board clears in
+  one of seven styles, presentation only. The kit's `ClearStyles` (the styles, the free pair by level, one trip time
+  `TripSeconds` split into each style's legs, the walkers' line from each arch) and `ClearLook` (each frame's walkers,
+  restores and flights as an `FxList` of items in cell units) are drawn by the playtest's `ClearPainter` and Unity's
+  `ClearFxView`, so both builds and the Store's previews (`ClearPreview`; `Kit.ClearingPreview`, `ClearPreviewView`)
+  show the same thing. Blossom and Munchers are free and alternate by level (`ClearStyles.ForLevel`); Fireflies,
+  Bubbles, Pushers, Fireworks and Confetti Parade are board cosmetics bought once for Petals from L40 on the Store's
+  Animations tab (`ClearingService`; Remote Config `economy.price.clearing`, the save's `clear.<name>` and
+  `cosmetics.equipped.board.clearing`), and a chosen one plays on every level. The rules' clear stays at each trip's
+  end; `LevelAnimator` and `TimelinePlayer` keep the same schedule.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the owner's animated heroes offline into flat 24 fps frames, all four from the owner's `Heroes.glb`
   (2026-10-04; `heroes.json` picks each hero's mesh in it): Sprig with its 4 s idle, 3 s wave and the win's 2 s celebrate
@@ -159,7 +170,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `ProfileEditor`, linked into the playtest); the save keeps bought avatars in `cosmetics.owned`, the shown one in
   `cosmetics.equipped.profile.avatar`, the name and joining day in the optional `profile` section. The name stays on
   the device (the playtest asks with the system's text dialog through `ITextPrompt`, Unity uses a `TMP_InputField`);
-  the achievements are placeholders until the owner names them. Layouts: `ScreenLayout.ReferenceProfile`, `ProfileEdit`.
+  the three achievements (`Achievements`: Green Thumb, Picture Keeper, Daily Gardener, bronze, silver and gold from the save's counters) are shown only. Layouts: `ScreenLayout.ReferenceProfile`, `ProfileEdit`.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`, the playtest embeds them) and the artgen folder's `3d/` (record them with

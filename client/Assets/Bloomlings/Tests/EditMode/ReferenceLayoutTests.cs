@@ -1024,6 +1024,22 @@ namespace Bloomlings.Client.Tests
 
                         Assert.That(r.OutfitGrid.Bottom, Is.LessThanOrEqualTo(r.Footer.Top + 0.5f), at + ": the cards above the footer");
 
+                        // The Animations tab's cards (spec 005 FR-038): from the list's top, the six styles' cards on one
+                        // page, laid as the outfit cards, above the footer.
+                        Assert.That(r.ClearingGrid.Top, Is.EqualTo(r.List.Top).Within(0.5f), at + ": the clearing cards from the list's top");
+                        Assert.That(r.ClearingsPerPage, Is.GreaterThanOrEqualTo(1 + ClearStyles.Bought.Count), at + ": every style on one page");
+                        for (int i = 0; i < r.ClearingsPerPage; i++)
+                        {
+                            Box card = r.ClearingCard(i);
+                            Assert.That(card.Within(r.ClearingGrid), Is.True, at + ": clearing card " + i + " " + card);
+                            Assert.That(card.Bottom, Is.LessThanOrEqualTo(r.Footer.Top + 0.5f), at + ": clearing card " + i + " above the footer");
+                            Assert.That(card.Width, Is.EqualTo(r.OutfitCard(0).Width).Within(0.5f), at + ": as wide as an outfit card");
+                            for (int j = 0; j < i; j++)
+                            {
+                                Assert.That(card.Overlaps(r.ClearingCard(j)), Is.False, at + ": clearing cards " + j + " and " + i);
+                            }
+                        }
+
                         var targets = new List<Box>();
                         foreach ((string _, Box box) in r.Buttons)
                         {
@@ -1036,6 +1052,7 @@ namespace Bloomlings.Client.Tests
                             targets.Add(box);
                             Assert.That(box.Overlaps(r.Row(r.RowsPerPage(7) - 1, 7)), Is.False, at + ": the last row clear of the menu's " + box);
                             Assert.That(box.Overlaps(r.OutfitCard(r.OutfitsPerPage - 1)), Is.False, at + ": the last outfit card clear of the menu's " + box);
+                            Assert.That(box.Overlaps(r.ClearingCard(r.ClearingsPerPage - 1)), Is.False, at + ": the last clearing card clear of the menu's " + box);
                         }
 
                         AssertTargets(targets, r.Safe, touch, at);

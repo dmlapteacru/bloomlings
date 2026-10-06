@@ -590,5 +590,26 @@ and contracts/look.md §3.6, §6.10.
   imported with mipmaps (`OwnerIconImporter`).
 - [ ] T117 Unity Editor: open the profile page and the card on a device; type a name with the system keyboard; buy an
   avatar; check the round masks and the Wardrobe's profile tab.
-- [ ] T118 The owner: confirm the avatars' tiers (which picture costs 300, 600 or 1200) and how the avatars were made
-  (the source record's tool line); name the achievements.
+- [X] T118 The owner: confirm the avatars' tiers (which picture costs 300, 600 or 1200) and how the avatars were made
+  (the source record's tool line); name the achievements. *(2026-10-06: "Choose yourself … ChatGPT made them": the
+  tiers kept, ChatGPT recorded, the three achievements named and shown, `Achievements`, `AchievementsTests`.)*
+
+## The owner's clearing styles (2026-10-06, FR-038)
+
+- [X] T119 Kit: `ClearStyles` (the seven styles, the free pair by level, the bought ones' ids, one trip time and each
+  style's legs, the line gap), `ClearTrip` (a walker's leg at a moment), `ClearLook` (each style's walkers, restores
+  and flights as a list of drawn items in cell units, tokens and slots only), `FxList` (the items with their composed
+  turn and squash), `ClearPreview` (the Store card's small board, scheduled as the board is); `ClearStylesTests`.
+- [X] T120 Timelines, both builds (`LevelAnimator`, `TimelinePlayer`): the style's trip time, the line from each arch,
+  rounds not waiting for each other, a cell crossable once its tile is gone, the waves' clamp 1.2–40 s, the backlog
+  speed-up at 60 s; the walkers carry their pod; `EventTimelineTests` and `playtest/check`.
+- [X] T121 Meta: `ClearingService` (owned, chosen, bought for Petals from L40, the style of a level), the save's
+  `clear.<name>` and `cosmetics.equipped.board.clearing` (both schema copies, the merge), Remote Config
+  `economy.price.clearing`, the strings, `cosmetic_equip` with `board`; `ClearingServiceTests`.
+- [X] T122 Playtest: the board draws `ClearLook` (walkers over the tiles, flights over the tray and slots, tiles hidden
+  while a style holds them, Blossom's swaying neighbours), the Store's Animations tab with the cards and their live
+  previews; preview frames 42 and 43.
+- [X] T123 Unity: `ClearFxView` (pooled figures and images drawing `ClearLook`'s list on the board and above the
+  slots), `TileView` hiding held tiles, the Store's Animations tab with `ClearPreviewView` cards; the controller picks
+  the level's style.
+- [ ] T124 Unity Editor: play a level in each style on a device; check the previews' masks and the padlock before L40.

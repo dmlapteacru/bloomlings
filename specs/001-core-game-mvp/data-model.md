@@ -246,7 +246,7 @@ Wire format: [`contracts/player-save.schema.json`](contracts/player-save.schema.
 | Boosters | `{extraSlot, shuffle, return, bloomBurst}` charges |
 | Unlocks | Flags keyed by `unlockId`, plus `demosSeen[]` |
 | Milestones | `claimed[]` of level numbers (each granted exactly once, FR-061) |
-| Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items and the bought avatars `avatar.<name>`, spec 005 FR-037), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker, avatar}}` |
+| Cosmetics | `owned[]` (catalog ids, plus generated `badge.level_N` / `marker.level_N` milestone items, the bought avatars `avatar.<name>`, spec 005 FR-037, and the bought clearing styles `clear.<name>`, spec 005 FR-038), `equipped{family → {skin, hat, trail, expression}, profile → {frame, badge, marker, avatar}, board → {clearing}}` (no `board.clearing`: the free pair by level) |
 | Daily | `dailyReward{lastClaimUtcDate, streak}`, `dailyChallenge{lastCompletedUtcDate}` |
 | Collection | `entries[]` of `{pictureId, pictureVersion, mappingHash, levelNumber}` (FR-065) |
 | Settings | `music`, `sfx`, `haptics`, `speed2x`, `homePetalsOn` (optional, default off: Home's falling petals; the owner's request of 2026-10-04 and tuning of 2026-10-05, spec 005 FR-036; the earlier `homePetals`, written as on by older saves, is read and ignored), `language` |

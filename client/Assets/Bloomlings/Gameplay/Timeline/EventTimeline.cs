@@ -51,8 +51,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
     [DefaultExecutionOrder(-100)]
     public sealed class EventTimeline : MonoBehaviour
     {
-        // The clearing pace, halved on the owner's requests of 2026-10-03 and 2026-10-05 (TimelinePlayer).
-        public const float StepSeconds = TimelinePlayer.StepSeconds;
+        // The clearing pace is the clearing styles' (ClearStyles.TripSeconds; TimelinePlayer).
         public const float MinWaveSeconds = TimelinePlayer.MinWaveSeconds;
         public const float MaxWaveSeconds = TimelinePlayer.MaxWaveSeconds;
 
@@ -66,6 +65,13 @@ namespace Bloomlings.Client.Gameplay.Timeline
         {
             get => _player.Speed;
             set => _player.Speed = value;
+        }
+
+        /// <summary>The level's clearing style (spec 005 FR-038).</summary>
+        public UI.Design.ClearStyle Style
+        {
+            get => _player.Style;
+            set => _player.Style = value;
         }
 
         /// <summary>The backlog beyond which playback speeds up; defaults to the bundled <c>fx.backlogThresholdMs</c>.</summary>

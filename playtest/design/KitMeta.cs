@@ -126,9 +126,10 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="cost"/> adds the cost pill on the card's bottom edge (the Store); <paramref name="box"/> then
         /// holds the card and the pill below it (<paramref name="pillRoom"/> keeps that room without a pill, so cards in a
         /// row line up), and the whole box is the touch target. A <paramref name="locked"/> item (earned later, the
-        /// Wardrobe) fades its picture and carries the padlock badge instead.
+        /// Wardrobe) fades its picture and carries the padlock badge instead; <paramref name="dim"/> false keeps the
+        /// picture bright (a clearing style's live preview before L40, spec 005 FR-038).
         /// </summary>
-        public static void OutfitCard(IPainter p, Box box, string name, bool worn, Action<Box> picture, Cost? cost = null, Action? action = null, bool pillRoom = false, bool locked = false)
+        public static void OutfitCard(IPainter p, Box box, string name, bool worn, Action<Box> picture, Cost? cost = null, Action? action = null, bool pillRoom = false, bool locked = false, bool dim = true)
         {
             p.Mark("ui.card.outfit");
             const float pillShare = 0.2f;
@@ -160,7 +161,7 @@ namespace Bloomlings.Playtest.Design
 
             p.PushClip(well);
             p.FillRoundGradient(new Box(well.Left, well.Top, well.Right, well.Top + (well.Height * 0.2f)), wellRadius, C.GardenShadow.WithAlpha(0.1f), C.GardenShadow.WithAlpha(0f));
-            p.PushAlpha(locked ? GardenLook.PictureDisabledAlpha : 1f);
+            p.PushAlpha(locked && dim ? GardenLook.PictureDisabledAlpha : 1f);
             picture(well);
             p.PopAlpha();
             p.PopClip();

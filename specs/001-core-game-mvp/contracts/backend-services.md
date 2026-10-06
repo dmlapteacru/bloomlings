@@ -52,6 +52,7 @@ only.
 | `economy.petals.hardBonus` / `superHardBonus` | 10 / 20 | 0–100 | FR-041 |
 | `economy.price.extraSlot` / `shuffle` / `return` / `bloomBurst` | 1200 / 1200 / 1500 / 1800 (40 / 40 / 50 / 60 before 2026-10-05) | 10–5000 (Bloom Burst 10–10000; the client keeps it above the other three, FR-048) | FR-047, FR-048 |
 | `economy.price.avatarCommon` / `avatarRare` / `avatarSpecial` | 300 / 600 / 1200 (the owner, 2026-10-05) | 10–10000 | spec 005 FR-037 (the profile's avatar pictures) |
+| `economy.price.clearing` | 5000 (the owner, 2026-10-06: every bought clearing style, for now) | 10–50000 | spec 005 FR-038 (the board's clearing styles) |
 | `economy.unlockGrant` | 1 | 1–3 | FR-042 |
 | `economy.drop.everyLevels` | 5 | 2–20 | FR-047: every Nth completed level grants 1 charge, rotating through the unlocked boosters (no randomness) |
 | `daily.reward.petals` | 20 | 5–200 | FR-055 |
@@ -61,6 +62,6 @@ only.
 | `ads.rescue.perAttempt` | 1 | 0–1 | FR-027, FR-048 |
 | `feature.dailyChallenge` / `feature.wardrobe` / `feature.leaderboard` | true | bool | FR-062 to FR-064 |
 | `content.manifestUrl` | "" | URL | FR-078 |
-| `fx.backlogThresholdMs` | 12000 (6000 from 2026-10-03, 1500 before; R4 amendments) | 2000–20000 | R4 |
+| `fx.backlogThresholdMs` | 60000 (the owner's calm pace, 2026-10-06; 12000 from 2026-10-05, 6000 from 2026-10-03, 1500 before; R4 amendments) | 2000–120000 | R4 |
 
 Core puzzle rules and level definitions are **not** remotely configurable (FR-085).

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Simulation;
@@ -45,13 +46,14 @@ namespace Bloomlings.Playtest
     }
 
     /// <summary>
-    /// A Bloomling walking its route (the entry cell first, the target last): it sets off at <paramref name="Start"/> on
-    /// the animation clock and arrives <paramref name="Arrival"/> seconds later.
+    /// A Bloomling on its trip for its pod <paramref name="PodId"/> (its route: the entry cell first, the target last): it
+    /// sets off at <paramref name="Start"/> on the animation clock and its tile clears <paramref name="Arrival"/> seconds
+    /// later, the level's clearing style deciding what it does on the way (spec 005 FR-038, <c>ClearLook</c>).
     /// </summary>
-    public sealed record Walker(IReadOnlyList<CellPos> Route, VariantId Variant, float Start, float Arrival);
+    public sealed record Walker(IReadOnlyList<CellPos> Route, VariantId Variant, float Start, float Arrival, string PodId = "");
 
-    /// <summary>A cleared tile shrinking away (its look before the clear).</summary>
-    public sealed record Fade(CellPos Cell, CellInfo Look, float Start);
+    /// <summary>A just-cleared tile (its look before the clear) and its pod, for the style's restore and the slot's ring.</summary>
+    public sealed record Fade(CellPos Cell, CellInfo Look, float Start, string? PodId = null);
 
     /// <summary>A pod card flying from the tray to its slot (or back, for Return).</summary>
     public sealed record Flight(float FromX, float FromY, int Slot, VariantId? Variant, float Start, bool ToTray, string PodId);
@@ -74,20 +76,22 @@ namespace Bloomlings.Playtest
     /// </summary>
     public sealed class LevelAnimator
     {
-        // The clearing pace, halved on the owner's requests of 2026-10-03 (it was 0.09 s a step and waves of 0.3–1.6 s)
-        // and again of 2026-10-05 (0.18 s a step and waves of 0.6–3.2 s); the restore keeps its time.
-        public const float StepSeconds = 0.36f;
+        // The clearing pace is the clearing styles' (ClearStyles.TripSeconds, the owner's calm pace of 2026-10-06; it was
+        // 0.36 s a step and waves of 1.2–6.4 s): every style takes the same time for a tile, and no wave squeezes a trip.
         public const float RestoreSeconds = 0.2f;
         public const float MinWaveSeconds = 1.2f;
-        public const float MaxWaveSeconds = 6.4f;
+        public const float MaxWaveSeconds = 40f;
         public const float ExitSeconds = 0.25f;
-        public const float FadeSeconds = 0.2f;
+
+        /// <summary>How long a just-cleared tile's restore lasts (the style's flower or confetti, the slot's ring).</summary>
+        public const float FadeSeconds = ClearStyles.RestoreSeconds;
+
         public const float FlightSeconds = 0.2f;
         private const float MaxRate = 4f;
 
-        // The backlog beyond which the timeline plays faster (taps far quicker than the Bloomlings walk), doubled with the
-        // pace on 2026-10-05 (it was 6 s), so the slower clearing is not sped up again.
-        private const float BacklogSeconds = 12f;
+        // The backlog beyond which the timeline plays faster (taps far quicker than the Bloomlings walk): 60 s since the
+        // calm pace of 2026-10-06 (it was 12 s, 6 s before), so normal play keeps the pace (Remote Config fx.backlogThresholdMs).
+        private const float BacklogSeconds = 60f;
 
         private readonly List<Wave> _waves = new List<Wave>();
         private readonly Dictionary<string, (int Progress, int Total, bool Triggered)> _specials = new Dictionary<string, (int, int, bool)>(StringComparer.Ordinal);
@@ -99,6 +103,10 @@ namespace Bloomlings.Playtest
         // Per special and per pod: when the last wave queued so far that changes it ends (their end events keep the
         // rules' order: a special's progress, a pod's last Bloomling before it leaves).
         private readonly Dictionary<string, float> _keyReady = new Dictionary<string, float>(StringComparer.Ordinal);
+
+        // Per pod and arch (its entry cell): when its last Bloomling queued so far leaves, so the next keeps the line (each
+        // pod's Bloomlings leave in a line of their own; pods still work side by side, FR-018).
+        private readonly Dictionary<(string Pod, int Door), float> _lastGo = new Dictionary<(string, int), float>();
         private int _width;
         private bool _silent;
 
@@ -123,6 +131,9 @@ namespace Bloomlings.Playtest
 
         /// <summary>1 or 2 (the 2× toggle).</summary>
         public float Speed { get; set; } = 1f;
+
+        /// <summary>The level's clearing style (spec 005 FR-038): its legs decide when a Bloomling's tile leaves its cell.</summary>
+        public ClearStyle Style { get; set; } = ClearStyle.Blossom;
 
         /// <summary>Animation clock in timeline seconds.</summary>
         public float Now { get; private set; }
@@ -192,6 +203,7 @@ namespace Bloomlings.Playtest
         {
             _waves.Clear();
             _keyReady.Clear();
+            _lastGo.Clear();
             Walkers.Clear();
             Fades.Clear();
             Flights.Clear();
@@ -357,6 +369,7 @@ namespace Bloomlings.Playtest
             Walkers.Clear();
             Array.Clear(_ready, 0, _ready.Length);
             _keyReady.Clear();
+            _lastGo.Clear();
             foreach (SlotLook slot in Slots)
             {
                 if (slot.IsLeaving)
@@ -690,7 +703,7 @@ namespace Bloomlings.Playtest
                             reveal = events[++i];
                         }
 
-                        float travel = Math.Max(1, clear.RouteFromEntry.Count) * StepSeconds;
+                        float travel = ClearStyles.TripSeconds(clear.RouteFromEntry.Count);
                         wave.Work.Add(new Job(clear, reveal, travel));
                         wave.Duration = Math.Clamp(Math.Max(wave.Duration, travel + RestoreSeconds), MinWaveSeconds, MaxWaveSeconds);
                         break;
@@ -703,35 +716,52 @@ namespace Bloomlings.Playtest
                 }
             }
 
-            // This tap's waves one after another, from now. Each Bloomling sets off on its own as soon as it may: when every
-            // cell of its route, and its target, has shown its earlier change (a tile an earlier tap clears, a layer revealed
-            // under it), so it may follow an earlier tap's Bloomlings closely while their waves still play, whatever its
-            // wave's other Bloomlings wait for (the owner, 2026-10-04). The wave ends after its last arrival, and late enough
-            // that its end events keep the rules' order.
-            float earliest = Now;
+            // This tap's waves from now, each Bloomling setting off on its own as soon as it may: when every cell of its
+            // route, and its target, has shown its earlier change (a tile an earlier tap or round clears, a layer revealed
+            // under it), whatever its wave's other Bloomlings wait for (the owner, 2026-10-04), and a line gap after its
+            // pod's last one out of its arch (2026-10-06). A round no longer waits for the one before it to end; the waves still
+            // end in the rules' order, after their last arrival.
+            float lastEnd = Now;
             foreach (Wave w in waves)
             {
-                float start = earliest;
+                float start = Now;
                 foreach (CellPos cell in CellsAt(w.Start))
                 {
                     start = Math.Max(start, _ready[Index(cell)]);
                 }
 
+                // Nearer tiles first, so the line out of an arch never passes itself.
+                w.Work.Sort((x, y) => x.Travel.CompareTo(y.Travel));
                 float end = start + w.Duration;
                 foreach (Job job in w.Work)
                 {
                     IReadOnlyList<CellPos> route = job.Clear.RouteFromEntry;
                     float arrival = ArrivalOf(w, job);
+                    ClearLegs legs = ClearStyles.LegsOf(Style, route.Count);
+                    float scale = arrival / Math.Max(0.01f, job.Travel);
+                    float outward = legs.Out * scale;
                     float go = start;
                     for (int j = 0; j < route.Count; j++)
                     {
-                        // The walker reaches route cell j at (j + 1) / count of its walk (BoardPainter.DrawWalkers).
-                        float reach = arrival * (j + 1) / route.Count;
+                        // The walker reaches route cell j at (j + 1) / count of its walk out (ClearLook).
+                        float reach = outward * (j + 1) / route.Count;
                         go = Math.Max(go, _ready[Index(route[j])] + StepMargin - reach);
                     }
 
-                    go = Math.Max(go, _ready[Index(job.Clear.Cell)] + StepMargin - arrival);
+                    go = Math.Max(go, _ready[Index(job.Clear.Cell)] + StepMargin - outward);
+                    if (route.Count > 0)
+                    {
+                        var line = (job.Clear.PodId, Index(route[0]));
+                        if (_lastGo.TryGetValue(line, out float last))
+                        {
+                            go = Math.Max(go, last + ClearStyles.LineGap);
+                        }
+
+                        _lastGo[line] = go;
+                    }
+
                     job.Go = go;
+                    job.Gone = go + ((legs.Out + legs.Act) * scale);
                     job.At = go + arrival;
                     end = Math.Max(end, job.At + RestoreSeconds);
                 }
@@ -744,6 +774,8 @@ namespace Bloomlings.Playtest
                     end = Math.Max(end, _ready[Index(cell)]);
                 }
 
+                // The tap's rounds still end in the rules' order.
+                end = Math.Max(end, lastEnd + KeyGap);
                 foreach (string key in KeysAtEnd(w))
                 {
                     if (_keyReady.TryGetValue(key, out float ready))
@@ -773,7 +805,10 @@ namespace Bloomlings.Playtest
                     string key = "pod:" + job.Clear.PodId;
                     _keyReady[key] = Math.Max(_keyReady.TryGetValue(key, out float k) ? k : 0f, end);
                     int cell = Index(job.Clear.Cell);
-                    _ready[cell] = Math.Max(_ready[cell], job.At);
+
+                    // A later Bloomling may cross the cell once its tile is gone (eaten, picked up, in a bubble), unless a
+                    // layer comes up under it at the clear.
+                    _ready[cell] = Math.Max(_ready[cell], job.Reveal == null ? job.Gone : job.At);
                 }
 
                 foreach (CellPos cell in CellsAt(w.Start))
@@ -787,7 +822,7 @@ namespace Bloomlings.Playtest
                 }
 
                 _waves.Add(w);
-                earliest = end;
+                lastEnd = end;
             }
         }
 
@@ -864,9 +899,9 @@ namespace Bloomlings.Playtest
                     slot.InFlight++;
                 }
 
-                if (withWalkers && Walkers.Count < 40)
+                if (withWalkers && Walkers.Count < 160)
                 {
-                    var walker = new Walker(clear.RouteFromEntry, clear.Variant, job.Go, job.At - job.Go);
+                    var walker = new Walker(clear.RouteFromEntry, clear.Variant, job.Go, job.At - job.Go, clear.PodId);
                     Walkers.Add(walker);
                     wave.Walkers.Add(walker);
                 }
@@ -891,7 +926,7 @@ namespace Bloomlings.Playtest
                 TileCleared clear = wave.Work[index].Clear;
                 GameEvent? reveal = wave.Work[index].Reveal;
                 CellInfo old = Cell(clear.Cell);
-                Fades.Add(new Fade(clear.Cell, old, Now));
+                Fades.Add(new Fade(clear.Cell, old, Now, clear.PodId));
                 _cells[Index(clear.Cell)] = reveal switch
                 {
                     LayerRevealed layer => new CellInfo(
@@ -1031,6 +1066,9 @@ namespace Bloomlings.Playtest
 
             /// <summary>When it sets off on the animation clock.</summary>
             public float Go { get; set; }
+
+            /// <summary>When its tile is gone from its cell (the end of its style's out and act legs).</summary>
+            public float Gone { get; set; }
 
             /// <summary>When it arrives (its tile changes).</summary>
             public float At { get; set; }

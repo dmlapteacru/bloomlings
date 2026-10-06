@@ -43,6 +43,8 @@ namespace Bloomlings.Client.Gameplay.Board
         private BoardLayout? _layout;
         private int _width;
         private int _height;
+        private readonly HashSet<CellPos> _held = new HashSet<CellPos>();
+        private readonly HashSet<CellPos> _swaying = new HashSet<CellPos>();
 
         /// <summary>A tile was tapped while targeting (Bloom Burst).</summary>
         public event System.Action<CellPos>? CellTapped;
@@ -78,6 +80,8 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             _tiles.Clear();
+            _held.Clear();
+            _swaying.Clear();
             foreach (SpecialView special in _specials)
             {
                 Destroy(special.gameObject);
@@ -288,6 +292,62 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             UpdateCounted(view);
+        }
+
+        /// <summary>The board's rows (the kit's cell units count them from the top).</summary>
+        public int Rows => _height;
+
+        /// <summary>
+        /// A Bloomling's clear in the level's clearing style (spec 005 FR-038): the style drew the tile's restore, so the
+        /// ground just shows (<see cref="ShowOpened"/> keeps its own shrink and sparkle for clears without a style).
+        /// </summary>
+        public void ShowCleared(CellPos cell)
+        {
+            TileView tile = Tile(cell);
+            tile.SetHeld(false);
+            tile.ShowOpen(animate: false);
+        }
+
+        /// <summary>The tiles the clearing style holds this frame show their ground; the others show again.</summary>
+        public void SetHeld(HashSet<CellPos> held)
+        {
+            foreach (CellPos cell in _held)
+            {
+                if (!held.Contains(cell))
+                {
+                    Tile(cell).SetHeld(false);
+                }
+            }
+
+            foreach (CellPos cell in held)
+            {
+                if (!_held.Contains(cell))
+                {
+                    Tile(cell).SetHeld(true);
+                }
+            }
+
+            _held.Clear();
+            _held.UnionWith(held);
+        }
+
+        /// <summary>Blossom: the tiles beside a just-opened flower sway (degrees by cell); the others stand still.</summary>
+        public void SetSway(Dictionary<CellPos, float> sway)
+        {
+            foreach (CellPos cell in _swaying)
+            {
+                if (!sway.ContainsKey(cell))
+                {
+                    Tile(cell).SetSway(0f);
+                }
+            }
+
+            _swaying.Clear();
+            foreach (KeyValuePair<CellPos, float> pair in sway)
+            {
+                Tile(pair.Key).SetSway(pair.Value);
+                _swaying.Add(pair.Key);
+            }
         }
 
         /// <summary>A Bloomling restored the tile: it shrinks away with a small sparkle.</summary>

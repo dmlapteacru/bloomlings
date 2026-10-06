@@ -30,7 +30,7 @@ These events feed difficulty tuning and business metrics (FR-086, SC-006, SC-007
 | `daily_reward_claim` | Daily reward claimed | `streak` |
 | `daily_challenge_complete` | Daily challenge won | `utc_date` |
 | `leaderboard_view` | Leaderboard opened | `rank` |
-| `cosmetic_equip` | Skin equipped | `family`, `skin_id` |
+| `cosmetic_equip` | Skin equipped, or a clearing style chosen (spec 005 FR-038: `family` `board`, `skin_id` the style's `clear.*` id) | `family`, `skin_id` |
 | `collection_open` | Collection opened | `entries` |
 
 ## Monetization

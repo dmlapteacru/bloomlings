@@ -13,8 +13,8 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="Edit"/>), the short ID (<see cref="Id"/>), the joining month (<see cref="Joined"/>) and the wooden
     /// "Level N" plaque (<see cref="Plaque"/>);</description></item>
     /// <item><description>three stat cells (<see cref="Stats"/>: levels won, pictures collected, milestones);</description></item>
-    /// <item><description>the Achievements title (<see cref="AchievementsTitle"/>), its placeholder tiles
-    /// (<see cref="Achievements"/>, locked until the owner names the achievements) and their note
+    /// <item><description>the Achievements title (<see cref="AchievementsTitle"/>), its tiles
+    /// (<see cref="Achievements"/>: a well with the trophy and the count, the name under it) and their note
     /// (<see cref="AchievementsNote"/>).</description></item>
     /// </list>
     /// The page has no bottom menu (it is not a menu place: Home's avatar opens it, back returns Home). Everything is in
@@ -38,7 +38,7 @@ namespace Bloomlings.Client.UI.Design
         IReadOnlyList<Box> Achievements,
         Box AchievementsNote)
     {
-        /// <summary>The number of placeholder achievement tiles.</summary>
+        /// <summary>The number of achievement tiles (<c>Achievements.All</c>).</summary>
         public const int AchievementCount = 3;
 
         /// <summary>The panel's corner radius (a card's, <c>radius.card</c> of its width, at least <c>radius.card_min</c>).</summary>
@@ -53,8 +53,27 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>An achievement tile's well (the square above its label).</summary>
         public static Box AchievementWell(Box tile) => new Box(tile.Left, tile.Top, tile.Right, tile.Top + tile.Width);
 
+        /// <summary>An achievement well's trophy: half the well, its middle 42% down.</summary>
+        public static Box AchievementTrophy(Box well) => Box.FromCenter(well.CenterX, well.Top + (well.Height * 0.42f), well.Width * 0.5f, well.Height * 0.5f);
+
+        /// <summary>An achievement well's count line, along its bottom (under the trophy, left of the badge's middle).</summary>
+        public static Box AchievementProgress(Box well) => new Box(well.Left + (well.Width * 0.06f), well.Top + (well.Height * 0.7f), well.Right - (well.Width * 0.2f), well.Bottom - (well.Height * 0.04f));
+
         /// <summary>An achievement tile's label (under its well).</summary>
         public static Box AchievementLabel(Box tile) => new Box(tile.Left - (tile.Width * 0.1f), tile.Top + tile.Width, tile.Right + (tile.Width * 0.1f), tile.Bottom);
+    }
+
+    /// <summary>The achievements' look (spec 005 FR-037 as amended on 2026-10-06; contracts/look.md §6.11).</summary>
+    public static class AchievementLook
+    {
+        /// <summary>A tier's trophy color: the medals' bronze, silver and gold; null before the first tier.</summary>
+        public static Rgba? TierColor(int tier) => tier switch
+        {
+            <= 0 => null,
+            1 => DesignTokens.Colors.MedalBronze,
+            2 => DesignTokens.Colors.MedalSilver,
+            _ => DesignTokens.Colors.MedalGold,
+        };
     }
 
     /// <summary>

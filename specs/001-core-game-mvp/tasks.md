@@ -1531,7 +1531,14 @@ final validation.
   free, ten bought once for 300 / 600 / 1200 Petals (Remote Config `economy.price.avatar*`), the save's `profile`
   section and `cosmetics.equipped.profile.avatar` (both schema copies, data-model §3.1, the merge).
 - [ ] T167 The owner: set the Petal packs' sizes for the new booster prices (120 / 400 / 1000 now buy less than one
-  booster) with the server work (`ProductCatalog.json`, `backend/cloud-code/ValidatePurchase.js`).
+  booster, and a clearing style costs 5000) with the server work (`ProductCatalog.json`,
+  `backend/cloud-code/ValidatePurchase.js`). Deferred by the owner (2026-10-06) until purchases come in as a whole.
+- [X] T168 The board's clearing styles as board cosmetics (FR-063 and FR-051 as amended, research R4 amendment of
+  2026-10-06; spec 005 FR-038, its tasks T119–T124): Blossom and Munchers free by level, five styles for 5000 Petals
+  each from L40 (Remote Config `economy.price.clearing`) in the Store's Animations tab with live previews from L12;
+  the save's `clear.<name>` in `cosmetics.owned` and `cosmetics.equipped.board.clearing` (both schema copies,
+  data-model §3.1, the merge); one trip time for every style, a line of Bloomlings from each arch, rounds not waiting
+  for each other, the backlog speed-up at 60 s (`fx.backlogThresholdMs` 60000), both builds.
 
 ## Parallel Example: User Story 1
 

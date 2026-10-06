@@ -11,6 +11,7 @@ using Bloomlings.Client.Gameplay.Slots;
 using Bloomlings.Client.Gameplay.Timeline;
 using Bloomlings.Client.Gameplay.Tray;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Ads;
@@ -28,6 +29,7 @@ using Bloomlings.Client.UI.Tutorial;
 using Bloomlings.Client.UI.Tutorial.Demos;
 using Bloomlings.Client.UI;
 using Bloomlings.Content.Packs;
+using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
@@ -67,6 +69,16 @@ namespace Bloomlings.Client.Gameplay
         private SlotRowView _slots = null!;
         private EventTimeline _timeline = null!;
         private WorkerPool _workers = null!;
+
+        // The level's clearing style (spec 005 FR-038): its walkers and their tiles over the board, their flights over the
+        // slots, drawn from the kit's list (ClearLook), as the playtest draws it.
+        private ClearFxView _fxBoard = null!;
+        private ClearFxView _fxOver = null!;
+        private readonly FxList _fx = new FxList();
+        private readonly List<ClearTrip> _trips = new List<ClearTrip>();
+        private readonly List<(ClearFade Fade, string PodId)> _cleared = new List<(ClearFade, string)>();
+        private readonly HashSet<CellPos> _heldCells = new HashSet<CellPos>();
+        private readonly Dictionary<CellPos, float> _swayCells = new Dictionary<CellPos, float>();
         private PauseScreen _pause = null!;
         private WinScreen _win = null!;
         private JamScreen _jam = null!;
@@ -107,7 +119,11 @@ namespace Bloomlings.Client.Gameplay
             var root = (RectTransform)canvas.transform;
             _root = root;
             _hud = GameplayHud.Create(UiFactory.Stretch(UiFactory.CreateRect("Hud", root)), OpenPause, OnSpeedChanged);
+
+            // Over the slots and the tray, under the end screens and the pause card.
+            _fxOver = ClearFxView.Create(root, "ClearFxOver");
             _board = BoardView.Create(_hud.BoardArea, _visuals);
+            _fxBoard = ClearFxView.Create(_board.Grid, "ClearFx");
             _slots = SlotRowView.Create(_hud.SlotArea, _visuals);
             _tray = TrayView.Create(_hud.TrayArea, _visuals, OnPodTapped);
             _boosters = BoosterBar.Create(_hud.BoosterArea, OnBoosterPressed);
@@ -126,6 +142,8 @@ namespace Bloomlings.Client.Gameplay
             if (wardrobe != null)
             {
                 _workers.Outfits = wardrobe.OutfitOf;
+                _fxBoard.Outfits = wardrobe.OutfitOf;
+                _fxOver.Outfits = wardrobe.OutfitOf;
             }
             // The end screens first, then the pause card over them: the win and the milestone cover the whole screen, top
             // bar included (spec 005 FR-023), while Pause stays usable during a jam (its scrim lets taps through over the
@@ -439,7 +457,34 @@ namespace Bloomlings.Client.Gameplay
 
         public void OnWorkStarted(IReadOnlyList<WorkUnit> batch, float start, float travelSeconds)
         {
-            _workers.Launch(batch, start, travelSeconds);
+            WorkUnit lead = batch[batch.Count - 1];
+            IReadOnlyList<CellPos> route = lead.Clear.RouteFromEntry;
+            if (route.Count > 0 && _trips.Count < _workers.Capacity)
+            {
+                // Its way in the kit's cell units (y down): the arch's door, then the route's cells.
+                var points = new List<(float X, float Y)>(route.Count + 1);
+                EntryDef? door = null;
+                foreach (EntryDef entry in _session!.View.Entries)
+                {
+                    if (entry.Cell == route[0])
+                    {
+                        door = entry;
+                    }
+                }
+
+                if (door != null)
+                {
+                    points.Add(KitPoint(_board.EntryPoint(door)));
+                }
+
+                foreach (CellPos cell in route)
+                {
+                    points.Add(KitPoint(_board.CellCenter(cell)));
+                }
+
+                _trips.Add(new ClearTrip(points, lead.Clear.Variant, start, travelSeconds, lead.Clear.PodId, lead.Clear.Cell));
+            }
+
             foreach (WorkUnit unit in batch)
             {
                 string pod = unit.Clear.PodId;
@@ -455,7 +500,8 @@ namespace Bloomlings.Client.Gameplay
             switch (unit.Reveal)
             {
                 case CellOpened opened:
-                    _board.ShowOpened(opened.Cell);
+                    // The clearing style drew the tile's restore; its flower or confetti follows from here.
+                    _board.ShowCleared(opened.Cell);
                     break;
                 case LayerRevealed layer:
                     _board.ShowLayer(layer.Cell, layer.NewTopVariant, _session!.View);
@@ -468,6 +514,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             string pod = unit.Clear.PodId;
+            _cleared.Add((new ClearFade(KitPoint(_board.CellCenter(unit.Clear.Cell)), unit.Clear.Variant, _timeline.Now, null), pod));
             _slots.Decrement(pod);
             int left = (_workInFlight.TryGetValue(pod, out int n) ? n : 1) - 1;
             _workInFlight[pod] = left;
@@ -724,7 +771,7 @@ namespace Bloomlings.Client.Gameplay
             }
 
             _timeline.Flush();
-            _workers.RecallAll();
+            ForgetTrips();
             _workInFlight.Clear();
             (string PodId, Vector3 From, VariantId? Variant)? returning = null;
             if (command is UseReturn back && session.View.PodInSlot(back.SlotIndex) is string returned)
@@ -1591,6 +1638,150 @@ namespace Bloomlings.Client.Gameplay
             }
         }
 
+        // ---- The clearing style (spec 005 FR-038) ----
+
+        /// <summary>
+        /// Draws the clearing style after every Update (the timeline's clock is this frame's): each walker on its trip and
+        /// each just-cleared tile's restore, from the kit's list; the tiles the style holds show their ground, and
+        /// Blossom's flowers sway their neighbours.
+        /// </summary>
+        private void LateUpdate()
+        {
+            if (_session == null || _timeline == null || _board.CellSize <= 0f)
+            {
+                return;
+            }
+
+            float now = _timeline.Now;
+            ClearStyle style = _timeline.Style;
+            _trips.RemoveAll(trip => now > trip.Start + trip.Arrival + 0.05f);
+            _cleared.RemoveAll(c => now - c.Fade.Start >= ClearStyles.RestoreSeconds);
+            _fx.Clear();
+            _heldCells.Clear();
+            var fades = new List<ClearFade>(_cleared.Count);
+            foreach ((ClearFade fade, string pod) in _cleared)
+            {
+                var seated = new ClearFade(fade.Center, fade.Variant, fade.Start, Seat(pod));
+                fades.Add(seated);
+                ClearLook.Restore(_fx, style, seated, now);
+            }
+
+            foreach (ClearTrip trip in _trips)
+            {
+                var walk = new ClearWalk(trip.Points, trip.Variant, trip.Start, trip.Arrival, Seat(trip.PodId));
+                if (ClearLook.Holds(style, walk, now))
+                {
+                    _heldCells.Add(trip.Target);
+                }
+
+                ClearLook.Walker(_fx, style, walk, now);
+            }
+
+            _board.SetHeld(_heldCells);
+            _swayCells.Clear();
+            if (style == ClearStyle.Blossom && fades.Count > 0)
+            {
+                LevelView view = _session.View;
+                for (int y = 0; y < view.Height; y++)
+                {
+                    for (int x = 0; x < view.Width; x++)
+                    {
+                        var cell = new CellPos(x, y);
+                        float sway = ClearLook.Sway(style, fades, KitPoint(_board.CellCenter(cell)), now);
+                        if (sway != 0f)
+                        {
+                            _swayCells[cell] = sway;
+                        }
+                    }
+                }
+            }
+
+            _board.SetSway(_swayCells);
+
+            // Over the board: the grid's own coordinates. Over the slots: the same points on the root's layer.
+            float cellSize = _board.CellSize;
+            int rows = _board.Rows;
+            _fxBoard.Cell = cellSize;
+            _fxBoard.Map = (x, y) => new Vector2(x * cellSize, (rows - y) * cellSize);
+            _fxBoard.Render(_fx.Items, FxLayer.Board);
+            _fxBoard.transform.SetAsLastSibling();
+            RectTransform grid = _board.Grid;
+            var over = (RectTransform)_fxOver.transform;
+            Vector2 Over(float x, float y)
+            {
+                Rect g = grid.rect;
+                Vector3 world = grid.TransformPoint(new Vector3((x * cellSize) + g.xMin, ((rows - y) * cellSize) + g.yMin, 0f));
+                Vector3 local = over.InverseTransformPoint(world);
+                Rect o = over.rect;
+                return new Vector2(local.x - o.xMin, local.y - o.yMin);
+            }
+
+            Vector2 zero = Over(0f, 0f);
+            Vector2 one = Over(1f, 0f);
+            _fxOver.Cell = Mathf.Abs(one.x - zero.x);
+            _fxOver.Map = Over;
+            _fxOver.Render(_fx.Items, FxLayer.Over);
+        }
+
+        /// <summary>A point on the board's grid (from its bottom left) in the kit's cell units (y down from the top row).</summary>
+        private (float X, float Y) KitPoint(Vector2 point) => (point.x / _board.CellSize, _board.Rows - (point.y / _board.CellSize));
+
+        /// <summary>Where a pod's tiles go in the slot it shows in (its plate's tile), in cell units; null while in none.</summary>
+        private Box? Seat(string podId)
+        {
+            int place = _slots.PlaceOf(podId);
+            if (place < 0)
+            {
+                return null;
+            }
+
+            RectTransform grid = _board.Grid;
+            Vector3 local = grid.InverseTransformPoint(_slots.TilePosition(place));
+            Rect g = grid.rect;
+            (float x, float y) = KitPoint(new Vector2(local.x - g.xMin, local.y - g.yMin));
+            float side = _slots.TileSize / Mathf.Max(0.001f, _board.CellSize);
+            return Box.FromCenter(x, y, side, side);
+        }
+
+        /// <summary>Forgets the walkers and clears drawn (a restart, a booster showing everything at once).</summary>
+        private void ForgetTrips()
+        {
+            _trips.Clear();
+            _cleared.Clear();
+            _heldCells.Clear();
+            _swayCells.Clear();
+            _board.SetHeld(_heldCells);
+            _board.SetSway(_swayCells);
+            _fxBoard.Clear();
+            _fxOver.Clear();
+        }
+
+        /// <summary>One walker on its trip: its way in cell units, its variant, its start and trip on the clock, its pod and tile.</summary>
+        private sealed class ClearTrip
+        {
+            public ClearTrip(IReadOnlyList<(float X, float Y)> points, VariantId variant, float start, float arrival, string podId, CellPos target)
+            {
+                Points = points;
+                Variant = variant;
+                Start = start;
+                Arrival = arrival;
+                PodId = podId;
+                Target = target;
+            }
+
+            public IReadOnlyList<(float X, float Y)> Points { get; }
+
+            public VariantId Variant { get; }
+
+            public float Start { get; }
+
+            public float Arrival { get; }
+
+            public string PodId { get; }
+
+            public CellPos Target { get; }
+        }
+
         /// <summary>Two variants of one family among the level's pods, for the sibling demo (FR-071).</summary>
         private static (VariantId First, VariantId Second)? SiblingPair(LevelSession session)
         {
@@ -1613,7 +1804,7 @@ namespace Bloomlings.Client.Gameplay
         {
             LevelSession session = _session!;
             _timeline.Clear();
-            _workers.RecallAll();
+            ForgetTrips();
             _workInFlight.Clear();
             _win.Hide();
             _jam.Hide();
@@ -1634,13 +1825,17 @@ namespace Bloomlings.Client.Gameplay
             // The board pictures of earlier levels at other cell sizes go; the last level's, still shown, stay for this one.
             Art.ProceduralSprites.ReleaseUnused(Art.ProceduralSprites.BoardFamilies);
             _board.Build(session.View, session.Definition, session.Picture);
+            _fxBoard.transform.SetAsLastSibling();
+
+            // The level's clearing style: the free pair by level, or the chosen bought one (spec 005 FR-038).
+            int styleLevel = Flow?.CurrentAttempt?.LevelNumber ?? session.Definition.LevelNumber;
+            _timeline.Style = Service<ClearingService>()?.StyleFor(styleLevel) ?? ClearStyles.ForLevel(styleLevel);
             _hasCountedSpecials = false;
             foreach (SpecialInfo special in session.View.Specials)
             {
                 _hasCountedSpecials |= special.Condition.Kind != SpecialConditionKind.Key;
             }
 
-            _workers.SetEntries(session.View.Entries);
             _slots.Reset(session.View);
             _tray.Refresh(session.View, slide: false);
             _reward = null;

@@ -53,6 +53,9 @@ namespace Bloomlings.Playtest.Design
             // The stone border with the dark gap the tiles lie in (the Garden Entries' arches come after the tiles).
             Kit.StoneBorder(p, layout.Grid, cell);
 
+            // The clearing style's items for this frame (spec 005 FR-038): the tiles it holds show their ground under it.
+            ClearPainter.Build(s, s.FxSlots);
+
             for (int y = 0; y < h; y++)
             {
                 for (int x = 0; x < w; x++)
@@ -60,6 +63,10 @@ namespace Bloomlings.Playtest.Design
                     var pos = new CellPos(x, y);
                     CellInfo info = s.Animator.Cell(pos);
                     Box full = CellBox(s, pos);
+                    if (s.Held.Contains(pos))
+                    {
+                        info = new CellInfo(CellKind.Open, null, null, 0, false, null, null, info.IsEntry);
+                    }
                     switch (info.Kind)
                     {
                         case CellKind.Open:
@@ -81,7 +88,19 @@ namespace Bloomlings.Playtest.Design
                             Special(p, s, info, full, cell);
                             break;
                         default:
+                            float sway = ClearPainter.Sway(s, pos);
+                            if (sway != 0f)
+                            {
+                                // Blossom: a tile beside a just-opened flower sways on its foot.
+                                p.PushRotate(sway, full.CenterX, full.Bottom);
+                            }
+
                             Tile(p, info, full, cell, 1f, 1f);
+                            if (sway != 0f)
+                            {
+                                p.PopTransform();
+                            }
+
                             if (s.Targeting == Recovery.BloomBurst && info.Visible.HasValue && !info.MysteryHidden)
                             {
                                 // Bloom Burst targeting: a ring on every candidate tile, which takes the tap.
@@ -94,34 +113,6 @@ namespace Bloomlings.Playtest.Design
 
                             break;
                     }
-                }
-            }
-
-            // Restored tiles shrink away; the picture shows beneath.
-            foreach (Fade fade in s.Animator.Fades)
-            {
-                float k = Visuals.Clamp01((s.Animator.Now - fade.Start) / LevelAnimator.FadeSeconds);
-                if (fade.Look.Kind == CellKind.Target)
-                {
-                    Box at = CellBox(s, fade.Cell);
-                    Tile(p, fade.Look, at, cell, 1f - (0.5f * k), 1f - k);
-
-                    // A sparkle as the tile is restored; droplets for the Drop family.
-                    p.PushAlpha(1f - k);
-                    float spark = cell * (0.35f + (0.4f * k));
-                    bool drop = fade.Look.Visible.HasValue && Visuals.FamilyOf(fade.Look.Visible.Value) == Family.Drop;
-                    if (drop)
-                    {
-                        Rgba splash = Visuals.ColorOf(fade.Look.Visible!.Value).Lighten(0.72f);
-                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX - (cell * 0.2f), at.CenterY - (cell * 0.1f) - (cell * 0.3f * k), spark * 0.6f, spark * 0.6f), splash);
-                        p.Shape("fx.droplet", Box.FromCenter(at.CenterX + (cell * 0.22f), at.CenterY - (cell * 0.2f) - (cell * 0.3f * k), spark * 0.5f, spark * 0.5f), splash);
-                    }
-                    else
-                    {
-                        p.Shape("fx.sparkle", Box.FromCenter(at.CenterX + (cell * 0.18f), at.CenterY - (cell * 0.18f), spark, spark), Rgba.White);
-                    }
-
-                    p.PopAlpha();
                 }
             }
 
@@ -143,7 +134,8 @@ namespace Bloomlings.Playtest.Design
                 Kit.EntryArch(p, BoardLayout.ArchOf(CellBox(s, entry.Cell), entry.Side));
             }
 
-            DrawWalkers(p, s, cell);
+            // The Bloomlings and their tiles in the level's clearing style, and the just-cleared tiles' restore.
+            ClearPainter.Draw(p, s, FxLayer.Board);
         }
 
         public static Box CellBox(LevelScreen s, CellPos pos)
@@ -245,7 +237,7 @@ namespace Bloomlings.Playtest.Design
         /// faint inner shadow along its top, over a slightly deeper shade of itself, so the picture reads as one calm
         /// mosaic next to the saturated tiles.
         /// </summary>
-        private static void Ground(IPainter p, Box full, float cell, Rgba color)
+        public static void Ground(IPainter p, Box full, float cell, Rgba color)
         {
             p.Mark("tile.ground");
             p.FillRect(full, color.Darken(0.12f));
@@ -352,53 +344,6 @@ namespace Bloomlings.Playtest.Design
             var band = new Box(face.Left + (face.Width * 0.1f), face.Top + (face.Height * 0.06f), face.Right - (face.Width * 0.1f), face.Top + (face.Height * 0.26f));
             p.FillRoundGradient(band, band.Height / 2f, Rgba.White.WithAlpha(0.16f), Rgba.White.WithAlpha(0f));
             return face;
-        }
-
-        /// <summary>Bloomlings on their way: small figures of their family in the variant color, hopping along the route.</summary>
-        private static void DrawWalkers(IPainter p, LevelScreen s, float cell)
-        {
-            LevelView view = s.Session.View;
-            foreach (Walker walker in s.Animator.Walkers)
-            {
-                if (walker.Route.Count == 0)
-                {
-                    continue;
-                }
-
-                var points = new List<(float X, float Y)>();
-                foreach (EntryDef candidate in view.Entries)
-                {
-                    if (candidate.Cell == walker.Route[0])
-                    {
-                        points.Add(EntryPoint(s, candidate));
-                        break;
-                    }
-                }
-
-                foreach (CellPos pos in walker.Route)
-                {
-                    Box b = CellBox(s, pos);
-                    points.Add((b.CenterX, b.CenterY));
-                }
-
-                float walked = s.Animator.Now - walker.Start;
-                float progress = Visuals.Clamp01(walked / Math.Max(0.05f, walker.Arrival));
-                if (walked < 0f || (progress >= 1f && walked > walker.Arrival + 0.12f))
-                {
-                    continue;
-                }
-
-                float t = progress * (points.Count - 1);
-                int i = Math.Min((int)t, Math.Max(0, points.Count - 2));
-                float f = points.Count == 1 ? 0f : t - i;
-                float x = points.Count == 1 ? points[0].X : points[i].X + ((points[i + 1].X - points[i].X) * f);
-                float y = points.Count == 1 ? points[0].Y : points[i].Y + ((points[i + 1].Y - points[i].Y) * f);
-                y -= Math.Abs((float)Math.Sin(f * Math.PI)) * cell * 0.2f;
-                float size = cell * 0.82f;
-                Box body = Box.FromCenter(x, y - (size * 0.1f), size, size);
-                Visuals.GroundShadow(p, Box.FromCenter(x, y - (size * 0.04f), size, size));
-                Visuals.Character(p, body, walker.Variant, CharacterMood.Happy);
-            }
         }
 
         /// <summary>

@@ -123,6 +123,23 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba GardenFlowerCenterLine = Rgba.FromHex("#D29B2E");
             public static readonly Rgba GardenGlow = Rgba.FromHex("#FFD54A");
 
+            // ---- The clearing styles (spec 005 FR-038, contracts/look.md §6.12) ----
+
+            /// <summary>A soap bubble's glass (Bubbles), at a low alpha.</summary>
+            public static readonly Rgba FxGlass = Rgba.FromHex("#DDF4FF");
+
+            /// <summary>A soap bubble's pink rainbow rim.</summary>
+            public static readonly Rgba FxGlassRim = Rgba.FromHex("#F7B6E4");
+
+            /// <summary>A firefly's golden core (Fireflies).</summary>
+            public static readonly Rgba FxFirefly = Rgba.FromHex("#FFC23A");
+
+            /// <summary>A firefly's soft glow, and a glowing tile.</summary>
+            public static readonly Rgba FxFireflyGlow = Rgba.FromHex("#FFF3A6");
+
+            /// <summary>The pink confetti (Confetti Parade).</summary>
+            public static readonly Rgba FxConfettiPink = Rgba.FromHex("#FF7FB0");
+
             // ---- The reference look (spec 005 contracts/look.md §1.2) ----
 
             /// <summary>Sign / rim face top.</summary>
@@ -336,6 +353,11 @@ namespace Bloomlings.Client.UI.Design
                 ["garden.flower_center"] = GardenFlowerCenter,
                 ["garden.flower_center_line"] = GardenFlowerCenterLine,
                 ["garden.glow"] = GardenGlow,
+                ["fx.glass"] = FxGlass,
+                ["fx.glass_rim"] = FxGlassRim,
+                ["fx.firefly"] = FxFirefly,
+                ["fx.firefly_glow"] = FxFireflyGlow,
+                ["fx.confetti_pink"] = FxConfettiPink,
                 ["wood.light"] = WoodLight,
                 ["wood.mid"] = WoodMid,
                 ["wood.grain"] = WoodGrain,

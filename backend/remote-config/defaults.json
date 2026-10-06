@@ -100,6 +100,12 @@
       "min": 10,
       "type": "int"
     },
+    "economy.price.clearing": {
+      "default": 5000,
+      "max": 50000,
+      "min": 10,
+      "type": "int"
+    },
     "economy.price.extraSlot": {
       "default": 1200,
       "max": 5000,
@@ -137,8 +143,8 @@
       "type": "bool"
     },
     "fx.backlogThresholdMs": {
-      "default": 12000,
-      "max": 20000,
+      "default": 60000,
+      "max": 120000,
       "min": 2000,
       "type": "int"
     }

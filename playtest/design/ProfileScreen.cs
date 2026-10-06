@@ -19,7 +19,8 @@ namespace Bloomlings.Playtest.Design
     /// the name with the pencil (the card on Name), the short ID, "Playing since 10/2026" and the wooden "Level N"
     /// plaque;</description></item>
     /// <item><description>three stats: levels won, pictures collected, milestones reached;</description></item>
-    /// <item><description>Achievements: locked placeholder tiles, "Coming soon", until the owner names them.</description></item>
+    /// <item><description>the three achievements (<see cref="Achievements"/>): Green Thumb, Picture Keeper and Daily
+    /// Gardener, each a trophy in its tier's medal color with the count toward the next tier.</description></item>
     /// </list>
     /// The card lists the 14 avatars (free ones first, the others with their price; the picked one checked), the owned
     /// frames and badges (once the Wardrobe is open) and the name (the host's text dialog); its button saves, or buys the
@@ -53,7 +54,7 @@ namespace Bloomlings.Playtest.Design
             // The stats.
             (string Label, long Value)[] stats =
             {
-                (PlaytestText.T("profile.stat_levels"), meta.Save.Stats.Counters.TryGetValue("levelsWon", out long won) ? won : 0),
+                (PlaytestText.T("profile.stat_levels"), Achievements.Count(meta.Save, Achievements.LevelsCounter)),
                 (PlaytestText.T("profile.stat_pictures"), meta.Collection.Count),
                 (PlaytestText.T("profile.stat_milestones"), meta.Save.Milestones.Claimed.Count),
             };
@@ -67,19 +68,12 @@ namespace Bloomlings.Playtest.Design
                 p.Text(stats[i].Label, label.CenterX, label.CenterY, T.Caption, C.InkBrownSoft, label.Width, grow);
             }
 
-            // The Achievements: placeholders until the owner names them.
+            // The Achievements: bronze, silver and gold for what the save counts (Achievements).
             p.Text(PlaytestText.T("profile.achievements"), r.AchievementsTitle.CenterX, r.AchievementsTitle.CenterY, T.Title, C.InkTitle, r.AchievementsTitle.Width, grow, TextLook.Plain(C.InkTitle));
-            foreach (Box tile in r.Achievements)
+            IReadOnlyList<AchievementState> achievements = Achievements.Of(stats[0].Value, stats[1].Value, Achievements.Count(meta.Save, Achievements.DailyCounter));
+            for (int i = 0; i < r.Achievements.Count && i < achievements.Count; i++)
             {
-                p.Mark("ui.achievement");
-                Box well = ReferenceProfileRegions.AchievementWell(tile);
-                Kit.Well(p, well, well.Width * 0.24f);
-                p.PushAlpha(0.35f);
-                p.Shape("ui.trophy", well.Inset(well.Width * 0.24f), C.InkBrownSoft);
-                p.PopAlpha();
-                Kit.LockBadge(p, well.Right - (well.Width * 0.14f), well.Bottom - (well.Height * 0.14f), well.Width * 0.3f);
-                Box label = ReferenceProfileRegions.AchievementLabel(tile);
-                p.Text(PlaytestText.T("profile.achievement_soon"), label.CenterX, label.CenterY, T.Caption, C.InkBrownSoft, label.Width, grow);
+                Achievement(p, r.Achievements[i], achievements[i], grow);
             }
 
             p.Text(PlaytestText.T("profile.achievements_note"), r.AchievementsNote.CenterX, r.AchievementsNote.CenterY, T.Caption, C.InkBrownSoft, r.AchievementsNote.Width, grow);
@@ -90,6 +84,46 @@ namespace Bloomlings.Playtest.Design
             {
                 Kit.Toast(p, new Box(r.Safe.Left, r.Panel.Top, r.Safe.Right, r.Card.Bottom), toast);
             }
+        }
+
+        /// <summary>
+        /// An achievement's tile (<c>ui.achievement</c>): a parchment well holding the trophy in its tier's medal color
+        /// (faded under the padlock badge before the bronze tier) and the count toward the next tier ("37/50"; the count
+        /// alone with the check badge once gold), the name under it.
+        /// </summary>
+        public static void Achievement(IPainter p, Box tile, AchievementState state, float grow)
+        {
+            p.Mark("ui.achievement");
+            Box well = ReferenceProfileRegions.AchievementWell(tile);
+            Kit.Well(p, well, well.Width * 0.24f);
+            Box trophy = ReferenceProfileRegions.AchievementTrophy(well);
+            Rgba? medal = AchievementLook.TierColor(state.Tier);
+            if (medal.HasValue)
+            {
+                p.Shape("ui.trophy", trophy, medal.Value);
+            }
+            else
+            {
+                p.PushAlpha(0.35f);
+                p.Shape("ui.trophy", trophy, C.InkBrownSoft);
+                p.PopAlpha();
+            }
+
+            Box count = ReferenceProfileRegions.AchievementProgress(well);
+            string text = state.Complete ? NumberText.Group(state.Value) : PlaytestText.F("profile.achievement_progress", NumberText.Group(state.Shown), NumberText.Group(state.Goal));
+            p.Text(text, count.CenterX, count.CenterY, T.Caption, C.InkBrown, count.Width, grow, TextLook.Plain(C.InkBrown));
+            if (state.Tier == 0)
+            {
+                Kit.LockBadge(p, well.Right - (well.Width * 0.14f), well.Bottom - (well.Height * 0.14f), well.Width * 0.3f);
+            }
+            else if (state.Complete)
+            {
+                Kit.CheckBadge(p, well.Right - (well.Width * 0.14f), well.Bottom - (well.Height * 0.14f), well.Width * 0.3f);
+            }
+
+            Box label = ReferenceProfileRegions.AchievementLabel(tile);
+            Rgba ink = state.Tier == 0 ? C.InkBrownSoft : C.InkBrown;
+            p.Text(PlaytestText.T(state.Def.NameKey), label.CenterX, label.CenterY, T.Caption, ink, label.Width, grow);
         }
 
         /// <summary>The name the page shows: the chosen one, else "Gardener 4821" (<see cref="ProfileService.DefaultNumber"/>).</summary>

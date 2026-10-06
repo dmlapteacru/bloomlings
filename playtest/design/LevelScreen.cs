@@ -5,6 +5,7 @@ using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
+using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
@@ -52,6 +53,9 @@ namespace Bloomlings.Playtest.Design
             LevelDefinition definition = content.GetLevel(app.Resolve(Level));
             Session = LevelSession.Load(definition, content.GetPicture(definition.Picture), new SessionOptions(content.ContentVersion, content.ShuffleNodeBudget));
             RefreshSpeed();
+
+            // The level's clearing style (spec 005 FR-038): the free pair by level, or the chosen bought one.
+            Animator.Style = app.Meta.Clearing.StyleFor(Level);
             Animator.Arrived += OnArrived;
             Animator.Shown += OnShown;
             Animator.Reset(Session.View);
@@ -128,6 +132,18 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The board's cell size and origin, for walkers and flights.</summary>
         public (float Ox, float Oy, float Cell, int Height) Board { get; set; }
+
+        /// <summary>This frame's clearing-style items (<see cref="ClearPainter"/>), in cell units.</summary>
+        public FxList Fx { get; } = new FxList();
+
+        /// <summary>The cells whose tile the clearing style holds this frame (drawn as ground under it).</summary>
+        public HashSet<CellPos> Held { get; } = new HashSet<CellPos>();
+
+        /// <summary>This frame's just-cleared tiles, for the style's restore and Blossom's swaying neighbours.</summary>
+        public List<ClearFade> ClearFades { get; } = new List<ClearFade>();
+
+        /// <summary>This frame's slot plates, where the clearing style's tiles go.</summary>
+        public IReadOnlyList<Box> FxSlots { get; private set; } = Array.Empty<Box>();
 
         public bool Won => Session.Status == LevelStatus.Won;
 
@@ -870,6 +886,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             BoardLayout board = r.FitBoard(view.Width, view.Height);
+            FxSlots = r.Slots;
             BoardPainter.Draw(p, board, this);
             TrayPanel(p, r);
             SlotPainter.DrawRow(p, r.Slots, this);
@@ -880,6 +897,9 @@ namespace Bloomlings.Playtest.Design
 
             PodPainter.DrawColumns(p, r, this);
             PodPainter.DrawFlights(p, this);
+
+            // The clearing style's flights to the slots (bubbles, fireflies, tossed tiles, sparkles) and the slots' rings.
+            ClearPainter.Draw(p, this, FxLayer.Over);
 
             Box over = board.Outer;
             string? toast = ToastText;

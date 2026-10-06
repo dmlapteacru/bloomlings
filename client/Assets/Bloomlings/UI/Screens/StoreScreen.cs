@@ -2,8 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.Art;
+using Bloomlings.Client.Gameplay.Effects;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Gameplay.Workers;
+using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Variants;
@@ -16,11 +18,15 @@ using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Client.UI.Screens
 {
-    /// <summary>The Store's tabs: Petal packs, boosters and Remove Ads; then the cosmetics for Petals.</summary>
+    /// <summary>
+    /// The Store's tabs: Petal packs, boosters and Remove Ads; the cosmetics for Petals; and the board's clearing styles
+    /// (spec 005 FR-038).
+    /// </summary>
     public enum StoreTab
     {
         Shop,
         Cosmetics,
+        Animations,
     }
 
     /// <summary>
@@ -65,6 +71,14 @@ namespace Bloomlings.Client.UI.Screens
     /// medallion (spec 005 FR-030); the list ends above it.
     /// </para>
     /// <para>
+    /// The Animations tab (spec 005 FR-038, contracts/look.md §6.12; the playtest's <c>StoreScreen.Animations</c>), from
+    /// the Store's unlock: the free pair's card first, then each bought clearing style's, three to a row from the list's
+    /// top (<see cref="ReferenceStoreRegions.ClearingCard"/>), each well holding the style's live preview
+    /// (<see cref="ClearPreviewView"/>); a style not owned shows its price, with the padlock badge (the preview still
+    /// bright) before L40; the chosen one is checked. A tap buys the style from L40 and chooses an owned one; a refused tap
+    /// says why on the footer line (from which level, or too few Petals).
+    /// </para>
+    /// <para>
     /// Before the Store unlocks (L12) the bottom menu's Shop opens the page locked (<see cref="ShowLocked"/>, the
     /// playtest's <c>StoreScreen.Locked</c>; the owner's request of 2026-10-04): the same garden, header and panel, the
     /// panel holding the locked notice (<see cref="LockedNoticeView"/>: "Available from level 12") instead of the tabs,
@@ -77,7 +91,7 @@ namespace Bloomlings.Client.UI.Screens
         private PageHeaderView _header = null!;
         private Image _panel = null!;
         private RectTransform _tabsBox = null!;
-        private TabsView _tabs = null!;
+        private TabsView? _tabs;
         private TextMeshProUGUI _status = null!;
         private RectTransform _list = null!;
         private LockedNoticeView _notice = null!;
@@ -87,6 +101,11 @@ namespace Bloomlings.Client.UI.Screens
         private IReadOnlyList<StoreItem> _items = Array.Empty<StoreItem>();
         private WardrobeService? _wardrobe;
         private StoreTab _tab = StoreTab.Shop;
+        private readonly List<StoreTab> _tabOrder = new List<StoreTab>();
+        private ClearingService? _clearing;
+        private int _level;
+        private Action? _clearingChanged;
+        private string? _clearingNote;
         private int _pageIndex;
         private int _family;
         private int _outfitPage;
@@ -109,9 +128,8 @@ namespace Bloomlings.Client.UI.Screens
             // The parchment panel (a card's radius), the tabs, the offline line and the list's area.
             screen._panel = UiKit.Paper("Panel", root, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
             // The selected tab is a glossy green button on a plate, the other a parchment well (spec 005 §3.5).
+            // They are built for the tabs a visit shows (SetTabs).
             screen._tabsBox = UiFactory.CreateRect("Tabs", root);
-            string[] labels = { Loc.T("store.tab_shop"), Loc.T("store.tab_cosmetics") };
-            screen._tabs = UiKit.Tabs("TabRow", screen._tabsBox, labels, i => screen.SetTab((StoreTab)i));
             screen._status = UiKit.Label("Status", root, Loc.T("store.offline"), T.Caption, UiTheme.Of(C.InkBrownSoft));
             screen._list = UiFactory.CreateRect("Items", root);
 
@@ -140,17 +158,36 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <param name="storeAvailable">False offline or without a store: real-money rows show as unavailable.</param>
         /// <param name="wardrobe">Shows the cosmetics as outfit cards on the families' heroes; without it they are rows.</param>
-        public void Show(IReadOnlyList<StoreItem> items, int petals, bool storeAvailable, WardrobeService? wardrobe = null)
+        /// <param name="clearing">The board's clearing styles: shows the Animations tab (spec 005 FR-038); null: none.</param>
+        /// <param name="level">The player's level, for the styles bought from L40.</param>
+        /// <param name="clearingChanged">Called after a style was bought or chosen (the balance and Home refresh).</param>
+        public void Show(IReadOnlyList<StoreItem> items, int petals, bool storeAvailable, WardrobeService? wardrobe = null, ClearingService? clearing = null, int level = 0, Action? clearingChanged = null)
         {
             _items = items;
             _wardrobe = wardrobe;
+            _clearing = clearing;
+            _level = level;
+            _clearingChanged = clearingChanged;
             bool cosmetics = false;
             foreach (StoreItem item in items)
             {
                 cosmetics |= item.Tab == StoreTab.Cosmetics;
             }
 
-            if (!cosmetics)
+            // The tabs: the Shop, the Cosmetics while there are any (L40), the Animations with the clearing styles.
+            var tabs = new List<StoreTab> { StoreTab.Shop };
+            if (cosmetics)
+            {
+                tabs.Add(StoreTab.Cosmetics);
+            }
+
+            if (clearing != null)
+            {
+                tabs.Add(StoreTab.Animations);
+            }
+
+            SetTabs(tabs);
+            if (!_tabOrder.Contains(_tab))
             {
                 _tab = StoreTab.Shop;
             }
@@ -158,7 +195,7 @@ namespace Bloomlings.Client.UI.Screens
             // Active before it is laid out, so the prices' widths are measured at once. A purchase shows the Store again
             // on the same tab and page.
             _root.SetActive(true);
-            Layout(cosmetics, storeAvailable);
+            Layout(_tabOrder.Count > 1, storeAvailable);
             _header.Petals?.Show(petals, storeUnlocked: false);
             Refresh();
         }
@@ -192,18 +229,42 @@ namespace Bloomlings.Client.UI.Screens
 
         private static float Scale => DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
 
+        /// <summary>Builds the tab row for <paramref name="tabs"/> when they differ from the ones shown.</summary>
+        private void SetTabs(List<StoreTab> tabs)
+        {
+            if (_tabs != null && tabs.Count == _tabOrder.Count && tabs.TrueForAll(_tabOrder.Contains))
+            {
+                return;
+            }
+
+            if (_tabs != null)
+            {
+                Destroy(_tabs.gameObject);
+            }
+
+            _tabOrder.Clear();
+            _tabOrder.AddRange(tabs);
+            string[] labels = tabs.ConvertAll(tab => Loc.T(tab switch
+            {
+                StoreTab.Cosmetics => "store.tab_cosmetics",
+                StoreTab.Animations => "store.tab_animations",
+                _ => "store.tab_shop",
+            })).ToArray();
+            _tabs = UiKit.Tabs("TabRow", _tabsBox, labels, i => SetTab(_tabOrder[i]));
+        }
+
         /// <summary>Places the page on the kit's regions for the screen's shape (contracts/look.md §6.6).</summary>
-        private void Layout(bool cosmetics, bool storeAvailable)
+        private void Layout(bool tabs, bool storeAvailable)
         {
             (float w, float h, Insets insets) = UiKit.ScreenFrame();
-            ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, cosmetics, !storeAvailable);
+            ReferenceStoreRegions r = ScreenLayout.ReferenceStore(w, h, insets, tabs, !storeAvailable);
             _regions = r;
             _header.Place(r.Header);
 
             // The panel runs to the bottom of the screen: its bottom corners go past the edge.
             float radius = r.PanelRadius(DesignTokens.ScaleFor(w, h));
             UiKit.PlaceScreen(_panel.rectTransform, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius));
-            _tabsBox.gameObject.SetActive(cosmetics);
+            _tabsBox.gameObject.SetActive(tabs);
             UiKit.PlaceScreen(_tabsBox, r.Tabs);
             _status.gameObject.SetActive(!storeAvailable);
             UiKit.PlaceScreen(_status.rectTransform, r.Status);
@@ -218,6 +279,7 @@ namespace Bloomlings.Client.UI.Screens
             _tab = tab;
             _pageIndex = 0;
             _outfitPage = 0;
+            _clearingNote = null;
             Refresh();
         }
 
@@ -228,7 +290,13 @@ namespace Bloomlings.Client.UI.Screens
                 Destroy(_list.GetChild(i).gameObject);
             }
 
-            _tabs.Select((int)_tab);
+            _tabs?.Select(_tabOrder.IndexOf(_tab));
+            if (_tab == StoreTab.Animations && _clearing != null)
+            {
+                Animations(_clearing);
+                return;
+            }
+
             var shown = new List<StoreItem>();
             foreach (StoreItem item in _items)
             {
@@ -417,6 +485,94 @@ namespace Bloomlings.Client.UI.Screens
             PlaceInList((RectTransform)forward.transform, Box.FromCenter(r.PageNext.CenterX, r.PageNext.CenterY, touch, touch));
         }
 
+        // ---- The board's clearing styles (spec 005 FR-038, contracts/look.md §6.12) ----
+
+        /// <summary>
+        /// The Animations tab (the playtest's <c>StoreScreen.Animations</c>): the free pair's card, then each bought style's
+        /// card with its live preview, a page of them at a time, and the footer line between the page arrows.
+        /// </summary>
+        private void Animations(ClearingService clearing)
+        {
+            ReferenceStoreRegions r = _regions;
+            var styles = new List<ClearStyle> { ClearStyle.Blossom };
+            styles.AddRange(ClearStyles.Bought);
+            int perPage = r.ClearingsPerPage;
+            int pages = Mathf.Max(1, (styles.Count + perPage - 1) / perPage);
+            _outfitPage = Mathf.Clamp(_outfitPage, 0, pages - 1);
+            for (int slot = 0; slot < perPage; slot++)
+            {
+                int index = (_outfitPage * perPage) + slot;
+                if (index >= styles.Count)
+                {
+                    break;
+                }
+
+                ClearingCard(r.ClearingCard(slot), styles[index], clearing);
+            }
+
+            Footer(_clearingNote ?? Loc.T("store.animations_footer"), T.Body, _outfitPage > 0 ? () => TurnOutfits(-1) : (Action?)null, _outfitPage < pages - 1 ? () => TurnOutfits(1) : (Action?)null);
+        }
+
+        /// <summary>
+        /// A clearing style's card (<c>ui.card.clearing</c> in an outfit card): its live preview in the well (the free card
+        /// showing Blossom and Munchers by turns), its name, the price pill while not owned with the padlock badge before
+        /// L40 (the preview stays bright), the check when chosen. The card is the touch target.
+        /// </summary>
+        private void ClearingCard(Box box, ClearStyle style, ClearingService clearing)
+        {
+            bool free = ClearStyles.IsFree(style);
+            bool owned = clearing.Owns(style);
+            bool locked = !owned && !ClearingService.IsOpenAt(_level);
+            Cost? price = owned ? (Cost?)null : Cost.Petals(clearing.Price);
+            string name = Loc.T(free ? "clearing.free_pair" : ClearStyles.NameKey(style));
+            OutfitCardView card = UiKit.OutfitCard("Clearing", _list, name, () => TapClearing(style, clearing), price, pillRoom: true);
+            PlaceInList((RectTransform)card.transform, box);
+            ClearPreviewView.Create(card.Picture, style, pair: free, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
+            card.Show(clearing.IsChosen(style));
+            if (locked)
+            {
+                // The padlock badge at the well's lower right, where the check of a chosen card goes (its disc 0.22 of the
+                // card's width; the badge's rect holds its ring too), and the name in the softer brown.
+                RectTransform badge = UiKit.LockBadge("Lock", card.transform);
+                BoxLayout.On((RectTransform)card.transform).Add(badge, b =>
+                {
+                    Box well = OutfitCardView.WellBox(b, pillRoom: true);
+                    float disc = OutfitCardView.CardBox(b, pillRoom: true).Width * 0.22f;
+                    return Box.FromCenter(well.Right - (disc * 0.42f), well.Bottom - (disc * 0.42f), disc * 1.16f, disc * 1.16f);
+                });
+                card.Label.color = UiTheme.Of(C.InkBrownSoft);
+            }
+        }
+
+        /// <summary>A tap on a clearing style's card: buys or chooses it, or says on the footer line why not.</summary>
+        private void TapClearing(ClearStyle style, ClearingService clearing)
+        {
+            switch (clearing.Tap(style, _level))
+            {
+                case ClearingTap.Locked:
+                    _clearingNote = Loc.F("locked.message", ClearStyles.BuyFromLevel);
+                    break;
+                case ClearingTap.Short:
+                    _clearingNote = Loc.T("gameplay.not_enough_petals");
+                    break;
+                case ClearingTap.Unavailable:
+                    _clearingNote = Loc.T("store.unavailable");
+                    break;
+                default:
+                    // Bought or chosen: the page shows again with the new balance (or here, without a caller).
+                    _clearingNote = null;
+                    if (_clearingChanged != null)
+                    {
+                        _clearingChanged();
+                        return;
+                    }
+
+                    break;
+            }
+
+            Refresh();
+        }
+
         // ---- The cosmetics in the reference Wardrobe's look (spec 005 §4.6) ----
 
         /// <summary>
@@ -465,6 +621,7 @@ namespace Bloomlings.Client.UI.Screens
         private void TurnOutfits(int by)
         {
             _outfitPage += by;
+            _clearingNote = null;
             Refresh();
         }
 

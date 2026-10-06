@@ -67,6 +67,16 @@ store.booster_bundle,Booster bundle
 store.booster_owned,{0} (owned {1})
 store.tab_shop,Shop
 store.tab_cosmetics,Cosmetics
+store.tab_animations,Animations
+store.animations_footer,Blossom and Munchers take turns. A chosen style plays on every level.
+clearing.blossom,Blossom
+clearing.munchers,Munchers
+clearing.fireflies,Fireflies
+clearing.bubbles,Bubbles
+clearing.pushers,Pushers
+clearing.fireworks,Fireworks
+clearing.parade,Confetti Parade
+clearing.free_pair,Free pair
 store.cosmetic,{0} ({1})
 store.all_owned,You own everything here
 store.unavailable,Unavailable
@@ -246,8 +256,11 @@ profile.stat_levels,Levels won
 profile.stat_pictures,Pictures
 profile.stat_milestones,Milestones
 profile.achievements,Achievements
-profile.achievement_soon,Coming soon
-profile.achievements_note,More achievements are on their way
+profile.achievement.levels,Green Thumb
+profile.achievement.pictures,Picture Keeper
+profile.achievement.daily,Daily Gardener
+profile.achievement_progress,{0}/{1}
+profile.achievements_note,"Bronze, silver and gold: win levels, collect pictures, win Daily Challenges"
 profile.tab_avatar,Avatar
 profile.tab_frame,Frame
 profile.tab_badge,Badge

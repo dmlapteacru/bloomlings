@@ -787,32 +787,51 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>The rows of outfit cards a page shows: as many as fit at <see cref="OutfitMinAspect"/> (at least one).</summary>
-        public int OutfitRows
-        {
-            get
-            {
-                Box grid = OutfitGrid;
-                float gap = W * OutfitGapShare;
-                float width = OutfitCardWidth;
-                return Math.Max(1, (int)Math.Floor((grid.Height + gap) / ((width * OutfitMinAspect) + gap)));
-            }
-        }
+        public int OutfitRows => RowsIn(OutfitGrid);
 
         /// <summary>The outfit cards a page shows.</summary>
         public int OutfitsPerPage => OutfitRows * OutfitColumns;
-
-        private float OutfitCardWidth => (OutfitGrid.Width - (W * OutfitGapShare * (OutfitColumns - 1))) / OutfitColumns;
 
         /// <summary>
         /// Outfit card <paramref name="slot"/> of the page (its cost pill's room included): three to a row across the grid,
         /// <see cref="OutfitRows"/> rows from its top, each card at most <see cref="OutfitMaxAspect"/> times as tall as wide.
         /// </summary>
-        public Box OutfitCard(int slot)
+        public Box OutfitCard(int slot) => CardIn(OutfitGrid, slot);
+
+        /// <summary>
+        /// The Animations tab's cards' area (spec 005 FR-038, contracts/look.md §6.12): the list from its top (no family
+        /// tabs) to 0.02 W over the footer, 0.02 W in from its sides.
+        /// </summary>
+        public Box ClearingGrid
         {
-            Box grid = OutfitGrid;
+            get
+            {
+                float inset = W * OutfitGapShare;
+                return new Box(List.Left + inset, List.Top, List.Right - inset, Math.Max(List.Top + inset, Footer.Top - inset));
+            }
+        }
+
+        /// <summary>The clearing-style cards a page shows: three to a row, as many rows as fit (at least one).</summary>
+        public int ClearingsPerPage => RowsIn(ClearingGrid) * OutfitColumns;
+
+        /// <summary>Clearing-style card <paramref name="slot"/> of the page, laid as the outfit cards are (<see cref="OutfitCard"/>).</summary>
+        public Box ClearingCard(int slot) => CardIn(ClearingGrid, slot);
+
+        private float CardWidth(Box grid) => (grid.Width - (W * OutfitGapShare * (OutfitColumns - 1))) / OutfitColumns;
+
+        // The rows of cards that fit in a grid at OutfitMinAspect (at least one).
+        private int RowsIn(Box grid)
+        {
             float gap = W * OutfitGapShare;
-            float width = OutfitCardWidth;
-            int rows = OutfitRows;
+            return Math.Max(1, (int)Math.Floor((grid.Height + gap) / ((CardWidth(grid) * OutfitMinAspect) + gap)));
+        }
+
+        // Card slot of a grid: three to a row from its top, each at most OutfitMaxAspect times as tall as wide.
+        private Box CardIn(Box grid, int slot)
+        {
+            float gap = W * OutfitGapShare;
+            float width = CardWidth(grid);
+            int rows = RowsIn(grid);
             float height = Math.Min(width * OutfitMaxAspect, (grid.Height - (gap * (rows - 1))) / rows);
             int column = slot % OutfitColumns;
             int row = slot / OutfitColumns;

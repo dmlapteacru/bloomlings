@@ -4,6 +4,7 @@ using System.IO;
 using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyReward;
+using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Clock;
@@ -53,6 +54,7 @@ namespace Bloomlings.Playtest
             Collection = new CollectionService(Save, _saves.Save);
             Wardrobe = new WardrobeService(Save, Cosmetics, config, _saves.Save, Economy);
             Profile = new ProfileService(Save, config, clock, _saves.Save, Economy);
+            Clearing = new ClearingService(Save, config, _saves.Save, Economy);
             Progression = new ProgressionService(Save, UnlockRoadmap.Default, _saves.Save);
             Progression.UnlockReached += entry =>
             {
@@ -86,6 +88,9 @@ namespace Bloomlings.Playtest
         public WardrobeService Wardrobe { get; }
 
         public ProfileService Profile { get; }
+
+        /// <summary>The board's clearing styles: the free pair by level, the bought ones (spec 005 FR-038).</summary>
+        public ClearingService Clearing { get; }
 
         /// <summary>Unlocks reached by the last win (the Home and win card mention them).</summary>
         public List<UnlockEntry> NewUnlocks { get; } = new List<UnlockEntry>();

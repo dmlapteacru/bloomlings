@@ -15,5 +15,7 @@
 
   <ItemGroup>
     <Compile Include="../android/*.cs" />
+    <!-- The clearing styles' timing, which the animator schedules by (the tester keeps its own minimal look). -->
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/ClearStyles.cs" Link="Shared/Design/ClearStyles.cs" />
   </ItemGroup>
 </Project>

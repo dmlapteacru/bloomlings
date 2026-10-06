@@ -103,6 +103,29 @@ a default or asks a question.
   stats and placeholder achievements until the owner names them. The avatars are profile cosmetics (FR-063 as amended),
   open from Level 1.
 
+### Session 2026-10-06 (the owner)
+
+- **Q: How should the board clear?**
+  A: Calmly and slowly, as the reference game's ants carry, so that the player can sit and watch (spec 005 FR-038).
+  The owner chose seven clearing styles out of ten proposals. Two are free and play by level: Blossom (a flower opens
+  where the tile was) on Levels 1–10 and on every odd level, and Munchers (the Bloomling eats the tile and waddles home
+  full) on every even level from 12. Five are bought once with Petals in the Store: Fireflies, Bubbles, Pushers,
+  Fireworks and Confetti Parade. They cost 5000 Petals each for now (Remote Config `economy.price.clearing`), well above
+  a booster, and only Petals buy them. A bought style, once chosen, plays on every level instead of the free pair. The
+  proposals Carriers, Wave and Gardener are dropped.
+- **Q: Where are they sold?**
+  A: In the Store's new Animations tab, open with the Store (L12). Each style is a card with a live preview of it.
+  Buying opens at L40, with the Wardrobe: before that a card shows its price and a padlock, and a tap says from which
+  level. A bought style is chosen on its card, and the free card brings back the free pair.
+- **Q: Does a style change the pace?**
+  A: No. Every style takes the same time for a tile: about 1.1 s for each cell from the entry plus 1.4 s, from the
+  Bloomling leaving the arch to the slot's count going down. The return trips of Munchers and Pushers walk faster to
+  fit. The pace sits between the earlier one and a very slow one. The owner: "not too fast, or a whole level lasts ten
+  seconds; something in between; in the reference game they are really slow". Each pod's Bloomlings leave the arch in
+  a line, 0.42 s apart, and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
+  its way. The backlog speed-up waits for 60 s of backlog (research R4). 2× still doubles the clock (FR-069).
+  Presentation only: no outcome changes.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Play a level: commit pods, restore the picture, avoid the jam (Priority: P1)
@@ -484,7 +507,7 @@ skin. Complete the daily challenge. Open the Collection.
 
 #### G. Store, ads and daily reward (doc 10)
 
-- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock.
+- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock. *(Amended on 2026-10-06 by the product owner: the Animations tab, which sells the board's clearing styles (FR-063 as amended, spec 005 FR-038), shows from L12 with live previews. Its styles can be bought from L40, as the other cosmetics.)*
 - **FR-052**: Rewarded ads MUST always be started by the player and optional. They MAY be used for: jam rescue, a free booster, an extra win reward, and an optional daily bonus.
 - **FR-053**: Interstitial ads MUST appear only at post-win transitions. They MUST never appear during a level, immediately after a fail, or during onboarding (Levels 1–10). They MUST be capped by both time and level count.
 - **FR-054**: Remove Ads MUST disable interstitials and keep the optional rewarded ads. Permanent purchases MUST be restorable on reinstall or on a new device, and MUST NOT depend only on local storage. *(Amended on 2026-10-04 by the product owner: besides the Store's row (FR-051, from L12), Home offers Remove Ads from L1 through its No Ads scene and a Remove Ads card of its own, until it is owned; spec 005 FR-032, FR-033. Docs 11 and 13 list Remove Ads in the Store only.)*
@@ -526,6 +549,10 @@ skin. Complete the daily challenge. Open the Collection.
   free, ten bought once with Petals (300 / 600 / 1200), open from Level 1 on the profile page (not in the Wardrobe or
   the Store), shown only on the profile (Home's avatar, the page, the player's own leaderboard row), never on the
   board.
+  *Amended 2026-10-06 (the owner):* the board's clearing styles (spec 005 FR-038) are board cosmetics too. Blossom
+  and Munchers are free and play by level. Fireflies, Bubbles, Pushers, Fireworks and Confetti Parade are bought once
+  for 5000 Petals each from L40 in the Store's Animations tab, whose previews show from L12. A chosen one plays on every
+  level. Every style takes the same time per tile, so none changes the pace or an outcome.
 - **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50.
 - **FR-065**: Every finished picture MUST be added to a Collection that the player can view. The Collection is never a level selector.
 - **FR-066**: Background themes MUST rotate automatically by level band. This is visual only; there are no navigable areas.

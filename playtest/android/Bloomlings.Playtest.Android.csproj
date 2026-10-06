@@ -22,6 +22,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" Link="Shared/WardrobeService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" Link="Shared/DailyRewardService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" Link="Shared/Profile/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Clearing/*.cs" Link="Shared/Clearing/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" Link="Shared/CollectionService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" Link="Shared/ThemeRotation.cs" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bloomlings.Client.Gameplay.Timeline;
 using Bloomlings.Client.Services.Config;
+using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
@@ -11,26 +12,26 @@ namespace Bloomlings.Client.Tests
 {
     /// <summary>
     /// The Unity event timeline's schedule (<see cref="TimelinePlayer"/>, behind <see cref="EventTimeline"/>; the owner's
-    /// report of 2026-10-03): the waves of one tap play one after another, the waves of different taps side by side, a
-    /// wave waits only for the cells, specials and pods it depends on, and the clearing pace is halved (and halved again on
-    /// 2026-10-05).
+    /// reports of 2026-10-03 and 2026-10-04, and the calm pace of 2026-10-06): the waves of every tap and every round play
+    /// side by side, a walker waits only for the cells it walks over and its line out of the arch, every trip takes the
+    /// clearing styles' time, and the end events keep the rules' order.
     /// </summary>
     public class EventTimelineTests
     {
         private const float Tolerance = 0.0005f;
 
+        private static float Trip(int cells) => ClearStyles.TripSeconds(cells);
+
         [Test]
-        public void ClearingPace_IsHalvedTwice_AndTheSpeedUpStartsBeyondTwelveSeconds()
+        public void ClearingPace_IsTheStylesTripTime_AndTheSpeedUpWaitsForAMinute()
         {
-            // The owner's requests of 2026-10-03 and 2026-10-05: 0.07 s a step, then 0.14 s, now 0.28 s.
-            Assert.That(EventTimeline.StepSeconds, Is.EqualTo(0.28f));
             Assert.That(EventTimeline.MinWaveSeconds, Is.EqualTo(1.2f));
-            Assert.That(EventTimeline.MaxWaveSeconds, Is.EqualTo(5.6f));
+            Assert.That(EventTimeline.MaxWaveSeconds, Is.EqualTo(40f), "no trip is squeezed into its wave");
             Assert.That(EventTimeline.RestoreSeconds, Is.EqualTo(0.22f), "the restore keeps its time");
-            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Default, Is.EqualTo(12000));
+            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Default, Is.EqualTo(60000));
             Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Min, Is.EqualTo(2000));
-            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Max, Is.EqualTo(20000));
-            Assert.That(new TimelinePlayer().BacklogThresholdSeconds, Is.EqualTo(12f));
+            Assert.That(RemoteConfigKeys.FxBacklogThresholdMs.Max, Is.EqualTo(120000));
+            Assert.That(new TimelinePlayer().BacklogThresholdSeconds, Is.EqualTo(60f));
         }
 
         [Test]
@@ -42,7 +43,7 @@ namespace Bloomlings.Client.Tests
             player.Enqueue(Tap(Clear(1, "b", Column(5, 1)), new PodCompleted(1, "b", 1), new SlotFreed(1, 1)));
 
             int most = 0;
-            for (int i = 0; i < 600 && !player.IsIdle; i++)
+            for (int i = 0; i < 3000 && !player.IsIdle; i++)
             {
                 player.Advance(1f / 60f);
                 most = System.Math.Max(most, player.Playing);
@@ -53,24 +54,45 @@ namespace Bloomlings.Client.Tests
             float aDone = sink.TimeOf("done a");
             float bDone = sink.TimeOf("done b");
             Assert.That(bDone, Is.LessThan(aDone), "the short wave of the second tap ends first");
-            Assert.That(bDone, Is.EqualTo(0.03f + EventTimeline.MinWaveSeconds).Within(Tolerance));
-            Assert.That(aDone, Is.EqualTo((10 * EventTimeline.StepSeconds) + EventTimeline.RestoreSeconds).Within(Tolerance));
+            Assert.That(bDone, Is.EqualTo(0.03f + Trip(2) + EventTimeline.RestoreSeconds).Within(Tolerance));
+            Assert.That(aDone, Is.EqualTo(Trip(10) + EventTimeline.RestoreSeconds).Within(Tolerance));
         }
 
         [Test]
-        public void OneTap_ItsRoundsPlayOneAfterAnother()
+        public void OneTap_ItsRoundsDoNotWaitForEachOther_ButEndInTheRulesOrder()
         {
             var (player, sink) = Create();
             player.Enqueue(Tap(
-                Clear(1, "a", Column(0, 1)),
-                Clear(2, "a", Column(1, 4)),
+                Clear(1, "a", Column(0, 3)),
+                new SpecialProgressed(1, "s", 1, 2),
+                Clear(2, "a", Column(5, 1)),
+                new SpecialProgressed(2, "s", 2, 2),
                 new PodCompleted(2, "a", 0)));
             player.Advance(100f);
 
-            float firstEnd = EventTimeline.MinWaveSeconds;
-            Assert.That(sink.Walkers.Select(w => w.Start), Is.EqualTo(new[] { 0f, firstEnd }).Within(Tolerance), "round 2 starts as round 1 ends");
-            Assert.That(sink.TimeOf("arrive a 1,4"), Is.EqualTo(firstEnd + (5 * EventTimeline.StepSeconds)).Within(Tolerance));
-            Assert.That(sink.TimeOf("done a"), Is.EqualTo(firstEnd + (5 * EventTimeline.StepSeconds) + EventTimeline.RestoreSeconds).Within(Tolerance));
+            Assert.That(sink.Walkers.Select(w => w.Start), Is.EqualTo(new[] { 0f, 0f }).Within(Tolerance), "round 2 sets off at once: its way is clear");
+            Assert.That(sink.TimeOf("arrive a 5,1"), Is.LessThan(sink.TimeOf("arrive a 0,3")), "its short trip arrives first");
+            Assert.That(sink.TimeOf("special s 2"), Is.GreaterThan(sink.TimeOf("special s 1")), "the rounds end in the rules' order");
+            Assert.That(sink.Log.Last().What, Is.EqualTo("done a"));
+        }
+
+        [Test]
+        public void APodsBloomlings_LeaveTheArchInALine_WhilePodsWorkSideBySide()
+        {
+            var (player, sink) = Create();
+            player.Enqueue(Tap(
+                Clear(1, "a", new[] { new CellPos(2, 0), new CellPos(2, 1) }),
+                Clear(1, "a", new[] { new CellPos(2, 0), new CellPos(1, 0) }),
+                Clear(1, "a", new[] { new CellPos(2, 0), new CellPos(1, 1) }),
+                Clear(2, "a", new[] { new CellPos(2, 0), new CellPos(1, 0), new CellPos(0, 0) })));
+            player.Enqueue(Tap(Clear(1, "b", new[] { new CellPos(2, 0), new CellPos(3, 0), new CellPos(4, 0) })));
+            player.Advance(0.01f);
+
+            float gap = ClearStyles.LineGap;
+            Assert.That(sink.Walkers.Take(3).Select(w => w.Start), Is.EqualTo(new[] { 0f, gap, 2 * gap }).Within(Tolerance), "one after another out of the arch");
+            Assert.That(sink.Walkers.First(w => w.Batch[0].Clear.PodId == "b").Start, Is.EqualTo(0f).Within(Tolerance), "another pod works at the same time, in a line of its own");
+            player.Advance(100f);
+            Assert.That(sink.Walkers.First(w => w.Batch[0].Clear.Cell == new CellPos(0, 0)).Start, Is.GreaterThanOrEqualTo((3 * gap) - Tolerance), "the pod's next round joins its line");
         }
 
         [Test]
@@ -78,18 +100,46 @@ namespace Bloomlings.Client.Tests
         {
             var (player, sink) = Create();
 
-            // The first tap clears (3,0) at the end of a 4-cell walk; the second tap's Bloomling walks over (3,0) first.
+            // The first tap clears (3,0) at the end of a 4-cell trip; the second tap's Bloomling walks over (3,0) first.
             player.Enqueue(Tap(Clear(1, "a", Row(0, 0, 3))));
             player.Enqueue(Tap(Clear(1, "b", new[] { new CellPos(3, 0), new CellPos(4, 0) })));
             player.Advance(100f);
 
             float cleared = sink.TimeOf("arrive a 3,0");
-            Assert.That(cleared, Is.EqualTo(4 * EventTimeline.StepSeconds).Within(Tolerance));
-            (float start, float travel, _) = sink.Walkers[1];
-            float steppedOn = start + (travel / 2f);
+            Assert.That(cleared, Is.EqualTo(Trip(4)).Within(Tolerance));
+            (float start, _, _) = sink.Walkers[1];
+            float steppedOn = start + (ClearStyles.LegsOf(ClearStyle.Blossom, 2).Out / 2f);
             Assert.That(steppedOn, Is.EqualTo(cleared + TimelinePlayer.StepMargin).Within(Tolerance), "it steps on (3,0) just after that tile shows cleared");
-            float firstWaveEnd = cleared + EventTimeline.RestoreSeconds;
-            Assert.That(start, Is.LessThan(firstWaveEnd), "it does not wait for the whole first wave");
+            Assert.That(start, Is.LessThan(cleared + EventTimeline.RestoreSeconds), "it does not wait for the whole first wave");
+        }
+
+        [Test]
+        public void AWalker_CrossesACellOnceItsTileIsGone_BeforeItsClear()
+        {
+            // Munchers: the first Bloomling eats (3,0) and walks home with it; the next may cross (3,0) once it is eaten.
+            var (player, sink) = Create(ClearStyle.Munchers);
+            player.Enqueue(Tap(Clear(1, "a", new[] { new CellPos(3, 0) }), Clear(2, "a", new[] { new CellPos(3, 0), new CellPos(3, 1) })));
+            player.Advance(100f);
+
+            ClearLegs first = ClearStyles.LegsOf(ClearStyle.Munchers, 1);
+            float eaten = first.Out + first.Act;
+            float start = sink.Walkers[1].Start;
+            float steppedOn = start + (ClearStyles.LegsOf(ClearStyle.Munchers, 2).Out / 2f);
+            Assert.That(steppedOn, Is.EqualTo(eaten + TimelinePlayer.StepMargin).Within(Tolerance));
+            Assert.That(steppedOn, Is.LessThan(sink.TimeOf("arrive a 3,0")), "before the first Bloomling is home");
+        }
+
+        [Test]
+        public void ALayerUnderATile_KeepsItsCellUntilTheClear()
+        {
+            var (player, sink) = Create(ClearStyle.Munchers);
+            var cell = new CellPos(3, 0);
+            player.Enqueue(new GameEvent[] { Clear(1, "a", new[] { cell }), new LayerRevealed(1, cell, VariantId.Moss) });
+            player.Enqueue(Tap(Clear(1, "b", new[] { cell })));
+            player.Advance(100f);
+
+            float revealed = sink.TimeOf("arrive a 3,0 layer");
+            Assert.That(sink.Walkers[1].Start + ClearStyles.LegsOf(ClearStyle.Munchers, 1).Out, Is.EqualTo(revealed + TimelinePlayer.StepMargin).Within(Tolerance), "the new layer's Bloomling reaches it once it shows");
         }
 
         [Test]
@@ -161,7 +211,8 @@ namespace Bloomlings.Client.Tests
             Assert.That(player.IsIdle, Is.True);
             Assert.That(player.Now, Is.EqualTo(now), "the clock stays");
             Assert.That(sink.Walkers, Is.Empty, "no Bloomling sets off");
-            Assert.That(sink.Log.Select(l => l.What), Is.EqualTo(new[] { "arrive a 3,0 layer", "arrive b 3,0 open", "special s 1", "special s 2" }));
+            // The second Bloomling reaches the new layer after it shows and acts there, so the first wave has ended by then.
+            Assert.That(sink.Log.Select(l => l.What), Is.EqualTo(new[] { "arrive a 3,0 layer", "special s 1", "arrive b 3,0 open", "special s 2" }));
         }
 
         [Test]
@@ -170,16 +221,15 @@ namespace Bloomlings.Client.Tests
             var (player, _) = Create();
             player.Enqueue(Tap(Clear(1, "a", Long(0))));
             player.Enqueue(Tap(Clear(1, "b", Long(5))));
-            Assert.That(player.Backlog, Is.EqualTo(EventTimeline.MaxWaveSeconds).Within(Tolerance), "two taps side by side, not one after the other");
+            float wave = Trip(20) + EventTimeline.RestoreSeconds;
+            Assert.That(player.Backlog, Is.EqualTo(wave).Within(Tolerance), "two taps side by side, not one after the other");
             player.Advance(0.01f);
-            Assert.That(player.Rate, Is.EqualTo(1f), "under 12 s of backlog the pace stays");
+            Assert.That(player.Rate, Is.EqualTo(1f), "under a minute of backlog the pace stays");
 
-            // One tap's three rounds follow each other (on cells of their own): 3 × 4.7 s.
-            float round = (16 * EventTimeline.StepSeconds) + EventTimeline.RestoreSeconds;
-            player.Enqueue(Tap(Clear(1, "c", Column(12, 15)), Clear(2, "c", Column(12, 15)), Clear(3, "c", Column(12, 15))));
-            Assert.That(player.Backlog, Is.EqualTo(3 * round).Within(Tolerance));
+            // With a lower threshold (Remote Config), a long backlog plays faster, up to the cap.
+            player.BacklogThresholdSeconds = 12f;
             player.Advance(0.01f);
-            Assert.That(player.Rate, Is.EqualTo(3 * round / player.BacklogThresholdSeconds).Within(0.01f), "beyond 12 s it plays faster");
+            Assert.That(player.Rate, Is.EqualTo((wave - 0.02f) / 12f).Within(0.01f));
             Assert.That(player.Rate, Is.LessThanOrEqualTo(EventTimeline.MaxRate));
         }
 
@@ -200,9 +250,9 @@ namespace Bloomlings.Client.Tests
             }
         }
 
-        private static (TimelinePlayer Player, Recorder Sink) Create()
+        private static (TimelinePlayer Player, Recorder Sink) Create(ClearStyle style = ClearStyle.Blossom)
         {
-            var player = new TimelinePlayer();
+            var player = new TimelinePlayer { Style = style };
             var sink = new Recorder(player);
             player.Bind(sink);
             return (player, sink);

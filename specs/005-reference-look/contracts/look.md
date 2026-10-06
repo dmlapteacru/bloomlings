@@ -1437,8 +1437,11 @@ and panel (§6.6), no bottom menu (Home's avatar opens the page; back returns Ho
 its end, the ID and the joining month `0.06W` each (`type.body`, `ink.brown_soft`); the wooden plaque "Level N"
 (`0.5W × 0.11W`, `type.level_pill`) `0.04W` under the avatar. Then the stat cells `0.2W` tall (three parchment wells
 `0.03W` apart: the count in `type.level_pill`, the label in `type.caption`), the "Achievements" title `0.08W` tall
-(`type.title`), three placeholder tiles (`ui.achievement`: a `0.2W` parchment well holding a faded trophy and the
-padlock badge, "Coming soon" under it, `0.07W` apart) and their note. On a page too short for it all, everything under
+(`type.title`), the three achievement tiles (`ui.achievement`, `Achievements`, `0.07W` apart: a `0.2W` parchment
+well holding the trophy, `AchievementTrophy`, in its tier's `medal.bronze` / `medal.silver` / `medal.gold`, or faded
+`ink.brown_soft` at 0.35 under the padlock badge before bronze; the count toward the next tier along its bottom,
+`AchievementProgress`, "14/50" in `type.caption` `ink.brown`, the count alone with the check badge at gold; the name
+under it, `ink.brown_soft` before bronze) and their note. On a page too short for it all, everything under
 the header shrinks evenly to end `0.04W` over the safe bottom.
 
 The edit card (`ScreenLayout.ProfileEdit`, `ProfileEditRegions`): `ScreenLayout.Card` with `ContentUnits`, the title
@@ -1455,3 +1458,51 @@ The avatar's picture: a circle of `OwnerPictures.AvatarPictureShare` (0.86) of t
 playtest's `IPainter.PushClipRound`; Unity's `Mask` with the circle sprite), in a thin `cream.line` ring; the frame at
 1.08 and the badge at 0.36 of the disc as before.
 
+
+### 6.12 Clearing styles and their Store cards (both builds; the owner's choices of 2026-10-06, FR-038)
+
+The board's clearing is one of seven styles (`ClearStyles`), drawn from one engine-free display list (`ClearLook` into
+`FxList`, in cell units with y down, the grid's top left at 0, 0): the playtest's `ClearPainter` draws it through
+`IPainter`, Unity's `ClearFxView` with pooled Bloomling figures and images (a turn is clockwise on screen, Unity
+turns by its negative; the SDF circles and rounded boxes are drawn ×`ShapeRaster.Margin`). Each item has its kind
+(character, tile, ellipse, ring, rounded box or its outline, shape), its center, size, squash, turn, alpha, color and
+layer: `Board` over the tiles, `Over` above the tray and slots (the flights into the slot). Tokens and slots only.
+
+Timing (`ClearStyles`): every trip takes `TripSeconds(n) = 1.1 n + 1.4` s for a tile `n` cells from its arch; the
+walkers of a pod leave each arch in a line `LineGap` (0.42 s) apart, nearer tiles first; a command's rounds start at
+once and keep the rules' order only in their ends; a cell is crossable once its tile is gone (`ClearLegs.GoneShare`)
+unless a layer is revealed under it. Each style splits the trip into legs (Out to the tile, Act, Back, Fin to the
+slot):
+
+| Style | Slot | Out | Act | Back | Fin | Look |
+|---|---|---|---|---|---|---|
+| Blossom (free) | `fx.clear.blossom` | 1.1n | 1.4 | 0 | 0 | the Bloomling hops onto its tile and sinks into it; the tile sinks turning 18° to half and fades; a five-petal flower of the variant's color opens (overshooting) and, after the clear, fades into the picture over 0.9 s with a white `fx.sparkle`; the neighbours within 2.5 cells sway up to 7° about their feet |
+| Munchers (free) | `fx.clear.munchers` | 0.5n | 1.1 | 0.6n | 0.3 | it climbs on the tile and eats it in three bites (the tile squashes by each), crumbs of the variant's color scattering, then waddles home round and full |
+| Fireflies | `fx.clear.fireflies` | 0.9n | 0.4 | 0 | 0.2n + 1 | the tile glows `garden.glow` and breaks into `fx.firefly` motes with `fx.firefly_glow` halos that hover, then drift in a trailing swarm to the slot |
+| Bubbles | `fx.clear.bubbles` | 0.9n | 0.5 | 0 | 0.2n + 0.9 | it blows an `fx.glass` bubble (an `fx.glass_rim` ring with a white glint) round the tile, which floats on a lazy wave to the slot and pops |
+| Pushers | `fx.clear.pushers` | 0.45n | 0.4 | 0.65n | 1 | it steps behind the tile and pushes it home, the tile tumbling a quarter turn a cell, then hopping from the arch into the slot |
+| Fireworks | `fx.clear.fireworks` | 1.1n | 0.5 | 0 | 0.9 | the tile swells white and pops in a white flash; its sparkles (white and the variant's color) fly in arcs to the slot |
+| Confetti Parade | `fx.clear.parade` | 1.1n | 1.4 | 0 | 0 | smaller walkers; the tile squashes and stretches and pops into confetti (the variant's color, `fx.confetti_pink`, `garden.glow`, white) and a ring, the confetti falling over 1 s |
+
+While a style holds a walker's tile (`ClearLook.Holds`: its Act to its clear) the host leaves the tile off the board,
+so its ground shows; the rules' clear stays at the trip's end (the outcome never depends on the look). A tile landing
+in its slot draws a white ring there for 0.45 s. The free pair plays by level (Blossom on L1–10 and odd levels,
+Munchers on even levels from 12) until a bought style is chosen (`ClearingService`).
+
+The Store's Animations tab (`ui.card.clearing`; the playtest's `StoreScreen.Animations`, Unity's
+`StoreScreen.Animations`), from the Store's unlock: the cards are outfit cards (§4.6) three to a row from the list's
+top (`ReferenceStoreRegions.ClearingCard`, `ClearingsPerPage`; no family tabs), the footer line
+`store.animations_footer` ("Blossom and Munchers take turns. A chosen style plays on every level.") between the page
+arrows. The free card first (`clearing.free_pair` "Free pair"), then the five bought styles by their names
+(`clearing.<name>`); a style not owned shows its cost pill (Remote Config `economy.price.clearing`, 5000 Petals), with
+the padlock badge (`Kit.LockBadge` / `UiKit.LockBadge`, the disc 0.22 of the card's width at the well's lower right)
+before L40, its picture still bright and its name in `ink.brown_soft`; the chosen card is green with the check. Each
+well holds the style's live preview (`ClearPreview`, `Kit.ClearingPreview` / `ClearPreviewView`): a 5 × 3 board of one
+variant per style (Blossom Flower, Munchers Leaf, Fireflies Violet Bud, Bubbles Dew, Pushers Wood, Fireworks Water,
+Parade Acorn) in its stone border on its plain ground (`BoardPictures.PlainGround`, the variant's color lightened
+0.55), the arch under its middle column and one slot plate below at its left (`ClearPreview.Slot`, clear of the
+badge), the whole picture (`ClearPreview.Bounds`, 5 × 4.8 cells) centered at most 84% of the well wide and 90% tall;
+its line of walkers clears it as the board is scheduled, then it rests 1.8 s and is laid again. The free card shows
+Blossom's loop, then Munchers' (`ClearPreview.At`). A tap buys from L40 and chooses an owned style; before L40 it says
+from which level (the playtest's toast; Unity's footer line), as it does when Petals are short. The preview's frames
+42 (L45, Fireflies chosen) and 43 (L20, the padlocks) show it.

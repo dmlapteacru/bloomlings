@@ -85,7 +85,7 @@
       "properties": {
         "owned": { "type": "array", "items": { "type": "string" }, "uniqueItems": true },
         "equipped": {
-          "description": "Each family wears one skin, hat, trail and expression; the profile shows one frame, badge, marker and avatar (spec 005 FR-037: a free avatar or one in owned, avatar.<id>). A bare string per family (one item) is the early form and is still read.",
+          "description": "Each family wears one skin, hat, trail and expression; the profile shows one frame, badge, marker and avatar (spec 005 FR-037: a free avatar or one in owned, avatar.<id>); the board plays one bought clearing style (spec 005 FR-038). A bare string per family (one item) is the early form and is still read.",
           "type": "object",
           "additionalProperties": false,
           "properties": {
@@ -101,6 +101,14 @@
                 "badge": { "type": "string" },
                 "marker": { "type": "string" },
                 "avatar": { "type": "string", "pattern": "^avatar\\." }
+              }
+            },
+            "board": {
+              "description": "The board's chosen bought clearing style (spec 005 FR-038: one in owned, clear.<name>); none plays the free pair by level.",
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "clearing": { "type": "string", "pattern": "^clear\\." }
               }
             }
           }

@@ -55,7 +55,7 @@ namespace Bloomlings.Client.Services.Save
     {
         private static readonly string[] BoosterNames = { "extraSlot", "shuffle", "return", "bloomBurst" };
 
-        private static readonly string[] CosmeticsOwners = { "sprig", "bloom", "drop", "twig", CosmeticsData.ProfileOwner };
+        private static readonly string[] CosmeticsOwners = { "sprig", "bloom", "drop", "twig", CosmeticsData.ProfileOwner, CosmeticsData.BoardOwner };
 
         public static PlayerSave Read(string json, SaveMigrations? migrations = null) =>
             Read(JsonDoc.ParseObject(json, "save"), migrations);
@@ -136,7 +136,7 @@ namespace Bloomlings.Client.Services.Save
             foreach (JProperty owner in equipped.Properties())
             {
                 string path = "cosmetics.equipped." + owner.Name;
-                if (owner.Value.Type == JTokenType.String && owner.Name != CosmeticsData.ProfileOwner)
+                if (owner.Value.Type == JTokenType.String && owner.Name != CosmeticsData.ProfileOwner && owner.Name != CosmeticsData.BoardOwner)
                 {
                     // Early saves held one item per family: its slot is the kind its id names.
                     string id = JsonDoc.String(owner.Value, path);

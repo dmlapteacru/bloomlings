@@ -4,6 +4,7 @@ using System.Globalization;
 using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Gameplay.Board;
 using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
@@ -81,6 +82,7 @@ namespace Bloomlings.Client.App.Home
             CatalogService catalog = services.Get<CatalogService>();
             services.TryGet(out Boot? boot);
             services.TryGet(out GameAnalytics? analytics);
+            services.TryGet(out ClearingService? clearing);
 
             Canvas canvas = UiFactory.CreateCanvas("HomeCanvas", 0);
             canvas.transform.SetParent(transform, false);
@@ -142,7 +144,11 @@ namespace Bloomlings.Client.App.Home
                 }
             }
 
-            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable, wardrobe);
+            void OpenStore() => store!.Show(StoreItems(economy, purchases, ledger, products, save, wardrobe, OpenStore, Refresh), economy.Petals, purchases.IsAvailable, wardrobe, clearing, progression.CurrentLevel, () =>
+            {
+                OpenStore();
+                Refresh();
+            });
 
             // The bottom menu (spec 005 FR-030): which of its five places are open, from the unlocked features as on Home
             // (HomeLook), and from which level of the progression's roadmap a locked one is available; and where a tap on
@@ -262,7 +268,7 @@ namespace Bloomlings.Client.App.Home
                 profile,
                 wardrobe,
                 () => progression.CurrentLevel,
-                () => new ProfileStats(save.Stats.Counters.TryGetValue("levelsWon", out long won) ? won : 0, collection.Count, save.Milestones.Claimed.Count),
+                () => new ProfileStats(Achievements.Count(save, Achievements.LevelsCounter), collection.Count, save.Milestones.Claimed.Count, Achievements.Count(save, Achievements.DailyCounter)),
                 UnlockLevel(NavPlace.Wardrobe),
                 wardrobe.OutfitOf,
                 () => economy.Petals,

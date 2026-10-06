@@ -124,18 +124,48 @@ namespace Bloomlings.Client.Gameplay.Board
                         continue;
                     }
 
-                    Rgba color = GroundColor(definition, picture, x, y);
-                    FillRect(pixels, pw, left, top, c, c, color.Darken(0.12f));
-                    var full = new Box(left, top, left + c, top + c);
-                    Box face = full.Inset(c * GroundInset);
-                    float r = face.Width * 0.1f;
-                    FillRound(pixels, pw, ph, face, r, color, color);
-                    var shade = new Box(face.Left, face.Top, face.Right, face.Top + (face.Height * 0.24f));
-                    FillRound(pixels, pw, ph, shade, r, C.GardenShadow.WithAlpha(0.12f), C.GardenShadow.WithAlpha(0f), face);
+                    GroundCell(pixels, pw, ph, left, top, c, GroundColor(definition, picture, x, y));
                 }
             }
 
             return pixels;
+        }
+
+        /// <summary>
+        /// A plain restored ground of <paramref name="width"/> × <paramref name="height"/> cells all of
+        /// <paramref name="color"/>, each cell <paramref name="cellPixels"/> square and drawn as <see cref="Ground"/> draws
+        /// a picture's cell (the Store's clearing previews, spec 005 FR-038; the playtest's <c>BoardPainter.Ground</c>).
+        /// </summary>
+        public static byte[] PlainGround(int width, int height, int cellPixels, Rgba color)
+        {
+            int w = Math.Max(1, width);
+            int h = Math.Max(1, height);
+            int c = Math.Max(4, cellPixels);
+            int pw = w * c;
+            int ph = h * c;
+            var pixels = new byte[pw * ph * 4];
+            for (int y = 0; y < h; y++)
+            {
+                for (int x = 0; x < w; x++)
+                {
+                    GroundCell(pixels, pw, ph, x * c, y * c, c, color);
+                }
+            }
+
+            return pixels;
+        }
+
+        // A restored cell at (left, top), c pixels square: its color darkened 0.12, the pale face inset by GroundInset
+        // (radius 10% of it) and a faint shadow along the face's top quarter.
+        private static void GroundCell(byte[] pixels, int pw, int ph, int left, int top, int c, Rgba color)
+        {
+            FillRect(pixels, pw, left, top, c, c, color.Darken(0.12f));
+            var full = new Box(left, top, left + c, top + c);
+            Box face = full.Inset(c * GroundInset);
+            float r = face.Width * 0.1f;
+            FillRound(pixels, pw, ph, face, r, color, color);
+            var shade = new Box(face.Left, face.Top, face.Right, face.Top + (face.Height * 0.24f));
+            FillRound(pixels, pw, ph, shade, r, C.GardenShadow.WithAlpha(0.12f), C.GardenShadow.WithAlpha(0f), face);
         }
 
         /// <summary>

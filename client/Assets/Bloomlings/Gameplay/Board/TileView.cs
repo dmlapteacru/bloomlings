@@ -210,6 +210,15 @@ namespace Bloomlings.Client.Gameplay.Board
             key.localScale = Vector3.one;
         }
 
+        /// <summary>
+        /// The clearing style holds this tile (spec 005 FR-038, <c>ClearLook.Holds</c>): it draws the tile itself (eaten,
+        /// lifted, in a bubble), so the cell shows its ground until the clear.
+        /// </summary>
+        public void SetHeld(bool held) => transform.localScale = held ? Vector3.zero : Vector3.one;
+
+        /// <summary>Blossom: the tile sways by <paramref name="degrees"/> beside a just-opened flower (clockwise on screen).</summary>
+        public void SetSway(float degrees) => transform.localEulerAngles = new Vector3(0f, 0f, -degrees);
+
         /// <summary>Open ground: the tile disappears and the restored ground shows through.</summary>
         /// <param name="animate">Shrink away (a Bloomling restored it); false on build and restart.</param>
         public void ShowOpen(bool animate = false)

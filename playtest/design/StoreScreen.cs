@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
@@ -51,25 +52,40 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
+            // The tabs: the Shop, the Cosmetics once the Wardrobe opens (L40), and the Animations (the clearing styles'
+            // previews show from the Store's unlock; spec 005 FR-038).
             bool cosmetics = meta.Wardrobe.IsAvailable;
-            ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, cosmetics);
+            var tabs = new List<string> { "store.tab_shop" };
+            if (cosmetics)
+            {
+                tabs.Add("store.tab_cosmetics");
+            }
+
+            tabs.Add("store.tab_animations");
+            int tab = Math.Max(0, Math.Min(tabs.Count - 1, app.StoreTab));
+            ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
             DesignApp.DrawBackdrop(p, BackdropScene.Home, meta.CurrentLevel, OwnerPictures.Wardrobe);
 
             // The parchment panel, its bottom corners below the screen's edge.
             float radius = r.PanelRadius(p.Scale);
             Kit.Paper(p, new Box(r.Panel.Left, r.Panel.Top, r.Panel.Right, r.Panel.Bottom + radius), radius, DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard);
-            if (cosmetics)
+            Kit.Tabs(p, r.Tabs, tabs.ConvertAll(PlaytestText.T).ToArray(), tab, i =>
             {
-                Kit.Tabs(p, r.Tabs, new[] { PlaytestText.T("store.tab_shop"), PlaytestText.T("store.tab_cosmetics") }, app.StoreTab, i => app.StoreTab = i);
-            }
+                app.StoreTab = i;
+                app.StorePage = 0;
+            });
 
-            if (cosmetics && app.StoreTab == 1)
+            switch (tabs[tab])
             {
-                Outfits(p, app, r);
-            }
-            else
-            {
-                ShopRows(p, app, r);
+                case "store.tab_cosmetics":
+                    Outfits(p, app, r);
+                    break;
+                case "store.tab_animations":
+                    Animations(p, app, r);
+                    break;
+                default:
+                    ShopRows(p, app, r);
+                    break;
             }
 
             // The bottom menu, the Shop in its medallion (FR-030); the header last, as on the Wardrobe.
@@ -289,6 +305,56 @@ namespace Bloomlings.Playtest.Design
             }
 
             Footer(p, r, PlaytestText.T("wardrobe.footer"), T.Body, page > 0 ? () => app.StorePage = page - 1 : (Action?)null, page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null);
+        }
+
+        /// <summary>
+        /// The Store's Animations (spec 005 FR-038, contracts/look.md §6.12): the free pair's card first, then each bought
+        /// clearing style, each card holding the style's live preview (<see cref="Kit.ClearingPreview"/>); a style not
+        /// owned shows its price, with the padlock badge (the preview still bright) before L40; the chosen one is checked.
+        /// A tap buys the style from L40 (before that it says from which level) and chooses an owned one; the free card
+        /// brings back the pair.
+        /// </summary>
+        private static void Animations(IPainter p, DesignApp app, ReferenceStoreRegions r)
+        {
+            ClearingService clearing = app.Meta.Clearing;
+            int level = app.Meta.CurrentLevel;
+            var styles = new List<ClearStyle> { ClearStyle.Blossom };
+            styles.AddRange(ClearStyles.Bought);
+            int perPage = r.ClearingsPerPage;
+            int pages = Math.Max(1, (styles.Count + perPage - 1) / perPage);
+            int page = Math.Max(0, Math.Min(pages - 1, app.StorePage));
+            for (int slot = 0; slot < perPage; slot++)
+            {
+                int index = (page * perPage) + slot;
+                if (index >= styles.Count)
+                {
+                    break;
+                }
+
+                ClearStyle style = styles[index];
+                bool free = ClearStyles.IsFree(style);
+                bool owned = clearing.Owns(style);
+                string name = PlaytestText.T(free ? "clearing.free_pair" : ClearStyles.NameKey(style));
+                bool locked = !owned && !ClearingService.IsOpenAt(level);
+                Cost? cost = owned ? (Cost?)null : Cost.Petals(clearing.Price);
+                Kit.OutfitCard(p, r.ClearingCard(slot), name, clearing.IsChosen(style), well => Kit.ClearingPreview(p, well, style, pair: free), cost, () =>
+                {
+                    switch (clearing.Tap(style, level))
+                    {
+                        case ClearingTap.Locked:
+                            app.HomeToast(PlaytestText.F("locked.message", ClearStyles.BuyFromLevel));
+                            break;
+                        case ClearingTap.Short:
+                            app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
+                            break;
+                        case ClearingTap.Unavailable:
+                            app.HomeToast(PlaytestText.T("store.unavailable"));
+                            break;
+                    }
+                }, pillRoom: true, locked: locked, dim: false);
+            }
+
+            Footer(p, r, PlaytestText.T("store.animations_footer"), T.Body, page > 0 ? () => app.StorePage = page - 1 : (Action?)null, page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null);
         }
 
         /// <summary>

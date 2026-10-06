@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Services.Config;
 using Bloomlings.Client.Services.Save;
@@ -436,8 +437,9 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, Box.FromCenter(petals.Right - petals.Height, petals.CenterY, 1f, 1f));
                 Expect(app.Screen == Design.Screen.Store, "the Wardrobe's Petals \"+\" opens the Store page again");
                 Run(app, p, 0.1f);
+                // The tabs: Shop, Cosmetics (from L40) and Animations.
                 Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
-                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
+                Tap(p, Box.FromCenter(tabs.CenterX, tabs.CenterY, 1f, 1f));
                 Expect(app.StoreTab == 1, "a tap on the Cosmetics tab shows the cosmetics");
                 Run(app, p, 0.5f);
             });
@@ -625,8 +627,8 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(39, "profile", "Extra: profile page (spec 005 FR-037)", (p, data) =>
             {
                 // Level 15 with 1240 Petals and Drop's sailor avatar bought: Home's avatar opens the page, which shows it in
-                // the card with the default name, the ID, the joining month, the Level plaque, the stats and the locked
-                // achievements.
+                // the card with the default name, the ID, the joining month, the Level plaque, the stats and the
+                // achievements on their way to bronze.
                 DesignApp app = Progressed(App(data), content, 14);
                 CloseAll(app);
                 Expect(app.Meta.Profile.TryBuy("avatar.drop_sailor_sticker"), "an avatar for 300 Petals");
@@ -638,7 +640,9 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Shows(p, PlaytestText.F("profile.default_name", profile.DefaultNumber)), "the default name");
                 Expect(Shows(p, PlaytestText.F("profile.id", profile.ShortId)) && Shows(p, PlaytestText.F("profile.joined", profile.JoinedMonth)), "the ID and the joining month");
                 Expect(Shows(p, PlaytestText.F("common.level", 15)), "the Level plaque");
-                Expect(p.Texts.Count(t => t.Text == PlaytestText.T("profile.achievement_soon")) == ReferenceProfileRegions.AchievementCount, "the achievements are placeholders");
+                Expect(Achievements.All.All(a => Shows(p, PlaytestText.T(a.NameKey))), "the three achievements by name");
+                long won = Achievements.Count(app.Meta.Save, Achievements.LevelsCounter);
+                Expect(Shows(p, PlaytestText.F("profile.achievement_progress", won, 50)), "Green Thumb's count toward bronze");
                 Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && p.Slots.Contains("ui.achievement"), "the avatar picture and the achievement tiles");
             });
             yield return new Fixture(40, "profile-edit", "Extra: profile edit card, avatars (spec 005 FR-037)", (p, data) =>
@@ -702,6 +706,52 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.5f);
                 Expect(app.ProfileEditor.ProfileItemsOpen && app.ProfileEditor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count > 0, "owned frames at Level 45");
                 Expect(p.Slots.Contains("cosmetic.frame"), "the frames on the avatar");
+            });
+        }
+
+        /// <summary>
+        /// The Store's Animations tab (spec 005 FR-038): the free pair's card and the five bought clearing styles, each with
+        /// its live preview; at Level 45 Fireflies is bought and chosen, the others show their price; a tap buys one.
+        /// </summary>
+        public static IEnumerable<Fixture> Clearing(ContentSet content)
+        {
+            DesignApp App(string data) => new DesignApp(data, content, new Silence(), false);
+            yield return new Fixture(42, "store-animations", "Extra: the Store's Animations, the clearing styles (spec 005 FR-038)", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 44);
+                app.Meta.Economy.Grant(12000, null);
+                Expect(app.Meta.Clearing.Tap(ClearStyle.Fireflies, app.Meta.CurrentLevel) == ClearingTap.Bought, "Fireflies bought at Level 45");
+                Expect(app.Meta.Clearing.StyleFor(46) == ClearStyle.Fireflies, "the chosen style plays on every level");
+                CloseAll(app);
+                app.OpenStore();
+                Run(app, p, 0.1f);
+                Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 6f), tabs.CenterY, 1f, 1f));
+                Expect(app.StoreTab == 2, "a tap on the Animations tab shows the clearing styles");
+                Run(app, p, 6f);
+                Expect(p.Slots.Contains("ui.card.clearing") && p.Slots.Contains("fx.clear.fireflies"), "the cards' live previews");
+            });
+
+            yield return new Fixture(43, "store-animations-locked", "Extra: the Store's Animations before Level 40, the previews bright under their padlocks (spec 005 FR-038)", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 19);
+                app.Meta.Economy.Grant(12000, null);
+                CloseAll(app);
+                app.OpenStore();
+                Run(app, p, 0.1f);
+
+                // Before the Wardrobe (L40) the tabs are the Shop and the Animations.
+                Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
+                Expect(app.StoreTab == 1, "a tap on the Animations tab shows the clearing styles");
+                Run(app, p, 0.1f);
+                ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                Box bubbles = r.ClearingCard(2);
+                int petals = app.Meta.Economy.Petals;
+                Tap(p, Box.FromCenter(bubbles.CenterX, bubbles.CenterY, 1f, 1f));
+                Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "a style is not bought before Level 40");
+                Run(app, p, 4f);
+                Expect(p.Slots.Contains("ui.lock") && p.Slots.Contains("fx.clear.bubbles"), "the padlocks over the live previews");
             });
         }
 

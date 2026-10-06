@@ -511,6 +511,34 @@ the avatars webp to cut memory, or use the way you cut them before."
 - Q: The achievements? → A: Three locked placeholder tiles ("Coming soon") and a note, until the owner names them.
   Three stat cells (levels won, pictures, milestones) fill the page with what the save already counts.
 
+### Session 2026-10-06 (the owner's clearing styles)
+
+The owner: "Come up with 5 animations for clearing the board. Take Colony Flow as the inspiration: it is mesmerizing
+there, it must be here too." On the first GIFs: "Too fast. Remake them clearly, much slower, so that I see slowly how
+everything is done. Again: it must be mesmerizing; in Colony Flow the ants carry, slowly, beautifully, you just sit and
+stare." Then: "Come up with 5 more." Of the ten, the owner chose: "Free: Blossom, Munchers; these two alternate in the
+game. Paid: Fireflies, Bubbles, Pushers, Fireworks, Confetti Parade (in the Store, with a preview of the animation;
+from a certain level, 40 I think; the preview may show before, but they cannot be bought before L40; the price clearly
+above the boosters, 5–10 thousand an animation)."
+- Q: How do the free two alternate? → A: By level: Blossom on Levels 1–10 (the onboarding: the shorter, plainer look)
+  and on odd levels, Munchers on even levels from 12.
+- Q: The price? → A: 5000 Petals each for now (Remote Config `economy.price.clearing`), Petals only.
+- Q: Where? → A: In the Store, an Animations tab of its own (open with the Store, L12), a card for each style with a
+  live preview (the same drawing as the board on a small board of its own), the free pair's card first. Buying opens at
+  L40; before that the card shows its price and a padlock, and a tap says from which level.
+- Q: The pace? → A: "It must be evened out, but not too fast, or a whole level lasts ten seconds; something in between;
+  in Colony Flow they are really slow." Every style takes the same time per tile, 1.1 s a cell from the entry plus
+  1.4 s (spec 001 research R4, amendment of 2026-10-06), so no style changes how fast a level plays. The backlog
+  speed-up waits for 60 s of backlog.
+- Q: The other proposals? → A: Carriers, Wave and Gardener are dropped. The names in the game: Blossom, Munchers,
+  Fireflies, Bubbles, Pushers, Fireworks, Confetti Parade.
+- Q: Packs of Petals for the styles? → A: Later, when purchases come in overall.
+- Q: The profile's open points (the avatars' tiers, how the avatars were made, the achievements)? → A: "Choose
+  yourself, it does not matter to me. ChatGPT made them." The tiers stay (300 / 600 / 1200), the avatars' source record
+  names ChatGPT image generation, and the achievements are named here (FR-037 as amended): Green Thumb (levels won:
+  50, 500, 2500), Picture Keeper (pictures collected: 10, 100, 1000) and Daily Gardener (Daily Challenges won: 7, 30,
+  100), each a bronze, a silver and a gold tier, shown only (no reward).
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -994,7 +1022,10 @@ inventory.
   shown frame and badge, a tap opening the edit card on Avatar; the name, "Gardener NNNN" until one is chosen, with the
   pencil opening it on Name; "ID: XXXXXXXX", the first 8 characters of the local player ID; "Playing since MM/YYYY";
   the wooden "Level N" plaque); three stat cells (levels won, pictures collected, milestones reached); and
-  "Achievements": three locked placeholder tiles with "Coming soon" and a note. The "Edit profile" card
+  "Achievements": three tiles and a note *(amended 2026-10-06: they were locked placeholders)*, Green Thumb (levels
+  won), Picture Keeper (pictures collected) and Daily Gardener (Daily Challenges won), each with a bronze, a silver and
+  a gold tier (`Achievements`): the trophy in its tier's medal color, faded under the padlock before bronze, the count
+  toward the next tier ("14/50") and the check at gold; shown only, no reward. The "Edit profile" card
   (`ScreenLayout.ProfileEdit`, `ProfileEditor`) MUST show the tabs Avatar, Frame, Badge and Name, the picked avatar in
   the picked frame and badge with the name, the tab's grid of four a row (the 14 avatars, free first, the others with
   their Petal price until bought, the picked one checked; the owned frames or badges on the avatar, locked until the
@@ -1003,6 +1034,29 @@ inventory.
   say so. A name is 1–16 letters, digits, spaces, `_ - .` (Latin and Cyrillic). The avatar shows on Home, the page, the
   card, the Wardrobe's profile tab and the player's own leaderboard row; while its picture is missing, its family's
   hero stands in. Presentation and profile cosmetics only (spec 001 FR-063 as amended): no gameplay effect.
+- **FR-038** *(the owner's clearing styles of 2026-10-06)*: The board MUST clear in one of seven styles, in both builds
+  and in the Store's previews alike. The kit's engine-free `ClearStyles` and `ClearLook` hold the styles' timing and
+  look, and each host only draws the list they give (contracts/look.md §6.12). Every style takes the same time for a
+  tile (`ClearStyles.TripSeconds`). The Bloomlings leave the arch in a line, each style splitting the trip into its own
+  legs:
+  - **Blossom** (free): the tile sinks, turning, and a five-petal flower opens where it was, then fades into the
+    picture.
+  - **Munchers** (free): the Bloomling climbs onto the tile and eats it in three bites, crumbs flying, then waddles home
+    round and full.
+  - **Fireflies**: the tile glows and breaks into fireflies that hover and drift in a swarm to the slot.
+  - **Bubbles**: the Bloomling blows a soap bubble round the tile, which floats on a lazy wave to the slot and pops.
+  - **Pushers**: the Bloomling steps behind the tile and pushes it home, the tile tumbling a cell at a time, then
+    hopping from the arch into the slot.
+  - **Fireworks**: the tile swells white and pops, its sparkles flying in arcs to the slot.
+  - **Confetti Parade**: the tile squashes and stretches and pops into confetti and a ring.
+
+  Blossom and Munchers MUST play by level (Blossom on Levels 1–10 and odd levels, Munchers on even levels from 12)
+  while the player has chosen no bought style. A chosen bought style MUST play on every level. The Store MUST show an
+  Animations tab from its unlock (L12): the free pair's card first, then each bought style's card with its live
+  preview, its 5000 Petals price, and a padlock before L40. A tap on a card buys the style from L40, before that it
+  says from which level, and when owned it chooses the style; the free card brings back the pair. Presentation and
+  board cosmetics only (spec 001 FR-063 as amended): no outcome changes, and the tiles, pods and walkers keep their
+  variant icons and colors.
 
 ### Key Entities
 

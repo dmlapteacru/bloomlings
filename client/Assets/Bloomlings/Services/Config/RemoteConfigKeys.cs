@@ -82,6 +82,9 @@ namespace Bloomlings.Client.Services.Config
         public static readonly IntKey PriceAvatarCommon = new IntKey("economy.price.avatarCommon", 300, 10, 10000);
         public static readonly IntKey PriceAvatarRare = new IntKey("economy.price.avatarRare", 600, 10, 10000);
         public static readonly IntKey PriceAvatarSpecial = new IntKey("economy.price.avatarSpecial", 1200, 10, 10000);
+
+        /// <summary>Every bought clearing style (spec 005 FR-038; the owner, 2026-10-06: 5000 for now, Petals only).</summary>
+        public static readonly IntKey PriceClearing = new IntKey("economy.price.clearing", 5000, 10, 50000);
         public static readonly IntKey UnlockGrant = new IntKey("economy.unlockGrant", 1, 1, 3);
         public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 5, 2, 20);
 
@@ -107,15 +110,15 @@ namespace Bloomlings.Client.Services.Config
             string.Empty,
             value => value.Length == 0 || (Uri.TryCreate(value, UriKind.Absolute, out Uri? uri) && uri.Scheme == Uri.UriSchemeHttps));
 
-        // Presentation (research R4). The backlog beyond which the timeline plays faster: 6 s since the waves of
-        // different taps play side by side at the halved clearing pace (the owner's report of 2026-10-03; it was 1.5 s).
-        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 12000, 2000, 20000);
+        // Presentation (research R4). The backlog beyond which the timeline plays faster: 60 s since the owner's calm
+        // clearing pace of 2026-10-06, so normal play keeps the pace (12 s from 2026-10-05, 6 s from 2026-10-03, 1.5 s before).
+        public static readonly IntKey FxBacklogThresholdMs = new IntKey("fx.backlogThresholdMs", 60000, 2000, 120000);
 
         public static IReadOnlyList<IntKey> AllInts { get; } = new[]
         {
             PetalsBase, PetalsCleanBonus, PetalsHardBonus, PetalsSuperHardBonus,
             PriceExtraSlot, PriceShuffle, PriceReturn, PriceBloomBurst,
-            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, UnlockGrant, DropEveryLevels,
+            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearing, UnlockGrant, DropEveryLevels,
             DailyRewardPetals, DailyStreakBonusPetals, DailyStreakMaxDays,
             InterstitialFirstLevel, InterstitialMinSeconds, InterstitialMinLevels, RescuePerAttempt,
             FxBacklogThresholdMs,
