@@ -6,6 +6,9 @@ using Android.OS;
 // Short vibration pulses with the sound cues (PlaytestSound).
 [assembly: UsesPermission(Android.Manifest.Permission.Vibrate)]
 
+// The owner's app icon (spec 005 pictures.md C3; playtest/icon, written by tools/appicon).
+[assembly: Application(Icon = "@mipmap/ic_launcher", RoundIcon = "@mipmap/ic_launcher_round")]
+
 namespace Bloomlings.Playtest
 {
     /// <summary>
@@ -16,6 +19,8 @@ namespace Bloomlings.Playtest
     /// </summary>
     [Activity(
         Label = PlaytestFlavor.Title,
+        Icon = "@mipmap/ic_launcher",
+        RoundIcon = "@mipmap/ic_launcher_round",
         MainLauncher = true,
         ScreenOrientation = ScreenOrientation.Portrait,
         Theme = "@android:style/Theme.Material.Light.NoActionBar",

@@ -69,6 +69,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
   minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`
   (no npm packages) must pass before committing hero frames or Home layers.
+- `dotnet run --project tools/appicon` (not in the solution; `tools/appicon/README.md`) cuts the owner's app icon picture
+  (`tools/appicon/source/app-icon.png`) into the Unity client's icon textures (`Art/Brand/AppIcon/`, set by
+  `CiBuild.ApplyIcons`) and both playtest APKs' launcher mipmaps (`playtest/icon/`, adaptive, round and legacy).
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
 - CI: **every workflow is manual only for now** (Actions → Run workflow), so pushes and pull requests spend no
   Actions minutes (the owner's budget rule). Run the tests above locally before every push instead.

@@ -197,6 +197,21 @@ namespace UnityEditor
         public static ScriptingImplementation GetScriptingBackend(UnityEditor.Build.NamedBuildTarget target) => default;
         public static void SetScriptingBackend(UnityEditor.Build.NamedBuildTarget target, ScriptingImplementation backend) { }
         public static void SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget target, Il2CppCompilerConfiguration configuration) { }
+        public static void SetIcons(UnityEditor.Build.NamedBuildTarget target, UnityEngine.Texture2D[] icons, IconKind kind) { }
+        public static PlatformIcon[] GetPlatformIcons(UnityEditor.Build.NamedBuildTarget target, PlatformIconKind kind) => Array.Empty<PlatformIcon>();
+        public static void SetPlatformIcons(UnityEditor.Build.NamedBuildTarget target, PlatformIconKind kind, PlatformIcon[] icons) { }
+    }
+    public enum IconKind { Any = -1, Application = 0 }
+    public class PlatformIconKind { }
+    public sealed class PlatformIcon { public int layerCount { get; } public void SetTextures(params UnityEngine.Texture2D[] textures) { } }
+}
+namespace UnityEditor.Android
+{
+    public static class AndroidPlatformIconKind
+    {
+        public static UnityEditor.PlatformIconKind Adaptive => new UnityEditor.PlatformIconKind();
+        public static UnityEditor.PlatformIconKind Round => new UnityEditor.PlatformIconKind();
+        public static UnityEditor.PlatformIconKind Legacy => new UnityEditor.PlatformIconKind();
     }
 }
 namespace UnityEditor.Build.Reporting
@@ -211,7 +226,7 @@ namespace UnityEditor.Build
     public interface IPreprocessBuildWithReport : IOrderedCallback { void OnPreprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public interface IPostprocessBuildWithReport : IOrderedCallback { void OnPostprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public sealed class BuildFailedException : Exception { public BuildFailedException(string message) : base(message) { } }
-    public readonly struct NamedBuildTarget { public static NamedBuildTarget Android => default; public static NamedBuildTarget FromBuildTargetGroup(UnityEditor.BuildTargetGroup group) => default; }
+    public readonly struct NamedBuildTarget { public static NamedBuildTarget Android => default; public static NamedBuildTarget Unknown => default; public static NamedBuildTarget FromBuildTargetGroup(UnityEditor.BuildTargetGroup group) => default; }
 }
 namespace UnityEditor.SceneManagement
 {
