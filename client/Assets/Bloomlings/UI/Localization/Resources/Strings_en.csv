@@ -276,7 +276,7 @@ profile.name_change,Change name
 profile.name_hint,"Up to 16 letters, digits and spaces"
 profile.name_prompt,Your name
 profile.name_empty,Type a name with letters or digits
-profile.items_locked,Frames and badges open at level {0}
+profile.badges_locked,Badges open at level {0}
 profile.no_frames,Frames come from milestones and the Store
 profile.no_badges,Badges come from milestones and the Store
 profile.bought,New avatar!

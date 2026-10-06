@@ -182,13 +182,15 @@ namespace Bloomlings.Client.UI.Screens
             else if (!name)
             {
                 CosmeticKind kind = editor.Tab == ProfileTab.Frame ? CosmeticKind.Frame : CosmeticKind.Badge;
+                // The five free frames from Level 1, every owned frame and badge once the Wardrobe is open.
                 IReadOnlyList<CosmeticItem> owned = editor.Owned(kind);
-                if (!editor.ProfileItemsOpen || owned.Count == 0)
+                bool locked = editor.IsLocked(kind);
+                if (locked || owned.Count == 0)
                 {
                     _note.gameObject.SetActive(true);
-                    _lock.gameObject.SetActive(!editor.ProfileItemsOpen);
-                    _note.text = !editor.ProfileItemsOpen
-                        ? Loc.F("profile.items_locked", _wardrobeLevel)
+                    _lock.gameObject.SetActive(locked);
+                    _note.text = locked
+                        ? Loc.F("profile.badges_locked", _wardrobeLevel)
                         : Loc.T(kind == CosmeticKind.Frame ? "profile.no_frames" : "profile.no_badges");
                 }
 
@@ -196,7 +198,7 @@ namespace Bloomlings.Client.UI.Screens
                 {
                     CosmeticItem item = owned[i];
                     bool frame = kind == CosmeticKind.Frame;
-                    _cells[i].Show(editor.Avatar, frame ? item : null, frame ? null : item, item.Id == (frame ? editor.FrameId : editor.BadgeId), null);
+                    _cells[i].Show(editor.Avatar, frame ? item : null, frame ? null : item, item.Id == (frame ? editor.FrameId : editor.BadgeId), null, framed: true);
                 }
             }
 
@@ -322,7 +324,11 @@ namespace Bloomlings.Client.UI.Screens
             _ => "profile.tab_name",
         };
 
-        /// <summary>One grid cell: the avatar disc (with a frame or badge), its price pill while it is to be bought, the check when picked.</summary>
+        /// <summary>
+        /// One grid cell: the avatar disc (with a frame or badge, a little smaller so a drawn frame fits:
+        /// <see cref="ProfileEditRegions.CellItemAvatar"/>), its price pill while it is to be bought, the green disc and the
+        /// check when picked.
+        /// </summary>
         private sealed class Cell
         {
             private readonly GameObject _root;
@@ -330,14 +336,16 @@ namespace Bloomlings.Client.UI.Screens
             private readonly ProfileAvatar _avatar;
             private readonly CostPillView _price;
             private readonly GameObject _check;
+            private readonly Box _cell;
 
-            private Cell(GameObject root, Image ring, ProfileAvatar avatar, CostPillView price, GameObject check)
+            private Cell(GameObject root, Image ring, ProfileAvatar avatar, CostPillView price, GameObject check, Box cell)
             {
                 _root = root;
                 _ring = ring;
                 _avatar = avatar;
                 _price = price;
                 _check = check;
+                _cell = cell;
             }
 
             public static Cell Create(Transform parent, Box cell, Box body, Action<int> onPick, int index)
@@ -347,7 +355,8 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.TapTarget(hit, () => onPick(index), press: true);
                 Box picture = ProfileEditRegions.CellPicture(cell);
                 Image ring = UiKit.RoundRect("Picked", hit.transform, UiTheme.Of(GardenLook.Green.Face), b => b.Height / 2f);
-                UiKit.PlaceBox(ring.rectTransform, picture.Inset(-picture.Width * 0.06f), cell);
+                float picked = picture.Width * ProfileEditRegions.PickedShare * 2f;
+                UiKit.PlaceBox(ring.rectTransform, Box.FromCenter(picture.CenterX, picture.CenterY, picked, picked), cell);
                 ProfileAvatar avatar = ProfileAvatar.Create("Avatar", hit.transform);
                 UiKit.PlaceBox(avatar.Rect, picture, cell);
                 CostPillView price = UiKit.CostPill("Price", hit.transform, Cost.Petals(0));
@@ -356,12 +365,14 @@ namespace Bloomlings.Client.UI.Screens
                 RectTransform check = UiFactory.CreateRect("Check", hit.transform);
                 UiKit.PlaceBox(check, cell, cell);
                 UiKit.CheckBadge(BoxLayout.On(check), b => Box.FromCenter(b.Left + (checkBox.CenterX - cell.Left), b.Top + (checkBox.CenterY - cell.Top), checkBox.Width, checkBox.Height));
-                return new Cell(hit.gameObject, ring, avatar, price, check.gameObject);
+                return new Cell(hit.gameObject, ring, avatar, price, check.gameObject, cell);
             }
 
-            public void Show(AvatarItem avatar, CosmeticItem? frame, CosmeticItem? badge, bool picked, int? price)
+            /// <param name="framed">A Frame or Badge cell: the avatar a little smaller, its frame inside the picture's box.</param>
+            public void Show(AvatarItem avatar, CosmeticItem? frame, CosmeticItem? badge, bool picked, int? price, bool framed = false)
             {
                 _root.SetActive(true);
+                UiKit.PlaceBox(_avatar.Rect, framed ? ProfileEditRegions.CellItemAvatar(_cell) : ProfileEditRegions.CellPicture(_cell), _cell);
                 _avatar.Show(new ProfileLook(frame, badge, null), null, avatar);
                 _ring.gameObject.SetActive(picked);
                 _check.SetActive(picked);

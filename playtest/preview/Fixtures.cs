@@ -621,8 +621,9 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>
-        /// The profile page and its edit card (spec 005 FR-037): the page at Level 15 with a bought avatar (39), the card's
-        /// avatars with a purchase and short Petals (40), and at Level 45 a new name and the owned frames (41).
+        /// The profile page and its edit card (spec 005 FR-037): the page at Level 15 with a bought avatar filling its disc
+        /// in a free frame picked before the Wardrobe opens (39), the card's avatars with a purchase and short Petals (40),
+        /// and at Level 45 a new name and the five free frames with the owned ones (41; the owner, 2026-10-06).
         /// </summary>
         public static IEnumerable<Fixture> Profile(ContentSet content)
         {
@@ -633,13 +634,29 @@ namespace Bloomlings.Playtest.Preview
             {
                 // Level 15 with 1240 Petals and Drop's sailor avatar bought: Home's avatar opens the page, which shows it in
                 // the card with the default name, the ID, the joining month, the Level plaque, the stats and the
-                // achievements on their way to bronze.
+                // achievements on their way to bronze. The Wardrobe is still closed, yet the card's Frame tab lists the five
+                // free frames (the owner, 2026-10-06): the Flower Wreath is picked and saved, and the page shows it.
                 DesignApp app = Progressed(App(data), content, 14);
                 CloseAll(app);
                 Expect(app.Meta.Profile.TryBuy("avatar.drop_sailor_sticker"), "an avatar for 300 Petals");
                 Run(app, p, 0.1f);
                 Tap(p, HomeAvatar(p));
                 Expect(app.Screen == Design.Screen.Profile, "Home's avatar opens the profile page");
+                Run(app, p, 0.4f);
+                Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && !p.Slots.Contains("cosmetic.frame"), "the avatar's picture, no frame until one is picked");
+                Tap(p, ScreenLayout.ReferenceProfile(p.Width, p.Height, p.Insets).Avatar);
+                Run(app, p, 0.5f);
+                ProfileEditRegions edit = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
+                Tap(p, Box.FromCenter(edit.Tabs.Left + (edit.Tabs.Width * 1.5f / ProfileEditor.Tabs.Count), edit.Tabs.CenterY, 1f, 1f));
+                Run(app, p, 0.1f);
+                ProfileEditor editor = app.ProfileEditor!;
+                Expect(editor.Tab == ProfileTab.Frame && !editor.ProfileItemsOpen && !editor.IsLocked(Client.Meta.Wardrobe.CosmeticKind.Frame), "the Frame tab is open before the Wardrobe");
+                Expect(editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 5 && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the five free frames, each drawn");
+                Tap(p, edit.Cell(2));
+                Run(app, p, 0.1f);
+                Expect(editor.FrameId == "frame.flower_wreath", "the Flower Wreath picked");
+                Tap(p, edit.Button);
+                Expect(!app.IsOpen(Overlay.ProfileEdit) && app.Meta.Wardrobe.Profile.Frame?.Id == "frame.flower_wreath", "Save shows it on the profile at Level 15");
                 Run(app, p, 0.4f);
                 ProfileService profile = app.Meta.Profile;
                 Expect(Shows(p, PlaytestText.F("profile.default_name", profile.DefaultNumber)), "the default name");
@@ -649,6 +666,7 @@ namespace Bloomlings.Playtest.Preview
                 long won = Achievements.Count(app.Meta.Save, Achievements.LevelsCounter);
                 Expect(Shows(p, PlaytestText.F("profile.achievement_progress", won, 50)), "Green Thumb's count toward bronze");
                 Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && p.Slots.Contains("ui.achievement"), "the avatar picture and the achievement tiles");
+                Expect(p.Slots.Contains("cosmetic.frame.flower_wreath"), "the page's avatar in the Flower Wreath");
             });
             yield return new Fixture(40, "profile-edit", "Extra: profile edit card, avatars (spec 005 FR-037)", (p, data) =>
             {
@@ -680,7 +698,8 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(41, "profile-frames", "Extra: profile edit card, name and frames (spec 005 FR-037)", (p, data) =>
             {
                 // Level 45, the Wardrobe open: the pencil opens the card on Name, "Change name" asks the host (here "Rosie")
-                // and Save keeps it; the card again on Frame lists the owned frames on the avatar, the shown one checked.
+                // and Save keeps it; the card again on Frame lists the five free frames, then the owned ones, on the avatar;
+                // the shown one (the newest owned, Ivy) is checked until a tap picks the Leaf Ring.
                 DesignApp app = Progressed(App(data), content, 44);
                 CloseAll(app);
                 // Two frames and a badge as later milestones give them.
@@ -709,8 +728,13 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, Box.FromCenter(r.Tabs.Left + (r.Tabs.Width * 1.5f / ProfileEditor.Tabs.Count), r.Tabs.CenterY, 1f, 1f));
                 Expect(app.ProfileEditor!.Tab == ProfileTab.Frame, "the Frame tab");
                 Run(app, p, 0.5f);
-                Expect(app.ProfileEditor.ProfileItemsOpen && app.ProfileEditor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count > 0, "owned frames at Level 45");
-                Expect(p.Slots.Contains("cosmetic.frame"), "the frames on the avatar");
+                ProfileEditor editor = app.ProfileEditor;
+                Expect(editor.ProfileItemsOpen && editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 7, "the five free frames and the two owned ones at Level 45");
+                Expect(editor.FrameId == "frame.ivy", "the newest owned frame is shown by default, never a free one");
+                Expect(p.Slots.Contains("cosmetic.frame") && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the frames on the avatar");
+                Tap(p, r.Cell(1));
+                Run(app, p, 0.2f);
+                Expect(editor.FrameId == "frame.leaf_ring", "a tap picks the Leaf Ring");
             });
         }
 
