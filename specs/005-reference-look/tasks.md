@@ -648,3 +648,38 @@ and contracts/look.md §3.6, §6.10.
   while on (`garden.glow` rings, green chevrons, `GardenLook.FastGlyphOn`); Settings' row reads "Fast forward: On/Off";
   the save keeps `speed2x`. Spec 001 FR-069 (with its Q&A), FR-024, FR-068, SC-005, quickstart, plan and data model,
   look.md §3.3, the READMEs and CLAUDE.md amended; the asset inventory regenerated.
+
+## The owner's profile requests: the avatar fills its circle, five free frames (2026-10-06, FR-037)
+
+- [X] T150 Kit: `AvatarLook` (the disc `0.94` of the avatar at its top on the cream lip, the picture filling it inside a
+  thin `cream.line` ring of `0.03`, the press sinking it into the lip, the frame, the plain ring, the badge and the
+  marker over it; the owner, 2026-10-06: "the icon in the profile must be stretched over the whole circle").
+- [X] T151 Both builds: the avatar's picture fills its whole disc with no cream gap on Home, the profile page, the edit
+  card and the Wardrobe's profile tab (the playtest's `Kit.Avatar` and `Kit.AvatarPicture`, `IPainter.PushClipRound`;
+  Unity's `ProfileAvatar`, a `Mask` with the circle sprite, no more `UiKit.IconFace` cushion; `OwnerPictures`'
+  `AvatarPicture` and its 0.86 share removed); the player's leaderboard row already filled its portrait and keeps it.
+- [X] T152 Data: the catalog's `free` items (`CosmeticItem.Free`, `CosmeticCatalog.FreeOf`, the readability rules: free
+  items are profile items, neither given nor sold) and five free frames in `CosmeticCatalog.json` (Wooden Ring, Leaf
+  Ring, Flower Wreath, Stone Ring, Golden Ribbon; the owner: "make a couple of different frames for the user, they can
+  be free, 5 of them"); `WardrobeService.Owns`, `Owned` and `Show` take them as owned with no save entry, `Shown`
+  shows a chosen free frame before the Wardrobe opens and never defaults to one; `ProfileEditor.Owned` lists them from
+  Level 1 (first, once the Wardrobe is open), `IsLocked` keeps only the Badge tab locked, `Confirm` keeps a picked free
+  frame. No save migration.
+- [X] T153 Kit: `ProfileFrames` (the styles, their catalog shapes and slots) and `UiRaster.ProfileFrame`: five drawn
+  frames in the reference look (honey wood with brass nails; a vine of leaves; twigs, leaves and pink and white
+  blossoms; sandy stone blocks with moss; a gold satin band with a star and a pink bow), each over the disc's edge with
+  a soft shadow; the slots `cosmetic.frame.wood_ring`, `leaf_ring`, `flower_wreath`, `stone_ring`, `golden_ribbon`.
+- [X] T154 Both builds: the edit card's Frame tab lists the free frames on `ProfileEditRegions.CellItemAvatar`, the
+  picked one on the green disc (`PickedShare`) with the check (the playtest gains the disc Unity had); the Badge tab's
+  note is `profile.badges_locked` ("Badges open at level N", replacing `profile.items_locked`); the frames' names in
+  `Strings_en.csv`; Unity's Wardrobe profile tab shows a drawn frame's picture on its card.
+- [X] T155 Tests: `TheFreeFrames_AreOwnedFromLevelOne_AndCanBePickedAndShown`,
+  `CatalogRules_FreeItemsAreProfileItems_NeitherGivenNorSold`, `TheProfileFrames_AreRingsOverTheDiscsEdge_EachItsOwn`,
+  `TheAvatarsPicture_FillsItsDisc_AndTheFrameLiesOverItsEdge`; the editor, Wardrobe and edit-card layout tests updated.
+- [X] T156 Preview: frame 39 picks the Flower Wreath at Level 15 (the Wardrobe closed) and shows it on the page, frame
+  41 lists the five free frames before the owned ones and picks the Leaf Ring; the asset inventory's rows for the new
+  slots.
+- [X] T157 Docs: spec FR-037 amended (2026-10-06), contracts/look.md §6.11 (the avatar and the five frames' recipes),
+  §6.4's Avatar row and §5's slots, CLAUDE.md's profile line.
+- [ ] T158 Unity Editor: on a device, check the avatar's mask and ring on Home, the profile page, the edit card and the
+  Wardrobe's profile tab, and each free frame's picture in the edit card and on Home before the Wardrobe opens.

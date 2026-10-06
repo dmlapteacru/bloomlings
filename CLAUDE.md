@@ -175,7 +175,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   bottom menu), and its "Edit profile" card picks the avatar, frame, badge and name. The owner's 14 avatar pictures are
   opaque 384 px JPEG in `client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/` (`AvatarCatalog`: four free, ten for
   Petals at 300 / 600 / 1200, Remote Config `economy.price.avatar*`), shown in a round clip (`IPainter.PushClipRound`,
-  Unity a `Mask`). The data is engine-free in `client/Assets/Bloomlings/Meta/Profile/` (`ProfileService`,
+  Unity a `Mask`) that fills the avatar's whole disc inside a thin ring (the kit's `AvatarLook`; the owner,
+  2026-10-06). Five drawn frames (`ProfileFrames`, `UiRaster.ProfileFrame`: Wooden Ring, Leaf Ring, Flower Wreath, Stone
+  Ring, Golden Ribbon) are the cosmetic catalog's `free` items: everyone's from Level 1 with no save entry
+  (`WardrobeService.Owns`), listed first in the Frame tab before the Wardrobe opens too, never a default frame. The
+  data is engine-free in `client/Assets/Bloomlings/Meta/Profile/` (`ProfileService`,
   `ProfileEditor`, linked into the playtest); the save keeps bought avatars in `cosmetics.owned`, the shown one in
   `cosmetics.equipped.profile.avatar`, the name and joining day in the optional `profile` section. The name stays on
   the device (the playtest asks with the system's text dialog through `ITextPrompt`, Unity uses a `TMP_InputField`);
