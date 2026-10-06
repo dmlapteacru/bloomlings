@@ -1460,11 +1460,12 @@ turns by its negative; the SDF circles and rounded boxes are drawn ×`ShapeRaste
 (character, tile, ellipse, ring, rounded box or its outline, shape), its center, size, squash, turn, alpha, color and
 layer: `Board` over the tiles, `Over` above the tray and slots (the flights into the slot). Tokens and slots only.
 
-Timing (`ClearStyles`): every trip takes `TripSeconds(n) = 1.1 n + 1.4` s for a tile `n` cells from its arch; the
-walkers of a pod leave each arch in a line `LineGap` (0.42 s) apart, nearer tiles first; a command's rounds start at
+Timing (`ClearStyles`): every trip takes `TripSeconds(n) = (1.1 n + 1.4) / SpeedUp` s for a tile `n` cells from its
+arch, `SpeedUp` = 1.5 (the owner, 2026-10-06: each cell clears 1.5 times as fast); the walkers of a pod leave each arch
+in a line `LineGap` (0.42 s / `SpeedUp` = 0.28 s) apart, nearer tiles first; a command's rounds start at
 once and keep the rules' order only in their ends; a cell is crossable once its tile is gone (`ClearLegs.GoneShare`)
 unless a layer is revealed under it. Each style splits the trip into legs (Out to the tile, Act, Back, Fin to the
-slot):
+slot), written below at the calm pace in seconds and divided by `SpeedUp`:
 
 | Style | Slot | Out | Act | Back | Fin | Look |
 |---|---|---|---|---|---|---|

@@ -65,14 +65,21 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public static class ClearStyles
     {
-        /// <summary>Seconds a tile's trip takes for each route cell from its entry (the owner, 2026-10-06: "in between").</summary>
-        public const float PerCell = 1.1f;
+        /// <summary>
+        /// How much faster than the calm pace (1.1 s a cell plus 1.4 s, 0.42 s apart) every trip and line plays (the
+        /// owner, 2026-10-06: each cell clears 1.5 times as fast). The legs below are written at the calm pace and divided
+        /// by it, so the walkers keep their spacing and every style its proportions.
+        /// </summary>
+        public const float SpeedUp = 1.5f;
+
+        /// <summary>Seconds a tile's trip takes for each route cell from its entry (the owner, 2026-10-06: "in between", then 1.5 times as fast).</summary>
+        public const float PerCell = 1.1f / SpeedUp;
 
         /// <summary>Seconds every trip takes besides its cells (the act at the tile and the tile's last leg).</summary>
-        public const float Base = 1.4f;
+        public const float Base = 1.4f / SpeedUp;
 
         /// <summary>The least time between two Bloomlings leaving the same arch: a line, never a crowd.</summary>
-        public const float LineGap = 0.42f;
+        public const float LineGap = 0.42f / SpeedUp;
 
         /// <summary>The levels of the onboarding, which always play the plainer free style (Blossom).</summary>
         public const int OnboardingLevels = 10;
@@ -133,7 +140,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// How a style spends a trip of <paramref name="cells"/> route cells; the legs always add up to
-        /// <see cref="TripSeconds"/>.
+        /// <see cref="TripSeconds"/>. They are written at the calm pace and divided by <see cref="SpeedUp"/>.
         /// </summary>
         public static ClearLegs LegsOf(ClearStyle style, int cells)
         {
@@ -141,20 +148,23 @@ namespace Bloomlings.Client.UI.Design
             switch (style)
             {
                 case ClearStyle.Munchers:
-                    return new ClearLegs(0.5f * n, 1.1f, 0.6f * n, 0.3f);
+                    return Paced(0.5f * n, 1.1f, 0.6f * n, 0.3f);
                 case ClearStyle.Fireflies:
-                    return new ClearLegs(0.9f * n, 0.4f, 0f, (0.2f * n) + 1f);
+                    return Paced(0.9f * n, 0.4f, 0f, (0.2f * n) + 1f);
                 case ClearStyle.Bubbles:
-                    return new ClearLegs(0.9f * n, 0.5f, 0f, (0.2f * n) + 0.9f);
+                    return Paced(0.9f * n, 0.5f, 0f, (0.2f * n) + 0.9f);
                 case ClearStyle.Pushers:
-                    return new ClearLegs(0.45f * n, 0.4f, 0.65f * n, 1f);
+                    return Paced(0.45f * n, 0.4f, 0.65f * n, 1f);
                 case ClearStyle.Fireworks:
-                    return new ClearLegs(PerCell * n, 0.5f, 0f, 0.9f);
+                    return Paced(1.1f * n, 0.5f, 0f, 0.9f);
                 default:
                     // Blossom and the Parade: out at the trip's pace, then the act at the tile.
-                    return new ClearLegs(PerCell * n, Base, 0f, 0f);
+                    return Paced(1.1f * n, 1.4f, 0f, 0f);
             }
         }
+
+        private static ClearLegs Paced(float outward, float act, float back, float fin) =>
+            new ClearLegs(outward / SpeedUp, act / SpeedUp, back / SpeedUp, fin / SpeedUp);
 
         private static string Key(ClearStyle style) => style switch
         {

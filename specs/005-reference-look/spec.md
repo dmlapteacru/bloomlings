@@ -528,7 +528,9 @@ above the boosters, 5–10 thousand an animation)."
   L40; before that the card shows its price and a padlock, and a tap says from which level.
 - Q: The pace? → A: "It must be evened out, but not too fast, or a whole level lasts ten seconds; something in between;
   in Colony Flow they are really slow." Every style takes the same time per tile, 1.1 s a cell from the entry plus
-  1.4 s (spec 001 research R4, amendment of 2026-10-06), so no style changes how fast a level plays. The backlog
+  1.4 s (spec 001 research R4, amendment of 2026-10-06), so no style changes how fast a level plays. Later that day:
+  "the base clearing speed must be 1.5 times faster … the speed of each element, of clearing each cell", so every leg
+  and the line's gap are divided by 1.5 (`ClearStyles.SpeedUp`): 0.73 s a cell plus 0.93 s, 0.28 s apart. The backlog
   speed-up waits for 60 s of backlog.
 - Q: The other proposals? → A: Carriers, Wave and Gardener are dropped. The names in the game: Blossom, Munchers,
   Fireflies, Bubbles, Pushers, Fireworks, Confetti Parade.

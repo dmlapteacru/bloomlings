@@ -118,11 +118,13 @@ a default or asks a question.
   Buying opens at L40, with the Wardrobe: before that a card shows its price and a padlock, and a tap says from which
   level. A bought style is chosen on its card, and the free card brings back the free pair.
 - **Q: Does a style change the pace?**
-  A: No. Every style takes the same time for a tile: about 1.1 s for each cell from the entry plus 1.4 s, from the
-  Bloomling leaving the arch to the slot's count going down. The return trips of Munchers and Pushers walk faster to
+  A: No. Every style takes the same time for a tile: about 0.73 s for each cell from the entry plus 0.93 s, from the
+  Bloomling leaving the arch to the slot's count going down *(amended 2026-10-06, the owner: "the base clearing speed
+  must be 1.5 times faster … the speed of each element, of clearing each cell"; it was 1.1 s a cell plus 1.4 s, the
+  line 0.42 s apart)*. The return trips of Munchers and Pushers walk faster to
   fit. The pace sits between the earlier one and a very slow one. The owner: "not too fast, or a whole level lasts ten
   seconds; something in between; in the reference game they are really slow". Each pod's Bloomlings leave the arch in
-  a line, 0.42 s apart, and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
+  a line, 0.28 s apart, and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
   its way. The backlog speed-up waits for 60 s of backlog (research R4). 2× still doubles the clock (FR-069).
   Presentation only: no outcome changes.
 - **Q: Must a person approve every base picture?**
