@@ -98,12 +98,6 @@ namespace Bloomlings.Playtest.Design
             else
             {
                 heroes = Stage(p, r, BackdropScene.Home, OutfitsOf(app));
-
-                // As on the reference's Home (Home redraws for Play's breath), unless Settings switched them off.
-                if (app.Meta.Save.Settings.HomePetals)
-                {
-                    Kit.FallingPetals(p, new Box(r.Safe.Left, r.Logo.Bottom, r.Safe.Right, r.Plaque.Top), app.Now);
-                }
             }
 
             if (heroes && look.Hero)
@@ -355,8 +349,7 @@ namespace Bloomlings.Playtest.Design
         /// The owner's layered Home over the backdrop's garden (spec 005 FR-028, <see cref="HomeLayers"/>), every layer in
         /// the backdrop's own cover box, back to front: the fountain's back; Drop and Bloom, each on its soft shadow; the
         /// lotus again (Bloom stands behind it); Sprig and Twig on their shadows; the fountain's front stones and flowers
-        /// over the heroes' feet; the petals drifting down (<see cref="HomeLayers.PetalsAt"/>, twice, a picture height
-        /// apart). Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
+        /// over the heroes' feet. Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
         /// still picture while its frames are missing, in <paramref name="outfitOf"/>'s outfit; the heroes and their shadows
         /// fade in with <paramref name="heroAlpha"/> and the heroes rise by <paramref name="heroRise"/> (the splash).
         /// Returns whether a hero moves.
@@ -401,13 +394,6 @@ namespace Bloomlings.Playtest.Design
             }
 
             Layer(p, picture, HomeLayers.FountainFront);
-
-            // Home's petals follow Settings' "Falling petals" (the owner's switch of 2026-10-04); the splash keeps them.
-            if (app.Screen != Screen.Home || app.Meta.Save.Settings.HomePetals)
-            {
-                LayerPetals(p, picture, app.HomeSeconds);
-            }
-
             return moving;
         }
 
@@ -430,23 +416,6 @@ namespace Bloomlings.Playtest.Design
             p.Mark(HomeLayers.SlotOf(HomeLayers.Shadow));
             p.PushAlpha(HomeLayers.ShadowAlpha);
             p.Sprite(name, HomeLayers.ShadowBox(picture, family));
-            p.PopAlpha();
-        }
-
-        /// <summary>The petals drifting down <paramref name="seconds"/> after Home opened, wrapping round the picture's height.</summary>
-        private static void LayerPetals(IPainter p, Box picture, float seconds)
-        {
-            string name = PainterBase.BackgroundPrefix + HomeLayers.Petals.Name;
-            if (!p.HasSprite(name))
-            {
-                return;
-            }
-
-            p.Mark(HomeLayers.SlotOf(HomeLayers.Petals));
-            Box petals = HomeLayers.PetalsAt(picture, seconds);
-            p.PushAlpha(HomeLayers.PetalsAlpha);
-            p.Sprite(name, petals);
-            p.Sprite(name, petals.Offset(0f, -picture.Height));
             p.PopAlpha();
         }
 

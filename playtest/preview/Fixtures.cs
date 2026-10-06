@@ -69,14 +69,6 @@ namespace Bloomlings.Playtest.Preview
                 DesignApp app = Early(App(data), content, 4);
                 Run(app, p, 0.3f);
                 Expect(Nav(p, app).Places.Count == 5, "every place shows on an early Home");
-
-                // Settings' Falling petals (off by default since the owner's tuning of 2026-10-05) drift over Home; the
-                // splash, which showed them before, is the lotus loader since spec 005 FR-039.
-                app.Meta.Save.Settings.HomePetals = true;
-                Run(app, p, 0.1f);
-                Expect(p.Slots.Contains("bg.home.petals"), "the switched-on petals drift over Home");
-                app.Meta.Save.Settings.HomePetals = false;
-                Run(app, p, 0.1f);
                 Expect(!app.PlaceOpen(NavPlace.Shop) && !app.PlaceOpen(NavPlace.Wardrobe) && !app.PlaceOpen(NavPlace.Leaderboard), "the Shop, the Wardrobe and the Leaderboard are locked at Level 5");
                 Expect(app.PlaceOpen(NavPlace.Home) && app.PlaceOpen(NavPlace.Collection), "Home and the Collection are open at Level 5");
 

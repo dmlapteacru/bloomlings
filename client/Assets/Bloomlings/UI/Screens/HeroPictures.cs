@@ -335,9 +335,6 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>The stage's rect (it stretches over its parent).</summary>
         public RectTransform Rect => _root;
 
-        /// <summary>Whether the layered Home's petals drift (<see cref="HomeLayersView.PetalsOn"/>); null: always.</summary>
-        public Func<bool>? PetalsOn { get; set; }
-
         /// <summary>The owner's layered Home while it shows (the splash fades its heroes in), else null.</summary>
         public HomeLayersView? Layers => _layers != null && _root.gameObject.activeSelf && _layers.gameObject.activeSelf ? _layers : null;
 
@@ -367,7 +364,6 @@ namespace Bloomlings.Client.UI.Screens
                 }
 
                 _layers.gameObject.SetActive(true);
-                _layers.PetalsOn = PetalsOn;
                 _layers.Place(parent, parent, outfitOf);
                 return;
             }

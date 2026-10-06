@@ -109,7 +109,6 @@ namespace Bloomlings.Client.Services.Save
             Settings.Sfx = source.Settings.Sfx;
             Settings.Haptics = source.Settings.Haptics;
             Settings.Speed2x = source.Settings.Speed2x;
-            Settings.HomePetals = source.Settings.HomePetals;
             Settings.Language = source.Settings.Language;
             Profile.Name = source.Profile.Name;
             Profile.JoinedAt = source.Profile.JoinedAt;
@@ -370,13 +369,6 @@ namespace Bloomlings.Client.Services.Save
 
         /// <summary>Default animation speed for new levels (FR-069).</summary>
         public bool Speed2x { get; set; }
-
-        /// <summary>
-        /// Whether Home shows its falling petals (spec 005 FR-028; the owner's Settings switch of 2026-10-04). Optional in
-        /// the save as <c>homePetalsOn</c>, off by default since the owner's tuning of 2026-10-05 (spec 005 FR-036); the
-        /// earlier <c>homePetals</c>, which every save wrote as on, is read and ignored, so the petals start off.
-        /// </summary>
-        public bool HomePetals { get; set; }
 
         public string Language { get; set; } = "en";
     }

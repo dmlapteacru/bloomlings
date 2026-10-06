@@ -11,7 +11,7 @@ Requires Node 22 and Chromium for Playwright (`PLAYWRIGHT_BROWSERS_PATH`; the cl
 cd tools/heroanim
 npm ci                               # three 0.160.0, playwright-core 1.56.1, pngjs, jpeg-js
 node bake.mjs                        # all four heroes, about 6 minutes; --only <family> re-bakes one
-node layers.mjs <folder>             # the owner's Home layers (01_home_bg_back.png … 05_home_petals_overlay.png)
+node layers.mjs <folder>             # the owner's Home layers (01_home_bg_back.png … 04_home_soft_shadow.png)
 node saturation.mjs                  # the other backgrounds at 70% of the heroes' saturation
 node check.mjs                       # must pass before committing hero frames or Home layers (no npm packages needed)
 ```

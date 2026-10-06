@@ -118,8 +118,7 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <param name="onStore">The Petals pill's "+" (the Store page).</param>
         /// <param name="onNav">A tap on a place of the bottom menu (not Home's own).</param>
-        /// <param name="petalsOn">Whether the layered Home's petals drift (Settings' "Falling petals"); null: always.</param>
-        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null, HomeFeatureActions? features = null, Action<NavPlace>? onNav = null, Func<bool>? petalsOn = null)
+        public static HomeScreen Create(RectTransform root, Action onPlay, Action onSettings, Action onStore, Action? onFreeBooster = null, HomeFeatureActions? features = null, Action<NavPlace>? onNav = null)
         {
             var screen = root.gameObject.AddComponent<HomeScreen>();
             screen._root = root;
@@ -133,7 +132,6 @@ namespace Bloomlings.Client.UI.Screens
             // Everything built after it (the logo, the buttons, the plaque, Play, the pills) lies above it and keeps its
             // taps; a tap on a hero elsewhere makes it react.
             screen._stage = HeroPictures.Stage("Stage", root);
-            screen._stage.PetalsOn = petalsOn;
 
             // The promo scenes under the header (spec 005 FR-032, FR-036), on their cream plates, over the stage and under
             // the cards: each takes the taps of its own box only, so the heroes keep theirs around it. No Ads always calls

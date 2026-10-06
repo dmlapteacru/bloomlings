@@ -19,8 +19,7 @@ namespace Bloomlings.Client.UI.Screens
     public sealed record AccountActions(Func<string> Status, bool CanLinkApple, bool CanLinkGooglePlayGames, Action<LinkProvider, Action<bool>> Link);
 
     /// <summary>
-    /// Settings (T066): music, sound effects, haptics, the 2× default and Home's falling petals (the owner's switch of
-    /// 2026-10-04), stored in the save and saved on every change
+    /// Settings (T066): music, sound effects, haptics and the 2× default, stored in the save and saved on every change
     /// (R15). Restore Purchases is wired with the store in US6. The account section offers optional Sign in with Apple
     /// or Google Play Games linking for cloud sync (FR-087); the game never requires it. In the reference look of spec 005
     /// (contracts/look.md §4.3; the playtest's <c>MenuCards.Settings</c>): a parchment card with the brown title and the
@@ -41,7 +40,6 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _sfx = null!;
         private TextMeshProUGUI _haptics = null!;
         private TextMeshProUGUI _speed = null!;
-        private TextMeshProUGUI _petals = null!;
         private TextMeshProUGUI? _account;
         private Func<string>? _accountStatus;
         private TextMeshProUGUI _restoreLabel = null!;
@@ -61,7 +59,7 @@ namespace Bloomlings.Client.UI.Screens
             IConsentService? consent = null)
         {
             bool links = account != null && (account.CanLinkApple || account.CanLinkGooglePlayGames);
-            float content = 12f + (5f * RowUnits) + (4f * RowGapUnits)
+            float content = 12f + (4f * RowUnits) + (3f * RowGapUnits)
                 + (account != null ? ButtonGapUnits + StatusUnits : 0f)
                 + (links ? 16f + DesignTokens.Size.SecondaryHeight : 0f)
                 + ButtonGapUnits + DesignTokens.Size.SecondaryHeight + 30f;
@@ -77,13 +75,12 @@ namespace Bloomlings.Client.UI.Screens
 
             Box body = view.Regions.Body;
             float u = DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
-            Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), 5, RowUnits * u, RowGapUnits * u);
+            Box[] lines = ScreenLayout.Column(new Box(body.Left, body.Top + (12f * u), body.Right, body.Bottom), 4, RowUnits * u, RowGapUnits * u);
             screen._music = Toggle(view.Body, body, lines[0], "Music", () => settings.Music, () => settings.Music = !settings.Music, screen, u);
             screen._sfx = Toggle(view.Body, body, lines[1], "Sound", () => settings.Sfx, () => settings.Sfx = !settings.Sfx, screen, u);
             screen._haptics = Toggle(view.Body, body, lines[2], "Haptics", () => settings.Haptics, () => settings.Haptics = !settings.Haptics, screen, u);
             screen._speed = Toggle(view.Body, body, lines[3], "Speed", () => settings.Speed2x, () => settings.Speed2x = !settings.Speed2x, screen, u);
-            screen._petals = Toggle(view.Body, body, lines[4], "Petals", () => settings.HomePetals, () => settings.HomePetals = !settings.HomePetals, screen, u);
-            float y = lines[4].Bottom;
+            float y = lines[3].Bottom;
 
             if (account != null)
             {
@@ -155,7 +152,6 @@ namespace Bloomlings.Client.UI.Screens
             _sfx.text = Loc.F("settings.sound", OnOff(_settings.Sfx));
             _haptics.text = Loc.F("settings.haptics", OnOff(_settings.Haptics));
             _speed.text = Loc.F("settings.speed", _settings.Speed2x ? "2×" : "1×");
-            _petals.text = Loc.F("settings.petals", OnOff(_settings.HomePetals));
             foreach ((ToggleView view, Func<bool> on) in _toggles)
             {
                 view.Show(on());

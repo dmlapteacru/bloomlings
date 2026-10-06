@@ -34,7 +34,7 @@ namespace Bloomlings.Client.UI.Design
     /// the <c>home</c> picture every Home backdrop already draws), the fountain's back (<see cref="FountainBack"/>), the
     /// heroes at the back with their shadows (Drop, Bloom), the lotus again (<see cref="Lotus"/>, so Bloom stands behind
     /// it), the heroes in front with their shadows (Sprig, Twig), the fountain's front stones and flowers
-    /// (<see cref="FountainFront"/>, over the heroes' feet), the drifting petals (<see cref="Petals"/>), then the UI. The
+    /// (<see cref="FountainFront"/>, over the heroes' feet), then the UI. The
     /// layers over the garden share one box over the screen (<see cref="Stage"/>: the backdrop's own cover fit,
     /// <see cref="Cover"/>, drawn at <see cref="StageScale"/>), so the heroes stay on the fountain on every screen shape.
     /// Engine-free.
@@ -44,20 +44,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The opacity of the heroes' shadows.</summary>
         public const float ShadowAlpha = 0.85f;
 
-        /// <summary>The opacity of the drifting petals.</summary>
-        public const float PetalsAlpha = 0.9f;
-
-        /// <summary>How fast the petals drift down, in the picture's pixels per second (a lap of its height in about 84 s).</summary>
-        public const float PetalsSpeed = 22f;
-
-        /// <summary>How far the petals sway sideways, in the picture's pixels, and how long a sway takes.</summary>
-        public const float PetalsSway = 14f;
-
-        public const float PetalsSwaySeconds = 7f;
-
         /// <summary>
         /// The stage's size (the owner's tuning of 2026-10-05, spec 005 FR-036): the fountain's layers, the heroes, their
-        /// shadows and the petals are drawn at this share of the garden's cover box, toward the screen's middle across and
+        /// shadows are drawn at this share of the garden's cover box, toward the screen's middle across and
         /// <see cref="StageAnchorShare"/> of its height down (about the plaque), so the fountain sits a little smaller in the
         /// blurred garden.
         /// </summary>
@@ -74,7 +63,7 @@ namespace Bloomlings.Client.UI.Design
         public const float ReactionEvery = 6f;
 
         /// <summary>Every layer picture (the drawing order is the class's: see its summary).</summary>
-        public static IReadOnlyList<PictureBox> All => new[] { Back, FountainBack, Lotus, Shadow, FountainFront, Petals };
+        public static IReadOnlyList<PictureBox> All => new[] { Back, FountainBack, Lotus, Shadow, FountainFront };
 
         /// <summary>The layers the heroes need over the garden: the fountain's back, the lotus and the fountain's front.</summary>
         public static IReadOnlyList<PictureBox> Required => new[] { FountainBack, Lotus, FountainFront };
@@ -83,7 +72,7 @@ namespace Bloomlings.Client.UI.Design
         /// Whether a scene shows the layered Home (<see cref="HomeStage.ShowsHeroes"/>'s <c>layered</c>): the picture it
         /// resolves to (<paramref name="resolved"/>, <see cref="OwnerPictures.Resolve"/>) is the garden (<see cref="Back"/>)
         /// and the host has the garden and every <see cref="Required"/> layer (<paramref name="has"/>, by picture name).
-        /// The shadow and the petals are drawn when present. Both builds decide by this rule.
+        /// The shadow is drawn when present. Both builds decide by this rule.
         /// </summary>
         public static bool IsLayered(string resolved, Func<string, bool> has)
         {
@@ -195,18 +184,6 @@ namespace Bloomlings.Client.UI.Design
             float height = width * Shadow.Height / Shadow.Width;
             float feet = cell.Top + (cell.Height * HeroMotion.FootLine);
             return Box.FromCenter(cell.CenterX, feet + (height * 0.08f), width, height);
-        }
-
-        /// <summary>
-        /// The petals' box at <paramref name="seconds"/> after Home opened: drifting down and swaying, wrapping round the
-        /// picture's height. The host draws it twice: here and one picture height higher.
-        /// </summary>
-        public static Box PetalsAt(Box picture, float seconds)
-        {
-            float s = picture.Width / PictureWidth;
-            float down = (seconds * PetalsSpeed) % PictureHeight;
-            float side = PetalsSway * (float)Math.Sin(seconds * 2.0 * Math.PI / PetalsSwaySeconds);
-            return Place(picture, Petals).Offset(side * s, down * s);
         }
     }
 

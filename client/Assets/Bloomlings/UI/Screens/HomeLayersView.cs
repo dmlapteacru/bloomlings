@@ -14,8 +14,7 @@ namespace Bloomlings.Client.UI.Screens
     /// stage) over the garden the backdrop already draws (<c>home</c>, <c>bg.home</c>), back to front: the fountain's back
     /// (<c>bg.home.fountain_back</c>), Drop and Bloom each on their soft shadow (<c>bg.home.shadow</c>), the lotus again
     /// (<c>bg.home.lotus</c>, so Bloom stands behind it), Sprig and Twig on their shadows, the fountain's front stones and
-    /// flowers (<c>bg.home.fountain_front</c>, over the heroes' feet) and the petals drifting down
-    /// (<c>bg.home.petals</c>, drawn twice so they wrap); the screen's UI goes over it. Every layer lies at
+    /// flowers (<c>bg.home.fountain_front</c>, over the heroes' feet); the screen's UI goes over it. Every layer lies at
     /// <see cref="HomeLayers.Place"/> in the picture cover-fitted over the screen (<see cref="HomeLayers.Cover"/>, the
     /// backdrop's own fit), so the heroes stay on the fountain on every screen shape. The heroes are the owner's animated
     /// ones (<see cref="HeroMotionView"/>, slots <c>char.hero3d.motion.{family}</c>), each idling from its own phase and
@@ -36,17 +35,9 @@ namespace Bloomlings.Client.UI.Screens
         private RawImage _fountainBack = null!;
         private RawImage _lotus = null!;
         private RawImage _fountainFront = null!;
-        private RawImage _petals = null!;
-        private RawImage _petalsAbove = null!;
         private Clock _shared = null!;
         private bool _built;
         private bool _placed;
-
-        /// <summary>
-        /// Whether the petals drift (Settings' "Falling petals", the owner's switch of 2026-10-04); null: always. Read every
-        /// frame, so a switch in Settings shows at once.
-        /// </summary>
-        public Func<bool>? PetalsOn { get; set; }
         private Box _picture;
         private Box _parent;
         private float _heroAlpha = 1f;
@@ -192,8 +183,6 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _fountainFront = Layer("FountainFront", root, HomeLayers.FountainFront, 1f);
-            _petals = Layer("Petals", root, HomeLayers.Petals, HomeLayers.PetalsAlpha);
-            _petalsAbove = Layer("PetalsAbove", root, HomeLayers.Petals, HomeLayers.PetalsAlpha);
 
             // Clear touch boxes over the heroes, front heroes last; the screen's buttons are built after the stage, so
             // they lie above it and keep every tap on them.
@@ -220,27 +209,13 @@ namespace Bloomlings.Client.UI.Screens
             }
         }
 
-        /// <summary>The heroes' poses and the petals' drift at <paramref name="now"/>.</summary>
+        /// <summary>The heroes' poses at <paramref name="now"/>.</summary>
         private void Animate(float now)
         {
             _shared.Motion.Update(now);
             for (int i = 0; i < _heroes.Length; i++)
             {
                 _heroes[i]?.Tick(now);
-            }
-
-            bool drift = _petals.texture != null && (PetalsOn == null || PetalsOn());
-            if (_petals.gameObject.activeSelf != drift)
-            {
-                _petals.gameObject.SetActive(drift);
-                _petalsAbove.gameObject.SetActive(drift);
-            }
-
-            if (drift)
-            {
-                Box petals = HomeLayers.PetalsAt(_picture, now - _shared.Start);
-                UiKit.PlaceBox(_petals.rectTransform, petals, _parent);
-                UiKit.PlaceBox(_petalsAbove.rectTransform, petals.Offset(0f, -_picture.Height), _parent);
             }
         }
 

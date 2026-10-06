@@ -627,3 +627,12 @@ and contracts/look.md §3.6, §6.10.
   object (the interstitial over the closed cover, `GameFlow.PostWinTransition`).
 - [ ] T129 Unity Editor: launch on a device (the splash's ring and the iris opening on Level 1 and on Home); win a level
   with and without an interstitial due; check the rim, the cover's seams and that no tap goes through.
+
+## The owner removes Home's falling petals (2026-10-06)
+
+- [X] T130 Both builds: Home's falling petals gone (the layered Home's petals layer, `HomeLayers.PetalsAt` and its
+  constants, the drawn stand-in's falling petals on Home), Settings' "Falling petals" switch and `settings.petals`; the
+  save no longer writes `homePetalsOn` (older saves' `homePetals` and `homePetalsOn` are read and ignored; both schema
+  copies, spec 001's data model); `TheRemovedPetalsSwitch_IsNoLongerWritten_ButOlderSavesStillLoad`.
+- [X] T131 Pictures: `home-petals.png`, the slot `bg.home.petals` and its notice removed; `tools/heroanim/layers.mjs` no
+  longer reads `05_home_petals_overlay.png` (`layers.json`, `HomeLayersData.cs`; `check.mjs` passes).

@@ -239,16 +239,5 @@ namespace Bloomlings.Client.Tests
                 }
             }
         }
-
-        [Test]
-        public void ThePetals_DriftDown_AndWrap()
-        {
-            var picture = new Box(0f, 0f, HomeLayers.PictureWidth, HomeLayers.PictureHeight);
-            Box start = HomeLayers.PetalsAt(picture, 0f);
-            Assert.That(start.Top, Is.EqualTo(HomeLayers.Petals.Y).Within(Eps));
-            Assert.That(HomeLayers.PetalsAt(picture, 10f).Top, Is.GreaterThan(start.Top));
-            float lap = HomeLayers.PictureHeight / HomeLayers.PetalsSpeed;
-            Assert.That(HomeLayers.PetalsAt(picture, lap * HomeLayers.PetalsSwaySeconds).Top, Is.EqualTo(start.Top).Within(0.5f), "a whole number of laps comes back");
-        }
     }
 }

@@ -137,9 +137,6 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public HomeMotion HomeMotion { get; private set; } = null!;
 
-        /// <summary>Seconds since <see cref="HomeMotion"/> started (the drifting petals of the layered Home).</summary>
-        public float HomeSeconds => Now - _homeOpenedAt;
-
         /// <summary>
         /// Whether Home's last frame drew animated heroes or promo scenes (then Home keeps redrawing under a card too).
         /// </summary>
@@ -147,11 +144,10 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// Seconds since Home was last shown (the clock of its promo scenes, spec 005 FR-032, <see cref="HomePromo.Layers"/>):
-        /// from Home's first frame, also after the splash, whose heroes carry on (<see cref="HomeSeconds"/>).
+        /// from Home's first frame, also after the splash.
         /// </summary>
         public float PromoSeconds => Now - _promoOpenedAt;
 
-        private float _homeOpenedAt;
         private float _promoOpenedAt;
 
         /// <summary>The Collection page's opened picture (an index into its entries), or −1 for its grid.</summary>
@@ -483,7 +479,6 @@ namespace Bloomlings.Playtest.Design
         private void StartHomeMotion()
         {
             HomeMotion = new HomeMotion(Now);
-            _homeOpenedAt = Now;
             _promoOpenedAt = Now;
         }
 

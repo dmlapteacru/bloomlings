@@ -99,7 +99,7 @@ their boxes in `HomeLayersData.cs`, source record `tools/heroanim/SOURCE.md`):
 | `home-lotus.png` | the lotus, cut out of the fountain's back, drawn again over Bloom, who stands behind it | `bg.home.lotus` |
 | `home-fountain-front.png` | the fountain's front stones and flowers, over the heroes' feet | `bg.home.fountain_front` |
 | `home-shadow.png` | one soft shadow (the sheet's front left one), drawn under every hero | `bg.home.shadow` |
-| `home-petals.png` | the pink petals, drifting down over the scene | `bg.home.petals` |
+| `home-petals.png` | removed on 2026-10-06 with Home's falling petals (the owner's `05_home_petals_overlay.png` is not used) | — |
 
 To change them, send the five full-size layers again (the garden opaque, the others transparent, in the same order),
 then run `node layers.mjs <folder>` and `node check.mjs` in `tools/heroanim`. Without the fountain layers Home shows the

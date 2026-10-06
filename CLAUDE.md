@@ -131,8 +131,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   are sharpened and at 110% contrast and saturation (`heroes.json` `home`, `tools/heroanim/post.mjs`, applied by the
   bake); Play, the plaque, the promo scenes and the sun follow `ReferenceHomeRegions`' shares; each promo scene stands on
   the round buttons' cream cushion with soft shadows made from its pictures' alpha (`HomePromo.PlateBox`, `ShadowOf`,
-  `UiRaster.SilhouetteShadow`, `RoundShadow`; `IPainter.SpriteAlpha`, `OwnerArt.DecorAlpha`); the falling petals are
-  off unless Settings switches them on (the save's `settings.homePetalsOn`).
+  `UiRaster.SilhouetteShadow`, `RoundShadow`; `IPainter.SpriteAlpha`, `OwnerArt.DecorAlpha`). Home has no falling
+  petals and Settings no switch for them (the owner removed both on 2026-10-06; older saves' `homePetalsOn` is ignored).
 - The guided spotlights (spec 005 FR-035, the owner, 2026-10-05): `GuideTour` (kit) decides the onboarding's steps
   (Level 1's arch and forced first tap; the first level that starts with a pod's tiles out of reach, Level 2; each
   booster's forced demo at its unlock, Return's once a pod waits) and `Spotlight` lays them out (a scrim with soft holes,

@@ -554,6 +554,18 @@ four heroes hopping in turn; a gust of petals). The owner: "My choice is the lot
 - Q: The interstitial (spec 001 FR-053)? → A: It still shows only at that moment, over the iris' closed cover; the cover
   stays closed until the ad is closed and the next level is up.
 
+### Session 2026-10-06 (the owner removes Home's falling petals)
+
+The owner: "The petals must be removed from the game altogether. We will not need them any more: the setting must go,
+and the petals themselves must be removed from the game completely. I mean the petals that fell on the Home screen."
+- Q: What goes? → A: Home's falling petals in both builds (the owner's petals layer `home-petals.png` over the layered
+  Home, `bg.home.petals`, `HomeLayers.PetalsAt`; the drawn stand-in's falling petals on Home), Settings' "Falling petals"
+  switch (`settings.petals`) and the save's `homePetalsOn`. The picture, its slot, its notice and its place in
+  `tools/heroanim/layers.mjs` go too.
+- Q: The other petals? → A: They stay: the win's, the milestone's and the Wardrobe's falling petals (`fx.petals`), the
+  lotus loader's ring (FR-039) and the Petals currency.
+- Q: Older saves? → A: Their `homePetals` and `homePetalsOn` are read and ignored; no save writes them any more.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1024,7 +1036,8 @@ inventory.
   (the splash keeps it); the owner's garden blurred by 4/1080 of its width; the stage (the fountain's layers, the
   heroes and their shadows, the petals) at 0.9 of the garden's cover box toward the screen's middle at 60% of its
   height, each hero ×1.05 about its feet, Twig at 0.85 of the picture's width; the heroes' Home frames sharpened (a
-  3 × 3 kernel of 0.3), at 110% contrast and 110% saturation; the falling petals off unless Settings switches them on;
+  3 × 3 kernel of 0.3), at 110% contrast and 110% saturation; no falling petals *(amended 2026-10-06: they were off
+  unless Settings switched them on; the owner removed them and the switch from the game)*;
   Play 0.68 W × 0.12 H and the plaque 0.4 W × 0.068 H, the teaser row's touch boxes ending at the bottom menu's top; the
   promo scenes 0.2835 W wide from 17.5% of the safe height, each on the round buttons' cream cushion grown by 2% of its
   width (corners 22% of it) with a soft shadow (`garden.shadow` at 0.4, blur 12.8/1080 W, 6.4/1080 W down), every
