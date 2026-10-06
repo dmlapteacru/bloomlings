@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using UnityEditor;
+using UnityEditor.Android;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace Bloomlings.Client.Editor
     /// first-open steps of client/README.md describe, so a fresh checkout builds without the Editor UI:
     /// <list type="bullet">
     /// <item>the TextMeshPro essential resources are imported;</item>
-    /// <item>the Android player settings are applied (portrait, IL2CPP ARM64, API 26+, APK);</item>
+    /// <item>the Android player settings are applied (portrait, IL2CPP ARM64, API 26+, APK) with the owner's app icon;</item>
     /// <item>the Boot, Home and Gameplay scenes are created;</item>
     /// <item>the packs published to <c>build/content/</c> are imported into StreamingAssets.</item>
     /// </list>
@@ -63,6 +64,52 @@ namespace Bloomlings.Client.Editor
             }
 
             EditorUserBuildSettings.buildAppBundle = false;
+            ApplyIcons();
+        }
+
+        /// <summary>The folder of the owner's app icon (spec 005 pictures.md C3), written by tools/appicon.</summary>
+        public const string IconFolder = "Assets/Bloomlings/Art/Brand/AppIcon/";
+
+        /// <summary>
+        /// The owner's app icon: the full-bleed square as the default icon, and on Android the adaptive icon (its picture
+        /// background and transparent foreground), the round icon and the legacy icon. A missing texture leaves its
+        /// setting as it was.
+        /// </summary>
+        public static void ApplyIcons()
+        {
+            Texture2D? Load(string file) => AssetDatabase.LoadAssetAtPath<Texture2D>(IconFolder + file);
+            Texture2D? main = Load("app-icon.png");
+            if (main != null)
+            {
+                PlayerSettings.SetIcons(NamedBuildTarget.Unknown, new[] { main }, IconKind.Application);
+            }
+
+            SetAndroidIcons(AndroidPlatformIconKind.Adaptive, Load("app-icon-adaptive-background.png"), Load("app-icon-adaptive-foreground.png"));
+            SetAndroidIcons(AndroidPlatformIconKind.Round, Load("app-icon-round.png"));
+            SetAndroidIcons(AndroidPlatformIconKind.Legacy, Load("app-icon-legacy.png"));
+        }
+
+        private static void SetAndroidIcons(PlatformIconKind kind, params Texture2D?[] layers)
+        {
+            var textures = new Texture2D[layers.Length];
+            for (int i = 0; i < layers.Length; i++)
+            {
+                if (layers[i] == null)
+                {
+                    Debug.LogWarning("[CiBuild] An app icon texture is missing in " + IconFolder + "; the " + kind + " icon stays as it was.");
+                    return;
+                }
+
+                textures[i] = layers[i]!;
+            }
+
+            PlatformIcon[] icons = PlayerSettings.GetPlatformIcons(NamedBuildTarget.Android, kind);
+            foreach (PlatformIcon icon in icons)
+            {
+                icon.SetTextures(textures);
+            }
+
+            PlayerSettings.SetPlatformIcons(NamedBuildTarget.Android, kind, icons);
         }
 
         /// <summary>

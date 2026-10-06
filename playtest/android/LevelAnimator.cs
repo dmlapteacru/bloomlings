@@ -62,7 +62,7 @@ namespace Bloomlings.Playtest
     /// The playtest's presentation timeline, like the Unity client's EventTimeline (research R4): the rules resolve a
     /// tap at once, and this plays the result as waves, one per settle round. Each cleared tile keeps its old look until
     /// its Bloomling arrives, slot counts drop as they land, a finished pod leaves at the end of its wave, a key's lock
-    /// stays until the key's wave, and the win or jam card waits for the last wave. 2× speed and backlog compression
+    /// stays until the key's wave, and the win or jam card waits for the last wave. Fast forward (3×) and backlog compression
     /// (up to 4×) only change the pace. No rule lives here: every change comes from the core's events.
     /// <para>
     /// The waves of one tap play one after another, as its rounds do; the waves of different taps play side by side, so
@@ -130,7 +130,7 @@ namespace Bloomlings.Playtest
 
         public List<Flight> Flights { get; } = new List<Flight>();
 
-        /// <summary>1 or 2 (the 2× toggle).</summary>
+        /// <summary>1 or <c>PlaySpeed.Fast</c> (3×, the speed pill's fast forward).</summary>
         public float Speed { get; set; } = 1f;
 
         /// <summary>The level's clearing style (spec 005 FR-038): its legs decide when a Bloomling's tile leaves its cell.</summary>

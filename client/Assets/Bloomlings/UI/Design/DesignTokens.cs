@@ -475,7 +475,11 @@ namespace Bloomlings.Client.UI.Design
             /// <summary>The main button of a card (NEXT, RESUME, CLAIM, CONTINUE), narrower and centered.</summary>
             public const float CardPrimaryWidth = 620f;
 
-            public const float CardPrimaryHeight = 140f;
+            /// <summary>Its height (the owner, 2026-10-06: the pause card's buttons felt thin; it was 140).</summary>
+            public const float CardPrimaryHeight = 160f;
+
+            /// <summary>The height of a card's secondary buttons (it was <see cref="SecondaryHeight"/>, 110).</summary>
+            public const float CardSecondaryHeight = 136f;
 
             /// <summary>The secondary buttons of a card (HOME, RESTART, SETTINGS).</summary>
             public const float CardSecondaryWidth = 580f;
@@ -493,6 +497,33 @@ namespace Bloomlings.Client.UI.Design
 
             /// <summary>The reward pill of the win and milestone cards (spec 005 §4.4).</summary>
             public const float RewardPillHeight = 104f;
+        }
+
+        /// <summary>
+        /// The finger on a page that scrolls (spec 005 FR-041, the owner's request of 2026-10-06; <see cref="TouchGesture"/>),
+        /// in density-independent pixels (dp: 160 to the inch), so a finger moves as far on every phone: each host turns them
+        /// into its pixels with its screen's density (<see cref="Pixels"/>).
+        /// </summary>
+        public static class Touch
+        {
+            /// <summary>
+            /// <c>touch.slop</c>: a finger that moves farther than this from where it went down on a page that scrolls drags
+            /// it and never taps (Android's own touch slop is 8 dp; Unity's <c>EventSystem.pixelDragThreshold</c>).
+            /// </summary>
+            public const float SlopDp = 10f;
+
+            /// <summary><c>touch.swipe</c>: a drag at least this long along its main direction turns a paged list's page.</summary>
+            public const float SwipeDp = 40f;
+
+            /// <summary>The dp of a phone 360 dp wide, for a host that cannot tell its screen's density (<see cref="Pixels"/>).</summary>
+            public const float FallbackWidthDp = 360f;
+
+            /// <summary>
+            /// <paramref name="dp"/> in a host's pixels: with its screen's <paramref name="dpi"/> (dots per inch), else (0 or
+            /// less: unknown) as on a phone <see cref="FallbackWidthDp"/> wide over <paramref name="screenWidth"/> pixels.
+            /// </summary>
+            public static float Pixels(float dp, float dpi, float screenWidth) =>
+                dpi > 0f ? dp * dpi / 160f : dp * Math.Max(1f, screenWidth) / FallbackWidthDp;
         }
 
         public static class Elevation

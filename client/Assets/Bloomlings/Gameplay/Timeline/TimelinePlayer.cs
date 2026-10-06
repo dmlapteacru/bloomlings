@@ -77,7 +77,7 @@ namespace Bloomlings.Client.Gameplay.Timeline
             ForgetReady();
         }
 
-        /// <summary>1 or 2 (the 2× toggle).</summary>
+        /// <summary>1 or <c>PlaySpeed.Fast</c> (3×, the speed pill's fast forward).</summary>
         public float Speed { get; set; } = 1f;
 
         /// <summary>The level's clearing style (spec 005 FR-038): its legs decide when a walker's tile leaves its cell.</summary>

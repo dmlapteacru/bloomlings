@@ -30,7 +30,7 @@ The launch product covers:
    tools (R2). Each command settles to a fixpoint and returns an event log. The allocation is round-based and gives the
    oldest slot priority (R3).
 2. **Presentation.** The Unity 6.3 LTS client (URP 2D, uGUI) is presentation only. It replays the event logs with a
-   timeline scheduler that supports 2× speed and compresses a backlog (R4).
+   timeline scheduler that supports fast forward (3× since 2026-10-06, FR-069) and compresses a backlog (R4).
 3. **Content.** Levels are compact JSON definitions. Each one references a base picture, a role→variant mapping and
    sparse overlays, and the client expands it deterministically. Versioned packs with a SHA-256 manifest are bundled
    for offline play, and later packs are delivered from a CDN (R5, R6).

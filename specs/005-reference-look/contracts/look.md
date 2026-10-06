@@ -244,12 +244,16 @@ Reference crops: the gameplay top bar, "Level Complete!", the Wardrobe banner, t
 - **Round / squircle icon buttons** (`Kit.RoundButton`, `Kit.IconFace`): a single domed cream cushion: the face
   `CreamFace` → `CreamFace.Darken(0.04)` (peach toward the edges) with a lighter `CreamTop` middle feathered in from 8%
   of the size (three steps, no inner ring, no dish), a `CreamLip` lower edge (7% of the size), a soft tan `CreamLine`
-  outline (2%), a soft shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 46% of the size with a thin `CreamTop`
+  outline (`GardenLook.IconLineCream` = 4.5% since the owner's 2026-10-06 "make it bigger so they show"; it was 2%; 4% on colored sets), a soft shadow (`Kit.SoftShadow`); brown glyph (`InkBrown`) at about 46% of the size with a thin `CreamTop`
   halo all around it (the shape grown by 0.06). Pause and speed in the top bar are squircles (radius 34% of the height)
   of the same height; Settings, back and close are circles. Close is cream with a brown ✕ (no longer red).
-- **Speed pill** (`Kit.SpeedPill`, replaces `DarkPill`): the cream squircle style, as tall as Pause and wider, with the
-  speed text ("1×" or "2×", `InkBrown`) and the `ui.fast` glyph (▶▶: a solid triangle and a notched chevron, about 42%
-  of the pill tall, as tall as the digits) after it, in the cream halo.
+- **Speed pill** (`Kit.SpeedPill(p, box, on, action)` / `UiKit.SpeedPill`, replaces `DarkPill`): the cream squircle
+  style, as tall as Pause and wider, with only the `ui.fast` glyph in the middle (▶▶▶: three notched chevrons, its box
+  `GardenLook.SpeedGlyphShare` = 74% of the pill's height, in the cream halo), no number (the owner, 2026-10-06; it showed
+  "1×"/"2×" and ▶▶). Off: brown chevrons (`GardenLook.FastGlyph`). On (fast forward, 3×, `PlaySpeed.Fast`, or on its
+  own while no pod can be tapped): lit, with `SpeedGlowLayers` (4) rings of `garden.glow` round the face, each grown by
+  `SpeedGlowGrow` (4.5%) of the height and sharing `SpeedGlowAlpha` (0.85), and the chevrons in `ButtonPrimary` green
+  (`GardenLook.FastGlyphOn`).
 - **Choice button** (`Kit.ChoiceButton(p, box, ColorSet set, iconDraw, label, cost)`, jam): a rounded rectangle
   (radius 22% of its height) in the green or blue set with the glossy face, the icon (its box 50% of the height, so the
   icon itself is about 44% of the face as on the reference; its center at 36% of the face) in the upper half, the white
@@ -765,7 +769,8 @@ New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch` (retired on 2026-10-03 with the arch), the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.layer_peek` and `tile.picture` restyled; `tile.entry` retired on 2026-10-03), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
-`ui.logo.wood`, `ui.back`, `ui.fast`, `ui.nav.bar`, `ui.nav.medallion`, `ui.nav.lock` and `ui.locked.notice` (the bottom
+`ui.logo.wood`, `ui.card.purchase` (the purchase confirmation, §6.14), `ui.button.clearing` (the clearing cards'
+buttons, §6.12), `ui.back`, `ui.fast`, `ui.nav.bar`, `ui.nav.medallion`, `ui.nav.lock` and `ui.locked.notice` (the bottom
 menu, its locked places' padlock and their notice, §6.7), `icon.nav.shop`,
 `icon.nav.wardrobe`, `icon.nav.home`, `icon.nav.leaderboard` and `icon.nav.collection` (its places' icons, the owner's
 pictures D9–D13; the `icon.` prefix is `UiKit`), `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
@@ -784,6 +789,10 @@ optional tagline is `brand.tagline` (kind `External`, not drawn yet); the option
 The owner's layered Home and animated heroes (FR-028, §3.12, §6.4) add `bg.home.fountain_back`, `bg.home.lotus`,
 `bg.home.fountain_front` and `bg.home.shadow` (`HomeLayers.SlotOf`; `bg.home` stays the garden layer; the petals
 layer `bg.home.petals` was removed with Home's falling petals on 2026-10-06) and `char.hero3d.motion.sprig|bloom|drop|twig` (`HeroMotion.Slot`), with the still heroes as their stand-in.
+The profile's five free frames (FR-037 as amended 2026-10-06, §6.11) add `cosmetic.frame.wood_ring`,
+`cosmetic.frame.leaf_ring`, `cosmetic.frame.flower_wreath`, `cosmetic.frame.stone_ring` and
+`cosmetic.frame.golden_ribbon` (`ProfileFrames.Slot`, `UiRaster.ProfileFrame` pictures); `cosmetic.frame` stays the
+earlier frames' tinted ring.
 
 ## 6. Reference layouts (owner's review, spec 005 FR-020 to FR-025, FR-029)
 
@@ -991,8 +1000,8 @@ less 0.9 × a cluster wide; the medal of "Milestone reached!" is the gold rosett
 |---|---|
 | Header row | one line, Settings' middle (the owner's request of 2026-10-04: "`[Settings]  [ Petals 5090 + ]  [Avatar]`"; `ReferenceHomeRegions.Header`): Settings, the Petals pill and the Avatar |
 | Settings | cream round `0.13W`, left `0.04W`, top 2.5% of H |
-| Petals pill | box `0.44W × 0.105W` (`PetalsWidthShare`, `PetalsHeightShare`; before: `0.38W × 0.095W` at the right edge − `0.02W`), centered on the safe area's middle and on Settings' middle line, `0.11W` clear of Settings and of the Avatar; the pill fits its amount and stands centered in the box with its "+" (`align` 0.5), the main buttons' leaves and flower on its top-left end and on the "+"'s bottom-right edge (`GardenLook.PillDecorationBoxes`), never touch targets; its "+" opens the Store page once the Store is open |
-| Avatar | the profile avatar `0.13W`, Settings' mirror: right `0.04W` from the safe right edge, top 2.5% of H (`Avatar`): the chosen avatar's round picture (spec 005 FR-037, `OwnerPictures.AvatarPicture` of the disc's face; while it is missing, its family's hero in its outfit once the Wardrobe is open, on a soft green middle) on a domed cream disc, the chosen profile frame (1.08 of it) and the profile badge (0.36 of it, at its bottom left); no shirt badge. A tap presses, clicks and opens the profile page (§6.11; `DesignApp.OpenProfile`, `HomeFeatureActions.OnProfile`) |
+| Petals pill | box `0.44W × 0.105W` (`PetalsWidthShare`, `PetalsHeightShare`; before: `0.38W × 0.095W` at the right edge − `0.02W`), centered on the safe area's middle and on Settings' middle line, `0.11W` clear of Settings and of the Avatar; the pill fits its amount and stands centered in the box with its "+" (`align` 0.5), with no decoration (the owner, 2026-10-06: "remove the twigs from the Petals chip, remove all its decoration everywhere"; it had the main buttons' leaves and flower on its top-left end and the "+"'s bottom-right edge since 2026-10-04); its "+" opens the Store page once the Store is open |
+| Avatar | the profile avatar `0.13W`, Settings' mirror: right `0.04W` from the safe right edge, top 2.5% of H (`Avatar`): the chosen avatar's round picture filling its whole disc on the cream lip (spec 005 FR-037 as amended 2026-10-06, §6.11 "The avatar": `AvatarLook`; while it is missing, its family's hero in its outfit once the Wardrobe is open, on a soft green middle), the chosen profile frame over the disc's edge (a drawn frame at 1.25 of the disc, or the plain ring at 1.08 of the avatar) and the profile badge (0.36 of it, at its bottom left); no shirt badge. A tap presses, clicks and opens the profile page (§6.11; `DesignApp.OpenProfile`, `HomeFeatureActions.OnProfile`) |
 | Logo | none on Home since the owner's tuning of 2026-10-05 (FR-036); the box stays for the splash's wordmark: `0.8W` wide centered, from 10% to 20.5% of H; the owner's logo picture (C1, with transparent margins) is sized by width, `0.82W` (`ReferenceHomeRegions.LogoPicture`), so its letters span about `0.8W` and fill 10%–20.5% |
 | Diorama | from 22% to 70% of H: the owner's layered Home over the whole screen with the four animated heroes on its fountain (below, "The layered Home"); else the drawn garden with the still heroes on a pedestal with the lotus fountain, centered at 50% |
 | Promo scenes | in the logo's place from 17.5% of H (`PromoTopShare`, or `0.02W` under Settings): No Ads at the left, the Daily Reward at the right, each `0.2835W` wide (`HomePromo.WidthShare` × `PromoScale` 1.05) and `0.67` of that tall, `0.04W` from the edge (`ReferenceHomeRegions.NoAds`, `.DailyReward`; §6.4.1), each on a cream plate with soft shadows (FR-036, below) |
@@ -1450,11 +1459,39 @@ avatar on its disc at `0.8` of the cell, a cost pill over its foot while it is f
 right when picked, a green disc behind the picked avatar), and the main button (`card.primary_height`) at the body's
 bottom: "Save" or "Buy for N". The Name tab: a cream well across the grid's top holding the name (Unity: a
 `TMP_InputField`; the playtest: the name and a "Change name" button asking the host's text dialog), its hint under it.
-Frame and Badge: the owned items on the picked avatar, or a note (with the padlock while the Wardrobe is locked).
+Frame and Badge: the listed items on the picked avatar (`ProfileEditor.Owned`: the five free frames first, from Level
+1, then every owned frame or badge once the Wardrobe is open), each on `ProfileEditRegions.CellItemAvatar` (the cell's
+picture box `0.06` of the cell smaller on each side, so a drawn frame about fills the picture box), the picked one on
+the green disc (`PickedShare`, a radius `0.56` of the picture box) with the check; a note with the padlock while a tab
+has nothing to list before the Wardrobe opens (the Badge tab: "Badges open at level N", `profile.badges_locked`). The
+Frame tab holds at most 11 frames today (three rows), so the four-a-row grid needs no scrolling.
 
-The avatar's picture: a circle of `OwnerPictures.AvatarPictureShare` (0.86) of the disc's face, clipped round (the
-playtest's `IPainter.PushClipRound`; Unity's `Mask` with the circle sprite), in a thin `cream.line` ring; the frame at
-1.08 and the badge at 0.36 of the disc as before.
+The avatar (`AvatarLook`, both builds; the owner, 2026-10-06: "the icon in the profile must be stretched over the
+whole circle"): in the avatar's square box of side `s`, a soft shadow (`Kit.SoftShadow` / `UiKit.SoftShadow`, 0.2,
+0.06 down) under the lip, the lip a circle `(1 - LipShare) s` (`LipShare` = 0.06) at the box's bottom in `cream.lip`
+with a `cream.line` outline the ring's width, and the disc the same circle at the box's top, so a `0.06 s` crescent of
+lip shows under it; a press sinks the disc by 0.7 of the lip and darkens it by 8% (`garden.shadow`), as the round
+buttons. The disc is `cream.line`, and the avatar's picture fills it inside a ring of `RingShare` (0.03) of the disc,
+at least 2 reference units: a circle clipped round (the playtest's `IPainter.PushClipRound`; Unity's `Mask` with the
+circle sprite), with no cream gap. While the picture is missing, the soft green middle fills the same circle with the
+family hero at 0.82 of it. The frame lies over the disc's edge, centered on the disc: a drawn frame's picture
+`FrameShare` (1.25) of the disc (its band on the disc's edge, `FrameEdge` = 0.4 of the picture from its middle), or the
+plain `cosmetic.frame` ring in its tint at 1.08 of `s`; the badge `0.36 s` at the disc's lower left
+(`-0.36 s`, `+0.36 s`), the leaderboard marker at its upper right. The leaderboard's own row keeps its portrait disc
+(`cream.lip`, `cream.line`, the picture filling the face with a thin `cream.line` stroke).
+
+The five free frames (`ProfileFrames`, `UiRaster.ProfileFrame(size, style)`; slots `cosmetic.frame.{shape}`; catalog
+items `frame.{shape}` with `"free": true`): square straight-alpha pictures in units of their side from the middle, the
+disc's edge at `0.4`, every band lit from the upper left (`(-0.42, -0.62, 0.66)`, a band's cross-section a half
+circle) and casting a soft `garden.shadow` 0.014 lower (feathered over 0.03); outlines `max(1.1 px, 0.0065)`.
+
+| Frame | Recipe |
+|---|---|
+| Wooden Ring (`wood_ring`) | a band from `0.344` to `0.45`: `wood.mid` to `wood.light` from the bottom up, 38% toward `wood.edge`, turned grain (radial noise streaks of `wood.grain`, warped a little) and two carved `wood.line` lines near its edges with a `wood.light` edge beside each, lit to `wood.light`, shaded to `wood.grain`, the `wood.line` outline 1.3 times as wide; four brass nails at the diagonals on its middle (`medal.gold` lit from the upper left, a `wood.line` rim, a `ray.light` glint) |
+| Leaf Ring (`leaf_ring`) | a vine on the edge (`garden.leaf_3` toward `garden.leaf_2` in the light, half width `0.015`, a lighter streak, the `garden.leaf_line` outline) and twenty almond leaves on it (the bottom menu's leaf: the three garden greens, a lighter side, the midrib), all turning clockwise, the even ones leaning out (`0.118` long) and the odd ones in (`0.092`) |
+| Flower Wreath (`flower_wreath`) | two twigs twisted round the edge (`wood.dark` to `wood.dark_top` in the light, `wood.dark_line` outlines, five twists, the one behind drawn first), sixteen small leaves between, and eight five-petal blossoms on the edge at `22.5°` and every `45°`, pink (`lotus.fill`, a `lotus.tip` middle, `lotus.line`) and white (`garden.flower`) by turns, golden middles (`garden.flower_center`) |
+| Stone Ring (`stone_ring`) | mortar (`stone.lip` 32% darker) under ten wedge-cut blocks of sandy stone from `0.338` to `0.456`, their joints running straight out from the middle, a little uneven, each block of its own size with rounded corners: `stone.face` 25% toward `stone.lip`, to `stone.top` in the light, mottled, a few `stone.lip` speckles, deeper toward its edges, the side away from the light `stone.lip`, a light bevel along the lit edge, the `stone.line` outline 1.3 times as wide; two blocks (upper left, lower right) with a tuft of `stone.moss` over their outer edge |
+| Golden Ribbon (`golden_ribbon`) | a gold satin band from `0.356` to `0.444` (`medal.gold`, lit to `ray.light`, shaded 30% deeper) wound round in eighteen folds (a deep line where a fold tucks under, a sheen after it), the outline `medal.gold` 50% darker; a gold five-point star on its top (radius `0.082`, lit from the upper left, a glint) and a pink bow at its bottom (`lotus.fill` tails with a bite out of each end, two loops tilted up with their shaded insides, the knot with a `lotus.tip` light; `lotus.line` outlines) |
 
 
 ### 6.12 Clearing styles and their Store cards (both builds; the owner's choices of 2026-10-06, FR-038)
@@ -1466,11 +1503,12 @@ turns by its negative; the SDF circles and rounded boxes are drawn ×`ShapeRaste
 (character, tile, ellipse, ring, rounded box or its outline, shape), its center, size, squash, turn, alpha, color and
 layer: `Board` over the tiles, `Over` above the tray and slots (the flights into the slot). Tokens and slots only.
 
-Timing (`ClearStyles`): every trip takes `TripSeconds(n) = 1.1 n + 1.4` s for a tile `n` cells from its arch; the
-walkers of a pod leave each arch in a line `LineGap` (0.42 s) apart, nearer tiles first; a command's rounds start at
+Timing (`ClearStyles`): every trip takes `TripSeconds(n) = (1.1 n + 1.4) / SpeedUp` s for a tile `n` cells from its
+arch, `SpeedUp` = 1.5 (the owner, 2026-10-06: each cell clears 1.5 times as fast); the walkers of a pod leave each arch
+in a line `LineGap` (0.42 s / `SpeedUp` = 0.28 s) apart, nearer tiles first; a command's rounds start at
 once and keep the rules' order only in their ends; a cell is crossable once its tile is gone (`ClearLegs.GoneShare`)
 unless a layer is revealed under it. Each style splits the trip into legs (Out to the tile, Act, Back, Fin to the
-slot):
+slot), written below at the calm pace in seconds and divided by `SpeedUp`:
 
 | Style | Slot | Out | Act | Back | Fin | Look |
 |---|---|---|---|---|---|---|
@@ -1492,18 +1530,69 @@ The Store's Animations tab (`ui.card.clearing`; the playtest's `StoreScreen.Anim
 top (`ReferenceStoreRegions.ClearingCard`, `ClearingsPerPage`; no family tabs), the footer line
 `store.animations_footer` ("Blossom and Munchers take turns. A chosen style plays on every level.") between the page
 arrows. The free card first (`clearing.free_pair` "Free pair"), then the five bought styles by their names
-(`clearing.<name>`); a style not owned shows its cost pill (Remote Config `economy.price.clearing`, 5000 Petals), with
-the padlock badge (`Kit.LockBadge` / `UiKit.LockBadge`, the disc 0.22 of the card's width at the well's lower right)
-before L40, its picture still bright and its name in `ink.brown_soft`; the chosen card is green with the check. Each
+(`clearing.<name>`). Each card carries its action button (`ui.button.clearing`; the owner's request of 2026-10-06:
+"It is not clear how to choose an animation"; `ClearingService.ActionOf`, `Kit.ClearingButton` / `UiKit.ClearingButton`)
+where an outfit card's cost pill hangs, a little wider (`ClearingCard.Button`: 0.94 of the card's width, 0.3 of its
+body tall since the owner's "make the buttons 1.5 times taller" of 2026-10-06 (it was 0.2), its middle `HangShare` (0.3, was
+0.1) of its height under the body's bottom edge, so the card's name stays clear), its letters `ClearingCard.LabelShare` (0.5) of
+its height in `type.button_secondary`:
+
+| Action | Button |
+|---|---|
+| Buy (not owned, from L40) | the glossy green face on its cream plate (`GardenLook.Green`, `ui.button.primary`'s face): the lotus (0.66 of its height) and the price (Remote Config `economy.price.clearing`, 5000) in white with the green label look, laid together and shrunk together to fit 0.3 of its height in from each end (`ClearingCard.PriceParts`); no "Buy" word (the owner, 2026-10-06; it read "Buy", `clearing.buy`) |
+| Choose (owned, not chosen; the free card while a bought style is chosen) | the cream face on its plate (`ui.button.secondary`'s face) with "Choose" (`clearing.choose`) in `ink.brown` |
+| Chosen | a flat cream plate (`cream.top` to `cream.face`) over a soft shadow in a `GardenLook.Green` face-colored outline (0.05 of its height), the green check (`ui.check`, 0.56 of its height) and "Chosen" (`clearing.chosen`) in the green set's line color; the card's well is green with the check badge as before |
+| Locked (not owned, before L40) | no button: the cost pill and the padlock badge (`Kit.LockBadge` / `UiKit.LockBadge`, the disc 0.22 of the card's width at the well's lower right) stay, the picture still bright, the name in `ink.brown_soft` |
+
+The whole card is the button (one touch target holding it; the chosen card takes none). Each
 well holds the style's live preview (`ClearPreview`, `Kit.ClearingPreview` / `ClearPreviewView`): a 5 × 3 board of one
 variant per style (Blossom Flower, Munchers Leaf, Fireflies Violet Bud, Bubbles Dew, Pushers Wood, Fireworks Water,
 Parade Acorn) in its stone border on its plain ground (`BoardPictures.PlainGround`, the variant's color lightened
 0.55), the arch under its middle column and one slot plate below at its left (`ClearPreview.Slot`, clear of the
 badge), the whole picture (`ClearPreview.Bounds`, 5 × 4.8 cells) centered at most 84% of the well wide and 90% tall;
 its line of walkers clears it as the board is scheduled, then it rests 1.8 s and is laid again. The free card shows
-Blossom's loop, then Munchers' (`ClearPreview.At`). A tap buys from L40 and chooses an owned style; before L40 it says
+Blossom's loop, then Munchers' (`ClearPreview.At`). The previews loop all the time, never only under a finger: the
+playtest keeps drawing frames while the tab shows (`DesignApp.StoreMoving`, about 30 a second), Unity's
+`ClearPreviewView` follows unscaled time every frame. A tap on Buy asks the purchase confirmation first (§6.14, FR-040,
+`ClearingService.Check`) and buys and chooses the style only on its Buy; Choose chooses at once; before L40 a tap says
 from which level (the playtest's toast; Unity's footer line), as it does when Petals are short. The preview's frames
-42 (L45, Fireflies chosen) and 43 (L20, the padlocks) show it.
+42 (L45, Fireflies chosen), 43 (L20, the padlocks) and 49 (Bubbles bought on its confirmation, Pushers' open) show it.
+
+### 6.14 The purchase confirmation (both builds; the owner's request of 2026-10-06, FR-040)
+
+Every purchase asks first (`PurchaseConfirmation`; the playtest's `DesignApp.ConfirmPurchase` and `Kit.PurchaseCard`,
+Unity's `UiKit.PurchaseCard` / `PurchaseCardView`; slot `ui.card.purchase`). A popup card (§4.3, `Kit.Card` /
+`UiKit.Card`) laid by `ScreenLayout.PurchaseConfirm` (`PurchaseConfirmRegions`, content `ContentUnits` = 962 u), over
+whatever asked (the Store page, the Wardrobe, a level and its jam card, the profile's edit card, the Remove Ads card):
+
+| Piece | Recipe |
+|---|---|
+| Title | "Confirm purchase" (`purchase.title`) in `type.title` `ink.title`; no close button: Cancel (and the playtest's system back) closes it |
+| Picture | a square cream well `PictureUnits` (320 u, at most half the body) 10 u under the title: `parchment.well` mixed 35% toward `cream.top` down to `parchment.well`, radius 0.12 of its side, a `parchment.edge` darkened 0.08 outline; the item's picture clipped in it, inset 0.06: a booster's icon, the hero wearing the cosmetic, the clearing style's live preview, the avatar, the lotus (Petal packs, bundles, Remove Ads) |
+| Question | 26 u lower, up to two lines of `LineUnits` (60 u), centered: "Buy {item} for {price} Petals?" (`purchase.question_petals`; the price grouped, "5 000") or "Buy {item} for {price}?" with the store's localized price (`purchase.question_money`; "the store's price" while it is unknown, `purchase.price_unknown`), `type.body` `ink.brown` |
+| Price | 14 u lower, the cost pill (§3.4) `PriceUnits` (92 u) tall and as wide as its price (at most 0.7 of the body): the lotus and the Petals, or the store's price alone |
+| Note | 10 u lower, a `NoteUnits` (50 u) caption in `ink.brown_soft`: "You have N Petals" (`purchase.balance`), or for real money "Your app store confirms the payment next" (`purchase.store_next`) |
+| Buy | 30 u lower, the green primary button with its leaves (`size.card_primary`), "Buy" (`purchase.buy`): the card closes, then the purchase runs once |
+| Cancel | 24 u lower, the cream secondary button (`size.card_secondary_width` less 40 u a side × `size.secondary_height`), "Cancel" (`common.cancel`): nothing is bought |
+
+Short Petals say so at once without asking (the refusal sound and "Not enough Petals"). For real money the platform's
+own purchase sheet follows the confirmation's Buy (Unity; the playtest sells nothing for money). The preview's frame
+49 shows it over the Animations tab; frames 26 and 40 check it from the cosmetics and the profile's edit card.
+
+### 6.15 Tap or scroll (both builds; the owner's request of 2026-10-06, FR-041)
+
+The kit's `TouchGesture` with two tokens in dp (160 to the inch; `DesignTokens.Touch`): `touch.slop` (10 dp) and
+`touch.swipe` (40 dp), each host turning them into its pixels from its screen's density (`Touch.Pixels`; a host that
+cannot tell takes a phone 360 dp wide). On a page that scrolls (the Store's rows, outfit cards and clearing cards, the
+Wardrobe's cards, the Collection's grid, the Leaderboard's ranks, the profile's edit card's grid; the playtest's
+`IPainter.Scroll`, Unity's `SwipePager` / `UiKit.Scrolls` on the page): a finger taps only when it lifts within
+`touch.slop` of where it went down; past it the touch is a drag, for good: nothing looks pressed, nothing taps, and a
+drag at least `touch.swipe` long along its main direction turns the page (up or left the next page, down or right the
+previous one, `TouchGesture.PageStep`), as the page arrows do. A card's scrim covers the page's areas under it (a
+full-screen touch target). Off such pages (the board, the tray, the buttons of a level, Home) a tap fires where the
+finger lifts, as before. Unity sets the EventSystem's `pixelDragThreshold` to `touch.slop` in pixels from `Screen.dpi`
+(`UiKit.ApplyTouchSlop`; Unity's default 10 px is about 4 dp on a 420 dpi phone), and a page's drag handler takes the
+drag, so the button under the finger gets its pointer up and no click.
 
 ### 6.13 The lotus loader and the lotus iris (both builds; the owner's choice of 2026-10-06, FR-039)
 

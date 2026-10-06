@@ -756,7 +756,8 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The color of a recovery's choice, as on the reference's jam card: Extra Slot and Shuffle green, Return and Bloom Burst blue.</summary>
         private static ColorSet ChoiceSet(string boosterId) => boosterId == "extra_slot" || boosterId == "shuffle" ? GardenLook.Green : GardenLook.Blue;
 
-        private static string IdOf(BoosterKind kind)
+        /// <summary>A booster's id (<c>extra_slot</c>, <c>shuffle</c>, <c>return</c>, <c>bloom_burst</c>; <see cref="LevelScreen.Boosters"/>).</summary>
+        public static string IdOf(BoosterKind kind)
         {
             foreach ((BoosterKind k, Recovery _, string id) in LevelScreen.Boosters)
             {

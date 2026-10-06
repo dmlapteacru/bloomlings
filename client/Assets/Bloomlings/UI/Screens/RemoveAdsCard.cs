@@ -16,7 +16,9 @@ namespace Bloomlings.Client.UI.Screens
     /// ("Remove Ads · $2.99"; greyed "Unavailable" while the store is unavailable, with the offline line under the buttons)
     /// and the cream Restore Purchases below it. Once Remove Ads is owned (bought or restored) the card thanks the player,
     /// its button closes it, and it closes by itself a moment later. The purchase and the restore are the host's
-    /// (<see cref="Create"/>), the Store's and Settings' own flows.
+    /// (<see cref="Create"/>), the Store's and Settings' own flows. Buy asks the purchase confirmation first (spec 005
+    /// FR-040, <see cref="UiKit.PurchaseCard"/>, "Buy Remove Ads for $2.99?"); only its Buy starts the store's purchase,
+    /// whose platform sheet then confirms the payment once more.
     /// </summary>
     public sealed class RemoveAdsCard : MonoBehaviour
     {
@@ -38,6 +40,8 @@ namespace Bloomlings.Client.UI.Screens
         private Action<Action> _purchase = _ => { };
         private Action<Action<bool>> _restorePurchases = done => done(false);
         private Func<bool> _owned = () => false;
+        private PurchaseCardView _confirm = null!;
+        private string? _price;
         private bool _available;
         private bool _thanked;
         private float _closeAt = -1f;
@@ -49,7 +53,7 @@ namespace Bloomlings.Client.UI.Screens
         /// <param name="owned">Whether Remove Ads is owned now (the purchase ledger).</param>
         public static RemoveAdsCard Create(Transform parent, Action<Action> purchase, Action<Action<bool>> restore, Func<bool> owned)
         {
-            float content = 10f + (SceneUnits * HomePromo.HeightShare) + 16f + BodyUnits + 30f + DesignTokens.Size.CardPrimaryHeight + 24f + DesignTokens.Size.SecondaryHeight + 12f + StatusUnits + 20f;
+            float content = 10f + (SceneUnits * HomePromo.HeightShare) + 16f + BodyUnits + 30f + DesignTokens.Size.CardPrimaryHeight + 24f + DesignTokens.Size.CardSecondaryHeight + 12f + StatusUnits + 20f;
             RemoveAdsCard screen = null!;
             CardView card = UiKit.Card("RemoveAds", parent, Loc.T("remove_ads.title"), content, () => screen.Hide(), sign: SignDecor.None);
             screen = card.Root.AddComponent<RemoveAdsCard>();
@@ -90,6 +94,8 @@ namespace Bloomlings.Client.UI.Screens
             screen._status = UiKit.Label("Status", card.Body, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
             UiKit.PlaceBox(screen._status.rectTransform, new Box(body.Left, restoreBox.Bottom + (12f * u), body.Right, restoreBox.Bottom + ((12f + StatusUnits) * u)), body);
 
+            // The purchase confirmation (spec 005 FR-040), over this card when Buy asks.
+            screen._confirm = UiKit.PurchaseCard(parent);
             card.Root.SetActive(false);
             return screen;
         }
@@ -101,6 +107,7 @@ namespace Bloomlings.Client.UI.Screens
         public void Show(string? price, bool available)
         {
             _available = available;
+            _price = price;
             _thanked = false;
             _closeAt = -1f;
             _body.text = Loc.T("remove_ads.body");
@@ -120,6 +127,7 @@ namespace Bloomlings.Client.UI.Screens
         public void Hide()
         {
             _closeAt = -1f;
+            _confirm.Cancel();
             _root.SetActive(false);
         }
 
@@ -144,7 +152,23 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            // One purchase at a time: the button waits for the store's answer.
+            // The purchase confirmation asks first (spec 005 FR-040); the platform's purchase sheet follows its Buy.
+            var offer = PurchaseOffer.ForMoney(Loc.T("store.remove_ads"), _price ?? Loc.T("purchase.price_unknown"));
+            _confirm.Show(offer, well =>
+            {
+                Image lotus = UiKit.PetalIcon("Lotus", well);
+                UiFactory.Place(lotus.rectTransform, 0.14f, 0.14f, 0.86f, 0.86f);
+            }, Purchase);
+        }
+
+        /// <summary>The confirmed purchase: one at a time, the button waits for the store's answer.</summary>
+        private void Purchase()
+        {
+            if (!this || !_root.activeSelf)
+            {
+                return;
+            }
+
             _buy.interactable = false;
             _purchase(() =>
             {

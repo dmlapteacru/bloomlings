@@ -775,42 +775,61 @@ namespace Bloomlings.Client.UI
                 float s = Mathf.Min(f.Width, f.Height);
                 bool cream = !GardenLook.LabelOn(view.Set).Volumetric;
                 float lip = s * (cream ? 0.07f : 0.085f);
-                float line = Mathf.Max(Units(2f), s * (cream ? 0.02f : 0.024f));
+                float line = Mathf.Max(Units(2f), s * (cream ? GardenLook.IconLineCream : GardenLook.IconLineColored));
                 view.SetGeometry(line, lip, lip * 0.7f, Mathf.Min(radius(f), s / 2f), s * 0.09f, s);
             });
             return view;
         }
 
         /// <summary>
-        /// The speed pill of the gameplay top bar (spec 005 §3.3): the cream squircle style (radius 34% of its height),
-        /// wider, with the speed (<paramref name="label"/>, "1×" or "2×") in <c>ink.brown</c> at half its height and the
-        /// <c>ui.fast</c> chevrons (▶▶, 52% of its height) after it, both centered as a group. The label is the pill's only
-        /// text, so callers find it with <c>GetComponentInChildren&lt;TextMeshProUGUI&gt;</c>.
+        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the cream squircle style (radius
+        /// 34% of its height), wider, with only the <c>ui.fast</c> chevrons (▶▶▶, <see cref="GardenLook.SpeedGlyphShare"/>
+        /// of its height) in the middle, no number. <paramref name="setOn"/> lights it while fast forward is on: a
+        /// <c>garden.glow</c> halo round the face and the chevrons in the green of a switched-on toggle (the playtest's
+        /// <c>Kit.SpeedPill</c>).
         /// </summary>
-        public static Button SpeedPill(string name, Transform parent, string label, Action onClick)
+        public static Button SpeedPill(string name, Transform parent, Action onClick, out Action<bool> setOn)
         {
             GardenButton view = IconFace(name, parent, GardenLook.White, b => b.Height * 0.34f, square: false, raycast: true);
-            TypeStyle s = DesignTokens.Type.LevelPill;
-            TextMeshProUGUI text = KitLabel("Label", view.Content, label, s, TextLook.Plain(C.InkBrown));
-            Image fast = UiFactory.CreateImage("Fast", view.Content, ProceduralSprites.Haloed(GardenLook.FastGlyph.ShapeId, GardenLook.FastGlyph.Fill, C.CreamTop), Color.white);
-            fast.preserveAspect = true;
-            BoxLayout.On(view.Content).Watch(text).Then(f =>
+            BoxLayout body = BoxLayout.On(view.Body);
+            var rings = new List<GameObject>();
+            var radii = new float[GardenLook.SpeedGlowLayers];
+            Color ringColor = UiTheme.Of(C.GardenGlow.WithAlpha(GardenLook.SpeedGlowAlpha / GardenLook.SpeedGlowLayers));
+            for (int k = 0; k < GardenLook.SpeedGlowLayers; k++)
             {
-                float h = view.IconSide;
-                float size = h * 0.5f;
-                float glyph = h * 0.52f;
-                float gap = h * 0.04f;
-                float measured = KitText.Measure(text, size);
-                float textWidth = Mathf.Min(measured > 0f ? measured : size * 1.4f, f.Width - glyph - gap - (h * 0.2f));
-                float start = f.CenterX - ((textWidth + gap + glyph) / 2f);
-                KitText.Place(text, s, start + (textWidth / 2f), f.CenterY, size, textWidth + 1f);
-                BoxLayout.Place(fast.rectTransform, Box.FromCenter(start + textWidth + gap + (glyph / 2f), f.CenterY, glyph, glyph));
+                int layer = k;
+                Image ring = RoundRect("Glow" + layer, view.Body, ringColor, _ => radii[layer]);
+                ring.raycastTarget = false;
+                ring.rectTransform.SetAsFirstSibling();
+                body.Add(ring.rectTransform, b =>
+                {
+                    float grow = b.Height * GardenLook.SpeedGlowGrow * (layer + 1);
+                    radii[layer] = (b.Height * 0.34f) + grow;
+                    return b.Inset(-grow);
+                });
+                rings.Add(ring.gameObject);
+            }
+
+            Sprite off = ProceduralSprites.Haloed(GardenLook.FastGlyph.ShapeId, GardenLook.FastGlyph.Fill, C.CreamTop);
+            Sprite lit = ProceduralSprites.Haloed(GardenLook.FastGlyphOn.ShapeId, GardenLook.FastGlyphOn.Fill, C.CreamTop);
+            Image fast = UiFactory.CreateImage("Fast", view.Content, off, Color.white);
+            fast.preserveAspect = true;
+            BoxLayout.On(view.Content).Then(f =>
+            {
+                float side = view.IconSide * GardenLook.SpeedGlyphShare;
+                BoxLayout.Place(fast.rectTransform, Box.FromCenter(f.CenterX, f.CenterY, side, side));
             });
+            setOn = on =>
+            {
+                fast.sprite = on ? lit : off;
+                foreach (GameObject ring in rings)
+                {
+                    ring.SetActive(on);
+                }
+            };
+            setOn(false);
             return Clickable(view, onClick);
         }
-
-        /// <summary>The 2× control of the gameplay top bar: since spec 005 the cream <see cref="SpeedPill"/>.</summary>
-        public static Button DarkPill(string name, Transform parent, string label, Action onClick) => SpeedPill(name, parent, label, onClick);
 
         /// <summary>Makes a garden element a button: the click sound and action, the press and the greyed state.</summary>
         private static Button Clickable(GardenButton view, Action onClick)
@@ -974,11 +993,9 @@ namespace Bloomlings.Client.UI
         /// green "+" over its right end (to the Store, once unlocked; FR-013). The pill is the touch target when
         /// <paramref name="onPlus"/> is set, and only while its "+" shows: before the Store's unlock a tap on it does nothing,
         /// as in the playtest (the locked Store page opens from the bottom menu's Shop, spec 005 FR-030).
-        /// <paramref name="decorate"/> adds the main buttons' leaves and flower over the corners of the pill and its "+"
-        /// (<see cref="GardenLook.PillDecorationBoxes"/> of <see cref="PetalsPillParts.Span"/>), scaled to its height and
-        /// never a touch target: Home's header pill (the owner's request of 2026-10-04).
+        /// No decoration anywhere (the owner, 2026-10-06; Home's pill had the main buttons' leaves and flower since 2026-10-04).
         /// </summary>
-        public static PetalsPill PetalsPill(string name, Transform parent, Action? onPlus, float align = 1f, bool decorate = false)
+        public static PetalsPill PetalsPill(string name, Transform parent, Action? onPlus, float align = 1f)
         {
             (RectTransform root, BoxLayout layout) = Element(name, parent);
             var view = root.gameObject.AddComponent<PetalsPill>();
@@ -1000,14 +1017,6 @@ namespace Bloomlings.Client.UI
             BoxLayout.On(plus.Content).Add(glyph.rectTransform, f => Box.FromCenter(f.CenterX, f.CenterY, plus.IconSide * 0.6f, plus.IconSide * 0.6f));
             view.Plus = plus.gameObject;
             layout.Add((RectTransform)plus.transform, b => view.Parts(b).Plus);
-            if (decorate && DesignTokens.Garden.Decorations)
-            {
-                // Over the pill and its "+", as the playtest draws them last.
-                (Image topLeft, Image bottomRight) = DecorationImages(root);
-                layout.Add(topLeft.rectTransform, b => GardenLook.PillDecorationBoxes(view.Parts(b).Span).TopLeft);
-                layout.Add(bottomRight.rectTransform, b => GardenLook.PillDecorationBoxes(view.Parts(b).Span).BottomRight);
-            }
-
             // The amount starts right after the lotus (left-aligned, so it never floats in the pill's middle, even while
             // the text engine cannot measure it yet).
             layout.Watch(balance).Then(b =>

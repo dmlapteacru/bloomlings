@@ -21,7 +21,7 @@ namespace Bloomlings.Playtest.Design
         public static void DailyReward(IPainter p, DesignApp app, float since)
         {
             var daily = app.Meta.DailyReward;
-            CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.SecondaryHeight + 90f, PlaytestText.T("daily_reward.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
+            CardRegions r = Kit.Card(p, 60f + 330f + 110f + DesignTokens.Size.CardPrimaryHeight + DesignTokens.Size.CardSecondaryHeight + 90f, PlaytestText.T("daily_reward.title"), app.CardClose, Kit.Pop(since), sign: SignDecor.None);
             float y = r.Body.Top;
             // Opened from Home's Daily scene after today's claim, it shows the day just claimed, Claim greyed (as Unity's).
             p.Text(PlaytestText.F("daily_reward.day", daily.TodayStreak), r.Body.CenterX, y + p.U(20f), T.Body, C.InkBrownSoft);
@@ -75,7 +75,7 @@ namespace Bloomlings.Playtest.Design
             float bodyWidth = ScreenLayout.Card(p.Width, p.Height, p.Insets, 0f).Body.Width;
             List<string> lines = EndCards.Lines(p, PlaytestText.T("remove_ads.body"), T.Body, bodyWidth * 0.92f, 3);
             float sceneHeight = sceneUnits * HomePromo.HeightShare;
-            float content = 10f + sceneHeight + 14f + (lines.Count * lineUnits) + 36f + DesignTokens.Size.CardPrimaryHeight + captionUnits + 20f + DesignTokens.Size.SecondaryHeight + 40f;
+            float content = 10f + sceneHeight + 14f + (lines.Count * lineUnits) + 36f + DesignTokens.Size.CardPrimaryHeight + captionUnits + 20f + DesignTokens.Size.CardSecondaryHeight + 40f;
             CardRegions r = Kit.Card(p, content, PlaytestText.T("remove_ads.title"), app.CardClose, Kit.Pop(since), T.Title);
             float y = r.Body.Top + p.U(10f);
 
@@ -105,6 +105,23 @@ namespace Bloomlings.Playtest.Design
                 Box safe = ScreenLayout.SafeArea(p.Width, p.Height, p.Insets);
                 Kit.Toast(p, new Box(safe.Left, r.Card.Bottom, safe.Right, Math.Min(safe.Bottom, r.Card.Bottom + p.U(140f))), toast);
             }
+        }
+
+        /// <summary>
+        /// The purchase confirmation (spec 005 FR-040; preview frame 49) over whatever asked (<see cref="DesignApp.ConfirmPurchase"/>):
+        /// the item's picture, name and price, the Petals balance under the price, Buy (the purchase runs only now) and
+        /// Cancel (nothing is bought). It has no close: Cancel and the system back close it.
+        /// </summary>
+        public static void Purchase(IPainter p, DesignApp app, float since)
+        {
+            PurchaseOffer? offer = app.Purchase.Offer;
+            if (offer == null)
+            {
+                return;
+            }
+
+            string note = offer.RealMoney ? PlaytestText.T("purchase.store_next") : PlaytestText.F("purchase.balance", NumberText.Group(app.Meta.Economy.Petals));
+            Kit.PurchaseCard(p, offer, app.PurchasePicture, note, app.BuyConfirmed, app.CloseOverlay, Kit.Pop(since));
         }
 
         /// <summary>The reward basket: woven wood (darker weave lines) with a lighter rim, outlined like the reference's objects.</summary>

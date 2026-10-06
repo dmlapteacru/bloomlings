@@ -52,4 +52,11 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
   </ItemGroup>
+  <ItemGroup>
+    <!--
+      The owner's app icon (spec 005 pictures.md C3), written by tools/appicon: the adaptive icon (a picture background, a
+      transparent foreground) and the round and legacy icons, for both APKs.
+    -->
+    <AndroidResource Include="$(MSBuildThisFileDirectory)icon/**/*" Link="Resources/%(RecursiveDir)%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>

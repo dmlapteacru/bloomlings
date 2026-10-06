@@ -18,7 +18,7 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public static void Pause(IPainter p, DesignApp app, float since)
         {
-            float buttons = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.SecondaryHeight) + (4f * 28f) + 30f;
+            float buttons = DesignTokens.Size.CardPrimaryHeight + (3f * DesignTokens.Size.CardSecondaryHeight) + (4f * 28f) + 30f;
             CardRegions r = Kit.Card(p, buttons, PlaytestText.T("pause.title"), app.CardClose, Kit.Pop(since), T.Title);
             float gap = p.U(28f);
             float y = r.Body.Top + p.U(24f);
@@ -42,7 +42,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Settings: sound and haptics, the 2× speed (spec 001 FR-073), each a cream row with a garden toggle; the
+        /// Settings: sound and haptics, fast forward (spec 001 FR-069, shown On or Off with no number), each a cream row with a garden toggle; the
         /// playtest's dev row under them wherever the card opens (not the product; it lay at Home's bottom before the bottom
         /// menu, spec 005 FR-030; the owner, 2026-10-04: "put the dev level up in Settings").
         /// </summary>
@@ -80,7 +80,7 @@ namespace Bloomlings.Playtest.Design
                 (string key, bool on, Action toggle) = items[i];
                 Box line = lines[i];
                 Kit.Row(p, line, false);
-                string value = key == "settings.speed" ? (on ? "2×" : "1×") : PlaytestText.T(on ? "common.on" : "common.off");
+                string value = PlaytestText.T(on ? "common.on" : "common.off");
                 p.TextLeft(PlaytestText.F(key, value), line.Left + p.U(36f), line.CenterY, T.ButtonSecondary, C.InkBrown, line.Width * 0.6f, 0.86f, TextLook.Plain(C.InkBrown));
                 Kit.Toggle(p, Box.FromCenter(line.Right - p.U(104f), line.CenterY, p.U(136f), p.U(70f)), on, toggle);
             }

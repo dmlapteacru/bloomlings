@@ -415,7 +415,9 @@ namespace Bloomlings.Playtest.Design
             AfterCommand();
         }
 
-        public void UseBooster(BoosterKind kind, Command command, bool free = false)
+        /// <param name="confirmed">The purchase confirmation's Buy already answered (spec 005 FR-040): a use without charges
+        /// buys one for Petals only then; it asks first otherwise.</param>
+        public void UseBooster(BoosterKind kind, Command command, bool free = false, bool confirmed = false)
         {
             // A guided demo's forced use is free: the unlock's free charge stays (spec 001 FR-042 as amended on 2026-10-05).
             bool demo = Guide != null && Guide.Booster == kind && (Guide.Kind == GuideKind.Booster || Guide.Kind == GuideKind.BoosterTarget);
@@ -430,6 +432,19 @@ namespace Bloomlings.Playtest.Design
             if (!check.IsAllowed)
             {
                 Toast(PlaytestText.T("gameplay.booster_useless"));
+                return;
+            }
+
+            if (!free && !confirmed && Meta.Economy.Charges(kind) == 0 && Meta.Economy.CanAfford(kind))
+            {
+                // No charge left: the use buys one for Petals, so the purchase confirmation asks first and the booster is
+                // bought and used only on its Buy (spec 005 FR-040); a cancel buys nothing and brings the jam card back.
+                string id = EndCards.IdOf(kind);
+                _app.ConfirmPurchase(
+                    PurchaseOffer.ForPetals(EndCards.BoosterName(kind), Meta.Economy.Price(kind)),
+                    (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)),
+                    () => UseBooster(kind, command, confirmed: true),
+                    () => JamHidden = false);
                 return;
             }
 
@@ -643,12 +658,12 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The animation's speed after every command: 2× when the player chose it (FR-069), and also while no pod can be
-        /// tapped (the owner, 2026-10-04: every pod picked, only the animation left), so the rest plays fast; the speed pill
-        /// shows 2× then (it shows <see cref="LevelAnimator.Speed"/>). Animation only: never an outcome. The saved choice
-        /// stays as the player set it.
+        /// The animation's speed after every command: fast forward (<see cref="PlaySpeed.Fast"/>, 3×) when the player chose
+        /// it (FR-069 as amended on 2026-10-06), and also while no pod can be tapped (the owner, 2026-10-04: every pod
+        /// picked, only the animation left), so the rest plays fast; the speed pill is lit then (it shows
+        /// <see cref="LevelAnimator.Speed"/>). Animation only: never an outcome. The saved choice stays as the player set it.
         /// </summary>
-        public void RefreshSpeed() => Animator.Speed = Meta.Save.Settings.Speed2x || !CanTapAny() ? 2f : 1f;
+        public void RefreshSpeed() => Animator.Speed = PlaySpeed.Of(Meta.Save.Settings.Speed2x || !CanTapAny());
 
         /// <summary>Whether the rules allow a tap on any exposed pod (the top of a Source stack).</summary>
         private bool CanTapAny()
@@ -878,7 +893,7 @@ namespace Bloomlings.Playtest.Design
             p.Mark("ui.pause");
             Kit.LevelPill(p, r.Sign, PlaytestText.F("common.level", NumberText.Group(Level)), Session.Definition.Difficulty.Class == DifficultyClass.SuperHard && badge.HasValue);
             Box speed = r.Speed;
-            Kit.SpeedPill(p, speed, Animator.Speed > 1f ? "2×" : "1×", ToggleSpeed);
+            Kit.SpeedPill(p, speed, Animator.Speed > 1f, ToggleSpeed);
             if (badge.HasValue)
             {
                 // HARD or SUPER HARD under the sign.

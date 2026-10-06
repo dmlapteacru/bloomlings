@@ -230,8 +230,8 @@ namespace Bloomlings.Playtest.Design
         public static void Decoration(IPainter p, Box button) => Decoration(p, GardenLook.DecorationBoxes(button));
 
         /// <summary>
-        /// The same leaves and flower in the two boxes of <paramref name="boxes"/> (<see cref="GardenLook.DecorationBoxes"/>,
-        /// or <see cref="GardenLook.PillDecorationBoxes"/> on Home's Petals pill): never a touch target.
+        /// The same leaves and flower in the two boxes of <paramref name="boxes"/> (<see cref="GardenLook.DecorationBoxes"/>):
+        /// never a touch target.
         /// </summary>
         public static void Decoration(IPainter p, (Box TopLeft, Box BottomRight) boxes)
         {
@@ -494,7 +494,7 @@ namespace Bloomlings.Playtest.Design
             bool cream = !GardenLook.LabelOn(set).Volumetric;
             float lip = s * (cream ? 0.07f : 0.085f);
             float rim = s * 0.09f;
-            float line = Math.Max(p.U(2f), s * (cream ? 0.02f : 0.024f));
+            float line = Math.Max(p.U(2f), s * (cream ? GardenLook.IconLineCream : GardenLook.IconLineColored));
             float shift = lip * 0.7f * Math.Max(-0.25f, Math.Min(1f, depth));
             float dark = 0.08f * Math.Max(0f, Math.Min(1f, depth));
             float r = Math.Min(radius, s / 2f);
@@ -532,36 +532,38 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The speed pill of the gameplay top bar (spec 005 §3.3): the cream squircle style, wider, with the speed
-        /// (<paramref name="label"/>, "1×" or "2×") in <c>ink.brown</c> and the <c>ui.fast</c> chevrons (▶▶) after it.
+        /// The speed pill of the gameplay top bar (spec 005 §3.3; the owner, 2026-10-06): the cream squircle style, wider,
+        /// with only the <c>ui.fast</c> chevrons (▶▶▶) in the middle, no number. While fast forward is on
+        /// (<paramref name="on"/>) it lights up: a <c>garden.glow</c> halo round the face and the chevrons in the green of a
+        /// switched-on toggle.
         /// </summary>
-        public static void SpeedPill(IPainter p, Box box, string label, Action? action)
+        public static void SpeedPill(IPainter p, Box box, bool on, Action? action)
         {
             p.Mark("ui.pill.speed");
             float depth = Press(p, box, action != null);
             Squash(p, box, depth);
-            Box f = IconFace(p, box, GardenLook.White, box.Height * 0.34f, depth);
-            TypeStyle s = T.LevelPill;
-            float scale = box.Height * 0.5f / p.U(s.Size);
+            float radius = box.Height * 0.34f;
+            if (on)
+            {
+                for (int k = GardenLook.SpeedGlowLayers; k >= 1; k--)
+                {
+                    float grow = box.Height * GardenLook.SpeedGlowGrow * k;
+                    p.FillRound(box.Inset(-grow), radius + grow, C.GardenGlow.WithAlpha(GardenLook.SpeedGlowAlpha / GardenLook.SpeedGlowLayers));
+                }
+            }
 
-            // The ▶▶ box: its marks are 80% of it tall, so they stand as tall as the digits (about 42% of the pill).
-            float glyph = box.Height * 0.52f;
-            float gap = box.Height * 0.04f;
-            float textWidth = Math.Min(p.MeasureText(label, s, scale), f.Width - glyph - gap - (box.Height * 0.2f));
-            float start = f.CenterX - ((textWidth + gap + glyph) / 2f);
-            p.Text(label, start + (textWidth / 2f), f.CenterY, s, C.InkBrown, textWidth, scale, TextLook.Plain(C.InkBrown));
-            Box fast = Box.FromCenter(start + textWidth + gap + (glyph / 2f), f.CenterY, glyph, glyph);
-            GlyphHalo(p, GardenLook.FastGlyph.ShapeId, fast);
-            p.Shape(GardenLook.FastGlyph.ShapeId, fast, GardenLook.FastGlyph.Fill);
+            Box f = IconFace(p, box, GardenLook.White, radius, depth);
+            IconPart glyph = on ? GardenLook.FastGlyphOn : GardenLook.FastGlyph;
+            float side = box.Height * GardenLook.SpeedGlyphShare;
+            Box fast = Box.FromCenter(f.CenterX, f.CenterY, side, side);
+            GlyphHalo(p, glyph.ShapeId, fast);
+            p.Shape(glyph.ShapeId, fast, glyph.Fill);
             p.PopTransform();
             if (action != null)
             {
                 p.Hit(Touch(p, box), action);
             }
         }
-
-        /// <summary>The 2× control of the gameplay top bar: since spec 005 the cream <see cref="SpeedPill"/>.</summary>
-        public static void DarkPill(IPainter p, Box box, string label, Action? action) => SpeedPill(p, box, label, action);
 
         /// <summary>
         /// The gameplay level label: since spec 005 a wooden sign with ivy at both ends (§3.2, research D6), its letters in
@@ -738,12 +740,11 @@ namespace Bloomlings.Playtest.Design
         /// that fits its content inside <paramref name="box"/> (placed by <paramref name="align"/>: 1 keeps its right end on
         /// the box's, 0.5 centers it), the lotus inside its left end, the balance in <c>ink.brown</c> left-aligned right
         /// after the lotus, so a short amount never floats in the middle, and the round green "+" over its right end
-        /// (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>).
-        /// <paramref name="decorate"/> adds the main buttons' leaves and flower over the corners of the pill and its "+"
-        /// (<see cref="GardenLook.PillDecorationBoxes"/> of <see cref="PetalsPillParts.Span"/>), scaled to its height and
-        /// never a touch target: Home's header pill (the owner's request of 2026-10-04). Returns the parts as drawn.
+        /// (FR-013). The pill takes the tap when <paramref name="onPlus"/> is set (Unity's <c>UiKit.PetalsPill</c>). No
+        /// decoration anywhere (the owner, 2026-10-06: "remove all the decoration from this chip everywhere"; Home's pill had
+        /// the main buttons' leaves and flower since 2026-10-04). Returns the parts as drawn.
         /// </summary>
-        public static PetalsPillParts PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f, bool decorate = false)
+        public static PetalsPillParts PetalsPill(IPainter p, Box box, long petals, Action? onPlus, float align = 1f)
         {
             p.Mark("ui.pill.petals");
             TypeStyle s = T.Count;
@@ -771,11 +772,6 @@ namespace Bloomlings.Playtest.Design
                 Glyph(p, "ui.plus", Box.FromCenter(f.CenterX, f.CenterY, g, g), GardenLook.Green);
                 p.PopTransform();
                 p.Hit(Touch(p, pill), onPlus);
-            }
-
-            if (decorate)
-            {
-                Decoration(p, GardenLook.PillDecorationBoxes(parts.Span));
             }
 
             return parts;

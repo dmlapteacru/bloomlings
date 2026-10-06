@@ -98,7 +98,7 @@ Expected:
    - Expected: the Jam screen keeps the board visible and offers the eligible recoveries and Restart.
 5. Win the level.
    - Expected: the finished picture is revealed, the reward is shown, then Next.
-6. Toggle 2× speed and replay the same taps.
+6. Toggle fast forward (▶▶▶, 3×) and replay the same taps.
    - Expected: the same outcome (FR-069).
 7. Play through L10 in `Tools → Bloomlings → Fast Progress` (editor-only).
    - Expected: every unlock in the roadmap fires at its level (FR-031).

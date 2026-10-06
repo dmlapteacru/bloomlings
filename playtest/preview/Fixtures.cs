@@ -446,6 +446,28 @@ namespace Bloomlings.Playtest.Preview
                 Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
                 Tap(p, Box.FromCenter(tabs.CenterX, tabs.CenterY, 1f, 1f));
                 Expect(app.StoreTab == 1, "a tap on the Cosmetics tab shows the cosmetics");
+                Run(app, p, 0.1f);
+
+                // Tap or scroll (FR-041, the owner's request of 2026-10-06): a drag over the cards buys nothing and opens
+                // nothing; a swipe up turns to the next page and a swipe down back; a tap on a card asks to buy it (FR-040),
+                // and the system back cancels without spending.
+                ReferenceStoreRegions store = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                int balance = app.Meta.Economy.Petals;
+                int owned = app.Meta.Save.Cosmetics.Owned.Count;
+                Box top = store.OutfitCard(1);
+                Box below = store.OutfitCard(4);
+                Drag(p, top.CenterX, top.CenterY, top.CenterX + (top.Width * 0.6f), top.CenterY + (top.Height * 0.1f));
+                Expect(app.Overlays.Count == 0 && app.StorePage == 0, "a sideways drag over a card taps nothing (and there is no page before)");
+                Drag(p, below.CenterX, below.CenterY, top.CenterX, top.CenterY);
+                Expect(app.Overlays.Count == 0 && app.StorePage == 1, "a swipe up over the cards turns to the next page, buying nothing");
+                Run(app, p, 0.1f);
+                Drag(p, top.CenterX, top.CenterY, below.CenterX, below.CenterY);
+                Expect(app.Overlays.Count == 0 && app.StorePage == 0, "a swipe down turns back");
+                Run(app, p, 0.1f);
+                Tap(p, top);
+                Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer != null && app.Purchase.Offer.Petals > 0, "a tap on a card asks to buy it");
+                Expect(app.Back() && app.Overlays.Count == 0, "the system back cancels the confirmation");
+                Expect(app.Meta.Economy.Petals == balance && app.Meta.Save.Cosmetics.Owned.Count == owned, "nothing was bought");
                 Run(app, p, 0.5f);
             });
             yield return new Fixture(25, "kit", "Extra: reference look kit", (p, data) => KitSheet(p));
@@ -621,8 +643,9 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>
-        /// The profile page and its edit card (spec 005 FR-037): the page at Level 15 with a bought avatar (39), the card's
-        /// avatars with a purchase and short Petals (40), and at Level 45 a new name and the owned frames (41).
+        /// The profile page and its edit card (spec 005 FR-037): the page at Level 15 with a bought avatar filling its disc
+        /// in a free frame picked before the Wardrobe opens (39), the card's avatars with a purchase and short Petals (40),
+        /// and at Level 45 a new name and the five free frames with the owned ones (41; the owner, 2026-10-06).
         /// </summary>
         public static IEnumerable<Fixture> Profile(ContentSet content)
         {
@@ -633,13 +656,29 @@ namespace Bloomlings.Playtest.Preview
             {
                 // Level 15 with 1240 Petals and Drop's sailor avatar bought: Home's avatar opens the page, which shows it in
                 // the card with the default name, the ID, the joining month, the Level plaque, the stats and the
-                // achievements on their way to bronze.
+                // achievements on their way to bronze. The Wardrobe is still closed, yet the card's Frame tab lists the five
+                // free frames (the owner, 2026-10-06): the Flower Wreath is picked and saved, and the page shows it.
                 DesignApp app = Progressed(App(data), content, 14);
                 CloseAll(app);
                 Expect(app.Meta.Profile.TryBuy("avatar.drop_sailor_sticker"), "an avatar for 300 Petals");
                 Run(app, p, 0.1f);
                 Tap(p, HomeAvatar(p));
                 Expect(app.Screen == Design.Screen.Profile, "Home's avatar opens the profile page");
+                Run(app, p, 0.4f);
+                Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && !p.Slots.Contains("cosmetic.frame"), "the avatar's picture, no frame until one is picked");
+                Tap(p, ScreenLayout.ReferenceProfile(p.Width, p.Height, p.Insets).Avatar);
+                Run(app, p, 0.5f);
+                ProfileEditRegions edit = ScreenLayout.ProfileEdit(p.Width, p.Height, p.Insets);
+                Tap(p, Box.FromCenter(edit.Tabs.Left + (edit.Tabs.Width * 1.5f / ProfileEditor.Tabs.Count), edit.Tabs.CenterY, 1f, 1f));
+                Run(app, p, 0.1f);
+                ProfileEditor editor = app.ProfileEditor!;
+                Expect(editor.Tab == ProfileTab.Frame && !editor.ProfileItemsOpen && !editor.IsLocked(Client.Meta.Wardrobe.CosmeticKind.Frame), "the Frame tab is open before the Wardrobe");
+                Expect(editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 5 && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the five free frames, each drawn");
+                Tap(p, edit.Cell(2));
+                Run(app, p, 0.1f);
+                Expect(editor.FrameId == "frame.flower_wreath", "the Flower Wreath picked");
+                Tap(p, edit.Button);
+                Expect(!app.IsOpen(Overlay.ProfileEdit) && app.Meta.Wardrobe.Profile.Frame?.Id == "frame.flower_wreath", "Save shows it on the profile at Level 15");
                 Run(app, p, 0.4f);
                 ProfileService profile = app.Meta.Profile;
                 Expect(Shows(p, PlaytestText.F("profile.default_name", profile.DefaultNumber)), "the default name");
@@ -649,6 +688,7 @@ namespace Bloomlings.Playtest.Preview
                 long won = Achievements.Count(app.Meta.Save, Achievements.LevelsCounter);
                 Expect(Shows(p, PlaytestText.F("profile.achievement_progress", won, 50)), "Green Thumb's count toward bronze");
                 Expect(p.Slots.Contains(OwnerPictures.AvatarSlot) && p.Slots.Contains("ui.achievement"), "the avatar picture and the achievement tiles");
+                Expect(p.Slots.Contains("cosmetic.frame.flower_wreath"), "the page's avatar in the Flower Wreath");
             });
             yield return new Fixture(40, "profile-edit", "Extra: profile edit card, avatars (spec 005 FR-037)", (p, data) =>
             {
@@ -667,6 +707,10 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.1f);
                 Expect(Shows(p, PlaytestText.F("profile.buy", NumberText.Group(600))), "a 600 avatar to buy");
                 Tap(p, r.Button);
+                Expect(app.IsOpen(Overlay.Purchase) && app.Meta.Economy.Petals == 1240, "Buy asks the purchase confirmation first, nothing spent (FR-040)");
+                Run(app, p, 0.5f);
+                Tap(p, ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets).Confirm);
+                Expect(!app.IsOpen(Overlay.Purchase) && app.IsOpen(Overlay.ProfileEdit), "the confirmation's Buy closes it over the edit card");
                 Expect(app.Meta.Economy.Petals == 640 && app.Meta.Profile.Avatar.Id == "avatar.sprig_flower_crown_3d", "bought and shown");
                 Run(app, p, 0.1f);
                 Expect(Shows(p, PlaytestText.T("profile.bought")) && Shows(p, PlaytestText.T("profile.save")), "the card stays, its button now Save");
@@ -680,7 +724,8 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(41, "profile-frames", "Extra: profile edit card, name and frames (spec 005 FR-037)", (p, data) =>
             {
                 // Level 45, the Wardrobe open: the pencil opens the card on Name, "Change name" asks the host (here "Rosie")
-                // and Save keeps it; the card again on Frame lists the owned frames on the avatar, the shown one checked.
+                // and Save keeps it; the card again on Frame lists the five free frames, then the owned ones, on the avatar;
+                // the shown one (the newest owned, Ivy) is checked until a tap picks the Leaf Ring.
                 DesignApp app = Progressed(App(data), content, 44);
                 CloseAll(app);
                 // Two frames and a badge as later milestones give them.
@@ -709,8 +754,13 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, Box.FromCenter(r.Tabs.Left + (r.Tabs.Width * 1.5f / ProfileEditor.Tabs.Count), r.Tabs.CenterY, 1f, 1f));
                 Expect(app.ProfileEditor!.Tab == ProfileTab.Frame, "the Frame tab");
                 Run(app, p, 0.5f);
-                Expect(app.ProfileEditor.ProfileItemsOpen && app.ProfileEditor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count > 0, "owned frames at Level 45");
-                Expect(p.Slots.Contains("cosmetic.frame"), "the frames on the avatar");
+                ProfileEditor editor = app.ProfileEditor;
+                Expect(editor.ProfileItemsOpen && editor.Owned(Client.Meta.Wardrobe.CosmeticKind.Frame).Count == 7, "the five free frames and the two owned ones at Level 45");
+                Expect(editor.FrameId == "frame.ivy", "the newest owned frame is shown by default, never a free one");
+                Expect(p.Slots.Contains("cosmetic.frame") && ProfileFrames.All.All(s => p.Slots.Contains(ProfileFrames.Slot(s))), "the frames on the avatar");
+                Tap(p, r.Cell(1));
+                Run(app, p, 0.2f);
+                Expect(editor.FrameId == "frame.leaf_ring", "a tap picks the Leaf Ring");
             });
         }
 
@@ -757,6 +807,85 @@ namespace Bloomlings.Playtest.Preview
                 Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "a style is not bought before Level 40");
                 Run(app, p, 4f);
                 Expect(p.Slots.Contains("ui.lock") && p.Slots.Contains("fx.clear.bubbles"), "the padlocks over the live previews");
+            });
+        }
+
+        /// <summary>
+        /// The purchase confirmation (spec 005 FR-040) and the Animations tab's buttons (FR-038 as amended on 2026-10-06):
+        /// at Level 45 a booster used without charges asks first, Cancel and the system back buy nothing, Buy buys; on the
+        /// Store's Animations a style's Buy asks, its Buy buys and chooses it ("Chosen"), the free pair's card then reads
+        /// "Choose"; the frame shows the confirmation for Pushers over the tab, its live preview in the well.
+        /// </summary>
+        public static IEnumerable<Fixture> Purchases(ContentSet content)
+        {
+            DesignApp App(string data) => new DesignApp(data, content, new Silence(), false);
+            yield return new Fixture(49, "purchase-confirm", "Extra: the purchase confirmation over the Store's Animations (spec 005 FR-040)", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 44);
+                app.Meta.Economy.Grant(12000, null);
+                CloseAll(app);
+                PurchaseConfirmRegions confirm = ScreenLayout.PurchaseConfirm(p.Width, p.Height, p.Insets);
+
+                // A level: Bloom Burst without charges buys one for Petals, so it asks first.
+                app.LoadLevel(app.Meta.CurrentLevel);
+                CloseDemo(app);
+                while (app.Meta.Save.Boosters.TryUse(BoosterKind.BloomBurst))
+                {
+                }
+
+                Run(app, p, 0.1f);
+                LevelScreen level = app.Level!;
+                VariantId variant = level.Session.Definition.Pods[0].Variant;
+                int petals = app.Meta.Economy.Petals;
+                int price = app.Meta.Economy.Price(BoosterKind.BloomBurst);
+                level.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant));
+                Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Petals == price && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "a booster without charges asks before buying");
+                Run(app, p, 0.5f);
+                Expect(Shows(p, PlaytestText.F("purchase.question_petals", PlaytestText.T("booster.bloom_burst"), NumberText.Group(price))), "the question names the booster and its price");
+                Tap(p, confirm.Cancel);
+                Expect(app.Overlays.Count == 0 && app.Meta.Economy.Petals == petals && level.Session.BoostersUsed == 0, "Cancel buys nothing");
+                Run(app, p, 0.1f);
+                level.UseBooster(BoosterKind.BloomBurst, new UseBloomBurst(variant));
+                Run(app, p, 0.5f);
+                Tap(p, confirm.Confirm);
+                Expect(app.Overlays.Count == 0 && app.Meta.Economy.Petals == petals - price && level.Session.BoostersUsed == 1 && app.Meta.Economy.Charges(BoosterKind.BloomBurst) == 0, "Buy buys the charge and uses it");
+
+                // The Store's Animations: the cards' buttons.
+                app.GoHome();
+                CloseAll(app);
+                app.OpenStore();
+                Run(app, p, 0.1f);
+                Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 6f), tabs.CenterY, 1f, 1f));
+                Expect(app.StoreTab == 2, "the Animations tab");
+                Run(app, p, 0.2f);
+                Expect(app.NeedsFrames && app.StoreMoving, "the live previews keep the host drawing");
+                ReferenceStoreRegions r = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets, hasCosmetics: true);
+                Expect(Shows(p, PlaytestText.T("clearing.chosen")) && Shows(p, NumberText.Group(app.Meta.Clearing.Price)), "the free pair Chosen, the others their price (no Buy word)");
+                petals = app.Meta.Economy.Petals;
+                Box bubbles = ClearingCard.Button(r.ClearingCard(2));
+                Tap(p, bubbles);
+                Expect(app.IsOpen(Overlay.Purchase) && app.Purchase.Offer!.Name == PlaytestText.T("clearing.bubbles") && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "Bubbles' Buy asks first");
+                Run(app, p, 0.3f);
+                Tap(p, confirm.Cancel);
+                Expect(!app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals, "Cancel buys nothing");
+                Run(app, p, 0.1f);
+                Tap(p, Box.FromCenter(r.ClearingCard(2).CenterX, r.ClearingCard(2).Top + (r.ClearingCard(2).Height * 0.3f), 1f, 1f));
+                Expect(app.IsOpen(Overlay.Purchase), "a tap on the card's preview asks too");
+                Expect(app.Back() && app.Overlays.Count == 0 && !app.Meta.Clearing.Owns(ClearStyle.Bubbles), "the system back buys nothing");
+                Run(app, p, 0.1f);
+                Tap(p, bubbles);
+                Run(app, p, 0.5f);
+                Tap(p, confirm.Confirm);
+                Expect(app.Meta.Clearing.Owns(ClearStyle.Bubbles) && app.Meta.Clearing.IsChosen(ClearStyle.Bubbles) && app.Meta.Economy.Petals == petals - app.Meta.Clearing.Price, "Buy buys Bubbles and chooses it");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, PlaytestText.T("clearing.choose")) && Shows(p, PlaytestText.T("clearing.chosen")), "the free pair now Choose, Bubbles Chosen");
+
+                // The frame: Pushers' confirmation over the tab, its live preview in the well.
+                Tap(p, ClearingCard.Button(r.ClearingCard(3)));
+                Expect(app.IsOpen(Overlay.Purchase), "Pushers' Buy asks");
+                Run(app, p, 2.5f);
+                Expect(p.Slots.Contains("ui.card.purchase") && p.Slots.Contains("fx.clear.pushers"), "the card with the live preview");
             });
         }
 
@@ -1013,6 +1142,18 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>A tap in the middle of <paramref name="box"/> on the last drawn frame, as a finger would.</summary>
         private static void Tap(SkiaPainter p, Box box) => p.Dispatch(box.CenterX, box.CenterY);
+
+        /// <summary>A finger going down at (x0, y0), moving in eight steps to (x1, y1) and lifting there, on the last drawn frame.</summary>
+        private static void Drag(SkiaPainter p, float x0, float y0, float x1, float y1)
+        {
+            p.TouchDown(x0, y0);
+            for (int i = 1; i <= 8; i++)
+            {
+                p.TouchMove(x0 + ((x1 - x0) * i / 8f), y0 + ((y1 - y0) * i / 8f));
+            }
+
+            p.TouchUp(x1, y1);
+        }
 
         /// <summary>Fails the frame (the preview reports it) when a scripted interaction did not do what it should.</summary>
         private static void Expect(bool condition, string what)
@@ -1411,7 +1552,7 @@ namespace Bloomlings.Playtest.Preview
             // Round and squircle buttons and the speed pill.
             Box[] round = Spread(rows[5], new[] { 124f, 210f, 124f, 104f, 124f }, new[] { 124f, 112f, 124f, 104f, 124f }, p);
             Kit.RoundButton(p, round[0].CenterX, round[0].CenterY, round[0].Width, "ui.pause", () => { }, squircle: true);
-            Kit.SpeedPill(p, round[1], "2×", () => { });
+            Kit.SpeedPill(p, round[1], true, () => { });
             Kit.RoundButton(p, round[2].CenterX, round[2].CenterY, round[2].Width, "ui.settings", () => { });
             Kit.RoundButton(p, round[3].CenterX, round[3].CenterY, round[3].Width, "ui.close", () => { });
             Kit.RoundButton(p, round[4].CenterX, round[4].CenterY, round[4].Width, GardenLook.BackGlyph.ShapeId, () => { });

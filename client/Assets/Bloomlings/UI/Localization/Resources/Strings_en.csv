@@ -47,7 +47,7 @@ settings.title,Settings
 settings.music,Music: {0}
 settings.sound,Sound: {0}
 settings.haptics,Haptics: {0}
-settings.speed,Speed: {0}
+settings.speed,Fast forward: {0}
 settings.link_apple,Link Apple
 settings.link_google,Link Google Play
 settings.restore,Restore Purchases
@@ -77,9 +77,19 @@ clearing.pushers,Pushers
 clearing.fireworks,Fireworks
 clearing.parade,Confetti Parade
 clearing.free_pair,Free pair
+clearing.choose,Choose
+clearing.chosen,Chosen
 store.cosmetic,{0} ({1})
 store.all_owned,You own everything here
 store.unavailable,Unavailable
+purchase.title,Confirm purchase
+purchase.question_petals,Buy {0} for {1} Petals?
+purchase.question_money,Buy {0} for {1}?
+purchase.buy,Buy
+purchase.balance,You have {0} Petals
+purchase.store_next,Your app store confirms the payment next
+purchase.avatar,this avatar
+purchase.price_unknown,the store's price
 pause.title,Paused
 pause.resume,Resume
 pause.leave,Leave
@@ -245,6 +255,11 @@ cosmetic.trail.breeze,Breeze
 cosmetic.expression.sleepy,Sleepy
 cosmetic.frame.bramble,Bramble Frame
 cosmetic.badge.watering_can,Watering Can Badge
+cosmetic.frame.wood_ring,Wooden Ring
+cosmetic.frame.leaf_ring,Leaf Ring
+cosmetic.frame.flower_wreath,Flower Wreath
+cosmetic.frame.stone_ring,Stone Ring
+cosmetic.frame.golden_ribbon,Golden Ribbon
 common.ok,OK
 common.cancel,Cancel
 profile.title,Profile
@@ -271,7 +286,7 @@ profile.name_change,Change name
 profile.name_hint,"Up to 16 letters, digits and spaces"
 profile.name_prompt,Your name
 profile.name_empty,Type a name with letters or digits
-profile.items_locked,Frames and badges open at level {0}
+profile.badges_locked,Badges open at level {0}
 profile.no_frames,Frames come from milestones and the Store
 profile.no_badges,Badges come from milestones and the Store
 profile.bought,New avatar!

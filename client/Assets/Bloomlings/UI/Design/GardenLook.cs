@@ -296,8 +296,34 @@ namespace Bloomlings.Client.UI.Design
 
         // ---- Icons (spec 005 contracts/look.md §3.4, §3.8) ----
 
-        /// <summary>The speed pill's glyph: two brown chevrons (▶▶).</summary>
+        /// <summary>
+        /// The outline of the round and squircle icon buttons, the speed pill and the booster tiles, as a share of their
+        /// shorter side (the owner, 2026-10-06: thicker, so the round buttons stand out; it was 2% on cream sets and 2.4%
+        /// on colored ones).
+        /// </summary>
+        public const float IconLineCream = 0.045f;
+
+        public const float IconLineColored = 0.04f;
+
+        /// <summary>The speed pill's glyph while fast forward is off: three brown chevrons (▶▶▶), no number.</summary>
         public static IconPart FastGlyph { get; } = new IconPart("ui.fast", C.InkBrown);
+
+        /// <summary>
+        /// The speed pill's glyph while fast forward is on (the owner, 2026-10-06: it lights up as switched on): the
+        /// chevrons in the green of a switched-on toggle, inside a <c>garden.glow</c> halo (<see cref="SpeedGlowAlpha"/>).
+        /// </summary>
+        public static IconPart FastGlyphOn { get; } = new IconPart("ui.fast", C.ButtonPrimary);
+
+        /// <summary>The lit speed pill's halo: <see cref="SpeedGlowLayers"/> rings of <c>garden.glow</c> sharing this alpha.</summary>
+        public const float SpeedGlowAlpha = 0.85f;
+
+        public const int SpeedGlowLayers = 4;
+
+        /// <summary>How far each halo ring grows past the pill's face, as a share of its height.</summary>
+        public const float SpeedGlowGrow = 0.045f;
+
+        /// <summary>The speed pill's glyph box: a square this share of the pill's height, centered (no label beside it).</summary>
+        public const float SpeedGlyphShare = 0.74f;
 
         /// <summary>The back button's glyph: a brown left arrow.</summary>
         public static IconPart BackGlyph { get; } = new IconPart("ui.back", C.InkBrown);
@@ -441,30 +467,6 @@ namespace Bloomlings.Client.UI.Design
             float small = big * 0.9f;
             var topLeft = new Box(button.Left - (h * 0.24f), button.Top - (h * 0.28f), button.Left - (h * 0.24f) + big, button.Top - (h * 0.28f) + big);
             var bottomRight = new Box(button.Right + (h * 0.2f) - small, button.Bottom + (h * 0.24f) - small, button.Right + (h * 0.2f), button.Bottom + (h * 0.24f));
-            return (topLeft, bottomRight);
-        }
-
-        /// <summary>
-        /// The decoration's size on Home's Petals pill (the owner's request of 2026-10-04), as a share of the pill's height:
-        /// the pill is about a third as tall as Play, so its clusters are larger for their height than a main button's
-        /// (<see cref="DesignTokens.Garden.DecorationSize"/>) and the flower still reads.
-        /// </summary>
-        public const float PillDecorationShare = 1.2f;
-
-        /// <summary>
-        /// Where the leaves and flower go on Home's Petals pill, <paramref name="span"/> the pill with its "+"
-        /// (<see cref="PetalsPillParts.Span"/>): the main buttons' two clusters (<see cref="DecorationBoxes"/>), the top-left
-        /// one <see cref="PillDecorationShare"/> of the height and the bottom-right one 0.9 of it, placed so the flower sits
-        /// on the pill's rounded left end at its top and on the "+"'s edge at its bottom right, the leaves and the twig
-        /// reaching out beyond them. Each box is square.
-        /// </summary>
-        public static (Box TopLeft, Box BottomRight) PillDecorationBoxes(Box span)
-        {
-            float h = span.Height;
-            float big = h * PillDecorationShare;
-            float small = big * 0.9f;
-            var topLeft = new Box(span.Left - (h * 0.84f), span.Top - (h * 0.53f), span.Left - (h * 0.84f) + big, span.Top - (h * 0.53f) + big);
-            var bottomRight = new Box(span.Right - (h * 0.38f), span.Bottom - (h * 0.61f), span.Right - (h * 0.38f) + small, span.Bottom - (h * 0.61f) + small);
             return (topLeft, bottomRight);
         }
 

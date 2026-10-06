@@ -148,6 +148,11 @@ Numbers are grouped with a no-break space every three digits: "1 240", "12 345".
 | `size.win_picture_height` | 520 | the finished picture on the win card (spec 005 §4.4; `Size.WinPictureHeight`) |
 | `size.reward_pill_height` | 104 | the reward pill of the win and milestone cards (spec 005 §4.4; `Size.RewardPillHeight`) |
 
+> **Touch (spec 005 FR-041, 2026-10-06; `DesignTokens.Touch`)**: two distances in dp (160 to the inch), which each
+> host turns into its pixels from its screen's density (`Touch.Pixels`; a host that cannot tell takes a phone 360 dp
+> wide): `touch.slop` = 10 dp (on a page that scrolls, a finger moving farther drags and never taps; Unity's
+> `EventSystem.pixelDragThreshold`) and `touch.swipe` = 40 dp (a drag this long turns a paged list's page).
+>
 > **Added by specs 003 and 005**: PLAY (`Size.PlayWidth` × `PlayHeight`, 540 × 204), the card buttons
 > (`CardPrimaryWidth` × `CardPrimaryHeight`, 620 × 140; `CardSecondaryWidth` 580) and the booster tile (152 × 156) come
 > from spec 003; the last three sizes above from spec 005. The material and UI colors of spec 005

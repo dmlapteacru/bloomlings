@@ -1,7 +1,10 @@
 using System;
+using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Boards;
 using Bloomlings.Core.Definitions;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
+using T = Bloomlings.Client.UI.Design.DesignTokens.Type;
 
 namespace Bloomlings.Playtest.Design
 {
@@ -61,6 +64,64 @@ namespace Bloomlings.Playtest.Design
             preview.Draw(list, t);
             ClearPainter.DrawItems(p, list.Items, FxLayer.Board, ox, oy, cell);
             ClearPainter.DrawItems(p, list.Items, FxLayer.Over, ox, oy, cell);
+        }
+
+        /// <summary>
+        /// A clearing style card's action button (<c>ui.button.clearing</c>, <see cref="ClearingCard.Button"/>; spec 005 FR-038
+        /// as amended on 2026-10-06; Unity's <c>UiKit.ClearingButton</c>): <see cref="ClearingAction.Buy"/> the glossy green
+        /// face on its plate with the lotus and <paramref name="price"/> in white, no "Buy" word (<see cref="ClearingCard.PriceParts"/>);
+        /// <see cref="ClearingAction.Choose"/> the cream face with "Choose" in brown; <see cref="ClearingAction.Chosen"/> a
+        /// flat cream plate in a green outline with a green check and "Chosen". It lies inside its card's touch box and takes
+        /// the card's tap (the whole card is the button); a <paramref name="pressable"/> face sinks under the finger as every
+        /// garden button's. <see cref="ClearingAction.Locked"/> draws nothing (the card keeps its cost pill).
+        /// </summary>
+        public static void ClearingButton(IPainter p, Box box, ClearingAction action, int price, bool pressable)
+        {
+            if (action == ClearingAction.Locked)
+            {
+                return;
+            }
+
+            p.Mark("ui.button.clearing");
+            float h = box.Height;
+            if (action == ClearingAction.Chosen)
+            {
+                ColorSet green = GardenLook.Green;
+                float line = Math.Max(p.U(2f), h * 0.05f);
+                SoftShadow(p, box, h / 2f, 0.14f, 0.08f);
+                p.FillRoundGradient(box, h / 2f, C.CreamTop, C.CreamFace);
+                p.StrokeRound(box.Inset(line / 2f), (h / 2f) - (line / 2f), line, green.Face);
+                float size = ClearingCard.LabelSize(box);
+                string chosen = PlaytestText.T("clearing.chosen");
+                float text = Math.Min(p.MeasureText(chosen, T.ButtonSecondary, size / p.U(T.ButtonSecondary.Size)), box.Width - (h * 1.4f));
+                float check = h * 0.56f;
+                float start = box.CenterX - ((check + (h * 0.12f) + text) / 2f);
+                p.Shape("ui.check", Box.FromCenter(start + (check / 2f), box.CenterY, check, check), green.Face);
+                p.Text(chosen, start + check + (h * 0.12f) + (text / 2f), box.CenterY, T.ButtonSecondary, green.Line, text, size / p.U(T.ButtonSecondary.Size), TextLook.Plain(green.Line));
+                return;
+            }
+
+            bool buy = action == ClearingAction.Buy;
+            ColorSet set = buy ? GardenLook.Green : GardenLook.Cream;
+            p.Mark(buy ? "ui.button.primary" : "ui.button.secondary");
+            float depth = Press(p, box, pressable);
+            Squash(p, box, depth);
+            Box face = GardenButton(p, box, set, h / 2f, depth, gloss: buy);
+            float scale = ClearingCard.LabelSize(box) / p.U(T.ButtonSecondary.Size);
+            TextLook look = buy ? TextLook.OnColor(set) : GardenLook.LabelOn(set);
+            if (buy)
+            {
+                string amount = NumberText.Group(price);
+                (Box Lotus, Box Price, float Scale) parts = ClearingCard.PriceParts(box, p.MeasureText(amount, T.ButtonSecondary, scale));
+                Petal(p, parts.Lotus);
+                p.Text(amount, parts.Price.CenterX, parts.Price.CenterY, T.ButtonSecondary, C.TextOnColor, parts.Price.Width + 1f, scale * parts.Scale, look);
+            }
+            else
+            {
+                p.Text(PlaytestText.T("clearing.choose"), face.CenterX, face.CenterY, T.ButtonSecondary, C.InkBrown, face.Width * 0.86f, scale, look);
+            }
+
+            p.PopTransform();
         }
     }
 }

@@ -91,6 +91,9 @@ namespace Bloomlings.Client.UI.Screens
             // The parchment panel (a card's radius), the rows' area, the offline line and Refresh.
             screen._panel = UiKit.Paper("Panel", root, b => Mathf.Max(UiKit.Units(DesignTokens.Radius.CardMin), b.Width * DesignTokens.Radius.Card), DesignTokens.Garden.FrameWidth, DesignTokens.Garden.FrameDepthCard, raycast: false);
             screen._list = UiFactory.CreateRect("Rows", root);
+
+            // The ranks are a list that scrolls: a drag on the page never taps (spec 005 FR-041).
+            UiKit.Scrolls(screen._root);
             screen._status = UiKit.Label("Status", root, string.Empty, T.Caption, UiTheme.Of(C.InkBrownSoft));
             Button refresh = UiKit.SecondaryButton("Refresh", root, Loc.T("leaderboard.refresh"), onRefresh, "ui.restart");
             screen._refresh = (RectTransform)refresh.transform;

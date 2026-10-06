@@ -74,7 +74,7 @@
     }
   },
   "description": "The tray buries the column upside down; Shuffle lays the remaining pods out in a winnable order, the same on every run (FR-044, R10).",
-  "expectedEventsDigest": "ace98b1c24beb382",
+  "expectedEventsDigest": "c9e941980faa9e2c",
   "expectedStateHash": "1d7eb9c7c06d5207",
   "expectedStatus": "won",
   "name": "boost-shuffle",

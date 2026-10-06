@@ -41,7 +41,7 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform _levelPill = null!;
         private GardenButton _levelFace = null!;
         private TextMeshProUGUI _level = null!;
-        private TextMeshProUGUI _speedLabel = null!;
+        private Action<bool> _lightSpeed = null!;
         private GardenButton _badge = null!;
         private TextMeshProUGUI _badgeLabel = null!;
         private TrayPanelView _tray = null!;
@@ -75,7 +75,8 @@ namespace Bloomlings.Client.UI.Screens
         /// <summary>The regions the screen was last laid out with (screen pixels, y down).</summary>
         public ReferenceGameplayRegions? Regions => _regions;
 
-        public bool DoubleSpeed { get; private set; }
+        /// <summary>Whether the player turned fast forward on (FR-069 as amended on 2026-10-06: 3×, ▶▶▶ lit).</summary>
+        public bool FastForward { get; private set; }
 
         private bool _autoSpeed;
 
@@ -89,14 +90,13 @@ namespace Bloomlings.Client.UI.Screens
             hud._level = UiKit.LevelPill("Level", hud._topBar, out hud._levelFace);
             hud._level.text = Loc.F("common.level", 1);
             hud._levelPill = (RectTransform)hud._levelFace.transform;
-            Button speed = UiKit.SpeedPill("Speed", hud._topBar, "1×", () =>
+            Button speed = UiKit.SpeedPill("Speed", hud._topBar, () =>
             {
-                hud.DoubleSpeed = !hud.DoubleSpeed;
+                hud.FastForward = !hud.FastForward;
                 hud.ShowSpeed();
-                onSpeedChanged(hud.DoubleSpeed);
-            });
+                onSpeedChanged(hud.FastForward);
+            }, out hud._lightSpeed);
             hud._speed = (RectTransform)speed.transform;
-            hud._speedLabel = speed.GetComponentInChildren<TextMeshProUGUI>();
 
             // The badge sits in a holder over the whole screen that takes no taps.
             RectTransform badgeHolder = UiFactory.Stretch(UiFactory.CreateRect("BadgeHolder", root));
@@ -325,16 +325,16 @@ namespace Bloomlings.Client.UI.Screens
             }
         }
 
-        /// <summary>Sets the 2× toggle without raising its callback (the saved default, FR-069).</summary>
-        public void SetDoubleSpeed(bool on)
+        /// <summary>Sets fast forward without raising its callback (the saved default, FR-069).</summary>
+        public void SetFastForward(bool on)
         {
-            DoubleSpeed = on;
+            FastForward = on;
             ShowSpeed();
         }
 
         /// <summary>
-        /// Whether the animation plays at 2× on its own (no pod can be tapped, GameplayController.RefreshSpeed): the pill
-        /// then shows 2× whatever the toggle; the toggle itself stays as the player set it.
+        /// Whether the animation plays fast on its own (no pod can be tapped, GameplayController.RefreshSpeed): the pill is
+        /// then lit whatever the toggle; the toggle itself stays as the player set it.
         /// </summary>
         public void ShowAutoSpeed(bool on)
         {
@@ -342,7 +342,7 @@ namespace Bloomlings.Client.UI.Screens
             ShowSpeed();
         }
 
-        private void ShowSpeed() => _speedLabel.text = DoubleSpeed || _autoSpeed ? "2×" : "1×";
+        private void ShowSpeed() => _lightSpeed(FastForward || _autoSpeed);
 
         public void SetLevel(int levelNumber) => _level.text = Loc.F("common.level", NumberText.Group(levelNumber));
 

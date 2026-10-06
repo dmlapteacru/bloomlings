@@ -61,7 +61,7 @@ namespace UnityEngine
     public sealed class TooltipAttribute : Attribute { public TooltipAttribute(string t) { } }
     public sealed class SerializeField : Attribute { }
     public sealed class DefaultExecutionOrder : Attribute { public DefaultExecutionOrder(int order) { } }
-    public static class Screen { public static int width => 1080; public static int height => 2340; public static Rect safeArea => new Rect(0, 0, 1080, 2340); }
+    public static class Screen { public static int width => 1080; public static int height => 2340; public static float dpi => 420f; public static Rect safeArea => new Rect(0, 0, 1080, 2340); }
     public static class Time { public static float unscaledDeltaTime => 0; public static float unscaledTime => 0; }
     public static class ColorUtility { public static bool TryParseHtmlString(string s, out Color c) { c = default; return true; } }
     public class GameObject : Object { public GameObject(string name, params Type[] components) { } public string tag { get; set; } = ""; public T AddComponent<T>() where T : Component => null!; public T GetComponent<T>() => default!; public T GetComponentInChildren<T>() => default!; public Transform transform => null!; public void SetActive(bool v) { } public bool activeSelf => true; public bool activeInHierarchy => true; }
@@ -102,7 +102,7 @@ namespace UnityEngine.UI
     public sealed class CanvasScaler : Behaviour { public enum ScaleMode { ScaleWithScreenSize } public ScaleMode uiScaleMode; public Vector2 referenceResolution; public float matchWidthOrHeight; }
     public sealed class GraphicRaycaster : Behaviour { }
 }
-namespace UnityEngine.EventSystems { public sealed class EventSystem : Behaviour { public static EventSystem? current => null; } public sealed class StandaloneInputModule : Behaviour { } public class PointerEventData { } public interface IPointerDownHandler { void OnPointerDown(PointerEventData e); } public interface IPointerUpHandler { void OnPointerUp(PointerEventData e); } public interface IPointerExitHandler { void OnPointerExit(PointerEventData e); } }
+namespace UnityEngine.EventSystems { public sealed class EventSystem : Behaviour { public static EventSystem? current => null; public int pixelDragThreshold { get; set; } = 10; } public sealed class StandaloneInputModule : Behaviour { } public class PointerEventData { public Vector2 position { get; set; } public Vector2 pressPosition { get; set; } } public interface IPointerDownHandler { void OnPointerDown(PointerEventData e); } public interface IPointerUpHandler { void OnPointerUp(PointerEventData e); } public interface IPointerExitHandler { void OnPointerExit(PointerEventData e); } public interface IBeginDragHandler { void OnBeginDrag(PointerEventData e); } public interface IDragHandler { void OnDrag(PointerEventData e); } public interface IEndDragHandler { void OnEndDrag(PointerEventData e); } }
 namespace TMPro
 {
     public enum TextAlignmentOptions { Center, Left, Right }
@@ -197,6 +197,21 @@ namespace UnityEditor
         public static ScriptingImplementation GetScriptingBackend(UnityEditor.Build.NamedBuildTarget target) => default;
         public static void SetScriptingBackend(UnityEditor.Build.NamedBuildTarget target, ScriptingImplementation backend) { }
         public static void SetIl2CppCompilerConfiguration(UnityEditor.Build.NamedBuildTarget target, Il2CppCompilerConfiguration configuration) { }
+        public static void SetIcons(UnityEditor.Build.NamedBuildTarget target, UnityEngine.Texture2D[] icons, IconKind kind) { }
+        public static PlatformIcon[] GetPlatformIcons(UnityEditor.Build.NamedBuildTarget target, PlatformIconKind kind) => Array.Empty<PlatformIcon>();
+        public static void SetPlatformIcons(UnityEditor.Build.NamedBuildTarget target, PlatformIconKind kind, PlatformIcon[] icons) { }
+    }
+    public enum IconKind { Any = -1, Application = 0 }
+    public class PlatformIconKind { }
+    public sealed class PlatformIcon { public int layerCount { get; } public void SetTextures(params UnityEngine.Texture2D[] textures) { } }
+}
+namespace UnityEditor.Android
+{
+    public static class AndroidPlatformIconKind
+    {
+        public static UnityEditor.PlatformIconKind Adaptive => new UnityEditor.PlatformIconKind();
+        public static UnityEditor.PlatformIconKind Round => new UnityEditor.PlatformIconKind();
+        public static UnityEditor.PlatformIconKind Legacy => new UnityEditor.PlatformIconKind();
     }
 }
 namespace UnityEditor.Build.Reporting
@@ -211,7 +226,7 @@ namespace UnityEditor.Build
     public interface IPreprocessBuildWithReport : IOrderedCallback { void OnPreprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public interface IPostprocessBuildWithReport : IOrderedCallback { void OnPostprocessBuild(UnityEditor.Build.Reporting.BuildReport report); }
     public sealed class BuildFailedException : Exception { public BuildFailedException(string message) : base(message) { } }
-    public readonly struct NamedBuildTarget { public static NamedBuildTarget Android => default; public static NamedBuildTarget FromBuildTargetGroup(UnityEditor.BuildTargetGroup group) => default; }
+    public readonly struct NamedBuildTarget { public static NamedBuildTarget Android => default; public static NamedBuildTarget Unknown => default; public static NamedBuildTarget FromBuildTargetGroup(UnityEditor.BuildTargetGroup group) => default; }
 }
 namespace UnityEditor.SceneManagement
 {

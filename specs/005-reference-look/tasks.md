@@ -636,3 +636,111 @@ and contracts/look.md §3.6, §6.10.
   copies, spec 001's data model); `TheRemovedPetalsSwitch_IsNoLongerWritten_ButOlderSavesStillLoad`.
 - [X] T131 Pictures: `home-petals.png`, the slot `bg.home.petals` and its notice removed; `tools/heroanim/layers.mjs` no
   longer reads `05_home_petals_overlay.png` (`layers.json`, `HomeLayersData.cs`; `check.mjs` passes).
+- [X] T132 Both builds: the clearing 1.5 times as fast (the owner, 2026-10-06: "the base clearing speed must be 1.5
+  times faster … the speed of each element, of clearing each cell"): `ClearStyles.SpeedUp` divides every style's legs,
+  `PerCell`, `Base` and `LineGap` (0.73 s a cell plus 0.93 s, the line 0.28 s apart), so each tile's trip and the whole
+  board's clearing take two thirds of the time with the same look and spacing; the Store's previews follow. Spec 001's
+  Q&A and research R4, FR-038's Q&A and look.md §6.12 amended; `EveryStyle_TakesTheSameTimeForATile`.
+- [X] T133 Both builds: fast forward at 3× shown as ▶▶▶ (the owner, 2026-10-06: "the 2x button should really be 3x, but
+  I don't want to show 3x: maybe just >>>, and when the player turns it on it lights up as switched on, and then
+  switches off"): `PlaySpeed.Fast` (3×) for the player's choice and while no pod can be tapped; `ui.fast` redrawn as three
+  notched chevrons; `Kit.SpeedPill(p, box, on, action)` and `UiKit.SpeedPill(…, out setOn)` show no number and light up
+  while on (`garden.glow` rings, green chevrons, `GardenLook.FastGlyphOn`); Settings' row reads "Fast forward: On/Off";
+  the save keeps `speed2x`. Spec 001 FR-069 (with its Q&A), FR-024, FR-068, SC-005, quickstart, plan and data model,
+  look.md §3.3, the READMEs and CLAUDE.md amended; the asset inventory regenerated.
+- [X] T134 Core: Shuffle looks shuffled (the owner, 2026-10-06: "I press it and they don't shuffle"; spec 001 FR-044 as
+  amended, research R10 step 6): `ShufflePlanner` seeds the relaxed search's unit order and each row's stacks, deals up
+  to four lines before the seeded candidates, and takes a verified arrangement only if `LooksShuffled` (at most half
+  the shown columns and half the exposed pods look as before), else the first verified one; the golden
+  `boost-shuffle` regenerated (its final state unchanged); `ShuffleLookTests`. Both builds share the core.
+- [X] T135 Both builds: thicker outlines on the round and squircle icon buttons, the speed pill and the booster tiles
+  (the owner, 2026-10-06: "the outline around the round buttons must be bigger, so they show"):
+  `GardenLook.IconLineCream` 4.5% (was 2%) and `IconLineColored` 4% (was 2.4%) in `Kit.IconFace` and `UiKit.IconFace`;
+  look.md §3.3 amended.
+- [X] T136 Both builds: taller card buttons (the owner, 2026-10-06: the pause popup's buttons "must be higher, now too
+  narrow"): `DesignTokens.Size.CardPrimaryHeight` 160 (was 140) and the new `CardSecondaryHeight` 136 (was the 110 of
+  `SecondaryHeight`) in `ScreenLayout.CardButton`, with the pause, Daily Reward and Remove Ads cards' content heights in
+  both builds; spec 003's garden tokens amended. Frames 4, 11 and 32 checked at 16:9 and 19.5:9.
+
+## The owner's profile requests: the avatar fills its circle, five free frames (2026-10-06, FR-037)
+
+- [X] T150 Kit: `AvatarLook` (the disc `0.94` of the avatar at its top on the cream lip, the picture filling it inside a
+  thin `cream.line` ring of `0.03`, the press sinking it into the lip, the frame, the plain ring, the badge and the
+  marker over it; the owner, 2026-10-06: "the icon in the profile must be stretched over the whole circle").
+- [X] T151 Both builds: the avatar's picture fills its whole disc with no cream gap on Home, the profile page, the edit
+  card and the Wardrobe's profile tab (the playtest's `Kit.Avatar` and `Kit.AvatarPicture`, `IPainter.PushClipRound`;
+  Unity's `ProfileAvatar`, a `Mask` with the circle sprite, no more `UiKit.IconFace` cushion; `OwnerPictures`'
+  `AvatarPicture` and its 0.86 share removed); the player's leaderboard row already filled its portrait and keeps it.
+- [X] T152 Data: the catalog's `free` items (`CosmeticItem.Free`, `CosmeticCatalog.FreeOf`, the readability rules: free
+  items are profile items, neither given nor sold) and five free frames in `CosmeticCatalog.json` (Wooden Ring, Leaf
+  Ring, Flower Wreath, Stone Ring, Golden Ribbon; the owner: "make a couple of different frames for the user, they can
+  be free, 5 of them"); `WardrobeService.Owns`, `Owned` and `Show` take them as owned with no save entry, `Shown`
+  shows a chosen free frame before the Wardrobe opens and never defaults to one; `ProfileEditor.Owned` lists them from
+  Level 1 (first, once the Wardrobe is open), `IsLocked` keeps only the Badge tab locked, `Confirm` keeps a picked free
+  frame. No save migration.
+- [X] T153 Kit: `ProfileFrames` (the styles, their catalog shapes and slots) and `UiRaster.ProfileFrame`: five drawn
+  frames in the reference look (honey wood with brass nails; a vine of leaves; twigs, leaves and pink and white
+  blossoms; sandy stone blocks with moss; a gold satin band with a star and a pink bow), each over the disc's edge with
+  a soft shadow; the slots `cosmetic.frame.wood_ring`, `leaf_ring`, `flower_wreath`, `stone_ring`, `golden_ribbon`.
+- [X] T154 Both builds: the edit card's Frame tab lists the free frames on `ProfileEditRegions.CellItemAvatar`, the
+  picked one on the green disc (`PickedShare`) with the check (the playtest gains the disc Unity had); the Badge tab's
+  note is `profile.badges_locked` ("Badges open at level N", replacing `profile.items_locked`); the frames' names in
+  `Strings_en.csv`; Unity's Wardrobe profile tab shows a drawn frame's picture on its card.
+- [X] T155 Tests: `TheFreeFrames_AreOwnedFromLevelOne_AndCanBePickedAndShown`,
+  `CatalogRules_FreeItemsAreProfileItems_NeitherGivenNorSold`, `TheProfileFrames_AreRingsOverTheDiscsEdge_EachItsOwn`,
+  `TheAvatarsPicture_FillsItsDisc_AndTheFrameLiesOverItsEdge`; the editor, Wardrobe and edit-card layout tests updated.
+- [X] T156 Preview: frame 39 picks the Flower Wreath at Level 15 (the Wardrobe closed) and shows it on the page, frame
+  41 lists the five free frames before the owned ones and picks the Leaf Ring; the asset inventory's rows for the new
+  slots.
+- [X] T157 Docs: spec FR-037 amended (2026-10-06), contracts/look.md §6.11 (the avatar and the five frames' recipes),
+  §6.4's Avatar row and §5's slots, CLAUDE.md's profile line.
+- [ ] T158 Unity Editor: on a device, check the avatar's mask and ring on Home, the profile page, the edit card and the
+  Wardrobe's profile tab, and each free frame's picture in the edit card and on Home before the Wardrobe opens.
+
+## The owner's purchases, the Animations tab and scrolling (2026-10-06, FR-038, FR-040, FR-041)
+
+- [X] T140 Kit: `PurchaseOffer` (the item, its Petals or the store's price) and `PurchaseConfirmation` (nothing is spent
+  until the confirm; a cancel buys nothing; the confirm runs the purchase once), the card's layout
+  (`ScreenLayout.PurchaseConfirm`, `PurchaseConfirmRegions`), the slot `ui.card.purchase`, the strings `purchase.*`;
+  `PurchaseConfirmTests`.
+- [X] T141 Kit: `TouchGesture` (on a page that scrolls, past `touch.slop` a touch drags and never taps; a drag past
+  `touch.swipe` turns the page, `PageStep`) and the tokens `DesignTokens.Touch` in dp (`Pixels` from a host's dpi);
+  `PurchaseConfirmTests`.
+- [X] T142 Kit and meta: `ClearingCard` (the Animations card's button box and the Buy button's parts),
+  `ClearingService.ActionOf` (Buy, Choose, Chosen, Locked) and `Check` (what a tap would do, spending nothing), the slot
+  `ui.button.clearing`, the strings `clearing.buy`, `clearing.choose`, `clearing.chosen`; `ClearingServiceTests`.
+- [X] T143 Playtest: every purchase asks first (`DesignApp.ConfirmPurchase`, `Overlay.Purchase`, `MetaCards.Purchase`,
+  `Kit.PurchaseCard`): the Store's booster rows, cosmetics and clearing styles, the Wardrobe's items for sale, a level's
+  booster without charges (`LevelScreen.UseBooster`, a cancel brings the jam card back) and the profile's avatars
+  (`DesignApp.ConfirmProfileEdit`); short Petals say so without asking; the system back cancels.
+- [X] T144 Playtest: tap or scroll (`PainterBase.TouchDown`, `TouchMove`, `TouchUp`, `TouchCancel` on `TouchGesture`;
+  `IPainter.Scroll` registered by the Store's lists, the Wardrobe's cards, the Collection's grid, the Leaderboard's
+  ranks and the profile's edit card's grid; a card's scrim covers them); `DesignView` passes the screen's density.
+- [X] T145 Playtest: the Animations tab's previews loop all the time (`DesignApp.StoreMoving` keeps the host drawing),
+  each card's button (`Kit.ClearingButton`: Buy with the price, Choose, Chosen), the padlock kept before L40; preview
+  frame 49 (the confirmation over the tab, a level's booster), frame 26 (drags over the cosmetics), frame 40 (the avatar
+  confirmed).
+- [X] T146 Unity: `UiKit.PurchaseCard` (`PurchaseCardView`) on every purchase: the Store page's rows (Petals and real
+  money), cosmetics and clearing styles, the Remove Ads card (before the store's purchase, whose platform sheet
+  follows), `GameplayController.UseBooster` (a charge bought with Petals) and the profile's edit card's avatar.
+- [X] T147 Unity: `UiKit.ApplyTouchSlop` (the EventSystem's `pixelDragThreshold` at `touch.slop` from `Screen.dpi`),
+  `SwipePager` (`UiKit.Scrolls`) on the Store, Wardrobe, Collection, Leaderboard and profile pages (a drag cancels the
+  button's click, a swipe turns a paged list), `UiKit.ClearingButton` on the Animations cards; `UnityStubs` extended.
+- [X] T148 Docs: FR-038 as amended, FR-040, FR-041, SC-012 and the session's Q&A here; spec 001's Q&A, FR-051 and FR-070
+  as amended; contracts/look.md §5, §6.12, §6.14 and §6.15; spec 002's design-tokens contract (`touch.*`) and the asset
+  inventory's two rows (by hand).
+- [ ] T149 Unity Editor and a device: the confirmation over the Store, the Remove Ads card, a level's jam card and the
+  profile's edit card; the double confirmation with the platform's purchase sheet; the drag threshold on a high-dpi
+  phone (no tap after a drag, a swipe turns the page); the Animations cards' buttons and their masks.
+- [X] T137 The owner's app icon (pictures.md C3; the owner, 2026-10-06: "make a launch icon out of this"):
+  `tools/appicon` cuts `tools/appicon/source/app-icon.png` into the Unity textures `Art/Brand/AppIcon/` (the full-bleed
+  1024 default icon; Android's adaptive background and transparent foreground, round and legacy icons, applied by
+  `CiBuild.ApplyIcons`) and the playtest's `playtest/icon/` mipmaps (linked by `Playtest.Shared.props`; `MainActivity`'s
+  and the application's `Icon`/`RoundIcon`), so both APKs show it; notices, the owner pictures' record, CLAUDE.md.
+- [ ] T138 Unity Editor: after `CiBuild.ApplyIcons`, check Player Settings' icons (adaptive layers, round, legacy) and the
+  launcher icon on a device.
+- [X] T139 Both builds (the owner, 2026-10-06): the Animations tab's buy buttons show only the lotus and the price, no
+  "Buy" word (`ClearingCard.PriceParts`, `clearing.buy` removed), and every clearing card's button is 1.5 times as tall
+  (`ClearingCard.ButtonShare` 0.3, was 0.2); the Petals pill has no decoration anywhere (Home's leaves and flower,
+  `GardenLook.PillDecorationBoxes` and the pills' `decorate` removed). look.md §6.12 and Home's table amended; frames
+  2, 3, 42 and 43 checked.

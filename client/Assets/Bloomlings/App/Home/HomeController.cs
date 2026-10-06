@@ -275,6 +275,8 @@ namespace Bloomlings.Client.App.Home
                 () => StoreFrom("profile"),
                 NavLook,
                 Refresh);
+            // The profile page and its edit card's grid of avatars: a drag on them never taps (spec 005 FR-041).
+            UiKit.Scrolls(profileScreen.gameObject);
             board = LeaderboardScreen.Create(root, () => RunInBackground(leaderboard.Refresh()), () => economy.Petals, () => StoreFrom("leaderboard"), Navigate, NavLook);
             showCollection = () =>
             {

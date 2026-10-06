@@ -102,14 +102,19 @@ namespace Bloomlings.Playtest.Design
                 });
             }
 
+            Action? previous = page > 0 ? () => app.CollectionPage = page - 1 : (Action?)null;
+            Action? next = page < pages - 1 ? () => app.CollectionPage = page + 1 : (Action?)null;
             if (pages > 1)
             {
                 Box line = r.Footer;
                 float room = line.Height + p.U(12f);
                 p.Text(PlaytestText.F("common.page", page + 1, pages), line.CenterX, line.CenterY, T.Caption, C.InkBrownSoft, line.Width - (2f * room));
-                Kit.ArrowButton(p, r.PagePrevious.CenterX, r.PagePrevious.CenterY, r.PagePrevious.Width, next: false, page > 0 ? () => app.CollectionPage = page - 1 : (Action?)null);
-                Kit.ArrowButton(p, r.PageNext.CenterX, r.PageNext.CenterY, r.PageNext.Width, next: true, page < pages - 1 ? () => app.CollectionPage = page + 1 : (Action?)null);
+                Kit.ArrowButton(p, r.PagePrevious.CenterX, r.PagePrevious.CenterY, r.PagePrevious.Width, next: false, previous);
+                Kit.ArrowButton(p, r.PageNext.CenterX, r.PageNext.CenterY, r.PageNext.Width, next: true, next);
             }
+
+            // A drag over the pictures never opens one (spec 005 FR-041); a swipe turns their page.
+            p.Scroll(r.Grid, previous, next);
         }
 
         /// <summary>

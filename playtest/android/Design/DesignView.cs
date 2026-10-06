@@ -33,6 +33,9 @@ namespace Bloomlings.Playtest.Droid
             sound.Enabled = _app.Meta.Save.Settings.Sfx;
             // A lawn rendered on a worker thread asks for the frame that shows it.
             _painter.Redraw = PostInvalidate;
+
+            // The screen's density turns touch.slop and touch.swipe (dp) into pixels (160 dp to the inch).
+            _painter.Dpi = (context.Resources?.DisplayMetrics?.Density ?? 0f) * 160f;
         }
 
         public override WindowInsets OnApplyWindowInsets(WindowInsets? insets)
@@ -109,19 +112,22 @@ namespace Bloomlings.Playtest.Droid
                 return false;
             }
 
+            // Tap or scroll (spec 005 FR-041, TouchGesture): on a page that scrolls a finger moving past touch.slop drags it
+            // and never taps, a long drag turns the page; anywhere else a tap fires where the finger lifts, as before.
             _painter.Now = SystemClock.UptimeMillis() / 1000f;
-            switch (e.Action)
+            switch (e.ActionMasked)
             {
                 case MotionEventActions.Down:
+                    _painter.TouchDown(e.GetX(), e.GetY());
+                    break;
                 case MotionEventActions.Move:
-                    _painter.Finger = (e.GetX(), e.GetY());
+                    _painter.TouchMove(e.GetX(), e.GetY());
                     break;
                 case MotionEventActions.Up:
-                    _painter.Finger = null;
-                    _painter.Dispatch(e.GetX(), e.GetY());
+                    _painter.TouchUp(e.GetX(), e.GetY());
                     break;
                 case MotionEventActions.Cancel:
-                    _painter.Finger = null;
+                    _painter.TouchCancel();
                     break;
             }
 

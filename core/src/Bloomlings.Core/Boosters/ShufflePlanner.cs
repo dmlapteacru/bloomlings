@@ -12,11 +12,17 @@ namespace Bloomlings.Core.Boosters
     /// slots are untouched, locks stay on their pods, and a connected group is laid out at one depth in different
     /// stacks. The plan:
     /// <list type="number">
-    /// <item>solve the relaxed problem, in which any tray pod (or group) may be committed at any time;</item>
-    /// <item>lay its commit order out round-robin across the existing stacks, so the exposure order is that order;</item>
-    /// <item>verify the arrangement with the normal search;</item>
-    /// <item>otherwise try seeded candidates, seeded from (level seed, content version, shuffle uses, state hash);</item>
-    /// <item>as a last resort, put the pods that can progress now on top.</item>
+    /// <item>solve the relaxed problem, in which any tray pod (or group) may be committed at any time, trying the units
+    /// of each step in a seeded order, so each line starts somewhere else;</item>
+    /// <item>lay its commit order out row by row across the existing stacks, each row's stacks in a seeded order, so the
+    /// exposure order is that order;</item>
+    /// <item>verify the arrangement with the normal search, and keep it only if it looks shuffled
+    /// (<see cref="LooksShuffled"/>): the owner, 2026-10-06, "I press it and they don't shuffle", when the first line
+    /// dealt the tray back as it was, its columns only moved over;</item>
+    /// <item>otherwise try seeded candidates; everything is seeded from (level seed, content version, shuffle uses, state
+    /// hash);</item>
+    /// <item>failing that, the first verified arrangement even if it looks alike, and as a last resort the pods that can
+    /// progress now on top.</item>
     /// </list>
     /// Everything shares one node budget, <see cref="SessionOptions.ShuffleNodeBudget"/>, which comes from the content
     /// manifest, so every device gets the same result. If the relaxed problem has a solution, the result is winnable.
@@ -24,6 +30,12 @@ namespace Bloomlings.Core.Boosters
     internal static class ShufflePlanner
     {
         private const int SeededCandidates = 8;
+
+        /// <summary>How many relaxed lines are dealt before the seeded candidates.</summary>
+        private const int RelaxedLines = 4;
+
+        /// <summary>The rows of each column the tray shows (spec 005: three, four on the tallest screens).</summary>
+        private const int ShownRows = 3;
 
         /// <summary>
         /// Two or more tray pods are needed. On a Jammed board no order of the tray can free a slot, so Shuffle is
@@ -60,39 +72,157 @@ namespace Bloomlings.Core.Boosters
             int stacks = state.Tray.StackCount;
             var budget = new int[] { Math.Max(1, state.Options.ShuffleNodeBudget) };
             List<int[]> units = Units(state);
-
-            List<int[]>? order = RelaxedSolve(session, budget);
-            if (order != null)
+            var before = new IReadOnlyList<int>[stacks];
+            for (int s = 0; s < stacks; s++)
             {
-                IReadOnlyList<IReadOnlyList<int>> layout = Layout(order, stacks);
-                if (Verify(session, layout, budget))
-                {
-                    return layout;
-                }
+                before[s] = state.Tray.StackTopFirst(s);
             }
 
             ulong seed = SplitMix64.Mix(state.Definition.Seed
                 ^ SplitMix64.Mix((ulong)(uint)state.Options.ContentVersion)
                 ^ SplitMix64.Mix(0x5B0FF1E0UL + (ulong)(uint)state.ShuffleUses)
                 ^ state.StateHash);
-            var rng = new Xoshiro256StarStar(seed);
-            for (int candidate = 0; candidate < SeededCandidates && budget[0] > 0; candidate++)
+            var rng = new Seeded(seed);
+            IReadOnlyList<IReadOnlyList<int>>? alike = null;
+
+            // A winnable arrangement that looks shuffled is taken at once; the first winnable one that does not is kept
+            // for when no other is found.
+            bool Take(IReadOnlyList<IReadOnlyList<int>> layout)
             {
-                var shuffled = new List<int[]>(units);
-                for (int i = shuffled.Count - 1; i > 0; i--)
+                if (!Verify(session, layout, budget))
                 {
-                    int j = rng.NextInt(i + 1);
-                    (shuffled[i], shuffled[j]) = (shuffled[j], shuffled[i]);
+                    return false;
                 }
 
-                IReadOnlyList<IReadOnlyList<int>> layout = Layout(shuffled, stacks);
-                if (Verify(session, layout, budget))
+                if (LooksShuffled(state, before, layout))
+                {
+                    return true;
+                }
+
+                alike ??= layout;
+                return false;
+            }
+
+            for (int line = 0; line < RelaxedLines && budget[0] > 0; line++)
+            {
+                List<int[]>? order = RelaxedSolve(session, budget, rng);
+                if (order == null)
+                {
+                    break;
+                }
+
+                IReadOnlyList<IReadOnlyList<int>> layout = Layout(order, stacks, rng);
+                if (Take(layout))
                 {
                     return layout;
                 }
             }
 
-            return Layout(ProgressFirst(state, units), stacks);
+            for (int candidate = 0; candidate < SeededCandidates && budget[0] > 0; candidate++)
+            {
+                var shuffled = new List<int[]>(units);
+                Shuffle(shuffled, rng);
+                IReadOnlyList<IReadOnlyList<int>> layout = Layout(shuffled, stacks, rng);
+                if (Take(layout))
+                {
+                    return layout;
+                }
+            }
+
+            return alike ?? Layout(ProgressFirst(state, units), stacks);
+        }
+
+        /// <summary>
+        /// Whether <paramref name="after"/> looks shuffled next to <paramref name="before"/> as the player sees the tray
+        /// (each pod by its variant, or "?" while a mystery, its count and its lock, in the <see cref="ShownRows"/> shown
+        /// rows): at most half the columns show what a column showed before, and at most half the exposed pods look like
+        /// the ones exposed before. A tray whose pods all look the same cannot look shuffled, so any arrangement does.
+        /// </summary>
+        internal static bool LooksShuffled(LevelState state, IReadOnlyList<IReadOnlyList<int>> before, IReadOnlyList<IReadOnlyList<int>> after)
+        {
+            var looks = new HashSet<string>(StringComparer.Ordinal);
+            foreach (IReadOnlyList<int> stack in before)
+            {
+                foreach (int pod in stack)
+                {
+                    looks.Add(Look(state, pod));
+                }
+            }
+
+            if (looks.Count < 2)
+            {
+                return true;
+            }
+
+            var columns = new List<string>();
+            var tops = new List<string>();
+            foreach (IReadOnlyList<int> stack in before)
+            {
+                if (stack.Count > 0)
+                {
+                    columns.Add(Shown(state, stack));
+                    tops.Add(Look(state, stack[0]));
+                }
+            }
+
+            int stacks = 0;
+            int sameColumns = 0;
+            int exposed = 0;
+            int sameTops = 0;
+            foreach (IReadOnlyList<int> stack in after)
+            {
+                if (stack.Count == 0)
+                {
+                    continue;
+                }
+
+                stacks++;
+                exposed++;
+                if (columns.Remove(Shown(state, stack)))
+                {
+                    sameColumns++;
+                }
+
+                if (tops.Remove(Look(state, stack[0])))
+                {
+                    sameTops++;
+                }
+            }
+
+            return sameColumns * 2 <= stacks && sameTops * 2 <= exposed;
+        }
+
+        private static string Shown(LevelState state, IReadOnlyList<int> stack)
+        {
+            var parts = new List<string>();
+            for (int depth = 0; depth < stack.Count && depth < ShownRows; depth++)
+            {
+                parts.Add(Look(state, stack[depth]));
+            }
+
+            return string.Join("/", parts);
+        }
+
+        private static string Look(LevelState state, int pod) =>
+            (state.Pods[pod].VariantRevealed ? state.PodVariant(pod).Key : "?") + ":" + state.Pods[pod].Remaining + (state.PodDefs[pod].LockKeyId ?? string.Empty);
+
+        /// <summary>The seeded generator, shared by reference (the generator is a struct) through one plan.</summary>
+        private sealed class Seeded
+        {
+            private Xoshiro256StarStar _state;
+
+            public Seeded(ulong seed) => _state = new Xoshiro256StarStar(seed);
+
+            public int NextInt(int bound) => _state.NextInt(bound);
+        }
+
+        private static void Shuffle<T>(List<T> list, Seeded rng)
+        {
+            for (int i = list.Count - 1; i > 0; i--)
+            {
+                int j = rng.NextInt(i + 1);
+                (list[i], list[j]) = (list[j], list[i]);
+            }
         }
 
         /// <summary>The tray pods as commit units: a connected group still whole in the tray, or a single pod.</summary>
@@ -123,14 +253,14 @@ namespace Bloomlings.Core.Boosters
         /// Depth-first search of the relaxed problem; returns the commit order of the winning line, or null when the
         /// relaxed problem has no solution within the budget (then no arrangement can be won either).
         /// </summary>
-        private static List<int[]>? RelaxedSolve(LevelSession start, int[] budget)
+        private static List<int[]>? RelaxedSolve(LevelSession start, int[] budget, Seeded rng)
         {
             var visited = new HashSet<ulong>();
             var path = new List<int[]>();
-            return Dfs(start, path, visited, budget) ? path : null;
+            return Dfs(start, path, visited, budget, rng) ? path : null;
         }
 
-        private static bool Dfs(LevelSession session, List<int[]> path, HashSet<ulong> visited, int[] budget)
+        private static bool Dfs(LevelSession session, List<int[]> path, HashSet<ulong> visited, int[] budget, Seeded rng)
         {
             LevelState state = session.State;
             if (state.Status == LevelStatus.Won)
@@ -168,6 +298,9 @@ namespace Bloomlings.Core.Boosters
                 (progresses ? first : second).Add(unit);
             }
 
+            // The units that progress first, each part in a seeded order, so every line starts somewhere else.
+            Shuffle(first, rng);
+            Shuffle(second, rng);
             first.AddRange(second);
             foreach (int[] unit in first)
             {
@@ -179,7 +312,7 @@ namespace Bloomlings.Core.Boosters
                 budget[0]--;
                 LevelSession child = session.RelaxedChild(unit);
                 path.Add(unit);
-                if (Dfs(child, path, visited, budget))
+                if (Dfs(child, path, visited, budget, rng))
                 {
                     return true;
                 }
@@ -238,11 +371,13 @@ namespace Bloomlings.Core.Boosters
         }
 
         /// <summary>
-        /// Round-robin layout: each pod goes on the lowest stack (leftmost on ties), so the exposure order follows the
-        /// unit order. A group needs as many stacks of equal height as it has members; until such stacks exist, the
-        /// following single pods go first.
+        /// Round-robin layout: each pod goes on the lowest stack (leftmost on ties, or a seeded one of them with
+        /// <paramref name="rng"/>), so the exposure order follows the unit order. A group needs as many stacks of equal
+        /// height as it has members; until such stacks exist, the following single pods go first.
         /// </summary>
-        public static IReadOnlyList<IReadOnlyList<int>> Layout(IReadOnlyList<int[]> order, int stackCount)
+        public static IReadOnlyList<IReadOnlyList<int>> Layout(IReadOnlyList<int[]> order, int stackCount) => Layout(order, stackCount, null);
+
+        private static IReadOnlyList<IReadOnlyList<int>> Layout(IReadOnlyList<int[]> order, int stackCount, Seeded? rng)
         {
             var stacks = new List<int>[stackCount];
             for (int s = 0; s < stackCount; s++)
@@ -255,16 +390,16 @@ namespace Bloomlings.Core.Boosters
             {
                 if (unit.Length == 1)
                 {
-                    stacks[Lowest(stacks)].Add(unit[0]);
-                    PlacePending(stacks, pending, force: false);
+                    stacks[Lowest(stacks, null, rng)].Add(unit[0]);
+                    PlacePending(stacks, pending, force: false, rng);
                 }
-                else if (!TryPlaceGroup(stacks, unit))
+                else if (!TryPlaceGroup(stacks, unit, rng))
                 {
                     pending.Add(unit);
                 }
             }
 
-            PlacePending(stacks, pending, force: true);
+            PlacePending(stacks, pending, force: true, rng);
             var result = new IReadOnlyList<int>[stackCount];
             for (int s = 0; s < stackCount; s++)
             {
@@ -274,11 +409,11 @@ namespace Bloomlings.Core.Boosters
             return result;
         }
 
-        private static void PlacePending(List<int>[] stacks, List<int[]> pending, bool force)
+        private static void PlacePending(List<int>[] stacks, List<int[]> pending, bool force, Seeded? rng)
         {
             for (int i = 0; i < pending.Count; i++)
             {
-                if (TryPlaceGroup(stacks, pending[i]))
+                if (TryPlaceGroup(stacks, pending[i], rng))
                 {
                     pending.RemoveAt(i--);
                 }
@@ -288,7 +423,7 @@ namespace Bloomlings.Core.Boosters
                     var used = new HashSet<int>();
                     foreach (int pod in pending[i])
                     {
-                        int s = Lowest(stacks, used);
+                        int s = Lowest(stacks, used, rng);
                         stacks[s].Add(pod);
                         used.Add(s);
                     }
@@ -298,7 +433,7 @@ namespace Bloomlings.Core.Boosters
             }
         }
 
-        private static bool TryPlaceGroup(List<int>[] stacks, int[] group)
+        private static bool TryPlaceGroup(List<int>[] stacks, int[] group, Seeded? rng)
         {
             if (group.Length > stacks.Length)
             {
@@ -312,7 +447,7 @@ namespace Bloomlings.Core.Boosters
             }
 
             var chosen = new List<int>();
-            for (int s = 0; s < stacks.Length && chosen.Count < group.Length; s++)
+            for (int s = 0; s < stacks.Length; s++)
             {
                 if (stacks[s].Count == minHeight)
                 {
@@ -325,6 +460,11 @@ namespace Bloomlings.Core.Boosters
                 return false;
             }
 
+            if (rng != null)
+            {
+                Shuffle(chosen, rng);
+            }
+
             for (int i = 0; i < group.Length; i++)
             {
                 stacks[chosen[i]].Add(group[i]);
@@ -333,13 +473,26 @@ namespace Bloomlings.Core.Boosters
             return true;
         }
 
-        private static int Lowest(List<int>[] stacks, HashSet<int>? exclude = null)
+        /// <summary>The lowest stack not in <paramref name="exclude"/>: the leftmost of the lowest, or a seeded one of them.</summary>
+        private static int Lowest(List<int>[] stacks, HashSet<int>? exclude, Seeded? rng)
         {
             int best = -1;
+            int ties = 0;
             for (int s = 0; s < stacks.Length; s++)
             {
-                if ((exclude == null || !exclude.Contains(s)) && (best < 0 || stacks[s].Count < stacks[best].Count))
+                if (exclude != null && exclude.Contains(s))
                 {
+                    continue;
+                }
+
+                if (best < 0 || stacks[s].Count < stacks[best].Count)
+                {
+                    best = s;
+                    ties = 1;
+                }
+                else if (stacks[s].Count == stacks[best].Count && rng != null && rng.NextInt(++ties) == 0)
+                {
+                    // Reservoir choice among the lowest stacks, so each is as likely.
                     best = s;
                 }
             }

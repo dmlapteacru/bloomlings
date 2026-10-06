@@ -113,6 +113,7 @@ Folder: `client/Assets/Bloomlings/Art/Brand/Resources/Brand/` (names `OwnerPictu
 |---|---|---|---|---|
 | C1 | `logo.png` | 1200 × 440, transparent | the reference's wooden "Bloomlings" letters with leaves and small flowers | `brand.wordmark` |
 | C2 | `tagline.png` | 1000 × 80, transparent | "SMALL FRIENDS. BIG GARDENS." (optional, for later: neither build shows a tagline yet, so the slot is registered as not drawn) | `brand.tagline` |
+| C3 | `tools/appicon/source/app-icon.png` | 1254 × 1254, a rounded square on white | the app icon: Bloom in a lotus with Sprig, Drop and Twig (the owner, 2026-10-06: "make a launch icon out of this"); `tools/appicon` cuts it into `client/Assets/Bloomlings/Art/Brand/AppIcon/` (applied by `CiBuild.ApplyIcons`) and the playtest's `playtest/icon/` mipmaps (adaptive, round, legacy) | the launcher, not a slot |
 
 ## D. Owner pictures that replace drawn icons and leaves (owner's review, spec 005 FR-027)
 

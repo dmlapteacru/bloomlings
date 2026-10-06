@@ -94,6 +94,31 @@ namespace Bloomlings.Client.Tests
             Assert.That(again.StyleFor(12), Is.EqualTo(ClearStyle.Munchers));
         }
 
+        [Test]
+        public void EachCard_ShowsWhatItsTapDoes_AndCheckingBuysNothing()
+        {
+            // The Animations tab's buttons (FR-038 as amended on 2026-10-06): Buy, Choose, Chosen, or the padlock before L40;
+            // Check says what a tap would do so the hosts ask the purchase confirmation first (FR-040).
+            ClearingService clearing = Service(out PlayerSave save, out EconomyService economy);
+            Assert.That(clearing.ActionOf(ClearStyle.Blossom, 39), Is.EqualTo(ClearingAction.Chosen), "the free pair while nothing is chosen");
+            Assert.That(clearing.ActionOf(ClearStyle.Bubbles, 39), Is.EqualTo(ClearingAction.Locked));
+            Assert.That(clearing.ActionOf(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingAction.Buy));
+            Assert.That(clearing.Check(ClearStyle.Bubbles, 39), Is.EqualTo(ClearingTap.Locked));
+            Assert.That(clearing.Check(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingTap.Short), "no Petals yet");
+
+            economy.Grant(6000, null);
+            Assert.That(clearing.Check(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingTap.Bought));
+            Assert.That(economy.Petals, Is.EqualTo(6000), "checking spends nothing");
+            Assert.That(clearing.Owns(ClearStyle.Bubbles) || save.Cosmetics.Owned.Contains("clear.bubbles"), Is.False);
+
+            Assert.That(clearing.Tap(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingTap.Bought));
+            Assert.That(clearing.ActionOf(ClearStyle.Bubbles, 40), Is.EqualTo(ClearingAction.Chosen));
+            Assert.That(clearing.ActionOf(ClearStyle.Blossom, 40), Is.EqualTo(ClearingAction.Choose), "the free pair can be chosen back");
+            Assert.That(clearing.Check(ClearStyle.Blossom, 40), Is.EqualTo(ClearingTap.Chosen));
+            Assert.That(clearing.ActionOf(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingAction.Buy));
+            Assert.That(clearing.Check(ClearStyle.Fireflies, 40), Is.EqualTo(ClearingTap.Short), "1000 Petals left");
+        }
+
         private static ClearingService Service(out PlayerSave save, out EconomyService economy)
         {
             save = PlayerSave.CreateNew("0a1b2c3d4e5f60718293a4b5c6d7e8f9", Today);

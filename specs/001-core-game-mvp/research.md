@@ -190,12 +190,14 @@ ordered **event log**. The next command always applies to that settled state. An
 - **Amendment (2026-10-06, the owner: "it must be mesmerizing; in the reference game the ants carry slowly and
   beautifully, you just sit and watch", then "not too fast, or a whole level lasts ten seconds; something in
   between").** The clearing plays in one of seven styles (spec 005 FR-038). Every style takes the same time for a tile n
-  route cells from its entry: `ClearStyles.TripSeconds(n)` = 1.1 s × n + 1.4 s, from the Bloomling leaving the arch to
-  the tile's clear (the slot's count going down). Each style splits that time into legs: out, an act at the tile, an
+  route cells from its entry: `ClearStyles.TripSeconds(n)` = (1.1 s × n + 1.4 s) / 1.5, from the Bloomling leaving the
+  arch to the tile's clear (the slot's count going down; the owner, later on 2026-10-06: each cell clears 1.5 times as
+  fast, `ClearStyles.SpeedUp`, so a level's clearing takes two thirds of the time with the same look). Each style splits that time into legs: out, an act at the tile, an
   optional way back, and the tile's last leg into the slot (`ClearStyles.LegsOf`). The waves' length clamps at 1.2–40 s
   (was 1.2–6.4 s and 1.2–5.6 s; 1.2–60 s since 2026-10-06, so a straight route of 49 cells across the 22×28 board of a
-  big level, about 55.5 s, fits too), so no trip is squeezed. A pod's Bloomlings leave each arch in a line, at least
-  `ClearStyles.LineGap` (0.42 s) apart, nearer tiles first, its later rounds and taps joining the line; different pods'
+  big level, about 37 s at the faster pace, fits too), so no trip is squeezed. A pod's Bloomlings leave each arch in a
+  line, at least `ClearStyles.LineGap` (0.42 s / 1.5 = 0.28 s, so the line keeps its spacing on the board) apart,
+  nearer tiles first, its later rounds and taps joining the line; different pods'
   lines run side by side (FR-018; on L1 the leaf pod's line still sets off while the first water pod works). A tap's later rounds no longer wait for
   its earlier rounds to end: each Bloomling waits only for its way, as before, and the rounds' end events keep the rules'
   order. A later Bloomling may cross a cell once its tile is gone from it (eaten, picked up, in a bubble; the style's
@@ -499,6 +501,15 @@ is steered by the Source design, which is where doc 06 says it should come from,
 4. **Fall back if needed.** If verification fails or runs out of budget, try the next candidate from the seeded PRNG
    (R3). The last resort is the arrangement that maximizes the number of exposed pods that can progress at once.
 5. **Keep the rules.** Locked pods keep their locks, connected pods stay connected, and waiting pods are untouched.
+6. **Look shuffled** *(amendment 2026-10-06, the owner: "I press it and they don't shuffle")*. The first relaxed line
+   used to be the tray's own order, dealt back the same way: the same pods on top, the columns at most moved over.
+   Now the relaxed search tries each step's units in a seeded order (progressing units still first), each row of the
+   deal takes its stacks in a seeded order (which keeps the order realizable), up to four lines are dealt before the
+   seeded candidates, and a verified arrangement is taken only if it looks shuffled as the player sees the tray
+   (`ShufflePlanner.LooksShuffled`: each pod by its variant or "?", count and lock in the three shown rows; at most half
+   the columns show what a column showed before, and at most half the exposed pods look like the ones before). If none
+   does within the budget, the first verified arrangement is used, so the winnability rule never weakens. On the
+   playtest's Levels 1–100 the old plan left 76 of 98 trays looking alike, the new one none.
 
 **Rationale**:
 

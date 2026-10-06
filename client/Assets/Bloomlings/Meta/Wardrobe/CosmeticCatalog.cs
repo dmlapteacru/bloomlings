@@ -26,8 +26,10 @@ namespace Bloomlings.Client.Meta.Wardrobe
     /// <c>#RRGGBB</c>. <see cref="Starter"/> items are given when the Wardrobe unlocks. An item with a
     /// <see cref="Price"/> is sold for Petals in the Store once the Wardrobe is open (FR-051, doc 10 §2); the others
     /// come from milestones only. <see cref="MilestoneLevel"/> is set on the generated level badges and markers.
+    /// <see cref="Free"/> items (the five drawn profile frames, spec 005 FR-037 as amended 2026-10-06) are every player's
+    /// from Level 1 without being stored in the save, and the profile's edit card lists them before the Wardrobe opens.
     /// </summary>
-    public sealed record CosmeticItem(string Id, CosmeticKind Kind, string Name, string Shape, string Tint, bool Starter, int Price = 0, int? MilestoneLevel = null)
+    public sealed record CosmeticItem(string Id, CosmeticKind Kind, string Name, string Shape, string Tint, bool Starter, int Price = 0, int? MilestoneLevel = null, bool Free = false)
     {
         /// <summary>Worn by Bloomlings on the board, so it must keep tiles, pods and workers readable.</summary>
         public bool IsWorn => CosmeticCatalog.IsWornKind(Kind);
@@ -65,7 +67,8 @@ namespace Bloomlings.Client.Meta.Wardrobe
             [CosmeticKind.Hat] = new[] { "sprout", "cap", "brim", "crown", "nightcap" },
             [CosmeticKind.Trail] = new[] { "sparkle", "swirl" },
             [CosmeticKind.Expression] = new[] { "wink", "smile", "stars", "sleepy" },
-            [CosmeticKind.Frame] = new[] { "frame" },
+            // The plain ring its tint colors, then the five drawn frames (UiRaster.ProfileFrame, ProfileFrames.StyleOf).
+            [CosmeticKind.Frame] = new[] { "frame", "wood_ring", "leaf_ring", "flower_wreath", "stone_ring", "golden_ribbon" },
             [CosmeticKind.Badge] = new[] { "badge" },
             [CosmeticKind.Marker] = new[] { "marker" },
         };
@@ -97,6 +100,21 @@ namespace Bloomlings.Client.Meta.Wardrobe
 
         /// <summary>The listed items (generated level badges and markers are not listed).</summary>
         public IReadOnlyList<CosmeticItem> Items { get; }
+
+        /// <summary>The free items of one kind in catalog order, everyone's from Level 1 (<see cref="CosmeticItem.Free"/>).</summary>
+        public IReadOnlyList<CosmeticItem> FreeOf(CosmeticKind kind)
+        {
+            var items = new List<CosmeticItem>();
+            foreach (CosmeticItem item in Items)
+            {
+                if (item.Free && item.Kind == kind)
+                {
+                    items.Add(item);
+                }
+            }
+
+            return items;
+        }
 
         public static bool IsWornKind(CosmeticKind kind) =>
             kind == CosmeticKind.Skin || kind == CosmeticKind.Hat || kind == CosmeticKind.Trail || kind == CosmeticKind.Expression;
@@ -143,7 +161,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
             return new CosmeticItem(id, badge ? CosmeticKind.Badge : CosmeticKind.Marker, id, badge ? "badge" : "marker", tint, false, 0, level);
         }
 
-        /// <summary>Reads <c>{"items": [{id, kind, name, shape, tint, starter?, price?}]}</c>.</summary>
+        /// <summary>Reads <c>{"items": [{id, kind, name, shape, tint, starter?, price?, free?}]}</c>.</summary>
         public static CosmeticCatalog Parse(string json)
         {
             JObject root = JsonDoc.ParseObject(json, "cosmetics");
@@ -154,9 +172,10 @@ namespace Bloomlings.Client.Meta.Wardrobe
             {
                 string path = JsonDoc.Index("items", i);
                 JObject item = JsonDoc.Object(array[i], path);
-                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price");
+                JsonDoc.AllowOnly(item, path, "id", "kind", "name", "shape", "tint", "starter", "price", "free");
                 JToken? starter = JsonDoc.Optional(item, "starter");
                 JToken? price = JsonDoc.Optional(item, "price");
+                JToken? free = JsonDoc.Optional(item, "free");
                 items.Add(new CosmeticItem(
                     JsonDoc.String(JsonDoc.Required(item, path, "id"), JsonDoc.Join(path, "id")),
                     ParseKind(JsonDoc.String(JsonDoc.Required(item, path, "kind"), JsonDoc.Join(path, "kind")), JsonDoc.Join(path, "kind")),
@@ -164,7 +183,8 @@ namespace Bloomlings.Client.Meta.Wardrobe
                     JsonDoc.String(JsonDoc.Required(item, path, "shape"), JsonDoc.Join(path, "shape")),
                     JsonDoc.String(JsonDoc.Required(item, path, "tint"), JsonDoc.Join(path, "tint")),
                     starter != null && JsonDoc.Bool(starter, JsonDoc.Join(path, "starter")),
-                    price == null ? 0 : JsonDoc.Int(price, JsonDoc.Join(path, "price"), min: 1)));
+                    price == null ? 0 : JsonDoc.Int(price, JsonDoc.Join(path, "price"), min: 1),
+                    Free: free != null && JsonDoc.Bool(free, JsonDoc.Join(path, "free"))));
             }
 
             return new CosmeticCatalog(items);
@@ -190,6 +210,16 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 if (item.Starter && item.ForSale)
                 {
                     problems.Add($"{item.Id}: a starter item is given, not sold");
+                }
+
+                if (item.Free && (item.Starter || item.ForSale))
+                {
+                    problems.Add($"{item.Id}: a free item is everyone's from Level 1, neither given nor sold");
+                }
+
+                if (item.Free && item.IsWorn)
+                {
+                    problems.Add($"{item.Id}: only profile items are free (the profile opens at Level 1, the Wardrobe later)");
                 }
 
                 if (Array.IndexOf(Shapes[item.Kind], item.Shape) < 0)

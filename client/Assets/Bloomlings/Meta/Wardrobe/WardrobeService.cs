@@ -45,7 +45,9 @@ namespace Bloomlings.Client.Meta.Wardrobe
     /// the save's <c>cosmetics.equipped</c> slots. Items with a price can be bought with Petals once the Wardrobe is open
     /// (the Store's cosmetics, FR-051). Cosmetics change presentation only: nothing here reaches the level rules, and
     /// <see cref="CosmeticCatalog.ReadabilityProblems"/> keeps them readable. The starter items are given once when the
-    /// Wardrobe unlocks. Engine-free.
+    /// Wardrobe unlocks. Free items (<see cref="CosmeticItem.Free"/>: the five drawn frames, spec 005 FR-037 as amended
+    /// 2026-10-06) are owned by every player without a save entry: the profile shows a chosen free frame from Level 1,
+    /// before the Wardrobe opens, and a free frame is never the default one. Engine-free.
     /// </summary>
     public sealed class WardrobeService
     {
@@ -83,9 +85,12 @@ namespace Bloomlings.Client.Meta.Wardrobe
 
         public bool IsAvailable => _save.Unlocks.IsSet(UnlockId) && _config.Get(RemoteConfigKeys.WardrobeEnabled);
 
+        /// <summary>Whether the player owns an item: a free one always, any other once the save holds it.</summary>
+        public bool Owns(CosmeticItem item) => item.Free || _save.Cosmetics.Owned.Contains(item.Id);
+
         /// <summary>
-        /// Owned items: the listed ones in catalog order, then the generated level badges and markers by level (unknown
-        /// ids from newer content are skipped).
+        /// Owned items: the listed ones in catalog order (the free ones among them), then the generated level badges and
+        /// markers by level (unknown ids from newer content are skipped).
         /// </summary>
         public IReadOnlyList<CosmeticItem> Owned
         {
@@ -94,7 +99,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 var owned = new List<CosmeticItem>();
                 foreach (CosmeticItem item in _catalog.Items)
                 {
-                    if (_save.Cosmetics.Owned.Contains(item.Id))
+                    if (Owns(item))
                     {
                         owned.Add(item);
                     }
@@ -173,7 +178,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
         }
 
         /// <summary>Whether the Store can sell this item now: the Wardrobe is open, it has a price, and it is not owned.</summary>
-        public bool IsBuyable(CosmeticItem item) => IsAvailable && item.ForSale && !_save.Cosmetics.Owned.Contains(item.Id) && _economy != null;
+        public bool IsBuyable(CosmeticItem item) => IsAvailable && item.ForSale && !Owns(item) && _economy != null;
 
         /// <summary>Buys a Store cosmetic with Petals; false when it cannot be bought or the Petals are short.</summary>
         public bool TryBuy(string itemId)
@@ -244,10 +249,13 @@ namespace Bloomlings.Client.Meta.Wardrobe
                 EquippedFor(family, CosmeticKind.Expression))
             : Outfit.None;
 
-        /// <summary>Shows an owned frame, badge or marker on the profile; false when it is not owned or not a profile item.</summary>
+        /// <summary>
+        /// Shows an owned frame, badge or marker on the profile (a free one also while the Wardrobe is closed); false when it
+        /// is not owned or not a profile item.
+        /// </summary>
         public bool Show(string itemId)
         {
-            if (!_save.Cosmetics.Owned.Contains(itemId) || !_catalog.TryGet(itemId, out CosmeticItem? item) || item!.IsWorn)
+            if (!_catalog.TryGet(itemId, out CosmeticItem? item) || item!.IsWorn || !Owns(item))
             {
                 return false;
             }
@@ -258,25 +266,40 @@ namespace Bloomlings.Client.Meta.Wardrobe
             return true;
         }
 
-        /// <summary>The profile item shown of one kind: the chosen one while owned, else the newest owned; null for none.</summary>
+        /// <summary>
+        /// The profile item shown of one kind: the chosen one while owned, else the newest owned that is not free; null for
+        /// none. While the Wardrobe is closed only a chosen free item shows (the profile's free frames, from Level 1).
+        /// </summary>
         public CosmeticItem? Shown(CosmeticKind kind)
         {
+            string slot = CosmeticsData.Slot(CosmeticsData.ProfileOwner, CosmeticCatalog.KindName(kind));
+            CosmeticItem? chosen = _save.Cosmetics.Equipped.TryGetValue(slot, out string? id)
+                && _catalog.TryGet(id, out CosmeticItem? item)
+                && item!.Kind == kind
+                && Owns(item)
+                ? item
+                : null;
             if (!IsAvailable)
             {
-                return null;
+                return chosen != null && chosen.Free ? chosen : null;
             }
 
-            string slot = CosmeticsData.Slot(CosmeticsData.ProfileOwner, CosmeticCatalog.KindName(kind));
-            if (_save.Cosmetics.Equipped.TryGetValue(slot, out string? id)
-                && _save.Cosmetics.Owned.Contains(id)
-                && _catalog.TryGet(id, out CosmeticItem? chosen)
-                && chosen!.Kind == kind)
+            if (chosen != null)
             {
                 return chosen;
             }
 
+            // Every player owns the free items, so the default stays the newest earned or bought one (none at first).
             IReadOnlyList<CosmeticItem> owned = OwnedOf(kind);
-            return owned.Count > 0 ? owned[owned.Count - 1] : null;
+            for (int i = owned.Count - 1; i >= 0; i--)
+            {
+                if (!owned[i].Free)
+                {
+                    return owned[i];
+                }
+            }
+
+            return null;
         }
 
         /// <summary>The profile decorations shown on Home and on the player's leaderboard row.</summary>

@@ -158,6 +158,16 @@ namespace Bloomlings.Client.UI.Screens
             screen._pagePrevious = UiKit.PageArrow("PagePrevious", root, next: false, () => screen.TurnPage(-1));
             screen._pageNext = UiKit.PageArrow("PageNext", root, next: true, () => screen.TurnPage(1));
 
+            // A drag on the page never taps a card (spec 005 FR-041); a swipe over the cards turns their page, as the arrows.
+            UiKit.Scrolls(screen._root, step =>
+            {
+                Button arrow = step > 0 ? screen._pageNext : screen._pagePrevious;
+                if (arrow.gameObject.activeSelf && arrow.interactable)
+                {
+                    screen.TurnPage(step);
+                }
+            }, screen._items);
+
             // The locked notice on the panel, shown only before the Wardrobe unlocks (FR-030).
             screen._notice = UiKit.LockedNotice("Locked", root);
             screen._notice.gameObject.SetActive(false);
@@ -630,10 +640,18 @@ namespace Bloomlings.Client.UI.Screens
                 layout.Add(portrait.Rect, w => Mark(w).Inset(Mark(w).Width * 0.16f));
             }
 
-            Image mark = UiFactory.CreateImage("Item", well, Icon(item), BloomlingFigure.Tint(item));
+            // A drawn frame (the five free ones, spec 005 FR-037 as amended 2026-10-06) shows its picture; the others their tinted mark.
+            ProfileFrameStyle? drawn = item.Kind == CosmeticKind.Frame ? ProfileFrames.StyleOf(item.Shape) : null;
+            Image mark = UiFactory.CreateImage("Item", well, drawn.HasValue ? null : Icon(item), drawn.HasValue ? Color.white : BloomlingFigure.Tint(item));
             mark.preserveAspect = true;
             mark.raycastTarget = false;
             layout.Add(mark.rectTransform, w => item.Kind == CosmeticKind.Frame ? Mark(w) : Mark(w).Inset(Mark(w).Width * 0.08f));
+            if (drawn.HasValue)
+            {
+                ProfileFrameStyle style = drawn.Value;
+                string slot = ProfileFrames.Slot(style);
+                PictureFit.On(mark, (pw, ph) => ProceduralSprites.Picture(slot, Mathf.Min(pw, ph), Mathf.Min(pw, ph), (x, y) => ProfileFrames.Render(style, Mathf.Min(x, y))), square: true);
+            }
         }
 
         /// <summary>An outfit with <paramref name="item"/> (or nothing) in <paramref name="kind"/>'s place.</summary>

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using Bloomlings.Client.Meta.Clearing;
 using Bloomlings.Client.Meta.Wardrobe;
+using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Definitions;
@@ -23,11 +24,13 @@ namespace Bloomlings.Playtest.Design
     /// garden;</description></item>
     /// <item><description>a parchment panel to the bottom of the screen with the Shop / Cosmetics tabs (the cosmetics
     /// after L40);</description></item>
-    /// <item><description>the Shop: a row per booster with its tile and count badge, its name and a cost pill (a tap buys
-    /// it for Petals), then the real-money rows, unavailable in the playtest;</description></item>
+    /// <item><description>the Shop: a row per booster with its tile and count badge, its name and a cost pill (a tap asks
+    /// to buy it for Petals), then the real-money rows, unavailable in the playtest;</description></item>
     /// <item><description>the Cosmetics: the four family tabs over the lighter panel, the outfit cards of the chosen
-    /// family ("Default", then each item for sale on the family's hero with its cost pill; a tap buys) and the footer
-    /// between the page arrows.</description></item>
+    /// family ("Default", then each item for sale on the family's hero with its cost pill; a tap asks to buy) and the
+    /// footer between the page arrows;</description></item>
+    /// <item><description>the Animations: the clearing styles' cards with their live previews and action buttons (Buy,
+    /// Choose, Chosen; spec 005 FR-038 as amended on 2026-10-06).</description></item>
     /// <item><description>the bottom menu over the panel's foot, the Shop in its medallion (spec 005 FR-030); the list
     /// ends above it.</description></item>
     /// </list>
@@ -35,7 +38,9 @@ namespace Bloomlings.Playtest.Design
     /// backdrop, header and panel, the panel holding the locked notice ("Available from level 12") instead of the tabs,
     /// rows and page arrows.
     /// Buying goes through the Unity client's shared economy and <see cref="WardrobeService"/>; the playtest keeps no rule
-    /// of its own.
+    /// of its own. Every purchase asks the purchase confirmation first (spec 005 FR-040, <see cref="DesignApp.ConfirmPurchase"/>):
+    /// nothing is spent until its Buy, and short Petals say so without asking. The rows, the cards and the clearing styles
+    /// are a page that scrolls (FR-041, <see cref="IPainter.Scroll"/>): a drag over them never taps, a swipe turns their page.
     /// </summary>
     public static class StoreScreen
     {
@@ -46,6 +51,7 @@ namespace Bloomlings.Playtest.Design
         {
             PlaytestMeta meta = app.Meta;
             HomeLook look = HomeScreen.Look(app);
+            app.StoreMoving = false;
             if (!BottomNav.IsOpen(NavPlace.Shop, look))
             {
                 Locked(p, app, look);
@@ -81,6 +87,8 @@ namespace Bloomlings.Playtest.Design
                     Outfits(p, app, r);
                     break;
                 case "store.tab_animations":
+                    // The cards' live previews loop all the time: the host keeps drawing (FR-038 as amended).
+                    app.StoreMoving = true;
                     Animations(p, app, r);
                     break;
                 default:
@@ -145,13 +153,18 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
+            Action? previous = page > 0 ? () => app.StoreRowsPage = page - 1 : (Action?)null;
+            Action? next = page < pages - 1 ? () => app.StoreRowsPage = page + 1 : (Action?)null;
             if (pages > 1)
             {
-                Footer(p, r, PlaytestText.F("common.page", page + 1, pages), T.Caption, page > 0 ? () => app.StoreRowsPage = page - 1 : (Action?)null, page < pages - 1 ? () => app.StoreRowsPage = page + 1 : (Action?)null);
+                Footer(p, r, PlaytestText.F("common.page", page + 1, pages), T.Caption, previous, next);
             }
+
+            // A drag over the rows never buys; a swipe turns their page (FR-041).
+            p.Scroll(r.List, previous, next);
         }
 
-        /// <summary>A booster's row: its tile with the count badge, its name and its price; a tap on the row buys one for Petals.</summary>
+        /// <summary>A booster's row: its tile with the count badge, its name and its price; a tap on the row asks to buy one for Petals.</summary>
         private static void BoosterRow(IPainter p, DesignApp app, Box line, float grow, BoosterKind kind, string id)
         {
             bool unlocked = app.Meta.Economy.IsUnlocked(kind);
@@ -165,13 +178,36 @@ namespace Bloomlings.Playtest.Design
             Kit.CountBadge(p, tile.Right - (badge * 0.2f), tile.Bottom - (badge * 0.2f), badge, app.Meta.Economy.Charges(kind).ToString(CultureInfo.InvariantCulture));
             Name(p, line, tile, grow, EndCards.BoosterName(kind), PriceBox(p, line, app.Meta.Economy.Price(kind)).Left);
             p.PopAlpha();
-            Price(p, line, app.Meta.Economy.Price(kind), unlocked ? () =>
+            Price(p, line, app.Meta.Economy.Price(kind), unlocked ? () => BuyBooster(app, kind, id) : (Action?)null);
+        }
+
+        /// <summary>
+        /// A booster row's tap: short Petals say so at once; else the purchase confirmation asks (FR-040) and the charge is
+        /// bought only on its Buy.
+        /// </summary>
+        private static void BuyBooster(DesignApp app, BoosterKind kind, string id)
+        {
+            int price = app.Meta.Economy.Price(kind);
+            if (app.Meta.Economy.Petals < price)
+            {
+                Refuse(app);
+                return;
+            }
+
+            app.ConfirmPurchase(PurchaseOffer.ForPetals(EndCards.BoosterName(kind), price), (q, well) => Kit.BoosterIcon(q, id, well.Inset(well.Width * 0.1f)), () =>
             {
                 if (!app.Meta.Economy.TryBuy(kind))
                 {
-                    app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
+                    Refuse(app);
                 }
-            } : (Action?)null);
+            });
+        }
+
+        /// <summary>Too few Petals: the refusal sound and the toast.</summary>
+        private static void Refuse(DesignApp app)
+        {
+            app.Sound.Play(SoundCue.Refused);
+            app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
         }
 
         /// <summary>A real-money row: the lotus on its tile, its name and "Unavailable", faded (the playtest sells nothing for money).</summary>
@@ -219,7 +255,7 @@ namespace Bloomlings.Playtest.Design
             return new Box(line.Right - (line.Height * 0.14f) - w, line.CenterY - (h / 2f), line.Right - (line.Height * 0.14f), line.CenterY + (h / 2f));
         }
 
-        /// <summary>A price as a cost pill with the lotus at a row's right end; a tap on the row buys.</summary>
+        /// <summary>A price as a cost pill with the lotus at a row's right end; the whole row takes the tap.</summary>
         private static void Price(IPainter p, Box line, int price, Action? buy)
         {
             Box pill = PriceBox(p, line, price);
@@ -297,22 +333,39 @@ namespace Bloomlings.Playtest.Design
                 string id = item.Id;
                 Kit.OutfitCard(p, box, MetaCards.ItemName(item), false, well => Preview(p, well, family, item), Cost.Petals(item.Price), () =>
                 {
-                    if (!wardrobe.TryBuy(id))
+                    // Short Petals say so at once; else the confirmation asks and only its Buy spends (FR-040).
+                    if (app.Meta.Economy.Petals < item.Price)
                     {
-                        app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
+                        Refuse(app);
+                        return;
                     }
+
+                    app.ConfirmPurchase(PurchaseOffer.ForPetals(MetaCards.ItemName(item), item.Price), (q, well) => Preview(q, well, family, item), () =>
+                    {
+                        if (!wardrobe.TryBuy(id))
+                        {
+                            Refuse(app);
+                        }
+                    });
                 });
             }
 
-            Footer(p, r, PlaytestText.T("wardrobe.footer"), T.Body, page > 0 ? () => app.StorePage = page - 1 : (Action?)null, page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null);
+            Action? previous = page > 0 ? () => app.StorePage = page - 1 : (Action?)null;
+            Action? next = page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null;
+            Footer(p, r, PlaytestText.T("wardrobe.footer"), T.Body, previous, next);
+
+            // A drag over the cards never buys one (the owner's request of 2026-10-06); a swipe turns their page (FR-041).
+            p.Scroll(r.OutfitPanel, previous, next);
         }
 
         /// <summary>
-        /// The Store's Animations (spec 005 FR-038, contracts/look.md §6.12): the free pair's card first, then each bought
-        /// clearing style, each card holding the style's live preview (<see cref="Kit.ClearingPreview"/>); a style not
-        /// owned shows its price, with the padlock badge (the preview still bright) before L40; the chosen one is checked.
-        /// A tap buys the style from L40 (before that it says from which level) and chooses an owned one; the free card
-        /// brings back the pair.
+        /// The Store's Animations (spec 005 FR-038 as amended on 2026-10-06, contracts/look.md §6.12): the free pair's card
+        /// first, then each bought clearing style, each card holding the style's live preview (<see cref="Kit.ClearingPreview"/>),
+        /// looping all the time, and its action button (<see cref="Kit.ClearingButton"/>): the green "Buy" with the price
+        /// (the purchase confirmation asks first, FR-040), "Choose" for an owned style not chosen, "Chosen" with the check for
+        /// the chosen one (the free pair's while no bought style is chosen). Before L40 a style not owned keeps its cost pill
+        /// and the padlock badge (the preview still bright), and a tap says from which level. The whole card is the button
+        /// (one touch target, its button inside it); the chosen card takes no tap.
         /// </summary>
         private static void Animations(IPainter p, DesignApp app, ReferenceStoreRegions r)
         {
@@ -333,28 +386,59 @@ namespace Bloomlings.Playtest.Design
 
                 ClearStyle style = styles[index];
                 bool free = ClearStyles.IsFree(style);
-                bool owned = clearing.Owns(style);
                 string name = PlaytestText.T(free ? "clearing.free_pair" : ClearStyles.NameKey(style));
-                bool locked = !owned && !ClearingService.IsOpenAt(level);
-                Cost? cost = owned ? (Cost?)null : Cost.Petals(clearing.Price);
-                Kit.OutfitCard(p, r.ClearingCard(slot), name, clearing.IsChosen(style), well => Kit.ClearingPreview(p, well, style, pair: free), cost, () =>
+                ClearingAction action = clearing.ActionOf(style, level);
+                bool locked = action == ClearingAction.Locked;
+                Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(app, style, name);
+                Box box = r.ClearingCard(slot);
+                Kit.OutfitCard(p, box, name, action == ClearingAction.Chosen, well => Kit.ClearingPreview(p, well, style, pair: free), locked ? Cost.Petals(clearing.Price) : (Cost?)null, tap, pillRoom: true, locked: locked, dim: false);
+                if (!locked)
                 {
-                    switch (clearing.Tap(style, level))
-                    {
-                        case ClearingTap.Locked:
-                            app.HomeToast(PlaytestText.F("locked.message", ClearStyles.BuyFromLevel));
-                            break;
-                        case ClearingTap.Short:
-                            app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
-                            break;
-                        case ClearingTap.Unavailable:
-                            app.HomeToast(PlaytestText.T("store.unavailable"));
-                            break;
-                    }
-                }, pillRoom: true, locked: locked, dim: false);
+                    Kit.ClearingButton(p, ClearingCard.Button(box), action, clearing.Price, tap != null);
+                }
             }
 
-            Footer(p, r, PlaytestText.T("store.animations_footer"), T.Body, page > 0 ? () => app.StorePage = page - 1 : (Action?)null, page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null);
+            Action? previous = page > 0 ? () => app.StorePage = page - 1 : (Action?)null;
+            Action? next = page < pages - 1 ? () => app.StorePage = page + 1 : (Action?)null;
+            Footer(p, r, PlaytestText.T("store.animations_footer"), T.Body, previous, next);
+            p.Scroll(r.List, previous, next);
+        }
+
+        /// <summary>
+        /// A tap on a clearing style's card or button: a purchase asks the confirmation first and buys only on its Buy
+        /// (FR-040); choosing an owned style happens at once; a refused tap says why (from which level, too few Petals).
+        /// </summary>
+        private static void TapClearing(DesignApp app, ClearStyle style, string name)
+        {
+            ClearingService clearing = app.Meta.Clearing;
+            if (clearing.Check(style, app.Meta.CurrentLevel) == ClearingTap.Bought)
+            {
+                app.ConfirmPurchase(PurchaseOffer.ForPetals(name, clearing.Price), (q, well) => Kit.ClearingPreview(q, well, style), () => Tapped(app, clearing.Tap(style, app.Meta.CurrentLevel)));
+                return;
+            }
+
+            Tapped(app, clearing.Tap(style, app.Meta.CurrentLevel));
+        }
+
+        /// <summary>What a clearing tap did: a click when chosen or bought, else why not.</summary>
+        private static void Tapped(DesignApp app, ClearingTap tap)
+        {
+            switch (tap)
+            {
+                case ClearingTap.Chosen:
+                case ClearingTap.Bought:
+                    app.Sound.Play(SoundCue.Click);
+                    break;
+                case ClearingTap.Locked:
+                    app.HomeToast(PlaytestText.F("locked.message", ClearStyles.BuyFromLevel));
+                    break;
+                case ClearingTap.Short:
+                    Refuse(app);
+                    break;
+                default:
+                    app.HomeToast(PlaytestText.T("store.unavailable"));
+                    break;
+            }
         }
 
         /// <summary>

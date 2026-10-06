@@ -79,6 +79,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
   minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`
   (no npm packages) must pass before committing hero frames or Home layers.
+- `dotnet run --project tools/appicon` (not in the solution; `tools/appicon/README.md`) cuts the owner's app icon picture
+  (`tools/appicon/source/app-icon.png`) into the Unity client's icon textures (`Art/Brand/AppIcon/`, set by
+  `CiBuild.ApplyIcons`) and both playtest APKs' launcher mipmaps (`playtest/icon/`, adaptive, round and legacy).
 - Open `client/` with Unity 6.3 LTS for the game client; see `client/README.md` for the first-open steps.
 - CI: **every workflow is manual only for now** (Actions → Run workflow), so pushes and pull requests spend no
   Actions minutes (the owner's budget rule). Run the tests above locally before every push instead.
@@ -167,6 +170,12 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `LotusPose` (the cover is `UiRaster.IrisHole` scaled to the hole plus plain boxes round it, never rendered per
   frame); Unity's `SplashScreen` takes its progress from `Boot`, and `LevelTransition` sits on the Boot object.
   `tools/loading-gifs` (Python) renders the review GIFs of the concepts from the game's pictures.
+- Purchases and touches (spec 005 FR-040, FR-041, the owner, 2026-10-06; `contracts/look.md` §6.14, §6.15): every
+  purchase, for Petals or real money, asks the purchase confirmation first (the kit's `PurchaseConfirmation` and
+  `ScreenLayout.PurchaseConfirm`; the playtest's `DesignApp.ConfirmPurchase` / `Kit.PurchaseCard`, Unity's
+  `UiKit.PurchaseCard`); never spend Petals or start a store purchase without it. Pages that scroll register their lists
+  (the playtest's `IPainter.Scroll`, Unity's `UiKit.Scrolls`): there a drag past `touch.slop` (10 dp, `TouchGesture`)
+  never taps and a swipe turns the page. Preview frame 49 shows the confirmation over the Store's Animations tab.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the owner's animated heroes offline into flat 24 fps frames, all four from the owner's `Heroes.glb`
   (2026-10-04; `heroes.json` picks each hero's mesh in it): Sprig with its 4 s idle, 3 s wave and the win's 2 s celebrate
@@ -185,7 +194,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   bottom menu), and its "Edit profile" card picks the avatar, frame, badge and name. The owner's 14 avatar pictures are
   opaque 384 px JPEG in `client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/` (`AvatarCatalog`: four free, ten for
   Petals at 300 / 600 / 1200, Remote Config `economy.price.avatar*`), shown in a round clip (`IPainter.PushClipRound`,
-  Unity a `Mask`). The data is engine-free in `client/Assets/Bloomlings/Meta/Profile/` (`ProfileService`,
+  Unity a `Mask`) that fills the avatar's whole disc inside a thin ring (the kit's `AvatarLook`; the owner,
+  2026-10-06). Five drawn frames (`ProfileFrames`, `UiRaster.ProfileFrame`: Wooden Ring, Leaf Ring, Flower Wreath, Stone
+  Ring, Golden Ribbon) are the cosmetic catalog's `free` items: everyone's from Level 1 with no save entry
+  (`WardrobeService.Owns`), listed first in the Frame tab before the Wardrobe opens too, never a default frame. The
+  data is engine-free in `client/Assets/Bloomlings/Meta/Profile/` (`ProfileService`,
   `ProfileEditor`, linked into the playtest); the save keeps bought avatars in `cosmetics.owned`, the shown one in
   `cosmetics.equipped.profile.avatar`, the name and joining day in the optional `profile` section. The name stays on
   the device (the playtest asks with the system's text dialog through `ITextPrompt`, Unity uses a `TMP_InputField`);
@@ -247,7 +260,7 @@ no pay-to-win), simplicity/offline-first and the workflow gates.
 - Exact matching: a pod clears only its exact target variant. A family (Sprig, Bloom, Drop,
   Twig) is never a wildcard.
 - Deterministic rules: the same level definition plus the same tap sequence always gives the
-  same outcome, independent of animation, 2x speed or device.
+  same outcome, independent of animation, fast forward or device.
 - Every gameplay cell is unambiguous: fully one thing, never partially occupied.
 - Difficulty comes from source ordering, dependencies, variants and mechanics, not from tile HP
   or repetitive tapping.

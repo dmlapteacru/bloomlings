@@ -353,10 +353,9 @@ namespace Bloomlings.Client.UI.Design
                 ["ui.play"] = (x, y) => TriangleSdf(x + 0.04f, y, -0.3f, 0.66f, 0.66f, 0f, -0.3f, -0.66f) - 0.1f,
 
                 // ---- UI kit: the reference look (spec 005 contracts/look.md §3.8) ----
-                // The speed pill's two chevrons (▶▶) and the back button's left arrow.
-                ["ui.fast"] = (x, y) => Min(
-                    TriangleSdf(x, y, -0.86f, 0.8f, -0.06f, 0f, -0.86f, -0.8f) - 0.06f,
-                    FastChevron(x, y)),
+                // The speed pill's three chevrons (▶▶▶, the owner, 2026-10-06: no number on it) and the back button's
+                // left arrow.
+                ["ui.fast"] = (x, y) => Min(Min(FastChevron(x + 0.6f, y), FastChevron(x, y)), FastChevron(x - 0.6f, y)),
                 ["ui.back"] = (x, y) => Min(
                     TriangleSdf(x, y, -0.78f, 0f, -0.12f, 0.56f, -0.12f, -0.56f) - 0.08f,
                     RoundedBox(x, y, 0.3f, 0f, 0.5f, 0.17f, 0.12f)),
@@ -830,10 +829,11 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>The speed glyph's second mark: a solid triangle with a notch cut from its back, so it reads as a chevron.</summary>
+        /// <summary>One of the speed pill's chevrons, centered on the origin: a triangle with its back notched out.</summary>
         private static float FastChevron(float x, float y)
         {
-            float triangle = TriangleSdf(x, y, -0.02f, 0.8f, 0.86f, 0f, -0.02f, -0.8f) - 0.06f;
-            float notch = TriangleSdf(x + 0.34f, y, -0.02f, 0.8f, 0.86f, 0f, -0.02f, -0.8f) + 0.1f;
+            float triangle = TriangleSdf(x, y, -0.27f, 0.54f, 0.3f, 0f, -0.27f, -0.54f) - 0.04f;
+            float notch = TriangleSdf(x + 0.24f, y, -0.27f, 0.54f, 0.3f, 0f, -0.27f, -0.54f) + 0.07f;
             return Max(triangle, -notch);
         }
 

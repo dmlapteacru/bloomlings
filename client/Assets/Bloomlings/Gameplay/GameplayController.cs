@@ -82,6 +82,9 @@ namespace Bloomlings.Client.Gameplay
         private PauseScreen _pause = null!;
         private WinScreen _win = null!;
         private JamScreen _jam = null!;
+
+        // The purchase confirmation (spec 005 FR-040), made the first time a booster would buy its charge.
+        private PurchaseCardView? _confirm;
         private DifficultyBanner _banner = null!;
         private DemoOverlay _demo = null!;
         private GuideOverlay _guide = null!;
@@ -171,7 +174,7 @@ namespace Bloomlings.Client.Gameplay
             Service<AdPolicy>()?.OnAttemptStarted();
             if (AppServices.Current != null && AppServices.Current.TryGet(out PlayerSave? save) && save!.Settings.Speed2x)
             {
-                _hud.SetDoubleSpeed(true);
+                _hud.SetFastForward(true);
             }
 
             RefreshSpeed();
@@ -274,6 +277,15 @@ namespace Bloomlings.Client.Gameplay
             BoosterKind.Shuffle => "shuffle",
             BoosterKind.Return => "return",
             _ => "bloom_burst",
+        };
+
+        /// <summary>A booster's player-facing name (the purchase confirmation's question).</summary>
+        private static string BoosterTitle(BoosterKind kind) => kind switch
+        {
+            BoosterKind.ExtraSlot => Loc.T("booster.extra_slot"),
+            BoosterKind.Shuffle => Loc.T("booster.shuffle"),
+            BoosterKind.Return => Loc.T("booster.return"),
+            _ => Loc.T("booster.bloom_burst"),
         };
 
         private static bool IsDaily => Flow?.CurrentAttempt?.IsDaily ?? false;
@@ -733,9 +745,11 @@ namespace Bloomlings.Client.Gameplay
         /// <summary>
         /// Uses a booster: the level checks it first (FR-046), then a charge is taken, or bought with Petals; without
         /// either, the player is told, and the Store is never forced (FR-027). The pending animation is played out first,
-        /// so the slots and tray are rebuilt from the settled state.
+        /// so the slots and tray are rebuilt from the settled state. A use that would buy its charge with Petals asks the
+        /// purchase confirmation first (spec 005 FR-040): it is bought and used only on its Buy (<paramref name="confirmed"/>),
+        /// a cancel buys nothing.
         /// </summary>
-        private void UseBooster(BoosterKind kind, Command command, bool free = false)
+        private void UseBooster(BoosterKind kind, Command command, bool free = false, bool confirmed = false)
         {
             LevelSession session = _session!;
 
@@ -752,6 +766,21 @@ namespace Bloomlings.Client.Gameplay
             {
                 _hud.Toast(Loc.T("gameplay.booster_useless"));
                 ShowJamIfBlocked();
+                return;
+            }
+
+            if (!free && !demo && !confirmed && Economy != null && Economy.Charges(kind) == 0 && Economy.CanAfford(kind))
+            {
+                // No charge left: the use buys one for Petals, so the confirmation asks first (over the jam card too).
+                _confirm ??= UiKit.PurchaseCard(_root);
+                string boosterId = MethodName(kind);
+                _confirm.ShowPetals(
+                    PurchaseOffer.ForPetals(BoosterTitle(kind), Economy.Price(kind)),
+                    Economy.Petals,
+                    well => UiFactory.Place(UiKit.BoosterIcon("Icon", well, boosterId).rectTransform, 0.08f, 0.08f, 0.92f, 0.92f),
+                    () => UseBooster(kind, command, confirmed: true),
+                    () => { },
+                    ShowJamIfBlocked);
                 return;
             }
 
@@ -1141,27 +1170,28 @@ namespace Bloomlings.Client.Gameplay
             return variants;
         }
 
-        /// <summary>The 2× toggle (FR-069) also becomes the default for the next levels.</summary>
-        private void OnSpeedChanged(bool doubleSpeed)
+        /// <summary>Fast forward (FR-069) also becomes the default for the next levels.</summary>
+        private void OnSpeedChanged(bool fastForward)
         {
             RefreshSpeed();
             PlayerSave? save = Service<PlayerSave>();
-            if (save != null && save.Settings.Speed2x != doubleSpeed)
+            if (save != null && save.Settings.Speed2x != fastForward)
             {
-                save.Settings.Speed2x = doubleSpeed;
+                save.Settings.Speed2x = fastForward;
                 Service<SaveService>()?.Save();
             }
         }
 
         /// <summary>
-        /// The clock's speed after every command: 2× when the player chose it (FR-069), and also while no pod can be tapped
-        /// (the owner, 2026-10-04: every pod picked, only the animation left), so the rest plays fast; the pill shows 2× then.
+        /// The clock's speed after every command: fast forward (<see cref="PlaySpeed.Fast"/>, 3×) when the player chose it
+        /// (FR-069 as amended on 2026-10-06), and also while no pod can be tapped (the owner, 2026-10-04: every pod picked,
+        /// only the animation left), so the rest plays fast; the pill is lit then.
         /// Animation only: never an outcome.
         /// </summary>
         private void RefreshSpeed()
         {
             bool auto = _session != null && !CanTapAny(_session);
-            _timeline.Speed = _hud.DoubleSpeed || auto ? 2f : 1f;
+            _timeline.Speed = PlaySpeed.Of(_hud.FastForward || auto);
             _hud.ShowAutoSpeed(auto);
         }
 

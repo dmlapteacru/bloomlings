@@ -26,8 +26,9 @@ namespace Bloomlings.Client.Tests
                 }
             }
 
-            // In between the earlier pace (0.36 s a cell) and a very slow one (the owner, 2026-10-06).
-            Assert.That(ClearStyles.TripSeconds(6), Is.EqualTo(8f).Within(1e-4f));
+            // In between the earlier pace (0.36 s a cell) and a very slow one, then 1.5 times as fast (the owner, 2026-10-06).
+            Assert.That(ClearStyles.TripSeconds(6), Is.EqualTo(8f / 1.5f).Within(1e-4f));
+            Assert.That(ClearStyles.LineGap, Is.EqualTo(0.28f).Within(1e-4f));
         }
 
         [Test]

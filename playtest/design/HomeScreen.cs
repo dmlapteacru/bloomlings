@@ -108,7 +108,7 @@ namespace Bloomlings.Playtest.Design
             // The header row (the owner's request of 2026-10-04): Settings at the left; the large Petals pill in the middle
             // with its flowered corners, its "+" to the Store once unlocked; the profile avatar at the right.
             Kit.RoundButton(p, r.Settings.CenterX, r.Settings.CenterY, r.Settings.Width, "ui.settings", () => app.OpenOverlay(Overlay.Settings));
-            PetalsPillParts petals = Kit.PetalsPill(p, r.Petals, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null, align: 0.5f, decorate: true);
+            PetalsPillParts petals = Kit.PetalsPill(p, r.Petals, app.ShownPetals, look.Store ? app.OpenStore : (Action?)null, align: 0.5f);
             Kit.SparkleBurst(p, petals.Lotus.CenterX, petals.Lotus.CenterY, petals.Pill.Height, app.SinceRewardBurst);
             ProfileLook profile = meta.Wardrobe.Profile;
             AvatarItem avatar = meta.Profile.Avatar;

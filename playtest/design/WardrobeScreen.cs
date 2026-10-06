@@ -150,11 +150,16 @@ namespace Bloomlings.Playtest.Design
             // The footer between the page arrows.
             float footerScale = Math.Min(r.Footer.Height * 0.55f, textSize) / p.U(T.Body.Size);
             p.Text(PlaytestText.T("wardrobe.footer"), r.Footer.CenterX, r.Footer.CenterY, T.Body, C.InkBrownSoft, r.Footer.Width, footerScale);
+            Action? previousPage = page > 0 ? () => app.WardrobePage = page - 1 : (Action?)null;
+            Action? nextPage = page < pages - 1 ? () => app.WardrobePage = page + 1 : (Action?)null;
             if (pages > 1)
             {
-                Kit.ArrowButton(p, r.PagePrevious.CenterX, r.PagePrevious.CenterY, r.PagePrevious.Width, next: false, page > 0 ? () => app.WardrobePage = page - 1 : (Action?)null);
-                Kit.ArrowButton(p, r.PageNext.CenterX, r.PageNext.CenterY, r.PageNext.Width, next: true, page < pages - 1 ? () => app.WardrobePage = page + 1 : (Action?)null);
+                Kit.ArrowButton(p, r.PagePrevious.CenterX, r.PagePrevious.CenterY, r.PagePrevious.Width, next: false, previousPage);
+                Kit.ArrowButton(p, r.PageNext.CenterX, r.PageNext.CenterY, r.PageNext.Width, next: true, nextPage);
             }
+
+            // A drag over the cards never taps one (spec 005 FR-041); a swipe turns their page.
+            p.Scroll(r.Panel, previousPage, nextPage);
 
             // The bottom menu, the Wardrobe in its medallion (FR-030).
             Kit.BottomNav(p, HomeScreen.Nav(p, NavPlace.Wardrobe), look, app.Navigate);
@@ -274,16 +279,31 @@ namespace Bloomlings.Playtest.Design
                 case CardKind.ForSale:
                     Kit.OutfitCard(p, box, name, false, well => Preview(p, well, family, dressed), Cost.Petals(item.Price), () =>
                     {
-                        if (wardrobe.TryBuy(id))
-                        {
-                            wardrobe.Equip(family, id);
-                            app.Sound.Play(SoundCue.Click);
-                        }
-                        else
+                        void Refuse()
                         {
                             app.Sound.Play(SoundCue.Refused);
                             app.HomeToast(PlaytestText.T("gameplay.not_enough_petals"));
                         }
+
+                        // Short Petals say so at once; else the purchase confirmation asks, and only its Buy spends (FR-040).
+                        if (app.Meta.Economy.Petals < item.Price)
+                        {
+                            Refuse();
+                            return;
+                        }
+
+                        app.ConfirmPurchase(PurchaseOffer.ForPetals(name, item.Price), (q, well) => Preview(q, well, family, dressed), () =>
+                        {
+                            if (wardrobe.TryBuy(id))
+                            {
+                                wardrobe.Equip(family, id);
+                                app.Sound.Play(SoundCue.Click);
+                            }
+                            else
+                            {
+                                Refuse();
+                            }
+                        });
                     });
                     break;
                 default:

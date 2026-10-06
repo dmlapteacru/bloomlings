@@ -75,8 +75,16 @@ namespace Bloomlings.Client.UI.Screens
     /// the Store's unlock: the free pair's card first, then each bought clearing style's, three to a row from the list's
     /// top (<see cref="ReferenceStoreRegions.ClearingCard"/>), each well holding the style's live preview
     /// (<see cref="ClearPreviewView"/>); a style not owned shows its price, with the padlock badge (the preview still
-    /// bright) before L40; the chosen one is checked. A tap buys the style from L40 and chooses an owned one; a refused tap
-    /// says why on the footer line (from which level, or too few Petals).
+    /// bright) before L40; the chosen one is checked. Since the owner's request of 2026-10-06 the previews loop all the time
+    /// and each card carries its action button (<see cref="UiKit.ClearingButton"/>: Buy with the price, Choose, Chosen). A
+    /// tap asks to buy the style from L40 and chooses an owned one; a refused tap says why on the footer line (from which
+    /// level, or too few Petals).
+    /// </para>
+    /// <para>
+    /// Every purchase here asks the purchase confirmation first (spec 005 FR-040, <see cref="UiKit.PurchaseCard"/>): the
+    /// boosters, the cosmetics and the clearing styles for Petals, and the real-money rows, whose platform purchase sheet
+    /// follows the confirmation. Nothing is spent until its Buy. The list is a page that scrolls (FR-041,
+    /// <see cref="SwipePager"/>): a drag never buys, a swipe turns its page.
     /// </para>
     /// <para>
     /// Before the Store unlocks (L12) the bottom menu's Shop opens the page locked (<see cref="ShowLocked"/>, the
@@ -109,6 +117,9 @@ namespace Bloomlings.Client.UI.Screens
         private int _pageIndex;
         private int _family;
         private int _outfitPage;
+        private int _pages = 1;
+        private int _petals;
+        private PurchaseCardView _confirm = null!;
 
         public bool IsOpen => _root.activeSelf;
 
@@ -152,6 +163,11 @@ namespace Bloomlings.Client.UI.Screens
 
             // The header last, as on the Wardrobe; the pill shows the balance only (Petal packs are rows of the Shop).
             screen._header = UiKit.PageHeader(root, Loc.T("store.title"), screen.Hide, petals: true);
+
+            // A drag over the list never buys and a swipe turns its page (spec 005 FR-041); the purchase confirmation over
+            // everything (FR-040).
+            UiKit.Scrolls(screen._root, screen.Swipe, screen._list);
+            screen._confirm = UiKit.PurchaseCard(root);
             shade.gameObject.SetActive(false);
             return screen;
         }
@@ -196,6 +212,7 @@ namespace Bloomlings.Client.UI.Screens
             // on the same tab and page.
             _root.SetActive(true);
             Layout(_tabOrder.Count > 1, storeAvailable);
+            _petals = petals;
             _header.Petals?.Show(petals, storeUnlocked: false);
             Refresh();
         }
@@ -225,7 +242,78 @@ namespace Bloomlings.Client.UI.Screens
             _header.Petals?.Show(petals, storeUnlocked: false);
         }
 
-        public void Hide() => _root.SetActive(false);
+        /// <summary>Hides the page; a purchase still asking is dropped, nothing bought.</summary>
+        public void Hide()
+        {
+            _confirm.Cancel();
+            _root.SetActive(false);
+        }
+
+        /// <summary>A swipe over the list (<see cref="SwipePager"/>): the next or the previous page of the tab, when there is one.</summary>
+        private void Swipe(int step)
+        {
+            if (_confirm.IsOpen)
+            {
+                return;
+            }
+
+            if (_tab == StoreTab.Shop)
+            {
+                if (_pageIndex + step >= 0 && _pageIndex + step < _pages)
+                {
+                    Turn(step);
+                }
+
+                return;
+            }
+
+            if (_outfitPage + step >= 0 && _outfitPage + step < _pages)
+            {
+                TurnOutfits(step);
+            }
+        }
+
+        /// <summary>
+        /// A row's or a card's tap (spec 005 FR-040): the purchase confirmation asks first with the item's picture, name
+        /// and price, and the item is bought only on its Buy; short Petals say so without asking. A real-money item asks
+        /// too, then the platform's own purchase sheet follows (the store confirms the payment once more).
+        /// </summary>
+        private void Confirm(StoreItem item)
+        {
+            string name = item.Name ?? item.Title;
+            Family family = WardrobeService.Families[Mathf.Clamp(_family, 0, WardrobeService.Families.Count - 1)];
+            Action<RectTransform> picture = rect => ItemPicture(rect, item, family);
+            if (item.PetalPrice.HasValue)
+            {
+                _confirm.ShowPetals(PurchaseOffer.ForPetals(name, item.PetalPrice.Value), _petals, picture, item.Buy, () => { });
+            }
+            else
+            {
+                // The store's price, or while it is still loading ("…") the store's own price, named so.
+                string price = item.PriceText.Trim().Length <= 1 ? Loc.T("purchase.price_unknown") : item.PriceText;
+                _confirm.Show(PurchaseOffer.ForMoney(name, price), picture, item.Buy);
+            }
+        }
+
+        /// <summary>An item's picture in the confirmation's well: a booster's icon, the hero in the cosmetic, else the lotus.</summary>
+        private static void ItemPicture(RectTransform well, StoreItem item, Family family)
+        {
+            if (item.BoosterId != null)
+            {
+                Image icon = UiKit.BoosterIcon("Icon", well, item.BoosterId);
+                UiFactory.Place(icon.rectTransform, 0.08f, 0.08f, 0.92f, 0.92f);
+                return;
+            }
+
+            if (item.Cosmetic != null)
+            {
+                Preview(well, family, item.Cosmetic);
+                return;
+            }
+
+            Image lotus = UiKit.PetalIcon("Lotus", well);
+            UiFactory.Place(lotus.rectTransform, 0.14f, 0.14f, 0.86f, 0.86f);
+        }
 
         private static float Scale => DesignTokens.ScaleFor(UiKit.ScreenBox().Width, UiKit.ScreenBox().Height);
 
@@ -291,6 +379,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             _tabs?.Select(_tabOrder.IndexOf(_tab));
+            _pages = 1;
             if (_tab == StoreTab.Animations && _clearing != null)
             {
                 Animations(_clearing);
@@ -334,6 +423,7 @@ namespace Bloomlings.Client.UI.Screens
             // A page of rows filling the list (the rows grow on a taller page), the footer when there are more.
             int perPage = r.RowsPerPage(shown.Count);
             int pages = Mathf.Max(1, (shown.Count + perPage - 1) / perPage);
+            _pages = pages;
             _pageIndex = Mathf.Clamp(_pageIndex, 0, pages - 1);
             float grow = r.RowHeight(shown.Count) / (r.W * ReferenceStoreRegions.RowTypeShare);
             for (int slot = 0; slot < perPage; slot++)
@@ -455,7 +545,7 @@ namespace Bloomlings.Client.UI.Screens
 
             if (item.Enabled)
             {
-                UiKit.TapTarget(row, item.Buy);
+                UiKit.TapTarget(row, () => Confirm(item));
             }
         }
 
@@ -498,6 +588,7 @@ namespace Bloomlings.Client.UI.Screens
             styles.AddRange(ClearStyles.Bought);
             int perPage = r.ClearingsPerPage;
             int pages = Mathf.Max(1, (styles.Count + perPage - 1) / perPage);
+            _pages = pages;
             _outfitPage = Mathf.Clamp(_outfitPage, 0, pages - 1);
             for (int slot = 0; slot < perPage; slot++)
             {
@@ -514,40 +605,67 @@ namespace Bloomlings.Client.UI.Screens
         }
 
         /// <summary>
-        /// A clearing style's card (<c>ui.card.clearing</c> in an outfit card): its live preview in the well (the free card
-        /// showing Blossom and Munchers by turns), its name, the price pill while not owned with the padlock badge before
-        /// L40 (the preview stays bright), the check when chosen. The card is the touch target.
+        /// A clearing style's card (<c>ui.card.clearing</c> in an outfit card): its live preview in the well, looping all the
+        /// time (the free card showing Blossom and Munchers by turns), its name and its action button
+        /// (<see cref="UiKit.ClearingButton"/>, spec 005 FR-038 as amended on 2026-10-06): the green "Buy" with the price,
+        /// "Choose", or "Chosen" with the check; before L40 the price pill and the padlock badge (the preview stays bright).
+        /// The whole card is the button; the chosen card takes no tap.
         /// </summary>
         private void ClearingCard(Box box, ClearStyle style, ClearingService clearing)
         {
             bool free = ClearStyles.IsFree(style);
-            bool owned = clearing.Owns(style);
-            bool locked = !owned && !ClearingService.IsOpenAt(_level);
-            Cost? price = owned ? (Cost?)null : Cost.Petals(clearing.Price);
+            ClearingAction action = clearing.ActionOf(style, _level);
+            bool locked = action == ClearingAction.Locked;
+            Cost? price = locked ? Cost.Petals(clearing.Price) : (Cost?)null;
             string name = Loc.T(free ? "clearing.free_pair" : ClearStyles.NameKey(style));
-            OutfitCardView card = UiKit.OutfitCard("Clearing", _list, name, () => TapClearing(style, clearing), price, pillRoom: true);
+            Action? tap = action == ClearingAction.Chosen ? (Action?)null : () => TapClearing(style, name, clearing);
+            OutfitCardView card = UiKit.OutfitCard("Clearing", _list, name, tap, price, pillRoom: true);
             PlaceInList((RectTransform)card.transform, box);
             ClearPreviewView.Create(card.Picture, style, pair: free, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null);
-            card.Show(clearing.IsChosen(style));
-            if (locked)
+            card.Show(action == ClearingAction.Chosen);
+            if (!locked)
             {
-                // The padlock badge at the well's lower right, where the check of a chosen card goes (its disc 0.22 of the
-                // card's width; the badge's rect holds its ring too), and the name in the softer brown.
-                RectTransform badge = UiKit.LockBadge("Lock", card.transform);
-                BoxLayout.On((RectTransform)card.transform).Add(badge, b =>
-                {
-                    Box well = OutfitCardView.WellBox(b, pillRoom: true);
-                    float disc = OutfitCardView.CardBox(b, pillRoom: true).Width * 0.22f;
-                    return Box.FromCenter(well.Right - (disc * 0.42f), well.Bottom - (disc * 0.42f), disc * 1.16f, disc * 1.16f);
-                });
-                card.Label.color = UiTheme.Of(C.InkBrownSoft);
+                ClearingButtonView button = UiKit.ClearingButton("Action", card.transform);
+                BoxLayout.On((RectTransform)card.transform).Add((RectTransform)button.transform, ClearingCardButton);
+                button.Show(action, clearing.Price);
+                return;
             }
+
+            // The padlock badge at the well's lower right, where the check of a chosen card goes (its disc 0.22 of the card's
+            // width; the badge's rect holds its ring too), and the name in the softer brown.
+            RectTransform badge = UiKit.LockBadge("Lock", card.transform);
+            BoxLayout.On((RectTransform)card.transform).Add(badge, b =>
+            {
+                Box well = OutfitCardView.WellBox(b, pillRoom: true);
+                float disc = OutfitCardView.CardBox(b, pillRoom: true).Width * 0.22f;
+                return Box.FromCenter(well.Right - (disc * 0.42f), well.Bottom - (disc * 0.42f), disc * 1.16f, disc * 1.16f);
+            });
+            card.Label.color = UiTheme.Of(C.InkBrownSoft);
         }
 
-        /// <summary>A tap on a clearing style's card: buys or chooses it, or says on the footer line why not.</summary>
-        private void TapClearing(ClearStyle style, ClearingService clearing)
+        /// <summary>The action button's box in a card's own box (<see cref="Design.ClearingCard.Button"/>).</summary>
+        private static Box ClearingCardButton(Box card) => Design.ClearingCard.Button(card);
+
+        /// <summary>
+        /// A tap on a clearing style's card: a purchase asks the purchase confirmation first and buys only on its Buy
+        /// (FR-040); choosing an owned style happens at once; a refused tap says why on the footer line (from which level,
+        /// too few Petals).
+        /// </summary>
+        private void TapClearing(ClearStyle style, string name, ClearingService clearing)
         {
-            switch (clearing.Tap(style, _level))
+            if (clearing.Check(style, _level) == ClearingTap.Bought)
+            {
+                _confirm.ShowPetals(PurchaseOffer.ForPetals(name, clearing.Price), _petals, well => ClearPreviewView.Create(well, style, pair: false, _wardrobe != null ? _wardrobe.OutfitOf : (Func<Family, Outfit>?)null), () => Tapped(clearing.Tap(style, _level)), () => Tapped(ClearingTap.Short));
+                return;
+            }
+
+            Tapped(clearing.Tap(style, _level));
+        }
+
+        /// <summary>What a clearing tap did: the page again with the new balance, or why not on the footer line.</summary>
+        private void Tapped(ClearingTap tap)
+        {
+            switch (tap)
             {
                 case ClearingTap.Locked:
                     _clearingNote = Loc.F("locked.message", ClearStyles.BuyFromLevel);
@@ -592,6 +710,7 @@ namespace Bloomlings.Client.UI.Screens
             cards.AddRange(shown);
             int perPage = r.OutfitsPerPage;
             int pages = Mathf.Max(1, (cards.Count + perPage - 1) / perPage);
+            _pages = pages;
             _outfitPage = Mathf.Clamp(_outfitPage, 0, pages - 1);
             Outfit worn = wardrobe.OutfitOf(family);
             for (int slot = 0; slot < perPage; slot++)
@@ -611,7 +730,8 @@ namespace Bloomlings.Client.UI.Screens
                 else
                 {
                     Cost? price = item.PetalPrice.HasValue ? Cost.Petals(item.PetalPrice.Value) : (Cost?)null;
-                    OutfitCard(box, item.Name ?? item.Title, false, family, item.Cosmetic, price, item.Enabled ? item.Buy : (Action?)null);
+                    StoreItem buy = item;
+                    OutfitCard(box, item.Name ?? item.Title, false, family, item.Cosmetic, price, item.Enabled ? () => Confirm(buy) : (Action?)null);
                 }
             }
 
