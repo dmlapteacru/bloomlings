@@ -19,8 +19,8 @@ namespace Bloomlings.Generator.Tests
     /// The owner's boards of 2026-10-06 (spec 001 FR-008 and FR-036 as amended, research R8b): regular boards of 224–288
     /// cells from L11, rare big levels of 289–616 cells (every milestone level from L525), and the board look stored in the
     /// level data, the next layer hidden on a big level's icons board. The fixtures are a big level the generator made on a
-    /// 22×28 sketch (the library has no big picture yet) and a Super Hard level whose hidden layers, once hidden, force a
-    /// blind guess.
+    /// 22×28 sketch (made before the library had big pictures) and a Super Hard level whose hidden layers, once hidden,
+    /// force a blind guess.
     /// </summary>
     public class BigLevelTests
     {
@@ -109,7 +109,8 @@ namespace Bloomlings.Generator.Tests
             IReadOnlyList<BasePicture> big = picker.Candidates(LongRun, 550, history, BandGuidelines.Board(550));
             IReadOnlyList<BasePicture> regular = picker.Candidates(LongRun, 551, history, BandGuidelines.Board(551));
 
-            Assert.That(big.Select(p => p.Id), Is.EqualTo(new[] { BigPicture.Id }));
+            Assert.That(big.Select(p => p.Id), Does.Contain(BigPicture.Id));
+            Assert.That(big.Select(p => p.Width * p.Height), Has.All.InRange(BandGuidelines.BigMinCells, BandGuidelines.BigMaxCells));
             Assert.That(regular, Is.Not.Empty);
             Assert.That(regular.Select(p => p.Width * p.Height), Has.All.InRange(BandGuidelines.RegularMinCells, BoardLooks.MaxPeekCells));
         }
@@ -117,7 +118,9 @@ namespace Bloomlings.Generator.Tests
         [Test]
         public void TheGenerator_RefusesABigLevelWithoutABigPicture()
         {
-            var generator = new LevelGenerator(LongRun, new PicturePicker(Library), DifficultyThresholds.Default, Pairs.IsApproved, new DifficultySchedule(1));
+            // The library without its big pictures (it has them since the big band was drawn).
+            List<BasePicture> regularOnly = Library.Where(p => p.Width * p.Height <= BoardLooks.MaxPeekCells).ToList();
+            var generator = new LevelGenerator(LongRun, new PicturePicker(regularOnly), DifficultyThresholds.Default, Pairs.IsApproved, new DifficultySchedule(1));
 
             GenerationResult result = generator.Generate(550, 550, 1, new SortedDictionary<int, LevelDefinition>());
 

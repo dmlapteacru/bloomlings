@@ -53,7 +53,7 @@ foreach (string folder in folders)
 }
 
 // A big level's 22×28 icons board (spec 001 FR-008 and FR-036 as amended on 2026-10-06): the generator tests' fixture,
-// while the picture library has no big picture yet. Its winning line comes from the core's search.
+// made before the picture library had big pictures. Its winning line comes from the core's search.
 string fixtures = Path.Combine(Root, "core/tests/Bloomlings.Generator.Tests/Fixtures");
 if (File.Exists(Path.Combine(fixtures, "big-level.level.json")))
 {

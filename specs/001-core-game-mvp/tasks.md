@@ -1574,9 +1574,10 @@ final validation.
 - [X] T175 The showcases on the new boards: L251 (Statue/Bridge practice) and L400 (connected triple showcase)
   regenerated on approved 14×16 pictures with the documented `generate` commands (L150, L250 and L401 already stood on
   14×16 boards and pass); L151 (chest practice, Super Hard) moves to T177, with the levels the new pictures need.
-- [ ] T176 The picture library for the new boards: every level from L11 needs a picture of 224–288 cells (14–16 ×
-  16–18), and the 180 big levels (L525–5000, every 25th) pictures of 289–616 cells up to 22×28. The library has 12
-  approved 14×16 pictures and no big one (another session draws them).
+- [X] T176 The picture library for the new boards: every level from L11 needs a picture of 224–288 cells (14–16 ×
+  16–18), and the 180 big levels (L525–5000, every 25th) pictures of 289–616 cells up to 22×28. Drawn in another
+  session and merged: 400 approved regular pictures (224–288 cells) and 97 approved big ones (340–616 cells), beside the
+  111 onboarding-size ones (`content/pictures/lib`, approved by the automated picture checks).
 - [ ] T177 With those pictures: L151 and the showcase and practice levels L11–91 (17 levels, still on 12×12–14×15 boards; FR-083
   wants 17 distinct pictures in Levels 1–100 while the library has 12 of 224+ cells) and the playtest's Levels 11–100
   regenerated on regular boards; then the catalog (`generate --jobs N`), whose big levels take minutes each.
