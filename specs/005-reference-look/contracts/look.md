@@ -678,8 +678,9 @@ the gameplay colors, not Home's warm ones (`BackdropRaster.IsLawn`).
   still heroes around it as in the reference (Bloom raised behind the fountain, Drop at the right back, Sprig at the
   left, Twig in front at the right). Over an owner picture without the fountain layers (a splash picture of its own,
   B6) no heroes show. Early and progressed alike, each hero wears its outfit once the Wardrobe is open. The splash
-  shows the Home picture until its own (B6) exists (`OwnerPictures.Resolve`) and the same stage as Home, so it turns
-  into Home without a jump. The Leafling guest (spec 004 R17) was removed by the owner on 2026-10-02.
+  showed the Home picture until its own (B6) exists (`OwnerPictures.Resolve`) and the same stage as Home; since the
+  owner's choice of 2026-10-06 (FR-039) it is the lotus loader instead (§6.13), which opens on Home through the lotus
+  iris. The Leafling guest (spec 004 R17) was removed by the owner on 2026-10-02.
 - The milestone teaser is a parchment pill (`Kit.ParchmentPill`) with the outlined pink gift and `InkBrown` text; the
   Daily Challenge card is parchment with the sun on a cream disc. (The rank pill and the avatar side button left Home
   for the bottom menu's Leaderboard and Wardrobe places on 2026-10-04, §6.7.)
@@ -1506,3 +1507,35 @@ its line of walkers clears it as the board is scheduled, then it rests 1.8 s and
 Blossom's loop, then Munchers' (`ClearPreview.At`). A tap buys from L40 and chooses an owned style; before L40 it says
 from which level (the playtest's toast; Unity's footer line), as it does when Petals are short. The preview's frames
 42 (L45, Fireflies chosen) and 43 (L20, the padlocks) show it.
+
+### 6.13 The lotus loader and the lotus iris (both builds; the owner's choice of 2026-10-06, FR-039)
+
+The splash and the move from the win to the next level, laid out and timed by the kit's `LotusIris` (engine-free) and
+drawn by the playtest's `LotusPainter` and Unity's `LotusIrisView` from one `LotusPose` a frame. The playtest's
+`SplashScreen` and `DesignApp.NextLevel` drive it there; Unity's `SplashScreen` (its progress from `Boot`) and
+`LevelTransition` (on the Boot object, so it survives the scene load). Sizes in reference units (`u`,
+`DesignTokens.ScaleFor`) or screen pixels; a turn is clockwise on screen (Unity turns by its negative).
+
+| Piece | Recipe |
+|---|---|
+| Middle | the lotus' and the iris' middle: across the screen's middle, at `CenterShare` (48%) of the safe height |
+| Cover | `parchment.bottom` everywhere but a round hole round the middle: `UiRaster.IrisHole` (512 px, the cover with a hole `HoleShare` = 0.8 of its side across, a one-pixel soft edge), rendered once and scaled to the hole (`HoleBox`), and plain boxes round it (`CoverPanels`, up to four); all plain when closed. Nothing is rendered per frame |
+| Rim | round the hole: a `lotus.fill` band `RimUnits` (10 u) wide, then a `lotus.line` edge `RimLineUnits` (3 u) |
+| Glow | `UiRaster.IrisGlow` (128 px, `parchment.top` lightened 0.5, 0.9 alpha in the middle fading smoothly to none) scaled to `GlowUnits` (1150 u) behind the lotus |
+| Lotus | the Petals' lotus (`currency.petal`, the owner's picture) `LotusUnits` (340 u) square |
+| Ring | twelve `fx.petals` round the lotus at `RingUnits` (225 u), each `PetalUnits` (58 u) pointing outward over a copy `PetalLineScale` (1.16) larger in its outline color; waiting: `lotus.tip` over `parchment.line`, lit: `lotus.fill` over `lotus.line`; the petal lighting up swells to ×1.35 (`PetalState`) |
+| Text | `TextUnits` (375 u) under the middle: "Level N" (`common.level`) in `type.level_home` ×1.25 `ink.title`; on the splash "Loading..." (`splash.loading`) in `type.button_secondary` `ink.brown_soft` |
+| Logo | the splash only: the wordmark in Home's logo box (§6.4), as the splash showed it before |
+| Taps | none while the cover shows (a clear full-screen target), from the transition's first frame |
+
+Timing (`LotusIris.Splash`, `LotusIris.Transition`; ease-in is cubic, the pops an ease-out-back):
+
+| Moment | Splash | Between levels |
+|---|---|---|
+| Start | the cover closed; the logo pops in 0.1–0.6 s (×0.75 → 1), the lotus 0.3–0.8 s (breathing ±4%, swaying ±4°), the ring 0.5–0.9 s, "Loading..." 0.7–1.0 s | the iris closes over the win, 0–0.5 s (ease-in) |
+| Wait | the ring lights with the loading, never ahead of it and never faster than over `SplashFillSeconds` (1.15 s) from 0.45 s (`SplashProgress`) | closed: the glow (0.5–0.8 s), the lotus pops in turning from −30° (0.5–0.95 s), the ring spins at 126°/s (0.55–0.85 s in), "Level N" rises 30 u in (0.6–0.95 s); the next level starts under the cover at `SwitchAt` (0.5 s; an interstitial that is due shows over the cover, which holds until it is closed and the level is up) |
+| Open | once loaded, the first screen up and the ring full (`SplashFull`): the iris opens over `SplashOpenSeconds` (0.55 s, ease-in), the lotus growing ×2.4 and everything fading | from `OpenAt` (1.4 s) over 0.5 s (ease-in), the lotus growing ×2.4 and fading; the ring and the text gone in 0.2 s, before the hole reaches them |
+
+The preview's frames 1 (the splash loading), 44 (the splash opening on Level 1), 45 (the iris closing over the win of
+Level 12), 46 (closed, "Level 13") and 47 (opening on Level 13) show it. The renderer of the owner's GIFs is
+`tools/loading-gifs` (Python, from the game's pictures).

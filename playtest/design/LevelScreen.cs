@@ -589,7 +589,7 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>NEXT on the win card: the milestone card when this level had one, else the next level.</summary>
+        /// <summary>NEXT on the win card: the milestone card when this level had one, else the next level through the lotus iris.</summary>
         public void Next()
         {
             if (!ShowingMilestone && Payout?.Milestone != null)
@@ -600,7 +600,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            _app.StartLevel();
+            _app.NextLevel();
         }
 
         private void OnArrived(TileCleared clear)

@@ -539,6 +539,21 @@ above the boosters, 5–10 thousand an animation)."
   50, 500, 2500), Picture Keeper (pictures collected: 10, 100, 1000) and Daily Gardener (Daily Challenges won: 7, 30,
   100), each a bronze, a silver and a gold tier, shown only (no reward).
 
+### Session 2026-10-06 (the owner's loading screen: the lotus)
+
+The owner: "Come up with a loading screen at the game's start and between levels. Render a few GIF variants for me to
+choose from. Do not overcomplicate it, but make it in our game's style." Four variants were rendered from the game's own
+pictures (`tools/loading-gifs`): 1 · Sign (the splash with a wooden progress bar; a "Level N" sign dropping on ropes),
+2 · Lotus (the logo and the lotus on parchment with a ring of petals filling; an iris closing on the lotus and opening on
+the next level), 3 · Tiles (candy tiles popping in as progress; a cascade of cream tiles), 4 · Heroes and petals (the
+four heroes hopping in turn; a gust of petals). The owner: "My choice is the lotus."
+- Q: For the start and between levels both? → A: Yes: the lotus loader is the splash, and the lotus iris plays between
+  levels (the choice covered both GIFs of variant 2).
+- Q: Which moves between screens play it? → A: The win's Next to the next level, and the splash opening on the first
+  screen. Home's Play, Restart, leaving a level and the Daily Challenge go on as before.
+- Q: The interstitial (spec 001 FR-053)? → A: It still shows only at that moment, over the iris' closed cover; the cover
+  stays closed until the ad is closed and the next level is up.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1057,6 +1072,16 @@ inventory.
   says from which level, and when owned it chooses the style; the free card brings back the pair. Presentation and
   board cosmetics only (spec 001 FR-063 as amended): no outcome changes, and the tiles, pods and walkers keep their
   variant icons and colors.
+- **FR-039** *(the owner's loading screen of 2026-10-06, "the lotus")*: Both builds MUST show the lotus loader as the
+  splash and the lotus iris between levels (contracts/look.md §6.13; the kit's `LotusIris`, slots `brand.splash_art`,
+  `bg.splash`, `ui.lotus_iris`). The splash (spec 002 FR-016 as amended) MUST show the logo and the lotus on the
+  parchment from its first frame, a ring of twelve petals round the lotus lighting up one by one as the game loads
+  (never faster than over 1.15 s) and "Loading..." under it; once everything is loaded and the first screen is up, the
+  iris MUST open from the lotus on it (0.55 s). The win's Next MUST close the iris over the win (0.5 s) to the
+  parchment, pop the lotus in with "Level N" under it and the ring spinning, start the next level under the closed
+  cover (an interstitial that is due shows here, spec 001 FR-053), hold 0.9 s and open on the level (0.5 s), about
+  1.9 s in all. The iris is a round hole in the parchment with a pink rim, centered on the lotus. Nothing takes a tap
+  while the cover shows. Presentation only: no rule or progression changes.
 
 ### Key Entities
 

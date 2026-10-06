@@ -4,16 +4,16 @@ Renders the loading-screen concepts as GIFs for review: four variants, each with
 a level-to-level transition (Win "Next" → the next level). A dev tool for picking a direction; nothing here ships.
 
 It draws from the game's own assets in the reference look (spec 005): backgrounds, the logo, the animated hero frames
-(`tools/heroanim`), the field/variant icons, the Nunito font and the design tokens. Those live on the
-`claude/great-darwin-6qrpj8` branch, so point `GD` at a checkout of it.
+(`tools/heroanim`), the field/variant icons, the Nunito font and the design tokens. `GD` points at the repository root
+(or any checkout that has them). The owner chose `2-lotus` (spec 005 FR-039, contracts/look.md §6.13), which the game
+now plays; the GIFs stay as the record of the choice.
 
 ```sh
-git worktree add --detach ../gd origin/claude/great-darwin-6qrpj8
 cd tools/loading-gifs
-GD=../../../gd python3 variants.py out                 # 8 GIFs: out/<variant>-boot.gif, out/<variant>-level.gif
-GD=../../../gd python3 variants.py out 2-lotus         # one variant
-GD=../../../gd python3 compare.py                      # out/compare-boot.gif, out/compare-level.gif (4 side by side)
-GD=../../../gd python3 keys.py 1-sign level 0.3,1.0,2.2 # a keyframe sheet for quick checks
+GD=../.. python3 variants.py out                  # 8 GIFs: out/<variant>-boot.gif, out/<variant>-level.gif
+GD=../.. python3 variants.py out 2-lotus          # one variant
+GD=../.. python3 compare.py                       # out/compare-boot.gif, out/compare-level.gif (4 side by side)
+GD=../.. python3 keys.py 1-sign level 0.3,1.0,2.2 # a keyframe sheet for quick checks
 ```
 
 Needs Python 3 with Pillow and NumPy, and ffmpeg. Frames are drawn at 720 × 1560 and saved at 360 × 780, 25 fps.

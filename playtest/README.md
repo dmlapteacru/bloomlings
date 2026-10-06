@@ -32,8 +32,9 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
   A pod tap goes in only when a slot shows no pod on screen (spec 001 FR-014 as amended on 2026-10-05).
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):
-  - a splash (frame 1), then Level 1 on the very first launch and Home later; over the owner's layered Home its four
-    animated heroes fade in on the fountain already in Home's motion, so Home takes over without a jump;
+  - a splash (frame 1), the lotus loader (spec 005 FR-039): the logo and the lotus on the parchment with a ring of
+    petals filling, then the lotus iris opens on Level 1 on the very first launch and on Home later; the win's Next
+    closes the iris, shows "Level N" and opens it on the next level;
   - Home in the reference layout (spec 005 FR-024, `contracts/look.md` §6.4) in its early look (frame 2) and, once the
     features unlock, the progressed look (frame 3): the header row on top (the owner's request of 2026-10-04: Settings
     at the left, the large Petals pill centered with the Play button's leaves and flower on its corners, the profile

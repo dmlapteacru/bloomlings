@@ -306,7 +306,8 @@ find where the game uses it.
 
 #### D. Flow screens (frames 1–3, 10, 11, 15, 16)
 
-- **FR-016**: A splash (frame 1) MUST show the Bloomlings wordmark over the garden backdrop while the game loads. It
+- **FR-016** *(amended by spec 005 FR-039 on 2026-10-06: the lotus loader on the parchment instead of the garden)*: A
+  splash (frame 1) MUST show the Bloomlings wordmark over the garden backdrop while the game loads. It
   MUST NOT require a tap. The first launch then continues straight into Level 1 (spec 001 US2).
 - **FR-017**: Home MUST follow frame 2 for early players and frame 3 once the long-run features unlock.
   - **Frame 2, always shown:**

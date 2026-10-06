@@ -47,7 +47,8 @@ namespace Bloomlings.Client.App
             DontDestroyOnLoad(gameObject);
             Application.targetFrameRate = _targetFrameRate;
 
-            // The splash (spec 002 frame 1) shows while services and content load; it needs no tap.
+            // The splash (spec 002 frame 1, the lotus loader of spec 005 FR-039) shows while services and content load; its
+            // ring fills with the loading and it needs no tap.
             SplashScreen splash = SplashScreen.Create(transform);
             yield return null;
 
@@ -66,6 +67,7 @@ namespace Bloomlings.Client.App
 
             // Sound, music and haptics follow the Settings toggles from the first frame (FR-073).
             services.Register(GameFeedback.Create(save.Settings));
+            splash.Loaded(0.15f);
 
             ContentSet? content = null;
             Exception? error = null;
@@ -76,6 +78,8 @@ namespace Bloomlings.Client.App
                 Debug.LogException(error ?? new InvalidOperationException("Content did not load."));
                 yield break;
             }
+
+            splash.Loaded(0.6f);
 
             // A downloaded content version newer than the bundled one wins (R6); a damaged cache falls back to the bundle.
             ContentCache cache = ContentUpdateService.DefaultCache();
@@ -204,7 +208,10 @@ namespace Bloomlings.Client.App
                 StartCoroutine(sync.Sync());
                 StartCoroutine(leaderboard.SubmitPending());
             };
-            flow.PostWinTransition = (won, next) =>
+            // The lotus iris between levels (spec 005 FR-039): it closes over the win, the interstitial (when one is due)
+            // shows over its closed cover, the next level starts under it, and it opens on the level.
+            LevelTransition transition = gameObject.AddComponent<LevelTransition>();
+            flow.PostWinTransition = (won, next) => transition.Play(progression.CurrentLevel, started =>
             {
                 if (adPolicy.MayShowInterstitial(AdMoment.PostWin, won, ledger.RemoveAds, clock.UtcNow) && ads.IsInterstitialReady)
                 {
@@ -213,17 +220,20 @@ namespace Bloomlings.Client.App
                         analytics.AdInterstitial(adPolicy.LevelsSinceLast, adPolicy.SecondsSinceLast(clock.UtcNow));
                         adPolicy.OnInterstitialShown(clock.UtcNow);
                         next();
+                        started();
                     });
                 }
                 else
                 {
                     next();
+                    started();
                 }
-            };
+            });
             services.Register(flow);
             AppServices.MakeCurrent(services);
+            splash.Loaded(0.9f);
             flow.Begin(firstLaunch);
-            splash.FadeOut(0.6f);
+            splash.Ready();
 
             // Offline-first (FR-074): everything below runs after the game is playable and never blocks it.
             StartCoroutine(OnlineServices(remote, economy, updates, consent, ads, purchases, products, ledger, auth, sync, leaderboard, analytics));
