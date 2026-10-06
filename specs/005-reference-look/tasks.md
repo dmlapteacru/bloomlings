@@ -648,3 +648,39 @@ and contracts/look.md §3.6, §6.10.
   while on (`garden.glow` rings, green chevrons, `GardenLook.FastGlyphOn`); Settings' row reads "Fast forward: On/Off";
   the save keeps `speed2x`. Spec 001 FR-069 (with its Q&A), FR-024, FR-068, SC-005, quickstart, plan and data model,
   look.md §3.3, the READMEs and CLAUDE.md amended; the asset inventory regenerated.
+
+## The owner's purchases, the Animations tab and scrolling (2026-10-06, FR-038, FR-040, FR-041)
+
+- [X] T140 Kit: `PurchaseOffer` (the item, its Petals or the store's price) and `PurchaseConfirmation` (nothing is spent
+  until the confirm; a cancel buys nothing; the confirm runs the purchase once), the card's layout
+  (`ScreenLayout.PurchaseConfirm`, `PurchaseConfirmRegions`), the slot `ui.card.purchase`, the strings `purchase.*`;
+  `PurchaseConfirmTests`.
+- [X] T141 Kit: `TouchGesture` (on a page that scrolls, past `touch.slop` a touch drags and never taps; a drag past
+  `touch.swipe` turns the page, `PageStep`) and the tokens `DesignTokens.Touch` in dp (`Pixels` from a host's dpi);
+  `PurchaseConfirmTests`.
+- [X] T142 Kit and meta: `ClearingCard` (the Animations card's button box and the Buy button's parts),
+  `ClearingService.ActionOf` (Buy, Choose, Chosen, Locked) and `Check` (what a tap would do, spending nothing), the slot
+  `ui.button.clearing`, the strings `clearing.buy`, `clearing.choose`, `clearing.chosen`; `ClearingServiceTests`.
+- [X] T143 Playtest: every purchase asks first (`DesignApp.ConfirmPurchase`, `Overlay.Purchase`, `MetaCards.Purchase`,
+  `Kit.PurchaseCard`): the Store's booster rows, cosmetics and clearing styles, the Wardrobe's items for sale, a level's
+  booster without charges (`LevelScreen.UseBooster`, a cancel brings the jam card back) and the profile's avatars
+  (`DesignApp.ConfirmProfileEdit`); short Petals say so without asking; the system back cancels.
+- [X] T144 Playtest: tap or scroll (`PainterBase.TouchDown`, `TouchMove`, `TouchUp`, `TouchCancel` on `TouchGesture`;
+  `IPainter.Scroll` registered by the Store's lists, the Wardrobe's cards, the Collection's grid, the Leaderboard's
+  ranks and the profile's edit card's grid; a card's scrim covers them); `DesignView` passes the screen's density.
+- [X] T145 Playtest: the Animations tab's previews loop all the time (`DesignApp.StoreMoving` keeps the host drawing),
+  each card's button (`Kit.ClearingButton`: Buy with the price, Choose, Chosen), the padlock kept before L40; preview
+  frame 49 (the confirmation over the tab, a level's booster), frame 26 (drags over the cosmetics), frame 40 (the avatar
+  confirmed).
+- [X] T146 Unity: `UiKit.PurchaseCard` (`PurchaseCardView`) on every purchase: the Store page's rows (Petals and real
+  money), cosmetics and clearing styles, the Remove Ads card (before the store's purchase, whose platform sheet
+  follows), `GameplayController.UseBooster` (a charge bought with Petals) and the profile's edit card's avatar.
+- [X] T147 Unity: `UiKit.ApplyTouchSlop` (the EventSystem's `pixelDragThreshold` at `touch.slop` from `Screen.dpi`),
+  `SwipePager` (`UiKit.Scrolls`) on the Store, Wardrobe, Collection, Leaderboard and profile pages (a drag cancels the
+  button's click, a swipe turns a paged list), `UiKit.ClearingButton` on the Animations cards; `UnityStubs` extended.
+- [X] T148 Docs: FR-038 as amended, FR-040, FR-041, SC-012 and the session's Q&A here; spec 001's Q&A, FR-051 and FR-070
+  as amended; contracts/look.md §5, §6.12, §6.14 and §6.15; spec 002's design-tokens contract (`touch.*`) and the asset
+  inventory's two rows (by hand).
+- [ ] T149 Unity Editor and a device: the confirmation over the Store, the Remove Ads card, a level's jam card and the
+  profile's edit card; the double confirmation with the platform's purchase sheet; the drag threshold on a high-dpi
+  phone (no tap after a drag, a swipe turns the page); the Animations cards' buttons and their masks.

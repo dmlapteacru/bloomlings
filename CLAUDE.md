@@ -157,6 +157,12 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `LotusPose` (the cover is `UiRaster.IrisHole` scaled to the hole plus plain boxes round it, never rendered per
   frame); Unity's `SplashScreen` takes its progress from `Boot`, and `LevelTransition` sits on the Boot object.
   `tools/loading-gifs` (Python) renders the review GIFs of the concepts from the game's pictures.
+- Purchases and touches (spec 005 FR-040, FR-041, the owner, 2026-10-06; `contracts/look.md` §6.14, §6.15): every
+  purchase, for Petals or real money, asks the purchase confirmation first (the kit's `PurchaseConfirmation` and
+  `ScreenLayout.PurchaseConfirm`; the playtest's `DesignApp.ConfirmPurchase` / `Kit.PurchaseCard`, Unity's
+  `UiKit.PurchaseCard`); never spend Petals or start a store purchase without it. Pages that scroll register their lists
+  (the playtest's `IPainter.Scroll`, Unity's `UiKit.Scrolls`): there a drag past `touch.slop` (10 dp, `TouchGesture`)
+  never taps and a swipe turns the page. Preview frame 49 shows the confirmation over the Store's Animations tab.
 - The owner's animated heroes and layered Home (spec 005 FR-028, owner's delivery of 2026-10-02): `tools/heroanim`
   renders the owner's animated heroes offline into flat 24 fps frames, all four from the owner's `Heroes.glb`
   (2026-10-04; `heroes.json` picks each hero's mesh in it): Sprig with its 4 s idle, 3 s wave and the win's 2 s celebrate

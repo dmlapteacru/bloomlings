@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 15 | 0 | 15 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 71 | 0 | 71 |
+| UI kit | 73 | 0 | 73 |
 | Materials | 4 | 0 | 4 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 2 | 0 | 2 |
 | Audio | 11 | 3 | 14 |
-| **All** | **220** | **32** | **252** |
+| **All** | **222** | **32** | **254** |
 
 ## Brand
 
@@ -230,6 +230,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.badge.super_hard` | SUPER HARD badge | 9 | Gameplay | intro; steady | Small | no | Launch | purple raised sticker pill on a plate |
 | `ui.badge.count` | Count badge (booster charges, +N on a stack) | 7, 12, 14 | Booster bar; tray | count | Icon | no | Launch | dark green disc with a white ring and white digits |
 | `ui.card` | Popup card frame | 4, 11, 16 | Daily Reward; Pause; Milestone; Settings; Daily Challenge | with close; without close | Large | no | Launch | parchment card (`mat.parchment`) with a brown title or a wooden sign header and a cream round close, over a scrim |
+| `ui.card.purchase` | Purchase confirmation card (spec 005 FR-040): every purchase, for Petals or real money, asks first | 17 | Store (boosters, cosmetics, clearing styles, Petal packs, Remove Ads); Wardrobe; a booster bought in a level; the profile's avatars; the Remove Ads card | Petals; real money (the store's sheet follows) | Large | no | Launch | the popup card (`ui.card`, no close) with "Confirm purchase", the item's picture in a cream well, "Buy … for … Petals?", the cost pill (`ui.pill.cost`), a caption, the green Buy (`ui.button.primary`) and the cream Cancel (`ui.button.secondary`) |
 | `ui.lotus_iris` | Lotus iris (spec 005 FR-039): the parchment cover closing on the middle of the screen through a round hole with a pink rim, the lotus popping in with "Level N" and a spinning ring of petals, then opening on the next level; the splash opens through it too | 1, 15 | The win's Next → the next level; the splash → the first screen | closing; closed (the lotus, the ring, "Level N"); opening | Screen | no | Launch | UiRaster.IrisHole (`parchment.bottom` but for a round hole) scaled to the hole with plain `parchment.bottom` round it, a `lotus.fill` rim with a `lotus.line` edge, UiRaster.IrisGlow behind the lotus (`currency.petal`), twelve `fx.petals` and the text |
 | `ui.spotlight` | Guided spotlight (spec 005 FR-035): the screen dimmed but for one lit place, a breathing glow ring round it, a parchment bubble with the message and a pointing hand on a forced step | 7, 8, 9 | Gameplay: the Garden Entry (L1), the first tap (L1), the blocked entry (first time), each booster at its unlock | tap to continue; forced (only the lit place takes the tap) | Screen | no | Launch | UiRaster.SpotlightScrim (`surface.scrim` at 0.72 with a soft rounded hole), a `garden.glow` ring, a parchment bubble (`mat.parchment`) with a tail and `ui.pointer` |
 | `ui.sheet` | Jam card frame (spec 005 FR-022) | 10 | Jam | popping in; open | Large | no | Launch | a parchment card in the middle of the screen over the warm scrim, with a brown title and a soft brown subtitle (two lines when long), popping in |
@@ -245,7 +246,8 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.pedestal` | Stone pedestal under the heroes | 2, 3, 15, 16 | Win; milestone; Home; Wardrobe | normal | Medium | no | Launch | UiRaster.Pedestal picture: a warm grey-beige ellipse-topped stone drum with block joints, a crack, moss tufts and a dark outline (the win stands on the owner's painted disc instead when `Backgrounds/win.jpg` exists) |
 | `ui.logo.wood` | Wooden wordmark letters (the stand-in for the owner's logo; its leaves are the owner's `Decor/logo-leaves.png` when it exists, pictures.md D8) | 1, 2, 3 | Splash; Home | full; compact | Large | no | Launch | wordmark text in pale cream-yellow wood with a wood outline and extrusion, ivy clusters and a pink flower |
 | `ui.tab.family` | Family tab (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | selected (lighter, joined to the panel); unselected | Small | no | Launch | cream tab with rounded top corners holding the family's 3D hero and its name; the selected one lighter and flowing into the panel below |
-| `ui.card.clearing` | Clearing style card (the Store's Animations tab; spec 005 FR-038) | 17 | Store: Animations | free pair; for sale (cost pill); bought; chosen (check); before L40 (padlock) | Small | no | Launch | the outfit card holding a live preview: a small board of 5 × 3 tiles with its arch and a slot, cleared in the style in a loop |
+| `ui.card.clearing` | Clearing style card (the Store's Animations tab; spec 005 FR-038) | 17 | Store: Animations | free pair; for sale (Buy); bought (Choose); chosen (check, Chosen); before L40 (cost pill, padlock) | Small | no | Launch | the outfit card holding a live preview, looping all the time: a small board of 5 × 3 tiles with its arch and a slot, cleared in the style in a loop |
+| `ui.button.clearing` | Clearing style card's action button (spec 005 FR-038 as amended on 2026-10-06) | 17 | Store: Animations | Buy (with the price); Choose; Chosen | Small | no | Launch | where the cost pill hangs, wider: the green Buy (`ui.button.primary`'s face) with "Buy", the lotus and the price; the cream Choose (`ui.button.secondary`'s face); Chosen: a flat cream plate with a green check and green letters |
 | `ui.card.outfit` | Outfit card (Wardrobe; the Store's cosmetics) | 17 | Store cosmetics; Wardrobe | normal; worn; for sale (cost pill); locked (padlock) | Small | no | Launch | cream card with a beige picture well showing the hero in the item and the name below; the worn one green-tinted with a green border and a check badge; a locked one faded with a padlock badge |
 | `ui.fountain` | Lotus fountain of the drawn Home stage (the stand-in for the owner's Home diorama) | 2 | Home (early) | normal | Medium | no | Launch | a small stone basin (`ui.pedestal`) with water, two lily pads and the pink lotus, between the heroes on the stone pedestal |
 | `ui.close` | Close glyph | 4, 5, 6, 11 | Cards | normal | Icon | no | Launch | shape `ui.close` |

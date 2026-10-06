@@ -763,7 +763,8 @@ New slots (kind `Procedural` unless noted) registered in `AssetSlots` and marked
 `ui.sign.wood`, `ui.sign.flowers`, `ui.button.rim`, `ui.button.choice`, `ui.pill.cost`,
 `ui.pill.speed`, `ui.badge.count` (restyled), `board.border.stone`, `board.arch` (retired on 2026-10-03 with the arch), the lawn (the `bg.theme.*` slots
 restyled, §4.2; `tile.base`, `tile.ground`, `tile.layer_peek` and `tile.picture` restyled; `tile.entry` retired on 2026-10-03), `fx.rays`, `fx.petals` (kind `Shape`: one petal), `ui.pedestal`, `ui.tab.family`, `ui.card.outfit`,
-`ui.logo.wood`, `ui.back`, `ui.fast`, `ui.nav.bar`, `ui.nav.medallion`, `ui.nav.lock` and `ui.locked.notice` (the bottom
+`ui.logo.wood`, `ui.card.purchase` (the purchase confirmation, §6.14), `ui.button.clearing` (the clearing cards'
+buttons, §6.12), `ui.back`, `ui.fast`, `ui.nav.bar`, `ui.nav.medallion`, `ui.nav.lock` and `ui.locked.notice` (the bottom
 menu, its locked places' padlock and their notice, §6.7), `icon.nav.shop`,
 `icon.nav.wardrobe`, `icon.nav.home`, `icon.nav.leaderboard` and `icon.nav.collection` (its places' icons, the owner's
 pictures D9–D13; the `icon.` prefix is `UiKit`), `booster.extra_slot`/`shuffle`/`return`/`bloom_burst` (redrawn; the owner's
@@ -1491,18 +1492,68 @@ The Store's Animations tab (`ui.card.clearing`; the playtest's `StoreScreen.Anim
 top (`ReferenceStoreRegions.ClearingCard`, `ClearingsPerPage`; no family tabs), the footer line
 `store.animations_footer` ("Blossom and Munchers take turns. A chosen style plays on every level.") between the page
 arrows. The free card first (`clearing.free_pair` "Free pair"), then the five bought styles by their names
-(`clearing.<name>`); a style not owned shows its cost pill (Remote Config `economy.price.clearing`, 5000 Petals), with
-the padlock badge (`Kit.LockBadge` / `UiKit.LockBadge`, the disc 0.22 of the card's width at the well's lower right)
-before L40, its picture still bright and its name in `ink.brown_soft`; the chosen card is green with the check. Each
+(`clearing.<name>`). Each card carries its action button (`ui.button.clearing`; the owner's request of 2026-10-06:
+"It is not clear how to choose an animation"; `ClearingService.ActionOf`, `Kit.ClearingButton` / `UiKit.ClearingButton`)
+where an outfit card's cost pill hangs, a little wider (`ClearingCard.Button`: 0.94 of the card's width, 0.2 of its
+body tall, its middle 0.1 of its height under the body's bottom edge), its letters `ClearingCard.LabelShare` (0.5) of
+its height in `type.button_secondary`:
+
+| Action | Button |
+|---|---|
+| Buy (not owned, from L40) | the glossy green face on its cream plate (`GardenLook.Green`, `ui.button.primary`'s face): "Buy" (`clearing.buy`), the lotus (0.66 of its height) and the price (Remote Config `economy.price.clearing`, 5000) in white with the green label look, laid together and shrunk together to fit 0.3 of its height in from each end (`ClearingCard.BuyParts`) |
+| Choose (owned, not chosen; the free card while a bought style is chosen) | the cream face on its plate (`ui.button.secondary`'s face) with "Choose" (`clearing.choose`) in `ink.brown` |
+| Chosen | a flat cream plate (`cream.top` to `cream.face`) over a soft shadow in a `GardenLook.Green` face-colored outline (0.05 of its height), the green check (`ui.check`, 0.56 of its height) and "Chosen" (`clearing.chosen`) in the green set's line color; the card's well is green with the check badge as before |
+| Locked (not owned, before L40) | no button: the cost pill and the padlock badge (`Kit.LockBadge` / `UiKit.LockBadge`, the disc 0.22 of the card's width at the well's lower right) stay, the picture still bright, the name in `ink.brown_soft` |
+
+The whole card is the button (one touch target holding it; the chosen card takes none). Each
 well holds the style's live preview (`ClearPreview`, `Kit.ClearingPreview` / `ClearPreviewView`): a 5 × 3 board of one
 variant per style (Blossom Flower, Munchers Leaf, Fireflies Violet Bud, Bubbles Dew, Pushers Wood, Fireworks Water,
 Parade Acorn) in its stone border on its plain ground (`BoardPictures.PlainGround`, the variant's color lightened
 0.55), the arch under its middle column and one slot plate below at its left (`ClearPreview.Slot`, clear of the
 badge), the whole picture (`ClearPreview.Bounds`, 5 × 4.8 cells) centered at most 84% of the well wide and 90% tall;
 its line of walkers clears it as the board is scheduled, then it rests 1.8 s and is laid again. The free card shows
-Blossom's loop, then Munchers' (`ClearPreview.At`). A tap buys from L40 and chooses an owned style; before L40 it says
+Blossom's loop, then Munchers' (`ClearPreview.At`). The previews loop all the time, never only under a finger: the
+playtest keeps drawing frames while the tab shows (`DesignApp.StoreMoving`, about 30 a second), Unity's
+`ClearPreviewView` follows unscaled time every frame. A tap on Buy asks the purchase confirmation first (§6.14, FR-040,
+`ClearingService.Check`) and buys and chooses the style only on its Buy; Choose chooses at once; before L40 a tap says
 from which level (the playtest's toast; Unity's footer line), as it does when Petals are short. The preview's frames
-42 (L45, Fireflies chosen) and 43 (L20, the padlocks) show it.
+42 (L45, Fireflies chosen), 43 (L20, the padlocks) and 49 (Bubbles bought on its confirmation, Pushers' open) show it.
+
+### 6.14 The purchase confirmation (both builds; the owner's request of 2026-10-06, FR-040)
+
+Every purchase asks first (`PurchaseConfirmation`; the playtest's `DesignApp.ConfirmPurchase` and `Kit.PurchaseCard`,
+Unity's `UiKit.PurchaseCard` / `PurchaseCardView`; slot `ui.card.purchase`). A popup card (§4.3, `Kit.Card` /
+`UiKit.Card`) laid by `ScreenLayout.PurchaseConfirm` (`PurchaseConfirmRegions`, content `ContentUnits` = 962 u), over
+whatever asked (the Store page, the Wardrobe, a level and its jam card, the profile's edit card, the Remove Ads card):
+
+| Piece | Recipe |
+|---|---|
+| Title | "Confirm purchase" (`purchase.title`) in `type.title` `ink.title`; no close button: Cancel (and the playtest's system back) closes it |
+| Picture | a square cream well `PictureUnits` (320 u, at most half the body) 10 u under the title: `parchment.well` mixed 35% toward `cream.top` down to `parchment.well`, radius 0.12 of its side, a `parchment.edge` darkened 0.08 outline; the item's picture clipped in it, inset 0.06: a booster's icon, the hero wearing the cosmetic, the clearing style's live preview, the avatar, the lotus (Petal packs, bundles, Remove Ads) |
+| Question | 26 u lower, up to two lines of `LineUnits` (60 u), centered: "Buy {item} for {price} Petals?" (`purchase.question_petals`; the price grouped, "5 000") or "Buy {item} for {price}?" with the store's localized price (`purchase.question_money`; "the store's price" while it is unknown, `purchase.price_unknown`), `type.body` `ink.brown` |
+| Price | 14 u lower, the cost pill (§3.4) `PriceUnits` (92 u) tall and as wide as its price (at most 0.7 of the body): the lotus and the Petals, or the store's price alone |
+| Note | 10 u lower, a `NoteUnits` (50 u) caption in `ink.brown_soft`: "You have N Petals" (`purchase.balance`), or for real money "Your app store confirms the payment next" (`purchase.store_next`) |
+| Buy | 30 u lower, the green primary button with its leaves (`size.card_primary`), "Buy" (`purchase.buy`): the card closes, then the purchase runs once |
+| Cancel | 24 u lower, the cream secondary button (`size.card_secondary_width` less 40 u a side × `size.secondary_height`), "Cancel" (`common.cancel`): nothing is bought |
+
+Short Petals say so at once without asking (the refusal sound and "Not enough Petals"). For real money the platform's
+own purchase sheet follows the confirmation's Buy (Unity; the playtest sells nothing for money). The preview's frame
+49 shows it over the Animations tab; frames 26 and 40 check it from the cosmetics and the profile's edit card.
+
+### 6.15 Tap or scroll (both builds; the owner's request of 2026-10-06, FR-041)
+
+The kit's `TouchGesture` with two tokens in dp (160 to the inch; `DesignTokens.Touch`): `touch.slop` (10 dp) and
+`touch.swipe` (40 dp), each host turning them into its pixels from its screen's density (`Touch.Pixels`; a host that
+cannot tell takes a phone 360 dp wide). On a page that scrolls (the Store's rows, outfit cards and clearing cards, the
+Wardrobe's cards, the Collection's grid, the Leaderboard's ranks, the profile's edit card's grid; the playtest's
+`IPainter.Scroll`, Unity's `SwipePager` / `UiKit.Scrolls` on the page): a finger taps only when it lifts within
+`touch.slop` of where it went down; past it the touch is a drag, for good: nothing looks pressed, nothing taps, and a
+drag at least `touch.swipe` long along its main direction turns the page (up or left the next page, down or right the
+previous one, `TouchGesture.PageStep`), as the page arrows do. A card's scrim covers the page's areas under it (a
+full-screen touch target). Off such pages (the board, the tray, the buttons of a level, Home) a tap fires where the
+finger lifts, as before. Unity sets the EventSystem's `pixelDragThreshold` to `touch.slop` in pixels from `Screen.dpi`
+(`UiKit.ApplyTouchSlop`; Unity's default 10 px is about 4 dp on a 420 dpi phone), and a page's drag handler takes the
+drag, so the button under the finger gets its pointer up and no click.
 
 ### 6.13 The lotus loader and the lotus iris (both builds; the owner's choice of 2026-10-06, FR-039)
 
