@@ -65,7 +65,13 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   previews from drafts, `--history <batch>` chains preview batches, and `validate` still fails such levels on
   `picture-approved`. `content/readability/approved-pairs.json` is `provisional` until the readability sign-off.
   Mechanic showcase levels live in `content/showcase/` (generated with `generate --mechanics <m> --class normal`);
-  `generate` keeps them fixed (`--keep`).
+  `generate` keeps them fixed (`--keep`). `generate --segments N` fixes how the range is cut for `--jobs` threads, so
+  the levels never depend on the machine's cores.
+- `tools/catalog/build-catalog.ps1` (Windows PowerShell 5.1 and PowerShell 7) and its twin `build-catalog.sh` build and
+  validate `content/catalog/` band by band (`tools/catalog/README.md`): each band's profile, seed and fixed segments, the
+  earlier bands as history, two more seeds for a level without an accepted candidate (else a recorded gap), every band
+  validated in context before it is copied in, `content/catalog/build-manifest.jsonl` per band; resumable, and
+  `-Check <band>` / `--check <band>` regenerates a band to compare it file by file. It never commits.
 - Boards (spec 001 FR-008 and FR-036 as amended on 2026-10-06, the owner): the curated Levels 1–10 keep 11–12×12; from
   L11 every regular board has 224–288 cells (14×16 up to 16×18) and shows the layer peek; from L525 every milestone level
   (every 25th, `BandGuidelines.IsBigLevel`) is a big level of 289–616 cells, at most 22×28 (`CellPos.MaxWidth`/
@@ -74,7 +80,9 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   mismatch, `LevelView` hides `CellInfo.Next` on an icons board and both builds skip the chip. An icons board's hidden
   layers pass the sampled fairness check of research R8b (`HiddenLayerFairness`, at most 72 layers, no mystery); big
   levels are Normal (`DifficultySchedule` moves a Hard due on one to the next level) and score against the band's `big`
-  thresholds in `difficulty-thresholds.json`.
+  thresholds in `difficulty-thresholds.json`. Practice levels are never Super Hard (FR-059 as amended): with the
+  roadmap, `DifficultySchedule` moves such a Super Hard to the next level that is not a showcase, a practice or a
+  milestone level, and `validate` refuses a Super Hard practice level.
 - `tools/heroanim` (Node 22, not in the solution; `tools/heroanim/README.md`) pre-renders the owner's animated FBX
   heroes and prepares the layered Home: `cd tools/heroanim && npm ci`, then `node bake.mjs` (the four heroes, about 6
   minutes; `--only <family>`) and `node layers.mjs <folder>` (the owner's Home layers). `node tools/heroanim/check.mjs`
