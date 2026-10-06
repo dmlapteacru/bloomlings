@@ -114,8 +114,17 @@ namespace Bloomlings.Client.UI.Design
             return new Box(left, top, left + CellSize, top + CellSize);
         }
 
+        /// <summary>The picked cell's green disc, as a share of its picture's side (a radius 0.56 of it: a rim round the avatar).</summary>
+        public const float PickedShare = 0.56f;
+
         /// <summary>The round picture in a cell (its upper 84%, centered across).</summary>
         public static Box CellPicture(Box cell) => Box.FromCenter(cell.CenterX, cell.Top + (cell.Height * 0.43f), cell.Width * 0.8f, cell.Width * 0.8f);
+
+        /// <summary>
+        /// The avatar of a Frame or Badge cell: the picture's box 0.06 of the cell smaller on each side, so a drawn frame
+        /// (<see cref="AvatarLook.FrameShare"/> of the disc) about fills the picture's box and stays inside the cell.
+        /// </summary>
+        public static Box CellItemAvatar(Box cell) => CellPicture(cell).Inset(cell.Width * 0.06f);
 
         /// <summary>A cell's price pill, over the picture's foot.</summary>
         public static Box CellPrice(Box cell) => Box.FromCenter(cell.CenterX, cell.Bottom - (cell.Height * 0.12f), cell.Width * 0.84f, cell.Height * 0.24f);

@@ -84,7 +84,35 @@ namespace Bloomlings.Client.Tests
                 Assert.That(r.Cell(0).Bottom, Is.LessThan(r.Cell(ProfileEditRegions.Columns).Top), at);
                 Assert.That(Inside(r.Grid, r.NameField) && Inside(r.Grid, r.NameButton) && Inside(r.Grid, r.NameHint), Is.True, at + ": the Name tab");
                 Assert.That(r.NameButton.Height, Is.GreaterThanOrEqualTo(touch * 0.95f), at);
+                Box item = ProfileEditRegions.CellItemAvatar(r.Cell(0));
+                Assert.That(Inside(r.Cell(0), AvatarLook.Frame(AvatarLook.Disc(item))), Is.True, at + ": a drawn frame inside its cell");
             }
+        }
+
+        /// <summary>
+        /// The owner's request of 2026-10-06: the avatar's picture fills its whole disc, inside only the thin ring, and a
+        /// drawn frame's band lies over the disc's edge; a press sinks the disc into its lip.
+        /// </summary>
+        [Test]
+        public void TheAvatarsPicture_FillsItsDisc_AndTheFrameLiesOverItsEdge()
+        {
+            var avatar = new Box(100f, 200f, 240f, 340f);
+            Box disc = AvatarLook.Disc(avatar);
+            float ring = AvatarLook.Ring(disc, 2f);
+            Box picture = AvatarLook.Picture(disc, ring);
+            Assert.That(disc.Width, Is.EqualTo(disc.Height).Within(0.01f), "round");
+            Assert.That(disc.Width, Is.EqualTo(140f * (1f - AvatarLook.LipShare)).Within(0.01f));
+            Assert.That(disc.Top, Is.EqualTo(avatar.Top).Within(0.01f), "at the top, the lip under it");
+            Assert.That(AvatarLook.Lip(avatar).Bottom, Is.EqualTo(avatar.Bottom).Within(0.01f));
+            Assert.That(picture.Width, Is.EqualTo(disc.Width - (2f * ring)).Within(0.01f), "no cream gap: only the ring");
+            Assert.That(ring / disc.Width, Is.LessThanOrEqualTo(0.035f), "a thin ring");
+            Assert.That(ring, Is.GreaterThanOrEqualTo(2f), "at least the minimum");
+            Box frame = AvatarLook.Frame(disc);
+            Assert.That(frame.CenterX, Is.EqualTo(disc.CenterX).Within(0.01f));
+            Assert.That(frame.CenterY, Is.EqualTo(disc.CenterY).Within(0.01f));
+            Assert.That(AvatarLook.FrameEdge * frame.Width, Is.EqualTo(disc.Width / 2f).Within(0.01f), "the frames' bands lie on the disc's edge");
+            Assert.That(AvatarLook.Disc(avatar, 1f).Top, Is.GreaterThan(disc.Top), "pressed, the disc sinks");
+            Assert.That(AvatarLook.Disc(avatar, 1f).Bottom, Is.LessThanOrEqualTo(avatar.Bottom), "into its lip, never below it");
         }
     }
 }
