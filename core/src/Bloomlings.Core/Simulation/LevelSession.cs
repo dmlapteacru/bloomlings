@@ -16,13 +16,13 @@ namespace Bloomlings.Core.Simulation
 
         private readonly List<Command> _commandLog;
         private readonly IReadOnlyList<IRoundHook> _hooks;
+        private LevelView? _view;
 
         private LevelSession(LevelState state, List<Command> commandLog, IReadOnlyList<IRoundHook> hooks)
         {
             State = state;
             _commandLog = commandLog;
             _hooks = hooks;
-            View = new LevelView(this);
         }
 
         /// <summary>
@@ -61,7 +61,8 @@ namespace Bloomlings.Core.Simulation
 
         public SessionOptions Options => State.Options;
 
-        public LevelView View { get; }
+        /// <summary>The read-only view of this session (made when first asked for; it holds no state of its own).</summary>
+        public LevelView View => _view ??= new LevelView(this);
 
         public LevelStatus Status => State.Status;
 
@@ -78,6 +79,48 @@ namespace Bloomlings.Core.Simulation
 
         /// <summary>A deep copy for the solver and Shuffle search.</summary>
         public LevelSession Clone() => new LevelSession(State.Clone(), new List<Command>(_commandLog), _hooks);
+
+        /// <summary>
+        /// One step of a search (<see cref="Search.StateSearch"/>, the solver): a copy of this session with
+        /// <paramref name="command"/> applied, or null when the command is refused. The copy has exactly the state,
+        /// status and <see cref="StateHash"/> that <see cref="Clone"/> followed by <see cref="Apply"/> gives, and this
+        /// session does not change. A tap builds no event log (nobody reads it during a search), and the copy keeps no
+        /// <see cref="CommandLog"/>: it is for exploring states, never for replays or presentation.
+        /// </summary>
+        public LevelSession? SearchChild(Command command) => SearchChild(command, null);
+
+        /// <summary>
+        /// As <see cref="SearchChild(Command)"/>; with <paramref name="reuse"/>, a session from an earlier search step of
+        /// the same loaded level that the caller is done with, the child is written into it instead of a new copy (then
+        /// the caller must not use what it held). The child is the same either way.
+        /// </summary>
+        public LevelSession? SearchChild(Command command, LevelSession? reuse)
+        {
+            if (command is TapPod tap)
+            {
+                if (!Check(tap).IsAllowed)
+                {
+                    return null;
+                }
+
+                LevelSession child;
+                if (reuse != null && !ReferenceEquals(reuse, this) && ReferenceEquals(reuse._hooks, _hooks) && reuse.State.TryCopyFrom(State))
+                {
+                    child = reuse;
+                    child._commandLog.Clear();
+                }
+                else
+                {
+                    child = new LevelSession(State.Clone(), new List<Command>(), _hooks);
+                }
+
+                child.CommitTap(tap, null);
+                return child;
+            }
+
+            LevelSession copy = Clone();
+            return copy.Apply(command).Accepted ? copy : null;
+        }
 
         /// <summary>The same validation as <see cref="Apply"/>, without changing anything (for button states).</summary>
         public CommandCheck Check(Command command)
@@ -201,23 +244,27 @@ namespace Bloomlings.Core.Simulation
         private CommandResult ApplyTap(TapPod tap)
         {
             var events = new List<GameEvent>();
+            CommitTap(tap, events);
+            _commandLog.Add(tap);
+            return CommandResult.Accept(events);
+        }
 
+        /// <summary>A checked tap and its settle; <paramref name="events"/> is null in a search (<see cref="SearchChild"/>).</summary>
+        private void CommitTap(TapPod tap, List<GameEvent>? events)
+        {
             // A connected pod commits its whole group, each member into its own slot (FR-035).
             foreach (int pod in State.CommitOrder(State.PodIndex[tap.PodId]))
             {
-                string id = State.PodId(pod);
                 (int stack, int slot) = State.CommitPod(pod);
-                events.Add(new PodCommitted(0, id, slot, stack, 0));
+                events?.Add(new PodCommitted(0, State.PodId(pod), slot, stack, 0));
                 if (!State.Pods[pod].VariantRevealed)
                 {
                     State.RevealPod(pod);
-                    events.Add(new MysteryPodRevealed(0, id, State.PodVariant(pod)));
+                    events?.Add(new MysteryPodRevealed(0, State.PodId(pod), State.PodVariant(pod)));
                 }
             }
 
             Settle(events);
-            _commandLog.Add(tap);
-            return CommandResult.Accept(events);
         }
 
         /// <summary>Applies a checked booster (FR-043 to FR-050); the charge itself is the client's economy (FR-048).</summary>
@@ -266,7 +313,6 @@ namespace Bloomlings.Core.Simulation
                 child.State.MoveToTop(pod);
             }
 
-            var events = new List<GameEvent>();
             foreach (int pod in child.State.CommitOrder(unit[0]))
             {
                 child.State.CommitPod(pod);
@@ -276,7 +322,8 @@ namespace Bloomlings.Core.Simulation
                 }
             }
 
-            child.Settle(events);
+            // Nobody reads the relaxed problem's events.
+            child.Settle(null);
             return child;
         }
 
@@ -289,13 +336,14 @@ namespace Bloomlings.Core.Simulation
             return child;
         }
 
-        private void Settle(List<GameEvent> events)
+        /// <summary>Settles and evaluates the status; without <paramref name="events"/> (a search) no event is built.</summary>
+        private void Settle(List<GameEvent>? events)
         {
             int round = Settler.Settle(State, _hooks, events);
             LevelStatus before = State.Status;
             LevelStatus after = StatusEvaluator.Evaluate(State, _hooks);
             State.Status = after;
-            if (after == before)
+            if (after == before || events == null)
             {
                 return;
             }

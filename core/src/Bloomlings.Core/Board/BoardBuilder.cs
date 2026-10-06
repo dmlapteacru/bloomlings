@@ -42,7 +42,7 @@ namespace Bloomlings.Core.Boards
             int width = picture.Width;
             int height = picture.Height;
             EntryDef[] entries = ValidateEntries(definition, width, height);
-            var board = new Board(width, height, entries);
+            var board = new Board(width, height, entries, catalog);
 
             // 1–2: picture and mapping.
             for (int y = 0; y < height; y++)

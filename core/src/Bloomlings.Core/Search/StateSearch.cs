@@ -87,14 +87,45 @@ namespace Bloomlings.Core.Search
             }
 
             bool[] progressable = ProgressableVariants(state);
-            var seen = new HashSet<string>(StringComparer.Ordinal);
+            int[]? looks = state.PodLookClass;
+            HashSet<string>? seen = looks == null ? new HashSet<string>(StringComparer.Ordinal) : null;
+            Span<int> kept = stackalloc int[SourceTray.MaxStacks];
+            int keptCount = 0;
             var first = new List<Command>();
             var second = new List<Command>();
-            foreach (int pod in state.Tray.Exposed())
+            SourceTray tray = state.Tray;
+            for (int s = 0; s < tray.StackCount; s++)
             {
-                if (!session.Check(new TapPod(state.PodId(pod))).IsAllowed || !seen.Add(Signature(state, pod)))
+                // The exposed pods in stack order (SourceTray.Exposed). The state is Playing, so a tap is allowed exactly
+                // when the pod may be committed (LevelSession.Check).
+                int pod = tray.TopOf(s);
+                if (pod < 0 || state.CanCommit(pod) != null)
                 {
                     continue;
+                }
+
+                // Only the first of the allowed pods with the same signature is kept.
+                if (looks == null)
+                {
+                    if (!seen!.Add(Signature(state, pod)))
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    bool same = false;
+                    for (int k = 0; k < keptCount && !same; k++)
+                    {
+                        same = SameSignature(state, looks, kept[k], s);
+                    }
+
+                    if (same)
+                    {
+                        continue;
+                    }
+
+                    kept[keptCount++] = s;
                 }
 
                 bool progresses = progressable[state.PodVariantIndex[pod]];
@@ -110,16 +141,49 @@ namespace Bloomlings.Core.Search
         internal static bool[] ProgressableVariants(LevelState state)
         {
             var result = new bool[state.Catalog.Count];
-            ReachabilityResult reach = Reachability.Compute(state.Board);
-            foreach (ReachableTarget target in reach.Targets)
+            ReachabilityResult reach = state.Board.ReachTargets;
+            foreach (int target in reach.Packed)
             {
-                if (!state.Board.IsMysteryHidden(target.Index))
+                int cell = ReachabilityResult.CellOf(target);
+                if (!state.Board.IsMysteryHidden(cell))
                 {
-                    result[state.Catalog.IndexOf(state.Board.TopLayer(target.Index))] = true;
+                    int code = state.Board.TopCode(cell);
+                    result[code >= 0 ? code : state.Catalog.IndexOf(state.Board.TopLayer(cell))] = true;
                 }
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Whether the stacks <paramref name="a"/> and <paramref name="b"/> have equal <see cref="Signature"/> texts,
+        /// without building them: each pod prints as "variant:remaining", then "?" while a hidden mystery, "L" and its
+        /// lock key, "C" and its group, then "|". With <see cref="LevelState.PodLookClass"/> set no id holds those
+        /// separators, so two texts are equal exactly when the stacks are equally long and every pair of pods at the same
+        /// depth has the same look class, remaining count and mystery flag.
+        /// </summary>
+        private static bool SameSignature(LevelState state, int[] looks, int a, int b)
+        {
+            SourceTray tray = state.Tray;
+            int count = tray.CountIn(a);
+            if (tray.CountIn(b) != count)
+            {
+                return false;
+            }
+
+            for (int depth = 0; depth < count; depth++)
+            {
+                int p = tray.PodFromTop(a, depth);
+                int q = tray.PodFromTop(b, depth);
+                if (looks[p] != looks[q]
+                    || state.Pods[p].Remaining != state.Pods[q].Remaining
+                    || (state.PodDefs[p].Mystery && !state.Pods[p].VariantRevealed) != (state.PodDefs[q].Mystery && !state.Pods[q].VariantRevealed))
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
 
         private static string Signature(LevelState state, int exposedPod)
@@ -146,12 +210,16 @@ namespace Bloomlings.Core.Search
             private readonly int _budget;
             private readonly TranspositionTable _table;
 
+            private readonly bool _reuse;
+            private readonly List<LevelSession?> _spares = new List<LevelSession?>();
+
             public Dfs(Func<LevelSession, bool> goal, MoveOrder order, int budget, TranspositionTable table)
             {
                 _goal = goal;
                 _order = order;
                 _budget = budget;
                 _table = table;
+                _reuse = goal.Equals((Func<LevelSession, bool>)IsWon) || goal.Equals((Func<LevelSession, bool>)IsLost);
             }
 
             public int Nodes { get; private set; }
@@ -176,6 +244,10 @@ namespace Bloomlings.Core.Search
                     // Known to reach the goal but the path is not stored: search on to rebuild it.
                 }
 
+                // The children of this depth are explored one after another, and none is kept once its subtree is done,
+                // so one session per depth is reused for them (only when the goal is a built-in one, which keeps no
+                // session).
+                int depth = path.Count;
                 foreach (Command move in Moves(session, _order))
                 {
                     if (Nodes >= _budget)
@@ -184,11 +256,23 @@ namespace Bloomlings.Core.Search
                         return false;
                     }
 
-                    LevelSession child = session.Clone();
+                    LevelSession? child = session.SearchChild(move, _reuse && depth < _spares.Count ? _spares[depth] : null);
                     Nodes++;
-                    if (!child.Apply(move).Accepted)
+                    if (child == null)
                     {
                         continue;
+                    }
+
+                    if (_reuse)
+                    {
+                        if (depth < _spares.Count)
+                        {
+                            _spares[depth] = child;
+                        }
+                        else
+                        {
+                            _spares.Add(child);
+                        }
                     }
 
                     path.Add(move);

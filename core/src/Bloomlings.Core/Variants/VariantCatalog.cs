@@ -108,6 +108,9 @@ namespace Bloomlings.Core.Variants
             return info;
         }
 
+        /// <summary>The catalog index of a variant, or -1 when the catalog does not hold it.</summary>
+        internal int IndexOrMinusOne(VariantId id) => _indexById.TryGetValue(id, out int index) ? index : -1;
+
         /// <summary>Stable catalog index of a variant, used by Zobrist hashing.</summary>
         public int IndexOf(VariantId id)
         {

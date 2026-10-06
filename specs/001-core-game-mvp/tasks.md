@@ -1624,6 +1624,15 @@ final validation.
   clashing pair before, and with segments under 100 levels a level could be listed twice. A last pass over every seam
   level against both sides stays as a safety net. Test: `GeneratorTests.SeamRepair_RedoesOnlyTheLaterLevel_AndKeepsTheEarlierSegment`
   (it fails on the old repair). No multi-segment band had been generated yet.
+- [X] T182 Faster generation, the same levels (the owner, 2026-10-06): a solver step is
+  `LevelSession.SearchChild` (no events or command log; one reused session per depth), the board keeps its
+  reachability and updates it as cells open, and states copy less (byte cells, shared tables, packed targets);
+  rules, profiles and Apply's events are unchanged. About 10× on one core (`generate --jobs 1 --seed 1`: L20–22
+  746 → 75 s, L1001–1003 949 → 84 s, L550 21.5 → 2.2 s, L1004–1013 1061 → 110 s, L2001–2010 576 → 58 s), so
+  L1001–5000 at `--jobs 3` take about 3 h instead of about 35 h. Proven identical against the code before: golden
+  replays unchanged, all those batches and mechanic and big-level ones (definitions, validation records,
+  rejections, logs) byte for byte, a solver dump of 759 level and tray variants equal, and
+  `SearchPathProperties` testing the fast paths against the ordinary ones.
 
 ## Parallel Example: User Story 1
 

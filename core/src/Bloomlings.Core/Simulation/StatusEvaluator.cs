@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Bloomlings.Core.Tray;
 
 namespace Bloomlings.Core.Simulation
 {
@@ -23,9 +24,12 @@ namespace Bloomlings.Core.Simulation
                 return LevelStatus.Jammed;
             }
 
-            foreach (int pod in state.Tray.Exposed())
+            // The exposed pods in stack order (SourceTray.Exposed).
+            SourceTray tray = state.Tray;
+            for (int s = 0; s < tray.StackCount; s++)
             {
-                if (state.CanCommit(pod) == null)
+                int pod = tray.TopOf(s);
+                if (pod >= 0 && state.CanCommit(pod) == null)
                 {
                     return LevelStatus.Playing;
                 }
@@ -36,9 +40,9 @@ namespace Bloomlings.Core.Simulation
 
         private static bool AnyBlocksWin(LevelState state, IReadOnlyList<IRoundHook> hooks)
         {
-            foreach (IRoundHook hook in hooks)
+            for (int h = 0; h < hooks.Count; h++)
             {
-                if (hook.BlocksWin(state))
+                if (hooks[h].BlocksWin(state))
                 {
                     return true;
                 }

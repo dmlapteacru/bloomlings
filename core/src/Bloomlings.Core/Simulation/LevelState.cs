@@ -22,7 +22,7 @@ namespace Bloomlings.Core.Simulation
         private const int LocationDone = 3;
         private const int LocationRemoved = 4;
 
-        private readonly StateHasher _hasher;
+        private ulong _hash;
 
         private LevelState(
             LevelDefinition definition,
@@ -40,8 +40,10 @@ namespace Bloomlings.Core.Simulation
             MechanicsData mechanics,
             int[] specialProgress,
             bool[] specialTriggered,
-            StateHasher hasher)
+            ulong hash,
+            int[]? podLookClass)
         {
+            PodLookClass = podLookClass;
             Definition = definition;
             Picture = picture;
             Options = options;
@@ -57,7 +59,7 @@ namespace Bloomlings.Core.Simulation
             Mechanics = mechanics;
             SpecialProgress = specialProgress;
             SpecialTriggered = specialTriggered;
-            _hasher = hasher;
+            _hash = hash;
         }
 
         public LevelDefinition Definition { get; }
@@ -77,6 +79,15 @@ namespace Bloomlings.Core.Simulation
 
         /// <summary>Catalog index of each pod's variant. Shared between clones.</summary>
         public int[] PodVariantIndex { get; }
+
+        /// <summary>
+        /// For the search's symmetry pruning (<see cref="Search.StateSearch.Moves"/>): per pod, a number shared by exactly
+        /// the pods with the same variant, lock key and connected group, the fixed part of a pod's signature text. Null
+        /// when a lock key or group id holds a character the signature text uses as a separator ('C' in a lock key, '|' in
+        /// either), so that comparing these parts could disagree with comparing the texts; the search then builds the
+        /// texts. Shared between clones.
+        /// </summary>
+        public int[]? PodLookClass { get; }
 
         public PodRuntime[] Pods { get; }
 
@@ -106,7 +117,7 @@ namespace Bloomlings.Core.Simulation
 
         public LevelStatus Status { get; set; }
 
-        public ulong StateHash => _hasher.Value ^ SlotsHash();
+        public ulong StateHash => _hash ^ SlotsHash();
 
         /// <summary>
         /// Builds the start state and checks exact accounting: "for every variant v, the sum of count over pods of v
@@ -234,8 +245,9 @@ namespace Bloomlings.Core.Simulation
                 mechanics,
                 new int[mechanics.Specials.Length],
                 new bool[mechanics.Specials.Length],
-                new StateHasher());
-            state._hasher.Toggle(state.ComputeIncrementalPart());
+                0UL,
+                LookClasses(podDefs));
+            state._hash ^= state.ComputeIncrementalPart();
             return state;
         }
 
@@ -253,17 +265,62 @@ namespace Bloomlings.Core.Simulation
                 Tray.Clone(),
                 Slots.Clone(),
                 KeyIds,
-                (bool[])KeyCollected.Clone(),
+                Copy(KeyCollected),
                 Mechanics,
-                (int[])SpecialProgress.Clone(),
-                (bool[])SpecialTriggered.Clone(),
-                _hasher.Clone());
+                Copy(SpecialProgress),
+                Copy(SpecialTriggered),
+                _hash,
+                PodLookClass);
             clone.ExtraSlotUsed = ExtraSlotUsed;
             clone.ShuffleUses = ShuffleUses;
             clone.BoostersUsed = BoostersUsed;
             clone.Status = Status;
             return clone;
         }
+
+        /// <summary>
+        /// Makes this state equal to <paramref name="source"/>, a state of the same loaded level, exactly as
+        /// <see cref="Clone"/> would, but in this state's own arrays (a search reuses the state of a child it is done
+        /// with). False, and nothing changes, when the source is not of the same load.
+        /// </summary>
+        public bool TryCopyFrom(LevelState source)
+        {
+            if (ReferenceEquals(source, this)
+                || !ReferenceEquals(source.Definition, Definition) || !ReferenceEquals(source.Picture, Picture)
+                || !ReferenceEquals(source.Options, Options) || !ReferenceEquals(source.PodDefs, PodDefs)
+                || !ReferenceEquals(source.PodIndex, PodIndex) || !ReferenceEquals(source.PodVariantIndex, PodVariantIndex)
+                || !ReferenceEquals(source.KeyIds, KeyIds) || !ReferenceEquals(source.Mechanics, Mechanics)
+                || !ReferenceEquals(source.PodLookClass, PodLookClass)
+                || source.Pods.Length != Pods.Length || source.KeyCollected.Length != KeyCollected.Length
+                || source.SpecialProgress.Length != SpecialProgress.Length || source.SpecialTriggered.Length != SpecialTriggered.Length
+                || source.Tray.StackCount != Tray.StackCount || source.Tray.PodCount != Tray.PodCount
+                || !Board.TryCopyFrom(source.Board))
+            {
+                return false;
+            }
+
+            Tray.TryCopyFrom(source.Tray);
+            Array.Copy(source.Pods, Pods, Pods.Length);
+            Slots.CopyFrom(source.Slots);
+            Array.Copy(source.KeyCollected, KeyCollected, KeyCollected.Length);
+            Array.Copy(source.SpecialProgress, SpecialProgress, SpecialProgress.Length);
+            Array.Copy(source.SpecialTriggered, SpecialTriggered, SpecialTriggered.Length);
+            _hash = source._hash;
+            ExtraSlotUsed = source.ExtraSlotUsed;
+            ShuffleUses = source.ShuffleUses;
+            BoostersUsed = source.BoostersUsed;
+            Status = source.Status;
+            return true;
+        }
+
+        /// <summary>
+        /// The catalog index of a layer's variant: the board's kept index (<see cref="Board.TopCode"/>), or the catalog's
+        /// lookup, which throws as before, for a variant the catalog does not hold.
+        /// </summary>
+        private int VariantIndex(int code, VariantId variant) => code >= 0 ? code : Catalog.IndexOf(variant);
+
+        /// <summary>A copy of a per-state array; an empty one cannot change, so clones share it.</summary>
+        private static T[] Copy<T>(T[] source) => source.Length == 0 ? source : (T[])source.Clone();
 
         /// <summary>The hash recomputed from scratch; equal to <see cref="StateHash"/> at all times (tests check this).</summary>
         public ulong ComputeFullHash() => ComputeIncrementalPart() ^ SlotsHash();
@@ -457,16 +514,16 @@ namespace Bloomlings.Core.Simulation
             int depth = Board.TopDepth(cell);
             VariantId variant = Board.TopLayer(cell);
             bool wasHidden = Board.IsMysteryHidden(cell);
-            _hasher.Toggle(ZobristFeature.CellLayer, cell, depth, Catalog.IndexOf(variant));
+            Toggle(ZobristFeature.CellLayer, cell, depth, VariantIndex(Board.TopCode(cell), variant));
             LayerClearResult result = Board.ClearTopLayer(cell);
             if (result.Opened)
             {
-                _hasher.Toggle(ZobristFeature.CellOpen, cell);
+                Toggle(ZobristFeature.CellOpen, cell);
             }
 
             if (wasHidden && !Board.IsMysteryHidden(cell))
             {
-                _hasher.Toggle(ZobristFeature.CellMysteryHidden, cell);
+                Toggle(ZobristFeature.CellMysteryHidden, cell);
             }
 
             return result;
@@ -478,7 +535,7 @@ namespace Bloomlings.Core.Simulation
             if (Board.IsMysteryHidden(cell))
             {
                 Board.RevealMystery(cell);
-                _hasher.Toggle(ZobristFeature.CellMysteryHidden, cell);
+                Toggle(ZobristFeature.CellMysteryHidden, cell);
             }
         }
 
@@ -486,7 +543,7 @@ namespace Bloomlings.Core.Simulation
         public void OpenNonTargetCell(int cell)
         {
             Board.OpenCell(cell);
-            _hasher.Toggle(ZobristFeature.CellOpen, cell);
+            Toggle(ZobristFeature.CellOpen, cell);
         }
 
         public void SetRemaining(int pod, int remaining)
@@ -496,9 +553,9 @@ namespace Bloomlings.Core.Simulation
                 throw new InvalidOperationException($"Pod '{PodId(pod)}' would go negative.");
             }
 
-            _hasher.Toggle(ZobristFeature.PodRemaining, pod, Pods[pod].Remaining);
+            Toggle(ZobristFeature.PodRemaining, pod, Pods[pod].Remaining);
             Pods[pod].Remaining = remaining;
-            _hasher.Toggle(ZobristFeature.PodRemaining, pod, remaining);
+            Toggle(ZobristFeature.PodRemaining, pod, remaining);
         }
 
         /// <summary>Moves an exposed pod from its stack to the leftmost free slot and returns (stack, slot).</summary>
@@ -555,13 +612,13 @@ namespace Bloomlings.Core.Simulation
                 int depth = Tray.DepthFromTop(pod);
                 for (int i = 0; i < depth; i++)
                 {
-                    _hasher.Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
+                    Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
                 }
 
                 Tray.Remove(pod);
                 for (int i = 0; i < depth; i++)
                 {
-                    _hasher.Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
+                    Toggle(ZobristFeature.TrayDepth, above[i], Tray.DepthFromBottom(above[i]));
                 }
             }
 
@@ -607,7 +664,7 @@ namespace Bloomlings.Core.Simulation
             if (!Pods[pod].VariantRevealed)
             {
                 Pods[pod].VariantRevealed = true;
-                _hasher.Toggle(ZobristFeature.PodRevealed, pod);
+                Toggle(ZobristFeature.PodRevealed, pod);
             }
         }
 
@@ -622,7 +679,7 @@ namespace Bloomlings.Core.Simulation
             if (!KeyCollected[index])
             {
                 KeyCollected[index] = true;
-                _hasher.Toggle(ZobristFeature.KeyCollected, index);
+                Toggle(ZobristFeature.KeyCollected, index);
             }
         }
 
@@ -630,16 +687,16 @@ namespace Bloomlings.Core.Simulation
 
         public void SetSpecialProgress(int special, int progress)
         {
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
             SpecialProgress[special] = progress;
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
         }
 
         public void MarkSpecialTriggered(int special)
         {
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], SpecialTriggered[special] ? 1 : 0);
             SpecialTriggered[special] = true;
-            _hasher.Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], 1);
+            Toggle(ZobristFeature.SpecialState, special, SpecialProgress[special], 1);
         }
 
         public void MarkExtraSlotUsed()
@@ -647,7 +704,7 @@ namespace Bloomlings.Core.Simulation
             if (!ExtraSlotUsed)
             {
                 ExtraSlotUsed = true;
-                _hasher.Toggle(ZobristFeature.ExtraSlotUsed, 0);
+                Toggle(ZobristFeature.ExtraSlotUsed, 0);
             }
         }
 
@@ -655,14 +712,19 @@ namespace Bloomlings.Core.Simulation
         {
             if (ShuffleUses > 0)
             {
-                _hasher.Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
+                Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
             }
 
             ShuffleUses++;
-            _hasher.Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
+            Toggle(ZobristFeature.ShuffleUses, ShuffleUses);
         }
 
         // ---- Hashing ----
+
+        /// <summary>Toggles a key of the incremental part of the hash (as <see cref="StateHasher.Toggle(ulong)"/>).</summary>
+        private void Toggle(ulong key) => _hash ^= key;
+
+        private void Toggle(ZobristFeature feature, int a, int b = 0, int c = 0) => _hash ^= ZobristKeys.Key(feature, a, b, c);
 
         /// <summary>Toggles every hash key of one cell (its kind, layers and mystery flag); call before and after a change.</summary>
         private void ToggleCell(int cell)
@@ -670,17 +732,17 @@ namespace Bloomlings.Core.Simulation
             switch (Board.KindAt(cell))
             {
                 case CellKind.Open:
-                    _hasher.Toggle(ZobristFeature.CellOpen, cell);
+                    Toggle(ZobristFeature.CellOpen, cell);
                     break;
                 case CellKind.Target:
                     for (int d = Board.TopDepth(cell); d < Board.OriginalLayerCount(cell); d++)
                     {
-                        _hasher.Toggle(ZobristFeature.CellLayer, cell, d, Catalog.IndexOf(Board.LayerAt(cell, d)));
+                        Toggle(ZobristFeature.CellLayer, cell, d, Catalog.IndexOf(Board.LayerAt(cell, d)));
                     }
 
                     if (Board.IsMysteryHidden(cell))
                     {
-                        _hasher.Toggle(ZobristFeature.CellMysteryHidden, cell);
+                        Toggle(ZobristFeature.CellMysteryHidden, cell);
                     }
 
                     break;
@@ -689,10 +751,10 @@ namespace Bloomlings.Core.Simulation
 
         private void ToggleLocation(int pod)
         {
-            _hasher.Toggle(LocationKey(pod));
+            Toggle(LocationKey(pod));
             if (Pods[pod].Location == PodLocation.Tray)
             {
-                _hasher.Toggle(ZobristFeature.TrayDepth, pod, Tray.DepthFromBottom(pod));
+                Toggle(ZobristFeature.TrayDepth, pod, Tray.DepthFromBottom(pod));
             }
         }
 
@@ -809,6 +871,44 @@ namespace Bloomlings.Core.Simulation
                         $"Exact accounting fails for '{info.Id}': pods need {demand}, the board has {layers} layers (FR-023).");
                 }
             }
+        }
+
+        /// <summary>The <see cref="PodLookClass"/> table, or null when an id could make two different parts print alike.</summary>
+        private static int[]? LookClasses(PodDef[] pods)
+        {
+            var classes = new int[pods.Length];
+            var representatives = new List<PodDef>();
+            for (int i = 0; i < pods.Length; i++)
+            {
+                PodDef pod = pods[i];
+                if ((pod.LockKeyId != null && (pod.LockKeyId.IndexOf('C') >= 0 || pod.LockKeyId.IndexOf('|') >= 0))
+                    || (pod.ConnectedGroupId != null && pod.ConnectedGroupId.IndexOf('|') >= 0))
+                {
+                    return null;
+                }
+
+                int found = -1;
+                for (int k = 0; k < representatives.Count && found < 0; k++)
+                {
+                    PodDef other = representatives[k];
+                    if (other.Variant == pod.Variant
+                        && string.Equals(other.LockKeyId, pod.LockKeyId, StringComparison.Ordinal)
+                        && string.Equals(other.ConnectedGroupId, pod.ConnectedGroupId, StringComparison.Ordinal))
+                    {
+                        found = k;
+                    }
+                }
+
+                if (found < 0)
+                {
+                    found = representatives.Count;
+                    representatives.Add(pod);
+                }
+
+                classes[i] = found;
+            }
+
+            return classes;
         }
 
         private static string[] CollectKeyIds(LevelDefinition definition)

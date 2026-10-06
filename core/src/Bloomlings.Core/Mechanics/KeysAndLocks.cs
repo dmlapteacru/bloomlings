@@ -39,7 +39,7 @@ namespace Bloomlings.Core.Mechanics
 
             state.Board.RemoveKey(cell);
             state.CollectKey(keyId);
-            context.Events.Add(new KeyCollected(context.Round, keyId, state.Board.PosOf(cell)));
+            context.Events?.Add(new KeyCollected(context.Round, keyId, state.Board.PosOf(cell)));
 
             LockDef lockDef = state.Mechanics.LockByKey[Array.BinarySearch(state.KeyIds, keyId, StringComparer.Ordinal)]!;
             if (lockDef.TargetKind == LockTargetKind.Slot)
@@ -47,7 +47,7 @@ namespace Bloomlings.Core.Mechanics
                 state.UnlockSlot(int.Parse(lockDef.TargetId, NumberStyles.None, CultureInfo.InvariantCulture));
             }
 
-            context.Events.Add(new LockOpened(context.Round, lockDef.TargetKind, lockDef.TargetId));
+            context.Events?.Add(new LockOpened(context.Round, lockDef.TargetKind, lockDef.TargetId));
         }
 
         public void AfterClears(RoundContext context)

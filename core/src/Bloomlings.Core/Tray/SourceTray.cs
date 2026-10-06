@@ -6,15 +6,22 @@ namespace Bloomlings.Core.Tray
     /// <summary>
     /// The Source Tray: stacks of pods where only the top pod of each stack is exposed (FR-011). Pods are identified by
     /// their index in the level's pod list. Internally each stack is stored bottom-first so taking the top is O(1) and
-    /// the other pods keep their depth from the bottom, which the state hash uses.
+    /// the other pods keep their depth from the bottom, which the state hash uses. Taking the top only shortens a
+    /// stack, so clones share the stack arrays and copy one only before writing into it (Return, Bloom Burst, Shuffle).
     /// </summary>
     public sealed class SourceTray
     {
         public const int MinStacks = 2;
         public const int MaxStacks = 6;
 
-        private readonly List<int>[] _stacks;
+        // Bottom-first pods of each stack in [0, _count[s]); every array has room for all pods of the level.
+        private int[][] _stacks;
+        private readonly int[] _count;
         private readonly int[] _stackOf;
+
+        // Bit s: _stacks[s] belongs to this tray alone. _ownsStacks: the outer array does.
+        private int _ownedStacks;
+        private bool _ownsStacks;
 
         /// <param name="stacksTopFirst">Pod indexes per stack, top (exposed) first, as in the level definition.</param>
         /// <param name="podCount">Number of pods in the level.</param>
@@ -25,7 +32,8 @@ namespace Bloomlings.Core.Tray
                 throw new ArgumentException($"The tray needs 2–6 stacks, got {stacksTopFirst.Count}.", nameof(stacksTopFirst));
             }
 
-            _stacks = new List<int>[stacksTopFirst.Count];
+            _stacks = new int[stacksTopFirst.Count][];
+            _count = new int[stacksTopFirst.Count];
             _stackOf = new int[podCount];
             for (int i = 0; i < podCount; i++)
             {
@@ -35,7 +43,8 @@ namespace Bloomlings.Core.Tray
             for (int s = 0; s < stacksTopFirst.Count; s++)
             {
                 IReadOnlyList<int> stack = stacksTopFirst[s];
-                var bottomFirst = new List<int>(stack.Count);
+                var bottomFirst = new int[Math.Max(podCount, stack.Count)];
+                int n = 0;
                 for (int d = stack.Count - 1; d >= 0; d--)
                 {
                     int pod = stack[d];
@@ -50,22 +59,49 @@ namespace Bloomlings.Core.Tray
                     }
 
                     _stackOf[pod] = s;
-                    bottomFirst.Add(pod);
+                    bottomFirst[n++] = pod;
                 }
 
                 _stacks[s] = bottomFirst;
+                _count[s] = n;
             }
+
+            _ownedStacks = (1 << _stacks.Length) - 1;
+            _ownsStacks = true;
         }
 
         private SourceTray(SourceTray source)
         {
-            _stacks = new List<int>[source._stacks.Length];
-            for (int s = 0; s < _stacks.Length; s++)
+            _stacks = source._stacks;
+            _count = new int[source._count.Length];
+            _stackOf = new int[source._stackOf.Length];
+            CopyStacksFrom(source);
+        }
+
+        /// <summary>
+        /// Makes this tray the same as <paramref name="source"/> (a tray of the same level), as <see cref="Clone"/>
+        /// would, but in this tray's own arrays; false when the sizes differ.
+        /// </summary>
+        internal bool TryCopyFrom(SourceTray source)
+        {
+            if (source._count.Length != _count.Length || source._stackOf.Length != _stackOf.Length || ReferenceEquals(source, this))
             {
-                _stacks[s] = new List<int>(source._stacks[s]);
+                return false;
             }
 
-            _stackOf = (int[])source._stackOf.Clone();
+            CopyStacksFrom(source);
+            return true;
+        }
+
+        private void CopyStacksFrom(SourceTray source)
+        {
+            _stacks = source._stacks;
+            Array.Copy(source._count, _count, _count.Length);
+            Array.Copy(source._stackOf, _stackOf, _stackOf.Length);
+            source._ownedStacks = 0;
+            source._ownsStacks = false;
+            _ownedStacks = 0;
+            _ownsStacks = false;
         }
 
         public int StackCount => _stacks.Length;
@@ -74,13 +110,13 @@ namespace Bloomlings.Core.Tray
 
         public SourceTray Clone() => new SourceTray(this);
 
-        public int CountIn(int stack) => _stacks[stack].Count;
+        public int CountIn(int stack) => _count[stack];
 
         /// <summary>The exposed pod of a stack, or -1 when the stack is empty.</summary>
         public int TopOf(int stack)
         {
-            List<int> list = _stacks[stack];
-            return list.Count == 0 ? -1 : list[list.Count - 1];
+            int count = _count[stack];
+            return count == 0 ? -1 : _stacks[stack][count - 1];
         }
 
         /// <summary>The stack currently holding the pod, or -1 when it is not in the tray.</summary>
@@ -98,15 +134,18 @@ namespace Bloomlings.Core.Tray
         public int DepthFromBottom(int pod)
         {
             int stack = _stackOf[pod];
-            return stack < 0 ? -1 : _stacks[stack].IndexOf(pod);
+            return stack < 0 ? -1 : IndexIn(stack, pod);
         }
 
         /// <summary>Position counted from the top of the stack (0 = exposed).</summary>
         public int DepthFromTop(int pod)
         {
             int stack = _stackOf[pod];
-            return stack < 0 ? -1 : _stacks[stack].Count - 1 - _stacks[stack].IndexOf(pod);
+            return stack < 0 ? -1 : _count[stack] - 1 - IndexIn(stack, pod);
         }
+
+        /// <summary>The pod at a depth of a stack, counted from the top (0 = exposed).</summary>
+        internal int PodFromTop(int stack, int depth) => _stacks[stack][_count[stack] - 1 - depth];
 
         /// <summary>The exposed pods in stack order.</summary>
         public IReadOnlyList<int> Exposed()
@@ -133,8 +172,7 @@ namespace Bloomlings.Core.Tray
             }
 
             int stack = _stackOf[pod];
-            List<int> list = _stacks[stack];
-            list.RemoveAt(list.Count - 1);
+            _count[stack]--;
             _stackOf[pod] = -1;
             return stack;
         }
@@ -148,7 +186,14 @@ namespace Bloomlings.Core.Tray
                 throw new InvalidOperationException($"Pod index {pod} is not in the tray.");
             }
 
-            _stacks[stack].Remove(pod);
+            int[] pods = OwnStack(stack);
+            int count = _count[stack];
+            for (int i = IndexIn(stack, pod); i < count - 1; i++)
+            {
+                pods[i] = pods[i + 1];
+            }
+
+            _count[stack] = count - 1;
             _stackOf[pod] = -1;
         }
 
@@ -160,18 +205,20 @@ namespace Bloomlings.Core.Tray
                 throw new InvalidOperationException($"Pod index {pod} is already in the tray.");
             }
 
-            _stacks[stack].Add(pod);
+            int[] pods = OwnStack(stack);
+            pods[_count[stack]++] = pod;
             _stackOf[pod] = stack;
         }
 
         /// <summary>The pods of a stack, top (exposed) first.</summary>
         public IReadOnlyList<int> StackTopFirst(int stack)
         {
-            List<int> list = _stacks[stack];
-            var result = new int[list.Count];
-            for (int i = 0; i < list.Count; i++)
+            int[] pods = _stacks[stack];
+            int count = _count[stack];
+            var result = new int[count];
+            for (int i = 0; i < count; i++)
             {
-                result[i] = list[list.Count - 1 - i];
+                result[i] = pods[count - 1 - i];
             }
 
             return result;
@@ -186,10 +233,14 @@ namespace Bloomlings.Core.Tray
             }
 
             var before = new List<int>();
-            foreach (List<int> stack in _stacks)
+            for (int s = 0; s < _stacks.Length; s++)
             {
-                before.AddRange(stack);
-                stack.Clear();
+                for (int i = 0; i < _count[s]; i++)
+                {
+                    before.Add(_stacks[s][i]);
+                }
+
+                _count[s] = 0;
             }
 
             foreach (int pod in before)
@@ -208,7 +259,8 @@ namespace Bloomlings.Core.Tray
                         throw new ArgumentException($"Shuffle must place exactly the pods of the tray; pod index {pod} is wrong.", nameof(stacksTopFirst));
                     }
 
-                    _stacks[s].Add(pod);
+                    int[] pods = OwnStack(s);
+                    pods[_count[s]++] = pod;
                     _stackOf[pod] = s;
                 }
             }
@@ -220,6 +272,42 @@ namespace Bloomlings.Core.Tray
                     throw new ArgumentException($"Shuffle dropped pod index {pod}.", nameof(stacksTopFirst));
                 }
             }
+        }
+
+        private int IndexIn(int stack, int pod)
+        {
+            int[] pods = _stacks[stack];
+            int count = _count[stack];
+            for (int i = 0; i < count; i++)
+            {
+                if (pods[i] == pod)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>This tray's own copy of a stack's array, made before the first write into it.</summary>
+        private int[] OwnStack(int stack)
+        {
+            if ((_ownedStacks & (1 << stack)) == 0)
+            {
+                if (!_ownsStacks)
+                {
+                    _stacks = (int[][])_stacks.Clone();
+                    _ownsStacks = true;
+                }
+
+                int[] shared = _stacks[stack];
+                var own = new int[Math.Max(_stackOf.Length, shared.Length)];
+                Array.Copy(shared, own, _count[stack]);
+                _stacks[stack] = own;
+                _ownedStacks |= 1 << stack;
+            }
+
+            return _stacks[stack];
         }
     }
 }
