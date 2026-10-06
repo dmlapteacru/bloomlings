@@ -97,7 +97,6 @@ namespace Bloomlings.Generator
         public GenerationResult Generate(int firstLevel, int lastLevel, ulong seed, IDictionary<int, LevelDefinition> history, ISet<int>? keep = null)
         {
             var result = new GenerationResult();
-            var readOnlyHistory = new ReadOnlyHistory(history);
             for (int level = firstLevel; level <= lastLevel; level++)
             {
                 if (keep != null && keep.Contains(level))
@@ -105,32 +104,111 @@ namespace Bloomlings.Generator
                     continue;
                 }
 
-                bool accepted = false;
-                int attempt = 0;
-                for (; attempt < _profile.MaxCandidatesPerLevel && !accepted; attempt++)
-                {
-                    ulong levelSeed = SplitMix64.Mix(seed ^ SplitMix64.Mix((ulong)level * 0x9E3779B97F4A7C15UL + (ulong)attempt));
-                    GeneratedLevel? generated = TryGenerate(level, levelSeed, readOnlyHistory, out string? reason);
-                    if (generated == null)
-                    {
-                        result.Rejections.Add(new Rejection(level, attempt, reason ?? "unknown"));
-                        continue;
-                    }
-
-                    result.Accepted.Add(generated);
-                    history[level] = generated.Definition;
-                    accepted = true;
-                }
-
-                if (!accepted)
-                {
-                    result.Failed.Add(level);
-                }
-
-                Progress?.Invoke(level, accepted ? result.Accepted[result.Accepted.Count - 1] : null, attempt);
+                GenerateOne(level, seed, history, result);
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Generates <paramref name="levels"/> again between the levels around them (the seams of a parallel build): each
+        /// one leaves the history first, so its candidates are judged against both its earlier and its later neighbours
+        /// (<see cref="Conflicts"/>). Accepted levels replace theirs in the history.
+        /// </summary>
+        public GenerationResult Regenerate(IEnumerable<int> levels, ulong seed, IDictionary<int, LevelDefinition> history)
+        {
+            var result = new GenerationResult();
+            foreach (int level in levels)
+            {
+                history.Remove(level);
+                GenerateOne(level, seed, history, result);
+            }
+
+            return result;
+        }
+
+        private void GenerateOne(int level, ulong seed, IDictionary<int, LevelDefinition> history, GenerationResult result)
+        {
+            var readOnlyHistory = new ReadOnlyHistory(history);
+            bool accepted = false;
+            int attempt = 0;
+            for (; attempt < _profile.MaxCandidatesPerLevel && !accepted; attempt++)
+            {
+                ulong levelSeed = SplitMix64.Mix(seed ^ SplitMix64.Mix((ulong)level * 0x9E3779B97F4A7C15UL + (ulong)attempt));
+                GeneratedLevel? generated = TryGenerate(level, levelSeed, readOnlyHistory, out string? reason);
+                if (generated == null)
+                {
+                    result.Rejections.Add(new Rejection(level, attempt, reason ?? "unknown"));
+                    continue;
+                }
+
+                result.Accepted.Add(generated);
+                history[level] = generated.Definition;
+                accepted = true;
+            }
+
+            if (!accepted)
+            {
+                result.Failed.Add(level);
+            }
+
+            Progress?.Invoke(level, accepted ? result.Accepted[result.Accepted.Count - 1] : null, attempt);
+        }
+
+        /// <summary>
+        /// The FR-083 and band-guideline repetition rules <paramref name="level"/> breaks with the levels around it in
+        /// <paramref name="history"/>, on both sides: the same picture within 50 levels (or twice in Levels 1–100), the
+        /// same Source layout within 50, three in a row with the same variant set or the same mechanics, and a window of
+        /// <see cref="BandGuidelines.FamilyWindow"/> levels from L<see cref="BandGuidelines.AllFamiliesFrom"/> without all
+        /// four families. Empty when the level fits (the seam check of a parallel build).
+        /// </summary>
+        public static IReadOnlyList<string> Conflicts(int level, IReadOnlyDictionary<int, LevelDefinition> history)
+        {
+            var conflicts = new List<string>();
+            if (!history.TryGetValue(level, out LevelDefinition? definition))
+            {
+                return conflicts;
+            }
+
+            string signature = SourceSignature(definition!);
+            foreach (KeyValuePair<int, LevelDefinition> entry in history)
+            {
+                if (entry.Key == level)
+                {
+                    continue;
+                }
+
+                bool near = Math.Abs(entry.Key - level) < PicturePicker.RepeatWindow;
+                bool uniqueTier = level <= PicturePicker.UniqueUpToLevel && entry.Key <= PicturePicker.UniqueUpToLevel;
+                if ((near || uniqueTier) && string.Equals(entry.Value.Picture.Id, definition!.Picture.Id, StringComparison.Ordinal))
+                {
+                    conflicts.Add($"picture:{definition.Picture.Id}-also-at-L{entry.Key}");
+                }
+
+                if (near && string.Equals(SourceSignature(entry.Value), signature, StringComparison.Ordinal))
+                {
+                    conflicts.Add($"source:{signature}-also-at-L{entry.Key}");
+                }
+            }
+
+            SortedSet<VariantId> variants = VariantSet(definition!);
+            if (ThreeInARow(level, history, other => VariantSet(other).SetEquals(variants)))
+            {
+                conflicts.Add("similarity:variant-set-3-in-a-row");
+            }
+
+            if (!(definition!.Mechanics.Count == 0 && level <= 10)
+                && ThreeInARow(level, history, other => new SortedSet<string>(other.Mechanics, StringComparer.Ordinal).SetEquals(definition.Mechanics)))
+            {
+                conflicts.Add("similarity:mechanics-3-in-a-row");
+            }
+
+            if (FamilyGap(level, definition.Mapping, history, judgeIncomplete: false))
+            {
+                conflicts.Add("families:not-all-four-in-" + BandGuidelines.FamilyWindow.ToString(CultureInfo.InvariantCulture));
+            }
+
+            return conflicts;
         }
 
         private GeneratedLevel? TryGenerate(int level, ulong levelSeed, IReadOnlyDictionary<int, LevelDefinition> history, out string? reason)
@@ -552,42 +630,84 @@ namespace Bloomlings.Generator
             return difficulty == DifficultyClass.SuperHard ? _profile.HardMode.SuperHardPressure : _profile.HardMode.HardPressure;
         }
 
-        /// <summary>From L20 all four families are regular: the last <see cref="BandGuidelines.FamilyWindow"/> levels use all four.</summary>
-        private static bool MissesAFamily(int level, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history)
+        /// <summary>
+        /// From L20 all four families are regular: the <see cref="BandGuidelines.FamilyWindow"/> levels ending at this one
+        /// use all four, and so does every later window through it whose levels are all known (a level generated between
+        /// its neighbours, <see cref="Regenerate"/>).
+        /// </summary>
+        private static bool MissesAFamily(int level, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history) =>
+            FamilyGap(level, mapping, history, judgeIncomplete: false);
+
+        private static bool FamilyGap(int level, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history, bool judgeIncomplete)
         {
             if (level < BandGuidelines.AllFamiliesFrom)
             {
                 return false;
             }
 
-            var families = new HashSet<Family>();
-            foreach (VariantId variant in mapping.Values)
+            int window = BandGuidelines.FamilyWindow;
+            for (int start = level - window + 1; start <= level; start++)
             {
-                families.Add(VariantCatalog.Default.Get(variant).Family);
-            }
-
-            for (int back = 1; back < BandGuidelines.FamilyWindow; back++)
-            {
-                if (!history.TryGetValue(level - back, out LevelDefinition? earlier))
+                // The window ending at the level is judged from L20 as before; a later one only from its own start at L20.
+                if (start > level - window + 1 && start < BandGuidelines.AllFamiliesFrom)
                 {
-                    return false; // Not enough history to judge (the start of a batch without its predecessors).
+                    continue;
                 }
 
-                foreach (VariantId variant in earlier!.Mapping.Values)
+                var families = new HashSet<Family>();
+                foreach (VariantId variant in mapping.Values)
                 {
                     families.Add(VariantCatalog.Default.Get(variant).Family);
                 }
+
+                bool complete = true;
+                for (int l = start; l < start + window && complete; l++)
+                {
+                    if (l == level)
+                    {
+                        continue;
+                    }
+
+                    if (!history.TryGetValue(l, out LevelDefinition? other))
+                    {
+                        complete = false; // Not enough history to judge (the start of a batch without its predecessors).
+                        break;
+                    }
+
+                    foreach (VariantId variant in other!.Mapping.Values)
+                    {
+                        families.Add(VariantCatalog.Default.Get(variant).Family);
+                    }
+                }
+
+                if ((complete || judgeIncomplete) && families.Count < 4)
+                {
+                    return true;
+                }
             }
 
-            return families.Count < 4;
+            return false;
         }
 
-        /// <summary>FR-083: no 3 consecutive levels share the same active variant set.</summary>
+        /// <summary>FR-083: no 3 consecutive levels share the same active variant set (this level first, middle or last).</summary>
         private static bool RepeatsVariantSet(int level, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history)
         {
             var set = new SortedSet<VariantId>(mapping.Values);
-            return history.TryGetValue(level - 1, out LevelDefinition? a) && history.TryGetValue(level - 2, out LevelDefinition? b)
-                && set.SetEquals(VariantSet(a!)) && set.SetEquals(VariantSet(b!));
+            return ThreeInARow(level, history, other => set.SetEquals(VariantSet(other)));
+        }
+
+        /// <summary>Whether two known neighbours of <paramref name="level"/> next to it in a row of three both match.</summary>
+        private static bool ThreeInARow(int level, IReadOnlyDictionary<int, LevelDefinition> history, Func<LevelDefinition, bool> same)
+        {
+            foreach ((int a, int b) in new[] { (-2, -1), (-1, 1), (1, 2) })
+            {
+                if (history.TryGetValue(level + a, out LevelDefinition? x) && history.TryGetValue(level + b, out LevelDefinition? y) && same(x!) && same(y!))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>FR-083: no 3 consecutive levels share the same set of mechanics; from L11 the empty set counts too.</summary>
@@ -599,17 +719,16 @@ namespace Bloomlings.Generator
             }
 
             var set = new SortedSet<string>(mechanics, StringComparer.Ordinal);
-            return history.TryGetValue(level - 1, out LevelDefinition? a) && history.TryGetValue(level - 2, out LevelDefinition? b)
-                && set.SetEquals(a!.Mechanics) && set.SetEquals(b!.Mechanics);
+            return ThreeInARow(level, history, other => set.SetEquals(other.Mechanics));
         }
 
-        /// <summary>FR-083: a Source layout signature never repeats within 50 levels.</summary>
+        /// <summary>FR-083: a Source layout signature never repeats within 50 levels (on either side).</summary>
         private static bool RepeatsSourceLayout(int level, LevelDefinition definition, IReadOnlyDictionary<int, LevelDefinition> history)
         {
             string signature = SourceSignature(definition);
-            for (int l = level - 49; l < level; l++)
+            for (int l = level - 49; l <= level + 49; l++)
             {
-                if (history.TryGetValue(l, out LevelDefinition? other) && string.Equals(SourceSignature(other!), signature, StringComparison.Ordinal))
+                if (l != level && history.TryGetValue(l, out LevelDefinition? other) && string.Equals(SourceSignature(other!), signature, StringComparison.Ordinal))
                 {
                     return true;
                 }

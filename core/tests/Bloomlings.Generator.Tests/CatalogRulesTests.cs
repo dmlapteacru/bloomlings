@@ -56,6 +56,41 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void Conflicts_AreJudgedOnBothSides_ForASeamOfAParallelBuild()
+        {
+            // Copies of curated levels placed at L200 and around it: a level knows its later neighbours too.
+            List<LevelDefinition> curated = Curated;
+            LevelDefinition a = curated.Single(l => l.LevelNumber == 3);
+            LevelDefinition b = curated.Single(l => l.LevelNumber == 5);
+            var history = new SortedDictionary<int, LevelDefinition>
+            {
+                [200] = a with { LevelNumber = 200 },
+                [230] = a with { LevelNumber = 230 },
+            };
+
+            // The same picture 30 levels later is caught at the earlier level as well.
+            Assert.That(LevelGenerator.Conflicts(200, history), Has.Some.StartsWith("picture:"));
+            Assert.That(LevelGenerator.Conflicts(230, history), Has.Some.StartsWith("picture:"));
+
+            // Fifty levels apart is allowed; the source layout repeats only within 50 levels.
+            history.Remove(230);
+            history[250] = a with { LevelNumber = 250 };
+            Assert.That(LevelGenerator.Conflicts(200, history).Any(c => c.StartsWith("picture:") || c.StartsWith("source:")), Is.False);
+
+            // Three in a row with the same variant set and mechanics, the level in the middle.
+            var row = new SortedDictionary<int, LevelDefinition>
+            {
+                [300] = b with { LevelNumber = 300 },
+                [301] = a with { LevelNumber = 301, Mapping = b.Mapping, Pods = b.Pods, Tray = b.Tray, Mechanics = b.Mechanics },
+                [302] = b with { LevelNumber = 302 },
+            };
+            IReadOnlyList<string> middle = LevelGenerator.Conflicts(301, row);
+            Assert.That(middle, Has.Member("similarity:variant-set-3-in-a-row"));
+            Assert.That(middle, Has.Member("similarity:mechanics-3-in-a-row"));
+            Assert.That(LevelGenerator.Conflicts(299, row), Is.Empty, "a level not in the history has nothing to break");
+        }
+
+        [Test]
         public void TheCuratedLevels_AreTheContextOfTheCatalogWindows()
         {
             // A catalog L11 with the variant set of curated L9 and L10 repeats it 3 times in a row across the boundary.

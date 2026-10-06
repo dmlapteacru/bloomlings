@@ -40,7 +40,8 @@ namespace Bloomlings.Pipeline.Commands
             var forcedClass = new Option<string>("--class") { Description = "A fixed difficulty class: normal, hard or super_hard (showcases are normal)." };
             Option<string> level8 = Cli.Level8();
             var allowDraft = new Option<bool>("--allow-draft") { Description = "Development preview only: use pictures that are not approved yet. Such levels fail validate." };
-            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, keep, forced, forcedClass, thresholds, pairs, allowDraft, level8 })
+            var jobs = new Option<int>("--jobs") { Description = "Generate this many contiguous segments of the range in parallel, then generate again the levels at their seams that break a repetition rule with their neighbours.", DefaultValueFactory = _ => 1 };
+            foreach (Option option in new Option[] { profile, levels, seed, outDir, lib, catalog, curated, extraHistory, keep, forced, forcedClass, thresholds, pairs, allowDraft, level8, jobs })
             {
                 command.Options.Add(option);
             }
@@ -86,33 +87,47 @@ namespace Bloomlings.Pipeline.Commands
                     history[level.LevelNumber] = level;
                 }
 
-                var generator = new LevelGenerator(
-                    band,
-                    new PicturePicker(library, parse.GetValue(allowDraft)),
-                    difficulty,
-                    approved.IsApproved,
-                    new DifficultySchedule(0xB100B100UL),
-                    UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
-                if (!string.IsNullOrEmpty(parse.GetValue(forced)))
+                var progressLock = new object();
+                LevelGenerator NewGenerator()
                 {
-                    generator.ForcedMechanics = parse.GetValue(forced)!.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-                }
-
-                if (!string.IsNullOrEmpty(parse.GetValue(forcedClass)))
-                {
-                    generator.ForcedClass = parse.GetValue(forcedClass) switch
+                    var made = new LevelGenerator(
+                        band,
+                        new PicturePicker(library, parse.GetValue(allowDraft)),
+                        difficulty,
+                        approved.IsApproved,
+                        new DifficultySchedule(0xB100B100UL),
+                        UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
+                    if (!string.IsNullOrEmpty(parse.GetValue(forced)))
                     {
-                        "normal" => DifficultyClass.Normal,
-                        "hard" => DifficultyClass.Hard,
-                        "super_hard" => DifficultyClass.SuperHard,
-                        var other => throw new ArgumentException($"--class '{other}': use normal, hard or super_hard."),
+                        made.ForcedMechanics = parse.GetValue(forced)!.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+                    }
+
+                    if (!string.IsNullOrEmpty(parse.GetValue(forcedClass)))
+                    {
+                        made.ForcedClass = parse.GetValue(forcedClass) switch
+                        {
+                            "normal" => DifficultyClass.Normal,
+                            "hard" => DifficultyClass.Hard,
+                            "super_hard" => DifficultyClass.SuperHard,
+                            var other => throw new ArgumentException($"--class '{other}': use normal, hard or super_hard."),
+                        };
+                    }
+
+                    made.Progress = (level, accepted, candidates) =>
+                    {
+                        lock (progressLock)
+                        {
+                            Console.Error.WriteLine(accepted == null
+                                ? $"  L{level}: failed after {candidates} candidates"
+                                : $"  L{level}: {accepted.Definition.Difficulty.Class} ({accepted.Definition.Difficulty.Score}), {accepted.Definition.Picture.Id}, {accepted.Definition.Pods.Count} pods, candidate {candidates}");
+                        }
                     };
+                    return made;
                 }
 
-                generator.Progress = (level, accepted, candidates) => Console.Error.WriteLine(accepted == null
-                    ? $"  L{level}: failed after {candidates} candidates"
-                    : $"  L{level}: {accepted.Definition.Difficulty.Class} ({accepted.Definition.Difficulty.Score}), {accepted.Definition.Picture.Id}, {accepted.Definition.Pods.Count} pods, candidate {candidates}");
-                GenerationResult result = generator.Generate(first, last, (ulong)parse.GetValue(seed), history, kept);
+                (GenerationResult result, int seamRepairs) = GenerateRange(NewGenerator, first, last, (ulong)parse.GetValue(seed), history, kept, Math.Max(1, parse.GetValue(jobs)));
+                report["jobs"] = Math.Max(1, parse.GetValue(jobs));
+                report["seamRepairs"] = seamRepairs;
 
                 string batch = parse.GetValue(outDir)!;
                 foreach (GeneratedLevel level in result.Accepted)
@@ -149,6 +164,97 @@ namespace Bloomlings.Pipeline.Commands
                 return result.Failed.Count == 0 && issues.All(i => !i.IsError) ? ExitCodes.Success : ExitCodes.ValidationFailed;
             }));
             return command;
+        }
+
+        /// <summary>
+        /// Generates <paramref name="first"/>–<paramref name="last"/> into <paramref name="history"/>. With more than one
+        /// job the range is cut into contiguous segments generated in parallel, each knowing only the fixed history; the
+        /// levels near a segment's start that then break a repetition rule with their neighbours
+        /// (<see cref="LevelGenerator.Conflicts"/>) are generated again between them, until none does. Returns the
+        /// accepted levels (one per level number) and how many were generated again.
+        /// </summary>
+        public static (GenerationResult Result, int SeamRepairs) GenerateRange(Func<LevelGenerator> newGenerator, int first, int last, ulong seed, SortedDictionary<int, LevelDefinition> history, ISet<int> kept, int jobs)
+        {
+            int count = last - first + 1;
+            int segments = Math.Max(1, Math.Min(jobs, count / PicturePicker.RepeatWindow));
+            if (segments == 1)
+            {
+                return (newGenerator().Generate(first, last, seed, history, kept), 0);
+            }
+
+            var bounds = new List<(int First, int Last)>();
+            for (int k = 0; k < segments; k++)
+            {
+                int a = first + (int)((long)count * k / segments);
+                int b = first + (int)((long)count * (k + 1) / segments) - 1;
+                bounds.Add((a, b));
+            }
+
+            var parts = new GenerationResult[segments];
+            var fixedHistory = new SortedDictionary<int, LevelDefinition>(history);
+            System.Threading.Tasks.Parallel.For(0, segments, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = segments }, k =>
+            {
+                var own = new SortedDictionary<int, LevelDefinition>(fixedHistory);
+                parts[k] = newGenerator().Generate(bounds[k].First, bounds[k].Last, seed, own, kept);
+            });
+
+            var accepted = new SortedDictionary<int, GeneratedLevel>();
+            var merged = new GenerationResult();
+            foreach (GenerationResult part in parts)
+            {
+                foreach (GeneratedLevel level in part.Accepted)
+                {
+                    accepted[level.Definition.LevelNumber] = level;
+                    history[level.Definition.LevelNumber] = level.Definition;
+                }
+
+                merged.Rejections.AddRange(part.Rejections);
+                merged.Failed.AddRange(part.Failed);
+            }
+
+            // The seams: a segment's first levels never saw the previous segment's last ones.
+            LevelGenerator repairer = newGenerator();
+            int repairs = 0;
+            var seamLevels = new List<int>();
+            for (int k = 1; k < segments; k++)
+            {
+                for (int l = bounds[k].First - PicturePicker.RepeatWindow; l < bounds[k].First + PicturePicker.RepeatWindow; l++)
+                {
+                    if (l >= first && l <= last && !kept.Contains(l))
+                    {
+                        seamLevels.Add(l);
+                    }
+                }
+            }
+
+            for (int round = 0; round < 8; round++)
+            {
+                var readOnly = new SortedDictionary<int, LevelDefinition>(history);
+                var broken = seamLevels.Where(l => readOnly.ContainsKey(l) && LevelGenerator.Conflicts(l, readOnly).Count > 0).ToList();
+                if (broken.Count == 0)
+                {
+                    break;
+                }
+
+                GenerationResult again = repairer.Regenerate(broken, seed ^ (0x5EA3UL * (ulong)(round + 1)), history);
+                repairs += broken.Count;
+                foreach (int level in broken)
+                {
+                    accepted.Remove(level);
+                }
+
+                foreach (GeneratedLevel level in again.Accepted)
+                {
+                    accepted[level.Definition.LevelNumber] = level;
+                }
+
+                merged.Rejections.AddRange(again.Rejections);
+                merged.Failed.RemoveAll(again.Accepted.Select(a => a.Definition.LevelNumber).Contains);
+                merged.Failed.AddRange(again.Failed.Where(l => !merged.Failed.Contains(l)));
+            }
+
+            merged.Accepted.AddRange(accepted.Values);
+            return (merged, repairs);
         }
     }
 }

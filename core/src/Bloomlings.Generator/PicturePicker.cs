@@ -10,7 +10,7 @@ namespace Bloomlings.Generator
     /// <summary>
     /// R9 step 1 (T084): picks an approved base picture that fits the profile (size, themes, structure targets and
     /// mechanics) and is not blocked by the FR-083 windows: Levels 1–100 each use a different picture, and a picture
-    /// never repeats within 50 consecutive levels.
+    /// never repeats within 50 consecutive levels (judged on both sides of the level, against what the history holds).
     /// </summary>
     public sealed class PicturePicker
     {
@@ -50,7 +50,8 @@ namespace Bloomlings.Generator
             var blocked = new HashSet<string>(StringComparer.Ordinal);
             foreach (KeyValuePair<int, LevelDefinition> entry in history)
             {
-                bool inWindow = entry.Key < level && entry.Key > level - RepeatWindow;
+                // Both sides: a level generated between known neighbours (a parallel build's seam) avoids both.
+                bool inWindow = entry.Key != level && Math.Abs(entry.Key - level) < RepeatWindow;
                 bool uniqueTier = level <= UniqueUpToLevel && entry.Key <= UniqueUpToLevel;
                 if (inWindow || uniqueTier)
                 {
