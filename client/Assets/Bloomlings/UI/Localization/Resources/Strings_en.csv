@@ -77,9 +77,19 @@ clearing.pushers,Pushers
 clearing.fireworks,Fireworks
 clearing.parade,Confetti Parade
 clearing.free_pair,Free pair
+clearing.buy,Buy
+clearing.choose,Choose
+clearing.chosen,Chosen
 store.cosmetic,{0} ({1})
 store.all_owned,You own everything here
 store.unavailable,Unavailable
+purchase.title,Confirm purchase
+purchase.question_petals,Buy {0} for {1} Petals?
+purchase.question_money,Buy {0} for {1}?
+purchase.buy,Buy
+purchase.balance,You have {0} Petals
+purchase.store_next,Your app store confirms the payment next
+purchase.avatar,this avatar
 pause.title,Paused
 pause.resume,Resume
 pause.leave,Leave
