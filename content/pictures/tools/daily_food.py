@@ -1235,16 +1235,14 @@ def one_cane(cv, pts, rr, red, white, step=2.2):
 
 
 def hook(x, top, bottom, rr, side=1):
-    """The way of a candy cane: a hook of radius rr at the top, its end on the side `side`, then straight down."""
-    pts = [(x + side * rr * 2 + side * rr * math.cos(math.radians(a)) - side * rr, top + rr - rr * math.sin(math.radians(a)) + rr * 0.0)
-           for a in range(-40, 181, 20)]
-    pts = [(x + side * (rr - rr * math.cos(math.radians(a))) , top + rr - rr * math.sin(math.radians(a))) for a in range(-50, 181, 15)][::-1]
-    return [(x + side * 2 * rr, top + rr + rr * 0.8)] + pts + [(x, bottom)] if False else pts + [(x, bottom)]
+    """The way of a candy cane: from the end of its hook (radius rr at the top, curling to the side `side`) straight
+    down to `bottom`."""
+    return [(x + side * (rr - rr * math.cos(math.radians(a))), top + rr - rr * math.sin(math.radians(a))) for a in range(-50, 181, 15)][::-1] + [(x, bottom)]
 
 
 def candy_cane(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, bow = r.randrange(3), r.randrange(3), r.random() < 0.6
+    mode, kind, bow = r.choice((0, 0, 1, 1, 2)), r.randrange(3), r.random() < 0.6
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
 
@@ -1270,13 +1268,19 @@ def candy_cane(w, h, r):
             one_cane(cv, pts, 1.4, 'a', 'w')
         if bow:
             ribbon(cx, h * 0.5)
-    else:  # three small canes standing in a jar
-        jx = cx + r.uniform(-1.0, 1.0)
-        for k, side in enumerate((-1, 1, -1)):
-            x = jx + (k - 1) * w * 0.15
-            one_cane(cv, hook(x, h * (0.14 + 0.06 * (k % 2)), ty - 2, w * 0.09, side), 1.1, 'a', 'w', 1.8)
-        rbox(cv, jx - w * 0.3, h * 0.5, jx + w * 0.3, ty - 0.4, 1.4, 'j')
-        box(cv, jx - w * 0.3, h * 0.5, jx + w * 0.3, h * 0.5 + 1.2, 'k')
+    else:  # small canes standing in a jar or a mug
+        jx, n, mug = cx + r.uniform(-1.5, 1.5), r.choice((2, 3, 4)), r.random() < 0.5
+        jt = h * r.uniform(0.56, 0.62)
+        for k in range(n):
+            x = jx + (k - (n - 1) / 2) * w * 0.13
+            side = 1 if k >= n / 2 else -1
+            one_cane(cv, hook(x, h * (0.12 + 0.07 * (k % 2)), ty - 2, w * 0.08, side), 1.1, 'a', 'w', 1.8)
+        jw = w * (0.2 if mug else 0.27)
+        rbox(cv, jx - jw, jt, jx + jw, ty - 0.4, 1.4 if mug else 0.8, 'j')
+        if mug:
+            ring(cv, jx + jw + 1.0, (jt + ty) / 2, 2.6, 1.2, 'j')
+        if bow or not mug:
+            box(cv, jx - jw, jt + 1.6, jx + jw, jt + 2.6, 'k')
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
@@ -1293,7 +1297,7 @@ def bar(cv, x0, y0, x1, y1, bite=None):
         box(cv, x0 + 0.5, y, x1 - 0.5, y + 0.9, 'k')
     if bite:
         for k in (-1, 0, 1):
-            disc(cv, x1 - 0.5 + k * 0.4, y0 + 1.0 + k * 1.4, 1.5, bite)
+            disc(cv, x1 - 0.3 + k * 0.6, y0 + 1.6 + k * 1.8, 2.1, bite)
 
 
 def chocolate_bar(w, h, r):
@@ -1303,19 +1307,20 @@ def chocolate_bar(w, h, r):
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one bar standing, half out of its wrapper
         x0, x1, y0 = cx - w * 0.3, cx + w * 0.3, h * 0.12
+        wy = h * r.uniform(0.42, 0.54)
         bar(cv, x0, y0, x1, ty - 1, 'b' if bite else None)
-        poly(cv, [(x0 - 0.6, h * 0.5), (x0 + 3, h * 0.47), (cx, h * 0.52), (x1 - 3, h * 0.46), (x1 + 0.6, h * 0.5), (x1 + 0.6, ty), (x0 - 0.6, ty)], 'f')
-        box(cv, x0 - 0.6, h * 0.53, x1 + 0.6, ty, 'p')
-        box(cv, x0 - 0.6, h * 0.64, x1 + 0.6, h * 0.74, 'l')
-        star(cv, cx, h * 0.69, 2.0, 'p', ri=0.9)
+        poly(cv, [(x0 - 0.6, wy - 0.6), (x0 + 3, wy - 1.4), (cx, wy), (x1 - 3, wy - 1.8), (x1 + 0.6, wy - 0.6), (x1 + 0.6, ty), (x0 - 0.6, ty)], 'f')
+        box(cv, x0 - 0.6, wy + 0.8, x1 + 0.6, ty, 'p')
+        box(cv, x0 - 0.6, wy + 4.0, x1 + 0.6, wy + 7.0, 'l')
+        star(cv, cx, wy + 5.5, 2.0, 'p', ri=0.9) if r.random() < 0.5 else heart(cv, cx, wy + 5.5, 1.5, 'p')
     elif mode == 1:  # an open bar lying, squares broken off
         x0, x1, y0 = w * 0.08, w * 0.74, ty - h * 0.36
         bar(cv, x0, y0, x1, ty - 1, None)
         box(cv, x0, y0, x0 + 8.5, y0 + 2.8, 'b')
-        box(cv, x1 - 0.1, y0 + 4, x1 + 6, ty - 1, 'p')
-        box(cv, x1 + 1.5, y0 + 4, x1 + 2.6, ty - 1, 'l')
-        for dx, dy in ((0.84, -0.3), (0.86, -0.18)):
-            rbox(cv, w * dx - 1.4, y0 + h * dy - 1.4, w * dx + 1.4, y0 + h * dy + 1.4, 0.4, 'c')
+        box(cv, x1 - 0.1, y0 + 2, x1 + 3.4, ty - 4.6, 'p')
+        box(cv, x1 + 1.2, y0 + 2, x1 + 2.2, ty - 4.6, 'l')
+        for dx in (0.82, 0.93):
+            rbox(cv, w * dx - 1.3, ty - 3.8, w * dx + 1.3, ty - 1.0, 0.4, 'c')
     else:  # a wrapped bar behind an open one
         rbox(cv, cx + w * 0.02, h * 0.2, cx + w * 0.42, ty - 1, 0.6, 'p')
         box(cv, cx + w * 0.02, h * 0.42, cx + w * 0.42, h * 0.56, 'l')
@@ -1379,7 +1384,7 @@ def loaf(cv, x0, x1, top, yb, slashes, cut=False):
         seg(cv, x - 1.4, top + 1.6, x + 1.0, top + (yb - top) * 0.45, 'n', 0.5)
     if cut:
         oval(cv, x1 - 1.0, (top + yb) / 2 + 0.6, 2.6, (yb - top) / 2 - 0.4, 'c')
-        oval(cv, x1 - 1.0, (top + yb) / 2 + 0.6, 1.7, (yb - top) / 2 - 1.4, 'n')
+        oval(cv, x1 - 1.0, (top + yb) / 2 + 0.6, 1.7, (yb - top) / 2 - 1.4, 'w')
 
 
 def bread_loaf(w, h, r):
@@ -1395,21 +1400,24 @@ def bread_loaf(w, h, r):
         loaf(cv, w * 0.06, w * 0.7, yb - h * 0.3, yb, 2, cut=True)
         for k, x in enumerate((w * 0.78, w * 0.9)):
             rbox(cv, x - 2.4, yb - h * 0.24 + k * 1.6, x + 2.4, yb, 1.6, 'c')
-            rbox(cv, x - 1.5, yb - h * 0.24 + k * 1.6 + 1.0, x + 1.5, yb - 1.0, 1.0, 'n')
+            rbox(cv, x - 1.5, yb - h * 0.24 + k * 1.6 + 1.0, x + 1.5, yb - 1.0, 1.0, 'w')
     else:  # a round loaf with a cross cut, a baguette behind
-        tube(cv, [(w * 0.14, yb - 1.0), (w * 0.86, yb - h * 0.5)], 2.2, 'c')
+        a, b = (w * 0.3, yb - 1.0), (w * 0.84, h * 0.12)
+        tube(cv, [a, b], 2.3, 'c')
         for k in range(4):
-            x, y = w * (0.3 + k * 0.15), yb - 1.0 - h * 0.5 * (0.22 + k * 0.207)
-            seg(cv, x - 1.0, y + 0.8, x + 1.2, y - 0.6, 'n', 0.45)
-        x, y = cx + r.uniform(-1.5, 1.5), yb - h * 0.15
-        disc(cv, x, y, w * 0.33 + 0.9, 'b')
-        oval(cv, x, y + 0.6, w * 0.33, h * 0.15, 'c')
+            u = 0.45 + k * 0.15
+            x, y = a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u
+            seg(cv, x - 1.2, y + 0.4, x + 1.0, y - 1.0, 'n', 0.45)
+        x, y = cx - w * 0.08 + r.uniform(-1.0, 1.0), yb - h * 0.15
+        oval(cv, x, y + 0.6, w * 0.34 + 0.9, h * 0.15 + 0.9, 'b')
+        oval(cv, x, y + 0.6, w * 0.34, h * 0.15, 'c')
         seg(cv, x - w * 0.18, y - h * 0.06, x + w * 0.18, y + h * 0.03, 'n', 0.5)
         seg(cv, x - w * 0.12, y + h * 0.05, x + w * 0.14, y - h * 0.08, 'n', 0.5)
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
-    return cv, [S['b'], role('c', 'crust', 'Crust', BROWN), role('n', 'crumb', 'Crumb and cuts', BROWN), role('p', 'board', 'Board', GREEN),
+    return cv, [S['b'], role('c', 'crust', 'Crust', BROWN), role('n', 'cuts', 'Cuts', BROWN), role('w', 'crumb', 'Crumb', BROWN),
+                role('p', 'board', 'Board', GREEN),
                 S['o'], S['t'], S['d'], S['v']], ['food', 'bakery']
 
 
@@ -1443,28 +1451,25 @@ def sandwich(w, h, r):
         for k in range(3):
             seg(cv, cx + (k - 1) * w * 0.26 - 1.0, top - 3.0, cx + (k - 1) * w * 0.26 + 1.2, top - 1.4, 'n', 0.4)
         top -= 4.0
-    else:  # two triangle halves, their cut sides to the viewer
-        top = ty - 1.0
-        for side in (-1, 1):
-            x0, x1 = cx + side * w * 0.03, cx + side * w * 0.45
-            yb, hh = ty - 0.8, h * 0.4
-            poly(cv, [(x0, yb), (x1, yb), (x0, yb - hh)], 'u')
-            poly(cv, [(x0 + side * 1.0, yb - 1.4), (x1 - side * 2.6, yb - 1.4), (x0 + side * 1.0, yb - hh + 3.0)], 'w')
-            for k, c in enumerate('lamy'):
-                f = 0.28 + k * 0.14
-                seg(cv, x0 + side * 1.0, yb - hh * f, x0 + side * (x1 - x0) * side * (1 - f) * 0.9, yb - hh * f, c, 0.55) if False else None
-            for k, c in enumerate('lam'):
-                yy = yb - 2.4 - k * 1.3
-                tube(cv, [(x0 + side * 1.4, yy), (x0 + side * ((x1 - x0) * side * (1 - (yb - yy) / hh) - 2.6), yy)], 0.55, c, only='w')
-            top = min(top, yb - hh)
+    else:  # two triangle halves, lying one on the other, their fillings showing at the cut
+        top = ty
+        for k, (x0, x1, yb) in enumerate(((cx - w * 0.4, cx + w * 0.26, ty - 0.8), (cx - w * 0.26, cx + w * 0.4, ty - 6.6))):
+            if k:
+                box(cv, x0 - 0.8, yb - h * 0.34, x1 + 0.8, yb + 0.6, 'b', only='unlay')
+            rbox(cv, x0, yb - 1.4, x1, yb, 0.6, 'u')
+            stack(cv, (x0 + x1) / 2, yb - 1.4, (x1 - x0) / 2, (('a', 1.0, 0.3), ('l', 1.2, 0)))
+            tip = (x0 + (x1 - x0) * (0.3 if k else 0.7), yb - 3.6 - h * (0.22 if k else 0.17))
+            poly(cv, [(x0, yb - 3.6), (x1, yb - 3.6), tip], 'n')
+            poly(cv, [(x0 + 2.0, yb - 4.4), (x1 - 2.0, yb - 4.4), (tip[0], tip[1] + 2.2)], 'u')
+            top = min(top, tip[1])
     if pick and mode != 2:
-        seg(cv, cx + 1.0, top + 4.0, cx + 1.0, top - 3.0, 'k', 0.4)
-        disc(cv, cx + 1.0, top - 3.6, 1.4, 'e')
+        seg(cv, cx + 0.5, top + 4.0, cx + 0.5, top - 3.0, 'k', 0.45)
+        disc(cv, cx + 0.5, top - 3.6, 1.4, 'e')
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
-    return cv, [S['b'], role('u', 'bread', 'Bread', BROWN), role('n', 'cuts', 'Cuts in the roll', BROWN), role('y', 'cheese', 'Cheese', BROWN),
-                role('w', 'crumb', 'Crumb', BLUE), role('l', 'lettuce', 'Lettuce', GREEN), role('e', 'olive', 'Olive', GREEN),
+    return cv, [S['b'], role('u', 'bread', 'Bread', BROWN), role('n', 'crust', 'Crust and cuts', BROWN), role('y', 'cheese', 'Cheese', BROWN),
+                role('l', 'lettuce', 'Lettuce', GREEN), role('e', 'olive', 'Olive', GREEN),
                 role('a', 'tomato', 'Tomato', PINK), role('m', 'ham', 'Ham', PINK), role('k', 'pick', 'Pick', BROWN),
                 role('p', 'plate', 'Plate', BLUE), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
 

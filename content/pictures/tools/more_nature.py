@@ -219,7 +219,7 @@ def rose(w, h, r):
         poly(cv, [(x, h * 0.7), (x + 1.0, h * 0.66), (x + 2.0, h * 0.7), (x + 2.0, gtop + 0.5), (x, gtop + 0.5)], 'k')
     hills(cv, 'g', gtop, 0.4, w * 1.2, r.uniform(0, 6))
     side = r.choice((-1, 1))
-    rx, by, R = cx + side * w * 0.04, h * 0.3, s * 0.25
+    rx, by, R = cx + side * w * 0.04, h * 0.32, s * (0.32 if not big else 0.28)
     path(cv, [(rx, by + R), (rx - side * 0.8, h * 0.6), (rx, gtop + 0.5)], 'l', 0.5 if not big else 0.6)
     lens(cv, rx - side * 0.5, h * 0.58, rx - side * w * 0.3, h * 0.5, s * 0.14, 'l')
     lens(cv, rx - side * 0.3, h * 0.68, rx + side * w * 0.28, h * 0.6, s * 0.13, 'l')
@@ -231,13 +231,12 @@ def rose(w, h, r):
     for dx in (-0.55, 0.0, 0.55):
         disc(cv, rx + dx * R, by - R * 0.55, R * 0.42, 'p')
     pts = []
-    for k in range(24):
-        t = k / 23
-        a = math.radians(200 + t * (330 if not big else 470))
-        rr = R * (0.12 + 0.55 * t)
-        pts.append((rx + math.cos(a) * rr, by - R * 0.2 + math.sin(a) * rr * 0.8))
+    turns, step = (1.5, 2.0) if not big else (1.8, 2.2)
+    for k in range(60):
+        th = k / 59 * turns * 2 * math.pi
+        rr = 0.4 + step * th / (2 * math.pi)
+        pts.append((rx + 0.3 + math.cos(th + 1.0) * rr, by - R * 0.15 + math.sin(th + 1.0) * rr * 0.85))
     path(cv, pts, 'q', 0.45 if not big else 0.5)
-    path(cv, [(rx - R * 0.95, by + R * 0.05), (rx - R * 0.3, by + R * 0.55), (rx + R * 0.3, by + R * 0.55), (rx + R * 0.95, by + R * 0.05)], 'q', 0.45)
     fill_pockets(cv, 'p', 'q')
     if big:
         bx = rx - side * w * 0.3

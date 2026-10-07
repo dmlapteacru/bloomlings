@@ -244,19 +244,19 @@ def motorcycle(w, h, r):
     else:
         disc(cv, w * r.choice((0.16, 0.84)), h * 0.1, 2.2, 'u')
     if scene == 0:
-        hills(cv, 'h', gtop - 3.5, 1.2, w * 1.1, r.uniform(0, 6))
-        for x in (r.uniform(1, 4), r.uniform(17, 21)):
-            disc(cv, x, gtop - 6.5, 2.0, 'v')
+        for x0, top in ((r.uniform(-5, -2), r.uniform(6, 8)), (r.uniform(5, 8), r.uniform(3, 5)), (r.uniform(13, 16), r.uniform(6, 8))):
+            poly(cv, [(x0, gtop), (x0 + 7, top), (x0 + 14, gtop)], 'h')
+            poly(cv, [(x0 + 5.0, top + 2.6), (x0 + 7, top), (x0 + 9.0, top + 2.6)], 'v')
     elif scene == 1:
-        hills(cv, 'h', gtop - 1.5, 0.6, w * 1.6, r.uniform(0, 6))
+        hills(cv, 'h', gtop - 2.5, 0.8, w * 1.6, r.uniform(0, 6))
         for x in (r.uniform(1.5, 3), r.uniform(18.5, 20.5)):
-            box(cv, x - 0.6, gtop - 7, x + 0.6, gtop, 'v')
-            box(cv, x - 2.2, gtop - 5.6, x - 1.2, gtop - 3.6, 'v')
-            box(cv, x - 2.2, gtop - 4.2, x, gtop - 3.2, 'v')
-            box(cv, x + 1.2, gtop - 6.4, x + 2.2, gtop - 4.6, 'v')
-            box(cv, x, gtop - 5.0, x + 2.2, gtop - 4.0, 'v')
+            box(cv, x - 0.7, gtop - 12, x + 0.7, gtop, 'v')
+            box(cv, x - 2.4, gtop - 10.0, x - 1.2, gtop - 7.0, 'v')
+            box(cv, x - 2.4, gtop - 7.6, x, gtop - 6.6, 'v')
+            box(cv, x + 1.2, gtop - 11.0, x + 2.4, gtop - 8.0, 'v')
+            box(cv, x, gtop - 8.6, x + 2.4, gtop - 7.6, 'v')
     else:
-        skyline(cv, r, 'h', 'v', gtop, h * 0.42, h * 0.56)
+        skyline(cv, r, 'h', 'v', gtop, h * 0.12, h * 0.3)
     box(cv, 0, gtop, w, h, 'd')
     for x in range(1, w, 5):
         box(cv, x, gtop + 2, x + 2.5, gtop + 3, 'y')
@@ -283,8 +283,8 @@ def motorcycle(w, h, r):
                 role('e', 'seat', 'Seat and grip', PINK), role('f', 'frame', 'Frame and fork', BROWN),
                 role('g', 'engine', 'Engine and exhaust', BLUE), role('k', 'tyre', 'Tyres', BROWN), role('m', 'hub', 'Hubs', GREEN),
                 role('y', 'light', 'Headlight and road lines', BROWN), role('d', 'road', 'Road', GREEN),
-                role('h', 'scenery', ['Hills', 'Dunes', 'Town'][scene], GREEN),
-                role('v', 'detail', ['Trees', 'Cacti', 'Windows'][scene], PINK if scene == 2 else GREEN),
+                role('h', 'scenery', ['Mountains', 'Dunes', 'Town'][scene], GREEN),
+                role('v', 'detail', ['Snow caps', 'Cacti', 'Windows'][scene], [BLUE, GREEN, PINK][scene]),
                 role('u', 'sun', 'Sun', BROWN)], ['vehicles', 'travel']
 
 
@@ -399,7 +399,7 @@ def zeppelin(w, h, r):
         skyline(cv, r, 'h', 'i', h, gtop - 1, gtop + 1.5)
     for x in (r.uniform(2, 6), r.uniform(14, 19)):
         cloud(cv, x, r.uniform(ey + 7.5, ey + 9.0), 1.6, 'c')
-    sun_moon(cv, w * (0.84 if dusk else 0.16), gtop - 1 if dusk else h * 0.09, 2.8 if dusk else 2.2, 'u', 's', False)
+    sun_moon(cv, w * (0.84 if dusk else 0.16), gtop - 4.5 if dusk else h * 0.09, 2.8 if dusk else 2.2, 'u', 's', False)
     if not dusk:
         cloud(cv, w * 0.72, h * 0.07, 1.4, 'c')
     for sgn in (-1, 1):
@@ -547,8 +547,8 @@ def telescope(w, h, r):
     disc(cv, tx, ty, 1.1, 'k')
     if r.random() < 0.5:
         mirror(cv)
-    return cv, [('n', 'night', 'Night sky', BLUE, True), role('t', 'tube', 'Tube', BROWN), role('k', 'rim', 'Rims, eyepiece and mount', PINK),
-                role('l', 'tripod', 'Tripod', PINK), role('y', 'moon', 'Moon, stars and window', BROWN), role('x', 'specks', 'Tiny stars', BROWN),
+    return cv, [('n', 'night', 'Night sky', BLUE, True), role('y', 'moon', 'Moon, stars and window', BROWN), role('t', 'tube', 'Tube', BROWN),
+                role('k', 'rim', 'Rims, eyepiece and mount', PINK), role('l', 'tripod', 'Tripod', PINK), role('x', 'specks', 'Tiny stars', BROWN),
                 role('m', 'planet', 'Ringed planet', GREEN), role('g', 'ground', 'Hill', GREEN),
                 role('q', 'detail', ['Pine', 'House', 'Town'][scene], BLUE)], ['space', 'night']
 
@@ -652,11 +652,21 @@ def radio(w, h, r):
 
 def piano(w, h, r):
     cv, s, cx, big = start(w, h, 'w')
+    prop, window, left = int(r.random() * 3), r.random() < 0.5, r.random() < 0.5
     fy = h - 4
     box(cv, 0, fy, w, h, 'f')
     for x in range(1, w, 4):
         box(cv, x, fy + 1.5, x + 2, fy + 2.5, 'v')
     x0, x1, top = 3, w - 3, 9
+    ox = x0 + 2.5 if left else x1 - 2.5
+    fx = x1 - 4.5 if left else x0 + 0.5
+    if window:
+        rbox(cv, fx - 0.5, 0.5, fx + 4.5, 7.0, 0.3, 'v')
+        box(cv, fx + 0.5, 1.5, fx + 3.5, 6.0, 'e')
+        box(cv, fx + 1.5, 1.5, fx + 2.5, 6.0, 'v')
+    else:
+        rbox(cv, fx, 1.0, fx + 3.6, 5.0, 0.3, 'v')
+        box(cv, fx + 0.8, 1.8, fx + 2.8, 4.2, 'm')
     box(cv, x0, top, x1, fy, 'b')
     box(cv, x0 - 1, top - 1, x1 + 1, top, 'b')
     rbox(cv, cx - 3.6, top + 1.0, cx + 3.6, top + 4.6, 0.3, 'm')
@@ -673,8 +683,6 @@ def piano(w, h, r):
     box(cv, x0 + 3, kt + 6.0, x1 - 3, fy - 2.2, 'b')
     for x in (cx - 2, cx + 1):
         box(cv, x, fy - 1, x + 1, fy, 'k')
-    ox = r.choice((x0 + 2.5, x1 - 2.5))
-    prop = int(r.random() * 3)
     if prop == 0:
         poly(cv, [(ox - 1.4, top - 1), (ox + 1.4, top - 1), (ox + 0.9, top - 3.8), (ox - 0.9, top - 3.8)], 'v')
         for dx, dy in ((-1.3, -4.8), (1.1, -5.2), (-0.1, -6.4)):
@@ -687,15 +695,12 @@ def piano(w, h, r):
             box(cv, ox + dx - 0.5, top - 3.6 + abs(dx) * 0.4, ox + dx + 0.5, top - 1, 'm')
             box(cv, ox + dx - 0.5, top - 5.6 + abs(dx) * 0.4, ox + dx + 0.5, top - 3.6 + abs(dx) * 0.4, 'o')
         box(cv, ox - 2.6, top - 1.8, ox + 2.6, top - 1, 'v')
-    fx = x1 - 4.5 if ox < cx else x0 + 1
-    rbox(cv, fx, 1.0, fx + 3.6, 5.0, 0.3, 'v')
-    box(cv, fx + 0.8, 1.8, fx + 2.8, 4.2, 'm')
-    if r.random() < 0.6:
+    if prop != 1:
         sx = cx + r.uniform(-1, 1)
         rbox(cv, sx - 4, fy - 4.5, sx + 4, fy - 3, 0.5, 'o')
         for x in (sx - 3.4, sx + 2.6):
             box(cv, x, fy - 3, x + 1, fy, 'o')
-    return cv, [('w', 'wall', 'Wall', PINK, True), role('b', 'piano', 'Piano', BROWN), role('e', 'white', 'White keys', BLUE),
+    return cv, [('w', 'wall', 'Wall', PINK, True), role('b', 'piano', 'Piano', BROWN), role('e', 'white', 'White keys and window', BLUE),
                 role('k', 'black', 'Black keys and pedals', BROWN), role('m', 'sheet', 'Sheet music, candles and picture', BLUE),
                 role('n', 'notes', 'Notes', PINK), role('o', 'stool', 'Stool, flowers and flames', PINK),
                 role('v', 'vase', 'Vase, metronome, frame and rug', GREEN), role('f', 'floor', 'Floor', GREEN)], ['things', 'music']
@@ -718,7 +723,7 @@ def violin(w, h, r):
         return lambda px, py: f(*back(px, py))
 
     def body(u, v):
-        if (abs(u) - 5.6) ** 2 + (v - 3.8) ** 2 <= 4.0:
+        if (abs(u) - 5.3) ** 2 + (v - 3.8) ** 2 <= 5.6:
             return False
         return (u / 4.3) ** 2 + (v / 3.5) ** 2 <= 1 or (u / 5.4) ** 2 + ((v - 7.2) / 4.3) ** 2 <= 1 or (abs(u) <= 3.6 and 1.0 <= v <= 6.0)
     fill(cv, 'b', local(body))
@@ -742,7 +747,7 @@ def violin(w, h, r):
 
 def trumpet(w, h, r):
     cv, s, cx, big = start(w, h, 'w')
-    banner = r.random() < 0.4
+    banner, flip = r.random() < 0.4, r.random() < 0.5
     fy = h - 3
     if banner:
         hills(cv, 'f', fy - 1, 1.0, w * 1.3, r.uniform(0, 6))
@@ -753,16 +758,18 @@ def trumpet(w, h, r):
             poly(cv, [(x, 0), (x - side * 4.2, 0), (x - side * 2.4, h * 0.5), (x - side * 3.4, fy), (x, fy)], 'c')
         box(cv, 0, fy, w, h, 'f')
     tilt = r.uniform(-14, -2)
-    ty = 10.0 if banner else 13.0
+    ty = 9.0 if banner else 13.0
     to, back = turn(cx + 0.3, ty, tilt)
 
     def local(f):
         return lambda px, py: f(*back(px, py))
     if banner:
-        fill(cv, 'p', local(lambda u, v: -5.4 <= u <= 1.6 and 4.6 <= v <= 11.5 - max(0.0, 1.6 - abs(u + 1.9)) * 1.4))
-        star(cv, *to(-1.9, 7.6), 2.0, 'e')
-        for u in (-5.0, 1.2):
-            seg(cv, *to(u, 3.6), *to(u, 4.8), 'k', 0.4)
+        (ax, ay), (bx, by) = to(-5.0, 3.6), to(1.2, 3.6)
+        top = max(ay, by) + 0.4
+        fill(cv, 'p', lambda px, py: ax <= px <= bx and top <= py <= top + 8.0 - max(0.0, 1.8 - abs(px - (ax + bx) / 2)) * 1.6)
+        star(cv, (ax + bx) / 2, top + 3.4, 2.0, 'e')
+        for x, y in ((ax, ay), (bx, by)):
+            seg(cv, x, y, x, top + 0.5, 'k', 0.4)
     fill(cv, 't', local(lambda u, v: (-9.6 <= u <= 1.8 and abs(v) <= 0.65) or (-5.4 <= u <= 1.8 and abs(v - 3.6) <= 0.65)))
     fill(cv, 't', local(lambda u, v: u < -5.4 and 1.2 <= math.hypot(u + 5.4, v - 1.8) <= 2.45))
     fill(cv, 't', local(lambda u, v: 1.5 <= u <= 10.4 and abs(v) <= 0.65 + 0.012 * (u - 1.5) ** 2.6))
@@ -775,12 +782,12 @@ def trumpet(w, h, r):
         for k in range(3):
             x, y = to(11.0, -3.5 - k * 2.6)
             note(cv, min(w - 2.0, x - k * 1.6), y + r.uniform(-0.6, 0.6), 'm')
-    if r.random() < 0.5:
+    if flip:
         mirror(cv)
     return cv, [('w', 'wall', 'Sky' if banner else 'Stage wall', BLUE, True), role('t', 'brass', 'Trumpet', BROWN),
                 role('k', 'cap', 'Valve caps, bell rim and cords', BROWN), role('m', 'notes', 'Music notes', GREEN),
                 role('c', 'curtain', 'Cloud' if banner else 'Curtains', PINK), role('f', 'floor', 'Hills' if banner else 'Stage', GREEN),
-                role('p', 'banner', 'Banner', PINK), role('e', 'emblem', 'Star', GREEN)], ['things', 'music']
+                role('p', 'banner', 'Banner', PINK), role('e', 'emblem', 'Star', BROWN)], ['things', 'music']
 
 
 def harp(w, h, r):
@@ -1078,15 +1085,15 @@ def compass(w, h, r):
     disc(cv, ccx, ccy, R, 'c')
     disc(cv, ccx, ccy, R - 1.2, 'f')
     to, back = turn(ccx, ccy, ang)
-    for k in range(4):
-        poly(cv, [to(*rot) for rot in (((0, -5.6), (0.9, -4.4), (-0.9, -4.4)), ((5.6, 0), (4.4, 0.9), (4.4, -0.9)),
-                                       ((0, 5.6), (0.9, 4.4), (-0.9, 4.4)), ((-5.6, 0), (-4.4, 0.9), (-4.4, -0.9)))[k]], 'c')
+    for tip, a, b in (((0, -5.6), (0.9, -4.4), (-0.9, -4.4)), ((5.6, 0), (4.4, 0.9), (4.4, -0.9)),
+                      ((0, 5.6), (0.9, 4.4), (-0.9, 4.4)), ((-5.6, 0), (-4.4, 0.9), (-4.4, -0.9))):
+        poly(cv, [to(*tip), to(*a), to(*b)], 'q')
     poly(cv, [to(0, -4.4), to(1.9, 0), to(-1.9, 0)], 'n')
-    poly(cv, [to(0, 4.4), to(1.9, 0), to(-1.9, 0)], 'c')
-    disc(cv, ccx, ccy, 0.8, 'c')
-    return cv, [('m', 'map', 'Map', BROWN, True), role('w', 'sea', 'River' if river else 'Sea', BLUE), role('g', 'land', 'Islands and mountains', GREEN),
-                role('p', 'path', 'Path and X', PINK), role('c', 'case', 'Case, points and needle tail', BLUE),
-                role('f', 'face', 'Face', BROWN), role('n', 'needle', 'North needle', PINK)], ['things', 'travel']
+    poly(cv, [to(0, 4.4), to(1.9, 0), to(-1.9, 0)], 'q')
+    disc(cv, ccx, ccy, 0.8, 'q')
+    return cv, [('m', 'map', 'Map', BROWN, True), role('w', 'sea', 'River' if river else 'Sea', BLUE), role('f', 'face', 'Compass face', BLUE),
+                role('c', 'case', 'Case', GREEN), role('g', 'land', 'Islands and mountains', GREEN), role('p', 'path', 'Path and X', PINK),
+                role('n', 'needle', 'North needle', PINK), role('q', 'points', 'Points and needle tail', BROWN)], ['things', 'travel']
 
 
 def hourglass(w, h, r):
@@ -1137,10 +1144,11 @@ def hourglass(w, h, r):
 
 def candle(w, h, r):
     cv, s, cx, big = start(w, h, 'n')
-    window, kind = r.random() < 0.6, int(r.random() * 3)
+    window, k = r.random() < 0.6, r.random()
+    kind = 0 if k < 0.4 else 1 if k < 0.6 else 2
     ty = h - 4
     box(cv, 0, ty, w, h, 't')
-    if window:
+    if window and kind != 1:
         wx = r.choice((1.5, w - 8.5))
         rbox(cv, wx, 1.5, wx + 7, 9.5, 0.6, 'o')
         box(cv, wx + 1, 2.5, wx + 6, 8.5, 'n')
@@ -1171,8 +1179,8 @@ def candle(w, h, r):
         box(cv, cx - 0.8, 17.6, cx + 0.8, ty - 2.0, 'h')
         disc(cv, cx, 20.5, 1.4, 'h')
         poly(cv, [(cx - 4.0, ty), (cx + 4.0, ty), (cx + 1.4, ty - 2.2), (cx - 1.4, ty - 2.2)], 'h')
-    return cv, [('n', 'wall', 'Evening wall', BLUE, True), role('c', 'wax', 'Candle', PINK), role('k', 'wick', 'Wick', BROWN),
-                role('f', 'flame', 'Flame', BROWN), role('y', 'core', 'Flame core and moon', PINK), role('h', 'holder', 'Holder', GREEN),
+    return cv, [('n', 'wall', 'Evening wall', BLUE, True), role('c', 'wax', 'Candle', PINK), role('f', 'flame', 'Flame', BROWN),
+                role('k', 'wick', 'Wick', BROWN), role('y', 'core', 'Flame core and moon', PINK), role('h', 'holder', 'Holder', GREEN),
                 role('o', 'window', 'Window frame', GREEN), role('t', 'table', 'Table', BROWN)], ['things', 'cozy']
 
 
@@ -1181,21 +1189,20 @@ def candle(w, h, r):
 
 def magic_wand(w, h, r):
     cv, s, cx, big = start(w, h, 'n')
-    flip, cloudy, size, scene = r.random() < 0.5, r.random() < 0.6, r.uniform(4.4, 5.4), int(r.random() * 3)
+    flip, cloudy, size, scene = r.random() < 0.5, r.random() < 0.6, r.uniform(5.2, 6.0), int(r.random() * 3)
     gtop = h - 4
     if scene == 0:
         hills(cv, 'g', gtop, 1.0, w * 1.2, r.uniform(0, 6))
-        kx = r.uniform(2.0, 5.0)
-        for x, top in ((kx, gtop - 6), (kx + 3.0, gtop - 4), (kx + 6.0, gtop - 6.5)):
-            box(cv, x - 1.0, top, x + 1.0, gtop + 1, 'c')
-            poly(cv, [(x - 1.5, top + 0.2), (x, top - 2.4), (x + 1.5, top + 0.2)], 'c')
-        box(cv, kx - 1, gtop - 3.5, kx + 6, gtop + 1, 'c')
+        kx = r.uniform(2.0, 4.0)
+        box(cv, kx - 1, gtop - 3.5, kx + 6, gtop + 1, 'w')
+        for x, top in ((kx, gtop - 6), (kx + 3.0, gtop - 4.5), (kx + 6.0, gtop - 7)):
+            box(cv, x - 1.0, top, x + 1.0, gtop + 1, 'w')
+            poly(cv, [(x - 1.6, top + 0.2), (x, top - 2.6), (x + 1.6, top + 0.2)], 'c')
     elif scene == 1:
-        box(cv, 0, gtop, w, h, 't')
-        bx = r.uniform(2.0, 4.0)
-        poly(cv, [(bx, gtop + 0.2), (bx + 4.5, gtop - 1.2), (bx + 9.0, gtop + 0.2), (bx + 9.0, gtop + 1.4), (bx, gtop + 1.4)], 'c')
-        poly(cv, [(bx + 0.6, gtop - 0.2), (bx + 4.5, gtop - 1.6), (bx + 4.5, gtop - 0.4), (bx + 0.6, gtop + 0.6)], 'g')
-        poly(cv, [(bx + 4.5, gtop - 1.6), (bx + 8.4, gtop - 0.2), (bx + 8.4, gtop + 0.6), (bx + 4.5, gtop - 0.4)], 'g')
+        hills(cv, 'g', gtop, 0.8, w * 1.4, r.uniform(0, 6))
+        for x in (r.uniform(1.5, 4.0), r.uniform(7.0, 10.0), r.uniform(17.0, 20.0)):
+            seg(cv, x, gtop + 0.5, x, gtop - 2.6, 'c', 0.4)
+            disc(cv, x, gtop - 3.2, 1.2, 'r')
     else:
         for x in (3.0, 10.0, 17.5):
             cloud(cv, x + r.uniform(-1, 1), gtop + 1.0, 2.2, 'g')
@@ -1203,23 +1210,23 @@ def magic_wand(w, h, r):
     sun_moon(cv, w * 0.16, h * 0.1, 2.4, 'x', 'n', True)
     if cloudy:
         cloud(cv, w * 0.62, h * 0.09, 1.4, 'o')
-    sx, sy = 15.0, 8.6
+    sx, sy = 15.0, 8.8
     bar(cv, 3.6, gtop - 1.0, sx - 1.0, sy + 2.0, 1.5, 'k')
     bar(cv, 3.6, gtop - 1.0, 5.4, gtop - 3.6, 1.7, 'w')
-    star(cv, sx, sy, size, 'y', ri=size * 0.45, rot=-90 + r.uniform(-12, 12))
-    star(cv, sx, sy, size * 0.42, 'q', ri=size * 0.2)
-    bx, by = sx - 3.0, sy + 4.4
+    star(cv, sx, sy, size, 'y', ri=size * 0.46, rot=-90 + r.uniform(-12, 12))
+    star(cv, sx, sy, size * 0.4, 'q', ri=size * 0.2)
+    bx, by = sx - 3.4, sy + 4.8
     poly(cv, [(bx, by), (bx - 2.4, by - 1.4), (bx - 2.0, by + 1.4)], 'r')
     poly(cv, [(bx, by), (bx + 1.4, by + 2.4), (bx - 1.2, by + 2.2)], 'r')
-    for k, (dx, dy) in enumerate(((-7.0, -3.0), (-9.5, 2.0), (5.0, 6.5), (3.8, -6.0))):
+    for dx, dy in ((-7.6, -3.0), (-10.0, 2.4), (5.0, 7.0), (3.4, -6.2)):
         sparkle(cv, sx + dx + r.uniform(-0.5, 0.5), sy + dy, 'x')
     if flip:
         mirror(cv)
-    return cv, [('n', 'night', 'Night sky', BLUE, True), role('k', 'wand', 'Wand', PINK), role('w', 'grip', 'Grip', BROWN),
-                role('y', 'star', 'Star', BROWN), role('q', 'glow', 'Star glow', PINK), role('r', 'ribbon', 'Ribbon', PINK),
-                role('x', 'sparkle', 'Moon and sparkles', BROWN), role('o', 'cloud', 'Cloud', BLUE),
-                role('g', 'ground', ['Hills', 'Book pages', 'Clouds'][scene], GREEN),
-                role('c', 'detail', 'Castle' if scene == 0 else 'Book cover', GREEN), role('t', 'table', 'Table', BROWN)], ['things', 'magic']
+    return cv, [('n', 'night', 'Night sky', BLUE, True), role('y', 'star', 'Star', BROWN), role('k', 'wand', 'Wand', PINK),
+                role('w', 'grip', 'Grip and castle' if scene == 0 else 'Grip', BROWN), role('q', 'glow', 'Star glow', PINK),
+                role('r', 'ribbon', 'Ribbon and flowers', PINK), role('x', 'sparkle', 'Moon and sparkles', BROWN), role('o', 'cloud', 'Cloud', BLUE),
+                role('g', 'ground', ['Hills', 'Meadow', 'Clouds'][scene], GREEN),
+                role('c', 'detail', 'Tower roofs' if scene == 0 else 'Stems', GREEN)], ['things', 'magic']
 
 
 def wizard_hat(w, h, r):
@@ -1228,10 +1235,10 @@ def wizard_hat(w, h, r):
     fy = h - 4
     if scene == 0:
         box(cv, 0, fy, w, h, 't')
-        for k, (x0, x1, c) in enumerate(((3.0, 19.0, 'v'), (4.0, 18.0, 'm'), (2.5, 17.5, 'v'))):
+        for k, (x0, x1, c) in enumerate(((3.0, 19.0, 'v'), (4.0, 18.0, 'm'))):
             box(cv, x0, fy - 2.4 * (k + 1), x1, fy - 2.4 * k - 0.1, c)
             box(cv, x1 - 1.6, fy - 2.4 * (k + 1), x1 - 0.8, fy - 2.4 * k - 0.1, 'y')
-        by = fy - 7.6
+        by = fy - 5.2
     elif scene == 1:
         box(cv, 0, fy, w, h, 't')
         wx = r.choice((1.0, w - 8.0))
@@ -1285,7 +1292,15 @@ def trophy(w, h, r):
         scatter(cv, 'x', 'w', 14, r, sep=3, area=(0, 0, w - 1, fy - 5))
         base, sc = fy - 3.4, 0.9
     else:
-        base, sc = fy, 0.95
+        base, sc = fy, 0.9
+        for side in (-1, 1):
+            arc = [(cx + math.cos(math.radians(a)) * 9.0, base - 10.4 + math.sin(math.radians(a)) * 9.0)
+                   for a in (range(100, 225, 15) if side < 0 else range(80, -45, -15))]
+            path(cv, arc, 'l', 0.4)
+            for k, (x, y) in enumerate(arc[1:-1]):
+                a = math.atan2(y - (base - 10.4), x - cx) + side * math.radians(16)
+                for rr in ((11.0,) if k % 2 else (11.0, 7.2)):
+                    lens(cv, x, y, cx + math.cos(a) * rr, base - 10.4 + math.sin(a) * rr, 1.5, 'l')
 
     def at(dx, dy):
         return cx + dx * sc, base + dy * sc
@@ -1302,21 +1317,14 @@ def trophy(w, h, r):
         hx, hy = at(side * 6.4, top + 4.4)
         fill(cv, 'c', lambda px, py, hx=hx, hy=hy, side=side: 1.3 < math.hypot(px - hx, py - hy) <= 2.6 and (px - cx) * side > 5.8 * sc)
     star(cv, *at(0, top + 4.8), 2.4, 's')
-    if layout == 2:
-        for side in (-1, 1):
-            for k in range(5):
-                a = math.radians(200 - k * 26) if side < 0 else math.radians(-20 + k * 26)
-                lx, ly = cx + math.cos(a) * 9.0, base - 9.0 - math.sin(a) * 9.0
-                lens(cv, lx, ly, lx + side * 1.6, ly - 2.0, 1.4, 'l')
-        oval(cv, cx, fy + 0.3, 7.0, 0.8, 'p')
-    if layout != 0 and r.random() < 0.5:
+    if layout == 1 and r.random() < 0.6:
         for x in (r.uniform(1.5, 3.5), r.uniform(18.5, 20.5)):
             y = r.uniform(4.0, 8.0)
             oval(cv, x, y, 1.5, 1.9, 's')
             seg(cv, x, y + 1.9, x + 0.5, y + 6.0, 'n', 0.35)
     return cv, [('w', 'wall', 'Wall', BLUE, True), role('c', 'cup', 'Trophy', BROWN), role('s', 'star', 'Star and balloons', PINK),
-                role('p', 'base', 'Base', PINK), role('b', 'stand', 'Podium' if layout == 0 else 'Shelf and number', GREEN),
-                role('n', 'digits', 'Numbers', BLUE), role('x', 'confetti', 'Confetti', BROWN), role('l', 'laurel', 'Laurels', GREEN),
+                role('p', 'base', 'Base', PINK), role('b', 'stand', 'Podium' if layout == 0 else 'Shelf', GREEN),
+                role('n', 'digits', 'Numbers and strings', BLUE), role('x', 'confetti', 'Confetti', BROWN), role('l', 'laurel', 'Laurels', GREEN),
                 role('f', 'floor', 'Floor', BROWN)], ['things', 'party']
 
 
@@ -1326,42 +1334,46 @@ def paint_palette(w, h, r):
     fy = h - 3
     box(cv, 0, fy, w, h, 'f')
     if scene == 0:
-        for a, b in (((5, fy), (9, 2)), ((17, fy), (13, 2)), ((11, 2), (11, fy))):
+        for a, b in (((3.5, fy), (6.0, 1.0)), ((14.5, fy), (12.0, 1.0))):
             bar(cv, *a, *b, 1.0, 'f')
-        box(cv, 3, 3, 19, 11, 'e')
-        disc(cv, 15.5, 5.5, 1.6, 'a')
-        hills(cv, 'g', 9.0, 0.8, 12, 1.0, only='e')
+        box(cv, 2, 1, 16, 8.0, 'e')
+        disc(cv, 12.6, 3.2, 1.5, 'a')
+        hills(cv, 'g', 6.4, 0.8, 9, 1.0, only='e')
     elif scene == 1:
-        for x, c in ((2.5, 'a'), (6.5, 'b'), (w - 6.5, 'g'), (w - 2.5, 'v')):
-            rbox(cv, x - 1.6, fy - 4.0, x + 1.6, fy, 0.5, 'e')
-            box(cv, x - 1.6, fy - 4.6, x + 1.6, fy - 3.6, c)
+        for x, c in ((2.5, 'a'), (6.5, 'b'), (10.5, 'g')):
+            rbox(cv, x - 1.6, 1.0, x + 1.6, 6.0, 0.5, 'e')
+            box(cv, x - 1.6, 3.6, x + 1.6, 6.0, c, only='e')
+        box(cv, 0, 6.0, 14, 7.0, 'f')
     else:
-        for x0, y0 in ((1.5, 1.5), (13.5, 2.5)):
+        for x0, y0 in ((1.0, 1.0), (9.5, 2.0)):
             box(cv, x0, y0, x0 + 7, y0 + 5.5, 'h')
             box(cv, x0 + 1, y0 + 1, x0 + 6, y0 + 4.5, 'e')
             disc(cv, x0 + 4.5, y0 + 2.2, 1.0, 'a')
             hills(cv, 'g', y0 + 4.0, 0.6, 6, 0.5, only='e')
-    deg = r.uniform(-14, 14)
-    to, back = turn(cx, 16.0, deg)
+    jx = w - 2.6
+    for x, top, c in ((jx - 0.8, 8.0, 'a'), (jx + 0.9, 10.0, 'b')):
+        bar(cv, x, fy - 2.0, x, top + 2.2, 0.8, 'h')
+        box(cv, x - 0.5, top + 1.2, x + 0.5, top + 2.2, 'y')
+        poly(cv, [(x - 0.6, top + 1.3), (x + 0.6, top + 1.3), (x, top - 0.6)], c)
+    rbox(cv, jx - 2.2, fy - 5.0, jx + 2.2, fy, 0.6, 'e')
+    deg = r.uniform(-16, -6)
+    to, back = turn(cx - 2.2, 16.6, deg)
 
     def local(f):
         return lambda px, py: f(*back(px, py))
-    fill(cv, 'p', local(lambda u, v: (u / 9.6) ** 2 + (v / 6.6) ** 2 <= 1 and math.hypot(u + 9.0, v - 3.4) > 2.6))
-    fill(cv, 'w', local(lambda u, v: math.hypot(u + 5.2, v - 1.6) <= 1.4))
-    colours = ['a', 'b', 'g', 'v', 'c', 'a']
+    fill(cv, 'p', local(lambda u, v: (u / 8.6) ** 2 + (v / 6.2) ** 2 <= 1 and math.hypot(u + 8.6, v - 2.8) > 2.8))
+    fill(cv, 'w', local(lambda u, v: math.hypot(u + 4.6, v - 0.8) <= 1.75))
+    colours = ['a', 'b', 'g', 'v', 'c']
     r.shuffle(colours)
-    for (u, v), c in zip(((-4.6, -3.4), (-0.8, -4.4), (3.0, -4.2), (6.4, -2.4), (7.0, 1.4), (2.6, 3.0)), colours):
-        x, y = to(u, v)
-        disc(cv, x, y, 1.6 + r.random() * 0.4, c)
-    bar(cv, *to(-2.0, 5.6), *to(10.6, -1.2), 1.2, 'h')
-    bar(cv, *to(-2.0, 5.6), *to(-3.6, 6.5), 1.4, 'y')
-    poly(cv, [to(-3.4, 5.5), to(-4.0, 7.6), to(-6.6, 8.2), to(-4.8, 6.0)], 'a')
+    for (u, v), c in zip(((-4.0, -3.4), (-0.4, -4.2), (3.4, -3.6), (6.2, -1.2), (4.6, 2.8)), colours):
+        disc(cv, *to(u, v), 1.8, c)
     if flip:
         mirror(cv)
     return cv, [('w', 'wall', 'Wall', GREEN, True), role('p', 'palette', 'Palette', BROWN), role('a', 'red', 'Red paint', PINK),
                 role('v', 'violet', 'Violet paint', PINK), role('b', 'blue', 'Blue paint', BLUE), role('c', 'cyan', 'Light blue paint', BLUE),
-                role('g', 'green', 'Green paint and hills', GREEN), role('h', 'brush', 'Brush handle and frames', BLUE),
-                role('y', 'ferrule', 'Ferrule', BROWN), role('e', 'canvas', 'Canvas and jars', BLUE), role('f', 'floor', 'Floor and easel', BROWN)], ['things', 'hobby']
+                role('g', 'green', 'Green paint and hills', GREEN), role('h', 'brush', 'Brush handles and frames', BLUE),
+                role('y', 'ferrule', 'Ferrules', BROWN), role('e', 'canvas', 'Canvas and jars', BLUE),
+                role('f', 'floor', 'Floor, shelf and easel', BROWN)], ['things', 'hobby']
 
 
 def book_stack(w, h, r):
@@ -1370,11 +1382,11 @@ def book_stack(w, h, r):
     fy = h - 4
     box(cv, 0, fy, w, h, 't')
     if lamp:
-        lx = w - 3.0
-        oval(cv, lx, fy - 0.5, 2.4, 0.9, 'l')
-        bar(cv, lx, fy - 0.6, lx - 1.0, fy - 9.0, 0.8, 'l')
-        bar(cv, lx - 1.0, fy - 9.0, lx - 4.4, fy - 12.0, 0.8, 'l')
-        poly(cv, [(lx - 6.8, fy - 10.6), (lx - 2.8, fy - 13.8), (lx - 1.4, fy - 11.6), (lx - 4.6, fy - 8.6)], 'l')
+        lx = w - 2.5
+        oval(cv, lx, fy - 0.5, 2.2, 0.9, 'l')
+        bar(cv, lx, fy - 0.6, lx - 0.4, fy - 12.0, 0.8, 'l')
+        bar(cv, lx - 0.4, fy - 12.0, lx - 3.4, fy - 14.6, 0.8, 'l')
+        poly(cv, [(lx - 7.4, fy - 11.4), (lx - 4.4, fy - 16.2), (lx - 2.2, fy - 14.4), (lx - 4.2, fy - 10.0)], 'l')
     else:
         wx = r.choice((1.5, w - 8.5))
         rbox(cv, wx, 1.5, wx + 7, 9.5, 0.5, 'l')
@@ -1382,23 +1394,20 @@ def book_stack(w, h, r):
         box(cv, wx + 3, 2.5, wx + 4, 8.5, 'l')
         box(cv, wx + 1, 5, wx + 6, 6, 'l')
     y = fy
-    x0 = cx - 1.5
-    books = [('a', 3), ('b', 2), ('c', 3), ('d', 2), ('a', 2)]
+    x0 = cx - (3.0 if lamp else 1.0)
+    books = [('a', 3, 0), ('b', 3, 1), ('c', 2, 0), ('d', 3, 1), ('a', 2, 0)]
     widths = [17, 15, 16, 13, 14]
     r.shuffle(widths)
     top_book = None
-    for k, ((c, t), bw) in enumerate(zip(books, widths)):
+    for (c, t, pages), bw in zip(books, widths):
         bx = x0 - bw / 2 + r.uniform(-1.4, 1.4)
-        if k in (1, 3):
-            box(cv, bx, y - t, bx + bw, y - 0.1, c)
-            box(cv, bx + 0.6, y - t + 0.9, bx + bw, y - 1.0, 'e')
+        box(cv, bx, y - t, bx + bw, y - 0.1, c)
+        if pages:
+            box(cv, bx + 1.0, y - 2.0, bx + bw - 0.2, y - 1.1, 'e')
         else:
-            box(cv, bx, y - t, bx + bw, y - 0.1, c)
             for sx in (bx + 1.5, bx + bw - 2.5):
                 box(cv, sx, y - t, sx + 0.9, y - 0.1, 'k')
-            if t == 3:
-                box(cv, bx + 4.5, y - 2.0, bx + bw - 4.5, y - 1.1, 'k')
-        top_book = (bx, bx + bw, y - t)
+        top_book = (bx, bx + bw)
         y -= t
     tx = (top_book[0] + top_book[1]) / 2 + r.uniform(-2.5, 2.5)
     if apple:
@@ -1413,9 +1422,9 @@ def book_stack(w, h, r):
     if flip:
         mirror(cv)
     return cv, [('w', 'wall', 'Wall', BLUE, True), role('a', 'red', 'Red books' + (' and apple' if apple else ''), PINK),
-                role('b', 'green', 'Green books' + (' and leaf' if apple else ''), GREEN), role('c', 'violet', 'Violet book' + ('' if apple else ' and cup'), PINK),
+                role('b', 'green', 'Green book' + (' and leaf' if apple else ''), GREEN), role('c', 'violet', 'Violet book' + ('' if apple else ' and cup'), PINK),
                 role('d', 'moss', 'Moss book', GREEN), role('e', 'pages', 'Pages' + ('' if apple else ' and steam'), BLUE),
-                role('k', 'band', 'Spine bands and stem', BROWN), role('l', 'lamp', 'Lamp' if lamp else 'Window frame', GREEN),
+                role('k', 'band', 'Spine bands' + (' and stem' if apple else ''), BROWN), role('l', 'lamp', 'Lamp' if lamp else 'Window frame', GREEN),
                 role('t', 'desk', 'Desk', BROWN)], ['things', 'cozy']
 
 
@@ -1424,47 +1433,41 @@ def pencil_cup(w, h, r):
     flip, stripes, extra = r.random() < 0.5, r.random() < 0.5, int(r.random() * 3)
     fy = h - 4
     box(cv, 0, fy, w, h, 't')
-    pencils = [(-16, 13.5, 'a'), (-5, 15.0, 'y'), (6, 14.0, 'v'), (17, 12.5, 'g')]
-    for deg, L, c in pencils:
-        to, back = turn(cx + deg * 0.12, fy - 3.0, deg)
-        fill(cv, c, lambda px, py, back=back, L=L: -0.95 <= back(px, py)[0] <= 0.95 and -(L - 2.6) <= back(px, py)[1] <= 0)
-        fill(cv, 'o', lambda px, py, back=back, L=L: -(L) <= back(px, py)[1] < -(L - 2.6) and
-             abs(back(px, py)[0]) <= 0.95 * (L + back(px, py)[1]) / 2.6)
-        fill(cv, c, lambda px, py, back=back, L=L: -(L) <= back(px, py)[1] < -(L - 1.0) and
-             abs(back(px, py)[0]) <= 0.95 * (L + back(px, py)[1]) / 2.6)
+    for deg, L, c in ((-20, 17.0, 'a'), (-7, 19.0, 'y'), (6, 18.0, 'v'), (19, 16.5, 'g')):
+        to, back = turn(cx + deg * 0.1, fy - 2.0, deg)
+        fill(cv, c, lambda px, py, back=back, L=L: abs(back(px, py)[0]) <= 0.95 and -(L - 2.8) <= back(px, py)[1] <= 0)
+        fill(cv, 'o', lambda px, py, back=back, L=L: -L <= back(px, py)[1] < -(L - 2.8) and
+             abs(back(px, py)[0]) <= 0.95 * (L + back(px, py)[1]) / 2.8 + 0.2)
+        fill(cv, c, lambda px, py, back=back, L=L: -L <= back(px, py)[1] < -(L - 1.0) and abs(back(px, py)[0]) <= 0.6)
     if extra == 0:
-        to, back = turn(cx + 1.0, fy - 3.0, 1.0)
-        fill(cv, 'r', lambda px, py: abs(back(px, py)[0]) <= 0.9 and -17.0 <= back(px, py)[1] <= 0)
-        for k in range(3, 17, 2):
+        to, back = turn(cx + 1.0, fy - 2.0, 1.0)
+        fill(cv, 'r', lambda px, py: abs(back(px, py)[0]) <= 0.9 and -16.0 <= back(px, py)[1] <= 0)
+        for k in range(3, 16, 2):
             fill(cv, 'k', lambda px, py, k=k: -0.9 <= back(px, py)[0] <= 0.1 and abs(back(px, py)[1] + k) <= 0.4, only='r')
     elif extra == 1:
         for side in (-1, 1):
-            ring(cv, cx + side * 1.8, fy - 17.5, 1.7, 0.7, 'r')
-        seg(cv, cx - 0.4, fy - 15.8, cx, fy - 10.0, 'k', 0.45)
-        seg(cv, cx + 0.4, fy - 15.8, cx, fy - 10.0, 'k', 0.45)
+            ring(cv, cx + side * 1.8, fy - 16.5, 1.7, 0.7, 'r')
+        seg(cv, cx - 0.4, fy - 14.8, cx, fy - 8.0, 'k', 0.45)
+        seg(cv, cx + 0.4, fy - 14.8, cx, fy - 8.0, 'k', 0.45)
     else:
-        bar(cv, cx + 0.5, fy - 3.0, cx + 0.5, fy - 14.0, 0.9, 'r')
-        box(cv, cx, fy - 15.6, cx + 1.0, fy - 14.0, 'k')
-        poly(cv, [(cx - 0.4, fy - 15.6), (cx + 1.4, fy - 15.6), (cx + 1.0, fy - 18.0), (cx + 0.5, fy - 18.6), (cx, fy - 18.0)], 'a')
-    rbox(cv, cx - 5.0, fy - 9.0, cx + 5.0, fy, 0.8, 'c')
-    box(cv, cx - 5.4, fy - 9.6, cx + 5.4, fy - 8.6, 'k')
+        bar(cv, cx + 0.5, fy - 2.0, cx + 0.5, fy - 13.0, 0.9, 'r')
+        box(cv, cx, fy - 14.6, cx + 1.0, fy - 13.0, 'k')
+        poly(cv, [(cx - 0.4, fy - 14.6), (cx + 1.4, fy - 14.6), (cx + 1.0, fy - 17.0), (cx + 0.5, fy - 17.6), (cx, fy - 17.0)], 'a')
+    rbox(cv, cx - 5.0, fy - 7.6, cx + 5.0, fy, 0.8, 'c')
+    box(cv, cx - 5.4, fy - 8.2, cx + 5.4, fy - 7.2, 'k')
     if stripes:
-        for y in (fy - 6.6, fy - 3.6):
+        for y in (fy - 5.6, fy - 2.8):
             box(cv, cx - 5.0, y, cx + 5.0, y + 1.0, 'p', only='c')
     else:
-        heart(cv, cx, fy - 4.4, 2.2, 'p')
+        heart(cv, cx, fy - 3.8, 2.1, 'p')
     px = r.choice((2.5, w - 2.5))
     rbox(cv, px - 2.2, fy - 1.6, px + 2.2, fy, 0.4, 'p')
-    if r.random() < 0.5:
-        wx = r.choice((1.5, w - 7.5))
-        rbox(cv, wx, 1.5, wx + 6, 7.5, 0.4, 'r')
-        box(cv, wx + 1, 2.5, wx + 5, 6.5, 'w')
     if flip:
         mirror(cv)
     return cv, [('w', 'wall', 'Wall', BLUE, True), role('c', 'cup', 'Cup', GREEN), role('p', 'pattern', 'Cup pattern and eraser', PINK),
                 role('a', 'red', 'Red pencil', PINK), role('v', 'violet', 'Violet pencil', PINK), role('y', 'yellow', 'Yellow pencil', BROWN),
                 role('g', 'green', 'Green pencil', GREEN), role('o', 'wood', 'Sharpened wood', BROWN),
-                role('r', 'tool', ['Ruler', 'Scissors', 'Brush'][extra] + ' and frame', BLUE), role('k', 'marks', 'Rim and marks', BROWN),
+                role('r', 'tool', ['Ruler', 'Scissors', 'Brush'][extra], BLUE), role('k', 'marks', 'Rim and marks', BROWN),
                 role('t', 'desk', 'Desk', BROWN)], ['things', 'school']
 
 
@@ -1474,36 +1477,37 @@ def typewriter(w, h, r):
     fy = h - 4
     box(cv, 0, fy, w, h, 't')
     if scene == 0:
-        lx = 2.5
-        oval(cv, lx, fy - 0.5, 2.2, 0.9, 'l')
-        bar(cv, lx, fy - 0.6, lx + 0.6, fy - 9.0, 0.8, 'l')
-        poly(cv, [(lx - 1.6, fy - 8.4), (lx + 3.2, fy - 8.4), (lx + 2.2, fy - 11.4), (lx - 0.6, fy - 11.4)], 'l')
+        rbox(cv, w - 5.4, 1.0, w - 0.6, 7.0, 0.3, 'l')
+        box(cv, w - 4.4, 2.0, w - 1.6, 6.0, 'p')
+        poly(cv, [(w - 4.4, 6.0), (w - 3.0, 3.6), (w - 1.6, 6.0)], 'l')
     elif scene == 1:
-        rbox(cv, w - 4.6, fy - 4.4, w - 1.2, fy, 0.5, 'l')
-        ring(cv, w - 5.2, fy - 2.4, 1.4, 0.5, 'l')
-        for k in (-0.8, 0.8):
-            path(cv, [(w - 2.9 + k, fy - 5.0), (w - 2.3 + k, fy - 6.2), (w - 2.9 + k, fy - 7.4)], 'x', 0.4)
+        disc(cv, w - 3.0, 4.0, 2.8, 'l')
+        disc(cv, w - 3.0, 4.0, 1.9, 'p')
+        seg(cv, w - 3.0, 4.0, w - 3.0, 2.4, 'r', 0.35)
+        seg(cv, w - 3.0, 4.0, w - 1.8, 4.6, 'r', 0.35)
     else:
-        for k in range(3):
-            box(cv, 0.5, fy - 2.0 * (k + 1), 4.0 + k * 0.4, fy - 2.0 * k - 0.1, 'l' if k % 2 == 0 else 'x')
+        box(cv, w - 6.0, 6.2, w, 7.0, 'r')
+        for k, x in enumerate((w - 5.4, w - 4.2, w - 3.0, w - 1.6)):
+            box(cv, x, 6.2 - (3.4 if k % 2 else 4.2), x + 1.0, 6.1, 'l' if k % 2 else 'x')
     rbox(cv, cx - 5.0, 2.0, cx + 5.0, 11.0, 0.3, 'p')
     for k in range(3):
         box(cv, cx - 3.8, 3.5 + k * 1.8, cx + 3.8 - (2.5 if k == 2 else 0), 4.3 + k * 1.8, 'x')
-    poly(cv, [(4.6, 12.0), (w - 4.6, 12.0), (w - 1.6, fy - 0.6), (w - 2.4, fy), (2.4, fy), (1.6, fy - 0.6)], 'b')
-    rbox(cv, 2.6, 9.6, w - 2.6, 12.2, 0.8, 'r')
-    for x in (2.2, w - 2.2):
+    poly(cv, [(5.2, 12.0), (w - 5.2, 12.0), (w - 2.4, fy - 0.6), (w - 3.2, fy), (3.2, fy), (2.4, fy - 0.6)], 'b')
+    rbox(cv, 3.2, 9.6, w - 3.2, 12.2, 0.8, 'r')
+    for x in (2.8, w - 2.8):
         disc(cv, x, 10.9, 1.4, 'r')
-    path(cv, [(3.4, 10.0), (2.2, 7.8), (0.8, 7.6)], 'r', 0.45)
+    path(cv, [(4.0, 10.0), (2.6, 7.8), (1.0, 7.6)], 'r', 0.45)
     fill(cv, 'r', lambda px, py: py >= 12.0 and ((px - cx) / 5.0) ** 2 + ((py - 12.0) / 2.6) ** 2 <= 1)
     for k, y in enumerate((16.0, 18.0, 20.0)):
-        for x in range(4 + k % 2, w - 4, 2):
+        for x in range(5 + k % 2, w - 5, 2):
             cv.put(x, int(y), 'k')
     rbox(cv, 6.5, fy - 2.4, w - 6.5, fy - 1.2, 0.4, 'r')
     if flip:
         mirror(cv)
-    return cv, [('w', 'wall', 'Wall', PINK, True), role('b', 'body', 'Typewriter', GREEN), role('p', 'paper', 'Paper', BLUE),
-                role('x', 'text', 'Typed lines, steam and book', PINK), role('r', 'roller', 'Roller, lever and space bar', BROWN),
-                role('k', 'keys', 'Keys', BLUE), role('l', 'detail', ['Lamp', 'Cup', 'Books'][scene], GREEN), role('t', 'desk', 'Desk', BROWN)], ['things', 'desk']
+    return cv, [('w', 'wall', 'Wall', PINK, True), role('b', 'body', 'Typewriter', GREEN), role('p', 'paper', 'Paper and picture', BLUE),
+                role('x', 'text', 'Typed lines and book', PINK), role('r', 'roller', 'Roller, lever, space bar and shelf', BROWN),
+                role('k', 'keys', 'Keys', BLUE), role('l', 'detail', ['Picture frame', 'Clock', 'Books'][scene], GREEN),
+                role('t', 'desk', 'Desk', BROWN)], ['things', 'desk']
 
 
 def bell(w, h, r):

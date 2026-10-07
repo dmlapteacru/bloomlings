@@ -1028,8 +1028,8 @@ def market_stall(w, h, r):
     goods = r.choice(('fruit', 'flowers', 'harvest'))
     top = r.choice(('sign', 'bunting', 'none'))
     n = r.choice((6, 8))
-    x0, x1 = w * 0.1, w * 0.9
-    at, ab, ct = h * 0.2, h * 0.37, h * 0.62
+    x0, x1 = w * 0.13, w * 0.87
+    at, ab, ct = h * 0.28, h * 0.43, h * 0.68
     sx = w * r.choice((0.1, 0.9))
     disc(cv, sx, h * 0.07, s * 0.07, 'u')
     box(cv, 0, gtop, w, h, 'g')
@@ -1047,22 +1047,22 @@ def market_stall(w, h, r):
         disc(cv, x, ab, W / n + 0.1, 'ab'[int((x - cx) / (2 * W / n) + 100) % 2])
     box(cv, x0, ct, x1, gtop + 0.5, 'c')
     box(cv, x0, ct + 2.6, x1, ct + 3.2, 'k', only='c')
-    for i, x in enumerate((cx - 5.5, cx, cx + 5.5)):
+    for i, x in enumerate((cx - 5.0, cx, cx + 5.0)):
         if goods == 'flowers':
             box(cv, x - 1.4, ct - 2.2, x + 1.4, ct, 'k')
             seg(cv, x, ct - 2.2, x, ct - 3.6, 'v', 0.5)
             for dx, dy, c in ((-1.3, -4.2, 'f'), (1.3, -4.0, 'o'), (0, -5.4, 'of'[i % 2])):
                 disc(cv, x + dx, ct + dy, 1.1, c)
         else:
-            box(cv, x - 2.2, ct - 1.6, x + 2.2, ct, 'k')
-            oval(cv, x, ct - 1.8, 2.0, 1.3, 'fvo'[i])
+            box(cv, x - 2.0, ct - 1.6, x + 2.0, ct, 'k')
+            oval(cv, x, ct - 1.8, 1.9, 1.3, 'fvo'[i])
     if goods == 'harvest':
         for x in (w * 0.28, w * 0.72):
             oval(cv, x, h - 2.0, 2.0, 1.3, 'y')
             seg(cv, x, h - 3.2, x + 0.6, h - 4.0, 'v', 0.5)
     if top == 'sign':
-        rbox(cv, cx - 3.6, h * 0.05, cx + 3.6, at - 0.4, 0.6, 'k')
-        disc(cv, cx, (h * 0.05 + at - 0.4) / 2, 1.05, 'f')
+        rbox(cv, cx - 3.6, at - 4.4, cx + 3.6, at - 0.4, 0.6, 'k')
+        disc(cv, cx, at - 2.4, 1.05, 'f')
     elif top == 'bunting':
         path(cv, [(x0 + 0.5, at - 0.2), (cx, at - 1.6), (x1 - 0.5, at - 0.2)], 'p', 0.45)
         for k in range(5):
@@ -1148,6 +1148,13 @@ def beehive(w, h, r):
     gtop = h - ground_rows(h, 0.14)
     hx = int(cx) + r.choice((-1, 0, 1))
     disc(cv, w * r.choice((0.12, 0.88)), h * 0.08, s * 0.08, 'u')
+    back = r.choice(('hills', 'fence', 'none'))
+    if back == 'hills':
+        hills(cv, 'm', gtop - 2.5, 1.5, w * 0.9, r.uniform(0, 6))
+    elif back == 'fence':
+        for x in range(0, w, 2):
+            poly(cv, [(x, gtop - 4.0), (x + 0.5, gtop - 4.6), (x + 1, gtop - 4.0), (x + 1, gtop), (x, gtop)], 'n')
+        box(cv, 0, gtop - 3.0, w, gtop - 2.4, 'n')
     box(cv, 0, gtop, w, h, 'g')
     for x in (w * 0.08, w * 0.24, w * 0.76, w * 0.92):
         if r.random() < 0.7:
@@ -1192,8 +1199,9 @@ def beehive(w, h, r):
     if r.random() < 0.5:
         _mirror(cv)
     return cv, [sky(), role('d', 'hole', 'Entrance', BLUE), role('k', 'hive', 'Hive', BROWN), role('t', 'stand', 'Stand and branch', BROWN),
-                role('e', 'bees', 'Bees', BROWN), role('u', 'sun', 'Sun', BROWN), role('l', 'coils', 'Coils and lid', PINK),
-                role('f', 'flowers', 'Flowers', PINK), role('g', 'grass', 'Grass', GREEN), role('v', 'leaves', 'Leaves and stems', GREEN)],\
+                role('e', 'bees', 'Bees', BROWN), role('u', 'sun', 'Sun', BROWN), role('n', 'fence', 'Fence', BROWN),
+                role('l', 'coils', 'Coils and lid', PINK), role('f', 'flowers', 'Flowers', PINK), role('g', 'grass', 'Grass', GREEN),
+                role('v', 'leaves', 'Leaves and stems', GREEN), role('m', 'hills', 'Hills', GREEN)],\
         ['places', 'garden']
 
 
@@ -1205,36 +1213,36 @@ def garden_gate(w, h, r):
     ajar = r.random() < 0.35
     night = r.random() < 0.25
     L = int(cx) - 6
+    pt, yt = h * 0.46, h * 0.53
     hills(cv, 'g', gtop - 3.0, 0.5, w * 1.2, r.uniform(0, 6))
-    if r.random() < 0.6:
-        _tree(cv, cx + r.uniform(-2.5, 2.5), gtop - 3.0, s * 0.11, 'h', 'n')
-    pt = h * 0.38
     if fence == 'hedge':
         for a, b in ((-1, L - 0.2), (L + 13.2, w + 1)):
-            rbox(cv, a, h * 0.47, b, gtop + 0.5, 2.0, 'h')
+            rbox(cv, a, h * 0.5, b, gtop + 0.5, 2.0, 'h')
         scatter(cv, 'f', 'h', 5, r, sep=2)
+        if r.random() < 0.6:
+            _tree(cv, w * r.choice((0.1, 0.9)), h * 0.52, s * 0.12, 'h', 'n')
     else:
-        for x in list(range(0, L, 2)) + list(range(L + 14, w, 2)):
-            poly(cv, [(x, h * 0.6), (x + 0.5, h * 0.56), (x + 1, h * 0.6), (x + 1, gtop + 0.5), (x, gtop + 0.5)], 'k')
-        for y in (h * 0.66, h * 0.78):
+        for x in list(range(0, L - 1, 2)) + list(range(L + 14, w, 2)):
+            poly(cv, [(x, h * 0.63), (x + 0.5, h * 0.6), (x + 1, h * 0.63), (x + 1, gtop + 0.5), (x, gtop + 0.5)], 'k')
+        for y in (h * 0.68, h * 0.8):
             box(cv, 0, y, L, y + 0.8, 'q')
             box(cv, L + 13, y, w, y + 0.8, 'q')
-        scatter(cv, 'f', 'g', 5, r, sep=2, area=(0, gtop - 2, w - 1, gtop + 1))
+        scatter(cv, 'f', 'g', 5, r, sep=2, area=(0, gtop + 1, w - 1, h - 1))
     for x in (L, L + 11):
         box(cv, x, pt, x + 2, gtop + 0.5, 'k')
         box(cv, x - 0.3, pt - 0.9, x + 2.3, pt, 'q')
     if ajar:
-        for x in range(L + 2, L + 6):
-            poly(cv, [(x, h * 0.58), (x + 0.5, h * 0.55), (x + 1, h * 0.58), (x + 1, gtop + 0.9), (x, gtop + 0.9)], 'k')
-        for y in (h * 0.63, h * 0.78):
-            box(cv, L + 2, y, L + 6, y + 0.8, 'q')
+        for x in range(L + 2, L + 7, 2):
+            poly(cv, [(x, yt + 1.5), (x + 0.5, yt + 0.9), (x + 1, yt + 1.5), (x + 1, gtop + 1.4), (x, gtop + 1.4)], 'k')
+        for y in (h * 0.62, h * 0.8):
+            box(cv, L + 2, y, L + 7, y + 0.8, 'q')
     else:
         for x in range(L + 2, L + 11, 2):
-            yt = h * 0.52 + 1.4 * ((x + 0.5 - (L + 6.5)) / 4.5) ** 2 * -1 + 1.4
-            poly(cv, [(x, yt + 1), (x + 0.5, yt), (x + 1, yt + 1), (x + 1, gtop + 0.5), (x, gtop + 0.5)], 'k')
-        for y in (h * 0.63, h * 0.78):
+            top = yt + 1.2 * ((x + 0.5 - (L + 6.5)) / 4.5) ** 2
+            poly(cv, [(x, top + 1), (x + 0.5, top), (x + 1, top + 1), (x + 1, gtop + 0.5), (x, gtop + 0.5)], 'k')
+        for y in (h * 0.62, h * 0.8):
             box(cv, L + 2, y, L + 11, y + 0.8, 'q')
-        seg(cv, L + 2.5, h * 0.78, L + 10.5, h * 0.63 + 0.8, 'q', 0.5)
+        seg(cv, L + 2.5, h * 0.8, L + 10.5, h * 0.62 + 0.8, 'q', 0.5)
     for k, (y, rx) in enumerate(((gtop + 1.0, 1.8), (gtop + 2.7, 2.4))):
         oval(cv, L + 6.5 + (k - 0.5) * 0.8, y, rx, 0.75, 'p')
     if arch != 'none':
@@ -1380,11 +1388,11 @@ def cherry_blossom(w, h, r):
     for d in (-1, 1):
         path(cv, [(tx, h * 0.52), (tx + d * w * 0.18, h * 0.38), (tx + d * w * 0.28, h * 0.34)], 't', 0.55)
     if shape == 'round':
-        blobs = [(0, 0.26, 0.3), (-0.22, 0.34, 0.2), (0.22, 0.34, 0.2), (-0.12, 0.17, 0.2), (0.14, 0.18, 0.2)]
+        blobs = [(0, 0.27, 0.26), (-0.2, 0.34, 0.17), (0.2, 0.34, 0.17), (-0.1, 0.19, 0.17), (0.12, 0.2, 0.17)]
     elif shape == 'wide':
-        blobs = [(0, 0.27, 0.26), (-0.3, 0.33, 0.18), (0.3, 0.33, 0.18), (-0.16, 0.2, 0.18), (0.16, 0.2, 0.18)]
+        blobs = [(0, 0.28, 0.22), (-0.28, 0.34, 0.15), (0.28, 0.34, 0.15), (-0.14, 0.22, 0.15), (0.14, 0.22, 0.15)]
     else:
-        blobs = [(0, 0.24, 0.27), (-0.2, 0.3, 0.2), (0.2, 0.3, 0.2)]
+        blobs = [(0, 0.25, 0.24), (-0.19, 0.31, 0.17), (0.19, 0.31, 0.17)]
     for dx, y, rr in blobs:
         disc(cv, tx + dx * w, h * y, s * rr, 'c')
     if shape == 'weeping':
@@ -1413,8 +1421,8 @@ def cherry_blossom(w, h, r):
     if r.random() < 0.5:
         _mirror(cv)
     return cv, [sky(), role('k', 'water', 'Blanket and river', BLUE), role('c', 'blossom', 'Blossom', PINK),
-                role('q', 'blossom2', 'Pale blossom', PINK), role('f', 'petals', 'Falling petals', PINK), role('t', 'trunk', 'Trunk', BROWN),
-                role('b', 'bench', 'Bench and basket', BROWN), _light(night), role('g', 'grass', 'Grass', GREEN),
+                role('q', 'blossom2', 'Pale blossom', PINK), role('f', 'petals', 'Falling petals', PINK), _light(night), role('t', 'trunk', 'Trunk', BROWN),
+                role('b', 'bench', 'Bench and basket', BROWN), role('g', 'grass', 'Grass', GREEN),
                 role('m', 'hills', 'Hills', GREEN)], ['places', 'spring']
 
 
@@ -1465,8 +1473,8 @@ def bonsai(w, h, r):
     if r.random() < 0.5:
         _mirror(cv)
     return cv, [('b', 'wall', 'Wall', BLUE, True), role('o', 'pot', 'Pot', PINK), role('w', 'paper', 'Scroll and window', PINK),
-                role('f', 'floor', 'Floor mat', PINK), role('q', 'blossom', 'Blossom', PINK), role('t', 'trunk', 'Trunk', BROWN),
-                role('k', 'table', 'Table and rods', BROWN), role('l', 'leaves', 'Leaf pads', GREEN), role('m', 'moss', 'Moss', GREEN)],\
+                role('f', 'floor', 'Floor mat', PINK), role('q', 'blossom', 'Blossom', PINK), role('k', 'table', 'Table and rods', BROWN),
+                role('t', 'trunk', 'Trunk', BROWN), role('l', 'leaves', 'Leaf pads', GREEN), role('m', 'moss', 'Moss', GREEN)],\
         ['places', 'garden']
 
 

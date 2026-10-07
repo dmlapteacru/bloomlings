@@ -113,13 +113,13 @@ def beaver(w, h, r):
             cv.put(int(bx + side * w * 0.12 + side * (k + 0.5)), int(gtop) - 1, 't')
     hy = h * 0.37
     for side in (-1, 1):
-        disc(cv, bx + side * s * 0.15, hy - s * 0.14, s * 0.03 + 0.6, 'b')
+        disc(cv, bx + side * s * 0.17, hy - s * 0.15, 0.75, 'b')
     disc(cv, bx, hy, s * 0.2, 'b')
     for side in (-1, 1):
         disc(cv, bx + side * s * 0.07, hy + s * 0.08, s * 0.07 + 0.2, 'm')
-    eyes(cv, bx, hy - s * 0.1, 1.5, big, 'e', 'k')
-    box(cv, bx - 1.0, hy + s * 0.02 - 0.5, bx + 1.0, hy + s * 0.02 + 0.4, 'k')
-    ty = int(hy + s * 0.13) + 0.5
+    eyes(cv, bx, hy - s * 0.15, 1.5, big, 'e', 'k')
+    box(cv, bx - 1.0, hy + s * 0.04 - 0.5, bx + 1.0, hy + s * 0.04 + 0.4, 'k')
+    ty = int(hy + s * 0.04) + 1.5
     box(cv, bx - 1.0, ty, bx + 1.0, ty + (1.0 if not big else 2.0), 't')
     for x in (tx - 2.0, tx + 2.4):
         box(cv, x - 0.5, gtop - 0.5, x + 0.5, gtop - 0.5, 'o')
@@ -146,9 +146,9 @@ def otter(w, h, r):
         oval(cv, ox + w * dx, oy - h * 0.07, 0.7, h * 0.05, 'o')
     hx, hy = int(ox - w * 0.3) + 0.5, oy - h * 0.12
     for side in (-1, 1):
-        disc(cv, hx + side * s * 0.16, hy - s * 0.14, 0.8, 'o')
-    disc(cv, hx, hy, s * 0.2, 'o')
-    oval(cv, hx, hy + s * 0.04, s * 0.15, s * 0.13, 'f')
+        disc(cv, hx + side * s * 0.18, hy - s * 0.09, 0.8, 'o')
+    oval(cv, hx, hy, s * 0.2, s * 0.18, 'o')
+    oval(cv, hx, hy + s * 0.05, s * 0.15, s * 0.12, 'f')
     eyes(cv, hx, hy - s * 0.04, 1.0, big, None, 'k')
     box(cv, hx - 0.5, hy + s * 0.08, hx + 0.5, hy + s * 0.08 + 0.6, 'k')
     if big:
@@ -169,33 +169,33 @@ def otter(w, h, r):
 
 def polar_bear(w, h, r):
     cv, s, cx, big = start(w, h, 's')
-    sea = h * 0.5
+    sea = h * 0.62
     hills(cv, 'w', sea, 0.3, w * 0.5, r.uniform(0, 6))
-    itop = h * 0.74
+    itop = h * 0.75
     poly(cv, [(w * 0.08, itop), (w * 0.92, itop), (w * 1.04, h + 1), (-w * 0.04, h + 1)], 'i')
-    bx, by = cx - w * 0.12, itop - h * 0.16
+    ix = w * 0.14
+    poly(cv, [(ix - w * 0.12, sea + 0.6), (ix - w * 0.04, sea - h * 0.1), (ix + w * 0.03, sea - h * 0.07), (ix + w * 0.12, sea + 0.6)], 'a')
+    bx, by = w * 0.36, itop - h * 0.26
     for dx in (-0.19, -0.08, 0.08, 0.18):
-        rbox(cv, bx + dx * w - 0.9, by, bx + dx * w + 0.9, itop + 0.5, 0.6, 'b')
-    oval(cv, bx, by, w * 0.26, h * 0.1, 'b')
-    disc(cv, bx + w * 0.14, by - h * 0.03, s * 0.14, 'b')
-    hx, hy = bx + w * 0.34, by - h * 0.02
-    oval(cv, bx + w * 0.25, by - h * 0.02, s * 0.12, s * 0.09, 'b')
-    oval(cv, hx, hy, s * 0.12, s * 0.1, 'b')
-    oval(cv, hx + s * 0.12, hy + s * 0.04, s * 0.09, s * 0.06, 'b')
-    disc(cv, hx - s * 0.05, hy - s * 0.1, 0.85, 'b')
-    disc(cv, bx - w * 0.26, by - h * 0.04, 0.8, 'b')
+        box(cv, bx + dx * w - 0.6, by, bx + dx * w + 0.6, itop + 0.5, 'b')
+    oval(cv, bx, by, w * 0.27, h * 0.125, 'b')
+    disc(cv, bx + w * 0.14, by - h * 0.06, s * 0.14, 'b')
+    disc(cv, bx - w * 0.27, by - h * 0.05, 0.8, 'b')
+    hx, hy = bx + w * 0.38, by + h * 0.02
+    path(cv, [(bx + w * 0.2, by - h * 0.04), (hx - s * 0.08, hy - s * 0.02)], 'b', s * 0.1)
+    oval(cv, hx, hy, s * 0.13, s * 0.1, 'b')
+    oval(cv, hx + s * 0.13, hy + s * 0.03, s * 0.08, s * 0.06, 'b')
+    disc(cv, hx - s * 0.06, hy - s * 0.1, 0.75, 'b')
     eye(cv, hx + s * 0.02, hy - s * 0.06, big, None, 'k')
     cv.put(int(hx + s * 0.2), int(hy + s * 0.02), 'k')
     if big:
-        path(cv, [(hx + s * 0.08, hy + s * 0.09), (hx + s * 0.16, hy + s * 0.08)], 'k', 0.4)
-    fx = w * 0.84
-    oval(cv, fx, itop + h * 0.1, w * 0.08, 1.0, 'f')
-    poly(cv, [(fx - w * 0.06, itop + h * 0.1), (fx - w * 0.13, itop + h * 0.06), (fx - w * 0.13, itop + h * 0.14)], 'f')
-    cv.put(int(fx + w * 0.03), int(itop + h * 0.09), 'k')
-    ix = w * 0.8
-    poly(cv, [(ix - w * 0.16, sea + 0.6), (ix - w * 0.06, sea - h * 0.12), (ix + w * 0.02, sea - h * 0.08), (ix + w * 0.14, sea + 0.6)], 'a')
-    disc(cv, w * 0.2, h * 0.16, s * 0.08, 'u')
-    scatter(cv, 'x', 's', 4 + (w * h) // 60, r, sep=3, area=(0, h * 0.2, w - 1, sea - 2))
+        path(cv, [(hx + s * 0.08, hy + s * 0.08), (hx + s * 0.16, hy + s * 0.07)], 'k', 0.4)
+    fx = w * 0.8
+    oval(cv, fx, itop + h * 0.12, w * 0.08, 1.0, 'f')
+    poly(cv, [(fx - w * 0.06, itop + h * 0.12), (fx - w * 0.13, itop + h * 0.08), (fx - w * 0.13, itop + h * 0.16)], 'f')
+    cv.put(int(fx + w * 0.03), int(itop + h * 0.12), 'k')
+    disc(cv, w * 0.84, h * 0.13, s * 0.08, 'u')
+    scatter(cv, 'x', 's', 4 + (w * h) // 60, r, sep=3, area=(0, 0, w - 1, by - h * 0.12))
     if r.random() < 0.5:
         flip(cv)
     return cv, [sky(), role('b', 'bear', 'Polar bear', PINK), role('x', 'snow', 'Snowflakes', PINK), role('k', 'eye', 'Eye and nose', BROWN),
