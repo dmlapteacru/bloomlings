@@ -1,20 +1,16 @@
 """More subjects for the levels: nature (more_subjects.py). Trees and plants, the sea and the weather, and small places
 of a town and a playground, in the procedural style of garden_subjects.py and world_subjects.py: each draws with
 picture_kit and returns (canvas, roles, themes). The shapes that make a subject (a crown against the sky, a trunk on
-the grass, a pod's jaws and their teeth) come from different color groups, so they stay apart under any mapping, and
-most subjects have two roles in three groups, so they can carry six distinct variants. The random stream moves each
-picture's scene (sides, props, the time of day), and the big boards (from 300 cells) get more detail.
+the grass, a trap's jaws and their teeth) come from different color groups, so they stay apart under any mapping, and
+most subjects have two roles in three groups, so they can carry six distinct variants. The sky always reaches down to
+the ground and details never close a pocket (marks, fill_pockets), so the nesting depth stays within the targets. The
+random stream moves each picture's scene (its side, props, a pine cone's winter, a clover's three or four leaves), and
+the big boards (from 300 cells) get more detail.
 """
 import math
 
-from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cells, cloud, disc, dots, ground_rows, hills, lens, oval, path,
-                         poly, rbox, regions, ring, role, scatter, seg, sky, star, start)
-
-
-def mirror(cv):
-    """Flips the drawing left to right."""
-    for row in cv.g:
-        row.reverse()
+from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cells, cloud, disc, ground_rows, hills, lens, oval, path, poly, rbox,
+                         regions, ring, role, seg, sky, star, start)
 
 
 def mid(y):
@@ -23,8 +19,8 @@ def mid(y):
 
 
 def fill_pockets(cv, c, into):
-    """Gives the regions of role c that only `into` surrounds (the pockets a fold or a frame closes) to `into`, so such
-    a line never adds a level of nesting."""
+    """Gives the regions of role c that only `into` surrounds (the pockets a lip or a fold closes) to `into`, so such a
+    line never adds a level of nesting."""
     seen = set()
     for y in range(cv.h):
         for x in range(cv.w):
@@ -95,16 +91,6 @@ def maple_sprite(cv, x, y, c):
                 cv.put(int(x) - 2 + i, int(y) - 2 + j, c)
 
 
-def tilted(cv, x, y, rx, ry, a, c):
-    """An oval turned by `a` radians: rx across its long axis, which points along (sin a, -cos a)."""
-    ca, sa = math.cos(a), math.sin(a)
-    for gx, gy, px, py in cells(cv):
-        dx, dy = px - x, py - y
-        u, v = dx * ca + dy * sa, dx * sa - dy * ca
-        if (u / rx) ** 2 + (v / ry) ** 2 <= 1.0:
-            cv.g[gy][gx] = c
-
-
 def leaflet(cv, x, y, a, size, c):
     """A heart-shaped leaflet whose point sits on (x, y) and whose lobes face away along angle `a` (radians)."""
     ca, sa = math.cos(a), math.sin(a)
@@ -129,7 +115,7 @@ def oak_tree(w, h, r):
     poly(cv, [(tx - tw, cy), (tx + tw, cy), (tx + tw * 1.8, gtop + 0.6), (tx - tw * 1.8, gtop + 0.6)], 't')
     seg(cv, tx, h * 0.6, tx + side * w * 0.44, h * 0.52, 't', 0.55 if not big else 0.75)
     seg(cv, tx, h * 0.56, tx - side * w * 0.24, cy + h * 0.1, 't', 0.6 if not big else 0.8)
-    sx, dx = tx + side * w * 0.3, 1.0 if not big else 1.5
+    sx, dx = mid(tx + side * w * 0.3), 1.0 if not big else 2.0
     for x in (sx - dx, sx + dx):
         seg(cv, x, h * 0.55, x, mid(h * 0.8), 'k', 0.45)
     box(cv, sx - dx - 0.5, mid(h * 0.8) - 0.3, sx + dx + 0.5, mid(h * 0.8) + 0.3, 'k')
@@ -181,7 +167,7 @@ def willow_tree(w, h, r):
         oval(cv, px + (k - 0.5) * prx * 0.7, gtop + (h - gtop) * 0.6, 0.9, 0.6, 'o')
     kx = min(w - 1.5, max(1.5, px - side * (prx + 0.2)))
     for k in range(2 if not big else 3):
-        x = kx + k * side * 2.0
+        x = mid(kx + k * side * 2.0)
         seg(cv, x, gtop + 0.5, x, gtop - h * 0.1, 'k', 0.4)
         oval(cv, x, gtop - h * 0.1, 0.5, 1.2, 'k')
     if big:
@@ -372,7 +358,7 @@ def clover(w, h, r):
         for dx, dy in ((-0.6, 0.0), (0.6, 0.0), (0.0, 0.7)):
             cv.put(int(bx + dx), int(by + dy), 'd')
     for k, x in enumerate((w * 0.1, w * 0.9) if not big else (w * 0.08, w * 0.92, w * 0.5 - side * w * 0.3)):
-        top = gtop - h * (0.12 + 0.04 * k)
+        top, x = gtop - h * (0.12 + 0.04 * k), mid(x)
         seg(cv, x, gtop + 0.5, x, top, 'c', 0.4)
         oval(cv, x, top - 0.6, 1.0, 1.3, 'f')
     disc(cv, w * 0.5 - side * w * 0.38, h * 0.08, s * 0.085, 'u')
@@ -588,15 +574,12 @@ def iceberg(w, h, r):
     oval(cv, fx, fy, 1.4, 0.8, 'f')
     poly(cv, [(fx + side * 1.0, fy), (fx + side * 2.4, fy - 1.0), (fx + side * 2.4, fy + 1.0)], 'f')
     if big:
-        px = mid(ix - w * 0.18)
-        py = max(y for y in range(h) if cv.g[y][int(px)] == 'n') + 1.0
-        oval(cv, px, py - 2.2, 1.6, 2.4, 'k')
-        disc(cv, px, py - 5.0, 1.3, 'k')
-        oval(cv, px + side * 0.5, py - 1.8, 0.9, 1.9, 'i')
-        poly(cv, [(px + side * 1.0, py - 5.5), (px + side * 2.6, py - 5.0), (px + side * 1.0, py - 4.4)], 'f')
+        lx = w * 0.5 - side * w * 0.4
+        poly(cv, [(lx - 2.4, wl), (lx + 2.4, wl), (lx + 1.4, wl + 1.6), (lx - 1.4, wl + 1.6)], 'u')
+        poly(cv, [(lx - 2.0, wl + 0.4), (lx - 0.8, wl - 2.2), (lx + 0.6, wl - 1.4), (lx + 2.0, wl + 0.4)], 'i')
     return cv, [('n', 'sky', 'Polar sky', PINK, True), role('a', 'aurora', 'Aurora', GREEN), role('b', 'aurora2', 'Aurora glow', GREEN),
                 role('w', 'sea', 'Sea', BLUE), role('i', 'ice', 'Iceberg', BLUE), role('u', 'under', 'Iceberg under water', BLUE),
-                role('m', 'moon', 'Moon', BROWN), role('k', 'penguin', 'Penguin', BROWN), role('x', 'stars', 'Stars', BROWN),
+                role('m', 'moon', 'Moon', BROWN), role('x', 'stars', 'Stars', BROWN),
                 role('f', 'fish', 'Fish', PINK)], ['sea', 'winter']
 
 
@@ -627,7 +610,7 @@ def rain_cloud(w, h, r):
         y += 2.4
         k += 1
     oval(cv, cx - side * w * 0.1, gtop + 0.6, w * 0.16, 0.9, 'p')
-    for x in (w * 0.5 + side * w * 0.22, w * 0.5 + side * w * 0.36):
+    for x in (mid(w * 0.5 + side * w * 0.22), mid(w * 0.5 + side * w * 0.36)):
         seg(cv, x, gtop + 0.5, x, gtop - h * 0.06, 'b', 0.4)
         disc(cv, x, gtop - h * 0.07, 0.9, 'f')
     oval(cv, w * 0.5 - side * w * 0.4, gtop - 0.2, w * 0.1, h * 0.06, 'b')
@@ -657,10 +640,14 @@ def comet(w, h, r):
     if big:
         seg(cv, mx - s * 0.14, my + 0.6, mx + s * 0.14, my - 0.6, 'm', 0.4)
     specks(cv, 'x', 'n', 5 + (w * h) // 90, r, gtop)
-    ox = cx - side * w * 0.28
-    disc(cv, ox, gtop + 0.2, s * 0.09 + 0.4, 'k')
-    box(cv, ox - s * 0.12, gtop + 0.2, ox + s * 0.12, gtop + 1.2, 'k')
-    seg(cv, ox, gtop - 0.4, ox + side * s * 0.16, gtop - s * 0.12, 'k', 0.45)
+    ox, dr = cx - side * w * 0.26, s * 0.13 + 0.3
+    dy = gtop - 1.0
+    for gx, gy, px, py in cells(cv):
+        if py <= dy and math.hypot(px - ox, py - dy) <= dr:
+            cv.g[gy][gx] = 'k'
+    box(cv, ox - dr * 0.85, dy, ox + dr * 0.85, gtop + 0.5, 'k')
+    ta = math.atan2(hy - dy, hx - ox)
+    seg(cv, ox, dy - dr * 0.4, ox + math.cos(ta) * (dr + 1.6), dy - dr * 0.4 + math.sin(ta) * (dr + 1.6), 'k', 0.5)
     return cv, [('n', 'night', 'Night sky', BLUE, True), role('h', 'head', 'Comet head', BROWN), role('i', 'tail', 'Inner tail', PINK),
                 role('o', 'glow', 'Outer tail', GREEN), role('x', 'stars', 'Stars', BROWN), role('m', 'planet', 'Planet', BLUE),
                 role('k', 'dome', 'Observatory', PINK), role('g', 'hill', 'Hill', GREEN)], ['sky', 'night']
@@ -710,20 +697,22 @@ def haystack(w, h, r):
     hills(cv, 't', h * 0.66, 0.6, w * 1.4, r.uniform(0, 6))
     box(cv, 0, gtop, w, h, 'g')
     side = r.choice((-1, 1))
-    bx = cx - side * w * 0.3
-    by = h * 0.62
-    box(cv, bx - w * 0.1, by - h * 0.08, bx + w * 0.1, by + 0.5, 'b')
-    poly(cv, [(bx - w * 0.13, by - h * 0.08 + 0.4), (bx, by - h * 0.15), (bx + w * 0.13, by - h * 0.08 + 0.4)], 'b')
-    box(cv, bx - 0.6, by - h * 0.05, bx + 0.6, by + 0.5, 'x')
+    bx = cx - side * w * 0.32
+    by = h * 0.64
+    box(cv, bx - w * 0.13, by - h * 0.12, bx + w * 0.13, by + 0.5, 'b')
+    poly(cv, [(bx - w * 0.17, by - h * 0.12 + 0.5), (bx, by - h * 0.22), (bx + w * 0.17, by - h * 0.12 + 0.5)], 'b')
+    box(cv, bx - 1.0, by - h * 0.07, bx + 1.0, by + 0.5, 'x')
     hx, rx, top = cx + side * w * 0.1, w * 0.3, h * 0.3
     for gx, gy, px, py in cells(cv):
         if py <= gtop + 1.0:
             t = (gtop + 1.0 - py) / (gtop + 1.0 - top)
             if 0 <= t <= 1 and abs(px - hx) <= rx * (1 - t ** 2.2) ** 0.6:
                 cv.g[gy][gx] = 'h'
-    for k in (-2, -1, 0, 1, 2) if big else (-1, 0, 1):
-        x1 = hx + k * rx * (0.32 if big else 0.42)
-        path(cv, [(hx + k * 0.4, top + 2.0), (x1 * 0.6 + hx * 0.4, (top + gtop) / 2), (x1, gtop + 0.5)], 'k', 0.42)
+    for j, y in enumerate(range(int(top) + 2, int(gtop) - 1, 3)):
+        for x in range(max(1, int(hx) - 12 + (j % 2) * 2), min(w - 1, int(hx) + 13), 4):
+            lean = 0 if abs(x + 0.5 - hx) < 1.5 else (1 if x > hx else -1)
+            if cv.g[y][x - 1] == 'h' and cv.g[y][x + 1] == 'h':
+                marks(cv, 'k', 'h', [(x, y), (x + lean, y + 1)])
     px0, py0 = hx - side * (rx + 0.6), gtop + 0.5
     px1, py1 = hx - side * (rx - w * 0.06), top + h * 0.06
     seg(cv, px0, py0, px1, py1, 'p', 0.45)
@@ -761,6 +750,7 @@ def mailbox(w, h, r):
     if big:
         box(cv, fx - side * 0.2 - 0.6, y0 + 1.5, fx - side * 0.2 + 0.6, y1 - 1.5, 'l')
     for k, x in enumerate((px - 2.2, px + 2.2) if not big else (px - 2.8, px + 2.8, px - 4.6)):
+        x = mid(x)
         seg(cv, x, gtop + 0.5, x, gtop - 1.4, 'b', 0.4)
         disc(cv, x, gtop - 1.8, 0.9, 'o')
     disc(cv, w * 0.5 - side * w * 0.38, h * 0.09, s * 0.085, 'u')
@@ -813,7 +803,7 @@ def street_lamp(w, h, r):
     side = r.choice((-1, 1))
     lx = cx - side * w * 0.12
     ly = h * 0.22
-    disc(cv, lx, ly, s * 0.27, 'o')
+    disc(cv, lx, ly, s * 0.23, 'o')
     box(cv, lx - 1.3, gtop - h * 0.07, lx + 1.3, gtop + 0.5, 'p')
     box(cv, lx - 0.5, ly, lx + 0.5, gtop, 'p')
     poly(cv, [(lx - 2.0, ly - h * 0.08), (lx + 2.0, ly - h * 0.08), (lx + 1.3, ly + h * 0.06), (lx - 1.3, ly + h * 0.06)], 'y')
@@ -826,14 +816,14 @@ def street_lamp(w, h, r):
     box(cv, bx - w * 0.16, gtop - h * 0.08, bx + w * 0.16, gtop - h * 0.08 + 0.9, 'b')
     box(cv, bx - w * 0.16, gtop - h * 0.17, bx + w * 0.16, gtop - h * 0.17 + 0.9, 'b')
     for x in (bx - w * 0.13, bx + w * 0.13):
-        seg(cv, x, gtop + 0.5, x, gtop - h * 0.17, 'b', 0.42)
+        seg(cv, mid(x), gtop + 0.5, mid(x), gtop - h * 0.17, 'b', 0.42)
     ux = w * 0.5 - side * w * 0.42
     oval(cv, ux, gtop - 0.3, w * 0.12, h * 0.09, 'u')
     for dx in (-1.0, 1.1):
         disc(cv, ux + dx, gtop - h * 0.07, 0.75, 'f')
     disc(cv, w * 0.5 + side * w * 0.36, h * 0.12, s * 0.08, 'm')
     disc(cv, w * 0.5 + side * w * 0.36 + side * s * 0.05, h * 0.12 - s * 0.03, s * 0.065, 'n')
-    specks(cv, 'x', 'n', 5 + (w * h) // 150, r, h * 0.5, lambda x, y: math.hypot(x - lx, y - ly) > s * 0.32)
+    specks(cv, 'x', 'n', 5 + (w * h) // 150, r, gtop - h * 0.2, lambda x, y: math.hypot(x - lx, y - ly) > s * 0.23 + 1.5)
     return cv, [('n', 'sky', 'Evening sky', PINK, True), role('p', 'post', 'Lamp post', BLUE), role('o', 'glow', 'Glow', BROWN),
                 role('b', 'bench', 'Bench', BROWN), role('y', 'light', 'Lamp light', BROWN), role('x', 'stars', 'Stars', BROWN),
                 role('m', 'moon', 'Moon', BLUE), role('g', 'grass', 'Grass', GREEN), role('u', 'bush', 'Bush', GREEN),
@@ -879,7 +869,7 @@ def playground_slide(w, h, r):
     gtop = h - ground_rows(h, 0.12)
     hills(cv, 'g', gtop, 0.3, w * 1.5, r.uniform(0, 6))
     side = r.choice((-1, 1))
-    tx, tw, ply = cx - side * w * 0.22, w * 0.11, h * 0.44
+    tx, tw, ply = mid(cx - side * w * 0.22), round(w * 0.11), h * 0.44
     for d in (-1, 1):
         seg(cv, tx + d * tw, gtop + 0.5, tx + d * tw, ply - h * 0.15, 'f', 0.45 if not big else 0.55)
     y = gtop - 1.6
@@ -915,7 +905,7 @@ def seesaw(w, h, r):
     hi = (cx + side * L * math.cos(a), gtop - ph - L * math.sin(a))
     seg(cv, lo[0], lo[1], hi[0], hi[1], 'p', 0.6 if not big else 0.75)
     for e, f in ((lo, 0.84), (hi, 0.84)):
-        x, y = cx + (e[0] - cx) * f, gtop - ph + (e[1] - gtop + ph) * f
+        x, y = mid(cx + (e[0] - cx) * f), gtop - ph + (e[1] - gtop + ph) * f
         seg(cv, x, y - 0.5, x, y - 2.4, 'h', 0.42)
         seg(cv, x - 1.0, y - 2.4, x + 1.0, y - 2.4, 'h', 0.42)
     disc(cv, cx, gtop - ph, 0.8, 'v')
@@ -957,7 +947,6 @@ def dog_house(w, h, r):
     for gx, gy, px, py in cells(cv):
         if gtop - 1.3 <= py <= gtop + 0.6 and abs(px - kx) <= w * 0.09 - (gtop + 0.6 - py) * -0.4:
             cv.g[gy][gx] = 'b'
-    ox = w * 0.5 + side * w * 0.36 if kx < w * 0.5 + side * w * 0.3 or side < 0 else w * 0.5 + side * w * 0.2
     box(cv, kx - 1.4, mid(gtop + 1.0) - 0.3, kx + 1.4, mid(gtop + 1.0) + 0.3, 'o')
     for d in (-1, 1):
         disc(cv, kx + d * 1.6, gtop + 1.5, 0.6, 'o')
@@ -1044,6 +1033,7 @@ MORE_NATURE = [oak_tree, willow_tree, maple_tree, bamboo, rose, dandelion, clove
 # Expansion roles of these subjects (as expansions.ROLES): subject -> {group: [(roleId, new name or None), ...]}.
 MORE_NATURE_ROLES = {
     'oak_tree': {'lime': [('sun', None)], 'red': [('swing', 'Red swing')]},
+    'willow_tree': {'lime': [('sun', None)]},
     'maple_tree': {'lime': [('falling', 'Yellow leaves')], 'red': [('crown', 'Red crown')]},
     'bamboo': {'red': [('sun', 'Red sun')]},
     'rose': {'lime': [('sun', None)], 'red': [('bloom', 'Red rose')]},
