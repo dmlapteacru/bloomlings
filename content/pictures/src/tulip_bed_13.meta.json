@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "tulip_bed_13",
+  "legend": {
+    "d": "soil",
+    "f": "leaf",
+    "l": "stem",
+    "p": "tulip",
+    "q": "tulip2",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red tulips",
+      "roleId": "tulip"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Other tulips",
+      "roleId": "tulip2"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Soil",
+      "roleId": "soil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tulip bed 13",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "flowers",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

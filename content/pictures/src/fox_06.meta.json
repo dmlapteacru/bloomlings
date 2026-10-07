@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "fox_06",
+  "legend": {
+    "e": "eye",
+    "f": "fox",
+    "g": "grass",
+    "k": "dark",
+    "l": "leaves",
+    "s": "sky",
+    "t": "pine",
+    "w": "white"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fox",
+      "roleId": "fox"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Chest and tail tip",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ears and paws",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Falling leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Fox 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "forest"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

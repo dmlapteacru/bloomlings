@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 9, 9, 9, 8, 8, 8, 8, 8, 9, 9, 9, 8, 8],
+    [-1, 0, 9, 9, 9, 2, 4, 4, 4, 2, 9, 9, 9, -1, 0],
+    [0, -1, -1, 2, 2, 2, 4, 4, 4, 2, 2, 2, 0, 0, 0],
+    [0, 0, -1, 2, 2, 2, 4, 4, 4, 2, 2, 2, 0, 0, -1],
+    [0, -1, -1, 5, 5, 5, 4, 4, 4, 5, 5, 5, 0, -1, 0],
+    [-1, 0, -1, 2, 3, 3, 2, 2, 2, 3, 3, 2, 0, 0, 0],
+    [0, 0, 0, 2, 3, 3, 2, 2, 2, 3, 3, 2, 0, 0, 0],
+    [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1, 0],
+    [0, 0, 0, 0, -1, 1, 1, 1, 1, 1, 6, 0, -1, 0, -1],
+    [0, 0, 0, -1, 0, 0, 1, 1, 1, 6, 6, 0, 0, 0, -1],
+    [0, 0, 0, 0, -1, 0, 0, 1, 0, 6, 6, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 7, 7, 7, 0, -1],
+    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 7, 7, 0, 0],
+    [-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1, 0, -1]
+  ],
+  "height": 18,
+  "id": "cottage_13",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Walls",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower boxes",
+      "roleId": "flowerbox"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chimney",
+      "roleId": "chimney"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Smoke",
+      "roleId": "smoke"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bush"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.37,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Cottage 13",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["cozy", "garden"]
+  },
+  "version": 1,
+  "width": 15
+}

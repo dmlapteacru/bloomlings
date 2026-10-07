@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "chick_08",
+  "legend": {
+    "b": "beak",
+    "c": "chick",
+    "f": "flowers",
+    "g": "grass",
+    "q": "shell",
+    "s": "sky",
+    "u": "sun",
+    "w": "wing"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chick",
+      "roleId": "chick"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wings and tuft",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Beak and eyes",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Egg shell",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Chick 8",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "farm"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

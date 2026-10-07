@@ -1,0 +1,68 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "apple_11",
+  "legend": {
+    "a": "apple",
+    "b": "background",
+    "d": "cloth",
+    "l": "leaf",
+    "p": "plate",
+    "t": "stalk"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Apple",
+      "roleId": "apple"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalk",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tablecloth",
+      "roleId": "cloth"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Apple 11",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

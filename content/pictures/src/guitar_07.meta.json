@@ -1,0 +1,69 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "guitar_07",
+  "legend": {
+    "b": "wall",
+    "f": "floor",
+    "g": "body",
+    "k": "hole",
+    "m": "notes",
+    "n": "neck"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Body",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Neck",
+      "roleId": "neck"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sound hole and bridge",
+      "roleId": "hole"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Guitar 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "music"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

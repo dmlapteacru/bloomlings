@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "balloons_09",
+  "legend": {
+    "a": "pink",
+    "b": "blue",
+    "c": "green",
+    "d": "orange",
+    "g": "grass",
+    "k": "weight",
+    "s": "sky",
+    "t": "string"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red balloon",
+      "roleId": "pink"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue balloons",
+      "roleId": "blue"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green balloon",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange balloon",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strings",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weight",
+      "roleId": "weight"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Balloons 9",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "party"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

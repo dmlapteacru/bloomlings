@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "cottage_11",
+  "legend": {
+    "b": "bush",
+    "c": "chimney",
+    "d": "door",
+    "f": "flowerbox",
+    "g": "grass",
+    "h": "wall",
+    "i": "window",
+    "k": "smoke",
+    "r": "roof",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Walls",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Lit windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower boxes",
+      "roleId": "flowerbox"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chimney",
+      "roleId": "chimney"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Smoke",
+      "roleId": "smoke"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bush"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cottage 11",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "cozy",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

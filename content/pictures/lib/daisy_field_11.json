@@ -1,0 +1,85 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 2, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, 0, 2, 0, -1, -1, 2, 1, 1, 1, 1, 2, -1, 0],
+    [0, 0, 2, 0, 0, -1, 2, 0, 0, 0, 0, 2, 0, -1],
+    [0, -1, 2, 0, 0, -1, 2, 0, 0, -1, 0, 2, 0, 0],
+    [0, -1, 2, 0, 0, 0, 2, 0, 0, 0, 0, 2, 0, 0],
+    [0, 0, 2, 0, 0, 0, 2, 0, 0, 0, 0, 2, -1, 0],
+    [0, -1, 2, -1, 0, 0, 4, 4, -1, 0, -1, 2, 0, 0],
+    [0, 0, 2, -1, -1, 4, 5, 5, 4, 0, 0, 2, 0, 0],
+    [0, 0, 2, 0, 0, 4, 5, 5, 4, 0, 0, 3, 0, 0],
+    [0, 0, 2, 0, 0, -1, 4, 4, 0, 0, 3, 5, 3, 0],
+    [-1, 3, 3, 3, 0, 0, -1, 0, 0, -1, 3, 5, 3, 0],
+    [0, 3, 3, 3, 0, 0, 0, -1, 0, 0, 0, 3, 3, 0],
+    [0, 6, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [6, 6, 6, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0],
+    [6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "daisy_field_11",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petals",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Other petals",
+      "roleId": "petal2"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Centers",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.5,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Daisy field 11",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["flowers", "garden"]
+  },
+  "version": 1,
+  "width": 14
+}

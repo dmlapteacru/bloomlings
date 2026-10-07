@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "frog_15",
+  "legend": {
+    "e": "eye",
+    "f": "frog",
+    "k": "cattail",
+    "m": "mouth",
+    "o": "blossom",
+    "p": "pad",
+    "r": "reed",
+    "v": "ripple",
+    "w": "pond",
+    "y": "belly"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Pond",
+      "roleId": "pond"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lily pad",
+      "roleId": "pad"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Frog",
+      "roleId": "frog"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Smile",
+      "roleId": "mouth"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Reeds",
+      "roleId": "reed"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cattails and pupils",
+      "roleId": "cattail"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Blossom",
+      "roleId": "blossom"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ripples",
+      "roleId": "ripple"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Frog 15",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "animals",
+      "pond"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

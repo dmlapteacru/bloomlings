@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [0, 6, 6, 0, -1, 0, -1, 0, 0, 0, 0, -1, 6, 6, 0, 6, 6, -1],
+    [0, -1, 6, -1, 0, 0, 0, 0, 0, -1, -1, 0, -1, 6, 0, 0, 6, 0],
+    [0, 6, 6, 0, -1, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 6, 0],
+    [0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, 0, 6, 0, -1],
+    [0, 6, 6, -1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 0, -1, 6, 6, 0],
+    [0, 0, 6, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 6, -1, -1, 6, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 1, 4, 4, 1, 4, 4, 1, 4, 1, 4, 4, 1, 1, 0, 2, -1],
+    [-1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 2, 2, 0],
+    [-1, 5, 1, 4, 4, 1, 4, 4, 1, 4, 1, 4, 4, 1, 1, 0, 2, 0],
+    [0, 5, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0, 0, 0],
+    [0, 5, 0, -1, 0, 0, 2, 2, 2, 2, -1, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 5, 5, 0, -1, 0, 2, 2, 2, 2, 0, 0, -1, 0, -1, 0, 0, 0],
+    [0, 5, -1, 0, 0, 0, 0, 2, 2, 2, 0, 0, -1, 0, -1, -1, 0, 0],
+    [5, 5, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 0, -1, 0],
+    [0, -1, 0, 0, 0, 0, -1, 0, 0, 3, 3, 0, 0, 8, 8, 0, -1, 0],
+    [0, 0, 0, 0, 0, 0, -1, -1, 0, 3, 3, -1, 0, 8, 0, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, -1, 0, 0, 0, -1]
+  ],
+  "height": 21,
+  "id": "submarine_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Deep water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hull",
+      "roleId": "hull"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tower and fin",
+      "roleId": "tower"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Periscope",
+      "roleId": "periscope"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Lit portholes",
+      "roleId": "portholes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fish",
+      "roleId": "fish"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.473,
+    "nestingDepth": 5,
+    "regionCount": 27
+  },
+  "subject": "Submarine 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["vehicles", "sea"]
+  },
+  "version": 1,
+  "width": 18
+}

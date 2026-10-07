@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "crown_09",
+  "legend": {
+    "b": "wall",
+    "c": "crown",
+    "e": "sapphire",
+    "f": "floor",
+    "j": "ruby",
+    "k": "band",
+    "p": "cushion",
+    "t": "tassel",
+    "x": "sparkle"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Band",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Rubies and balls",
+      "roleId": "ruby"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sapphire",
+      "roleId": "sapphire"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cushion",
+      "roleId": "cushion"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tassels",
+      "roleId": "tassel"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sparkles",
+      "roleId": "sparkle"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Crown 9",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "fairy"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

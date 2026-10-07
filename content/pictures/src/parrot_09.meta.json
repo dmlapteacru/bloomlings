@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "parrot_09",
+  "legend": {
+    "b": "beak",
+    "f": "flowers",
+    "k": "eye",
+    "l": "leaves",
+    "m": "ferns",
+    "p": "parrot",
+    "r": "branch",
+    "s": "sky",
+    "w": "wing",
+    "y": "tail"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Parrot",
+      "roleId": "parrot"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye and feet",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ferns",
+      "roleId": "ferns"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Parrot 9",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "jungle"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

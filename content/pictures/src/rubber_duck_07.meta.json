@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "rubber_duck_07",
+  "legend": {
+    "b": "tiles",
+    "e": "eye",
+    "g": "wing",
+    "k": "beak",
+    "o": "foam",
+    "t": "tub",
+    "w": "water",
+    "x": "grout",
+    "y": "duck"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Bath tiles",
+      "roleId": "tiles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tile dots",
+      "roleId": "grout"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tub",
+      "roleId": "tub"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Foam",
+      "roleId": "foam"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Duck",
+      "roleId": "duck"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Wing",
+      "roleId": "wing"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rubber duck 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "toys",
+      "bath"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

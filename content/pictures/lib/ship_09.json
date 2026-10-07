@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 8],
+    [0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1],
+    [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0],
+    [0, -1, 0, 0, 4, 3, 3, 4, 3, 3, 4, 3, -1, 0, 0, -1],
+    [-1, 0, -1, -1, 4, 3, 3, 4, 3, 3, 4, 3, -1, 0, -1, 0],
+    [0, 0, 0, 0, 0, 5, 5, 0, 5, 5, 0, 0, -1, 0, 0, -1],
+    [0, -1, 0, 0, 0, 5, 5, -1, 5, 5, 0, 0, 0, 0, 0, -1],
+    [0, -1, 0, -1, -1, 6, 6, 6, 6, 6, 0, -1, -1, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, -1, -1, 0, -1, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, -1, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 7, 7, 7, 7, 7, 0, 0, -1, 0, 0, -1, 0, 0, 0],
+    [0, 0, 7, 7, 7, 7, 0, 0, 0, 0, -1, 0, -1, -1, 0, -1],
+    [-1, 0, -1, 0, 7, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, -1]
+  ],
+  "height": 17,
+  "id": "ship_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hull",
+      "roleId": "hull"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stripe",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cabin",
+      "roleId": "cabin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Portholes",
+      "roleId": "portholes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Funnels",
+      "roleId": "funnel"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Funnel tops",
+      "roleId": "funnel_top"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Smoke",
+      "roleId": "smoke"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.316,
+    "nestingDepth": 4,
+    "regionCount": 25
+  },
+  "subject": "Ship 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["vehicles", "sea"]
+  },
+  "version": 1,
+  "width": 16
+}

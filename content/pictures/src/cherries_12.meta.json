@@ -1,0 +1,80 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "cherries_12",
+  "legend": {
+    "b": "background",
+    "c": "cherry",
+    "d": "table",
+    "h": "shine",
+    "l": "leaf",
+    "p": "plate",
+    "t": "stalk",
+    "v": "vein"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Cherries",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shine",
+      "roleId": "shine"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Leaf vein",
+      "roleId": "vein"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cherries 12",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

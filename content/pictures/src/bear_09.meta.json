@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "bear_09",
+  "legend": {
+    "b": "bear",
+    "g": "grass",
+    "k": "face",
+    "m": "muzzle",
+    "p": "pot",
+    "s": "sky",
+    "t": "pine",
+    "y": "honey"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bear",
+      "roleId": "bear"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Muzzle and belly",
+      "roleId": "muzzle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Honey pot",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Honey",
+      "roleId": "honey"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bear 9",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "forest"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

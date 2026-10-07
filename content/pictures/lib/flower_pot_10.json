@@ -1,0 +1,90 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 0, 0, -1, 0, 0],
+    [0, -1, 0, 0, 0, 4, 4, 4, 4, 4, 4, 0, -1, 0, 0, -1],
+    [-1, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, -1, -1, 0],
+    [-1, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, -1, 0, 0],
+    [0, 0, 0, 0, -1, -1, 0, 3, 3, 0, 0, 0, -1, 0, 0, 0],
+    [0, 0, 0, 0, 3, 3, 3, 1, 1, 0, 0, 0, -1, -1, 0, -1],
+    [0, 0, -1, 0, 3, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, -1],
+    [0, 0, -1, 0, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0, -1],
+    [0, -1, 0, 0, 1, 1, 1, 2, 2, 1, 1, 1, 0, 0, 0, 0],
+    [-1, 0, 0, -1, 0, 1, 1, 2, 2, 1, 1, -1, 0, 0, 0, 0],
+    [0, -1, -1, 0, 1, 1, 1, 2, 2, 1, 1, 1, -1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 7, 7, -1],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, -1, -1, 7, 7, 0],
+    [-1, 0, 0, 0, 0, -1, -1, 0, -1, 0, 0, 0, 0, 7, 7, -1]
+  ],
+  "height": 16,
+  "id": "flower_pot_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petals",
+      "roleId": "petal"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Center",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pot",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pot rim",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Windowsill",
+      "roleId": "sill"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.39,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Flower pot 10",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["flowers", "garden"]
+  },
+  "version": 1,
+  "width": 16
+}

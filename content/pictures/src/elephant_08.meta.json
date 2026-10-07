@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "elephant_08",
+  "legend": {
+    "a": "acacia",
+    "e": "elephant",
+    "g": "savanna",
+    "k": "eye",
+    "r": "ear",
+    "s": "sky",
+    "t": "tusk",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Sunset sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Elephant",
+      "roleId": "elephant"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ear",
+      "roleId": "ear"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and toenails",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tusk and tree",
+      "roleId": "tusk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Acacia",
+      "roleId": "acacia"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Savanna",
+      "roleId": "savanna"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Elephant 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "animals",
+      "savanna"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

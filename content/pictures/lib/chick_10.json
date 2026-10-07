@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 5, 5, 5, 5, 5, 5, 7, 7, 7, 7, 7, 7],
+    [7, 7, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, -1, 0, 7, -1, 0],
+    [6, 6, 0, -1, 0, 5, 5, 5, 1, 1, 5, 5, 6, 6, 0, 6, 6, -1],
+    [6, 6, 6, 0, 0, 0, 1, 1, 1, 1, 1, 1, 6, 6, 0, 6, 6, 0],
+    [0, 6, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 6, -1, 0],
+    [-1, -1, 0, -1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1, 0, 0],
+    [0, 0, 0, -1, 0, 2, 2, 1, 1, 1, 1, 2, 2, 0, 0, 0, -1, 0],
+    [-1, 0, -1, -1, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, -1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, -1, -1],
+    [-1, 0, 0, 0, -1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, 0, -1, 0, 0, 4, 3, 4, 4, 3, 4, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 4, 3, 3, 4, 3, 4, 0, 0, -1, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, -1, 0, 0, -1, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, 2, -1, 0, 0, 0, 0, 0, -1, 0],
+    [0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, -1, -1],
+    [0, 0, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 8, 8, 8, -1],
+    [0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 8, 8, 8, 0],
+    [-1, 0, -1, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 21,
+  "id": "chick_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Chick",
+      "roleId": "chick"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wings and tuft",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Beak and eyes",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Eye whites",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Egg shell",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.452,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Chick 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "farm"]
+  },
+  "version": 1,
+  "width": 18
+}

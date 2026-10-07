@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 8, 7, 7, 8],
+    [7, 7, 8, 8, 8, 1, 1, 1, 1, 1, 1, 1, 7, 7, 8, 7, 7, 8],
+    [-1, 0, -1, 0, -1, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1, -1, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1, 0, 0, 0],
+    [0, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 2, 2, 2, 3, 2, 3, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, -1, -1, 2, 2, 2, 2, 3, 2, 3, 2, 2, 2, 0, -1, -1, -1, 0],
+    [0, -1, 0, 1, 1, 3, 1, 3, 3, 3, 3, 1, 1, 0, -1, -1, 0, 0],
+    [0, 0, 0, -1, 1, 3, 1, 3, 3, 3, 3, 1, -1, 0, 0, 0, 0, -1],
+    [0, 0, 0, -1, -1, 3, 3, 3, 3, 3, 3, 3, 0, 5, 4, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 4, 1, 1, 0, 5, 4, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 0, 6, 6, 6, -1, 0, 0],
+    [0, 0, -1, 0, 5, 4, 0, 0, 0, 0, 0, 4, 6, 6, 6, -1, -1, 0],
+    [-1, 0, 0, -1, 5, 4, 0, -1, 0, 0, 0, 0, 4, 0, 0, 0, -1, 0],
+    [0, 0, 0, 6, 6, 6, 0, 0, 0, 0, 0, -1, 0, 4, 0, 0, 0, 0],
+    [0, -1, 0, 6, 6, 6, 0, 0, -1, 0, 0, -1, 0, 5, 4, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 5, 4, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, -1, 0, -1, -1, 0, 6, 6, 6, 0, 0, 0],
+    [-1, 0, -1, 0, 0, -1, 0, 0, -1, -1, -1, 0, 6, 6, 6, 0, -1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, -1, 0, -1]
+  ],
+  "height": 21,
+  "id": "honey_pot_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pot",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Label",
+      "roleId": "label"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Honey",
+      "roleId": "honey"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dipper and stripes",
+      "roleId": "dipper"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bees",
+      "roleId": "bee"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.428,
+    "nestingDepth": 4,
+    "regionCount": 35
+  },
+  "subject": "Honey pot 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "garden"]
+  },
+  "version": 1,
+  "width": 18
+}

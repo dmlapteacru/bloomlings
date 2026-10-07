@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "fish_14",
+  "legend": {
+    "d": "sand",
+    "e": "stripe",
+    "f": "fish",
+    "g": "weed",
+    "k": "eye",
+    "o": "bubble",
+    "t": "fin",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Fins and tail",
+      "roleId": "fin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye and coral",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles",
+      "roleId": "bubble"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Fish 14",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 19
+}

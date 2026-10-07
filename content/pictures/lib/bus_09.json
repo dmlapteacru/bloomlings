@@ -1,0 +1,90 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [-1, -1, 5, 5, 5, 0, 0, -1, 0, 5, 5, 5, 0, 0],
+    [0, 0, 5, 5, 5, -1, 0, 0, 0, 5, 5, 5, 0, 0],
+    [0, 1, 1, 5, 1, 1, 1, 1, 1, 1, 5, 3, 3, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, 0],
+    [0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 1, 3, 3, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 3, -1],
+    [0, 2, 2, 1, 2, 2, 1, 2, 2, 1, 1, 3, 3, 0],
+    [-1, 2, 2, 1, 2, 2, 1, 2, 2, 1, 1, 3, 3, 0],
+    [-1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [-1, 0, 0, -1, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1],
+    [0, 0, -1, -1, 0, -1, 0, 0, -1, 0, -1, 0, 0, 0],
+    [-1, 7, 7, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0],
+    [0, 7, 7, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, -1],
+    [-1, 7, 0, 0, 0, 0, -1, -1, 0, -1, -1, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "bus_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bus",
+      "roleId": "bus"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Stripe",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wheels",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Road",
+      "roleId": "road"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.294,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Bus 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["vehicles", "town"]
+  },
+  "version": 1,
+  "width": 14
+}

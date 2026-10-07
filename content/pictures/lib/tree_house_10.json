@@ -1,0 +1,108 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 2, 2, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [0, -1, -1, 0, 0, 0, 0, 0, 0, 2, 2, 0, -1, 0, 7, 7, 0, -1, 0, -1],
+    [0, -1, -1, 0, 0, 0, 0, 0, 0, 2, 2, 0, -1, 0, 0, -1, 0, 0, 0, -1],
+    [-1, 0, 0, 0, 6, 6, 6, 0, 0, 2, 2, 0, -1, 0, 7, 7, 0, -1, -1, 0],
+    [0, 0, 0, -1, 0, 0, 6, 0, 0, 2, 2, 0, 0, 0, -1, 0, -1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 6, -1, -1, 2, 2, -1, 0, 0, 7, 7, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, 0, 6, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 6, 0, 0, 2, 2, 0, -1, 0, 7, 7, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 6, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 6, 3, 3, 3, 3, 6, 6, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 6, 5, 5, 3, 3, 6, 6, 3, 1, 1, 1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 6, 5, 5, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0, 0],
+    [-1, 1, 1, 1, 1, 1, 3, 5, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, -1],
+    [0, -1, 1, 1, 1, 1, 1, 1, 4, 4, 4, 4, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, -1, 0],
+    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 9, 0, 0],
+    [-1, 0, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 9, 9, 9, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 9, 9, 9, 0],
+    [-1, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 9, -1, -1]
+  ],
+  "height": 24,
+  "id": "tree_house_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk and deck",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hut",
+      "roleId": "hut"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Door and swing",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ladder",
+      "roleId": "ladder"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.377,
+    "nestingDepth": 4,
+    "regionCount": 24
+  },
+  "subject": "Tree house 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["buildings", "forest"]
+  },
+  "version": 1,
+  "width": 20
+}

@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "sandcastle_10",
+  "legend": {
+    "c": "castle",
+    "d": "beach",
+    "f": "flag",
+    "g": "gate",
+    "k": "bucket",
+    "p": "pole",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand castle",
+      "roleId": "castle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Gate and window",
+      "roleId": "gate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stick and handle",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flag and starfish",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Bucket",
+      "roleId": "bucket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Beach",
+      "roleId": "beach"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Sandcastle 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "toys",
+      "beach"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

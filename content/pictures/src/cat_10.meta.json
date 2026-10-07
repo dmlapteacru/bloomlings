@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 26,
+  "id": "cat_10",
+  "legend": {
+    "b": "wall",
+    "c": "cat",
+    "e": "eye",
+    "f": "floor",
+    "i": "window",
+    "k": "stripes",
+    "n": "nose",
+    "y": "yarn"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cat",
+      "roleId": "cat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stripes and eyes",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Nose and ears",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Eye whites",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Yarn",
+      "roleId": "yarn"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sunny window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cat 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "animals",
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 21
+}

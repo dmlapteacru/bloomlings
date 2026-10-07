@@ -1,0 +1,80 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5],
+    [0, 0, 4, 4, 4, 4, 1, 1, 1, 4, 4, 4, 4, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [-1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1],
+    [-1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0],
+    [-1, 0, 0, 1, 1, 1, 1, 2, 1, 1, 1, 1, -1, 0, 0],
+    [-1, -1, 0, 0, 1, 1, 1, 2, 1, 1, 1, 0, 0, 0, -1],
+    [0, 0, 0, 0, 0, -1, 2, 2, 3, 3, 3, -1, 0, -1, 0],
+    [0, -1, 0, 0, -1, 0, 0, -1, 2, 3, 3, 3, -1, -1, 0],
+    [-1, 0, 0, 0, 0, -1, -1, -1, 0, 0, 3, 0, 0, -1, -1]
+  ],
+  "height": 16,
+  "id": "apple_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Apple",
+      "roleId": "apple"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalk",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tablecloth",
+      "roleId": "cloth"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.266,
+    "nestingDepth": 4,
+    "regionCount": 13
+  },
+  "subject": "Apple 10",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["fruit"]
+  },
+  "version": 1,
+  "width": 15
+}

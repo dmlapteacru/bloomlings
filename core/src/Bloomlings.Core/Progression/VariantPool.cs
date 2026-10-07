@@ -35,6 +35,17 @@ namespace Bloomlings.Core.Progression
             ("variant.pool_expansion_2", VariantId.Berry),
         });
 
+        /// <summary>The expansion variants this pool adds at some roadmap row, in id order.</summary>
+        public IReadOnlyList<VariantId> Expansions
+        {
+            get
+            {
+                var all = new List<VariantId>(_unlockOf.Keys);
+                all.Sort();
+                return all;
+            }
+        }
+
         /// <summary>The level a variant joins the pool: 1 for launch variants, its unlock row for an expansion, null if never.</summary>
         public int? IntroducedAt(VariantId variant, UnlockRoadmap roadmap, VariantCatalog? catalog = null)
         {

@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "honey_pot_06",
+  "legend": {
+    "f": "flowers",
+    "g": "grass",
+    "h": "honey",
+    "k": "dipper",
+    "l": "label",
+    "p": "pot",
+    "s": "sky",
+    "w": "wings",
+    "y": "bee"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pot",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Label",
+      "roleId": "label"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Honey",
+      "roleId": "honey"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dipper and stripes",
+      "roleId": "dipper"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bees",
+      "roleId": "bee"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Honey pot 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

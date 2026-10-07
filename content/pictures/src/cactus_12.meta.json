@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "cactus_12",
+  "legend": {
+    "c": "cactus",
+    "d": "sand",
+    "f": "flower",
+    "m": "mesa",
+    "o": "rock",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cactus",
+      "roleId": "cactus"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rocks",
+      "roleId": "rock"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mesas",
+      "roleId": "mesa"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cactus 12",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "desert",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

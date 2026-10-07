@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "bird_13",
+  "legend": {
+    "b": "bird",
+    "f": "blossom",
+    "k": "beak",
+    "l": "leaves",
+    "n": "wing",
+    "r": "branch",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Bird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing and tail",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak and legs",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blossom",
+      "roleId": "blossom"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bird 13",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

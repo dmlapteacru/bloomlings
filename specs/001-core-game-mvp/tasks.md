@@ -1633,6 +1633,14 @@ final validation.
   replays unchanged, all those batches and mechanic and big-level ones (definitions, validation records,
   rejections, logs) byte for byte, a solver dump of 759 level and tray variants equal, and
   `SearchPathProperties` testing the fast paths against the ordinary ones.
+- [X] T183 Vine and Berry can be drawn (the owner, 2026-10-07; FR-084 as amended): the automated picture checks accept a
+  role whose color group has an expansion variant of the pool (`PictureChecks.HasPoolVariant`, `VariantPool.Expansions`),
+  and `PicturePicker.Candidates` keeps a picture out of a level until every role's group has a variant there
+  (`PicturePicker.Drawable`, `LevelGenerator` passing `VariantPool.ExpansionsAt`; no expansions, as for the Daily pool,
+  keeps them all out), so the levels before a variant joins are unchanged. 439 pictures from
+  `content/pictures/tools/sketch_pictures.py --expansions` (`expansions.py`): 178 regular with a lime role, 164 with a
+  red one, 97 big (89 lime, 82 red), all approved on import; band 26–50 regenerated (L26–44 unchanged, L45 introduces
+  Vine; L11–25 checked identical). Test: `BigLevelTests.ExpansionPictures_AreApproved_AndKeptOutUntilTheirVariantJoins`.
 
 ## Parallel Example: User Story 1
 

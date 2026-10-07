@@ -1,0 +1,101 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 3, 4, 4, 3, 3, 3],
+    [2, 2, 2, 5, 5, 5, 5, 8, 5, 5, 5, 5, 5, 4, 4, 2, 2, 2],
+    [0, 0, 0, 5, 5, 8, 8, 8, 8, 8, 5, 5, 5, 5, 4, -1, -1, -1],
+    [0, 0, 5, -1, 5, 5, 8, 8, 8, 5, 5, 5, 5, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, -1, -1, 5, 5, 5, 5, 5, 5, 5, -1, -1, 0, 0],
+    [-1, 0, 0, 0, 0, -1, 0, 0, 5, 5, 5, 5, 5, 6, 6, 6, -1, 0],
+    [-1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 5, 7, 5, 5, 6, 6, 1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 7, 5, 0, 0, 0, 0, -1],
+    [-1, 0, 0, -1, 0, 0, 0, -1, -1, 0, 7, 7, 7, 0, -1, 0, 0, -1],
+    [0, 0, 0, 0, -1, 0, 0, -1, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 0, 0, 0, 1, 0, 0, -1, 1, 0, 0, 0, 1, 0, 0, -1],
+    [-1, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, -1, -1, -1, -1, -1, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1, -1, 0, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0],
+    [-1, 0, 0, -1, 1, -1, 0, 0, 1, 0, 0, -1, 1, 0, 0, -1, 1, 0],
+    [-1, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, -1, -1]
+  ],
+  "height": 22,
+  "id": "rubber_duck_08",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Bath tiles",
+      "roleId": "tiles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tile dots",
+      "roleId": "grout"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tub",
+      "roleId": "tub"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Foam",
+      "roleId": "foam"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Duck",
+      "roleId": "duck"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Wing",
+      "roleId": "wing"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.34,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Rubber duck 8",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["toys", "bath"]
+  },
+  "version": 1,
+  "width": 18
+}

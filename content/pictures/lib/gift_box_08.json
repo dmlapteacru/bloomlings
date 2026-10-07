@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [0, 1, 1, 1, 3, 3, 1, 1, 1, -1, 4, 5, 4, 0],
+    [0, 1, 1, 1, 3, 3, 1, 1, 1, 0, 4, 5, 4, -1],
+    [0, 1, 1, 1, 3, 3, 1, 1, 1, 0, 4, 5, 4, 0],
+    [0, 3, 3, 3, 3, 3, 3, 3, 3, 0, 4, 5, 4, -1],
+    [0, 1, 1, 1, 3, 3, 1, 1, 1, 0, 5, 0, 5, 0],
+    [-1, 1, 1, 1, 3, 3, 1, 1, 1, 6, 5, 0, 5, 0],
+    [2, 1, 2, 1, 3, 3, 1, 1, 1, 6, 6, 0, -1, 0],
+    [2, 2, 2, 1, 3, 3, 1, 1, 1, 6, 6, 0, 0, -1],
+    [-1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 0, 0, 0, -1],
+    [0, 0, -1, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+    [8, -1, 0, 3, 3, 0, 3, 8, 0, 0, -1, -1, 0, 8],
+    [0, 0, 0, 8, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0],
+    [0, 0, -1, 0, 0, -1, -1, -1, -1, 0, 8, 0, 0, 0],
+    [0, 0, 0, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 8, 0, 0, 0, 8, -1, 0, 0, 0, -1, 0, 0, 8]
+  ],
+  "height": 17,
+  "id": "gift_box_08",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Box",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dots",
+      "roleId": "dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ribbon and bow",
+      "roleId": "ribbon"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Small box",
+      "roleId": "small_box"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Small ribbon",
+      "roleId": "small_ribbon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tag",
+      "roleId": "tag"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Confetti",
+      "roleId": "confetti"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.302,
+    "nestingDepth": 4,
+    "regionCount": 30
+  },
+  "subject": "Gift box 8",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["things", "party"]
+  },
+  "version": 1,
+  "width": 14
+}

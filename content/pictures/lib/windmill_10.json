@@ -1,0 +1,101 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7],
+    [7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7, 7, 7, 7],
+    [-1, 0, 0, 0, 0, 0, 1, 1, 5, 5, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 1, 1, 5, 5, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 5, 5, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 1, 1, 1, 1, 1, 1, -1, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, -1, 0],
+    [-1, -1, -1, 3, -1, 0, 1, 1, 6, 6, 1, 1, 4, 4, 3, 0, 0, 0],
+    [0, 0, 0, 3, 3, 0, 1, 1, 6, 6, 1, 4, 4, 3, 3, 0, 0, 0],
+    [0, 0, 4, 4, 3, 3, 1, 1, 6, 1, 4, 4, 3, 3, 0, 0, -1, -1],
+    [0, 0, -1, 4, 4, 3, 3, 1, 1, 4, 4, 3, 3, 0, 0, 0, 0, 0],
+    [0, -1, 0, -1, 4, 4, 3, 3, 1, 1, 3, 3, 0, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, 4, 4, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, 2, 2, 2, 3, 3, 2, 0, -1, 0, 0, 0, -1, 0],
+    [-1, 0, 0, 0, 0, 0, 2, 3, 3, 3, 3, 4, 4, 0, -1, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 0, 3, 3, 0, 0, 3, 3, 4, 4, -1, 0, -1, 0],
+    [0, -1, -1, 0, -1, 3, 3, 4, 4, 0, 0, 3, 3, 4, 4, 0, 0, 0],
+    [0, 0, -1, -1, 3, 3, 4, 4, 0, 0, 0, -1, 3, 3, 4, 4, 0, 0],
+    [0, 0, -1, 3, 3, 4, 4, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0],
+    [-1, 0, 0, 0, 4, 4, -1, -1, 0, 0, 0, -1, 0, 0, 0, -1, 0, -1]
+  ],
+  "height": 22,
+  "id": "windmill_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mill",
+      "roleId": "mill"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blades",
+      "roleId": "blade"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sails",
+      "roleId": "sail"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Field",
+      "roleId": "field"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.424,
+    "nestingDepth": 4,
+    "regionCount": 19
+  },
+  "subject": "Windmill 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["buildings", "farm"]
+  },
+  "version": 1,
+  "width": 18
+}

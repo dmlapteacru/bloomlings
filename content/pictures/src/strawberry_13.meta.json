@@ -1,0 +1,74 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "strawberry_13",
+  "legend": {
+    "b": "background",
+    "d": "seed",
+    "f": "blossom",
+    "k": "cloth",
+    "l": "leaves",
+    "p": "plate",
+    "s": "berry"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Berry",
+      "roleId": "berry"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seeds",
+      "roleId": "seed"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tablecloth",
+      "roleId": "cloth"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blossom",
+      "roleId": "blossom"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Strawberry 13",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

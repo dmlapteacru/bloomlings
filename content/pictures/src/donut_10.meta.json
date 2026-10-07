@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "donut_10",
+  "legend": {
+    "b": "background",
+    "d": "dough",
+    "i": "icing",
+    "l": "plate",
+    "t": "table",
+    "x": "sprinkle_green",
+    "y": "sprinkle_blue",
+    "z": "sprinkle_gold"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dough",
+      "roleId": "dough"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Icing",
+      "roleId": "icing"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green sprinkles",
+      "roleId": "sprinkle_green"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue sprinkles",
+      "roleId": "sprinkle_blue"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Gold sprinkles and stars",
+      "roleId": "sprinkle_gold"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Donut 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "sweets"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

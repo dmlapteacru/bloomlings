@@ -1,0 +1,74 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "robot_09",
+  "legend": {
+    "a": "limb",
+    "b": "wall",
+    "e": "eye",
+    "f": "floor",
+    "k": "mouth",
+    "m": "metal",
+    "p": "panel"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Body",
+      "roleId": "metal"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes and heart",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Mouth and aerial",
+      "roleId": "mouth"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Panel and light",
+      "roleId": "panel"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Arms and legs",
+      "roleId": "limb"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Robot 9",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "toys"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

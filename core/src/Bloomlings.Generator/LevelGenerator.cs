@@ -249,8 +249,12 @@ namespace Bloomlings.Generator
                 return null;
             }
 
+            // The pool's expansion variants for this level: a picture whose role needs one that has not joined yet is
+            // left out (the owner, 2026-10-07).
+            IReadOnlyList<VariantId> expansions = UseBandGuidelines ? Pool.ExpansionsAt(level, _roadmap) : Array.Empty<VariantId>();
+
             // 1. Picture, of the level's board rule: regular from L11, big for a big level (FR-008 as amended on 2026-10-06).
-            BasePicture? picture = _pictures.Pick(_profile, level, history, ref rng, UseBandGuidelines ? BandGuidelines.Board(level) : null);
+            BasePicture? picture = _pictures.Pick(_profile, level, history, ref rng, UseBandGuidelines ? BandGuidelines.Board(level) : null, expansions);
             if (picture == null)
             {
                 reason = big ? "picture:no-big-picture-available" : "picture:none-available";
@@ -261,9 +265,8 @@ namespace Bloomlings.Generator
             BoardLook look = BoardLooks.For(picture.Width, picture.Height);
 
             // 2. Mapping, avoiding the variant set of the two previous levels when they share one (FR-083).
-            // The pool's expansion variants for this level; a variant joining the pool gets one clean level (it is used
-            // and no mechanic is) and then one mixed level (it is used again), FR-031.
-            IReadOnlyList<VariantId> expansions = UseBandGuidelines ? Pool.ExpansionsAt(level, _roadmap) : Array.Empty<VariantId>();
+            // A variant joining the pool gets one clean level (it is used and no mechanic is) and then one mixed level
+            // (it is used again), FR-031.
             (VariantId? introduce, bool cleanIntro) = UseBandGuidelines ? Introduction(level) : (null, false);
             IReadOnlyList<SortedDictionary<string, VariantId>> mappings = RoleMapper.Mappings(picture, _profile, _readablePair, variantCount: variantCount, extraVariants: expansions);
             if (introduce != null)

@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using Bloomlings.Core.Definitions;
+using Bloomlings.Core.Progression;
 using Bloomlings.Core.Variants;
 using Bloomlings.Generator.Profiles;
 
@@ -61,9 +63,9 @@ namespace Bloomlings.Pipeline.Pictures
                     problems.Add($"role '{role.RoleId}' has {counts[i]} cells, fewer than the smallest pod ({BandGuidelines.MinPodSize})");
                 }
 
-                if (!HasLaunchVariant(role.ColorGroup))
+                if (!HasPoolVariant(role.ColorGroup))
                 {
-                    problems.Add($"role '{role.RoleId}' ({role.ColorGroup}) has no launch variant");
+                    problems.Add($"role '{role.RoleId}' ({role.ColorGroup}) has no launch variant and no pool expansion");
                 }
             }
 
@@ -90,11 +92,17 @@ namespace Bloomlings.Pipeline.Pictures
                 ? picture with { Review = new PictureReview(ReviewStatus.Approved, Reviewer, null, Notes) }
                 : picture;
 
-        private static bool HasLaunchVariant(ColorGroup group)
+        /// <summary>
+        /// Whether a role of this color group can ever show a variant: a launch variant, or an expansion variant the pool
+        /// adds at a roadmap row (Vine's lime from L45, Berry's red from L200; the owner, 2026-10-07). The generator keeps
+        /// such a picture out of the levels before its variant joins (<c>PicturePicker.Candidates</c>).
+        /// </summary>
+        private static bool HasPoolVariant(ColorGroup group)
         {
+            IReadOnlyList<VariantId> expansions = VariantPool.Default.Expansions;
             foreach (VariantInfo info in VariantCatalog.Default.All)
             {
-                if (info.ColorGroup == group && info.Status == VariantStatus.Launch)
+                if (info.ColorGroup == group && (info.Status == VariantStatus.Launch || expansions.Contains(info.Id)))
                 {
                     return true;
                 }

@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "mushroom_14",
+  "legend": {
+    "c": "cap",
+    "d": "dot",
+    "f": "fern",
+    "g": "grass",
+    "k": "small_cap",
+    "s": "sky",
+    "t": "stem"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dots",
+      "roleId": "dot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Small cap",
+      "roleId": "small_cap"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ferns",
+      "roleId": "fern"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mushroom 14",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "forest",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

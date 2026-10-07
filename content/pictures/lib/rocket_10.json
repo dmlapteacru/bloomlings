@@ -1,0 +1,104 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, -1, 0, 0, 0, 0, 0, 6, 0, 4, 0, 0, -1, 0, 0, 0, 0],
+    [0, 7, 7, 7, 0, 0, 0, 0, 0, 4, -1, 0, 0, 6, -1, 0, 0],
+    [0, 7, 7, 7, 7, 0, 0, 0, 5, 5, 5, -1, 0, -1, 0, -1, -1],
+    [8, 8, 8, 8, 8, 8, 8, 0, 4, 5, 4, 0, 0, 0, 0, 0, 0],
+    [0, 7, 7, 7, 7, 0, -1, -1, 4, 5, 4, 0, 0, 0, 0, 0, 0],
+    [0, 0, 7, 7, 0, 2, 2, 1, 1, 1, 1, 1, 2, 2, -1, 0, -1],
+    [0, 0, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 2, 0, 0, 6, 0],
+    [0, 0, 0, 0, 0, -1, 2, 1, 1, 1, 1, 1, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, -1, 0, 0],
+    [0, -1, 6, 0, 0, 0, 0, 1, 3, 3, 2, 1, 0, -1, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 1, 3, 3, 2, 1, 0, 0, 6, 0, 0],
+    [0, 0, 0, 0, 0, 0, -1, 1, 3, 2, 1, 1, -1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 6, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0, 0, 9, 9, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, 2, -1, 0, 0, 9, 9, 9, 0],
+    [0, 6, 0, -1, 0, 0, 0, -1, -1, 2, 6, 0, 0, 9, 9, 9, 0],
+    [-1, 0, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 20,
+  "id": "rocket_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Space",
+      "roleId": "space"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Body",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Nose and fins",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flame",
+      "roleId": "flame"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Flame core",
+      "roleId": "flame_core"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Planet",
+      "roleId": "planet"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Planet ring",
+      "roleId": "ring"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.573,
+    "nestingDepth": 4,
+    "regionCount": 28
+  },
+  "subject": "Rocket 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["vehicles", "space"]
+  },
+  "version": 1,
+  "width": 17
+}

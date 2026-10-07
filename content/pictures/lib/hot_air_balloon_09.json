@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, -1, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 6, 6],
+    [0, 0, -1, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0],
+    [0, -1, -1, 0, 0, 3, 4, 4, 3, 0, 5, 5, 5, 0],
+    [0, -1, -1, 0, 0, 3, 4, 0, 3, 0, 5, 5, 0, -1],
+    [0, 0, 0, 0, 0, 2, 1, 1, 2, 0, -1, 0, 0, 0],
+    [0, 0, -1, 0, 0, 2, 1, 1, 2, 0, 0, 0, 0, 0],
+    [0, -1, 0, 3, 3, 3, 3, 3, 3, 3, 3, -1, 0, 0],
+    [0, 0, 0, 2, 2, 2, 1, 1, 2, 2, 2, 0, 0, -1],
+    [-1, -1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 0, 0],
+    [0, 0, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 0, 0],
+    [0, -1, 1, 2, 2, 2, 1, 1, 2, 2, 2, 1, 0, -1],
+    [-1, 0, 0, 2, 2, 2, 1, 1, 2, 2, 2, 0, 0, 0],
+    [0, -1, 0, 2, 2, 2, 1, 1, 2, 2, 2, 0, -1, 0],
+    [0, 0, -1, 0, 2, 2, 1, 1, 2, 2, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, -1, 0, -1, 0, 0, -1, -1, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 18,
+  "id": "hot_air_balloon_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Balloon",
+      "roleId": "balloon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Balloon stripes",
+      "roleId": "gore"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ropes and band",
+      "roleId": "rope"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Basket",
+      "roleId": "basket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.4,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Hot air balloon 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["vehicles", "sky"]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -48,7 +48,13 @@ namespace Bloomlings.Generator
         }
 
         /// <param name="board">The level's board rule (the band guidelines), or null for the profile's sizes alone.</param>
-        public IReadOnlyList<BasePicture> Candidates(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, BoardRule? board = null)
+        /// <param name="expansions">
+        /// The expansion variants in the pool at this level (<c>VariantPool.ExpansionsAt</c>); a picture with a role that
+        /// only an expansion variant not yet joined could show is left out (Vine's lime before L45, Berry's red before L200;
+        /// the owner, 2026-10-07), so the levels before a variant joins are the same as without those pictures. None (the
+        /// Daily pool, the tests) keeps every expansion group out.
+        /// </param>
+        public IReadOnlyList<BasePicture> Candidates(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, BoardRule? board = null, IReadOnlyCollection<VariantId>? expansions = null)
         {
             var blocked = new HashSet<string>(StringComparer.Ordinal);
             foreach (KeyValuePair<int, LevelDefinition> entry in history)
@@ -71,6 +77,7 @@ namespace Bloomlings.Generator
                     || !profile.BoardHeight.Contains(picture.Height)
                     || (board != null && !board.Allows(picture.Width, picture.Height))
                     || !MatchesThemes(picture, profile)
+                    || !Drawable(picture, expansions)
                     || (HasStones(picture) && !profile.Allows("stone")))
                 {
                     continue;
@@ -89,9 +96,9 @@ namespace Bloomlings.Generator
             return result;
         }
 
-        public BasePicture? Pick(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, ref Xoshiro256StarStar rng, BoardRule? board = null)
+        public BasePicture? Pick(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, ref Xoshiro256StarStar rng, BoardRule? board = null, IReadOnlyCollection<VariantId>? expansions = null)
         {
-            IReadOnlyList<BasePicture> candidates = Candidates(profile, level, history, board);
+            IReadOnlyList<BasePicture> candidates = Candidates(profile, level, history, board, expansions);
             return candidates.Count == 0 ? null : candidates[rng.NextInt(candidates.Count)];
         }
 
@@ -101,6 +108,46 @@ namespace Bloomlings.Generator
         /// </summary>
         public static BasePicture AsPreview(BasePicture picture) =>
             picture with { Review = picture.Review with { Status = ReviewStatus.Approved } };
+
+        /// <summary>
+        /// Whether every role of the picture has a variant at this level: a launch variant of its color group, or one of
+        /// <paramref name="expansions"/>.
+        /// </summary>
+        public static bool Drawable(BasePicture picture, IReadOnlyCollection<VariantId>? expansions)
+        {
+            foreach (PictureRole role in picture.Roles)
+            {
+                bool drawable = false;
+                foreach (VariantInfo info in VariantCatalog.Default.All)
+                {
+                    if (info.ColorGroup == role.ColorGroup && (info.Status == VariantStatus.Launch || (expansions != null && Contains(expansions, info.Id))))
+                    {
+                        drawable = true;
+                        break;
+                    }
+                }
+
+                if (!drawable)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static bool Contains(IReadOnlyCollection<VariantId> variants, VariantId id)
+        {
+            foreach (VariantId variant in variants)
+            {
+                if (variant == id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
 
         public static bool HasStones(BasePicture picture)
         {

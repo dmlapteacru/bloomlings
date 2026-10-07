@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "barn_08",
+  "legend": {
+    "b": "barn",
+    "d": "door",
+    "g": "grass",
+    "i": "loft",
+    "r": "trim",
+    "s": "sky",
+    "x": "beam",
+    "y": "hay"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Barn",
+      "roleId": "barn"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Roof trim",
+      "roleId": "trim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Doors",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Beams",
+      "roleId": "beam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Loft",
+      "roleId": "loft"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hay",
+      "roleId": "hay"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Barn 8",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "buildings",
+      "farm"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

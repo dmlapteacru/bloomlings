@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "bicycle_07",
+  "legend": {
+    "e": "seat",
+    "f": "frame",
+    "g": "path",
+    "h": "hub",
+    "k": "basket",
+    "p": "flowers",
+    "s": "sky",
+    "u": "sun",
+    "v": "bush",
+    "w": "tyre"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tyres",
+      "roleId": "tyre"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hubs and spokes",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seat and bars",
+      "roleId": "seat"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Basket",
+      "roleId": "basket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Path",
+      "roleId": "path"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bush"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bicycle 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "park"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "submarine_08",
+  "legend": {
+    "b": "hull",
+    "d": "sand",
+    "i": "portholes",
+    "k": "weed",
+    "o": "bubbles",
+    "p": "periscope",
+    "t": "tower",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Deep water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hull",
+      "roleId": "hull"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tower and fin",
+      "roleId": "tower"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Periscope",
+      "roleId": "periscope"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Portholes",
+      "roleId": "portholes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Weed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Submarine 8",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

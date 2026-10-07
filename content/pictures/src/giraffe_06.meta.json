@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "giraffe_06",
+  "legend": {
+    "a": "acacia",
+    "b": "giraffe",
+    "g": "grass",
+    "k": "horns",
+    "p": "spots",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Giraffe",
+      "roleId": "giraffe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horns, eye, hooves and tree",
+      "roleId": "horns"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Acacia",
+      "roleId": "acacia"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Giraffe 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "savanna"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -115,6 +115,40 @@ namespace Bloomlings.Generator.Tests
             Assert.That(regular.Select(p => p.Width * p.Height), Has.All.InRange(BandGuidelines.RegularMinCells, BoardLooks.MaxPeekCells));
         }
 
+        /// <summary>
+        /// The owner, 2026-10-07: the pictures with a lime role (Vine, from L45) or a red one (Berry, from L200) pass the
+        /// automated approval, and the picker keeps each out of the levels before its variant joins the pool, so those
+        /// levels are the same as without them; with no expansions (the Daily pool) they stay out.
+        /// </summary>
+        [Test]
+        public void ExpansionPictures_AreApproved_AndKeptOutUntilTheirVariantJoins()
+        {
+            List<BasePicture> library = Library;
+            List<BasePicture> lime = library.Where(p => p.Roles.Any(r => r.ColorGroup == Core.Variants.ColorGroup.Lime)).ToList();
+            List<BasePicture> red = library.Where(p => p.Roles.Any(r => r.ColorGroup == Core.Variants.ColorGroup.Red)).ToList();
+            Assert.That(lime, Is.Not.Empty, "the library has lime roles for Vine");
+            Assert.That(red, Is.Not.Empty, "and red roles for Berry");
+            Assert.That(lime.Concat(red).Select(p => p.Review.Status), Has.All.EqualTo(ReviewStatus.Approved));
+            Assert.That(lime.Concat(red).SelectMany(Pipeline.Pictures.PictureChecks.Problems), Is.Empty, "the automated checks accept the expansion groups");
+
+            VariantPool pool = VariantPool.Default;
+            Assert.That(PicturePicker.Drawable(lime[0], pool.ExpansionsAt(44, UnlockRoadmap.Default)), Is.False, "no Vine before L45");
+            Assert.That(PicturePicker.Drawable(lime[0], pool.ExpansionsAt(45, UnlockRoadmap.Default)), Is.True);
+            BasePicture redOnly = red.First(p => p.Roles.All(r => r.ColorGroup != Core.Variants.ColorGroup.Lime));
+            Assert.That(PicturePicker.Drawable(redOnly, pool.ExpansionsAt(199, UnlockRoadmap.Default)), Is.False, "no Berry before L200");
+            Assert.That(PicturePicker.Drawable(redOnly, pool.ExpansionsAt(200, UnlockRoadmap.Default)), Is.True);
+            Assert.That(PicturePicker.Drawable(lime[0], null), Is.False, "the Daily pool keeps them out");
+
+            GenerationProfile early = ProfileLoader.ReadFile(Path.Combine(RepoRoot, "content", "profiles", "band-0026-0050.json"));
+            var picker = new PicturePicker(library);
+            var history = new Dictionary<int, LevelDefinition>();
+            IReadOnlyList<BasePicture> at44 = picker.Candidates(early, 44, history, BandGuidelines.Board(44), pool.ExpansionsAt(44, UnlockRoadmap.Default));
+            IReadOnlyList<BasePicture> at45 = picker.Candidates(early, 45, history, BandGuidelines.Board(45), pool.ExpansionsAt(45, UnlockRoadmap.Default));
+            Assert.That(at44.Select(p => p.Id), Is.EqualTo(new PicturePicker(library.Except(lime).Except(red)).Candidates(early, 44, history, BandGuidelines.Board(44)).Select(p => p.Id)), "L44's candidates as without the new pictures");
+            Assert.That(at45.Any(p => lime.Contains(p)), Is.True, "lime pictures from L45");
+            Assert.That(at45.Any(p => red.Contains(p)), Is.False, "red ones still out");
+        }
+
         [Test]
         public void TheGenerator_RefusesABigLevelWithoutABigPicture()
         {

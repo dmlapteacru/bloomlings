@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "ice_cream_06",
+  "legend": {
+    "b": "background",
+    "c": "cone",
+    "g": "mint",
+    "n": "napkin",
+    "p": "strawberry",
+    "r": "cherry",
+    "t": "table",
+    "v": "grape",
+    "w": "waffle",
+    "x": "sprinkles"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Background",
+      "roleId": "background"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Cone",
+      "roleId": "cone"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Waffle lines",
+      "roleId": "waffle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Strawberry scoop",
+      "roleId": "strawberry"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Mint scoop",
+      "roleId": "mint"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grape scoop",
+      "roleId": "grape"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cherry",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sprinkles and hearts",
+      "roleId": "sprinkles"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Napkin",
+      "roleId": "napkin"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Ice cream 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "summer"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

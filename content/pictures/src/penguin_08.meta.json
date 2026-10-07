@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 22,
+  "id": "penguin_08",
+  "legend": {
+    "b": "belly",
+    "f": "fish",
+    "i": "ice",
+    "o": "beak",
+    "p": "penguin",
+    "s": "sky",
+    "w": "sea",
+    "x": "snow",
+    "y": "cheek"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Penguin",
+      "roleId": "penguin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Cheeks",
+      "roleId": "cheek"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak and feet",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ice floe",
+      "roleId": "ice"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snowflakes",
+      "roleId": "snow"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Penguin 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "animals",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

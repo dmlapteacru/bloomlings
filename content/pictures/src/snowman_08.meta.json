@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "snowman_08",
+  "legend": {
+    "a": "arm",
+    "b": "snowman",
+    "c": "nose",
+    "f": "scarf",
+    "g": "hill",
+    "k": "hat",
+    "n": "sky",
+    "p": "pine",
+    "x": "snow"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Evening sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowman",
+      "roleId": "snowman"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hat, eyes and buttons",
+      "roleId": "hat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Carrot nose",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Scarf",
+      "roleId": "scarf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Twig arms",
+      "roleId": "arm"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowflakes",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pine"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Snowman 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "things",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 19
+}

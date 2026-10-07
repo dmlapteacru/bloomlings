@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "watering_can_13",
+  "legend": {
+    "c": "can",
+    "d": "drops",
+    "f": "flowers",
+    "g": "grass",
+    "h": "handle",
+    "o": "flower_center",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Can",
+      "roleId": "can"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Handle and rose",
+      "roleId": "handle"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Drops",
+      "roleId": "drops"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flower centers",
+      "roleId": "flower_center"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Watering can 13",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "tools",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

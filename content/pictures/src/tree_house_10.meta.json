@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "tree_house_10",
+  "legend": {
+    "c": "leaves",
+    "d": "door",
+    "g": "grass",
+    "h": "hut",
+    "i": "window",
+    "l": "ladder",
+    "r": "roof",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk and deck",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hut",
+      "roleId": "hut"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Door and swing",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ladder",
+      "roleId": "ladder"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tree house 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "buildings",
+      "forest"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

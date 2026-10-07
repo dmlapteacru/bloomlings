@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "ship_06",
+  "legend": {
+    "b": "stripe",
+    "c": "cabin",
+    "f": "funnel",
+    "h": "hull",
+    "i": "portholes",
+    "k": "funnel_top",
+    "m": "smoke",
+    "s": "sky",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hull",
+      "roleId": "hull"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Stripe",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cabin",
+      "roleId": "cabin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Portholes",
+      "roleId": "portholes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Funnels",
+      "roleId": "funnel"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Funnel tops",
+      "roleId": "funnel_top"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Smoke",
+      "roleId": "smoke"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Ship 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

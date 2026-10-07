@@ -1,0 +1,69 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "panda_07",
+  "legend": {
+    "b": "forest",
+    "d": "ground",
+    "j": "bamboo",
+    "k": "patches",
+    "l": "leaves",
+    "w": "panda"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Bamboo forest",
+      "roleId": "forest"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Panda",
+      "roleId": "panda"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Patches",
+      "roleId": "patches"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bamboo",
+      "roleId": "bamboo"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Bamboo leaves and rings",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ground",
+      "roleId": "ground"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Panda 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "forest"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -138,7 +138,7 @@ a default or asks a question.
   rewritten. I checked Levels 1 to 10 and played many other levels, almost 400 of them; the pictures shown suit me
   conceptually: a flower, a frog, a sailboat and so on." The procedural pictures are approved as a style, so a picture
   is approved by the automated picture checks: every role used and at least 5 cells (the smallest pod), a launch variant
-  for every role's color group, 75–95% occupancy (FR-008) and computed structure metrics. `pictures import` approves a
+  for every role's color group (or, since 2026-10-07, an expansion variant the pool adds: Vine's lime, Berry's red), 75–95% occupancy (FR-008) and computed structure metrics. `pictures import` approves a
   draft that passes; `validate` keeps refusing a level on a picture that is not approved.
 - **Q: How far must the catalog reach?**
   A: The whole run: "we must be ready to generate 5000+ levels; the range just needs to grow to 5000 with different
@@ -677,7 +677,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
   | 101–500 | Solver plus manual review of every level |
   | 501–5000+ | Solver plus automated invariants plus human sampling |
 
-  Milestone, Hard and Super Hard levels MUST get stronger review in every tier. Every base picture MUST pass the automated picture checks before any level uses it *(amended 2026-10-06, the owner: it was a person's review for recognizability and gameplay usability; the owner approved the procedural style as a whole)*: every role is used and keeps at least the smallest pod's 5 cells, every role's color group has a launch variant, the occupancy is 75–95% (FR-008) and the structure metrics are computed. A picture that passes is approved; a person MAY still reject one. Pictures may be hand-drawn, generated, or generated and then edited.
+  Milestone, Hard and Super Hard levels MUST get stronger review in every tier. Every base picture MUST pass the automated picture checks before any level uses it *(amended 2026-10-06, the owner: it was a person's review for recognizability and gameplay usability; the owner approved the procedural style as a whole)*: every role is used and keeps at least the smallest pod's 5 cells, every role's color group has a launch variant or an expansion variant the pool adds at a roadmap row *(amended 2026-10-07, the owner: so Vine's lime roles from L45 and Berry's red ones from L200 can be drawn; the generator keeps such a picture out of the levels before its variant joins and out of the Daily pool)*, the occupancy is 75–95% (FR-008) and the structure metrics are computed. A picture that passes is approved; a person MAY still reject one. Pictures may be hand-drawn, generated, or generated and then edited.
 - **FR-085**: Economy values, ad cadence, rewards, feature flags and store offers MUST be tunable remotely without an app release. Core puzzle rules and shipped level definitions MUST NOT be remotely mutable, except through versioned content updates.
 - **FR-086**: The team MUST be able to see per-level start, win, jam and booster-use rates for difficulty tuning. Every crash or error report MUST include the app version, level number and content version.
 

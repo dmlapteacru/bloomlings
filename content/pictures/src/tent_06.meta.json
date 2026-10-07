@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "tent_06",
+  "legend": {
+    "d": "door",
+    "g": "meadow",
+    "k": "pole",
+    "m": "moon",
+    "n": "night",
+    "p": "pine",
+    "t": "tent",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tent",
+      "roleId": "tent"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pole and logs",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Stars and fire",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tent 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "camping",
+      "night"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}
