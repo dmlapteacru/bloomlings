@@ -199,25 +199,29 @@ namespace Bloomlings.Pipeline.Commands
         /// <paramref name="jobs"/> threads, each knowing only the fixed history. Then, seam by seam in level order, the
         /// later segment's first levels that break a repetition rule (<see cref="LevelGenerator.Conflicts"/>) with the
         /// levels before them are generated again between their neighbours on both sides, until none does: of two levels
-        /// that clash across a seam only the later one is redone. The result depends on the segments only, never on the
-        /// threads. Returns the accepted levels (one per level number) and how many were generated again.
+        /// that clash across a seam only the later one is redone. Last, every level is judged against all the levels
+        /// before it for a picture used again with the same look or Source design (FR-083, far beyond the seams), and the
+        /// later of such a pair is generated again. The result depends on the segments only, never on the threads. Returns
+        /// the accepted levels (one per level number) and how many were generated again.
         /// </summary>
         /// <param name="minSegmentLength">The shortest segment: the repetition window, shorter only in tests.</param>
         public static (GenerationResult Result, int SeamRepairs) GenerateRange(Func<LevelGenerator> newGenerator, int first, int last, ulong seed, SortedDictionary<int, LevelDefinition> history, ISet<int> kept, int segments, int jobs, int minSegmentLength = PicturePicker.RepeatWindow)
         {
             IReadOnlyList<(int First, int Last)> bounds = Segments(first, last, segments, minSegmentLength);
+            var parts = new GenerationResult[bounds.Count];
             if (bounds.Count == 1)
             {
-                return (newGenerator().Generate(first, last, seed, history, kept), 0);
+                parts[0] = newGenerator().Generate(first, last, seed, history, kept);
             }
-
-            var parts = new GenerationResult[bounds.Count];
-            var fixedHistory = new SortedDictionary<int, LevelDefinition>(history);
-            System.Threading.Tasks.Parallel.For(0, bounds.Count, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = Math.Max(1, jobs) }, k =>
+            else
             {
-                var own = new SortedDictionary<int, LevelDefinition>(fixedHistory);
-                parts[k] = newGenerator().Generate(bounds[k].First, bounds[k].Last, seed, own, kept);
-            });
+                var fixedHistory = new SortedDictionary<int, LevelDefinition>(history);
+                System.Threading.Tasks.Parallel.For(0, bounds.Count, new System.Threading.Tasks.ParallelOptions { MaxDegreeOfParallelism = Math.Max(1, jobs) }, k =>
+                {
+                    var own = new SortedDictionary<int, LevelDefinition>(fixedHistory);
+                    parts[k] = newGenerator().Generate(bounds[k].First, bounds[k].Last, seed, own, kept);
+                });
+            }
 
             var accepted = new SortedDictionary<int, GeneratedLevel>();
             var merged = new GenerationResult();
@@ -308,6 +312,40 @@ namespace Bloomlings.Pipeline.Commands
                 }
 
                 Redo(broken, seed ^ (0x5EA3UL * (ulong)(round + 9)));
+            }
+
+            // The far reuses (FR-083): a segment never saw the earlier segments beyond their seams, so a picture it uses
+            // again may repeat an earlier use's look (mirroring and mapping) or Source design. In level order, every level
+            // of the range is judged against every level before it (LevelGenerator.FarReuses); one that repeats is
+            // generated again, or the earlier level it repeats when it is kept. A segment's own levels saw everything
+            // before them, so a single segment normally has nothing to redo here.
+            for (int round = 0; round < 8; round++)
+            {
+                var readOnly = new SortedDictionary<int, LevelDefinition>(history);
+                var broken = new SortedSet<int>();
+                for (int l = first; l <= last; l++)
+                {
+                    foreach (int earlier in LevelGenerator.FarReuses(l, readOnly))
+                    {
+                        if (!kept.Contains(l))
+                        {
+                            broken.Add(l);
+                            break;
+                        }
+
+                        if (earlier >= first && !kept.Contains(earlier))
+                        {
+                            broken.Add(earlier);
+                        }
+                    }
+                }
+
+                if (broken.Count == 0)
+                {
+                    break;
+                }
+
+                Redo(broken.ToList(), seed ^ (0xFA2EUL * (ulong)(round + 1)));
             }
 
             merged.Accepted.AddRange(accepted.Values);

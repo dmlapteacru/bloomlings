@@ -39,7 +39,9 @@ the segments and never on the threads, so any machine gives the same catalog. A 
 segments is only slower. The segments are generated blind to each other, so at each seam the later segment's first
 levels that break a repetition rule with the levels before them (the same picture or Source layout within 50 levels,
 three in a row) are generated again between their neighbours. Only the later level of such a pair is redone, and the
-earlier segment keeps its levels.
+earlier segment keeps its levels. Last, every level is judged against all the levels before it for a picture used
+again far away with the same look (mirroring and mapping) or the same Source design (FR-083; L437 repeated L326 in the
+owner's run of 2026-10-07, two segments apart), and the later one is generated again.
 
 | Band | Levels | Profile | Seed | Segments |
 |---|---|---|---|---|

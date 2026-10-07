@@ -202,6 +202,11 @@ namespace Bloomlings.Generator
                 }
             }
 
+            foreach (int earlier in FarReuses(level, history))
+            {
+                conflicts.Add($"reuse:{definition!.Picture.Id}-like-L{earlier}");
+            }
+
             SortedSet<VariantId> variants = VariantSet(definition!);
             if (ThreeInARow(level, history, other => VariantSet(other).SetEquals(variants)))
             {
@@ -296,6 +301,13 @@ namespace Bloomlings.Generator
             // 3. Entries and mirroring toward the structure target.
             string layout = _profile.EntryLayouts[rng.NextInt(_profile.EntryLayouts.Count)];
             Mirror mirror = rng.NextInt(2) == 0 ? Mirror.None : Mirror.Horizontal;
+
+            // FR-083: a picture used again beyond the window differs from each earlier use in its look (mapping or mirror).
+            if (ReusesLook(level, picture.Id, mirror, mapping, history))
+            {
+                reason = "similarity:reuse-same-look";
+                return null;
+            }
             IReadOnlyList<EntryDef>? entries = EntryPlanner.Entries(layout, picture, mirror);
             if (entries == null)
             {
@@ -552,6 +564,13 @@ namespace Bloomlings.Generator
                 return null;
             }
 
+            // FR-083: and in its Source design.
+            if (ReusesSource(level, picture.Id, tray.Definition, history))
+            {
+                reason = "similarity:reuse-same-source";
+                return null;
+            }
+
             LevelDefinition definition = tray.Definition with { Difficulty = new DifficultyDef(tray.Class, tray.Score, false) };
 
             // 9. Emit.
@@ -760,6 +779,88 @@ namespace Bloomlings.Generator
 
             var set = new SortedSet<string>(mechanics, StringComparer.Ordinal);
             return ThreeInARow(level, history, other => set.SetEquals(other.Mechanics));
+        }
+
+        /// <summary>
+        /// FR-083: the earlier levels that the level's picture repeats beyond the repetition window with the same look (the
+        /// same mirroring and mapping, <see cref="SameLook"/>) or the same Source design (<see cref="SourceSignature"/>).
+        /// Only earlier levels count, as the validator judges them: of two such levels the later one is redone.
+        /// </summary>
+        public static IReadOnlyList<int> FarReuses(int level, IReadOnlyDictionary<int, LevelDefinition> history)
+        {
+            var reuses = new List<int>();
+            if (!history.TryGetValue(level, out LevelDefinition? definition))
+            {
+                return reuses;
+            }
+
+            string signature = SourceSignature(definition!);
+            foreach (KeyValuePair<int, LevelDefinition> entry in history)
+            {
+                if (entry.Key < level && level - entry.Key >= PicturePicker.RepeatWindow
+                    && string.Equals(entry.Value.Picture.Id, definition!.Picture.Id, StringComparison.Ordinal)
+                    && (SameLook(definition, entry.Value) || string.Equals(SourceSignature(entry.Value), signature, StringComparison.Ordinal)))
+                {
+                    reuses.Add(entry.Key);
+                }
+            }
+
+            return reuses;
+        }
+
+        /// <summary>The same mirroring and the same mapping of roles to variants (FR-083's "look" of a picture's use).</summary>
+        public static bool SameLook(LevelDefinition a, LevelDefinition b) =>
+            a.Picture.Mirror == b.Picture.Mirror && SameMapping(a.Mapping, b.Mapping);
+
+        public static bool SameMapping(IReadOnlyDictionary<string, VariantId> a, IReadOnlyDictionary<string, VariantId> b)
+        {
+            if (a.Count != b.Count)
+            {
+                return false;
+            }
+
+            foreach (KeyValuePair<string, VariantId> pair in a)
+            {
+                if (!b.TryGetValue(pair.Key, out VariantId other) || other != pair.Value)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        // FR-083: an earlier use of the picture beyond the window with the same mirroring and mapping.
+        private static bool ReusesLook(int level, string pictureId, Mirror mirror, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history)
+        {
+            foreach (KeyValuePair<int, LevelDefinition> entry in history)
+            {
+                if (entry.Key < level && level - entry.Key >= PicturePicker.RepeatWindow
+                    && string.Equals(entry.Value.Picture.Id, pictureId, StringComparison.Ordinal)
+                    && entry.Value.Picture.Mirror == mirror && SameMapping(entry.Value.Mapping, mapping))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // FR-083: an earlier use of the picture beyond the window with the same Source design.
+        private static bool ReusesSource(int level, string pictureId, LevelDefinition definition, IReadOnlyDictionary<int, LevelDefinition> history)
+        {
+            string signature = SourceSignature(definition);
+            foreach (KeyValuePair<int, LevelDefinition> entry in history)
+            {
+                if (entry.Key < level && level - entry.Key >= PicturePicker.RepeatWindow
+                    && string.Equals(entry.Value.Picture.Id, pictureId, StringComparison.Ordinal)
+                    && string.Equals(SourceSignature(entry.Value), signature, StringComparison.Ordinal))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>FR-083: a Source layout signature never repeats within 50 levels (on either side).</summary>

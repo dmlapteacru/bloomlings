@@ -91,6 +91,34 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void APictureUsedAgainFarAway_MustDifferInLookAndSource_AtTheLaterLevel()
+        {
+            // FR-083 (the owner's catalog run of 2026-10-07: L437 repeated L326's rainbow_08 from another segment).
+            List<LevelDefinition> curated = Curated;
+            LevelDefinition a = curated.Single(l => l.LevelNumber == 3);
+            LevelDefinition b = curated.Single(l => l.LevelNumber == 5);
+            Mirror flipped = a.Picture.Mirror == Mirror.None ? Mirror.Horizontal : Mirror.None;
+            var history = new SortedDictionary<int, LevelDefinition>
+            {
+                [200] = a with { LevelNumber = 200 },
+                [260] = a with { LevelNumber = 260 },
+            };
+
+            Assert.That(LevelGenerator.FarReuses(260, history), Is.EqualTo(new[] { 200 }), "the same look and Source 60 levels later");
+            Assert.That(LevelGenerator.FarReuses(200, history), Is.Empty, "only the later level breaks the rule");
+            Assert.That(LevelGenerator.Conflicts(260, history), Has.Some.StartsWith("reuse:"));
+
+            history[260] = a with { LevelNumber = 260, Picture = a.Picture with { Mirror = flipped } };
+            Assert.That(LevelGenerator.FarReuses(260, history), Is.EqualTo(new[] { 200 }), "a new look alone is not enough: the Source repeats");
+
+            history[260] = a with { LevelNumber = 260, Pods = b.Pods, Tray = b.Tray };
+            Assert.That(LevelGenerator.FarReuses(260, history), Is.EqualTo(new[] { 200 }), "a new Source alone is not enough: the look repeats");
+
+            history[260] = a with { LevelNumber = 260, Picture = a.Picture with { Mirror = flipped }, Pods = b.Pods, Tray = b.Tray };
+            Assert.That(LevelGenerator.FarReuses(260, history), Is.Empty, "a new look and a new Source");
+        }
+
+        [Test]
         public void TheCuratedLevels_AreTheContextOfTheCatalogWindows()
         {
             // A catalog L11 with the variant set of curated L9 and L10 repeats it 3 times in a row across the boundary.

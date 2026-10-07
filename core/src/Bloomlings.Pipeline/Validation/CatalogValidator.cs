@@ -540,7 +540,7 @@ namespace Bloomlings.Pipeline.Validation
                     }
                     else
                     {
-                        bool sameLook = level.Picture.Mirror == other.Picture.Mirror && SameMapping(level, other);
+                        bool sameLook = Generator.LevelGenerator.SameLook(level, other);
                         bool sameSource = Generator.LevelGenerator.SourceSignature(level) == Generator.LevelGenerator.SourceSignature(other);
                         if (sameLook || sameSource)
                         {
@@ -683,24 +683,6 @@ namespace Bloomlings.Pipeline.Validation
 
         private bool UsedAnywhere(IEnumerable<LevelDefinition> levels, string unlock) =>
             levels.Any(l => _pictures.TryGetValue(l.Picture.Id + "@" + l.Picture.Version, out BasePicture? p) && MechanicsUsed(l, p).Contains(unlock));
-
-        private static bool SameMapping(LevelDefinition a, LevelDefinition b)
-        {
-            if (a.Mapping.Count != b.Mapping.Count)
-            {
-                return false;
-            }
-
-            foreach (KeyValuePair<string, VariantId> pair in a.Mapping)
-            {
-                if (!b.Mapping.TryGetValue(pair.Key, out VariantId other) || other != pair.Value)
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
 
         private static string Wire(BoardLook look) => look == BoardLook.Icons ? "icons" : "peek";
 

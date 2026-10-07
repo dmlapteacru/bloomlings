@@ -1645,6 +1645,15 @@ final validation.
   `content/pictures/tools/sketch_pictures.py --expansions` (`expansions.py`): 178 regular with a lime role, 164 with a
   red one, 97 big (89 lime, 82 red), all approved on import; band 26–50 regenerated (L26–44 unchanged, L45 introduces
   Vine; L11–25 checked identical). Test: `BigLevelTests.ExpansionPictures_AreApproved_AndKeptOutUntilTheirVariantJoins`.
+- [X] T184 Far picture reuse in the generator (the owner's catalog run of 2026-10-07: L437 reused rainbow_08 from L326
+  with the same look or Source design, two segments apart, and `validate` stopped band 0251-0500): `LevelGenerator`
+  refuses a candidate whose picture repeats an earlier use beyond 50 levels with the same mirroring and mapping
+  (`similarity:reuse-same-look`) or the same Source design (`similarity:reuse-same-source`), FR-083 as the validator
+  judges it (`FarReuses`, `SameLook`, shared with `CatalogValidator`); `Conflicts` reports it too, and
+  `GenerateCommand.GenerateRange` ends with a pass over the whole range in level order that generates the later level of
+  such a pair again (or the earlier one when the later is kept). Bands that passed `validate` come out the same: each
+  attempt has its own seed, so the new refusal only changes a level that broke the rule. Test:
+  `CatalogRulesTests.APictureUsedAgainFarAway_MustDifferInLookAndSource_AtTheLaterLevel`.
 
 ## Parallel Example: User Story 1
 
