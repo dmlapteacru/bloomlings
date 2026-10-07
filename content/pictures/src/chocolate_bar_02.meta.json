@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "chocolate_bar_02",
+  "legend": {
+    "b": "sky",
+    "c": "chocolate",
+    "d": "blanket_dots",
+    "f": "foil",
+    "k": "ridges",
+    "l": "label",
+    "o": "cloud",
+    "p": "wrapper",
+    "t": "blanket",
+    "v": "hill"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ridges",
+      "roleId": "ridges"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chocolate",
+      "roleId": "chocolate"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Label",
+      "roleId": "label"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wrapper",
+      "roleId": "wrapper"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Foil",
+      "roleId": "foil"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Chocolate bar 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

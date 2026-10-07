@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "crocodile_01",
+  "legend": {
+    "c": "croc",
+    "d": "sand",
+    "k": "dark",
+    "l": "leaves",
+    "q": "scutes",
+    "r": "river",
+    "s": "sky",
+    "u": "sun",
+    "w": "white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Crocodile",
+      "roleId": "croc"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Back ridges",
+      "roleId": "scutes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Teeth, eye white and ripples",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "River",
+      "roleId": "river"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Island",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, nostril and palm trunk",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm leaves and lily pads",
+      "roleId": "leaves"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Crocodile 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "river",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

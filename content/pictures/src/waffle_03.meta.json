@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "waffle_03",
+  "legend": {
+    "b": "sky",
+    "d": "blanket_dots",
+    "i": "ice_cream",
+    "k": "pockets",
+    "m": "leaves",
+    "o": "cloud",
+    "p": "plate",
+    "r": "strawberries",
+    "t": "blanket",
+    "v": "hill",
+    "w": "waffle"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Waffle",
+      "roleId": "waffle"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Waffle pockets",
+      "roleId": "pockets"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Strawberries",
+      "roleId": "strawberries"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Strawberry leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ice cream",
+      "roleId": "ice_cream"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Waffle 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

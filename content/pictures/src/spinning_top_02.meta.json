@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "spinning_top_02",
+  "legend": {
+    "b": "top",
+    "f": "floor",
+    "h": "handle",
+    "k": "shadow",
+    "m": "motion",
+    "o": "planks",
+    "w": "wall",
+    "z": "stripe"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Spinning top",
+      "roleId": "top"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stripes and bunting",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Handle and tip",
+      "roleId": "handle"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Motion lines and window",
+      "roleId": "motion"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shadow",
+      "roleId": "shadow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor lines and frame",
+      "roleId": "planks"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Spinning top 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "toys",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

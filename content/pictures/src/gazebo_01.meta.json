@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "gazebo_01",
+  "legend": {
+    "b": "deck",
+    "e": "trim",
+    "f": "flowers",
+    "g": "lawn",
+    "k": "finial",
+    "l": "rail",
+    "p": "post",
+    "r": "roof",
+    "s": "sky",
+    "t": "bush",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eave trim",
+      "roleId": "trim"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Posts",
+      "roleId": "post"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Railings and frieze",
+      "roleId": "rail"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Finial",
+      "roleId": "finial"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Deck and steps",
+      "roleId": "deck"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lawn",
+      "roleId": "lawn"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bush"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Gazebo 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

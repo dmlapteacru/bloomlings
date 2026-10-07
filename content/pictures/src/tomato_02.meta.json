@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "tomato_02",
+  "legend": {
+    "a": "tomato",
+    "b": "sky",
+    "c": "calyx",
+    "d": "blanket_dots",
+    "h": "shine",
+    "j": "gel",
+    "o": "cloud",
+    "p": "plate",
+    "s": "seeds",
+    "t": "blanket",
+    "v": "hill"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Calyx and vine",
+      "roleId": "calyx"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seed chambers",
+      "roleId": "gel"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate and board",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shine",
+      "roleId": "shine"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tomato 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "vegetables",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

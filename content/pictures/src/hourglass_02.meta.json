@@ -1,0 +1,70 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "hourglass_02",
+  "legend": {
+    "g": "glass",
+    "h": "shine",
+    "k": "frame",
+    "s": "sand",
+    "t": "table",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand and book",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shine and window",
+      "roleId": "shine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Hourglass 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "time",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

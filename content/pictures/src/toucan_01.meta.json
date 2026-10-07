@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "toucan_01",
+  "legend": {
+    "b": "beak",
+    "e": "eye",
+    "f": "flowers",
+    "k": "toucan",
+    "l": "leaves",
+    "n": "branch",
+    "q": "pupil",
+    "s": "sky",
+    "v": "vines",
+    "y": "bib"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers and under-tail",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Toucan",
+      "roleId": "toucan"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak line and pupil",
+      "roleId": "pupil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Throat",
+      "roleId": "bib"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye ring and feet",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Jungle leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Vines and leaf ribs",
+      "roleId": "vines"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Toucan 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "jungle",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

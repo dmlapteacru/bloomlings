@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "carrot_01",
+  "legend": {
+    "b": "wall",
+    "c": "carrot",
+    "d": "cloth_dots",
+    "g": "leaves2",
+    "l": "leaves",
+    "o": "panes",
+    "p": "board",
+    "r": "ridges",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Carrots",
+      "roleId": "carrot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ridges",
+      "roleId": "ridges"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Other leaves",
+      "roleId": "leaves2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Board and plate",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Carrot 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "vegetables",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

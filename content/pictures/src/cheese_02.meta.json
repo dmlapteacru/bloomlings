@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "cheese_02",
+  "legend": {
+    "b": "wall",
+    "c": "top",
+    "d": "cloth_dots",
+    "f": "cheese",
+    "h": "holes",
+    "k": "rind",
+    "o": "wall_dots",
+    "p": "board",
+    "t": "table",
+    "v": "shelf",
+    "x": "crackers"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheese",
+      "roleId": "cheese"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rind, stalk and knife handle",
+      "roleId": "rind"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Top of the cheese",
+      "roleId": "top"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Holes",
+      "roleId": "holes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crackers",
+      "roleId": "crackers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Board",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cheese 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "dishes",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

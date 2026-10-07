@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "pencil_cup_02",
+  "legend": {
+    "a": "red",
+    "c": "cup",
+    "g": "green",
+    "k": "marks",
+    "o": "wood",
+    "p": "pattern",
+    "r": "tool",
+    "t": "desk",
+    "v": "violet",
+    "w": "wall",
+    "y": "yellow"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cup",
+      "roleId": "cup"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cup pattern and eraser",
+      "roleId": "pattern"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red pencil",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet pencil",
+      "roleId": "violet"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yellow pencil",
+      "roleId": "yellow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green pencil",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sharpened wood",
+      "roleId": "wood"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Brush",
+      "roleId": "tool"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rim and marks",
+      "roleId": "marks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Desk",
+      "roleId": "desk"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pencil cup 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "school",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

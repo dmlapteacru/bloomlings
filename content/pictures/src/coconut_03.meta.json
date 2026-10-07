@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "coconut_03",
+  "legend": {
+    "a": "sea",
+    "c": "shell",
+    "d": "sand",
+    "e": "eyes",
+    "h": "fibres",
+    "k": "trunk",
+    "l": "palm",
+    "m": "milk",
+    "r": "straw",
+    "s": "sky",
+    "u": "sun",
+    "w": "flesh"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Coconut water",
+      "roleId": "milk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Palm trunk and stick",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Coconut shell",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun and paper umbrella",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fibres",
+      "roleId": "fibres"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Coconut flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Coconut eyes",
+      "roleId": "eyes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Straw",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm leaves",
+      "roleId": "palm"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Coconut 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "summer",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

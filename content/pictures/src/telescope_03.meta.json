@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "telescope_03",
+  "legend": {
+    "g": "ground",
+    "k": "rim",
+    "l": "tripod",
+    "m": "planet",
+    "n": "night",
+    "q": "detail",
+    "t": "tube",
+    "x": "specks",
+    "y": "moon"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon, stars and window",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tube",
+      "roleId": "tube"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Rims, eyepiece and mount",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tripod",
+      "roleId": "tripod"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tiny stars",
+      "roleId": "specks"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ringed planet",
+      "roleId": "planet"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "House",
+      "roleId": "detail"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Telescope 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "space",
+      "night",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

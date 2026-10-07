@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "lantern_02",
+  "legend": {
+    "c": "cord",
+    "h": "roofs",
+    "k": "cap",
+    "l": "lantern",
+    "m": "moon",
+    "n": "night",
+    "p": "lantern2",
+    "r": "rib",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lantern",
+      "roleId": "lantern"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Other lanterns",
+      "roleId": "lantern2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Caps and tassels",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ribs",
+      "roleId": "rib"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon and windows",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Beam and cords",
+      "roleId": "cord"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Rooftops",
+      "roleId": "roofs"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Lantern 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "festival",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

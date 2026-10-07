@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "sled_01",
+  "legend": {
+    "b": "seat",
+    "k": "runner",
+    "n": "sky",
+    "p": "pine",
+    "t": "rope",
+    "u": "sun",
+    "v": "tracks",
+    "w": "snow",
+    "x": "snowflake"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Winter sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sled seat",
+      "roleId": "seat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Runners, posts, trunks and cabin",
+      "roleId": "runner"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Rope and window",
+      "roleId": "rope"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snow",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Tracks and snowy roof",
+      "roleId": "tracks"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowflakes",
+      "roleId": "snowflake"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Sled 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "vehicles",
+      "winter",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

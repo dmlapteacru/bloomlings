@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "paint_palette_03",
+  "legend": {
+    "a": "red",
+    "b": "blue",
+    "c": "cyan",
+    "e": "canvas",
+    "f": "floor",
+    "g": "green",
+    "h": "brush",
+    "p": "palette",
+    "v": "violet",
+    "w": "wall",
+    "y": "ferrule"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Palette",
+      "roleId": "palette"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red paint",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet paint",
+      "roleId": "violet"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue paint",
+      "roleId": "blue"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Light blue paint",
+      "roleId": "cyan"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green paint and hills",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Brush handles and frames",
+      "roleId": "brush"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ferrules",
+      "roleId": "ferrule"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Canvas and jars",
+      "roleId": "canvas"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor, shelf and easel",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Paint palette 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "hobby",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

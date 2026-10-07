@@ -1,0 +1,76 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "bell_03",
+  "legend": {
+    "b": "bell",
+    "c": "clapper",
+    "h": "handle",
+    "k": "band",
+    "t": "table",
+    "w": "wall",
+    "z": "ring"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bell",
+      "roleId": "bell"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bands",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clapper",
+      "roleId": "clapper"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Handle",
+      "roleId": "handle"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ringing",
+      "roleId": "ring"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bell 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "school",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

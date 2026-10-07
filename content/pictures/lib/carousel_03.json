@@ -1,0 +1,127 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11],
+    [11, 11, 11, 12, 11, 11, 12, 11, 11, 12, 11, 11, 12, 11, 11, 12, 11, 11, 12, 11, 11, 11],
+    [11, 11, 11, 4, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11],
+    [0, -1, 0, 4, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0],
+    [0, 0, 10, 10, 8, 8, 8, 9, 8, 8, 9, 8, 8, 9, 8, 8, 9, 8, 8, 9, 8, 0],
+    [0, 10, 10, 10, 10, 8, 8, 8, 4, 8, 8, 8, 6, 8, 8, 8, 6, 8, 6, 8, 0, 0],
+    [0, 10, 10, 10, 10, 0, 0, 0, 4, 0, 0, 3, 3, 6, 0, 0, 6, 6, 6, 0, 0, 0],
+    [0, 10, 10, 10, 6, 0, 0, -1, 6, 0, 6, 3, 3, -1, 6, 6, 6, 6, 6, 0, -1, 0],
+    [0, 0, 10, 10, 0, 6, -1, 0, 6, 0, 6, 3, 3, 0, 6, 6, 6, 6, 6, 6, 0, 0],
+    [0, 0, 0, 0, 0, -1, 6, 6, 6, 6, 6, 3, 3, -1, 6, 7, 7, 7, -1, 6, -1, -1],
+    [-1, 0, 0, 0, 0, -1, 6, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 0, 0, 0, 0, 0],
+    [0, -1, -1, 0, 0, -1, 6, 7, 7, 7, 0, 6, 6, 6, 6, 6, 4, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 6, 0, 6, 6, 6, 0, 0, 3, 3, 6, 6, -1, 4, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 6, 6, 6, 6, 4, -1, 0, 3, 3, 0, 0, 0, 4, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 6, 6, -1, 4, 0, 0, 3, 3, 0, 0, -1, 4, -1, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 4, -1, 0, 3, 3, 0, 0, 0, 4, 0, -1, 0, 0, 0],
+    [0, 0, 0, -1, 2, 2, 2, 1, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2, 1, 1, 0, 0],
+    [0, -1, 0, 0, 2, 9, 2, 1, 9, 1, 9, 2, 1, 9, 1, 2, 9, 1, 1, 9, 0, 0],
+    [0, 0, 0, 0, 0, 0, 2, 2, 1, 1, 2, 2, 1, 1, 2, 2, 2, 1, 1, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 1, 2, 1, 1, 2, 2, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 1, 2, 1, 1, 2, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, -1, 0, 0, 0, 0, 0, 2, 1, 2, 1, 2, 1, 0, 0, -1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 2, 1, 1, 2, 0, -1, 0, 0, 0, 0, -1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 2, 4, 0, -1, 0, 0, 0, 0, 0, -1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 5, 5, 5, 0, 0, 0, 0, 0, 0, 10, 10, 4, 0, -1, -1, 0, 0, -1, 0, 0, 0],
+    [0, 5, 5, 5, 0, 0, 0, -1, 0, 0, 10, 10, 4, -1, 0, -1, 0, 0, 0, 0, 0, 0],
+    [-1, -1, 5, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, -1]
+  ],
+  "height": 28,
+  "id": "carousel_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Canopy stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Other stripes",
+      "roleId": "stripe2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Centre column",
+      "roleId": "column"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Poles and booth",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Horses",
+      "roleId": "horse"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Saddles",
+      "roleId": "saddle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Platform",
+      "roleId": "platform"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lights",
+      "roleId": "lights"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Flag and tree",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lawn dots",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.418,
+    "nestingDepth": 5,
+    "regionCount": 64
+  },
+  "subject": "Carousel 3",
+  "tags": {
+    "bands": ["daily"],
+    "themes": ["places", "fair", "daily"]
+  },
+  "version": 1,
+  "width": 22
+}

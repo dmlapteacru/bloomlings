@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "skateboard_01",
+  "legend": {
+    "b": "deck",
+    "c": "coping",
+    "g": "ground",
+    "k": "grip",
+    "o": "cloud",
+    "q": "lines",
+    "r": "ramp",
+    "s": "sky",
+    "t": "truck",
+    "u": "sun",
+    "w": "wheel"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Deck",
+      "roleId": "deck"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Grip tape",
+      "roleId": "grip"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Trucks",
+      "roleId": "truck"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wheels",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cones",
+      "roleId": "ramp"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cone stripes",
+      "roleId": "coping"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Path",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ground and motion lines",
+      "roleId": "lines"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Skateboard 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "toys",
+      "park",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

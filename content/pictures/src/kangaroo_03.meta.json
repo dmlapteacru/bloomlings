@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "kangaroo_03",
+  "legend": {
+    "g": "grass",
+    "k": "kangaroo",
+    "m": "shadow",
+    "n": "eye",
+    "p": "pouch",
+    "s": "sky",
+    "t": "tree",
+    "u": "sun",
+    "w": "eye_white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Kangaroo",
+      "roleId": "kangaroo"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes, nose and trunk",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pouch and ears",
+      "roleId": "pouch"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye white",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Shadow",
+      "roleId": "shadow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Gum tree",
+      "roleId": "tree"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Kangaroo 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "outback",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

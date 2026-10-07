@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "jam_jar_02",
+  "legend": {
+    "b": "wall",
+    "c": "cloth",
+    "d": "cloth_dots",
+    "g": "glass",
+    "j": "jam",
+    "k": "string",
+    "l": "label",
+    "m": "lid",
+    "o": "panes",
+    "t": "table",
+    "v": "frame",
+    "x": "cover_dots"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Jam",
+      "roleId": "jam"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth",
+      "roleId": "cloth"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Label",
+      "roleId": "label"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "String",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lid and spoon",
+      "roleId": "lid"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cover dots",
+      "roleId": "cover_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Jam jar 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

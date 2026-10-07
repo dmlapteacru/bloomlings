@@ -1,0 +1,76 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "pyramid_01",
+  "legend": {
+    "a": "dune",
+    "d": "door",
+    "e": "far_dune",
+    "p": "face",
+    "q": "shade",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sunny face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shaded face and steps",
+      "roleId": "shade"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Entrance and pool",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Near dunes",
+      "roleId": "dune"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far dunes",
+      "roleId": "far_dune"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pyramid 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "desert",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

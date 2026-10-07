@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "beehive_03",
+  "legend": {
+    "d": "hole",
+    "e": "bees",
+    "f": "flowers",
+    "g": "grass",
+    "k": "hive",
+    "l": "coils",
+    "m": "hills",
+    "s": "sky",
+    "t": "stand",
+    "u": "sun",
+    "v": "leaves"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Entrance",
+      "roleId": "hole"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hive",
+      "roleId": "hive"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stand and branch",
+      "roleId": "stand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bees",
+      "roleId": "bees"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Coils and lid",
+      "roleId": "coils"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves and stems",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Beehive 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "koala_01",
+  "legend": {
+    "e": "nose",
+    "f": "fluff",
+    "k": "koala",
+    "l": "leaves",
+    "m": "moon",
+    "n": "tree",
+    "s": "sky",
+    "v": "sprig"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Koala",
+      "roleId": "koala"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Fluff",
+      "roleId": "fluff"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tree",
+      "roleId": "tree"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Nose, eyes and claws",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon and stars",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Gum leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf sprig and bushes",
+      "roleId": "sprig"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Koala 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "forest",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

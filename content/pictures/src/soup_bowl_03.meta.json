@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "soup_bowl_03",
+  "legend": {
+    "b": "wall",
+    "c": "cream",
+    "d": "cloth_dots",
+    "e": "band",
+    "k": "spoon",
+    "m": "steam",
+    "o": "wall_dots",
+    "s": "soup",
+    "t": "table",
+    "v": "shelf",
+    "w": "bowl",
+    "x": "herbs"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bowl, pot and mug",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Band",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pumpkin soup and broth",
+      "roleId": "soup"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Herbs and green onion",
+      "roleId": "herbs"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Spoon, ladle and handles",
+      "roleId": "spoon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Soup bowl 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "dishes",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

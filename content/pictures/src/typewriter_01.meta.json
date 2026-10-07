@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "typewriter_01",
+  "legend": {
+    "b": "body",
+    "k": "keys",
+    "l": "detail",
+    "p": "paper",
+    "r": "roller",
+    "t": "desk",
+    "w": "wall",
+    "x": "text"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Typewriter",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Paper and picture",
+      "roleId": "paper"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Typed lines and book",
+      "roleId": "text"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Roller, lever, space bar and shelf",
+      "roleId": "roller"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Keys",
+      "roleId": "keys"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Books",
+      "roleId": "detail"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Desk",
+      "roleId": "desk"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Typewriter 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "desk",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

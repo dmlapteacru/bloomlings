@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "magic_wand_02",
+  "legend": {
+    "g": "ground",
+    "k": "wand",
+    "n": "night",
+    "o": "cloud",
+    "q": "glow",
+    "r": "ribbon",
+    "w": "grip",
+    "x": "sparkle",
+    "y": "star"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Star",
+      "roleId": "star"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wand",
+      "roleId": "wand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Grip",
+      "roleId": "grip"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Star glow",
+      "roleId": "glow"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ribbon and flowers",
+      "roleId": "ribbon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon and sparkles",
+      "roleId": "sparkle"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Clouds",
+      "roleId": "ground"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Magic wand 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "magic",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

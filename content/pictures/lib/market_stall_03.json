@@ -1,0 +1,122 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 7, 7, 7],
+    [0, -1, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, -1, 0],
+    [-1, -1, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0],
+    [0, -1, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0],
+    [-1, 0, -1, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, -1],
+    [0, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, -1, 0, 0],
+    [0, -1, 0, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0],
+    [0, -1, 0, 8, 1, 10, 10, 1, 1, 1, 10, 10, 1, 1, 1, 10, 10, 1, 8, 0, 0, 0],
+    [-1, 0, -1, 8, 1, 10, 10, 1, 1, 1, 10, 10, 1, 1, 1, 10, 10, 1, 8, -1, 0, 0],
+    [0, -1, 0, 8, 1, 6, 6, 1, 1, 1, 6, 6, 1, 1, 1, 6, 6, 1, 8, 0, -1, 0],
+    [0, 0, 0, 8, 4, 4, 3, 3, 1, 4, 4, 3, 3, 1, 4, 4, 3, 3, 8, 0, -1, 0],
+    [0, -1, -1, 8, 4, 4, 4, 3, 1, 4, 3, 3, 3, 1, 4, 4, 4, 3, 8, 0, 0, 0],
+    [0, -1, 0, 8, 4, 4, 4, 1, 1, 1, 3, 3, 1, 1, 1, 4, 4, 2, 8, -1, -1, 0],
+    [0, 0, 0, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 0, -1, 0],
+    [0, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 0],
+    [0, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 0],
+    [0, 0, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 0, -1],
+    [0, -1, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 5, 2, 2, 5, 0, 0],
+    [-1, 0, 0, -1, 0, -1, -1, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, -1, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 0, 0, 0, -1, 0, -1, 0],
+    [0, -1, 0, 0, -1, -1, 0, 10, 10, 10, 3, 3, 10, 10, 10, -1, 0, 0, -1, -1, -1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 10, 10, 10, 10, 0, -1, 0, 0, -1, -1, 0],
+    [0, 0, 0, 0, 0, 0, 0, -1, 10, 10, 10, 10, 10, 10, -1, -1, 0, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 0, -1, -1, -1, -1, 11, 11, 11, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 11, 11, 11, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 11, 0, -1]
+  ],
+  "height": 28,
+  "id": "market_stall_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Back cloth",
+      "roleId": "back"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Awning stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Apples and flowers",
+      "roleId": "apples"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plums and blooms",
+      "roleId": "plums"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Other stripes",
+      "roleId": "stripe2"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Greens",
+      "roleId": "greens"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Posts",
+      "roleId": "posts"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Counter",
+      "roleId": "counter"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crates and sign",
+      "roleId": "crates"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.269,
+    "nestingDepth": 5,
+    "regionCount": 49
+  },
+  "subject": "Market stall 3",
+  "tags": {
+    "bands": ["daily"],
+    "themes": ["places", "market", "daily"]
+  },
+  "version": 1,
+  "width": 22
+}

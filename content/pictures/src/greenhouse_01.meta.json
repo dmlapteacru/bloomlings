@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "greenhouse_01",
+  "legend": {
+    "d": "door",
+    "f": "frame",
+    "g": "grass",
+    "k": "pot",
+    "o": "flowers",
+    "p": "plants",
+    "q": "glass",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pots",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Plants",
+      "roleId": "plants"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Door and watering can",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Greenhouse 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "dragon_02",
+  "legend": {
+    "b": "belly",
+    "c": "castle",
+    "d": "dragon",
+    "e": "eye_white",
+    "f": "fire",
+    "g": "hill",
+    "h": "horns",
+    "k": "eye",
+    "q": "spikes",
+    "s": "sky",
+    "w": "wing",
+    "y": "flame"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Dragon",
+      "roleId": "dragon"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Spikes, wing bones and tail tip",
+      "roleId": "spikes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horns",
+      "roleId": "horns"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flame core, gold, moon and stars",
+      "roleId": "flame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fire",
+      "roleId": "fire"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and nostril",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white and eggs",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Castle, clouds and smoke",
+      "roleId": "castle"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Dragon 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "fairy",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

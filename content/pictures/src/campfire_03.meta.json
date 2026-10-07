@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "campfire_03",
+  "legend": {
+    "f": "flame",
+    "g": "clearing",
+    "k": "stones",
+    "l": "logs",
+    "m": "moon",
+    "n": "night",
+    "p": "pines",
+    "x": "stars",
+    "y": "core",
+    "z": "sparks"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stones",
+      "roleId": "stones"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flames",
+      "roleId": "flame"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sparks",
+      "roleId": "sparks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flame core",
+      "roleId": "core"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Logs",
+      "roleId": "logs"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pines"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Clearing",
+      "roleId": "clearing"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Campfire 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "camping",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

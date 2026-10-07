@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "camera_01",
+  "legend": {
+    "b": "body",
+    "c": "top",
+    "g": "glass",
+    "k": "button",
+    "l": "ring",
+    "o": "photo",
+    "p": "pupil",
+    "t": "table",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Camera",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Top plate and glint",
+      "roleId": "top"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Lens ring",
+      "roleId": "ring"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass and flash",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lens center",
+      "roleId": "pupil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Buttons, slot and string",
+      "roleId": "button"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Photos and frames",
+      "roleId": "photo"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Camera 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "hobby",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

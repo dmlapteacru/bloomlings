@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "scooter_03",
+  "legend": {
+    "b": "scooter",
+    "e": "grip",
+    "g": "grass",
+    "k": "wheel",
+    "m": "hub",
+    "o": "flowers",
+    "q": "green",
+    "s": "sky",
+    "t": "wood",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Scooter",
+      "roleId": "scooter"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Grips",
+      "roleId": "grip"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wheels",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cloud",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fence",
+      "roleId": "wood"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Scooter 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "vehicles",
+      "park",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

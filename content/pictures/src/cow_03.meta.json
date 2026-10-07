@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "cow_03",
+  "legend": {
+    "c": "cloud",
+    "g": "meadow",
+    "k": "spots",
+    "m": "muzzle",
+    "n": "barn",
+    "s": "sky",
+    "t": "trees",
+    "w": "cow",
+    "y": "bell"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "brown_orange",
+      "isBackground": true,
+      "name": "Morning sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cow",
+      "roleId": "cow"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Muzzle, udder and barn door",
+      "roleId": "muzzle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Spots, hooves and eyes",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bell and flowers",
+      "roleId": "bell"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds, horns and eye whites",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Barn and trunks",
+      "roleId": "barn"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Trees, roof and hills",
+      "roleId": "trees"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cow 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "farm",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

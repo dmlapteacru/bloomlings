@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "zeppelin_03",
+  "legend": {
+    "c": "cloud",
+    "e": "envelope",
+    "f": "fin",
+    "g": "gondola",
+    "h": "land",
+    "i": "window",
+    "s": "sky",
+    "u": "sun",
+    "v": "fields"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Airship",
+      "roleId": "envelope"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fins, nose and bands",
+      "roleId": "fin"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Gondola",
+      "roleId": "gondola"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Fields",
+      "roleId": "land"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Fields",
+      "roleId": "fields"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Zeppelin 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "vehicles",
+      "sky",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

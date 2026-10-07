@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "flamingo_01",
+  "legend": {
+    "k": "dark",
+    "l": "leaves",
+    "p": "flamingo",
+    "q": "wing",
+    "r": "ripples",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun",
+    "w": "lagoon",
+    "y": "beak"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flamingo",
+      "roleId": "flamingo"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak tip and eye",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Palm trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lagoon",
+      "roleId": "lagoon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ripples",
+      "roleId": "ripples"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm and reeds",
+      "roleId": "leaves"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Flamingo 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "beach",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "lily_pond_01",
+  "legend": {
+    "b": "bank",
+    "c": "cattails",
+    "f": "lily",
+    "k": "sky",
+    "p": "pads",
+    "r": "reeds",
+    "t": "trees",
+    "u": "sun",
+    "w": "pond",
+    "y": "centers"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Pond",
+      "roleId": "pond"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lily pads",
+      "roleId": "pads"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far bank",
+      "roleId": "bank"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Trees",
+      "roleId": "trees"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Reeds",
+      "roleId": "reeds"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Water lilies",
+      "roleId": "lily"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cattails",
+      "roleId": "cattails"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Lily centers",
+      "roleId": "centers"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Lily pond 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "pond",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

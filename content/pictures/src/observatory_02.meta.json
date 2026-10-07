@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "observatory_02",
+  "legend": {
+    "d": "dome",
+    "g": "hill",
+    "k": "slit",
+    "m": "moon",
+    "n": "night",
+    "o": "door",
+    "p": "pines",
+    "t": "telescope",
+    "w": "base",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Slit and rim",
+      "roleId": "slit"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Dome",
+      "roleId": "dome"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Door and windows",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Base",
+      "roleId": "base"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Telescope",
+      "roleId": "telescope"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pines"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Observatory 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "night",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

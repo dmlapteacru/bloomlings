@@ -1,0 +1,122 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [0, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 6, 6, 0, 6, 6, 0, 3, 3, 3, 3, 3, 3, 0, -1, 0, 0, 0, 0, 0, -1, 0],
+    [0, 6, 9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+    [9, 9, 9, 9, 9, 9, 3, 3, 3, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 9, 9, 9, 9, 9, 9, 3, 3, 3, -1, 0],
+    [-1, 0, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 1, 3, 3, 3, 3, 3, 3, 3, 3, 0],
+    [0, 1, 1, 2, 2, 1, 1, 2, 2, 1, 1, 1, 2, 2, 2, 3, 3, 3, 0, 0, -1, -1],
+    [0, 1, 7, 2, 7, 1, 7, 2, 7, 1, 1, 2, 2, 7, 1, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 1, 0, 2, 0, 1, 0, 2, 2, 1, 1, 2, 2, 1, 1, 1, 0, 0, -1, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 1, 7, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 1, 1, 1, 0, 0, -1, 0, 0],
+    [0, -1, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, -1, 0, 0, 2, 2, -1, 0, -1, 0],
+    [0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 2, 5, 5, 5, 5, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 2, 5, 5, 8, 5, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 5, 11, 8, 11, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 5, 11, 8, 11, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 5, 5, 0, 0],
+    [0, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 8, 0, 0, 8, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 10, 0, 0, 8, 0],
+    [0, -1, 0, 0, -1, 11, 11, 11, 11, -1, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 11, 11, 0, 0, 0, 0, 0, 0, 0, 10, 10, 10, 10, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 28,
+  "id": "caterpillar_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Caterpillar",
+      "roleId": "caterpillar"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Striped segments",
+      "roleId": "segments"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass and stems",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers and butterfly",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dots",
+      "roleId": "dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Feet, eye and antennae",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Leaf vein and flower centres",
+      "roleId": "vein"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white and cloud",
+      "roleId": "eye_white"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.537,
+    "nestingDepth": 5,
+    "regionCount": 44
+  },
+  "subject": "Caterpillar 2",
+  "tags": {
+    "bands": ["daily"],
+    "themes": ["animals", "garden", "daily"]
+  },
+  "version": 1,
+  "width": 22
+}

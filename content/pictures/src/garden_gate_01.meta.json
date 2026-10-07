@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "garden_gate_01",
+  "legend": {
+    "f": "flowers",
+    "g": "lawn",
+    "h": "hedge",
+    "k": "gate",
+    "p": "path",
+    "q": "rails",
+    "r": "roses",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stepping stones",
+      "roleId": "path"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Gate and posts",
+      "roleId": "gate"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rails and caps",
+      "roleId": "rails"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hedges and tree",
+      "roleId": "hedge"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lawn",
+      "roleId": "lawn"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roses and lantern",
+      "roleId": "roses"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Garden gate 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,70 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "harp_02",
+  "legend": {
+    "b": "soundbox",
+    "f": "floor",
+    "m": "notes",
+    "p": "frame",
+    "s": "string",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pillar and neck",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Soundbox",
+      "roleId": "soundbox"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strings",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Clouds",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stars",
+      "roleId": "notes"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Harp 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "music",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

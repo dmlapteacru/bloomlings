@@ -1,0 +1,70 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "trumpet_03",
+  "legend": {
+    "c": "curtain",
+    "f": "floor",
+    "k": "cap",
+    "m": "notes",
+    "t": "brass",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Stage wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trumpet",
+      "roleId": "brass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Valve caps, bell rim and cords",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Curtains",
+      "roleId": "curtain"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stage",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Trumpet 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "music",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

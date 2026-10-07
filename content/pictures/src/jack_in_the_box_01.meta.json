@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "jack_in_the_box_01",
+  "legend": {
+    "b": "box",
+    "c": "hat",
+    "f": "face",
+    "g": "floor",
+    "q": "collar",
+    "s": "spring",
+    "w": "wall",
+    "x": "deco"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Box and lid",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Box pattern and pompoms",
+      "roleId": "deco"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Spring, rims, crank and eyes",
+      "roleId": "spring"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Collar, nose and smile",
+      "roleId": "collar"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Hat",
+      "roleId": "hat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Jack in the box 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "toys",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "tram_03",
+  "legend": {
+    "b": "body",
+    "c": "upper",
+    "d": "street",
+    "h": "town",
+    "i": "window",
+    "k": "wheel",
+    "p": "wire",
+    "q": "tree",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lower body",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Upper body and lamps",
+      "roleId": "upper"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof, pantograph, wire and pole",
+      "roleId": "wire"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wheels and rails",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Street",
+      "roleId": "street"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "town"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Trees",
+      "roleId": "tree"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tram 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "vehicles",
+      "town",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

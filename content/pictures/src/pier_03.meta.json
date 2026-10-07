@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "pier_03",
+  "legend": {
+    "b": "beach",
+    "d": "deck",
+    "e": "hut",
+    "l": "lamp",
+    "p": "posts",
+    "q": "gulls",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea",
+    "z": "glints"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Deck",
+      "roleId": "deck"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Posts and rails",
+      "roleId": "posts"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Gulls",
+      "roleId": "gulls"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hut",
+      "roleId": "hut"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Glints on the water",
+      "roleId": "glints"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lamp and hut roof",
+      "roleId": "lamp"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Beach",
+      "roleId": "beach"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pier 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "sea",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "caterpillar_03",
+  "legend": {
+    "c": "caterpillar",
+    "d": "segments",
+    "e": "eye_white",
+    "f": "flowers",
+    "g": "grass",
+    "h": "head",
+    "k": "dark",
+    "l": "leaf",
+    "n": "vein",
+    "p": "dots",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Caterpillar",
+      "roleId": "caterpillar"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Striped segments",
+      "roleId": "segments"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass and stems",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers and butterfly",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dots",
+      "roleId": "dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Feet, eye and antennae",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Leaf vein and flower centres",
+      "roleId": "vein"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white and cloud",
+      "roleId": "eye_white"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Caterpillar 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "cave_01",
+  "legend": {
+    "c": "glow",
+    "d": "mouth",
+    "f": "moss",
+    "g": "ground",
+    "k": "rock",
+    "l": "cracks",
+    "s": "sky",
+    "u": "moon",
+    "w": "stream",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cave mouth",
+      "roleId": "mouth"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stream",
+      "roleId": "stream"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rock",
+      "roleId": "rock"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cracks",
+      "roleId": "cracks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Crystals and eyes",
+      "roleId": "glow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Moss and ferns",
+      "roleId": "moss"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cave 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "adventure",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

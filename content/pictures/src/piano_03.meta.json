@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "piano_03",
+  "legend": {
+    "b": "piano",
+    "e": "white",
+    "f": "floor",
+    "k": "black",
+    "m": "sheet",
+    "n": "notes",
+    "o": "stool",
+    "v": "vase",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Piano",
+      "roleId": "piano"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "White keys and window",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Black keys and pedals",
+      "roleId": "black"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sheet music, candles and picture",
+      "roleId": "sheet"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stool, flowers and flames",
+      "roleId": "stool"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Vase, metronome, frame and rug",
+      "roleId": "vase"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Piano 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "music",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

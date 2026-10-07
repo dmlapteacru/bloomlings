@@ -1,0 +1,76 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "candy_cane_01",
+  "legend": {
+    "a": "red",
+    "b": "sky",
+    "d": "blanket_dots",
+    "o": "cloud",
+    "t": "blanket",
+    "v": "hill",
+    "w": "white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red stripes",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "green",
+      "name": "White stripes",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Candy cane 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

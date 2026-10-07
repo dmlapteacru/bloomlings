@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "camel_03",
+  "legend": {
+    "c": "camel",
+    "d": "dunes",
+    "e": "eye_white",
+    "k": "dark",
+    "l": "plants",
+    "o": "oasis",
+    "p": "blanket",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Camel",
+      "roleId": "camel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Knees, eye, tail and trunk",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dunes",
+      "roleId": "dunes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Oasis",
+      "roleId": "oasis"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm and cactus",
+      "roleId": "plants"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Camel 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "desert",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

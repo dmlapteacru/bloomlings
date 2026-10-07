@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "tomato_03",
+  "legend": {
+    "a": "tomato",
+    "b": "wall",
+    "c": "calyx",
+    "d": "cloth_dots",
+    "h": "shine",
+    "o": "wall_dots",
+    "p": "plate",
+    "t": "table",
+    "v": "shelf"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Calyx and vine",
+      "roleId": "calyx"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate and board",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shine",
+      "roleId": "shine"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tomato 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "vegetables",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

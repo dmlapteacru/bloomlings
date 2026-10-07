@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "beetle_02",
+  "legend": {
+    "b": "leaf",
+    "c": "center",
+    "d": "dew",
+    "e": "beetle",
+    "f": "flower",
+    "h": "shine",
+    "k": "dark",
+    "v": "veins"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf veins",
+      "roleId": "veins"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Beetle",
+      "roleId": "beetle"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shine",
+      "roleId": "shine"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Dew drops",
+      "roleId": "dew"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flower centre",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Head, legs and horns",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower",
+      "roleId": "flower"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Beetle 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "insects",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

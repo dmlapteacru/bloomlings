@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "volcano_03",
+  "legend": {
+    "c": "smoke",
+    "f": "fire",
+    "g": "ground",
+    "l": "lava",
+    "m": "mountain",
+    "n": "ridge",
+    "p": "palm",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Volcano",
+      "roleId": "mountain"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ridges",
+      "roleId": "ridge"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lava",
+      "roleId": "lava"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eruption",
+      "roleId": "fire"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Smoke",
+      "roleId": "smoke"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Jungle and beach",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm leaves",
+      "roleId": "palm"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Palm trunks",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Volcano 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "nature",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

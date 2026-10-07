@@ -1469,7 +1469,7 @@ def jam_jar(w, h, r):
     S = setting_roles(kind, (GREEN, GREEN, BLUE, BROWN, BROWN))
     return cv, [S['b'], role('j', 'jam', 'Jam', PINK), role('c', 'cloth', 'Cloth', PINK), S['t'], S['d'], role('l', 'label', 'Label', BROWN),
                 role('k', 'string', 'String', BROWN), role('g', 'glass', 'Glass', BLUE), role('m', 'lid', 'Lid and spoon', BLUE),
-                role('x', 'cloth_dots', 'Cloth dots', GREEN), role('p', 'plate', 'Plate', GREEN), S['o'], S['v']], ['food', 'sweets']
+                role('x', 'cover_dots', 'Cover dots', GREEN), role('p', 'plate', 'Plate', GREEN), S['o'], S['v']], ['food', 'sweets']
 
 
 def loaf(cv, x0, x1, top, yb, slashes, cut=False):

@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "waterfall_02",
+  "legend": {
+    "b": "flowers",
+    "d": "ledge",
+    "f": "foam",
+    "g": "bank",
+    "k": "cliff",
+    "p": "pine",
+    "s": "sky",
+    "u": "sun",
+    "v": "hills",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Foam",
+      "roleId": "foam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cliffs",
+      "roleId": "cliff"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ledges",
+      "roleId": "ledge"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Forest hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pines",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Banks",
+      "roleId": "bank"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Waterfall 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "nature",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

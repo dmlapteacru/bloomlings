@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "market_stall_02",
+  "legend": {
+    "a": "stripe",
+    "b": "stripe2",
+    "c": "counter",
+    "f": "apples",
+    "g": "ground",
+    "k": "crates",
+    "o": "plums",
+    "p": "posts",
+    "s": "sky",
+    "u": "sun",
+    "v": "greens",
+    "w": "back"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Back cloth",
+      "roleId": "back"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Awning stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Apples and flowers",
+      "roleId": "apples"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plums and blooms",
+      "roleId": "plums"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Other stripes",
+      "roleId": "stripe2"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Greens",
+      "roleId": "greens"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Posts",
+      "roleId": "posts"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Counter",
+      "roleId": "counter"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crates and sign",
+      "roleId": "crates"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Market stall 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "market",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

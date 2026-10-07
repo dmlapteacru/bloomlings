@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "banana_02",
+  "legend": {
+    "b": "wall",
+    "d": "cloth_dots",
+    "e": "peel_lines",
+    "k": "stem",
+    "o": "wall_dots",
+    "p": "plate",
+    "t": "table",
+    "v": "shelf",
+    "y": "banana"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stem and tips",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Banana",
+      "roleId": "banana"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Peel lines",
+      "roleId": "peel_lines"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Banana 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "fruit",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

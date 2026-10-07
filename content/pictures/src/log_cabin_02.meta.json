@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "log_cabin_02",
+  "legend": {
+    "a": "autumn",
+    "c": "chimney",
+    "d": "door",
+    "g": "ground",
+    "h": "logs",
+    "i": "window",
+    "k": "smoke",
+    "l": "lines",
+    "r": "roof",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Logs",
+      "roleId": "logs"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Log lines",
+      "roleId": "lines"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chimney",
+      "roleId": "chimney"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunks",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Autumn leaves",
+      "roleId": "autumn"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Smoke",
+      "roleId": "smoke"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Log cabin 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "forest",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

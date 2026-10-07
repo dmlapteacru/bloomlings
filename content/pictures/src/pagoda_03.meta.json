@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "pagoda_03",
+  "legend": {
+    "g": "grass",
+    "h": "wall",
+    "i": "window",
+    "k": "spire",
+    "r": "roof",
+    "s": "sky",
+    "u": "moon",
+    "v": "mountain",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roofs",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Walls",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows and door",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Spire and steps",
+      "roleId": "spire"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Mountain and hills",
+      "roleId": "mountain"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pagoda 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "travel",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

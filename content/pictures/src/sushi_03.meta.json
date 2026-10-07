@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "sushi_03",
+  "legend": {
+    "b": "wall",
+    "c": "cucumber",
+    "e": "stripes",
+    "f": "fish",
+    "k": "board",
+    "n": "nori",
+    "o": "panes",
+    "t": "table",
+    "v": "frame",
+    "w": "rice"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fish and filling",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fish stripes",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Rice",
+      "roleId": "rice"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Nori",
+      "roleId": "nori"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cucumber and wasabi",
+      "roleId": "cucumber"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Sushi 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "dishes",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "fountain_03",
+  "legend": {
+    "d": "rim",
+    "g": "plaza",
+    "k": "stone",
+    "p": "spray",
+    "q": "tiles",
+    "s": "sky",
+    "t": "hedge",
+    "u": "moon",
+    "w": "water",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Evening sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bowls and basin",
+      "roleId": "stone"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rim and pedestal",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Spray",
+      "roleId": "spray"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lawn",
+      "roleId": "plaza"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hedge and trees",
+      "roleId": "hedge"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Lawn dots",
+      "roleId": "tiles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Fountain 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "park",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

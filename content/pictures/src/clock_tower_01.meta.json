@@ -1,0 +1,112 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "clock_tower_01",
+  "legend": {
+    "c": "rim",
+    "d": "door",
+    "e": "house",
+    "f": "face",
+    "g": "grass",
+    "h": "tower",
+    "i": "window",
+    "k": "hands",
+    "q": "house_roof",
+    "r": "roof",
+    "s": "sky",
+    "u": "moon",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tower",
+      "roleId": "tower"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Clock rim and ledge",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clock face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hands and pole",
+      "roleId": "hands"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Houses",
+      "roleId": "house"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "House roofs and trunks",
+      "roleId": "house_roof"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Clock tower 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "town",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

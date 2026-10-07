@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "corn_03",
+  "legend": {
+    "b": "wall",
+    "d": "cloth_dots",
+    "g": "husk",
+    "k": "silk",
+    "l": "husk2",
+    "n": "kernels",
+    "o": "wall_dots",
+    "p": "plate",
+    "t": "table",
+    "v": "shelf",
+    "y": "cob"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Kernel rows",
+      "roleId": "kernels"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Silk",
+      "roleId": "silk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cob",
+      "roleId": "cob"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Husk and stalk",
+      "roleId": "husk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Inner husk",
+      "roleId": "husk2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Corn 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "vegetables",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

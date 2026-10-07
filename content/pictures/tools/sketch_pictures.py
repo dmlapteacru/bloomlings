@@ -562,6 +562,10 @@ def sketch(subject, w, h, seed, style, where):
     roles = [role for role in roles if role[0] in used]
     issues, six, held = [], False, []
     if style:
+        ids = [role[1] for role in roles]
+        twice = sorted({i for i in ids if ids.count(i) > 1})
+        if twice:
+            issues.append(f'{where}: role ids used twice {twice}')
         depth, share = structure(cv, roles)
         fewest, most = variants(roles)
         six = fewest <= 6 <= most

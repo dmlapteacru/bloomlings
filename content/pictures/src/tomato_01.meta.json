@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "tomato_01",
+  "legend": {
+    "a": "tomato",
+    "b": "wall",
+    "c": "calyx",
+    "d": "cloth_dots",
+    "j": "gel",
+    "o": "panes",
+    "p": "plate",
+    "s": "seeds",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Calyx and vine",
+      "roleId": "calyx"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seed chambers",
+      "roleId": "gel"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate and board",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tomato 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "vegetables",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "mountain_02",
+  "legend": {
+    "g": "meadow",
+    "m": "rock",
+    "p": "forest",
+    "r": "shade",
+    "s": "sky",
+    "u": "sun",
+    "w": "lake",
+    "x": "snow"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lake and river",
+      "roleId": "lake"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sunny rock",
+      "roleId": "rock"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shaded rock",
+      "roleId": "shade"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snow",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Forest",
+      "roleId": "forest"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mountain 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "mountains",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

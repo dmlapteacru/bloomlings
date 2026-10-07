@@ -1,0 +1,76 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "dolphin_03",
+  "legend": {
+    "b": "belly",
+    "d": "dolphin",
+    "e": "splash",
+    "k": "eye",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dolphin",
+      "roleId": "dolphin"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Splash",
+      "roleId": "splash"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, smile and gulls",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Dolphin 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "sea",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

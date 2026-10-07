@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "jellyfish_01",
+  "legend": {
+    "c": "coral",
+    "d": "sand",
+    "e": "eye_white",
+    "g": "weed",
+    "j": "jelly",
+    "k": "eye",
+    "o": "bubbles",
+    "q": "tentacles",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye whites",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Jellyfish",
+      "roleId": "jelly"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tentacles and spots",
+      "roleId": "tentacles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes and smile",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Coral",
+      "roleId": "coral"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Jellyfish 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "sea",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

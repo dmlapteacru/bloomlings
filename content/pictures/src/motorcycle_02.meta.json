@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "motorcycle_02",
+  "legend": {
+    "b": "body",
+    "d": "road",
+    "e": "seat",
+    "f": "frame",
+    "g": "engine",
+    "h": "scenery",
+    "k": "tyre",
+    "m": "hub",
+    "s": "sky",
+    "u": "sun",
+    "v": "detail",
+    "y": "light"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tank, tail and fender",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seat and grip",
+      "roleId": "seat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Frame and fork",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Engine and exhaust",
+      "roleId": "engine"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tyres",
+      "roleId": "tyre"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Headlight and road lines",
+      "roleId": "light"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Road",
+      "roleId": "road"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Dunes",
+      "roleId": "scenery"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cacti",
+      "roleId": "detail"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Motorcycle 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "vehicles",
+      "travel",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

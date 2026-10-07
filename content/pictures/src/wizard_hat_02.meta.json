@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "wizard_hat_02",
+  "legend": {
+    "b": "brim",
+    "h": "hat",
+    "k": "band",
+    "m": "detail",
+    "n": "night",
+    "q": "buckle",
+    "t": "table",
+    "v": "books",
+    "y": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hat",
+      "roleId": "hat"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Brim",
+      "roleId": "brim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Band",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Buckle",
+      "roleId": "buckle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars and moons",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Books",
+      "roleId": "books"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Book",
+      "roleId": "detail"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Wizard hat 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "magic",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

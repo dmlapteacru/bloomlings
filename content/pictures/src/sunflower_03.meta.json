@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "sunflower_03",
+  "legend": {
+    "c": "center",
+    "d": "seeds",
+    "g": "grass",
+    "k": "cloud",
+    "l": "leaves",
+    "n": "fence",
+    "o": "flowers",
+    "p": "petals",
+    "s": "sky",
+    "t": "stem"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Petals",
+      "roleId": "petals"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fence",
+      "roleId": "fence"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Little flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seed head",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Sunflower 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

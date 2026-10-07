@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "avocado_03",
+  "legend": {
+    "b": "wall",
+    "d": "cloth_dots",
+    "f": "flesh",
+    "g": "skin",
+    "k": "stone",
+    "o": "wall_dots",
+    "p": "plate",
+    "t": "table",
+    "v": "shelf"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Skin",
+      "roleId": "skin"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stone and stalk",
+      "roleId": "stone"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plate and board",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Avocado 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "fruit",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

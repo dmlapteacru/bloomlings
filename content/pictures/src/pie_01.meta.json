@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "pie_01",
+  "legend": {
+    "b": "wall",
+    "c": "crust",
+    "d": "cloth_dots",
+    "f": "filling",
+    "l": "lattice",
+    "o": "panes",
+    "p": "dish",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crust",
+      "roleId": "crust"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Lattice and top",
+      "roleId": "lattice"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherry filling",
+      "roleId": "filling"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pie dish",
+      "roleId": "dish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pie 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

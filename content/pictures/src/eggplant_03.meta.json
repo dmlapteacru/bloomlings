@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "eggplant_03",
+  "legend": {
+    "b": "wall",
+    "c": "cap",
+    "d": "cloth_dots",
+    "e": "eggplant",
+    "f": "flesh",
+    "h": "shine",
+    "k": "stem",
+    "o": "panes",
+    "p": "board",
+    "t": "table",
+    "v": "frame",
+    "x": "seeds"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eggplant",
+      "roleId": "eggplant"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Shine",
+      "roleId": "shine"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stem",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Board and plate",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Eggplant 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "vegetables",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

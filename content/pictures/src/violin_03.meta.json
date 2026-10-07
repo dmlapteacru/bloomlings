@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "violin_03",
+  "legend": {
+    "b": "body",
+    "c": "curtain",
+    "f": "board",
+    "g": "floor",
+    "h": "fhole",
+    "k": "bow",
+    "m": "notes",
+    "n": "scroll",
+    "s": "string",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Violin",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Scroll and pegs",
+      "roleId": "scroll"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fingerboard and tailpiece",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sound holes",
+      "roleId": "fhole"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Strings and bridge",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bow",
+      "roleId": "bow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Curtains",
+      "roleId": "curtain"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Violin 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "music",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

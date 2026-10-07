@@ -1,0 +1,122 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 10, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 7, 7, 7, 7, 7, 7, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 9, 9],
+    [-1, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0],
+    [0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 5, 5, 5, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 5, 0],
+    [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, -1],
+    [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+    [-1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, -1],
+    [0, 0, 0, 6, 3, 6, 6, 6, 6, 3, 6, 6, 6, 6, 6, 3, 6, 6, 6, 0, -1, 0],
+    [-1, 0, 0, 6, 3, 3, 6, 6, 6, 3, 3, 6, 6, 6, 6, 3, 3, 6, 6, 0, 0, -1],
+    [-1, -1, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, -1],
+    [0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0],
+    [0, 0, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 4, 1, 1, -1, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 4, 0, 0, 0, 0],
+    [0, -1, 0, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0, 0, 0],
+    [11, 11, 11, 11, 11, 11, 11, 1, 1, 1, 1, 4, 1, 1, 1, 0, 0, -1, 0, -1, 0, 0],
+    [-1, 8, 8, 8, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 8, 8, 8, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, -1, 0, -1, 0, 0, -1, 0, 0],
+    [0, 8, 8, 8, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 0],
+    [-1, 8, 0, 0, -1, -1, 0, 0, 0, -1, 0, -1, -1, 0, 0, -1, 0, 0, 0, -1, -1, 0],
+    [0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, 0, 0, 0, -1, 0, -1, -1, 0, -1]
+  ],
+  "height": 28,
+  "id": "burger_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Buns",
+      "roleId": "bun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Patty",
+      "roleId": "patty"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheese and fries",
+      "roleId": "cheese"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sesame seeds",
+      "roleId": "sesame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lettuce",
+      "roleId": "lettuce"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.269,
+    "nestingDepth": 5,
+    "regionCount": 40
+  },
+  "subject": "Burger 2",
+  "tags": {
+    "bands": ["daily"],
+    "themes": ["food", "dishes", "daily"]
+  },
+  "version": 1,
+  "width": 22
+}

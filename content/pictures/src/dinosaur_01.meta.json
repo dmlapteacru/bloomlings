@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "dinosaur_01",
+  "legend": {
+    "c": "cloud",
+    "d": "dino",
+    "e": "eye_white",
+    "f": "ferns",
+    "g": "ground",
+    "k": "eye",
+    "p": "spots",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Dinosaur",
+      "roleId": "dino"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ferns",
+      "roleId": "ferns"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and smile",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white and eggs",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Smoke and cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Dinosaur 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "dinosaurs",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,76 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "radio_03",
+  "legend": {
+    "b": "body",
+    "d": "dial",
+    "g": "grille",
+    "k": "knob",
+    "m": "notes",
+    "t": "table",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Radio",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Speaker",
+      "roleId": "grille"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Dial",
+      "roleId": "dial"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Knobs, handle and aerial",
+      "roleId": "knob"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Radio 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "music",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

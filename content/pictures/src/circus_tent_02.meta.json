@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "circus_tent_02",
+  "legend": {
+    "a": "stripe",
+    "b": "stripe2",
+    "d": "door",
+    "e": "trim",
+    "f": "flag",
+    "g": "grass",
+    "k": "pole",
+    "s": "sky",
+    "u": "moon",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yellow stripes",
+      "roleId": "stripe2"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Valance and drapes",
+      "roleId": "trim"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Entrance",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Poles",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flags",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Circus tent 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "fair",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

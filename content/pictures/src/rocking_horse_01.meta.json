@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "rocking_horse_01",
+  "legend": {
+    "e": "eye",
+    "f": "floor",
+    "h": "horse",
+    "m": "mane",
+    "q": "rug",
+    "r": "rocker",
+    "s": "saddle",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horse",
+      "roleId": "horse"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mane, tail and flags",
+      "roleId": "mane"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Saddle and stripe",
+      "roleId": "saddle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Rockers and window frame",
+      "roleId": "rocker"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and dapples",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Rug, window and flags",
+      "roleId": "rug"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rocking horse 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "toys",
+      "cozy",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

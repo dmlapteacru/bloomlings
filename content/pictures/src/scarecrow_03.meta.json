@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "scarecrow_03",
+  "legend": {
+    "b": "crow",
+    "c": "shirt",
+    "e": "face",
+    "f": "head",
+    "g": "field",
+    "h": "hat",
+    "k": "stalks",
+    "p": "pole",
+    "q": "patch",
+    "s": "sky",
+    "u": "sun",
+    "y": "straw"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Patches",
+      "roleId": "patch"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Shirt",
+      "roleId": "shirt"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pole",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crows",
+      "roleId": "crow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Straw and crops",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sack head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Field",
+      "roleId": "field"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stalks and leaves",
+      "roleId": "stalks"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hat",
+      "roleId": "hat"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Scarecrow 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "farm",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

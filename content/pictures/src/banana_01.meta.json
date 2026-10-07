@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "banana_01",
+  "legend": {
+    "b": "sky",
+    "d": "blanket_dots",
+    "e": "peel_lines",
+    "k": "stem",
+    "o": "cloud",
+    "p": "plate",
+    "t": "blanket",
+    "v": "hill",
+    "w": "flesh",
+    "y": "banana"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stem and tips",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Banana",
+      "roleId": "banana"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Peel lines",
+      "roleId": "peel_lines"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Banana flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Banana 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "fruit",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

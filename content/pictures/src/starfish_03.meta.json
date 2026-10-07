@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "starfish_03",
+  "legend": {
+    "a": "starfish",
+    "d": "sand",
+    "e": "eye_white",
+    "h": "shells",
+    "k": "eye",
+    "l": "weed",
+    "q": "bumps",
+    "s": "water",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye whites",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Starfish",
+      "roleId": "starfish"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bumps",
+      "roleId": "bumps"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes, smile and bucket handle",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shells",
+      "roleId": "shells"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Starfish 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "beach",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

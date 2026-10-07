@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "hippo_02",
+  "legend": {
+    "d": "reeds",
+    "g": "grass",
+    "k": "dark",
+    "p": "hippo",
+    "r": "river",
+    "s": "sky",
+    "u": "sun",
+    "w": "white",
+    "y": "bird"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hippo",
+      "roleId": "hippo"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Teeth, eye white, ripples and cloud",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "River",
+      "roleId": "river"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, nostrils and cattails",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Reeds and lily pads",
+      "roleId": "reeds"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Hippo 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "river",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

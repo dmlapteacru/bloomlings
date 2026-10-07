@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "candle_03",
+  "legend": {
+    "c": "wax",
+    "f": "flame",
+    "h": "holder",
+    "k": "wick",
+    "n": "wall",
+    "o": "window",
+    "t": "table",
+    "y": "core"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Evening wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Candle",
+      "roleId": "wax"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flame",
+      "roleId": "flame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wick",
+      "roleId": "wick"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flame core and moon",
+      "roleId": "core"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Holder",
+      "roleId": "holder"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Candle 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "cozy",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "soup_bowl_01",
+  "legend": {
+    "b": "wall",
+    "c": "cream",
+    "d": "cloth_dots",
+    "g": "pea_soup",
+    "k": "spoon",
+    "m": "steam",
+    "o": "wall_dots",
+    "t": "table",
+    "u": "roll",
+    "v": "shelf",
+    "w": "bowl"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bowl, pot and mug",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pea soup",
+      "roleId": "pea_soup"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bread, croutons and noodles",
+      "roleId": "roll"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Spoon, ladle and handles",
+      "roleId": "spoon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wall dots and jar",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Soup bowl 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "dishes",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

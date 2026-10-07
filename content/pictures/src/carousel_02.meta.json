@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "carousel_02",
+  "legend": {
+    "a": "stripe",
+    "b": "stripe2",
+    "c": "column",
+    "d": "lights",
+    "e": "saddle",
+    "f": "flag",
+    "g": "grass",
+    "k": "pole",
+    "p": "platform",
+    "s": "sky",
+    "u": "sun",
+    "x": "horse"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Canopy stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Other stripes",
+      "roleId": "stripe2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Centre column",
+      "roleId": "column"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Poles and booth",
+      "roleId": "pole"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Horses",
+      "roleId": "horse"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Saddles",
+      "roleId": "saddle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Platform",
+      "roleId": "platform"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lights",
+      "roleId": "lights"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Flag and tree",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Carousel 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "fair",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

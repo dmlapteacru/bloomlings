@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "macaron_01",
+  "legend": {
+    "a": "pink",
+    "b": "sky",
+    "c": "caramel",
+    "d": "blanket_dots",
+    "f": "cream",
+    "g": "green",
+    "o": "cloud",
+    "p": "plate",
+    "q": "pink_cream",
+    "t": "blanket",
+    "v": "hill"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink macarons",
+      "roleId": "pink"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink filling",
+      "roleId": "pink_cream"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green macarons",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cream filling",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Caramel macarons",
+      "roleId": "caramel"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Macaron 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

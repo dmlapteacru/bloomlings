@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "planet_01",
+  "legend": {
+    "b": "shade",
+    "m": "moons",
+    "n": "space",
+    "o": "ring2",
+    "p": "planet",
+    "q": "bands",
+    "r": "ring",
+    "x": "stars",
+    "z": "comet"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Space",
+      "roleId": "space"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Planet",
+      "roleId": "planet"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shaded side",
+      "roleId": "shade"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shooting star",
+      "roleId": "comet"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bands",
+      "roleId": "bands"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Moons",
+      "roleId": "moons"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Outer ring",
+      "roleId": "ring"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Inner ring",
+      "roleId": "ring2"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Planet 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "space",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

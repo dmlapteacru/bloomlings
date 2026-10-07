@@ -1,0 +1,76 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "zebra_01",
+  "legend": {
+    "a": "acacia",
+    "g": "savanna",
+    "k": "stripes",
+    "p": "pool",
+    "s": "sky",
+    "u": "sun",
+    "z": "zebra"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Sunset sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Zebra",
+      "roleId": "zebra"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stripes, mane and trunk",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Water hole",
+      "roleId": "pool"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Savanna",
+      "roleId": "savanna"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Acacia",
+      "roleId": "acacia"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Zebra 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "savanna",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

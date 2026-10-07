@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "fried_egg_02",
+  "legend": {
+    "b": "wall",
+    "d": "cloth_dots",
+    "n": "crust",
+    "o": "panes",
+    "p": "plate",
+    "t": "table",
+    "u": "toast",
+    "v": "frame",
+    "w": "white",
+    "y": "yolk"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crust, bacon stripes and chopsticks",
+      "roleId": "crust"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yolk",
+      "roleId": "yolk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Toast and rice",
+      "roleId": "toast"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Egg white",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Fried egg 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "dishes",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

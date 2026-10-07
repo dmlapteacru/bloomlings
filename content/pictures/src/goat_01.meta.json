@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "goat_01",
+  "legend": {
+    "b": "goat",
+    "f": "flowers",
+    "h": "horns",
+    "m": "mountains",
+    "n": "snow",
+    "r": "rock",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Goat",
+      "roleId": "goat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horns, beard and hooves",
+      "roleId": "horns"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snow, cloud and eye white",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mountains",
+      "roleId": "mountains"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy rock",
+      "roleId": "rock"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Goat 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "mountains",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

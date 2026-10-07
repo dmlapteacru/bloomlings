@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "squirrel_03",
+  "legend": {
+    "a": "acorn",
+    "b": "squirrel",
+    "g": "grass",
+    "k": "dark",
+    "l": "leaves",
+    "m": "mushrooms",
+    "n": "trunk",
+    "q": "tail",
+    "s": "sky",
+    "w": "white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Squirrel",
+      "roleId": "squirrel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, nose and acorn caps",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tree trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Belly, eye white and stems",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Acorns",
+      "roleId": "acorn"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mushrooms and leaves",
+      "roleId": "mushrooms"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Squirrel 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "forest",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

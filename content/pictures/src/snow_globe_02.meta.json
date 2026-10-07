@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "snow_globe_02",
+  "legend": {
+    "b": "wall",
+    "e": "band",
+    "f": "tree",
+    "k": "base",
+    "m": "snow",
+    "n": "window",
+    "o": "shine",
+    "q": "water",
+    "t": "table",
+    "x": "flakes",
+    "y": "star"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snow",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snowflakes",
+      "roleId": "flakes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Globe",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shine",
+      "roleId": "shine"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Base",
+      "roleId": "base"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Band and baubles",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Star",
+      "roleId": "star"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Fir tree",
+      "roleId": "tree"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Snow globe 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "winter",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

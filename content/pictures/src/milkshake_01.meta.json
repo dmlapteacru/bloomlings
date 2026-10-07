@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "milkshake_01",
+  "legend": {
+    "b": "wall",
+    "c": "cream",
+    "d": "cloth_dots",
+    "e": "straw_stripes",
+    "g": "glass",
+    "k": "stalk",
+    "m": "shake",
+    "o": "panes",
+    "r": "cherry",
+    "s": "straw",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Strawberry shake",
+      "roleId": "shake"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherries",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Whipped cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cherry stalks and wafer",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Straws",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Straw stripes and sprinkles",
+      "roleId": "straw_stripes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Milkshake 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

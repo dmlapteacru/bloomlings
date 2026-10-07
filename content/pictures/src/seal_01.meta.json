@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "seal_01",
+  "legend": {
+    "e": "eye_white",
+    "g": "weed",
+    "i": "rock",
+    "k": "seal",
+    "n": "dark",
+    "p": "ball",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seal",
+      "roleId": "seal"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flippers, nose and whiskers",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white and snores",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ball and fish",
+      "roleId": "ball"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Rocks",
+      "roleId": "rock"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Seal 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "sea",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

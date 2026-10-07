@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "horse_03",
+  "legend": {
+    "b": "horse",
+    "c": "cloud",
+    "f": "fence",
+    "g": "meadow",
+    "m": "mane",
+    "o": "flowers",
+    "s": "sky",
+    "t": "tree",
+    "w": "eye_white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horse",
+      "roleId": "horse"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mane, tail, hooves and eye",
+      "roleId": "mane"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fence, barn and trunks",
+      "roleId": "fence"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers and cloud",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Trees",
+      "roleId": "tree"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Horse 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "farm",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

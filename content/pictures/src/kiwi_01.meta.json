@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "kiwi_01",
+  "legend": {
+    "b": "wall",
+    "d": "cloth_dots",
+    "f": "flesh",
+    "h": "fuzz",
+    "k": "skin",
+    "o": "panes",
+    "p": "plate",
+    "t": "table",
+    "v": "frame",
+    "w": "middle"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Kiwi flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Skin and seeds",
+      "roleId": "skin"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pale middle",
+      "roleId": "middle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fuzz",
+      "roleId": "fuzz"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Kiwi 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "fruit",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

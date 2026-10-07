@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "satellite_02",
+  "legend": {
+    "a": "air",
+    "b": "body",
+    "d": "dish",
+    "k": "line",
+    "l": "land",
+    "n": "space",
+    "o": "ocean",
+    "p": "panel",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Space",
+      "roleId": "space"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Body",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Solar panels",
+      "roleId": "panel"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Panel lines, struts and band",
+      "roleId": "line"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Dish",
+      "roleId": "dish"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ocean",
+      "roleId": "ocean"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Land and moon",
+      "roleId": "land"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Air glow",
+      "roleId": "air"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Satellite 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "space",
+      "things",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

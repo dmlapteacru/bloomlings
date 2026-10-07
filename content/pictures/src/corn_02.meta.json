@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "corn_02",
+  "legend": {
+    "b": "wall",
+    "d": "cloth_dots",
+    "g": "husk",
+    "k": "silk",
+    "l": "husk2",
+    "n": "kernels",
+    "o": "panes",
+    "p": "plate",
+    "t": "table",
+    "u": "butter",
+    "v": "frame",
+    "y": "cob"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Kernel rows",
+      "roleId": "kernels"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Silk",
+      "roleId": "silk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cob",
+      "roleId": "cob"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Butter",
+      "roleId": "butter"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Husk and stalk",
+      "roleId": "husk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Inner husk",
+      "roleId": "husk2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Corn 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "vegetables",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

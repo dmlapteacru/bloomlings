@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "lobster_01",
+  "legend": {
+    "d": "sand",
+    "e": "eye_white",
+    "g": "weed",
+    "k": "eye",
+    "l": "lobster",
+    "o": "bubbles",
+    "q": "legs",
+    "r": "rocks",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye whites",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lobster",
+      "roleId": "lobster"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Legs, feelers and shell lines",
+      "roleId": "legs"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes and smile",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Rocks and fish",
+      "roleId": "rocks"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Lobster 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "sea",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

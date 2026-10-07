@@ -1,0 +1,70 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "trophy_03",
+  "legend": {
+    "b": "stand",
+    "c": "cup",
+    "f": "floor",
+    "n": "digits",
+    "s": "star",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trophy",
+      "roleId": "cup"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Star and balloons",
+      "roleId": "star"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Podium",
+      "roleId": "stand"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Numbers and strings",
+      "roleId": "digits"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Trophy 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "party",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

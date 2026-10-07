@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "bell_02",
+  "legend": {
+    "b": "bell",
+    "c": "clapper",
+    "k": "band",
+    "l": "holly",
+    "r": "bow",
+    "t": "floor",
+    "w": "wall",
+    "x": "snow"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Winter wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bells",
+      "roleId": "bell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bands",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clappers",
+      "roleId": "clapper"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bow and berries",
+      "roleId": "bow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Holly leaves",
+      "roleId": "holly"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snowflakes",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Snowy sill",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bell 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "winter",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

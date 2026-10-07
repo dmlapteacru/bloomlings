@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "cherry_blossom_02",
+  "legend": {
+    "b": "bench",
+    "c": "blossom",
+    "f": "petals",
+    "g": "grass",
+    "k": "water",
+    "m": "hills",
+    "q": "blossom2",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blanket and river",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blossom",
+      "roleId": "blossom"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pale blossom",
+      "roleId": "blossom2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Falling petals",
+      "roleId": "petals"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bench and basket",
+      "roleId": "bench"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cherry blossom 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "spring",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

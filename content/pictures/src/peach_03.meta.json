@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "peach_03",
+  "legend": {
+    "a": "peach",
+    "b": "sky",
+    "d": "blanket_dots",
+    "k": "stalk",
+    "l": "leaf",
+    "n": "flesh",
+    "o": "cloud",
+    "p": "plate",
+    "q": "blush",
+    "t": "blanket",
+    "v": "hill"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Peach",
+      "roleId": "peach"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalk and seam",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blush, crease and stone",
+      "roleId": "blush"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blanket dots",
+      "roleId": "blanket_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grassy hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Peach 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "fruit",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

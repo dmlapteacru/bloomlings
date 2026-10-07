@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "hamster_02",
+  "legend": {
+    "b": "wall",
+    "d": "seed",
+    "e": "eye",
+    "f": "floor",
+    "h": "hamster",
+    "n": "pink",
+    "o": "toy",
+    "w": "white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bedding",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hamster",
+      "roleId": "hamster"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seeds",
+      "roleId": "seed"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cheeks and belly",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wheel, house and bowl",
+      "roleId": "toy"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Nose, ears and paws",
+      "roleId": "pink"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and mouth",
+      "roleId": "eye"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Hamster 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "cozy",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

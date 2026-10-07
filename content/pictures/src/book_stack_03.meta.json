@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "book_stack_03",
+  "legend": {
+    "a": "red",
+    "b": "green",
+    "c": "violet",
+    "d": "moss",
+    "e": "pages",
+    "k": "band",
+    "l": "lamp",
+    "t": "desk",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red books",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green book",
+      "roleId": "green"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet book and cup",
+      "roleId": "violet"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Moss book",
+      "roleId": "moss"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pages and steam",
+      "roleId": "pages"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Spine bands",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lamp",
+      "roleId": "lamp"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Desk",
+      "roleId": "desk"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Book stack 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "cozy",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

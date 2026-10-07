@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "ufo_01",
+  "legend": {
+    "b": "beam",
+    "c": "cow",
+    "d": "dome",
+    "g": "hills",
+    "k": "rim",
+    "l": "lights",
+    "m": "moon",
+    "n": "night",
+    "q": "scenery",
+    "u": "saucer",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Saucer",
+      "roleId": "saucer"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Beam",
+      "roleId": "beam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rim, belly, cow spots and windows",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cow",
+      "roleId": "cow"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lights",
+      "roleId": "lights"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Dome",
+      "roleId": "dome"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pines",
+      "roleId": "scenery"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Ufo 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "vehicles",
+      "space",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

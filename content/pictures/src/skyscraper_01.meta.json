@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "skyscraper_01",
+  "legend": {
+    "b": "tower",
+    "c": "cloud",
+    "d": "street",
+    "e": "right",
+    "i": "window",
+    "k": "top",
+    "n": "left",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tower",
+      "roleId": "tower"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Spire, crown and lobby",
+      "roleId": "top"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Left building",
+      "roleId": "left"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Right building",
+      "roleId": "right"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Street",
+      "roleId": "street"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Skyscraper 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "city",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

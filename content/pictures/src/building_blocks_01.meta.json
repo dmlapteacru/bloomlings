@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "building_blocks_01",
+  "legend": {
+    "a": "block_a",
+    "b": "block_b",
+    "c": "block_c",
+    "d": "block_d",
+    "e": "block_e",
+    "f": "floor",
+    "l": "letters",
+    "w": "wall"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink blocks",
+      "roleId": "block_a"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green blocks",
+      "roleId": "block_b"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange blocks and roof",
+      "roleId": "block_c"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet blocks and ball",
+      "roleId": "block_d"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Top block, roof and stripe",
+      "roleId": "block_e"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Letters",
+      "roleId": "letters"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Building blocks 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "toys",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

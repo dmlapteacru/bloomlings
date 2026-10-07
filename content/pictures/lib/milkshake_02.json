@@ -1,0 +1,122 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [0, 0, 0, 0, -1, 0, 0, 0, 9, 9, 9, 9, 9, 9, 0, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, -1, 9, 1, 1, 1, 1, 9, 0, 0, 0, -1, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 9, 9, 1, 1, 1, 1, 9, 9, 0, 0, 0, -1, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, -1, 9, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, 9, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 9, 1, 1, 1, 1, 1, 1, 9, 0, -1, 0, 0, 0, 0, 0],
+    [0, -1, 0, -1, 0, -1, 0, 9, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 9, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 9, 1, 1, 1, 1, 1, 1, 9, 0, 0, -1, -1, 0, 0, -1],
+    [0, 0, 0, 0, 0, -1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 9, -1, -1, 0, 0, -1, 0],
+    [0, 0, -1, 0, 0, -1, 9, 1, 1, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, 9, 1, 1, 1, 1, 1, 1, 1, 1, 9, 0, 0, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, -1, 9, 5, 5, 5, 9, 9, 5, 5, 5, 9, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 0, 0, -1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, -1, -1, 0],
+    [-1, -1, -1, 0, -1, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 0, 0, -1, 0, 0],
+    [0, 0, 11, 11, 11, 11, 11, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 0, 0, 0, 0, 0],
+    [0, 0, 11, 10, 10, 11, 6, 6, 5, 5, 5, 5, 5, 5, 0, 7, 8, 0, -1, 0, 0, 0],
+    [0, 0, 11, 10, 10, 11, 6, 6, 11, 5, 5, 5, 5, 0, 0, 0, 7, 0, 0, 0, 0, 0],
+    [0, 0, 11, 11, 11, 6, 6, 11, 11, 0, 2, 2, 2, -1, 0, 0, 7, 7, 0, 0, 0, 0],
+    [0, 0, 11, 10, 10, 6, 6, 10, 11, 0, 2, 2, 0, 0, 0, -1, 0, 7, 0, 0, 0, 0],
+    [0, 0, 11, 10, 10, 6, 10, 10, 11, -1, 0, 6, -1, -1, -1, 0, 0, 0, 7, -1, 0, -1],
+    [0, 0, 11, 11, 11, 11, 11, 11, 11, -1, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, -1, -1],
+    [0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 28,
+  "id": "milkshake_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Strawberry shake",
+      "roleId": "shake"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherries",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Whipped cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cherry stalks and wafer",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Straws",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Straw stripes and sprinkles",
+      "roleId": "straw_stripes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.425,
+    "nestingDepth": 4,
+    "regionCount": 31
+  },
+  "subject": "Milkshake 2",
+  "tags": {
+    "bands": ["daily"],
+    "themes": ["food", "sweets", "daily"]
+  },
+  "version": 1,
+  "width": 22
+}

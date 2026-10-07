@@ -1,0 +1,76 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "bonsai_01",
+  "legend": {
+    "b": "wall",
+    "f": "floor",
+    "k": "table",
+    "l": "leaves",
+    "m": "moss",
+    "o": "pot",
+    "t": "trunk"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pot",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Floor mat",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table and rods",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf pads",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Moss",
+      "roleId": "moss"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Bonsai 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

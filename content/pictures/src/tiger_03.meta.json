@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "tiger_03",
+  "legend": {
+    "e": "eye",
+    "g": "grass",
+    "k": "stripes",
+    "l": "leaves",
+    "n": "nose",
+    "s": "sky",
+    "t": "tiger",
+    "w": "white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tiger",
+      "roleId": "tiger"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Nose, mouth and sun",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stripes and pupils",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Muzzle, chest and ears",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Eyes",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Jungle leaves",
+      "roleId": "leaves"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tiger 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "jungle",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

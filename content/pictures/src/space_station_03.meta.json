@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "space_station_03",
+  "legend": {
+    "e": "land",
+    "k": "capsule",
+    "m": "modules",
+    "n": "space",
+    "o": "ocean",
+    "p": "panels",
+    "t": "truss",
+    "u": "moon",
+    "w": "windows",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Space",
+      "roleId": "space"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Solar panels",
+      "roleId": "panels"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ocean",
+      "roleId": "ocean"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "windows"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Truss and panel lines",
+      "roleId": "truss"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Capsule",
+      "roleId": "capsule"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Modules",
+      "roleId": "modules"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Land",
+      "roleId": "land"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Space station 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "space",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

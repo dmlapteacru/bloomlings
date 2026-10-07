@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "dragonfly_03",
+  "legend": {
+    "b": "dragonfly",
+    "c": "cattails",
+    "k": "eyes",
+    "o": "lilies",
+    "p": "pond",
+    "q": "veins",
+    "r": "reeds",
+    "s": "sky",
+    "u": "sun",
+    "w": "wings"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Evening sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Water lilies",
+      "roleId": "lilies"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pond",
+      "roleId": "pond"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Dragonfly",
+      "roleId": "dragonfly"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Reeds and lily pads",
+      "roleId": "reeds"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes",
+      "roleId": "eyes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wing veins and body rings",
+      "roleId": "veins"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cattails",
+      "roleId": "cattails"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Dragonfly 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "pond",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

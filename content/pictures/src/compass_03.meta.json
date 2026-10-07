@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "compass_03",
+  "legend": {
+    "c": "case",
+    "f": "face",
+    "g": "land",
+    "m": "map",
+    "n": "needle",
+    "p": "path",
+    "q": "points",
+    "w": "sea"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "brown_orange",
+      "isBackground": true,
+      "name": "Map",
+      "roleId": "map"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "River",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Compass face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Case",
+      "roleId": "case"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Islands and mountains",
+      "roleId": "land"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Path and X",
+      "roleId": "path"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "North needle",
+      "roleId": "needle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Points and needle tail",
+      "roleId": "points"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Compass 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "things",
+      "travel",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "peacock_03",
+  "legend": {
+    "b": "peacock",
+    "d": "shafts",
+    "e": "spot_centers",
+    "f": "fan",
+    "g": "lawn",
+    "k": "dark",
+    "n": "wings",
+    "o": "eyespots",
+    "p": "flowers",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Dawn sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tail fan",
+      "roleId": "fan"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Feather shafts",
+      "roleId": "shafts"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lawn",
+      "roleId": "lawn"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye spots and crest",
+      "roleId": "eyespots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes, beak and legs",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Peacock",
+      "roleId": "peacock"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye spot centres",
+      "roleId": "spot_centers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Peacock 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "garden",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

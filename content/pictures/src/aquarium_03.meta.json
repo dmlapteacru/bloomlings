@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "aquarium_03",
+  "legend": {
+    "b": "wall",
+    "c": "cabinet",
+    "e": "goldfish",
+    "f": "fish",
+    "g": "gravel",
+    "k": "lid",
+    "l": "floor",
+    "o": "bubbles",
+    "p": "plants",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Goldfish",
+      "roleId": "goldfish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Gravel",
+      "roleId": "gravel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor and door line",
+      "roleId": "floor"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cabinet, table and picture",
+      "roleId": "cabinet"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lid and rim",
+      "roleId": "lid"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Water plants",
+      "roleId": "plants"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Aquarium 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "places",
+      "home",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "popcorn_03",
+  "legend": {
+    "a": "red",
+    "b": "wall",
+    "c": "popcorn",
+    "d": "cloth_dots",
+    "e": "hulls",
+    "o": "panes",
+    "t": "table",
+    "v": "frame",
+    "w": "white"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red stripes",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "White stripes",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Popcorn",
+      "roleId": "popcorn"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hulls",
+      "roleId": "hulls"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Popcorn 3",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

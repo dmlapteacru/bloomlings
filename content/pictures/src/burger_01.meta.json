@@ -1,0 +1,118 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "burger_01",
+  "legend": {
+    "a": "tomato",
+    "b": "wall",
+    "g": "flag",
+    "k": "pick",
+    "l": "lettuce",
+    "m": "patty",
+    "o": "panes",
+    "p": "plate",
+    "r": "carton",
+    "t": "table",
+    "u": "bun",
+    "v": "frame",
+    "x": "sesame",
+    "y": "cheese"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Buns",
+      "roleId": "bun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Patty",
+      "roleId": "patty"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheese and fries",
+      "roleId": "cheese"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sesame seeds",
+      "roleId": "sesame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lettuce",
+      "roleId": "lettuce"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fries carton",
+      "roleId": "carton"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pick and lid",
+      "roleId": "pick"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Flag and straw",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Burger 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "food",
+      "dishes",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

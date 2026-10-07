@@ -1,0 +1,82 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "unicorn_01",
+  "legend": {
+    "b": "unicorn",
+    "c": "cloud",
+    "e": "eye_white",
+    "g": "meadow",
+    "h": "horn",
+    "o": "flowers",
+    "q": "mane",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Unicorn",
+      "roleId": "unicorn"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mane, hooves, eye and rainbow",
+      "roleId": "mane"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Clouds and sparkles",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horn, moon and rainbow",
+      "roleId": "horn"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white and socks",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Unicorn 1",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "fairy",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

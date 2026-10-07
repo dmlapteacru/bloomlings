@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "camel_02",
+  "legend": {
+    "c": "camel",
+    "d": "dunes",
+    "e": "eye_white",
+    "k": "dark",
+    "l": "plants",
+    "p": "blanket",
+    "q": "tassels",
+    "s": "sky",
+    "u": "sun",
+    "y": "pyramids"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Camel",
+      "roleId": "camel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Knees, eye, tail and trunk",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dunes",
+      "roleId": "dunes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blanket stripe and cactus flowers",
+      "roleId": "tassels"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pyramids",
+      "roleId": "pyramids"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye white",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm and cactus",
+      "roleId": "plants"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Camel 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "desert",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}

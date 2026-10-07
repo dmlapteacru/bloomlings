@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 28,
+  "id": "swan_02",
+  "legend": {
+    "k": "dark",
+    "l": "lily_pads",
+    "o": "lilies",
+    "p": "pond",
+    "q": "feathers",
+    "s": "sky",
+    "t": "trees",
+    "u": "sun",
+    "w": "swan",
+    "y": "beak"
+  },
+  "review": {
+    "notes": "Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Sunset sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Water lilies",
+      "roleId": "lilies"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Swan",
+      "roleId": "swan"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wing feathers",
+      "roleId": "feathers"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, knob and cattails",
+      "roleId": "dark"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pond",
+      "roleId": "pond"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lily pads and reeds",
+      "roleId": "lily_pads"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far trees",
+      "roleId": "trees"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Swan 2",
+  "tags": {
+    "bands": [
+      "daily"
+    ],
+    "themes": [
+      "animals",
+      "pond",
+      "daily"
+    ]
+  },
+  "version": 1,
+  "width": 22
+}
