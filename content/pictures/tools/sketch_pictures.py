@@ -20,6 +20,13 @@ tidied (no stray single cells), their holes keep the background share and nestin
 targets, and the script stops with a list of problems unless every picture meets its band's targets (nesting depth,
 background share, role sizes, occupancy, variants: all carry five and six distinct variants). The new bands come after
 the first ones, so the first pictures keep their random stream and stay byte-identical.
+
+`--expansions` also writes the expansion variants' pictures (expansions.py, FR-060): 178 regular pictures with a lime
+role (Vine joins at L45), 164 with a red role (Berry, L200) and 97 big ones with both where the subject has them. Each
+moves the roles of the subject that read yellow or dark red into those groups, and a drawing that misses its band's
+targets at its size tries the band's next sizes. Until the automated picture checks accept a role whose color group
+only has an expansion variant, `pictures import` leaves these pictures drafts, so the default run leaves them out.
+`--out <folder>` writes the sketches elsewhere than content/pictures/src.
 """
 import json
 import math
@@ -452,6 +459,7 @@ FIVE_VARIANTS = [s for s in SUBJECTS if s is not fish]
 # big board of 289-616 cells (at most 22 x 28) every 25th level. The subject modules draw with picture_kit, which
 # takes Canvas from this module (registered under its name also when it runs as a script).
 sys.modules.setdefault('sketch_pictures', sys.modules[__name__])
+import expansions  # noqa: E402
 import picture_kit  # noqa: E402
 from animal_subjects import ANIMAL_SUBJECTS  # noqa: E402
 from food_subjects import FOOD_SUBJECTS  # noqa: E402
@@ -484,6 +492,28 @@ BANDS = [
     ('big', len(NEW_SUBJECTS), BIG_SIZES, NEW_SUBJECTS, BIG),
 ]
 
+# The expansion variants' pictures (expansions.py): regular pictures with a lime role (Vine, from L45) or a red role
+# (Berry, from L200), two of each subject that has one, and a big picture of every subject with its lime and red roles
+# (big levels come from L525, after both). They come after the bands above, so those keep their random stream, and
+# only `--expansions` writes them: the automated picture checks (PictureChecks) approve a role only when its color
+# group has a launch variant, so `pictures import` would leave them drafts until that check also accepts the groups of
+# the pool's expansion variants.
+LIME_SUBJECTS = expansions.subjects(NEW_SUBJECTS, expansions.LIME)
+RED_SUBJECTS = expansions.subjects(NEW_SUBJECTS, expansions.RED)
+for _subjects in (LIME_SUBJECTS, RED_SUBJECTS):
+    assert math.gcd(len(_subjects), 7 * len(REGULAR_SIZES)) == 1, 'keep each subject count coprime with 7 and the sizes'
+REGULAR_LIME = dict(REGULAR, recolor=(expansions.LIME,))
+REGULAR_RED = dict(REGULAR, recolor=(expansions.RED,))
+BIG_EXPANSION = dict(BIG, recolor=(expansions.LIME, expansions.RED))
+EXPANSION_BANDS = [
+    ('regular', 2 * len(LIME_SUBJECTS), REGULAR_SIZES, LIME_SUBJECTS, REGULAR_LIME),
+    ('regular', 2 * len(RED_SUBJECTS), REGULAR_SIZES, RED_SUBJECTS, REGULAR_RED),
+    ('big', len(NEW_SUBJECTS), BIG_SIZES, NEW_SUBJECTS, BIG_EXPANSION),
+]
+
+# Color groups with one variant (an expansion's): a mapping gives all their roles that variant.
+SINGLE_VARIANT_GROUPS = {expansions.LIME, expansions.RED}
+
 
 def finish(cv, roles, r, style):
     """The new bands' finish: stray single cells go, small roles grow to a pod, then the holes open, never taking the
@@ -503,54 +533,78 @@ def structure(cv, roles):
 
 
 def variants(roles):
-    """The fewest and most distinct variants a mapping can give the roles (at most two per color group)."""
+    """The fewest and most distinct variants a mapping can give the roles (at most two per launch color group, one per
+    expansion group)."""
     groups = {}
     for role in roles:
         groups[role[3]] = groups.get(role[3], 0) + 1
-    return len(groups), sum(min(2, k) for k in groups.values())
+    return len(groups), sum(min(1 if g in SINGLE_VARIANT_GROUPS else 2, k) for g, k in groups.items())
 
 
-def main(seed=2026):
+def sketch(subject, w, h, seed, style, where):
+    """One picture: the drawing, finished, and what keeps it from its band's targets (new bands only)."""
+    r = random.Random(seed)
+    cv, roles, themes = subject(w, h, r)
+    if style and style.get('recolor'):
+        roles = expansions.recolor(subject, roles, style['recolor'])
+    bg = roles[0][0]
+    if style:
+        finish(cv, roles, r, style)
+    else:
+        cv.grow_small_roles(bg, MIN_ROLE_CELLS)
+        cv.holes(bg, r, target=r.uniform(0.84, 0.92))
+    used = {c for row in cv.rows() for c in row}
+    roles = [role for role in roles if role[0] in used]
+    issues, six, held = [], False, []
+    if style:
+        depth, share = structure(cv, roles)
+        fewest, most = variants(roles)
+        six = fewest <= 6 <= most
+        small = [role[1] for role in roles if sum(row.count(role[0]) for row in cv.g) < MIN_ROLE_CELLS]
+        occupancy = sum(1 for row in cv.g for c in row if c != '.') * 1000 // (w * h)
+        if not style['depth'][0] <= depth <= style['depth'][1]:
+            issues.append(f'{where}: nesting depth {depth}')
+        if not style['background'][0] <= share <= style['background'][1]:
+            issues.append(f'{where}: background {share}‰')
+        if not fewest <= style['variants'] <= most:
+            issues.append(f'{where}: carries {fewest}-{most} variants, not {style["variants"]}')
+        if small or not 750 <= occupancy <= 950:
+            issues.append(f'{where}: small roles {small}, occupancy {occupancy}‰')
+        if style.get('recolor'):
+            held = sorted({role[3] for role in roles} & set(style['recolor']))
+            if not held:
+                issues.append(f'{where}: no {" or ".join(style["recolor"])} role left')
+    return cv, roles, themes, issues, six, held
+
+
+def main(seed=2026, with_expansions=False, root=ROOT):
     rng = random.Random(seed)
-    os.makedirs(ROOT, exist_ok=True)
+    os.makedirs(root, exist_ok=True)
     counter = {}
     written = 0
     problems = []
-    for band, count, sizes, subjects, *style in BANDS:
+    for band, count, sizes, subjects, *style in BANDS + (EXPANSION_BANDS if with_expansions else []):
         style = style[0] if style else None
         six = 0
+        carried = {}
         for i in range(count):
             subject = subjects[(written + i * 7) % len(subjects)]
-            w, h = sizes[i % len(sizes)]
-            r = random.Random(rng.randrange(1 << 30))
-            cv, roles, themes = subject(w, h, r)
-            bg = roles[0][0]
-            if style:
-                finish(cv, roles, r, style)
-            else:
-                cv.grow_small_roles(bg, MIN_ROLE_CELLS)
-                cv.holes(bg, r, target=r.uniform(0.84, 0.92))
-            used = {c for row in cv.rows() for c in row}
-            roles = [role for role in roles if role[0] in used]
-            if style:
-                depth, share = structure(cv, roles)
-                fewest, most = variants(roles)
-                six += fewest <= 6 <= most
-                small = [role[1] for role in roles if sum(row.count(role[0]) for row in cv.g) < MIN_ROLE_CELLS]
-                occupancy = sum(1 for row in cv.g for c in row if c != '.') * 1000 // (w * h)
-                where = f'{band} #{i} {subject.__name__} {w}x{h}'
-                if not style['depth'][0] <= depth <= style['depth'][1]:
-                    problems.append(f'{where}: nesting depth {depth}')
-                if not style['background'][0] <= share <= style['background'][1]:
-                    problems.append(f'{where}: background {share}‰')
-                if not fewest <= style['variants'] <= most:
-                    problems.append(f'{where}: carries {fewest}-{most} variants, not {style["variants"]}')
-                if small or not 750 <= occupancy <= 950:
-                    problems.append(f'{where}: small roles {small}, occupancy {occupancy}‰')
+            seed_i = rng.randrange(1 << 30)
+            # The expansion bands try the band's next sizes when a drawing misses its targets at this one.
+            tries = len(sizes) if style and style.get('recolor') else 1
+            for k in range(tries):
+                w, h = sizes[(i + k) % len(sizes)]
+                cv, roles, themes, issues, ok_six, held = sketch(subject, w, h, seed_i, style, f'{band} #{i} {subject.__name__} {w}x{h}')
+                if not issues:
+                    break
+            problems += issues
+            six += ok_six
+            for group in held:
+                carried[group] = carried.get(group, 0) + 1
             name = subject.__name__
             counter[name] = counter.get(name, 0) + 1
             pid = f'{name}_{counter[name]:02d}'
-            meta_path = os.path.join(ROOT, pid + '.meta.json')
+            meta_path = os.path.join(root, pid + '.meta.json')
             if os.path.exists(meta_path) and '"approved"' in open(meta_path).read():
                 continue
             meta = {
@@ -567,18 +621,27 @@ def main(seed=2026):
             with open(meta_path, 'w') as f:
                 json.dump(meta, f, indent=2, sort_keys=True)
                 f.write('\n')
-            with open(os.path.join(ROOT, pid + '.grid.txt'), 'w') as f:
+            with open(os.path.join(root, pid + '.grid.txt'), 'w') as f:
                 f.write('\n'.join(cv.rows()) + '\n')
         if style and six < style['six'] * count:
             problems.append(f'{band}: {six} of {count} pictures carry six variants, fewer than {style["six"]:.0%}')
         if style:
-            print(f'{band}: {count} pictures, {six} carry six variants')
+            extra = ''.join(f', {n} with a {g} role' for g, n in sorted(carried.items()))
+            print(f'{band}: {count} pictures, {six} carry six variants{extra}')
         written += count
-    print(f'wrote {written} picture sketches to {os.path.normpath(ROOT)}')
+    print(f'wrote {written} picture sketches to {os.path.normpath(root)}')
     if problems:
         print('\n'.join(problems), file=sys.stderr)
         sys.exit(1)
 
 
 if __name__ == '__main__':
-    main(int(sys.argv[1]) if len(sys.argv) > 1 else 2026)
+    # sketch_pictures.py [seed] [--expansions] [--out <folder>]
+    args = sys.argv[1:]
+    out = ROOT
+    if '--out' in args:
+        out = args[args.index('--out') + 1]
+        del args[args.index('--out'):args.index('--out') + 2]
+    with_expansions = '--expansions' in args
+    args = [a for a in args if a != '--expansions']
+    main(int(args[0]) if args else 2026, with_expansions, out)
