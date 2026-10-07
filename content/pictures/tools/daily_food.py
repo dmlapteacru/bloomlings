@@ -813,4 +813,398 @@ def pie(w, h, r):
                 role('q', 'plate', 'Small plate', GREEN), S['t'], S['d'], S['o'], S['v']], ['food', 'sweets']
 
 
-DAILY_FOOD = [banana, lemon, peach, coconut, avocado, carrot, corn, broccoli, tomato, eggplant, chili_pepper, pea_pod, cookie, pie]
+def spot(cv, x, y, q, c, on):
+    """A round spot of role c, `q` cells in radius, on the cells of the roles in `on` only."""
+    for xx, yy, px, py in cells(cv):
+        if cv.g[yy][xx] in on and math.hypot(px - x, py - y) <= q:
+            cv.g[yy][xx] = c
+
+
+def slice_of_pizza(cv, r, tip, R, ang, half, crust, cheese, pepperoni, basil=None):
+    """A slice of pizza: a sector from its tip, R cells long and pointing `ang` degrees (0 up), crust along its end."""
+    a0 = math.radians(ang - 90)
+    for xx, yy, px, py in cells(cv):
+        d = math.hypot(px - tip[0], py - tip[1])
+        a = math.atan2(py - tip[1], px - tip[0]) - a0
+        a = (a + math.pi) % (2 * math.pi) - math.pi
+        if d <= R and abs(a) <= math.radians(half):
+            cv.g[yy][xx] = crust if d > R - 2.2 else cheese
+    for k, (u, v) in enumerate(((0.66, -0.5), (0.64, 0.5), (0.4, 0.05), (0.84, 0.05))):
+        a = a0 + v * math.radians(half)
+        spot(cv, tip[0] + math.cos(a) * R * u, tip[1] + math.sin(a) * R * u, R * 0.055 + 0.6, pepperoni, cheese)
+    if basil:
+        a = a0 + 0.2 * math.radians(half)
+        lens(cv, tip[0] + math.cos(a) * R * 0.48, tip[1] + math.sin(a) * R * 0.48, tip[0] + math.cos(a) * R * 0.66,
+             tip[1] + math.sin(a) * R * 0.66, 1.4, basil)
+
+
+def pizza(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, basil = r.randrange(3), r.randrange(3), r.random() < 0.6
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    if mode == 0:  # one slice, its tip on a plate
+        oval(cv, cx, ty, w * 0.4, 1.8, 'p')
+        slice_of_pizza(cv, r, (cx + r.uniform(-1, 1), ty - 1.4), h * 0.64, r.uniform(-8, 8), 27, 'c', 'y', 'e', 'l' if basil else None)
+    elif mode == 1:  # a whole pizza cut in six, on a plate or a wooden peel
+        if r.random() < 0.5:
+            oval(cv, cx, ty - 0.6, w * 0.48, 3.2, 'p')
+        else:
+            rbox(cv, w * 0.2, ty - 2.2, w + 1, ty - 0.8, 0.6, 'k')
+            oval(cv, cx - w * 0.06, ty - 3.0, w * 0.44, 2.6, 'k')
+        x, y, rx, ry = cx, ty - h * 0.2, w * 0.46, h * 0.19
+        oval(cv, x, y, rx, ry, 'c')
+        oval(cv, x, y, rx - 1.5, ry - 1.3, 'y')
+        for k in range(6):
+            a = math.radians(k * 60 + r.uniform(0, 30))
+            seg(cv, x, y, x + math.cos(a) * rx, y + math.sin(a) * ry, 'c', 0.4)
+        for k in range(7):
+            a = math.radians(k * 51 + 25)
+            spot(cv, x + math.cos(a) * rx * 0.58, y + math.sin(a) * ry * 0.58, 1.3, 'e', 'y')
+        if basil:
+            for k in range(3):
+                a = math.radians(k * 120 + 70)
+                lens(cv, x + math.cos(a) * rx * 0.25 - 1, y + math.sin(a) * ry * 0.25, x + math.cos(a) * rx * 0.25 + 1, y + math.sin(a) * ry * 0.25 - 0.6, 1.2, 'l')
+    else:  # two slices side by side
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        slice_of_pizza(cv, r, (cx - w * 0.22, ty - 1.2), h * 0.5, 4, 25, 'c', 'y', 'e', 'l' if basil else None)
+        slice_of_pizza(cv, r, (cx + w * 0.2, ty - h * 0.52), h * 0.46, 180, 24, 'c', 'y', 'e', 'l' if basil else None)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('y', 'cheese', 'Cheese', BROWN), role('c', 'crust', 'Crust and cuts', BROWN),
+                role('e', 'pepperoni', 'Pepperoni', PINK), role('l', 'basil', 'Basil', GREEN), role('p', 'plate', 'Plate', BLUE),
+                role('k', 'peel', 'Wooden peel', GREEN), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
+
+
+def one_burger(cv, r, x, yb, hw, double, sesame):
+    """A burger standing on its bottom bun at row yb, hw cells to each side: bun, lettuce, patty, tomato, cheese,
+    lettuce and the top bun (a second patty and cheese when `double`)."""
+    def frill(y, c):
+        box(cv, x - hw * 1.06, y - 1.2, x + hw * 1.06, y, c)
+        for k in range(int(hw * 2.1 / 1.7) + 1):
+            disc(cv, x - hw * 1.06 + k * 1.7, y + 0.1, 0.8, c)
+
+    rbox(cv, x - hw, yb - 2.6, x + hw, yb, 1.2, 'u')
+    y = yb - 2.6
+    frill(y - 0.2, 'l')
+    y -= 1.2
+    for k in range(2 if double else 1):
+        rbox(cv, x - hw * 0.98, y - 2.6, x + hw * 0.98, y, 1.1, 'm')
+        y -= 2.6
+        if double and k == 0:
+            box(cv, x - hw, y - 1.0, x + hw, y, 'y')
+            y -= 1.0
+    rbox(cv, x - hw * 0.92, y - 1.3, x + hw * 0.92, y, 0.5, 'a')
+    y -= 1.3
+    box(cv, x - hw, y - 1.0, x + hw, y, 'y')
+    for dx in (-0.55, 0.15, 0.7):
+        poly(cv, [(x + dx * hw - 1.2, y), (x + dx * hw + 1.2, y), (x + dx * hw, y + 2.2)], 'y')
+    y -= 1.0
+    frill(y, 'l')
+    y -= 1.2
+    for xx, yy, px, py in cells(cv):
+        if py <= y and ((px - x) / hw) ** 2 + ((py - y) / (hw * 0.7)) ** 2 <= 1.0:
+            cv.g[yy][xx] = 'u'
+    if sesame:
+        scatter(cv, 'x', 'u', 7, r, sep=2, area=(x - hw, y - hw * 0.62, x + hw, y - 1))
+    return y - hw * 0.7
+
+
+def burger(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, sesame = r.randrange(3), r.randrange(3), r.random() < 0.7
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    if mode == 0:  # one burger on a plate
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        one_burger(cv, r, cx, ty - 0.8, w * 0.4, False, sesame)
+    elif mode == 1:  # a burger and fries
+        oval(cv, cx, ty, w * 0.48, 1.8, 'p')
+        fx = cx + w * 0.3
+        for k in range(6):
+            x = fx - 2.6 + k * 1.05
+            seg(cv, x, ty - 7.0, x + (k - 2.5) * 0.35, ty - 12.0 + (k % 3) * 1.2, 'y', 0.5)
+        poly(cv, [(fx - 3.6, ty - 8.0), (fx + 3.6, ty - 8.0), (fx + 2.6, ty - 0.8), (fx - 2.6, ty - 0.8)], 'r')
+        one_burger(cv, r, cx - w * 0.14, ty - 0.8, w * 0.3, False, sesame)
+    else:  # a double burger with a flag on a pick
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        top = one_burger(cv, r, cx, ty - 0.8, w * 0.36, True, sesame)
+        seg(cv, cx + 0.5, top - 0.2, cx + 0.5, top - 4.5, 'k', 0.4)
+        poly(cv, [(cx + 0.9, top - 4.6), (cx + 4.6, top - 3.7), (cx + 0.9, top - 2.6)], 'g')
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('u', 'bun', 'Buns', BROWN), role('m', 'patty', 'Patty', BROWN), role('y', 'cheese', 'Cheese and fries', BROWN),
+                role('x', 'sesame', 'Sesame seeds', BROWN), role('l', 'lettuce', 'Lettuce', GREEN), role('a', 'tomato', 'Tomato', PINK),
+                role('r', 'carton', 'Fries carton', PINK), role('p', 'plate', 'Plate', BLUE), role('k', 'pick', 'Pick', BLUE),
+                role('g', 'flag', 'Flag', GREEN), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
+
+
+def nigiri(cv, x, yb, hw):
+    """A nigiri on a board at row yb: a block of rice, a slice of fish draped over it, a band of nori round both."""
+    rbox(cv, x - hw, yb - 3.8, x + hw, yb, 1.4, 'w')
+    rbox(cv, x - hw - 0.6, yb - 6.0, x + hw + 0.6, yb - 2.8, 1.6, 'f')
+    for k in (-1, 1):
+        seg(cv, x + k * hw * 0.55 - 0.8, yb - 5.6, x + k * hw * 0.55 + 0.6, yb - 3.6, 'e', 0.4)
+    box(cv, x - 1.0, yb - 6.2, x + 1.0, yb, 'n')
+
+
+def maki(cv, x, yb, rr):
+    """A maki roll standing on a board at row yb: its side wrapped in nori, rice and filling on top."""
+    top = yb - rr * 0.8
+    box(cv, x - rr, top, x + rr, yb, 'n')
+    oval(cv, x, top, rr, rr * 0.62, 'n')
+    oval(cv, x, top, rr - 0.9, rr * 0.62 - 0.8, 'w')
+    oval(cv, x - 0.5, top, rr * 0.3, rr * 0.22 + 0.2, 'f')
+    disc(cv, x + rr * 0.32, top - 0.2, 0.7, 'c')
+
+
+def sushi(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, sticks = r.randrange(3), r.randrange(2), r.random() < 0.6
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    yb = ty - 2.4
+    rbox(cv, w * 0.04, yb, w * 0.96, ty - 0.6, 0.6, 'k')
+    for x in (w * 0.16, w * 0.84):
+        box(cv, x - 1.2, ty - 1.0, x + 1.2, ty + 0.6, 'k')
+    if mode == 0:  # two nigiri
+        nigiri(cv, cx - w * 0.22, yb, w * 0.2)
+        nigiri(cv, cx + w * 0.22, yb, w * 0.2)
+    elif mode == 1:  # three maki rolls
+        for k in (-1, 0, 1):
+            maki(cv, cx + k * w * 0.3, yb, w * 0.14)
+    else:  # a nigiri, two maki and a dab of wasabi
+        nigiri(cv, cx - w * 0.2, yb, w * 0.22)
+        maki(cv, cx + w * 0.3, yb, w * 0.13)
+        disc(cv, cx + w * 0.1, yb - 0.6, 1.4, 'c')
+    if sticks:
+        for k in (0, 1):
+            seg(cv, w + 1.0, h * (0.14 + k * 0.07), cx + w * 0.02 + k * 1.2, yb - 7.5 + k * 0.6, 'h', 0.5)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('f', 'fish', 'Fish and filling', BROWN), role('k', 'board', 'Board', BROWN), role('e', 'stripes', 'Fish stripes', BROWN),
+                S['t'], S['d'], role('w', 'rice', 'Rice', PINK), S['v'], role('n', 'nori', 'Nori', GREEN),
+                role('c', 'cucumber', 'Cucumber and wasabi', GREEN), S['o'], role('h', 'chopsticks', 'Chopsticks', BLUE)], ['food', 'dishes']
+
+
+def wedge(cv, r, x0, x1, yb, hh, holes):
+    """A wedge of cheese from its thin end at x0 to its rind at x1, standing on row yb, hh cells thick: the side face
+    with holes, the top face rising to the rind."""
+    box(cv, x0, yb - hh, x1, yb, 'f')
+    poly(cv, [(x0, yb - hh + 0.5), (x1 + 0.5, yb - hh + 0.5), (x1 + 0.5, yb - hh - (x1 - x0) * 0.42)], 'c')
+    box(cv, x1 - 0.9, yb - hh - (x1 - x0) * 0.42 + 1.0, x1 + 0.5, yb, 'k')
+    for k in range(holes):
+        u, v = r.uniform(0.1, 0.8), r.uniform(0.2, 0.8)
+        spot(cv, x0 + (x1 - x0) * u, yb - hh * v, r.uniform(0.8, 1.6), 'h', 'fc')
+    spot(cv, x0 + (x1 - x0) * 0.6, yb - hh - (x1 - x0) * 0.08, 1.0, 'h', 'c')
+
+
+def wedge_front(cv, r, x0, x1, yb, hh, holes):
+    """A wedge of cheese with its cut face to the viewer: a triangle with holes, its top sloping back to the rind."""
+    tip = (x0 + (x1 - x0) * 0.12, yb - hh)
+    poly(cv, [(tip[0] + 3.0, tip[1] - 2.6), (x1 + 3.0, yb - 2.6), (x1, yb), tip], 'c')
+    seg(cv, x1 + 0.4, yb - 0.4, x1 + 2.8, yb - 2.4, 'k', 0.6)
+    poly(cv, [(x0, yb), (x1, yb), tip], 'f')
+    for k in range(holes):
+        u, v = r.uniform(0.15, 0.75), r.uniform(0.15, 0.6)
+        spot(cv, x0 + (x1 - x0) * (u * (1 - v) + 0.12 * v), yb - hh * v, r.uniform(0.9, 1.5), 'h', 'f')
+
+
+def cheese(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind = r.randrange(3), r.randrange(3)
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    rbox(cv, w * 0.04, ty - 1.4, w * 0.96, ty + 0.6, 0.7, 'p')
+    yb = ty - 1.2
+    if mode == 0:  # one big wedge
+        wedge(cv, r, w * 0.08, w * 0.86, yb, h * 0.2, 6)
+    elif mode == 1:  # a wedge with its cut face to the viewer
+        wedge_front(cv, r, w * 0.08, w * 0.76, yb, h * 0.42, 5)
+    else:  # a big and a small wedge
+        wedge(cv, r, w * 0.3, w * 0.94, yb, h * 0.17, 4)
+        box(cv, w * 0.04, yb - h * 0.14, w * 0.38, yb, 'b')
+        wedge(cv, r, w * 0.06, w * 0.34, yb, h * 0.11, 2)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('f', 'cheese', 'Cheese', BROWN), role('k', 'rind', 'Rind', BROWN), role('c', 'top', 'Top of the cheese', BROWN),
+                role('h', 'holes', 'Holes', PINK), role('p', 'board', 'Board', GREEN), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
+
+
+def one_croissant(cv, x, y, rr, body, line, shine):
+    """A croissant: a crescent, its horns curling down at both ends, ribbed across into five puffs."""
+    pts = curve((x - rr * 1.2, y + rr * 0.75), (x + rr * 1.2, y + rr * 0.75), -rr * 0.85)
+    rad = lambda t: rr * (0.12 + 0.44 * math.sin(math.pi * t) ** 1.4)  # noqa: E731
+    tube(cv, pts, rad, body)
+    for u in (0.2, 0.37, 0.63, 0.8):
+        k = int(u * 20)
+        (ax, ay), (bx, by) = pts[k - 1], pts[k + 1]
+        L = math.hypot(bx - ax, by - ay) or 1.0
+        nx, ny = -(by - ay) / L, (bx - ax) / L
+        q = rad(u) + 0.6
+        seg(cv, pts[k][0] - nx * q, pts[k][1] - ny * q, pts[k][0] + nx * q, pts[k][1] + ny * q, line, 0.45)
+    tilted(cv, x - rr * 0.15, y - rr * 0.08, rr * 0.2, 0.6, -10, shine)
+
+
+def croissant(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind = r.randrange(3), r.randrange(3)
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    if mode == 0:  # one croissant on a plate
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        one_croissant(cv, cx, ty - h * 0.22, w * 0.34, 'c', 'k', 'y')
+    elif mode == 1:  # a croissant and a cup of coffee
+        ux = cx + w * 0.25
+        oval(cv, ux, ty - 0.4, w * 0.19, 1.2, 'q')
+        ring(cv, ux + w * 0.15, ty - h * 0.14, 2.1, 1.0, 'u')
+        rbox(cv, ux - w * 0.14, ty - h * 0.24, ux + w * 0.14, ty - 1.2, 1.4, 'u')
+        oval(cv, ux, ty - h * 0.24, w * 0.14, 1.0, 'k')
+        for k in (-1, 1):
+            path(cv, [(ux + k * 1.6, ty - h * 0.3), (ux + k * 1.6 + 0.8, ty - h * 0.36), (ux + k * 1.6 - 0.3, ty - h * 0.42)], 'm', 0.45)
+        oval(cv, cx - w * 0.17, ty, w * 0.28, 1.6, 'p')
+        one_croissant(cv, cx - w * 0.17, ty - h * 0.18, w * 0.22, 'c', 'k', 'y')
+    else:  # two croissants, one on the other
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        one_croissant(cv, cx + w * 0.06, ty - h * 0.38, w * 0.26, 'c', 'k', 'y')
+        one_croissant(cv, cx - w * 0.04, ty - h * 0.17, w * 0.3, 'c', 'k', 'y')
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('c', 'croissant', 'Croissants', BROWN), role('k', 'lines', 'Lines and coffee', BROWN), role('y', 'shine', 'Shine', BROWN),
+                role('u', 'cup', 'Cup', PINK), role('p', 'plate', 'Plate', BLUE), role('q', 'saucer', 'Saucer', GREEN), role('m', 'steam', 'Steam', GREEN),
+                S['o'], S['t'], S['d'], S['v']], ['food', 'bakery']
+
+
+def one_pretzel(cv, x, y, W, H, rr, c):
+    """A pretzel W cells wide and H tall round (x, y): its round belly below, two loops over the top that cross in the
+    middle, and its two ends pressed onto the belly."""
+    L, R = (x - W * 0.46, y + H * 0.02), (x + W * 0.46, y + H * 0.02)
+    belly = [(x + math.cos(a) * W * 0.46, y + H * 0.02 + math.sin(a) * H * 0.46) for a in (math.radians(k * 9) for k in range(0, 21))]
+    tube(cv, belly, rr, c)
+    P1, P2 = (x + W * 0.1, y - H * 0.18), (x - W * 0.1, y - H * 0.18)
+    tube(cv, curve(L, P1, -W * 0.32), rr * 0.9, c)
+    tube(cv, curve(R, P2, W * 0.32), rr * 0.9, c)
+    tube(cv, [P1, (x - W * 0.26, y + H * 0.36)], rr * 0.8, c)
+    tube(cv, [P2, (x + W * 0.26, y + H * 0.36)], rr * 0.8, c)
+
+
+def pretzel(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, salt = r.randrange(3), r.randrange(3), r.random() < 0.7
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    if mode == 0:  # one big pretzel on a board
+        rbox(cv, w * 0.06, ty - 1.4, w * 0.94, ty + 0.6, 0.7, 'p')
+        one_pretzel(cv, cx, ty - h * 0.3, w * 0.86, h * 0.48, 1.7, 'z')
+    elif mode == 1:  # a pretzel and a bowl of mustard
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        one_pretzel(cv, cx - w * 0.08, ty - h * 0.36, w * 0.76, h * 0.42, 1.5, 'z')
+        bowl(cv, cx + w * 0.26, ty - h * 0.12, ty - 0.4, w * 0.18, 'q')
+        oval(cv, cx + w * 0.26, ty - h * 0.12, w * 0.15, 0.8, 'm')
+    else:  # hanging on a peg
+        disc(cv, cx, h * 0.08, 1.2, 'k')
+        seg(cv, cx, h * 0.08, cx, h * 0.2, 'k', 0.5)
+        one_pretzel(cv, cx, h * 0.42, w * 0.84, h * 0.46, 1.6, 'z')
+        for k in range(3):
+            disc(cv, cx + (k - 1) * 3.0, ty - 1.2, 1.2, 'q')
+    if salt:
+        scatter(cv, 'x', 'z', 12, r, sep=2)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('z', 'pretzel', 'Pretzel', BROWN), role('k', 'peg', 'Peg', BROWN), role('m', 'mustard', 'Mustard', BROWN),
+                S['t'], S['d'], role('x', 'salt', 'Salt', PINK), role('p', 'board', 'Board and plate', BLUE),
+                role('q', 'bowl', 'Bowl and crumbs', GREEN), S['o'], S['v']], ['food', 'bakery']
+
+
+def one_waffle(cv, x, y, half, round_):
+    """A waffle facing the viewer, square or round, with its grid of pockets."""
+    if round_:
+        disc(cv, x, y, half, 'w')
+    else:
+        rbox(cv, x - half, y - half, x + half, y + half, 1.0, 'w')
+    x0, y0 = int(x - half) + 1, int(y - half) + 1
+    for yy in range(y0, int(y + half)):
+        for xx in range(x0, int(x + half)):
+            if (xx - x0) % 3 != 0 and (yy - y0) % 3 != 0 and all(cv.g[yy + b][xx + a] in 'wk' for a in (-1, 0, 1) for b in (-1, 0, 1)):
+                cv.g[yy][xx] = 'k'
+
+
+def waffle(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, fruit = r.randrange(3), r.randrange(3), r.random() < 0.5
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+    half = w * 0.33
+    x, y = cx, ty - 1.2 - half
+    if mode == 1:  # two waffles, one behind the other
+        one_waffle(cv, x + w * 0.1, y - h * 0.1, half * 0.85, False)
+        rbox(cv, x - w * 0.06 - half * 0.9 - 0.9, y - half * 0.9 - 0.9, x - w * 0.06 + half * 0.9 + 0.9, y + half * 0.9 + 0.9, 1.4, 'b')
+        x, half = x - w * 0.06, half * 0.9
+    one_waffle(cv, x, y, half, mode == 2)
+    rbox(cv, x - 2.2, y - half * 0.5 - 1.2, x + 2.2, y - half * 0.5 + 1.0, 0.5, 'u')
+    for dx, L in ((-1.4, 0.9), (0.9, 1.3), (2.6, 0.6)):
+        seg(cv, x + dx, y - half * 0.5, x + dx, y - half * 0.5 + half * L, 's', 0.45)
+    if fruit:
+        for dx, dy in ((-0.55, 0.55), (0.6, 0.45), (0.1, 0.8)):
+            disc(cv, x + dx * half, y + dy * half, 1.6, 'r')
+            disc(cv, x + dx * half + 0.2, y + dy * half - 1.6, 0.7, 'm')
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('w', 'waffle', 'Waffle', BROWN), role('u', 'butter', 'Butter', BROWN), S['o'],
+                role('p', 'plate', 'Plate', BLUE), role('k', 'pockets', 'Waffle pockets', BLUE), role('s', 'syrup', 'Syrup', PINK),
+                role('r', 'strawberries', 'Strawberries', PINK), role('m', 'leaves', 'Strawberry leaves', GREEN), S['t'], S['d'],
+                S['v']], ['food', 'sweets']
+
+
+def one_macaron(cv, x, yb, hw, shell, filling):
+    """A macaron lying on row yb, hw cells to each side: two domed shells with ruffled feet and the filling between."""
+    for xx, yy, px, py in cells(cv):
+        if py <= yb and ((px - x) / hw) ** 2 + ((py - yb) / 1.8) ** 2 <= 1.0:
+            cv.g[yy][xx] = shell
+    box(cv, x - hw * 1.03, yb - 2.4, x + hw * 1.03, yb - 1.2, shell)
+    box(cv, x - hw * 0.96, yb - 3.6, x + hw * 0.96, yb - 2.4, filling)
+    box(cv, x - hw * 1.03, yb - 4.8, x + hw * 1.03, yb - 3.6, shell)
+    for xx, yy, px, py in cells(cv):
+        if py <= yb - 4.6 and ((px - x) / hw) ** 2 + ((py - yb + 4.6) / (hw * 0.5)) ** 2 <= 1.0:
+            cv.g[yy][xx] = shell
+    return yb - 4.6 - hw * 0.5
+
+
+def macaron(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind = r.randrange(3), r.randrange(3)
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+    looks = [('a', 'f'), ('g', 'f'), ('c', 'q')]
+    r.shuffle(looks)
+    if mode == 0:  # a tower of three
+        y = ty - 0.8
+        for k, (shell, filling) in enumerate(looks):
+            y = one_macaron(cv, cx + r.uniform(-0.8, 0.8), y, w * (0.34 - k * 0.03), shell, filling) - 0.2
+    elif mode == 1:  # two lying, one on top between them
+        for k, dx in enumerate((-0.23, 0.23)):
+            one_macaron(cv, cx + dx * w, ty - 0.8, w * 0.21, *looks[k])
+        one_macaron(cv, cx, ty - 8.4, w * 0.24, *looks[2])
+    else:  # a big one and two small ones behind
+        one_macaron(cv, cx - w * 0.25, ty - 5.4, w * 0.16, *looks[1])
+        one_macaron(cv, cx + w * 0.25, ty - 5.4, w * 0.16, *looks[2])
+        one_macaron(cv, cx, ty - 0.8, w * 0.36, *looks[0])
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
+    return cv, [S['b'], role('a', 'pink', 'Pink macaron', PINK), role('q', 'pink_cream', 'Pink filling', PINK),
+                role('g', 'green', 'Green macaron', GREEN), S['t'], S['d'], role('f', 'cream', 'Cream filling', BROWN),
+                role('c', 'caramel', 'Caramel macaron', BROWN), role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'sweets']
+
+
+DAILY_FOOD = [banana, lemon, peach, coconut, avocado, carrot, corn, broccoli, tomato, eggplant, chili_pepper, pea_pod, cookie, pie, pizza,
+              burger, sushi, cheese, croissant, pretzel, waffle, macaron]

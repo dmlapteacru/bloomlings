@@ -74,15 +74,14 @@ CAMEL = ["........XX.",
          ".X.X..X.X..",
          ".X.X..X.X.."]
 
-HORSE = ["......XX..",
-         ".....XXXX.",
-         "....XXX.XX",
-         "X..XXX....",
-         "XXSSSXX...",
-         "XXXXXXX...",
-         ".XXXXXX...",
-         ".X.X..XX..",
-         "X..X...X.."]
+HORSE = [".....XX.",
+         "....XXXX",
+         "...XXX.X",
+         "X.SSSX..",
+         "XXXXXX..",
+         ".XXXXX..",
+         ".X.X..X.",
+         ".X.X...X"]
 
 
 def _sprite(cv, x0, y0, rows, marks, flip=False):
@@ -518,30 +517,32 @@ def carousel(w, h, r):
     layout = r.choice(('wide', 'left', 'right'))
     night = r.choice((False, True, False))
     wide = layout == 'wide'
-    W = w * (0.45 if wide else 0.38)
-    ox = cx + {'wide': 0, 'left': -1, 'right': 1}[layout] * w * 0.09
+    W = w * (0.45 if wide else 0.37)
+    ox = cx + {'wide': 0, 'left': -1, 'right': 1}[layout] * w * 0.06
     box(cv, 0, gtop, w, h, 'g')
     if r.random() < 0.5:
         dots(cv, 'q', 'g', 3, 2, area=(0, gtop + 1, w - 1, h - 1))
-    if not wide:
-        bx = w * 0.08 if ox > cx else w * 0.92
-        if r.random() < 0.5:
-            for k, (dx, y) in enumerate(((-0.9, 0.36), (1.0, 0.3), (0.0, 0.22))):
-                path(cv, [(bx, gtop - 1), (bx + dx * 0.5, h * (y + 0.12)), (bx + dx, h * y + 1.2)], 'k', 0.45)
-                oval(cv, bx + dx, h * y, 1.25, 1.5, 'fe'[k % 2])
-        else:
-            _tree(cv, bx, gtop, s * 0.12, 'f', 'k')
     py0 = gtop - 2.6
     rbox(cv, ox - W - 0.4, py0, ox + W + 0.4, gtop + 0.4, 0.8, 'p')
     for x in range(int(ox - W) + 1, int(ox + W), 3):
         cv.put(x, int(py0 + 1.2), 'd')
+    if not wide:
+        bx = w * 0.14 if ox > cx else w * 0.86
+        if r.random() < 0.5:
+            box(cv, bx - 2.0, gtop - 6.0, bx + 2.0, gtop + 0.5, 'k')
+            box(cv, bx - 1.2, gtop - 5.0, bx + 1.2, gtop - 3.2, 'w')
+            for k in range(4):
+                poly(cv, [(bx - 2.6 + k * 1.3, gtop - 6.0), (bx - 2.0 + k * 1.3, gtop - 8.4), (bx - 1.3 + k * 1.3, gtop - 6.0)],
+                     'ab'[k % 2])
+        else:
+            _tree(cv, bx, gtop, s * 0.1, 'f', 'k')
     apex, eave = h * 0.13, h * 0.4
     box(cv, ox - 1.0, eave, ox + 1.0, py0, 'c')
     tops = [int(eave) + 1, int(eave) + 3]
     r.shuffle(tops)
-    for k, (x, y0) in enumerate(zip((ox - W * 0.5, ox + W * 0.5), tops)):
+    for x, y0 in zip((int(ox - W * 0.56) + 0.5, int(ox + W * 0.44) + 0.5), tops):
         seg(cv, x, eave, x, py0, 'k', 0.5)
-        _sprite(cv, x - (3 if k == 0 else 6), y0, HORSE, {'X': 'x', 'S': 'e'}, k == 1)
+        _sprite(cv, x - 3.5, y0 + 1, HORSE, {'X': 'x', 'S': 'e'})
     n = r.choice((6, 8))
     bell = r.choice((0.5, 0.75, 1.0))
     for gy in range(h):
@@ -567,9 +568,9 @@ def carousel(w, h, r):
     if r.random() < 0.5:
         _mirror(cv)
     return cv, [sky(), role('a', 'stripe', 'Canopy stripes', PINK), role('b', 'stripe2', 'Other stripes', BROWN),
-                role('c', 'column', 'Centre column', PINK), role('k', 'pole', 'Poles and strings', BROWN), _light(night),
-                role('x', 'horse', 'Horses', GREEN), role('e', 'saddle', 'Saddles and balloon', PINK), role('p', 'platform', 'Platform', BROWN),
-                role('d', 'lights', 'Lights', BLUE), role('f', 'flag', 'Flag, tree and balloon', GREEN), role('g', 'grass', 'Grass', GREEN),
+                role('c', 'column', 'Centre column', PINK), role('k', 'pole', 'Poles and booth', BROWN), _light(night),
+                role('x', 'horse', 'Horses', GREEN), role('e', 'saddle', 'Saddles', PINK), role('p', 'platform', 'Platform', BROWN),
+                role('d', 'lights', 'Lights', BLUE), role('w', 'window', 'Booth window', BLUE), role('f', 'flag', 'Flag and tree', GREEN), role('g', 'grass', 'Grass', GREEN),
                 role('q', 'flowers', 'Lawn dots', BLUE), role('z', 'stars', 'Stars', BROWN)], ['places', 'fair']
 
 

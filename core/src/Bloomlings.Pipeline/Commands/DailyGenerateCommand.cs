@@ -74,6 +74,7 @@ namespace Bloomlings.Pipeline.Commands
                 IReadOnlyList<BasePicture> pictures = new PicturePicker(library, drafts).Candidates(band, 1, new Dictionary<int, LevelDefinition>());
                 DailyPlan plan = DailyPlan.Build(pictures, size, baseSeed);
                 int rules = UnlockRoadmap.Default.LevelOf(UnlockId) ?? throw new InvalidOperationException($"the roadmap has no {UnlockId} row.");
+                var progressLock = new object();
                 LevelGenerator NewGenerator() => new LevelGenerator(
                     band,
                     new PicturePicker(library, drafts, plan.PictureOf),
@@ -86,6 +87,15 @@ namespace Bloomlings.Pipeline.Commands
                     UseBandGuidelines = false,
                     ClassOf = classOf,
                     RulesLevel = rules,
+                    Progress = (entry, accepted, candidates) =>
+                    {
+                        lock (progressLock)
+                        {
+                            Console.Error.WriteLine(accepted == null
+                                ? $"  entry {entry} ({classOf(entry)}, {plan.PictureOf(entry)}): failed after {candidates} candidates"
+                                : $"  entry {entry}: {accepted.Definition.Difficulty.Class} ({accepted.Definition.Difficulty.Score}), {accepted.Definition.Picture.Id}, {accepted.Definition.Pods.Count} pods, candidate {candidates}");
+                        }
+                    },
                 };
                 var history = new SortedDictionary<int, LevelDefinition>();
                 int threads = Math.Max(1, parse.GetValue(jobs));

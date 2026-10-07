@@ -881,48 +881,53 @@ def hippo(w, h, r):
 
 def crocodile(w, h, r):
     cv, s, cx, big = start(w, h, 's')
-    hills(cv, 'r', 15.0, 0.3, 22 * 0.5, r.uniform(0, 6))
-    for x in r.sample((3.0, 9.0, 18.0), r.randint(0, 2)):
-        oval(cv, x, 15.0, 2.6, 1.0, 'b')
-    oval(cv, 8.0, 25.6, 12.0, 3.4, 'd')
-    for k in range(r.randint(2, 4)):
-        x, y = r.uniform(14, 21), r.uniform(23, 27)
-        seg(cv, x - 1.0, y, x + 1.0, y, 'w', 0.4)
+    wl = r.uniform(18.0, 19.0)
+    hills(cv, 'r', 14.5, 0.3, 22 * 0.5, r.uniform(0, 6))
     if r.random() < 0.6:
-        palm(cv, r.uniform(1.5, 3.0), 24.0, 9.0, 'k', 'l', 1.0)
-    disc(cv, r.uniform(9, 18), r.uniform(2.6, 4.6), 2.2, 'u')
-    cy = 20.0
-    tube(cv, [(2.6, cy), (0.8, cy - 1.6), (0.8, cy - 4.0)], 1.8, 0.8, 'c')
-    oval(cv, 7.6, cy, 6.4, 2.6, 'c')
-    for x in (11.6, 4.4):
-        path(cv, [(x, cy + 1.6), (x + 0.6, cy + 3.4), (x + 1.8, cy + 3.8)], 'c', 0.75)
-    disc(cv, 14.2, cy - 1.0, 2.4, 'c')
-    if r.random() < 0.65:
-        lens(cv, 13.4, cy - 1.6, 21.6, cy - 6.4, 2.8, 'c')
-        lens(cv, 13.4, cy + 0.2, 21.2, cy + 0.8, 2.2, 'c')
-        poly(cv, [(15.0, cy - 1.0), (20.8, cy - 5.0), (20.8, cy - 0.4)], 'm')
-        for k in range(4):
-            t = 0.2 + k * 0.22
-            cv.put(int(15.0 + 5.8 * t), int(cy - 1.0 - 4.0 * t), 'w')
-            cv.put(int(15.4 + 5.4 * t), int(cy - 0.4), 'w')
-        nx, ny = 21.0, cy - 6.6
+        ix = r.uniform(3, 7)
+        oval(cv, ix, 14.6, 4.0, 1.2, 'd')
+        palm(cv, ix, 14.0, 6.0, 'k', 'l', 0.6)
+    disc(cv, r.uniform(13, 18), r.uniform(2.2, 3.4), 2.0, 'u')
+    open_ = r.random() < 0.55
+    for x in (0.8, 2.8):
+        disc(cv, x, wl + 0.2, 1.4, 'c')
+        disc(cv, x, wl - 1.0, 0.7, 'q')
+    lens(cv, 4.2, wl + 0.8, 21.4, wl + 0.4, 2.8, 'c')
+    disc(cv, 5.6, wl - 1.4, 3.0, 'c')
+    if open_:
+        lens(cv, 4.6, wl - 2.4, 20.4, wl - 11.0, 3.6, 'c')
+        poly(cv, [(7.0, wl - 1.0), (19.4, wl - 8.8), (21.0, wl - 0.2)], 'm')
+        for k in range(5):
+            t = 0.12 + k * 0.17
+            x, y = 7.8 + 11.6 * t, wl - 2.2 - 7.2 * t
+            poly(cv, [(x - 0.7, y - 0.2), (x + 0.7, y - 1.0), (x + 0.4, y + 1.0)], 'w')
+            poly(cv, [(x - 0.4, wl + 0.2), (x + 0.8, wl + 0.2), (x + 0.2, wl - 1.4)], 'w')
+        disc(cv, 20.2, wl - 11.6, 1.0, 'c')
+        cv.put(20, int(wl - 12.2), 'k')
     else:
-        lens(cv, 13.4, cy - 1.4, 21.6, cy - 1.0, 2.6, 'c')
-        lens(cv, 13.4, cy + 0.6, 21.2, cy + 0.6, 2.0, 'c')
-        for x in range(15, 21, 2):
-            cv.put(x, int(cy), 'w')
-        nx, ny = 21.0, cy - 2.0
-    disc(cv, nx, ny, 0.8, 'c')
-    disc(cv, 14.4, cy - 3.0, 1.5, 'c')
-    eye(cv, 14.4, cy - 3.9, big, 'w', 'k')
-    for x in range(2, 12, 2):
-        disc(cv, x + 0.5, cy - 2.4, 0.7, 'q')
+        lens(cv, 4.6, wl - 1.6, 21.6, wl - 1.2, 3.4, 'c')
+        for x in range(8, 21, 2):
+            cv.put(x, int(wl - 0.4), 'w')
+            cv.put(x + 1, int(wl + 0.4), 'w')
+        disc(cv, 20.6, wl - 3.0, 1.0, 'c')
+        cv.put(20, int(wl - 3.4), 'k')
+    disc(cv, 6.4, wl - 4.8, 2.0, 'c')
+    eye(cv, 6.4, wl - 5.8, big, 'w', 'k')
+    for x, y in ((2.6, wl - 3.0), (4.2, wl - 4.2), (0.8, wl - 2.2)):
+        disc(cv, x, y, 0.75, 'q')
+    hills(cv, 'r', wl + 1.4, 0.3, 22 * 0.4, r.uniform(0, 6), only='cqw')
+    for k in range(r.randint(3, 5)):
+        x, y = r.uniform(2, 20), r.uniform(wl + 3, 26.5)
+        seg(cv, x - 1.0, y, x + 1.0, y, 'w', 0.4)
+    if r.random() < 0.5:
+        for x in r.sample((3.0, 9.0, 15.0, 19.0), 2):
+            oval(cv, x, r.uniform(wl + 4, 26), 1.6, 0.7, 'l')
     if r.random() < 0.5:
         mirror(cv)
     return cv, [sky(), role('c', 'croc', 'Crocodile', GREEN), role('q', 'scutes', 'Back ridges', GREEN), role('m', 'mouth', 'Mouth', PINK),
-                role('w', 'white', 'Teeth, eye white and ripples', BLUE), role('r', 'river', 'River', BLUE), role('d', 'sand', 'Sand bank', BROWN),
-                role('k', 'dark', 'Eye and palm trunk', BROWN), role('u', 'sun', 'Sun', PINK), role('b', 'islands', 'Islands', BROWN),
-                role('l', 'leaves', 'Palm leaves', GREEN)], ['animals', 'river']
+                role('w', 'white', 'Teeth, eye white and ripples', BLUE), role('r', 'river', 'River', BLUE), role('d', 'sand', 'Island', BROWN),
+                role('k', 'dark', 'Eye, nostril and palm trunk', BROWN), role('u', 'sun', 'Sun', PINK),
+                role('l', 'leaves', 'Palm leaves and lily pads', GREEN)], ['animals', 'river']
 
 
 def chameleon(w, h, r):
@@ -940,10 +945,10 @@ def chameleon(w, h, r):
     for k in range(2):
         disc(cv, r.uniform(9, 20), r.uniform(23.5, 27), 1.0, 'o')
     by = (b0 + b1) / 2 - 3.8
-    ccx, ccy = 3.8, by + 8.4
-    spiral = [(ccx + (3.4 - 0.62 * t) * math.cos(-t), ccy + (3.4 - 0.62 * t) * math.sin(-t)) for t in [k * 0.4 for k in range(13)]]
-    tube(cv, [(6.6, by + 1.2), (7.2, by + 5.0)] + spiral, 1.1, 0.5, 'c')
-    oval(cv, 10.0, by, 4.6, 3.0, 'c')
+    ccx, ccy = 4.0, by + 8.2
+    spiral = [(ccx + (3.2 - 0.3 * t) * math.cos(-t), ccy + (3.2 - 0.3 * t) * math.sin(-t)) for t in [k * 0.4 for k in range(17)]]
+    tube(cv, [(6.6, by + 1.2), (7.2, by + 5.0)] + spiral, 0.9, 0.5, 'c')
+    oval(cv, 10.2, by, 5.0, 2.7, 'c')
     for k in range(5):
         x = 6.4 + k * 1.6
         poly(cv, [(x - 0.8, by - 2.4), (x, by - 3.6), (x + 0.8, by - 2.4)], 'c')
@@ -1096,4 +1101,349 @@ def dragon(w, h, r):
         ['animals', 'fairy']
 
 
-DAILY_ANIMALS = [dragon, horse, unicorn, zebra, deer, cow, goat, camel, kangaroo, koala, monkey, tiger, squirrel, raccoon, hamster, hippo, crocodile, chameleon, dinosaur]
+def flamingo(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    wl = r.uniform(20.5, 22.0)
+    hills(cv, 'w', wl, 0.3, 22 * 0.5, r.uniform(0, 6))
+    if r.random() < 0.6:
+        palm(cv, r.choice((2.0, 19.5)), wl + 0.5, r.uniform(6, 9), 't', 'l', r.choice((-0.8, 0.8)))
+    for x in r.sample((1.0, 3.0, 17.5, 19.5, 21.0), 3):
+        seg(cv, x, wl + 1.0, x + r.uniform(-0.6, 0.6), wl - r.uniform(3, 5), 'l', 0.45)
+    disc(cv, r.choice((4.0, 16.0)), r.uniform(2.6, 4.2), 2.0, 'u')
+    for k in range(r.randint(2, 4)):
+        x, y = r.uniform(2, 20), r.uniform(wl + 2, 27)
+        seg(cv, x - 1.0, y, x + 1.0, y, 'r', 0.4)
+    fx = r.uniform(7.5, 9.0)
+    by = wl - 8.4
+    one_leg = r.random() < 0.6
+    seg(cv, fx + 0.5, by + 2.0, fx + 0.5, wl + 1.0, 'p', 0.45)
+    if one_leg:
+        path(cv, [(fx - 0.5, by + 2.0), (fx + 0.4, by + 5.0), (fx - 2.2, by + 4.0)], 'p', 0.45)
+    else:
+        path(cv, [(fx - 0.5, by + 2.0), (fx - 1.4, wl + 1.0)], 'p', 0.45)
+    oval(cv, fx, by, 4.2, 2.6, 'p')
+    poly(cv, [(fx - 3.4, by - 1.0), (fx - 6.0, by - 2.4), (fx - 3.8, by + 1.6)], 'p')
+    lens(cv, fx - 3.4, by - 0.6, fx + 2.6, by + 0.8, 2.2, 'q')
+    feed = r.random() < 0.45
+    if feed:
+        neck = curve([(fx + 3.4, by - 1.0), (fx + 6.6, by - 4.0), (fx + 9.4, by + 0.0), (fx + 9.6, wl - 2.0)], 12)
+        tube(cv, neck, 0.75, 0.7, 'p')
+        hx, hy = fx + 9.6, wl - 2.4
+        disc(cv, hx, hy, 1.3, 'p')
+        poly(cv, [(hx - 0.6, hy + 0.6), (hx + 1.0, hy + 0.4), (hx + 0.2, wl + 0.8)], 'y')
+        cv.put(int(hx + 0.2), int(wl + 0.2), 'k')
+        cv.put(int(hx - 0.4), int(hy - 0.4), 'k')
+    else:
+        neck = curve([(fx + 3.0, by - 1.2), (fx + 6.4, by - 3.6), (fx + 2.2, by - 6.8), (fx + 3.6, by - 9.8), (fx + 5.6, by - 10.0)], 14)
+        tube(cv, neck, 0.75, 0.7, 'p')
+        hx, hy = fx + 5.6, by - 9.8
+        disc(cv, hx, hy, 1.4, 'p')
+        poly(cv, [(hx + 0.8, hy - 0.8), (hx + 3.6, hy + 0.2), (hx + 3.0, hy + 2.4), (hx + 1.0, hy + 0.8)], 'y')
+        poly(cv, [(hx + 2.6, hy - 0.1), (hx + 3.6, hy + 0.2), (hx + 3.0, hy + 2.4), (hx + 2.4, hy + 1.2)], 'k')
+        cv.put(int(hx), int(hy - 0.4), 'k')
+    if r.random() < 0.5:
+        sx, sy = r.choice((15.5, 18.0)), wl - 4.0
+        seg(cv, sx, sy + 1.0, sx, wl + 0.6, 'p', 0.4)
+        oval(cv, sx, sy, 1.6, 1.0, 'p')
+        path(cv, [(sx + 1.2, sy - 0.4), (sx + 1.8, sy - 2.4), (sx + 1.2, sy - 3.6)], 'p', 0.45)
+        cv.put(int(sx + 2.0), int(sy - 3.6), 'y')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [sky(), role('p', 'flamingo', 'Flamingo', PINK), role('q', 'wing', 'Wing', PINK), role('y', 'beak', 'Beak', BROWN),
+                role('k', 'dark', 'Beak tip and eye', BROWN), role('u', 'sun', 'Sun', BROWN), role('t', 'trunk', 'Palm trunk', BROWN),
+                role('w', 'lagoon', 'Lagoon', BLUE), role('r', 'ripples', 'Ripples', GREEN), role('l', 'leaves', 'Palm and reeds', GREEN)],\
+        ['animals', 'beach']
+
+
+def peacock(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.14)
+    meadow(cv, r, 'g', gtop)
+    px = cx + r.uniform(-1.2, 1.2)
+    fy = gtop - r.uniform(6.0, 7.5)
+    R = min(r.uniform(8.6, 10.4), px - 0.8, 21.2 - px)
+    cut = r.uniform(0.5, 2.5)
+    for x in r.sample((1.5, 20.5), r.randint(0, 2)):
+        disc(cv, x, gtop - 1.0, 2.2, 'g')
+    for y in range(h):
+        for x in range(w):
+            dx, dy = x + 0.5 - px, y + 0.5 - fy
+            if dx * dx + dy * dy <= R * R and dy < cut:
+                cv.g[y][x] = 'f'
+    n = r.choice((7, 9))
+    for k in range(1, n):
+        a = math.radians(180 + 180 * k / n)
+        seg(cv, px + math.cos(a) * R * 0.62, fy + math.sin(a) * R * 0.62, px + math.cos(a) * (R - 1.3), fy + math.sin(a) * (R - 1.3), 'd', 0.35)
+    for rad, m in ((R - 2.0, n), (R * 0.4, n - 4)):
+        for k in range(m):
+            a = math.radians(180 + 180 * (k + 0.5) / m)
+            ex, ey = px + math.cos(a) * rad, fy + math.sin(a) * rad
+            disc(cv, ex, ey, 1.1, 'o')
+            cv.put(int(ex), int(ey), 'e')
+    for sd in (-1, 1):
+        lens(cv, px + sd * 1.0, fy - 1.0, px + sd * 3.4, fy + 3.4, 2.0, 'n')
+    oval(cv, px, fy + 1.4, 2.4, 3.6, 'b')
+    oval(cv, px, fy - 3.6, 1.2, 2.6, 'b')
+    turn = r.choice((-1, 0, 1))
+    hx, hy = px + turn * 0.6, fy - 6.4
+    disc(cv, hx, hy, 1.7, 'b')
+    for dx in (-1.0, 0.0, 1.0):
+        seg(cv, hx + dx * 0.5, hy - 1.4, hx + dx * 1.2, hy - 3.4, 'b', 0.35)
+        cv.put(int(hx + dx * 1.2), int(hy - 3.6), 'o')
+    if turn:
+        cv.put(int(hx - turn * 0.2), int(hy - 0.4), 'k')
+        poly(cv, [(hx + turn * 1.0, hy - 0.4), (hx + turn * 2.6, hy + 0.2), (hx + turn * 1.0, hy + 0.8)], 'k')
+    else:
+        for sd in (-1, 1):
+            cv.put(int(hx + sd * 0.8), int(hy - 0.4), 'k')
+        cv.put(int(hx), int(hy + 0.6), 'k')
+    for sd in (-1, 1):
+        path(cv, [(px + sd * 0.8, fy + 4.6), (px + sd * 1.0, gtop + 0.4)], 'k', 0.4)
+    for x in r.sample((1.5, 4.0, 17.5, 20.5), 2):
+        disc(cv, x, gtop + 1.6, 0.9, 'p')
+    if r.random() < 0.5:
+        disc(cv, r.choice((2.5, 19.5)), 2.6, 1.8, 'u')
+    return cv, [('s', 'sky', 'Dawn sky', PINK, True), role('p', 'flowers', 'Flowers', PINK), role('u', 'sun', 'Sun', PINK),
+                role('f', 'fan', 'Tail fan', GREEN), role('d', 'shafts', 'Feather shafts', GREEN), role('g', 'lawn', 'Lawn', GREEN),
+                role('o', 'eyespots', 'Eye spots and crest', BROWN), role('n', 'wings', 'Wings', BROWN), role('k', 'dark', 'Eyes, beak and legs', BROWN),
+                role('b', 'peacock', 'Peacock', BLUE), role('e', 'spot_centers', 'Eye spot centres', BLUE)], ['animals', 'garden']
+
+
+def swan(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    wl = r.uniform(17.5, 19.0)
+    if r.random() < 0.5:
+        disc(cv, r.uniform(4, 18), wl - 0.5, 3.6, 'u')
+    else:
+        disc(cv, r.choice((3.5, 18.0)), r.uniform(2.6, 4.0), 2.0, 'u')
+    for x in r.sample((3.0, 9.0, 15.0, 19.0), 2):
+        oval(cv, x, wl - 0.4, 3.6, 1.4, 't')
+    hills(cv, 'p', wl, 0.3, 22 * 0.5, r.uniform(0, 6))
+    for x in r.sample((0.8, 2.2, 19.8, 21.2), 2):
+        seg(cv, x, h, x, wl - r.uniform(4, 6), 'l', 0.45)
+        oval(cv, x, wl - 5.5, 0.6, 1.3, 'k')
+    for k in range(r.randint(2, 3)):
+        x, y = r.uniform(2, 20), r.uniform(wl + 5, 27)
+        oval(cv, x, y, 1.6, 0.7, 'l')
+        cv.put(int(x), int(y), 'o')
+    sx = r.uniform(8.0, 9.5)
+    by = wl + 0.4
+    lifted = r.random() < 0.4
+    oval(cv, sx, by, 6.0, 2.6, 'w')
+    poly(cv, [(sx - 5.4, by - 0.6), (sx - 7.4, by - 3.0), (sx - 4.4, by - 1.6)], 'w')
+    if lifted:
+        poly(cv, [(sx - 4.6, by - 0.8), (sx - 3.4, by - 6.4), (sx - 0.4, by - 4.4), (sx + 2.4, by - 6.0), (sx + 3.0, by - 0.6)], 'w')
+        for k in range(3):
+            seg(cv, sx - 3.0 + k * 1.8, by - 1.0, sx - 3.2 + k * 2.2, by - 4.6 + (k == 1) * 0.8, 'q', 0.35)
+    else:
+        lens(cv, sx - 4.8, by - 0.8, sx + 3.0, by - 0.8, 2.6, 'q')
+        lens(cv, sx - 4.0, by - 1.0, sx + 2.2, by - 0.9, 1.0, 'w')
+    neck = curve([(sx + 4.4, by - 0.4), (sx + 7.6, by - 3.4), (sx + 3.6, by - 7.6), (sx + 5.4, by - 11.6)], 14)
+    tube(cv, neck, 1.1, 0.8, 'w')
+    hx, hy = sx + 5.8, by - 11.8
+    disc(cv, hx, hy, 1.4, 'w')
+    poly(cv, [(hx + 0.6, hy - 0.6), (hx + 3.6, hy + 0.8), (hx + 0.8, hy + 1.0)], 'y')
+    cv.put(int(hx + 0.8), int(hy - 0.2), 'k')
+    cv.put(int(hx - 0.2), int(hy - 0.4), 'k')
+    if r.random() < 0.5:
+        for k in range(r.randint(1, 2)):
+            cx_ = sx - 9.0 - k * 4.0 if sx > 12 else sx + 9.0 + k * 3.6
+            if 1 < cx_ < 21:
+                oval(cv, cx_, by + 0.6, 1.6, 0.9, 'w')
+                disc(cv, cx_ + 1.2, by - 0.8, 0.8, 'w')
+                cv.put(int(cx_ + 1.9), int(by - 0.8), 'y')
+    hills(cv, 'p', by + 1.8, 0.3, 22 * 0.4, r.uniform(0, 6), only='wq')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [('s', 'sky', 'Sunset sky', PINK, True), role('o', 'lilies', 'Water lilies', PINK), role('w', 'swan', 'Swan', BLUE),
+                role('q', 'feathers', 'Wing feathers', BLUE), role('y', 'beak', 'Beak', BROWN), role('k', 'dark', 'Eye, knob and cattails', BROWN),
+                role('u', 'sun', 'Sun', BROWN), role('p', 'pond', 'Pond', GREEN), role('l', 'lily_pads', 'Lily pads and reeds', GREEN),
+                role('t', 'trees', 'Far trees', GREEN)], ['animals', 'pond']
+
+
+def toucan(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    for x, y, a in r.sample(((0.0, 1.0, 25), (22.0, 2.0, 155), (0.0, 7.0, -20), (22.0, 26.0, 200), (0.0, 26.0, -30)), 3):
+        t = math.radians(a)
+        lens(cv, x, y, x + math.cos(t) * 6.4, y + math.sin(t) * 6.4, 3.0, 'l')
+        seg(cv, x, y, x + math.cos(t) * 5.0, y + math.sin(t) * 5.0, 'v', 0.35)
+    for k in range(r.randint(1, 2)):
+        x = r.uniform(14, 21)
+        path(cv, [(x, -1), (x + r.uniform(-1, 1), 6), (x + r.uniform(-1, 1), 11)], 'v', 0.45)
+    by = r.uniform(19.0, 20.5)
+    path(cv, [(-1, by + 0.8), (8, by), (16.5, by - 0.6)], 'n', 1.0)
+    lens(cv, 16.4, by - 0.6, 19.4, by - 2.4, 1.6, 'l')
+    tx = r.uniform(7.0, 8.5)
+    lens(cv, tx - 0.6, by - 3.0, tx - 2.2, by + 5.4, 2.6, 'k')
+    oval(cv, tx, by - 5.8, 3.4, 4.8, 'k')
+    oval(cv, tx + 1.0, by + 0.0, 1.2, 0.8, 'f')
+    hx, hy = tx + 1.0, by - 11.4
+    disc(cv, hx, hy, 2.8, 'k')
+    oval(cv, tx + 2.0, by - 7.8, 1.8, 2.4, 'y')
+    poly(cv, [(hx + 1.6, hy - 2.0), (hx + 6.0, hy - 2.4), (hx + 9.6, hy + 0.4), (hx + 9.4, hy + 1.6), (hx + 2.2, hy + 1.8)], 'b')
+    poly(cv, [(hx + 8.0, hy - 0.8), (hx + 9.6, hy + 0.4), (hx + 9.4, hy + 1.6), (hx + 8.0, hy + 1.6)], 'k')
+    path(cv, [(hx + 2.4, hy + 0.4), (hx + 8.8, hy + 0.6)], 'q', 0.35)
+    box(cv, hx + 1.2, hy - 2.0, hx + 2.0, hy + 1.8, 'k')
+    disc(cv, hx + 0.2, hy - 0.6, 1.1, 'e')
+    cv.put(int(hx + 0.2), int(hy - 0.6), 'q')
+    for dx in (0.4, 1.8):
+        cv.put(int(tx + dx), int(by - 1.0), 'e')
+    if r.random() < 0.6:
+        for k in range(r.randint(1, 2)):
+            x, y = r.uniform(1.5, 5.0), r.uniform(10, 16) + k * 4
+            for a in range(5):
+                t = math.radians(a * 72)
+                disc(cv, x + math.cos(t) * 0.9, y + math.sin(t) * 0.9, 0.6, 'f')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [sky(), role('f', 'flowers', 'Flowers and under-tail', PINK), role('k', 'toucan', 'Toucan', PINK),
+                role('b', 'beak', 'Beak', BROWN), role('q', 'pupil', 'Beak line and pupil', BROWN), role('y', 'bib', 'Throat', BROWN),
+                role('n', 'branch', 'Branch', BROWN), role('e', 'eye', 'Eye ring and feet', BLUE), role('l', 'leaves', 'Jungle leaves', GREEN),
+                role('v', 'vines', 'Vines and leaf ribs', GREEN)], ['animals', 'jungle']
+
+
+def beetle(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    a = r.uniform(-0.5, 0.5)
+    seg(cv, cx + math.sin(a) * 12, 14 - math.cos(a) * 12, cx - math.sin(a) * 12, 14 + math.cos(a) * 12, 'v', 0.5)
+    for k in range(-2, 3):
+        y0 = 14 + k * 5.0
+        for sd in (-1, 1):
+            seg(cv, cx - math.sin(a) * (y0 - 14), y0, cx + sd * 8.4, y0 - 3.4, 'v', 0.4)
+    corner = r.choice(((1.5, 1.5), (20.5, 1.5), (1.5, 26.5), (20.5, 26.5)))
+    for k in range(5):
+        t = math.radians(k * 72)
+        disc(cv, corner[0] + math.cos(t) * 1.4, corner[1] + math.sin(t) * 1.4, 1.0, 'f')
+    disc(cv, corner[0], corner[1], 0.8, 'c')
+    for k in range(r.randint(2, 3)):
+        x, y = r.choice((r.uniform(1.5, 4.5), r.uniform(17.5, 20.5))), r.uniform(5, 23)
+        disc(cv, x, y, 0.9, 'd')
+    bx, by = cx + r.uniform(-1.0, 1.0), r.uniform(15.0, 16.5)
+    kind = r.choice(('stag', 'rhino', 'scarab'))
+    for sd in (-1, 1):
+        for y0, pts in ((by - 5.6, [(sd * 2.4, 0), (sd * 4.6, -1.6), (sd * 5.6, -4.0)]), (by - 1.0, [(sd * 3.6, 0), (sd * 6.6, -0.4), (sd * 7.6, -2.6)]),
+                        (by + 3.4, [(sd * 3.6, 0), (sd * 6.4, 2.4), (sd * 7.0, 5.4)])):
+            path(cv, [(bx + dx, y0 + dy) for dx, dy in pts], 'k', 0.45)
+        path(cv, [(bx + sd * 1.2, by - 9.4), (bx + sd * 3.0, by - 10.6), (bx + sd * 3.4, by - 12.4)], 'k', 0.4)
+    oval(cv, bx, by + 1.6, 4.4, 5.8, 'e')
+    oval(cv, bx, by - 5.2, 3.4, 2.0, 'e')
+    box(cv, bx - 3.6, by - 3.6, bx + 3.6, by - 3.0, 'b', only='e')
+    seg(cv, bx, by - 2.6, bx, by + 7.2, 'k', 0.4)
+    for sd in (-1, 1):
+        lens(cv, bx + sd * 2.0, by - 1.6, bx + sd * 2.6, by + 3.4, 1.0, 'h')
+    oval(cv, bx, by - 8.2, 2.0, 1.4, 'k')
+    if kind == 'stag':
+        for sd in (-1, 1):
+            path(cv, [(bx + sd * 1.0, by - 9.2), (bx + sd * 2.2, by - 11.4), (bx + sd * 1.0, by - 13.6)], 'k', 0.55)
+            cv.put(int(bx + sd * 2.0), int(by - 11.0), 'k')
+    elif kind == 'rhino':
+        path(cv, [(bx, by - 9.0), (bx, by - 11.6), (bx + 1.2, by - 13.0)], 'k', 0.6)
+    else:
+        for dx in (-1.2, 0.0, 1.2):
+            cv.put(int(bx + dx), int(by - 9.6), 'k')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [('b', 'leaf', 'Leaf', GREEN, True), role('v', 'veins', 'Leaf veins', GREEN), role('e', 'beetle', 'Beetle', BLUE),
+                role('h', 'shine', 'Shine', BLUE), role('d', 'dew', 'Dew drops', BLUE), role('c', 'center', 'Flower centre', BROWN),
+                role('k', 'dark', 'Head, legs and horns', BROWN), role('f', 'flower', 'Flower', PINK)], ['animals', 'insects']
+
+
+def dragonfly(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    wl = h - ground_rows(h, 0.16)
+    hills(cv, 'p', wl, 0.3, 22 * 0.5, r.uniform(0, 6))
+    for x in r.sample((1.0, 2.6, 19.4, 21.0, 17.6), 3):
+        top = wl - r.uniform(5, 9)
+        seg(cv, x, h, x + r.uniform(-0.6, 0.6), top, 'r', 0.45)
+        if r.random() < 0.6:
+            oval(cv, x, top + 0.6, 0.6, 1.4, 'c')
+    for k in range(r.randint(1, 2)):
+        x = r.uniform(6, 16)
+        oval(cv, x, wl + 2.4, 2.0, 0.8, 'r')
+        disc(cv, x + 0.6, wl + 1.8, 0.8, 'o')
+    disc(cv, r.choice((3.5, 18.5)), r.uniform(2.4, 3.6), 1.8, 'u')
+    th = math.radians(r.uniform(-35, 35))
+    d = (math.sin(th), math.cos(th))
+    nrm = (math.cos(th), -math.sin(th))
+    ox, oy = cx + r.uniform(-1.0, 1.0) - d[0] * 7, r.uniform(5.0, 6.5)
+    P = lambda t, u=0.0: (ox + d[0] * t + nrm[0] * u, oy + d[1] * t + nrm[1] * u)
+    for sd in (-1, 1):
+        a0, a1 = P(2.0), P(1.0, sd * 9.4)
+        lens(cv, a0[0], a0[1], a1[0], a1[1], 2.8, 'w')
+        b0, b1 = P(3.4), P(5.6, sd * 8.6)
+        lens(cv, b0[0], b0[1], b1[0], b1[1], 2.6, 'w')
+        for p0, p1 in ((a0, a1), (b0, b1)):
+            seg(cv, p0[0], p0[1], p0[0] + (p1[0] - p0[0]) * 0.85, p0[1] + (p1[1] - p0[1]) * 0.85, 'q', 0.3)
+    tail = [P(3.6), P(15.5)]
+    tube(cv, tail, 0.9, 0.55, lambda u: 'q' if int(u * 12) % 3 == 2 else 'b')
+    x, y = P(2.6)
+    disc(cv, x, y, 1.6, 'b')
+    for sd in (-1, 1):
+        x, y = P(0.2, sd * 0.9)
+        disc(cv, x, y, 1.1, 'k')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [('s', 'sky', 'Evening sky', PINK, True), role('o', 'lilies', 'Water lilies', PINK), role('w', 'wings', 'Wings', BLUE),
+                role('p', 'pond', 'Pond', BLUE), role('b', 'dragonfly', 'Dragonfly', GREEN), role('r', 'reeds', 'Reeds and lily pads', GREEN),
+                role('k', 'eyes', 'Eyes', BROWN), role('q', 'veins', 'Wing veins and body rings', BROWN), role('c', 'cattails', 'Cattails', BROWN),
+                role('u', 'sun', 'Sun', BROWN)], ['animals', 'pond']
+
+
+def caterpillar(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.1)
+    hills(cv, 'g', gtop, 0.5, 22 * 0.8, r.uniform(0, 6))
+    for x in r.sample((2.0, 5.0, 16.0, 19.5), 2):
+        seg(cv, x, gtop, x, gtop - 4.0, 'g', 0.4)
+        for k in range(5):
+            t = math.radians(k * 72)
+            disc(cv, x + math.cos(t) * 1.0, gtop - 4.6 + math.sin(t) * 1.0, 0.7, 'f')
+        cv.put(int(x), int(gtop - 4.6), 'n')
+    pose = r.choice(('wave', 'arch', 'rear'))
+    ly = r.uniform(17.0, 18.5)
+    lens(cv, 0.8, ly + 1.2, 21.4, ly - 0.8, 6.4, 'l')
+    seg(cv, 0.8, ly + 1.2, 20.0, ly - 0.7, 'n', 0.4)
+    for k in range(r.randint(1, 3)):
+        disc(cv, r.uniform(3, 19), ly + r.uniform(-2.2, 2.2), 0.8, 's')
+    n = 8
+    pts = []
+    for k in range(n):
+        x = 2.6 + k * 2.1
+        if pose == 'wave':
+            y = ly - 2.4 - math.sin(k * 0.9) * 1.3
+        elif pose == 'arch':
+            y = ly - 2.4 - math.sin(math.pi * k / (n - 1)) * 6.0
+        else:
+            y = ly - 2.4 - max(0, k - 4.5) ** 1.6 * 1.4
+        pts.append((x, y))
+    for k, (x, y) in enumerate(pts):
+        if pose != 'arch' or k in (0, 1, n - 2, n - 1):
+            path(cv, [(x - 0.4, y + 1.2), (x - 0.6, y + 2.2)], 'k', 0.4)
+        disc(cv, x, y, 1.7, 'c' if k % 2 == 0 else 'd')
+        cv.put(int(x), int(y - 0.4), 'p')
+    hx, hy = pts[-1][0] + 1.6, pts[-1][1] - 1.2
+    disc(cv, hx, hy, 2.4, 'h')
+    for sd in (-1, 1):
+        path(cv, [(hx + sd * 1.0, hy - 2.0), (hx + sd * 1.8, hy - 4.2)], 'k', 0.4)
+        cv.put(int(hx + sd * 1.8), int(hy - 4.6), 'k')
+    eye(cv, hx + 0.6, hy - 1.2, big, 'e', 'k')
+    path(cv, [(hx + 0.4, hy + 1.0), (hx + 1.4, hy + 1.2)], 'k', 0.4)
+    if r.random() < 0.5:
+        bx, byy = r.uniform(4, 9), r.uniform(4, 7)
+        for sd in (-1, 1):
+            disc(cv, bx + sd * 1.3, byy - 0.4, 1.2, 'f')
+            disc(cv, bx + sd * 1.0, byy + 1.1, 0.8, 'f')
+        seg(cv, bx, byy - 1.4, bx, byy + 1.6, 'k', 0.35)
+    else:
+        cloud(cv, r.uniform(4, 9), 3.4, 1.2, 'e')
+    disc(cv, r.choice((17.0, 19.5)), r.uniform(2.6, 3.6), 1.8, 'u')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [sky(), role('c', 'caterpillar', 'Caterpillar', GREEN), role('d', 'segments', 'Striped segments', GREEN),
+                role('l', 'leaf', 'Leaf', GREEN), role('g', 'grass', 'Grass and stems', GREEN), role('h', 'head', 'Head', PINK),
+                role('f', 'flowers', 'Flowers and butterfly', PINK), role('p', 'dots', 'Dots', BROWN), role('k', 'dark', 'Feet, eye and antennae', BROWN),
+                role('n', 'vein', 'Leaf vein and flower centres', BROWN), role('u', 'sun', 'Sun', BROWN), role('e', 'eye_white', 'Eye white and cloud', BLUE)],\
+        ['animals', 'garden']
+
+
+DAILY_ANIMALS = [dragon, horse, unicorn, zebra, deer, cow, goat, camel, kangaroo, koala, monkey, tiger, squirrel, raccoon, hamster, hippo, crocodile, chameleon, dinosaur, flamingo, peacock, swan, toucan, beetle, dragonfly, caterpillar]
