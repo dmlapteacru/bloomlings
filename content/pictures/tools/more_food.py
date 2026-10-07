@@ -97,11 +97,10 @@ def scene(cv, r, w, h, kind, ty):
     elif kind == 1:
         step = r.choice((4, 5))
         dots(cv, 'o', 'b', step, step - 1, area=(0, 0, w - 1, ty - 3), offset=r.randrange(step))
-        y = h * r.uniform(0.2, 0.24)
-        box(cv, 0, y, w * 0.4, y + 0.9, 'v')
-        poly(cv, [(w * 0.2, y + 0.9), (w * 0.32, y + 0.9), (w * 0.32, y + 2.8)], 'v')
-        rbox(cv, w * 0.04, y - 3.6, w * 0.17, y - 0.1, 0.6, 'o')
-        rbox(cv, w * 0.23, y - 2.6, w * 0.33, y - 0.1, 0.5, 'o')
+        y = h * r.uniform(0.18, 0.22)
+        box(cv, 0, y, w * 0.32, y + 0.9, 'v')
+        poly(cv, [(w * 0.14, y + 0.9), (w * 0.26, y + 0.9), (w * 0.26, y + 2.8)], 'v')
+        rbox(cv, w * 0.06, y - 3.2, w * 0.2, y - 0.1, 0.6, 'o')
     else:
         cloud(cv, w * r.uniform(0.2, 0.34), h * r.uniform(0.07, 0.11), min(w, h) * 0.07 + 0.5, 'o')
         oval(cv, w * r.uniform(-0.05, 0.1), ty + 1.0, w * r.uniform(0.4, 0.5), h * r.uniform(0.16, 0.2), 'v')
@@ -151,7 +150,7 @@ def half_wheel(cv, x, y, rr):
             cv.g[yy][xx] = 'w' if rr - 1.9 < d <= rr - 1.0 else 'a'
     for a in (45, 90, 135):
         t = math.radians(a)
-        seg(cv, x, y, x + math.cos(t) * (rr - 1.4), y - math.sin(t) * (rr - 1.4), 'w', 0.42 if a == 90 else 0.6)
+        seg(cv, x, y, x + math.cos(t) * (rr - 1.4), y - math.sin(t) * (rr - 1.4), 'w', 0.42 if a == 90 else 0.75)
 
 
 def wheel(cv, x, y, rr):
@@ -162,7 +161,7 @@ def wheel(cv, x, y, rr):
     ring(cv, x, y, rr - 0.9, rr - 1.8, 'w')
     for k in range(8):
         a = math.radians(k * 45)
-        seg(cv, x, y, x + math.cos(a) * (rr - 1.4), y + math.sin(a) * (rr - 1.4), 'w', 0.42 if k % 2 == 0 else 0.6)
+        seg(cv, x, y, x + math.cos(a) * (rr - 1.4), y + math.sin(a) * (rr - 1.4), 'w', 0.42 if k % 2 == 0 else 0.75)
 
 
 def orange(w, h, r):
@@ -239,7 +238,7 @@ def plum(w, h, r):
         oval(cv, hx, hy, hr * 0.34, hr * 0.22, 'e')
     else:  # plums hanging from a branch, one fallen on the blanket
         y0 = h * r.uniform(0.07, 0.11)
-        pts = curve((-0.5, y0 + h * 0.08), (w + 0.5, y0), -1.5)
+        pts = curve((-0.5, y0 + h * 0.08), (w * 0.86, y0), -1.5)
         tube(cv, pts, 0.7 if not big else 1.0, 'k')
         rr = s * 0.18
         for k, u in enumerate((0.3, 0.7)):
@@ -360,7 +359,7 @@ def raspberry(w, h, r):
         bowl(cv, cx, by, ty + 0.4, w * 0.4, 'p')
     else:  # raspberries hanging from a cane, one on the blanket
         y0 = h * r.uniform(0.08, 0.12)
-        pts = curve((-0.5, y0), (w + 0.5, y0 + h * 0.1), 1.2)
+        pts = curve((-0.5, y0), (w * 0.86, y0 + h * 0.1), 1.2)
         tube(cv, pts, 0.6 if not big else 0.9, 'k')
         rr = s * 0.15
         for u in (0.3, 0.7):
@@ -432,7 +431,7 @@ def mango(w, h, r):
             one_mango(cv, x, y, rr, 8, big)
     else:  # mangoes hanging on long stalks from a branch
         y0 = h * r.uniform(0.06, 0.1)
-        pts = curve((-0.5, y0 + h * 0.06), (w + 0.5, y0), -1.0)
+        pts = curve((-0.5, y0 + h * 0.06), (w * 0.86, y0), -1.0)
         tube(cv, pts, 0.6 if not big else 0.9, 'k')
         rr = s * 0.17
         for k, u in enumerate((0.3, 0.72)):
@@ -440,7 +439,7 @@ def mango(w, h, r):
             y = by + h * (0.2 + 0.08 * k)
             path(cv, curve((bx, by), (bx + 0.6, y), 0.6), 'k', 0.45)
             one_mango(cv, bx + 0.9, y + rr * 1.35, rr, 80, big)
-        for u, a in ((0.12, 25), (0.5, -20), (0.55, 30), (0.92, -15)) if big else ((0.5, -20), (0.55, 30), (0.92, -15)):
+        for u, a in ((0.12, 25), (0.5, -20), (0.55, 30), (0.95, -15)) if big else ((0.5, -20), (0.95, 20)):
             bx, by = pts[int(u * 20)]
             t = math.radians(a + 90)
             lens(cv, bx, by, bx + math.cos(t) * s * 0.36, by + math.sin(t) * s * 0.28, s * 0.1 + 0.3, 'l')
@@ -467,8 +466,8 @@ def one_pomegranate(cv, x, y, rr, big):
 
 
 def pomegranate_face(cv, x, y, rr, big):
-    """The cut face of a pomegranate: its rind round a mass of seeds parted by the pith, and on the big boards the
-    pith's ring too (one level deeper)."""
+    """The cut face of a pomegranate: its rind round a mass of seeds parted by the pith's walls (which leave the
+    middle open, so the seeds stay one piece), and on the big boards the pith's ring too (one level deeper)."""
     x, y = int(x) + 0.5, int(y) + 0.5
     disc(cv, x, y, rr, 'a')
     disc(cv, x, y, rr - 0.9, 'w' if big else 'x')
@@ -476,7 +475,7 @@ def pomegranate_face(cv, x, y, rr, big):
         disc(cv, x, y, rr - 1.8, 'x')
     for a in (-90, 30, 150):
         t = math.radians(a)
-        seg(cv, x, y, x + math.cos(t) * (rr - 0.9), y + math.sin(t) * (rr - 0.9), 'w', 0.45)
+        seg(cv, x + math.cos(t) * rr * 0.3, y + math.sin(t) * rr * 0.3, x + math.cos(t) * (rr - 0.4), y + math.sin(t) * (rr - 0.4), 'w', 0.45 if a == -90 else 0.65)
 
 
 def pomegranate(w, h, r):

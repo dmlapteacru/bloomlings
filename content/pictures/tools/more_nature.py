@@ -7,8 +7,8 @@ picture's scene (sides, props, the time of day), and the big boards (from 300 ce
 """
 import math
 
-from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cloud, disc, dots, ground_rows, hills, lens, oval, path, poly,
-                         rbox, ring, role, scatter, seg, sky, star, start)
+from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cells, cloud, disc, dots, ground_rows, hills, lens, oval, path,
+                         poly, rbox, ring, role, scatter, seg, sky, star, start)
 
 
 def mirror(cv):
@@ -66,6 +66,27 @@ def maple_sprite(cv, x, y, c):
         for i, ch in enumerate(line):
             if ch == 'x':
                 cv.put(int(x) - 2 + i, int(y) - 2 + j, c)
+
+
+def tilted(cv, x, y, rx, ry, a, c):
+    """An oval turned by `a` radians: rx across its long axis, which points along (sin a, -cos a)."""
+    ca, sa = math.cos(a), math.sin(a)
+    for gx, gy, px, py in cells(cv):
+        dx, dy = px - x, py - y
+        u, v = dx * ca + dy * sa, dx * sa - dy * ca
+        if (u / rx) ** 2 + (v / ry) ** 2 <= 1.0:
+            cv.g[gy][gx] = c
+
+
+def leaflet(cv, x, y, a, size, c):
+    """A heart-shaped leaflet whose point sits on (x, y) and whose lobes face away along angle `a` (radians)."""
+    ca, sa = math.cos(a), math.sin(a)
+    for gx, gy, px, py in cells(cv):
+        dx, dy = px - x, py - y
+        v = (dx * ca + dy * sa) / size - 1.0
+        u = (dy * ca - dx * sa) / size
+        if (u * u + v * v - 1) ** 3 - u * u * v ** 3 <= 0:
+            cv.g[gy][gx] = c
 
 
 # ---- Trees and plants ----
@@ -250,7 +271,223 @@ def rose(w, h, r):
                 role('u', 'sun', 'Sun', BROWN), role('e', 'cloud', 'Cloud', BLUE)], ['flowers', 'garden']
 
 
-MORE_NATURE = [oak_tree, willow_tree, maple_tree, bamboo, rose]
+def dandelion(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.12)
+    hills(cv, 'g', gtop, 0.4, w * 1.3, r.uniform(0, 6))
+    side = r.choice((-1, 1))
+    px, py, pr = cx + side * w * 0.1, h * 0.3, s * (0.27 if not big else 0.25)
+    path(cv, [(px, py), (px - side * 0.6, h * 0.62), (px - side * 0.2, gtop + 0.5)], 'l', 0.5)
+    fx, fy = cx - side * w * 0.27, h * 0.56
+    path(cv, [(fx, fy), (fx + side * 0.5, h * 0.75), (fx + side * 0.2, gtop + 0.5)], 'l', 0.5)
+    for d in (-1, 1):
+        for x0 in (px - side * 0.2, fx + side * 0.2):
+            lens(cv, x0, gtop + 0.4, x0 + d * w * 0.2, gtop - h * 0.1, s * 0.1 + 0.3, 'l')
+            poly(cv, [(x0 + d * w * 0.08, gtop - h * 0.03), (x0 + d * w * 0.13, gtop - h * 0.1), (x0 + d * w * 0.14, gtop - h * 0.04)], 'l')
+    n = 10 if not big else 14
+    for k in range(n):
+        a = math.radians(k * 360 / n + 9)
+        seg(cv, px, py, px + math.cos(a) * pr * 0.8, py + math.sin(a) * pr * 0.8, 'p', 0.45)
+        disc(cv, px + math.cos(a) * pr * 0.85, py + math.sin(a) * pr * 0.85, 0.75 if not big else 0.9, 'p')
+    disc(cv, px, py, 0.9 if not big else 1.3, 'c')
+    for k in range(3 if not big else 5):
+        x = px - side * (pr + 1.5 + k * 2.2)
+        y = py - pr * 0.5 + k * 1.6 * (1 if k % 2 else -0.6)
+        if 1 <= x <= w - 2:
+            seg(cv, x, y + 0.6, x - side * 0.6, y + 1.5, 'f', 0.4)
+            path(cv, [(x - 0.9, y - 0.4), (x, y + 0.3), (x + 0.9, y - 0.4)], 'f', 0.45)
+    for k in range(10):
+        a = math.radians(k * 36)
+        disc(cv, fx + math.cos(a) * s * 0.11, fy + math.sin(a) * s * 0.11, 0.7 if not big else 0.9, 'y')
+    disc(cv, fx, fy, s * 0.1, 'y')
+    if big:
+        disc(cv, fx, fy, 0.8, 'c')
+    if big:
+        cloud(cv, w * 0.5 - side * w * 0.3, h * 0.1, s * 0.05 + 0.4, 'e')
+    return cv, [sky(), role('p', 'puff', 'Seed head', PINK), role('f', 'seeds', 'Flying seeds', PINK), role('y', 'head', 'Dandelion flower', BROWN),
+                role('c', 'center', 'Centers', BROWN), role('l', 'stem', 'Stems and leaves', GREEN), role('g', 'grass', 'Grass', GREEN),
+                role('e', 'cloud', 'Cloud', BLUE)], ['flowers', 'meadow']
+
+
+def clover(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.16)
+    hills(cv, 'g', gtop, 0.5, w * 1.2, r.uniform(0, 6))
+    side = r.choice((-1, 1))
+    kx, ky = cx + side * w * 0.04, h * 0.38
+    path(cv, [(kx, ky), (kx + side * 1.0, h * 0.62), (kx - side * 0.3, gtop + 0.5)], 'c', 0.55 if not big else 0.7)
+    four = r.random() < 0.75
+    size = s * (0.15 if four else 0.17)
+    turn = r.uniform(-15, 15)
+    angles = (45, 135, 225, 315) if four else (-90, 30, 150)
+    for a in angles:
+        leaflet(cv, kx, ky, math.radians(a + turn), size, 'c')
+    for a in angles:
+        t = math.radians(a + turn)
+        ox, oy = kx + math.cos(t) * size * 1.15, ky + math.sin(t) * size * 1.15
+        nx, ny = -math.sin(t), math.cos(t)
+        path(cv, [(ox + nx * size * 0.55 + math.cos(t) * 0.6, oy + ny * size * 0.55 + math.sin(t) * 0.6), (ox, oy),
+                  (ox - nx * size * 0.55 + math.cos(t) * 0.6, oy - ny * size * 0.55 + math.sin(t) * 0.6)], 'm', 0.4)
+    lt = math.radians(angles[1 if side > 0 else 0] + turn)
+    bx, by = kx + math.cos(lt) * size * 1.55, ky + math.sin(lt) * size * 1.55
+    oval(cv, bx, by, 1.4 if not big else 1.8, 1.1 if not big else 1.5, 'b')
+    disc(cv, bx + math.cos(lt) * (1.2 if not big else 1.6), by + math.sin(lt) * (1.2 if not big else 1.6), 0.7, 'd')
+    if big:
+        for dx, dy in ((-0.6, 0.0), (0.6, 0.0), (0.0, 0.7)):
+            cv.put(int(bx + dx), int(by + dy), 'd')
+    for k, x in enumerate((w * 0.1, w * 0.9) if not big else (w * 0.08, w * 0.92, w * 0.5 - side * w * 0.3)):
+        top = gtop - h * (0.12 + 0.04 * k)
+        seg(cv, x, gtop + 0.5, x, top, 'c', 0.4)
+        oval(cv, x, top - 0.6, 1.0, 1.3, 'f')
+    if big:
+        for x in (w * 0.24, w * 0.76):
+            for a in (-90, 30, 150):
+                leaflet(cv, x, gtop + 1.4, math.radians(a), 0.9, 't')
+    disc(cv, w * 0.5 - side * w * 0.38, h * 0.08, s * 0.085, 'u')
+    return cv, [sky(), role('c', 'clover', 'Clover', GREEN), role('m', 'mark', 'Leaf marks', BLUE), role('b', 'ladybug', 'Ladybug', PINK),
+                role('d', 'spots', 'Ladybug head and spots', BROWN), role('f', 'blossom', 'Clover blossoms', PINK),
+                role('g', 'grass', 'Grass', GREEN), role('t', 'shamrocks', 'Little clovers', BLUE), role('u', 'sun', 'Sun', BROWN)], ['plants', 'meadow']
+
+
+def venus_flytrap(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.08)
+    box(cv, 0, gtop, w, h, 'g')
+    side = r.choice((-1, 1))
+    pt = h * 0.74
+    poly(cv, [(cx - w * 0.24, pt), (cx + w * 0.24, pt), (cx + w * 0.17, gtop + 0.5), (cx - w * 0.17, gtop + 0.5)], 'o')
+    box(cv, cx - w * 0.27, pt - 0.6, cx + w * 0.27, pt + (0.8 if not big else 1.4), 'm')
+    traps = [(cx + side * w * 0.12, h * 0.36, s * 0.24, 0.0)]
+    if big:
+        traps.append((cx - side * w * 0.22, h * 0.52, s * 0.17, -side * 0.35))
+    for x, y, L, lean in traps:
+        bx, by = x, y + L * 0.9
+        path(cv, [(cx + (x - cx) * 0.2, pt - 0.5), ((x + cx) / 2, (by + pt) / 2), (bx, by)], 'j', 0.5)
+        for d in (-1, 1):
+            a = lean + d * math.radians(32)
+            ux, uy = math.sin(a), -math.cos(a)
+            ox, oy = bx + ux * L * 0.55, by + uy * L * 0.55
+            nx, ny = d * math.cos(a), d * math.sin(a)
+            tilted(cv, ox, oy, L * 0.36, L * 0.62, a, 'j')
+            tilted(cv, ox - nx * L * 0.1, oy - ny * L * 0.1, L * 0.22, L * 0.46, a, 'i')
+            for k in range(4 if not big else 6):
+                t = math.radians(-50 + k * (150 / (3 if not big else 5)))
+                ex = ox + math.cos(t) * L * 0.62 * ux + math.sin(t) * L * 0.36 * nx
+                ey = oy + math.cos(t) * L * 0.62 * uy + math.sin(t) * L * 0.36 * ny
+                gx, gy = math.cos(t) / 0.62 * ux + math.sin(t) / 0.36 * nx, math.cos(t) / 0.62 * uy + math.sin(t) / 0.36 * ny
+                gl = math.hypot(gx, gy)
+                seg(cv, ex, ey, ex + gx / gl * (1.4 if not big else 1.9), ey + gy / gl * (1.4 if not big else 1.9), 't', 0.4)
+    kx, ky = cx - side * w * 0.26, h * 0.3
+    if not big:
+        tilted(cv, kx, ky + h * 0.12, 0.8, 1.8, side * 0.3, 'j')
+        path(cv, [(kx + side * 0.6, ky + h * 0.2), (cx - side * w * 0.05, pt - 0.5)], 'j', 0.45)
+    for d in (-1, 1):
+        lens(cv, cx + d * 0.5, pt - 0.3, cx + d * w * 0.3, pt - h * 0.08, s * 0.08 + 0.3, 'j')
+    fx, fy = cx - side * w * 0.3, h * 0.14
+    oval(cv, fx, fy, 1.0, 0.6, 'f')
+    for d in (-1, 1):
+        cv.put(int(fx + d * 0.6), int(fy - 1.0), 'w')
+    if big:
+        path(cv, [(fx + side * 1.5, fy + 0.5), (fx + side * 3, fy + 1.5), (fx + side * 4, fy + 1.0)], 'v', 0.35)
+    return cv, [sky(), role('j', 'trap', 'Jaws and stems', GREEN), role('i', 'mouth', 'Inside of the jaws', PINK),
+                role('t', 'teeth', 'Teeth', GREEN), role('o', 'pot', 'Pot', BROWN), role('m', 'rim', 'Pot rim', PINK),
+                role('f', 'fly', 'Fly', BROWN), role('w', 'wings', 'Wings', BLUE), role('v', 'buzz', 'Flight path', BLUE),
+                role('g', 'sill', 'Windowsill', GREEN)], ['plants', 'garden']
+
+
+def pine_cone(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.1)
+    winter = r.random() < 0.35
+    box(cv, 0, gtop, w, h, 'w' if winter else 'g')
+    side = r.choice((-1, 1))
+    bx0, bx1 = (w + 1, w * 0.12) if side > 0 else (-1, w * 0.88)
+    by0, by1 = h * 0.1, h * 0.16
+    path(cv, [(bx0, by0), ((bx0 + bx1) / 2, by0 + 0.5), (bx1, by1)], 'k', 0.6 if not big else 0.8)
+    for k in range(5 if not big else 7):
+        t = (k + 0.5) / (5 if not big else 7)
+        x, y = bx0 + (bx1 - bx0) * t, by0 + (by1 - by0) * t + 0.3
+        for a in (-60, -30, 30, 60, 150, 120, 210, 240):
+            ta = math.radians(a + r.uniform(-8, 8))
+            seg(cv, x, y, x + math.cos(ta) * s * 0.14, y + math.sin(ta) * s * 0.12, 'n', 0.4)
+        if winter:
+            oval(cv, x, y - s * 0.1, s * 0.07 + 0.4, 0.6, 'e')
+    kx = w * 0.5 + side * w * 0.04
+    top, bot = h * 0.22, h * 0.78 if not big else h * 0.74
+    half = w * 0.2
+    for y in range(h):
+        t = (y + 0.5 - top) / (bot - top)
+        if 0 <= t <= 1:
+            hw = half * math.sin(math.pi * min(1.0, 0.25 + t * 0.95)) ** 0.7
+            for x in range(w):
+                if abs(x + 0.5 - kx) <= hw:
+                    cv.g[y][x] = 'c'
+    box(cv, kx - 0.5, by1 - 0.2, kx + 0.5, top + 0.4, 'k')
+    row, k = 2.4 if not big else 2.8, 0
+    y = top + 1.4
+    while y < bot - 1.0:
+        t = (y - top) / (bot - top)
+        hw = half * math.sin(math.pi * min(1.0, 0.25 + t * 0.95)) ** 0.7
+        step = 3.0
+        x = kx - hw + 1.5 + (k % 2) * 1.5
+        while x <= kx + hw - 1.2:
+            path(cv, [(x - 1.0, y - 0.4), (x, y + 0.6), (x + 1.0, y - 0.4)], 'q', 0.42)
+            x += step
+        y += row
+        k += 1
+    fill_pockets(cv, 'c', 'q')
+    if big:
+        lx = w * 0.5 - side * w * 0.3
+        oval(cv, lx, gtop - 0.6, 2.2, 1.4, 'c')
+        for dx in (-1.2, 0.2, 1.4):
+            cv.put(int(lx + dx), int(gtop - 0.8), 'q')
+    if not winter:
+        cloud(cv, w * 0.5 - side * w * 0.3, h * 0.36, s * 0.05 + 0.4, 'e')
+    roles = [sky(), role('c', 'cone', 'Pine cone', BROWN), role('k', 'branch', 'Branch', BROWN), role('n', 'needles', 'Needles', GREEN),
+             role('q', 'scales', 'Scale tips', PINK)]
+    if winter:
+        return cv, roles + [role('e', 'snow', 'Snow on the branch', BLUE), role('w', 'snowfield', 'Snow', BLUE)], ['plants', 'winter']
+    return cv, roles + [role('e', 'cloud', 'Cloud', BLUE), role('g', 'moss', 'Moss', GREEN)], ['plants', 'forest']
+
+
+# ---- The sea and the weather ----
+
+def seashell(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    sea, sand = h * 0.4, h * 0.62
+    hills(cv, 'w', sea, 0.3, w * 0.5, r.uniform(0, 6))
+    hills(cv, 'd', sand, 0.5, w * 1.1, r.uniform(0, 6))
+    side = r.choice((-1, 1))
+    hx, hy, R = cx + side * w * 0.06, h * 0.82, s * 0.42
+    n = 7 if not big else 9
+    a0, span = math.radians(195), math.radians(150)
+    for gx, gy, px, py in cells(cv):
+        dx, dy = px - hx, py - hy
+        a = math.atan2(dy, dx) % (2 * math.pi)
+        if a0 <= a <= a0 + span:
+            f = (a - a0) / span * n
+            edge = R * (0.88 + 0.12 * math.sin(math.pi * (f % 1.0)))
+            if math.hypot(dx, dy) <= edge:
+                cv.g[gy][gx] = 'a' if int(f) % 2 == 0 else 'b'
+    poly(cv, [(hx - R * 0.42, hy - 0.4), (hx + R * 0.42, hy - 0.4), (hx + R * 0.2, hy + 1.2), (hx - R * 0.2, hy + 1.2)], 'a')
+    poly(cv, [(hx - R * 0.42, hy - 1.4), (hx - R * 0.42, hy - 0.2), (hx - R * 0.15, hy - 0.2)], 'a')
+    poly(cv, [(hx + R * 0.42, hy - 1.4), (hx + R * 0.42, hy - 0.2), (hx + R * 0.15, hy - 0.2)], 'a')
+    fx = w * 0.5 - side * w * 0.36
+    star(cv, fx, h * 0.9, s * 0.1 + 0.5, 'f', ri=0.7 if not big else 0.9)
+    gx = w * 0.5 + side * w * 0.4
+    for k in range(2 if not big else 3):
+        path(cv, [(gx + k * 1.2 * side, h - 0.5), (gx + k * 1.2 * side + 0.7, h * 0.88), (gx + k * 1.2 * side - 0.3, h * 0.78)], 'k', 0.45)
+    disc(cv, w * 0.5 - side * w * 0.36, h * 0.1, s * 0.09, 'u')
+    if big:
+        cloud(cv, w * 0.5 + side * w * 0.2, h * 0.12, s * 0.05 + 0.4, 'e')
+        for x in (w * 0.5 - side * w * 0.18, w * 0.5 + side * w * 0.42):
+            oval(cv, x, h * 0.95, 1.2, 0.7, 'o')
+    return cv, [sky(), role('a', 'shell', 'Shell', PINK), role('b', 'ridge', 'Shell ridges', BROWN), role('f', 'starfish', 'Starfish', PINK),
+                role('w', 'sea', 'Sea', BLUE), role('d', 'sand', 'Sand', BROWN), role('k', 'weed', 'Seaweed', GREEN),
+                role('o', 'pebbles', 'Pebbles', GREEN), role('u', 'sun', 'Sun', BROWN), role('e', 'cloud', 'Cloud', BLUE)], ['sea', 'beach']
+
+
+MORE_NATURE = [oak_tree, willow_tree, maple_tree, bamboo, rose, dandelion, clover, venus_flytrap, pine_cone, seashell]
 
 # Expansion roles of these subjects (as expansions.ROLES): subject -> {group: [(roleId, new name or None), ...]}.
 MORE_NATURE_ROLES = {
@@ -258,4 +495,8 @@ MORE_NATURE_ROLES = {
     'maple_tree': {'lime': [('falling', 'Yellow leaves')], 'red': [('crown', 'Red crown')]},
     'bamboo': {'red': [('sun', 'Red sun')]},
     'rose': {'lime': [('sun', None)], 'red': [('bloom', 'Red rose')]},
+    'dandelion': {'lime': [('head', 'Yellow flower')]},
+    'clover': {'lime': [('sun', None)], 'red': [('ladybug', None)]},
+    'venus_flytrap': {'red': [('mouth', None)]},
+    'seashell': {'lime': [('sun', None)], 'red': [('starfish', None)]},
 }

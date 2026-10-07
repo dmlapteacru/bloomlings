@@ -95,6 +95,19 @@ def glyph(cv, ch, x0, y0, c):
                 cv.put(int(x0) + i, int(y0) + j, c)
 
 
+def note(cv, x, y, c):
+    """An eighth note: its head at (x, y), its stem and flag above it."""
+    disc(cv, x, y, 0.9, c)
+    seg(cv, x + 0.6, y, x + 0.6, y - 2.6, c, 0.35)
+    seg(cv, x + 0.6, y - 2.6, x + 1.6, y - 1.7, c, 0.35)
+
+
+def sparkle(cv, x, y, c):
+    """A twinkle of five cells: a small plus."""
+    box(cv, x - 1.5, y - 0.5, x + 1.5, y + 0.5, c)
+    box(cv, x - 0.5, y - 1.5, x + 0.5, y + 1.5, c)
+
+
 # ---- Vehicles ----
 
 def tram(w, h, r):
@@ -467,15 +480,7 @@ def ufo(w, h, r):
                 role('q', 'scenery', ['Pines', 'Barns', 'Cacti'][scene], BLUE)], ['vehicles', 'space']
 
 
-def note(cv, x, y, c):
-    """An eighth note: its head at (x, y), its stem and flag above it."""
-    disc(cv, x, y, 0.9, c)
-    seg(cv, x + 0.6, y, x + 0.6, y - 2.6, c, 0.35)
-    seg(cv, x + 0.6, y - 2.6, x + 1.6, y - 1.7, c, 0.35)
-
-
 # ---- Space, pictures and sound ----
-
 
 def satellite(w, h, r):
     cv, s, cx, big = start(w, h, 'n')
@@ -747,9 +752,14 @@ def violin(w, h, r):
 
 def trumpet(w, h, r):
     cv, s, cx, big = start(w, h, 'w')
-    banner, flip = r.random() < 0.4, r.random() < 0.5
+    banner, flip, castle = r.random() < 0.4, r.random() < 0.5, r.random() < 0.8
     fy = h - 3
     if banner:
+        if castle:
+            for x0 in (0.5, w - 4.5):
+                box(cv, x0, fy - 12, x0 + 4, fy, 'c')
+                for x in (x0, x0 + 2.0):
+                    box(cv, x, fy - 13, x + 1, fy - 12, 'c')
         hills(cv, 'f', fy - 1, 1.0, w * 1.3, r.uniform(0, 6))
         cloud(cv, w * r.uniform(0.2, 0.8), h * 0.1, 1.8, 'c')
     else:
@@ -786,7 +796,7 @@ def trumpet(w, h, r):
         mirror(cv)
     return cv, [('w', 'wall', 'Sky' if banner else 'Stage wall', BLUE, True), role('t', 'brass', 'Trumpet', BROWN),
                 role('k', 'cap', 'Valve caps, bell rim and cords', BROWN), role('m', 'notes', 'Music notes', GREEN),
-                role('c', 'curtain', 'Cloud' if banner else 'Curtains', PINK), role('f', 'floor', 'Hills' if banner else 'Stage', GREEN),
+                role('c', 'curtain', ('Cloud and towers' if castle else 'Cloud') if banner else 'Curtains', PINK), role('f', 'floor', 'Hills' if banner else 'Stage', GREEN),
                 role('p', 'banner', 'Banner', PINK), role('e', 'emblem', 'Star', BROWN)], ['things', 'music']
 
 
@@ -838,14 +848,7 @@ def harp(w, h, r):
                 role('v', 'window', 'Window frame' if window else 'Vase', GREEN)], ['things', 'music']
 
 
-def sparkle(cv, x, y, c):
-    """A twinkle of five cells: a small plus."""
-    box(cv, x - 1.5, y - 0.5, x + 1.5, y + 0.5, c)
-    box(cv, x - 0.5, y - 1.5, x + 0.5, y + 1.5, c)
-
-
 # ---- Toys and play ----
-
 
 def yo_yo(w, h, r):
     cv, s, cx, big = start(w, h, 'w')
@@ -1054,8 +1057,7 @@ def building_blocks(w, h, r):
                 role('e', 'block_e', 'Top block, roof and stripe', GREEN), role('l', 'letters', 'Letters', BLUE), role('f', 'floor', 'Floor', BROWN)], ['toys']
 
 
-# ---- Magic and time ----
-
+# ---- Maps, time and light ----
 
 def compass(w, h, r):
     cv, s, cx, big = start(w, h, 'm')
@@ -1186,18 +1188,17 @@ def candle(w, h, r):
 
 # ---- Magic, prizes and the desk ----
 
-
 def magic_wand(w, h, r):
     cv, s, cx, big = start(w, h, 'n')
     flip, cloudy, size, scene = r.random() < 0.5, r.random() < 0.6, r.uniform(5.2, 6.0), int(r.random() * 3)
     gtop = h - 4
     if scene == 0:
         hills(cv, 'g', gtop, 1.0, w * 1.2, r.uniform(0, 6))
-        kx = r.uniform(2.0, 4.0)
-        box(cv, kx - 1, gtop - 3.5, kx + 6, gtop + 1, 'w')
-        for x, top in ((kx, gtop - 6), (kx + 3.0, gtop - 4.5), (kx + 6.0, gtop - 7)):
+        kx = r.uniform(13.5, 14.5)
+        box(cv, kx - 1, gtop - 3.0, kx + 6, gtop + 1, 'w')
+        for x, top in ((kx, gtop - 5.0), (kx + 3.0, gtop - 4.0), (kx + 6.0, gtop - 5.5)):
             box(cv, x - 1.0, top, x + 1.0, gtop + 1, 'w')
-            poly(cv, [(x - 1.6, top + 0.2), (x, top - 2.6), (x + 1.6, top + 0.2)], 'c')
+            poly(cv, [(x - 1.6, top + 0.2), (x, top - 2.6), (x + 1.6, top + 0.2)], 'r')
     elif scene == 1:
         hills(cv, 'g', gtop, 0.8, w * 1.4, r.uniform(0, 6))
         for x in (r.uniform(1.5, 4.0), r.uniform(7.0, 10.0), r.uniform(17.0, 20.0)):
@@ -1224,9 +1225,9 @@ def magic_wand(w, h, r):
         mirror(cv)
     return cv, [('n', 'night', 'Night sky', BLUE, True), role('y', 'star', 'Star', BROWN), role('k', 'wand', 'Wand', PINK),
                 role('w', 'grip', 'Grip and castle' if scene == 0 else 'Grip', BROWN), role('q', 'glow', 'Star glow', PINK),
-                role('r', 'ribbon', 'Ribbon and flowers', PINK), role('x', 'sparkle', 'Moon and sparkles', BROWN), role('o', 'cloud', 'Cloud', BLUE),
+                role('r', 'ribbon', 'Ribbon and roofs' if scene == 0 else 'Ribbon and flowers', PINK), role('x', 'sparkle', 'Moon and sparkles', BROWN), role('o', 'cloud', 'Cloud', BLUE),
                 role('g', 'ground', ['Hills', 'Meadow', 'Clouds'][scene], GREEN),
-                role('c', 'detail', 'Tower roofs' if scene == 0 else 'Stems', GREEN)], ['things', 'magic']
+                role('c', 'stems', 'Stems', GREEN)], ['things', 'magic']
 
 
 def wizard_hat(w, h, r):
@@ -1430,7 +1431,7 @@ def book_stack(w, h, r):
 
 def pencil_cup(w, h, r):
     cv, s, cx, big = start(w, h, 'w')
-    flip, stripes, extra = r.random() < 0.5, r.random() < 0.5, int(r.random() * 3)
+    eraser_left, stripes, extra, flip = r.random() < 0.5, r.random() < 0.4, int(r.random() * 3), r.random() < 0.5
     fy = h - 4
     box(cv, 0, fy, w, h, 't')
     for deg, L, c in ((-20, 17.0, 'a'), (-7, 19.0, 'y'), (6, 18.0, 'v'), (19, 16.5, 'g')):
@@ -1460,7 +1461,7 @@ def pencil_cup(w, h, r):
             box(cv, cx - 5.0, y, cx + 5.0, y + 1.0, 'p', only='c')
     else:
         heart(cv, cx, fy - 3.8, 2.1, 'p')
-    px = r.choice((2.5, w - 2.5))
+    px = 2.5 if eraser_left else w - 2.5
     rbox(cv, px - 2.2, fy - 1.6, px + 2.2, fy, 0.4, 'p')
     if flip:
         mirror(cv)
@@ -1545,7 +1546,7 @@ def bell(w, h, r):
             box(cv, 0, y, 2.6, y + 0.6, 'k', only='t')
             box(cv, w - 2.6, y, w, y + 0.6, 'k', only='t')
         box(cv, 3.5, h - 2.0, w - 3.5, h, 'w')
-        to = one(cx, 5.6, 12.0, 11.2, (first - 0.5) * 20, 'b', 'k')
+        one(cx, 5.6, 12.0, 11.2, (first - 0.5) * 20, 'b', 'k')
         box(cv, cx - 1.0, 5.4, cx + 1.0, 6.4, 'w')
         roles = [sky(), role('t', 'tower', 'Bell tower', PINK), role('r', 'roof', 'Roof', PINK), role('b', 'bell', 'Bell', BROWN),
                  role('k', 'band', 'Bands and brick lines', BROWN), role('w', 'beam', 'Beam and ledge', GREEN), role('c', 'clapper', 'Clapper', BLUE),
