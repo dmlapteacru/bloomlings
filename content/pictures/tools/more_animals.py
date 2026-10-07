@@ -235,7 +235,7 @@ def moose(w, h, r):
         lens(cv, mx + side * s * 0.08, hy - s * 0.14, mx + side * s * 0.42, hy - s * 0.3, s * 0.18, 'a')
         for k in range(3):
             x0 = mx + side * s * (0.18 + k * 0.1)
-            seg(cv, x0, hy - s * (0.24 + k * 0.04), x0 + side * s * 0.02, hy - s * (0.36 + k * 0.05), 'a', 0.5)
+            seg(cv, x0, hy - s * (0.24 + k * 0.04), x0 + side * s * 0.02, max(1.2, hy - s * (0.36 + k * 0.05)), 'a', 0.5)
     eyes(cv, mx, hy - s * 0.05, 1.0 if not big else 2.0, big, 'e', 'k')
     for side in (-1, 1):
         cv.put(int(mx + side * 1.0), int(hy + s * 0.19), 'k')

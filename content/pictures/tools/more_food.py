@@ -160,10 +160,10 @@ def half_wheel(cv, x, y, rr):
     for xx, yy, px, py in cells(cv):
         d = math.hypot(px - x, py - y)
         if py <= y and d <= rr:
-            cv.g[yy][xx] = 'w' if rr - 1.9 < d <= rr - 1.0 else 'a'
+            cv.g[yy][xx] = 'w' if rr - 1.7 < d <= rr - 0.9 else 'a'
     for a in (45, 90, 135):
         t = math.radians(a)
-        seg(cv, x, y, x + math.cos(t) * (rr - 1.4), y - math.sin(t) * (rr - 1.4), 'w', 0.42 if a == 90 else 0.75)
+        seg(cv, x, y, x + math.cos(t) * (rr - 1.2), y - math.sin(t) * (rr - 1.2), 'w', 0.42)
 
 
 def wheel(cv, x, y, rr):
@@ -188,8 +188,8 @@ def orange(w, h, r):
         one_orange(cv, cx + w * 0.03, ty - rr - 0.4, rr, big, 2)
     elif mode == 1:  # a whole orange behind a cut one
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
-        rr = s * 0.22
-        one_orange(cv, cx + w * 0.22, ty - rr - h * 0.16, rr, big, 1)
+        rr = s * (0.22 if big else 0.25)
+        one_orange(cv, cx + w * 0.2, ty - rr - h * (0.16 if big else 0.1), rr, big, 1)
         if big:
             hr = s * 0.32
             hx, hy = cx - w * 0.12, ty - hr - 0.2
@@ -484,17 +484,13 @@ def one_pomegranate(cv, x, y, rr, big):
 
 
 def pomegranate_face(cv, x, y, rr, big):
-    """The cut face of a pomegranate: its seeds packed in the pale pith, and on the big boards its rind round it (one
-    level deeper; on the small ones the skin behind the face shows the rind)."""
+    """The cut face of a pomegranate: a mass of seeds flecked with pale pith, and on the big boards its rind round it
+    (one level deeper; on the small ones the skin behind the face shows the rind)."""
     x, y = int(x) + 0.5, int(y) + 0.5
     if big:
         disc(cv, x, y, rr, 'a')
-    disc(cv, x, y, rr - (0.9 if big else 0.0), 'w')
-    for xx, yy, px, py in cells(cv):
-        if cv.g[yy][xx] == 'w' and math.hypot(px - x, py - y) < rr - (2.0 if big else 1.0):
-            k = (xx + (yy // 3) * 2) % 3
-            if k < 2 and yy % 3 < 2:
-                cv.g[yy][xx] = 'x'
+    disc(cv, x, y, rr - (0.9 if big else 0.0), 'x')
+    dots(cv, 'w', 'x', 2, 2, area=(x - rr, y - rr, x + rr, y + rr), offset=int(x) % 2)
 
 
 def pomegranate(w, h, r):

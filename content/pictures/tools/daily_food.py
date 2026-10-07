@@ -1533,25 +1533,30 @@ def fried_egg(w, h, r):
         oval(cv, x, y, w * 0.4, h * 0.15, 'k')
         oval(cv, x, y + 1.6, w * 0.38, h * 0.12, 'k')
         oval(cv, x, y - 0.4, w * 0.34, h * 0.12, 'q')
-        egg(cv, r, x, y - 0.4, w * 0.3)
+        egg(cv, r, x, y - 0.4, w * 0.24)
     elif mode == 1:  # two eggs and bacon on a plate
         oval(cv, cx, ty - h * 0.14, w * 0.47, h * 0.14, 'p')
         for k, y in enumerate((ty - h * 0.08, ty - h * 0.14)):
             pts = [(w * 0.2 + j * w * 0.06, y + 0.8 * math.sin(j * 1.6 + k)) for j in range(11)]
             tube(cv, pts, 0.9, 'a')
+            tube(cv, pts, 0.3, 'n')
         egg(cv, r, cx - w * 0.2, ty - h * 0.2, w * 0.2)
         egg(cv, r, cx + w * 0.2, ty - h * 0.22, w * 0.2)
     else:  # on a slice of toast
         oval(cv, cx, ty - 0.6, w * 0.46, 2.2, 'p')
-        rbox(cv, cx - w * 0.36, ty - h * 0.42, cx + w * 0.36, ty - 1.2, 2.4, 'n')
-        rbox(cv, cx - w * 0.3, ty - h * 0.42 + 1.4, cx + w * 0.3, ty - 2.4, 1.6, 'u')
-        egg(cv, r, cx, ty - h * 0.24, w * 0.3)
+        for c, d in (('n', 0.0), ('u', 1.2)):
+            rbox(cv, cx - w * 0.34 + d, ty - h * 0.34, cx + w * 0.34 - d, ty - 1.2 - d, 1.6, c)
+            for side in (-1, 1):
+                disc(cv, cx + side * w * 0.2, ty - h * 0.36, w * 0.17 - d, c)
+            box(cv, cx - w * 0.2, ty - h * 0.42 + d, cx + w * 0.2, ty - h * 0.3, c)
+        egg(cv, r, cx, ty - h * 0.22, w * 0.27)
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
-    return cv, [S['b'], S['t'], S['d'], role('y', 'yolk', 'Yolk', BROWN), role('u', 'toast', 'Toast', BROWN), role('n', 'crust', 'Crust', BROWN),
+    return cv, [S['b'], S['t'], role('n', 'crust', 'Crust and bacon stripes', BROWN), role('g', 'handle', 'Handle', BROWN),
+                role('y', 'yolk', 'Yolk', BROWN), role('u', 'toast', 'Toast', BROWN), S['d'],
                 role('w', 'white', 'Egg white', PINK), role('a', 'bacon', 'Bacon', PINK),
-                role('k', 'pan', 'Pan', GREEN), role('g', 'handle', 'Handle', BROWN), role('q', 'pan_inside', 'Inside of the pan', BLUE),
+                role('k', 'pan', 'Pan', GREEN), role('q', 'pan_inside', 'Inside of the pan', BLUE),
                 role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'dishes']
 
 
@@ -1631,12 +1636,26 @@ def kiwi(w, h, r):
         whole(cx + w * 0.18, ty - h * 0.22, w * 0.24, h * 0.13)
         oval(cv, cx - w * 0.12, ty - h * 0.18, w * 0.33, h * 0.18, 'b')
         kiwi_face(cv, cx - w * 0.12, ty - h * 0.18, w * 0.29, h * 0.16)
-    elif mode == 1:  # three slices
-        for k, (dx, dy) in enumerate(((-0.24, -0.1), (0.24, -0.1), (0.0, -0.28))):
-            x, y = cx + dx * w, ty + dy * h - 0.5
-            if k == 2:
-                disc(cv, x, y, w * 0.2 + 0.9, 'b')
-            kiwi_face(cv, x, y, w * 0.2, w * 0.2)
+    elif mode == 1:  # slices: in a pile, in a row before a whole kiwi, or two big ones leaning together
+        layout = r.randrange(3)
+        if layout == 2:
+            whole(cx - w * 0.22, ty - h * 0.12, w * 0.2, h * 0.1)
+            for side in (1, -1):
+                x, y = cx + side * w * 0.16 + w * 0.08, ty - h * 0.2 - (side < 0) * 2.0
+                disc(cv, x, y, w * 0.24 + 0.9, 'b')
+                kiwi_face(cv, x, y, w * 0.24, w * 0.24)
+        elif layout == 0:
+            for k, (dx, dy) in enumerate(((-0.24, -0.1), (0.24, -0.1), (0.0, -0.28))):
+                x, y = cx + dx * w, ty + dy * h - 0.5
+                if k == 2:
+                    disc(cv, x, y, w * 0.2 + 0.9, 'b')
+                kiwi_face(cv, x, y, w * 0.2, w * 0.2)
+        else:
+            whole(cx + w * 0.16, ty - h * 0.36, w * 0.26, h * 0.12)
+            for k in range(3):
+                x = cx + (k - 1) * w * 0.3
+                oval(cv, x, ty - h * 0.12, w * 0.16 + 0.9, h * 0.12 + 0.9, 'b')
+                kiwi_face(cv, x, ty - h * 0.12, w * 0.16, h * 0.12)
     else:  # two halves, their faces up, and a whole one
         whole(cx, ty - h * 0.3, w * 0.22, h * 0.12)
         for side in (-1, 1):
