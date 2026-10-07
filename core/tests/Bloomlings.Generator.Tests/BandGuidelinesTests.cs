@@ -217,11 +217,13 @@ namespace Bloomlings.Generator.Tests
             Assert.That(CatalogCommands.GateIssues(lib, pairs, 20000, broken, Array.Empty<LevelDefinition>()).Any(i => i.IsError && i.Level == 3 && i.Check == "accounting"), Is.True);
 
             // A daily pool numbered by pool index is not held to Level N's band rules or FR-083 windows: L3 three times
-            // as entries 1–3 would repeat its picture and have 3 variants at "L1" in the catalog.
+            // as entries 1–3 would repeat its picture and have 3 variants at "L1" in the catalog. It has rules of its own
+            // (the owner, 2026-10-07): only the Daily Challenge's pictures, each once, a subject only every 60 entries.
             List<LevelDefinition> pool = Enumerable.Range(1, 3).Select(i => three with { LevelNumber = i }).ToList();
             Assert.That(Validate(pool.ToArray()).Any(i => i.IsError && (i.Check == "similarity" || i.Check == "variant-count")), Is.True, "as catalog levels");
-            List<LevelIssue> daily = CatalogCommands.GateIssues(lib, pairs, 20000, curated, pool);
-            Assert.That(daily.Where(i => i.IsError), Is.Empty, string.Join("; ", daily.Where(i => i.IsError).Select(i => $"L{i.Level} {i.Check}: {i.Message}")));
+            List<LevelIssue> daily = CatalogCommands.GateIssues(lib, pairs, 20000, curated, pool).Where(i => i.IsError).ToList();
+            Assert.That(daily.Select(i => i.Check).Distinct(), Is.EquivalentTo(new[] { "daily-picture-pool", "daily-picture-once", "daily-subject-window" }), string.Join("; ", daily.Select(i => $"L{i.Level} {i.Check}: {i.Message}")));
+            Assert.That(daily.Where(i => i.Check == "daily-picture-once").Select(i => i.Level), Is.EqualTo(new[] { 2, 3 }));
         }
 
         [Test]

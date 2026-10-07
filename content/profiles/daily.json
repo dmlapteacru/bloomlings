@@ -20,57 +20,60 @@
   "bandId": "daily",
   "boardSize": {
     "height": [
-      12,
-      14
+      28,
+      28
     ],
     "width": [
-      11,
-      13
+      22,
+      22
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
-    60,
-    180
+    240,
+    600
   ],
   "entryLayouts": [
     "bottom_center",
     "bottom_left",
-    "bottom_right"
+    "bottom_right",
+    "two_bottom"
   ],
   "hardMode": {
-    "extraPods": 2,
+    "extraPods": 3,
     "hardPressure": "tense",
-    "maxInjections": 12,
+    "maxInjections": 16,
     "superHardPressure": "tense"
   },
   "levelRange": [
     1,
-    366
+    365
   ],
   "mappingConstraints": {
     "allowRoleMerge": true
   },
   "maxLayerDepth": 1,
-  "note": "Daily Challenge pool (R19): mid-difficulty, early-mid mechanics only, so every player past the daily unlock can play it. levelRange is the day index.",
+  "note": "Daily Challenge pool (R19; the owner, 2026-10-07): every entry a new picture of its own (the daily theme, never in the levels), on the biggest board, 22x28, in the icons look, Normal, Hard or Super Hard by the week (daily generate --class weekly). Pods, work and durations follow the big levels' row; the mechanics and layers are those unlocked at the challenge's unlock (L50), so every player past it knows them. levelRange is the day index.",
   "picturePool": {
-    "themes": []
+    "themes": [
+      "daily"
+    ]
   },
   "podCount": [
-    12,
-    18
+    24,
+    56
   ],
   "podSize": [
     5,
-    40
+    100
   ],
   "solver": {
     "maxCandidatesPerLevel": 60,
-    "nodeBudget": 300000
+    "nodeBudget": 600000
   },
   "stacks": [
     3,
-    5
+    6
   ],
   "structureTargets": {
     "backgroundSharePermille": [
@@ -79,15 +82,15 @@
     ],
     "nestingDepth": [
       2,
-      4
+      5
     ]
   },
   "variantCount": [
-    4,
-    5
+    5,
+    6
   ],
   "work": [
-    100,
-    200
+    200,
+    650
   ]
 }

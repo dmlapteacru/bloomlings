@@ -718,6 +718,28 @@ one framework with Unity).
 **Alternatives considered**: Server-picked puzzles (needs a connection) or generating on device (would require shipping
 the generator).
 
+**Amended 2026-10-07 (the owner, FR-064 as amended).** The pool has 365 entries, each on a picture of its own at 22×28.
+Entries are Normal, Hard or Super Hard by the week.
+
+- **Pictures.** 128 subjects that the levels never draw, three pictures each (384), carry the theme `daily`. The picker
+  gives them only to a profile that asks for that theme, and the `daily` profile takes nothing else. So the 5000 levels
+  and the pool never share a picture, and `validate` refuses one in a level.
+- **Plan.** `DailyPlan` fixes each entry's picture before any level is generated, so the pool's segments can be built in
+  parallel without ever repeating a picture. In order, each entry draws a subject from those with the most pictures
+  left that it has not shown in the last 60 entries, then one of that subject's pictures (both seeded). The 19
+  pictures left over are spares: an entry whose picture makes no level takes the first spare that keeps the window.
+  A picker that chose freely within each segment would repeat pictures across the segments (about 150 pairs for 7
+  segments of 52 among 384 pictures). The seam repair would then have to redo them all.
+- **Classes.** Four Normal, two Hard and one Super Hard a week, by the weekday of the entry. Entry 1 is Thursday
+  2026-01-01: Hard on Wednesday and Saturday, Super Hard on Sunday, and Normal on the Monday after it. That gives 209
+  Normal, 104 Hard and 52 Super Hard entries. The weekdays move by one a year from 2027, as the pool starts over every
+  365 days. A 364-entry pool would keep them fixed, but the owner asked for a year.
+- **Rules level.** An entry's number is a day, not Level N, so every entry plays with the unlocks of L50, the
+  challenge's own unlock: its mechanics, one layer below a top, no advanced combination or Hard pressure. Both the
+  generator (`LevelGenerator.RulesLevel`) and the validator (`CatalogValidator.RulesLevel`) use it.
+- **Pressure.** The board is an icons board, so the buffer pressure is that of a big level (R8b): a Normal entry peaks
+  at 1–3 slots, and a Hard or Super Hard one at 3–4.
+
 ## R20. Economy configuration
 
 **Decision**:

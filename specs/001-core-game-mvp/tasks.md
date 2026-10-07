@@ -1654,6 +1654,24 @@ final validation.
   such a pair again (or the earlier one when the later is kept). Bands that passed `validate` come out the same: each
   attempt has its own seed, so the new refusal only changes a level that broke the rule. Test:
   `CatalogRulesTests.APictureUsedAgainFarAway_MustDifferInLookAndSource_AtTheLaterLevel`.
+- [ ] T185 The Daily Challenge pool (R19, FR-064 as amended on 2026-10-07; the owner: "a pool for 365 days", "it must
+  definitely be a new picture", "the board must be big with small cells … always maximal", "they can be medium, hard,
+  super hard"): `content/daily/`, 365 entries from `daily generate --seed 1 --count 365 --segments 7 --jobs 4`, with
+  validation records and a README.
+  - The Daily Challenge's own pictures are 128 new subjects that the levels never draw, three each at 22×28
+    (`sketch_pictures.py --daily`; `daily_subjects.py`, `daily_animals.py`, `daily_places.py`, `daily_things.py` and
+    `daily_food.py`; `preview_png.py` renders their sheets). They carry the theme `daily`
+    (`PicturePicker.DailyTheme`), which only a profile asking for it takes; the `daily` profile takes only them.
+  - `DailyPlan` gives each entry a picture of its own, a subject only every 60 entries, and the class of its weekday:
+    Hard on Wednesday and Saturday, Super Hard on Sunday (entry 1 is Thursday 2026-01-01), the others Normal.
+    `daily generate --class weekly` is the default.
+  - Every entry plays with the unlocks of L50 (`LevelGenerator.RulesLevel`, `CatalogValidator.RulesLevel`), on the
+    icons board's buffer pressure.
+  - An entry without an accepted candidate takes a spare picture.
+  - `validate` and the publish gate refuse a daily picture in a level (`picture-pool`), and in the pool a picture shown
+    twice (`picture-once`) or a subject within 60 entries (`subject-window`).
+  - Tests: `DailyPoolTests`.
+  - `publish --daily content/daily` packs it.
 
 ## Parallel Example: User Story 1
 

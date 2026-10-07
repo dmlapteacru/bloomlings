@@ -7,6 +7,7 @@ using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Core.Variants;
+using Bloomlings.Generator;
 using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Readability;
 using Bloomlings.Solver;
@@ -79,6 +80,20 @@ namespace Bloomlings.Pipeline.Validation
         /// <summary>Which expansion variants join the pool, and when (FR-060).</summary>
         public VariantPool Pool { get; set; } = VariantPool.Default;
 
+        /// <summary>
+        /// Whether the levels are the Daily Challenge pool (the owner, 2026-10-07): its entries show only its own pictures
+        /// (<see cref="PicturePicker.DailyTheme"/>), each once, and a subject only every
+        /// <see cref="DailyPlan.SubjectWindow"/> entries. Off, the levels never show one of those pictures.
+        /// </summary>
+        public bool DailyPool { get; set; }
+
+        /// <summary>
+        /// The Level N whose unlocks every level is checked against (mechanics, variants, layers below a top, a locked
+        /// slot), instead of each level's own number; null uses the level's. The Daily Challenge pool, numbered by pool
+        /// index, plays with the unlocks of the challenge's own unlock level (L50).
+        /// </summary>
+        public int? RulesLevel { get; set; }
+
         /// <param name="levels">The catalog (any order); FR-083 checks look at level-number neighbours.</param>
         /// <param name="solveOnly">When set, only these levels are solved (the others still take part in FR-083).</param>
         /// <param name="context">
@@ -113,7 +128,39 @@ namespace Bloomlings.Pipeline.Validation
                 ValidateSequences(sorted.Concat(neighbours).OrderBy(l => l.LevelNumber).ToList(), own, report);
             }
 
+            if (DailyPool)
+            {
+                ValidateDailyPictures(sorted, report);
+            }
+
             return report;
+        }
+
+        /// <summary>The Daily Challenge pool's pictures: each once, a subject only every <see cref="DailyPlan.SubjectWindow"/> entries.</summary>
+        private static void ValidateDailyPictures(IReadOnlyList<LevelDefinition> sorted, CatalogReport report)
+        {
+            var firstUse = new Dictionary<string, int>(StringComparer.Ordinal);
+            var lastOfSubject = new Dictionary<string, int>(StringComparer.Ordinal);
+            foreach (LevelDefinition level in sorted)
+            {
+                int n = level.LevelNumber;
+                if (firstUse.TryGetValue(level.Picture.Id, out int first))
+                {
+                    Error(report, n, "picture-once", $"picture {level.Picture.Id} is shown by entry {first} already");
+                }
+                else
+                {
+                    firstUse[level.Picture.Id] = n;
+                }
+
+                string subject = DailyPlan.SubjectOf(level.Picture.Id);
+                if (lastOfSubject.TryGetValue(subject, out int last) && n - last < DailyPlan.SubjectWindow)
+                {
+                    Error(report, n, "subject-window", $"subject {subject} comes back {n - last} entries after entry {last}, fewer than {DailyPlan.SubjectWindow}");
+                }
+
+                lastOfSubject[subject] = n;
+            }
         }
 
         private void ValidateLevel(LevelDefinition level, CatalogReport report)
@@ -124,6 +171,13 @@ namespace Bloomlings.Pipeline.Validation
             {
                 Error(report, n, "picture", $"picture {level.Picture.Id} v{level.Picture.Version} is not in the library");
                 return;
+            }
+
+            if (PicturePicker.IsDaily(picture) != DailyPool)
+            {
+                Error(report, n, "picture-pool", DailyPool
+                    ? $"picture {picture.Id} is not one of the Daily Challenge's own pictures (theme {PicturePicker.DailyTheme})"
+                    : $"picture {picture.Id} is one of the Daily Challenge's own pictures (theme {PicturePicker.DailyTheme}), never shown by a level");
             }
 
             if (picture.Review.Status != ReviewStatus.Approved)
@@ -159,7 +213,7 @@ namespace Bloomlings.Pipeline.Validation
 
             CheckVariants(level, report, passed);
             CheckUnlocks(level, picture, report, passed);
-            CheckDataModel(level, report, passed);
+            CheckDataModel(level, RulesLevel ?? level.LevelNumber, report, passed);
 
             LevelAnalysis analysis = _solver.Analyze(session, _options);
             ValidationResult result = analysis.Win.Status switch
@@ -191,7 +245,7 @@ namespace Bloomlings.Pipeline.Validation
             // Mystery pods and tiles, and the hidden layers of an icons board: no level may force a blind guess (FR-036 as
             // amended, FR-039, FR-080, R8, R8b).
             bool icons = BoardLooks.Of(level) == BoardLook.Icons;
-            FairnessResult fairness = FairnessChecker.Check(level, picture, new SessionOptions(1, 20000), _options.NodeBudget, BandGuidelines.MaxLayersBelow(n), BandGuidelines.MaxHiddenLayersOnIcons);
+            FairnessResult fairness = FairnessChecker.Check(level, picture, new SessionOptions(1, 20000), _options.NodeBudget, BandGuidelines.MaxLayersBelow(RulesLevel ?? n), BandGuidelines.MaxHiddenLayersOnIcons);
             if (fairness.Status == FairnessStatus.Fair)
             {
                 passed.Add("player-info-fair");
@@ -396,6 +450,7 @@ namespace Bloomlings.Pipeline.Validation
         private void CheckUnlocks(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
         {
             int n = level.LevelNumber;
+            int rules = RulesLevel ?? n;
             bool ok = true;
             foreach (string unlock in MechanicsUsed(level, picture))
             {
@@ -405,7 +460,7 @@ namespace Bloomlings.Pipeline.Validation
                     Error(report, n, "unlock", $"{unlock} is not on the unlock roadmap");
                     ok = false;
                 }
-                else if (n < at.Value)
+                else if (rules < at.Value)
                 {
                     Error(report, n, "unlock", $"{unlock} is used before its unlock level L{at.Value} (FR-031)");
                     ok = false;
@@ -414,7 +469,7 @@ namespace Bloomlings.Pipeline.Validation
 
             foreach (VariantId variant in level.Pods.Select(p => p.Variant).Distinct())
             {
-                if (!Pool.IsAvailable(variant, n, _roadmap))
+                if (!Pool.IsAvailable(variant, rules, _roadmap))
                 {
                     int? at = Pool.IntroducedAt(variant, _roadmap);
                     Error(report, n, "unlock", at == null
@@ -430,7 +485,7 @@ namespace Bloomlings.Pipeline.Validation
             }
         }
 
-        private static void CheckDataModel(LevelDefinition level, CatalogReport report, List<string> passed)
+        private static void CheckDataModel(LevelDefinition level, int rules, CatalogReport report, List<string> passed)
         {
             int n = level.LevelNumber;
             bool ok = true;
@@ -445,17 +500,17 @@ namespace Bloomlings.Pipeline.Validation
                 Fail($"{level.Tray.Stacks.Count} stacks; 2–6 are allowed");
             }
 
-            if (level.Slots.Locked != null && n < 80)
+            if (level.Slots.Locked != null && rules < 80)
             {
                 Fail("a locked slot before L80 (FR-039)");
             }
 
-            int maxBelow = BandGuidelines.MaxLayersBelow(n);
+            int maxBelow = BandGuidelines.MaxLayersBelow(rules);
             foreach (CellOverlay overlay in level.Overlays)
             {
                 if (overlay.LayersBelow.Count > maxBelow)
                 {
-                    Fail($"cell {overlay.Cell} has depth {overlay.LayersBelow.Count + 1}; the limit is {maxBelow + 1} at L{n} (FR-036)");
+                    Fail($"cell {overlay.Cell} has depth {overlay.LayersBelow.Count + 1}; the limit is {maxBelow + 1} at L{rules} (FR-036)");
                 }
             }
 

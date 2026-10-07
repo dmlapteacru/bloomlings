@@ -635,13 +635,103 @@ def main(seed=2026, with_expansions=False, root=ROOT):
         sys.exit(1)
 
 
+# The Daily Challenge's own pictures (the owner, 2026-10-07: every day a new picture, of a subject the levels never show,
+# on the biggest board): the new subjects of daily_subjects.py, DAILY_PICTURES pictures of each at DAILY_SIZE, with the
+# 'daily' theme, which keeps them out of the catalog's levels (PicturePicker.DailyTheme) and is the only theme the daily
+# profile takes. Only `--daily` writes them, each from its own seed (the run's seed, the subject and the number), so they
+# never move the catalog's pictures, and `--only` redraws one subject alone. They meet the big band's targets.
+DAILY_SIZE = (22, 28)
+DAILY = dict(BIG)
+DAILY_PICTURES = 3
+DAILY_THEME = 'daily'
+
+
+def main_daily(seed=2026, root=ROOT, only=None, png=None, module=None):
+    import importlib
+    import zlib
+    if module:
+        # One module's subjects alone (daily_animals, …), so a module can be drawn while another is being written.
+        DAILY_SUBJECTS = getattr(importlib.import_module(module), 'DAILY_' + module[len('daily_'):].upper())
+    else:
+        from daily_subjects import DAILY_SUBJECTS
+    names = [s.__name__ for s in DAILY_SUBJECTS]
+    taken = {s.__name__ for s in SUBJECTS} | {s.__name__ for s in NEW_SUBJECTS}
+    problems = [f'daily: {n} is a subject of the levels already' for n in names if n in taken]
+    problems += [f'daily: {n} is listed twice' for n in sorted(set(names)) if names.count(n) > 1]
+    os.makedirs(root, exist_ok=True)
+    written = 0
+    for subject in DAILY_SUBJECTS:
+        name = subject.__name__
+        if only and name not in only:
+            continue
+        ids = []
+        for k in range(1, DAILY_PICTURES + 1):
+            w, h = DAILY_SIZE
+            seed_k = zlib.crc32(f'{seed}:{name}:{k}'.encode())
+            try:
+                cv, roles, themes, issues, six, held = sketch(subject, w, h, seed_k, DAILY, f'daily {name} #{k}')
+            except Exception as error:  # a subject under construction: report it and go on
+                problems.append(f'daily {name} #{k}: {type(error).__name__}: {error}')
+                continue
+            problems += issues
+            if not six:
+                problems.append(f'daily {name} #{k}: cannot carry six variants')
+            pid = f'{name}_{k:02d}'
+            meta_path = os.path.join(root, pid + '.meta.json')
+            if os.path.exists(meta_path) and '"approved"' in open(meta_path).read():
+                ids.append(pid)
+                continue
+            meta = {
+                'id': pid, 'version': DAILY['version'],
+                'subject': name.replace('_', ' ').capitalize() + ' ' + str(k),
+                'width': w, 'height': h,
+                'legend': {role[0]: role[1] for role in roles},
+                'roles': [dict({'roleId': role[1], 'name': role[2], 'colorGroup': role[3]}, **({'isBackground': True} if role[4] else {})) for role in roles],
+                'finishedLook': {'mode': 'auto'},
+                'tags': {'themes': list(themes) + [DAILY_THEME], 'bands': ['daily']},
+                'review': {'status': 'draft', 'notes': 'Procedural sketch for the Daily Challenge (content/pictures/tools/sketch_pictures.py --daily); approved on import by the automated picture checks (FR-084 as amended).'},
+                'source': {'kind': 'generated', 'origin': 'content/pictures/tools/sketch_pictures.py', 'licence': 'owned'},
+            }
+            with open(meta_path, 'w') as f:
+                json.dump(meta, f, indent=2, sort_keys=True)
+                f.write('\n')
+            with open(os.path.join(root, pid + '.grid.txt'), 'w') as f:
+                f.write('\n'.join(cv.rows()) + '\n')
+            ids.append(pid)
+            written += 1
+        if png and ids:
+            import preview_png
+            os.makedirs(png, exist_ok=True)
+            preview_png.sheet(os.path.join(png, name + '.png'), ids, root, cell=12, columns=DAILY_PICTURES)
+    print(f'daily: wrote {written} picture sketches of {len(DAILY_SUBJECTS) if not only else len(only)} subjects to {os.path.normpath(root)}')
+    if problems:
+        print('\n'.join(problems), file=sys.stderr)
+        sys.exit(1)
+
+
 if __name__ == '__main__':
     # sketch_pictures.py [seed] [--expansions] [--out <folder>]
+    # sketch_pictures.py --daily [seed] [--module daily_<group>] [--only <subject>[,<subject>...]] [--png <folder>] [--out <folder>]
     args = sys.argv[1:]
     out = ROOT
     if '--out' in args:
         out = args[args.index('--out') + 1]
         del args[args.index('--out'):args.index('--out') + 2]
+    if '--daily' in args:
+        args.remove('--daily')
+        only = png = None
+        if '--only' in args:
+            only = set(args[args.index('--only') + 1].split(','))
+            del args[args.index('--only'):args.index('--only') + 2]
+        if '--png' in args:
+            png = args[args.index('--png') + 1]
+            del args[args.index('--png'):args.index('--png') + 2]
+        module = None
+        if '--module' in args:
+            module = args[args.index('--module') + 1]
+            del args[args.index('--module'):args.index('--module') + 2]
+        main_daily(int(args[0]) if args else 2026, out, only, png, module)
+        sys.exit(0)
     with_expansions = '--expansions' in args
     args = [a for a in args if a != '--expansions']
     main(int(args[0]) if args else 2026, with_expansions, out)

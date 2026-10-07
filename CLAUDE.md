@@ -66,7 +66,11 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `picture-approved`. `content/readability/approved-pairs.json` is `provisional` until the readability sign-off.
   Mechanic showcase levels live in `content/showcase/` (generated with `generate --mechanics <m> --class normal`);
   `generate` keeps them fixed (`--keep`). `generate --segments N` fixes how the range is cut for `--jobs` threads, so
-  the levels never depend on the machine's cores.
+  the levels never depend on the machine's cores. The Daily Challenge pool is `content/daily/` (being built, T185; FR-064 as
+  amended on 2026-10-07: 365 entries, each on a picture of its own, 22×28, 4 Normal / 2 Hard / 1 Super Hard a week,
+  `daily generate --seed 1 --count 365 --segments 7`; `publish --daily content/daily` packs it). Its pictures are the
+  `daily` theme's (`sketch_pictures.py --daily`, 128 subjects the levels never draw, three each): only the daily profile
+  takes them, and `validate` refuses one in a level.
 - `tools/catalog/build-catalog.ps1` (Windows PowerShell 5.1 and PowerShell 7) and its twin `build-catalog.sh` build and
   validate `content/catalog/` band by band (`tools/catalog/README.md`): each band's profile, seed and fixed segments, the
   earlier bands as history, two more seeds for a level without an accepted candidate (else a recorded gap), every band

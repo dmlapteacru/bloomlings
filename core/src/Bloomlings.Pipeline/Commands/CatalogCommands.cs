@@ -460,7 +460,7 @@ namespace Bloomlings.Pipeline.Commands
             var issues = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)).Validate(levels).Issues;
             if (dailyLevels.Count > 0)
             {
-                var daily = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)) { CheckBandGuidelines = false, CheckSequences = false };
+                var daily = new CatalogValidator(library, roadmap, pairs, new SolveOptions(budget)) { CheckBandGuidelines = false, CheckSequences = false, DailyPool = true, RulesLevel = roadmap.LevelOf(DailyGenerateCommand.UnlockId) };
                 issues.AddRange(daily.Validate(dailyLevels).Issues.Select(i => i with { Check = "daily-" + i.Check }));
             }
 

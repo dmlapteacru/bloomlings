@@ -190,6 +190,26 @@ a default or asks a question.
   Hard that the schedule puts on a practice level moves to the next level that is not a showcase, a practice or a
   milestone level, and the practice level takes that level's class, as a Hard due on a big level moves on (FR-008).
 
+### Session 2026-10-07 (the owner)
+
+- **Q: What is a Daily Challenge puzzle?**
+  A: Every day a new picture (FR-064 as amended). The owner: "it must definitely be a new picture". The pool holds 365
+  puzzles, one a day, each on a picture that no other day and no level shows. The pictures are 128 new subjects that the
+  levels never draw (a dragon, a pagoda, a tram, a banana and so on), three pictures of each. They carry the `daily`
+  theme, which only the Daily Challenge takes, and a subject comes back only after 60 days at least. The levels keep
+  their 97 subjects for now: new subjects for them come after launch.
+- **Q: How big is its board?**
+  A: Always the biggest. The owner: "the board must be big with small cells … always maximal". Every puzzle is 22×28
+  (616 cells, FR-008's largest board) in the icons look of a big level, with the hidden layers' fairness check.
+- **Q: How hard is it?**
+  A: The owner: "but they can be medium, hard, super hard". Each week has four Normal days, two Hard days and one Super
+  Hard day; this was the owner's choice of the proposals. The week follows the pool's first day, Thursday 2026-01-01:
+  Hard on Wednesday and Saturday, Super Hard on Sunday, and Normal on the day after it. A year then holds 209 Normal, 104
+  Hard and 52 Super Hard puzzles. The pool starts over after 365 days, so from 2027 the weekdays move by one a year.
+- **Q: Which mechanics does it use?**
+  A: Those a player knows when the challenge opens at L50: Stone, Key, Locked Pod, Connected Pair, Layered Tile and
+  Gate, with at most one layer below a top. Every puzzle plays with the unlocks of L50, whatever its day.
+
 ## User Scenarios & Testing *(mandatory)*
 
 ### User Story 1 - Play a level: commit pods, restore the picture, avoid the jam (Priority: P1)
@@ -621,7 +641,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
   and Munchers are free and play by level. Fireflies, Bubbles, Pushers, Fireworks and Confetti Parade are bought once
   for 5000 Petals each from L40 in the Store's Animations tab, whose previews show from L12. A chosen one plays on every
   level. Every style takes the same time per tile, so none changes the pace or an outcome.
-- **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50.
+- **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50. *(Amended 2026-10-07, the owner.)* Each puzzle MUST show a picture of the Daily Challenge's own, which no other puzzle and no level shows; a subject comes back only after 60 days at least. Every puzzle MUST be on the biggest board, 22×28. Each week MUST have four Normal, two Hard and one Super Hard puzzle. Every puzzle MUST use only the mechanics unlocked by L50.
 - **FR-065**: Every finished picture MUST be added to a Collection that the player can view. The Collection is never a level selector.
 - **FR-066**: Background themes MUST rotate automatically by level band. This is visual only; there are no navigable areas.
 

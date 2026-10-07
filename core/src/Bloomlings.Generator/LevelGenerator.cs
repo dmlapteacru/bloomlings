@@ -95,6 +95,19 @@ namespace Bloomlings.Generator
         public DifficultyClass? ForcedClass { get; set; }
 
         /// <summary>
+        /// The class of each level instead of the schedule, when <see cref="ForcedClass"/> is not set (the Daily Challenge
+        /// pool's week, <see cref="DailyPlan.WeeklyClass"/>).
+        /// </summary>
+        public Func<int, DifficultyClass>? ClassOf { get; set; }
+
+        /// <summary>
+        /// The Level N whose unlocks apply to every level generated (mechanics and their combinations, layers below a top,
+        /// the advanced Hard pressure), instead of each level's own number; null uses the level's. The Daily Challenge pool,
+        /// whose numbers are pool indexes, plays as at its unlock (<c>system.daily_challenge</c>, L50).
+        /// </summary>
+        public int? RulesLevel { get; set; }
+
+        /// <summary>
         /// The class thresholds of big levels (<see cref="BandGuidelines.IsBigLevel"/>), whose scores grow with their
         /// boards (the band's <c>big</c> thresholds in <c>difficulty-thresholds.json</c>); null uses the band's own.
         /// </summary>
@@ -229,18 +242,21 @@ namespace Bloomlings.Generator
 
         private GeneratedLevel? TryGenerate(int level, ulong levelSeed, IReadOnlyDictionary<int, LevelDefinition> history, out string? reason)
         {
+            // The unlocks that apply: the level's own, or the fixed rules level of a pool (the Daily Challenge's).
+            int rules = RulesLevel ?? level;
+
             // A showcase's mechanics must be allowed and unlocked (FR-031): a wrong request is refused before any candidate.
             foreach (string mechanic in ForcedMechanics ?? Array.Empty<string>())
             {
                 int? at = _roadmap.LevelOf(MechanicNames.UnlockId(mechanic));
-                if (!_profile.Allows(mechanic) || at == null || at.Value > level)
+                if (!_profile.Allows(mechanic) || at == null || at.Value > rules)
                 {
-                    throw new ArgumentException($"{mechanic} is not allowed by {_profile.BandId} or not unlocked at L{level} (FR-031).");
+                    throw new ArgumentException($"{mechanic} is not allowed by {_profile.BandId} or not unlocked at L{rules} (FR-031).");
                 }
             }
 
             var rng = new Xoshiro256StarStar(levelSeed);
-            DifficultyClass target = ForcedClass ?? _schedule.ClassFor(level);
+            DifficultyClass target = ForcedClass ?? ClassOf?.Invoke(level) ?? _schedule.ClassFor(level);
 
             // The profile and the band guidelines both apply: their overlap for this level and class.
             IntRange? variantCount = UseBandGuidelines ? BandGuidelines.Intersect(_profile.VariantCount, BandGuidelines.Variants(level, target)) : _profile.VariantCount;
@@ -333,7 +349,7 @@ namespace Bloomlings.Generator
             else
             {
                 int? combinations = _roadmap.LevelOf(AdvancedCombinationsUnlock);
-                chosen = OverlayPlanner.Choose(_profile, level, _roadmap, combinations != null && level >= combinations.Value ? 3 : 2, ref rng, target);
+                chosen = OverlayPlanner.Choose(_profile, rules, _roadmap, combinations != null && rules >= combinations.Value ? 3 : 2, ref rng, target);
             }
 
             // No mystery on an icons board: its hidden layers are hidden information already, and the fairness check
@@ -373,7 +389,7 @@ namespace Bloomlings.Generator
 
             var active = new List<VariantId>(new SortedSet<VariantId>(mapping.Values));
             Board plain = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
-            BoardPlan boardPlan = OverlayPlanner.BoardOverlays(plain, BackgroundCells(picture, mirror), chosen, _profile, level, active, ref rng, look);
+            BoardPlan boardPlan = OverlayPlanner.BoardOverlays(plain, BackgroundCells(picture, mirror), chosen, _profile, rules, active, ref rng, look);
             List<CellOverlay> boardOverlays = boardPlan.Overlays;
             skeleton = skeleton with { Overlays = boardOverlays };
             Board board = BoardBuilder.Build(skeleton, picture, VariantCatalog.Default);
@@ -533,11 +549,12 @@ namespace Bloomlings.Generator
                 }
             }
 
-            // Buffer pressure (the band's target, as peak occupied slots on the winning line; a big level's is lower and
-            // capped for every class, slack for its hidden layers).
-            IntRange pressure = big ? BandGuidelines.BigLevelPeakSlots(tray.Class) : BandGuidelines.PeakSlots(PressureFor(level, tray.Class));
+            // Buffer pressure (the band's target, as peak occupied slots on the winning line; an icons board's, a big
+            // level's or a Daily Challenge entry's, is lower and capped for every class, slack for its hidden layers).
+            bool icons = look == BoardLook.Icons;
+            IntRange pressure = icons ? BandGuidelines.BigLevelPeakSlots(tray.Class) : BandGuidelines.PeakSlots(PressureFor(rules, tray.Class));
             int peak = tray.Analysis.Metrics.PeakBuffer;
-            if (peak < pressure.Min || ((big || tray.Class == DifficultyClass.Normal) && peak > pressure.Max))
+            if (peak < pressure.Min || ((icons || tray.Class == DifficultyClass.Normal) && peak > pressure.Max))
             {
                 reason = $"pressure:peak-{peak}-outside-{pressure}";
                 return null;
@@ -548,7 +565,7 @@ namespace Bloomlings.Generator
             bool hiddenLayers = look == BoardLook.Icons && tray.Definition.Overlays.Any(o => o.LayersBelow.Count > 0);
             if (hiddenLayers || mechanics.Contains(MechanicNames.MysteryTile) || mechanics.Contains(MechanicNames.MysteryPod))
             {
-                FairnessResult fairness = FairnessChecker.Check(tray.Definition, picture, new SessionOptions(1, 20000), tuning.NodeBudget, BandGuidelines.MaxLayersBelow(level), BandGuidelines.MaxHiddenLayersOnIcons);
+                FairnessResult fairness = FairnessChecker.Check(tray.Definition, picture, new SessionOptions(1, 20000), tuning.NodeBudget, BandGuidelines.MaxLayersBelow(rules), BandGuidelines.MaxHiddenLayersOnIcons);
                 if (fairness.Status != FairnessStatus.Fair)
                 {
                     reason = (hiddenLayers ? "fairness:hidden-layers-" : "fairness:") + fairness.Status.ToString().ToLowerInvariant();
