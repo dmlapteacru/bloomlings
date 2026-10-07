@@ -652,28 +652,31 @@ def music_box(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
     fy = h * 0.88
     box(cv, 0, fy, w, h, 't')
-    x0, x1, top = w * 0.14, w * 0.86, h * 0.62
-    lt = top - h * 0.22
-    poly(cv, [(x0 + 0.5, top), (x1 - 0.5, top), (x1 - w * 0.05, lt), (x0 + w * 0.05, lt)], 'x')
-    poly(cv, [(x0 + 1.5, top - 0.4), (x1 - 1.5, top - 0.4), (x1 - w * 0.05 - 1.0, lt + 1.0), (x0 + w * 0.05 + 1.0, lt + 1.0)], 'v')
+    x0, x1, top = w * 0.12, w * 0.82, h * 0.64
+    lt = h * 0.26
+    poly(cv, [(x0 + 0.5, top), (x1 - 0.5, top), (x1 + w * 0.02, lt), (x0 - w * 0.02, lt)], 'x')
+    poly(cv, [(x0 + 1.5, top), (x1 - 1.5, top), (x1 + w * 0.02 - 1.0, lt + 1.0), (x0 - w * 0.02 + 1.0, lt + 1.0)], 'v')
     box(cv, x0, top, x1, fy + 0.4, 'x')
     ty = top + (fy - top) * 0.5
     box(cv, x0, ty - 0.45, x1, ty + 0.45, 'g')
     box(cv, x1, ty - 0.45, x1 + 1.4, ty + 0.45, 'g')
     box(cv, x1 + 0.6, ty - 1.5, x1 + 1.4, ty + 1.5, 'g')
-    dx = int(cx) + (0.5 if w % 2 else 0.0)
-    k = 1.0 if not big else 1.4
-    oval(cv, dx, top - 0.2, 2.0 * k, 0.8, 'g')
-    seg(cv, dx, top - 0.6, dx, top - h * 0.1, 'p', 0.45)
-    oval(cv, dx, top - h * 0.12, 2.4 * k, 0.9 * k, 'p')
-    box(cv, dx - 0.5 * k, top - h * 0.22, dx + 0.5 * k, top - h * 0.12, 'p')
-    disc(cv, dx, top - h * 0.25, 1.0 * k, 'p')
-    path(cv, [(dx - 0.6, top - h * 0.18), (dx - 2.0 * k, top - h * 0.26), (dx - 0.4, top - h * 0.31)], 'p', 0.4)
-    path(cv, [(dx + 0.6, top - h * 0.18), (dx + 2.0 * k, top - h * 0.26), (dx + 0.4, top - h * 0.31)], 'p', 0.4)
-    for j, (x, y) in enumerate(((0.12, 0.2), (0.86, 0.14), (0.9, 0.42), (0.08, 0.46))):
+    dx = int((x0 + x1) / 2) + (0.5 if not big else 0.0)
+    k = 1.0 if not big else 1.5
+    oval(cv, dx, top - 0.3, 1.8 * k, 0.7, 'g')
+    box(cv, dx - 0.5, top - 2.0 * k, dx + 0.5, top - 0.5, 'p')
+    oval(cv, dx, top - 2.4 * k, 2.3 * k, 0.6 * k, 'p')
+    box(cv, dx - 0.5 * k, top - 4.2 * k, dx + 0.5 * k, top - 2.4 * k, 'p')
+    disc(cv, dx, top - 5.0 * k, 0.9 * k, 'p')
+    if big:
+        for side in (-1, 1):
+            path(cv, [(dx + side * 0.8, top - 3.9 * k), (dx + side * 2.2 * k, top - 4.6 * k), (dx + side * 1.4 * k, top - 6.0 * k)], 'p', 0.45)
+    for j, (x, y) in enumerate(((0.9, 0.2), (0.12, 0.12), (0.92, 0.46), (0.5, 0.08))):
         if j < 2 or big:
             note(cv, w * x, h * y, 'n', big)
-    return cv, [('b', 'wall', 'Wall', BLUE, True), role('x', 'box', 'Box and lid', BROWN), role('v', 'lining', 'Lining', BLUE),
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [('b', 'wall', 'Wall', BLUE, True), role('x', 'box', 'Box and lid', BROWN), role('v', 'lining', 'Mirror', BLUE),
                 role('g', 'trim', 'Trim and key', PINK), role('p', 'dancer', 'Dancer', PINK), role('n', 'notes', 'Music notes', GREEN),
                 role('t', 'table', 'Table', GREEN)], ['things', 'music']
 
@@ -682,8 +685,9 @@ def xylophone(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
     fy = h * 0.86
     box(cv, 0, fy, w, h, 'f')
-    n = 5 if not big else (6 if w < 20 else 7)
-    bw, gap = (2, 0) if not big else (2, 1)
+    gap = 1 if w >= 21 else 0
+    n = 5 if not big else (6 if gap else min(7, (w - 4) // 2))
+    bw = 2
     total = n * bw + (n - 1) * gap
     x0 = int((w - total) / 2)
     yc = h * 0.5
@@ -703,21 +707,23 @@ def xylophone(w, h, r):
         rbox(cv, x, tops[k], x + bw, bots[k], 0.3, 'acegyz'[k % 6])
         if big:
             for y in (tops[k] + 1.6, bots[k] - 1.6):
-                cv.put(x + 1, int(y), 'm')
-    side = r.choice((-1, 1))
-    for j in range(2):
-        hx = cx + side * (w * 0.12 + j * w * 0.12)
-        hy = yc - h * 0.05 + j * h * 0.06
-        ex, ey = hx + side * w * 0.3, hy + h * 0.32
+                cv.put(x + 1, int(y), 'k')
+    rad = 1.0 if not big else 1.4
+    for j, k in enumerate((n - 2, n - 4) if big else (n - 2,)):
+        hx = x0 + k * (bw + gap) + bw / 2
+        hy = tops[k] - 1.0 - rad + 0.4
+        ex, ey = hx - w * 0.22, hy - h * 0.26
         bar(cv, hx, hy, ex, ey, 0.6 if not big else 0.9, 'k')
-        disc(cv, hx, hy, 1.0 if not big else 1.4, 'm')
-    for j, (x, y) in enumerate(((0.14, 0.12), (0.84, 0.1), (0.5, 0.06))):
+        disc(cv, hx, hy, rad, 'm')
+    for j, (x, y) in enumerate(((0.8, 0.14), (0.12, 0.12), (0.62, 0.06))):
         if j < 2 or big:
             note(cv, w * x, h * y, 'n', big)
+    if r.random() < 0.5:
+        mirror(cv)
     return cv, [('b', 'wall', 'Wall', BLUE, True), role('a', 'bar1', 'Red bar', PINK), role('c', 'bar2', 'Green bar', GREEN),
                 role('e', 'bar3', 'Blue bar', BLUE), role('g', 'bar4', 'Violet bar', PINK), role('y', 'bar5', 'Mint bar', GREEN),
-                role('z', 'bar6', 'Sky blue bar', BLUE), role('k', 'frame', 'Frame and sticks', BROWN),
-                role('m', 'mallet', 'Mallet heads and nails', BROWN), role('n', 'notes', 'Music notes', PINK),
+                role('z', 'bar6', 'Sky blue bar', BLUE), role('k', 'frame', 'Frame, nails and sticks', BROWN),
+                role('m', 'mallet', 'Mallet heads', GREEN), role('n', 'notes', 'Music notes', PINK),
                 role('f', 'floor', 'Floor', GREEN)], ['things', 'music']
 
 
@@ -755,21 +761,22 @@ def saxophone(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
     fy = h * 0.92
     box(cv, 0, fy, w, h, 'f')
+    cw = 0.1 if not big else 0.14
     for side in (-1, 1):
         x = 0 if side < 0 else w
-        poly(cv, [(x, 0), (x - side * w * 0.16, 0), (x - side * w * 0.05, h * 0.5), (x - side * w * 0.09, fy), (x, fy)], 'r')
+        poly(cv, [(x, 0), (x - side * w * (cw + 0.04), 0), (x - side * w * cw * 0.4, h * 0.5), (x - side * w * cw * 0.8, fy), (x, fy)], 'r')
     k = 1.0 if not big else 1.4
     bx = w * 0.38
-    tube(cv, [(w * 0.22, h * 0.09), (w * 0.3, h * 0.11), (bx, h * 0.2)], 0.55 * k, 0.75 * k, 's')
+    tube(cv, [(w * 0.27, h * 0.1), (w * 0.32, h * 0.12), (bx, h * 0.2)], 0.55 * k, 0.75 * k, 's')
     tube(cv, [(bx, h * 0.2), (bx + w * 0.02, h * 0.68)], 0.8 * k, 1.15 * k, 's')
-    tube(cv, [(bx + w * 0.02, h * 0.68), (bx + w * 0.07, h * 0.82), (bx + w * 0.2, h * 0.86), (bx + w * 0.32, h * 0.8), (bx + w * 0.36, h * 0.66)], 1.15 * k, 1.45 * k, 's')
-    tube(cv, [(bx + w * 0.36, h * 0.66), (bx + w * 0.39, h * 0.48)], 1.45 * k, 2.2 * k, 's')
-    oval(cv, bx + w * 0.4, h * 0.46, 2.7 * k, 1.0 * k, 's')
-    oval(cv, bx + w * 0.4, h * 0.46, 1.7 * k, 0.6 * k + 0.1, 'e')
-    disc(cv, w * 0.21, h * 0.085, 0.9 * k, 'm')
+    tube(cv, [(bx + w * 0.02, h * 0.68), (bx + w * 0.07, h * 0.82), (bx + w * 0.18, h * 0.86), (bx + w * 0.29, h * 0.8), (bx + w * 0.32, h * 0.66)], 1.15 * k, 1.45 * k, 's')
+    tube(cv, [(bx + w * 0.32, h * 0.66), (bx + w * 0.34, h * 0.5)], 1.45 * k, 2.1 * k, 's')
+    oval(cv, bx + w * 0.35, h * 0.48, 2.5 * k, 1.0 * k, 's')
+    oval(cv, bx + w * 0.35, h * 0.48, 1.5 * k, 0.6 * k + 0.1, 'e')
+    disc(cv, w * 0.26, h * 0.095, 0.9 * k, 'm')
     for j in range(3 if not big else 5):
         cv.put(int(bx + w * 0.01 * j), int(h * (0.3 + j * 0.34 / (2 if not big else 4))), 'k')
-    for j, (x, y) in enumerate(((0.74, 0.16), (0.62, 0.28), (0.52, 0.08))):
+    for j, (x, y) in enumerate(((0.72, 0.2), (0.56, 0.1), (0.78, 0.34))):
         if j < 2 or big:
             note(cv, w * x, h * y, 'n', big)
     if r.random() < 0.5:
@@ -842,11 +849,11 @@ def magnet(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
     fy = h * 0.88
     box(cv, 0, fy, w, h, 'f')
-    mcx, mcy = cx, h * 0.3
-    ro, ri = w * 0.36, w * 0.15
+    mcx, mcy = cx, h * 0.38
+    ro, ri = w * 0.34, w * 0.14
     a = math.radians(r.uniform(-12, 12))
     ca, sa = math.cos(a), math.sin(a)
-    legs = h * 0.22
+    legs = h * 0.18
 
     def local(px, py):
         dx, dy = px - mcx, py - mcy
@@ -866,8 +873,9 @@ def magnet(w, h, r):
             for d in (1.4, 2.4) if not big else (1.6, 2.6, 3.6):
                 u, v = side * mid + math.cos(t) * d * side, legs + math.sin(t) * d
                 cv.put(int(mcx + u * ca - v * sa), int(mcy + u * sa + v * ca), 'v')
-    for k, x in enumerate((0.14, 0.62) if not big else (0.1, 0.34, 0.6)):
-        clip(cv, int(w * x), int(fy) - 3, False, 'c', 'b', big)
+    xs = (0.1, 0.6) if not big else (0.04, 0.38, 0.72)
+    for k, x in enumerate(xs):
+        clip(cv, int(w * x) + (k % 2), int(fy) - (3 if not big else 4) - (k % 2), False, 'c', 'b', big)
     return cv, [('b', 'wall', 'Wall', BLUE, True), role('m', 'magnet', 'Magnet', PINK), role('t', 'tips', 'Tips', GREEN),
                 role('v', 'field', 'Pull', BROWN), role('c', 'clips', 'Paper clips', PINK), role('f', 'table', 'Table', GREEN)], ['things', 'science']
 
@@ -888,10 +896,10 @@ def piggy_bank(w, h, r):
     cv.put(int(pcx + rx * 0.62), int(pcy - ry * 0.35), 'k')
     box(cv, pcx - 1.6, pcy - ry + 1.0, pcx + 1.0, pcy - ry + 1.9, 'k')
     path(cv, [(pcx - rx, pcy - 0.4), (pcx - rx - 1.2, pcy - 1.0), (pcx - rx - 1.0, pcy - 2.2), (pcx - rx - 0.2, pcy - 1.8)], 'p', 0.45)
-    disc(cv, int(pcx) + 0.5, pcy - ry - 2.0, 1.0 if not big else 1.4, 'c')
-    side = r.choice((-1, 1))
-    for k in range(2 if not big else 3):
-        disc(cv, int(cx + side * w * (0.3 + k * 0.08)) + 0.5, fy - 0.6, 1.0 if not big else 1.3, 'c')
+    oval(cv, int(pcx) + 0.5, int(pcy - ry - 1.6), 1.6 if not big else 2.0, 1.0 if not big else 1.4, 'c')
+    sx = int(cx + r.choice((-1, 1)) * w * 0.4) + 0.5
+    for k in range(2 if not big else 4):
+        oval(cv, sx, int(fy) - 0.5 - k * 1.0, 1.6, 0.55, 'c')
     if big:
         heart(cv, pcx - rx * 0.3, pcy + ry * 0.25, 1.2, 'o')
     return cv, [('b', 'wall', 'Wall', BLUE, True), role('p', 'pig', 'Piggy bank', PINK), role('n', 'snout', 'Snout and ear', PINK),
@@ -904,4 +912,30 @@ MORE_THINGS = [ambulance, taxi, race_car, dump_truck, excavator, cement_mixer, c
                accordion, saxophone, headphones, light_bulb, magnet, piggy_bank]
 
 # Expansion roles of these subjects (as expansions.ROLES): subject -> {group: [(roleId, new name or None), ...]}.
-MORE_THINGS_ROLES = {}
+MORE_THINGS_ROLES = {
+    'ambulance': {'lime': [('sun', None)], 'red': [('cross', 'Red cross')]},
+    'taxi': {'lime': [('body', None)], 'red': [('light', 'Red roof light')]},
+    'race_car': {'lime': [('helmet', 'Yellow helmet')], 'red': [('body', None)]},
+    'dump_truck': {'lime': [('truck', 'Yellow dump truck')]},
+    'excavator': {'lime': [('body', 'Yellow excavator')]},
+    'cement_mixer': {'lime': [('body', 'Yellow cab and frame')], 'red': [('stripe', 'Red drum stripes')]},
+    'canoe': {'lime': [('jacket', 'Yellow life jacket')], 'red': [('canoe', 'Red canoe')]},
+    'glider': {'lime': [('sun', None)], 'red': [('tips', 'Red wing tips')]},
+    'parachute': {'lime': [('gore', 'Yellow stripes')], 'red': [('canopy', 'Red canopy')]},
+    'roller_skate': {'lime': [('wheel', 'Yellow wheels')], 'red': [('boot', 'Red boot')]},
+    'surfboard': {'lime': [('sun', None)], 'red': [('stripe', 'Red stripe')]},
+    'tennis_racket': {'lime': [('ball', None)], 'red': [('frame', 'Red frame')]},
+    'basketball': {'lime': [('sun', None)]},
+    'backpack': {'lime': [('pocket', 'Yellow pockets')], 'red': [('bag', 'Red backpack')]},
+    'desk_lamp': {'lime': [('bulb', None), ('beam', None)], 'red': [('lamp', 'Red lamp')]},
+    'wheelbarrow': {'lime': [('sun', None)], 'red': [('tray', 'Red tray')]},
+    'pinwheel': {'lime': [('blade4', 'Yellow blade')], 'red': [('blade', 'Red blade')]},
+    'music_box': {'lime': [('trim', 'Golden trim and key')], 'red': [('box', 'Red box and lid')]},
+    'xylophone': {'lime': [('bar5', 'Yellow bar')], 'red': [('bar1', None)]},
+    'accordion': {'red': [('case', 'Red case')]},
+    'saxophone': {'lime': [('sax', 'Golden saxophone')], 'red': [('curtain', 'Red curtains')]},
+    'headphones': {'red': [('cup', 'Red ear cups')]},
+    'light_bulb': {'lime': [('glass', None), ('rays', None)]},
+    'magnet': {'red': [('magnet', 'Red magnet')]},
+    'piggy_bank': {'lime': [('coins', 'Gold coins')]},
+}

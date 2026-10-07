@@ -746,26 +746,26 @@ def cucumber(w, h, r):
     kind = r.randrange(3)
     ty = h * r.uniform(0.84, 0.88)
     scene(cv, r, w, h, kind, ty)
-    rr = s * 0.1 + 0.25
-    q = s * 0.11 + 0.6
-    if mode == 0:  # a cucumber across a board, slices in front
+    rr = s * 0.09 + 0.3
+    q = s * 0.12 + 0.6
+    if mode == 0:  # a big cucumber leaning across the board, its stalk up, a slice in front
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
-        one_cucumber(cv, (w * 0.3, ty - h * 0.42), (w * 0.72, ty - h * 0.22), rr, -1.0)
-        for k in range(2 if not big else 3):
-            x = cx - w * 0.2 + k * q * 1.5
-            cucumber_slice(cv, x, ty - q - 0.9, q, big)
-    elif mode == 1:  # two cucumbers side by side on a board, a slice in front
-        rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
-        one_cucumber(cv, (w * 0.38, ty - h * 0.48), (w * 0.72, ty - h * 0.36), rr * 0.9, -0.6, 'c')
-        one_cucumber(cv, (w * 0.3, ty - h * 0.34), (w * 0.7, ty - h * 0.16), rr, -0.6)
-        cucumber_slice(cv, cx - w * 0.26, ty - q - 0.9, q, big)
-    else:  # a bowl heaped with slices, a whole cucumber leaning behind it
-        by = ty - h * 0.15
-        one_cucumber(cv, (cx + w * 0.16, by - 0.5), (cx + w * 0.3, ty - h * 0.62), rr, -0.5)
-        n = 3 if not big else 4
+        one_cucumber(cv, (w * 0.7, ty - h * 0.62), (w * 0.3, ty - rr - 1.2), rr * 1.25, 0.8)
+        n = 1 if not big else 2
         for k in range(n):
-            cucumber_slice(cv, cx - w * 0.06 + (k - (n - 1) / 2) * q * 1.5, by - q * 0.5 - (k % 2) * q * 0.5, q, big)
-        bowl(cv, cx - w * 0.06, by, ty + 0.4, w * 0.36, 'p')
+            cucumber_slice(cv, w * 0.72 - k * q * 1.6, ty - q - 1.0 - k * 0.6, q, big)
+    elif mode == 1:  # two cucumbers leaning side by side
+        rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
+        one_cucumber(cv, (w * 0.76, ty - h * 0.58), (w * 0.44, ty - rr - 1.0), rr * 1.1, 0.6, 'c')
+        one_cucumber(cv, (w * 0.56, ty - h * 0.64), (w * 0.22, ty - rr - 1.2), rr * 1.15, 0.6)
+    else:  # a bowl heaped with slices, a whole cucumber lying behind it
+        by = ty - h * 0.15
+        one_cucumber(cv, (w * 0.27, by - h * 0.3), (w * 0.72, by - h * 0.36), rr, -0.6)
+        n = 3 if not big else 4
+        step = min(q * 1.5, (w * 0.76 - 2 * q) / (n - 1))
+        for k in range(n):
+            cucumber_slice(cv, cx + (k - (n - 1) / 2) * step, by - q * 0.5 - (k % 2) * q * 0.5, q, big)
+        bowl(cv, cx, by, ty + 0.4, w * 0.38, 'p')
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
@@ -798,9 +798,9 @@ def olive_sprig(cv, x, y, L, ang, big):
 def olives(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
     mode = r.randrange(3)
-    kind = 2 if mode == 1 else r.randrange(2)
+    kind = r.randrange(3)
     ty = h * r.uniform(0.84, 0.88)
-    scene(cv, r, w, h, kind, ty, decor=mode != 1)
+    scene(cv, r, w, h, kind, ty)
     q = s * 0.1 + 0.1
     if mode == 0:  # a bowl of green and black olives, a pick in them, a sprig beside
         by = ty - h * 0.18
@@ -815,21 +815,16 @@ def olives(w, h, r):
                 one_olive(cv, x, y, q, 15 * (k % 2 * 2 - 1), 'a' if (k + row) % 2 == 0 else 'q', (k + row) % 2 == 0)
         bowl(cv, bx, by, ty + 0.4, w * 0.34, 'p')
         olive_sprig(cv, cx + w * 0.26, ty - 0.6, s * 0.2, -75, big)
-    elif mode == 1:  # olives hanging from a branch, a dish of stuffed ones on the blanket
-        y0 = h * r.uniform(0.08, 0.12)
-        pts = curve((-0.5, y0 + h * 0.08), (w * 0.84, y0), -1.2)
-        tube(cv, pts, 0.5 if not big else 0.75, 'k')
-        for u, side in ((0.15, 1), (0.42, -1), (0.62, 1), (0.88, -1)):
-            px, py = pts[int(u * 20)]
-            a = math.radians(side * 55 + 90 + (10 if side > 0 else -10))
-            lens(cv, px, py, px + math.cos(a) * s * 0.3, py + math.sin(a) * s * 0.22, s * 0.07 + 0.5, 'l')
-        for k, u in enumerate((0.3, 0.52, 0.76)):
-            px, py = pts[int(u * 20)]
-            seg(cv, px, py, px, py + q * 1.6, 'k', 0.4)
-            one_olive(cv, px, py + q * 2.4, q, 90, 'a' if k % 2 == 0 else 'q')
-        oval(cv, cx + w * 0.12, ty, w * 0.26, 1.4, 'p')
-        for k in range(2):
-            one_olive(cv, cx + w * 0.12 + (k - 0.5) * q * 2.6, ty - q - 0.4, q, -20 + 40 * k, 'a', True)
+    elif mode == 1:  # a bottle of olive oil behind a plate of olives, a sprig beside them
+        bx = cx + w * 0.22
+        rbox(cv, bx - w * 0.13, ty - h * 0.46, bx + w * 0.13, ty, 1.2, 'j')
+        box(cv, bx - 0.9, ty - h * 0.62, bx + 0.9, ty - h * 0.44, 'j')
+        rbox(cv, bx - 1.2, ty - h * 0.68, bx + 1.2, ty - h * 0.6, 0.4, 'k')
+        oval(cv, cx - w * 0.12, ty, w * 0.3, 1.6, 'p')
+        for k in range(3):
+            one_olive(cv, cx - w * 0.12 + (k - 1) * q * 2.5, ty - q - 0.6, q, 20 - 20 * k, 'a' if k != 1 else 'q', k != 1)
+        one_olive(cv, cx - w * 0.12 + q * 1.2, ty - q * 2.6 - 0.6, q, -10, 'a', True)
+        olive_sprig(cv, cx - w * 0.38, ty - 1.2, s * 0.2, -80, big)
     else:  # two big stuffed olives on a pick, a sprig on the plate
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         qq = s * 0.15
@@ -845,7 +840,8 @@ def olives(w, h, r):
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, BROWN, PINK, PINK))
     return cv, [S['b'], role('a', 'olive', 'Green olives', GREEN), role('l', 'leaf', 'Leaves', GREEN), role('x', 'pimento', 'Pimento', PINK),
-                role('q', 'black', 'Black olives', PINK), role('k', 'twig', 'Twigs and pick', BROWN), role('p', 'bowl', 'Bowl and plate', BROWN),
+                role('q', 'black', 'Black olives', PINK), role('k', 'twig', 'Twigs, pick and cork', BROWN), role('p', 'bowl', 'Bowl and plate', BROWN),
+                role('j', 'bottle', 'Oil bottle', GREEN),
                 S['t'], S['d'], S['o'], S['v']], ['food', 'vegetables']
 
 
