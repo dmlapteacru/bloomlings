@@ -1542,13 +1542,13 @@ def bell(w, h, r):
         poly(cv, [(-1.0, 3.4), (cx, -2.5), (w + 1.0, 3.4)], 'r')
         box(cv, 3.5, 4.4, w - 3.5, 5.6, 'w')
         for y in range(8, h, 3):
-            box(cv, 0, y, 3.5, y + 0.6, 'k', only='t')
-            box(cv, w - 3.5, y, w, y + 0.6, 'k', only='t')
+            box(cv, 0, y, 2.6, y + 0.6, 'k', only='t')
+            box(cv, w - 2.6, y, w, y + 0.6, 'k', only='t')
         box(cv, 3.5, h - 2.0, w - 3.5, h, 'w')
-        to = one(cx, 5.6, 11.0, 10.5, (first - 0.5) * 24, 'b', 'k')
+        to = one(cx, 5.6, 12.0, 11.2, (first - 0.5) * 20, 'b', 'k')
         box(cv, cx - 1.0, 5.4, cx + 1.0, 6.4, 'w')
-        roles = [sky(), role('t', 'tower', 'Bell tower', PINK), role('r', 'roof', 'Roof', PINK), role('k', 'band', 'Bands and brick lines', BROWN),
-                 role('w', 'beam', 'Beam and ledge', GREEN), role('b', 'bell', 'Bell', BROWN), role('c', 'clapper', 'Clapper', BLUE),
+        roles = [sky(), role('t', 'tower', 'Bell tower', PINK), role('r', 'roof', 'Roof', PINK), role('b', 'bell', 'Bell', BROWN),
+                 role('k', 'band', 'Bands and brick lines', BROWN), role('w', 'beam', 'Beam and ledge', GREEN), role('c', 'clapper', 'Clapper', BLUE),
                  role('o', 'cloud', 'Cloud', BLUE), role('g', 'hills', 'Hills', GREEN)]
         themes = ['things', 'town']
     elif mode == 1:

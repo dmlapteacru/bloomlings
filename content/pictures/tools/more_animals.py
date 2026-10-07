@@ -17,6 +17,11 @@ def flip(cv):
     cv.g = [row[::-1] for row in cv.g]
 
 
+def sun(cv, x, y, s, c):
+    """A sun (or moon) of at least five cells, so it never grows into the sky round it."""
+    disc(cv, x, y, s * 0.07 + 0.6, c)
+
+
 def alpaca(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
@@ -26,7 +31,7 @@ def alpaca(w, h, r):
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
     for x in (w * 0.9,) + ((w * 0.06,) if big else ()):
         oval(cv, x, gtop - 0.3, s * 0.1, s * 0.07, 'v')
-    disc(cv, w * 0.12, h * 0.1, s * 0.09, 'u')
+    sun(cv, w * 0.12, h * 0.1, s, 'u')
     ax, by = cx - w * 0.12, gtop - h * 0.22
     for dx in (-0.16, -0.07, 0.07, 0.15):
         box(cv, ax + dx * w - 0.5, by, ax + dx * w + 0.5, gtop + 0.4, 'a')
@@ -123,7 +128,7 @@ def beaver(w, h, r):
     box(cv, bx - 1.0, ty, bx + 1.0, ty + (1.0 if not big else 2.0), 't')
     for x in (tx - 2.0, tx + 2.4):
         box(cv, x - 0.5, gtop - 0.5, x + 0.5, gtop - 0.5, 'o')
-    disc(cv, w * 0.86, h * 0.1, s * 0.085, 'u')
+    sun(cv, w * 0.86, h * 0.1, s, 'u')
     if r.random() < 0.5:
         flip(cv)
     return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('b', 'beaver', 'Beaver', BROWN), role('m', 'muzzle', 'Cheeks and belly', BROWN),
@@ -159,7 +164,7 @@ def otter(w, h, r):
     oval(cv, px, oy - h * 0.08, s * 0.1, s * 0.07, 'x')
     for side in (-1, 1):
         disc(cv, px + side * s * 0.09, oy - h * 0.05, 0.8, 'o')
-    disc(cv, w * 0.84, h * 0.12, s * 0.085, 'u')
+    sun(cv, w * 0.84, h * 0.12, s, 'u')
     if big:
         cloud(cv, w * 0.24, h * 0.14, s * 0.05 + 0.4, 'c')
     if r.random() < 0.5:
@@ -198,7 +203,7 @@ def polar_bear(w, h, r):
     oval(cv, fx, itop + h * 0.12, w * 0.08, 1.0, 'f')
     poly(cv, [(fx - w * 0.06, itop + h * 0.12), (fx - w * 0.13, itop + h * 0.08), (fx - w * 0.13, itop + h * 0.16)], 'f')
     cv.put(int(fx + w * 0.03), int(itop + h * 0.12), 'k')
-    disc(cv, w * 0.84, h * 0.13, s * 0.08, 'u')
+    sun(cv, w * 0.84, h * 0.13, s, 'u')
     scatter(cv, 'x', 's', 4 + (w * h) // 60, r, sep=3, area=(0, 0, w - 1, by - h * 0.12))
     if r.random() < 0.5:
         flip(cv)
