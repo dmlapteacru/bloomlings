@@ -145,6 +145,13 @@ safe area. It also checks that every animated hero frame is embedded and decodes
 how many frames it decoded. `-- --inventory` also writes `specs/002-ux-design-board/asset-inventory.md` from the asset
 slot registry.
 `-- --before <sheet.png>` also writes `before-after.jpg`, that older sheet above the new one (the spec 003 review).
+`-- --sounds` only writes every synthesized clip (the cues and the clearing sounds, spec 005 FR-042) as a WAV file and
+`schedule.json`, what a pod of eight tiles plays in each clearing style at 1× and 3×, to `playtest/preview/out/sounds/`.
+
+Both APKs play the Unity client's synthesized sounds (`ToneSynth`, linked) through a SoundPool and its haptic patterns
+on the vibrator (`PlaytestSound`), as the client's `FeedbackPolicy` decides: each clearing style's act sounds and its
+collect climbing the pod's pentatonic ladder, and one micro haptic a tile (composed transients from Android 11, the
+predefined tick from Android 10, a soft pulse where the phone has amplitude control, none where it can only buzz).
 
 
 ## Build

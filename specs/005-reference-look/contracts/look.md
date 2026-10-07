@@ -1652,3 +1652,39 @@ Timing (`LotusIris.Splash`, `LotusIris.Transition`; ease-in is cubic, the pops a
 The preview's frames 1 (the splash loading), 44 (the splash opening on Level 1), 45 (the iris closing over the win of
 Level 12), 46 (closed, "Level 13") and 47 (opening on Level 13) show it. The renderer of the owner's GIFs is
 `tools/loading-gifs` (Python, from the game's pictures).
+
+### 6.16 Clearing sounds and haptics (both builds; the owner's request of 2026-10-07, FR-042)
+
+What each clearing style (§6.12) plays and pulses, decided by the kit's `ClearSounds` (engine-free, beside
+`FeedbackPolicy`, `HapticPattern` and `ToneSynth` in `client/Assets/Bloomlings/Services/Feedback/`) and played by Unity's
+`GameFeedback` / `Haptics` (iOS through `Assets/Plugins/iOS/BloomlingsHaptics.mm`) and the playtest's `PlaytestSound`
+(a SoundPool of the clips written once as WAV files). The act's beats are shares of the walker's trip, from the same legs
+and moments as the look (`ClearStyles.LegsOf`, `ClearLook`): each frame both builds pass the walkers' start, trip time and
+route cells to `ClearSounds.Crossed` for the timeline time since the last frame. The collect comes with the rules' clear
+(Unity's `OnWorkArrived`, the playtest's `LevelAnimator.Arrived`), its step from the level's `ClearLadder`.
+
+| Style | Act (when, as the look draws it) | Collect (pitched, at the clear) | Micro haptic |
+|---|---|---|---|
+| Blossom | `BlossomFwip`: the flower opening (0.32 of the act) | `BlossomPluck`: a kalimba note | low tick 0.32 |
+| Munchers | `MunchCrunch` ×3: the bites (0.32, 0.56, 0.80 of the act), each a little higher | `MunchGulp`: a round "bloop" an octave down | low tick 0.42 |
+| Fireflies | `FireflyTwinkle`: three high pings as the light breaks off (the last leg's start) | `FireflyChime`: a glass bell | tick 0.28 |
+| Bubbles | `BubbleBlow`: the bubble growing (0.3 of the act) | `BubblePop`: a rising water-drop "plip" with a click | tick 0.40 |
+| Pushers | `PushKnock`: the tile landing on each cell on its way home (0.8 of each step back) | `PushPlonk`: a low marimba over a thump | low tick 0.50 |
+| Fireworks | `FireworkFizz`: the swell (the act's start); `FireworkBang`: a soft "pomf" (the last leg's start) | `FireworkSparkle`: two bell pings an octave apart | click 0.35 |
+| Confetti Parade | `ParadeHop` ×2: the hops (0.275 and 0.55 of the act) | `ParadeBoing`: a spring rising into its note, with a crackle | tick 0.30, then tick 0.42 after 40 ms |
+
+| Piece | Recipe |
+|---|---|
+| Ladder | `ClearSounds.Ladder`: G4 A4 C5 D5 E5 G5 A5 C6 D6 E6 (C major pentatonic, the music's key); a pod's n-th of N collects plays step round((n − 1) × 9 / (N − 1)), a pod of one the top; `ClearLadder` counts each pod's clears from the attempt's start |
+| Pod done | `SoundCue.PodDone`: C5 E5 G5 C6 in 55 ms steps, kalimba; haptic `HapticPattern.PodDone` (tick 0.45, click 0.7 after 55 ms) |
+| Clips | mono 22 050 Hz, 1–5 ms attacks, a 6 ms fade at the end, each scaled to its peak: collects 0.22–0.30, textures 0.07–0.20, the pod done 0.38; partials at or above 0.45 of the sample rate are left out; noise is a seeded generator, so every clip is the same each time |
+| Variations | each texture has three (`ClearSounds.Variations`), picked by the tile's cell (Munchers' bites and the Parade's hops by their order) |
+| Voices | `FeedbackPolicy.ShouldPlayClear`: a collect at most every 45 ms, a texture every 60 ms (each sound on its own); at most 5 clearing sounds start within 0.2 s, textures only while fewer than 3 have; real time, so fast forward thins them out |
+| Haptics | `FeedbackPolicy.ClearHaptic`: a tile's micro haptic only once the last pattern has ended 90 ms ago; the cues' patterns always play and hold the ticks off until they end |
+| Android | the transients composed (`VibrationEffect.startComposition`, API 30, when `areAllPrimitivesSupported` tick and click; the low tick from API 31, else a tick); else for a tile the predefined tick or click (API 29); else a one-shot of the pattern's milliseconds and amplitude where `hasAmplitudeControl`; a phone that can only buzz plays the cues' pulses and no tile haptic |
+| iOS | `UIImpactFeedbackGenerator`, one prepared generator a style: tick light, low tick soft, click rigid, each at its strength; the cues' pulses light, medium and heavy |
+| Settings | Sound off: no clearing sound; Haptics off: no pattern (spec 001 FR-073); the level tester's one toggle mutes both |
+| Store previews | silent (several play at once) |
+
+`dotnet run --project playtest/preview -- --sounds` writes every clip as a WAV file and `schedule.json` (a pod of eight
+tiles from one arch in each style, at 1× and 3×, after the policy) to `playtest/preview/out/sounds/`, for listening.

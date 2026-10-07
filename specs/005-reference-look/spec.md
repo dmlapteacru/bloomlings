@@ -596,6 +596,35 @@ the scrolling there must work properly.")
   do (FR-041): a tap fires only when the finger lifts within 10 dp of where it went down; past that the touch is a drag.
   The board, the tray and the level's buttons keep their quick taps. The confirmation is the second safety net.
 
+### Session 2026-10-07 (the owner's clearing sounds and haptics)
+
+The owner: "Надо придумать звуки и микро-вибрацию для каждой анимации очистки борда. Но они должны быть приятны рукам.
+Как в Colony Flow." ("Sounds and micro-vibration are needed for each board-clearing animation. But they must feel
+pleasant in the hand. As in Colony Flow.") Decided without a question (the owner was away, building the catalog), to be
+reviewed on the listening page and the playtest APK:
+- Q: What sounds when? → A: Each style has a collect, played as a tile's clear lands in its slot (the slot's count
+  going down, every style's reward moment), and the soft textures of its act on the way, at the moments the look draws:
+  Blossom's flower opening, Munchers' three bites, the fireflies breaking off, the bubble being blown, a pushed tile's
+  knock on each cell, the firework's fizz and burst, the Parade's two hops (FR-042). Each style's collect fits what the
+  tile does: a kalimba note, a woody "bloop", a glass bell, a water-drop "plip", a low marimba, two bell pings, a
+  springy "boing".
+- Q: Why does it feel like progress? → A: A pod's collects climb a ladder of ten notes, from its first tile to its
+  last, whatever its count, and the pod's done chord resolves it. Every note is on the C major pentatonic scale of the
+  music, so pods working side by side make a melody and never clash.
+- Q: What makes it pleasant and not noisy? → A: Soft attacks and short decays, no harsh highs, the textures well under
+  the collects and the collects under the pod done; at most five clearing sounds start within 0.2 s (textures three),
+  so fast forward thins the sounds out rather than crowding them.
+- Q: And the hand? → A: One micro haptic a tile, with its collect: a single short transient of low strength, its feel
+  matching the style (a soft low tick for the flower, a crisp tick for the pop, the heaviest for the pushed tile, two
+  quick ticks for the Parade), at most about eleven a second, never over a stronger pattern (a pod done, a booster, the
+  win). A phone that renders transients (Android's composition primitives, iOS impact feedback) plays them as such; one
+  with amplitude control gets a short soft pulse; one that can only buzz plays no tile haptic at all, since a buzz on
+  every tile tires the hand. A pod done gains its own light "ta-dum". The Haptics toggle keeps them all off.
+- Q: The Store's previews? → A: Silent: several play at once on the Animations tab. The level tester keeps its plain
+  clear note; its one toggle mutes the sound and the vibration together.
+- Q: Colony Flow's sounds? → A: None are used (spec 001 FR-091): every sound is synthesized by the game itself; only
+  the idea of a soft sound and a light tick for each piece collected is shared.
+
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
 The owner sent a Blender Sprig and wrote: "Replace the hero. Add it to the round's celebration, let it take turns with
@@ -1169,6 +1198,21 @@ inventory.
   (contracts/look.md §6.15; the kit's `TouchGesture`, the playtest's `IPainter.Scroll`, Unity's `SwipePager` and the
   EventSystem's `pixelDragThreshold` from the screen's dpi). Taps elsewhere (the board, the tray, a level's buttons)
   keep firing where the finger lifts.
+- **FR-042** *(the owner's request of 2026-10-07: "sounds and micro-vibration for each board-clearing animation, pleasant
+  in the hand, as in Colony Flow")*: Each clearing style (FR-038) MUST sound and feel its own way, in both builds
+  (contracts/look.md §6.16; the kit's `ClearSounds`, `ClearLadder`, `HapticPattern`, `ToneSynth.Clear` and
+  `FeedbackPolicy`): its collect MUST play with each tile's clear (the slot's count going down), on the next step of its
+  pod's ladder of ten pentatonic notes (the first tile on the lowest, the last on the highest, then the pod done's
+  chord), and its act's textures MUST play at the moments its look draws them. Every sound MUST be synthesized by the
+  game (no audio asset, nothing of Colony Flow's, spec 001 FR-091), click-free and short (under 0.65 s), the textures
+  quieter than the collects and the collects quieter than the pod done; at most `ClearVoices` (5) clearing sounds MUST
+  start within `ClearWindowSeconds` (0.2 s, real time; textures `TextureVoices`, 3), each sound spaced by its own
+  spacing. Each tile's clear MUST carry one micro haptic of the style (one or two transients of at most 0.5 strength,
+  under 60 ms), at most one every `MicroGapSeconds` (90 ms) after the last pattern ends and never over a stronger one;
+  phones play the transients where they render them (Android's composition primitives from API 30, iOS impact
+  feedback), else a short soft pulse where they have amplitude control, and no tile haptic where they can only buzz. A
+  pod done MUST play its light "ta-dum". The Settings toggles (spec 001 FR-073) MUST keep each off; the Store's previews
+  stay silent. Presentation only: no rule, timing or outcome changes.
 
 ### Key Entities
 

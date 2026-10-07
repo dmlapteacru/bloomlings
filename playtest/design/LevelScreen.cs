@@ -43,7 +43,12 @@ namespace Bloomlings.Playtest.Design
         private readonly List<GuideStep> _guide = new List<GuideStep>();
         private string? _toast;
         private float _toastUntil;
-        private float _lastClearSound = -1f;
+
+        // The clearing style's sounds (spec 005 FR-042): each pod's ladder of collects, and the walkers of this frame
+        // (those before the step and those after it, so a trip that ends within the step still plays its last beats).
+        private readonly ClearLadder _ladder = new ClearLadder();
+        private readonly List<Walker> _beatWalkers = new List<Walker>();
+        private readonly List<ClearBeat> _beats = new List<ClearBeat>();
 
         public LevelScreen(DesignApp app, int levelNumber)
         {
@@ -178,7 +183,35 @@ namespace Bloomlings.Playtest.Design
         /// </summary>
         public bool OnlyCelebrating => Won && EndShownAt >= 0f && _app.Now - EndShownAt >= EndCardSeconds && Animator.Idle && Targeting == null && Demo == null && Guide == null && (_toast == null || _app.Now >= _toastUntil);
 
-        public void Advance(float dt) => Animator.Advance(dt, Session.View);
+        /// <summary>Moves the animation on and plays the act's sounds of every walker whose beat came within the step (ClearSounds).</summary>
+        public void Advance(float dt)
+        {
+            _beatWalkers.Clear();
+            _beatWalkers.AddRange(Animator.Walkers);
+            float from = Animator.Now;
+            Animator.Advance(dt, Session.View);
+            foreach (Walker walker in Animator.Walkers)
+            {
+                if (!_beatWalkers.Contains(walker))
+                {
+                    _beatWalkers.Add(walker);
+                }
+            }
+
+            _beats.Clear();
+            foreach (Walker walker in _beatWalkers)
+            {
+                if (walker.Route.Count > 0)
+                {
+                    ClearSounds.Crossed(Animator.Style, walker.Route.Count, walker.Start, walker.Arrival, from, Animator.Now, walker.Route[walker.Route.Count - 1].X + walker.Route[walker.Route.Count - 1].Y, _beats);
+                }
+            }
+
+            foreach (ClearBeat beat in _beats)
+            {
+                _app.Sound.PlayClear(beat.Sound, beat.Variation);
+            }
+        }
 
         public string? ToastText => _toast != null && _app.Now < _toastUntil ? _toast : null;
 
@@ -585,6 +618,7 @@ namespace Bloomlings.Playtest.Design
             Session.Apply(new Restart());
             RefreshSpeed();
             Animator.Reset(Session.View);
+            _ladder.Reset();
             TrayMotion.Clear();
             Targeting = null;
             JamHidden = false;
@@ -618,13 +652,19 @@ namespace Bloomlings.Playtest.Design
             _app.NextLevel();
         }
 
+        /// <summary>A tile's clear: the style's collect, a step up its pod's ladder, with its micro haptic (spec 005 FR-042).</summary>
         private void OnArrived(TileCleared clear)
         {
-            if (Animator.Now - _lastClearSound > 0.045f)
+            int total = 1;
+            foreach (PodDef pod in Session.Definition.Pods)
             {
-                _lastClearSound = Animator.Now;
-                _app.Sound.Play(SoundCue.Clear);
+                if (pod.Id == clear.PodId)
+                {
+                    total = pod.Count;
+                }
             }
+
+            _app.Sound.Collect(Animator.Style, _ladder.Next(clear.PodId, total));
         }
 
         private void OnShown(GameEvent e)

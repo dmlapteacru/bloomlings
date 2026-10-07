@@ -155,6 +155,14 @@ namespace Bloomlings.Playtest.Droid
                 _sound.Haptics = App?.Meta.Save.Settings.Haptics ?? true;
                 _sound.Play(cue);
             }
+
+            public void PlayClear(ClearSound sound, int index) => _sound.PlayClear(sound, index);
+
+            public void Collect(Bloomlings.Client.UI.Design.ClearStyle style, int step)
+            {
+                _sound.Haptics = App?.Meta.Save.Settings.Haptics ?? true;
+                _sound.Collect(style, step);
+            }
         }
     }
 }

@@ -532,7 +532,9 @@ the app and continue from Level 11. A second device shows the same Level 11 boar
   had no audio or haptics at all. `GameFeedback` now plays synthesized cues (tap, refused tap, tile clear, pod done,
   key, special, booster, jam, win, button click) and a pentatonic music loop, and pulses haptics; `FeedbackPolicy`
   applies the toggles (tested in `FeedbackTests`). Placeholder sounds until real audio exists; never heard on a device
-  yet. Settings also gained Privacy options and Restore feedback (T127, T131).
+  yet. Settings also gained Privacy options and Restore feedback (T127, T131). Amended by spec 005 FR-042 (the owner,
+  2026-10-07): each clearing style has its own synthesized sounds and a micro haptic a tile, and a pod done its own
+  haptic; tile clears vibrate now, as gentle spaced ticks (spec 005 T172–T178).
 - [ ] T067 [US2] Author the curated tutorial Levels 1–10 as `content/curated/level-0001.json` to `level-0010.json`,
   with approved base pictures `content/pictures/lib/*.json`, following the roadmap:
   - L1 uses 2 variants and L2 adds a third;

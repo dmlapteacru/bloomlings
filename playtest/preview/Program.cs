@@ -1,6 +1,7 @@
 // Renders the full playtest's designed screens for each design board frame, checks them, and writes the asset inventory.
 // See the project file. Usage: dotnet run --project playtest/preview [-- --out <dir>] [--inventory] [--frames 7,8,9]
 // [--before <sheet.png>] (also writes before-after.jpg: that sheet above the new one, spec 003 FR-029)
+// [--sounds] (only writes the synthesized clips as WAV files and a listening schedule to <out>/sounds, spec 005 FR-042)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,6 +20,7 @@ string outDir = Path.Combine(root, "playtest", "preview", "out");
 bool inventory = false;
 string? before = null;
 HashSet<int>? only = null;
+bool sounds = false;
 for (int i = 0; i < args.Length; i++)
 {
     if (args[i] == "--out" && i + 1 < args.Length)
@@ -37,6 +39,16 @@ for (int i = 0; i < args.Length; i++)
     {
         only = new HashSet<int>(args[++i].Split(',').Select(int.Parse));
     }
+    else if (args[i] == "--sounds")
+    {
+        sounds = true;
+    }
+}
+
+if (sounds)
+{
+    SoundExport.Write(outDir);
+    return 0;
 }
 
 Directory.CreateDirectory(outDir);
@@ -143,6 +155,14 @@ namespace Bloomlings.Playtest.Preview
         public bool Enabled { get; set; } = true;
 
         public void Play(SoundCue cue)
+        {
+        }
+
+        public void PlayClear(ClearSound sound, int index)
+        {
+        }
+
+        public void Collect(Bloomlings.Client.UI.Design.ClearStyle style, int step)
         {
         }
     }

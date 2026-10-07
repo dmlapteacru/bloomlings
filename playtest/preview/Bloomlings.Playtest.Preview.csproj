@@ -26,6 +26,9 @@
     <Compile Include="../android/PlaytestContent.cs" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/ClearSounds.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/HapticPattern.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Services/Feedback/FeedbackPolicy.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveSerializer.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Save/SaveService.cs" />

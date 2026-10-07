@@ -79,6 +79,12 @@ namespace Bloomlings.Client.Gameplay
         private readonly List<(ClearFade Fade, string PodId)> _cleared = new List<(ClearFade, string)>();
         private readonly HashSet<CellPos> _heldCells = new HashSet<CellPos>();
         private readonly Dictionary<CellPos, float> _swayCells = new Dictionary<CellPos, float>();
+
+        // The clearing style's sounds (spec 005 FR-042): each pod's ladder of collects, the act's beats due this frame and
+        // the timeline time they have been played up to.
+        private readonly ClearLadder _ladder = new ClearLadder();
+        private readonly List<ClearBeat> _beats = new List<ClearBeat>();
+        private float _beatsUntil;
         private PauseScreen _pause = null!;
         private WinScreen _win = null!;
         private JamScreen _jam = null!;
@@ -507,8 +513,8 @@ namespace Bloomlings.Client.Gameplay
 
         public void OnWorkArrived(WorkUnit unit)
         {
-            // A slightly different pitch per cell, so a run of clears does not drone.
-            Feedback?.Play(SoundCue.Clear, 1f + (((unit.Clear.Cell.X + unit.Clear.Cell.Y) % 5) * 0.04f));
+            // The style's collect, a step up its pod's ladder, with its micro haptic (spec 005 FR-042).
+            Feedback?.Collect(_timeline.Style, _ladder.Next(unit.Clear.PodId, PodCount(unit.Clear.PodId)));
             switch (unit.Reveal)
             {
                 case CellOpened opened:
@@ -1684,6 +1690,7 @@ namespace Bloomlings.Client.Gameplay
 
             float now = _timeline.Now;
             ClearStyle style = _timeline.Style;
+            PlayBeats(style, now);
             _trips.RemoveAll(trip => now > trip.Start + trip.Arrival + 0.05f);
             _cleared.RemoveAll(c => now - c.Fade.Start >= ClearStyles.RestoreSeconds);
             _fx.Clear();
@@ -1751,6 +1758,46 @@ namespace Bloomlings.Client.Gameplay
             _fxOver.Cell = Mathf.Abs(one.x - zero.x);
             _fxOver.Map = Over;
             _fxOver.Render(_fx.Items, FxLayer.Over);
+        }
+
+        /// <summary>
+        /// Plays the act's sounds of every walker whose beat came since the last frame (spec 005 FR-042; ClearSounds):
+        /// Munchers' bites, a pushed tile's knocks, the firework's burst. Before the finished trips go, so none is missed.
+        /// </summary>
+        private void PlayBeats(ClearStyle style, float now)
+        {
+            float from = _beatsUntil;
+            _beatsUntil = now;
+            GameFeedback? feedback = Feedback;
+            if (feedback == null || now <= from)
+            {
+                return;
+            }
+
+            _beats.Clear();
+            foreach (ClearTrip trip in _trips)
+            {
+                ClearSounds.Crossed(style, Math.Max(1, trip.Points.Count - 1), trip.Start, trip.Arrival, from, now, trip.Target.X + trip.Target.Y, _beats);
+            }
+
+            foreach (ClearBeat beat in _beats)
+            {
+                feedback.PlayClear(beat.Sound, beat.Variation);
+            }
+        }
+
+        /// <summary>How many tiles a pod clears in all (its ladder's length).</summary>
+        private int PodCount(string podId)
+        {
+            foreach (PodDef pod in _session!.Definition.Pods)
+            {
+                if (pod.Id == podId)
+                {
+                    return pod.Count;
+                }
+            }
+
+            return 1;
         }
 
         /// <summary>A point on the board's grid (from its bottom left) in the kit's cell units (y down from the top row).</summary>
@@ -1860,6 +1907,9 @@ namespace Bloomlings.Client.Gameplay
             // The level's clearing style: the free pair by level, or the chosen bought one (spec 005 FR-038).
             int styleLevel = Flow?.CurrentAttempt?.LevelNumber ?? session.Definition.LevelNumber;
             _timeline.Style = Service<ClearingService>()?.StyleFor(styleLevel) ?? ClearStyles.ForLevel(styleLevel);
+            _ladder.Reset();
+            _beatsUntil = _timeline.Now;
+            Feedback?.Prewarm(_timeline.Style);
             _hasCountedSpecials = false;
             foreach (SpecialInfo special in session.View.Specials)
             {

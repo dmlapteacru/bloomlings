@@ -26,10 +26,13 @@
 
   <ItemGroup>
     <!--
-      The Unity client's engine-free logic, linked (never copied): sound synthesis, the save file, progression and
+      The Unity client's engine-free logic, linked (never copied): sound synthesis and its policy, the save file, progression and
       unlocks, Petals and booster charges, milestones, and the ink contrast rule. The playtest only draws and calls it.
     -->
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Feedback/ToneSynth.cs" Link="Shared/ToneSynth.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Feedback/ClearSounds.cs" Link="Shared/ClearSounds.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Feedback/HapticPattern.cs" Link="Shared/HapticPattern.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Feedback/FeedbackPolicy.cs" Link="Shared/FeedbackPolicy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" Link="Shared/PlayerSave.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Save/SaveSerializer.cs" Link="Shared/SaveSerializer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)../client/Assets/Bloomlings/Services/Save/SaveService.cs" Link="Shared/SaveService.cs" />

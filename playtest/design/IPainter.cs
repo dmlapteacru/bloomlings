@@ -171,5 +171,11 @@ namespace Bloomlings.Playtest.Design
         bool Enabled { get; set; }
 
         void Play(Bloomlings.Client.Services.Feedback.SoundCue cue);
+
+        /// <summary>A clearing sound: a texture of a walker's act, or a collect on ladder step <paramref name="index"/> (spec 005 FR-042).</summary>
+        void PlayClear(Bloomlings.Client.Services.Feedback.ClearSound sound, int index);
+
+        /// <summary>A tile's clear in the level's style: its collect on the pod's ladder step and its micro haptic.</summary>
+        void Collect(Bloomlings.Client.UI.Design.ClearStyle style, int step);
     }
 }

@@ -170,6 +170,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   Animations tab (`ClearingService`; Remote Config `economy.price.clearing`, the save's `clear.<name>` and
   `cosmetics.equipped.board.clearing`), and a chosen one plays on every level. The rules' clear stays at each trip's
   end; `LevelAnimator` and `TimelinePlayer` keep the same schedule.
+- The clearing sounds and haptics (spec 005 FR-042, 2026-10-07; recipe in `contracts/look.md` §6.16): each style plays
+  its act's soft textures at the moments its look draws them and its collect with each tile's clear, a pod's collects
+  climbing a ladder of ten C-major-pentatonic notes (`ClearSounds`, `ClearLadder`; all synthesized by `ToneSynth.Clear`,
+  no audio assets), and one micro haptic a tile (`HapticPattern`: transients where the phone renders them, a soft pulse
+  with amplitude control, nothing on a phone that can only buzz). `FeedbackPolicy` (engine-free, shared by both builds)
+  spaces the sounds, keeps at most five starting within 0.2 s and a tile's tick 90 ms clear of the last pattern, in real
+  time. Unity plays them through `GameFeedback` / `Haptics` (iOS: `Assets/Plugins/iOS/BloomlingsHaptics.mm`), the
+  playtest through `PlaytestSound` (a SoundPool); the Store's previews stay silent. `dotnet run --project
+  playtest/preview -- --sounds` writes every clip as WAV with a listening schedule to `playtest/preview/out/sounds/`.
 - The lotus loader and the lotus iris (spec 005 FR-039, the owner's choice of 2026-10-06; recipe in
   `contracts/look.md` §6.13): the splash is the logo and the lotus on the parchment with a ring of petals filling as the
   game loads, then a round iris opens from the lotus on the first screen; the win's Next closes the iris, shows the lotus

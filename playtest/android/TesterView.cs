@@ -84,7 +84,8 @@ namespace Bloomlings.Playtest
             _content = PlaytestContent.Load();
             _prefs = context.GetSharedPreferences(PrefsName, FileCreationMode.Private)!;
             _text.SetTypeface(Typeface.DefaultBold);
-            _sound = new PlaytestSound(context) { Enabled = _prefs.GetBoolean("sound", true) };
+            bool sound = _prefs.GetBoolean("sound", true);
+            _sound = new PlaytestSound(context) { Enabled = sound, Haptics = sound };
             _animator.Speed = 1f;
             _animator.Arrived += OnArrived;
             _animator.Shown += OnShown;
@@ -381,7 +382,9 @@ namespace Bloomlings.Playtest
 
         private void ToggleSound()
         {
+            // The tester's one toggle mutes both the sound and the vibration.
             _sound.Enabled = !_sound.Enabled;
+            _sound.Haptics = _sound.Enabled;
             _prefs.Edit()!.PutBoolean("sound", _sound.Enabled)!.Apply();
             Invalidate();
         }

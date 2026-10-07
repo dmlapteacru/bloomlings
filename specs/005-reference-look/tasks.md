@@ -782,3 +782,26 @@ and contracts/look.md §3.6, §6.10.
 - [X] T171 Both builds (the owner, 2026-10-06: "the ✕ must be bigger"): the cards' close button is an icon button's size
   (`ScreenLayout.Card`: `DesignTokens.Size.IconButton`, 132, was 96), the centered title kept clear of it on both
   sides; frames 11, 19, 40 and 49 checked.
+
+
+## The owner's clearing sounds and haptics (2026-10-07, FR-042)
+
+- [X] T172 Kit: `ClearSounds` (the styles' collects and act textures, `Crossed` from the legs and the look's moments,
+  the pentatonic `Ladder` and `Step`, `CollectHaptic`), `ClearLadder`, `HapticPattern` (transients with a soft-pulse
+  stand-in, micro patterns), `ToneSynth.Clear` (15 voices: rounded sines, bell partials, filtered seeded noise) and the
+  pod done's chord, `FeedbackPolicy.ShouldPlayClear` and `ClearHaptic` (spacing, the voice window, the micro gap).
+- [X] T173 Tests (`FeedbackTests`): every clip short, click-free and deterministic on each step and variation; the
+  collects under the pod done and the textures soft; the ladder pentatonic and climbing; each style's beats once per
+  trip in time order whatever the frames; the spacing, the window and the micro haptic's gap.
+- [X] T174 Unity: `GameFeedback.PlayClear`, `Collect`, `Prewarm` (clips cached per sound and step, no pitch shifts);
+  `Haptics.Play` (Android composition, predefined, one-shot; iOS `BloomlingsHaptics.mm`); `GameplayController`'s
+  collect on `OnWorkArrived` and act beats in `LateUpdate` before the finished trips go; the ladder reset per attempt.
+- [X] T175 Playtest: `PlaytestSound` on a SoundPool of WAV clips with the policy and the haptic patterns;
+  `LevelScreen.Advance` plays the walkers' beats (those before and after the step), `OnArrived` the collect;
+  `ISoundOut.PlayClear` and `Collect`; the tester's toggle mutes sound and vibration together.
+- [X] T176 Preview: `-- --sounds` writes the clips and a listening schedule; the owner's listening page built from it.
+- [X] T177 Docs: spec Session 2026-10-07 and FR-042, contracts/look.md §6.16, CLAUDE.md, playtest/README.md.
+- [ ] T178 Devices: the sounds on a phone's speaker and in headphones over a long level, at 1× and 3×; the micro
+  haptics on a Pixel (primitives), a Samsung (predefined or one-shot), an older phone without amplitude control (none)
+  and an iPhone (impact feedback, with the plugin in an Xcode build); the owner's verdict on each style.
+
