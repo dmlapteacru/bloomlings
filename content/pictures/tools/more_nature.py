@@ -71,6 +71,22 @@ def marks(cv, c, under, pts):
                 cv.g[y][x] = under
 
 
+def specks(cv, c, bg, n, r, bottom, keep=None):
+    """Up to n single cells of role c in the background above row `bottom`, each with background all round it and three
+    cells from the next; `keep` is a test a spot must pass (to stay clear of a shape)."""
+    spots = [(x, y) for y in range(1, int(bottom) - 1) for x in range(1, cv.w - 1) if (keep is None or keep(x + 0.5, y + 0.5))
+             and all(cv.g[y + b][x + a] == bg for a in (-1, 0, 1) for b in (-1, 0, 1))]
+    r.shuffle(spots)
+    placed = []
+    for x, y in spots:
+        if len(placed) >= n:
+            break
+        if all(max(abs(x - a), abs(y - b)) >= 3 for a, b in placed):
+            cv.g[y][x] = c
+            placed.append((x, y))
+    return placed
+
+
 def maple_sprite(cv, x, y, c):
     """A small maple leaf of five by five cells, centered on (x, y)."""
     for j, line in enumerate(('..x..', 'x.x.x', 'xxxxx', '.xxx.', '..x..')):
@@ -125,17 +141,16 @@ def oak_tree(w, h, r):
         disc(cv, tx + dx_ * w - 0.3, cy + dy * h - 0.2, rad * w * 0.88, 'c')
     if big:
         oval(cv, tx - side * 0.3, h * 0.66, 0.9, 1.3, 'o')
-        for x, y in scatter(cv, 'a', 'c', 7, r, sep=3, area=(1, h * 0.1, w - 2, h * 0.42)):
-            cv.put(x, y + 1, 'a')
-        for x in (tx - side * w * 0.3, tx - side * w * 0.38):
-            oval(cv, x, gtop + 1.3, 0.9, 0.8, 'a')
-    else:
-        scatter(cv, 'a', 'c', 4, r, sep=3, area=(1, h * 0.12, w - 2, h * 0.42))
+        for x in (tx - side * w * 0.24, tx - side * w * 0.36):
+            x = mid(x)
+            box(cv, x - 1.0, mid(gtop - 1.6) - 0.3, x + 1.0, mid(gtop - 1.6) + 0.3, 'k')
+            box(cv, x - 1.0, gtop - 1.1, x + 1.0, gtop + 0.2, 'a')
+            cv.put(int(x), int(gtop + 0.8), 'a')
     cloud(cv, w * 0.5 + side * w * 0.36, h * 0.07, s * 0.05 + 0.5, 'e')
     disc(cv, w * 0.5 - side * w * 0.4, h * 0.07, s * 0.08, 'u')
-    return cv, [sky(), role('c', 'crown', 'Crown', GREEN), role('d', 'shade', 'Leaf shade', GREEN), role('a', 'acorns', 'Acorns', BROWN),
-                role('t', 'trunk', 'Trunk and boughs', BROWN), role('k', 'swing', 'Swing', PINK), role('o', 'hollow', 'Hollow', PINK),
-                role('g', 'grass', 'Grass', GREEN), role('u', 'sun', 'Sun', BROWN), role('e', 'cloud', 'Cloud', BLUE)], ['trees', 'park']
+    return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('c', 'crown', 'Crown', GREEN), role('d', 'shade', 'Leaf shade', GREEN),
+                role('t', 'trunk', 'Trunk and boughs', BROWN), role('a', 'acorns', 'Acorns', BROWN), role('k', 'swing', 'Swing and acorn caps', PINK),
+                role('o', 'hollow', 'Hollow', PINK), role('g', 'grass', 'Grass', GREEN), role('e', 'cloud', 'Cloud', BLUE)], ['trees', 'park']
 
 
 def willow_tree(w, h, r):
@@ -255,7 +270,7 @@ def rose(w, h, r):
     path(cv, [(rx, by + R), (rx - side * 0.8, h * 0.6), (rx, gtop + 0.5)], 'l', 0.5 if not big else 0.6)
     lens(cv, rx - side * 0.5, h * 0.58, rx - side * w * 0.3, h * 0.5, s * 0.14, 'l')
     lens(cv, rx - side * 0.3, h * 0.68, rx + side * w * 0.28, h * 0.6, s * 0.13, 'l')
-    for k, y in enumerate((0.5, 0.64, 0.76) if big else (0.52, 0.74)):
+    for k, y in enumerate((0.5, 0.64, 0.76) if big else ()):
         d = 1 if k % 2 else -1
         poly(cv, [(rx - side * 0.4 + d * 0.4, h * y - 0.7), (rx - side * 0.4 + d * 1.6, h * y), (rx - side * 0.4 + d * 0.4, h * y + 0.7)], 'h')
     poly(cv, [(rx - R * 0.9, by + R * 0.5), (rx, by + R * 1.25), (rx + R * 0.9, by + R * 0.5)], 'l')
@@ -268,8 +283,13 @@ def rose(w, h, r):
         th = k / 59 * turns * 2 * math.pi
         rr = 0.4 + step * th / (2 * math.pi)
         pts.append((rx + 0.3 + math.cos(th + 1.0) * rr, by - R * 0.15 + math.sin(th + 1.0) * rr * 0.85))
-    path(cv, pts, 'q', 0.45 if not big else 0.5)
-    fill_pockets(cv, 'p', 'q')
+    line = []
+    for (a, b), (c, d) in zip(pts, pts[1:]):
+        for k in range(4):
+            p = (int(a + (c - a) * k / 4), int(b + (d - b) * k / 4))
+            if p not in line:
+                line.append(p)
+    marks(cv, 'q', 'p', line)
     if big:
         bx = rx - side * w * 0.3
         path(cv, [(rx - side * 0.6, h * 0.5), (bx, h * 0.38), (bx, h * 0.3)], 'l', 0.5)
@@ -277,9 +297,9 @@ def rose(w, h, r):
         poly(cv, [(bx - 1.3, h * 0.28), (bx, h * 0.33), (bx + 1.3, h * 0.28), (bx, h * 0.31)], 'l')
         cloud(cv, w * 0.5 + side * w * 0.32, h * 0.1, s * 0.05 + 0.4, 'e')
     disc(cv, w * 0.5 - side * w * 0.38, h * 0.08, s * 0.085, 'u')
-    return cv, [sky(), role('p', 'bloom', 'Rose', PINK), role('q', 'petal_line', 'Petal folds', PINK), role('l', 'stem', 'Stem and leaves', GREEN),
-                role('h', 'thorns', 'Thorns', BROWN), role('k', 'fence', 'Fence', BROWN), role('g', 'grass', 'Grass', GREEN),
-                role('u', 'sun', 'Sun', BROWN), role('e', 'cloud', 'Cloud', BLUE)], ['flowers', 'garden']
+    return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('p', 'bloom', 'Rose', PINK), role('q', 'petal_line', 'Petal folds', PINK),
+                role('l', 'stem', 'Stem and leaves', GREEN), role('k', 'fence', 'Fence', BROWN), role('h', 'thorns', 'Thorns', BROWN),
+                role('g', 'grass', 'Grass', GREEN), role('e', 'cloud', 'Cloud', BLUE)], ['flowers', 'garden']
 
 
 def dandelion(w, h, r):
@@ -296,12 +316,12 @@ def dandelion(w, h, r):
         for x0 in (px - side * 0.2, fx + side * 0.2):
             lens(cv, x0, gtop + 0.4, x0 + d * w * 0.2, gtop - h * 0.1, s * 0.1 + 0.3, 'l')
             poly(cv, [(x0 + d * w * 0.08, gtop - h * 0.03), (x0 + d * w * 0.13, gtop - h * 0.1), (x0 + d * w * 0.14, gtop - h * 0.04)], 'l')
-    n = 12 if not big else 16
+    disc(cv, px, py, pr * 0.78, 'p')
+    n = 14 if not big else 20
     for k in range(n):
         a = math.radians(k * 360 / n + 9)
         ex, ey = px + math.cos(a) * pr, py + math.sin(a) * pr
         seg(cv, px, py, ex, ey, 'p', 0.42)
-        disc(cv, ex, ey, 0.6 if not big else 0.8, 'p')
     disc(cv, px, py, 0.9 if not big else 1.3, 'c')
     for k in range(3 if not big else 5):
         x = px - side * (pr + 1.5 + k * 2.2)
@@ -343,7 +363,8 @@ def clover(w, h, r):
             nx, ny = -math.sin(t), math.cos(t)
             path(cv, [(ox + nx * size * 0.55 + math.cos(t) * 0.6, oy + ny * size * 0.55 + math.sin(t) * 0.6), (ox, oy),
                       (ox - nx * size * 0.55 + math.cos(t) * 0.6, oy - ny * size * 0.55 + math.sin(t) * 0.6)], 'm', 0.4)
-    lt = math.radians(angles[1 if side > 0 else 0] + turn)
+    lower = [a for a in angles if 0 < a % 360 < 180]
+    lt = math.radians(lower[0 if side > 0 else -1] + turn)
     bx, by = kx + math.cos(lt) * size * 1.55, ky + math.sin(lt) * size * 1.55
     oval(cv, bx, by, 1.4 if not big else 1.8, 1.1 if not big else 1.5, 'b')
     disc(cv, bx + math.cos(lt) * (1.2 if not big else 1.6), by + math.sin(lt) * (1.2 if not big else 1.6), 0.7, 'd')
@@ -364,7 +385,7 @@ def clover(w, h, r):
 
 def flytrap_head(cv, x, y, R, face, big):
     """An open trap: a round pod split by a V towards `face` (radians), its lips lined pink and its rim spiked."""
-    half = math.radians(34)
+    half = math.radians(40)
     for gx, gy, px, py in cells(cv):
         dx, dy = px - x, py - y
         d = math.hypot(dx, dy)
@@ -373,7 +394,7 @@ def flytrap_head(cv, x, y, R, face, big):
         off = abs((math.atan2(dy, dx) - face + math.pi) % (2 * math.pi) - math.pi)
         if off < half:
             cv.g[gy][gx] = 's'
-        elif d * math.sin(off - half) < 1.1 and d > 0.5:
+        elif d * math.sin(off - half) < 1.5 and d > 0.5:
             cv.g[gy][gx] = 'i'
         else:
             cv.g[gy][gx] = 'j'
@@ -393,16 +414,11 @@ def venus_flytrap(w, h, r):
     box(cv, cx - w * 0.27, pt - 0.6, cx + w * 0.27, pt + (0.8 if not big else 1.4), 'm')
     hx, hy, R = cx - side * w * 0.05, h * 0.4, s * (0.3 if not big else 0.26)
     path(cv, [(cx, pt - 0.5), (cx + side * 1.2, (hy + pt) / 2 + 1), (hx, hy + R * 0.6)], 'j', 0.55 if not big else 0.7)
-    for d in (-1, 1):
-        lens(cv, cx + d * 0.5, pt - 0.3, cx + d * w * 0.32, pt - h * 0.1, s * 0.08 + 0.4, 'j')
     flytrap_head(cv, hx, hy, R, math.radians(-90 + side * 12), big)
     if big:
-        sx, sy = cx + side * w * 0.26, h * 0.5
-        path(cv, [(cx + side * 0.5, pt - 0.5), (sx, (sy + pt) / 2), (sx, sy + 1.5)], 'j', 0.55)
-        tilted(cv, sx, sy, 1.4, 2.6, side * 0.3, 'j')
-        for k in range(4):
-            yy = sy - 2.0 + k * 1.2
-            seg(cv, sx - side * 0.3 + (k % 2) * 0.4, yy, sx + side * 1.6, yy - 0.8, 't', 0.38)
+        sx, sy = cx + side * w * 0.28, h * 0.56
+        path(cv, [(cx + side * 0.5, pt - 0.5), (sx - side * 0.5, (sy + pt) / 2), (sx, sy + s * 0.1)], 'j', 0.55)
+        flytrap_head(cv, sx, sy, s * 0.15, math.radians(-90 + side * 55), False)
     if big:
         fx, fy = w * 0.5 + side * w * 0.36, h * 0.08
         oval(cv, fx, fy, 1.0, 0.6, 'f')
@@ -565,19 +581,19 @@ def iceberg(w, h, r):
               (ix - w * 0.26, wl + h * 0.22)], 'u')
     poly(cv, [(ix - w * 0.34, wl + 0.4), (ix - w * 0.24, wl - h * 0.1), (ix - w * 0.1, wl - h * 0.15), (ix + w * 0.02 * side, wl - h * 0.3),
               (ix + w * 0.14, wl - h * 0.17), (ix + w * 0.26, wl - h * 0.08), (ix + w * 0.32, wl + 0.4)], 'i')
-    mx = w * 0.5 - side * w * 0.36
-    disc(cv, mx, h * 0.34, s * 0.08, 'm')
-    for x, y in ((0.2, 0.04), (0.5, 0.3), (0.86, 0.34), (0.62, 0.05), (0.08, 0.44), (0.94, 0.08)):
-        if abs(w * x - mx) > 2.5:
-            cv.put(int(w * x), int(h * y), 'x')
+    mx = w * 0.5 - side * w * 0.34
+    disc(cv, mx, h * 0.34, s * 0.1, 'm')
+    specks(cv, 'x', 'n', 5 + (w * h) // 120, r, wl)
     fx, fy = w * 0.5 + side * w * 0.3, h * 0.93
     oval(cv, fx, fy, 1.4, 0.8, 'f')
     poly(cv, [(fx + side * 1.0, fy), (fx + side * 2.4, fy - 1.0), (fx + side * 2.4, fy + 1.0)], 'f')
     if big:
-        px, py = ix - w * 0.17, wl - h * 0.09
-        oval(cv, px, py - 1.0, 1.3, 1.9, 'k')
-        disc(cv, px, py - 3.2, 1.0, 'k')
-        poly(cv, [(px + side * 0.8, py - 3.6), (px + side * 2.2, py - 3.2), (px + side * 0.8, py - 2.8)], 'f')
+        px = mid(ix - w * 0.18)
+        py = max(y for y in range(h) if cv.g[y][int(px)] == 'n') + 1.0
+        oval(cv, px, py - 2.2, 1.6, 2.4, 'k')
+        disc(cv, px, py - 5.0, 1.3, 'k')
+        oval(cv, px + side * 0.5, py - 1.8, 0.9, 1.9, 'i')
+        poly(cv, [(px + side * 1.0, py - 5.5), (px + side * 2.6, py - 5.0), (px + side * 1.0, py - 4.4)], 'f')
     return cv, [('n', 'sky', 'Polar sky', PINK, True), role('a', 'aurora', 'Aurora', GREEN), role('b', 'aurora2', 'Aurora glow', GREEN),
                 role('w', 'sea', 'Sea', BLUE), role('i', 'ice', 'Iceberg', BLUE), role('u', 'under', 'Iceberg under water', BLUE),
                 role('m', 'moon', 'Moon', BROWN), role('k', 'penguin', 'Penguin', BROWN), role('x', 'stars', 'Stars', BROWN),
@@ -640,16 +656,7 @@ def comet(w, h, r):
     disc(cv, mx, my, s * 0.08, 'm')
     if big:
         seg(cv, mx - s * 0.14, my + 0.6, mx + s * 0.14, my - 0.6, 'm', 0.4)
-    spots = [(x, y) for y in range(1, gtop - 1) for x in range(1, w - 1) if cv.g[y][x] == 'n'
-             and all(cv.g[y + b][x + a] == 'n' for a in (-1, 0, 1) for b in (-1, 0, 1))]
-    r.shuffle(spots)
-    placed = []
-    for x, y in spots:
-        if len(placed) >= 5 + (w * h) // 90:
-            break
-        if all(max(abs(x - a), abs(y - b)) >= 3 for a, b in placed):
-            cv.g[y][x] = 'x'
-            placed.append((x, y))
+    specks(cv, 'x', 'n', 5 + (w * h) // 90, r, gtop)
     ox = cx - side * w * 0.28
     disc(cv, ox, gtop + 0.2, s * 0.09 + 0.4, 'k')
     box(cv, ox - s * 0.12, gtop + 0.2, ox + s * 0.12, gtop + 1.2, 'k')
@@ -689,17 +696,7 @@ def snowflake(w, h, r):
     box(cv, kx - 1.0, gtop - h * 0.1, kx + 1.0, gtop - h * 0.1 + 1.9, 'y')
     mx = w * 0.5 + side * w * 0.4
     disc(cv, mx, h * 0.08, s * 0.07, 'm')
-    spots = [(x, y) for y in range(1, gtop - 1) for x in range(1, w - 1) if cv.g[y][x] == 'n'
-             and math.hypot(x + 0.5 - fx, y + 0.5 - fy) > R + 1.5
-             and all(cv.g[y + b][x + a] == 'n' for a in (-1, 0, 1) for b in (-1, 0, 1))]
-    r.shuffle(spots)
-    placed = []
-    for x, y in spots:
-        if len(placed) >= 4 + (w * h) // 100:
-            break
-        if all(max(abs(x - a), abs(y - b)) >= 3 for a, b in placed):
-            cv.g[y][x] = 'x'
-            placed.append((x, y))
+    specks(cv, 'x', 'n', 4 + (w * h) // 100, r, gtop, lambda x, y: math.hypot(x - fx, y - fy) > R + 1.5)
     return cv, [('n', 'sky', 'Evening sky', PINK, True), role('f', 'flake', 'Snowflake', BLUE), role('x', 'flakes', 'Little flakes', BLUE),
                 role('g', 'snow', 'Snow', BLUE), role('o', 'roof', 'Snowy roof', BLUE), role('p', 'pine', 'Pine', GREEN),
                 role('m', 'moon', 'Moon', BROWN), role('k', 'cabin', 'Cabin', BROWN), role('y', 'window', 'Window', BROWN)], ['weather', 'winter']
@@ -836,10 +833,7 @@ def street_lamp(w, h, r):
         disc(cv, ux + dx, gtop - h * 0.07, 0.75, 'f')
     disc(cv, w * 0.5 + side * w * 0.36, h * 0.12, s * 0.08, 'm')
     disc(cv, w * 0.5 + side * w * 0.36 + side * s * 0.05, h * 0.12 - s * 0.03, s * 0.065, 'n')
-    for x, y in ((0.1, 0.06), (0.62, 0.04), (0.88, 0.36), (0.12, 0.44), (0.56, 0.34)):
-        xx = w * (x if side > 0 else 1 - x)
-        if math.hypot(xx - lx, h * y - ly) > s * 0.32:
-            cv.put(int(xx), int(h * y), 'x')
+    specks(cv, 'x', 'n', 5 + (w * h) // 150, r, h * 0.5, lambda x, y: math.hypot(x - lx, y - ly) > s * 0.32)
     return cv, [('n', 'sky', 'Evening sky', PINK, True), role('p', 'post', 'Lamp post', BLUE), role('o', 'glow', 'Glow', BROWN),
                 role('b', 'bench', 'Bench', BROWN), role('y', 'light', 'Lamp light', BROWN), role('x', 'stars', 'Stars', BROWN),
                 role('m', 'moon', 'Moon', BLUE), role('g', 'grass', 'Grass', GREEN), role('u', 'bush', 'Bush', GREEN),

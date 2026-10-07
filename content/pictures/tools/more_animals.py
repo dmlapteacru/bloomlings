@@ -1,15 +1,15 @@
 """More animal subjects for the levels (more_subjects.py, the owner, 2026-10-07): friendly, generic animals in the style of
 animal_subjects.py, each drawn with picture_kit and returning (canvas, roles, themes). The colors that shape an animal
 (its body against the sky or the water, its eyes against its face) come from different color groups, so they stay apart
-under any mapping. An animal stands on the ground, the sea floor or a branch that shares the board's entry, so its face
-stays within the nesting depth targets. On the big boards (from 300 cells) they get eye whites, pupils and more scenery,
+under any mapping. The animals stand on the ground, hang from a tree or swim in open water, and their faces touch the sky
+or the water, so they stay within the nesting depth targets. On the big boards (from 300 cells) they get eye whites, pupils and more scenery,
 and each picture's random stream turns the animal round and moves its scenery.
 """
 import math
 
 from animal_subjects import eye, eyes, pine
 from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cloud, disc, dots, ground_rows, hills, lens, oval, path, poly,
-                         rbox, role, scatter, seg, sky, star, start)
+                         rbox, role, scatter, seg, sky, start)
 
 
 def flip(cv):
@@ -348,7 +348,7 @@ def hummingbird(w, h, r):
     path(cv, [(sx + 0.6, h + 1), (sx - 0.4, h * 0.72), (sx + 0.4, h * 0.52), (sx - 0.3, h * 0.36)], 'l', 0.55)
     for y, side in ((0.82, -1), (0.62, 1)) + (((0.48, -1),) if big else ()):
         lens(cv, sx, h * y, sx + side * s * 0.22, h * y - s * 0.1, s * 0.1, 'l')
-    fx, fy = sx - 0.3, h * 0.34
+    fx, fy = sx - 0.3, h * r.uniform(0.32, 0.37)
     poly(cv, [(fx + 0.5, fy + 0.6), (fx - w * 0.12, fy - h * 0.1), (fx - w * 0.17, fy - h * 0.12), (fx - w * 0.15, fy + h * 0.02),
               (fx - w * 0.18, fy + h * 0.1), (fx - w * 0.1, fy + h * 0.07)], 'f')
     if big:
@@ -798,9 +798,9 @@ def mole(w, h, r):
     gtop = h - ground_rows(h, 0.2)
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
     sun(cv, w * 0.86, h * 0.1, s, 'u')
-    cloud(cv, w * 0.24, h * 0.12, s * 0.05 + 0.4, 'c')
+    cloud(cv, w * r.uniform(0.2, 0.36), h * r.uniform(0.1, 0.16), s * 0.05 + 0.4, 'c')
     if big:
-        cloud(cv, w * 0.62, h * 0.2, s * 0.04 + 0.4, 'c')
+        cloud(cv, w * 0.62, h * 0.24, s * 0.04 + 0.4, 'c')
     mx = int(cx) + 0.5
     my = gtop - h * 0.03
     oval(cv, mx, my - h * 0.14, w * 0.18, h * 0.2, 'm')
@@ -834,34 +834,34 @@ def badger(w, h, r):
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
     sun(cv, w * 0.86, h * 0.1, s, 'u')
     scatter(cv, 'x', 's', 4 + (w * h) // 80, r, sep=3, area=(0, 0, w - 1, h * 0.34))
-    for x in (w * 0.08,) + ((w * 0.92,) if big else ()):
-        pine(cv, x, gtop, h * r.uniform(0.4, 0.5), s * 0.22, 't')
-    bx, by = cx - w * 0.1, gtop - h * 0.15
-    for dx in (-0.2, -0.08, 0.1, 0.2):
+    pine(cv, w * 0.08, gtop, h * r.uniform(0.4, 0.5), s * 0.22, 't')
+    bx, by = w * 0.4, gtop - h * 0.13
+    for dx in (-0.17, -0.07, 0.08, 0.17):
         rbox(cv, bx + dx * w - 0.9, by, bx + dx * w + 0.9, gtop + 0.5, 0.5, 'b')
-    oval(cv, bx, by, w * 0.3, h * 0.11, 'b')
-    disc(cv, bx - w * 0.3, by - h * 0.02, 0.8, 'b')
-    x0, hy = bx + w * 0.2, by - h * 0.03
-    x1 = min(w - 0.6, x0 + s * 0.42)
-    disc(cv, x0 + s * 0.04, hy - s * 0.15, 0.85, 'b')
-    poly(cv, [(x0 - s * 0.04, hy - s * 0.15), (x1, hy + s * 0.04), (x1 - s * 0.04, hy + s * 0.1), (x0, hy + s * 0.13)], 'w')
-    seg(cv, x0, hy - s * 0.06, x1 - 0.3, hy + s * 0.03, 'k', 0.5 if not big else 0.7)
+    oval(cv, bx, by, w * 0.25, h * 0.1, 'b')
+    disc(cv, bx - w * 0.25, by - h * 0.02, 0.8, 'b')
+    x0, hy = bx + w * 0.14, by - h * 0.04
+    x1 = min(w - 0.6, x0 + s * 0.4)
+    disc(cv, x0 + s * 0.04, hy - s * 0.17, 0.85, 'b')
+    poly(cv, [(x0 - s * 0.04, hy - s * 0.17), (x0 + s * 0.16, hy - s * 0.14), (x1, hy + s * 0.03), (x1 - s * 0.04, hy + s * 0.1),
+              (x0, hy + s * 0.14)], 'w')
+    seg(cv, x0, hy - s * 0.04, x1 - 0.3, hy + s * 0.04, 'k', 0.5 if not big else 0.7)
     disc(cv, x1 - 0.5, hy + s * 0.05, 0.75, 'k')
-    ex = x0 + (x1 - x0) * 0.45
-    cv.put(int(ex), int(hy - s * 0.06 + (s * 0.09) * 0.45), 'e')
+    ex, ey = x0 + (x1 - x0) * 0.42, hy - s * 0.04 + s * 0.08 * 0.42
+    cv.put(int(ex), int(ey), 'w')
     if big:
-        cv.put(int(ex) + 1, int(hy - s * 0.06 + (s * 0.09) * 0.45), 'e')
-    for dx in (-0.2, -0.08, 0.1, 0.2):
+        cv.put(int(ex) + 1, int(ey), 'w')
+    for dx in (-0.17, -0.07, 0.08, 0.17):
         cv.put(int(bx + dx * w), int(gtop) - 1, 'k')
-    for x in (w * 0.86,) if not big else (w * 0.7, w * 0.84):
-        seg(cv, x, gtop + 0.4, x, gtop - 0.8, 'w', 0.45)
-        oval(cv, x, gtop - 1.0, s * 0.07 + 0.3, 0.8, 'm')
+    if big:
+        for x in (w * 0.86, w * 0.94):
+            seg(cv, x, gtop + 0.4, x, gtop - 0.8, 'w', 0.45)
+            oval(cv, x, gtop - 1.0, s * 0.05 + 0.3, 0.8, 'm')
     if r.random() < 0.5:
         flip(cv)
     return cv, [('s', 'night', 'Night sky', BLUE, True), role('x', 'stars', 'Stars', BLUE), role('u', 'moon', 'Moon', BROWN),
-                role('b', 'badger', 'Badger', PINK), role('w', 'face', 'Face and stalks', BROWN), role('k', 'stripes', 'Stripe, nose and claws', BLUE),
-                role('e', 'eye', 'Eye', PINK), role('m', 'mushrooms', 'Mushrooms', PINK),
-                role('t', 'pine', 'Pines', GREEN), role('g', 'grass', 'Grass', GREEN)], ['animals', 'forest']
+                role('b', 'badger', 'Badger', PINK), role('w', 'face', 'Face, eye and stalks', BROWN), role('k', 'stripes', 'Mask, nose and claws', BLUE),
+                role('m', 'mushrooms', 'Mushrooms', PINK), role('t', 'pine', 'Pine', GREEN), role('g', 'grass', 'Grass', GREEN)], ['animals', 'forest']
 
 
 def rooster(w, h, r):
@@ -931,7 +931,7 @@ def turkey(w, h, r):
         disc(cv, x, gtop + 0.2, s * 0.07 + 0.4, 'p')
         cv.put(int(x), int(gtop + 0.2 - s * 0.07 - 0.9), 'k')
     if big:
-        sun(cv, w * 0.12, h * 0.08, s, 'u')
+        sun(cv, w * r.choice((0.12, 0.88)), h * 0.08, s, 'u')
     return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('b', 'turkey', 'Turkey', BROWN), role('v', 'wings', 'Wings', BROWN),
                 role('f', 'feather', 'Tail feathers', PINK), role('q', 'feather2', 'Tail stripes', GREEN), role('x', 'tips', 'Feather tips', BROWN),
                 role('h', 'head', 'Head', BLUE), role('k', 'eye', 'Eyes and pumpkin stalks', PINK), role('w', 'wattle', 'Wattle', PINK),
@@ -966,7 +966,7 @@ MORE_ANIMALS_ROLES = {
     'lemur': {'lime': [('sun', None)], 'red': [('fruit', 'Red fruit')]},
     'ant': {'lime': [('sun', None)], 'red': [('ant', 'Red ant')]},
     'mole': {'lime': [('sun', None)], 'red': [('flowers', 'Red flowers')]},
-    'badger': {'lime': [('moon', None)], 'red': [('mushrooms', 'Red mushrooms')]},
+    'badger': {'lime': [('moon', None)]},
     'rooster': {'lime': [('sun', None)], 'red': [('comb', 'Red comb')]},
     'turkey': {'lime': [('beak', 'Yellow beak and legs')], 'red': [('wattle', 'Red wattle')]},
 }
