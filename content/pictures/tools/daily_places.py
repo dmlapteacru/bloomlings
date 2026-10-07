@@ -100,12 +100,14 @@ FISH = ["..XX...",
         "..XX..."]
 
 
-def _sprite(cv, x0, y0, rows, marks, flip=False):
-    """A small pixel figure (a camel, a horse) from rows of template characters, `marks` mapping each to a role."""
+def _sprite(cv, x0, y0, rows, marks, flip=False, on=None):
+    """A small pixel figure (a camel, a horse) from rows of template characters, `marks` mapping each to a role; `on`
+    limits it to cells of those roles."""
     for j, row in enumerate(rows):
         for i, ch in enumerate(row[::-1] if flip else row):
-            if ch in marks:
-                cv.put(int(x0) + i, int(y0) + j, marks[ch])
+            x, y = int(x0) + i, int(y0) + j
+            if ch in marks and 0 <= x < cv.w and 0 <= y < cv.h and (on is None or cv.g[y][x] in on):
+                cv.g[y][x] = marks[ch]
 
 
 def _pagoda_roof(cv, x, y, half, c):
@@ -1528,7 +1530,7 @@ def mountain(w, h, r):
                     continue
                 px, py = gx + 0.5, gy + 0.5
                 ridge = x + (py - top) / dh * hb * 0.15
-                if py < top + dh * 0.3 + 0.9 * math.sin(px * 1.7):
+                if py < top + dh * 0.36 + 1.0 * math.sin(px * 1.7):
                     cv.g[gy][gx] = 'x'
                 else:
                     cv.g[gy][gx] = 'r' if px > ridge else 'm'
@@ -1565,21 +1567,21 @@ def cave(w, h, r):
         _moon(cv, sx, h * 0.08, s * 0.09, 'u', 's')
     else:
         disc(cv, sx, h * 0.08, s * 0.075, 'u')
-    poly(cv, [(-1, gtop + 1), (-1, h * r.uniform(0.38, 0.46)), (w * 0.14, h * 0.3), (w * 0.3, h * r.uniform(0.2, 0.26)),
-              (w * 0.52, h * 0.2), (w * 0.72, h * r.uniform(0.22, 0.28)), (w * 0.88, h * 0.33), (w + 1, h * 0.42), (w + 1, gtop + 1)], 'k')
-    for gx in range(w):
+    poly(cv, [(-1, gtop + 1), (-1, h * r.uniform(0.52, 0.6)), (w * 0.14, h * 0.44), (w * 0.3, h * r.uniform(0.34, 0.39)),
+              (w * 0.52, h * 0.33), (w * 0.72, h * r.uniform(0.35, 0.4)), (w * 0.88, h * 0.46), (w + 1, h * 0.56), (w + 1, gtop + 1)], 'k')
+    for x0 in r.sample([w * k / 8 for k in range(1, 8)], 3):
         for gy in range(h):
-            if cv.g[gy][gx] == 'k':
-                cv.g[gy][gx] = 'f'
+            if cv.g[gy][int(x0)] == 'k':
+                oval(cv, x0, gy + 0.6, 1.6, 0.8, 'f')
                 break
     for k in range(3):
         x0 = w * r.uniform(0.05, 0.7)
-        y0 = h * r.uniform(0.32, 0.42)
+        y0 = h * r.uniform(0.44, 0.5)
         path(cv, [(x0, y0), (x0 + 1.5, y0 + 1.0), (x0 + 3.0, y0 + 0.6)], 'l', 0.45)
-    top = h * 0.47
-    rbox(cv, mx - 5.0, top, mx + 5.0, gtop + 0.5, 5.0, 'd')
-    for x in (mx - 3.2, mx - 1.1, mx + 1.1, mx + 3.2):
-        yy = top + 5.0 - math.sqrt(max(0.0, 25 - (x - mx) ** 2))
+    top = h * 0.55
+    rbox(cv, mx - 4.6, top, mx + 4.6, gtop + 0.5, 4.6, 'd')
+    for x in (mx - 3.0, mx - 1.0, mx + 1.0, mx + 3.0):
+        yy = top + 4.6 - math.sqrt(max(0.0, 4.6 ** 2 - (x - mx) ** 2))
         poly(cv, [(x - 0.8, yy - 0.6), (x + 0.8, yy - 0.6), (x, yy + 1.9)], 'k')
     for x in (mx - 3.6, mx + 3.4):
         poly(cv, [(x - 0.9, gtop + 0.5), (x + 0.9, gtop + 0.5), (x, gtop - 1.8)], 'k')
@@ -1587,13 +1589,13 @@ def cave(w, h, r):
         for x, ht in ((mx - 1.3, 3.2), (mx + 0.9, 4.4), (mx + 2.2, 2.6)):
             poly(cv, [(x, gtop - ht), (x + 1.0, gtop - ht * 0.45), (x, gtop + 0.4), (x - 1.0, gtop - ht * 0.45)], 'c')
     elif inside == 'eyes':
-        for ex, ey in ((mx - 2.0, top + 4.0), (mx + 1.5, top + 6.5)):
+        for ex, ey in ((mx - 1.8, top + 3.6), (mx + 1.5, top + 5.8)):
             for d in (-1, 1):
                 box(cv, ex + d * 0.9 - 0.4, ey, ex + d * 0.9 + 0.4, ey + 0.9, 'c')
     else:
-        for k in range(3):
-            _sprite(cv, mx - 3 + k * 2.5 + r.uniform(-1, 1), top - 7.0 - k * 2.8, BAT, {'X': 'b'})
-        _sprite(cv, mx - 3, top + 3.0, BAT, {'X': 'c'})
+        for k, (dx, dy) in enumerate(((-8.0, -6.0), (2.0, -9.0))):
+            _sprite(cv, mx + dx, top + dy, BAT, {'X': 'b'})
+        _sprite(cv, mx - 3, top + 2.2, BAT, {'X': 'c'})
     box(cv, 0, gtop, w, h, 'g')
     for d in (-1, 1):
         if r.random() < 0.7:
@@ -1624,9 +1626,11 @@ def lantern(w, h, r):
     cv, s, cx, big = start(w, h, 'n')
     kind = r.choice(('one', 'string', 'eave'))
     mx = w * r.choice((0.14, 0.86))
-    for x, wd, y in ((w * r.uniform(0.15, 0.3), w * 0.3, h * 0.86), (w * r.uniform(0.65, 0.85), w * 0.34, h * 0.82)):
-        _curved_roof(cv, x, y - 2.6, y, wd * 0.35, wd, 'h', lift=1.0)
+    for x, wd, y in ((w * r.uniform(0.15, 0.3), w * 0.26, h * 0.84), (w * r.uniform(0.65, 0.85), w * 0.3, h * 0.79)):
+        _curved_roof(cv, x, y - 2.6, y, wd * 0.35, wd, 'h', lift=1.2)
         box(cv, x - wd + 1.6, y, x + wd - 1.6, h, 'h')
+        for d in (-1, 1):
+            box(cv, x + d * wd * 0.35 - 0.6, y + 1.0, x + d * wd * 0.35 + 0.6, y + 2.6, 'm')
     box(cv, 0, h - 1.4, w, h, 'h')
     if kind == 'one':
         box(cv, -1, -0.5, w + 1, 1.3, 'c')
@@ -1658,7 +1662,7 @@ def lantern(w, h, r):
     if r.random() < 0.5:
         _mirror(cv)
     return cv, [('n', 'night', 'Night sky', BLUE, True), role('l', 'lantern', 'Lantern', PINK), role('p', 'lantern2', 'Other lanterns', PINK),
-                role('k', 'cap', 'Caps and tassels', BROWN), role('r', 'rib', 'Ribs', BROWN), role('m', 'moon', 'Moon', BROWN),
+                role('k', 'cap', 'Caps and tassels', BROWN), role('r', 'rib', 'Ribs', BROWN), role('m', 'moon', 'Moon and windows', BROWN),
                 role('x', 'stars', 'Stars', BROWN), role('c', 'cord', 'Beam and cords', GREEN), role('h', 'roofs', 'Rooftops', GREEN)],\
         ['places', 'festival']
 
@@ -1707,8 +1711,8 @@ def snow_globe(w, h, r):
             a = math.degrees(math.atan2(yy + 0.5 - gy, xx + 0.5 - gx)) % 360
             if cv.g[yy][xx] == 'q' and gr * 0.68 < d <= gr * 0.86 and 200 <= a <= 250:
                 cv.g[yy][xx] = 'o'
-    poly(cv, [(gx - gr * 0.72, gy + gr * 0.78), (gx + gr * 0.72, gy + gr * 0.78), (gx + gr * 0.98, h + 0.5), (gx - gr * 0.98, h + 0.5)], 'k')
-    box(cv, gx - gr, gy + gr + 1.6, gx + gr, gy + gr + 2.6, 'e', only='k')
+    poly(cv, [(gx - gr * 0.72, gy + gr * 0.78), (gx + gr * 0.72, gy + gr * 0.78), (gx + gr * 0.92, ty + 1.6), (gx - gr * 0.92, ty + 1.6)], 'k')
+    box(cv, gx - gr, gy + gr + 1.0, gx + gr, gy + gr + 2.0, 'e', only='k')
     if r.random() < 0.5:
         _mirror(cv)
     return cv, [('b', 'wall', 'Wall', PINK, True), role('m', 'snow', 'Snow', PINK), role('x', 'flakes', 'Snowflakes', PINK),
@@ -1762,7 +1766,7 @@ def aquarium(w, h, r):
     for k in range(n):
         fx = x0 + (x1 - x0) * (0.12 + k * 0.7 / max(1, n - 1)) + r.uniform(-1, 1)
         fyy = y0 + (y1 - y0) * r.uniform(0.15, 0.5)
-        _sprite(cv, fx - 3, fyy - 2, FISH, {'X': 'fe'[k % 2]}, r.random() < 0.5)
+        _sprite(cv, fx - 3, fyy - 2, FISH, {'X': 'fe'[k % 2]}, r.random() < 0.5, on='wfe')
     scatter(cv, 'o', 'w', 6, r, sep=2, area=(x0, y0, x1, y0 + (y1 - y0) * 0.6))
     if r.random() < 0.5:
         _mirror(cv)
@@ -1897,9 +1901,9 @@ def space_station(w, h, r):
 def planet(w, h, r):
     cv, s, cx, big = start(w, h, 'n')
     px, py = cx + r.uniform(-1.5, 1.5), h * r.uniform(0.42, 0.52)
-    pr = w * r.uniform(0.27, 0.32)
-    tilt = math.radians(r.uniform(12, 28)) * r.choice((-1, 1))
-    A, B, ct, st = pr * 1.62, pr * 0.42, math.cos(tilt), math.sin(tilt)
+    pr = w * r.uniform(0.23, 0.25)
+    tilt = math.radians(r.uniform(10, 22)) * r.choice((-1, 1))
+    A, B, ct, st = pr * 2.1, pr * 0.62, math.cos(tilt), math.sin(tilt)
 
     def frame(xx, yy):
         dx, dy = xx + 0.5 - px, yy + 0.5 - py
@@ -1910,8 +1914,8 @@ def planet(w, h, r):
         for yy in range(h):
             for xx in range(w):
                 d, v = frame(xx, yy)
-                if 0.66 < d <= 1.0 and (v >= 0) == front:
-                    cv.g[yy][xx] = 'r' if d > 0.84 else 'o'
+                if 0.6 < d <= 1.0 and (v >= 0) == front:
+                    cv.g[yy][xx] = 'r' if d > 0.8 else 'o'
 
     rings(False)
     disc(cv, px, py, pr, 'p')
@@ -1922,11 +1926,11 @@ def planet(w, h, r):
             if math.hypot(xx + 0.5 - (px - pr * 0.45), yy + 0.5 - (py - pr * 0.45)) > pr * 1.25:
                 cv.g[yy][xx] = 'b'
             v = frame(xx, yy)[1]
-            if any(abs(v - f * pr) < 0.75 for f in (-0.5, 0.05, 0.55)):
+            if any(abs(v - f * pr) < 0.7 for f in (-0.45, 0.35)):
                 cv.g[yy][xx] = 'q'
     rings(True)
     spots = [(w * 0.14, h * 0.1), (w * 0.86, h * 0.12), (w * 0.14, h * 0.88), (w * 0.86, h * 0.9)]
-    for x, y in r.sample(spots, r.choice((1, 2))):
+    for x, y in r.sample(spots, 2):
         disc(cv, x, y, r.uniform(1.4, 2.0), 'm')
     if r.random() < 0.5:
         x0, y0 = w * r.uniform(0.2, 0.8), h * r.choice((0.08, 0.92))

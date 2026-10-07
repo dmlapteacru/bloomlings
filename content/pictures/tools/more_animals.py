@@ -18,8 +18,9 @@ def flip(cv):
 
 
 def sun(cv, x, y, s, c):
-    """A sun (or moon) of at least five cells, so it never grows into the sky round it."""
-    disc(cv, x, y, s * 0.07 + 0.6, c)
+    """A sun (or moon) of at least five cells, a cell clear of the edges, so the sky round it stays one region."""
+    rad = s * 0.07 + 0.6
+    disc(cv, min(max(x, rad + 1.0), cv.w - rad - 1.0), max(y, rad + 1.0), rad, c)
 
 
 def alpaca(w, h, r):
@@ -220,15 +221,15 @@ def moose(w, h, r):
         pine(cv, x, gtop, h * r.uniform(0.36, 0.44), s * 0.22, 't')
     if big:
         oval(cv, w * 0.82, gtop + 1.2, w * 0.18, 1.4, 'w')
-    sun(cv, w * r.choice((0.14, 0.86)), h * 0.09, s, 'u')
+    sun(cv, w * r.choice((0.12, 0.88)), h * 0.42, s, 'u')
     mx = int(cx) + 0.5
-    oval(cv, mx, gtop - h * 0.19, w * 0.27, h * 0.12, 'm')
-    for dx in (-0.2, -0.08, 0.08, 0.2):
-        box(cv, mx + dx * w - 0.6, gtop - h * 0.2, mx + dx * w + 0.6, gtop + 0.4, 'm')
-    hy = h * 0.42
-    oval(cv, mx, hy, s * 0.12, s * 0.15, 'm')
-    oval(cv, mx, hy + s * 0.13, s * 0.15, s * 0.09, 'm')
-    lens(cv, mx, hy + s * 0.18, mx, hy + s * 0.36, s * 0.08, 'm')
+    oval(cv, mx, gtop - h * 0.16, w * 0.25, h * 0.11, 'm')
+    for dx in (-0.19, -0.08, 0.08, 0.19):
+        box(cv, mx + dx * w - 0.6, gtop - h * 0.17, mx + dx * w + 0.6, gtop + 0.4, 'm')
+    hy = h * 0.38
+    oval(cv, mx, hy, s * 0.13, s * 0.15, 'm')
+    oval(cv, mx, hy + s * 0.16, s * 0.17, s * 0.1, 'm')
+    lens(cv, mx, hy + s * 0.22, mx, hy + s * 0.38, s * 0.08, 'm')
     for side in (-1, 1):
         lens(cv, mx + side * s * 0.08, hy - s * 0.08, mx + side * s * 0.25, hy - s * 0.04, s * 0.09, 'm')
         lens(cv, mx + side * s * 0.08, hy - s * 0.14, mx + side * s * 0.42, hy - s * 0.3, s * 0.18, 'a')
@@ -237,7 +238,7 @@ def moose(w, h, r):
             seg(cv, x0, hy - s * (0.24 + k * 0.04), x0 + side * s * 0.02, hy - s * (0.36 + k * 0.05), 'a', 0.5)
     eyes(cv, mx, hy - s * 0.05, 1.0 if not big else 2.0, big, 'e', 'k')
     for side in (-1, 1):
-        cv.put(int(mx + side * 1.0), int(hy + s * 0.15), 'k')
+        cv.put(int(mx + side * 1.0), int(hy + s * 0.19), 'k')
     return cv, [sky(), role('m', 'moose', 'Moose', BROWN), role('a', 'antlers', 'Antlers', BROWN), role('k', 'eye', 'Eyes and nostrils', PINK),
                 role('e', 'eye_white', 'Eye whites', BLUE), role('t', 'pine', 'Pines', GREEN), role('g', 'grass', 'Grass', GREEN),
                 role('w', 'lake', 'Lake', BLUE), role('u', 'sun', 'Sun', PINK)], ['animals', 'forest']
@@ -250,16 +251,16 @@ def ostrich(w, h, r):
     tx = w * 0.86
     box(cv, tx - 0.5, h * 0.4, tx + 0.5, gtop + 0.5, 't')
     seg(cv, tx, h * 0.5, tx - w * 0.08, h * 0.4, 't', 0.45)
-    oval(cv, tx - w * 0.02, h * 0.36, w * 0.16, h * 0.06, 'a')
+    oval(cv, tx - w * 0.04, h * 0.36, w * 0.12, h * 0.06, 'a')
     sun(cv, w * 0.12, h * 0.1, s, 'u')
     ox, oy = cx - w * 0.12, h * 0.48
     for k, side in enumerate((-1, 1)):
-        knee = (ox + side * w * 0.05 + w * 0.06, oy + h * 0.2)
-        path(cv, [(ox + side * w * 0.05, oy + h * 0.06), knee, (knee[0] - w * 0.04, gtop - 0.5)], 'n', 0.5)
-        seg(cv, knee[0] - w * 0.04, gtop - 0.5, knee[0] - w * 0.04 + 1.6, gtop - 0.5, 'k', 0.5)
+        knee = (ox + side * w * 0.07 + w * 0.05, oy + h * 0.2)
+        path(cv, [(ox + side * w * 0.07, oy + h * 0.06), knee, (knee[0] - w * 0.03, gtop - 0.5)], 'n', 0.5)
+        seg(cv, knee[0] - w * 0.03, gtop - 0.5, knee[0] - w * 0.03 + 1.6, gtop - 0.5, 'k', 0.5)
     oval(cv, ox, oy, w * 0.24, h * 0.11, 'b')
     for a in (0.0, 0.5):
-        lens(cv, ox - w * 0.16, oy - h * 0.02, ox - w * 0.36, oy - h * (0.1 + a * 0.08), s * 0.14, 'p')
+        lens(cv, ox - w * 0.16, oy - h * 0.02, ox - w * 0.33, oy - h * (0.1 + a * 0.08), s * 0.14, 'p')
     lens(cv, ox - w * 0.1, oy + h * 0.03, ox + w * 0.1, oy + h * 0.01, s * 0.1, 'p')
     hx, hy = ox + w * 0.24, h * 0.16
     path(cv, [(ox + w * 0.15, oy - h * 0.04), (ox + w * 0.22, oy - h * 0.18), (hx - 0.3, hy + 1)], 'n', 0.55)
@@ -271,9 +272,9 @@ def ostrich(w, h, r):
         cv.put(int(hx + s * 0.02), int(hy), 'k')
     if r.random() < 0.5:
         flip(cv)
-    return cv, [sky(), role('b', 'ostrich', 'Ostrich', BROWN), role('p', 'plumes', 'Plumes', PINK), role('n', 'neck', 'Neck and legs', PINK),
-                role('k', 'beak', 'Beak, eye and toes', BROWN), role('e', 'eye_white', 'Eye white', BLUE), role('t', 'trunk', 'Acacia trunk', BROWN),
-                role('a', 'acacia', 'Acacia', GREEN), role('g', 'grass', 'Savanna grass', GREEN), role('u', 'sun', 'Sun', BROWN)], ['animals', 'savanna']
+    return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('b', 'ostrich', 'Ostrich', BROWN), role('p', 'plumes', 'Plumes', PINK),
+                role('n', 'neck', 'Neck and legs', PINK), role('k', 'beak', 'Beak, eye and toes', BROWN), role('e', 'eye_white', 'Eye white', BLUE),
+                role('t', 'trunk', 'Acacia trunk', BROWN), role('a', 'acacia', 'Acacia', GREEN), role('g', 'grass', 'Savanna grass', GREEN)], ['animals', 'savanna']
 
 
 def pelican(w, h, r):
@@ -297,7 +298,7 @@ def pelican(w, h, r):
     disc(cv, hx, hy, s * 0.11, 'b')
     tip = (hx + w * 0.38, hy + h * 0.08)
     seg(cv, hx + s * 0.06, hy - 0.2, tip[0], tip[1], 'y', 0.5)
-    poly(cv, [(hx + s * 0.04, hy + 0.4), tip, (hx + w * 0.2, hy + h * 0.15), (hx + s * 0.04, hy + h * 0.1)], 'y')
+    poly(cv, [(hx + s * 0.04, hy + 0.4), tip, (hx + w * 0.24, hy + h * 0.16), (hx + w * 0.08, hy + h * 0.16), (hx + s * 0.04, hy + h * 0.1)], 'y')
     eye(cv, hx + s * 0.01, hy - s * 0.05, big, 'e', 'k', rad=0.8) if big else cv.put(int(hx + s * 0.02), int(hy - s * 0.03), 'k')
     fx = w * 0.82
     oval(cv, fx, h * 0.84, w * 0.08, 1.0, 'f')
@@ -307,8 +308,8 @@ def pelican(w, h, r):
     if r.random() < 0.5:
         flip(cv)
     return cv, [sky(), role('w', 'sea', 'Sea', BLUE), role('b', 'pelican', 'Pelican', PINK), role('v', 'wing', 'Wing', PINK),
-                role('y', 'beak', 'Beak and feet', BROWN), role('k', 'eye', 'Eye and wing tips', BROWN), role('e', 'eye_white', 'Eye white', GREEN),
-                role('o', 'post', 'Post', BROWN), role('f', 'fish', 'Fish', GREEN), role('c', 'cloud', 'Cloud', BLUE)], ['animals', 'sea']
+                role('y', 'beak', 'Beak and feet', BROWN), role('o', 'post', 'Post', BROWN), role('k', 'eye', 'Eye and wing tips', BROWN),
+                role('e', 'eye_white', 'Eye white', GREEN), role('f', 'fish', 'Fish', GREEN), role('c', 'cloud', 'Cloud', BLUE)], ['animals', 'sea']
 
 
 def puffin(w, h, r):
@@ -343,38 +344,38 @@ def puffin(w, h, r):
 
 def hummingbird(w, h, r):
     cv, s, cx, big = start(w, h, 's')
-    sx = w * 0.8
-    path(cv, [(sx + 0.6, h + 1), (sx - 0.4, h * 0.72), (sx + 0.4, h * 0.52), (sx - 0.3, h * 0.38)], 'l', 0.55)
-    for y, side in ((0.82, -1), (0.64, 1)) + (((0.5, -1),) if big else ()):
+    sx = w * 0.86
+    path(cv, [(sx + 0.6, h + 1), (sx - 0.4, h * 0.72), (sx + 0.4, h * 0.52), (sx - 0.3, h * 0.36)], 'l', 0.55)
+    for y, side in ((0.82, -1), (0.62, 1)) + (((0.48, -1),) if big else ()):
         lens(cv, sx, h * y, sx + side * s * 0.22, h * y - s * 0.1, s * 0.1, 'l')
-    fx, fy = sx - 0.3, h * 0.36
-    poly(cv, [(fx + 0.4, fy + 0.5), (fx - w * 0.16, fy - h * 0.1), (fx - w * 0.2, fy - h * 0.02), (fx - w * 0.16, fy + h * 0.07)], 'f')
+    fx, fy = sx - 0.3, h * 0.34
+    poly(cv, [(fx + 0.5, fy + 0.6), (fx - w * 0.12, fy - h * 0.1), (fx - w * 0.17, fy - h * 0.12), (fx - w * 0.15, fy + h * 0.02),
+              (fx - w * 0.18, fy + h * 0.1), (fx - w * 0.1, fy + h * 0.07)], 'f')
     if big:
         for k in range(3):
             disc(cv, w * (0.1 + k * 0.08), h * (0.92 - (k % 2) * 0.04), 1.0, 'f')
         lens(cv, w * 0.06, h, w * 0.18, h * 0.84, s * 0.1, 'l')
-    bx, by = w * 0.34, h * 0.48
-    hx, hy = bx + w * 0.1, by - h * 0.1
-    tip = (fx - w * 0.17, fy - h * 0.01)
-    seg(cv, hx + s * 0.08, hy, tip[0], tip[1], 'k', 0.45)
-    lens(cv, bx - w * 0.16, by + h * 0.16, bx + w * 0.08, by - h * 0.06, s * 0.2, 'b')
+    bx, by = w * 0.22, h * 0.5
+    hx, hy = bx + w * 0.1, by - h * 0.12
+    seg(cv, hx + s * 0.08, hy + 0.2, fx - w * 0.15, fy - 0.2, 'k', 0.45)
+    lens(cv, bx - w * 0.12, by + h * 0.18, hx, hy + s * 0.04, s * 0.2, 'b')
     for side in (-1, 1):
-        lens(cv, bx - w * 0.14, by + h * 0.14, bx - w * 0.2 + side * w * 0.05, by + h * 0.28, s * 0.07, 'b')
+        lens(cv, bx - w * 0.1, by + h * 0.15, bx - w * 0.14 + side * w * 0.05, by + h * 0.3, s * 0.07, 'b')
     disc(cv, hx, hy, s * 0.11, 'b')
-    oval(cv, hx + s * 0.02, hy + s * 0.1, s * 0.07, s * 0.05, 'r')
-    lens(cv, bx - w * 0.02, by - h * 0.06, bx - w * 0.2, by - h * 0.32, s * 0.14, 'w')
-    lens(cv, bx + w * 0.02, by - h * 0.06, bx + w * 0.02, by - h * 0.3, s * 0.1, 'w')
+    oval(cv, hx + s * 0.03, hy + s * 0.1, s * 0.07, s * 0.05, 'r')
+    lens(cv, bx + w * 0.02, by - h * 0.06, bx - w * 0.12, by - h * 0.34, s * 0.14, 'w')
+    lens(cv, bx + w * 0.06, by - h * 0.06, bx + w * 0.08, by - h * 0.3, s * 0.1, 'w')
     if big:
         eye(cv, hx + s * 0.02, hy - s * 0.05, big, 'e', 'k', rad=0.7)
     else:
         cv.put(int(hx + s * 0.03), int(hy - s * 0.02), 'k')
     sun(cv, w * 0.86, h * 0.1, s, 'u')
-    cloud(cv, w * 0.18, h * 0.1, s * 0.05 + 0.35, 'c')
+    cloud(cv, w * 0.5, h * 0.1, s * 0.05 + 0.35, 'c')
     if r.random() < 0.5:
         flip(cv)
-    return cv, [sky(), role('c', 'cloud', 'Cloud', BLUE), role('b', 'bird', 'Hummingbird', GREEN), role('w', 'wings', 'Wings', GREEN),
-                role('r', 'throat', 'Throat', PINK), role('k', 'beak', 'Beak and eye', BROWN), role('e', 'eye_white', 'Eye white', BLUE),
-                role('f', 'flower', 'Flowers', PINK), role('l', 'leaves', 'Stem and leaves', GREEN), role('u', 'sun', 'Sun', BROWN)], ['animals', 'garden']
+    return cv, [sky(), role('c', 'cloud', 'Cloud', BLUE), role('b', 'bird', 'Hummingbird', GREEN), role('l', 'leaves', 'Stem and leaves', GREEN),
+                role('w', 'wings', 'Wings', GREEN), role('r', 'throat', 'Throat', PINK), role('f', 'flower', 'Flowers', PINK),
+                role('k', 'beak', 'Beak and eye', BROWN), role('e', 'eye_white', 'Eye white', BLUE), role('u', 'sun', 'Sun', BROWN)], ['animals', 'garden']
 
 
 MORE_ANIMALS = [alpaca, bat, beaver, otter, polar_bear, moose, ostrich, pelican, puffin, hummingbird]

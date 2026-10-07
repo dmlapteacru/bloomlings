@@ -1481,35 +1481,30 @@ def soup_bowl(w, h, r):
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     if mode == 2:  # a pot with two handles and a ladle
-        x, rim = cx, ty - h * 0.36
+        x, rim, rx = cx, ty - h * 0.36, w * 0.34
         for side in (-1, 1):
-            rbox(cv, x + side * w * 0.42 - 1.6, rim + 1.0, x + side * w * 0.42 + 1.6, rim + 2.6, 0.6, 'k')
-        rbox(cv, x - w * 0.38, rim, x + w * 0.38, ty - 0.4, 1.4, 'w')
-        oval(cv, x, rim, w * 0.38, 1.6, 'w')
-        oval(cv, x, rim, w * 0.33, 1.0, 's')
-        tube(cv, [(x + 2.0, rim), (x + w * 0.3, rim - h * 0.2)], 0.6, 'k')
-        box(cv, x - w * 0.38, rim + 4.0, x + w * 0.38, rim + 5.0, 'e')
-        sy = rim
+            rbox(cv, x + side * (rx + 1.0) - 1.4, rim + 1.6, x + side * (rx + 1.0) + 1.4, rim + 3.2, 0.6, 'k')
+        rbox(cv, x - rx, rim, x + rx, ty - 0.4, 1.4, 'w')
+        box(cv, x - rx, rim + 4.4, x + rx, rim + 5.4, 'e')
+        tube(cv, [(x + 2.0, rim), (x + rx * 0.9, rim - h * 0.2)], 0.6, 'k')
     else:  # a bowl, on a plate with a roll of bread beside it when mode is 1
-        x = cx if mode == 0 else cx - w * 0.1
+        x, rx = (cx, w * 0.42) if mode == 0 else (cx - w * 0.1, w * 0.34)
         rim = ty - h * 0.24
         if mode == 1:
             oval(cv, cx, ty, w * 0.47, 1.8, 'p')
             oval(cv, cx + w * 0.32, ty - 3.2, w * 0.14, 2.6, 'u')
             seg(cv, cx + w * 0.26, ty - 4.6, cx + w * 0.3, ty - 2.2, 'n', 0.45)
             seg(cv, cx + w * 0.34, ty - 4.8, cx + w * 0.38, ty - 2.4, 'n', 0.45)
-        bowl(cv, x, rim, ty - 0.4, w * (0.42 if mode == 0 else 0.34), 'w', 'e')
-        oval(cv, x, rim, w * (0.42 if mode == 0 else 0.34), 1.6, 'w')
-        oval(cv, x, rim, w * (0.37 if mode == 0 else 0.29), 1.0, 's')
-        sy = rim
+        bowl(cv, x, rim, ty - 0.4, rx, 'w', 'e')
         if spoon:
-            tube(cv, [(x + 1.5, rim - 0.3), (x + w * 0.36, rim - h * 0.18)], 0.6, 'k')
-            oval(cv, x + 1.0, rim, 1.8, 0.8, 'k')
-    for k in range(4):
-        cv.put(int(x + (k - 1.5) * 3.2), int(sy), 'x' if k % 2 else 'c')
+            tube(cv, [(x + 1.5, rim - 0.3), (x + rx * 0.85, rim - h * 0.18)], 0.6, 'k')
+    oval(cv, x, rim, rx, 2.4, 'w')
+    oval(cv, x, rim, rx - 1.4, 1.6, 's')
+    for k in range(5):
+        cv.put(int(x + (k - 2) * rx * 0.3), int(rim + (k % 2) - 0.5), 'x' if k % 2 else 'c')
     for k in (-1, 0, 1):
         sx = x + k * 3.2
-        path(cv, [(sx, sy - 2.5), (sx + 1.0, sy - 4.5), (sx - 0.4, sy - 6.5), (sx + 0.6, sy - 8.5)], 'm', 0.45)
+        path(cv, [(sx, rim - 3.0), (sx + 1.0, rim - 5.0), (sx - 0.4, rim - 7.0), (sx + 0.6, rim - 9.0)], 'm', 0.45)
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (GREEN, GREEN, BLUE, BROWN, BROWN))
@@ -1524,8 +1519,7 @@ def egg(cv, r, x, y, rr):
     for k in range(6):
         a = math.radians(k * 60 + r.uniform(-15, 15))
         oval(cv, x + math.cos(a) * rr * 0.4, y + math.sin(a) * rr * 0.26, rr * 0.66, rr * 0.44, 'w')
-    oval(cv, x + rr * 0.08, y - rr * 0.06, rr * 0.36, rr * 0.3, 'y')
-    disc(cv, x - rr * 0.04, y - rr * 0.18, 0.7, 'h')
+    oval(cv, x + rr * 0.1, y - rr * 0.08, rr * 0.38, rr * 0.34, 'y')
 
 
 def fried_egg(w, h, r):
@@ -1556,26 +1550,25 @@ def fried_egg(w, h, r):
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
     return cv, [S['b'], S['t'], S['d'], role('y', 'yolk', 'Yolk', BROWN), role('u', 'toast', 'Toast', BROWN), role('n', 'crust', 'Crust', BROWN),
-                role('w', 'white', 'Egg white', PINK), role('h', 'shine', 'Shine on the yolk', PINK), role('a', 'bacon', 'Bacon', PINK),
+                role('w', 'white', 'Egg white', PINK), role('a', 'bacon', 'Bacon', PINK),
                 role('k', 'pan', 'Pan', GREEN), role('g', 'handle', 'Handle', BROWN), role('q', 'pan_inside', 'Inside of the pan', BLUE),
                 role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'dishes']
 
 
 def shake(cv, x, top, yb, hw, drink, foot):
-    """A tall glass of milkshake from its rim at `top` to row yb: wider at the rim, on a short stem and foot when
-    `foot`; whipped cream piled on top with a cherry. Returns the cream's top."""
-    base = yb - (2.6 if foot else 0.0)
-    poly(cv, [(x - hw, top), (x + hw, top), (x + hw * 0.6, base), (x - hw * 0.6, base)], drink)
-    box(cv, x - hw, top, x + hw, top + 1.0, 'g')
+    """A tall glass of milkshake from its rim at `top` to row yb, wider at the rim, on a stem and foot when `foot`:
+    the glass round the drink, whipped cream piled on top with a cherry."""
+    base = yb - (3.0 if foot else 0.0)
+    poly(cv, [(x - hw, top), (x + hw, top), (x + hw * 0.62, base), (x - hw * 0.62, base)], 'g')
+    poly(cv, [(x - hw + 1.0, top + 1.0), (x + hw - 1.0, top + 1.0), (x + hw * 0.62 - 1.0, base - 1.0), (x - hw * 0.62 + 1.0, base - 1.0)], drink)
     if foot:
         box(cv, x - 0.6, base, x + 0.6, yb - 0.8, 'g')
-        oval(cv, x, yb - 0.6, hw * 0.7, 0.9, 'g')
-    for dx, dy, q in ((-0.55, -0.4, 0.42), (0.55, -0.4, 0.42), (0.0, -1.0, 0.5), (0.0, -1.9, 0.32)):
-        disc(cv, x + dx * hw, top + dy * hw * 0.8, q * hw, 'c')
-    ct = top - 2.2 * hw * 0.8
-    disc(cv, x + 0.3, ct - 0.4, 1.3, 'r')
-    seg(cv, x + 0.5, ct - 1.4, x + 1.6, ct - 3.0, 'k', 0.4)
-    return ct
+        oval(cv, x, yb - 0.6, hw * 0.75, 0.9, 'g')
+    for dx, dy, q in ((-0.5, -0.1, 0.42), (0.5, -0.1, 0.42), (0.0, -0.6, 0.5)):
+        disc(cv, x + dx * hw, top + dy * hw, q * hw, 'c')
+    ct = top - 1.1 * hw
+    disc(cv, x + 0.3, ct, 1.3, 'r')
+    seg(cv, x + 0.5, ct - 1.0, x + 1.6, ct - 2.6, 'k', 0.4)
 
 
 def milkshake(w, h, r):
@@ -1584,21 +1577,22 @@ def milkshake(w, h, r):
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one tall glass on a foot, a straw in it
-        seg(cv, cx + 2.0, h * 0.5, cx + w * 0.3, h * 0.1, 's', 0.6)
-        shake(cv, cx, h * 0.4, ty - 0.4, w * 0.27, 'm', True)
+        seg(cv, cx + 2.0, h * 0.5, cx + w * 0.32, h * 0.12, 's', 0.6)
+        shake(cv, cx, h * 0.42, ty - 0.4, w * 0.26, 'm', True)
     elif mode == 1:  # a pink and a chocolate shake
         for k, (dx, drink) in enumerate(((-0.24, 'm'), (0.24, 'n'))):
-            seg(cv, cx + dx * w + 1.6, h * 0.55, cx + dx * w + w * 0.14 * (1 if k else -1) * -1 + 3.0, h * 0.18, 's', 0.55)
-            shake(cv, cx + dx * w, h * 0.5, ty - 0.4, w * 0.19, drink, False)
-    else:  # a jar glass with a handle
-        x = cx - w * 0.04
-        ring(cv, x + w * 0.3, h * 0.62, 3.2, 1.6, 'g')
-        seg(cv, x - 1.0, h * 0.42, x - w * 0.22, h * 0.08, 's', 0.6)
-        rbox(cv, x - w * 0.27, h * 0.42, x + w * 0.27, ty - 0.4, 1.4, 'g')
-        box(cv, x - w * 0.27 + 1.0, h * 0.42 + 1.4, x + w * 0.27 - 1.0, ty - 1.4, 'm')
-        for dx, dy, q in ((-0.55, -0.4, 0.42), (0.55, -0.4, 0.42), (0.0, -1.0, 0.5)):
-            disc(cv, x + dx * w * 0.27, h * 0.42 + dy * w * 0.22, q * w * 0.27, 'c')
-        disc(cv, x + 0.3, h * 0.42 - w * 0.36, 1.3, 'r')
+            x = cx + dx * w
+            seg(cv, x + (1.6 if k else -1.6), h * 0.5, x + (w * 0.16 if k else -w * 0.16), h * 0.16, 's', 0.55)
+            shake(cv, x, h * 0.44 + k * 1.5, ty - 0.4, w * 0.19, drink, False)
+    else:  # a mug of milkshake with a handle
+        x, top = cx - w * 0.04, h * 0.42
+        ring(cv, x + w * 0.29, h * 0.64, 3.4, 1.7, 'g')
+        seg(cv, x - 1.0, top, x - w * 0.24, h * 0.1, 's', 0.6)
+        rbox(cv, x - w * 0.27, top, x + w * 0.27, ty - 0.4, 1.4, 'g')
+        box(cv, x - w * 0.27 + 1.0, top + 1.4, x + w * 0.27 - 1.0, ty - 1.4, 'm')
+        for dx, dy, q in ((-0.5, -0.1, 0.42), (0.5, -0.1, 0.42), (0.0, -0.6, 0.5)):
+            disc(cv, x + dx * w * 0.27, top + dy * w * 0.27, q * w * 0.27, 'c')
+        disc(cv, x + 0.3, top - w * 0.3, 1.3, 'r')
     for xx, yy, px, py in cells(cv):
         if cv.g[yy][xx] == 's' and int(px + py) % 3 == 0:
             cv.g[yy][xx] = 'e'
@@ -1615,10 +1609,10 @@ def kiwi_face(cv, x, y, rx, ry):
     """The cut face of a kiwi: its brown skin round green flesh, a ring of black seeds round its pale middle."""
     oval(cv, x, y, rx, ry, 'k')
     oval(cv, x, y, rx - 0.9, ry - 0.9, 'f')
-    oval(cv, x, y, rx * 0.3, ry * 0.3, 'w')
+    oval(cv, x, y, rx * 0.26, ry * 0.26, 'w')
     for k in range(12):
         a = math.radians(k * 30)
-        q = 0.55 if k % 2 else 0.68
+        q = 0.56 if k % 2 else 0.7
         cv.put(int(x + math.cos(a) * rx * q), int(y + math.sin(a) * ry * q), 'k')
 
 
@@ -1657,11 +1651,11 @@ def kiwi(w, h, r):
                 role('h', 'fuzz', 'Fuzz', BROWN), S['d'], role('p', 'plate', 'Plate', PINK), S['o'], S['v']], ['food', 'fruit']
 
 
-def kernels(cv, r, x0, y0, x1, y1, n):
-    """A heap of popcorn: puffs of two shades, piled in the box from (x0, y0) to (x1, y1)."""
+def kernels(cv, r, x, y, rx, ry, n):
+    """A heap of popcorn: n puffs piled in a dome of radii rx, ry over (x, y)."""
     for k in range(n):
-        x, y = r.uniform(x0, x1), r.uniform(y0, y1)
-        disc(cv, x, y, r.uniform(1.0, 1.6), 'c' if k % 3 else 'e')
+        a, d = r.uniform(math.pi, 2 * math.pi), r.random() ** 0.5
+        disc(cv, x + math.cos(a) * rx * d, y + math.sin(a) * ry * d, r.uniform(1.1, 1.7), 'c')
 
 
 def popcorn(w, h, r):
@@ -1670,35 +1664,36 @@ def popcorn(w, h, r):
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
 
-    def stripes(x0, x1):
+    def stripes(across):
         for xx, yy, px, py in cells(cv):
-            if cv.g[yy][xx] == 'a' and int((px - x0) / 2.2) % 2:
+            if cv.g[yy][xx] == 'a' and int((py if across else px) / 2.2) % 2:
                 cv.g[yy][xx] = 'w'
 
     if mode == 0:  # a full bucket
-        top = h * 0.38
-        kernels(cv, r, cx - w * 0.3, top - h * 0.14, cx + w * 0.3, top + 1.0, 22)
+        top = h * 0.44
+        kernels(cv, r, cx, top + 1.0, w * 0.36, h * 0.2, 30)
         poly(cv, [(cx - w * 0.36, top), (cx + w * 0.36, top), (cx + w * 0.26, ty - 0.4), (cx - w * 0.26, ty - 0.4)], 'a')
-        stripes(cx - w * 0.36, cx + w * 0.36)
-    elif mode == 1:  # a bucket tipped over, popcorn spilling
-        kernels(cv, r, w * 0.36, ty - h * 0.2, w * 0.96, ty - 1.2, 18)
-        poly(cv, [(w * 0.06, ty - h * 0.36), (w * 0.44, ty - h * 0.24), (w * 0.4, ty - 0.4), (w * 0.04, ty - h * 0.08)], 'a')
-        stripes(0, w)
-        kernels(cv, r, w * 0.5, ty - 3.0, w * 0.95, ty - 1.4, 5)
+        stripes(False)
+    elif mode == 1:  # a bucket lying on its side, popcorn spilling out
+        x0 = w * 0.5
+        poly(cv, [(x0, ty - h * 0.36), (w * 0.96, ty - h * 0.28), (w * 0.96, ty - 0.4), (x0, ty - 0.4)], 'a')
+        stripes(True)
+        kernels(cv, r, x0 - 1.0, ty - 0.6, w * 0.42, h * 0.2, 26)
     else:  # a paper bag, puffs flying out of it
-        top = h * 0.46
-        kernels(cv, r, cx - w * 0.24, top - h * 0.1, cx + w * 0.24, top + 1.0, 16)
+        top = h * 0.5
+        kernels(cv, r, cx, top + 1.0, w * 0.28, h * 0.14, 20)
         for k in range(5):
-            disc(cv, cx + r.uniform(-w * 0.42, w * 0.42), h * r.uniform(0.1, 0.28), 1.2, 'c' if k % 2 else 'e')
+            disc(cv, cx + (k - 2) * w * 0.18 + r.uniform(-1, 1), h * r.uniform(0.1, 0.26), 1.3, 'c')
         rbox(cv, cx - w * 0.28, top, cx + w * 0.28, ty - 0.4, 0.6, 'a')
-        stripes(cx - w * 0.28, cx + w * 0.28)
+        stripes(False)
         box(cv, cx - w * 0.28, top + 3.0, cx + w * 0.28, top + 6.0, 'l', only='aw')
         star(cv, cx, top + 4.5, 2.0, 'c', ri=0.9)
+    scatter(cv, 'e', 'c', 8, r, sep=3)
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, GREEN, GREEN))
     return cv, [S['b'], role('a', 'red', 'Red stripes', PINK), role('l', 'label', 'Label', BLUE), role('w', 'white', 'White stripes', PINK),
-                role('c', 'popcorn', 'Popcorn', BROWN), role('e', 'popcorn2', 'Golden popcorn', BROWN), S['o'], S['t'], S['d'], S['v']], ['food', 'sweets']
+                role('c', 'popcorn', 'Popcorn', BROWN), role('e', 'hulls', 'Hulls', BROWN), S['o'], S['t'], S['d'], S['v']], ['food', 'sweets']
 
 
 DAILY_FOOD = [banana, lemon, peach, coconut, avocado, carrot, corn, broccoli, tomato, eggplant, chili_pepper, pea_pod, cookie, pie, pizza,

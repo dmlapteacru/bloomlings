@@ -73,6 +73,19 @@ def cut_half(cv, x, y, rr, skin, face, ratio=0.5):
     oval(cv, x, y, rr, rr * ratio, face)
 
 
+def bean(cv, x, y, a, b, ang, c, wide=0.0, bend=0.0, only=None):
+    """An egg or bean shape reaching `a` cells each way from (x, y) along `ang` degrees and `b` across, `wide` times
+    wider at its start than at its end, its middle bent `bend` cells to its left (a mango's back); `only` limits it to
+    the cells of those roles."""
+    ca, sa = math.cos(math.radians(ang)), math.sin(math.radians(ang))
+    for xx, yy, px, py in cells(cv):
+        u, v = (px - x) * ca + (py - y) * sa, -(px - x) * sa + (py - y) * ca
+        if abs(u) <= a and (only is None or cv.g[yy][xx] in only):
+            t = u / a
+            if abs(v + bend * (1 - t * t)) <= b * math.sqrt(1 - t * t) * (1 - wide * t):
+                cv.g[yy][xx] = c
+
+
 # The settings: a window over a table, a dotted wall with a shelf of jars over a table, a picnic blanket before a hill
 # under a cloud.
 SCENES = (
@@ -178,7 +191,7 @@ def orange(w, h, r):
         rr = s * 0.22
         one_orange(cv, cx + w * 0.22, ty - rr - h * 0.16, rr, big, 1)
         if big:
-            hr = s * 0.3
+            hr = s * 0.32
             hx, hy = cx - w * 0.12, ty - hr - 0.2
             gap(cv, hx, hy, hr + 0.9, 'aeklh')
             disc(cv, hx + 1.3, hy - 0.2, hr, 'a')
@@ -201,8 +214,8 @@ def orange(w, h, r):
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
     return cv, [S['b'], role('a', 'orange', 'Oranges', BROWN), role('e', 'dimples', 'Dimples', BROWN), role('l', 'leaf', 'Leaves', GREEN),
-                role('k', 'stalk', 'Stalks', GREEN), S['t'], S['d'], role('w', 'pith', 'Pith', PINK), role('p', 'plate', 'Plate and bowl', BLUE),
-                role('h', 'shine', 'Shine', BLUE), S['o'], S['v']], ['food', 'fruit']
+                role('k', 'stalk', 'Stalks', GREEN), S['t'], S['v'], role('w', 'pith', 'Pith', PINK), role('p', 'plate', 'Plate and bowl', BLUE),
+                role('h', 'shine', 'Shine', BLUE), S['o'], S['d']], ['food', 'fruit']
 
 
 def one_plum(cv, x, y, rr, side, big, leaf=True):
@@ -254,7 +267,7 @@ def plum(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, GREEN, BROWN, PINK))
-    return cv, [S['b'], S['d'], role('a', 'plum', 'Plums', PINK), role('e', 'crease', 'Crease and stone', PINK), S['t'],
+    return cv, [S['b'], role('e', 'crease', 'Crease and stone', PINK), role('a', 'plum', 'Plums', PINK), S['d'], S['t'],
                 role('k', 'stalk', 'Stalks and branch', BROWN), role('f', 'flesh', 'Flesh', BROWN), role('l', 'leaf', 'Leaves', GREEN),
                 role('p', 'plate', 'Plate', BLUE), role('h', 'bloom', 'Bloom', BLUE), S['o'], S['v']], ['food', 'fruit']
 
@@ -302,25 +315,28 @@ def blueberries(w, h, r):
             seg(cv, x, top + 1.5, cx + (x - cx) * 0.85, ty - 0.6, 'q', 0.42)
         box(cv, x0 - 0.5, top, x1 + 0.5, top + 0.9, 'q')
         lens(cv, cx + w * 0.1, top - step * 2.2, cx + w * 0.38, top - step * 2.2 - h * 0.08, s * 0.12, 'l')
-    else:  # three big berries close up, their crowns showing, and a leaf
+    else:  # one big berry close up, its crown showing, with a leaf and two small ones
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
-        q = s * 0.19
-        spots = ((cx - w * 0.17, ty - q - h * 0.14, 'c'), (cx + w * 0.2, ty - q - h * 0.18, 'a'), (cx + w * 0.02, ty - q - 0.3, 'c'))
-        x, y, _ = spots[1]
-        lens(cv, x + 0.5, y - q * 0.9, x - w * 0.1, y - q - h * 0.2, s * 0.15, 'l')
-        seg(cv, x, y - q * 0.8, x + 0.5, y - q - 1.4, 'n', 0.5)
-        for k, (x, y, c) in enumerate(spots):
-            if k:
-                gap(cv, x, y, q + 0.8, 'ackln')
-            disc(cv, x, y, q, c)
-            star(cv, int(x) + 0.5, int(y - q * 0.35) + 0.5, max(1.2, q * 0.4), 'k', ri=max(0.5, q * 0.15))
+        q = s * 0.27
+        x, y = cx - w * 0.07, ty - q - 0.5
+        lens(cv, x + q * 0.3, y - q * 0.85, x + w * 0.42, y - q - h * 0.1, s * 0.15, 'l')
+        seg(cv, x + q * 0.1, y - q * 0.8, x + q * 0.4, y - q - 1.2, 'n', 0.5)
+        disc(cv, x, y, q, 'a')
+        star(cv, int(x) + 0.5, int(y - q * 0.3) + 0.5, q * 0.42, 'k', ri=q * 0.17)
+        if big:
+            tilted(cv, x - q * 0.5, y + q * 0.2, q * 0.28, q * 0.13, -60, 'h')
+        for k in range(2):
+            bx = x + q + 1.3 + k * step * 1.05
+            gap(cv, bx, ty - rr - 0.4, rr + 0.8, 'a')
+            disc(cv, bx, ty - rr - 0.4, rr, 'c' if k == 0 else 'a')
+            cv.put(int(bx), int(ty - rr * 1.25 - 0.4), 'k')
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (PINK, PINK, BROWN, GREEN, GREEN))
     return cv, [S['b'], role('a', 'berry', 'Blueberries', BLUE), role('c', 'berry2', 'Other blueberries', BLUE),
                 role('k', 'crowns', 'Crowns', PINK), role('l', 'leaf', 'Leaves', GREEN), role('n', 'stem', 'Stems', GREEN),
                 role('p', 'bowl', 'Bowl, punnet and plate', BROWN), role('q', 'slats', 'Punnet slats', BROWN),
-                S['t'], S['d'], S['o'], S['v']], ['food', 'fruit']
+                S['t'], S['d'], S['o'], S['v'], role('h', 'shine', 'Shine', PINK)], ['food', 'fruit']
 
 
 def one_raspberry(cv, x, y, rr, big, leaf=0):
@@ -380,18 +396,18 @@ def raspberry(w, h, r):
 
 
 def one_mango(cv, x, y, rr, ang, big, leaf=0):
-    """A mango, its stalk end first, lying `ang` degrees from level: a plump kidney arched along its back, rounder at
-    the stalk and narrowing to a blunt beak, blushed near the stalk, with a stalk and a leaf."""
+    """A mango from its stalk end along `ang` degrees: a plump bean, rounder at the stalk and arched along its back,
+    blushed near the stalk, with its stalk and a leaf (to the back's side when `leaf` is 1, the other way at -1)."""
     t = math.radians(ang)
     ux, uy = math.cos(t), math.sin(t)
     nx, ny = uy, -ux  # towards its back
-    pts = curve((x - ux * rr * 1.15, y - uy * rr * 1.15), (x + ux * rr * 1.25, y + uy * rr * 1.25), -rr * 0.22)
-    tube(cv, pts, lambda k: rr * (0.5 + 0.45 * math.sin(math.pi * min(1.0, 0.28 + k * 0.82))), 'a')
-    tilted(cv, x - ux * rr * 0.55 + nx * rr * 0.5, y - uy * rr * 0.55 + ny * rr * 0.5, rr * 0.8, rr * 0.48, ang, 'q', only='a')
-    sx, sy = x - ux * rr * 1.35 + nx * rr * 0.35, y - uy * rr * 1.35 + ny * rr * 0.35
-    seg(cv, sx + ux * 0.6, sy + uy * 0.6, sx - ux * 0.4 + nx * 0.9, sy - uy * 0.4 + ny * 0.9, 'k', 0.5)
+    bean(cv, x, y, rr * 1.2, rr * 0.86, ang, 'a', wide=0.2, bend=rr * 0.22)
+    tilted(cv, x - ux * rr * 0.6 + nx * rr * 0.4, y - uy * rr * 0.6 + ny * rr * 0.4, rr * 0.7, rr * 0.5, ang, 'q', only='a')
+    sx, sy = x - ux * rr * 1.18 + nx * rr * 0.12, y - uy * rr * 1.18 + ny * rr * 0.12
+    seg(cv, sx + ux * 0.5, sy + uy * 0.5, sx - ux * 1.2, sy - uy * 1.2, 'k', 0.5)
     if leaf:
-        lens(cv, sx + nx * 0.6, sy + ny * 0.6, sx + leaf * rr * 1.2 + nx * rr * 0.5, sy + ny * rr * 0.9, rr * 0.38 + 0.3, 'l')
+        lx, ly = sx - ux * 0.8, sy - uy * 0.8
+        lens(cv, lx, ly, lx + leaf * nx * rr * 1.3 - ux * rr * 0.4, ly + leaf * ny * rr * 1.3 - uy * rr * 0.4, rr * 0.42 + 0.3, 'l')
 
 
 def mango_cheek(cv, x, y, rr):
@@ -412,43 +428,45 @@ def mango(w, h, r):
     kind = 2 if mode == 2 else r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
     scene(cv, r, w, h, kind, ty)
-    if mode == 0:  # one mango with its leaf
+    if mode == 0:  # one mango leaning on the plate, with its leaf
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         rr = s * 0.27
-        one_mango(cv, cx + w * 0.02, ty - rr * 0.95, rr, r.uniform(-18, -8), big, 1)
-    elif mode == 1:  # two mangoes, or one behind a cheek cut into cubes
+        one_mango(cv, cx + w * 0.03, ty - rr * 1.2, rr, r.uniform(105, 120), big, -1)
+    elif mode == 1:  # one lying on the plate with a twig of leaves, or standing behind a cheek cut into cubes
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
-        rr = s * 0.2
-        one_mango(cv, cx + w * 0.1, ty - h * 0.36, rr, -22, big, 1)
         if big:
+            rr = s * 0.21
+            one_mango(cv, cx + w * 0.17, ty - rr * 1.7, rr, 100, big, -1)
             hr = s * 0.25
-            hx, hy = cx - w * 0.1, ty - hr * 0.8
+            hx, hy = cx - w * 0.12, ty - hr * 0.8
             gap(cv, hx, hy, hr + 1.0, 'aqkl')
             mango_cheek(cv, hx, hy, hr)
         else:
-            x, y = cx - w * 0.02, ty - rr * 0.9
-            gap(cv, x, y, rr * 1.3, 'aqkl')
-            one_mango(cv, x, y, rr, 8, big)
-    else:  # mangoes hanging on long stalks from a branch
-        y0 = h * r.uniform(0.06, 0.1)
-        pts = curve((-0.5, y0 + h * 0.06), (w * 0.86, y0), -1.0)
-        tube(cv, pts, 0.6 if not big else 0.9, 'k')
-        rr = s * 0.17
-        for k, u in enumerate((0.3, 0.72)):
-            bx, by = pts[int(u * 20)]
-            y = by + h * (0.2 + 0.08 * k)
-            path(cv, curve((bx, by), (bx + 0.6, y), 0.6), 'k', 0.45)
-            one_mango(cv, bx + 0.9, y + rr * 1.35, rr, 80, big)
-        for u, a in ((0.12, 25), (0.5, -20), (0.55, 30), (0.95, -15)) if big else ((0.5, -20), (0.95, 20)):
-            bx, by = pts[int(u * 20)]
-            t = math.radians(a + 90)
-            lens(cv, bx, by, bx + math.cos(t) * s * 0.36, by + math.sin(t) * s * 0.28, s * 0.1 + 0.3, 'l')
-        one_mango(cv, cx + w * 0.18, ty - rr * 0.55, rr * 0.9, -6, big)
+            rr = s * 0.25
+            x, y = cx - w * 0.04, ty - rr * 0.95
+            one_mango(cv, x, y, rr, 172, big)
+            tx, ty2 = x + rr * 1.3, y - rr * 0.95
+            for a in (-150, -95):
+                t = math.radians(a)
+                lens(cv, tx, ty2, tx + math.cos(t) * s * 0.36, ty2 + math.sin(t) * s * 0.26, s * 0.13, 'l')
+    else:  # mangoes hanging on long stalks from a twig among long leaves
+        tx, ty0 = cx - w * 0.06, h * r.uniform(0.14, 0.18)
+        tube(cv, curve((cx - w * 0.3, -0.5), (tx, ty0), 1.0), 0.6 if not big else 0.8, 'k')
+        for a in ((-170, -125, -55, -10) if big else (-160, -30)):
+            t = math.radians(a)
+            lens(cv, tx, ty0, tx + math.cos(t) * s * 0.4, ty0 + math.sin(t) * s * 0.22 + 1.0, s * 0.12 + 0.3, 'l')
+        hang = ((0.0, 0.25),) if not big else ((-0.16, 0.2), (0.18, 0.2))
+        for k, (dx, q) in enumerate(hang):
+            rr = s * q
+            x = tx + dx * w + 0.8
+            y = ty0 + h * (0.06 + 0.08 * k) + rr * 1.2
+            path(cv, curve((tx, ty0), (x, y - rr * 1.1), 0.5 - k), 'k', 0.45)
+            one_mango(cv, x, y, rr, 84 + 10 * k, big)
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
-    return cv, [S['b'], role('a', 'mango', 'Mangoes', BROWN), role('k', 'stalk', 'Stalks and branch', BROWN), role('f', 'cubes', 'Cubes', BROWN),
-                S['t'], S['d'], role('q', 'blush', 'Blush and cuts', PINK), role('l', 'leaf', 'Leaves', GREEN),
+    return cv, [S['b'], role('a', 'mango', 'Mangoes', BROWN), role('k', 'stalk', 'Stalks and twig', BROWN), role('f', 'cubes', 'Cubes', BROWN),
+                role('q', 'blush', 'Blush and cuts', PINK), S['t'], S['d'], role('l', 'leaf', 'Leaves', GREEN),
                 role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'fruit']
 
 
@@ -466,16 +484,17 @@ def one_pomegranate(cv, x, y, rr, big):
 
 
 def pomegranate_face(cv, x, y, rr, big):
-    """The cut face of a pomegranate: its rind round a mass of seeds parted by the pith's walls (which leave the
-    middle open, so the seeds stay one piece), and on the big boards the pith's ring too (one level deeper)."""
+    """The cut face of a pomegranate: its seeds packed in the pale pith, and on the big boards its rind round it (one
+    level deeper; on the small ones the skin behind the face shows the rind)."""
     x, y = int(x) + 0.5, int(y) + 0.5
-    disc(cv, x, y, rr, 'a')
-    disc(cv, x, y, rr - 0.9, 'w' if big else 'x')
     if big:
-        disc(cv, x, y, rr - 1.8, 'x')
-    for a in (-90, 30, 150):
-        t = math.radians(a)
-        seg(cv, x + math.cos(t) * rr * 0.3, y + math.sin(t) * rr * 0.3, x + math.cos(t) * (rr - 0.4), y + math.sin(t) * (rr - 0.4), 'w', 0.45 if a == -90 else 0.65)
+        disc(cv, x, y, rr, 'a')
+    disc(cv, x, y, rr - (0.9 if big else 0.0), 'w')
+    for xx, yy, px, py in cells(cv):
+        if cv.g[yy][xx] == 'w' and math.hypot(px - x, py - y) < rr - (2.0 if big else 1.0):
+            k = (xx + (yy // 3) * 2) % 3
+            if k < 2 and yy % 3 < 2:
+                cv.g[yy][xx] = 'x'
 
 
 def pomegranate(w, h, r):
@@ -510,10 +529,10 @@ def pomegranate(w, h, r):
         scatter(cv, 'x', 'p', 4, r, sep=2)
     if r.random() < 0.5:
         mirror(cv)
-    S = scene_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
+    S = scene_roles(kind, (BLUE, BLUE, BROWN, BROWN, GREEN))
     return cv, [S['b'], role('a', 'fruit', 'Pomegranates', PINK), role('c', 'crown', 'Crowns', PINK), role('x', 'arils', 'Seeds', PINK),
-                S['t'], S['d'], role('w', 'pith', 'Pith', BROWN), role('l', 'leaf', 'Leaf', GREEN), role('p', 'plate', 'Plate', BLUE),
-                role('h', 'shine', 'Shine', BLUE), S['o'], S['v']], ['food', 'fruit']
+                S['t'], S['v'], role('w', 'pith', 'Pith', BROWN), S['d'], role('l', 'leaf', 'Leaf', GREEN), role('p', 'plate', 'Plate', BLUE),
+                role('h', 'shine', 'Shine', BLUE), S['o']], ['food', 'fruit']
 
 
 MORE_FOOD = [orange, plum, blueberries, raspberry, mango, pomegranate]
