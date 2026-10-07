@@ -570,72 +570,83 @@ def ringed(cv, pts, rad, a, b, step):
 
 
 def narwhal(w, h, r):
-    cv, s, cx, big = start(w, h, 's')
-    sea = h * 0.5
-    hills(cv, 'w', sea, 0.35, w * 0.45, r.uniform(0, 6))
-    for x0, x1 in ((-1, w * 0.18),) + (((w * 0.84, w + 1),) if big else ()):
-        poly(cv, [(x0, sea - 1.2), (x1, sea - 0.8), (x1 - 0.8, sea + 0.6), (x0, sea + 0.6)], 'i')
-    nx, ny = cx - w * 0.08, sea + h * 0.12
-    poly(cv, [(nx - w * 0.26, ny - h * 0.02), (nx - w * 0.4, ny - h * 0.14), (nx - w * 0.42, ny - h * 0.02), (nx - w * 0.36, ny + h * 0.04)], 'n')
-    oval(cv, nx, ny, w * 0.32, h * 0.11, 'n')
-    disc(cv, nx + w * 0.24, ny - h * 0.04, s * 0.17, 'n')
+    cv, s, cx, big = start(w, h, 'w')
+    for x0, y1, x1 in ((-1, h * 0.07, w * r.uniform(0.3, 0.42)), (w * r.uniform(0.56, 0.66), h * 0.05, w + 1)):
+        rbox(cv, x0, -1, x1, y1, 1.0, 'i')
+    gtop = h - ground_rows(h, 0.1)
+    for x in (w * 0.1, w * 0.86) + ((w * 0.7,) if big else ()):
+        path(cv, [(x, gtop), (x + 0.8, h * 0.86), (x - 0.4, h * 0.78)], 'g', 0.55)
+    hills(cv, 'd', gtop, 0.5, w * 0.8, r.uniform(0, 6))
+    nx, ny = cx - w * 0.06, h * r.uniform(0.5, 0.56)
+    for side in (-1, 1):
+        lens(cv, nx - w * 0.34, ny, nx - w * 0.46, ny + side * h * 0.09, s * 0.12, 'n')
+    poly(cv, [(nx - w * 0.1, ny - h * 0.07), (nx - w * 0.36, ny - 0.4), (nx - w * 0.36, ny + 0.6), (nx - w * 0.1, ny + h * 0.07)], 'n')
+    oval(cv, nx, ny, w * 0.28, h * 0.09, 'n')
+    disc(cv, nx + w * 0.22, ny - h * 0.01, s * 0.15, 'n')
     for y in range(h):
         for x in range(w):
-            dx, dy = (x + 0.5 - nx) / (w * 0.26), (y + 0.5 - ny - h * 0.03) / (h * 0.07)
+            dx, dy = (x + 0.5 - nx - w * 0.02) / (w * 0.28), (y + 0.5 - ny - h * 0.02) / (h * 0.06)
             if dy >= 0 and dx * dx + dy * dy <= 1.0 and cv.g[y][x] == 'n':
                 cv.g[y][x] = 'b'
     if big:
         dots(cv, 'm', 'n', 3, 2, area=(nx - w * 0.24, ny - h * 0.08, nx + w * 0.12, ny))
-    hx, hy = nx + w * 0.3, ny - h * 0.08
-    tip = (min(w - 1.5, hx + w * 0.26), max(1.5, hy - h * 0.34))
-    seg(cv, hx, hy - 0.4, tip[0], tip[1], 't', 0.5)
+    hx, hy = nx + w * 0.22 + s * 0.12, ny - h * 0.04
+    tip = (w - 1.5, max(h * 0.12, hy - (w - 1.5 - hx) * 1.1))
+    seg(cv, hx, hy, tip[0], tip[1], 't', 0.5)
     if big:
         for k in range(1, 6):
-            cv.put(int(hx + (tip[0] - hx) * k / 6), int(hy - 0.4 + (tip[1] - hy + 0.4) * k / 6), 'y')
-    eye(cv, nx + w * 0.22, ny - h * 0.06, big, None, 'k')
-    path(cv, [(nx + w * 0.2, ny + h * 0.02), (nx + w * 0.28, ny + h * 0.03), (nx + w * 0.34, ny)], 'k', 0.4)
-    sun(cv, w * 0.14, h * 0.12, s, 'u')
-    for x in (w * 0.2, w * 0.66) if not big else (w * 0.14, w * 0.46, w * 0.8):
-        oval(cv, x, h * 0.88, w * 0.06, 0.9, 'f')
-        poly(cv, [(x + w * 0.04, h * 0.88), (x + w * 0.1, h * 0.85), (x + w * 0.1, h * 0.91)], 'f')
+            cv.put(int(hx + (tip[0] - hx) * k / 6), int(hy + (tip[1] - hy) * k / 6), 'y')
+    eye(cv, nx + w * 0.24, ny - h * 0.05, big, None, 'k')
+    path(cv, [(nx + w * 0.24, ny + h * 0.02), (nx + w * 0.3, ny + h * 0.02), (nx + w * 0.34, ny)], 'k', 0.4)
+    for x, y in ((w * 0.2, h * 0.24), (w * 0.4, h * 0.8)) + (((w * 0.7, h * 0.2),) if big else ()):
+        oval(cv, x, y, w * 0.06, 0.9, 'f')
+        poly(cv, [(x + w * 0.04, y), (x + w * 0.1, y - 0.9), (x + w * 0.1, y + 0.9)], 'f')
+    for k in range(3):
+        disc(cv, nx + w * 0.06 + (k % 2) * 0.8, ny - h * (0.16 + k * 0.07), 0.6 + k * 0.12, 'x')
     if r.random() < 0.5:
         flip(cv)
-    return cv, [sky(), role('w', 'sea', 'Sea', BLUE), role('n', 'narwhal', 'Narwhal', PINK), role('b', 'belly', 'Belly', PINK),
-                role('m', 'spots', 'Spots', BLUE), role('u', 'sun', 'Sun', BROWN), role('t', 'tusk', 'Tusk', BROWN),
-                role('y', 'spiral', 'Tusk spiral', BROWN), role('k', 'eye', 'Eye and smile', BROWN), role('i', 'ice', 'Ice floes', GREEN),
-                role('f', 'fish', 'Fish', GREEN)], ['animals', 'winter']
+    return cv, [('w', 'water', 'Arctic sea', BLUE, True), role('n', 'narwhal', 'Narwhal', PINK), role('b', 'belly', 'Belly', PINK),
+                role('m', 'spots', 'Spots', BLUE), role('x', 'bubbles', 'Bubbles', BLUE), role('t', 'tusk', 'Tusk', BROWN),
+                role('y', 'spiral', 'Tusk spiral', BROWN), role('k', 'eye', 'Eye and smile', BROWN), role('d', 'seabed', 'Seabed', BROWN),
+                role('i', 'ice', 'Ice', GREEN), role('g', 'weed', 'Seaweed', GREEN), role('f', 'fish', 'Fish', GREEN)], ['animals', 'winter']
 
 
 def sloth(w, h, r):
     cv, s, cx, big = start(w, h, 's')
-    by = h * 0.2
-    path(cv, [(-1, by + 0.9), (w * 0.45, by), (w * 0.88, by - 0.8)], 'r', 0.8 if not big else 1.0)
-    for x, y, a in ((w * 0.06, by - 0.4, -2.4), (w * 0.84, by - 1.2, -0.6), (w * 0.62, by - 0.4, -1.2)) + (((w * 0.24, by + 0.6, 2.4),) if big else ()):
-        lens(cv, x, y, x + math.cos(a) * s * 0.26, y + math.sin(a) * s * 0.18, s * 0.12, 'l')
-    for x, y in ((w * 0.1, by - 1.6), (w * 0.88, by - 2.6)) + (((w * 0.66, by - 2.0),) if big else ()):
+    gtop = h - ground_rows(h, 0.12)
+    hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
+    by = h * 0.3
+    tx = w * 0.08
+    box(cv, tx - 0.9, by, tx + 0.9, gtop + 0.5, 'r')
+    path(cv, [(tx, by + 0.4), (w * 0.5, by), (w * 0.84, by - 0.9)], 'r', 0.7 if not big else 0.9)
+    for x, y, a in ((tx + 0.4, by - 0.6, -2.0), (w * 0.82, by - 1.2, -0.5), (w * 0.52, by - 0.4, -1.4)) + (((w * 0.3, by - 0.2, -2.4),) if big else ()):
+        lens(cv, x, y, x + math.cos(a) * s * 0.28, y + math.sin(a) * s * 0.2, s * 0.13, 'l')
+    for x, y in ((w * 0.2, by - 2.2), (w * 0.72, by - 2.8)) + (((w * 0.44, by - 3.0),) if big else ()):
         disc(cv, x, y, 0.9 if not big else 1.1, 'p')
-    for x, a in ((w * 0.04, -1.0), (w * 0.96, -2.1)):
-        lens(cv, x, h, x + math.cos(a) * s * 0.3, h + math.sin(a) * s * 0.36, s * 0.16, 'l')
-    sun(cv, w * 0.88, h * 0.44, s, 'u')
-    sx = int(cx) + 0.5
+    sun(cv, w * 0.86, h * 0.08, s, 'u')
+    sx = int(w * 0.46) + 0.5
+    for dx in ((-0.16, 0.14) if not big else (-0.18, -0.08, 0.08, 0.18)):
+        seg(cv, sx + dx * w, by + h * 0.14, sx + dx * w + 0.3, by + 0.6, 'b', 0.6 if not big else 0.75)
+        cv.put(int(sx + dx * w + 0.3), int(by) - 1, 'k')
+    oval(cv, sx, by + h * 0.2, w * 0.24, h * 0.075, 'b')
+    hx, hy = sx + w * 0.26, by + h * 0.27
+    disc(cv, hx, hy, s * 0.15, 'b')
+    oval(cv, hx, hy + s * 0.01, s * 0.12, s * 0.1, 'f')
     for side in (-1, 1):
-        path(cv, [(sx + side * w * 0.13, h * 0.44), (sx + side * w * 0.2, h * 0.3), (sx + side * w * 0.18, by + 0.2)], 'b', 0.75 if not big else 1.0)
-        cv.put(int(sx + side * w * 0.18 - side * 0.6), int(by) - 1, 'k')
-        lens(cv, sx + side * w * 0.1, h * 0.66, sx + side * w * 0.16, h * 0.8, s * 0.12, 'b')
-    oval(cv, sx, h * 0.58, w * 0.2, h * 0.15, 'b')
-    hy = h * 0.4
-    disc(cv, sx, hy, s * 0.18, 'b')
-    oval(cv, sx, hy + s * 0.02, s * 0.14, s * 0.11, 'f')
-    for side in (-1, 1):
-        lens(cv, sx + side * s * 0.03, hy - s * 0.03, sx + side * s * 0.14, hy + s * 0.04, s * 0.07, 'k')
+        lens(cv, hx + side * s * 0.02, hy - s * 0.03, hx + side * s * 0.12, hy + s * 0.03, s * 0.06 + 0.3, 'k')
         if big:
-            cv.put(int(sx + side * s * 0.07), int(hy), 'e')
-    box(cv, sx - 0.5, hy + s * 0.04, sx + 0.5, hy + s * 0.04 + 0.6, 'k')
+            cv.put(int(hx + side * s * 0.06), int(hy - s * 0.01), 'e')
+    cv.put(int(hx), int(hy + s * 0.05), 'k')
     if big:
-        path(cv, [(sx - s * 0.06, hy + s * 0.08), (sx, hy + s * 0.1), (sx + s * 0.06, hy + s * 0.08)], 'k', 0.4)
+        path(cv, [(hx - s * 0.05, hy + s * 0.08), (hx + s * 0.05, hy + s * 0.08)], 'k', 0.4)
+    for x in (w * 0.3, w * 0.7) + ((w * 0.5,) if big else ()):
+        oval(cv, x, gtop - 0.2, s * 0.09, s * 0.07, 'v')
+    if r.random() < 0.5:
+        flip(cv)
     return cv, [('s', 'sky', 'Jungle sky', BLUE, True), role('u', 'sun', 'Sun', BROWN), role('b', 'sloth', 'Sloth', BROWN),
                 role('f', 'face', 'Face', BROWN), role('k', 'stripes', 'Eye stripes, nose and claws', PINK), role('e', 'eye', 'Eyes', BLUE),
-                role('r', 'branch', 'Mossy branch', GREEN), role('l', 'leaves', 'Leaves', GREEN), role('p', 'flowers', 'Flowers', PINK)], ['animals', 'jungle']
+                role('r', 'branch', 'Mossy tree', GREEN), role('l', 'leaves', 'Leaves', GREEN), role('p', 'flowers', 'Flowers', PINK),
+                role('v', 'bushes', 'Bushes', GREEN), role('g', 'grass', 'Grass', GREEN)], ['animals', 'jungle']
 
 
 def rhino(w, h, r):
@@ -657,16 +668,17 @@ def rhino(w, h, r):
     oval(cv, hx, hy, s * 0.14, s * 0.11, 'r')
     oval(cv, hx + s * 0.1, hy + s * 0.04, s * 0.08, s * 0.08, 'r')
     lens(cv, hx - s * 0.08, hy - s * 0.08, hx - s * 0.1, hy - s * 0.2, s * 0.07, 'r')
-    poly(cv, [(hx + s * 0.08, hy - s * 0.04), (hx + s * 0.2, hy - s * 0.3), (hx + s * 0.2, hy - s * 0.02)], 'h')
-    poly(cv, [(hx + s * 0.0, hy - s * 0.08), (hx + s * 0.06, hy - s * 0.18), (hx + s * 0.08, hy - s * 0.06)], 'h')
+    poly(cv, [(hx + s * 0.04, hy - s * 0.04), (hx + s * 0.26, hy - s * 0.34), (hx + s * 0.2, hy - s * 0.0)], 'h')
+    poly(cv, [(hx - s * 0.06, hy - s * 0.08), (hx + s * 0.0, hy - s * 0.2), (hx + s * 0.04, hy - s * 0.06)], 'h')
     cv.put(int(hx - s * 0.02), int(hy - s * 0.02), 'k')
     if big:
         cv.put(int(hx - s * 0.02), int(hy - s * 0.02) + 1, 'k')
         for dx in (-0.12, 0.12):
             seg(cv, bx + dx * w, by - h * 0.1, bx + dx * w - 0.6, by + h * 0.08, 'v', 0.4)
-    ox = bx - w * 0.06
-    oval(cv, ox, by - h * 0.13, s * 0.06 + 0.3, s * 0.05 + 0.3, 'o')
-    poly(cv, [(ox + s * 0.05, by - h * 0.14), (ox + s * 0.12, by - h * 0.13), (ox + s * 0.05, by - h * 0.12)], 'o')
+    if big:
+        ox = bx - w * 0.04
+        oval(cv, ox, by - h * 0.13, s * 0.06 + 0.3, s * 0.05 + 0.3, 'o')
+        poly(cv, [(ox + s * 0.05, by - h * 0.14), (ox + s * 0.12, by - h * 0.13), (ox + s * 0.05, by - h * 0.12)], 'o')
     if r.random() < 0.5:
         flip(cv)
     return cv, [sky(), role('r', 'rhino', 'Rhino', PINK), role('v', 'folds', 'Skin folds', PINK), role('h', 'horn', 'Horns', BROWN),
@@ -679,32 +691,35 @@ def gorilla(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
-    for x, y, a in ((w * 0.02, h * 0.1, 0.4), (w * 0.98, h * 0.16, 2.7), (w * 0.02, h * 0.42, 0.1)) + (((w * 0.98, h * 0.46, 3.0),) if big else ()):
-        lens(cv, x, y, x + math.cos(a) * s * 0.34, y + math.sin(a) * s * 0.2, s * 0.15, 'l')
-    for x, y in ((w * 0.16, h * 0.08), (w * 0.84, h * 0.2)):
-        disc(cv, x, y, 0.9 if not big else 1.1, 'p')
+    for x, y, a in ((w * 0.02, h * 0.36, 0.2), (w * 0.98, h * 0.42, 2.9)) + (((w * 0.02, h * 0.1, 0.5),) if big else ()):
+        lens(cv, x, y, x + math.cos(a) * s * 0.3, y + math.sin(a) * s * 0.18, s * 0.14, 'l')
+    bx, by = w * r.choice((0.14, 0.86)), h * 0.04
+    seg(cv, bx, -1, bx, by + 0.6, 'l', 0.45)
+    for k in range(3):
+        lens(cv, bx - 1.0 + k, by + 0.8, bx - 1.6 + k * 1.4, by + h * 0.16, s * 0.09, 'y')
+    disc(cv, w - bx, h * 0.12, 0.9 if not big else 1.1, 'p')
     gx = int(cx) + 0.5
     for side in (-1, 1):
-        lens(cv, gx + side * w * 0.22, gtop - h * 0.36, gx + side * w * 0.32, gtop - 0.2, s * 0.15, 'k')
-        oval(cv, gx + side * w * 0.14, gtop - 0.7, w * 0.11, 1.3, 'k')
-    oval(cv, gx, gtop - h * 0.22, w * 0.25, h * 0.2, 'k')
-    oval(cv, gx, gtop - h * 0.2, w * 0.12, h * 0.1, 'f')
-    hy = gtop - h * 0.48
-    disc(cv, gx, hy, s * 0.18, 'k')
-    poly(cv, [(gx - s * 0.1, hy - s * 0.12), (gx, hy - s * 0.27), (gx + s * 0.1, hy - s * 0.12)], 'k')
-    oval(cv, gx, hy + s * 0.04, s * 0.13, s * 0.11, 'f')
-    eyes(cv, gx, hy - s * 0.03, 1.0 if not big else 2.0, big, None, 'e')
+        oval(cv, gx + side * w * 0.12, gtop - h * 0.06, w * 0.1, h * 0.07, 'k')
+        path(cv, [(gx + side * w * 0.22, gtop - h * 0.38), (gx + side * w * 0.33, gtop - h * 0.18), (gx + side * w * 0.33, gtop - 0.6)], 'k', s * 0.08 + 0.2)
+        oval(cv, gx + side * w * 0.33, gtop - 0.6, s * 0.08, 0.9, 'k')
+    oval(cv, gx, gtop - h * 0.2, w * 0.23, h * 0.16, 'k')
+    oval(cv, gx, gtop - h * 0.35, w * 0.3, h * 0.09, 'k')
+    oval(cv, gx, gtop - h * 0.22, w * 0.11, h * 0.09, 'f')
+    hy = gtop - h * 0.52
+    oval(cv, gx, hy - s * 0.06, s * 0.13, s * 0.14, 'k')
+    disc(cv, gx, hy, s * 0.17, 'k')
+    oval(cv, gx, hy + s * 0.05, s * 0.13, s * 0.11, 'f')
+    box(cv, gx - s * 0.15, hy - s * 0.04, gx + s * 0.15, hy - s * 0.04 + 0.6, 'k', only='f')
+    eyes(cv, gx, hy - s * 0.02, 1.0 if not big else 2.0, big, None, 'e')
     for side in (-1, 1):
-        cv.put(int(gx + side * 1.0), int(hy + s * 0.07), 'e')
+        cv.put(int(gx + side * 0.6), int(hy + s * 0.09), 'e')
     if big:
-        path(cv, [(gx - s * 0.06, hy + s * 0.11), (gx + s * 0.06, hy + s * 0.11)], 'e', 0.4)
-    yx, yy = gx + w * 0.34, gtop - h * 0.12
-    for k in range(2 if not big else 3):
-        lens(cv, yx - 0.5 + k * 0.8, yy, yx + w * 0.06 + k * 0.8, yy - h * 0.16, s * 0.08, 'y')
+        path(cv, [(gx - s * 0.06, hy + s * 0.13), (gx + s * 0.06, hy + s * 0.13)], 'e', 0.4)
     if r.random() < 0.5:
         flip(cv)
     return cv, [sky(), role('k', 'gorilla', 'Gorilla', PINK), role('f', 'face', 'Face and chest', BROWN), role('e', 'eye', 'Eyes and nostrils', BLUE),
-                role('y', 'banana', 'Bananas', BROWN), role('l', 'leaves', 'Jungle leaves', GREEN), role('p', 'flowers', 'Flowers', PINK),
+                role('y', 'banana', 'Bananas', BROWN), role('l', 'leaves', 'Jungle leaves', GREEN), role('p', 'flowers', 'Flower', PINK),
                 role('g', 'grass', 'Grass', GREEN)], ['animals', 'jungle']
 
 
@@ -712,32 +727,32 @@ def lemur(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
-    tx = w * 0.9
+    tx = w * 0.92
     box(cv, tx - 0.6, h * 0.3, tx + 0.6, gtop, 't')
-    disc(cv, tx - w * 0.04, h * 0.2, s * 0.18, 'l')
-    for x, y in ((tx - w * 0.12, h * 0.24), (tx + w * 0.02, h * 0.12)):
+    disc(cv, tx - w * 0.04, h * 0.18, s * 0.17, 'l')
+    for x, y in ((tx - w * 0.12, h * 0.22), (tx + w * 0.0, h * 0.1)):
         disc(cv, x, y, 0.8 if not big else 1.0, 'o')
     sun(cv, w * 0.12, h * 0.1, s, 'u')
-    lx = int(w * 0.36) + 0.5
-    ringed(cv, [(lx + w * 0.1, gtop - 0.8), (lx + w * 0.3, gtop - h * 0.1), (lx + w * 0.36, h * 0.48), (lx + w * 0.26, h * 0.32),
-                (lx + w * 0.3, h * 0.2)], 0.8 if not big else 1.05, 'p', 'k', 1.3 if not big else 1.6)
-    oval(cv, lx, gtop - h * 0.16, w * 0.14, h * 0.16, 'p')
+    lx = int(w * 0.38) + 0.5
+    ringed(cv, [(lx + w * 0.12, gtop - 0.8), (lx + w * 0.34, gtop - h * 0.08), (lx + w * 0.42, h * 0.5), (lx + w * 0.32, h * 0.34),
+                (lx + w * 0.36, h * 0.2)], 0.8 if not big else 1.05, 'p', 'k', 1.3 if not big else 1.6)
+    oval(cv, lx, gtop - h * 0.16, w * 0.18, h * 0.17, 'p')
+    oval(cv, lx, gtop - h * 0.14, w * 0.09, h * 0.11, 'f')
     for side in (-1, 1):
-        oval(cv, lx + side * w * 0.09, gtop - 0.5, w * 0.08, 0.9, 'p')
-    hy = gtop - h * 0.4
+        oval(cv, lx + side * w * 0.1, gtop - 0.5, w * 0.08, 0.9, 'p')
+    hy = gtop - h * 0.44
     for side in (-1, 1):
-        poly(cv, [(lx + side * s * 0.06, hy - s * 0.12), (lx + side * s * 0.2, hy - s * 0.24), (lx + side * s * 0.18, hy - s * 0.04)], 'p')
-    disc(cv, lx, hy, s * 0.16, 'p')
-    oval(cv, lx, hy + s * 0.03, s * 0.12, s * 0.1, 'f')
-    poly(cv, [(lx - s * 0.06, hy + s * 0.08), (lx + s * 0.06, hy + s * 0.08), (lx, hy + s * 0.18)], 'f')
-    eyes(cv, lx, hy - s * 0.01, 1.0 if not big else 2.0, False, None, 'k')
-    if big:
-        for side in (-1, 1):
-            cv.put(int(lx + side * 2.0), int(hy - s * 0.01), 'e')
-    cv.put(int(lx), int(hy + s * 0.13), 'k')
+        poly(cv, [(lx + side * s * 0.08, hy - s * 0.14), (lx + side * s * 0.24, hy - s * 0.3), (lx + side * s * 0.24, hy - s * 0.06)], 'p')
+    disc(cv, lx, hy, s * 0.21, 'p')
+    oval(cv, lx, hy + s * 0.03, s * 0.18, s * 0.15, 'f')
+    for side in (-1, 1):
+        disc(cv, lx + side * (1.1 if not big else 1.6), hy - s * 0.01, 0.9 if not big else 1.2, 'k')
+        if big:
+            cv.put(int(lx + side * 1.6), int(hy - s * 0.01), 'e')
+    poly(cv, [(lx - s * 0.06, hy + s * 0.07), (lx + s * 0.06, hy + s * 0.07), (lx, hy + s * 0.18)], 'k')
     if r.random() < 0.5:
         flip(cv)
-    return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('p', 'lemur', 'Lemur', PINK), role('f', 'face', 'Face', BLUE),
+    return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('p', 'lemur', 'Lemur', PINK), role('f', 'face', 'Face and belly', BLUE),
                 role('k', 'rings', 'Tail rings, eye patches and nose', BROWN), role('e', 'eye', 'Amber eyes', BROWN),
                 role('t', 'trunk', 'Tree trunk', BROWN), role('l', 'leaves', 'Leaves', GREEN), role('o', 'fruit', 'Fruit', PINK),
                 role('g', 'grass', 'Grass', GREEN)], ['animals', 'jungle']
@@ -763,7 +778,7 @@ MORE_ANIMALS_ROLES = {
     'shark': {'lime': [('fish', 'Yellow fish')]},
     'clownfish': {'lime': [('fish', 'Yellow fish')], 'red': [('coral', 'Red coral')]},
     'pufferfish': {'lime': [('puffer', 'Yellow pufferfish')], 'red': [('coral', 'Red coral')]},
-    'narwhal': {'lime': [('sun', None)]},
+    'narwhal': {'lime': [('fish', 'Yellow fish')]},
     'sloth': {'lime': [('sun', None)], 'red': [('flowers', 'Red flowers')]},
     'rhino': {'lime': [('sun', None)]},
     'gorilla': {'lime': [('banana', None)], 'red': [('flowers', 'Red flowers')]},

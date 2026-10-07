@@ -728,12 +728,13 @@ def one_cucumber(cv, p0, p1, rr, bend):
     seg(cv, ax - (bx - ax) / L * rr * 0.5, ay - (by - ay) / L * rr * 0.5, ax - (bx - ax) / L * (rr * 0.8 + 0.8), ay - (by - ay) / L * (rr * 0.8 + 0.8), 'k', 0.5)
     (ax, ay), (bx, by) = pts[-3], pts[-1]
     L = math.hypot(bx - ax, by - ay) or 1.0
-    star(cv, bx + (bx - ax) / L * rr * 0.8, by + (by - ay) / L * rr * 0.8, rr * 0.55 + 0.45, 'y', ri=rr * 0.25 + 0.2)
+    disc(cv, bx + (bx - ax) / L * rr * 0.8, by + (by - ay) / L * rr * 0.8, rr * 0.45 + 0.4, 'y')
 
 
 def cucumber_slice(cv, x, y, q, big):
-    """A slice of cucumber, face on: rind, pale flesh and, on the big boards, a ring of seeds."""
-    disc(cv, x, y, q, 'a')
+    """A slice of cucumber, face on: its rind (a role of its own, so it can lie against a whole cucumber), pale flesh
+    and, on the big boards, a ring of seeds."""
+    disc(cv, x, y, q, 'c')
     disc(cv, x, y, q - 0.9, 'w')
     if big:
         for k in range(6):
@@ -751,20 +752,17 @@ def cucumber(w, h, r):
     q = s * 0.12 + 0.6
     if mode == 0:  # a cucumber across a board, slices in front
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
-        one_cucumber(cv, (w * 0.24, ty - h * 0.42), (w * 0.72, ty - h * 0.22), rr, -1.0)
+        one_cucumber(cv, (w * 0.3, ty - h * 0.42), (w * 0.72, ty - h * 0.22), rr, -1.0)
         for k in range(2 if not big else 3):
-            x = cx - w * 0.22 + k * (q * 2.0 + 0.6)
-            gap(cv, x, ty - q - 0.9, q + 0.8, 'aeky')
+            x = cx - w * 0.2 + k * q * 1.5
             cucumber_slice(cv, x, ty - q - 0.9, q, big)
     elif mode == 1:  # two cucumbers side by side on a board, a slice in front
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
-        one_cucumber(cv, (w * 0.34, ty - h * 0.48), (w * 0.72, ty - h * 0.36), rr * 0.9, -0.6)
-        p0, p1 = (w * 0.24, ty - h * 0.34), (w * 0.7, ty - h * 0.16)
+        one_cucumber(cv, (w * 0.38, ty - h * 0.48), (w * 0.72, ty - h * 0.36), rr * 0.9, -0.6)
+        p0, p1 = (w * 0.3, ty - h * 0.34), (w * 0.7, ty - h * 0.16)
         tube(cv, curve(p0, p1, -0.6), rr * 1.05 + 0.9, 'b', only='aeky')
         one_cucumber(cv, p0, p1, rr, -0.6)
-        x = cx - w * 0.26
-        gap(cv, x, ty - q - 0.9, q + 0.8, 'aeky')
-        cucumber_slice(cv, x, ty - q - 0.9, q, big)
+        cucumber_slice(cv, cx - w * 0.26, ty - q - 0.9, q, big)
     else:  # a cucumber hanging from its vine under a leaf, a flower open, a slice on a plate below
         vy = h * r.uniform(0.18, 0.22)
         pts = curve((-0.5, vy + h * 0.06), (w * 0.66, vy), -1.2)
@@ -783,7 +781,7 @@ def cucumber(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
-    return cv, [S['b'], role('a', 'cucumber', 'Cucumbers and rind', GREEN), role('e', 'bumps', 'Bumps', GREEN), role('l', 'leaf', 'Leaves', GREEN),
+    return cv, [S['b'], role('a', 'cucumber', 'Cucumbers', GREEN), role('c', 'rind', 'Slice rind', GREEN), role('e', 'bumps', 'Bumps', GREEN), role('l', 'leaf', 'Leaves', GREEN),
                 role('x', 'seeds', 'Seeds', GREEN), role('w', 'flesh', 'Flesh', BLUE), role('p', 'board', 'Board and plate', BROWN),
                 role('k', 'stalk', 'Stalks', BROWN), role('y', 'flower', 'Flowers', BROWN), role('n', 'vine', 'Vine and tendril', GREEN),
                 S['t'], S['v'], S['d'], S['o']], ['food', 'vegetables']

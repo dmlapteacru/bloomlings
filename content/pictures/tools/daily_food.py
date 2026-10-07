@@ -278,7 +278,7 @@ def peach(w, h, r):
 
         def half(hx, hy, hr, stone):
             disc(cv, hx, hy, hr + 0.8, 'b')
-            disc(cv, hx, hy, hr, 'q')
+            disc(cv, hx, hy, hr, 'a')
             disc(cv, hx, hy, hr - 1.0, 'n')
             if stone:
                 oval(cv, hx, hy, hr * 0.36, hr * 0.5, 'q')
@@ -643,7 +643,7 @@ def one_eggplant(cv, top, bottom, rr, bend, body, cap, stem, shine=None):
 
 def eggplant(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind = r.randrange(3), r.randrange(3)
+    kind, mode = r.randrange(3), r.randrange(3)
     ty = h * r.uniform(0.83, 0.87)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one big eggplant across a board
@@ -804,13 +804,8 @@ def cookie(w, h, r):
             for dx in (-0.5, 0.0, 0.45):
                 cv.put(int(px + dx * rx + k % 2), int(y + 0.8), 'k')
         cookie_top(cv, r, px, ty - 1.6 - n * 2.6 - rx * 0.4, rx * 0.72, 'c', 'k', 'b' if bite else None, style)
-    elif mode == 1:  # one big cookie, a smaller one behind it one time in two
-        if r.random() < 0.5:
-            cookie_top(cv, r, px + rx * 0.45, ty - rx * 1.45, rx * 0.5, 'c', 'k', None, (style + 1) % 3)
-            disc(cv, px - rx * 0.12, ty - rx * 0.82, rx * 0.82 + 0.8, 'b')
-            cookie_top(cv, r, px - rx * 0.12, ty - rx * 0.82, rx * 0.82, 'c', 'k', 'b' if bite else None, style)
-        else:
-            cookie_top(cv, r, px, ty - rx * 0.95, rx * 0.95, 'c', 'k', 'b' if bite else None, style)
+    elif mode == 1:  # one big cookie
+        cookie_top(cv, r, px, ty - rx * 0.95, rx * 0.95, 'c', 'k', 'b' if bite else None, style)
         scatter(cv, 'c', 'p', 3, r, sep=3)
     else:  # three cookies, one leaning on the others
         q = rx * 0.5
@@ -893,7 +888,7 @@ def slice_of_pizza(cv, r, tip, R, ang, half, crust, cheese, pepperoni, basil=Non
 
 def pizza(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, basil = r.randrange(3), r.randrange(3), r.random() < 0.6
+    kind, mode, basil = r.randrange(3), r.randrange(3), r.random() < 0.6
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one slice, its tip on a plate
@@ -1581,7 +1576,7 @@ def soup_bowl(w, h, r):
     kind = r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
-    spoon, mode = r.random() < 0.6, r.randrange(3)
+    mode, spoon = r.randrange(4), r.random() < 0.6
     if mode == 2:  # a pot with two handles and a ladle
         x, rim, rx = cx, ty - h * 0.36, w * 0.34
         for side in (-1, 1):
@@ -1589,6 +1584,13 @@ def soup_bowl(w, h, r):
         rbox(cv, x - rx, rim, x + rx, ty - 0.4, 1.4, 'w')
         box(cv, x - rx, rim + 4.4, x + rx, rim + 5.4, 'e')
         tube(cv, [(x + 2.0, rim), (x + rx * 0.9, rim - h * 0.2)], 0.6, 'k')
+    elif mode == 3:  # a mug of soup with a handle
+        x, rim, rx = cx - w * 0.06, ty - h * 0.32, w * 0.3
+        ring(cv, x + rx + 0.6, rim + h * 0.14, 3.0, 1.5, 'w')
+        rbox(cv, x - rx, rim, x + rx, ty - 0.4, 1.6, 'w')
+        box(cv, x - rx, rim + 3.6, x + rx, rim + 4.6, 'e')
+        if spoon:
+            tube(cv, [(x - 1.5, rim - 0.3), (x - rx * 0.8, rim - h * 0.18)], 0.6, 'k')
     else:  # a bowl, on a plate with a roll of bread beside it when mode is 1
         x, rx = (cx, w * 0.42) if mode == 0 else (cx - w * 0.1, w * 0.34)
         rim = ty - h * 0.24
@@ -1667,14 +1669,13 @@ def fried_egg(w, h, r):
             x = cx + w * (0.26 + k * 0.08)
             rbox(cv, x - 1.0, ty - h * 0.3 + k * 0.8, x + 1.0, ty - 1.2, 0.5, 'n')
             box(cv, x - 0.4, ty - h * 0.3 + k * 0.8 + 1.0, x + 0.4, ty - 2.0, 'u')
-    elif mode == 4:  # two eggs in a pan
-        x, y = cx - w * 0.04, ty - h * 0.16
-        tube(cv, [(x - w * 0.36, y + 1.0), (-1, y - h * 0.1)], 1.0, 'g')
-        oval(cv, x, y, w * 0.42, h * 0.15, 'k')
-        oval(cv, x, y + 1.6, w * 0.4, h * 0.12, 'k')
-        oval(cv, x, y - 0.4, w * 0.36, h * 0.12, 'q')
-        egg(cv, r, x - w * 0.15, y - 0.6, w * 0.2)
-        egg(cv, r, x + w * 0.16, y - 0.2, w * 0.2)
+    elif mode == 4:  # on a bowl of rice
+        rim = ty - h * 0.24
+        bowl(cv, cx, rim, ty - 0.4, w * 0.42, 'k', 'q')
+        for xx, yy, px, py in cells(cv):
+            if py <= rim + 0.5 and ((px - cx) / (w * 0.4)) ** 2 + ((py - rim - 0.5) / 3.6) ** 2 <= 1.0:
+                cv.g[yy][xx] = 'u'
+        egg(cv, r, cx + 0.5, rim - 2.2, w * 0.26)
     else:  # on a slice of toast
         oval(cv, cx, ty - 0.6, w * 0.46, 2.2, 'p')
         for c, d in (('n', 0.0), ('u', 1.2)):
@@ -1687,9 +1688,10 @@ def fried_egg(w, h, r):
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
     return cv, [S['b'], S['t'], role('n', 'crust', 'Crust and bacon stripes', BROWN), role('g', 'handle', 'Handle', BROWN),
-                role('y', 'yolk', 'Yolk', BROWN), role('u', 'toast', 'Toast', BROWN), S['d'],
+                role('y', 'yolk', 'Yolk', BROWN), role('u', 'toast', 'Toast and rice', BROWN), S['d'],
                 role('w', 'white', 'Egg white', PINK), role('a', 'bacon', 'Bacon', PINK),
-                role('k', 'pan', 'Pan', GREEN), role('q', 'pan_inside', 'Inside of the pan', BLUE),
+                role('k', 'pan', 'Pan and bowl', GREEN),
+                role('q', 'pan_inside', 'Inside of the pan and bowl band', BLUE),
                 role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'dishes']
 
 

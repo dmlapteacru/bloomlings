@@ -160,25 +160,25 @@ def race_car(w, h, r):
         cv.put(vw, y, c)
         cv.put(w - vw - 1, y, c)
     if big:
-        sy = r.choice((0, h - 2))
-        for x in range(vw + 1, w - vw - 1):
-            for y in (sy, sy + 1):
+        for x in range(vw + 2, w - vw - 2):
+            for y in (h - 3, h - 2):
                 if (x + y) % 2 == 0:
                     cv.put(x, y, 'n')
-    gx = int(cx) + (0.5 if w % 2 else 0.0) + r.choice((-0.5, 0.0, 0.5)) * (1 if w % 2 else 0)
-    y0, y1 = h * 0.07, h * 0.9
+    gx = int(cx) + (0.5 if w % 2 else 0.0)
+    y0 = h * r.uniform(0.04, 0.08)
+    y1 = y0 + h * (0.84 if not big else 0.8)
     L = y1 - y0
-    tw, th = (2.0, 0.17) if not big else (3.0, 0.16)
-    dx = w * 0.16
+    tw, th = (2.0, 0.17) if not big else (2.4, 0.16)
+    dx = min(w * 0.16, w / 2 - vw - 2.0 - tw)
     for yy, hh in ((0.16, th), (0.66, th * 1.15)):
         for side in (-1, 1):
             xa = gx + side * dx
             rbox(cv, min(xa, xa + side * tw), y0 + L * yy, max(xa, xa + side * tw), y0 + L * (yy + hh), 0.4, 't')
     for yy in (0.24, 0.74):
         box(cv, gx - dx, y0 + L * yy - 0.45, gx + dx, y0 + L * yy + 0.45, 'b')
-    poly(cv, [(gx - 0.6, y0 + L * 0.06), (gx + 0.6, y0 + L * 0.06), (gx + w * 0.08, y0 + L * 0.36), (gx + w * 0.15, y0 + L * 0.46),
-              (gx + w * 0.15, y0 + L * 0.82), (gx + w * 0.09, y0 + L * 0.94), (gx - w * 0.09, y0 + L * 0.94),
-              (gx - w * 0.15, y0 + L * 0.82), (gx - w * 0.15, y0 + L * 0.46), (gx - w * 0.08, y0 + L * 0.36)], 'b')
+    poly(cv, [(gx - 0.6, y0 + L * 0.06), (gx + 0.6, y0 + L * 0.06), (gx + dx * 0.5, y0 + L * 0.36), (gx + dx * 0.95, y0 + L * 0.46),
+              (gx + dx * 0.95, y0 + L * 0.82), (gx + dx * 0.6, y0 + L * 0.94), (gx - dx * 0.6, y0 + L * 0.94),
+              (gx - dx * 0.95, y0 + L * 0.82), (gx - dx * 0.95, y0 + L * 0.46), (gx - dx * 0.5, y0 + L * 0.36)], 'b')
     box(cv, gx - dx - tw * 0.6, y0, gx + dx + tw * 0.6, y0 + (0.9 if not big else 1.8), 'w')
     box(cv, gx - dx - tw * 0.4, y1 - (0.9 if not big else 1.8), gx + dx + tw * 0.4, y1, 'w')
     disc(cv, gx, y0 + L * 0.52, 1.25 if not big else 1.8, 'e')
@@ -290,7 +290,7 @@ def cement_mixer(w, h, r):
     rx, ry = w * 0.3, h * 0.15
     a = math.radians(14)
     ca, sa = math.cos(a), math.sin(a)
-    bands = 1.5 if not big else 2.2
+    bands = 1.0 if not big else 1.4
 
     def drum(px, py):
         return ((px - dcx) * ca + (py - dcy) * sa) / rx, (-(px - dcx) * sa + (py - dcy) * ca) / ry
@@ -298,8 +298,9 @@ def cement_mixer(w, h, r):
     box(cv, w * 0.12, dcy, w * 0.2, ch, 'b')
     for x, y, px, py in cells(cv):
         u, v = drum(px, py)
+        v /= 1.0 - 0.3 * max(0.0, -u)
         if abs(u) ** 2.6 + v * v <= 1.0:
-            cv.g[y][x] = 'z' if ((u - 0.55 * v) * bands) % 1.0 < 0.38 else 'r'
+            cv.g[y][x] = 'z' if ((u - 0.35 * v) * bands + 0.25) % 1.0 < 0.42 else 'r'
     ox, oy = dcx - rx * ca, dcy - rx * sa
     poly(cv, [(ox - 0.2, oy - ry * 0.7), (ox + 1.2, oy - ry * 0.5), (ox + 1.2, oy + ry * 0.5), (ox - 0.2, oy + ry * 0.7)], 'b')
     bar(cv, ox + 0.4, oy + ry * 0.6, ox - 0.4, oy + ry * 0.6 + h * 0.12, 1.0, 'b')
@@ -321,18 +322,20 @@ def canoe(w, h, r):
     for k in range(3 if not big else 5):
         x = (k + r.uniform(0.2, 0.8)) * w / (3 if not big else 5)
         poly(cv, [(x - 1.5, shore - 0.4), (x, shore - h * r.uniform(0.12, 0.18)), (x + 1.5, shore - 0.4)], 'f')
-    yt = h * 0.68
-    x0, x1 = w * 0.08, w * 0.92
-    yb = yt + h * 0.1 + 0.6
-    poly(cv, [(x0, yt - 1.8), (x0 + w * 0.1, yt), (x1 - w * 0.1, yt), (x1, yt - 1.8), (x1 - w * 0.05, yt + 1.0),
-              (x1 - w * 0.2, yb), (x0 + w * 0.2, yb), (x0 + w * 0.05, yt + 1.0)], 'c')
-    box(cv, 0, yt, w, yt + 0.9, 'k', only='c')
-    jx = int(w * 0.42) + 0.5
-    rbox(cv, jx - 1.6, yt - h * 0.15, jx + 1.6, yt + 0.4, 0.8, 'j')
-    disc(cv, jx, yt - h * 0.15 - 1.2, 1.25 if not big else 1.6, 'e')
-    px0, py0, px1, py1 = jx - w * 0.22, yt - h * 0.24, jx + w * 0.2, yt + h * 0.13
+    yt = h * 0.64
+    hl, depth = w * 0.42, h * 0.13 + 0.6
+    jx = int(cx - w * 0.06) + 0.5
+    rbox(cv, jx - 1.6, yt - h * 0.16, jx + 1.6, yt + 1.0, 0.8, 'j')
+    disc(cv, jx, yt - h * 0.16 - 1.2, 1.25 if not big else 1.6, 'e')
+
+    def hull(px, py):
+        t = (px - cx) / hl
+        return abs(t) <= 1.0 and yt - 2.2 * t ** 4 <= py <= yt + depth * (1.0 - t * t) ** 0.6
+    fill(cv, 'c', hull)
+    fill(cv, 'k', lambda px, py: abs(px - cx) < hl * 0.8 and yt - 2.2 * ((px - cx) / hl) ** 4 <= py < yt - 2.2 * ((px - cx) / hl) ** 4 + 1.0, only='c')
+    px0, py0, px1, py1 = jx - w * 0.22, yt - h * 0.26, jx + w * 0.22, yt + h * 0.16
     bar(cv, px0, py0, px1, py1, 0.8 if not big else 1.1, 'p')
-    lens(cv, px1 - (px1 - px0) * 0.12, py1 - (py1 - py0) * 0.12, px1 + (px1 - px0) * 0.12, py1 + (py1 - py0) * 0.12, 2.0 if not big else 2.8, 'p')
+    lens(cv, px1 - (px1 - px0) * 0.14, py1 - (py1 - py0) * 0.14, px1 + (px1 - px0) * 0.1, py1 + (py1 - py0) * 0.1, 2.0 if not big else 2.8, 'p')
     for x in (w * 0.12, w * 0.86) if not big else (w * 0.1, w * 0.3, w * 0.86):
         oval(cv, x, h - 1.6, s * 0.1, 0.9 if not big else 1.3, 'r')
     if big:
