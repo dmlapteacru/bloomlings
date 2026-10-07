@@ -171,7 +171,7 @@ if (sameSlot > 0 || together < working) { failures++; Console.WriteLine("FAIL tw
 // The owner's L1 (2026-10-04): all three pods tapped at once. A Bloomling sets off as soon as its own route is clear, so
 // the leaf pod's first Bloomlings walk while the first water pod's still play, not after it finishes.
 {
-    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "playtest/content/levels/level-0001.json")));
+    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/catalog/levels/level-00001.json")));
     LevelSession session = LevelSession.Load(l1, pictures[l1.Picture.Id], new SessionOptions(1, 20000));
     var animator = new LevelAnimator();
     animator.Reset(session.View);
@@ -205,7 +205,7 @@ if (sameSlot > 0 || together < working) { failures++; Console.WriteLine("FAIL tw
 // slots, not the rules', decide: right after L1's first water pod is tapped the rules have all five slots free again (its
 // 44 tiles settle at once), while the screen shows it working in one of them until its Bloomlings are done.
 {
-    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "playtest/content/levels/level-0001.json")));
+    LevelDefinition l1 = DefinitionJson.Read(File.ReadAllText(Path.Combine(Root, "content/catalog/levels/level-00001.json")));
     LevelSession session = LevelSession.Load(l1, pictures[l1.Picture.Id], new SessionOptions(1, 20000));
     var animator = new LevelAnimator();
     animator.Reset(session.View);

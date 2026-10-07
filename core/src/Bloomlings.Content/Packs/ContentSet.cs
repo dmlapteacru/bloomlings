@@ -7,7 +7,8 @@ namespace Bloomlings.Content.Packs
     /// <summary>
     /// The loaded levels and pictures of one content version, with lookups by level number and by picture
     /// <c>(id, version)</c>. Every level's picture must be present, so a missing picture fails at load time rather
-    /// than when the level starts.
+    /// than when the level starts. A set made with a level reader knows its level numbers up front and reads each level
+    /// when it is first asked for (the playtest APK, which embeds all 5000), checking its picture then.
     /// </summary>
     public sealed class ContentSet
     {
@@ -15,6 +16,8 @@ namespace Bloomlings.Content.Packs
         private readonly Dictionary<string, BasePicture> _pictures = new Dictionary<string, BasePicture>(StringComparer.Ordinal);
         private readonly int[] _levelNumbers;
         private readonly DailyPoolEntry[] _daily;
+        private readonly Func<int, LevelDefinition>? _readLevel;
+        private readonly object _gate = new object();
 
         /// <param name="contentVersion">The manifest's content version; 0 for loose development content.</param>
         /// <param name="shuffleNodeBudget">Fixed per content version (research R10).</param>
@@ -47,20 +50,54 @@ namespace Bloomlings.Content.Packs
                     throw new ContentIntegrityException("levels", $"duplicate level {level.LevelNumber}");
                 }
 
-                if (!_pictures.ContainsKey(PictureKey(level.Picture.Id, level.Picture.Version)))
-                {
-                    throw new ContentIntegrityException(
-                        "levels",
-                        $"level {level.LevelNumber} uses missing picture {level.Picture.Id} v{level.Picture.Version}");
-                }
-
+                CheckPicture(level);
                 _levels.Add(level.LevelNumber, level);
             }
 
             _levelNumbers = new int[_levels.Count];
             _levels.Keys.CopyTo(_levelNumbers, 0);
             Array.Sort(_levelNumbers);
+            _daily = CheckDaily(daily);
+        }
 
+        /// <summary>A content set whose levels are read on first use, by number, with <paramref name="readLevel"/>.</summary>
+        /// <param name="levelNumbers">Every level number the set has.</param>
+        /// <param name="readLevel">Reads one of those levels; called at most once per level.</param>
+        public ContentSet(
+            int contentVersion,
+            int shuffleNodeBudget,
+            IEnumerable<int> levelNumbers,
+            Func<int, LevelDefinition> readLevel,
+            IEnumerable<BasePicture> pictures,
+            IEnumerable<DailyPoolEntry>? daily = null)
+            : this(contentVersion, shuffleNodeBudget, Array.Empty<LevelDefinition>(), pictures, daily)
+        {
+            var numbers = new List<int>(levelNumbers);
+            numbers.Sort();
+            for (int i = 1; i < numbers.Count; i++)
+            {
+                if (numbers[i] == numbers[i - 1])
+                {
+                    throw new ContentIntegrityException("levels", $"duplicate level {numbers[i]}");
+                }
+            }
+
+            _levelNumbers = numbers.ToArray();
+            _readLevel = readLevel;
+        }
+
+        private void CheckPicture(LevelDefinition level)
+        {
+            if (!_pictures.ContainsKey(PictureKey(level.Picture.Id, level.Picture.Version)))
+            {
+                throw new ContentIntegrityException(
+                    "levels",
+                    $"level {level.LevelNumber} uses missing picture {level.Picture.Id} v{level.Picture.Version}");
+            }
+        }
+
+        private DailyPoolEntry[] CheckDaily(IEnumerable<DailyPoolEntry>? daily)
+        {
             var pool = new List<DailyPoolEntry>(daily ?? Array.Empty<DailyPoolEntry>());
             pool.Sort((a, b) => a.Index.CompareTo(b.Index));
             for (int i = 0; i < pool.Count; i++)
@@ -78,7 +115,7 @@ namespace Bloomlings.Content.Packs
                 }
             }
 
-            _daily = pool.ToArray();
+            return pool.ToArray();
         }
 
         public int ContentVersion { get; }
@@ -101,10 +138,40 @@ namespace Bloomlings.Content.Packs
         /// <summary>The highest level number, or 0 when the set is empty.</summary>
         public int MaxLevel => _levelNumbers.Length == 0 ? 0 : _levelNumbers[_levelNumbers.Length - 1];
 
-        public bool TryGetLevel(int levelNumber, out LevelDefinition level) => _levels.TryGetValue(levelNumber, out level!);
+        public bool TryGetLevel(int levelNumber, out LevelDefinition level)
+        {
+            if (_readLevel == null)
+            {
+                return _levels.TryGetValue(levelNumber, out level!);
+            }
+
+            lock (_gate)
+            {
+                if (_levels.TryGetValue(levelNumber, out level!))
+                {
+                    return true;
+                }
+
+                if (Array.BinarySearch(_levelNumbers, levelNumber) < 0)
+                {
+                    return false;
+                }
+
+                LevelDefinition read = _readLevel(levelNumber);
+                if (read.LevelNumber != levelNumber)
+                {
+                    throw new ContentIntegrityException("levels", $"level {levelNumber} reads as level {read.LevelNumber}");
+                }
+
+                CheckPicture(read);
+                _levels.Add(levelNumber, read);
+                level = read;
+                return true;
+            }
+        }
 
         public LevelDefinition GetLevel(int levelNumber) =>
-            _levels.TryGetValue(levelNumber, out LevelDefinition? level)
+            TryGetLevel(levelNumber, out LevelDefinition level)
                 ? level
                 : throw new KeyNotFoundException($"Level {levelNumber} is not in content version {ContentVersion}.");
 

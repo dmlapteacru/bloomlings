@@ -76,7 +76,7 @@
     -->
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Heroes/Resources/HeroMotion/*.png" LogicalName="heromotion/%(Filename)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
-    <EmbeddedResource Include="../content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../content/catalog/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

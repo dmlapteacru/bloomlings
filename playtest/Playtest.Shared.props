@@ -51,8 +51,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- Levels 1–94 for playtests (playtest/content/levels) and the picture library they use. -->
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)content/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
+    <!-- The whole level catalog, L1–5000 (content/catalog/levels, read on first use), and the picture library. -->
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)../content/catalog/levels/*.json" LogicalName="levels/%(Filename)%(Extension)" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)../content/pictures/lib/*.json" LogicalName="pictures/%(Filename)%(Extension)" />
   </ItemGroup>
   <ItemGroup>

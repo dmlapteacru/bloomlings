@@ -19,13 +19,14 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 
 ## What the full playtest has
 
-- Levels 1–100 in `playtest/content/levels/`, copied from the level catalog `content/catalog/` (refreshed 2026-10-07;
-  `tools/catalog/build-catalog.sh`, spec 001 T153): the curated Levels 1–10 on 11×12–12×12 boards, the mechanic
-  showcases and their practice levels (`content/showcase/`), and the generated levels on 224–288-cell boards from L11,
-  all with approved pictures and validated (Vine joins at L45). To refresh them, copy `content/catalog/levels/` L11–100
-  over the files of the same names; Levels 1–10 keep their `level-000N.json` names.
+- All 5000 levels of the level catalog, embedded straight from `content/catalog/levels/` (the owner's build of
+  2026-10-07 with `tools/catalog`, spec 001 T188): the curated Levels 1–10 on 11×12–12×12 boards, the mechanic
+  showcases and their practice levels (`content/showcase/`), and from L11 the generated levels on every board size from
+  14×16 to 22×28 (FR-008 as amended on 2026-10-07), all with approved pictures and validated. `PlaytestContent` reads a
+  level only when a screen first asks for it, so the start stays as quick as with 100 levels. A new catalog build comes
+  in with the next APK, with nothing to copy.
 
-  Past L100 the levels repeat. A level whose data stores the icons look (a big level, over 288 cells) draws no
+  Past L5000 the levels repeat. A level whose data stores the icons look (a big board, over 288 cells) draws no
   next-layer chip in either APK (FR-036 as amended).
   A pod tap goes in only when a slot shows no pod on screen (spec 001 FR-014 as amended on 2026-10-05).
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
@@ -163,5 +164,4 @@ predefined tick from Android 10, a soft pulse where the phone has amplitude cont
   `dotnet publish playtest/android -c Release -f net10.0-android` or the same for `playtest/tester`.
 - `dotnet run --project playtest/check` checks the animator and the meta layer without Android.
 
-To refresh the preview levels after regenerating them, copy the batch files into `playtest/content/levels/`. Keep
-exactly one file per level number, and keep Levels 1–10 from `content/curated/`.
+The APKs and the preview take their levels from `content/catalog/levels/`, so a catalog build reaches them with no copy.

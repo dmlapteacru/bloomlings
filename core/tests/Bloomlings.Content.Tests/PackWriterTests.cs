@@ -84,6 +84,34 @@ namespace Bloomlings.Content.Tests
         }
 
         [Test]
+        public void ALazySet_ReadsEachLevelOnFirstUse_AndChecksItThen()
+        {
+            var reads = new List<int>();
+            LevelDefinition Read(int n)
+            {
+                reads.Add(n);
+                return n == 7 ? Level(8) : n == 9 ? Level(9) with { Picture = Level(9).Picture with { Id = "missing" } } : Level(n);
+            }
+
+            var set = new ContentSet(1, 20000, new[] { 3, 1, 2, 7, 9 }, Read, new[] { Picture });
+            Assert.That(set.LevelNumbers, Is.EqualTo(new[] { 1, 2, 3, 7, 9 }));
+            Assert.That(set.LevelCount, Is.EqualTo(5));
+            Assert.That(set.MaxLevel, Is.EqualTo(9));
+            Assert.That(reads, Is.Empty, "nothing is read up front");
+
+            Assert.That(set.GetLevel(2).LevelNumber, Is.EqualTo(2));
+            Assert.That(set.TryGetLevel(2, out LevelDefinition again), Is.True);
+            Assert.That(again.LevelNumber, Is.EqualTo(2));
+            Assert.That(reads, Is.EqualTo(new[] { 2 }), "a level is read once");
+
+            Assert.That(set.TryGetLevel(4, out _), Is.False, "a number the set does not have");
+            Assert.Throws<KeyNotFoundException>(() => set.GetLevel(4));
+            Assert.Throws<ContentIntegrityException>(() => set.GetLevel(7), "a file that holds another level");
+            Assert.Throws<ContentIntegrityException>(() => set.GetLevel(9), "a missing picture fails when the level is read");
+            Assert.Throws<ContentIntegrityException>(() => new ContentSet(1, 20000, new[] { 1, 1 }, Read, new[] { Picture }));
+        }
+
+        [Test]
         public void GapsInTheDailyPool_AreRejected()
         {
             Assert.Throws<ContentIntegrityException>(() => new ContentSet(1, 20000, new[] { Level(1) }, new[] { Picture }, new[] { new DailyPoolEntry(1, Level(2)) }));
