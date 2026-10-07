@@ -1653,7 +1653,11 @@ final validation.
   `GenerateCommand.GenerateRange` ends with a pass over the whole range in level order that generates the later level of
   such a pair again (or the earlier one when the later is kept). Bands that passed `validate` come out the same: each
   attempt has its own seed, so the new refusal only changes a level that broke the rule. Test:
-  `CatalogRulesTests.APictureUsedAgainFarAway_MustDifferInLookAndSource_AtTheLaterLevel`.
+  `CatalogRulesTests.APictureUsedAgainFarAway_MustDifferInLookAndSource_AtTheLaterLevel`. *(2026-10-07, the owner's run
+  of band 2001-5000: L3063 repeated L2741's alarm_clock_09.)* A candidate is now judged against later uses of its
+  picture too (`LevelGenerator.ReusesLook`, `ReusesSource`). A gap filled after its band, or a seam repair, sees the
+  later levels, and a repeat of one of them broke the rule there. Test:
+  `CatalogRulesTests.ALevelGeneratedBeforeAKnownLaterLevel_MustNotRepeatItsLookOrSourceEither`.
 - [ ] T185 The Daily Challenge pool (R19, FR-064 as amended on 2026-10-07; the owner: "a pool for 365 days", "it must
   definitely be a new picture", "the board must be big with small cells … always maximal", "they can be medium, hard,
   super hard"): `content/daily/`, 365 entries from `daily generate --seed 1 --count 365 --segments 7 --jobs 4`, with
@@ -1672,6 +1676,15 @@ final validation.
     twice (`picture-once`) or a subject within 60 entries (`subject-window`).
   - Tests: `DailyPoolTests`.
   - `publish --daily content/daily` packs it.
+- [ ] T186 A second set of subjects for the levels. The owner, 2026-10-07: "we need more subjects for the 5000 levels,
+  spread over all of them; I can regenerate the 5000".
+  - 100 subjects that neither the levels nor the Daily Challenge drew, in `more_animals.py`, `more_nature.py`,
+    `more_things.py` and `more_food.py` (`more_subjects.py`).
+  - Each subject gets four regular pictures and one big one, with `--expansions` its lime and red pictures too.
+    `sketch_pictures.py` draws them after every earlier band, with a random stream of their own, so the 1034 earlier
+    sketches stay byte-identical.
+  - `--more --module more_<group>` checks a module at every regular and big size and writes its review sheets.
+  - Then `pictures import`, and the owner regenerates the catalog L11–5000 with `tools/catalog`.
 
 ## Parallel Example: User Story 1
 

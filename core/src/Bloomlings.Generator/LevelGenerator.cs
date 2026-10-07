@@ -318,7 +318,7 @@ namespace Bloomlings.Generator
             string layout = _profile.EntryLayouts[rng.NextInt(_profile.EntryLayouts.Count)];
             Mirror mirror = rng.NextInt(2) == 0 ? Mirror.None : Mirror.Horizontal;
 
-            // FR-083: a picture used again beyond the window differs from each earlier use in its look (mapping or mirror).
+            // FR-083: a picture used again beyond the window differs from each other use in its look (mapping or mirror).
             if (ReusesLook(level, picture.Id, mirror, mapping, history))
             {
                 reason = "similarity:reuse-same-look";
@@ -847,12 +847,17 @@ namespace Bloomlings.Generator
             return true;
         }
 
-        // FR-083: an earlier use of the picture beyond the window with the same mirroring and mapping.
-        private static bool ReusesLook(int level, string pictureId, Mirror mirror, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history)
+        /// <summary>
+        /// FR-083: another use of the picture beyond the window with the same mirroring and mapping, earlier or later. A
+        /// level generated between known levels (a seam repair, or a gap filled after its band) must not repeat a later
+        /// level's look either, or that later level would break the rule (the owner's catalog run of 2026-10-07: L3063
+        /// repeated L2741's alarm_clock_09).
+        /// </summary>
+        public static bool ReusesLook(int level, string pictureId, Mirror mirror, IReadOnlyDictionary<string, VariantId> mapping, IReadOnlyDictionary<int, LevelDefinition> history)
         {
             foreach (KeyValuePair<int, LevelDefinition> entry in history)
             {
-                if (entry.Key < level && level - entry.Key >= PicturePicker.RepeatWindow
+                if (entry.Key != level && Math.Abs(level - entry.Key) >= PicturePicker.RepeatWindow
                     && string.Equals(entry.Value.Picture.Id, pictureId, StringComparison.Ordinal)
                     && entry.Value.Picture.Mirror == mirror && SameMapping(entry.Value.Mapping, mapping))
                 {
@@ -863,13 +868,13 @@ namespace Bloomlings.Generator
             return false;
         }
 
-        // FR-083: an earlier use of the picture beyond the window with the same Source design.
-        private static bool ReusesSource(int level, string pictureId, LevelDefinition definition, IReadOnlyDictionary<int, LevelDefinition> history)
+        /// <summary>FR-083: another use of the picture beyond the window with the same Source design, earlier or later (as <see cref="ReusesLook"/>).</summary>
+        public static bool ReusesSource(int level, string pictureId, LevelDefinition definition, IReadOnlyDictionary<int, LevelDefinition> history)
         {
             string signature = SourceSignature(definition);
             foreach (KeyValuePair<int, LevelDefinition> entry in history)
             {
-                if (entry.Key < level && level - entry.Key >= PicturePicker.RepeatWindow
+                if (entry.Key != level && Math.Abs(level - entry.Key) >= PicturePicker.RepeatWindow
                     && string.Equals(entry.Value.Picture.Id, pictureId, StringComparison.Ordinal)
                     && string.Equals(SourceSignature(entry.Value), signature, StringComparison.Ordinal))
                 {

@@ -27,6 +27,11 @@ moves the roles of the subject that read yellow or dark red into those groups, a
 targets at its size tries the band's next sizes. Until the automated picture checks accept a role whose color group
 only has an expansion variant, `pictures import` leaves these pictures drafts, so the default run leaves them out.
 `--out <folder>` writes the sketches elsewhere than content/pictures/src.
+
+Since 2026-10-07 a second set of subjects follows for the levels (more_subjects.py: the owner's "more subjects for the
+5000 levels"), four regular pictures and one big one of each, after every band above with a random stream of its own;
+`--no-more` leaves it out, and `--more --module more_<group>` checks one module at every size and writes review sheets.
+`--daily` writes the Daily Challenge's own pictures (daily_subjects.py, three of each subject at 22 x 28, theme `daily`).
 """
 import json
 import math
@@ -577,59 +582,171 @@ def sketch(subject, w, h, seed, style, where):
     return cv, roles, themes, issues, six, held
 
 
-def main(seed=2026, with_expansions=False, root=ROOT):
-    rng = random.Random(seed)
+def main(seed=2026, with_expansions=False, root=ROOT, more=True):
     os.makedirs(root, exist_ok=True)
     counter = {}
     written = 0
     problems = []
-    for band, count, sizes, subjects, *style in BANDS + (EXPANSION_BANDS if with_expansions else []):
-        style = style[0] if style else None
-        six = 0
-        carried = {}
-        for i in range(count):
-            subject = subjects[(written + i * 7) % len(subjects)]
-            seed_i = rng.randrange(1 << 30)
-            # The expansion bands try the band's next sizes when a drawing misses its targets at this one.
-            tries = len(sizes) if style and style.get('recolor') else 1
-            for k in range(tries):
-                w, h = sizes[(i + k) % len(sizes)]
-                cv, roles, themes, issues, ok_six, held = sketch(subject, w, h, seed_i, style, f'{band} #{i} {subject.__name__} {w}x{h}')
-                if not issues:
-                    break
-            problems += issues
-            six += ok_six
-            for group in held:
-                carried[group] = carried.get(group, 0) + 1
-            name = subject.__name__
-            counter[name] = counter.get(name, 0) + 1
-            pid = f'{name}_{counter[name]:02d}'
-            meta_path = os.path.join(root, pid + '.meta.json')
-            if os.path.exists(meta_path) and '"approved"' in open(meta_path).read():
+
+    def draw(bands, rng):
+        nonlocal written
+        for band, count, sizes, subjects, *style in bands:
+            style = style[0] if style else None
+            six = 0
+            carried = {}
+            for i in range(count):
+                subject = subjects[(written + i * 7) % len(subjects)]
+                seed_i = rng.randrange(1 << 30)
+                # The expansion bands try the band's next sizes when a drawing misses its targets at this one.
+                tries = len(sizes) if style and style.get('recolor') else 1
+                for k in range(tries):
+                    w, h = sizes[(i + k) % len(sizes)]
+                    cv, roles, themes, issues, ok_six, held = sketch(subject, w, h, seed_i, style, f'{band} #{i} {subject.__name__} {w}x{h}')
+                    if not issues:
+                        break
+                problems.extend(issues)
+                six += ok_six
+                for group in held:
+                    carried[group] = carried.get(group, 0) + 1
+                name = subject.__name__
+                counter[name] = counter.get(name, 0) + 1
+                pid = f'{name}_{counter[name]:02d}'
+                meta_path = os.path.join(root, pid + '.meta.json')
+                if os.path.exists(meta_path) and '"approved"' in open(meta_path).read():
+                    continue
+                meta = {
+                    'id': pid, 'version': style['version'] if style else VERSION,
+                    'subject': name.replace('_', ' ').capitalize() + ' ' + str(counter[name]),
+                    'width': w, 'height': h,
+                    'legend': {role[0]: role[1] for role in roles},
+                    'roles': [dict({'roleId': role[1], 'name': role[2], 'colorGroup': role[3]}, **({'isBackground': True} if role[4] else {})) for role in roles],
+                    'finishedLook': {'mode': 'auto'},
+                    'tags': {'themes': themes, 'bands': [band]},
+                    'review': {'status': 'draft', 'notes': 'Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).'},
+                    'source': {'kind': 'generated', 'origin': 'content/pictures/tools/sketch_pictures.py', 'licence': 'owned'},
+                }
+                with open(meta_path, 'w') as f:
+                    json.dump(meta, f, indent=2, sort_keys=True)
+                    f.write('\n')
+                with open(os.path.join(root, pid + '.grid.txt'), 'w') as f:
+                    f.write('\n'.join(cv.rows()) + '\n')
+            if style and six < style['six'] * count:
+                problems.append(f'{band}: {six} of {count} pictures carry six variants, fewer than {style["six"]:.0%}')
+            if style:
+                extra = ''.join(f', {n} with a {g} role' for g, n in sorted(carried.items()))
+                print(f'{band}: {count} pictures, {six} carry six variants{extra}')
+            written += count
+
+    draw(BANDS + (EXPANSION_BANDS if with_expansions else []), random.Random(seed))
+    if more:
+        # The second set of subjects comes after every band above, with a random stream of its own.
+        more_regular, more_expansion = more_bands()
+        draw(more_regular + (more_expansion if with_expansions else []), random.Random(f'more:{seed}'))
+    print(f'wrote {written} picture sketches to {os.path.normpath(root)}')
+    if problems:
+        print('\n'.join(problems), file=sys.stderr)
+        sys.exit(1)
+
+
+# The second set of subjects for the levels (the owner, 2026-10-07: "more subjects for the 5000 levels, spread over
+# them"): more_subjects.py, subjects that neither the levels nor the Daily Challenge drew before, with four regular
+# pictures and one big picture of each, as the subjects above, and with `--expansions` their lime and red pictures
+# (more_subjects.MORE_ROLES, as expansions.ROLES). They come after every band above with a random stream of their own,
+# so every picture above stays byte-identical. They are imported only when drawn, so a module being written cannot
+# stop the other modes.
+def more_bands():
+    from more_subjects import MORE_ROLES, MORE_SUBJECTS
+    expansions.ROLES.update(MORE_ROLES)
+    lime = expansions.subjects(MORE_SUBJECTS, expansions.LIME)
+    red = expansions.subjects(MORE_SUBJECTS, expansions.RED)
+    either = [s for s in MORE_SUBJECTS if s.__name__ in MORE_ROLES]
+    for subjects in (MORE_SUBJECTS, lime, red):
+        assert not subjects or math.gcd(len(subjects), 7) == 1, f'{len(subjects)} subjects: keep the count coprime with 7'
+    regular = [
+        ('regular', 4 * len(MORE_SUBJECTS), REGULAR_SIZES, MORE_SUBJECTS, REGULAR),
+        ('big', len(MORE_SUBJECTS), BIG_SIZES, MORE_SUBJECTS, BIG),
+    ]
+    extra = [
+        ('regular', 2 * len(lime), REGULAR_SIZES, lime, REGULAR_LIME),
+        ('regular', 2 * len(red), REGULAR_SIZES, red, REGULAR_RED),
+        ('big', len(either), BIG_SIZES, either, BIG_EXPANSION),
+    ]
+    return [b for b in regular if b[1]], [b for b in extra if b[1]]
+
+
+def defined_subjects(prefix):
+    """The subject functions defined in the modules <prefix>_*.py next to this script (read, not imported, so a module
+    being written cannot stop a check), the aggregator <prefix>_subjects.py aside."""
+    import glob
+    import re
+    here = os.path.dirname(os.path.abspath(__file__))
+    names = []
+    for path in sorted(glob.glob(os.path.join(here, prefix + '_*.py'))):
+        if os.path.basename(path) != prefix + '_subjects.py':
+            names += re.findall(r'^def (\w+)\(w, h, r\)', open(path).read(), re.M)
+    return names
+
+
+def main_more(seed=2026, root=ROOT, only=None, png=None, module=None):
+    """Draws a module's subjects of the second set at every regular and big size (and their lime and red pictures at one
+    size of each), reports what misses the band targets, and writes a PNG sheet per subject: the check an author runs
+    while writing a module. `main` draws the pictures themselves."""
+    import importlib
+    import zlib
+    mod = importlib.import_module(module)
+    subjects = getattr(mod, 'MORE_' + module[len('more_'):].upper())
+    roles_table = getattr(mod, 'MORE_' + module[len('more_'):].upper() + '_ROLES', {})
+    expansions.ROLES.update(roles_table)
+    names = [s.__name__ for s in subjects]
+    taken = {s.__name__ for s in SUBJECTS} | {s.__name__ for s in NEW_SUBJECTS} | set(defined_subjects('daily'))
+    problems = [f'more: {n} is a subject already (the levels or the Daily Challenge)' for n in names if n in taken]
+    problems += [f'more: {n} is listed twice' for n in sorted(set(names)) if names.count(n) > 1]
+    problems += [f'more: {n} in the roles table is not a subject of {module}' for n in roles_table if n not in names]
+    os.makedirs(root, exist_ok=True)
+    written = 0
+    for subject in subjects:
+        name = subject.__name__
+        if only and name not in only:
+            continue
+        ids, six = [], 0
+        cases = [(w, h, REGULAR, 'r') for w, h in REGULAR_SIZES] + [(w, h, BIG, 'b') for w, h in BIG_SIZES]
+        if name in roles_table:
+            groups = sorted(roles_table[name])
+            cases += [(15, 17, dict(REGULAR, recolor=(g,)), g[0]) for g in groups]
+            cases += [(22, 28, dict(BIG, recolor=tuple(groups)), 'x')]
+        for w, h, style, tag in cases:
+            seed_k = zlib.crc32(f'{seed}:{name}:{w}x{h}:{tag}'.encode())
+            where = f'more {name} {w}x{h}' + ('' if tag in 'rb' else f' ({tag})')
+            try:
+                cv, roles, themes, issues, ok_six, held = sketch(subject, w, h, seed_k, style, where)
+            except Exception as error:  # a subject under construction: report it and go on
+                problems.append(f'{where}: {type(error).__name__}: {error}')
                 continue
+            problems += issues
+            if tag == 'r':
+                six += ok_six
+            elif style['variants'] == 6 and not ok_six:
+                problems.append(f'{where}: cannot carry six variants')
+            pid = f'{name}_{w}x{h}_{tag}'
             meta = {
-                'id': pid, 'version': style['version'] if style else VERSION,
-                'subject': name.replace('_', ' ').capitalize() + ' ' + str(counter[name]),
-                'width': w, 'height': h,
+                'id': pid, 'version': 1, 'subject': name, 'width': w, 'height': h,
                 'legend': {role[0]: role[1] for role in roles},
                 'roles': [dict({'roleId': role[1], 'name': role[2], 'colorGroup': role[3]}, **({'isBackground': True} if role[4] else {})) for role in roles],
-                'finishedLook': {'mode': 'auto'},
-                'tags': {'themes': themes, 'bands': [band]},
-                'review': {'status': 'draft', 'notes': 'Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).'},
-                'source': {'kind': 'generated', 'origin': 'content/pictures/tools/sketch_pictures.py', 'licence': 'owned'},
+                'tags': {'themes': themes},
             }
-            with open(meta_path, 'w') as f:
+            with open(os.path.join(root, pid + '.meta.json'), 'w') as f:
                 json.dump(meta, f, indent=2, sort_keys=True)
-                f.write('\n')
             with open(os.path.join(root, pid + '.grid.txt'), 'w') as f:
                 f.write('\n'.join(cv.rows()) + '\n')
-        if style and six < style['six'] * count:
-            problems.append(f'{band}: {six} of {count} pictures carry six variants, fewer than {style["six"]:.0%}')
-        if style:
-            extra = ''.join(f', {n} with a {g} role' for g, n in sorted(carried.items()))
-            print(f'{band}: {count} pictures, {six} carry six variants{extra}')
-        written += count
-    print(f'wrote {written} picture sketches to {os.path.normpath(root)}')
+            ids.append(pid)
+            written += 1
+        if six < 6:
+            problems.append(f'more {name}: only {six} of the 9 regular sizes carry six variants (6 at least)')
+        if png and ids:
+            import preview_png
+            os.makedirs(png, exist_ok=True)
+            preview_png.sheet(os.path.join(png, name + '.png'), ids, root, cell=10, columns=9)
+    print(f'more: drew {written} pictures of {len(subjects) if not only else len(only)} subjects to {os.path.normpath(root)}')
     if problems:
         print('\n'.join(problems), file=sys.stderr)
         sys.exit(1)
@@ -655,7 +772,7 @@ def main_daily(seed=2026, root=ROOT, only=None, png=None, module=None):
     else:
         from daily_subjects import DAILY_SUBJECTS
     names = [s.__name__ for s in DAILY_SUBJECTS]
-    taken = {s.__name__ for s in SUBJECTS} | {s.__name__ for s in NEW_SUBJECTS}
+    taken = {s.__name__ for s in SUBJECTS} | {s.__name__ for s in NEW_SUBJECTS} | set(defined_subjects('more'))
     problems = [f'daily: {n} is a subject of the levels already' for n in names if n in taken]
     problems += [f'daily: {n} is listed twice' for n in sorted(set(names)) if names.count(n) > 1]
     os.makedirs(root, exist_ok=True)
@@ -710,13 +827,27 @@ def main_daily(seed=2026, root=ROOT, only=None, png=None, module=None):
 
 
 if __name__ == '__main__':
-    # sketch_pictures.py [seed] [--expansions] [--out <folder>]
+    # sketch_pictures.py [seed] [--expansions] [--no-more] [--out <folder>]
     # sketch_pictures.py --daily [seed] [--module daily_<group>] [--only <subject>[,<subject>...]] [--png <folder>] [--out <folder>]
     args = sys.argv[1:]
     out = ROOT
     if '--out' in args:
         out = args[args.index('--out') + 1]
         del args[args.index('--out'):args.index('--out') + 2]
+    if '--more' in args:
+        # sketch_pictures.py --more --module more_<group> [seed] [--only <subject>[,...]] [--png <folder>] [--out <folder>]
+        args.remove('--more')
+        only = png = None
+        if '--only' in args:
+            only = set(args[args.index('--only') + 1].split(','))
+            del args[args.index('--only'):args.index('--only') + 2]
+        if '--png' in args:
+            png = args[args.index('--png') + 1]
+            del args[args.index('--png'):args.index('--png') + 2]
+        module = args[args.index('--module') + 1]
+        del args[args.index('--module'):args.index('--module') + 2]
+        main_more(int(args[0]) if args else 2026, out, only, png, module)
+        sys.exit(0)
     if '--daily' in args:
         args.remove('--daily')
         only = png = None
@@ -733,5 +864,6 @@ if __name__ == '__main__':
         main_daily(int(args[0]) if args else 2026, out, only, png, module)
         sys.exit(0)
     with_expansions = '--expansions' in args
-    args = [a for a in args if a != '--expansions']
-    main(int(args[0]) if args else 2026, with_expansions, out)
+    more = '--no-more' not in args
+    args = [a for a in args if a not in ('--expansions', '--no-more')]
+    main(int(args[0]) if args else 2026, with_expansions, out, more)

@@ -119,6 +119,24 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
+        public void ALevelGeneratedBeforeAKnownLaterLevel_MustNotRepeatItsLookOrSourceEither()
+        {
+            // The owner's catalog run of 2026-10-07: L3063 repeated L2741's alarm_clock_09. A gap filled after its band
+            // (or a seam repair) sees the later levels too, and a candidate that repeats one of them breaks the rule there.
+            List<LevelDefinition> curated = Curated;
+            LevelDefinition a = curated.Single(l => l.LevelNumber == 3);
+            LevelDefinition b = curated.Single(l => l.LevelNumber == 5);
+            Mirror flipped = a.Picture.Mirror == Mirror.None ? Mirror.Horizontal : Mirror.None;
+            var history = new SortedDictionary<int, LevelDefinition> { [3063] = a with { LevelNumber = 3063 } };
+
+            Assert.That(LevelGenerator.ReusesLook(2741, a.Picture.Id, a.Picture.Mirror, a.Mapping, history), Is.True, "the same look as a later level");
+            Assert.That(LevelGenerator.ReusesSource(2741, a.Picture.Id, a, history), Is.True, "the same Source as a later level");
+            Assert.That(LevelGenerator.ReusesLook(2741, a.Picture.Id, flipped, a.Mapping, history), Is.False, "mirrored");
+            Assert.That(LevelGenerator.ReusesSource(2741, a.Picture.Id, a with { Pods = b.Pods, Tray = b.Tray }, history), Is.False, "another Source");
+            Assert.That(LevelGenerator.ReusesLook(3040, a.Picture.Id, a.Picture.Mirror, a.Mapping, history), Is.False, "within the window the picture rule applies instead");
+        }
+
+        [Test]
         public void TheCuratedLevels_AreTheContextOfTheCatalogWindows()
         {
             // A catalog L11 with the variant set of curated L9 and L10 repeats it 3 times in a row across the boundary.

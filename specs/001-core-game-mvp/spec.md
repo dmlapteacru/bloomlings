@@ -196,8 +196,13 @@ a default or asks a question.
   A: Every day a new picture (FR-064 as amended). The owner: "it must definitely be a new picture". The pool holds 365
   puzzles, one a day, each on a picture that no other day and no level shows. The pictures are 128 new subjects that the
   levels never draw (a dragon, a pagoda, a tram, a banana and so on), three pictures of each. They carry the `daily`
-  theme, which only the Daily Challenge takes, and a subject comes back only after 60 days at least. The levels keep
-  their 97 subjects for now: new subjects for them come after launch.
+  theme, which only the Daily Challenge takes, and a subject comes back only after 60 days at least.
+- **Q: Do the levels get new subjects too?**
+  A: Yes. The owner first answered "not yet, after launch", then the same day: "we need more subjects for the 5000
+  levels, spread over all of them; I can regenerate the 5000". 100 more subjects join the levels' 97 (animals, nature,
+  things and food that neither the levels nor the Daily Challenge drew), each with four regular pictures and one big
+  picture like the first ones. The catalog is regenerated on the larger library, so they appear throughout Levels
+  11–5000 (FR-083's windows and the picker spread them).
 - **Q: How big is its board?**
   A: Always the biggest. The owner: "the board must be big with small cells … always maximal". Every puzzle is 22×28
   (616 cells, FR-008's largest board) in the icons look of a big level, with the hidden layers' fairness check.
