@@ -1169,7 +1169,7 @@ def waffle(w, h, r):
         disc(cv, x + 1.0, y - half * 1.3, 1.0, 'r')
     else:
         rbox(cv, x - 2.2, y - half * 0.5 - 1.2, x + 2.2, y - half * 0.5 + 1.0, 0.5, 'u')
-    if syrup:
+    if syrup and mode != 2:
         for dx, L in ((-1.4, 0.9), (0.9, 1.3), (2.6, 0.6)):
             seg(cv, x + dx, y - half * 0.5, x + dx, y - half * 0.5 + half * L, 's', 0.45)
     if fruit:
@@ -1215,11 +1215,8 @@ def macaron(w, h, r):
             one_macaron(cv, cx + (k - 1) * hw * 2.2, ty - 0.8, hw, *look)
         one_macaron(cv, cx + r.choice((-1, 1)) * hw * 1.1, ty - 7.1, hw, *C)
     else:  # a big one before two small ones
-        one_macaron(cv, cx - w * 0.24, ty - 5.4, w * 0.16, *B)
-        one_macaron(cv, cx + w * 0.24, ty - 5.4, w * 0.16, *C)
-        for xx, yy, px, py in cells(cv):
-            if abs(px - cx) <= w * 0.3 + 0.8 and ty - 8.0 <= py <= ty - 0.8 and cv.g[yy][xx] in 'agcqf':
-                cv.g[yy][xx] = 'b'
+        one_macaron(cv, cx - w * 0.25, ty - 6.4, w * 0.16, *B)
+        one_macaron(cv, cx + w * 0.25, ty - 6.4, w * 0.16, *C)
         one_macaron(cv, cx, ty - 0.8, w * 0.3, *A)
     if r.random() < 0.5:
         mirror(cv)
@@ -1229,5 +1226,248 @@ def macaron(w, h, r):
                 role('c', 'caramel', 'Caramel macarons', BROWN), role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'sweets']
 
 
+def one_cane(cv, pts, rr, red, white, step=2.2):
+    """A candy cane along pts (its hook at the start), striped across in red and white."""
+    tube(cv, pts, rr, red)
+    for xx, yy, px, py in cells(cv):
+        if cv.g[yy][xx] == red and int((px + py) / step) % 2:
+            cv.g[yy][xx] = white
+
+
+def hook(x, top, bottom, rr, side=1):
+    """The way of a candy cane: a hook of radius rr at the top, its end on the side `side`, then straight down."""
+    pts = [(x + side * rr * 2 + side * rr * math.cos(math.radians(a)) - side * rr, top + rr - rr * math.sin(math.radians(a)) + rr * 0.0)
+           for a in range(-40, 181, 20)]
+    pts = [(x + side * (rr - rr * math.cos(math.radians(a))) , top + rr - rr * math.sin(math.radians(a))) for a in range(-50, 181, 15)][::-1]
+    return [(x + side * 2 * rr, top + rr + rr * 0.8)] + pts + [(x, bottom)] if False else pts + [(x, bottom)]
+
+
+def candy_cane(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, bow = r.randrange(3), r.randrange(3), r.random() < 0.6
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+
+    def ribbon(x, y):
+        for side in (-1, 1):
+            tilted(cv, x + side * 2.0, y - 0.6, 2.0, 1.1, side * 25, 'k')
+            seg(cv, x, y, x + side * 1.6, y + 3.4, 'k', 0.5)
+        disc(cv, x, y, 0.9, 'k')
+
+    if mode == 0:  # one big cane leaning on the wall
+        x = cx - w * 0.04
+        pts = hook(x, h * 0.12, ty - 0.5, w * 0.2, r.choice((-1, 1)))
+        one_cane(cv, pts, 1.6, 'a', 'w')
+        if bow:
+            ribbon(x, h * 0.42)
+    elif mode == 1:  # two canes crossed, a bow where they cross
+        for side in (-1, 1):
+            x0, x1 = cx - side * w * 0.3, cx + side * w * 0.24
+            pts = [(x0 + side * w * 0.14 * (1 - math.cos(math.radians(a))) - side * w * 0.14, h * 0.2 - w * 0.14 * math.sin(math.radians(a))) for a in range(0, 181, 15)]
+            pts = pts[::-1] + [(x1, ty - 0.5)]
+            if side > 0:
+                tube(cv, pts, 2.4, 'b', only='aw')
+            one_cane(cv, pts, 1.4, 'a', 'w')
+        if bow:
+            ribbon(cx, h * 0.5)
+    else:  # three small canes standing in a jar
+        jx = cx + r.uniform(-1.0, 1.0)
+        for k, side in enumerate((-1, 1, -1)):
+            x = jx + (k - 1) * w * 0.15
+            one_cane(cv, hook(x, h * (0.14 + 0.06 * (k % 2)), ty - 2, w * 0.09, side), 1.1, 'a', 'w', 1.8)
+        rbox(cv, jx - w * 0.3, h * 0.5, jx + w * 0.3, ty - 0.4, 1.4, 'j')
+        box(cv, jx - w * 0.3, h * 0.5, jx + w * 0.3, h * 0.5 + 1.2, 'k')
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
+    return cv, [S['b'], role('a', 'red', 'Red stripes', PINK), role('w', 'white', 'White stripes', GREEN), S['t'], S['d'],
+                role('k', 'bow', 'Bow and jar ribbon', BROWN), role('j', 'jar', 'Jar', PINK), S['o'], S['v']], ['food', 'sweets']
+
+
+def bar(cv, x0, y0, x1, y1, bite=None):
+    """A bar of chocolate from (x0, y0) to (x1, y1), ridged into squares, a bite out of its top corner."""
+    rbox(cv, x0, y0, x1, y1, 0.6, 'c')
+    for x in range(int(x0) + 3, int(x1) - 1, 3):
+        box(cv, x, y0 + 0.5, x + 0.9, y1 - 0.5, 'k')
+    for y in range(int(y0) + 3, int(y1) - 1, 3):
+        box(cv, x0 + 0.5, y, x1 - 0.5, y + 0.9, 'k')
+    if bite:
+        for k in (-1, 0, 1):
+            disc(cv, x1 - 0.5 + k * 0.4, y0 + 1.0 + k * 1.4, 1.5, bite)
+
+
+def chocolate_bar(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, bite = r.randrange(3), r.randrange(3), r.random() < 0.6
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    if mode == 0:  # one bar standing, half out of its wrapper
+        x0, x1, y0 = cx - w * 0.3, cx + w * 0.3, h * 0.12
+        bar(cv, x0, y0, x1, ty - 1, 'b' if bite else None)
+        poly(cv, [(x0 - 0.6, h * 0.5), (x0 + 3, h * 0.47), (cx, h * 0.52), (x1 - 3, h * 0.46), (x1 + 0.6, h * 0.5), (x1 + 0.6, ty), (x0 - 0.6, ty)], 'f')
+        box(cv, x0 - 0.6, h * 0.53, x1 + 0.6, ty, 'p')
+        box(cv, x0 - 0.6, h * 0.64, x1 + 0.6, h * 0.74, 'l')
+        star(cv, cx, h * 0.69, 2.0, 'p', ri=0.9)
+    elif mode == 1:  # an open bar lying, squares broken off
+        x0, x1, y0 = w * 0.08, w * 0.74, ty - h * 0.36
+        bar(cv, x0, y0, x1, ty - 1, None)
+        box(cv, x0, y0, x0 + 8.5, y0 + 2.8, 'b')
+        box(cv, x1 - 0.1, y0 + 4, x1 + 6, ty - 1, 'p')
+        box(cv, x1 + 1.5, y0 + 4, x1 + 2.6, ty - 1, 'l')
+        for dx, dy in ((0.84, -0.3), (0.86, -0.18)):
+            rbox(cv, w * dx - 1.4, y0 + h * dy - 1.4, w * dx + 1.4, y0 + h * dy + 1.4, 0.4, 'c')
+    else:  # a wrapped bar behind an open one
+        rbox(cv, cx + w * 0.02, h * 0.2, cx + w * 0.42, ty - 1, 0.6, 'p')
+        box(cv, cx + w * 0.02, h * 0.42, cx + w * 0.42, h * 0.56, 'l')
+        star(cv, cx + w * 0.22, h * 0.49, 1.8, 'p', ri=0.8)
+        box(cv, cx - w * 0.44 - 0.8, h * 0.3 - 0.8, cx + 0.8, ty, 'b')
+        bar(cv, cx - w * 0.44, h * 0.3, cx, ty - 1, 'b' if bite else None)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('k', 'ridges', 'Ridges', BROWN), role('c', 'chocolate', 'Chocolate', BROWN), role('l', 'label', 'Label', BROWN),
+                role('p', 'wrapper', 'Wrapper', PINK), S['t'], S['d'], role('f', 'foil', 'Foil', GREEN), S['o'], S['v']], ['food', 'sweets']
+
+
+def jar(cv, x, top, yb, hw, cloth):
+    """A jar of jam from its lid at `top` to row yb, with a label and a strawberry on it, a cloth or a metal lid."""
+    rbox(cv, x - hw, top + 2.0, x + hw, yb, 1.6, 'g')
+    rbox(cv, x - hw + 1.0, top + 3.6, x + hw - 1.0, yb - 1.0, 1.0, 'j')
+    rbox(cv, x - hw * 0.7, top + (yb - top) * 0.45, x + hw * 0.7, top + (yb - top) * 0.78, 0.6, 'l')
+    ly = top + (yb - top) * 0.615
+    heart(cv, x, ly, 1.3, 'j')
+    if cloth:
+        poly(cv, [(x - hw - 1.4, top + 3.6), (x - hw * 0.6, top - 0.6), (x + hw * 0.6, top - 0.6), (x + hw + 1.4, top + 3.6)], 'c')
+        dots(cv, 'x', 'c', 2, 2, area=(x - hw - 1, top - 1, x + hw + 1, top + 4))
+        box(cv, x - hw - 0.2, top + 2.0, x + hw + 0.2, top + 2.9, 'k')
+    else:
+        rbox(cv, x - hw - 0.3, top, x + hw + 0.3, top + 2.4, 0.6, 'm')
+
+
+def jam_jar(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, cloth = r.randrange(3), r.randrange(2), r.random() < 0.6
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    if mode == 0:  # one big jar
+        jar(cv, cx, h * 0.2, ty - 0.4, w * 0.32, cloth)
+    elif mode == 1:  # a jar and a spoon of jam on a plate
+        oval(cv, cx + w * 0.26, ty, w * 0.2, 1.4, 'p')
+        tube(cv, [(cx + w * 0.08, ty - 1.4), (cx + w * 0.42, ty - 3.0)], 0.6, 'm')
+        oval(cv, cx + w * 0.38, ty - 3.0, 2.0, 1.2, 'm')
+        oval(cv, cx + w * 0.38, ty - 3.2, 1.3, 0.7, 'j')
+        jar(cv, cx - w * 0.14, h * 0.26, ty - 0.4, w * 0.27, cloth)
+    else:  # a big and a small jar
+        jar(cv, cx + w * 0.26, h * 0.46, ty - 0.4, w * 0.18, not cloth)
+        box(cv, cx - w * 0.06, h * 0.18, cx - w * 0.06 + 0.9, ty, 'b')
+        jar(cv, cx - w * 0.2, h * 0.2, ty - 0.4, w * 0.26, cloth)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (GREEN, GREEN, BLUE, BROWN, BROWN))
+    return cv, [S['b'], role('j', 'jam', 'Jam', PINK), role('c', 'cloth', 'Cloth', PINK), S['t'], S['d'], role('l', 'label', 'Label', BROWN),
+                role('k', 'string', 'String', BROWN), role('g', 'glass', 'Glass', BLUE), role('m', 'lid', 'Lid and spoon', BLUE),
+                role('x', 'cloth_dots', 'Cloth dots', GREEN), role('p', 'plate', 'Plate', GREEN), S['o'], S['v']], ['food', 'sweets']
+
+
+def loaf(cv, x0, x1, top, yb, slashes, cut=False):
+    """A loaf of bread from x0 to x1, its domed top at `top`, standing on row yb, with slashes across its crust; its
+    right end cut off to show the crumb when `cut`."""
+    rbox(cv, x0, top + (yb - top) * 0.35, x1, yb, 1.2, 'c')
+    oval(cv, (x0 + x1) / 2, top + (yb - top) * 0.4, (x1 - x0) / 2, (yb - top) * 0.4, 'c')
+    for k in range(slashes):
+        x = x0 + (x1 - x0) * (k + 1) / (slashes + 1)
+        seg(cv, x - 1.4, top + 1.6, x + 1.0, top + (yb - top) * 0.45, 'n', 0.5)
+    if cut:
+        oval(cv, x1 - 1.0, (top + yb) / 2 + 0.6, 2.6, (yb - top) / 2 - 0.4, 'c')
+        oval(cv, x1 - 1.0, (top + yb) / 2 + 0.6, 1.7, (yb - top) / 2 - 1.4, 'n')
+
+
+def bread_loaf(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind = r.randrange(3), r.randrange(3)
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    rbox(cv, w * 0.04, ty - 1.4, w * 0.96, ty + 0.6, 0.7, 'p')
+    yb = ty - 1.2
+    if mode == 0:  # a whole loaf
+        loaf(cv, w * 0.08, w * 0.92, yb - h * 0.34, yb, r.choice((3, 4)))
+    elif mode == 1:  # a loaf cut open and two slices before it
+        loaf(cv, w * 0.06, w * 0.7, yb - h * 0.3, yb, 2, cut=True)
+        for k, x in enumerate((w * 0.78, w * 0.9)):
+            rbox(cv, x - 2.4, yb - h * 0.24 + k * 1.6, x + 2.4, yb, 1.6, 'c')
+            rbox(cv, x - 1.5, yb - h * 0.24 + k * 1.6 + 1.0, x + 1.5, yb - 1.0, 1.0, 'n')
+    else:  # a round loaf with a cross cut, a baguette behind
+        tube(cv, [(w * 0.14, yb - 1.0), (w * 0.86, yb - h * 0.5)], 2.2, 'c')
+        for k in range(4):
+            x, y = w * (0.3 + k * 0.15), yb - 1.0 - h * 0.5 * (0.22 + k * 0.207)
+            seg(cv, x - 1.0, y + 0.8, x + 1.2, y - 0.6, 'n', 0.45)
+        x, y = cx + r.uniform(-1.5, 1.5), yb - h * 0.15
+        disc(cv, x, y, w * 0.33 + 0.9, 'b')
+        oval(cv, x, y + 0.6, w * 0.33, h * 0.15, 'c')
+        seg(cv, x - w * 0.18, y - h * 0.06, x + w * 0.18, y + h * 0.03, 'n', 0.5)
+        seg(cv, x - w * 0.12, y + h * 0.05, x + w * 0.14, y - h * 0.08, 'n', 0.5)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('c', 'crust', 'Crust', BROWN), role('n', 'crumb', 'Crumb and cuts', BROWN), role('p', 'board', 'Board', GREEN),
+                S['o'], S['t'], S['d'], S['v']], ['food', 'bakery']
+
+
+def stack(cv, x, yb, hw, layers):
+    """Layers of a sandwich from the bottom up at row yb: (role, height, rounding) each."""
+    y = yb
+    for c, hh, rad in layers:
+        if c == 'l':
+            box(cv, x - hw * 1.06, y - hh, x + hw * 1.06, y, c)
+            for k in range(int(hw * 2.1 / 1.7) + 1):
+                disc(cv, x - hw * 1.06 + k * 1.7, y + 0.1, 0.8, c)
+        else:
+            rbox(cv, x - hw, y - hh, x + hw, y, rad, c)
+        y -= hh
+    return y
+
+
+def sandwich(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind, pick = r.randrange(3), r.randrange(3), r.random() < 0.6
+    ty = h * r.uniform(0.84, 0.88)
+    setting(cv, r, w, h, kind, ty)
+    oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+    if mode == 0:  # a square sandwich, side on
+        top = stack(cv, cx, ty - 0.8, w * 0.4, (('u', 3.0, 0.8), ('m', 1.6, 0.5), ('y', 1.0, 0.0), ('a', 1.4, 0.5), ('l', 1.2, 0), ('u', 3.4, 1.4)))
+    elif mode == 1:  # a long roll
+        top = stack(cv, cx, ty - 0.8, w * 0.44, (('u', 2.6, 1.2), ('l', 1.2, 0), ('m', 1.6, 0.6), ('y', 1.0, 0.0), ('a', 1.4, 0.6)))
+        for xx, yy, px, py in cells(cv):
+            if py <= top and ((px - cx) / (w * 0.44)) ** 2 + ((py - top) / 4.0) ** 2 <= 1.0:
+                cv.g[yy][xx] = 'u'
+        for k in range(3):
+            seg(cv, cx + (k - 1) * w * 0.26 - 1.0, top - 3.0, cx + (k - 1) * w * 0.26 + 1.2, top - 1.4, 'n', 0.4)
+        top -= 4.0
+    else:  # two triangle halves, their cut sides to the viewer
+        top = ty - 1.0
+        for side in (-1, 1):
+            x0, x1 = cx + side * w * 0.03, cx + side * w * 0.45
+            yb, hh = ty - 0.8, h * 0.4
+            poly(cv, [(x0, yb), (x1, yb), (x0, yb - hh)], 'u')
+            poly(cv, [(x0 + side * 1.0, yb - 1.4), (x1 - side * 2.6, yb - 1.4), (x0 + side * 1.0, yb - hh + 3.0)], 'w')
+            for k, c in enumerate('lamy'):
+                f = 0.28 + k * 0.14
+                seg(cv, x0 + side * 1.0, yb - hh * f, x0 + side * (x1 - x0) * side * (1 - f) * 0.9, yb - hh * f, c, 0.55) if False else None
+            for k, c in enumerate('lam'):
+                yy = yb - 2.4 - k * 1.3
+                tube(cv, [(x0 + side * 1.4, yy), (x0 + side * ((x1 - x0) * side * (1 - (yb - yy) / hh) - 2.6), yy)], 0.55, c, only='w')
+            top = min(top, yb - hh)
+    if pick and mode != 2:
+        seg(cv, cx + 1.0, top + 4.0, cx + 1.0, top - 3.0, 'k', 0.4)
+        disc(cv, cx + 1.0, top - 3.6, 1.4, 'e')
+    if r.random() < 0.5:
+        mirror(cv)
+    S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+    return cv, [S['b'], role('u', 'bread', 'Bread', BROWN), role('n', 'cuts', 'Cuts in the roll', BROWN), role('y', 'cheese', 'Cheese', BROWN),
+                role('w', 'crumb', 'Crumb', BLUE), role('l', 'lettuce', 'Lettuce', GREEN), role('e', 'olive', 'Olive', GREEN),
+                role('a', 'tomato', 'Tomato', PINK), role('m', 'ham', 'Ham', PINK), role('k', 'pick', 'Pick', BROWN),
+                role('p', 'plate', 'Plate', BLUE), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
+
+
 DAILY_FOOD = [banana, lemon, peach, coconut, avocado, carrot, corn, broccoli, tomato, eggplant, chili_pepper, pea_pod, cookie, pie, pizza,
-              burger, sushi, cheese, croissant, pretzel, waffle, macaron]
+              burger, sushi, cheese, croissant, pretzel, waffle, macaron, candy_cane, chocolate_bar, jam_jar, bread_loaf, sandwich]

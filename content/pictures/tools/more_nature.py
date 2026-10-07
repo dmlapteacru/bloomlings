@@ -47,15 +47,25 @@ def fill_pockets(cv, c, into):
                     cv.g[b][a] = into
 
 
-def maple_sprite(cv, x, y, c, big):
-    """A small maple leaf, five cells across (seven on the big boards), centered on (x, y)."""
-    rows = (['..x..', 'x.x.x', 'xxxxx', '.xxx.', '..x..'] if not big else
-            ['...x...', '.x.x.x.', '.xxxxx.', 'xxxxxxx', '.xxxxx.', '..xxx..', '...x...'])
-    n = len(rows)
-    for j, line in enumerate(rows):
+# A maple leaf's outline from its tip round to its stem notch (degrees from the tip, share of its size); the other half
+# mirrors it.
+MAPLE = ((0, 1.0), (14, 0.7), (24, 0.8), (38, 0.5), (55, 0.84), (72, 1.0), (88, 0.7), (102, 0.5), (118, 0.7), (136, 0.82),
+         (158, 0.5), (180, 0.3))
+
+
+def maple_leaf(cv, x, y, size, c, turn=0.0):
+    """A maple leaf `size` cells from its middle to its tip, the stem notch down (turned by `turn` degrees)."""
+    outline = list(MAPLE) + [(360 - a, rr) for a, rr in reversed(MAPLE[1:-1])]
+    poly(cv, [(x + math.sin(math.radians(a + turn)) * rr * size, y - math.cos(math.radians(a + turn)) * rr * size)
+              for a, rr in outline], c)
+
+
+def maple_sprite(cv, x, y, c):
+    """A small maple leaf of five by five cells, centered on (x, y)."""
+    for j, line in enumerate(('..x..', 'x.x.x', 'xxxxx', '.xxx.', '..x..')):
         for i, ch in enumerate(line):
             if ch == 'x':
-                cv.put(int(x) - n // 2 + i, int(y) - n // 2 + j, c)
+                cv.put(int(x) - 2 + i, int(y) - 2 + j, c)
 
 
 # ---- Trees and plants ----
@@ -64,78 +74,75 @@ def oak_tree(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
-    tx = cx + r.uniform(-0.06, 0.02) * w
-    tw = max(1.2, w * 0.08)
-    poly(cv, [(tx - tw, h * 0.45), (tx + tw, h * 0.45), (tx + tw * 1.9, gtop + 0.6), (tx - tw * 1.9, gtop + 0.6)], 't')
-    seg(cv, tx, h * 0.6, tx - w * 0.24, h * 0.42, 't', 0.7 if not big else 0.9)
-    seg(cv, tx, h * 0.56, tx + w * 0.26, h * 0.4, 't', 0.7 if not big else 0.9)
+    side = r.choice((-1, 1))
+    tx = cx - side * w * 0.04
     cy = h * 0.3
-    lumps = [(-0.3, 0.04, 0.19), (0.3, 0.02, 0.19), (0.0, -0.07, 0.25), (-0.17, -0.12, 0.18), (0.19, -0.13, 0.17),
-             (-0.4, 0.12, 0.11), (0.41, 0.1, 0.11), (0.0, 0.07, 0.2)]
-    for dx, dy, rad in lumps:
-        disc(cv, tx + dx * w, cy + dy * h + 0.7, rad * w, 'd')
-    for dx, dy, rad in lumps:
-        disc(cv, tx + dx * w - 0.4, cy + dy * h - 0.2, rad * w * 0.86, 'c')
-    sx = tx + w * 0.2
-    by = h * 0.43
-    for x in (sx - w * 0.07, sx + w * 0.07):
-        seg(cv, x, by, x, h * 0.72, 'k', 0.4)
-    box(cv, sx - w * 0.1, h * 0.72, sx + w * 0.1, h * 0.72 + 0.9, 'k')
+    tw = max(1.1, w * 0.075)
+    poly(cv, [(tx - tw, cy), (tx + tw, cy), (tx + tw * 1.8, gtop + 0.6), (tx - tw * 1.8, gtop + 0.6)], 't')
+    seg(cv, tx, h * 0.6, tx + side * w * 0.44, h * 0.52, 't', 0.55 if not big else 0.75)
+    seg(cv, tx, h * 0.56, tx - side * w * 0.24, cy + h * 0.1, 't', 0.6 if not big else 0.8)
+    sx, dx = tx + side * w * 0.3, 1.0 if not big else 1.5
+    for x in (sx - dx, sx + dx):
+        seg(cv, x, h * 0.55, x, mid(h * 0.8), 'k', 0.45)
+    box(cv, sx - dx - 0.5, mid(h * 0.8) - 0.3, sx + dx + 0.5, mid(h * 0.8) + 0.3, 'k')
+    lumps = [(0.0, -0.09, 0.19), (-0.17, -0.05, 0.17), (0.17, -0.05, 0.17), (-0.26, 0.06, 0.13), (0.26, 0.06, 0.13),
+             (-0.12, 0.1, 0.15), (0.12, 0.1, 0.15), (0.0, 0.04, 0.18)]
+    for dx_, dy, rad in lumps:
+        disc(cv, tx + dx_ * w, cy + dy * h + 0.6, rad * w, 'd')
+    for dx_, dy, rad in lumps:
+        disc(cv, tx + dx_ * w - 0.3, cy + dy * h - 0.2, rad * w * 0.88, 'c')
     if big:
-        disc(cv, tx - 0.2, h * 0.62, 1.0, 'o')
-        for x, y in scatter(cv, 'a', 'c', 7, r, sep=3, area=(1, h * 0.12, w - 2, h * 0.45)):
+        oval(cv, tx - side * 0.3, h * 0.66, 0.9, 1.3, 'o')
+        for x, y in scatter(cv, 'a', 'c', 7, r, sep=3, area=(1, h * 0.1, w - 2, h * 0.42)):
             cv.put(x, y + 1, 'a')
-        for x in (w * 0.1, w * 0.86):
-            oval(cv, x, gtop + 1.3, 1.0, 0.8, 'a')
+        for x in (tx - side * w * 0.3, tx - side * w * 0.38):
+            oval(cv, x, gtop + 1.3, 0.9, 0.8, 'a')
     else:
         scatter(cv, 'a', 'c', 4, r, sep=3, area=(1, h * 0.12, w - 2, h * 0.42))
-    cloud(cv, w * 0.84, h * 0.07, s * 0.05 + 0.5, 'e')
-    disc(cv, w * 0.1, h * 0.07, s * 0.08, 'u')
-    if r.random() < 0.5:
-        mirror(cv)
-    return cv, [sky(), role('c', 'crown', 'Crown', GREEN), role('d', 'shade', 'Leaf shade', GREEN), role('t', 'trunk', 'Trunk and boughs', BROWN),
-                role('a', 'acorns', 'Acorns', BROWN), role('k', 'swing', 'Swing', PINK), role('o', 'hollow', 'Hollow', PINK),
+    cloud(cv, w * 0.5 + side * w * 0.36, h * 0.07, s * 0.05 + 0.5, 'e')
+    disc(cv, w * 0.5 - side * w * 0.4, h * 0.07, s * 0.08, 'u')
+    return cv, [sky(), role('c', 'crown', 'Crown', GREEN), role('d', 'shade', 'Leaf shade', GREEN), role('a', 'acorns', 'Acorns', BROWN),
+                role('t', 'trunk', 'Trunk and boughs', BROWN), role('k', 'swing', 'Swing', PINK), role('o', 'hollow', 'Hollow', PINK),
                 role('g', 'grass', 'Grass', GREEN), role('u', 'sun', 'Sun', BROWN), role('e', 'cloud', 'Cloud', BLUE)], ['trees', 'park']
 
 
 def willow_tree(w, h, r):
     cv, s, cx, big = start(w, h, 's')
-    gtop = h - ground_rows(h, 0.18)
+    gtop = h - ground_rows(h, 0.2)
     box(cv, 0, gtop, w, h, 'g')
     side = r.choice((-1, 1))
     tx = cx + side * w * 0.06
-    px = cx - side * w * 0.22
-    oval(cv, px, gtop + (h - gtop) * 0.55, w * 0.3, (h - gtop) * 0.36, 'w')
-    path(cv, [(tx - side * 0.4, gtop + 0.6), (tx, h * 0.55), (tx + side * 0.6, h * 0.3)], 't', 1.0 if not big else 1.3)
-    rx, dy = w * 0.44, h * 0.3
+    px, prx = cx - side * w * 0.3, w * 0.22
+    oval(cv, px, gtop + (h - gtop) * 0.6, prx, (h - gtop) * 0.45, 'w')
+    tw = max(0.9, w * 0.06)
+    poly(cv, [(tx - tw, h * 0.3), (tx + tw, h * 0.3), (tx + tw * 1.6, gtop + 0.6), (tx - tw * 1.6, gtop + 0.6)], 't')
+    rx, dy = w * 0.39, h * 0.3
     for x in range(w):
-        px_ = x + 0.5
-        rel = (px_ - tx) / rx
+        rel = (x + 0.5 - tx) / rx
         if abs(rel) > 1:
             continue
-        top = dy - h * 0.2 * math.sqrt(1 - rel * rel)
-        for y in range(int(top), int(dy) + 1):
-            if y + 0.5 >= top:
+        top = dy - h * 0.22 * math.sqrt(1 - rel * rel)
+        for y in range(h):
+            if top <= y + 0.5 <= dy:
                 cv.g[y][x] = 'c'
-        if x % 2 == (0 if not big else 1) or abs(rel) > 0.92:
+        if (x + int(tx)) % 2:
             continue
-        bottom = dy + h * (0.36 - 0.14 * rel * rel) + r.uniform(-1.2, 1.0)
+        bottom = dy + h * (0.4 - 0.16 * rel * rel) + r.uniform(-1.0, 1.0)
         for y in range(int(dy), min(int(bottom), gtop - 1)):
             cv.g[y][x] = 'c'
     for k in range(2 if not big else 3):
-        lx = px + (k - 0.5) * w * 0.16
-        oval(cv, lx, gtop + (h - gtop) * 0.5, 0.9, 0.6, 'o')
-    kx = px + side * w * 0.3
+        oval(cv, px + (k - 0.5) * prx * 0.7, gtop + (h - gtop) * 0.6, 0.9, 0.6, 'o')
+    kx = min(w - 1.5, max(1.5, px - side * (prx + 0.2)))
     for k in range(2 if not big else 3):
-        x = kx + k * side * 1.2
+        x = kx + k * side * 2.0
         seg(cv, x, gtop + 0.5, x, gtop - h * 0.1, 'k', 0.4)
-        oval(cv, x, gtop - h * 0.1, 0.6, 1.1, 'k')
+        oval(cv, x, gtop - h * 0.1, 0.5, 1.2, 'k')
     if big:
-        oval(cv, px - side * w * 0.08, gtop + (h - gtop) * 0.48, 1.5, 0.9, 'y')
-        disc(cv, px - side * w * 0.08 + side * 1.2, gtop + (h - gtop) * 0.3, 0.8, 'y')
-    disc(cv, w * (0.88 if side > 0 else 0.12), h * 0.06, s * 0.07, 'u')
-    return cv, [sky(), role('c', 'canopy', 'Weeping branches', GREEN), role('t', 'trunk', 'Trunk', BROWN), role('g', 'grass', 'Grass', GREEN),
-                role('w', 'pond', 'Pond', BLUE), role('o', 'lilies', 'Water lilies', PINK), role('k', 'reeds', 'Cattails', BROWN),
+        oval(cv, px + side * 1.0, gtop + (h - gtop) * 0.45, 1.6, 0.9, 'y')
+        disc(cv, px + side * 2.2, gtop + (h - gtop) * 0.25, 0.85, 'y')
+    disc(cv, w * 0.5 - side * w * 0.4, h * 0.07, s * 0.085, 'u')
+    return cv, [sky(), role('c', 'canopy', 'Weeping branches', GREEN), role('k', 'reeds', 'Cattails', BROWN), role('t', 'trunk', 'Trunk', BROWN),
+                role('g', 'grass', 'Grass', GREEN), role('w', 'pond', 'Pond', BLUE), role('o', 'lilies', 'Water lilies', PINK),
                 role('y', 'duck', 'Duck', BROWN), role('u', 'sun', 'Sun', PINK)], ['trees', 'pond']
 
 
@@ -143,100 +150,102 @@ def maple_tree(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
     hills(cv, 'g', gtop, 0.4, w * 1.3, r.uniform(0, 6))
-    tx = cx + r.uniform(-0.04, 0.04) * w
-    ly, size = h * 0.34, w * 0.44
-    box(cv, tx - max(0.9, w * 0.05), ly + size * 0.1, tx + max(0.9, w * 0.05), gtop + 0.6, 't')
-    tips = maple_leaf(cv, tx, ly, size, 'c', r.uniform(-6, 6))
-    base = (tx, ly + size * 0.15)
-    for x, y in tips[:3] if not big else tips:
-        seg(cv, base[0], base[1], x, y, 't', 0.45)
-    oval(cv, tx + w * r.choice((-0.3, 0.3)), gtop + 0.6, w * 0.14, 1.2, 'p')
-    n = 3 if not big else 6
-    for k in range(n):
-        x = w * (0.12 + 0.76 * ((k * 0.618 + r.random() * 0.2) % 1.0))
-        y = h * (0.7 + 0.12 * (k % 2)) if k < 3 else h * (0.06 + 0.08 * (k % 2))
-        if big:
-            maple_leaf(cv, x, y, 1.6, 'f', r.uniform(-40, 40))
-        else:
-            poly(cv, [(x, y - 1.1), (x + 1.0, y), (x, y + 1.1), (x - 1.0, y)], 'f')
-    cloud(cv, w * 0.18, h * 0.07, s * 0.05 + 0.4, 'e')
-    if r.random() < 0.5:
-        mirror(cv)
-    return cv, [sky(), role('c', 'crown', 'Maple crown', PINK), role('t', 'trunk', 'Trunk and veins', BROWN),
-                role('f', 'falling', 'Falling leaves', BROWN), role('p', 'pile', 'Leaf pile', PINK),
+    side = r.choice((-1, 1))
+    tx = cx + side * w * 0.07
+    ly, size = h * 0.36, w * 0.38
+    tw = max(1.0, w * 0.06)
+    poly(cv, [(tx - tw, ly), (tx + tw, ly), (tx + tw * 1.7, gtop + 0.6), (tx - tw * 1.7, gtop + 0.6)], 't')
+    maple_leaf(cv, tx, ly, size, 'c', r.uniform(-5, 5))
+    for a in ((0, 72, 288) if not big else (0, 72, 288, 136, 224)):
+        t = math.radians(a)
+        seg(cv, tx, ly + size * 0.3, tx + math.sin(t) * size * 0.62, ly - math.cos(t) * size * 0.62, 't', 0.45 if not big else 0.55)
+    fx = w * 0.5 - side * w * 0.3
+    if big:
+        maple_leaf(cv, fx, h * r.uniform(0.6, 0.66), 3.4, 'f', r.uniform(-40, 40))
+        maple_leaf(cv, w * 0.5 + side * w * 0.36, h * 0.68, 3.0, 'f', r.uniform(-40, 40))
+        maple_sprite(cv, fx + side * 1.0, h * 0.06 + 2, 'f')
+    else:
+        maple_sprite(cv, fx, h * r.uniform(0.6, 0.66), 'f')
+        poly(cv, [(w * 0.5 + side * w * 0.38, h * 0.64), (w * 0.5 + side * w * 0.38 + 1.2, h * 0.64 + 1.2),
+                  (w * 0.5 + side * w * 0.38, h * 0.64 + 2.4), (w * 0.5 + side * w * 0.38 - 1.2, h * 0.64 + 1.2)], 'f')
+    oval(cv, tx + side * w * 0.2, gtop + 0.3, w * 0.12, 1.3 if not big else 1.8, 'p')
+    cloud(cv, w * 0.5 - side * w * 0.34, h * 0.07, s * 0.05 + 0.4, 'e')
+    return cv, [sky(), role('c', 'crown', 'Maple crown', PINK), role('f', 'falling', 'Falling leaves', BROWN),
+                role('t', 'trunk', 'Trunk and boughs', BROWN), role('p', 'pile', 'Leaf pile', PINK),
                 role('g', 'grass', 'Grass', GREEN), role('e', 'cloud', 'Cloud', BLUE)], ['trees', 'autumn']
 
 
 def bamboo(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.1)
-    sx = w * r.choice((0.3, 0.7))
-    disc(cv, sx, h * 0.3, s * 0.2, 'u')
-    for k, (x0, top, x1) in enumerate(((-0.1, 0.5, 0.35), (0.25, 0.42, 0.75), (0.6, 0.52, 1.1))):
-        poly(cv, [(w * x0, gtop), (w * (x0 + x1) / 2, h * top), (w * x1, gtop)], 'm')
-    box(cv, 0, gtop, w, h, 'd')
-    n = 3 if not big else 4
-    lw = 0.85 if not big else 1.05
-    for k in range(n):
-        x = (k + 0.5) * w / n + r.uniform(-0.4, 0.4)
-        lean = r.uniform(-0.6, 0.6)
-        seg(cv, x, gtop + 0.5, x + lean, -1, 'b', lw)
-        y = gtop - r.uniform(2.0, 3.5)
-        nodes = []
-        while y > 0.5:
-            t = (gtop + 0.5 - y) / (gtop + 1.5)
-            xx = x + lean * t
-            box(cv, xx - lw - 0.2, y - 0.25, xx + lw + 0.2, y + 0.25, 'n', only='b')
-            nodes.append((xx, y))
-            y -= 3.6 if not big else 4.2
-        for j, (xx, y) in enumerate(nodes[1:4]):
-            d = 1 if (j + k) % 2 else -1
-            lens(cv, xx + d * 0.6, y, xx + d * s * 0.24, y - h * 0.06, 1.2 if not big else 1.5, 'l')
-            if big:
-                lens(cv, xx + d * 0.6, y, xx + d * s * 0.18, y + h * 0.03, 1.2, 'l')
+    disc(cv, cx + r.uniform(-1, 1), h * 0.3, s * 0.2, 'u')
+    n = 2 if not big else 3
+    lw = 0.95 if not big else 1.05
+    xs = [w * (0.28 + 0.44 * k) if n == 2 else w * (0.2 + 0.3 * k) for k in range(n)]
+    xs = [x + r.uniform(-0.4, 0.4) for x in xs]
+    tall = r.randrange(n)
+    for k, x in enumerate(xs):
+        top = -1 if k == tall else h * r.uniform(0.14, 0.24)
+        seg(cv, x, gtop + 0.5, x, top, 'b', lw)
+        room = min(x - 1.5, w - 1.5 - x, *[abs(x - o) - 2 * lw - 2.2 for o in xs if o != x])
+        y = gtop - r.uniform(2.0, 3.0)
+        j = 0
+        while y > max(top + 2.0, 1.0):
+            box(cv, x - lw - 0.2, y - 0.3, x + lw + 0.2, y + 0.3, 'n', only='b')
+            if 0 < j < 4 and room > 0.8:
+                d = 1 if (j + k) % 2 else -1
+                L = min(s * 0.3, lw + room)
+                lens(cv, x + d * lw * 0.6, y - 0.3, x + d * L, y + L * 0.3, 1.2 if not big else 1.5, 'l')
+            j += 1
+            y -= 3.5 if not big else 4.2
+        if top > 0:
+            for a in (-0.6, 0.6):
+                lens(cv, x, top + 0.6, x + math.sin(a) * s * 0.2, top + 0.6 - math.cos(a) * s * 0.16, 1.2 if not big else 1.5, 'l')
     if big:
-        for x in (w * 0.15, w * 0.62):
-            oval(cv, x, gtop + 0.4, 1.4, 0.9, 'k')
+        sx = w * 0.5 + r.choice((-1, 1)) * w * 0.15
+        poly(cv, [(sx - 1.3, gtop + 0.5), (sx, gtop - h * 0.12), (sx + 1.3, gtop + 0.5)], 'l')
+        box(cv, sx - 1.3, gtop - h * 0.04, sx + 1.3, gtop - h * 0.04 + 0.6, 'n', only='l')
+    box(cv, 0, gtop, w, h, 'd')
+    for x in (w * 0.08, w * 0.92) if big else (w * 0.5,):
+        oval(cv, x, gtop + 0.5, 1.4, 0.9, 'k')
     return cv, [sky(), role('b', 'stalk', 'Bamboo canes', GREEN), role('n', 'node', 'Cane rings', BROWN), role('l', 'leaf', 'Leaves', GREEN),
-                role('d', 'soil', 'Soil', BROWN), role('k', 'stone', 'Stones', BLUE), role('m', 'mountain', 'Mountains', BLUE),
-                role('u', 'sun', 'Sun', PINK)], ['plants', 'forest']
+                role('d', 'soil', 'Soil', BROWN), role('k', 'stone', 'Stones', BLUE), role('u', 'sun', 'Sun', PINK)], ['plants', 'forest']
 
 
 def rose(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
     for x in range(1 if not big else 0, w, 3):
-        rbox(cv, x, h * 0.62, x + 1.9, gtop + 0.5, 0.9, 'k')
-    box(cv, 0, h * 0.7, w, h * 0.7 + 0.9, 'k')
+        poly(cv, [(x, h * 0.7), (x + 1.0, h * 0.66), (x + 2.0, h * 0.7), (x + 2.0, gtop + 0.5), (x, gtop + 0.5)], 'k')
     hills(cv, 'g', gtop, 0.4, w * 1.2, r.uniform(0, 6))
     side = r.choice((-1, 1))
     rx, by, R = cx + side * w * 0.04, h * 0.3, s * 0.25
     path(cv, [(rx, by + R), (rx - side * 0.8, h * 0.6), (rx, gtop + 0.5)], 'l', 0.5 if not big else 0.6)
     lens(cv, rx - side * 0.5, h * 0.58, rx - side * w * 0.3, h * 0.5, s * 0.14, 'l')
     lens(cv, rx - side * 0.3, h * 0.68, rx + side * w * 0.28, h * 0.6, s * 0.13, 'l')
-    for k, y in enumerate((0.5, 0.64, 0.76) if big else (0.52, 0.72)):
+    for k, y in enumerate((0.5, 0.64, 0.76) if big else (0.52, 0.74)):
         d = 1 if k % 2 else -1
-        poly(cv, [(rx - side * 0.4 + d * 0.4, h * y - 0.6), (rx - side * 0.4 + d * 1.5, h * y), (rx - side * 0.4 + d * 0.4, h * y + 0.6)], 'h')
-    poly(cv, [(rx - R * 0.9, by + R * 0.5), (rx, by + R * 1.2), (rx + R * 0.9, by + R * 0.5)], 'l')
+        poly(cv, [(rx - side * 0.4 + d * 0.4, h * y - 0.7), (rx - side * 0.4 + d * 1.6, h * y), (rx - side * 0.4 + d * 0.4, h * y + 0.7)], 'h')
+    poly(cv, [(rx - R * 0.9, by + R * 0.5), (rx, by + R * 1.25), (rx + R * 0.9, by + R * 0.5)], 'l')
     oval(cv, rx, by + R * 0.1, R, R * 0.9, 'p')
     for dx in (-0.55, 0.0, 0.55):
         disc(cv, rx + dx * R, by - R * 0.55, R * 0.42, 'p')
     pts = []
     for k in range(24):
         t = k / 23
-        a = math.radians(200 + t * 470)
+        a = math.radians(200 + t * (330 if not big else 470))
         rr = R * (0.12 + 0.55 * t)
         pts.append((rx + math.cos(a) * rr, by - R * 0.2 + math.sin(a) * rr * 0.8))
-    path(cv, pts, 'q', 0.42 if not big else 0.5)
-    path(cv, [(rx - R * 0.95, by + R * 0.05), (rx - R * 0.3, by + R * 0.55), (rx + R * 0.3, by + R * 0.55), (rx + R * 0.95, by + R * 0.05)], 'q', 0.42)
+    path(cv, pts, 'q', 0.45 if not big else 0.5)
+    path(cv, [(rx - R * 0.95, by + R * 0.05), (rx - R * 0.3, by + R * 0.55), (rx + R * 0.3, by + R * 0.55), (rx + R * 0.95, by + R * 0.05)], 'q', 0.45)
+    fill_pockets(cv, 'p', 'q')
     if big:
         bx = rx - side * w * 0.3
         path(cv, [(rx - side * 0.6, h * 0.5), (bx, h * 0.38), (bx, h * 0.3)], 'l', 0.5)
         oval(cv, bx, h * 0.27, 1.2, 1.7, 'p')
         poly(cv, [(bx - 1.3, h * 0.28), (bx, h * 0.33), (bx + 1.3, h * 0.28), (bx, h * 0.31)], 'l')
-    disc(cv, w * (0.12 if side > 0 else 0.88), h * 0.08, s * 0.08, 'u')
-    if big:
-        cloud(cv, w * (0.82 if side > 0 else 0.18), h * 0.1, s * 0.05 + 0.4, 'e')
+        cloud(cv, w * 0.5 + side * w * 0.32, h * 0.1, s * 0.05 + 0.4, 'e')
+    disc(cv, w * 0.5 - side * w * 0.38, h * 0.08, s * 0.085, 'u')
     return cv, [sky(), role('p', 'bloom', 'Rose', PINK), role('q', 'petal_line', 'Petal folds', PINK), role('l', 'stem', 'Stem and leaves', GREEN),
                 role('h', 'thorns', 'Thorns', BROWN), role('k', 'fence', 'Fence', BROWN), role('g', 'grass', 'Grass', GREEN),
                 role('u', 'sun', 'Sun', BROWN), role('e', 'cloud', 'Cloud', BLUE)], ['flowers', 'garden']
@@ -246,7 +255,7 @@ MORE_NATURE = [oak_tree, willow_tree, maple_tree, bamboo, rose]
 
 # Expansion roles of these subjects (as expansions.ROLES): subject -> {group: [(roleId, new name or None), ...]}.
 MORE_NATURE_ROLES = {
-    'oak_tree': {'lime': [('sun', None)]},
+    'oak_tree': {'lime': [('sun', None)], 'red': [('swing', 'Red swing')]},
     'maple_tree': {'lime': [('falling', 'Yellow leaves')], 'red': [('crown', 'Red crown')]},
     'bamboo': {'red': [('sun', 'Red sun')]},
     'rose': {'lime': [('sun', None)], 'red': [('bloom', 'Red rose')]},

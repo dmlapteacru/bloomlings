@@ -207,10 +207,7 @@ def zebra(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.14)
     meadow(cv, r, 'g', gtop)
-    if r.random() < 0.5:
-        disc(cv, r.choice((4.5, 17.0)), r.uniform(3.0, 5.0), 2.3, 'u')
-    else:
-        disc(cv, r.uniform(5, 17), gtop - 1.0, 4.2, 'u')
+    disc(cv, r.uniform(3.0, 7.0), r.uniform(2.6, 5.0), r.uniform(1.8, 2.6), 'u')
     for tx in r.sample((2.5, 19.0, 20.5), r.randint(1, 2)):
         ty = r.uniform(0.33, 0.42) * h
         box(cv, tx - 0.6, ty, tx + 0.6, gtop + 0.5, 'k')
@@ -218,30 +215,24 @@ def zebra(w, h, r):
     for k in range(r.randint(0, 3)):
         x, y = r.uniform(8, 14) + k * 2.2, r.uniform(2, 6)
         path(cv, [(x - 1.2, y - 0.6), (x, y + 0.2), (x + 1.2, y - 0.6)], 'k', 0.45)
-    pose = r.choice(('stand', 'graze', 'prance'))
+    pose = r.choice(('stand', 'prance'))
     bx = 9.0
     (ex, ey), crest, (rx_, ry_), _ = equine(cv, bx, gtop, 'z', 'k', pose)
     by = gtop - 10.5
-    head = (lambda px, py: px > bx + 7.0 and py > by + 3.0) if pose == 'graze' else (lambda px, py: px > bx + 6.2 and py < by - 4.6)
     for y in range(h):
         for x in range(w):
             px, py = x + 0.5, y + 0.5
-            if cv.g[y][x] != 'z':
+            if cv.g[y][x] != 'z' or (px > bx + 6.2 and py < by - 4.6):
                 continue
-            if head(px, py):
-                stripe = False
-            elif py > by + 2.5 and px < bx + 7.0:
+            if py > by + 2.5 and px < bx + 7.0:
                 stripe = int(py) % 3 == 0
             elif px > bx + 3.0:
-                stripe = int(py + px * (-0.8 if pose == 'graze' else 0.5)) % 3 == 0
+                stripe = int(py + px * 0.5) % 3 == 0
             else:
                 stripe = int(px + (py - by) * 0.3) % 3 == 0
             if stripe:
                 cv.g[y][x] = 'k'
-    if pose == 'graze':
-        disc(cv, bx + 10.8, gtop - 1.3, 1.3, 'k')
-    else:
-        disc(cv, bx + 11.6, by - 4.0, 1.5, 'k')
+    disc(cv, bx + 11.6, by - 4.0, 1.5, 'k')
     tube(cv, crest, 0.7, 0.7, 'k')
     path(cv, [(rx_ + 0.4, ry_), (rx_ - 0.6, ry_ + 2.0), (rx_ - 0.8, ry_ + 5.0)], 'z', 0.5)
     disc(cv, rx_ - 0.8, ry_ + 5.6, 0.9, 'k')
@@ -263,7 +254,6 @@ def deer(w, h, r):
         pine(cv, x, gtop, r.uniform(9, 15), r.uniform(5, 7), 't')
     meadow(cv, r, 'g', gtop)
     stag = r.random() < 0.5
-    pose = 'stand' if stag else r.choice(('stand', 'graze'))
     bx, by = 9.0, gtop - 10.0
     oval(cv, bx, by, 5.0, 2.3, 'd')
     disc(cv, bx + 3.8, by - 0.4, 2.1, 'd')
@@ -273,23 +263,15 @@ def deer(w, h, r):
         box(cv, c0 + dx + 0.1, by + 1, c0 + dx + 1.9, by + 4.5, 'd')
         box(cv, c0 + dx + 1.1, by + 4, c0 + dx + 1.9, gtop + 0.5, 'd')
         cv.put(c0 + dx + 1, gtop - 1, 'a')
-    if pose == 'graze':
-        poly(cv, [(bx + 2.6, by - 1.6), (bx + 5.2, by - 0.6), (bx + 8.6, by + 5.0), (bx + 6.6, by + 6.0)], 'd')
-        hx, hy = bx + 8.0, by + 6.4
-        disc(cv, hx, hy, 1.7, 'd')
-        lens(cv, hx - 0.2, hy, hx + 1.6, gtop + 0.3, 2.4, 'd')
-        lens(cv, hx - 0.6, hy - 1.0, hx - 2.4, hy - 2.6, 1.5, 'd')
-        ex, ey = hx + 0.3, hy - 1.0
-    else:
-        poly(cv, [(bx + 2.4, by - 1.4), (bx + 5.2, by - 0.4), (bx + 6.8, by - 5.6), (bx + 4.6, by - 6.4)], 'd')
-        hx, hy = bx + 6.0, by - 7.0
-        disc(cv, hx, hy, 1.7, 'd')
-        lens(cv, hx - 0.2, hy, hx + 3.8, hy + 1.6, 2.4, 'd')
-        cv.put(int(hx + 3.4), int(hy + 1.2), 'a')
-        lens(cv, hx - 0.8, hy - 1.0, hx - 3.4, hy - 2.4, 1.5, 'd')
-        if not stag:
-            lens(cv, hx + 0.2, hy - 1.2, hx + 0.8, hy - 4.0, 1.4, 'd')
-        ex, ey = hx + 0.4, hy - 0.5
+    poly(cv, [(bx + 2.4, by - 1.4), (bx + 5.2, by - 0.4), (bx + 6.8, by - 5.6), (bx + 4.6, by - 6.4)], 'd')
+    hx, hy = bx + 6.0, by - 7.0
+    disc(cv, hx, hy, 1.7, 'd')
+    lens(cv, hx - 0.2, hy, hx + 3.8, hy + 1.6, 2.4, 'd')
+    cv.put(int(hx + 3.4), int(hy + 1.2), 'a')
+    lens(cv, hx - 0.8, hy - 1.0, hx - 3.4, hy - 2.4, 1.5, 'd')
+    if not stag:
+        lens(cv, hx + 0.2, hy - 1.2, hx + 0.8, hy - 4.0, 1.4, 'd')
+    ex, ey = hx + 0.4, hy - 0.5
     if stag:
         for side in (-1, 1):
             x0, y0 = hx + 0.4 * side, hy - 1.4
@@ -635,10 +617,17 @@ def monkey(w, h, r):
 def tiger(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
-    for x, y, a in r.sample(((0.0, 3.0, 20), (0.0, 9.0, -10), (22.0, 4.0, 160), (22.0, 10.0, 190)), r.randint(1, 3)):
-        t = math.radians(a)
-        lens(cv, x, y, x + math.cos(t) * 6.0, y + math.sin(t) * 6.0, 2.8, 'l')
-        seg(cv, x, y, x + math.cos(t) * 4.6, y + math.sin(t) * 4.6, 'g', 0.35)
+    if r.random() < 0.5:
+        for x, y, a in r.sample(((0.0, 3.0, 20), (0.0, 9.0, -10), (22.0, 4.0, 160), (22.0, 10.0, 190)), r.randint(1, 3)):
+            t = math.radians(a)
+            lens(cv, x, y, x + math.cos(t) * 6.0, y + math.sin(t) * 6.0, 2.8, 'l')
+            seg(cv, x, y, x + math.cos(t) * 4.6, y + math.sin(t) * 4.6, 'g', 0.35)
+    else:
+        for x in r.sample((1.0, 3.4, 18.6, 21.0), r.randint(2, 3)):
+            box(cv, x - 0.6, 0, x + 0.6, gtop, 'l')
+            for y in range(int(r.uniform(2, 5)), int(gtop) - 1, 4):
+                box(cv, x - 0.6, y, x + 0.6, y + 0.5, 'g')
+            lens(cv, x, r.uniform(4, 9), x + (2.6 if x < 11 else -2.6), r.uniform(2, 7), 1.3, 'l')
     meadow(cv, r, 'g', gtop)
     for k in range(r.randint(2, 6)):
         x = r.uniform(0.5, 21.5)
@@ -759,6 +748,9 @@ def raccoon(w, h, r):
     for x in r.sample((1.5, 4.0, 18.0, 20.5), 2):
         disc(cv, x, gtop - 1.0, 2.4, 'v')
     if r.random() < 0.5:
+        for k in range(r.randint(3, 5)):
+            cv.put(int(r.choice((r.uniform(1, 5), r.uniform(17, 21)))), int(r.uniform(9, gtop - 4)), 'm')
+    if r.random() < 0.5:
         rbox(cv, -1, gtop - 2.0, 23, gtop + 0.6, 1.0, 'b')
         for x in range(2, 22, 5):
             cv.put(x, int(gtop - 1), 'v')
@@ -769,6 +761,9 @@ def raccoon(w, h, r):
          1.6, 1.1, lambda u: 'k' if int(u * 7) % 2 else 'r')
     oval(cv, rx, gtop - 5.2, 4.2, 5.0, 'r')
     oval(cv, rx, gtop - 4.8, 2.4, 3.4, 'w')
+    if r.random() < 0.5:
+        disc(cv, rx, gtop - 6.4, 1.5, 'e')
+        cv.put(int(rx), int(gtop - 8.2), 'v')
     for sd in (-1, 1):
         oval(cv, rx + sd * 2.4, gtop - 0.4, 1.6, 1.0, 'k')
         oval(cv, rx + sd * 1.8, gtop - 6.6, 1.1, 0.9, 'k')
@@ -791,8 +786,8 @@ def raccoon(w, h, r):
     path(cv, [(rx - 1.0, hy + 3.2), (rx, hy + 2.6), (rx + 1.0, hy + 3.2)], 'k', 0.4)
     if r.random() < 0.5:
         mirror(cv)
-    return cv, [('s', 'sky', 'Night sky', PINK, True), role('e', 'inner_ear', 'Inner ears', PINK), role('r', 'raccoon', 'Raccoon', BLUE),
-                role('w', 'white', 'Face and belly', BLUE), role('m', 'moon', 'Moon and stars', BROWN),
+    return cv, [('s', 'sky', 'Night sky', PINK, True), role('e', 'inner_ear', 'Inner ears and apple', PINK), role('r', 'raccoon', 'Raccoon', BLUE),
+                role('w', 'white', 'Face and belly', BLUE), role('m', 'moon', 'Moon, stars and fireflies', BROWN),
                 role('k', 'mask', 'Mask, eyes, paws and rings', BROWN), role('b', 'log', 'Log', BROWN),
                 role('g', 'grass', 'Grass', GREEN), role('v', 'bushes', 'Bushes', GREEN)], ['animals', 'night']
 
@@ -1077,10 +1072,22 @@ def dragon(w, h, r):
         for k in range(6):
             disc(cv, 15.6 + (k % 3) * 1.8 + (k // 3) * 0.9, gtop - 0.6 - (k // 3) * 1.4, 1.0, 'y')
     by = gtop - 6.6
+    night = r.random() < 0.35
+    if night:
+        mx = r.uniform(2.0, 5.0) if scene != 'clouds' else r.uniform(8, 11)
+        disc(cv, mx, 2.4, 1.6, 'y')
+        disc(cv, mx + 0.9, 1.8, 1.3, 's')
+        for k in range(4):
+            cv.put(int(r.uniform(1, 13)), int(r.uniform(0.5, 5)), 'y')
     sx, sy = 8.4, by - 2.4
-    wx, wy = 6.4, by - 12.0
-    tips = [(0.6, by - 13.6), (0.4, by - 8.6), (2.4, by - 4.6)]
-    vals = [(3.2, by - 10.4), (3.0, by - 6.4), (5.4, by - 3.2)]
+    if r.random() < 0.5:
+        wx, wy = 6.4, by - 12.0
+        tips = [(0.6, by - 13.6), (0.4, by - 8.6), (2.4, by - 4.6)]
+        vals = [(3.2, by - 10.4), (3.0, by - 6.4), (5.4, by - 3.2)]
+    else:
+        wx, wy = 5.0, by - 9.6
+        tips = [(0.2, by - 7.4), (0.8, by - 4.0), (3.6, by - 2.2)]
+        vals = [(2.6, by - 6.4), (3.0, by - 3.6), (5.6, by - 2.6)]
     poly(cv, [(sx, sy), (wx, wy), tips[0], vals[0], tips[1], vals[1], tips[2], vals[2], (sx - 1.6, sy + 0.6)], 'w')
     seg(cv, sx, sy, wx, wy, 'q', 0.6)
     for tx_, ty_ in tips:
@@ -1107,6 +1114,9 @@ def dragon(w, h, r):
     cv.put(int(hx + 4.4), int(hy - 1.2), 'k')
     eye(cv, hx - 0.2, hy - 1.2, big, 'e', 'k')
     path(cv, [(hx + 1.2, hy + 1.0), (hx + 3.8, hy + 0.4)], 'k', 0.4)
+    if r.random() < 0.4:
+        for dx in (0.0, 1.8):
+            oval(cv, 15.2 + dx, gtop - 0.6, 0.9, 1.2, 'e')
     if r.random() < 0.6:
         fx, fy = hx + 5.2, hy - 1.4
         lens(cv, fx - 0.6, fy + 0.6, fx + 1.6, fy - 7.2, 3.6, 'f')
@@ -1116,10 +1126,10 @@ def dragon(w, h, r):
             disc(cv, hx + 5.4 + k * 0.3, hy - 2.6 - k * 1.8, 0.6 + k * 0.25, 'c')
     if r.random() < 0.5:
         mirror(cv)
-    return cv, [sky(), role('d', 'dragon', 'Dragon', GREEN), role('w', 'wing', 'Wing', PINK),
+    return cv, [sky(name='Night sky' if night else 'Sky'), role('d', 'dragon', 'Dragon', GREEN), role('w', 'wing', 'Wing', PINK),
                 role('q', 'spikes', 'Spikes, wing bones and tail tip', PINK), role('b', 'belly', 'Belly', BROWN), role('h', 'horns', 'Horns', BROWN),
-                role('y', 'flame', 'Flame core and gold', BROWN), role('f', 'fire', 'Fire', BROWN), role('k', 'eye', 'Eye and nostril', BROWN),
-                role('e', 'eye_white', 'Eye white', BLUE), role('c', 'castle', 'Castle, clouds and smoke', BLUE), role('g', 'hill', 'Hill', GREEN)],\
+                role('y', 'flame', 'Flame core, gold, moon and stars', BROWN), role('f', 'fire', 'Fire', BROWN), role('k', 'eye', 'Eye and nostril', BROWN),
+                role('e', 'eye_white', 'Eye white and eggs', BLUE), role('c', 'castle', 'Castle, clouds and smoke', BLUE), role('g', 'hill', 'Hill', GREEN)],\
         ['animals', 'fairy']
 
 
@@ -1309,6 +1319,9 @@ def toucan(w, h, r):
     box(cv, hx + 1.2, hy - 2.0, hx + 2.0, hy + 1.8, 'k')
     disc(cv, hx + 0.2, hy - 0.6, 1.1, 'e')
     cv.put(int(hx + 0.2), int(hy - 0.6), 'q')
+    if r.random() < 0.5:
+        disc(cv, hx + 10.2, hy + 1.6, 1.1, 'f')
+        cv.put(int(hx + 10.2), int(hy + 0.2), 'v')
     for dx in (0.4, 1.8):
         cv.put(int(tx + dx), int(by - 1.0), 'e')
     if r.random() < 0.6:
@@ -1715,15 +1728,25 @@ def lobster(w, h, r):
         oval(cv, x, gtop + 0.4, 2.0, 1.4, 'r')
     for k in range(r.randint(4, 6)):
         disc(cv, r.uniform(1, 21), r.uniform(1, 12), r.uniform(0.5, 0.9), 'o')
+    if r.random() < 0.5:
+        fx, fy = r.choice((3.5, 18.5)), r.uniform(14, 20)
+        oval(cv, fx, fy, 1.6, 0.9, 'r')
+        poly(cv, [(fx + 1.2, fy), (fx + 2.6, fy - 1.0), (fx + 2.6, fy + 1.0)], 'r')
+        cv.put(int(fx - 0.8), int(fy - 0.2), 'k')
     lx, ly = cx + r.uniform(-1.0, 1.0), r.uniform(-0.5, 0.8)
     wave = r.uniform(-0.8, 0.8)
+    up = r.random() < 0.55
     for sd in (-1, 1):
         path(cv, [(lx + sd * 0.8, 8.4 + ly), (lx + sd * 3.6, 4.6 + ly), (lx + sd * (7.0 + wave), 1.6 + ly), (lx + sd * 10.0, 2.0 + ly)], 'q', 0.35)
         for k in range(3):
             y0 = 13.0 + k * 1.6 + ly
             path(cv, [(lx + sd * 2.2, y0), (lx + sd * 4.2, y0 + 0.6), (lx + sd * 5.0, y0 + 2.2)], 'q', 0.4)
-        path(cv, [(lx + sd * 1.8, 10.6 + ly), (lx + sd * 4.6, 10.4 + ly), (lx + sd * 6.0, 8.0 + ly)], 'l', 0.95)
-        cx_, cy_ = lx + sd * 6.6, 5.4 + ly
+        if up:
+            path(cv, [(lx + sd * 1.8, 10.6 + ly), (lx + sd * 4.6, 10.4 + ly), (lx + sd * 6.0, 8.0 + ly)], 'l', 0.95)
+            cx_, cy_ = lx + sd * 6.6, 5.4 + ly
+        else:
+            path(cv, [(lx + sd * 1.8, 10.6 + ly), (lx + sd * 4.4, 12.0 + ly), (lx + sd * 6.6, 11.0 + ly)], 'l', 0.95)
+            cx_, cy_ = lx + sd * 7.4, 8.2 + ly
         oval(cv, cx_, cy_, 2.4, 3.2, 'l')
         seg(cv, cx_ + sd * 0.4, cy_ - 3.2, cx_ + sd * 0.1, cy_ - 0.4, 'w', 0.45)
         seg(cv, lx + sd * 0.8, 8.8 + ly, lx + sd * 1.2, 7.4 + ly, 'q', 0.35)
@@ -1736,9 +1759,13 @@ def lobster(w, h, r):
         lens(cv, lx, 21.8 + ly, lx - math.cos(t) * 2.6, 21.8 + ly - math.sin(t) * 2.6, 1.4, 'l')
     eyes(cv, lx, 9.6 + ly, 1.3, big, 'e', 'k')
     path(cv, [(lx - 0.8, 12.4 + ly), (lx, 12.8 + ly), (lx + 0.8, 12.4 + ly)], 'k', 0.35)
+    if r.random() < 0.5:
+        mirror(cv)
     return cv, [('w', 'water', 'Water', BLUE, True), role('o', 'bubbles', 'Bubbles', BLUE), role('e', 'eye_white', 'Eye whites', BLUE),
                 role('l', 'lobster', 'Lobster', PINK), role('q', 'legs', 'Legs, feelers and shell lines', PINK), role('d', 'sand', 'Sand', BROWN),
-                role('k', 'eye', 'Eyes and smile', BROWN), role('r', 'rocks', 'Rocks', GREEN), role('g', 'weed', 'Seaweed', GREEN)], ['animals', 'sea']
+                role('k', 'eye', 'Eyes and smile', BROWN), role('r', 'rocks', 'Rocks and fish', GREEN), role('g', 'weed', 'Seaweed', GREEN)], ['animals', 'sea']
 
 
-DAILY_ANIMALS = [dragon, unicorn, dinosaur, kangaroo, koala, zebra, monkey, tiger, deer, squirrel, raccoon, flamingo, peacock, swan, seal, dolphin, jellyfish, seahorse, starfish, lobster, beetle, dragonfly, caterpillar, camel, hippo, crocodile, toucan, hamster, cow, horse, goat, chameleon]
+DAILY_ANIMALS = [dragon, unicorn, dinosaur, kangaroo, koala, zebra, monkey, tiger, deer, squirrel, raccoon, flamingo,
+                 peacock, swan, seal, dolphin, jellyfish, seahorse, starfish, lobster, beetle, dragonfly, caterpillar, camel,
+                 hippo, crocodile, toucan, hamster, cow, horse, goat, chameleon]

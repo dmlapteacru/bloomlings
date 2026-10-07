@@ -349,9 +349,9 @@ def sled(w, h, r):
         return top + slope * (x - cx)
     fill(cv, 'w', lambda px, py: py >= surface(px))
     if cabin:
-        hx = w - 3.2
-        box(cv, hx - 2.6, surface(hx) - 4.6, hx + 2.6, surface(hx) + 0.5, 'k')
-        poly(cv, [(hx - 3.6, surface(hx) - 4.2), (hx, surface(hx) - 7.6), (hx + 3.6, surface(hx) - 4.2)], 'v')
+        hx = w - 2.6
+        box(cv, hx - 2.2, surface(hx) - 4.6, hx + 2.2, surface(hx) + 0.5, 'k')
+        poly(cv, [(hx - 3.2, surface(hx) - 4.2), (hx, surface(hx) - 7.4), (hx + 3.2, surface(hx) - 4.2)], 'v')
         box(cv, hx - 0.9, surface(hx) - 3.4, hx + 0.9, surface(hx) - 1.6, 't')
         pines(cv, [w - hx], surface(w - hx) - 0.2, 4.0, 'p', 'k')
     else:
@@ -359,7 +359,7 @@ def sled(w, h, r):
             pines(cv, [x], surface(x) - 0.2, r.uniform(3.6, 4.4), 'p', 'k')
     sun_moon(cv, w * r.choice((0.2, 0.8)), h * 0.11, 2.4, 'u', 'n', night)
     scatter(cv, 'x', 'n', 10, r, sep=3, area=(0, 0, w - 1, top - 8))
-    sx = cx - (2.2 if cabin else r.uniform(0.0, 1.0))
+    sx = cx - (2.8 if cabin else r.uniform(0.0, 1.0))
     deg = math.degrees(math.atan(slope))
     turned, back = turn(sx, surface(sx) - 0.2, deg)
 
@@ -371,7 +371,7 @@ def sled(w, h, r):
     path(cv, [to(6.4 + 2.4 * math.cos(math.radians(a)), -3.0 + 2.4 * math.sin(math.radians(a))) for a in (90, 50, 10, -30, -70, -110)],
          'k', 0.6)
     poly(cv, [to(-8.8, -5.2), to(5.6, -5.2), to(5.6, -3.0), to(-8.8, -3.0)], 'b')
-    path(cv, [to(7.4, -5.0), to(9.6, -2.6), to(11.8, -2.4)], 't', 0.45)
+    path(cv, [to(7.4, -5.0), to(9.0, -3.0)] + ([] if cabin else [to(11.8, -2.4)]), 't', 0.45)
     for k in (0.4, 1.7):
         seg(cv, *to(-9.2, k), *to(-17.0, k), 'v', 0.35)
     if r.random() < 0.5:
