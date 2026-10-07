@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "shark_04",
+  "legend": {
+    "b": "belly",
+    "d": "sand",
+    "e": "eye",
+    "f": "fish",
+    "g": "weed",
+    "k": "shark",
+    "w": "water",
+    "x": "bubbles"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Shark",
+      "roleId": "shark"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, smile and gills",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Little fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Shark 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

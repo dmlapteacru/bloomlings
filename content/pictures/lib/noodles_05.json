@@ -1,0 +1,129 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 6, 1, 1, 1, 1, 1, 1, 1],
+    [-1, 0, 0, 0, 0, -1, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, 0, -1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, -1, 0],
+    [0, -1, 0, -1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, -1, 0, 0],
+    [0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, -1],
+    [0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0],
+    [-1, 0, 0, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 0],
+    [0, 0, 0, 0, 0, 0, 4, 12, 4, 4, 7, 12, 3, 10, 10, 3, 12, 12, 0, 0],
+    [-1, 0, 0, 0, 0, 2, 2, 4, 4, 7, 5, 7, 3, 10, 10, 3, 3, 12, 0, 0],
+    [0, 0, 0, -1, 0, 2, 2, 0, 7, 5, 5, 5, 7, 10, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, -1, 0, 0, 7, 5, 7, 10, 10, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 7, 0, 8, 0, 0, 0, 0, -1, -1, -1],
+    [0, 0, 0, 0, 2, 2, -1, 0, 0, 0, -1, 0, 8, 0, 0, 8, -1, 0, 0, 0],
+    [-1, 0, 0, -1, -1, 0, -1, 0, 0, 0, 0, 0, 8, 0, 0, 8, 0, -1, -1, -1],
+    [0, -1, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 8, 0, 0, 8, 0, 0, 0, 0],
+    [-1, 0, 0, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 9, 8, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 9],
+    [0, -1, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 13, 13, 13, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 13, 13, 13, 13, -1],
+    [0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 13, 13, 13, 13, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, -1, 0, 0, -1, 0, 0],
+    [-1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 25,
+  "id": "noodles_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chopsticks",
+      "roleId": "chopsticks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Noodles",
+      "roleId": "noodles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strand lines",
+      "roleId": "strands"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yolk",
+      "roleId": "yolk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bowl and box",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Egg white",
+      "roleId": "egg"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Nori",
+      "roleId": "nori"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bowl band and box folds",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green onion",
+      "roleId": "onion"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.442,
+    "nestingDepth": 5,
+    "regionCount": 37
+  },
+  "subject": "Noodles 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "dinner"]
+  },
+  "version": 1,
+  "width": 20
+}

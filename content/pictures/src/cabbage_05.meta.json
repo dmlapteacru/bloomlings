@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "cabbage_05",
+  "legend": {
+    "a": "outer",
+    "b": "wall",
+    "d": "cloth_dots",
+    "e": "veins",
+    "i": "head",
+    "o": "panes",
+    "p": "board",
+    "q": "red",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Outer leaves",
+      "roleId": "outer"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Veins and cut lines",
+      "roleId": "veins"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red cabbage",
+      "roleId": "red"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cabbage 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

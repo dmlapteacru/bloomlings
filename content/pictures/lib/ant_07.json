@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [2, 2, 2, 2, 4, 0, 4, 0, 0, 4, -1, 0, 0, 0, 9],
+    [0, 2, 0, 3, 4, -1, 4, 0, 4, 0, 0, -1, 0, 8, 8],
+    [0, 3, 3, 3, 3, 3, 3, 3, 4, 3, 3, 7, 0, 8, 8],
+    [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 5, 7, 0, 8, 0],
+    [-1, 0, -1, 0, 0, 0, -1, 0, 0, 3, 5, 7, 0, 0, 0],
+    [0, 0, -1, -1, 0, 0, 0, 0, 0, 5, 5, 7, 4, 4, 4],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 5, 7, -1, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 7, 0, -1, 0],
+    [0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 7, 0, -1, 0],
+    [-1, 0, 0, 0, 0, -1, 0, 0, 0, 6, 6, 6, 0, 0, 0],
+    [0, 0, -1, 0, 0, -1, 0, -1, 0, -1, 6, 6, 1, 1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1, 0, -1, -1, 1, 1, 1, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 1, 1, 1, 0],
+    [-1, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "ant_07",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Anthill",
+      "roleId": "anthill"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ant",
+      "roleId": "ant"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Legs and feelers",
+      "roleId": "legs"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Leaf stem",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.466,
+    "nestingDepth": 4,
+    "regionCount": 20
+  },
+  "subject": "Ant 7",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "garden"]
+  },
+  "version": 1,
+  "width": 15
+}

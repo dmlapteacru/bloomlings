@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "race_car_07",
+  "legend": {
+    "b": "body",
+    "d": "track",
+    "e": "helmet",
+    "g": "verge",
+    "k": "kerb",
+    "n": "number",
+    "t": "tyre",
+    "w": "wing",
+    "y": "kerb2"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Track",
+      "roleId": "track"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Race car",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wings",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tyres",
+      "roleId": "tyre"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow helmet",
+      "roleId": "helmet"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Number and start line",
+      "roleId": "number"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red kerb",
+      "roleId": "kerb"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange kerb",
+      "roleId": "kerb2"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "verge"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Race car 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "sport"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

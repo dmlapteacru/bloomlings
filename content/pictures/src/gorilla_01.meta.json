@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "gorilla_01",
+  "legend": {
+    "e": "eye",
+    "f": "face",
+    "g": "grass",
+    "k": "gorilla",
+    "l": "leaves",
+    "p": "flowers",
+    "s": "sky",
+    "y": "banana"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Gorilla",
+      "roleId": "gorilla"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face and chest",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes and nostrils",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bananas",
+      "roleId": "banana"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Jungle leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flower",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Gorilla 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "jungle"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

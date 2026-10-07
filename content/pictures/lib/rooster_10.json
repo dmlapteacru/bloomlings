@@ -1,0 +1,113 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    [9, 0, 0, 9, 0, 0, 9, 9, 4, 4, 4, 4, 4, 4, 9, 9, 0, -1, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 4, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, -1, 0, 9, -1, -1, 9, 0, 0, 9, 4, 4, 4, 0, 0, 9, 0, -1, 9, 0],
+    [0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 2, 2, 2, 0, 0, 0, -1, 0, 0, -1],
+    [-1, 0, -1, 0, 0, 0, -1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 3, 3, 3, 2, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 2, 2, 2, 2, 3, 3, 3, 2, 2, 5, 5, 5, 5],
+    [0, 0, -1, 0, -1, 0, 7, -1, 2, 2, 2, 3, 3, 2, 2, 5, 6, 6, 5, 5],
+    [-1, 0, 0, -1, -1, 7, 7, -1, 2, 2, 2, 2, 2, 2, 6, 5, 5, 6, 6, 6],
+    [-1, 0, 0, 0, 0, 7, 7, 2, 2, 2, 0, 0, 5, 5, 6, 6, 5, 6, 6, 6],
+    [-1, 0, 0, -1, 0, -1, 7, 2, 2, 2, -1, 0, 5, 5, 6, 0, 5, -1, 0, 0],
+    [0, 0, -1, 4, 4, 4, 8, 8, 2, 2, 2, 0, 0, 0, 6, -1, 0, 0, 0, 0],
+    [0, -1, 0, 0, -1, 4, 8, 8, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, 0, 0, -1, 0, 0, 8, 7, 2, 7, 7, 0, 0, 0, 0, 0, 0, 0, -1, 0],
+    [0, 0, 0, -1, -1, 0, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, -1, 7, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, -1, 0, -1, -1, 7, 7, 0, -1, 0, 0, -1, -1, 1, 1, 0, -1],
+    [0, 0, -1, 0, 0, -1, -1, 0, 0, 0, -1, -1, -1, 0, -1, 1, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 0],
+    [0, 0, -1, 0, 0, 0, 0, -1, -1, 0, -1, 0, 0, 0, 0, -1, 1, 1, -1, 0],
+    [-1, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0, 0, -1, -1, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 24,
+  "id": "rooster_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rooster",
+      "roleId": "rooster"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak and legs",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Tail feathers",
+      "roleId": "tail2"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red comb",
+      "roleId": "comb"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fence",
+      "roleId": "fence"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.377,
+    "nestingDepth": 5,
+    "regionCount": 34
+  },
+  "subject": "Rooster 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "farm"]
+  },
+  "version": 1,
+  "width": 20
+}

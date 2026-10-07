@@ -1,0 +1,112 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10],
+    [10, 10, 10, 11, 11, 11, 11, 11, 11, 11, 11, 11, 11, 10, 10, 10],
+    [10, 10, 10, -1, 0, -1, 9, 9, 1, 9, 9, 0, 0, 10, 10, 10],
+    [0, 7, 0, 0, 0, 2, 1, 1, 1, 1, 1, 2, -1, 7, 7, 0],
+    [0, -1, 0, 0, 0, 2, 2, 1, 1, 8, 2, 2, 0, -1, 0, 0],
+    [-1, 0, 0, 0, -1, 2, 2, 1, 1, 8, 2, 2, 0, -1, 0, 0],
+    [-1, -1, 5, 3, 3, 3, 2, 6, 6, 8, 2, 3, 3, 3, -1, 0],
+    [-1, 0, 5, 3, 3, 3, 3, 6, 9, 8, 3, 3, 3, 4, 4, 0],
+    [0, -1, 4, 4, 4, 4, 4, 6, 9, 8, 4, 4, 4, 4, 4, 0],
+    [0, 0, 4, 4, 4, 3, 6, 6, 6, 6, 6, 3, 4, 4, 4, 0],
+    [0, 0, 5, 3, 3, 3, 6, 7, 6, 7, 6, 3, 3, 3, 5, -1],
+    [0, -1, 0, 5, 3, 4, 4, 6, 6, 6, 4, 4, 3, 5, 0, 0],
+    [0, 0, 0, 5, 5, 4, 4, 3, 3, 3, 4, 4, 5, 5, 0, 0],
+    [0, -1, 0, 0, 4, 4, 4, 3, 3, 3, 4, 4, 4, 0, 0, 0],
+    [0, -1, 0, 0, -1, 0, 4, 5, 5, 5, 4, 0, 0, 0, -1, 0],
+    [-1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0],
+    [0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 18,
+  "id": "turkey_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Turkey",
+      "roleId": "turkey"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tail feathers",
+      "roleId": "feather"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tail stripes",
+      "roleId": "feather2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Feather tips",
+      "roleId": "tips"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and pumpkin stalks",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wattle",
+      "roleId": "wattle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak and legs",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pumpkins",
+      "roleId": "pumpkins"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.322,
+    "nestingDepth": 4,
+    "regionCount": 38
+  },
+  "subject": "Turkey 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "farm"]
+  },
+  "version": 1,
+  "width": 16
+}

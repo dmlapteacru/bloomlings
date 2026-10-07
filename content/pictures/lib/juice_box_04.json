@@ -1,0 +1,112 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [-1, 0, 6, 5, 5, 5, 5, -1, 0, 2, 1, 1, 1, 1, -1, -1],
+    [-1, 6, 6, 5, 5, 5, 5, -1, 0, 2, 1, 1, 1, 1, 0, -1],
+    [0, 6, 6, 5, 7, 7, 5, 0, 0, 2, 1, 7, 7, 1, 0, -1],
+    [0, 6, 6, 5, 7, 7, 5, 0, 0, 2, 1, 7, 7, 7, 0, -1],
+    [0, 6, 6, 5, 8, 5, 5, 0, 0, 2, 1, 1, 8, 1, -1, -1],
+    [0, 6, 6, 5, 5, 5, 5, 0, -1, 8, 8, 8, 1, 1, 0, 0],
+    [0, 6, 6, 5, 5, 5, 5, 0, 0, 2, 1, 1, 1, 1, 0, -1],
+    [0, 6, 6, 4, 3, 3, -1, 0, 0, 2, 3, 3, 3, 3, -1, 0],
+    [0, 0, -1, 4, 0, 0, -1, -1, -1, -1, 0, 4, 0, 0, -1, -1],
+    [0, 0, 4, 4, -1, -1, -1, 0, 0, 0, 0, 4, 11, 11, 11, 0],
+    [0, -1, 4, -1, 0, 0, -1, -1, -1, 4, 4, 10, 11, 10, 11, 0],
+    [0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 11, 11, 11, 11, 11, 0],
+    [0, -1, -1, 0, 0, -1, 0, -1, 0, 0, 11, 10, 10, 10, 11, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 11, 11, 11, 11, 11, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 18,
+  "id": "juice_box_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Juice box",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box side",
+      "roleId": "box_side"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box top",
+      "roleId": "box_top"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Straw",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grape juice box",
+      "roleId": "box2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Its side",
+      "roleId": "box2_side"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oranges",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.277,
+    "nestingDepth": 4,
+    "regionCount": 34
+  },
+  "subject": "Juice box 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "drinks"]
+  },
+  "version": 1,
+  "width": 16
+}

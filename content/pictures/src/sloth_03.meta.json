@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "sloth_03",
+  "legend": {
+    "b": "sloth",
+    "f": "face",
+    "g": "grass",
+    "k": "stripes",
+    "l": "leaves",
+    "p": "flowers",
+    "r": "branch",
+    "s": "sky",
+    "u": "sun",
+    "v": "bushes"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Jungle sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sloth",
+      "roleId": "sloth"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye stripes, nose and claws",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Mossy tree",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bushes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Sloth 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "jungle"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

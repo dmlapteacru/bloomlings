@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [8, 8, 8, 7, 1, 1, 1, 7, 3, 7, 7, 3, 7, 7],
+    [8, 8, 8, 0, 1, 1, 1, 0, 3, -1, 0, 3, 0, 0],
+    [9, 8, 9, 0, -1, 1, 0, 0, 3, 0, 0, 3, 0, 0],
+    [9, 9, 9, 0, 0, 1, 0, 0, 3, 3, 3, 3, 0, 0],
+    [-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, -1],
+    [0, 0, 0, -1, -1, 1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 1, 0, -1, 5, 0, -1, 0, 0, 0],
+    [0, -1, 0, 0, 0, 1, 0, -1, -1, 0, 0, -1, 0, -1],
+    [0, 0, -1, 5, 0, 1, 0, 0, -1, 0, -1, 0, 5, 0],
+    [0, -1, 0, 0, 0, 1, 0, 0, 5, 0, 0, 0, 0, -1],
+    [0, -1, 0, 2, 2, 1, 2, 0, 0, -1, 0, -1, 0, 0],
+    [-1, 0, 2, 2, 1, 1, 1, 2, -1, 0, 0, -1, 0, 0],
+    [-1, 0, 2, 2, 4, 4, 4, 2, 0, 0, -1, -1, 5, -1],
+    [-1, -1, 2, 2, 4, 4, 4, 2, 2, -1, 0, 0, 0, 0],
+    [0, -1, 2, 1, 1, 1, 1, 2, 0, 0, 6, 6, -1, 0],
+    [0, 0, 0, 2, 2, 1, 2, 0, 0, 5, 6, 6, 0, 0],
+    [-1, 0, 0, 0, 0, 0, -1, -1, 0, 0, 6, 0, 0, -1]
+  ],
+  "height": 18,
+  "id": "street_lamp_07",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Evening sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lamp post",
+      "roleId": "post"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Glow",
+      "roleId": "glow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bench",
+      "roleId": "bench"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Lamp light",
+      "roleId": "light"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.448,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Street lamp 7",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["town", "night"]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "potato_02",
+  "legend": {
+    "a": "potato",
+    "b": "wall",
+    "e": "eyes",
+    "k": "sack",
+    "o": "panes",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes",
+      "roleId": "eyes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Potatoes",
+      "roleId": "potato"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sack, basket and roots",
+      "roleId": "sack"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Potato 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "mango_03",
+  "legend": {
+    "a": "mango",
+    "b": "wall",
+    "k": "stalk",
+    "l": "leaf",
+    "o": "wall_dots",
+    "p": "plate",
+    "q": "blush",
+    "t": "table",
+    "v": "shelf"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mangoes",
+      "roleId": "mango"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks and twig",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blush and cuts",
+      "roleId": "blush"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mango 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

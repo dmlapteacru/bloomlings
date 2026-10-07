@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "maple_tree_04",
+  "legend": {
+    "c": "crown",
+    "e": "cloud",
+    "f": "falling",
+    "g": "grass",
+    "p": "pile",
+    "s": "sky",
+    "t": "trunk"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Maple crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Falling leaves",
+      "roleId": "falling"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk and boughs",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Leaf pile",
+      "roleId": "pile"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Maple tree 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "trees",
+      "autumn"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

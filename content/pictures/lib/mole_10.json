@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 7, 7, 7, 7, 7, 7, 7, 7, 9, 9, 9, 9, 9],
+    [0, 9, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 9, 7, 7, 9, -1],
+    [0, 8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 7, 7, 8, 0],
+    [8, 8, 8, 6, 4, 4, 4, 3, 3, 3, 3, 3, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 0, 4, 4, 3, 6, 5, 6, 5, 6, 8, 8, 0, 8, 8, 8],
+    [-1, 0, -1, 0, 0, 6, 3, 3, 5, 5, 5, 3, 3, 6, 0, -1, 0, 0],
+    [0, 0, -1, 0, 0, -1, 0, 6, 3, 3, 3, 6, 0, 0, -1, -1, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 3, 3, 3, 3, 3, -1, 0, 0, 0, -1, 0],
+    [0, -1, -1, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, -1, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, -1, 0],
+    [0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, -1, 0, 0, 0, -1, 0],
+    [-1, 0, 0, 0, 0, -1, -1, 0, 0, -1, 0, 0, 0, 0, -1, -1, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 2, 2, -1, 0],
+    [0, -1, 0, 0, 1, 1, 1, 1, 0, 0, -1, 0, 0, 2, 2, 2, 2, -1],
+    [-1, 0, 0, 0, 0, 1, 1, 0, -1, 0, 0, 0, -1, 2, 2, 2, 2, 0],
+    [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 2, 2, -1, 0],
+    [-1, -1, 0, 0, 0, -1, -1, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 22,
+  "id": "mole_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mole",
+      "roleId": "mole"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Digging paws",
+      "roleId": "paws"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Nose",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes, claws and whiskers",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Molehill",
+      "roleId": "molehill"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lawn",
+      "roleId": "lawn"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.404,
+    "nestingDepth": 4,
+    "regionCount": 30
+  },
+  "subject": "Mole 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "garden"]
+  },
+  "version": 1,
+  "width": 18
+}

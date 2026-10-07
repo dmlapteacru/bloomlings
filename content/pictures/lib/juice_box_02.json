@@ -1,0 +1,107 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [0, 5, 5, 5, 0, 0, 2, 1, 1, 1, 1, 1, 0, 0],
+    [0, 5, 5, 5, 5, 0, 2, 1, 1, 1, 1, 1, 0, 0],
+    [0, 5, 5, 5, 5, 0, 2, 1, 5, 5, 5, 1, 0, 0],
+    [0, 5, 5, 5, 0, 0, 2, 1, 5, 5, 5, 1, -1, 0],
+    [0, 0, 6, 0, 0, 0, 2, 1, 1, 6, 1, 1, 0, -1],
+    [0, -1, 7, 7, -1, 0, 2, 1, 1, 6, 1, 1, 0, 0],
+    [0, 7, 7, 7, 7, 0, 2, 1, 1, 1, 1, 1, 0, 0],
+    [0, 7, 7, 7, 7, 0, 2, 1, 4, 3, 3, 3, 0, 0],
+    [-1, 0, -1, 6, -1, 0, 0, 0, 4, 3, 3, 0, 0, 0],
+    [0, 0, 6, 0, 0, 0, -1, 0, 4, 10, 10, 10, 10, 0],
+    [-1, -1, 0, 0, 0, 0, 4, 4, 10, 9, 10, 9, 10, 0],
+    [-1, -1, 0, 0, 0, 0, 0, -1, 10, 10, 10, 10, 10, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 10, 9, 9, 9, 10, 0],
+    [-1, 0, 0, 0, 0, -1, 0, 0, 10, 10, 10, 10, 10, 0],
+    [-1, -1, 0, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 18,
+  "id": "juice_box_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Juice box",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box side",
+      "roleId": "box_side"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box top",
+      "roleId": "box_top"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Straw",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oranges",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Apple",
+      "roleId": "apple"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.333,
+    "nestingDepth": 4,
+    "regionCount": 23
+  },
+  "subject": "Juice box 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "drinks"]
+  },
+  "version": 1,
+  "width": 14
+}

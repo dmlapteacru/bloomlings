@@ -1,0 +1,85 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 4, 6, 6, 6, 6, 6, 6, 6, 6],
+    [0, 5, 5, 0, 5, 5, 0, 4, 5, 0, 5, 5, 0, 5, 5, 0],
+    [0, 5, 5, 0, 5, 5, 0, 4, 5, 0, 5, 5, 0, 5, 5, 0],
+    [-1, 5, 5, -1, 5, 5, -1, 4, 5, 0, 5, 5, 0, 5, 5, -1],
+    [0, 0, 0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, -1, 0, -1],
+    [-1, 0, -1, 4, 4, 2, 2, 2, 2, 2, 4, 0, 0, 0, 0, 0],
+    [0, -1, -1, 2, 2, 2, 2, 2, 2, 2, 2, 4, 0, 0, 0, 0],
+    [0, 0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1, 0],
+    [0, 0, 2, 2, 2, 3, 3, 3, 3, 2, 2, 2, -1, 0, 0, -1],
+    [0, 0, 2, 2, 3, 2, 2, 2, 2, 3, 2, 2, -1, 0, 0, 0],
+    [0, 0, 2, 2, 3, 2, 3, 3, 2, 3, 2, 2, 0, -1, 0, 0],
+    [-1, 0, 0, 2, 3, 2, 3, 3, 3, 3, 2, 2, 0, -1, 0, 0],
+    [0, 0, 2, 2, 3, 2, 2, 3, 3, 2, 2, 2, 0, 1, 1, -1],
+    [0, 0, 0, 2, 2, 3, 2, 2, 2, 2, 2, 2, -1, 1, 1, 0],
+    [-1, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 1, 1, -1]
+  ],
+  "height": 16,
+  "id": "rose_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Rose",
+      "roleId": "bloom"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Petal folds",
+      "roleId": "petal_line"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stem and leaves",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fence",
+      "roleId": "fence"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.269,
+    "nestingDepth": 4,
+    "regionCount": 25
+  },
+  "subject": "Rose 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["flowers", "garden"]
+  },
+  "version": 1,
+  "width": 16
+}

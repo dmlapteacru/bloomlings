@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "woodpecker_06",
+  "legend": {
+    "c": "crest",
+    "g": "grass",
+    "k": "eye",
+    "l": "leaves",
+    "p": "bird",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun",
+    "w": "belly",
+    "y": "beak"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tree trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Crest",
+      "roleId": "crest"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Woodpecker",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Beak and claws",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye, wing spots and tree hole",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Woodpecker 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "forest"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

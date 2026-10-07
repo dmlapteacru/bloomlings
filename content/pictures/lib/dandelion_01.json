@@ -1,0 +1,85 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 5, 6, 6, 6, 6, 5, 6, 6, 6, 6, 6, 6],
+    [-1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0],
+    [-1, 5, 0, 5, 0, 5, 5, 0, 5, 0, 5, -1, 0, 0, -1],
+    [-1, 0, 0, 3, 0, 0, 0, 5, -1, -1, 0, 0, 0, 0, 0],
+    [-1, 3, 3, 3, 3, 3, 1, 5, 1, 0, 1, 0, 0, 0, 0],
+    [0, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 3, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 4, 4, 1, 1, 1, 0, -1, 0],
+    [0, 0, 2, 2, 1, 1, 1, 4, 4, 1, 1, 1, 1, -1, 0],
+    [0, 0, 2, 2, 0, 1, 1, 4, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 2, 0, -1, -1, 1, 1, 1, 1, 0, 1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 0, 1, -1, 0, 0, 0, 0, -1],
+    [0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0],
+    [-1, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "dandelion_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seed head",
+      "roleId": "puff"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flying seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dandelion flower",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seed head center",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems and leaves",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.395,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Dandelion 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["flowers", "meadow"]
+  },
+  "version": 1,
+  "width": 15
+}

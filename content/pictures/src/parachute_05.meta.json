@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 20,
+  "id": "parachute_05",
+  "legend": {
+    "a": "canopy",
+    "c": "cloud",
+    "e": "helmet",
+    "g": "field",
+    "j": "jumper",
+    "k": "lines",
+    "q": "gore",
+    "s": "sky",
+    "t": "target",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Canopy",
+      "roleId": "canopy"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Canopy stripes",
+      "roleId": "gore"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lines",
+      "roleId": "lines"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Jumper",
+      "roleId": "jumper"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Helmet",
+      "roleId": "helmet"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Field",
+      "roleId": "field"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Landing mark",
+      "roleId": "target"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Parachute 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "sport",
+      "sky"
+    ]
+  },
+  "version": 1,
+  "width": 17
+}

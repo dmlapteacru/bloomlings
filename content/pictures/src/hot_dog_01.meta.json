@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "hot_dog_01",
+  "legend": {
+    "b": "sky",
+    "c": "cap",
+    "e": "stripes",
+    "h": "sausage",
+    "n": "bun",
+    "o": "cloud",
+    "p": "plate",
+    "r": "ketchup",
+    "t": "blanket",
+    "v": "hill",
+    "y": "mustard"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Buns",
+      "roleId": "bun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sausages",
+      "roleId": "sausage"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ketchup",
+      "roleId": "ketchup"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mustard",
+      "roleId": "mustard"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Plate and paper boat",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Boat stripes",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Hot dog 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "picnic"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

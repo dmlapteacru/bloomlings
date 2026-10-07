@@ -1,0 +1,105 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 7, 7, 8, 8, 8, 8, 8, 8],
+    [8, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8],
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, -1],
+    [0, -1, 3, 4, 3, 4, 3, 7, 7, 7, 7, 7, 0, 0],
+    [0, 0, 3, 3, 3, 3, 3, 3, 0, 4, 4, -1, 0, 0],
+    [5, 5, 5, 2, 2, 2, 3, 3, 3, 3, 4, 0, 0, 0],
+    [0, -1, 5, 5, 5, 2, 2, 2, 2, 3, 3, 3, -1, 0],
+    [0, 0, 0, 0, 5, 5, 5, 1, 6, 2, 3, 3, 3, 0],
+    [-1, 0, 0, 0, 0, 0, 6, 1, 6, 2, 6, 2, 2, 0],
+    [-1, 0, 0, -1, 0, 0, 0, 1, 1, 5, 5, 1, 6, 0],
+    [9, 9, 9, 9, 9, -1, 0, -1, 0, -1, -1, -1, -1, 0],
+    [9, 10, 9, 10, 9, -1, 0, 0, 0, 0, 0, -1, -1, 0],
+    [9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [9, 10, 10, 10, 9, 0, 0, 0, 0, -1, 0, 0, -1, 0],
+    [9, 9, 9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, -1, 0, 0, -1, 0, -1, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "taco_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheese",
+      "roleId": "cheese"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Meat",
+      "roleId": "meat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shells",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Toasted spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lettuce",
+      "roleId": "lettuce"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.325,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Taco 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "dinner"]
+  },
+  "version": 1,
+  "width": 14
+}

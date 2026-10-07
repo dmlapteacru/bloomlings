@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6, 8, 8],
+    [0, -1, 0, 0, 0, 5, 5, 5, 5, 5, 0, -1, -1, 0, 6, 0, 0],
+    [0, 0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, 0, 0, 6, 0, 0],
+    [0, 0, 0, 0, 0, 4, 0, 0, 4, 0, 0, 0, -1, 0, 6, 0, 0],
+    [0, 0, 0, 0, 0, 4, 4, -1, 4, 0, -1, 0, 0, 0, 6, 0, -1],
+    [0, 0, 0, 0, 0, 0, 4, 0, 4, 0, 0, 0, -1, -1, 6, -1, 0],
+    [-1, 0, 0, 0, -1, 4, 0, 0, 4, 0, 0, 0, 0, 0, 6, 0, 0],
+    [0, 0, 0, 0, 2, 2, 2, 2, 2, 0, -1, 0, 0, 0, 6, 0, 0],
+    [-1, 0, 0, 2, 2, 3, 3, 2, 2, 2, 0, 0, 0, 0, 6, 0, 0],
+    [0, 0, 3, 2, 2, 2, 3, 3, 2, 2, 2, 0, 0, -1, 6, 0, 0],
+    [0, 3, 3, 3, 2, 2, 2, 2, 2, 4, 0, 0, -1, 6, 6, 0, 0],
+    [0, 3, 3, 0, 0, 2, 2, 2, 0, 4, 0, 0, 7, 7, 7, 7, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, -1, 4, 4, 0, 7, 7, 7, 7, 0],
+    [0, 0, -1, 0, -1, 0, 0, 0, 0, -1, 4, 0, 0, 0, -1, 0, 0],
+    [0, 0, 1, 0, 0, 0, 0, 0, -1, -1, 4, 0, 0, -1, 0, 0, 0],
+    [-1, 1, 1, 1, 0, 0, 0, 0, 0, 4, 5, 4, 5, 5, 0, 0, -1],
+    [0, 1, 1, 1, 1, 0, 0, -1, -1, 4, 5, 4, 0, 0, 0, 0, 0],
+    [0, -1, 1, 1, -1, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0],
+    [-1, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, -1]
+  ],
+  "height": 20,
+  "id": "ostrich_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ostrich",
+      "roleId": "ostrich"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plumes",
+      "roleId": "plumes"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Neck and legs",
+      "roleId": "neck"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak, eye and toes",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Acacia trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Acacia",
+      "roleId": "acacia"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Savanna grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.511,
+    "nestingDepth": 4,
+    "regionCount": 26
+  },
+  "subject": "Ostrich 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "savanna"]
+  },
+  "version": 1,
+  "width": 17
+}

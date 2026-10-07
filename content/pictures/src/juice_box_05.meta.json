@@ -1,0 +1,111 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "juice_box_05",
+  "legend": {
+    "a": "box",
+    "b": "wall",
+    "d": "cloth_dots",
+    "e": "box_side",
+    "f": "orange",
+    "g": "box_top",
+    "k": "stalk",
+    "o": "wall_dots",
+    "r": "straw",
+    "t": "table",
+    "v": "shelf",
+    "w": "label",
+    "x": "apple"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Juice box",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box side",
+      "roleId": "box_side"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box top",
+      "roleId": "box_top"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Straw",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oranges",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Apple",
+      "roleId": "apple"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Label band",
+      "roleId": "label"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Juice box 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "drinks"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "hot_dog_04",
+  "legend": {
+    "b": "wall",
+    "c": "cap",
+    "h": "sausage",
+    "n": "bun",
+    "o": "panes",
+    "p": "plate",
+    "r": "ketchup",
+    "t": "table",
+    "v": "frame",
+    "y": "mustard"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Buns",
+      "roleId": "bun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sausages",
+      "roleId": "sausage"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ketchup",
+      "roleId": "ketchup"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mustard",
+      "roleId": "mustard"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Plate and paper boat",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Hot dog 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "picnic"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

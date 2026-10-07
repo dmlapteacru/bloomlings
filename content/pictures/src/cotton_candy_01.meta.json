@@ -1,0 +1,94 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "cotton_candy_01",
+  "legend": {
+    "a": "candy",
+    "b": "sky",
+    "c": "tufts",
+    "f": "flags",
+    "g": "grass",
+    "j": "grape_tufts",
+    "k": "string",
+    "n": "stick",
+    "q": "grape",
+    "y": "flags2"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink cotton candy",
+      "roleId": "candy"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flags",
+      "roleId": "flags"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Light tufts",
+      "roleId": "tufts"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grape cotton candy",
+      "roleId": "grape"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Light grape tufts",
+      "roleId": "grape_tufts"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Other flags and flowers",
+      "roleId": "flags2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "String and pole",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sticks",
+      "roleId": "stick"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cotton candy 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "party"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

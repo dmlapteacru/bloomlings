@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 5, 5],
+    [-1, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0],
+    [-1, 0, 0, 6, 6, 1, 1, 1, 1, 1, 6, 6, -1, 0, -1],
+    [0, 0, 0, 0, 0, 1, 2, 1, 2, 1, 1, 0, 0, -1, 0],
+    [0, 0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1],
+    [0, -1, 0, 0, 1, 2, 1, 2, 1, 2, 1, 1, -1, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1],
+    [0, -1, 0, 1, 1, 1, 2, 1, 2, 1, 2, 1, -1, 0, 0],
+    [0, -1, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0],
+    [0, 0, -1, 0, 1, 1, 1, 2, 1, 1, 1, 1, 0, 0, 0],
+    [0, 8, 8, 8, 8, 3, 3, 3, 3, 3, 3, -1, 0, 0, 0],
+    [0, 8, 7, 8, 7, 8, 3, 3, 3, 3, 0, 0, 0, 0, 0],
+    [-1, 8, 8, 8, 8, 8, -1, 0, 4, 4, 4, 4, -1, 0, 0],
+    [0, 8, 7, 7, 7, 8, -1, 0, 0, 4, 4, 4, 4, 0, 0],
+    [0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 4, 4, 4, 4, -1],
+    [-1, 0, -1, -1, 0, 0, -1, 0, -1, 0, -1, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "raspberry_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Raspberries",
+      "roleId": "berry"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Drupelets",
+      "roleId": "drupelets"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sepals and stalks",
+      "roleId": "calyx"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate and bowl",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.286,
+    "nestingDepth": 4,
+    "regionCount": 28
+  },
+  "subject": "Raspberry 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "fruit"]
+  },
+  "version": 1,
+  "width": 15
+}

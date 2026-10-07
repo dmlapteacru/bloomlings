@@ -111,11 +111,11 @@ def scene(cv, r, w, h, kind, ty, decor=True):
         box(cv, x0, (y0 + y1) / 2 - 0.5, x1, (y0 + y1) / 2 + 0.5, 'v')
     elif kind == 1:
         step = r.choice((4, 5))
-        dots(cv, 'o', 'b', step, step - 1, area=(0, 0, w - 1, ty - 3), offset=r.randrange(step))
         y = h * r.uniform(0.18, 0.22)
         box(cv, 0, y, w * 0.32, y + 0.9, 'v')
         poly(cv, [(w * 0.14, y + 0.9), (w * 0.26, y + 0.9), (w * 0.26, y + 2.8)], 'v')
-        rbox(cv, w * 0.06, y - 3.2, w * 0.2, y - 0.1, 0.6, 'o')
+        rbox(cv, w * 0.05, max(1.0, y - 3.2), w * 0.25, y - 0.1, 0.6, 'o')
+        dots(cv, 'o', 'b', step, step - 1, area=(0, 0, w - 1, ty - 3), offset=r.randrange(step))
     else:
         cloud(cv, w * r.uniform(0.2, 0.34), h * r.uniform(0.07, 0.11), min(w, h) * 0.07 + 0.5, 'o')
     if kind == 2:
@@ -157,14 +157,14 @@ def one_orange(cv, x, y, rr, big, leaves):
 
 
 def half_wheel(cv, x, y, rr):
-    """Half an orange slice standing on its cut edge at row y: peel, pith and segments between the pith's spokes, all
-    reaching the cut edge, so nothing nests inside the slice."""
+    """Half an orange slice standing on its cut edge at row y: peel, pith and segments between the pith's spokes (one
+    on a small slice), all reaching the cut edge, so nothing nests inside the slice."""
     x, y = int(x) + 0.5, round(y)
     for xx, yy, px, py in cells(cv):
         d = math.hypot(px - x, py - y)
         if py <= y and d <= rr:
             cv.g[yy][xx] = 'w' if rr - 1.7 < d <= rr - 0.9 else 'a'
-    for a in (45, 90, 135):
+    for a in (45, 90, 135) if rr >= 5.5 else (90,):
         t = math.radians(a)
         seg(cv, x, y, x + math.cos(t) * (rr - 1.2), y - math.sin(t) * (rr - 1.2), 'w', 0.42)
 
@@ -643,8 +643,8 @@ def garlic(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
-    return cv, [S['b'], S['t'], S['v'], role('a', 'garlic', 'Garlic', PINK), S['d'], role('e', 'lines', 'Clove lines', BROWN),
-                role('k', 'roots', 'Roots', BROWN), role('p', 'board', 'Plate and bowl', GREEN), S['o']], ['food', 'vegetables']
+    return cv, [S['b'], S['t'], S['v'], role('a', 'garlic', 'Garlic', PINK), S['d'], role('k', 'roots', 'Roots', BROWN),
+                role('e', 'lines', 'Clove lines', BROWN), role('p', 'board', 'Plate and bowl', GREEN), S['o']], ['food', 'vegetables']
 
 
 def one_potato(cv, r, x, y, rr, ang, big):
@@ -769,7 +769,8 @@ def cucumber(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
-    return cv, [S['b'], role('a', 'cucumber', 'Cucumbers', GREEN), role('c', 'rind', 'Slice rind and the cucumber behind', GREEN), role('e', 'bumps', 'Bumps', GREEN), role('l', 'leaf', 'Leaves', GREEN),
+    return cv, [S['b'], role('a', 'cucumber', 'Cucumbers', GREEN), role('c', 'rind', 'Slice rind and the cucumber behind', GREEN),
+                role('e', 'bumps', 'Bumps', GREEN), role('l', 'leaf', 'Leaves', GREEN),
                 role('x', 'seeds', 'Seeds', GREEN), S['o'], role('w', 'flesh', 'Flesh', BLUE), role('p', 'board', 'Board and bowl', BROWN),
                 role('k', 'stalk', 'Stalks', BROWN), role('y', 'flower', 'Flowers', BROWN), S['t'], S['v'], S['d']], ['food', 'vegetables']
 
@@ -900,7 +901,8 @@ def radish(w, h, r):
     else:
         S = scene_roles(kind, (BLUE, BLUE, BROWN, GREEN, GREEN))
         top = [S['b'], S['o'], S['v'], S['t'], S['d']]
-    return cv, top + [role('a', 'radish', 'Radishes', PINK), role('c', 'radish2', 'Radish behind', PINK), role('w', 'tail', 'Tails', PINK), role('i', 'inside', 'White inside', BLUE),
+    return cv, top + [role('a', 'radish', 'Radishes', PINK), role('c', 'radish2', 'Radish behind', PINK), role('w', 'tail', 'Tails', PINK),
+                      role('i', 'inside', 'White inside', BLUE),
                       role('l', 'leaf', 'Leaves', GREEN), role('n', 'midribs', 'Midribs', GREEN), role('p', 'board', 'Board', BROWN)], ['food', 'vegetables']
 
 
@@ -1117,13 +1119,13 @@ def cotton_candy(w, h, r):
         fx, fy = pts[int(u * 20)]
         fw = s * 0.045 + 0.5
         poly(cv, [(fx - fw, fy), (fx + fw, fy), (fx, fy + fw * 2.2)], 'f' if k % 2 else 'y')
-    if mode == 1:  # a pink and a mint one
+    if mode == 1:  # a pink and a grape one
         for x, c, tuft, q in ((cx - w * 0.2, 'a', 'c', 0.22), (cx + w * 0.16, 'q', 'j', 0.19)):
             rr = s * q
             y = h * 0.47 + (0.0 if c == 'a' else h * 0.06)
             seg(cv, x, y, x, gtop + 0.5, 'n', 0.5)
             candy_cloud(cv, x, y, rr, c, tuft)
-    else:  # one big cotton candy, pink or mint
+    else:  # one big cotton candy, pink or grape
         rr = s * 0.29
         x, y = cx - w * 0.04, h * 0.49
         seg(cv, x, y, x, gtop + 0.5, 'n', 0.5 if not big else 0.7)
@@ -1135,7 +1137,8 @@ def cotton_candy(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     return cv, [sky('b'), role('a', 'candy', 'Pink cotton candy', PINK), role('f', 'flags', 'Flags', PINK), role('c', 'tufts', 'Light tufts', PINK),
-                role('q', 'mint', 'Mint cotton candy', GREEN), role('g', 'grass', 'Grass', GREEN), role('j', 'mint_tufts', 'Light mint tufts', GREEN), role('y', 'flags2', 'Other flags and flowers', BROWN),
+                role('q', 'grape', 'Grape cotton candy', PINK), role('j', 'grape_tufts', 'Light grape tufts', PINK), role('g', 'grass', 'Grass', GREEN),
+                role('y', 'flags2', 'Other flags and flowers', BROWN),
                 role('k', 'string', 'String and pole', BROWN), role('n', 'stick', 'Sticks', BROWN), role('w', 'cone', 'Paper cone', BLUE)], ['food', 'sweets', 'party']
 
 
@@ -1228,7 +1231,7 @@ def pudding(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (GREEN, BLUE, BLUE, BROWN, BROWN))
-    return cv, [S['b'], role('r', 'cherry', 'Cherry', PINK), role('k', 'caramel', 'Caramel', PINK), role('a', 'custard', 'Custard', BROWN), S['t'], S['d'],
+    return cv, [S['b'], role('r', 'cherry', 'Cherry', PINK), role('k', 'caramel', 'Caramel', PINK), S['t'], S['d'], role('a', 'custard', 'Custard', BROWN),
                 S['v'], role('p', 'plate', 'Plate', BLUE), S['o'], role('i', 'cream', 'Whipped cream', BLUE), role('z', 'spoon', 'Spoon', BLUE),
                 role('n', 'stem', 'Cherry stem', GREEN)], ['food', 'sweets']
 
@@ -1253,8 +1256,8 @@ def marshmallow(w, h, r):
     lens(cv, fx + fr * 0.7, fb - fr - 0.2, fx + fr * 1.1, fb - fr * 2.5, fr * 0.6, 'f')
     disc(cv, fx, fb - fr * 0.9 - 0.4, fr * 0.55, 'y')
     lens(cv, fx, fb - fr * 1.2, fx + 0.2, fb - fr * 2.2, fr * 0.5, 'y')
-    q = s * 0.1 + 0.4
-    my = fb - fr * 3.0 - q - 1.4
+    q = s * 0.11 + 0.6
+    my = fb - fr * 3.0 - q - 1.2
     if mode == 0:  # one marshmallow on a stick over the fire
         seg(cv, -0.5, my + h * 0.2, fx + q, my, 'n', 0.5)
         marshmallow_piece(cv, fx + q * 0.3, my, q, 'a')
@@ -1283,18 +1286,19 @@ def marshmallow(w, h, r):
 # ---- Dishes ----
 
 def one_hot_dog(cv, x, y, L, big):
-    """A hot dog lying across: the bun's back half, the sausage over it with both ends showing, the bun's rounded
-    front half, and a wavy line of mustard along the sausage."""
-    hb = max(1.4, L * 0.11)
-    sr = max(1.3, L * 0.11)
-    rbox(cv, x - L * 0.4, y - sr - hb * 0.8, x + L * 0.4, y, hb * 0.7, 'n')
-    tube(cv, [(x - L * 0.47, y), (x + L * 0.47, y)], sr, 'h')
-    fy = y + sr * 0.35
+    """A hot dog lying across, `L` cells long: the bun's back half, the sausage in it with both rounded ends well out
+    of the bun, the bun's front half round under it, and a wavy line of mustard along the sausage."""
+    sr = 1.5 if not big else 2.0
+    hb = 1.2 if not big else 1.6
+    bl = L * 0.34
+    rbox(cv, x - bl, y - sr - hb, x + bl, y, hb, 'n')
+    tube(cv, [(x - L / 2 + sr, y), (x + L / 2 - sr, y)], sr, 'h')
+    fy = y + sr * 0.4
     for xx, yy, px, py in cells(cv):
-        if py >= fy and ((px - x) / (L * 0.43)) ** 2 + ((py - fy) / (hb + 0.7)) ** 2 <= 1.0:
+        if py >= fy and ((px - x) / (bl + 0.6)) ** 2 + ((py - fy) / (hb + 1.2)) ** 2 <= 1.0:
             cv.g[yy][xx] = 'n'
-    n = max(3, int(L * 0.7 / 1.6))
-    pts = [(x - L * 0.36 + k * L * 0.72 / n, y - sr * 0.55 + (k % 2) * sr * 0.6) for k in range(n + 1)]
+    n = max(4, int(bl * 2 / 1.5))
+    pts = [(x - bl + k * bl * 2 / n, y - sr * 0.45 + (k % 2) * sr * 0.6) for k in range(n + 1)]
     path(cv, pts, 'y', 0.42 if not big else 0.5)
 
 
@@ -1312,21 +1316,21 @@ def hot_dog(w, h, r):
     mode, kind = r.randrange(3), r.randrange(3)
     ty = h * r.uniform(0.84, 0.88)
     scene(cv, r, w, h, kind, ty)
-    L = w * 0.72
+    L = w * 0.84
     bw = s * 0.1 + 0.3
-    ketchup(cv, cx + w * 0.24, h * 0.18, ty - h * 0.2, bw)
+    ketchup(cv, cx + w * 0.24, h * 0.26, ty - h * 0.2, bw)
     if mode == 0:  # a hot dog on a plate, the ketchup behind
-        oval(cv, cx, ty, w * 0.44, 1.8, 'p')
+        oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         one_hot_dog(cv, cx, ty - h * 0.2, L, big)
     elif mode == 1:  # a hot dog in a paper boat
-        one_hot_dog(cv, cx, ty - h * 0.22, L, big)
-        poly(cv, [(cx - w * 0.46, ty - h * 0.18), (cx + w * 0.46, ty - h * 0.18), (cx + w * 0.38, ty + 0.4), (cx - w * 0.38, ty + 0.4)], 'p')
+        one_hot_dog(cv, cx, ty - h * 0.24, L, big)
+        poly(cv, [(cx - w * 0.36, ty - h * 0.18), (cx + w * 0.36, ty - h * 0.18), (cx + w * 0.3, ty + 0.4), (cx - w * 0.3, ty + 0.4)], 'p')
         for k in range(1, 4 if not big else 6):
-            x = cx - w * 0.38 + k * w * 0.76 / (4 if not big else 6)
+            x = cx - w * 0.3 + k * w * 0.6 / (4 if not big else 6)
             box(cv, x - 0.5, ty - h * 0.14, x + 0.5, ty - 0.4, 'e', only='p')
     else:  # a hot dog on a plate, a bottle of mustard beside the ketchup
-        ketchup(cv, cx - w * 0.22, h * 0.24, ty - h * 0.2, bw * 0.9, 'y')
-        oval(cv, cx, ty, w * 0.44, 1.8, 'p')
+        ketchup(cv, cx - w * 0.22, h * 0.3, ty - h * 0.2, bw * 0.9, 'y')
+        oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         one_hot_dog(cv, cx, ty - h * 0.2, L, big)
     if r.random() < 0.5:
         mirror(cv)
@@ -1337,23 +1341,27 @@ def hot_dog(w, h, r):
 
 
 def one_taco(cv, r, x, y, R, ang, big):
-    """A taco standing on its fold, tilted `ang` degrees: the shell a half disc under its open top through (x, y), the
-    meat along that top, a frill of lettuce over it, and tomato and cheese on the lettuce."""
+    """A taco standing on its fold, tilted `ang` degrees: the shell's outer face a flat half oval under its open top
+    through (x, y), the back of the shell rising behind the filling at its upper end, the meat along the top, a frill
+    of lettuce over it, and tomato and cheese on the lettuce."""
     t = math.radians(ang)
     ux, uy = math.cos(t), math.sin(t)
     nx, ny = -uy, ux
-    for xx, yy, px, py in cells(cv):
-        if (px - x) * nx + (py - y) * ny >= 0 and math.hypot(px - x, py - y) <= R:
-            cv.g[yy][xx] = 'a'
-    dots(cv, 'e', 'a', 3, 2, area=(x - R, y - R, x + R, y + R), offset=int(x) % 3)
+    ry = R * 0.62
+    lens(cv, x + ux * R * 0.15 - nx * 0.8, y + uy * R * 0.15 - ny * 0.8, x + ux * R * 1.02 - nx * ry * 0.7, y + uy * R * 1.02 - ny * ry * 0.7, ry * 0.5, 'a')
     n = max(4, int(R * 2 / 1.7))
-    for k in range(n):
-        u = (-0.85 + 1.7 * k / (n - 1)) * R
-        disc(cv, x + ux * u - nx * 0.2, y + uy * u - ny * 0.2, 0.95, 'm')
     for k in range(n + 1):
         u = (-0.85 + 1.7 * k / n) * R
-        q = 1.3 + (k % 2) * 0.4
-        disc(cv, x + ux * u - nx * q, y + uy * u - ny * q, 1.15 if not big else 1.4, 'l')
+        q = 1.0 + (k % 2) * 0.5
+        disc(cv, x + ux * u - nx * q, y + uy * u - ny * q, 1.15 if not big else 1.45, 'l')
+    for k in range(n):
+        u = (-0.82 + 1.64 * k / (n - 1)) * R
+        disc(cv, x + ux * u - nx * 0.1, y + uy * u - ny * 0.1, 0.95, 'm')
+    for xx, yy, px, py in cells(cv):
+        v, u = (px - x) * nx + (py - y) * ny, (px - x) * ux + (py - y) * uy
+        if v >= 0 and (u / R) ** 2 + (v / ry) ** 2 <= 1.0:
+            cv.g[yy][xx] = 'a'
+    scatter(cv, 'e', 'a', 5 if not big else 8, r, sep=2, area=(x - R, y + R * 0.4, x + R, y + R))
     scatter(cv, 'r', 'l', 3 if not big else 5, r, sep=2, area=(x - R, y - R, x + R, y + 1))
     scatter(cv, 'y', 'l', 2 if not big else 4, r, sep=2, area=(x - R, y - R, x + R, y + 1))
 
@@ -1373,17 +1381,17 @@ def taco(w, h, r):
     ty = h * r.uniform(0.84, 0.88)
     scene(cv, r, w, h, kind, ty)
     oval(cv, cx, ty, w * 0.44, 1.8, 'p')
-    a = -r.uniform(10, 20)
+    a = -r.uniform(14, 22)
     if mode == 0:  # one big taco
-        R = w * 0.38
-        one_taco(cv, r, cx, ty - R - 0.2, R, a, big)
+        R = w * 0.4
+        one_taco(cv, r, cx, ty - R * 0.62 - 0.6, R, a, big)
     elif mode == 1:  # two tacos, the far one higher
-        R = w * 0.25
-        one_taco(cv, r, cx + w * 0.15, ty - R - h * 0.12, R, a, big)
-        one_taco(cv, r, cx - w * 0.15, ty - R - 0.2, R, a, big)
+        R = w * 0.28
+        one_taco(cv, r, cx + w * 0.14, ty - R * 0.62 - h * 0.16, R, a, big)
+        one_taco(cv, r, cx - w * 0.14, ty - R * 0.62 - 0.6, R, a, big)
     else:  # a taco with two wedges of lime
-        R = w * 0.3
-        one_taco(cv, r, cx - w * 0.08, ty - R - 0.2, R, a, big)
+        R = w * 0.32
+        one_taco(cv, r, cx - w * 0.08, ty - R * 0.62 - 0.6, R, a, big)
         q = s * 0.09 + 0.5
         lime_wedge(cv, cx + w * 0.26, ty - 1.2, q)
         if big:
@@ -1391,8 +1399,8 @@ def taco(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
-    return cv, [S['b'], role('e', 'spots', 'Toasted spots', BROWN), role('m', 'meat', 'Meat', BROWN), role('y', 'cheese', 'Cheese', BROWN),
-                role('a', 'shell', 'Shells', BROWN), role('l', 'lettuce', 'Lettuce', GREEN), role('g', 'lime', 'Lime', GREEN),
+    return cv, [S['b'], role('y', 'cheese', 'Cheese', BROWN), role('m', 'meat', 'Meat', BROWN), role('a', 'shell', 'Shells', BROWN),
+                role('e', 'spots', 'Toasted spots', BROWN), role('l', 'lettuce', 'Lettuce', GREEN), role('g', 'lime', 'Lime', GREEN),
                 role('q', 'lime_rind', 'Lime rind', GREEN), role('r', 'tomato', 'Tomato', PINK), role('p', 'plate', 'Plate', BLUE),
                 S['t'], S['v'], S['d'], S['o']], ['food', 'dinner']
 
@@ -1451,27 +1459,24 @@ def noodles(w, h, r):
                 S['o']], ['food', 'dinner']
 
 
-def bao(cv, x, y, rr, big):
-    """A steamed bun: round, flat below, its pleats gathered to a little twist at the top."""
+def one_dumpling(cv, x, y, rr, big, c='a'):
+    """A crescent dumpling standing on its flat side at row y: a plump half oval, its sealed rim a row of round pleats
+    along the top with a short crease at each fold, and its underside fried golden on the big boards."""
+    ry = rr * 0.78
     for xx, yy, px, py in cells(cv):
-        if py <= y + rr * 0.5 and ((px - x) / rr) ** 2 + ((py - y) / (rr * 0.82)) ** 2 <= 1.0:
-            cv.g[yy][xx] = 'a'
-    tx, tyy = x, y - rr * 0.82
-    for a in ((-55, 0, 55) if not big else (-60, -25, 25, 60)):
-        t = math.radians(a)
-        seg(cv, tx + math.sin(t) * 0.5, tyy + 0.6, tx + math.sin(t) * rr * 0.5, tyy + math.cos(t) * rr * 0.35 + 0.6, 'e', 0.4)
-    disc(cv, tx, tyy, 0.75, 'e')
-
-
-def gyoza(cv, x, y, rr, big):
-    """A potsticker lying at row y: a crescent with its rim pleated and its underside fried golden."""
-    for xx, yy, px, py in cells(cv):
-        if py <= y and ((px - x) / rr) ** 2 + ((py - y) / (rr * 0.62)) ** 2 <= 1.0:
-            cv.g[yy][xx] = 'a'
-    box(cv, x - rr, y - 0.9, x + rr, y, 'f', only='a')
-    for a in ((55, 90, 125) if not big else (40, 65, 90, 115, 140)):
-        t = math.radians(a)
-        seg(cv, x + math.cos(t) * rr * 0.95, y - math.sin(t) * rr * 0.6, x + math.cos(t) * rr * 0.7, y - math.sin(t) * rr * 0.42, 'e', 0.4)
+        if py <= y and ((px - x) / rr) ** 2 + ((py - y) / ry) ** 2 <= 1.0:
+            cv.g[yy][xx] = c
+    n = 5 if not big else 6
+    q = max(0.9, rr * 0.17)
+    for k in range(n):
+        a = math.radians(155 - k * 130 / (n - 1))
+        disc(cv, x + math.cos(a) * rr * 0.97, y - math.sin(a) * ry * 0.97, q, c)
+    for k in range(n - 1):
+        a = math.radians(155 - (k + 0.5) * 130 / (n - 1))
+        ex, ey = x + math.cos(a) * (rr + q * 0.3), y - math.sin(a) * (ry + q * 0.3)
+        seg(cv, ex, ey, ex - math.cos(a) * max(1.2, rr * 0.28), ey + math.sin(a) * max(1.2, rr * 0.28), 'e', 0.42)
+    if big:
+        box(cv, x - rr * 0.9, y - 0.9, x + rr * 0.9, y, 'f', only=c)
 
 
 def dumpling(w, h, r):
@@ -1479,38 +1484,32 @@ def dumpling(w, h, r):
     mode, kind = r.randrange(3), r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
     scene(cv, r, w, h, kind, ty)
-    if mode == 0:  # a bamboo steamer with buns, steam rising
-        oval(cv, cx, ty, w * 0.44, 1.6, 'p')
-        sw, st = w * 0.4, ty - h * 0.22
-        rr = sw * 0.36
-        for k, dx in enumerate((-0.58, 0.58, 0.0)):
-            bao(cv, cx + dx * sw, st - rr * 0.25 - (0.8 if k == 2 else 0.0), rr, big)
-        rbox(cv, cx - sw, st, cx + sw, ty - 0.6, 1.0, 'k')
-        box(cv, cx - sw, st, cx + sw, st + 0.9, 'w', only='k')
-        box(cv, cx - sw, ty - 1.6, cx + sw, ty - 0.6, 'w', only='k')
-        top = st - rr * 1.9
-    elif mode == 1:  # three potstickers on a plate, a dish of soy sauce
-        oval(cv, cx - w * 0.06, ty, w * 0.38, 1.6, 'p')
-        rr = s * 0.18
-        for k, (dx, dy) in enumerate(((-0.2, -0.12), (0.12, -0.12), (-0.04, 0.0))):
-            gyoza(cv, cx + dx * w, ty - 1.0 + dy * h, rr, big)
-        dx = cx + w * 0.34
-        bowl(cv, dx, ty - h * 0.14, ty - 0.2, w * 0.12, 'q')
-        box(cv, dx - w * 0.1, ty - h * 0.14, dx + w * 0.1, ty - h * 0.14 + 0.9, 'u', only='q')
-        top = ty - 1.0 - h * 0.12 - rr * 0.8
-    else:  # one big bun on a small plate
-        oval(cv, cx, ty, w * 0.38, 1.6, 'p')
-        rr = s * 0.32
-        bao(cv, cx, ty - rr * 0.5 - 0.8, rr, big)
-        top = ty - rr * 1.3 - 1.4
+    oval(cv, cx, ty, w * 0.42, 1.6 if mode != 1 else 2.6, 'p')
+    if mode == 0:  # one big dumpling
+        rr = w * 0.38
+        one_dumpling(cv, cx, ty - 0.8, rr, big)
+        top = ty - 0.8 - rr
+    elif mode == 1:  # two dumplings, one behind the other
+        rr = w * 0.27
+        one_dumpling(cv, cx + w * 0.17, ty - 2.4, rr * 0.9, big, 'c')
+        one_dumpling(cv, cx - w * 0.12, ty - 0.6, rr, big)
+        top = ty - 2.4 - rr
+    else:  # a dumpling and a dish of soy sauce, chopsticks laid across it
+        rr = w * 0.29
+        one_dumpling(cv, cx - w * 0.12, ty - 0.8, rr, big)
+        dx = cx + w * 0.28
+        bowl(cv, dx, ty - h * 0.13, ty - 0.2, w * 0.13, 'q')
+        box(cv, dx - w * 0.11, ty - h * 0.13, dx + w * 0.11, ty - h * 0.13 + 0.9, 'u', only='q')
+        seg(cv, dx - w * 0.16, ty - h * 0.13 - 0.8, dx + w * 0.14, ty - h * 0.13 - 1.3, 'k', 0.45)
+        top = ty - 0.8 - rr
     for k in (-1, 1):
-        sx = cx + k * w * 0.18
-        path(cv, [(sx, top - 0.6), (sx + 0.8, top - 2.0), (sx - 0.4, top - 3.4)], 's', 0.42)
+        sx = cx + k * w * 0.14
+        path(cv, [(sx, top - 1.0), (sx + 0.8, top - 2.4), (sx - 0.4, top - 3.8)], 's', 0.45)
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (PINK, BLUE, BLUE, BROWN, BROWN))
-    return cv, [S['b'], S['o'], S['v'], role('s', 'steam', 'Steam', BLUE), role('a', 'dumpling', 'Dumplings', BLUE), S['t'],
-                role('e', 'pleats', 'Pleats', BROWN), role('k', 'steamer', 'Steamer', BROWN), role('w', 'bands', 'Steamer bands', BROWN),
+    return cv, [S['b'], role('a', 'dumpling', 'Dumplings', BLUE), S['o'], S['v'], role('c', 'dumpling2', 'Dumplings behind', BLUE),
+                role('s', 'steam', 'Steam', BLUE), S['t'], role('e', 'pleats', 'Pleats', BROWN), role('k', 'chopsticks', 'Chopsticks', BROWN),
                 role('f', 'crust', 'Golden crust', BROWN), role('u', 'soy', 'Soy sauce', BROWN), S['d'], role('p', 'plate', 'Plate', GREEN),
                 role('q', 'dish', 'Dish', GREEN)], ['food', 'dinner']
 
@@ -1538,25 +1537,26 @@ def rice_ball(w, h, r):
     scene(cv, r, w, h, kind, ty)
     if mode == 0:  # one big rice ball on a plate
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
-        H = min(w * 0.62, h * 0.56)
-        onigiri(cv, cx + w * 0.02, ty - 0.6 - H * 0.6, H, big)
-    elif mode == 1:  # two rice balls, the far one higher
-        oval(cv, cx, ty, w * 0.44, 1.8, 'p')
-        H = min(w * 0.42, h * 0.38)
-        onigiri(cv, cx + w * 0.14, ty - h * 0.16 - H * 0.6, H * 0.9, big, 'c')
-        onigiri(cv, cx - w * 0.14, ty - 0.6 - H * 0.6, H, big)
+        H = min(w * 0.66, h * 0.58)
+        onigiri(cv, cx + w * 0.02, ty - 0.6 - H * 0.42, H, big)
+    elif mode == 1:  # a rice ball on a bamboo leaf, two pickled plums beside it
+        lens(cv, cx - w * 0.46, ty - 0.2, cx + w * 0.46, ty - 1.2, 3.0, 'c')
+        H = min(w * 0.6, h * 0.54)
+        onigiri(cv, cx - w * 0.06, ty - 1.0 - H * 0.42, H, big)
+        for k in range(2):
+            disc(cv, cx + w * (0.3 + 0.0 * k), ty - 2.0 - k * 2.0, 0.95 if not big else 1.2, 'r')
     else:  # a rice ball beside a cup of green tea
         oval(cv, cx - w * 0.12, ty, w * 0.32, 1.6, 'p')
-        H = min(w * 0.48, h * 0.44)
-        onigiri(cv, cx - w * 0.14, ty - 0.6 - H * 0.6, H, big)
-        mx, mw = cx + w * 0.3, s * 0.12 + 0.4
+        H = min(w * 0.56, h * 0.5)
+        onigiri(cv, cx - w * 0.12, ty - 0.6 - H * 0.42, H, big)
+        mx, mw = cx + w * 0.3, s * 0.1 + 0.4
         rbox(cv, mx - mw, ty - h * 0.24, mx + mw, ty - 0.2, 0.8, 'm')
         box(cv, mx - mw + 0.6, ty - h * 0.24, mx + mw - 0.6, ty - h * 0.24 + 0.9, 'g')
         path(cv, [(mx, ty - h * 0.28), (mx + 0.8, ty - h * 0.34), (mx - 0.3, ty - h * 0.4)], 's', 0.42)
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (PINK, BLUE, BLUE, BLUE, BLUE))
-    return cv, [S['b'], S['t'], S['o'], S['v'], role('a', 'rice', 'Rice', BLUE), role('c', 'rice2', 'Rice ball behind', BLUE), S['d'],
+    return cv, [S['b'], S['t'], S['o'], S['v'], role('a', 'rice', 'Rice', BLUE), role('c', 'leaf', 'Bamboo leaf', GREEN), S['d'],
                 role('m', 'cup', 'Teacup', BROWN), role('q', 'nori', 'Nori', GREEN), role('g', 'tea', 'Tea', GREEN), role('r', 'plum', 'Pickled plum', PINK),
                 role('s', 'steam', 'Steam', PINK), role('p', 'plate', 'Plate', BROWN), role('x', 'sesame', 'Sesame', BROWN)], ['food', 'dinner']
 

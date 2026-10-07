@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "polar_bear_07",
+  "legend": {
+    "a": "iceberg",
+    "b": "bear",
+    "f": "fish",
+    "i": "ice",
+    "k": "eye",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea",
+    "x": "snow"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Polar bear",
+      "roleId": "bear"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snowflakes",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, nose and claws",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ice floe",
+      "roleId": "ice"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Iceberg",
+      "roleId": "iceberg"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Polar bear 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

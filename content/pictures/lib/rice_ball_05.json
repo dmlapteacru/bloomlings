@@ -1,0 +1,116 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 1],
+    [0, -1, 0, 0, -1, 4, 4, 4, 4, 6, 6, 6, 6, 6, 4, 4, 4, -1],
+    [-1, 5, 5, 5, 5, 5, 4, 4, 4, 6, 6, 6, 6, 6, 4, 4, 4, 0],
+    [-1, 5, 5, 5, 5, 5, 4, 4, 4, 6, 6, 6, 6, 6, 4, 4, 4, 0],
+    [0, 5, 5, 5, 5, 5, 4, 4, 4, 6, 6, 6, 6, 6, 4, 4, 4, -1],
+    [-1, 5, 5, 5, 5, 5, 4, 4, 4, 6, 6, 6, 6, 6, 4, 4, 0, 0],
+    [0, 0, 7, 7, 7, 0, 0, 4, 4, 4, 4, 4, 4, 11, 4, 4, 0, 0],
+    [0, 0, 7, 9, 7, 0, 0, 4, 11, 4, 8, 8, 4, 4, 4, 0, 0, 0],
+    [0, 0, 9, 9, 0, 0, 0, 0, 4, 4, 8, 8, 4, 4, 0, 0, 0, 0],
+    [0, 0, 9, 9, 0, 0, 0, -1, 11, 11, 8, 4, 11, 4, 0, -1, -1, 0],
+    [-1, 0, 0, 0, -1, 0, -1, 0, 0, 4, 4, 4, 4, 0, 0, -1, 0, -1],
+    [0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0],
+    [0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 3, 3, 0, 0, -1],
+    [0, -1, 0, 0, -1, 0, 0, 0, -1, -1, 0, 0, 3, 3, 3, 3, 3, 3],
+    [0, -1, -1, 0, 0, 0, 0, -1, -1, 0, 0, -1, 0, 0, 2, 2, 2, 0],
+    [0, -1, -1, -1, 0, 0, 0, 0, 0, -1, -1, 0, -1, 0, 2, 2, 2, 0],
+    [0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 2, 2, 2, 0],
+    [-1, 0, -1, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, -1, -1]
+  ],
+  "height": 22,
+  "id": "rice_ball_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Rice",
+      "roleId": "rice"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Teacup",
+      "roleId": "cup"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Nori",
+      "roleId": "nori"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tea",
+      "roleId": "tea"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pickled plum",
+      "roleId": "plum"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sesame",
+      "roleId": "sesame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.388,
+    "nestingDepth": 5,
+    "regionCount": 24
+  },
+  "subject": "Rice ball 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "dinner"]
+  },
+  "version": 1,
+  "width": 18
+}

@@ -1,0 +1,103 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, -1, -1, 0, -1, 0, 0, 0, 0, 2, 0, 0, -1, 0, 0, 0, 0, -1, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 2, 0, -1, 0, 0, 0, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 2, 0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 2, 0, 0, -1],
+    [0, -1, 0, -1, 2, 2, 0, 0, 1, 1, 1, 1, 1, 0, 0, 2, 2, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [-1, -1, 0, -1, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [0, 2, 2, 0, -1, 1, 1, 1, 1, 3, 3, 3, 1, 1, 1, 1, -1, -1, 2, 2],
+    [0, -1, -1, -1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0, 0],
+    [0, -1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, 1, 1, 1, 4, 4, 4, 1, 1, 1, 0, 0, -1, 0, 0],
+    [0, -1, 0, 0, 2, 2, 0, -1, 1, 5, 5, 5, 1, 0, 0, 0, 3, 0, 0, 0],
+    [0, 0, 0, 0, 2, 0, 0, 0, -1, 4, 4, 4, 0, 0, 8, 8, 3, 8, 8, -1],
+    [0, 0, 0, -1, -1, 0, -1, 0, 0, 5, 5, 5, -1, -1, -1, 8, 3, 8, 8, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, -1, 0, -1, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 6, 0, -1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, -1, -1, 0, 0, 0, 0, 0, 6, -1, -1, 0, 0, 0, -1, 0, 0, 0],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7]
+  ],
+  "height": 24,
+  "id": "light_bulb_08",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Light rays",
+      "roleId": "rays"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Filament",
+      "roleId": "filament"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Base",
+      "roleId": "base"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Thread",
+      "roleId": "thread"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cord",
+      "roleId": "cord"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ceiling",
+      "roleId": "ceiling"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Moth wings",
+      "roleId": "moth"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.489,
+    "nestingDepth": 4,
+    "regionCount": 26
+  },
+  "subject": "Light bulb 8",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["things", "house"]
+  },
+  "version": 1,
+  "width": 20
+}

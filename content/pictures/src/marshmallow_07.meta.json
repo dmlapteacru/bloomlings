@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "marshmallow_07",
+  "legend": {
+    "a": "marshmallow",
+    "b": "sky",
+    "e": "toasted",
+    "f": "flames",
+    "g": "grass",
+    "k": "logs",
+    "n": "stick",
+    "w": "white",
+    "y": "flame_core"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink marshmallows",
+      "roleId": "marshmallow"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Logs",
+      "roleId": "logs"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "White marshmallows",
+      "roleId": "white"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flames",
+      "roleId": "flames"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Toasted sides",
+      "roleId": "toasted"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Flame cores",
+      "roleId": "flame_core"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sticks",
+      "roleId": "stick"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Marshmallow 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "camping"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

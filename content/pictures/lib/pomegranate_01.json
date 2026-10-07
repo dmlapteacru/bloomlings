@@ -1,0 +1,97 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 7, 7, 7, 7, 4, 4, 4, 4, 4],
+    [4, 4, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 4, 4],
+    [5, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0],
+    [5, 5, 5, 3, 3, 3, 3, 3, 1, 7, 7, 0, 0, 0],
+    [-1, 5, 3, 3, 3, 6, 3, 3, 3, 1, 0, 0, 0, 0],
+    [0, 0, 3, 3, 3, 3, 3, 3, 3, 1, 1, 0, 0, 0],
+    [0, 0, 3, 3, 6, 6, 6, 3, 3, 1, 1, 1, 1, -1],
+    [0, 0, 3, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 0],
+    [0, 0, 3, 3, 3, 6, 3, 3, 3, 1, 1, 1, 1, 0],
+    [0, 0, 0, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, -1],
+    [-1, 0, -1, -1, 0, 0, -1, -1, 1, 2, 2, 1, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, 2, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 2, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0, 0],
+    [0, -1, 0, 0, -1, 0, 0, -1, 0, 0, -1, 0, 0, 0],
+    [0, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 8, 8, 8, 8, 8, 0, 0, 0, -1, 0, 0, 0, 0],
+    [-1, -1, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 18,
+  "id": "pomegranate_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pomegranates",
+      "roleId": "fruit"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Crowns",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seeds",
+      "roleId": "arils"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pith",
+      "roleId": "pith"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.38,
+    "nestingDepth": 4,
+    "regionCount": 17
+  },
+  "subject": "Pomegranate 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "fruit"]
+  },
+  "version": 1,
+  "width": 14
+}

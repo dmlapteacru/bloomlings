@@ -1,0 +1,80 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "coral_reef_01",
+  "legend": {
+    "b": "brain",
+    "c": "coral",
+    "d": "sand",
+    "f": "fan",
+    "g": "weed",
+    "o": "fish",
+    "u": "bubbles",
+    "w": "water"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Branching coral",
+      "roleId": "coral"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fan coral",
+      "roleId": "fan"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Brain coral",
+      "roleId": "brain"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed and coral folds",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles and eyes",
+      "roleId": "bubbles"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Coral reef 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "desk_lamp_04",
+  "legend": {
+    "b": "wall",
+    "d": "desk",
+    "f": "frame",
+    "i": "window",
+    "j": "joint",
+    "l": "lamp",
+    "o": "book",
+    "u": "bulb",
+    "v": "beam"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lamp",
+      "roleId": "lamp"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Joints",
+      "roleId": "joint"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bulb",
+      "roleId": "bulb"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Light",
+      "roleId": "beam"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Book",
+      "roleId": "book"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Desk",
+      "roleId": "desk"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Desk lamp 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "desk"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

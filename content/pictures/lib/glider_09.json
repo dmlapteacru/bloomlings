@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 6, 6, 6, 6],
+    [0, -1, 6, 6, 6, 6, 0, 0, 0, -1, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, -1, 2, 0, 0, 0, 0, 0, 0],
+    [0, 5, 5, 5, -1, 2, 2, 2, 2, 2, 0, 0, -1, 0],
+    [0, 5, 5, 5, 5, -1, -1, 2, 0, 0, 0, -1, 0, 0],
+    [0, 0, 5, -1, 0, 0, 0, 2, -1, 0, 5, 5, 5, 0],
+    [0, 0, 0, -1, 0, 0, 0, 2, 0, 0, 0, 5, 5, 0],
+    [0, 0, 0, 0, 0, 0, 0, 2, -1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, -1, -1, 0, 2, 0, -1, -1, 0, 0, 0],
+    [0, 0, 3, 1, 1, 1, 2, 2, 2, 1, 1, 1, 3, -1],
+    [0, 0, 3, 3, 3, 0, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, -1, -1, 0, 2, 4, 2, 0, -1, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 2, 4, 2, 0, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, 0, 4, 4, 4, -1, 0, 7, 7, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 0],
+    [-1, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 7, 0, -1]
+  ],
+  "height": 18,
+  "id": "glider_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wings",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Body and tail",
+      "roleId": "fuselage"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red wing tips",
+      "roleId": "tips"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Canopy",
+      "roleId": "canopy"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.539,
+    "nestingDepth": 4,
+    "regionCount": 16
+  },
+  "subject": "Glider 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["vehicles", "sky"]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,106 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 4, 4, 4, 4, 4, 8, 8, 5, 8, 5, 8],
+    [0, -1, -1, 0, 0, 0, 0, 4, 4, 4, 4, 4, -1, 5, 5, 5, 5, 5],
+    [0, -1, 6, 6, 6, 6, 6, 4, 4, 4, 4, 4, 0, 6, 6, 6, 6, 6],
+    [0, -1, 6, 0, 0, 0, 6, 0, 4, 4, 4, 4, 0, 0, 0, 0, -1, 0],
+    [0, 0, 6, 0, 0, 0, 6, 0, 4, 7, 7, 4, 0, 0, 0, 0, 0, -1],
+    [0, -1, 6, -1, -1, 0, 6, 0, 4, 7, 7, 4, -1, 0, 0, -1, 0, 0],
+    [0, -1, 6, 0, 0, 0, 6, -1, 4, 7, 7, 4, 0, -1, 0, 0, 0, 0],
+    [0, 0, 6, 4, 4, 4, 6, 4, 4, 4, 4, 4, 0, 0, -1, -1, 0, -1],
+    [-1, 4, 4, 4, 4, 4, 3, 3, 3, 4, 3, 3, 3, 3, 0, 0, 0, 0],
+    [0, 0, 0, 0, 3, 3, 2, 2, 2, 3, 2, 2, 2, 3, 3, 3, 0, 0],
+    [-1, 0, 0, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, -1],
+    [0, -1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0],
+    [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0],
+    [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, -1],
+    [0, 0, -1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, 0],
+    [-1, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, 0, 0],
+    [-1, -1, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, 0, 0, -1],
+    [0, 9, 9, 9, 9, 0, 0, 2, 2, 2, 2, 2, 0, -1, 0, 1, 1, 0],
+    [-1, 9, 9, 9, 9, 0, -1, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 1],
+    [-1, 0, 9, 9, 0, 0, 0, 0, -1, -1, 0, -1, -1, 0, -1, 1, 1, 1]
+  ],
+  "height": 22,
+  "id": "oak_tree_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf shade",
+      "roleId": "shade"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk and boughs",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Acorns",
+      "roleId": "acorns"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red swing",
+      "roleId": "swing"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hollow",
+      "roleId": "hollow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.267,
+    "nestingDepth": 5,
+    "regionCount": 31
+  },
+  "subject": "Oak tree 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["trees", "park"]
+  },
+  "version": 1,
+  "width": 18
+}

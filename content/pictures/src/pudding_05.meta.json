@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 21,
+  "id": "pudding_05",
+  "legend": {
+    "a": "custard",
+    "b": "wall",
+    "i": "cream",
+    "k": "caramel",
+    "n": "stem",
+    "o": "wall_dots",
+    "p": "plate",
+    "r": "cherry",
+    "t": "table",
+    "v": "shelf"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherry",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Caramel",
+      "roleId": "caramel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Custard",
+      "roleId": "custard"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Whipped cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cherry stem",
+      "roleId": "stem"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pudding 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "sweets"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

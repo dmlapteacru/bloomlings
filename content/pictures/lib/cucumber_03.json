@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [9, 5, 7, 5, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, -1],
+    [9, 5, 7, 7, 5, 7, 7, 5, 5, 5, 5, 5, 5, 5, 0],
+    [9, 9, 7, 7, 1, 2, 7, 2, 0, -1, 0, 0, 0, 0, -1],
+    [9, 3, 1, 3, 1, 2, 2, 2, 2, 0, 0, 0, 0, -1, -1],
+    [0, 3, 3, 3, 1, 1, 2, 2, 2, -1, 0, -1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 0, -1, -1, 0, 0],
+    [0, 0, -1, 1, 1, 1, 1, 2, 2, 2, 0, 0, 0, 0, 0],
+    [-1, 0, -1, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0, 0, -1],
+    [0, 0, -1, 0, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0, -1],
+    [0, 0, 0, 0, 1, 1, 1, 1, 1, 2, 2, 2, -1, 0, -1],
+    [0, -1, 0, 0, -1, 1, 1, 1, 1, 2, 2, 2, 2, 0, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 6, 0, -1],
+    [0, -1, 0, 0, -1, 0, 0, 1, 1, 6, 6, 0, 0, 0, 0],
+    [0, 0, 4, 4, 4, 4, 0, 0, 0, 6, 6, 0, 0, 0, 0],
+    [0, -1, 4, 4, 4, 4, 0, -1, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1]
+  ],
+  "height": 18,
+  "id": "cucumber_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cucumbers",
+      "roleId": "cucumber"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Slice rind and the cucumber behind",
+      "roleId": "rind"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bumps",
+      "roleId": "bumps"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board and bowl",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flowers",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.329,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Cucumber 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "vegetables"]
+  },
+  "version": 1,
+  "width": 15
+}

@@ -1,0 +1,69 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "piggy_bank_01",
+  "legend": {
+    "b": "wall",
+    "c": "coins",
+    "f": "floor",
+    "k": "slot",
+    "n": "snout",
+    "p": "pig"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Piggy bank",
+      "roleId": "pig"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snout and ear",
+      "roleId": "snout"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Coins",
+      "roleId": "coins"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Slot, eye and nostrils",
+      "roleId": "slot"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Piggy bank 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "house"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

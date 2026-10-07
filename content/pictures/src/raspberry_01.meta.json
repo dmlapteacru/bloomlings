@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "raspberry_01",
+  "legend": {
+    "a": "berry",
+    "b": "sky",
+    "c": "calyx",
+    "e": "drupelets",
+    "k": "cane",
+    "l": "leaf",
+    "t": "blanket",
+    "v": "hill"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Raspberries",
+      "roleId": "berry"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Drupelets",
+      "roleId": "drupelets"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sepals and stalks",
+      "roleId": "calyx"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cane",
+      "roleId": "cane"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Raspberry 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

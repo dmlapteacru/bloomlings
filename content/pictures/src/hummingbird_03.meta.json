@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "hummingbird_03",
+  "legend": {
+    "b": "bird",
+    "c": "cloud",
+    "f": "flower",
+    "k": "beak",
+    "l": "leaves",
+    "r": "throat",
+    "s": "sky",
+    "u": "sun",
+    "w": "wings"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hummingbird",
+      "roleId": "bird"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stem and leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Throat",
+      "roleId": "throat"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak and eye",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Hummingbird 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

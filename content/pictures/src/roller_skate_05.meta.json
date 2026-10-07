@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "roller_skate_05",
+  "legend": {
+    "b": "boot",
+    "c": "collar",
+    "d": "path",
+    "e": "hub",
+    "l": "laces",
+    "o": "sole",
+    "q": "grass",
+    "s": "sky",
+    "u": "sun",
+    "w": "wheel"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Boot",
+      "roleId": "boot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Collar",
+      "roleId": "collar"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Laces",
+      "roleId": "laces"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sole and toe stop",
+      "roleId": "sole"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wheels",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Path",
+      "roleId": "path"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass tufts",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Roller skate 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "toys",
+      "park"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

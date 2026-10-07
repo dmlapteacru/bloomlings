@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "iceberg_10",
+  "legend": {
+    "a": "aurora",
+    "b": "aurora2",
+    "f": "fish",
+    "i": "ice",
+    "m": "moon",
+    "n": "sky",
+    "u": "under",
+    "w": "sea",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Polar sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Aurora",
+      "roleId": "aurora"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Aurora glow",
+      "roleId": "aurora2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Iceberg",
+      "roleId": "ice"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Iceberg under water",
+      "roleId": "under"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Fish",
+      "roleId": "fish"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Iceberg 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "sea",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

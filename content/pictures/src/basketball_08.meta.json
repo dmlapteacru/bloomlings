@@ -1,0 +1,86 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 22,
+  "id": "basketball_08",
+  "legend": {
+    "b": "ball",
+    "c": "court",
+    "l": "line",
+    "n": "net",
+    "o": "rim",
+    "p": "board",
+    "s": "sky",
+    "u": "sun",
+    "z": "seam"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Basketball",
+      "roleId": "ball"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seams",
+      "roleId": "seam"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Board and pole",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rim and square",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Net",
+      "roleId": "net"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Court",
+      "roleId": "court"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Court lines",
+      "roleId": "line"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Basketball 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "sport"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

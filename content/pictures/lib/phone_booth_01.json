@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 5, 6, 6, 8, 8, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [0, 0, 5, 0, 0, 8, 8, 8, 1, 1, 1, 1, 1, 0, 0, -1],
+    [0, 0, 5, 0, -1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 5, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0],
+    [0, -1, 5, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 5, 0, -1, 0, 1, 3, 3, 1, 3, 3, 1, 0, 0, 0],
+    [-1, 0, 5, 0, 0, 0, 1, 3, 3, 1, 3, 3, 1, 0, 0, -1],
+    [0, 7, 7, 7, -1, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [7, 7, 7, 7, 7, -1, 1, 3, 3, 1, 3, 3, 1, 0, 0, -1],
+    [7, 7, 7, 7, 7, 7, 1, 3, 3, 1, 3, 3, 1, -1, 0, -1],
+    [7, 7, 7, 7, 7, 7, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0],
+    [0, 7, 7, 7, 7, 0, 1, 4, 4, 4, 4, 4, 1, 0, 0, 0],
+    [0, -1, 0, 0, -1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, -1, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [0, -1, 9, 9, 9, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 9, 9, 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 18,
+  "id": "phone_booth_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Phone booth",
+      "roleId": "booth"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Booth roof",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "pane"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sign and handle",
+      "roleId": "sign"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tree trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pavement",
+      "roleId": "pavement"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tree",
+      "roleId": "tree"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hedge",
+      "roleId": "hedge"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.368,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Phone booth 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["town"]
+  },
+  "version": 1,
+  "width": 16
+}

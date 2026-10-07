@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "cucumber_07",
+  "legend": {
+    "a": "cucumber",
+    "b": "wall",
+    "c": "rind",
+    "k": "stalk",
+    "o": "panes",
+    "p": "board",
+    "t": "table",
+    "v": "frame",
+    "y": "flower"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cucumbers",
+      "roleId": "cucumber"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Slice rind and the cucumber behind",
+      "roleId": "rind"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board and bowl",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Flowers",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cucumber 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

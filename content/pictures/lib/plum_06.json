@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 3],
+    [3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3],
+    [0, 0, 6, 6, 6, 6, 2, 2, 2, 2, 6, 6, 6, 0, 0],
+    [-1, -1, -1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [0, 0, -1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0],
+    [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, -1, 0],
+    [0, -1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1],
+    [-1, 0, 0, 2, 2, 2, 1, 2, 2, 2, 2, 2, 0, 0, 0],
+    [0, 0, 0, -1, 2, 2, 1, 1, 2, 2, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 2, 2, 1, 1, 2, 2, 2, 0, 0, -1, 0],
+    [0, 8, 8, 8, 8, 2, 2, 4, 2, 2, 0, 0, -1, -1, 0],
+    [0, 8, 7, 8, 7, 8, 4, 4, 4, 0, 0, 0, -1, -1, 0],
+    [0, 8, 8, 8, 8, 8, -1, 4, 5, 5, 5, 5, 0, 0, 0],
+    [-1, 8, 7, 7, 7, 8, 0, 0, 0, 5, 5, 5, 5, 0, 0],
+    [0, 8, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [-1, 0, -1, 0, 0, -1, -1, -1, 0, 0, 0, -1, -1, -1, -1]
+  ],
+  "height": 17,
+  "id": "plum_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Crease and stone",
+      "roleId": "crease"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red plums",
+      "roleId": "plum"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks and branch",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.294,
+    "nestingDepth": 4,
+    "regionCount": 17
+  },
+  "subject": "Plum 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "fruit"]
+  },
+  "version": 1,
+  "width": 15
+}

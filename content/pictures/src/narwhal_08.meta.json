@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "narwhal_08",
+  "legend": {
+    "b": "belly",
+    "d": "seabed",
+    "f": "fish",
+    "g": "weed",
+    "i": "ice",
+    "k": "eye",
+    "n": "narwhal",
+    "t": "tusk",
+    "w": "water",
+    "x": "bubbles",
+    "y": "spiral"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Arctic sea",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Narwhal",
+      "roleId": "narwhal"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Belly",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bubbles",
+      "roleId": "bubbles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tusk",
+      "roleId": "tusk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tusk spiral",
+      "roleId": "spiral"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and smile",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seabed",
+      "roleId": "seabed"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ice",
+      "roleId": "ice"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow fish",
+      "roleId": "fish"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Narwhal 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "animals",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

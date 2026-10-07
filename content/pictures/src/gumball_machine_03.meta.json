@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "gumball_machine_03",
+  "legend": {
+    "b": "wall",
+    "g": "glass",
+    "m": "body",
+    "o": "wall_dots",
+    "r": "gum_red",
+    "t": "table",
+    "u": "gum_green",
+    "v": "shelf",
+    "y": "gum_yellow",
+    "z": "coin"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Coin slot and chute",
+      "roleId": "coin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass globe",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Body and cap",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red gumballs",
+      "roleId": "gum_red"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yellow gumballs",
+      "roleId": "gum_yellow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green gumballs",
+      "roleId": "gum_green"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Gumball machine 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "sweets"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

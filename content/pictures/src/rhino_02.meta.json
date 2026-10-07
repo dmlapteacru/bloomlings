@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "rhino_02",
+  "legend": {
+    "a": "acacia",
+    "g": "grass",
+    "h": "horn",
+    "k": "eye",
+    "r": "rhino",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun",
+    "w": "waterhole"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Rhino",
+      "roleId": "rhino"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Horns",
+      "roleId": "horn"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and toenails",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Acacia trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Acacia",
+      "roleId": "acacia"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Waterhole",
+      "roleId": "waterhole"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Savanna grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rhino 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "savanna"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

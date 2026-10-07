@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "headphones_01",
+  "legend": {
+    "b": "wall",
+    "c": "cushion",
+    "f": "desk",
+    "h": "band",
+    "k": "cable",
+    "n": "notes",
+    "u": "cup"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Headband",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cushions",
+      "roleId": "cushion"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ear cups",
+      "roleId": "cup"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cable",
+      "roleId": "cable"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Desk",
+      "roleId": "desk"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Headphones 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "music"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

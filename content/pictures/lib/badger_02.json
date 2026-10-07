@@ -1,0 +1,90 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 3, 7, 3, 7, 3, 7, 3, 7, 7, 7, 7, 7, 7],
+    [6, 6, 6, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0],
+    [6, 6, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, -1],
+    [6, 6, 3, 3, 3, 3, 3, 3, 4, 4, 5, 4, 5, 5, 5, -1],
+    [6, 6, 0, -1, -1, 3, 3, 3, 5, 5, 4, 4, 4, 0, 0, -1],
+    [6, 6, 0, 0, 0, -1, 0, 0, 4, 4, 4, 4, -1, -1, 0, 0],
+    [-1, 6, 0, 0, -1, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0],
+    [0, 6, 0, -1, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1],
+    [0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1],
+    [0, 0, -1, 1, -1, 0, 0, 0, -1, -1, 0, 1, 0, -1, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 1, -1, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 2, 2, 2, 0],
+    [-1, 0, 0, 0, 0, 1, 0, 0, -1, 0, 0, 0, 2, 2, 2, 0],
+    [0, -1, 0, 0, -1, 0, 0, 0, 1, 0, -1, -1, 2, 2, 0, -1],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1]
+  ],
+  "height": 16,
+  "id": "badger_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Badger",
+      "roleId": "badger"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face, eye and stalks",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Mask, nose and claws",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pine",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.437,
+    "nestingDepth": 4,
+    "regionCount": 22
+  },
+  "subject": "Badger 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "forest"]
+  },
+  "version": 1,
+  "width": 16
+}

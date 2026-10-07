@@ -1,0 +1,111 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "dog_house_05",
+  "legend": {
+    "b": "bowl",
+    "d": "door",
+    "e": "cloud",
+    "g": "grass",
+    "h": "house",
+    "k": "dog",
+    "n": "planks",
+    "o": "bone",
+    "r": "roof",
+    "s": "sky",
+    "t": "bush",
+    "u": "sun",
+    "x": "face"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dog house",
+      "roleId": "house"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plank lines",
+      "roleId": "planks"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Doorway",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dog",
+      "roleId": "dog"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bowl",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bone",
+      "roleId": "bone"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Dog house 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "cozy",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

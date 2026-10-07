@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 4, 4, 9, 9, 2, 2, 9, 9, 2, 2, 9, 9, 9, 9, 9],
+    [4, 4, 4, 0, 0, 2, 2, 2, 2, 2, 7, 7, 6, 6, 0, -1],
+    [0, 4, 4, -1, -1, 2, 3, 3, 3, 3, 2, 6, 6, 6, 6, 0],
+    [0, 4, 4, -1, 0, 2, 3, 3, 3, 3, 2, 0, 0, -1, 0, -1],
+    [0, 0, 4, 0, 0, 2, 3, 3, 3, 3, 2, 0, 0, 0, -1, 0],
+    [0, 4, 4, -1, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [-1, 4, 4, 0, 0, 0, 2, 7, 7, 2, -1, 0, -1, 0, -1, 0],
+    [0, 4, 4, -1, 0, 2, 3, 7, 7, 3, 2, 0, 0, 0, 0, -1],
+    [0, 4, 4, -1, -1, 2, 3, 5, 5, 3, 2, -1, -1, 0, 0, -1],
+    [0, 4, 4, 8, 0, 2, 2, 2, 2, 2, 2, 0, -1, 0, 0, 0],
+    [8, 4, 4, 8, 8, 2, 5, 2, 2, 5, 2, -1, -1, -1, 0, 0],
+    [8, 8, 8, 8, 8, 2, 5, 2, 2, 5, 2, -1, -1, -1, 0, 0],
+    [8, 8, 8, 8, 8, 8, 0, 2, 2, 0, 0, 0, 1, 1, 1, 0],
+    [8, 8, 8, 8, 8, -1, -1, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+    [8, 8, 8, 8, 8, 0, -1, 0, -1, 0, 0, 0, 1, 1, 0, 0],
+    [-1, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1]
+  ],
+  "height": 18,
+  "id": "beaver_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beaver",
+      "roleId": "beaver"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheeks and belly",
+      "roleId": "muzzle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Gnawed tree",
+      "roleId": "tree"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Teeth and claws",
+      "roleId": "teeth"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.274,
+    "nestingDepth": 4,
+    "regionCount": 28
+  },
+  "subject": "Beaver 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "forest"]
+  },
+  "version": 1,
+  "width": 16
+}

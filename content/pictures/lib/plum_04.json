@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 7, 7, 7, 7, 3, 3, 3, 3, 3],
+    [3, 3, 7, 2, 2, 2, 2, 7, 7, 7, 7, 7, 3, 3],
+    [0, 7, 2, 2, 2, 2, 2, 2, 7, 7, 7, 7, 7, 0],
+    [0, 2, 5, 5, 5, 5, 5, 5, 2, 7, 7, 0, 0, -1],
+    [0, 5, 5, 5, 1, 1, 5, 5, 5, -1, 2, -1, 0, -1],
+    [-1, 0, 5, 5, 5, 5, 5, 5, 0, 0, 1, 2, 0, -1],
+    [0, 0, -1, 0, 0, 0, -1, 0, 0, 2, 1, 2, 2, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, 2, 1, 2, 2, 0],
+    [0, 0, -1, -1, 0, 0, -1, 2, 2, 2, 1, 2, -1, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 2, 2, 1, 2, 2, 0, 0],
+    [0, 0, 0, 9, -1, 0, 0, 2, 2, 4, 2, 0, -1, -1],
+    [0, -1, 9, 9, -1, 0, 0, 0, 4, 4, 4, 0, 0, -1],
+    [9, 9, 9, 9, 0, 0, 6, 6, 6, 4, 0, 0, 0, 0],
+    [0, 8, 8, 0, 0, 0, 6, 6, -1, 0, 0, -1, -1, 0],
+    [0, 8, 8, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1],
+    [-1, 8, 0, -1, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1]
+  ],
+  "height": 16,
+  "id": "plum_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Crease and stone",
+      "roleId": "crease"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plums",
+      "roleId": "plum"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks and branch",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.357,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Plum 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "fruit"]
+  },
+  "version": 1,
+  "width": 14
+}

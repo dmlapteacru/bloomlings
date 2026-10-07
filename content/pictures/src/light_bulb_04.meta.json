@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "light_bulb_04",
+  "legend": {
+    "b": "wall",
+    "c": "ceiling",
+    "g": "glass",
+    "k": "cord",
+    "m": "base",
+    "p": "filament",
+    "y": "rays"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Light rays",
+      "roleId": "rays"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Filament",
+      "roleId": "filament"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Base",
+      "roleId": "base"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cord",
+      "roleId": "cord"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ceiling",
+      "roleId": "ceiling"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Light bulb 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "house"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

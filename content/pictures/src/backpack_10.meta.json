@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 26,
+  "id": "backpack_10",
+  "legend": {
+    "b": "wall",
+    "f": "floor",
+    "g": "bag",
+    "k": "strap",
+    "o": "book",
+    "p": "pocket",
+    "x": "book2",
+    "z": "zip"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red backpack",
+      "roleId": "bag"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow pockets",
+      "roleId": "pocket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Zip",
+      "roleId": "zip"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Handle and straps",
+      "roleId": "strap"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Book and patch",
+      "roleId": "book2"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Book",
+      "roleId": "book"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Backpack 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "things",
+      "school"
+    ]
+  },
+  "version": 1,
+  "width": 21
+}

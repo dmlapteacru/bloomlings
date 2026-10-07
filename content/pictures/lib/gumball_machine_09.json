@@ -1,0 +1,101 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [0, 0, 5, 5, 5, 3, 3, 5, 5, 5, 0, 6, 6, 0, 9],
+    [-1, 0, -1, 5, 5, 3, 3, 5, 5, 0, -1, 6, 6, 0, 9],
+    [0, -1, 0, 5, 5, 3, 3, 5, 5, 0, 0, 6, 0, 0, 0],
+    [-1, 0, 0, 0, 4, 4, 4, 4, 0, 0, 0, 0, -1, -1, 0],
+    [0, 0, 4, 4, 4, 4, 4, 9, 4, 4, 0, 0, 0, 0, 0],
+    [0, -1, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, -1, 0, 0],
+    [0, -1, 4, 4, 4, 4, 9, 4, 7, 4, 0, -1, 0, 0, 0],
+    [0, -1, 4, 4, 4, 4, 7, 7, 4, 4, -1, 0, 0, 0, 0],
+    [0, 0, 4, 9, 4, 7, 7, 4, 4, 4, -1, 0, 0, 0, 0],
+    [0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0],
+    [0, 0, 0, 4, 4, 4, 4, 4, 4, 0, -1, 2, 0, 0, 0],
+    [-1, -1, 0, 0, 5, 5, 5, 5, -1, 0, 2, 2, 2, 2, 2],
+    [0, 0, 0, 0, 5, 5, 5, 5, 0, 0, 0, 1, 1, 1, 0],
+    [-1, 0, -1, 0, 0, 5, 5, 0, 0, 0, -1, 1, 1, 1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, -1]
+  ],
+  "height": 17,
+  "id": "gumball_machine_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Coin slot and chute",
+      "roleId": "coin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Glass globe",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Body and cap",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red gumballs",
+      "roleId": "gum_red"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yellow gumballs",
+      "roleId": "gum_yellow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green gumballs",
+      "roleId": "gum_green"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.364,
+    "nestingDepth": 4,
+    "regionCount": 22
+  },
+  "subject": "Gumball machine 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "sweets"]
+  },
+  "version": 1,
+  "width": 15
+}

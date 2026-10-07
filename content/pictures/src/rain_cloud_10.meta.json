@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 21,
+  "id": "rain_cloud_10",
+  "legend": {
+    "b": "bush",
+    "c": "cloud",
+    "f": "flowers",
+    "g": "grass",
+    "k": "shade",
+    "n": "sky",
+    "p": "puddle",
+    "r": "rain",
+    "u": "sun",
+    "y": "bolt"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Stormy sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Rain cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud underside",
+      "roleId": "shade"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Raindrops",
+      "roleId": "rain"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Puddle",
+      "roleId": "puddle"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Lightning",
+      "roleId": "bolt"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush and stems",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rain cloud 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "weather"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

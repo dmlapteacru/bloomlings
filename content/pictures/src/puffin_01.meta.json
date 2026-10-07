@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "puffin_01",
+  "legend": {
+    "c": "rock",
+    "f": "face",
+    "g": "grass",
+    "k": "eye",
+    "p": "puffin",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea",
+    "y": "beak"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Puffin",
+      "roleId": "puffin"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Face and belly",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye and sea pinks",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak and feet",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rock",
+      "roleId": "rock"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun and beak stripe",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cliff grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Puffin 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

@@ -1,0 +1,85 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [0, -1, 0, 0, 0, 0, 0, -1, -1, 0, 0, -1, 0, -1, 0, -1],
+    [0, -1, 0, -1, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, -1, 2, 2, 4, 2, 4, 0, 0, 0, -1, 0, -1],
+    [-1, 0, 0, 0, 2, 2, 4, 2, 2, 2, 4, 0, 0, -1, 0, -1],
+    [-1, -1, 0, 2, 2, 4, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 2, 4, 2, 4, 2, 2, 4, 2, 0, 0, 0, 0, -1],
+    [0, 0, -1, 4, 2, 2, 2, 2, 4, 2, 2, 0, -1, -1, 0, -1],
+    [-1, 0, -1, 4, 2, 2, 2, 2, 4, 2, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, -1, 4, 2, 2, 4, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 4, 1, 2, -1, 0, 0, 0, 0, 3, 0],
+    [0, 3, 3, 0, 0, -1, 0, 1, 3, 3, -1, 3, 3, 3, -1, 0],
+    [3, 3, -1, 0, -1, 1, 1, 1, 3, 1, 1, 1, 1, 3, 3, 0],
+    [3, 3, 3, 1, 1, 1, 1, 5, 5, 5, 0, 0, 5, 5, 3, 0],
+    [5, 5, 5, 0, 0, 0, -1, -1, 0, 0, 0, -1, -1, 0, -1, -1]
+  ],
+  "height": 16,
+  "id": "pine_cone_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pine cone",
+      "roleId": "cone"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Needles",
+      "roleId": "needles"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Scale edges",
+      "roleId": "scales"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snow on the branch",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snow",
+      "roleId": "snowfield"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.351,
+    "nestingDepth": 4,
+    "regionCount": 31
+  },
+  "subject": "Pine cone 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["plants", "winter"]
+  },
+  "version": 1,
+  "width": 16
+}

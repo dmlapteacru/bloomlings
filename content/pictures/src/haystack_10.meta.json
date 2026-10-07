@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "haystack_10",
+  "legend": {
+    "b": "barn",
+    "e": "cloud",
+    "g": "field",
+    "h": "hay",
+    "k": "straw",
+    "p": "fork",
+    "s": "sky",
+    "t": "meadow",
+    "u": "sun",
+    "x": "barn_door"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Straw lines",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Haystack",
+      "roleId": "hay"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pitchfork",
+      "roleId": "fork"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Barn",
+      "roleId": "barn"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Barn door",
+      "roleId": "barn_door"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Field",
+      "roleId": "field"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Haystack 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "farm"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

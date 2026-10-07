@@ -1,0 +1,101 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 3],
+    [0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, -1],
+    [0, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, -1, -1, -1],
+    [0, -1, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, -1, -1],
+    [0, 0, -1, 4, 4, 4, 4, 4, 4, 4, 4, 0, -1, 0, 0],
+    [0, -1, 0, 4, 4, 2, 4, 4, 4, 2, 4, -1, -1, -1, 0],
+    [0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1, 0],
+    [-1, 0, -1, 0, 2, 8, 8, 8, 8, 2, -1, -1, 0, 0, -1],
+    [0, -1, 0, 0, 0, 8, 8, 8, 8, 0, 0, 0, 0, -1, -1],
+    [-1, 0, 0, 0, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, -1, 1, 1, 1, 5, 5, 5, 5, 5, 0],
+    [-1, 0, 0, 0, 0, 9, 9, 1, 1, 5, 7, 5, 7, 5, 0],
+    [0, -1, -1, 0, 0, 9, 9, 0, 0, 5, 5, 5, 5, 5, 0],
+    [-1, 0, 0, 0, 0, 9, 0, 0, -1, 5, 7, 7, 7, 5, 0],
+    [-1, 0, 0, -1, 0, 0, 0, -1, 0, 5, 5, 5, 5, 5, -1],
+    [-1, 0, 0, -1, -1, 0, 0, 0, 0, -1, -1, 0, -1, 0, -1]
+  ],
+  "height": 17,
+  "id": "pudding_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherry",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Caramel",
+      "roleId": "caramel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Custard",
+      "roleId": "custard"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Whipped cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cherry stem",
+      "roleId": "stem"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.325,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Pudding 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "sweets"]
+  },
+  "version": 1,
+  "width": 15
+}

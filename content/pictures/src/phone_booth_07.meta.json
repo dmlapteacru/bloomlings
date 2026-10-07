@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "phone_booth_07",
+  "legend": {
+    "b": "booth",
+    "e": "cloud",
+    "g": "tree",
+    "k": "sign",
+    "r": "crown",
+    "s": "sky",
+    "t": "trunk",
+    "u": "hedge",
+    "v": "pavement",
+    "w": "pane"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Phone booth",
+      "roleId": "booth"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Booth roof",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "pane"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Lit sign",
+      "roleId": "sign"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tree trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pavement",
+      "roleId": "pavement"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tree",
+      "roleId": "tree"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hedge",
+      "roleId": "hedge"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Phone booth 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "town"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

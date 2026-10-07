@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [-1, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, -1],
+    [0, 0, 0, -1, 0, 0, 0, 2, 0, 0, 0, 0, -1, 0],
+    [0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, -1],
+    [0, 0, -1, 2, 0, -1, 1, 1, 1, 0, 0, 2, 0, -1],
+    [0, 0, -1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0],
+    [-1, 0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [2, 2, 0, 1, 1, 1, 1, 3, 1, 1, 1, 1, -1, 2],
+    [0, 0, 0, 1, 1, 1, 3, 3, 3, 1, 1, 1, 0, 0],
+    [0, 0, -1, -1, 1, 1, 1, 3, 1, 1, 1, 0, -1, 0],
+    [-1, 0, 0, 0, -1, 1, 1, 1, 1, 1, -1, -1, 0, 0],
+    [-1, 0, -1, 2, 0, 5, 5, 5, 5, 0, -1, 2, -1, 0],
+    [0, -1, 2, 0, 0, 5, 4, 4, 4, 0, 0, 0, 2, 0],
+    [0, 0, -1, 0, 0, 0, 4, 4, 4, 0, 0, -1, -1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 6, 0, -1, 0, 0, -1, 0],
+    [-1, 0, -1, -1, 0, 0, 0, 6, -1, -1, -1, 0, 0, 0],
+    [-1, 0, 0, -1, 0, -1, 6, 6, -1, 0, -1, 0, 0, 0],
+    [7, 7, 7, 7, 7, 7, 7, 6, 7, 7, 7, 7, 7, 7]
+  ],
+  "height": 18,
+  "id": "light_bulb_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Glass",
+      "roleId": "glass"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Light rays",
+      "roleId": "rays"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Filament",
+      "roleId": "filament"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Base",
+      "roleId": "base"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Thread",
+      "roleId": "thread"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cord",
+      "roleId": "cord"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Ceiling",
+      "roleId": "ceiling"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.46,
+    "nestingDepth": 4,
+    "regionCount": 25
+  },
+  "subject": "Light bulb 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["things", "house"]
+  },
+  "version": 1,
+  "width": 14
+}

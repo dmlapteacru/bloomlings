@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "snowflake_01",
+  "legend": {
+    "f": "flake",
+    "g": "snow",
+    "k": "cabin",
+    "m": "moon",
+    "n": "sky",
+    "o": "roof",
+    "p": "pine",
+    "x": "flakes",
+    "y": "window"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Evening sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowflake",
+      "roleId": "flake"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Little flakes",
+      "roleId": "flakes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snow",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowy roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pine",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cabin",
+      "roleId": "cabin"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Window",
+      "roleId": "window"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Snowflake 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "weather",
+      "winter"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 3, 7, 5, 5],
+    [4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 7, 7, 5, 5, 4],
+    [4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 4],
+    [4, 4, 1, 1, 1, 1, 4, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 1, 3, 1, 3, 4, 3, 1, 3, 4, 4, 4, 4, 4, 4, 4, 4],
+    [6, 6, 1, 1, 1, 1, 4, 1, 1, 1, 4, 4, 4, 4, 4, 4, 4, 4],
+    [6, 6, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 0, 0, -1, 0],
+    [0, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 1, 0, -1, 0],
+    [0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0, 0, -1],
+    [0, 2, 0, -1, 0, 0, 0, 1, 1, 1, 1, 0, 0, -1, 0, 2, 0, 0],
+    [0, 0, 0, 0, 0, 0, 2, 0, 0, -1, -1, 0, 2, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 8, 8, 0, 0],
+    [-1, 0, 0, 0, -1, 2, 0, -1, -1, 0, 0, -1, 0, 8, 8, 8, 8, 2],
+    [2, 0, 0, 0, -1, -1, 0, 0, 0, 2, 0, -1, 0, 8, 8, 8, 8, 0],
+    [-1, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, -1, 0, -1, 8, 8, -1, -1],
+    [-1, 0, 0, 0, -1, 2, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 2]
+  ],
+  "height": 21,
+  "id": "polar_bear_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Polar bear",
+      "roleId": "bear"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Snowflakes",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye, nose and claws",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ice floe",
+      "roleId": "ice"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Iceberg",
+      "roleId": "iceberg"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.288,
+    "nestingDepth": 5,
+    "regionCount": 32
+  },
+  "subject": "Polar bear 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "winter"]
+  },
+  "version": 1,
+  "width": 18
+}

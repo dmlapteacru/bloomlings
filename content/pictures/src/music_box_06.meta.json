@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "music_box_06",
+  "legend": {
+    "b": "wall",
+    "g": "trim",
+    "n": "notes",
+    "p": "dancer",
+    "t": "table",
+    "v": "lining",
+    "x": "box"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Box and lid",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Mirror",
+      "roleId": "lining"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Golden trim and key",
+      "roleId": "trim"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Dancer",
+      "roleId": "dancer"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Music box 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "things",
+      "music"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 7, 7, 7, 7],
+    [8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 8, 8, 8, 8],
+    [8, 8, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 8, 8, 8, 8],
+    [0, 0, 3, 3, 3, 2, 3, 3, 3, 3, 3, 4, 6, 6, 5, 8],
+    [0, 0, 3, 3, 3, 2, 3, 3, 3, 2, 3, 5, 6, 6, 5, 0],
+    [0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 4, 5, 6, 5, 5, 0],
+    [0, 0, 0, 3, 3, 2, 3, 3, 3, 3, 4, 0, 5, 5, 0, 0],
+    [0, 0, -1, -1, 3, 2, 3, 3, 3, -1, 4, -1, 0, -1, 0, 0],
+    [0, -1, -1, 0, -1, 3, 3, 3, 0, 4, 4, 4, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, -1, -1, 4, -1, -1, 4, -1, 0, 0, 0],
+    [0, 0, -1, -1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1],
+    [-1, 1, 1, -1, 0, 0, -1, 0, 0, 0, 0, 9, 9, 9, 0, -1],
+    [0, 1, 1, 0, -1, 0, -1, 0, 0, 0, 0, 9, 9, 9, 0, 0],
+    [-1, 1, 1, -1, -1, 0, 0, 0, -1, 0, 0, -1, -1, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "haystack_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Straw lines",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Haystack",
+      "roleId": "hay"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pitchfork",
+      "roleId": "fork"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Barn",
+      "roleId": "barn"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Barn door",
+      "roleId": "barn_door"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Field",
+      "roleId": "field"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far meadow",
+      "roleId": "meadow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.269,
+    "nestingDepth": 4,
+    "regionCount": 22
+  },
+  "subject": "Haystack 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["farm"]
+  },
+  "version": 1,
+  "width": 16
+}

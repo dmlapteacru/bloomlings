@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 8, 8, 9, 9, 9, 9, 8, 8, 9, 9, 5, 5],
+    [0, 0, -1, 8, 8, 8, 0, 0, -1, 0, 8, 8, 8, 0, 5, 5],
+    [0, 0, -1, 0, -1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 5, 5],
+    [0, 0, 0, 2, 2, 2, 0, 0, -1, -1, 0, 0, 0, -1, 5, 5],
+    [0, 0, 2, 3, 3, 3, 2, 0, 0, 0, -1, 0, 0, -1, 5, 5],
+    [0, -1, 4, 3, 3, 4, 4, 0, 0, 0, 0, 0, 0, 0, 5, 5],
+    [0, -1, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 0, 0, 5, 5],
+    [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 5, 5],
+    [0, 0, 0, -1, 2, 0, 2, 0, 0, 0, 2, 2, -1, 0, 5, 5],
+    [0, -1, 0, 0, 0, 2, 2, -1, 5, 5, 2, 5, 5, 5, 5, 5],
+    [0, -1, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [6, 1, 1, 1, 0, 0, -1, 6, 0, 0, 0, 0, 0, 0, 6, 6],
+    [6, 1, 1, 1, 7, 0, 6, 6, 0, 0, -1, 7, 7, 7, 6, 6],
+    [0, 0, 1, 1, 7, 0, 0, 0, 0, 0, 0, -1, -1, -1, 0, 6],
+    [-1, 0, -1, 0, 0, -1, 0, 0, -1, -1, -1, -1, 0, -1, -1, -1]
+  ],
+  "height": 16,
+  "id": "sloth_08",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Jungle sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sloth",
+      "roleId": "sloth"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye stripes, nose and claws",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Mossy tree",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bushes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.332,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Sloth 8",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "jungle"]
+  },
+  "version": 1,
+  "width": 16
+}

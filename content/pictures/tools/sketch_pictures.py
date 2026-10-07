@@ -601,11 +601,16 @@ def main(seed=2026, with_expansions=False, root=ROOT, more=True):
             for i in range(count):
                 subject = subjects[(written + i * 7) % len(subjects)]
                 seed_i = rng.randrange(1 << 30)
-                # The expansion bands try the band's next sizes when a drawing misses its targets at this one.
+                # The expansion bands try the band's next sizes when a drawing misses its targets at this one; then (every
+                # new band, since 2026-10-07) up to eight more drawings at its own size, each from a seed derived from its
+                # own. A drawing that meets its targets the first time is drawn once, as before.
                 tries = len(sizes) if style and style.get('recolor') else 1
-                for k in range(tries):
+                attempts = [(k, seed_i) for k in range(tries)]
+                if style:
+                    attempts += [(0, (seed_i + a * 0x9E3779B1) % (1 << 30)) for a in range(1, 9)]
+                for k, seed_k in attempts:
                     w, h = sizes[(i + k) % len(sizes)]
-                    cv, roles, themes, issues, ok_six, held = sketch(subject, w, h, seed_i, style, f'{band} #{i} {subject.__name__} {w}x{h}')
+                    cv, roles, themes, issues, ok_six, held = sketch(subject, w, h, seed_k, style, f'{band} #{i} {subject.__name__} {w}x{h}')
                     if not issues:
                         break
                 problems.extend(issues)

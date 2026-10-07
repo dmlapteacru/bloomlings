@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "alpaca_01",
+  "legend": {
+    "a": "alpaca",
+    "b": "blanket",
+    "g": "grass",
+    "k": "eye",
+    "m": "mountains",
+    "s": "sky",
+    "u": "sun",
+    "v": "shrubs",
+    "w": "snow"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Alpaca",
+      "roleId": "alpaca"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye, nose and hooves",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mountains",
+      "roleId": "mountains"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowy peaks and blanket stripe",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shrubs",
+      "roleId": "shrubs"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Alpaca 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "mountains"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

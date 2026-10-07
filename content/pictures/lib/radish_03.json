@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 3],
+    [0, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0],
+    [0, -1, -1, 6, 0, -1, 6, -1, 0, 0, 6, 0, 0, 0],
+    [0, 0, -1, 6, 4, 0, 6, -1, 0, 4, 6, -1, -1, 0],
+    [0, 0, 4, 6, 4, 4, 6, 6, 4, 4, 6, 4, -1, 0],
+    [-1, 0, 4, 4, 4, 5, 5, 5, 5, 4, 4, 4, -1, -1],
+    [0, 0, 4, 4, 4, 5, 5, 5, 5, 4, 4, 4, -1, -1],
+    [-1, 0, 0, 0, 0, 5, 5, 5, 5, 0, 7, 0, 0, -1],
+    [0, 0, 7, 7, -1, 7, 7, 7, -1, -1, 7, 7, 0, 0],
+    [0, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 0, 0],
+    [0, 7, 7, 7, -1, 7, 7, 7, 7, 0, 7, 2, 2, -1],
+    [0, 0, 0, -1, 0, 0, 7, 7, 0, 0, 7, 2, 2, 2],
+    [-1, -1, 0, 0, -1, -1, 0, 0, -1, -1, 0, 1, 1, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0],
+    [-1, 0, 0, -1, 0, -1, -1, -1, -1, -1, 0, 1, 0, -1]
+  ],
+  "height": 17,
+  "id": "radish_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Radishes",
+      "roleId": "radish"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Radish behind",
+      "roleId": "radish2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tails",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board",
+      "roleId": "board"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.273,
+    "nestingDepth": 4,
+    "regionCount": 23
+  },
+  "subject": "Radish 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "vegetables"]
+  },
+  "version": 1,
+  "width": 14
+}

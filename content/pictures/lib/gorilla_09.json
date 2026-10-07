@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 1, 1, 7, 7, 7, 7, 7, 7, 7, 7, 7, 1, 1, 7, 7],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, -1, 0],
+    [0, 1, 1, 1, 1, 1, 2, 2, 2, 1, 1, 1, 1, 1, 0, 0],
+    [0, -1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 0, -1, 0],
+    [0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [-1, 5, 5, 1, 1, 1, 3, 2, 3, 1, 1, 1, 0, 0, 0, 0],
+    [5, 5, 5, 5, 0, 1, 3, 2, 3, 1, 0, 0, 5, 5, 0, -1],
+    [0, 0, -1, 0, 0, 1, 3, 1, 3, 1, 0, -1, 5, 5, 5, 5],
+    [0, 0, 0, 0, -1, 1, 1, 1, 1, 1, 0, 0, -1, 0, -1, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, -1, 0, 1, 0, 0, 0, -1, 4, 4, 4, 0],
+    [0, 6, 6, -1, -1, 0, -1, 0, 0, 0, 0, -1, 4, 4, 4, 4],
+    [-1, 6, 6, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0],
+    [-1, 6, 0, 0, 0, 0, -1, 0, -1, 0, 0, -1, 0, 0, -1, -1]
+  ],
+  "height": 18,
+  "id": "gorilla_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Gorilla",
+      "roleId": "gorilla"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face and chest",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes and nostrils",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bananas",
+      "roleId": "banana"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Jungle leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.298,
+    "nestingDepth": 4,
+    "regionCount": 22
+  },
+  "subject": "Gorilla 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "jungle"]
+  },
+  "version": 1,
+  "width": 16
+}

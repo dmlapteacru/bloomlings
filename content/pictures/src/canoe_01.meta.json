@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "canoe_01",
+  "legend": {
+    "c": "canoe",
+    "e": "head",
+    "f": "shore",
+    "j": "jacket",
+    "k": "rim",
+    "p": "paddle",
+    "r": "pads",
+    "s": "sky",
+    "u": "sun",
+    "w": "lake"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lake",
+      "roleId": "lake"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Far shore",
+      "roleId": "shore"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Canoe",
+      "roleId": "canoe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Rim",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Life jacket",
+      "roleId": "jacket"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Paddle",
+      "roleId": "paddle"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lily pads and reeds",
+      "roleId": "pads"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Canoe 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "lake"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

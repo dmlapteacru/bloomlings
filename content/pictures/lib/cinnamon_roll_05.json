@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3],
+    [3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3],
+    [0, 0, 6, 6, 6, 6, 6, 2, 2, 2, 2, 6, 6, 6, 6, 6, 0, 0],
+    [0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, -1, 0, 0, 0],
+    [0, -1, -1, 2, 2, 1, 1, 4, 4, 4, 1, 1, 1, 2, 2, 0, -1, 0],
+    [0, 0, 2, 2, 1, 4, 4, 4, 4, 4, 4, 4, 1, 1, 2, 2, 0, -1],
+    [0, 0, 2, 1, 4, 4, 1, 1, 1, 1, 1, 4, 4, 1, 1, 2, -1, 0],
+    [-1, 0, 1, 4, 4, 1, 1, 4, 4, 4, 1, 1, 4, 1, 1, 1, 0, -1],
+    [0, 0, 1, 4, 4, 1, 4, 4, 1, 4, 1, 1, 4, 1, 1, 4, -1, -1],
+    [0, 0, 1, 4, 4, 1, 4, 4, 1, 1, 1, 4, 4, 1, 1, 4, 0, -1],
+    [0, 0, 0, 4, 4, 1, 1, 4, 4, 4, 4, 4, 1, 1, 4, 4, 0, 0],
+    [0, -1, -1, 0, 4, 4, 5, 1, 1, 5, 1, 1, 5, 4, 4, 0, 0, 0],
+    [-1, 0, -1, 0, -1, 4, 5, 4, 4, 5, 4, 4, 5, 4, 0, 0, 0, 0],
+    [0, 8, 8, 8, 8, 8, 5, 4, 4, 5, 4, 5, 0, 0, 0, -1, -1, 0],
+    [-1, 8, 7, 8, 7, 8, 0, 0, -1, 0, 0, 0, -1, 0, -1, -1, 0, 0],
+    [0, 8, 8, 8, 8, 8, -1, 0, -1, 0, 0, 0, 0, 0, -1, -1, -1, 0],
+    [0, 8, 7, 7, 7, 8, -1, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, -1],
+    [-1, 8, 8, 8, 8, 8, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, -1, -1, -1]
+  ],
+  "height": 21,
+  "id": "cinnamon_roll_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dough",
+      "roleId": "dough"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sides",
+      "roleId": "side"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cinnamon swirl",
+      "roleId": "cinnamon"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Icing",
+      "roleId": "icing"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.269,
+    "nestingDepth": 5,
+    "regionCount": 35
+  },
+  "subject": "Cinnamon roll 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "sweets"]
+  },
+  "version": 1,
+  "width": 18
+}

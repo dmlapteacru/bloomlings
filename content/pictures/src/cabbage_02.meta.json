@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "cabbage_02",
+  "legend": {
+    "a": "outer",
+    "b": "sky",
+    "d": "pebbles",
+    "e": "veins",
+    "i": "head",
+    "o": "cloud",
+    "t": "soil"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Outer leaves",
+      "roleId": "outer"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Veins and cut lines",
+      "roleId": "veins"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Soil",
+      "roleId": "soil"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pebbles",
+      "roleId": "pebbles"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cabbage 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

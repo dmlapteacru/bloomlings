@@ -1,0 +1,104 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 4, 4, 4, 4, 4, 4, 5, 5, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 4],
+    [4, 4, 6, 4, 4, 4, 4, 5, 4, 4, 7, 7, 4, 4, 4, 4, 4, 5, 5, 4],
+    [0, 0, 6, 0, 0, 0, 0, 0, 0, 0, 7, 7, -1, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 6, -1, 0, 0, 0, -1, 0, 0, 7, 7, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, 0, 6, 0, 0, 0, 0, -1, 0, 0, 8, 7, -1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 6, 0, 0, 0, 0, -1, 0, 0, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 6, 0, 0, 0, 0, -1, 0, 8, 8, 8, 0, 0, -1, -1, 0, 0, -1, -1],
+    [0, 0, 6, 0, -1, -1, -1, -1, 0, 8, 8, 8, 8, 0, -1, 0, 0, -1, 0, 0],
+    [0, 0, 6, -1, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0],
+    [0, 0, 6, 0, 0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [0, 0, 6, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 0, -1, 0, 0],
+    [-1, 0, 6, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, -1, 0, 0, -1],
+    [0, 0, 6, 0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 0, -1, 0],
+    [-1, 0, 6, -1, -1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 2, 2, 0, 0, 0, 0],
+    [0, 0, 6, 0, 0, 0, 2, 2, 2, 3, 3, 3, 3, 3, 2, 2, 0, -1, 0, -1],
+    [0, 0, 6, -1, 0, 0, 0, 2, 2, 3, 3, 2, 2, 2, 2, 0, -1, 0, 0, -1],
+    [0, 0, 6, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, -1, 0, 0, 0],
+    [-1, 0, 6, 0, 0, 0, 0, 0, 0, 1, 0, 5, -1, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, 6, 0, 0, 0, 5, 0, 0, 1, 0, 5, -1, 1, 1, 5, 5, 0, 1, 0],
+    [-1, 0, 6, 0, 1, 1, 5, 5, 1, 1, 1, 5, 5, 1, 1, 5, 5, 0, 1, 0],
+    [0, 0, 6, 0, 1, 1, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1],
+    [0, 0, 6, 6, 6, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 6, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 25,
+  "id": "cotton_candy_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red flags",
+      "roleId": "flags"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grape cotton candy",
+      "roleId": "grape"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Light grape tufts",
+      "roleId": "grape_tufts"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow flags and flowers",
+      "roleId": "flags2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "String and pole",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sticks",
+      "roleId": "stick"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Paper cone",
+      "roleId": "cone"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.468,
+    "nestingDepth": 4,
+    "regionCount": 24
+  },
+  "subject": "Cotton candy 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "sweets", "party"]
+  },
+  "version": 1,
+  "width": 20
+}

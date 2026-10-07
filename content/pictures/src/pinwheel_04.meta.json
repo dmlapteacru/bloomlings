@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "pinwheel_04",
+  "legend": {
+    "a": "blade",
+    "c": "cloud",
+    "e": "blade3",
+    "g": "grass",
+    "k": "stick",
+    "m": "pin",
+    "o": "flowers",
+    "q": "blade2",
+    "s": "sky",
+    "y": "blade4"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink blade",
+      "roleId": "blade"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green blade",
+      "roleId": "blade2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet blade",
+      "roleId": "blade3"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Orange blade",
+      "roleId": "blade4"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Pin",
+      "roleId": "pin"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stick",
+      "roleId": "stick"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pinwheel 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "toys",
+      "park"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

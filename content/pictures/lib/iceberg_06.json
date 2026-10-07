@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [2, 2, 2, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    [2, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    [2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2],
+    [2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 2, 2, 2],
+    [2, 2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 2],
+    [2, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 2, 2, 2, 2],
+    [2, 4, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 2, 2, 2],
+    [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0],
+    [0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, -1, 0, -1, 6, -1],
+    [-1, 6, -1, 0, 0, 3, 3, 3, 3, 3, 0, 0, 0, 0, -1, -1],
+    [0, -1, -1, -1, -1, 0, 3, 3, 3, 0, 0, -1, 0, 5, 0, 0],
+    [0, 0, 0, 0, 0, 0, 3, 3, -1, -1, 0, 0, 5, 5, 5, 0],
+    [0, 0, -1, 0, 0, 0, -1, -1, -1, 0, 0, 0, 5, 5, 5, 0],
+    [0, 0, 6, 0, -1, 6, 0, 0, -1, 6, -1, 0, -1, 0, -1, -1],
+    [-1, -1, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 6, 0, 0, 0],
+    [0, -1, 0, 0, 0, 1, 1, 1, 1, 0, 0, -1, 0, -1, 1, 0],
+    [-1, 1, 1, 1, 1, 1, 0, -1, 1, 1, 1, 1, 1, 1, 0, -1],
+    [-1, -1, 0, -1, -1, 0, 0, -1, 0, -1, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 18,
+  "id": "iceberg_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Polar sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Aurora",
+      "roleId": "aurora"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Iceberg",
+      "roleId": "ice"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Iceberg under water",
+      "roleId": "under"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fish",
+      "roleId": "fish"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.267,
+    "nestingDepth": 4,
+    "regionCount": 29
+  },
+  "subject": "Iceberg 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["sea", "winter"]
+  },
+  "version": 1,
+  "width": 16
+}

@@ -1,0 +1,101 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [8, 8, 7, 7, 7, 7, 7, 8, 8, 7, 7, 7, 7, 7, 8, 8],
+    [8, 0, 0, 5, 5, 5, 0, 8, 8, 5, 5, 5, 0, 0, -1, 8],
+    [-1, 0, 0, 5, 6, 6, 6, 6, 0, 5, 6, 5, 5, 0, 0, 0],
+    [-1, 0, 0, 5, 5, 5, 0, 0, 0, 5, 5, 5, 4, 4, -1, 0],
+    [0, 0, 4, 4, 5, 4, 4, 4, 4, 4, 5, 4, 4, 4, -1, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1],
+    [0, -1, 1, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 3, 1, 1, 1, 1, 1, 1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 3, 1, 0, 0, 0, 0, 0, 0, -1, 0],
+    [0, 0, 1, 1, 1, 1, 1, 3, 0, 0, 0, 0, 0, 0, -1, 0],
+    [0, 0, 1, 1, 1, 1, 3, 1, 0, -1, 0, 0, 0, -1, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 3, 0, 0, 0, -1, -1, 0, 0, 0],
+    [0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, -1, 0, 0, 0, 0],
+    [0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 9, 9, 9, 0],
+    [-1, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 9, 9, 9, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 9, -1, -1]
+  ],
+  "height": 17,
+  "id": "roller_skate_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Boot",
+      "roleId": "boot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Collar",
+      "roleId": "collar"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Laces",
+      "roleId": "laces"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sole and toe stop",
+      "roleId": "sole"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Wheels",
+      "roleId": "wheel"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Path",
+      "roleId": "path"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass tufts",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.363,
+    "nestingDepth": 4,
+    "regionCount": 29
+  },
+  "subject": "Roller skate 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["toys", "park"]
+  },
+  "version": 1,
+  "width": 16
+}

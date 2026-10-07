@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 3, 3, 3, 6, 6, 6, 6, 6, 6],
+    [6, 6, 4, 4, 6, 6, 3, 3, 3, 6, 6, 6, 6, 6, 6],
+    [6, 4, 4, 5, 4, 6, 3, 3, 3, 6, 6, 6, 6, 6, 6],
+    [6, 4, 5, 5, 4, 6, 3, 3, 3, 6, 6, 6, 6, 6, 6],
+    [7, 4, 5, 5, 4, 7, 3, 3, 3, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 1, 1, 1, 7, 7, 7, 7, 7, 7],
+    [0, 0, 0, 0, -1, -1, 1, 1, 1, -1, -1, 8, 8, 8, 0],
+    [0, 0, -1, 0, 0, 1, 1, 1, 1, 1, 0, 8, 8, 0, 0],
+    [-1, 0, -1, -1, 0, 1, 1, 1, 1, 1, 0, -1, 0, 0, -1],
+    [-1, -1, 0, 0, 1, 0, 0, 2, 0, -1, 1, 0, 0, 0, -1],
+    [0, -1, 0, 1, 2, -1, 0, 2, 0, -1, 2, 1, 0, 0, 0],
+    [0, 0, 0, 1, 2, 2, 2, 2, 2, 2, 2, 1, 0, -1, 0],
+    [0, 0, -1, 1, 2, 0, -1, 2, 0, -1, 2, 1, 0, 0, 0],
+    [0, 0, -1, 1, 2, 0, -1, 2, 0, 0, 2, 1, 0, 0, -1],
+    [-1, 0, 0, 0, 1, 2, 2, 2, 2, 2, 1, 0, -1, 0, 0],
+    [-1, 0, 0, 0, -1, 1, 1, 1, 1, 1, -1, 0, 0, -1, 0],
+    [-1, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 17,
+  "id": "tennis_racket_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strings",
+      "roleId": "strings"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Grip",
+      "roleId": "grip"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Ball",
+      "roleId": "ball"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seam",
+      "roleId": "seam"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Court",
+      "roleId": "court"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hedge",
+      "roleId": "hedge"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.286,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Tennis racket 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["sport"]
+  },
+  "version": 1,
+  "width": 15
+}

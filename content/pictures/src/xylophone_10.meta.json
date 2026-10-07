@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "xylophone_10",
+  "legend": {
+    "a": "bar1",
+    "b": "wall",
+    "c": "bar2",
+    "e": "bar3",
+    "f": "floor",
+    "g": "bar4",
+    "k": "frame",
+    "m": "mallet",
+    "n": "notes",
+    "y": "bar5",
+    "z": "bar6"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red bar",
+      "roleId": "bar1"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green bar",
+      "roleId": "bar2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue bar",
+      "roleId": "bar3"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet bar",
+      "roleId": "bar4"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow bar",
+      "roleId": "bar5"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sky blue bar",
+      "roleId": "bar6"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Frame, nails and sticks",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Mallet heads",
+      "roleId": "mallet"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Xylophone 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "things",
+      "music"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 4, 4, 4, 4, 6, 6, 6, 6, 6, 6],
+    [0, -1, -1, 0, 0, 4, 4, 4, 4, -1, 0, -1, 0, 0, -1],
+    [0, -1, -1, 0, 0, 4, 4, 4, 4, 0, 5, 5, 5, 0, 0],
+    [-1, -1, -1, -1, 0, 4, 4, 4, 4, 0, 5, -1, 5, -1, 0],
+    [-1, 0, 0, 0, -1, 4, 4, 4, 4, -1, 5, 0, 5, -1, 0],
+    [0, -1, 0, 0, 0, 4, 4, 4, 4, -1, 5, 0, 5, 0, -1],
+    [0, 0, 0, 0, 0, 4, 4, 4, 4, 4, 5, 0, 5, 0, -1],
+    [0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 5, 5, 5, 0, -1],
+    [-1, -1, 3, 3, 2, 2, 3, 2, 2, 2, 3, 3, -1, 0, 0],
+    [0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, 0],
+    [-1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 0, -1],
+    [-1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1],
+    [0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -1, 0, 0],
+    [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [-1, -1, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, -1, 0, 0],
+    [1, 1, 1, 0, -1, 2, 2, 2, -1, -1, 0, 7, 7, 7, 7],
+    [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7]
+  ],
+  "height": 18,
+  "id": "oak_tree_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Crown",
+      "roleId": "crown"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaf shade",
+      "roleId": "shade"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Trunk and boughs",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Swing and acorn caps",
+      "roleId": "swing"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.266,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Oak tree 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["trees", "park"]
+  },
+  "version": 1,
+  "width": 15
+}

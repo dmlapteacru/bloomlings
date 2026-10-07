@@ -1,0 +1,115 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3, 4, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 3],
+    [0, 10, 10, 10, 10, 7, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 0],
+    [0, -1, 0, 0, 0, 7, -1, 0, 0, 0, -1, 0, 0, 0, 0, 7, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 7, 0, 0, 0, 0, 7, 0, 0, -1, 0, 7, 0, 0, 0, -1, 0],
+    [0, 0, 0, -1, 7, 7, 7, 0, 0, 0, 7, -1, 0, -1, 0, 7, 7, 0, -1, -1, 0],
+    [-1, 0, 0, 5, 7, 7, 7, 5, 0, 7, 7, 7, 0, 5, 7, 7, 7, 5, -1, 0, 0],
+    [0, 0, 5, 5, 5, 7, 5, 5, 6, 7, 7, 7, 6, 5, 5, 7, 5, 5, 0, 0, -1],
+    [0, 0, 5, 5, 5, 5, 5, 6, 6, 6, 7, 6, 6, 6, 5, 5, 5, 5, 5, 0, 0],
+    [0, 0, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 0, 0],
+    [0, 0, 0, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 5, 5, 5, 5, 5, 0, 0, 0],
+    [0, 0, -1, 0, 5, 5, 5, 0, 6, 6, 6, 6, 6, 0, 5, 5, 5, 0, 0, -1, 0],
+    [0, -1, 0, 0, 9, 9, 0, 0, -1, -1, 6, 0, 0, 0, 0, 9, 9, 0, 0, 0, 0],
+    [-1, -1, 0, 8, 8, 9, 0, 0, 8, 9, 9, 9, 8, 0, 8, 9, 9, 8, -1, 0, -1],
+    [0, 0, 8, 9, 8, 9, 8, 0, 8, 8, 9, 9, 8, 0, 8, 9, 8, 9, 8, 0, 0],
+    [0, 0, 8, 9, 8, 9, 8, 8, 8, 8, 9, 8, 9, 8, 8, 9, 8, 9, 8, 0, 0],
+    [0, 0, 0, 0, 8, 9, 8, 8, 8, 8, 9, 8, 8, 8, 0, 8, 0, 8, 9, 0, -1],
+    [-1, -1, 0, 0, 2, 8, -1, 0, 0, 0, 9, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, -1, -1, 0, 0],
+    [0, 1, 1, 1, 1, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0],
+    [-1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, -1, 0],
+    [0, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, -1, 0, -1, 0, 0, 0, 0, 0, 0, -1],
+    [-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1]
+  ],
+  "height": 26,
+  "id": "radish_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Radishes",
+      "roleId": "radish"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Radish behind",
+      "roleId": "radish2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tails",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Midribs",
+      "roleId": "midribs"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board",
+      "roleId": "board"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.386,
+    "nestingDepth": 4,
+    "regionCount": 42
+  },
+  "subject": "Radish 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "vegetables"]
+  },
+  "version": 1,
+  "width": 21
+}

@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+    [4, 6, 4, 4, 4, 4, 4, 7, 4, 4, 4, 4, 4, 4],
+    [0, 6, 0, 0, 0, 0, 7, 7, 7, 0, 0, 0, 0, 0],
+    [0, 6, 0, 0, 0, 0, 7, 8, 0, 0, -1, 0, 0, 0],
+    [0, 6, 0, 0, 0, 0, -1, 8, -1, 0, 0, 0, 0, 0],
+    [0, 6, 0, 0, 0, 0, 8, 8, 8, 0, 0, 0, 0, 0],
+    [0, 6, -1, -1, 1, 1, 1, 1, 1, 1, 1, -1, 0, 0],
+    [0, 6, -1, 0, 1, 1, 1, 1, 1, 3, 1, 0, 0, -1],
+    [-1, 6, 0, 0, 1, 1, 1, 1, 1, 3, 3, 0, 0, 0],
+    [0, 6, -1, 0, 1, 1, 1, 1, 3, 3, 1, 1, 0, 0],
+    [0, 6, 0, 0, 1, 1, 3, 3, 3, 3, 1, 0, -1, 0],
+    [0, 6, 0, 0, -1, 1, 3, 3, 1, 1, 5, -1, 2, 0],
+    [0, 6, 0, 0, 2, 5, 5, 1, 1, 5, 5, 0, 2, 0],
+    [0, 6, 0, 2, 2, 6, 6, 0, 0, 0, 6, 6, 2, 0],
+    [0, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 6, 0, 0, 0, -1, 0, 0, 0, 0, -1, -1, -1, -1],
+    [-1, 0, -1, -1, -1, 0, -1, 0, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "cotton_candy_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pink cotton candy",
+      "roleId": "candy"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flags",
+      "roleId": "flags"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Light tufts",
+      "roleId": "tufts"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Other flags and flowers",
+      "roleId": "flags2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "String and pole",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sticks",
+      "roleId": "stick"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Paper cone",
+      "roleId": "cone"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.428,
+    "nestingDepth": 4,
+    "regionCount": 23
+  },
+  "subject": "Cotton candy 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "sweets", "party"]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "clownfish_01",
+  "legend": {
+    "a": "anemone",
+    "c": "coral",
+    "d": "sand",
+    "e": "eye",
+    "f": "fish",
+    "o": "clownfish",
+    "q": "tips",
+    "w": "water",
+    "z": "stripes"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Water",
+      "roleId": "water"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Clownfish",
+      "roleId": "clownfish"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Stripes",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eye and bubbles",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Anemone",
+      "roleId": "anemone"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Anemone tips",
+      "roleId": "tips"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Coral",
+      "roleId": "coral"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Little fish",
+      "roleId": "fish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Clownfish 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

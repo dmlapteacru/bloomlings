@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 6, 6, 6, 6, 6, 6, 3, 3, 3, 3],
+    [3, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 3],
+    [0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0],
+    [0, 4, 4, 4, 2, -1, 0, 4, 4, 4, 4, 4, 0, -1],
+    [0, -1, 2, 2, 2, 0, 4, 4, 4, 4, 4, 4, 0, 0],
+    [0, 0, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 0, 0],
+    [0, 0, -1, 0, -1, 4, 4, 2, 4, 2, 4, 0, -1, 0],
+    [-1, 0, 0, 0, 0, -1, 2, 2, 2, 2, 2, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, 2, 8, 8, 8, 2, 0, 0, -1],
+    [0, 0, 0, 0, -1, 0, 0, 8, 8, 8, -1, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, 0, 1, 1, 0, 5, -1, 0, -1],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 5, 5, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 9, 9, -1, 5, 5, 5, 5],
+    [0, 0, 0, 0, -1, 0, -1, 9, 9, 0, -1, 7, 7, 0],
+    [-1, -1, 0, -1, 0, 0, 0, 9, -1, 0, -1, 7, 7, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 0, -1]
+  ],
+  "height": 16,
+  "id": "pudding_07",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cherry",
+      "roleId": "cherry"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Caramel",
+      "roleId": "caramel"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Custard",
+      "roleId": "custard"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Whipped cream",
+      "roleId": "cream"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cherry stem",
+      "roleId": "stem"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.388,
+    "nestingDepth": 4,
+    "regionCount": 20
+  },
+  "subject": "Pudding 7",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "sweets"]
+  },
+  "version": 1,
+  "width": 14
+}

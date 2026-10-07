@@ -1,0 +1,104 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 2, 7, 7, 7, 7, 7, 7, 7, 2, 7, 7, 7, 7, 7, 7, 2, 7, 2, 7],
+    [-1, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, -1, 0, 0, 2, 0, 2, 0],
+    [0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, -1, 0, 0, 0, -1, 2, -1, 2, -1],
+    [-1, 6, 0, 0, 0, 0, 0, 0, 0, 2, 0, -1, 0, 0, 0, 0, 2, 0, 2, 0],
+    [0, 6, 0, 0, -1, 0, 0, 0, -1, 0, -1, -1, 0, 0, 0, -1, 2, 0, 6, 0],
+    [0, 6, 0, 0, -1, -1, -1, 0, 0, 0, -1, -1, 0, 0, 0, 0, 6, 0, 6, 0],
+    [0, 0, 0, 0, 2, 2, 0, 2, -1, -1, 0, 2, 2, 2, -1, 0, 6, 0, 6, 0],
+    [0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 2, 2, 2, 2, -1, 6, 0, 0, 0],
+    [0, 0, -1, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 2, -1, 0, 0, -1, 0],
+    [0, 0, 5, 5, 5, 4, 2, 2, 2, -1, 2, 2, 3, 2, 2, 2, 0, 0, 0, -1],
+    [0, 0, 2, 5, 4, 5, 2, 2, 2, -1, 2, 2, 3, 2, 2, 2, 2, -1, -1, -1],
+    [0, 2, 2, 4, 4, 4, 2, 2, 2, 0, 2, 2, 2, 3, 2, 2, 2, 0, 0, -1],
+    [-1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, -1, -1, 0],
+    [0, 0, -1, 2, 2, 2, 2, -1, 2, 2, -1, 0, 0, 2, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, -1, 0, 0, -1, 2, 2, 2, 2, 2, -1, 0, 0, 0, 0, 0, -1, -1],
+    [0, -1, 0, -1, 0, 0, 2, 2, 2, 2, 2, 2, 2, -1, -1, 0, -1, 0, 0, -1],
+    [0, 0, -1, 0, 0, 0, 2, 2, 3, 3, 3, 2, 2, 0, -1, -1, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, -1, -1, 0, 0, 2, 2, 2, 2, 2, 2, 2, -1, 0, 0, -1, 1, 0, 0],
+    [0, 0, 8, 8, 8, 8, 2, 2, 2, 0, 2, 2, 2, 0, -1, 0, 1, 1, 1, -1],
+    [-1, -1, 8, 8, 8, 8, 0, 0, 0, -1, -1, 0, -1, -1, 0, 0, 1, 1, 1, 0],
+    [-1, 0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, 1, -1, -1]
+  ],
+  "height": 25,
+  "id": "clover_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Clover",
+      "roleId": "clover"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Leaf marks",
+      "roleId": "mark"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Ladybug",
+      "roleId": "ladybug"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ladybug head and spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Clover blossoms",
+      "roleId": "blossom"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.362,
+    "nestingDepth": 5,
+    "regionCount": 42
+  },
+  "subject": "Clover 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["plants", "meadow"]
+  },
+  "version": 1,
+  "width": 20
+}

@@ -1,0 +1,111 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "noodles_01",
+  "legend": {
+    "b": "wall",
+    "c": "chopsticks",
+    "g": "egg",
+    "k": "strands",
+    "l": "onion",
+    "n": "noodles",
+    "o": "wall_dots",
+    "p": "bowl",
+    "q": "nori",
+    "s": "steam",
+    "t": "table",
+    "u": "yolk",
+    "v": "shelf"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chopsticks",
+      "roleId": "chopsticks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Noodles",
+      "roleId": "noodles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strand lines",
+      "roleId": "strands"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yolk",
+      "roleId": "yolk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bowl and box",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Egg white",
+      "roleId": "egg"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Nori",
+      "roleId": "nori"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green onion",
+      "roleId": "onion"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Noodles 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "dinner"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

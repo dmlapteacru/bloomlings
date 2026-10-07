@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 20,
+  "id": "cement_mixer_10",
+  "legend": {
+    "b": "body",
+    "d": "ground",
+    "h": "cones",
+    "i": "window",
+    "m": "hub",
+    "r": "drum",
+    "s": "sky",
+    "t": "tyre",
+    "u": "sun",
+    "z": "stripe"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow cab and frame",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Drum",
+      "roleId": "drum"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red drum stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tyres",
+      "roleId": "tyre"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cones",
+      "roleId": "cones"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun and cone stripes",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cement mixer 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "vehicles",
+      "work"
+    ]
+  },
+  "version": 1,
+  "width": 17
+}

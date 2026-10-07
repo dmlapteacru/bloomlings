@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7],
+    [7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7],
+    [-1, 0, 6, 6, 6, 1, 1, 6, 6, 6, 2, 2, 1, 1],
+    [0, 0, -1, 1, 1, 1, 1, 1, 1, 0, 2, 3, 1, 3],
+    [0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 2, 2, 1, 1],
+    [0, -1, 1, 1, 1, 1, 1, 1, 1, 1, 0, -1, 0, 0],
+    [-1, 0, 1, 1, 1, 1, 1, 1, 1, 1, -1, -1, 0, -1],
+    [0, 0, 1, 1, 1, 1, 3, 3, 1, 1, -1, 0, 0, 0],
+    [-1, 0, 0, 1, 1, 1, 3, 1, 1, 0, 0, -1, -1, 0],
+    [0, -1, -1, -1, 1, 1, 1, 1, 4, 4, -1, 0, 0, 0],
+    [0, -1, 0, 9, 0, -1, 5, 5, 4, 4, 4, 0, 0, 0],
+    [0, -1, 0, 9, -1, -1, 5, 5, 0, 4, 4, 4, 0, 0],
+    [9, 9, 9, 9, -1, 0, 5, 0, 0, -1, 0, 0, 0, 0],
+    [0, 8, 8, 0, -1, 0, 0, -1, 0, 0, 0, 0, -1, 0],
+    [0, 8, 8, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0],
+    [0, 8, 8, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 18,
+  "id": "blueberries_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blueberries",
+      "roleId": "berry"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Other blueberries",
+      "roleId": "berry2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Crowns",
+      "roleId": "crowns"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bowl, punnet and plate",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.345,
+    "nestingDepth": 4,
+    "regionCount": 22
+  },
+  "subject": "Blueberries 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "fruit"]
+  },
+  "version": 1,
+  "width": 14
+}

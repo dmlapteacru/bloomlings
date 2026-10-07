@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 3, 3, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 4, 6, 6, 6, 3, 3, 6, 6, 6, 6, 6, 6, 6],
+    [6, 4, 4, 4, 5, 7, 7, 3, 3, 7, 7, 7, 7, 7, 7, 7],
+    [6, 4, 4, 5, 5, 6, 6, 3, 3, 6, 6, 6, 6, 6, 6, 6],
+    [6, 4, 4, 5, 5, 6, 6, 3, 3, 6, 6, 6, 6, 6, 6, 6],
+    [8, 8, 4, 4, 8, 8, 8, 3, 3, 8, 8, 8, 8, 8, 8, 8],
+    [0, -1, 0, -1, 0, 0, -1, 1, 1, -1, -1, 0, 9, 9, 9, 0],
+    [0, -1, -1, 0, 0, -1, 1, 1, 1, 1, 0, 0, 9, 9, 0, -1],
+    [0, -1, 0, -1, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 1, 2, 2, 2, 2, 1, -1, -1, 0, 0, 0],
+    [0, 0, 0, -1, 1, 2, 0, -1, 2, 0, -1, 1, 0, 0, 0, -1],
+    [0, 0, -1, 1, 0, 2, -1, -1, 2, 0, 0, 2, 1, 0, 0, 0],
+    [0, 0, -1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 1, -1, 0, 0],
+    [0, -1, 0, 1, 0, 2, -1, 0, 2, 0, -1, 2, 1, 0, 0, 0],
+    [-1, 0, 0, -1, 1, 2, 0, 0, 2, 0, 0, 1, 0, 0, 0, -1],
+    [-1, -1, -1, 0, 1, 1, 2, 2, 2, 2, 1, 1, 0, 0, -1, 0],
+    [0, -1, -1, 0, 0, 0, 1, 1, 1, 1, 0, -1, -1, 0, -1, 0],
+    [-1, -1, 0, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, -1, -1, -1]
+  ],
+  "height": 18,
+  "id": "tennis_racket_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strings",
+      "roleId": "strings"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Grip",
+      "roleId": "grip"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ball",
+      "roleId": "ball"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seam",
+      "roleId": "seam"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Court",
+      "roleId": "court"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Court line",
+      "roleId": "line"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hedge",
+      "roleId": "hedge"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.291,
+    "nestingDepth": 4,
+    "regionCount": 38
+  },
+  "subject": "Tennis racket 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["sport"]
+  },
+  "version": 1,
+  "width": 16
+}

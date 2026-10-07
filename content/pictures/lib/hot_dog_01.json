@@ -1,0 +1,105 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    [-1, 0, -1, 7, 7, 7, 7, 7, 7, 7, 7, 7, 10, 10, 10],
+    [0, 0, 0, 7, 7, 8, 8, 8, 7, 8, 7, 7, 10, 10, 10],
+    [0, -1, 7, 7, 7, 7, 7, 8, 7, 7, 7, 7, 7, -1, -1],
+    [0, 3, 3, 5, 3, 3, 5, 3, 3, 3, 5, 3, 3, 3, 0],
+    [0, 3, 3, 3, 5, 5, 3, 5, 5, 5, 3, 5, 3, 3, 0],
+    [-1, 0, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [-1, -1, 4, 4, 1, 1, 1, 1, 1, 1, 1, -1, 0, -1, 0],
+    [-1, 0, 4, 4, 4, 4, 0, 0, -1, -1, -1, 0, 0, -1, -1],
+    [0, -1, 0, 4, 4, 0, 0, -1, -1, 0, 0, -1, 0, 0, 0],
+    [0, 0, -1, 6, 6, 0, -1, 0, -1, -1, 0, -1, 0, -1, 0],
+    [0, 0, 0, 6, 6, -1, 0, -1, 0, 0, 0, 0, -1, 0, 0],
+    [0, -1, 0, 6, -1, 0, 0, 0, 0, 9, 9, 9, 9, 9, 0],
+    [0, 0, 0, -1, -1, 0, 0, 0, -1, 9, 9, 9, 9, 9, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, 9, 9, 0, -1]
+  ],
+  "height": 16,
+  "id": "hot_dog_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Buns",
+      "roleId": "bun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sausages",
+      "roleId": "sausage"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ketchup",
+      "roleId": "ketchup"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Mustard",
+      "roleId": "mustard"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cap",
+      "roleId": "cap"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Plate and paper boat",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Boat stripes",
+      "roleId": "stripes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.287,
+    "nestingDepth": 4,
+    "regionCount": 30
+  },
+  "subject": "Hot dog 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "picnic"]
+  },
+  "version": 1,
+  "width": 15
+}

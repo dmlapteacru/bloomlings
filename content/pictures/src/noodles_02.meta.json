@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "noodles_02",
+  "legend": {
+    "b": "wall",
+    "c": "chopsticks",
+    "e": "band",
+    "k": "strands",
+    "o": "panes",
+    "p": "bowl",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chopsticks",
+      "roleId": "chopsticks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strand lines",
+      "roleId": "strands"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bowl and box",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bowl band and box folds",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Window panes",
+      "roleId": "panes"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Noodles 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "dinner"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

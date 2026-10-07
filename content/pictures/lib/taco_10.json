@@ -1,0 +1,124 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    [10, 10, 10, 10, 10, 10, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10],
+    [10, 10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10],
+    [11, 9, 9, 9, 9, 3, 4, 3, 3, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0],
+    [11, 11, 11, 3, 3, 3, 3, 3, 3, 4, 3, 9, 9, 7, 6, 6, 6, 7, 0, 0],
+    [11, 11, 5, 4, 3, 3, 4, 3, 3, 3, 3, 4, 3, 0, 7, 6, 7, 0, 0, 0],
+    [11, 11, 5, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 0, 0, 6, 0, -1, 0, 0],
+    [-1, 0, 5, 5, 5, 8, 2, 2, 3, 3, 3, 3, 3, 3, 7, 7, 7, 0, 0, 0],
+    [0, 0, 0, 8, 5, 5, 5, 5, 2, 2, 2, 3, 3, 3, 7, 7, 7, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 8, 5, 5, 5, 8, 2, 2, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, -1, 0, -1, 0, 0, 0, 5, 5, 5, 5, 2, -1, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 1, 1, 8, 0, -1, 0, -1, 0, 0],
+    [-1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, -1, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1, 0, -1, -1, 0, -1, 0, 0, -1],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, -1, 0, -1, 0],
+    [-1, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1],
+    [0, 0, -1, 0, 12, 12, 12, 12, 12, -1, -1, 0, 0, 0, -1, 0, 0, 0, -1, 0],
+    [0, -1, 0, 12, 12, 12, 12, 12, 12, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0],
+    [0, 0, 0, -1, 12, 12, 12, 12, 12, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0],
+    [-1, 0, -1, 0, 0, 12, 12, 0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 25,
+  "id": "taco_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Cheese",
+      "roleId": "cheese"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Meat",
+      "roleId": "meat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shells",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Toasted spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lettuce",
+      "roleId": "lettuce"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lime",
+      "roleId": "lime"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lime rind",
+      "roleId": "lime_rind"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.486,
+    "nestingDepth": 4,
+    "regionCount": 33
+  },
+  "subject": "Taco 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "dinner"]
+  },
+  "version": 1,
+  "width": 20
+}

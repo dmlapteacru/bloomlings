@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 22,
+  "id": "mailbox_05",
+  "legend": {
+    "b": "bush",
+    "d": "door",
+    "e": "cloud",
+    "f": "flag",
+    "g": "lawn",
+    "l": "letter",
+    "m": "box",
+    "o": "flowers",
+    "p": "post",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Post",
+      "roleId": "post"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flag",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mailbox",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Mailbox door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Letter",
+      "roleId": "letter"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lawn",
+      "roleId": "lawn"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush and stems",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mailbox 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "town",
+      "cozy"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

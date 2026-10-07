@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "otter_08",
+  "legend": {
+    "f": "face",
+    "k": "eye",
+    "l": "kelp",
+    "o": "otter",
+    "s": "sky",
+    "u": "sun",
+    "w": "sea",
+    "x": "urchin"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Otter",
+      "roleId": "otter"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Face and belly",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red sea urchin",
+      "roleId": "urchin"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Kelp",
+      "roleId": "kelp"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Otter 8",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "sea"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "surfboard_05",
+  "legend": {
+    "b": "board",
+    "d": "sand",
+    "f": "foam",
+    "p": "leaves",
+    "q": "band",
+    "s": "sky",
+    "t": "trunk",
+    "u": "sun",
+    "w": "sea",
+    "x": "starfish",
+    "z": "stripe"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Surfboard",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stripe",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Band",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Foam",
+      "roleId": "foam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Palm trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Starfish",
+      "roleId": "starfish"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Surfboard 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "sport",
+      "beach"
+    ]
+  },
+  "version": 1,
+  "width": 19
+}

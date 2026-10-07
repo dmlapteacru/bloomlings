@@ -1,0 +1,90 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6],
+    [7, 7, 6, 6, 2, 2, 2, 5, 5, 6, 2, 2, 6, 6, 7, 7],
+    [7, 2, 2, 2, 2, 2, 2, 0, 2, 2, 2, 2, 0, 7, 7, 7],
+    [0, 2, 0, 2, 2, 3, 0, 0, 0, 2, 3, 3, 0, 0, -1, 0],
+    [0, 0, 0, 2, 3, 3, 0, 0, -1, 2, 3, 3, 0, 0, 0, 0],
+    [0, 0, 0, 2, 3, 3, 0, 0, 0, 2, 3, 3, -1, 0, 0, 0],
+    [0, 0, 0, 2, 2, 3, 0, 0, 0, 0, 2, 2, 0, 0, 0, -1],
+    [0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 2, 2, -1, 0, 0, 0],
+    [-1, 0, -1, -1, 2, 2, 0, 0, 0, 2, 2, 4, 2, 4, -1, 0],
+    [0, 0, 0, 0, 2, 2, 2, 4, 0, 4, 2, 2, 0, 0, 0, 0],
+    [0, 0, 0, 4, 2, 4, 2, 0, 0, 0, 0, 0, 0, -1, 0, -1],
+    [0, 0, 0, 0, 2, 2, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+    [0, -1, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 1, 1, 0, -1],
+    [-1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "meerkat_07",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Meerkats",
+      "roleId": "meerkat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bellies",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye patches, ears and noses",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Burrow",
+      "roleId": "burrow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Savanna",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bushes"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.492,
+    "nestingDepth": 4,
+    "regionCount": 20
+  },
+  "subject": "Meerkat 7",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "savanna"]
+  },
+  "version": 1,
+  "width": 16
+}

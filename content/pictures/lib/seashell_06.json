@@ -1,0 +1,91 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 7, 7, 6, 6, 6, 6, 6, 6, 6, 6, 6, 4, 4, 6],
+    [6, 7, 6, 7, 6, 6, 6, 6, 6, 6, 6, 6, 4, 4, 6],
+    [6, 7, 7, 6, 6, 2, 2, 2, 6, 6, 6, 6, 4, 6, 6],
+    [7, 6, 7, 6, 6, 2, 2, 2, 2, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 2, 2, 3, 2, 2, 2, 6, 6, 6, 6, 6],
+    [6, 6, 2, 2, 3, 2, 3, 2, 3, 2, 2, 6, 6, 6, 6],
+    [5, 2, 2, 3, 3, 2, 3, 2, 2, 3, 2, 2, 5, 5, 5],
+    [5, 2, 2, 3, 3, 2, 3, 2, 2, 3, 3, 2, 5, 5, 5],
+    [5, 5, 5, 3, 2, 2, 3, 3, 2, 3, 3, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 3, 3, 2, 5, 5, 5, 5, 5, 5],
+    [0, 0, 0, -1, 0, -1, 0, -1, 0, -1, -1, 0, 0, 0, 0],
+    [-1, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, -1, -1, 0, 0, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1, 1, 1, 0],
+    [0, 0, 0, -1, 0, -1, -1, 0, 0, 0, 0, -1, 1, 1, 0],
+    [-1, -1, -1, 0, -1, 0, 0, 0, 0, -1, 0, 0, 1, 1, -1]
+  ],
+  "height": 17,
+  "id": "seashell_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Shell",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shell ridges",
+      "roleId": "ridge"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Starfish",
+      "roleId": "starfish"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Seaweed",
+      "roleId": "weed"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.278,
+    "nestingDepth": 4,
+    "regionCount": 20
+  },
+  "subject": "Seashell 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["sea", "beach"]
+  },
+  "version": 1,
+  "width": 15
+}

@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "comet_03",
+  "legend": {
+    "g": "hill",
+    "h": "head",
+    "i": "tail",
+    "k": "dome",
+    "m": "planet",
+    "n": "night",
+    "o": "glow",
+    "x": "stars"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Night sky",
+      "roleId": "night"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Comet head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Inner tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Outer tail",
+      "roleId": "glow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Planet",
+      "roleId": "planet"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Observatory",
+      "roleId": "dome"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Comet 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "sky",
+      "night"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,102 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [7, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [7, 5, 6, 5, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 8],
+    [0, 5, 5, 5, 5, 2, 2, 2, 4, 4, 4, 2, 2, 2, 8, 8],
+    [-1, 0, 0, 0, -1, 2, 2, 4, 4, 4, 4, 2, 2, 2, 8, 0],
+    [-1, 0, 0, 0, 0, 2, 2, 4, 4, 4, 4, 2, 2, 2, -1, 0],
+    [0, 0, 0, 0, 0, 2, 2, 4, 4, 4, 4, 2, 2, 2, 0, 0],
+    [0, 0, 0, -1, 0, 2, 2, 2, 4, 4, 4, 2, 2, 2, 0, 0],
+    [0, 0, -1, -1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+    [0, 0, 0, 0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, -1],
+    [0, -1, -1, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0],
+    [-1, -1, 0, -1, 0, 0, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, -1, 0, 3, 3, 3, 3, 0, 0, 0, 0, -1],
+    [0, 0, 0, 0, -1, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 1, 1, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0],
+    [-1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, 9, 9, 9, 9, 0],
+    [-1, 1, 1, 0, -1, 0, 0, 0, -1, 0, 0, 0, 9, 9, -1, -1]
+  ],
+  "height": 18,
+  "id": "dog_house_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dog house",
+      "roleId": "house"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Doorway",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bowl",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bone",
+      "roleId": "bone"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.392,
+    "nestingDepth": 4,
+    "regionCount": 15
+  },
+  "subject": "Dog house 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["cozy", "garden"]
+  },
+  "version": 1,
+  "width": 16
+}

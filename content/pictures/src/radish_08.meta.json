@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 22,
+  "id": "radish_08",
+  "legend": {
+    "a": "radish",
+    "b": "wall",
+    "i": "inside",
+    "l": "leaf",
+    "n": "midribs",
+    "o": "panes",
+    "p": "board",
+    "t": "table",
+    "v": "frame",
+    "w": "tail"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Radishes",
+      "roleId": "radish"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tails",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "White inside",
+      "roleId": "inside"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Midribs",
+      "roleId": "midribs"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board",
+      "roleId": "board"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Radish 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

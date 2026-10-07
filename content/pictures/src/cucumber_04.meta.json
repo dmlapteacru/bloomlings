@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "cucumber_04",
+  "legend": {
+    "a": "cucumber",
+    "b": "sky",
+    "c": "rind",
+    "e": "bumps",
+    "k": "stalk",
+    "o": "cloud",
+    "p": "board",
+    "t": "blanket",
+    "v": "hill",
+    "w": "flesh",
+    "y": "flower"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Cucumbers",
+      "roleId": "cucumber"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Slice rind and the cucumber behind",
+      "roleId": "rind"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bumps",
+      "roleId": "bumps"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Flesh",
+      "roleId": "flesh"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Board and bowl",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Flowers",
+      "roleId": "flower"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cucumber 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

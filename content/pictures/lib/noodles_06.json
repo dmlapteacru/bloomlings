@@ -1,0 +1,101 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 1, 1],
+    [-1, 0, -1, 0, 0, 5, 5, 5, 5, 5, 5, 0, -1, -1, 0],
+    [0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0],
+    [-1, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 0],
+    [0, -1, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 0],
+    [0, 0, -1, 4, 3, 3, 3, 3, 4, 3, 3, 3, 3, 0, 0],
+    [0, 0, -1, 4, 4, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0],
+    [0, 0, -1, 0, 4, 0, 0, 3, 3, 3, 0, -1, 0, 0, 0],
+    [-1, 0, -1, -1, -1, 0, 0, 3, 3, 3, 6, 0, 0, 0, -1],
+    [0, 0, -1, 0, 0, -1, 0, 3, 3, 3, 6, 7, 7, 0, -1],
+    [0, 0, 0, 0, -1, -1, 2, 2, 2, 6, 6, 6, 7, 7, 7],
+    [0, 0, 0, -1, 2, 2, 2, 0, 0, 0, 0, 0, 9, 9, 0],
+    [0, -1, 2, 2, 2, 0, 0, -1, 0, 0, 0, 9, 9, 9, 0],
+    [0, 2, 2, -1, -1, -1, -1, 0, 0, -1, 0, 9, 9, 9, 0],
+    [-1, -1, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "noodles_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chopsticks",
+      "roleId": "chopsticks"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Noodles",
+      "roleId": "noodles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strand lines",
+      "roleId": "strands"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bowl and box",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bowl band and box folds",
+      "roleId": "band"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.301,
+    "nestingDepth": 4,
+    "regionCount": 22
+  },
+  "subject": "Noodles 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "dinner"]
+  },
+  "version": 1,
+  "width": 15
+}

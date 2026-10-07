@@ -1,0 +1,88 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 25,
+  "id": "cotton_candy_10",
+  "legend": {
+    "b": "sky",
+    "f": "flags",
+    "g": "grass",
+    "j": "grape_tufts",
+    "k": "string",
+    "n": "stick",
+    "q": "grape",
+    "w": "cone",
+    "y": "flags2"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red flags",
+      "roleId": "flags"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grape cotton candy",
+      "roleId": "grape"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Light grape tufts",
+      "roleId": "grape_tufts"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow flags and flowers",
+      "roleId": "flags2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "String and pole",
+      "roleId": "string"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sticks",
+      "roleId": "stick"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Paper cone",
+      "roleId": "cone"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Cotton candy 10",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "sweets",
+      "party"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

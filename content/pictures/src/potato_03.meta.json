@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "potato_03",
+  "legend": {
+    "a": "potato",
+    "b": "wall",
+    "e": "eyes",
+    "k": "sack",
+    "n": "rim",
+    "o": "wall_dots",
+    "t": "table",
+    "v": "shelf"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eyes",
+      "roleId": "eyes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Potatoes",
+      "roleId": "potato"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sack, basket and roots",
+      "roleId": "sack"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Rim, string and stem",
+      "roleId": "rim"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Potato 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

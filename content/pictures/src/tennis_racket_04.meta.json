@@ -1,0 +1,92 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "tennis_racket_04",
+  "legend": {
+    "b": "ball",
+    "c": "court",
+    "f": "frame",
+    "g": "grip",
+    "h": "hedge",
+    "k": "strings",
+    "l": "line",
+    "o": "cloud",
+    "s": "sky",
+    "z": "seam"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strings",
+      "roleId": "strings"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Grip",
+      "roleId": "grip"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ball",
+      "roleId": "ball"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seam",
+      "roleId": "seam"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Court",
+      "roleId": "court"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Court line",
+      "roleId": "line"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hedge",
+      "roleId": "hedge"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Tennis racket 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "sport"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

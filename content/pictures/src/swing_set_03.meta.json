@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "swing_set_03",
+  "legend": {
+    "c": "chain",
+    "d": "patch",
+    "e": "cloud",
+    "f": "frame",
+    "g": "grass",
+    "s": "sky",
+    "t": "seat",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chains",
+      "roleId": "chain"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seats",
+      "roleId": "seat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Worn ground",
+      "roleId": "patch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Swing set 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "playground",
+      "park"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

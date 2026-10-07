@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "excavator_02",
+  "legend": {
+    "b": "body",
+    "d": "ground",
+    "i": "window",
+    "k": "bucket",
+    "p": "dirt",
+    "s": "sky",
+    "t": "tracks",
+    "u": "sun",
+    "w": "wheels"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Excavator",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bucket",
+      "roleId": "bucket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Tracks",
+      "roleId": "tracks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Track wheels",
+      "roleId": "wheels"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dirt heap",
+      "roleId": "dirt"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Excavator 2",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "work"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

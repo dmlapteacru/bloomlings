@@ -1,0 +1,105 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "juice_box_06",
+  "legend": {
+    "a": "box",
+    "b": "wall",
+    "e": "box_side",
+    "f": "orange",
+    "g": "box_top",
+    "h": "box2_side",
+    "k": "stalk",
+    "o": "panes",
+    "q": "box2",
+    "r": "straw",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Juice box",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box side",
+      "roleId": "box_side"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box top",
+      "roleId": "box_top"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Straw",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Grape juice box",
+      "roleId": "box2"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Its side",
+      "roleId": "box2_side"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oranges",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Juice box 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "drinks"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

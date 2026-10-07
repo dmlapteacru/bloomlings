@@ -1,0 +1,116 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10],
+    [10, 10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10, 10],
+    [10, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10],
+    [11, 11, 3, 4, 3, 4, 3, 9, 9, 6, 6, 6, 6, 0],
+    [11, 11, 3, 3, 3, 4, 4, 3, 4, 7, 6, 7, 0, 0],
+    [11, 8, 2, 2, 2, 3, 3, 3, 3, 3, 7, 7, -1, 0],
+    [0, 5, 5, 5, 1, 2, 2, 3, 3, 3, 7, -1, -1, 0],
+    [0, 0, 8, 5, 5, 5, 5, 2, 2, 2, -1, 0, 0, 0],
+    [0, 0, 8, 8, 1, 1, 5, 5, 5, 5, 0, 0, 0, 0],
+    [0, 0, 0, -1, 1, 1, -1, 0, 8, 5, 0, 0, 0, 0],
+    [0, 0, 0, -1, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, -1, -1, -1, -1, -1, 0, 0, 0],
+    [-1, 0, -1, 0, -1, 0, 0, 0, 0, 0, -1, 0, -1, 0],
+    [-1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, -1],
+    [-1, -1, 12, 12, 12, 12, 12, 0, -1, 0, 0, 0, 0, 0],
+    [-1, -1, 12, 12, 12, 12, 12, -1, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, 0, 12, -1, 0, -1, 0, -1, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "taco_04",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheese",
+      "roleId": "cheese"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Meat",
+      "roleId": "meat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Shells",
+      "roleId": "shell"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Toasted spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lettuce",
+      "roleId": "lettuce"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lime",
+      "roleId": "lime"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lime rind",
+      "roleId": "lime_rind"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tomato",
+      "roleId": "tomato"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.34,
+    "nestingDepth": 4,
+    "regionCount": 29
+  },
+  "subject": "Taco 4",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "dinner"]
+  },
+  "version": 1,
+  "width": 14
+}

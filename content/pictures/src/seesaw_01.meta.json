@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "seesaw_01",
+  "legend": {
+    "b": "bush",
+    "e": "cloud",
+    "g": "grass",
+    "h": "handle",
+    "o": "flowers",
+    "p": "plank",
+    "s": "sky",
+    "u": "sun",
+    "v": "pivot"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pivot",
+      "roleId": "pivot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Handles",
+      "roleId": "handle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Plank",
+      "roleId": "plank"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Seesaw 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "playground",
+      "park"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

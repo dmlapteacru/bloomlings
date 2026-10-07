@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9],
+    [9, 9, 9, 3, 3, 3, 3, 3, 3, 3, 3, 3, 9, 9],
+    [3, 3, 3, 3, 3, 3, 4, 5, 6, 6, 6, 5, 4, 4],
+    [8, 8, 8, 8, 3, 3, 4, 5, 6, 6, 6, 5, 4, 8],
+    [8, 8, 8, 8, 8, 8, 4, 5, 6, 6, 6, 5, 4, 8],
+    [8, 8, 8, 8, 8, 8, 4, 5, 6, 6, 6, 5, 4, 8],
+    [8, 8, 8, 8, 8, 8, 4, 5, 4, 5, 4, 5, 4, 8],
+    [8, 8, -1, -1, 0, 0, 4, 5, 4, 5, 4, 5, 4, 4],
+    [0, 0, 0, 0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+    [-1, 0, 0, 0, 0, -1, 0, 2, 2, 2, 2, 2, 0, 0],
+    [0, -1, 0, 0, 0, 0, -1, 0, -1, 7, 0, 0, -1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 7, 7, 0, 0, 0, 0],
+    [0, 1, 1, 0, 0, -1, 0, 0, 7, 7, 0, 0, 0, 0],
+    [0, 1, 1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, 0],
+    [-1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1]
+  ],
+  "height": 16,
+  "id": "beach_hut_08",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red stripes",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Other stripes",
+      "roleId": "stripe2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Door",
+      "roleId": "door"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flag",
+      "roleId": "flag"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Beach grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.267,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Beach hut 8",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["beach", "sea"]
+  },
+  "version": 1,
+  "width": 14
+}

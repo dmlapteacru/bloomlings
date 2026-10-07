@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "olives_04",
+  "legend": {
+    "a": "olive",
+    "b": "wall",
+    "k": "twig",
+    "l": "leaf",
+    "o": "panes",
+    "p": "bowl",
+    "q": "black",
+    "t": "table",
+    "v": "frame",
+    "x": "pimento"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green olives",
+      "roleId": "olive"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pimento",
+      "roleId": "pimento"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Black olives",
+      "roleId": "black"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Twigs, pick and cork",
+      "roleId": "twig"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bowl and plate",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Olives 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "venus_flytrap_03",
+  "legend": {
+    "d": "soil",
+    "g": "sill",
+    "i": "mouth",
+    "j": "trap",
+    "m": "rim",
+    "o": "pot",
+    "s": "sky",
+    "t": "teeth"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Jaws and stems",
+      "roleId": "trap"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Inside of the jaws",
+      "roleId": "mouth"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Teeth",
+      "roleId": "teeth"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pot",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Soil",
+      "roleId": "soil"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pot rim",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Windowsill",
+      "roleId": "sill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Venus flytrap 3",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "plants",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

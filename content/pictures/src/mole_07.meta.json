@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "mole_07",
+  "legend": {
+    "c": "cloud",
+    "d": "molehill",
+    "f": "flowers",
+    "g": "lawn",
+    "k": "eye",
+    "m": "mole",
+    "n": "nose",
+    "p": "paws",
+    "s": "sky",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Clouds",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mole",
+      "roleId": "mole"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Digging paws",
+      "roleId": "paws"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Nose",
+      "roleId": "nose"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Eyes, claws and whiskers",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Molehill",
+      "roleId": "molehill"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Lawn",
+      "roleId": "lawn"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Mole 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

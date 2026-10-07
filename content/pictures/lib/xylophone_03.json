@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [0, 6, 6, -1, 0, -1, 0, 0, 0, -1, 0, 6, 6, 0, 0],
+    [-1, 6, 6, 6, 0, 0, 0, 0, 0, 0, 0, 6, 6, 0, 0],
+    [0, 6, 1, 1, 2, 2, 6, 6, 6, 6, 0, 6, 6, 0, -1],
+    [-1, 6, 1, 1, 2, 2, 3, 3, 4, 4, 6, 6, 6, 0, 0],
+    [0, 6, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, -1, -1],
+    [0, 6, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 0, -1],
+    [0, 6, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, -1, 0],
+    [0, 6, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 0, 0],
+    [0, 6, 1, 1, 2, 2, 3, 3, 4, 4, 6, 6, 6, 0, -1],
+    [0, 6, 1, 1, 2, 2, 6, 6, 7, 7, 0, 0, 0, 0, 0],
+    [0, 6, 6, 6, 0, 0, 0, 0, 7, 7, 0, -1, -1, -1, 0],
+    [-1, 8, 0, 0, 0, 0, 0, 0, 7, 0, -1, 8, 8, 0, 0],
+    [-1, 8, 8, 0, 0, -1, 0, 6, 0, 0, -1, 8, 8, 0, -1],
+    [-1, 0, 8, 0, -1, 0, 6, 0, 0, 0, -1, 0, 8, -1, -1]
+  ],
+  "height": 16,
+  "id": "xylophone_03",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Red bar",
+      "roleId": "bar1"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green bar",
+      "roleId": "bar2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Blue bar",
+      "roleId": "bar3"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Violet bar",
+      "roleId": "bar4"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Mint bar",
+      "roleId": "bar5"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Frame, nails and sticks",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Mallet heads",
+      "roleId": "mallet"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Music notes",
+      "roleId": "notes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Floor",
+      "roleId": "floor"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.279,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Xylophone 3",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["things", "music"]
+  },
+  "version": 1,
+  "width": 15
+}

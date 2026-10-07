@@ -1,0 +1,105 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "turkey_07",
+  "legend": {
+    "b": "turkey",
+    "f": "feather",
+    "g": "grass",
+    "h": "head",
+    "k": "eye",
+    "p": "pumpkins",
+    "q": "feather2",
+    "s": "sky",
+    "v": "wings",
+    "w": "wattle",
+    "x": "tips",
+    "y": "beak"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Turkey",
+      "roleId": "turkey"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tail feathers",
+      "roleId": "feather"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tail stripes",
+      "roleId": "feather2"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Feather tips",
+      "roleId": "tips"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Head",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and pumpkin stalks",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wattle",
+      "roleId": "wattle"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Yellow beak and legs",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pumpkins",
+      "roleId": "pumpkins"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Turkey 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "farm"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

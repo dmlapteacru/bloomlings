@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "street_lamp_01",
+  "legend": {
+    "b": "bench",
+    "f": "flowers",
+    "g": "grass",
+    "m": "moon",
+    "n": "sky",
+    "o": "glow",
+    "p": "post",
+    "u": "bush",
+    "x": "stars",
+    "y": "light"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Evening sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Lamp post",
+      "roleId": "post"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Glow",
+      "roleId": "glow"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bench",
+      "roleId": "bench"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Lamp light",
+      "roleId": "light"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flowers",
+      "roleId": "flowers"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Street lamp 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "town",
+      "night"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

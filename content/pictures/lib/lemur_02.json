@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [0, 5, -1, 2, 4, 4, 2, 2, 2, 2, 2, 0, -1, 0],
+    [-1, 5, -1, 2, 2, 4, 2, 3, 3, 3, 2, 0, -1, -1],
+    [0, 5, 0, 2, 0, 0, 2, 3, 3, 3, 2, 0, 0, 0],
+    [0, 5, 2, 2, 0, -1, 2, 2, 2, 2, 2, 0, 0, 0],
+    [0, 5, 4, 2, -1, 0, 0, 2, 2, 2, 0, 0, 0, 0],
+    [0, 5, 4, 4, -1, 0, 2, 3, 4, 3, 2, 0, 0, 0],
+    [0, 5, 2, 2, 0, 0, 3, 3, 4, 3, 3, 0, 0, 0],
+    [-1, 5, 4, 4, 0, 0, 3, 4, 3, 4, 3, 0, -1, 0],
+    [0, 5, 0, 2, 2, 2, 2, 4, 3, 4, 2, 0, -1, -1],
+    [-1, 5, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, -1],
+    [6, 6, 6, 4, 4, 2, 0, -1, 0, 0, 0, 2, -1, 0],
+    [6, 6, 7, 4, 0, 0, 0, 0, -1, -1, 1, 1, 1, -1],
+    [6, 6, 6, 6, 0, -1, 0, 0, -1, 0, 1, 1, 1, 0],
+    [7, 7, 6, -1, 0, 0, 0, 0, 0, 0, 1, 1, 1, -1],
+    [7, 7, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "lemur_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Lemur",
+      "roleId": "lemur"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Face and belly",
+      "roleId": "face"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tail rings, eye patches and nose",
+      "roleId": "rings"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tree trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fruit",
+      "roleId": "fruit"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.298,
+    "nestingDepth": 4,
+    "regionCount": 38
+  },
+  "subject": "Lemur 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "jungle"]
+  },
+  "version": 1,
+  "width": 14
+}

@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "water_tower_06",
+  "legend": {
+    "b": "bush",
+    "e": "cloud",
+    "g": "field",
+    "k": "hoops",
+    "l": "legs",
+    "r": "roof",
+    "s": "sky",
+    "t": "tank",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tank",
+      "roleId": "tank"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Hoops",
+      "roleId": "hoops"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Legs and braces",
+      "roleId": "legs"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Field",
+      "roleId": "field"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Water tower 6",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "farm",
+      "town"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

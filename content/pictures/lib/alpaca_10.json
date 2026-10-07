@@ -1,0 +1,105 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [9, 9, 9, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9],
+    [9, 9, 9, 9, 6, 6, 6, 6, 3, 3, 6, 6, 3, 6, 3, 9, 9, 9],
+    [0, 9, 6, 6, 6, 6, 6, 6, 2, 2, 6, 6, 2, 6, 2, 6, 9, 6],
+    [0, 0, 6, 6, 6, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6, 6],
+    [0, -1, 0, 6, 6, 6, 6, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 6],
+    [0, 0, 0, 0, 6, 6, 2, 2, 2, 2, 5, 5, 5, 2, 2, 2, 6, 0],
+    [0, 0, -1, -1, -1, 7, 2, 2, 2, 2, 5, 5, 5, 2, 2, 2, 2, 0],
+    [0, 0, 0, 0, 0, 7, 2, 2, 2, 2, 5, 5, 5, 2, 2, 2, 2, 0],
+    [0, 0, 0, 0, -1, 0, 2, 2, 2, 0, 2, 0, 2, 7, 7, -1, 0, 0],
+    [0, 0, 0, -1, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 7, 0, 0, -1],
+    [0, -1, 0, 0, -1, 0, 2, 2, 2, 0, 0, -1, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, -1, 0],
+    [0, 0, 2, 2, 2, 2, 2, 2, 2, -1, 0, 0, 0, 0, 0, 0, -1, 0],
+    [0, 3, 2, 2, 4, 3, 4, 2, 2, 0, -1, -1, 0, -1, -1, 0, 0, 0],
+    [0, 0, 0, 2, 4, 3, 4, 2, 2, 0, 0, 0, -1, 0, 1, 1, 0, 0],
+    [0, 0, 0, 0, 4, 2, 2, 0, 0, -1, 0, 0, 0, 1, 1, 1, 1, 0],
+    [0, 0, -1, -1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 1, 1, 1, 1, -1],
+    [0, 0, 0, -1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 1, 0, -1],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, -1, -1]
+  ],
+  "height": 21,
+  "id": "alpaca_10",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Alpaca",
+      "roleId": "alpaca"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye, nose and hooves",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Eye white",
+      "roleId": "eye_white"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Mountains",
+      "roleId": "mountains"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowy peaks and blanket stripe",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shrubs",
+      "roleId": "shrubs"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.357,
+    "nestingDepth": 5,
+    "regionCount": 27
+  },
+  "subject": "Alpaca 10",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["animals", "mountains"]
+  },
+  "version": 1,
+  "width": 18
+}

@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "taxi_08",
+  "legend": {
+    "b": "body",
+    "d": "road",
+    "h": "town",
+    "i": "window",
+    "k": "checks",
+    "l": "light",
+    "m": "hub",
+    "q": "lit",
+    "s": "sky",
+    "t": "tyre",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Taxi",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Checks",
+      "roleId": "checks"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red roof light",
+      "roleId": "light"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tyres",
+      "roleId": "tyre"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Road",
+      "roleId": "road"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Houses",
+      "roleId": "town"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "House windows",
+      "roleId": "lit"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Taxi 8",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "vehicles",
+      "town"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

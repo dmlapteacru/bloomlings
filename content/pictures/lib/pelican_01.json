@@ -1,0 +1,91 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [1, 1, 1, 1, 1, 1, 5, 5, 5, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 5, 5, 5, 1, 1, 1, 1, 1, 1],
+    [1, 1, 7, 7, 7, 1, 5, 5, 5, 1, 1, 1, 1, 1, 1],
+    [1, 1, 7, 7, 1, 1, 5, 5, 5, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 5, 5, 5, 1, 1, 1, 1, 1, 1],
+    [0, 1, 1, 1, 1, 0, 5, 5, 5, 1, 1, 1, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, -1, 0, -1],
+    [0, 0, 0, 0, 0, -1, 2, 2, 2, 3, 3, 2, 2, 2, 0],
+    [0, 0, 0, -1, 0, 0, 2, 2, 3, 3, 3, 3, 0, 0, 0],
+    [0, 0, 0, 0, 0, -1, 2, 2, 2, 2, 2, 0, 0, 0, 0],
+    [0, -1, 0, 4, 4, 4, 2, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 4, 4, 4, 4, 4, 2, 2, 0, 0, 0, -1, 0, 0, -1],
+    [-1, -1, 0, 4, 4, 4, 2, 2, 2, 0, 0, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 2, 6, 2, 0, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, -1, 0, 6, 6, 6, 0, 0, 0, 0, -1, 0, 0],
+    [-1, 0, 0, 0, -1, 0, 6, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "pelican_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pelican",
+      "roleId": "pelican"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wing",
+      "roleId": "wing"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beak and feet",
+      "roleId": "beak"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Post",
+      "roleId": "post"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Eye and wing tips",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Fish",
+      "roleId": "fish"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.396,
+    "nestingDepth": 4,
+    "regionCount": 16
+  },
+  "subject": "Pelican 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["animals", "sea"]
+  },
+  "version": 1,
+  "width": 15
+}

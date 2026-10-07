@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 26,
+  "id": "gingerbread_man_08",
+  "legend": {
+    "a": "cookie",
+    "b": "wall",
+    "i": "icing",
+    "o": "panes",
+    "p": "tray",
+    "t": "table",
+    "v": "frame",
+    "x": "candy"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "green",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Gingerbread",
+      "roleId": "cookie"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Icing",
+      "roleId": "icing"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Baking tray",
+      "roleId": "tray"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Red candy buttons and cane",
+      "roleId": "candy"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window panes",
+      "roleId": "panes"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Gingerbread man 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "sweets"
+    ]
+  },
+  "version": 1,
+  "width": 21
+}

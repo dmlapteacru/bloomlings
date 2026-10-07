@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 5, 5, 5, 5, 5],
+    [5, 5, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 5, 5],
+    [0, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6],
+    [-1, 0, -1, 2, 7, 1, 1, 1, 7, 1, 1, 1, 7, 6, 6],
+    [0, -1, 1, 2, 1, 7, 1, 1, 7, 1, 1, 7, 1, 6, 6],
+    [0, 1, 1, 2, 1, 7, 1, 1, 7, 1, 1, 7, 1, -1, 0],
+    [0, 1, 1, 1, 1, 1, 7, 7, 7, 7, 7, 1, 0, 0, 0],
+    [-1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, -1, 0, 0, 0],
+    [0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 1, 1, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 1, 1, 4, 1, 1, -1, -1, 0, 0, -1, 0, 0, 0],
+    [0, 0, 3, 4, 4, 4, 0, 0, -1, 0, 0, 0, -1, 0, 0],
+    [0, 3, 3, 3, 4, -1, 0, 0, -1, -1, 0, -1, 0, 0, 0],
+    [0, 0, 3, 0, 0, 0, 0, 0, 0, 9, 9, 9, 9, 9, 0],
+    [0, -1, 0, 0, 0, -1, 0, 0, 0, 9, 9, 9, 9, 9, 0],
+    [-1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 9, 9, 0, 0, -1]
+  ],
+  "height": 16,
+  "id": "orange_02",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oranges",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dimples",
+      "roleId": "dimples"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pith",
+      "roleId": "pith"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate and bowl",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.325,
+    "nestingDepth": 4,
+    "regionCount": 27
+  },
+  "subject": "Orange 2",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "fruit"]
+  },
+  "version": 1,
+  "width": 15
+}

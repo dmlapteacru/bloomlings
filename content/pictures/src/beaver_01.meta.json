@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 18,
+  "id": "beaver_01",
+  "legend": {
+    "b": "beaver",
+    "g": "grass",
+    "k": "eye",
+    "l": "leaves",
+    "m": "muzzle",
+    "o": "tree",
+    "p": "tail",
+    "s": "sky",
+    "t": "teeth",
+    "u": "sun"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beaver",
+      "roleId": "beaver"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cheeks and belly",
+      "roleId": "muzzle"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Gnawed tree",
+      "roleId": "tree"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eyes and nose",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Tail",
+      "roleId": "tail"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Teeth and claws",
+      "roleId": "teeth"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Beaver 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "animals",
+      "forest"
+    ]
+  },
+  "version": 1,
+  "width": 14
+}

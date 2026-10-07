@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 22,
+  "id": "pine_cone_05",
+  "legend": {
+    "c": "cone",
+    "e": "cloud",
+    "g": "moss",
+    "k": "branch",
+    "n": "needles",
+    "q": "scales",
+    "s": "sky"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Branch",
+      "roleId": "branch"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pine cone",
+      "roleId": "cone"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Needles",
+      "roleId": "needles"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Scale edges",
+      "roleId": "scales"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Moss",
+      "roleId": "moss"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Pine cone 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "plants",
+      "forest"
+    ]
+  },
+  "version": 1,
+  "width": 18
+}

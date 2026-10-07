@@ -1,0 +1,81 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "meerkat_05",
+  "legend": {
+    "b": "belly",
+    "g": "ground",
+    "h": "burrow",
+    "k": "eye",
+    "m": "meerkat",
+    "s": "sky",
+    "u": "sun",
+    "v": "bushes"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Meerkats",
+      "roleId": "meerkat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bellies",
+      "roleId": "belly"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Eye patches, ears and noses",
+      "roleId": "eye"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Burrow",
+      "roleId": "burrow"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Savanna",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bushes",
+      "roleId": "bushes"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Meerkat 5",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "animals",
+      "savanna"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

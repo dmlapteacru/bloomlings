@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 7, 7, 7, 7],
+    [-1, 5, 0, 0, -1, 0, 0, 0, 3, 3, 7, 8, 8, 7],
+    [0, 5, -1, 0, 0, 0, 2, 0, 0, 0, 8, 8, 8, 7],
+    [5, 5, 0, 2, 0, 0, 0, -1, 0, -1, 0, 4, 4, 0],
+    [0, 5, 0, 0, 0, 0, 0, 1, 0, 0, -1, 4, 4, 0],
+    [0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 4, 0, 0],
+    [0, 2, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0],
+    [0, 0, 0, -1, 1, 1, 0, 1, 0, 1, 1, 1, 0, 0],
+    [0, -1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, -1],
+    [0, 0, -1, 0, 1, 1, 0, 1, 1, 1, 1, 0, 0, -1],
+    [0, 2, 0, 1, 1, 0, 0, 1, 0, 1, 1, 1, -1, 0],
+    [0, -1, 0, 0, 0, -1, 1, 1, 1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 1, -1, 0, 0, -1, 0, 0],
+    [0, 0, 2, -1, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6],
+    [-1, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 6, 6, 6]
+  ],
+  "height": 17,
+  "id": "snowflake_06",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Evening sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowflake",
+      "roleId": "flake"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Little flakes",
+      "roleId": "flakes"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snow",
+      "roleId": "snow"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Snowy roof",
+      "roleId": "roof"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Pine",
+      "roleId": "pine"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cabin",
+      "roleId": "cabin"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Lit window",
+      "roleId": "window"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.5,
+    "nestingDepth": 4,
+    "regionCount": 26
+  },
+  "subject": "Snowflake 6",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["weather", "winter"]
+  },
+  "version": 1,
+  "width": 14
+}

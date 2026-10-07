@@ -1,0 +1,87 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "raspberry_08",
+  "legend": {
+    "a": "berry",
+    "b": "wall",
+    "c": "calyx",
+    "e": "drupelets",
+    "l": "leaf",
+    "o": "panes",
+    "p": "plate",
+    "t": "table",
+    "v": "frame"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Raspberries",
+      "roleId": "berry"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Drupelets",
+      "roleId": "drupelets"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Sepals and stalks",
+      "roleId": "calyx"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Plate and bowl",
+      "roleId": "plate"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window panes",
+      "roleId": "panes"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Window frame",
+      "roleId": "frame"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Raspberry 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "food",
+      "fruit"
+    ]
+  },
+  "version": 1,
+  "width": 20
+}

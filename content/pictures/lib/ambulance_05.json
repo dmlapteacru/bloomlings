@@ -1,0 +1,114 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8],
+    [8, 9, 9, 8, 8, 9, 9, 8, 8, 9, 9, 8, 8, 9, 9, 8, 8],
+    [8, 8, 8, 6, 8, 8, 8, 8, 8, 8, 8, 8, 8, 6, 8, 8, 8],
+    [10, 10, 6, 6, 6, 10, 10, 10, 10, 10, 10, 6, 6, 6, 6, 10, 10],
+    [10, 10, 6, 7, 6, 6, 1, 1, 1, 1, 7, 7, 7, 7, 6, 1, 10],
+    [10, 10, 6, 6, 6, 1, 1, 1, 1, 1, 1, 6, 6, 6, 6, 1, 10],
+    [10, 4, 4, 6, 4, 4, 4, 4, 4, 4, 4, 4, 4, 6, 4, 4, 10],
+    [0, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 1, 1, 1, 1, 1, -1],
+    [-1, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 2, 2, 2, 2, -1, -1],
+    [-1, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 2, 2, 2, 0, 0, 0],
+    [0, 1, 1, 3, 3, 3, 3, 3, 3, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 0, 0, 0, -1, 0, 0],
+    [0, 1, 1, 1, 1, 3, 3, 1, 1, 1, 1, 0, 0, 0, -1, 0, 0],
+    [0, 0, -1, 0, 0, 0, 5, 5, 5, 5, 0, -1, 0, -1, 0, 0, 0],
+    [0, 0, -1, 0, 0, -1, 5, 5, 5, 5, -1, 0, 0, -1, -1, 0, 0],
+    [0, 0, 0, 0, 0, -1, -1, 5, 5, -1, 0, 0, -1, 0, 0, 0, 0],
+    [-1, 0, 0, -1, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1, 0, 0],
+    [0, 11, 11, 11, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, -1, 0, 0],
+    [0, 11, 11, 11, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [-1, 0, 11, 0, -1, 0, -1, -1, -1, 0, -1, 0, -1, 0, -1, -1, -1]
+  ],
+  "height": 20,
+  "id": "ambulance_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Ambulance",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Windows",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Cross",
+      "roleId": "cross"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stripe",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Beacon",
+      "roleId": "light"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Tyres",
+      "roleId": "tyre"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hubs",
+      "roleId": "hub"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Road",
+      "roleId": "road"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Road lines",
+      "roleId": "lines"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Hills",
+      "roleId": "hills"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.267,
+    "nestingDepth": 5,
+    "regionCount": 29
+  },
+  "subject": "Ambulance 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["vehicles", "town"]
+  },
+  "version": 1,
+  "width": 17
+}

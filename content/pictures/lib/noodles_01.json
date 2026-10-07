@@ -1,0 +1,116 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [0, -1, 0, 0, -1, 6, 6, 6, 6, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, 0, 0, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0, 0, 0],
+    [0, 0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0, 0],
+    [0, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 0, 0],
+    [0, 4, 4, 10, 10, 4, 3, 3, 3, 3, 11, 3, 3, 0, -1, 0],
+    [0, 4, 3, 10, 10, 10, 7, 5, 7, 3, 2, 2, 0, 0, -1, -1],
+    [0, 4, 0, 0, 11, 7, 5, 5, 5, 7, 2, 2, 0, 0, -1, 0],
+    [0, 0, 0, 0, 11, 11, 7, 5, 7, 0, 0, 2, 2, 0, 0, 0],
+    [-1, 0, 0, -1, 8, 11, 0, -1, 0, -1, 0, 2, 2, 0, 0, 0],
+    [0, 0, 0, 0, 8, 8, -1, 0, 0, 0, 0, 0, 2, 0, -1, 0],
+    [0, 0, 0, 9, 8, 8, -1, 0, 0, 0, -1, -1, 2, 2, 0, 0],
+    [9, 9, 9, 9, 9, 0, 0, 0, 0, 0, -1, 0, 2, 2, 0, 0],
+    [0, 12, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 12, 12, 12, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0],
+    [-1, -1, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "noodles_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chopsticks",
+      "roleId": "chopsticks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Noodles",
+      "roleId": "noodles"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Strand lines",
+      "roleId": "strands"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Yolk",
+      "roleId": "yolk"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Bowl and box",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Egg white",
+      "roleId": "egg"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Shelf",
+      "roleId": "shelf"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Nori",
+      "roleId": "nori"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green onion",
+      "roleId": "onion"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.433,
+    "nestingDepth": 4,
+    "regionCount": 26
+  },
+  "subject": "Noodles 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["food", "dinner"]
+  },
+  "version": 1,
+  "width": 16
+}

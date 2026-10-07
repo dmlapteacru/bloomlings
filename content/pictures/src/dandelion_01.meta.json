@@ -1,0 +1,75 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 16,
+  "id": "dandelion_01",
+  "legend": {
+    "c": "center",
+    "f": "seeds",
+    "g": "grass",
+    "l": "stem",
+    "p": "puff",
+    "s": "sky",
+    "y": "head"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seed head",
+      "roleId": "puff"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Flying seeds",
+      "roleId": "seeds"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dandelion flower",
+      "roleId": "head"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Seed head center",
+      "roleId": "center"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Stems and leaves",
+      "roleId": "stem"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Dandelion 1",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "flowers",
+      "meadow"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

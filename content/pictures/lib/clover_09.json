@@ -1,0 +1,86 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 2, 6, 6, 6, 6, 6, 2, 6, 6, 6, 6, 6, 2, 6],
+    [0, 2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 0, 2, 0],
+    [0, 5, -1, 0, 0, 0, 2, -1, -1, 0, -1, -1, 0, 2, 0],
+    [0, 5, -1, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 5, -1],
+    [-1, 5, -1, 0, 2, 0, 2, 0, -1, -1, 0, 0, 0, 5, 0],
+    [0, 4, 4, 2, 2, 2, 0, 0, 0, -1, 2, 0, 0, 5, 0],
+    [0, 4, 4, 4, 3, 2, 2, 0, 2, 2, 2, 2, 0, 0, 0],
+    [0, 2, 2, 3, 3, 3, 2, 0, 2, 2, 2, 2, 0, 0, -1],
+    [0, 2, 2, 2, 3, 2, 2, 0, 2, 2, 2, 2, 2, 0, 0],
+    [0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0],
+    [0, 0, 0, 0, 0, -1, 2, 0, 0, 2, 2, 2, 0, 0, -1],
+    [0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, -1, 0, 0, 0],
+    [0, 0, 0, 2, 2, 2, 2, 2, 2, -1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, -1, 1, 0],
+    [0, 0, 0, -1, 2, 2, 2, 2, 2, -1, 0, 0, 1, 1, 0],
+    [-1, 0, 0, -1, 0, -1, 0, 0, -1, 0, 0, 0, 1, 1, -1]
+  ],
+  "height": 17,
+  "id": "clover_09",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Clover",
+      "roleId": "clover"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Ladybug",
+      "roleId": "ladybug"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Ladybug head and spots",
+      "roleId": "spots"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Clover blossoms",
+      "roleId": "blossom"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.415,
+    "nestingDepth": 4,
+    "regionCount": 18
+  },
+  "subject": "Clover 9",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["plants", "meadow"]
+  },
+  "version": 1,
+  "width": 15
+}

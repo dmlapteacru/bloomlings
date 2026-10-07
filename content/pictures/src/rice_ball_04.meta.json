@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "rice_ball_04",
+  "legend": {
+    "a": "rice",
+    "b": "sky",
+    "g": "tea",
+    "m": "cup",
+    "o": "cloud",
+    "p": "plate",
+    "q": "nori",
+    "r": "plum",
+    "s": "steam",
+    "t": "blanket",
+    "v": "hill"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Hill",
+      "roleId": "hill"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Rice",
+      "roleId": "rice"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Teacup",
+      "roleId": "cup"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Nori",
+      "roleId": "nori"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Tea",
+      "roleId": "tea"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pickled plum",
+      "roleId": "plum"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Steam",
+      "roleId": "steam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Plate",
+      "roleId": "plate"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Rice ball 4",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "dinner"
+    ]
+  },
+  "version": 1,
+  "width": 15
+}

@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6],
+    [6, 2, 2, 5, 5, 5, 6, 6, 6, 6, 6, 6, 5, 5, 5, 2, 2, 6],
+    [7, 7, 2, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, -1, 0, 2, 2, 0],
+    [7, 2, 2, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 2, 2, 0],
+    [7, 2, 2, 4, 4, 4, 0, 0, 0, -1, 0, 0, 4, 4, 4, 2, 2, -1],
+    [7, 2, 2, 3, 0, 3, 0, 0, -1, -1, 0, 0, 3, 0, 3, 2, 2, 0],
+    [0, 2, 2, 3, -1, 3, 0, 0, 0, 0, 0, 0, 3, 0, 3, 2, 2, -1],
+    [0, 2, 2, 3, 0, 3, 0, 0, -1, 0, 0, 0, 3, 0, 3, 2, 2, -1],
+    [0, 2, 2, 3, -1, 3, 0, 0, 0, 0, 0, -1, 3, 0, 3, 2, 2, 0],
+    [0, 2, 2, 3, 0, 3, 0, 0, -1, 0, -1, 0, 3, 0, 3, 2, 2, 0],
+    [-1, 0, 2, 3, -1, 3, 0, 0, -1, 0, 0, 0, 3, 0, 3, 2, 0, 0],
+    [0, 0, 2, 3, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 3, 2, 0, 0],
+    [0, 0, 2, 3, 0, 3, -1, 0, 0, 0, 0, -1, 3, 0, 3, 2, 0, 0],
+    [0, -1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, -1],
+    [-1, 0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 8, 8, 8, 0, 0, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0],
+    [0, 0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0],
+    [-1, 0, 0, -1, 8, 0, 0, 0, 0, -1, -1, 0, -1, 0, 1, 1, 1, 0],
+    [-1, 0, 0, 0, 0, 0, 0, -1, 0, -1, -1, -1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 21,
+  "id": "swing_set_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sun",
+      "roleId": "sun"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Frame",
+      "roleId": "frame"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Chains",
+      "roleId": "chain"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Seats",
+      "roleId": "seat"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Worn ground",
+      "roleId": "patch"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Grass",
+      "roleId": "grass"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Bush",
+      "roleId": "bush"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.457,
+    "nestingDepth": 4,
+    "regionCount": 24
+  },
+  "subject": "Swing set 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["playground", "park"]
+  },
+  "version": 1,
+  "width": 18
+}

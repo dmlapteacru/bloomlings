@@ -1,0 +1,124 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 10, 9, 9, 9, 10, 9, 9, 9, 10, 9, 9, 9, 10, 9, 9, 9, 10, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
+    [0, 0, 0, 5, 5, 0, 0, 0, 0, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, -1],
+    [0, 5, 5, 5, 5, 5, 5, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [0, 5, 5, 5, 5, 5, 5, 0, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [-1, 5, 5, 5, 5, 5, 5, 0, 2, 2, 1, 1, 5, 5, 5, 5, 1, 0, 0, 0],
+    [0, 5, 5, 5, 5, 5, 5, 0, 2, 2, 1, 1, 5, 5, 5, 5, 1, 0, 0, 0],
+    [0, -1, 5, 5, 5, 5, 0, 0, 2, 2, 1, 1, 5, 5, 5, 5, 1, 0, 0, 0],
+    [0, 0, 0, 6, 0, 0, 0, 0, 2, 2, 1, 1, 1, 6, 1, 1, 1, 0, -1, -1],
+    [0, -1, 0, 7, 7, 7, 0, 0, 2, 2, 1, 1, 1, 6, 1, 1, 1, 0, 0, 0],
+    [0, 0, 7, 7, 7, 7, 7, 0, 2, 2, 8, 8, 8, 8, 8, 8, 8, -1, 0, 0],
+    [0, 0, 7, 7, 7, 7, 7, -1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0],
+    [-1, -1, 7, 7, 7, 7, 7, 0, 2, 2, 3, 3, 3, 3, 3, 3, 3, -1, 0, 0],
+    [0, 0, 0, 7, 6, 7, 0, 0, 3, 3, 3, 4, 3, 3, 3, 0, 0, 0, 0, 0],
+    [-1, 0, 0, 0, 6, 0, 0, 0, 0, 0, -1, 4, -1, 0, 0, 0, 0, -1, 0, 0],
+    [0, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, 4, -1, 0, 0, 12, 0, 0, 0, -1],
+    [-1, 0, -1, 0, 0, 0, 0, -1, 0, 0, 4, 4, 0, 0, 0, 12, 12, 0, -1, 0],
+    [-1, -1, 0, 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 12, 12, 12, 12, 12, 12],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, 11, 11, 11, 11, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 11, 11, 11, 0],
+    [-1, 0, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 11, 11, 11, 0],
+    [0, -1, 0, 0, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, 0, -1, -1, 0, 0, 0],
+    [-1, -1, 0, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, -1, -1, 0, 0, 0, 0, -1]
+  ],
+  "height": 25,
+  "id": "juice_box_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Wall",
+      "roleId": "wall"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Juice box",
+      "roleId": "box"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box side",
+      "roleId": "box_side"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Box top",
+      "roleId": "box_top"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Straw",
+      "roleId": "straw"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Oranges",
+      "roleId": "orange"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stalks",
+      "roleId": "stalk"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Apple",
+      "roleId": "apple"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Label band",
+      "roleId": "label"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Table",
+      "roleId": "table"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Cloth dots",
+      "roleId": "cloth_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wall dots and jars",
+      "roleId": "wall_dots"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Shelf",
+      "roleId": "shelf"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.386,
+    "nestingDepth": 3,
+    "regionCount": 28
+  },
+  "subject": "Juice box 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["food", "drinks"]
+  },
+  "version": 1,
+  "width": 20
+}

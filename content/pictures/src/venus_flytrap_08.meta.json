@@ -1,0 +1,93 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 24,
+  "id": "venus_flytrap_08",
+  "legend": {
+    "f": "fly",
+    "g": "sill",
+    "i": "mouth",
+    "j": "trap",
+    "m": "rim",
+    "o": "pot",
+    "s": "sky",
+    "t": "teeth",
+    "v": "buzz",
+    "w": "wings"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Jaws and stems",
+      "roleId": "trap"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Inside of the jaws",
+      "roleId": "mouth"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Teeth",
+      "roleId": "teeth"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Pot",
+      "roleId": "pot"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Pot rim",
+      "roleId": "rim"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Fly",
+      "roleId": "fly"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Wings",
+      "roleId": "wings"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Flight path",
+      "roleId": "buzz"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Windowsill",
+      "roleId": "sill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Venus flytrap 8",
+  "tags": {
+    "bands": [
+      "big"
+    ],
+    "themes": [
+      "plants",
+      "garden"
+    ]
+  },
+  "version": 1,
+  "width": 19
+}

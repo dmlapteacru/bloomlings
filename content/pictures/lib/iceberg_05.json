@@ -1,0 +1,100 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 8, 8, 8, 8, 3],
+    [3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 5, 3, 3, 3, 8, 3, 3, 3],
+    [3, 3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3, 3, 3, 3],
+    [3, 3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3, 3],
+    [3, 3, 3, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 3],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3],
+    [4, 4, 4, -1, -1, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, -1, 0, -1],
+    [0, 4, -1, 0, 0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 7, -1],
+    [0, 0, 7, 0, 0, 0, 0, 4, 4, 4, 4, 4, 4, 4, -1, 0, 0, 0],
+    [0, -1, 0, 0, 0, 7, 0, 0, -1, 4, 4, 4, 4, 0, 0, 0, 0, -1],
+    [0, 0, 6, 6, -1, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, -1, 0, 0],
+    [0, 6, 6, 6, 6, 0, 0, 0, -1, 0, 4, -1, 0, 0, 7, 0, 0, 0],
+    [0, 6, 6, 6, 6, 0, -1, 7, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1],
+    [0, -1, 6, 6, -1, 0, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 0, -1],
+    [0, 2, 2, -1, -1, 0, 0, 2, 2, 2, 2, 2, 0, 0, -1, 0, 0, 0],
+    [0, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 2, 2, 2, 2, 2, 2, 0],
+    [0, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 0, 0, 0],
+    [0, -1, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0],
+    [-1, 0, 0, -1, 0, 0, 0, 0, 0, -1, 0, 0, -1, 0, -1, 0, 0, -1]
+  ],
+  "height": 21,
+  "id": "iceberg_05",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "pink_purple",
+      "isBackground": true,
+      "name": "Polar sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Aurora",
+      "roleId": "aurora"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Aurora glow",
+      "roleId": "aurora2"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Iceberg",
+      "roleId": "ice"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Iceberg under water",
+      "roleId": "under"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Moon",
+      "roleId": "moon"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stars",
+      "roleId": "stars"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Fish",
+      "roleId": "fish"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.269,
+    "nestingDepth": 4,
+    "regionCount": 21
+  },
+  "subject": "Iceberg 5",
+  "tags": {
+    "bands": ["big"],
+    "themes": ["sea", "winter"]
+  },
+  "version": 1,
+  "width": 18
+}

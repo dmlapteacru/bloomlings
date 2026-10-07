@@ -1,0 +1,99 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "height": 17,
+  "id": "olives_07",
+  "legend": {
+    "a": "olive",
+    "b": "sky",
+    "j": "bottle",
+    "k": "twig",
+    "l": "leaf",
+    "o": "cloud",
+    "p": "bowl",
+    "q": "black",
+    "t": "blanket",
+    "v": "hill",
+    "x": "pimento"
+  },
+  "review": {
+    "notes": "Procedural sketch (content/pictures/tools/sketch_pictures.py); approved on import by the automated picture checks (FR-084 as amended).",
+    "status": "draft"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Green olives",
+      "roleId": "olive"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Leaves",
+      "roleId": "leaf"
+    },
+    {
+      "colorGroup": "red",
+      "name": "Pimento",
+      "roleId": "pimento"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Black olives",
+      "roleId": "black"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Twigs, pick and cork",
+      "roleId": "twig"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Bowl and plate",
+      "roleId": "bowl"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Oil bottle",
+      "roleId": "bottle"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Picnic blanket",
+      "roleId": "blanket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Cloud",
+      "roleId": "cloud"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Hill",
+      "roleId": "hill"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "subject": "Olives 7",
+  "tags": {
+    "bands": [
+      "regular"
+    ],
+    "themes": [
+      "food",
+      "vegetables"
+    ]
+  },
+  "version": 1,
+  "width": 16
+}

@@ -1,0 +1,97 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7],
+    [6, 6, 6, 6, 6, 4, 5, 4, 4, 5, 4, 5, 5, -1],
+    [0, 6, 6, 0, 0, 4, 5, 4, 5, 5, 4, 5, 5, 0],
+    [0, -1, 0, 0, -1, -1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [3, 3, 3, 0, 0, -1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [3, 3, 3, -1, 0, -1, 1, 1, 1, 1, 1, 1, 1, 0],
+    [3, 3, 3, 0, 0, 0, 1, 1, 0, 1, 1, 1, 1, 0],
+    [0, 0, 1, 0, 0, 0, 1, 1, 0, 2, 2, 2, 1, -1],
+    [0, 0, 1, -1, 0, 1, 1, 0, 0, 2, 2, 2, 1, 0],
+    [0, 0, 1, -1, -1, 1, 1, -1, 0, 2, 2, 2, 1, 0],
+    [0, 0, 1, 1, 1, 1, 0, -1, -1, 0, -1, -1, -1, 0],
+    [0, 0, 0, 1, 1, 0, -1, 0, -1, 0, 0, 0, -1, 0],
+    [0, 0, 0, 1, 1, 0, 0, -1, 0, 0, 0, 0, 0, 0],
+    [0, -1, 0, 1, 0, 0, 0, 0, 0, 0, -1, 0, 0, 0],
+    [0, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 8, 0],
+    [-1, -1, -1, 0, 0, 0, 0, -1, 0, 0, 0, 8, 8, 8],
+    [-1, -1, -1, -1, 0, 0, 0, -1, 0, -1, 0, 0, 8, 8]
+  ],
+  "height": 18,
+  "id": "excavator_01",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Excavator",
+      "roleId": "body"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Window",
+      "roleId": "window"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Bucket",
+      "roleId": "bucket"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Tracks",
+      "roleId": "tracks"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Track wheels",
+      "roleId": "wheels"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Dirt heap",
+      "roleId": "dirt"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Ground",
+      "roleId": "ground"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.369,
+    "nestingDepth": 4,
+    "regionCount": 20
+  },
+  "subject": "Excavator 1",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["vehicles", "work"]
+  },
+  "version": 1,
+  "width": 14
+}

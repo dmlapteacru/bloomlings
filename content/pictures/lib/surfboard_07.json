@@ -1,0 +1,96 @@
+{
+  "finishedLook": {
+    "mode": "auto"
+  },
+  "grid": [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 1, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 1, 5, 3, 3, 3, 3, 6, 3, 3],
+    [3, 3, 3, 3, 1, 2, 1, 3, 3, 3, 6, 6, 3, 3],
+    [3, 3, 3, 3, 1, 2, 1, 3, 3, 3, 6, 3, 3, 3],
+    [4, 3, 3, 3, 1, 2, 1, 4, 4, 4, 6, 4, 3, 3],
+    [3, 4, 4, 4, 1, 2, 1, 1, -1, -1, 6, 0, 4, 4],
+    [0, 0, 0, 0, 1, 2, 1, 1, 0, 0, 6, -1, 0, 0],
+    [0, 0, 0, 0, 1, 1, 1, 1, 0, 0, 6, -1, 0, 0],
+    [0, -1, 0, 0, 1, 1, 1, 7, 7, 7, 6, 0, 7, 7],
+    [0, 0, 0, -1, 0, 1, 1, -1, 7, 7, 7, 7, 7, 0],
+    [0, 0, 0, 0, 0, 1, 2, 0, 7, 7, -1, 7, 7, 0],
+    [0, -1, 0, 0, -1, 1, 2, 0, -1, 0, 0, 0, -1, -1],
+    [0, 8, 8, 0, 0, -1, 2, 0, 0, -1, 0, 0, 0, 0],
+    [0, 8, 8, -1, -1, -1, 0, 0, -1, -1, 0, 0, 0, 0],
+    [-1, 8, -1, 0, 0, -1, 0, -1, 0, 0, 0, 0, 0, -1]
+  ],
+  "height": 17,
+  "id": "surfboard_07",
+  "review": {
+    "notes": "Approved by the automated picture checks (FR-084 as amended on 2026-10-06).",
+    "reviewer": "automated picture checks",
+    "status": "approved"
+  },
+  "roles": [
+    {
+      "colorGroup": "blue_cyan",
+      "isBackground": true,
+      "name": "Sky",
+      "roleId": "sky"
+    },
+    {
+      "colorGroup": "pink_purple",
+      "name": "Surfboard",
+      "roleId": "board"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Stripe",
+      "roleId": "stripe"
+    },
+    {
+      "colorGroup": "blue_cyan",
+      "name": "Sea",
+      "roleId": "sea"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Foam",
+      "roleId": "foam"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Sand",
+      "roleId": "sand"
+    },
+    {
+      "colorGroup": "brown_orange",
+      "name": "Palm trunk",
+      "roleId": "trunk"
+    },
+    {
+      "colorGroup": "green",
+      "name": "Palm leaves",
+      "roleId": "leaves"
+    },
+    {
+      "colorGroup": "lime",
+      "name": "Sun",
+      "roleId": "sun"
+    }
+  ],
+  "source": {
+    "kind": "generated",
+    "licence": "owned",
+    "origin": "content/pictures/tools/sketch_pictures.py"
+  },
+  "structure": {
+    "backgroundShare": 0.268,
+    "nestingDepth": 4,
+    "regionCount": 26
+  },
+  "subject": "Surfboard 7",
+  "tags": {
+    "bands": ["regular"],
+    "themes": ["sport", "beach"]
+  },
+  "version": 1,
+  "width": 14
+}
