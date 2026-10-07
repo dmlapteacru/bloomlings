@@ -725,7 +725,7 @@ def one_cucumber(cv, p0, p1, rr, bend):
     dots(cv, 'e', 'a', 3, 2, area=(min(xs) - rr, min(ys) - rr, max(xs) + rr, max(ys) + rr), offset=1)
     (ax, ay), (bx, by) = pts[0], pts[2]
     L = math.hypot(bx - ax, by - ay) or 1.0
-    seg(cv, ax - (bx - ax) / L * rr * 0.6, ay - (by - ay) / L * rr * 0.6, ax - (bx - ax) / L * (rr + 1.2), ay - (by - ay) / L * (rr + 1.2), 'k', 0.5)
+    seg(cv, ax - (bx - ax) / L * rr * 0.5, ay - (by - ay) / L * rr * 0.5, ax - (bx - ax) / L * (rr * 0.8 + 0.8), ay - (by - ay) / L * (rr * 0.8 + 0.8), 'k', 0.5)
     (ax, ay), (bx, by) = pts[-3], pts[-1]
     L = math.hypot(bx - ax, by - ay) or 1.0
     star(cv, bx + (bx - ax) / L * rr * 0.8, by + (by - ay) / L * rr * 0.8, rr * 0.55 + 0.45, 'y', ri=rr * 0.25 + 0.2)
@@ -751,35 +751,35 @@ def cucumber(w, h, r):
     q = s * 0.12 + 0.6
     if mode == 0:  # a cucumber across a board, slices in front
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
-        one_cucumber(cv, (w * 0.16, ty - h * 0.42), (w * 0.8, ty - h * 0.2), rr, -1.0)
+        one_cucumber(cv, (w * 0.24, ty - h * 0.42), (w * 0.72, ty - h * 0.22), rr, -1.0)
         for k in range(2 if not big else 3):
             x = cx - w * 0.22 + k * (q * 2.0 + 0.6)
             gap(cv, x, ty - q - 0.9, q + 0.8, 'aeky')
             cucumber_slice(cv, x, ty - q - 0.9, q, big)
-    elif mode == 1:  # two cucumbers crossing on a board, a slice beside them
+    elif mode == 1:  # two cucumbers side by side on a board, a slice in front
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
-        one_cucumber(cv, (w * 0.82, h * 0.22), (w * 0.26, ty - h * 0.12), rr * 0.9, -0.8)
-        p0, p1 = (w * 0.14, h * 0.32), (w * 0.84, ty - h * 0.18)
-        tube(cv, curve(p0, p1, 0.8), rr * 1.05 + 0.9, 'b', only='aeky')
-        one_cucumber(cv, p0, p1, rr, 0.8)
-        x = cx - w * 0.3
+        one_cucumber(cv, (w * 0.34, ty - h * 0.48), (w * 0.72, ty - h * 0.36), rr * 0.9, -0.6)
+        p0, p1 = (w * 0.24, ty - h * 0.34), (w * 0.7, ty - h * 0.16)
+        tube(cv, curve(p0, p1, -0.6), rr * 1.05 + 0.9, 'b', only='aeky')
+        one_cucumber(cv, p0, p1, rr, -0.6)
+        x = cx - w * 0.26
         gap(cv, x, ty - q - 0.9, q + 0.8, 'aeky')
         cucumber_slice(cv, x, ty - q - 0.9, q, big)
-    else:  # a cucumber hanging from its vine among the leaves, a flower open, a slice on a plate below
-        vy = h * r.uniform(0.1, 0.14)
-        pts = curve((-0.5, vy + h * 0.06), (w * 0.82, vy), -1.2)
+    else:  # a cucumber hanging from its vine under a leaf, a flower open, a slice on a plate below
+        vy = h * r.uniform(0.18, 0.22)
+        pts = curve((-0.5, vy + h * 0.06), (w * 0.66, vy), -1.2)
         path(cv, pts, 'n', 0.55)
-        for u, dy in ((0.25, 0.1), (0.7, 0.08)) if not big else ((0.18, 0.1), (0.5, 0.06), (0.82, 0.1)):
+        for u, dy in ((0.3, 0.1),) if not big else ((0.2, 0.1), (0.62, 0.08)):
             px, py = pts[int(u * 20)]
             heart(cv, px, py + h * dy, s * 0.11 + 0.4, 'l')
         px, py = pts[20]
         path(cv, [(px, py), (px + 1.2, py - 0.8), (px + 1.6, py + 0.6), (px + 0.6, py + 1.0)], 'n', 0.45)
-        fx, fy = pts[10]
-        star(cv, fx, fy - 1.4, s * 0.06 + 0.6, 'y', ri=s * 0.03 + 0.3)
-        hx, hy = pts[14]
-        one_cucumber(cv, (hx, hy + 1.6), (hx + w * 0.06, ty - h * 0.18), rr, 0.6)
-        oval(cv, cx - w * 0.22, ty, w * 0.2, 1.4, 'p')
-        cucumber_slice(cv, cx - w * 0.22, ty - q - 0.5, q, big)
+        fx, fy = pts[12]
+        star(cv, fx, fy + 1.6, s * 0.06 + 0.6, 'y', ri=s * 0.03 + 0.3)
+        hx, hy = pts[17]
+        one_cucumber(cv, (hx, hy + rr + 1.2), (hx + w * 0.04, ty - h * 0.2), rr, 0.6)
+        oval(cv, cx - w * 0.2, ty, w * 0.2, 1.4, 'p')
+        cucumber_slice(cv, cx - w * 0.2, ty - q - 0.5, q, big)
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
@@ -865,13 +865,15 @@ def olives(w, h, r):
 
 
 def one_radish(cv, x, y, rr, big, lean=0.0, leaves=3, c='a'):
-    """A radish: a round red root with its white tail below and a tuft of leaves on stalks above."""
+    """A radish: a round red root with its white tail below and a tuft of leaves fanning from its top, each with its
+    midrib on the big boards."""
     top = y - rr * 0.85
     for k in range(leaves):
         a = math.radians(-90 + (k - (leaves - 1) / 2) * 30 + lean)
         L = rr * (2.3 if k == leaves // 2 else 1.9)
-        seg(cv, x, top, x + math.cos(a) * L * 0.5, top + math.sin(a) * L * 0.5, 'n', 0.45)
-        lens(cv, x + math.cos(a) * L * 0.38, top + math.sin(a) * L * 0.38, x + math.cos(a) * L, top + math.sin(a) * L, rr * 0.7 + 0.3, 'l')
+        lens(cv, x + math.cos(a) * 0.3, top + math.sin(a) * 0.3, x + math.cos(a) * L, top + math.sin(a) * L, rr * 0.75 + 0.3, 'l')
+        if big:
+            seg(cv, x + math.cos(a) * L * 0.2, top + math.sin(a) * L * 0.2, x + math.cos(a) * L * 0.8, top + math.sin(a) * L * 0.8, 'n', 0.4)
     disc(cv, x, y, rr, c)
     tube(cv, [(x, y + rr * 0.7), (x + 0.4, y + rr * 1.9)], lambda t: max(0.4, rr * 0.42 * (1 - t)), 'w')
 
@@ -883,14 +885,12 @@ def radish(w, h, r):
     ty = h * r.uniform(0.84, 0.88)
     if mode < 2:
         scene(cv, r, w, h, kind, ty)
-    if mode == 0:  # a bunch of three tied with string, on a board
+    if mode == 0:  # three radishes standing in a row on a board
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
         rr = s * 0.15
         for k, dx in enumerate((-0.24, 0.24, 0.0)):
             x, y = cx + dx * w, ty - rr * 2.2 - (0.8 if k == 2 else 0.0)
-            one_radish(cv, x, y, rr, big, lean=-dx * 70, leaves=2 if k < 2 else 3, c='c' if k == 2 else 'a')
-        ky = ty - rr * 2.2 - rr * 1.9
-        box(cv, cx - w * 0.2, ky - 0.5, cx + w * 0.2, ky + 0.5, 'k', only='nl')
+            one_radish(cv, x, y, rr, big, lean=dx * 60, leaves=2 if k < 2 else 3, c='c' if k == 2 else 'a')
     elif mode == 1:  # one big radish and two slices
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
         rr = s * 0.21
@@ -920,8 +920,7 @@ def radish(w, h, r):
         S = scene_roles(kind, (BLUE, BLUE, BROWN, GREEN, GREEN))
         top = [S['b'], S['o'], S['v'], S['t'], S['d']]
     return cv, top + [role('a', 'radish', 'Radishes', PINK), role('c', 'radish2', 'Radish behind', PINK), role('w', 'tail', 'Tails', PINK), role('i', 'inside', 'White inside', BLUE),
-                      role('l', 'leaf', 'Leaves', GREEN), role('n', 'stalks', 'Stalks', GREEN), role('k', 'string', 'String', PINK),
-                      role('p', 'board', 'Board', BROWN)], ['food', 'vegetables']
+                      role('l', 'leaf', 'Leaves', GREEN), role('n', 'midribs', 'Midribs', GREEN), role('p', 'board', 'Board', BROWN)], ['food', 'vegetables']
 
 
 def one_cabbage(cv, x, y, rr, big):

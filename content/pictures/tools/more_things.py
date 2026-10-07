@@ -150,39 +150,43 @@ def taxi(w, h, r):
 
 
 def race_car(w, h, r):
-    cv, s, cx, big = start(w, h, 's')
-    gtop = h - ground_rows(h, 0.16)
-    hills(cv, 'h', gtop - h * 0.14, 0.7, w * 1.3, r.uniform(0, 6))
-    box(cv, 0, gtop, w, h, 'd')
+    cv, s, cx, big = start(w, h, 'd')
+    vw = 1 if not big else 2
+    phase = r.randrange(4)
+    for x0 in (0, w - vw):
+        box(cv, x0, 0, x0 + vw - 0.5, h, 'g')
+    for y in range(h):
+        c = 'k' if (y + phase) // 2 % 2 == 0 else 'y'
+        cv.put(vw, y, c)
+        cv.put(w - vw - 1, y, c)
     if big:
-        for x in range(1, w, 4):
-            box(cv, x, gtop + 1.2, x + 1.9, gtop + 1.9, 'k')
-    fx0, fy0 = w * 0.6, h * 0.07
-    fw, fh = (4, 2) if not big else (6, 4)
-    q = 1 if not big else 2
-    seg(cv, int(fx0) + 0.5, fy0, int(fx0) + 0.5, gtop - h * 0.14 + 1.0, 'k', 0.5)
-    for j in range(fh):
-        for i in range(fw):
-            cv.put(int(fx0) + 1 + i, int(fy0) + j, 'v' if (i // q + j // q) % 2 == 0 else 'n')
-    wr = s * 0.14 + 0.1
-    wy = gtop - wr + 0.5
-    poly(cv, [(w * 0.07, wy + 0.4), (w * 0.07, wy - wr * 1.0), (w * 0.42, wy - wr * 1.45), (w * 0.52, wy - wr * 0.9),
-              (w * 0.93, wy - wr * 0.2), (w * 0.93, wy + 0.4)], 'b')
-    box(cv, w * 0.82, wy - 0.2, w * 0.93, wy + 0.8, 'g')
-    disc(cv, w * 0.48, wy - wr * 1.1, wr * 0.42 + 0.2, 'e')
-    seg(cv, w * 0.12, wy - wr * 0.9, w * 0.12, wy - wr * 2.0, 'g', 0.5)
-    box(cv, w * 0.07, wy - wr * 2.4, w * 0.26, wy - wr * 2.0, 'g')
+        sy = r.choice((0, h - 2))
+        for x in range(vw + 1, w - vw - 1):
+            for y in (sy, sy + 1):
+                if (x + y) % 2 == 0:
+                    cv.put(x, y, 'n')
+    gx = int(cx) + (0.5 if w % 2 else 0.0) + r.choice((-0.5, 0.0, 0.5)) * (1 if w % 2 else 0)
+    y0, y1 = h * 0.07, h * 0.9
+    L = y1 - y0
+    tw, th = (2.0, 0.17) if not big else (3.0, 0.16)
+    for yy, hh, dx in ((0.16, th, 0.22), (0.66, th * 1.15, 0.22)):
+        for side in (-1, 1):
+            xa = gx + side * w * dx
+            rbox(cv, min(xa, xa + side * tw), y0 + L * yy, max(xa, xa + side * tw), y0 + L * (yy + hh), 0.4, 't')
+    for yy in (0.24, 0.74):
+        box(cv, gx - w * 0.22, y0 + L * yy - 0.45, gx + w * 0.22, y0 + L * yy + 0.45, 'b')
+    poly(cv, [(gx - 0.6, y0 + L * 0.06), (gx + 0.6, y0 + L * 0.06), (gx + w * 0.1, y0 + L * 0.36), (gx + w * 0.17, y0 + L * 0.46),
+              (gx + w * 0.17, y0 + L * 0.82), (gx + w * 0.1, y0 + L * 0.94), (gx - w * 0.1, y0 + L * 0.94),
+              (gx - w * 0.17, y0 + L * 0.82), (gx - w * 0.17, y0 + L * 0.46), (gx - w * 0.1, y0 + L * 0.36)], 'b')
+    box(cv, gx - w * 0.28, y0, gx + w * 0.28, y0 + (0.9 if not big else 1.8), 'w')
+    box(cv, gx - w * 0.26, y1 - (0.9 if not big else 1.8), gx + w * 0.26, y1, 'w')
+    disc(cv, gx, y0 + L * 0.52, 1.25 if not big else 1.8, 'e')
+    disc(cv, gx, y0 + L * 0.27, 0.9 if not big else 1.2, 'n')
     if big:
-        disc(cv, w * 0.64, wy - wr * 0.25, 1.3, 'n')
-    for x, k in ((0.25, 1.0), (0.78, 0.9)):
-        wheel(cv, w * x, wy + (1.0 - k) * wr, wr * k, 't', 'm')
-    cloud(cv, w * r.uniform(0.15, 0.3), h * 0.12, s * 0.06 + 0.4, 'c')
-    if r.random() < 0.5:
-        mirror(cv)
-    return cv, [sky(), role('b', 'body', 'Race car', PINK), role('g', 'wing', 'Wings', GREEN), role('e', 'helmet', 'Helmet', BROWN),
-                role('n', 'number', 'Number and checks', BLUE), role('t', 'tyre', 'Tyres', BROWN), role('m', 'hub', 'Hubs', BLUE),
-                role('v', 'flag', 'Chequered flag', PINK), role('k', 'pole', 'Flag pole and track lines', BROWN), role('d', 'track', 'Track', GREEN),
-                role('h', 'hills', 'Hills', GREEN), role('c', 'cloud', 'Cloud', BLUE)], ['vehicles', 'sport']
+        box(cv, gx - 0.5, y0 + L * 0.62, gx + 0.5, y0 + L * 0.88, 'n')
+    return cv, [('d', 'track', 'Track', BLUE, True), role('b', 'body', 'Race car', PINK), role('w', 'wing', 'Wings', GREEN),
+                role('t', 'tyre', 'Tyres', BROWN), role('e', 'helmet', 'Helmet', BROWN), role('n', 'number', 'Number and start line', BLUE),
+                role('k', 'kerb', 'Red kerb', PINK), role('y', 'kerb2', 'Orange kerb', BROWN), role('g', 'verge', 'Grass', GREEN)], ['vehicles', 'sport']
 
 
 def dump_truck(w, h, r):
