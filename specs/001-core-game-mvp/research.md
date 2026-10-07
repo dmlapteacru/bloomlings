@@ -739,6 +739,12 @@ Entries are Normal, Hard or Super Hard by the week.
   generator (`LevelGenerator.RulesLevel`) and the validator (`CatalogValidator.RulesLevel`) use it.
 - **Pressure.** The board is an icons board, so the buffer pressure is that of a big level (R8b): a Normal entry peaks
   at 1–3 slots, and a Hard or Super Hard one at 3–4.
+- **Thresholds.** The pool has its own: Hard from 3150, Super Hard from 3500 (`difficulty-thresholds.json` `daily`). They
+  come from trial generation on the 24 big pictures of 22×28. Normal levels scored 2135–3576. The best score the tray
+  tuner reached on 718 Hard and Super Hard candidates was 2760 at the median, 3477 at the 90th percentile and 4544 at
+  most, so the big bands' Super Hard minimum of 4600 was out of reach. On a board this big the tuner's injections
+  barely move the score (R8b). A day's class therefore follows the level the generator draws: its pods, work, layers,
+  mechanics and peak pressure. About one candidate in eight reaches Hard and one in eleven Super Hard.
 
 ## R20. Economy configuration
 
