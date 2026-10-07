@@ -161,11 +161,6 @@ namespace Bloomlings.Generator.Tests
             Assert.That(BandGuidelines.BigBoard.Allows(22, 28), Is.True);
 
             Dictionary<string, BasePicture> pictures = ContentStore.LoadLibrary(Path.Combine(RepoRoot, "content", "pictures", "lib")).ToDictionary(p => p.Id + "@" + p.Version);
-            if (!Directory.Exists(Path.Combine(RepoRoot, "content", "daily", "levels")))
-            {
-                Assert.Ignore("The Daily Challenge pool is being built on its new pictures (T185).");
-            }
-
             List<LevelDefinition> pool = ContentStore.LoadLevels(Path.Combine(RepoRoot, "content", "daily")).Select(l => l.Level).OrderBy(l => l.LevelNumber).ToList();
             Assert.That(pool.Select(l => l.LevelNumber), Is.EqualTo(Enumerable.Range(1, 365)), "one puzzle for each day of a year");
             Assert.That(pool.Select(l => l.Picture.Id).Distinct().Count(), Is.EqualTo(365), "every day a new picture");

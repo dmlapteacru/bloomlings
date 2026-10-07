@@ -1658,7 +1658,7 @@ final validation.
   picture too (`LevelGenerator.ReusesLook`, `ReusesSource`). A gap filled after its band, or a seam repair, sees the
   later levels, and a repeat of one of them broke the rule there. Test:
   `CatalogRulesTests.ALevelGeneratedBeforeAKnownLaterLevel_MustNotRepeatItsLookOrSourceEither`.
-- [ ] T185 The Daily Challenge pool (R19, FR-064 as amended on 2026-10-07; the owner: "a pool for 365 days", "it must
+- [X] T185 The Daily Challenge pool (R19, FR-064 as amended on 2026-10-07; the owner: "a pool for 365 days", "it must
   definitely be a new picture", "the board must be big with small cells … always maximal", "they can be medium, hard,
   super hard"): `content/daily/`, 365 entries from `daily generate --seed 1 --count 365 --segments 7 --jobs 4`, with
   validation records and a README.
@@ -1676,6 +1676,9 @@ final validation.
     twice (`picture-once`) or a subject within 60 entries (`subject-window`).
   - Tests: `DailyPoolTests`.
   - `publish --daily content/daily` packs it.
+  - Built on 2026-10-07. The 365 entries are 209 Normal, 104 Hard and 52 Super Hard. Two runs, before and after the
+    mechanics fix (T189), gave the same files. The whole release gate passed: `publish --catalog content/catalog --daily
+    content/daily` gave 5000 levels, 1936 pictures and 365 daily entries in 22 packs (1.4 MB of gzipped level packs).
 - [X] T186 A second set of subjects for the levels. The owner, 2026-10-07: "we need more subjects for the 5000 levels,
   spread over all of them; I can regenerate the 5000".
   - 100 subjects that neither the levels nor the Daily Challenge drew, in `more_animals.py`, `more_nature.py`,

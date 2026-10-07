@@ -1,0 +1,343 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2751
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 20,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 309,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "floor": "violet_bud",
+    "leaves": "leaf",
+    "moss": "moss",
+    "pot": "violet_bud",
+    "table": "wood",
+    "trunk": "wood",
+    "wall": "dew"
+  },
+  "mechanics": ["key", "layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["dew"],
+        "x": 5,
+        "y": 2
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 10,
+        "y": 3
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 5,
+        "y": 5
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 0,
+        "y": 10
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 8,
+        "y": 10
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 13,
+        "y": 10
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 12,
+        "y": 12
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 14,
+        "y": 12
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 16,
+        "y": 12
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 6,
+        "y": 13
+      },
+      {
+        "hole": true,
+        "x": 10,
+        "y": 13
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 17,
+        "y": 15
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 3,
+        "y": 16
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 12,
+        "y": 16
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 1,
+        "y": 17
+      },
+      {
+        "keyId": "k1",
+        "x": 3,
+        "y": 18
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 18,
+        "y": 19
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 0,
+        "y": 20
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 2,
+        "y": 21
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 7,
+        "y": 21
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 7,
+        "y": 22
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 9,
+        "y": 22
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 9,
+        "y": 23
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 11,
+        "y": 24
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 0,
+        "y": 25
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 14,
+        "y": 25
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 13,
+        "y": 26
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 7,
+        "y": 27
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 14,
+        "y": 27
+      }
+    ]
+  },
+  "picture": {
+    "id": "bonsai_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 32,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 34,
+      "id": "p02",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 20,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 38,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 32,
+      "id": "p18",
+      "variantId": "wood"
+    },
+    {
+      "count": 34,
+      "id": "p19",
+      "variantId": "wood"
+    },
+    {
+      "count": 25,
+      "id": "p20",
+      "variantId": "leaf"
+    },
+    {
+      "count": 26,
+      "id": "p21",
+      "variantId": "leaf"
+    },
+    {
+      "count": 35,
+      "id": "p22",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 22,
+      "id": "p23",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p24",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11062484396317559185",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 10,
+          "y": 13
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17", "p21"],
+      ["p02", "p06", "p10", "p14", "p18", "p22"],
+      ["p03", "p07", "p11", "p15", "p19", "p23"],
+      ["p04", "p08", "p12", "p16", "p20", "p24"]
+    ]
+  }
+}
