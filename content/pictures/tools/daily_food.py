@@ -1242,7 +1242,7 @@ def hook(x, top, bottom, rr, side=1):
 
 def candy_cane(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, bow = r.choice((0, 0, 1, 1, 2)), r.randrange(3), r.random() < 0.6
+    kind, mode, bow = r.randrange(3), r.choice((0, 0, 1, 1, 2)), r.random() < 0.6
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
 

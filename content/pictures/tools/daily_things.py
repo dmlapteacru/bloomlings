@@ -256,7 +256,7 @@ def motorcycle(w, h, r):
             box(cv, x + 1.2, gtop - 11.0, x + 2.4, gtop - 8.0, 'v')
             box(cv, x, gtop - 8.6, x + 2.4, gtop - 7.6, 'v')
     else:
-        skyline(cv, r, 'h', 'v', gtop, h * 0.12, h * 0.3)
+        skyline(cv, r, 'h', 'v', gtop, h * 0.24, h * 0.38)
     box(cv, 0, gtop, w, h, 'd')
     for x in range(1, w, 5):
         box(cv, x, gtop + 2, x + 2.5, gtop + 3, 'y')

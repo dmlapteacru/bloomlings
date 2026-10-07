@@ -85,8 +85,8 @@ SCENES = (
 def scene(cv, r, w, h, kind, ty):
     """The setting of `kind` (SCENES), its table or blanket from row ty down: roles b (background), o (window panes,
     wall dots and jars, or a cloud), v (window frame, shelf or hill) at the top left, where the subjects keep their
-    tall things away, t (table or blanket) and d (its dots, kept off the edges and the bottom row's middle, where the
-    board's entry is)."""
+    tall things away, t (table or blanket) and d (a row of dots on a table four rows deep or more, below the plates
+    and clear of the rows that keep the table whole)."""
     if kind == 0:
         x0, y0 = w * r.uniform(0.03, 0.08), h * r.uniform(0.04, 0.08)
         x1, y1 = x0 + max(5.0, w * 0.3), y0 + max(5.0, h * 0.22)
@@ -107,11 +107,12 @@ def scene(cv, r, w, h, kind, ty):
         oval(cv, w * r.uniform(-0.05, 0.1), ty + 1.0, w * r.uniform(0.4, 0.5), h * r.uniform(0.16, 0.2), 'v')
     box(cv, 0, ty, w, h, 't')
     top = int(math.ceil(ty - 0.5))
-    step, off = (4, 4, 3)[kind], r.randrange(4)
-    for y in range(top + 1, h, 2):
-        for x in range(1, w - 1):
-            if (x + off + (y - top) // 2 * 2) % step == 0 and not (y == h - 1 and abs(x + 0.5 - w / 2) < 1.5):
-                cv.g[y][x] = 'd'
+    if h - top >= 4:
+        step, off = (4, 4, 3)[kind], r.randrange(4)
+        spots = [x for x in range(1, w - 1) if (x + off) % step == 0]
+        if len(spots) >= 5:
+            for x in spots:
+                cv.g[top + 2][x] = 'd'
 
 
 def scene_roles(kind, groups):
@@ -150,7 +151,7 @@ def half_wheel(cv, x, y, rr):
             cv.g[yy][xx] = 'w' if rr - 1.9 < d <= rr - 1.0 else 'a'
     for a in (45, 90, 135):
         t = math.radians(a)
-        seg(cv, x, y, x + math.cos(t) * (rr - 1.4), y - math.sin(t) * (rr - 1.4), 'w', 0.42)
+        seg(cv, x, y, x + math.cos(t) * (rr - 1.4), y - math.sin(t) * (rr - 1.4), 'w', 0.42 if a == 90 else 0.6)
 
 
 def wheel(cv, x, y, rr):
@@ -161,7 +162,7 @@ def wheel(cv, x, y, rr):
     ring(cv, x, y, rr - 0.9, rr - 1.8, 'w')
     for k in range(8):
         a = math.radians(k * 45)
-        seg(cv, x, y, x + math.cos(a) * (rr - 1.4), y + math.sin(a) * (rr - 1.4), 'w', 0.42)
+        seg(cv, x, y, x + math.cos(a) * (rr - 1.4), y + math.sin(a) * (rr - 1.4), 'w', 0.42 if k % 2 == 0 else 0.6)
 
 
 def orange(w, h, r):
