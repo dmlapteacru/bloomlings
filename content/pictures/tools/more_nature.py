@@ -840,8 +840,8 @@ def street_lamp(w, h, r):
         xx = w * (x if side > 0 else 1 - x)
         if math.hypot(xx - lx, h * y - ly) > s * 0.32:
             cv.put(int(xx), int(h * y), 'x')
-    return cv, [('n', 'sky', 'Evening sky', PINK, True), role('p', 'post', 'Lamp post', BLUE), role('y', 'light', 'Lamp light', BROWN),
-                role('b', 'bench', 'Bench', BROWN), role('o', 'glow', 'Glow', BROWN), role('x', 'stars', 'Stars', BROWN),
+    return cv, [('n', 'sky', 'Evening sky', PINK, True), role('p', 'post', 'Lamp post', BLUE), role('o', 'glow', 'Glow', BROWN),
+                role('b', 'bench', 'Bench', BROWN), role('y', 'light', 'Lamp light', BROWN), role('x', 'stars', 'Stars', BROWN),
                 role('m', 'moon', 'Moon', BLUE), role('g', 'grass', 'Grass', GREEN), role('u', 'bush', 'Bush', GREEN),
                 role('f', 'flowers', 'Flowers', PINK)], ['town', 'night']
 
@@ -854,20 +854,23 @@ def swing_set(w, h, r):
     hills(cv, 'g', gtop, 0.3, w * 1.5, r.uniform(0, 6))
     side = r.choice((-1, 1))
     top = h * 0.32
-    x0, x1 = mid(w * 0.12), mid(w * 0.88)
     sp = w * 0.07
-    for x in (x0, x1):
-        for d in (-1, 1):
-            seg(cv, x + d * sp, gtop + 0.5, x, top, 'f', 0.5 if not big else 0.6)
-    seg(cv, x0 - 0.6, top, x1 + 0.6, top, 'f', 0.55 if not big else 0.7)
-    n = 3 if x1 - x0 >= 15 else 2
+    x0 = mid(1.5 + sp)
+    x1 = w - x0
+    for x, d in ((x0, -1), (x1, 1)):
+        seg(cv, x + d * sp, gtop + 0.5, x, top, 'f', 0.5 if not big else 0.6)
+        seg(cv, x, gtop + 0.5, x, top, 'f', 0.45 if not big else 0.55)
+    seg(cv, x0, top, x1, top, 'f', 0.55 if not big else 0.7)
+    chains = [(x0 + 1, x0 + 3), (x1 - 3, x1 - 1)]
+    if big and x1 - x0 >= 14:
+        c = mid(w / 2 - 0.5)
+        chains.insert(1, (c - 1, c + 1))
     sy = mid(h * 0.72)
-    for k in range(n):
-        sx = mid((x0 + x1) / 2 + (k - (n - 1) / 2) * 5 - 0.5)
-        oval(cv, sx, gtop + 0.4, 1.3, 0.8, 'd')
-        for c in (-1.0, 1.0):
-            seg(cv, sx + c, top + 0.6, sx + c, sy, 'c', 0.42)
-        box(cv, sx - 1.0, sy - 0.3, sx + 1.0, sy + 0.3, 't')
+    for a, b in chains:
+        oval(cv, (a + b) / 2, gtop + 0.4, 1.3, 0.8, 'd')
+        for x in (a, b):
+            seg(cv, x, top + 0.6, x, sy, 'c', 0.42)
+        box(cv, a, sy - 0.3, b, sy + 0.3, 't')
     disc(cv, w * 0.5 + side * w * 0.38, h * 0.1, s * 0.085, 'u')
     cloud(cv, w * 0.5 - side * w * 0.26, h * 0.12, s * 0.05 + 0.4, 'e')
     if big:
@@ -979,7 +982,7 @@ def water_tower(w, h, r):
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
     side = r.choice((-1, 1))
     tx = cx + side * w * 0.05
-    x0, x1, y0, y1 = tx - w * 0.24, tx + w * 0.24, h * 0.24, h * 0.47
+    x0, x1, y0, y1 = tx - w * 0.24, tx + w * 0.24, h * 0.22, h * 0.5
     lt = 0.5
     for d in (-1, 1):
         seg(cv, tx + d * w * 0.17, y1, tx + d * w * 0.27, gtop + 0.5, 'l', lt)
@@ -991,7 +994,7 @@ def water_tower(w, h, r):
     seg(cv, tx + xa, ya, tx - xb, yb, 'l', 0.42)
     rbox(cv, x0, y0, x1, y1, 1.0, 't')
     oval(cv, tx, y1, w * 0.22, 0.9, 't')
-    for y in ((y0 + 1.6, y1 - 1.6) if not big else (y0 + 1.6, (y0 + y1) / 2, y1 - 1.6)):
+    for y in (((y0 + y1) / 2,) if not big else (y0 + 1.8, (y0 + y1) / 2, y1 - 1.8)):
         box(cv, x0 + 0.6, mid(y) - 0.3, x1 - 0.6, mid(y) + 0.3, 'k', only='t')
     poly(cv, [(x0 - 0.9, y0 + 0.7), (tx, h * 0.08), (x1 + 0.9, y0 + 0.7)], 'r')
     seg(cv, tx, h * 0.08, tx, h * 0.04, 'r', 0.42)

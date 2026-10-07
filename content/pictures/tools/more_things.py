@@ -836,13 +836,10 @@ def light_bulb(w, h, r):
                 role('k', 'cord', 'Cord', GREEN), role('c', 'ceiling', 'Ceiling', BLUE), role('o', 'moth', 'Moth wings', GREEN)], ['things', 'house']
 
 
-def clip(cv, x, y, upright, c, bg, big):
-    """A paper clip: a rounded loop with a slot, upright or lying, its top left cell at (x, y)."""
-    a, b = (3, 5) if not big else (3, 7)
-    if not upright:
-        a, b = b, a
-    rbox(cv, x, y, x + a, y + b, 0.8, c)
-    box(cv, x + 1.0, y + 1.0, x + a - 1.0, y + b - 1.0, bg)
+def clip(cv, x, y, a, c, bg):
+    """A paper clip lying on its side: a rounded loop `a` cells long with a slot, its top left cell at (x, y)."""
+    rbox(cv, x, y, x + a, y + 3, 0.8, c)
+    box(cv, x + 1.0, y + 1.0, x + a - 1.0, y + 2.0, bg)
 
 
 def magnet(w, h, r):
@@ -873,9 +870,10 @@ def magnet(w, h, r):
             for d in (1.4, 2.4) if not big else (1.6, 2.6, 3.6):
                 u, v = side * mid + math.cos(t) * d * side, legs + math.sin(t) * d
                 cv.put(int(mcx + u * ca - v * sa), int(mcy + u * sa + v * ca), 'v')
-    xs = (0.1, 0.6) if not big else (0.04, 0.38, 0.72)
-    for k, x in enumerate(xs):
-        clip(cv, int(w * x) + (k % 2), int(fy) - (3 if not big else 4) - (k % 2), False, 'c', 'b', big)
+    n, a = (2, 5) if w < 21 else (3, 5)
+    gap = (w - n * (a + 1)) / (n + 1)
+    for k in range(n):
+        clip(cv, int(gap * (k + 1) + k * (a + 1)), int(fy) - 4 - (k % 2) * (1 if not big else 2), a, 'c', 'b')
     return cv, [('b', 'wall', 'Wall', BLUE, True), role('m', 'magnet', 'Magnet', PINK), role('t', 'tips', 'Tips', GREEN),
                 role('v', 'field', 'Pull', BROWN), role('c', 'clips', 'Paper clips', PINK), role('f', 'table', 'Table', GREEN)], ['things', 'science']
 

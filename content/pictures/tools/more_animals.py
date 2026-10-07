@@ -841,14 +841,16 @@ def badger(w, h, r):
         rbox(cv, bx + dx * w - 0.9, by, bx + dx * w + 0.9, gtop + 0.5, 0.5, 'b')
     oval(cv, bx, by, w * 0.3, h * 0.11, 'b')
     disc(cv, bx - w * 0.3, by - h * 0.02, 0.8, 'b')
-    x0, x1, hy = bx + w * 0.2, bx + w * 0.46, by - h * 0.02
-    disc(cv, x0 + w * 0.02, hy - h * 0.09, 0.85, 'b')
-    poly(cv, [(x0, hy - h * 0.09), (x0 + w * 0.1, hy - h * 0.07), (x1, hy + h * 0.02), (x1 - w * 0.02, hy + h * 0.06), (x0, hy + h * 0.08)], 'w')
-    lens(cv, x0 + w * 0.01, hy - h * 0.035, x1 - w * 0.03, hy + h * 0.02, s * 0.06 + 0.4, 'k')
-    cv.put(int(x0 + w * 0.1), int(hy - h * 0.02), 'e')
+    x0, hy = bx + w * 0.2, by - h * 0.03
+    x1 = min(w - 0.6, x0 + s * 0.42)
+    disc(cv, x0 + s * 0.04, hy - s * 0.15, 0.85, 'b')
+    poly(cv, [(x0 - s * 0.04, hy - s * 0.15), (x1, hy + s * 0.04), (x1 - s * 0.04, hy + s * 0.1), (x0, hy + s * 0.13)], 'w')
+    seg(cv, x0, hy - s * 0.06, x1 - 0.3, hy + s * 0.03, 'k', 0.5 if not big else 0.7)
+    disc(cv, x1 - 0.5, hy + s * 0.05, 0.75, 'k')
+    ex = x0 + (x1 - x0) * 0.45
+    cv.put(int(ex), int(hy - s * 0.06 + (s * 0.09) * 0.45), 'e')
     if big:
-        cv.put(int(x0 + w * 0.1) + 1, int(hy - h * 0.02), 'e')
-    disc(cv, x1 - 0.4, hy + h * 0.035, 0.75, 'k')
+        cv.put(int(ex) + 1, int(hy - s * 0.06 + (s * 0.09) * 0.45), 'e')
     for dx in (-0.2, -0.08, 0.1, 0.2):
         cv.put(int(bx + dx * w), int(gtop) - 1, 'k')
     for x in (w * 0.86,) if not big else (w * 0.7, w * 0.84):
@@ -918,10 +920,13 @@ def turkey(w, h, r):
         seg(cv, tx + side * w * 0.12 - 0.5, gtop - 0.5, tx + side * w * 0.12 + 0.5, gtop - 0.5, 'y', 0.5)
     hy = gtop - h * 0.44
     box(cv, tx - 1.5, hy, tx + 1.5, gtop - h * 0.24, 'h')
-    disc(cv, tx, hy, s * 0.11 + 0.2, 'h')
-    poly(cv, [(tx - 0.8, hy + s * 0.04), (tx + 0.8, hy + s * 0.04), (tx, hy + s * 0.14)], 'y')
-    box(cv, tx + 0.5, hy + s * 0.04, tx + 1.5, hy + s * 0.38, 'w')
-    eyes(cv, tx, hy - s * 0.06, 1.0, False, None, 'k')
+    disc(cv, tx, hy, s * 0.12 + 0.3, 'h')
+    poly(cv, [(tx - 0.8, hy + s * 0.07), (tx + 0.8, hy + s * 0.07), (tx, hy + s * 0.17)], 'y')
+    box(cv, tx + 0.5, hy + s * 0.07, tx + 1.5, hy + s * 0.4, 'w')
+    for side in (-1, 1):
+        cv.put(int(tx + side), int(hy - s * 0.06), 'k')
+        if big:
+            cv.put(int(tx + side), int(hy - s * 0.06) - 1, 'k')
     for x in (w * 0.08, w * 0.92):
         disc(cv, x, gtop + 0.2, s * 0.07 + 0.4, 'p')
         cv.put(int(x), int(gtop + 0.2 - s * 0.07 - 0.9), 'k')
