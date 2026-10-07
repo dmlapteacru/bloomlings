@@ -787,10 +787,10 @@ def glass_of_milk(cv, x, y0, y1, rr, glass, milk):
 
 def cookie(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind = r.randrange(3), r.randrange(3)
-    milk, bite, style = r.random() < 0.5, r.random() < 0.6, r.randrange(3)
+    kind = r.randrange(3)
     ty = h * r.uniform(0.83, 0.87)
     setting(cv, r, w, h, kind, ty)
+    mode, milk, bite, style = r.randrange(3), r.random() < 0.5, r.random() < 0.6, r.randrange(3)
     px, rx = (cx - w * 0.12, w * 0.34) if milk else (cx, w * 0.44)
     if milk:
         glass_of_milk(cv, cx + w * 0.3, h * r.uniform(0.38, 0.46), ty - 0.6, s * 0.14, 'g', 'm')
@@ -1578,9 +1578,10 @@ def sandwich(w, h, r):
 
 def soup_bowl(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, spoon = r.randrange(3), r.randrange(2), r.random() < 0.6
+    kind = r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
+    spoon, mode = r.random() < 0.6, r.randrange(3)
     if mode == 2:  # a pot with two handles and a ladle
         x, rim, rx = cx, ty - h * 0.36, w * 0.34
         for side in (-1, 1):

@@ -169,17 +169,18 @@ def race_car(w, h, r):
     y0, y1 = h * 0.07, h * 0.9
     L = y1 - y0
     tw, th = (2.0, 0.17) if not big else (3.0, 0.16)
-    for yy, hh, dx in ((0.16, th, 0.22), (0.66, th * 1.15, 0.22)):
+    dx = w * 0.16
+    for yy, hh in ((0.16, th), (0.66, th * 1.15)):
         for side in (-1, 1):
-            xa = gx + side * w * dx
+            xa = gx + side * dx
             rbox(cv, min(xa, xa + side * tw), y0 + L * yy, max(xa, xa + side * tw), y0 + L * (yy + hh), 0.4, 't')
     for yy in (0.24, 0.74):
-        box(cv, gx - w * 0.22, y0 + L * yy - 0.45, gx + w * 0.22, y0 + L * yy + 0.45, 'b')
-    poly(cv, [(gx - 0.6, y0 + L * 0.06), (gx + 0.6, y0 + L * 0.06), (gx + w * 0.1, y0 + L * 0.36), (gx + w * 0.17, y0 + L * 0.46),
-              (gx + w * 0.17, y0 + L * 0.82), (gx + w * 0.1, y0 + L * 0.94), (gx - w * 0.1, y0 + L * 0.94),
-              (gx - w * 0.17, y0 + L * 0.82), (gx - w * 0.17, y0 + L * 0.46), (gx - w * 0.1, y0 + L * 0.36)], 'b')
-    box(cv, gx - w * 0.28, y0, gx + w * 0.28, y0 + (0.9 if not big else 1.8), 'w')
-    box(cv, gx - w * 0.26, y1 - (0.9 if not big else 1.8), gx + w * 0.26, y1, 'w')
+        box(cv, gx - dx, y0 + L * yy - 0.45, gx + dx, y0 + L * yy + 0.45, 'b')
+    poly(cv, [(gx - 0.6, y0 + L * 0.06), (gx + 0.6, y0 + L * 0.06), (gx + w * 0.08, y0 + L * 0.36), (gx + w * 0.15, y0 + L * 0.46),
+              (gx + w * 0.15, y0 + L * 0.82), (gx + w * 0.09, y0 + L * 0.94), (gx - w * 0.09, y0 + L * 0.94),
+              (gx - w * 0.15, y0 + L * 0.82), (gx - w * 0.15, y0 + L * 0.46), (gx - w * 0.08, y0 + L * 0.36)], 'b')
+    box(cv, gx - dx - tw * 0.6, y0, gx + dx + tw * 0.6, y0 + (0.9 if not big else 1.8), 'w')
+    box(cv, gx - dx - tw * 0.4, y1 - (0.9 if not big else 1.8), gx + dx + tw * 0.4, y1, 'w')
     disc(cv, gx, y0 + L * 0.52, 1.25 if not big else 1.8, 'e')
     disc(cv, gx, y0 + L * 0.27, 0.9 if not big else 1.2, 'n')
     if big:
