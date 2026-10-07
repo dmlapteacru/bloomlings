@@ -1028,26 +1028,36 @@ def cheese(w, h, r):
         wedge(cv, r, w * 0.3, w * 0.94, yb, h * 0.17, 4)
         box(cv, w * 0.04, yb - h * 0.14, w * 0.38, yb, 'b')
         wedge(cv, r, w * 0.06, w * 0.34, yb, h * 0.11, 2)
+    if r.random() < 0.5:  # a bunch of grapes leaning on it
+        gx = w * r.uniform(0.74, 0.84)
+        seg(cv, gx, yb - h * 0.3, gx + 0.8, yb - h * 0.36, 'k', 0.45)
+        for k, (dx, dy) in enumerate(((-1.6, 0), (1.6, 0), (0, 2.8), (-3.2, 2.8), (3.2, 2.8), (-1.6, 5.6), (1.6, 5.6), (0, 8.4))):
+            disc(cv, gx + dx, yb - h * 0.3 + 1.4 + dy, 1.2, 'g')
+    if r.random() < 0.5:  # a cheese knife on the table
+        y = ty + 1.9
+        tube(cv, [(w * 0.1, y), (w * 0.5, y)], 0.7, 'n')
+        tube(cv, [(w * 0.5, y), (w * 0.78, y)], 0.8, 'k')
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
-    return cv, [S['b'], role('f', 'cheese', 'Cheese', BROWN), role('k', 'rind', 'Rind', BROWN), role('c', 'top', 'Top of the cheese', BROWN),
-                role('h', 'holes', 'Holes', PINK), role('p', 'board', 'Board', GREEN), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
+    return cv, [S['b'], role('f', 'cheese', 'Cheese', BROWN), role('k', 'rind', 'Rind, stalk and knife handle', BROWN),
+                role('c', 'top', 'Top of the cheese', BROWN), role('h', 'holes', 'Holes', PINK), role('g', 'grapes', 'Grapes', PINK),
+                role('p', 'board', 'Board', GREEN), role('n', 'blade', 'Knife blade', BLUE), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
 
 
 def one_croissant(cv, x, y, rr, body, line, shine):
     """A croissant: a crescent, its horns curling down at both ends, ribbed across into five puffs."""
-    pts = curve((x - rr * 1.2, y + rr * 0.75), (x + rr * 1.2, y + rr * 0.75), -rr * 0.85)
-    rad = lambda t: rr * (0.12 + 0.44 * math.sin(math.pi * t) ** 1.4)  # noqa: E731
+    pts = curve((x - rr * 1.15, y + rr * 0.95), (x + rr * 1.15, y + rr * 0.95), -rr * 1.05)
+    rad = lambda t: rr * (0.1 + 0.4 * math.sin(math.pi * t) ** 1.5)  # noqa: E731
     tube(cv, pts, rad, body)
-    for u in (0.2, 0.37, 0.63, 0.8):
+    for u in (0.22, 0.38, 0.62, 0.78):
         k = int(u * 20)
         (ax, ay), (bx, by) = pts[k - 1], pts[k + 1]
         L = math.hypot(bx - ax, by - ay) or 1.0
         nx, ny = -(by - ay) / L, (bx - ax) / L
         q = rad(u) + 0.6
         seg(cv, pts[k][0] - nx * q, pts[k][1] - ny * q, pts[k][0] + nx * q, pts[k][1] + ny * q, line, 0.45)
-    tilted(cv, x - rr * 0.15, y - rr * 0.08, rr * 0.2, 0.6, -10, shine)
+    tilted(cv, x - rr * 0.06, y - rr * 0.02, rr * 0.12, 0.6, 0, shine)
 
 
 def croissant(w, h, r):
@@ -1057,7 +1067,7 @@ def croissant(w, h, r):
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one croissant on a plate
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
-        one_croissant(cv, cx, ty - h * 0.22, w * 0.34, 'c', 'k', 'y')
+        one_croissant(cv, cx, ty - h * 0.42, w * 0.36, 'c', 'k', 'y')
     elif mode == 1:  # a croissant and a cup of coffee
         ux = cx + w * 0.25
         oval(cv, ux, ty - 0.4, w * 0.19, 1.2, 'q')
@@ -1067,11 +1077,11 @@ def croissant(w, h, r):
         for k in (-1, 1):
             path(cv, [(ux + k * 1.6, ty - h * 0.3), (ux + k * 1.6 + 0.8, ty - h * 0.36), (ux + k * 1.6 - 0.3, ty - h * 0.42)], 'm', 0.45)
         oval(cv, cx - w * 0.17, ty, w * 0.28, 1.6, 'p')
-        one_croissant(cv, cx - w * 0.17, ty - h * 0.18, w * 0.22, 'c', 'k', 'y')
-    else:  # two croissants, one on the other
+        one_croissant(cv, cx - w * 0.19, ty - h * 0.28, w * 0.22, 'c', 'k', 'y')
+    else:  # two croissants side by side, one turned
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
-        one_croissant(cv, cx + w * 0.06, ty - h * 0.38, w * 0.26, 'c', 'k', 'y')
-        one_croissant(cv, cx - w * 0.04, ty - h * 0.17, w * 0.3, 'c', 'k', 'y')
+        one_croissant(cv, cx - w * 0.22, ty - h * 0.24, w * 0.2, 'c', 'k', 'y')
+        one_croissant(cv, cx + w * 0.22, ty - h * 0.3, w * 0.2, 'c', 'k', 'y')
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))

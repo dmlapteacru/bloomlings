@@ -17,16 +17,45 @@ def mirror(cv):
         row.reverse()
 
 
-def maple_leaf(cv, x, y, size, c, turn=0.0):
-    """A five-lobed maple leaf `size` cells from its middle to its tips, its stem notch down (turned by `turn`)."""
-    pts = []
-    for a, rr in ((0, 1.0), (35, 0.42), (70, 0.95), (100, 0.42), (130, 0.62), (180, 0.22), (230, 0.62), (260, 0.42),
-                  (290, 0.95), (325, 0.42)):
-        t = math.radians(a + turn)
-        pts.append((x + math.sin(t) * rr * size, y - math.cos(t) * rr * size))
-    poly(cv, pts, c)
-    return [(x + math.sin(math.radians(a + turn)) * size * k, y - math.cos(math.radians(a + turn)) * size * k)
-            for a, k in ((0, 0.9), (70, 0.85), (290, 0.85), (130, 0.5), (230, 0.5))]
+def mid(y):
+    """The middle of the cell row at y, for shapes one row high."""
+    return int(y) + 0.5
+
+
+def fill_pockets(cv, c, into):
+    """Gives the regions of role c that only `into` surrounds (the pockets a fold or a frame closes) to `into`, so such
+    a line never adds a level of nesting."""
+    seen = set()
+    for y in range(cv.h):
+        for x in range(cv.w):
+            if cv.g[y][x] != c or (x, y) in seen:
+                continue
+            seen.add((x, y))
+            region, stack, around = [], [(x, y)], set()
+            while stack:
+                a, b = stack.pop()
+                region.append((a, b))
+                for p, q in ((a + 1, b), (a - 1, b), (a, b + 1), (a, b - 1)):
+                    if 0 <= p < cv.w and 0 <= q < cv.h:
+                        if cv.g[q][p] != c:
+                            around.add(cv.g[q][p])
+                        elif (p, q) not in seen:
+                            seen.add((p, q))
+                            stack.append((p, q))
+            if around <= {into}:
+                for a, b in region:
+                    cv.g[b][a] = into
+
+
+def maple_sprite(cv, x, y, c, big):
+    """A small maple leaf, five cells across (seven on the big boards), centered on (x, y)."""
+    rows = (['..x..', 'x.x.x', 'xxxxx', '.xxx.', '..x..'] if not big else
+            ['...x...', '.x.x.x.', '.xxxxx.', 'xxxxxxx', '.xxxxx.', '..xxx..', '...x...'])
+    n = len(rows)
+    for j, line in enumerate(rows):
+        for i, ch in enumerate(line):
+            if ch == 'x':
+                cv.put(int(x) - n // 2 + i, int(y) - n // 2 + j, c)
 
 
 # ---- Trees and plants ----

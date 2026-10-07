@@ -1134,9 +1134,9 @@ def flamingo(w, h, r):
         cv.put(int(hx + 0.2), int(wl + 0.2), 'k')
         cv.put(int(hx - 0.4), int(hy - 0.4), 'k')
     else:
-        neck = curve([(fx + 3.0, by - 1.2), (fx + 6.4, by - 3.6), (fx + 2.2, by - 6.8), (fx + 3.6, by - 9.8), (fx + 5.6, by - 10.0)], 14)
+        neck = curve([(fx + 3.0, by - 1.2), (fx + 6.4, by - 3.4), (fx + 2.2, by - 6.2), (fx + 3.6, by - 8.8), (fx + 5.6, by - 9.0)], 14)
         tube(cv, neck, 0.75, 0.7, 'p')
-        hx, hy = fx + 5.6, by - 9.8
+        hx, hy = fx + 5.6, by - 8.8
         disc(cv, hx, hy, 1.4, 'p')
         poly(cv, [(hx + 0.8, hy - 0.8), (hx + 3.6, hy + 0.2), (hx + 3.0, hy + 2.4), (hx + 1.0, hy + 0.8)], 'y')
         poly(cv, [(hx + 2.6, hy - 0.1), (hx + 3.6, hy + 0.2), (hx + 3.0, hy + 2.4), (hx + 2.4, hy + 1.2)], 'k')
@@ -1159,25 +1159,26 @@ def peacock(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.14)
     meadow(cv, r, 'g', gtop)
-    px = cx + r.uniform(-1.2, 1.2)
+    px = cx + r.choice((-1, 1)) * r.uniform(0.0, 2.0)
     fy = gtop - r.uniform(6.0, 7.5)
+    sq = r.uniform(0.8, 1.05)
     R = min(r.uniform(8.6, 10.4), px - 0.8, 21.2 - px)
     cut = r.uniform(0.5, 2.5)
     for x in r.sample((1.5, 20.5), r.randint(0, 2)):
         disc(cv, x, gtop - 1.0, 2.2, 'g')
     for y in range(h):
         for x in range(w):
-            dx, dy = x + 0.5 - px, y + 0.5 - fy
+            dx, dy = x + 0.5 - px, (y + 0.5 - fy) / sq
             if dx * dx + dy * dy <= R * R and dy < cut:
                 cv.g[y][x] = 'f'
     n = r.choice((7, 9))
     for k in range(1, n):
         a = math.radians(180 + 180 * k / n)
-        seg(cv, px + math.cos(a) * R * 0.62, fy + math.sin(a) * R * 0.62, px + math.cos(a) * (R - 1.3), fy + math.sin(a) * (R - 1.3), 'd', 0.35)
+        seg(cv, px + math.cos(a) * R * 0.62, fy + math.sin(a) * R * 0.62 * sq, px + math.cos(a) * (R - 1.3), fy + math.sin(a) * (R - 1.3) * sq, 'd', 0.35)
     for rad, m in ((R - 2.0, n), (R * 0.4, n - 4)):
         for k in range(m):
             a = math.radians(180 + 180 * (k + 0.5) / m)
-            ex, ey = px + math.cos(a) * rad, fy + math.sin(a) * rad
+            ex, ey = px + math.cos(a) * rad, fy + math.sin(a) * rad * sq
             disc(cv, ex, ey, 1.1, 'o')
             cv.put(int(ex), int(ey), 'e')
     for sd in (-1, 1):
@@ -1446,4 +1447,276 @@ def caterpillar(w, h, r):
         ['animals', 'garden']
 
 
-DAILY_ANIMALS = [dragon, horse, unicorn, zebra, deer, cow, goat, camel, kangaroo, koala, monkey, tiger, squirrel, raccoon, hamster, hippo, crocodile, chameleon, dinosaur, flamingo, peacock, swan, toucan, beetle, dragonfly, caterpillar]
+def seal(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    sea = r.uniform(17.5, 19.0)
+    hills(cv, 'w', sea, 0.35, 22 * 0.45, r.uniform(0, 6))
+    if r.random() < 0.5:
+        ix = r.choice((3.0, 18.0))
+        poly(cv, [(ix - 3.6, sea), (ix - 1.0, sea - 5.0), (ix + 0.6, sea - 3.6), (ix + 2.0, sea - 6.4), (ix + 3.8, sea)], 'i')
+    else:
+        for k in range(2):
+            x, y = r.uniform(3, 18), r.uniform(3, 7)
+            path(cv, [(x - 1.2, y - 0.6), (x, y + 0.2), (x + 1.2, y - 0.6)], 'n', 0.45)
+    disc(cv, r.choice((3.5, 18.0)), r.uniform(2.4, 3.6), 1.9, 'u')
+    rt = sea + r.uniform(1.0, 2.0)
+    poly(cv, [(1.0, h + 1), (1.6, rt + 1.2), (5.0, rt), (13.0, rt - 0.4), (18.0, rt + 0.6), (20.6, h + 1)], 'i')
+    for x in (3.0, 17.0):
+        seg(cv, x, h, x + 0.6, rt + 2.0, 'g', 0.45)
+    prop = r.choices(('ball', 'fish', 'nap'), (5, 3, 2))[0]
+    if prop == 'nap':
+        tube(cv, [(3.0, rt - 1.4), (9.0, rt - 2.4)], 0.9, 2.6, 'k')
+        tube(cv, [(9.0, rt - 2.4), (14.4, rt - 2.6)], 2.6, 2.2, 'k')
+        hx, hy = 15.6, rt - 2.8
+        disc(cv, hx, hy, 2.5, 'k')
+        oval(cv, hx + 2.4, hy + 0.6, 1.6, 1.2, 'k')
+        lens(cv, 10.6, rt - 1.0, 13.0, rt + 0.4, 1.6, 'n')
+        path(cv, [(hx - 0.2, hy - 0.8), (hx + 1.0, hy - 0.6)], 'n', 0.35)
+        cv.put(int(hx + 3.6), int(hy + 0.2), 'n')
+        for sd in (-1, 1):
+            seg(cv, hx + 3.0, hy + 1.0, hx + 4.8, hy + 1.0 + sd * 0.8, 'n', 0.3)
+        tail = (2.6, rt - 1.4)
+        for k in range(3):
+            cv.put(int(hx + 1.0 + k * 1.2), int(hy - 3.8 - k * 1.6), 'e')
+    else:
+        tube(cv, [(3.0, rt - 1.2), (8.0, rt - 2.8)], 1.0, 3.0, 'k')
+        tube(cv, [(8.0, rt - 2.8), (11.6, rt - 5.0), (12.4, rt - 9.4)], 3.0, 2.4, 'k')
+        hx, hy = 12.8, rt - 11.6
+        disc(cv, hx, hy, 2.6, 'k')
+        oval(cv, hx + 2.0, hy - 1.0, 1.7, 1.3, 'k')
+        lens(cv, 10.8, rt - 5.2, 14.6, rt - 2.0, 1.9, 'n')
+        eye(cv, hx - 0.2, hy - 1.4, big, 'e', 'n')
+        cv.put(int(hx + 3.2), int(hy - 1.8), 'n')
+        for sd in (-1, 1):
+            seg(cv, hx + 2.4, hy - 0.2, hx + 4.4, hy - 0.2 + sd * 0.8, 'n', 0.3)
+        tail = (2.6, rt - 1.2)
+        if prop == 'ball':
+            bx, by = hx + 3.8, hy - 4.8
+            disc(cv, bx, by, 2.4, 'p')
+            for dx in (-0.9, 0.9):
+                stripe(cv, bx + dx, by - 2.6, bx + dx, by + 2.6, 'y', 'p', 0.45)
+        else:
+            oval(cv, hx + 4.0, hy - 0.2, 1.6, 0.8, 'p')
+            poly(cv, [(hx + 5.4, hy - 0.2), (hx + 6.8, hy - 1.2), (hx + 6.8, hy + 0.8)], 'p')
+    for sd in (-1, 1):
+        lens(cv, tail[0] + 0.6, tail[1], tail[0] - 1.4, tail[1] + sd * 1.4, 1.2, 'n')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [sky(), role('k', 'seal', 'Seal', BROWN), role('n', 'dark', 'Flippers, nose and whiskers', BROWN), role('u', 'sun', 'Sun', BROWN),
+                role('y', 'stripes', 'Ball stripes', BROWN), role('e', 'eye_white', 'Eye white and snores', BLUE), role('w', 'sea', 'Sea', BLUE),
+                role('p', 'ball', 'Ball and fish', PINK), role('i', 'rock', 'Rocks', GREEN), role('g', 'weed', 'Seaweed', GREEN)], ['animals', 'sea']
+
+
+def dolphin(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    sea = r.uniform(18.5, 20.0)
+    hills(cv, 'w', sea, 0.35, 22 * 0.45, r.uniform(0, 6))
+    if r.random() < 0.55:
+        ix = r.choice((3.0, 18.5))
+        oval(cv, ix, sea + 0.4, 3.4, 1.2, 'n')
+        palm(cv, ix, sea, sea - 7.0, 'n', 'l', 0.6 if ix < 11 else -0.6)
+    disc(cv, r.choice((4.0, 17.0)), r.uniform(2.4, 3.6), 1.9, 'u')
+    for k in range(r.randint(0, 2)):
+        x, y = r.uniform(8, 14), r.uniform(1.5, 4)
+        path(cv, [(x - 1.2, y - 0.6), (x, y + 0.2), (x + 1.2, y - 0.6)], 'k', 0.45)
+    lift = r.uniform(-1.0, 1.0)
+    ty = sea + 0.6
+    body = curve([(3.2, ty), (4.4, 10.0 + lift), (10.0, 6.4 + lift), (16.4, 10.6 + lift)], 14)
+    tube(cv, body[:8], 0.6, 2.0, 'd')
+    tube(cv, body[7:], 2.0, 1.6, 'd')
+    hx, hy = body[-1]
+    lens(cv, hx - 0.6, hy, hx + 3.8, hy + 2.4, 1.6, 'd')
+    poly(cv, [(8.0, 7.2 + lift), (8.8, 3.6 + lift), (10.8, 6.4 + lift)], 'd')
+    lens(cv, 12.2, 10.4 + lift, 11.0, 13.6 + lift, 1.5, 'd')
+    belly = curve([(4.4, ty - 4.0), (6.0, 11.0 + lift), (10.6, 8.6 + lift), (15.6, 12.0 + lift)], 12)
+    tube(cv, belly, 0.5, 0.9, 'b')
+    for sd in (-1, 1):
+        lens(cv, 3.2, ty, 3.2 + sd * 2.2, ty + 1.6, 1.4, 'd')
+    cv.put(int(hx - 0.2), int(hy - 0.8), 'k')
+    path(cv, [(hx + 0.6, hy + 1.2), (hx + 2.8, hy + 2.0)], 'k', 0.35)
+    for k in range(r.randint(3, 5)):
+        a = math.radians(r.uniform(200, 340))
+        disc(cv, 3.2 + math.cos(a) * r.uniform(2, 3.5), ty - 0.6 + math.sin(a) * 1.4, 0.6, 'e')
+    if r.random() < 0.4:
+        sx = r.uniform(14, 18)
+        tube(cv, curve([(sx - 3.0, sea + 0.6), (sx - 1.4, sea - 3.6), (sx + 2.0, sea - 2.4)], 6), 0.5, 1.1, 'd')
+        lens(cv, sx + 1.6, sea - 2.2, sx + 3.4, sea - 1.2, 1.0, 'd')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [sky(), role('d', 'dolphin', 'Dolphin', PINK), role('b', 'belly', 'Belly', PINK), role('w', 'sea', 'Sea', BLUE),
+                role('e', 'splash', 'Splash', GREEN), role('k', 'eye', 'Eye, smile and gulls', BROWN), role('u', 'sun', 'Sun', BROWN),
+                role('n', 'island', 'Island and palm trunk', BROWN), role('l', 'leaves', 'Palm leaves', GREEN)], ['animals', 'sea']
+
+
+def jellyfish(w, h, r):
+    cv, s, cx, big = start(w, h, 'w')
+    gtop = h - ground_rows(h, 0.1)
+    for x in r.sample((1.5, 3.5, 18.5, 20.5), 3):
+        path(cv, [(x, gtop), (x + 0.8, gtop - 3), (x - 0.4, gtop - 6), (x + 0.5, gtop - 9)], 'g', 0.55)
+    hills(cv, 'd', gtop, 0.5, 22 * 0.8, r.uniform(0, 6))
+    for x in r.sample((6.0, 9.0, 13.0, 16.0), 1):
+        for a in (-60, -90, -120):
+            t = math.radians(a)
+            seg(cv, x, gtop, x + math.cos(t) * 3.0, gtop + math.sin(t) * 3.0, 'c', 0.5)
+    for k in range(r.randint(4, 7)):
+        disc(cv, r.uniform(1, 21), r.uniform(1, 18), r.uniform(0.5, 0.9), 'o')
+    jx, jy = cx + r.uniform(-2.0, 2.0), r.uniform(7.5, 9.0)
+    R = r.uniform(5.2, 6.0)
+    for k in range(5):
+        x0 = jx - R * 0.7 + k * R * 0.35
+        ph = r.uniform(0, 6)
+        pts = [(x0 + math.sin(ph + t * 0.9) * 0.8, jy + 0.6 + t) for t in range(0, 11)]
+        path(cv, pts, 'q', 0.4)
+    for dx in (-1.0, 1.0):
+        pts = [(jx + dx + math.sin(t * 0.8 + dx) * 0.9, jy + 1.0 + t * 0.9) for t in range(0, 9)]
+        tube(cv, pts, 0.9, 0.5, 'j')
+    for y in range(h):
+        for x in range(w):
+            dx, dy = (x + 0.5 - jx) / R, (y + 0.5 - jy) / (R * 0.9)
+            if dx * dx + dy * dy <= 1.0 and dy <= 0.25:
+                cv.g[y][x] = 'j'
+    for k in range(7):
+        disc(cv, jx - R + 0.5 + k * (2 * R - 1.0) / 6, jy + R * 0.2, 0.8, 'j')
+    for k in range(3):
+        cv.put(int(jx - 2.5 + k * 2.5), int(jy - R * 0.62), 'q')
+    eyes(cv, jx, jy - 1.6, 1.8, big, 'e', 'k')
+    path(cv, [(jx - 0.8, jy + 0.8), (jx, jy + 1.2), (jx + 0.8, jy + 0.8)], 'k', 0.35)
+    for k in range(r.randint(1, 2)):
+        sx, sy = r.choice((3.5, 18.5)), r.uniform(12, 18) + k * 2
+        for y in range(h):
+            for x in range(w):
+                dx, dy = (x + 0.5 - sx) / 2.2, (y + 0.5 - sy) / 2.0
+                if dx * dx + dy * dy <= 1.0 and dy <= 0.2:
+                    cv.g[y][x] = 'j'
+        for dx in (-1.0, 0.0, 1.0):
+            path(cv, [(sx + dx, sy + 0.4), (sx + dx + 0.4, sy + 2.0), (sx + dx - 0.2, sy + 3.6)], 'q', 0.4)
+        cv.put(int(sx), int(sy - 0.6), 'k')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [('w', 'water', 'Water', BLUE, True), role('o', 'bubbles', 'Bubbles', BLUE), role('e', 'eye_white', 'Eye whites', BLUE),
+                role('j', 'jelly', 'Jellyfish', PINK), role('q', 'tentacles', 'Tentacles and spots', PINK), role('d', 'sand', 'Sand', BROWN),
+                role('k', 'eye', 'Eyes and smile', BROWN), role('g', 'weed', 'Seaweed', GREEN), role('c', 'coral', 'Coral', GREEN)], ['animals', 'sea']
+
+
+def seahorse(w, h, r):
+    cv, s, cx, big = start(w, h, 'w')
+    gtop = h - ground_rows(h, 0.1)
+    for x in r.sample((1.5, 3.5, 6.0, 18.5, 20.5), 3):
+        path(cv, [(x, gtop), (x + 0.8, gtop - 4), (x - 0.4, gtop - 8), (x + 0.5, gtop - r.uniform(11, 15))], 'g', 0.6)
+    hills(cv, 'd', gtop, 0.5, 22 * 0.8, r.uniform(0, 6))
+    cx0 = r.choice((15.5, 18.0))
+    for a in (-50, -80, -110, -135):
+        t = math.radians(a)
+        path(cv, [(cx0, gtop + 0.5), (cx0 + math.cos(t) * 2.4, gtop + math.sin(t) * 2.4), (cx0 + math.cos(t) * 4.0, gtop + math.sin(t) * 4.6)], 'c', 0.55)
+    for k in range(r.randint(4, 6)):
+        disc(cv, r.uniform(12, 21), r.uniform(1, 12), r.uniform(0.5, 0.9), 'o')
+    ox, oy = r.uniform(-1.0, 0.5), r.uniform(-0.5, 1.0)
+    P = lambda x, y: (x + ox, y + oy)
+    lens(cv, *P(9.0, 13.0), *P(5.6, 15.8), 2.2, 'f')
+    tube(cv, [P(11.6, 8.0), P(10.6, 10.6)], 1.8, 2.2, 'h')
+    tube(cv, [P(10.6, 10.6), P(12.4, 13.6), P(11.8, 16.8), P(9.8, 19.4)], 2.6, 1.6, 'h')
+    tail = [P(9.8, 19.4), P(8.4, 21.4)] + [P(9.6 + (1.8 - 0.25 * t) * math.cos(math.pi + t), 22.0 + (1.8 - 0.25 * t) * math.sin(math.pi + t)) for t in [k * 0.5 for k in range(11)]]
+    tube(cv, tail, 1.3, 0.5, 'h')
+    for y in (11.4, 13.4, 15.4, 17.4):
+        stripe(cv, *P(10.0, y), *P(15.0, y + 0.4), 'r', 'h', 0.35)
+    hx, hy = P(12.6, 6.4)
+    disc(cv, hx, hy, 2.3, 'h')
+    tube(cv, [(hx + 1.4, hy + 0.6), (hx + 5.0, hy + 1.8)], 0.9, 0.75, 'h')
+    poly(cv, [(hx - 1.0, hy - 1.6), (hx - 0.2, hy - 3.8), (hx + 0.6, hy - 2.0), (hx + 1.4, hy - 3.4), (hx + 1.6, hy - 1.2)], 'h')
+    lens(cv, hx - 1.6, hy + 0.8, hx - 3.4, hy + 1.8, 1.0, 'f')
+    eye(cv, hx + 0.4, hy - 1.0, big, 'e', 'k')
+    cv.put(int(hx + 5.2), int(hy + 1.6), 'k')
+    if r.random() < 0.45:
+        bx, by = r.choice((3.5, 17.5)), r.uniform(9, 14)
+        tube(cv, [(bx, by), (bx - 0.4, by + 2.4), (bx + 0.4, by + 4.0)], 0.9, 0.5, 'h')
+        disc(cv, bx + 0.2, by - 1.2, 1.1, 'h')
+        seg(cv, bx + 0.8, by - 1.0, bx + 2.4, by - 0.6, 'h', 0.4)
+        cv.put(int(bx + 0.4), int(by - 1.6), 'k')
+    if r.random() < 0.5:
+        mirror(cv)
+    return cv, [('w', 'water', 'Water', BLUE, True), role('o', 'bubbles', 'Bubbles', BLUE), role('e', 'eye_white', 'Eye white', BLUE),
+                role('h', 'seahorse', 'Seahorse', BROWN), role('k', 'eye', 'Eye and mouth', BROWN), role('r', 'ridges', 'Belly ridges', BROWN),
+                role('d', 'sand', 'Sand', BROWN), role('f', 'fin', 'Fin and gill', PINK), role('c', 'coral', 'Coral', PINK),
+                role('g', 'weed', 'Seaweed', GREEN)], ['animals', 'sea']
+
+
+def starfish(w, h, r):
+    sea_bed = r.random() < 0.45
+    cv, s, cx, big = start(w, h, 's')
+    if sea_bed:
+        gtop = r.uniform(13.0, 15.0)
+        for x in r.sample((1.5, 4.0, 18.0, 20.5), 2):
+            path(cv, [(x, gtop + 1), (x + 0.8, gtop - 3), (x - 0.4, gtop - 7), (x + 0.5, gtop - 10)], 'l', 0.55)
+        hills(cv, 'd', gtop, 0.6, 22 * 0.9, r.uniform(0, 6))
+        for k in range(r.randint(4, 6)):
+            disc(cv, r.uniform(1, 21), r.uniform(1, gtop - 2), r.uniform(0.5, 0.9), 'w')
+    else:
+        sea = r.uniform(10.5, 11.5)
+        hills(cv, 'w', sea, 0.3, 22 * 0.5, r.uniform(0, 6))
+        gtop = sea + r.uniform(2.2, 3.0)
+        hills(cv, 'd', gtop, 0.6, 22 * 0.9, r.uniform(0, 6))
+        disc(cv, r.choice((3.5, 18.0)), r.uniform(2.2, 3.2), 1.8, 'u')
+        if r.random() < 0.5:
+            bx = r.choice((2.5, 19.0))
+            poly(cv, [(bx - 1.8, gtop + 1.0), (bx + 1.8, gtop + 1.0), (bx + 1.3, gtop + 4.0), (bx - 1.3, gtop + 4.0)], 'l')
+            path(cv, [(bx - 1.6, gtop + 1.0), (bx, gtop - 1.0), (bx + 1.6, gtop + 1.0)], 'k', 0.35)
+    sx, sy = cx + r.uniform(-1.0, 1.0), min(gtop + r.uniform(5.6, 7.0), 20.8)
+    rot = r.uniform(-110, -70)
+    ro = r.uniform(6.6, 7.4)
+    star(cv, sx, sy, ro, 'a', ri=3.3, rot=rot)
+    for k in range(5):
+        a = math.radians(rot + k * 72)
+        disc(cv, sx + math.cos(a) * (ro - 0.9), sy + math.sin(a) * (ro - 0.9), 1.0, 'a')
+        for t in (0.55, 0.8):
+            cv.put(int(sx + math.cos(a) * ro * t), int(sy + math.sin(a) * ro * t), 'q')
+    disc(cv, sx, sy, 3.0, 'a')
+    eyes(cv, sx, sy - 1.6, 1.4, big, 'e', 'k')
+    path(cv, [(sx - 1.0, sy + 0.8), (sx, sy + 1.4), (sx + 1.0, sy + 0.8)], 'k', 0.35)
+    for k in range(r.randint(1, 3)):
+        x, y = r.choice((r.uniform(1.5, 4.0), r.uniform(18.0, 20.5))), r.uniform(gtop + 2, 27)
+        poly(cv, [(x - 1.2, y + 0.6), (x, y - 1.2), (x + 1.2, y + 0.6)], 'h')
+        cv.put(int(x), int(y), 'k')
+    bg = ('s', 'water', 'Water', BLUE, True) if sea_bed else sky()
+    return cv, [bg, role('w', 'sea', 'Bubbles' if sea_bed else 'Sea', BLUE), role('e', 'eye_white', 'Eye whites', BLUE),
+                role('a', 'starfish', 'Starfish', PINK), role('q', 'bumps', 'Bumps', PINK), role('d', 'sand', 'Sand', BROWN),
+                role('k', 'eye', 'Eyes, smile and bucket handle', BROWN), role('u', 'sun', 'Sun', BROWN), role('h', 'shells', 'Shells', GREEN),
+                role('l', 'weed', 'Seaweed' if sea_bed else 'Bucket', GREEN)], ['animals', 'beach']
+
+
+def lobster(w, h, r):
+    cv, s, cx, big = start(w, h, 'w')
+    gtop = h - ground_rows(h, 0.1)
+    for x in r.sample((1.5, 3.5, 18.5, 20.5), 2):
+        path(cv, [(x, gtop), (x + 0.8, gtop - 3), (x - 0.4, gtop - 6), (x + 0.5, gtop - 9)], 'g', 0.55)
+    hills(cv, 'd', gtop, 0.5, 22 * 0.8, r.uniform(0, 6))
+    for x in r.sample((2.0, 6.0, 16.0, 20.0), 2):
+        oval(cv, x, gtop + 0.4, 2.0, 1.4, 'r')
+    for k in range(r.randint(4, 6)):
+        disc(cv, r.uniform(1, 21), r.uniform(1, 12), r.uniform(0.5, 0.9), 'o')
+    lx, ly = cx + r.uniform(-1.0, 1.0), r.uniform(-0.5, 0.8)
+    wave = r.uniform(-0.8, 0.8)
+    for sd in (-1, 1):
+        path(cv, [(lx + sd * 0.8, 8.4 + ly), (lx + sd * 3.6, 4.6 + ly), (lx + sd * (7.0 + wave), 1.6 + ly), (lx + sd * 10.0, 2.0 + ly)], 'q', 0.35)
+        for k in range(3):
+            y0 = 13.0 + k * 1.6 + ly
+            path(cv, [(lx + sd * 2.2, y0), (lx + sd * 4.2, y0 + 0.6), (lx + sd * 5.0, y0 + 2.2)], 'q', 0.4)
+        path(cv, [(lx + sd * 1.8, 10.6 + ly), (lx + sd * 4.6, 10.4 + ly), (lx + sd * 6.0, 8.0 + ly)], 'l', 0.95)
+        cx_, cy_ = lx + sd * 6.6, 5.4 + ly
+        oval(cv, cx_, cy_, 2.4, 3.2, 'l')
+        seg(cv, cx_ + sd * 0.4, cy_ - 3.2, cx_ + sd * 0.1, cy_ - 0.4, 'w', 0.45)
+        seg(cv, lx + sd * 0.8, 8.8 + ly, lx + sd * 1.2, 7.4 + ly, 'q', 0.35)
+    oval(cv, lx, 11.6 + ly, 2.6, 3.6, 'l')
+    for k, (y, rx) in enumerate(((15.8, 2.4), (17.6, 2.2), (19.4, 2.0), (21.0, 1.8))):
+        oval(cv, lx, y + ly, rx, 1.0, 'l')
+        box(cv, lx - rx, y + ly - 1.0, lx + rx, y + ly - 0.5, 'q', only='l')
+    for a in (-60, -75, -90, -105, -120):
+        t = math.radians(a)
+        lens(cv, lx, 21.8 + ly, lx - math.cos(t) * 2.6, 21.8 + ly - math.sin(t) * 2.6, 1.4, 'l')
+    eyes(cv, lx, 9.6 + ly, 1.3, big, 'e', 'k')
+    path(cv, [(lx - 0.8, 12.4 + ly), (lx, 12.8 + ly), (lx + 0.8, 12.4 + ly)], 'k', 0.35)
+    return cv, [('w', 'water', 'Water', BLUE, True), role('o', 'bubbles', 'Bubbles', BLUE), role('e', 'eye_white', 'Eye whites', BLUE),
+                role('l', 'lobster', 'Lobster', PINK), role('q', 'legs', 'Legs, feelers and shell lines', PINK), role('d', 'sand', 'Sand', BROWN),
+                role('k', 'eye', 'Eyes and smile', BROWN), role('r', 'rocks', 'Rocks', GREEN), role('g', 'weed', 'Seaweed', GREEN)], ['animals', 'sea']
+
+
+DAILY_ANIMALS = [dragon, unicorn, dinosaur, kangaroo, koala, zebra, monkey, tiger, deer, squirrel, raccoon, flamingo, peacock, swan, seal, dolphin, jellyfish, seahorse, starfish, lobster, beetle, dragonfly, caterpillar, camel, hippo, crocodile, toucan, hamster, cow, horse, goat, chameleon]

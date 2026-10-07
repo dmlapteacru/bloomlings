@@ -116,6 +116,19 @@ def _windows(cv, y0, y1, x, wall, c, step=2):
                 cv.g[yy][xx] = c
 
 
+def _outline(cv, inside, c):
+    """Turns every cell of the roles in `inside` that touches another role (or the edge) into c: a frame round them."""
+    marks = []
+    for gy in range(cv.h):
+        for gx in range(cv.w):
+            if cv.g[gy][gx] in inside and any(not (0 <= gx + dx < cv.w and 0 <= gy + dy < cv.h)
+                                               or cv.g[gy + dy][gx + dx] not in inside + c
+                                               for dx, dy in ((1, 0), (-1, 0), (0, 1), (0, -1))):
+                marks.append((gx, gy))
+    for gx, gy in marks:
+        cv.g[gy][gx] = c
+
+
 # ---- Landmarks ----
 
 def pagoda(w, h, r):
@@ -574,4 +587,440 @@ def carousel(w, h, r):
                 role('q', 'flowers', 'Lawn dots', BLUE), role('z', 'stars', 'Stars', BROWN)], ['places', 'fair']
 
 
-DAILY_PLACES = [pagoda, pyramid, volcano, waterfall, stone_bridge, clock_tower, skyscraper, carousel]
+# ---- Garden, fair and countryside ----
+
+def circus_tent(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.11)
+    night = r.choice((False, True, False))
+    peaks = r.choice(([cx], [w * 0.3, w * 0.7]))
+    x0, x1 = w * 0.08, w * 0.92
+    eave = h * r.uniform(0.48, 0.54)
+    apex = h * (0.13 if len(peaks) == 1 else 0.21)
+    W = (x1 - x0) / 2 / len(peaks) + (0.9 if len(peaks) == 2 else 0.6)
+    n = 6 if len(peaks) == 1 else 4
+    box(cv, 0, gtop, w, h, 'g')
+    for gy in range(h):
+        for gx in range(w):
+            px, py = gx + 0.5, gy + 0.5
+            if eave <= py <= gtop + 0.5 and x0 <= px <= x1:
+                cv.g[gy][gx] = 'ab'[int((px - cx) / 2 + 100) % 2]
+            elif apex <= py < eave:
+                for ax in peaks:
+                    hw = W * ((py - apex) / (eave - apex)) ** 1.5
+                    if abs(px - ax) <= hw:
+                        cv.g[gy][gx] = 'ab'[int(((px - ax) / max(hw, 0.01) + 1) / 2 * n) % 2]
+                        break
+    box(cv, x0 - 0.9, eave - 0.6, x1 + 0.9, eave + 0.4, 'e')
+    x = x0 - 0.4
+    while x < x1:
+        disc(cv, x + 1.0, eave + 0.6, 1.0, 'e')
+        x += 2.0
+    dw = w * 0.11
+    rbox(cv, cx - dw, eave + 3.2, cx + dw, gtop + 0.5, dw, 'd')
+    for d in (-1, 1):
+        poly(cv, [(cx + d * (dw + 0.6), eave + 2.4), (cx + d * 0.2, eave + 2.4), (cx + d * (dw + 0.6), gtop - 1.5)], 'e')
+    for ax in peaks:
+        px = int(ax) + 0.5
+        seg(cv, px, apex + 0.5, px, 1.2, 'k', 0.5)
+        poly(cv, [(px + 0.4, 0.8), (px + 4.0, 1.9), (px + 0.4, 3.0)], 'f')
+    sx = w * r.choice((0.12, 0.88)) if len(peaks) == 1 else cx
+    if night:
+        _moon(cv, sx, h * 0.12, s * 0.1, 'u', 's')
+        scatter(cv, 'x', 's', 7, r, sep=3, area=(0, 0, w - 1, eave - 2))
+    else:
+        disc(cv, sx, h * 0.12, s * 0.08, 'u')
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [sky(), role('a', 'stripe', 'Red stripes', PINK), role('b', 'stripe2', 'Yellow stripes', BROWN),
+                role('e', 'trim', 'Valance and drapes', GREEN), role('d', 'door', 'Entrance', BLUE), role('k', 'pole', 'Poles', BROWN),
+                role('f', 'flag', 'Flags', PINK), role('g', 'grass', 'Grass', GREEN), _light(night),
+                role('x', 'stars', 'Stars', BROWN)], ['places', 'fair']
+
+
+def greenhouse(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.12)
+    shape = r.choice(('gable', 'arch', 'wings'))
+    plants = r.choice(('pots', 'vines', 'mixed'))
+    disc(cv, w * r.choice((0.12, 0.88)), h * 0.09, s * 0.08, 'u')
+    for x in (w * 0.04, w * 0.96):
+        if r.random() < 0.7:
+            oval(cv, x, gtop - 0.6, s * 0.1, s * 0.09, 'b')
+    box(cv, 0, gtop, w, h, 'g')
+    x0, x1, wy = w * 0.12, w * 0.88, h * 0.5
+    if shape == 'gable':
+        box(cv, x0, wy, x1, gtop + 0.5, 'q')
+        poly(cv, [(x0, wy + 0.5), (cx, h * 0.24), (x1, wy + 0.5)], 'q')
+    elif shape == 'arch':
+        box(cv, x0, wy, x1, gtop + 0.5, 'q')
+        oval(cv, cx, wy + 0.5, (x1 - x0) / 2, h * 0.24, 'q')
+    else:
+        box(cv, x0, h * 0.62, x1, gtop + 0.5, 'q')
+        poly(cv, [(x0, h * 0.62 + 0.5), (x0 + 2.5, h * 0.54), (x1 - 2.5, h * 0.54), (x1, h * 0.62 + 0.5)], 'q')
+        box(cv, cx - w * 0.2, h * 0.42, cx + w * 0.2, gtop + 0.5, 'q')
+        oval(cv, cx, h * 0.42 + 0.5, w * 0.2, h * 0.17, 'q')
+    for k, x in enumerate((x0 + 2.2, x0 + 5.0, x1 - 5.0, x1 - 2.2)):
+        tall = plants == 'vines' or (plants == 'mixed' and k % 2 == 1)
+        box(cv, x - 1.0, gtop - 1.6, x + 1.0, gtop - 0.2, 'k')
+        if tall:
+            seg(cv, x, gtop - 1.6, x, h * 0.6, 'p', 0.5)
+            for j in range(3):
+                y = gtop - 3.2 - j * 2.2
+                lens(cv, x, y, x + (1 if (j + k) % 2 else -1) * 1.9, y - 0.9, 1.1, 'p')
+        else:
+            disc(cv, x, gtop - 3.0, 1.6, 'p')
+    scatter(cv, 'o', 'p', 5, r, sep=2)
+    _outline(cv, 'qpko', 'f')
+    for x in (cx - 4.5, cx + 4.5):
+        box(cv, x - 0.5, 0, x + 0.5, gtop + 0.5, 'f', only='q')
+    box(cv, 0, wy - 0.4, w, wy + 0.5, 'f', only='q')
+    rbox(cv, cx - 1.6, gtop - 5.4, cx + 1.6, gtop + 0.5, 0.5, 'd')
+    box(cv, cx - 0.6, gtop - 4.4, cx + 0.6, gtop - 2.6, 'q')
+    scatter(cv, 'o', 'g', 4, r, sep=2, area=(0, gtop + 1, w - 1, h - 1))
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [sky(), role('q', 'glass', 'Glass', BLUE), role('f', 'frame', 'Frame', BROWN), role('k', 'pot', 'Pots', BROWN),
+                role('u', 'sun', 'Sun', BROWN), role('p', 'plants', 'Plants', GREEN), role('g', 'grass', 'Grass', GREEN),
+                role('b', 'bush', 'Bushes', GREEN), role('d', 'door', 'Door', PINK), role('o', 'flowers', 'Flowers', PINK)],\
+        ['places', 'garden']
+
+
+def wishing_well(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.16)
+    night = r.random() < 0.5
+    roof = r.choice(('gable', 'hood', 'arch'))
+    wx = cx + r.choice((-1.5, 0, 1.5))
+    rx, ty, by = w * 0.27, h * 0.62, gtop + 0.3
+    for d in (-1, 1):
+        if r.random() < 0.75:
+            oval(cv, wx + d * (rx + 2.8), gtop - 0.5, 2.3, 1.8, 'v')
+    hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
+    scatter(cv, 'f', 'v', 4, r, sep=2)
+    pt = ty - h * 0.3
+    for d in (-1, 1):
+        x = int(wx + d * (rx - 0.9)) + 0.5
+        box(cv, x - 0.5, pt, x + 0.5, ty - 0.5, 'p')
+    ay = ty - h * 0.19
+    box(cv, wx - rx + 0.9, ay - 0.45, wx + rx - 0.9, ay + 0.45, 'p')
+    seg(cv, wx + rx - 0.4, ay, wx + rx + 1.3, ay + 1.4, 'p', 0.5)
+    rope = int(wx) + 0.5
+    if r.random() < 0.5:
+        seg(cv, rope, ay + 0.5, rope, ay + 2.6, 'o', 0.5)
+        poly(cv, [(rope - 1.5, ay + 2.6), (rope + 1.5, ay + 2.6), (rope + 1.0, ay + 4.6), (rope - 1.0, ay + 4.6)], 'b')
+    else:
+        seg(cv, rope, ay + 0.5, rope, ty - 1.2, 'o', 0.5)
+        bx = wx + r.choice((-1, 1)) * (rx - 2.2)
+        poly(cv, [(bx - 1.5, ty - 2.8), (bx + 1.5, ty - 2.8), (bx + 1.0, ty - 0.9), (bx - 1.0, ty - 0.9)], 'b')
+    if roof == 'gable':
+        poly(cv, [(wx - rx - 1.8, pt + 0.8), (wx, pt - h * 0.13), (wx + rx + 1.8, pt + 0.8)], 'r')
+    elif roof == 'hood':
+        for gy in range(h):
+            for gx in range(w):
+                px, py = gx + 0.5, gy + 0.5
+                if py <= pt + 0.8 and ((px - wx) / (rx + 1.8)) ** 2 + ((py - pt - 0.8) / (h * 0.14)) ** 2 <= 1.0:
+                    cv.g[gy][gx] = 'r'
+    else:
+        for gy in range(h):
+            for gx in range(w):
+                d = math.hypot(gx + 0.5 - wx, (gy + 0.5 - pt) * 1.2)
+                if gy + 0.5 <= pt and rx - 1.6 < d <= rx - 0.4:
+                    cv.g[gy][gx] = 'r'
+    box(cv, wx - rx, ty, wx + rx, by, 'k')
+    oval(cv, wx, by, rx, 1.0, 'k')
+    oval(cv, wx, ty, rx, 1.6, 'k')
+    for k, y in enumerate((ty + 1.8, ty + 3.8, ty + 5.8)):
+        box(cv, wx - rx, y - 0.3, wx + rx, y + 0.3, 'm', only='k')
+        x = wx - rx + 1.2 + (k % 2) * 1.5
+        while x < wx + rx - 0.6:
+            box(cv, x - 0.3, y - 2.0, x + 0.3, y - 0.3, 'm', only='k')
+            x += 3.0
+    oval(cv, wx, ty - 0.1, rx - 1.3, 0.85, 'w')
+    sx = w * (0.14 if wx >= cx else 0.86)
+    if night:
+        _moon(cv, sx, h * 0.1, s * 0.1, 'u', 's')
+        scatter(cv, 'x', 's', 8, r, sep=3, area=(0, 0, w - 1, h * 0.5))
+    else:
+        disc(cv, sx, h * 0.09, s * 0.08, 'u')
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [sky(), role('p', 'post', 'Posts and crank', BROWN), role('o', 'rope', 'Rope', BROWN), _light(night),
+                role('k', 'stones', 'Stones', BROWN), role('r', 'roof', 'Roof', PINK), role('b', 'bucket', 'Bucket', PINK),
+                role('m', 'mortar', 'Mortar', PINK), role('f', 'flowers', 'Flowers', PINK), role('w', 'water', 'Water', BLUE),
+                role('g', 'grass', 'Grass', GREEN), role('v', 'bush', 'Bushes', GREEN), role('x', 'stars', 'Stars', BROWN)],\
+        ['places', 'garden']
+
+
+def fountain(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.16)
+    tiers = r.choice((2, 3))
+    night = r.random() < 0.3
+    back = r.choice(('hedge', 'trees', 'trees'))
+    if back == 'hedge':
+        rbox(cv, -1, gtop - h * 0.2, w + 1, gtop + 0.5, 1.5, 't')
+    else:
+        for x in (w * 0.1, w * 0.9):
+            _tree(cv, x, gtop, s * r.uniform(0.12, 0.15), 't', 'd')
+    box(cv, 0, gtop, w, h, 'g')
+    dots(cv, 'q', 'g', 3, 2, area=(0, gtop + 1, w - 1, h - 1))
+    by0 = gtop - h * 0.12
+    bx0, bx1 = w * 0.08, w * 0.92
+    levels = [(h * 0.5, w * 0.27)] if tiers == 2 else [(h * 0.55, w * 0.27), (h * 0.37, w * 0.15)]
+    box(cv, cx - 1.0, levels[-1][0], cx + 1.0, by0, 'd')
+    oval(cv, cx, by0 - 0.7, (bx1 - bx0) / 2 - 1.2, 0.8, 'w')
+    for k, (y, half) in enumerate(levels):
+        below = by0 - 0.6 if k == 0 else levels[k - 1][0]
+        for d in (-1, 1):
+            path(cv, [(cx + d * half, y + 0.3), (cx + d * (half + 1.0), y + 1.3), (cx + d * (half + 1.4), below)], 'w', 0.5)
+        poly(cv, [(cx - half, y), (cx + half, y), (cx + half * 0.45, y + 1.9), (cx - half * 0.45, y + 1.9)], 'k')
+    top = levels[-1][0]
+    jet = h * (0.16 if tiers == 2 else 0.11)
+    seg(cv, cx, top, cx, top - jet, 'w', 0.6)
+    for d in (-1, 1):
+        path(cv, [(cx, top - jet), (cx + d * 1.6, top - jet - 0.6), (cx + d * 2.8, top - jet + 1.2)], 'w', 0.5)
+    box(cv, bx0 + 0.6, by0, bx1 - 0.6, gtop + 0.5, 'k')
+    rbox(cv, bx0, by0 - 0.6, bx1, by0 + 0.6, 0.6, 'd')
+    scatter(cv, 'p', 's', 6, r, sep=2, area=(cx - 6, top - jet - 3, cx + 6, top - 1))
+    if r.random() < 0.6:
+        for x in r.sample((bx0 + 1.5, bx0 + 4.0, bx1 - 4.0, bx1 - 1.5), 2):
+            box(cv, x - 1.0, by0 - 1.6, x + 0.4, by0 - 0.7, 'v')
+            cv.put(int(x + 1.0), int(by0 - 1.6), 'v')
+    sx = w * r.choice((0.14, 0.86))
+    if night:
+        _moon(cv, sx, h * 0.09, s * 0.1, 'u', 's')
+        scatter(cv, 'x', 's', 7, r, sep=3, area=(0, 0, w - 1, h * 0.45))
+    else:
+        disc(cv, sx, h * 0.09, s * 0.08, 'u')
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [sky('s', 'Evening sky', PINK), role('k', 'stone', 'Bowls and basin', BROWN), role('d', 'rim', 'Rim and pedestal', BROWN),
+                _light(night), role('w', 'water', 'Water', BLUE), role('p', 'spray', 'Spray', BLUE), role('v', 'doves', 'Doves', BLUE),
+                role('g', 'plaza', 'Lawn', GREEN), role('t', 'hedge', 'Hedge and trees', GREEN), role('q', 'tiles', 'Lawn dots', BROWN),
+                role('x', 'stars', 'Stars', BROWN)], ['places', 'park']
+
+
+def gazebo(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.12)
+    roof = r.choice(('cone', 'dome', 'tiers'))
+    night = r.random() < 0.3
+    x0, x1 = w * 0.16, w * 0.84
+    eave, deck = h * r.uniform(0.41, 0.45), gtop - 1.6
+    E = (x1 - x0) / 2 + 2.2
+    for x in (w * 0.03, w * 0.97):
+        if r.random() < 0.7:
+            oval(cv, x, gtop - 1.0, s * 0.12, s * 0.13, 't')
+    box(cv, 0, gtop, w, h, 'g')
+    box(cv, x0 - 1.2, deck, x1 + 1.2, gtop + 0.4, 'b')
+    box(cv, cx - 2.5, gtop, cx + 2.5, gtop + 1.4, 'b')
+    xs = [int(x) + 0.5 for x in (x0, x0 + (x1 - x0) / 3, x1 - (x1 - x0) / 3, x1)]
+    for x in xs:
+        box(cv, x - 0.5, eave, x + 0.5, deck, 'p')
+    ry = deck - 3.0
+    for a, b in ((xs[0], xs[1]), (xs[2], xs[3])):
+        box(cv, a, ry - 0.45, b, ry + 0.45, 'l')
+        for xx in range(int(a) + 2, int(b), 2):
+            box(cv, xx, ry, xx + 0.9, deck, 'l')
+    box(cv, x0, eave, x1, eave + 0.9, 'l')
+    if roof == 'cone':
+        apex = h * 0.1
+        for gy in range(h):
+            for gx in range(w):
+                px, py = gx + 0.5, gy + 0.5
+                if apex <= py <= eave + 0.5 and abs(px - cx) <= E * ((py - apex) / (eave - apex)) ** 1.3:
+                    cv.g[gy][gx] = 'r'
+    elif roof == 'dome':
+        apex = eave - h * 0.3
+        for gy in range(h):
+            for gx in range(w):
+                px, py = gx + 0.5, gy + 0.5
+                if py <= eave + 0.5 and ((px - cx) / (E * 0.9)) ** 2 + ((py - eave - 0.5) / (h * 0.24)) ** 2 <= 1.0:
+                    cv.g[gy][gx] = 'r'
+        poly(cv, [(cx - 2.0, eave - h * 0.22), (cx, apex), (cx + 2.0, eave - h * 0.22)], 'r')
+    else:
+        apex = h * 0.12
+        poly(cv, [(cx - E * 0.55, eave - h * 0.12), (cx + E * 0.55, eave - h * 0.12), (cx + E, eave + 0.5), (cx - E, eave + 0.5)], 'r')
+        box(cv, cx - 1.6, eave - h * 0.17, cx + 1.6, eave - h * 0.12, 'p')
+        poly(cv, [(cx - E * 0.5, eave - h * 0.17 + 0.5), (cx, apex), (cx + E * 0.5, eave - h * 0.17 + 0.5)], 'r')
+    for x in range(int(cx - E) + 1, int(cx + E), 2):
+        cv.put(x, int(eave + 0.5), 'e')
+    seg(cv, cx, apex + 0.5, cx, max(1.0, apex - 1.8), 'k', 0.6)
+    if r.random() < 0.6:
+        for x in (xs[1], xs[2]):
+            disc(cv, x, eave + 2.6, 1.0, 'f')
+    if r.random() < 0.6:
+        for x in (xs[0], xs[3]):
+            path(cv, [(x - 0.6, deck), (x + 0.6, deck - 2.5), (x - 0.6, deck - 5.0), (x + 0.6, deck - 7.5)], 'v', 0.5)
+    scatter(cv, 'f', 't', 4, r, sep=2)
+    sx = w * r.choice((0.12, 0.88))
+    if night:
+        _moon(cv, sx, h * 0.08, s * 0.09, 'u', 's')
+        scatter(cv, 'x', 's', 6, r, sep=3, area=(0, 0, w - 1, h * 0.4))
+    else:
+        disc(cv, sx, h * 0.08, s * 0.075, 'u')
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [sky(), role('r', 'roof', 'Roof', PINK), role('e', 'trim', 'Eave trim', PINK), role('f', 'flowers', 'Flowers', PINK),
+                role('p', 'post', 'Posts', BROWN), role('l', 'rail', 'Railings and frieze', BROWN), _light(night),
+                role('k', 'finial', 'Finial', BROWN), role('b', 'deck', 'Deck and steps', BLUE), role('g', 'lawn', 'Lawn', GREEN),
+                role('t', 'bush', 'Bushes', GREEN), role('v', 'vine', 'Vines', GREEN), role('x', 'stars', 'Stars', BROWN)],\
+        ['places', 'garden']
+
+
+def log_cabin(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.13)
+    season = r.choice(('summer', 'autumn', 'winter'))
+    night = r.random() < 0.35
+    hx = cx + r.choice((-2, 0, 2))
+    hw, wy, apex = w * 0.29, h * 0.54, h * 0.25
+    for x in (w * 0.07, w * 0.93):
+        if abs(x - hx) > hw + 2.5:
+            if season == 'autumn':
+                _tree(cv, x, gtop, s * 0.13, 'a', 't')
+            else:
+                _pine(cv, x, gtop + 0.5, h * 0.42, w * 0.11, 'p')
+    box(cv, 0, gtop, w, h, 'g')
+    chx = hx + hw * 0.45
+    box(cv, chx - 1.0, h * 0.2, chx + 1.0, wy, 'c')
+    poly(cv, [(hx - hw, wy + 0.5), (hx, apex + 1.0), (hx + hw, wy + 0.5)], 'h')
+    y = wy
+    while y < gtop - 0.5:
+        rbox(cv, hx - hw - 1.0, y, hx + hw + 1.0, y + 2.9, 1.2, 'h')
+        box(cv, hx - hw, y + 2.0, hx + hw, y + 2.9, 'l')
+        y += 3.0
+    y = wy - 1.0
+    while y > apex + 2.5:
+        box(cv, 0, y, w, y + 0.9, 'l', only='h')
+        y -= 3.0
+    disc(cv, hx, wy - 2.6, 0.9, 'i')
+    for d in (-1, 1):
+        seg(cv, hx, apex, hx + d * (hw + 2.4), wy + 1.0, 'r', 0.9)
+    if season == 'winter':
+        for d in (-1, 1):
+            seg(cv, hx, apex - 0.9, hx + d * (hw + 2.6), wy - 0.1, 'x', 0.55)
+    rbox(cv, hx - 1.4, gtop - 5.2, hx + 1.4, gtop + 0.5, 0.6, 'd')
+    for d in (-1, 1):
+        box(cv, hx + d * 4.2 - 1.2, wy + 2.3, hx + d * 4.2 + 1.2, wy + 4.6, 'i')
+    for k in range(3):
+        disc(cv, chx + k * 0.9 * (1 if hx <= cx else -1), h * 0.17 - k * 2.0, 0.9 + k * 0.35, 'k')
+    if season == 'summer':
+        scatter(cv, 'f', 'g', 5, r, sep=2, area=(0, gtop + 1, w - 1, h - 1))
+    elif season == 'winter':
+        scatter(cv, 'z', 's', 8, r, sep=3, area=(0, 0, w - 1, h * 0.5))
+    sx = w * (0.12 if hx > cx else 0.88 if hx < cx else r.choice((0.12, 0.88)))
+    if night:
+        _moon(cv, sx, h * 0.08, s * 0.09, 'u', 's')
+        if season != 'winter':
+            scatter(cv, 'z', 's', 7, r, sep=3, area=(0, 0, w - 1, h * 0.45))
+    else:
+        disc(cv, sx, h * 0.08, s * 0.075, 'u')
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [sky(), role('h', 'logs', 'Logs', BROWN), role('l', 'lines', 'Log lines', BROWN), _light(night),
+                role('c', 'chimney', 'Chimney', BROWN), role('t', 'trunk', 'Trunks', BROWN), role('r', 'roof', 'Roof', PINK),
+                role('d', 'door', 'Door', PINK), role('a', 'autumn', 'Autumn leaves', PINK), role('f', 'flowers', 'Flowers', PINK),
+                role('z', 'specks', 'Stars and snowflakes', PINK), role('i', 'window', 'Windows', BLUE),
+                role('g', 'ground', 'Meadow' if season != 'winter' else 'Snow', GREEN), role('p', 'pine', 'Pines', GREEN),
+                role('k', 'smoke', 'Smoke', GREEN), role('x', 'snow', 'Snow on the roof', GREEN)], ['places', 'forest']
+
+
+def campfire(w, h, r):
+    cv, s, cx, big = start(w, h, 'n')
+    logs = r.choice(('teepee', 'cross'))
+    prop = r.choice(('tent', 'log', 'none'))
+    gtop = h * r.uniform(0.56, 0.62)
+    mx = w * r.choice((0.16, 0.84))
+    _moon(cv, mx, h * 0.1, s * 0.11, 'm', 'n')
+    x = -1.0
+    while x < w + 2:
+        _pine(cv, x, gtop + 1, h * r.uniform(0.22, 0.34), 1.9, 'p')
+        x += r.uniform(2.4, 3.4)
+    box(cv, 0, gtop, w, h, 'g')
+    fx, fy = cx, h * 0.84
+    tx = w * 0.17 if mx > cx else w * 0.83
+    if prop == 'tent':
+        poly(cv, [(tx - w * 0.17, fy - 0.5), (tx, fy - h * 0.3), (tx + w * 0.17, fy - 0.5)], 'e')
+        poly(cv, [(tx - w * 0.05, fy - 0.5), (tx, fy - h * 0.16), (tx + w * 0.05, fy - 0.5)], 'o')
+    elif prop == 'log':
+        rbox(cv, tx - 3.2, fy - 1.6, tx + 3.2, fy + 0.2, 0.8, 'l')
+        disc(cv, tx + (3.0 if tx > cx else -3.0), fy - 0.7, 0.9, 'y')
+    ring_pts = [(fx + math.cos(math.radians(a)) * 5.4, fy + math.sin(math.radians(a)) * 1.5) for a in range(0, 360, 30)]
+    for x, y in ring_pts:
+        if y < fy:
+            disc(cv, x, y, 0.95, 'k')
+    lens(cv, fx, fy, fx, fy - h * 0.42, 7.0, 'f')
+    lens(cv, fx - 1.0, fy, fx - 4.0, fy - h * 0.27, 3.6, 'f')
+    lens(cv, fx + 1.0, fy, fx + 4.0, fy - h * 0.25, 3.6, 'f')
+    lens(cv, fx, fy, fx, fy - h * 0.25, 3.8, 'y')
+    if logs == 'teepee':
+        for d in (-1.0, -0.4, 0.4, 1.0):
+            seg(cv, fx + d * 4.2, fy + 1.0, fx + d * 0.6, fy - 4.4, 'l', 0.6)
+    else:
+        seg(cv, fx - 4.6, fy + 1.2, fx + 4.6, fy - 1.0, 'l', 0.75)
+        seg(cv, fx - 4.6, fy - 1.0, fx + 4.6, fy + 1.2, 'l', 0.75)
+    for x, y in ring_pts:
+        if y >= fy:
+            disc(cv, x, y, 0.95, 'k')
+    scatter(cv, 'z', 'n', 6, r, sep=2, area=(fx - 5, 1, fx + 5, fy - h * 0.42))
+    scatter(cv, 'x', 'n', 7, r, sep=3, area=(0, 0, w - 1, gtop - 6))
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [('n', 'night', 'Night sky', BLUE, True), role('k', 'stones', 'Stones', BLUE), role('o', 'tent_door', 'Tent door', BLUE),
+                role('f', 'flame', 'Flames', PINK), role('z', 'sparks', 'Sparks', PINK), role('e', 'tent', 'Tent', PINK),
+                role('y', 'core', 'Flame core', BROWN), role('l', 'logs', 'Logs', BROWN), role('m', 'moon', 'Moon', BROWN),
+                role('x', 'stars', 'Stars', BROWN), role('p', 'pines', 'Pines', GREEN), role('g', 'clearing', 'Clearing', GREEN)],\
+        ['places', 'camping']
+
+
+def observatory(w, h, r):
+    cv, s, cx, big = start(w, h, 'n')
+    site = r.choice(('hill', 'peak', 'plain'))
+    tilt = r.choice((-1, 1))
+    ox = cx + r.uniform(-1.5, 1.5)
+    mx = w * (0.16 if tilt > 0 else 0.84)
+    disc(cv, mx, h * 0.12, s * 0.12, 'm')
+    if r.random() < 0.5:
+        disc(cv, mx + s * 0.07, h * 0.12 - s * 0.03, s * 0.09, 'n')
+    if site == 'hill':
+        oval(cv, ox, h * 1.02, w * 0.8, h * 0.3, 'g')
+        gl = h * 0.72
+    elif site == 'peak':
+        poly(cv, [(-1, h), (-1, h * 0.86), (ox - 6.5, h * 0.66), (ox + 6.5, h * 0.66), (w + 1, h * 0.84), (w + 1, h)], 'g')
+        gl = h * 0.66
+    else:
+        hills(cv, 'g', h * 0.8, 0.5, w * 1.2, r.uniform(0, 6))
+        gl = h * 0.8
+    for x in (w * 0.08, w * 0.92):
+        if r.random() < 0.7:
+            _pine(cv, x, h * 0.9 if site != 'peak' else h * 0.95, h * 0.26, w * 0.09, 'p')
+    dy = gl - h * 0.18
+    box(cv, ox - 5.0, dy, ox + 5.0, gl + 0.5, 'w')
+    for gy in range(h):
+        for gx in range(w):
+            px, py = gx + 0.5, gy + 0.5
+            if py <= dy + 0.5 and math.hypot(px - ox, py - dy - 0.5) <= 5.6:
+                cv.g[gy][gx] = 'd'
+                if abs(px - ox - tilt * 0.35 * (dy - py)) <= 0.8 and py > dy - 5.0:
+                    cv.g[gy][gx] = 'k'
+    box(cv, ox - 5.6, dy, ox + 5.6, dy + 0.9, 'k')
+    seg(cv, ox, dy - 2.0, ox + tilt * 6.0, dy - 8.2, 't', 0.85)
+    rbox(cv, ox - 1.2, gl - 3.2, ox + 1.2, gl + 0.5, 0.8, 'o')
+    for d in (-1, 1):
+        box(cv, ox + d * 3.2 - 0.5, dy + 1.8, ox + d * 3.2 + 0.5, dy + 2.8, 'o')
+    if r.random() < 0.6:
+        path(cv, [(w * (0.55 if tilt < 0 else 0.45) - tilt * 4, h * 0.06), (w * 0.5 + tilt * 1, h * 0.12)], 'z', 0.45)
+        disc(cv, w * 0.5 + tilt * 1.2, h * 0.125, 0.9, 'z')
+    scatter(cv, 'x', 'n', 9, r, sep=3, area=(0, 0, w - 1, dy - 2))
+    if r.random() < 0.5:
+        _mirror(cv)
+    return cv, [('n', 'night', 'Night sky', PINK, True), role('k', 'slit', 'Slit and rim', PINK), role('d', 'dome', 'Dome', BLUE),
+                role('m', 'moon', 'Moon', BLUE), role('o', 'door', 'Door and windows', BLUE), role('w', 'base', 'Base', BROWN),
+                role('t', 'telescope', 'Telescope', BROWN), role('x', 'stars', 'Stars', BROWN), role('z', 'comet', 'Shooting star', BROWN),
+                role('g', 'hill', 'Hill', GREEN), role('p', 'pines', 'Pines', GREEN)], ['places', 'night']
+
+
+DAILY_PLACES = [pagoda, pyramid, volcano, waterfall, stone_bridge, clock_tower, skyscraper, carousel, circus_tent,
+                greenhouse, wishing_well, fountain, gazebo, log_cabin, campfire, observatory]
