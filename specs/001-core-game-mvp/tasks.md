@@ -1703,6 +1703,17 @@ final validation.
     for the generator (`LevelGenerator.BigBoardThresholds`) and `score`.
   - Tests: `BigLevelTests` (any class on any board, all 17 sizes, even size draws, thresholds by size, every band's big
     thresholds) and `BandGuidelinesTests` (scaled rows and profiles at 224–616 cells).
+- [X] T189 The mechanics rule as the validator judges it (the owner's catalog run of 2026-10-07: band 2001-5000 stopped
+  on L4987, "the same mechanics (mechanic.chest,mechanic.stone) 3 levels in a row (FR-083)").
+  - The generator compared the planned mechanics lists, and checked them before a connected pair or triple, or a
+    mystery pod, could be dropped for want of a place. The validator compares what each level's content uses
+    (`LevelMechanics.UnlocksUsed`).
+  - The generator now also judges the finished candidate on what it uses, against its neighbours on both sides
+    (`LevelGenerator.MechanicsUsed`, which finds a level's picture with `PicturePicker.Find`; the rejection
+    `similarity:mechanics-used-3-in-a-row`).
+  - The seam repair judges it the same way (`Conflicts(..., mechanicsOf)`).
+  - Bands that passed `validate` come out the same.
+  - Test: `CatalogRulesTests.TheMechanicsRule_IsJudgedOnWhatTheLevelsUse_AsTheValidatorDoes`.
 - [ ] T188 The owner regenerates the catalog L11–5000 with `tools/catalog` (T186, T187). Then validate it, copy all 5000
   levels into the playtest's levels (the owner's choice) and check that the playtest loads them. Build the APK only
   with the owner's OK.

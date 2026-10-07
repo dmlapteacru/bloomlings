@@ -25,6 +25,7 @@ namespace Bloomlings.Generator
         public const string DailyTheme = "daily";
 
         private readonly List<BasePicture> _library;
+        private readonly Dictionary<string, BasePicture> _byId = new Dictionary<string, BasePicture>(StringComparer.Ordinal);
         private readonly bool _allowDraft;
         private readonly Func<int, string?>? _plan;
 
@@ -37,9 +38,21 @@ namespace Bloomlings.Generator
         {
             _library = new List<BasePicture>(library);
             _library.Sort((a, b) => string.CompareOrdinal(a.Id, b.Id));
+            foreach (BasePicture picture in _library)
+            {
+                _byId[picture.Id] = picture;
+            }
+
             _allowDraft = allowDraft;
             _plan = plan;
         }
+
+        /// <summary>
+        /// The library's picture with this id and version, whatever its review status, or null: the picture a level in the
+        /// history shows, for the rules that look at what a level uses (the stones a picture brings).
+        /// </summary>
+        public BasePicture? Find(string id, int version) =>
+            _byId.TryGetValue(id, out BasePicture? picture) && picture.Version == version ? picture : null;
 
         /// <summary>Whether any usable picture has a role of this color group (a variant can only map onto its own group).</summary>
         public bool HasColorGroup(ColorGroup group)

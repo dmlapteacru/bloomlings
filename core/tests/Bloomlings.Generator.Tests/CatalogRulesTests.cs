@@ -5,6 +5,7 @@ using System.Linq;
 using Bloomlings.Content.Packs;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
+using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Catalog;
 using Bloomlings.Pipeline.Readability;
 using Bloomlings.Pipeline.Validation;
@@ -134,6 +135,33 @@ namespace Bloomlings.Generator.Tests
             Assert.That(LevelGenerator.ReusesLook(2741, a.Picture.Id, flipped, a.Mapping, history), Is.False, "mirrored");
             Assert.That(LevelGenerator.ReusesSource(2741, a.Picture.Id, a with { Pods = b.Pods, Tray = b.Tray }, history), Is.False, "another Source");
             Assert.That(LevelGenerator.ReusesLook(3040, a.Picture.Id, a.Picture.Mirror, a.Mapping, history), Is.False, "within the window the picture rule applies instead");
+        }
+
+        [Test]
+        public void TheMechanicsRule_IsJudgedOnWhatTheLevelsUse_AsTheValidatorDoes()
+        {
+            // The owner's catalog run of 2026-10-07: L4987 used chest and stone like L4985 and L4986 after its connected pair
+            // found no place. Its planned list still named the pair, so a comparison of the lists missed what the validator saw.
+            List<LevelDefinition> curated = Curated;
+            LevelDefinition b = curated.Single(l => l.LevelNumber == 5);
+            var row = new SortedDictionary<int, LevelDefinition>
+            {
+                [4985] = b with { LevelNumber = 4985 },
+                [4986] = b with { LevelNumber = 4986 },
+                [4987] = b with { LevelNumber = 4987, Mechanics = b.Mechanics.Append("connected_pair").ToList() },
+            };
+
+            Assert.That(LevelGenerator.Conflicts(4987, row), Has.No.Member("similarity:mechanics-3-in-a-row"), "the planned lists differ");
+            var generator = new LevelGenerator(
+                ProfileLoader.ReadFile(Path.Combine(RepoRoot, "content", "profiles", "band-2001-5000.json")),
+                new PicturePicker(Library),
+                DifficultyThresholds.Default,
+                (_, _) => true,
+                new DifficultySchedule(1));
+            Assert.That(generator.MechanicsUsed(row[4987]), Is.EqualTo(LevelMechanics.UnlocksUsed(b, Library.Single(p => p.Id == b.Picture.Id))));
+            Assert.That(LevelGenerator.Conflicts(4987, row, generator.MechanicsUsed), Has.Member("similarity:mechanics-3-in-a-row"), "what they use is the same");
+            Assert.That(Validator().Validate(row.Values.ToList()).Issues.Any(i => i.Level == 4987 && i.Message.Contains("same mechanics")), Is.True);
+            Assert.That(generator.MechanicsUsed(b with { Picture = b.Picture with { Id = "no_such_picture" } }), Is.Null);
         }
 
         [Test]

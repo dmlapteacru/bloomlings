@@ -188,7 +188,11 @@ namespace Bloomlings.Generator
         /// <see cref="BandGuidelines.FamilyWindow"/> levels from L<see cref="BandGuidelines.AllFamiliesFrom"/> without all
         /// four families. Empty when the level fits (the seam check of a parallel build).
         /// </summary>
-        public static IReadOnlyList<string> Conflicts(int level, IReadOnlyDictionary<int, LevelDefinition> history)
+        /// <param name="mechanicsOf">
+        /// The mechanics a level uses as the validator judges them (<see cref="MechanicsUsed"/>); null compares the levels'
+        /// own <c>mechanics</c> lists.
+        /// </param>
+        public static IReadOnlyList<string> Conflicts(int level, IReadOnlyDictionary<int, LevelDefinition> history, Func<LevelDefinition, IReadOnlyList<string>?>? mechanicsOf = null)
         {
             var conflicts = new List<string>();
             if (!history.TryGetValue(level, out LevelDefinition? definition))
@@ -228,8 +232,11 @@ namespace Bloomlings.Generator
                 conflicts.Add("similarity:variant-set-3-in-a-row");
             }
 
-            if (!(definition!.Mechanics.Count == 0 && level <= 10)
-                && ThreeInARow(level, history, other => new SortedSet<string>(other.Mechanics, StringComparer.Ordinal).SetEquals(definition.Mechanics)))
+            bool sameMechanics = mechanicsOf == null
+                ? !(definition!.Mechanics.Count == 0 && level <= 10)
+                    && ThreeInARow(level, history, other => new SortedSet<string>(other.Mechanics, StringComparer.Ordinal).SetEquals(definition.Mechanics))
+                : mechanicsOf(definition!) is IReadOnlyList<string> used && RepeatsMechanicsUsed(level, used, history, mechanicsOf);
+            if (sameMechanics)
             {
                 conflicts.Add("similarity:mechanics-3-in-a-row");
             }
@@ -559,6 +566,15 @@ namespace Bloomlings.Generator
                 }
             }
 
+            // FR-083 again, as the validator judges it: the mechanics the level's content now uses, which differ from the
+            // planned ones when a connected group or a mystery pod found no place, or a gate became a key door (the owner's
+            // catalog run of 2026-10-07: L4987 repeated chest and stone after its pair was dropped).
+            if (RepeatsMechanicsUsed(level, LevelMechanics.UnlocksUsed(tray.Definition, picture), history, MechanicsUsed))
+            {
+                reason = "similarity:mechanics-used-3-in-a-row";
+                return null;
+            }
+
             // Buffer pressure (the band's target, as peak occupied slots on the winning line; an icons board's, of a big
             // board or a Daily Challenge entry, is lower and capped for every class, slack for its hidden layers).
             bool icons = look == BoardLook.Icons;
@@ -794,6 +810,31 @@ namespace Bloomlings.Generator
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// The roadmap unlocks a level uses (<see cref="LevelMechanics.UnlocksUsed"/>), which is how the validator judges
+        /// FR-083's mechanics rule, or null when the library has no such picture.
+        /// </summary>
+        public IReadOnlyList<string>? MechanicsUsed(LevelDefinition level)
+        {
+            BasePicture? picture = _pictures.Find(level.Picture.Id, level.Picture.Version);
+            return picture == null ? null : LevelMechanics.UnlocksUsed(level, picture);
+        }
+
+        /// <summary>
+        /// FR-083 as <c>CatalogValidator</c> judges it: no 3 consecutive levels use the same mechanics (sorted unlock ids,
+        /// <see cref="MechanicsUsed"/>); from L11 none at all counts too. A neighbour whose picture is unknown matches
+        /// nothing, as in the validator.
+        /// </summary>
+        private static bool RepeatsMechanicsUsed(int level, IReadOnlyList<string> used, IReadOnlyDictionary<int, LevelDefinition> history, Func<LevelDefinition, IReadOnlyList<string>?> mechanicsOf)
+        {
+            if (used.Count == 0 && level <= 10)
+            {
+                return false;
+            }
+
+            return ThreeInARow(level, history, other => mechanicsOf(other) is IReadOnlyList<string> theirs && theirs.SequenceEqual(used, StringComparer.Ordinal));
         }
 
         /// <summary>FR-083: no 3 consecutive levels share the same set of mechanics; from L11 the empty set counts too.</summary>

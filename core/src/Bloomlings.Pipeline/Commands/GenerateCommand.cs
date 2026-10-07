@@ -264,7 +264,7 @@ namespace Bloomlings.Pipeline.Commands
             }
 
             bool Repairable(int level, IReadOnlyDictionary<int, LevelDefinition> view) =>
-                !kept.Contains(level) && view.ContainsKey(level) && LevelGenerator.Conflicts(level, view).Count > 0;
+                !kept.Contains(level) && view.ContainsKey(level) && LevelGenerator.Conflicts(level, view, repairer.MechanicsUsed).Count > 0;
 
             for (int k = 1; k < bounds.Count; k++)
             {
