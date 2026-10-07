@@ -290,9 +290,9 @@ def motorcycle(w, h, r):
 
 def skateboard(w, h, r):
     cv, s, cx, big = start(w, h, 's')
-    air, street = r.random() < 0.3, r.random() > 0.5
+    air, path_ = r.random() < 0.3, r.random() > 0.5
     gtop = h - 5
-    if not street:
+    if not path_:
         rx0, rtop = r.uniform(11.5, 13), gtop - r.uniform(6, 7.5)
         poly(cv, [(rx0, gtop), (w - 1.5, rtop), (w - 1.5, gtop)], 'r')
         box(cv, w - 1.5, rtop - 0.2, w, gtop, 'r')
@@ -301,11 +301,12 @@ def skateboard(w, h, r):
             box(cv, x, gtop - 2.5, x + 1, gtop, 'c', only='r')
         cloud(cv, w * r.uniform(0.2, 0.4), h * 0.13, 2.0, 'o')
     else:
-        skyline(cv, r, 'o', 'c', gtop - 1.4, h * 0.36, h * 0.5)
-        box(cv, 0, gtop - 1.4, w, gtop, 'r')
-        for x in (r.uniform(14, 16), r.uniform(18.5, 20)):
-            poly(cv, [(x - 1.6, gtop - 1.4), (x - 0.4, gtop - 6), (x + 0.4, gtop - 6), (x + 1.6, gtop - 1.4)], 'q')
-            box(cv, x - 1.2, gtop - 4.2, x + 1.2, gtop - 3.4, 'c', only='q')
+        for x in (r.uniform(1.0, 3.0), r.uniform(8.0, 11.0)):
+            disc(cv, x, gtop - 1.0, 2.4, 'o')
+            disc(cv, x + 2.2, gtop - 0.6, 1.8, 'o')
+        for x in (r.uniform(13.5, 15.5), r.uniform(18.5, 20.0)):
+            poly(cv, [(x - 1.7, gtop + 0.6), (x - 0.4, gtop - 4.6), (x + 0.4, gtop - 4.6), (x + 1.7, gtop + 0.6)], 'r')
+            box(cv, x - 1.3, gtop - 2.8, x + 1.3, gtop - 2.0, 'c', only='r')
     box(cv, 0, gtop, w, h, 'g')
     for x0 in range(1, w, 6):
         box(cv, x0, gtop + 2, x0 + 3, gtop + 3, 'q')
@@ -313,7 +314,7 @@ def skateboard(w, h, r):
     if air:
         bx, by, deg = 9.0, gtop - 12.0, r.uniform(-16, -8)
     else:
-        bx, by, deg = 8.5 if not street else 6.5, gtop - (3.8 if not street else 5.2), 0
+        bx, by, deg = 8.5 if not path_ else 6.5, gtop - 3.8, 0
     to, back = turn(bx, by, deg)
 
     def deck(px, py):
@@ -333,42 +334,51 @@ def skateboard(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     return cv, [sky(), role('b', 'deck', 'Deck', PINK), role('k', 'grip', 'Grip tape', BROWN), role('t', 'truck', 'Trucks', BLUE),
-                role('w', 'wheel', 'Wheels', GREEN), role('r', 'ramp', 'Curb' if street else 'Ramp', PINK),
-                role('c', 'coping', 'Cone stripes and windows' if street else 'Ramp edge and posts', BLUE),
-                role('g', 'ground', 'Ground', BROWN), role('q', 'lines', 'Cones and lines' if street else 'Ground and motion lines', GREEN),
-                role('o', 'cloud', 'Houses' if street else 'Cloud', GREEN), role('u', 'sun', 'Sun', BROWN)], ['toys', 'park']
+                role('w', 'wheel', 'Wheels', GREEN), role('r', 'ramp', 'Cones' if path_ else 'Ramp', PINK),
+                role('c', 'coping', 'Cone stripes' if path_ else 'Ramp edge and posts', BLUE),
+                role('g', 'ground', 'Path' if path_ else 'Ground', BROWN), role('q', 'lines', 'Ground and motion lines', GREEN),
+                role('o', 'cloud', 'Bushes' if path_ else 'Cloud', GREEN), role('u', 'sun', 'Sun', BROWN)], ['toys', 'park']
 
 
 def sled(w, h, r):
     cv, s, cx, big = start(w, h, 'n')
-    night = r.random() < 0.4
-    slope = r.uniform(0.08, 0.18)
+    night, slope, cabin = r.random() < 0.4, r.uniform(0.08, 0.16), r.random() < 0.5
     top = h * 0.7
 
     def surface(x):
         return top + slope * (x - cx)
-    xs = r.sample([1.5, 4.0, 18.0, 20.5], 2 + int(r.random() * 2))
-    for x in xs:
-        pines(cv, [x], surface(x) - 0.2, r.uniform(3.4, 4.2), 'p', 't')
     fill(cv, 'w', lambda px, py: py >= surface(px))
+    if cabin:
+        hx = w - 3.2
+        box(cv, hx - 2.6, surface(hx) - 4.6, hx + 2.6, surface(hx) + 0.5, 'k')
+        poly(cv, [(hx - 3.6, surface(hx) - 4.2), (hx, surface(hx) - 7.6), (hx + 3.6, surface(hx) - 4.2)], 'v')
+        box(cv, hx - 0.9, surface(hx) - 3.4, hx + 0.9, surface(hx) - 1.6, 't')
+        pines(cv, [w - hx], surface(w - hx) - 0.2, 4.0, 'p', 'k')
+    else:
+        for x in r.sample([1.5, 4.0, 18.0, 20.5], 2 + int(r.random() * 2)):
+            pines(cv, [x], surface(x) - 0.2, r.uniform(3.6, 4.4), 'p', 'k')
     sun_moon(cv, w * r.choice((0.2, 0.8)), h * 0.11, 2.4, 'u', 'n', night)
-    scatter(cv, 'x', 'n', 10, r, sep=3, area=(0, 0, w - 1, top - 3))
-    sx = cx + r.uniform(-1.5, 0.5)
+    scatter(cv, 'x', 'n', 10, r, sep=3, area=(0, 0, w - 1, top - 8))
+    sx = cx - (2.2 if cabin else r.uniform(0.0, 1.0))
     deg = math.degrees(math.atan(slope))
-    to, back = turn(sx, surface(sx) - 0.2, deg)
+    turned, back = turn(sx, surface(sx) - 0.2, deg)
+
+    def to(u, v):
+        return turned(u * 0.85, v)
     for u in (-6.5, -2.0, 2.5):
-        bar(cv, *to(u, -3.0), *to(u, -0.6), 1.1, 'k')
-    bar(cv, *to(-8.5, -0.6), *to(6.4, -0.6), 1.1, 'k')
-    path(cv, [to(6.4 + 2.0 * math.cos(math.radians(a)), -2.6 + 2.0 * math.sin(math.radians(a))) for a in (90, 45, 0, -45, -100)], 'k', 0.55)
-    poly(cv, [to(-8.6, -5.0), to(6.0, -5.0), to(6.0, -3.0), to(-8.6, -3.0)], 'b')
-    path(cv, [to(7.8, -3.6), to(9.8, -1.8), to(11.6, -1.6)], 't', 0.45)
-    for k in (-0.6, 0.6):
-        path(cv, [to(-9.0, 0.6 + k * 0.0 + k), to(-16, 0.6 + k)], 'v', 0.4)
+        bar(cv, *to(u, -3.2), *to(u, -0.6), 1.1, 'k')
+    bar(cv, *to(-8.5, -0.6), *to(6.4, -0.6), 1.2, 'k')
+    path(cv, [to(6.4 + 2.4 * math.cos(math.radians(a)), -3.0 + 2.4 * math.sin(math.radians(a))) for a in (90, 50, 10, -30, -70, -110)],
+         'k', 0.6)
+    poly(cv, [to(-8.8, -5.2), to(5.6, -5.2), to(5.6, -3.0), to(-8.8, -3.0)], 'b')
+    path(cv, [to(7.4, -5.0), to(9.6, -2.6), to(11.8, -2.4)], 't', 0.45)
+    for k in (0.4, 1.7):
+        seg(cv, *to(-9.2, k), *to(-17.0, k), 'v', 0.35)
     if r.random() < 0.5:
         mirror(cv)
-    return cv, [('n', 'sky', 'Night sky' if night else 'Winter sky', PINK, True), role('w', 'snow', 'Snow', BLUE),
-                role('v', 'tracks', 'Tracks', BLUE), role('b', 'seat', 'Sled seat', BROWN), role('k', 'runner', 'Runners and posts', GREEN),
-                role('t', 'rope', 'Rope and trunks', BROWN), role('p', 'pine', 'Pines', GREEN),
+    return cv, [('n', 'sky', 'Night sky' if night else 'Winter sky', PINK, True), role('b', 'seat', 'Sled seat', BROWN),
+                role('k', 'runner', 'Runners, posts, trunks and cabin', BROWN), role('t', 'rope', 'Rope and window', PINK),
+                role('w', 'snow', 'Snow', BLUE), role('v', 'tracks', 'Tracks and snowy roof', BLUE), role('p', 'pine', 'Pines', GREEN),
                 role('x', 'snowflake', 'Stars' if night else 'Snowflakes', BROWN if night else BLUE),
                 role('u', 'sun', 'Moon' if night else 'Sun', BROWN)], ['vehicles', 'winter']
 
@@ -421,7 +431,7 @@ def ufo(w, h, r):
         for x in (r.uniform(1, 3), r.uniform(16, 18)):
             box(cv, x, gtop - 3, x + 3.4, gtop + 1, 'q')
             poly(cv, [(x - 0.6, gtop - 2.8), (x + 1.7, gtop - 5.2), (x + 4.0, gtop - 2.8)], 'q')
-            box(cv, x + 1, gtop - 2, x + 2.4, gtop - 1, 'b')
+            box(cv, x + 1, gtop - 2, x + 2.4, gtop - 1, 'k')
     else:
         for x in (r.uniform(2, 4), r.uniform(17, 20)):
             box(cv, x - 0.6, gtop - 5.5, x + 0.6, gtop + 1, 'q')
@@ -438,11 +448,11 @@ def ufo(w, h, r):
     if beam:
         poly(cv, [to(-3.0, 1.8), to(3.0, 1.8), (ux + 7.2, gtop + 1), (ux - 7.2, gtop + 1)], 'b')
         kx, ky = ux + r.uniform(-1, 1), gtop - 5.5
-        rbox(cv, kx - 2.6, ky - 1.2, kx + 1.6, ky + 1.2, 0.8, 'm')
-        rbox(cv, kx + 1.2, ky - 2.4, kx + 3.2, ky - 0.2, 0.6, 'm')
+        rbox(cv, kx - 2.6, ky - 1.2, kx + 1.6, ky + 1.2, 0.8, 'c')
+        rbox(cv, kx + 1.2, ky - 2.4, kx + 3.2, ky - 0.2, 0.6, 'c')
         for x in (kx - 2.0, kx + 0.6):
-            box(cv, x, ky + 1.0, x + 0.9, ky + 2.6, 'k')
-        box(cv, kx - 1.2, ky - 0.8, kx + 0.2, ky + 0.4, 'k')
+            box(cv, x, ky + 1.0, x + 0.9, ky + 2.6, 'c')
+        box(cv, kx - 1.4, ky - 0.8, kx + 0.2, ky + 0.4, 'k')
     fill(cv, 'd', local(lambda u, v: v < -0.6 and (u / 4.4) ** 2 + ((v + 0.6) / 4.0) ** 2 <= 1))
     fill(cv, 'k', local(lambda u, v: v > 0 and (u / 4.6) ** 2 + ((v - 1.4) / 1.3) ** 2 <= 1))
     fill(cv, 'u', local(lambda u, v: (u / 9.6) ** 2 + (v / 2.6) ** 2 <= 1))
@@ -450,9 +460,10 @@ def ufo(w, h, r):
     for u in (-6.4, -3.2, 0.0, 3.2, 6.4):
         x, y = to(u, 0.3)
         cv.put(int(x), int(y), 'l')
-    return cv, [('n', 'night', 'Night sky', PINK, True), role('u', 'saucer', 'Saucer', BLUE), role('k', 'rim', 'Rim, belly and cow spots', BROWN),
-                role('l', 'lights', 'Lights', PINK), role('d', 'dome', 'Dome', GREEN), role('b', 'beam', 'Beam and windows', BROWN),
-                role('x', 'stars', 'Stars', BROWN), role('m', 'moon', 'Moon and cow', BLUE), role('g', 'hills', 'Hills', GREEN),
+    return cv, [('n', 'night', 'Night sky', PINK, True), role('u', 'saucer', 'Saucer', BLUE), role('b', 'beam', 'Beam', BLUE),
+                role('k', 'rim', 'Rim, belly, cow spots and windows', BROWN), role('c', 'cow', 'Cow', BROWN),
+                role('l', 'lights', 'Lights', PINK), role('d', 'dome', 'Dome', GREEN), role('g', 'hills', 'Hills', GREEN),
+                role('m', 'moon', 'Moon', GREEN), role('x', 'stars', 'Stars', BROWN),
                 role('q', 'scenery', ['Pines', 'Barns', 'Cacti'][scene], BLUE)], ['vehicles', 'space']
 
 

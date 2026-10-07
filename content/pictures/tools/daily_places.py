@@ -641,9 +641,9 @@ def circus_tent(w, h, r):
 def greenhouse(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.12)
-    shape = r.choice(('gable', 'arch', 'wings'))
     plants = r.choice(('pots', 'vines', 'mixed'))
     disc(cv, w * r.choice((0.12, 0.88)), h * 0.09, s * 0.08, 'u')
+    shape = r.choice(('gable', 'arch', 'wings'))
     for x in (w * 0.04, w * 0.96):
         if r.random() < 0.7:
             oval(cv, x, gtop - 0.6, s * 0.1, s * 0.09, 'b')
@@ -679,10 +679,13 @@ def greenhouse(w, h, r):
     box(cv, cx - 0.6, gtop - 4.4, cx + 0.6, gtop - 2.6, 'q')
     scatter(cv, 'o', 'g', 4, r, sep=2, area=(0, gtop + 1, w - 1, h - 1))
     if r.random() < 0.5:
+        rbox(cv, w * 0.01, gtop - 2.4, w * 0.1, gtop + 0.4, 0.4, 'd')
+        seg(cv, w * 0.1, gtop - 1.2, w * 0.13, gtop - 3.4, 'd', 0.5)
+    if r.random() < 0.5:
         _mirror(cv)
     return cv, [sky(), role('q', 'glass', 'Glass', BLUE), role('f', 'frame', 'Frame', BROWN), role('k', 'pot', 'Pots', BROWN),
                 role('u', 'sun', 'Sun', BROWN), role('p', 'plants', 'Plants', GREEN), role('g', 'grass', 'Grass', GREEN),
-                role('b', 'bush', 'Bushes', GREEN), role('d', 'door', 'Door', PINK), role('o', 'flowers', 'Flowers', PINK)],\
+                role('b', 'bush', 'Bushes', GREEN), role('d', 'door', 'Door and watering can', PINK), role('o', 'flowers', 'Flowers', PINK)],\
         ['places', 'garden']
 
 
@@ -690,7 +693,7 @@ def wishing_well(w, h, r):
     cv, s, cx, big = start(w, h, 's')
     gtop = h - ground_rows(h, 0.16)
     night = r.random() < 0.5
-    roof = r.choice(('gable', 'hood', 'arch'))
+    roof = r.choice(('gable', 'hood'))
     wx = cx + r.choice((-1.5, 0, 1.5))
     rx, ty, by = w * 0.27, h * 0.62, gtop + 0.3
     for d in (-1, 1):
@@ -715,17 +718,11 @@ def wishing_well(w, h, r):
         poly(cv, [(bx - 1.5, ty - 2.8), (bx + 1.5, ty - 2.8), (bx + 1.0, ty - 0.9), (bx - 1.0, ty - 0.9)], 'b')
     if roof == 'gable':
         poly(cv, [(wx - rx - 1.8, pt + 0.8), (wx, pt - h * 0.13), (wx + rx + 1.8, pt + 0.8)], 'r')
-    elif roof == 'hood':
+    else:
         for gy in range(h):
             for gx in range(w):
                 px, py = gx + 0.5, gy + 0.5
                 if py <= pt + 0.8 and ((px - wx) / (rx + 1.8)) ** 2 + ((py - pt - 0.8) / (h * 0.14)) ** 2 <= 1.0:
-                    cv.g[gy][gx] = 'r'
-    else:
-        for gy in range(h):
-            for gx in range(w):
-                d = math.hypot(gx + 0.5 - wx, (gy + 0.5 - pt) * 1.2)
-                if gy + 0.5 <= pt and rx - 1.6 < d <= rx - 0.4:
                     cv.g[gy][gx] = 'r'
     box(cv, wx - rx, ty, wx + rx, by, 'k')
     oval(cv, wx, by, rx, 1.0, 'k')
@@ -761,12 +758,11 @@ def fountain(w, h, r):
     if back == 'hedge':
         rbox(cv, -1, gtop - h * 0.2, w + 1, gtop + 0.5, 1.5, 't')
     else:
-        for x in (w * 0.1, w * 0.9):
-            _tree(cv, x, gtop, s * r.uniform(0.12, 0.15), 't', 'd')
+        _tree(cv, w * r.choice((0.1, 0.9)), gtop, s * r.uniform(0.12, 0.15), 't', 'd')
     box(cv, 0, gtop, w, h, 'g')
     dots(cv, 'q', 'g', 3, 2, area=(0, gtop + 1, w - 1, h - 1))
     by0 = gtop - h * 0.12
-    bx0, bx1 = w * 0.08, w * 0.92
+    bx0, bx1 = w * 0.11, w * 0.89
     levels = [(h * 0.5, w * 0.27)] if tiers == 2 else [(h * 0.55, w * 0.27), (h * 0.37, w * 0.15)]
     box(cv, cx - 1.0, levels[-1][0], cx + 1.0, by0, 'd')
     oval(cv, cx, by0 - 0.7, (bx1 - bx0) / 2 - 1.2, 0.8, 'w')
@@ -832,13 +828,10 @@ def gazebo(w, h, r):
                 if apex <= py <= eave + 0.5 and abs(px - cx) <= E * ((py - apex) / (eave - apex)) ** 1.3:
                     cv.g[gy][gx] = 'r'
     elif roof == 'dome':
-        apex = eave - h * 0.3
-        for gy in range(h):
-            for gx in range(w):
-                px, py = gx + 0.5, gy + 0.5
-                if py <= eave + 0.5 and ((px - cx) / (E * 0.9)) ** 2 + ((py - eave - 0.5) / (h * 0.24)) ** 2 <= 1.0:
-                    cv.g[gy][gx] = 'r'
-        poly(cv, [(cx - 2.0, eave - h * 0.22), (cx, apex), (cx + 2.0, eave - h * 0.22)], 'r')
+        apex = h * 0.06
+        poly(cv, [(cx - E * 0.62, eave - 1.6), (cx + E * 0.62, eave - 1.6), (cx + E, eave + 0.5), (cx - E, eave + 0.5)], 'r')
+        oval(cv, cx, eave - h * 0.17, E * 0.62, h * 0.15, 'r')
+        poly(cv, [(cx - 1.6, eave - h * 0.29), (cx, apex + 0.5), (cx + 1.6, eave - h * 0.29)], 'r')
     else:
         apex = h * 0.12
         poly(cv, [(cx - E * 0.55, eave - h * 0.12), (cx + E * 0.55, eave - h * 0.12), (cx + E, eave + 0.5), (cx - E, eave + 0.5)], 'r')
@@ -874,7 +867,7 @@ def log_cabin(w, h, r):
     gtop = h - ground_rows(h, 0.13)
     season = r.choice(('summer', 'autumn', 'winter'))
     night = r.random() < 0.35
-    hx = cx + r.choice((-2, 0, 2))
+    hx = cx + r.choice((-1.5, 0, 1.5))
     hw, wy, apex = w * 0.29, h * 0.54, h * 0.25
     for x in (w * 0.07, w * 0.93):
         if abs(x - hx) > hw + 2.5:
@@ -897,15 +890,15 @@ def log_cabin(w, h, r):
         y -= 3.0
     disc(cv, hx, wy - 2.6, 0.9, 'i')
     for d in (-1, 1):
-        seg(cv, hx, apex, hx + d * (hw + 2.4), wy + 1.0, 'r', 0.9)
+        seg(cv, hx, apex, hx + d * (hw + 1.9), wy + 1.0, 'r', 0.9)
     if season == 'winter':
         for d in (-1, 1):
-            seg(cv, hx, apex - 0.9, hx + d * (hw + 2.6), wy - 0.1, 'x', 0.55)
+            seg(cv, hx, apex - 0.9, hx + d * (hw + 2.0), wy - 0.1, 'x', 0.55)
     rbox(cv, hx - 1.4, gtop - 5.2, hx + 1.4, gtop + 0.5, 0.6, 'd')
     for d in (-1, 1):
         box(cv, hx + d * 4.2 - 1.2, wy + 2.3, hx + d * 4.2 + 1.2, wy + 4.6, 'i')
     for k in range(3):
-        disc(cv, chx + k * 0.9 * (1 if hx <= cx else -1), h * 0.17 - k * 2.0, 0.9 + k * 0.35, 'k')
+        disc(cv, chx + k * 1.4 * (1 if hx <= cx else -1), h * 0.16 - k * 1.5, 0.9 + k * 0.25, 'k')
     if season == 'summer':
         scatter(cv, 'f', 'g', 5, r, sep=2, area=(0, gtop + 1, w - 1, h - 1))
     elif season == 'winter':
@@ -936,8 +929,8 @@ def campfire(w, h, r):
     _moon(cv, mx, h * 0.1, s * 0.11, 'm', 'n')
     x = -1.0
     while x < w + 2:
-        _pine(cv, x, gtop + 1, h * r.uniform(0.22, 0.34), 1.9, 'p')
-        x += r.uniform(2.4, 3.4)
+        _pine(cv, x, gtop + 1, h * r.uniform(0.24, 0.36), 2.6, 'p')
+        x += r.uniform(3.0, 4.2)
     box(cv, 0, gtop, w, h, 'g')
     fx, fy = cx, h * 0.84
     tx = w * 0.17 if mx > cx else w * 0.83
@@ -951,10 +944,12 @@ def campfire(w, h, r):
     for x, y in ring_pts:
         if y < fy:
             disc(cv, x, y, 0.95, 'k')
-    lens(cv, fx, fy, fx, fy - h * 0.42, 7.0, 'f')
-    lens(cv, fx - 1.0, fy, fx - 4.0, fy - h * 0.27, 3.6, 'f')
-    lens(cv, fx + 1.0, fy, fx + 4.0, fy - h * 0.25, 3.6, 'f')
-    lens(cv, fx, fy, fx, fy - h * 0.25, 3.8, 'y')
+    tall = h * r.uniform(0.38, 0.44)
+    for dx, top, lean, wd in ((0, tall, 0.6, 5.0), (-1.6, tall * 0.72, -2.4, 3.4), (1.6, tall * 0.78, 2.6, 3.4),
+                              (-3.0, tall * 0.45, -1.6, 2.4), (3.0, tall * 0.5, 1.8, 2.4)):
+        lens(cv, fx + dx, fy, fx + dx + lean, fy - top, wd, 'f')
+    lens(cv, fx, fy, fx + 0.4, fy - tall * 0.58, 3.4, 'y')
+    lens(cv, fx - 0.8, fy, fx - 1.8, fy - tall * 0.38, 2.0, 'y')
     if logs == 'teepee':
         for d in (-1.0, -0.4, 0.4, 1.0):
             seg(cv, fx + d * 4.2, fy + 1.0, fx + d * 0.6, fy - 4.4, 'l', 0.6)

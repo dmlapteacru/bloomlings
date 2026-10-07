@@ -511,6 +511,7 @@ def kangaroo(w, h, r):
 
 def koala(w, h, r):
     cv, s, cx, big = start(w, h, 's')
+    pose = r.choice(('hug', 'sit', 'sleep'))
     tx = 15.8
     path(cv, [(tx + 0.4, h + 1), (tx, 14), (tx + 0.6, -1)], 'n', 2.2)
     for y in (r.uniform(2, 5), r.uniform(9, 12)):
@@ -519,39 +520,60 @@ def koala(w, h, r):
             a = math.radians(-50 + k * 50)
             lens(cv, 20.0, y - 0.4, 20.0 + math.cos(a) * 3.0, y - 0.4 + math.sin(a) * 2.6, 1.6, 'l')
     hills(cv, 'v', h - 2, 0.6, 22 * 0.7, r.uniform(0, 6))
-    kx, hy = 9.0, 9.0 + r.uniform(-0.8, 1.2)
-    oval(cv, kx, hy + 9.4, 4.0, 4.4, 'k')
-    oval(cv, kx - 0.4, hy + 10.0, 2.2, 3.0, 'f')
-    for y0, y1 in ((6.6, 5.4), (12.8, 13.2)):
-        path(cv, [(kx + 2.8, hy + y0), (tx - 0.6, hy + y1), (tx + 1.6, hy + y1 - 0.6)], 'k', 1.1)
-        cv.put(int(tx + 2.0), int(hy + y1 - 0.6), 'e')
-    path(cv, [(kx - 3.0, hy + 7.0), (kx - 4.2, hy + 9.6), (kx - 3.4, hy + 11.0)], 'k', 1.0)
-    if r.random() < 0.6:
-        lens(cv, kx - 3.4, hy + 10.6, kx - 6.6, hy + 12.4, 1.5, 'v')
+    kx, hy = 9.0, r.uniform(7.6, 10.4)
+    if pose == 'sit':
+        by = hy + 13.4
+        path(cv, [(tx, by + 0.6), (8.0, by), (1.6, by - 0.8)], 'n', 1.0)
+        for k in range(3):
+            a = math.radians(160 + k * 40)
+            lens(cv, 2.4, by - 0.8, 2.4 + math.cos(a) * 2.8, by - 0.8 + math.sin(a) * 2.4, 1.5, 'l')
+        oval(cv, kx, hy + 9.0, 4.2, 4.0, 'k')
+        oval(cv, kx, hy + 9.6, 2.4, 2.8, 'f')
+        for side in (-1, 1):
+            oval(cv, kx + side * 2.0, hy + 15.4, 1.2, 1.7, 'k')
+            path(cv, [(kx + side * 3.4, hy + 6.4), (kx + side * 1.4, hy + 8.6)], 'k', 1.0)
+        lens(cv, kx + 1.6, hy + 8.4, kx + 4.6, hy + 3.4, 1.6, 'v')
+    else:
+        oval(cv, kx, hy + 9.4, 4.0, 4.4, 'k')
+        oval(cv, kx - 0.4, hy + 10.0, 2.2, 3.0, 'f')
+        for y0, y1 in ((6.6, 5.4), (12.8, 13.2)):
+            path(cv, [(kx + 2.8, hy + y0), (tx - 0.6, hy + y1), (tx + 1.6, hy + y1 - 0.6)], 'k', 1.1)
+            cv.put(int(tx + 2.0), int(hy + y1 - 0.6), 'e')
+        path(cv, [(kx - 3.0, hy + 7.0), (kx - 4.2, hy + 9.6), (kx - 3.4, hy + 11.0)], 'k', 1.0)
+        if pose == 'hug' and r.random() < 0.6:
+            lens(cv, kx - 3.4, hy + 10.6, kx - 6.6, hy + 12.4, 1.5, 'v')
     for side in (-1, 1):
         disc(cv, kx + side * 5.0, hy - 3.2, 2.8, 'k')
         disc(cv, kx + side * 5.4, hy - 3.0, 1.6, 'f')
     disc(cv, kx, hy, 4.6, 'k')
     oval(cv, kx, hy + 1.0, 1.5, 2.0, 'e')
-    eyes(cv, kx, hy - 1.6, 2.3, big, None, 'e')
+    if pose == 'sleep':
+        for side in (-1, 1):
+            path(cv, [(kx + side * 3.2, hy - 1.4), (kx + side * 2.3, hy - 0.8), (kx + side * 1.4, hy - 1.4)], 'e', 0.4)
+        for k, (zx, zy) in enumerate(((kx + 3.0, hy - 6.4), (kx + 5.0, hy - 8.6))):
+            sz = 0.8 + k * 0.3
+            path(cv, [(zx - sz, zy - sz), (zx + sz, zy - sz), (zx - sz, zy + sz), (zx + sz, zy + sz)], 'c', 0.4)
+    else:
+        eyes(cv, kx, hy - 1.6, 2.3, big, None, 'e')
     path(cv, [(kx - 1.0, hy + 3.4), (kx, hy + 3.7), (kx + 1.0, hy + 3.4)], 'e', 0.4)
-    if r.random() < 0.4:
+    if pose == 'hug' and r.random() < 0.6:
         bx = kx - 3.6
         disc(cv, bx, hy + 6.6, 1.8, 'k')
         for side in (-1, 1):
             disc(cv, bx + side * 1.6, hy + 5.0, 1.0, 'k')
         cv.put(int(bx), int(hy + 6.8), 'e')
-    night = r.random() < 0.45
-    mx = r.uniform(2.5, 5.0)
+    night = pose == 'sleep' or r.random() < 0.4
+    mx = r.uniform(2.0, 4.5)
     if night:
         disc(cv, mx, 1.8, 1.5, 'm')
+        disc(cv, mx + 0.9, 1.3, 1.2, 's')
         for k in range(4):
-            cv.put(int(r.uniform(6, 13)), int(r.uniform(0, 3)), 'm')
+            cv.put(int(r.uniform(1, 13)), int(r.uniform(0, 3)), 'm')
     else:
-        cloud(cv, r.uniform(6, 10), 1.6, 1.0, 'c')
+        cloud(cv, r.uniform(4, 9), 1.6, 1.0, 'c')
     if r.random() < 0.5:
         mirror(cv)
-    return cv, [('s', 'sky', 'Night sky' if night else 'Evening sky', PINK, True), role('c', 'cloud', 'Cloud', PINK),
+    return cv, [('s', 'sky', 'Night sky' if night else 'Evening sky', PINK, True), role('c', 'cloud', 'Cloud and snores', PINK),
                 role('k', 'koala', 'Koala', BLUE), role('f', 'fluff', 'Fluff', BLUE), role('n', 'tree', 'Tree', BROWN),
                 role('e', 'nose', 'Nose, eyes and claws', BROWN), role('m', 'moon', 'Moon and stars', BROWN),
                 role('l', 'leaves', 'Gum leaves', GREEN), role('v', 'sprig', 'Leaf sprig and bushes', GREEN)], ['animals', 'forest']

@@ -1090,17 +1090,23 @@ def croissant(w, h, r):
                 S['o'], S['t'], S['d'], S['v']], ['food', 'bakery']
 
 
-def one_pretzel(cv, x, y, W, H, rr, c):
-    """A pretzel W cells wide and H tall round (x, y): its round belly below, two loops over the top that cross in the
-    middle, and its two ends pressed onto the belly."""
-    L, R = (x - W * 0.46, y + H * 0.02), (x + W * 0.46, y + H * 0.02)
-    belly = [(x + math.cos(a) * W * 0.46, y + H * 0.02 + math.sin(a) * H * 0.46) for a in (math.radians(k * 9) for k in range(0, 21))]
-    tube(cv, belly, rr, c)
-    P1, P2 = (x + W * 0.1, y - H * 0.18), (x - W * 0.1, y - H * 0.18)
-    tube(cv, curve(L, P1, -W * 0.32), rr * 0.9, c)
-    tube(cv, curve(R, P2, W * 0.32), rr * 0.9, c)
-    tube(cv, [P1, (x - W * 0.26, y + H * 0.36)], rr * 0.8, c)
-    tube(cv, [P2, (x + W * 0.26, y + H * 0.36)], rr * 0.8, c)
+ROPE = ((-0.46, 0.02), (-0.47, -0.2), (-0.36, -0.42), (-0.17, -0.46), (-0.04, -0.32), (0.08, -0.1), (0.27, 0.36))
+
+
+def one_pretzel(cv, x, y, W, H, rr, c, gap, ang=0.0):
+    """A pretzel W cells wide and H tall round (x, y), turned `ang` degrees: its round belly below, a loop over each
+    side of the top, and the two ropes crossing in the middle on their way down to the belly (the rope in front parted
+    from the one behind by a margin of role `gap`)."""
+    t = math.radians(ang)
+
+    def at(u, v):
+        return x + u * W * math.cos(t) - v * H * math.sin(t), y + u * W * math.sin(t) + v * H * math.cos(t)
+
+    tube(cv, [at(math.cos(a) * 0.46, 0.02 + math.sin(a) * 0.44) for a in (math.radians(k * 9) for k in range(21))], rr, c)
+    tube(cv, [at(u, v) for u, v in ROPE], rr * 0.9, c)
+    right = [at(-u, v) for u, v in ROPE]
+    tube(cv, right[4:6], rr * 0.9 + 0.8, gap, only=c)
+    tube(cv, right, rr * 0.9, c)
 
 
 def pretzel(w, h, r):
@@ -1110,24 +1116,23 @@ def pretzel(w, h, r):
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one big pretzel on a board
         rbox(cv, w * 0.06, ty - 1.4, w * 0.94, ty + 0.6, 0.7, 'p')
-        one_pretzel(cv, cx, ty - h * 0.3, w * 0.86, h * 0.48, 1.7, 'z')
+        one_pretzel(cv, cx, ty - h * 0.3, w * 0.88, h * 0.5, 1.7, 'z', 'b')
     elif mode == 1:  # a pretzel and a bowl of mustard
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
-        one_pretzel(cv, cx - w * 0.08, ty - h * 0.36, w * 0.76, h * 0.42, 1.5, 'z')
+        one_pretzel(cv, cx - w * 0.06, ty - h * 0.42, w * 0.8, h * 0.44, 1.5, 'z', 'b')
         bowl(cv, cx + w * 0.26, ty - h * 0.12, ty - 0.4, w * 0.18, 'q')
         oval(cv, cx + w * 0.26, ty - h * 0.12, w * 0.15, 0.8, 'm')
-    else:  # hanging on a peg
-        disc(cv, cx, h * 0.08, 1.2, 'k')
-        seg(cv, cx, h * 0.08, cx, h * 0.2, 'k', 0.5)
-        one_pretzel(cv, cx, h * 0.42, w * 0.84, h * 0.46, 1.6, 'z')
+    else:  # turned, on a plate, crumbs beside it
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        one_pretzel(cv, cx, ty - h * 0.33, w * 0.78, h * 0.46, 1.6, 'z', 'b', ang=r.uniform(12, 22))
         for k in range(3):
-            disc(cv, cx + (k - 1) * 3.0, ty - 1.2, 1.2, 'q')
+            disc(cv, cx + w * 0.2 + k * 2.2, ty - 1.4, 0.8, 'q')
     if salt:
         scatter(cv, 'x', 'z', 12, r, sep=2)
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
-    return cv, [S['b'], role('z', 'pretzel', 'Pretzel', BROWN), role('k', 'peg', 'Peg', BROWN), role('m', 'mustard', 'Mustard', BROWN),
+    return cv, [S['b'], role('z', 'pretzel', 'Pretzel', BROWN), role('m', 'mustard', 'Mustard', BROWN),
                 S['t'], S['d'], role('x', 'salt', 'Salt', PINK), role('p', 'board', 'Board and plate', BLUE),
                 role('q', 'bowl', 'Bowl and crumbs', GREEN), S['o'], S['v']], ['food', 'bakery']
 
@@ -1147,20 +1152,26 @@ def one_waffle(cv, x, y, half, round_):
 
 def waffle(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, fruit = r.randrange(3), r.randrange(3), r.random() < 0.5
+    mode, kind, syrup, fruit = r.randrange(3), r.randrange(3), r.random() < 0.6, r.random() < 0.5
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     oval(cv, cx, ty, w * 0.46, 1.8, 'p')
     half = w * 0.33
     x, y = cx, ty - 1.2 - half
-    if mode == 1:  # two waffles, one behind the other
-        one_waffle(cv, x + w * 0.1, y - h * 0.1, half * 0.85, False)
-        rbox(cv, x - w * 0.06 - half * 0.9 - 0.9, y - half * 0.9 - 0.9, x - w * 0.06 + half * 0.9 + 0.9, y + half * 0.9 + 0.9, 1.4, 'b')
-        x, half = x - w * 0.06, half * 0.9
-    one_waffle(cv, x, y, half, mode == 2)
-    rbox(cv, x - 2.2, y - half * 0.5 - 1.2, x + 2.2, y - half * 0.5 + 1.0, 0.5, 'u')
-    for dx, L in ((-1.4, 0.9), (0.9, 1.3), (2.6, 0.6)):
-        seg(cv, x + dx, y - half * 0.5, x + dx, y - half * 0.5 + half * L, 's', 0.45)
+    if mode == 2:  # a scoop of ice cream on it
+        y += 1.5
+        half *= 0.92
+    one_waffle(cv, x, y, half, mode == 1)
+    if mode == 2:
+        disc(cv, x + 0.5, y - half * 0.75, half * 0.55, 'i')
+        for k in range(4):
+            disc(cv, x + 0.5 + (k - 1.5) * half * 0.3, y - half * 0.4, half * 0.2, 'i')
+        disc(cv, x + 1.0, y - half * 1.3, 1.0, 'r')
+    else:
+        rbox(cv, x - 2.2, y - half * 0.5 - 1.2, x + 2.2, y - half * 0.5 + 1.0, 0.5, 'u')
+    if syrup:
+        for dx, L in ((-1.4, 0.9), (0.9, 1.3), (2.6, 0.6)):
+            seg(cv, x + dx, y - half * 0.5, x + dx, y - half * 0.5 + half * L, 's', 0.45)
     if fruit:
         for dx, dy in ((-0.55, 0.55), (0.6, 0.45), (0.1, 0.8)):
             disc(cv, x + dx * half, y + dy * half, 1.6, 'r')
@@ -1168,24 +1179,20 @@ def waffle(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
-    return cv, [S['b'], role('w', 'waffle', 'Waffle', BROWN), role('u', 'butter', 'Butter', BROWN), S['o'],
-                role('p', 'plate', 'Plate', BLUE), role('k', 'pockets', 'Waffle pockets', BLUE), role('s', 'syrup', 'Syrup', PINK),
-                role('r', 'strawberries', 'Strawberries', PINK), role('m', 'leaves', 'Strawberry leaves', GREEN), S['t'], S['d'],
-                S['v']], ['food', 'sweets']
+    return cv, [S['b'], role('w', 'waffle', 'Waffle', BROWN), role('s', 'syrup', 'Syrup', BROWN), role('u', 'butter', 'Butter', BROWN), S['o'],
+                role('p', 'plate', 'Plate', BLUE), role('k', 'pockets', 'Waffle pockets', BLUE), role('r', 'strawberries', 'Strawberries', PINK),
+                role('m', 'leaves', 'Strawberry leaves', GREEN), S['t'], S['d'], S['v'],
+                role('i', 'ice_cream', 'Ice cream', GREEN)], ['food', 'sweets']
 
 
 def one_macaron(cv, x, yb, hw, shell, filling):
-    """A macaron lying on row yb, hw cells to each side: two domed shells with ruffled feet and the filling between."""
-    for xx, yy, px, py in cells(cv):
-        if py <= yb and ((px - x) / hw) ** 2 + ((py - yb) / 1.8) ** 2 <= 1.0:
-            cv.g[yy][xx] = shell
-    box(cv, x - hw * 1.03, yb - 2.4, x + hw * 1.03, yb - 1.2, shell)
-    box(cv, x - hw * 0.96, yb - 3.6, x + hw * 0.96, yb - 2.4, filling)
-    box(cv, x - hw * 1.03, yb - 4.8, x + hw * 1.03, yb - 3.6, shell)
-    for xx, yy, px, py in cells(cv):
-        if py <= yb - 4.6 and ((px - x) / hw) ** 2 + ((py - yb + 4.6) / (hw * 0.5)) ** 2 <= 1.0:
-            cv.g[yy][xx] = shell
-    return yb - 4.6 - hw * 0.5
+    """A macaron lying on row yb, hw cells to each side: a domed shell over a flatter one with a thin filling between;
+    returns the row of its top."""
+    rbox(cv, x - hw, yb - 2.2, x + hw, yb, 1.1, shell)
+    box(cv, x - hw * 0.9, yb - 3.2, x + hw * 0.9, yb - 2.2, filling)
+    rbox(cv, x - hw, yb - 5.2, x + hw, yb - 3.2, 1.0, shell)
+    oval(cv, x, yb - 4.6, hw * 0.96, 1.6, shell)
+    return yb - 6.2
 
 
 def macaron(w, h, r):
@@ -1196,24 +1203,30 @@ def macaron(w, h, r):
     oval(cv, cx, ty, w * 0.46, 1.8, 'p')
     looks = [('a', 'f'), ('g', 'f'), ('c', 'q')]
     r.shuffle(looks)
-    if mode == 0:  # a tower of three
-        y = ty - 0.8
-        for k, (shell, filling) in enumerate(looks):
-            y = one_macaron(cv, cx + r.uniform(-0.8, 0.8), y, w * (0.34 - k * 0.03), shell, filling) - 0.2
-    elif mode == 1:  # two lying, one on top between them
-        for k, dx in enumerate((-0.23, 0.23)):
-            one_macaron(cv, cx + dx * w, ty - 0.8, w * 0.21, *looks[k])
-        one_macaron(cv, cx, ty - 8.4, w * 0.24, *looks[2])
-    else:  # a big one and two small ones behind
-        one_macaron(cv, cx - w * 0.25, ty - 5.4, w * 0.16, *looks[1])
-        one_macaron(cv, cx + w * 0.25, ty - 5.4, w * 0.16, *looks[2])
-        one_macaron(cv, cx, ty - 0.8, w * 0.36, *looks[0])
+    A, B, C = looks
+    if mode == 0:  # a pyramid of six
+        hw, yb = w * 0.145, ty - 0.8
+        for row, items in enumerate(((A, B, C), (C, A), (B,))):
+            for k, look in enumerate(items):
+                one_macaron(cv, cx + (k - (len(items) - 1) / 2) * hw * 2.2, yb - row * 6.3, hw, *look)
+    elif mode == 1:  # a row of three, one more on top
+        hw = w * 0.15
+        for k, look in enumerate((A, B, C)):
+            one_macaron(cv, cx + (k - 1) * hw * 2.2, ty - 0.8, hw, *look)
+        one_macaron(cv, cx + r.choice((-1, 1)) * hw * 1.1, ty - 7.1, hw, *C)
+    else:  # a big one before two small ones
+        one_macaron(cv, cx - w * 0.24, ty - 5.4, w * 0.16, *B)
+        one_macaron(cv, cx + w * 0.24, ty - 5.4, w * 0.16, *C)
+        for xx, yy, px, py in cells(cv):
+            if abs(px - cx) <= w * 0.3 + 0.8 and ty - 8.0 <= py <= ty - 0.8 and cv.g[yy][xx] in 'agcqf':
+                cv.g[yy][xx] = 'b'
+        one_macaron(cv, cx, ty - 0.8, w * 0.3, *A)
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
-    return cv, [S['b'], role('a', 'pink', 'Pink macaron', PINK), role('q', 'pink_cream', 'Pink filling', PINK),
-                role('g', 'green', 'Green macaron', GREEN), S['t'], S['d'], role('f', 'cream', 'Cream filling', BROWN),
-                role('c', 'caramel', 'Caramel macaron', BROWN), role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'sweets']
+    return cv, [S['b'], role('a', 'pink', 'Pink macarons', PINK), role('q', 'pink_cream', 'Pink filling', PINK),
+                role('g', 'green', 'Green macarons', GREEN), S['t'], S['d'], role('f', 'cream', 'Cream filling', BROWN),
+                role('c', 'caramel', 'Caramel macarons', BROWN), role('p', 'plate', 'Plate', BLUE), S['o'], S['v']], ['food', 'sweets']
 
 
 DAILY_FOOD = [banana, lemon, peach, coconut, avocado, carrot, corn, broccoli, tomato, eggplant, chili_pepper, pea_pod, cookie, pie, pizza,
