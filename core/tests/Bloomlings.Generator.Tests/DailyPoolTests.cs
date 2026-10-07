@@ -106,7 +106,7 @@ namespace Bloomlings.Generator.Tests
             Assert.That(MinimumGap(Enumerable.Range(1, 365).Select(e => plan.PictureOf(e)!).ToList()), Is.GreaterThanOrEqualTo(DailyPlan.SubjectWindow));
 
             // Too few subjects for the window: a pool of 61 days needs 61 subjects, or two pictures 60 days apart.
-            Assert.Throws<InvalidOperationException>(() => DailyPlan.Build(Ids(30, 3), 61, 1));
+            Assert.Throws<ArgumentException>(() => DailyPlan.Build(Ids(30, 3), 61, 1));
             Assert.That(DailyPlan.Build(Ids(60, 2), 61, 1).PictureOf(61), Is.Not.Null);
         }
 

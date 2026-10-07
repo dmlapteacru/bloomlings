@@ -143,7 +143,7 @@ namespace Bloomlings.Generator
 
                 if (candidates.Count == 0)
                 {
-                    throw new InvalidOperationException($"daily plan: no picture for entry {e + 1} of {count}: {bySubject.Count} subjects cannot fill the pool with a subject only every {SubjectWindow} entries.");
+                    throw new ArgumentException($"daily plan: no picture for entry {e + 1} of {count}: {bySubject.Count} subjects cannot fill the pool with a subject only every {SubjectWindow} entries.");
                 }
 
                 string chosen = candidates[rng.NextInt(candidates.Count)];
