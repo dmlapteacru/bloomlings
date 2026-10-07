@@ -1,0 +1,271 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2076
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 13,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3007,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "barn": "flower",
+    "beam": "water",
+    "door": "wood",
+    "grass": "moss",
+    "hay": "vine",
+    "loft": "acorn",
+    "sky": "water",
+    "trim": "acorn"
+  },
+  "mechanics": ["chest", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 5,
+        "y": 9
+      },
+      {
+        "hole": true,
+        "x": 7,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 10,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "barn_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 5,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "vine"
+    },
+    {
+      "count": 5,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p17",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p18",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p21",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p22",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p23",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p24",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p25",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p26",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p27",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p28",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p29",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p30",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p31",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p32",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13228774702617166043",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 14
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 10,
+            "y": 14
+          },
+          {
+            "x": 9,
+            "y": 15
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23", "p25", "p27", "p29", "p31"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24", "p26", "p28", "p30", "p32"]
+    ]
+  }
+}

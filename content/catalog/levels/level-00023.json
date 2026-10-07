@@ -3,112 +3,147 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "hard",
-    "score": 2015
+    "score": 2003
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 7,
+      "x": 1,
       "y": 0
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 23,
+  "locks": [
+    {
+      "keyId": "k2",
+      "target": {
+        "id": "door2",
+        "kind": "special"
+      }
+    },
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p21",
+        "kind": "pod"
+      }
+    }
+  ],
   "mapping": {
-    "flag": "violet_bud",
-    "gate": "acorn",
-    "grass": "moss",
-    "hills": "moss",
-    "keep": "acorn",
-    "pole": "acorn",
-    "roof": "violet_bud",
-    "sky": "dew",
-    "tower": "acorn",
-    "window": "dew"
+    "beak": "wood",
+    "duck": "wood",
+    "eye": "violet_bud",
+    "foam": "moss",
+    "grout": "moss",
+    "tiles": "dew",
+    "tub": "violet_bud",
+    "water": "dew",
+    "wing": "wood"
+  },
+  "mechanics": ["key", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k2",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "keyId": "k1",
+        "x": 10,
+        "y": 4
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 8
+      }
+    ]
   },
   "picture": {
-    "id": "castle_04",
+    "id": "rubber_duck_04",
     "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 11,
+      "count": 16,
       "id": "p01",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 10,
       "id": "p02",
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 15,
       "id": "p03",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
-      "count": 11,
+      "count": 9,
       "id": "p04",
-      "variantId": "moss"
+      "variantId": "dew"
     },
     {
-      "count": 7,
+      "count": 9,
       "id": "p05",
-      "variantId": "acorn"
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "dew"
     },
     {
       "count": 10,
-      "id": "p06",
-      "variantId": "acorn"
-    },
-    {
-      "count": 9,
       "id": "p07",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
       "count": 8,
       "id": "p08",
-      "variantId": "acorn"
-    },
-    {
-      "count": 8,
-      "id": "p09",
-      "variantId": "acorn"
-    },
-    {
-      "count": 16,
-      "id": "p10",
-      "variantId": "acorn"
-    },
-    {
-      "count": 11,
-      "id": "p11",
       "variantId": "dew"
     },
     {
       "count": 10,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
       "id": "p12",
-      "variantId": "acorn"
+      "variantId": "wood"
     },
     {
-      "count": 16,
+      "count": 15,
       "id": "p13",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 17,
+      "count": 9,
       "id": "p14",
-      "variantId": "acorn"
+      "variantId": "dew"
     },
     {
-      "count": 8,
+      "count": 9,
       "id": "p15",
       "variantId": "dew"
     },
     {
-      "count": 16,
+      "count": 15,
       "id": "p16",
       "variantId": "dew"
     },
@@ -118,30 +153,61 @@
       "variantId": "dew"
     },
     {
-      "count": 9,
+      "count": 8,
       "id": "p18",
       "variantId": "dew"
     },
     {
-      "count": 12,
+      "count": 8,
       "id": "p19",
-      "variantId": "violet_bud"
+      "variantId": "dew"
     },
     {
-      "count": 5,
+      "count": 9,
       "id": "p20",
-      "variantId": "acorn"
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p21",
+      "lockKeyId": "k1",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p22",
+      "variantId": "violet_bud"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "3312021408420269903",
+  "seed": "7551198568159554427",
   "slots": {
     "count": 5
   },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "keyId": "k2",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door2",
+      "type": "gate"
+    }
+  ],
   "tray": {
     "stacks": [
-      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19"],
-      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20"]
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21"]
     ]
   }
 }

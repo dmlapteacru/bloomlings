@@ -1,0 +1,209 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2222
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2571,
+  "mapping": {
+    "belly": "wood",
+    "branch": "moss",
+    "eye": "water",
+    "leaves": "leaf",
+    "moon": "water",
+    "night": "flower",
+    "owl": "wood",
+    "pupil": "flower",
+    "stars": "acorn"
+  },
+  "mechanics": ["layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["acorn"],
+        "x": 9,
+        "y": 1
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 13,
+        "y": 1
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 9,
+        "y": 2
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 0,
+        "y": 3
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 7,
+        "y": 3
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 11,
+        "y": 3
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 15,
+        "y": 3
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 4,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 7,
+        "y": 4
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 11,
+        "y": 4
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 3,
+        "y": 6
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 11,
+        "y": 8
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 5,
+        "y": 9
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 8,
+        "y": 9
+      },
+      {
+        "layersBelow": ["wood", "acorn"],
+        "x": 15,
+        "y": 11
+      },
+      {
+        "layersBelow": ["acorn", "leaf"],
+        "x": 12,
+        "y": 12
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 7,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "owl_05",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 33,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 20,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 20,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 20,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 25,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "12679852015244078228",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

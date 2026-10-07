@@ -1,0 +1,164 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1713
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1454,
+  "mapping": {
+    "blush": "berry",
+    "leaf": "moss",
+    "mango": "wood",
+    "plate": "dew",
+    "shelf": "moss",
+    "stalk": "wood",
+    "table": "flower",
+    "wall": "dew",
+    "wall_dots": "dew"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 7,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 11
+      }
+    ]
+  },
+  "picture": {
+    "id": "mango_08",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 17,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p09",
+      "variantId": "berry"
+    },
+    {
+      "count": 16,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2716804909740845033",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent",
+        "variantId": "dew"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 9,
+            "y": 10
+          },
+          {
+            "x": 6,
+            "y": 11
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,161 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1641
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4197,
+  "mapping": {
+    "band": "vine",
+    "crown": "vine",
+    "cushion": "flower",
+    "floor": "moss",
+    "ruby": "flower",
+    "sapphire": "dew",
+    "sparkle": "moss",
+    "tassel": "wood",
+    "wall": "water"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 9,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "crown_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 22,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p02",
+      "variantId": "vine"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 23,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p14",
+      "variantId": "vine"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "9301804948764183872",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 9,
+            "y": 8
+          },
+          {
+            "x": 8,
+            "y": 9
+          },
+          {
+            "x": 10,
+            "y": 9
+          },
+          {
+            "x": 9,
+            "y": 10
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
+    ]
+  }
+}

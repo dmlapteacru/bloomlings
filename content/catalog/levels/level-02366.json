@@ -1,0 +1,185 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2070
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 13,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2366,
+  "mapping": {
+    "candy": "violet_bud",
+    "cookie": "acorn",
+    "frame": "water",
+    "icing": "dew",
+    "panes": "moss",
+    "table": "flower",
+    "tray": "dew",
+    "wall": "moss"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 8,
+        "y": 10
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 13
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 14
+      }
+    ]
+  },
+  "picture": {
+    "id": "gingerbread_man_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 20,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 32,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 22,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 23,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 21,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 21,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 22,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 22,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 21,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 29,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 29,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p17",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "10149247371930393840",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 13
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 8,
+            "y": 10
+          },
+          {
+            "x": 6,
+            "y": 14
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}

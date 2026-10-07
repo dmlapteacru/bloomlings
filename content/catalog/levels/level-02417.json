@@ -1,0 +1,258 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2046
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2417,
+  "mapping": {
+    "belly": "wood",
+    "branch": "leaf",
+    "eye": "dew",
+    "leaves": "moss",
+    "moon": "water",
+    "night": "flower",
+    "owl": "wood",
+    "pupil": "flower",
+    "stars": "wood"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 12,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 14,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 12,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "owl_08",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p18",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p21",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p22",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p23",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p24",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p25",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p26",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p27",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p28",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p29",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p30",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p31",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p32",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "8368472959421555030",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 12,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 14,
+            "y": 10
+          },
+          {
+            "x": 12,
+            "y": 12
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19", "p25", "p31"],
+      ["p02", "p08", "p14", "p20", "p26", "p32"],
+      ["p03", "p09", "p15", "p21", "p27"],
+      ["p04", "p10", "p16", "p22", "p28"],
+      ["p05", "p11", "p17", "p23", "p29"],
+      ["p06", "p12", "p18", "p24", "p30"]
+    ]
+  }
+}

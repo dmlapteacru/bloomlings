@@ -1,0 +1,121 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1678
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2929,
+  "mapping": {
+    "blanket": "flower",
+    "cloud": "dew",
+    "dimples": "acorn",
+    "hill": "violet_bud",
+    "leaf": "leaf",
+    "orange": "acorn",
+    "pith": "flower",
+    "plate": "dew",
+    "sky": "dew",
+    "stalk": "moss"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "orange_04",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 23,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 27,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 20,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 17,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 20,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17794884921319477228",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2369
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 375,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p22",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "bag": "berry",
+    "book": "moss",
+    "book2": "flower",
+    "floor": "acorn",
+    "pocket": "vine",
+    "strap": "acorn",
+    "wall": "water",
+    "zip": "water"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 4,
+        "y": 6
+      }
+    ]
+  },
+  "picture": {
+    "id": "backpack_10",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "berry"
+    },
+    {
+      "count": 20,
+      "id": "p06",
+      "variantId": "vine"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "vine"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "vine"
+    },
+    {
+      "count": 21,
+      "id": "p09",
+      "variantId": "vine"
+    },
+    {
+      "count": 20,
+      "id": "p10",
+      "variantId": "vine"
+    },
+    {
+      "count": 20,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 20,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p20",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p21",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p22",
+      "lockKeyId": "k1",
+      "variantId": "berry"
+    },
+    {
+      "count": 13,
+      "id": "p23",
+      "variantId": "berry"
+    },
+    {
+      "count": 12,
+      "id": "p24",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p25",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p26",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p27",
+      "variantId": "berry"
+    },
+    {
+      "count": 17,
+      "id": "p28",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p29",
+      "variantId": "vine"
+    },
+    {
+      "count": 13,
+      "id": "p30",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p31",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13898012151899829073",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21", "p26", "p31"],
+      ["p02", "p07", "p12", "p17", "p22", "p27"],
+      ["p03", "p08", "p13", "p18", "p23", "p28"],
+      ["p04", "p09", "p14", "p19", "p24", "p29"],
+      ["p05", "p10", "p15", "p20", "p25", "p30"]
+    ]
+  }
+}

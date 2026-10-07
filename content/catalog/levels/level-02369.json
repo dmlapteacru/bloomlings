@@ -1,0 +1,149 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1652
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2369,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "blueberry": "dew",
+    "butter": "moss",
+    "edge": "acorn",
+    "pancake": "acorn",
+    "plate": "flower",
+    "strawberry": "flower",
+    "syrup": "acorn",
+    "table": "leaf",
+    "wall": "water"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 2,
+        "y": 0
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "pancakes_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 32,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 19,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 36,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 35,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 24,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2790437382858052224",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

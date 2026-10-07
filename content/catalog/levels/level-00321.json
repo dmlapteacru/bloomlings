@@ -1,0 +1,175 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1970
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 321,
+  "mapping": {
+    "belly": "wood",
+    "burrow": "water",
+    "bushes": "leaf",
+    "eye": "violet_bud",
+    "ground": "leaf",
+    "meerkat": "wood",
+    "sky": "dew",
+    "sun": "vine"
+  },
+  "mechanics": ["gate"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 8,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "meerkat_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
+      "id": "p17",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13266745865884350685",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17"],
+      ["p02", "p06", "p10", "p14", "p18"],
+      ["p03", "p07", "p11", "p15", "p19"],
+      ["p04", "p08", "p12", "p16", "p20"]
+    ]
+  }
+}

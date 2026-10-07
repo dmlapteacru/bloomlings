@@ -1,0 +1,167 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1990
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3203,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p11",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "flag": "flower",
+    "gate": "wood",
+    "grass": "moss",
+    "hills": "leaf",
+    "keep": "wood",
+    "pole": "wood",
+    "roof": "flower",
+    "sky": "dew",
+    "tower": "wood",
+    "window": "water"
+  },
+  "mechanics": ["connected_pair", "gate", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 7,
+        "y": 4
+      },
+      {
+        "hole": true,
+        "x": 7,
+        "y": 11
+      }
+    ]
+  },
+  "picture": {
+    "id": "castle_03",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 14,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 29,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 29,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 27,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p11",
+      "lockKeyId": "k1",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17483722504296804724",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 11
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

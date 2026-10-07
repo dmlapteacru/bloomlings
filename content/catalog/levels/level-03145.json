@@ -1,0 +1,330 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 3351
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3145,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p10",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "basket": "acorn",
+    "crown": "moss",
+    "fruit": "violet_bud",
+    "grass": "leaf",
+    "sky": "dew",
+    "sun": "vine",
+    "trunk": "acorn"
+  },
+  "mechanics": ["layered_tile", "locked_pod", "mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["leaf"],
+        "x": 7,
+        "y": 1
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 8,
+        "y": 1
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 13,
+        "y": 1
+      },
+      {
+        "layersBelow": ["vine"],
+        "x": 0,
+        "y": 2
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 3,
+        "y": 2
+      },
+      {
+        "layersBelow": ["leaf", "vine"],
+        "x": 5,
+        "y": 3
+      },
+      {
+        "layersBelow": ["vine", "leaf"],
+        "x": 15,
+        "y": 3
+      },
+      {
+        "layersBelow": ["vine", "dew"],
+        "x": 5,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 15,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss", "leaf"],
+        "x": 2,
+        "y": 5
+      },
+      {
+        "keyId": "k1",
+        "x": 0,
+        "y": 6
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 3,
+        "y": 6
+      },
+      {
+        "mystery": true,
+        "x": 7,
+        "y": 6
+      },
+      {
+        "layersBelow": ["leaf", "moss"],
+        "x": 8,
+        "y": 6
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 15,
+        "y": 6
+      },
+      {
+        "layersBelow": ["vine"],
+        "x": 3,
+        "y": 7
+      },
+      {
+        "layersBelow": ["leaf", "acorn"],
+        "x": 0,
+        "y": 9
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 4,
+        "y": 9
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 6,
+        "y": 10
+      },
+      {
+        "layersBelow": ["dew", "vine"],
+        "x": 10,
+        "y": 11
+      },
+      {
+        "layersBelow": ["leaf", "vine"],
+        "x": 15,
+        "y": 11
+      },
+      {
+        "layersBelow": ["moss", "violet_bud"],
+        "x": 1,
+        "y": 12
+      },
+      {
+        "layersBelow": ["leaf"],
+        "mystery": true,
+        "x": 3,
+        "y": 12
+      },
+      {
+        "layersBelow": ["vine"],
+        "mystery": true,
+        "x": 4,
+        "y": 13
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 15,
+        "y": 13
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 0,
+        "y": 14
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 2,
+        "y": 14
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 5,
+        "y": 14
+      },
+      {
+        "layersBelow": ["leaf", "vine"],
+        "x": 10,
+        "y": 14
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 15,
+        "y": 14
+      },
+      {
+        "layersBelow": ["moss", "violet_bud"],
+        "x": 14,
+        "y": 15
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 15,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "fruit_tree_12",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "lockKeyId": "k1",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p18",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p19",
+      "variantId": "vine"
+    },
+    {
+      "count": 9,
+      "id": "p20",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "10215703246947119000",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

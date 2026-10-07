@@ -1,0 +1,153 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1625
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1803,
+  "mapping": {
+    "chain": "wood",
+    "cloud": "dew",
+    "frame": "violet_bud",
+    "grass": "leaf",
+    "patch": "wood",
+    "seat": "violet_bud",
+    "sky": "water",
+    "sun": "wood"
+  },
+  "mechanics": ["mystery_tile", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 6,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 4,
+        "y": 3
+      },
+      {
+        "mystery": true,
+        "x": 13,
+        "y": 4
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 7
+      },
+      {
+        "mystery": true,
+        "x": 3,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "swing_set_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 22,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 19,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "8089765532521262494",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

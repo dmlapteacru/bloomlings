@@ -1,0 +1,150 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1642
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3659,
+  "mapping": {
+    "background": "flower",
+    "dots": "wood",
+    "leaf": "moss",
+    "pear": "leaf",
+    "plate": "water",
+    "stalk": "wood",
+    "table": "wood"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "pear_05",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 19,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 14,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 13,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p17",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
+      "id": "p18",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p19",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13227805648136675045",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

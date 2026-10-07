@@ -1,0 +1,199 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1951
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 13,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1181,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "ball": "acorn",
+    "board": "violet_bud",
+    "court": "moss",
+    "line": "water",
+    "net": "moss",
+    "rim": "acorn",
+    "seam": "violet_bud",
+    "sky": "dew",
+    "sun": "vine"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 9,
+        "y": 10
+      },
+      {
+        "keyId": "k1",
+        "x": 8,
+        "y": 20
+      }
+    ]
+  },
+  "picture": {
+    "id": "basketball_08",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 20,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 22,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 22,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 22,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p18",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p21",
+      "variantId": "vine"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7045723470510220520",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21"]
+    ]
+  }
+}

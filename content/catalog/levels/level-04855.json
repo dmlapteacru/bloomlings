@@ -1,0 +1,110 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1536
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 13,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4855,
+  "mapping": {
+    "door": "acorn",
+    "flag": "flower",
+    "meadow": "leaf",
+    "moon": "water",
+    "night": "dew",
+    "pine": "leaf",
+    "pole": "wood",
+    "stars": "acorn",
+    "tent": "flower"
+  },
+  "picture": {
+    "id": "tent_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 23,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 21,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 22,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17996645190507476457",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
+    ]
+  }
+}

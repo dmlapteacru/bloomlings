@@ -1,0 +1,108 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1812
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4268,
+  "mapping": {
+    "dew": "water",
+    "dot": "wood",
+    "flower": "violet_bud",
+    "head": "wood",
+    "leaf": "leaf",
+    "shell": "flower",
+    "sky": "water"
+  },
+  "picture": {
+    "id": "ladybug_08",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 27,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 29,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 28,
+      "id": "p13",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "4296147186699098764",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
+    ]
+  }
+}

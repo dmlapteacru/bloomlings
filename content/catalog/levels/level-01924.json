@@ -1,0 +1,189 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1997
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1924,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "board": "moss",
+    "garlic": "flower",
+    "lines": "acorn",
+    "roots": "acorn",
+    "shelf": "violet_bud",
+    "table": "flower",
+    "wall": "water",
+    "wall_dots": "dew"
+  },
+  "mechanics": ["locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 15,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "garlic_05",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p18",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p20",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p21",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p22",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p23",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p24",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11654607126569693934",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17", "p21"],
+      ["p02", "p06", "p10", "p14", "p18", "p22"],
+      ["p03", "p07", "p11", "p15", "p19", "p23"],
+      ["p04", "p08", "p12", "p16", "p20", "p24"]
+    ]
+  }
+}

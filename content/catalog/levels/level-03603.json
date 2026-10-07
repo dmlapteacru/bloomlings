@@ -1,0 +1,227 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2493
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3603,
+  "mapping": {
+    "cheese": "vine",
+    "lettuce": "leaf",
+    "meat": "wood",
+    "plate": "water",
+    "shelf": "violet_bud",
+    "shell": "wood",
+    "spots": "wood",
+    "table": "violet_bud",
+    "tomato": "violet_bud",
+    "wall": "dew",
+    "wall_dots": "water"
+  },
+  "mechanics": ["connected_triple", "mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 5,
+        "y": 7
+      },
+      {
+        "mystery": true,
+        "x": 7,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "taco_06",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 5,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p19",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p21",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p22",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p23",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p24",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 7,
+      "id": "p25",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 12,
+      "id": "p26",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 9,
+      "id": "p27",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p28",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p29",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p30",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p31",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p32",
+      "variantId": "vine"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "18257105005262562271",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30"]
+    ]
+  }
+}

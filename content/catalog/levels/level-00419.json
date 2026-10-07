@@ -1,0 +1,351 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2564
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 16,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 419,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "canopy": "water",
+    "cloud": "water",
+    "fuselage": "violet_bud",
+    "hills": "leaf",
+    "sky": "dew",
+    "sun": "wood",
+    "tips": "wood",
+    "wing": "violet_bud"
+  },
+  "mechanics": ["chest", "environment_2", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 17,
+        "y": 1
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 11
+      },
+      {
+        "hole": true,
+        "x": 7,
+        "y": 11
+      },
+      {
+        "stone": true,
+        "x": 10,
+        "y": 11
+      },
+      {
+        "hole": true,
+        "x": 11,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "glider_05",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p21",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p22",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p23",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p24",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p25",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p26",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p27",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p28",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p29",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p30",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p31",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p32",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p33",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p34",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p35",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p36",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p37",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p38",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11475011980716381000",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 11
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 5,
+            "y": 11
+          },
+          {
+            "x": 10,
+            "y": 11
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    },
+    {
+      "cells": [
+        {
+          "x": 11,
+          "y": 12
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 11,
+            "y": 11
+          },
+          {
+            "x": 10,
+            "y": 12
+          },
+          {
+            "x": 12,
+            "y": 12
+          },
+          {
+            "x": 11,
+            "y": 13
+          },
+          {
+            "x": 11,
+            "y": 10
+          },
+          {
+            "x": 9,
+            "y": 12
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21", "p26", "p31", "p36"],
+      ["p02", "p07", "p12", "p17", "p22", "p27", "p32", "p37"],
+      ["p03", "p08", "p13", "p18", "p23", "p28", "p33", "p38"],
+      ["p04", "p09", "p14", "p19", "p24", "p29", "p34"],
+      ["p05", "p10", "p15", "p20", "p25", "p30", "p35"]
+    ]
+  }
+}

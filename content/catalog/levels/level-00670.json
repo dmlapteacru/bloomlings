@@ -1,0 +1,117 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1441
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 670,
+  "mapping": {
+    "cabin": "violet_bud",
+    "funnel": "wood",
+    "funnel_top": "violet_bud",
+    "hull": "wood",
+    "portholes": "dew",
+    "sea": "dew",
+    "sky": "dew",
+    "smoke": "leaf",
+    "stripe": "vine"
+  },
+  "picture": {
+    "id": "ship_07",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p14",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "18033134251626678078",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

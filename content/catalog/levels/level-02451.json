@@ -1,0 +1,126 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1749
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 9,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2451,
+  "mapping": {
+    "bee": "wood",
+    "dipper": "wood",
+    "flowers": "flower",
+    "grass": "leaf",
+    "honey": "vine",
+    "label": "berry",
+    "pot": "dew",
+    "sky": "dew",
+    "wings": "leaf"
+  },
+  "picture": {
+    "id": "honey_pot_10",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 25,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 25,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 27,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 25,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 25,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
+      "id": "p14",
+      "variantId": "vine"
+    },
+    {
+      "count": 16,
+      "id": "p15",
+      "variantId": "berry"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1339616676985612973",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16"]
+    ]
+  }
+}

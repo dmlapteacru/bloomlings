@@ -1,0 +1,169 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1640
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2962,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "dew": "water",
+    "dot": "wood",
+    "flower": "violet_bud",
+    "head": "wood",
+    "leaf": "leaf",
+    "shell": "flower",
+    "sky": "water"
+  },
+  "mechanics": ["connected_pair", "gate", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 1,
+        "y": 8
+      },
+      {
+        "hole": true,
+        "x": 13,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "ladybug_06",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 17,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 17,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 16,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 20,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 20,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 20,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2283012835039606952",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 13,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1555
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2069,
+  "mapping": {
+    "door": "wood",
+    "flag": "violet_bud",
+    "meadow": "moss",
+    "moon": "dew",
+    "night": "water",
+    "pine": "moss",
+    "pole": "wood",
+    "stars": "vine",
+    "tent": "violet_bud"
+  },
+  "mechanics": ["mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 2,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "tent_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "vine"
+    },
+    {
+      "count": 14,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 28,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p12",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3993270908042682206",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

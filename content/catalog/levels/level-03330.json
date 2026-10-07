@@ -1,0 +1,112 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1650
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3330,
+  "mapping": {
+    "bubbles": "water",
+    "octopus": "violet_bud",
+    "pupil": "acorn",
+    "sand": "acorn",
+    "spots": "flower",
+    "water": "dew",
+    "weed": "moss"
+  },
+  "picture": {
+    "id": "octopus_02",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 30,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 23,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 34,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 19,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "15199902127983824934",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09"],
+      ["p05", "p10"]
+    ]
+  }
+}

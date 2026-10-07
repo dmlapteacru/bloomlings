@@ -1,0 +1,238 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1697
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1586,
+  "mapping": {
+    "canopy": "water",
+    "cloud": "water",
+    "fuselage": "violet_bud",
+    "hills": "leaf",
+    "sky": "water",
+    "sun": "wood",
+    "tips": "acorn",
+    "wing": "violet_bud"
+  },
+  "mechanics": ["chest", "environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 8,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 8
+      },
+      {
+        "hole": true,
+        "x": 6,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 4,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "glider_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p21",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2138664795567021148",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 6,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 3,
+            "y": 8
+          },
+          {
+            "x": 4,
+            "y": 9
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    },
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 8,
+            "y": 6
+          },
+          {
+            "x": 7,
+            "y": 7
+          },
+          {
+            "x": 9,
+            "y": 7
+          },
+          {
+            "x": 8,
+            "y": 5
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21"]
+    ]
+  }
+}

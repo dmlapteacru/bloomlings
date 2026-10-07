@@ -1,0 +1,191 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1759
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3643,
+  "mapping": {
+    "background": "water",
+    "berry": "violet_bud",
+    "blossom": "flower",
+    "cloth": "moss",
+    "leaves": "leaf",
+    "plate": "wood",
+    "seed": "wood"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 11,
+        "y": 6
+      },
+      {
+        "hole": true,
+        "x": 11,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 13,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "strawberry_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 20,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p16",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p18",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2608342833288206808",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 11,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 11,
+            "y": 6
+          },
+          {
+            "x": 13,
+            "y": 8
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

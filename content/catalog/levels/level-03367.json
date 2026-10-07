@@ -1,0 +1,123 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1578
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3367,
+  "mapping": {
+    "leaf": "leaf",
+    "node": "wood",
+    "sky": "water",
+    "soil": "wood",
+    "stalk": "leaf",
+    "stone": "dew",
+    "sun": "berry"
+  },
+  "picture": {
+    "id": "bamboo_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "berry"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "berry"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 25,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "18331880055498300690",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
+    ]
+  }
+}

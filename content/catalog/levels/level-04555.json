@@ -1,0 +1,175 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1890
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 12,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4555,
+  "mapping": {
+    "bell": "acorn",
+    "curtain": "violet_bud",
+    "floor": "moss",
+    "keys": "dew",
+    "mouth": "flower",
+    "notes": "moss",
+    "sax": "acorn",
+    "wall": "water"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 9,
+        "y": 6
+      },
+      {
+        "stone": true,
+        "x": 4,
+        "y": 14
+      }
+    ]
+  },
+  "picture": {
+    "id": "saxophone_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 5,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 23,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 23,
+      "id": "p15",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p20",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p21",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p22",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "10239385782968245562",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22"]
+    ]
+  }
+}

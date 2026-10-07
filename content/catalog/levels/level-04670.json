@@ -1,0 +1,162 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1640
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4670,
+  "mapping": {
+    "flag": "violet_bud",
+    "hull": "wood",
+    "jib": "berry",
+    "mast": "wood",
+    "sail": "violet_bud",
+    "sea": "water",
+    "sky": "water",
+    "stripe": "moss",
+    "sun": "acorn"
+  },
+  "mechanics": ["environment_2", "gate"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 11,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 12,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "sailboat_14",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "berry"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 31,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 23,
+      "id": "p12",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1335752759940332036",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 12,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    },
+    {
+      "cells": [
+        {
+          "x": 11,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "bridge",
+      "type": "bridge"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07"],
+      ["p02", "p08"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

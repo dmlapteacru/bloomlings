@@ -1,0 +1,147 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 3662
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3183,
+  "mapping": {
+    "ground": "leaf",
+    "hills": "moss",
+    "hub": "dew",
+    "load": "wood",
+    "ribs": "violet_bud",
+    "sky": "dew",
+    "sun": "acorn",
+    "truck": "violet_bud",
+    "tyre": "acorn",
+    "window": "dew"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 7,
+        "y": 15
+      },
+      {
+        "stone": true,
+        "x": 15,
+        "y": 15
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 17
+      }
+    ]
+  },
+  "picture": {
+    "id": "dump_truck_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 22,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 20,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 22,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 24,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 22,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17954432947485569811",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}

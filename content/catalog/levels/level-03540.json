@@ -1,0 +1,144 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1746
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 14,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3540,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "center": "vine",
+    "grass": "leaf",
+    "petal": "violet_bud",
+    "petal2": "flower",
+    "sky": "dew",
+    "stem": "leaf",
+    "sun": "wood"
+  },
+  "mechanics": ["locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 11,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "daisy_field_10",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "vine"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6803148097376602780",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

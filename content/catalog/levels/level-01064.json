@@ -1,0 +1,151 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1598
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1064,
+  "mapping": {
+    "bell": "wood",
+    "face": "dew",
+    "frame": "berry",
+    "hands": "wood",
+    "marks": "violet_bud",
+    "ring": "dew",
+    "table": "leaf",
+    "wall": "leaf"
+  },
+  "mechanics": ["gate"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 11,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "alarm_clock_09",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "berry"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 22,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 23,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "berry"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p13",
+      "variantId": "berry"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "9880801019091339013",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 11,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10"]
+    ]
+  }
+}

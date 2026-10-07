@@ -1,0 +1,256 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2571
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3352,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p15",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "crease": "violet_bud",
+    "flesh": "wood",
+    "leaf": "leaf",
+    "plate": "water",
+    "plum": "violet_bud",
+    "shelf": "leaf",
+    "stalk": "acorn",
+    "table": "wood",
+    "wall": "dew",
+    "wall_dots": "water"
+  },
+  "mechanics": ["environment_2", "layered_tile", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["dew"],
+        "x": 0,
+        "y": 1
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 9,
+        "y": 1
+      },
+      {
+        "keyId": "k1",
+        "x": 0,
+        "y": 2
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 12,
+        "y": 2
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 5,
+        "y": 3
+      },
+      {
+        "layersBelow": ["water", "violet_bud"],
+        "x": 8,
+        "y": 3
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 3,
+        "y": 4
+      },
+      {
+        "hole": true,
+        "x": 5,
+        "y": 8
+      },
+      {
+        "layersBelow": ["wood", "leaf"],
+        "x": 8,
+        "y": 9
+      },
+      {
+        "layersBelow": ["wood", "leaf"],
+        "x": 12,
+        "y": 9
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 8,
+        "y": 10
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 3,
+        "y": 11
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 0,
+        "y": 12
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 7,
+        "y": 12
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 13,
+        "y": 12
+      },
+      {
+        "layersBelow": ["wood", "dew"],
+        "x": 13,
+        "y": 13
+      },
+      {
+        "layersBelow": ["acorn", "leaf"],
+        "x": 7,
+        "y": 14
+      },
+      {
+        "layersBelow": ["acorn", "dew"],
+        "x": 2,
+        "y": 15
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 4,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "plum_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "lockKeyId": "k1",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p16",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17660660364691781398",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "dew"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "bridge",
+      "type": "bridge"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16"]
+    ]
+  }
+}

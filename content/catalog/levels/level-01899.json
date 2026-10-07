@@ -1,0 +1,170 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1469
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1899,
+  "mapping": {
+    "box": "leaf",
+    "box2": "violet_bud",
+    "box2_side": "violet_bud",
+    "box_side": "leaf",
+    "box_top": "leaf",
+    "frame": "dew",
+    "orange": "wood",
+    "panes": "dew",
+    "stalk": "acorn",
+    "straw": "violet_bud",
+    "table": "violet_bud",
+    "wall": "dew"
+  },
+  "mechanics": ["chest", "mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 8,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 7,
+        "y": 6
+      },
+      {
+        "mystery": true,
+        "x": 12,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 8
+      },
+      {
+        "mystery": true,
+        "x": 10,
+        "y": 11
+      }
+    ]
+  },
+  "picture": {
+    "id": "juice_box_04",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 25,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 24,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 25,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 25,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 25,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 25,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 23,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 22,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6566630910084900244",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 8,
+            "y": 5
+          },
+          {
+            "x": 7,
+            "y": 6
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,237 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2291
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 18,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3905,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "apple": "flower",
+    "box": "leaf",
+    "box_side": "leaf",
+    "box_top": "leaf",
+    "cloth_dots": "flower",
+    "label": "dew",
+    "orange": "wood",
+    "shelf": "water",
+    "stalk": "acorn",
+    "straw": "flower",
+    "table": "flower",
+    "wall": "dew",
+    "wall_dots": "dew"
+  },
+  "mechanics": ["locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 9,
+        "y": 19
+      }
+    ]
+  },
+  "picture": {
+    "id": "juice_box_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 21,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 20,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 21,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p21",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
+      "id": "p22",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p23",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p24",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p25",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p26",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p27",
+      "variantId": "wood"
+    },
+    {
+      "count": 20,
+      "id": "p28",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p29",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p30",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p31",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p32",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "4532737736133535116",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19", "p25", "p31"],
+      ["p02", "p08", "p14", "p20", "p26", "p32"],
+      ["p03", "p09", "p15", "p21", "p27"],
+      ["p04", "p10", "p16", "p22", "p28"],
+      ["p05", "p11", "p17", "p23", "p29"],
+      ["p06", "p12", "p18", "p24", "p30"]
+    ]
+  }
+}

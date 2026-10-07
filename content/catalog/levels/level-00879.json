@@ -1,0 +1,184 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1865
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 17,
+      "y": 7
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 879,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p23",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "apple": "berry",
+    "background": "water",
+    "cloth": "leaf",
+    "leaf": "leaf",
+    "plate": "violet_bud",
+    "shine": "violet_bud",
+    "stalk": "wood"
+  },
+  "mechanics": ["connected_pair", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 15,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "apple_12",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 15,
+      "id": "p01",
+      "variantId": "berry"
+    },
+    {
+      "count": 17,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "berry"
+    },
+    {
+      "count": 19,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p09",
+      "variantId": "berry"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 15,
+      "id": "p13",
+      "variantId": "berry"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 12,
+      "id": "p14",
+      "variantId": "berry"
+    },
+    {
+      "count": 15,
+      "id": "p15",
+      "variantId": "berry"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "berry"
+    },
+    {
+      "count": 15,
+      "id": "p17",
+      "variantId": "berry"
+    },
+    {
+      "count": 15,
+      "id": "p18",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p20",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p21",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p22",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p23",
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1966196246474288432",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16", "p22"],
+      ["p05", "p11", "p17", "p23"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

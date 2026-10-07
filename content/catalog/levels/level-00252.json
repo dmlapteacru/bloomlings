@@ -1,0 +1,210 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2490
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 252,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p19",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "berry": "berry",
+    "calyx": "moss",
+    "drupelets": "flower",
+    "frame": "moss",
+    "leaf": "moss",
+    "panes": "water",
+    "plate": "dew",
+    "table": "wood",
+    "wall": "dew"
+  },
+  "mechanics": ["chest", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 1,
+        "y": 3
+      },
+      {
+        "hole": true,
+        "x": 6,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "raspberry_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 5,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p18",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p19",
+      "lockKeyId": "k1",
+      "variantId": "berry"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3318831936242325425",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 6,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 8,
+            "y": 7
+          },
+          {
+            "x": 5,
+            "y": 8
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
+    ]
+  }
+}

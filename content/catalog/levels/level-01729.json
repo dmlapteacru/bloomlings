@@ -1,0 +1,131 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1982
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 16,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1729,
+  "mapping": {
+    "belly": "wood",
+    "bunny": "wood",
+    "carrot": "wood",
+    "carrot_top": "leaf",
+    "eye": "dew",
+    "eye_white": "moss",
+    "flowers": "berry",
+    "grass": "leaf",
+    "inner_ear": "violet_bud",
+    "sky": "dew"
+  },
+  "picture": {
+    "id": "rabbit_08",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 33,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 24,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p16",
+      "variantId": "berry"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14636242015161590210",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

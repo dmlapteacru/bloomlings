@@ -1,0 +1,192 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1793
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 17,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 510,
+  "mapping": {
+    "background": "violet_bud",
+    "leaf": "leaf",
+    "pear": "moss",
+    "plate": "water",
+    "shine": "water",
+    "stalk": "acorn",
+    "table": "wood"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 4,
+        "y": 13
+      }
+    ]
+  },
+  "picture": {
+    "id": "pear_08",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 31,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 25,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 20,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 21,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 20,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 20,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 29,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 30,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 29,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 30,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p17",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3107986285868375789",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 4,
+          "y": 13
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 4,
+            "y": 12
+          },
+          {
+            "x": 3,
+            "y": 13
+          },
+          {
+            "x": 5,
+            "y": 13
+          },
+          {
+            "x": 4,
+            "y": 14
+          },
+          {
+            "x": 4,
+            "y": 11
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

@@ -1,0 +1,219 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1957
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 915,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p20",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "body": "berry",
+    "coin": "dew",
+    "glass": "water",
+    "gum_green": "moss",
+    "gum_red": "berry",
+    "gum_yellow": "vine",
+    "shelf": "water",
+    "shine": "dew",
+    "table": "acorn",
+    "wall": "moss",
+    "wall_dots": "dew"
+  },
+  "mechanics": ["chest", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 16,
+        "y": 0
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 11
+      },
+      {
+        "hole": true,
+        "x": 5,
+        "y": 13
+      },
+      {
+        "stone": true,
+        "x": 4,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "gumball_machine_10",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 15,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "vine"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 21,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 19,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 19,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p18",
+      "variantId": "berry"
+    },
+    {
+      "count": 28,
+      "id": "p19",
+      "variantId": "berry"
+    },
+    {
+      "count": 24,
+      "id": "p20",
+      "lockKeyId": "k1",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p21",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7048462499446463694",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 13
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 5,
+            "y": 11
+          },
+          {
+            "x": 4,
+            "y": 15
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

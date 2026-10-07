@@ -1,0 +1,147 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1859
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 17,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4716,
+  "mapping": {
+    "leaf": "moss",
+    "node": "wood",
+    "sky": "water",
+    "soil": "acorn",
+    "stalk": "moss",
+    "stone": "water",
+    "sun": "violet_bud"
+  },
+  "picture": {
+    "id": "bamboo_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 16,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 22,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 26,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p17",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p18",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p20",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2049348146986670067",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

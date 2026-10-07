@@ -1,0 +1,160 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2338
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 13,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 608,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p16",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "claw": "violet_bud",
+    "crab": "violet_bud",
+    "eye": "water",
+    "pupil": "acorn",
+    "sand": "wood",
+    "sea": "dew",
+    "sky": "dew",
+    "sun": "acorn"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 12,
+        "y": 5
+      }
+    ]
+  },
+  "picture": {
+    "id": "crab_01",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p16",
+      "lockKeyId": "k1",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p17",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p19",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3751709610082616328",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18"]
+    ]
+  }
+}

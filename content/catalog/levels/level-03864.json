@@ -1,0 +1,173 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1890
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 9,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3864,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "bowl": "wood",
+    "leaf": "moss",
+    "olive": "moss",
+    "pimento": "berry",
+    "shelf": "acorn",
+    "table": "flower",
+    "twig": "acorn",
+    "wall": "water",
+    "wall_dots": "water"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 13,
+        "y": 2
+      },
+      {
+        "hole": true,
+        "x": 10,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "olives_08",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 26,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 19,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 19,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 26,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 23,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 26,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 23,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 22,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p15",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "berry"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3299736592436153858",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 10,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

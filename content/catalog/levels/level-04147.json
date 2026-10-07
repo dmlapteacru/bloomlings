@@ -1,0 +1,230 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2483
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4147,
+  "mapping": {
+    "leaf": "leaf",
+    "sky": "water",
+    "soil": "wood",
+    "stem": "leaf",
+    "sun": "acorn",
+    "tulip": "violet_bud",
+    "tulip2": "vine"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 8,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "tulip_bed_10",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "vine"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p17",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p19",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p20",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p21",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p22",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p23",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p24",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p25",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p26",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p27",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p28",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7883456225355350766",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 8,
+            "y": 7
+          },
+          {
+            "x": 7,
+            "y": 8
+          },
+          {
+            "x": 9,
+            "y": 8
+          },
+          {
+            "x": 8,
+            "y": 9
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19", "p21", "p23", "p25", "p27"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18", "p20", "p22", "p24", "p26", "p28"]
+    ]
+  }
+}

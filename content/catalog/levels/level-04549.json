@@ -1,0 +1,116 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1583
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4549,
+  "mapping": {
+    "body": "violet_bud",
+    "cross": "berry",
+    "hills": "leaf",
+    "hub": "leaf",
+    "light": "acorn",
+    "road": "leaf",
+    "sky": "dew",
+    "sun": "wood",
+    "tyre": "wood",
+    "window": "dew"
+  },
+  "picture": {
+    "id": "ambulance_09",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 24,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "berry"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13071456753351650394",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
+    ]
+  }
+}

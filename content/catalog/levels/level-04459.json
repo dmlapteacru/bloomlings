@@ -1,0 +1,142 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 3578
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 14,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4459,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p13",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "ant": "berry",
+    "anthill": "wood",
+    "eye": "water",
+    "flowers": "violet_bud",
+    "grass": "moss",
+    "leaf": "moss",
+    "legs": "violet_bud",
+    "sky": "water",
+    "stem": "wood",
+    "sun": "wood"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 1,
+        "y": 0
+      }
+    ]
+  },
+  "picture": {
+    "id": "ant_08",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 5,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 23,
+      "id": "p13",
+      "lockKeyId": "k1",
+      "variantId": "berry"
+    },
+    {
+      "count": 20,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7854480237653874803",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
+    ]
+  }
+}

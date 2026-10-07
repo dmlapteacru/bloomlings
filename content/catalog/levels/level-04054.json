@@ -1,0 +1,111 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1647
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4054,
+  "mapping": {
+    "acacia": "moss",
+    "beak": "wood",
+    "grass": "moss",
+    "neck": "flower",
+    "ostrich": "wood",
+    "plumes": "flower",
+    "sky": "water",
+    "sun": "vine",
+    "trunk": "acorn"
+  },
+  "picture": {
+    "id": "ostrich_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 27,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 29,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 21,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11536530090557907516",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

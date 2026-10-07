@@ -1,0 +1,256 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1995
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1054,
+  "mapping": {
+    "belly": "acorn",
+    "bunny": "acorn",
+    "carrot": "acorn",
+    "carrot_top": "leaf",
+    "eye": "dew",
+    "flowers": "violet_bud",
+    "grass": "moss",
+    "inner_ear": "violet_bud",
+    "sky": "water"
+  },
+  "mechanics": ["chest", "environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 4,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 12
+      },
+      {
+        "hole": true,
+        "x": 7,
+        "y": 12
+      },
+      {
+        "stone": true,
+        "x": 7,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "rabbit_03",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p18",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p21",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p22",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6844736231699783854",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 12
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 5,
+            "y": 12
+          },
+          {
+            "x": 7,
+            "y": 15
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    },
+    {
+      "cells": [
+        {
+          "x": 4,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 4,
+            "y": 8
+          },
+          {
+            "x": 3,
+            "y": 9
+          },
+          {
+            "x": 5,
+            "y": 9
+          },
+          {
+            "x": 4,
+            "y": 10
+          },
+          {
+            "x": 3,
+            "y": 8
+          },
+          {
+            "x": 5,
+            "y": 8
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16", "p22"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

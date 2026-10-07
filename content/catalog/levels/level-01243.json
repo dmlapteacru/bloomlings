@@ -1,0 +1,239 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2033
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 9,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1243,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "fence": "dew",
+    "flowers": "flower",
+    "grass": "moss",
+    "pumpkin": "acorn",
+    "rib": "acorn",
+    "sky": "water",
+    "stem": "leaf",
+    "sun": "flower",
+    "vine": "leaf"
+  },
+  "mechanics": ["environment_2", "fountain", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 1,
+        "y": 10
+      },
+      {
+        "hole": true,
+        "x": 10,
+        "y": 15
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 16
+      },
+      {
+        "stone": true,
+        "x": 7,
+        "y": 16
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 16
+      }
+    ]
+  },
+  "picture": {
+    "id": "pumpkin_08",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 25,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 19,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 20,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 20,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 25,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p18",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5341926006118725095",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 10,
+          "y": 15
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "leaf"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "bridge",
+      "type": "bridge"
+    },
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 16
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 6,
+            "y": 16
+          },
+          {
+            "x": 7,
+            "y": 16
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17"],
+      ["p02", "p06", "p10", "p14", "p18"],
+      ["p03", "p07", "p11", "p15", "p19"],
+      ["p04", "p08", "p12", "p16", "p20"]
+    ]
+  }
+}

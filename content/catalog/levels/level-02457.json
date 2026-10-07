@@ -1,0 +1,178 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1725
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2457,
+  "mapping": {
+    "cinnamon": "violet_bud",
+    "dough": "acorn",
+    "frame": "moss",
+    "panes": "dew",
+    "plate": "dew",
+    "side": "acorn",
+    "table": "violet_bud",
+    "wall": "water"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 8,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "cinnamon_roll_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p16",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13597820054515695941",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 12
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 8,
+            "y": 11
+          },
+          {
+            "x": 7,
+            "y": 12
+          },
+          {
+            "x": 9,
+            "y": 12
+          },
+          {
+            "x": 8,
+            "y": 13
+          },
+          {
+            "x": 8,
+            "y": 10
+          },
+          {
+            "x": 6,
+            "y": 12
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16"]
+    ]
+  }
+}

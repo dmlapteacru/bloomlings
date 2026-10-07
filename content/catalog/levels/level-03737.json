@@ -1,0 +1,160 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1717
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3737,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "cloud": "water",
+    "eye": "dew",
+    "flowers": "flower",
+    "lawn": "leaf",
+    "mole": "flower",
+    "molehill": "acorn",
+    "nose": "acorn",
+    "paws": "flower",
+    "sky": "dew",
+    "sun": "vine"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 4,
+        "y": 4
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "mole_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 29,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 26,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 30,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 28,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 30,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p13",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "16716713925421584799",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

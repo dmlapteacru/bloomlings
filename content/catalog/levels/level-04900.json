@@ -1,0 +1,158 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1833
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 14,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4900,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "flame_core": "acorn",
+    "flames": "wood",
+    "grass": "moss",
+    "logs": "violet_bud",
+    "marshmallow": "violet_bud",
+    "sky": "dew",
+    "stick": "moss",
+    "toasted": "acorn",
+    "white": "violet_bud"
+  },
+  "mechanics": ["gate", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 7,
+        "y": 1
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "marshmallow_02",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 24,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 37,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p13",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6657042584915476658",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
+    ]
+  }
+}

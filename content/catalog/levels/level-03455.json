@@ -1,0 +1,315 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 3508
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3455,
+  "mapping": {
+    "body": "acorn",
+    "floor": "moss",
+    "hole": "dew",
+    "neck": "wood",
+    "notes": "leaf",
+    "string": "dew",
+    "wall": "flower"
+  },
+  "mechanics": ["fountain", "layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["wood"],
+        "x": 3,
+        "y": 0
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 7,
+        "y": 0
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 10,
+        "y": 0
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 7,
+        "y": 1
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 11,
+        "y": 1
+      },
+      {
+        "layersBelow": ["acorn", "leaf"],
+        "x": 3,
+        "y": 2
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 4,
+        "y": 2
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 8,
+        "y": 2
+      },
+      {
+        "layersBelow": ["moss", "acorn"],
+        "x": 9,
+        "y": 3
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 12,
+        "y": 4
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 1,
+        "y": 6
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 7
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 11,
+        "y": 7
+      },
+      {
+        "layersBelow": ["moss", "wood"],
+        "x": 13,
+        "y": 7
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 1,
+        "y": 8
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 12,
+        "y": 8
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 5,
+        "y": 9
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 8,
+        "y": 9
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 10
+      },
+      {
+        "layersBelow": ["flower", "moss"],
+        "x": 7,
+        "y": 11
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 11
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 0,
+        "y": 12
+      },
+      {
+        "layersBelow": ["moss", "acorn"],
+        "x": 2,
+        "y": 12
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 8,
+        "y": 12
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 0,
+        "y": 13
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 1,
+        "y": 14
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 11,
+        "y": 14
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 3,
+        "y": 15
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 6,
+        "y": 15
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 9,
+        "y": 15
+      },
+      {
+        "layersBelow": ["dew", "flower"],
+        "x": 10,
+        "y": 15
+      },
+      {
+        "layersBelow": ["acorn", "wood"],
+        "x": 4,
+        "y": 17
+      }
+    ]
+  },
+  "picture": {
+    "id": "guitar_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 16,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 19,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 24,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 23,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 23,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 27,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 26,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 13,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 17,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "12629481433538412726",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent",
+        "variantId": "flower"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 9,
+            "y": 7
+          },
+          {
+            "x": 8,
+            "y": 11
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

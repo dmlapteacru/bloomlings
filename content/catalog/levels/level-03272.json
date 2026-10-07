@@ -1,0 +1,205 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1659
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3272,
+  "mapping": {
+    "blanket": "flower",
+    "board": "acorn",
+    "bumps": "leaf",
+    "cloud": "dew",
+    "cucumber": "leaf",
+    "flower": "acorn",
+    "hill": "flower",
+    "rind": "leaf",
+    "sky": "dew",
+    "stalk": "wood"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 1,
+        "y": 8
+      },
+      {
+        "hole": true,
+        "x": 3,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "cucumber_03",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 16,
+      "id": "p01",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p17",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p19",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p20",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "8540539354353160412",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 3,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "dew"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 1,
+            "y": 8
+          },
+          {
+            "x": 2,
+            "y": 10
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

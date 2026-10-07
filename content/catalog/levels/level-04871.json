@@ -1,0 +1,178 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1525
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4871,
+  "mapping": {
+    "bone": "dew",
+    "dog": "acorn",
+    "ears": "acorn",
+    "grass": "leaf",
+    "muzzle": "acorn",
+    "nose": "flower",
+    "sky": "water",
+    "sun": "acorn",
+    "tongue": "flower"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 10,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 13,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 12,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "dog_02",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 15,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 20,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 20,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 21,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "9868479093042002300",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 10,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 13,
+            "y": 7
+          },
+          {
+            "x": 12,
+            "y": 8
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

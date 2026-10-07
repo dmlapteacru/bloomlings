@@ -1,0 +1,182 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1796
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 12,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 224,
+  "mapping": {
+    "bow": "moss",
+    "cloud": "dew",
+    "flowers": "wood",
+    "grass": "moss",
+    "sky": "dew",
+    "stick": "water",
+    "swirl": "violet_bud",
+    "swirl2": "wood"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 10,
+        "y": 4
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 6
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 6
+      }
+    ]
+  },
+  "picture": {
+    "id": "lollipop_02",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13990054995890785952",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 6
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "dew"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 10,
+            "y": 4
+          },
+          {
+            "x": 11,
+            "y": 6
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12", "p16"]
+    ]
+  }
+}

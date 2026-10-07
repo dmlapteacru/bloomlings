@@ -1,0 +1,160 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1705
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3267,
+  "mapping": {
+    "body": "leaf",
+    "cab": "leaf",
+    "exhaust": "wood",
+    "field": "acorn",
+    "hub": "flower",
+    "sky": "dew",
+    "sprouts": "leaf",
+    "sun": "flower",
+    "tyre": "acorn",
+    "window": "water"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "tractor_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 11,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 12,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p18",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 9,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p22",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2347085799723500097",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21"]
+    ]
+  }
+}

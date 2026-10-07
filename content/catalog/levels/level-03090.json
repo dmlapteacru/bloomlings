@@ -1,0 +1,111 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1601
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3090,
+  "mapping": {
+    "door": "water",
+    "flag": "flower",
+    "grass": "moss",
+    "roof": "acorn",
+    "sand": "wood",
+    "sea": "water",
+    "sky": "dew",
+    "stripe": "flower",
+    "stripe2": "moss",
+    "sun": "acorn"
+  },
+  "picture": {
+    "id": "beach_hut_01",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 23,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 22,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 22,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 20,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7932035710884123877",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07"],
+      ["p02", "p08"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

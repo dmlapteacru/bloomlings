@@ -1,0 +1,189 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1807
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3647,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "band": "acorn",
+    "beam": "acorn",
+    "door": "moss",
+    "grass": "leaf",
+    "light": "acorn",
+    "rock": "acorn",
+    "roof": "flower",
+    "sea": "water",
+    "sky": "dew",
+    "tower": "flower"
+  },
+  "mechanics": ["connected_pair", "key", "mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 1,
+        "y": 1
+      },
+      {
+        "mystery": true,
+        "x": 14,
+        "y": 6
+      },
+      {
+        "mystery": true,
+        "x": 11,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 5,
+        "y": 9
+      },
+      {
+        "keyId": "k1",
+        "x": 4,
+        "y": 17
+      }
+    ]
+  },
+  "picture": {
+    "id": "lighthouse_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 22,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 17,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 17,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13004599235395292301",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

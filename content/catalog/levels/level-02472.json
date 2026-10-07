@@ -1,0 +1,178 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1713
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 15,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2472,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p22",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "bows": "violet_bud",
+    "cloud": "water",
+    "far_hill": "leaf",
+    "hill": "leaf",
+    "kite": "violet_bud",
+    "panel": "wood",
+    "sky": "water",
+    "string": "wood"
+  },
+  "mechanics": ["locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 15,
+        "y": 2
+      }
+    ]
+  },
+  "picture": {
+    "id": "kite_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 23,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 23,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p20",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p21",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
+      "id": "p22",
+      "lockKeyId": "k1",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "15366818205517499459",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17", "p22"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

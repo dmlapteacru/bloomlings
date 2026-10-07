@@ -1,0 +1,199 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1808
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4377,
+  "mapping": {
+    "body": "vine",
+    "flower": "berry",
+    "flower_center": "acorn",
+    "grass": "moss",
+    "leaf": "leaf",
+    "sky": "dew",
+    "stripe": "acorn",
+    "wing": "dew"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 8,
+        "y": 4
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "bee_13",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 11,
+      "id": "p01",
+      "variantId": "berry"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "berry"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p18",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p19",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p20",
+      "variantId": "vine"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7559914032356377605",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 8,
+            "y": 4
+          },
+          {
+            "x": 6,
+            "y": 8
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21"]
+    ]
+  }
+}

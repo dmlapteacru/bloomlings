@@ -1,0 +1,224 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1775
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2143,
+  "mapping": {
+    "bauble": "flower",
+    "bauble2": "water",
+    "floor": "acorn",
+    "garland": "wood",
+    "present": "flower",
+    "present2": "moss",
+    "star": "vine",
+    "tree": "moss",
+    "trunk": "wood",
+    "wall": "water"
+  },
+  "mechanics": ["chest", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 0,
+        "y": 2
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "hole": true,
+        "x": 4,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 13,
+        "y": 12
+      },
+      {
+        "stone": true,
+        "x": 13,
+        "y": 14
+      }
+    ]
+  },
+  "picture": {
+    "id": "fir_tree_06",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p18",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p19",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "vine"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14975265148882071960",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 4,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 2,
+            "y": 7
+          },
+          {
+            "x": 2,
+            "y": 9
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

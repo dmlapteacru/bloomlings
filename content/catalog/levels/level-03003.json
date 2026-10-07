@@ -1,0 +1,145 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 3867
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3003,
+  "mapping": {
+    "apple": "berry",
+    "face": "acorn",
+    "grass": "leaf",
+    "leaf": "leaf",
+    "nose": "flower",
+    "sky": "dew",
+    "spikes": "acorn",
+    "sun": "wood"
+  },
+  "picture": {
+    "id": "hedgehog_12",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "berry"
+    },
+    {
+      "count": 16,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p18",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p19",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "3880691911725254411",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17", "p19"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18"]
+    ]
+  }
+}

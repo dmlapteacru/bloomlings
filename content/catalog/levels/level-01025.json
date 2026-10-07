@@ -1,0 +1,129 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1644
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1025,
+  "mapping": {
+    "beak": "vine",
+    "eye": "violet_bud",
+    "feather": "flower",
+    "feather2": "moss",
+    "grass": "moss",
+    "head": "water",
+    "pumpkins": "wood",
+    "sky": "water",
+    "tips": "wood",
+    "turkey": "wood",
+    "wattle": "flower",
+    "wings": "wood"
+  },
+  "picture": {
+    "id": "turkey_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 19,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "vine"
+    },
+    {
+      "count": 5,
+      "id": "p16",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6648353739761604583",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}

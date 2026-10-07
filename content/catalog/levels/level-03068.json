@@ -1,0 +1,191 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1861
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 12,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3068,
+  "locks": [
+    {
+      "keyId": "k2",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    },
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p20",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "body": "vine",
+    "cones": "moss",
+    "drum": "wood",
+    "ground": "moss",
+    "hub": "dew",
+    "sky": "dew",
+    "stripe": "berry",
+    "sun": "flower",
+    "tyre": "wood",
+    "window": "dew"
+  },
+  "mechanics": ["locked_pod", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k2",
+        "x": 11,
+        "y": 2
+      },
+      {
+        "keyId": "k1",
+        "x": 3,
+        "y": 3
+      }
+    ]
+  },
+  "picture": {
+    "id": "cement_mixer_10",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 24,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "vine"
+    },
+    {
+      "count": 16,
+      "id": "p17",
+      "variantId": "vine"
+    },
+    {
+      "count": 18,
+      "id": "p18",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p19",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p20",
+      "lockKeyId": "k1",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "781635315264876422",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k2",
+      "slotIndex": 4
+    }
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

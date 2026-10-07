@@ -1,0 +1,178 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2438
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4111,
+  "mapping": {
+    "body": "acorn",
+    "floor": "moss",
+    "hole": "dew",
+    "neck": "acorn",
+    "notes": "leaf",
+    "string": "dew",
+    "wall": "violet_bud"
+  },
+  "mechanics": ["connected_pair", "mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 4,
+        "y": 1
+      },
+      {
+        "mystery": true,
+        "x": 5,
+        "y": 2
+      },
+      {
+        "mystery": true,
+        "x": 1,
+        "y": 4
+      }
+    ]
+  },
+  "picture": {
+    "id": "guitar_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p17",
+      "variantId": "violet_bud"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 11,
+      "id": "p18",
+      "variantId": "violet_bud"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 11,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 11,
+      "id": "p20",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p21",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p22",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14716646774061828804",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17", "p22"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

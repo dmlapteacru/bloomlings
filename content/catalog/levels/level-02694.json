@@ -1,0 +1,184 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1630
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2694,
+  "mapping": {
+    "bubble": "dew",
+    "eye": "violet_bud",
+    "fin": "violet_bud",
+    "fish": "wood",
+    "sand": "wood",
+    "stripe": "water",
+    "water": "water",
+    "weed": "moss"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 8,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 6
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "fish_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p17",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p18",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11496500988601587430",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 8,
+            "y": 5
+          },
+          {
+            "x": 8,
+            "y": 6
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
+    ]
+  }
+}

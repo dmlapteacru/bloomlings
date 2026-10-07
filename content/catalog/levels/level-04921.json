@@ -1,0 +1,203 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2017
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4921,
+  "mapping": {
+    "anemone": "leaf",
+    "clownfish": "acorn",
+    "coral": "flower",
+    "eye": "dew",
+    "fish": "wood",
+    "sand": "acorn",
+    "stripes": "violet_bud",
+    "tips": "leaf",
+    "water": "dew"
+  },
+  "mechanics": ["gate", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 12,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 5,
+        "y": 8
+      },
+      {
+        "hole": true,
+        "x": 9,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 0,
+        "y": 11
+      },
+      {
+        "stone": true,
+        "x": 15,
+        "y": 18
+      }
+    ]
+  },
+  "picture": {
+    "id": "clownfish_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 24,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 25,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 24,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 24,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 24,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 24,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p18",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 12,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p20",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "9281834677975952121",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

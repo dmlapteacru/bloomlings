@@ -1,0 +1,183 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1882
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 425,
+  "mapping": {
+    "antlers": "acorn",
+    "eye": "flower",
+    "grass": "moss",
+    "moose": "acorn",
+    "pine": "leaf",
+    "sky": "water",
+    "sun": "violet_bud"
+  },
+  "mechanics": ["connected_pair", "fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 4,
+        "y": 5
+      },
+      {
+        "hole": true,
+        "x": 4,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "moose_02",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 9,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 13,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p17",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "4769169718923701632",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 4,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 4,
+            "y": 5
+          },
+          {
+            "x": 3,
+            "y": 10
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

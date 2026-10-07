@@ -1,0 +1,121 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1545
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 13,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4247,
+  "mapping": {
+    "board": "wood",
+    "bumps": "leaf",
+    "cucumber": "leaf",
+    "flower": "vine",
+    "rind": "moss",
+    "shelf": "flower",
+    "stalk": "wood",
+    "table": "flower",
+    "wall": "water",
+    "wall_dots": "water"
+  },
+  "picture": {
+    "id": "cucumber_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 17,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p10",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "vine"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "10292283285190524487",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
+    ]
+  }
+}

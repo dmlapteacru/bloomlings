@@ -1,0 +1,144 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1695
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4372,
+  "mapping": {
+    "beak": "flower",
+    "belly": "moss",
+    "bird": "flower",
+    "crest": "wood",
+    "eye": "water",
+    "grass": "leaf",
+    "leaves": "leaf",
+    "sky": "water",
+    "sun": "vine",
+    "trunk": "wood"
+  },
+  "picture": {
+    "id": "woodpecker_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 19,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p07",
+      "variantId": "vine"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p13",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p17",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11567954193999555702",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

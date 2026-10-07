@@ -1,0 +1,159 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1772
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4723,
+  "mapping": {
+    "flag": "violet_bud",
+    "hull": "acorn",
+    "jib": "violet_bud",
+    "mast": "acorn",
+    "sail": "flower",
+    "sea": "dew",
+    "sky": "dew",
+    "stripe": "leaf",
+    "sun": "wood"
+  },
+  "picture": {
+    "id": "sailboat_07",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p06",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p21",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p22",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6501225139061361445",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17", "p22"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

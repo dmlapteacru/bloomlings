@@ -1,0 +1,255 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2488
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2242,
+  "mapping": {
+    "aurora": "leaf",
+    "aurora2": "leaf",
+    "block": "violet_bud",
+    "door": "acorn",
+    "igloo": "water",
+    "night": "violet_bud",
+    "snow": "dew",
+    "stars": "vine"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 3,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 4,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 6,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "igloo_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p18",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p20",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p22",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p23",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p24",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p25",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p26",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p27",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p28",
+      "variantId": "leaf"
+    },
+    {
+      "count": 5,
+      "id": "p29",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p30",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p31",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "12299802519609172204",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 6,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "violet_bud"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 3,
+            "y": 7
+          },
+          {
+            "x": 4,
+            "y": 7
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30"]
+    ]
+  }
+}

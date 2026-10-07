@@ -1,0 +1,169 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1647
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 876,
+  "mapping": {
+    "canopy": "violet_bud",
+    "flowers": "wood",
+    "grass": "leaf",
+    "handle": "wood",
+    "panel": "flower",
+    "puddle": "dew",
+    "rain": "water",
+    "sky": "water"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 4,
+        "y": 7
+      },
+      {
+        "hole": true,
+        "x": 5,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 9
+      }
+    ]
+  },
+  "picture": {
+    "id": "umbrella_06",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 22,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 18,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17519623001076674205",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent",
+        "variantId": "water"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 4,
+            "y": 7
+          },
+          {
+            "x": 3,
+            "y": 9
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

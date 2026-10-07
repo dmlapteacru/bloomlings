@@ -1,0 +1,135 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1794
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4415,
+  "mapping": {
+    "canopy": "dew",
+    "cloud": "water",
+    "fuselage": "flower",
+    "hills": "moss",
+    "sky": "dew",
+    "sun": "acorn",
+    "tips": "acorn",
+    "wing": "flower"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "glider_05",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 23,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 21,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 24,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 24,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 24,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 23,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 26,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 23,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 25,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 17,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 16,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 22,
+      "id": "p15",
+      "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p17",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "15631134795788551515",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

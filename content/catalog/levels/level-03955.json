@@ -1,0 +1,110 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1689
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 12,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3955,
+  "mapping": {
+    "beak": "acorn",
+    "bird": "flower",
+    "blossom": "violet_bud",
+    "branch": "wood",
+    "leaves": "moss",
+    "sky": "dew",
+    "sun": "acorn",
+    "wing": "violet_bud"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "bird_08",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 18,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 19,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 20,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 20,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p12",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2124968128001963962",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08"],
+      ["p04", "p09"],
+      ["p05", "p10"]
+    ]
+  }
+}

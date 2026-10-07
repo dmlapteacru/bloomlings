@@ -1,0 +1,143 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1787
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 17,
+      "y": 7
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2867,
+  "mapping": {
+    "cloud": "water",
+    "eye": "acorn",
+    "flowers": "flower",
+    "grass": "moss",
+    "plates": "acorn",
+    "shell": "wood",
+    "skin": "leaf",
+    "sky": "water",
+    "sun": "flower"
+  },
+  "picture": {
+    "id": "turtle_05",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 24,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 20,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 19,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "acorn"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 22,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p17",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p18",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p19",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6982020889846743759",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

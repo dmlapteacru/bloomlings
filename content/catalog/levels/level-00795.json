@@ -1,0 +1,154 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1681
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 795,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "dome": "flower",
+    "glow": "moss",
+    "head": "vine",
+    "hill": "leaf",
+    "night": "dew",
+    "planet": "water",
+    "stars": "vine",
+    "tail": "flower"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 7,
+        "y": 5
+      },
+      {
+        "keyId": "k1",
+        "x": 12,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "comet_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 22,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 24,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 25,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 21,
+      "id": "p11",
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "12470594062218351397",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 5
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

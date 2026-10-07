@@ -3,143 +3,165 @@
   "definitionVersion": 1,
   "difficulty": {
     "class": "normal",
-    "score": 1933
+    "score": 1981
   },
   "entries": [
     {
       "side": "bottom",
-      "x": 7,
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
       "y": 0
     }
   ],
   "generatorVersion": "gen-1.3.0",
   "levelNumber": 68,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p32",
+        "kind": "pod"
+      }
+    }
+  ],
   "mapping": {
-    "flag": "violet_bud",
-    "hull": "acorn",
-    "jib": "violet_bud",
-    "mast": "acorn",
-    "sail": "violet_bud",
-    "sea": "water",
+    "flowers": "violet_bud",
+    "grass": "leaf",
+    "pumpkin": "acorn",
+    "rib": "acorn",
     "sky": "water",
-    "stripe": "moss",
-    "sun": "vine"
+    "stem": "leaf",
+    "sun": "violet_bud",
+    "vine": "moss"
   },
-  "mechanics": ["connected_pair"],
+  "mechanics": ["connected_pair", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 2,
+        "y": 4
+      }
+    ]
+  },
   "picture": {
-    "id": "sailboat_12",
+    "id": "pumpkin_07",
+    "mirror": "horizontal",
     "version": 1
   },
   "pods": [
     {
-      "count": 5,
+      "count": 9,
       "id": "p01",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 6,
+      "count": 11,
       "id": "p02",
-      "variantId": "violet_bud"
+      "variantId": "leaf"
     },
     {
-      "count": 6,
+      "count": 11,
       "id": "p03",
-      "variantId": "water"
+      "variantId": "leaf"
     },
     {
-      "count": 6,
+      "count": 11,
       "id": "p04",
-      "variantId": "vine"
+      "variantId": "leaf"
     },
     {
       "count": 7,
       "id": "p05",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p06",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 10,
+      "count": 6,
       "id": "p07",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 8,
       "id": "p08",
-      "variantId": "violet_bud"
+      "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p09",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 5,
       "id": "p10",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 6,
       "id": "p11",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 7,
       "id": "p12",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 7,
+      "count": 6,
       "id": "p13",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 6,
       "id": "p14",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 6,
       "id": "p15",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 5,
+      "count": 7,
       "id": "p16",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 10,
+      "count": 6,
       "id": "p17",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 5,
+      "count": 7,
       "id": "p18",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
       "count": 6,
       "id": "p19",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "connectedGroupId": "c1",
-      "count": 5,
+      "count": 7,
       "id": "p20",
-      "variantId": "water"
+      "variantId": "acorn"
     },
     {
-      "count": 6,
+      "count": 5,
       "id": "p21",
       "variantId": "water"
     },
     {
-      "count": 5,
+      "connectedGroupId": "c1",
+      "count": 7,
       "id": "p22",
       "variantId": "water"
     },
@@ -149,53 +171,64 @@
       "variantId": "water"
     },
     {
-      "count": 6,
+      "connectedGroupId": "c1",
+      "count": 9,
       "id": "p24",
       "variantId": "water"
     },
     {
-      "count": 11,
+      "count": 12,
       "id": "p25",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 11,
-      "id": "p26",
-      "variantId": "violet_bud"
+      "variantId": "water"
     },
     {
       "count": 9,
-      "id": "p27",
-      "variantId": "violet_bud"
-    },
-    {
-      "count": 8,
-      "id": "p28",
-      "variantId": "acorn"
-    },
-    {
-      "count": 10,
-      "id": "p29",
-      "variantId": "acorn"
+      "id": "p26",
+      "variantId": "water"
     },
     {
       "count": 11,
+      "id": "p27",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p28",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p29",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
       "id": "p30",
       "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p31",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p32",
+      "lockKeyId": "k1",
+      "variantId": "leaf"
     }
   ],
   "rewardProfile": "standard",
-  "seed": "6531545360273595708",
+  "seed": "3920835878980090387",
   "slots": {
     "count": 5
   },
   "tray": {
     "stacks": [
-      ["p01", "p06", "p11", "p16", "p21", "p26"],
-      ["p02", "p07", "p12", "p17", "p22", "p27"],
-      ["p03", "p08", "p13", "p18", "p23", "p28"],
-      ["p04", "p09", "p14", "p19", "p24", "p29"],
-      ["p05", "p10", "p15", "p20", "p25", "p30"]
+      ["p01", "p05", "p09", "p13", "p17", "p21", "p25", "p29"],
+      ["p02", "p06", "p10", "p14", "p18", "p22", "p26", "p30"],
+      ["p03", "p07", "p11", "p15", "p19", "p23", "p27", "p31"],
+      ["p04", "p08", "p12", "p16", "p20", "p24", "p28", "p32"]
     ]
   }
 }

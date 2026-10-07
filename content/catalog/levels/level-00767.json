@@ -1,0 +1,315 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2534
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 767,
+  "mapping": {
+    "body": "vine",
+    "cloud": "leaf",
+    "grass": "leaf",
+    "mast": "wood",
+    "rotor": "wood",
+    "skid": "berry",
+    "sky": "dew",
+    "tail": "acorn",
+    "window": "dew"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 0,
+        "y": 3
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 18,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 4,
+        "y": 18
+      }
+    ]
+  },
+  "picture": {
+    "id": "helicopter_10",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 11,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p21",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p22",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p23",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p24",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p25",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p26",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p27",
+      "variantId": "dew"
+    },
+    {
+      "count": 10,
+      "id": "p28",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p29",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p30",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p31",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p32",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p33",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p34",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p35",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p36",
+      "variantId": "vine"
+    },
+    {
+      "count": 6,
+      "id": "p37",
+      "variantId": "vine"
+    },
+    {
+      "count": 5,
+      "id": "p38",
+      "variantId": "vine"
+    },
+    {
+      "count": 8,
+      "id": "p39",
+      "variantId": "vine"
+    },
+    {
+      "count": 5,
+      "id": "p40",
+      "variantId": "vine"
+    },
+    {
+      "count": 8,
+      "id": "p41",
+      "variantId": "vine"
+    },
+    {
+      "count": 12,
+      "id": "p42",
+      "variantId": "vine"
+    },
+    {
+      "count": 9,
+      "id": "p43",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p44",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p45",
+      "variantId": "leaf"
+    },
+    {
+      "count": 7,
+      "id": "p46",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p47",
+      "variantId": "berry"
+    },
+    {
+      "count": 8,
+      "id": "p48",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "1742637575847504402",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19", "p25", "p31", "p37", "p43"],
+      ["p02", "p08", "p14", "p20", "p26", "p32", "p38", "p44"],
+      ["p03", "p09", "p15", "p21", "p27", "p33", "p39", "p45"],
+      ["p04", "p10", "p16", "p22", "p28", "p34", "p40", "p46"],
+      ["p05", "p11", "p17", "p23", "p29", "p35", "p41", "p47"],
+      ["p06", "p12", "p18", "p24", "p30", "p36", "p42", "p48"]
+    ]
+  }
+}

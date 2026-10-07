@@ -1,0 +1,116 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1522
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2359,
+  "mapping": {
+    "beak": "flower",
+    "belly": "moss",
+    "bird": "flower",
+    "crest": "acorn",
+    "eye": "dew",
+    "grass": "moss",
+    "leaves": "moss",
+    "sky": "dew",
+    "sun": "wood",
+    "trunk": "acorn"
+  },
+  "picture": {
+    "id": "woodpecker_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 22,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 25,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 24,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 25,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 20,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p14",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7697144181613580908",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14"]
+    ]
+  }
+}

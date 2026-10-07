@@ -1,0 +1,121 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1475
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4848,
+  "mapping": {
+    "bone": "water",
+    "dog": "acorn",
+    "ears": "acorn",
+    "grass": "moss",
+    "muzzle": "acorn",
+    "nose": "flower",
+    "sky": "water",
+    "sun": "wood",
+    "tongue": "flower"
+  },
+  "mechanics": ["mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 9,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "dog_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 23,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 27,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 28,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 28,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 30,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 23,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 24,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "2634704661680570234",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,181 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2475
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3941,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "leaf": "leaf",
+    "sky": "water",
+    "soil": "acorn",
+    "stem": "moss",
+    "sun": "acorn",
+    "tulip": "violet_bud",
+    "tulip2": "vine"
+  },
+  "mechanics": ["key"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 7,
+        "y": 9
+      },
+      {
+        "keyId": "k1",
+        "x": 12,
+        "y": 11
+      }
+    ]
+  },
+  "picture": {
+    "id": "tulip_bed_10",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 15,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "acorn"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p12",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p15",
+      "variantId": "leaf"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p17",
+      "variantId": "vine"
+    },
+    {
+      "count": 7,
+      "id": "p18",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14038200471743206008",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 9
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18"]
+    ]
+  }
+}

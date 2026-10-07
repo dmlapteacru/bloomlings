@@ -1,0 +1,370 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2690
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 13,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1322,
+  "mapping": {
+    "arils": "violet_bud",
+    "blanket": "acorn",
+    "cloud": "water",
+    "crown": "flower",
+    "fruit": "flower",
+    "hill": "wood",
+    "pith": "acorn",
+    "plate": "dew",
+    "sky": "dew"
+  },
+  "mechanics": ["connected_triple", "fountain", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 3,
+        "y": 5
+      },
+      {
+        "stone": true,
+        "x": 17,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 16,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 13
+      },
+      {
+        "hole": true,
+        "x": 10,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 15
+      }
+    ]
+  },
+  "picture": {
+    "id": "pomegranate_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p21",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p22",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p23",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p24",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p25",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p26",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p27",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p28",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p29",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p30",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p31",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p32",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p33",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p34",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p35",
+      "variantId": "flower"
+    },
+    {
+      "count": 7,
+      "id": "p36",
+      "variantId": "flower"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 9,
+      "id": "p37",
+      "variantId": "flower"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 7,
+      "id": "p38",
+      "variantId": "flower"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 8,
+      "id": "p39",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p40",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p41",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p42",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p43",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p44",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p45",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p46",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p47",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p48",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p49",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p50",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5774923060333803475",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 10,
+          "y": 14
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent",
+        "variantId": "dew"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 11,
+            "y": 13
+          },
+          {
+            "x": 9,
+            "y": 15
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37", "p40", "p43", "p46", "p49"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35", "p38", "p41", "p44", "p47", "p50"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36", "p39", "p42", "p45", "p48"]
+    ]
+  }
+}

@@ -1,0 +1,225 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1864
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4711,
+  "mapping": {
+    "door": "dew",
+    "flag": "violet_bud",
+    "grass": "leaf",
+    "roof": "wood",
+    "sand": "wood",
+    "sea": "dew",
+    "sky": "dew",
+    "stripe": "violet_bud",
+    "stripe2": "moss",
+    "sun": "wood"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 12,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "beach_hut_01",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p21",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p22",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p23",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p24",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p25",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p26",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p27",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p28",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p29",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p30",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p31",
+      "variantId": "moss"
+    },
+    {
+      "count": 8,
+      "id": "p32",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6676599226642738489",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21", "p26", "p31"],
+      ["p02", "p07", "p12", "p17", "p22", "p27", "p32"],
+      ["p03", "p08", "p13", "p18", "p23", "p28"],
+      ["p04", "p09", "p14", "p19", "p24", "p29"],
+      ["p05", "p10", "p15", "p20", "p25", "p30"]
+    ]
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2391
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 6
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4897,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "beaver": "wood",
+    "eye": "violet_bud",
+    "eye_white": "moss",
+    "grass": "moss",
+    "leaves": "moss",
+    "muzzle": "wood",
+    "sky": "dew",
+    "sun": "vine",
+    "tail": "violet_bud",
+    "teeth": "water",
+    "tree": "wood"
+  },
+  "mechanics": ["locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 10,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "beaver_08",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 6,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p05",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p09",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p18",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p20",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p21",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p22",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p23",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p24",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p25",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p26",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p27",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p28",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p29",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p30",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p31",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p32",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p33",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p34",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p35",
+      "variantId": "dew"
+    },
+    {
+      "count": 11,
+      "id": "p36",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p37",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p38",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p39",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p40",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p41",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p42",
+      "variantId": "vine"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "7458127402476378824",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21", "p26", "p31", "p36", "p41"],
+      ["p02", "p07", "p12", "p17", "p22", "p27", "p32", "p37", "p42"],
+      ["p03", "p08", "p13", "p18", "p23", "p28", "p33", "p38"],
+      ["p04", "p09", "p14", "p19", "p24", "p29", "p34", "p39"],
+      ["p05", "p10", "p15", "p20", "p25", "p30", "p35", "p40"]
+    ]
+  }
+}

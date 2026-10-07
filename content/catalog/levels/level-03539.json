@@ -1,0 +1,279 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2169
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 14,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3539,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "door1",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "beak": "acorn",
+    "eye": "violet_bud",
+    "face": "water",
+    "grass": "moss",
+    "puffin": "violet_bud",
+    "rock": "acorn",
+    "sea": "dew",
+    "sky": "water",
+    "sun": "wood"
+  },
+  "mechanics": ["key", "mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "hole": true,
+        "x": 11,
+        "y": 7
+      },
+      {
+        "mystery": true,
+        "x": 9,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "puffin_04",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p03",
+      "variantId": "moss"
+    },
+    {
+      "count": 9,
+      "id": "p04",
+      "variantId": "moss"
+    },
+    {
+      "count": 5,
+      "id": "p05",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p22",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p23",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p24",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p25",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p26",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p27",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p28",
+      "variantId": "water"
+    },
+    {
+      "count": 5,
+      "id": "p29",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p30",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p31",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 8,
+      "id": "p32",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p33",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p34",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p35",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p36",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p37",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17322470374274954242",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 11,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "keyId": "k1",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door1",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25", "p28", "p31", "p34", "p37"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26", "p29", "p32", "p35"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24", "p27", "p30", "p33", "p36"]
+    ]
+  }
+}

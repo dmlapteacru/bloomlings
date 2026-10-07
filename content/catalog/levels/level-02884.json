@@ -1,0 +1,269 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2516
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 5,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 14,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2884,
+  "mapping": {
+    "background": "water",
+    "cherry": "berry",
+    "cone": "vine",
+    "grape": "flower",
+    "mint": "leaf",
+    "napkin": "leaf",
+    "sprinkles": "water",
+    "strawberry": "flower",
+    "table": "acorn",
+    "waffle": "acorn"
+  },
+  "mechanics": ["connected_pair", "gate"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 16,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "ice_cream_10",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 11,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 13,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p15",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p16",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 21,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p21",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p22",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p23",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p24",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p25",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p26",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p27",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p28",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p29",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p30",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p31",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p32",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p33",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p34",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p35",
+      "variantId": "vine"
+    },
+    {
+      "count": 9,
+      "id": "p36",
+      "variantId": "berry"
+    },
+    {
+      "count": 5,
+      "id": "p37",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "12521786050742784715",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 16,
+          "y": 12
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17", "p21", "p25", "p29", "p33", "p37"],
+      ["p02", "p06", "p10", "p14", "p18", "p22", "p26", "p30", "p34"],
+      ["p03", "p07", "p11", "p15", "p19", "p23", "p27", "p31", "p35"],
+      ["p04", "p08", "p12", "p16", "p20", "p24", "p28", "p32", "p36"]
+    ]
+  }
+}

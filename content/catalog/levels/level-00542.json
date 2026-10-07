@@ -1,0 +1,167 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1743
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 542,
+  "mapping": {
+    "berry": "dew",
+    "berry2": "dew",
+    "bowl": "wood",
+    "crowns": "violet_bud",
+    "leaf": "leaf",
+    "shelf": "wood",
+    "stem": "moss",
+    "table": "moss",
+    "wall": "flower",
+    "wall_dots": "violet_bud"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 4,
+        "y": 7
+      }
+    ]
+  },
+  "picture": {
+    "id": "blueberries_01",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 12,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "wood"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "wood"
+    },
+    {
+      "count": 15,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 21,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 11,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 7,
+      "id": "p16",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p18",
+      "variantId": "moss"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "13675664991718848423",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 4,
+          "y": 7
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent",
+        "variantId": "flower"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "bridge",
+      "type": "bridge"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15", "p18"]
+    ]
+  }
+}

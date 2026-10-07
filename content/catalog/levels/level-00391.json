@@ -1,0 +1,277 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "hard",
+    "score": 2828
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 391,
+  "mapping": {
+    "background": "water",
+    "berry": "berry",
+    "blossom": "violet_bud",
+    "cloth": "moss",
+    "leaves": "leaf",
+    "plate": "wood",
+    "seed": "wood"
+  },
+  "mechanics": ["layered_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["water"],
+        "x": 11,
+        "y": 0
+      },
+      {
+        "layersBelow": ["violet_bud", "moss"],
+        "x": 14,
+        "y": 0
+      },
+      {
+        "layersBelow": ["berry"],
+        "x": 2,
+        "y": 1
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 3,
+        "y": 1
+      },
+      {
+        "layersBelow": ["berry"],
+        "x": 3,
+        "y": 2
+      },
+      {
+        "layersBelow": ["berry"],
+        "x": 13,
+        "y": 3
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 8,
+        "y": 4
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 5,
+        "y": 5
+      },
+      {
+        "layersBelow": ["berry"],
+        "x": 11,
+        "y": 5
+      },
+      {
+        "layersBelow": ["wood", "leaf"],
+        "x": 12,
+        "y": 5
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 14,
+        "y": 5
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 1,
+        "y": 7
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 12,
+        "y": 7
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 12,
+        "y": 8
+      },
+      {
+        "layersBelow": ["wood", "berry"],
+        "x": 10,
+        "y": 9
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 11,
+        "y": 9
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 8,
+        "y": 11
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 14,
+        "y": 11
+      },
+      {
+        "layersBelow": ["violet_bud"],
+        "x": 2,
+        "y": 12
+      },
+      {
+        "layersBelow": ["moss"],
+        "x": 3,
+        "y": 13
+      },
+      {
+        "layersBelow": ["wood", "violet_bud"],
+        "x": 12,
+        "y": 13
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 14,
+        "y": 14
+      },
+      {
+        "layersBelow": ["berry", "moss"],
+        "x": 1,
+        "y": 15
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 9,
+        "y": 15
+      },
+      {
+        "layersBelow": ["moss", "violet_bud"],
+        "x": 7,
+        "y": 16
+      }
+    ]
+  },
+  "picture": {
+    "id": "strawberry_13",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "berry"
+    },
+    {
+      "count": 11,
+      "id": "p08",
+      "variantId": "berry"
+    },
+    {
+      "count": 12,
+      "id": "p09",
+      "variantId": "berry"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "berry"
+    },
+    {
+      "count": 9,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 9,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p19",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "berry"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "6648662768555627573",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

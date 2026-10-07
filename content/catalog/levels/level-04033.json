@@ -1,0 +1,131 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1627
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 7,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 4033,
+  "mapping": {
+    "flame_core": "vine",
+    "flames": "wood",
+    "grass": "moss",
+    "logs": "violet_bud",
+    "marshmallow": "violet_bud",
+    "sky": "water",
+    "stick": "leaf",
+    "toasted": "wood",
+    "white": "violet_bud"
+  },
+  "picture": {
+    "id": "marshmallow_06",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 13,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 11,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p11",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p16",
+      "variantId": "vine"
+    },
+    {
+      "count": 5,
+      "id": "p17",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14353197780665760950",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16"],
+      ["p02", "p05", "p08", "p11", "p14", "p17"],
+      ["p03", "p06", "p09", "p12", "p15"]
+    ]
+  }
+}

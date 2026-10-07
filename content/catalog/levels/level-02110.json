@@ -1,0 +1,173 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1667
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 17,
+      "y": 7
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2110,
+  "mapping": {
+    "fence": "water",
+    "flowers": "vine",
+    "grass": "leaf",
+    "pumpkin": "wood",
+    "rib": "wood",
+    "sky": "water",
+    "stem": "moss",
+    "sun": "violet_bud",
+    "vine": "moss"
+  },
+  "mechanics": ["stone"],
+  "overlays": {
+    "cells": [
+      {
+        "stone": true,
+        "x": 15,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 16
+      },
+      {
+        "stone": true,
+        "x": 6,
+        "y": 18
+      }
+    ]
+  },
+  "picture": {
+    "id": "pumpkin_11",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 18,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 18,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p13",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p14",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p15",
+      "variantId": "wood"
+    },
+    {
+      "count": 16,
+      "id": "p16",
+      "variantId": "wood"
+    },
+    {
+      "count": 19,
+      "id": "p17",
+      "variantId": "wood"
+    },
+    {
+      "count": 21,
+      "id": "p18",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
+      "id": "p19",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p20",
+      "variantId": "vine"
+    },
+    {
+      "count": 8,
+      "id": "p21",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5038209762798042502",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16", "p21"],
+      ["p02", "p07", "p12", "p17"],
+      ["p03", "p08", "p13", "p18"],
+      ["p04", "p09", "p14", "p19"],
+      ["p05", "p10", "p15", "p20"]
+    ]
+  }
+}

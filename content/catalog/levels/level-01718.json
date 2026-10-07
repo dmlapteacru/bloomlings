@@ -1,0 +1,108 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1548
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1718,
+  "mapping": {
+    "cloud": "moss",
+    "hills": "moss",
+    "plane": "vine",
+    "propeller": "wood",
+    "sky": "dew",
+    "tail": "wood",
+    "window": "water",
+    "wing": "wood"
+  },
+  "picture": {
+    "id": "airplane_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 24,
+      "id": "p01",
+      "variantId": "wood"
+    },
+    {
+      "count": 22,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 18,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 30,
+      "id": "p04",
+      "variantId": "vine"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 23,
+      "id": "p06",
+      "variantId": "moss"
+    },
+    {
+      "count": 17,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 34,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11740781740776645949",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07"],
+      ["p02", "p08"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

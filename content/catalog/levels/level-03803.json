@@ -1,0 +1,175 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1877
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3803,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "bubbles": "dew",
+    "octopus": "berry",
+    "pupil": "wood",
+    "sand": "acorn",
+    "spots": "flower",
+    "water": "dew",
+    "weed": "leaf"
+  },
+  "mechanics": ["locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 10,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "octopus_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 7,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 14,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "berry"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "berry"
+    },
+    {
+      "count": 14,
+      "id": "p13",
+      "variantId": "berry"
+    },
+    {
+      "count": 7,
+      "id": "p14",
+      "variantId": "berry"
+    },
+    {
+      "count": 8,
+      "id": "p15",
+      "variantId": "berry"
+    },
+    {
+      "count": 13,
+      "id": "p16",
+      "variantId": "berry"
+    },
+    {
+      "count": 15,
+      "id": "p17",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p18",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "flower"
+    },
+    {
+      "count": 6,
+      "id": "p20",
+      "variantId": "wood"
+    },
+    {
+      "count": 5,
+      "id": "p21",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "5380929457691404902",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

@@ -1,0 +1,186 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1845
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 14,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1594,
+  "mapping": {
+    "band": "leaf",
+    "bowl": "berry",
+    "chopsticks": "acorn",
+    "noodles": "acorn",
+    "shelf": "leaf",
+    "steam": "water",
+    "strands": "acorn",
+    "table": "acorn",
+    "wall": "flower",
+    "wall_dots": "violet_bud"
+  },
+  "mechanics": ["fountain"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 8,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 9,
+        "y": 11
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 13
+      }
+    ]
+  },
+  "picture": {
+    "id": "noodles_09",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 16,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p04",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "flower"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "flower"
+    },
+    {
+      "count": 17,
+      "id": "p11",
+      "variantId": "leaf"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 8,
+      "id": "p14",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p15",
+      "variantId": "flower"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "berry"
+    },
+    {
+      "count": 12,
+      "id": "p17",
+      "variantId": "berry"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "4411713592484991296",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent",
+        "variantId": "acorn"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 9,
+            "y": 11
+          },
+          {
+            "x": 8,
+            "y": 13
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "fountain",
+      "type": "fountain"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13", "p15", "p17"],
+      ["p02", "p04", "p06", "p08", "p10", "p12", "p14", "p16", "p18"]
+    ]
+  }
+}

@@ -1,0 +1,247 @@
+{
+  "boardLook": "icons",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 2188
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 5,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 14,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3444,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    }
+  ],
+  "mapping": {
+    "eye": "wood",
+    "floor": "acorn",
+    "limb": "water",
+    "metal": "water",
+    "mouth": "wood",
+    "panel": "leaf",
+    "wall": "violet_bud"
+  },
+  "mechanics": ["chest", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 4,
+        "y": 0
+      },
+      {
+        "stone": true,
+        "x": 8,
+        "y": 14
+      },
+      {
+        "hole": true,
+        "x": 11,
+        "y": 14
+      },
+      {
+        "stone": true,
+        "x": 14,
+        "y": 14
+      }
+    ]
+  },
+  "picture": {
+    "id": "robot_05",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 20,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 20,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p06",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 12,
+      "id": "p07",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p12",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 26,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 14,
+      "id": "p14",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 13,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 25,
+      "id": "p16",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 16,
+      "id": "p17",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p18",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p19",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p20",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p21",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p22",
+      "variantId": "water"
+    },
+    {
+      "count": 16,
+      "id": "p23",
+      "variantId": "water"
+    },
+    {
+      "count": 17,
+      "id": "p24",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p25",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p26",
+      "variantId": "leaf"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "14915895262277745598",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 11,
+          "y": 14
+        }
+      ],
+      "condition": {
+        "count": 4,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 8,
+            "y": 14
+          },
+          {
+            "x": 14,
+            "y": 14
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10", "p13", "p16", "p19", "p22", "p25"],
+      ["p02", "p05", "p08", "p11", "p14", "p17", "p20", "p23", "p26"],
+      ["p03", "p06", "p09", "p12", "p15", "p18", "p21", "p24"]
+    ]
+  }
+}

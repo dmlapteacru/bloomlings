@@ -1,0 +1,279 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "super_hard",
+    "score": 3346
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1492,
+  "mapping": {
+    "caramel": "flower",
+    "cherry": "flower",
+    "cream": "dew",
+    "custard": "wood",
+    "plate": "dew",
+    "shelf": "water",
+    "stem": "leaf",
+    "table": "acorn",
+    "wall": "leaf",
+    "wall_dots": "water"
+  },
+  "mechanics": ["layered_tile", "stone"],
+  "overlays": {
+    "cells": [
+      {
+        "layersBelow": ["dew"],
+        "x": 1,
+        "y": 0
+      },
+      {
+        "layersBelow": ["dew", "water"],
+        "x": 0,
+        "y": 1
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 12,
+        "y": 1
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 1,
+        "y": 2
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 5,
+        "y": 2
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 10,
+        "y": 2
+      },
+      {
+        "layersBelow": ["wood", "dew"],
+        "x": 15,
+        "y": 2
+      },
+      {
+        "layersBelow": ["water", "wood"],
+        "x": 8,
+        "y": 3
+      },
+      {
+        "layersBelow": ["acorn", "wood"],
+        "x": 11,
+        "y": 3
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 1,
+        "y": 4
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 4,
+        "y": 4
+      },
+      {
+        "layersBelow": ["flower", "water"],
+        "x": 9,
+        "y": 5
+      },
+      {
+        "layersBelow": ["acorn"],
+        "x": 3,
+        "y": 6
+      },
+      {
+        "layersBelow": ["leaf", "flower"],
+        "x": 5,
+        "y": 6
+      },
+      {
+        "layersBelow": ["dew", "water"],
+        "x": 6,
+        "y": 6
+      },
+      {
+        "stone": true,
+        "x": 2,
+        "y": 7
+      },
+      {
+        "layersBelow": ["dew"],
+        "x": 6,
+        "y": 7
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 7,
+        "y": 7
+      },
+      {
+        "stone": true,
+        "x": 0,
+        "y": 8
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 10,
+        "y": 9
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 15,
+        "y": 9
+      },
+      {
+        "layersBelow": ["leaf", "dew"],
+        "x": 6,
+        "y": 10
+      },
+      {
+        "layersBelow": ["wood"],
+        "x": 12,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 14,
+        "y": 10
+      },
+      {
+        "layersBelow": ["leaf"],
+        "x": 4,
+        "y": 11
+      },
+      {
+        "layersBelow": ["water"],
+        "x": 8,
+        "y": 12
+      },
+      {
+        "stone": true,
+        "x": 14,
+        "y": 12
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 1,
+        "y": 13
+      },
+      {
+        "layersBelow": ["flower"],
+        "x": 4,
+        "y": 13
+      },
+      {
+        "layersBelow": ["acorn", "wood"],
+        "x": 12,
+        "y": 13
+      }
+    ]
+  },
+  "picture": {
+    "id": "pudding_01",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 17,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 19,
+      "id": "p02",
+      "variantId": "wood"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "flower"
+    },
+    {
+      "count": 19,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p06",
+      "variantId": "wood"
+    },
+    {
+      "count": 28,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 18,
+      "id": "p08",
+      "variantId": "leaf"
+    },
+    {
+      "count": 21,
+      "id": "p09",
+      "variantId": "leaf"
+    },
+    {
+      "count": 18,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "flower"
+    },
+    {
+      "count": 17,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 20,
+      "id": "p13",
+      "variantId": "water"
+    },
+    {
+      "count": 25,
+      "id": "p14",
+      "variantId": "leaf"
+    },
+    {
+      "count": 6,
+      "id": "p15",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "11710563336698190132",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13"],
+      ["p02", "p06", "p10", "p14"],
+      ["p03", "p07", "p11", "p15"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1858
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 15,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1656,
+  "locks": [
+    {
+      "keyId": "k2",
+      "target": {
+        "id": "door2",
+        "kind": "special"
+      }
+    },
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "p17",
+        "kind": "pod"
+      }
+    }
+  ],
+  "mapping": {
+    "barn": "flower",
+    "barn_door": "dew",
+    "cloud": "water",
+    "field": "moss",
+    "fork": "flower",
+    "hay": "acorn",
+    "meadow": "moss",
+    "sky": "dew",
+    "straw": "acorn",
+    "sun": "wood"
+  },
+  "mechanics": ["chest", "key", "locked_pod"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k2",
+        "x": 6,
+        "y": 2
+      },
+      {
+        "keyId": "k1",
+        "x": 12,
+        "y": 5
+      },
+      {
+        "hole": true,
+        "x": 4,
+        "y": 8
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 9
+      },
+      {
+        "stone": true,
+        "x": 3,
+        "y": 10
+      },
+      {
+        "hole": true,
+        "x": 8,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "haystack_01",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 9,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 15,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p07",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p08",
+      "variantId": "flower"
+    },
+    {
+      "count": 17,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 9,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 16,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p13",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 13,
+      "id": "p16",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p17",
+      "lockKeyId": "k1",
+      "variantId": "water"
+    },
+    {
+      "count": 6,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 6,
+      "id": "p19",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "8260599742612992794",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 12
+        }
+      ],
+      "condition": {
+        "keyId": "k2",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door2",
+      "type": "gate"
+    },
+    {
+      "cells": [
+        {
+          "x": 4,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 3,
+            "y": 9
+          },
+          {
+            "x": 3,
+            "y": 10
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09", "p13", "p17"],
+      ["p02", "p06", "p10", "p14", "p18"],
+      ["p03", "p07", "p11", "p15", "p19"],
+      ["p04", "p08", "p12", "p16"]
+    ]
+  }
+}

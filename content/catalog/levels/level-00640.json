@@ -1,0 +1,188 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1971
+  },
+  "entries": [
+    {
+      "side": "right",
+      "x": 14,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 640,
+  "locks": [
+    {
+      "keyId": "k1",
+      "target": {
+        "id": "4",
+        "kind": "slot"
+      }
+    },
+    {
+      "keyId": "k2",
+      "target": {
+        "id": "door2",
+        "kind": "special"
+      }
+    }
+  ],
+  "mapping": {
+    "candles": "dew",
+    "cherry": "violet_bud",
+    "cream": "flower",
+    "flames": "vine",
+    "sponge": "acorn",
+    "stand": "moss",
+    "table": "acorn",
+    "wall": "dew"
+  },
+  "mechanics": ["key", "locked_slot"],
+  "overlays": {
+    "cells": [
+      {
+        "keyId": "k1",
+        "x": 2,
+        "y": 9
+      },
+      {
+        "keyId": "k2",
+        "x": 4,
+        "y": 9
+      },
+      {
+        "hole": true,
+        "x": 5,
+        "y": 10
+      }
+    ]
+  },
+  "picture": {
+    "id": "cake_06",
+    "mirror": "horizontal",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 8,
+      "id": "p01",
+      "variantId": "vine"
+    },
+    {
+      "count": 11,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "acorn"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p07",
+      "variantId": "flower"
+    },
+    {
+      "count": 12,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p13",
+      "variantId": "acorn"
+    },
+    {
+      "count": 11,
+      "id": "p14",
+      "variantId": "moss"
+    },
+    {
+      "count": 12,
+      "id": "p15",
+      "variantId": "moss"
+    },
+    {
+      "count": 6,
+      "id": "p16",
+      "variantId": "violet_bud"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "10301145978572561508",
+  "slots": {
+    "count": 5,
+    "locked": {
+      "keyId": "k1",
+      "slotIndex": 4
+    }
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 5,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "keyId": "k2",
+        "kind": "key"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "door2",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09", "p15"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

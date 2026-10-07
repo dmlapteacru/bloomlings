@@ -1,0 +1,133 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1624
+  },
+  "entries": [
+    {
+      "side": "left",
+      "x": 0,
+      "y": 5
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2796,
+  "mapping": {
+    "bubbles": "flower",
+    "gems": "violet_bud",
+    "gold": "vine",
+    "lock": "dew",
+    "sand": "moss",
+    "water": "dew",
+    "weed": "moss",
+    "wood": "acorn"
+  },
+  "mechanics": ["gate"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 7,
+        "y": 12
+      }
+    ]
+  },
+  "picture": {
+    "id": "treasure_chest_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 21,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 21,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p04",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 22,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 23,
+      "id": "p06",
+      "variantId": "vine"
+    },
+    {
+      "count": 19,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p08",
+      "variantId": "vine"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "acorn"
+    },
+    {
+      "count": 28,
+      "id": "p10",
+      "variantId": "moss"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "16683891368946452585",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 7,
+          "y": 12
+        }
+      ],
+      "condition": {
+        "count": 2,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
+    ]
+  }
+}

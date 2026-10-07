@@ -1,0 +1,149 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1708
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 8,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2420,
+  "mapping": {
+    "bauble": "violet_bud",
+    "bauble2": "dew",
+    "floor": "acorn",
+    "garland": "acorn",
+    "present": "flower",
+    "present2": "moss",
+    "star": "wood",
+    "tree": "moss",
+    "trunk": "wood",
+    "wall": "dew"
+  },
+  "mechanics": ["gate"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 11,
+        "y": 8
+      }
+    ]
+  },
+  "picture": {
+    "id": "fir_tree_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 15,
+      "id": "p01",
+      "variantId": "acorn"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "acorn"
+    },
+    {
+      "count": 26,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 27,
+      "id": "p08",
+      "variantId": "moss"
+    },
+    {
+      "count": 25,
+      "id": "p09",
+      "variantId": "moss"
+    },
+    {
+      "count": 14,
+      "id": "p10",
+      "variantId": "acorn"
+    },
+    {
+      "count": 10,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 8,
+      "id": "p12",
+      "variantId": "flower"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p14",
+      "variantId": "dew"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "12710143958638162888",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 11,
+          "y": 8
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "gate",
+      "type": "gate"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13"],
+      ["p02", "p08", "p14"],
+      ["p03", "p09"],
+      ["p04", "p10"],
+      ["p05", "p11"],
+      ["p06", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1383
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 1,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1796,
+  "mapping": {
+    "background": "violet_bud",
+    "leaf": "leaf",
+    "pear": "leaf",
+    "plate": "dew",
+    "stalk": "acorn"
+  },
+  "mechanics": ["connected_pair"],
+  "picture": {
+    "id": "pear_03",
+    "mirror": "horizontal",
+    "version": 2
+  },
+  "pods": [
+    {
+      "count": 20,
+      "id": "p01",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p02",
+      "variantId": "leaf"
+    },
+    {
+      "count": 13,
+      "id": "p03",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p04",
+      "variantId": "leaf"
+    },
+    {
+      "count": 12,
+      "id": "p05",
+      "variantId": "leaf"
+    },
+    {
+      "count": 24,
+      "id": "p06",
+      "variantId": "leaf"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 24,
+      "id": "p07",
+      "variantId": "leaf"
+    },
+    {
+      "connectedGroupId": "c1",
+      "count": 16,
+      "id": "p08",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 18,
+      "id": "p09",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 17,
+      "id": "p11",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 5,
+      "id": "p12",
+      "variantId": "acorn"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "9020549467227503894",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p04", "p07", "p10"],
+      ["p02", "p05", "p08", "p11"],
+      ["p03", "p06", "p09", "p12"]
+    ]
+  }
+}

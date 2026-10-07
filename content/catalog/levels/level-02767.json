@@ -1,0 +1,154 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1784
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 14,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 2767,
+  "mapping": {
+    "boat": "berry",
+    "cloud": "dew",
+    "island": "moss",
+    "lake": "water",
+    "oar": "wood",
+    "pad": "moss",
+    "rim": "flower",
+    "sky": "dew",
+    "sun": "flower"
+  },
+  "picture": {
+    "id": "rowboat_08",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 14,
+      "id": "p01",
+      "variantId": "water"
+    },
+    {
+      "count": 8,
+      "id": "p02",
+      "variantId": "water"
+    },
+    {
+      "count": 9,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "berry"
+    },
+    {
+      "count": 10,
+      "id": "p05",
+      "variantId": "flower"
+    },
+    {
+      "count": 15,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 7,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 10,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p09",
+      "variantId": "berry"
+    },
+    {
+      "count": 13,
+      "id": "p10",
+      "variantId": "dew"
+    },
+    {
+      "count": 7,
+      "id": "p11",
+      "variantId": "dew"
+    },
+    {
+      "count": 9,
+      "id": "p12",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p13",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p14",
+      "variantId": "dew"
+    },
+    {
+      "count": 14,
+      "id": "p15",
+      "variantId": "dew"
+    },
+    {
+      "count": 15,
+      "id": "p16",
+      "variantId": "dew"
+    },
+    {
+      "count": 13,
+      "id": "p17",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p18",
+      "variantId": "dew"
+    },
+    {
+      "count": 12,
+      "id": "p19",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p20",
+      "variantId": "wood"
+    },
+    {
+      "count": 7,
+      "id": "p21",
+      "variantId": "flower"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "15858638765372541274",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p07", "p13", "p19"],
+      ["p02", "p08", "p14", "p20"],
+      ["p03", "p09", "p15", "p21"],
+      ["p04", "p10", "p16"],
+      ["p05", "p11", "p17"],
+      ["p06", "p12", "p18"]
+    ]
+  }
+}

@@ -1,0 +1,160 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1683
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 4,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 11,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1289,
+  "mapping": {
+    "cloud": "moss",
+    "hills": "leaf",
+    "plane": "violet_bud",
+    "propeller": "acorn",
+    "sky": "dew",
+    "tail": "berry",
+    "window": "dew",
+    "wing": "acorn"
+  },
+  "mechanics": ["environment_2"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 8,
+        "y": 5
+      }
+    ]
+  },
+  "picture": {
+    "id": "airplane_09",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 24,
+      "id": "p01",
+      "variantId": "leaf"
+    },
+    {
+      "count": 16,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 18,
+      "id": "p06",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p07",
+      "variantId": "dew"
+    },
+    {
+      "count": 17,
+      "id": "p08",
+      "variantId": "dew"
+    },
+    {
+      "count": 16,
+      "id": "p09",
+      "variantId": "dew"
+    },
+    {
+      "count": 25,
+      "id": "p10",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 19,
+      "id": "p11",
+      "variantId": "moss"
+    },
+    {
+      "count": 16,
+      "id": "p12",
+      "variantId": "acorn"
+    },
+    {
+      "count": 5,
+      "id": "p13",
+      "variantId": "berry"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "17112872449033871094",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 8,
+          "y": 5
+        }
+      ],
+      "condition": {
+        "kind": "clear_region",
+        "regionCells": [
+          {
+            "x": 8,
+            "y": 4
+          },
+          {
+            "x": 7,
+            "y": 5
+          },
+          {
+            "x": 9,
+            "y": 5
+          },
+          {
+            "x": 8,
+            "y": 6
+          }
+        ]
+      },
+      "effect": {
+        "kind": "open_cells"
+      },
+      "id": "statue",
+      "type": "statue"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p03", "p05", "p07", "p09", "p11", "p13"],
+      ["p02", "p04", "p06", "p08", "p10", "p12"]
+    ]
+  }
+}

@@ -1,0 +1,141 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1576
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 3,
+      "y": 0
+    },
+    {
+      "side": "bottom",
+      "x": 10,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 1331,
+  "mapping": {
+    "body": "wood",
+    "flower": "wood",
+    "grass": "moss",
+    "lower_wing": "violet_bud",
+    "sky": "water",
+    "spot": "water",
+    "wing": "flower"
+  },
+  "mechanics": ["mystery_tile"],
+  "overlays": {
+    "cells": [
+      {
+        "mystery": true,
+        "x": 1,
+        "y": 13
+      }
+    ]
+  },
+  "picture": {
+    "id": "butterfly_07",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 15,
+      "id": "p01",
+      "variantId": "moss"
+    },
+    {
+      "count": 15,
+      "id": "p02",
+      "variantId": "moss"
+    },
+    {
+      "count": 10,
+      "id": "p03",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p04",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p05",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 11,
+      "id": "p07",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p08",
+      "variantId": "water"
+    },
+    {
+      "count": 14,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 12,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p11",
+      "variantId": "wood"
+    },
+    {
+      "count": 14,
+      "id": "p12",
+      "variantId": "wood"
+    },
+    {
+      "count": 18,
+      "id": "p13",
+      "variantId": "flower"
+    },
+    {
+      "count": 16,
+      "id": "p14",
+      "variantId": "flower"
+    },
+    {
+      "count": 14,
+      "id": "p15",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 10,
+      "id": "p16",
+      "variantId": "water"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "8156078990096360077",
+  "slots": {
+    "count": 5
+  },
+  "tray": {
+    "stacks": [
+      ["p01", "p06", "p11", "p16"],
+      ["p02", "p07", "p12"],
+      ["p03", "p08", "p13"],
+      ["p04", "p09", "p14"],
+      ["p05", "p10", "p15"]
+    ]
+  }
+}

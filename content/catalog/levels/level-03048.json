@@ -1,0 +1,155 @@
+{
+  "boardLook": "peek",
+  "definitionVersion": 1,
+  "difficulty": {
+    "class": "normal",
+    "score": 1829
+  },
+  "entries": [
+    {
+      "side": "bottom",
+      "x": 12,
+      "y": 0
+    }
+  ],
+  "generatorVersion": "gen-1.3.0",
+  "levelNumber": 3048,
+  "mapping": {
+    "eye": "violet_bud",
+    "face": "acorn",
+    "kelp": "moss",
+    "otter": "wood",
+    "sea": "dew",
+    "sky": "water",
+    "sun": "acorn",
+    "urchin": "violet_bud"
+  },
+  "mechanics": ["chest"],
+  "overlays": {
+    "cells": [
+      {
+        "hole": true,
+        "x": 9,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 11,
+        "y": 10
+      },
+      {
+        "stone": true,
+        "x": 10,
+        "y": 11
+      }
+    ]
+  },
+  "picture": {
+    "id": "otter_03",
+    "version": 1
+  },
+  "pods": [
+    {
+      "count": 10,
+      "id": "p01",
+      "variantId": "violet_bud"
+    },
+    {
+      "count": 19,
+      "id": "p02",
+      "variantId": "dew"
+    },
+    {
+      "count": 20,
+      "id": "p03",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p04",
+      "variantId": "dew"
+    },
+    {
+      "count": 21,
+      "id": "p05",
+      "variantId": "dew"
+    },
+    {
+      "count": 19,
+      "id": "p06",
+      "variantId": "water"
+    },
+    {
+      "count": 13,
+      "id": "p07",
+      "variantId": "moss"
+    },
+    {
+      "count": 27,
+      "id": "p08",
+      "variantId": "wood"
+    },
+    {
+      "count": 19,
+      "id": "p09",
+      "variantId": "water"
+    },
+    {
+      "count": 38,
+      "id": "p10",
+      "variantId": "water"
+    },
+    {
+      "count": 15,
+      "id": "p11",
+      "variantId": "acorn"
+    },
+    {
+      "count": 6,
+      "id": "p12",
+      "variantId": "wood"
+    }
+  ],
+  "rewardProfile": "standard",
+  "seed": "12115707513943761016",
+  "slots": {
+    "count": 5
+  },
+  "specials": [
+    {
+      "cells": [
+        {
+          "x": 9,
+          "y": 10
+        }
+      ],
+      "condition": {
+        "count": 3,
+        "kind": "clear_count_adjacent"
+      },
+      "effect": {
+        "cells": [
+          {
+            "x": 11,
+            "y": 10
+          },
+          {
+            "x": 10,
+            "y": 11
+          }
+        ],
+        "kind": "remove_stones"
+      },
+      "id": "chest",
+      "type": "chest"
+    }
+  ],
+  "tray": {
+    "stacks": [
+      ["p01", "p05", "p09"],
+      ["p02", "p06", "p10"],
+      ["p03", "p07", "p11"],
+      ["p04", "p08", "p12"]
+    ]
+  }
+}
