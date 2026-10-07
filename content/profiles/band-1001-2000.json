@@ -37,7 +37,7 @@
   "bufferPressureTarget": "normal",
   "durationTarget": [
     120,
-    600
+    770
   ],
   "entryLayouts": [
     "bottom_center",
@@ -61,7 +61,7 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Long run: as band-0501-1000 (regular boards and the big milestone levels) with larger pods allowed.",
+  "note": "Long run: as band-0501-1000 with larger pods allowed. Since 2026-10-07 (the owner) every board size from 14\u00d716 to 22\u00d728 comes about evenly from L11: a board over 288 cells is a big board in the icons look, its pods, work and durations grow with its cells (these upper bounds are a 22\u00d728 board's, pods at most 56), and its class thresholds grow toward the band's big ones.",
   "picturePool": {
     "themes": []
   },
@@ -97,6 +97,6 @@
   ],
   "work": [
     150,
-    650
+    770
   ]
 }

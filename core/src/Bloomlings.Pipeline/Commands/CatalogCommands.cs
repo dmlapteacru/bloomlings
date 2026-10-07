@@ -283,6 +283,9 @@ namespace Bloomlings.Pipeline.Commands
                     continue;
                 }
 
+                // The thresholds grow with the board's cells (BandGuidelines.ThresholdsFor), so the picture is always read.
+                pictures ??= Pictures(lib);
+                BasePicture picture = Usable(pictures[Key(level.Picture)], parse, level.LevelNumber);
                 IReadOnlyDictionary<string, int> metrics;
                 if (records.TryGetValue(level.LevelNumber, out ValidationRecord? record) && record.DefinitionHash == ValidationRecord.HashOf(level))
                 {
@@ -290,12 +293,10 @@ namespace Bloomlings.Pipeline.Commands
                 }
                 else
                 {
-                    pictures ??= Pictures(lib);
-                    BasePicture picture = Usable(pictures[Key(level.Picture)], parse, level.LevelNumber);
                     metrics = solver.Analyze(LevelSession.Load(level, picture, new SessionOptions(1, 20000)), options).Metrics.ToDictionary();
                 }
 
-                DifficultyThresholds thresholds = ProfileLoader.ReadThresholdsFor(thresholdsJson, band.BandId, level.LevelNumber);
+                DifficultyThresholds thresholds = ProfileLoader.ReadThresholdsFor(thresholdsJson, band.BandId, picture.Width * picture.Height);
                 int score = DifficultyScorer.Score(metrics, thresholds);
                 DifficultyClass computed = DifficultyScorer.Classify(score, thresholds);
                 bool agrees = level.Difficulty.Overridden || (computed == level.Difficulty.Class && score == level.Difficulty.Score);

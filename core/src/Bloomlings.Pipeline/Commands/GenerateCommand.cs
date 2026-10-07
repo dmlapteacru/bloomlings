@@ -100,7 +100,7 @@ namespace Bloomlings.Pipeline.Commands
                         approved.IsApproved,
                         new DifficultySchedule(0xB100B100UL, UnlockRoadmap.ForLevel8(parse.GetValue(level8)!)),
                         UnlockRoadmap.ForLevel8(parse.GetValue(level8)!));
-                    made.BigLevelThresholds = bigDifficulty;
+                    made.BigBoardThresholds = bigDifficulty;
                     if (!string.IsNullOrEmpty(parse.GetValue(forced)))
                     {
                         made.ForcedMechanics = parse.GetValue(forced)!.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);

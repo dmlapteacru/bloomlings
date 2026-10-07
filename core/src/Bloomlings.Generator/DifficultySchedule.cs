@@ -11,9 +11,9 @@ namespace Bloomlings.Generator
     /// The target class of each level from L11 on (FR-059): Hard every 4–6 levels and Super Hard every 10–15, spaced
     /// irregularly by a seeded PRNG, the level after a Super Hard always Normal (relief), and milestone levels (every 25)
     /// never Super Hard. Every 100 consecutive levels then hold about 15–25 Hard and 6–10 Super Hard levels.
-    /// Levels 1–10 are curated (L5 Hard, L10 Super Hard). A big level (<see cref="Profiles.BandGuidelines.IsBigLevel"/>,
-    /// every milestone from L525) is never Hard either: on its board of up to 616 cells a premature pod finds tiles almost
-    /// at once, so the tray tuner cannot make it Hard (2026-10-06, research R8b); a Hard due on it moves to the next level.
+    /// Levels 1–10 are curated (L5 Hard, L10 Super Hard). The schedule does not know a level's board: since 2026-10-07 any
+    /// board size may carry any class, against thresholds that grow with the board (<see cref="Profiles.BandGuidelines.ThresholdsFor"/>;
+    /// the big milestone levels from L525, which were never Hard, are gone).
     /// A practice level (FR-031) is never Super Hard either (the owner, 2026-10-06): it uses one mechanic alone, and its
     /// tuned candidates top out far below the Super Hard minimum. With the roadmap given, a Super Hard the schedule puts
     /// on a practice level moves to the nearest later level that is not a showcase, a practice or a milestone level and
@@ -106,7 +106,7 @@ namespace Bloomlings.Generator
                         nextHard = level + 2;
                     }
                 }
-                else if (level >= nextHard && !Profiles.BandGuidelines.IsBigLevel(level))
+                else if (level >= nextHard)
                 {
                     c = DifficultyClass.Hard;
                     nextHard = level + 4 + rng.NextInt(3);
@@ -149,7 +149,6 @@ namespace Bloomlings.Generator
                     bool eligible = !showcases.Contains(t)
                         && !practices.Contains(t)
                         && t % 25 != 0
-                        && !Profiles.BandGuidelines.IsBigLevel(t)
                         && ClassAt(classes, t) != DifficultyClass.SuperHard
                         && ClassAt(classes, t + 1) == DifficultyClass.Normal
                         && (t - 1 == practice || ClassAt(classes, t - 1) != DifficultyClass.SuperHard);

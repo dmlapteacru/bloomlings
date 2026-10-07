@@ -83,15 +83,15 @@ namespace Bloomlings.Generator.Profiles
         public static DifficultyThresholds ReadThresholds(string json, string bandId) => Read(json, bandId, big: false)!;
 
         /// <summary>
-        /// The band's thresholds for its big levels (<see cref="BandGuidelines.IsBigLevel"/>), the band entry's optional
-        /// <c>big</c> object: their boards of up to 616 cells score far above the band's regular levels. Null when the band
-        /// has none (bands without big levels).
+        /// The band's thresholds on the biggest board, 22 × 28: the band entry's optional <c>big</c> object, toward which a
+        /// big board's thresholds grow with its cells (<see cref="BandGuidelines.ThresholdsFor"/>). Null when the band has
+        /// none (it keeps its own on every board).
         /// </summary>
         public static DifficultyThresholds? ReadBigThresholds(string json, string bandId) => Read(json, bandId, big: true);
 
-        /// <summary>The thresholds that apply to <paramref name="level"/> in the band: its big ones for a big level, when the band has them.</summary>
-        public static DifficultyThresholds ReadThresholdsFor(string json, string bandId, int level) =>
-            (BandGuidelines.IsBigLevel(level) ? ReadBigThresholds(json, bandId) : null) ?? ReadThresholds(json, bandId);
+        /// <summary>The thresholds that apply in the band to a board of <paramref name="cells"/> cells.</summary>
+        public static DifficultyThresholds ReadThresholdsFor(string json, string bandId, int cells) =>
+            BandGuidelines.ThresholdsFor(ReadThresholds(json, bandId), ReadBigThresholds(json, bandId), cells);
 
         private static DifficultyThresholds? Read(string json, string bandId, bool big)
         {

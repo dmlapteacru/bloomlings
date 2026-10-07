@@ -33,7 +33,7 @@ namespace Bloomlings.Pipeline.Validation
     /// stored trace, exact accounting, no inaccessible content, no mechanic or variant before its unlock, no hidden-
     /// information failure, readable variant pairs), FR-081 (losable unless a tutorial level), FR-004/FR-060 (variant
     /// count per band), FR-008 (board limits and occupancy, and as amended on 2026-10-06 the level's board rule: regular
-    /// boards of 224–288 cells from L11 and big ones of 289–616 cells for big levels), FR-036 as amended (the stored
+    /// boards of 224–616 cells from L11, as amended on 2026-10-07), FR-036 as amended (the stored
     /// board look follows the cell count; the hidden layers of an icons board pass the hidden-layer fairness check, and
     /// it holds no mystery) and the data-model rules (keys and locks 1:1, at most one locked slot and only from L80,
     /// layer depth ≤ 2 before L125 and ≤ 3 after, 2–6 stacks, connected members at the same depth). Across the catalog it
@@ -348,18 +348,19 @@ namespace Bloomlings.Pipeline.Validation
         private static void CheckBand(LevelDefinition level, BasePicture picture, CatalogReport report, List<string> passed)
         {
             int n = level.LevelNumber;
-            GuidelineBand band = BandGuidelines.For(n);
+            int cells = picture.Width * picture.Height;
+            GuidelineBand band = BandGuidelines.For(n, cells);
             bool ok = true;
             void Fail(string message)
             {
-                string row = BandGuidelines.IsBigLevel(n) ? $"a big level of the {BandGuidelines.BandOf(n).Name} band" : $"{band.Name} band";
+                string row = BandGuidelines.IsBig(cells) ? $"{band.Name} band on a big board of {cells} cells" : $"{band.Name} band";
                 Error(report, n, "band", message + $" ({row}, Level Band Guidelines)");
                 ok = false;
             }
 
             if (!band.Board.Allows(picture.Width, picture.Height))
             {
-                Fail($"board {picture.Width}×{picture.Height} ({picture.Width * picture.Height} cells) is outside {band.Board} (FR-008 as amended on 2026-10-06)");
+                Fail($"board {picture.Width}×{picture.Height} ({cells} cells) is outside {band.Board} (FR-008 as amended on 2026-10-07)");
             }
 
             if (!band.Pods.Contains(level.Pods.Count))
@@ -367,7 +368,7 @@ namespace Bloomlings.Pipeline.Validation
                 Fail($"{level.Pods.Count} Source Pods; the band allows {band.Pods}");
             }
 
-            IntRange work = BandGuidelines.Work(n, level.Difficulty.Class);
+            IntRange work = BandGuidelines.Work(n, level.Difficulty.Class, cells);
             int total = level.Pods.Sum(p => p.Count);
             if (!work.Contains(total))
             {

@@ -39,11 +39,12 @@ namespace Bloomlings.Generator
     /// count, work and pod count are the overlap of the two for its level and class, pods keep the minimum size, all
     /// four families recur from L20, and the winning line's peak slot use meets the band's buffer-pressure target
     /// (Normal levels stay within it; Hard and Super Hard reach at least its minimum, tighter is their point).
-    /// The board follows the level's board rule (<see cref="BandGuidelines.Board"/>, FR-008 as amended on 2026-10-06):
-    /// a regular picture of 224–288 cells from L11, a big one of 289–616 cells for a big level
-    /// (<see cref="BandGuidelines.IsBigLevel"/>). Every level stores its board look from the cell count
-    /// (<see cref="BoardLooks.For"/>); an icons board gets fewer hidden layers, no mystery, a lower buffer pressure and
-    /// the hidden-layer fairness check (<see cref="FairnessChecker"/>, research R8b).
+    /// The board follows the level's board rule (<see cref="BandGuidelines.Board"/>, FR-008 as amended on 2026-10-07):
+    /// from L11 a picture of any size from 14 × 16 to 22 × 28, drawn about evenly, whose cells scale the level's pods,
+    /// work and class thresholds (<see cref="BandGuidelines.For(int, int)"/>, <see cref="BandGuidelines.ThresholdsFor"/>).
+    /// Every level stores its board look from the cell count (<see cref="BoardLooks.For"/>); an icons board (over 288
+    /// cells) gets fewer hidden layers, no mystery, a lower buffer pressure and the hidden-layer fairness check
+    /// (<see cref="FairnessChecker"/>, research R8b).
     /// </summary>
     public sealed class LevelGenerator
     {
@@ -108,10 +109,11 @@ namespace Bloomlings.Generator
         public int? RulesLevel { get; set; }
 
         /// <summary>
-        /// The class thresholds of big levels (<see cref="BandGuidelines.IsBigLevel"/>), whose scores grow with their
-        /// boards (the band's <c>big</c> thresholds in <c>difficulty-thresholds.json</c>); null uses the band's own.
+        /// The band's class thresholds on the biggest board, 22 × 28 (its <c>big</c> thresholds in
+        /// <c>difficulty-thresholds.json</c>): a big board's thresholds grow from the band's own toward them with its cells
+        /// (<see cref="BandGuidelines.ThresholdsFor"/>), since its scores grow with the board. Null keeps the band's own.
         /// </summary>
-        public DifficultyThresholds? BigLevelThresholds { get; set; }
+        public DifficultyThresholds? BigBoardThresholds { get; set; }
 
         /// <summary>Called after each level with the level number, the accepted level (null when every candidate failed) and the candidates tried.</summary>
         public Action<int, GeneratedLevel?, int>? Progress { get; set; }
@@ -260,11 +262,7 @@ namespace Bloomlings.Generator
 
             // The profile and the band guidelines both apply: their overlap for this level and class.
             IntRange? variantCount = UseBandGuidelines ? BandGuidelines.Intersect(_profile.VariantCount, BandGuidelines.Variants(level, target)) : _profile.VariantCount;
-            IntRange? workRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.Work, BandGuidelines.Work(level, target)) : _profile.Work;
-            IntRange? podRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.PodCount, BandGuidelines.For(level).Pods) : _profile.PodCount;
-            bool big = UseBandGuidelines && BandGuidelines.IsBigLevel(level);
-            DifficultyThresholds thresholds = big && BigLevelThresholds != null ? BigLevelThresholds : _thresholds;
-            if (variantCount == null || workRange == null || podRange == null)
+            if (variantCount == null)
             {
                 reason = $"profile:{_profile.BandId}-outside-guidelines-at-L{level}";
                 return null;
@@ -274,11 +272,23 @@ namespace Bloomlings.Generator
             // left out (the owner, 2026-10-07).
             IReadOnlyList<VariantId> expansions = UseBandGuidelines ? Pool.ExpansionsAt(level, _roadmap) : Array.Empty<VariantId>();
 
-            // 1. Picture, of the level's board rule: regular from L11, big for a big level (FR-008 as amended on 2026-10-06).
+            // 1. Picture, of the level's board rule: from L11 any size from 14 × 16 to 22 × 28, about evenly (FR-008 as
+            // amended on 2026-10-07).
             BasePicture? picture = _pictures.Pick(_profile, level, history, ref rng, UseBandGuidelines ? BandGuidelines.Board(level) : null, expansions);
             if (picture == null)
             {
-                reason = big ? "picture:no-big-picture-available" : "picture:none-available";
+                reason = "picture:none-available";
+                return null;
+            }
+
+            // The board's pods, work and thresholds grow with its cells (a big board's, BandGuidelines.For).
+            int cells = picture.Width * picture.Height;
+            IntRange? workRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.Work, BandGuidelines.Work(level, target, cells)) : _profile.Work;
+            IntRange? podRange = UseBandGuidelines ? BandGuidelines.Intersect(_profile.PodCount, BandGuidelines.For(level, cells).Pods) : _profile.PodCount;
+            DifficultyThresholds thresholds = UseBandGuidelines ? BandGuidelines.ThresholdsFor(_thresholds, BigBoardThresholds, cells) : _thresholds;
+            if (workRange == null || podRange == null)
+            {
+                reason = $"profile:{_profile.BandId}-outside-guidelines-at-L{level}-on-{picture.Width}x{picture.Height}";
                 return null;
             }
 
@@ -549,10 +559,10 @@ namespace Bloomlings.Generator
                 }
             }
 
-            // Buffer pressure (the band's target, as peak occupied slots on the winning line; an icons board's, a big
-            // level's or a Daily Challenge entry's, is lower and capped for every class, slack for its hidden layers).
+            // Buffer pressure (the band's target, as peak occupied slots on the winning line; an icons board's, of a big
+            // board or a Daily Challenge entry, is lower and capped for every class, slack for its hidden layers).
             bool icons = look == BoardLook.Icons;
-            IntRange pressure = icons ? BandGuidelines.BigLevelPeakSlots(tray.Class) : BandGuidelines.PeakSlots(PressureFor(rules, tray.Class));
+            IntRange pressure = icons ? BandGuidelines.BigBoardPeakSlots(tray.Class) : BandGuidelines.PeakSlots(PressureFor(rules, tray.Class));
             int peak = tray.Analysis.Metrics.PeakBuffer;
             if (peak < pressure.Min || ((icons || tray.Class == DifficultyClass.Normal) && peak > pressure.Max))
             {

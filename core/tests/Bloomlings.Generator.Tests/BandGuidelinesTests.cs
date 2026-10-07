@@ -67,15 +67,18 @@ namespace Bloomlings.Generator.Tests
         public void Work_IsByClassWhereTheBandSaysSo_AndLayersDeepenOnTheRoadmap()
         {
             // Work follows the boards (75–95% occupancy plus the layers from L28): the curated 11–12×12 of 2026-10-05, the
-            // regular 224–288 cells from L11 and the big 289–616 cells of 2026-10-06.
-            Assert.That(BandGuidelines.Work(5, DifficultyClass.Normal), Is.EqualTo(new IntRange(95, 140)));
-            Assert.That(BandGuidelines.Work(20, DifficultyClass.Hard), Is.EqualTo(new IntRange(150, 275)));
-            Assert.That(BandGuidelines.Work(60, DifficultyClass.Normal), Is.EqualTo(new IntRange(150, 330)));
-            Assert.That(BandGuidelines.Work(60, DifficultyClass.Hard), Is.EqualTo(new IntRange(150, 330)), "one board range for every class");
-            Assert.That(BandGuidelines.Work(200, DifficultyClass.Normal), Is.EqualTo(new IntRange(150, 360)));
-            Assert.That(BandGuidelines.Work(550, DifficultyClass.Normal), Is.EqualTo(new IntRange(200, 650)), "a big level");
-            Assert.That(BandGuidelines.Work(551, DifficultyClass.Normal), Is.EqualTo(new IntRange(150, 360)));
-            Assert.That(BandGuidelines.For(550).Pods, Is.EqualTo(new IntRange(24, 56)));
+            // regular 224–288 cells from L11, and on a big board (the owner, 2026-10-07: every size from L11) the band's
+            // pods and work grow with the cells, in proportion to the largest regular board's 288.
+            Assert.That(BandGuidelines.Work(5, DifficultyClass.Normal, 144), Is.EqualTo(new IntRange(95, 140)));
+            Assert.That(BandGuidelines.Work(20, DifficultyClass.Hard, 256), Is.EqualTo(new IntRange(150, 275)));
+            Assert.That(BandGuidelines.Work(60, DifficultyClass.Normal, 288), Is.EqualTo(new IntRange(150, 330)));
+            Assert.That(BandGuidelines.Work(60, DifficultyClass.Hard, 288), Is.EqualTo(new IntRange(150, 330)), "one board range for every class");
+            Assert.That(BandGuidelines.Work(200, DifficultyClass.Normal, 224), Is.EqualTo(new IntRange(150, 360)));
+            Assert.That(BandGuidelines.Work(20, DifficultyClass.Normal, 616), Is.EqualTo(new IntRange(321, 588)), "an early 22×28 board");
+            Assert.That(BandGuidelines.Work(550, DifficultyClass.Normal, 616), Is.EqualTo(new IntRange(321, 770)));
+            Assert.That(BandGuidelines.For(550, 616).Pods, Is.EqualTo(new IntRange(26, 86)));
+            Assert.That(BandGuidelines.For(550, 288).Pods, Is.EqualTo(new IntRange(12, 40)));
+            Assert.That(BandGuidelines.For(15, 440).Pods, Is.EqualTo(new IntRange(15, 34)), "a 20×22 board at L15");
 
             Assert.That(BandGuidelines.MaxLayersBelow(27), Is.Zero);
             Assert.That(BandGuidelines.MaxLayersBelow(28), Is.EqualTo(1));
@@ -95,12 +98,16 @@ namespace Bloomlings.Generator.Tests
                     {
                         string where = $"{profile.BandId} L{level} {difficulty}";
                         Assert.That(BandGuidelines.Intersect(profile.VariantCount, BandGuidelines.Variants(level, difficulty)), Is.Not.Null, where + " variants");
-                        Assert.That(BandGuidelines.Intersect(profile.Work, BandGuidelines.Work(level, difficulty)), Is.Not.Null, where + " work");
-                        Assert.That(BandGuidelines.Intersect(profile.PodCount, BandGuidelines.For(level).Pods), Is.Not.Null, where + " pods");
+                        foreach (int cells in new[] { 224, 288, 340, 440, 616 })
+                        {
+                            Assert.That(BandGuidelines.Intersect(profile.Work, BandGuidelines.Work(level, difficulty, cells)), Is.Not.Null, $"{where} work on {cells} cells");
+                            Assert.That(BandGuidelines.Intersect(profile.PodCount, BandGuidelines.For(level, cells).Pods), Is.Not.Null, $"{where} pods on {cells} cells");
+                        }
                     }
 
-                    // The profile's board sizes reach the level's board rule (regular, or big on a big level).
+                    // The profile's board sizes reach the level's board rule: from L11 every size from 14×16 to 22×28.
                     BoardRule board = BandGuidelines.Board(level);
+                    Assert.That(profile.BoardWidth.Contains(14) && profile.BoardHeight.Contains(16) && profile.BoardWidth.Contains(22) && profile.BoardHeight.Contains(28), Is.True, $"{profile.BandId}: 14×16 to 22×28");
                     bool reachable = false;
                     for (int w = profile.BoardWidth.Min; w <= profile.BoardWidth.Max && !reachable; w++)
                     {
@@ -195,9 +202,10 @@ namespace Bloomlings.Generator.Tests
             Assert.That(band.Any(m => m.Contains("6 Source Pods")), Is.True, string.Join("; ", band));
             Assert.That(band.Any(m => m.Contains("board 12×12 (144 cells)")), Is.True, string.Join("; ", band));
 
-            // As L26 its board is too small, as a big level (L550) far too small, and as L51 its 3 variants are too few (5).
+            // As L26 or L550 its board is too small (every size from 14×16 to 22×28 from L11), and as L51 its 3 variants are
+            // too few (5).
             Assert.That(Validate(three with { LevelNumber = 26 }).Any(i => i.IsError && i.Check == "band" && i.Message.Contains("board 12×12")), Is.True);
-            Assert.That(Validate(three with { LevelNumber = 550 }).Any(i => i.IsError && i.Check == "band" && i.Message.Contains("a big level")), Is.True);
+            Assert.That(Validate(three with { LevelNumber = 550 }).Any(i => i.IsError && i.Check == "band" && i.Message.Contains("board 12×12")), Is.True);
             Assert.That(Validate(three with { LevelNumber = 51 }).Any(i => i.IsError && i.Check == "variant-count"), Is.True);
         }
 

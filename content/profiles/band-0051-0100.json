@@ -24,17 +24,17 @@
   "boardSize": {
     "height": [
       16,
-      18
+      28
     ],
     "width": [
       14,
-      16
+      22
     ]
   },
   "bufferPressureTarget": "normal",
   "durationTarget": [
     120,
-    300
+    642
   ],
   "entryLayouts": [
     "bottom_center",
@@ -56,13 +56,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 1,
-  "note": "Core completion band: regular boards of 224\u2013288 cells (since 2026-10-06; 13\u00d714\u201314\u00d716 before), 5 variants (6 only in Hard and Super Hard from L70), 15\u201336 pods, work 150\u2013330. Fountain from L60, locked slot from L80, mystery tile (optional) from L90. The generator also applies the Level Band Guidelines (BandGuidelines.cs): boards, variants, work and pods per level and class.",
+  "note": "Core completion band: regular boards of 224\u2013288 cells (since 2026-10-06; 13\u00d714\u201314\u00d716 before), 5 variants (6 only in Hard and Super Hard from L70), 15\u201336 pods, work 150\u2013330. Fountain from L60, locked slot from L80, mystery tile (optional) from L90. The generator also applies the Level Band Guidelines (BandGuidelines.cs): boards, variants, work and pods per level and class. Since 2026-10-07 (the owner) every board size from 14\u00d716 to 22\u00d728 comes about evenly from L11: a board over 288 cells is a big board in the icons look, its pods, work and durations grow with its cells (these upper bounds are a 22\u00d728 board's, pods at most 56), and its class thresholds grow toward the band's big ones.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
     16,
-    30
+    56
   ],
   "podSize": [
     5,
@@ -83,7 +83,7 @@
     ],
     "nestingDepth": [
       2,
-      4
+      5
     ]
   },
   "variantCount": [
@@ -92,6 +92,6 @@
   ],
   "work": [
     150,
-    330
+    706
   ]
 }

@@ -27,17 +27,17 @@
   "boardSize": {
     "height": [
       16,
-      18
+      28
     ],
     "width": [
       14,
-      16
+      22
     ]
   },
   "bufferPressureTarget": "tense",
   "durationTarget": [
     120,
-    360
+    770
   ],
   "entryLayouts": [
     "bottom_center",
@@ -61,13 +61,13 @@
     "allowRoleMerge": true
   },
   "maxLayerDepth": 2,
-  "note": "Combination band, late: regular boards of 224\u2013288 cells (since 2026-10-06), 5\u20136 variants (6 in Normal from L300), up to 3 layers deep.",
+  "note": "Combination band, late: regular boards of 224\u2013288 cells (since 2026-10-06), 5\u20136 variants (6 in Normal from L300), up to 3 layers deep. Since 2026-10-07 (the owner) every board size from 14\u00d716 to 22\u00d728 comes about evenly from L11: a board over 288 cells is a big board in the icons look, its pods, work and durations grow with its cells (these upper bounds are a 22\u00d728 board's, pods at most 56), and its class thresholds grow toward the band's big ones.",
   "picturePool": {
     "themes": []
   },
   "podCount": [
     16,
-    34
+    56
   ],
   "podSize": [
     5,
@@ -97,6 +97,6 @@
   ],
   "work": [
     150,
-    360
+    770
   ]
 }

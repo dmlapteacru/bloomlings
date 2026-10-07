@@ -109,10 +109,41 @@ namespace Bloomlings.Generator
             return result;
         }
 
+        /// <summary>
+        /// A candidate picture: first a board size, each size the candidates have as likely as any other, then one of the
+        /// pictures of that size (FR-008 as amended on 2026-10-07: from L11 every size from 14 × 16 to 22 × 28 about
+        /// evenly, though the library holds more regular pictures than big ones). With one size, a picture alone is drawn.
+        /// </summary>
         public BasePicture? Pick(GenerationProfile profile, int level, IReadOnlyDictionary<int, LevelDefinition> history, ref Xoshiro256StarStar rng, BoardRule? board = null, IReadOnlyCollection<VariantId>? expansions = null)
         {
             IReadOnlyList<BasePicture> candidates = Candidates(profile, level, history, board, expansions);
-            return candidates.Count == 0 ? null : candidates[rng.NextInt(candidates.Count)];
+            if (candidates.Count == 0)
+            {
+                return null;
+            }
+
+            var sizes = new SortedSet<(int Width, int Height)>();
+            foreach (BasePicture picture in candidates)
+            {
+                sizes.Add((picture.Width, picture.Height));
+            }
+
+            if (sizes.Count > 1)
+            {
+                (int Width, int Height) size = new List<(int Width, int Height)>(sizes)[rng.NextInt(sizes.Count)];
+                var ofSize = new List<BasePicture>();
+                foreach (BasePicture picture in candidates)
+                {
+                    if (picture.Width == size.Width && picture.Height == size.Height)
+                    {
+                        ofSize.Add(picture);
+                    }
+                }
+
+                candidates = ofSize;
+            }
+
+            return candidates[rng.NextInt(candidates.Count)];
         }
 
         /// <summary>

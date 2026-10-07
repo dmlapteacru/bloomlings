@@ -423,7 +423,7 @@ validation record stores the result as `playerInfoFair` with the `player-info-fa
    counts), so the generator and the validator always agree, whatever their solve budgets.
 5. **Generator slack.** An icons board gets fewer hidden layers (4–9% of its tiles instead of 8–17%, at most 72), no
    mystery tile or pod, and a big level a lower buffer pressure (peak 1–3 slots), which leaves room for a pod that
-   waits for a layer it could not foresee. Big levels are Normal: the difficulty schedule moves a Hard due on one to
+   waits for a layer it could not foresee. *(Superseded on 2026-10-07, see the amendment below.)* Big levels are Normal: the difficulty schedule moves a Hard due on one to
    the next level (`DifficultySchedule`), because the tray tuner's injections barely move a big board's score (a trial
    on a 40-pod big level: 2124 to 2128 in 40 attempts, the peak buffer staying at 1), and their own class thresholds
    (`difficulty-thresholds.json` `big`, 1500 over the band's) keep their scale from reading as Hard.
@@ -443,6 +443,34 @@ validation record stores the result as `playerInfoFair` with the `player-info-fa
 Normal and most Hard levels pass, while a Super Hard (L56) and a Hard (L78) level fail; the tighter the buffer, the
 more an unforeseen layer hurts. On sketched big pictures (up to 22×28, 23–62 hidden layers) the generated big levels
 passed in about 1–30 s, and the check rejected one big candidate in about ten.
+
+**Amended 2026-10-07 (boards of every size from L11, spec FR-008 as amended; the owner).** From L11 a level's board is
+any of the 17 sizes from 14×16 to 22×28, drawn evenly: `PicturePicker.Pick` draws a size first, then a picture of that
+size, so the 9 regular sizes (about 160 pictures each) and the 8 big ones (about 48 each) come up equally often, and
+about 8 levels in 17 have an icons board. A big board is no longer a milestone level, and it may be of any class:
+
+- **Pods, work and durations** grow with the board: a band's row is scaled by cells / 288 above 288 cells
+  (`BandGuidelines.For(level, cells)`, `Work(level, class, cells)`), and the profiles' pod, work and duration maxima
+  are scaled the same way up to 616 cells (at most 56 pods).
+- **Pressure.** An icons board peaks at 1–3 slots when Normal and 3–4 when Hard or Super Hard
+  (`BandGuidelines.BigBoardPeakSlots`), as the Daily Challenge's entries do (R19). The tuner's injections do move the
+  score at that pressure: the Daily Challenge's trial reached 3500 and more on 22×28.
+- **Thresholds.** Every band from L11 has its own `big` thresholds for 616 cells, and a board between 288 and 616 cells
+  takes the band's and the big ones in proportion to its cells (`BandGuidelines.ThresholdsFor`). Trial (2026-10-07):
+  two 22×28 levels a band with the band's profile, 8 Normal levels and 60 Super Hard candidates whose tuner was given an
+  unreachable minimum, so each reports the best score it can reach. The Normal levels scored 1995–2303 in band 11–25
+  and 2070–3080 later. The tuned candidates reached 2317 at the median in band 11–25 (90th percentile 2701) and
+  2750–2900 later (90th percentile 3150–3840). Hard starts above nearly every Normal level, where about one tuned
+  candidate in three reaches it. Super Hard starts at least 350 higher, so a tuner step of about 150–300 still lands in
+  the Hard range, and one candidate in seven to ten reaches it:
+
+  | Band | 11–25 | 26–50 | 51–100 | 101–250 | 251–500 | 501–1000 | 1001–2000 | 2001–5000 |
+  |---|---|---|---|---|---|---|---|---|
+  | Hard / Super Hard at 616 cells | 2350 / 2700 | 2900 / 3300 | 3000 / 3400 | 2900 / 3300 | 2900 / 3250 | 2850 / 3200 | 2850 / 3250 | 2950 / 3350 |
+
+  The old milestone levels' big thresholds (3800–3900 and 4600–4700) are out of reach on these profiles. A run of band
+  11–25 on these settings gave boards from 14×16 to 20×25 that `validate` passed; its Super Hard level L21 found a
+  candidate on its third seed (3288), as it did on the regular boards before.
 
 **Alternatives considered**:
 

@@ -5,6 +5,7 @@ using System.Linq;
 using Bloomlings.Content.Json;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Progression;
+using Bloomlings.Core.Random;
 using Bloomlings.Core.Simulation;
 using Bloomlings.Generator.Profiles;
 using Bloomlings.Pipeline.Catalog;
@@ -16,9 +17,9 @@ using NUnit.Framework;
 namespace Bloomlings.Generator.Tests
 {
     /// <summary>
-    /// The owner's boards of 2026-10-06 (spec 001 FR-008 and FR-036 as amended, research R8b): regular boards of 224–288
-    /// cells from L11, rare big levels of 289–616 cells (every milestone level from L525), and the board look stored in the
-    /// level data, the next layer hidden on a big level's icons board. The fixtures are a big level the generator made on a
+    /// The owner's boards (spec 001 FR-008 and FR-036 as amended, research R8b): from L11 every size from 14×16 to 22×28
+    /// about evenly (2026-10-07; regular boards of 224–288 cells and big milestone levels from L525 before), and the board
+    /// look stored in the level data, the next layer hidden on a big board's icons board. The fixtures are a big level the generator made on a
     /// 22×28 sketch (made before the library had big pictures) and a Super Hard level whose hidden layers, once hidden,
     /// force a blind guess.
     /// </summary>
@@ -52,28 +53,16 @@ namespace Bloomlings.Generator.Tests
         private static GenerationProfile LongRun => ProfileLoader.ReadFile(Path.Combine(RepoRoot, "content", "profiles", "band-0501-1000.json"));
 
         [Test]
-        public void BigLevels_AreTheMilestonesFromL525_AndNormal()
+        public void FromL11_EveryClassMayFallOnAnyBoard()
         {
-            Assert.That(BandGuidelines.IsBigLevel(500), Is.False, "L500 is a milestone before the big levels");
-            Assert.That(BandGuidelines.IsBigLevel(524), Is.False);
-            Assert.That(BandGuidelines.IsBigLevel(525), Is.True);
-            Assert.That(BandGuidelines.IsBigLevel(526), Is.False);
-            Assert.That(BandGuidelines.IsBigLevel(5000), Is.True);
-
+            // The owner, 2026-10-07: every size from L11, and Hard and Super Hard on big boards too, with thresholds that
+            // grow with the board. The schedule no longer keeps milestone levels Normal; they are still never Super Hard.
+            Assert.That(BandGuidelines.IsBig(288), Is.False);
+            Assert.That(BandGuidelines.IsBig(289), Is.True);
             var schedule = new DifficultySchedule(0xB100B100UL);
-            int big = 0;
-            for (int level = 1; level <= 5000; level++)
-            {
-                if (BandGuidelines.IsBigLevel(level))
-                {
-                    big++;
-                    Assert.That(schedule.ClassFor(level), Is.EqualTo(DifficultyClass.Normal), $"L{level}: the tuner cannot make a big board Hard");
-                }
-            }
-
-            Assert.That(big, Is.EqualTo(180), "rare: one level in 25 from L525");
-
-            // A Hard due on a big level moves on: every 100 levels from L11 still hold 15–25 Hard ones (FR-059).
+            var milestones = Enumerable.Range(1, 200).Select(k => k * 25).ToList();
+            Assert.That(milestones.Any(l => schedule.ClassFor(l) == DifficultyClass.Hard), Is.True, "a milestone may be Hard");
+            Assert.That(milestones.All(l => schedule.ClassFor(l) != DifficultyClass.SuperHard), Is.True, "never Super Hard (FR-059)");
             for (int start = 11; start + 99 <= 5000; start += 7)
             {
                 int hard = Enumerable.Range(start, 100).Count(l => schedule.ClassFor(l) == DifficultyClass.Hard);
@@ -82,17 +71,16 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
-        public void Boards_FollowTheLevel_RegularFromL11_BigOnBigLevels()
+        public void Boards_FromL11_AreEverySizeFrom14x16To22x28()
         {
             Assert.That(BandGuidelines.Board(10).Allows(12, 12), Is.True, "the curated onboarding stays 11–12×12");
+            Assert.That(BandGuidelines.Board(10).Allows(14, 16), Is.False);
             Assert.That(BandGuidelines.Board(11).Allows(12, 12), Is.False, "from L11 at least 224 cells");
             Assert.That(BandGuidelines.Board(11).Allows(14, 16), Is.True);
-            Assert.That(BandGuidelines.Board(300).Allows(16, 18), Is.True, "288 cells is the largest regular board");
-            Assert.That(BandGuidelines.Board(300).Allows(13, 18), Is.False, "regular boards are 14–16 wide");
-            Assert.That(BandGuidelines.Board(551).Allows(17, 18), Is.False, "306 cells is a big board");
-            Assert.That(BandGuidelines.Board(550).Allows(17, 18), Is.True);
-            Assert.That(BandGuidelines.Board(550).Allows(22, 28), Is.True, "the largest board");
-            Assert.That(BandGuidelines.Board(550).Allows(16, 18), Is.False, "a big level has a big board");
+            Assert.That(BandGuidelines.Board(11).Allows(22, 28), Is.True, "the biggest board from L11");
+            Assert.That(BandGuidelines.Board(300).Allows(17, 18), Is.True);
+            Assert.That(BandGuidelines.Board(5000).Allows(16, 18), Is.True);
+            Assert.That(BandGuidelines.Board(5000).Allows(23, 28), Is.False, "22 wide at most");
 
             Assert.That(BoardLooks.For(14, 16), Is.EqualTo(BoardLook.Peek));
             Assert.That(BoardLooks.For(16, 18), Is.EqualTo(BoardLook.Peek));
@@ -101,18 +89,42 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
-        public void ThePicturePicker_GivesBigPicturesToBigLevelsOnly()
+        public void ThePicturePicker_DrawsEverySizeAboutEvenly()
         {
-            var picker = new PicturePicker(Library.Append(BigPicture));
+            // The library holds more regular pictures than big ones; a size is drawn first, so each comes about as often.
+            var picker = new PicturePicker(Library);
             var history = new Dictionary<int, LevelDefinition>();
+            IReadOnlyList<BasePicture> candidates = picker.Candidates(LongRun, 551, history, BandGuidelines.Board(551));
+            int sizes = candidates.Select(p => (p.Width, p.Height)).Distinct().Count();
+            Assert.That(sizes, Is.EqualTo(17), "9 regular sizes and 8 big ones");
 
-            IReadOnlyList<BasePicture> big = picker.Candidates(LongRun, 550, history, BandGuidelines.Board(550));
-            IReadOnlyList<BasePicture> regular = picker.Candidates(LongRun, 551, history, BandGuidelines.Board(551));
+            var counts = new Dictionary<(int, int), int>();
+            const int Draws = 3400;
+            for (int k = 0; k < Draws; k++)
+            {
+                var rng = new Xoshiro256StarStar((ulong)k * 0x9E3779B97F4A7C15UL + 1);
+                BasePicture picture = picker.Pick(LongRun, 551, history, ref rng, BandGuidelines.Board(551))!;
+                counts[(picture.Width, picture.Height)] = counts.TryGetValue((picture.Width, picture.Height), out int n) ? n + 1 : 1;
+            }
 
-            Assert.That(big.Select(p => p.Id), Does.Contain(BigPicture.Id));
-            Assert.That(big.Select(p => p.Width * p.Height), Has.All.InRange(BandGuidelines.BigMinCells, BandGuidelines.BigMaxCells));
-            Assert.That(regular, Is.Not.Empty);
-            Assert.That(regular.Select(p => p.Width * p.Height), Has.All.InRange(BandGuidelines.RegularMinCells, BoardLooks.MaxPeekCells));
+            Assert.That(counts.Count, Is.EqualTo(17));
+            Assert.That(counts.Values, Has.All.InRange(Draws / 17 / 2, Draws / 17 * 3 / 2));
+            int big = counts.Where(c => c.Key.Item1 * c.Key.Item2 > BoardLooks.MaxPeekCells).Sum(c => c.Value);
+            Assert.That(big / (double)Draws, Is.InRange(0.38, 0.56), "8 sizes in 17 are big");
+        }
+
+        [Test]
+        public void ClassThresholds_GrowWithTheBoard_FromTheBandsOwnToItsBigOnes()
+        {
+            var regular = DifficultyThresholds.Default with { HardMin = 2400, SuperHardMin = 3200 };
+            var big = DifficultyThresholds.Default with { HardMin = 3900, SuperHardMin = 4700 };
+            Assert.That(BandGuidelines.ThresholdsFor(regular, big, 224), Is.EqualTo(regular));
+            Assert.That(BandGuidelines.ThresholdsFor(regular, big, 288), Is.EqualTo(regular));
+            DifficultyThresholds middle = BandGuidelines.ThresholdsFor(regular, big, 452);
+            Assert.That((middle.HardMin, middle.SuperHardMin), Is.EqualTo((3150, 3950)), "halfway from 288 to 616 cells");
+            DifficultyThresholds biggest = BandGuidelines.ThresholdsFor(regular, big, 616);
+            Assert.That((biggest.HardMin, biggest.SuperHardMin), Is.EqualTo((3900, 4700)));
+            Assert.That(BandGuidelines.ThresholdsFor(regular, null, 616), Is.EqualTo(regular), "a band without big thresholds keeps its own");
         }
 
         /// <summary>
@@ -147,19 +159,6 @@ namespace Bloomlings.Generator.Tests
             Assert.That(at44.Select(p => p.Id), Is.EqualTo(new PicturePicker(library.Except(lime).Except(red)).Candidates(early, 44, history, BandGuidelines.Board(44)).Select(p => p.Id)), "L44's candidates as without the new pictures");
             Assert.That(at45.Any(p => lime.Contains(p)), Is.True, "lime pictures from L45");
             Assert.That(at45.Any(p => red.Contains(p)), Is.False, "red ones still out");
-        }
-
-        [Test]
-        public void TheGenerator_RefusesABigLevelWithoutABigPicture()
-        {
-            // The library without its big pictures (it has them since the big band was drawn).
-            List<BasePicture> regularOnly = Library.Where(p => p.Width * p.Height <= BoardLooks.MaxPeekCells).ToList();
-            var generator = new LevelGenerator(LongRun, new PicturePicker(regularOnly), DifficultyThresholds.Default, Pairs.IsApproved, new DifficultySchedule(1));
-
-            GenerationResult result = generator.Generate(550, 550, 1, new SortedDictionary<int, LevelDefinition>());
-
-            Assert.That(result.Failed, Is.EqualTo(new[] { 550 }));
-            Assert.That(result.Rejections.Select(r => r.Reason), Has.All.EqualTo("picture:no-big-picture-available"));
         }
 
         [Test]
@@ -222,22 +221,19 @@ namespace Bloomlings.Generator.Tests
         }
 
         [Test]
-        public void BandsWithBigLevels_HaveBigLevelThresholds()
+        public void EveryBandFromL11_HasBigBoardThresholds()
         {
             string json = File.ReadAllText(Path.Combine(RepoRoot, "content", "profiles", "difficulty-thresholds.json"));
             foreach (string file in Directory.GetFiles(Path.Combine(RepoRoot, "content", "profiles"), "band-*.json"))
             {
                 GenerationProfile profile = ProfileLoader.ReadFile(file);
-                bool hasBig = Enumerable.Range(profile.LevelRange.Min, Math.Min(profile.LevelRange.Max, 5000) - profile.LevelRange.Min + 1).Any(BandGuidelines.IsBigLevel);
+                DifficultyThresholds regular = ProfileLoader.ReadThresholds(json, profile.BandId);
                 DifficultyThresholds? big = ProfileLoader.ReadBigThresholds(json, profile.BandId);
-                Assert.That(big != null, Is.EqualTo(hasBig), profile.BandId);
-                if (big != null)
-                {
-                    DifficultyThresholds regular = ProfileLoader.ReadThresholds(json, profile.BandId);
-                    Assert.That(big.HardMin, Is.GreaterThan(regular.HardMin), profile.BandId);
-                    Assert.That(ProfileLoader.ReadThresholdsFor(json, profile.BandId, 550).HardMin, Is.EqualTo(big.HardMin).Or.EqualTo(regular.HardMin));
-                    Assert.That(ProfileLoader.ReadThresholdsFor(json, profile.BandId, 551).HardMin, Is.EqualTo(regular.HardMin));
-                }
+                Assert.That(big, Is.Not.Null, profile.BandId + ": every band has big boards since 2026-10-07");
+                Assert.That(big!.HardMin, Is.GreaterThan(regular.HardMin), profile.BandId);
+                Assert.That(big.SuperHardMin, Is.GreaterThan(big.HardMin), profile.BandId);
+                Assert.That(ProfileLoader.ReadThresholdsFor(json, profile.BandId, 288).HardMin, Is.EqualTo(regular.HardMin), profile.BandId);
+                Assert.That(ProfileLoader.ReadThresholdsFor(json, profile.BandId, 616).HardMin, Is.EqualTo(big.HardMin), profile.BandId);
             }
         }
     }

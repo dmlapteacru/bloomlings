@@ -148,7 +148,7 @@ a default or asks a question.
 - **Q: How small may a board be after the onboarding?**
   A: From Level 11 on, every board has at least 224 cells (14×16). Boards of 11×12–12×12 stay only for the curated
   onboarding Levels 1–10, which keep their boards (FR-008 as amended).
-- **Q: How big may a board be?**
+- **Q: How big may a board be?** *(Superseded on 2026-10-07: every size from L11 about evenly, see that session.)*
   A: Regular boards have 224–288 cells, from 14×16 up to 16×18. The largest board is 22×28 (616 cells), and only rare
   "big" levels in late bands use one. The default for "rare", set here and open to the owner's review: from L525 every
   milestone level (every 25th, which the difficulty schedule never makes Super Hard, FR-059) is a big level with a board
@@ -211,6 +211,14 @@ a default or asks a question.
   Hard day; this was the owner's choice of the proposals. The week follows the pool's first day, Thursday 2026-01-01:
   Hard on Wednesday and Saturday, Super Hard on Sunday, and Normal on the day after it. A year then holds 209 Normal, 104
   Hard and 52 Super Hard puzzles. The pool starts over after 365 days, so from 2027 the weekdays move by one a year.
+- **Q: When do the levels show big boards?**
+  A: The owner: "I hope they appear earlier than level 500+. I want them to come often, starting from 10+ … spread all
+  of them somehow. All sizes." From L11, every one of the 17 board sizes from 14×16 to 22×28 comes about as often as
+  any other: the picker draws a size first, then a picture of it (FR-008 as amended). About half the levels then have a
+  big board in the icons look, which was the owner's pick among the proposals. A big board may be Hard or Super Hard,
+  also the owner's pick. Its pods, work and durations grow with its cells. Its class thresholds go from the band's
+  own at 288 cells to the band's big thresholds at 616. The milestone levels are no longer big or Normal by rule. The
+  test APK carries all 5000 levels, again the owner's pick.
 - **Q: Which mechanics does it use?**
   A: Those a player knows when the challenge opens at L50: Stone, Key, Locked Pod, Connected Pair, Layered Tile and
   Gate, with at most one layer below a top. Every puzzle plays with the unlocks of L50, whatever its day.
@@ -497,14 +505,14 @@ skin. Complete the daily challenge. Open the Collection.
   | Exceptional | 7, only if readability checks pass |
 - **FR-005**: Each variant MUST be identified by at least hue and icon. Tiles MUST show simple target symbols, never character faces. Two variants of the same family MUST be as easy to tell apart as two unrelated colors. No pair of variants may appear together in a level until it has passed the readability tests: grayscale/icon, small size, color distance, pod, slot and moving character.
 - **FR-006**: Every level MUST be a picture, built as a picture-first mosaic:
-  - The level comes from a **base picture**: a small image of a garden-world subject, drawn at board resolution (at most 22×28 cells, and at most 288 cells except on a big level; amended 2026-10-06, the owner: it was at most 14×16). The image uses abstract color roles such as petal, leaf, stem, pot or background. Example subjects: flowers, fruit, insects, small animals, garden tools, cozy objects, seasonal motifs.
+  - The level comes from a **base picture**: a small image of a garden-world subject, drawn at board resolution (at most 22×28 cells; amended 2026-10-06, the owner: it was at most 14×16; and from L11 any of the 17 sizes from 14×16 up, as amended on 2026-10-07). The image uses abstract color roles such as petal, leaf, stem, pot or background. Example subjects: flowers, fruit, insects, small animals, garden tools, cozy objects, seasonal motifs.
   - The level definition MUST map each color role to one exact target variant that fits the color language. For example, leaves map to Leaf or Moss; petals to Flower, Violet Bud or Acorn; a pot to Wood; the background to Water or Dew.
   - The visible top layer of every cell MUST follow this mapping, so that the board reads as the subject from the first second.
   - Stones, empty holes and background regions MAY be part of the picture, as long as all mandatory content stays reachable.
   - Hidden layers, keys and specials MAY deviate from the picture, as long as the subject is still recognizable at level start.
   - A base picture MAY be reused in several levels with a different role-to-variant mapping, mirroring, background and Source design, within the limits of FR-083.
 - **FR-007**: Each cleared cell MUST reveal the matching part of the level's finished picture beneath it (restoration reveal). The finished picture is the same subject in its restored look: clean, bright art without tile symbols. It MAY be rendered automatically from the base picture; bespoke illustrations are optional, for example for milestones. Open cells MUST stay visually distinct from active target tiles. On a win, the finished picture MUST be shown in full.
-- **FR-008**: Board size MUST range from 11×12 cells in tutorials to at most 22×28 cells (amended 2026-10-05, the owner: it was 7×8 in tutorials; amended 2026-10-06, the owner: it was at most 14×16). Boards of 11×12–12×12 MUST appear only in the curated onboarding Levels 1–10. From Level 11 on, a board MUST have at least 224 cells (14×16): a regular board has 224–288 cells (14×16 up to 16×18), and only a big level has more, 289–616 cells, at most 22 wide and 28 high. Big levels MUST stay rare and late: by default every milestone level from L525 (level % 25 = 0) is a big level, and no other level is; a big level is a Normal level (FR-059 already keeps milestones from Super Hard, and a Hard due on a big level moves to the next level). The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
+- **FR-008**: Board size MUST range from 11×12 cells in tutorials to at most 22×28 cells (amended 2026-10-05, the owner: it was 7×8 in tutorials; amended 2026-10-06, the owner: it was at most 14×16). Boards of 11×12–12×12 MUST appear only in the curated onboarding Levels 1–10. From Level 11 on, a board MUST have 224–616 cells, at most 22 wide and 28 high: a regular board has 224–288 cells (14×16 up to 16×18), and a big board has 289–616 cells. *(Amended 2026-10-07, the owner: "I want them to come often, from 10+ … all sizes"; before, only the milestone levels from L525 were big and Normal.)* From L11 every board size MUST come about as often as any other, so about half the levels are big. A big board MAY carry any class: its pods and work grow with its cells, and its class thresholds follow its cells. The whole board MUST be visible without scrolling or zooming. The initial occupancy inside the picture's playable area MUST be between 75% and 95%.
 - **FR-009**: Each level MUST have at least one Garden Entry, by default at the bottom center. Some levels MAY use two entries or a side entry.
 - **FR-010**: A target MUST count as reachable only when an orthogonally connected route of open cells leads from a Garden Entry to a side of that target. Diagonal contact does not count. Blockers are never walkable.
 
@@ -763,12 +771,14 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
 | Band | Levels | Board (cells) | Active variants | Source Pods | Work (tile-layers) | Typical duration |
 |---|---|---|---|---|---|---|
 | Onboarding | 1–10 | 11×12–12×12 | 2–3 | 3–8 | 95–140 | 45–90 s |
-| Early | 11–25 | 14×16–16×18 (224–288) | 3–4 | 10–22 | 150–275 | 1.5–4 min |
-| Early-mid | 26–50 | 14×16–16×18 (224–288) | 4–5 | 14–30 | 150–330 | 1.5–4 min |
-| Core completion | 51–100 | 14×16–16×18 (224–288) | 5 (6 in Hard) | 15–36 | 150–330 | 2–5 min |
-| Combination | 101–500 | 14×16–16×18 (224–288) | 5–6 | 16–40 | 150–360 | 2–6 min |
-| Long run | 501–5000+ | 14×16–16×18 (224–288) | 4–6 (7 rare) | 12–40 | 150–360 | 2–6 min |
-| Big level | every 25th from 525 | 289–616, at most 22×28 | as its band | 24–56 | 200–650 | 4–10 min |
+| Early | 11–25 | 14×16–22×28 (224–616) | 3–4 | 10–22 | 150–275 | 1.5–4 min |
+| Early-mid | 26–50 | 14×16–22×28 (224–616) | 4–5 | 14–30 | 150–330 | 1.5–4 min |
+| Core completion | 51–100 | 14×16–22×28 (224–616) | 5 (6 in Hard) | 15–36 | 150–330 | 2–5 min |
+| Combination | 101–500 | 14×16–22×28 (224–616) | 5–6 | 16–40 | 150–360 | 2–6 min |
+| Long run | 501–5000+ | 14×16–22×28 (224–616) | 4–6 (7 rare) | 12–40 | 150–360 | 2–6 min |
+
+Pods, work and duration are a regular board's (up to 288 cells). On a big board (289–616 cells) they grow with the cells
+in proportion to 288: a 22×28 board takes about 2.1 times as many (amended 2026-10-07, below; the big level row is gone).
 
 Amended 2026-10-05 (the owner: more, smaller cells from Level 1, and slower clearing). The rows were: Onboarding 7×8–8×8,
 3–7 pods, work 30–60, 20–45 s; Early 9×10–10×10, 6–12 pods, 50–100, 45–120 s; Early-mid 10×10–12×12, 10–20 pods,
@@ -790,6 +800,14 @@ Amended 2026-10-06 (the owner: practice levels are never Super Hard; the difficu
 practice level keeps its scheduled class unless the schedule makes it Super Hard: that Super Hard moves to the next
 level that is not a showcase, a practice or a milestone level, and the practice level takes that level's class (FR-059 as
 amended). With the catalog's schedule only L151 is affected: it is Hard, and L153 is Super Hard.
+
+Amended 2026-10-07 (the owner: "all sizes", often, from L11). From L11 every row takes every board size from 14×16 to
+22×28. The pods, work and durations above are a regular board's, at most 288 cells. On a big board they grow with its
+cells in proportion to 288, so a 22×28 board at L15 takes 21–47 pods and 321–588 work. A big board keeps its band's
+variants and mechanics. It also keeps the icons board's slack of 2026-10-06: fewer hidden layers, no mystery and a
+buffer pressure of its own (1–3 slots when Normal, 3–4 when Hard or Super Hard). Its class thresholds go in a straight
+line from the band's own at 288 cells to the band's big thresholds at 616, calibrated on 22×28 trials (research R8b). The milestone levels from L525 are no longer the only big levels and are no longer Normal by
+rule.
 
 Pod sizes:
 

@@ -1676,7 +1676,7 @@ final validation.
     twice (`picture-once`) or a subject within 60 entries (`subject-window`).
   - Tests: `DailyPoolTests`.
   - `publish --daily content/daily` packs it.
-- [ ] T186 A second set of subjects for the levels. The owner, 2026-10-07: "we need more subjects for the 5000 levels,
+- [X] T186 A second set of subjects for the levels. The owner, 2026-10-07: "we need more subjects for the 5000 levels,
   spread over all of them; I can regenerate the 5000".
   - 100 subjects that neither the levels nor the Daily Challenge drew, in `more_animals.py`, `more_nature.py`,
     `more_things.py` and `more_food.py` (`more_subjects.py`).
@@ -1684,7 +1684,28 @@ final validation.
     `sketch_pictures.py` draws them after every earlier band, with a random stream of their own, so the 1034 earlier
     sketches stay byte-identical.
   - `--more --module more_<group>` checks a module at every regular and big size and writes its review sheets.
-  - Then `pictures import`, and the owner regenerates the catalog L11–5000 with `tools/catalog`.
+  - A drawing that misses its targets at the production seed is drawn again from up to 8 seeds derived from it (after
+    the expansion size tries), so every subject gets its pictures and the earlier ones stay the same.
+  - Imported: 892 pictures, all approved (700 regular across the 9 sizes of 224–288 cells and 192 big across the 8
+    sizes of 289–616 cells). The levels' library is now 1442 regular and 386 big pictures. The regeneration is T188.
+- [X] T187 Boards of every size from L11 (FR-008 as amended on 2026-10-07; the owner: "I want them to come often …
+  from 10+ … all sizes"; the answers "all sizes equally", "yes, thresholds by size", "all 5000" in the playtest APK).
+  - Every band row from L11 uses `BandGuidelines.AnyBoard` (14–22 × 16–28, 224–616 cells), and `PicturePicker.Pick`
+    draws a size evenly before a picture of it. With one size, as in the Daily pool, it draws as before.
+  - Pods, work and durations scale by cells / 288 above 288 cells (`BandGuidelines.For(level, cells)`,
+    `Work(level, class, cells)`; the validator's band check uses the level's cells). The band profiles' maxima are
+    scaled the same way (pods at most 56), with nesting up to 5 and a node budget of at least 400 000.
+  - Big boards may be Hard or Super Hard: the milestone rule (`IsBigLevel`, `BigLevelsFrom`) is gone from
+    `BandGuidelines` and `DifficultySchedule`. An icons board's peak is 1–3 slots when Normal and 3–4 otherwise
+    (`BigBoardPeakSlots`).
+  - Class thresholds: every band has `big` thresholds for 616 cells in `difficulty-thresholds.json`, calibrated on 22×28
+    trials (research R8b, amended), and `BandGuidelines.ThresholdsFor` interpolates them with the band's own by cells
+    for the generator (`LevelGenerator.BigBoardThresholds`) and `score`.
+  - Tests: `BigLevelTests` (any class on any board, all 17 sizes, even size draws, thresholds by size, every band's big
+    thresholds) and `BandGuidelinesTests` (scaled rows and profiles at 224–616 cells).
+- [ ] T188 The owner regenerates the catalog L11–5000 with `tools/catalog` (T186, T187). Then validate it, copy all 5000
+  levels into the playtest's levels (the owner's choice) and check that the playtest loads them. Build the APK only
+  with the owner's OK.
 
 ## Parallel Example: User Story 1
 
