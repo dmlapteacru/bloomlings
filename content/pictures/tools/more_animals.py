@@ -8,8 +8,8 @@ and each picture's random stream turns the animal round and moves its scenery.
 import math
 
 from animal_subjects import eye, eyes, pine
-from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cloud, disc, ground_rows, hills, lens, oval, path, poly, rbox,
-                         role, scatter, seg, sky, star, start)
+from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cloud, disc, dots, ground_rows, hills, lens, oval, path, poly,
+                         rbox, role, scatter, seg, sky, star, start)
 
 
 def flip(cv):
@@ -378,7 +378,184 @@ def hummingbird(w, h, r):
                 role('k', 'beak', 'Beak and eye', BROWN), role('e', 'eye_white', 'Eye white', BLUE), role('u', 'sun', 'Sun', BROWN)], ['animals', 'garden']
 
 
-MORE_ANIMALS = [alpaca, bat, beaver, otter, polar_bear, moose, ostrich, pelican, puffin, hummingbird]
+def woodpecker(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.12)
+    hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
+    tx0, tx1 = w * 0.64, w * 0.9
+    box(cv, tx0, 0, tx1, gtop + 0.5, 't')
+    poly(cv, [(tx0, gtop - 1.5), (tx0 - w * 0.08, gtop + 0.5), (tx1, gtop + 0.5)], 't')
+    disc(cv, (tx0 + tx1) / 2 + w * 0.1, -h * 0.03, s * 0.28, 'l')
+    oval(cv, (tx0 + tx1) / 2 + 0.3, h * 0.66, 0.9, 1.4, 'o')
+    sun(cv, w * 0.14, h * 0.1, s, 'u')
+    bx, by = tx0 - w * 0.2, h * 0.5
+    lens(cv, bx + w * 0.06, by + h * 0.12, tx0 + 0.2, by + h * 0.32, s * 0.13, 'p')
+    oval(cv, bx, by, w * 0.15, h * 0.16, 'p')
+    oval(cv, bx + w * 0.07, by + h * 0.02, w * 0.06, h * 0.11, 'w')
+    hx, hy = bx + w * 0.04, by - h * 0.18
+    disc(cv, hx, hy, s * 0.15, 'p')
+    poly(cv, [(hx + s * 0.08, hy - s * 0.06), (tx0 + 0.8, hy + 0.3), (hx + s * 0.08, hy + s * 0.07)], 'y')
+    poly(cv, [(hx - s * 0.12, hy - s * 0.04), (hx - s * 0.02, hy - s * 0.18), (hx + s * 0.08, hy - s * 0.12), (hx - s * 0.28, hy)], 'c')
+    eye(cv, hx + s * 0.03, hy - s * 0.04, big, 'e', 'k')
+    if big:
+        dots(cv, 'k', 'p', 2, 2, area=(bx - w * 0.12, by - h * 0.08, bx - w * 0.02, by + h * 0.1))
+    for dy in (-0.05, 0.03):
+        seg(cv, tx0 - 1.0, by + h * (0.12 + dy), tx0 + 0.3, by + h * (0.12 + dy), 'y', 0.4)
+    if r.random() < 0.5:
+        flip(cv)
+    return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('t', 'trunk', 'Tree trunk', BROWN), role('c', 'crest', 'Crest', BROWN),
+                role('p', 'bird', 'Woodpecker', PINK), role('y', 'beak', 'Beak and claws', PINK), role('w', 'belly', 'Belly', GREEN),
+                role('k', 'eye', 'Eye and wing spots', BLUE), role('e', 'eye_white', 'Eye white', GREEN), role('o', 'hole', 'Hole', BLUE),
+                role('l', 'leaves', 'Leaves', GREEN), role('g', 'grass', 'Grass', GREEN)], ['animals', 'forest']
+
+
+def _meerkat(cv, x, base, tall, big):
+    """One meerkat standing up on watch, its snout to the right: `tall` cells from its feet to its ears."""
+    k = tall / 10
+    path(cv, [(x - k * 0.8, base - 0.6), (x - k * 2.4, base - 0.5), (x - k * 3.0, base - k * 1.4)], 'm', 0.45)
+    oval(cv, x, base - k * 3.3, k * 1.5, k * 3.3, 'm')
+    oval(cv, x + k * 0.5, base - k * 3.0, k * 0.8, k * 2.3, 'b')
+    oval(cv, x + k * 0.3, base - 0.4, k * 1.6, 0.8, 'm')
+    hy = base - k * 7.8
+    oval(cv, x + k * 0.2, hy + k * 1.2, k * 1.0, k * 1.2, 'm')
+    oval(cv, x + k * 0.2, hy, k * 1.5, k * 1.25, 'm')
+    poly(cv, [(x + k * 0.8, hy - k * 0.9), (x + k * 3.0, hy + k * 0.4), (x + k * 0.8, hy + k * 1.0)], 'm')
+    lens(cv, x + k * 0.6, base - k * 5.8, x + k * 1.7, base - k * 4.4, k * 0.9, 'm')
+    if big:
+        eye(cv, x + k * 0.8, hy - k * 0.5, big, None, 'k')
+    else:
+        cv.put(int(x + k * 0.8), int(hy - k * 0.2), 'k')
+    cv.put(int(x - k * 0.9), int(hy - k * 0.5), 'k')
+    cv.put(int(x + k * 2.8), int(hy + k * 0.3), 'k')
+
+
+def meerkat(w, h, r):
+    cv, s, cx, big = start(w, h, 's')
+    gtop = h - ground_rows(h, 0.14)
+    hills(cv, 'g', gtop, 0.5, w * 1.3, r.uniform(0, 6))
+    sun(cv, w * 0.86, h * 0.1, s, 'u')
+    for x in (w * 0.06, w * 0.94):
+        oval(cv, x, gtop - 0.2, s * 0.1, s * 0.08, 'v')
+    oval(cv, w * 0.5, gtop + 1.4, w * 0.12, 1.2, 'h')
+    xs = (w * 0.3, w * 0.66) if not big else (w * 0.22, w * 0.5, w * 0.76)
+    talls = (h * 0.7, h * 0.56) if not big else (h * 0.6, h * 0.68, h * 0.48)
+    for x, t in zip(xs, talls):
+        _meerkat(cv, x, gtop + 0.4, t, big)
+    if r.random() < 0.5:
+        flip(cv)
+    return cv, [sky(), role('u', 'sun', 'Sun', BROWN), role('m', 'meerkat', 'Meerkats', BROWN), role('b', 'belly', 'Bellies', BROWN),
+                role('k', 'eye', 'Eye patches, ears and noses', PINK), role('h', 'burrow', 'Burrow', BLUE), role('g', 'ground', 'Savanna', GREEN),
+                role('v', 'bushes', 'Bushes', GREEN)], ['animals', 'savanna']
+
+
+def shark(w, h, r):
+    cv, s, cx, big = start(w, h, 'w')
+    gtop = h - ground_rows(h, 0.1)
+    for x in (w * 0.08, w * 0.9) + ((w * 0.74,) if big else ()):
+        path(cv, [(x, gtop), (x + 0.8, h * 0.86), (x - 0.4, h * 0.76), (x + 0.5, h * 0.66)], 'g', 0.55)
+    hills(cv, 'd', gtop, 0.5, w * 0.8, r.uniform(0, 6))
+    sy = h * r.uniform(0.38, 0.44)
+    poly(cv, [(w * 0.5, sy - h * 0.08), (w * 0.56, sy - h * 0.26), (w * 0.68, sy - h * 0.09)], 'k')
+    lens(cv, w * 0.24, sy, w * 0.05, sy - h * 0.2, s * 0.13, 'k')
+    lens(cv, w * 0.24, sy, w * 0.09, sy + h * 0.14, s * 0.11, 'k')
+    poly(cv, [(w * 0.96, sy + h * 0.02), (w * 0.82, sy - h * 0.09), (w * 0.56, sy - h * 0.1), (w * 0.2, sy - h * 0.04),
+              (w * 0.2, sy + h * 0.04), (w * 0.56, sy + h * 0.1), (w * 0.82, sy + h * 0.09)], 'k')
+    for y in range(h):
+        for x in range(w):
+            if cv.g[y][x] == 'k' and y + 0.5 > sy + h * 0.04 + (x + 0.5 - w * 0.9) * 0.05:
+                cv.g[y][x] = 'b'
+    poly(cv, [(w * 0.62, sy + h * 0.06), (w * 0.54, sy + h * 0.2), (w * 0.7, sy + h * 0.08)], 'k')
+    if big:
+        eye(cv, w * 0.8, sy - h * 0.05, big, None, 'e')
+    else:
+        cv.put(int(w * 0.8), int(sy - h * 0.03), 'e')
+    path(cv, [(w * 0.76, sy + h * 0.05), (w * 0.84, sy + h * 0.06), (w * 0.9, sy + h * 0.04)], 'e', 0.4)
+    for dx in ((0.68,) if not big else (0.66, 0.7)):
+        seg(cv, w * dx, sy - h * 0.03, w * dx, sy + h * 0.02, 'e', 0.4)
+    for k, (x, y) in enumerate(((0.16, 0.74), (0.66, 0.7)) + (((0.4, 0.82),) if big else ())):
+        oval(cv, w * x, h * y, w * 0.06, 0.9, 'f')
+        poly(cv, [(w * (x - 0.04), h * y), (w * (x - 0.1), h * y - 1.0), (w * (x - 0.1), h * y + 1.0)], 'f')
+    for k in range(3):
+        disc(cv, w * (0.9 - (k % 2) * 0.04), h * (0.22 - k * 0.07), 0.6 + k * 0.12, 'x')
+    if r.random() < 0.5:
+        flip(cv)
+    return cv, [('w', 'water', 'Water', BLUE, True), role('k', 'shark', 'Shark', PINK), role('b', 'belly', 'Belly', PINK),
+                role('e', 'eye', 'Eye, smile and gills', BROWN), role('d', 'sand', 'Sand', BROWN), role('f', 'fish', 'Little fish', GREEN),
+                role('g', 'weed', 'Seaweed', GREEN), role('x', 'bubbles', 'Bubbles', BLUE)], ['animals', 'sea']
+
+
+def clownfish(w, h, r):
+    cv, s, cx, big = start(w, h, 'w')
+    gtop = h - ground_rows(h, 0.1)
+    hills(cv, 'd', gtop, 0.5, w * 0.8, r.uniform(0, 6))
+    ax = cx + w * r.uniform(-0.06, 0.06)
+    n = 6 if not big else 8
+    for k in range(n):
+        x = ax - w * 0.3 + k * w * 0.6 / (n - 1)
+        lean = (k - (n - 1) / 2) * 0.3
+        tip = (x + lean * 1.5, gtop - h * (0.2 + 0.04 * (k % 2)))
+        path(cv, [(x, gtop - 0.5), (x + lean - 0.5, gtop - h * 0.12), tip], 'a', 0.55)
+        disc(cv, tip[0], tip[1], 0.75, 'q')
+    oval(cv, ax, gtop - 0.2, w * 0.3, h * 0.06, 'a')
+    cxr = w * r.choice((0.1, 0.9))
+    for a in (-0.5, 0.0, 0.5):
+        seg(cv, cxr, gtop, cxr + math.sin(a) * w * 0.1, gtop - h * 0.24, 'c', 0.5)
+    fx, fy = cx + w * 0.02, h * 0.36
+    poly(cv, [(fx - w * 0.2, fy), (fx - w * 0.36, fy - h * 0.1), (fx - w * 0.36, fy + h * 0.1)], 'o')
+    oval(cv, fx - w * 0.02, fy - h * 0.1, w * 0.14, h * 0.05, 'o')
+    oval(cv, fx, fy, w * 0.25, h * 0.11, 'o')
+    lens(cv, fx + w * 0.02, fy + h * 0.08, fx - w * 0.06, fy + h * 0.16, s * 0.1, 'o')
+    for dx in (0.12, -0.04, -0.21):
+        box(cv, fx + dx * w - 0.6, 0, fx + dx * w + 0.6, h, 'z', only='o')
+    eye(cv, fx + w * 0.17, fy - h * 0.04, big, None, 'e')
+    for k in range(3):
+        disc(cv, fx + w * 0.3 + (k % 2) * 0.8, fy - h * (0.1 + k * 0.07), 0.6 + k * 0.12, 'e')
+    yx, yy = w * (0.84 if cxr < cx else 0.16), h * 0.14
+    oval(cv, yx, yy, w * 0.07, h * 0.04 + 0.3, 'f')
+    poly(cv, [(yx + w * 0.05, yy), (yx + w * 0.11, yy - h * 0.04), (yx + w * 0.11, yy + h * 0.04)], 'f')
+    if r.random() < 0.5:
+        flip(cv)
+    return cv, [('w', 'water', 'Water', BLUE, True), role('o', 'clownfish', 'Clownfish', BROWN), role('z', 'stripes', 'Stripes', PINK),
+                role('e', 'eye', 'Eye and bubbles', BLUE), role('a', 'anemone', 'Anemone', GREEN), role('q', 'tips', 'Anemone tips', GREEN),
+                role('c', 'coral', 'Coral', PINK), role('f', 'fish', 'Little fish', BROWN), role('d', 'sand', 'Sand', BROWN)], ['animals', 'sea']
+
+
+def pufferfish(w, h, r):
+    cv, s, cx, big = start(w, h, 'w')
+    gtop = h - ground_rows(h, 0.1)
+    for x in (w * 0.08, w * 0.92) + ((w * 0.76,) if big else ()):
+        path(cv, [(x, gtop), (x + 0.8, h * 0.86), (x - 0.4, h * 0.76), (x + 0.5, h * 0.66)], 'g', 0.55)
+    hills(cv, 'd', gtop, 0.5, w * 0.8, r.uniform(0, 6))
+    cxr = w * r.choice((0.2, 0.8))
+    for a in (-0.5, 0.0, 0.5):
+        seg(cv, cxr, gtop, cxr + math.sin(a) * w * 0.08, gtop - h * 0.14, 'c', 0.5)
+    R = s * 0.27
+    px, py = int(cx) + 0.5, gtop - R - s * 0.08
+    n = 12 if not big else 16
+    for k in range(n):
+        a = math.radians(k * 360 / n + 15)
+        d = 0.35
+        poly(cv, [(px + math.cos(a - d) * R * 0.9, py + math.sin(a - d) * R * 0.9), (px + math.cos(a) * (R + s * 0.13), py + math.sin(a) * (R + s * 0.13)),
+                  (px + math.cos(a + d) * R * 0.9, py + math.sin(a + d) * R * 0.9)], 'p')
+    disc(cv, px, py, R, 'p')
+    for side in (-1, 1):
+        lens(cv, px + side * R * 0.75, py + R * 0.15, px + side * (R + s * 0.12), py - R * 0.05, s * 0.12, 'k')
+    dots(cv, 'n', 'p', 3, 2, area=(px - R, py + R * 0.1, px + R, py + R * 0.7))
+    for side in (-1, 1):
+        disc(cv, px + side * R * 0.42, py - R * 0.3, R * 0.3 + 0.2, 'e')
+        cv.put(int(px + side * R * 0.42), int(py - R * 0.3), 'n')
+        if big:
+            cv.put(int(px + side * R * 0.42), int(py - R * 0.3) + 1, 'n')
+    oval(cv, px, py + R * 0.38, 1.0, 0.8 if not big else 1.0, 'n')
+    for k in range(3):
+        disc(cv, w * (0.1 + (k % 2) * 0.05), h * (0.3 - k * 0.08), 0.6 + k * 0.12, 'o')
+    return cv, [('w', 'water', 'Water', BLUE, True), role('p', 'puffer', 'Pufferfish', BROWN), role('k', 'fins', 'Fins', BROWN),
+                role('e', 'eye', 'Eyes', GREEN), role('n', 'pupil', 'Pupils, mouth and spots', PINK), role('c', 'coral', 'Coral', PINK),
+                role('g', 'weed', 'Seaweed', GREEN), role('d', 'sand', 'Sand', BROWN), role('o', 'bubbles', 'Bubbles', BLUE)], ['animals', 'sea']
+
+
+MORE_ANIMALS = [alpaca, bat, beaver, otter, polar_bear, moose, ostrich, pelican, puffin, hummingbird,
+                woodpecker, meerkat, shark, clownfish, pufferfish]
 
 # Expansion roles of these subjects (as expansions.ROLES): subject -> {group: [(roleId, new name or None), ...]}.
 MORE_ANIMALS_ROLES = {
@@ -392,4 +569,9 @@ MORE_ANIMALS_ROLES = {
     'pelican': {'lime': [('beak', 'Yellow beak and feet')]},
     'puffin': {'lime': [('sun', None)], 'red': [('beak', 'Red beak and feet')]},
     'hummingbird': {'lime': [('sun', None)], 'red': [('flower', 'Red flowers')]},
+    'woodpecker': {'lime': [('sun', None)], 'red': [('crest', 'Red crest')]},
+    'meerkat': {'lime': [('sun', None)]},
+    'shark': {'lime': [('fish', 'Yellow fish')]},
+    'clownfish': {'lime': [('fish', 'Yellow fish')], 'red': [('coral', 'Red coral')]},
+    'pufferfish': {'lime': [('puffer', 'Yellow pufferfish')], 'red': [('coral', 'Red coral')]},
 }

@@ -197,9 +197,11 @@ def lemon(w, h, r):
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one lemon with its leaves, and a slice one time in two
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
-        wheel = r.random() < 0.5
+        wheel, upright = r.random() < 0.5, r.random() < 0.4
         ang = r.uniform(-18, -8) if not wheel else r.uniform(-30, -22)
         x, ly = (cx, ty - h * 0.18) if not wheel else (cx + w * 0.1, ty - h * 0.3)
+        if upright:
+            ang, x, ly = r.uniform(-64, -54), cx + w * 0.04, ty - h * 0.34
         top = (x + math.cos(math.radians(ang)) * w * 0.4, ly + math.sin(math.radians(ang)) * w * 0.4)
         seg(cv, top[0] - 0.6, top[1], top[0] + 0.4, top[1] - 2.0, 'k', 0.5)
         lens(cv, top[0], top[1] - 1.6, top[0] - w * 0.36, top[1] - h * 0.16, s * 0.2, 'l')
@@ -272,17 +274,28 @@ def peach(w, h, r):
             one_peach(cv, x, y, rr, 'a', 'q', side)
             seg(cv, x, y - rr * 0.85, x + 0.5, y - rr * 1.3, 'k', 0.55)
             lens(cv, x + 0.4, y - rr * 1.2, x + side * w * 0.2, y - rr * 1.6, s * 0.13, 'l')
-    else:  # a half with its stone, a whole one behind
-        rr = s * 0.22
-        one_peach(cv, cx + side * w * 0.2, ty - h * 0.3, rr, 'a', 'q', side)
-        seg(cv, cx + side * w * 0.2, ty - h * 0.3 - rr * 0.85, cx + side * w * 0.2 + 0.5, ty - h * 0.3 - rr * 1.3, 'k', 0.55)
-        lens(cv, cx + side * w * 0.2, ty - h * 0.3 - rr * 1.2, cx + side * w * 0.42, ty - h * 0.42 - rr, s * 0.13, 'l')
-        hx, hy, hr = cx - side * w * 0.1, ty - h * 0.15, s * 0.27
-        disc(cv, hx, hy, hr + 0.8, 'b')
-        disc(cv, hx, hy, hr, 'q')
-        disc(cv, hx, hy, hr - 1.0, 'n')
-        oval(cv, hx, hy, hr * 0.36, hr * 0.5, 'q')
-        seg(cv, hx, hy - hr * 0.4, hx, hy + hr * 0.4, 'k', 0.4)
+    else:  # cut open: a half with its stone before a whole one, or both halves side by side
+
+        def half(hx, hy, hr, stone):
+            disc(cv, hx, hy, hr + 0.8, 'b')
+            disc(cv, hx, hy, hr, 'q')
+            disc(cv, hx, hy, hr - 1.0, 'n')
+            if stone:
+                oval(cv, hx, hy, hr * 0.36, hr * 0.5, 'q')
+                seg(cv, hx, hy - hr * 0.4, hx, hy + hr * 0.4, 'k', 0.4)
+            else:
+                oval(cv, hx, hy, hr * 0.3, hr * 0.42, 'k')
+
+        if r.random() < 0.5:
+            rr = s * 0.22
+            one_peach(cv, cx + side * w * 0.2, ty - h * 0.3, rr, 'a', 'q', side)
+            seg(cv, cx + side * w * 0.2, ty - h * 0.3 - rr * 0.85, cx + side * w * 0.2 + 0.5, ty - h * 0.3 - rr * 1.3, 'k', 0.55)
+            lens(cv, cx + side * w * 0.2, ty - h * 0.3 - rr * 1.2, cx + side * w * 0.42, ty - h * 0.42 - rr, s * 0.13, 'l')
+            half(cx - side * w * 0.1, ty - h * 0.15, s * 0.27, True)
+        else:
+            lens(cv, cx - w * 0.06, ty - h * 0.3, cx + w * 0.3, ty - h * 0.42, s * 0.16, 'l')
+            half(cx - w * 0.22, ty - h * 0.15, s * 0.22, True)
+            half(cx + w * 0.22, ty - h * 0.16, s * 0.22, False)
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
@@ -330,14 +343,22 @@ def coconut(w, h, r):
     if mode == 0:  # a whole one and a half
         whole(cx - w * 0.22, gy - cr * 0.6, cr)
         half(cx + w * 0.18, gy - cr * 0.7, cr * 1.05)
-    elif mode == 1:  # a drink with a straw and a paper umbrella
-        x, y = cx - w * 0.08, gy - cr * 0.5
-        seg(cv, x + cr * 0.2, y - cr * 0.8, x + w * 0.2, y - h * 0.3, 'r', 0.55)
-        seg(cv, x - cr * 0.3, y - cr * 0.8, x - w * 0.12, y - h * 0.28, 'k', 0.4)
-        poly(cv, [(x - w * 0.32, y - h * 0.26), (x - w * 0.12, y - h * 0.36), (x + w * 0.08, y - h * 0.26)], 'u')
-        whole(x, y, cr * 1.3)
-        oval(cv, x, y - cr * 0.95, cr * 0.7, cr * 0.28, 'w')
-        oval(cv, x, y - cr * 0.95, cr * 0.42, cr * 0.15, 'm')
+    elif mode == 1:  # a drink with a straw and a paper umbrella, or two drinks with straws
+
+        def drink(x, y, rr, umbrella):
+            seg(cv, x + rr * 0.15, y - rr * 0.7, x + rr * 0.9, y - rr * 2.0, 'r', 0.55)
+            if umbrella:
+                seg(cv, x - rr * 0.3, y - rr * 0.8, x - w * 0.12, y - h * 0.28, 'k', 0.4)
+                poly(cv, [(x - w * 0.32, y - h * 0.26), (x - w * 0.12, y - h * 0.36), (x + w * 0.08, y - h * 0.26)], 'u')
+            whole(x, y, rr)
+            oval(cv, x, y - rr * 0.73, rr * 0.54, rr * 0.22, 'w')
+            oval(cv, x, y - rr * 0.73, rr * 0.32, rr * 0.12, 'm')
+
+        if r.random() < 0.5:
+            drink(cx - w * 0.08, gy - cr * 0.5, cr * 1.3, True)
+        else:
+            drink(cx - w * 0.24, gy - cr * 0.3, cr * 0.95, False)
+            drink(cx + w * 0.2, gy - cr * 0.6, cr * 0.95, False)
     else:  # a whole one behind the cut face of a half
         whole(cx + w * 0.2, gy - cr * 1.2, cr * 0.95)
         x, y, rr = cx - w * 0.1, gy - cr * 0.6, cr * 1.2
@@ -419,7 +440,7 @@ def one_carrot(cv, p0, p1, rr, body, ridge, leaf, leaf2, bend=0.0, spread=35):
 
 def carrot(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind = r.randrange(3), r.randrange(3)
+    mode, kind = r.randrange(4), r.randrange(3)
     ty = h * r.uniform(0.83, 0.87)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one carrot on a board
@@ -434,6 +455,11 @@ def carrot(w, h, r):
                 tube(cv, [q0, tip], lambda t: s * 0.14 * (1 - t ** 1.3) + 0.8, 'r', only='c')
             one_carrot(cv, q0, tip, s * 0.14, 'c', 'r', 'l', 'g', spread=28)
         box(cv, cx - w * 0.3, h * 0.4, cx + w * 0.3, h * 0.43, 'k', only='cr')
+    elif mode == 3:  # two on a plate, their tips together
+        oval(cv, cx, ty, w * 0.44, 1.8, 'p')
+        one_carrot(cv, (w * 0.2, h * 0.3), (cx - 0.5, ty - 1.6), s * 0.13, 'c', 'r', 'l', 'g', bend=-0.8)
+        tube(cv, curve((w * 0.8, h * 0.3), (cx + 0.5, ty - 1.6), 0.8), lambda t: s * 0.13 * (1 - t ** 1.3) + 0.8, 'r', only='c')
+        one_carrot(cv, (w * 0.8, h * 0.3), (cx + 0.5, ty - 1.6), s * 0.13, 'c', 'r', 'l', 'g', bend=0.8)
     else:  # two crossed on a plate
         oval(cv, cx, ty, w * 0.44, 1.8, 'p')
         a, b = r.uniform(0.14, 0.24), r.uniform(0.28, 0.36)
@@ -559,10 +585,19 @@ def tomato(w, h, r):
             for dx, dy in ((-0.5, 0.0), (0.5, 0.1), (0.0, -0.5)):
                 cv.put(int(jx + dx * rr * 0.3), int(jy + dy * rr * 0.3), 's')
 
-    if mode == 0:  # one big tomato
+    if mode == 0:  # one big tomato, slices before it one time in two
         oval(cv, cx, ty, w * 0.44, 1.8, 'p')
-        rr = s * 0.32
-        whole(cx, ty - rr * 0.9, rr)
+        if r.random() < 0.5:
+            rr = s * 0.32
+            whole(cx, ty - rr * 0.9, rr)
+        else:
+            rr = s * 0.27
+            whole(cx + w * 0.12, ty - rr * 0.9 - 3.0, rr)
+            for x in (cx - w * 0.24, cx + w * 0.02):
+                disc(cv, x, ty - 3.4, s * 0.16 + 0.9, 'b')
+                oval(cv, cx, ty, w * 0.44, 1.8, 'p')
+            for x in (cx - w * 0.24, cx + w * 0.02):
+                cut(x, ty - 3.4, s * 0.16)
     elif mode == 1:  # a whole one behind a cut half
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
         whole(cx + w * 0.18, ty - h * 0.24, s * 0.22)
@@ -650,12 +685,17 @@ def one_chili(cv, top, tip, rr, bend, body, cap, stem):
 
 def chili_pepper(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind = r.randrange(3), r.randrange(3)
+    mode, kind = r.randrange(4), r.randrange(3)
     ty = h * r.uniform(0.83, 0.87)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one big chili on a plate
         oval(cv, cx, ty, w * 0.44, 1.8, 'p')
         one_chili(cv, (w * 0.2, h * r.uniform(0.22, 0.3)), (w * 0.84, ty - 2.6), s * 0.17, r.uniform(2.5, 4.0), 'a', 'c', 'k')
+    elif mode == 3:  # a red and an orange one, one above the other
+        oval(cv, cx, ty, w * 0.46, 1.8, 'p')
+        one_chili(cv, (w * 0.16, h * 0.28), (w * 0.86, h * 0.5), s * 0.13, 2.5, 'q', 'c', 'k')
+        tube(cv, curve((w * 0.84, h * 0.42), (w * 0.14, ty - 2.2), -2.5), lambda t: max(0.5, s * 0.14 * (1 - t ** 1.6)) + 0.9, 'b', only='qck')
+        one_chili(cv, (w * 0.84, h * 0.42), (w * 0.14, ty - 2.2), s * 0.14, -2.5, 'a', 'c', 'k')
     elif mode == 1:  # a red and an orange one crossing
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
         one_chili(cv, (w * 0.82, h * 0.2), (w * 0.2, ty - 2.4), s * 0.14, -2.5, 'q', 'c', 'k')
@@ -913,7 +953,7 @@ def one_burger(cv, r, x, yb, hw, double, sesame):
 
 def burger(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, sesame = r.randrange(3), r.randrange(3), r.random() < 0.7
+    mode, kind, sesame = r.randrange(4), r.randrange(3), r.random() < 0.7
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one burger on a plate
@@ -927,6 +967,14 @@ def burger(w, h, r):
             seg(cv, x, ty - 7.0, x + (k - 2.5) * 0.35, ty - 12.0 + (k % 3) * 1.2, 'y', 0.5)
         poly(cv, [(fx - 3.6, ty - 8.0), (fx + 3.6, ty - 8.0), (fx + 2.6, ty - 0.8), (fx - 2.6, ty - 0.8)], 'r')
         one_burger(cv, r, cx - w * 0.14, ty - 0.8, w * 0.3, False, sesame)
+    elif mode == 3:  # a burger and a drink with a straw
+        oval(cv, cx, ty, w * 0.48, 1.8, 'p')
+        dx = cx + w * 0.3
+        seg(cv, dx + 0.5, ty - h * 0.42, dx + 2.5, ty - h * 0.58, 'g', 0.5)
+        poly(cv, [(dx - 3.4, ty - h * 0.4), (dx + 3.4, ty - h * 0.4), (dx + 2.4, ty - 0.8), (dx - 2.4, ty - 0.8)], 'r')
+        rbox(cv, dx - 3.8, ty - h * 0.44, dx + 3.8, ty - h * 0.4, 0.5, 'k')
+        box(cv, dx - 3.0, ty - h * 0.26, dx + 3.0, ty - h * 0.2, 'y', only='r')
+        one_burger(cv, r, cx - w * 0.16, ty - 0.8, w * 0.29, False, sesame)
     else:  # a double burger with a flag on a pick
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
         top = one_burger(cv, r, cx, ty - 0.8, w * 0.36, True, sesame)
@@ -937,8 +985,8 @@ def burger(w, h, r):
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
     return cv, [S['b'], role('u', 'bun', 'Buns', BROWN), role('m', 'patty', 'Patty', BROWN), role('y', 'cheese', 'Cheese and fries', BROWN),
                 role('x', 'sesame', 'Sesame seeds', BROWN), role('l', 'lettuce', 'Lettuce', GREEN), role('a', 'tomato', 'Tomato', PINK),
-                role('r', 'carton', 'Fries carton', PINK), role('p', 'plate', 'Plate', BLUE), role('k', 'pick', 'Pick', BLUE),
-                role('g', 'flag', 'Flag', GREEN), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
+                role('r', 'carton', 'Fries carton', PINK), role('p', 'plate', 'Plate', BLUE), role('k', 'pick', 'Pick and lid', BLUE),
+                role('g', 'flag', 'Flag and straw', GREEN), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
 
 
 def nigiri(cv, x, yb, hw):
@@ -962,7 +1010,7 @@ def maki(cv, x, yb, rr):
 
 def sushi(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, sticks = r.randrange(3), r.randrange(2), r.random() < 0.6
+    mode, kind, sticks = r.randrange(4), r.randrange(2), r.random() < 0.6
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     yb = ty - 2.4
@@ -975,6 +1023,13 @@ def sushi(w, h, r):
     elif mode == 1:  # three maki rolls
         for k in (-1, 0, 1):
             maki(cv, cx + k * w * 0.3, yb, w * 0.14)
+    elif mode == 3:  # a whole roll and two slices cut from it
+        x0, x1 = w * 0.06, w * 0.6
+        rbox(cv, x0, yb - 6.0, x1, yb, 2.6, 'n')
+        oval(cv, x1, yb - 3.0, 2.4, 3.0, 'n')
+        oval(cv, x1, yb - 3.0, 1.6, 2.2, 'w')
+        oval(cv, x1, yb - 3.0, 0.7, 1.0, 'f')
+        maki(cv, w * 0.84, yb, w * 0.12)
     else:  # a nigiri, two maki and a dab of wasabi
         nigiri(cv, cx - w * 0.2, yb, w * 0.22)
         maki(cv, cx + w * 0.3, yb, w * 0.13)
@@ -1062,7 +1117,7 @@ def one_croissant(cv, x, y, rr, body, line, shine):
 
 def croissant(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind = r.randrange(3), r.randrange(3)
+    mode, kind = r.randrange(4), r.randrange(3)
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one croissant on a plate
@@ -1078,6 +1133,11 @@ def croissant(w, h, r):
             path(cv, [(ux + k * 1.6, ty - h * 0.3), (ux + k * 1.6 + 0.8, ty - h * 0.36), (ux + k * 1.6 - 0.3, ty - h * 0.42)], 'm', 0.45)
         oval(cv, cx - w * 0.17, ty, w * 0.28, 1.6, 'p')
         one_croissant(cv, cx - w * 0.19, ty - h * 0.28, w * 0.22, 'c', 'k', 'y')
+    elif mode == 3:  # two croissants in a basket
+        one_croissant(cv, cx - w * 0.14, ty - h * 0.36, w * 0.22, 'c', 'k', 'y')
+        one_croissant(cv, cx + w * 0.15, ty - h * 0.38, w * 0.22, 'c', 'k', 'y')
+        bowl(cv, cx, ty - h * 0.2, ty - 0.4, w * 0.44, 'q', 'm')
+        dots(cv, 'k', 'q', 2, 2, area=(0, ty - h * 0.2 + 1, w - 1, ty))
     else:  # two croissants side by side, one turned
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
         one_croissant(cv, cx - w * 0.22, ty - h * 0.24, w * 0.2, 'c', 'k', 'y')
@@ -1086,7 +1146,7 @@ def croissant(w, h, r):
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
     return cv, [S['b'], role('c', 'croissant', 'Croissants', BROWN), role('k', 'lines', 'Lines and coffee', BROWN), role('y', 'shine', 'Shine', BROWN),
-                role('u', 'cup', 'Cup', PINK), role('p', 'plate', 'Plate', BLUE), role('q', 'saucer', 'Saucer', GREEN), role('m', 'steam', 'Steam', GREEN),
+                role('u', 'cup', 'Cup', PINK), role('p', 'plate', 'Plate', BLUE), role('q', 'saucer', 'Saucer and basket', GREEN), role('m', 'steam', 'Steam and basket rim', GREEN),
                 S['o'], S['t'], S['d'], S['v']], ['food', 'bakery']
 
 
@@ -1303,7 +1363,7 @@ def bar(cv, x0, y0, x1, y1, bite=None):
 
 def chocolate_bar(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind, bite = r.randrange(3), r.randrange(3), r.random() < 0.6
+    mode, kind, bite = r.randrange(5), r.randrange(3), r.random() < 0.6
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # one bar standing, half out of its wrapper
@@ -1322,6 +1382,19 @@ def chocolate_bar(w, h, r):
         box(cv, x1 + 1.2, y0 + 2, x1 + 2.2, ty - 4.6, 'l')
         for dx in (0.82, 0.93):
             rbox(cv, w * dx - 1.3, ty - 3.8, w * dx + 1.3, ty - 1.0, 0.4, 'c')
+    elif mode == 3:  # a bar broken in two on its open wrapper
+        box(cv, w * 0.02, ty - h * 0.3, w * 0.98, ty - 0.4, 'p')
+        box(cv, w * 0.02, ty - h * 0.3, w * 0.98, ty - h * 0.3 + 1.6, 'f')
+        bar(cv, w * 0.08, ty - h * 0.42, w * 0.44, ty - 2.4, None)
+        bar(cv, w * 0.54, ty - h * 0.38, w * 0.9, ty - 2.0, 'b' if bite else None)
+    elif mode == 4:  # a tower of squares beside a wrapped bar
+        rbox(cv, cx + w * 0.06, h * 0.24, cx + w * 0.42, ty - 1, 0.6, 'p')
+        box(cv, cx + w * 0.06, h * 0.46, cx + w * 0.42, h * 0.58, 'l')
+        star(cv, cx + w * 0.24, h * 0.52, 1.8, 'p', ri=0.8)
+        for k in range(4):
+            x = cx - w * 0.22 + (k % 2) * 0.8
+            rbox(cv, x - 2.6, ty - 1 - (k + 1) * 3.6, x + 2.6, ty - 1 - k * 3.6 - 0.4, 0.5, 'k')
+            rbox(cv, x - 1.6, ty - 1 - (k + 1) * 3.6 + 1.0, x + 1.6, ty - 1 - k * 3.6 - 1.4, 0.4, 'c')
     else:  # a wrapped bar behind an open one
         rbox(cv, cx + w * 0.02, h * 0.2, cx + w * 0.42, ty - 1, 0.6, 'p')
         box(cv, cx + w * 0.02, h * 0.42, cx + w * 0.42, h * 0.56, 'l')
@@ -1524,7 +1597,7 @@ def egg(cv, r, x, y, rr):
 
 def fried_egg(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind = r.randrange(3), r.randrange(2)
+    mode, kind = r.randrange(5), r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     if mode == 0:  # in a pan
@@ -1542,6 +1615,17 @@ def fried_egg(w, h, r):
             tube(cv, pts, 0.3, 'n')
         egg(cv, r, cx - w * 0.2, ty - h * 0.2, w * 0.2)
         egg(cv, r, cx + w * 0.2, ty - h * 0.22, w * 0.2)
+    elif mode == 3:  # one big egg on a plate
+        oval(cv, cx, ty - h * 0.14, w * 0.48, h * 0.15, 'p')
+        egg(cv, r, cx, ty - h * 0.15, w * 0.36)
+    elif mode == 4:  # two eggs in a pan
+        x, y = cx - w * 0.04, ty - h * 0.16
+        tube(cv, [(x - w * 0.36, y + 1.0), (-1, y - h * 0.1)], 1.0, 'g')
+        oval(cv, x, y, w * 0.42, h * 0.15, 'k')
+        oval(cv, x, y + 1.6, w * 0.4, h * 0.12, 'k')
+        oval(cv, x, y - 0.4, w * 0.36, h * 0.12, 'q')
+        egg(cv, r, x - w * 0.15, y - 0.6, w * 0.2)
+        egg(cv, r, x + w * 0.16, y - 0.2, w * 0.2)
     else:  # on a slice of toast
         oval(cv, cx, ty - 0.6, w * 0.46, 2.2, 'p')
         for c, d in (('n', 0.0), ('u', 1.2)):
@@ -1623,7 +1707,7 @@ def kiwi_face(cv, x, y, rx, ry):
 
 def kiwi(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
-    mode, kind = r.randrange(3), r.randrange(2)
+    mode, kind = r.randrange(4), r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
     setting(cv, r, w, h, kind, ty)
     oval(cv, cx, ty, w * 0.46, 1.8, 'p')
@@ -1636,8 +1720,8 @@ def kiwi(w, h, r):
         whole(cx + w * 0.18, ty - h * 0.22, w * 0.24, h * 0.13)
         oval(cv, cx - w * 0.12, ty - h * 0.18, w * 0.33, h * 0.18, 'b')
         kiwi_face(cv, cx - w * 0.12, ty - h * 0.18, w * 0.29, h * 0.16)
-    elif mode == 1:  # slices: in a pile, in a row before a whole kiwi, or two big ones leaning together
-        layout = r.randrange(3)
+    elif mode in (1, 3):  # slices: in a pile, or in a row before a whole kiwi, or two big ones leaning together
+        layout = 0 if mode == 1 else r.randrange(1, 3)
         if layout == 2:
             whole(cx - w * 0.22, ty - h * 0.12, w * 0.2, h * 0.1)
             for side in (1, -1):

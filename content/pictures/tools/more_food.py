@@ -95,12 +95,14 @@ SCENES = (
 )
 
 
-def scene(cv, r, w, h, kind, ty):
+def scene(cv, r, w, h, kind, ty, decor=True):
     """The setting of `kind` (SCENES), its table or blanket from row ty down: roles b (background), o (window panes,
     wall dots and jars, or a cloud), v (window frame, shelf or hill) at the top left, where the subjects keep their
-    tall things away, t (table or blanket) and d (a row of dots on a table four rows deep or more, below the plates
+    tall things away (and which a branch across the top goes without: `decor`), t (table or blanket) and d (a row of dots on a table four rows deep or more, below the plates
     and clear of the rows that keep the table whole)."""
-    if kind == 0:
+    if not decor:
+        pass
+    elif kind == 0:
         x0, y0 = w * r.uniform(0.03, 0.08), h * r.uniform(0.04, 0.08)
         x1, y1 = x0 + max(5.0, w * 0.3), y0 + max(5.0, h * 0.22)
         rbox(cv, x0, y0, x1, y1, 0.6, 'v')
@@ -116,6 +118,7 @@ def scene(cv, r, w, h, kind, ty):
         rbox(cv, w * 0.06, y - 3.2, w * 0.2, y - 0.1, 0.6, 'o')
     else:
         cloud(cv, w * r.uniform(0.2, 0.34), h * r.uniform(0.07, 0.11), min(w, h) * 0.07 + 0.5, 'o')
+    if kind == 2:
         oval(cv, w * r.uniform(-0.05, 0.1), ty + 1.0, w * r.uniform(0.4, 0.5), h * r.uniform(0.16, 0.2), 'v')
     box(cv, 0, ty, w, h, 't')
     top = int(math.ceil(ty - 0.5))
@@ -235,7 +238,7 @@ def plum(w, h, r):
     mode = r.randrange(3)
     kind = 2 if mode == 2 else r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
-    scene(cv, r, w, h, kind, ty)
+    scene(cv, r, w, h, kind, ty, decor=mode != 2)
     if mode == 0:  # one plum with its leaf
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         rr = s * 0.31
@@ -358,7 +361,7 @@ def raspberry(w, h, r):
     mode = r.randrange(3)
     kind = 2 if mode == 2 else r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
-    scene(cv, r, w, h, kind, ty)
+    scene(cv, r, w, h, kind, ty, decor=mode != 2)
     if mode == 0:  # one big raspberry with a leaf
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         rr = s * 0.3
@@ -427,7 +430,7 @@ def mango(w, h, r):
     mode = r.randrange(3)
     kind = 2 if mode == 2 else r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
-    scene(cv, r, w, h, kind, ty)
+    scene(cv, r, w, h, kind, ty, decor=mode != 2)
     if mode == 0:  # one mango leaning on the plate, with its leaf
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         rr = s * 0.27
@@ -531,7 +534,468 @@ def pomegranate(w, h, r):
                 role('h', 'shine', 'Shine', BLUE), S['o']], ['food', 'fruit']
 
 
-MORE_FOOD = [orange, plum, blueberries, raspberry, mango, pomegranate]
+# ---- Vegetables ----
+
+def one_onion(cv, x, y, rr, big, sprout=True):
+    """An onion: a round bulb drawn up to a pointed neck, the lines of its skin from the neck down (stopping short of
+    the roots, so the skin between them stays one piece), the roots below, and a green sprout or a dry tip."""
+    disc(cv, x, y, rr, 'a')
+    poly(cv, [(x - rr * 0.62, y - rr * 0.62), (x - 0.4, y - rr * 1.45), (x + 0.4, y - rr * 1.45), (x + rr * 0.62, y - rr * 0.62)], 'a')
+    for k in ((-1, 1) if not big else (-1, 0, 1)):
+        if k:
+            path(cv, curve((x, y - rr * 1.25), (x, y + rr * 0.55), k * rr * 0.45), 'e', 0.4)
+        else:
+            seg(cv, x, y - rr * 1.2, x, y + rr * 0.55, 'e', 0.4)
+    for dx in (-1, 0, 1):
+        seg(cv, x + dx * rr * 0.3, y + rr * 0.85, x + dx * rr * 0.55, y + rr + 0.9, 'e', 0.4)
+    if sprout:
+        for a, L in ((-120, 1.2), (-80, 1.5)) if not big else ((-125, 1.1), (-95, 1.6), (-65, 1.25)):
+            t = math.radians(a)
+            lens(cv, x, y - rr * 1.3, x + math.cos(t) * rr * L, y - rr * 1.3 + math.sin(t) * rr * L, rr * 0.28 + 0.3, 'g')
+    else:
+        seg(cv, x, y - rr * 1.4, x + 0.7, y - rr * 1.4 - 1.3, 'e', 0.45)
+
+
+def onion_half(cv, x, y, rr):
+    """An onion cut in half, its cut face to the front and standing on the board at row y: its layers as nested
+    arches, each reaching the board, so none nests in another."""
+    x, y = int(x) + 0.5, round(y)
+    for xx, yy, px, py in cells(cv):
+        d = math.hypot(px - x, (py - y) * 0.85)
+        if py <= y and d <= rr:
+            cv.g[yy][xx] = 'a' if int((rr - d) / 1.15) % 2 == 0 else 'w'
+    poly(cv, [(x - 1.0, y - rr / 0.85 + 0.6), (x, y - rr / 0.85 - 1.2), (x + 1.0, y - rr / 0.85 + 0.6)], 'a')
+
+
+def onion(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind = r.randrange(3), r.randrange(2)
+    ty = h * r.uniform(0.84, 0.88)
+    scene(cv, r, w, h, kind, ty)
+    rbox(cv, cx - w * 0.42, ty - 1.4, cx + w * 0.42, ty + 0.6, 0.7, 'p')
+    if mode == 0:  # one onion sprouting
+        rr = s * 0.28
+        one_onion(cv, cx + w * 0.02, ty - rr - 1.6, rr, big)
+    elif mode == 1:  # a sprouting onion behind one cut in half
+        rr = s * 0.21
+        one_onion(cv, cx + w * 0.19, ty - rr - h * 0.14, rr, big)
+        hr = s * 0.28
+        hx = cx - w * 0.12
+        gap(cv, hx, ty - 1.4, hr + 1.0, 'aewg')
+        onion_half(cv, hx, ty - 1.4, hr)
+    else:  # three onions, the front one sprouting
+        rr = s * 0.17
+        for k, (dx, dy) in enumerate(((-0.2, -0.1), (0.21, -0.12), (0.0, 0.0))):
+            x, y = cx + dx * w, ty - rr - 1.6 + dy * h
+            if k:
+                gap(cv, x, y - rr * 0.3, rr * 1.25 + 0.8, 'aewg')
+            one_onion(cv, x, y, rr, big, sprout=k == 2)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = scene_roles(kind, (BLUE, BLUE, BLUE, PINK, PINK))
+    return cv, [S['b'], role('a', 'onion', 'Onions', PINK), role('e', 'lines', 'Skin lines, tips and roots', BROWN), S['o'], S['v'],
+                role('p', 'board', 'Board', BLUE), role('w', 'layers', 'Inner layers', BLUE), role('g', 'sprout', 'Sprouts', GREEN),
+                S['t'], S['d']], ['food', 'vegetables']
+
+
+def one_garlic(cv, x, y, rr, big):
+    """A bulb of garlic: plump cloves side by side drawn up to a narrow neck with a wispy tip, the lines between the
+    cloves, and short roots under its flat base."""
+    for dx, q in ((-0.5, 0.6), (0.5, 0.6), (-0.18, 0.72), (0.18, 0.72)):
+        oval(cv, x + dx * rr, y, rr * q, rr * 0.86, 'a')
+    poly(cv, [(x - rr * 0.48, y - rr * 0.5), (x - 0.45, y - rr * 1.3), (x + 0.45, y - rr * 1.3), (x + rr * 0.48, y - rr * 0.5)], 'a')
+    seg(cv, x, y - rr * 1.25, x + 0.8, y - rr * 1.7, 'a', 0.45)
+    for k in ((-1, 1) if not big else (-2, -1, 1, 2)):
+        path(cv, curve((x + k * 0.25, y - rr * 0.85), (x + k * rr * 0.28, y + rr * 0.78), -k * rr * 0.12 * (3 - abs(k))), 'e', 0.4)
+    for dx in (-0.4, 0.0, 0.4):
+        seg(cv, x + dx * rr, y + rr * 0.75, x + dx * rr * 1.3, y + rr * 0.75 + 1.0, 'k', 0.4)
+
+
+def clove(cv, x, y, q, ang):
+    """A loose clove: a plump crescent narrowing to a point."""
+    bean(cv, x, y, q * 1.25, q * 0.7, ang, 'a', wide=0.45, bend=q * 0.35)
+
+
+def garlic(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode, kind = r.randrange(3), r.randrange(2)
+    ty = h * r.uniform(0.84, 0.88)
+    scene(cv, r, w, h, kind, ty)
+    q = s * 0.09 + 0.3
+    if mode == 0:  # a bulb and two loose cloves on a board
+        oval(cv, cx, ty, w * 0.42, 1.8, 'p')
+        rr = s * 0.28
+        one_garlic(cv, cx - w * 0.06, ty - rr - 0.8, rr, big)
+        clove(cv, cx + w * 0.3, ty - q * 0.8, q, -150)
+    elif mode == 1:  # two bulbs and a clove
+        oval(cv, cx, ty, w * 0.42, 1.8, 'p')
+        rr = s * 0.21
+        one_garlic(cv, cx + w * 0.17, ty - rr - h * 0.16, rr, big)
+        x = cx - w * 0.12
+        gap(cv, x, ty - rr - 0.8, rr * 1.15 + 0.8, 'aek')
+        one_garlic(cv, x, ty - rr - 0.8, rr * 1.05, big)
+        clove(cv, cx + w * 0.32, ty - q * 0.8, q, -150)
+    else:  # a bulb in a small bowl, cloves beside it
+        rr = s * 0.24
+        by = ty - h * 0.12
+        one_garlic(cv, cx - w * 0.08, by - rr * 0.35, rr, big)
+        bowl(cv, cx - w * 0.08, by, ty + 0.4, w * 0.3, 'p')
+        clove(cv, cx + w * 0.32, ty - q * 0.8, q, -150)
+        if big:
+            clove(cv, cx + w * 0.3, ty - q * 2.6, q, -30)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
+    return cv, [S['b'], S['t'], S['v'], role('a', 'garlic', 'Garlic', PINK), S['d'], role('e', 'lines', 'Clove lines', BROWN),
+                role('k', 'roots', 'Roots', BROWN), role('p', 'board', 'Plate and bowl', GREEN), S['o']], ['food', 'vegetables']
+
+
+def one_potato(cv, r, x, y, rr, ang, big):
+    """A potato: a lumpy oval with a few eyes."""
+    t = math.radians(ang)
+    ux, uy = math.cos(t), math.sin(t)
+    tilted(cv, x, y, rr * 1.25, rr * 0.8, ang, 'a')
+    disc(cv, x + ux * rr * 0.55 - uy * rr * 0.12, y + uy * rr * 0.55 + ux * rr * 0.12, rr * 0.7, 'a')
+    disc(cv, x - ux * rr * 0.5 + uy * rr * 0.15, y - uy * rr * 0.5 - ux * rr * 0.15, rr * 0.74, 'a')
+    scatter(cv, 'e', 'a', 2 if not big else 3, r, sep=2, area=(x - rr, y - rr * 0.6, x + rr, y + rr * 0.6))
+
+
+def potato(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode = r.randrange(3)
+    kind = 2 if mode == 2 else r.randrange(2)
+    ty = h * r.uniform(0.84, 0.88)
+    if mode < 2:
+        scene(cv, r, w, h, kind, ty)
+    rr = s * 0.17
+    if mode == 0:  # an open sack with potatoes heaped in its mouth, one on the floor
+        y0 = ty - h * 0.42
+        rbox(cv, cx - w * 0.28, y0 + 1.5, cx + w * 0.28, ty + 0.4, 2.0, 'k')
+        for k, (dx, dy, a) in enumerate(((-0.14, 0.0, -15), (0.15, 0.0, 20), (0.0, -0.09, 5))):
+            x, y = cx + dx * w, y0 + dy * h + 0.2
+            if k:
+                tilted(cv, x, y, rr * 1.3 + 0.8, rr * 0.85 + 0.8, a, 'b', only='ae')
+            one_potato(cv, r, x, y, rr, a, big)
+        rbox(cv, cx - w * 0.32, y0 + 0.8, cx + w * 0.32, y0 + 2.8, 0.9, 'n')
+        seg(cv, cx - w * 0.2, y0 + h * 0.2, cx + w * 0.2, y0 + h * 0.22, 'n', 0.45)
+        one_potato(cv, r, cx + w * 0.36, ty - rr * 0.5, rr * 0.85, 10, big)
+    elif mode == 1:  # potatoes heaped in a basket, one on the table
+        by = ty - h * 0.18
+        for k, (dx, dy, a) in enumerate(((-0.16, 0.0, -10), (0.16, 0.0, 15), (0.0, -0.1, 0))):
+            x, y = cx - w * 0.06 + dx * w, by - rr * 0.3 + dy * h
+            if k:
+                tilted(cv, x, y, rr * 1.3 + 0.8, rr * 0.85 + 0.8, a, 'b', only='ae')
+            one_potato(cv, r, x, y, rr, a, big)
+        bowl(cv, cx - w * 0.06, by, ty + 0.4, w * 0.36, 'k', 'n')
+        one_potato(cv, r, cx + w * 0.34, ty - rr * 0.5, rr * 0.85, -10, big)
+    else:  # a potato plant above the soil, its potatoes under it
+        gy = h * r.uniform(0.5, 0.56)
+        cloud(cv, w * 0.24, h * 0.09, s * 0.07 + 0.5, 'o')
+        box(cv, 0, gy, w, h, 't')
+        box(cv, 0, gy, w, gy + 0.9, 'v')
+        sx = cx + w * 0.04
+        seg(cv, sx, gy, sx, gy - h * 0.28, 'n', 0.6)
+        for k, (a, L) in enumerate(((-150, 0.32), (-30, 0.34), (-115, 0.28), (-65, 0.3)) if big else ((-150, 0.32), (-30, 0.34), (-90, 0.22))):
+            t = math.radians(a)
+            y = gy - h * (0.12 + 0.07 * (k % 2) + 0.06 * (k // 2))
+            lens(cv, sx, y, sx + math.cos(t) * s * L, y + math.sin(t) * s * L * 0.7, s * 0.14 + 0.3, 'l')
+        if big:
+            disc(cv, sx, gy - h * 0.3, s * 0.05 + 0.6, 'f')
+        for dx, dy, a in ((-0.22, 0.2, -20), (0.2, 0.17, 15), (0.0, 0.34, 0)):
+            x, y = sx + dx * w, gy + dy * (h - gy) * 2.2
+            seg(cv, sx, gy + 0.5, x, y, 'k', 0.4)
+            one_potato(cv, r, x, y, rr, a, big)
+    if r.random() < 0.5:
+        mirror(cv)
+    if mode == 2:
+        top = [sky('b'), role('t', 'soil', 'Soil', PINK), role('v', 'grass', 'Grass', GREEN), role('o', 'cloud', 'Cloud', BLUE)]
+    else:
+        S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
+        top = [S['b'], S['t'], S['v'], S['d'], S['o']]
+    return cv, top + [role('e', 'eyes', 'Eyes', BROWN), role('a', 'potato', 'Potatoes', BROWN), role('k', 'sack', 'Sack, basket and roots', GREEN),
+                      role('n', 'rim', 'Rim, string and stem', GREEN), role('l', 'leaf', 'Leaves', GREEN), role('f', 'flower', 'Flower', BLUE)], ['food', 'vegetables']
+
+
+def one_cucumber(cv, p0, p1, rr, bend):
+    """A cucumber from its stalk end p0 to its blossom end p1: round-ended, with little bumps, its stalk and the dried
+    flower at its tip."""
+    pts = curve(p0, p1, bend)
+    tube(cv, pts, lambda t: rr * (0.8 + 0.2 * math.sin(math.pi * t)), 'a')
+    xs, ys = [p[0] for p in pts], [p[1] for p in pts]
+    dots(cv, 'e', 'a', 3, 2, area=(min(xs) - rr, min(ys) - rr, max(xs) + rr, max(ys) + rr), offset=1)
+    (ax, ay), (bx, by) = pts[0], pts[2]
+    L = math.hypot(bx - ax, by - ay) or 1.0
+    seg(cv, ax - (bx - ax) / L * rr * 0.6, ay - (by - ay) / L * rr * 0.6, ax - (bx - ax) / L * (rr + 1.2), ay - (by - ay) / L * (rr + 1.2), 'k', 0.5)
+    (ax, ay), (bx, by) = pts[-3], pts[-1]
+    L = math.hypot(bx - ax, by - ay) or 1.0
+    star(cv, bx + (bx - ax) / L * rr * 0.8, by + (by - ay) / L * rr * 0.8, rr * 0.55 + 0.45, 'y', ri=rr * 0.25 + 0.2)
+
+
+def cucumber_slice(cv, x, y, q, big):
+    """A slice of cucumber, face on: rind, pale flesh and, on the big boards, a ring of seeds."""
+    disc(cv, x, y, q, 'a')
+    disc(cv, x, y, q - 0.9, 'w')
+    if big:
+        for k in range(6):
+            a = math.radians(k * 60 + 30)
+            cv.put(int(x + math.cos(a) * q * 0.4), int(y + math.sin(a) * q * 0.4), 'x')
+
+
+def cucumber(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode = r.randrange(3)
+    kind = 2 if mode == 2 else r.randrange(2)
+    ty = h * r.uniform(0.84, 0.88)
+    scene(cv, r, w, h, kind, ty, decor=mode != 2)
+    rr = s * 0.13 + 0.2
+    q = s * 0.12 + 0.6
+    if mode == 0:  # a cucumber across a board, slices in front
+        rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
+        one_cucumber(cv, (w * 0.16, ty - h * 0.42), (w * 0.8, ty - h * 0.2), rr, -1.0)
+        for k in range(2 if not big else 3):
+            x = cx - w * 0.22 + k * (q * 2.0 + 0.6)
+            gap(cv, x, ty - q - 0.9, q + 0.8, 'aeky')
+            cucumber_slice(cv, x, ty - q - 0.9, q, big)
+    elif mode == 1:  # two cucumbers crossing on a board, a slice beside them
+        rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
+        one_cucumber(cv, (w * 0.82, h * 0.22), (w * 0.26, ty - h * 0.12), rr * 0.9, -0.8)
+        p0, p1 = (w * 0.14, h * 0.32), (w * 0.84, ty - h * 0.18)
+        tube(cv, curve(p0, p1, 0.8), rr * 1.05 + 0.9, 'b', only='aeky')
+        one_cucumber(cv, p0, p1, rr, 0.8)
+        x = cx - w * 0.3
+        gap(cv, x, ty - q - 0.9, q + 0.8, 'aeky')
+        cucumber_slice(cv, x, ty - q - 0.9, q, big)
+    else:  # a cucumber hanging from its vine among the leaves, a flower open, a slice on a plate below
+        vy = h * r.uniform(0.1, 0.14)
+        pts = curve((-0.5, vy + h * 0.06), (w * 0.82, vy), -1.2)
+        path(cv, pts, 'n', 0.55)
+        for u, dy in ((0.25, 0.1), (0.7, 0.08)) if not big else ((0.18, 0.1), (0.5, 0.06), (0.82, 0.1)):
+            px, py = pts[int(u * 20)]
+            heart(cv, px, py + h * dy, s * 0.11 + 0.4, 'l')
+        px, py = pts[20]
+        path(cv, [(px, py), (px + 1.2, py - 0.8), (px + 1.6, py + 0.6), (px + 0.6, py + 1.0)], 'n', 0.45)
+        fx, fy = pts[10]
+        star(cv, fx, fy - 1.4, s * 0.06 + 0.6, 'y', ri=s * 0.03 + 0.3)
+        hx, hy = pts[14]
+        one_cucumber(cv, (hx, hy + 1.6), (hx + w * 0.06, ty - h * 0.18), rr, 0.6)
+        oval(cv, cx - w * 0.22, ty, w * 0.2, 1.4, 'p')
+        cucumber_slice(cv, cx - w * 0.22, ty - q - 0.5, q, big)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
+    return cv, [S['b'], role('a', 'cucumber', 'Cucumbers and rind', GREEN), role('e', 'bumps', 'Bumps', GREEN), role('l', 'leaf', 'Leaves', GREEN),
+                role('x', 'seeds', 'Seeds', GREEN), role('w', 'flesh', 'Flesh', BLUE), role('p', 'board', 'Board and plate', BROWN),
+                role('k', 'stalk', 'Stalks', BROWN), role('y', 'flower', 'Flowers', BROWN), role('n', 'vine', 'Vine and tendril', GREEN),
+                S['t'], S['v'], S['d'], S['o']], ['food', 'vegetables']
+
+
+def one_olive(cv, x, y, q, ang, c, pimento=False):
+    """An olive, green or black; a green one stuffed with pimento shows it at one end."""
+    tilted(cv, x, y, q * 1.25, q * 0.95, ang, c)
+    if pimento:
+        t = math.radians(ang)
+        disc(cv, x + math.cos(t) * q * 0.75, y + math.sin(t) * q * 0.75, max(0.6, q * 0.38), 'x')
+
+
+def olive_sprig(cv, x, y, L, ang, big):
+    """A sprig of olive leaves: a twig with narrow leaves in pairs."""
+    t = math.radians(ang)
+    ux, uy = math.cos(t), math.sin(t)
+    seg(cv, x, y, x + ux * L, y + uy * L, 'k', 0.45)
+    for k in range(1, 3 if not big else 4):
+        px, py = x + ux * L * k / (3 if not big else 4), y + uy * L * k / (3 if not big else 4)
+        for side in (-1, 1):
+            a = t + side * 0.7
+            lens(cv, px, py, px + math.cos(a) * L * 0.45, py + math.sin(a) * L * 0.45, L * 0.13 + 0.4, 'l')
+    lens(cv, x + ux * L, y + uy * L, x + ux * L * 1.4, y + uy * L * 1.4, L * 0.13 + 0.4, 'l')
+
+
+def olives(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode = r.randrange(3)
+    kind = 2 if mode == 1 else r.randrange(2)
+    ty = h * r.uniform(0.84, 0.88)
+    scene(cv, r, w, h, kind, ty, decor=mode != 1)
+    q = s * 0.1 + 0.1
+    if mode == 0:  # a bowl of green and black olives, a pick in them, a sprig beside
+        by = ty - h * 0.18
+        bx = cx - w * 0.06
+        seg(cv, bx + w * 0.04, by - q * 2.0, bx + w * 0.16, by - h * 0.26, 'k', 0.45)
+        one_olive(cv, bx + w * 0.13, by - h * 0.2, q * 1.1, -70, 'a', True)
+        n = 3 if not big else 4
+        for row in range(2):
+            for k in range(n - row):
+                x = bx + (k - (n - row - 1) / 2) * q * 2.6
+                y = by - 0.2 - row * q * 1.7
+                one_olive(cv, x, y, q, 15 * (k % 2 * 2 - 1), 'a' if (k + row) % 2 == 0 else 'q', (k + row) % 2 == 0)
+        bowl(cv, bx, by, ty + 0.4, w * 0.34, 'p')
+        olive_sprig(cv, cx + w * 0.26, ty - 0.6, s * 0.2, -75, big)
+    elif mode == 1:  # olives hanging from a branch, a dish of stuffed ones on the blanket
+        y0 = h * r.uniform(0.08, 0.12)
+        pts = curve((-0.5, y0 + h * 0.08), (w * 0.84, y0), -1.2)
+        tube(cv, pts, 0.5 if not big else 0.75, 'k')
+        for u, side in ((0.15, 1), (0.42, -1), (0.62, 1), (0.88, -1)):
+            px, py = pts[int(u * 20)]
+            a = math.radians(side * 55 + 90 + (10 if side > 0 else -10))
+            lens(cv, px, py, px + math.cos(a) * s * 0.3, py + math.sin(a) * s * 0.22, s * 0.07 + 0.5, 'l')
+        for k, u in enumerate((0.3, 0.52, 0.76)):
+            px, py = pts[int(u * 20)]
+            seg(cv, px, py, px, py + q * 1.6, 'k', 0.4)
+            one_olive(cv, px, py + q * 2.4, q, 90, 'a' if k % 2 == 0 else 'q')
+        oval(cv, cx + w * 0.12, ty, w * 0.26, 1.4, 'p')
+        for k in range(2):
+            one_olive(cv, cx + w * 0.12 + (k - 0.5) * q * 2.6, ty - q - 0.4, q, -20 + 40 * k, 'a', True)
+    else:  # two big stuffed olives on a pick, a sprig on the plate
+        oval(cv, cx, ty, w * 0.42, 1.8, 'p')
+        qq = s * 0.15
+        p0, p1 = (cx - w * 0.38, ty - h * 0.08), (cx + w * 0.34, ty - h * 0.44)
+        seg(cv, p0[0], p0[1], p1[0], p1[1], 'k', 0.5)
+        ang = math.degrees(math.atan2(p1[1] - p0[1], p1[0] - p0[0]))
+        for u in (0.38, 0.68):
+            x, y = p0[0] + (p1[0] - p0[0]) * u, p0[1] + (p1[1] - p0[1]) * u
+            gap(cv, x, y, qq * 1.25 + 0.8, 'ax')
+            one_olive(cv, x, y, qq, ang, 'a', True)
+        olive_sprig(cv, cx + w * 0.1, ty - 0.8, s * 0.22, -20, big)
+    if r.random() < 0.5:
+        mirror(cv)
+    S = scene_roles(kind, (BLUE, BLUE, BROWN, PINK, PINK))
+    return cv, [S['b'], role('a', 'olive', 'Green olives', GREEN), role('l', 'leaf', 'Leaves', GREEN), role('x', 'pimento', 'Pimento', PINK),
+                role('q', 'black', 'Black olives', PINK), role('k', 'twig', 'Twigs and pick', BROWN), role('p', 'bowl', 'Bowl and plate', BROWN),
+                S['t'], S['d'], S['o'], S['v']], ['food', 'vegetables']
+
+
+def one_radish(cv, x, y, rr, big, lean=0.0, leaves=3, c='a'):
+    """A radish: a round red root with its white tail below and a tuft of leaves on stalks above."""
+    top = y - rr * 0.85
+    for k in range(leaves):
+        a = math.radians(-90 + (k - (leaves - 1) / 2) * 30 + lean)
+        L = rr * (2.3 if k == leaves // 2 else 1.9)
+        seg(cv, x, top, x + math.cos(a) * L * 0.5, top + math.sin(a) * L * 0.5, 'n', 0.45)
+        lens(cv, x + math.cos(a) * L * 0.38, top + math.sin(a) * L * 0.38, x + math.cos(a) * L, top + math.sin(a) * L, rr * 0.7 + 0.3, 'l')
+    disc(cv, x, y, rr, c)
+    tube(cv, [(x, y + rr * 0.7), (x + 0.4, y + rr * 1.9)], lambda t: max(0.4, rr * 0.42 * (1 - t)), 'w')
+
+
+def radish(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode = r.randrange(3)
+    kind = 2 if mode == 2 else r.randrange(2)
+    ty = h * r.uniform(0.84, 0.88)
+    if mode < 2:
+        scene(cv, r, w, h, kind, ty)
+    if mode == 0:  # a bunch of three tied with string, on a board
+        rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
+        rr = s * 0.15
+        for k, dx in enumerate((-0.24, 0.24, 0.0)):
+            x, y = cx + dx * w, ty - rr * 2.2 - (0.8 if k == 2 else 0.0)
+            one_radish(cv, x, y, rr, big, lean=-dx * 70, leaves=2 if k < 2 else 3, c='c' if k == 2 else 'a')
+        ky = ty - rr * 2.2 - rr * 1.9
+        box(cv, cx - w * 0.2, ky - 0.5, cx + w * 0.2, ky + 0.5, 'k', only='nl')
+    elif mode == 1:  # one big radish and two slices
+        rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
+        rr = s * 0.21
+        one_radish(cv, cx - w * 0.12, ty - rr * 2.4, rr, big, lean=10)
+        q = s * 0.1 + 0.6
+        for k in range(2):
+            x, y = cx + w * (0.2 + 0.08 * k), ty - q - 1.0 - k * q * 1.4
+            gap(cv, x, y, q + 0.8, 'awln')
+            disc(cv, x, y, q, 'a')
+            disc(cv, x, y, q - 0.8, 'i')
+    else:  # radishes growing in a bed, their red tops showing, one pulled out
+        gy = h * r.uniform(0.7, 0.74)
+        cloud(cv, w * 0.24, h * 0.09, s * 0.07 + 0.5, 'o')
+        box(cv, 0, gy, w, h, 't')
+        rr = s * 0.13
+        for k, dx in enumerate((-0.28, 0.0, 0.28)):
+            one_radish(cv, cx + dx * w, gy + rr * 0.1, rr, big, lean=dx * 40)
+        box(cv, 0, gy + rr * 0.35, w, h, 't', only='aw')
+        if big:
+            one_radish(cv, cx + w * 0.1, h - 2.4, rr * 0.9, big, lean=80, leaves=2)
+        dots(cv, 'd', 't', 4, 2, area=(0, gy + 2, w - 1, h - 2))
+    if r.random() < 0.5:
+        mirror(cv)
+    if mode == 2:
+        top = [sky('b'), role('t', 'soil', 'Soil', BROWN), role('d', 'pebbles', 'Pebbles', BROWN), role('o', 'cloud', 'Cloud', BLUE)]
+    else:
+        S = scene_roles(kind, (BLUE, BLUE, BROWN, GREEN, GREEN))
+        top = [S['b'], S['o'], S['v'], S['t'], S['d']]
+    return cv, top + [role('a', 'radish', 'Radishes', PINK), role('c', 'radish2', 'Radish behind', PINK), role('w', 'tail', 'Tails', PINK), role('i', 'inside', 'White inside', BLUE),
+                      role('l', 'leaf', 'Leaves', GREEN), role('n', 'stalks', 'Stalks', GREEN), role('k', 'string', 'String', PINK),
+                      role('p', 'board', 'Board', BROWN)], ['food', 'vegetables']
+
+
+def one_cabbage(cv, x, y, rr, big):
+    """A cabbage: a round head in a cup of outer leaves, the leaves' rims and veins showing."""
+    oval(cv, x, y + rr * 0.08, rr * 1.06, rr * 0.92, 'a')
+    for a in (200, 250, 290, 340):
+        t = math.radians(a)
+        disc(cv, x + math.cos(t) * rr * 0.62, y + rr * 0.08 - math.sin(t) * rr * 0.5, rr * 0.5, 'a')
+    disc(cv, x, y - rr * 0.22, rr * 0.6, 'i')
+    path(cv, curve((x - rr * 0.5, y - rr * 0.5), (x + rr * 0.15, y - rr * 0.78), -rr * 0.12), 'e', 0.4)
+    for side in (-1, 1):
+        path(cv, curve((x, y + rr * 0.85), (x + side * rr * 0.85, y - rr * 0.1), side * rr * 0.2), 'e', 0.4)
+    if big:
+        for side in (-1, 1):
+            path(cv, curve((x + side * rr * 0.1, y + rr * 0.85), (x + side * rr * 0.4, y + rr * 0.25), side * rr * 0.1), 'e', 0.4)
+
+
+def cabbage_half(cv, x, y, rr):
+    """Half a red cabbage, its cut face to the front and standing on the board at row y: the leaves' pale wavy lines,
+    each reaching the board."""
+    x, y = int(x) + 0.5, round(y)
+    for xx, yy, px, py in cells(cv):
+        d = math.hypot(px - x, py - y)
+        if py <= y and d <= rr:
+            a = math.atan2(y - py, px - x)
+            wv = d + 0.5 * math.sin(a * 6 + d * 0.8)
+            cv.g[yy][xx] = 'e' if wv % 2.2 < 0.75 and d < rr - 0.9 else 'q'
+
+
+def cabbage(w, h, r):
+    cv, s, cx, big = start(w, h, 'b')
+    mode = r.randrange(3)
+    kind = 2 if mode == 2 else r.randrange(2)
+    ty = h * r.uniform(0.84, 0.88)
+    if mode < 2:
+        scene(cv, r, w, h, kind, ty)
+        rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
+    if mode == 0:  # one big cabbage on a board
+        rr = s * 0.36
+        one_cabbage(cv, cx + w * 0.02, ty - rr * 0.95 - 0.8, rr, big)
+    elif mode == 1:  # a green cabbage behind half a red one
+        rr = s * 0.27
+        one_cabbage(cv, cx + w * 0.16, ty - rr - h * 0.1, rr, big)
+        hr = s * 0.3
+        hx = cx - w * 0.12
+        gap(cv, hx, ty - 1.4, hr + 1.0, 'aie')
+        cabbage_half(cv, hx, ty - 1.4, hr)
+    else:  # cabbages in a row on the soil, a butterfly over them on the big boards
+        gy = h * r.uniform(0.74, 0.78)
+        cloud(cv, w * 0.24, h * 0.09, s * 0.07 + 0.5, 'o')
+        box(cv, 0, gy, w, h, 't')
+        dots(cv, 'd', 't', 4, 2, area=(0, gy + 2, w - 1, h - 2))
+        rr = s * 0.25
+        one_cabbage(cv, cx + w * 0.2, gy - rr * 0.75, rr * 0.9, big)
+        gap(cv, cx - w * 0.14, gy - rr * 0.8, rr * 1.05 + 0.8, 'aie')
+        one_cabbage(cv, cx - w * 0.14, gy - rr * 0.8, rr, big)
+        if big:
+            bx, by = w * 0.7, h * 0.24
+            for side in (-1, 1):
+                oval(cv, bx + side * 1.2, by, 1.2, 1.5, 'f')
+            seg(cv, bx, by - 1.2, bx, by + 1.2, 'k', 0.45)
+    if r.random() < 0.5:
+        mirror(cv)
+    if mode == 2:
+        top = [sky('b'), role('t', 'soil', 'Soil', BROWN), role('d', 'pebbles', 'Pebbles', BROWN), role('o', 'cloud', 'Cloud', BLUE),
+               role('f', 'butterfly', 'Butterfly', PINK), role('k', 'body', 'Butterfly body', BROWN)]
+    else:
+        S = scene_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
+        top = [S['b'], S['o'], S['t'], S['d']]
+    return cv, [top[0], role('a', 'outer', 'Outer leaves', GREEN)] + ([S['v']] if mode < 2 else []) + [
+        role('i', 'head', 'Head', GREEN), role('e', 'veins', 'Veins and cut lines', BLUE), role('q', 'red', 'Red cabbage', PINK),
+        role('p', 'board', 'Board', BROWN)] + top[1:], ['food', 'vegetables']
+
+MORE_FOOD = [orange, plum, blueberries, raspberry, mango, pomegranate, onion, garlic, potato, cucumber, olives, radish, cabbage]
 
 # Expansion roles of these subjects (as expansions.ROLES): subject -> {group: [(roleId, new name or None), ...]}.
 MORE_FOOD_ROLES = {
@@ -539,4 +1003,8 @@ MORE_FOOD_ROLES = {
     'raspberry': {'red': [('berry', None)]},
     'mango': {'lime': [('mango', None)], 'red': [('blush', None)]},
     'pomegranate': {'red': [('fruit', None), ('arils', None)]},
+    'onion': {'red': [('onion', 'Red onions')]},
+    'cucumber': {'lime': [('flower', None)]},
+    'olives': {'red': [('pimento', None)]},
+    'radish': {'red': [('radish', None), ('radish2', None)]},
 }
