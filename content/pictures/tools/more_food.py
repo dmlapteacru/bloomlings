@@ -583,13 +583,10 @@ def onion(w, h, r):
         hx = cx - w * 0.12
         gap(cv, hx, ty - 1.4, hr + 1.0, 'aewg')
         onion_half(cv, hx, ty - 1.4, hr)
-    else:  # three onions, the front one sprouting
-        rr = s * 0.17
-        for k, (dx, dy) in enumerate(((-0.2, -0.1), (0.21, -0.12), (0.0, 0.0))):
-            x, y = cx + dx * w, ty - rr - 1.6 + dy * h
-            if k:
-                gap(cv, x, y - rr * 0.3, rr * 1.25 + 0.8, 'aewg')
-            one_onion(cv, x, y, rr, big, sprout=k == 2)
+    else:  # a big onion with a dry tip beside a small one sprouting
+        rr, q = s * 0.23, s * 0.15
+        one_onion(cv, cx - w * 0.16, ty - rr - 1.6, rr, big, sprout=False)
+        one_onion(cv, cx + w * 0.27, ty - q - 1.6, q, big)
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, BLUE, PINK, PINK))
@@ -621,8 +618,8 @@ def garlic(w, h, r):
     mode, kind = r.randrange(3), r.randrange(2)
     ty = h * r.uniform(0.84, 0.88)
     scene(cv, r, w, h, kind, ty)
-    q = s * 0.09 + 0.3
-    if mode == 0:  # a bulb and two loose cloves on a board
+    q = s * 0.11 + 0.4
+    if mode == 0:  # a bulb and a loose clove on a plate
         oval(cv, cx, ty, w * 0.42, 1.8, 'p')
         rr = s * 0.28
         one_garlic(cv, cx - w * 0.06, ty - rr - 0.8, rr, big)
@@ -716,13 +713,14 @@ def potato(w, h, r):
                       role('n', 'rim', 'Rim, string and stem', GREEN), role('l', 'leaf', 'Leaves', GREEN), role('f', 'flower', 'Flower', BLUE)], ['food', 'vegetables']
 
 
-def one_cucumber(cv, p0, p1, rr, bend):
+def one_cucumber(cv, p0, p1, rr, bend, c='a'):
     """A cucumber from its stalk end p0 to its blossom end p1: round-ended, with little bumps, its stalk and the dried
-    flower at its tip."""
+    flower at its tip; `c` is its role (the one behind another takes the slices' rind role, so the two stay apart
+    without a gap of sky between them)."""
     pts = curve(p0, p1, bend)
-    tube(cv, pts, lambda t: rr * (0.8 + 0.2 * math.sin(math.pi * t)), 'a')
+    tube(cv, pts, lambda t: rr * (0.8 + 0.2 * math.sin(math.pi * t)), c)
     xs, ys = [p[0] for p in pts], [p[1] for p in pts]
-    dots(cv, 'e', 'a', 3, 2, area=(min(xs) - rr, min(ys) - rr, max(xs) + rr, max(ys) + rr), offset=1)
+    dots(cv, 'e', c, 3, 2, area=(min(xs) - rr, min(ys) - rr, max(xs) + rr, max(ys) + rr), offset=1)
     (ax, ay), (bx, by) = pts[0], pts[2]
     L = math.hypot(bx - ax, by - ay) or 1.0
     seg(cv, ax - (bx - ax) / L * rr * 0.5, ay - (by - ay) / L * rr * 0.5, ax - (bx - ax) / L * (rr * 0.8 + 0.8), ay - (by - ay) / L * (rr * 0.8 + 0.8), 'k', 0.5)
@@ -732,8 +730,8 @@ def one_cucumber(cv, p0, p1, rr, bend):
 
 
 def cucumber_slice(cv, x, y, q, big):
-    """A slice of cucumber, face on: its rind (a role of its own, so it can lie against a whole cucumber), pale flesh
-    and, on the big boards, a ring of seeds."""
+    """A slice of cucumber, face on: its rind (a role of its own, so it can lie against a whole cucumber or another
+    slice), pale flesh and, on the big boards, a ring of seeds."""
     disc(cv, x, y, q, 'c')
     disc(cv, x, y, q - 0.9, 'w')
     if big:
@@ -745,11 +743,11 @@ def cucumber_slice(cv, x, y, q, big):
 def cucumber(w, h, r):
     cv, s, cx, big = start(w, h, 'b')
     mode = r.randrange(3)
-    kind = 2 if mode == 2 else r.randrange(2)
+    kind = r.randrange(3)
     ty = h * r.uniform(0.84, 0.88)
-    scene(cv, r, w, h, kind, ty, decor=mode != 2)
-    rr = s * 0.13 + 0.2
-    q = s * 0.12 + 0.6
+    scene(cv, r, w, h, kind, ty)
+    rr = s * 0.1 + 0.25
+    q = s * 0.11 + 0.6
     if mode == 0:  # a cucumber across a board, slices in front
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
         one_cucumber(cv, (w * 0.3, ty - h * 0.42), (w * 0.72, ty - h * 0.22), rr, -1.0)
@@ -758,41 +756,30 @@ def cucumber(w, h, r):
             cucumber_slice(cv, x, ty - q - 0.9, q, big)
     elif mode == 1:  # two cucumbers side by side on a board, a slice in front
         rbox(cv, cx - w * 0.44, ty - 1.4, cx + w * 0.44, ty + 0.6, 0.7, 'p')
-        one_cucumber(cv, (w * 0.38, ty - h * 0.48), (w * 0.72, ty - h * 0.36), rr * 0.9, -0.6)
-        p0, p1 = (w * 0.3, ty - h * 0.34), (w * 0.7, ty - h * 0.16)
-        tube(cv, curve(p0, p1, -0.6), rr * 1.05 + 0.9, 'b', only='aeky')
-        one_cucumber(cv, p0, p1, rr, -0.6)
+        one_cucumber(cv, (w * 0.38, ty - h * 0.48), (w * 0.72, ty - h * 0.36), rr * 0.9, -0.6, 'c')
+        one_cucumber(cv, (w * 0.3, ty - h * 0.34), (w * 0.7, ty - h * 0.16), rr, -0.6)
         cucumber_slice(cv, cx - w * 0.26, ty - q - 0.9, q, big)
-    else:  # a cucumber hanging from its vine under a leaf, a flower open, a slice on a plate below
-        vy = h * r.uniform(0.18, 0.22)
-        pts = curve((-0.5, vy + h * 0.06), (w * 0.66, vy), -1.2)
-        path(cv, pts, 'n', 0.55)
-        for u, dy in ((0.3, 0.1),) if not big else ((0.2, 0.1), (0.62, 0.08)):
-            px, py = pts[int(u * 20)]
-            heart(cv, px, py + h * dy, s * 0.11 + 0.4, 'l')
-        px, py = pts[20]
-        path(cv, [(px, py), (px + 1.2, py - 0.8), (px + 1.6, py + 0.6), (px + 0.6, py + 1.0)], 'n', 0.45)
-        fx, fy = pts[12]
-        star(cv, fx, fy + 1.6, s * 0.06 + 0.6, 'y', ri=s * 0.03 + 0.3)
-        hx, hy = pts[17]
-        one_cucumber(cv, (hx, hy + rr + 1.2), (hx + w * 0.04, ty - h * 0.2), rr, 0.6)
-        oval(cv, cx - w * 0.2, ty, w * 0.2, 1.4, 'p')
-        cucumber_slice(cv, cx - w * 0.2, ty - q - 0.5, q, big)
+    else:  # a bowl heaped with slices, a whole cucumber leaning behind it
+        by = ty - h * 0.15
+        one_cucumber(cv, (cx + w * 0.16, by - 0.5), (cx + w * 0.3, ty - h * 0.62), rr, -0.5)
+        n = 3 if not big else 4
+        for k in range(n):
+            cucumber_slice(cv, cx - w * 0.06 + (k - (n - 1) / 2) * q * 1.5, by - q * 0.5 - (k % 2) * q * 0.5, q, big)
+        bowl(cv, cx - w * 0.06, by, ty + 0.4, w * 0.36, 'p')
     if r.random() < 0.5:
         mirror(cv)
     S = scene_roles(kind, (BLUE, BLUE, PINK, PINK, PINK))
-    return cv, [S['b'], role('a', 'cucumber', 'Cucumbers', GREEN), role('c', 'rind', 'Slice rind', GREEN), role('e', 'bumps', 'Bumps', GREEN), role('l', 'leaf', 'Leaves', GREEN),
-                role('x', 'seeds', 'Seeds', GREEN), role('w', 'flesh', 'Flesh', BLUE), role('p', 'board', 'Board and plate', BROWN),
-                role('k', 'stalk', 'Stalks', BROWN), role('y', 'flower', 'Flowers', BROWN), role('n', 'vine', 'Vine and tendril', GREEN),
-                S['t'], S['v'], S['d'], S['o']], ['food', 'vegetables']
+    return cv, [S['b'], role('a', 'cucumber', 'Cucumbers', GREEN), role('c', 'rind', 'Slice rind and the cucumber behind', GREEN), role('e', 'bumps', 'Bumps', GREEN), role('l', 'leaf', 'Leaves', GREEN),
+                role('x', 'seeds', 'Seeds', GREEN), S['o'], role('w', 'flesh', 'Flesh', BLUE), role('p', 'board', 'Board and bowl', BROWN),
+                role('k', 'stalk', 'Stalks', BROWN), role('y', 'flower', 'Flowers', BROWN), S['t'], S['v'], S['d']], ['food', 'vegetables']
 
 
 def one_olive(cv, x, y, q, ang, c, pimento=False):
     """An olive, green or black; a green one stuffed with pimento shows it at one end."""
-    tilted(cv, x, y, q * 1.25, q * 0.95, ang, c)
+    tilted(cv, x, y, q * 1.2, q * 0.95, ang, c)
     if pimento:
         t = math.radians(ang)
-        disc(cv, x + math.cos(t) * q * 0.75, y + math.sin(t) * q * 0.75, max(0.6, q * 0.38), 'x')
+        disc(cv, x + math.cos(t) * q * 0.45, y + math.sin(t) * q * 0.45, max(0.6, q * 0.45), 'x')
 
 
 def olive_sprig(cv, x, y, L, ang, big):
@@ -945,7 +932,7 @@ def cabbage_half(cv, x, y, rr):
         if py <= y and d <= rr:
             a = math.atan2(y - py, px - x)
             wv = d + 0.5 * math.sin(a * 6 + d * 0.8)
-            cv.g[yy][xx] = 'e' if wv % 2.2 < 0.75 and d < rr - 0.9 else 'q'
+            cv.g[yy][xx] = 'e' if wv % 2.3 < 0.95 and d < rr - 0.9 else 'q'
 
 
 def cabbage(w, h, r):
@@ -970,6 +957,7 @@ def cabbage(w, h, r):
         gy = h * r.uniform(0.74, 0.78)
         cloud(cv, w * 0.24, h * 0.09, s * 0.07 + 0.5, 'o')
         box(cv, 0, gy, w, h, 't')
+        box(cv, 0, gy, w, gy + 0.9, 'v')
         dots(cv, 'd', 't', 4, 2, area=(0, gy + 2, w - 1, h - 2))
         rr = s * 0.25
         one_cabbage(cv, cx + w * 0.2, gy - rr * 0.75, rr * 0.9, big)
@@ -988,7 +976,7 @@ def cabbage(w, h, r):
     else:
         S = scene_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
         top = [S['b'], S['o'], S['t'], S['d']]
-    return cv, [top[0], role('a', 'outer', 'Outer leaves', GREEN)] + ([S['v']] if mode < 2 else []) + [
+    return cv, [top[0], role('a', 'outer', 'Outer leaves', GREEN), S['v'] if mode < 2 else role('v', 'grass', 'Grass', GREEN)] + [
         role('i', 'head', 'Head', GREEN), role('e', 'veins', 'Veins and cut lines', BLUE), role('q', 'red', 'Red cabbage', PINK),
         role('p', 'board', 'Board', BROWN)] + top[1:], ['food', 'vegetables']
 

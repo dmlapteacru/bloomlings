@@ -6,8 +6,8 @@ props and their side.
 """
 import math
 
-from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cells, cloud, disc, dots, ground_rows, heart, hills, lens, oval,
-                         path, poly, rbox, ring, role, scatter, seg, sky, star, start)
+from picture_kit import (BLUE, BROWN, GREEN, PINK, box, cells, cloud, disc, dots, heart, hills, lens, oval, path, poly,
+                         rbox, ring, role, scatter, seg, sky, star, start)
 
 
 # ---- Helpers ----
@@ -43,14 +43,12 @@ def tube(cv, pts, rad, c, only=None):
             cv.g[y][x] = c
 
 
-def tilted(cv, cx, cy, rx, ry, ang, c, nub=0.0, only=None):
-    """An oval turned by `ang` degrees; `nub` adds a point of that radius at both ends of its long axis (a lemon)."""
+def tilted(cv, cx, cy, rx, ry, ang, c, only=None):
+    """An oval turned by `ang` degrees; `only` limits it to the cells of those roles."""
     ca, sa = math.cos(math.radians(ang)), math.sin(math.radians(ang))
     for x, y, px, py in cells(cv):
         u, v = (px - cx) * ca + (py - cy) * sa, -(px - cx) * sa + (py - cy) * ca
         inside = (u / rx) ** 2 + (v / ry) ** 2 <= 1.0
-        if nub and not inside:
-            inside = min(math.hypot(u - rx, v), math.hypot(u + rx, v)) <= nub
         if inside and (only is None or cv.g[y][x] in only):
             cv.g[y][x] = c
 
@@ -369,7 +367,8 @@ def coconut(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     return cv, [sky(), role('a', 'sea', 'Sea', BLUE), role('m', 'milk', 'Coconut water', BLUE),
-                role('k', 'trunk', 'Palm trunk and stick', BROWN), role('c', 'shell', 'Coconut shell', BROWN), role('u', 'sun', 'Sun and paper umbrella', BROWN),
+                role('k', 'trunk', 'Palm trunk and stick', BROWN), role('c', 'shell', 'Coconut shell', BROWN),
+                role('u', 'sun', 'Sun and paper umbrella', BROWN),
                 role('h', 'fibres', 'Fibres', BROWN), role('w', 'flesh', 'Coconut flesh', PINK), role('e', 'eyes', 'Coconut eyes', PINK),
                 role('r', 'straw', 'Straw', PINK), role('x', 'starfish', 'Starfish', PINK),
                 role('l', 'palm', 'Palm leaves', GREEN), role('d', 'sand', 'Sand', GREEN)], ['food', 'summer']
@@ -912,7 +911,8 @@ def pizza(w, h, r):
         if basil:
             for k in range(3):
                 a = math.radians(k * 120 + 70)
-                lens(cv, x + math.cos(a) * rx * 0.25 - 1, y + math.sin(a) * ry * 0.25, x + math.cos(a) * rx * 0.25 + 1, y + math.sin(a) * ry * 0.25 - 0.6, 1.2, 'l')
+                bx, by = x + math.cos(a) * rx * 0.25, y + math.sin(a) * ry * 0.25
+                lens(cv, bx - 1, by, bx + 1, by - 0.6, 1.2, 'l')
     else:  # two slices side by side
         oval(cv, cx, ty, w * 0.46, 1.8, 'p')
         slice_of_pizza(cv, r, (cx - w * 0.22, ty - 1.2), h * 0.5, 4, 25, 'c', 'y', 'e', 'l' if basil else None)
@@ -1116,7 +1116,8 @@ def cheese(w, h, r):
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
     return cv, [S['b'], role('f', 'cheese', 'Cheese', BROWN), role('k', 'rind', 'Rind, stalk and knife handle', BROWN),
-                role('c', 'top', 'Top of the cheese', BROWN), role('h', 'holes', 'Holes', PINK), role('g', 'grapes', 'Grapes', PINK), role('x', 'crackers', 'Crackers', BROWN),
+                role('c', 'top', 'Top of the cheese', BROWN), role('h', 'holes', 'Holes', PINK), role('g', 'grapes', 'Grapes', PINK),
+                role('x', 'crackers', 'Crackers', BROWN),
                 role('p', 'board', 'Board', GREEN), role('n', 'blade', 'Knife blade', BLUE), S['o'], S['t'], S['d'], S['v']], ['food', 'dishes']
 
 
@@ -1166,7 +1167,8 @@ def croissant(w, h, r):
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, PINK, PINK))
     return cv, [S['b'], role('c', 'croissant', 'Croissants', BROWN), role('k', 'lines', 'Lines and coffee', BROWN), role('y', 'shine', 'Shine', BROWN),
-                role('u', 'cup', 'Cup', PINK), role('p', 'plate', 'Plate', BLUE), role('q', 'saucer', 'Saucer and basket', GREEN), role('m', 'steam', 'Steam and basket rim', GREEN),
+                role('u', 'cup', 'Cup', PINK), role('p', 'plate', 'Plate', BLUE), role('q', 'saucer', 'Saucer and basket', GREEN),
+                role('m', 'steam', 'Steam and basket rim', GREEN),
                 S['o'], S['t'], S['d'], S['v']], ['food', 'bakery']
 
 
@@ -1317,7 +1319,8 @@ def one_cane(cv, pts, rr, red, white, step=2.2):
 def hook(x, top, bottom, rr, side=1):
     """The way of a candy cane: from the end of its hook (radius rr at the top, curling to the side `side`) straight
     down to `bottom`."""
-    return [(x + side * (rr - rr * math.cos(math.radians(a))), top + rr - rr * math.sin(math.radians(a))) for a in range(-50, 181, 15)][::-1] + [(x, bottom)]
+    arc = [(x + side * (rr - rr * math.cos(math.radians(a))), top + rr - rr * math.sin(math.radians(a))) for a in range(-50, 181, 15)]
+    return arc[::-1] + [(x, bottom)]
 
 
 def candy_cane(w, h, r):
@@ -1342,7 +1345,8 @@ def candy_cane(w, h, r):
     elif mode == 1:  # two canes crossed, a bow where they cross
         for side in (-1, 1):
             x0, x1 = cx - side * w * 0.3, cx + side * w * 0.24
-            pts = [(x0 + side * w * 0.14 * (1 - math.cos(math.radians(a))) - side * w * 0.14, h * 0.2 - w * 0.14 * math.sin(math.radians(a))) for a in range(0, 181, 15)]
+            q = w * 0.14
+            pts = [(x0 - side * q * math.cos(math.radians(a)), h * 0.2 - q * math.sin(math.radians(a))) for a in range(0, 181, 15)]
             pts = pts[::-1] + [(x1, ty - 0.5)]
             if side > 0:
                 tube(cv, pts, 2.4, 'b', only='aw')
@@ -1628,7 +1632,8 @@ def soup_bowl(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (GREEN, GREEN, BLUE, BROWN, BROWN))
-    return cv, [S['b'], role('w', 'bowl', 'Bowl and pot', PINK), role('e', 'band', 'Band', PINK), role('s', 'soup', 'Pumpkin soup and broth', BROWN), role('g', 'pea_soup', 'Pea soup', GREEN),
+    return cv, [S['b'], role('w', 'bowl', 'Bowl, pot and mug', PINK), role('e', 'band', 'Band', PINK),
+                role('s', 'soup', 'Pumpkin soup and broth', BROWN), role('g', 'pea_soup', 'Pea soup', GREEN),
                 S['t'], S['d'], role('u', 'roll', 'Bread, croutons and noodles', BROWN), role('n', 'roll_cuts', 'Cuts in the roll', BROWN),
                 role('x', 'herbs', 'Herbs and green onion', GREEN), role('c', 'cream', 'Cream', PINK), role('m', 'steam', 'Steam', BLUE),
                 role('k', 'spoon', 'Spoon, ladle and handles', BLUE), role('p', 'plate', 'Plate', GREEN), S['o'], S['v']], ['food', 'dishes']
@@ -1676,6 +1681,8 @@ def fried_egg(w, h, r):
             if py <= rim + 0.5 and ((px - cx) / (w * 0.4)) ** 2 + ((py - rim - 0.5) / 3.6) ** 2 <= 1.0:
                 cv.g[yy][xx] = 'u'
         egg(cv, r, cx + 0.5, rim - 2.2, w * 0.26)
+        for k in (0, 1):
+            seg(cv, cx + w * 0.12, rim + 0.6 + k * 1.4, w + 1, rim - 3.0 + k * 1.2, 'n', 0.45)
     else:  # on a slice of toast
         oval(cv, cx, ty - 0.6, w * 0.46, 2.2, 'p')
         for c, d in (('n', 0.0), ('u', 1.2)):
@@ -1687,7 +1694,7 @@ def fried_egg(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
-    return cv, [S['b'], S['t'], role('n', 'crust', 'Crust and bacon stripes', BROWN), role('g', 'handle', 'Handle', BROWN),
+    return cv, [S['b'], S['t'], role('n', 'crust', 'Crust, bacon stripes and chopsticks', BROWN), role('g', 'handle', 'Handle', BROWN),
                 role('y', 'yolk', 'Yolk', BROWN), role('u', 'toast', 'Toast and rice', BROWN), S['d'],
                 role('w', 'white', 'Egg white', PINK), role('a', 'bacon', 'Bacon', PINK),
                 role('k', 'pan', 'Pan and bowl', GREEN),
@@ -1745,8 +1752,9 @@ def milkshake(w, h, r):
         mirror(cv)
     S = setting_roles(kind, (GREEN, GREEN, BLUE, BROWN, BROWN))
     return cv, [S['b'], role('m', 'shake', 'Strawberry shake', PINK), role('r', 'cherry', 'Cherries', PINK), S['t'], S['d'],
-                role('c', 'cream', 'Whipped cream', BROWN), role('n', 'chocolate', 'Chocolate shake', BROWN), role('k', 'stalk', 'Cherry stalks and wafer', BROWN),
-                role('s', 'straw', 'Straws', BLUE), role('e', 'straw_stripes', 'Straw stripes and sprinkles', PINK), role('g', 'glass', 'Glass', BLUE),
+                role('c', 'cream', 'Whipped cream', BROWN), role('n', 'chocolate', 'Chocolate shake', BROWN),
+                role('k', 'stalk', 'Cherry stalks and wafer', BROWN), role('s', 'straw', 'Straws', BLUE),
+                role('e', 'straw_stripes', 'Straw stripes and sprinkles', PINK), role('g', 'glass', 'Glass', BLUE),
                 S['o'], S['v']], ['food', 'sweets']
 
 
@@ -1806,7 +1814,8 @@ def kiwi(w, h, r):
     if r.random() < 0.5:
         mirror(cv)
     S = setting_roles(kind, (BLUE, BLUE, GREEN, BROWN, BROWN))
-    return cv, [S['b'], role('f', 'flesh', 'Kiwi flesh', GREEN), S['t'], role('k', 'skin', 'Skin and seeds', BROWN), role('w', 'middle', 'Pale middle', BROWN),
+    return cv, [S['b'], role('f', 'flesh', 'Kiwi flesh', GREEN), S['t'], role('k', 'skin', 'Skin and seeds', BROWN),
+                role('w', 'middle', 'Pale middle', BROWN),
                 role('h', 'fuzz', 'Fuzz', BROWN), S['d'], role('p', 'plate', 'Plate', PINK), S['o'], S['v']], ['food', 'fruit']
 
 

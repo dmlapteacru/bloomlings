@@ -629,13 +629,11 @@ def sloth(w, h, r):
         seg(cv, sx + dx * w, by + h * 0.14, sx + dx * w + 0.3, by + 0.6, 'b', 0.6 if not big else 0.75)
         cv.put(int(sx + dx * w + 0.3), int(by) - 1, 'k')
     oval(cv, sx, by + h * 0.2, w * 0.24, h * 0.075, 'b')
-    hx, hy = sx + w * 0.26, by + h * 0.27
-    disc(cv, hx, hy, s * 0.15, 'b')
-    oval(cv, hx, hy + s * 0.01, s * 0.12, s * 0.1, 'f')
+    hx, hy = sx + w * 0.25, by + h * 0.27
+    disc(cv, hx, hy, s * 0.17, 'b')
+    oval(cv, hx, hy + s * 0.01, s * 0.14, s * 0.11, 'f')
     for side in (-1, 1):
-        lens(cv, hx + side * s * 0.02, hy - s * 0.03, hx + side * s * 0.12, hy + s * 0.03, s * 0.06 + 0.3, 'k')
-        if big:
-            cv.put(int(hx + side * s * 0.06), int(hy - s * 0.01), 'e')
+        lens(cv, hx + side * s * 0.02, hy - s * 0.03, hx + side * s * 0.13, hy + s * 0.03, s * 0.06 + 0.3, 'k')
     cv.put(int(hx), int(hy + s * 0.05), 'k')
     if big:
         path(cv, [(hx - s * 0.05, hy + s * 0.08), (hx + s * 0.05, hy + s * 0.08)], 'k', 0.4)
@@ -644,7 +642,7 @@ def sloth(w, h, r):
     if r.random() < 0.5:
         flip(cv)
     return cv, [('s', 'sky', 'Jungle sky', BLUE, True), role('u', 'sun', 'Sun', BROWN), role('b', 'sloth', 'Sloth', BROWN),
-                role('f', 'face', 'Face', BROWN), role('k', 'stripes', 'Eye stripes, nose and claws', PINK), role('e', 'eye', 'Eyes', BLUE),
+                role('f', 'face', 'Face', BROWN), role('k', 'stripes', 'Eye stripes, nose and claws', PINK),
                 role('r', 'branch', 'Mossy tree', GREEN), role('l', 'leaves', 'Leaves', GREEN), role('p', 'flowers', 'Flowers', PINK),
                 role('v', 'bushes', 'Bushes', GREEN), role('g', 'grass', 'Grass', GREEN)], ['animals', 'jungle']
 
@@ -693,10 +691,9 @@ def gorilla(w, h, r):
     hills(cv, 'g', gtop, 0.4, w * 1.4, r.uniform(0, 6))
     for x, y, a in ((w * 0.02, h * 0.36, 0.2), (w * 0.98, h * 0.42, 2.9)) + (((w * 0.02, h * 0.1, 0.5),) if big else ()):
         lens(cv, x, y, x + math.cos(a) * s * 0.3, y + math.sin(a) * s * 0.18, s * 0.14, 'l')
-    bx, by = w * r.choice((0.14, 0.86)), h * 0.04
-    seg(cv, bx, -1, bx, by + 0.6, 'l', 0.45)
+    bx, by = w * r.choice((0.16, 0.84)), h * 0.06
     for k in range(3):
-        lens(cv, bx - 1.0 + k, by + 0.8, bx - 1.6 + k * 1.4, by + h * 0.16, s * 0.09, 'y')
+        lens(cv, bx - 1.0 + k, by + 0.4, bx - 1.6 + k * 1.4, by + h * 0.16, s * 0.1, 'y')
     disc(cv, w - bx, h * 0.12, 0.9 if not big else 1.1, 'p')
     gx = int(cx) + 0.5
     for side in (-1, 1):
@@ -737,14 +734,14 @@ def lemur(w, h, r):
     ringed(cv, [(lx + w * 0.12, gtop - 0.8), (lx + w * 0.34, gtop - h * 0.08), (lx + w * 0.42, h * 0.5), (lx + w * 0.32, h * 0.34),
                 (lx + w * 0.36, h * 0.2)], 0.8 if not big else 1.05, 'p', 'k', 1.3 if not big else 1.6)
     oval(cv, lx, gtop - h * 0.16, w * 0.18, h * 0.17, 'p')
-    oval(cv, lx, gtop - h * 0.14, w * 0.09, h * 0.11, 'f')
+    oval(cv, lx, gtop - h * 0.12, w * 0.1, h * 0.08, 'f')
     for side in (-1, 1):
         oval(cv, lx + side * w * 0.1, gtop - 0.5, w * 0.08, 0.9, 'p')
     hy = gtop - h * 0.44
     for side in (-1, 1):
         poly(cv, [(lx + side * s * 0.08, hy - s * 0.14), (lx + side * s * 0.24, hy - s * 0.3), (lx + side * s * 0.24, hy - s * 0.06)], 'p')
     disc(cv, lx, hy, s * 0.21, 'p')
-    oval(cv, lx, hy + s * 0.03, s * 0.18, s * 0.15, 'f')
+    oval(cv, lx, hy + s * 0.05, s * 0.17, s * 0.13, 'f')
     for side in (-1, 1):
         disc(cv, lx + side * (1.1 if not big else 1.6), hy - s * 0.01, 0.9 if not big else 1.2, 'k')
         if big:

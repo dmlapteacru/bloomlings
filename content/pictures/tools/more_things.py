@@ -455,9 +455,8 @@ def surfboard(w, h, r):
     px = cx + side * w * 0.3
     top = (px - side * 0.4, h * 0.3)
     path(cv, [(px, h * 0.82), (px - side * 0.6, h * 0.56), top], 't', 0.6 if not big else 0.8)
-    for a in (-160, -120, -60, -20, 20, 160):
-        t = math.radians(a)
-        lens(cv, top[0], top[1], top[0] + math.cos(t) * s * 0.3, top[1] + math.sin(t) * s * 0.18 + s * 0.07, s * 0.1, 'p')
+    for dx, dy in ((-1.0, 0.55), (1.0, 0.55), (-0.7, -0.3), (0.7, -0.3)) + (((-0.2, -0.6),) if big else ()):
+        lens(cv, top[0], top[1], top[0] + dx * s * 0.3, top[1] + dy * s * 0.3, s * 0.1 + 0.3, 'p')
     disc(cv, cx - side * w * 0.38, h * 0.1, s * 0.085, 'u')
     if big:
         star(cv, cx + side * w * 0.1, h * 0.9, s * 0.05 + 0.6, 'x', ri=0.6)
@@ -566,23 +565,23 @@ def desk_lamp(w, h, r):
     box(cv, wx0, wy0, wx1, wy1, 'f')
     box(cv, wx0 + 1.0, wy0 + 1.0, wx1 - 1.0, wy1 - 1.0, 'i')
     box(cv, (wx0 + wx1) / 2 - 0.5, wy0, (wx0 + wx1) / 2 + 0.5, wy1, 'f')
-    lx = w * 0.24
-    ex, ey = w * 0.44, h * 0.44
+    lx = w * 0.22
+    ex, ey = w * 0.34, h * 0.44
     jx, jy = w * 0.62, h * 0.2
-    a = math.radians(70)
+    a = math.radians(64)
     L = s * 0.22
     sx, sy = jx + math.cos(a) * L, jy + math.sin(a) * L
     nx, ny = -math.sin(a), math.cos(a)
-    wide = s * 0.18
-    fill(cv, 'v', lambda px, py: py > sy and abs(px - sx - (py - sy) * 0.36) <= wide * 0.75 + (py - sy) * 0.25, only='b')
+    wide = s * 0.17
+    fill(cv, 'v', lambda px, py: py > sy + 1.0 and abs(px - sx - (py - sy) * 0.4) <= wide * 0.5 + (py - sy) * 0.12, only='b')
     oval(cv, lx, fy, w * 0.15, 1.4 if not big else 2.0, 'l')
     bar(cv, lx, fy - 1.0, ex, ey, 0.9 if not big else 1.3, 'l')
     bar(cv, ex, ey, jx, jy, 0.9 if not big else 1.3, 'l')
     poly(cv, [(jx + nx * 0.9, jy + ny * 0.9), (jx - nx * 0.9, jy - ny * 0.9), (sx - nx * wide, sy - ny * wide), (sx + nx * wide, sy + ny * wide)], 'l')
-    disc(cv, sx + math.cos(a) * 0.4, sy + math.sin(a) * 0.4, wide * 0.5, 'u')
+    disc(cv, sx + math.cos(a) * 0.5, sy + math.sin(a) * 0.5, 1.0 if not big else 1.4, 'u')
     for x, y in ((ex, ey), (jx, jy)):
         disc(cv, x, y, 0.8 if not big else 1.1, 'j')
-    bkx = sx + (fy - sy) * 0.36
+    bkx = sx + (fy - sy) * 0.4
     rbox(cv, bkx - w * 0.17, fy - (1.6 if not big else 2.6), bkx + w * 0.15, fy + 0.4, 0.3, 'o')
     if big:
         box(cv, bkx - w * 0.15, fy - 1.6, bkx + w * 0.13, fy - 1.0, 'e')
