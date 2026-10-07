@@ -1589,15 +1589,17 @@ final validation.
   16–18), and the 180 big levels (L525–5000, every 25th) pictures of 289–616 cells up to 22×28. Drawn in another
   session and merged: 400 approved regular pictures (224–288 cells) and 97 approved big ones (340–616 cells), beside the
   111 onboarding-size ones (`content/pictures/lib`, approved by the automated picture checks).
-- [ ] T177 With those pictures: L151 and the showcase and practice levels L11–91 (17 levels, still on 12×12–14×15 boards; FR-083
+- [X] T177 With those pictures: L151 and the showcase and practice levels L11–91 (17 levels, still on 12×12–14×15 boards; FR-083
   wants 17 distinct pictures in Levels 1–100 while the library has 12 of 224+ cells) and the playtest's Levels 11–100
   regenerated on regular boards; then the catalog (`generate --jobs N`), whose big levels take minutes each.
   Status (2026-10-06): the 17 showcase and practice levels L11–91 regenerated with `gen-1.3.0`, seed 1, in level order on
   approved 224–288-cell pictures, all Normal; L151 regenerated after T180 (Hard 2367, rabbit_04 16×16);
   `validate --catalog content/showcase --context content/curated` 0 errors (`content/showcase/README.md`). Timing on
   this machine (one core per process): about 20 s for a Normal or Hard level, 10–20 min for a Super Hard one (most of its
-  60 candidates fail the tuner), 25 s for a big level; `validate` 0.5 s per level. The catalog and the playtest's levels
-  follow (T153), built by `tools/catalog/` on the owner's PC once the engine speed-up is merged.
+  60 candidates fail the tuner), 25 s for a big level; `validate` 0.5 s per level. Status (2026-10-07): with the faster
+  search (T182) and the expansion pictures (T183), `tools/catalog/` built Levels 1–100 here (L51–100 in 106 s on 3
+  threads, 0 errors), and the playtest's Levels 11–100 are copied from the catalog; L101–5000 follow on the owner's PC
+  (T153).
 - [ ] T178 The owner: confirm the "rare" default (every milestone level from L525, always Normal), whether "icons only" should also
   drop the candy tile behind the icon (today: the candy tiles stay and only the chip goes), the big levels' pods (24–56)
   and thresholds (`big`, 1500 over the band's) after playing big levels, and a glance test on a 22×28 board (SC-003

@@ -19,20 +19,14 @@ full playtest also compiles the designed screens of `playtest/design/` and the h
 
 ## What the full playtest has
 
-- Levels 1–100 in `playtest/content/levels/` (refreshed 2026-10-05 for the bigger boards, spec 001 FR-008 as amended):
-  - the curated Levels 1–10, on 11×12–12×12 boards;
-  - the mechanic showcases and their practice levels (`content/showcase/`);
-  - the other levels generated with `gen-1.2.0 --allow-draft` at the amended Level Band Guidelines
-    (`generate --allow-draft` for each band profile, with the earlier bands as `--history`, then the levels a band run
-    could not fill, one by one with other seeds; the batches stay in the gitignored `content/work/pt5/`, which
-    `playtest/check` replays when present). Every level of 11–100 is a generated level now; the older preview levels
-    are gone, since the whole picture library was redrawn bigger.
+- Levels 1–100 in `playtest/content/levels/`, copied from the level catalog `content/catalog/` (refreshed 2026-10-07;
+  `tools/catalog/build-catalog.sh`, spec 001 T153): the curated Levels 1–10 on 11×12–12×12 boards, the mechanic
+  showcases and their practice levels (`content/showcase/`), and the generated levels on 224–288-cell boards from L11,
+  all with approved pictures and validated (Vine joins at L45). To refresh them, copy `content/catalog/levels/` L11–100
+  over the files of the same names; Levels 1–10 keep their `level-000N.json` names.
 
-  Past L100 the levels repeat. Draft pictures are used as in-memory previews, as `publish --allow-draft` does.
-  These Levels 11–100 predate the owner's boards of 2026-10-06 (spec 001 FR-008 as amended: at least 224 cells from
-  L11), so most stand on smaller boards; they are refreshed with the catalog once the picture library has the regular
-  and big pictures. A level whose data stores the icons look (a big level, over 288 cells) draws no next-layer chip in
-  either APK (FR-036 as amended).
+  Past L100 the levels repeat. A level whose data stores the icons look (a big level, over 288 cells) draws no
+  next-layer chip in either APK (FR-036 as amended).
   A pod tap goes in only when a slot shows no pod on screen (spec 001 FR-014 as amended on 2026-10-05).
 - The design board's screens (spec 002, `specs/002-ux-design-board/`), drawn without art assets by the engine-free
   screens of `playtest/design/` through `IPainter` (`AndroidPainter` on the phone):

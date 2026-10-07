@@ -26,14 +26,17 @@ unversioned changes.
 | curated | 1–10 | | 10 | | | | 0 errors |
 | 0011-0025 | 11–25 | 8 | 7 | L21 seed 3 | none | 1362 s | 0 errors |
 | 0026-0050 | 26–50 | 21 | 4 | none | none | 78 s | 0 errors |
+| 0051-0100 | 51–100 | 44 | 6 | none | none | 106 s | 0 errors |
 
 Built with `tools/catalog/build-catalog.sh --jobs 3` on a 4-core cloud machine: L1–25 on 2026-10-06 (pipeline 97f1dc6),
 L26–50 again on 2026-10-07 after the picture library gained its lime and red roles (Vine joins at L45, Berry at L200),
 with the faster search (L11–25 regenerated with it matches file for file). L26–44 came out the same as before, since
 the picker keeps each expansion picture out of the levels before its variant joins; L45 introduces Vine on its own and
 L46, L48 and L49 use it again. `validate --catalog content/catalog --context content/curated` passes with 0 errors over
-L1–50, and `score` reports no disagreement. The warnings are the provisionally approved readability pairs
+L1–100, and `score` reports no disagreement. The warnings are the provisionally approved readability pairs
 (`content/readability/approved-pairs.json`) until the human readability sign-off. Still open for Levels 1–100: a person
 playtests every level (FR-084).
 
-**Next.** The owner builds L51–5000 with `tools/catalog/` (the README there), which resumes after L50.
+L51–100 were built on 2026-10-07 the same way (the playtest's Levels 1–100 are copied from here).
+
+**Next.** The owner builds L101–5000 with `tools/catalog/` (the README there), which resumes after L100.
