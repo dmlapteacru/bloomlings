@@ -76,9 +76,9 @@ namespace Bloomlings.Playtest
     /// </summary>
     public sealed class LevelAnimator
     {
-        // The clearing pace is the clearing styles' (ClearStyles.TripSeconds, the owner's calm pace of 2026-10-06; it was
-        // 0.36 s a step and waves of 1.2–6.4 s): every style takes the same time for a tile, and no wave squeezes a trip.
-        // The cap fits a straight route across the biggest board, 22×28 (49 cells, about 55.5 s; it was 40 s for 14×16).
+        // The clearing pace is the clearing styles' (ClearStyles.TripSeconds: Colony Flow's ants' walk since the owner's
+        // video of 2026-10-08, the calm acts of 2026-10-06): every style takes the same time for a tile, and no wave
+        // squeezes a trip. The cap is far above a straight route across the biggest board, 22×28 (49 cells, about 6.3 s).
         public const float RestoreSeconds = 0.2f;
         public const float MinWaveSeconds = 1.2f;
         public const float MaxWaveSeconds = 60f;

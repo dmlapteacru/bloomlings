@@ -181,10 +181,13 @@ namespace Bloomlings.Client.Tests
                 HapticPattern pattern = ClearSounds.CollectHaptic(style);
                 Assert.That(pattern.IsMicro, style.ToString());
                 Assert.That(pattern.Notes, Is.Not.Empty, style + " is composed of transients");
-                Assert.That(pattern.Notes.All(n => n.Scale > 0f && n.Scale <= 0.5f), style + " is gentle");
+                // Felt in the hand (the owner, 2026-10-08: "barely felt"), yet a tick, never a buzz, and under the pod's.
+                Assert.That(pattern.Notes.All(n => n.Scale >= 0.7f && n.Scale <= 1f), style + " is felt");
+                Assert.That(pattern.Notes.All(n => n.Primitive != HapticPrimitive.LowTick), style + " is crisp: the low tick is too faint");
                 Assert.That(pattern.Seconds, Is.LessThanOrEqualTo(0.06), style + " is short");
-                Assert.That(pattern.Milliseconds, Is.InRange(5, 15), style + "'s pulse is a tick, never a buzz");
-                Assert.That(pattern.Amplitude, Is.LessThan(HapticPattern.Medium.Amplitude), style + "'s pulse is soft");
+                Assert.That(pattern.Milliseconds, Is.InRange(10, 25), style + "'s pulse is a tick, never a buzz");
+                Assert.That(pattern.Amplitude, Is.InRange(130, HapticPattern.PodDone.Amplitude - 1), style + "'s pulse is felt, and under the pod's");
+                Assert.That(pattern.Notes.Max(n => n.Scale), Is.LessThanOrEqualTo(HapticPattern.PodDone.Notes.Max(n => n.Scale)));
             }
 
             var policy = new FeedbackPolicy(() => new SettingsData());

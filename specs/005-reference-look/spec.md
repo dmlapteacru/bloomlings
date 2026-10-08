@@ -531,7 +531,8 @@ above the boosters, 5–10 thousand an animation)."
   1.4 s (spec 001 research R4, amendment of 2026-10-06), so no style changes how fast a level plays. Later that day:
   "the base clearing speed must be 1.5 times faster … the speed of each element, of clearing each cell", so every leg
   and the line's gap are divided by 1.5 (`ClearStyles.SpeedUp`): 0.73 s a cell plus 0.93 s, 0.28 s apart. The backlog
-  speed-up waits for 60 s of backlog.
+  speed-up waits for 60 s of backlog. *(Amended 2026-10-08 after the owner's Colony Flow video: the walk is its ants',
+  0.11 s a cell, the line 0.30 s apart, the acts as here; Session 2026-10-08 below.)*
 - Q: The other proposals? → A: Carriers, Wave and Gardener are dropped. The names in the game: Blossom, Munchers,
   Fireflies, Bubbles, Pushers, Fireworks, Confetti Parade.
 - Q: Packs of Petals for the styles? → A: Later, when purchases come in overall.
@@ -645,6 +646,27 @@ without a question (the owner left the mark's look open: "a digit, or something 
 - Q: What does the tap say? → A: A tap on a connected pod on top whose partner is not says "Its linked pod isn't on top
   yet", and the partner, or the "+N" that hides it, pulses twice in the group's color while the pod shakes. "Take the top
   pod first" stays for any other pod not on top (no screen takes such a tap today). The rule is unchanged.
+
+### Session 2026-10-08 (the owner's Colony Flow video: the pace, and haptics that are felt)
+
+The owner sent a 13 s screen recording of Colony Flow (Level 11, a cupcake, 1080 × 2424 at 60 fps, its 2× button grey,
+so at 1×): "Can you find the speed at which the board clears or the ants move, so that we use the same speed? And the
+vibrations while the board clears must be stronger: now they are barely felt." Measured frame by frame: each slot lets
+one ant out every 0.30 s (its count 30 → 29 → 28 → 27 → 26 at 2.4, 2.7, 3.0 and 3.3 s), so a pod clears about 3.3
+tiles a second (29 tiles in about 9 s); the ants walk about 330 px a second, on cells of about 36 px, 9 cells a second,
+from the slot up to the board, take the nearest tile there and carry it to the nest.
+- Q: What changes? → A: The Bloomlings walk at the ants' pace, 0.11 s a cell (`ClearStyles.WalkSpeedUp` 10; it was
+  0.73 s, 1.4 cells a second), and a pod's Bloomlings leave the arch 0.30 s apart (`LineGap`; it was 0.28 s). The acts
+  at the tile keep their time (`ActSpeedUp` 1.5, 0.93 s a trip), so every style still shows its act; a walker hops every
+  two cells (`ClearLook.HopsPerCell`; it was two hops a cell, which at the new pace would shiver).
+- Q: And the owner's earlier "in Colony Flow they are really slow"? → A: The video shows why it feels slow: the ants
+  walk fast, but each slot lets out only one ant every 0.30 s, the same as ours. So a level does not end in ten seconds:
+  only the walk to each tile is shorter (on Level 1, the first water pod's last tile clears at 16.2 s instead of 21.7 s).
+- Q: The slot's count? → A: It still goes down at each tile's clear (Colony Flow's goes down as each ant leaves).
+- Q: The haptics? → A: Each tile's micro haptic is a crisp transient of 0.7–1.0 (it was 0.28–0.5), clicks rather than
+  the faint low ticks, and where transients cannot be composed the predefined click (no longer the tick) or a 14–24 ms
+  pulse at 140–200 (it was 8–14 ms at 55–85); the pod done's "ta-dum" is two clicks, 0.8 then 1.0, above them all. The
+  90 ms gap between tile haptics stays (FR-042 as amended).
 
 ### Session 2026-10-03 (Sprig's Blender model; Twig and Sprig take turns celebrating)
 
@@ -1228,8 +1250,8 @@ inventory.
   game (no audio asset, nothing of Colony Flow's, spec 001 FR-091), click-free and short (under 0.65 s), the textures
   quieter than the collects and the collects quieter than the pod done; at most `ClearVoices` (5) clearing sounds MUST
   start within `ClearWindowSeconds` (0.2 s, real time; textures `TextureVoices`, 3), each sound spaced by its own
-  spacing. Each tile's clear MUST carry one micro haptic of the style (one or two transients of at most 0.5 strength,
-  under 60 ms), at most one every `MicroGapSeconds` (90 ms) after the last pattern ends and never over a stronger one;
+  spacing. Each tile's clear MUST carry one micro haptic of the style (one or two crisp transients of 0.7–1.0 strength,
+  under 60 ms, as amended on 2026-10-08: "they are barely felt"), at most one every `MicroGapSeconds` (90 ms) after the last pattern ends and never over a stronger one;
   phones play the transients where they render them (Android's composition primitives from API 30, iOS impact
   feedback), else a short soft pulse where they have amplitude control, and no tile haptic where they can only buzz. A
   pod done MUST play its light "ta-dum". The Settings toggles (spec 001 FR-073) MUST keep each off; the Store's previews

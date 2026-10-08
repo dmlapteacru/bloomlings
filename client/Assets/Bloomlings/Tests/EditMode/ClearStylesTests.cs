@@ -26,9 +26,12 @@ namespace Bloomlings.Client.Tests
                 }
             }
 
-            // In between the earlier pace (0.36 s a cell) and a very slow one, then 1.5 times as fast (the owner, 2026-10-06).
-            Assert.That(ClearStyles.TripSeconds(6), Is.EqualTo(8f / 1.5f).Within(1e-4f));
-            Assert.That(ClearStyles.LineGap, Is.EqualTo(0.28f).Within(1e-4f));
+            // Colony Flow's ants (the owner's video of 2026-10-08, Level 11 at 1×): about 9 cells a second, one out of each
+            // slot every 0.30 s; the acts keep the calm pace 1.5 times as fast (the owner, 2026-10-06).
+            Assert.That(1f / ClearStyles.PerCell, Is.InRange(8.5f, 9.5f), "cells a second");
+            Assert.That(ClearStyles.TripSeconds(6), Is.EqualTo((6f * 1.1f / 10f) + (1.4f / 1.5f)).Within(1e-4f));
+            Assert.That(ClearStyles.LineGap, Is.EqualTo(0.3f).Within(1e-4f));
+            Assert.That(ClearStyles.TripSeconds(49), Is.LessThan(7f), "a straight route across the biggest board");
         }
 
         [Test]
@@ -137,7 +140,7 @@ namespace Bloomlings.Client.Tests
                 int tiles = ClearPreview.Columns * ClearPreview.Rows;
                 Assert.That(preview.Count(0f), Is.EqualTo(tiles), style.ToString());
                 Assert.That(preview.Count(preview.Period - 0.01f), Is.EqualTo(0), style.ToString());
-                Assert.That(preview.Period, Is.InRange(10f, 90f), style.ToString());
+                Assert.That(preview.Period, Is.InRange(5f, 90f), style.ToString());
                 Assert.That(preview.Local(preview.Period + 1f), Is.EqualTo(1f).Within(1e-3f));
 
                 // The tiles clear one by one over the loop, nearest first (the entry cell first).

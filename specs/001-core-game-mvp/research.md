@@ -190,13 +190,14 @@ ordered **event log**. The next command always applies to that settled state. An
 - **Amendment (2026-10-06, the owner: "it must be mesmerizing; in the reference game the ants carry slowly and
   beautifully, you just sit and watch", then "not too fast, or a whole level lasts ten seconds; something in
   between").** The clearing plays in one of seven styles (spec 005 FR-038). Every style takes the same time for a tile n
-  route cells from its entry: `ClearStyles.TripSeconds(n)` = (1.1 s × n + 1.4 s) / 1.5, from the Bloomling leaving the
-  arch to the tile's clear (the slot's count going down; the owner, later on 2026-10-06: each cell clears 1.5 times as
-  fast, `ClearStyles.SpeedUp`, so a level's clearing takes two thirds of the time with the same look). Each style splits that time into legs: out, an act at the tile, an
+  route cells from its entry: `ClearStyles.TripSeconds(n)` = 1.1 s × n / 10 + 1.4 s / 1.5, from the Bloomling leaving
+  the arch to the tile's clear (the slot's count going down). The walk is Colony Flow's ants' (the owner's video of
+  2026-10-08, Level 11 at 1×: about 330 px a second on 36 px cells, 9 cells a second, `ClearStyles.WalkSpeedUp` = 10);
+  the acts keep the owner's 1.5 times the calm pace of 2026-10-06 (`ActSpeedUp`; it was (1.1 s × n + 1.4 s) / 1.5). Each style splits that time into legs: out, an act at the tile, an
   optional way back, and the tile's last leg into the slot (`ClearStyles.LegsOf`). The waves' length clamps at 1.2–40 s
-  (was 1.2–6.4 s and 1.2–5.6 s; 1.2–60 s since 2026-10-06, so a straight route of 49 cells across the 22×28 board of a
-  big level, about 37 s at the faster pace, fits too), so no trip is squeezed. A pod's Bloomlings leave each arch in a
-  line, at least `ClearStyles.LineGap` (0.42 s / 1.5 = 0.28 s, so the line keeps its spacing on the board) apart,
+  (was 1.2–6.4 s and 1.2–5.6 s; 1.2–60 s since 2026-10-06, far above a straight route of 49 cells across the 22×28
+  board of a big level, about 6.3 s since 2026-10-08), so no trip is squeezed. A pod's Bloomlings leave each arch in a
+  line, at least `ClearStyles.LineGap` (0.30 s, Colony Flow's ants out of their slot since 2026-10-08; 0.28 s before) apart,
   nearer tiles first, its later rounds and taps joining the line; different pods'
   lines run side by side (FR-018; on L1 the leaf pod's line still sets off while the first water pod works). A tap's later rounds no longer wait for
   its earlier rounds to end: each Bloomling waits only for its way, as before, and the rounds' end events keep the rules'

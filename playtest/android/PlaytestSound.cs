@@ -255,8 +255,8 @@ namespace Bloomlings.Playtest
                 }
                 else if (pattern.IsMicro && pattern.Notes.Count > 0 && OperatingSystem.IsAndroidVersionAtLeast(29))
                 {
-                    int effect = pattern.Notes[0].Primitive == HapticPrimitive.Click ? VibrationEffect.EffectClick : VibrationEffect.EffectTick;
-                    _vibrator.Vibrate(VibrationEffect.CreatePredefined(effect));
+                    // The predefined click: its tick is too faint to feel on most phones (the owner, 2026-10-08).
+                    _vibrator.Vibrate(VibrationEffect.CreatePredefined(VibrationEffect.EffectClick));
                 }
                 else if (_amplitude || !pattern.IsMicro)
                 {

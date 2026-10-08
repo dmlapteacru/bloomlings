@@ -61,7 +61,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// The clearing styles' look (spec 005 FR-038, contracts/look.md §6.12): for each walker and each just-cleared tile,
     /// the items to draw this frame (<see cref="FxList"/>), so that both builds and the Store's previews draw the same
-    /// thing. The walkers walk two little hops a cell and lean with each hop; each style then acts at the tile, may walk
+    /// thing. The walkers walk a little hop every two cells (<see cref="HopsPerCell"/>) and lean with each hop; each style then acts at the tile, may walk
     /// back, and sends the tile on its last leg to the slot. A walker's tile is the look's from its act on
     /// (<see cref="Holds"/>: the host draws the cell's ground under it). Tokens and registered slots only
     /// (<see cref="SlotOf"/>). Engine-free.
@@ -70,6 +70,12 @@ namespace Bloomlings.Client.UI.Design
     {
         /// <summary>A walker's size, in cells (the Parade's are smaller).</summary>
         public const float WalkerSize = 0.74f;
+
+        /// <summary>
+        /// A walker's hops a cell: half a hop, about four and a half hops a second at Colony Flow's pace of 9 cells a second
+        /// (<see cref="ClearStyles.PerCell"/>; it was two a cell at the calm 1.4 cells a second, under three a second).
+        /// </summary>
+        public const float HopsPerCell = 0.5f;
 
         private const float ParadeSize = 0.66f;
 
@@ -842,7 +848,7 @@ namespace Bloomlings.Client.UI.Design
                 at = Along(walk.Points, progress);
                 spot.Leg = Leg.Out;
                 spot.U = progress;
-                spot.Hops = progress * segments * 2f;
+                spot.Hops = progress * segments * HopsPerCell;
                 spot.Walking = progress < 1f;
             }
             else if (t <= legs.Out + legs.Act)
@@ -850,14 +856,14 @@ namespace Bloomlings.Client.UI.Design
                 at = Along(walk.Points, 1f);
                 spot.Leg = Leg.Act;
                 spot.U = (t - legs.Out) / Math.Max(0.001f, legs.Act);
-                spot.Hops = segments * 2f;
+                spot.Hops = segments * HopsPerCell;
             }
             else if (t <= legs.Out + legs.Act + legs.Back)
             {
                 spot.Leg = Leg.Back;
                 spot.U = (t - legs.Out - legs.Act) / Math.Max(0.001f, legs.Back);
                 at = Along(walk.Points, 1f - spot.U);
-                spot.Hops = (segments * 2f) + (spot.U * segments * 2f);
+                spot.Hops = (segments * HopsPerCell) + (spot.U * segments * HopsPerCell);
                 spot.Walking = true;
             }
             else if (t < total)
@@ -865,7 +871,7 @@ namespace Bloomlings.Client.UI.Design
                 at = Along(walk.Points, legs.Back > 0f ? 0f : 1f);
                 spot.Leg = Leg.Fin;
                 spot.U = (t - legs.Out - legs.Act - legs.Back) / Math.Max(0.001f, legs.Fin);
-                spot.Hops = segments * 4f;
+                spot.Hops = segments * 2f * HopsPerCell;
             }
             else
             {

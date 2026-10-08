@@ -122,18 +122,20 @@ namespace Bloomlings.Client.Services.Feedback
         public static int ClipCount(ClearSound sound) => IsCollect(sound) ? Steps : Variations;
 
         /// <summary>
-        /// The micro haptic of a style's clear: one short transient a tile, its feel matching the style (a soft low tick
-        /// for a flower, a crisper tick for a pop, a heavier one for a pushed tile, two quick ticks for the Parade).
+        /// The micro haptic of a style's clear: one short, crisp transient a tile that the hand clearly feels (the owner,
+        /// 2026-10-08: "they are barely felt"; strengths 0.7–1.0, clicks rather than the faint low ticks), its feel
+        /// matching the style (a round click for a flower, a lighter tick for a firefly, the heaviest for a pushed tile,
+        /// a tick and a click for the Parade), and a pulse of 14–24 ms at 140–200 where transients cannot be composed.
         /// </summary>
         public static HapticPattern CollectHaptic(ClearStyle style) => style switch
         {
-            ClearStyle.Munchers => HapticPattern.Micro(12, 70, new HapticNote(HapticPrimitive.LowTick, 0.42f)),
-            ClearStyle.Fireflies => HapticPattern.Micro(8, 55, new HapticNote(HapticPrimitive.Tick, 0.28f)),
-            ClearStyle.Bubbles => HapticPattern.Micro(9, 70, new HapticNote(HapticPrimitive.Tick, 0.4f)),
-            ClearStyle.Pushers => HapticPattern.Micro(14, 85, new HapticNote(HapticPrimitive.LowTick, 0.5f)),
-            ClearStyle.Fireworks => HapticPattern.Micro(10, 80, new HapticNote(HapticPrimitive.Click, 0.35f)),
-            ClearStyle.Parade => HapticPattern.Micro(10, 70, new HapticNote(HapticPrimitive.Tick, 0.3f), new HapticNote(HapticPrimitive.Tick, 0.42f, 40)),
-            _ => HapticPattern.Micro(10, 60, new HapticNote(HapticPrimitive.LowTick, 0.32f)),
+            ClearStyle.Munchers => HapticPattern.Micro(20, 165, new HapticNote(HapticPrimitive.Click, 0.8f)),
+            ClearStyle.Fireflies => HapticPattern.Micro(14, 140, new HapticNote(HapticPrimitive.Tick, 0.9f)),
+            ClearStyle.Bubbles => HapticPattern.Micro(16, 155, new HapticNote(HapticPrimitive.Click, 0.75f)),
+            ClearStyle.Pushers => HapticPattern.Micro(24, 200, new HapticNote(HapticPrimitive.Click, 1f)),
+            ClearStyle.Fireworks => HapticPattern.Micro(18, 180, new HapticNote(HapticPrimitive.Click, 0.9f)),
+            ClearStyle.Parade => HapticPattern.Micro(18, 160, new HapticNote(HapticPrimitive.Tick, 0.8f), new HapticNote(HapticPrimitive.Click, 0.85f, 40)),
+            _ => HapticPattern.Micro(18, 150, new HapticNote(HapticPrimitive.Click, 0.7f)),
         };
 
         /// <summary>

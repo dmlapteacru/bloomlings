@@ -47,9 +47,12 @@ namespace Bloomlings.Client.Services.Feedback
 
         public static readonly HapticPattern Strong = new HapticPattern(60, 255, false);
 
-        /// <summary>A pod done: a light tick, then a click ("ta-dum"), after its last tile's collect.</summary>
+        /// <summary>
+        /// A pod done: two clicks ("ta-dum"), the second the strongest, after its last tile's collect; above every tile's
+        /// micro haptic (the owner's stronger tile clicks of 2026-10-08).
+        /// </summary>
         public static readonly HapticPattern PodDone = new HapticPattern(
-            22, 120, false, new HapticNote(HapticPrimitive.Tick, 0.45f), new HapticNote(HapticPrimitive.Click, 0.7f, 55));
+            32, 230, false, new HapticNote(HapticPrimitive.Click, 0.8f), new HapticNote(HapticPrimitive.Click, 1f, 55));
 
         private HapticPattern(int milliseconds, int amplitude, bool micro, params HapticNote[] notes)
         {

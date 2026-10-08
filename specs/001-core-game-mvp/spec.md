@@ -118,13 +118,15 @@ a default or asks a question.
   Buying opens at L40, with the Wardrobe: before that a card shows its price and a padlock, and a tap says from which
   level. A bought style is chosen on its card, and the free card brings back the free pair.
 - **Q: Does a style change the pace?**
-  A: No. Every style takes the same time for a tile: about 0.73 s for each cell from the entry plus 0.93 s, from the
-  Bloomling leaving the arch to the slot's count going down *(amended 2026-10-06, the owner: "the base clearing speed
-  must be 1.5 times faster … the speed of each element, of clearing each cell"; it was 1.1 s a cell plus 1.4 s, the
-  line 0.42 s apart)*. The return trips of Munchers and Pushers walk faster to
+  A: No. Every style takes the same time for a tile: about 0.11 s for each cell from the entry plus 0.93 s, from the
+  Bloomling leaving the arch to the slot's count going down *(amended 2026-10-08, the owner's Colony Flow video: its
+  ants walk about 9 cells a second and leave their slot every 0.30 s, so the Bloomlings walk at that pace and leave the
+  arch 0.30 s apart; the acts keep their time; amended 2026-10-06, the owner: "the base clearing speed must be 1.5
+  times faster … the speed of each element, of clearing each cell", it was 0.73 s a cell plus 0.93 s, the line 0.28 s
+  apart, and 1.1 s a cell plus 1.4 s, the line 0.42 s apart, before)*. The return trips of Munchers and Pushers walk faster to
   fit. The pace sits between the earlier one and a very slow one. The owner: "not too fast, or a whole level lasts ten
   seconds; something in between; in the reference game they are really slow". Each pod's Bloomlings leave the arch in
-  a line, 0.28 s apart, and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
+  a line, 0.30 s apart (Colony Flow's, about 3.3 tiles a second a pod), and pods still work side by side (FR-018). A tap's next round no longer waits for its previous round to end: each Bloomling waits only for
   its way. The backlog speed-up waits for 60 s of backlog (research R4). Fast forward still speeds up the clock (3× since the owner's amendment of FR-069).
   Presentation only: no outcome changes.
 - **Q: How fast is the speed button, and what does it show?**

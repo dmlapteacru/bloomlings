@@ -817,3 +817,16 @@ and contracts/look.md §3.6, §6.10.
   `GameplayController`; the tester's refusal; preview frame 12 shows the badges and a hidden mark.
 - [ ] T182 Devices: Level 54 in both APKs: the badges read at a glance on a phone, the hint shows where the partner
   waits; the owner's verdict.
+
+
+## The owner's Colony Flow pace and felt haptics (2026-10-08)
+
+- [X] T183 Measure the owner's Colony Flow video (Level 11 at 1×): one ant out of each slot every 0.30 s, about 330 px a
+  second on 36 px cells (9 cells a second).
+- [X] T184 Kit: `ClearStyles.WalkSpeedUp` 10 and `ActSpeedUp` 1.5 (the legs' cells and fixed parts apart), `PerCell`
+  0.11 s, `LineGap` 0.30 s; `ClearLook.HopsPerCell` 0.5; the tests (`ClearStylesTests`, `EventTimelineTests`).
+- [X] T185 Haptics: `ClearSounds.CollectHaptic` 0.7–1.0 clicks and ticks with 14–24 ms pulses at 140–200,
+  `HapticPattern.PodDone` two clicks; both builds' predefined fallback the click; `FeedbackTests`.
+- [X] T186 Docs: spec Session 2026-10-08 and FR-042, contracts/look.md §6.12 and §6.16, spec 001 Q&A and research R4.
+- [ ] T187 Devices: the pace beside Colony Flow's on one phone, and the tile clicks felt on the owner's phone; the
+  owner's verdict.

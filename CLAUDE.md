@@ -172,7 +172,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `source` `demo`; spec 001 FR-042 as amended). Mechanic and variant demos keep their cards.
 - The clearing styles (spec 005 FR-038, the owner, 2026-10-06; recipes in `contracts/look.md` §6.12): the board clears in
   one of seven styles, presentation only. The kit's `ClearStyles` (the styles, the free pair by level, one trip time
-  `TripSeconds` split into each style's legs, the walkers' line from each arch) and `ClearLook` (each frame's walkers,
+  `TripSeconds` split into each style's legs (Colony Flow's ants' walk, 0.11 s a cell, a pod's walkers 0.30 s apart, since the owner's video of 2026-10-08), the walkers' line from each arch) and `ClearLook` (each frame's walkers,
   restores and flights as an `FxList` of items in cell units) are drawn by the playtest's `ClearPainter` and Unity's
   `ClearFxView`, so both builds and the Store's previews (`ClearPreview`; `Kit.ClearingPreview`, `ClearPreviewView`)
   show the same thing. Blossom and Munchers are free and alternate by level (`ClearStyles.ForLevel`); Fireflies,
@@ -183,7 +183,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - The clearing sounds and haptics (spec 005 FR-042, 2026-10-07; recipe in `contracts/look.md` §6.16): each style plays
   its act's soft textures at the moments its look draws them and its collect with each tile's clear, a pod's collects
   climbing a ladder of ten C-major-pentatonic notes (`ClearSounds`, `ClearLadder`; all synthesized by `ToneSynth.Clear`,
-  no audio assets), and one micro haptic a tile (`HapticPattern`: transients where the phone renders them, a soft pulse
+  no audio assets), and one micro haptic a tile (`HapticPattern`: transients where the phone renders them, a short pulse
   with amplitude control, nothing on a phone that can only buzz). `FeedbackPolicy` (engine-free, shared by both builds)
   spaces the sounds, keeps at most five starting within 0.2 s and a tile's tick 90 ms clear of the last pattern, in real
   time. Unity plays them through `GameFeedback` / `Haptics` (iOS: `Assets/Plugins/iOS/BloomlingsHaptics.mm`), the

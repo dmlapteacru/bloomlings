@@ -170,7 +170,6 @@ namespace Bloomlings.Client.Services.Feedback
         private const int PrimitiveTick = 7;
         private const int PrimitiveLowTick = 8;
         private const int EffectClick = 0;
-        private const int EffectTick = 2;
 
         private static AndroidJavaObject? _vibrator;
         private static bool _ready;
@@ -212,8 +211,8 @@ namespace Bloomlings.Client.Services.Feedback
                 }
                 else if (pattern.IsMicro && pattern.Notes.Count > 0 && _sdk >= 29)
                 {
-                    int effect = pattern.Notes[0].Primitive == HapticPrimitive.Click ? EffectClick : EffectTick;
-                    using AndroidJavaObject predefined = effects.CallStatic<AndroidJavaObject>("createPredefined", effect);
+                    // The predefined click: its tick is too faint to feel on most phones (the owner, 2026-10-08).
+                    using AndroidJavaObject predefined = effects.CallStatic<AndroidJavaObject>("createPredefined", EffectClick);
                     _vibrator.Call("vibrate", predefined);
                 }
                 else if (_sdk >= 26 && (_amplitude || !pattern.IsMicro))

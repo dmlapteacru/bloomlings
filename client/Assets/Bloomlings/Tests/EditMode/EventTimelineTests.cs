@@ -229,10 +229,11 @@ namespace Bloomlings.Client.Tests
             player.Advance(0.01f);
             Assert.That(player.Rate, Is.EqualTo(1f), "under a minute of backlog the pace stays");
 
-            // With a lower threshold (Remote Config), a long backlog plays faster, up to the cap.
-            player.BacklogThresholdSeconds = 12f;
+            // With a lower threshold (Remote Config), a longer backlog plays faster, up to the cap.
+            float threshold = wave / 2f;
+            player.BacklogThresholdSeconds = threshold;
             player.Advance(0.01f);
-            Assert.That(player.Rate, Is.EqualTo((wave - 0.02f) / 12f).Within(0.01f));
+            Assert.That(player.Rate, Is.EqualTo((wave - 0.02f) / threshold).Within(0.01f));
             Assert.That(player.Rate, Is.LessThanOrEqualTo(EventTimeline.MaxRate));
         }
 
