@@ -111,15 +111,13 @@ namespace Bloomlings.Client.UI.Design
         /// wider than the Meshy one did, so it stands a little smaller and further in, inside a 21:9 screen. The owner's
         /// Heroes.glb (2026-10-04) gives Bloom a wide crown of petals: Bloom stands a little smaller and Drop further right
         /// and a little taller, so Drop's face shows beside the petals. Since the owner's tuning of 2026-10-05 Twig stands a
-        /// little further right, so more of Drop shows beside it. On the owner's restyled fountain of 2026-10-08 (a wider
-        /// pool) Sprig stands a little further left and lower, its feet behind the front stones' left flowers, not in the
-        /// water.
+        /// little further right, so more of Drop shows beside it.
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
             Family.Bloom => (0.5f, 0.49f, 0.40f),
             Family.Drop => (0.735f, 0.532f, 0.36f),
-            Family.Sprig => (0.215f, 0.585f, 0.40f),
+            Family.Sprig => (0.235f, 0.56f, 0.40f),
             _ => (0.85f, 0.568f, 0.31f),
         };
 
