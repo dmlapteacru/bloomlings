@@ -1736,6 +1736,10 @@ final validation.
   - Test: `BandGuidelinesTests.HardAndSuperHardLevels_HaveAtMostThreeStacks`.
 - [ ] T192 The owner regenerates the catalog L11–5000 with `tools/catalog` for T191. Until then `validate --catalog
   content/catalog` reports the Hard and Super Hard levels that still have 4–6 stacks.
+  - On the owner's request (2026-10-08) both build scripts cut the last range into three build bands of 1000 levels,
+    2001-3000, 3001-4000 and 4001-5000. Each has the profile `band-2001-5000`, seed 1 and 14 segments, so a band that
+    stops costs 1000 levels instead of 3000. A level's seed depends only on the band's seed and the level number, so
+    the cut changes nothing else.
 - [ ] T190 Before the release, turn the Daily Challenge on (the owner, 2026-10-08). The steps are in
   `checklists/release.md`: publish the release content with `--daily content/daily` (the Unity APK workflow packs only
   `content/curated` today), keep `feature.dailyChallenge` on in the live Remote Config, and check it on a release build

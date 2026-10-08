@@ -50,7 +50,9 @@ $Bands = @(
     @{ Band = '0251-0500'; First = 251;  Last = 500;  Profile = 'band-0251-0500'; Seed = 1; Segments = 5 },
     @{ Band = '0501-1000'; First = 501;  Last = 1000; Profile = 'band-0501-1000'; Seed = 1; Segments = 10 },
     @{ Band = '1001-2000'; First = 1001; Last = 2000; Profile = 'band-1001-2000'; Seed = 1; Segments = 14 },
-    @{ Band = '2001-5000'; First = 2001; Last = 5000; Profile = 'band-2001-5000'; Seed = 1; Segments = 14 }
+    @{ Band = '2001-3000'; First = 2001; Last = 3000; Profile = 'band-2001-5000'; Seed = 1; Segments = 14 },
+    @{ Band = '3001-4000'; First = 3001; Last = 4000; Profile = 'band-2001-5000'; Seed = 1; Segments = 14 },
+    @{ Band = '4001-5000'; First = 4001; Last = 5000; Profile = 'band-2001-5000'; Seed = 1; Segments = 14 }
 )
 
 function Say([string]$Message) { Write-Host ('[{0}] {1}' -f [DateTime]::UtcNow.ToString('HH:mm:ss'), $Message) }
