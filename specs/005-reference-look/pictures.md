@@ -265,10 +265,10 @@ character sheet) and the animated heroes (A10); C1; G9–G24 and the lotus. On 2
 garden, B2–B5, B7, B8) and the bottom menu's icons D9–D13. What is still open is in H.
 
 On 2026-10-08 the owner restyled what the session had sent them (record `tools/artgen/models/owner-pictures.md`):
-B2–B5, B7 and B8, Home's front stones and lotus (B1's `home-fountain-front.png`, `home-lotus.png`), seven of the eight
-detailed variant icons (all but the Violet Bud), the eight field icons and the leaves D5–D7, each in its file's place.
-Still in the earlier style: Home's garden (`home.jpg`), the fountain's back (`home-fountain-back.png`), the shadow, and
-`variant-bud.png`. The archive's two extra decorations (`extra-floral-vine.png`, `extra-flower-cluster.png`) have no
+B2–B5, B7 and B8, Home's front stones and lotus (B1's `home-fountain-front.png`, `home-lotus.png`), the eight detailed
+variant icons, the eight field icons, the leaves D5–D7, the booster icons D1–D4 and the currency lotus, each in its
+file's place. Still in the earlier style: Home's garden (`home.jpg`), the fountain's back (`home-fountain-back.png`) and
+the shadow. The archive's two extra decorations (`extra-floral-vine.png`, `extra-flower-cluster.png`) have no
 slot yet and are not in the game.
 
 ## H. Still awaited from the owner, and open questions (2026-10-03)
