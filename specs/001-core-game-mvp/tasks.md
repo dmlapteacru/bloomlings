@@ -1734,12 +1734,15 @@ final validation.
   - The showcase L151 and L400 were generated again (3 stacks each). The Daily pool's Hard and Super Hard entries now
     have 3 stacks (its profile's minimum is 3).
   - Test: `BandGuidelinesTests.HardAndSuperHardLevels_HaveAtMostThreeStacks`.
-- [ ] T192 The owner regenerates the catalog L11–5000 with `tools/catalog` for T191. Until then `validate --catalog
+- [X] T192 The owner regenerates the catalog L11–5000 with `tools/catalog` for T191. Until then `validate --catalog
   content/catalog` reports the Hard and Super Hard levels that still have 4–6 stacks.
   - On the owner's request (2026-10-08) both build scripts cut the last range into three build bands of 1000 levels,
     2001-3000, 3001-4000 and 4001-5000. Each has the profile `band-2001-5000`, seed 1 and 14 segments, so a band that
     stops costs 1000 levels instead of 3000. A level's seed depends only on the band's seed and the level number, so
     the cut changes nothing else.
+  - Done on 2026-10-08. The owner's build gave L1–5000 with one gap, L4105, which seed 4 filled (Super Hard 3627).
+    `validate` over the whole catalog gives 0 errors. Every Hard and Super Hard level has 2 or 3 stacks: Hard 454 and
+    499, Super Hard 204 and 195. `playtest/check` passes, and the APKs read the catalog as it is.
 - [ ] T190 Before the release, turn the Daily Challenge on (the owner, 2026-10-08). The steps are in
   `checklists/release.md`: publish the release content with `--daily content/daily` (the Unity APK workflow packs only
   `content/curated` today), keep `feature.dailyChallenge` on in the live Remote Config, and check it on a release build
