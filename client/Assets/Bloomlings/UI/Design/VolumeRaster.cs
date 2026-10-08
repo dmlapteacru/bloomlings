@@ -141,7 +141,10 @@ namespace Bloomlings.Client.UI.Design
                         (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float f = q < 0.4f ? (float)Math.Cos(q / 0.4f * Math.PI / 2f) : q > 0.75f ? -(float)Math.Cos((1f - Math.Min(1f, q)) / 0.25f * Math.PI / 2f) : 0f;
                         (float nx, float ny, float nz) = (gx * f, gy * f, (float)Math.Sqrt(Math.Max(0f, 1f - (f * f))));
-                        Shade(ref c, C.WoodMid, nx, ny, nz, 0.45f, 0.4f, 0.25f);
+                        Shade(ref c, C.WoodEdge, nx, ny, nz, 0.55f, 0.45f, 0.25f);
+
+                        // The top of the frame catches the light (the reference's (249, 215, 168) above, deeper below).
+                        c.Mix(C.WoodMid.Lighten(0.25f), 0.7f * Clamp01(1f - (y / (h * 0.3f))));
                         c.Mix(C.WoodEdge.Darken(0.12f), Clamp01(top + 0.5f) * 0.5f);
                     }
                     else
@@ -217,7 +220,9 @@ namespace Bloomlings.Client.UI.Design
                     if (top < 0.5f)
                     {
                         float lit = Clamp01(1f - ((x / w * 0.5f) + (y / topBottom * 0.8f)));
-                        c = new Color(set.Face.Darken(0.03f).Mix(set.Top, 0.3f * lit));
+                        c = new Color(set.Face.Mix(set.Top, 0.3f * lit));
+                        c.Mix(set.Lip, 0.35f * Clamp01((y / topBottom) - 0.35f));
+                        c.Mix(set.Lip.Darken(0.1f), FaceGrain(x, y, s));
                         (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, topBottom, radius));
                         float tilt = 1f - Clamp01(-top / bevel);
                         (float nx, float ny, float nz) = BevelNormal(gx, gy, tilt);
@@ -239,30 +244,35 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// The plate's laminate (the owner, 2026-10-08: "more wooden, like laminate flooring, and creamier"): creamy light
-        /// wood (<c>wood.light</c> toward <c>wood.mid</c>) in long streaks along the border, a little deeper here and there
-        /// (<c>wood.edge</c>), with fine darker grain lines (<c>wood.grain</c>) running along it, wavering gently, as a strip
-        /// of laminate bent round the button. <paramref name="outer"/> is the plate's signed distance at (x, y).
+        /// The plate's laminate (the owner, 2026-10-08: "more wooden, like laminate flooring, and creamier"; matched to the
+        /// reference's caramel cream, its border about (225, 176, 120) at the shaded side and (249, 215, 168) at the top): a
+        /// board of warm wood (<c>wood.edge</c> toward <c>wood.mid</c>) cut into the frame, its grain running across the whole
+        /// button: long streaks a little lighter or deeper and fine darker grain lines (<c>wood.grain</c>), wavering gently.
         /// </summary>
         private static Color Laminate(float x, float y, float outer, float s, float radius, float w, float h)
         {
-            (float gx, float gy) = Gradient(x, y, (ax, ay) => RoundRect(ax, ay, 0f, 0f, w, h, radius));
-            bool upright = Math.Abs(gx) > Math.Abs(gy);
-            float along = upright ? y : x;
-            float across = -outer;
-            int seed = upright ? (gx < 0f ? 11 : 13) : (gy < 0f ? 17 : 19);
-            var c = new Color(C.WoodLight.Mix(C.WoodMid, 0.45f));
+            var c = new Color(C.WoodEdge.Mix(C.WoodMid, 0.25f).Mix(C.WoodGrain, 0.08f));
 
-            // Long streaks: slow along the strip, quick across it.
-            float streak = Fbm(along / (s * 0.42f), across / (s * 0.022f), seed, 3);
-            c.Mix(C.WoodEdge.Lighten(0.08f), 0.55f * Smooth(Clamp01((streak - 0.4f) / 0.35f)));
+            // Long streaks along the board: slow across the button, quick down it.
+            float streak = Fbm(x / (s * 0.7f), y / (s * 0.045f), 23, 3);
+            c.Mix(C.WoodMid.Lighten(0.12f), 0.7f * Smooth(Clamp01((streak - 0.5f) / 0.3f)));
+            c.Mix(C.WoodGrain, 0.45f * Smooth(Clamp01((0.42f - streak) / 0.3f)));
 
-            // Fine grain lines along the strip, wavering a little.
-            float wave = Fbm(along / (s * 0.55f), across / (s * 0.06f), seed + 5, 2);
-            float lines = (float)Math.Abs(Math.Sin(((across / (s * 0.0105f)) + (wave * 3.2f)) * Math.PI));
-            float fine = (float)Math.Pow(1f - lines, 6);
-            c.Mix(C.WoodGrain.Lighten(0.12f), 0.32f * fine * (0.55f + (0.45f * Fbm(along / (s * 0.2f), across / (s * 0.03f), seed + 9, 2))));
+            // Fine grain lines across the button, wavering a little.
+            float wave = Fbm(x / (s * 0.9f), y / (s * 0.1f), 29, 2);
+            float lines = (float)Math.Abs(Math.Sin(((y / (s * 0.016f)) + (wave * 3.5f)) * Math.PI));
+            float fine = (float)Math.Pow(1f - lines, 5);
+            c.Mix(C.WoodGrain.Darken(0.1f), 0.5f * fine * (0.4f + (0.6f * Fbm(x / (s * 0.25f), y / (s * 0.05f), 31, 2))));
             return c;
+        }
+
+        /// <summary>The faint grain of a raised face's cream, across the button like the plate's (alpha 0–1 of <c>cream.lip</c>).</summary>
+        private static float FaceGrain(float x, float y, float s)
+        {
+            float streak = Fbm(x / (s * 0.8f), y / (s * 0.05f), 37, 3);
+            float wave = Fbm(x / (s * 0.9f), y / (s * 0.12f), 41, 2);
+            float lines = (float)Math.Pow(1f - Math.Abs(Math.Sin(((y / (s * 0.02f)) + (wave * 3f)) * Math.PI)), 6);
+            return (0.12f * Smooth(Clamp01((0.45f - streak) / 0.3f))) + (0.1f * lines);
         }
 
         /// <summary>The share of a raised glyph's picture its glyph box takes (the rest holds its shadow).</summary>
