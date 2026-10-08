@@ -1720,6 +1720,13 @@ final validation.
 - [ ] T188 The owner regenerates the catalog L11–5000 with `tools/catalog` (T186, T187). Then validate it, copy all 5000
   levels into the playtest's levels (the owner's choice) and check that the playtest loads them. Build the APK only
   with the owner's OK.
+  - Done on 2026-10-07 except the APK. The owner's build gave L1–5000 with one gap, L2068, which seed 6 filled.
+    `validate` over the whole catalog gives 0 errors. Both APKs and the preview embed `content/catalog/levels` and read a
+    level on first use (`ContentSet` with a level reader). `playtest/check` and the preview checks pass.
+- [ ] T190 Before the release, turn the Daily Challenge on (the owner, 2026-10-08). The steps are in
+  `checklists/release.md`: publish the release content with `--daily content/daily` (the Unity APK workflow packs only
+  `content/curated` today), keep `feature.dailyChallenge` on in the live Remote Config, and check it on a release build
+  past L50.
 
 ## Parallel Example: User Story 1
 

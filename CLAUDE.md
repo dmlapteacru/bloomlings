@@ -243,7 +243,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
 - Analytics go through `GameAnalytics` (events of `contracts/analytics-events.md`, held until consent); a test keeps
   the event catalog equal to the contract.
 - Checklists for the human, Editor and device steps (accessibility, performance, originality, playtests, quickstart
-  run) are in `specs/001-core-game-mvp/checklists/`.
+  run, and the release steps of `release.md`, such as turning the Daily Challenge on) are in
+  `specs/001-core-game-mvp/checklists/`.
 
 ## Spec-Driven Development (GitHub Spec Kit)
 
